@@ -13,7 +13,7 @@
 #
 #	init_git_repositories.sh takes the following arguments
 #
-#	$1 - product version, actually this is any tag found in git
+#   $1 - product version, actually this is any branch/tag found in git
 #   $2 - git repository root 
 #   $3 - allow fallback to master is specified branch does not 
 #            exist (yes or no)
