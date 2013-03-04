@@ -167,17 +167,8 @@ configure_mc3020()
 
     cd $MC3020
     rm -rf mc3020
-    #mkdir mc3020
-    #cvs -q export $export_flags -r $TAG_NAME -d mc3020 model_compilers/mc3020
-    src="model_compilers/mc3020"
-    tgt="mc3020"
-    do_export
-    
-    # Files from mccommon will overwrite files from mc3020
-    #cvs -q export $export_flags -r $TAG_NAME -d mc3020 model_compilers/mccommon
-    src="model_compilers/mccommon"
-    tgt="mc3020"
-    do_export
+    mkdir mc3020
+    # TODO - copy in bin/ and schema/ from git
 
     # For legacy purposes create a .pl version of xtumlmc_build
     cd $MC3020/mc3020/bin
@@ -322,27 +313,23 @@ configure_sample_models()
 
 ARGNO=4
 
-if [ $# -lt "$ARGNO" ]
-then
+if [ $# -lt "$ARGNO" ]; then
   echo ""
-  echo "Usage: $0 <Branch/Tag> <Build Directory> <Build Type>"
+  echo "Usage: $0 <Branch/Tag> <Git Repository Root> <Build Directory> <Build Type>"
   echo ""
-  echo "  Example: $0 master /cygwin/c/builds/master nonrelease"
+  echo "  Example: $0 master /git/xtuml /cygwin/c/builds/master nonrelease"
   echo ""
   error "Exiting."
 fi
 
 start_dir=`pwd`
 branch="$1"
-build_dir="$2"
-build_type="$3"
+git_repo_root="$2"
+build_dir="$3"
+build_type="$4"
 
 #TODO
 TAG_NAME=$1
-RELEASE_VER=$2
-REMOTE_BUILD_DIR=$4
-
-export CVSROOT=:pserver:build@tucson.wv.mentorg.com:/arch1/products/tiger/repository
 
 echo "Configuring external dependencies."
 
