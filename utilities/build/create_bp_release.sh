@@ -161,7 +161,8 @@ function create_build {
         echo "Verifying checkout of $module"
         verify_checkout
         verify_rval="$?"
-        # TODO - ${rsh} ${server} "(cvs -d'${cvsroot}' rdiff -s -D yesterday -r '${branch}' '${module}' 2>/dev/null | grep 'changed from' )" >> ${diff_file}
+        # TODO - figure out what to do about diff-ing
+        #${rsh} ${server} "(cvs -d'${cvsroot}' rdiff -s -D yesterday -r '${branch}' '${module}' 2>/dev/null | grep 'changed from' )" >> ${diff_file}
     done
 
     if [ "$verify_rval" != "1" ]; then
@@ -169,6 +170,7 @@ function create_build {
     fi
 
     # Copy plugins to release drop
+    # TODO - if this machine is svr-azt-eng-03, copy the files around.
     # TODO - ${rsh} ${server} "(cd '${release_base}'; if [ ! -x '${release_drop}' ]; then mkdir '${release_drop}'; fi)"
     # TODO - ${rsh} ${server} "(cd '$remote_build_dir'; cp -f '${pkg_module}'_'${release_version}'.zip '${release_drop}'/BridgePoint_extension_'${branch}'.zip ; touch '${release_drop}')"
     # TODO - ${rsh} ${server} "(cd '${remote_build_dir}'; chown -R build:staff '${release_drop}')"
