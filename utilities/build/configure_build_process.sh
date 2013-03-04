@@ -22,7 +22,7 @@
 function usage {
   echo -e "\nThis script setups of the build by copying files out of the repository"
   echo -e "into the proper locations.\n"
-  echo -e "\nUsage: $0 <branch/tag> <git repo root>\n"
+  echo -e "\nUsage: $0 <branch/tag> <git repo root> <release/nonrelease>\n"
   echo -e "branch/tag  = the release version to be created"
   echo -e "git repo root = the parent directory of the git repositories"
   echo -e "build type = either release or nonrelease"
