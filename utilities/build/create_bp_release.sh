@@ -151,8 +151,8 @@ function create_build {
 
     get_required_modules
     extract_release_files
-    # TODO - ${rsh} ${server} "(cd '$remote_build_dir/../../' ; ./configure_external_dependencies.sh  ${branch} $release_version $external_files $remote_build_dir $build_type)" > ${cvs_log_dir}/cvs_configure_files 2>&1
-    ./${branch}/configure_external_dependencies.sh ${branch} ${build_dir} ${build_type} > ${log_dir}/configure_externals.log 2>&1
+    
+    ./${branch}/configure_external_dependencies.sh ${branch} ${git_repo_root} ${build_dir} ${build_type} > ${log_dir}/configure_externals.log 2>&1
     
     # Generate list of modules needing verification
     all_modules="${internal_modules} ${plugin_modules} ${release_pkg} ${all_feature_modules} ${model_compiler_modules}"

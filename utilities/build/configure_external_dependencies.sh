@@ -11,45 +11,17 @@
 #=====================================================================
 #
 #
-
+#-------------------------------------------------------------------------------
+# Functions
+#-------------------------------------------------------------------------------
 error()
 {
     echo Error! $1
     exit 1
 }
 
-# This is used as a space to export junk out of CVS.  When you pass a -d <dir> 
-# to cvs export, it doesn't like it if the <dir> already exists and has files in
-# it, you get a "cvs [export aborted]: cannot export into working directory" 
-# error.  If the dir exists but is empty, export doesn't outright fail, but it 
-# does create a CVS dir underneath, which is exactly NOT the point of export.  
-# So, we'll export to the temp dir, move the files, then delete the temp dir.
-# The target dir is created (with parents) if it doesn't already exist
 #
-# Example usage:
-#   src="myproject/stuff/data"
-#   tgt="data"
-#   do_export
-#
-#   src="anotherproj/coolfile.java"
-#   tgt="src"
-#   do_export
-#
-exportTempDir="export_temp"
-function do_export()
-{
-	cvs export ${export_flags} -r ${TAG_NAME} -d ${exportTempDir} ${src}
-	if [ ! -d ${tgt} ]; then
-		mkdir -p ${tgt}
-	fi
-	echo "Moving exported files to: ${tgt}"
-	cp -rf ${exportTempDir}/* ${tgt}
-	rm -rf ${exportTempDir}
-}
-
-#
-# Make sure the caller put the required binaries in-place as required by the
-# checklist
+# Make sure the caller put the required binaries in place
 #
 get_user_supplied_binaries ()
 {
@@ -110,7 +82,6 @@ configure_dap()
     echo "Configuring the Data Access Pacakge for build."
 
     cd $DAP/bridgepoint
-    mkdir bin
     mkdir log_dir
     mkdir samples
     mkdir samples/translate
@@ -119,28 +90,13 @@ configure_dap()
     mkdir win32/client/bin
     mkdir win32/client/lib
 
-    #cvs -q export $export_flags -r $TAG_NAME -d bin model_compilers/generator/bin
-    src="model_compilers/generator/bin"
-    tgt="bin"
-    do_export
+    cp -r ${git_repo_root}/mc/etc/generator/bin ./bin
 
     cd $DAP/bridgepoint/samples
-    #cvs -q export $export_flags -r $TAG_NAME -d translate libTRANS/libTRANS.def
-    src="libTRANS/libTRANS.def"
-    tgt="translate"
-    do_export
-	#cvs -q export $export_flags -r $TAG_NAME -d translate libTRANS/libTRANS.mk
-    src="libTRANS/libTRANS.mk"
-    tgt="translate"
-    do_export
-    #cvs -q export $export_flags -r $TAG_NAME -d translate libTRANS/pt_trans.c
-    src="libTRANS/pt_trans.c"
-    tgt="translate"
-    do_export
-	#cvs -q export $export_flags -r $TAG_NAME -d translate libTRANS/pt_trans.h
-    src="libTRANS/pt_trans.h"
-    tgt="translate"
-    do_export
+    cp -f ${git_repo_root}/mc/libTRANS/libTRANS.def ./translate/libTRANS.def
+    cp -f ${git_repo_root}/mc/libTRANS/libTRANS.mk  ./translate/libTRANS.mk
+    cp -f ${git_repo_root}/mc/libTRANS/pt_trans.c   ./translate/pt_trans.c
+    cp -f ${git_repo_root}/mc/libTRANS/pt_trans.h   ./translate/pt_trans.h
 
     cd $DAP/bridgepoint
     cp -f $USER_SUPPLIED_FILES/gen_erate.exe   ./win32/client/bin/gen_erate.exe
@@ -152,12 +108,9 @@ configure_dap()
     cp -f $MC3020/mc3020/schema/sql/xtumlmc_schema.sql ./xtumlmc_schema.sql
     
     cd $DAP/bridgepoint/win32/client
-    #cvs -q export $export_flags -r $TAG_NAME -d lib libTRANS/libTRANS.dll
-    src="libTRANS/libTRANS.dll"
-    tgt="lib"
-    do_export
+    cp -f ${git_repo_root}/mc/libTRANS/libTRANS.dll ./lib/libTRANS.dll
 
-    cd $BUILD_DIR
+    cd ${build_dir}
 }
 
 configure_mc3020()
@@ -168,18 +121,16 @@ configure_mc3020()
     cd $MC3020
     rm -rf mc3020
     mkdir mc3020
-    # TODO - copy in bin/ and schema/ from git
+    cd mc3020
+    cp -r ${git_repo_root}/mc/bin ./bin
+    cp -r ${git_repo_root}/mc/schema ./schema
 
     # For legacy purposes create a .pl version of xtumlmc_build
     cd $MC3020/mc3020/bin
     cp -f xtumlmc_build xtumlmc_build.pl
     
     cd $MC3020/mc3020
-    rm -rf arc
-    #cvs -q export $export_flags -r $TAG_NAME -d bin libTRANS/libTRANS.dll
-    src="libTRANS/libTRANS.dll"
-    tgt="bin"
-    do_export
+    cp -f ${git_repo_root}/mc/libTRANS/libTRANS.dll ./bin
     
     cp -f $USER_SUPPLIED_FILES/xtumlmc_build.exe ./bin
     cp -f $USER_SUPPLIED_FILES/gen_erate.exe     ./bin
@@ -190,18 +141,11 @@ configure_mc3020()
     cd ${build_dir}
     cp -f $USER_SUPPLIED_FILES/mc3020_doc.zip $MC3020_HELP/doc.zip
     rm -f $MC3020_HELP/techpub.css
-    rm -f $MC3020_HELP/toc.xml
-    
-    #cvs -q export $export_flags -r $TAG_NAME -d $MC3020_HELP MC-Documentation/external/mc3020/ug/xml/techpub.css
-    src="MC-Documentation/external/mc3020/ug/xml/techpub.css"
-    tgt="$MC3020_HELP"
-    do_export
-    #cvs -q export $export_flags -r $TAG_NAME -d $MC3020_HELP MC-Documentation/external/mc3020/ug/xml/toc.xml
-    src="MC-Documentation/external/mc3020/ug/xml/toc.xml"
-    tgt="$MC3020_HELP"
-    do_export
+    rm -f $MC3020_HELP/toc.xml    
+    cp -r ${git_repo_root}/mc/doc/ug/xml/techpub.css $MC3020_HELP
+    cp -r ${git_repo_root}/mc/doc/ug/xml/toc.xml $MC3020_HELP
 
-    cd $BUILD_DIR
+    cd ${build_dir}
 }
 
 configure_mcc_src()
@@ -209,18 +153,12 @@ configure_mcc_src()
     echo ""
     echo "Configuring mcc_src for build."
 
-    # Copy in the "bp.mc.mc3020/mc3020/" dir, then get rid of cruft we don't
-    # need/want from there
+    # Copy in the "bp.mc.mc3020/mc3020/" dir
     cd $MCC_SRC
     rm -rf mc3020
     cp -rf $MC3020/mc3020 .
     
-    cd $MCC_SRC/mc3020
-    rm -rf arc
-    rm -rf examples
-    rm -rf str_update
-
-    cd $BUILD_DIR
+    cd ${build_dir}
 }
 
 configure_mcc_bin()
@@ -228,18 +166,12 @@ configure_mcc_bin()
     echo ""
     echo "Configuring mcc_bin for build."
 
-    # Copy in the "bp.mc.mc3020/mc3020/" dir, then get rid of cruft we don't
-    # need/want from there
+    # Copy in the "bp.mc.mc3020/mc3020/" dir
     cd $MCC_BIN
     rm -rf mc3020
     cp -rf $MC3020/mc3020 .
     
-    cd $MCC_BIN/mc3020
-    rm -rf arc
-    rm -rf examples
-    rm -rf str_update
-
-    cd $BUILD_DIR
+    cd ${build_dir}
 }
 
 configure_mcsystemc_src()
@@ -247,18 +179,12 @@ configure_mcsystemc_src()
     echo ""
     echo "Configuring mcsystemc_src for build."
 
-    # Copy in the "bp.mc.mc3020/mc3020/" dir, then get rid of cruft we don't
-    # need/want from there
+    # Copy in the "bp.mc.mc3020/mc3020/" dir
     cd $MCSYSTEMC_SRC
     rm -rf mc3020
     cp -rf $MC3020/mc3020 .
-    
-    cd $MCSYSTEMC_SRC/mc3020
-    rm -rf arc
-    rm -rf examples
-    rm -rf str_update
 
-    cd $BUILD_DIR
+    cd ${build_dir}
 }
 
 configure_mccpp_src()
@@ -266,18 +192,12 @@ configure_mccpp_src()
     echo ""
     echo "Configuring mccpp_src for build."
 
-    # Copy in the "bp.mc.mc3020/mc3020/" dir, then get rid of cruft we don't
-    # need/want from there
+    # Copy in the "bp.mc.mc3020/mc3020/" dir
     cd $MCCPP_SRC
     rm -rf mc3020
     cp -rf $MC3020/mc3020 .
-    
-    cd $MCCPP_SRC/mc3020
-    rm -rf arc
-    rm -rf examples
-    rm -rf str_update
 
-    cd $BUILD_DIR
+    cd ${build_dir}
 }
 
 configure_vhdl_src()
@@ -285,32 +205,18 @@ configure_vhdl_src()
     echo ""
     echo "Configuring mcvhdl_src for build."
 
-    # Copy in the "bp.mc.mc3020/mc3020/" dir, then get rid of cruft we don't
-    # need/want from there
+    # Copy in the "bp.mc.mc3020/mc3020/" dir
     cd $MCVHDL_SRC
     rm -rf mc3020
     cp -rf $MC3020/mc3020 .
     
-    cd $MCVHDL_SRC/mc3020
-    rm -rf arc
-    rm -rf examples
-    rm -rf str_update
-
-    cd $BUILD_DIR
-}
-
-configure_sample_models()
-{
-    echo ""
-    echo "Configuring the sample models for inclusion."
-
-    cd $BUILD_DIR
+    cd ${build_dir}
 }
 
 
-###############################################################################
-###############################################################################
-
+#-------------------------------------------------------------------------------
+# Main
+#-------------------------------------------------------------------------------
 ARGNO=4
 
 if [ $# -lt "$ARGNO" ]; then
@@ -328,9 +234,6 @@ git_repo_root="$2"
 build_dir="$3"
 build_type="$4"
 
-#TODO
-TAG_NAME=$1
-
 echo "Configuring external dependencies."
 
 # Define Locations for Components
@@ -343,7 +246,7 @@ MCC_BIN=${build_dir}/com.mentor.nucleus.bp.mc.c.binary
 MCSYSTEMC_SRC=${build_dir}/com.mentor.nucleus.bp.mc.systemc.source
 MCCPP_SRC=${build_dir}/com.mentor.nucleus.bp.mc.cpp.source
 MCVHDL_SRC=${build_dir}/com.mentor.nucleus.bp.mc.vhdl.source
-MC3020_HELP=com.mentor.nucleus.help.bp.mc
+MC3020_HELP=${build_dir}/com.mentor.nucleus.help.bp.mc
 
 get_user_supplied_binaries
 
@@ -355,8 +258,6 @@ configure_mccpp_src
 configure_vhdl_src
 
 configure_dap
-
-configure_sample_models
 
 cd ${start_dir}
 
