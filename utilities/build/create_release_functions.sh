@@ -16,9 +16,9 @@
 #
 #    The following variables must be defined in any calling script
 #
-#   git_repo_root - the directory that is the parent folder of the git repositories
+#    git_repo_root - the directory that is the parent folder of the git repositories
 #    build_dir - the directory for which to build the release
-#   log_dir - the directory where logs will be kept.
+#    log_dir - the directory where logs will be kept.
 #    branch - the branch/tag representing the release version
 #    release_pkg - the tiger release package
 #
@@ -26,6 +26,7 @@
 ant_cmd="c:/eclipse3.7.2/ant/apache-ant-1.6.1/bin/ant"
 ant_opts="-Declipse-home=c:/eclipse3.7.2"
 antlr_tool="pt_antlr"
+git_internal="${git_repo_root}/xtuml/internal"
 internal_modules="com.mentor.nucleus.bp.als
                   com.mentor.nucleus.bp.internal.tools
                   com.mentor.nucleus.bp.test
@@ -73,11 +74,6 @@ model_compiler_modules="model_compilers
 
 build_log_dir="${log_dir}/build_logs"
 compile_log_dir="${log_dir}/compile_logs"
-cvs_log_dir="${log_dir}/cvs_logs"
-
-if [ ! -d ${cvs_log_dir} ]; then
-    mkdir -p ${cvs_log_dir}
-fi
 
 if [ ! -d ${build_log_dir} ]; then
     mkdir -p $build_log_dir
@@ -97,7 +93,7 @@ function verify_checkout {
 }
 
 function get_required_modules {
-    # TODO - ${rsh} ${server} "(cd '${remote_build_dir}'; cvs -d'${cvsroot}' export ${export_flags} -r '${branch}' '${release_pkg}')" > ${cvs_log_dir}/cvs_export_${release_pkg}.log 2>&1
+    cp -rf ${git_internal}/src/${release_pkg} .
     chown -R ${USERNAME} ${release_pkg}
 
     if [ -e ${release_pkg}/feature.xml ]; then
@@ -116,7 +112,7 @@ function extract_release_files {
 
     for module in ${modules} ${all_feature_modules} ${model_compiler_modules} ${plugin_fragments}; do
         echo "Checking out ${module} for release: ${branch}"
-		# TODO - ${rsh} ${server} "(cd '${remote_build_dir}'; cvs -d'${cvsroot}' export ${export_flags} -r '${branch}' '${module}')" > ${cvs_log_dir}/cvs_export_${module}.log 2>&1
+        cp -rf ${git_internal}/src/${module} .
         chown -R ${USERNAME} ${module}
     done
 }
@@ -124,8 +120,7 @@ function extract_release_files {
 function extract_unit_test_modules {
     for module in ${unit_test_modules}; do
         echo "Checking out ${module} for release: ${branch}"
-        # NOTE: Comment out the follow to skip CVS checkout of the project
-		# TODO - ${rsh} ${server} "(cd '${remote_build_dir}'; cvs -d'${cvsroot}' export ${export_flags} -r '${branch}' '${module}')" > ${cvs_log_dir}/cvs_export_${module}.log 2>&1
+		cp -rf ${git_internal}/src/${module} .
         chown -R ${USERNAME} ${module}
     done
 }
@@ -139,16 +134,15 @@ function build_modules {
     echo -e "Checking out the pt_antlr tool"
 
   	# TODO - ${rsh} ${server} "(cd '${remote_build_dir}'; cvs -d'${cvsroot}' export ${export_flags} -r '${branch}' '${antlr_tool}')" > ${cvs_log_dir}/cvs_export_${antlr_tool}.log 2>&1
+  	# TODO - where to get antlr_tool from??
     chown -R ${USERNAME} ${antlr_tool}
 
     for module in ${modules}; do
         if [ -e ${module}/generate.xml ]; then
             echo -e "Building version ${branch} of ${module}"
-            # NOTE: Comment out the follow to skip building the projects
             ${ant_cmd} ${ant_opts} -f ${module}/generate.xml nb_all > ${build_log_dir}/${module}_build.log 2>&1
         elif [ -e ${module}/build.xml ] && [ ! -e ${module}/generate.xml ]; then
             echo -e "Building version ${branch} of ${module}"
-            # NOTE: Comment out the follow to skip building the projects
             ${ant_cmd} ${ant_opts} -f ${module}/build.xml nb_all > ${build_log_dir}/${module}_build.log 2>&1
         fi
     done
@@ -177,7 +171,7 @@ function compile_modules {
 
     # Have to make sure the plugin compilation is ordered properly, specifically that
     # some plugins are compiled after bp.mc.mc3020
-       modules=`echo ${modules} | sed s/com.mentor.nucleus.bp.docgen// | sed s/com.mentor.nucleus.bp.cdt// | sed s/com.mentor.nucleus.bp.utilities// | sed s/com.mentor.nucleus.bp.welcome//`
+    modules=`echo ${modules} | sed s/com.mentor.nucleus.bp.docgen// | sed s/com.mentor.nucleus.bp.cdt// | sed s/com.mentor.nucleus.bp.utilities// | sed s/com.mentor.nucleus.bp.welcome//`
 
     # Now, move bp.utilities so it compiles to before bp.mc, but after bp.mc.mc3020
     modules=`echo ${modules} | sed 's/com.mentor.nucleus.bp.mc /com.mentor.nucleus.bp.utilities com.mentor.nucleus.bp.mc /'`
@@ -192,7 +186,7 @@ function compile_modules {
         elif [ -e ${module}/build.xml  ] && [ ! -e ${module}/generate.xml ]; then
             echo -e "Compiling version ${branch} of ${module}"
             ${ant_cmd} ${ant_opts} -f ${module}/build.xml compile > ${compile_log_dir}/${module}_compile.log 2>&1
-          fi
+        fi
     done
 
     for module in ${modules_to_compile_later}; do
