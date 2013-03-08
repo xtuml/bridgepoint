@@ -102,6 +102,9 @@ function get_required_modules {
         plugin_modules="${plugin_modules} ${independent_modules}"
         echo "release version: ${release_version}"
     fi
+    
+    cp -rf ${git_internal}/src/${antlr_tool} .
+    chown -R ${USERNAME} ${antlr_tool}    
 }
 
 function extract_release_files {
@@ -130,12 +133,6 @@ function build_modules {
     modules=`echo ${modules} | sed s/com.mentor.nucleus.bp.bld.pkg// | sed s/com.mentor.nucleus.bp.doc// | sed s/com.mentor.nucleus.bp.welcome// | sed s/com.mentor.nucleus.bp.test// | sed s/com.mentor.nucleus.help.bp.mc//`
 
     cd ${build_dir}
-
-    echo -e "Checking out the pt_antlr tool"
-
-  	# TODO - ${rsh} ${server} "(cd '${remote_build_dir}'; cvs -d'${cvsroot}' export ${export_flags} -r '${branch}' '${antlr_tool}')" > ${cvs_log_dir}/cvs_export_${antlr_tool}.log 2>&1
-  	# TODO - where to get antlr_tool from??
-    chown -R ${USERNAME} ${antlr_tool}
 
     for module in ${modules}; do
         if [ -e ${module}/generate.xml ]; then

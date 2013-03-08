@@ -107,7 +107,6 @@ base_dir=`pwd`
 build_dir="${base_dir}/${branch}"
 log_dir="${build_dir}/log"
 error_file="${log_dir}/.errors"
-diff_file="${log_dir}/.diff_log"
 timestamp=`date +%Y%m%d%H%M`
 
 git_internal="${git_repo_root}/internal"

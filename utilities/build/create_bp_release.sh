@@ -115,7 +115,11 @@ function zip_distribution {
     create_all_features
 
     # Include org.antlr packages in zipped distribuition
-    # TODO - ${rsh} ${server} "(unzip /software/software_archive/Eclipse/plug-ins/antlr/org.antlr_*.zip -d ${remote_build_dir}/plugins)" > ${pkg_log_dir}/org.antlr_zip.log 2>&1
+    # TODO - remove - ${rsh} ${server} "(unzip /software/software_archive/Eclipse/plug-ins/antlr/org.antlr_*.zip -d ${remote_build_dir}/plugins)" > ${pkg_log_dir}/org.antlr_zip.log 2>&1
+    # TODO - There is an OSS request in motion for antlr-eclipse 2.7.6.  Ideally, that will be 
+    #        approved, then all four of the plugins will be put into the BridgePoint base either
+    #        in the dropins/ or actually installed into the base.  If it is not approved, we'll put 
+    #        our existing org.antlr into git under xtuml/internal/src.
 
     # Return to build dir
     cd ${build_dir}
@@ -128,7 +132,7 @@ function zip_distribution {
 
     jar_specific_plugins
     
-    zip -r ${pkg_module}_${release_version}.zip ${extension_dir} > ${pkg_log_dir}/BridgePoint_extension_${release_version}_zip.log 2>&1
+    zip -r BridgePoint_extension_${release_version}.zip ${extension_dir} > ${pkg_log_dir}/BridgePoint_extension_${release_version}_zip.log 2>&1
 }
 
 function jar_specific_plugins {
@@ -161,8 +165,6 @@ function create_build {
         echo "Verifying checkout of $module"
         verify_checkout
         verify_rval="$?"
-        # TODO - figure out what to do about diff-ing
-        #${rsh} ${server} "(cvs -d'${cvsroot}' rdiff -s -D yesterday -r '${branch}' '${module}' 2>/dev/null | grep 'changed from' )" >> ${diff_file}
     done
 
     if [ "$verify_rval" != "1" ]; then
@@ -170,10 +172,13 @@ function create_build {
     fi
 
     # Copy plugins to release drop
-    # TODO - if this machine is svr-azt-eng-03, copy the files around.
-    # TODO - ${rsh} ${server} "(cd '${release_base}'; if [ ! -x '${release_drop}' ]; then mkdir '${release_drop}'; fi)"
-    # TODO - ${rsh} ${server} "(cd '$remote_build_dir'; cp -f '${pkg_module}'_'${release_version}'.zip '${release_drop}'/BridgePoint_extension_'${branch}'.zip ; touch '${release_drop}')"
-    # TODO - ${rsh} ${server} "(cd '${remote_build_dir}'; chown -R build:staff '${release_drop}')"
+    host=`hostname`
+    if [ "${host}" = "svr-azt-eng-03" ]; then
+      cd ${build_dir}
+      ${rsh} ${server} "(cd '${release_base}'; if [ ! -x '${release_drop}' ]; then mkdir '${release_drop}'; fi)"
+      scp BridgePoint_extension_${release_version}.zip build@${server}:${release_drop}
+      ${rsh} ${server} "(touch '${release_drop}'; cd '${remote_build_dir}'; chown -R build:staff '${release_drop}')"
+    fi
 }
 
 function create_feature {
@@ -262,7 +267,6 @@ base_dir=`pwd`
 build_dir="${base_dir}/${branch}"
 log_dir="${build_dir}/log"
 error_file="${log_dir}/.errors"
-diff_file="${log_dir}/.diff_log"
 pkg_log_dir="${log_dir}/pkg_logs"
 release_pkg="com.mentor.nucleus.bp.bld.pkg-feature"
 release_base="/arch1/products/tiger/releases"

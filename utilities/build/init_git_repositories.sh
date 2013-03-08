@@ -51,7 +51,11 @@ init_repository ()
       git checkout master
     fi
   fi
-  git pull origin/${branch}
+  git fetch
+  echo -e "Changes for repository: ${repo_name}" >> ${diff_file}
+  echo -e "------------------------------------" >> ${diff_file}
+  git diff --stat origin/${branch} >> ${diff_file}
+  git merge origin/${branch}
 }
 
 
@@ -66,6 +70,10 @@ fi
 branch="$1"
 git_repo_root="$2"
 allow_fallback="yes"
+base_dir=`pwd`
+build_dir="${base_dir}/${branch}"
+log_dir="${build_dir}/log"
+diff_file="${log_dir}/.diff_log"
 
 if [ "$3" != "" ] && [ "$3" != "yes" ]; then
   allow_fallback="no"
