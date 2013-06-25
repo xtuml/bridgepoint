@@ -55,6 +55,8 @@ See section 7.
 ----------------
 7.1  Source code  
 7.1.1  Export the source code projects from CVS  
+7.1.1.1  Convert .cvsignore files to .gitignore
+7.1.1.2  Add repository-global .gitignore file to ignore java class files
 7.1.2  Import the source code projects into github  
 7.1.3  Perform the rest of the work (7.2) to make the build work.  Then right
  before we flip the switch and move all active development, export the CVS projects
