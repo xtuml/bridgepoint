@@ -21,6 +21,7 @@ None.
 3. Document References
 ----------------------
 [1] Issues 1, https://github.com/xtuml/internal/issues/1  
+[2] New xtUML SVN repository, http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml  
 
 4. Background
 -------------
@@ -34,9 +35,11 @@ gains using the more robust and distributed git repositories.
 5. Requirements
 ---------------
 5.1  The source code and build scripts shall be located in a private github repository.  
+
 5.2  The build server shall continue to be able to build a complete BridgePoint 
  installer as it does today.  
-5.3  The CVS repository shall live on in a "read-only" state for reference purposes.  
+ 
+5.3  The CVS repository shall live on in a read-only state for reference purposes.  
 
 6. Analysis
 -----------
@@ -50,10 +53,18 @@ gains using the more robust and distributed git repositories.
  before we flip the switch and move all active development, export the CVS projects
  again and compare them with the github versions.  Migrate any changes from CVS to
  github.  
+
 7.2  Update the build scripts to get the source code from github instead of CVS  
+
 7.3  Start archiving the "extra_files_for_build" (generator, mc3020 doc, etc) in our
  new SVN repository [2], rather than existing in a raw folder on tucson.  
 
+7.4  Make CVS read-only access  
+7.4.1  One option is to use our CVS hook scripts to enforce this.  We could modify the
+ DTS number the user passes in to make it invalid by adding "CVS-is-read-only" to the ID.
+ This will make commits fail.  We can also modify the error message given on commit failure
+ to point out that CVS is now read-only.
+ 
 8. Acceptance Test
 ------------
 8.1  Developers can access (checkout and commit) the source code on github and 
