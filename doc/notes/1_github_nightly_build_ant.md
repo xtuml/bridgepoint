@@ -4,64 +4,61 @@ Copyright 2013 Mentor Graphics Corp.  All Rights Reserved.
 
 ---
 
-# Title goes here
+# Set up nightly build to use github
 ### xtUML Project Analysis Note
 
 
-Note: Each section has a description that states the purpose of that section.
-Delete these section descriptions before checking in your note.  Delete this
-note as well.
 
 1. Abstract
 -----------
-In this section, give a summary of the design that this note aims to
-describe.
+The team is moving the BridgePoint source code from CVS to a private repository
+on github.com.  This note describes the necessary work to make this move.
 
 2. History
 ----------
-In this section, list the file names of review minutes for this note.
-If the minutes have major observations, precede the file name with the
-word 'update'. If the minutes have no major observations, precede the file
-name with the word 'final'.
+None.
 
 3. Document References
 ----------------------
-In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.
-[1] Issues 1, https://github.com/xtuml/doc/issues/1  
-[2] Issues 2, https://github.com/xtuml/doc/issues/2  
+[1] Issues 1, https://github.com/xtuml/internal/issues/1  
 
 4. Background
 -------------
-In this section, outline the important points relating to this issue/bug that
-the reader would need to know in order to understand the rest of this
-document.
+Our team has used a CVS repository for many years to house the source code for
+BridgePoint.  The open source xtUML editor code will eventually be housed in a 
+public respoitory on github.  As we move towards that goal, we have decided that 
+it makes sense to house our proprietary source code in a private repository on 
+github as well.  CVS has served us well, but we expect to achieve some productivity
+gains using the more robust and distributed git repositories.
 
 5. Requirements
 ---------------
-This section is only required if there is no preceding analysis note. 
-If present it describes the requirements that need to be satisfied.  If there 
-is an SRS, this section may simply refer to it.  Each requirement should be as 
-short and simple as possible and must be clearly defined.
+5.1  The source code and build scripts shall be located in a private github repository.  
+5.2  The build server shall continue to be able to build a complete BridgePoint 
+ installer as it does today.  
+5.3  The CVS repository shall live on in a "read-only" state for reference purposes.  
 
 6. Analysis
 -----------
-This section is only required if there is no preceding analysis note. If present
-it sets out a brief analysis of the problem to be resolved by this design note.
-
-* Item 1
-* Item 2
-* Item 3
 
 7. Work Required
 ----------------
-In this section, break out the consequential work (as a numbered list) needed
-to meet the requirements specified in the Requirements section.
+7.1  Source code  
+7.1.1  Export the source code projects from CVS  
+7.1.2  Import the source code projects into github  
+7.1.3  Perform the rest of the work (7.2) to make the build work.  Then right
+ before we flip the switch and move all active development, export the CVS projects
+ again and compare them with the github versions.  Migrate any changes from CVS to
+ github.  
+7.2  Update the build scripts to get the source code from github instead of CVS  
+7.3  Start archiving the "extra_files_for_build" (generator, mc3020 doc, etc) in our
+ new SVN repository [2], rather than existing in a raw folder on tucson.  
 
 8. Acceptance Test
 ------------
-In this section, list the tests that need to be performed in order to
-verify that all the requirements are satisfied.
+8.1  Developers can access (checkout and commit) the source code on github and 
+ build BridgePoint locally  
+8.2  The build server can build windows and linux installers  
 
 End
 ---
