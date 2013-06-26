@@ -55,21 +55,21 @@ See section 7.
 ----------------
 7.1  Source code  
 7.1.1  Export the source code projects from CVS  
-7.1.1.1  Convert .cvsignore files to .gitignore
-7.1.1.2  Add repository-global .gitignore file to ignore java class files
+7.1.1.1  Convert .cvsignore files to .gitignore  
+7.1.1.2  Add repository-global .gitignore file to ignore java class files  
 7.1.2  Import the source code projects into github  
 7.1.3  Perform the rest of the work (7.2) to make the build work.  Then right
  before we flip the switch and move all active development, export the CVS projects
  again and compare them with the github versions.  Migrate any changes from CVS to
  github.  Denote these changes with a specific commit or tag so that we can see the 
- changes from day 0 of the work to the point where we go live.
+ changes from day 0 of the work to the point where we go live.  
 
 7.2  Update the build scripts to get the source code from github instead of CVS  
 
 7.3  We have already started archiving the "extra_files_for_build" (generator, 
  mc3020 doc, etc) in our new SVN repository [2], rather than existing in a raw 
  folder on tucson.  These files must be updated as we transition to the new build
- process.
+ process.  
 
 7.4  Make CVS read-only access  
 7.4.1  Use our CVS hook scripts to enforce this.  Modify the DTS number the user 
