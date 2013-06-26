@@ -1,0 +1,232 @@
+==========================================================================
+
+File:      $RCSfile$
+Version:   $Revision$
+Modified:  $Date$
+
+(c) Copyright 2006-2013 by Mentor Graphics Corp. All rights reserved.
+
+==========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+==========================================================================
+
+How to add a generated tree to a project in 10 minutes or less
+----------------------------------------
+
+1) If you do not already have a working project,
+   Use the Eclipse new plug-in project wizard to create a new project
+
+2) Add an ANT builder to your project
+  a) Right-click on your project and choose properties
+  b) Click "Builders"
+  c) Click "New" on the right hand side to create a new builder
+  d) Select Ant Build and click OK
+
+3) Configure the Main tab
+   a) Name your builder anything, such as "Generate Skeleton tree files"
+   b) For the BuildFile, paste the following:  
+     ${workspace_loc:/com.mentor.nucleus.bp.ui.tree/generate_skeleton_files.xml}
+   c) For the Base Directory, click the Browse Workspace button and select your
+      project
+   d) For Arguments (Note, you may need to resize your window to see the 
+      arguments pane), customize the following and paste them into the pane:
+
+      Required arguments:
+      project             - The package name of your project
+      project_with_slash  - The path underneath the src directory where the 
+                            generated files should be placed.  Typically, this
+                            is identical to the project argument, but with / 
+                            instead of .
+      prefix              - The project specific prefix that should be placed in
+                            front of the filenames of many generated files.
+                            For example, a prefix of InstanceExplorer will 
+                            generate InstanceExplorerContentProvider.java
+
+      The following lines can be copied and pasted into your arguments textbox
+      and must be modified to match your project:
+-Dproject=com.mentor.nucleus.bp.ui.tree.test
+-Dproject_with_slash=com/mentor/nucleus/bp/ui/tree/test
+-Dprefix=TreeTest
+
+
+      Optional arguments:
+      Many properties are set in 
+      com.mentor.nucleus.bp.ui.tree/generate_skeleton_files.xml in order to make
+      the generation more flexible.  For a comprehensive list of available 
+      properties to set, please open that file and examine the properties at the
+      top of the file.  Any property defined in that file can be overridden by
+      passing a new value as an argument.
+      The following properties while not required are also commonly used:
+      plugin_package      - The package name where the plugin is located
+      plugin_name         - The name of the plugin's java file
+      dot_views           - If this project places view files into a separate
+                            views folder and package, then set this define to 
+                            that folder's name with a . in front of it.
+      slash_views         - If this project places view files into a separate 
+                            views folder and package, then set this define to 
+                            that folder's name with a / in front of it.
+      dot_actions         - If this project places action files into a separate
+                            actions folder and package, then set this define to
+                            that folder's name with a . in front of it.
+      slash_actions       - If this project places action files into a separate
+                            actions folder and package, then set this define to
+                            that folder's name with a / in front of it.
+      dot_adapters        - If this project places adapter files into a separate
+                            adapters folder and package, then set this define to
+                            that folder's name with a . in front of it.
+      slash_adapters      - If this project places adapter files into a separate
+                            adapters folder and package, then set this define to
+                            that folder's name with a / in front of it.
+
+-Dplugin_package=com.mentor.nucleus.bp.ui.tree.test
+-Dplugin_name=TreeTestPlugin
+-Ddot_views=.views
+-Dslash_views=/views
+-Ddot_actions=
+-Dslash_actions=
+-Ddot_adapters=.adapters
+-Dslash_adapters=/adapters
+
+
+4) Configure the Refresh tab
+  a) Click the Refresh tab
+  b) Place a check in the "Refresh resources upon completion" box.
+     "The entire workspace" should already be selected
+
+5) Configure the Targets tab
+  a) Click the Targets tab
+  -) Both After a clean and Manual Build should already have the default target
+     selected.
+  -) Since generating these skeleton files is rare, you can also leave no target
+     selected in the Auto Build.
+  b) Click the Set Targets... button to the right of During a Clean.
+  c) Uncheck the "all" target
+  d) Check the clean_all target, and click OK
+
+6) Click OK to finish configuring your builder
+
+7) Make your new builder execute before any other builders for your project
+  a) Click the name of your new Ant builder once to select it
+  b) Click the "Up" button until your new Ant builder is at the top of the list
+
+8) Click OK to exit the properties window
+
+9) Build your project to generate the customizable files
+  a) Right-click on your project, and choose "Build Project"
+
+
+10) Follow the directions that appear in the console window
+At the time of this writing, the following message will be displayed, but
+the console message takes priority over the following text:
+
+Skeleton files for <Your View Name> have been generated.
+The files that have been generated should be added to a version control system
+like CVS.  These files will not be regenerated.  You will see some compiler
+errors because some of these files depend on files that will be generated later.
+Along with the generated files, a new builder has been added to your project
+that will run a generate.xml script. Additional Plug-in dependencies may have
+also been added to your project.
+
+** Important**
+If you have any hand-written files in your project, you should also update the
+cvs_java_files property in com.mentor.nucleus.bp.ui.session/generate.xml file.
+Otherwise, when you next clean this project, your files will be deleted.
+
+Once you have added these files to version control, simply build the project
+again, without a clean, to run the new builder and generate the remaining files.
+
+After that, you can run verifier and open your new view to see an instance
+explorer.  Use this view as a starting point to build whatever tree view you
+require.
+
+End
+---
+
+$Log$
+Revision 1.9  2013/01/10 23:19:50  rmulvey
+job:dts0100939343
+Updated the copyright to 2013
+
+Revision 1.8  2012/01/23 21:31:13  kbrown
+job:dts0100848212
+Batch commit of copyright updated files.
+
+Revision 1.7  2011/05/30 20:37:06  kbrown
+job:dts0100742889
+Updated copy right.
+
+Revision 1.6  2010/01/05 04:01:00  kbrown
+job:dts0100644853
+Batch commit of copyright change from 2009 to 2010 for BP CVS projects.
+
+Revision 1.5  2009/01/01 23:28:03  rmulvey
+Job:4060
+Batch promotion of copyright changes from Review-i4060 and Review-i4060-01.
+
+Revision 1.4.18.1  2008/12/31 15:49:14  rmulvey
+Job:4060
+This is a batch commit of 2009 copyright changes to branch Review-i4060.  This includes the
+report that outlines all changes made (before/after for each line changed).  This report is found here: <cvs>/Documentation/internal/test_results/R2_1_2/i4060/update-copyright-results.txt.
+
+Revision 1.4  2008/01/08 20:24:35  rmulvey
+Job:3349
+Promoted from Review-i3349.  The copyright has been updated to 2008 and the version has been bumped to 1.5.4.
+
+Revision 1.3.6.1  2007/12/21 17:54:13  rmulvey
+Job:3339
+Checking-in the copyriight changes in branch Review-i3349.  A detailed list of these changes is found
+in the report produced by the utility used to changesthese messages.  This report is here:
+Documentation/internal/test_results/R1_5_4/i3349/update-copyright-results.txt
+
+Revision 1.3  2007/09/05 02:22:30  kbrown
+Job:2673
+Promoting copyright changes for plugins:
+ui.text
+ui.text.test
+ui.tree
+verifer.pkg
+verifier.pkg-feature
+welcome
+welcome.test
+help.bp.mc
+help.bp.mc2020
+internal.test
+
+Revision 1.2.24.1  2007/09/01 01:38:10  rmulvey
+Job:2673
+Updated copyright messages and version numbers in Review-i2673-01.
+
+Revision 1.2  2006/12/12 21:57:03  tlondon
+Job: 2286
+
+Promotion.
+
+This is a batch promotion check the resource history for more information.
+Or see the design note and implementation note named after this issue number.
+
+Revision 1.1.14.1  2006/12/11 19:01:35  tlondon
+Job: 2286
+
+Commit changes to branch to allow others to test against in parallel with promotion.
+
+Revision 1.1.12.1  2006/10/21 12:49:21  campbell
+Job:2286
+Introduced.
+
+Revision 1.1.10.1  2006/07/19 14:34:51  greg
+Job: 1850
+Merge with HEAD 7/19/2007
+
+Revision 1.1.8.1  2006/07/10 14:56:05  jluebker
+Job: 2164
+Introduced
+
+Revision 1.1.4.1  2006/06/27 23:18:14  jeremyr
+Job:2164
+Introduce
+
+Revision 1.1.2.1  2006/06/13 14:31:22  jeremyr
+Job:2164
+Introduce
+

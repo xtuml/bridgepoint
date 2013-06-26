@@ -1,0 +1,57 @@
+-- BP 7.1 content: Interface syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO C_I
+	VALUES ("0a60dfac-6afb-4e30-baa3-e2d0f9d55c68",
+	"2a10d191-0c46-47b0-abec-39c74a8908ff",
+	'data xfer',
+	'');
+INSERT INTO C_EP
+	VALUES ("762941b0-3512-4885-835e-0fa7d8fe7575",
+	"0a60dfac-6afb-4e30-baa3-e2d0f9d55c68",
+	-1);
+INSERT INTO C_IO
+	VALUES ("762941b0-3512-4885-835e-0fa7d8fe7575",
+	"622ff808-9eac-4dd3-a077-9600cd62842e",
+	'download',
+	'',
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("622ff808-9eac-4dd3-a077-9600cd62842e",
+	"00000000-0000-0000-0000-000000000000",
+	'void',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO C_EP
+	VALUES ("ec7afda9-15a8-4d65-831b-c69186821a12",
+	"0a60dfac-6afb-4e30-baa3-e2d0f9d55c68",
+	-1);
+INSERT INTO C_IO
+	VALUES ("ec7afda9-15a8-4d65-831b-c69186821a12",
+	"622ff808-9eac-4dd3-a077-9600cd62842e",
+	'upload',
+	'',
+	0,
+	'',
+	"762941b0-3512-4885-835e-0fa7d8fe7575");
+INSERT INTO C_EP
+	VALUES ("3b43f174-b280-4808-b604-3403797d8b15",
+	"0a60dfac-6afb-4e30-baa3-e2d0f9d55c68",
+	-1);
+INSERT INTO C_AS
+	VALUES ("3b43f174-b280-4808-b604-3403797d8b15",
+	'deviceReady',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO IP_IP_PROXY
+	VALUES ("2a10d191-0c46-47b0-abec-39c74a8908ff",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	"f3c125a8-6d8c-45c5-9cc1-82c5c8716ae2",
+	"00000000-0000-0000-0000-000000000000",
+	"59cad7e5-eab2-4e93-b087-de2bfd62f670",
+	'data recording',
+	'',
+	'../data recording.xtuml');

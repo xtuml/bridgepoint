@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<introContent>
+
+<!-- Root Page as fully expanded -->
+  <page alt-style="css/root_swt.properties" style="css/root.css" id="root" style-id="page">
+    <title style-id="intro-header">Welcome to BridgePoint UML</title>
+    <title style-id="intro-message">Application modeling for embedded systems</title>
+    <group id="links-background">
+      <group id="page-links">
+        <anchor id="top"/>
+        <link id="arrow" label="Workbench" style-id="left" url="http://org.eclipse.ui.intro/close">
+          <text>Close this page and go to the workbench.</text>
+        </link>
+        <link id="video" label="Tutorial Videos" style-id="left" url="http://www.mentor.com/products/sm/multimedia/filters/bridgepoint-257221a1-p">
+          <text>Video tutorials to give you a jump-start using BridgePoint UML.</text>
+        </link>
+        <link id="quickstart" label="Quick Start" style-id="left" url="http://org.eclipse.ui.intro/showPage?id=quickstart&amp;standby=false">
+          <text>Click here to get started using BridgePoint UML.</text>
+        </link>
+        <anchor id="after_quickstart"/>
+        <link id="release_notes" label="Release Notes" style-id="left" url="http://org.eclipse.ui.intro/showHelpTopic?id=/com.mentor.nucleus.bp.doc/ReleaseNotes/HTML/ReleaseNotes.htm">
+          <text>View the BridgePoint UML release notes.</text>
+        </link>
+        <link id="upgrade" label="What's New" style-id="left" url="http://org.eclipse.ui.intro/showHelpTopic?id=/com.mentor.nucleus.bp.doc/WhatsNew/HTML/WhatsNew.htm">
+          <text>Click here to view new features in this release.</text>
+        </link>
+        <link id="license" label="Licensing" style-id="right" url="http://org.eclipse.ui.intro/showHelpTopic?id=/com.mentor.nucleus.bp.doc/license/EDGE_Licensing_Help.htm">
+          <text>Click here to view information about BridgePoint UML licensing.</text>
+        </link>
+        <anchor id="additions"/>
+        <anchor id="bottom"/>
+      </group>
+    </group>
+  </page>
+
+<!-- Root page in stand-by mode -->
+  <page alt-style="css/root_swt.properties" style="css/root.css" id="standby" style-id="standby">
+    <title style-id="intro-header">Welcome to BridgePoint UML</title>
+    <group id="links-background">
+      <group id="page-links">
+        <anchor id="top"/>
+        <link id="video" label="Tutorial Videos" style-id="left" url="http://www.mentor.com/products/sm/multimedia/filters/bridgepoint-257221a1-p">
+          <text>Video tutorials to give you a jump-start using BridgePoint UML.</text>
+        </link>
+        <link id="quickstart" label="Quick Start" style-id="left" url="http://org.eclipse.ui.intro/showPage?id=quickstart&amp;standby=false">
+          <text>Click here to get started using BridgePoint UML.</text>
+        </link>
+        <anchor id="after_quickstart"/>
+        <link id="release_notes" label="Release Notes" style-id="left" url="http://org.eclipse.ui.intro/showHelpTopic?id=/com.mentor.nucleus.bp.doc/ReleaseNotes/HTML/ReleaseNotes.htm">
+          <text>View the BridgePoint UML release notes.</text>
+        </link>
+        <link id="upgrade" label="What's New" style-id="left" url="http://org.eclipse.ui.intro/showHelpTopic?id=/com.mentor.nucleus.bp.doc/WhatsNew/HTML/WhatsNew.htm">
+          <text>Click here to view new features in this release.</text>
+        </link>
+        <link id="license" label="Licensing" style-id="right" url="http://org.eclipse.ui.intro/showHelpTopic?id=/com.mentor.nucleus.bp.doc/license/EDGE_Licensing_Help.htm">
+          <text>Click here to view information about BridgePoint UML licensing.</text>
+        </link>
+        <anchor id="additions"/>
+        <anchor id="bottom"/>
+      </group>
+    </group>
+  </page>
+
+<!-- Quick Start Page -->
+  <page style="css/page/page.css" alt-style="css/page/page_swt.properties" id="quickstart" style-id="page">
+    <title style-id="intro-header">Welcome to BridgePoint UML</title>
+    <group id="background-image" filteredFrom="swt"/>
+    <group id="curve-image" filteredFrom="swt"/>
+    <group id="navigation-links" filteredFrom="swt">
+      <group id="page-links">
+        <link label="Back" url="http://org.eclipse.ui.intro/showPage?id=root" id="back" style-id="left">
+          <text>Click here to return to the welcome page</text>
+        </link>
+      </group>
+      <group id="action-links">
+        <link url="http://org.eclipse.ui.intro/close" label="Workbench" id="workbench">
+          <text>Go to the workbench</text>
+        </link>
+      </group>
+    </group>
+    <group id="page-content">
+      <group id="content-header" label="QUICK START" filteredFrom="swt"></group>
+      <text style-id="page-title" id="page-title" filteredFrom="html">QUICK START</text>
+      <text style-id="page-description" id="page-description"></text>
+      <group id="page-links">
+        <link id="bpintro" label="BridgePoint UML Introduction" style-id="left" url="http://org.eclipse.ui.intro/showHelpTopic?id=/com.mentor.nucleus.bp.doc/GettingStarted/HTML/Intro.htm">
+          <text>Click here for introductory information.  New users should go here first!</text>
+        </link>
+          <link id="basics" label="Cheat Sheet Walkthroughs" style-id="left"   url="http://org.eclipse.ui.intro/runAction?pluginId=com.mentor.nucleus.bp.welcome&amp;class=com.mentor.nucleus.bp.welcome.gettingstarted.ShowCheatSheetWindowAction">
+             <text>BridgePoint includes instructional guides to help you get started.  Select Help > Cheat Sheets... > BridgePoint .</text>
+        </link>
+        <link id="folder" label="Example Application - GPS Watch" style-id="left" url="http://org.eclipse.ui.intro/runAction?pluginId=com.mentor.nucleus.bp.welcome&amp;class=com.mentor.nucleus.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=GPS Watch&amp;SingleFileModel=false">
+          <text>Click here to create a project that includes a sample application model of a GPS watch.</text>
+        </link>
+        <link  id="basics" label="Workbench Basics" url="http://org.eclipse.ui.intro/showHelpTopic?id=/org.eclipse.platform.doc.user/concepts/concepts-2.htm">
+          <text>Learn about basic BridgePoint UML workbench concepts.</text>
+        </link>
+        <link id="folder" label="Example Application - Microwave Oven" style-id="left" url="http://org.eclipse.ui.intro/runAction?pluginId=com.mentor.nucleus.bp.welcome&amp;class=com.mentor.nucleus.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=MicrowaveOven&amp;SingleFileModel=false">
+          <text>Click here to create a project that includes a sample application model of a Microwave Oven.</text>
+        </link>
+        <link  id="video" label="Video Demonstration" url="http://www.mentor.com/products/sm/events/bridgepoint_methodology.cfm">
+          <text>This 20 minute multimedia presentation includes chapters on System Level Modeling, Component Modeling, Model Execution, Code Generation and Target Execution.</text>
+        </link>
+        <link id="folder" label="Documentation Project - xtUML Metamodel" style-id="left" url="http://org.eclipse.ui.intro/runAction?pluginId=com.mentor.nucleus.bp.welcome&amp;class=com.mentor.nucleus.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=xtUML_Metamodel&amp;SingleFileModel=true">
+          <text>Click here to create a project that includes a copy of the xtUML Metamodel.</text>
+        </link>
+        <link id="folder" label="TemplateProject" style-id="left" url="http://org.eclipse.ui.intro/runAction?pluginId=com.mentor.nucleus.bp.welcome&amp;class=com.mentor.nucleus.bp.welcome.gettingstarted.SampleProjectGettingStartedAction&amp;model=TemplateProject&amp;SingleFileModel=false">
+          <text>Click here to create a template project that includes that has two components and one interface.</text>
+        </link>
+      </group>
+    </group>
+  </page>
+
+</introContent>

@@ -1,0 +1,85 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("938a70eb-1994-4119-8ff8-6c2e74eeca60",
+	'Qualified Process',
+	9,
+	'D_QP',
+	'Object Description:
+
+Object Role:
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("d2a95aaa-b2d6-45ef-9cad-f8a3d7ceeb6f",
+	"938a70eb-1994-4119-8ff8-6c2e74eeca60");
+INSERT INTO O_BATTR
+	VALUES ("d2a95aaa-b2d6-45ef-9cad-f8a3d7ceeb6f",
+	"938a70eb-1994-4119-8ff8-6c2e74eeca60");
+INSERT INTO O_ATTR
+	VALUES ("d2a95aaa-b2d6-45ef-9cad-f8a3d7ceeb6f",
+	"938a70eb-1994-4119-8ff8-6c2e74eeca60",
+	"00000000-0000-0000-0000-000000000000",
+	'Qualified_Process_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Qualified_Process_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("2a46ebd7-8116-4275-88b5-756799142c87",
+	"938a70eb-1994-4119-8ff8-6c2e74eeca60");
+INSERT INTO O_BATTR
+	VALUES ("2a46ebd7-8116-4275-88b5-756799142c87",
+	"938a70eb-1994-4119-8ff8-6c2e74eeca60");
+INSERT INTO O_ATTR
+	VALUES ("2a46ebd7-8116-4275-88b5-756799142c87",
+	"938a70eb-1994-4119-8ff8-6c2e74eeca60",
+	"d2a95aaa-b2d6-45ef-9cad-f8a3d7ceeb6f",
+	'current_state',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"938a70eb-1994-4119-8ff8-6c2e74eeca60");
+INSERT INTO O_OIDA
+	VALUES ("d2a95aaa-b2d6-45ef-9cad-f8a3d7ceeb6f",
+	"938a70eb-1994-4119-8ff8-6c2e74eeca60",
+	0,
+	'Qualified_Process_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"938a70eb-1994-4119-8ff8-6c2e74eeca60");
+INSERT INTO O_ID
+	VALUES (2,
+	"938a70eb-1994-4119-8ff8-6c2e74eeca60");
+INSERT INTO PE_PE
+	VALUES ("938a70eb-1994-4119-8ff8-6c2e74eeca60",
+	1,
+	"e96c6930-7be7-4437-abe5-f7d202c0cf0c",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("e96c6930-7be7-4437-abe5-f7d202c0cf0c",
+	"00000000-0000-0000-0000-000000000000",
+	"2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'Odms',
+	'Subsystem Description:
+
+Relationship with other Subsystems:
+',
+	1,
+	'../Odms.xtuml');

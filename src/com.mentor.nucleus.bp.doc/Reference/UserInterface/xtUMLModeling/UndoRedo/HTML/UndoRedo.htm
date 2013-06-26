@@ -1,0 +1,372 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=us-ascii">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 11">
+<meta name=Originator content="Microsoft Word 11">
+<link rel=File-List href="UndoRedo_files/filelist.xml">
+<link rel=Edit-Time-Data href="UndoRedo_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Undo and Redo</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author> New User</o:Author>
+  <o:LastAuthor>kwilliam</o:LastAuthor>
+  <o:Revision>19</o:Revision>
+  <o:TotalTime>381</o:TotalTime>
+  <o:Created>2006-03-03T22:08:00Z</o:Created>
+  <o:LastSaved>2006-03-10T21:40:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>778</o:Words>
+  <o:Characters>4437</o:Characters>
+  <o:Company>Mentor Graphics</o:Company>
+  <o:Lines>36</o:Lines>
+  <o:Paragraphs>10</o:Paragraphs>
+  <o:CharactersWithSpaces>5205</o:CharactersWithSpaces>
+  <o:Version>11.6408</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:Compatibility>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" LatentStyleCount="156">
+ </w:LatentStyles>
+</xml><![endif]-->
+<link rel=Stylesheet type="text/css" media=all href="../../../../../techpub.css">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:\5B8B\4F53;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 135135232 16 0 262145 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h2
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	line-height:15.6pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:12.0pt;
+	mso-fareast-font-family:SimSun;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:navy;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#0176B9;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-fareast-font-family:"Times New Roman";}
+code
+	{font-family:"Courier New";
+	mso-ascii-font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Courier New";}
+p.tpcode, li.tpcode, div.tpcode
+	{mso-style-name:tpcode;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-fareast-font-family:"Times New Roman";}
+p.leftalign, li.leftalign, div.leftalign
+	{mso-style-name:leftalign;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-fareast-font-family:"Times New Roman";}
+span.tpcodeChar
+	{mso-style-name:"tp_code Char";
+	mso-style-locked:yes;
+	font-family:"Courier New";
+	mso-ascii-font-family:"Courier New";
+	mso-fareast-font-family:SimSun;
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Courier New";
+	mso-ansi-language:EN-US;
+	mso-fareast-language:ZH-CN;
+	mso-bidi-language:AR-SA;}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+</style>
+<![endif]-->
+</head>
+
+<body lang=EN-US link=navy vlink="#0176B9" style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<div>
+
+<h1><a name="ur_1001"></a>Undo and Redo </h1>
+
+<p>The xtUML Modeling perspective provides Undo and Redo stacks for each xtUML
+model. For example, the following illustration shows an xtUML project <span
+class=SpellE>named<a name="ur_1002"><span class=tpcodeChar><span
+style='mso-fareast-language:EN-US'>Microwave</span></span></a></span><span
+style='mso-bookmark:ur_1002'> with a single xtUML model </span><span
+style='mso-bookmark:ur_1002'><span class=tpcodeChar><span style='mso-fareast-language:
+EN-US'>MicrowaveOven</span></span>. </span></p>
+
+<p class=leftalign><span style='mso-bookmark:ur_1002'><img width=599
+height=291 id="_x0000_i1025" src="UndoRedo_files/undoRedo1.jpg"
+alt="Model with project"></span></p>
+
+<p class=leftalign><span style='mso-bookmark:ur_1002'>In this illustration
+there is one Undo and one Redo stack attached to the </span><span
+style='mso-bookmark:ur_1002'><span class=SpellE><span class=tpcodeChar><span
+style='mso-fareast-language:EN-US'>MicrowaveOven</span></span></span>
+model.<span style='mso-spacerun:yes'>&nbsp; </span>If a new xtUML model were to
+be created or imported into the </span><span style='mso-bookmark:ur_1002'><span
+class=tpcodeChar><span style='mso-fareast-language:EN-US'>Microwave</span></span>
+project then new, separate undo and redo stacks would be created for that model
+also. </span></p>
+
+<p><span style='mso-bookmark:ur_1002'><span style='mso-fareast-font-family:
+SimSun'>Undo and Redo stacks are available from Canvas Editors, Outline Views,
+and - when these editors or views are in focus - from </span></span><span
+style='mso-bookmark:ur_1002'><span class=tpcodeChar><span style='mso-fareast-language:
+EN-US'>Edit</span></span></span><span style='mso-bookmark:ur_1002'><span
+style='mso-fareast-font-family:SimSun'> on the menu bar.<span
+style='mso-spacerun:yes'>&nbsp; </span>The default control key combination for
+Undo is defined as </span></span><span style='mso-bookmark:ur_1002'><span
+class=tpcodeChar><span style='mso-fareast-language:EN-US'>control-Z</span></span></span><span
+style='mso-bookmark:ur_1002'><span style='mso-fareast-font-family:SimSun'> and
+the default control key combination for Redo is </span></span><span
+style='mso-bookmark:ur_1002'><span class=tpcodeChar><span style='mso-fareast-language:
+EN-US'>control-Y</span></span></span><span style='mso-bookmark:ur_1002'><span
+style='mso-fareast-font-family:SimSun'>. <o:p></o:p></span></span></p>
+
+<p><span style='mso-bookmark:ur_1002'><b style='mso-bidi-font-weight:normal'><span
+style='mso-fareast-font-family:SimSun;mso-bidi-font-family:"Times New Roman"'>NOTE:</span></b></span><span
+style='mso-bookmark:ur_1002'><span style='mso-fareast-font-family:SimSun'>
+Because Undo and Redo stacks are model-wide the results of an Undo or Redo may
+not be immediately visible.<span style='mso-spacerun:yes'>&nbsp; </span>For
+example, if an Instance State Machine Canvas Editor is currently in focus and
+the last change on the Undo stack represents the deletion of some other state
+machine, the results of executing the Undo will not be visible unless the Model
+Explorer or Outline views are expanded so that they display the affected state
+machine.<o:p></o:p></span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:ur_1002'><b style='mso-bidi-font-weight:
+normal'><span style='font-size:10.0pt;font-family:Arial;mso-fareast-font-family:
+SimSun;mso-bidi-font-family:"Times New Roman"'>NOTE:</span></b></span><span
+style='mso-bookmark:ur_1002'><span style='mso-fareast-font-family:SimSun'> </span></span><span
+style='mso-bookmark:ur_1002'><span style='font-size:10.0pt;font-family:Arial;
+mso-fareast-font-family:SimSun'>There are two types of xtUML model elements
+that are not eligible for Undo and Redo.<span style='mso-spacerun:yes'>&nbsp;
+</span>Because the Undo and Redo stacks are model specific, when an entire
+xtUML model is deleted the stacks for that model are no longer available.<span
+style='mso-spacerun:yes'>&nbsp; </span><span class=GramE>xtUML</span> models
+may be restored from the Local History.<span style='mso-spacerun:yes'>&nbsp;
+</span>In place of Undo and Redo, Model elements such as State Action and all
+Descriptions, that are normally modified using text editors are eligible for
+the Eclipse text editor default </span></span><span style='mso-bookmark:ur_1002'><span
+class=tpcodeChar><span style='font-size:10.0pt;mso-fareast-language:EN-US'>Undo
+Typing</span></span></span><span style='mso-bookmark:ur_1002'><span
+style='font-size:10.0pt;font-family:Arial;mso-fareast-font-family:SimSun'> and </span></span><span
+style='mso-bookmark:ur_1002'><span class=tpcodeChar><span style='font-size:
+10.0pt;mso-fareast-language:EN-US'>Revert</span></span></span><span
+style='mso-bookmark:ur_1002'><span style='font-size:10.0pt;font-family:Arial;
+mso-fareast-font-family:SimSun'> mechanisms.<o:p></o:p></span></span></p>
+
+<span style='mso-bookmark:ur_1002'></span>
+
+<h2>Accessing the Undo and Redo stacks from Canvas Editors</h2>
+
+<p><span style='mso-fareast-font-family:SimSun'>To access the Undo or Redo
+stacks from a Canvas Editor, bring the editor into focus and then right-click
+on any part of the canvas to display the context menu. </span><span
+style='mso-fareast-font-family:SimSun;mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=leftalign><img width=464 height=276 id="_x0000_i1026"
+src="UndoRedo_files/undoRedo2Canvas.jpg" alt="Canvas context menu"></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:Arial;mso-fareast-font-family:
+SimSun;mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:Arial;mso-fareast-font-family:
+SimSun;mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<h2>Accessing the Undo and Redo stacks from the Outline View</h2>
+
+<p><span style='mso-fareast-font-family:SimSun'>To access the Undo or Redo
+stacks from the Outline view, bring the view into focus and then right-click
+inside the view to display the context menu. </span><span style='mso-fareast-font-family:
+SimSun;mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=leftalign><img width=345 height=200 id="_x0000_i1027"
+src="UndoRedo_files/undoRedo3Outline.jpg" alt="Outline view context menu"></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:Arial;mso-fareast-font-family:
+SimSun;mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<h2>Accessing the Undo and Redo Stacks from the Menu Bar</h2>
+
+<p><span style='mso-fareast-font-family:SimSun'>When either a Canvas Editor or
+the Outline view is in focus, Undo and Redo are available in the </span><span
+class=tpcodeChar><span style='mso-fareast-language:EN-US'>Edit</span></span><span
+style='mso-fareast-font-family:SimSun'> menu of the menu bar.</span><span
+style='mso-fareast-font-family:SimSun;mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=leftalign><img width=292 height=166 id="_x0000_i1028"
+src="UndoRedo_files/undoRedo4Menu.jpg" alt="Menu bar Edit menu"></p>
+
+<h2>Restoring Deleted xtUML Models</h2>
+
+<p><span style='mso-fareast-font-family:SimSun'>When an entire xtUML model is
+deleted from a project the Undo and Redo stacks for the model are also
+deleted.<span style='mso-spacerun:yes'>&nbsp; </span></span>Models deleted in
+this manner may be restored from the Local History.<span
+style='mso-spacerun:yes'>&nbsp; </span><span style='mso-fareast-font-family:
+SimSun;mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=leftalign><img width=466 height=377 id="_x0000_i1029"
+src="UndoRedo_files/undoRedoRsc1.jpg" alt="Select Model"></p>
+
+<p class=leftalign>To do this, change to the EDGE Projects perspective,
+navigate to and select the <span class=tpcodeChar><span style='mso-fareast-language:
+EN-US'>models</span></span> directory of the project that contained the deleted
+model.<span style='mso-spacerun:yes'>&nbsp; </span>Right-click and select <span
+class=GramE><span class=tpcodeChar><span style='mso-fareast-language:EN-US'>Restore</span></span></span><span
+class=tpcodeChar><span style='mso-fareast-language:EN-US'> from Local
+History&#8230;</span></span> from the context menu.</p>
+
+<p class=leftalign><img width=460 height=517 id="_x0000_i1030"
+src="UndoRedo_files/undoRedoRsc2.jpg" alt="Delete Model"></p>
+
+<p class=leftalign>The <span class=tpcodeChar><span style='mso-fareast-language:
+EN-US'>Restore from Local History</span></span> dialog box will pop up.<span
+style='mso-spacerun:yes'>&nbsp; </span>Select the models you would like to
+restore and then press the <span class=tpcodeChar><span style='mso-fareast-language:
+EN-US'>Restore</span></span> button.</p>
+
+<p class=leftalign><img width=501 height=249 id="_x0000_i1031"
+src="UndoRedo_files/undoRedoRsc3.jpg" alt="Change Perspective to Edge Projects"></p>
+
+<p class=leftalign>The model is restored and again accessible from the xtUML <span
+class=GramE>Modeling</span> perspective.</p>
+
+<p class=leftalign><img width=426 height=265 id="_x0000_i1032"
+src="UndoRedo_files/undoRedoRsc4.jpg" alt="Change back to xtUML"></p>
+
+<h2>Using the Undo and Revert Features of Text Editors<span style='font-size:
+10.0pt;color:windowtext;font-weight:normal'><o:p></o:p></span></h2>
+
+<h2><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>In place
+of Undo and Redo, model elements such as State Action and all Descriptions that
+are normally modified using text editors are eligible for the Eclipse text
+editor default </span><span class=tpcodeChar><span style='font-size:10.0pt;
+color:windowtext;mso-fareast-language:EN-US;font-weight:normal'>Undo Typing</span></span><span
+style='font-size:10.0pt;color:windowtext;font-weight:normal'> and </span><span
+class=tpcodeChar><span style='font-size:10.0pt;color:windowtext;mso-fareast-language:
+EN-US;font-weight:normal'>Revert</span></span><span style='font-size:10.0pt;
+color:windowtext;font-weight:normal'> mechanisms.<span
+style='mso-spacerun:yes'>&nbsp; </span>These mechanisms are available from the
+context menu of each text editor.<o:p></o:p></span></h2>
+
+<p class=leftalign><img width=461 height=233 id="_x0000_i1033"
+src="UndoRedo_files/undoRedoDesc1.jpg"
+alt="Undo Typing and Revert are available from the context menu."></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:Arial;mso-fareast-font-family:
+SimSun;mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

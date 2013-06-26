@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BridgePoint Search Tests
+Bundle-SymbolicName: com.mentor.nucleus.bp.search.test
+Bundle-Version: 1.0.0
+Bundle-Activator: com.mentor.nucleus.bp.search.test.Activator
+Bundle-Vendor: Mentor Graphics
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ com.mentor.nucleus.bp.search,
+ com.mentor.nucleus.bp.ui.search,
+ com.mentor.nucleus.bp.core,
+ com.mentor.nucleus.bp.test,
+ org.junit,
+ org.eclipse.core.resources,
+ org.eclipse.search,
+ com.mentor.nucleus.bp.ui.explorer,
+ com.mentor.nucleus.bp.welcome
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

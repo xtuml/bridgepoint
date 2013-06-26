@@ -1,0 +1,71 @@
+.//============================================================================
+.// File:  registry.mark
+.//
+.// Description:
+.// This marking file is used to register all the domains, both xtUML and
+.// realized, which will be used to construct a system executable image(s).
+.// Domain registration is a mandatory marking file. It is analogous to
+.// informing the model compiler about the structure of the domain chart
+.// of the constructed system.
+.//
+.// Notice:
+.// (C) Copyright 1999-2008 Mentor Graphics Corporation
+.//     All rights reserved.
+.//============================================================================
+.// Notes:
+.// (1) Marking is specified via archetype function invocation(s) in this file.
+.//     A function invocation statement MUST be specified on a single line.
+.//     All indicated function input parameters must be supplied.
+.// (2) All quoted string parameters are case sensitive.
+.// (3) Comments in this file start with ".//".
+.// (4) Do not leave any blank lines in this file.
+.//
+.// (5) Registered domain names and numbers must be unique.
+.// (6) Domain ID number zero (0) is reserved for the model compiler.
+.//============================================================================
+.//
+.//============================================================================
+.// Register xtUML domain(s):
+.//
+.// To indicate to the model compiler that an xtUML domain is part of
+.// a system build, use the following invocation (one for each xtUML domain):
+.//
+.// RegisterOoaDomain( "repository_name", "registered_name", registered_id )
+.//
+.// Where the input parameters are:
+.//   repository_name = xtUML domain BridgePoint repository name.
+.//   registered_name = Registered domain name (short key letters suggested).
+.//   registered_id   = Registered domain number (zero (0) is reserved!).
+.//
+.// Example:
+.//  .invoke RegisterOoaDomain( "autosampler", "AS", 1 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Register Realized domain(s):
+.//
+.// To indicate to the model compiler that a realized (non-xtUML) domain
+.// is part of a system build, use the following invocation (one for each
+.// realized domain):
+.//
+.// RegisterRealizedDomain( "description", "registered_name", registered_id )
+.//
+.// Where the input parameters are:
+.//   description     = (optional) textual description of the realized domain
+.//                     Use "" as a default description.
+.//   registered_name = registered domain name
+.//   registered_id   = registered domain number
+.//
+.// Example:
+.//  .invoke RegisterRealizedDomain( "", "PIO", 100 )
+.//
+.// Notes:
+.// (1) Do not attempt to register "built in" domains, such as the BridgePoint
+.//     'Time' (TIM) External Entity.  They are provided by the architecture.
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Do not add anything at the end of this file!
+.//============================================================================

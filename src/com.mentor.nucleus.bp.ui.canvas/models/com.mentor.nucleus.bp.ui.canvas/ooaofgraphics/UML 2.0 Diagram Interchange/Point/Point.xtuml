@@ -1,0 +1,103 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65",
+	'Point',
+	30,
+	'DIM_PNT',
+	'---------------------------------------------------------------------------------
+Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	"490299c9-e7aa-468e-82d7-0731c80e4069");
+INSERT INTO O_NBATTR
+	VALUES ("457e3317-50e8-4a48-90ba-aa21fa4e13fc",
+	"4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65");
+INSERT INTO O_BATTR
+	VALUES ("457e3317-50e8-4a48-90ba-aa21fa4e13fc",
+	"4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65");
+INSERT INTO O_ATTR
+	VALUES ("457e3317-50e8-4a48-90ba-aa21fa4e13fc",
+	"4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65",
+	"73081ca1-c802-4974-bd41-d8de4e1127ed",
+	'x',
+	'',
+	'',
+	'x',
+	0,
+	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'real',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("80e7a9f4-b760-4839-b19f-796c29aa8235",
+	"4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65");
+INSERT INTO O_BATTR
+	VALUES ("80e7a9f4-b760-4839-b19f-796c29aa8235",
+	"4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65");
+INSERT INTO O_ATTR
+	VALUES ("80e7a9f4-b760-4839-b19f-796c29aa8235",
+	"4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65",
+	"457e3317-50e8-4a48-90ba-aa21fa4e13fc",
+	'y',
+	'',
+	'',
+	'y',
+	0,
+	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("73081ca1-c802-4974-bd41-d8de4e1127ed",
+	"4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65");
+INSERT INTO O_BATTR
+	VALUES ("73081ca1-c802-4974-bd41-d8de4e1127ed",
+	"4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65");
+INSERT INTO O_ATTR
+	VALUES ("73081ca1-c802-4974-bd41-d8de4e1127ed",
+	"4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65",
+	"00000000-0000-0000-0000-000000000000",
+	'pointId',
+	'',
+	'',
+	'pointId',
+	0,
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65");
+INSERT INTO O_OIDA
+	VALUES ("73081ca1-c802-4974-bd41-d8de4e1127ed",
+	"4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65",
+	0,
+	'pointId');
+INSERT INTO O_ID
+	VALUES (1,
+	"4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65");
+INSERT INTO O_ID
+	VALUES (2,
+	"4af7d4a4-6f90-4ae0-9cfd-8a6f886e4a65");
+INSERT INTO S_SS_PROXY
+	VALUES ("490299c9-e7aa-468e-82d7-0731c80e4069",
+	'UML 2.0 Diagram Interchange',
+	'Notify_Changes:true',
+	'DIM',
+	0,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
+	'../UML 2.0 Diagram Interchange.xtuml');

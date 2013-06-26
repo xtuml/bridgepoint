@@ -1,0 +1,423 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("3f8db3e3-3a95-493f-86e5-a15f75e74c51",
+	'Unary Operation',
+	809,
+	'V_UNY',
+	'Like binary operators, unary operators modify the value in some way, but in this case only a single value is needed. One example is - (unary minus) which negates any numeric value. However other unary operators include the empty and not_empty set operators.',
+	"e060f94c-3f82-463e-9d98-d20315b7c196");
+INSERT INTO O_TFR
+	VALUES ("af83effe-c055-4bd0-b4ec-b6acc4de6fd8",
+	"3f8db3e3-3a95-493f-86e5-a15f75e74c51",
+	'dispose',
+	'This operation disconnects an instance, and all instances it is 
+responsible for, from the model.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one op related by self->V_VAL[R804];
+if ( not_empty op )
+  unrelate op from self across R804;
+  op.dispose();
+end if;
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("ec3c67f5-f495-4c02-bd76-09a44b5ec9d3",
+	"3f8db3e3-3a95-493f-86e5-a15f75e74c51",
+	'getValue',
+	'Performs Unary Operation and returns the value.',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'//Value: Unary Operation.getValue()
+select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
+select one dt related by self->V_VAL[R801]->S_DT[R820];
+coreDataTypeName = dt.getCoreDataTypeName();
+if (coreDataTypeName == "boolean")
+  return GD::boolean_to_instance(value:self.getBoolean(stack_frame_id: param.stack_frame_id));
+elif (coreDataTypeName == "integer")
+  return GD::int_to_instance(value:self.getInteger(stack_frame_id: param.stack_frame_id));
+elif (coreDataTypeName == "real")
+  return GD::real_to_instance(value:self.getReal(stack_frame_id: param.stack_frame_id));         
+else
+  error_message = "Error: Did not find a supported data type " + coreDataTypeName + " in attempt to retrieve value in unary operation.";
+  USER::logError(msg:error_message,path:body.getPath() );
+end if;
+  
+return GD::string_to_instance(value:"Error");',
+	1,
+	'',
+	"14126168-a57a-4165-b670-a4cbeed1a560");
+INSERT INTO O_TPARM
+	VALUES ("4112bf87-3ba3-45bb-818e-b7d0545e45cf",
+	"ec3c67f5-f495-4c02-bd76-09a44b5ec9d3",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("8c1903a3-2a7e-4dc0-8c5e-bccfdfdd1cd6",
+	"3f8db3e3-3a95-493f-86e5-a15f75e74c51",
+	'getBoolean',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// Value: Unary Operation.getBoolean()
+select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
+select one operand related by self->V_VAL[R804];
+select any result related by operand->I_VSF[R2978] where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+select any stack_frame related by self->V_VAL[R801]->I_VSF[R2978]->
+             I_STF[R2951] where selected.Stack_Frame_ID == param.stack_frame_id;
+select one rtVal related by result->RV_RVL[R3305];
+stack_frame.popValue(value_id:operand.Value_ID);
+if (self.Operator == "not")
+  // Then this is a simple Boolean Unary Operation
+  return not GD::instance_to_boolean(value:rtVal.getValue());
+
+elif ((self.Operator == "empty") or (self.Operator == "not_empty"))  
+  // Check for an instance reference
+  select one instanceHandle related by operand->V_IRF[R801]->V_VAR[R808]->V_INT[R814];
+  if (not_empty instanceHandle)
+    // Based on the operator, execute the proper command
+    isEmpty = instanceHandle.isEmpty(stack_frame_id: param.stack_frame_id);
+    if(self.Operator == "not_empty")
+      return not isEmpty;
+    elif(self.Operator == "empty")
+      return isEmpty;
+    end if;
+  else
+  // Check for an instance set reference
+    select one instanceSet related by operand->V_ISR[R801]->V_VAR[R809]->V_INS[R814];    
+    if (not_empty instanceSet)
+      // Based on the operator, execute the proper command
+      isEmpty = instanceSet.isEmpty(stack_frame_id: param.stack_frame_id);
+      if(self.Operator == "not_empty")
+        return not isEmpty;
+      elif(self.Operator == "empty")
+        return isEmpty;
+      end if;
+    end if;    
+  end if;  
+end if;
+
+pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Unary Operation.getBoolean error: Could not identify unary operator; returning False",path:pathMsg);
+return false;',
+	1,
+	'',
+	"af83effe-c055-4bd0-b4ec-b6acc4de6fd8");
+INSERT INTO O_TPARM
+	VALUES ("c4c6b921-efd6-4876-9aa9-54f10197437d",
+	"8c1903a3-2a7e-4dc0-8c5e-bccfdfdd1cd6",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("9ac0eb08-8a07-4133-98e9-88a9f00be470",
+	"3f8db3e3-3a95-493f-86e5-a15f75e74c51",
+	'getInteger',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// Value: Unary Operation.getInteger()
+select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
+select one operand related by self->V_VAL[R804];
+select any result related by operand->I_VSF[R2978] where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+select one rtVal related by result->RV_RVL[R3305];
+select any stack_frame related by self->V_VAL[R801]->I_VSF[R2978]->
+             I_STF[R2951] where selected.Stack_Frame_ID == param.stack_frame_id;
+stack_frame.popValue(value_id:operand.Value_ID);
+if (self.Operator == "+")
+  return +(GD::instance_to_int(value:rtVal.getValue()));
+elif (self.Operator == "-")
+ return -(GD::instance_to_int(value:rtVal.getValue()));
+elif (self.Operator == "cardinality")
+  // Check for an instance set reference
+  select one instanceSetRef related by operand->V_ISR[R801];
+  if (not_empty instanceSetRef)
+    select one instanceSet related by instanceSetRef->V_VAR[R809]->V_INS[R814];
+    return instanceSet.getCardinality(stack_frame_id: param.stack_frame_id);      
+  end if;
+  // Check for an instance reference
+  select one instanceRef related by operand->V_IRF[R801];
+  if (not_empty instanceRef)
+    select one inst related by instanceRef->V_VAR[R808]->V_INT[R814];
+    return inst.getCardinality(stack_frame_id: param.stack_frame_id);
+  end if;
+end if;
+ 
+pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Unary Operation.getInteger error: not applying unary operator, return default value of 0",path:pathMsg);
+return 0;
+',
+	1,
+	'',
+	"8c1903a3-2a7e-4dc0-8c5e-bccfdfdd1cd6");
+INSERT INTO O_TPARM
+	VALUES ("c16d34cb-70ab-4f32-9610-8862fd20b8ad",
+	"9ac0eb08-8a07-4133-98e9-88a9f00be470",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("14126168-a57a-4165-b670-a4cbeed1a560",
+	"3f8db3e3-3a95-493f-86e5-a15f75e74c51",
+	'getReal',
+	'',
+	"f07598c3-1cca-4c8c-8603-381ab44c6d81",
+	1,
+	'// Value: Unary Operation.getReal()
+select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
+select one operand related by self->V_VAL[R804];
+select any result related by operand->I_VSF[R2978] where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+select one rtVal related by result->RV_RVL[R3305];
+select any stack_frame related by self->V_VAL[R801]->I_VSF[R2978]->
+             I_STF[R2951] where selected.Stack_Frame_ID == param.stack_frame_id;
+stack_frame.popValue(value_id:operand.Value_ID);
+if (self.Operator == "+")
+  return +(GD::instance_to_real(value:rtVal.getValue()));
+elif (self.Operator == "-")
+ return -(GD::instance_to_real(value:rtVal.getValue()));
+end if;
+
+pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Unary Operation.getReal error: not applying unary operator",path:pathMsg);
+return GD::instance_to_real(value:rtVal.getValue());
+ ',
+	1,
+	'',
+	"9ac0eb08-8a07-4133-98e9-88a9f00be470");
+INSERT INTO O_TPARM
+	VALUES ("e11d5239-1b3d-46c5-9863-896adb579986",
+	"14126168-a57a-4165-b670-a4cbeed1a560",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("f07598c3-1cca-4c8c-8603-381ab44c6d81",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'real',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("3f8db3e3-3a95-493f-86e5-a15f75e74c51",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"f45cba3b-f381-475e-b8a9-3b355142054d",
+	"f096ec31-dfaf-42b3-812c-efd9a71f0f30",
+	"0a07b8be-4053-4dc6-a060-df5a70cbbed5",
+	"192aa847-b337-4c6c-9f33-7a4732ccb25c",
+	"4b49da2b-5cac-4e9a-bb38-971e87fce3fe",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Value',
+	'Value_ID',
+	'R801');
+INSERT INTO R_RGO_PROXY
+	VALUES ("3f8db3e3-3a95-493f-86e5-a15f75e74c51",
+	"f45cba3b-f381-475e-b8a9-3b355142054d",
+	"f096ec31-dfaf-42b3-812c-efd9a71f0f30",
+	'../Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"f45cba3b-f381-475e-b8a9-3b355142054d",
+	"0a07b8be-4053-4dc6-a060-df5a70cbbed5",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("192aa847-b337-4c6c-9f33-7a4732ccb25c",
+	"3f8db3e3-3a95-493f-86e5-a15f75e74c51",
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	1,
+	'Value_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'../Value/Value.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("192aa847-b337-4c6c-9f33-7a4732ccb25c",
+	"3f8db3e3-3a95-493f-86e5-a15f75e74c51",
+	"00000000-0000-0000-0000-000000000000",
+	'Value_ID',
+	'',
+	'',
+	'Value_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("3f8db3e3-3a95-493f-86e5-a15f75e74c51",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"10b27d2c-465a-4cc2-b2ee-6930e8746f21",
+	"445ae5bd-a99c-492d-87a7-6606b5d89ace",
+	"c87bbabe-e4f0-4340-b085-c2b7cd5eabc9",
+	"aa2a439b-c5af-4720-ae25-50e0cae16de8",
+	"f9f39639-79db-4254-8444-7e57a8dba6c6",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Value',
+	'Value_ID',
+	'R804');
+INSERT INTO R_RGO_PROXY
+	VALUES ("3f8db3e3-3a95-493f-86e5-a15f75e74c51",
+	"10b27d2c-465a-4cc2-b2ee-6930e8746f21",
+	"445ae5bd-a99c-492d-87a7-6606b5d89ace",
+	'../Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"10b27d2c-465a-4cc2-b2ee-6930e8746f21",
+	"c87bbabe-e4f0-4340-b085-c2b7cd5eabc9",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("aa2a439b-c5af-4720-ae25-50e0cae16de8",
+	"3f8db3e3-3a95-493f-86e5-a15f75e74c51",
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	1,
+	'Value_ID');
+INSERT INTO O_ATTR
+	VALUES ("aa2a439b-c5af-4720-ae25-50e0cae16de8",
+	"3f8db3e3-3a95-493f-86e5-a15f75e74c51",
+	"192aa847-b337-4c6c-9f33-7a4732ccb25c",
+	'Operand_Value_ID',
+	'',
+	'Operand_',
+	'Value_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("05a4b96b-044a-441f-b514-c6badb99319b",
+	"3f8db3e3-3a95-493f-86e5-a15f75e74c51");
+INSERT INTO O_BATTR
+	VALUES ("05a4b96b-044a-441f-b514-c6badb99319b",
+	"3f8db3e3-3a95-493f-86e5-a15f75e74c51");
+INSERT INTO O_ATTR
+	VALUES ("05a4b96b-044a-441f-b514-c6badb99319b",
+	"3f8db3e3-3a95-493f-86e5-a15f75e74c51",
+	"aa2a439b-c5af-4720-ae25-50e0cae16de8",
+	'Operator',
+	'Full Name: Unary Mathematical Operator
+The character or string representing the operation.',
+	'',
+	'Operator',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"3f8db3e3-3a95-493f-86e5-a15f75e74c51");
+INSERT INTO O_OIDA
+	VALUES ("192aa847-b337-4c6c-9f33-7a4732ccb25c",
+	"3f8db3e3-3a95-493f-86e5-a15f75e74c51",
+	0,
+	'Value_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"3f8db3e3-3a95-493f-86e5-a15f75e74c51");
+INSERT INTO O_ID
+	VALUES (2,
+	"3f8db3e3-3a95-493f-86e5-a15f75e74c51");
+INSERT INTO S_SS_PROXY
+	VALUES ("e060f94c-3f82-463e-9d98-d20315b7c196",
+	'Value',
+	'This subsystem formalizes the concepts of values (r-values) and variables 
+(l-values). It also captures the concept of an actual parameter.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'V',
+	800,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000400008",
+	'../Value.xtuml');

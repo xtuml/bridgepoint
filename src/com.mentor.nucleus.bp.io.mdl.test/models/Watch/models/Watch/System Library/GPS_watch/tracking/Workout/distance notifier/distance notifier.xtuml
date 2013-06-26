@@ -1,0 +1,79 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("b5257116-8375-4f4b-97a5-ab8fb6b5fc4a",
+	'distance notifier',
+	205,
+	'DNOTIFY',
+	'',
+	"8a7e3b8b-e243-48dc-b5f9-f62644aa90c7");
+INSERT INTO O_TFR
+	VALUES ("4388a7b3-d18f-4d7c-bbcc-a9a66b3097e7",
+	"b5257116-8375-4f4b-97a5-ab8fb6b5fc4a",
+	'check_distance',
+	'',
+	"622ff808-9eac-4dd3-a077-9600cd62842e",
+	1,
+	'',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_OPB
+	VALUES ("9cbe35c9-69f8-4806-9aa6-90cd8c79252c",
+	"4388a7b3-d18f-4d7c-bbcc-a9a66b3097e7");
+INSERT INTO ACT_ACT
+	VALUES ("9cbe35c9-69f8-4806-9aa6-90cd8c79252c",
+	'operation',
+	0,
+	"8839ed05-2863-489e-b045-28cb3a3fe1e2",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'distance notifier::check_distance',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_BLK
+	VALUES ("8839ed05-2863-489e-b045-28cb3a3fe1e2",
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	"9cbe35c9-69f8-4806-9aa6-90cd8c79252c",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("622ff808-9eac-4dd3-a077-9600cd62842e",
+	"00000000-0000-0000-0000-000000000000",
+	'void',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"b5257116-8375-4f4b-97a5-ab8fb6b5fc4a");
+INSERT INTO O_ID
+	VALUES (1,
+	"b5257116-8375-4f4b-97a5-ab8fb6b5fc4a");
+INSERT INTO O_ID
+	VALUES (2,
+	"b5257116-8375-4f4b-97a5-ab8fb6b5fc4a");
+INSERT INTO S_SS_PROXY
+	VALUES ("8a7e3b8b-e243-48dc-b5f9-f62644aa90c7",
+	'Workout',
+	'This subsystem contains the execution engine for running an instance of a workout specification.',
+	'',
+	201,
+	"7877e6e0-dd19-4087-b158-647c2788232a",
+	"00000000-0000-0000-0000-000000000000",
+	'../Workout.xtuml');

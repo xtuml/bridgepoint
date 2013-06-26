@@ -1,0 +1,472 @@
+-- BP 7.1 content: FunctionPackage syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO S_FPK
+	VALUES ("7e742b18-0ba4-4936-b765-4ee4648411f2",
+	'Direct Test Invocation Functions',
+	"00000000-0000-0000-0000-000000000000",
+	"00eb78a1-4fd3-4de4-b0c4-82f871e6cea8");
+INSERT INTO GD_MD
+	VALUES ("2e573b63-8046-4c76-9d34-f7d3391a4d42",
+	101,
+	"7e742b18-0ba4-4936-b765-4ee4648411f2",
+	54,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'3.2.3');
+INSERT INTO GD_GE
+	VALUES ("fdcdcdc0-da43-435e-9a9f-7ff502e45e19",
+	"2e573b63-8046-4c76-9d34-f7d3391a4d42",
+	"ad492683-959c-4a8e-964a-062331f52aa2",
+	54,
+	0);
+INSERT INTO GD_SHP
+	VALUES ("fdcdcdc0-da43-435e-9a9f-7ff502e45e19");
+INSERT INTO GD_NCS
+	VALUES ("fdcdcdc0-da43-435e-9a9f-7ff502e45e19");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"fdcdcdc0-da43-435e-9a9f-7ff502e45e19");
+INSERT INTO DIM_GE
+	VALUES (4200.000000,
+	3072.000000,
+	"fdcdcdc0-da43-435e-9a9f-7ff502e45e19",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("fdcdcdc0-da43-435e-9a9f-7ff502e45e19",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_DIA
+	VALUES ("2e573b63-8046-4c76-9d34-f7d3391a4d42",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_FPIP
+	VALUES ("7e742b18-0ba4-4936-b765-4ee4648411f2");
+INSERT INTO PL_FPID
+	VALUES ("7e742b18-0ba4-4936-b765-4ee4648411f2",
+	"c3928f56-530d-4984-8114-35933dc4cb31");
+INSERT INTO S_DOM_PROXY
+	VALUES ("c3928f56-530d-4984-8114-35933dc4cb31",
+	'instRef',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000002",
+	"13c14d34-d225-4949-89b6-fe738cc62cbb",
+	'../../instRef.xtuml');
+INSERT INTO S_FIP
+	VALUES ("7e742b18-0ba4-4936-b765-4ee4648411f2",
+	"2efcbade-94da-4a84-b35d-7ebe0ba99255");
+INSERT INTO S_SYNC
+	VALUES ("2efcbade-94da-4a84-b35d-7ebe0ba99255",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_Direct',
+	'',
+	'LOG::LogInfo(message:"Operation entered: Attribute Direct Test Started");
+
+::setup(accessType:"Direct",referenceType:"Attribute"); 
+select any test from instances of ATTR1;
+test.O_ATTR_readAttr();
+::dispose(accessType:"Direct",referenceType:"Attribute");  
+
+::setup(accessType:"Direct",referenceType:"Attribute"); 
+select any test from instances of ATTR1;
+test.O_ATTR_WhereClause();
+::dispose(accessType:"Direct",referenceType:"Attribute");  
+
+::setup(accessType:"Direct",referenceType:"Attribute"); 
+select any test from instances of ATTR1;
+test.O_ATTR_booleanBinaryOperationLeftOperand();
+::dispose(accessType:"Direct",referenceType:"Attribute");  
+
+::setup(accessType:"Direct",referenceType:"Attribute"); 
+select any test from instances of ATTR1;
+test.O_ATTR_booleanBinaryOperationRightOperand();
+::dispose(accessType:"Direct",referenceType:"Attribute");  
+
+::setup(accessType:"Direct",referenceType:"Attribute"); 
+select any test from instances of ATTR1;
+test.O_ATTR_writeAttr();
+::dispose(accessType:"Direct",referenceType:"Attribute");
+
+::setup(accessType:"Direct",referenceType:"Attribute"); 
+select any test from instances of ATTR1;
+test.O_ATTR_booleanBinaryOperationLeftOperandSet();
+::dispose(accessType:"Direct",referenceType:"Attribute");
+
+::setup(accessType:"Direct",referenceType:"Attribute"); 
+select any test from instances of ATTR1;
+test.O_ATTR_booleanBinaryOperationRightOperandSet();
+::dispose(accessType:"Direct",referenceType:"Attribute");
+
+::setup(accessType:"Direct",referenceType:"Attribute"); 
+select any test from instances of ATTR1;
+test.O_ATTR_ActivitiesInvocation();
+::dispose(accessType:"Direct",referenceType:"Attribute");
+
+::setup(accessType:"Direct",referenceType:"Attribute"); 
+select any test from instances of ATTR1;
+test.O_ATTR_ActivitiesInvocationSet();
+::dispose(accessType:"Direct",referenceType:"Attribute");
+
+LOG::LogInfo(message:"Operation entered: Attribute Parameter Direct Test Ended");
+
+
+
+  ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("63f91549-9407-42c4-a2c0-fdde2812f080",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_FIP
+	VALUES ("7e742b18-0ba4-4936-b765-4ee4648411f2",
+	"e3574729-8eb3-4fed-a908-020d34211f2f");
+INSERT INTO S_SYNC
+	VALUES ("e3574729-8eb3-4fed-a908-020d34211f2f",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'OperationParameter_Direct',
+	'',
+	'LOG::LogInfo(message:"Operation entered: Operation Parameter Direct Test Started");
+
+::setup(accessType:"Direct",referenceType:""); 
+select any car from instances of V;
+TPARM1::O_TPARM_readAttr(instRef:car);
+::dispose(accessType:"Direct",referenceType:"");  
+
+::setup(accessType:"Direct",referenceType:""); 
+select any car from instances of V;
+TPARM1::O_TPARM_WhereClause(instRef:car);
+::dispose(accessType:"Direct",referenceType:"");  
+
+::setup(accessType:"Direct",referenceType:""); 
+select any car from instances of V;
+TPARM1::O_TPARM_booleanBinaryOperationLeftOperand(instRef:car);
+::dispose(accessType:"Direct",referenceType:"");  
+
+::setup(accessType:"Direct",referenceType:""); 
+select any car from instances of V;
+TPARM1::O_TPARM_booleanBinaryOperationRightOperand(instRef:car);
+::dispose(accessType:"Direct",referenceType:"");  
+
+::setup(accessType:"Direct",referenceType:""); 
+select any car from instances of V;
+TPARM1::O_TPARM_writeAttr(instRef:car);
+::dispose(accessType:"Direct",referenceType:"");
+
+::setup(accessType:"Direct",referenceType:""); 
+select many cars from instances of V;
+TPARM1::O_TPARM_booleanBinaryOperationLeftOperandSet(instRef_set:cars);
+::dispose(accessType:"Direct",referenceType:"");
+
+::setup(accessType:"Direct",referenceType:""); 
+select many cars from instances of V;
+TPARM1::O_TPARM_booleanBinaryOperationRightOperandSet(instRef_set:cars);
+::dispose(accessType:"Direct",referenceType:"");
+
+::setup(accessType:"Direct",referenceType:""); 
+select any car from instances of V;
+TPARM1::O_TPARM_ActivitiesInvocation(instRef:car);
+::dispose(accessType:"Direct",referenceType:"");
+
+::setup(accessType:"Direct",referenceType:""); 
+select many cars from instances of V;
+TPARM1::O_TPARM_ActivitiesInvocationSet(instRef_set:cars);
+::dispose(accessType:"Direct",referenceType:"");
+
+LOG::LogInfo(message:"Operation entered: Operation Parameter Direct Test Ended");',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("7e742b18-0ba4-4936-b765-4ee4648411f2",
+	"8fcacf71-7528-4bd5-bfde-e62c92a9fb07");
+INSERT INTO S_SYNC
+	VALUES ("8fcacf71-7528-4bd5-bfde-e62c92a9fb07",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'FunctionParameter_Direct',
+	'',
+	'LOG::LogInfo(message:"Operation entered: Function Parameter Direct Test Started");
+
+::setup(accessType:"Direct",referenceType:""); 
+select any car from instances of V;
+::S_SPARM_readAttr_Direct(instRef:car);
+::dispose(accessType:"Direct",referenceType:"");  
+
+::setup(accessType:"Direct",referenceType:""); 
+select any car from instances of V;
+::S_SPARM_WhereClause_Direct(instRef:car);
+::dispose(accessType:"Direct",referenceType:"");  
+
+::setup(accessType:"Direct",referenceType:""); 
+select any car from instances of V;
+::S_SPARM_booleanBinaryOperationLeftOperand_Direct(instRef:car);
+::dispose(accessType:"Direct",referenceType:"");  
+
+::setup(accessType:"Direct",referenceType:""); 
+select any car from instances of V;
+::S_SPARM_booleanBinaryOperationRightOperand_Direct(instRef:car);
+::dispose(accessType:"Direct",referenceType:"");  
+
+::setup(accessType:"Direct",referenceType:""); 
+select any car from instances of V;
+::S_SPARM_writeAttr_Direct(instRef:car);
+::dispose(accessType:"Direct",referenceType:"");
+
+::setup(accessType:"Direct",referenceType:""); 
+select many cars from instances of V;
+::S_SPARM_booleanBinaryOperationLeftOperandSet_Direct(instRef_set:cars);
+::dispose(accessType:"Direct",referenceType:"");
+
+::setup(accessType:"Direct",referenceType:""); 
+select many cars from instances of V;
+::S_SPARM_booleanBinaryOperationRightOperandSet_Direct(instRef_set:cars);
+::dispose(accessType:"Direct",referenceType:"");
+
+::setup(accessType:"Direct",referenceType:""); 
+select any car from instances of V;
+::S_SPARM_ActivitiesInvocation_Direct(instRef:car);
+::dispose(accessType:"Direct",referenceType:"");
+
+::setup(accessType:"Direct",referenceType:""); 
+select many cars from instances of V;
+::S_SPARM_ActivitiesInvocationSet_Direct(instRef_set:cars);
+::dispose(accessType:"Direct",referenceType:"");
+
+LOG::LogInfo(message:"Operation entered: Function Parameter Direct Test Ended");',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("7e742b18-0ba4-4936-b765-4ee4648411f2",
+	"65afbbe6-68f4-4942-a603-bedc36e09521");
+INSERT INTO S_SYNC
+	VALUES ("65afbbe6-68f4-4942-a603-bedc36e09521",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'BridgeParameter_Direct',
+	'',
+	'LOG::LogInfo(message:"Operation entered: Bridge Parameter Direct Test Started");
+
+::setup(accessType:"Direct",referenceType:""); 
+select any car from instances of V;
+BPARM1::S_BPARM_readAttr(instRef:car);
+::dispose(accessType:"Direct",referenceType:"");  
+
+::setup(accessType:"Direct",referenceType:""); 
+select any car from instances of V;
+BPARM1::S_BPARM_WhereClause(instRef:car);
+::dispose(accessType:"Direct",referenceType:"");  
+
+::setup(accessType:"Direct",referenceType:""); 
+select any car from instances of V;
+BPARM1::S_BPARM_booleanBinaryOperationLeftOperand(instRef:car);
+::dispose(accessType:"Direct",referenceType:"");  
+
+::setup(accessType:"Direct",referenceType:""); 
+select any car from instances of V;
+BPARM1::S_BPARM_booleanBinaryOperationRightOperand(instRef:car);
+::dispose(accessType:"Direct",referenceType:"");  
+
+::setup(accessType:"Direct",referenceType:""); 
+select any car from instances of V;
+BPARM1::S_BPARM_writeAttr(instRef:car);
+::dispose(accessType:"Direct",referenceType:"");
+
+::setup(accessType:"Direct",referenceType:""); 
+select many cars from instances of V;
+BPARM1::S_BPARM_booleanBinaryOperationLeftOperandSet(instRef_set:cars);
+::dispose(accessType:"Direct",referenceType:"");
+
+::setup(accessType:"Direct",referenceType:""); 
+select many cars from instances of V;
+BPARM1::S_BPARM_booleanBinaryOperationRightOperandSet(instRef_set:cars);
+::dispose(accessType:"Direct",referenceType:"");
+
+::setup(accessType:"Direct",referenceType:""); 
+select any car from instances of V;
+BPARM1::S_BPARM_ActivitiesInvocation(instRef:car);
+::dispose(accessType:"Direct",referenceType:"");
+
+::setup(accessType:"Direct",referenceType:""); 
+select many cars from instances of V;
+BPARM1::S_BPARM_ActivitiesInvocationSet(instRef_set:cars);
+::dispose(accessType:"Direct",referenceType:"");
+
+LOG::LogInfo(message:"Operation entered: Bridge Parameter Direct Test Ended");',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("7e742b18-0ba4-4936-b765-4ee4648411f2",
+	"0f9152b7-301a-428c-9962-6ea91909481e");
+INSERT INTO S_SYNC
+	VALUES ("0f9152b7-301a-428c-9962-6ea91909481e",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'ArrayElement_Direct',
+	'',
+	'LOG::LogInfo(message:"Operation entered: Array Element Direct Test Started");
+
+::setup(accessType:"Direct",referenceType:"Array Element"); 
+select any test from instances of AER1;
+test.V_AER_readAttr();
+::dispose(accessType:"Direct",referenceType:"Array Element");  
+
+::setup(accessType:"Direct",referenceType:"Array Element"); 
+select any test from instances of AER1;
+test.V_AER_WhereClause();
+::dispose(accessType:"Direct",referenceType:"Array Element");  
+
+::setup(accessType:"Direct",referenceType:"Array Element"); 
+select any test from instances of AER1;
+test.V_AER_booleanBinaryOperationLeftOperand();
+::dispose(accessType:"Direct",referenceType:"Array Element");  
+
+::setup(accessType:"Direct",referenceType:"Array Element"); 
+select any test from instances of AER1;
+test.V_AER_booleanBinaryOperationRightOperand();
+::dispose(accessType:"Direct",referenceType:"Array Element");  
+
+::setup(accessType:"Direct",referenceType:"Array Element"); 
+select any test from instances of AER1;
+test.V_AER_writeAttr();
+::dispose(accessType:"Direct",referenceType:"Array Element");
+
+::setup(accessType:"Direct",referenceType:"Array Element"); 
+select any test from instances of AER1;
+test.V_AER_booleanBinaryOperationLeftOperandSet();
+::dispose(accessType:"Direct",referenceType:"Array Element");
+
+::setup(accessType:"Direct",referenceType:"Array Element"); 
+select any test from instances of AER1;
+test.V_AER_booleanBinaryOperationRightOperandSet();
+::dispose(accessType:"Direct",referenceType:"Array Element");
+
+::setup(accessType:"Direct",referenceType:"Array Element"); 
+select any test from instances of AER1;
+test.V_AER_ActivitiesInvocation();
+::dispose(accessType:"Direct",referenceType:"Array Element");
+
+::setup(accessType:"Direct",referenceType:"Array Element"); 
+select any test from instances of AER1;
+test.V_AER_ActivitiesInvocationSet();
+::dispose(accessType:"Direct",referenceType:"Array Element");
+
+LOG::LogInfo(message:"Operation entered: Array Element  Direct Test Ended");
+
+
+
+  ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("7e742b18-0ba4-4936-b765-4ee4648411f2",
+	"5bf04dea-494b-4762-9dc6-cde0318e6541");
+INSERT INTO S_SYNC
+	VALUES ("5bf04dea-494b-4762-9dc6-cde0318e6541",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'StructureMember_Direct',
+	'',
+	'LOG::LogInfo(message:"Operation entered: Structure Member Direct Test Started");
+
+::setup(accessType:"Direct",referenceType:"Structure Member"); 
+select any test from instances of MBR1;
+test.S_MBR_readAttr();
+::dispose(accessType:"Direct",referenceType:"Structure Member");  
+
+::setup(accessType:"Direct",referenceType:"Structure Member"); 
+select any test from instances of MBR1;
+test.S_MBR_WhereClause();
+::dispose(accessType:"Direct",referenceType:"Structure Member");  
+
+::setup(accessType:"Direct",referenceType:"Structure Member"); 
+select any test from instances of MBR1;
+test.S_MBR_booleanBinaryOperationLeftOperand();
+::dispose(accessType:"Direct",referenceType:"Structure Member");  
+
+::setup(accessType:"Direct",referenceType:"Structure Member"); 
+select any test from instances of MBR1;
+test.S_MBR_booleanBinaryOperationRightOperand();
+::dispose(accessType:"Direct",referenceType:"Structure Member");  
+
+::setup(accessType:"Direct",referenceType:"Structure Member"); 
+select any test from instances of MBR1;
+test.S_MBR_writeAttr();
+::dispose(accessType:"Direct",referenceType:"Structure Member");
+
+::setup(accessType:"Direct",referenceType:"Structure Member"); 
+select any test from instances of MBR1;
+test.S_MBR_booleanBinaryOperationLeftOperandSet();
+::dispose(accessType:"Direct",referenceType:"Structure Member");
+
+::setup(accessType:"Direct",referenceType:"Structure Member"); 
+select any test from instances of MBR1;
+test.S_MBR_booleanBinaryOperationRightOperandSet();
+::dispose(accessType:"Direct",referenceType:"Structure Member");
+
+::setup(accessType:"Direct",referenceType:"Structure Member"); 
+select any test from instances of MBR1;
+test.S_MBR_ActivitiesInvocation();
+::dispose(accessType:"Direct",referenceType:"Structure Member");
+
+::setup(accessType:"Direct",referenceType:"Structure Member"); 
+select any test from instances of MBR1;
+test.S_MBR_ActivitiesInvocationSet();
+::dispose(accessType:"Direct",referenceType:"Structure Member");
+
+LOG::LogInfo(message:"Operation entered: Structure Member Direct Test Ended");',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("7e742b18-0ba4-4936-b765-4ee4648411f2",
+	"d4a2b177-d38b-4651-8f71-175b19cc0a39");
+INSERT INTO S_SYNC
+	VALUES ("d4a2b177-d38b-4651-8f71-175b19cc0a39",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'EventParameter_Direct',
+	'',
+	'LOG::LogInfo(message:"Operation entered: Event Parameter Direct Test Started");
+
+::setup(accessType:"Direct",referenceType:"Event Parameter"); 
+
+::EventParameter_ActivitiesInvocation_Direct();
+::EventParameter_ActivitiesInvocationSet_Direct();
+ 
+::EventParameter_booleanBinaryOperationLeftOperand_Direct();
+::EventParameter_booleanBinaryOperationRightOperand_Direct();
+::EventParameter_booleanBinaryOperationLeftOperandSet_Direct();
+::EventParameter_booleanBinaryOperationRightOperandSet_Direct();
+::EventParameter_readAttr_Direct();
+::EventParameter_WhereClause_Direct();
+::EventParameter_writeAttr_Direct();
+
+
+//::dispose(accessType:"Direct",referenceType:"Event Parameter");  
+
+
+LOG::LogInfo(message:"Operation entered: Event Parameter Direct Test Ended"); 
+',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FPIP_PROXY
+	VALUES ("00eb78a1-4fd3-4de4-b0c4-82f871e6cea8",
+	'../Invocation Test Functions.xtuml');

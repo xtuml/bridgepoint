@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile: generate.xml,v $
+ Version:   $Revision: 1.38 $
+ Modified:  $Date: 2013/01/10 23:21:17 $
+
+ Copyright 2004-2013 Mentor Graphics Corporation  All rights reserved.
+
+-->
+<project name="bp.als" default="all" basedir=".">
+  <target name="all"
+          description="Generate all code for this project"
+          depends="sql,schema,grammar,grammar_enhancer,validate,compile_grammar,format_java">
+  </target>
+
+  <target name="nb_all"
+          description="Generate all code for this project"
+          depends="sql,schema,grammar,grammar_enhancer,validate,compile_grammar">
+  </target>
+
+  <property name="eclipse-home" value="${basedir}/../.."/>
+  <property name="plugins-home" value="${ant.home}/../.."/>
+
+  <property environment="env"/>
+  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\bin" />
+  <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\mc3020\bin" />
+
+  <property name="sql.input" value="models/com.mentor.nucleus.bp.als/grammar" />
+  <property name="sql.output" value="grammar_model.sql" />
+  <property name="subsystems_to_remove" value="ACT_ V_ E_ GD_ CT_ TS_ DIM_ STY_" />
+
+  <target name="sql.depends" >
+    <uptodate property="sql.buildNotNeeded" targetfile="sql/${sql.output}">
+         <srcfiles dir= "${sql.input}" includes="**/*.xtuml" />
+    </uptodate>
+  </target>
+
+  <target name="sql" depends="sql.depends"
+          description="Generate the sql version of the Grammar model"
+          unless="sql.buildNotNeeded" >
+    <echo >Generating ${sql.output} ...</echo>
+  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}\xtumlmc_build.exe" >
+    <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
+  </exec>
+  </target>
+
+  <property name="mcj_path" value="../MC-Java" />
+  <property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
+  <property name="schema.output" value="grammar_schema.sql" />
+
+  <target name="schema.depends" >
+    <uptodate property="schema.buildNotNeeded" targetfile="sql/${schema.output}">
+       <srcfiles dir = "sql"        includes = "${sql.output}"/>
+       <srcfiles dir = "${mcj_path}" includes = "${sg.dep}"/>
+    </uptodate>
+  </target>
+
+
+  <target name="schema"
+          depends="schema.depends"
+          description="Generate the Grammar schema file"
+          unless="schema.buildNotNeeded" >
+    <echo >Generating ${schema.output} ...</echo>
+  <ant antfile="${mcj_path}/build.xml" target="generate.schema" >
+    <property name="param1" value="${sql.output}" />
+    <property name="param2" value="${mcj_path}" />
+  </ant>
+  <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+  <touch file="sql/${schema.output}" />
+  </target>
+
+  <property name="bnf.input" value="oal.bnf" />
+  <property name="antlr.output" value="sql/oal_grammar.sql" />
+
+  <target name="grammar.depends" >
+    <uptodate property="grammar.buildNotNeeded" targetfile="${antlr.output}">
+       <srcfiles dir = "../com.mentor.nucleus.bp.als.oal/bnf" includes = "oal.bnf"/>
+       <srcfiles dir = "../pt_antlr" includes = "antlr.jar"/>
+    </uptodate>
+  </target>
+
+  <target name="grammar"
+          depends="grammar.depends"
+          description="Generate the Grammar file"
+          unless="grammar.buildNotNeeded" >
+    <echo >Generating ${antlr.output} ...</echo>
+    <java dir="." fork="true" classpath="../pt_antlr/antlr.jar" classname="antlr.Tool" >
+      <arg value="-nocodegen" />
+      <arg value="-sql=${antlr.output}" />
+      <arg value="../com.mentor.nucleus.bp.als.oal/bnf/oal.bnf" />
+    </java>
+  </target>
+
+  <property name="ge.clr.dep" value="ooaofooa_package_spec.clr" />
+  <property name="ge.arc.dep" value="grammar_enhancer.arc,get_names.inc,als_sql.inc" />
+  <property name="ge.mcj.dep" value="do_type.inc, arch_utils.inc, enums.inc" />
+  <property name="ge.output" value="../com.mentor.nucleus.bp.als.oal/src/com/mentor/nucleus/bp/als/oal/oal.g" />
+
+  <target name="grammar_enhancer.depends" >
+    <uptodate property="grammar_enhancer.buildNotNeeded" targetfile="${ge.output}">
+       <srcfiles dir = "arc"        includes = "${ge.arc.dep}"/>
+       <srcfiles dir = "../com.mentor.nucleus.bp.core/color"  includes = "${ge.clr.dep}"/>
+       <srcfiles dir = "sql"        includes = "${schema.output},udt.sql,oal_grammar.sql"/>
+       <srcfiles dir = "${mcj_path}" includes = "${ge.mcj.dep}"/>
+    </uptodate>
+  </target>
+
+  <target name="grammar_enhancer"
+          depends="grammar_enhancer.depends"
+          description="Generate the Enhanced Grammar file, and prototype functions"
+          unless="grammar_enhancer.buildNotNeeded" >
+    <echo >Generating ${ge.output} ...</echo>
+    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate">
+    <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+    <env key="ALS_NAME" value="oal" />
+    <arg line="-nopersist
+      -import sql/grammar_schema.sql
+      -import ${antlr.output}
+      -import sql/udt.sql
+      -arch arc/grammar_enhancer.arc"/>
+  </exec>
+
+  <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+  <touch file="${ge.output}" />
+    <delete file="____file.txt" />
+    <delete><fileset dir="sql" includes="*.oal"/></delete>
+  </target>
+
+  <property name="validate.arc.dep" value="validate_gen.arc,ooa_oal_pop_func.arc,get_names.inc" />
+  <property name="validate.mcj.dep" value="ooa_schema.sql,fragment.inc,do_type.inc,arch_utils.inc,value.inc,statement.inc,block.inc,translate_oal.inc" />
+  <property name="validate.output" value="../com.mentor.nucleus.bp.als.oal/src/com/mentor/nucleus/bp/als/oal/Oal_validate.java" />
+
+  <property name="ooaofooa.sql" value="sql/ooaofooa.sql" />
+  <property name="ooaofooa_input" value="../com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa" />
+
+  <target name="validate_sql.depends" >
+    <uptodate property="validate_sql.buildNotNeeded" targetfile="${ooaofooa.sql}">
+      <srcfiles dir="${ooaofooa_input}" includes="**/*OAL*Validation*Functions.xtuml, **/*OAL*Validation*Utility*Functions.xtuml" />
+        <srcfiles dir="sql" includes="ooaofooa.sql" />
+      </uptodate>
+  </target>
+
+  <target name="validate_sql" depends="validate_sql.depends"
+          description="Generate the sql version of the OoaofOoa model for oal validation use"
+          unless="validate_sql.buildNotNeeded" >
+    <echo >Generating ${ooaofooa.sql} ...</echo>
+  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}\xtumlmc_build.exe" >
+    <arg line="xtumlmc_cleanse_for_BridgePoint ${ooaofooa_input} ${ooaofooa.sql} ${subsystems_to_remove}" />
+  </exec>
+  </target>
+
+  <target name="validate.depends" >
+    <uptodate property="validate.buildNotNeeded" targetfile="${validate.output}">
+       <srcfiles dir = "sql" includes = "ooaofooa.sql"/>
+       <srcfiles dir = "arc"        includes = "${validate.arc.dep}"/>
+       <srcfiles dir = "${mcj_path}" includes = "${validate.mcj.dep}"/>
+    </uptodate>
+  </target>
+
+  <target name="validate"
+          depends=" validate_sql, validate.depends"
+          description="Generate the validation code"
+          unless="validate.buildNotNeeded" >
+    <echo >Generating ${validate.output} ...</echo>
+
+    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+    <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
+    <env key="ALS_NAME" value="oal" />
+    <env key="VERIFY_SELECTS" value="false" />
+    <env key="CHECK_FUNCTIONS_ONLY" value="true" />
+    <arg line="-nopersist
+      -import ${mcj_path}/ooa_schema.sql
+      -import ${ooaofooa.sql}
+      -arch arc/ooa_oal_pop_func.arc
+      -import sql/oal_validate.bpi.sql
+      -arch ${mcj_path}/verify_selects.arc
+      -arch arc/validate_gen.arc"/>
+  </exec>
+  <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+  <touch file="${validate.output}" />
+    <delete file="____file.txt" />
+    <delete file="____actn.arc" />
+    <delete file="blck_id" />
+  </target>
+
+  <target name="format_java"
+        description="Format the generated java source" >
+
+    <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask" >
+        <classpath>
+            <pathelement path="../com.mentor.nucleus.bp.core/tools/" />
+            <fileset dir="${plugins-home}/plugins" casesensitive="yes">
+                <include name="**/org.eclipse.text_*.jar" />
+                <include name="**/org.eclipse.ui_*.jar" />
+                <include name="**/org.eclipse.jdt.core_*.jar" />
+                <include name="**/org.eclipse.core.runtime_*.jar" />
+                <include name="**/org.eclipse.osgi_*.jar" />
+                <include name="**/org.eclipse.core.resources_*.jar" />
+                <include name="**/org.eclipse.equinox.common_*.jar" />
+            </fileset>
+        </classpath>
+    </taskdef>
+        <PTCodeFormat>
+          <fileset dir="../com.mentor.nucleus.bp.als.oal/src/com/mentor/nucleus/bp/als/oal"
+                 excludes="Err_c.java, OalPlugin.java, pt_SemanticException.java"
+          includes="*.java" />
+        </PTCodeFormat>
+  </target>
+
+  <!-- COMPILE TARGETS -->
+
+  <target name="compile_grammar" >
+
+    <antlr target="../com.mentor.nucleus.bp.als.oal/src/com/mentor/nucleus/bp/als/oal/oal.g" >
+        <classpath>
+          <fileset dir="${plugins-home}/plugins" casesensitive="yes">
+            <include name="**/antlr.jar" />
+          </fileset>
+          <fileset dir="${plugins-home}/dropins" casesensitive="yes">
+            <include name="**/antlr.jar" />
+          </fileset>
+        </classpath>
+    </antlr>
+
+    <antlr target="../com.mentor.nucleus.bp.als.oal/src/com/mentor/nucleus/bp/als/oal/oal_lex.g" >
+        <classpath>
+          <fileset dir="${plugins-home}/plugins" casesensitive="yes">
+            <include name="**/antlr.jar" />
+          </fileset>
+          <fileset dir="${plugins-home}/dropins" casesensitive="yes">
+            <include name="**/antlr.jar" />
+          </fileset>
+        </classpath>
+    </antlr>
+
+  </target>
+
+  <!-- This target is not used in the eclipse environment.  The eclipse Java
+       builder handles the java compilation when building BridgePoint under
+       eclipse.  This target is used only when building BridgePoint from the
+       command line on the build server. -->
+  <target name="compile"
+                  description="Compile project" >
+
+    <echo>Compiling ${ant.project.name}</echo>
+
+    <mkdir dir="../com.mentor.nucleus.bp.als.oal/bin" />
+
+    <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6"
+        fork="yes" destdir="../com.mentor.nucleus.bp.als.oal/bin"
+        debug="true" debuglevel="lines,vars,source"  encoding="UTF-8">
+       <src path="../com.mentor.nucleus.bp.als.oal/src/com/mentor/nucleus/bp/als/oal" />
+       <classpath >
+          <pathelement path="../com.mentor.nucleus.bp.core/bin" />
+          <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
+            <include name="**/org.eclipse.core.resources_*.jar"/>
+            <include name="**/org.eclipse.core.runtime_*.jar"/>
+            <include name="**/org.eclipse.ui.workbench_*.jar"/>
+            <include name="**/org.eclipse.ui_*.jar"/>
+            <include name="**/org.eclipse.ui.ide_*.jar"/>
+            <include name="**/org.eclipse.ui.views_*.jar"/>
+            <include name="**/org.eclipse.jface.text_*.jar"/>
+            <include name="**/org.eclipse.ui.workbench.texteditor_*.jar"/>
+            <include name="**/org.eclipse.ui.editors_*.jar"/>
+            <include name="**/org.eclipse.osgi_*.jar"/>
+            <include name="**/org.antlr_*/antlr.jar" />
+            <include name="**/org.eclipse.equinox.common_*.jar"/>
+            <include name="**/org.eclipse.equinox.registry_*.jar"/>
+            <include name="**/org.eclipse.core.commands_*.jar"/>
+          </fileset>
+       </classpath>
+    </javac>
+
+  </target>
+
+  <!-- CLEAN TARGETS -->
+
+  <target name="clean_all"
+        description="Clean entire project"
+        depends="clean_sql,clean_schema,clean_grammar,clean_grammar_enhancer,
+        clean_validate" >
+
+    <echo>Done cleaning for ${ant.project.name}</echo>
+
+  </target>
+
+  <target name="clean_sql"
+        description="Remove the sql version of the Grammar model" >
+
+   <echo>Removing generated sql file: ${sql.output} ...</echo>
+   <delete file="sql/${sql.output}" />
+   <echo>Removing generated sql file: ${ooaofooa.sql} ...</echo>
+  <delete file="${ooaofooa.sql}" />
+
+  </target>
+
+  <target name="clean_schema"
+        description="Remove the Grammar schema file" >
+
+   <echo>Removing generated sql file: ${schema.output} ...</echo>
+   <delete file="sql/${schema.output}" />
+
+  </target>
+
+  <target name="clean_grammar"
+        description="Remove the Grammar file" >
+
+   <echo>Removing generated sql file: ${antlr.output} ...</echo>
+   <delete file="${antlr.output}" />
+
+  </target>
+
+  <target name="clean_grammar_enhancer"
+        description="Remove the Enhanced Grammar file, and prototype functions" >
+
+   <echo>Removing generated enhanced grammar file: oal.g ...</echo>
+   <delete file="${ge.output}" />
+
+   <echo>Removing files created with the enhanced grammar file ...</echo>
+   <delete verbose="true" >
+     <fileset dir="../com.mentor.nucleus.bp.als.oal/src/com/mentor/nucleus/bp/als/oal"
+       includes="OalParser.java, OalTokenTypes.java, OalTokenTypes.txt" />
+   </delete>
+
+   <echo>Removing files created with the lexer grammar file ...</echo>
+   <delete verbose="true" >
+     <fileset dir="../com.mentor.nucleus.bp.als.oal/src/com/mentor/nucleus/bp/als/oal"
+       includes="OalLexer.java, OalLexerTokenTypes.java, OalLexerTokenTypes.txt" />
+   </delete>
+
+  </target>
+
+  <target name="clean_validate"
+        description="Remove the validation code" >
+
+    <echo>Removing validation code ...
+    </echo>
+
+    <echo>Removing generated source files ...</echo>
+    <delete file="${validate.output}" />
+
+    <echo>Removing generated sql file: oal_validate.bpi.sql ...</echo>
+    <delete file="sql/oal_validate.bpi.sql" />
+
+  </target>
+
+</project>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>com.mentor.nucleus.bp.ui.tree</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+		<nature>com.mentor.nucleus.bp.core.xtumlnature</nature>
+	</natures>
+</projectDescription>

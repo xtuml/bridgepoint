@@ -1,0 +1,74 @@
+AUDIT RESULTS FOR DOMAIN G_ALL_multiple_exit_return
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+G_ALL_multiple_exit_return
+
+FUNCTIONS WITHOUT DESCRIPTIONS:
+multiplereturn
+returnvoid
+
+ENUMERATORS WITHOUT DESCRIPTIONS:
+succ_fail::FAIL
+succ_fail::SUCC0
+succ_fail::SUCC1
+succ_fail::SUCC2
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+External Entity Bridge
+External Entity Logger
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Bridge::multiplereturn
+External Entity Bridge Bridge::returnvoid
+External Entity Bridge Logger::LogSuccess
+External Entity Bridge Logger::LogFailure
+External Entity Bridge Logger::LogInfo
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class G_ALL_multiple_exit_return::Class with op
+Class G_ALL_multiple_exit_return::Initialization
+Class G_ALL_multiple_exit_return::Driver
+Class G_ALL_multiple_exit_return::Class with MDA
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Class with op::cwo_ID
+Attribute Initialization::init_ID
+Attribute Initialization::current_state
+Attribute Driver::drv_ID
+Attribute Driver::current_state
+Attribute Class with MDA::cwm_ID
+Attribute Class with MDA::mda
+Attribute Class with MDA::count
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation Class with op::multiplereturn_c
+Operation Class with op::returnvoid_c
+Operation Class with op::multiplereturn_i
+Operation Class with op::returnvoid_i
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Initialization
+State Model Driver
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event D1
+Event D2
+Event D5
+Event D6
+Event D7
+Event D3
+Event D4
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Initialization::Initialization
+Driver::Begin
+Driver::Class Operations
+Driver::Functions
+Driver::Bridges
+Driver::Clean Up
+Driver::Instance Operations
+Driver::MDA

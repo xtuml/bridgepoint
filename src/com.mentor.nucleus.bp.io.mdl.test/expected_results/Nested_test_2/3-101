@@ -1,0 +1,8 @@
+drawRectangle(6311, 4747, 93, 33)
+drawRectangle(6311, 4779, 325, 155)
+drawText("«function»", 6416, 4785, true)
+drawText("Test Nested FPK 2", 6374, 4844, true)
+drawRectangle(6780, 5217, 65, 23)
+drawRectangle(6780, 5239, 228, 205)
+drawText("«function»", 6837, 5245, true)
+drawText("Unnamed Functi...", 6793, 5329, true)

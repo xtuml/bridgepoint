@@ -1,0 +1,115 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("a0290409-7fed-4393-a001-cd9c346ce6e6",
+	'FontStyle',
+	400,
+	'STY_FS',
+	'',
+	"9daa01e9-3e90-41ba-bff0-f9213b487f5c");
+INSERT INTO O_REF
+	VALUES ("a0290409-7fed-4393-a001-cd9c346ce6e6",
+	"548f667c-4311-4aa2-9d52-7aed81972a0f",
+	0,
+	"c1dcf930-2e28-4db2-b15b-cb905b40ea6f",
+	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
+	"01f99756-c98e-4239-b15b-8fddab1241aa",
+	"2aba61bb-2db7-4aa4-b7ab-7f766c0d4a3e",
+	"499d1c32-b922-4679-8f89-ca7c9708d56d",
+	"577f898e-9ba5-4bd3-922b-cce9558942c5",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'ElementStyle',
+	'Style_ID',
+	'R400');
+INSERT INTO R_RGO_PROXY
+	VALUES ("a0290409-7fed-4393-a001-cd9c346ce6e6",
+	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
+	"01f99756-c98e-4239-b15b-8fddab1241aa",
+	'../Styles.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("c1dcf930-2e28-4db2-b15b-cb905b40ea6f",
+	"548f667c-4311-4aa2-9d52-7aed81972a0f",
+	0,
+	"2521cb14-8a89-4e67-bef9-fa8dab5d0e81",
+	"2aba61bb-2db7-4aa4-b7ab-7f766c0d4a3e",
+	'../Styles.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("499d1c32-b922-4679-8f89-ca7c9708d56d",
+	"a0290409-7fed-4393-a001-cd9c346ce6e6",
+	"c1dcf930-2e28-4db2-b15b-cb905b40ea6f",
+	"548f667c-4311-4aa2-9d52-7aed81972a0f",
+	1,
+	'Style_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("c1dcf930-2e28-4db2-b15b-cb905b40ea6f",
+	"548f667c-4311-4aa2-9d52-7aed81972a0f",
+	'../ElementStyle/ElementStyle.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("499d1c32-b922-4679-8f89-ca7c9708d56d",
+	"a0290409-7fed-4393-a001-cd9c346ce6e6",
+	"00000000-0000-0000-0000-000000000000",
+	'Style_ID',
+	'',
+	'',
+	'Style_ID',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("970689cd-e091-49f8-8eab-bc1bffe8f8e7",
+	"a0290409-7fed-4393-a001-cd9c346ce6e6");
+INSERT INTO O_BATTR
+	VALUES ("970689cd-e091-49f8-8eab-bc1bffe8f8e7",
+	"a0290409-7fed-4393-a001-cd9c346ce6e6");
+INSERT INTO O_ATTR
+	VALUES ("970689cd-e091-49f8-8eab-bc1bffe8f8e7",
+	"a0290409-7fed-4393-a001-cd9c346ce6e6",
+	"499d1c32-b922-4679-8f89-ca7c9708d56d",
+	'font_identifier',
+	'',
+	'',
+	'font_identifier',
+	0,
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"a0290409-7fed-4393-a001-cd9c346ce6e6");
+INSERT INTO O_OIDA
+	VALUES ("499d1c32-b922-4679-8f89-ca7c9708d56d",
+	"a0290409-7fed-4393-a001-cd9c346ce6e6",
+	0,
+	'Style_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"a0290409-7fed-4393-a001-cd9c346ce6e6");
+INSERT INTO O_ID
+	VALUES (2,
+	"a0290409-7fed-4393-a001-cd9c346ce6e6");
+INSERT INTO S_SS_PROXY
+	VALUES ("9daa01e9-3e90-41ba-bff0-f9213b487f5c",
+	'Styles',
+	'',
+	'STY',
+	400,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
+	'../Styles.xtuml');

@@ -1,0 +1,9 @@
+/**
+ * This is a multi line comment.
+ */
+select many disks from instances of D_D;
+// This comment spans only this line
+for each disk in disks
+	serialNumber = disk.Serial_Number;	
+	disk.Name = "Disk " + disk.Name;
+end for;

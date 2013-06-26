@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Watch</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
+			<triggers>full,incremental,</triggers>
+			<arguments>
+				<dictionary>
+					<key>LaunchConfigHandle</key>
+					<value>&lt;project&gt;/.externalToolBuilders\com.mentor.nucleus.bp.mc.xmiexport.XMIExportBuilder.launch</value>
+				</dictionary>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>com.mentor.nucleus.bp.mc.mc3020.export_builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
+			<triggers>full,incremental,</triggers>
+			<arguments>
+				<dictionary>
+					<key>LaunchConfigHandle</key>
+					<value>&lt;project&gt;/.externalToolBuilders/MC-3020 Model Compiler.launch</value>
+				</dictionary>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>com.mentor.nucleus.builder.CodeLabBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.mentor.nucleus.bp.core.xtumlnature</nature>
+		<nature>com.mentor.nucleus.bp.mc.mc3020.MC3020Nature</nature>
+		<nature>com.mentor.nucleus.bp.mc.xmiexport.XMIExportNature</nature>
+		<nature>com.mentor.nucleus.builder.MultiCoreNature</nature>
+	</natures>
+</projectDescription>

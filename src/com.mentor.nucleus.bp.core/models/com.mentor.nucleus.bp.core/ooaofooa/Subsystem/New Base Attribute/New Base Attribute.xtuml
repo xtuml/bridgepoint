@@ -1,0 +1,181 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("4f0d8995-4288-4b02-b65b-5e9a4b29e29b",
+	'New Base Attribute',
+	108,
+	'O_NBATTR',
+	'A New Base Attribute is a non-derived base attribute.',
+	"67eb58de-1d2b-4163-8373-ae8e65e99f84");
+INSERT INTO O_TFR
+	VALUES ("8f156492-ea6b-4f2b-8b57-204d2bec5edf",
+	"4f0d8995-4288-4b02-b65b-5e9a4b29e29b",
+	'dispose',
+	'Dispose this New Base Attribute.
+',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one battr related by self->O_BATTR[R107];
+unrelate self from battr across R107;
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("a4cc9ba9-5792-463b-9f1a-cba092b5ea8b",
+	"4f0d8995-4288-4b02-b65b-5e9a4b29e29b",
+	'get_name',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'return "as New Base Attribute";',
+	1,
+	'',
+	"8f156492-ea6b-4f2b-8b57-204d2bec5edf");
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("4f0d8995-4288-4b02-b65b-5e9a4b29e29b",
+	"5952fd59-15b0-4b33-ab6d-24edc88b8a26",
+	0,
+	"ab5eddd1-a960-45f3-a273-63842fcdb658",
+	"84e47991-3c50-4576-b6ae-bac11d97a2a5",
+	"1d0803ab-4395-4f8a-a552-0196a3f69695",
+	"33a5ffe4-7460-4853-b161-2f0aa0d68b9a",
+	"bd3ef8b0-dae7-4df2-a773-952fa445282b",
+	"77ee69a8-b799-41a9-8a6c-5877aff53e81",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Base Attribute',
+	'Attr_ID',
+	'R107');
+INSERT INTO R_RGO_PROXY
+	VALUES ("4f0d8995-4288-4b02-b65b-5e9a4b29e29b",
+	"84e47991-3c50-4576-b6ae-bac11d97a2a5",
+	"1d0803ab-4395-4f8a-a552-0196a3f69695",
+	'../Subsystem.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("ab5eddd1-a960-45f3-a273-63842fcdb658",
+	"5952fd59-15b0-4b33-ab6d-24edc88b8a26",
+	0,
+	"84e47991-3c50-4576-b6ae-bac11d97a2a5",
+	"33a5ffe4-7460-4853-b161-2f0aa0d68b9a",
+	'../Subsystem.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("bd3ef8b0-dae7-4df2-a773-952fa445282b",
+	"4f0d8995-4288-4b02-b65b-5e9a4b29e29b",
+	"fcdcb857-f08e-413d-bf60-637f228f1941",
+	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
+	1,
+	'Attr_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("fcdcb857-f08e-413d-bf60-637f228f1941",
+	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
+	'../Attribute/Attribute.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("bd3ef8b0-dae7-4df2-a773-952fa445282b",
+	"4f0d8995-4288-4b02-b65b-5e9a4b29e29b",
+	"00000000-0000-0000-0000-000000000000",
+	'Attr_ID',
+	'',
+	'',
+	'Attr_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("4f0d8995-4288-4b02-b65b-5e9a4b29e29b",
+	"5952fd59-15b0-4b33-ab6d-24edc88b8a26",
+	0,
+	"44155943-db2c-4f0a-b6c1-f9e68e922faf",
+	"84e47991-3c50-4576-b6ae-bac11d97a2a5",
+	"1d0803ab-4395-4f8a-a552-0196a3f69695",
+	"33a5ffe4-7460-4853-b161-2f0aa0d68b9a",
+	"5974ff11-b190-4c7a-9d18-3a0d1f5c8fde",
+	"ad296e7b-6e6d-431c-9471-4c2d527375c9",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Base Attribute',
+	'Obj_ID',
+	'R107');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("44155943-db2c-4f0a-b6c1-f9e68e922faf",
+	"5952fd59-15b0-4b33-ab6d-24edc88b8a26",
+	0,
+	"84e47991-3c50-4576-b6ae-bac11d97a2a5",
+	"33a5ffe4-7460-4853-b161-2f0aa0d68b9a",
+	'../Subsystem.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("5974ff11-b190-4c7a-9d18-3a0d1f5c8fde",
+	"4f0d8995-4288-4b02-b65b-5e9a4b29e29b",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("5974ff11-b190-4c7a-9d18-3a0d1f5c8fde",
+	"4f0d8995-4288-4b02-b65b-5e9a4b29e29b",
+	"bd3ef8b0-dae7-4df2-a773-952fa445282b",
+	'Obj_ID',
+	'',
+	'',
+	'Obj_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"4f0d8995-4288-4b02-b65b-5e9a4b29e29b");
+INSERT INTO O_OIDA
+	VALUES ("bd3ef8b0-dae7-4df2-a773-952fa445282b",
+	"4f0d8995-4288-4b02-b65b-5e9a4b29e29b",
+	0,
+	'Attr_ID');
+INSERT INTO O_OIDA
+	VALUES ("5974ff11-b190-4c7a-9d18-3a0d1f5c8fde",
+	"4f0d8995-4288-4b02-b65b-5e9a4b29e29b",
+	0,
+	'Obj_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"4f0d8995-4288-4b02-b65b-5e9a4b29e29b");
+INSERT INTO O_ID
+	VALUES (2,
+	"4f0d8995-4288-4b02-b65b-5e9a4b29e29b");
+INSERT INTO S_SS_PROXY
+	VALUES ("67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	'Subsystem',
+	'A class (O_OBJ)  is an abstraction of a real world thing that has specific attributes (O_ATTR) and, if active, has a lifecycle model as a state machine (SM_SM).  All instances of the class must have the same characteristics and follow the same state behavior.  Classes fall into many categories, some of which are: tangible things, roles, interactions and specifications. ',
+	'O',
+	101,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000300006",
+	'../Subsystem.xtuml');

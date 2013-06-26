@@ -1,0 +1,73 @@
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("bf5639ff-44b1-472d-b99e-5dc3ac8b7bd1",
+	"32def5f7-ad70-424b-8b01-6d644bf7c337",
+	"32def5f7-ad70-424b-8b01-6d644bf7c337",
+	'small',
+	'Domain Mission:
+
+Bridges to other Domains:
+',
+	0);
+INSERT INTO GD_MD
+	VALUES ("662cf0c9-49ca-43c7-9ca8-9d91d801cd4e",
+	112,
+	"bf5639ff-44b1-472d-b99e-5dc3ac8b7bd1",
+	108,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'small');
+INSERT INTO GD_GE
+	VALUES ("35af62c0-9e81-4b04-a12c-054ed990b225",
+	"662cf0c9-49ca-43c7-9ca8-9d91d801cd4e",
+	"c8612dc3-f2de-40c3-8fa3-73663c4d7eca",
+	108,
+	0,
+	'small::Test');
+INSERT INTO GD_SHP
+	VALUES ("35af62c0-9e81-4b04-a12c-054ed990b225");
+INSERT INTO GD_NCS
+	VALUES ("35af62c0-9e81-4b04-a12c-054ed990b225");
+INSERT INTO DIM_ND
+	VALUES (192.000000,
+	144.000000,
+	"35af62c0-9e81-4b04-a12c-054ed990b225");
+INSERT INTO DIM_GE
+	VALUES (1712.000000,
+	1120.000000,
+	"35af62c0-9e81-4b04-a12c-054ed990b225",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("35af62c0-9e81-4b04-a12c-054ed990b225",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_DIA
+	VALUES ("662cf0c9-49ca-43c7-9ca8-9d91d801cd4e",
+	'',
+	1.000000,
+	1600.000000,
+	875.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("bf5639ff-44b1-472d-b99e-5dc3ac8b7bd1",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO S_SYS_PROXY
+	VALUES ("32def5f7-ad70-424b-8b01-6d644bf7c337",
+	'com.mentor.nucleus.bp.ui.explorer.test',
+	1,
+	'../com.mentor.nucleus.bp.ui.explorer.test.xtuml');

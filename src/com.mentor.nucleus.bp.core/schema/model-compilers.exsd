@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<schema targetNamespace="com.mentor.nucleus.bp.core.com.mentor.nucleus.bp.core" xmlns="http://www.w3.org/2001/XMLSchema">
+   <annotation>
+      <appinfo>
+         <meta.schema plugin="com.mentor.nucleus.bp.core.com.mentor.nucleus.bp.core" id="model-compilers" name="BridgePoint Model Compilers"/>
+      </appinfo>
+      <documentation>
+         This is the extension point for all BridgePoint model compilers.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appinfo>
+            <meta.element />
+         </appinfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="model-compiler"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="model-compiler">
+      <complexType>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+</schema>

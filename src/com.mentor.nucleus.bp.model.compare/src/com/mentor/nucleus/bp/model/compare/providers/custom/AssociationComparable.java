@@ -1,0 +1,85 @@
+package com.mentor.nucleus.bp.model.compare.providers.custom;
+//=====================================================================
+//
+//File:      $RCSfile: AssociationComparable.java,v $
+//Version:   $Revision: 1.2 $
+//Modified:  $Date: 2013/01/17 03:35:46 $
+//
+//(c) Copyright 2013 by Mentor Graphics Corp. All rights reserved.
+//
+//=====================================================================
+//This document contains information proprietary and confidential to
+//Mentor Graphics Corp. and is not for external distribution.
+//=====================================================================
+
+import java.util.UUID;
+
+import com.mentor.nucleus.bp.core.ClassAsAssociatedOneSide_c;
+import com.mentor.nucleus.bp.core.ClassAsAssociatedOtherSide_c;
+import com.mentor.nucleus.bp.core.ClassAsSimpleFormalizer_c;
+import com.mentor.nucleus.bp.core.ClassAsSimpleParticipant_c;
+import com.mentor.nucleus.bp.core.common.NonRootModelElement;
+import com.mentor.nucleus.bp.model.compare.providers.NonRootModelElementComparable;
+
+public class AssociationComparable extends NonRootModelElementComparable {
+
+	public AssociationComparable(NonRootModelElement realElement) {
+		super(realElement);
+	}
+
+	@Override
+	public boolean treeItemEquals(Object other) {
+		if (!super.treeItemEquals(other)) {
+			if (other instanceof AssociationComparable) {
+				AssociationComparable assocComp = (AssociationComparable) other;
+				NonRootModelElement otherAssociation = (NonRootModelElement) assocComp
+						.getRealElement();
+				NonRootModelElement thisAssociation = (NonRootModelElement) getRealElement();
+				UUID thisMsgId = getAssociationId(thisAssociation);
+				UUID otherMsgId = getAssociationId(otherAssociation);
+				return thisMsgId.equals(otherMsgId);
+			} else {
+				return false;
+			}
+		} else {
+			return true;
+		}
+	}
+
+	private UUID getAssociationId(NonRootModelElement association) {
+		UUID id = null;
+		if (association instanceof ClassAsSimpleParticipant_c) {
+			return ((ClassAsSimpleParticipant_c) association).getRel_id();
+		} else if (association instanceof ClassAsSimpleFormalizer_c) {
+			return ((ClassAsSimpleFormalizer_c) association).getRel_id();
+		} else if (association instanceof ClassAsAssociatedOneSide_c) {
+			return ((ClassAsAssociatedOneSide_c) association).getRel_id();
+		} else if (association instanceof ClassAsAssociatedOtherSide_c) {
+			return ((ClassAsAssociatedOtherSide_c) association).getRel_id();
+		}
+		return id;
+	}
+
+	@Override
+	public boolean treeItemNameMatches(Object other) {
+		return true;
+	}
+
+	@Override
+	public boolean treeItemTypeEquals(Object other) {
+		return true;
+	}
+
+	@Override
+	public boolean treeItemValueEquals(Object other) {
+		if (treeItemEquals(other)) {
+			AssociationComparable otherComp = (AssociationComparable) other;
+			if (!otherComp.getRealElement().getClass().isInstance(
+					getRealElement())) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+}

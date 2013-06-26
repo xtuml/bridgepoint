@@ -1,0 +1,399 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("de6c5be0-92d9-4dcb-8979-2119f3083840",
+	'Transient Var',
+	818,
+	'V_TRN',
+	'A variable that is created within a block of an action.
+It has visibility equal to the scope of the block. Once
+execution has passed out of the block in which the
+transient is first assigned a value, the variable no longer
+exists.',
+	"e060f94c-3f82-463e-9d98-d20315b7c196");
+INSERT INTO O_TFR
+	VALUES ("224b20cc-2ebc-4a05-ac21-e7ae28a5997d",
+	"de6c5be0-92d9-4dcb-8979-2119f3083840",
+	'getDimensionsCnt',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many dims related by self->S_DIM[R844];
+dimensions = cardinality dims;
+return dimensions;
+',
+	1,
+	'',
+	"563d3692-31d2-4ecf-ab74-36e59f55d6d1");
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("c404b709-b935-49d0-9b18-534d46a83016",
+	"de6c5be0-92d9-4dcb-8979-2119f3083840",
+	'resizeDimensions',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// If the number of dimensions has increased then add dimensions
+while (param.numDimensions > self.getDimensionsCnt())
+  create object instance dim of S_DIM;
+  dim.dimensionCount = self.getDimensionsCnt();
+  relate dim to self across R844;
+end while;
+
+// If the number of dimensions has decreased then remove dimensions
+while (param.numDimensions < self.getDimensionsCnt())
+  select any dim related by self->S_DIM[R844] where (selected.dimensionCount == (self.getDimensionsCnt()-1));
+  unrelate dim from self across R844;
+  delete object instance dim;
+end while;
+
+// Update the specific dimension that was passed-in if its elementCount has 
+// changed.
+if (param.numDimensions > 0) 
+  select any dim related by self->S_DIM[R844] where (selected.dimensionCount == param.dimension);
+  if (dim.elementCount != param.elementCount)
+    dim.elementCount = param.elementCount;
+  end if;
+end if;
+',
+	1,
+	'',
+	"a9c3d950-de62-4a51-88f3-42806fde9923");
+INSERT INTO O_TPARM
+	VALUES ("93a4b1af-6938-4951-87d7-591c064e4816",
+	"c404b709-b935-49d0-9b18-534d46a83016",
+	'numDimensions',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"380561b2-8d12-49f0-858e-4122e3ba1cd1",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("56dce8ac-11f8-4e38-82c1-67910e692791",
+	"c404b709-b935-49d0-9b18-534d46a83016",
+	'dimension',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("380561b2-8d12-49f0-858e-4122e3ba1cd1",
+	"c404b709-b935-49d0-9b18-534d46a83016",
+	'elementCount',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"56dce8ac-11f8-4e38-82c1-67910e692791",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("a9c3d950-de62-4a51-88f3-42806fde9923",
+	"de6c5be0-92d9-4dcb-8979-2119f3083840",
+	'isReferringToDefaultDataType',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select one dt related by self->S_DT[R821];
+elementType = Util::getSimpleClassName(element:self.convertToInstance());
+if(dt.Name == S_DT::getDefaultDataTypeName(elementType:elementType))
+  return true;
+end if;
+return false;',
+	1,
+	'',
+	"224b20cc-2ebc-4a05-ac21-e7ae28a5997d");
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("563d3692-31d2-4ecf-ab74-36e59f55d6d1",
+	"de6c5be0-92d9-4dcb-8979-2119f3083840",
+	'convertToInstance',
+	'Translate:native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'return this;',
+	0,
+	'',
+	"8d1bbab0-0d53-44d1-a1ae-62833ed8cf10");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("8d1bbab0-0d53-44d1-a1ae-62833ed8cf10",
+	"de6c5be0-92d9-4dcb-8979-2119f3083840",
+	'canReferToDataType',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one body related by self->V_VAR[R814]->ACT_BLK[R823]->ACT_ACT[R601];
+isInGenericPackage = body.associateWithContainer();
+if isInGenericPackage
+  select one dt related by self->S_DT[R821];
+  if (not_empty dt)
+    select one containingElem related by body->ACT_BIE[R640]->PE_PE[R640];
+    return containingElem.canReferToDataType(dtID:dt.DT_ID, dtName:dt.Name);
+  end if;
+  return false;
+else
+  select one dt related by self->S_DT[R821];
+  if(not_empty dt)
+    select one dtPkg related by dt->S_DIP[R39]->S_DPK[R39];
+    body.associateWithOwningComponent();
+    select one component related by body->ACT_BIC[R694]->C_C[R694];
+    if(not_empty component)
+      select one reqSig related by body->ACT_RSB[R698];
+      select one reqOp related by body->ACT_ROB[R698];
+      select one proSig related by body->ACT_PSB[R698];
+      select one proOp related by body->ACT_POB[R698];
+      // if any of the following is not empty
+      // then the dt must live at the system level
+      if(not_empty reqSig)
+        if(dtPkg.isDomainLevel())
+          return false;
+        else
+          return true;
+        end if;  
+      elif(not_empty reqOp)
+        select one dtPkg related by dt->S_DIP[R39]->S_DPK[R39];
+        if(dtPkg.isDomainLevel())
+          return false;
+        else
+          return true;
+        end if;    
+      elif(not_empty proSig)
+        select one dtPkg related by dt->S_DIP[R39]->S_DPK[R39];
+        if(dtPkg.isDomainLevel())
+          return false;
+        else
+          return true;
+        end if;  
+      elif(not_empty proOp)
+        select one dtPkg related by dt->S_DIP[R39]->S_DPK[R39];
+        if(dtPkg.isDomainLevel())
+          return false;
+        else
+          return true;
+        end if;
+      else
+        select any domain from instances of S_DOM;
+        if(not dtPkg.isDomainLevel())
+          return true;
+        else
+          select one dtDomain related by dt->S_DOM[R14];
+          if(dtDomain == domain)
+            return true;
+          end if;
+        end if;
+      end if;
+    else
+      select any domain from instances of S_DOM;
+      if(dtPkg.isDomainLevel())
+        select one dtDomain related by dt->S_DOM[R14];
+        if(domain == dtDomain)
+          return true;
+        end if;
+      else
+        return true;
+      end if;
+    end if;
+  end if;
+  return false;
+end if;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("de6c5be0-92d9-4dcb-8979-2119f3083840",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"beefba5b-63ae-4c27-863c-bda06a675a06",
+	"d21c621a-6c86-407d-b639-35d58a3801c9",
+	"715e1203-441f-47ce-b78f-e985ae241c44",
+	"c1d9ce9f-b029-48b9-9a2e-e7941fb31d32",
+	"7b06a138-4ea0-487b-a880-2f729e065bc8",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Variable',
+	'Var_ID',
+	'R814');
+INSERT INTO R_RGO_PROXY
+	VALUES ("de6c5be0-92d9-4dcb-8979-2119f3083840",
+	"beefba5b-63ae-4c27-863c-bda06a675a06",
+	"d21c621a-6c86-407d-b639-35d58a3801c9",
+	'../Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"beefba5b-63ae-4c27-863c-bda06a675a06",
+	"715e1203-441f-47ce-b78f-e985ae241c44",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("c1d9ce9f-b029-48b9-9a2e-e7941fb31d32",
+	"de6c5be0-92d9-4dcb-8979-2119f3083840",
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	1,
+	'Var_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	'../Variable/Variable.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("c1d9ce9f-b029-48b9-9a2e-e7941fb31d32",
+	"de6c5be0-92d9-4dcb-8979-2119f3083840",
+	"00000000-0000-0000-0000-000000000000",
+	'Var_ID',
+	'
+
+',
+	'',
+	'Var_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("98ac313f-7994-4817-b4e6-294355f7bd31",
+	"de6c5be0-92d9-4dcb-8979-2119f3083840");
+INSERT INTO O_BATTR
+	VALUES ("98ac313f-7994-4817-b4e6-294355f7bd31",
+	"de6c5be0-92d9-4dcb-8979-2119f3083840");
+INSERT INTO O_ATTR
+	VALUES ("98ac313f-7994-4817-b4e6-294355f7bd31",
+	"de6c5be0-92d9-4dcb-8979-2119f3083840",
+	"a5bce982-12bd-4450-89b8-cf33a259313e",
+	'Dimensions',
+	'This attribute is not used and will always be empty.
+This attribute was deprecated when fixed-length
+arrays were introduced.  It was left in-place simply for 
+consistency/orthagonality with the other places in the meta-model that have 
+dimensions.  All other places in the Meta-model do use this field.  It is 
+used for user-entry of the the dimension string.  V_TRN.Dimensions is different 
+because the user never enters a dimension string for a transient.  A transient 
+gets its dimensions based on the rvalue that it is assigned from.',
+	'',
+	'Dimensions',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("de6c5be0-92d9-4dcb-8979-2119f3083840",
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	0,
+	"0e78201f-a7cd-497b-a6b4-e224ab7915c2",
+	"030f5928-b569-4e06-828a-46ff364ce1bb",
+	"8a4cd75f-27b5-425d-9732-53b6ea5b5a90",
+	"83364fa1-f76f-49f7-a0df-201c9c95ea44",
+	"a5bce982-12bd-4450-89b8-cf33a259313e",
+	"1143951b-8359-4df1-9406-55dfe58fa907",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Data Type',
+	'DT_ID',
+	'R821');
+INSERT INTO R_RGO_PROXY
+	VALUES ("de6c5be0-92d9-4dcb-8979-2119f3083840",
+	"030f5928-b569-4e06-828a-46ff364ce1bb",
+	"8a4cd75f-27b5-425d-9732-53b6ea5b5a90",
+	'../Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0e78201f-a7cd-497b-a6b4-e224ab7915c2",
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	0,
+	"030f5928-b569-4e06-828a-46ff364ce1bb",
+	"83364fa1-f76f-49f7-a0df-201c9c95ea44",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("a5bce982-12bd-4450-89b8-cf33a259313e",
+	"de6c5be0-92d9-4dcb-8979-2119f3083840",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("a5bce982-12bd-4450-89b8-cf33a259313e",
+	"de6c5be0-92d9-4dcb-8979-2119f3083840",
+	"c1d9ce9f-b029-48b9-9a2e-e7941fb31d32",
+	'DT_ID',
+	'',
+	'',
+	'Element_ID',
+	2,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"de6c5be0-92d9-4dcb-8979-2119f3083840");
+INSERT INTO O_OIDA
+	VALUES ("c1d9ce9f-b029-48b9-9a2e-e7941fb31d32",
+	"de6c5be0-92d9-4dcb-8979-2119f3083840",
+	0,
+	'Var_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"de6c5be0-92d9-4dcb-8979-2119f3083840");
+INSERT INTO O_ID
+	VALUES (2,
+	"de6c5be0-92d9-4dcb-8979-2119f3083840");
+INSERT INTO S_SS_PROXY
+	VALUES ("e060f94c-3f82-463e-9d98-d20315b7c196",
+	'Value',
+	'This subsystem formalizes the concepts of values (r-values) and variables 
+(l-values). It also captures the concept of an actual parameter.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'V',
+	800,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000400008",
+	'../Value.xtuml');

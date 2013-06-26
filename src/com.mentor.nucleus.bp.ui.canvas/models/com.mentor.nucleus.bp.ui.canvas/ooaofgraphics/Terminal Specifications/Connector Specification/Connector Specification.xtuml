@@ -1,0 +1,145 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	'Connector Specification',
+	201,
+	'TS_CSP',
+	'Instances of this class represent connector symbols.
+
+Instances of this class are instantiated at startup from a
+pre-existing instance specification.
+---------------------------------------------------------------------------
+
+PEI:true
+Persistent:false',
+	"3aa01b07-08b4-4f56-a64c-5db1a460535b");
+INSERT INTO O_TFR
+	VALUES ("003bc917-fc83-4d64-b6e7-f6c9a1f935a3",
+	"b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	'startCriteriaMet',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'select many termSpecs related by self->TS_TSP[R202];
+for each termSpec in termSpecs
+  if (termSpec.satisfied)
+    return true;
+  end if;
+end for;
+return false;',
+	1,
+	'',
+	"ab278e86-4099-4964-8f49-64a58fdc60ef");
+INSERT INTO S_DT_PROXY
+	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("ab278e86-4099-4964-8f49-64a58fdc60ef",
+	"b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	'endCriteriaMet',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'select many termSpecs related by self->TS_TSP[R203];
+for each termSpec in termSpecs
+  if (termSpec.satisfied)
+    return true;
+  end if;
+end for;
+return false;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	"6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
+	"d4638f3d-3a43-4590-bcd8-051e165b5668",
+	"6a98c437-ca85-45ad-8237-a7ccdc593dd8",
+	"4446a956-a85d-47f3-bc89-3b8521814de7",
+	"4505e646-701a-4496-9978-5131d3d5551a",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Element Specification',
+	'OOA_Type',
+	'R200');
+INSERT INTO R_RGO_PROXY
+	VALUES ("b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
+	"d4638f3d-3a43-4590-bcd8-051e165b5668",
+	'../Terminal Specifications.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	"8c30223c-6572-4911-9da1-0e72e3bae4c0",
+	"6a98c437-ca85-45ad-8237-a7ccdc593dd8",
+	'../Terminal Specifications.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("4446a956-a85d-47f3-bc89-3b8521814de7",
+	"b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	"6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	1,
+	'OOA_Type');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	'../../Graphical Data/Element Specification/Element Specification.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("4446a956-a85d-47f3-bc89-3b8521814de7",
+	"b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	"00000000-0000-0000-0000-000000000000",
+	'OOA_Type',
+	'',
+	'',
+	'OOA_Type',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"b3901dc9-7d72-49b6-a487-35036f84cbc8");
+INSERT INTO O_OIDA
+	VALUES ("4446a956-a85d-47f3-bc89-3b8521814de7",
+	"b3901dc9-7d72-49b6-a487-35036f84cbc8",
+	0,
+	'OOA_Type');
+INSERT INTO O_ID
+	VALUES (1,
+	"b3901dc9-7d72-49b6-a487-35036f84cbc8");
+INSERT INTO O_ID
+	VALUES (2,
+	"b3901dc9-7d72-49b6-a487-35036f84cbc8");
+INSERT INTO S_SS_PROXY
+	VALUES ("3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	'Terminal Specifications',
+	'The TS (Terminal Specification) subsystem models specification classes that
+define the legal ending points for BridgePoint connector symbols.
+-------------------------------------------------------
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+Notify_Changes:false
+
+',
+	'TS',
+	200,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001d8003b",
+	'../Terminal Specifications.xtuml');

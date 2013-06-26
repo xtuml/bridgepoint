@@ -1,0 +1,78 @@
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("bc67cd1a-08a2-4b58-9432-bf10b34d8afb",
+	"00000000-0000-0000-0000-000000000000",
+	"2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'Functions',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("9b249d90-aa7b-4076-81e9-a4361181afce",
+	112,
+	"bc67cd1a-08a2-4b58-9432-bf10b34d8afb",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'testProp::Functions');
+INSERT INTO DIM_DIA
+	VALUES ("9b249d90-aa7b-4076-81e9-a4361181afce",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_SYNC
+	VALUES ("47859cb1-9f07-400c-8ee2-6097b96e4878",
+	"00000000-0000-0000-0000-000000000000",
+	'test',
+	'',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("aed709f0-ec28-4436-8db8-4bd35213f685",
+	"47859cb1-9f07-400c-8ee2-6097b96e4878",
+	'test',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("47859cb1-9f07-400c-8ee2-6097b96e4878",
+	1,
+	"bc67cd1a-08a2-4b58-9432-bf10b34d8afb",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO PE_PE
+	VALUES ("bc67cd1a-08a2-4b58-9432-bf10b34d8afb",
+	1,
+	"e92dcb49-50f9-45ec-bf2f-2a524e6f5b4a",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("e92dcb49-50f9-45ec-bf2f-2a524e6f5b4a",
+	"2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	"2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'testProp',
+	'',
+	0,
+	'../testProp.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'com.mentor.nucleus.bp.ui.properties.test',
+	1,
+	'../../com.mentor.nucleus.bp.ui.properties.test.xtuml');

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="com.mentor.nucleus.bp.bld.pkg"
+   name="BridgePoint Builder"
+   version="4.0.3"
+   provider-name="Mentor Graphics"
+   class="com.mentor.nucleus.bp.bld.pkg.Unreferenced">
+
+   <runtime>
+      <library name="pkg.jar"/>
+   </runtime>
+   <requires>
+   </requires>
+</plugin>

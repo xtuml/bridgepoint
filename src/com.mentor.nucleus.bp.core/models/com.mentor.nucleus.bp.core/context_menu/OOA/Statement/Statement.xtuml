@@ -1,0 +1,57 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("3125a67f-2704-48d5-a653-2a28fd66bd5f",
+	'Statement',
+	102,
+	'ACT_SMT',
+	'',
+	"833c07d3-6635-4c6b-a0ba-8bde6bd0f680");
+INSERT INTO O_NBATTR
+	VALUES ("2ae3f79b-72c4-450e-aeef-7a3a9632eedc",
+	"3125a67f-2704-48d5-a653-2a28fd66bd5f");
+INSERT INTO O_BATTR
+	VALUES ("2ae3f79b-72c4-450e-aeef-7a3a9632eedc",
+	"3125a67f-2704-48d5-a653-2a28fd66bd5f");
+INSERT INTO O_ATTR
+	VALUES ("2ae3f79b-72c4-450e-aeef-7a3a9632eedc",
+	"3125a67f-2704-48d5-a653-2a28fd66bd5f",
+	"00000000-0000-0000-0000-000000000000",
+	'Statement_ID',
+	'',
+	'',
+	'Statement_ID',
+	0,
+	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"3125a67f-2704-48d5-a653-2a28fd66bd5f");
+INSERT INTO O_OIDA
+	VALUES ("2ae3f79b-72c4-450e-aeef-7a3a9632eedc",
+	"3125a67f-2704-48d5-a653-2a28fd66bd5f",
+	0,
+	'Statement_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"3125a67f-2704-48d5-a653-2a28fd66bd5f");
+INSERT INTO O_ID
+	VALUES (2,
+	"3125a67f-2704-48d5-a653-2a28fd66bd5f");
+INSERT INTO S_SS_PROXY
+	VALUES ("833c07d3-6635-4c6b-a0ba-8bde6bd0f680",
+	'OOA',
+	'TRANSLATE: FALSE',
+	'',
+	100,
+	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
+	"00000000-0000-0000-0000-000000180003",
+	'../OOA.xtuml');

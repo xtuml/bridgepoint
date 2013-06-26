@@ -1,0 +1,219 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("0c3e49ea-c795-433e-b23f-006d1f876f79",
+	'Control Node',
+	1105,
+	'A_CTL',
+	'',
+	"ff5a86d7-6bb8-4818-93a7-db0ed269ab54");
+INSERT INTO O_TFR
+	VALUES ("76613d24-5716-4392-9913-311718e11405",
+	"0c3e49ea-c795-433e-b23f-006d1f876f79",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one parent related by self->A_N[R1105];
+if ( not_empty parent )
+  parent.dispose();
+  return;
+end if;
+
+select one ini related by self->A_INI[R1106];
+if ( not_empty ini )
+  unrelate self from ini across R1106;
+  ini.dispose();
+end if;
+select one af related by self->A_AF[R1106];
+if ( not_empty af )
+  unrelate self from af across R1106;
+  af.dispose();
+end if;
+select one ff related by self->A_FF[R1106];
+if ( not_empty ff )
+  unrelate self from ff across R1106;
+  ff.dispose();
+end if;
+select one d related by self->A_DM[R1106];
+if ( not_empty d )
+  unrelate self from d across R1106;
+  d.dispose();
+end if;
+select one fj related by self->A_FJ[R1106];
+if ( not_empty fj )
+  unrelate self from fj across R1106;
+  fj.dispose();
+end if;
+
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("cfdc99cd-ab69-45c0-8769-e91496ddbd0a",
+	"0c3e49ea-c795-433e-b23f-006d1f876f79",
+	'incomingEdgeAllowed',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select one ini related by self->A_INI[R1106];
+if ( not_empty ini )
+  return ini.incomingEdgeAllowed();
+else
+  select one af related by self->A_AF[R1106];
+  if ( not_empty af )
+    return af.incomingEdgeAllowed();
+  else
+    select one ff related by self->A_FF[R1106];
+    if ( not_empty ff )
+      return ff.incomingEdgeAllowed();
+    else
+      select one d related by self->A_DM[R1106];
+      if ( not_empty d )
+        return d.incomingEdgeAllowed();
+      else
+        select one fj related by self->A_FJ[R1106];
+        if ( not_empty fj )
+          return fj.incomingEdgeAllowed();
+        end if;
+      end if;
+    end if;
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"76613d24-5716-4392-9913-311718e11405");
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("a2a1dd60-aa5c-4456-a6ed-baa825c60a40",
+	"0c3e49ea-c795-433e-b23f-006d1f876f79",
+	'outgoingEdgeAllowed',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select one ini related by self->A_INI[R1106];
+if ( not_empty ini )
+  return ini.outgoingEdgeAllowed();
+else
+  select one af related by self->A_AF[R1106];
+  if ( not_empty af )
+    return af.outgoingEdgeAllowed();
+  else
+    select one ff related by self->A_FF[R1106];
+    if ( not_empty ff )
+      return ff.outgoingEdgeAllowed();
+    else
+      select one d related by self->A_DM[R1106];
+      if ( not_empty d )
+        return d.outgoingEdgeAllowed();
+      else
+        select one fj related by self->A_FJ[R1106];
+        if ( not_empty fj )
+          return fj.outgoingEdgeAllowed();
+        end if;
+      end if;
+    end if;
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"cfdc99cd-ab69-45c0-8769-e91496ddbd0a");
+INSERT INTO O_REF
+	VALUES ("0c3e49ea-c795-433e-b23f-006d1f876f79",
+	"22460b1d-db48-46a1-bc6d-1f92b3f96978",
+	0,
+	"a5e49891-ecbd-4b0a-9e2c-3182d9baa3bf",
+	"e34e9b92-edbe-40ac-ac86-a303e5508544",
+	"0501fd0c-9dba-4c57-8b9d-3f109581d1c7",
+	"229fe672-a9b0-4e2c-9b72-1423c3365108",
+	"a3fe1608-c5b7-43b2-b6a1-d72edcb5a8a3",
+	"ff9e3ac3-2556-4fc7-abad-6bf7b8cea3b0",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Activity Node',
+	'Id',
+	'R1105');
+INSERT INTO R_RGO_PROXY
+	VALUES ("0c3e49ea-c795-433e-b23f-006d1f876f79",
+	"e34e9b92-edbe-40ac-ac86-a303e5508544",
+	"0501fd0c-9dba-4c57-8b9d-3f109581d1c7",
+	'../Activity.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("a5e49891-ecbd-4b0a-9e2c-3182d9baa3bf",
+	"22460b1d-db48-46a1-bc6d-1f92b3f96978",
+	0,
+	"e34e9b92-edbe-40ac-ac86-a303e5508544",
+	"229fe672-a9b0-4e2c-9b72-1423c3365108",
+	'../Activity.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("a3fe1608-c5b7-43b2-b6a1-d72edcb5a8a3",
+	"0c3e49ea-c795-433e-b23f-006d1f876f79",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("a3fe1608-c5b7-43b2-b6a1-d72edcb5a8a3",
+	"0c3e49ea-c795-433e-b23f-006d1f876f79",
+	"00000000-0000-0000-0000-000000000000",
+	'Id',
+	'',
+	'',
+	'Id',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"0c3e49ea-c795-433e-b23f-006d1f876f79");
+INSERT INTO O_OIDA
+	VALUES ("a3fe1608-c5b7-43b2-b6a1-d72edcb5a8a3",
+	"0c3e49ea-c795-433e-b23f-006d1f876f79",
+	0,
+	'Id');
+INSERT INTO O_ID
+	VALUES (1,
+	"0c3e49ea-c795-433e-b23f-006d1f876f79");
+INSERT INTO O_ID
+	VALUES (2,
+	"0c3e49ea-c795-433e-b23f-006d1f876f79");
+INSERT INTO S_SS_PROXY
+	VALUES ("ff5a86d7-6bb8-4818-93a7-db0ed269ab54",
+	'Activity',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	'A',
+	1100,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Activity.xtuml');

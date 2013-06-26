@@ -1,0 +1,169 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("6bef0f74-06a1-4429-b1f6-4f4fb82bf86a",
+	'Bridge Argument',
+	1007,
+	'MSG_BA',
+	'This class manages the formality between a message argument and its formal
+couterpart model element.',
+	"5b26fa8b-77b9-4af0-807d-28be1c9e1735");
+INSERT INTO O_TFR
+	VALUES ("f8c42bc8-6f9c-4dbe-a460-126a40cd7290",
+	"6bef0f74-06a1-4429-b1f6-4f4fb82bf86a",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one bparm related by self->S_BPARM[R1014];
+if(not_empty bparm)
+  unrelate self from bparm across R1014;
+end if;
+select one ma related by self->MSG_A[R1013];
+if(not_empty ma)
+  ma.dispose();
+end if;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("6bef0f74-06a1-4429-b1f6-4f4fb82bf86a",
+	"47e060be-45f5-4197-9592-1f6599becfb5",
+	0,
+	"5f2293ae-14e8-4b71-b83c-b537b609669c",
+	"403627f2-0fc9-4319-bd1e-1eb21f684181",
+	"589e5417-9b42-4aed-8b89-e42bbcd51783",
+	"681b28e0-fd11-4437-ba6b-14c02265e98a",
+	"1061b809-74d7-4465-91a8-5f316a2b577f",
+	"5ca280bb-2444-40dd-b263-82d20664b08d",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Message Argument',
+	'Arg_ID',
+	'R1013');
+INSERT INTO R_RGO_PROXY
+	VALUES ("6bef0f74-06a1-4429-b1f6-4f4fb82bf86a",
+	"403627f2-0fc9-4319-bd1e-1eb21f684181",
+	"589e5417-9b42-4aed-8b89-e42bbcd51783",
+	'../Message.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("5f2293ae-14e8-4b71-b83c-b537b609669c",
+	"47e060be-45f5-4197-9592-1f6599becfb5",
+	0,
+	"403627f2-0fc9-4319-bd1e-1eb21f684181",
+	"681b28e0-fd11-4437-ba6b-14c02265e98a",
+	'../Message.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("1061b809-74d7-4465-91a8-5f316a2b577f",
+	"6bef0f74-06a1-4429-b1f6-4f4fb82bf86a",
+	"5f2293ae-14e8-4b71-b83c-b537b609669c",
+	"47e060be-45f5-4197-9592-1f6599becfb5",
+	1,
+	'Arg_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5f2293ae-14e8-4b71-b83c-b537b609669c",
+	"47e060be-45f5-4197-9592-1f6599becfb5",
+	'../Message Argument/Message Argument.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("1061b809-74d7-4465-91a8-5f316a2b577f",
+	"6bef0f74-06a1-4429-b1f6-4f4fb82bf86a",
+	"00000000-0000-0000-0000-000000000000",
+	'Arg_ID',
+	'',
+	'',
+	'Arg_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("6bef0f74-06a1-4429-b1f6-4f4fb82bf86a",
+	"b6e08131-fb43-412a-8d6c-4c30a1664b17",
+	0,
+	"8d625520-f25f-4d8c-8d3a-3158467d9cf9",
+	"3f2ed6e2-3e17-4f35-b08f-98ae6655f857",
+	"36ead593-825f-425d-a428-aa1ba6ba4f3e",
+	"e8de26dc-8dd1-4fa6-bcae-fa246bacfb01",
+	"714907e5-efb7-4496-9933-e5f72621f37e",
+	"ef2e7d0f-ea00-4229-9554-297d68e71f96",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Bridge Parameter',
+	'BParm_ID',
+	'R1014');
+INSERT INTO R_RGO_PROXY
+	VALUES ("6bef0f74-06a1-4429-b1f6-4f4fb82bf86a",
+	"3f2ed6e2-3e17-4f35-b08f-98ae6655f857",
+	"36ead593-825f-425d-a428-aa1ba6ba4f3e",
+	'../Message.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("8d625520-f25f-4d8c-8d3a-3158467d9cf9",
+	"b6e08131-fb43-412a-8d6c-4c30a1664b17",
+	0,
+	"3f2ed6e2-3e17-4f35-b08f-98ae6655f857",
+	"e8de26dc-8dd1-4fa6-bcae-fa246bacfb01",
+	'../Message.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("714907e5-efb7-4496-9933-e5f72621f37e",
+	"6bef0f74-06a1-4429-b1f6-4f4fb82bf86a",
+	"8d625520-f25f-4d8c-8d3a-3158467d9cf9",
+	"b6e08131-fb43-412a-8d6c-4c30a1664b17",
+	1,
+	'BParm_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("8d625520-f25f-4d8c-8d3a-3158467d9cf9",
+	"b6e08131-fb43-412a-8d6c-4c30a1664b17",
+	'../../Domain/Bridge Parameter/Bridge Parameter.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("714907e5-efb7-4496-9933-e5f72621f37e",
+	"6bef0f74-06a1-4429-b1f6-4f4fb82bf86a",
+	"1061b809-74d7-4465-91a8-5f316a2b577f",
+	'BParm_ID',
+	'',
+	'',
+	'BParm_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"6bef0f74-06a1-4429-b1f6-4f4fb82bf86a");
+INSERT INTO O_OIDA
+	VALUES ("1061b809-74d7-4465-91a8-5f316a2b577f",
+	"6bef0f74-06a1-4429-b1f6-4f4fb82bf86a",
+	0,
+	'Arg_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"6bef0f74-06a1-4429-b1f6-4f4fb82bf86a");
+INSERT INTO O_ID
+	VALUES (2,
+	"6bef0f74-06a1-4429-b1f6-4f4fb82bf86a");
+INSERT INTO S_SS_PROXY
+	VALUES ("5b26fa8b-77b9-4af0-807d-28be1c9e1735",
+	'Message',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	'MSG',
+	1000,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Message.xtuml');

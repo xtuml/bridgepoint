@@ -1,0 +1,31 @@
+#=============================================================================
+# File:  Makefile.xtumlmc
+#
+# Description:
+# System wide makefile parameters for this application node
+#
+# Warnings:
+# !!! THIS IS AN AUTO-GENERATED FILE.  PLEASE DO NOT EDIT. !!!
+#     ROX_CreateMCRootMakefile @ Thu Jun  5 22:35:40 2008
+#=============================================================================
+
+# Model compiler installation variables.
+ROX_MC_ROOT_DIR="c:/test2.0.2/BridgePoint/eclipse_extensions/Bridgepoint/eclipse/plugins/com.mentor.nucleus.bp.mc.mc3020_2.0.2/mc3020"
+ROX_MC_BIN_DIR="c:/test2.0.2/BridgePoint/eclipse_extensions/Bridgepoint/eclipse/plugins/com.mentor.nucleus.bp.mc.mc3020_2.0.2/mc3020/bin"
+ROX_MC_ARC_DIR="c:/test2.0.2/BridgePoint/eclipse_extensions/Bridgepoint/eclipse/plugins/com.mentor.nucleus.bp.mc.mc3020_2.0.2/mc3020/arc"
+ROX_MC_MAKE_DIR="c:/test2.0.2/BridgePoint/eclipse_extensions/Bridgepoint/eclipse/plugins/com.mentor.nucleus.bp.mc.mc3020_2.0.2/mc3020/make"
+ROX_MC_TRANSLATE_DIR="c:/test2.0.2/BridgePoint/eclipse_extensions/Bridgepoint/eclipse/plugins/com.mentor.nucleus.bp.mc.mc3020_2.0.2/mc3020/translate"
+
+ROX_MC_PRODUCT_ID="MC3020"
+ROX_MC_PRODUCT_VER="V4.3.0"
+ROX_MC_PRODUCT_ID_EXTENSION="MC3020_ext"
+ROX_MC_PRODUCT_SN=""
+
+# BridgePoint
+XTUMLMC_HOME="c:/test2.0.2/BridgePoint/eclipse_extensions/Bridgepoint/eclipse/plugins/com.mentor.nucleus.bp.mc.mc3020_2.0.2"
+ROX_PT_REPOSITORY_HOME="no_BridgePoint_model_repository"
+
+# Application variables.
+ROX_APP_ROOT_DIR="C:/test2.0.2/BridgePoint/workspace/Watch/gen/code_generation"
+ROX_APP_SYSTEM_DIR="$${ROX_APP_ROOT_DIR}/system"
+ROX_APP_SYS_COLOR_DIR="$${ROX_APP_ROOT_DIR}/system/color"

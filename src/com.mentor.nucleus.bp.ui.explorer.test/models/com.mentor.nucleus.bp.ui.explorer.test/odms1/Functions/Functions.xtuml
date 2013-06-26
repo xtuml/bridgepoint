@@ -1,0 +1,532 @@
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	"00000000-0000-0000-0000-000000000000",
+	"32def5f7-ad70-424b-8b01-6d644bf7c337",
+	'Functions',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("b71d3193-25c9-4ed7-9428-f763e28714d0",
+	112,
+	"1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'odms1::Functions');
+INSERT INTO DIM_DIA
+	VALUES ("b71d3193-25c9-4ed7-9428-f763e28714d0",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_SYNC
+	VALUES ("cb940d51-87f6-48d8-aa1f-01ba136742cb",
+	"00000000-0000-0000-0000-000000000000",
+	'intialize',
+	'',
+	'// Create preexisting instances
+
+// ONLINE LOCATION
+// EE
+create object instance ee  of D_P;
+create object instance ole of D_OL;
+assign ole.Online_Location_ID = 1;
+relate ole to ee across R7;
+
+//DRIVE
+create object instance dr of D_DR;
+assign dr.Idle = TRUE;
+create object instance old of D_OL;
+assign old.Online_Location_ID = 2;
+relate old to dr across R7;
+
+//SLOT
+assign ol_count = 3;
+while (ol_count < 5)
+    create object instance ol of D_OL;
+    assign ol.Online_Location_ID = ol_count;
+    assign ol_count = ol_count + 1;
+    create object instance slot of D_S;
+    assign slot.Unassigned = TRUE;
+   relate ol to slot across R7;
+end while;
+
+// DISK
+assign disk_count = 1;
+while (disk_count < 5)
+    create object instance d of D_D;
+    assign d.Disk_ID = disk_count;
+    assign d.Serial_Number = 1000 + (disk_count * 10);
+    assign d.Waiting_for_Slot = FALSE;
+    assign d.Waiting_for_Drive = FALSE;
+    assign d.Unowned_in_Cabinet = FALSE;
+    assign d.Unowned_in_Library = TRUE;
+    // OFFLINE DISK
+    create object instance od of D_OD;
+    relate d to od across R3;
+    // PERMANENT HOME
+    create object instance h of D_H;
+    assign h.Row_Number =1;
+    assign h.Column_Number =disk_count;
+    relate d to h across R4;
+    disk_count = disk_count + 1;
+end while;
+
+// QP
+create object instance qp1 of D_QP;
+assign qp1.Qualified_Process_ID = 1;
+
+// ROBOT
+create object instance r of D_R;
+assign r.Robot_ID =1;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("cb940d51-87f6-48d8-aa1f-01ba136742cb",
+	1,
+	"1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("7576ac51-3441-4377-8e03-44f647e7833f",
+	"00000000-0000-0000-0000-000000000000",
+	'PIO_robot_move_complete',
+	'',
+	'select any robot from instances of D_R where (selected.Robot_ID == param.id);
+generate D_R2:''Robot Move Complete''() to robot;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("b78ef626-75b4-4188-bb60-6007cc84c440",
+	"7576ac51-3441-4377-8e03-44f647e7833f",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("7576ac51-3441-4377-8e03-44f647e7833f",
+	1,
+	"1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("213887eb-311c-4c8a-9a3b-da1950b29403",
+	"00000000-0000-0000-0000-000000000000",
+	'PIO_gripper_closed_on_disk',
+	'',
+	'select any robot from instances of D_R where (selected.Robot_ID == param.id);
+generate D_R4:''Gripper Closed on Disk''() to robot;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("c3c3a019-f32f-48cf-a85a-799e008c0cea",
+	"213887eb-311c-4c8a-9a3b-da1950b29403",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("213887eb-311c-4c8a-9a3b-da1950b29403",
+	1,
+	"1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("0261499d-b302-471b-8721-408df4ab483e",
+	"00000000-0000-0000-0000-000000000000",
+	'PIO_gripper_opened',
+	'',
+	'select any robot from instances of D_R where (selected.Robot_ID == param.id);
+generate D_R3:''Gripper Opened''() to robot;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("23ace041-d2aa-4b65-8623-cbaf13094cde",
+	"0261499d-b302-471b-8721-408df4ab483e",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("0261499d-b302-471b-8721-408df4ab483e",
+	1,
+	"1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("15775930-7b12-4671-ad44-45a68716e01e",
+	"00000000-0000-0000-0000-000000000000",
+	'PIO_drive_at_spin_speed',
+	'',
+	'select any drive from instances of D_DR where (selected.Drive_ID == param.id);
+generate D_DR2:''Drive at Spin Speed''() to drive;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("6224d168-7803-4183-aa4a-6dc8e5ef74c4",
+	"15775930-7b12-4671-ad44-45a68716e01e",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("15775930-7b12-4671-ad44-45a68716e01e",
+	1,
+	"1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("a993c82a-2b73-4f60-90e3-421ceab4501e",
+	"00000000-0000-0000-0000-000000000000",
+	'PIO_drive_stopped',
+	'',
+	'select any drive from instances of D_DR where (selected.Drive_ID == param.id);
+generate D_DR4:''Drive Stopped''() to drive;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("484e39bf-b58a-46fc-97d0-9e6b801e6baf",
+	"a993c82a-2b73-4f60-90e3-421ceab4501e",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("a993c82a-2b73-4f60-90e3-421ceab4501e",
+	1,
+	"1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("8e5df2b4-8bea-4dea-b35a-ae82f0ea98c7",
+	"00000000-0000-0000-0000-000000000000",
+	'PIO_port_unlocked',
+	'',
+	'select any port from instances of D_P where (selected.Port_ID == param.id);
+generate D_P3:''Port Unlocked''() to port;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("2ac9eb45-f624-4e7c-8c70-c2aba974ea28",
+	"8e5df2b4-8bea-4dea-b35a-ae82f0ea98c7",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("8e5df2b4-8bea-4dea-b35a-ae82f0ea98c7",
+	1,
+	"1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("864274ac-1404-4de3-9dcf-37ef1108a185",
+	"00000000-0000-0000-0000-000000000000",
+	'PIO_operator_closed_door',
+	'',
+	'select any port from instances of D_P where (selected.Port_ID == param.id);
+generate D_P1:''Operator Closes Door''() to port;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("d6919810-09ea-46d7-bb2c-13725a051b1f",
+	"864274ac-1404-4de3-9dcf-37ef1108a185",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("864274ac-1404-4de3-9dcf-37ef1108a185",
+	1,
+	"1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("42ba3be2-ae59-4fce-b751-a361451e6a36",
+	"00000000-0000-0000-0000-000000000000",
+	'PIO_operator_opened_door',
+	'',
+	'select any port from instances of D_P where (selected.Port_ID == param.id);
+generate D_P6:''Operator Opens Door''() to port;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("ca429eb0-2384-43e8-bcfe-2145f834daf0",
+	"42ba3be2-ae59-4fce-b751-a361451e6a36",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("42ba3be2-ae59-4fce-b751-a361451e6a36",
+	1,
+	"1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("5f87ad02-1a6f-45a8-ba2d-bbf77af0b376",
+	"00000000-0000-0000-0000-000000000000",
+	'PIO_operator_removed_disk',
+	'',
+	'select any port from instances of D_P where (selected.Port_ID == param.id);
+generate D_P5:''Operator Removes Disk''() to port;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("873333fc-e7e1-4039-a55e-e09222ffdade",
+	"5f87ad02-1a6f-45a8-ba2d-bbf77af0b376",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("5f87ad02-1a6f-45a8-ba2d-bbf77af0b376",
+	1,
+	"1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("c41584ec-24e4-4b8c-805f-1a0073a159cf",
+	"00000000-0000-0000-0000-000000000000",
+	'PIO_operator_inserted_disk',
+	'',
+	'select any port from instances of D_P where (selected.Port_ID == param.id);
+generate D_P4:''Operator Inserts Disk''() to port;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("a65490c9-1665-4741-bf56-448f7910bcd1",
+	"c41584ec-24e4-4b8c-805f-1a0073a159cf",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("c41584ec-24e4-4b8c-805f-1a0073a159cf",
+	1,
+	"1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("aa023666-4266-44fa-9964-c8f77f4c613d",
+	"00000000-0000-0000-0000-000000000000",
+	'PIO_port_locked',
+	'',
+	'select any port from instances of D_P where (selected.Port_ID == param.id);
+generate D_P2:''EE Port Locked''() to port;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("54840d2c-9576-4ea9-a968-934e487f238d",
+	"aa023666-4266-44fa-9964-c8f77f4c613d",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("aa023666-4266-44fa-9964-c8f77f4c613d",
+	1,
+	"1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("af7145b6-2daf-4294-8fab-a2fe83728ac8",
+	"00000000-0000-0000-0000-000000000000",
+	'QP_disk_unmount_request',
+	'',
+	'select any disk from instances of D_D where (selected.Disk_ID == param.disk_id);
+if (not_empty disk)
+  generate D_D4:''Disk Unmount Request''() to disk;
+end if;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("699f1e9b-6c71-47bd-936e-3057afc6696e",
+	"af7145b6-2daf-4294-8fab-a2fe83728ac8",
+	'disk_id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("af7145b6-2daf-4294-8fab-a2fe83728ac8",
+	1,
+	"1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("f39da0ad-e5f4-4f48-ac6e-2d485d3e3def",
+	"00000000-0000-0000-0000-000000000000",
+	'QP_disk_mount_request',
+	'',
+	'select any qp from instances of D_QP where (selected.Qualified_Process_ID == param.qp_id);
+generate D_QP1:''Mount Disk''(disk_id:param.disk_id) to qp;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("0bcf9465-9cf8-41c7-a6fb-917fad88bc3d",
+	"f39da0ad-e5f4-4f48-ac6e-2d485d3e3def",
+	'disk_id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("1b628f19-99d6-4a3f-9aa8-baafdff4035a",
+	"f39da0ad-e5f4-4f48-ac6e-2d485d3e3def",
+	'qp_id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"0bcf9465-9cf8-41c7-a6fb-917fad88bc3d",
+	'');
+INSERT INTO PE_PE
+	VALUES ("f39da0ad-e5f4-4f48-ac6e-2d485d3e3def",
+	1,
+	"1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("21d187af-3be0-48ab-991e-b1701f0186ca",
+	"00000000-0000-0000-0000-000000000000",
+	'test_class_evt_ignored',
+	'',
+	'generate D_DO_A1:''Disk Requested by QP'' to D_DO class;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("21d187af-3be0-48ab-991e-b1701f0186ca",
+	1,
+	"1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("733205e8-03d9-4627-ad6b-8122daacaf22",
+	"00000000-0000-0000-0000-000000000000",
+	'test_robot',
+	'',
+	'create object instance second_rbt of D_R;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("733205e8-03d9-4627-ad6b-8122daacaf22",
+	1,
+	"1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("ef81116b-3b4e-471e-80b4-2f0269dd36b2",
+	"00000000-0000-0000-0000-000000000000",
+	'test_request_pending',
+	'',
+	'select any rbt from instances of D_R where (selected.Robot_ID == param.id);
+generate D_R5:''Robot Request Pending''() to rbt;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("19a67cd3-bd8e-463d-992d-c90f0d508556",
+	"ef81116b-3b4e-471e-80b4-2f0269dd36b2",
+	'id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("ef81116b-3b4e-471e-80b4-2f0269dd36b2",
+	1,
+	"1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("0a8ad680-e017-439d-bb6e-680e2b4c719c",
+	"00000000-0000-0000-0000-000000000000",
+	'mount_disk_1',
+	'',
+	'::QP_disk_mount_request(qp_id:1, disk_id:2);',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("0a8ad680-e017-439d-bb6e-680e2b4c719c",
+	1,
+	"1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO PE_PE
+	VALUES ("1c94eb63-b7a3-4d69-b8ed-34315cb12d72",
+	1,
+	"96d1aa51-1013-4c53-a4d4-d854bfd404ea",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("96d1aa51-1013-4c53-a4d4-d854bfd404ea",
+	"32def5f7-ad70-424b-8b01-6d644bf7c337",
+	"32def5f7-ad70-424b-8b01-6d644bf7c337",
+	'odms1',
+	'Domain Mission:
+
+Bridges to other Domains:
+',
+	0,
+	'../odms1.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("32def5f7-ad70-424b-8b01-6d644bf7c337",
+	'com.mentor.nucleus.bp.ui.explorer.test',
+	1,
+	'../../com.mentor.nucleus.bp.ui.explorer.test.xtuml');

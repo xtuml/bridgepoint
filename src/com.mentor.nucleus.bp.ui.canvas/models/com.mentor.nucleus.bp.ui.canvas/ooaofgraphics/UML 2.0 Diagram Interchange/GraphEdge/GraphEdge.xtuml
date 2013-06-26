@@ -1,0 +1,429 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("0580af92-433a-4442-8b1c-a330fd6a0b16",
+	'GraphEdge',
+	28,
+	'DIM_ED',
+	'',
+	"490299c9-e7aa-468e-82d7-0731c80e4069");
+INSERT INTO O_TFR
+	VALUES ("06d490f7-48db-4241-815a-b6a01e843c81",
+	"0580af92-433a-4442-8b1c-a330fd6a0b16",
+	'dispose',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one parent related by self->DIM_GE[R301];
+if ( not_empty parent )
+  parent.dispose();
+else
+  select one connector1 related by self->DIM_CON[R320];
+  unrelate self from connector1 across R320;
+  select one connector2 related by self->DIM_CON[R321];
+  unrelate self from connector2 across R321;
+  select many way_set related by self->DIM_WAY[R319];
+  for each way in way_set
+    unrelate self from way across R319;
+    way.dispose();
+  end for;
+  select one gd_con related by self->GD_CON[R20];
+  if ( not_empty gd_con )
+    unrelate self from gd_con across R20;
+    select one ge related by gd_con->GD_GE[R2];
+    if (not_empty ge )
+      // make sure the GD_GE instance is disposed
+      // but we need to dispose the GD_CON instance directly
+      unrelate ge from gd_con across R2;
+      ge.dispose();
+    end if;
+    gd_con.dispose();
+  end if;
+end if;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("aa58e883-4721-48cf-b4ee-03671de6d656",
+	"0580af92-433a-4442-8b1c-a330fd6a0b16",
+	'setConnectorPosition',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'// Set the connector to a position that is based on the position
+// of the connector we are recreating.  Because the edge lengths will be
+// different, we use the percent of the length of the edge the connector is
+// on.
+select any startWaypoint related by self->DIM_WAY[R319] where 
+           (selected.Way_ID == param.startingWaypointId);
+select any endWaypoint related by self->DIM_WAY[R319] where 
+           (selected.Way_ID == param.endingWaypointId);
+select any diaEle from instances of DIM_ELE
+                                    where (selected.elementId == param.shapeId);
+select one shapeGraphEle related by diaEle->DIM_GE[R302];
+select one shapeNode related by shapeGraphEle->DIM_ND[R301];
+startPointX = 0;
+startPointY = 0;
+endPointX = 0;
+endPointY = 0;
+start = param.start;
+if(param.shapeEdge == Direction::North)
+  if(start)
+    startPointX = shapeGraphEle.positionX + (shapeNode.width * param.percentOfEdgeLength);
+    startPointY = shapeGraphEle.positionY;
+    endPointX = startPointX;
+    endPointY = startPointY - 75;
+  else
+    endPointX = shapeGraphEle.positionX + (shapeNode.width * param.percentOfEdgeLength);
+    endPointY = shapeGraphEle.positionY;
+    startPointX = endPointX;
+    startPointY = endPointY - 75;    
+  end if;
+elif(param.shapeEdge == Direction::South)
+  if(start)
+    startPointX = shapeGraphEle.positionX + (shapeNode.width * param.percentOfEdgeLength);
+    startPointY = shapeGraphEle.positionY + shapeNode.height;
+    endPointX = startPointX;
+    endPointY = startPointY + 75;
+  else
+    endPointX = shapeGraphEle.positionX + (shapeNode.width * param.percentOfEdgeLength);
+    endPointY = shapeGraphEle.positionY + shapeNode.height;
+    startPointX = endPointX;
+    startPointY = endPointY + 75;  
+  end if;
+elif(param.shapeEdge == Direction::West)
+  if(start)
+    startPointX = shapeGraphEle.positionX;
+    startPointY = shapeGraphEle.positionY + (shapeNode.height * param.percentOfEdgeLength);
+    endPointX = startPointX - 75;
+    endPointY = startPointY;
+  else
+    endPointX = shapeGraphEle.positionX;
+    endPointY = shapeGraphEle.positionY + (shapeNode.height * param.percentOfEdgeLength);
+    startPointX = endPointX - 75;
+    startPointY = endPointY;
+  end if;
+elif(param.shapeEdge == Direction::East)
+  if(start)
+    startPointX = shapeGraphEle.positionX + shapeNode.width;
+    startPointY = shapeGraphEle.positionY + (shapeNode.height * param.percentOfEdgeLength);
+    endPointX = startPointX + 75;
+    endPointY = startPointY;
+  else
+    endPointX = shapeGraphEle.positionX + shapeNode.width;
+    endPointY = shapeGraphEle.positionY + (shapeNode.height * param.percentOfEdgeLength);
+    startPointX = endPointX + 75;
+    startPointY = endPointY;  
+  end if;
+end if;
+if(param.shapeEdge != Direction::None)
+  // grid snap the determined location for the auto-created connector
+  select one shape related by shapeNode->GD_SHP[R19];
+  startSnapPointId = shape.getNearestGridSnapPointOnEdge(x:startPointX, y:startPointY);
+  endSnapPointId = shape.getNearestGridSnapPointOnEdge(x:endPointX, y:endPointY);
+  select any snapPoint from instances of DIM_PNT where selected.pointId == startSnapPointId;
+  startPointX = snapPoint.x;
+  startPointY = snapPoint.y;
+  select any snapPoint from instances of DIM_PNT where selected.pointId == endSnapPointId;
+  endPointX = snapPoint.x;
+  endPointY = snapPoint.y;
+  
+  
+  // create an anchor on the starting element
+  create object instance anchor of DIM_CON;
+  relate anchor to shapeGraphEle across R311;
+  select one containerGE related by shapeGraphEle->DIM_ELE[R302]->DIM_GE[R307];
+  if(not_empty containerGE)
+    // if the shape we are connecting to is a contained
+    // element, make this new connector one as well
+    relate diaEle to containerGE across R307;
+  end if;
+  if(start)
+    startWaypoint.positionX = startPointX;
+    startWaypoint.positionY = startPointY;
+    endWaypoint.positionX = endPointX;
+    endWaypoint.positionY = endPointY;
+  else
+    endWaypoint.positionX = startPointX;
+    endWaypoint.positionY = startPointY;
+    startWaypoint.positionX = endPointX;
+    startWaypoint.positionY = endPointY;  
+  end if;
+  // initialize the anchors position
+  anchor.positionX = startWaypoint.positionX;
+  anchor.positionY = startWaypoint.positionY;
+  relate self to anchor across R320;
+end if;
+',
+	1,
+	'',
+	"06d490f7-48db-4241-815a-b6a01e843c81");
+INSERT INTO O_TPARM
+	VALUES ("a644edb9-4eb4-4c00-b898-dcc4a578462b",
+	"aa58e883-4721-48cf-b4ee-03671de6d656",
+	'shapeId',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"a0e6de53-2d90-4b4e-8f07-22562410be73",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("a0e6de53-2d90-4b4e-8f07-22562410be73",
+	"aa58e883-4721-48cf-b4ee-03671de6d656",
+	'shapeEdge',
+	"293e701c-c0ef-48ec-86be-6421be45fefb",
+	0,
+	'',
+	"25814e59-5891-47c6-96cb-a9d0f61d0ef1",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("293e701c-c0ef-48ec-86be-6421be45fefb",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'Direction',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("e3da3a4a-052a-43bd-b53a-3921fe849f47",
+	"aa58e883-4721-48cf-b4ee-03671de6d656",
+	'startingWaypointId',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"1c19f623-b922-4a0a-9d00-22f9f74fc950",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("27dbac5a-8ca0-4a6a-b25e-03fe7314fa28",
+	"aa58e883-4721-48cf-b4ee-03671de6d656",
+	'endingWaypointId',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("1c19f623-b922-4a0a-9d00-22f9f74fc950",
+	"aa58e883-4721-48cf-b4ee-03671de6d656",
+	'start',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"a644edb9-4eb4-4c00-b898-dcc4a578462b",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("25814e59-5891-47c6-96cb-a9d0f61d0ef1",
+	"aa58e883-4721-48cf-b4ee-03671de6d656",
+	'percentOfEdgeLength',
+	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	0,
+	'',
+	"27dbac5a-8ca0-4a6a-b25e-03fe7314fa28",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'real',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("0580af92-433a-4442-8b1c-a330fd6a0b16",
+	"a2f9b584-b553-4037-acb2-0227d0fd18ea",
+	0,
+	"1a8d87dc-5803-48c4-a0c8-cf4f500ad9d4",
+	"2e5de1e1-ea38-429f-b144-ea92b9f1c2f5",
+	"62469d8c-d21a-469b-929c-33f668d2e5b8",
+	"5338010b-50b3-47de-9114-c40756a98b5c",
+	"1a6ebe10-43ac-4f31-b868-9482e54acaac",
+	"5488f444-a4cb-43f4-92f4-2791dfc1ccb4",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'GraphConnector',
+	'conId',
+	'R320');
+INSERT INTO R_RGO_PROXY
+	VALUES ("0580af92-433a-4442-8b1c-a330fd6a0b16",
+	"2e5de1e1-ea38-429f-b144-ea92b9f1c2f5",
+	"62469d8c-d21a-469b-929c-33f668d2e5b8",
+	'../UML 2.0 Diagram Interchange.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("1a8d87dc-5803-48c4-a0c8-cf4f500ad9d4",
+	"a2f9b584-b553-4037-acb2-0227d0fd18ea",
+	0,
+	"2e5de1e1-ea38-429f-b144-ea92b9f1c2f5",
+	"5338010b-50b3-47de-9114-c40756a98b5c",
+	'../UML 2.0 Diagram Interchange.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("1a6ebe10-43ac-4f31-b868-9482e54acaac",
+	"0580af92-433a-4442-8b1c-a330fd6a0b16",
+	"1a8d87dc-5803-48c4-a0c8-cf4f500ad9d4",
+	"a2f9b584-b553-4037-acb2-0227d0fd18ea",
+	1,
+	'conId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("1a8d87dc-5803-48c4-a0c8-cf4f500ad9d4",
+	"a2f9b584-b553-4037-acb2-0227d0fd18ea",
+	'../GraphConnector/GraphConnector.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("1a6ebe10-43ac-4f31-b868-9482e54acaac",
+	"0580af92-433a-4442-8b1c-a330fd6a0b16",
+	"00000000-0000-0000-0000-000000000000",
+	'first_conId',
+	'',
+	'first_',
+	'graphConnector1Id',
+	1,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("0580af92-433a-4442-8b1c-a330fd6a0b16",
+	"a2f9b584-b553-4037-acb2-0227d0fd18ea",
+	0,
+	"1a8d87dc-5803-48c4-a0c8-cf4f500ad9d4",
+	"643a875d-1312-4c8f-be10-dac5a1936165",
+	"a07c1155-eb16-4281-a1a0-7fd23ea19621",
+	"39e04430-1655-4943-8ff3-fa898b4b9aae",
+	"0986c5e9-9353-4b2e-a1fe-06a9fdde4b96",
+	"e6ee2d43-d50e-4544-b049-e78c3c5a7635",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'GraphConnector',
+	'conId',
+	'R321');
+INSERT INTO R_RGO_PROXY
+	VALUES ("0580af92-433a-4442-8b1c-a330fd6a0b16",
+	"643a875d-1312-4c8f-be10-dac5a1936165",
+	"a07c1155-eb16-4281-a1a0-7fd23ea19621",
+	'../UML 2.0 Diagram Interchange.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("1a8d87dc-5803-48c4-a0c8-cf4f500ad9d4",
+	"a2f9b584-b553-4037-acb2-0227d0fd18ea",
+	0,
+	"643a875d-1312-4c8f-be10-dac5a1936165",
+	"39e04430-1655-4943-8ff3-fa898b4b9aae",
+	'../UML 2.0 Diagram Interchange.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("0986c5e9-9353-4b2e-a1fe-06a9fdde4b96",
+	"0580af92-433a-4442-8b1c-a330fd6a0b16",
+	"1a8d87dc-5803-48c4-a0c8-cf4f500ad9d4",
+	"a2f9b584-b553-4037-acb2-0227d0fd18ea",
+	1,
+	'conId');
+INSERT INTO O_ATTR
+	VALUES ("0986c5e9-9353-4b2e-a1fe-06a9fdde4b96",
+	"0580af92-433a-4442-8b1c-a330fd6a0b16",
+	"1a6ebe10-43ac-4f31-b868-9482e54acaac",
+	'last_conId',
+	'',
+	'last_',
+	'Grc_ID',
+	1,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("0580af92-433a-4442-8b1c-a330fd6a0b16",
+	"2d1f6d38-7e9e-4999-ada8-a67731acf6c2",
+	0,
+	"f2ba444e-0017-43b5-a77b-cecfd3a2baf1",
+	"8c451ebd-65c2-4b75-944d-4ae7c3f319cd",
+	"71ca011d-4c91-4549-9390-3eb23866b238",
+	"431e2a5c-7f84-4196-8584-8c6960e9d1cb",
+	"3e87f726-fa2e-4976-a124-f22b97f8062d",
+	"03691489-d72d-4dd4-813a-01c84d201441",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'GraphElement',
+	'elementId',
+	'R301');
+INSERT INTO R_RGO_PROXY
+	VALUES ("0580af92-433a-4442-8b1c-a330fd6a0b16",
+	"8c451ebd-65c2-4b75-944d-4ae7c3f319cd",
+	"71ca011d-4c91-4549-9390-3eb23866b238",
+	'../UML 2.0 Diagram Interchange.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("f2ba444e-0017-43b5-a77b-cecfd3a2baf1",
+	"2d1f6d38-7e9e-4999-ada8-a67731acf6c2",
+	0,
+	"8c451ebd-65c2-4b75-944d-4ae7c3f319cd",
+	"431e2a5c-7f84-4196-8584-8c6960e9d1cb",
+	'../UML 2.0 Diagram Interchange.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("3e87f726-fa2e-4976-a124-f22b97f8062d",
+	"0580af92-433a-4442-8b1c-a330fd6a0b16",
+	"53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	1,
+	'elementId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	'../DiagramElement/DiagramElement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("3e87f726-fa2e-4976-a124-f22b97f8062d",
+	"0580af92-433a-4442-8b1c-a330fd6a0b16",
+	"0986c5e9-9353-4b2e-a1fe-06a9fdde4b96",
+	'elementId',
+	'',
+	'',
+	'eleId',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"0580af92-433a-4442-8b1c-a330fd6a0b16");
+INSERT INTO O_OIDA
+	VALUES ("3e87f726-fa2e-4976-a124-f22b97f8062d",
+	"0580af92-433a-4442-8b1c-a330fd6a0b16",
+	0,
+	'elementId');
+INSERT INTO O_ID
+	VALUES (1,
+	"0580af92-433a-4442-8b1c-a330fd6a0b16");
+INSERT INTO O_ID
+	VALUES (2,
+	"0580af92-433a-4442-8b1c-a330fd6a0b16");
+INSERT INTO S_SS_PROXY
+	VALUES ("490299c9-e7aa-468e-82d7-0731c80e4069",
+	'UML 2.0 Diagram Interchange',
+	'Notify_Changes:true',
+	'DIM',
+	0,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
+	'../UML 2.0 Diagram Interchange.xtuml');

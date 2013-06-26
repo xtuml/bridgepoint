@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="com.mentor.nucleus.bp.ui.canvas"
+   name="BridgePoint Canvas Plug-in"
+   version="4.0.3"
+   provider-name="Mentor Graphics"
+   class="com.mentor.nucleus.bp.ui.canvas.CanvasPlugin">
+
+   <runtime>
+      <library name="canvas.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.ui.workbench.texteditor"/>
+      <import plugin="org.eclipse.ui.views"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="com.mentor.nucleus.bp.core"/>
+      <import plugin="com.mentor.nucleus.bp.ui.explorer"/>
+      <import plugin="com.mentor.nucleus.bp.ui.properties"/>
+      <import plugin="org.eclipse.core.expressions"/>
+   </requires>
+
+</plugin>

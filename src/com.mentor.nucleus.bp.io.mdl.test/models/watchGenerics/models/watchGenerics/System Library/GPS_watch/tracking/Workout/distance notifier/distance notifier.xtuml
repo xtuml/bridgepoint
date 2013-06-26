@@ -1,0 +1,43 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("b6532c45-d42c-4544-b09b-47697bb4d0b2",
+	'distance notifier',
+	205,
+	'DNOTIFY',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("c1be9f1d-202b-4f47-a35b-d86a990044f9",
+	"b6532c45-d42c-4544-b09b-47697bb4d0b2",
+	'check_distance',
+	'',
+	"86ca546c-3592-417a-8e87-0b77fd17920e",
+	1,
+	'',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("86ca546c-3592-417a-8e87-0b77fd17920e",
+	"00000000-0000-0000-0000-000000000000",
+	'void',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"b6532c45-d42c-4544-b09b-47697bb4d0b2");
+INSERT INTO O_ID
+	VALUES (1,
+	"b6532c45-d42c-4544-b09b-47697bb4d0b2");
+INSERT INTO O_ID
+	VALUES (2,
+	"b6532c45-d42c-4544-b09b-47697bb4d0b2");
+INSERT INTO PE_PE_PROXY
+	VALUES ("b6532c45-d42c-4544-b09b-47697bb4d0b2",
+	1,
+	"15c19843-477f-450a-a018-e3dcdb1c2e6a",
+	"00000000-0000-0000-0000-000000000000",
+	4,
+	'../Workout.xtuml');

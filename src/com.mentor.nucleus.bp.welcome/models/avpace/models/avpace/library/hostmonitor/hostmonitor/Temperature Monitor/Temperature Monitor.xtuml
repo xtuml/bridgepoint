@@ -1,0 +1,43 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("39bf89fb-5ccd-41c6-9947-87aba6c1c824",
+	'Temperature Monitor',
+	3,
+	'TM',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("1666f3b6-877f-4d1b-af33-383abf3c3851",
+	"39bf89fb-5ccd-41c6-9947-87aba6c1c824",
+	'getCurrentTemp',
+	'',
+	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	1,
+	'return 0;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"00000000-0000-0000-0000-000000000000",
+	'integer',
+	'',
+	'',
+	'../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"39bf89fb-5ccd-41c6-9947-87aba6c1c824");
+INSERT INTO O_ID
+	VALUES (1,
+	"39bf89fb-5ccd-41c6-9947-87aba6c1c824");
+INSERT INTO O_ID
+	VALUES (2,
+	"39bf89fb-5ccd-41c6-9947-87aba6c1c824");
+INSERT INTO PE_PE_PROXY
+	VALUES ("39bf89fb-5ccd-41c6-9947-87aba6c1c824",
+	1,
+	"9e99e4fa-9c62-4ccd-856f-347c8c195c9e",
+	"00000000-0000-0000-0000-000000000000",
+	4,
+	'../hostmonitor.xtuml');

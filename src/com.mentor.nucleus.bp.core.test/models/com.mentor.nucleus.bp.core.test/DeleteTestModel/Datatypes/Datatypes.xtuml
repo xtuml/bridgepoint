@@ -1,0 +1,94 @@
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("4ca240f1-3fb4-4c7d-92b4-83d9f20f5d53",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'Datatypes',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("024e3d76-53b1-40c1-a33b-4a1f22f43a86",
+	112,
+	"4ca240f1-3fb4-4c7d-92b4-83d9f20f5d53",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'DeleteTestModel::Datatypes');
+INSERT INTO GD_GE
+	VALUES ("8c4f14ed-92df-4a7e-9e2b-2d879cbbceaf",
+	"024e3d76-53b1-40c1-a33b-4a1f22f43a86",
+	"d012f770-6897-4b92-864d-6bc5a6c0cc5d",
+	51,
+	0,
+	'DeleteTestModel::Datatypes::arbitrary_id');
+INSERT INTO GD_SHP
+	VALUES ("8c4f14ed-92df-4a7e-9e2b-2d879cbbceaf");
+INSERT INTO GD_NCS
+	VALUES ("8c4f14ed-92df-4a7e-9e2b-2d879cbbceaf");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"8c4f14ed-92df-4a7e-9e2b-2d879cbbceaf");
+INSERT INTO DIM_GE
+	VALUES (2352.000000,
+	1735.000000,
+	"8c4f14ed-92df-4a7e-9e2b-2d879cbbceaf",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("8c4f14ed-92df-4a7e-9e2b-2d879cbbceaf",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_DIA
+	VALUES ("024e3d76-53b1-40c1-a33b-4a1f22f43a86",
+	'',
+	1.000000,
+	1672.000000,
+	1225.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT
+	VALUES ("d012f770-6897-4b92-864d-6bc5a6c0cc5d",
+	"00000000-0000-0000-0000-000000000000",
+	'arbitrary_id',
+	'Arbitrary ID with core data type of unique_id.',
+	'');
+INSERT INTO S_UDT
+	VALUES ("d012f770-6897-4b92-864d-6bc5a6c0cc5d",
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0);
+INSERT INTO PE_PE
+	VALUES ("d012f770-6897-4b92-864d-6bc5a6c0cc5d",
+	1,
+	"4ca240f1-3fb4-4c7d-92b4-83d9f20f5d53",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO PE_PE
+	VALUES ("4ca240f1-3fb4-4c7d-92b4-83d9f20f5d53",
+	1,
+	"9d3afae6-feff-444c-b3c5-43e2f22f58b0",
+	"00000000-0000-0000-0000-000000000000",
+	-1);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("9d3afae6-feff-444c-b3c5-43e2f22f58b0",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'DeleteTestModel',
+	'',
+	0,
+	'../DeleteTestModel.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("c6693612-7c4f-42e5-b64f-16c64f288945",
+	'com.mentor.nucleus.bp.core.test',
+	1,
+	'../../com.mentor.nucleus.bp.core.test.xtuml');

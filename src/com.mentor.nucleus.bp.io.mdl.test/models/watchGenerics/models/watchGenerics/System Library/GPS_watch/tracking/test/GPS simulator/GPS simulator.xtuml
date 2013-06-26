@@ -1,0 +1,50 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("160a73bd-2081-4793-92d1-3bf8cb2be08f",
+	'GPS simulator',
+	901,
+	'TEST_GPS',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("aaa144fe-359e-4ffc-bf60-75df9440c46b",
+	"160a73bd-2081-4793-92d1-3bf8cb2be08f");
+INSERT INTO O_BATTR
+	VALUES ("aaa144fe-359e-4ffc-bf60-75df9440c46b",
+	"160a73bd-2081-4793-92d1-3bf8cb2be08f");
+INSERT INTO O_ATTR
+	VALUES ("aaa144fe-359e-4ffc-bf60-75df9440c46b",
+	"160a73bd-2081-4793-92d1-3bf8cb2be08f",
+	"00000000-0000-0000-0000-000000000000",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"ffc69c60-425c-4e7e-9b44-d18757d73ec7",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ffc69c60-425c-4e7e-9b44-d18757d73ec7",
+	"00000000-0000-0000-0000-000000000000",
+	'state<State_Model>',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"160a73bd-2081-4793-92d1-3bf8cb2be08f");
+INSERT INTO O_ID
+	VALUES (1,
+	"160a73bd-2081-4793-92d1-3bf8cb2be08f");
+INSERT INTO O_ID
+	VALUES (2,
+	"160a73bd-2081-4793-92d1-3bf8cb2be08f");
+INSERT INTO PE_PE_PROXY
+	VALUES ("160a73bd-2081-4793-92d1-3bf8cb2be08f",
+	1,
+	"c1202055-1211-45d1-9be4-a484dee3e3df",
+	"00000000-0000-0000-0000-000000000000",
+	4,
+	'../test.xtuml');

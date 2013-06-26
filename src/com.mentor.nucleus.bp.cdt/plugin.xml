@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+- <!--  Nucleus Bridgepoint wizard extension 
+  --> 
+- <extension point="com.mentor.nucleus.bp.core.code-builders">
+  <code-builder name="Eclipse C/C++ Development Tools" class="com.mentor.nucleus.bp.cdt.wizards.BridgePointCDTProjectWizard" /> 
+  </extension>
+</plugin>

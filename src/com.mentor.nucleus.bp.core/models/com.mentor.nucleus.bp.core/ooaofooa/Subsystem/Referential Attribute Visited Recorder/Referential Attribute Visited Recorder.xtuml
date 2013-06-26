@@ -1,0 +1,110 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("5cff0d15-8ba0-4073-967d-1e146a7a1f2d",
+	'Referential Attribute Visited Recorder',
+	114,
+	'O_RAVR',
+	'A non-persistent instance of this class is created per domain.  The sole 
+purpose of this instance is to allow instances of Referential Attribute to 
+be related to it across R119 as a way to mark that they have been visited
+during a traversal from a referential attribute to its base attribute. 
+This marking is performed in order to avoid an infinite loop during the 
+traversal caused by any circular referencing that may be present.  
+
+Persistent:false
+User_Visible:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	"67eb58de-1d2b-4163-8373-ae8e65e99f84");
+INSERT INTO O_TFR
+	VALUES ("a83eda3a-9737-4acc-a373-4baeb6a7164e",
+	"5cff0d15-8ba0-4073-967d-1e146a7a1f2d",
+	'setAllToNotVisited',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// for each visited attribute
+select many attributes related by self->O_RATTR[R119];
+for each attribute in attributes
+   	// make this attribute no longer visited
+   	unrelate attribute from self across R119;
+end for;',
+	2,
+	'',
+	"0e6127f0-c8e4-4ddd-b91a-d438d4ea2c5f");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("0e6127f0-c8e4-4ddd-b91a-d438d4ea2c5f",
+	"5cff0d15-8ba0-4073-967d-1e146a7a1f2d",
+	'areAnyVisited',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any attribute related by self->O_RATTR[R119];
+return not_empty attribute;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("ef4f0cca-628a-44f6-99b2-ce0e6d71a157",
+	"5cff0d15-8ba0-4073-967d-1e146a7a1f2d");
+INSERT INTO O_BATTR
+	VALUES ("ef4f0cca-628a-44f6-99b2-ce0e6d71a157",
+	"5cff0d15-8ba0-4073-967d-1e146a7a1f2d");
+INSERT INTO O_ATTR
+	VALUES ("ef4f0cca-628a-44f6-99b2-ce0e6d71a157",
+	"5cff0d15-8ba0-4073-967d-1e146a7a1f2d",
+	"00000000-0000-0000-0000-000000000000",
+	'recorderId',
+	'Persistent:false
+User_Visible:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	'',
+	'recorderId',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"5cff0d15-8ba0-4073-967d-1e146a7a1f2d");
+INSERT INTO O_OIDA
+	VALUES ("ef4f0cca-628a-44f6-99b2-ce0e6d71a157",
+	"5cff0d15-8ba0-4073-967d-1e146a7a1f2d",
+	0,
+	'recorderId');
+INSERT INTO O_ID
+	VALUES (1,
+	"5cff0d15-8ba0-4073-967d-1e146a7a1f2d");
+INSERT INTO O_ID
+	VALUES (2,
+	"5cff0d15-8ba0-4073-967d-1e146a7a1f2d");
+INSERT INTO S_SS_PROXY
+	VALUES ("67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	'Subsystem',
+	'A class (O_OBJ)  is an abstraction of a real world thing that has specific attributes (O_ATTR) and, if active, has a lifecycle model as a state machine (SM_SM).  All instances of the class must have the same characteristics and follow the same state behavior.  Classes fall into many categories, some of which are: tangible things, roles, interactions and specifications. ',
+	'O',
+	101,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000300006",
+	'../Subsystem.xtuml');

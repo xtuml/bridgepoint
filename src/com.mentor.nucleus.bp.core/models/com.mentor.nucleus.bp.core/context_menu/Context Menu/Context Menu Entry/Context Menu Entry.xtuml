@@ -1,0 +1,346 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	'Context Menu Entry',
+	1,
+	'CME',
+	'An entry that must be shown in a menu.',
+	"22fe2ec1-5660-4a88-9691-da2fe55e94db");
+INSERT INTO O_NBATTR
+	VALUES ("a02aa5cd-1a6e-4de9-a631-daa947fb041a",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_BATTR
+	VALUES ("a02aa5cd-1a6e-4de9-a631-daa947fb041a",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_ATTR
+	VALUES ("a02aa5cd-1a6e-4de9-a631-daa947fb041a",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	"00000000-0000-0000-0000-000000000000",
+	'Specialism',
+	'A value that dictates whether special processing is needed for the menu
+entry. For example, a value of ''Rename'' adds code to allow the user to
+provide the new value in an in-place edit box and a value of ''New'' places
+the menu entry under a combined ''New'' submenu.
+
+Initially, valid values are ''Rename'', ''New'' and ''Delete''. No enumeration is
+used to allow new specialisms to be added without requiring a change to
+the model.',
+	'',
+	'Specialism',
+	0,
+	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("0063aff7-3a9e-4a07-be3b-f027d9e256f1",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_BATTR
+	VALUES ("0063aff7-3a9e-4a07-be3b-f027d9e256f1",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_ATTR
+	VALUES ("0063aff7-3a9e-4a07-be3b-f027d9e256f1",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	"a02aa5cd-1a6e-4de9-a631-daa947fb041a",
+	'Label',
+	'The text of the label that will be put on the menu entry.',
+	'',
+	'Label',
+	0,
+	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	"5c34cfbe-d555-4250-abbb-f45a42ca5d67",
+	0,
+	"88416d49-92df-441a-b112-7ec25944e6ce",
+	"96c0655e-1770-44a9-86c5-402a792aa0d5",
+	"cb6122d2-8d58-4fb2-a34a-8b7dc05b02d8",
+	"83fe05b7-8f50-49a3-a183-ad9f4f5b43d6",
+	"8182c59d-4612-4f15-8d63-580185203a9b",
+	"c1906fb6-f1bb-4fbf-9912-46286c8aa8db",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Client Class',
+	'Key_Lett',
+	'R2000');
+INSERT INTO R_RGO_PROXY
+	VALUES ("ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	"96c0655e-1770-44a9-86c5-402a792aa0d5",
+	"cb6122d2-8d58-4fb2-a34a-8b7dc05b02d8",
+	'../Context Menu.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("88416d49-92df-441a-b112-7ec25944e6ce",
+	"5c34cfbe-d555-4250-abbb-f45a42ca5d67",
+	0,
+	"96c0655e-1770-44a9-86c5-402a792aa0d5",
+	"83fe05b7-8f50-49a3-a183-ad9f4f5b43d6",
+	'../Context Menu.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("8182c59d-4612-4f15-8d63-580185203a9b",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	"88416d49-92df-441a-b112-7ec25944e6ce",
+	"5c34cfbe-d555-4250-abbb-f45a42ca5d67",
+	1,
+	'Key_Lett');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("88416d49-92df-441a-b112-7ec25944e6ce",
+	"5c34cfbe-d555-4250-abbb-f45a42ca5d67",
+	'../../OOA/Client Class/Client Class.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("8182c59d-4612-4f15-8d63-580185203a9b",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	"0063aff7-3a9e-4a07-be3b-f027d9e256f1",
+	'Key_Lett',
+	'A referential to the client model class that this menu is shown against.',
+	'',
+	'Key_Lett',
+	0,
+	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("86e8a9f3-2ade-4824-a8fb-8b3737322261",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_BATTR
+	VALUES ("86e8a9f3-2ade-4824-a8fb-8b3737322261",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_ATTR
+	VALUES ("86e8a9f3-2ade-4824-a8fb-8b3737322261",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	"8182c59d-4612-4f15-8d63-580185203a9b",
+	'Resultant_Class',
+	'The key letters for the class whose icon is shown against the menu 
+entry. The empty string represents no icon present.',
+	'',
+	'Resultant_Class',
+	0,
+	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("7b939730-6084-468b-878e-8a32daddc6bb",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_BATTR
+	VALUES ("7b939730-6084-468b-878e-8a32daddc6bb",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_ATTR
+	VALUES ("7b939730-6084-468b-878e-8a32daddc6bb",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	"86e8a9f3-2ade-4824-a8fb-8b3737322261",
+	'Global',
+	'Indicates whether this entry should be considered as global.
+That is some predefined entries additionally appear outside
+of the context menu. For example, ''Delete'' additionally appears
+on the Edit menu and ''Rename'' appears on the File Menu.
+These are examples of context menu entries that additionally
+appear in the global context.',
+	'',
+	'Global',
+	0,
+	"46994b98-f184-48fa-80ff-87b12695efd3",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("46994b98-f184-48fa-80ff-87b12695efd3",
+	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("f69f6c70-e37f-4e15-96b7-d5a766eefa2f",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_BATTR
+	VALUES ("f69f6c70-e37f-4e15-96b7-d5a766eefa2f",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_ATTR
+	VALUES ("f69f6c70-e37f-4e15-96b7-d5a766eefa2f",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	"7b939730-6084-468b-878e-8a32daddc6bb",
+	'WizardDescription',
+	'This is the description placed in the wizard for the menu entry.  Some menu''s don''t have
+wizards so this can be the empty string.
+',
+	'',
+	'WizardDescription',
+	0,
+	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("621927c4-af06-49f9-8f69-5081357df586",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_BATTR
+	VALUES ("621927c4-af06-49f9-8f69-5081357df586",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_ATTR
+	VALUES ("621927c4-af06-49f9-8f69-5081357df586",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	"f69f6c70-e37f-4e15-96b7-d5a766eefa2f",
+	'requiredSelectionCount',
+	'Defines the required number of elements to be selected.',
+	'',
+	'requiredSelectionCount',
+	0,
+	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("eb2eabd4-4c8a-44c4-ac70-0fb41dc5adef",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_BATTR
+	VALUES ("eb2eabd4-4c8a-44c4-ac70-0fb41dc5adef",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_ATTR
+	VALUES ("eb2eabd4-4c8a-44c4-ac70-0fb41dc5adef",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	"621927c4-af06-49f9-8f69-5081357df586",
+	'requiresHeterogeneousSelection',
+	'Indicates whether or not this context entry requires a selection of multiple
+types before it is enabled.',
+	'',
+	'requiresHeterogeneousSelection',
+	0,
+	"46994b98-f184-48fa-80ff-87b12695efd3",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("ea031352-3f80-4429-97ef-c8f0946136b9",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_BATTR
+	VALUES ("ea031352-3f80-4429-97ef-c8f0946136b9",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_ATTR
+	VALUES ("ea031352-3f80-4429-97ef-c8f0946136b9",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	"eb2eabd4-4c8a-44c4-ac70-0fb41dc5adef",
+	'extraEntryText',
+	'',
+	'',
+	'extraEntryText',
+	0,
+	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("21eb1112-0db2-40ec-907e-48bf64ff7407",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_BATTR
+	VALUES ("21eb1112-0db2-40ec-907e-48bf64ff7407",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_ATTR
+	VALUES ("21eb1112-0db2-40ec-907e-48bf64ff7407",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	"ea031352-3f80-4429-97ef-c8f0946136b9",
+	'UsesSelectionDialog',
+	'',
+	'',
+	'UsesSelectionDialog',
+	0,
+	"46994b98-f184-48fa-80ff-87b12695efd3",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("73a60de2-d88a-4786-86ee-f5d1bdf69515",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_BATTR
+	VALUES ("73a60de2-d88a-4786-86ee-f5d1bdf69515",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_ATTR
+	VALUES ("73a60de2-d88a-4786-86ee-f5d1bdf69515",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	"21eb1112-0db2-40ec-907e-48bf64ff7407",
+	'EnableVisibilityFiltering',
+	'',
+	'',
+	'EnableVisibilityFiltering',
+	0,
+	"46994b98-f184-48fa-80ff-87b12695efd3",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("bb4ef124-ea89-43bb-91b3-0d1188b6af88",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_BATTR
+	VALUES ("bb4ef124-ea89-43bb-91b3-0d1188b6af88",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_ATTR
+	VALUES ("bb4ef124-ea89-43bb-91b3-0d1188b6af88",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	"73a60de2-d88a-4786-86ee-f5d1bdf69515",
+	'TypeToChoose',
+	'',
+	'',
+	'TypeToChoose',
+	0,
+	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("d915bf2e-12a2-42e4-af5e-6981701cd36a",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_BATTR
+	VALUES ("d915bf2e-12a2-42e4-af5e-6981701cd36a",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_ATTR
+	VALUES ("d915bf2e-12a2-42e4-af5e-6981701cd36a",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	"bb4ef124-ea89-43bb-91b3-0d1188b6af88",
+	'Resultant_Class_RelChain',
+	'',
+	'',
+	'Resultant_Class_RelChain',
+	0,
+	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_OIDA
+	VALUES ("a02aa5cd-1a6e-4de9-a631-daa947fb041a",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	0,
+	'Specialism');
+INSERT INTO O_OIDA
+	VALUES ("8182c59d-4612-4f15-8d63-580185203a9b",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	0,
+	'Key_Lett');
+INSERT INTO O_OIDA
+	VALUES ("0063aff7-3a9e-4a07-be3b-f027d9e256f1",
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	0,
+	'Label');
+INSERT INTO O_ID
+	VALUES (1,
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO O_ID
+	VALUES (2,
+	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
+INSERT INTO S_SS_PROXY
+	VALUES ("22fe2ec1-5660-4a88-9691-da2fe55e94db",
+	'Context Menu',
+	'',
+	'CM_',
+	1,
+	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
+	"00000000-0000-0000-0000-000000100002",
+	'../Context Menu.xtuml');

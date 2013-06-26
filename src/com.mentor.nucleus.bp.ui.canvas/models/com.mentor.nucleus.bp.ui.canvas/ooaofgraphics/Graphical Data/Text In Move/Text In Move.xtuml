@@ -1,0 +1,155 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("94171104-6099-4245-a9b0-0a7eb254af1b",
+	'Text In Move',
+	12,
+	'GD_TIM',
+	'One instance of this class exists when a text block is being 
+moved. As documented by the 1:1 by conditional relationship,
+only one text block can be moved at a time. Text blocks cannot
+be selected individually, they form part of the connector to
+which they are attached. It therefore follows they cannot be
+grouped and moved together.
+
+---------------------------------------------------------------------------------
+Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+
+',
+	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+INSERT INTO O_REF
+	VALUES ("94171104-6099-4245-a9b0-0a7eb254af1b",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
+	"1b3ba3ce-7eff-448e-bd68-bee500a60524",
+	"ad074bf9-8856-45e4-84f9-541f949fbc5e",
+	"9fd1867c-a300-4a9f-b4ae-7c2e802e6b93",
+	"b940eeb8-951d-4428-8afe-d1ec90748410",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Model',
+	'diagramId',
+	'R14');
+INSERT INTO R_RGO_PROXY
+	VALUES ("94171104-6099-4245-a9b0-0a7eb254af1b",
+	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
+	"1b3ba3ce-7eff-448e-bd68-bee500a60524",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
+	"ad074bf9-8856-45e4-84f9-541f949fbc5e",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("9fd1867c-a300-4a9f-b4ae-7c2e802e6b93",
+	"94171104-6099-4245-a9b0-0a7eb254af1b",
+	"57f2fb06-0e5a-471e-bab1-02b88f324eb4",
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	1,
+	'diagramId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57f2fb06-0e5a-471e-bab1-02b88f324eb4",
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	'../../UML 2.0 Diagram Interchange/Diagram/Diagram.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("9fd1867c-a300-4a9f-b4ae-7c2e802e6b93",
+	"94171104-6099-4245-a9b0-0a7eb254af1b",
+	"00000000-0000-0000-0000-000000000000",
+	'diagramId',
+	'',
+	'',
+	'diagramId',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("94171104-6099-4245-a9b0-0a7eb254af1b",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	0,
+	"70ce96fd-d49f-4b77-a54a-884e47ec3bb1",
+	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
+	"1b3ba3ce-7eff-448e-bd68-bee500a60524",
+	"1513df8a-2068-40b2-b0d9-586f95849117",
+	"70120381-889b-47f9-aa8f-0dd8cf5ae08d",
+	"bd2c109d-c12a-4f70-b3fc-5de059acbfaf",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Floating Text',
+	'elementId',
+	'R14');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("70ce96fd-d49f-4b77-a54a-884e47ec3bb1",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	0,
+	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
+	"1513df8a-2068-40b2-b0d9-586f95849117",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("70120381-889b-47f9-aa8f-0dd8cf5ae08d",
+	"94171104-6099-4245-a9b0-0a7eb254af1b",
+	"53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	1,
+	'elementId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	'../../UML 2.0 Diagram Interchange/DiagramElement/DiagramElement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("70120381-889b-47f9-aa8f-0dd8cf5ae08d",
+	"94171104-6099-4245-a9b0-0a7eb254af1b",
+	"9fd1867c-a300-4a9f-b4ae-7c2e802e6b93",
+	'elementId',
+	'',
+	'',
+	'elementId',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"94171104-6099-4245-a9b0-0a7eb254af1b");
+INSERT INTO O_OIDA
+	VALUES ("9fd1867c-a300-4a9f-b4ae-7c2e802e6b93",
+	"94171104-6099-4245-a9b0-0a7eb254af1b",
+	0,
+	'diagramId');
+INSERT INTO O_OIDA
+	VALUES ("70120381-889b-47f9-aa8f-0dd8cf5ae08d",
+	"94171104-6099-4245-a9b0-0a7eb254af1b",
+	0,
+	'elementId');
+INSERT INTO O_ID
+	VALUES (1,
+	"94171104-6099-4245-a9b0-0a7eb254af1b");
+INSERT INTO O_ID
+	VALUES (2,
+	"94171104-6099-4245-a9b0-0a7eb254af1b");
+INSERT INTO S_SS_PROXY
+	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	'Graphical Data',
+	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
+-------------------------------------------------------
+Import:org.eclipse.swt.graphics.Color
+Notify_Changes:true',
+	'GD',
+	1,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001900032",
+	'../Graphical Data.xtuml');

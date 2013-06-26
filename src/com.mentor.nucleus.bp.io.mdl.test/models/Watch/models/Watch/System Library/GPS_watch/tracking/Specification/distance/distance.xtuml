@@ -1,0 +1,50 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("bcc15c8a-377d-44b0-b8c3-db5008896144",
+	'distance',
+	107,
+	'CDIST',
+	'',
+	"6bfc8243-4630-4cde-9c64-c71fe3dac95b");
+INSERT INTO O_NBATTR
+	VALUES ("8b7a774a-f368-4fae-a365-dc1fc27c66fc",
+	"bcc15c8a-377d-44b0-b8c3-db5008896144");
+INSERT INTO O_BATTR
+	VALUES ("8b7a774a-f368-4fae-a365-dc1fc27c66fc",
+	"bcc15c8a-377d-44b0-b8c3-db5008896144");
+INSERT INTO O_ATTR
+	VALUES ("8b7a774a-f368-4fae-a365-dc1fc27c66fc",
+	"bcc15c8a-377d-44b0-b8c3-db5008896144",
+	"00000000-0000-0000-0000-000000000000",
+	'distance',
+	'',
+	'',
+	'distance',
+	0,
+	"48b688a7-4cf9-4bec-b11f-eaf0ab389e2c",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("48b688a7-4cf9-4bec-b11f-eaf0ab389e2c",
+	"00000000-0000-0000-0000-000000000000",
+	'integer',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"bcc15c8a-377d-44b0-b8c3-db5008896144");
+INSERT INTO O_ID
+	VALUES (1,
+	"bcc15c8a-377d-44b0-b8c3-db5008896144");
+INSERT INTO O_ID
+	VALUES (2,
+	"bcc15c8a-377d-44b0-b8c3-db5008896144");
+INSERT INTO S_SS_PROXY
+	VALUES ("6bfc8243-4630-4cde-9c64-c71fe3dac95b",
+	'Specification',
+	'This subsystem defines how workout specifications are captured.',
+	'S',
+	101,
+	"7877e6e0-dd19-4087-b158-647c2788232a",
+	"00000000-0000-0000-0000-000000000000",
+	'../Specification.xtuml');

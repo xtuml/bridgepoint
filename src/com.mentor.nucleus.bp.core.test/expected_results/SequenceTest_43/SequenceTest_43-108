@@ -1,0 +1,8 @@
+drawRectangle(8857, 6656, 131, 46)
+drawRectangle(8857, 6700, 440, 285)
+drawText("«data type»", 8988, 6708, true)
+drawText("Datatypes", 9003, 6823, true)
+drawRectangle(9067, 6866, 124, 44)
+drawRectangle(9067, 6908, 427, 385)
+drawText("«sequence»", 9191, 6916, true)
+drawText("Unnamed Sequence", 9127, 7079, true)

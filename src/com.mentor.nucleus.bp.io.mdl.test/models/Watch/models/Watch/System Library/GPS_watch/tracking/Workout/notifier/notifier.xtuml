@@ -1,0 +1,28 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("02e9e15d-4e4b-48cc-8d61-9b27ce1f5bbb",
+	'notifier',
+	203,
+	'NOTIFY',
+	'A step in an exercise may specify a termination criterion - duration or distance.
+An appropriate subtype is resonsible for notifying the workout that the step is ending.',
+	"8a7e3b8b-e243-48dc-b5f9-f62644aa90c7");
+INSERT INTO O_ID
+	VALUES (0,
+	"02e9e15d-4e4b-48cc-8d61-9b27ce1f5bbb");
+INSERT INTO O_ID
+	VALUES (1,
+	"02e9e15d-4e4b-48cc-8d61-9b27ce1f5bbb");
+INSERT INTO O_ID
+	VALUES (2,
+	"02e9e15d-4e4b-48cc-8d61-9b27ce1f5bbb");
+INSERT INTO S_SS_PROXY
+	VALUES ("8a7e3b8b-e243-48dc-b5f9-f62644aa90c7",
+	'Workout',
+	'This subsystem contains the execution engine for running an instance of a workout specification.',
+	'',
+	201,
+	"7877e6e0-dd19-4087-b158-647c2788232a",
+	"00000000-0000-0000-0000-000000000000",
+	'../Workout.xtuml');

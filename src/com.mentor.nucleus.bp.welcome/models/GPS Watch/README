@@ -1,0 +1,68 @@
+GPS WATCH PROJECT STRUCTURE
+----------------------------
+The project consists of three executable entities:
+
+1. A Java based GUI
+2. A model running in Verifier along with some Java that handles GUI I/O 
+3. A compiled program resulting from generated code plus some handwritten C that 
+   does the equivalent of the Java code in 2
+
+   
+RUNNING THE PROJECT
+--------------------
+An execution configuration exists in order to launch the GUI. To create 
+run the Watch GUI:
+
+* Open the C/C++ Projects perspective (Window > Open Perspective > Other... > C/C++) 
+* Run > Run Configurations...
+* Expand the Java Application item
+* Select "GPS Watch UI"
+* Click Run
+
+The GUI is designed to allow applications (Verifier sessions and generated code) 
+to connect interchangeably, meaning there is no need to restart the GUI between 
+various sessions. When a new connection is detected the GUI will simply drop any 
+existing connection and only service the recently detected connection.
+
+You can now run either the already generated Windows executable, or run the 
+model in Verifier.
+
+To run the EXE:
+* Expand the Binaries item under the project
+* Right-click on "GPS Watch.exe" and choose Open With > System Editor
+* The application will connect to the GUI automatically.  Click the START/STOP 
+  button on the watch, you will see the watch execute on the GUI and in the 
+  command prompt console.  The MODE button causes GUI changes as well.
+
+To run the model in Verifier:
+* Switch to the xtUML Debugging Perspective (Window > Open Perspective > Other... > xtUML Debugging)
+* Run > Debug Configurations...
+* Expand the Model Verifier Application item
+* Select "GPS Watch"
+* Click Debug
+* In Session Explorer, expand GPS Watch > GPS Watch::Library::UI > GPS Watch::Library::UI > UI 
+* Right-click 'connect', select Execute
+* Now the GUI may be used to drive execution.
+
+
+BUILDING THE PROJECT
+---------------------
+The project is pre-built so building the project is not necessary. But, there 
+might be warnings/errors in the project resulting from an unresolved build path.
+The Java code that is used to extend Verifier depends on a BridgePoint jar file 
+called core.jar. To resolve the path to core.jar:
+
+* Open the Java perspective: Window > Open Perspective > Java
+* Right-click the project and select Build Path > Configure Build Path...
+* In the wizard click the Libraries tab
+* Select core.jar and click Edit...
+* Locate core.jar:
+    <BridgePoint installation folder>\eclipse_extensions\BridgePoint\eclipse\plugins\com.mentor.nucleus.bp.core_<version>\core.jar
+* OK all pop-ups
+
+If you want to rebuild the project after modifying the model or a marking file:
+
+* Switch to the C/C++ perspective
+* Right-click on the project and choose 'Build Project' in the context menu
+
+Have fun!

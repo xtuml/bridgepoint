@@ -1,0 +1,587 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 11">
+<meta name=Originator content="Microsoft Word 11">
+<link rel=File-List href="SequenceDiagram_files/filelist.xml">
+<link rel=Edit-Time-Data href="SequenceDiagram_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Domain Package</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Mentor</o:Author>
+  <o:LastAuthor>kwilliam</o:LastAuthor>
+  <o:Revision>4</o:Revision>
+  <o:TotalTime>3240</o:TotalTime>
+  <o:Created>2006-04-07T20:00:00Z</o:Created>
+  <o:LastSaved>2006-04-07T20:13:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>73</o:Words>
+  <o:Characters>417</o:Characters>
+  <o:Company>Mentor Graphics</o:Company>
+  <o:Lines>3</o:Lines>
+  <o:Paragraphs>1</o:Paragraphs>
+  <o:CharactersWithSpaces>489</o:CharactersWithSpaces>
+  <o:Version>11.6408</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:Compatibility>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" LatentStyleCount="156">
+ </w:LatentStyles>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:\5B8B\4F53;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+@font-face
+	{font-family:Webdings;
+	panose-1:5 3 1 2 1 5 9 6 7 3;
+	mso-font-charset:2;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 135135232 16 0 262145 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+h1
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:1;
+	font-size:18.0pt;
+	font-family:Arial;
+	color:black;
+	font-weight:normal;}
+h2
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	line-height:15.6pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:12.0pt;
+	font-family:Arial;
+	color:navy;
+	font-weight:bold;}
+h3
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
+	font-size:11.0pt;
+	font-family:Arial;
+	color:navy;
+	font-weight:bold;}
+h4
+	{margin-top:7.5pt;
+	margin-right:7.5pt;
+	margin-bottom:2.4pt;
+	margin-left:7.5pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:4;
+	font-size:11.0pt;
+	font-family:Arial;
+	color:#0176B9;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:navy;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#0176B9;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+p.preformatted-tpcode, li.preformatted-tpcode, div.preformatted-tpcode
+	{mso-style-name:preformatted-tp_code;
+	margin-top:15.0pt;
+	margin-right:0in;
+	margin-bottom:15.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	background:silver;
+	border:none;
+	mso-border-alt:solid black .75pt;
+	padding:0in;
+	mso-padding-alt:8.0pt 8.0pt 8.0pt 8.0pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:SimSun;}
+p.normalnotoc, li.normalnotoc, div.normalnotoc
+	{mso-style-name:normalnotoc;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+p.code, li.code, div.code
+	{mso-style-name:code;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:SimSun;}
+p.tpcode, li.tpcode, div.tpcode
+	{mso-style-name:tp_code;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:SimSun;}
+p.tpinput, li.tpinput, div.tpinput
+	{mso-style-name:tp_input;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;
+	font-weight:bold;}
+p.tpui, li.tpui, div.tpui
+	{mso-style-name:tp_ui;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;
+	color:navy;}
+p.tpvar, li.tpvar, div.tpvar
+	{mso-style-name:tp_var;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;
+	font-style:italic;}
+p.tpfooter, li.tpfooter, div.tpfooter
+	{mso-style-name:tp_footer;
+	margin:7.5pt;
+	text-align:center;
+	mso-pagination:widow-orphan;
+	background:white;
+	font-size:9.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+p.sub, li.sub, div.sub
+	{mso-style-name:sub;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+p.sublstbody, li.sublstbody, div.sublstbody
+	{mso-style-name:sublstbody;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+span.tpfile
+	{mso-style-name:tp_file;
+	color:#990000;
+	letter-spacing:1.2pt;}
+span.tpnote
+	{mso-style-name:tp_note;
+	font-weight:bold;}
+span.tpmenuarrow
+	{mso-style-name:tp_menuarrow;
+	font-family:Webdings;
+	mso-ascii-font-family:Webdings;
+	mso-hansi-font-family:Webdings;
+	color:navy;}
+span.hypertext
+	{mso-style-name:hypertext;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+table.MsoTableGrid
+	{mso-style-name:"Table Grid";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	border:solid windowtext 1.0pt;
+	mso-border-alt:solid windowtext .5pt;
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-border-insideh:.5pt solid windowtext;
+	mso-border-insidev:.5pt solid windowtext;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="4098"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9" style='tab-interval:
+.5in'>
+
+<div class=Section1>
+
+<h2>Sequence Diagram </h2>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>The following buttons are
+available on the Sequence Diagram:<o:p></o:p></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="71%"
+ style='width:71.04%;margin-left:3.75pt;border-collapse:collapse;mso-padding-alt:
+ 0in 5.4pt 0in 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width="29%" valign=top style='width:29.52%;border:solid black 1.0pt;
+  mso-border-alt:solid black .75pt;padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p align=center style='margin-top:0in;margin-right:7.5pt;margin-bottom:0in;
+  margin-left:7.5pt;margin-bottom:.0001pt;text-align:center;line-height:15.6pt'><b>Button<o:p></o:p></b></p>
+  </td>
+  <td width="70%" valign=top style='width:70.48%;border:solid black 1.0pt;
+  border-left:none;mso-border-left-alt:solid black .75pt;mso-border-alt:solid black .75pt;
+  padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p style='margin-top:0in;margin-right:7.5pt;margin-bottom:0in;margin-left:
+  7.5pt;margin-bottom:.0001pt;line-height:15.6pt'><b>Description<o:p></o:p></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width="29%" valign=top style='width:29.52%;border:solid black 1.0pt;
+  border-top:none;mso-border-top-alt:solid black .75pt;mso-border-alt:solid black .75pt;
+  padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p align=center style='margin-top:6.0pt;margin-right:.1in;margin-bottom:0in;
+  margin-left:.1in;margin-bottom:.0001pt;text-align:center;line-height:15.6pt'><!--[if gte vml 1]><v:shapetype
+   id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+   path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+   <v:stroke joinstyle="miter"/>
+   <v:formulas>
+    <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+    <v:f eqn="sum @0 1 0"/>
+    <v:f eqn="sum 0 0 @1"/>
+    <v:f eqn="prod @2 1 2"/>
+    <v:f eqn="prod @3 21600 pixelWidth"/>
+    <v:f eqn="prod @3 21600 pixelHeight"/>
+    <v:f eqn="sum @0 0 1"/>
+    <v:f eqn="prod @6 1 2"/>
+    <v:f eqn="prod @7 21600 pixelWidth"/>
+    <v:f eqn="sum @8 21600 0"/>
+    <v:f eqn="prod @7 21600 pixelHeight"/>
+    <v:f eqn="sum @10 21600 0"/>
+   </v:formulas>
+   <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+   <o:lock v:ext="edit" aspectratio="t"/>
+  </v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:16.5pt;
+   height:18pt'>
+   <v:imagedata src="SequenceDiagram_files/image001.jpg" o:title="image020"/>
+  </v:shape><![endif]--><![if !vml]><img width=22 height=24
+  src="SequenceDiagram_files/image001.jpg" v:shapes="_x0000_i1025"><![endif]></p>
+  </td>
+  <td width="70%" valign=top style='width:70.48%;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  mso-border-top-alt:solid black .75pt;mso-border-left-alt:solid black .75pt;
+  mso-border-alt:solid black .75pt;padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p><span style='font-family:Arial;mso-bidi-font-family:"Times New Roman"'>Creates
+  a new Sequence Diagram<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width="29%" valign=top style='width:29.52%;border:solid black 1.0pt;
+  border-top:none;mso-border-top-alt:solid black .75pt;mso-border-alt:solid black .75pt;
+  padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p align=center style='margin-top:6.0pt;margin-right:.1in;margin-bottom:0in;
+  margin-left:.1in;margin-bottom:.0001pt;text-align:center;line-height:15.6pt'><!--[if gte vml 1]><v:shape
+   id="_x0000_i1026" type="#_x0000_t75" style='width:16.5pt;height:18pt'>
+   <v:imagedata src="SequenceDiagram_files/image002.jpg" o:title="untitled1"/>
+  </v:shape><![endif]--><![if !vml]><img width=22 height=24
+  src="SequenceDiagram_files/image002.jpg" v:shapes="_x0000_i1026"><![endif]></p>
+  </td>
+  <td width="70%" valign=top style='width:70.48%;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  mso-border-top-alt:solid black .75pt;mso-border-left-alt:solid black .75pt;
+  mso-border-alt:solid black .75pt;padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p><span style='font-family:Arial;mso-bidi-font-family:"Times New Roman"'>Creates
+  a new Instance<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width="29%" valign=top style='width:29.52%;border:solid black 1.0pt;
+  border-top:none;mso-border-top-alt:solid black .75pt;mso-border-alt:solid black .75pt;
+  padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p align=center style='margin-top:6.0pt;margin-right:.1in;margin-bottom:0in;
+  margin-left:.1in;margin-bottom:.0001pt;text-align:center;line-height:15.6pt'><!--[if gte vml 1]><v:shape
+   id="_x0000_i1027" type="#_x0000_t75" style='width:16.5pt;height:18pt'>
+   <v:imagedata src="SequenceDiagram_files/image003.jpg" o:title="untitled2"/>
+  </v:shape><![endif]--><![if !vml]><img width=22 height=24
+  src="SequenceDiagram_files/image003.jpg" v:shapes="_x0000_i1027"><![endif]></p>
+  </td>
+  <td width="70%" valign=top style='width:70.48%;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  mso-border-top-alt:solid black .75pt;mso-border-left-alt:solid black .75pt;
+  mso-border-alt:solid black .75pt;padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p style='margin-top:7.5pt;margin-right:.1in;margin-bottom:6.0pt;margin-left:
+  .1in'><span style='font-family:Arial;mso-bidi-font-family:"Times New Roman"'>Creates
+  a new Actor<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width="29%" valign=top style='width:29.52%;border:solid black 1.0pt;
+  border-top:none;mso-border-top-alt:solid black .75pt;mso-border-alt:solid black .75pt;
+  padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p align=center style='margin-top:6.0pt;margin-right:.1in;margin-bottom:0in;
+  margin-left:.1in;margin-bottom:.0001pt;text-align:center;line-height:15.6pt'><!--[if gte vml 1]><v:shape
+   id="_x0000_i1028" type="#_x0000_t75" style='width:16.5pt;height:18pt'>
+   <v:imagedata src="SequenceDiagram_files/image004.jpg" o:title="untitled3"/>
+  </v:shape><![endif]--><![if !vml]><img width=22 height=24
+  src="SequenceDiagram_files/image004.jpg" v:shapes="_x0000_i1028"><![endif]></p>
+  </td>
+  <td width="70%" valign=top style='width:70.48%;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  mso-border-top-alt:solid black .75pt;mso-border-left-alt:solid black .75pt;
+  mso-border-alt:solid black .75pt;padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p><span style='font-family:Arial;mso-bidi-font-family:"Times New Roman"'>Creates
+  a new Imported External Entity <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width="29%" valign=top style='width:29.52%;border:solid black 1.0pt;
+  border-top:none;mso-border-top-alt:solid black .75pt;mso-border-alt:solid black .75pt;
+  padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p align=center style='margin-top:6.0pt;margin-right:.1in;margin-bottom:0in;
+  margin-left:.1in;margin-bottom:.0001pt;text-align:center;line-height:15.6pt'><!--[if gte vml 1]><v:shape
+   id="_x0000_i1029" type="#_x0000_t75" style='width:16.5pt;height:18pt'>
+   <v:imagedata src="SequenceDiagram_files/image005.jpg" o:title="untitled4"/>
+  </v:shape><![endif]--><![if !vml]><img width=22 height=24
+  src="SequenceDiagram_files/image005.jpg" v:shapes="_x0000_i1029"><![endif]></p>
+  </td>
+  <td width="70%" valign=top style='width:70.48%;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  mso-border-top-alt:solid black .75pt;mso-border-left-alt:solid black .75pt;
+  mso-border-alt:solid black .75pt;padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p><span style='font-family:Arial;mso-bidi-font-family:"Times New Roman"'>Creates
+  a new Imported Class<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width="29%" valign=top style='width:29.52%;border:solid black 1.0pt;
+  border-top:none;mso-border-top-alt:solid black .75pt;mso-border-alt:solid black .75pt;
+  padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p align=center style='margin-top:6.0pt;margin-right:.1in;margin-bottom:0in;
+  margin-left:.1in;margin-bottom:.0001pt;text-align:center;line-height:15.6pt'><!--[if gte vml 1]><v:shape
+   id="_x0000_i1030" type="#_x0000_t75" style='width:16.5pt;height:18pt'>
+   <v:imagedata src="SequenceDiagram_files/image006.jpg" o:title="untitled5"/>
+  </v:shape><![endif]--><![if !vml]><img width=22 height=24
+  src="SequenceDiagram_files/image006.jpg" v:shapes="_x0000_i1030"><![endif]></p>
+  </td>
+  <td width="70%" valign=top style='width:70.48%;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  mso-border-top-alt:solid black .75pt;mso-border-left-alt:solid black .75pt;
+  mso-border-alt:solid black .75pt;padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p><span style='font-family:Arial;mso-bidi-font-family:"Times New Roman"'>Creates
+  a new Imported Function Package<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width="29%" valign=top style='width:29.52%;border:solid black 1.0pt;
+  border-top:none;mso-border-top-alt:solid black .75pt;mso-border-alt:solid black .75pt;
+  padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p align=center style='margin-top:6.0pt;margin-right:.1in;margin-bottom:0in;
+  margin-left:.1in;margin-bottom:.0001pt;text-align:center;line-height:15.6pt'><!--[if gte vml 1]><v:shape
+   id="_x0000_i1031" type="#_x0000_t75" style='width:16.5pt;height:18pt'>
+   <v:imagedata src="SequenceDiagram_files/image007.jpg" o:title="untitled6"/>
+  </v:shape><![endif]--><![if !vml]><img width=22 height=24
+  src="SequenceDiagram_files/image007.jpg" v:shapes="_x0000_i1031"><![endif]></p>
+  </td>
+  <td width="70%" valign=top style='width:70.48%;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  mso-border-top-alt:solid black .75pt;mso-border-left-alt:solid black .75pt;
+  mso-border-alt:solid black .75pt;padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p><span style='font-family:Arial;mso-bidi-font-family:"Times New Roman"'>Creates
+  a new Lifeline<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td width="29%" valign=top style='width:29.52%;border:solid black 1.0pt;
+  border-top:none;mso-border-top-alt:solid black .75pt;mso-border-alt:solid black .75pt;
+  padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p align=center style='margin-top:6.0pt;margin-right:.1in;margin-bottom:0in;
+  margin-left:.1in;margin-bottom:.0001pt;text-align:center;line-height:15.6pt'><!--[if gte vml 1]><v:shape
+   id="_x0000_i1032" type="#_x0000_t75" style='width:16.5pt;height:18pt'>
+   <v:imagedata src="SequenceDiagram_files/image008.jpg" o:title="untitled7"/>
+  </v:shape><![endif]--><![if !vml]><img width=22 height=24
+  src="SequenceDiagram_files/image008.jpg" v:shapes="_x0000_i1032"><![endif]></p>
+  </td>
+  <td width="70%" valign=top style='width:70.48%;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  mso-border-top-alt:solid black .75pt;mso-border-left-alt:solid black .75pt;
+  mso-border-alt:solid black .75pt;padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p><span style='font-family:Arial;mso-bidi-font-family:"Times New Roman"'>Creates
+  a new Timing Mark<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9'>
+  <td width="29%" valign=top style='width:29.52%;border:solid black 1.0pt;
+  border-top:none;mso-border-top-alt:solid black .75pt;mso-border-alt:solid black .75pt;
+  padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p align=center style='margin-top:6.0pt;margin-right:.1in;margin-bottom:0in;
+  margin-left:.1in;margin-bottom:.0001pt;text-align:center;line-height:15.6pt'><!--[if gte vml 1]><v:shape
+   id="_x0000_i1033" type="#_x0000_t75" style='width:16.5pt;height:18pt'>
+   <v:imagedata src="SequenceDiagram_files/image009.jpg" o:title="untitled8"/>
+  </v:shape><![endif]--><![if !vml]><img width=22 height=24
+  src="SequenceDiagram_files/image009.jpg" v:shapes="_x0000_i1033"><![endif]></p>
+  </td>
+  <td width="70%" valign=top style='width:70.48%;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  mso-border-top-alt:solid black .75pt;mso-border-left-alt:solid black .75pt;
+  mso-border-alt:solid black .75pt;padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p><span style='font-family:Arial;mso-bidi-font-family:"Times New Roman"'>Creates
+  a new Time Span<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10'>
+  <td width="29%" valign=top style='width:29.52%;border:solid black 1.0pt;
+  border-top:none;mso-border-top-alt:solid black .75pt;mso-border-alt:solid black .75pt;
+  padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p align=center style='margin-top:6.0pt;margin-right:.1in;margin-bottom:0in;
+  margin-left:.1in;margin-bottom:.0001pt;text-align:center;line-height:15.6pt'><!--[if gte vml 1]><v:shape
+   id="_x0000_i1034" type="#_x0000_t75" style='width:16.5pt;height:18pt'>
+   <v:imagedata src="SequenceDiagram_files/image010.jpg" o:title="untitled9"/>
+  </v:shape><![endif]--><![if !vml]><img width=22 height=24
+  src="SequenceDiagram_files/image010.jpg" v:shapes="_x0000_i1034"><![endif]></p>
+  </td>
+  <td width="70%" valign=top style='width:70.48%;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  mso-border-top-alt:solid black .75pt;mso-border-left-alt:solid black .75pt;
+  mso-border-alt:solid black .75pt;padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p><span style='font-family:Arial;mso-bidi-font-family:"Times New Roman"'>Creates
+  a new Synchronous Message<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11'>
+  <td width="29%" valign=top style='width:29.52%;border:solid black 1.0pt;
+  border-top:none;mso-border-top-alt:solid black .75pt;mso-border-alt:solid black .75pt;
+  padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p align=center style='margin-top:6.0pt;margin-right:.1in;margin-bottom:0in;
+  margin-left:.1in;margin-bottom:.0001pt;text-align:center;line-height:15.6pt'><!--[if gte vml 1]><v:shape
+   id="_x0000_i1035" type="#_x0000_t75" style='width:16.5pt;height:18pt'>
+   <v:imagedata src="SequenceDiagram_files/image011.jpg" o:title="untitled10"/>
+  </v:shape><![endif]--><![if !vml]><img width=22 height=24
+  src="SequenceDiagram_files/image011.jpg" v:shapes="_x0000_i1035"><![endif]></p>
+  </td>
+  <td width="70%" valign=top style='width:70.48%;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  mso-border-top-alt:solid black .75pt;mso-border-left-alt:solid black .75pt;
+  mso-border-alt:solid black .75pt;padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p><span style='font-family:Arial;mso-bidi-font-family:"Times New Roman"'>Creates
+  a new Asynchronous Message<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:12;mso-yfti-lastrow:yes'>
+  <td width="29%" valign=top style='width:29.52%;border:solid black 1.0pt;
+  border-top:none;mso-border-top-alt:solid black .75pt;mso-border-alt:solid black .75pt;
+  padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p align=center style='margin-top:6.0pt;margin-right:.1in;margin-bottom:0in;
+  margin-left:.1in;margin-bottom:.0001pt;text-align:center;line-height:15.6pt'><!--[if gte vml 1]><v:shape
+   id="_x0000_i1036" type="#_x0000_t75" style='width:16.5pt;height:18pt'>
+   <v:imagedata src="SequenceDiagram_files/image012.jpg" o:title="untitled11"/>
+  </v:shape><![endif]--><![if !vml]><img width=22 height=24
+  src="SequenceDiagram_files/image012.jpg" v:shapes="_x0000_i1036"><![endif]></p>
+  </td>
+  <td width="70%" valign=top style='width:70.48%;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  mso-border-top-alt:solid black .75pt;mso-border-left-alt:solid black .75pt;
+  mso-border-alt:solid black .75pt;padding:.75pt 7.5pt .75pt 7.5pt'>
+  <p><span style='font-family:Arial;mso-bidi-font-family:"Times New Roman"'>Creates
+  a new Return Message<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<h2><o:p>&nbsp;</o:p></h2>
+
+</div>
+
+</body>
+
+</html>

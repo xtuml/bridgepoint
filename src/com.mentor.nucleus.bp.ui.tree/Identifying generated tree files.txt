@@ -1,0 +1,244 @@
+==========================================================================
+
+File:      $RCSfile$
+Version:   $Revision$
+Modified:  $Date$
+
+(c) Copyright 2006-2013 by Mentor Graphics Corp. All rights reserved.
+
+==========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+==========================================================================
+
+Identifying generated tree files
+----------------------------------------
+
+Introduction
+------------
+The tree generation infrastructure is quite flexible.  When reading this
+document, whenever you see a word enclosed in <> symbols, that is an argument
+name that can be passed to the generate_skeleton_files.xml builder for your
+project.  For example, assume that you have passed the following arguments to
+the builder:
+-Dproject=com.mentor.nucleus.bp.ui.explorer
+-Dproject_with_slash=com/mentor/nucleus/bp/ui/explorer
+-Dprefix=InstanceExplorer
+
+whenever you see the word <project> in this document, it would be replaced by
+com.mentor.nucleus.bp.ui.explorer.  So the following path:
+   <project>/src/<project_with_slash>
+translates into 
+   com.mentor.nucleus.bp.ui.explorer/src/com/mentor/nucleus/bp/ui/explorer
+
+Please look at the top section of ....bp.ui.tree/generate_skeleton_files.xml
+in order to find a complete set of properties that can be passed as argumenrts.
+
+
+Assumed Existing Files
+----------------------------------
+	<project>/.project
+	  This file among other things defines the builders that will be launched
+	  when a user attempts to build or clean this project.  In addition to
+	  generating skeleton java files, the generate_skeleton_file.xml script
+	  also creates a new builder launch file and adds a reference to it in
+	  the .project file.
+
+	<project>/plugin.xml
+	<project>/META-INF/MANIFEST.MF (optional)
+	  The script assumes that a plug-in project already exists, but does not
+	  assume that the project uses an OSGI Manifest.  If the manifest file
+	  exists, then plug-in dependencies may be added to it.  If the manifest
+	  does not exist, then the plug-in dependencies will be added to the
+	  plugin.xml file.
+	
+	<project>/src/<project_with_slash>/<plugin_name>Plugin.java
+	  Since the script assumes that a plugin project already exists, a plugin
+	  file is neither generated nor modified.  Instead of modifying the plugin
+	  to match the generated files, the arguments used to generate the files
+	  should be changed to match the values for the plug-in.
+
+Generated Skeleton Files
+----------------------------------
+The following files should be checked into version control after being
+generated.  These are the files that you should modify to tweak your new
+view to do whatever you require.
+
+	<project>/.externalToolBuilders
+	----------------------------------
+	<builder_name>.launch         - Referred to in the .project file, this
+	                                custom launch file will automatically be
+	                                added to your project in order to execute
+	                                the new generate.xml script whenever this
+	                                project is built or cleaned.
+
+	<project>/src/<project_with_slash>
+	----------------------------------
+	I<helpcontextids_prefix>HelpContextIds.java
+	                              - Project specific constants
+	<treeviewer_prefix>TreeViewer.java
+	                              - Constitutes most of the view's screen
+	                                real estate
+	
+	<project>/src/<project_with_slash><slash_actions>
+	----------------------------------
+	FilterSelectionAction.java    - Opens the filters dialog
+	
+	<project>/src/<project_with_slash><slash_adapters>
+	----------------------------------
+	DomainProxyAdapter.java
+	RootAdapter.java
+	
+	<project>/arc
+	----------------------------------
+	BuildTree.arc                 - Called by generate.xml, this archetype is
+	                                responsible for generating the following:
+	                                  - The view file
+	                                  - The remaining adapters
+	                                  - The label provider
+	                                  - The content provider
+	                                  - The filters content provider
+	                                If you do not want to generate one of these
+	                                files, then comment out the section of code
+	                                that invokes the function and emits the
+	                                results to the file.
+	create_<view_name>.inc        - Called by BuildTree.arc, this template is
+	                                used to create a custom view java file for
+	                                your project.  If you want to change view
+	                                functionality, this is the place.
+	
+	<project>/sql
+	----------------------------------
+	UITree.pei.sql                - Determines the content of your tree
+	                                Each class and parameter in this file
+	                                maps directly to a class and attribute in
+	                                the UITree.xtuml model stored in the
+	                                bp.ui.tree/models folder.  By modifying this
+	                                file, you can change just about everything
+	                                regarding the content of your tree.  For
+	                                more information, read the Adding a new node
+	                                to a generated tree.txt file in the same
+	                                directory as this document.
+	
+	<project>
+	----------------------------------
+	generate.xml                  - The .project file includes a builder that
+	                                will launch this new script.  This script
+	                                is responsible for cleaning and building
+	                                the remaining generated files that should
+	                                not be kept in version control.  It will
+	                                also ensure that the schema for the tree
+	                                (stored in ....bp.ui.tree/sql) has been
+	                                generated.  The generated java files will
+	                                also be run through a format utility to
+	                                make the code comply with coding standards.
+	                                Then the generated code will be compiled.
+
+
+End
+---
+
+$Log$
+Revision 1.9  2013/01/10 23:19:50  rmulvey
+job:dts0100939343
+Updated the copyright to 2013
+
+Revision 1.8  2012/01/23 21:31:13  kbrown
+job:dts0100848212
+Batch commit of copyright updated files.
+
+Revision 1.7  2011/05/30 20:37:06  kbrown
+job:dts0100742889
+Updated copy right.
+
+Revision 1.6  2010/01/05 04:01:00  kbrown
+job:dts0100644853
+Batch commit of copyright change from 2009 to 2010 for BP CVS projects.
+
+Revision 1.5  2009/01/01 23:28:03  rmulvey
+Job:4060
+Batch promotion of copyright changes from Review-i4060 and Review-i4060-01.
+
+Revision 1.4.18.1  2008/12/31 15:49:14  rmulvey
+Job:4060
+This is a batch commit of 2009 copyright changes to branch Review-i4060.  This includes the
+report that outlines all changes made (before/after for each line changed).  This report is found here: <cvs>/Documentation/internal/test_results/R2_1_2/i4060/update-copyright-results.txt.
+
+Revision 1.4  2008/01/08 20:24:35  rmulvey
+Job:3349
+Promoted from Review-i3349.  The copyright has been updated to 2008 and the version has been bumped to 1.5.4.
+
+Revision 1.3.6.1  2007/12/21 17:54:13  rmulvey
+Job:3339
+Checking-in the copyriight changes in branch Review-i3349.  A detailed list of these changes is found
+in the report produced by the utility used to changesthese messages.  This report is here:
+Documentation/internal/test_results/R1_5_4/i3349/update-copyright-results.txt
+
+Revision 1.3  2007/09/05 02:22:30  kbrown
+Job:2673
+Promoting copyright changes for plugins:
+ui.text
+ui.text.test
+ui.tree
+verifer.pkg
+verifier.pkg-feature
+welcome
+welcome.test
+help.bp.mc
+help.bp.mc2020
+internal.test
+
+Revision 1.2.24.1  2007/09/01 01:38:10  rmulvey
+Job:2673
+Updated copyright messages and version numbers in Review-i2673-01.
+
+Revision 1.2  2006/12/12 21:57:03  tlondon
+Job: 2286
+
+Promotion.
+
+This is a batch promotion check the resource history for more information.
+Or see the design note and implementation note named after this issue number.
+
+Revision 1.1.14.1  2006/12/11 19:01:35  tlondon
+Job: 2286
+
+Commit changes to branch to allow others to test against in parallel with promotion.
+
+Revision 1.1.12.1  2006/10/21 12:49:21  campbell
+Job:2286
+Introduced.
+
+Revision 1.1.10.1  2006/07/19 14:34:51  greg
+Job: 1850
+Merge with HEAD 7/19/2007
+
+Revision 1.1.8.1  2006/07/10 14:56:05  jluebker
+Job: 2164
+Introduced
+
+Revision 1.1.4.1  2006/06/27 23:18:39  jeremyr
+Job:2164
+Introduce
+
+Revision 1.1.2.5  2006/06/23 14:45:48  jeremyr
+Job:2164
+In order to comply with a review observation, I explicitly state that BuildTree.arc is where you make changes if you do not want to generate a view.
+
+Revision 1.1.2.4  2006/06/20 15:20:25  jeremyr
+Job:2164
+Uses the new define available to specify builder launch name
+
+Revision 1.1.2.3  2006/06/15 15:05:55  jeremyr
+Job:2164
+Updated to reflect the new optional properties for specifying names of certain files.
+
+Revision 1.1.2.2  2006/06/13 21:37:27  jeremyr
+Job:2164
+Added support for specifying a different prefix name for the tree viewer
+
+Revision 1.1.2.1  2006/06/13 18:57:57  jeremyr
+Job:2164
+Introduce
+
+

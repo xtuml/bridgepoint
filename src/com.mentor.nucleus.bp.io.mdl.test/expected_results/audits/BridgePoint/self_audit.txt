@@ -1,0 +1,78 @@
+AUDIT RESULTS FOR DOMAIN self
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+asptest_self
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging 
+External Entity Time
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class asptest_self::Object A
+Class asptest_self::Object B
+Class asptest_self::Object C
+Class asptest_self::Object D
+Class asptest_self::Object E
+Class asptest_self::Driver
+Class asptest_self::self
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Object A::oa_id
+Attribute Object B::ob_id
+Attribute Object B::current_state
+Attribute Object B::oa_id
+Attribute Object C::oc_id
+Attribute Object D::od_id
+Attribute Object E::oe_id
+Attribute Object E::oc_id
+Attribute Object E::od_id
+Attribute Object E::current_state
+Attribute Driver::dr_id
+Attribute Driver::testNumber
+Attribute Driver::current_state
+Attribute self::init_id
+Attribute self::current_state
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute Object B::oa_id
+Referential Attribute Object E::oc_id
+Referential Attribute Object E::od_id
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+asptest_self::R1
+asptest_self::R2
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Object B
+State Model Object E
+State Model Driver
+State Model self
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event OB1
+Event OB2
+Event OE1
+Event DR1
+Event DR2
+Event INIT1
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Object B::testNumber
+Event Data Object E::testNumber
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Object B::Relate A to SELF
+Object B::Relate SELF to A
+Object E::Relate C to D Using SELF
+Driver::Relate A to SELF
+Driver::Relate SELF to A
+Driver::Relate C to D Using SELF
+Driver::Test Complete
+self::init

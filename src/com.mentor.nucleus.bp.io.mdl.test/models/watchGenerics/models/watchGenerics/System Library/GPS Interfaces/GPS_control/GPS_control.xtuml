@@ -1,0 +1,14 @@
+-- BP 7.1 content: Interface syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO C_I
+	VALUES ("d7e242c3-aac4-4f69-9b81-e72120bec59b",
+	"00000000-0000-0000-0000-000000000000",
+	'GPS_control',
+	'');
+INSERT INTO PE_PE_PROXY
+	VALUES ("d7e242c3-aac4-4f69-9b81-e72120bec59b",
+	1,
+	"f8829425-547f-4239-aba7-69960f11f205",
+	"00000000-0000-0000-0000-000000000000",
+	6,
+	'../GPS Interfaces.xtuml');

@@ -1,0 +1,49 @@
+#========================================================================
+#
+#File:      $RCSfile: rc.mgclm,v $
+#Version:   $Revision: 1.10 $
+#Modified:  $Date: 2012/01/23 21:27:46 $
+#
+#(c) Copyright 2005-2012 by Mentor Graphics Corp. All rights reserved.
+#
+#========================================================================
+#This document contains information proprietary and confidential to
+#Mentor Graphics Corp., and is not for external distribution.
+#======================================================================== 
+
+action=$1
+
+case $action in
+  start_msg)
+
+echo "Starting Nucleus BridgePoint license server"
+;;
+
+  stop_msg)
+
+echo "Stopping Nucleus BridgePoint license server"
+;;
+
+  start)
+
+if [ -f $MGLS_HOME/bin/lmgrd ] ;  
+then
+    MGLS_LOC=/opt/phoenix/mgclm/exports.v7-1_0-3-1_engr-ss6
+    export MGLS_HOME=$MGLS_LOC/mgc_home/pkgs/mgls.ss6
+    export MGLS_LICENSE_FILE=$MGLS_LOC/mgc_home/licenses/license.dat
+    export LM_LICENSE_FILE=$MGLS_LICENSE_FILE
+    su build -c "umask 022; $MGLS_HOME/bin/lmgrd -c $MGLS_LICENSE_FILE -l $MGLS_LOC/mgc_home/log/mgclm.log" 
+fi
+
+;;
+
+  stop)
+
+LIC_PID=`ps -ef | grep build | grep lmgrd | grep -v grep | awk '{print $2}'`;
+if [ ! -z "${LIC_PID}" ]; then
+    kill ${LIC_PID}
+fi 
+
+;;
+esac
+exit 0

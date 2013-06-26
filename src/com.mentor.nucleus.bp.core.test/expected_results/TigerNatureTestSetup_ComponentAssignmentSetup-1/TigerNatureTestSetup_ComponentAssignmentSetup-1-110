@@ -1,0 +1,5 @@
+drawRectangle(11327, 8544, 532, 566)
+drawText("ComponentAssignment...", 11343, 8800, true)
+drawRectangle(11746, 8589, 69, 55)
+drawRectangle(11730, 8594, 33, 17)
+drawRectangle(11730, 8616, 33, 17)

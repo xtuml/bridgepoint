@@ -1,0 +1,225 @@
+.//============================================================================
+.// File:  domain.mark
+.//
+.// Description:
+.// This marking file is used to indicate xtUML domain specialization(s)
+.// to the model compiler's translation engine.
+.//
+.// Notice:
+.// (C) Copyright 1999-2008 Mentor Graphics Corporation
+.//     All rights reserved.
+.//============================================================================
+.// Notes:
+.// (1) Marking is specified via archetype function invocation(s) in this file.
+.//     A function invocation statement MUST be specified on a single line.
+.//     All indicated function input parameters must be supplied.
+.// (2) All quoted string parameters are case sensitive.
+.// (3) Comments in this file start with ".//".
+.// (4) Do not leave any blank lines in this file.
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Tag Inititialization Function:
+.//
+.// To indicate to the model compiler that a function serves as an
+.// initialization function in a domain, use the following invocation
+.// (one for each initialization object):
+.//
+.// TagInitializationFunction( "function_name" )
+.//
+.// Where the input parameter(s) are:
+.//   function_name = name of the domain function (synchronous service)
+.//
+.// Example:
+.//   .invoke TagInitializationFunction( "initialize_domain" )
+.//
+.// Notes:
+.// (1) If multiple functions are tagged, they will be invoked in
+.//     alphabetical order.
+.// (2) Function bearing arguments may not be used as initalization
+.//     functions.
+.// (3) This interface supercedes and obsoletes tagging initialization
+.//     objects.
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Exclude Function(s) From Implementation Code Generation:
+.//
+.// To indicate to the model compiler that a function should be excluded
+.// from implementation code generation, use the following invocation
+.// (one for each excluded object):
+.//
+.// TagFunctionTranslationOff( "function_name" )
+.//
+.// Where the input parameter(s) are:
+.//   function_name = name of domain function to not be translated
+.//
+.// Example:
+.//   .invoke TagFunctionTranslationOff( "initialize_AS" )
+.//   .invoke TagFunctionTranslationOff( "*" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Exclude Object From Implementation Code Generation:
+.//
+.// To indicate to the model compiler that an object should be excluded
+.// from implementation code generation, use the following invocation
+.// (one for each excluded object):
+.//
+.// TagExcludeObjectFromCodeGen( "key_letters" )
+.//
+.// Where the input parameter(s) are:
+.//   key_letters = Key letters of the object to be excluded.
+.//
+.// Example:
+.//   .invoke TagExcludeObjectFromCodeGen( "TST_OBJ" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Exclude Subsystem From Code Generation:
+.//
+.// To indicate to the model compiler that all objects in a specified
+.// subsystem should be excluded from implementation code generation, use the
+.// following invocation (one for each excluded subsystem):
+.//
+.// TagExcludeSubsystemFromCodeGen( "subsystem" )
+.//
+.// Where the input parameter(s) are:
+.//   subsystem = Name of the subsystem to be excluded.
+.//
+.// NOTES: 1) 'white space' in the subsystem name will be ignored.
+.//        2) The subsystem name is not case sensitive.
+.//
+.// Example:
+.//   .invoke TagExcludeSubsystemFromCodeGen( "ModelVerifier Unit Tests" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// *** Debug Control Marks ***
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Debug Tooling:  Enable state transition level tracing.
+.//
+.// To indicate to the model compiler that state transition tracing
+.// capabilities should be generated, use the following invocation:
+.//
+.// TagStateTransitionTracingOn()
+.//
+.// Example:
+.//   .invoke TagStateTransitionTracingOn()
+.//============================================================================
+.invoke TagStateTransitionTracingOn()
+.//
+.//
+.//============================================================================
+.// Debug Tooling:  Enable state action language level tracing.
+.//
+.// To indicate to the model compiler that state action statement tracing
+.// capabilities should be generated, use the following invocation:
+.//
+.// TagActionStatementTracingOn()
+.//
+.// Example:
+.//   .invoke TagActionStatementTracingOn()
+.//============================================================================
+.invoke TagActionStatementTracingOn()
+.//
+.//
+.//============================================================================
+.// Debug Tooling:  Enable detection of empty instance handle usage.
+.//
+.// To steer the model compiler into generating code that detects the
+.// use of empty instance references and instance set references (handles),
+.// use the following invocation:
+.//
+.// TagEmptyHandleDetectionOn()
+.//
+.// Example:
+.//   .invoke TagEmptyHandleDetectionOn()
+.//============================================================================
+.invoke TagEmptyHandleDetectionOn()
+.//
+.//
+.//============================================================================
+.// Debug Tooling:  Disable first pass optimizations in generated code.
+.//
+.// To indicate to the model compiler first pass optimizations in the generated
+.// code should be disabled, use the following invocation:
+.//
+.// TagFirstPassOptimizationsOff()
+.//
+.// Example:
+.//   .invoke TagFirstPassOptimizationsOff()
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// *** Generated Code Commenting and Naming Control Marks ***
+.//
+.// The following marks provide control of action language commenting and
+.// variable naming in the generated code. They are intended to allow style
+.// choices primarily for those modifying or learning about the model compiler.
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// TagStateActionCommentBlocksEnabled
+.// 
+.// This mark will render the original BPAL state actions as a comment block
+.// prior to the generate code for each state action. By default, block level
+.// comments of the BPAL are not generated.
+.// 
+.// Example:
+.//   .invoke TagStateActionCommentBlocksEnabled()
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// TagStateActionStatementCommentsDisabled
+.//
+.// This mark will disable the emission of BPAL syntax statements immediately
+.// before the corrosponding generated code segment. By default, statement
+.// level comments of the BPAL are generated.
+.// 
+.// Example:
+.//   .invoke TagStateActionStatementCommentsDisabled()
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// TagStateActionVariableNamesEnabled
+.//
+.// This mark indicates that variable names in the generated state action 
+.// code should be constructed using the xtUML variable names in the application
+.// analysis.  Otherwise, terse local variable names are generated. 
+.// 
+.// Example:
+.//   .invoke TagStateActionVariableNamesEnabled()
+.//============================================================================
+.invoke TagStateActionVariableNamesEnabled()
+.//
+.//
+.//============================================================================
+.// TagVerboseReflexivePhrasesEnabled
+.//
+.// This mark indicates that variable and method names involving reflexive
+.// association phrases should be constructed using the phrases in the
+.// xtUML model.
+.// Otherwise, terse reflexive phrase names and methods are generated.
+.//
+.// Example:
+.//   .invoke TagVerboseReflexivePhrasesEnabled()
+.//============================================================================
+.invoke TagVerboseReflexivePhrasesEnabled()
+.//
+.//
+.//============================================================================
+.// Do not add anything at the end of this file!
+.//============================================================================

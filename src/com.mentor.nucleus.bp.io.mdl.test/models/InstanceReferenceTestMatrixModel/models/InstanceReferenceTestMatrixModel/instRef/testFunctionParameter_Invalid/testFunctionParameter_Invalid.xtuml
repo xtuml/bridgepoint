@@ -1,0 +1,376 @@
+-- BP 7.1 content: FunctionPackage syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO S_FPK
+	VALUES ("51cadab3-1264-4692-9820-171b553866e7",
+	'testFunctionParameter_Invalid',
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_MD
+	VALUES ("141419d0-8d3c-4d24-90e9-9fe848e23dc4",
+	101,
+	"51cadab3-1264-4692-9820-171b553866e7",
+	54,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'3.2.3');
+INSERT INTO DIM_DIA
+	VALUES ("141419d0-8d3c-4d24-90e9-9fe848e23dc4",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PL_FPID
+	VALUES ("51cadab3-1264-4692-9820-171b553866e7",
+	"c3928f56-530d-4984-8114-35933dc4cb31");
+INSERT INTO S_DOM_PROXY
+	VALUES ("c3928f56-530d-4984-8114-35933dc4cb31",
+	'instRef',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000002",
+	"13c14d34-d225-4949-89b6-fe738cc62cbb",
+	'../instRef.xtuml');
+INSERT INTO S_FIP
+	VALUES ("51cadab3-1264-4692-9820-171b553866e7",
+	"0aa2a50a-ce57-4924-b08c-9c50d8f9a905");
+INSERT INTO S_SYNC
+	VALUES ("0aa2a50a-ce57-4924-b08c-9c50d8f9a905",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'S_SPARM_writeAttr',
+	'',
+	'LOG::LogInfo(message:"Operation entered: testFunctionParameter_Invalid::S_SPARM_writeAttr, Matrix cell : A19 V2 I2");
+create object instance newCar of V;   
+param.instRef = newCar;
+if ( param.instRef == newCar )
+	LOG::LogSuccess(message:"S_SPARM_writeAttr -A19 V2 I2-  test passed");
+else
+	LOG::LogFailure(message:"S_SPARM_writeAttr -A19 V2 I2-  test failed");
+end if; 
+delete object instance newCar;
+param.instRef.model = "BMW";	// empty instance access
+if ( param.instRef.model == "BMW" )
+	;
+end if; 
+LOG::LogFailure(message:"Undetected empty instance access");
+LOG::LogFailure(message:"S_SPARM_writeAttr -A19 V2 I2-  test failed");
+EOF= true;
+ 
+',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("125b0316-74e9-44c3-8130-bbbaab125e75",
+	"0aa2a50a-ce57-4924-b08c-9c50d8f9a905",
+	'instRef',
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'inst_ref<vehicle>',
+	'',
+	'',
+	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("63f91549-9407-42c4-a2c0-fdde2812f080",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'void',
+	'',
+	'',
+	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_FIP
+	VALUES ("51cadab3-1264-4692-9820-171b553866e7",
+	"97e54a86-5463-43d2-bc1b-a475a189eb88");
+INSERT INTO S_SYNC
+	VALUES ("97e54a86-5463-43d2-bc1b-a475a189eb88",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'S_SPARM_readAttr',
+	'',
+	'LOG::LogInfo(message:"Operation entered: testFunctionParameter_Invalid::S_SPARM_readAttir, Matrix cell : A2 V2 I2");
+obj = param.instRef;
+if ( not_empty obj)
+	 LOG::LogFailure(message:"obj is not empty");
+	 LOG::LogFailure(message:"S_SPARM_readAttir -A2 V2 I2-  test failed");
+else
+	LOG::LogSuccess(message:"S_SPARM_readAttir -A2 V2 I2-  test passed");
+end if;
+
+
+model = param.instRef.model;  // empty instance access
+LOG::LogFailure(message:"Undetected empty instance access");
+LOG::LogFailure(message:"S_SPARM_readAttir -A2 V2 I2-  test failed");
+EOF = 1;',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("d7dbcd4a-737a-4264-b6f0-9d9d65586514",
+	"97e54a86-5463-43d2-bc1b-a475a189eb88",
+	'instRef',
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_FIP
+	VALUES ("51cadab3-1264-4692-9820-171b553866e7",
+	"0fe42dca-a37c-4cd0-9993-bacdb574a28b");
+INSERT INTO S_SYNC
+	VALUES ("0fe42dca-a37c-4cd0-9993-bacdb574a28b",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'S_SPARM_WhereClause',
+	'',
+	'LOG::LogInfo(message:"Operation entered: testFunctionParameter_Invalid::S_SPARM_WhereClause, Matrix cell : A13 V2 I2");
+select any car from instances of V;
+if ( not_empty car)
+   LOG::LogFailure(message:"car is not empty");
+   LOG::LogFailure(message:"S_SPARM_WhereClause -A13 V2 I2-  test failed");
+   return;
+end if;
+select one ped related by car->P[R1] where( selected.vehicleReference == param.instRef);
+
+if ( not_empty ped)
+   LOG::LogFailure(message:"ped is not empty");
+   LOG::LogFailure(message:"S_SPARM_WhereClause -A13 V2 I2-  test failed");
+   return;
+else
+	LOG::LogSuccess(message:"S_SPARM_WhereClause -A13 V2 I2-  test passed");   
+end if;
+
+select one ped related by car->P[R1] where( selected.vehicleReference.model == param.instRef.model); // empty instance access 
+LOG::LogFailure(message:"Undetected empty instance access");
+LOG::LogFailure(message:"S_SPARM_WhereClause -A13 V2 I2-  test failed");
+ 
+EOF = true;
+
+',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("69ae2384-7a50-40f5-9ba6-b2b83538a68a",
+	"0fe42dca-a37c-4cd0-9993-bacdb574a28b",
+	'instRef',
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_FIP
+	VALUES ("51cadab3-1264-4692-9820-171b553866e7",
+	"a3244b54-fc25-4a95-b6ed-ecd75ed6e9b3");
+INSERT INTO S_SYNC
+	VALUES ("a3244b54-fc25-4a95-b6ed-ecd75ed6e9b3",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'S_SPARM_booleanBinaryOperationLeftOperand',
+	'',
+	'LOG::LogInfo(message:"Operation entered: testFunctionParameter_Invalid::S_SPARM_booleanBinaryOperationLeftOperand, Matrix cell : A14 V2 I2");
+select any veh from instances of V;
+if ( not_empty veh)
+   LOG::LogFailure(message:"veh is not empty");
+   LOG::LogFailure(message:"S_SPARM_booleanBinaryOperationLeftOperand -A14 V2 I2-  test failed");
+   return;
+   
+end if;
+if param.instRef == veh
+	LOG::LogSuccess(message:"S_SPARM_booleanBinaryOperationLeftOperand -A14 V2 I2-  test passed");
+else
+	LOG::LogFailure(message:"S_SPARM_booleanBinaryOperationLeftOperand -A14 V2 I2-  test failed");	
+end if;
+
+if param.instRef.model == veh.model	// empty instance access
+	;
+end if;
+LOG::LogFailure(message:"Undetected empty instance access");
+LOG::LogFailure(message:"S_SPARM_booleanBinaryOperationLeftOperand -A14 V2 I2-  test failed");	',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("174659c2-f81f-414c-8322-97f959e30c26",
+	"a3244b54-fc25-4a95-b6ed-ecd75ed6e9b3",
+	'instRef',
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_FIP
+	VALUES ("51cadab3-1264-4692-9820-171b553866e7",
+	"1481d313-e341-497e-90a5-83732b4015f4");
+INSERT INTO S_SYNC
+	VALUES ("1481d313-e341-497e-90a5-83732b4015f4",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'S_SPARM_booleanBinaryOperationRightOperandSet',
+	'',
+	'LOG::LogInfo(message:"Operation entered: testFunctionParameter_Invalid::S_SPARM_booleanBinaryOperationRightOperandSet, Matrix cell : A31 V2 I2");
+
+select many vehs from instances of V;
+if ( not_empty vehs)
+   LOG::LogFailure(message:"vehs is not empty instance reference set");
+   LOG::LogFailure(message:"S_SPARM_booleanBinaryOperationRightOperandSet -A31 V2 I2-  test failed");
+   return;
+   
+end if;
+if  vehs == param.instRef_set
+	LOG::LogSuccess(message:"S_SPARM_booleanBinaryOperationRightOperandSet -A31 V2 I2-  test passed");
+else
+	LOG::LogFailure(message:"S_SPARM_booleanBinaryOperationRightOperandSet -A31 V2 I2-  test failed");
+end if;
+
+',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("47ea0962-166d-445e-9f2f-e0af6381cff3",
+	"1481d313-e341-497e-90a5-83732b4015f4",
+	'instRef_set',
+	"cab818e3-8b6b-4844-ba65-2b5c63c3e5d4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("cab818e3-8b6b-4844-ba65-2b5c63c3e5d4",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'inst_ref_set<vehicle>',
+	'',
+	'',
+	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_FIP
+	VALUES ("51cadab3-1264-4692-9820-171b553866e7",
+	"07bbbfd4-f79a-43c8-b4ed-f2f26dcc6a81");
+INSERT INTO S_SYNC
+	VALUES ("07bbbfd4-f79a-43c8-b4ed-f2f26dcc6a81",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'S_SPARM_booleanBinaryOperationRightOperand',
+	'',
+	'LOG::LogInfo(message:"Operation entered: testFunctionParameter_Invalid::S_SPARM_booleanBinaryOperationRightOperand, Matrix cell : A15 V2 I2");
+select any veh from instances of V;
+if ( not_empty veh)
+   LOG::LogFailure(message:"veh is not empty");
+   LOG::LogFailure(message:"S_SPARM_booleanBinaryOperationRightOperand -A15 V2 I2-  test failed");
+   return;
+   
+end if;
+if  veh == param.instRef
+	LOG::LogSuccess(message:"S_SPARM_booleanBinaryOperationRightOperand -A14 V2 I2-  test passed");
+else
+	LOG::LogFailure(message:"S_SPARM_booleanBinaryOperationRightOperand -A14 V2 I2-  test failed");
+end if;
+
+if  veh.model == param.instRef.model	// empty instance access
+	;
+end if;
+LOG::LogFailure(message:"Undetected empty instance access");
+LOG::LogFailure(message:"S_SPARM_booleanBinaryOperationRightOperand -A14 V2 I2-  test failed");',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("2850bf0f-7b6b-4e77-94fe-0eea689febc7",
+	"07bbbfd4-f79a-43c8-b4ed-f2f26dcc6a81",
+	'instRef',
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_FIP
+	VALUES ("51cadab3-1264-4692-9820-171b553866e7",
+	"f2f3a2f1-5512-43ad-b078-627a732a70fd");
+INSERT INTO S_SYNC
+	VALUES ("f2f3a2f1-5512-43ad-b078-627a732a70fd",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'S_SPARM_booleanBinaryOperationLeftOperandSet',
+	'',
+	'LOG::LogInfo(message:"Operation entered: testFunctionParameter_Invalid::S_SPARM_booleanBinaryOperationLeftOperandSet, Matrix cell : A30 V2 I2");
+select many vehs from instances of V;
+if ( not_empty vehs)
+   LOG::LogFailure(message:"vehs is  not empty instance reference set");
+   LOG::LogFailure(message:"S_SPARM_booleanBinaryOperationLeftOperandSet -A30 V2 I2-  test failed");
+   return;
+   
+end if;
+if param.instRef_set == vehs
+	LOG::LogSuccess(message:"S_SPARM_booleanBinaryOperationLeftOperandSet -A30 V2 I2-  test passed");
+else
+	LOG::LogFailure(message:"S_SPARM_booleanBinaryOperationLeftOperandSet -A30 V2 I2-  test failed");	
+end if;
+',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("4bab1f6f-f22f-424c-a64b-87bc4665a446",
+	"f2f3a2f1-5512-43ad-b078-627a732a70fd",
+	'instRef_set',
+	"cab818e3-8b6b-4844-ba65-2b5c63c3e5d4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_FIP
+	VALUES ("51cadab3-1264-4692-9820-171b553866e7",
+	"554d92ae-0bf4-41c4-82e0-fc24e77dc050");
+INSERT INTO S_SYNC
+	VALUES ("554d92ae-0bf4-41c4-82e0-fc24e77dc050",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'S_SPARM_ActivitiesInvocation',
+	'',
+	'LOG::LogInfo(message:"Operation entered: testFunctionParameter_Invalid::S_SPARM_ActivitiesInvocation, Matrix cell : A36 V2 I2");
+
+::EmptyInstRefParameterSetupTest(inst:param.instRef);
+
+',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("430a0819-eed2-47a2-aae1-b0b109deb480",
+	"554d92ae-0bf4-41c4-82e0-fc24e77dc050",
+	'instRef',
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_FIP
+	VALUES ("51cadab3-1264-4692-9820-171b553866e7",
+	"27e25ad7-2c7c-4922-a2b5-1b40d4ff3f9f");
+INSERT INTO S_SYNC
+	VALUES ("27e25ad7-2c7c-4922-a2b5-1b40d4ff3f9f",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'S_SPARM_ActivitiesInvocationSet',
+	'',
+	'LOG::LogInfo(message:"Operation entered: testFunctionParameter_Invalid::S_SPARM_ActivitiesInvocationSet, Matrix cell : A36 V2 I2");
+
+::EmptyInstRefSetParameterSetupTest(instSet: param.instRef_set); ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f3ef5bfb-f73a-49eb-b75a-f35e5803418a",
+	"27e25ad7-2c7c-4922-a2b5-1b40d4ff3f9f",
+	'instRef_set',
+	"cab818e3-8b6b-4844-ba65-2b5c63c3e5d4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');

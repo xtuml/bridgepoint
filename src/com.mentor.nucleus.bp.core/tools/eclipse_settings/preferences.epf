@@ -1,0 +1,21 @@
+#Wed Jan 19 12:43:42 MST 2005
+@org.eclipse.team.core=3.0.0
+@org.eclipse.team.ui=3.0.1
+/instance/org.eclipse.ui/showIntro=false
+@org.eclipse.ui=3.0.1
+/instance/org.eclipse.team.core/file_types=ant\n1\narc\n1\nbak\n1\nchk\n1\nclr\n1\ndnt\n1\ninc\n1\nint\n1\nxtuml\n1\nrvm\n1\nsql\n1\ntnt\n1\n
+/instance/org.eclipse.team.cvs.ui/pref_first_startup=true
+@org.eclipse.team.cvs.ui=3.0.1
+@org.eclipse.pde.core=3.0.1
+@org.eclipse.core.resources=3.0.1
+@org.eclipse.ui.workbench=3.0.1
+@org.eclipse.jdt.ui=3.0.1
+/instance/org.eclipse.team.ui/org.eclipse.team.ui.first_time=false
+/instance/org.eclipse.core.resources/description.defaultbuildorder=false
+/instance/org.eclipse.core.resources/description.buildorder=com.mentor.nucleus.bp.core/com.mentor.nucleus.bp.als/com.mentor.nucleus.bp.als.oal/com.mentor.nucleus.bp.ui.properties/com.mentor.nucleus.bp.ui.explorer/com.mentor.nucleus.bp.ui.canvas/com.mentor.nucleus.bp.ui.text/com.mentor.nucleus.bp.io.core/com.mentor.nucleus.bp.io.mdl/com.mentor.nucleus.bp.io.sql/com.mentor.nucleus.bp.compare/com.mentor.nucleus.bp.model.compare/com.mentor.nucleus.bp.doc/com.mentor.nucleus.bp.pkg/com.mentor.nucleus.bp.pkg-feature/com.mentor.nucleus.bp.test/com.mentor.nucleus.bp.ui.canvas.test/com.mentor.nucleus.bp.core.test/com.mentor.nucleus.bp.als.oal.test/com.mentor.nucleus.bp.ui.explorer.test/com.mentor.nucleus.bp.io.mdl.test/com.mentor.nucleus.bp.io.sql.test/com.mentor.nucleus.bp.ui.text.test/com.mentor.nucleus.bp.compare.test/com.mentor.nucleus.bp.ui.properties.test/pt_antlr
+/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.problem.unusedImport=ignore
+/instance/org.eclipse.debug.ui/org.eclipse.debug.ui.auto_remove_old_launches=false
+/instance/org.eclipse.debug.ui/Console.highWaterMark=128000
+/instance/org.eclipse.debug.ui/Console.lowWaterMark=120000
+\!/instance=
+file_export_version=3.0

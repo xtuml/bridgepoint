@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="Prepare Workspace">
+      <intro>
+      <description>
+         <b>Welcome to BridgePoint. </b> <br/><br/>
+This step prepares the workspace for creating verifiable xtUML models and systems
+<br/><br/>
+      </description>
+      </intro>
+      
+      <item title="Open the xtUML modeling Perspective">
+		<action pluginId="org.eclipse.ui.cheatsheets" 
+			class="org.eclipse.ui.internal.cheatsheets.actions.OpenPerspective"
+			param1="com.mentor.nucleus.bp.core.perspective"/>
+		<description>Select <b> Window &gt; Open Perspective &gt; Other &gt; xtUML modeling Perspective</b>. 
+			This step changes the perspective to set up the Eclipse workbench for xtUML modeling.
+		</description>
+	</item>
+      
+      
+      <item
+            skip="true"
+            title="Link with editor">
+            <action pluginId="com.mentor.nucleus.bp.welcome" 
+           class="com.mentor.nucleus.bp.welcome.cheatsheets.library.LinkWithEditor"/>
+         <description>
+            Link your Model Explorer view with the open Graphical/Activity editors, or selected elements in canvas for better viewing.
+         </description>
+      </item>
+      <onCompletion>
+         Thank you for exploring &lt;em&gt;BridgePoint&lt;/em&gt;.  Now it&apos;s time for you to build some application models.  Good luck and have fun!
+      </onCompletion>
+</cheatsheet> 

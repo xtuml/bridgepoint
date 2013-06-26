@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile$
+ Version:   $Revision$
+ Modified:  $Date$
+
+ (c) Copyright 2005-2012 Mentor Graphics Corporation  All rights reserved.
+
+-->
+<project name="bp.tools" default="all" basedir=".">
+  <target name="all" 
+          description="Generate all code for this project" 
+          depends="make_map, extend_map">
+  </target>
+
+  <property name="mcj_path" value="../../MC-Java" />
+  <property environment="env"/>
+  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\bin" />
+   
+
+  <target name="make_map" description="Create an id map file">
+    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+		<arg line="-nopersist
+			-import ../../sql/ooa_schema-uuid.sql
+			-import ../../sql/ooaofooa-uuid-cnv.sql
+			-arch ./makemap.arc" />
+	</exec>
+  </target>
+	  <target name="extend_map" description="Complete the id map file">
+	    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+			<arg line="-nopersist
+				-import ../../sql/ooa_schema-uuid.sql
+				-import ../../sql/head-ooaofooa-cnv.sql
+				-import ../../sql/map.sql
+				-arch ./extendmap.arc" />
+		</exec>
+	  </target>
+</project>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<site>
+   <description url="siteInfo.html"/>
+
+   <feature url="features/com.mentor.nucleus.bp.pkg_1.0.0.jar">
+      <category name="UML Tools"/>
+   </feature>
+
+   <category-def label="UML Tools" name="BridgePoint UML Suite">
+      <description>
+	This category contains features for the BridgePoint UML Suite.
+      </description>
+   </category-def>
+
+
+</site>     

@@ -1,0 +1,190 @@
+-- BP 7.1 content: FunctionPackage syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO S_FPK
+	VALUES ("c947ccf1-5e24-4680-9d1c-17152cdfc7b4",
+	'Invalid Attribute Test Invocation Functions',
+	"00000000-0000-0000-0000-000000000000",
+	"974d0af7-e621-4f96-be7d-955fc947d471");
+INSERT INTO GD_MD
+	VALUES ("5b17b6d5-3798-43b9-ad82-884f203ba2a9",
+	101,
+	"c947ccf1-5e24-4680-9d1c-17152cdfc7b4",
+	54,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	200,
+	150,
+	0,
+	'');
+INSERT INTO DIM_DIA
+	VALUES ("5b17b6d5-3798-43b9-ad82-884f203ba2a9",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_FPIP
+	VALUES ("c947ccf1-5e24-4680-9d1c-17152cdfc7b4");
+INSERT INTO PL_FPID
+	VALUES ("c947ccf1-5e24-4680-9d1c-17152cdfc7b4",
+	"c3928f56-530d-4984-8114-35933dc4cb31");
+INSERT INTO S_DOM_PROXY
+	VALUES ("c3928f56-530d-4984-8114-35933dc4cb31",
+	'instRef',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000002",
+	"13c14d34-d225-4949-89b6-fe738cc62cbb",
+	'../../../instRef.xtuml');
+INSERT INTO S_FIP
+	VALUES ("c947ccf1-5e24-4680-9d1c-17152cdfc7b4",
+	"9071cedf-e408-4e4b-97e1-fc1a383dc33a");
+INSERT INTO S_SYNC
+	VALUES ("9071cedf-e408-4e4b-97e1-fc1a383dc33a",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_booleanBinaryOperationLeftOperand_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Attribute"); 
+select any test from instances of ATTR2;
+test.O_ATTR_booleanBinaryOperationLeftOperand();
+::dispose(accessType:"Invalid",referenceType:"Attribute");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("63f91549-9407-42c4-a2c0-fdde2812f080",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'void',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_FIP
+	VALUES ("c947ccf1-5e24-4680-9d1c-17152cdfc7b4",
+	"5997fdbe-6723-480c-8acd-7c1f07f139b8");
+INSERT INTO S_SYNC
+	VALUES ("5997fdbe-6723-480c-8acd-7c1f07f139b8",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_booleanBinaryOperationRightOperand_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Attribute"); 
+select any test from instances of ATTR2;
+test.O_ATTR_booleanBinaryOperationRightOperand();
+::dispose(accessType:"Invalid",referenceType:"Attribute");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("c947ccf1-5e24-4680-9d1c-17152cdfc7b4",
+	"9e3603ca-b145-418f-aafb-067a063d2cc5");
+INSERT INTO S_SYNC
+	VALUES ("9e3603ca-b145-418f-aafb-067a063d2cc5",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_readAttr_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Attribute"); 
+select any test from instances of ATTR2;
+test.O_ATTR_readAttr();
+::dispose(accessType:"Invalid",referenceType:"Attribute");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("c947ccf1-5e24-4680-9d1c-17152cdfc7b4",
+	"aafbc30f-3150-4982-a994-7a5fa44f480b");
+INSERT INTO S_SYNC
+	VALUES ("aafbc30f-3150-4982-a994-7a5fa44f480b",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_WhereClause_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Attribute"); 
+select any test from instances of ATTR2;
+test.O_ATTR_WhereClause();
+::dispose(accessType:"Invalid",referenceType:"Attribute");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("c947ccf1-5e24-4680-9d1c-17152cdfc7b4",
+	"3152d963-5871-4085-aee0-11a45caf04f8");
+INSERT INTO S_SYNC
+	VALUES ("3152d963-5871-4085-aee0-11a45caf04f8",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_booleanBinaryOperationLeftOperandSet_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Attribute"); 
+select any test from instances of ATTR2;
+test.O_ATTR_booleanBinaryOperationLeftOperandSet();
+::dispose(accessType:"Invalid",referenceType:"Attribute");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("c947ccf1-5e24-4680-9d1c-17152cdfc7b4",
+	"e30029b6-3360-4024-8e41-0e0cf94c76de");
+INSERT INTO S_SYNC
+	VALUES ("e30029b6-3360-4024-8e41-0e0cf94c76de",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_writeAttr_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Attribute"); 
+select any test from instances of ATTR2;
+test.O_ATTR_writeAttr();
+::dispose(accessType:"Invalid",referenceType:"Attribute");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("c947ccf1-5e24-4680-9d1c-17152cdfc7b4",
+	"86dc2446-78dd-441d-a57d-fd770171d465");
+INSERT INTO S_SYNC
+	VALUES ("86dc2446-78dd-441d-a57d-fd770171d465",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_booleanBinaryOperationRightOperandSet_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Attribute"); 
+select any test from instances of ATTR2;
+test.O_ATTR_booleanBinaryOperationRightOperandSet();
+::dispose(accessType:"Invalid",referenceType:"Attribute");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("c947ccf1-5e24-4680-9d1c-17152cdfc7b4",
+	"b6fa54ce-4b7f-421a-aec1-f2f7a4b255a1");
+INSERT INTO S_SYNC
+	VALUES ("b6fa54ce-4b7f-421a-aec1-f2f7a4b255a1",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_ActivitiesInvocation_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Attribute"); 
+select any test from instances of ATTR2;
+test.O_ATTR_ActivitiesInvocation();
+::dispose(accessType:"Invalid",referenceType:"Attribute");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("c947ccf1-5e24-4680-9d1c-17152cdfc7b4",
+	"ae75bb3a-48ae-4c68-b03e-148ca3111ba2");
+INSERT INTO S_SYNC
+	VALUES ("ae75bb3a-48ae-4c68-b03e-148ca3111ba2",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_ActivitiesInvocationSet_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Attribute"); 
+select any test from instances of ATTR2;
+test.O_ATTR_ActivitiesInvocationSet();
+::dispose(accessType:"Invalid",referenceType:"Attribute");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FPIP_PROXY
+	VALUES ("974d0af7-e621-4f96-be7d-955fc947d471",
+	'../Invalid Test Invocation Functions.xtuml');

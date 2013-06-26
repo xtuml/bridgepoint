@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile: generate.xml,v $
+ Version:   $Revision: 1.50 $
+ Modified:  $Date: 2013/05/10 16:18:00 $
+
+ (c) Copyright 2004-2013 Mentor Graphics Corporation  All rights reserved.
+
+-->
+<project name="bp.io.sql" default="all" basedir=".">
+  <target name="all"
+          description="Generate all code for this project"
+          depends="class2table,import.java,delete_gen,format_java">
+  </target>
+
+  <target name="nb_all"
+          description="Generate all code for this project"
+          depends="class2table,import.java,delete_gen">
+  </target>
+
+  <property name="eclipse-home" value="${basedir}/../.."/>
+  <property name="plugins-home" value="${ant.home}/../.."/>
+
+  <property environment="env"/>
+  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\bin" />
+
+  <property name="iocore_path" value="../com.mentor.nucleus.bp.io.core" />
+
+  <property name="mcj_path" value="../MC-Java" />
+  <property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
+  <property name="schema" value="file_io_schema.sql" />
+
+  <property name="class2table.input" value="bp_ooa_ooa.sql" />
+  <property name="class2table.output" value="ooa.pei.sql" />
+
+  <target name="class2table.depends" >
+    <uptodate property="class2table.buildNotNeeded" targetfile="sql/${class2table.output}">
+       <srcfiles dir = "sql"        includes = "${class2table.input},bp_gd.sql"/>
+       <srcfiles dir = "${iocore_path}/arc"        includes = "class2table.arc"/>
+       <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql"/>
+    </uptodate>
+  </target>
+
+  <target name="class2table"
+          depends="class2table.depends"
+          description="Generate the BP OOA pre-existing instances file"
+          unless="class2table.buildNotNeeded" >
+    <echo >Generating ${class2table.output} ...</echo>
+    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+    <arg value="-nopersist" />
+    <arg value="-import ../${mcj_path}/ooa_schema.sql"/>
+    <arg value="-import bp_ooa_ooa.sql"/>
+    <arg value="-import bp_gd.sql"/>
+    <arg value="-arch ../${iocore_path}/arc/class2table.arc" />
+  </exec>
+    <delete file="sql/____file.txt" />
+  <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+  <touch file="sql/${class2table.output}" />
+  </target>
+
+  <property name="import.output" value="src/com/mentor/nucleus/bp/io/sql/ImportBPSql.java" />
+
+  <target name="import.depends" >
+    <uptodate property="import.buildNotNeeded" targetfile="${import.output}">
+       <srcfiles dir = "arc"        includes = "gen_import_java.arc,class_rename.inc"/>
+       <srcfiles dir = "${iocore_path}/arc"		includes = "gen_import_java.inc,import_functions.inc" />
+       <srcfiles dir = "${iocore_path}/sql"		includes = "${schema}" />
+     <srcfiles dir = "../com.mentor.nucleus.bp.core/color" includes = "ooaofooa_package_spec.clr" />
+       <srcfiles dir = "sql"        includes = "${schema},${class2table.output},file_io.pei.sql"/>
+       <srcfiles dir = "${mcj_path}" includes = "arch_utils.inc"/>
+    </uptodate>
+  </target>
+
+  <target name="create_gen.depends"
+          depends="import.depends" >
+    <condition property="create_gen.buildNotNeeded" >
+      <and>
+      <istrue value="${import.buildNotNeeded}"/>
+    </and>
+    </condition>
+  </target>
+
+  <target name="create_gen"
+          depends="create_gen.depends"
+          description="Create the generation database"
+          unless="create_gen.buildNotNeeded" >
+    <echo >Generating gen_oal.gen ...</echo>
+  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+    <arg line="-f gen_oal.gen
+      -import ${iocore_path}/sql/${schema}
+      -import sql/${class2table.output}
+      -import sql/file_io.pei.sql" />
+  </exec>
+  </target>
+
+  <target name="import.java"
+          depends="create_gen"
+          description="Create the import java code"
+          unless="import.buildNotNeeded" >
+  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+    <env key="CORE_ARC_DIR" value="../com.mentor.nucleus.bp.core/arc"/>
+    <arg line="-f gen_oal.gen
+      -arch arc/gen_import_java.arc" />
+  </exec>
+  <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+  <touch file="${import.output}" />
+  </target>
+
+  <target name="format_java"
+        description="Format the generated java source" >
+
+    <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask" >
+        <classpath>
+            <pathelement path="../com.mentor.nucleus.bp.core/tools/" />
+            <fileset dir="${plugins-home}/plugins" casesensitive="yes">
+                <include name="**/org.eclipse.text_*.jar" />
+                <include name="**/org.eclipse.ui_*.jar" />
+                <include name="**/org.eclipse.jdt.core_*.jar" />
+                <include name="**/org.eclipse.core.runtime_*.jar" />
+                <include name="**/org.eclipse.osgi_*.jar" />
+                <include name="**/org.eclipse.core.resources_*.jar" />
+                <include name="**/org.eclipse.equinox.common_*.jar" />
+            </fileset>
+        </classpath>
+    </taskdef>
+        <PTCodeFormat>
+          <fileset dir="../com.mentor.nucleus.bp.io.sql/src/com/mentor/nucleus/bp/io/sql/"
+              excludes="SqlPlugin.java, ImportModelFactory.java, ImportBPSqlHelper.java"
+            includes="*.java" />
+        </PTCodeFormat>
+  </target>
+
+  <target name="delete_gen"
+          description="Delete generation working files" >
+  <delete file="gen_oal.gen" />
+  <delete file="____file.txt" />
+  </target>
+
+  <!-- COMPILE TARGETS -->
+
+  <!-- This target is not used in the eclipse environment.  The eclipse Java
+       builder handles the java compilation when building BridgePoint under
+       eclipse.  This target is used only when building BridgePoint from the
+       command line on the build server. -->
+  <target name="compile"
+                  description="Compile project" >
+
+    <echo>Compiling ${ant.project.name}</echo>
+
+    <mkdir dir="bin" />
+
+    <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6"
+        fork="yes" destdir="bin" debug="true" debuglevel="lines,vars,source" encoding="UTF-8">
+       <src path="src/com/mentor/nucleus/bp/io/sql" />
+       <classpath>
+         <pathelement path="../com.mentor.nucleus.bp.core/bin" />
+         <pathelement path="../com.mentor.nucleus.bp.ui.canvas/bin" />
+         <pathelement path="../com.mentor.nucleus.bp.ui.text/bin" />
+         <pathelement path="../com.mentor.nucleus.bp.io.core/bin" />
+         <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
+           <include name="**/org.eclipse.osgi_*.jar" />
+           <include name="**/org.eclipse.ui.ide_*.jar" />
+           <include name="**/org.antlr_*/antlr.jar" />
+           <include name="**/org.eclipse.jface_*.jar" />
+           <include name="**/org.eclipse.core.runtime_*.jar" />
+           <include name="**/org.eclipse.core.resources_*.jar" />
+           <include name="**/org.eclipse.ui.workbench_*.jar" />
+           <include name="**/org.eclipse.swt.win32.win32.x86_*.jar" />
+           <include name="**/org.eclipse.ui_*.jar" />
+           <include name="**/org.eclipse.ui.views_*.jar" />
+           <include name="**/org.eclipse.jface.text_*.jar" />
+           <include name="**/org.eclipse.ui.workbench.texteditor_*.jar" />
+           <include name="**/org.eclipse.ui.editors_*.jar" />
+           <include name="**/org.eclipse.equinox.common_*.jar"/>
+           <include name="**/org.eclipse.equinox.registry_*.jar"/>
+           <include name="**/org.eclipse.equinox.preferences_*.jar"/>
+           <include name="**/org.eclipse.core.commands_*.jar"/>
+         </fileset>
+       </classpath>
+    </javac>
+
+  </target>
+
+  <!-- CLEAN TARGETS -->
+
+  <target name="clean_all"
+        description="Clean entire project"
+        depends="clean_classes,clean_class2table,clean_import.java" >
+
+    <echo>Done cleaning for ${ant.project.name}</echo>
+
+  </target>
+
+  <target name="clean_class2table"
+          description="Remove the BP OOA pre-existing instances file" >
+
+  <echo>Removing the generated file: ${class2table.output}</echo>
+  <delete file="sql/${class2table.output}" />
+
+  </target>
+
+  <target name="clean_import.java"
+          description="Remove the import java code" >
+
+  <echo>Removing the imported java code ...</echo>
+  <delete file="${import.output}" />
+
+  </target>
+
+  <target name="clean_classes"
+        description="Remove compiled class files" >
+
+  <echo>Removing compiled classes ...</echo>
+  <delete verbose="true" dir="bin" />
+
+  </target>
+
+</project>

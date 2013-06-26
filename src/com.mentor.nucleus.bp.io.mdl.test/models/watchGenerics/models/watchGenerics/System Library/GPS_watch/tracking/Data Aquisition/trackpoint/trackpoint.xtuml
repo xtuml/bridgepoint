@@ -1,0 +1,135 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("cc2796ea-4ff2-4476-844f-89ca2ec95cea",
+	'trackpoint',
+	3,
+	'POINT',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("5f78833b-ba90-4f52-9a24-3df49b8d9d6e",
+	"cc2796ea-4ff2-4476-844f-89ca2ec95cea",
+	'getData',
+	'',
+	"86ca546c-3592-417a-8e87-0b77fd17920e",
+	1,
+	'select any timer from instances of WTIMR;
+self.sampledTime = timer.seconds;
+
+select any navdata from instances of CLOC;
+self.latitude  = navdata.latitude;
+self.longitude  = navdata.longitude;
+self.elevation  = navdata.altitude;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("86ca546c-3592-417a-8e87-0b77fd17920e",
+	"00000000-0000-0000-0000-000000000000",
+	'void',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("54f7efe3-c708-4da6-a1fb-bfa82e09f66a",
+	"cc2796ea-4ff2-4476-844f-89ca2ec95cea");
+INSERT INTO O_BATTR
+	VALUES ("54f7efe3-c708-4da6-a1fb-bfa82e09f66a",
+	"cc2796ea-4ff2-4476-844f-89ca2ec95cea");
+INSERT INTO O_ATTR
+	VALUES ("54f7efe3-c708-4da6-a1fb-bfa82e09f66a",
+	"cc2796ea-4ff2-4476-844f-89ca2ec95cea",
+	"00000000-0000-0000-0000-000000000000",
+	'latitude',
+	'',
+	'',
+	'latitude',
+	0,
+	"3e932036-1954-419b-ad46-b3e3274c4d4f",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("3e932036-1954-419b-ad46-b3e3274c4d4f",
+	"00000000-0000-0000-0000-000000000000",
+	'real',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("eb23f719-613c-424d-8d5b-f4a72c6377fa",
+	"cc2796ea-4ff2-4476-844f-89ca2ec95cea");
+INSERT INTO O_BATTR
+	VALUES ("eb23f719-613c-424d-8d5b-f4a72c6377fa",
+	"cc2796ea-4ff2-4476-844f-89ca2ec95cea");
+INSERT INTO O_ATTR
+	VALUES ("eb23f719-613c-424d-8d5b-f4a72c6377fa",
+	"cc2796ea-4ff2-4476-844f-89ca2ec95cea",
+	"54f7efe3-c708-4da6-a1fb-bfa82e09f66a",
+	'longitude',
+	'',
+	'',
+	'longitude',
+	0,
+	"3e932036-1954-419b-ad46-b3e3274c4d4f",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("a3831189-f1d0-4ff0-93c9-50ec2ee9f9ce",
+	"cc2796ea-4ff2-4476-844f-89ca2ec95cea");
+INSERT INTO O_BATTR
+	VALUES ("a3831189-f1d0-4ff0-93c9-50ec2ee9f9ce",
+	"cc2796ea-4ff2-4476-844f-89ca2ec95cea");
+INSERT INTO O_ATTR
+	VALUES ("a3831189-f1d0-4ff0-93c9-50ec2ee9f9ce",
+	"cc2796ea-4ff2-4476-844f-89ca2ec95cea",
+	"eb23f719-613c-424d-8d5b-f4a72c6377fa",
+	'elevation',
+	'',
+	'',
+	'elevation',
+	0,
+	"3ea1afb9-445e-4890-999a-dd7b42176a56",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("3ea1afb9-445e-4890-999a-dd7b42176a56",
+	"00000000-0000-0000-0000-000000000000",
+	'integer',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("31cf0d4f-8e40-4304-8d99-39e246ecd390",
+	"cc2796ea-4ff2-4476-844f-89ca2ec95cea");
+INSERT INTO O_BATTR
+	VALUES ("31cf0d4f-8e40-4304-8d99-39e246ecd390",
+	"cc2796ea-4ff2-4476-844f-89ca2ec95cea");
+INSERT INTO O_ATTR
+	VALUES ("31cf0d4f-8e40-4304-8d99-39e246ecd390",
+	"cc2796ea-4ff2-4476-844f-89ca2ec95cea",
+	"a3831189-f1d0-4ff0-93c9-50ec2ee9f9ce",
+	'sampledTime',
+	'',
+	'',
+	'sampledTime',
+	0,
+	"3ea1afb9-445e-4890-999a-dd7b42176a56",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"cc2796ea-4ff2-4476-844f-89ca2ec95cea");
+INSERT INTO O_ID
+	VALUES (1,
+	"cc2796ea-4ff2-4476-844f-89ca2ec95cea");
+INSERT INTO O_ID
+	VALUES (2,
+	"cc2796ea-4ff2-4476-844f-89ca2ec95cea");
+INSERT INTO PE_PE_PROXY
+	VALUES ("cc2796ea-4ff2-4476-844f-89ca2ec95cea",
+	1,
+	"b7eadfe3-b995-4f47-9561-d25f9a502ac5",
+	"00000000-0000-0000-0000-000000000000",
+	4,
+	'../Data Aquisition.xtuml');

@@ -1,0 +1,52 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("705bbac1-cd11-4738-8093-e9547dc73d13",
+	'GPS simulator',
+	901,
+	'TEST_GPS',
+	'',
+	"b17da1d9-3fcf-4f58-8ec1-d4f77af78eed");
+INSERT INTO O_NBATTR
+	VALUES ("88fa671e-9e75-4443-9352-79b48d1ef824",
+	"705bbac1-cd11-4738-8093-e9547dc73d13");
+INSERT INTO O_BATTR
+	VALUES ("88fa671e-9e75-4443-9352-79b48d1ef824",
+	"705bbac1-cd11-4738-8093-e9547dc73d13");
+INSERT INTO O_ATTR
+	VALUES ("88fa671e-9e75-4443-9352-79b48d1ef824",
+	"705bbac1-cd11-4738-8093-e9547dc73d13",
+	"00000000-0000-0000-0000-000000000000",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"e4cb5f9a-f54d-4e4b-90fe-f17cba24afcb",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("e4cb5f9a-f54d-4e4b-90fe-f17cba24afcb",
+	"00000000-0000-0000-0000-000000000000",
+	'state<State_Model>',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"705bbac1-cd11-4738-8093-e9547dc73d13");
+INSERT INTO O_ID
+	VALUES (1,
+	"705bbac1-cd11-4738-8093-e9547dc73d13");
+INSERT INTO O_ID
+	VALUES (2,
+	"705bbac1-cd11-4738-8093-e9547dc73d13");
+INSERT INTO S_SS_PROXY
+	VALUES ("b17da1d9-3fcf-4f58-8ec1-d4f77af78eed",
+	'test',
+	'This subsystem holds test artifacts:
+A GPS ''simulator'' which periodically updates location data.
+A test scenario which exercises start_stop, lap marking and timer reset.',
+	'TEST',
+	901,
+	"7877e6e0-dd19-4087-b158-647c2788232a",
+	"00000000-0000-0000-0000-000000000000",
+	'../test.xtuml');

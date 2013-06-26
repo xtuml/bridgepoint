@@ -1,0 +1,81 @@
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("7501c561-d515-4ee0-9d06-282c52269a7f",
+	"00000000-0000-0000-0000-000000000000",
+	"36a41cf7-d411-488d-99fc-74866d4fea39",
+	'Location',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("e632c2f7-b1cd-4da2-b80b-d19effa216e0",
+	112,
+	"7501c561-d515-4ee0-9d06-282c52269a7f",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'GPS Watch::Library::Location::Location');
+INSERT INTO GD_GE
+	VALUES ("7785dee5-b8c0-4d4c-be29-7f805f4d2541",
+	"e632c2f7-b1cd-4da2-b80b-d19effa216e0",
+	"0679851b-cc52-42de-bb1e-f7d26a404f38",
+	21,
+	0,
+	'GPS Watch::Library::Location::Location::GPS');
+INSERT INTO GD_SHP
+	VALUES ("7785dee5-b8c0-4d4c-be29-7f805f4d2541");
+INSERT INTO GD_NCS
+	VALUES ("7785dee5-b8c0-4d4c-be29-7f805f4d2541");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"7785dee5-b8c0-4d4c-be29-7f805f4d2541");
+INSERT INTO DIM_GE
+	VALUES (4272.000000,
+	3132.000000,
+	"7785dee5-b8c0-4d4c-be29-7f805f4d2541",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("7785dee5-b8c0-4d4c-be29-7f805f4d2541",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_DIA
+	VALUES ("e632c2f7-b1cd-4da2-b80b-d19effa216e0",
+	'',
+	1.000000,
+	4000.000000,
+	3048.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("7501c561-d515-4ee0-9d06-282c52269a7f",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"2a5126a3-4272-42f2-810c-07c57c5a58d1",
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("2a5126a3-4272-42f2-810c-07c57c5a58d1",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'Location',
+	'Simulates a the GPS hardware/firmware. This component is only behavioral and included for testing purposes.',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'../Location.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("36a41cf7-d411-488d-99fc-74866d4fea39",
+	'GPS Watch',
+	1,
+	'../../../GPS Watch.xtuml');

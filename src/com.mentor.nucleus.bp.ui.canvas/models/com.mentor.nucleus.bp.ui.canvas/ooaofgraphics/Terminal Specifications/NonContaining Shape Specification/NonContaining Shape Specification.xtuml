@@ -1,0 +1,97 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("dec57445-a2d0-4d21-954c-11c7140043aa",
+	'NonContaining Shape Specification',
+	206,
+	'TS_NCS',
+	'',
+	"3aa01b07-08b4-4f56-a64c-5db1a460535b");
+INSERT INTO O_REF
+	VALUES ("dec57445-a2d0-4d21-954c-11c7140043aa",
+	"e97c507a-0872-4ec3-8b46-1ad4c0dec975",
+	0,
+	"ed013cd1-4ee7-4cc4-bdca-a3cf6be347b1",
+	"9714f44d-d746-4278-8e51-570e4f2ec698",
+	"d8a8678a-6ed8-4a01-bf6d-5e1d8efaa359",
+	"aeaec041-c8ad-422c-806a-f182de90aed6",
+	"55ca3c42-81f0-40ba-8c0a-cb4bbef2014b",
+	"4f215748-0710-4886-a800-e8029aadf5a1",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Shape Specification',
+	'OOA_Type',
+	'R208');
+INSERT INTO R_RGO_PROXY
+	VALUES ("dec57445-a2d0-4d21-954c-11c7140043aa",
+	"9714f44d-d746-4278-8e51-570e4f2ec698",
+	"d8a8678a-6ed8-4a01-bf6d-5e1d8efaa359",
+	'../Terminal Specifications.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("ed013cd1-4ee7-4cc4-bdca-a3cf6be347b1",
+	"e97c507a-0872-4ec3-8b46-1ad4c0dec975",
+	0,
+	"9714f44d-d746-4278-8e51-570e4f2ec698",
+	"aeaec041-c8ad-422c-806a-f182de90aed6",
+	'../Terminal Specifications.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("55ca3c42-81f0-40ba-8c0a-cb4bbef2014b",
+	"dec57445-a2d0-4d21-954c-11c7140043aa",
+	"6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	1,
+	'OOA_Type');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	'../../Graphical Data/Element Specification/Element Specification.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("55ca3c42-81f0-40ba-8c0a-cb4bbef2014b",
+	"dec57445-a2d0-4d21-954c-11c7140043aa",
+	"00000000-0000-0000-0000-000000000000",
+	'OOA_Type',
+	'',
+	'',
+	'OOA_Type',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"dec57445-a2d0-4d21-954c-11c7140043aa");
+INSERT INTO O_OIDA
+	VALUES ("55ca3c42-81f0-40ba-8c0a-cb4bbef2014b",
+	"dec57445-a2d0-4d21-954c-11c7140043aa",
+	0,
+	'OOA_Type');
+INSERT INTO O_ID
+	VALUES (1,
+	"dec57445-a2d0-4d21-954c-11c7140043aa");
+INSERT INTO O_ID
+	VALUES (2,
+	"dec57445-a2d0-4d21-954c-11c7140043aa");
+INSERT INTO S_SS_PROXY
+	VALUES ("3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	'Terminal Specifications',
+	'The TS (Terminal Specification) subsystem models specification classes that
+define the legal ending points for BridgePoint connector symbols.
+-------------------------------------------------------
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+Notify_Changes:false
+
+',
+	'TS',
+	200,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001d8003b",
+	'../Terminal Specifications.xtuml');

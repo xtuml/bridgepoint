@@ -1,0 +1,2027 @@
+-- BP 7.1 content: FunctionPackage syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO S_FPK
+	VALUES ("7ef9a28c-3723-46ec-abe4-b16535b5e41d",
+	'Utility',
+	"7877e6e0-dd19-4087-b158-647c2788232a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_MD
+	VALUES ("be4069ef-6819-4d50-be3f-6f893ca91e38",
+	101,
+	"7ef9a28c-3723-46ec-abe4-b16535b5e41d",
+	54,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO DIM_DIA
+	VALUES ("be4069ef-6819-4d50-be3f-6f893ca91e38",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PL_FPID
+	VALUES ("7ef9a28c-3723-46ec-abe4-b16535b5e41d",
+	"7877e6e0-dd19-4087-b158-647c2788232a");
+INSERT INTO S_DOM_PROXY
+	VALUES ("7877e6e0-dd19-4087-b158-647c2788232a",
+	'tracking',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000001",
+	"00000000-0000-0000-0000-000000000000",
+	'../tracking.xtuml');
+INSERT INTO S_FIP
+	VALUES ("7ef9a28c-3723-46ec-abe4-b16535b5e41d",
+	"c6edc9dc-247a-4cb5-8b07-8c94d8defe18");
+INSERT INTO S_SYNC
+	VALUES ("c6edc9dc-247a-4cb5-8b07-8c94d8defe18",
+	"7877e6e0-dd19-4087-b158-647c2788232a",
+	'clean_up',
+	'This function is called by out-of-memory for track point data.
+It attempts to re-cycle data memory from archived tracks.
+If unsuccessful it will halt recording.',
+	'if ( not TRACK::clearHistory() );	// cleared some memory?
+	::start_stop_pressed();			// no: stop recording
+end if;',
+	"622ff808-9eac-4dd3-a077-9600cd62842e",
+	1,
+	'');
+INSERT INTO ACT_FNB
+	VALUES ("31d87e18-3bc8-475c-8bac-3f50d79f6b9b",
+	"c6edc9dc-247a-4cb5-8b07-8c94d8defe18");
+INSERT INTO ACT_ACT
+	VALUES ("31d87e18-3bc8-475c-8bac-3f50d79f6b9b",
+	'function',
+	0,
+	"abc4fa22-1d15-435f-90c8-3aacca6029b1",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'clean_up',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_BLK
+	VALUES ("abc4fa22-1d15-435f-90c8-3aacca6029b1",
+	0,
+	0,
+	0,
+	'TRACK',
+	'',
+	'',
+	1,
+	1,
+	1,
+	10,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	"31d87e18-3bc8-475c-8bac-3f50d79f6b9b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("1fe00489-b27f-4709-9c7a-4296e6fe830d",
+	"abc4fa22-1d15-435f-90c8-3aacca6029b1",
+	"00000000-0000-0000-0000-000000000000",
+	1,
+	1,
+	'clean_up line: 1');
+INSERT INTO ACT_IF
+	VALUES ("1fe00489-b27f-4709-9c7a-4296e6fe830d",
+	"92e44de5-5ed4-43b7-b1c4-82a1ebcaf326",
+	"1da62cd7-6199-4025-b2b5-2daff50e8d9f",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO V_VAL
+	VALUES ("41c43e67-2a80-4be8-9b43-a2b9058f5537",
+	0,
+	0,
+	1,
+	17,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	"92636f27-99b0-46e7-9783-ad6bfd702f4b",
+	"abc4fa22-1d15-435f-90c8-3aacca6029b1");
+INSERT INTO V_TRV
+	VALUES ("41c43e67-2a80-4be8-9b43-a2b9058f5537",
+	"3c553a99-889c-47cd-8a1d-834d75cffa37",
+	"00000000-0000-0000-0000-000000000000",
+	1,
+	1,
+	10);
+INSERT INTO O_TFR_PROXY
+	VALUES ("3c553a99-889c-47cd-8a1d-834d75cffa37",
+	"975ae44c-24f5-4288-b631-ef379118f28a",
+	'clearHistory',
+	'',
+	"92636f27-99b0-46e7-9783-ad6bfd702f4b",
+	0,
+	'select many traces from instances of TRACK;
+select any timer from instances of WTIMR;
+select one current_track related by timer->TRACK[R2];
+success = FALSE;
+for each trace in traces
+ 	if (trace != current_track)
+		select one point related by trace->POINT[R1];
+		if (not_empty point)
+			unrelate point from trace across R1;
+			while (not_empty point)
+				select one nextpoint related by point->POINT[R6.''follows''];
+				if (not_empty nextpoint)
+					unrelate nextpoint from point across R6.''follows'';
+				else
+					unrelate point from trace across R8;	// must be last point
+				end if;
+				delete object instance point;
+				success = TRUE;
+				point = nextpoint;
+			end while;
+		end if;
+		select many laps related by trace->LAP[R5];
+		for each lap in laps
+			unrelate lap from trace across R5;
+			delete object instance lap;
+		end for;
+		select many rates related by trace->HRATE[R3];
+		for each rate in rates
+			unrelate rate from trace across R3;
+			delete object instance rate;
+		end for;
+		delete object instance trace;
+	end if;
+end for;
+return success;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'../Data Aquisition/track log/track log.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("92636f27-99b0-46e7-9783-ad6bfd702f4b",
+	"00000000-0000-0000-0000-000000000000",
+	'boolean',
+	'',
+	'../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO V_VAL
+	VALUES ("1da62cd7-6199-4025-b2b5-2daff50e8d9f",
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	"92636f27-99b0-46e7-9783-ad6bfd702f4b",
+	"abc4fa22-1d15-435f-90c8-3aacca6029b1");
+INSERT INTO V_UNY
+	VALUES ("1da62cd7-6199-4025-b2b5-2daff50e8d9f",
+	"41c43e67-2a80-4be8-9b43-a2b9058f5537",
+	'not');
+INSERT INTO ACT_BLK
+	VALUES ("92e44de5-5ed4-43b7-b1c4-82a1ebcaf326",
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	2,
+	2,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	"31d87e18-3bc8-475c-8bac-3f50d79f6b9b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("79345552-4430-4b8b-ab6a-7ef38435c521",
+	"92e44de5-5ed4-43b7-b1c4-82a1ebcaf326",
+	"00000000-0000-0000-0000-000000000000",
+	2,
+	2,
+	'clean_up line: 2');
+INSERT INTO ACT_FNC
+	VALUES ("79345552-4430-4b8b-ab6a-7ef38435c521",
+	"dc589412-e6fb-46f2-8e70-b98e9891a800",
+	2,
+	4);
+INSERT INTO S_SYNC_PROXY
+	VALUES ("dc589412-e6fb-46f2-8e70-b98e9891a800",
+	"7877e6e0-dd19-4087-b158-647c2788232a",
+	'start_stop_pressed',
+	'',
+	'select any timer from instances of WTIMR;
+select one track related by timer->TRACK[R2];
+if (empty track)
+  create object instance track of TRACK;
+  relate track to timer across R2;
+end if;
+select any settings from instances of SETTINGS;
+select one plan related by settings->WPLAN[R109];
+if (empty plan)
+	generate WTIMR1:''start_stop'' to timer;
+	generate TRACK1:''start_stop_recording'' to track;
+else
+	plan.start_workout();
+end if;
+',
+	"622ff808-9eac-4dd3-a077-9600cd62842e",
+	1,
+	'',
+	'../UserInput/UserInput.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("622ff808-9eac-4dd3-a077-9600cd62842e",
+	"00000000-0000-0000-0000-000000000000",
+	'void',
+	'',
+	'../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_FIP
+	VALUES ("7ef9a28c-3723-46ec-abe4-b16535b5e41d",
+	"1738b2f1-1487-485f-931d-372ca00bad60");
+INSERT INTO S_SYNC
+	VALUES ("1738b2f1-1487-485f-931d-372ca00bad60",
+	"7877e6e0-dd19-4087-b158-647c2788232a",
+	'run_scenario',
+	'Run the test scenario; the system must be initialized using ''setup'' prior to running.',
+	'generate SCEN11 to SCEN1 creator;',
+	"622ff808-9eac-4dd3-a077-9600cd62842e",
+	1,
+	'');
+INSERT INTO ACT_FNB
+	VALUES ("6df92655-6e7a-461e-a77a-fd6f69cb3e86",
+	"1738b2f1-1487-485f-931d-372ca00bad60");
+INSERT INTO ACT_ACT
+	VALUES ("6df92655-6e7a-461e-a77a-fd6f69cb3e86",
+	'function',
+	0,
+	"a6062a7e-e757-4004-8a0e-ffbfaf6a8107",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'run_scenario',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_BLK
+	VALUES ("a6062a7e-e757-4004-8a0e-ffbfaf6a8107",
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	1,
+	1,
+	1,
+	20,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1,
+	"6df92655-6e7a-461e-a77a-fd6f69cb3e86",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("9a48dc51-1d10-4767-978a-065e61768ed9",
+	"a6062a7e-e757-4004-8a0e-ffbfaf6a8107",
+	"00000000-0000-0000-0000-000000000000",
+	1,
+	1,
+	'run_scenario line: 1');
+INSERT INTO E_ESS
+	VALUES ("9a48dc51-1d10-4767-978a-065e61768ed9",
+	1,
+	0,
+	1,
+	10,
+	0,
+	0,
+	1,
+	20,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO E_GES
+	VALUES ("9a48dc51-1d10-4767-978a-065e61768ed9");
+INSERT INTO E_GSME
+	VALUES ("9a48dc51-1d10-4767-978a-065e61768ed9",
+	"09283b2d-dc4f-4233-9e70-c40bb40ad7e8",
+	"bba9943c-fc2c-41c1-ba33-02559f8de3b6");
+INSERT INTO E_GEC
+	VALUES ("9a48dc51-1d10-4767-978a-065e61768ed9");
+INSERT INTO SM_EVT_PROXY
+	VALUES ("09283b2d-dc4f-4233-9e70-c40bb40ad7e8",
+	"bba9943c-fc2c-41c1-ba33-02559f8de3b6",
+	"00000000-0000-0000-0000-000000000000",
+	1,
+	'start',
+	0,
+	'',
+	'SCEN11',
+	'',
+	'../test/scenario1/InstanceStateMachine/InstanceStateMachine.xtuml');
+INSERT INTO S_FIP
+	VALUES ("7ef9a28c-3723-46ec-abe4-b16535b5e41d",
+	"cb64faf4-5578-4d40-bed6-23e9f000f073");
+INSERT INTO S_SYNC
+	VALUES ("cb64faf4-5578-4d40-bed6-23e9f000f073",
+	"7877e6e0-dd19-4087-b158-647c2788232a",
+	'make_workout',
+	'Create a sample of a workout specification.
+This represents ''downloading'' a workout; no editing facilities provided, yet.',
+	'create object instance plan of WPLAN;
+create object instance step1 of SSTEP;
+relate step1 to plan across R101;
+step1.name = "run for a while";
+create object instance step2 of SSTEP;
+relate step1 to step2 across R107.''follows'';
+step2.name = "run some more";
+create object instance step3 of SSTEP;
+relate step2 to step3 across R107.''follows'';
+step3.name = "do it again";
+create object instance step4 of SSTEP;
+relate step3 to step4 across R107.''follows'';
+step4.name = "and yet again..";
+
+create object instance task1 of WSTEP;
+relate task1 to step1 across R102;
+create object instance endstep of TCRIT;
+relate endstep to task1 across R103;
+create object instance duration of CDUR;
+relate duration to endstep across R105;
+duration.time = 6;
+
+
+create object instance task2 of WSTEP;
+relate task2 to step2 across R102;
+create object instance endstep of TCRIT;
+relate endstep to task2 across R103;
+create object instance duration of CDUR;
+relate duration to endstep across R105;
+duration.time = 8;
+
+
+create object instance repeat of RSTEP;
+relate repeat to step3 across R102;
+repeat.repeatCount = 2;
+relate repeat to task1 across R108;
+create object instance repeat of RSTEP;
+relate repeat to step4 across R102;
+repeat.repeatCount = 2;
+relate repeat to task1 across R108;',
+	"622ff808-9eac-4dd3-a077-9600cd62842e",
+	1,
+	'');
+INSERT INTO ACT_FNB
+	VALUES ("b3545689-0c6d-4427-8663-32e883345cce",
+	"cb64faf4-5578-4d40-bed6-23e9f000f073");
+INSERT INTO ACT_ACT
+	VALUES ("b3545689-0c6d-4427-8663-32e883345cce",
+	'function',
+	0,
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'make_workout',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_BLK
+	VALUES ("4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	0,
+	0,
+	0,
+	'''follows''',
+	'',
+	'',
+	40,
+	1,
+	37,
+	34,
+	0,
+	0,
+	40,
+	31,
+	12,
+	35,
+	0,
+	0,
+	0,
+	"b3545689-0c6d-4427-8663-32e883345cce",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("74bfc02f-1c9f-430e-b70f-49950ba805b3",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"6023594a-7f00-4807-b11b-084bae832d76",
+	1,
+	1,
+	'make_workout line: 1');
+INSERT INTO ACT_CR
+	VALUES ("74bfc02f-1c9f-430e-b70f-49950ba805b3",
+	"ef5dea5d-e5ef-4322-8018-1a5ec953ffea",
+	1,
+	"35493a9b-d91b-44f2-a858-a1ba3e103607",
+	1,
+	32);
+INSERT INTO O_OBJ_PROXY
+	VALUES ("35493a9b-d91b-44f2-a858-a1ba3e103607",
+	'Workout Plan',
+	101,
+	'WPLAN',
+	'A workout plan specifies a sequence of steps to be executed in sequence.
+If an exercise step specifies a predefined time or distance; the user is notified at completion.
+if neither is specified, the exercise step is ended ended by pressing the lap button.
+An exercise step may also specify target pace or heart rate; feedback is displayed. (not yet implemented)
+Repeats can be embedded in the sequence.  In this implementation repeat sequences can be nested.
+Note: A plan is a specification; no change is made to the data structure while executing.',
+	"6bfc8243-4630-4cde-9c64-c71fe3dac95b",
+	'../Specification/Workout Plan/Workout Plan.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("6023594a-7f00-4807-b11b-084bae832d76",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"2913cd02-5cc6-4d1a-b7b6-6f5395204a7b",
+	2,
+	1,
+	'make_workout line: 2');
+INSERT INTO ACT_CR
+	VALUES ("6023594a-7f00-4807-b11b-084bae832d76",
+	"2d64589e-4def-40e5-a61c-513d329d0a00",
+	1,
+	"c56cc048-5f73-41b8-a5e0-99bc3cd32291",
+	2,
+	33);
+INSERT INTO O_OBJ_PROXY
+	VALUES ("c56cc048-5f73-41b8-a5e0-99bc3cd32291",
+	'step',
+	102,
+	'SSTEP',
+	'',
+	"6bfc8243-4630-4cde-9c64-c71fe3dac95b",
+	'../Specification/step/step.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("2913cd02-5cc6-4d1a-b7b6-6f5395204a7b",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"5b15ad47-f183-40d8-abd1-201d58bcde86",
+	3,
+	1,
+	'make_workout line: 3');
+INSERT INTO ACT_REL
+	VALUES ("2913cd02-5cc6-4d1a-b7b6-6f5395204a7b",
+	"2d64589e-4def-40e5-a61c-513d329d0a00",
+	"ef5dea5d-e5ef-4322-8018-1a5ec953ffea",
+	'',
+	"f03a48b0-708d-47d3-a902-0c5737f48c7a",
+	3,
+	29,
+	0,
+	0);
+INSERT INTO R_REL_PROXY
+	VALUES ("f03a48b0-708d-47d3-a902-0c5737f48c7a",
+	101,
+	'',
+	"6bfc8243-4630-4cde-9c64-c71fe3dac95b",
+	'../Specification/Specification.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("5b15ad47-f183-40d8-abd1-201d58bcde86",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"022b1a6d-c90d-45c0-85b0-38fcfa78c8e0",
+	4,
+	1,
+	'make_workout line: 4');
+INSERT INTO ACT_AI
+	VALUES ("5b15ad47-f183-40d8-abd1-201d58bcde86",
+	"e12ad622-aa9d-4536-b6b2-b256e08167a7",
+	"f4fb5d1c-25bc-4698-9de1-0112732bc189",
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("022b1a6d-c90d-45c0-85b0-38fcfa78c8e0",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"f6294f49-33f2-4500-8e25-11e3ab4afda2",
+	5,
+	1,
+	'make_workout line: 5');
+INSERT INTO ACT_CR
+	VALUES ("022b1a6d-c90d-45c0-85b0-38fcfa78c8e0",
+	"dde16c10-0421-4966-b8a7-f61358328a68",
+	1,
+	"c56cc048-5f73-41b8-a5e0-99bc3cd32291",
+	5,
+	33);
+INSERT INTO ACT_SMT
+	VALUES ("f6294f49-33f2-4500-8e25-11e3ab4afda2",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"bc1d1901-6f33-42ff-a6ac-6ab8fd21aa98",
+	6,
+	1,
+	'make_workout line: 6');
+INSERT INTO ACT_REL
+	VALUES ("f6294f49-33f2-4500-8e25-11e3ab4afda2",
+	"2d64589e-4def-40e5-a61c-513d329d0a00",
+	"dde16c10-0421-4966-b8a7-f61358328a68",
+	'''follows''',
+	"adff63d8-beca-482a-835a-45675cb248ed",
+	6,
+	30,
+	6,
+	35);
+INSERT INTO R_REL_PROXY
+	VALUES ("adff63d8-beca-482a-835a-45675cb248ed",
+	107,
+	'',
+	"6bfc8243-4630-4cde-9c64-c71fe3dac95b",
+	'../Specification/Specification.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("bc1d1901-6f33-42ff-a6ac-6ab8fd21aa98",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"aad0948d-e5c1-459e-aae6-1a41c9a92703",
+	7,
+	1,
+	'make_workout line: 7');
+INSERT INTO ACT_AI
+	VALUES ("bc1d1901-6f33-42ff-a6ac-6ab8fd21aa98",
+	"d1c16380-8153-48e8-bcd0-eb9c9367c113",
+	"ca05dbfe-7988-49c4-892f-2c5837c04fb8",
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("aad0948d-e5c1-459e-aae6-1a41c9a92703",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"b4657230-9fb0-4002-ad83-0308b80f868a",
+	8,
+	1,
+	'make_workout line: 8');
+INSERT INTO ACT_CR
+	VALUES ("aad0948d-e5c1-459e-aae6-1a41c9a92703",
+	"f8f1ffe6-85f0-4c5f-ac74-203369602cd5",
+	1,
+	"c56cc048-5f73-41b8-a5e0-99bc3cd32291",
+	8,
+	33);
+INSERT INTO ACT_SMT
+	VALUES ("b4657230-9fb0-4002-ad83-0308b80f868a",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"cc78d639-7744-43f9-ab26-02d98591078b",
+	9,
+	1,
+	'make_workout line: 9');
+INSERT INTO ACT_REL
+	VALUES ("b4657230-9fb0-4002-ad83-0308b80f868a",
+	"dde16c10-0421-4966-b8a7-f61358328a68",
+	"f8f1ffe6-85f0-4c5f-ac74-203369602cd5",
+	'''follows''',
+	"adff63d8-beca-482a-835a-45675cb248ed",
+	9,
+	30,
+	9,
+	35);
+INSERT INTO ACT_SMT
+	VALUES ("cc78d639-7744-43f9-ab26-02d98591078b",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"8680cf0d-a776-4f6f-bb25-6ce09d09f095",
+	10,
+	1,
+	'make_workout line: 10');
+INSERT INTO ACT_AI
+	VALUES ("cc78d639-7744-43f9-ab26-02d98591078b",
+	"1fd1b2df-4f16-462c-b027-b6f6796dde62",
+	"15721d4f-710d-4b79-88be-3902d850c058",
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("8680cf0d-a776-4f6f-bb25-6ce09d09f095",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"37cd3fbf-ae5c-45c1-a996-a4715ab6efbf",
+	11,
+	1,
+	'make_workout line: 11');
+INSERT INTO ACT_CR
+	VALUES ("8680cf0d-a776-4f6f-bb25-6ce09d09f095",
+	"3438924d-9483-483e-9eb9-2381c86c49ac",
+	1,
+	"c56cc048-5f73-41b8-a5e0-99bc3cd32291",
+	11,
+	33);
+INSERT INTO ACT_SMT
+	VALUES ("37cd3fbf-ae5c-45c1-a996-a4715ab6efbf",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"bd492bc8-d945-43c6-9879-94704e618195",
+	12,
+	1,
+	'make_workout line: 12');
+INSERT INTO ACT_REL
+	VALUES ("37cd3fbf-ae5c-45c1-a996-a4715ab6efbf",
+	"f8f1ffe6-85f0-4c5f-ac74-203369602cd5",
+	"3438924d-9483-483e-9eb9-2381c86c49ac",
+	'''follows''',
+	"adff63d8-beca-482a-835a-45675cb248ed",
+	12,
+	30,
+	12,
+	35);
+INSERT INTO ACT_SMT
+	VALUES ("bd492bc8-d945-43c6-9879-94704e618195",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"64f4492f-d68a-4f09-b456-1669481c5e2a",
+	13,
+	1,
+	'make_workout line: 13');
+INSERT INTO ACT_AI
+	VALUES ("bd492bc8-d945-43c6-9879-94704e618195",
+	"8964b8d5-23f9-4b24-8136-1ee67fe88528",
+	"5e223d36-139a-47d0-9db9-564815bb6ef7",
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("64f4492f-d68a-4f09-b456-1669481c5e2a",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"435ac4f8-e072-4766-adf5-e7417a0d9d3f",
+	15,
+	1,
+	'make_workout line: 15');
+INSERT INTO ACT_CR
+	VALUES ("64f4492f-d68a-4f09-b456-1669481c5e2a",
+	"89d579be-2fa9-41ff-b4a8-080f871eda96",
+	1,
+	"f344a8b7-e6ad-4867-8a56-f7212dedc014",
+	15,
+	33);
+INSERT INTO O_OBJ_PROXY
+	VALUES ("f344a8b7-e6ad-4867-8a56-f7212dedc014",
+	'workout step',
+	103,
+	'WSTEP',
+	'',
+	"6bfc8243-4630-4cde-9c64-c71fe3dac95b",
+	'../Specification/workout step/workout step.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("435ac4f8-e072-4766-adf5-e7417a0d9d3f",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"0999e7cb-fce5-4512-bc9f-552524a9b18a",
+	16,
+	1,
+	'make_workout line: 16');
+INSERT INTO ACT_REL
+	VALUES ("435ac4f8-e072-4766-adf5-e7417a0d9d3f",
+	"89d579be-2fa9-41ff-b4a8-080f871eda96",
+	"2d64589e-4def-40e5-a61c-513d329d0a00",
+	'',
+	"78e57468-ad4f-481a-a59a-afe84d959a49",
+	16,
+	30,
+	0,
+	0);
+INSERT INTO R_REL_PROXY
+	VALUES ("78e57468-ad4f-481a-a59a-afe84d959a49",
+	102,
+	'',
+	"6bfc8243-4630-4cde-9c64-c71fe3dac95b",
+	'../Specification/Specification.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("0999e7cb-fce5-4512-bc9f-552524a9b18a",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"096bb03f-bde8-4411-86db-ae8b4888a481",
+	17,
+	1,
+	'make_workout line: 17');
+INSERT INTO ACT_CR
+	VALUES ("0999e7cb-fce5-4512-bc9f-552524a9b18a",
+	"93a04a72-7e67-45df-9c86-574250709676",
+	1,
+	"57731ecf-417c-4f4a-b760-bbc78f9ebc4e",
+	17,
+	35);
+INSERT INTO O_OBJ_PROXY
+	VALUES ("57731ecf-417c-4f4a-b760-bbc78f9ebc4e",
+	'termination criterion',
+	105,
+	'TCRIT',
+	'An exercise step may specify a predefined duration or distance.',
+	"6bfc8243-4630-4cde-9c64-c71fe3dac95b",
+	'../Specification/termination criterion/termination criterion.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("096bb03f-bde8-4411-86db-ae8b4888a481",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"63284ce9-622a-48e4-99f3-fefb4394b8ac",
+	18,
+	1,
+	'make_workout line: 18');
+INSERT INTO ACT_REL
+	VALUES ("096bb03f-bde8-4411-86db-ae8b4888a481",
+	"93a04a72-7e67-45df-9c86-574250709676",
+	"89d579be-2fa9-41ff-b4a8-080f871eda96",
+	'',
+	"83229808-5b28-4722-bada-09f598160b6d",
+	18,
+	32,
+	0,
+	0);
+INSERT INTO R_REL_PROXY
+	VALUES ("83229808-5b28-4722-bada-09f598160b6d",
+	103,
+	'',
+	"6bfc8243-4630-4cde-9c64-c71fe3dac95b",
+	'../Specification/Specification.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("63284ce9-622a-48e4-99f3-fefb4394b8ac",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"9afba8be-4687-4ec5-b046-c1a3939a25b1",
+	19,
+	1,
+	'make_workout line: 19');
+INSERT INTO ACT_CR
+	VALUES ("63284ce9-622a-48e4-99f3-fefb4394b8ac",
+	"cc9c2463-f630-43b3-9454-763dd445d01f",
+	1,
+	"733ce07f-5538-4540-92cc-2de182acbc05",
+	19,
+	36);
+INSERT INTO O_OBJ_PROXY
+	VALUES ("733ce07f-5538-4540-92cc-2de182acbc05",
+	'duration',
+	106,
+	'CDUR',
+	'',
+	"6bfc8243-4630-4cde-9c64-c71fe3dac95b",
+	'../Specification/duration/duration.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("9afba8be-4687-4ec5-b046-c1a3939a25b1",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"4ca68807-6621-4d57-ae9e-cd7d256040c4",
+	20,
+	1,
+	'make_workout line: 20');
+INSERT INTO ACT_REL
+	VALUES ("9afba8be-4687-4ec5-b046-c1a3939a25b1",
+	"cc9c2463-f630-43b3-9454-763dd445d01f",
+	"93a04a72-7e67-45df-9c86-574250709676",
+	'',
+	"6e1528c3-6589-43d6-8348-45b4078ab5eb",
+	20,
+	35,
+	0,
+	0);
+INSERT INTO R_REL_PROXY
+	VALUES ("6e1528c3-6589-43d6-8348-45b4078ab5eb",
+	105,
+	'',
+	"6bfc8243-4630-4cde-9c64-c71fe3dac95b",
+	'../Specification/Specification.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("4ca68807-6621-4d57-ae9e-cd7d256040c4",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"187bbaba-9f36-487b-b08e-6f323ea611f7",
+	21,
+	1,
+	'make_workout line: 21');
+INSERT INTO ACT_AI
+	VALUES ("4ca68807-6621-4d57-ae9e-cd7d256040c4",
+	"e1437d42-b09e-46f1-96dc-c3e6fb39914d",
+	"bfd592fe-b9c5-4c54-a4ec-05c3fdf704de",
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("187bbaba-9f36-487b-b08e-6f323ea611f7",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"6db087d9-926d-478d-a16b-e318bc107cf4",
+	24,
+	1,
+	'make_workout line: 24');
+INSERT INTO ACT_CR
+	VALUES ("187bbaba-9f36-487b-b08e-6f323ea611f7",
+	"bd3e6217-614b-4713-a939-b28abd081bd3",
+	1,
+	"f344a8b7-e6ad-4867-8a56-f7212dedc014",
+	24,
+	33);
+INSERT INTO ACT_SMT
+	VALUES ("6db087d9-926d-478d-a16b-e318bc107cf4",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"78398912-c1c9-4d44-b8a0-d4a97b13e6d2",
+	25,
+	1,
+	'make_workout line: 25');
+INSERT INTO ACT_REL
+	VALUES ("6db087d9-926d-478d-a16b-e318bc107cf4",
+	"bd3e6217-614b-4713-a939-b28abd081bd3",
+	"dde16c10-0421-4966-b8a7-f61358328a68",
+	'',
+	"78e57468-ad4f-481a-a59a-afe84d959a49",
+	25,
+	30,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("78398912-c1c9-4d44-b8a0-d4a97b13e6d2",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"140a364b-32df-4d5e-94c0-98b500988159",
+	26,
+	1,
+	'make_workout line: 26');
+INSERT INTO ACT_CR
+	VALUES ("78398912-c1c9-4d44-b8a0-d4a97b13e6d2",
+	"93a04a72-7e67-45df-9c86-574250709676",
+	0,
+	"57731ecf-417c-4f4a-b760-bbc78f9ebc4e",
+	26,
+	35);
+INSERT INTO ACT_SMT
+	VALUES ("140a364b-32df-4d5e-94c0-98b500988159",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"adc7f9f8-9d3d-411f-a177-688559e96176",
+	27,
+	1,
+	'make_workout line: 27');
+INSERT INTO ACT_REL
+	VALUES ("140a364b-32df-4d5e-94c0-98b500988159",
+	"93a04a72-7e67-45df-9c86-574250709676",
+	"bd3e6217-614b-4713-a939-b28abd081bd3",
+	'',
+	"83229808-5b28-4722-bada-09f598160b6d",
+	27,
+	32,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("adc7f9f8-9d3d-411f-a177-688559e96176",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"8f046467-70a2-44cf-8e0f-a5e2ed764517",
+	28,
+	1,
+	'make_workout line: 28');
+INSERT INTO ACT_CR
+	VALUES ("adc7f9f8-9d3d-411f-a177-688559e96176",
+	"cc9c2463-f630-43b3-9454-763dd445d01f",
+	0,
+	"733ce07f-5538-4540-92cc-2de182acbc05",
+	28,
+	36);
+INSERT INTO ACT_SMT
+	VALUES ("8f046467-70a2-44cf-8e0f-a5e2ed764517",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"881b8ef7-4842-4983-ba67-7e2442faa31d",
+	29,
+	1,
+	'make_workout line: 29');
+INSERT INTO ACT_REL
+	VALUES ("8f046467-70a2-44cf-8e0f-a5e2ed764517",
+	"cc9c2463-f630-43b3-9454-763dd445d01f",
+	"93a04a72-7e67-45df-9c86-574250709676",
+	'',
+	"6e1528c3-6589-43d6-8348-45b4078ab5eb",
+	29,
+	35,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("881b8ef7-4842-4983-ba67-7e2442faa31d",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"cd4efcec-68e4-4309-a313-4dc1dc116752",
+	30,
+	1,
+	'make_workout line: 30');
+INSERT INTO ACT_AI
+	VALUES ("881b8ef7-4842-4983-ba67-7e2442faa31d",
+	"03f5be1a-6bd9-4905-a3c1-325364ce0343",
+	"715b6864-8a2f-417b-9999-7c619ebbf2df",
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("cd4efcec-68e4-4309-a313-4dc1dc116752",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"9dee9f71-c602-4d9e-9273-ffc8b9f08323",
+	33,
+	1,
+	'make_workout line: 33');
+INSERT INTO ACT_CR
+	VALUES ("cd4efcec-68e4-4309-a313-4dc1dc116752",
+	"62183203-c89d-4078-a518-d39049248903",
+	1,
+	"f3f7fc13-3297-4e96-a73f-bf284c223b3a",
+	33,
+	34);
+INSERT INTO O_OBJ_PROXY
+	VALUES ("f3f7fc13-3297-4e96-a73f-bf284c223b3a",
+	'repeat step',
+	104,
+	'RSTEP',
+	'',
+	"6bfc8243-4630-4cde-9c64-c71fe3dac95b",
+	'../Specification/repeat step/repeat step.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("9dee9f71-c602-4d9e-9273-ffc8b9f08323",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"01fea56b-05c4-4f48-b959-c7cbb55b6544",
+	34,
+	1,
+	'make_workout line: 34');
+INSERT INTO ACT_REL
+	VALUES ("9dee9f71-c602-4d9e-9273-ffc8b9f08323",
+	"62183203-c89d-4078-a518-d39049248903",
+	"f8f1ffe6-85f0-4c5f-ac74-203369602cd5",
+	'',
+	"78e57468-ad4f-481a-a59a-afe84d959a49",
+	34,
+	31,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("01fea56b-05c4-4f48-b959-c7cbb55b6544",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"37a90fd4-3874-4d73-ae6e-22eaf145a0d0",
+	35,
+	1,
+	'make_workout line: 35');
+INSERT INTO ACT_AI
+	VALUES ("01fea56b-05c4-4f48-b959-c7cbb55b6544",
+	"deb0c3ad-73da-41d2-9b8e-b918b323e48d",
+	"e93894b0-c416-485d-ad6e-2a7a1e915c02",
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("37a90fd4-3874-4d73-ae6e-22eaf145a0d0",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"458489bf-c30e-4bd0-9159-2426ff1a5e61",
+	36,
+	1,
+	'make_workout line: 36');
+INSERT INTO ACT_REL
+	VALUES ("37a90fd4-3874-4d73-ae6e-22eaf145a0d0",
+	"62183203-c89d-4078-a518-d39049248903",
+	"89d579be-2fa9-41ff-b4a8-080f871eda96",
+	'',
+	"66e94676-ebc9-47e3-9fb6-ddc9e1149cc3",
+	36,
+	31,
+	0,
+	0);
+INSERT INTO R_REL_PROXY
+	VALUES ("66e94676-ebc9-47e3-9fb6-ddc9e1149cc3",
+	108,
+	'',
+	"6bfc8243-4630-4cde-9c64-c71fe3dac95b",
+	'../Specification/Specification.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("458489bf-c30e-4bd0-9159-2426ff1a5e61",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"a0b4e070-fd11-4e08-8a45-19121c56dd70",
+	37,
+	1,
+	'make_workout line: 37');
+INSERT INTO ACT_CR
+	VALUES ("458489bf-c30e-4bd0-9159-2426ff1a5e61",
+	"62183203-c89d-4078-a518-d39049248903",
+	0,
+	"f3f7fc13-3297-4e96-a73f-bf284c223b3a",
+	37,
+	34);
+INSERT INTO ACT_SMT
+	VALUES ("a0b4e070-fd11-4e08-8a45-19121c56dd70",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"6b9608e9-9180-483c-a1a2-0e02df90dbe7",
+	38,
+	1,
+	'make_workout line: 38');
+INSERT INTO ACT_REL
+	VALUES ("a0b4e070-fd11-4e08-8a45-19121c56dd70",
+	"62183203-c89d-4078-a518-d39049248903",
+	"3438924d-9483-483e-9eb9-2381c86c49ac",
+	'',
+	"78e57468-ad4f-481a-a59a-afe84d959a49",
+	38,
+	31,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("6b9608e9-9180-483c-a1a2-0e02df90dbe7",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"1acc08cd-5a5f-4cfe-aa68-2ea1869de349",
+	39,
+	1,
+	'make_workout line: 39');
+INSERT INTO ACT_AI
+	VALUES ("6b9608e9-9180-483c-a1a2-0e02df90dbe7",
+	"b640a7e3-5fad-43be-9e43-e348fa40d08a",
+	"703a2e1d-74e1-46c9-9b3c-5d62259ca3d2",
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("1acc08cd-5a5f-4cfe-aa68-2ea1869de349",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	"00000000-0000-0000-0000-000000000000",
+	40,
+	1,
+	'make_workout line: 40');
+INSERT INTO ACT_REL
+	VALUES ("1acc08cd-5a5f-4cfe-aa68-2ea1869de349",
+	"62183203-c89d-4078-a518-d39049248903",
+	"89d579be-2fa9-41ff-b4a8-080f871eda96",
+	'',
+	"66e94676-ebc9-47e3-9fb6-ddc9e1149cc3",
+	40,
+	31,
+	0,
+	0);
+INSERT INTO V_VAL
+	VALUES ("24e7eabf-cb7c-447d-9b5d-7c02d0ee6e69",
+	1,
+	0,
+	4,
+	1,
+	5,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_IRF
+	VALUES ("24e7eabf-cb7c-447d-9b5d-7c02d0ee6e69",
+	"2d64589e-4def-40e5-a61c-513d329d0a00");
+INSERT INTO S_DT_PROXY
+	VALUES ("6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Object>',
+	'',
+	'../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO V_VAL
+	VALUES ("f4fb5d1c-25bc-4698-9de1-0112732bc189",
+	1,
+	0,
+	4,
+	7,
+	10,
+	0,
+	0,
+	0,
+	0,
+	"7c932901-780a-4a60-875e-d228d60859d0",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_AVL
+	VALUES ("f4fb5d1c-25bc-4698-9de1-0112732bc189",
+	"24e7eabf-cb7c-447d-9b5d-7c02d0ee6e69",
+	"c56cc048-5f73-41b8-a5e0-99bc3cd32291",
+	"0b301b85-2be0-41fd-8fef-ef51eae35283");
+INSERT INTO O_ATTR_PROXY
+	VALUES ("0b301b85-2be0-41fd-8fef-ef51eae35283",
+	"c56cc048-5f73-41b8-a5e0-99bc3cd32291",
+	"00000000-0000-0000-0000-000000000000",
+	'name',
+	'',
+	'',
+	'name',
+	0,
+	"7c932901-780a-4a60-875e-d228d60859d0",
+	'',
+	'../Specification/step/step.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("7c932901-780a-4a60-875e-d228d60859d0",
+	"00000000-0000-0000-0000-000000000000",
+	'string',
+	'',
+	'../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO V_VAL
+	VALUES ("e12ad622-aa9d-4536-b6b2-b256e08167a7",
+	0,
+	0,
+	4,
+	14,
+	29,
+	0,
+	0,
+	0,
+	0,
+	"7c932901-780a-4a60-875e-d228d60859d0",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_LST
+	VALUES ("e12ad622-aa9d-4536-b6b2-b256e08167a7",
+	'run for a while');
+INSERT INTO V_VAL
+	VALUES ("1f0c7514-c682-4b28-8590-f2ef4e9126ac",
+	1,
+	0,
+	7,
+	1,
+	5,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_IRF
+	VALUES ("1f0c7514-c682-4b28-8590-f2ef4e9126ac",
+	"dde16c10-0421-4966-b8a7-f61358328a68");
+INSERT INTO V_VAL
+	VALUES ("ca05dbfe-7988-49c4-892f-2c5837c04fb8",
+	1,
+	0,
+	7,
+	7,
+	10,
+	0,
+	0,
+	0,
+	0,
+	"7c932901-780a-4a60-875e-d228d60859d0",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_AVL
+	VALUES ("ca05dbfe-7988-49c4-892f-2c5837c04fb8",
+	"1f0c7514-c682-4b28-8590-f2ef4e9126ac",
+	"c56cc048-5f73-41b8-a5e0-99bc3cd32291",
+	"0b301b85-2be0-41fd-8fef-ef51eae35283");
+INSERT INTO V_VAL
+	VALUES ("d1c16380-8153-48e8-bcd0-eb9c9367c113",
+	0,
+	0,
+	7,
+	14,
+	27,
+	0,
+	0,
+	0,
+	0,
+	"7c932901-780a-4a60-875e-d228d60859d0",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_LST
+	VALUES ("d1c16380-8153-48e8-bcd0-eb9c9367c113",
+	'run some more');
+INSERT INTO V_VAL
+	VALUES ("a640f801-d802-4bbe-b630-47580e50928b",
+	1,
+	0,
+	10,
+	1,
+	5,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_IRF
+	VALUES ("a640f801-d802-4bbe-b630-47580e50928b",
+	"f8f1ffe6-85f0-4c5f-ac74-203369602cd5");
+INSERT INTO V_VAL
+	VALUES ("15721d4f-710d-4b79-88be-3902d850c058",
+	1,
+	0,
+	10,
+	7,
+	10,
+	0,
+	0,
+	0,
+	0,
+	"7c932901-780a-4a60-875e-d228d60859d0",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_AVL
+	VALUES ("15721d4f-710d-4b79-88be-3902d850c058",
+	"a640f801-d802-4bbe-b630-47580e50928b",
+	"c56cc048-5f73-41b8-a5e0-99bc3cd32291",
+	"0b301b85-2be0-41fd-8fef-ef51eae35283");
+INSERT INTO V_VAL
+	VALUES ("1fd1b2df-4f16-462c-b027-b6f6796dde62",
+	0,
+	0,
+	10,
+	14,
+	25,
+	0,
+	0,
+	0,
+	0,
+	"7c932901-780a-4a60-875e-d228d60859d0",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_LST
+	VALUES ("1fd1b2df-4f16-462c-b027-b6f6796dde62",
+	'do it again');
+INSERT INTO V_VAL
+	VALUES ("d533c8ca-f0ac-4772-810f-9c53506dcbb9",
+	1,
+	0,
+	13,
+	1,
+	5,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_IRF
+	VALUES ("d533c8ca-f0ac-4772-810f-9c53506dcbb9",
+	"3438924d-9483-483e-9eb9-2381c86c49ac");
+INSERT INTO V_VAL
+	VALUES ("5e223d36-139a-47d0-9db9-564815bb6ef7",
+	1,
+	0,
+	13,
+	7,
+	10,
+	0,
+	0,
+	0,
+	0,
+	"7c932901-780a-4a60-875e-d228d60859d0",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_AVL
+	VALUES ("5e223d36-139a-47d0-9db9-564815bb6ef7",
+	"d533c8ca-f0ac-4772-810f-9c53506dcbb9",
+	"c56cc048-5f73-41b8-a5e0-99bc3cd32291",
+	"0b301b85-2be0-41fd-8fef-ef51eae35283");
+INSERT INTO V_VAL
+	VALUES ("8964b8d5-23f9-4b24-8136-1ee67fe88528",
+	0,
+	0,
+	13,
+	14,
+	29,
+	0,
+	0,
+	0,
+	0,
+	"7c932901-780a-4a60-875e-d228d60859d0",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_LST
+	VALUES ("8964b8d5-23f9-4b24-8136-1ee67fe88528",
+	'and yet again..');
+INSERT INTO V_VAL
+	VALUES ("febe7d0d-aac0-4d72-b061-c3ffc69f72a8",
+	1,
+	0,
+	21,
+	1,
+	8,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_IRF
+	VALUES ("febe7d0d-aac0-4d72-b061-c3ffc69f72a8",
+	"cc9c2463-f630-43b3-9454-763dd445d01f");
+INSERT INTO V_VAL
+	VALUES ("bfd592fe-b9c5-4c54-a4ec-05c3fdf704de",
+	1,
+	0,
+	21,
+	10,
+	13,
+	0,
+	0,
+	0,
+	0,
+	"48b688a7-4cf9-4bec-b11f-eaf0ab389e2c",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_AVL
+	VALUES ("bfd592fe-b9c5-4c54-a4ec-05c3fdf704de",
+	"febe7d0d-aac0-4d72-b061-c3ffc69f72a8",
+	"733ce07f-5538-4540-92cc-2de182acbc05",
+	"ecd3a6b8-605a-430e-b570-b8e023dec3a5");
+INSERT INTO O_ATTR_PROXY
+	VALUES ("ecd3a6b8-605a-430e-b570-b8e023dec3a5",
+	"733ce07f-5538-4540-92cc-2de182acbc05",
+	"00000000-0000-0000-0000-000000000000",
+	'time',
+	'',
+	'',
+	'time',
+	0,
+	"48b688a7-4cf9-4bec-b11f-eaf0ab389e2c",
+	'',
+	'../Specification/duration/duration.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("48b688a7-4cf9-4bec-b11f-eaf0ab389e2c",
+	"00000000-0000-0000-0000-000000000000",
+	'integer',
+	'',
+	'../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO V_VAL
+	VALUES ("e1437d42-b09e-46f1-96dc-c3e6fb39914d",
+	0,
+	0,
+	21,
+	17,
+	17,
+	0,
+	0,
+	0,
+	0,
+	"48b688a7-4cf9-4bec-b11f-eaf0ab389e2c",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_LIN
+	VALUES ("e1437d42-b09e-46f1-96dc-c3e6fb39914d",
+	'6');
+INSERT INTO V_VAL
+	VALUES ("dc9ff371-ebf4-4224-a899-c1a46c684858",
+	1,
+	0,
+	30,
+	1,
+	8,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_IRF
+	VALUES ("dc9ff371-ebf4-4224-a899-c1a46c684858",
+	"cc9c2463-f630-43b3-9454-763dd445d01f");
+INSERT INTO V_VAL
+	VALUES ("715b6864-8a2f-417b-9999-7c619ebbf2df",
+	1,
+	0,
+	30,
+	10,
+	13,
+	0,
+	0,
+	0,
+	0,
+	"48b688a7-4cf9-4bec-b11f-eaf0ab389e2c",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_AVL
+	VALUES ("715b6864-8a2f-417b-9999-7c619ebbf2df",
+	"dc9ff371-ebf4-4224-a899-c1a46c684858",
+	"733ce07f-5538-4540-92cc-2de182acbc05",
+	"ecd3a6b8-605a-430e-b570-b8e023dec3a5");
+INSERT INTO V_VAL
+	VALUES ("03f5be1a-6bd9-4905-a3c1-325364ce0343",
+	0,
+	0,
+	30,
+	17,
+	17,
+	0,
+	0,
+	0,
+	0,
+	"48b688a7-4cf9-4bec-b11f-eaf0ab389e2c",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_LIN
+	VALUES ("03f5be1a-6bd9-4905-a3c1-325364ce0343",
+	'8');
+INSERT INTO V_VAL
+	VALUES ("e9a1e28a-b319-4ac3-bfe2-eb230d96d8c7",
+	1,
+	0,
+	35,
+	1,
+	6,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_IRF
+	VALUES ("e9a1e28a-b319-4ac3-bfe2-eb230d96d8c7",
+	"62183203-c89d-4078-a518-d39049248903");
+INSERT INTO V_VAL
+	VALUES ("e93894b0-c416-485d-ad6e-2a7a1e915c02",
+	1,
+	0,
+	35,
+	8,
+	18,
+	0,
+	0,
+	0,
+	0,
+	"48b688a7-4cf9-4bec-b11f-eaf0ab389e2c",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_AVL
+	VALUES ("e93894b0-c416-485d-ad6e-2a7a1e915c02",
+	"e9a1e28a-b319-4ac3-bfe2-eb230d96d8c7",
+	"f3f7fc13-3297-4e96-a73f-bf284c223b3a",
+	"2b7ddded-cabe-404a-9883-e96b62f73ac1");
+INSERT INTO O_ATTR_PROXY
+	VALUES ("2b7ddded-cabe-404a-9883-e96b62f73ac1",
+	"f3f7fc13-3297-4e96-a73f-bf284c223b3a",
+	"00000000-0000-0000-0000-000000000000",
+	'repeatCount',
+	'',
+	'',
+	'repeatCount',
+	0,
+	"48b688a7-4cf9-4bec-b11f-eaf0ab389e2c",
+	'',
+	'../Specification/repeat step/repeat step.xtuml');
+INSERT INTO V_VAL
+	VALUES ("deb0c3ad-73da-41d2-9b8e-b918b323e48d",
+	0,
+	0,
+	35,
+	22,
+	22,
+	0,
+	0,
+	0,
+	0,
+	"48b688a7-4cf9-4bec-b11f-eaf0ab389e2c",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_LIN
+	VALUES ("deb0c3ad-73da-41d2-9b8e-b918b323e48d",
+	'2');
+INSERT INTO V_VAL
+	VALUES ("69f8102d-c511-4cef-93dd-4bb0cf87191f",
+	1,
+	0,
+	39,
+	1,
+	6,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_IRF
+	VALUES ("69f8102d-c511-4cef-93dd-4bb0cf87191f",
+	"62183203-c89d-4078-a518-d39049248903");
+INSERT INTO V_VAL
+	VALUES ("703a2e1d-74e1-46c9-9b3c-5d62259ca3d2",
+	1,
+	0,
+	39,
+	8,
+	18,
+	0,
+	0,
+	0,
+	0,
+	"48b688a7-4cf9-4bec-b11f-eaf0ab389e2c",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_AVL
+	VALUES ("703a2e1d-74e1-46c9-9b3c-5d62259ca3d2",
+	"69f8102d-c511-4cef-93dd-4bb0cf87191f",
+	"f3f7fc13-3297-4e96-a73f-bf284c223b3a",
+	"2b7ddded-cabe-404a-9883-e96b62f73ac1");
+INSERT INTO V_VAL
+	VALUES ("b640a7e3-5fad-43be-9e43-e348fa40d08a",
+	0,
+	0,
+	39,
+	22,
+	22,
+	0,
+	0,
+	0,
+	0,
+	"48b688a7-4cf9-4bec-b11f-eaf0ab389e2c",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5");
+INSERT INTO V_LIN
+	VALUES ("b640a7e3-5fad-43be-9e43-e348fa40d08a",
+	'2');
+INSERT INTO V_VAR
+	VALUES ("ef5dea5d-e5ef-4322-8018-1a5ec953ffea",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	'plan',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("ef5dea5d-e5ef-4322-8018-1a5ec953ffea",
+	0,
+	"35493a9b-d91b-44f2-a858-a1ba3e103607");
+INSERT INTO V_LOC
+	VALUES ("13efe034-b482-49a5-be60-c329cc49328c",
+	1,
+	24,
+	27,
+	"ef5dea5d-e5ef-4322-8018-1a5ec953ffea");
+INSERT INTO V_LOC
+	VALUES ("aa59a62b-e2b8-4b4e-8a93-679845bbea64",
+	3,
+	17,
+	20,
+	"ef5dea5d-e5ef-4322-8018-1a5ec953ffea");
+INSERT INTO V_VAR
+	VALUES ("2d64589e-4def-40e5-a61c-513d329d0a00",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	'step1',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("2d64589e-4def-40e5-a61c-513d329d0a00",
+	0,
+	"c56cc048-5f73-41b8-a5e0-99bc3cd32291");
+INSERT INTO V_LOC
+	VALUES ("dc000312-3099-4c3b-8d17-7028a0cfc964",
+	2,
+	24,
+	28,
+	"2d64589e-4def-40e5-a61c-513d329d0a00");
+INSERT INTO V_LOC
+	VALUES ("675840be-12f0-445c-a90a-999b8e8b33bb",
+	3,
+	8,
+	12,
+	"2d64589e-4def-40e5-a61c-513d329d0a00");
+INSERT INTO V_LOC
+	VALUES ("9874d03a-6b88-4c2e-8b55-203640ae001c",
+	4,
+	1,
+	5,
+	"2d64589e-4def-40e5-a61c-513d329d0a00");
+INSERT INTO V_LOC
+	VALUES ("97ac8419-9ca6-4fda-bbe3-ad0c068aed7e",
+	6,
+	8,
+	12,
+	"2d64589e-4def-40e5-a61c-513d329d0a00");
+INSERT INTO V_LOC
+	VALUES ("540d03bf-d55c-4b51-a36e-c46d4797901d",
+	16,
+	17,
+	21,
+	"2d64589e-4def-40e5-a61c-513d329d0a00");
+INSERT INTO V_VAR
+	VALUES ("dde16c10-0421-4966-b8a7-f61358328a68",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	'step2',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("dde16c10-0421-4966-b8a7-f61358328a68",
+	0,
+	"c56cc048-5f73-41b8-a5e0-99bc3cd32291");
+INSERT INTO V_LOC
+	VALUES ("405a77fe-dead-460d-a8a1-a4ff2510aa19",
+	5,
+	24,
+	28,
+	"dde16c10-0421-4966-b8a7-f61358328a68");
+INSERT INTO V_LOC
+	VALUES ("ac9aa4ab-62aa-4651-b3ab-db2dabefe160",
+	6,
+	17,
+	21,
+	"dde16c10-0421-4966-b8a7-f61358328a68");
+INSERT INTO V_LOC
+	VALUES ("68cbdcda-9df1-4192-9ab2-13da71f6fdae",
+	7,
+	1,
+	5,
+	"dde16c10-0421-4966-b8a7-f61358328a68");
+INSERT INTO V_LOC
+	VALUES ("0d3f8215-5135-4e87-ae2b-5503f786f848",
+	9,
+	8,
+	12,
+	"dde16c10-0421-4966-b8a7-f61358328a68");
+INSERT INTO V_LOC
+	VALUES ("76d008cc-e809-402f-a013-b4a11f6e1703",
+	25,
+	17,
+	21,
+	"dde16c10-0421-4966-b8a7-f61358328a68");
+INSERT INTO V_VAR
+	VALUES ("f8f1ffe6-85f0-4c5f-ac74-203369602cd5",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	'step3',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("f8f1ffe6-85f0-4c5f-ac74-203369602cd5",
+	0,
+	"c56cc048-5f73-41b8-a5e0-99bc3cd32291");
+INSERT INTO V_LOC
+	VALUES ("327643fc-3acb-45f7-9ba5-532fa22330ad",
+	8,
+	24,
+	28,
+	"f8f1ffe6-85f0-4c5f-ac74-203369602cd5");
+INSERT INTO V_LOC
+	VALUES ("7db58c48-a55f-4401-87ae-dc79acc018f2",
+	9,
+	17,
+	21,
+	"f8f1ffe6-85f0-4c5f-ac74-203369602cd5");
+INSERT INTO V_LOC
+	VALUES ("e4cc7109-4c29-410a-89cf-0260b772f272",
+	10,
+	1,
+	5,
+	"f8f1ffe6-85f0-4c5f-ac74-203369602cd5");
+INSERT INTO V_LOC
+	VALUES ("118e7cff-4bc3-4b80-9d82-cbedafbf3edd",
+	12,
+	8,
+	12,
+	"f8f1ffe6-85f0-4c5f-ac74-203369602cd5");
+INSERT INTO V_LOC
+	VALUES ("fda23a30-ab75-4f2b-a6cb-1146c878888e",
+	34,
+	18,
+	22,
+	"f8f1ffe6-85f0-4c5f-ac74-203369602cd5");
+INSERT INTO V_VAR
+	VALUES ("3438924d-9483-483e-9eb9-2381c86c49ac",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	'step4',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("3438924d-9483-483e-9eb9-2381c86c49ac",
+	0,
+	"c56cc048-5f73-41b8-a5e0-99bc3cd32291");
+INSERT INTO V_LOC
+	VALUES ("e0fca470-decd-4022-8348-d4e69d876628",
+	11,
+	24,
+	28,
+	"3438924d-9483-483e-9eb9-2381c86c49ac");
+INSERT INTO V_LOC
+	VALUES ("0ac53435-d461-41af-8e3c-37c4e7ed42da",
+	12,
+	17,
+	21,
+	"3438924d-9483-483e-9eb9-2381c86c49ac");
+INSERT INTO V_LOC
+	VALUES ("793408a5-5ced-4e02-b056-efed6de79eef",
+	13,
+	1,
+	5,
+	"3438924d-9483-483e-9eb9-2381c86c49ac");
+INSERT INTO V_LOC
+	VALUES ("559a55f3-aed4-471e-95a3-bf7f0e12bad2",
+	38,
+	18,
+	22,
+	"3438924d-9483-483e-9eb9-2381c86c49ac");
+INSERT INTO V_VAR
+	VALUES ("89d579be-2fa9-41ff-b4a8-080f871eda96",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	'task1',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("89d579be-2fa9-41ff-b4a8-080f871eda96",
+	0,
+	"f344a8b7-e6ad-4867-8a56-f7212dedc014");
+INSERT INTO V_LOC
+	VALUES ("5f8c60f9-34dc-49e2-83f7-292de3874fe7",
+	15,
+	24,
+	28,
+	"89d579be-2fa9-41ff-b4a8-080f871eda96");
+INSERT INTO V_LOC
+	VALUES ("2f0446d6-74b7-44ed-81f1-8880a7172501",
+	16,
+	8,
+	12,
+	"89d579be-2fa9-41ff-b4a8-080f871eda96");
+INSERT INTO V_LOC
+	VALUES ("1be7b9c9-214a-4401-854d-6ea8e47eb011",
+	18,
+	19,
+	23,
+	"89d579be-2fa9-41ff-b4a8-080f871eda96");
+INSERT INTO V_LOC
+	VALUES ("9ab9aab3-7808-4bd4-b262-828ed3a60fcc",
+	36,
+	18,
+	22,
+	"89d579be-2fa9-41ff-b4a8-080f871eda96");
+INSERT INTO V_LOC
+	VALUES ("5b93a941-ad56-4cc2-878d-46025e97b1f4",
+	40,
+	18,
+	22,
+	"89d579be-2fa9-41ff-b4a8-080f871eda96");
+INSERT INTO V_VAR
+	VALUES ("93a04a72-7e67-45df-9c86-574250709676",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	'endstep',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("93a04a72-7e67-45df-9c86-574250709676",
+	0,
+	"57731ecf-417c-4f4a-b760-bbc78f9ebc4e");
+INSERT INTO V_LOC
+	VALUES ("f6145896-dc2c-4c3e-aed7-4ad2daa14b8f",
+	17,
+	24,
+	30,
+	"93a04a72-7e67-45df-9c86-574250709676");
+INSERT INTO V_LOC
+	VALUES ("099061b8-6e9a-43c4-9832-fc8db650b911",
+	18,
+	8,
+	14,
+	"93a04a72-7e67-45df-9c86-574250709676");
+INSERT INTO V_LOC
+	VALUES ("7cb4b34b-bef5-4e4e-a671-19b34f6ff469",
+	20,
+	20,
+	26,
+	"93a04a72-7e67-45df-9c86-574250709676");
+INSERT INTO V_LOC
+	VALUES ("edc8d215-20ba-4975-a79f-0ba9f6236c98",
+	26,
+	24,
+	30,
+	"93a04a72-7e67-45df-9c86-574250709676");
+INSERT INTO V_LOC
+	VALUES ("d096e6b2-135f-4cdf-831a-88c6e7bcc344",
+	27,
+	8,
+	14,
+	"93a04a72-7e67-45df-9c86-574250709676");
+INSERT INTO V_LOC
+	VALUES ("e1388f58-d5f9-4642-bbaa-aecb84f8e078",
+	29,
+	20,
+	26,
+	"93a04a72-7e67-45df-9c86-574250709676");
+INSERT INTO V_VAR
+	VALUES ("cc9c2463-f630-43b3-9454-763dd445d01f",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	'duration',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("cc9c2463-f630-43b3-9454-763dd445d01f",
+	0,
+	"733ce07f-5538-4540-92cc-2de182acbc05");
+INSERT INTO V_LOC
+	VALUES ("45f641c0-989d-4994-bd52-c805cf1f98b4",
+	19,
+	24,
+	31,
+	"cc9c2463-f630-43b3-9454-763dd445d01f");
+INSERT INTO V_LOC
+	VALUES ("0d0b830f-3312-429b-828d-588d3559fb2a",
+	20,
+	8,
+	15,
+	"cc9c2463-f630-43b3-9454-763dd445d01f");
+INSERT INTO V_LOC
+	VALUES ("e48e6d19-190a-472c-bda7-46ab7d6bd027",
+	21,
+	1,
+	8,
+	"cc9c2463-f630-43b3-9454-763dd445d01f");
+INSERT INTO V_LOC
+	VALUES ("6de1fb52-e6c2-483c-9cee-1f96ff05a0b6",
+	28,
+	24,
+	31,
+	"cc9c2463-f630-43b3-9454-763dd445d01f");
+INSERT INTO V_LOC
+	VALUES ("5832b075-31ff-4474-8a3f-97ad25f8b6de",
+	29,
+	8,
+	15,
+	"cc9c2463-f630-43b3-9454-763dd445d01f");
+INSERT INTO V_LOC
+	VALUES ("6d5954a8-ef25-4609-a9e7-3ada88b6f644",
+	30,
+	1,
+	8,
+	"cc9c2463-f630-43b3-9454-763dd445d01f");
+INSERT INTO V_VAR
+	VALUES ("bd3e6217-614b-4713-a939-b28abd081bd3",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	'task2',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("bd3e6217-614b-4713-a939-b28abd081bd3",
+	0,
+	"f344a8b7-e6ad-4867-8a56-f7212dedc014");
+INSERT INTO V_LOC
+	VALUES ("d28c0123-2606-45d9-87df-ae3ac89c1907",
+	24,
+	24,
+	28,
+	"bd3e6217-614b-4713-a939-b28abd081bd3");
+INSERT INTO V_LOC
+	VALUES ("f6f19d38-c8f0-4834-b544-cf66c320b526",
+	25,
+	8,
+	12,
+	"bd3e6217-614b-4713-a939-b28abd081bd3");
+INSERT INTO V_LOC
+	VALUES ("940f258d-a935-4175-9912-7853854b54c0",
+	27,
+	19,
+	23,
+	"bd3e6217-614b-4713-a939-b28abd081bd3");
+INSERT INTO V_VAR
+	VALUES ("62183203-c89d-4078-a518-d39049248903",
+	"4c1059b2-8002-4ab2-905a-e11cf34c02e5",
+	'repeat',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("62183203-c89d-4078-a518-d39049248903",
+	0,
+	"f3f7fc13-3297-4e96-a73f-bf284c223b3a");
+INSERT INTO V_LOC
+	VALUES ("d1ec36e0-2d35-4d27-80ff-df32db969704",
+	33,
+	24,
+	29,
+	"62183203-c89d-4078-a518-d39049248903");
+INSERT INTO V_LOC
+	VALUES ("933ac552-aea6-4186-81e5-71f25b715911",
+	34,
+	8,
+	13,
+	"62183203-c89d-4078-a518-d39049248903");
+INSERT INTO V_LOC
+	VALUES ("e313537a-0f58-4a66-94a5-5f2100914496",
+	35,
+	1,
+	6,
+	"62183203-c89d-4078-a518-d39049248903");
+INSERT INTO V_LOC
+	VALUES ("eeaec448-0ed2-4b9c-aa92-33f73e7b64da",
+	36,
+	8,
+	13,
+	"62183203-c89d-4078-a518-d39049248903");
+INSERT INTO V_LOC
+	VALUES ("81b8ea3b-284f-4729-8d22-b71a88f7078a",
+	37,
+	24,
+	29,
+	"62183203-c89d-4078-a518-d39049248903");
+INSERT INTO V_LOC
+	VALUES ("931d2004-b708-4e7d-83d8-d2ec4d8190b0",
+	38,
+	8,
+	13,
+	"62183203-c89d-4078-a518-d39049248903");
+INSERT INTO V_LOC
+	VALUES ("61eb2699-2ad9-4c7a-af5c-da7d0e3bd88d",
+	39,
+	1,
+	6,
+	"62183203-c89d-4078-a518-d39049248903");
+INSERT INTO V_LOC
+	VALUES ("cee734b6-b1ac-4cb8-b3b5-c413608ed4c5",
+	40,
+	8,
+	13,
+	"62183203-c89d-4078-a518-d39049248903");
+INSERT INTO S_FIP
+	VALUES ("7ef9a28c-3723-46ec-abe4-b16535b5e41d",
+	"4f56aa49-bd44-4b49-8424-e3f0847c49a1");
+INSERT INTO S_SYNC
+	VALUES ("4f56aa49-bd44-4b49-8424-e3f0847c49a1",
+	"7877e6e0-dd19-4087-b158-647c2788232a",
+	'demo_workout',
+	'This function will initialize the runtime and then execute a complex workout.
+The workout uses timed exercise steps in two nested sequences.',
+	'::setup();
+::make_workout();
+::select_workout();
+::start_stop_pressed();',
+	"622ff808-9eac-4dd3-a077-9600cd62842e",
+	1,
+	'');
+INSERT INTO ACT_FNB
+	VALUES ("d10b7dc3-0c64-4c6d-b37b-a62604be09b8",
+	"4f56aa49-bd44-4b49-8424-e3f0847c49a1");
+INSERT INTO ACT_ACT
+	VALUES ("d10b7dc3-0c64-4c6d-b37b-a62604be09b8",
+	'function',
+	0,
+	"d7b2288e-954a-42df-93a8-d72c0f1ef30e",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'demo_workout',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_BLK
+	VALUES ("d7b2288e-954a-42df-93a8-d72c0f1ef30e",
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	4,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	"d10b7dc3-0c64-4c6d-b37b-a62604be09b8",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("56a0e677-dda3-49a1-ac6a-694c6a30423f",
+	"d7b2288e-954a-42df-93a8-d72c0f1ef30e",
+	"ebeba6ae-5c69-43a9-a0d1-36f53ac6db36",
+	1,
+	1,
+	'demo_workout line: 1');
+INSERT INTO ACT_FNC
+	VALUES ("56a0e677-dda3-49a1-ac6a-694c6a30423f",
+	"3686c459-cfc0-470a-9802-06cf418a390e",
+	1,
+	3);
+INSERT INTO S_SYNC_PROXY
+	VALUES ("3686c459-cfc0-470a-9802-06cf418a390e",
+	"7877e6e0-dd19-4087-b158-647c2788232a",
+	'setup',
+	'',
+	'create object instance clock of CLOCK;
+create object instance loc of CLOC;
+loc.altitude = 50;
+loc. latitude = 30.0;
+loc.longitude = 117.0;
+create object instance timer of WTIMR;
+create object instance button of LAPRESET;
+relate timer to button across R4;
+timer.seconds = 0;
+create object instance settings of SETTINGS;
+generate TEST_GPS1:''exist'' to TEST_GPS creator;',
+	"622ff808-9eac-4dd3-a077-9600cd62842e",
+	1,
+	'',
+	'../Initialization/Initialization.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("ebeba6ae-5c69-43a9-a0d1-36f53ac6db36",
+	"d7b2288e-954a-42df-93a8-d72c0f1ef30e",
+	"cfde0aba-01a1-4c99-81f8-17e36b2914fd",
+	2,
+	1,
+	'demo_workout line: 2');
+INSERT INTO ACT_FNC
+	VALUES ("ebeba6ae-5c69-43a9-a0d1-36f53ac6db36",
+	"cb64faf4-5578-4d40-bed6-23e9f000f073",
+	2,
+	3);
+INSERT INTO ACT_SMT
+	VALUES ("cfde0aba-01a1-4c99-81f8-17e36b2914fd",
+	"d7b2288e-954a-42df-93a8-d72c0f1ef30e",
+	"c9a3b30c-0abc-4fb6-acf4-a355033eb29a",
+	3,
+	1,
+	'demo_workout line: 3');
+INSERT INTO ACT_FNC
+	VALUES ("cfde0aba-01a1-4c99-81f8-17e36b2914fd",
+	"95f463ee-0e2d-4186-ba5d-d049938cf337",
+	3,
+	3);
+INSERT INTO S_SYNC_PROXY
+	VALUES ("95f463ee-0e2d-4186-ba5d-d049938cf337",
+	"7877e6e0-dd19-4087-b158-647c2788232a",
+	'select_workout',
+	'',
+	'select any settings from instances of SETTINGS;
+select any plan from instances of WPLAN;
+relate settings to plan across R109;',
+	"622ff808-9eac-4dd3-a077-9600cd62842e",
+	1,
+	'',
+	'../UserInput/UserInput.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("c9a3b30c-0abc-4fb6-acf4-a355033eb29a",
+	"d7b2288e-954a-42df-93a8-d72c0f1ef30e",
+	"00000000-0000-0000-0000-000000000000",
+	4,
+	1,
+	'demo_workout line: 4');
+INSERT INTO ACT_FNC
+	VALUES ("c9a3b30c-0abc-4fb6-acf4-a355033eb29a",
+	"dc589412-e6fb-46f2-8e70-b98e9891a800",
+	4,
+	3);

@@ -1,0 +1,374 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 11">
+<meta name=Originator content="Microsoft Word 11">
+<link rel=File-List href="Communication_files/filelist.xml">
+<title>Sequence Diagram</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author> New User</o:Author>
+  <o:LastAuthor>kwilliam</o:LastAuthor>
+  <o:Revision>16</o:Revision>
+  <o:TotalTime>317</o:TotalTime>
+  <o:LastPrinted>2006-06-28T15:25:00Z</o:LastPrinted>
+  <o:Created>2006-06-28T15:21:00Z</o:Created>
+  <o:LastSaved>2006-07-06T15:49:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>953</o:Words>
+  <o:Characters>5438</o:Characters>
+  <o:Company>Mentor Graphics</o:Company>
+  <o:Lines>45</o:Lines>
+  <o:Paragraphs>12</o:Paragraphs>
+  <o:CharactersWithSpaces>6379</o:CharactersWithSpaces>
+  <o:Version>11.6568</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:Compatibility>
+   <w:SelectEntireFieldWithStartOrEnd/>
+   <w:UseWord2002TableStyleRules/>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" LatentStyleCount="156">
+ </w:LatentStyles>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:\5B8B\4F53;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 135135232 16 0 262145 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h2
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	line-height:15.6pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:12.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	color:navy;
+	font-weight:bold;}
+h3
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
+	font-size:11.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	color:navy;
+	font-weight:bold;}
+h4
+	{margin-top:7.5pt;
+	margin-right:7.5pt;
+	margin-bottom:2.4pt;
+	margin-left:7.5pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:4;
+	font-size:11.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	color:#0176B9;
+	font-weight:bold;}
+p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";}
+p
+	{margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+</style>
+<![endif]-->
+</head>
+
+<body lang=EN-US style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<h2>Communication Diagram</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman"'>Many of the following definitions of were derived in part
+from descriptions and definitions in <i style='mso-bidi-font-style:normal'>The
+Unified Modeling Language Reference Manual</i>, Second Edition; and <i
+style='mso-bidi-font-style:normal'>UML Distilled</i>, Third Edition.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman"'>Communications diagrams describe data link interactions
+between model elements.<span style='mso-spacerun:yes'>  </span>Communication
+diagrams are informal in the sense that they do not impose</span><span
+style='font-family:Arial;mso-fareast-font-family:"Times New Roman"'> behavior
+on formal diagrams such as the instance and class state machine diagrams.<span
+style='mso-spacerun:yes'>  </span>However certain elements on communication
+diagrams, such as instances, external entities, classes and function packages
+may be formalized by specifying counterparts in other, formal diagrams.<span
+style='mso-spacerun:yes'>  </span>Formalized elements display the properties of
+their counterparts.<span style='mso-spacerun:yes'>  </span>Communication
+diagrams may be placed in domain and subsystem packages or nested inside other
+communication diagrams.</span><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<h3>Instance</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>An Instance
+represents a single instance of a class.<span style='mso-spacerun:yes'> 
+</span>The instance may be formal or informal.<o:p></o:p></span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman"'>An Instance is represented by a rectangle.<span
+style='mso-spacerun:yes'>  </span>Each instance has two compartments separated
+by a single line.<span style='mso-spacerun:yes'>  </span>The top compartment
+contains the name of the instance, followed by a colon and then the name of the
+Class it is formalized to if it is formal, or the text ‘Informal Class’ if it
+is informal.<span style='mso-spacerun:yes'>  </span>The bottom compartment
+contains a list of the attributes of the class.<o:p></o:p></span></p>
+
+<h3>Actor</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>An actor is an
+abstraction of a role played by an element that can be either external or
+internal to the domain.<span style='mso-spacerun:yes'>  </span>Actors may be
+named and may have lifelines attached to them.<span style='mso-spacerun:yes'> 
+</span>On Sequence diagrams actors are always informal.<span
+style='mso-spacerun:yes'>  </span><o:p></o:p></span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman"'>An actor is represented as a stick figure man symbol.<span
+style='mso-spacerun:yes'>  </span>The name of the actor is displayed below the
+stick figure.<o:p></o:p></span></p>
+
+<h3>External Entity</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman"'>An external entity is an abstraction of functionality
+external to the domain.<span style='mso-spacerun:yes'>  </span>On communication
+diagrams external entities may be formal or informal.<o:p></o:p></span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman"'>An external entity is represented by a rectangle.<span
+style='mso-spacerun:yes'>  </span>Each external entity has two compartments
+separated by a double line.<span style='mso-spacerun:yes'>  </span>If the
+external entity is informal the top compartment displays the informal name of
+the external entity.<span style='mso-spacerun:yes'>  </span>If the external
+entity is formalized, the top compartment contains the name of the domain
+containing the external entity, two colons, <span class=GramE>the</span> name
+of the package containing the external entity, two more colons and the formal
+name.<span style='mso-spacerun:yes'>  </span>The bottom compartment contains a
+list of the external entity’s operations.<o:p></o:p></span></p>
+
+<h3>Class</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>A class abstracts the
+common characteristics of a set of instances that share the same attributes,
+operations, associations and behavior.<span style='mso-spacerun:yes'> 
+</span>On communication diagrams classes may be formal or informal. <o:p></o:p></span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>A class is
+represented by a rectangle with three compartments.<span
+style='mso-spacerun:yes'>  </span>If the class is informal the first
+compartment contains the informal class name, the second a list of the informal
+attributes of the class and the third a list of the messages received by the
+class. If the class is formal the contents of the three compartments are
+derived from the counterpart class.<o:p></o:p></span></p>
+
+<h3>Function Package</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>A function package
+contains functions.<span style='mso-spacerun:yes'>  </span>Functions are sets
+of activities, represented in OAL (Object Action Language) that are associated
+with, and global to, the domain that contains them. On sequence diagrams function
+packages may be formal or informal.<o:p></o:p></span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>A function package is
+represented by a large rectangle with a smaller rectangle attached to the top
+left of the larger one.<span style='mso-spacerun:yes'>  </span>If the package
+is informal the large rectangle contains the stereotype &lt;&lt;function&gt;&gt;
+and the informal name of the package.<span style='mso-spacerun:yes'>  </span>If
+the package is formal the large rectangle contains the stereotype
+&lt;&lt;function&gt;&gt; plus a line of text with the name of the domain that
+contains the counterpart package, two colons, and the formal name of the
+function package.<o:p></o:p></span></p>
+
+<h3>Link</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>A link abstracts an
+association that allows elements to exchange messages.<span
+style='mso-spacerun:yes'>  </span>Links may start from and end in instances,
+actors, external entities, classes or function packages.<span
+style='mso-spacerun:yes'>  </span>On communication diagrams links are always
+informal.<span style='mso-spacerun:yes'>     </span><o:p></o:p></span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>A link is represented
+as a thin solid line between elements.<span style='mso-spacerun:yes'>  </span>End
+visibility may be toggled on or off at either the starting element or
+terminating element end of the link.<span style='mso-spacerun:yes'>  </span>End
+visibility is represented as an open arrow head.<span
+style='mso-spacerun:yes'>  </span>Also, if the elements on each end of the link
+are formalized instances, the link may be formalized as well.<o:p></o:p></span></p>
+
+<h3>Asynchronous Message</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>An asynchronous
+message abstracts the notification of a significant occurrence sent along a
+link to a model element.<span style='mso-spacerun:yes'>  </span>Asynchronous
+messages imply that the source elements continue processing as soon as the
+message is sent; they do not wait for a return message.<span
+style='mso-spacerun:yes'>  </span>On communications diagrams, asynchronous
+messages may be either formal or informal.<span style='mso-spacerun:yes'> 
+</span>In order for an asynchronous message to be eligible for formalization,
+the target of the message must be a formalized instance.<o:p></o:p></span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>An asynchronous
+message is represented by a thin solid line terminated on the destination
+element with an open arrow head.<span style='mso-spacerun:yes'>  </span>A
+formalized message is adorned with a floating text box containing the event
+label, a colon, and the event meaning.<o:p></o:p></span></p>
+
+<h3>Synchronous Message</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>A synchronous message
+abstracts the notification of a significant occurrence sent along a link to a
+model element.<span style='mso-spacerun:yes'>  </span>Synchronous messages
+imply that the source elements suspend processing until the message is consumed
+by the destination element and control is returned to the source element.<span
+style='mso-spacerun:yes'>  </span>On communications diagrams, synchronous
+messages may be either formal or informal.<span style='mso-spacerun:yes'> 
+</span>In order for a synchronous message to be eligible for formalization, the
+target of the message must be one of the following: a formalized external
+entity, a class containing class operations, or a class instance of a class
+containing instance operations.<o:p></o:p></span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>A synchronous message
+is represented by a thin solid line terminated on the destination element with
+a solid arrow head.<span style='mso-spacerun:yes'>  </span>A formalized message
+is adorned with a floating text box containing the name of the formalizing operation.<o:p></o:p></span></p>
+
+<h3>Return Message</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>A return message abstracts
+the notification to a source element that a message has been consumed by the
+destination element and that processing control is returned to the source
+element.<span style='mso-spacerun:yes'>  </span>On communication diagrams
+return messages are always informal.<o:p></o:p></span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>A return message is
+represented by a thin dashed line terminated with an open arrow head.<o:p></o:p></span></p>
+
+<p class=MsoPlainText><o:p>&nbsp;</o:p></p>
+
+</div>
+
+</body>
+
+</html>

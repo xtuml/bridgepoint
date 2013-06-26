@@ -1,0 +1,5 @@
+drawRectangle(11327, 8544, 529, 564)
+drawText("...d Component Reference", 11338, 8800, true)
+drawRectangle(11746, 8589, 66, 52)
+drawRectangle(11730, 8594, 30, 14)
+drawRectangle(11730, 8616, 30, 14)

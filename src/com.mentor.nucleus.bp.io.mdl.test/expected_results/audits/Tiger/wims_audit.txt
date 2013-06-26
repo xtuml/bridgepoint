@@ -1,0 +1,390 @@
+AUDIT RESULTS FOR DOMAIN wims
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+1_1_relationships
+Driver
+1_M_relationships
+1_1_and_1_M_relationships
+2_Associative_relationships
+Multiple Chains
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging 
+External Entity Time
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class 1_1_relationships::Object A
+Class 1_1_relationships::Object B
+Class 1_1_relationships::Object C
+Class 1_1_relationships::Object D
+Class 1_1_relationships::Object E
+Class 1_1_relationships::Object F
+Class 1_1_relationships::Object G
+Class 1_1_relationships::Object H
+Class 1_1_relationships::Object I
+Class 1_1_relationships::Object J
+Class 1_1_relationships::Object K
+Class 1_1_relationships::Object L
+Class Driver::Driver
+Class Driver::init
+Class 1_M_relationships::Object M
+Class 1_M_relationships::Object N
+Class 1_M_relationships::Object O
+Class 1_M_relationships::Object P
+Class 1_M_relationships::Object Q
+Class 1_M_relationships::Object R
+Class 1_M_relationships::Object S
+Class 1_M_relationships::Object T
+Class 1_M_relationships::Object U
+Class 1_M_relationships::Object V
+Class 1_M_relationships::Object W
+Class 1_M_relationships::Object X
+Class 1_1_and_1_M_relationships::Object OA
+Class 1_1_and_1_M_relationships::Object OB
+Class 1_1_and_1_M_relationships::Object OC
+Class 1_1_and_1_M_relationships::Object OG
+Class 1_1_and_1_M_relationships::Object OH
+Class 1_1_and_1_M_relationships::Object OI
+Class 1_1_and_1_M_relationships::Object OD
+Class 1_1_and_1_M_relationships::Object OE
+Class 1_1_and_1_M_relationships::Object OF
+Class 1_1_and_1_M_relationships::Object OK
+Class 1_1_and_1_M_relationships::Object OL
+Class 1_1_and_1_M_relationships::Object OM
+Class 1_1_and_1_M_relationships::Object PA
+Class 1_1_and_1_M_relationships::Object PB
+Class 1_1_and_1_M_relationships::Object PC
+Class 1_1_and_1_M_relationships::Object PD
+Class 1_1_and_1_M_relationships::Object PE
+Class 1_1_and_1_M_relationships::Object PF
+Class 1_1_and_1_M_relationships::Object PG
+Class 1_1_and_1_M_relationships::Object PH
+Class 1_1_and_1_M_relationships::Object PI
+Class 1_1_and_1_M_relationships::Object PK
+Class 1_1_and_1_M_relationships::Object PL
+Class 1_1_and_1_M_relationships::Object PM
+Class 2_Associative_relationships::Object MA
+Class 2_Associative_relationships::Object MB
+Class 2_Associative_relationships::Object MC
+Class 2_Associative_relationships::Object MD
+Class 2_Associative_relationships::Object ME
+Class 2_Associative_relationships::Object MF
+Class 2_Associative_relationships::Object MG
+Class 2_Associative_relationships::Object MI
+Class 2_Associative_relationships::Object MH
+Class 2_Associative_relationships::Object MJ
+Class 2_Associative_relationships::Object MK
+Class 2_Associative_relationships::Object ML
+Class 2_Associative_relationships::Object MM
+Class Multiple Chains::Chain A
+Class Multiple Chains::Chain B
+Class Multiple Chains::Chain C
+Class Multiple Chains::Chain D
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Object A::a_id
+Attribute Object A::current_state
+Attribute Object B::b_id
+Attribute Object B::a_id
+Attribute Object C::b_id
+Attribute Object D::d_id
+Attribute Object D::e_id
+Attribute Object D::current_state
+Attribute Object E::e_id
+Attribute Object F::e_id
+Attribute Object G::g_id
+Attribute Object G::current_state
+Attribute Object H::h_id
+Attribute Object H::g_id
+Attribute Object J::j_id
+Attribute Object J::k_id
+Attribute Object J::current_state
+Attribute Object K::k_id
+Attribute Driver::DRId
+Attribute Driver::current_state
+Attribute init::ID
+Attribute init::current_state
+Attribute Object M::m_id
+Attribute Object M::current_state
+Attribute Object N::n_id
+Attribute Object N::m_id
+Attribute Object O::num
+Attribute Object P::p_id
+Attribute Object P::q_id
+Attribute Object P::current_state
+Attribute Object Q::q_id
+Attribute Object R::num
+Attribute Object S::s_id
+Attribute Object S::current_state
+Attribute Object T::t_id
+Attribute Object T::s_id
+Attribute Object U::t_id
+Attribute Object U::num
+Attribute Object V::v_id
+Attribute Object V::w_id
+Attribute Object V::current_state
+Attribute Object W::w_id
+Attribute Object X::w_id
+Attribute Object X::num
+Attribute Object OA::oa_id
+Attribute Object OA::current_state
+Attribute Object OB::oa_id
+Attribute Object OB::ob_id
+Attribute Object OC::num
+Attribute Object OG::og_id
+Attribute Object OG::oh_id
+Attribute Object OG::current_state
+Attribute Object OH::oh_id
+Attribute Object OI::num
+Attribute Object OD::od_id
+Attribute Object OD::current_state
+Attribute Object OE::oe_id
+Attribute Object OE::od_id
+Attribute Object OF::oe_id
+Attribute Object OF::num
+Attribute Object OK::ok_id
+Attribute Object OK::current_state
+Attribute Object OK::ol_id
+Attribute Object OL::ol_id
+Attribute Object OM::ol_id
+Attribute Object OM::num
+Attribute Object PA::pa_id
+Attribute Object PA::current_state
+Attribute Object PA::pb_id
+Attribute Object PB::pb_id
+Attribute Object PC::num
+Attribute Object PD::pd_id
+Attribute Object PD::current_state
+Attribute Object PE::pe_id
+Attribute Object PE::pd_id
+Attribute Object PF::num
+Attribute Object PG::pg_id
+Attribute Object PG::current_state
+Attribute Object PG::ph_id
+Attribute Object PH::ph_id
+Attribute Object PI::ph_id
+Attribute Object PI::num
+Attribute Object PK::pk_id
+Attribute Object PK::current_state
+Attribute Object PL::pl_id
+Attribute Object PL::pk_id
+Attribute Object PM::pl_id
+Attribute Object PM::num
+Attribute Object MA::current_state
+Attribute Object MB::mb_id
+Attribute Object MC::mb_id
+Attribute Object MD::num
+Attribute Object ME::mb_id
+Attribute Object MF::mf_id
+Attribute Object MF::current_state
+Attribute Object MG::mg_id
+Attribute Object MI::num
+Attribute Object MH::mf_id
+Attribute Object MH::mg_id
+Attribute Object MJ::mg_id
+Attribute Object MK::mk_id
+Attribute Object MK::num
+Attribute Object ML::ml_id
+Attribute Object ML::current_state
+Attribute Object ML::num
+Attribute Object MM::mm_id
+Attribute Object MM::mk_id
+Attribute Object MM::ml_id
+Attribute Chain A::cha_id
+Attribute Chain A::current_state
+Attribute Chain A::chb_id
+Attribute Chain B::chb_id
+Attribute Chain B::chc_id
+Attribute Chain C::chc_id
+Attribute Chain D::chd_id
+Attribute Chain D::chc_id
+Attribute Chain D::num
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute Object B::a_id
+Referential Attribute Object C::b_id
+Referential Attribute Object D::e_id
+Referential Attribute Object F::e_id
+Referential Attribute Object H::g_id
+Referential Attribute Object H::i_id
+Referential Attribute Object J::k_id
+Referential Attribute Object K::l_id
+Referential Attribute Object N::m_id
+Referential Attribute Object N::o_id
+Referential Attribute Object P::q_id
+Referential Attribute Object Q::r_id
+Referential Attribute Object T::s_id
+Referential Attribute Object U::t_id
+Referential Attribute Object V::w_id
+Referential Attribute Object X::w_id
+Referential Attribute Object OB::oa_id
+Referential Attribute Object OB::oc_id
+Referential Attribute Object OG::oh_id
+Referential Attribute Object OH::oi_id
+Referential Attribute Object OE::od_id
+Referential Attribute Object OF::oe_id
+Referential Attribute Object OK::ol_id
+Referential Attribute Object OM::ol_id
+Referential Attribute Object PA::pb_id
+Referential Attribute Object PB::pc_id
+Referential Attribute Object PE::pf_id
+Referential Attribute Object PE::pd_id
+Referential Attribute Object PG::ph_id
+Referential Attribute Object PI::ph_id
+Referential Attribute Object PL::pk_id
+Referential Attribute Object PM::pl_id
+Referential Attribute Object MC::ma_id
+Referential Attribute Object MC::mb_id
+Referential Attribute Object ME::mb_id
+Referential Attribute Object ME::md_id
+Referential Attribute Object MH::mf_id
+Referential Attribute Object MH::mg_id
+Referential Attribute Object MJ::mg_id
+Referential Attribute Object MJ::mi_id
+Referential Attribute Object MM::mk_id
+Referential Attribute Object MM::ml_id
+Referential Attribute Chain A::chb_id
+Referential Attribute Chain B::chc_id
+Referential Attribute Chain D::chc_id
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+1_1_relationships::R1
+1_1_relationships::R2
+1_1_relationships::R3
+1_1_relationships::R4
+1_1_relationships::R5
+1_1_relationships::R6
+1_1_relationships::R7
+1_1_relationships::R8
+1_M_relationships::R200
+1_M_relationships::R201
+1_M_relationships::R202
+1_M_relationships::R203
+1_M_relationships::R204
+1_M_relationships::R205
+1_M_relationships::R206
+1_M_relationships::R207
+1_1_and_1_M_relationships::R300
+1_1_and_1_M_relationships::R301
+1_1_and_1_M_relationships::R302
+1_1_and_1_M_relationships::R303
+1_1_and_1_M_relationships::R304
+1_1_and_1_M_relationships::R305
+1_1_and_1_M_relationships::R306
+1_1_and_1_M_relationships::R307
+1_1_and_1_M_relationships::R308
+1_1_and_1_M_relationships::R309
+1_1_and_1_M_relationships::R310
+1_1_and_1_M_relationships::R311
+1_1_and_1_M_relationships::R312
+1_1_and_1_M_relationships::R313
+1_1_and_1_M_relationships::R314
+1_1_and_1_M_relationships::R315
+2_Associative_relationships::R400
+2_Associative_relationships::R401
+2_Associative_relationships::R402
+2_Associative_relationships::R403
+2_Associative_relationships::R404
+Multiple Chains::R500
+Multiple Chains::R501
+Multiple Chains::R502
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Object A
+State Model Object D
+State Model Object G
+State Model Object J
+State Model Driver
+State Model init
+State Model Object M
+State Model Object P
+State Model Object S
+State Model Object V
+State Model Object OA
+State Model Object OG
+State Model Object OD
+State Model Object OK
+State Model Object PA
+State Model Object PD
+State Model Object PG
+State Model Object PK
+State Model Object MA
+State Model Object MF
+State Model Object ML
+State Model Chain A
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event A1
+Event D1
+Event G1
+Event J1
+Event DR1
+Event DR2
+Event INIT1
+Event M1
+Event P1
+Event S1
+Event V1
+Event OA1
+Event OG1
+Event OD1
+Event OK1
+Event PA1
+Event PD1
+Event PG1
+Event PK1
+Event MA1
+Event MF1
+Event ML1
+Event CHA1
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Object A::Selecting C
+Object D::Selecting F
+Object G::Selecting I
+Object J::Selecting L
+Driver::Kick off ABC
+Driver::Kick off DEF
+Driver::Kick off GHI
+Driver::Kick off JKL
+Driver::Kick off MNO
+Driver::Kick off PQR
+Driver::Kick off STU
+Driver::Kick off VWX
+Driver::Kick off O_ABC
+Driver::Kick off O_DEF
+Driver::Kick off O_GHI
+Driver::Kick off O_KLM
+Driver::Kick off P_ABC
+Driver::Kick off P_DEF
+Driver::Kick off P_GHI
+Driver::Kick off P_KLM
+Driver::Kicking off MA
+Driver::Kicking off MF
+Driver::Quitting 
+Driver::Kicking Off Chain A
+Driver::Kicking Off ML
+init::Driver Initialization
+Object M::Selecting O
+Object P::Selecting R
+Object S::Selecting U
+Object V::Selecting X
+Object OA::Selecting OC
+Object OG::Selecting OI
+Object OD::Selecting OF
+Object OK::Selecting OM
+Object PA::Selecting PC
+Object PD::Selecting PF
+Object PG::Selecting PI
+Object PK::Selecting PM
+Object MA::Selecting MD
+Object MF::Selecting MI
+Object ML::Running
+Chain A::Running

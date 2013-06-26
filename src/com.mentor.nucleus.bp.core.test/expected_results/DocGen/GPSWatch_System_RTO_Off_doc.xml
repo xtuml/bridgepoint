@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+Notes -
+  xsltproc docgen.xsl doc.xml > doc.html
+-->
+<!DOCTYPE article PUBLIC '-//OASIS//DTD DocBook XML V4.5//EN'
+  JUNIT REPLACED - DTD PATH [
+]>
+<article>
+<title>
+  <trademark class='registered'>BridgePoint</trademark>
+  xtUML Generated Documentation
+</title>
+<articleinfo>
+  <author>
+    <personname>
+      <firstname></firstname><surname></surname>
+    </personname>
+  </author>
+  <publisher>
+  <publishername>company name</publishername>
+  <address>
+  <pob>8005 SW Boeckman Road</pob>
+  <city>Wilsonville</city>, <state>OR</state>
+  <postcode>97070</postcode> <country>USA</country>
+  </address>
+  </publisher>
+</articleinfo>
+<toc></toc>
+<section>
+<title>GPSWatch_System</title>
+<subtitle>Generated Documentation</subtitle>
+<para>Please find below generated documentation for the system named GPSWatch_System.</para>
+<para></para>
+<section>
+<title>System-Level Packages</title>
+<subtitle></subtitle>
+<section>
+<title>Use Cases</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-UseCases-PackageDiagram-figure'>
+<title id='GPSWatch_System-UseCases-PackageDiagram-figure-title'>Use Cases Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Use Cases-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>Use Cases Packages</title>
+<subtitle></subtitle>
+<para>Rendered here are the contained package diagrams.</para>
+<section>
+<title>Record Info</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-UseCases-RecordInfo-PackageDiagram-figure'>
+<title id='GPSWatch_System-UseCases-RecordInfo-PackageDiagram-figure-title'>Record Info Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Use Cases-Record Info-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+</section>
+</section>
+</section>
+<section>
+<title>System</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-System-PackageDiagram-figure'>
+<title id='GPSWatch_System-System-PackageDiagram-figure-title'>System Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-System-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+</section>
+<section>
+<title>Sequences</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-Sequences-PackageDiagram-figure'>
+<title id='GPSWatch_System-Sequences-PackageDiagram-figure-title'>Sequences Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Sequences-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>Sequences Packages</title>
+<subtitle></subtitle>
+<para>Rendered here are the contained package diagrams.</para>
+<section>
+<title>Stopwatch</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-Sequences-Stopwatch-PackageDiagram-figure'>
+<title id='GPSWatch_System-Sequences-Stopwatch-PackageDiagram-figure-title'>Stopwatch Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Sequences-Stopwatch-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+</section>
+<section>
+<title>Start Stop Reset Formalized</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-Sequences-StartStopResetFormalized-PackageDiagram-figure'>
+<title id='GPSWatch_System-Sequences-StartStopResetFormalized-PackageDiagram-figure-title'>Start Stop Reset Formalized Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Sequences-Start Stop Reset Formalized-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+</section>
+<section>
+<title>Backlight</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-Sequences-Backlight-PackageDiagram-figure'>
+<title id='GPSWatch_System-Sequences-Backlight-PackageDiagram-figure-title'>Backlight Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Sequences-Backlight-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+</section>
+</section>
+</section>
+<section>
+<title>Analysis</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-Analysis-PackageDiagram-figure'>
+<title id='GPSWatch_System-Analysis-PackageDiagram-figure-title'>Analysis Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Analysis-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>Analysis Packages</title>
+<subtitle></subtitle>
+<para>Rendered here are the contained package diagrams.</para>
+<section>
+<title>Start Stop Reset</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-Analysis-StartStopReset-PackageDiagram-figure'>
+<title id='GPSWatch_System-Analysis-StartStopReset-PackageDiagram-figure-title'>Start Stop Reset Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Analysis-Start Stop Reset-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+</section>
+</section>
+</section>
+<section>
+<title>Activities</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-Activities-PackageDiagram-figure'>
+<title id='GPSWatch_System-Activities-PackageDiagram-figure-title'>Activities Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Activities-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>Activities Packages</title>
+<subtitle></subtitle>
+<para>Rendered here are the contained package diagrams.</para>
+<section>
+<title>Exercise</title>
+<subtitle>Package</subtitle>
+<para>This activity expands on the generic use case: Perform exercise routine.<figure id='GPSWatch_System-Activities-Exercise-PackageDiagram-figure'>
+<title id='GPSWatch_System-Activities-Exercise-PackageDiagram-figure-title'>Exercise Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Activities-Exercise-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+</section>
+</section>
+</section>
+</section>
+</section>
+</article>

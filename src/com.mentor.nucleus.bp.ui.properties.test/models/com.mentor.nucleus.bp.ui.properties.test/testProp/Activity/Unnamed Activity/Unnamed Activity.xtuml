@@ -1,0 +1,54 @@
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("798b13f6-1c68-4998-a156-c241585f4163",
+	"00000000-0000-0000-0000-000000000000",
+	"2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'Unnamed Activity',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("364174bb-d6d9-485b-b9fa-5ca6790d3f17",
+	112,
+	"798b13f6-1c68-4998-a156-c241585f4163",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'testProp::Activity::Unnamed Activity');
+INSERT INTO DIM_DIA
+	VALUES ("364174bb-d6d9-485b-b9fa-5ca6790d3f17",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("798b13f6-1c68-4998-a156-c241585f4163",
+	1,
+	"364a279b-6119-4a27-b86e-ac4fef06192b",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("364a279b-6119-4a27-b86e-ac4fef06192b",
+	"00000000-0000-0000-0000-000000000000",
+	"2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'Activity',
+	'',
+	0,
+	'../Activity.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'com.mentor.nucleus.bp.ui.properties.test',
+	1,
+	'../../../com.mentor.nucleus.bp.ui.properties.test.xtuml');

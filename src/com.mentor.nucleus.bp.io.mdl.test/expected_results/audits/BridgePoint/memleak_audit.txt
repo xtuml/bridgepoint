@@ -1,0 +1,61 @@
+AUDIT RESULTS FOR DOMAIN memleak
+
+CLASSES WITHOUT IDENTIFIERS:
+Class memleak::Initialization
+Class memleak::Running
+Class memleak::Driver
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+memleak
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+External Entity Architecture
+External Entity Logging
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Architecture::shutdown
+External Entity Bridge Logging::LogFailure
+External Entity Bridge Logging::LogSuccess
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class memleak::Initialization
+Class memleak::Running
+Class memleak::Driver
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Initialization::current_state
+Attribute Running::id
+Attribute Running::current_state
+Attribute Driver::current_state
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Initialization
+State Model Running
+State Model Driver
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event R1
+Event R2
+Event R3
+Event R4
+Event R5
+Event D1
+Event D2
+Event D3
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Running::count
+Event Data Driver::count
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Initialization::Initialization
+Running::Running Delete Any
+Running::Running Delete Self
+Running::Final Delete State
+Running::Final Delete State 2
+Running::Final Delete State 3
+Driver::Begin Running
+Driver::Processing
+Driver::Shutdown

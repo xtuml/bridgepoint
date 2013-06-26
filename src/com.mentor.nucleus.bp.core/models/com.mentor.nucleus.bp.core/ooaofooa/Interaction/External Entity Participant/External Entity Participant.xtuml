@@ -1,0 +1,912 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'External Entity Participant',
+	915,
+	'SQ_EEP',
+	'This class represents an external entity which is participating in a sequence.',
+	"90afcd0d-03fa-49d5-ac2c-0fd20beede15");
+INSERT INTO O_TFR
+	VALUES ("8c33f858-96ea-4a31-82dd-6c05a344ed4e",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one participant related by self->SQ_P[R930];
+if(not_empty participant)
+  participant.dispose();
+else
+  select one ee related by self->S_EE[R933];
+  if(not_empty ee)
+    unrelate ee from self across R933;
+  end if;
+  delete object instance self;
+end if;',
+	1,
+	'',
+	"83be7372-6143-490f-9c45-12671058247c");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("8df4d455-fe10-4085-84bc-9346990da134",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'initialize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'name = "Informal External Entity";
+success = ::getNewElementName(name:name,instance: self.convertToInstance(),validateName:false);     
+if ( success!="") 
+self.InformalName =success;
+else 
+ self.dispose();
+end if;  ',
+	1,
+	'',
+	"e8567305-b1c0-49fe-b00a-98ef3ef66a61");
+INSERT INTO O_TFR
+	VALUES ("17f5665d-cd3f-4fdc-9180-c35857e5c5a7",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'get_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::Box;',
+	1,
+	'',
+	"5b563778-85ea-4fbe-8132-5dcd52c4c780");
+INSERT INTO S_DT_PROXY
+	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Style',
+	'The Style data type specifies the precise form a graphical element will take when drawn.
+--------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("98602aa6-e6b0-43cc-800b-49ed94c7edbf",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'get_entries',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select one ee related by self->S_EE[R933];
+// if an ee is related
+if(not_empty ee)
+  // return what the ee would for the entry numbers
+  return ee.get_entries(comp_num:param.comp_num);
+end if;
+if (param.comp_num == 1)
+  return 1;
+elif (param.comp_num == 2)
+  // the ee participant does not handle EDI''s
+  return 0;
+elif (param.comp_num == 3)
+  select one participant related by self->SQ_P[R930];
+  compartmentText = participant.getMessageCompartmentText();
+  lineCount = GD::numberOfLines(string:compartmentText);
+  return lineCount;
+else
+  return 0;
+end if;',
+	1,
+	'',
+	"7ef6dda1-c078-49fb-849c-df36dc8812fc");
+INSERT INTO O_TPARM
+	VALUES ("85bf19ad-a65c-4336-9b64-002fb6d01bb2",
+	"98602aa6-e6b0-43cc-800b-49ed94c7edbf",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("7ef6dda1-c078-49fb-849c-df36dc8812fc",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'get_compartments',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'return 3;',
+	1,
+	'',
+	"0505b064-2c63-4690-ac41-6a94f59802f9");
+INSERT INTO O_TFR
+	VALUES ("e8567305-b1c0-49fe-b00a-98ef3ef66a61",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'get_text_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::None;',
+	1,
+	'',
+	"17f5665d-cd3f-4fdc-9180-c35857e5c5a7");
+INSERT INTO O_TPARM
+	VALUES ("413d2067-a1f3-41b9-8e5e-bf1e7e55b063",
+	"e8567305-b1c0-49fe-b00a-98ef3ef66a61",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"b502af9d-6f57-47e8-abf5-1017fd52895c",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("2ebec49b-7f21-482d-8068-7f93f0fbcb46",
+	"e8567305-b1c0-49fe-b00a-98ef3ef66a61",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"413d2067-a1f3-41b9-8e5e-bf1e7e55b063",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("b502af9d-6f57-47e8-abf5-1017fd52895c",
+	"e8567305-b1c0-49fe-b00a-98ef3ef66a61",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Justification',
+	'The Justification data type is used to specify text at a given location in a compartment.
+------------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("0505b064-2c63-4690-ac41-6a94f59802f9",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'get_compartment_text',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one participant related by self->SQ_P[R930];
+select one ee related by self->S_EE[R933];
+if(not_empty ee)
+  // if an ee is related to this participant
+  // return what the ee would for the text
+  if((param.comp_num == 1) and (param.ent_num == 1))
+    if(param.at == Justification::Center_in_X)
+      result = "«external entity»";    
+      result = result + GD::newline();
+      result = result + ee.getPath();
+      return result;
+    else
+      return ee.get_compartment_text(comp_num:param.comp_num, ent_num:param.ent_num, at:param.at);
+    end if;
+  else
+    return ee.get_compartment_text(comp_num:param.comp_num, ent_num:param.ent_num, at:param.at);
+  end if;
+else
+  result = "";
+  if (param.comp_num == 1)
+    if (param.ent_num == 1)
+      if (param.at == Justification::Center_in_X)
+        result = self.InformalName;
+      end if;
+    end if;
+  elif (param.comp_num == 3)
+    if (param.at == Justification::Left)
+      cursor = 1;
+      select many msgs related by self->SQ_P[R930]->MSG_M[R1007];
+      if (not_empty msgs and param.ent_num == 1)
+        result = "«operation»";
+        result = result + GD::newline();
+        // process the drawing only once
+        // this logic will fill compartment 3
+        if (param.ent_num == 1)
+          return result + Util::removeDuplicateStrings(completeString:participant.getMessageCompartmentText(), separator:GD::newline());
+        end if;        
+      end if;
+    end if;
+  end if;
+  return result;
+end if;',
+	1,
+	'',
+	"ce8c3252-ec9f-42f7-b5e2-271834b89682");
+INSERT INTO O_TPARM
+	VALUES ("d1c4ebb8-8fe8-422b-98db-295d6ef8ac40",
+	"0505b064-2c63-4690-ac41-6a94f59802f9",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"e66ff038-eb42-4ded-880e-a3fb6f3ad567",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("aa79ce7b-b160-40bd-8ddb-d979144d50c6",
+	"0505b064-2c63-4690-ac41-6a94f59802f9",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"d1c4ebb8-8fe8-422b-98db-295d6ef8ac40",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("e66ff038-eb42-4ded-880e-a3fb6f3ad567",
+	"0505b064-2c63-4690-ac41-6a94f59802f9",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("5b563778-85ea-4fbe-8132-5dcd52c4c780",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'get_ooa_id',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'return self.Part_ID;',
+	1,
+	'',
+	"c6a582e6-07ce-49c4-885e-10594db35edd");
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("08cd05c1-4414-48b8-9311-5a5d516c6642",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'actionFilter',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'if(param.name == "can")
+  // if the current action is one which requires
+  // this element to be selected along with a
+  // synchronous message
+  if(param.value == "formCommBrg")
+    // no formalization support yet at system level
+    if(self.definedAtSystemLevel())
+      return false;
+    end if;
+    // if the selection count is not equal two return false, this
+    // prevents the menu entries from existing while only one of the
+    // elements is selected
+    if(Sel::getCurrentSelectionCount() != 2)
+      return false;
+    end if;
+    // return true if this participant represents
+    // an external entity which contains at lease
+    // one bridge operation
+    return self.formalEEHasBridgeOperations();
+  end if;
+  if(param.value == "formEE spec pkg") or (param.value == "formEE generic pkg")
+    select one packageableElem related by self->SQ_P[R930]->PE_PE[R8001];
+    select one package related by packageableElem->EP_PKG[R8000];
+    select one component related by packageableElem->C_C[R8003];
+    isInGenericPackage = not_empty package or not_empty component;
+  
+    if ((param.value == "formEE spec pkg")  and (isInGenericPackage))
+      return false;
+    end if;
+    if ((param.value == "formEE generic pkg") and (not isInGenericPackage))
+      return false;
+    end if;
+    
+    // no formalization support yet at system level
+    if(self.definedAtSystemLevel())
+      return false;
+    end if;
+    select many ees from instances of S_EE;
+    count = cardinality ees;
+    if(param.value == "formEE generic pkg")
+      count = Util::getElementCountInSystem(
+                                          elementType:ElementTypeConstants::EE, 
+                                        askingElement:self.convertToInstance());
+    end if;
+    if(count == 1 and self.isFormal)
+      // there is only one possibility and we
+      // are already assigned to it
+      return false;
+    end if;
+	return count != 0;
+  end if;
+  if(param.value == "unform")
+    return self.isFormal;
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("b910804d-bb1a-483f-ae4c-0dddbd8a0f70",
+	"08cd05c1-4414-48b8-9311-5a5d516c6642",
+	'name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("46422bbe-c5c1-4525-b871-d2edd42396af",
+	"08cd05c1-4414-48b8-9311-5a5d516c6642",
+	'value',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"b910804d-bb1a-483f-ae4c-0dddbd8a0f70",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("45934bfa-f349-4a8e-aedf-3f3318663240",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'unformalize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one ee related by self->S_EE[R933];
+if(not_empty ee)
+  unrelate self from ee across R933;
+end if;
+select one part related by self->SQ_P[R930];
+select many messages related by part->MSG_M[R1007];
+for each message in messages
+  message.unformalize();
+end for;
+// unformalize any communication links connected
+// to this instance
+select many links related by part->COMM_LNK[R1133];
+for each link in links
+  link.unformalize();
+end for;',
+	1,
+	'',
+	"8df4d455-fe10-4085-84bc-9346990da134");
+INSERT INTO O_TFR
+	VALUES ("c6a582e6-07ce-49c4-885e-10594db35edd",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'get_name',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'return self.Label;',
+	1,
+	'',
+	"98602aa6-e6b0-43cc-800b-49ed94c7edbf");
+INSERT INTO O_TFR
+	VALUES ("adfcbc0b-7e0b-46b0-ad1e-674bc53e95d6",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'canRename',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'return not self.isFormal;',
+	1,
+	'',
+	"08cd05c1-4414-48b8-9311-5a5d516c6642");
+INSERT INTO O_TFR
+	VALUES ("ce8c3252-ec9f-42f7-b5e2-271834b89682",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'formalize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any ee from instances of S_EE
+                                where (selected.EE_ID == GD::NULL_UNIQUE_ID());
+select one package related by self->SQ_P[R930]->PE_PE[R8001]->EP_PKG[R8000];
+isInGenericPackage = not_empty package;
+if(not isInGenericPackage)
+  select any ee from instances of S_EE where (selected.EE_ID == param.eeId);
+else
+  select any pe from instances of PE_PE
+                                   where (selected.Element_ID == param.eeId);
+  select one ee related by pe->S_EE[R8001];
+end if;
+if(self.isFormal)
+  self.unformalize();
+end if;
+if (not_empty ee)
+  relate self to ee across R933;
+end if;',
+	1,
+	'',
+	"aad649b9-494a-42a5-a5d0-43a1cef3a72a");
+INSERT INTO O_TPARM
+	VALUES ("c1993c32-d28b-428c-a574-06a5707aab82",
+	"ce8c3252-ec9f-42f7-b5e2-271834b89682",
+	'eeId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("aad649b9-494a-42a5-a5d0-43a1cef3a72a",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'formalEEHasBridgeOperations',
+	'This operation returns true if the participant represents an external entity
+which contains at least one bridge operation.',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select one ee related by self->S_EE[R933];
+if(not_empty ee)
+  select many brgs related by ee->S_BRG[R19];
+  return not_empty brgs;
+end if;
+return false;',
+	1,
+	'',
+	"8c33f858-96ea-4a31-82dd-6c05a344ed4e");
+INSERT INTO O_TFR
+	VALUES ("83be7372-6143-490f-9c45-12671058247c",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'definedAtSystemLevel',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select one part related by self->SQ_P[R930];
+return part.definedAtSystemLevel();',
+	1,
+	'',
+	"adfcbc0b-7e0b-46b0-ad1e-674bc53e95d6");
+INSERT INTO O_TFR
+	VALUES ("e9069685-090b-4343-bfe4-dd391d0b95a5",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'getBridgeOperationCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'if(self.isFormal)
+  select many bridgeOps related by self->S_EE[R933]->S_BRG[R19];
+  return cardinality bridgeOps;
+end if;
+return 0;',
+	1,
+	'',
+	"45934bfa-f349-4a8e-aedf-3f3318663240");
+INSERT INTO O_TFR
+	VALUES ("14133973-7b58-4642-92d0-95157f75ec7f",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'return this;',
+	0,
+	'',
+	"e9069685-090b-4343-bfe4-dd391d0b95a5");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("49592034-cf13-4850-9231-f328d51b476c",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'resolveExternalEntity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one proxyEE related by self->S_EE[R933];
+if(not_empty proxyEE and not Util::isProxy(element:self.convertToInstance()))
+  select one packageableElem related by self->SQ_P[R930]->PE_PE[R8001];
+  select one package related by packageableElem->EP_PKG[R8000];
+  select one component related by packageableElem->C_C[R8003];
+  isInGenericPackage = not_empty package or not_empty component;
+
+  if (isInGenericPackage)
+    if (empty package)
+      rootCompIdInPkg = component.getRootComponentId();
+      select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
+      select one package related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]; 
+    end if;
+    // locate all visible ees
+    packageableElem.resolveEERelativeToSelf(expected_name:"");
+    select any resultSet related by component->PE_CRS[R8007] where 
+                                selected.Type == ElementTypeConstants::EE; 
+    select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+    if not_empty package
+      select any pkgResultSet related by package->PE_SRS[R8005] where 
+                                selected.Type == ElementTypeConstants::EE; 
+      select many results related by pkgResultSet->PE_VIS[R8006]
+                                                                 ->PE_PE[R8002];
+    end if;    
+    select many ees related by results->S_EE[R8001];
+    select any resolvedEE from instances of S_EE
+                               where (selected.EE_ID == GD::NULL_UNIQUE_ID());
+    for each ee in ees
+      // first try to resolve the referred to EE by key letters and name
+      if(ee.Key_Lett == proxyEE.Key_Lett and ee.Name == proxyEE.Name)
+        resolvedEE = ee;
+        break;
+      else
+        if(ee.Key_Lett == proxyEE.Key_Lett)
+          resolvedEE = ee;
+          break;
+        else
+          if(ee.Name == proxyEE.Name)
+            resolvedEE = ee;
+            break;
+          end if;
+        end if;
+      end if;
+    end for;
+    if(not_empty resolvedEE)
+      relate self to resolvedEE across R933;
+      self.resolveMessageFormalizations();
+    else
+      // unformalize this EEP
+      self.unformalize();
+    end if;
+    return;
+  end if;  // end isInGenericPackage
+  
+  //////////////////////////////////////////////////////////////////////
+  // Note: Everything below this point is for the case when we are using 
+  //       specialized packages.
+  //////////////////////////////////////////////////////////////////////
+  
+  // if a domain is resolved by the proxy ee
+  // then this EEP has already been
+  // resolved or does not need to be as the referred to
+  // EE is contained in the copy
+  select one dom related by proxyEE->S_DOM[R8];
+  if(empty dom or Util::isProxy(element:dom.convertToInstance()))
+    name = proxyEE.Name;
+    key_letters = proxyEE.Key_Lett;
+    unrelate self from proxyEE across R933;
+    // this is safe as there will only ever be one
+    // domain
+    select any domain from instances of S_DOM;
+    // first try to resolve the EE by key letters and name
+    select any ee related by domain->S_EE[R8]
+         where (selected.Key_Lett == key_letters and selected.Name == name);
+    if(empty ee)
+      // if no ee was found try to resolve it by key_letters alone
+      select any ee related by domain->S_EE[R8]
+           where (selected.Key_Lett == key_letters);
+      if(empty ee)
+        // if still no ee was found try to resolve on the name alone
+        select any ee related by domain->S_EE[R8]
+             where (selected.Name == name);
+      end if;
+    end if;
+    eeResolved = not_empty ee;
+    if(eeResolved)
+      relate self to ee across R933;
+      self.resolveMessageFormalizations();
+    else
+      // unformalize this EEP
+      self.unformalize();
+    end if;
+  end if;
+end if;
+',
+	1,
+	'',
+	"14133973-7b58-4642-92d0-95157f75ec7f");
+INSERT INTO O_TFR
+	VALUES ("f7d553c9-294d-4d39-9fb3-e06963c18365",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'resolveMessageFormalizations',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// first resolve those messages drawn directly to
+// self
+select many messages related by self->SQ_P[R930]->MSG_M[R1007];
+for each message in messages
+  select one syncMessage related by message->MSG_SM[R1018];
+  select one asyncMessage related by message->MSG_AM[R1018];
+  if(not_empty syncMessage)
+    // skip if informal
+    if(not syncMessage.isFormal)
+      continue;
+    end if;
+    select one bridgeMsg related by syncMessage->MSG_B[R1020];
+    select one opProxy related by bridgeMsg->S_BRG[R1012];
+    // we match by name
+    select any operation related by self->S_EE[R933]->S_BRG[R19]
+                                          where (selected.Name == opProxy.Name);
+    if(not_empty operation)
+      syncMessage.formalizeWithBridgeOperation(bridgeId:operation.Brg_ID);
+    else
+      // otherwise unformalize the message
+      syncMessage.unformalize();
+    end if;
+  end if;
+end for;
+// now process all messages that go to our lifespan
+select one ls related by self->SQ_P[R930]->SQ_LS[R940];
+if(not_empty ls)
+  select many messages related by ls->SQ_P[R930]->MSG_M[R1007];
+  for each message in messages
+    select one syncMessage related by message->MSG_SM[R1018];
+    select one asyncMessage related by message->MSG_AM[R1018];
+    if(not_empty syncMessage)
+      // skip if informal
+      if(not syncMessage.isFormal)
+        continue;
+      end if;
+      select one bridgeMsg related by syncMessage->MSG_B[R1020];
+      select one opProxy related by bridgeMsg->S_BRG[R1012];
+      // we match by name
+      select any operation related by self->S_EE[R933]->S_BRG[R19]
+                                          where (selected.Name == opProxy.Name);
+      if(not_empty operation)
+        syncMessage.formalizeWithBridgeOperation(bridgeId:operation.Brg_ID);
+      else
+        // otherwise unformalize the message
+        syncMessage.unformalize();
+      end if;
+    end if;
+  end for;
+end if;',
+	1,
+	'',
+	"49592034-cf13-4850-9231-f328d51b476c");
+INSERT INTO O_TFR
+	VALUES ("6b6a4273-fa27-40e3-8512-78adfdf9e791",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'getConfigurationInheritanceElementId',
+	'',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'select one ee related by self->S_EE[R933];
+if(not_empty ee)
+  return ee.convertToInstance();
+end if;
+return self.convertToInstance();',
+	1,
+	'',
+	"f7d553c9-294d-4d39-9fb3-e06963c18365");
+INSERT INTO O_DBATTR
+	VALUES ("e6b605c1-8321-4c9a-8aea-302141eef07a",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'select one ee related by self->S_EE[R933];
+if(not_empty ee)
+  self.Label = ee.Name;
+else
+  self.Label = self.InformalName;
+end if;',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("e6b605c1-8321-4c9a-8aea-302141eef07a",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e");
+INSERT INTO O_ATTR
+	VALUES ("e6b605c1-8321-4c9a-8aea-302141eef07a",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	"a18283e7-d54d-4dc8-aaa1-1f1c541f8cf4",
+	'Label',
+	'User_Visible:false',
+	'',
+	'Label',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("84e71b49-3c15-452e-ac49-55b2f59850bc",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e");
+INSERT INTO O_BATTR
+	VALUES ("84e71b49-3c15-452e-ac49-55b2f59850bc",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e");
+INSERT INTO O_ATTR
+	VALUES ("84e71b49-3c15-452e-ac49-55b2f59850bc",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	"e6b605c1-8321-4c9a-8aea-302141eef07a",
+	'InformalName',
+	'Full Name: Informal External Entity Name',
+	'',
+	'InformalName',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("7c553804-e86a-4eaa-89a1-f54729f4e5ca",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e");
+INSERT INTO O_BATTR
+	VALUES ("7c553804-e86a-4eaa-89a1-f54729f4e5ca",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e");
+INSERT INTO O_ATTR
+	VALUES ("7c553804-e86a-4eaa-89a1-f54729f4e5ca",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	"84e71b49-3c15-452e-ac49-55b2f59850bc",
+	'Descrip',
+	'Full Name: External Entity Description
+Description: A textual description of this external entity.',
+	'',
+	'Descrip',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("0fe12fa3-3ac2-4f37-bc0d-7c2d9b6610f2",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	'select one ee related by self->S_EE[R933];
+self.isFormal = not empty ee;',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("0fe12fa3-3ac2-4f37-bc0d-7c2d9b6610f2",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e");
+INSERT INTO O_ATTR
+	VALUES ("0fe12fa3-3ac2-4f37-bc0d-7c2d9b6610f2",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	"7c553804-e86a-4eaa-89a1-f54729f4e5ca",
+	'isFormal',
+	'Full Name: Is Formal',
+	'',
+	'isFormal',
+	0,
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	0,
+	"415afdba-0e71-45f2-b02e-9cab014f028c",
+	"cd0daf80-d6f7-41f5-8ddb-e7fd950bce7c",
+	"8e1e769a-19bd-47ed-bfb4-063ad4714c7b",
+	"73839a29-1dd4-4d9a-978e-8efee76b9ff1",
+	"d818377f-b706-4512-a79c-f42aca74cfac",
+	"a44483a8-593a-4ae2-be24-07a465b95248",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Interaction Participant',
+	'Part_ID',
+	'R930');
+INSERT INTO R_RGO_PROXY
+	VALUES ("6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	"cd0daf80-d6f7-41f5-8ddb-e7fd950bce7c",
+	"8e1e769a-19bd-47ed-bfb4-063ad4714c7b",
+	'../Interaction.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("415afdba-0e71-45f2-b02e-9cab014f028c",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	0,
+	"cd0daf80-d6f7-41f5-8ddb-e7fd950bce7c",
+	"73839a29-1dd4-4d9a-978e-8efee76b9ff1",
+	'../Interaction.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("d818377f-b706-4512-a79c-f42aca74cfac",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("d818377f-b706-4512-a79c-f42aca74cfac",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	"00000000-0000-0000-0000-000000000000",
+	'Part_ID',
+	'',
+	'',
+	'Part_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011",
+	0,
+	"4de1fe24-5765-4921-81ea-ef51f4203fcb",
+	"c8c82465-3720-4e89-a7fa-b3fd63ffd88f",
+	"17ebeac0-5d09-491b-bb63-db0c2433ca71",
+	"16db6de7-9d3a-47ec-b3cd-36650fcec026",
+	"a18283e7-d54d-4dc8-aaa1-1f1c541f8cf4",
+	"51cc55fa-5b0d-403b-bcf6-9fb4828ec2f2",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'External Entity',
+	'EE_ID',
+	'R933');
+INSERT INTO R_RGO_PROXY
+	VALUES ("6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	"c8c82465-3720-4e89-a7fa-b3fd63ffd88f",
+	"17ebeac0-5d09-491b-bb63-db0c2433ca71",
+	'../Interaction.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4de1fe24-5765-4921-81ea-ef51f4203fcb",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011",
+	0,
+	"c8c82465-3720-4e89-a7fa-b3fd63ffd88f",
+	"16db6de7-9d3a-47ec-b3cd-36650fcec026",
+	'../Interaction.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("a18283e7-d54d-4dc8-aaa1-1f1c541f8cf4",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_ATTR
+	VALUES ("a18283e7-d54d-4dc8-aaa1-1f1c541f8cf4",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	"d818377f-b706-4512-a79c-f42aca74cfac",
+	'EE_ID',
+	'',
+	'',
+	'EE_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e");
+INSERT INTO O_OIDA
+	VALUES ("d818377f-b706-4512-a79c-f42aca74cfac",
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e",
+	0,
+	'Part_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e");
+INSERT INTO O_ID
+	VALUES (2,
+	"6bf17891-08ec-4fde-9db7-d0bd9073597e");
+INSERT INTO S_SS_PROXY
+	VALUES ("90afcd0d-03fa-49d5-ac2c-0fd20beede15",
+	'Interaction',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	'IA',
+	930,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Interaction.xtuml');

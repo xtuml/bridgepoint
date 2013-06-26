@@ -1,0 +1,27 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("aa30459b-5de5-4689-8a61-9748da14a234",
+	'manual notifier',
+	206,
+	'MNOTIFY',
+	'',
+	"8a7e3b8b-e243-48dc-b5f9-f62644aa90c7");
+INSERT INTO O_ID
+	VALUES (0,
+	"aa30459b-5de5-4689-8a61-9748da14a234");
+INSERT INTO O_ID
+	VALUES (1,
+	"aa30459b-5de5-4689-8a61-9748da14a234");
+INSERT INTO O_ID
+	VALUES (2,
+	"aa30459b-5de5-4689-8a61-9748da14a234");
+INSERT INTO S_SS_PROXY
+	VALUES ("8a7e3b8b-e243-48dc-b5f9-f62644aa90c7",
+	'Workout',
+	'This subsystem contains the execution engine for running an instance of a workout specification.',
+	'',
+	201,
+	"7877e6e0-dd19-4087-b158-647c2788232a",
+	"00000000-0000-0000-0000-000000000000",
+	'../Workout.xtuml');

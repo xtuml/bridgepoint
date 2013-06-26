@@ -1,0 +1,142 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("c4064bc4-8161-488d-9b1f-b13efdd14cfb",
+	'Message in Communication',
+	1128,
+	'COMM_MIC',
+	'',
+	"80f3247a-4c81-49db-84c9-95a20af2ffaf");
+INSERT INTO O_REF
+	VALUES ("c4064bc4-8161-488d-9b1f-b13efdd14cfb",
+	"ebbaac7e-9a48-4ea6-bb48-c27b0d4b08c7",
+	0,
+	"3f61c8ce-f8cd-4e3c-bef6-9658890ae9df",
+	"e3322963-41d2-49e4-9384-fcc8f4f18729",
+	"e91680df-a4e4-485e-b9aa-bc19db0b81da",
+	"d38a0034-ddd5-427b-9223-a0e31248f59c",
+	"b2cba55a-7e1b-46bc-a8ce-54a4889f3144",
+	"3a30af81-70ac-422b-976d-7a81f0a2960f",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Communication',
+	'Package_ID',
+	'R1135');
+INSERT INTO R_RGO_PROXY
+	VALUES ("c4064bc4-8161-488d-9b1f-b13efdd14cfb",
+	"e3322963-41d2-49e4-9384-fcc8f4f18729",
+	"e91680df-a4e4-485e-b9aa-bc19db0b81da",
+	'../Communication.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("3f61c8ce-f8cd-4e3c-bef6-9658890ae9df",
+	"ebbaac7e-9a48-4ea6-bb48-c27b0d4b08c7",
+	0,
+	"e3322963-41d2-49e4-9384-fcc8f4f18729",
+	"d38a0034-ddd5-427b-9223-a0e31248f59c",
+	'../Communication.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b2cba55a-7e1b-46bc-a8ce-54a4889f3144",
+	"c4064bc4-8161-488d-9b1f-b13efdd14cfb",
+	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	1,
+	'Package_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	'../../Element Packaging/Specification Package/Specification Package.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("b2cba55a-7e1b-46bc-a8ce-54a4889f3144",
+	"c4064bc4-8161-488d-9b1f-b13efdd14cfb",
+	"00000000-0000-0000-0000-000000000000",
+	'Package_ID',
+	'',
+	'',
+	'Package_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("c4064bc4-8161-488d-9b1f-b13efdd14cfb",
+	"77d1cb23-9b16-462c-99a7-0df500aade81",
+	0,
+	"38f49fd7-1298-4072-add6-12f98b1f966d",
+	"e3322963-41d2-49e4-9384-fcc8f4f18729",
+	"e91680df-a4e4-485e-b9aa-bc19db0b81da",
+	"f42dc3c9-8718-41b2-884c-a4971197c38a",
+	"ae9824f1-742a-41af-8bb7-2cfcc2c9cba3",
+	"4f968340-443d-4433-be0c-0e545519e049",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Message',
+	'Msg_ID',
+	'R1135');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("38f49fd7-1298-4072-add6-12f98b1f966d",
+	"77d1cb23-9b16-462c-99a7-0df500aade81",
+	0,
+	"e3322963-41d2-49e4-9384-fcc8f4f18729",
+	"f42dc3c9-8718-41b2-884c-a4971197c38a",
+	'../Communication.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("ae9824f1-742a-41af-8bb7-2cfcc2c9cba3",
+	"c4064bc4-8161-488d-9b1f-b13efdd14cfb",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("ae9824f1-742a-41af-8bb7-2cfcc2c9cba3",
+	"c4064bc4-8161-488d-9b1f-b13efdd14cfb",
+	"b2cba55a-7e1b-46bc-a8ce-54a4889f3144",
+	'Msg_ID',
+	'',
+	'',
+	'Msg_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"c4064bc4-8161-488d-9b1f-b13efdd14cfb");
+INSERT INTO O_OIDA
+	VALUES ("b2cba55a-7e1b-46bc-a8ce-54a4889f3144",
+	"c4064bc4-8161-488d-9b1f-b13efdd14cfb",
+	0,
+	'Package_ID');
+INSERT INTO O_OIDA
+	VALUES ("ae9824f1-742a-41af-8bb7-2cfcc2c9cba3",
+	"c4064bc4-8161-488d-9b1f-b13efdd14cfb",
+	0,
+	'Msg_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"c4064bc4-8161-488d-9b1f-b13efdd14cfb");
+INSERT INTO O_ID
+	VALUES (2,
+	"c4064bc4-8161-488d-9b1f-b13efdd14cfb");
+INSERT INTO S_SS_PROXY
+	VALUES ("80f3247a-4c81-49db-84c9-95a20af2ffaf",
+	'Communication',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	'COMM',
+	1125,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Communication.xtuml');

@@ -1,0 +1,72 @@
+Launcher.bat
+------------------------
+    Launches eclipse with the BP settings.  Lives in the source tree at
+    C:\BridgePoint\BridgePointDeliverables\extras
+
+
+BridgePoint_CLI.bat
+------------------------
+    Example script to launches eclipse with the BP settings from the command 
+    line to build, import, or verify a model.  Lives in the source tree at
+    C:\BridgePoint\BridgePointDeliverables\extras
+
+build_installer_bp.sh
+---------------------
+    Script to automate creation of the BridgePoint installer.  It should live in
+    c:\nightly_build on the build server.
+
+
+BridgePoint_MIMIC.zip
+---------------------
+    This file is unzipped over C:\MIMIC_3.1-015\rlstools on the build server.
+    It provides a signed version of the custom BridgePoint dialogs.  It also
+    contains a custom MSI_Director.java file that should be overwritten by the
+    same named file contained in this repository location.
+
+create_shortcut.vbs
+-------------------
+    Utility to create a desktop shortcut.  Lives in 
+    C:\BridgePoint\BridgePointDeliverables\tools on the server.
+
+File_list.txt
+-------------
+    This file.  It is not part of MIP/MIMIC.  It is just here to provide
+    information on the other files.
+
+
+MIMIC_source_tree_layout.txt
+----------------------------
+    This file shows the layout of the tree located at C:\BridgePoint on the
+    build server.  This is source of the packages that make up the release in
+    the MIMIC workspace.
+
+
+MIMIC_workspace_layout.txt
+----------------------------
+    This file shows the layout of the MIMIC workspace itself.
+
+
+MSI_Director.java
+-----------------
+    This code controls the flow of the generated install program.  In the
+    "Create MIS/MIB Install Bundle" dialog, select "BridgePoint" in the Director
+    droplist.  This file lives in C:\MIMIC\rlstools\TK_Director\BridgePoint\ on
+    the build server.
+
+
+post_install_script.bat
+-----------------------
+    This DOS batch file is run by MIP after it puts the distribution files onto
+    the user machine.  It is marked as a post-install file in MIMIC.  It lives
+    in C:\BridgePoint\vcredist_x86\ on the build server.
+
+
+pre_uninstall_script.bat
+------------------------
+    This DOS batch file is run by MIP before uninstalling BridgePoint.  It
+    removes some of the files that were modified in the post-install script.
+    The installer won't remove them because it sees them as modified.  This file
+    is marked as a pre-uninstall file in MIMIC.  It lives in
+    C:\BridgePoint\vcredist_x86\ on the build server.
+
+

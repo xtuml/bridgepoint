@@ -1,0 +1,13 @@
+com.mentor.nucleus.bp.ui.canvas/debug = false
+com.mentor.nucleus.bp.ui.canvas/debug/functions = false
+com.mentor.nucleus.bp.ui.canvas/debug/functions/filter = *
+com.mentor.nucleus.bp.ui.canvas/debug/bridges = false
+com.mentor.nucleus.bp.ui.canvas/debug/bridges/filter = *
+com.mentor.nucleus.bp.ui.canvas/debug/operations = false
+com.mentor.nucleus.bp.ui.canvas/debug/operations/filter = *
+com.mentor.nucleus.bp.ui.canvas/debug/states = false
+com.mentor.nucleus.bp.ui.canvas/debug/states/filter = *
+com.mentor.nucleus.bp.ui.canvas/debug/delete = false
+com.mentor.nucleus.bp.ui.canvas/debug/delete/filter = *
+com.mentor.nucleus.bp.ui.canvas/debug/consistency = false
+com.mentor.nucleus.bp.ui.canvas/debug/consistency/filter = *

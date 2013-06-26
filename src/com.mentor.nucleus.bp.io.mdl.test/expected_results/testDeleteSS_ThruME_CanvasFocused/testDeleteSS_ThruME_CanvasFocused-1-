@@ -1,0 +1,8 @@
+drawRectangle(119, 318, 114, 43)
+drawRectangle(119, 356, 383, 191)
+drawText("«data type»", 215, 366, true)
+drawText("Datatypes", 232, 431, true)
+drawRectangle(692, 313, 122, 45)
+drawRectangle(692, 354, 419, 193)
+drawText("«external entity»", 763, 364, true)
+drawText("External Entities", 771, 428, true)

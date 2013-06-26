@@ -1,0 +1,118 @@
+.//====================================================================
+.//
+.// File:      $RCSfile: wfl_processing.inc,v $
+.// Version:   $Revision: 1.11 $
+.// Modified:  $Date: 2013/01/17 03:38:58 $
+.//
+.// (c) Copyright 2004-2013 by Mentor Graphics Corp.  All rights reserved.
+.//
+.//=======================================================================
+.// This document contains information proprietary and confidential to
+.// Mentor Graphics Corp., and is not for external distribution.
+.//====================================================================
+.//
+.//  Purpose: This function produces the code for the workflow given the
+.//           outer block.  It traverses each statement in the order in 
+.//           which it was inserted in the generation database.  This 
+.//           order is the order of the statements in the action.  
+.//
+.//           If the statement is a control statement, then there are two
+.//           buffers of generated code, otherwise there is only one.
+.//
+.//           This is closely based on TinyJava processing.arc. In general,
+.//           these files should be maintained together.
+.//=======================================================================
+.//
+.function wfl_blck_xlate
+.param inst_ref blck
+  .select any step from instances of W_STEP where ("${selected.Block_Id}" == blck.Block_Id)
+  .if (not_empty step)
+${step.buffer}
+  .end if
+  .select any statement related by blck->ACT_SMT[R602] where (selected.Previous_Statement_Id == "0")
+  .while (not_empty statement)
+    .// For the workflow, we are only interested in executing the passive statements
+    .// That is, statements that have no effect on the state of the metamodel. Note
+    .// that we currently don't check rvals for this property, we really should. For
+    .// now we assume that if we're doing a select, assigning to a transient or
+    .// executing a control block we're OK. we need to extend the checks to assure 
+    .// that the rvals don't themselves resolve to state changing code. This is a bit
+    .// like 'const' in C++ or 'final' in java.
+    .assign passive = false
+    .select any fio_stmt related by statement->ACT_FIO[R603]
+    .if (not_empty fio_stmt)
+      .assign passive = true
+    .end if
+    .select any fiw_stmt related by statement->ACT_FIW[R603]
+    .if (not_empty fiw_stmt)
+      .assign passive = true
+    .end if
+    .select any sel_stmt related by statement->ACT_SEL[R603]
+    .if (not_empty sel_stmt)
+      .assign passive = true
+    .end if
+    .select any asgn_transient_stmt related by statement->ACT_AT[R603]
+    .if (not_empty asgn_transient_stmt)
+      .assign passive = true
+    .end if
+    .select any for_blk related by statement->ACT_FOR[R603]->ACT_BLK[R605]
+    .if (not_empty for_blk)
+      .assign passive = true
+    .end if
+    .select any else_blk related by statement->ACT_E[R603]->ACT_BLK[R606]
+    .if (not_empty else_blk)
+      .assign passive = true
+    .end if
+    .select any if_blk related by statement->ACT_IF[R603]->ACT_BLK[R607]
+    .if (not_empty if_blk)
+      .assign passive = true
+    .end if
+    .select any whl_blk related by statement->ACT_WHL[R603]->ACT_BLK[R608]
+    .if (not_empty whl_blk)
+      .assign passive = true
+    .end if
+    .select any eli_blk related by statement->ACT_EL[R603]->ACT_BLK[R658]
+    .if (not_empty eli_blk)
+      .assign passive = true
+    .end if
+    .if (passive == true)
+        .select any field from instances of W_FLD where ("${selected.Statement_Id}" == statement.Statement_Id)
+        .select any context_item from instances of W_CTI where ("${selected.Statement_Id}" == statement.Statement_Id)
+        .if (not_empty field)
+${field.buffer}
+        .elif (not_empty context_item)
+          .// nothing required, already set up from context
+        .else
+${statement.buffer}
+        .end if
+      .select any for_blk related by statement->ACT_FOR[R603]->ACT_BLK[R605]
+      .if (not_empty for_blk)
+        .invoke inner_blck = wfl_blck_xlate(for_blk)
+${inner_blck.body}
+      .end if
+      .select any else_blk related by statement->ACT_E[R603]->ACT_BLK[R606]
+      .if (not_empty else_blk)
+        .invoke inner_blck = wfl_blck_xlate(else_blk)
+${inner_blck.body}
+      .end if
+      .select any if_blk related by statement->ACT_IF[R603]->ACT_BLK[R607]
+      .if (not_empty if_blk)
+        .invoke inner_blck = wfl_blck_xlate(if_blk)
+${inner_blck.body}
+      .end if
+      .select any whl_blk related by statement->ACT_WHL[R603]->ACT_BLK[R608]
+      .if (not_empty whl_blk)
+        .invoke inner_blck = wfl_blck_xlate(whl_blk)
+${inner_blck.body}
+      .end if
+      .select any eli_blk related by statement->ACT_EL[R603]->ACT_BLK[R658]
+      .if (not_empty eli_blk)
+        .invoke inner_blck = wfl_blck_xlate(eli_blk)
+${inner_blck.body}
+      .end if
+${statement.buffer2}
+    .end if
+    .select one next_statement related by statement->ACT_SMT[R661.'precedes']
+    .assign statement = next_statement
+  .end while
+.end function

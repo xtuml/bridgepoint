@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      *RCSfile*
+ Version:   *Revision*
+ Modified:  *Date*
+
+ (c) Copyright 2005-2012 by Mentor Graphics Corp. All rights reserved.
+
+ ========================================================================
+ This document contains information proprietary and confidential to
+ Mentor Graphics Corp., and is not for external distribution.
+ ======================================================================== 
+
+-->
+<contexts>
+ 	<!-- context entries to include BP topics in main import/export wizard pages -->
+	<context id="export_wizard_selection_wizard_page_context">
+		<topic href="/com.mentor.nucleus.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/NucleusBridgePointModelExport.htm"
+			label="Exporting a BridgePoint Model File"/>
+		<topic href="/com.mentor.nucleus.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/BP61Export.htm"
+			label="Exporting a BridgePoint 6.1 SQL File"/>
+	</context>
+	<context id="export_wizard_context">
+		<topic href="/com.mentor.nucleus.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/NucleusBridgePointModelExport.htm"
+			label="Exporting a BridgePoint Model File"/>
+		<topic href="/com.mentor.nucleus.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/BP61Export.htm"
+			label="Exporting a BridgePoint 6.1 SQL File"/>
+	</context>
+	<!-- context entry for Model Export -->
+	<context id="modelExportDialogId" >
+		<description>This wizard helps you export a BridgePoint Model </description>
+		<topic href="/com.mentor.nucleus.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/NucleusBridgePointModelExport.htm"
+			label="Exporting a BridgePoint Model File"/>
+	</context>	
+	<!-- context entry for Sql Export -->
+	<context id="sqlExportDialogId" >
+		<description>This wizard helps you export a BridgePoint 6.1 SQL file.</description>
+		<topic href="/com.mentor.nucleus.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/BP61Export.htm"
+			label="Exporting a BridgePoint 6.1 SQL File"/>
+	</context>
+</contexts>

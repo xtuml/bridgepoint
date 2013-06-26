@@ -1,0 +1,40 @@
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO EP_PKG
+	VALUES ("1592253e-44c9-4122-afd7-7c992fbf2cc8",
+	"0acf5727-4591-491f-8c5d-b620ba4cf2ed",
+	"0acf5727-4591-491f-8c5d-b620ba4cf2ed",
+	'Pasted',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("823796c0-7b39-4789-950e-578b4e9d00b0",
+	112,
+	"1592253e-44c9-4122-afd7-7c992fbf2cc8",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'Library::Pasted');
+INSERT INTO DIM_DIA
+	VALUES ("823796c0-7b39-4789-950e-578b4e9d00b0",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_SYS_PROXY
+	VALUES ("0acf5727-4591-491f-8c5d-b620ba4cf2ed",
+	'Library',
+	1,
+	'../Library.xtuml');

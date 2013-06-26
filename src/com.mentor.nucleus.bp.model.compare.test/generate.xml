@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile: generate.xml,v $
+ Version:   $Revision: 1.7 $
+ Modified:  $Date: 2013/03/14 17:13:11 $
+
+ (c) Copyright 2004-2013 by Mentor Graphics Corp. All rights reserved.
+
+ ========================================================================
+ This document contains information proprietary and confidential to
+ Mentor Graphics Corp., and is not for external distribution.
+ ======================================================================== 
+
+-->
+
+<project name="model.compare.test" default="all" basedir=".">
+	<property environment="env" />
+	<property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\bin" />
+	<property name="bp_gen_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\gen_dir" />
+	<property name="mc_java" value="../MC-Java" />
+	<property name="chain_util_path" value="../com.mentor.nucleus.bp.core" />
+	<property name="sql.output" value="ooaofooa_hierarchy.sql" />
+
+	<target name="all" description="all" depends="create_compare_tests">
+	</target>
+
+	<target name="create_compare_tests.depends">
+		<uptodate property="create_compare_tests.buildNotRequired" targetfile="src/com/mentor/nucleus/bp/model/compare/test/ModelComparisonTests.java">
+			<srcfiles dir="../com.mentor.nucleus.bp.core/sql/" includes="ooaofooa_hierarchy_schema.sql,ooaofooa_hierarchy.pei.sql" />
+			<srcfiles dir="../com.mentor.nucleus.bp.core/sql" includes="ooaofooa.sql" />
+			<srcfiles dir="../com.mentor.nucleus.bp.ui.canvas/sql/" includes="ooaofgraphics_hierarchy_schema.sql,ooaofgraphics_hierarchy.pei.sql" />
+			<srcfiles dir="../com.mentor.nucleus.bp.ui.canvas/sql" includes="ooaofgraphics.sql" />
+			<srcfiles dir="arc" includes="generate_metamodel_compare_test.arc" />
+		</uptodate>
+	</target>
+
+	<target name="create_compare_tests" description="Generate tests for comparison" depends="create_compare_tests.depends" unless="create_compare_tests.buildNotRequired">
+
+		<exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate">
+			<env key="OS_CACHE_SIZE" value="64000000" />
+			<env key="PTC_MC_ARC_DIR" value="${mc_java}" />
+			<env key="CHAIN_UTIL_DIR" value="${chain_util_path}" />
+			<arg line="-nopersist
+				-import ${mc_java}/ooa_schema.sql
+				-import ../com.mentor.nucleus.bp.core/sql/ooaofooa_hierarchy_schema.sql
+				-import ../com.mentor.nucleus.bp.core/sql/ooaofooa.sql
+				-import ../com.mentor.nucleus.bp.io.core/sql/file_io_schema.sql
+				-import ../com.mentor.nucleus.bp.io.mdl/sql/file_io.pei.sql
+				-import ../com.mentor.nucleus.bp.ui.canvas/sql/ooaofgraphics.sql
+				-import ../com.mentor.nucleus.bp.core/sql/ooaofooa_hierarchy.pei.sql
+				-import ../com.mentor.nucleus.bp.ui.canvas/sql/ooaofgraphics_hierarchy.pei.sql
+				-arch arc/generate_metamodel_compare_test.arc" />
+		</exec>
+		<delete file="____file.txt"/>
+	</target>
+
+</project>

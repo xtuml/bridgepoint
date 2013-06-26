@@ -1,0 +1,158 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("042787f4-e01e-4e7c-ad64-f3514f419749",
+	'Enumerator',
+	15,
+	'S_ENUM',
+	'An enumeration is a data type represented by a set of constants called enumerators.  For example, an enumeration called Colors might have three enumerators Red, Blue, and Green.',
+	"5edea08f-a6e1-4146-8e1c-0cade7a477c7");
+INSERT INTO O_NBATTR
+	VALUES ("5be826b8-34e5-426c-b518-f3e3524b721f",
+	"042787f4-e01e-4e7c-ad64-f3514f419749");
+INSERT INTO O_BATTR
+	VALUES ("5be826b8-34e5-426c-b518-f3e3524b721f",
+	"042787f4-e01e-4e7c-ad64-f3514f419749");
+INSERT INTO O_ATTR
+	VALUES ("5be826b8-34e5-426c-b518-f3e3524b721f",
+	"042787f4-e01e-4e7c-ad64-f3514f419749",
+	"00000000-0000-0000-0000-000000000000",
+	'Enum_ID',
+	'',
+	'',
+	'Enum_ID',
+	0,
+	"0dd326a8-132b-40ba-821c-d4a3d3b8c88d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("0dd326a8-132b-40ba-821c-d4a3d3b8c88d",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("b064aa0b-0fa7-4e18-8aba-695974b5a94c",
+	"042787f4-e01e-4e7c-ad64-f3514f419749");
+INSERT INTO O_BATTR
+	VALUES ("b064aa0b-0fa7-4e18-8aba-695974b5a94c",
+	"042787f4-e01e-4e7c-ad64-f3514f419749");
+INSERT INTO O_ATTR
+	VALUES ("b064aa0b-0fa7-4e18-8aba-695974b5a94c",
+	"042787f4-e01e-4e7c-ad64-f3514f419749",
+	"5be826b8-34e5-426c-b518-f3e3524b721f",
+	'Name',
+	'',
+	'',
+	'Name',
+	0,
+	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("cedaa9d4-6188-4e36-85ce-cec13fe07436",
+	"042787f4-e01e-4e7c-ad64-f3514f419749");
+INSERT INTO O_BATTR
+	VALUES ("cedaa9d4-6188-4e36-85ce-cec13fe07436",
+	"042787f4-e01e-4e7c-ad64-f3514f419749");
+INSERT INTO O_ATTR
+	VALUES ("cedaa9d4-6188-4e36-85ce-cec13fe07436",
+	"042787f4-e01e-4e7c-ad64-f3514f419749",
+	"b064aa0b-0fa7-4e18-8aba-695974b5a94c",
+	'Descrip',
+	'',
+	'',
+	'Descrip',
+	0,
+	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("042787f4-e01e-4e7c-ad64-f3514f419749",
+	"f8fb1511-0a54-4a59-a4c0-996aa9f4e1c6",
+	0,
+	"3f04637d-3c2d-41cb-a06e-de92a6aa717b",
+	"d2f50e16-c0cc-49d7-8072-d4d470ff3691",
+	"818bd8ff-7728-41c3-a5fc-737dce762b7a",
+	"b9f5609a-5837-405b-a054-c8910808c5c0",
+	"f8601694-32cf-4325-8564-6704a10013e8",
+	"d9fddb30-9e24-4dcb-adbb-047321456698",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Enumeration Data Type',
+	'DT_ID',
+	'R27');
+INSERT INTO R_RGO_PROXY
+	VALUES ("042787f4-e01e-4e7c-ad64-f3514f419749",
+	"d2f50e16-c0cc-49d7-8072-d4d470ff3691",
+	"818bd8ff-7728-41c3-a5fc-737dce762b7a",
+	'../BNF.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("3f04637d-3c2d-41cb-a06e-de92a6aa717b",
+	"f8fb1511-0a54-4a59-a4c0-996aa9f4e1c6",
+	0,
+	"d2f50e16-c0cc-49d7-8072-d4d470ff3691",
+	"b9f5609a-5837-405b-a054-c8910808c5c0",
+	'../BNF.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("f8601694-32cf-4325-8564-6704a10013e8",
+	"042787f4-e01e-4e7c-ad64-f3514f419749",
+	"c933bbe0-e3f3-4a48-9ad9-20aecc04454f",
+	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
+	0,
+	'DT_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("c933bbe0-e3f3-4a48-9ad9-20aecc04454f",
+	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
+	'../Data Type/Data Type.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("f8601694-32cf-4325-8564-6704a10013e8",
+	"042787f4-e01e-4e7c-ad64-f3514f419749",
+	"cedaa9d4-6188-4e36-85ce-cec13fe07436",
+	'EDT_ID',
+	'',
+	'',
+	'EDT_ID',
+	0,
+	"73db19ab-e535-4718-ab07-668918299d9a",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("73db19ab-e535-4718-ab07-668918299d9a",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"042787f4-e01e-4e7c-ad64-f3514f419749");
+INSERT INTO O_OIDA
+	VALUES ("5be826b8-34e5-426c-b518-f3e3524b721f",
+	"042787f4-e01e-4e7c-ad64-f3514f419749",
+	0,
+	'Enum_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"042787f4-e01e-4e7c-ad64-f3514f419749");
+INSERT INTO O_ID
+	VALUES (2,
+	"042787f4-e01e-4e7c-ad64-f3514f419749");
+INSERT INTO S_SS_PROXY
+	VALUES ("5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	'BNF',
+	'',
+	'',
+	1,
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	"00000000-0000-0000-0000-000000100002",
+	'../BNF.xtuml');

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="com.mentor.nucleus.bp.mc.mc3020"
+   name="BridgePoint MC-3020 Model Compiler"
+   version="4.0.3"
+   provider-name="Mentor Graphics"
+   class="com.mentor.nucleus.bp.mc.mc3020.ModelCompiler">
+   <runtime>
+      <library name="mc3020.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.core.variables"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="com.mentor.nucleus.bp.core"/>
+      <import plugin="com.mentor.nucleus.bp.mc.xmiexport"/>
+      <import plugin="org.eclipse.debug.ui"/>
+      <import plugin="com.mentor.nucleus.bp.io.core"/>
+      <import plugin="com.mentor.nucleus.bp.io.mdl"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.cdt.core"/>
+      <import plugin="org.eclipse.cdt.ui"/>
+      <import plugin="org.eclipse.cdt.managedbuilder.ui"/>
+   </requires>
+   <extension point="org.eclipse.ui.startup">
+   </extension>
+
+<!-- ======================================================= -->
+<!-- Nature/Builder definitions                              -->
+<!-- ======================================================= -->
+   <extension
+         id="MC3020Nature"
+         name="model compiler nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run class="com.mentor.nucleus.bp.mc.mc3020.MC3020Nature">
+         </run>
+      </runtime>
+      <builder
+            id="com.mentor.nucleus.bp.mc.mc3020.export_builder">
+      </builder>
+   </extension>
+
+   <extension point="org.eclipse.ui.ide.projectNatureImages">
+      <image
+            icon="platform:/plugin/com.mentor.nucleus.bp.core/icons/xtuml-nature.gif"
+            natureId="com.mentor.nucleus.bp.mc.mc3020.MC3020Nature"
+            id="com.mentor.nucleus.resoures.natureimage">
+      </image>
+   </extension>
+
+   <extension
+         id="export_builder"
+         name="Model Compiler Pre-Build"
+         point="org.eclipse.core.resources.builders">
+      <builder>
+        <run class="com.mentor.nucleus.bp.mc.mc3020.ExportBuilder" />
+      </builder>
+   </extension>
+
+<!-- ======================================================= -->
+<!-- Wizard definitions                                      -->
+<!-- ======================================================= -->
+
+
+</plugin>

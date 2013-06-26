@@ -1,0 +1,50 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("86925145-ce69-48dc-983d-cc04b47606fd",
+	'lap',
+	8,
+	'LAP',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("dca97732-5d2c-400b-ad9e-9c0101a0947f",
+	"86925145-ce69-48dc-983d-cc04b47606fd");
+INSERT INTO O_BATTR
+	VALUES ("dca97732-5d2c-400b-ad9e-9c0101a0947f",
+	"86925145-ce69-48dc-983d-cc04b47606fd");
+INSERT INTO O_ATTR
+	VALUES ("dca97732-5d2c-400b-ad9e-9c0101a0947f",
+	"86925145-ce69-48dc-983d-cc04b47606fd",
+	"00000000-0000-0000-0000-000000000000",
+	'endTime',
+	'',
+	'',
+	'endTime',
+	0,
+	"3ea1afb9-445e-4890-999a-dd7b42176a56",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("3ea1afb9-445e-4890-999a-dd7b42176a56",
+	"00000000-0000-0000-0000-000000000000",
+	'integer',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"86925145-ce69-48dc-983d-cc04b47606fd");
+INSERT INTO O_ID
+	VALUES (1,
+	"86925145-ce69-48dc-983d-cc04b47606fd");
+INSERT INTO O_ID
+	VALUES (2,
+	"86925145-ce69-48dc-983d-cc04b47606fd");
+INSERT INTO PE_PE_PROXY
+	VALUES ("86925145-ce69-48dc-983d-cc04b47606fd",
+	1,
+	"b7eadfe3-b995-4f47-9561-d25f9a502ac5",
+	"00000000-0000-0000-0000-000000000000",
+	4,
+	'../Data Aquisition.xtuml');

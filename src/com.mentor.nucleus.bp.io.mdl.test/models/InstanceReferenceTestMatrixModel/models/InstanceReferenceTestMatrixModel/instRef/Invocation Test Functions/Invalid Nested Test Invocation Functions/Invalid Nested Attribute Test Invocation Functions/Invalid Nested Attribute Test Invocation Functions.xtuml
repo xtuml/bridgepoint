@@ -1,0 +1,190 @@
+-- BP 7.1 content: FunctionPackage syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO S_FPK
+	VALUES ("8ae856e0-cabf-479f-afe6-b17da8031e6c",
+	'Invalid Nested Attribute Test Invocation Functions',
+	"00000000-0000-0000-0000-000000000000",
+	"d1f6a355-722f-4126-8ed5-a92fab2ec333");
+INSERT INTO GD_MD
+	VALUES ("2e8eda99-468d-487d-b585-32ace236055c",
+	101,
+	"8ae856e0-cabf-479f-afe6-b17da8031e6c",
+	54,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	200,
+	150,
+	0,
+	'');
+INSERT INTO DIM_DIA
+	VALUES ("2e8eda99-468d-487d-b585-32ace236055c",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_FPIP
+	VALUES ("8ae856e0-cabf-479f-afe6-b17da8031e6c");
+INSERT INTO PL_FPID
+	VALUES ("8ae856e0-cabf-479f-afe6-b17da8031e6c",
+	"c3928f56-530d-4984-8114-35933dc4cb31");
+INSERT INTO S_DOM_PROXY
+	VALUES ("c3928f56-530d-4984-8114-35933dc4cb31",
+	'instRef',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000002",
+	"13c14d34-d225-4949-89b6-fe738cc62cbb",
+	'../../../instRef.xtuml');
+INSERT INTO S_FIP
+	VALUES ("8ae856e0-cabf-479f-afe6-b17da8031e6c",
+	"9dd1d962-ab24-4307-a01a-f441ffe2c9a2");
+INSERT INTO S_SYNC
+	VALUES ("9dd1d962-ab24-4307-a01a-f441ffe2c9a2",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_booleanBinaryOperationLeftOperand_InvalidNested',
+	'',
+	'::setup(accessType:"Invalid Nested",referenceType:"Attribute"); 
+select any test from instances of ATTR4;
+test.O_ATTR_booleanBinaryOperationLeftOperand();
+::dispose(accessType:"Invalid Nested",referenceType:"Attribute");    ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("63f91549-9407-42c4-a2c0-fdde2812f080",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'void',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_FIP
+	VALUES ("8ae856e0-cabf-479f-afe6-b17da8031e6c",
+	"6eb8cc6a-0a09-4a44-82ab-6b82789f8b80");
+INSERT INTO S_SYNC
+	VALUES ("6eb8cc6a-0a09-4a44-82ab-6b82789f8b80",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_booleanBinaryOperationRightOperand_InvalidNested',
+	'',
+	'::setup(accessType:"Invalid Nested",referenceType:"Attribute"); 
+select any test from instances of ATTR4;
+test.O_ATTR_booleanBinaryOperationRightOperand();
+::dispose(accessType:"Invalid Nested",referenceType:"Attribute");    ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("8ae856e0-cabf-479f-afe6-b17da8031e6c",
+	"a4b2f3ff-e3f8-454b-aac4-ea2610cfe58b");
+INSERT INTO S_SYNC
+	VALUES ("a4b2f3ff-e3f8-454b-aac4-ea2610cfe58b",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_readAttr_InvalidNested',
+	'',
+	'::setup(accessType:"Invalid Nested",referenceType:"Attribute"); 
+select any test from instances of ATTR4;
+test.O_ATTR_readAttr();
+::dispose(accessType:"Invalid Nested",referenceType:"Attribute");    ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("8ae856e0-cabf-479f-afe6-b17da8031e6c",
+	"21ce31a4-8b11-4f2d-ab75-d01c96e9c165");
+INSERT INTO S_SYNC
+	VALUES ("21ce31a4-8b11-4f2d-ab75-d01c96e9c165",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_WhereClause_InvalidNested',
+	'',
+	'::setup(accessType:"Invalid Nested",referenceType:"Attribute"); 
+select any test from instances of ATTR4;
+test.O_ATTR_WhereClause();
+::dispose(accessType:"Invalid Nested",referenceType:"Attribute");    ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("8ae856e0-cabf-479f-afe6-b17da8031e6c",
+	"c25cf4df-0251-4c0f-87af-f639959db5a4");
+INSERT INTO S_SYNC
+	VALUES ("c25cf4df-0251-4c0f-87af-f639959db5a4",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_booleanBinaryOperationLeftOperandSet_InvalidNested',
+	'',
+	'::setup(accessType:"Invalid Nested",referenceType:"Attribute"); 
+select any test from instances of ATTR4;
+test.O_ATTR_booleanBinaryOperationLeftOperandSet();
+::dispose(accessType:"Invalid Nested",referenceType:"Attribute");    ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("8ae856e0-cabf-479f-afe6-b17da8031e6c",
+	"9c5985fc-9a94-48ca-8b9b-414a39fa7368");
+INSERT INTO S_SYNC
+	VALUES ("9c5985fc-9a94-48ca-8b9b-414a39fa7368",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_writeAttr_InvalidNested',
+	'',
+	'::setup(accessType:"Invalid Nested",referenceType:"Attribute"); 
+select any test from instances of ATTR4;
+test.O_ATTR_writeAttr();
+::dispose(accessType:"Invalid Nested",referenceType:"Attribute");    ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("8ae856e0-cabf-479f-afe6-b17da8031e6c",
+	"0827df0d-3b71-4c50-a2f4-97779d32362a");
+INSERT INTO S_SYNC
+	VALUES ("0827df0d-3b71-4c50-a2f4-97779d32362a",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_booleanBinaryOperationRightOperandSet_InvalidNested',
+	'',
+	'::setup(accessType:"Invalid Nested",referenceType:"Attribute"); 
+select any test from instances of ATTR4;
+test.O_ATTR_booleanBinaryOperationRightOperandSet();
+::dispose(accessType:"Invalid Nested",referenceType:"Attribute");    ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("8ae856e0-cabf-479f-afe6-b17da8031e6c",
+	"942df8fd-628a-413a-8cda-fdfaf4cdd665");
+INSERT INTO S_SYNC
+	VALUES ("942df8fd-628a-413a-8cda-fdfaf4cdd665",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_ActivitiesInvocation_InvalidNested',
+	'',
+	'::setup(accessType:"Invalid Nested",referenceType:"Attribute"); 
+select any test from instances of ATTR4;
+test.O_ATTR_ActivitiesInvocation();
+::dispose(accessType:"Invalid Nested",referenceType:"Attribute");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("8ae856e0-cabf-479f-afe6-b17da8031e6c",
+	"e73adeba-0e62-4486-9e38-c1ab15340e6e");
+INSERT INTO S_SYNC
+	VALUES ("e73adeba-0e62-4486-9e38-c1ab15340e6e",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'Attribute_ActivitiesInvocationSet_InvalidNested',
+	'',
+	'::setup(accessType:"Invalid Nested",referenceType:"Attribute"); 
+select any test from instances of ATTR4;
+test.O_ATTR_ActivitiesInvocationSet();
+::dispose(accessType:"Invalid Nested",referenceType:"Attribute");   ',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FPIP_PROXY
+	VALUES ("d1f6a355-722f-4126-8ed5-a92fab2ec333",
+	'../Invalid Nested Test Invocation Functions.xtuml');

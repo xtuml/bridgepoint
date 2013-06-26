@@ -1,0 +1,90 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("f6a5d7aa-fd3a-4b1d-b0ff-c06689dc44f9",
+	'Permanent Home in Library',
+	2,
+	'D_H',
+	'Object Description:
+
+Object Role:
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("14d87a65-b06b-4f8a-af9c-38de2c436dc2",
+	"f6a5d7aa-fd3a-4b1d-b0ff-c06689dc44f9");
+INSERT INTO O_BATTR
+	VALUES ("14d87a65-b06b-4f8a-af9c-38de2c436dc2",
+	"f6a5d7aa-fd3a-4b1d-b0ff-c06689dc44f9");
+INSERT INTO O_ATTR
+	VALUES ("14d87a65-b06b-4f8a-af9c-38de2c436dc2",
+	"f6a5d7aa-fd3a-4b1d-b0ff-c06689dc44f9",
+	"00000000-0000-0000-0000-000000000000",
+	'Row_Number',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Row_Number',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("bdff560a-1a36-4cdd-918e-a82596d75495",
+	"f6a5d7aa-fd3a-4b1d-b0ff-c06689dc44f9");
+INSERT INTO O_BATTR
+	VALUES ("bdff560a-1a36-4cdd-918e-a82596d75495",
+	"f6a5d7aa-fd3a-4b1d-b0ff-c06689dc44f9");
+INSERT INTO O_ATTR
+	VALUES ("bdff560a-1a36-4cdd-918e-a82596d75495",
+	"f6a5d7aa-fd3a-4b1d-b0ff-c06689dc44f9",
+	"14d87a65-b06b-4f8a-af9c-38de2c436dc2",
+	'Column_Number',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Column_Number',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"f6a5d7aa-fd3a-4b1d-b0ff-c06689dc44f9");
+INSERT INTO O_OIDA
+	VALUES ("bdff560a-1a36-4cdd-918e-a82596d75495",
+	"f6a5d7aa-fd3a-4b1d-b0ff-c06689dc44f9",
+	0,
+	'Column_Number');
+INSERT INTO O_OIDA
+	VALUES ("14d87a65-b06b-4f8a-af9c-38de2c436dc2",
+	"f6a5d7aa-fd3a-4b1d-b0ff-c06689dc44f9",
+	0,
+	'Row_Number');
+INSERT INTO O_ID
+	VALUES (1,
+	"f6a5d7aa-fd3a-4b1d-b0ff-c06689dc44f9");
+INSERT INTO O_ID
+	VALUES (2,
+	"f6a5d7aa-fd3a-4b1d-b0ff-c06689dc44f9");
+INSERT INTO PE_PE
+	VALUES ("f6a5d7aa-fd3a-4b1d-b0ff-c06689dc44f9",
+	1,
+	"e96c6930-7be7-4437-abe5-f7d202c0cf0c",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("e96c6930-7be7-4437-abe5-f7d202c0cf0c",
+	"00000000-0000-0000-0000-000000000000",
+	"2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'Odms',
+	'Subsystem Description:
+
+Relationship with other Subsystems:
+',
+	1,
+	'../Odms.xtuml');

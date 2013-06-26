@@ -1,0 +1,7 @@
+actual_results
+bin
+build.xml
+jcoverage.ser
+com.mentor.nucleus.bp.ui.canvas.test_*.zip
+test.jar
+testsrc.zip

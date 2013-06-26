@@ -1,0 +1,32 @@
+-- BP 7.1 content: SystemModel syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO S_SYS
+	VALUES ("452ca208-5918-4537-b961-b46f06c063e9",
+	'com.mentor.nucleus.bp.als.oal.test',
+	1);
+INSERT INTO GD_MD
+	VALUES ("3d88043b-3b81-4b81-addf-75e3052e1f3a",
+	108,
+	"452ca208-5918-4537-b961-b46f06c063e9",
+	92,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	200,
+	150,
+	0,
+	'',
+	'com.mentor.nucleus.bp.als.oal.test');
+INSERT INTO DIM_DIA
+	VALUES ("3d88043b-3b81-4b81-addf-75e3052e1f3a",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");

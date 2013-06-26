@@ -1,0 +1,13 @@
+com.mentor.nucleus.bp.core/debug = false
+com.mentor.nucleus.bp.core/debug/functions = false
+com.mentor.nucleus.bp.core/debug/functions/filter = *
+com.mentor.nucleus.bp.core/debug/bridges = false
+com.mentor.nucleus.bp.core/debug/bridges/filter = *
+com.mentor.nucleus.bp.core/debug/operations = false
+com.mentor.nucleus.bp.core/debug/operations/filter = *
+com.mentor.nucleus.bp.core/debug/states = false
+com.mentor.nucleus.bp.core/debug/states/filter = *
+com.mentor.nucleus.bp.core/debug/delete = false
+com.mentor.nucleus.bp.core/debug/delete/filter = *
+com.mentor.nucleus.bp.core/debug/consistency = false
+com.mentor.nucleus.bp.core/debug/consistency/filter = *

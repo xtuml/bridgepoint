@@ -1,0 +1,50 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("50175662-7761-4cac-8281-cdba9b1aaf4a",
+	'distance',
+	107,
+	'CDIST',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("c2a9b11f-23da-4cea-8b11-ad0388e07299",
+	"50175662-7761-4cac-8281-cdba9b1aaf4a");
+INSERT INTO O_BATTR
+	VALUES ("c2a9b11f-23da-4cea-8b11-ad0388e07299",
+	"50175662-7761-4cac-8281-cdba9b1aaf4a");
+INSERT INTO O_ATTR
+	VALUES ("c2a9b11f-23da-4cea-8b11-ad0388e07299",
+	"50175662-7761-4cac-8281-cdba9b1aaf4a",
+	"00000000-0000-0000-0000-000000000000",
+	'distance',
+	'',
+	'',
+	'distance',
+	0,
+	"3ea1afb9-445e-4890-999a-dd7b42176a56",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("3ea1afb9-445e-4890-999a-dd7b42176a56",
+	"00000000-0000-0000-0000-000000000000",
+	'integer',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"50175662-7761-4cac-8281-cdba9b1aaf4a");
+INSERT INTO O_ID
+	VALUES (1,
+	"50175662-7761-4cac-8281-cdba9b1aaf4a");
+INSERT INTO O_ID
+	VALUES (2,
+	"50175662-7761-4cac-8281-cdba9b1aaf4a");
+INSERT INTO PE_PE_PROXY
+	VALUES ("50175662-7761-4cac-8281-cdba9b1aaf4a",
+	1,
+	"46db48b0-92c9-4562-8c74-4938e11b7dda",
+	"00000000-0000-0000-0000-000000000000",
+	4,
+	'../Specification.xtuml');
