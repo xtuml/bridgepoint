@@ -1,0 +1,347 @@
+Review Meeting Minutes
+
+#  $RCSfile: Tinyjava.rvm,v $
+#  $Revision: 1.16 $, $Date: 2003/07/16 23:08:31 $
+
+#  Reviewed: Tinyjava Model Compiler
+#  Start:    June 09, 2003 10:32:00
+#  End:      June 18, 2003 14:32:00
+#  Elapsed:  3600 minutes, give or take a couple hundred minutes...
+
+#  Present:  CDM
+
+General:
+
+_- 01 - Change the name of this compiler; stick with current naming convention.
+_- 02 - Remove all "By:..." lines from files.
+_- 03 - UML terms should be utilized in this product.
+_- 04 - MDAs are not present in this product.
+_- 05 - BP 5.0+ enumerations are not present in this product.
+_- 06 - This product relies on parse keywords to affect translation, e.g.
+        in ooa_oal_pop.arc, the archetype checks the Descrip:Translate parse
+        keyword for "native" to determine if it needs to be translated or not.
+_- 07 - There are very few comments in the archetype code as well as the generated code.
+_- 08 - This product does not use special where clauses.
+_- 09 - The description of stmt_assign_transient_var states that assignments
+        to inst_set_ref<Object> variables is not supported.
+_- 10 - It looks as if the OOA of OAL has been added to the OOA of OOA. This
+        should enable fragment.arc to create instances directly in the
+        database instead of emitting INSERT statements into a file and reading
+        it back in.
+_- 11 - Also, since the OOA of OAL has been added to the OOA of OOA, some of
+        the attributes formerly in the OOA of OAL have been replaced with
+        relationships that will need to be navigated to determine values.
+        e.g. ACT_TFM had attributes 'Object KL' and 'Method Name' in the
+             OOA of OAL. This has been replaced with a relationship to O_TFR
+             whereby it is possible to get the name of the operation and
+             select the class to get the KL.
+        These changes will need to be determined and changed in the archetype
+        files wherever they are encountered.
+_- 12 - V_VAL should be related to S_DT formalized in V_VAL using the primary identifying attribute.
+        Currently it has an attribute DT_ID that represents the DT_ID of its data type.  For most
+        of the subtypes of V_VAL, we know what their type is when they are created in fragment.arc,
+        e.g. V_LBO, V_LIN, V_LRL, V_LST, V_TRV, V_BRV, etc., so they should be created with the
+        correct DT_ID. In fact, for literals not only do we know what data type, we also know their
+        value which can be assigned into V_VALs buffer attribute during creation.  This would eliminate
+        the functions gen_literal_*.  There may be others that can have the V_VAL.buffer attribute
+        filled in at creation time as well.
+_- 13 - It looks as if Eclipse specific items have entrenched themselves into this product.  Although
+        that may be great for developing Java for the Eclipse environment, Eclipse is not part of Java.
+        If this is to be a Java model compiler suitable for GA, then the Eclipse stuff must be
+        separated out.
+_- 14 - There seems to be quite a bit of repetition in both the archetype code as well as Java output.
+        These places should be better separated into functions.
+_- 15 - Indentation of the archetype code has been done poorly.
+_- 16 - Recommend changing "ass" to "asg" wherever it appears.
+_- 17 - One would think that there would be more than just 5 places that use the 'synchronized' keyword.
+_- 18 - The build tools are very primitive.
+_- 19 - There are very few options for this model compiler. One of the most requested types of features in
+        MC-2020 is allowing the user more control over the generated code, i.e. coloring.
+_- 20 - Referential attributes may not always contain the correct value.
+          e.g. Class A is related to Class B and Class B is related to Class C. Class B has A_ID as a
+          referential as well as primary identifier. Class C also has A_ID as a referential. If Class B
+          is unrelated from Class A, then Class C still has the A_ID value from when they were related.
+          If Class B is then related to a different Class A, then Class B will have a new value for A_ID,
+          but Class C will not be updated.
+        I think the solution to this is to change the get<Attr.Name>() function to invoke
+        <ref_inst>.get<Attr.Name>() all the way back to where the attribute originates.  Each time the
+        value is needed it is retrieved from the source.
+_- 21 - It does not appear that this architecture supports polymorphic events.
+_- 22 - Code to generate logging statements is sparse, but always on.
+_- 23 - This architecture contains a lot of hard-coded values that are repeated. Consider using more
+        helper functions (e.g. to retrieve names), so that there is less repetition and less chance of
+        introducing defects.
+_- 24 - Why have generation databases been introduced into CVS?
+_- 25 - The CVS repository for TinyJava is poorly separated.  There should be separate folders for
+        archetypes, build_tools, schemas, etc.
+_- 26 - Some of the files do not belong in the CVS repository at all. e.g. ooaofooa50*, Ooaofooa50.bpi.sql.
+        These are files that either belong in a workspace, or they are, or should, be generated when they
+        are needed.
+
+File: ooaofooa50.sql
+
+_- 27 - There are no descriptions in the OAL additions.
+_- 28 - This model does not make good use of subtyping.  For instance:
+		The E_CE? classes are all related to V_VAR individually across
+		different relationships. These could all have a single supertype
+		related to V_VAR and therefore there would only be one relationship
+		to traverse to get to V_VAR.  In terms of writing a model compiler,
+		this makes it much simpler because they all get to V_VAR in the same
+		way.  This is then housed in a function and only needs to be written
+		once.
+	 Also, one of the problems I have seen is that when a selection is made
+	 from a supertype to a subtype where there are many subtypes, it is
+	 necessary to select each subtype individually until a related instance
+	 is found. Each additional supertype in the hierarchy has the potential to
+	 reduce the number of selections by n-1, where n is the number of subtypes
+	 of the additional supertype.
+
+File: ooa_oal_pop.arc
+
+_- 29 - Go top down, i.e. functions, bridges, operations, MDAs, actions.
+_- 30 - Move "select any domain from instances of S_DOM" to just before 
+     "emit to file...".
+_- 31 - Remove the line "select any action from instances of SM_ACT".
+_- 32 - Combine these lines:
+        "select one sm related by ism->SM_SM[R517]
+         select many states related by sm->SM_STATE[R501]"
+     into:
+        "select many states related by ism->SM_SM[R517]->SM_STATE[R501]"
+_- 33 - Combine these lines:
+        "select one sm related by asm->SM_SM[R517]
+         select many states related by sm->SM_STATE[R501]"
+     into:
+        "select many states related by asm->SM_SM[R517]->SM_STATE[R501]"
+
+File: Fragment.arc
+
+_- 34 - File version is incorrect.
+_- 35 - Description of get_blck_id has a typo.
+_- 36 - In actn_append_blck, the "INSERT..." statements are identical in two places.
+     Consider helper function, or other means of reducing to one instance.
+_- 37 - In blck_end, remove act_id and act_type variables.
+_- 38 - The function param_begin_synch_service is missing a description.
+_- 39 - The function param_begin_ib_transform is missing a description.
+_- 40 - Some of the INSERT statements do not output all attributes.
+_- 41 - Since INSERT statements are usually output for the same class in multiple
+     places, it makes sense to create a helper function that is invoked
+     to output the statement. These helper functions should be in a file of their
+     own, so that if the OOA of OAL changes, that file can just be replaced.
+_- 42 - The get_val_id function is not used and should be removed.
+_- 43 - When something is output into the body of an archetype function, should it
+     be reassigned to the empty string? e.g. in chain_end. I see that it has been
+     done in other places already.
+_- 44 - There was no indication that the names of variables, etc. were guaranteed
+     to be unique.  This is the place that it should be done, i.e. removing
+     spaces, adding a unique number to them, etc.
+_- 45 - Move stmt_generate_creation and stmt_generate_evt_inst so that they are
+     with the other stmt_generate_* functions.
+_- 46 - The functions stmt_return_void and stmt_return_rval do not have descriptions.
+_- 47 - The functions stmt_break and stmt_continue are not implemented.
+_- 48 - The function stmt_synch_service_void does not have a description.
+_- 49 - The function stmt_control is not implemented.
+
+File: do_type.inc
+
+_- 50 - This file and the do_type function are missing descriptions.
+_- 51 - This file does not deal with the following core data types:
+		inst<Event>
+		inst<Mapping>
+_- 52 - This file does not deal with the following core user defined types:
+		date
+_- 53 - I do not understand how timestamp and inst_ref<Timer> are working here. Since
+     both of these types are UDTs the code will find a UDT related to it, and
+     will thus execute the code "select one type related by udt->S_CDT[R18]->S_DT[R17]".
+     This will lead us back to inst<Mapping> for timestamp, and inst_ref<Mapping> for
+     inst_ref<Timer>.  This means that type.Name cannot be timestamp or inst_ref<Timer>,
+     but both of these are checked.
+
+File: Java.arc
+
+_- 54 - File version is incorrect.
+_- 55 - There are 2 occurrences of ${domain.Name}, all other occurrences are $cr{domain.Name}.
+     Both are used in file names. Are these correct, or should the domain.Name always use 'cr'?
+     If it should always use it, then at some point we should assign domain.Name = $cr{domain.Name}
+     and get rid of all of the other uses of 'cr' on the domain name.
+_- 56 - The line 'include "$cr{domain.Name}_package_spec.inc"' includes a file which is currently
+     hard-coded and should not be.
+_- 57 - This file has no separation, it is one huge main function.
+_- 58 - This file outputs mechanism type files. Consider creating actual mechanisms for those
+     classes that don't have any variation.
+_- 59 - This file has ".include..." statements in the middle of the code, consider moving all
+     of these statements to the top.
+_- 60 - There are a couple of ".print..." statements that output the time.  These should be removed.
+_- 61 - The masterTimer_c class creates a vector of 10 timer instances, with a resize number of 10.  This
+     should be something that can be specified by the user.
+_- 62 - The TIM_c::poll method does not handle recurring timers correctly.  It needs to reset the time so
+     that it may expire again. In its current state this is not possible because this method subtracts
+     the timerResolution from the timeToExpiry.  By the time it expires there is no way to tell what
+     the original delay was in order to reset the timer.
+_- 63 - Get rid of the Timer_start and Timer_start_recurring methods.  Change the secondary TIM_c constructor
+     to take a third parameter of type boolean, which sets the recurring flag.  Where Timer_start and
+     Timer_start_recurring were previously invoked, just use this constructor.
+_- 64 - The Current_clock method outputs the date and time in a strange order.
+_- 65 - The TIM_c class does not support create_date, current_clock, get_day, get_hour, get_minute, get_month,
+     get_second, get_year, timer_add_time, and timer_reset_time.
+_- 66 - The class ActivePoller_c initializes a vector of 10 instances, with a resize number of 10.  This
+     should be something that can be specified by the user.
+_- 67 - The method "$cr{object.Name}Instance()" should return Vector.firstElement().
+_- 68 - The method "$cr{object.Name}Instances()" should use Vector.clone() or at least use Vector.size().
+_- 69 - In the class constructor that takes a ResultSet as a parameter, why not
+     ".assign SQLType = $lr{typedecl.body}", then capitalize in the output "...resultSet.get$c{SQLType}..."?
+     Also, do we need to check if "package.threading_model=="polling"" before trying to register with the
+     ActivePoller_c class?
+_- 70 - The default for the event queue and self event queue is 10 events. A Vector doesn't seem like the best
+     choice for these.
+_- 71 - It doesn't look like event ignored and event cannot happen are implemented correctly.
+
+File: model_element.inc
+
+_- 72 - This file has the wrong file name and revision number.
+_- 73 - Are the copyright dates and file names output by this file hard-coded?
+_- 74 - The functions in this file do not have descriptions.
+_- 75 - The code output by these functions does not contain descriptions.
+_- 76 - File headers output by these functions are very similar, consider a header creation function.
+_- 77 - In the function create_model_element, attr_enable_core_adapter is always false and does not
+     get a chance to be true.
+_- 78 - The parameter to each of these functions is a fragment reference, but it is only used for the
+     Name attribute.  Just pass a string with the package.Name.
+
+File: Value.arc
+
+_- 79 - File version is incorrect.
+_- 80 - The functions in this file do not have descriptions.
+_- 81 - Confusing comment at the beginning of gen_value
+_- 82 - In gen_bridge_value, ee_decl and brg_decl will not change, so they can be selected outside
+     of the for loop.
+_- 83 - In gen_bridge_value, we set the parameter's V_VAL.DT_ID to the DT_ID of the bridge's return value, why?
+     Perhaps this should be value.DT_ID?
+_- 84 - In gen_transform_value, the Instance_Based attribute should be used to determine if the operation
+     is a class operation or instance operation.
+_- 85 - In gen_unary_op_value, should NOT, '+', and '-' unary operators be parenthesized?
+_- 86 - This architecture does not support cardinality of a single instance. MB and MV allow this.
+_- 87 - In gen_unary_op_value, what does the final else do?
+_- 88 - In gen_value, in the cases of a unary operator or binary operator the check is done twice, once
+     in gen_value and once in gen_unary_op_value and gen_binary_op_value.
+_- 89 - The function gen_binary_op_value needs some work. All comparisons of strings should use the string
+     functions equals(== and !=) and compareTo(<, <=, >, >=). Comparison operators for date, timestamp,
+     timer, and instance handle are not implemented. Arithmetic operators and string concatenation are okay.
+_- 90 - In gen_binary_op_value, val.DT_ID is not set in the if condition.
+_- 91 - There are quite a few places where the DT_ID is just set to zero instead of the correct value.
+
+File: statement.arc
+
+_- 92 - The functions in this file are missing descriptions.
+_- 93 - The functions gen_relate_using_statement and gen_unrelate_using_statement fail when the associative
+     instance is "self".
+_- 94 - The function gen_select_statement has a wrong comment at the beginning of the function body.
+_- 95 - The function gen_select_statement looks like it outputs three unnecessary variables when
+     sel_inst.is_implicit == "TRUE".
+_- 96 - The function gen_select_inst_rel_by_statement makes assumptions about the order of instances.  It
+     assumes that when it executes ".select any link related by sel_inst_rel->ACT_LNK[R637]" the result
+     will be the last link in the chain, i.e. the far right class being selected.  It also assumes that
+     as it traverses a set of instances that they will be in order from right to left and uses this to
+     output nested method calls with the innermost nested method being the first link in the chain and
+     subsequently the first method invoked.
+_- 97 - The function gen_select_inst_where_statement has a comment in the wrong place.
+_- 98 - It looks as if where clauses will not work correctly.  In gen_select_inst_where_statement, a test class
+     is created with an evaluate function.  It takes as a parameter the instance to evaluate.  This enables
+     the method to check a selected.O_ATTR, but how does it deal with var.O_ATTR?
+_- 99 - The function gen_select_rel_where_statement has a comment in the wrong place.
+_- 100 - The function gen_function_statements has an incorrect comment.
+_- 100a - The functions gen_create_instance_statement and gen_delete_instance_statement have the following:
+           Ooaofooa.instance.fireModelChange(new ModelChangedEvent(null, this));
+          We need to separate out the Eclipse/Tiger stuff
+          
+File: processing.arc
+
+_- 101 - File version is incorrect.
+_- 102 - A statement can only have one subtype, but we check each block subtype.  Use else containing if
+     statements to avoid the unnecessary checks. Try to order the checks by probability of success,
+     e.g. it is more likely to be an if statement than a while.
+
+File: RGO.arc
+
+_- 103 - File version is incorrect.
+_- 104 - The getMany method that takes an array of targets should utilize the method that takes a single target,
+     e.g. 
+       'for each target in targets
+	     getMany${loc_obj.Key_Lett}sOnR${gen_rel.Numb}( target );
+	    end for'
+	 Currently it basically re-writes the logic located in the getMany method that takes a single target.
+_- 105 - In function declare_canonical_nav_path, the parameters loc_txt_phrs, loc_mult, and tar_mult are not used.
+_- 106 - In function declare_canonical_reference, the parameters loc_txt_phrs and tar_mult are not used.
+_- 107 - In function declare_canonical_reference, the println string message for the internal error is incorrect.
+_- 107a - The text $cr{tar_txt_phrs}$cr{tar_obj.Name} or something similar is used in many places.
+
+File: RTO.arc
+
+_- 108 - File version is incorrect.
+_- 109 - In function declare_cnonicl_rto_nav_path, the parameters loc_mult, tar_mult, and tar_txt_phrs are not used.
+_- 110 - In function declare_cnonicl_assoc_nav_path, the parameters tar_mult, loc_txt_phrs, and tar_txt_phrs are not used. 
+_- 110a - In function declare_cnonicl_rto_nav_path, in two places, replace the following:
+      .select any ref_attr related by id_attr_in_ref->O_REF[R111]->O_RATTR[R108]->O_ATTR[R106]
+ with
+      .// the where clause is needed for the case of supertype/subtype, where
+      .// the subtypes each have different referential attribute names.
+      .select any ref_attr related by id_attr_in_ref->O_REF[R111]->O_RATTR[R108]->O_ATTR[R106] where (selected.Obj_ID == tar_obj.Obj_ID)
+_- 110b - The text $cr{tar_txt_phrs}$cr{tar_obj.Name} or something similar is used in many places.
+
+File: ooaofooa50_package_spec.inc
+
+_- 111 - This file is missing a standard header and description.
+_- 112 - The function get_package is missing a description.
+
+File: Includes.inc
+
+_- 113 - File version is incorrect.
+
+File: GEN.SH
+
+_- 114 - File version is incorrect.
+
+Misc:
+
+_- 115 - This architecture does not support pass by reference.  Java passes all parameters
+         as references to objects by value.  This may be tricky to implement.
+_- 116 - I think that this architecture has one of the same problems as MC-2020. BP allows
+         a variable of type inst<Event> to be reused by different types of events. MC-2020
+         fails to compile because the initial use of the variable causes it to be created
+         as a certain type of event. Later when it is reused it attempts to assign another
+         event type to it and it complains that it was already declared as the first type.
+
+---
+End
+
+$Log: Tinyjava.rvm,v $
+Revision 1.16  2003/07/16 23:08:31  greg
+Job: 54
+Added 107a and 11b comments
+
+Revision 1.15  2003/07/01 21:24:12  greg
+Job: 43
+Add items 100a and 110a
+
+Revision 1.14  2003/06/19 23:49:49  curtis
+Job: 22
+Add 2 miscellaneous items to the end.
+
+Revision 1.13  2003/06/18 22:24:21  curtis
+Job: 22
+Apparent final version of TinyJava characterization.
+
+Revision 1.12  2003/06/13 23:17:14  curtis
+Job: 22
+Update for 06/13/2003.
+
+Revision 1.11  2003/06/13 16:47:45  curtis
+Job: 22
+Update from 06/12/2003.
+
+Revision 1.10  2003/06/12 18:54:20  curtis
+Job: 22
+Update from 06/11/2003.
+
+Revision 1.9  2003/06/11 19:01:41  curtis
+Job: 22
+Change to ASCII.

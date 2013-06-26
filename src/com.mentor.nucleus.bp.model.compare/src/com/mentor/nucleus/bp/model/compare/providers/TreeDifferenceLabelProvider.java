@@ -1,0 +1,113 @@
+package com.mentor.nucleus.bp.model.compare.providers;
+//=====================================================================
+//
+//File:      $RCSfile: TreeDifferenceLabelProvider.java,v $
+//Version:   $Revision: 1.2 $
+//Modified:  $Date: 2013/01/17 03:35:40 $
+//
+//(c) Copyright 2013 by Mentor Graphics Corp. All rights reserved.
+//
+//=====================================================================
+//This document contains information proprietary and confidential to
+//Mentor Graphics Corp. and is not for external distribution.
+//=====================================================================
+
+import java.util.List;
+
+import org.eclipse.compare.CompareConfiguration;
+import org.eclipse.compare.structuremergeviewer.Differencer;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
+import org.eclipse.jface.resource.ResourceManager;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.swt.graphics.Image;
+
+import com.mentor.nucleus.bp.model.compare.TreeDifference;
+import com.mentor.nucleus.bp.model.compare.TreeDifferencer;
+
+public class TreeDifferenceLabelProvider implements ILabelProvider {
+
+	private ModelCompareLabelProvider modelLabelProvider = new ModelCompareLabelProvider();
+	private CompareConfiguration configuration;
+	private TreeDifferencer differencer;
+	private LocalResourceManager resourceManager;
+
+	public TreeDifferenceLabelProvider(CompareConfiguration configuration) {
+		this.configuration = configuration;
+	}
+
+	public void setDifferencer(TreeDifferencer differencer) {
+		this.differencer = differencer;
+	}
+
+	@Override
+	public Image getImage(Object element) {
+		if(differencer == null) {
+			return null;
+		}
+		List<TreeDifference> differences = differencer.getDifferences(element,
+				true);
+		if (differences.isEmpty()) {
+			differences = differencer.getDifferences(element, false);
+		}
+		if (differences.isEmpty()) {
+			return modelLabelProvider.getColumnImage(element, 0);
+		}
+		TreeDifference difference = differences.get(0);
+		if (difference.getElement() == null) {
+			// exclude overlay as this is for a missing element
+			// and will be represented differently
+			return modelLabelProvider.getColumnImage(element, 0);
+		}
+		int kind = difference.getKind();
+		if ((Boolean) configuration.getProperty("LEFT_IS_LOCAL")) {
+			switch (kind & Differencer.DIRECTION_MASK) {
+			case Differencer.LEFT:
+				kind= (kind &~ Differencer.LEFT) | Differencer.RIGHT;
+				break;
+			case Differencer.RIGHT:
+				kind= (kind &~ Differencer.RIGHT) | Differencer.LEFT;
+				break;
+			}
+		}
+		Image image = modelLabelProvider.getColumnImage(element, 0);
+		Image overlay = configuration.getImage(kind);
+		OverlayCompositeImageDescriptor descriptor = new OverlayCompositeImageDescriptor(
+				image.getImageData(), overlay.getImageData());
+		return getResourceManager().createImage(descriptor);
+	}
+
+	private ResourceManager getResourceManager() {
+		if (resourceManager == null) {
+			resourceManager = new LocalResourceManager(JFaceResources.getResources());
+		}
+		return resourceManager;
+	}
+
+	@Override
+	public String getText(Object element) {
+		return modelLabelProvider.getColumnText(element, 0);
+	}
+
+	@Override
+	public void addListener(ILabelProviderListener listener) {
+		// do nothing
+	}
+
+	@Override
+	public void dispose() {
+		modelLabelProvider.dispose();
+	}
+
+	@Override
+	public boolean isLabelProperty(Object element, String property) {
+		return false;
+	}
+
+	@Override
+	public void removeListener(ILabelProviderListener listener) {
+		// do nothing
+	}
+
+}

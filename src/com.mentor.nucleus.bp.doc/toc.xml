@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile: toc.xml,v $
+ Version:   $Revision: 1.24 $
+ Modified:  $Date: 2013/01/10 23:14:45 $
+
+ (c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
+
+ ========================================================================
+ This document contains information proprietary and confidential to
+ Mentor Graphics Corp., and is not for external distribution.
+ ======================================================================== 
+
+-->
+<?NLS TYPE="org.eclipse.help.toc"?>
+<!-- ============================================================================= -->
+<!-- Define the top level topics                                                   -->
+<!-- ============================================================================= -->
+
+<toc label="BridgePoint UML Suite Help">
+	<topic label="Licensing" href="license/EDGE_Licensing_Help.htm" >
+		<link toc="topics_license.xml" />
+	</topic>
+	<topic label="Getting Started" href="GettingStarted/HTML/GettingStarted.htm" >
+		<link toc="topics_GettingStarted.xml" />
+	</topic>
+	<topic label="Reference">
+		<link toc="topics_Reference.xml" />
+	</topic>
+	<topic label="Release Notes" href="ReleaseNotes/HTML/ReleaseNotes.htm" />
+	<topic label="Tips and Tricks" href="TipsAndTricks/HTML/TipsAndTricks.htm" />
+	<topic label="What's New" href="WhatsNew/HTML/WhatsNew.htm" />
+</toc>

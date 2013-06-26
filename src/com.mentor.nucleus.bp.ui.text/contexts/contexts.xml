@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      *RCSfile*
+ Version:   *Revision*
+ Modified:  *Date*
+
+ (c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
+
+ ========================================================================
+ This document contains information proprietary and confidential to
+ Mentor Graphics Corp., and is not for external distribution.
+ ======================================================================== 
+
+-->
+<contexts>
+	<!-- context entry for Activity Editor Preferences -->
+	<context id="activityPreferencesId" >
+		<description>This preference page allows you to set preferences for BridgePoint's Activity Editors.</description>
+		<topic href="/com.mentor.nucleus.bp.doc/Reference/UserInterface/xtUMLModeling/Preferences/HTML/ActivityEditor.htm"
+			label="Preferences - Activity Editor"/>
+	</context>
+	<!-- context entry for Activity Editor -->
+	<context id="activityEditorId" >
+		<description>An Activity Editor is used to edit xtUML Activities.</description>
+		<topic href="/com.mentor.nucleus.bp.doc/Reference/UserInterface/xtUMLModeling/Editors/HTML/Activity.htm"
+			label="Activity Editor"/>
+		<topic href="/com.mentor.nucleus.bp.doc/Reference/OAL/HTML/bpalref.book.htm"
+			label="Activity Reference"/>
+	</context>
+	<!-- context entry for Description Editor -->
+	<context id="descriptionEditorId" >
+		<description>A Description Editor is used to edit xtUML Descriptions.</description>
+		<topic href="/com.mentor.nucleus.bp.doc/Reference/UserInterface/xtUMLModeling/Editors/HTML/Description.htm"
+			label="Description Editor"/>
+	</context>
+</contexts>

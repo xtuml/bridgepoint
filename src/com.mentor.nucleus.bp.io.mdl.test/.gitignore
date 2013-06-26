@@ -1,0 +1,8 @@
+actual_results
+bin
+build.xml
+com.mentor.nucleus.bp.io.mdl.test*.zip
+test.jar
+testsrc.zip
+mdltest.jar
+mdltestsrc.zip

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="Execute model">
+      <intro>
+      <description>
+         Executing the model
+      </description>
+      </intro>
+      
+      
+        <item
+              skip="true"
+              dialog="true"
+              title="Launch the verifier">
+        <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Launch Verifier"
+			param2="Simple System" 
+			param3="TestBench" 
+			param4="true"
+			/>
+      <description>
+         Select either &apos;Device&apos; or &apos;TestBench&apos; components, right-click, in the context menu select <b> Launch Verifier</b>. Check both components and select <b>Debug</b>
+      </description>
+   </item>
+   <item
+         skip="true"
+         title="Run the model">
+         
+          <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Execute Element"
+			param2="Simple System" 
+			param3="Function"
+			param4="Testing"
+			param5="test" /> 
+      <description>
+         Expand the &apos;Simple System&apos; project in Session Explorer view, select the &apos;test&apos; function,  right-click, then in the context menu select <b>Execute</b>
+      </description>
+   </item>
+   <item
+         skip="true"
+         title="Stop verifier">
+      <description>
+         From the <b>Debug</b> view, click  the red square button in order to terminate the verifier
+      </description>
+   </item>
+   
+</cheatsheet>

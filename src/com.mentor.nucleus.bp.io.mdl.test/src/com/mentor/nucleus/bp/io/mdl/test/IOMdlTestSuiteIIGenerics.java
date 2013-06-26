@@ -1,0 +1,51 @@
+     package com.mentor.nucleus.bp.io.mdl.test;
+//=====================================================================
+//
+//File:      $RCSfile: IOMdlTestSuiteIIGenerics.java,v $
+//Version:   $Revision: 1.5 $
+//Modified:  $Date: 2013/01/10 23:12:53 $
+//
+//(c) Copyright 2004-2013 by Mentor Graphics Corp. All rights reserved.
+//
+//=====================================================================
+//This document contains information proprietary and confidential to
+//Mentor Graphics Corp. and is not for external distribution.
+//=====================================================================
+
+import java.util.UUID;
+
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PlatformUI;
+
+import com.mentor.nucleus.bp.core.Ooaofooa;
+import com.mentor.nucleus.bp.core.SystemModel_c;
+import com.mentor.nucleus.bp.test.common.BaseTest;
+import com.mentor.nucleus.bp.ui.explorer.ExplorerView;
+
+public class IOMdlTestSuiteIIGenerics extends BaseTest {
+
+    IWorkbenchPage m_wp = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+    static ExplorerView m_bp_view = null;
+    static TreeViewer m_bp_tree = null;
+    static SystemModel_c m_sys = null;
+    static String workspace_path = "";
+    static SystemModel_c m_system = new SystemModel_c(Ooaofooa.getDefaultInstance(), new UUID(0,1), "", false);
+
+	public IOMdlTestSuiteIIGenerics(String arg0) {
+		super(null, arg0);
+	}
+	
+	protected void setUp() throws Exception {
+		super.setUp();
+	}
+
+	protected void tearDown() throws Exception {
+		super.tearDown();
+	}
+	
+	public void testIOMdlTestSuiteII() {
+	    assert(true);
+    }
+
+}

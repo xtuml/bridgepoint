@@ -1,0 +1,49 @@
+-- BP 7.1 content: Interface syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO C_I
+	VALUES ("604336a3-9bef-4909-b4e0-7e21963a471d",
+	"00000000-0000-0000-0000-000000000000",
+	'monitor',
+	'');
+INSERT INTO C_EP
+	VALUES ("1ccfd096-372b-4476-b1db-866ff636a2fd",
+	"604336a3-9bef-4909-b4e0-7e21963a471d",
+	-1);
+INSERT INTO C_AS
+	VALUES ("1ccfd096-372b-4476-b1db-866ff636a2fd",
+	'increased_activty',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO C_PP
+	VALUES ("94f05155-edc8-4aaf-b6ca-7d693450ae84",
+	"1ccfd096-372b-4476-b1db-866ff636a2fd",
+	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	'current_temp',
+	'',
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"00000000-0000-0000-0000-000000000000",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO C_PP
+	VALUES ("08dbd6f6-8761-4cb8-b72c-83e71216c887",
+	"1ccfd096-372b-4476-b1db-866ff636a2fd",
+	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	'current_rate',
+	'',
+	0,
+	'',
+	"94f05155-edc8-4aaf-b6ca-7d693450ae84");
+INSERT INTO PE_PE_PROXY
+	VALUES ("604336a3-9bef-4909-b4e0-7e21963a471d",
+	1,
+	"ec31a90f-95df-4b5c-af74-f5199f89b092",
+	"00000000-0000-0000-0000-000000000000",
+	6,
+	'../interfaces.xtuml');

@@ -1,0 +1,248 @@
+AUDIT RESULTS FOR DOMAIN br2f
+
+FUNCTIONS WITHOUT DESCRIPTIONS:
+ds_get_b_val
+ds_get_d_val
+ds_get_i_val
+ds_get_r_val
+ds_get_s_val
+ds_get_t_val
+ds_vrfy_b_val
+ds_vrfy_d_val
+ds_vrfy_i_val
+ds_vrfy_r_val
+ds_vrfy_s_val
+ds_vrfy_t_val
+b2_no_parm_ret_void
+b2_b_parm_ret_b
+b2_d_parm_ret_d
+b2_i_parm_ret_i
+b2_r_parm_ret_r
+b2_s_parm_ret_s
+b2_t_parm_ret_t
+b2_u_parm_ret_u
+b2_us_parm_ret_us
+b2_e_parm_ret_e
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging 
+External Entity Time
+External Entity Bridges_Function ooa domain
+External Entity Architecture
+
+EXTERNAL ENTITY EVENTS WITHOUT DESCRIPTIONS:
+External Entity Event RDTWO1
+External Entity Event RDTWO2
+External Entity Event br11
+External Entity Event br12
+External Entity Event br13
+External Entity Event br14
+
+EXTERNAL ENTITY EVENT DATA WITHOUT DESCRIPTIONS:
+External Entity Event Data Item i
+External Entity Event Data Item b
+External Entity Event Data Item r
+External Entity Event Data Item d
+External Entity Event Data Item s
+External Entity Event Data Item t
+External Entity Event Data Item u
+External Entity Event Data Item i
+External Entity Event Data Item b
+External Entity Event Data Item r
+External Entity Event Data Item s
+External Entity Event Data Item t
+External Entity Event Data Item u
+External Entity Event Data Item d
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge Realized Domain Accessed by OOA::no_parm_ret_void
+External Entity Bridge Realized Domain Accessed by OOA::i_parm_ret_i
+External Entity Bridge Realized Domain Accessed by OOA::b_parm_ret_b
+External Entity Bridge Realized Domain Accessed by OOA::r_parm_ret_r
+External Entity Bridge Realized Domain Accessed by OOA::s_parm_ret_s
+External Entity Bridge Realized Domain Accessed by OOA::u_parm_ret_u
+External Entity Bridge Realized Domain Accessed by OOA::d_parm_ret_d
+External Entity Bridge Realized Domain Accessed by OOA::t_parm_ret_t
+External Entity Bridge Realized Domain Accessed by OOA::us_parm_ret_us
+External Entity Bridge Realized Domain Accessed by OOA::e_parm_ret_e
+External Entity Bridge Bridges_Function ooa domain::no_parm_ret_void
+External Entity Bridge Bridges_Function ooa domain::b_parm_ret_b
+External Entity Bridge Bridges_Function ooa domain::i_parm_ret_i
+External Entity Bridge Bridges_Function ooa domain::r_parm_ret_r
+External Entity Bridge Bridges_Function ooa domain::s_parm_ret_s
+External Entity Bridge Bridges_Function ooa domain::u_parm_ret_u
+External Entity Bridge Bridges_Function ooa domain::d_parm_ret_d
+External Entity Bridge Bridges_Function ooa domain::t_parm_ret_t
+External Entity Bridge Bridges_Function ooa domain::e_parm_ret_e
+External Entity Bridge Bridges_Function ooa domain::i_parm_ret_void
+External Entity Bridge Bridges_Function ooa domain::us_parm_ret_us
+External Entity Bridge Bridges_Function ooa domain::shutdown
+External Entity Bridge Bridges_Function ooa domain::ret_i_val
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class Bridges_Function2::Bridge Ops on Domains
+Class Bridges_Function2::br2 init
+Class Bridges_Function2::Bridge Test Driver
+Class Bridges_Function2::Data Source
+Class objects::Passive Object
+Class objects::Active Object
+Class objects::Object
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Bridge Ops on Domains::id
+Attribute Bridge Ops on Domains::test_count
+Attribute Bridge Ops on Domains::current_state
+Attribute br2 init::id
+Attribute br2 init::current_state
+Attribute Bridge Test Driver::id
+Attribute Bridge Test Driver::current_state
+Attribute bridge object two::id
+Attribute Data Source::id
+Attribute Data Source::i
+Attribute Data Source::s
+Attribute Data Source::b
+Attribute Data Source::r
+Attribute Data Source::t
+Attribute Data Source::d
+Attribute Passive Object::id
+Attribute Passive Object::name
+Attribute Passive Object::b
+Attribute Passive Object::i
+Attribute Passive Object::r
+Attribute Passive Object::d
+Attribute Passive Object::s
+Attribute Passive Object::t
+Attribute Passive Object::e
+Attribute Passive Object::us
+Attribute Passive Object::ActiveObjectname
+Attribute Active Object::id
+Attribute Active Object::name
+Attribute Active Object::b
+Attribute Active Object::i
+Attribute Active Object::r
+Attribute Active Object::d
+Attribute Active Object::s
+Attribute Active Object::t
+Attribute Active Object::e
+Attribute Active Object::us
+Attribute Active Object::current_state
+Attribute Object::id
+Attribute Object::name
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute Passive Object::id
+Referential Attribute Passive Object::ActiveObjectname
+Referential Attribute Active Object::id
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation bridge object two::send_u_return_u
+Operation bridge object two::send_t_return_t
+Operation bridge object two::send_s_return_s
+Operation bridge object two::send_r_return_r
+Operation bridge object two::send_d_return_d
+Operation bridge object two::send_i_return_i
+Operation bridge object two::send_b_return_b
+Operation bridge object two::send_void_return_void
+Operation bridge object two::send_e_return_e
+Operation bridge object two::send_us_return_us
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+objects::R100
+objects::R101
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Bridge Ops on Domains
+State Model br2 init
+State Model Bridge Test Driver
+State Model Active Object
+State Model Active Object
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event BOPNRD1
+Event BOPNRD2
+Event BOPNRD3
+Event BOPNRD4
+Event INIT1
+Event BTD1
+Event BTD4
+Event AO1
+Event AO2
+Event AO3
+Event AO4
+Event AO5
+Event AO6
+Event AO7
+Event AO8
+Event AO9
+Event AO10
+Event AO_A1
+Event AO_A6
+Event AO_A7
+Event AO_A8
+Event AO_A9
+Event AO_A10
+Event AO_A11
+Event AO_A12
+Event AO_A13
+Event AO_A14
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Bridge Ops on Domains::b
+Event Data Bridge Ops on Domains::i
+Event Data Bridge Ops on Domains::r
+Event Data Bridge Ops on Domains::d
+Event Data Bridge Ops on Domains::s
+Event Data Bridge Ops on Domains::t
+Event Data Bridge Ops on Domains::u
+Event Data Bridge Ops on Domains::us
+Event Data Bridge Ops on Domains::e
+Event Data Active Object::b
+Event Data Active Object::i
+Event Data Active Object::r
+Event Data Active Object::d
+Event Data Active Object::s
+Event Data Active Object::t
+Event Data Active Object::u
+Event Data Active Object::us
+Event Data Active Object::e
+Event Data Active Object (Class Based)::e
+Event Data Active Object (Class Based)::us
+Event Data Active Object (Class Based)::s
+Event Data Active Object (Class Based)::d
+Event Data Active Object (Class Based)::r
+Event Data Active Object (Class Based)::b
+Event Data Active Object (Class Based)::u
+Event Data Active Object (Class Based)::t
+Event Data Active Object (Class Based)::i
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Bridge Ops on Domains::Testing Non OOA Domain
+Bridge Ops on Domains::Testing OOA Domain
+Bridge Ops on Domains::Done Testing
+br2 init::Init
+Bridge Test Driver::Running OOA Client to non OOA Server Same Task
+Bridge Test Driver::Shutting Down
+Active Object::center
+Active Object::b
+Active Object::i
+Active Object::t
+Active Object::u
+Active Object::r
+Active Object::d
+Active Object::s
+Active Object::us
+Active Object::e
+Active Object::e (Class Based)
+Active Object::center (Class Based)
+Active Object::b (Class Based)
+Active Object::i (Class Based)
+Active Object::t (Class Based)
+Active Object::u (Class Based)
+Active Object::r (Class Based)
+Active Object::d (Class Based)
+Active Object::s (Class Based)
+Active Object::us (Class Based)

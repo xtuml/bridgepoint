@@ -1,0 +1,1587 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 14">
+<meta name=Originator content="Microsoft Word 14">
+<link rel=File-List href="CommandLineInterface_files/filelist.xml">
+<link rel=Edit-Time-Data href="CommandLineInterface_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Command Line Interface</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Mentor</o:Author>
+  <o:Template>Normal</o:Template>
+  <o:LastAuthor>Brown, Keith</o:LastAuthor>
+  <o:Revision>27</o:Revision>
+  <o:TotalTime>3105</o:TotalTime>
+  <o:LastPrinted>2005-04-08T16:40:00Z</o:LastPrinted>
+  <o:Created>2012-10-10T19:16:00Z</o:Created>
+  <o:LastSaved>2013-06-14T20:21:00Z</o:LastSaved>
+  <o:Pages>2</o:Pages>
+  <o:Words>981</o:Words>
+  <o:Characters>5594</o:Characters>
+  <o:Company>Mentor Graphics</o:Company>
+  <o:Lines>46</o:Lines>
+  <o:Paragraphs>13</o:Paragraphs>
+  <o:CharactersWithSpaces>6562</o:CharactersWithSpaces>
+  <o:Version>14.00</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]-->
+<link rel=themeData href="CommandLineInterface_files/themedata.thmx">
+<link rel=colorSchemeMapping
+href="CommandLineInterface_files/colorschememapping.xml">
+<!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>110</w:Zoom>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:TrackMoves>false</w:TrackMoves>
+  <w:TrackFormatting/>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:DoNotPromoteQF/>
+  <w:LidThemeOther>EN-US</w:LidThemeOther>
+  <w:LidThemeAsian>X-NONE</w:LidThemeAsian>
+  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SnapToGridInCell/>
+   <w:WrapTextWithPunct/>
+   <w:UseAsianBreakRules/>
+   <w:DontGrowAutofit/>
+   <w:SplitPgBreakAndParaMark/>
+   <w:DontVertAlignCellWithSp/>
+   <w:DontBreakConstrainedForcedTables/>
+   <w:DontVertAlignInTxbx/>
+   <w:Word11KerningPairs/>
+   <w:CachedColBalance/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+  <m:mathPr>
+   <m:mathFont m:val="Cambria Math"/>
+   <m:brkBin m:val="before"/>
+   <m:brkBinSub m:val="&#45;-"/>
+   <m:smallFrac m:val="off"/>
+   <m:dispDef/>
+   <m:lMargin m:val="0"/>
+   <m:rMargin m:val="0"/>
+   <m:defJc m:val="centerGroup"/>
+   <m:wrapIndent m:val="1440"/>
+   <m:intLim m:val="subSup"/>
+   <m:naryLim m:val="undOvr"/>
+  </m:mathPr></w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="false"
+  DefSemiHidden="false" DefQFormat="false" LatentStyleCount="267">
+  <w:LsdException Locked="false" QFormat="true" Name="Normal"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 1"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 2"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 3"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 9"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="caption"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Title"/>
+  <w:LsdException Locked="false" Priority="1" Name="Default Paragraph Font"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Subtitle"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Strong"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Emphasis"/>
+  <w:LsdException Locked="false" Priority="99" Name="No List"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true"
+   Name="Placeholder Text"/>
+  <w:LsdException Locked="false" Priority="1" QFormat="true" Name="No Spacing"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 1"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true" Name="Revision"/>
+  <w:LsdException Locked="false" Priority="34" QFormat="true"
+   Name="List Paragraph"/>
+  <w:LsdException Locked="false" Priority="29" QFormat="true" Name="Quote"/>
+  <w:LsdException Locked="false" Priority="30" QFormat="true"
+   Name="Intense Quote"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 1"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 1"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 2"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 2"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 2"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 3"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 3"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 3"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 4"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 4"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 4"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 5"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 5"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 5"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 6"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 6"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 6"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="19" QFormat="true"
+   Name="Subtle Emphasis"/>
+  <w:LsdException Locked="false" Priority="21" QFormat="true"
+   Name="Intense Emphasis"/>
+  <w:LsdException Locked="false" Priority="31" QFormat="true"
+   Name="Subtle Reference"/>
+  <w:LsdException Locked="false" Priority="32" QFormat="true"
+   Name="Intense Reference"/>
+  <w:LsdException Locked="false" Priority="33" QFormat="true" Name="Book Title"/>
+  <w:LsdException Locked="false" Priority="37" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Bibliography"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="TOC Heading"/>
+ </w:LatentStyles>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:\5B8B\4F53;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 680460288 22 0 262145 0;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:\5B8B\4F53;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 680460288 22 0 262145 0;}
+@font-face
+	{font-family:"Arial Unicode MS";
+	panose-1:2 11 6 4 2 2 2 2 2 4;
+	mso-font-charset:128;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:-134238209 -371195905 63 0 4129279 0;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:-520081665 -1073717157 41 0 66047 0;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+@font-face
+	{font-family:Webdings;
+	panose-1:5 3 1 2 1 5 9 6 7 3;
+	mso-font-charset:2;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+@font-face
+	{font-family:"\@Arial Unicode MS";
+	panose-1:2 11 6 4 2 2 2 2 2 4;
+	mso-font-charset:128;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:-134238209 -371195905 63 0 4129279 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:SimSun;}
+h1
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 1 Char";
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:1;
+	font-size:18.0pt;
+	font-family:"Arial","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	color:black;
+	font-weight:normal;}
+h2
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 2 Char";
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	line-height:15.6pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:12.0pt;
+	font-family:"Arial","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	color:navy;
+	font-weight:bold;}
+h3
+	{mso-style-update:auto;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 3 Char";
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	color:maroon;
+	font-weight:bold;}
+h4
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 4 Char";
+	margin-top:7.5pt;
+	margin-right:7.5pt;
+	margin-bottom:2.4pt;
+	margin-left:7.5pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:4;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	color:#0176B9;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{mso-style-unhide:no;
+	color:navy;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-unhide:no;
+	color:#0176B9;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{mso-style-unhide:no;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:SimSun;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-unhide:no;
+	mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";
+	mso-fareast-font-family:SimSun;}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 1";
+	mso-ansi-font-size:14.0pt;
+	mso-bidi-font-size:14.0pt;
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#365F91;
+	mso-themecolor:accent1;
+	mso-themeshade:191;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 2";
+	mso-ansi-font-size:13.0pt;
+	mso-bidi-font-size:13.0pt;
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#4F81BD;
+	mso-themecolor:accent1;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 3";
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#4F81BD;
+	mso-themecolor:accent1;
+	font-weight:bold;}
+span.Heading4Char
+	{mso-style-name:"Heading 4 Char";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 4";
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#4F81BD;
+	mso-themecolor:accent1;
+	font-weight:bold;
+	font-style:italic;}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Balloon Text";
+	mso-ansi-font-size:8.0pt;
+	mso-bidi-font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";
+	mso-ascii-font-family:Tahoma;
+	mso-fareast-font-family:SimSun;
+	mso-hansi-font-family:Tahoma;
+	mso-bidi-font-family:Tahoma;}
+p.preformatted-tpcode, li.preformatted-tpcode, div.preformatted-tpcode
+	{mso-style-name:preformatted-tp_code;
+	mso-style-unhide:no;
+	margin-top:15.0pt;
+	margin-right:0in;
+	margin-bottom:15.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	background:silver;
+	border:none;
+	mso-border-alt:solid black .75pt;
+	padding:0in;
+	mso-padding-alt:8.0pt 8.0pt 8.0pt 8.0pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:SimSun;}
+p.normalnotoc, li.normalnotoc, div.normalnotoc
+	{mso-style-name:normalnotoc;
+	mso-style-unhide:no;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:SimSun;}
+span.codeChar
+	{mso-style-name:"code Char";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:code;
+	mso-ansi-font-size:11.0pt;
+	mso-bidi-font-size:11.0pt;
+	font-family:"Courier New";
+	mso-ascii-font-family:"Courier New";
+	mso-fareast-font-family:SimSun;
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Courier New";
+	mso-ansi-language:EN-US;
+	mso-fareast-language:ZH-CN;
+	mso-bidi-language:AR-SA;}
+p.code, li.code, div.code
+	{mso-style-name:code;
+	mso-style-unhide:no;
+	mso-style-link:"code Char";
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:SimSun;}
+span.tpcodeChar
+	{mso-style-name:"tp_code Char";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:tp_code;
+	font-family:"Courier New";
+	mso-ascii-font-family:"Courier New";
+	mso-fareast-font-family:SimSun;
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Courier New";
+	mso-ansi-language:EN-US;
+	mso-fareast-language:ZH-CN;
+	mso-bidi-language:AR-SA;}
+p.tpcode, li.tpcode, div.tpcode
+	{mso-style-name:tp_code;
+	mso-style-unhide:no;
+	mso-style-link:"tp_code Char";
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:SimSun;}
+p.tpinput, li.tpinput, div.tpinput
+	{mso-style-name:tp_input;
+	mso-style-unhide:no;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:SimSun;
+	font-weight:bold;}
+p.tpui, li.tpui, div.tpui
+	{mso-style-name:tp_ui;
+	mso-style-unhide:no;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:SimSun;
+	color:navy;}
+p.tpvar, li.tpvar, div.tpvar
+	{mso-style-name:tp_var;
+	mso-style-unhide:no;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:SimSun;
+	font-style:italic;}
+p.tpfooter, li.tpfooter, div.tpfooter
+	{mso-style-name:tp_footer;
+	mso-style-unhide:no;
+	margin:7.5pt;
+	text-align:center;
+	mso-pagination:widow-orphan;
+	background:white;
+	font-size:9.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:SimSun;}
+p.sub, li.sub, div.sub
+	{mso-style-name:sub;
+	mso-style-unhide:no;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:SimSun;}
+p.sublstbody, li.sublstbody, div.sublstbody
+	{mso-style-name:sublstbody;
+	mso-style-unhide:no;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:SimSun;}
+span.tpfile
+	{mso-style-name:tp_file;
+	mso-style-unhide:no;
+	color:#990000;
+	letter-spacing:1.2pt;}
+span.tpnote
+	{mso-style-name:tp_note;
+	mso-style-unhide:no;
+	font-weight:bold;}
+span.tpmenuarrow
+	{mso-style-name:tp_menuarrow;
+	mso-style-unhide:no;
+	font-family:Webdings;
+	mso-ascii-font-family:Webdings;
+	mso-hansi-font-family:Webdings;
+	color:navy;}
+span.hypertext
+	{mso-style-name:hypertext;
+	mso-style-unhide:no;}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	mso-default-props:yes;
+	font-size:10.0pt;
+	mso-ansi-font-size:10.0pt;
+	mso-bidi-font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 41.25pt 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:475535284;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1432643266 1111937752 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l0:level1
+	{mso-level-text:"%1\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:43.5pt;
+	text-indent:-.25in;}
+@list l0:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:79.5pt;
+	text-indent:-.25in;}
+@list l0:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:115.5pt;
+	text-indent:-9.0pt;}
+@list l0:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:151.5pt;
+	text-indent:-.25in;}
+@list l0:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:187.5pt;
+	text-indent:-.25in;}
+@list l0:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:223.5pt;
+	text-indent:-9.0pt;}
+@list l0:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:259.5pt;
+	text-indent:-.25in;}
+@list l0:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:295.5pt;
+	text-indent:-.25in;}
+@list l0:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:331.5pt;
+	text-indent:-9.0pt;}
+@list l1
+	{mso-list-id:962492671;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-927032182 -1249093910 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l1:level1
+	{mso-level-tab-stop:43.5pt;
+	mso-level-number-position:left;
+	margin-left:43.5pt;
+	text-indent:-.25in;}
+@list l1:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2
+	{mso-list-id:1483498755;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-927032182 -1249093910 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l2:level1
+	{mso-level-tab-stop:43.5pt;
+	mso-level-number-position:left;
+	margin-left:43.5pt;
+	text-indent:-.25in;}
+@list l2:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+table.MsoTableGrid
+	{mso-style-name:"Table Grid";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-unhide:no;
+	border:solid windowtext 1.0pt;
+	mso-border-alt:solid windowtext .5pt;
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-border-insideh:.5pt solid windowtext;
+	mso-border-insidev:.5pt solid windowtext;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+</style>
+<![endif]-->
+<script language="JavaScript"  src="../../../org.eclipse.help/livehelp.js">
+</script>
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="1028"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9" style='tab-interval:
+.5in'>
+
+<div class=WordSection1>
+
+<h1 style='mso-line-height-alt:15.6pt'><a name="_Ref100717464">Command Line
+Interface </a></h1>
+
+<span style='mso-bookmark:_Ref100717464'></span>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif";
+mso-bidi-font-family:"Times New Roman"'>The Command Line Interface (CLI)
+provides a mechanism to automate the execution and translation of xtUML
+projects. The CLI supports Import, Build and Execute tasks using the following
+command structure:<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif";
+mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<p style='text-indent:28.5pt;line-height:15.6pt'><b style='mso-bidi-font-weight:
+normal'><span style='font-size:12.0pt;font-family:"Arial Unicode MS","sans-serif"'>CLI
+&lt;Build | Import | Execute | Merge&gt; &lt;Argument List&gt;<o:p></o:p></span></b></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif";
+mso-bidi-font-family:"Times New Roman"'><span style='mso-spacerun:yes'> </span><o:p></o:p></span></p>
+
+<p style='margin-right:17.25pt;line-height:15.6pt;tab-stops:12.75in 13.5in 976.5pt'><span
+style='font-family:"Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>where
+&lt;Argument List&gt; depends on the task. Further details on the options
+available for each CLI task can be found by entering <o:p></o:p></span></p>
+
+<p style='margin-right:17.25pt;line-height:15.6pt;tab-stops:12.75in 13.5in 976.5pt'><span
+style='font-family:"Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<p style='margin-right:17.25pt;text-indent:28.5pt;line-height:15.6pt;
+tab-stops:12.75in 13.5in 976.5pt'><b style='mso-bidi-font-weight:normal'><span
+style='font-size:12.0pt;font-family:"Arial Unicode MS","sans-serif"'>CLI
+&lt;Build | Import | Execute | Merge&gt; -help<o:p></o:p></span></b></p>
+
+<p style='margin-right:17.25pt;line-height:15.6pt;tab-stops:12.75in 13.5in 976.5pt'><span
+style='font-family:"Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<p style='margin-right:17.25pt;line-height:15.6pt;tab-stops:12.75in 13.5in 976.5pt'><span
+style='font-family:"Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>Examples
+demonstrating the expected usage of the CLI are included in the BridgePoint and
+xtUML Editor (<span class=SpellE><span class=GramE>xE</span></span>)
+installation, and can be found in the folder &lt;<b style='mso-bidi-font-weight:
+normal'>Installation root&gt;/eclipse</b>. Note, that the examples are specific
+to the host operating system with CLI.bat intended for Windows and CLI.sh
+intended for Linux.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif";
+mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<h2>Preparing a Project to be used with CLI</h2>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Prior
+to invoking the CLI, the target project and associated workspace will require
+some setup. Initially, the CLI script must be customized as follows:<o:p></o:p></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt;mso-list:
+l1 level1 lfo2;tab-stops:list 43.5pt'><![if !supportLists]><span
+style='font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span
+style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Arial","sans-serif"'>Copy
+the CLI script into the project workspace<o:p></o:p></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt;mso-list:
+l1 level1 lfo2;tab-stops:list 43.5pt'><![if !supportLists]><span
+style='font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span
+style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Arial","sans-serif"'>Modify
+the script to assign the WORKSPACE variable to the correct path <o:p></o:p></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt;mso-list:
+l1 level1 lfo2;tab-stops:list 43.5pt'><![if !supportLists]><span
+style='font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span
+style='mso-list:Ignore'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Arial","sans-serif"'>For
+projects created prior to 3.6.0, switch to the Model Explorer view, select the
+project and then perform <b style='mso-bidi-font-weight:normal'>&lt;Right Mouse
+Button&gt; &gt; BridgePoint Utilities &gt; Upgrade Compiler Settings</b><o:p></o:p></span></p>
+
+<p style='margin-left:43.5pt;line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p>
+
+<p style='margin-left:0in;line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>For
+each target project, launch and build configurations are required under the
+following circumstances:<o:p></o:p></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt;mso-list:
+l2 level1 lfo4;tab-stops:list 43.5pt'><![if !supportLists]><span
+style='font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span
+style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Arial","sans-serif"'>For
+projects using the Build task,<span style='mso-spacerun:yes'>  </span>a CDT
+build configuration must exist for each name requested by option –buildConfig<o:p></o:p></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt;mso-list:
+l2 level1 lfo4;tab-stops:list 43.5pt'><![if !supportLists]><span
+style='font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span
+style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Arial","sans-serif"'>For
+projects using the Execute task, a launch configuration must exist for each
+name requested by option –launch and each configuration must identify at least
+one Initializer (an interface operation, interface signal or state machine
+event). It is recommended that the &quot;Execution timeout (seconds)&quot;
+selection be set to a value great than 0 (no termination) which will force
+execution to terminate with a timeout error message if the execution time
+exceeds this limit.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p>
+
+<p style='margin-top:0in;line-height:15.6pt'><!--[if gte vml 1]><v:oval id="Oval_x0020_3"
+ o:spid="_x0000_s1027" style='position:absolute;left:0;text-align:left;
+ margin-left:154.85pt;margin-top:338.2pt;width:152.95pt;height:23.95pt;
+ z-index:251658240;visibility:visible;mso-wrap-style:square;
+ mso-width-percent:0;mso-height-percent:0;mso-wrap-distance-left:9pt;
+ mso-wrap-distance-top:0;mso-wrap-distance-right:9pt;
+ mso-wrap-distance-bottom:0;mso-position-horizontal:absolute;
+ mso-position-horizontal-relative:text;mso-position-vertical:absolute;
+ mso-position-vertical-relative:text;mso-width-percent:0;mso-height-percent:0;
+ mso-width-relative:page;mso-height-relative:page;v-text-anchor:middle'
+ o:gfxdata="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
+" filled="f" strokecolor="red" strokeweight="2pt">
+ <v:path arrowok="t"/>
+</v:oval><![endif]--><![if !vml]><span style='mso-ignore:vglayout;position:
+absolute;z-index:251658240;left:0px;margin-left:205px;margin-top:449px;
+width:207px;height:36px'><img width=207 height=36
+src="CommandLineInterface_files/image001.gif" v:shapes="Oval_x0020_3"></span><![endif]><!--[if gte vml 1]><v:oval
+ id="Oval_x0020_2" o:spid="_x0000_s1026" style='position:absolute;left:0;
+ text-align:left;margin-left:450.75pt;margin-top:240pt;width:73.5pt;height:22.5pt;
+ z-index:251657216;visibility:visible;mso-wrap-style:square;
+ mso-width-percent:0;mso-height-percent:0;mso-wrap-distance-left:9pt;
+ mso-wrap-distance-top:0;mso-wrap-distance-right:9pt;
+ mso-wrap-distance-bottom:0;mso-position-horizontal:absolute;
+ mso-position-horizontal-relative:text;mso-position-vertical:absolute;
+ mso-position-vertical-relative:text;mso-width-percent:0;mso-height-percent:0;
+ mso-width-relative:margin;mso-height-relative:page;v-text-anchor:middle'
+ o:gfxdata="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
+" filled="f" strokecolor="red" strokeweight="2pt">
+ <v:path arrowok="t"/>
+</v:oval><![endif]--><![if !vml]><span style='mso-ignore:vglayout;position:
+absolute;z-index:251657216;left:0px;margin-left:599px;margin-top:318px;
+width:102px;height:34px'><img width=102 height=34
+src="CommandLineInterface_files/image002.gif" v:shapes="Oval_x0020_2"></span><![endif]><span
+style='font-family:"Arial","sans-serif";mso-no-proof:yes'><!--[if gte vml 1]><v:shapetype
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="Picture_x0020_1" o:spid="_x0000_i1025" type="#_x0000_t75"
+ style='width:556.5pt;height:477.75pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="CommandLineInterface_files/image003.png" o:title=""/>
+ <o:lock v:ext="edit" aspectratio="f"/>
+</v:shape><![endif]--><![if !vml]><img width=742 height=637
+src="CommandLineInterface_files/image004.gif" v:shapes="Picture_x0020_1"><![endif]></span><span
+style='font-family:"Arial","sans-serif"'><o:p></o:p></span></p>
+
+<h2><o:p>&nbsp;</o:p></h2>
+
+<h2>Building a project using the CLI</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+Build task is used to translate an xtUML model using the project’s selected
+model compiler. The task is initiated by<o:p></o:p></span></p>
+
+<p style='margin-top:12.0pt;margin-right:.1in;margin-bottom:24.0pt;margin-left:
+.1in;text-indent:.4in;line-height:15.6pt'><span class=GramE><b
+style='mso-bidi-font-weight:normal'><span style='font-size:12.0pt;font-family:
+"Courier New";mso-fareast-font-family:"Arial Unicode MS"'>CLI<span
+style='mso-spacerun:yes'>  </span>Build</span></b></span><b style='mso-bidi-font-weight:
+normal'><span style='font-size:12.0pt;font-family:"Courier New";mso-fareast-font-family:
+"Arial Unicode MS"'><span style='mso-spacerun:yes'>  </span>&lt;Argument
+List&gt;<o:p></o:p></span></b></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>where
+&lt;Argument List&gt; can contain any of the following options<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='margin-left:40.1pt;border-collapse:collapse;border:none;mso-border-alt:
+ solid windowtext .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>-project<o:p></o:p></span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>The name of the
+  project to be built<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>-buildConfig<o:p></o:p></span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>The name of the
+  CDT build configuration to be used. If omitted then the current Active
+  configuration is used<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>-prebuildOnly<o:p></o:p></span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>Only the
+  BridgePoint Model Compiler pre-builder will be executed<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>-cleanCLI<o:p></o:p></span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>Perform a clean build
+  of the project<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>-debugCLI<o:p></o:p></span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>Launch a
+  workbench and leave it open after executing<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>-help<o:p></o:p></span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>Displays usage
+  information<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif";
+mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<h2>Importing a project using the CLI</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+Import task is used to add the named project to the current workspace. The task
+is initiated by<o:p></o:p></span></p>
+
+<p style='margin-top:12.0pt;margin-right:.1in;margin-bottom:24.0pt;margin-left:
+.1in;text-indent:.4in;line-height:15.6pt'><span class=GramE><b
+style='mso-bidi-font-weight:normal'><span style='font-size:12.0pt;font-family:
+"Courier New";mso-fareast-font-family:"Arial Unicode MS"'>CLI<span
+style='mso-spacerun:yes'>  </span>Import</span></b></span><b style='mso-bidi-font-weight:
+normal'><span style='font-size:12.0pt;font-family:"Courier New";mso-fareast-font-family:
+"Arial Unicode MS"'><span style='mso-spacerun:yes'>  </span>&lt;Argument
+List&gt;<o:p></o:p></span></b></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>where
+&lt;Argument List&gt; can contain any of the following options<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif";
+mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='margin-left:7.5pt;border-collapse:collapse;border:none;mso-border-alt:
+ solid windowtext .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>-project<o:p></o:p></span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>The fully
+  qualified name of the project to be Imported<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>-deleteExisting<o:p></o:p></span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>If a project with
+  the same name exists in the workspace, this option will delete it before
+  importing the named project.<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>-help<o:p></o:p></span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>Displays usage
+  information<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p style='margin-left:0in;line-height:15.6pt'><span style='font-family:"Arial","sans-serif";
+mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<h2>Executing a project using the CLI</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+Execute task is used to run an xtUML model using BridgePoint’s xtUML Debug
+Perspective. The task is initiated by<o:p></o:p></span></p>
+
+<p style='margin-top:12.0pt;margin-right:.1in;margin-bottom:24.0pt;margin-left:
+.1in;text-indent:.4in;line-height:15.6pt'><span class=GramE><b
+style='mso-bidi-font-weight:normal'><span style='font-size:12.0pt;font-family:
+"Courier New";mso-fareast-font-family:"Arial Unicode MS"'>CLI<span
+style='mso-spacerun:yes'>  </span>Execute</span></b></span><b style='mso-bidi-font-weight:
+normal'><span style='font-size:12.0pt;font-family:"Courier New";mso-fareast-font-family:
+"Arial Unicode MS"'><span style='mso-spacerun:yes'>  </span>&lt;Argument
+List&gt;<o:p></o:p></span></b></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>where
+&lt;Argument List&gt; can contain any of the following options<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='margin-left:7.5pt;border-collapse:collapse;border:none;mso-border-alt:
+ solid windowtext .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>-launch<o:p></o:p></span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>The name of the
+  launch configuration to execute<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>-debugCLI<o:p></o:p></span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>Launch a workbench
+  and leave it open after executing the command<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>-help<o:p></o:p></span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>Displays usage
+  information<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<h2>Merging changes from a remote version into the local project using the CLI</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+Merge task is used to produce an xtUML model file containing the merged
+resultant from two xtUML model files that are derived from a common ancestor.
+The task is initiated by<o:p></o:p></span></p>
+
+<p style='margin-top:12.0pt;margin-right:.1in;margin-bottom:24.0pt;margin-left:
+.1in;text-indent:.4in;line-height:15.6pt'><span class=GramE><b
+style='mso-bidi-font-weight:normal'><span style='font-size:12.0pt;font-family:
+"Courier New";mso-fareast-font-family:"Arial Unicode MS"'>CLI<span
+style='mso-spacerun:yes'>  </span>Merge</span></b></span><b style='mso-bidi-font-weight:
+normal'><span style='font-size:12.0pt;font-family:"Courier New";mso-fareast-font-family:
+"Arial Unicode MS"'><span style='mso-spacerun:yes'>  </span>&lt;Argument
+List&gt;<o:p></o:p></span></b></p>
+
+<p style='line-height:15.6pt'><span class=GramE><span style='font-family:"Arial","sans-serif"'>where</span></span><span
+style='font-family:"Arial","sans-serif"'> &lt;Argument List&gt; must contain
+either –help or the other arguments<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='margin-left:7.5pt;border-collapse:collapse;border:none;mso-border-alt:
+ solid windowtext .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>-<span
+  class=SpellE>rightFile</span><o:p></o:p></span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>The name of the remote
+  File to be used in the comparison<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>-<span
+  class=SpellE>leftFile</span><o:p></o:p></span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>The name of the
+  local File to be used in the comparison<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>-<span
+  class=SpellE>ancestorFile</span><o:p></o:p></span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>The name of the
+  common ancestor to the <span class=SpellE>rightFile</span> and the <span
+  class=SpellE>leftFile</span><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>-<span
+  class=SpellE>outputFile</span><o:p></o:p></span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>The name of the File
+  to hold the result produced when the <span class=SpellE>leftFile</span> is
+  merged with the <span class=SpellE>rightFile</span>.<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:13.7pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>-help<o:p></o:p></span></p>
+  </td>
+  <td width=492 valign=top style='width:369.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:8.1pt;line-height:15.6pt'><span style='font-family:
+  "Arial","sans-serif";mso-bidi-font-family:"Times New Roman"'>Displays usage
+  information<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Note
+that the Merge task will fail and no output file generated, if conflicts exist
+between the <span class=SpellE>leftFile</span> and the <span class=SpellE>rightFile</span>.
+Also, an absolute path must be specified for the left, right, ancestor and
+output files.<o:p></o:p></span></p>
+
+<p style='margin-left:0in;line-height:15.6pt'><span style='font-family:"Arial","sans-serif";
+mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<h2>Suggestions when Troubleshooting CLI Problems</h2>
+
+<p><span style='font-family:"Arial","sans-serif"'>When problems involving
+scripts that interact with CLI arise, consider these suggestions while
+investigating the problem<o:p></o:p></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;mso-list:l0 level1 lfo6'><![if !supportLists]><span
+style='font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span
+style='mso-list:Ignore'>1)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Arial","sans-serif"'>Has
+the utility <b style='mso-bidi-font-weight:normal'>BridgePoint Utility &gt;
+Upgrade Compiler Settings</b> been applied to the project? If not, apply the
+utility to the project and rerun the script.<o:p></o:p></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;mso-list:l0 level1 lfo6'><![if !supportLists]><span
+style='font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span
+style='mso-list:Ignore'>2)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Arial","sans-serif"'>Interactively,
+repeat the scripted steps inside the tool GUI. The information contained in the
+console window will assist in isolating the problem and will confirm whether
+the issue relates to the CLI or other aspects of the scripted process.<o:p></o:p></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;mso-list:l0 level1 lfo6'><![if !supportLists]><span
+style='font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span
+style='mso-list:Ignore'>3)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Arial","sans-serif"'>Once
+confirmed that the issue is most likely a CLI problem, modify the eclipsec
+invocation inside the CLI.bat script to add </span><span style='font-size:12.0pt;
+font-family:"Courier New";mso-fareast-font-family:"Arial Unicode MS"'>-debug
+–console –<span class=SpellE>consoleLog</span></span><span style='font-family:
+"Arial","sans-serif"'> to the command just before </span><span
+style='font-size:12.0pt;font-family:"Courier New";mso-fareast-font-family:"Arial Unicode MS"'>–application</span><span
+style='font-family:"Arial","sans-serif"'> and rerun the script. These
+additional settings will cause extra detail to be added to the console output.<o:p></o:p></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;mso-list:l0 level1 lfo6'><![if !supportLists]><span
+style='font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span
+style='mso-list:Ignore'>4)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Arial","sans-serif"'>If
+the problem continues to be elusive, add </span><span style='font-size:12.0pt;
+font-family:"Courier New";mso-fareast-font-family:"Arial Unicode MS"'>–<span
+class=SpellE>debugCLI</span></span><span style='font-family:"Arial","sans-serif"'>
+to interesting CLI.bat commands.<span style='mso-spacerun:yes'>  </span>The </span><span
+style='font-size:12.0pt;font-family:"Courier New";mso-fareast-font-family:"Arial Unicode MS"'>–debugCLI</span><span
+style='font-family:"Arial","sans-serif"'> option is analogous to a breakpoint
+at the end of the CLI.bat command that will leave the Eclipse workbench open
+for further interactive probing.<o:p></o:p></span></p>
+
+<p style='margin-left:0in;text-indent:9.0pt;line-height:15.6pt'><span
+style='font-family:"Arial","sans-serif"'>The combination of these four
+suggestions is often sufficient to isolate and correct CLI problems.<o:p></o:p></span></p>
+
+<p style='margin-left:0in;line-height:15.6pt'><span style='font-family:"Arial","sans-serif";
+mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<h2>A CLI Example for the GPS Watch</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif";
+mso-bidi-font-family:"Times New Roman"'>In this example, the GPS Watch project
+is imported from the workspace at c:/Projects/BridgePoint/temp into the local
+workspace. Once imported, the project is built using the Debug configuration
+and then executed using the GPS_Watch_test debug configuration. To perform this
+sequence, a simple script containing the following CLI commands is sufficient:<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif";
+mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<p style='text-indent:37.5pt;line-height:15.6pt'><span style='font-size:12.0pt;
+font-family:"Courier New";mso-fareast-font-family:"Arial Unicode MS"'>CLI.bat
+Import -<span class=SpellE>deleteExisting</span> -project “C<span class=GramE>:/</span>Projects/BridgePoint/temp/<span
+class=SpellE>GPS_Watch</span>” <o:p></o:p></span></p>
+
+<p style='text-indent:37.5pt;line-height:15.6pt'><span style='font-size:12.0pt;
+font-family:"Courier New";mso-fareast-font-family:"Arial Unicode MS"'>CLI.bat
+Build -project <span class=SpellE>GPS_Watch</span> -<span class=SpellE>buildConfig</span>
+Debug -<span class=SpellE>cleanCLI</span> <o:p></o:p></span></p>
+
+<p style='text-indent:37.5pt;line-height:15.6pt'><span style='font-size:12.0pt;
+font-family:"Courier New";mso-fareast-font-family:"Arial Unicode MS"'>CLI.bat
+Execute -launch “GPS Watch <span class=GramE>With</span> Initializer” <o:p></o:p></span></p>
+
+<p style='margin-left:0in;text-indent:37.5pt;line-height:15.6pt'><span
+style='font-size:12.0pt;font-family:"Courier New";mso-fareast-font-family:"Arial Unicode MS"'><o:p>&nbsp;</o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif";
+mso-bidi-font-family:"Times New Roman"'>If the GPS watch is modified in two
+branches, GPS1 and GPS2, then a merged <span class=SpellE>model.xtuml</span>
+file can be produced from the CLI command <o:p></o:p></span></p>
+
+<p style='text-indent:37.5pt;line-height:15.6pt'><span style='font-size:12.0pt;
+font-family:"Courier New";mso-fareast-font-family:"Arial Unicode MS"'>CLI.bat
+Merge –<span class=SpellE>leftFile</span> c:\workspace\GPS1\model.xtuml ^<o:p></o:p></span></p>
+
+<p style='margin-left:106.5pt;text-indent:37.5pt;line-height:15.6pt'><span
+style='font-size:12.0pt;font-family:"Courier New";mso-fareast-font-family:"Arial Unicode MS"'><span
+style='mso-spacerun:yes'> </span>–<span class=SpellE>rightFile</span>
+c:\workspace\GPS2\model.xtuml ^<o:p></o:p></span></p>
+
+<p style='margin-left:106.5pt;text-indent:37.5pt;line-height:15.6pt'><span
+style='font-size:12.0pt;font-family:"Courier New";mso-fareast-font-family:"Arial Unicode MS"'><span
+style='mso-spacerun:yes'> </span>-<span class=SpellE>ancestorFile</span>
+C:\MentorGraphics\BridgePoint\workspace\GPS_Watch\model.xtuml<o:p></o:p></span></p>
+
+<p style='margin-left:106.5pt;text-indent:37.5pt;line-height:15.6pt'><span
+style='font-size:12.0pt;font-family:"Courier New";mso-fareast-font-family:"Arial Unicode MS"'><span
+style='mso-spacerun:yes'> </span>-output\File
+c:\workspace\GPS_merge\model.xtuml <o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif";
+mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif";
+mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif";
+mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif";
+mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif";
+mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif";
+mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,5 @@
+drawRectangle(0, 0, 684, 512)
+drawText("...d Package-1::referenced", 24, 224, true)
+drawRectangle(546, 55, 83, 65)
+drawRectangle(526, 61, 38, 18)
+drawRectangle(526, 89, 38, 17)

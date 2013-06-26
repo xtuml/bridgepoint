@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="TestBench creation">
+      <intro>
+      <description>
+         Creating test model
+      </description>
+      </intro>
+      
+       <item
+         skip="true"
+         title="Back to 'System' package diagram">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Open Diagram"
+			param2="Simple System" 
+			param3="Package" 
+			param4="System"/>
+      <description>
+         Switch canvas to <b>System</b> package diagram.
+      </description>
+   </item>
+   
+   <item title="Add provided interface to &apos;Device&apos; component" skip="true">
+		<action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Draw Connector"
+			param2="Components" 
+			param3="Provided Interface" 
+			param4="98" 
+			param5="Device" 
+			param6 ="Canvas" 
+			param7="-150" 
+			param8="0" />
+		<description> From the Palette, expand the &apos;Components&apos; section, select  <b>Provided Interface</b> and drag it ouf of the &apos;Device&apos; component to add the interface to the component. 
+		</description>
+	</item>
+	
+	<item
+         skip="true"
+         title="Create new component">
+           <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Draw Element"
+			param2="Components" 
+			param3="Component" />
+      <description>
+         From the Palette, expand the &apos;Components&apos; section, select <b>Component</b> then click on canvas.   Set the name in the pop up dialog to &apos;TestBench&apos;
+      </description>
+   </item>
+   
+   <item title="Connect the components" skip="true">
+		<action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Draw Connector"
+			param2="Components" 
+			param3="Required Interface" 
+			param4="98" 
+			param5="TestBench" 
+			param6 ="94" 
+			param7="Unnamed Interface" />
+		<description> Add a Required Interface to &apos;TestBench&apos;.  Select the end the  &apos;Device&apos; provided interface, and drag the &quot;ball&quot; to the &quot;cup&quot; at the end of  the &apos;TestBench&apos; required interface to establish a connection between the components. 
+		</description>
+	</item>
+   <item
+         skip="true"
+         title="Create new interface">
+          <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Draw Element"
+			param2="Components" 
+			param3="Interface" />
+      <description>
+         From the Palette, expand the &apos;Components&apos; section, select <b>Interface</b> then click on canvas.  Set the name in the pop up dialog to &apos;Verification&apos;
+      </description>
+   </item>
+   
+   <item title="Add new interface operation" skip="true">
+		<action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Add Element"
+			param2="Simple System" 
+			param3="Interface Operation" 
+			param4="Interface" 
+			param5="Verification"/>
+		<description> Select &apos;Verification&apos; interface, right-click on it and select  <b>New &gt; Operation</b>.  Set the name in the pop up dialog to &apos;verify&apos; 
+		</description>
+	</item>
+	
+   
+   <item title="Formalize interface" skip="true">
+		<action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Formalize Port"
+			param2="Unnamed Interface" 
+			param3="93"/>
+		<description> Right-click on the connected interfaces, select <b>Formalize</b>, and pick &apos;Verification&apos; 
+		</description>
+	</item>
+	   
+   <item
+         skip="true"
+         title="Add OAL to the interface operation on &apos;Device&apos; port">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Write OAL"
+			param2="Simple System" 
+			param3="Interface Operation" 
+			param4="verify" 
+			param5="create object instance monitor of MONITOR; &#13;&#10; generate MONITOR1:go to monitor;" 
+			param6="Device" 
+			param7="Port1"/>
+      <description>
+         Open the &apos;verify&apos; interface operation under the &apos;Device&apos; component&apos;s Verification port (Port1). Create an  instance of the &apos;Monitor&apos; class, and send event to it.
+      </description>
+   </item>
+   
+   <item
+         skip="true"
+         title="Open the TestBench component diagram">
+          <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Open Diagram"
+			param2="Simple System" 
+			param3="Component" 
+			param4="TestBench" 
+			/>
+      <description>
+         Double-click on the &apos;TestBench&apos; component to open the component diagram.
+      </description>
+   </item>
+   <item
+         skip="true"
+         title="Create new package">
+            <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Draw Element"
+			param2="Default Toolset" 
+			param3="Package" 
+			/> 
+      <description>
+         Right-click on the canvas, select  <b>New &gt; Package</b>.  Set the name in the pop up dialog to &apos;Testing&apos;
+      </description>
+   </item>
+   <item
+         skip="true"
+         title="Open &apos;Testing&apos; package diagram">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Open Diagram"
+			param2="Simple System" 
+			param3="Package" 
+			param4="Testing" 
+			/>
+      <description>
+         Double-click on the &apos;Testing&apos; package to open the package diagram
+      </description>
+   </item>
+   <item
+         skip="true"
+         title="Create new function">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Add Element"
+			param2="Simple System" 
+			param3="Function" 
+			param4="Package"
+			param5="Testing" 
+			/>
+      <description>
+         Right-click on the canvas, select  <b>New &gt; Function</b>.  Note that functions do not show up on the canvas.  You can find the function in the Model Explorer.  Set the name in the pop up dialog to &apos;test&apos;
+      </description>
+   </item>
+   <item
+         skip="true"
+         title="Add OAL to &apos;test&apos; function">
+          <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Write OAL"
+			param2="Simple System" 
+			param3="Function" 
+			param4="test"
+			param5="send Port1::verify();"
+			param7="Testing"
+			/> 
+      <description>
+         Write action language in &apos;test&apos; to send the &apos;verify&apos; message out the port and through the interface.
+      </description>
+   </item>
+   
+</cheatsheet>

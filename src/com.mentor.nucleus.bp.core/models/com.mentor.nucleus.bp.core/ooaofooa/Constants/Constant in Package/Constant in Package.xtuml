@@ -1,0 +1,143 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("5786560e-25d0-407b-aa4f-12ca3c37d82d",
+	'Constant in Package',
+	1504,
+	'CNST_CIP',
+	'Constant in Package represents the constants contained within a particular package.',
+	"64811fd3-cc5f-4963-9036-8a9110e89dda");
+INSERT INTO O_REF
+	VALUES ("5786560e-25d0-407b-aa4f-12ca3c37d82d",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	0,
+	"da0b3348-02b1-4bc9-911a-0b5af63bf05a",
+	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
+	"12f60f38-d2f4-42c3-bd68-c64d0c678d84",
+	"088a957d-735d-4268-9721-361c69033896",
+	"f6faac4b-c083-4a24-b237-8598d64377ee",
+	"bc8f75aa-b9c6-4c60-aae2-ab3e23c14830",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Data Type Package',
+	'Package_ID',
+	'R1506');
+INSERT INTO R_RGO_PROXY
+	VALUES ("5786560e-25d0-407b-aa4f-12ca3c37d82d",
+	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
+	"12f60f38-d2f4-42c3-bd68-c64d0c678d84",
+	'../Constants.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("da0b3348-02b1-4bc9-911a-0b5af63bf05a",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	0,
+	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
+	"088a957d-735d-4268-9721-361c69033896",
+	'../Constants.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("f6faac4b-c083-4a24-b237-8598d64377ee",
+	"5786560e-25d0-407b-aa4f-12ca3c37d82d",
+	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	1,
+	'Package_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	'../../Element Packaging/Specification Package/Specification Package.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("f6faac4b-c083-4a24-b237-8598d64377ee",
+	"5786560e-25d0-407b-aa4f-12ca3c37d82d",
+	"b394a87d-85c7-49c1-849e-e4e14dde2ec1",
+	'Package_ID',
+	'',
+	'',
+	'Package_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("5786560e-25d0-407b-aa4f-12ca3c37d82d",
+	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
+	0,
+	"c4b177b9-e327-4190-b6cd-46be85d54c74",
+	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
+	"12f60f38-d2f4-42c3-bd68-c64d0c678d84",
+	"d9c5bbf8-f8bb-4ccb-8db5-93e04a5e86d5",
+	"b394a87d-85c7-49c1-849e-e4e14dde2ec1",
+	"efa4f71d-4719-4d5d-ac81-9d8801e373ed",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Constant Specification',
+	'Constant_Spec_ID',
+	'R1506');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("c4b177b9-e327-4190-b6cd-46be85d54c74",
+	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
+	0,
+	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
+	"d9c5bbf8-f8bb-4ccb-8db5-93e04a5e86d5",
+	'../Constants.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b394a87d-85c7-49c1-849e-e4e14dde2ec1",
+	"5786560e-25d0-407b-aa4f-12ca3c37d82d",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("b394a87d-85c7-49c1-849e-e4e14dde2ec1",
+	"5786560e-25d0-407b-aa4f-12ca3c37d82d",
+	"00000000-0000-0000-0000-000000000000",
+	'Constant_Spec_ID',
+	'',
+	'',
+	'Constant_Spec_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"5786560e-25d0-407b-aa4f-12ca3c37d82d");
+INSERT INTO O_OIDA
+	VALUES ("f6faac4b-c083-4a24-b237-8598d64377ee",
+	"5786560e-25d0-407b-aa4f-12ca3c37d82d",
+	0,
+	'Package_ID');
+INSERT INTO O_OIDA
+	VALUES ("b394a87d-85c7-49c1-849e-e4e14dde2ec1",
+	"5786560e-25d0-407b-aa4f-12ca3c37d82d",
+	0,
+	'Constant_Spec_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"5786560e-25d0-407b-aa4f-12ca3c37d82d");
+INSERT INTO O_ID
+	VALUES (2,
+	"5786560e-25d0-407b-aa4f-12ca3c37d82d");
+INSERT INTO S_SS_PROXY
+	VALUES ("64811fd3-cc5f-4963-9036-8a9110e89dda",
+	'Constants',
+	'This subsystem contains the metamodel support for constants.  Individual
+constants are contained inside a constant specification on the datatypes
+diagram.',
+	'CNST',
+	1500,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Constants.xtuml');

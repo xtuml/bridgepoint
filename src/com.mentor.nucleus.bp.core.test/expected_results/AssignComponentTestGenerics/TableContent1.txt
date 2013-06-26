@@ -1,0 +1,3 @@
+compOne	AssignComponentTests::AssignComponentTests
+compThree	AssignComponentTests::AssignComponentTests::pkgTwo
+compTwo	AssignComponentTests::AssignComponentTests

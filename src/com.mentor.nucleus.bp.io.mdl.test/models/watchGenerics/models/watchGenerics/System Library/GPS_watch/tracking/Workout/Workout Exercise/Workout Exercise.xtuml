@@ -1,0 +1,116 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("ec0a2ef3-1192-4684-bce9-c0dd028084a9",
+	'Workout Exercise',
+	201,
+	'WRKEX',
+	'A workout consists of a planned sequence of exercise activities.
+When a workout plan is selected and started, the exercise steps are run in sequence.
+Each step will notify the user of completion and then move on to the next.
+Repeats may be embedded in the sequence.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("41656787-bc7e-4b98-bd4a-5ac9fb18c3fd",
+	"ec0a2ef3-1192-4684-bce9-c0dd028084a9",
+	'init_step',
+	'',
+	"86ca546c-3592-417a-8e87-0b77fd17920e",
+	1,
+	'select one task related by self->SSTEP[R202]->WSTEP[R102];
+if (not_empty task)
+	create object instance endtask of NOTIFY;
+	relate endtask to self across R205;
+	select one criterion related by task->TCRIT[R103];
+	if (empty criterion)
+		create object instance manual of MNOTIFY;
+		relate manual to endtask across R204;
+		select any button from instances of LAPRESET;
+		relate manual to button across R206;
+	else
+		create object instance time of TNOTIFY;  // let''s assume only duration timeouts, for now...
+		relate time to endtask across R204;
+		select one duration related by criterion->CDUR[R105];
+		create event instance timeout of WRKEX2:''next'' to self;
+		time.timerHandle = TIM::timer_start(microseconds: duration.time * 1000000, event_inst:timeout);
+	end if;
+	generate WRKEX1:''execute'' to self;
+end if;
+',
+	1,
+	'',
+	"ab92a83f-41db-406b-9e75-d9ad6e92797c");
+INSERT INTO S_DT_PROXY
+	VALUES ("86ca546c-3592-417a-8e87-0b77fd17920e",
+	"00000000-0000-0000-0000-000000000000",
+	'void',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("ab92a83f-41db-406b-9e75-d9ad6e92797c",
+	"ec0a2ef3-1192-4684-bce9-c0dd028084a9",
+	'finish_step',
+	'',
+	"86ca546c-3592-417a-8e87-0b77fd17920e",
+	1,
+	'select one notifier related by self->NOTIFY[R205];
+if (not_empty notifier)
+	unrelate notifier from self across R205;
+	select one duration related by notifier->TNOTIFY[R204];
+	if (not_empty duration)
+		unrelate duration from notifier across R204;
+		delete object instance duration;
+	else
+		select one manual related by notifier->MNOTIFY[R204];
+		select one button related by manual->LAPRESET[R206];
+		unrelate button from manual across R206;
+		unrelate manual from notifier across R204;
+		delete object instance manual;
+	end if;
+	delete object instance notifier;
+end if;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("d2d9c8a7-acc2-4ea0-9d57-3f67a049f591",
+	"ec0a2ef3-1192-4684-bce9-c0dd028084a9");
+INSERT INTO O_BATTR
+	VALUES ("d2d9c8a7-acc2-4ea0-9d57-3f67a049f591",
+	"ec0a2ef3-1192-4684-bce9-c0dd028084a9");
+INSERT INTO O_ATTR
+	VALUES ("d2d9c8a7-acc2-4ea0-9d57-3f67a049f591",
+	"ec0a2ef3-1192-4684-bce9-c0dd028084a9",
+	"00000000-0000-0000-0000-000000000000",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"ffc69c60-425c-4e7e-9b44-d18757d73ec7",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ffc69c60-425c-4e7e-9b44-d18757d73ec7",
+	"00000000-0000-0000-0000-000000000000",
+	'state<State_Model>',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"ec0a2ef3-1192-4684-bce9-c0dd028084a9");
+INSERT INTO O_ID
+	VALUES (1,
+	"ec0a2ef3-1192-4684-bce9-c0dd028084a9");
+INSERT INTO O_ID
+	VALUES (2,
+	"ec0a2ef3-1192-4684-bce9-c0dd028084a9");
+INSERT INTO PE_PE_PROXY
+	VALUES ("ec0a2ef3-1192-4684-bce9-c0dd028084a9",
+	1,
+	"15c19843-477f-450a-a018-e3dcdb1c2e6a",
+	"00000000-0000-0000-0000-000000000000",
+	4,
+	'../Workout.xtuml');

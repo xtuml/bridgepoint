@@ -1,0 +1,16 @@
+boolean	
+component_ref	
+date	
+EDT	Delete Test::UDTPackage
+inst<Event>	
+inst_ref<IRDT>	Delete Test::UDTPackage
+inst_ref<Timer>	
+inst_ref_set<IRDT>	Delete Test::UDTPackage
+otherUDT	Delete Test::UDTPackage
+real	
+SDT	Delete Test::UDTPackage
+state<State_Model>	
+string	
+timestamp	
+unique_id	
+Unnamed Data Type	Delete Test::UDTPackage

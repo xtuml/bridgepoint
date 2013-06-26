@@ -1,0 +1,2047 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("975ae44c-24f5-4288-b631-ef379118f28a",
+	'track log',
+	2,
+	'TRACK',
+	'',
+	"e2172687-9ac5-4a99-92b4-60f523664afe");
+INSERT INTO O_TFR
+	VALUES ("a248d8ff-8ba7-466b-8d17-08970e9d8035",
+	"975ae44c-24f5-4288-b631-ef379118f28a",
+	'samplePoint',
+	'',
+	"622ff808-9eac-4dd3-a077-9600cd62842e",
+	1,
+	'create object instance newpoint of POINT;
+select one first related by self->POINT[R1];
+if (empty first)
+	relate newpoint to self across R1;
+	relate newpoint to self across R8;
+else
+	select one oldpoint related by self->POINT[R8];
+	unrelate oldpoint from self across R8;
+	relate newpoint to self across R8;
+	relate oldpoint to newpoint across R6.''follows'';
+end if;
+newpoint.getData();
+',
+	1,
+	'',
+	"3c553a99-889c-47cd-8a1d-834d75cffa37");
+INSERT INTO ACT_OPB
+	VALUES ("8cc24f47-8442-4d72-bac6-397846d393d1",
+	"a248d8ff-8ba7-466b-8d17-08970e9d8035");
+INSERT INTO ACT_ACT
+	VALUES ("8cc24f47-8442-4d72-bac6-397846d393d1",
+	'operation',
+	0,
+	"1985a666-5abc-46d3-8400-5c0647548f98",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'track log::samplePoint',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_BLK
+	VALUES ("1985a666-5abc-46d3-8400-5c0647548f98",
+	1,
+	0,
+	0,
+	'',
+	'',
+	'',
+	12,
+	1,
+	2,
+	35,
+	0,
+	0,
+	2,
+	41,
+	0,
+	0,
+	0,
+	0,
+	1,
+	"8cc24f47-8442-4d72-bac6-397846d393d1",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("cb65beca-5c30-49c2-9952-56129b47103d",
+	"1985a666-5abc-46d3-8400-5c0647548f98",
+	"772ed175-a02d-486f-a10c-11c9c168be89",
+	1,
+	1,
+	'track log::samplePoint line: 1');
+INSERT INTO ACT_CR
+	VALUES ("cb65beca-5c30-49c2-9952-56129b47103d",
+	"cdbb1000-0369-4ad8-96ec-1fb3430a7fc3",
+	1,
+	"b0a75fdb-99d0-4c7d-ba3b-d802383d0d43",
+	1,
+	36);
+INSERT INTO O_OBJ_PROXY
+	VALUES ("b0a75fdb-99d0-4c7d-ba3b-d802383d0d43",
+	'trackpoint',
+	3,
+	'POINT',
+	'',
+	"e2172687-9ac5-4a99-92b4-60f523664afe",
+	'../trackpoint/trackpoint.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("772ed175-a02d-486f-a10c-11c9c168be89",
+	"1985a666-5abc-46d3-8400-5c0647548f98",
+	"3a649577-0cf7-4ded-be8f-121e0a24c7b1",
+	2,
+	1,
+	'track log::samplePoint line: 2');
+INSERT INTO ACT_SEL
+	VALUES ("772ed175-a02d-486f-a10c-11c9c168be89",
+	"219638ca-cd66-4009-90cd-04a968c8a7f7",
+	1,
+	'one',
+	"4aecea2e-5553-4e16-889e-c13e9101ff30");
+INSERT INTO ACT_SR
+	VALUES ("772ed175-a02d-486f-a10c-11c9c168be89");
+INSERT INTO ACT_LNK
+	VALUES ("3a91f561-c78b-4627-9123-1ff3133d911f",
+	'',
+	"772ed175-a02d-486f-a10c-11c9c168be89",
+	"79ab7059-02bd-44ac-9102-24e75756d928",
+	"00000000-0000-0000-0000-000000000000",
+	2,
+	"b0a75fdb-99d0-4c7d-ba3b-d802383d0d43",
+	2,
+	35,
+	2,
+	41,
+	0,
+	0);
+INSERT INTO R_REL_PROXY
+	VALUES ("79ab7059-02bd-44ac-9102-24e75756d928",
+	1,
+	'',
+	"e2172687-9ac5-4a99-92b4-60f523664afe",
+	'../Data Aquisition.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("3a649577-0cf7-4ded-be8f-121e0a24c7b1",
+	"1985a666-5abc-46d3-8400-5c0647548f98",
+	"93a41263-ea1f-428c-99d6-4a0ef0b91e49",
+	3,
+	1,
+	'track log::samplePoint line: 3');
+INSERT INTO ACT_IF
+	VALUES ("3a649577-0cf7-4ded-be8f-121e0a24c7b1",
+	"a48cac14-bcec-43cc-a174-baa155536988",
+	"1a20d23f-03d8-4fed-9312-a8959a7c4fc3",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("beebca8d-d536-4a5c-96fa-220e60e8a87d",
+	"1985a666-5abc-46d3-8400-5c0647548f98",
+	"00000000-0000-0000-0000-000000000000",
+	6,
+	1,
+	'track log::samplePoint line: 6');
+INSERT INTO ACT_E
+	VALUES ("beebca8d-d536-4a5c-96fa-220e60e8a87d",
+	"b10f27cc-89e3-4fd7-a6f2-1ebfb0d44d00",
+	"3a649577-0cf7-4ded-be8f-121e0a24c7b1");
+INSERT INTO ACT_SMT
+	VALUES ("93a41263-ea1f-428c-99d6-4a0ef0b91e49",
+	"1985a666-5abc-46d3-8400-5c0647548f98",
+	"00000000-0000-0000-0000-000000000000",
+	12,
+	1,
+	'track log::samplePoint line: 12');
+INSERT INTO ACT_TFM
+	VALUES ("93a41263-ea1f-428c-99d6-4a0ef0b91e49",
+	"9fba43c8-c713-4ff2-9bda-6a7be0121f37",
+	"cdbb1000-0369-4ad8-96ec-1fb3430a7fc3",
+	12,
+	10,
+	0,
+	0);
+INSERT INTO O_TFR_PROXY
+	VALUES ("9fba43c8-c713-4ff2-9bda-6a7be0121f37",
+	"b0a75fdb-99d0-4c7d-ba3b-d802383d0d43",
+	'getData',
+	'',
+	"622ff808-9eac-4dd3-a077-9600cd62842e",
+	1,
+	'select any timer from instances of WTIMR;
+self.sampledTime = timer.seconds;
+
+select any navdata from instances of CLOC;
+self.latitude  = navdata.latitude;
+self.longitude  = navdata.longitude;
+self.elevation  = navdata.altitude;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'../trackpoint/trackpoint.xtuml');
+INSERT INTO V_VAL
+	VALUES ("4aecea2e-5553-4e16-889e-c13e9101ff30",
+	0,
+	0,
+	2,
+	29,
+	32,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"1985a666-5abc-46d3-8400-5c0647548f98");
+INSERT INTO V_IRF
+	VALUES ("4aecea2e-5553-4e16-889e-c13e9101ff30",
+	"61e02307-7e2d-41b5-95fe-a9369e2b0d35");
+INSERT INTO S_DT_PROXY
+	VALUES ("6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Object>',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO V_VAL
+	VALUES ("9b2913d0-2ee7-4309-adea-4f378feed098",
+	0,
+	0,
+	3,
+	11,
+	15,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"1985a666-5abc-46d3-8400-5c0647548f98");
+INSERT INTO V_IRF
+	VALUES ("9b2913d0-2ee7-4309-adea-4f378feed098",
+	"219638ca-cd66-4009-90cd-04a968c8a7f7");
+INSERT INTO V_VAL
+	VALUES ("1a20d23f-03d8-4fed-9312-a8959a7c4fc3",
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	"92636f27-99b0-46e7-9783-ad6bfd702f4b",
+	"1985a666-5abc-46d3-8400-5c0647548f98");
+INSERT INTO V_UNY
+	VALUES ("1a20d23f-03d8-4fed-9312-a8959a7c4fc3",
+	"9b2913d0-2ee7-4309-adea-4f378feed098",
+	'empty');
+INSERT INTO S_DT_PROXY
+	VALUES ("92636f27-99b0-46e7-9783-ad6bfd702f4b",
+	"00000000-0000-0000-0000-000000000000",
+	'boolean',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO V_VAR
+	VALUES ("cdbb1000-0369-4ad8-96ec-1fb3430a7fc3",
+	"1985a666-5abc-46d3-8400-5c0647548f98",
+	'newpoint',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("cdbb1000-0369-4ad8-96ec-1fb3430a7fc3",
+	0,
+	"b0a75fdb-99d0-4c7d-ba3b-d802383d0d43");
+INSERT INTO V_LOC
+	VALUES ("8c2454b9-52cb-4883-875d-634452206c1c",
+	1,
+	24,
+	31,
+	"cdbb1000-0369-4ad8-96ec-1fb3430a7fc3");
+INSERT INTO V_LOC
+	VALUES ("ca191b8a-458b-44cd-9da1-62df39d1bcea",
+	4,
+	9,
+	16,
+	"cdbb1000-0369-4ad8-96ec-1fb3430a7fc3");
+INSERT INTO V_LOC
+	VALUES ("a315d816-302e-4e38-91f2-d5da8e47b838",
+	5,
+	9,
+	16,
+	"cdbb1000-0369-4ad8-96ec-1fb3430a7fc3");
+INSERT INTO V_LOC
+	VALUES ("2a84f665-028f-45af-a83b-7b585290c2d1",
+	9,
+	9,
+	16,
+	"cdbb1000-0369-4ad8-96ec-1fb3430a7fc3");
+INSERT INTO V_LOC
+	VALUES ("2b750f40-0471-43b7-8db6-5a95d5d4f843",
+	10,
+	21,
+	28,
+	"cdbb1000-0369-4ad8-96ec-1fb3430a7fc3");
+INSERT INTO V_LOC
+	VALUES ("2e40bfe2-aa94-4532-8d3e-51c0b8dff14f",
+	12,
+	1,
+	8,
+	"cdbb1000-0369-4ad8-96ec-1fb3430a7fc3");
+INSERT INTO V_VAR
+	VALUES ("219638ca-cd66-4009-90cd-04a968c8a7f7",
+	"1985a666-5abc-46d3-8400-5c0647548f98",
+	'first',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("219638ca-cd66-4009-90cd-04a968c8a7f7",
+	0,
+	"b0a75fdb-99d0-4c7d-ba3b-d802383d0d43");
+INSERT INTO V_LOC
+	VALUES ("60cfa461-4f21-4e9f-8fe9-3f13b28fb0e5",
+	2,
+	12,
+	16,
+	"219638ca-cd66-4009-90cd-04a968c8a7f7");
+INSERT INTO V_VAR
+	VALUES ("61e02307-7e2d-41b5-95fe-a9369e2b0d35",
+	"1985a666-5abc-46d3-8400-5c0647548f98",
+	'self',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("61e02307-7e2d-41b5-95fe-a9369e2b0d35",
+	0,
+	"975ae44c-24f5-4288-b631-ef379118f28a");
+INSERT INTO V_LOC
+	VALUES ("df3e79a5-2c65-4998-8d26-2bd0d2676b75",
+	4,
+	21,
+	24,
+	"61e02307-7e2d-41b5-95fe-a9369e2b0d35");
+INSERT INTO V_LOC
+	VALUES ("1f80fd69-7d1f-4dd9-b37f-696ce82ddead",
+	5,
+	21,
+	24,
+	"61e02307-7e2d-41b5-95fe-a9369e2b0d35");
+INSERT INTO V_LOC
+	VALUES ("037b369e-e897-4943-b63a-f4395c2b9cec",
+	8,
+	25,
+	28,
+	"61e02307-7e2d-41b5-95fe-a9369e2b0d35");
+INSERT INTO V_LOC
+	VALUES ("2f52803e-94d8-4b10-8aab-af1f474e0a58",
+	9,
+	21,
+	24,
+	"61e02307-7e2d-41b5-95fe-a9369e2b0d35");
+INSERT INTO ACT_BLK
+	VALUES ("a48cac14-bcec-43cc-a174-baa155536988",
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	5,
+	2,
+	0,
+	0,
+	0,
+	0,
+	5,
+	33,
+	0,
+	0,
+	0,
+	0,
+	0,
+	"8cc24f47-8442-4d72-bac6-397846d393d1",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("e300de8f-50ae-4480-993c-ab742d0306d2",
+	"a48cac14-bcec-43cc-a174-baa155536988",
+	"6c06db99-ee9e-4df8-9fc9-bc2b3fe2bc12",
+	4,
+	2,
+	'track log::samplePoint line: 4');
+INSERT INTO ACT_REL
+	VALUES ("e300de8f-50ae-4480-993c-ab742d0306d2",
+	"cdbb1000-0369-4ad8-96ec-1fb3430a7fc3",
+	"61e02307-7e2d-41b5-95fe-a9369e2b0d35",
+	'',
+	"79ab7059-02bd-44ac-9102-24e75756d928",
+	4,
+	33,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("6c06db99-ee9e-4df8-9fc9-bc2b3fe2bc12",
+	"a48cac14-bcec-43cc-a174-baa155536988",
+	"00000000-0000-0000-0000-000000000000",
+	5,
+	2,
+	'track log::samplePoint line: 5');
+INSERT INTO ACT_REL
+	VALUES ("6c06db99-ee9e-4df8-9fc9-bc2b3fe2bc12",
+	"cdbb1000-0369-4ad8-96ec-1fb3430a7fc3",
+	"61e02307-7e2d-41b5-95fe-a9369e2b0d35",
+	'',
+	"2f4e67b9-b6f7-415e-acff-977c7a57d919",
+	5,
+	33,
+	0,
+	0);
+INSERT INTO R_REL_PROXY
+	VALUES ("2f4e67b9-b6f7-415e-acff-977c7a57d919",
+	8,
+	'',
+	"e2172687-9ac5-4a99-92b4-60f523664afe",
+	'../Data Aquisition.xtuml');
+INSERT INTO ACT_BLK
+	VALUES ("b10f27cc-89e3-4fd7-a6f2-1ebfb0d44d00",
+	1,
+	0,
+	0,
+	'''follows''',
+	'',
+	'',
+	10,
+	2,
+	7,
+	39,
+	0,
+	0,
+	10,
+	37,
+	10,
+	40,
+	0,
+	0,
+	0,
+	"8cc24f47-8442-4d72-bac6-397846d393d1",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("741e6edb-e5d5-4cb7-a637-f9bc6032ba4a",
+	"b10f27cc-89e3-4fd7-a6f2-1ebfb0d44d00",
+	"19a185ab-56cc-469a-b3db-5ca52b05f2fb",
+	7,
+	2,
+	'track log::samplePoint line: 7');
+INSERT INTO ACT_SEL
+	VALUES ("741e6edb-e5d5-4cb7-a637-f9bc6032ba4a",
+	"e98e8515-e56f-4403-b652-ac197bc77c2c",
+	1,
+	'one',
+	"ae4c3284-eae0-4548-acff-491daa152a73");
+INSERT INTO ACT_SR
+	VALUES ("741e6edb-e5d5-4cb7-a637-f9bc6032ba4a");
+INSERT INTO ACT_LNK
+	VALUES ("3a79651e-6536-48e7-873b-0b1d03ae6192",
+	'',
+	"741e6edb-e5d5-4cb7-a637-f9bc6032ba4a",
+	"2f4e67b9-b6f7-415e-acff-977c7a57d919",
+	"00000000-0000-0000-0000-000000000000",
+	2,
+	"b0a75fdb-99d0-4c7d-ba3b-d802383d0d43",
+	7,
+	39,
+	7,
+	45,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("19a185ab-56cc-469a-b3db-5ca52b05f2fb",
+	"b10f27cc-89e3-4fd7-a6f2-1ebfb0d44d00",
+	"4cc66932-610f-43c5-959a-d63007d77325",
+	8,
+	2,
+	'track log::samplePoint line: 8');
+INSERT INTO ACT_UNR
+	VALUES ("19a185ab-56cc-469a-b3db-5ca52b05f2fb",
+	"e98e8515-e56f-4403-b652-ac197bc77c2c",
+	"61e02307-7e2d-41b5-95fe-a9369e2b0d35",
+	'',
+	"2f4e67b9-b6f7-415e-acff-977c7a57d919",
+	8,
+	37,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("4cc66932-610f-43c5-959a-d63007d77325",
+	"b10f27cc-89e3-4fd7-a6f2-1ebfb0d44d00",
+	"0434750e-cfcc-4c5f-a80b-724b7ff3fd41",
+	9,
+	2,
+	'track log::samplePoint line: 9');
+INSERT INTO ACT_REL
+	VALUES ("4cc66932-610f-43c5-959a-d63007d77325",
+	"cdbb1000-0369-4ad8-96ec-1fb3430a7fc3",
+	"61e02307-7e2d-41b5-95fe-a9369e2b0d35",
+	'',
+	"2f4e67b9-b6f7-415e-acff-977c7a57d919",
+	9,
+	33,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("0434750e-cfcc-4c5f-a80b-724b7ff3fd41",
+	"b10f27cc-89e3-4fd7-a6f2-1ebfb0d44d00",
+	"00000000-0000-0000-0000-000000000000",
+	10,
+	2,
+	'track log::samplePoint line: 10');
+INSERT INTO ACT_REL
+	VALUES ("0434750e-cfcc-4c5f-a80b-724b7ff3fd41",
+	"e98e8515-e56f-4403-b652-ac197bc77c2c",
+	"cdbb1000-0369-4ad8-96ec-1fb3430a7fc3",
+	'''follows''',
+	"49fdbfbb-5242-4518-9798-b8765de84657",
+	10,
+	37,
+	10,
+	40);
+INSERT INTO R_REL_PROXY
+	VALUES ("49fdbfbb-5242-4518-9798-b8765de84657",
+	6,
+	'This association is not yet used.
+It will be needed to traverse the track in reverse for ''get-me-home'' navigation',
+	"e2172687-9ac5-4a99-92b4-60f523664afe",
+	'../Data Aquisition.xtuml');
+INSERT INTO V_VAL
+	VALUES ("ae4c3284-eae0-4548-acff-491daa152a73",
+	0,
+	0,
+	7,
+	33,
+	36,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"b10f27cc-89e3-4fd7-a6f2-1ebfb0d44d00");
+INSERT INTO V_IRF
+	VALUES ("ae4c3284-eae0-4548-acff-491daa152a73",
+	"61e02307-7e2d-41b5-95fe-a9369e2b0d35");
+INSERT INTO V_VAR
+	VALUES ("e98e8515-e56f-4403-b652-ac197bc77c2c",
+	"b10f27cc-89e3-4fd7-a6f2-1ebfb0d44d00",
+	'oldpoint',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("e98e8515-e56f-4403-b652-ac197bc77c2c",
+	0,
+	"b0a75fdb-99d0-4c7d-ba3b-d802383d0d43");
+INSERT INTO V_LOC
+	VALUES ("2541533a-2166-4895-8a6f-5c8925bcb52a",
+	7,
+	13,
+	20,
+	"e98e8515-e56f-4403-b652-ac197bc77c2c");
+INSERT INTO V_LOC
+	VALUES ("7f53287b-dc3f-4531-a55b-fdfada9865ea",
+	8,
+	11,
+	18,
+	"e98e8515-e56f-4403-b652-ac197bc77c2c");
+INSERT INTO V_LOC
+	VALUES ("0343bfb0-6b48-48d5-94a0-fe91894144c0",
+	10,
+	9,
+	16,
+	"e98e8515-e56f-4403-b652-ac197bc77c2c");
+INSERT INTO S_DT_PROXY
+	VALUES ("622ff808-9eac-4dd3-a077-9600cd62842e",
+	"00000000-0000-0000-0000-000000000000",
+	'void',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("3c553a99-889c-47cd-8a1d-834d75cffa37",
+	"975ae44c-24f5-4288-b631-ef379118f28a",
+	'clearHistory',
+	'',
+	"92636f27-99b0-46e7-9783-ad6bfd702f4b",
+	0,
+	'select many traces from instances of TRACK;
+select any timer from instances of WTIMR;
+select one current_track related by timer->TRACK[R2];
+success = FALSE;
+for each trace in traces
+ 	if (trace != current_track)
+		select one point related by trace->POINT[R1];
+		if (not_empty point)
+			unrelate point from trace across R1;
+			while (not_empty point)
+				select one nextpoint related by point->POINT[R6.''follows''];
+				if (not_empty nextpoint)
+					unrelate nextpoint from point across R6.''follows'';
+				else
+					unrelate point from trace across R8;	// must be last point
+				end if;
+				delete object instance point;
+				success = TRUE;
+				point = nextpoint;
+			end while;
+		end if;
+		select many laps related by trace->LAP[R5];
+		for each lap in laps
+			unrelate lap from trace across R5;
+			delete object instance lap;
+		end for;
+		select many rates related by trace->HRATE[R3];
+		for each rate in rates
+			unrelate rate from trace across R3;
+			delete object instance rate;
+		end for;
+		delete object instance trace;
+	end if;
+end for;
+return success;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_OPB
+	VALUES ("e1c24a37-9bf6-4b3a-b78d-4e536fd06653",
+	"3c553a99-889c-47cd-8a1d-834d75cffa37");
+INSERT INTO ACT_ACT
+	VALUES ("e1c24a37-9bf6-4b3a-b78d-4e536fd06653",
+	'class operation',
+	0,
+	"8aae71a3-61f6-4304-afb1-af7b1bee96b3",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'track log::clearHistory',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_BLK
+	VALUES ("8aae71a3-61f6-4304-afb1-af7b1bee96b3",
+	1,
+	0,
+	0,
+	'',
+	'',
+	'',
+	35,
+	1,
+	3,
+	44,
+	0,
+	0,
+	3,
+	50,
+	0,
+	0,
+	0,
+	0,
+	0,
+	"e1c24a37-9bf6-4b3a-b78d-4e536fd06653",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("a6a349a9-7f4d-45ca-9e2c-83f623723fcb",
+	"8aae71a3-61f6-4304-afb1-af7b1bee96b3",
+	"0c500514-030e-4e39-af1e-63237594c58f",
+	1,
+	1,
+	'track log::clearHistory line: 1');
+INSERT INTO ACT_FIO
+	VALUES ("a6a349a9-7f4d-45ca-9e2c-83f623723fcb",
+	"d41af7f7-b8ec-43c1-9cdb-0ff2c5a7e278",
+	1,
+	'many',
+	"975ae44c-24f5-4288-b631-ef379118f28a",
+	1,
+	38);
+INSERT INTO ACT_SMT
+	VALUES ("0c500514-030e-4e39-af1e-63237594c58f",
+	"8aae71a3-61f6-4304-afb1-af7b1bee96b3",
+	"f2e26c46-eb5c-44b9-90fc-abd25bf33f30",
+	2,
+	1,
+	'track log::clearHistory line: 2');
+INSERT INTO ACT_FIO
+	VALUES ("0c500514-030e-4e39-af1e-63237594c58f",
+	"cabcf000-a8b0-48e7-8de5-dcb8d72c26d3",
+	1,
+	'any',
+	"52504240-7f40-470a-8208-b92ed4ae0ee2",
+	2,
+	36);
+INSERT INTO O_OBJ_PROXY
+	VALUES ("52504240-7f40-470a-8208-b92ed4ae0ee2",
+	'workout timer',
+	1,
+	'WTIMR',
+	'',
+	"e2172687-9ac5-4a99-92b4-60f523664afe",
+	'../workout timer/workout timer.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("f2e26c46-eb5c-44b9-90fc-abd25bf33f30",
+	"8aae71a3-61f6-4304-afb1-af7b1bee96b3",
+	"7a1ae45e-df04-4ca7-9026-8c3ceeb5878e",
+	3,
+	1,
+	'track log::clearHistory line: 3');
+INSERT INTO ACT_SEL
+	VALUES ("f2e26c46-eb5c-44b9-90fc-abd25bf33f30",
+	"41ac9112-cb10-4959-8d65-6f6258779721",
+	1,
+	'one',
+	"2b8ffca3-d5a8-4ba8-ab9f-7d5d70b9c6cc");
+INSERT INTO ACT_SR
+	VALUES ("f2e26c46-eb5c-44b9-90fc-abd25bf33f30");
+INSERT INTO ACT_LNK
+	VALUES ("613abcfa-d95e-4423-819e-8b6a3da9f7d3",
+	'',
+	"f2e26c46-eb5c-44b9-90fc-abd25bf33f30",
+	"29067917-f694-422a-8078-27b0f375e5c3",
+	"00000000-0000-0000-0000-000000000000",
+	2,
+	"975ae44c-24f5-4288-b631-ef379118f28a",
+	3,
+	44,
+	3,
+	50,
+	0,
+	0);
+INSERT INTO R_REL_PROXY
+	VALUES ("29067917-f694-422a-8078-27b0f375e5c3",
+	2,
+	'',
+	"e2172687-9ac5-4a99-92b4-60f523664afe",
+	'../Data Aquisition.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("7a1ae45e-df04-4ca7-9026-8c3ceeb5878e",
+	"8aae71a3-61f6-4304-afb1-af7b1bee96b3",
+	"44f49073-721c-48d8-888f-203f5a2d43c5",
+	4,
+	1,
+	'track log::clearHistory line: 4');
+INSERT INTO ACT_AI
+	VALUES ("7a1ae45e-df04-4ca7-9026-8c3ceeb5878e",
+	"c72897ec-6a55-4599-9163-88174c637b60",
+	"4c7014fa-86c4-40e5-a75f-e249560faeff",
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("44f49073-721c-48d8-888f-203f5a2d43c5",
+	"8aae71a3-61f6-4304-afb1-af7b1bee96b3",
+	"6a93bad5-24c6-4bb4-9d78-87405dcd2443",
+	5,
+	1,
+	'track log::clearHistory line: 5');
+INSERT INTO ACT_FOR
+	VALUES ("44f49073-721c-48d8-888f-203f5a2d43c5",
+	"d1d8e8be-bfa1-4577-899c-506546a78d8d",
+	1,
+	"fdc2d654-9a97-4133-b8ee-72085e2e2495",
+	"d41af7f7-b8ec-43c1-9cdb-0ff2c5a7e278",
+	"975ae44c-24f5-4288-b631-ef379118f28a");
+INSERT INTO ACT_SMT
+	VALUES ("6a93bad5-24c6-4bb4-9d78-87405dcd2443",
+	"8aae71a3-61f6-4304-afb1-af7b1bee96b3",
+	"00000000-0000-0000-0000-000000000000",
+	35,
+	1,
+	'track log::clearHistory line: 35');
+INSERT INTO ACT_RET
+	VALUES ("6a93bad5-24c6-4bb4-9d78-87405dcd2443",
+	"0940b3eb-2043-48d7-8c0d-853175ae1005");
+INSERT INTO V_VAL
+	VALUES ("2b8ffca3-d5a8-4ba8-ab9f-7d5d70b9c6cc",
+	0,
+	0,
+	3,
+	37,
+	41,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"8aae71a3-61f6-4304-afb1-af7b1bee96b3");
+INSERT INTO V_IRF
+	VALUES ("2b8ffca3-d5a8-4ba8-ab9f-7d5d70b9c6cc",
+	"cabcf000-a8b0-48e7-8de5-dcb8d72c26d3");
+INSERT INTO V_VAL
+	VALUES ("4c7014fa-86c4-40e5-a75f-e249560faeff",
+	1,
+	1,
+	4,
+	1,
+	7,
+	0,
+	0,
+	0,
+	0,
+	"92636f27-99b0-46e7-9783-ad6bfd702f4b",
+	"8aae71a3-61f6-4304-afb1-af7b1bee96b3");
+INSERT INTO V_TVL
+	VALUES ("4c7014fa-86c4-40e5-a75f-e249560faeff",
+	"8e52182c-2d85-4a4f-908a-2f34ca2b1cbf");
+INSERT INTO V_VAL
+	VALUES ("c72897ec-6a55-4599-9163-88174c637b60",
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	"92636f27-99b0-46e7-9783-ad6bfd702f4b",
+	"8aae71a3-61f6-4304-afb1-af7b1bee96b3");
+INSERT INTO V_LBO
+	VALUES ("c72897ec-6a55-4599-9163-88174c637b60",
+	'FALSE');
+INSERT INTO V_VAL
+	VALUES ("0940b3eb-2043-48d7-8c0d-853175ae1005",
+	0,
+	0,
+	35,
+	8,
+	14,
+	0,
+	0,
+	0,
+	0,
+	"92636f27-99b0-46e7-9783-ad6bfd702f4b",
+	"8aae71a3-61f6-4304-afb1-af7b1bee96b3");
+INSERT INTO V_TVL
+	VALUES ("0940b3eb-2043-48d7-8c0d-853175ae1005",
+	"8e52182c-2d85-4a4f-908a-2f34ca2b1cbf");
+INSERT INTO V_VAR
+	VALUES ("d41af7f7-b8ec-43c1-9cdb-0ff2c5a7e278",
+	"8aae71a3-61f6-4304-afb1-af7b1bee96b3",
+	'traces',
+	1,
+	"bdfd0d44-2cd5-4ef9-8277-fde808cd16a9");
+INSERT INTO V_INS
+	VALUES ("d41af7f7-b8ec-43c1-9cdb-0ff2c5a7e278",
+	"975ae44c-24f5-4288-b631-ef379118f28a");
+INSERT INTO V_LOC
+	VALUES ("aa7223d6-76dd-4be0-8567-f9bcd54ae857",
+	1,
+	13,
+	18,
+	"d41af7f7-b8ec-43c1-9cdb-0ff2c5a7e278");
+INSERT INTO V_LOC
+	VALUES ("34ff2c07-066b-4d9e-973c-3a93b9d53efb",
+	5,
+	19,
+	24,
+	"d41af7f7-b8ec-43c1-9cdb-0ff2c5a7e278");
+INSERT INTO S_DT_PROXY
+	VALUES ("bdfd0d44-2cd5-4ef9-8277-fde808cd16a9",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Object>',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO V_VAR
+	VALUES ("cabcf000-a8b0-48e7-8de5-dcb8d72c26d3",
+	"8aae71a3-61f6-4304-afb1-af7b1bee96b3",
+	'timer',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("cabcf000-a8b0-48e7-8de5-dcb8d72c26d3",
+	0,
+	"52504240-7f40-470a-8208-b92ed4ae0ee2");
+INSERT INTO V_LOC
+	VALUES ("06a3d2fe-cb99-4b85-bc32-2dcb7319e3e5",
+	2,
+	12,
+	16,
+	"cabcf000-a8b0-48e7-8de5-dcb8d72c26d3");
+INSERT INTO V_VAR
+	VALUES ("41ac9112-cb10-4959-8d65-6f6258779721",
+	"8aae71a3-61f6-4304-afb1-af7b1bee96b3",
+	'current_track',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("41ac9112-cb10-4959-8d65-6f6258779721",
+	0,
+	"975ae44c-24f5-4288-b631-ef379118f28a");
+INSERT INTO V_LOC
+	VALUES ("bbe0e70d-d78e-4817-9052-61a540b4a7f6",
+	3,
+	12,
+	24,
+	"41ac9112-cb10-4959-8d65-6f6258779721");
+INSERT INTO V_LOC
+	VALUES ("facd36cc-2f7c-4b07-9f4b-2fb937601d36",
+	6,
+	16,
+	28,
+	"41ac9112-cb10-4959-8d65-6f6258779721");
+INSERT INTO V_VAR
+	VALUES ("8e52182c-2d85-4a4f-908a-2f34ca2b1cbf",
+	"8aae71a3-61f6-4304-afb1-af7b1bee96b3",
+	'success',
+	1,
+	"92636f27-99b0-46e7-9783-ad6bfd702f4b");
+INSERT INTO V_TRN
+	VALUES ("8e52182c-2d85-4a4f-908a-2f34ca2b1cbf",
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO V_LOC
+	VALUES ("08475530-3d0c-4c4c-8cba-7a23a70693ba",
+	4,
+	1,
+	7,
+	"8e52182c-2d85-4a4f-908a-2f34ca2b1cbf");
+INSERT INTO V_LOC
+	VALUES ("b49641fc-4614-4e89-86f7-c827928e7b1c",
+	18,
+	5,
+	11,
+	"8e52182c-2d85-4a4f-908a-2f34ca2b1cbf");
+INSERT INTO V_LOC
+	VALUES ("8af54165-d1fa-4b4d-a75c-423ecee82b76",
+	35,
+	8,
+	14,
+	"8e52182c-2d85-4a4f-908a-2f34ca2b1cbf");
+INSERT INTO V_VAR
+	VALUES ("fdc2d654-9a97-4133-b8ee-72085e2e2495",
+	"8aae71a3-61f6-4304-afb1-af7b1bee96b3",
+	'trace',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("fdc2d654-9a97-4133-b8ee-72085e2e2495",
+	1,
+	"975ae44c-24f5-4288-b631-ef379118f28a");
+INSERT INTO V_LOC
+	VALUES ("29224332-3163-4cd4-948c-951d19f93acd",
+	5,
+	10,
+	14,
+	"fdc2d654-9a97-4133-b8ee-72085e2e2495");
+INSERT INTO V_LOC
+	VALUES ("02728148-b6f1-424d-b835-441906fdec51",
+	6,
+	7,
+	11,
+	"fdc2d654-9a97-4133-b8ee-72085e2e2495");
+INSERT INTO V_LOC
+	VALUES ("099e5165-f7d7-419a-a753-ddfc111d40b6",
+	9,
+	24,
+	28,
+	"fdc2d654-9a97-4133-b8ee-72085e2e2495");
+INSERT INTO V_LOC
+	VALUES ("7228adaa-4490-460c-a3cf-9a4345d481f3",
+	15,
+	26,
+	30,
+	"fdc2d654-9a97-4133-b8ee-72085e2e2495");
+INSERT INTO V_LOC
+	VALUES ("57d32722-1924-4229-9ed1-444fef5b66a2",
+	24,
+	22,
+	26,
+	"fdc2d654-9a97-4133-b8ee-72085e2e2495");
+INSERT INTO V_LOC
+	VALUES ("0970c264-ecb4-4d19-862d-be988b7241b4",
+	29,
+	23,
+	27,
+	"fdc2d654-9a97-4133-b8ee-72085e2e2495");
+INSERT INTO V_LOC
+	VALUES ("cd5fa9c5-52a8-49d8-8593-01b199386c03",
+	32,
+	26,
+	30,
+	"fdc2d654-9a97-4133-b8ee-72085e2e2495");
+INSERT INTO ACT_BLK
+	VALUES ("d1d8e8be-bfa1-4577-899c-506546a78d8d",
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	6,
+	3,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	"e1c24a37-9bf6-4b3a-b78d-4e536fd06653",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("a2fcf56d-c3a5-444d-938d-4185228d0e9b",
+	"d1d8e8be-bfa1-4577-899c-506546a78d8d",
+	"00000000-0000-0000-0000-000000000000",
+	6,
+	3,
+	'track log::clearHistory line: 6');
+INSERT INTO ACT_IF
+	VALUES ("a2fcf56d-c3a5-444d-938d-4185228d0e9b",
+	"cfaf1827-30e2-4107-9bd0-33591851b4b4",
+	"0dbee699-86d6-47a5-a51f-0f5a46f0cef6",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO V_VAL
+	VALUES ("538e206d-a8a0-48d6-93f4-0ce2d32843d5",
+	0,
+	0,
+	6,
+	7,
+	11,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"d1d8e8be-bfa1-4577-899c-506546a78d8d");
+INSERT INTO V_IRF
+	VALUES ("538e206d-a8a0-48d6-93f4-0ce2d32843d5",
+	"fdc2d654-9a97-4133-b8ee-72085e2e2495");
+INSERT INTO V_VAL
+	VALUES ("0dbee699-86d6-47a5-a51f-0f5a46f0cef6",
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	"92636f27-99b0-46e7-9783-ad6bfd702f4b",
+	"d1d8e8be-bfa1-4577-899c-506546a78d8d");
+INSERT INTO V_BIN
+	VALUES ("0dbee699-86d6-47a5-a51f-0f5a46f0cef6",
+	"58343472-321e-4c7e-a782-6b7c56904a8e",
+	"538e206d-a8a0-48d6-93f4-0ce2d32843d5",
+	'!=');
+INSERT INTO V_VAL
+	VALUES ("58343472-321e-4c7e-a782-6b7c56904a8e",
+	0,
+	0,
+	6,
+	16,
+	28,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"d1d8e8be-bfa1-4577-899c-506546a78d8d");
+INSERT INTO V_IRF
+	VALUES ("58343472-321e-4c7e-a782-6b7c56904a8e",
+	"41ac9112-cb10-4959-8d65-6f6258779721");
+INSERT INTO ACT_BLK
+	VALUES ("cfaf1827-30e2-4107-9bd0-33591851b4b4",
+	1,
+	0,
+	0,
+	'',
+	'',
+	'',
+	32,
+	3,
+	27,
+	39,
+	0,
+	0,
+	27,
+	45,
+	0,
+	0,
+	0,
+	0,
+	0,
+	"e1c24a37-9bf6-4b3a-b78d-4e536fd06653",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("b690bbba-4dc4-4c5d-9e34-55ec0462efd4",
+	"cfaf1827-30e2-4107-9bd0-33591851b4b4",
+	"bcd32097-8ef5-4c12-9e47-96bb724c0542",
+	7,
+	3,
+	'track log::clearHistory line: 7');
+INSERT INTO ACT_SEL
+	VALUES ("b690bbba-4dc4-4c5d-9e34-55ec0462efd4",
+	"832f4642-6877-4fa8-b1d7-b13b91502258",
+	1,
+	'one',
+	"1320fe19-f6e2-490a-b5ee-acf7b410cb1e");
+INSERT INTO ACT_SR
+	VALUES ("b690bbba-4dc4-4c5d-9e34-55ec0462efd4");
+INSERT INTO ACT_LNK
+	VALUES ("d2db17c6-4296-4d7f-a71e-de4cbcd3e6f2",
+	'',
+	"b690bbba-4dc4-4c5d-9e34-55ec0462efd4",
+	"79ab7059-02bd-44ac-9102-24e75756d928",
+	"00000000-0000-0000-0000-000000000000",
+	2,
+	"b0a75fdb-99d0-4c7d-ba3b-d802383d0d43",
+	7,
+	38,
+	7,
+	44,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("bcd32097-8ef5-4c12-9e47-96bb724c0542",
+	"cfaf1827-30e2-4107-9bd0-33591851b4b4",
+	"07b4c98e-9bfd-48ae-99a0-dc8485952133",
+	8,
+	3,
+	'track log::clearHistory line: 8');
+INSERT INTO ACT_IF
+	VALUES ("bcd32097-8ef5-4c12-9e47-96bb724c0542",
+	"96458242-84c4-4366-9b2a-3bdf3e239a14",
+	"d01aad69-469e-4660-8e2c-b88edecf5043",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("07b4c98e-9bfd-48ae-99a0-dc8485952133",
+	"cfaf1827-30e2-4107-9bd0-33591851b4b4",
+	"c91c276e-67d4-44d5-8d25-8e15e68e4832",
+	22,
+	3,
+	'track log::clearHistory line: 22');
+INSERT INTO ACT_SEL
+	VALUES ("07b4c98e-9bfd-48ae-99a0-dc8485952133",
+	"7b235fc8-f9d7-4e7d-9fc2-c7f8fc27e0f3",
+	1,
+	'many',
+	"a4a853ac-dd8b-4c47-a261-e0871cb10b10");
+INSERT INTO ACT_SR
+	VALUES ("07b4c98e-9bfd-48ae-99a0-dc8485952133");
+INSERT INTO ACT_LNK
+	VALUES ("4a6ffc37-0a2b-48ac-9801-061bc9a830dd",
+	'',
+	"07b4c98e-9bfd-48ae-99a0-dc8485952133",
+	"4ca24e13-5c87-47a9-9fe2-5dd957467b0d",
+	"00000000-0000-0000-0000-000000000000",
+	3,
+	"1227694b-4fa3-4290-8ec0-e3306dc4e0c4",
+	22,
+	38,
+	22,
+	42,
+	0,
+	0);
+INSERT INTO O_OBJ_PROXY
+	VALUES ("1227694b-4fa3-4290-8ec0-e3306dc4e0c4",
+	'lap',
+	8,
+	'LAP',
+	'',
+	"e2172687-9ac5-4a99-92b4-60f523664afe",
+	'../lap/lap.xtuml');
+INSERT INTO R_REL_PROXY
+	VALUES ("4ca24e13-5c87-47a9-9fe2-5dd957467b0d",
+	5,
+	'',
+	"e2172687-9ac5-4a99-92b4-60f523664afe",
+	'../Data Aquisition.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("c91c276e-67d4-44d5-8d25-8e15e68e4832",
+	"cfaf1827-30e2-4107-9bd0-33591851b4b4",
+	"7a1c5404-10ea-4cea-958d-eca17d2656e6",
+	23,
+	3,
+	'track log::clearHistory line: 23');
+INSERT INTO ACT_FOR
+	VALUES ("c91c276e-67d4-44d5-8d25-8e15e68e4832",
+	"5587a477-79c1-4e48-a314-5b57ec5f95dd",
+	1,
+	"d5f4fd4a-7d85-43d7-986b-b4107c3d419b",
+	"7b235fc8-f9d7-4e7d-9fc2-c7f8fc27e0f3",
+	"1227694b-4fa3-4290-8ec0-e3306dc4e0c4");
+INSERT INTO ACT_SMT
+	VALUES ("7a1c5404-10ea-4cea-958d-eca17d2656e6",
+	"cfaf1827-30e2-4107-9bd0-33591851b4b4",
+	"cfc981b8-7c55-435f-b801-89c37131e609",
+	27,
+	3,
+	'track log::clearHistory line: 27');
+INSERT INTO ACT_SEL
+	VALUES ("7a1c5404-10ea-4cea-958d-eca17d2656e6",
+	"127f0e0a-067e-4244-8184-aba29219f22d",
+	1,
+	'many',
+	"7dae6d5c-4ae0-4a09-bfc2-d2c4928ebeff");
+INSERT INTO ACT_SR
+	VALUES ("7a1c5404-10ea-4cea-958d-eca17d2656e6");
+INSERT INTO ACT_LNK
+	VALUES ("27e3e3f5-5468-4f82-9283-ea0ecaab6c8f",
+	'',
+	"7a1c5404-10ea-4cea-958d-eca17d2656e6",
+	"a3ac00c1-d537-451e-a7d3-611c85c7d6c9",
+	"00000000-0000-0000-0000-000000000000",
+	3,
+	"ce80fd73-cb6f-4bba-8b3d-68c069624ba4",
+	27,
+	39,
+	27,
+	45,
+	0,
+	0);
+INSERT INTO O_OBJ_PROXY
+	VALUES ("ce80fd73-cb6f-4bba-8b3d-68c069624ba4",
+	'heart rate sample',
+	6,
+	'HRATE',
+	'',
+	"e2172687-9ac5-4a99-92b4-60f523664afe",
+	'../heart rate sample/heart rate sample.xtuml');
+INSERT INTO R_REL_PROXY
+	VALUES ("a3ac00c1-d537-451e-a7d3-611c85c7d6c9",
+	3,
+	'',
+	"e2172687-9ac5-4a99-92b4-60f523664afe",
+	'../Data Aquisition.xtuml');
+INSERT INTO ACT_SMT
+	VALUES ("cfc981b8-7c55-435f-b801-89c37131e609",
+	"cfaf1827-30e2-4107-9bd0-33591851b4b4",
+	"348a5222-4e48-444d-84dd-c1eb3fd191ba",
+	28,
+	3,
+	'track log::clearHistory line: 28');
+INSERT INTO ACT_FOR
+	VALUES ("cfc981b8-7c55-435f-b801-89c37131e609",
+	"1fcfc335-6309-49a6-a155-1afee1059b48",
+	1,
+	"032444c4-3d75-4c12-9f18-9bb946550792",
+	"127f0e0a-067e-4244-8184-aba29219f22d",
+	"ce80fd73-cb6f-4bba-8b3d-68c069624ba4");
+INSERT INTO ACT_SMT
+	VALUES ("348a5222-4e48-444d-84dd-c1eb3fd191ba",
+	"cfaf1827-30e2-4107-9bd0-33591851b4b4",
+	"00000000-0000-0000-0000-000000000000",
+	32,
+	3,
+	'track log::clearHistory line: 32');
+INSERT INTO ACT_DEL
+	VALUES ("348a5222-4e48-444d-84dd-c1eb3fd191ba",
+	"fdc2d654-9a97-4133-b8ee-72085e2e2495");
+INSERT INTO V_VAL
+	VALUES ("1320fe19-f6e2-490a-b5ee-acf7b410cb1e",
+	0,
+	0,
+	7,
+	31,
+	35,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"cfaf1827-30e2-4107-9bd0-33591851b4b4");
+INSERT INTO V_IRF
+	VALUES ("1320fe19-f6e2-490a-b5ee-acf7b410cb1e",
+	"fdc2d654-9a97-4133-b8ee-72085e2e2495");
+INSERT INTO V_VAL
+	VALUES ("2855cace-420d-4681-a600-fd3975a49569",
+	0,
+	0,
+	8,
+	17,
+	21,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"cfaf1827-30e2-4107-9bd0-33591851b4b4");
+INSERT INTO V_IRF
+	VALUES ("2855cace-420d-4681-a600-fd3975a49569",
+	"832f4642-6877-4fa8-b1d7-b13b91502258");
+INSERT INTO V_VAL
+	VALUES ("d01aad69-469e-4660-8e2c-b88edecf5043",
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	"92636f27-99b0-46e7-9783-ad6bfd702f4b",
+	"cfaf1827-30e2-4107-9bd0-33591851b4b4");
+INSERT INTO V_UNY
+	VALUES ("d01aad69-469e-4660-8e2c-b88edecf5043",
+	"2855cace-420d-4681-a600-fd3975a49569",
+	'not_empty');
+INSERT INTO V_VAL
+	VALUES ("a4a853ac-dd8b-4c47-a261-e0871cb10b10",
+	0,
+	0,
+	22,
+	31,
+	35,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"cfaf1827-30e2-4107-9bd0-33591851b4b4");
+INSERT INTO V_IRF
+	VALUES ("a4a853ac-dd8b-4c47-a261-e0871cb10b10",
+	"fdc2d654-9a97-4133-b8ee-72085e2e2495");
+INSERT INTO V_VAL
+	VALUES ("7dae6d5c-4ae0-4a09-bfc2-d2c4928ebeff",
+	0,
+	0,
+	27,
+	32,
+	36,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"cfaf1827-30e2-4107-9bd0-33591851b4b4");
+INSERT INTO V_IRF
+	VALUES ("7dae6d5c-4ae0-4a09-bfc2-d2c4928ebeff",
+	"fdc2d654-9a97-4133-b8ee-72085e2e2495");
+INSERT INTO V_VAR
+	VALUES ("832f4642-6877-4fa8-b1d7-b13b91502258",
+	"cfaf1827-30e2-4107-9bd0-33591851b4b4",
+	'point',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("832f4642-6877-4fa8-b1d7-b13b91502258",
+	0,
+	"b0a75fdb-99d0-4c7d-ba3b-d802383d0d43");
+INSERT INTO V_LOC
+	VALUES ("08408c34-26dd-4090-869a-174b8021a217",
+	7,
+	14,
+	18,
+	"832f4642-6877-4fa8-b1d7-b13b91502258");
+INSERT INTO V_LOC
+	VALUES ("0b451adf-6692-460b-a365-6a7fdd87f630",
+	9,
+	13,
+	17,
+	"832f4642-6877-4fa8-b1d7-b13b91502258");
+INSERT INTO V_LOC
+	VALUES ("889cc992-e746-4afb-b60d-975a9d3f2375",
+	13,
+	30,
+	34,
+	"832f4642-6877-4fa8-b1d7-b13b91502258");
+INSERT INTO V_LOC
+	VALUES ("9cdd0098-161b-45eb-b07d-2b28806ae73d",
+	15,
+	15,
+	19,
+	"832f4642-6877-4fa8-b1d7-b13b91502258");
+INSERT INTO V_LOC
+	VALUES ("0de65a19-c650-48a9-b373-bee16f246f2c",
+	17,
+	28,
+	32,
+	"832f4642-6877-4fa8-b1d7-b13b91502258");
+INSERT INTO V_LOC
+	VALUES ("53a6713d-8402-4887-b94b-00f93d1fb917",
+	19,
+	5,
+	9,
+	"832f4642-6877-4fa8-b1d7-b13b91502258");
+INSERT INTO V_VAR
+	VALUES ("7b235fc8-f9d7-4e7d-9fc2-c7f8fc27e0f3",
+	"cfaf1827-30e2-4107-9bd0-33591851b4b4",
+	'laps',
+	1,
+	"bdfd0d44-2cd5-4ef9-8277-fde808cd16a9");
+INSERT INTO V_INS
+	VALUES ("7b235fc8-f9d7-4e7d-9fc2-c7f8fc27e0f3",
+	"1227694b-4fa3-4290-8ec0-e3306dc4e0c4");
+INSERT INTO V_LOC
+	VALUES ("516fddd2-0dac-4c30-ab83-ec6de9690611",
+	22,
+	15,
+	18,
+	"7b235fc8-f9d7-4e7d-9fc2-c7f8fc27e0f3");
+INSERT INTO V_LOC
+	VALUES ("7088a81a-0f12-44da-bcdf-ee8043b40dcd",
+	23,
+	19,
+	22,
+	"7b235fc8-f9d7-4e7d-9fc2-c7f8fc27e0f3");
+INSERT INTO V_VAR
+	VALUES ("d5f4fd4a-7d85-43d7-986b-b4107c3d419b",
+	"cfaf1827-30e2-4107-9bd0-33591851b4b4",
+	'lap',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("d5f4fd4a-7d85-43d7-986b-b4107c3d419b",
+	1,
+	"1227694b-4fa3-4290-8ec0-e3306dc4e0c4");
+INSERT INTO V_LOC
+	VALUES ("28423208-fd02-44ec-aeda-c75b36a28c73",
+	23,
+	12,
+	14,
+	"d5f4fd4a-7d85-43d7-986b-b4107c3d419b");
+INSERT INTO V_LOC
+	VALUES ("95f20c51-df6f-4dc7-b464-d59d367b44d0",
+	24,
+	13,
+	15,
+	"d5f4fd4a-7d85-43d7-986b-b4107c3d419b");
+INSERT INTO V_LOC
+	VALUES ("41aad413-3b70-44af-8c4a-0ff0bb0a89df",
+	25,
+	27,
+	29,
+	"d5f4fd4a-7d85-43d7-986b-b4107c3d419b");
+INSERT INTO V_VAR
+	VALUES ("127f0e0a-067e-4244-8184-aba29219f22d",
+	"cfaf1827-30e2-4107-9bd0-33591851b4b4",
+	'rates',
+	1,
+	"bdfd0d44-2cd5-4ef9-8277-fde808cd16a9");
+INSERT INTO V_INS
+	VALUES ("127f0e0a-067e-4244-8184-aba29219f22d",
+	"ce80fd73-cb6f-4bba-8b3d-68c069624ba4");
+INSERT INTO V_LOC
+	VALUES ("bc2e40bd-9302-4735-a2f8-22d04de20702",
+	27,
+	15,
+	19,
+	"127f0e0a-067e-4244-8184-aba29219f22d");
+INSERT INTO V_LOC
+	VALUES ("d1e89e3a-25f4-4833-af6a-0b12752dc399",
+	28,
+	20,
+	24,
+	"127f0e0a-067e-4244-8184-aba29219f22d");
+INSERT INTO V_VAR
+	VALUES ("032444c4-3d75-4c12-9f18-9bb946550792",
+	"cfaf1827-30e2-4107-9bd0-33591851b4b4",
+	'rate',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("032444c4-3d75-4c12-9f18-9bb946550792",
+	1,
+	"ce80fd73-cb6f-4bba-8b3d-68c069624ba4");
+INSERT INTO V_LOC
+	VALUES ("149c0dac-39d9-4081-8080-582176fd305a",
+	28,
+	12,
+	15,
+	"032444c4-3d75-4c12-9f18-9bb946550792");
+INSERT INTO V_LOC
+	VALUES ("b0813972-265e-4d38-9b0c-ac9ac9ccb5f6",
+	29,
+	13,
+	16,
+	"032444c4-3d75-4c12-9f18-9bb946550792");
+INSERT INTO V_LOC
+	VALUES ("abdad805-8c8a-44e5-8d1e-2d06edea4662",
+	30,
+	27,
+	30,
+	"032444c4-3d75-4c12-9f18-9bb946550792");
+INSERT INTO ACT_BLK
+	VALUES ("96458242-84c4-4366-9b2a-3bdf3e239a14",
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	10,
+	4,
+	0,
+	0,
+	0,
+	0,
+	9,
+	37,
+	0,
+	0,
+	0,
+	0,
+	0,
+	"e1c24a37-9bf6-4b3a-b78d-4e536fd06653",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("ff6dec56-9d57-4202-bf78-e474eb5d3850",
+	"96458242-84c4-4366-9b2a-3bdf3e239a14",
+	"8739ddca-1233-4109-b078-55756732a62b",
+	9,
+	4,
+	'track log::clearHistory line: 9');
+INSERT INTO ACT_UNR
+	VALUES ("ff6dec56-9d57-4202-bf78-e474eb5d3850",
+	"832f4642-6877-4fa8-b1d7-b13b91502258",
+	"fdc2d654-9a97-4133-b8ee-72085e2e2495",
+	'',
+	"79ab7059-02bd-44ac-9102-24e75756d928",
+	9,
+	37,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("8739ddca-1233-4109-b078-55756732a62b",
+	"96458242-84c4-4366-9b2a-3bdf3e239a14",
+	"00000000-0000-0000-0000-000000000000",
+	10,
+	4,
+	'track log::clearHistory line: 10');
+INSERT INTO ACT_WHL
+	VALUES ("8739ddca-1233-4109-b078-55756732a62b",
+	"63fa5b17-d065-4165-8e6e-a4b522d7a949",
+	"7366cd56-ad41-4990-a601-233ec9563721");
+INSERT INTO V_VAL
+	VALUES ("36f30cda-df07-4e1e-947c-a63a2fb5797d",
+	0,
+	0,
+	10,
+	21,
+	25,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"96458242-84c4-4366-9b2a-3bdf3e239a14");
+INSERT INTO V_IRF
+	VALUES ("36f30cda-df07-4e1e-947c-a63a2fb5797d",
+	"832f4642-6877-4fa8-b1d7-b13b91502258");
+INSERT INTO V_VAL
+	VALUES ("63fa5b17-d065-4165-8e6e-a4b522d7a949",
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	"92636f27-99b0-46e7-9783-ad6bfd702f4b",
+	"96458242-84c4-4366-9b2a-3bdf3e239a14");
+INSERT INTO V_UNY
+	VALUES ("63fa5b17-d065-4165-8e6e-a4b522d7a949",
+	"36f30cda-df07-4e1e-947c-a63a2fb5797d",
+	'not_empty');
+INSERT INTO ACT_BLK
+	VALUES ("7366cd56-ad41-4990-a601-233ec9563721",
+	1,
+	0,
+	0,
+	'',
+	'',
+	'',
+	19,
+	5,
+	11,
+	44,
+	0,
+	0,
+	11,
+	50,
+	11,
+	53,
+	0,
+	0,
+	0,
+	"e1c24a37-9bf6-4b3a-b78d-4e536fd06653",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("e6a1e08b-fc70-44ec-84b2-7a3c0babf426",
+	"7366cd56-ad41-4990-a601-233ec9563721",
+	"60919803-7674-4d35-85d8-33683edf9a8e",
+	11,
+	5,
+	'track log::clearHistory line: 11');
+INSERT INTO ACT_SEL
+	VALUES ("e6a1e08b-fc70-44ec-84b2-7a3c0babf426",
+	"2f15e59d-b75b-4bb3-86da-e8db40b414e0",
+	1,
+	'one',
+	"94cfdae9-b476-4acc-9070-08c922d8a0a2");
+INSERT INTO ACT_SR
+	VALUES ("e6a1e08b-fc70-44ec-84b2-7a3c0babf426");
+INSERT INTO ACT_LNK
+	VALUES ("4e3414f1-055e-4708-b00a-7c96e168c9fe",
+	'''follows''',
+	"e6a1e08b-fc70-44ec-84b2-7a3c0babf426",
+	"49fdbfbb-5242-4518-9798-b8765de84657",
+	"00000000-0000-0000-0000-000000000000",
+	2,
+	"b0a75fdb-99d0-4c7d-ba3b-d802383d0d43",
+	11,
+	44,
+	11,
+	50,
+	11,
+	53);
+INSERT INTO ACT_SMT
+	VALUES ("60919803-7674-4d35-85d8-33683edf9a8e",
+	"7366cd56-ad41-4990-a601-233ec9563721",
+	"08782d51-a4fd-49f8-a100-fbf2a1de1866",
+	12,
+	5,
+	'track log::clearHistory line: 12');
+INSERT INTO ACT_IF
+	VALUES ("60919803-7674-4d35-85d8-33683edf9a8e",
+	"e67dcbf1-d492-4769-9549-a58f0988c53b",
+	"abe50130-11d2-41f4-9e6f-6b5dd7ef26d8",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("e56ab756-42bf-4f6a-b2be-7a6873b5004d",
+	"7366cd56-ad41-4990-a601-233ec9563721",
+	"00000000-0000-0000-0000-000000000000",
+	14,
+	5,
+	'track log::clearHistory line: 14');
+INSERT INTO ACT_E
+	VALUES ("e56ab756-42bf-4f6a-b2be-7a6873b5004d",
+	"1cab94ca-9b51-4c9f-8e0f-17131ee5daef",
+	"60919803-7674-4d35-85d8-33683edf9a8e");
+INSERT INTO ACT_SMT
+	VALUES ("08782d51-a4fd-49f8-a100-fbf2a1de1866",
+	"7366cd56-ad41-4990-a601-233ec9563721",
+	"57ce0603-1cb0-4c6c-b196-71fbb4d5208c",
+	17,
+	5,
+	'track log::clearHistory line: 17');
+INSERT INTO ACT_DEL
+	VALUES ("08782d51-a4fd-49f8-a100-fbf2a1de1866",
+	"832f4642-6877-4fa8-b1d7-b13b91502258");
+INSERT INTO ACT_SMT
+	VALUES ("57ce0603-1cb0-4c6c-b196-71fbb4d5208c",
+	"7366cd56-ad41-4990-a601-233ec9563721",
+	"6065916d-1e9a-4862-9311-3566aa062fa3",
+	18,
+	5,
+	'track log::clearHistory line: 18');
+INSERT INTO ACT_AI
+	VALUES ("57ce0603-1cb0-4c6c-b196-71fbb4d5208c",
+	"468c7aeb-69b0-431c-ba35-4dddd95029e2",
+	"96e73b0e-55f4-4be1-8d5e-4ea1e0bcbe90",
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("6065916d-1e9a-4862-9311-3566aa062fa3",
+	"7366cd56-ad41-4990-a601-233ec9563721",
+	"00000000-0000-0000-0000-000000000000",
+	19,
+	5,
+	'track log::clearHistory line: 19');
+INSERT INTO ACT_AI
+	VALUES ("6065916d-1e9a-4862-9311-3566aa062fa3",
+	"379fbf0c-d0ee-4351-90b0-c639bbbedc00",
+	"3f618f4f-b2b8-4aab-a436-5b90f0c78333",
+	0,
+	0);
+INSERT INTO V_VAL
+	VALUES ("94cfdae9-b476-4acc-9070-08c922d8a0a2",
+	0,
+	0,
+	11,
+	37,
+	41,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"7366cd56-ad41-4990-a601-233ec9563721");
+INSERT INTO V_IRF
+	VALUES ("94cfdae9-b476-4acc-9070-08c922d8a0a2",
+	"832f4642-6877-4fa8-b1d7-b13b91502258");
+INSERT INTO V_VAL
+	VALUES ("4117e3ac-776e-4d76-8383-8e166b8a4cdc",
+	0,
+	0,
+	12,
+	19,
+	27,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"7366cd56-ad41-4990-a601-233ec9563721");
+INSERT INTO V_IRF
+	VALUES ("4117e3ac-776e-4d76-8383-8e166b8a4cdc",
+	"2f15e59d-b75b-4bb3-86da-e8db40b414e0");
+INSERT INTO V_VAL
+	VALUES ("abe50130-11d2-41f4-9e6f-6b5dd7ef26d8",
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	"92636f27-99b0-46e7-9783-ad6bfd702f4b",
+	"7366cd56-ad41-4990-a601-233ec9563721");
+INSERT INTO V_UNY
+	VALUES ("abe50130-11d2-41f4-9e6f-6b5dd7ef26d8",
+	"4117e3ac-776e-4d76-8383-8e166b8a4cdc",
+	'not_empty');
+INSERT INTO V_VAL
+	VALUES ("96e73b0e-55f4-4be1-8d5e-4ea1e0bcbe90",
+	1,
+	0,
+	18,
+	5,
+	11,
+	0,
+	0,
+	0,
+	0,
+	"92636f27-99b0-46e7-9783-ad6bfd702f4b",
+	"7366cd56-ad41-4990-a601-233ec9563721");
+INSERT INTO V_TVL
+	VALUES ("96e73b0e-55f4-4be1-8d5e-4ea1e0bcbe90",
+	"8e52182c-2d85-4a4f-908a-2f34ca2b1cbf");
+INSERT INTO V_VAL
+	VALUES ("468c7aeb-69b0-431c-ba35-4dddd95029e2",
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	"92636f27-99b0-46e7-9783-ad6bfd702f4b",
+	"7366cd56-ad41-4990-a601-233ec9563721");
+INSERT INTO V_LBO
+	VALUES ("468c7aeb-69b0-431c-ba35-4dddd95029e2",
+	'TRUE');
+INSERT INTO V_VAL
+	VALUES ("3f618f4f-b2b8-4aab-a436-5b90f0c78333",
+	1,
+	0,
+	19,
+	5,
+	9,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"7366cd56-ad41-4990-a601-233ec9563721");
+INSERT INTO V_IRF
+	VALUES ("3f618f4f-b2b8-4aab-a436-5b90f0c78333",
+	"832f4642-6877-4fa8-b1d7-b13b91502258");
+INSERT INTO V_VAL
+	VALUES ("379fbf0c-d0ee-4351-90b0-c639bbbedc00",
+	0,
+	0,
+	19,
+	13,
+	21,
+	0,
+	0,
+	0,
+	0,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509",
+	"7366cd56-ad41-4990-a601-233ec9563721");
+INSERT INTO V_IRF
+	VALUES ("379fbf0c-d0ee-4351-90b0-c639bbbedc00",
+	"2f15e59d-b75b-4bb3-86da-e8db40b414e0");
+INSERT INTO V_VAR
+	VALUES ("2f15e59d-b75b-4bb3-86da-e8db40b414e0",
+	"7366cd56-ad41-4990-a601-233ec9563721",
+	'nextpoint',
+	1,
+	"6a6a9bca-ae96-40d0-8ccb-c7a59f088509");
+INSERT INTO V_INT
+	VALUES ("2f15e59d-b75b-4bb3-86da-e8db40b414e0",
+	0,
+	"b0a75fdb-99d0-4c7d-ba3b-d802383d0d43");
+INSERT INTO V_LOC
+	VALUES ("5c5676f0-db2e-4dd1-a186-f28ac1238f26",
+	11,
+	16,
+	24,
+	"2f15e59d-b75b-4bb3-86da-e8db40b414e0");
+INSERT INTO V_LOC
+	VALUES ("d17802e7-63fd-48b9-9f8a-7a78285bd919",
+	13,
+	15,
+	23,
+	"2f15e59d-b75b-4bb3-86da-e8db40b414e0");
+INSERT INTO V_LOC
+	VALUES ("516e6a47-fd64-4235-8ca2-5f1505e22388",
+	19,
+	13,
+	21,
+	"2f15e59d-b75b-4bb3-86da-e8db40b414e0");
+INSERT INTO ACT_BLK
+	VALUES ("e67dcbf1-d492-4769-9549-a58f0988c53b",
+	0,
+	0,
+	0,
+	'''follows''',
+	'',
+	'',
+	13,
+	6,
+	0,
+	0,
+	0,
+	0,
+	13,
+	43,
+	13,
+	46,
+	0,
+	0,
+	0,
+	"e1c24a37-9bf6-4b3a-b78d-4e536fd06653",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("fadb32c7-eba9-4ee8-8d6a-6e1406139495",
+	"e67dcbf1-d492-4769-9549-a58f0988c53b",
+	"00000000-0000-0000-0000-000000000000",
+	13,
+	6,
+	'track log::clearHistory line: 13');
+INSERT INTO ACT_UNR
+	VALUES ("fadb32c7-eba9-4ee8-8d6a-6e1406139495",
+	"2f15e59d-b75b-4bb3-86da-e8db40b414e0",
+	"832f4642-6877-4fa8-b1d7-b13b91502258",
+	'''follows''',
+	"49fdbfbb-5242-4518-9798-b8765de84657",
+	13,
+	43,
+	13,
+	46);
+INSERT INTO ACT_BLK
+	VALUES ("1cab94ca-9b51-4c9f-8e0f-17131ee5daef",
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	15,
+	6,
+	0,
+	0,
+	0,
+	0,
+	15,
+	39,
+	0,
+	0,
+	0,
+	0,
+	0,
+	"e1c24a37-9bf6-4b3a-b78d-4e536fd06653",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("54e83c3c-6f5a-4998-a12e-4921d9c4c76d",
+	"1cab94ca-9b51-4c9f-8e0f-17131ee5daef",
+	"00000000-0000-0000-0000-000000000000",
+	15,
+	6,
+	'track log::clearHistory line: 15');
+INSERT INTO ACT_UNR
+	VALUES ("54e83c3c-6f5a-4998-a12e-4921d9c4c76d",
+	"832f4642-6877-4fa8-b1d7-b13b91502258",
+	"fdc2d654-9a97-4133-b8ee-72085e2e2495",
+	'',
+	"2f4e67b9-b6f7-415e-acff-977c7a57d919",
+	15,
+	39,
+	0,
+	0);
+INSERT INTO ACT_BLK
+	VALUES ("5587a477-79c1-4e48-a314-5b57ec5f95dd",
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	25,
+	4,
+	0,
+	0,
+	0,
+	0,
+	24,
+	35,
+	0,
+	0,
+	0,
+	0,
+	0,
+	"e1c24a37-9bf6-4b3a-b78d-4e536fd06653",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("7e89c9b8-082a-4c2e-9fda-b16139c21438",
+	"5587a477-79c1-4e48-a314-5b57ec5f95dd",
+	"6ff2acca-0e68-4edf-82ac-765654b81c32",
+	24,
+	4,
+	'track log::clearHistory line: 24');
+INSERT INTO ACT_UNR
+	VALUES ("7e89c9b8-082a-4c2e-9fda-b16139c21438",
+	"d5f4fd4a-7d85-43d7-986b-b4107c3d419b",
+	"fdc2d654-9a97-4133-b8ee-72085e2e2495",
+	'',
+	"4ca24e13-5c87-47a9-9fe2-5dd957467b0d",
+	24,
+	35,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("6ff2acca-0e68-4edf-82ac-765654b81c32",
+	"5587a477-79c1-4e48-a314-5b57ec5f95dd",
+	"00000000-0000-0000-0000-000000000000",
+	25,
+	4,
+	'track log::clearHistory line: 25');
+INSERT INTO ACT_DEL
+	VALUES ("6ff2acca-0e68-4edf-82ac-765654b81c32",
+	"d5f4fd4a-7d85-43d7-986b-b4107c3d419b");
+INSERT INTO ACT_BLK
+	VALUES ("1fcfc335-6309-49a6-a155-1afee1059b48",
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	30,
+	4,
+	0,
+	0,
+	0,
+	0,
+	29,
+	36,
+	0,
+	0,
+	0,
+	0,
+	0,
+	"e1c24a37-9bf6-4b3a-b78d-4e536fd06653",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO ACT_SMT
+	VALUES ("a8cff1be-d828-492f-a1f5-a5dc36e07adc",
+	"1fcfc335-6309-49a6-a155-1afee1059b48",
+	"62d19e7b-6803-4884-9998-eb00d91f6123",
+	29,
+	4,
+	'track log::clearHistory line: 29');
+INSERT INTO ACT_UNR
+	VALUES ("a8cff1be-d828-492f-a1f5-a5dc36e07adc",
+	"032444c4-3d75-4c12-9f18-9bb946550792",
+	"fdc2d654-9a97-4133-b8ee-72085e2e2495",
+	'',
+	"a3ac00c1-d537-451e-a7d3-611c85c7d6c9",
+	29,
+	36,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES ("62d19e7b-6803-4884-9998-eb00d91f6123",
+	"1fcfc335-6309-49a6-a155-1afee1059b48",
+	"00000000-0000-0000-0000-000000000000",
+	30,
+	4,
+	'track log::clearHistory line: 30');
+INSERT INTO ACT_DEL
+	VALUES ("62d19e7b-6803-4884-9998-eb00d91f6123",
+	"032444c4-3d75-4c12-9f18-9bb946550792");
+INSERT INTO O_NBATTR
+	VALUES ("9464968b-eb86-49ad-812c-1c63dea0d7b4",
+	"975ae44c-24f5-4288-b631-ef379118f28a");
+INSERT INTO O_BATTR
+	VALUES ("9464968b-eb86-49ad-812c-1c63dea0d7b4",
+	"975ae44c-24f5-4288-b631-ef379118f28a");
+INSERT INTO O_ATTR
+	VALUES ("9464968b-eb86-49ad-812c-1c63dea0d7b4",
+	"975ae44c-24f5-4288-b631-ef379118f28a",
+	"c4aa9c20-41ed-4576-a88a-c84c89c770f4",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"e4cb5f9a-f54d-4e4b-90fe-f17cba24afcb",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("e4cb5f9a-f54d-4e4b-90fe-f17cba24afcb",
+	"00000000-0000-0000-0000-000000000000",
+	'state<State_Model>',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("c4aa9c20-41ed-4576-a88a-c84c89c770f4",
+	"975ae44c-24f5-4288-b631-ef379118f28a");
+INSERT INTO O_BATTR
+	VALUES ("c4aa9c20-41ed-4576-a88a-c84c89c770f4",
+	"975ae44c-24f5-4288-b631-ef379118f28a");
+INSERT INTO O_ATTR
+	VALUES ("c4aa9c20-41ed-4576-a88a-c84c89c770f4",
+	"975ae44c-24f5-4288-b631-ef379118f28a",
+	"00000000-0000-0000-0000-000000000000",
+	'name',
+	'',
+	'',
+	'name',
+	0,
+	"7c932901-780a-4a60-875e-d228d60859d0",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("7c932901-780a-4a60-875e-d228d60859d0",
+	"00000000-0000-0000-0000-000000000000",
+	'string',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"975ae44c-24f5-4288-b631-ef379118f28a");
+INSERT INTO O_ID
+	VALUES (1,
+	"975ae44c-24f5-4288-b631-ef379118f28a");
+INSERT INTO O_ID
+	VALUES (2,
+	"975ae44c-24f5-4288-b631-ef379118f28a");
+INSERT INTO S_SS_PROXY
+	VALUES ("e2172687-9ac5-4a99-92b4-60f523664afe",
+	'Data Aquisition',
+	'This subsystem modesl the core tracking function of the watch.
+Both a timer and a track data recorder are be toggled between running and not using start_stop button.
+Multiple recording sessions will accumulate on a track unless the timer is rest.
+Only a stopped timer can be reset.  A track then becomes "archived".
+Laps may be marked.
+Heart rate data may be attached to recorded tracks.',
+	'D',
+	0,
+	"7877e6e0-dd19-4087-b158-647c2788232a",
+	"00000000-0000-0000-0000-000000000000",
+	'../Data Aquisition.xtuml');

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="com.mentor.nucleus.bp.io.mdl"
+   name="BridgePoint Model Plug-in"
+   version="4.0.3"
+   provider-name="Mentor Graphics"
+   class="com.mentor.nucleus.bp.io.mdl.MdlPlugin">
+
+   <runtime>
+      <library name="mdl.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="com.mentor.nucleus.bp.core"/>
+      <import plugin="com.mentor.nucleus.bp.io.core"/>
+      <import plugin="com.mentor.nucleus.bp.ui.canvas"/>
+      <import plugin="com.mentor.nucleus.bp.ui.text"/>
+      <import plugin="com.mentor.nucleus.bp.ui.explorer"/>
+   </requires>
+
+
+   <extension
+         point="org.eclipse.ui.exportWizards">
+      <category
+            id="com.mentor.nucleus.bp.exportWizards.category"
+            name="xtUML">
+      </category>
+      <wizard
+            category="com.mentor.nucleus.bp.exportWizards.category"
+            class="com.mentor.nucleus.bp.io.mdl.wizards.ModelExportWizard"
+            icon="platform:/plugin/com.mentor.nucleus.bp.core/icons/green-bp.gif"
+            id="com.mentor.nucleus.ExportWizard1"
+            name="xtUML Model">
+         <description>
+            Export model data to a xtUML Model file
+         </description>
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.importWizards">
+      <category
+            id="com.mentor.nucleus.bp.importWizards.category"
+            name="xtUML">
+      </category>
+      <wizard
+            category="com.mentor.nucleus.bp.importWizards.category"
+            class="com.mentor.nucleus.bp.io.mdl.wizards.ModelImportWizard"
+            icon="platform:/plugin/com.mentor.nucleus.bp.core/icons/green-bp.gif"
+            id="com.mentor.nucleus.bp.ModelImportWizard"
+            name="xtUML Model">
+         <description>
+            Import model data from a xtUML model file
+         </description>
+      </wizard>
+   </extension>
+
+</plugin>

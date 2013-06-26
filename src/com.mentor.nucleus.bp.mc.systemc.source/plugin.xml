@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="MCNature"
+         name="model compiler nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="com.mentor.nucleus.bp.mc.systemc.source.MCNature">
+         </run>
+      </runtime>
+      <builder
+            id="com.mentor.nucleus.bp.mc.systemc.source.export_builder">
+      </builder>
+   </extension>
+   <extension
+         point="org.eclipse.ui.ide.projectNatureImages">
+      <image
+            icon="platform:/plugin/com.mentor.nucleus.bp.core/icons/xtuml-nature.gif"
+            natureId="com.mentor.nucleus.bp.mc.systemc.source.MCNature"
+            id="com.mentor.nucleus.resoures.natureimage">
+      </image>
+   </extension>
+   <extension
+         id="export_builder"
+         name="Model Compiler Pre-Build"
+         point="org.eclipse.core.resources.builders">
+      <builder>
+        <run class="com.mentor.nucleus.bp.mc.systemc.source.ExportBuilder" />
+      </builder>
+   </extension>
+   <extension
+         point="com.mentor.nucleus.bp.core.model-compilers">
+      <model-compiler
+            name="SystemC Model Compiler (Source)"
+            class="com.mentor.nucleus.bp.mc.systemc.source.MCNewProjectWizard">
+      </model-compiler>
+   </extension>
+
+</plugin>

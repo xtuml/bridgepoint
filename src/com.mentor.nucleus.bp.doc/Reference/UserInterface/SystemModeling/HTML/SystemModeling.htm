@@ -1,0 +1,844 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 11">
+<meta name=Originator content="Microsoft Word 11">
+<link rel=File-List href="SystemModeling_files/filelist.xml">
+<link rel=Edit-Time-Data href="SystemModeling_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>System-Level Modeling with Components</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Mentor</o:Author>
+  <o:LastAuthor>MGC</o:LastAuthor>
+  <o:Revision>44</o:Revision>
+  <o:TotalTime>5648</o:TotalTime>
+  <o:LastPrinted>2007-08-16T17:49:00Z</o:LastPrinted>
+  <o:Created>2007-08-10T19:57:00Z</o:Created>
+  <o:LastSaved>2007-08-23T19:02:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>2160</o:Words>
+  <o:Characters>12318</o:Characters>
+  <o:Company>Mentor Graphics</o:Company>
+  <o:Lines>102</o:Lines>
+  <o:Paragraphs>28</o:Paragraphs>
+  <o:CharactersWithSpaces>14450</o:CharactersWithSpaces>
+  <o:Version>11.8132</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>BestFit</w:Zoom>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:Compatibility>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" LatentStyleCount="156">
+ </w:LatentStyles>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"MS Mincho";
+	panose-1:2 2 6 9 4 2 5 8 3 4;
+	mso-font-alt:"Arial Unicode MS";
+	mso-font-charset:128;
+	mso-generic-font-family:roman;
+	mso-font-format:other;
+	mso-font-pitch:fixed;
+	mso-font-signature:1 134676480 16 0 131072 0;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:\5B8B\4F53;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+@font-face
+	{font-family:Webdings;
+	panose-1:5 3 1 2 1 5 9 6 7 3;
+	mso-font-charset:2;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+@font-face
+	{font-family:"\@SimSun";
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 135135232 16 0 262145 0;}
+@font-face
+	{font-family:"\@MS Mincho";
+	panose-1:0 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:128;
+	mso-generic-font-family:roman;
+	mso-font-format:other;
+	mso-font-pitch:fixed;
+	mso-font-signature:1 134676480 16 0 131072 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+h1
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:1;
+	font-size:18.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;
+	font-weight:normal;}
+h2
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	line-height:15.6pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:12.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	color:navy;
+	font-weight:bold;}
+h3
+	{mso-style-update:auto;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
+	font-size:11.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	color:maroon;
+	font-weight:bold;}
+h4
+	{margin-top:7.5pt;
+	margin-right:7.5pt;
+	margin-bottom:2.4pt;
+	margin-left:7.5pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:4;
+	font-size:11.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	color:#0176B9;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:navy;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#0176B9;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+p.preformatted-tpcode, li.preformatted-tpcode, div.preformatted-tpcode
+	{mso-style-name:preformatted-tp_code;
+	margin-top:15.0pt;
+	margin-right:0in;
+	margin-bottom:15.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	background:silver;
+	border:none;
+	mso-border-alt:solid black .75pt;
+	padding:0in;
+	mso-padding-alt:8.0pt 8.0pt 8.0pt 8.0pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:SimSun;}
+p.normalnotoc, li.normalnotoc, div.normalnotoc
+	{mso-style-name:normalnotoc;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+span.codeChar
+	{mso-style-name:"code Char";
+	mso-style-locked:yes;
+	mso-style-link:code;
+	mso-ansi-font-size:11.0pt;
+	mso-bidi-font-size:11.0pt;
+	font-family:"Courier New";
+	mso-ascii-font-family:"Courier New";
+	mso-fareast-font-family:SimSun;
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Courier New";
+	mso-ansi-language:EN-US;
+	mso-fareast-language:ZH-CN;
+	mso-bidi-language:AR-SA;}
+p.code, li.code, div.code
+	{mso-style-name:code;
+	mso-style-link:"code Char";
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:SimSun;}
+span.tpcodeChar
+	{mso-style-name:"tp_code Char";
+	mso-style-locked:yes;
+	mso-style-link:tp_code;
+	font-family:"Courier New";
+	mso-ascii-font-family:"Courier New";
+	mso-fareast-font-family:SimSun;
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Courier New";
+	mso-ansi-language:EN-US;
+	mso-fareast-language:ZH-CN;
+	mso-bidi-language:AR-SA;}
+p.tpcode, li.tpcode, div.tpcode
+	{mso-style-name:tp_code;
+	mso-style-link:"tp_code Char";
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:SimSun;}
+p.tpinput, li.tpinput, div.tpinput
+	{mso-style-name:tp_input;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;
+	font-weight:bold;}
+p.tpui, li.tpui, div.tpui
+	{mso-style-name:tp_ui;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;
+	color:navy;}
+p.tpvar, li.tpvar, div.tpvar
+	{mso-style-name:tp_var;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;
+	font-style:italic;}
+p.tpfooter, li.tpfooter, div.tpfooter
+	{mso-style-name:tp_footer;
+	margin:7.5pt;
+	text-align:center;
+	mso-pagination:widow-orphan;
+	background:white;
+	font-size:9.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+p.sub, li.sub, div.sub
+	{mso-style-name:sub;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+p.sublstbody, li.sublstbody, div.sublstbody
+	{mso-style-name:sublstbody;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+span.tpfile
+	{mso-style-name:tp_file;
+	color:#990000;
+	letter-spacing:1.2pt;}
+span.tpnote
+	{mso-style-name:tp_note;
+	font-weight:bold;}
+span.tpmenuarrow
+	{mso-style-name:tp_menuarrow;
+	font-family:Webdings;
+	mso-ascii-font-family:Webdings;
+	mso-hansi-font-family:Webdings;
+	color:navy;}
+span.hypertext
+	{mso-style-name:hypertext;}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+</style>
+<![endif]-->
+<script language="JavaScript"  src="../../../org.eclipse.help/livehelp.js">
+</script>
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="31746"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9" style='tab-interval:
+.5in'>
+
+<div class=Section1>
+
+<h1 style='mso-line-height-alt:15.6pt'><a name="_Ref100717464">System-Level
+Modeling with Components</a></h1>
+
+<span style='mso-bookmark:_Ref100717464'></span>
+
+<p class=MsoNormal>Electronic systems grow smaller yet more complex.<span
+style='mso-spacerun:yes'>  </span>Modeling with UML has begun to help us model
+individual modules, or components of larger systems.<span
+style='mso-spacerun:yes'>  </span>Modeling at the top level is only just
+beginning.<span style='mso-spacerun:yes'>  </span>Using components, Executable
+UML defines a means of modeling systems at the highest level in an executable
+and testable manner before low-level detail is available.<span
+style='mso-spacerun:yes'>  </span>Executable system models then serve as
+executable specification input to teams developing the behavior of individual
+system components.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>A component represents any quantity of functionality that
+can be interfaced to other components.<span style='mso-spacerun:yes'>  </span>A
+component can be modeled or already <i style='mso-bidi-font-style:normal'>realized</i>
+(pre-existing).<span style='mso-spacerun:yes'>  </span>A component can be
+viewed as a black box of functionality with a set of published interfaces.<span
+style='mso-spacerun:yes'>  </span>The black box can be accessed or viewed only
+from the outside.<span style='mso-spacerun:yes'>  </span>The view from the
+outside consists only of the interfaces.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>Other components cannot &quot;see&quot; inside the component
+but can only send and receive information to and from it through its
+interfaces.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>Modeled components are <i style='mso-bidi-font-style:normal'>formalized</i>
+to <span class=SpellE>xtUML</span> domain models.<span
+style='mso-spacerun:yes'>  </span>The internal functionality of a modeled
+component consists of <span class=SpellE>xtUML</span> modeling artifacts such
+as class diagrams, state machines, classes, associations, attributes, etc.<span
+style='mso-spacerun:yes'>  </span>Before being formalized to an <span
+class=SpellE>xtUML</span> domain, a component is only the outside of the black
+box and its interfaces.<span style='mso-spacerun:yes'>  </span>Upon
+formalization, the internals of the component can now be defined and edited by
+the user.<span style='mso-spacerun:yes'>  </span>Of course, domains do not have
+to be formalized to a component. <span style='mso-spacerun:yes'> </span>They
+may exist as independent entities in the project.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>Formalizing a component in <span class=SpellE>BridgePoint</span>
+is an operation performed on the component from the modeling user
+interface.<span style='mso-spacerun:yes'>  </span>It also is possible to <span
+class=GramE>un-</span>formalize a component.<span style='mso-spacerun:yes'> 
+</span>This operation will disassociate the component and the underlying <span
+class=SpellE>xtUML</span> modeled domain.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>Realized components represent functionality that has been
+&quot;realized&quot; in some way other than with an internal <span
+class=SpellE>xtUML</span> model.<span style='mso-spacerun:yes'>  </span>Most
+often realized components represent legacy software modules or libraries that
+are to be integrated with modeled components.<span style='mso-spacerun:yes'> 
+</span>Realized components have interfaces just like modeled components have
+interfaces.<span style='mso-spacerun:yes'>  </span>The interfaces define the
+API of the realized functionality.</p>
+
+<h2>Component Packages</h2>
+
+<p class=MsoNormal>Components are collated in UML packages.<span
+style='mso-spacerun:yes'>  </span>Interfaces also are organized in
+packages.<span style='mso-spacerun:yes'>  </span>In fact, all <span
+class=SpellE>BridgePoint</span> <span class=SpellE>xtUML</span> diagrams are
+organized in packages.<span style='mso-spacerun:yes'>  </span>Packages are a
+diagrammatic way to group modeling elements together and manage their
+hierarchy.<span style='mso-spacerun:yes'>  </span>Packages can be nested.<span
+style='mso-spacerun:yes'>  </span>Component packages may contain other
+component packages and/or interface packages.<span style='mso-spacerun:yes'> 
+</span>This allows a level of organizational association between components and
+their interfaces.</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";mso-fareast-font-family:"MS Mincho"'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";mso-fareast-font-family:"MS Mincho"'><!--[if gte vml 1]><v:shapetype
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:581.25pt;
+ height:459.75pt'>
+ <v:imagedata src="SystemModeling_files/image001.png" o:title="nested_component"/>
+</v:shape><![endif]--><![if !vml]><img width=775 height=613
+src="SystemModeling_files/image009.jpg" v:shapes="_x0000_i1025"><![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'>Figure 1<o:p></o:p></b></p>
+
+<h3><span style='mso-fareast-font-family:"MS Mincho"'>Imported Components</span><span
+style='font-size:10.0pt;font-family:"Courier New";mso-fareast-font-family:"MS Mincho"'><span
+style='mso-spacerun:yes'>  </span></span><span style='mso-fareast-font-family:
+"MS Mincho"'><o:p></o:p></span></h3>
+
+<p class=MsoNormal>Components can be imported onto component diagrams.<span
+style='mso-spacerun:yes'>  </span>An imported component is a component that has
+been defined on one component diagram and is being used on another
+diagram.<span style='mso-spacerun:yes'>  </span>Importing a component allows
+the analyst to reuse components.<span style='mso-spacerun:yes'>  </span>Some
+developers may choose to define components in one diagram but show their
+interfacing/wiring on a separate diagram.<span style='mso-spacerun:yes'> 
+</span>This is supported with the importing of components.<span
+style='mso-spacerun:yes'>  </span>A similar concept is used on class diagrams
+to allow users to import classes into one class diagram from other class
+diagrams (subsystems).<span style='mso-spacerun:yes'>  </span>In Figure 1, the <span
+class=codeChar><span style='font-size:11.0pt'>GPS</span></span> component is
+imported from the component package named <span class=codeChar><span
+style='font-size:11.0pt'>GPS Package</span></span>.</p>
+
+<h3><span style='mso-fareast-font-family:"MS Mincho"'>Nested Components<o:p></o:p></span></h3>
+
+<p class=MsoNormal>Components can be nested within other components.<span
+style='mso-spacerun:yes'>  </span>Component nesting provides a hierarchical
+containment of components within components.<span style='mso-spacerun:yes'> 
+</span>Component nesting provides a way to functionally decompose a complex
+system into a collection of simpler parts, components.<span
+style='mso-spacerun:yes'>  </span>The components nested inside of another
+component must have interfaces to satisfy all of the interface requirements of
+the outer component.<span style='mso-spacerun:yes'>  </span>In Figure 1, <span
+class=codeChar><span style='font-size:11.0pt'>Satellite Alpha IF</span></span>
+is an interface package defined inside the component <span class=codeChar><span
+style='font-size:11.0pt'>Satellite Alpha</span></span>.</p>
+
+<h2><span style='mso-fareast-font-family:"MS Mincho"'>Interfaces<o:p></o:p></span></h2>
+
+<p class=MsoNormal>An interface is a declaration of a collection of synchronous
+and asynchronous messages that can be passed between components.<span
+style='mso-spacerun:yes'>  </span>Interfaces are separate from components.<span
+style='mso-spacerun:yes'>  </span>Modeling them separately allows interfaces to
+be defined and managed independently of the components that implement these
+interfaces.<span style='mso-spacerun:yes'>  </span>The separation also allows
+more than one component to implement (require or provide) any particular
+interface.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>Interfaces are declared in interface diagrams.<span
+style='mso-spacerun:yes'>  </span>An interface diagram depicts interfaces in
+the standard UML box format with the messages contained inside the interface. A
+message is the declaration of an individual type of interaction between
+components.<span style='mso-spacerun:yes'>  </span>It provides the signature of
+the interaction including return type and the types of all parameters carried
+in the message.<span style='mso-spacerun:yes'>  </span>Messages can be
+asynchronous or synchronous.<span style='mso-spacerun:yes'> 
+</span>Asynchronous messages are called <i style='mso-bidi-font-style:normal'>signals</i>.<span
+style='mso-spacerun:yes'>  </span>Synchronous messages are called <i
+style='mso-bidi-font-style:normal'>operations</i>.<span
+style='mso-spacerun:yes'>  </span>Often operations on an interface will be
+called <i style='mso-bidi-font-style:normal'>interface operations</i> rather
+than simply operations to distinguish the term from uses elsewhere in UML.<span
+style='mso-spacerun:yes'>  </span>Messages in the interface are grouped
+graphically by &quot;synchronicity&quot;.<span style='mso-spacerun:yes'> 
+</span>Asynchronous signals are in one compartment in the box; synchronous
+interface operations are grouped in a separate compartment.</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";mso-fareast-font-family:"MS Mincho"'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";mso-fareast-font-family:"MS Mincho"'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1026" type="#_x0000_t75" style='width:590.25pt;height:372.75pt'>
+ <v:imagedata src="SystemModeling_files/image001.png" o:title="component_interface"/>
+</v:shape><![endif]--><![if !vml]><img width=787 height=497
+src="SystemModeling_files/image010.png" v:shapes="_x0000_i1026"><![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'>Figure 2<o:p></o:p></b></p>
+
+<h3><span style='mso-fareast-font-family:"MS Mincho"'>Interface Packages</span><span
+style='font-size:10.0pt;font-family:"Courier New";mso-fareast-font-family:"MS Mincho"'><span
+style='mso-spacerun:yes'>   </span></span><span style='mso-fareast-font-family:
+"MS Mincho"'><o:p></o:p></span></h3>
+
+<p class=MsoNormal>Multiple interfaces can be organized into packages.<span
+style='mso-spacerun:yes'>  </span>Packages do not reflect the functionality of
+interfaces but simply provide a way to group them and manage them in
+convenient, logical collections.<span style='mso-spacerun:yes'>  </span>In
+Figure 2, the <span class=SpellE><span class=codeChar><span style='font-size:
+11.0pt'>getIdentity</span></span></span> and <span class=SpellE><span
+class=codeChar><span style='font-size:11.0pt'>getLocation</span></span></span>
+interfaces are part of the <span class=codeChar><span style='font-size:11.0pt'>Satellite
+Communication</span></span> interface package.</p>
+
+<h3><span style='mso-fareast-font-family:"MS Mincho"'>Provided and Required
+Interfaces<o:p></o:p></span></h3>
+
+<p class=MsoNormal>Components can <i style='mso-bidi-font-style:normal'>provide</i>
+interfaces and <i style='mso-bidi-font-style:normal'>require</i>
+interfaces.<span style='mso-spacerun:yes'>  </span>A <i style='mso-bidi-font-style:
+normal'>provided interface</i> is an interface through which the component is
+able to provide services to other components.<span style='mso-spacerun:yes'> 
+</span>It provides the services by passing messages across the provided
+interface to and from the client who requires the interface.<span
+style='mso-spacerun:yes'>  </span>Graphically a provided interface is depicted
+as a &quot;lollipop&quot; (a stick with a ball on it) jutting out from the
+component.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>A <i style='mso-bidi-font-style:normal'>required interface</i>
+is an interface through which a component is able to demand services from
+another component.<span style='mso-spacerun:yes'>  </span>It demands these
+services by passing messages across the required interface to and from the
+server who provides the interface.<span style='mso-spacerun:yes'> 
+</span>Graphically a required interface is depicted as a stick with a
+&quot;cup&quot; on one end.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>Ultimately a required interface is wired to a provided
+interface.<span style='mso-spacerun:yes'>  </span>This connects the components
+across the interface.<span style='mso-spacerun:yes'>  </span>On the component
+diagram, the required interface (cup) and the provided interface (ball) will
+join together and bind. Any number of components can provide and/or supply a
+particular named interface.</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";mso-fareast-font-family:"MS Mincho"'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal>Going back to Figure 1, we see the four pairs of wired
+interfaces.<span style='mso-spacerun:yes'>  </span>For example the <span
+class=codeChar><span style='font-size:11.0pt'>Location Module </span></span>provision
+of the <span class=SpellE><span class=codeChar><span style='font-size:11.0pt'>getLocation</span></span></span>
+interface is wired to the <span class=codeChar><span style='font-size:11.0pt'>Diagnostics</span></span>
+requirement of the same interface.</p>
+
+<h3><span style='mso-fareast-font-family:"MS Mincho"'>Informal Interfaces<o:p></o:p></span></h3>
+
+<p class=MsoNormal>The <span class=SpellE>BridgePoint</span> user interface
+supplies a glyph on the component diagram canvas to add provided interfaces and
+to add required interfaces to components.<span style='mso-spacerun:yes'> 
+</span>When a provided interface or a required interface is first added to a
+component, it is not named and not formalized.<span style='mso-spacerun:yes'> 
+</span>At this point the provided or required interface is not named, is
+informal and contains no messages.<span style='mso-spacerun:yes'>  </span>By
+renaming it, the provided or required interface can be given an informal name.</p>
+
+<h3><span style='mso-fareast-font-family:"MS Mincho"'>Formal Provided and
+Required Interfaces<o:p></o:p></span></h3>
+
+<p class=MsoNormal>Required interfaces and provided interfaces are formalized
+to interfaces declared in interface diagrams.<span style='mso-spacerun:yes'> 
+</span>Formalizing an interface establishes the fact that the selected
+component requires or provides the named interface. This further establishes
+that the exact set of messages declared in the interface (on the interface
+diagram) are required or provided by the selected component.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>Some developers will build component diagrams first.<span
+style='mso-spacerun:yes'>  </span>They may model informal required and provided
+interfaces and wire the components together with them.<span
+style='mso-spacerun:yes'>  </span>Then, they will declare the details of the
+interfaces and formalize the wired interfaces on the component diagrams to the
+newly defined interfaces from their interface diagrams.<span
+style='mso-spacerun:yes'>  </span>Other developers will carefully craft
+interfaces first.<span style='mso-spacerun:yes'>  </span>They will define all
+the messages that can be passed between components.<span
+style='mso-spacerun:yes'>  </span>Then, they will build component diagrams and
+wire them with formalized provided and required interfaces.<span
+style='mso-spacerun:yes'>  </span>Both approaches are supported in <span
+class=SpellE>BridgePoint</span>.</p>
+
+<h3><span style='mso-fareast-font-family:"MS Mincho"'>Ports<o:p></o:p></span></h3>
+
+<p class=MsoNormal>A port specifies a distinct interaction point between a
+component and its outside environment or between the component and its internal
+subordinate components.<span style='mso-spacerun:yes'>  </span>A port has a
+name and is associated with one of the provided or required interfaces of the
+component.<span style='mso-spacerun:yes'>  </span>In Figure 3 below, there are
+five ports.<span style='mso-spacerun:yes'>  </span>Each is represented by a
+square box on the boundary of the component and is associated with an
+interface.<span style='mso-spacerun:yes'>  </span>The port names are not shown
+on the diagram to avoid clutter.</p>
+
+<h3><span style='mso-fareast-font-family:"MS Mincho"'>Delegations<o:p></o:p></span></h3>
+
+<p class=MsoNormal>When components are nested, the internally nested components
+must together provide and require a superset of the interfaces of the parent
+component.<span style='mso-spacerun:yes'>  </span>A delegation denotes the
+mapping of required/provided interfaces of the parent component to the
+required/provided interfaces of the nested components.<span
+style='mso-spacerun:yes'>  </span>The mapping is denoted with an arrow
+connecting the nested interface to the parent component interface.<span
+style='mso-spacerun:yes'>  </span>There are 3 delegations shown in Figure
+3.<span style='mso-spacerun:yes'>  </span>For example, the <span
+class=codeChar><span style='font-size:11.0pt'>Ephemeris</span></span> nested
+component requires the <span class=SpellE><span class=codeChar><span
+style='font-size:11.0pt'>getIdentity</span></span></span> interface that is
+required by the container component <span class=codeChar><span
+style='font-size:11.0pt'>Location Module</span></span>.</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";mso-fareast-font-family:"MS Mincho"'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";mso-fareast-font-family:"MS Mincho"'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1027" type="#_x0000_t75" style='width:587.25pt;height:448.5pt'>
+ <v:imagedata src="SystemModeling_files/image005.png" o:title="portsdelegation2"/>
+</v:shape><![endif]--><![if !vml]><img width=783 height=598
+src="SystemModeling_files/image011.jpg" v:shapes="_x0000_i1027"><![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'>Figure 3<o:p></o:p></b></p>
+
+<h2><span style='mso-fareast-font-family:"MS Mincho"'>Handling Inter-Component
+Messaging<o:p></o:p></span></h2>
+
+<h3><span style='mso-fareast-font-family:"MS Mincho"'>Where to Begin<o:p></o:p></span></h3>
+
+<p class=MsoNormal>This section describes how to map messages in a modeled
+domain.<span style='mso-spacerun:yes'>  </span>Please see the subsection
+“How/Where Realized Domains Fit” below for more information about non-modeled
+domains.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>The first step to handling inter-component messages
+(operations and signals) is to formalize a component to a modeled <span
+class=SpellE>xtUML</span> domain.<span style='mso-spacerun:yes'>  </span>The
+domain provides the concrete implementation that the rest of the world simply
+sees as the component “black box”.<span style='mso-spacerun:yes'>  </span>The
+next step is to formalize a provided interface of this component to the
+appropriate interface.</p>
+
+<h3><span style='mso-fareast-font-family:"MS Mincho"'>Handling Asynchronous
+Messages (Signals)<o:p></o:p></span></h3>
+
+<p class=MsoNormal>Since instance state machines require resolution to an
+instance, which is not possible at the domain boundary, signals may only be
+assigned to class state machines.<span style='mso-spacerun:yes'>  </span>Therefore,
+the next step in handling an interface signal is to which class state machine
+in the model will receive the signal.<span style='mso-spacerun:yes'> 
+</span>Once the proper class state machine is determined, identify a transition
+in the state machine to assign the signal to.<span style='mso-spacerun:yes'>  
+</span>Use the context menu of the transition to launch the <span
+class=codeChar><span style='font-size:11.0pt'>Assign Signal…</span></span>
+wizard (Figure 4).</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal><!--[if gte vml 1]><v:shape id="_x0000_i1028" type="#_x0000_t75"
+ style='width:588.75pt;height:473.25pt'>
+ <v:imagedata src="SystemModeling_files/image007.png" o:title="Assign Signal"/>
+</v:shape><![endif]--><![if !vml]><img width=785 height=631
+src="SystemModeling_files/image007.png" v:shapes="_x0000_i1028"><![endif]></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'>Figure 4</b></p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>A wizard will appear with a dropdown list.<span
+style='mso-spacerun:yes'>  </span>Select from the list of interfaces referred to
+on the formalized model boundary. Once an interface is selected, select from
+the dropdown list that shows the list of currently unassigned signals declared
+on that interface.<span style='mso-spacerun:yes'>  </span>Assignment of the
+same signal to multiple transitions of a single class state machine is
+supported.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>You may use the <span class=SpellE><span class=codeChar><span
+style='font-size:11.0pt'>param</span></span></span> keyword to access the data
+carried as a signal parameter. Where events and signals are mixed on
+transitions into the same state, argument values with the same name must also
+match in terms of the argument type.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>If you make a mistake, or decide the signal is better
+handled by another transition, you can use the context menu <span
+class=codeChar><span style='font-size:11.0pt'>Remove Signal</span></span> menu
+entry to revert the transition to be unassigned.</p>
+
+<h3>Alternative Method - Handling Interface Messages with OAL</h3>
+
+<p class=MsoNormal>The functionality of interface messages can alternatively be
+defined using OAL.<span style='mso-spacerun:yes'>  </span>This works for both
+interface operations and signals.<span style='mso-spacerun:yes'>  </span>In
+this case, simply expand the interface reference under the associated component
+port.<span style='mso-spacerun:yes'>  </span>You will see all the interface’s
+messages listed underneath (Figure 5). Each one can have custom OAL added to
+its activity.<span style='mso-spacerun:yes'>  </span>The OAL here is stored
+with the port and only applies to this port’s usage of the interface.<span
+style='mso-spacerun:yes'>  </span>Note<span class=GramE>,</span> the exact same
+interface messages will have entirely different activity implementations for a
+different port’s provision or requirement of the same interface.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal><!--[if gte vml 1]><v:shape id="_x0000_i1029" type="#_x0000_t75"
+ style='width:588pt;height:440.25pt'>
+ <v:imagedata src="SystemModeling_files/image013.png" o:title="OAL in interface"/>
+</v:shape><![endif]--><![if !vml]><img width=784 height=587
+src="SystemModeling_files/image013.png" v:shapes="_x0000_i1029"><![endif]></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'>Figure 5<o:p></o:p></b></p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>If an interface signal is assigned to a class state machine,
+any OAL that existed in the signal activity will be stored away behind the
+scenes.<span style='mso-spacerun:yes'>  </span>It will not run when the signal
+is used in the state machine.<span style='mso-spacerun:yes'>  </span>It will,
+however, be used again if the user removes the signal from the class state
+machine.</p>
+
+<h2><span style='mso-fareast-font-family:"MS Mincho"'>A Different Way to Model<o:p></o:p></span></h2>
+
+<h3><span style='mso-fareast-font-family:"MS Mincho"'>What happened to domains?
+How/where modeled domains fit.<o:p></o:p></span></h3>
+
+<p class=MsoNormal>The UML component provides the syntax and semantics needed
+to package <span class=SpellE>xtUML</span> domain models into clearly
+interfaced modules.<span style='mso-spacerun:yes'>  </span>The <span
+class=SpellE>xtUML</span> domain model is used to define the internal behavior
+of the component.<span style='mso-spacerun:yes'>  </span>On the component and
+interface diagrams, the external view of a domain can be declared.<span
+style='mso-spacerun:yes'>  </span>By formalizing a component to a domain model,
+the user is establishing that the internal behavior of the component is defined
+by the <span class=SpellE>xtUML</span> artifacts (classes, operations, state
+machines, etc) of the <span class=SpellE>xtUML</span> domain model.</p>
+
+<h3><span style='mso-fareast-font-family:"MS Mincho"'>How/Where Realized
+Domains Fit<o:p></o:p></span></h3>
+
+<p class=MsoNormal>The UML component also provides the syntax and semantics
+needed to package realized (non-modeled) functionality into clearly interfaced
+modules.<span style='mso-spacerun:yes'>  </span>The component works equally
+well for modeled and non-modeled functionality.<span style='mso-spacerun:yes'> 
+</span>Non-modeled components declare the interaction of the non-modeled
+component with the other components in the system.<span
+style='mso-spacerun:yes'>  </span>The internal functionality of the non-modeled
+component is assumed to be provided by legacy code, off-the-shelf libraries or
+some means other than a locally defined <span class=SpellE>xtUML</span> model.</p>
+
+<h3><span style='mso-fareast-font-family:"MS Mincho"'>The Deprecating Role of
+External Entities<o:p></o:p></span></h3>
+
+<p class=MsoNormal><span class=SpellE>BridgePoint</span> external entities (<span
+class=SpellE>EEs</span>) historically have defined the interfacing to
+non-modeled functionality.<span style='mso-spacerun:yes'>  </span>Although
+external entities will continue to work as they do in version 1.4 of <span
+class=SpellE>BridgePoint</span>, their functionality is effectively superceded
+by components and interfaces.</p>
+
+<h3><span style='mso-fareast-font-family:"MS Mincho"'>The Reduced Role of
+Domain Functions<o:p></o:p></span></h3>
+
+<p class=MsoNormal><span class=SpellE>BridgePoint</span> domain functions
+historically have defined the externally supplied synchronous application
+interface to an <span class=SpellE>xtUML</span> modeled domain.<span
+style='mso-spacerun:yes'>  </span>Domain functions also provide a form of
+domain-global processing.<span style='mso-spacerun:yes'>  </span>Because domain
+functions are accessible from inside a domain model as well as outside, they
+can serve as a place to package domain-level processing utilities.<span
+style='mso-spacerun:yes'>  </span>This latter use of domain functions is
+unchanged and completely valid.</p>
+
+<p class=MsoNormal>The former functionality of providing externally visible
+synchronous interfacing is effectively superceded by components and interfaces.</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-spacerun:yes'>  </span><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman"'><o:p></o:p></span></p>
+
+</div>
+
+</body>
+
+</html>

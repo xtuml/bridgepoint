@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="com.mentor.nucleus.bp.verifier.pkg"
+   name="BridgePoint Verifier"
+   version="4.0.3"
+   provider-name="Mentor Graphics"
+   class="com.mentor.nucleus.bp.verfier.pkg.Unreferenced">
+
+   <runtime>
+      <library name="pkg.jar"/>
+   </runtime>
+   <requires>
+   </requires>
+</plugin>

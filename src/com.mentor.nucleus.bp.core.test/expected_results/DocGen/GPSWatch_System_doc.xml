@@ -1,0 +1,2834 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+Notes -
+  xsltproc docgen.xsl doc.xml > doc.html
+-->
+<!DOCTYPE article PUBLIC '-//OASIS//DTD DocBook XML V4.5//EN'
+  JUNIT REPLACED - DTD PATH [
+]>
+<article>
+<title>
+  <trademark class='registered'>BridgePoint</trademark>
+  xtUML Generated Documentation
+</title>
+<articleinfo>
+  <author>
+    <personname>
+      <firstname></firstname><surname></surname>
+    </personname>
+  </author>
+  <publisher>
+  <publishername>company name</publishername>
+  <address>
+  <pob>8005 SW Boeckman Road</pob>
+  <city>Wilsonville</city>, <state>OR</state>
+  <postcode>97070</postcode> <country>USA</country>
+  </address>
+  </publisher>
+</articleinfo>
+<toc></toc>
+<section>
+<title>GPSWatch_System</title>
+<subtitle>Generated Documentation</subtitle>
+<para>Please find below generated documentation for the system named GPSWatch_System.</para>
+<para></para>
+<section>
+<title>System-Level Packages</title>
+<subtitle></subtitle>
+<section>
+<title>Use Cases</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-UseCases-PackageDiagram-figure'>
+<title id='GPSWatch_System-UseCases-PackageDiagram-figure-title'>Use Cases Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Use Cases-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>Use Cases Packages</title>
+<subtitle></subtitle>
+<para>Rendered here are the contained package diagrams.</para>
+<section>
+<title>Record Info</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-UseCases-RecordInfo-PackageDiagram-figure'>
+<title id='GPSWatch_System-UseCases-RecordInfo-PackageDiagram-figure-title'>Record Info Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Use Cases-Record Info-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+</section>
+</section>
+</section>
+<section>
+<title>System</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-System-PackageDiagram-figure'>
+<title id='GPSWatch_System-System-PackageDiagram-figure-title'>System Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-System-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+</section>
+<section>
+<title>Sequences</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-Sequences-PackageDiagram-figure'>
+<title id='GPSWatch_System-Sequences-PackageDiagram-figure-title'>Sequences Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Sequences-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>Sequences Packages</title>
+<subtitle></subtitle>
+<para>Rendered here are the contained package diagrams.</para>
+<section>
+<title>Stopwatch</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-Sequences-Stopwatch-PackageDiagram-figure'>
+<title id='GPSWatch_System-Sequences-Stopwatch-PackageDiagram-figure-title'>Stopwatch Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Sequences-Stopwatch-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+</section>
+<section>
+<title>Start Stop Reset Formalized</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-Sequences-StartStopResetFormalized-PackageDiagram-figure'>
+<title id='GPSWatch_System-Sequences-StartStopResetFormalized-PackageDiagram-figure-title'>Start Stop Reset Formalized Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Sequences-Start Stop Reset Formalized-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+</section>
+<section>
+<title>Backlight</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-Sequences-Backlight-PackageDiagram-figure'>
+<title id='GPSWatch_System-Sequences-Backlight-PackageDiagram-figure-title'>Backlight Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Sequences-Backlight-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+</section>
+</section>
+</section>
+<section>
+<title>Analysis</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-Analysis-PackageDiagram-figure'>
+<title id='GPSWatch_System-Analysis-PackageDiagram-figure-title'>Analysis Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Analysis-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>Analysis Packages</title>
+<subtitle></subtitle>
+<para>Rendered here are the contained package diagrams.</para>
+<section>
+<title>Start Stop Reset</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-Analysis-StartStopReset-PackageDiagram-figure'>
+<title id='GPSWatch_System-Analysis-StartStopReset-PackageDiagram-figure-title'>Start Stop Reset Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Analysis-Start Stop Reset-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+</section>
+</section>
+</section>
+<section>
+<title>Activities</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_System-Activities-PackageDiagram-figure'>
+<title id='GPSWatch_System-Activities-PackageDiagram-figure-title'>Activities Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Activities-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>Activities Packages</title>
+<subtitle></subtitle>
+<para>Rendered here are the contained package diagrams.</para>
+<section>
+<title>Exercise</title>
+<subtitle>Package</subtitle>
+<para>This activity expands on the generic use case: Perform exercise routine.<figure id='GPSWatch_System-Activities-Exercise-PackageDiagram-figure'>
+<title id='GPSWatch_System-Activities-Exercise-PackageDiagram-figure-title'>Exercise Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_System-Activities-Exercise-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+</section>
+</section>
+</section>
+</section>
+</section>
+<section>
+<title>GPSWatch_LibraryUI</title>
+<subtitle>Generated Documentation</subtitle>
+<para>Please find below generated documentation for the system named GPSWatch_LibraryUI.</para>
+<para></para>
+<section>
+<title>System-Level Packages</title>
+<subtitle></subtitle>
+<section>
+<title>UIInterfaces</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_LibraryUI-UIInterfaces-PackageDiagram-figure'>
+<title id='GPSWatch_LibraryUI-UIInterfaces-PackageDiagram-figure-title'>UIInterfaces Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryUI-UIInterfaces-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>UI</title>
+<subtitle>Interface</subtitle>
+<para></para>
+<para><table frame='all'>
+<title>UI Messages</title>
+<tgroup cols='4' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Message.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Direction</para>
+</entry>
+<entry>
+<para>Description</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/SendSignal.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>setTargetPressed</para>
+</entry>
+<entry>
+<para>Server to Client (Provider to Requirer)</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/SendSignal.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>modePressed</para>
+</entry>
+<entry>
+<para>Server to Client (Provider to Requirer)</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/SendSignal.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>lightPressed</para>
+</entry>
+<entry>
+<para>Server to Client (Provider to Requirer)</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/SendSignal.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>startStopPressed</para>
+</entry>
+<entry>
+<para>Server to Client (Provider to Requirer)</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/SendSignal.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>lapResetPressed</para>
+</entry>
+<entry>
+<para>Server to Client (Provider to Requirer)</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Operation.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>setData</para>
+</entry>
+<entry>
+<para>Client to Server (Requirer to Provider)</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Operation.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>setTime</para>
+</entry>
+<entry>
+<para>Client to Server (Requirer to Provider)</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</section>
+</section>
+<section>
+<title>UIDataTypes</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_LibraryUI-UIDataTypes-PackageDiagram-figure'>
+<title id='GPSWatch_LibraryUI-UIDataTypes-PackageDiagram-figure-title'>UIDataTypes Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryUI-UIDataTypes-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+</section>
+<section>
+<title>Shared EEs</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_LibraryUI-SharedEEs-PackageDiagram-figure'>
+<title id='GPSWatch_LibraryUI-SharedEEs-PackageDiagram-figure-title'>Shared EEs Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryUI-Shared EEs-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>Shared EEs External Entities</title>
+<subtitle>External Entity Package</subtitle>
+<para><table frame='all'>
+<title>Shared EEs</title>
+<tgroup cols='4' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/ExternalEntity.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Description</para>
+</entry>
+<entry>
+<para>Bridges</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/ExternalEntity.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Time</para>
+</entry>
+<entry>
+<para>The Time external entity provides date, timestamp, and timer related operations.</para>
+</entry>
+<entry>
+<para>timer_cancel, timer_add_time, timer_reset_time, timer_remaining_time, timer_start_recurring, timer_start, current_clock, get_year, get_month, get_day, get_hour, get_minute, get_second, create_date, current_date</para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/ExternalEntity.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Logging</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+<entry>
+<para>LogInteger, LogReal, LogTime, LogDate, LogInfo, LogFailure, LogSuccess</para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/ExternalEntity.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Architecture</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+<entry>
+<para>shutdown</para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<section>
+<title>External Entity Activities</title>
+<subtitle></subtitle>
+<section>
+<title>Time Activities</title>
+<subtitle></subtitle>
+<section>
+<title>timer_cancel</title>
+<subtitle></subtitle>
+<para>This bridge operation cancels and deletes the passed timer instance. If the 
+timer exists (that is, it had not expired), a TRUE value is returned. If the
+timer no longer exists, a FALSE value is returned.</para>
+<para><programlisting>
+</programlisting></para>
+</section>
+<section>
+<title>timer_add_time</title>
+<subtitle></subtitle>
+<para>This bridge operation attempts to add the specified number of microseconds to a
+passed existing timer. If the timer exists (that is, it has not expired), a TRUE
+value is returned. If the timer no longer exists, a FALSE value is returned.</para>
+<para><programlisting>
+</programlisting></para>
+</section>
+<section>
+<title>timer_reset_time</title>
+<subtitle></subtitle>
+<para>This bridge operation attempts to set the passed existing timer to expire in
+the specified number of microseconds. If the timer exists (that is, it has not
+expired), a TRUE value is returned. If the timer no longer exists, a FALSE value
+is returned.</para>
+<para><programlisting>
+</programlisting></para>
+</section>
+<section>
+<title>timer_remaining_time</title>
+<subtitle></subtitle>
+<para>Returns the time remaining (in microseconds) for the passed timer instance. If
+the timer has expired, a zero value is returned.</para>
+<para><programlisting>
+</programlisting></para>
+</section>
+<section>
+<title>timer_start_recurring</title>
+<subtitle></subtitle>
+<para>This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Upon expiration, the
+timer will be restarted and fire again in the specified number of microseconds
+generating the passed event. This bridge operation returns the instance handle
+of the timer.</para>
+<para><programlisting>
+</programlisting></para>
+</section>
+<section>
+<title>timer_start</title>
+<subtitle></subtitle>
+<para>This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Returns the instance
+handle of the timer.</para>
+<para><programlisting>
+</programlisting></para>
+</section>
+</section>
+<section>
+<title>Logging Activities</title>
+<subtitle></subtitle>
+</section>
+<section>
+<title>Architecture Activities</title>
+<subtitle></subtitle>
+<section>
+<title>shutdown</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>control stop;
+</programlisting></para>
+</section>
+</section>
+</section>
+</section>
+</section>
+<section>
+<title>Library</title>
+<subtitle>Package</subtitle>
+<para>// ########## START OAL_1 ##########
+// always initialize data
+self.currentLocation.longitude = 0.0;
+self.currentLocation.latitude  = 0.0;
+self.currentLocation.speed     = 0.0;
+self.interval                  = 2000000;
+
+LOG::LogInfo(message: &quot;Location listener registered.&quot;);
+
+ // start timer based on requested interval
+create event instance timeout of GPS3:timeout() to self;
+self.timer = TIM::timer_start_recurring(event_inst: timeout, microseconds: self.interval);
+// ########### END OAL_1 ###########
+
+
+
+//<figure id='GPSWatch_LibraryUI-Library-PackageDiagram-figure'>
+<title id='GPSWatch_LibraryUI-Library-PackageDiagram-figure-title'>Library Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryUI-Library-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>UI</title>
+<subtitle>Component</subtitle>
+<para>Simulates the user interface and has the ability to connect an external GUI.
+
+It is using the BridgePoint Java API to connect to the GUI in Verifier mode.
+There are also handwritten C code that implments parts of this component to 
+allow generated code to connect to the exact same GUI.<figure id='GPSWatch_LibraryUI-Library-UI-ComponentDiagram-figure'>
+<title id='GPSWatch_LibraryUI-Library-UI-ComponentDiagram-figure-title'>UI Component Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryUI-Library-UI-Component Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<para><table frame='all'>
+<title>UI Ports</title>
+<tgroup cols='5' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Port.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Interface</para>
+</entry>
+<entry>
+<para>Type</para>
+</entry>
+<entry>
+<para>Multiplicity</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Provision.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>UI</para>
+</entry>
+<entry>
+<para>UI</para>
+</entry>
+<entry>
+<para>provision</para>
+</entry>
+<entry>
+<para>0</para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<section>
+<title>Interface Activities</title>
+<subtitle></subtitle>
+<section>
+<title>Port: UI, Interface: UI</title>
+<subtitle></subtitle>
+<section>
+<title>setData</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryUI &gt; Library (Package) &gt; UI (Component) &gt; 
+//   UI (Port) &gt; setData (operation)
+if (param.unit == Unit::km)
+  GuiBridge::setData(value: param.value, unit: 0);
+elif (param.unit == Unit::meters)
+  GuiBridge::setData(value: param.value, unit: 1);
+elif (param.unit == Unit::minPerKm)
+  GuiBridge::setData(value: param.value, unit: 2);
+elif (param.unit == Unit::kmPerHour)
+  GuiBridge::setData(value: param.value, unit: 3);
+elif (param.unit == Unit::miles)
+  GuiBridge::setData(value: param.value, unit: 4);
+elif (param.unit == Unit::yards)
+  GuiBridge::setData(value: param.value, unit: 5);
+elif (param.unit == Unit::feet)
+  GuiBridge::setData(value: param.value, unit: 6);
+elif (param.unit == Unit::minPerMile)
+  GuiBridge::setData(value: param.value, unit: 7);
+elif (param.unit == Unit::mph)
+  GuiBridge::setData(value: param.value, unit: 8);
+elif (param.unit == Unit::bpm)
+  GuiBridge::setData(value: param.value, unit: 9);
+elif (param.unit == Unit::laps)
+  GuiBridge::setData(value: param.value, unit: 10);
+end if;
+
+
+</programlisting></para>
+</section>
+<section>
+<title>setTime</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryUI &gt; Library (Package) &gt; UI (Component) &gt; 
+//   UI (Port) &gt; setTime (operation)
+GuiBridge::setTime(time: param.time);
+</programlisting></para>
+</section>
+<section>
+<title>setTargetPressed</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryUI &gt; Library (Package) &gt; UI (Component) &gt; 
+//   UI (Port) &gt; setTargetPressed (signal)
+
+</programlisting></para>
+</section>
+<section>
+<title>modePressed</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryUI &gt; Library (Package) &gt; UI (Component) &gt; 
+//   UI (Port) &gt; modePressed (signal)
+
+</programlisting></para>
+</section>
+<section>
+<title>lightPressed</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryUI &gt; Library (Package) &gt; UI (Component) &gt; 
+//   UI (Port) &gt; lightPressed (signal)
+
+</programlisting></para>
+</section>
+<section>
+<title>startStopPressed</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryUI &gt; Library (Package) &gt; UI (Component) &gt; 
+//   UI (Port) &gt; startStopPressed (signal)
+
+</programlisting></para>
+</section>
+<section>
+<title>lapResetPressed</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryUI &gt; Library (Package) &gt; UI (Component) &gt; 
+//   UI (Port) &gt; lapResetPressed (signal)
+
+</programlisting></para>
+</section>
+</section>
+</section>
+<section>
+<title>UI Packages</title>
+<subtitle></subtitle>
+<para>Rendered here are the contained package diagrams.</para>
+<section>
+<title>UI</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_LibraryUI-Library-UI-UI-PackageDiagram-figure'>
+<title id='GPSWatch_LibraryUI-Library-UI-UI-PackageDiagram-figure-title'>UI Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryUI-Library-UI-UI-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<para><table frame='all'>
+<title>UI</title>
+<tgroup cols='3' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Class.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Description</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Class.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>UI</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Class.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>TestCase</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<para><figure id='GPSWatch_LibraryUI-Library-UI-UI-UI-ClassStateMachine-figure'>
+<title id='GPSWatch_LibraryUI-Library-UI-UI-UI-ClassStateMachine-figure-title'>UI UI Class State Machine</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryUI-Library-UI-UI-UI-Class State Machine.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<para><figure id='GPSWatch_LibraryUI-Library-UI-UI-TestCase-InstanceStateMachine-figure'>
+<title id='GPSWatch_LibraryUI-Library-UI-UI-TestCase-InstanceStateMachine-figure-title'>UI TestCase Instance State Machine</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryUI-Library-UI-UI-TestCase-Instance State Machine.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>UI Classes</title>
+<subtitle>Class Package</subtitle>
+<section>
+<title>Class Activities</title>
+<subtitle></subtitle>
+<para>Here are listings of all of the activies in the class and its state machine(s).</para>
+<section>
+<title>Class State Machine Actions</title>
+<subtitle></subtitle>
+<section>
+<title>UI State Transition: </title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>create event instance evt of UI_A7:modePressed() to UI class;
+GuiBridge::feedModePressedEvent(evt: evt);
+GuiBridge::sendModePressed();
+</programlisting></para>
+</section>
+<section>
+<title>UI State Transition: </title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>create event instance evt of UI_A6:lightPressed() to UI class;
+GuiBridge::feedLightPressedEvent(evt: evt);
+GuiBridge::sendLightPressed();
+</programlisting></para>
+</section>
+<section>
+<title>UI State Transition: </title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>create event instance evt of UI_A5:lapResetPressed() to UI class;
+GuiBridge::feedLapResetPressedEvent(evt: evt);
+GuiBridge::sendLapResetPressed();
+</programlisting></para>
+</section>
+<section>
+<title>UI State Transition: </title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>create event instance evt of UI_A4:startStopPressed() to UI class;
+GuiBridge::feedStartStopPressedEvent(evt: evt);
+GuiBridge::sendStartStopPressed();
+</programlisting></para>
+</section>
+<section>
+<title>UI State Transition: </title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>create event instance evt of UI_A3:setTargetPressed() to UI class;
+GuiBridge::feedSetTargetPressedEvent(evt: evt);
+GuiBridge::sendTargetPressed();
+</programlisting></para>
+</section>
+</section>
+<section>
+<title>Class Operations</title>
+<subtitle></subtitle>
+<section>
+<title>UI:UI:  connect</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>GuiBridge::connect();
+
+create event instance evt of UI_A3:setTargetPressed() to UI class;
+GuiBridge::feedSetTargetPressedEvent(evt: evt);
+
+create event instance evt of UI_A4:startStopPressed() to UI class;
+GuiBridge::feedStartStopPressedEvent(evt: evt);
+
+create event instance evt of UI_A5:lapResetPressed() to UI class;
+GuiBridge::feedLapResetPressedEvent(evt: evt);
+
+create event instance evt of UI_A6:lightPressed() to UI class;
+GuiBridge::feedLightPressedEvent(evt: evt);
+
+create event instance evt of UI_A7:modePressed() to UI class;
+GuiBridge::feedModePressedEvent(evt: evt);
+</programlisting></para>
+</section>
+</section>
+</section>
+<section>
+<title>Class Activities</title>
+<subtitle></subtitle>
+<para>Here are listings of all of the activies in the class and its state machine(s).</para>
+<section>
+<title>Instance State Machine Actions</title>
+<subtitle></subtitle>
+<section>
+<title>TestCase State Transition: </title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>LOG::LogInfo(message: &quot;Start of test case&quot;); 
+self.iterations = rcvd_evt.iterations * 2;
+</programlisting></para>
+</section>
+<section>
+<title>TestCase State[3]:testCaseFinished</title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>LOG::LogInfo(message: &quot;End of test case&quot;); 
+</programlisting></para>
+</section>
+<section>
+<title>TestCase State[2]:pressStartStop</title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>if (self.iterations &gt; 0)
+  self.iterations = self.iterations - 1;
+  create event instance evt of TestCase1 to self;
+  handle = TIM::timer_start(event_inst: evt, microseconds: 4000000);
+  send UI::startStopPressed();
+else
+  generate TestCase3:finish to self;
+  send UI::lapResetPressed();
+end if;
+</programlisting></para>
+</section>
+</section>
+<section>
+<title>Class Operations</title>
+<subtitle></subtitle>
+<section>
+<title>UI:TestCase:  execute</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>generate TestCase2:start(iterations: 2) to TestCase creator;
+</programlisting></para>
+</section>
+</section>
+</section>
+</section>
+</section>
+<section>
+<title>TestCases</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_LibraryUI-Library-UI-TestCases-PackageDiagram-figure'>
+<title id='GPSWatch_LibraryUI-Library-UI-TestCases-PackageDiagram-figure-title'>TestCases Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryUI-Library-UI-TestCases-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>TestCases Functions</title>
+<subtitle>Function Package</subtitle>
+<para><table frame='all'>
+<title>TestCases</title>
+<tgroup cols='3' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Function.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Description</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Function.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>init()</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Function.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>RunTestCase()</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<section>
+<title>Domain Function Activities</title>
+<subtitle></subtitle>
+<section>
+<title>init</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>GuiBridge::connect();
+</programlisting></para>
+</section>
+<section>
+<title>RunTestCase</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>TestCase::execute();
+</programlisting></para>
+</section>
+</section>
+</section>
+</section>
+<section>
+<title>External Entities</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_LibraryUI-Library-UI-ExternalEntities-PackageDiagram-figure'>
+<title id='GPSWatch_LibraryUI-Library-UI-ExternalEntities-PackageDiagram-figure-title'>External Entities Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryUI-Library-UI-External Entities-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>External Entities External Entities</title>
+<subtitle>External Entity Package</subtitle>
+<para><table frame='all'>
+<title>External Entities</title>
+<tgroup cols='4' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/ExternalEntity.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Description</para>
+</entry>
+<entry>
+<para>Bridges</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/ExternalEntity.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Graphical User Interface</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+<entry>
+<para>sendTargetPressed, sendStartStopPressed, sendLapResetPressed, sendLightPressed, sendModePressed, connect, setTime, setData, feedStartStopPressedEvent, feedLapResetPressedEvent, feedLightPressedEvent, feedModePressedEvent, feedSetTargetPressedEvent</para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<section>
+<title>External Entity Activities</title>
+<subtitle></subtitle>
+<section>
+<title>Graphical User Interface Activities</title>
+<subtitle></subtitle>
+<section>
+<title>sendTargetPressed</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>send UI::setTargetPressed();
+</programlisting></para>
+</section>
+<section>
+<title>sendStartStopPressed</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>send UI::startStopPressed();
+</programlisting></para>
+</section>
+<section>
+<title>sendLapResetPressed</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>send UI::lapResetPressed();
+</programlisting></para>
+</section>
+<section>
+<title>sendLightPressed</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>send UI::lightPressed();
+</programlisting></para>
+</section>
+<section>
+<title>sendModePressed</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>send UI::modePressed();
+</programlisting></para>
+</section>
+</section>
+</section>
+</section>
+</section>
+</section>
+</section>
+</section>
+</section>
+</section>
+<section>
+<title>GPSWatch_LibraryHW</title>
+<subtitle>Generated Documentation</subtitle>
+<para>Please find below generated documentation for the system named GPSWatch_LibraryHW.</para>
+<para></para>
+<section>
+<title>System-Level Packages</title>
+<subtitle></subtitle>
+<section>
+<title>Shared EEs</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_LibraryHW-SharedEEs-PackageDiagram-figure'>
+<title id='GPSWatch_LibraryHW-SharedEEs-PackageDiagram-figure-title'>Shared EEs Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryHW-Shared EEs-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>Shared EEs External Entities</title>
+<subtitle>External Entity Package</subtitle>
+<para><table frame='all'>
+<title>Shared EEs</title>
+<tgroup cols='4' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/ExternalEntity.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Description</para>
+</entry>
+<entry>
+<para>Bridges</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/ExternalEntity.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Time</para>
+</entry>
+<entry>
+<para>The Time external entity provides date, timestamp, and timer related operations.</para>
+</entry>
+<entry>
+<para>timer_cancel, timer_add_time, timer_reset_time, timer_remaining_time, timer_start_recurring, timer_start, current_clock, get_year, get_month, get_day, get_hour, get_minute, get_second, create_date, current_date</para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/ExternalEntity.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Logging</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+<entry>
+<para>LogInteger, LogReal, LogTime, LogDate, LogInfo, LogFailure, LogSuccess</para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/ExternalEntity.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Architecture</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+<entry>
+<para>shutdown</para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<section>
+<title>External Entity Activities</title>
+<subtitle></subtitle>
+<section>
+<title>Time Activities</title>
+<subtitle></subtitle>
+<section>
+<title>timer_cancel</title>
+<subtitle></subtitle>
+<para>This bridge operation cancels and deletes the passed timer instance. If the 
+timer exists (that is, it had not expired), a TRUE value is returned. If the
+timer no longer exists, a FALSE value is returned.</para>
+<para><programlisting>
+</programlisting></para>
+</section>
+<section>
+<title>timer_add_time</title>
+<subtitle></subtitle>
+<para>This bridge operation attempts to add the specified number of microseconds to a
+passed existing timer. If the timer exists (that is, it has not expired), a TRUE
+value is returned. If the timer no longer exists, a FALSE value is returned.</para>
+<para><programlisting>
+</programlisting></para>
+</section>
+<section>
+<title>timer_reset_time</title>
+<subtitle></subtitle>
+<para>This bridge operation attempts to set the passed existing timer to expire in
+the specified number of microseconds. If the timer exists (that is, it has not
+expired), a TRUE value is returned. If the timer no longer exists, a FALSE value
+is returned.</para>
+<para><programlisting>
+</programlisting></para>
+</section>
+<section>
+<title>timer_remaining_time</title>
+<subtitle></subtitle>
+<para>Returns the time remaining (in microseconds) for the passed timer instance. If
+the timer has expired, a zero value is returned.</para>
+<para><programlisting>
+</programlisting></para>
+</section>
+<section>
+<title>timer_start_recurring</title>
+<subtitle></subtitle>
+<para>This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Upon expiration, the
+timer will be restarted and fire again in the specified number of microseconds
+generating the passed event. This bridge operation returns the instance handle
+of the timer.</para>
+<para><programlisting>
+</programlisting></para>
+</section>
+<section>
+<title>timer_start</title>
+<subtitle></subtitle>
+<para>This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Returns the instance
+handle of the timer.</para>
+<para><programlisting>
+</programlisting></para>
+</section>
+</section>
+<section>
+<title>Logging Activities</title>
+<subtitle></subtitle>
+</section>
+<section>
+<title>Architecture Activities</title>
+<subtitle></subtitle>
+<section>
+<title>shutdown</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>control stop;
+</programlisting></para>
+</section>
+</section>
+</section>
+</section>
+</section>
+<section>
+<title>LocationInterfaces</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_LibraryHW-LocationInterfaces-PackageDiagram-figure'>
+<title id='GPSWatch_LibraryHW-LocationInterfaces-PackageDiagram-figure-title'>LocationInterfaces Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryHW-LocationInterfaces-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>LocationUtil</title>
+<subtitle>Interface</subtitle>
+<para></para>
+<para><table frame='all'>
+<title>LocationUtil Messages</title>
+<tgroup cols='4' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Message.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Direction</para>
+</entry>
+<entry>
+<para>Description</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Operation.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>getDistance</para>
+</entry>
+<entry>
+<para>Client to Server (Requirer to Provider)</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</section>
+<section>
+<title>LocationProvider</title>
+<subtitle>Interface</subtitle>
+<para></para>
+<para><table frame='all'>
+<title>LocationProvider Messages</title>
+<tgroup cols='4' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Message.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Direction</para>
+</entry>
+<entry>
+<para>Description</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/SendSignal.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>unregisterListener</para>
+</entry>
+<entry>
+<para>Client to Server (Requirer to Provider)</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/SendSignal.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>registerListener</para>
+</entry>
+<entry>
+<para>Client to Server (Requirer to Provider)</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/SendSignal.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>locationUpdate</para>
+</entry>
+<entry>
+<para>Server to Client (Provider to Requirer)</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</section>
+</section>
+<section>
+<title>LocationDataTypes</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_LibraryHW-LocationDataTypes-PackageDiagram-figure'>
+<title id='GPSWatch_LibraryHW-LocationDataTypes-PackageDiagram-figure-title'>LocationDataTypes Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryHW-LocationDataTypes-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+</section>
+<section>
+<title>Library</title>
+<subtitle>Package</subtitle>
+<para>// ########## START OAL_1 ##########
+// always initialize data
+self.currentLocation.longitude = 0.0;
+self.currentLocation.latitude  = 0.0;
+self.currentLocation.speed     = 0.0;
+self.interval                  = 2000000;
+
+LOG::LogInfo(message: &quot;Location listener registered.&quot;);
+
+ // start timer based on requested interval
+create event instance timeout of GPS3:timeout() to self;
+self.timer = TIM::timer_start_recurring(event_inst: timeout, microseconds: self.interval);
+// ########### END OAL_1 ###########
+
+
+
+//<figure id='GPSWatch_LibraryHW-Library-PackageDiagram-figure'>
+<title id='GPSWatch_LibraryHW-Library-PackageDiagram-figure-title'>Library Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryHW-Library-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>Tracking</title>
+<subtitle>Component</subtitle>
+<para>The Tracking component encapsulates the entire application software. This is the 
+only component in the system from which code will be generated for the final 
+product.<figure id='GPSWatch_LibraryHW-Library-Tracking-ComponentDiagram-figure'>
+<title id='GPSWatch_LibraryHW-Library-Tracking-ComponentDiagram-figure-title'>Tracking Component Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryHW-Library-Tracking-Component Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<para><table frame='all'>
+<title>Tracking Ports</title>
+<tgroup cols='5' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Port.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Interface</para>
+</entry>
+<entry>
+<para>Type</para>
+</entry>
+<entry>
+<para>Multiplicity</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Requirement.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>UTIL</para>
+</entry>
+<entry>
+<para>LocationUtil</para>
+</entry>
+<entry>
+<para>requirement</para>
+</entry>
+<entry>
+<para>0</para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Requirement.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>HR</para>
+</entry>
+<entry>
+<para>HeartRateProvider</para>
+</entry>
+<entry>
+<para>requirement</para>
+</entry>
+<entry>
+<para>0</para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Requirement.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>UI</para>
+</entry>
+<entry>
+<para>UI</para>
+</entry>
+<entry>
+<para>requirement</para>
+</entry>
+<entry>
+<para>0</para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Requirement.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>LOC</para>
+</entry>
+<entry>
+<para>LocationProvider</para>
+</entry>
+<entry>
+<para>requirement</para>
+</entry>
+<entry>
+<para>0</para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<section>
+<title>Interface Activities</title>
+<subtitle></subtitle>
+<section>
+<title>Port: UTIL, Interface: LocationUtil</title>
+<subtitle></subtitle>
+<section>
+<title>getDistance</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   UTIL (Port) &gt; getDistance (signal)
+return 1;
+</programlisting></para>
+</section>
+</section>
+<section>
+<title>Port: HR, Interface: HeartRateProvider</title>
+<subtitle></subtitle>
+<section>
+<title>unregisterListener</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   HR (Port) &gt; unregisterListener (signal)
+
+</programlisting></para>
+</section>
+<section>
+<title>registerListener</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   HR (Port) &gt; registerListener (signal)
+
+</programlisting></para>
+</section>
+<section>
+<title>heartRateChanged</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   HR (Port) &gt; heartRateChanged (signal)
+select any trackLog from instances of TrackLog;
+if (not empty trackLog)
+  trackLog.addHeartRateSample(heartRate: param.heartRate);
+end if;
+</programlisting></para>
+</section>
+</section>
+<section>
+<title>Port: UI, Interface: UI</title>
+<subtitle></subtitle>
+<section>
+<title>setData</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   UI (Port) &gt; setData (operation)
+
+</programlisting></para>
+</section>
+<section>
+<title>setTime</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   UI (Port) &gt; setTime (operation)
+
+</programlisting></para>
+</section>
+<section>
+<title>setTargetPressed</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   UI (Port) &gt; setTargetPressed (signal)
+
+</programlisting></para>
+</section>
+<section>
+<title>modePressed</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   UI (Port) &gt; modePressed (signal)
+
+</programlisting></para>
+</section>
+<section>
+<title>lightPressed</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   UI (Port) &gt; lightPressed (signal)
+
+</programlisting></para>
+</section>
+<section>
+<title>startStopPressed</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   UI (Port) &gt; startStopPressed (signal)
+
+</programlisting></para>
+</section>
+<section>
+<title>lapResetPressed</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   UI (Port) &gt; lapResetPressed (signal)
+
+</programlisting></para>
+</section>
+</section>
+<section>
+<title>Port: LOC, Interface: LocationProvider</title>
+<subtitle></subtitle>
+<section>
+<title>unregisterListener</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   LOC (Port) &gt; unregisterListener (signal)
+
+</programlisting></para>
+</section>
+<section>
+<title>registerListener</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   LOC (Port) &gt; registerListener (signal)
+
+</programlisting></para>
+</section>
+<section>
+<title>locationUpdate</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   LOC (Port) &gt; locationUpdate (signal)
+// print the new location to the console
+LOG::LogInfo(message: &quot;location updated: &quot;);
+LOG::LogReal(message: &quot;longitude&quot;, r: param.location.longitude);
+LOG::LogReal(message: &quot;latitude&quot;,  r: param.location.latitude );
+LOG::LogReal(message: &quot;speed&quot;,     r: param.location.speed    );
+
+select any trackLog from instances of TrackLog;
+if (not empty trackLog)
+  trackLog.addTrackPoint(location: param.location);
+end if;
+</programlisting></para>
+</section>
+</section>
+</section>
+<section>
+<title>Tracking Packages</title>
+<subtitle></subtitle>
+<para>Rendered here are the contained package diagrams.</para>
+<section>
+<title>Tracking</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_LibraryHW-Library-Tracking-Tracking-PackageDiagram-figure'>
+<title id='GPSWatch_LibraryHW-Library-Tracking-Tracking-PackageDiagram-figure-title'>Tracking Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryHW-Library-Tracking-Tracking-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<para><table frame='all'>
+<title>Tracking</title>
+<tgroup cols='3' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Class.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Description</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Class.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>WorkoutTimer</para>
+</entry>
+<entry>
+<para>The WorkoutTimer controls the lifecycle of workouts. There should
+never be more than one instance of this class at any time.
+
+The WorkoutTimer has the responsibility to start and stop the GPS
+upon activation/deactivation of the timer.
+
+While being active, the WorkoutTimer should keep track of elapsed
+time. Time can only be reset while being inactive.  </para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Class.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>TrackPoint</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Class.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>TrackLog</para>
+</entry>
+<entry>
+<para>A TrackLog is a record of events that take place during a workout.
+An event can be a location updates from the GPS, a heart rate sample
+from the pulse monitor or a lap marker.
+
+During workout the TrackLog keeps track of certain measurements derived
+from the sequence of events that has occurred.</para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Class.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>LapMarker</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Class.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>HeartRateSample</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Class.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Display</para>
+</entry>
+<entry>
+<para>Controls the currently displayed measurement.</para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<para><figure id='GPSWatch_LibraryHW-Library-Tracking-Tracking-WorkoutTimer-InstanceStateMachine-figure'>
+<title id='GPSWatch_LibraryHW-Library-Tracking-Tracking-WorkoutTimer-InstanceStateMachine-figure-title'>Tracking WorkoutTimer Instance State Machine</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryHW-Library-Tracking-Tracking-WorkoutTimer-Instance State Machine.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<para><figure id='GPSWatch_LibraryHW-Library-Tracking-Tracking-Display-ClassStateMachine-figure'>
+<title id='GPSWatch_LibraryHW-Library-Tracking-Tracking-Display-ClassStateMachine-figure-title'>Tracking Display Class State Machine</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryHW-Library-Tracking-Tracking-Display-Class State Machine.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>Tracking Classes</title>
+<subtitle>Class Package</subtitle>
+<section>
+<title>Class Activities</title>
+<subtitle></subtitle>
+<para>Here are listings of all of the activies in the class and its state machine(s).</para>
+<section>
+<title>Instance State Machine Actions</title>
+<subtitle></subtitle>
+<section>
+<title>WorkoutTimer State Transition: </title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>//create event instance evt of WorkoutTimer3:tick() to self;
+//self.timer = TIM::timer_start(event_inst: evt, microseconds: 1000000);
+self.time = self.time + 1;
+
+// refresh the user interface
+send UI::setTime(time: self.time);
+</programlisting></para>
+</section>
+<section>
+<title>WorkoutTimer State Transition: </title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>self.deactivate();
+</programlisting></para>
+</section>
+<section>
+<title>WorkoutTimer State Transition: </title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>self.activate();
+</programlisting></para>
+</section>
+<section>
+<title>WorkoutTimer State Transition: </title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>select any trackLog from instances of TrackLog;
+if (not empty trackLog)
+  trackLog.addLapMarker();
+end if;
+</programlisting></para>
+</section>
+<section>
+<title>WorkoutTimer State Transition: </title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>create object instance trackLog of TrackLog;
+relate self to trackLog across R4;
+trackLog.init();
+
+self.activate();
+</programlisting></para>
+</section>
+<section>
+<title>WorkoutTimer State[1]:stopped</title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>// reset
+self.time = 0;
+send UI::setTime(time: self.time);
+
+select one trackLog related by self-&gt;TrackLog[R4];
+trackLog.clearTrackPoints();
+trackLog.clearLapMarkers();
+trackLog.clearHeartRateSamples();
+
+// notify the UI of this change
+generate Display_A2:refresh() to Display class;
+
+unrelate self from trackLog across R4; 
+delete object instance trackLog;
+</programlisting></para>
+</section>
+</section>
+<section>
+<title>Class Operations</title>
+<subtitle></subtitle>
+<section>
+<title>Tracking:WorkoutTimer:  deactivate</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>res = TIM::timer_cancel(timer_inst_ref: self.timer);
+send LocationProvider::unregisterListener();
+send HeartRateProvider::unregisterListener();
+</programlisting></para>
+</section>
+<section>
+<title>Tracking:WorkoutTimer:  activate</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>create event instance evt of WorkoutTimer3:tick() to self;
+self.timer = TIM::timer_start_recurring(event_inst: evt, microseconds: 1000000);
+
+send LocationProvider::registerListener();
+send HeartRateProvider::registerListener();
+</programlisting></para>
+</section>
+</section>
+</section>
+<section>
+<title>Class Activities</title>
+<subtitle></subtitle>
+<para>Here are listings of all of the activies in the class and its state machine(s).</para>
+</section>
+<section>
+<title>Class Activities</title>
+<subtitle></subtitle>
+<para>Here are listings of all of the activies in the class and its state machine(s).</para>
+<section>
+<title>Class Operations</title>
+<subtitle></subtitle>
+<section>
+<title>Tracking:TrackLog:  init</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>self.startTime        = TIM::current_clock();
+self.distance         = 0.0;
+self.currentHeartRate = 0.0;
+self.currentSpeed     = 0.0;
+self.hasLocation      = false;
+</programlisting></para>
+</section>
+<section>
+<title>Tracking:TrackLog:  clearHeartRateSamples</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>select many samples related by self-&gt;HeartRateSample[R6];
+for each sample in samples
+  unrelate self from sample across R6;
+  delete object instance sample;
+end for;
+</programlisting></para>
+</section>
+<section>
+<title>Tracking:TrackLog:  addHeartRateSample</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>create object instance sample of HeartRateSample;
+sample.heartRate = param.heartRate; 
+relate self to sample across R6;
+
+// notify UI of the new value
+self.currentHeartRate = param.heartRate;
+generate Display_A2:refresh() to Display class;
+</programlisting></para>
+</section>
+<section>
+<title>Tracking:TrackLog:  clearLapMarkers</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>select many lapMarkers related by self-&gt;LapMarker[R5];
+for each lapMarker in lapMarkers
+  unrelate self from lapMarker across R5;
+  delete object instance lapMarker;
+end for;
+</programlisting></para>
+</section>
+<section>
+<title>Tracking:TrackLog:  addLapMarker</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>select one timer related by self-&gt;WorkoutTimer[R4];
+create object instance lapMarker of LapMarker;
+lapMarker.lapTime = timer.time; 
+relate self to lapMarker across R5;
+
+// notify UI of the new value
+generate Display_A2:refresh() to Display class;
+</programlisting></para>
+</section>
+<section>
+<title>Tracking:TrackLog:  clearTrackPoints</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>select one nextPoint related by self-&gt;TrackPoint[R1];
+select one lastPoint related by self-&gt;TrackPoint[R3];
+
+if (not empty lastPoint)
+  unrelate self from lastPoint across R3;
+end if;
+
+if (not empty nextPoint)
+  unrelate self from nextPoint across R1;
+end if;
+
+while (not empty nextPoint)
+  prevPoint = nextPoint;
+  select one nextPoint related by nextPoint-&gt;TrackPoint[R2.&apos;&apos;follows&apos;&apos;];
+  if ( not_empty nextPoint )
+    unrelate prevPoint from nextPoint across R2.&apos;&apos;follows&apos;&apos;;
+  end if;
+  delete object instance prevPoint;
+end while;
+
+</programlisting></para>
+</section>
+<section>
+<title>Tracking:TrackLog:  addTrackPoint</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>select one workoutTimer related by self-&gt;WorkoutTimer[R4];
+
+// create the new trackPoint
+create object instance trackPoint of TrackPoint;
+trackPoint.time      = workoutTimer.time;
+trackPoint.longitude = param.location.longitude;
+trackPoint.latitude  = param.location.latitude;
+trackPoint.speed     = param.location.speed;
+
+select one firstPoint related by self-&gt;TrackPoint[R1];
+select one lastPoint related by self-&gt;TrackPoint[R3];
+
+if (empty firstPoint)
+  // this is the first trackPoint in the log
+  relate self to trackPoint across R1.&apos;&apos;has first&apos;&apos;;
+  relate self to trackPoint across R3.&apos;&apos;has last&apos;&apos;;
+else 
+  unrelate self from lastPoint across R3.&apos;&apos;has last&apos;&apos;;
+  relate self to trackPoint across R3.&apos;&apos;has last&apos;&apos;;
+  relate lastPoint to trackPoint across R2.&apos;&apos;follows&apos;&apos;;
+end if;
+
+// calculate distance etc
+distance = 0.0;
+if (self.hasLocation)
+  send distance = UTIL::getDistance(fromLocation: self.lastKnownLocation, toLocation: param.location);
+end if;
+// TODO: move these to the caller
+self.hasLocation = true;
+self.lastKnownLocation = param.location;
+
+self.distance = self.distance + distance;
+self.currentSpeed = param.location.speed;
+
+// notify UI of the new value
+generate Display_A2:refresh() to Display class;
+</programlisting></para>
+</section>
+</section>
+<section>
+<title>Derived (Mathematically Dependent) Attributes</title>
+<subtitle></subtitle>
+<section>
+<title>Tracking:TrackLog:  currentPace</title>
+<subtitle></subtitle>
+<para>The pace is essentially the inverse of the current speed. It is expressed in minutes/meter.</para>
+<para><programlisting>if (self.currentSpeed != 0)
+  self.currentPace = 60.0 / self.currentSpeed;
+else
+  self.currentPace = 0.0;
+end if;
+</programlisting></para>
+</section>
+</section>
+</section>
+<section>
+<title>Class Activities</title>
+<subtitle></subtitle>
+<para>Here are listings of all of the activies in the class and its state machine(s).</para>
+</section>
+<section>
+<title>Class Activities</title>
+<subtitle></subtitle>
+<para>Here are listings of all of the activies in the class and its state machine(s).</para>
+</section>
+<section>
+<title>Class Activities</title>
+<subtitle></subtitle>
+<para>Here are listings of all of the activies in the class and its state machine(s).</para>
+<section>
+<title>Class State Machine Actions</title>
+<subtitle></subtitle>
+<section>
+<title>Display State[5]:displayLapCount</title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>select many lapMarkers from instances of LapMarker;
+send UI::setData(value: cardinality lapMarkers, unit: Unit::laps);
+
+</programlisting></para>
+</section>
+<section>
+<title>Display State[4]:displayHeartRate</title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>heartRate = 0.0;
+select any trackLog from instances of TrackLog;
+if (not empty trackLog)
+    heartRate = trackLog.currentHeartRate;
+end if;
+
+send UI::setData(value: heartRate, unit: Unit::bpm);
+</programlisting></para>
+</section>
+<section>
+<title>Display State[3]:displayPace</title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>pace = 0.0;
+select any trackLog from instances of TrackLog;
+if (not empty trackLog)
+  pace = trackLog.currentPace;
+end if;
+
+send UI::setData(value: pace, unit: Unit::minPerKm);
+</programlisting></para>
+</section>
+<section>
+<title>Display State[2]:displaySpeed</title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>speed = 0.0;
+select any trackLog from instances of TrackLog;
+if (not empty trackLog)
+  speed = trackLog.currentSpeed;
+end if;
+send UI::setData(value: speed, unit: Unit::kmPerHour);
+</programlisting></para>
+</section>
+<section>
+<title>Display State[1]:displayDistance</title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>distance = 0.0;
+select any trackLog from instances of TrackLog;
+if (not empty trackLog)
+    distance = trackLog.distance;
+end if;
+
+if (distance &gt; 1000.0)
+  send UI::setData(value: distance / 1000.0, unit: Unit::km);
+else 
+  send UI::setData(value: distance, unit: Unit::meters);
+end if;
+</programlisting></para>
+</section>
+</section>
+</section>
+</section>
+</section>
+</section>
+</section>
+<section>
+<title>Location</title>
+<subtitle>Component</subtitle>
+<para>Simulates a the GPS hardware/firmware. This component is only behavioral and included for testing purposes.<figure id='GPSWatch_LibraryHW-Library-Location-ComponentDiagram-figure'>
+<title id='GPSWatch_LibraryHW-Library-Location-ComponentDiagram-figure-title'>Location Component Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryHW-Library-Location-Component Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<para><table frame='all'>
+<title>Location Ports</title>
+<tgroup cols='5' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Port.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Interface</para>
+</entry>
+<entry>
+<para>Type</para>
+</entry>
+<entry>
+<para>Multiplicity</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Provision.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>UTIL</para>
+</entry>
+<entry>
+<para>LocationUtil</para>
+</entry>
+<entry>
+<para>provision</para>
+</entry>
+<entry>
+<para>0</para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Provision.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>LOC</para>
+</entry>
+<entry>
+<para>LocationProvider</para>
+</entry>
+<entry>
+<para>provision</para>
+</entry>
+<entry>
+<para>0</para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<section>
+<title>Interface Activities</title>
+<subtitle></subtitle>
+<section>
+<title>Port: UTIL, Interface: LocationUtil</title>
+<subtitle></subtitle>
+<section>
+<title>getDistance</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; Location (Component) &gt; 
+//   UTIL (Port) &gt; getDistance (operation)
+return param.fromLocation.longitude + param.toLocation.latitude;
+</programlisting></para>
+</section>
+</section>
+<section>
+<title>Port: LOC, Interface: LocationProvider</title>
+<subtitle></subtitle>
+<section>
+<title>unregisterListener</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; Location (Component) &gt; 
+//   LOC (Port) &gt; unregisterListener (signal)
+</programlisting></para>
+</section>
+<section>
+<title>registerListener</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; Location (Component) &gt; 
+//   LOC (Port) &gt; registerListener (signal)
+</programlisting></para>
+</section>
+<section>
+<title>locationUpdate</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; Location (Component) &gt; 
+//   LOC (Port) &gt; locationUpdate (signal)
+</programlisting></para>
+</section>
+</section>
+</section>
+<section>
+<title>Location Packages</title>
+<subtitle></subtitle>
+<para>Rendered here are the contained package diagrams.</para>
+<section>
+<title>Location</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_LibraryHW-Library-Location-Location-PackageDiagram-figure'>
+<title id='GPSWatch_LibraryHW-Library-Location-Location-PackageDiagram-figure-title'>Location Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryHW-Library-Location-Location-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<para><table frame='all'>
+<title>Location</title>
+<tgroup cols='3' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Class.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Description</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Class.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>GPS</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<para><figure id='GPSWatch_LibraryHW-Library-Location-Location-GPS-ClassStateMachine-figure'>
+<title id='GPSWatch_LibraryHW-Library-Location-Location-GPS-ClassStateMachine-figure-title'>Location GPS Class State Machine</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryHW-Library-Location-Location-GPS-Class State Machine.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>Location Classes</title>
+<subtitle>Class Package</subtitle>
+<section>
+<title>Class Activities</title>
+<subtitle></subtitle>
+<para>Here are listings of all of the activies in the class and its state machine(s).</para>
+<section>
+<title>Class State Machine Actions</title>
+<subtitle></subtitle>
+<section>
+<title>GPS State Transition: </title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>// the GPS is a singleton, create if it doesn&apos;&apos;t exist
+select any gps from instances of GPS;
+if (empty gps)
+  create object instance gps of GPS;
+end if;
+
+// reset currentLocation
+gps.currentLocation.longitude = 0.0;
+gps.currentLocation.latitude  = 0.0;
+gps.currentLocation.speed     = 0.0;
+
+LOG::LogInfo(message: &quot;Location listener registered.&quot;);
+
+create event instance timeout of GPS_A1:timeout() to GPS class;
+gps.timer = TIM::timer_start_recurring(event_inst: timeout,
+                                       microseconds: 2000000);
+</programlisting></para>
+</section>
+<section>
+<title>GPS State[2]:locating</title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>// prepare signal data with some dummy values that change over time
+select any gps from instances of GPS;
+gps.currentLocation.longitude =  gps.currentLocation.longitude + 2.0;
+gps.currentLocation.latitude  =  gps.currentLocation.latitude  + 3.0;
+gps.currentLocation.speed     = (gps.currentLocation.latitude - 
+                                 gps.currentLocation.longitude) / 5.0;
+
+// pass the new location to client component
+send LocationProvider::locationUpdate(location: gps.currentLocation);
+
+</programlisting></para>
+</section>
+<section>
+<title>GPS State[1]:idle</title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>select any gps from instances of GPS;
+res = TIM::timer_cancel(timer_inst_ref: gps.timer);
+
+LOG::LogInfo(message: &quot;Location listener unregistered.&quot;);
+
+
+</programlisting></para>
+</section>
+</section>
+</section>
+</section>
+</section>
+</section>
+</section>
+<section>
+<title>HeartRateMonitor</title>
+<subtitle>Component</subtitle>
+<para>Simulates a pulse monitor hardware/firmware. This component is only behavioral and included for testing purposes.<figure id='GPSWatch_LibraryHW-Library-HeartRateMonitor-ComponentDiagram-figure'>
+<title id='GPSWatch_LibraryHW-Library-HeartRateMonitor-ComponentDiagram-figure-title'>HeartRateMonitor Component Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryHW-Library-HeartRateMonitor-Component Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<para><table frame='all'>
+<title>HeartRateMonitor Ports</title>
+<tgroup cols='5' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Port.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Interface</para>
+</entry>
+<entry>
+<para>Type</para>
+</entry>
+<entry>
+<para>Multiplicity</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Provision.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>HR</para>
+</entry>
+<entry>
+<para>HeartRateProvider</para>
+</entry>
+<entry>
+<para>provision</para>
+</entry>
+<entry>
+<para>0</para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<section>
+<title>Interface Activities</title>
+<subtitle></subtitle>
+<section>
+<title>Port: HR, Interface: HeartRateProvider</title>
+<subtitle></subtitle>
+<section>
+<title>unregisterListener</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; HeartRateMonitor (Component) &gt; 
+//   HR (Port) &gt; unregisterListener (signal)
+</programlisting></para>
+</section>
+<section>
+<title>registerListener</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; HeartRateMonitor (Component) &gt; 
+//   HR (Port) &gt; registerListener (signal)
+</programlisting></para>
+</section>
+<section>
+<title>heartRateChanged</title>
+<subtitle></subtitle>
+<para></para>
+<para><programlisting>// GPSWatch_LibraryHW &gt; Library (Package) &gt; HeartRateMonitor (Component) &gt; 
+//   HR (Port) &gt; heartRateChanged (signal)
+</programlisting></para>
+</section>
+</section>
+</section>
+<section>
+<title>HeartRateMonitor Packages</title>
+<subtitle></subtitle>
+<para>Rendered here are the contained package diagrams.</para>
+<section>
+<title>HeartRateMonitor</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_LibraryHW-Library-HeartRateMonitor-HeartRateMonitor-PackageDiagram-figure'>
+<title id='GPSWatch_LibraryHW-Library-HeartRateMonitor-HeartRateMonitor-PackageDiagram-figure-title'>HeartRateMonitor Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryHW-Library-HeartRateMonitor-HeartRateMonitor-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<para><table frame='all'>
+<title>HeartRateMonitor</title>
+<tgroup cols='3' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Class.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Description</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Class.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>HeartRateMonitor</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<para><figure id='GPSWatch_LibraryHW-Library-HeartRateMonitor-HeartRateMonitor-HeartRateMonitor-ClassStateMachine-figure'>
+<title id='GPSWatch_LibraryHW-Library-HeartRateMonitor-HeartRateMonitor-HeartRateMonitor-ClassStateMachine-figure-title'>HeartRateMonitor HeartRateMonitor Class State Machine</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryHW-Library-HeartRateMonitor-HeartRateMonitor-HeartRateMonitor-Class State Machine.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>HeartRateMonitor Classes</title>
+<subtitle>Class Package</subtitle>
+<section>
+<title>Class Activities</title>
+<subtitle></subtitle>
+<para>Here are listings of all of the activies in the class and its state machine(s).</para>
+<section>
+<title>Class State Machine Actions</title>
+<subtitle></subtitle>
+<section>
+<title>HeartRateMonitor State Transition: </title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>select any monitor from instances of HeartRateMonitor;
+res = TIM::timer_cancel(timer_inst_ref: monitor.timer);
+</programlisting></para>
+</section>
+<section>
+<title>HeartRateMonitor State Transition: </title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>
+select any monitor from instances of HeartRateMonitor;
+if (empty monitor)
+  create object instance monitor of HeartRateMonitor;
+end if;
+monitor.recentHeartRate = 50.0;
+
+LOG::LogInfo(message: &quot;listener registered with interval: 3 sec&quot;);
+
+// start timer
+create event instance timeout of HeartRateMonitor_A3:timeout() to HeartRateMonitor class;
+monitor.timer = TIM::timer_start_recurring(event_inst: timeout, microseconds: 3000000); 
+</programlisting></para>
+</section>
+<section>
+<title>HeartRateMonitor State[2]:monitoring</title>
+<subtitle></subtitle>
+<para></para>
+<para></para>
+<para><programlisting>select any monitor from instances of HeartRateMonitor;
+send HeartRateProvider::heartRateChanged(heartRate: monitor.recentHeartRate);
+monitor.recentHeartRate = monitor.recentHeartRate + 1.0;
+</programlisting></para>
+</section>
+</section>
+</section>
+</section>
+</section>
+</section>
+</section>
+</section>
+<section>
+<title>HeartRateMonitorInterfaces</title>
+<subtitle>Package</subtitle>
+<para><figure id='GPSWatch_LibraryHW-HeartRateMonitorInterfaces-PackageDiagram-figure'>
+<title id='GPSWatch_LibraryHW-HeartRateMonitorInterfaces-PackageDiagram-figure-title'>HeartRateMonitorInterfaces Package Diagram</title>
+<mediaobject><imageobject>
+<imagedata fileref='images/GPSWatch_LibraryHW-HeartRateMonitorInterfaces-Package Diagram.png' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</figure>
+</para>
+<section>
+<title>HeartRateProvider</title>
+<subtitle>Interface</subtitle>
+<para></para>
+<para><table frame='all'>
+<title>HeartRateProvider Messages</title>
+<tgroup cols='4' align='left' colsep='0' rowsep='0'>
+<thead>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/Message.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>Name</para>
+</entry>
+<entry>
+<para>Direction</para>
+</entry>
+<entry>
+<para>Description</para>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/SendSignal.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>unregisterListener</para>
+</entry>
+<entry>
+<para>Client to Server (Requirer to Provider)</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/SendSignal.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>registerListener</para>
+</entry>
+<entry>
+<para>Client to Server (Requirer to Provider)</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+<row>
+<entry>
+<para><mediaobject><imageobject>
+<imagedata fileref='images/SendSignal.gif' scalefit='1' width='100%'/>
+</imageobject></mediaobject>
+</para>
+</entry>
+<entry>
+<para>heartRateChanged</para>
+</entry>
+<entry>
+<para>Server to Client (Provider to Requirer)</para>
+</entry>
+<entry>
+<para></para>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</section>
+</section>
+</section>
+</section>
+</article>

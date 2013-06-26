@@ -1,0 +1,50 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("2528fc5b-cf74-436f-9357-9e2a0b2f981d",
+	'lap button depress',
+	903,
+	'LBPRESS',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("ff76c986-b5e8-40bb-b7ec-45ca6bee2324",
+	"2528fc5b-cf74-436f-9357-9e2a0b2f981d");
+INSERT INTO O_BATTR
+	VALUES ("ff76c986-b5e8-40bb-b7ec-45ca6bee2324",
+	"2528fc5b-cf74-436f-9357-9e2a0b2f981d");
+INSERT INTO O_ATTR
+	VALUES ("ff76c986-b5e8-40bb-b7ec-45ca6bee2324",
+	"2528fc5b-cf74-436f-9357-9e2a0b2f981d",
+	"00000000-0000-0000-0000-000000000000",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"ffc69c60-425c-4e7e-9b44-d18757d73ec7",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ffc69c60-425c-4e7e-9b44-d18757d73ec7",
+	"00000000-0000-0000-0000-000000000000",
+	'state<State_Model>',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"2528fc5b-cf74-436f-9357-9e2a0b2f981d");
+INSERT INTO O_ID
+	VALUES (1,
+	"2528fc5b-cf74-436f-9357-9e2a0b2f981d");
+INSERT INTO O_ID
+	VALUES (2,
+	"2528fc5b-cf74-436f-9357-9e2a0b2f981d");
+INSERT INTO PE_PE_PROXY
+	VALUES ("2528fc5b-cf74-436f-9357-9e2a0b2f981d",
+	1,
+	"c1202055-1211-45d1-9be4-a484dee3e3df",
+	"00000000-0000-0000-0000-000000000000",
+	4,
+	'../test.xtuml');

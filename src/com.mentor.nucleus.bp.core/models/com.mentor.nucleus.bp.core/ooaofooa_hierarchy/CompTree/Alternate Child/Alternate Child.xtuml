@@ -1,0 +1,204 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("47663f49-2287-4439-9d31-4dd68486bdd8",
+	'Alternate Child',
+	3,
+	'T_AC',
+	'This class is used to capture alternative children of a parent.  This class will
+be populated when a parent may have more than one child of the same type through
+different parents.  It is assumed that there will only be one child out of all
+of the alternatives.',
+	"9a4ff466-14a5-4e47-b07f-84de195f210a");
+INSERT INTO O_NBATTR
+	VALUES ("dfed7a21-c00f-41d3-973f-d8e5eaacbf32",
+	"47663f49-2287-4439-9d31-4dd68486bdd8");
+INSERT INTO O_BATTR
+	VALUES ("dfed7a21-c00f-41d3-973f-d8e5eaacbf32",
+	"47663f49-2287-4439-9d31-4dd68486bdd8");
+INSERT INTO O_ATTR
+	VALUES ("dfed7a21-c00f-41d3-973f-d8e5eaacbf32",
+	"47663f49-2287-4439-9d31-4dd68486bdd8",
+	"4105d888-355e-4881-bc93-ab7454013292",
+	'ParentChildRelChain',
+	'',
+	'',
+	'ParentChildRelChain',
+	0,
+	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	"138f69c7-a700-4109-8c2b-e9232b291756",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("77aee72e-005b-429d-87eb-eef7a057f63f",
+	"47663f49-2287-4439-9d31-4dd68486bdd8");
+INSERT INTO O_BATTR
+	VALUES ("77aee72e-005b-429d-87eb-eef7a057f63f",
+	"47663f49-2287-4439-9d31-4dd68486bdd8");
+INSERT INTO O_ATTR
+	VALUES ("77aee72e-005b-429d-87eb-eef7a057f63f",
+	"47663f49-2287-4439-9d31-4dd68486bdd8",
+	"dfed7a21-c00f-41d3-973f-d8e5eaacbf32",
+	'CrossModelRootBoundary',
+	'',
+	'',
+	'CrossModelRootBoundary',
+	0,
+	"7c34130b-1ce4-46fa-91b6-7fbf47cfe993",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("7c34130b-1ce4-46fa-91b6-7fbf47cfe993",
+	"138f69c7-a700-4109-8c2b-e9232b291756",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("b64d3ec6-4c91-4595-af38-fad0a4e5ebb5",
+	"47663f49-2287-4439-9d31-4dd68486bdd8");
+INSERT INTO O_BATTR
+	VALUES ("b64d3ec6-4c91-4595-af38-fad0a4e5ebb5",
+	"47663f49-2287-4439-9d31-4dd68486bdd8");
+INSERT INTO O_ATTR
+	VALUES ("b64d3ec6-4c91-4595-af38-fad0a4e5ebb5",
+	"47663f49-2287-4439-9d31-4dd68486bdd8",
+	"77aee72e-005b-429d-87eb-eef7a057f63f",
+	'ModelRootType',
+	'',
+	'',
+	'ModelRootType',
+	0,
+	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("8807b505-4738-40ec-a615-7c0f1bb0bd31",
+	"47663f49-2287-4439-9d31-4dd68486bdd8");
+INSERT INTO O_BATTR
+	VALUES ("8807b505-4738-40ec-a615-7c0f1bb0bd31",
+	"47663f49-2287-4439-9d31-4dd68486bdd8");
+INSERT INTO O_ATTR
+	VALUES ("8807b505-4738-40ec-a615-7c0f1bb0bd31",
+	"47663f49-2287-4439-9d31-4dd68486bdd8",
+	"b64d3ec6-4c91-4595-af38-fad0a4e5ebb5",
+	'ExcludedModelRootType',
+	'',
+	'',
+	'ExcludedModelRootType',
+	0,
+	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("5ffb16aa-a74b-4d03-bc3a-fa0c956c5f9a",
+	"47663f49-2287-4439-9d31-4dd68486bdd8");
+INSERT INTO O_BATTR
+	VALUES ("5ffb16aa-a74b-4d03-bc3a-fa0c956c5f9a",
+	"47663f49-2287-4439-9d31-4dd68486bdd8");
+INSERT INTO O_ATTR
+	VALUES ("5ffb16aa-a74b-4d03-bc3a-fa0c956c5f9a",
+	"47663f49-2287-4439-9d31-4dd68486bdd8",
+	"00000000-0000-0000-0000-000000000000",
+	'Alternate_Child_ID',
+	'',
+	'',
+	'Alternate_Child_ID',
+	0,
+	"6bea20b4-8e35-4cf6-a7e4-55271e6443e6",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6bea20b4-8e35-4cf6-a7e4-55271e6443e6",
+	"138f69c7-a700-4109-8c2b-e9232b291756",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("47663f49-2287-4439-9d31-4dd68486bdd8",
+	"a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	1,
+	"3fe2ca3f-3f66-44a6-a770-434ef7325afa",
+	"5cc73d6c-bd51-457d-ac8f-bd1296b695be",
+	"b8393479-f70c-4e85-b6c3-50cf810c24ad",
+	"d51ceb44-9810-495f-a262-610ee5d5ec87",
+	"4105d888-355e-4881-bc93-ab7454013292",
+	"0b631ccf-e771-41df-b4cf-9db75fb35c27",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Tree_Parenthood_Specification',
+	'TPS_ID',
+	'R1002');
+INSERT INTO R_RGO_PROXY
+	VALUES ("47663f49-2287-4439-9d31-4dd68486bdd8",
+	"5cc73d6c-bd51-457d-ac8f-bd1296b695be",
+	"b8393479-f70c-4e85-b6c3-50cf810c24ad",
+	'../CompTree.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("3fe2ca3f-3f66-44a6-a770-434ef7325afa",
+	"a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	1,
+	"5cc73d6c-bd51-457d-ac8f-bd1296b695be",
+	"d51ceb44-9810-495f-a262-610ee5d5ec87",
+	'../CompTree.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("4105d888-355e-4881-bc93-ab7454013292",
+	"47663f49-2287-4439-9d31-4dd68486bdd8",
+	"3fe2ca3f-3f66-44a6-a770-434ef7325afa",
+	"a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	1,
+	'TPS_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("3fe2ca3f-3f66-44a6-a770-434ef7325afa",
+	"a414fa61-fb3a-4aa2-8385-0b73d87a072d",
+	'../Tree_Parenthood_Specification/Tree_Parenthood_Specification.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("4105d888-355e-4881-bc93-ab7454013292",
+	"47663f49-2287-4439-9d31-4dd68486bdd8",
+	"5ffb16aa-a74b-4d03-bc3a-fa0c956c5f9a",
+	'TPS_ID',
+	'',
+	'',
+	'TPS_ID',
+	0,
+	"2308f829-cd27-4cf2-93bd-6c9ae5f576b7",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("2308f829-cd27-4cf2-93bd-6c9ae5f576b7",
+	"138f69c7-a700-4109-8c2b-e9232b291756",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"47663f49-2287-4439-9d31-4dd68486bdd8");
+INSERT INTO O_OIDA
+	VALUES ("5ffb16aa-a74b-4d03-bc3a-fa0c956c5f9a",
+	"47663f49-2287-4439-9d31-4dd68486bdd8",
+	0,
+	'Alternate_Child_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"47663f49-2287-4439-9d31-4dd68486bdd8");
+INSERT INTO O_ID
+	VALUES (2,
+	"47663f49-2287-4439-9d31-4dd68486bdd8");
+INSERT INTO S_SS_PROXY
+	VALUES ("9a4ff466-14a5-4e47-b07f-84de195f210a",
+	'CompTree',
+	'',
+	'T',
+	1,
+	"138f69c7-a700-4109-8c2b-e9232b291756",
+	"00000000-0000-0000-0000-000000100002",
+	'../CompTree.xtuml');

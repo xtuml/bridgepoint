@@ -1,0 +1,75 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("a8e61aee-01ea-4797-8460-7bef1b23baa4",
+	'lap reset button',
+	7,
+	'LAPRESET',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("e4a6740e-5806-42d8-bf8e-345c8988d5bb",
+	"a8e61aee-01ea-4797-8460-7bef1b23baa4");
+INSERT INTO O_BATTR
+	VALUES ("e4a6740e-5806-42d8-bf8e-345c8988d5bb",
+	"a8e61aee-01ea-4797-8460-7bef1b23baa4");
+INSERT INTO O_ATTR
+	VALUES ("e4a6740e-5806-42d8-bf8e-345c8988d5bb",
+	"a8e61aee-01ea-4797-8460-7bef1b23baa4",
+	"00000000-0000-0000-0000-000000000000",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"ffc69c60-425c-4e7e-9b44-d18757d73ec7",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ffc69c60-425c-4e7e-9b44-d18757d73ec7",
+	"00000000-0000-0000-0000-000000000000",
+	'state<State_Model>',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("e2081685-fb8f-40ba-9778-1b41ad8e95f7",
+	"a8e61aee-01ea-4797-8460-7bef1b23baa4");
+INSERT INTO O_BATTR
+	VALUES ("e2081685-fb8f-40ba-9778-1b41ad8e95f7",
+	"a8e61aee-01ea-4797-8460-7bef1b23baa4");
+INSERT INTO O_ATTR
+	VALUES ("e2081685-fb8f-40ba-9778-1b41ad8e95f7",
+	"a8e61aee-01ea-4797-8460-7bef1b23baa4",
+	"e4a6740e-5806-42d8-bf8e-345c8988d5bb",
+	'timeout',
+	'',
+	'',
+	'timeout',
+	0,
+	"9071d13a-d5a6-46ab-af47-ea8cbedac66a",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("9071d13a-d5a6-46ab-af47-ea8cbedac66a",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Timer>',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"a8e61aee-01ea-4797-8460-7bef1b23baa4");
+INSERT INTO O_ID
+	VALUES (1,
+	"a8e61aee-01ea-4797-8460-7bef1b23baa4");
+INSERT INTO O_ID
+	VALUES (2,
+	"a8e61aee-01ea-4797-8460-7bef1b23baa4");
+INSERT INTO PE_PE_PROXY
+	VALUES ("a8e61aee-01ea-4797-8460-7bef1b23baa4",
+	1,
+	"b7eadfe3-b995-4f47-9561-d25f9a502ac5",
+	"00000000-0000-0000-0000-000000000000",
+	4,
+	'../Data Aquisition.xtuml');

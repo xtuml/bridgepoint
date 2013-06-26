@@ -1,0 +1,18134 @@
+-- BP 6.1D content: domain syschar: 3
+
+INSERT INTO S_DOM
+  VALUES (	16962681,
+	'odms2',
+	'Domain Mission:
+
+Bridges to other Domains:
+',
+	1,
+	1);
+INSERT INTO S_CDT
+  VALUES (	524289,
+	0);
+INSERT INTO S_DT
+  VALUES (	524289,
+	16962681,
+	'void',
+	'');
+INSERT INTO S_CDT
+  VALUES (	524290,
+	1);
+INSERT INTO S_DT
+  VALUES (	524290,
+	16962681,
+	'boolean',
+	'');
+INSERT INTO S_CDT
+  VALUES (	524291,
+	2);
+INSERT INTO S_DT
+  VALUES (	524291,
+	16962681,
+	'integer',
+	'');
+INSERT INTO S_CDT
+  VALUES (	524292,
+	3);
+INSERT INTO S_DT
+  VALUES (	524292,
+	16962681,
+	'real',
+	'');
+INSERT INTO S_CDT
+  VALUES (	524293,
+	4);
+INSERT INTO S_DT
+  VALUES (	524293,
+	16962681,
+	'string',
+	'');
+INSERT INTO S_CDT
+  VALUES (	524294,
+	5);
+INSERT INTO S_DT
+  VALUES (	524294,
+	16962681,
+	'unique_id',
+	'');
+INSERT INTO S_CDT
+  VALUES (	524295,
+	6);
+INSERT INTO S_DT
+  VALUES (	524295,
+	16962681,
+	'state<State_Model>',
+	'');
+INSERT INTO S_CDT
+  VALUES (	524296,
+	7);
+INSERT INTO S_DT
+  VALUES (	524296,
+	16962681,
+	'same_as<Base_Attribute>',
+	'');
+INSERT INTO S_CDT
+  VALUES (	524297,
+	8);
+INSERT INTO S_DT
+  VALUES (	524297,
+	16962681,
+	'inst_ref<Object>',
+	'');
+INSERT INTO S_CDT
+  VALUES (	524298,
+	9);
+INSERT INTO S_DT
+  VALUES (	524298,
+	16962681,
+	'inst_ref_set<Object>',
+	'');
+INSERT INTO S_CDT
+  VALUES (	524299,
+	10);
+INSERT INTO S_DT
+  VALUES (	524299,
+	16962681,
+	'inst<Event>',
+	'');
+INSERT INTO S_CDT
+  VALUES (	524300,
+	11);
+INSERT INTO S_DT
+  VALUES (	524300,
+	16962681,
+	'inst<Mapping>',
+	'');
+INSERT INTO S_CDT
+  VALUES (	524301,
+	12);
+INSERT INTO S_DT
+  VALUES (	524301,
+	16962681,
+	'inst_ref<Mapping>',
+	'');
+INSERT INTO S_UDT
+  VALUES (	524302,
+	524300,
+	1);
+INSERT INTO S_DT
+  VALUES (	524302,
+	16962681,
+	'date',
+	'');
+INSERT INTO S_UDT
+  VALUES (	524303,
+	524300,
+	2);
+INSERT INTO S_DT
+  VALUES (	524303,
+	16962681,
+	'timestamp',
+	'');
+INSERT INTO S_UDT
+  VALUES (	524304,
+	524301,
+	3);
+INSERT INTO S_DT
+  VALUES (	524304,
+	16962681,
+	'inst_ref<Timer>',
+	'');
+INSERT INTO S_UDT
+  VALUES (	524305,
+	524293,
+	0);
+INSERT INTO S_DT
+  VALUES (	524305,
+	16962681,
+	'transfer_status',
+	'Enumerator1: Ready_for_Entry_Exit_Port
+Enumerator2: Ready_for_Robot
+Enumerator3: In_Progress
+Enumerator4: Complete
+');
+INSERT INTO S_UDT
+  VALUES (	524306,
+	524293,
+	0);
+INSERT INTO S_DT
+  VALUES (	524306,
+	16962681,
+	'transfer_vector_string',
+	'');
+INSERT INTO S_SYNC
+  VALUES (	524289,
+	16962681,
+	'intialize',
+	'',
+	'// Create preexisting instances
+
+// ONLINE LOCATION
+// EE
+create object instance ee  of D_P;
+create object instance ole of D_OL;
+assign ole.Online_Location_ID = 1;
+relate ole to ee across R7;
+
+//DRIVE
+create object instance dr of D_DR;
+assign dr.Idle = TRUE;
+create object instance old of D_OL;
+assign old.Online_Location_ID = 2;
+relate old to dr across R7;
+
+//SLOT
+assign ol_count = 3;
+while (ol_count < 5)
+    create object instance ol of D_OL;
+    assign ol.Online_Location_ID = ol_count;
+    assign ol_count = ol_count + 1;
+    create object instance slot of D_S;
+    assign slot.Unassigned = TRUE;
+   relate ol to slot across R7;
+end while;
+
+// DISK
+assign disk_count = 1;
+while (disk_count < 5)
+    create object instance d of D_D;
+    assign d.Disk_ID = disk_count;
+    assign d.Serial_Number = 1000 + (disk_count * 10);
+    assign d.Waiting_for_Slot = FALSE;
+    assign d.Waiting_for_Drive = FALSE;
+    assign d.Unowned_in_Cabinet = FALSE;
+    assign d.Unowned_in_Library = TRUE;
+    // OFFLINE DISK
+    create object instance od of D_OD;
+    relate d to od across R3;
+    // PERMANENT HOME
+    create object instance h of D_H;
+    assign h.Row_Number =1;
+    assign h.Column_Number =disk_count;
+    relate d to h across R4;
+    disk_count = disk_count + 1;
+end while;
+
+// QP
+create object instance qp1 of D_QP;
+assign qp1.Qualified_Process_ID = 1;
+
+// ROBOT
+create object instance r of D_R;
+assign r.Robot_ID =1;',
+	524289,
+	1);
+INSERT INTO S_SYNC
+  VALUES (	524290,
+	16962681,
+	'PIO_robot_move_complete',
+	'',
+	'select any robot from instances of D_R where (selected.Robot_ID == param.id);
+generate D_R2:''Robot Move Complete''() to robot;',
+	524289,
+	1);
+INSERT INTO S_SPARM
+  VALUES (	524318,
+	524290,
+	'id',
+	524291,
+	0);
+INSERT INTO S_SYNC
+  VALUES (	524291,
+	16962681,
+	'PIO_gripper_closed_on_disk',
+	'',
+	'select any robot from instances of D_R where (selected.Robot_ID == param.id);
+generate D_R4:''Gripper Closed on Disk''() to robot;',
+	524289,
+	1);
+INSERT INTO S_SPARM
+  VALUES (	524319,
+	524291,
+	'id',
+	524291,
+	0);
+INSERT INTO S_SYNC
+  VALUES (	524292,
+	16962681,
+	'PIO_gripper_opened',
+	'',
+	'select any robot from instances of D_R where (selected.Robot_ID == param.id);
+generate D_R3:''Gripper Opened''() to robot;',
+	524289,
+	1);
+INSERT INTO S_SPARM
+  VALUES (	524320,
+	524292,
+	'id',
+	524291,
+	0);
+INSERT INTO S_SYNC
+  VALUES (	524293,
+	16962681,
+	'PIO_drive_at_spin_speed',
+	'',
+	'select any drive from instances of D_DR where (selected.Drive_ID == param.id);
+generate D_DR2:''Drive at Spin Speed''() to drive;',
+	524289,
+	1);
+INSERT INTO S_SPARM
+  VALUES (	524321,
+	524293,
+	'id',
+	524291,
+	0);
+INSERT INTO S_SYNC
+  VALUES (	524294,
+	16962681,
+	'PIO_drive_stopped',
+	'',
+	'select any drive from instances of D_DR where (selected.Drive_ID == param.id);
+generate D_DR4:''Drive Stopped''() to drive;',
+	524289,
+	1);
+INSERT INTO S_SPARM
+  VALUES (	524327,
+	524294,
+	'id',
+	524291,
+	0);
+INSERT INTO S_SYNC
+  VALUES (	524295,
+	16962681,
+	'PIO_port_unlocked',
+	'',
+	'select any port from instances of D_P where (selected.Port_ID == param.id);
+generate D_P3:''Port Unlocked''() to port;',
+	524289,
+	1);
+INSERT INTO S_SPARM
+  VALUES (	524328,
+	524295,
+	'id',
+	524291,
+	0);
+INSERT INTO S_SYNC
+  VALUES (	524296,
+	16962681,
+	'PIO_operator_closed_door',
+	'',
+	'select any port from instances of D_P where (selected.Port_ID == param.id);
+generate D_P1:''Operator Closes Door''() to port;',
+	524289,
+	1);
+INSERT INTO S_SPARM
+  VALUES (	524322,
+	524296,
+	'id',
+	524291,
+	0);
+INSERT INTO S_SYNC
+  VALUES (	524297,
+	16962681,
+	'PIO_operator_opened_door',
+	'',
+	'select any port from instances of D_P where (selected.Port_ID == param.id);
+generate D_P6:''Operator Opens Door''() to port;',
+	524289,
+	1);
+INSERT INTO S_SPARM
+  VALUES (	524323,
+	524297,
+	'id',
+	524291,
+	0);
+INSERT INTO S_SYNC
+  VALUES (	524298,
+	16962681,
+	'PIO_operator_removed_disk',
+	'',
+	'select any port from instances of D_P where (selected.Port_ID == param.id);
+generate D_P5:''Operator Removes Disk''() to port;',
+	524289,
+	1);
+INSERT INTO S_SPARM
+  VALUES (	524324,
+	524298,
+	'id',
+	524291,
+	0);
+INSERT INTO S_SYNC
+  VALUES (	524299,
+	16962681,
+	'PIO_operator_inserted_disk',
+	'',
+	'select any port from instances of D_P where (selected.Port_ID == param.id);
+generate D_P4:''Operator Inserts Disk''() to port;',
+	524289,
+	1);
+INSERT INTO S_SPARM
+  VALUES (	524325,
+	524299,
+	'id',
+	524291,
+	0);
+INSERT INTO S_SYNC
+  VALUES (	524300,
+	16962681,
+	'PIO_port_locked',
+	'',
+	'select any port from instances of D_P where (selected.Port_ID == param.id);
+generate D_P2:''EE Port Locked''() to port;',
+	524289,
+	1);
+INSERT INTO S_SPARM
+  VALUES (	524326,
+	524300,
+	'id',
+	524291,
+	0);
+INSERT INTO S_SYNC
+  VALUES (	524301,
+	16962681,
+	'QP_disk_unmount_request',
+	'',
+	'select any disk from instances of D_D where (selected.Disk_ID == param.disk_id);
+if (not_empty disk)
+  generate D_D4:''Disk Unmount Request''() to disk;
+end if;',
+	524289,
+	1);
+INSERT INTO S_SPARM
+  VALUES (	524331,
+	524301,
+	'disk_id',
+	524291,
+	0);
+INSERT INTO S_SYNC
+  VALUES (	524302,
+	16962681,
+	'QP_disk_mount_request',
+	'',
+	'select any qp from instances of D_QP where (selected.Qualified_Process_ID == param.qp_id);
+generate D_QP1:''Mount Disk''(disk_id:param.disk_id) to qp;',
+	524289,
+	1);
+INSERT INTO S_SPARM
+  VALUES (	524329,
+	524302,
+	'disk_id',
+	524291,
+	0);
+INSERT INTO S_SPARM
+  VALUES (	524330,
+	524302,
+	'qp_id',
+	524291,
+	0);
+INSERT INTO S_SYNC
+  VALUES (	524305,
+	16962681,
+	'test_class_evt_ignored',
+	'',
+	'generate D_DO_A1:''Disk Requested by QP'' to D_DO class;',
+	524289,
+	1);
+INSERT INTO S_SYNC
+  VALUES (	524306,
+	16962681,
+	'test_robot',
+	'',
+	'create object instance second_rbt of D_R;',
+	524289,
+	1);
+INSERT INTO S_SYNC
+  VALUES (	524307,
+	16962681,
+	'test_request_pending',
+	'',
+	'select any rbt from instances of D_R where (selected.Robot_ID == param.id);
+generate D_R5:''Robot Request Pending''() to rbt;',
+	524289,
+	1);
+INSERT INTO S_SPARM
+  VALUES (	524332,
+	524307,
+	'id',
+	524291,
+	0);
+INSERT INTO S_EE
+  VALUES (	524289,
+	'PIO',
+	'',
+	'pio1',
+	16962681);
+INSERT INTO S_BRG
+  VALUES (	524289,
+	524289,
+	'load_stepper_motors',
+	'',
+	0,
+	524289,
+	'::PIO_robot_move_complete(id:param.robot_id);',
+	1);
+INSERT INTO S_BPARM
+  VALUES (	524289,
+	524289,
+	'robot_id',
+	524291,
+	0);
+INSERT INTO S_BPARM
+  VALUES (	524290,
+	524289,
+	'x',
+	524291,
+	0);
+INSERT INTO S_BPARM
+  VALUES (	524291,
+	524289,
+	'y',
+	524291,
+	0);
+INSERT INTO S_BPARM
+  VALUES (	524292,
+	524289,
+	'theta',
+	524291,
+	0);
+INSERT INTO S_BPARM
+  VALUES (	524293,
+	524289,
+	'tvs',
+	524306,
+	0);
+INSERT INTO S_BRG
+  VALUES (	524290,
+	524289,
+	'extend_hand',
+	'',
+	0,
+	524289,
+	'::PIO_robot_move_complete(id:param.robot_id);',
+	1);
+INSERT INTO S_BPARM
+  VALUES (	524294,
+	524290,
+	'robot_id',
+	524291,
+	0);
+INSERT INTO S_BPARM
+  VALUES (	524295,
+	524290,
+	'tvs',
+	524306,
+	0);
+INSERT INTO S_BRG
+  VALUES (	524291,
+	524289,
+	'close_gripper',
+	'',
+	0,
+	524289,
+	'::PIO_gripper_closed_on_disk(id:param.robot_id);',
+	1);
+INSERT INTO S_BPARM
+  VALUES (	524296,
+	524291,
+	'robot_id',
+	524291,
+	0);
+INSERT INTO S_BPARM
+  VALUES (	524297,
+	524291,
+	'tvs',
+	524306,
+	0);
+INSERT INTO S_BRG
+  VALUES (	524292,
+	524289,
+	'retract_hand',
+	'',
+	0,
+	524289,
+	'::PIO_robot_move_complete(id:param.robot_id);',
+	1);
+INSERT INTO S_BPARM
+  VALUES (	524298,
+	524292,
+	'robot_id',
+	524291,
+	0);
+INSERT INTO S_BPARM
+  VALUES (	524299,
+	524292,
+	'tvs',
+	524306,
+	0);
+INSERT INTO S_BRG
+  VALUES (	524293,
+	524289,
+	'open_gripper',
+	'',
+	0,
+	524289,
+	'::PIO_gripper_opened(id:param.robot_id);',
+	1);
+INSERT INTO S_BPARM
+  VALUES (	524300,
+	524293,
+	'robot_id',
+	524291,
+	0);
+INSERT INTO S_BPARM
+  VALUES (	524301,
+	524293,
+	'tvs',
+	524306,
+	0);
+INSERT INTO S_BRG
+  VALUES (	524294,
+	524289,
+	'unlock_door',
+	'',
+	0,
+	524289,
+	'::PIO_port_unlocked(id:param.ee_id);',
+	1);
+INSERT INTO S_BPARM
+  VALUES (	524302,
+	524294,
+	'ee_id',
+	524291,
+	0);
+INSERT INTO S_BPARM
+  VALUES (	524303,
+	524294,
+	'tvs',
+	524306,
+	0);
+INSERT INTO S_BRG
+  VALUES (	524295,
+	524289,
+	'lock_door',
+	'',
+	0,
+	524289,
+	'::PIO_port_locked(id:param.ee_id);',
+	1);
+INSERT INTO S_BPARM
+  VALUES (	524304,
+	524295,
+	'ee_id',
+	524291,
+	0);
+INSERT INTO S_BPARM
+  VALUES (	524305,
+	524295,
+	'tvs',
+	524306,
+	0);
+INSERT INTO S_BRG
+  VALUES (	524296,
+	524289,
+	'get_disk',
+	'',
+	0,
+	524289,
+	'select any port from instances of D_P where (selected.Port_ID == param.ee_id);
+select one transfer related by port->D_DT[R8];
+if (transfer.Source_ID == port.Port_ID)
+  ::PIO_operator_opened_door(id:port.Port_ID);
+  ::PIO_operator_inserted_disk(id:port.Port_ID);
+  ::PIO_operator_closed_door(id:port.Port_ID);
+else
+  ::PIO_operator_opened_door(id:port.Port_ID);
+  ::PIO_operator_removed_disk(id:port.Port_ID);
+  ::PIO_operator_closed_door(id:port.Port_ID);
+end if;',
+	1);
+INSERT INTO S_BPARM
+  VALUES (	524306,
+	524296,
+	'ee_id',
+	524291,
+	0);
+INSERT INTO S_BPARM
+  VALUES (	524307,
+	524296,
+	'disk_id',
+	524291,
+	0);
+INSERT INTO S_BPARM
+  VALUES (	524308,
+	524296,
+	'tvs1',
+	524306,
+	0);
+INSERT INTO S_BPARM
+  VALUES (	524309,
+	524296,
+	'tvs2',
+	524306,
+	0);
+INSERT INTO S_BPARM
+  VALUES (	524310,
+	524296,
+	'tvs3',
+	524306,
+	0);
+INSERT INTO S_BRG
+  VALUES (	524297,
+	524289,
+	'spin_up_drive',
+	'',
+	0,
+	524289,
+	'::PIO_drive_at_spin_speed(id:param.drive_id);',
+	1);
+INSERT INTO S_BPARM
+  VALUES (	524311,
+	524297,
+	'drive_id',
+	524291,
+	0);
+INSERT INTO S_BPARM
+  VALUES (	524312,
+	524297,
+	'tvs',
+	524306,
+	0);
+INSERT INTO S_BRG
+  VALUES (	524298,
+	524289,
+	'spin_down_drive',
+	'',
+	0,
+	524289,
+	'::PIO_drive_stopped(id:param.drive_id);',
+	1);
+INSERT INTO S_BPARM
+  VALUES (	524313,
+	524298,
+	'drive_id',
+	524291,
+	0);
+INSERT INTO S_BPARM
+  VALUES (	524314,
+	524298,
+	'tvs',
+	524306,
+	0);
+INSERT INTO S_EE
+  VALUES (	524290,
+	'QP',
+	'',
+	'qp1',
+	16962681);
+INSERT INTO S_BRG
+  VALUES (	524299,
+	524290,
+	'disk_mount_done',
+	'',
+	0,
+	524289,
+	'',
+	1);
+INSERT INTO S_BPARM
+  VALUES (	524315,
+	524299,
+	'disk_id',
+	524291,
+	0);
+INSERT INTO S_BPARM
+  VALUES (	524316,
+	524299,
+	'drive_id',
+	524291,
+	0);
+INSERT INTO S_BPARM
+  VALUES (	524317,
+	524299,
+	'qp_id',
+	524291,
+	0);
+INSERT INTO S_EEEDI
+  VALUES (	524289,
+	524290,
+	'qp_id',
+	'',
+	524291);
+INSERT INTO S_EEEDI
+  VALUES (	524290,
+	524290,
+	'disk_id',
+	'',
+	524291);
+INSERT INTO S_EEEDI
+  VALUES (	524291,
+	524290,
+	'drive_id',
+	'',
+	524291);
+INSERT INTO GD_MD
+  VALUES (	524289,
+	1,
+	16962681,
+	1,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4199,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	524293,
+	524289,
+	524289,
+	12);
+INSERT INTO GD_SHP
+  VALUES (	524293,
+	1792,
+	1504,
+	1952,
+	1600);
+INSERT INTO GD_GE
+  VALUES (	524294,
+	524289,
+	524290,
+	12);
+INSERT INTO GD_SHP
+  VALUES (	524294,
+	2048,
+	1504,
+	2208,
+	1600);
+INSERT INTO GD_GE
+  VALUES (	524513,
+	524289,
+	1048578,
+	11);
+INSERT INTO GD_SHP
+  VALUES (	524513,
+	1920,
+	1344,
+	2080,
+	1440);
+INSERT INTO GD_MD
+  VALUES (	524290,
+	2,
+	16962681,
+	1,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4200,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	524514,
+	524290,
+	1048578,
+	11);
+INSERT INTO GD_SHP
+  VALUES (	524514,
+	1920,
+	1344,
+	2080,
+	1440);
+INSERT INTO GD_MD
+  VALUES (	524291,
+	3,
+	16962681,
+	1,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4200,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	524515,
+	524291,
+	1048578,
+	11);
+INSERT INTO GD_SHP
+  VALUES (	524515,
+	1920,
+	1344,
+	2080,
+	1440);
+INSERT INTO GD_MD
+  VALUES (	524292,
+	4,
+	16962681,
+	1,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4200,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	524516,
+	524292,
+	1048578,
+	11);
+INSERT INTO GD_SHP
+  VALUES (	524516,
+	1920,
+	1344,
+	2080,
+	1440);
+INSERT INTO S_SS
+  VALUES (	1048578,
+	'Odms',
+	'Subsystem Description:
+
+Relationship with other Subsystems:
+',
+	'D',
+	1,
+	16962681,
+	1048578);
+INSERT INTO O_OBJ
+  VALUES (	1048577,
+	'Disk',
+	1,
+	'D_D',
+	'Object Description:
+
+Object Role:
+',
+	1048578);
+INSERT INTO O_NBATTR
+  VALUES (	1048577,
+	1048577);
+INSERT INTO O_BATTR
+  VALUES (	1048577,
+	1048577);
+INSERT INTO O_ATTR
+  VALUES (	1048577,
+	1048577,
+	0,
+	'Disk_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Disk_ID',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+  VALUES (	1048578,
+	1048577);
+INSERT INTO O_BATTR
+  VALUES (	1048578,
+	1048577);
+INSERT INTO O_ATTR
+  VALUES (	1048578,
+	1048577,
+	1048577,
+	'Serial_Number',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Serial_Number',
+	0,
+	524291);
+INSERT INTO O_REF
+  VALUES (	1048577,
+	1048578,
+	0,
+	1048589,
+	1048577,
+	1048577,
+	1048578,
+	1048579,
+	1048584,
+	0,
+	0,
+	'Reference Domain:
+');
+INSERT INTO O_RATTR
+  VALUES (	1048579,
+	1048577,
+	1048589,
+	1048578,
+	1);
+INSERT INTO O_ATTR
+  VALUES (	1048579,
+	1048577,
+	1048578,
+	'Row_Number',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Row_Number',
+	0,
+	524296);
+INSERT INTO O_REF
+  VALUES (	1048577,
+	1048578,
+	0,
+	1048590,
+	1048577,
+	1048577,
+	1048578,
+	1048580,
+	1048585,
+	0,
+	0,
+	'Reference Domain:
+');
+INSERT INTO O_RATTR
+  VALUES (	1048580,
+	1048577,
+	1048590,
+	1048578,
+	1);
+INSERT INTO O_ATTR
+  VALUES (	1048580,
+	1048577,
+	1048579,
+	'Column_Number',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Column_Number',
+	0,
+	524296);
+INSERT INTO O_NBATTR
+  VALUES (	1048581,
+	1048577);
+INSERT INTO O_BATTR
+  VALUES (	1048581,
+	1048577);
+INSERT INTO O_ATTR
+  VALUES (	1048581,
+	1048577,
+	1048580,
+	'Number_of_Bytes_Available',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Number_of_Bytes_Available',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+  VALUES (	1048582,
+	1048577);
+INSERT INTO O_BATTR
+  VALUES (	1048582,
+	1048577);
+INSERT INTO O_ATTR
+  VALUES (	1048582,
+	1048577,
+	1048581,
+	'Address_to_Start_Writing',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Address_to_Start_Writing',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+  VALUES (	1048583,
+	1048577);
+INSERT INTO O_BATTR
+  VALUES (	1048583,
+	1048577);
+INSERT INTO O_ATTR
+  VALUES (	1048583,
+	1048577,
+	1048582,
+	'Write_Protect_ Status',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Write_Protect_ Status',
+	0,
+	524290);
+INSERT INTO O_NBATTR
+  VALUES (	1048584,
+	1048577);
+INSERT INTO O_BATTR
+  VALUES (	1048584,
+	1048577);
+INSERT INTO O_ATTR
+  VALUES (	1048584,
+	1048577,
+	1048583,
+	'Waiting_for_Slot',
+	'This attribute is set based on the current state of the state machine, it is always FALSE except when in the "Waiting for Slot" state.
+',
+	'',
+	'Waiting_for_Slot',
+	0,
+	524290);
+INSERT INTO O_NBATTR
+  VALUES (	1048585,
+	1048577);
+INSERT INTO O_BATTR
+  VALUES (	1048585,
+	1048577);
+INSERT INTO O_ATTR
+  VALUES (	1048585,
+	1048577,
+	1048584,
+	'Waiting_for_Drive',
+	'This attribute is TRUE only when the state machine is in the Waiting for Drive state.
+',
+	'',
+	'Waiting_for_Drive',
+	0,
+	524290);
+INSERT INTO O_NBATTR
+  VALUES (	1048586,
+	1048577);
+INSERT INTO O_BATTR
+  VALUES (	1048586,
+	1048577);
+INSERT INTO O_ATTR
+  VALUES (	1048586,
+	1048577,
+	1048585,
+	'Unowned_in_Cabinet',
+	'This attribute is TRUE only when the state machine is in the Unowned in Cabinet state.',
+	'',
+	'Unowned_in_Cabinet',
+	0,
+	524290);
+INSERT INTO O_NBATTR
+  VALUES (	1048587,
+	1048577);
+INSERT INTO O_BATTR
+  VALUES (	1048587,
+	1048577);
+INSERT INTO O_ATTR
+  VALUES (	1048587,
+	1048577,
+	1048586,
+	'Unowned_in_Library',
+	'This attribute is TRUE only when the state machine is in the Unowned in Library state',
+	'',
+	'Unowned_in_Library',
+	0,
+	524290);
+INSERT INTO O_NBATTR
+  VALUES (	1048588,
+	1048577);
+INSERT INTO O_BATTR
+  VALUES (	1048588,
+	1048577);
+INSERT INTO O_ATTR
+  VALUES (	1048588,
+	1048577,
+	1048587,
+	'current_state',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_ID
+  VALUES (	0,
+	1048577);
+INSERT INTO O_OIDA
+  VALUES (	1048577,
+	1048577,
+	0);
+INSERT INTO O_RTIDA
+  VALUES (	1048577,
+	1048577,
+	0,
+	1048578,
+	1048579);
+INSERT INTO O_RTIDA
+  VALUES (	1048577,
+	1048577,
+	0,
+	1048580,
+	1048586);
+INSERT INTO O_RTIDA
+  VALUES (	1048577,
+	1048577,
+	0,
+	1048579,
+	1048583);
+INSERT INTO SM_ISM
+  VALUES (	1572867,
+	1048577);
+INSERT INTO SM_SM
+  VALUES (	1572867,
+	'',
+	3);
+INSERT INTO SM_MOORE
+  VALUES (	1572867);
+INSERT INTO SM_SUPDT
+  VALUES (	1572865,
+	1572867,
+	0);
+INSERT INTO SM_LEVT
+  VALUES (	1572865,
+	1572867,
+	1572865);
+INSERT INTO SM_SEVT
+  VALUES (	1572865,
+	1572867,
+	1572865);
+INSERT INTO SM_EVT
+  VALUES (	1572865,
+	1572867,
+	1572865,
+	1,
+	'Disk Ownership Established',
+	0,
+	'',
+	'D_D1',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	1572866,
+	1572867,
+	1572865);
+INSERT INTO SM_SEVT
+  VALUES (	1572866,
+	1572867,
+	1572865);
+INSERT INTO SM_EVT
+  VALUES (	1572866,
+	1572867,
+	1572865,
+	2,
+	'Disk Arrived in Slot',
+	0,
+	'',
+	'D_D2',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	1572867,
+	1572867,
+	1572865);
+INSERT INTO SM_SEVT
+  VALUES (	1572867,
+	1572867,
+	1572865);
+INSERT INTO SM_EVT
+  VALUES (	1572867,
+	1572867,
+	1572865,
+	3,
+	'Disk in Drive',
+	0,
+	'',
+	'D_D3',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	1572868,
+	1572867,
+	1572865);
+INSERT INTO SM_SEVT
+  VALUES (	1572868,
+	1572867,
+	1572865);
+INSERT INTO SM_EVT
+  VALUES (	1572868,
+	1572867,
+	1572865,
+	4,
+	'Disk Unmount Request',
+	0,
+	'',
+	'D_D4',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	1572869,
+	1572867,
+	1572865);
+INSERT INTO SM_SEVT
+  VALUES (	1572869,
+	1572867,
+	1572865);
+INSERT INTO SM_EVT
+  VALUES (	1572869,
+	1572867,
+	1572865,
+	5,
+	'Disk Returned to Slot',
+	0,
+	'',
+	'D_D5',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	1572870,
+	1572867,
+	1572865);
+INSERT INTO SM_SEVT
+  VALUES (	1572870,
+	1572867,
+	1572865);
+INSERT INTO SM_EVT
+  VALUES (	1572870,
+	1572867,
+	1572865,
+	6,
+	'Return Unowned Disk to Library',
+	0,
+	'',
+	'D_D6',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	1572871,
+	1572867,
+	1572865);
+INSERT INTO SM_SEVT
+  VALUES (	1572871,
+	1572867,
+	1572865);
+INSERT INTO SM_EVT
+  VALUES (	1572871,
+	1572867,
+	1572865,
+	7,
+	'Disk Left Slot on way to Library',
+	0,
+	'',
+	'D_D7',
+	'Event Descriptions:
+');
+INSERT INTO SM_STATE
+  VALUES (	1572865,
+	1572867,
+	1572865,
+	'Unowned in Library',
+	1,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	1572865,
+	1572865,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572865,
+	1572866,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572865,
+	1572866,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572865,
+	1572867,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572865,
+	1572867,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572865,
+	1572868,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572865,
+	1572868,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572865,
+	1572869,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572865,
+	1572869,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572865,
+	1572870,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572865,
+	1572870,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572865,
+	1572871,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572865,
+	1572871,
+	1572867,
+	1572865);
+INSERT INTO SM_STATE
+  VALUES (	1572866,
+	1572867,
+	1572865,
+	'Waiting for Slot',
+	2,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	1572866,
+	1572865,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572866,
+	1572865,
+	1572867,
+	1572865);
+INSERT INTO SM_SEME
+  VALUES (	1572866,
+	1572866,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572866,
+	1572867,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572866,
+	1572867,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572866,
+	1572868,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572866,
+	1572868,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572866,
+	1572869,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572866,
+	1572869,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572866,
+	1572870,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572866,
+	1572870,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572866,
+	1572871,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572866,
+	1572871,
+	1572867,
+	1572865);
+INSERT INTO SM_STATE
+  VALUES (	1572867,
+	1572867,
+	1572865,
+	'Waiting for Drive',
+	3,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	1572867,
+	1572865,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572867,
+	1572865,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572867,
+	1572866,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572867,
+	1572866,
+	1572867,
+	1572865);
+INSERT INTO SM_SEME
+  VALUES (	1572867,
+	1572867,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572867,
+	1572868,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572867,
+	1572868,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572867,
+	1572869,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572867,
+	1572869,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572867,
+	1572870,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572867,
+	1572870,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572867,
+	1572871,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572867,
+	1572871,
+	1572867,
+	1572865);
+INSERT INTO SM_STATE
+  VALUES (	1572868,
+	1572867,
+	1572865,
+	'In Drive',
+	4,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	1572868,
+	1572865,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572868,
+	1572865,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572868,
+	1572866,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572868,
+	1572866,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572868,
+	1572867,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572868,
+	1572867,
+	1572867,
+	1572865);
+INSERT INTO SM_SEME
+  VALUES (	1572868,
+	1572868,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572868,
+	1572869,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572868,
+	1572869,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572868,
+	1572870,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572868,
+	1572870,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572868,
+	1572871,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572868,
+	1572871,
+	1572867,
+	1572865);
+INSERT INTO SM_STATE
+  VALUES (	1572869,
+	1572867,
+	1572865,
+	'Leaving Drive',
+	5,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	1572869,
+	1572865,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572869,
+	1572865,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572869,
+	1572866,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572869,
+	1572866,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572869,
+	1572867,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572869,
+	1572867,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572869,
+	1572868,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572869,
+	1572868,
+	1572867,
+	1572865);
+INSERT INTO SM_SEME
+  VALUES (	1572869,
+	1572869,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572869,
+	1572870,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572869,
+	1572870,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572869,
+	1572871,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572869,
+	1572871,
+	1572867,
+	1572865);
+INSERT INTO SM_STATE
+  VALUES (	1572870,
+	1572867,
+	1572865,
+	'Unowned in Cabinet',
+	6,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	1572870,
+	1572865,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572870,
+	1572866,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572870,
+	1572866,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572870,
+	1572867,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572870,
+	1572867,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572870,
+	1572868,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572870,
+	1572868,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572870,
+	1572869,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572870,
+	1572869,
+	1572867,
+	1572865);
+INSERT INTO SM_SEME
+  VALUES (	1572870,
+	1572870,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572870,
+	1572871,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572870,
+	1572871,
+	1572867,
+	1572865);
+INSERT INTO SM_STATE
+  VALUES (	1572871,
+	1572867,
+	1572865,
+	'Leaving Cabinet',
+	7,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	1572871,
+	1572865,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572871,
+	1572865,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572871,
+	1572866,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572871,
+	1572866,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572871,
+	1572867,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572871,
+	1572867,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572871,
+	1572868,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572871,
+	1572868,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572871,
+	1572869,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572871,
+	1572869,
+	1572867,
+	1572865);
+INSERT INTO SM_EIGN
+  VALUES (	1572871,
+	1572870,
+	1572867,
+	1572865,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	1572871,
+	1572870,
+	1572867,
+	1572865);
+INSERT INTO SM_SEME
+  VALUES (	1572871,
+	1572871,
+	1572867,
+	1572865);
+INSERT INTO SM_NSTXN
+  VALUES (	1572865,
+	1572867,
+	1572865,
+	1572865,
+	1572865);
+INSERT INTO SM_TXN
+  VALUES (	1572865,
+	1572867,
+	1572866,
+	1572865);
+INSERT INTO SM_NSTXN
+  VALUES (	1572866,
+	1572867,
+	1572866,
+	1572866,
+	1572865);
+INSERT INTO SM_TXN
+  VALUES (	1572866,
+	1572867,
+	1572867,
+	1572865);
+INSERT INTO SM_NSTXN
+  VALUES (	1572867,
+	1572867,
+	1572867,
+	1572867,
+	1572865);
+INSERT INTO SM_TXN
+  VALUES (	1572867,
+	1572867,
+	1572868,
+	1572865);
+INSERT INTO SM_NSTXN
+  VALUES (	1572868,
+	1572867,
+	1572868,
+	1572868,
+	1572865);
+INSERT INTO SM_TXN
+  VALUES (	1572868,
+	1572867,
+	1572869,
+	1572865);
+INSERT INTO SM_NSTXN
+  VALUES (	1572869,
+	1572867,
+	1572870,
+	1572865,
+	1572865);
+INSERT INTO SM_TXN
+  VALUES (	1572869,
+	1572867,
+	1572867,
+	1572865);
+INSERT INTO SM_NSTXN
+  VALUES (	1572870,
+	1572867,
+	1572869,
+	1572869,
+	1572865);
+INSERT INTO SM_TXN
+  VALUES (	1572870,
+	1572867,
+	1572870,
+	1572865);
+INSERT INTO SM_NSTXN
+  VALUES (	1572871,
+	1572867,
+	1572871,
+	1572871,
+	1572865);
+INSERT INTO SM_TXN
+  VALUES (	1572871,
+	1572867,
+	1572865,
+	1572865);
+INSERT INTO SM_NSTXN
+  VALUES (	1572872,
+	1572867,
+	1572870,
+	1572870,
+	1572865);
+INSERT INTO SM_TXN
+  VALUES (	1572872,
+	1572867,
+	1572871,
+	1572865);
+INSERT INTO SM_MOAH
+  VALUES (	1572865,
+	1572867,
+	1572865);
+INSERT INTO SM_AH
+  VALUES (	1572865,
+	1572867);
+INSERT INTO SM_ACT
+  VALUES (	1572865,
+	1572867,
+	1,
+	'Assign Self.Unowned_in_Library = TRUE;
+
+Generate D_DO_A5:''Disk Ownership Released'' () to D_DO assigner;',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	1572866,
+	1572867,
+	1572866);
+INSERT INTO SM_AH
+  VALUES (	1572866,
+	1572867);
+INSERT INTO SM_ACT
+  VALUES (	1572866,
+	1572867,
+	1,
+	'Assign Self.Unowned_in_Library = FALSE;
+Assign Self.Waiting_for_Slot = TRUE;
+
+Select one offline_disk related by Self->D_OD[R3];
+Delete object instance offline_disk;
+
+Create object instance online_disk of D_OND;
+Relate Self to online_disk across R3;
+
+Generate D_SDA_A1:''Request Slot'' () to D_SDA assigner;
+Generate D_DO_A7:''Disk Now Online'' (serial_number:Self.Serial_Number) to D_DO assigner;',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	1572867,
+	1572867,
+	1572867);
+INSERT INTO SM_AH
+  VALUES (	1572867,
+	1572867);
+INSERT INTO SM_ACT
+  VALUES (	1572867,
+	1572867,
+	1,
+	'Assign Self.Waiting_for_Slot = FALSE;
+Assign Self.Unowned_in_Cabinet = FALSE;
+Assign Self.Waiting_for_Drive = TRUE;
+
+Generate D_DDA_A1:''Disk Waiting for Drive'' () to D_DDA assigner;',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	1572868,
+	1572867,
+	1572868);
+INSERT INTO SM_AH
+  VALUES (	1572868,
+	1572867);
+INSERT INTO SM_ACT
+  VALUES (	1572868,
+	1572867,
+	1,
+	'Assign Self.Waiting_for_Drive = FALSE;
+
+
+Select one process Related by Self->D_DO[R2]->D_QP[R2];
+Select one drive related by self->D_OND[R3]->D_DDA[R5]->D_DR[R5];
+
+Bridge qp1::disk_mount_done(qp_id:process.Qualified_Process_ID,
+      drive_id:drive.Drive_ID,
+      disk_id:self.Disk_ID);
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	1572869,
+	1572867,
+	1572869);
+INSERT INTO SM_AH
+  VALUES (	1572869,
+	1572867);
+INSERT INTO SM_ACT
+  VALUES (	1572869,
+	1572867,
+	1,
+	'Select one drive related by Self->D_OND[R3]->D_DDA[R5]->D_DR[R5];
+Generate D_DR3:''Disk Through With Drive'' () to drive;',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	1572870,
+	1572867,
+	1572870);
+INSERT INTO SM_AH
+  VALUES (	1572870,
+	1572867);
+INSERT INTO SM_ACT
+  VALUES (	1572870,
+	1572867,
+	1,
+	'Assign Self.Unowned_in_Cabinet = TRUE;
+
+Select one disk_owner related by Self->D_DO[R2];
+Delete object instance disk_owner;
+
+Generate D_DO_A5:''Disk Ownership Released'' () to D_DO assigner;',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	1572871,
+	1572867,
+	1572871);
+INSERT INTO SM_AH
+  VALUES (	1572871,
+	1572867);
+INSERT INTO SM_ACT
+  VALUES (	1572871,
+	1572867,
+	1,
+	'Assign Self.Unowned_in_Cabinet = FALSE;
+
+Select one slot related by Self->D_OND[R3]->D_SDA[R6]->D_S[R6];
+
+Generate D_DO_A8:''Disk Now Offline'' () to D_DO assigner;
+Generate D_S2:''Free Up Slot'' () to slot;
+
+Select one online_disk related by Self->D_OND[R3];
+Select one slot_assignment related by online_disk->D_SDA[R6];
+Delete object instance slot_assignment;
+Delete object instance online_disk;
+
+Create object instance offline_disk of D_OD;
+Relate Self to offline_disk across R3;
+',
+	'');
+INSERT INTO GD_MD
+  VALUES (	1572865,
+	8,
+	1572867,
+	40,
+	0,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4199,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1572866,
+	1572865,
+	1572871,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	1572866,
+	2224,
+	1248,
+	2608,
+	1536);
+INSERT INTO GD_GE
+  VALUES (	1572867,
+	1572865,
+	1572870,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	1572867,
+	2224,
+	1712,
+	2624,
+	1872);
+INSERT INTO GD_GE
+  VALUES (	1572868,
+	1572865,
+	1572869,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	1572868,
+	2224,
+	1952,
+	2544,
+	2080);
+INSERT INTO GD_GE
+  VALUES (	1572869,
+	1572865,
+	1572868,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	1572869,
+	1712,
+	1952,
+	2048,
+	2144);
+INSERT INTO GD_GE
+  VALUES (	1572870,
+	1572865,
+	1572867,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	1572870,
+	1616,
+	1744,
+	2016,
+	1872);
+INSERT INTO GD_GE
+  VALUES (	1572871,
+	1572865,
+	1572866,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	1572871,
+	1584,
+	1424,
+	2096,
+	1664);
+INSERT INTO GD_GE
+  VALUES (	1572872,
+	1572865,
+	1572865,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	1572872,
+	1616,
+	1248,
+	2016,
+	1344);
+INSERT INTO GD_GE
+  VALUES (	1572873,
+	1572865,
+	1572871,
+	42);
+INSERT INTO GD_CON
+  VALUES (	1572873,
+	1572866,
+	1572872,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1572873,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2036,
+	1256,
+	2194,
+	1295,
+	-59,
+	-15,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1572874,
+	1572873,
+	2224,
+	1296,
+	2016,
+	1296,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1572875,
+	1572865,
+	1572872,
+	42);
+INSERT INTO GD_CON
+  VALUES (	1572875,
+	1572867,
+	1572866,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1572875,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2417,
+	1579,
+	2644,
+	1617,
+	17,
+	-6,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1572876,
+	1572875,
+	2416,
+	1712,
+	2416,
+	1536,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1572877,
+	1572865,
+	1572869,
+	42);
+INSERT INTO GD_CON
+  VALUES (	1572877,
+	1572867,
+	1572870,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1572877,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2039,
+	1759,
+	2204,
+	1806,
+	-56,
+	-24,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1572878,
+	1572877,
+	2224,
+	1808,
+	2016,
+	1808,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1572879,
+	1572865,
+	1572870,
+	42);
+INSERT INTO GD_CON
+  VALUES (	1572879,
+	1572868,
+	1572867,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1572879,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2367,
+	1895,
+	2550,
+	1935,
+	15,
+	-2,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1572880,
+	1572879,
+	2368,
+	1952,
+	2368,
+	1872,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1572881,
+	1572865,
+	1572868,
+	42);
+INSERT INTO GD_CON
+  VALUES (	1572881,
+	1572869,
+	1572868,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1572881,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2032,
+	1972,
+	2209,
+	2014,
+	-63,
+	-19,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1572882,
+	1572881,
+	2048,
+	2016,
+	2224,
+	2016,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1572883,
+	1572865,
+	1572867,
+	42);
+INSERT INTO GD_CON
+  VALUES (	1572883,
+	1572870,
+	1572869,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1572883,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1808,
+	1896,
+	1971,
+	1941,
+	0,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1572884,
+	1572883,
+	1824,
+	1872,
+	1824,
+	1952,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1572885,
+	1572865,
+	1572866,
+	42);
+INSERT INTO GD_CON
+  VALUES (	1572885,
+	1572871,
+	1572870,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1572885,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1808,
+	1688,
+	2000,
+	1731,
+	0,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1572886,
+	1572885,
+	1824,
+	1664,
+	1824,
+	1744,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1572887,
+	1572865,
+	1572865,
+	42);
+INSERT INTO GD_CON
+  VALUES (	1572887,
+	1572872,
+	1572871,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1572887,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1821,
+	1370,
+	2037,
+	1410,
+	13,
+	-7,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1572888,
+	1572887,
+	1824,
+	1344,
+	1824,
+	1424,
+	0);
+INSERT INTO O_OBJ
+  VALUES (	1048578,
+	'Permanent Home in Library',
+	2,
+	'D_H',
+	'Object Description:
+
+Object Role:
+',
+	1048578);
+INSERT INTO O_NBATTR
+  VALUES (	1048589,
+	1048578);
+INSERT INTO O_BATTR
+  VALUES (	1048589,
+	1048578);
+INSERT INTO O_ATTR
+  VALUES (	1048589,
+	1048578,
+	0,
+	'Row_Number',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Row_Number',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+  VALUES (	1048590,
+	1048578);
+INSERT INTO O_BATTR
+  VALUES (	1048590,
+	1048578);
+INSERT INTO O_ATTR
+  VALUES (	1048590,
+	1048578,
+	1048589,
+	'Column_Number',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Column_Number',
+	0,
+	524291);
+INSERT INTO O_ID
+  VALUES (	0,
+	1048578);
+INSERT INTO O_OIDA
+  VALUES (	1048590,
+	1048578,
+	0);
+INSERT INTO O_RTIDA
+  VALUES (	1048590,
+	1048578,
+	0,
+	1048577,
+	1048578);
+INSERT INTO O_OIDA
+  VALUES (	1048589,
+	1048578,
+	0);
+INSERT INTO O_RTIDA
+  VALUES (	1048589,
+	1048578,
+	0,
+	1048577,
+	1048578);
+INSERT INTO O_OBJ
+  VALUES (	1048579,
+	'Online Disk',
+	4,
+	'D_OND',
+	'Object Description:
+
+Object Role:
+',
+	1048578);
+INSERT INTO O_REF
+  VALUES (	1048579,
+	1048577,
+	0,
+	1048577,
+	1048578,
+	1048580,
+	1048579,
+	1048591,
+	1048577,
+	0,
+	0,
+	'Reference Domain:
+');
+INSERT INTO O_RATTR
+  VALUES (	1048591,
+	1048579,
+	1048577,
+	1048577,
+	1);
+INSERT INTO O_ATTR
+  VALUES (	1048591,
+	1048579,
+	0,
+	'Disk_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Disk_ID',
+	0,
+	524296);
+INSERT INTO O_ID
+  VALUES (	0,
+	1048579);
+INSERT INTO O_OIDA
+  VALUES (	1048591,
+	1048579,
+	0);
+INSERT INTO O_RTIDA
+  VALUES (	1048591,
+	1048579,
+	0,
+	1048583,
+	1048595);
+INSERT INTO O_RTIDA
+  VALUES (	1048591,
+	1048579,
+	0,
+	1048582,
+	1048593);
+INSERT INTO O_OBJ
+  VALUES (	1048580,
+	'Offline Disk',
+	3,
+	'D_OD',
+	'Object Description:
+
+Object Role:
+',
+	1048578);
+INSERT INTO O_REF
+  VALUES (	1048580,
+	1048577,
+	0,
+	1048577,
+	1048578,
+	1048581,
+	1048579,
+	1048592,
+	1048578,
+	0,
+	0,
+	'Reference Domain:
+');
+INSERT INTO O_RATTR
+  VALUES (	1048592,
+	1048580,
+	1048577,
+	1048577,
+	1);
+INSERT INTO O_ATTR
+  VALUES (	1048592,
+	1048580,
+	0,
+	'Disk_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Disk_ID',
+	0,
+	524296);
+INSERT INTO O_ID
+  VALUES (	0,
+	1048580);
+INSERT INTO O_OIDA
+  VALUES (	1048592,
+	1048580,
+	0);
+INSERT INTO O_OBJ
+  VALUES (	1048581,
+	'Disk Request',
+	10,
+	'D_DQ',
+	'Object Description:
+
+Object Role:
+',
+	1048578);
+INSERT INTO O_REF
+  VALUES (	1048581,
+	1048582,
+	0,
+	1048599,
+	1048579,
+	1048584,
+	1048582,
+	1048593,
+	1048586,
+	0,
+	0,
+	'Reference Domain:
+');
+INSERT INTO O_RATTR
+  VALUES (	1048593,
+	1048581,
+	1048599,
+	1048582,
+	1);
+INSERT INTO O_ATTR
+  VALUES (	1048593,
+	1048581,
+	0,
+	'Qualified_Process_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Qualified_Process_ID',
+	0,
+	524296);
+INSERT INTO O_REF
+  VALUES (	1048581,
+	1048577,
+	0,
+	1048577,
+	1048579,
+	1048584,
+	1048583,
+	1048594,
+	1048587,
+	0,
+	0,
+	'Reference Domain:
+');
+INSERT INTO O_RATTR
+  VALUES (	1048594,
+	1048581,
+	1048577,
+	1048577,
+	1);
+INSERT INTO O_ATTR
+  VALUES (	1048594,
+	1048581,
+	1048593,
+	'Disk_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Disk_ID',
+	0,
+	524296);
+INSERT INTO O_NBATTR
+  VALUES (	1048595,
+	1048581);
+INSERT INTO O_BATTR
+  VALUES (	1048595,
+	1048581);
+INSERT INTO O_ATTR
+  VALUES (	1048595,
+	1048581,
+	1048594,
+	'Time_of_Request',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Time_of_Request',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+  VALUES (	1048596,
+	1048581);
+INSERT INTO O_BATTR
+  VALUES (	1048596,
+	1048581);
+INSERT INTO O_ATTR
+  VALUES (	1048596,
+	1048581,
+	1048595,
+	'Time_Request_Completed',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Time_Request_Completed',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+  VALUES (	1048597,
+	1048581);
+INSERT INTO O_BATTR
+  VALUES (	1048597,
+	1048581);
+INSERT INTO O_ATTR
+  VALUES (	1048597,
+	1048581,
+	1048596,
+	'Request_Pending',
+	'This attribute is TRUE only when the state machine is in the Accepting Disk Mount Request state.
+',
+	'',
+	'Request_Pending',
+	0,
+	524290);
+INSERT INTO O_NBATTR
+  VALUES (	1048598,
+	1048581);
+INSERT INTO O_BATTR
+  VALUES (	1048598,
+	1048581);
+INSERT INTO O_ATTR
+  VALUES (	1048598,
+	1048581,
+	1048597,
+	'current_state',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_ID
+  VALUES (	0,
+	1048581);
+INSERT INTO O_OIDA
+  VALUES (	1048595,
+	1048581,
+	0);
+INSERT INTO O_OIDA
+  VALUES (	1048593,
+	1048581,
+	0);
+INSERT INTO O_OIDA
+  VALUES (	1048594,
+	1048581,
+	0);
+INSERT INTO SM_ISM
+  VALUES (	2097156,
+	1048581);
+INSERT INTO SM_SM
+  VALUES (	2097156,
+	'',
+	4);
+INSERT INTO SM_MOORE
+  VALUES (	2097156);
+INSERT INTO SM_SUPDT
+  VALUES (	2097153,
+	2097156,
+	0);
+INSERT INTO SM_LEVT
+  VALUES (	2097153,
+	2097156,
+	2097153);
+INSERT INTO SM_SEVT
+  VALUES (	2097153,
+	2097156,
+	2097153);
+INSERT INTO SM_EVT
+  VALUES (	2097153,
+	2097156,
+	2097153,
+	1,
+	'Disk Mount Request',
+	0,
+	'',
+	'D_DQ1',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	2097154,
+	2097156,
+	2097153);
+INSERT INTO SM_SEVT
+  VALUES (	2097154,
+	2097156,
+	2097153);
+INSERT INTO SM_EVT
+  VALUES (	2097154,
+	2097156,
+	2097153,
+	2,
+	'Disk Request Satisfied',
+	0,
+	'',
+	'D_DQ2',
+	'Event Descriptions:
+');
+INSERT INTO SM_STATE
+  VALUES (	2097153,
+	2097156,
+	2097153,
+	'Accepting Disk Mount Request',
+	1,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	2097153,
+	2097153,
+	2097156,
+	2097153);
+INSERT INTO SM_SEME
+  VALUES (	2097153,
+	2097154,
+	2097156,
+	2097153);
+INSERT INTO SM_STATE
+  VALUES (	2097154,
+	2097156,
+	2097153,
+	'Disk Request Satisfied',
+	2,
+	1);
+INSERT INTO SM_EIGN
+  VALUES (	2097154,
+	2097153,
+	2097156,
+	2097153,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	2097154,
+	2097153,
+	2097156,
+	2097153);
+INSERT INTO SM_EIGN
+  VALUES (	2097154,
+	2097154,
+	2097156,
+	2097153,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	2097154,
+	2097154,
+	2097156,
+	2097153);
+INSERT INTO SM_NSTXN
+  VALUES (	2097153,
+	2097156,
+	2097153,
+	2097154,
+	2097153);
+INSERT INTO SM_TXN
+  VALUES (	2097153,
+	2097156,
+	2097154,
+	2097153);
+INSERT INTO SM_NSTXN
+  VALUES (	2097154,
+	2097156,
+	2097153,
+	2097153,
+	2097153);
+INSERT INTO SM_TXN
+  VALUES (	2097154,
+	2097156,
+	2097153,
+	2097153);
+INSERT INTO SM_MOAH
+  VALUES (	2097153,
+	2097156,
+	2097153);
+INSERT INTO SM_AH
+  VALUES (	2097153,
+	2097156);
+INSERT INTO SM_ACT
+  VALUES (	2097153,
+	2097156,
+	1,
+	'Assign Self.Request_Pending = TRUE;
+Generate D_DO_A1:''Disk Requested by QP'' () to D_DO Assigner;',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	2097154,
+	2097156,
+	2097154);
+INSERT INTO SM_AH
+  VALUES (	2097154,
+	2097156);
+INSERT INTO SM_ACT
+  VALUES (	2097154,
+	2097156,
+	1,
+	'// Update Time Request Satisfied
+Assign Self.Request_Pending = FALSE;
+
+Generate D_DO_A6:''Ownership Established'' () to D_DO Assigner;',
+	'');
+INSERT INTO GD_MD
+  VALUES (	2097153,
+	8,
+	2097156,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4199,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	2097154,
+	2097153,
+	2097154,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	2097154,
+	1840,
+	1568,
+	2256,
+	1760);
+INSERT INTO GD_GE
+  VALUES (	2097155,
+	2097153,
+	2097153,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	2097155,
+	1840,
+	1296,
+	2256,
+	1424);
+INSERT INTO GD_GE
+  VALUES (	2097156,
+	2097153,
+	2097154,
+	42);
+INSERT INTO GD_CON
+  VALUES (	2097156,
+	2097155,
+	2097155,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	2097156,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1645,
+	1342,
+	1769,
+	1390,
+	-115,
+	-3,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	2097157,
+	2097156,
+	1840,
+	1312,
+	1776,
+	1312,
+	0);
+INSERT INTO GD_LS
+  VALUES (	2097158,
+	2097156,
+	1776,
+	1312,
+	1776,
+	1408,
+	2097157);
+INSERT INTO GD_LS
+  VALUES (	2097159,
+	2097156,
+	1776,
+	1408,
+	1840,
+	1408,
+	2097158);
+INSERT INTO GD_GE
+  VALUES (	2097160,
+	2097153,
+	2097153,
+	42);
+INSERT INTO GD_CON
+  VALUES (	2097160,
+	2097155,
+	2097154,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	2097160,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2041,
+	1476,
+	2251,
+	1521,
+	9,
+	-5,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	2097161,
+	2097160,
+	2048,
+	1424,
+	2048,
+	1568,
+	0);
+INSERT INTO O_OBJ
+  VALUES (	1048582,
+	'Qualified Process',
+	9,
+	'D_QP',
+	'Object Description:
+
+Object Role:
+',
+	1048578);
+INSERT INTO O_NBATTR
+  VALUES (	1048599,
+	1048582);
+INSERT INTO O_BATTR
+  VALUES (	1048599,
+	1048582);
+INSERT INTO O_ATTR
+  VALUES (	1048599,
+	1048582,
+	0,
+	'Qualified_Process_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Qualified_Process_ID',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+  VALUES (	1048600,
+	1048582);
+INSERT INTO O_BATTR
+  VALUES (	1048600,
+	1048582);
+INSERT INTO O_ATTR
+  VALUES (	1048600,
+	1048582,
+	1048599,
+	'current_state',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_ID
+  VALUES (	0,
+	1048582);
+INSERT INTO O_OIDA
+  VALUES (	1048599,
+	1048582,
+	0);
+INSERT INTO O_RTIDA
+  VALUES (	1048599,
+	1048582,
+	0,
+	1048580,
+	1048585);
+INSERT INTO O_RTIDA
+  VALUES (	1048599,
+	1048582,
+	0,
+	1048579,
+	1048582);
+INSERT INTO SM_ISM
+  VALUES (	2621445,
+	1048582);
+INSERT INTO SM_SM
+  VALUES (	2621445,
+	'',
+	5);
+INSERT INTO SM_MOORE
+  VALUES (	2621445);
+INSERT INTO SM_EVTDI
+  VALUES (	2621441,
+	2621445,
+	'disk_id',
+	'Event Data Item Descriptions:
+',
+	524291);
+INSERT INTO SM_SUPDT
+  VALUES (	2621441,
+	2621445,
+	0);
+INSERT INTO SM_SDI
+  VALUES (	2621441,
+	2621441,
+	2621445);
+INSERT INTO SM_LEVT
+  VALUES (	2621441,
+	2621445,
+	2621441);
+INSERT INTO SM_SEVT
+  VALUES (	2621441,
+	2621445,
+	2621441);
+INSERT INTO SM_EVT
+  VALUES (	2621441,
+	2621445,
+	2621441,
+	1,
+	'Mount Disk',
+	0,
+	'',
+	'D_QP1',
+	'');
+INSERT INTO SM_STATE
+  VALUES (	2621441,
+	2621445,
+	2621441,
+	'Requesting Disk',
+	1,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	2621441,
+	2621441,
+	2621445,
+	2621441);
+INSERT INTO SM_NSTXN
+  VALUES (	2621441,
+	2621445,
+	2621441,
+	2621441,
+	2621441);
+INSERT INTO SM_TXN
+  VALUES (	2621441,
+	2621445,
+	2621441,
+	2621441);
+INSERT INTO SM_MOAH
+  VALUES (	2621441,
+	2621445,
+	2621441);
+INSERT INTO SM_AH
+  VALUES (	2621441,
+	2621445);
+INSERT INTO SM_ACT
+  VALUES (	2621441,
+	2621445,
+	1,
+	'create object instance dq of D_DQ;
+select any disk from instances of D_D where (selected.Disk_ID == rcvd_evt.disk_id);
+relate self to disk across R1 using dq;
+generate D_DQ1:''Disk Mount Request''() to dq;',
+	'');
+INSERT INTO GD_MD
+  VALUES (	2621441,
+	8,
+	2621445,
+	40,
+	0,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4199,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	2621442,
+	2621441,
+	2621441,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	2621442,
+	1824,
+	1312,
+	2240,
+	1536);
+INSERT INTO GD_GE
+  VALUES (	2621443,
+	2621441,
+	2621441,
+	42);
+INSERT INTO GD_CON
+  VALUES (	2621443,
+	2621442,
+	2621442,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	2621443,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1889,
+	1214,
+	2050,
+	1264,
+	122,
+	-9,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	2621444,
+	2621443,
+	1824,
+	1344,
+	1776,
+	1344,
+	0);
+INSERT INTO GD_LS
+  VALUES (	2621445,
+	2621443,
+	1776,
+	1344,
+	1776,
+	1248,
+	2621444);
+INSERT INTO GD_LS
+  VALUES (	2621446,
+	2621443,
+	1776,
+	1248,
+	1888,
+	1248,
+	2621445);
+INSERT INTO GD_LS
+  VALUES (	2621447,
+	2621443,
+	1888,
+	1248,
+	1888,
+	1312,
+	2621446);
+INSERT INTO O_OBJ
+  VALUES (	1048583,
+	'Disk Ownership',
+	11,
+	'D_DO',
+	'Object Description:
+
+Object Role:
+',
+	1048578);
+INSERT INTO O_REF
+  VALUES (	1048583,
+	1048577,
+	0,
+	1048577,
+	1048580,
+	1048587,
+	1048586,
+	1048602,
+	1048588,
+	0,
+	0,
+	'Reference Domain:
+');
+INSERT INTO O_RATTR
+  VALUES (	1048602,
+	1048583,
+	1048577,
+	1048577,
+	1);
+INSERT INTO O_ATTR
+  VALUES (	1048602,
+	1048583,
+	0,
+	'Disk_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Disk_ID',
+	0,
+	524296);
+INSERT INTO O_REF
+  VALUES (	1048583,
+	1048582,
+	0,
+	1048599,
+	1048580,
+	1048587,
+	1048585,
+	1048603,
+	1048589,
+	0,
+	0,
+	'Reference Domain:
+');
+INSERT INTO O_RATTR
+  VALUES (	1048603,
+	1048583,
+	1048599,
+	1048582,
+	1);
+INSERT INTO O_ATTR
+  VALUES (	1048603,
+	1048583,
+	1048602,
+	'Qualified_Process_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Qualified_Process_ID',
+	0,
+	524296);
+INSERT INTO O_ID
+  VALUES (	0,
+	1048583);
+INSERT INTO O_OIDA
+  VALUES (	1048602,
+	1048583,
+	0);
+INSERT INTO SM_ASM
+  VALUES (	3145734,
+	1048583);
+INSERT INTO SM_SM
+  VALUES (	3145734,
+	'',
+	6);
+INSERT INTO SM_MOORE
+  VALUES (	3145734);
+INSERT INTO SM_EVTDI
+  VALUES (	3145729,
+	3145734,
+	'serial_number',
+	'Event Data Item Descriptions:
+',
+	524291);
+INSERT INTO SM_SUPDT
+  VALUES (	3145729,
+	3145734,
+	0);
+INSERT INTO SM_SUPDT
+  VALUES (	3145730,
+	3145734,
+	0);
+INSERT INTO SM_SDI
+  VALUES (	3145729,
+	3145730,
+	3145734);
+INSERT INTO SM_LEVT
+  VALUES (	3145729,
+	3145734,
+	3145729);
+INSERT INTO SM_SEVT
+  VALUES (	3145729,
+	3145734,
+	3145729);
+INSERT INTO SM_EVT
+  VALUES (	3145729,
+	3145734,
+	3145729,
+	1,
+	'Disk Requested by QP',
+	0,
+	'',
+	'D_DO_A1',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	3145730,
+	3145734,
+	3145729);
+INSERT INTO SM_SEVT
+  VALUES (	3145730,
+	3145734,
+	3145729);
+INSERT INTO SM_EVT
+  VALUES (	3145730,
+	3145734,
+	3145729,
+	2,
+	'Establish Ownership of an Offline Disk',
+	0,
+	'',
+	'D_DO_A2',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	3145731,
+	3145734,
+	3145729);
+INSERT INTO SM_SEVT
+  VALUES (	3145731,
+	3145734,
+	3145729);
+INSERT INTO SM_EVT
+  VALUES (	3145731,
+	3145734,
+	3145729,
+	3,
+	'Establish Ownership of an Online Disk',
+	0,
+	'',
+	'D_DO_A3',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	3145732,
+	3145734,
+	3145729);
+INSERT INTO SM_SEVT
+  VALUES (	3145732,
+	3145734,
+	3145729);
+INSERT INTO SM_EVT
+  VALUES (	3145732,
+	3145734,
+	3145729,
+	4,
+	'Eject Disk if Possible',
+	0,
+	'',
+	'D_DO_A4',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	3145733,
+	3145734,
+	3145729);
+INSERT INTO SM_SEVT
+  VALUES (	3145733,
+	3145734,
+	3145729);
+INSERT INTO SM_EVT
+  VALUES (	3145733,
+	3145734,
+	3145729,
+	5,
+	'Disk Ownership Released',
+	0,
+	'',
+	'D_DO_A5',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	3145734,
+	3145734,
+	3145729);
+INSERT INTO SM_SEVT
+  VALUES (	3145734,
+	3145734,
+	3145729);
+INSERT INTO SM_EVT
+  VALUES (	3145734,
+	3145734,
+	3145729,
+	6,
+	'Ownership Established',
+	0,
+	'',
+	'D_DO_A6',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	3145735,
+	3145734,
+	3145730);
+INSERT INTO SM_SEVT
+  VALUES (	3145735,
+	3145734,
+	3145730);
+INSERT INTO SM_EVT
+  VALUES (	3145735,
+	3145734,
+	3145730,
+	7,
+	'Disk Now Online',
+	0,
+	'',
+	'D_DO_A7',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	3145736,
+	3145734,
+	3145729);
+INSERT INTO SM_SEVT
+  VALUES (	3145736,
+	3145734,
+	3145729);
+INSERT INTO SM_EVT
+  VALUES (	3145736,
+	3145734,
+	3145729,
+	8,
+	'Disk Now Offline',
+	0,
+	'',
+	'D_DO_A8',
+	'Event Descriptions:
+');
+INSERT INTO SM_STATE
+  VALUES (	3145729,
+	3145734,
+	3145729,
+	'Waiting for a Disk Request',
+	1,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	3145729,
+	3145729,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145729,
+	3145730,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145729,
+	3145730,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145729,
+	3145731,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145729,
+	3145731,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145729,
+	3145732,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145729,
+	3145732,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145729,
+	3145733,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145729,
+	3145733,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145729,
+	3145734,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145729,
+	3145734,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145729,
+	3145735,
+	3145734,
+	3145730,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145729,
+	3145735,
+	3145734,
+	3145730);
+INSERT INTO SM_EIGN
+  VALUES (	3145729,
+	3145736,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145729,
+	3145736,
+	3145734,
+	3145729);
+INSERT INTO SM_STATE
+  VALUES (	3145730,
+	3145734,
+	3145729,
+	'Waiting for a Requested Disk to be Ownable',
+	2,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	3145730,
+	3145729,
+	3145734,
+	3145729);
+INSERT INTO SM_SEME
+  VALUES (	3145730,
+	3145730,
+	3145734,
+	3145729);
+INSERT INTO SM_SEME
+  VALUES (	3145730,
+	3145731,
+	3145734,
+	3145729);
+INSERT INTO SM_SEME
+  VALUES (	3145730,
+	3145732,
+	3145734,
+	3145729);
+INSERT INTO SM_SEME
+  VALUES (	3145730,
+	3145733,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145730,
+	3145734,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145730,
+	3145734,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145730,
+	3145735,
+	3145734,
+	3145730,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145730,
+	3145735,
+	3145734,
+	3145730);
+INSERT INTO SM_EIGN
+  VALUES (	3145730,
+	3145736,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145730,
+	3145736,
+	3145734,
+	3145729);
+INSERT INTO SM_STATE
+  VALUES (	3145731,
+	3145734,
+	3145729,
+	'Establishing Ownership of an Online Disk',
+	3,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	3145731,
+	3145729,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145731,
+	3145729,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145731,
+	3145730,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145731,
+	3145730,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145731,
+	3145731,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145731,
+	3145731,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145731,
+	3145732,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145731,
+	3145732,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145731,
+	3145733,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145731,
+	3145733,
+	3145734,
+	3145729);
+INSERT INTO SM_SEME
+  VALUES (	3145731,
+	3145734,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145731,
+	3145735,
+	3145734,
+	3145730,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145731,
+	3145735,
+	3145734,
+	3145730);
+INSERT INTO SM_EIGN
+  VALUES (	3145731,
+	3145736,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145731,
+	3145736,
+	3145734,
+	3145729);
+INSERT INTO SM_STATE
+  VALUES (	3145732,
+	3145734,
+	3145729,
+	'Tying to Eject Disk',
+	4,
+	0);
+INSERT INTO SM_CH
+  VALUES (	3145732,
+	3145729,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145732,
+	3145729,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145732,
+	3145730,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145732,
+	3145730,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145732,
+	3145731,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145732,
+	3145731,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145732,
+	3145732,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145732,
+	3145732,
+	3145734,
+	3145729);
+INSERT INTO SM_SEME
+  VALUES (	3145732,
+	3145733,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145732,
+	3145734,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145732,
+	3145734,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145732,
+	3145735,
+	3145734,
+	3145730,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145732,
+	3145735,
+	3145734,
+	3145730);
+INSERT INTO SM_SEME
+  VALUES (	3145732,
+	3145736,
+	3145734,
+	3145729);
+INSERT INTO SM_STATE
+  VALUES (	3145733,
+	3145734,
+	3145729,
+	'Establishing Ownership of an Offline Disk',
+	5,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	3145733,
+	3145729,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145733,
+	3145729,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145733,
+	3145730,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145733,
+	3145730,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145733,
+	3145731,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145733,
+	3145731,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145733,
+	3145732,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145733,
+	3145732,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145733,
+	3145733,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145733,
+	3145733,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145733,
+	3145734,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145733,
+	3145734,
+	3145734,
+	3145729);
+INSERT INTO SM_SEME
+  VALUES (	3145733,
+	3145735,
+	3145734,
+	3145730);
+INSERT INTO SM_EIGN
+  VALUES (	3145733,
+	3145736,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145733,
+	3145736,
+	3145734,
+	3145729);
+INSERT INTO SM_STATE
+  VALUES (	3145734,
+	3145734,
+	3145730,
+	'Satisfying Disk Request',
+	6,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	3145734,
+	3145729,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145734,
+	3145729,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145734,
+	3145730,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145734,
+	3145730,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145734,
+	3145731,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145734,
+	3145731,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145734,
+	3145732,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145734,
+	3145732,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145734,
+	3145733,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145734,
+	3145733,
+	3145734,
+	3145729);
+INSERT INTO SM_SEME
+  VALUES (	3145734,
+	3145734,
+	3145734,
+	3145729);
+INSERT INTO SM_EIGN
+  VALUES (	3145734,
+	3145735,
+	3145734,
+	3145730,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145734,
+	3145735,
+	3145734,
+	3145730);
+INSERT INTO SM_EIGN
+  VALUES (	3145734,
+	3145736,
+	3145734,
+	3145729,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3145734,
+	3145736,
+	3145734,
+	3145729);
+INSERT INTO SM_NSTXN
+  VALUES (	3145729,
+	3145734,
+	3145734,
+	3145734,
+	3145729);
+INSERT INTO SM_TXN
+  VALUES (	3145729,
+	3145734,
+	3145729,
+	3145729);
+INSERT INTO SM_NSTXN
+  VALUES (	3145730,
+	3145734,
+	3145731,
+	3145734,
+	3145729);
+INSERT INTO SM_TXN
+  VALUES (	3145730,
+	3145734,
+	3145729,
+	3145729);
+INSERT INTO SM_NSTXN
+  VALUES (	3145731,
+	3145734,
+	3145729,
+	3145729,
+	3145729);
+INSERT INTO SM_TXN
+  VALUES (	3145731,
+	3145734,
+	3145730,
+	3145729);
+INSERT INTO SM_NSTXN
+  VALUES (	3145732,
+	3145734,
+	3145730,
+	3145731,
+	3145729);
+INSERT INTO SM_TXN
+  VALUES (	3145732,
+	3145734,
+	3145731,
+	3145729);
+INSERT INTO SM_NSTXN
+  VALUES (	3145733,
+	3145734,
+	3145730,
+	3145730,
+	3145729);
+INSERT INTO SM_TXN
+  VALUES (	3145733,
+	3145734,
+	3145733,
+	3145729);
+INSERT INTO SM_NSTXN
+  VALUES (	3145734,
+	3145734,
+	3145730,
+	3145733,
+	3145729);
+INSERT INTO SM_TXN
+  VALUES (	3145734,
+	3145734,
+	3145730,
+	3145729);
+INSERT INTO SM_NSTXN
+  VALUES (	3145735,
+	3145734,
+	3145730,
+	3145729,
+	3145729);
+INSERT INTO SM_TXN
+  VALUES (	3145735,
+	3145734,
+	3145730,
+	3145729);
+INSERT INTO SM_NSTXN
+  VALUES (	3145736,
+	3145734,
+	3145733,
+	3145735,
+	3145730);
+INSERT INTO SM_TXN
+  VALUES (	3145736,
+	3145734,
+	3145734,
+	3145730);
+INSERT INTO SM_NSTXN
+  VALUES (	3145737,
+	3145734,
+	3145732,
+	3145736,
+	3145729);
+INSERT INTO SM_TXN
+  VALUES (	3145737,
+	3145734,
+	3145733,
+	3145729);
+INSERT INTO SM_NSTXN
+  VALUES (	3145738,
+	3145734,
+	3145730,
+	3145732,
+	3145729);
+INSERT INTO SM_TXN
+  VALUES (	3145738,
+	3145734,
+	3145732,
+	3145729);
+INSERT INTO SM_NSTXN
+  VALUES (	3145739,
+	3145734,
+	3145732,
+	3145733,
+	3145729);
+INSERT INTO SM_TXN
+  VALUES (	3145739,
+	3145734,
+	3145730,
+	3145729);
+INSERT INTO SM_MOAH
+  VALUES (	3145729,
+	3145734,
+	3145729);
+INSERT INTO SM_AH
+  VALUES (	3145729,
+	3145734);
+INSERT INTO SM_ACT
+  VALUES (	3145729,
+	3145734,
+	1,
+	'Select many disk_requests from instances of D_DQ;
+Assign request_found = FALSE;
+For each disk_request in disk_requests
+    If (request_found == FALSE)
+        If (disk_request.Request_Pending == TRUE)
+            Assign request_found = TRUE;
+            Generate D_DO_A1:''Disk Requested by QP'' () to D_DO assigner;
+        End if;
+    End if;
+End for;',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	3145730,
+	3145734,
+	3145730);
+INSERT INTO SM_AH
+  VALUES (	3145730,
+	3145734);
+INSERT INTO SM_ACT
+  VALUES (	3145730,
+	3145734,
+	1,
+	'Select many disk_requests from instances of D_DQ;
+For each disk_request in disk_requests
+if (disk_request.Request_Pending == TRUE)
+Select one disk related by disk_request->D_D[R1];
+    If (disk.Unowned_in_Cabinet == TRUE)
+        Select one disk_owner related by disk->D_DO[R2];
+        If (empty disk_owner)
+            Generate D_DO_A3:''Establish Ownership of an Online Disk'' () to D_DO assigner;
+        End if;
+    Else 
+    If (disk.Unowned_in_Library == TRUE)
+        Select one disk_owner related by disk->D_DO[R2];
+        If (empty disk_owner)
+            Assign number_of_online = 0;
+            Select many online_disks from instances of D_OND;
+            For each online_disk in online_disks
+                Assign number_of_online = number_of_online + 1;
+            End for;
+
+             Assign number_of_slots = 0;
+             Select many slots from instances of D_S;
+             For each slot in slots
+                 Assign number_of_slots = number_of_slots + 1;
+             End for;
+
+             If (number_of_online < number_of_slots)
+                 Generate D_DO_A2:''Establish Ownership of an Offline Disk'' () to D_DO assigner;
+             Else
+                 Generate D_DO_A4:''Eject Disk if Possible'' () to D_DO assigner;
+             End if;
+        End if;
+    End if;
+    End if;
+End if;
+End for;',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	3145731,
+	3145734,
+	3145731);
+INSERT INTO SM_AH
+  VALUES (	3145731,
+	3145734);
+INSERT INTO SM_ACT
+  VALUES (	3145731,
+	3145734,
+	1,
+	'Select many disks from instances of D_D;
+Assign disk_found = FALSE;
+For each disk in disks
+    If (disk_found == FALSE)
+    If (disk.Unowned_in_Cabinet == TRUE)
+        Select any disk_request related by disk->D_DQ[R1];
+        If (not_empty disk_request)
+            Assign disk_found = TRUE;
+            Select one process related by disk_request->D_QP[R1]; 
+            Create  object instance owner of D_DO;
+            Relate disk to process across R2 using owner;
+            Generate D_D1:''Disk Ownership Established'' () to disk;
+            Generate D_DQ2:''Disk Request Satisfied''() to disk_request;
+        End if;
+    End if;
+    End if;
+End for;',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	3145732,
+	3145734,
+	3145732);
+INSERT INTO SM_AH
+  VALUES (	3145732,
+	3145734);
+INSERT INTO SM_ACT
+  VALUES (	3145732,
+	3145734,
+	1,
+	'Select many disk_set from instances of D_D;
+Assign disk_found = FALSE;
+For each disk in disk_set
+    If (disk_found == FALSE)
+    If (disk.Unowned_in_Cabinet == TRUE)
+        Select one disk_owner related by disk->D_DO[R2];
+        If (empty disk_owner)
+            Select many disk_request related by disk->D_DQ[R1];
+            If (empty disk_request)
+                Assign disk_found = TRUE;
+                Generate D_D6:''Return Unowned Disk to Library'' () to disk;
+            End if;
+        End if;
+    End if;
+    End if;
+End for;',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	3145733,
+	3145734,
+	3145733);
+INSERT INTO SM_AH
+  VALUES (	3145733,
+	3145734);
+INSERT INTO SM_ACT
+  VALUES (	3145733,
+	3145734,
+	1,
+	'Select many disks from instances of D_D;
+Assign disk_found = FALSE;
+For each disk in disks
+    If (disk_found == FALSE)
+    If (disk.Unowned_in_Library == TRUE)
+        Select any disk_request related by disk->D_DQ[R1];
+        If (not_empty disk_request) 
+            Assign disk_found = TRUE;
+            Create object instance disk_owner of D_DO;
+            Select one process related by disk_request->D_QP[R1];
+            Relate disk to process across R2 using disk_owner;
+            Generate D_D1:''Disk Ownership Established'' () to disk;
+        End if;
+    End if;
+    End if;
+End for;',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	3145734,
+	3145734,
+	3145734);
+INSERT INTO SM_AH
+  VALUES (	3145734,
+	3145734);
+INSERT INTO SM_ACT
+  VALUES (	3145734,
+	3145734,
+	1,
+	'Select many disks from instances of D_D;
+Assign disk_found = FALSE;
+For each disk in disks
+    If (disk_found == FALSE)
+        If (disk.Serial_Number == rcvd_evt.serial_number)
+            Assign disk_found = TRUE;
+            Select any disk_request related by disk->D_DQ[R1];
+            Select one process related by disk_request->D_QP[R1];
+            Unrelate disk from process across R1 using disk_request;
+            Generate D_DQ2:''Disk Request Satisfied'' () to disk_request;
+        End if;
+    End if;
+End for;',
+	'');
+INSERT INTO GD_MD
+  VALUES (	3145729,
+	10,
+	3145734,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4199,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	3145730,
+	3145729,
+	3145734,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	3145730,
+	1280,
+	1264,
+	1648,
+	1520);
+INSERT INTO GD_GE
+  VALUES (	3145731,
+	3145729,
+	3145733,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	3145731,
+	1296,
+	1664,
+	1648,
+	1952);
+INSERT INTO GD_GE
+  VALUES (	3145732,
+	3145729,
+	3145732,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	3145732,
+	1888,
+	2336,
+	2288,
+	2640);
+INSERT INTO GD_GE
+  VALUES (	3145733,
+	3145729,
+	3145731,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	3145733,
+	2656,
+	1664,
+	3040,
+	2000);
+INSERT INTO GD_GE
+  VALUES (	3145734,
+	3145729,
+	3145730,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	3145734,
+	1888,
+	1664,
+	2400,
+	2192);
+INSERT INTO GD_GE
+  VALUES (	3145735,
+	3145729,
+	3145729,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	3145735,
+	1888,
+	1264,
+	2336,
+	1504);
+INSERT INTO GD_GE
+  VALUES (	3145736,
+	3145729,
+	3145737,
+	42);
+INSERT INTO GD_CON
+  VALUES (	3145736,
+	3145732,
+	3145731,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	3145736,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1471,
+	2439,
+	1647,
+	2478,
+	31,
+	14,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	3145737,
+	3145736,
+	1888,
+	2496,
+	1456,
+	2496,
+	0);
+INSERT INTO GD_LS
+  VALUES (	3145738,
+	3145736,
+	1456,
+	2496,
+	1456,
+	1952,
+	3145737);
+INSERT INTO GD_GE
+  VALUES (	3145739,
+	3145729,
+	3145739,
+	42);
+INSERT INTO GD_CON
+  VALUES (	3145739,
+	3145732,
+	3145734,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	3145739,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2249,
+	2258,
+	2450,
+	2302,
+	25,
+	9,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	3145740,
+	3145739,
+	2240,
+	2336,
+	2240,
+	2192,
+	0);
+INSERT INTO GD_GE
+  VALUES (	3145741,
+	3145729,
+	3145738,
+	42);
+INSERT INTO GD_CON
+  VALUES (	3145741,
+	3145734,
+	3145732,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	3145741,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1732,
+	2248,
+	1938,
+	2283,
+	-188,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	3145742,
+	3145741,
+	1936,
+	2192,
+	1936,
+	2336,
+	0);
+INSERT INTO GD_GE
+  VALUES (	3145743,
+	3145729,
+	3145734,
+	42);
+INSERT INTO GD_CON
+  VALUES (	3145743,
+	3145734,
+	3145734,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	3145743,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2502,
+	2043,
+	2647,
+	2093,
+	22,
+	-6,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	3145744,
+	3145743,
+	2400,
+	1984,
+	2496,
+	1984,
+	0);
+INSERT INTO GD_LS
+  VALUES (	3145745,
+	3145743,
+	2496,
+	1984,
+	2496,
+	2144,
+	3145744);
+INSERT INTO GD_LS
+  VALUES (	3145746,
+	3145743,
+	2496,
+	2144,
+	2400,
+	2144,
+	3145745);
+INSERT INTO GD_GE
+  VALUES (	3145747,
+	3145729,
+	3145735,
+	42);
+INSERT INTO GD_CON
+  VALUES (	3145747,
+	3145734,
+	3145734,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	3145747,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1757,
+	2037,
+	1883,
+	2083,
+	13,
+	-12,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	3145748,
+	3145747,
+	1888,
+	1984,
+	1760,
+	1984,
+	0);
+INSERT INTO GD_LS
+  VALUES (	3145749,
+	3145747,
+	1760,
+	1984,
+	1760,
+	2144,
+	3145748);
+INSERT INTO GD_LS
+  VALUES (	3145750,
+	3145747,
+	1760,
+	2144,
+	1888,
+	2144,
+	3145749);
+INSERT INTO GD_GE
+  VALUES (	3145751,
+	3145729,
+	3145730,
+	42);
+INSERT INTO GD_CON
+  VALUES (	3145751,
+	3145733,
+	3145735,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	3145751,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2568,
+	1338,
+	2829,
+	1374,
+	-135,
+	-13,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	3145752,
+	3145751,
+	2832,
+	1664,
+	2832,
+	1376,
+	0);
+INSERT INTO GD_LS
+  VALUES (	3145753,
+	3145751,
+	2832,
+	1376,
+	2336,
+	1376,
+	3145752);
+INSERT INTO GD_GE
+  VALUES (	3145754,
+	3145729,
+	3145732,
+	42);
+INSERT INTO GD_CON
+  VALUES (	3145754,
+	3145734,
+	3145733,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	3145754,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2423,
+	1724,
+	2623,
+	1774,
+	-80,
+	-27,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	3145755,
+	3145754,
+	2400,
+	1776,
+	2656,
+	1776,
+	0);
+INSERT INTO GD_GE
+  VALUES (	3145756,
+	3145729,
+	3145736,
+	42);
+INSERT INTO GD_CON
+  VALUES (	3145756,
+	3145731,
+	3145730,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	3145756,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1437,
+	1569,
+	1635,
+	1612,
+	13,
+	-8,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	3145757,
+	3145756,
+	1440,
+	1664,
+	1440,
+	1520,
+	0);
+INSERT INTO GD_GE
+  VALUES (	3145758,
+	3145729,
+	3145729,
+	42);
+INSERT INTO GD_CON
+  VALUES (	3145758,
+	3145730,
+	3145735,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	3145758,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1689,
+	1328,
+	1840,
+	1370,
+	-54,
+	-23,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	3145759,
+	3145758,
+	1648,
+	1376,
+	1888,
+	1376,
+	0);
+INSERT INTO GD_GE
+  VALUES (	3145760,
+	3145729,
+	3145733,
+	42);
+INSERT INTO GD_CON
+  VALUES (	3145760,
+	3145734,
+	3145731,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	3145760,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1682,
+	1731,
+	1846,
+	1774,
+	-61,
+	-20,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	3145761,
+	3145760,
+	1888,
+	1776,
+	1648,
+	1776,
+	0);
+INSERT INTO GD_GE
+  VALUES (	3145762,
+	3145729,
+	3145731,
+	42);
+INSERT INTO GD_CON
+  VALUES (	3145762,
+	3145735,
+	3145734,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	3145762,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2207,
+	1565,
+	2421,
+	1604,
+	15,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	3145763,
+	3145762,
+	2176,
+	1504,
+	2176,
+	1664,
+	0);
+INSERT INTO O_OBJ
+  VALUES (	1048584,
+	'Drive_Disk Assignment',
+	14,
+	'D_DDA',
+	'Object Description:
+
+Object Role:
+',
+	1048578);
+INSERT INTO O_REF
+  VALUES (	1048584,
+	1048588,
+	0,
+	1048616,
+	1048583,
+	1048597,
+	1048596,
+	1048604,
+	1048590,
+	0,
+	0,
+	'Reference Domain:
+');
+INSERT INTO O_RATTR
+  VALUES (	1048604,
+	1048584,
+	1048609,
+	1048586,
+	1);
+INSERT INTO O_ATTR
+  VALUES (	1048604,
+	1048584,
+	0,
+	'Drive_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Drive_ID',
+	0,
+	524296);
+INSERT INTO O_REF
+  VALUES (	1048584,
+	1048579,
+	0,
+	1048591,
+	1048583,
+	1048597,
+	1048595,
+	1048605,
+	1048591,
+	0,
+	0,
+	'Reference Domain:
+');
+INSERT INTO O_RATTR
+  VALUES (	1048605,
+	1048584,
+	1048577,
+	1048577,
+	1);
+INSERT INTO O_ATTR
+  VALUES (	1048605,
+	1048584,
+	1048604,
+	'Disk_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Disk_ID',
+	0,
+	524296);
+INSERT INTO O_ID
+  VALUES (	0,
+	1048584);
+INSERT INTO O_OIDA
+  VALUES (	1048604,
+	1048584,
+	0);
+INSERT INTO SM_ASM
+  VALUES (	3670023,
+	1048584);
+INSERT INTO SM_SM
+  VALUES (	3670023,
+	'',
+	7);
+INSERT INTO SM_MOORE
+  VALUES (	3670023);
+INSERT INTO SM_SUPDT
+  VALUES (	3670017,
+	3670023,
+	0);
+INSERT INTO SM_LEVT
+  VALUES (	3670017,
+	3670023,
+	3670017);
+INSERT INTO SM_SEVT
+  VALUES (	3670017,
+	3670023,
+	3670017);
+INSERT INTO SM_EVT
+  VALUES (	3670017,
+	3670023,
+	3670017,
+	1,
+	'Disk Waiting for Drive',
+	0,
+	'',
+	'D_DDA_A1',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	3670018,
+	3670023,
+	3670017);
+INSERT INTO SM_SEVT
+  VALUES (	3670018,
+	3670023,
+	3670017);
+INSERT INTO SM_EVT
+  VALUES (	3670018,
+	3670023,
+	3670017,
+	2,
+	'Drive Free',
+	0,
+	'',
+	'D_DDA_A2',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	3670019,
+	3670023,
+	3670017);
+INSERT INTO SM_SEVT
+  VALUES (	3670019,
+	3670023,
+	3670017);
+INSERT INTO SM_EVT
+  VALUES (	3670019,
+	3670023,
+	3670017,
+	3,
+	'Drive Assigned',
+	0,
+	'',
+	'D_DDA_A3',
+	'Event Descriptions:
+');
+INSERT INTO SM_STATE
+  VALUES (	3670017,
+	3670023,
+	3670017,
+	'Waiting for a Disk to be Waiting',
+	1,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	3670017,
+	3670017,
+	3670023,
+	3670017);
+INSERT INTO SM_EIGN
+  VALUES (	3670017,
+	3670018,
+	3670023,
+	3670017,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3670017,
+	3670018,
+	3670023,
+	3670017);
+INSERT INTO SM_EIGN
+  VALUES (	3670017,
+	3670019,
+	3670023,
+	3670017,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3670017,
+	3670019,
+	3670023,
+	3670017);
+INSERT INTO SM_STATE
+  VALUES (	3670018,
+	3670023,
+	3670017,
+	'Waiting for a Drive to be Free',
+	2,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	3670018,
+	3670017,
+	3670023,
+	3670017,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3670018,
+	3670017,
+	3670023,
+	3670017);
+INSERT INTO SM_SEME
+  VALUES (	3670018,
+	3670018,
+	3670023,
+	3670017);
+INSERT INTO SM_EIGN
+  VALUES (	3670018,
+	3670019,
+	3670023,
+	3670017,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3670018,
+	3670019,
+	3670023,
+	3670017);
+INSERT INTO SM_STATE
+  VALUES (	3670019,
+	3670023,
+	3670017,
+	'Assigning Disk to Drive',
+	3,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	3670019,
+	3670017,
+	3670023,
+	3670017,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3670019,
+	3670017,
+	3670023,
+	3670017);
+INSERT INTO SM_EIGN
+  VALUES (	3670019,
+	3670018,
+	3670023,
+	3670017,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	3670019,
+	3670018,
+	3670023,
+	3670017);
+INSERT INTO SM_SEME
+  VALUES (	3670019,
+	3670019,
+	3670023,
+	3670017);
+INSERT INTO SM_NSTXN
+  VALUES (	3670017,
+	3670023,
+	3670019,
+	3670019,
+	3670017);
+INSERT INTO SM_TXN
+  VALUES (	3670017,
+	3670023,
+	3670017,
+	3670017);
+INSERT INTO SM_NSTXN
+  VALUES (	3670018,
+	3670023,
+	3670017,
+	3670017,
+	3670017);
+INSERT INTO SM_TXN
+  VALUES (	3670018,
+	3670023,
+	3670018,
+	3670017);
+INSERT INTO SM_NSTXN
+  VALUES (	3670019,
+	3670023,
+	3670018,
+	3670018,
+	3670017);
+INSERT INTO SM_TXN
+  VALUES (	3670019,
+	3670023,
+	3670019,
+	3670017);
+INSERT INTO SM_MOAH
+  VALUES (	3670017,
+	3670023,
+	3670017);
+INSERT INTO SM_AH
+  VALUES (	3670017,
+	3670023);
+INSERT INTO SM_ACT
+  VALUES (	3670017,
+	3670023,
+	1,
+	'Select many disk_set from instances of D_D where (selected.Waiting_for_Drive == TRUE);
+For each disk in disk_set
+    Select one slot_disk related by disk->D_OND[R3]->D_SDA[R6];
+    If (empty slot_disk)
+        Generate D_DDA_A1:''Disk Waiting for Drive'' ()  to D_DDA assigner;
+        Break;
+    End if;
+End for;
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	3670018,
+	3670023,
+	3670018);
+INSERT INTO SM_AH
+  VALUES (	3670018,
+	3670023);
+INSERT INTO SM_ACT
+  VALUES (	3670018,
+	3670023,
+	1,
+	'Select many drives from instances of D_DR where (selected.Idle == TRUE);
+For each drive in drives
+    Select one drive_assignment related by drive->D_DDA[R5];
+    If (empty drive_assignment)
+        Generate D_DDA_A2:''Drive Free'' () to D_DDA assigner;
+       Break;
+    End if;
+End for;
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	3670019,
+	3670023,
+	3670019);
+INSERT INTO SM_AH
+  VALUES (	3670019,
+	3670023);
+INSERT INTO SM_ACT
+  VALUES (	3670019,
+	3670023,
+	1,
+	'Select many disk_set from instances of D_D where (selected.Waiting_for_Drive == TRUE);
+Assign disk_found = FALSE;
+For each disk in disk_set
+    Select one disk_assignment related by disk->D_OND[R3]->D_DDA[R5];
+    If (empty disk_assignment)
+        If (disk_found == FALSE)
+            Assign disk_found = TRUE;
+            Assign drive_found = FALSE;
+            Select many drives from instances of D_DR;
+            For each drive in drives
+                If (drive.Idle == TRUE)
+                Select one drive_assignment related by drive->D_DDA[R5];
+                If (empty drive_assignment)
+                    If (drive_found == FALSE)
+                        Assign drive_found = TRUE;
+                        Create object instance drive_disk of D_DDA;
+                        Select one online_disk related by disk->D_OND[R3];
+                        Relate drive to online_disk across R5 using drive_disk;
+                        Generate D_DR1:''Drive Assigned'' () to drive;
+                        Generate D_DDA_A3:''Drive Assigned'' () to D_DDA assigner;
+                    End if;
+                End if;
+                End if;
+            End for;
+        End if;
+    End if;
+End for;
+',
+	'');
+INSERT INTO GD_MD
+  VALUES (	3670017,
+	10,
+	3670023,
+	40,
+	0,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1578,
+	4036,
+	0.901703,
+	0);
+INSERT INTO GD_GE
+  VALUES (	3670018,
+	3670017,
+	3670019,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	3670018,
+	2288,
+	1344,
+	2848,
+	1920);
+INSERT INTO GD_GE
+  VALUES (	3670019,
+	3670017,
+	3670018,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	3670019,
+	1600,
+	1664,
+	2144,
+	1920);
+INSERT INTO GD_GE
+  VALUES (	3670020,
+	3670017,
+	3670017,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	3670020,
+	1600,
+	1296,
+	2128,
+	1536);
+INSERT INTO GD_GE
+  VALUES (	3670021,
+	3670017,
+	3670017,
+	42);
+INSERT INTO GD_CON
+  VALUES (	3670021,
+	3670018,
+	3670020,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	3670021,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2138,
+	1342,
+	2272,
+	1382,
+	-5,
+	-4,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	3670082,
+	3670021,
+	2288,
+	1392,
+	2128,
+	1392,
+	0);
+INSERT INTO GD_GE
+  VALUES (	3670023,
+	3670017,
+	3670019,
+	42);
+INSERT INTO GD_CON
+  VALUES (	3670023,
+	3670019,
+	3670018,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	3670023,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2149,
+	1710,
+	2283,
+	1750,
+	-2,
+	-4,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	3670102,
+	3670023,
+	2144,
+	1760,
+	2288,
+	1760,
+	0);
+INSERT INTO GD_GE
+  VALUES (	3670025,
+	3670017,
+	3670018,
+	42);
+INSERT INTO GD_CON
+  VALUES (	3670025,
+	3670020,
+	3670019,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	3670025,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1864,
+	1571,
+	2046,
+	1611,
+	196,
+	-11,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	3670105,
+	3670025,
+	1856,
+	1536,
+	1856,
+	1664,
+	0);
+INSERT INTO O_OBJ
+  VALUES (	1048585,
+	'Slot',
+	6,
+	'D_S',
+	'Object Description:
+
+Object Role:
+',
+	1048578);
+INSERT INTO O_REF
+  VALUES (	1048585,
+	1048586,
+	0,
+	1048609,
+	1048581,
+	1048589,
+	1048588,
+	1048606,
+	1048592,
+	0,
+	0,
+	'Reference Domain:
+');
+INSERT INTO O_RATTR
+  VALUES (	1048606,
+	1048585,
+	1048609,
+	1048586,
+	0);
+INSERT INTO O_ATTR
+  VALUES (	1048606,
+	1048585,
+	0,
+	'Slot_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Slot_ID',
+	0,
+	524296);
+INSERT INTO O_NBATTR
+  VALUES (	1048607,
+	1048585);
+INSERT INTO O_BATTR
+  VALUES (	1048607,
+	1048585);
+INSERT INTO O_ATTR
+  VALUES (	1048607,
+	1048585,
+	1048606,
+	'Unassigned',
+	'This attributes is always FALSE except when the state machine is in the "Unassigned" state.',
+	'',
+	'Unassigned',
+	0,
+	524290);
+INSERT INTO O_NBATTR
+  VALUES (	1048608,
+	1048585);
+INSERT INTO O_BATTR
+  VALUES (	1048608,
+	1048585);
+INSERT INTO O_ATTR
+  VALUES (	1048608,
+	1048585,
+	1048607,
+	'current_state',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_ID
+  VALUES (	0,
+	1048585);
+INSERT INTO O_OIDA
+  VALUES (	1048606,
+	1048585,
+	0);
+INSERT INTO O_RTIDA
+  VALUES (	1048606,
+	1048585,
+	0,
+	1048582,
+	1048592);
+INSERT INTO SM_ISM
+  VALUES (	4194312,
+	1048585);
+INSERT INTO SM_SM
+  VALUES (	4194312,
+	'',
+	8);
+INSERT INTO SM_MOORE
+  VALUES (	4194312);
+INSERT INTO SM_SUPDT
+  VALUES (	4194305,
+	4194312,
+	0);
+INSERT INTO SM_LEVT
+  VALUES (	4194305,
+	4194312,
+	4194305);
+INSERT INTO SM_SEVT
+  VALUES (	4194305,
+	4194312,
+	4194305);
+INSERT INTO SM_EVT
+  VALUES (	4194305,
+	4194312,
+	4194305,
+	1,
+	'Slot Assigned',
+	0,
+	'',
+	'D_S1',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	4194306,
+	4194312,
+	4194305);
+INSERT INTO SM_SEVT
+  VALUES (	4194306,
+	4194312,
+	4194305);
+INSERT INTO SM_EVT
+  VALUES (	4194306,
+	4194312,
+	4194305,
+	2,
+	'Free Up Slot',
+	0,
+	'',
+	'D_S2',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	4194307,
+	4194312,
+	4194305);
+INSERT INTO SM_SEVT
+  VALUES (	4194307,
+	4194312,
+	4194305);
+INSERT INTO SM_EVT
+  VALUES (	4194307,
+	4194312,
+	4194305,
+	3,
+	'Robot Removed Disk',
+	0,
+	'',
+	'D_S3',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	4194308,
+	4194312,
+	4194305);
+INSERT INTO SM_SEVT
+  VALUES (	4194308,
+	4194312,
+	4194305);
+INSERT INTO SM_EVT
+  VALUES (	4194308,
+	4194312,
+	4194305,
+	4,
+	'Robot Delivered Disk',
+	0,
+	'',
+	'D_S4',
+	'Event Descriptions:
+');
+INSERT INTO SM_STATE
+  VALUES (	4194305,
+	4194312,
+	4194305,
+	'Unassigned',
+	1,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	4194305,
+	4194305,
+	4194312,
+	4194305);
+INSERT INTO SM_EIGN
+  VALUES (	4194305,
+	4194306,
+	4194312,
+	4194305,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	4194305,
+	4194306,
+	4194312,
+	4194305);
+INSERT INTO SM_EIGN
+  VALUES (	4194305,
+	4194307,
+	4194312,
+	4194305,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	4194305,
+	4194307,
+	4194312,
+	4194305);
+INSERT INTO SM_EIGN
+  VALUES (	4194305,
+	4194308,
+	4194312,
+	4194305,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	4194305,
+	4194308,
+	4194312,
+	4194305);
+INSERT INTO SM_STATE
+  VALUES (	4194306,
+	4194312,
+	4194305,
+	'Assigned and Waiting for Disk',
+	2,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	4194306,
+	4194305,
+	4194312,
+	4194305,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	4194306,
+	4194305,
+	4194312,
+	4194305);
+INSERT INTO SM_EIGN
+  VALUES (	4194306,
+	4194306,
+	4194312,
+	4194305,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	4194306,
+	4194306,
+	4194312,
+	4194305);
+INSERT INTO SM_EIGN
+  VALUES (	4194306,
+	4194307,
+	4194312,
+	4194305,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	4194306,
+	4194307,
+	4194312,
+	4194305);
+INSERT INTO SM_SEME
+  VALUES (	4194306,
+	4194308,
+	4194312,
+	4194305);
+INSERT INTO SM_STATE
+  VALUES (	4194307,
+	4194312,
+	4194305,
+	'Occupied by Disk from Library',
+	3,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	4194307,
+	4194305,
+	4194312,
+	4194305,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	4194307,
+	4194305,
+	4194312,
+	4194305);
+INSERT INTO SM_EIGN
+  VALUES (	4194307,
+	4194306,
+	4194312,
+	4194305,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	4194307,
+	4194306,
+	4194312,
+	4194305);
+INSERT INTO SM_SEME
+  VALUES (	4194307,
+	4194307,
+	4194312,
+	4194305);
+INSERT INTO SM_EIGN
+  VALUES (	4194307,
+	4194308,
+	4194312,
+	4194305,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	4194307,
+	4194308,
+	4194312,
+	4194305);
+INSERT INTO SM_STATE
+  VALUES (	4194308,
+	4194312,
+	4194305,
+	'Waiting for Disk to Return from Drive',
+	4,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	4194308,
+	4194305,
+	4194312,
+	4194305,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	4194308,
+	4194305,
+	4194312,
+	4194305);
+INSERT INTO SM_EIGN
+  VALUES (	4194308,
+	4194306,
+	4194312,
+	4194305,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	4194308,
+	4194306,
+	4194312,
+	4194305);
+INSERT INTO SM_EIGN
+  VALUES (	4194308,
+	4194307,
+	4194312,
+	4194305,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	4194308,
+	4194307,
+	4194312,
+	4194305);
+INSERT INTO SM_SEME
+  VALUES (	4194308,
+	4194308,
+	4194312,
+	4194305);
+INSERT INTO SM_STATE
+  VALUES (	4194309,
+	4194312,
+	4194305,
+	'Occupied by Disk from Drive',
+	5,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	4194309,
+	4194305,
+	4194312,
+	4194305,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	4194309,
+	4194305,
+	4194312,
+	4194305);
+INSERT INTO SM_SEME
+  VALUES (	4194309,
+	4194306,
+	4194312,
+	4194305);
+INSERT INTO SM_SEME
+  VALUES (	4194309,
+	4194307,
+	4194312,
+	4194305);
+INSERT INTO SM_EIGN
+  VALUES (	4194309,
+	4194308,
+	4194312,
+	4194305,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	4194309,
+	4194308,
+	4194312,
+	4194305);
+INSERT INTO SM_STATE
+  VALUES (	4194310,
+	4194312,
+	4194305,
+	'Waiting for Disk to Leave Slot',
+	6,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	4194310,
+	4194305,
+	4194312,
+	4194305,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	4194310,
+	4194305,
+	4194312,
+	4194305);
+INSERT INTO SM_EIGN
+  VALUES (	4194310,
+	4194306,
+	4194312,
+	4194305,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	4194310,
+	4194306,
+	4194312,
+	4194305);
+INSERT INTO SM_SEME
+  VALUES (	4194310,
+	4194307,
+	4194312,
+	4194305);
+INSERT INTO SM_EIGN
+  VALUES (	4194310,
+	4194308,
+	4194312,
+	4194305,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	4194310,
+	4194308,
+	4194312,
+	4194305);
+INSERT INTO SM_NSTXN
+  VALUES (	4194305,
+	4194312,
+	4194305,
+	4194305,
+	4194305);
+INSERT INTO SM_TXN
+  VALUES (	4194305,
+	4194312,
+	4194306,
+	4194305);
+INSERT INTO SM_NSTXN
+  VALUES (	4194306,
+	4194312,
+	4194309,
+	4194306,
+	4194305);
+INSERT INTO SM_TXN
+  VALUES (	4194306,
+	4194312,
+	4194310,
+	4194305);
+INSERT INTO SM_NSTXN
+  VALUES (	4194307,
+	4194312,
+	4194310,
+	4194307,
+	4194305);
+INSERT INTO SM_TXN
+  VALUES (	4194307,
+	4194312,
+	4194305,
+	4194305);
+INSERT INTO SM_NSTXN
+  VALUES (	4194308,
+	4194312,
+	4194306,
+	4194308,
+	4194305);
+INSERT INTO SM_TXN
+  VALUES (	4194308,
+	4194312,
+	4194307,
+	4194305);
+INSERT INTO SM_NSTXN
+  VALUES (	4194309,
+	4194312,
+	4194307,
+	4194307,
+	4194305);
+INSERT INTO SM_TXN
+  VALUES (	4194309,
+	4194312,
+	4194308,
+	4194305);
+INSERT INTO SM_NSTXN
+  VALUES (	4194310,
+	4194312,
+	4194308,
+	4194308,
+	4194305);
+INSERT INTO SM_TXN
+  VALUES (	4194310,
+	4194312,
+	4194309,
+	4194305);
+INSERT INTO SM_NSTXN
+  VALUES (	4194311,
+	4194312,
+	4194309,
+	4194307,
+	4194305);
+INSERT INTO SM_TXN
+  VALUES (	4194311,
+	4194312,
+	4194308,
+	4194305);
+INSERT INTO SM_MOAH
+  VALUES (	4194305,
+	4194312,
+	4194305);
+INSERT INTO SM_AH
+  VALUES (	4194305,
+	4194312);
+INSERT INTO SM_ACT
+  VALUES (	4194305,
+	4194312,
+	1,
+	'Assign Self.Unassigned = TRUE;
+
+Select many offline_disks from instances of D_OD;
+For each offline_disk in offline_disks
+    Select one disk related by offline_disk->D_D[R3];
+    If (disk.Unowned_in_Library == FALSE)
+    If (disk.Unowned_in_Cabinet == FALSE)
+        Generate D_D7:''Disk Left Slot on way to Library'' () to disk;
+    End if;
+    End if;
+End for;
+
+Generate D_SDA_A2:''Unassigned Slots Available'' () to D_SDA assigner;
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	4194306,
+	4194312,
+	4194306);
+INSERT INTO SM_AH
+  VALUES (	4194306,
+	4194312);
+INSERT INTO SM_ACT
+  VALUES (	4194306,
+	4194312,
+	1,
+	'Assign Self.Unassigned = FALSE;
+
+Create object instance disk_tfr of D_DT;
+
+Select any ee_port from instances of D_P;
+
+Select one source_loc related by ee_port->D_OL[R7];
+Relate disk_tfr to source_loc across R10;
+
+Select one dest_loc related by Self->D_OL[R7];
+Relate disk_tfr to dest_loc across R11;
+
+// Set Status Ready For Port
+Assign disk_tfr.Status = "Ready_for_Entry_Exit_Port";
+
+Generate D_P10:''EE Port Request Pending'' () to ee_port;',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	4194307,
+	4194312,
+	4194307);
+INSERT INTO SM_AH
+  VALUES (	4194307,
+	4194312);
+INSERT INTO SM_ACT
+  VALUES (	4194307,
+	4194312,
+	1,
+	'Select one  disk related by Self->D_SDA[R6]->D_OND[R6]->D_D[R3];
+Generate D_D2:''Disk Arrived in Slot'' () to disk;
+
+Select one disk_tfr related by Self->D_OL[R7]->D_DT[R11];
+Delete object instance disk_tfr;
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	4194308,
+	4194312,
+	4194308);
+INSERT INTO SM_AH
+  VALUES (	4194308,
+	4194312);
+INSERT INTO SM_ACT
+  VALUES (	4194308,
+	4194312,
+	1,
+	'',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	4194309,
+	4194312,
+	4194309);
+INSERT INTO SM_AH
+  VALUES (	4194309,
+	4194312);
+INSERT INTO SM_ACT
+  VALUES (	4194309,
+	4194312,
+	1,
+	'Select one disk related by Self->D_SDA[R6]->D_OND[R6]->D_D[R3];
+Generate D_D5:''Disk Returned to Slot'' () to disk;
+
+Select one disk_tfr related by Self->D_OL[R7]->D_DT[R11];
+Delete object instance disk_tfr;
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	4194310,
+	4194312,
+	4194310);
+INSERT INTO SM_AH
+  VALUES (	4194310,
+	4194312);
+INSERT INTO SM_ACT
+  VALUES (	4194310,
+	4194312,
+	1,
+	'Create object instance disk_tfr of D_DT;
+
+Select any ee_port from instances of D_P;
+
+Select one dest_loc related by ee_port->D_OL[R7];
+Relate disk_tfr to dest_loc across R11;
+
+Select one source_loc related by Self->D_OL[R7];
+Relate disk_tfr to source_loc across R10;
+
+// Set Status Ready For Port
+Assign disk_tfr.Status = "Ready_for_Entry_Exit_Port";
+
+Generate D_P10:''EE Port Request Pending'' () to ee_port;
+',
+	'');
+INSERT INTO GD_MD
+  VALUES (	4194305,
+	8,
+	4194312,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4199,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	4194306,
+	4194305,
+	4194310,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	4194306,
+	2320,
+	1312,
+	2640,
+	1568);
+INSERT INTO GD_GE
+  VALUES (	4194307,
+	4194305,
+	4194309,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	4194307,
+	2320,
+	1680,
+	2624,
+	1840);
+INSERT INTO GD_GE
+  VALUES (	4194308,
+	4194305,
+	4194308,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	4194308,
+	2320,
+	1936,
+	2592,
+	2048);
+INSERT INTO GD_GE
+  VALUES (	4194309,
+	4194305,
+	4194307,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	4194309,
+	1712,
+	1888,
+	2048,
+	2048);
+INSERT INTO GD_GE
+  VALUES (	4194310,
+	4194305,
+	4194306,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	4194310,
+	1712,
+	1520,
+	2048,
+	1792);
+INSERT INTO GD_GE
+  VALUES (	4194311,
+	4194305,
+	4194305,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	4194311,
+	1712,
+	1248,
+	2144,
+	1440);
+INSERT INTO GD_GE
+  VALUES (	4194312,
+	4194305,
+	4194307,
+	42);
+INSERT INTO GD_CON
+  VALUES (	4194312,
+	4194306,
+	4194311,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	4194312,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2166,
+	1316,
+	2299,
+	1361,
+	-41,
+	-19,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	4194313,
+	4194312,
+	2320,
+	1360,
+	2144,
+	1360,
+	0);
+INSERT INTO GD_GE
+  VALUES (	4194314,
+	4194305,
+	4194306,
+	42);
+INSERT INTO GD_CON
+  VALUES (	4194314,
+	4194307,
+	4194306,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	4194314,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2469,
+	1608,
+	2597,
+	1646,
+	21,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	4194315,
+	4194314,
+	2464,
+	1680,
+	2464,
+	1568,
+	0);
+INSERT INTO GD_GE
+  VALUES (	4194316,
+	4194305,
+	4194311,
+	42);
+INSERT INTO GD_CON
+  VALUES (	4194316,
+	4194307,
+	4194308,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	4194316,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2570,
+	1869,
+	2664,
+	1912,
+	26,
+	-4,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	4194317,
+	4194316,
+	2560,
+	1840,
+	2560,
+	1936,
+	0);
+INSERT INTO GD_GE
+  VALUES (	4194318,
+	4194305,
+	4194310,
+	42);
+INSERT INTO GD_CON
+  VALUES (	4194318,
+	4194308,
+	4194307,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	4194318,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2347,
+	1865,
+	2470,
+	1912,
+	11,
+	-8,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	4194319,
+	4194318,
+	2352,
+	1936,
+	2352,
+	1840,
+	0);
+INSERT INTO GD_GE
+  VALUES (	4194320,
+	4194305,
+	4194309,
+	42);
+INSERT INTO GD_CON
+  VALUES (	4194320,
+	4194309,
+	4194308,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	4194320,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2095,
+	1960,
+	2261,
+	1998,
+	-64,
+	-15,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	4194321,
+	4194320,
+	2048,
+	2000,
+	2320,
+	2000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	4194322,
+	4194305,
+	4194308,
+	42);
+INSERT INTO GD_CON
+  VALUES (	4194322,
+	4194310,
+	4194309,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	4194322,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1861,
+	1820,
+	2018,
+	1861,
+	21,
+	-5,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	4194323,
+	4194322,
+	1856,
+	1792,
+	1856,
+	1888,
+	0);
+INSERT INTO GD_GE
+  VALUES (	4194324,
+	4194305,
+	4194305,
+	42);
+INSERT INTO GD_CON
+  VALUES (	4194324,
+	4194311,
+	4194310,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	4194324,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1863,
+	1456,
+	1995,
+	1490,
+	23,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	4194325,
+	4194324,
+	1856,
+	1440,
+	1856,
+	1520,
+	0);
+INSERT INTO O_OBJ
+  VALUES (	1048586,
+	'Online Location',
+	15,
+	'D_OL',
+	'Object Description:
+
+Object Role:
+',
+	1048578);
+INSERT INTO O_NBATTR
+  VALUES (	1048609,
+	1048586);
+INSERT INTO O_BATTR
+  VALUES (	1048609,
+	1048586);
+INSERT INTO O_ATTR
+  VALUES (	1048609,
+	1048586,
+	0,
+	'Online_Location_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Online_Location_ID',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+  VALUES (	1048610,
+	1048586);
+INSERT INTO O_BATTR
+  VALUES (	1048610,
+	1048586);
+INSERT INTO O_ATTR
+  VALUES (	1048610,
+	1048586,
+	1048609,
+	'X_Coordinate',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'X_Coordinate',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+  VALUES (	1048611,
+	1048586);
+INSERT INTO O_BATTR
+  VALUES (	1048611,
+	1048586);
+INSERT INTO O_ATTR
+  VALUES (	1048611,
+	1048586,
+	1048610,
+	'Y_Coordinate',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Y_Coordinate',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+  VALUES (	1048612,
+	1048586);
+INSERT INTO O_BATTR
+  VALUES (	1048612,
+	1048586);
+INSERT INTO O_ATTR
+  VALUES (	1048612,
+	1048586,
+	1048611,
+	'Theta_Coordinate',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Theta_Coordinate',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+  VALUES (	1048613,
+	1048586);
+INSERT INTO O_BATTR
+  VALUES (	1048613,
+	1048586);
+INSERT INTO O_ATTR
+  VALUES (	1048613,
+	1048586,
+	1048612,
+	'current_state',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_ID
+  VALUES (	0,
+	1048586);
+INSERT INTO O_OIDA
+  VALUES (	1048609,
+	1048586,
+	0);
+INSERT INTO O_RTIDA
+  VALUES (	1048609,
+	1048586,
+	0,
+	1048586,
+	1048603);
+INSERT INTO O_RTIDA
+  VALUES (	1048609,
+	1048586,
+	0,
+	1048581,
+	1048588);
+INSERT INTO O_RTIDA
+  VALUES (	1048609,
+	1048586,
+	0,
+	1048587,
+	1048605);
+INSERT INTO SM_ISM
+  VALUES (	4718601,
+	1048586);
+INSERT INTO SM_SM
+  VALUES (	4718601,
+	'',
+	9);
+INSERT INTO SM_MOORE
+  VALUES (	4718601);
+INSERT INTO SM_SUPDT
+  VALUES (	4718593,
+	4718601,
+	0);
+INSERT INTO SM_LEVT
+  VALUES (	4718593,
+	4718601,
+	4718593);
+INSERT INTO SM_SEVT
+  VALUES (	4718593,
+	4718601,
+	4718593);
+INSERT INTO SM_EVT
+  VALUES (	4718593,
+	4718601,
+	4718593,
+	1,
+	'Robot Removed Disk',
+	0,
+	'',
+	'D_OL1',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	4718594,
+	4718601,
+	4718593);
+INSERT INTO SM_SEVT
+  VALUES (	4718594,
+	4718601,
+	4718593);
+INSERT INTO SM_EVT
+  VALUES (	4718594,
+	4718601,
+	4718593,
+	2,
+	'Robot Delivered Disk',
+	0,
+	'',
+	'D_OL2',
+	'Event Descriptions:
+');
+INSERT INTO SM_STATE
+  VALUES (	4718593,
+	4718601,
+	4718593,
+	'Removed Disk',
+	1,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	4718593,
+	4718593,
+	4718601,
+	4718593);
+INSERT INTO SM_SEME
+  VALUES (	4718593,
+	4718594,
+	4718601,
+	4718593);
+INSERT INTO SM_STATE
+  VALUES (	4718594,
+	4718601,
+	4718593,
+	'Delivered Disk',
+	2,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	4718594,
+	4718593,
+	4718601,
+	4718593);
+INSERT INTO SM_SEME
+  VALUES (	4718594,
+	4718594,
+	4718601,
+	4718593);
+INSERT INTO SM_NSTXN
+  VALUES (	4718593,
+	4718601,
+	4718594,
+	4718593,
+	4718593);
+INSERT INTO SM_TXN
+  VALUES (	4718593,
+	4718601,
+	4718593,
+	4718593);
+INSERT INTO SM_NSTXN
+  VALUES (	4718594,
+	4718601,
+	4718593,
+	4718593,
+	4718593);
+INSERT INTO SM_TXN
+  VALUES (	4718594,
+	4718601,
+	4718593,
+	4718593);
+INSERT INTO SM_NSTXN
+  VALUES (	4718595,
+	4718601,
+	4718593,
+	4718594,
+	4718593);
+INSERT INTO SM_TXN
+  VALUES (	4718595,
+	4718601,
+	4718594,
+	4718593);
+INSERT INTO SM_NSTXN
+  VALUES (	4718596,
+	4718601,
+	4718594,
+	4718594,
+	4718593);
+INSERT INTO SM_TXN
+  VALUES (	4718596,
+	4718601,
+	4718594,
+	4718593);
+INSERT INTO SM_MOAH
+  VALUES (	4718593,
+	4718601,
+	4718593);
+INSERT INTO SM_AH
+  VALUES (	4718593,
+	4718601);
+INSERT INTO SM_ACT
+  VALUES (	4718593,
+	4718601,
+	1,
+	'Select one slot related by Self->D_S[R7];
+If (not_empty slot)
+    Generate D_S3:''Robot Removed Disk'' () to slot;
+End if;
+
+Select one drive related by Self->D_DR[R7];
+If (not_empty drive)
+    Generate D_DR5:''Robot Removed Disk'' () to drive;
+End if;
+
+Select one port related by Self->D_P[R7];
+If (not_empty port)
+    Generate D_P11:''Robot Removed Disk'' () to port;
+End if;',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	4718594,
+	4718601,
+	4718594);
+INSERT INTO SM_AH
+  VALUES (	4718594,
+	4718601);
+INSERT INTO SM_ACT
+  VALUES (	4718594,
+	4718601,
+	1,
+	'Select one slot related by Self->D_S[R7];
+If (not_empty slot)
+    Generate D_S4:''Robot Delivered Disk'' () to slot;
+End if;
+
+Select one drive related by Self->D_DR[R7];
+If (not_empty drive)
+    Generate D_DR6:''Robot Delivered Disk'' () to drive;
+End if;
+
+Select one port related by Self->D_P[R7];
+If (not_empty port)
+    Generate D_P12:''Robot Delivered Disk'' () to port;
+End if;',
+	'');
+INSERT INTO GD_MD
+  VALUES (	4718593,
+	8,
+	4718601,
+	40,
+	0,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4200,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	4718594,
+	4718593,
+	4718594,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	4718594,
+	2112,
+	1344,
+	2416,
+	1616);
+INSERT INTO GD_GE
+  VALUES (	4718595,
+	4718593,
+	4718593,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	4718595,
+	1600,
+	1344,
+	1904,
+	1616);
+INSERT INTO GD_GE
+  VALUES (	4718596,
+	4718593,
+	4718593,
+	42);
+INSERT INTO GD_CON
+  VALUES (	4718596,
+	4718594,
+	4718595,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	4718596,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1958,
+	1507,
+	2060,
+	1551,
+	-25,
+	-20,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	4718597,
+	4718596,
+	2112,
+	1552,
+	1904,
+	1552,
+	0);
+INSERT INTO GD_GE
+  VALUES (	4718598,
+	4718593,
+	4718595,
+	42);
+INSERT INTO GD_CON
+  VALUES (	4718598,
+	4718595,
+	4718594,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	4718598,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1956,
+	1377,
+	2065,
+	1422,
+	-27,
+	-22,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	4718599,
+	4718598,
+	1904,
+	1424,
+	2112,
+	1424,
+	0);
+INSERT INTO GD_GE
+  VALUES (	4718600,
+	4718593,
+	4718596,
+	42);
+INSERT INTO GD_CON
+  VALUES (	4718600,
+	4718594,
+	4718594,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	4718600,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2144,
+	1244,
+	2365,
+	1278,
+	-103,
+	-11,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	4718601,
+	4718600,
+	2400,
+	1344,
+	2400,
+	1280,
+	0);
+INSERT INTO GD_LS
+  VALUES (	4718602,
+	4718600,
+	2400,
+	1280,
+	2144,
+	1280,
+	4718601);
+INSERT INTO GD_LS
+  VALUES (	4718603,
+	4718600,
+	2144,
+	1280,
+	2144,
+	1344,
+	4718602);
+INSERT INTO GD_GE
+  VALUES (	4718604,
+	4718593,
+	4718594,
+	42);
+INSERT INTO GD_CON
+  VALUES (	4718604,
+	4718595,
+	4718595,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	4718604,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1669,
+	1245,
+	1845,
+	1279,
+	-50,
+	-10,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	4718605,
+	4718604,
+	1632,
+	1344,
+	1632,
+	1280,
+	0);
+INSERT INTO GD_LS
+  VALUES (	4718606,
+	4718604,
+	1632,
+	1280,
+	1856,
+	1280,
+	4718605);
+INSERT INTO GD_LS
+  VALUES (	4718607,
+	4718604,
+	1856,
+	1280,
+	1856,
+	1344,
+	4718606);
+INSERT INTO O_OBJ
+  VALUES (	1048587,
+	'Slot_Disk Assignment',
+	5,
+	'D_SDA',
+	'Object Description:
+
+Object Role:
+',
+	1048578);
+INSERT INTO O_REF
+  VALUES (	1048587,
+	1048579,
+	0,
+	1048591,
+	1048582,
+	1048594,
+	1048593,
+	1048614,
+	1048593,
+	0,
+	0,
+	'Reference Domain:
+');
+INSERT INTO O_RATTR
+  VALUES (	1048614,
+	1048587,
+	1048577,
+	1048577,
+	1);
+INSERT INTO O_ATTR
+  VALUES (	1048614,
+	1048587,
+	0,
+	'Disk_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Disk_ID',
+	0,
+	524296);
+INSERT INTO O_REF
+  VALUES (	1048587,
+	1048585,
+	0,
+	1048606,
+	1048582,
+	1048594,
+	1048592,
+	1048615,
+	1048594,
+	0,
+	0,
+	'Reference Domain:
+');
+INSERT INTO O_RATTR
+  VALUES (	1048615,
+	1048587,
+	1048609,
+	1048586,
+	1);
+INSERT INTO O_ATTR
+  VALUES (	1048615,
+	1048587,
+	1048614,
+	'Slot_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Slot_ID',
+	0,
+	524296);
+INSERT INTO O_ID
+  VALUES (	0,
+	1048587);
+INSERT INTO O_OIDA
+  VALUES (	1048614,
+	1048587,
+	0);
+INSERT INTO SM_ASM
+  VALUES (	5242890,
+	1048587);
+INSERT INTO SM_SM
+  VALUES (	5242890,
+	'',
+	10);
+INSERT INTO SM_MOORE
+  VALUES (	5242890);
+INSERT INTO SM_SUPDT
+  VALUES (	5242881,
+	5242890,
+	0);
+INSERT INTO SM_LEVT
+  VALUES (	5242881,
+	5242890,
+	5242881);
+INSERT INTO SM_SEVT
+  VALUES (	5242881,
+	5242890,
+	5242881);
+INSERT INTO SM_EVT
+  VALUES (	5242881,
+	5242890,
+	5242881,
+	1,
+	'Request Slot',
+	0,
+	'',
+	'D_SDA_A1',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	5242882,
+	5242890,
+	5242881);
+INSERT INTO SM_SEVT
+  VALUES (	5242882,
+	5242890,
+	5242881);
+INSERT INTO SM_EVT
+  VALUES (	5242882,
+	5242890,
+	5242881,
+	2,
+	'Unassigned Slots Available',
+	0,
+	'',
+	'D_SDA_A2',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	5242883,
+	5242890,
+	5242881);
+INSERT INTO SM_SEVT
+  VALUES (	5242883,
+	5242890,
+	5242881);
+INSERT INTO SM_EVT
+  VALUES (	5242883,
+	5242890,
+	5242881,
+	3,
+	'Slot Assigned',
+	0,
+	'',
+	'D_SDA_A3',
+	'Event Descriptions:
+');
+INSERT INTO SM_STATE
+  VALUES (	5242881,
+	5242890,
+	5242881,
+	'Waiting for a Disk',
+	1,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	5242881,
+	5242881,
+	5242890,
+	5242881);
+INSERT INTO SM_EIGN
+  VALUES (	5242881,
+	5242882,
+	5242890,
+	5242881,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5242881,
+	5242882,
+	5242890,
+	5242881);
+INSERT INTO SM_EIGN
+  VALUES (	5242881,
+	5242883,
+	5242890,
+	5242881,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5242881,
+	5242883,
+	5242890,
+	5242881);
+INSERT INTO SM_STATE
+  VALUES (	5242882,
+	5242890,
+	5242881,
+	'Waiting for Free Slot',
+	2,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	5242882,
+	5242881,
+	5242890,
+	5242881,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5242882,
+	5242881,
+	5242890,
+	5242881);
+INSERT INTO SM_SEME
+  VALUES (	5242882,
+	5242882,
+	5242890,
+	5242881);
+INSERT INTO SM_EIGN
+  VALUES (	5242882,
+	5242883,
+	5242890,
+	5242881,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5242882,
+	5242883,
+	5242890,
+	5242881);
+INSERT INTO SM_STATE
+  VALUES (	5242883,
+	5242890,
+	5242881,
+	'Assigning Slot to Disk',
+	3,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	5242883,
+	5242881,
+	5242890,
+	5242881,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5242883,
+	5242881,
+	5242890,
+	5242881);
+INSERT INTO SM_EIGN
+  VALUES (	5242883,
+	5242882,
+	5242890,
+	5242881,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5242883,
+	5242882,
+	5242890,
+	5242881);
+INSERT INTO SM_SEME
+  VALUES (	5242883,
+	5242883,
+	5242890,
+	5242881);
+INSERT INTO SM_NSTXN
+  VALUES (	5242881,
+	5242890,
+	5242883,
+	5242883,
+	5242881);
+INSERT INTO SM_TXN
+  VALUES (	5242881,
+	5242890,
+	5242881,
+	5242881);
+INSERT INTO SM_NSTXN
+  VALUES (	5242882,
+	5242890,
+	5242882,
+	5242882,
+	5242881);
+INSERT INTO SM_TXN
+  VALUES (	5242882,
+	5242890,
+	5242883,
+	5242881);
+INSERT INTO SM_NSTXN
+  VALUES (	5242883,
+	5242890,
+	5242881,
+	5242881,
+	5242881);
+INSERT INTO SM_TXN
+  VALUES (	5242883,
+	5242890,
+	5242882,
+	5242881);
+INSERT INTO SM_MOAH
+  VALUES (	5242881,
+	5242890,
+	5242881);
+INSERT INTO SM_AH
+  VALUES (	5242881,
+	5242890);
+INSERT INTO SM_ACT
+  VALUES (	5242881,
+	5242890,
+	1,
+	'Select many disk_set from instances of D_D where (selected.Waiting_for_Slot == TRUE);
+For each disk in disk_set
+    Select one disk_assignment related by disk->D_OND[R3]->D_SDA[R6];
+    If (empty disk_assignment)
+        Generate D_SDA_A1:''Request Slot'' () to D_SDA assigner;
+    End if;
+End for;
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	5242882,
+	5242890,
+	5242882);
+INSERT INTO SM_AH
+  VALUES (	5242882,
+	5242890);
+INSERT INTO SM_ACT
+  VALUES (	5242882,
+	5242890,
+	1,
+	'Select many slots from instances of D_S where (selected.Unassigned == TRUE);
+For each slot in slots
+    Select one slot_assignment related by slot->D_SDA[R6];
+    If (empty slot_assignment)
+        Generate D_SDA_A2:''Unassigned Slots Available'' () to D_SDA assigner;
+        Break;
+    End if;
+End for;
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	5242883,
+	5242890,
+	5242883);
+INSERT INTO SM_AH
+  VALUES (	5242883,
+	5242890);
+INSERT INTO SM_ACT
+  VALUES (	5242883,
+	5242890,
+	1,
+	'Select many disk_set from instances of D_D where 
+                                                                         (selected.Waiting_for_Slot == TRUE);
+For each disk in disk_set
+    Select one disk_assignment related by disk->D_OND[R3]->D_SDA[R6];
+    If (empty disk_assignment)
+        Select any slot from instances of D_S where (selected.Unassigned == TRUE);
+        If (not_empty slot)
+            Select one slot_assignment related by slot->D_SDA[R6];
+            If (empty slot_assignment)
+                Create object instance slot_disk of D_SDA;
+                Select one online_disk related by disk->D_OND[R3];
+                Relate slot to online_disk across R6 using slot_disk;
+                Generate D_S1:''Slot Assigned'' () to slot;
+                Generate D_SDA_A3:''Slot Assigned'' () to D_SDA assigner;
+            End if;
+        End if;
+    End if;
+End for;',
+	'');
+INSERT INTO GD_MD
+  VALUES (	5242881,
+	10,
+	5242890,
+	40,
+	0,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1659,
+	4117,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	5242882,
+	5242881,
+	5242883,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	5242882,
+	2384,
+	1328,
+	2976,
+	1744);
+INSERT INTO GD_GE
+  VALUES (	5242883,
+	5242881,
+	5242882,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	5242883,
+	1680,
+	1616,
+	2128,
+	1824);
+INSERT INTO GD_GE
+  VALUES (	5242884,
+	5242881,
+	5242881,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	5242884,
+	1680,
+	1264,
+	2128,
+	1488);
+INSERT INTO GD_GE
+  VALUES (	5242885,
+	5242881,
+	5242883,
+	42);
+INSERT INTO GD_CON
+  VALUES (	5242885,
+	5242884,
+	5242883,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	5242885,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1846,
+	1536,
+	2064,
+	1580,
+	-18,
+	-2,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	5242886,
+	5242885,
+	1888,
+	1488,
+	1888,
+	1616,
+	0);
+INSERT INTO GD_GE
+  VALUES (	5242887,
+	5242881,
+	5242881,
+	42);
+INSERT INTO GD_CON
+  VALUES (	5242887,
+	5242882,
+	5242884,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	5242887,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2187,
+	1359,
+	2310,
+	1399,
+	-10,
+	13,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	5242914,
+	5242887,
+	2384,
+	1392,
+	2128,
+	1392,
+	0);
+INSERT INTO GD_GE
+  VALUES (	5242889,
+	5242881,
+	5242882,
+	42);
+INSERT INTO GD_CON
+  VALUES (	5242889,
+	5242883,
+	5242882,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	5242889,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2166,
+	1649,
+	2345,
+	1689,
+	-3,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	5242913,
+	5242889,
+	2128,
+	1696,
+	2384,
+	1696,
+	0);
+INSERT INTO O_OBJ
+  VALUES (	1048588,
+	'Drive',
+	7,
+	'D_DR',
+	'Object Description:
+
+Object Role:
+',
+	1048578);
+INSERT INTO O_REF
+  VALUES (	1048588,
+	1048586,
+	0,
+	1048609,
+	1048581,
+	1048590,
+	1048588,
+	1048616,
+	1048579,
+	0,
+	0,
+	'Reference Domain:
+');
+INSERT INTO O_RATTR
+  VALUES (	1048616,
+	1048588,
+	1048609,
+	1048586,
+	0);
+INSERT INTO O_ATTR
+  VALUES (	1048616,
+	1048588,
+	0,
+	'Drive_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Drive_ID',
+	0,
+	524296);
+INSERT INTO O_NBATTR
+  VALUES (	1048617,
+	1048588);
+INSERT INTO O_BATTR
+  VALUES (	1048617,
+	1048588);
+INSERT INTO O_ATTR
+  VALUES (	1048617,
+	1048588,
+	1048616,
+	'Idle',
+	'This attribute is TRUE only when the state machine is in the Idle state.
+i.e.
+
+if (current_state == "Idle")
+  return true;
+else
+  return false;
+end if;',
+	'',
+	'Idle',
+	0,
+	524290);
+INSERT INTO O_NBATTR
+  VALUES (	1048618,
+	1048588);
+INSERT INTO O_BATTR
+  VALUES (	1048618,
+	1048588);
+INSERT INTO O_ATTR
+  VALUES (	1048618,
+	1048588,
+	1048617,
+	'current_state',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_ID
+  VALUES (	0,
+	1048588);
+INSERT INTO O_OIDA
+  VALUES (	1048616,
+	1048588,
+	0);
+INSERT INTO O_RTIDA
+  VALUES (	1048616,
+	1048588,
+	0,
+	1048583,
+	1048596);
+INSERT INTO SM_ISM
+  VALUES (	5767179,
+	1048588);
+INSERT INTO SM_SM
+  VALUES (	5767179,
+	'',
+	11);
+INSERT INTO SM_MOORE
+  VALUES (	5767179);
+INSERT INTO SM_SUPDT
+  VALUES (	5767169,
+	5767179,
+	0);
+INSERT INTO SM_LEVT
+  VALUES (	5767169,
+	5767179,
+	5767169);
+INSERT INTO SM_SEVT
+  VALUES (	5767169,
+	5767179,
+	5767169);
+INSERT INTO SM_EVT
+  VALUES (	5767169,
+	5767179,
+	5767169,
+	1,
+	'Drive Assigned',
+	0,
+	'',
+	'D_DR1',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	5767170,
+	5767179,
+	5767169);
+INSERT INTO SM_SEVT
+  VALUES (	5767170,
+	5767179,
+	5767169);
+INSERT INTO SM_EVT
+  VALUES (	5767170,
+	5767179,
+	5767169,
+	2,
+	'Drive at Spin Speed',
+	0,
+	'',
+	'D_DR2',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	5767171,
+	5767179,
+	5767169);
+INSERT INTO SM_SEVT
+  VALUES (	5767171,
+	5767179,
+	5767169);
+INSERT INTO SM_EVT
+  VALUES (	5767171,
+	5767179,
+	5767169,
+	3,
+	'Disk Through With Drive',
+	0,
+	'',
+	'D_DR3',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	5767172,
+	5767179,
+	5767169);
+INSERT INTO SM_SEVT
+  VALUES (	5767172,
+	5767179,
+	5767169);
+INSERT INTO SM_EVT
+  VALUES (	5767172,
+	5767179,
+	5767169,
+	4,
+	'Drive Stopped',
+	0,
+	'',
+	'D_DR4',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	5767173,
+	5767179,
+	5767169);
+INSERT INTO SM_SEVT
+  VALUES (	5767173,
+	5767179,
+	5767169);
+INSERT INTO SM_EVT
+  VALUES (	5767173,
+	5767179,
+	5767169,
+	5,
+	'Robot Removed Disk',
+	0,
+	'',
+	'D_DR5',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	5767174,
+	5767179,
+	5767169);
+INSERT INTO SM_SEVT
+  VALUES (	5767174,
+	5767179,
+	5767169);
+INSERT INTO SM_EVT
+  VALUES (	5767174,
+	5767179,
+	5767169,
+	6,
+	'Robot Delivered Disk',
+	0,
+	'',
+	'D_DR6',
+	'Event Descriptions:
+');
+INSERT INTO SM_STATE
+  VALUES (	5767169,
+	5767179,
+	5767169,
+	'Idle',
+	1,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	5767169,
+	5767169,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767169,
+	5767170,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767169,
+	5767170,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767169,
+	5767171,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767169,
+	5767171,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767169,
+	5767172,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767169,
+	5767172,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767169,
+	5767173,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767169,
+	5767173,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767169,
+	5767174,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767169,
+	5767174,
+	5767179,
+	5767169);
+INSERT INTO SM_STATE
+  VALUES (	5767170,
+	5767179,
+	5767169,
+	'Calling Disk into Drive',
+	2,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	5767170,
+	5767169,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767170,
+	5767169,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767170,
+	5767170,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767170,
+	5767170,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767170,
+	5767171,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767170,
+	5767171,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767170,
+	5767172,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767170,
+	5767172,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767170,
+	5767173,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767170,
+	5767173,
+	5767179,
+	5767169);
+INSERT INTO SM_SEME
+  VALUES (	5767170,
+	5767174,
+	5767179,
+	5767169);
+INSERT INTO SM_STATE
+  VALUES (	5767171,
+	5767179,
+	5767169,
+	'Spinning Up',
+	3,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	5767171,
+	5767169,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767171,
+	5767169,
+	5767179,
+	5767169);
+INSERT INTO SM_SEME
+  VALUES (	5767171,
+	5767170,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767171,
+	5767171,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767171,
+	5767171,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767171,
+	5767172,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767171,
+	5767172,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767171,
+	5767173,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767171,
+	5767173,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767171,
+	5767174,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767171,
+	5767174,
+	5767179,
+	5767169);
+INSERT INTO SM_STATE
+  VALUES (	5767172,
+	5767179,
+	5767169,
+	'Drive Ready',
+	4,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	5767172,
+	5767169,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767172,
+	5767169,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767172,
+	5767170,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767172,
+	5767170,
+	5767179,
+	5767169);
+INSERT INTO SM_SEME
+  VALUES (	5767172,
+	5767171,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767172,
+	5767172,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767172,
+	5767172,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767172,
+	5767173,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767172,
+	5767173,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767172,
+	5767174,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767172,
+	5767174,
+	5767179,
+	5767169);
+INSERT INTO SM_STATE
+  VALUES (	5767173,
+	5767179,
+	5767169,
+	'Spinning Down',
+	5,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	5767173,
+	5767169,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767173,
+	5767169,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767173,
+	5767170,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767173,
+	5767170,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767173,
+	5767171,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767173,
+	5767171,
+	5767179,
+	5767169);
+INSERT INTO SM_SEME
+  VALUES (	5767173,
+	5767172,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767173,
+	5767173,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767173,
+	5767173,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767173,
+	5767174,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767173,
+	5767174,
+	5767179,
+	5767169);
+INSERT INTO SM_STATE
+  VALUES (	5767174,
+	5767179,
+	5767169,
+	'Sending Disk Back to Slot',
+	6,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	5767174,
+	5767169,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767174,
+	5767169,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767174,
+	5767170,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767174,
+	5767170,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767174,
+	5767171,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767174,
+	5767171,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767174,
+	5767172,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767174,
+	5767172,
+	5767179,
+	5767169);
+INSERT INTO SM_SEME
+  VALUES (	5767174,
+	5767173,
+	5767179,
+	5767169);
+INSERT INTO SM_EIGN
+  VALUES (	5767174,
+	5767174,
+	5767179,
+	5767169,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	5767174,
+	5767174,
+	5767179,
+	5767169);
+INSERT INTO SM_NSTXN
+  VALUES (	5767169,
+	5767179,
+	5767169,
+	5767169,
+	5767169);
+INSERT INTO SM_TXN
+  VALUES (	5767169,
+	5767179,
+	5767170,
+	5767169);
+INSERT INTO SM_NSTXN
+  VALUES (	5767170,
+	5767179,
+	5767171,
+	5767170,
+	5767169);
+INSERT INTO SM_TXN
+  VALUES (	5767170,
+	5767179,
+	5767172,
+	5767169);
+INSERT INTO SM_NSTXN
+  VALUES (	5767171,
+	5767179,
+	5767172,
+	5767171,
+	5767169);
+INSERT INTO SM_TXN
+  VALUES (	5767171,
+	5767179,
+	5767173,
+	5767169);
+INSERT INTO SM_NSTXN
+  VALUES (	5767172,
+	5767179,
+	5767173,
+	5767172,
+	5767169);
+INSERT INTO SM_TXN
+  VALUES (	5767172,
+	5767179,
+	5767174,
+	5767169);
+INSERT INTO SM_NSTXN
+  VALUES (	5767173,
+	5767179,
+	5767170,
+	5767174,
+	5767169);
+INSERT INTO SM_TXN
+  VALUES (	5767173,
+	5767179,
+	5767171,
+	5767169);
+INSERT INTO SM_NSTXN
+  VALUES (	5767174,
+	5767179,
+	5767174,
+	5767173,
+	5767169);
+INSERT INTO SM_TXN
+  VALUES (	5767174,
+	5767179,
+	5767169,
+	5767169);
+INSERT INTO SM_MOAH
+  VALUES (	5767169,
+	5767179,
+	5767169);
+INSERT INTO SM_AH
+  VALUES (	5767169,
+	5767179);
+INSERT INTO SM_ACT
+  VALUES (	5767169,
+	5767179,
+	1,
+	'Assign Self.Idle = TRUE;
+
+Select one drive_disk related by Self->D_DDA[R5];
+Select one disk related by drive_disk->D_OND[R5];
+unrelate self from disk across R5 using drive_disk;
+Delete object instance drive_disk;
+
+Generate D_DDA_A2:''Drive Free'' () to D_DDA assigner;
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	5767170,
+	5767179,
+	5767170);
+INSERT INTO SM_AH
+  VALUES (	5767170,
+	5767179);
+INSERT INTO SM_ACT
+  VALUES (	5767170,
+	5767179,
+	1,
+	'Assign Self.Idle = FALSE;
+
+Select one online_disk related by Self->D_DDA[R5]->D_OND[R5];
+Select one slot related by online_disk->D_SDA[R6]->D_S[R6];
+
+Select one source_loc related by slot->D_OL[R7];
+Select one dest_loc related by Self->D_OL[R7];
+
+Create object instance disk_tfr of D_DT;
+Relate disk_tfr to source_loc across R10;
+Relate disk_tfr to dest_loc across R11;
+
+// Set Status Ready For Robot
+Assign disk_tfr.Status = "Ready_for_Robot";
+
+Select any robot from instances of D_R;
+Generate D_R5:''Robot Request Pending'' () to robot;',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	5767171,
+	5767179,
+	5767171);
+INSERT INTO SM_AH
+  VALUES (	5767171,
+	5767179);
+INSERT INTO SM_ACT
+  VALUES (	5767171,
+	5767179,
+	1,
+	'Select one disk_tfr related by Self->D_OL[R7]->D_DT[R11];
+Delete object instance disk_tfr;
+
+// Bridge to PIO: spin_up_drive
+Bridge pio1::spin_up_drive(tvs: "D_PIOBR::drive_at_spin_speed", drive_id:self.Drive_ID);',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	5767172,
+	5767179,
+	5767172);
+INSERT INTO SM_AH
+  VALUES (	5767172,
+	5767179);
+INSERT INTO SM_ACT
+  VALUES (	5767172,
+	5767179,
+	1,
+	'Select one disk related by Self->D_DDA[R5]->D_OND[R5]->D_D[R3];
+Generate D_D3:''Disk in Drive'' () to disk;',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	5767173,
+	5767179,
+	5767173);
+INSERT INTO SM_AH
+  VALUES (	5767173,
+	5767179);
+INSERT INTO SM_ACT
+  VALUES (	5767173,
+	5767179,
+	1,
+	'// Bridge to PIO: spin_down_drive
+Bridge pio1::spin_down_drive(tvs: "D_PIOBR::drive_stopped", drive_id:self.Drive_ID);',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	5767174,
+	5767179,
+	5767174);
+INSERT INTO SM_AH
+  VALUES (	5767174,
+	5767179);
+INSERT INTO SM_ACT
+  VALUES (	5767174,
+	5767179,
+	1,
+	'Select one online_disk related by Self->D_DDA[R5]->D_OND[R5];
+Select one slot related by online_disk->D_SDA[R6]->D_S[R6];
+
+Select one source_loc related by Self->D_OL[R7];
+Select one dest_loc related by slot->D_OL[R7];
+
+Create object instance disk_tfr of D_DT;
+Relate disk_tfr to source_loc across R10;
+Relate disk_tfr to dest_loc across R11;
+
+// Set Status Ready For Robot
+Assign disk_tfr.Status = "Ready_for_Robot";
+
+Select any robot from instances of D_R;
+Generate D_R5:''Robot Request Pending'' () to robot;
+',
+	'');
+INSERT INTO GD_MD
+  VALUES (	5767169,
+	8,
+	5767179,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1600,
+	4177,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	5767170,
+	5767169,
+	5767174,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	5767170,
+	2112,
+	1280,
+	2480,
+	1584);
+INSERT INTO GD_GE
+  VALUES (	5767171,
+	5767169,
+	5767173,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	5767171,
+	2128,
+	1712,
+	2400,
+	1792);
+INSERT INTO GD_GE
+  VALUES (	5767172,
+	5767169,
+	5767172,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	5767172,
+	2128,
+	1920,
+	2416,
+	2032);
+INSERT INTO GD_GE
+  VALUES (	5767173,
+	5767169,
+	5767171,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	5767173,
+	1632,
+	1920,
+	1856,
+	2032);
+INSERT INTO GD_GE
+  VALUES (	5767174,
+	5767169,
+	5767170,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	5767174,
+	1632,
+	1504,
+	1968,
+	1824);
+INSERT INTO GD_GE
+  VALUES (	5767175,
+	5767169,
+	5767169,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	5767175,
+	1632,
+	1280,
+	1968,
+	1408);
+INSERT INTO GD_GE
+  VALUES (	5767176,
+	5767169,
+	5767174,
+	42);
+INSERT INTO GD_CON
+  VALUES (	5767176,
+	5767170,
+	5767175,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	5767176,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1980,
+	1297,
+	2091,
+	1341,
+	-35,
+	-22,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	5767177,
+	5767176,
+	2112,
+	1344,
+	1968,
+	1344,
+	0);
+INSERT INTO GD_GE
+  VALUES (	5767178,
+	5767169,
+	5767173,
+	42);
+INSERT INTO GD_CON
+  VALUES (	5767178,
+	5767174,
+	5767173,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	5767178,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1743,
+	1849,
+	1856,
+	1893,
+	15,
+	-8,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	5767179,
+	5767178,
+	1744,
+	1824,
+	1744,
+	1920,
+	0);
+INSERT INTO GD_GE
+  VALUES (	5767180,
+	5767169,
+	5767172,
+	42);
+INSERT INTO GD_CON
+  VALUES (	5767180,
+	5767171,
+	5767170,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	5767180,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2258,
+	1629,
+	2403,
+	1670,
+	18,
+	-4,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	5767181,
+	5767180,
+	2256,
+	1712,
+	2256,
+	1584,
+	0);
+INSERT INTO GD_GE
+  VALUES (	5767182,
+	5767169,
+	5767171,
+	42);
+INSERT INTO GD_CON
+  VALUES (	5767182,
+	5767172,
+	5767171,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	5767182,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2258,
+	1841,
+	2428,
+	1888,
+	18,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	5767183,
+	5767182,
+	2256,
+	1920,
+	2256,
+	1792,
+	0);
+INSERT INTO GD_GE
+  VALUES (	5767184,
+	5767169,
+	5767170,
+	42);
+INSERT INTO GD_CON
+  VALUES (	5767184,
+	5767173,
+	5767172,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	5767184,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1890,
+	1930,
+	2078,
+	1966,
+	-77,
+	-13,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	5767185,
+	5767184,
+	1856,
+	1968,
+	2128,
+	1968,
+	0);
+INSERT INTO GD_GE
+  VALUES (	5767186,
+	5767169,
+	5767169,
+	42);
+INSERT INTO GD_CON
+  VALUES (	5767186,
+	5767175,
+	5767174,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	5767186,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1782,
+	1432,
+	1949,
+	1472,
+	6,
+	-9,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	5767187,
+	5767186,
+	1792,
+	1408,
+	1792,
+	1504,
+	0);
+INSERT INTO O_OBJ
+  VALUES (	1048589,
+	'Entry_Exit Port',
+	8,
+	'D_P',
+	'Object Description:
+
+Object Role:
+',
+	1048578);
+INSERT INTO O_REF
+  VALUES (	1048589,
+	1048586,
+	0,
+	1048609,
+	1048581,
+	1048591,
+	1048588,
+	1048619,
+	1048580,
+	0,
+	0,
+	'Reference Domain:
+');
+INSERT INTO O_RATTR
+  VALUES (	1048619,
+	1048589,
+	1048609,
+	1048586,
+	0);
+INSERT INTO O_ATTR
+  VALUES (	1048619,
+	1048589,
+	0,
+	'Port_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Port_ID',
+	0,
+	524296);
+INSERT INTO O_NBATTR
+  VALUES (	1048620,
+	1048589);
+INSERT INTO O_BATTR
+  VALUES (	1048620,
+	1048589);
+INSERT INTO O_ATTR
+  VALUES (	1048620,
+	1048589,
+	1048619,
+	'current_state',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_REF
+  VALUES (	1048589,
+	1048590,
+	0,
+	1048622,
+	1048584,
+	1048598,
+	1048599,
+	1048621,
+	1048595,
+	0,
+	0,
+	'Reference Domain:
+');
+INSERT INTO O_RATTR
+  VALUES (	1048621,
+	1048589,
+	1048622,
+	1048590,
+	1);
+INSERT INTO O_ATTR
+  VALUES (	1048621,
+	1048589,
+	1048620,
+	'Disk_Transfer_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Disk_Transfer_ID',
+	0,
+	524296);
+INSERT INTO O_ID
+  VALUES (	0,
+	1048589);
+INSERT INTO O_OIDA
+  VALUES (	1048619,
+	1048589,
+	0);
+INSERT INTO SM_ISM
+  VALUES (	6291468,
+	1048589);
+INSERT INTO SM_SM
+  VALUES (	6291468,
+	'',
+	12);
+INSERT INTO SM_MOORE
+  VALUES (	6291468);
+INSERT INTO SM_SUPDT
+  VALUES (	6291457,
+	6291468,
+	0);
+INSERT INTO SM_LEVT
+  VALUES (	6291457,
+	6291468,
+	6291457);
+INSERT INTO SM_SEVT
+  VALUES (	6291457,
+	6291468,
+	6291457);
+INSERT INTO SM_EVT
+  VALUES (	6291457,
+	6291468,
+	6291457,
+	1,
+	'Operator Closes Door',
+	0,
+	'',
+	'D_P1',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	6291458,
+	6291468,
+	6291457);
+INSERT INTO SM_SEVT
+  VALUES (	6291458,
+	6291468,
+	6291457);
+INSERT INTO SM_EVT
+  VALUES (	6291458,
+	6291468,
+	6291457,
+	2,
+	'EE Port Locked',
+	0,
+	'',
+	'D_P2',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	6291459,
+	6291468,
+	6291457);
+INSERT INTO SM_SEVT
+  VALUES (	6291459,
+	6291468,
+	6291457);
+INSERT INTO SM_EVT
+  VALUES (	6291459,
+	6291468,
+	6291457,
+	3,
+	'Port Unlocked',
+	0,
+	'',
+	'D_P3',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	6291460,
+	6291468,
+	6291457);
+INSERT INTO SM_SEVT
+  VALUES (	6291460,
+	6291468,
+	6291457);
+INSERT INTO SM_EVT
+  VALUES (	6291460,
+	6291468,
+	6291457,
+	4,
+	'Operator Inserts Disk',
+	0,
+	'',
+	'D_P4',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	6291461,
+	6291468,
+	6291457);
+INSERT INTO SM_SEVT
+  VALUES (	6291461,
+	6291468,
+	6291457);
+INSERT INTO SM_EVT
+  VALUES (	6291461,
+	6291468,
+	6291457,
+	5,
+	'Operator Removes Disk',
+	0,
+	'',
+	'D_P5',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	6291462,
+	6291468,
+	6291457);
+INSERT INTO SM_SEVT
+  VALUES (	6291462,
+	6291468,
+	6291457);
+INSERT INTO SM_EVT
+  VALUES (	6291462,
+	6291468,
+	6291457,
+	6,
+	'Operator Opens Door',
+	0,
+	'',
+	'D_P6',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	6291463,
+	6291468,
+	6291457);
+INSERT INTO SM_SEVT
+  VALUES (	6291463,
+	6291468,
+	6291457);
+INSERT INTO SM_EVT
+  VALUES (	6291463,
+	6291468,
+	6291457,
+	7,
+	'Insert Request Selected',
+	0,
+	'',
+	'D_P7',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	6291464,
+	6291468,
+	6291457);
+INSERT INTO SM_SEVT
+  VALUES (	6291464,
+	6291468,
+	6291457);
+INSERT INTO SM_EVT
+  VALUES (	6291464,
+	6291468,
+	6291457,
+	8,
+	'Eject Request Selected',
+	0,
+	'',
+	'D_P8',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	6291465,
+	6291468,
+	6291457);
+INSERT INTO SM_SEVT
+  VALUES (	6291465,
+	6291468,
+	6291457);
+INSERT INTO SM_EVT
+  VALUES (	6291465,
+	6291468,
+	6291457,
+	10,
+	'EE Port Request Pending',
+	0,
+	'',
+	'D_P10',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	6291466,
+	6291468,
+	6291457);
+INSERT INTO SM_SEVT
+  VALUES (	6291466,
+	6291468,
+	6291457);
+INSERT INTO SM_EVT
+  VALUES (	6291466,
+	6291468,
+	6291457,
+	11,
+	'Robot Removed Disk',
+	0,
+	'',
+	'D_P11',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	6291467,
+	6291468,
+	6291457);
+INSERT INTO SM_SEVT
+  VALUES (	6291467,
+	6291468,
+	6291457);
+INSERT INTO SM_EVT
+  VALUES (	6291467,
+	6291468,
+	6291457,
+	12,
+	'Robot Delivered Disk',
+	0,
+	'',
+	'D_P12',
+	'Event Descriptions:
+');
+INSERT INTO SM_STATE
+  VALUES (	6291457,
+	6291468,
+	6291457,
+	'Idle',
+	1,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	6291457,
+	6291457,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291457,
+	6291457,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291457,
+	6291458,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291457,
+	6291458,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291457,
+	6291459,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291457,
+	6291459,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291457,
+	6291460,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291457,
+	6291460,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291457,
+	6291461,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291457,
+	6291461,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291457,
+	6291462,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291457,
+	6291462,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291457,
+	6291463,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291457,
+	6291463,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291457,
+	6291464,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291457,
+	6291464,
+	6291468,
+	6291457);
+INSERT INTO SM_SEME
+  VALUES (	6291457,
+	6291465,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291457,
+	6291466,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291457,
+	6291466,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291457,
+	6291467,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291457,
+	6291467,
+	6291468,
+	6291457);
+INSERT INTO SM_STATE
+  VALUES (	6291458,
+	6291468,
+	6291457,
+	'Selecting a Disk Transfer',
+	2,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	6291458,
+	6291457,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291458,
+	6291457,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291458,
+	6291458,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291458,
+	6291458,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291458,
+	6291459,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291458,
+	6291459,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291458,
+	6291460,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291458,
+	6291460,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291458,
+	6291461,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291458,
+	6291461,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291458,
+	6291462,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291458,
+	6291462,
+	6291468,
+	6291457);
+INSERT INTO SM_SEME
+  VALUES (	6291458,
+	6291463,
+	6291468,
+	6291457);
+INSERT INTO SM_SEME
+  VALUES (	6291458,
+	6291464,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291458,
+	6291465,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291458,
+	6291465,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291458,
+	6291466,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291458,
+	6291466,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291458,
+	6291467,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291458,
+	6291467,
+	6291468,
+	6291457);
+INSERT INTO SM_STATE
+  VALUES (	6291459,
+	6291468,
+	6291457,
+	'Unlocking the Door on Insert',
+	3,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	6291459,
+	6291457,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291459,
+	6291457,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291459,
+	6291458,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291459,
+	6291458,
+	6291468,
+	6291457);
+INSERT INTO SM_SEME
+  VALUES (	6291459,
+	6291459,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291459,
+	6291460,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291459,
+	6291460,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291459,
+	6291461,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291459,
+	6291461,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291459,
+	6291462,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291459,
+	6291462,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291459,
+	6291463,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291459,
+	6291463,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291459,
+	6291464,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291459,
+	6291464,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291459,
+	6291465,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291459,
+	6291465,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291459,
+	6291466,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291459,
+	6291466,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291459,
+	6291467,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291459,
+	6291467,
+	6291468,
+	6291457);
+INSERT INTO SM_STATE
+  VALUES (	6291460,
+	6291468,
+	6291457,
+	'Waiting for Operator to Open Door on Insert',
+	4,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	6291460,
+	6291457,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291460,
+	6291457,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291460,
+	6291458,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291460,
+	6291458,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291460,
+	6291459,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291460,
+	6291459,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291460,
+	6291460,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291460,
+	6291460,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291460,
+	6291461,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291460,
+	6291461,
+	6291468,
+	6291457);
+INSERT INTO SM_SEME
+  VALUES (	6291460,
+	6291462,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291460,
+	6291463,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291460,
+	6291463,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291460,
+	6291464,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291460,
+	6291464,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291460,
+	6291465,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291460,
+	6291465,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291460,
+	6291466,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291460,
+	6291466,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291460,
+	6291467,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291460,
+	6291467,
+	6291468,
+	6291457);
+INSERT INTO SM_STATE
+  VALUES (	6291461,
+	6291468,
+	6291457,
+	'Waiting for Operator to Insert Disk',
+	5,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	6291461,
+	6291457,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291461,
+	6291458,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291461,
+	6291458,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291461,
+	6291459,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291461,
+	6291459,
+	6291468,
+	6291457);
+INSERT INTO SM_SEME
+  VALUES (	6291461,
+	6291460,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291461,
+	6291461,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291461,
+	6291461,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291461,
+	6291462,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291461,
+	6291462,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291461,
+	6291463,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291461,
+	6291463,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291461,
+	6291464,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291461,
+	6291464,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291461,
+	6291465,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291461,
+	6291465,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291461,
+	6291466,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291461,
+	6291466,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291461,
+	6291467,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291461,
+	6291467,
+	6291468,
+	6291457);
+INSERT INTO SM_STATE
+  VALUES (	6291462,
+	6291468,
+	6291457,
+	'Waiting for Operator to Close Door on Insert',
+	6,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	6291462,
+	6291457,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291462,
+	6291458,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291462,
+	6291458,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291462,
+	6291459,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291462,
+	6291459,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291462,
+	6291460,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291462,
+	6291460,
+	6291468,
+	6291457);
+INSERT INTO SM_SEME
+  VALUES (	6291462,
+	6291461,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291462,
+	6291462,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291462,
+	6291462,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291462,
+	6291463,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291462,
+	6291463,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291462,
+	6291464,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291462,
+	6291464,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291462,
+	6291465,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291462,
+	6291465,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291462,
+	6291466,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291462,
+	6291466,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291462,
+	6291467,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291462,
+	6291467,
+	6291468,
+	6291457);
+INSERT INTO SM_STATE
+  VALUES (	6291463,
+	6291468,
+	6291457,
+	'Locking the Door on Insert',
+	7,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	6291463,
+	6291457,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291463,
+	6291457,
+	6291468,
+	6291457);
+INSERT INTO SM_SEME
+  VALUES (	6291463,
+	6291458,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291463,
+	6291459,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291463,
+	6291459,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291463,
+	6291460,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291463,
+	6291460,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291463,
+	6291461,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291463,
+	6291461,
+	6291468,
+	6291457);
+INSERT INTO SM_SEME
+  VALUES (	6291463,
+	6291462,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291463,
+	6291463,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291463,
+	6291463,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291463,
+	6291464,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291463,
+	6291464,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291463,
+	6291465,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291463,
+	6291465,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291463,
+	6291466,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291463,
+	6291466,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291463,
+	6291467,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291463,
+	6291467,
+	6291468,
+	6291457);
+INSERT INTO SM_STATE
+  VALUES (	6291464,
+	6291468,
+	6291457,
+	'Waiting for Robot Transfer on Insert',
+	8,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	6291464,
+	6291457,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291464,
+	6291457,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291464,
+	6291458,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291464,
+	6291458,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291464,
+	6291459,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291464,
+	6291459,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291464,
+	6291460,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291464,
+	6291460,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291464,
+	6291461,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291464,
+	6291461,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291464,
+	6291462,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291464,
+	6291462,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291464,
+	6291463,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291464,
+	6291463,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291464,
+	6291464,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291464,
+	6291464,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291464,
+	6291465,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291464,
+	6291465,
+	6291468,
+	6291457);
+INSERT INTO SM_SEME
+  VALUES (	6291464,
+	6291466,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291464,
+	6291467,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291464,
+	6291467,
+	6291468,
+	6291457);
+INSERT INTO SM_STATE
+  VALUES (	6291465,
+	6291468,
+	6291457,
+	'Waiting for Robot Transfer on Eject',
+	9,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	6291465,
+	6291457,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291465,
+	6291457,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291465,
+	6291458,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291465,
+	6291458,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291465,
+	6291459,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291465,
+	6291459,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291465,
+	6291460,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291465,
+	6291460,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291465,
+	6291461,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291465,
+	6291461,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291465,
+	6291462,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291465,
+	6291462,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291465,
+	6291463,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291465,
+	6291463,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291465,
+	6291464,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291465,
+	6291464,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291465,
+	6291465,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291465,
+	6291465,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291465,
+	6291466,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291465,
+	6291466,
+	6291468,
+	6291457);
+INSERT INTO SM_SEME
+  VALUES (	6291465,
+	6291467,
+	6291468,
+	6291457);
+INSERT INTO SM_STATE
+  VALUES (	6291466,
+	6291468,
+	6291457,
+	'Unlocking the Door on Eject',
+	10,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	6291466,
+	6291457,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291466,
+	6291457,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291466,
+	6291458,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291466,
+	6291458,
+	6291468,
+	6291457);
+INSERT INTO SM_SEME
+  VALUES (	6291466,
+	6291459,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291466,
+	6291460,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291466,
+	6291460,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291466,
+	6291461,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291466,
+	6291461,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291466,
+	6291462,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291466,
+	6291462,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291466,
+	6291463,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291466,
+	6291463,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291466,
+	6291464,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291466,
+	6291464,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291466,
+	6291465,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291466,
+	6291465,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291466,
+	6291466,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291466,
+	6291466,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291466,
+	6291467,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291466,
+	6291467,
+	6291468,
+	6291457);
+INSERT INTO SM_STATE
+  VALUES (	6291467,
+	6291468,
+	6291457,
+	'Waiting for Operator to Open Door on Eject',
+	11,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	6291467,
+	6291457,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291467,
+	6291457,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291467,
+	6291458,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291467,
+	6291458,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291467,
+	6291459,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291467,
+	6291459,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291467,
+	6291460,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291467,
+	6291460,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291467,
+	6291461,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291467,
+	6291461,
+	6291468,
+	6291457);
+INSERT INTO SM_SEME
+  VALUES (	6291467,
+	6291462,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291467,
+	6291463,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291467,
+	6291463,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291467,
+	6291464,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291467,
+	6291464,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291467,
+	6291465,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291467,
+	6291465,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291467,
+	6291466,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291467,
+	6291466,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291467,
+	6291467,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291467,
+	6291467,
+	6291468,
+	6291457);
+INSERT INTO SM_STATE
+  VALUES (	6291468,
+	6291468,
+	6291457,
+	'Waiting for Operator to Remove Disk',
+	12,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	6291468,
+	6291457,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291468,
+	6291458,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291468,
+	6291458,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291468,
+	6291459,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291468,
+	6291459,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291468,
+	6291460,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291468,
+	6291460,
+	6291468,
+	6291457);
+INSERT INTO SM_SEME
+  VALUES (	6291468,
+	6291461,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291468,
+	6291462,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291468,
+	6291462,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291468,
+	6291463,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291468,
+	6291463,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291468,
+	6291464,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291468,
+	6291464,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291468,
+	6291465,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291468,
+	6291465,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291468,
+	6291466,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291468,
+	6291466,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291468,
+	6291467,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291468,
+	6291467,
+	6291468,
+	6291457);
+INSERT INTO SM_STATE
+  VALUES (	6291469,
+	6291468,
+	6291457,
+	'Waiting for Operator to Close Door on Eject',
+	13,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	6291469,
+	6291457,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291469,
+	6291458,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291469,
+	6291458,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291469,
+	6291459,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291469,
+	6291459,
+	6291468,
+	6291457);
+INSERT INTO SM_SEME
+  VALUES (	6291469,
+	6291460,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291469,
+	6291461,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291469,
+	6291461,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291469,
+	6291462,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291469,
+	6291462,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291469,
+	6291463,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291469,
+	6291463,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291469,
+	6291464,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291469,
+	6291464,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291469,
+	6291465,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291469,
+	6291465,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291469,
+	6291466,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291469,
+	6291466,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291469,
+	6291467,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291469,
+	6291467,
+	6291468,
+	6291457);
+INSERT INTO SM_STATE
+  VALUES (	6291470,
+	6291468,
+	6291457,
+	'Locking Door on Eject',
+	14,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	6291470,
+	6291457,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291470,
+	6291457,
+	6291468,
+	6291457);
+INSERT INTO SM_SEME
+  VALUES (	6291470,
+	6291458,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291470,
+	6291459,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291470,
+	6291459,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291470,
+	6291460,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291470,
+	6291460,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291470,
+	6291461,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291470,
+	6291461,
+	6291468,
+	6291457);
+INSERT INTO SM_SEME
+  VALUES (	6291470,
+	6291462,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291470,
+	6291463,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291470,
+	6291463,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291470,
+	6291464,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291470,
+	6291464,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291470,
+	6291465,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291470,
+	6291465,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291470,
+	6291466,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291470,
+	6291466,
+	6291468,
+	6291457);
+INSERT INTO SM_EIGN
+  VALUES (	6291470,
+	6291467,
+	6291468,
+	6291457,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6291470,
+	6291467,
+	6291468,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291457,
+	6291468,
+	6291457,
+	6291465,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291457,
+	6291468,
+	6291458,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291458,
+	6291468,
+	6291458,
+	6291463,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291458,
+	6291468,
+	6291459,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291459,
+	6291468,
+	6291459,
+	6291459,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291459,
+	6291468,
+	6291460,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291460,
+	6291468,
+	6291461,
+	6291457,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291460,
+	6291468,
+	6291460,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291461,
+	6291468,
+	6291460,
+	6291462,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291461,
+	6291468,
+	6291461,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291462,
+	6291468,
+	6291462,
+	6291461,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291462,
+	6291468,
+	6291461,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291463,
+	6291468,
+	6291461,
+	6291460,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291463,
+	6291468,
+	6291462,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291464,
+	6291468,
+	6291463,
+	6291462,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291464,
+	6291468,
+	6291462,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291465,
+	6291468,
+	6291462,
+	6291457,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291465,
+	6291468,
+	6291463,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291466,
+	6291468,
+	6291463,
+	6291458,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291466,
+	6291468,
+	6291464,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291467,
+	6291468,
+	6291466,
+	6291459,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291467,
+	6291468,
+	6291467,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291468,
+	6291468,
+	6291468,
+	6291457,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291468,
+	6291468,
+	6291467,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291469,
+	6291468,
+	6291467,
+	6291462,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291469,
+	6291468,
+	6291468,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291470,
+	6291468,
+	6291469,
+	6291460,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291470,
+	6291468,
+	6291468,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291471,
+	6291468,
+	6291468,
+	6291461,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291471,
+	6291468,
+	6291469,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291472,
+	6291468,
+	6291469,
+	6291457,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291472,
+	6291468,
+	6291470,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291473,
+	6291468,
+	6291470,
+	6291462,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291473,
+	6291468,
+	6291469,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291474,
+	6291468,
+	6291470,
+	6291458,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291474,
+	6291468,
+	6291457,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291475,
+	6291468,
+	6291464,
+	6291466,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291475,
+	6291468,
+	6291457,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291476,
+	6291468,
+	6291458,
+	6291464,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291476,
+	6291468,
+	6291465,
+	6291457);
+INSERT INTO SM_NSTXN
+  VALUES (	6291477,
+	6291468,
+	6291465,
+	6291467,
+	6291457);
+INSERT INTO SM_TXN
+  VALUES (	6291477,
+	6291468,
+	6291466,
+	6291457);
+INSERT INTO SM_MOAH
+  VALUES (	6291457,
+	6291468,
+	6291457);
+INSERT INTO SM_AH
+  VALUES (	6291457,
+	6291468);
+INSERT INTO SM_ACT
+  VALUES (	6291457,
+	6291468,
+	1,
+	'Select many disk_tfr_set from instances of D_DT;
+For each tmp_disk_tfr in disk_tfr_set
+
+     // Status is Ready For Port
+    If (tmp_disk_tfr.Status == "Ready_for_Entry_Exit_Port")
+        Generate D_P10:''EE Port Request Pending'' () To Self;
+        Select one disk_tfr related by Self->D_DT[R8];
+        Unrelate Self from disk_tfr across R8;
+    End If;
+End for;
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6291458,
+	6291468,
+	6291458);
+INSERT INTO SM_AH
+  VALUES (	6291458,
+	6291468);
+INSERT INTO SM_ACT
+  VALUES (	6291458,
+	6291468,
+	1,
+	'Select many disk_tfr_set from instances of D_DT;
+For each disk_tfr in disk_tfr_set
+
+    // Select Status = Ready For Port
+    If (disk_tfr.Status == "Ready_for_Entry_Exit_Port")
+        If (disk_tfr.Source_ID == Self.Port_ID)
+            Generate D_P7:''Insert Request Selected'' () to Self;
+        Else
+            Generate D_P8:''Eject Request Selected'' () to Self;
+        End if;
+        Relate Self to disk_tfr across R8;
+    End if;
+End for;',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6291459,
+	6291468,
+	6291459);
+INSERT INTO SM_AH
+  VALUES (	6291459,
+	6291468);
+INSERT INTO SM_ACT
+  VALUES (	6291459,
+	6291468,
+	1,
+	'// Bridge to PIO:: Unlock door
+Bridge pio1::unlock_door(tvs:"D_PIOBR::port_unlocked", ee_id:self.Port_ID);',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6291460,
+	6291468,
+	6291460);
+INSERT INTO SM_AH
+  VALUES (	6291460,
+	6291468);
+INSERT INTO SM_ACT
+  VALUES (	6291460,
+	6291468,
+	1,
+	'// Tell Operator to Insert Disk
+select one disk related by self->D_DT[R8]->D_OL[R11]->D_S[R7]->D_SDA[R6]->D_OND[R6]->D_D[R3];
+Bridge pio1::get_disk(tvs1:"D_PIOBR::operator_opens_door",tvs2:"D_PIOBR::operator_inserts_disk",tvs3:"D_PIOBR::operator_closes_door", ee_id:self.Port_ID, disk_id:disk.Disk_ID);
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6291461,
+	6291468,
+	6291461);
+INSERT INTO SM_AH
+  VALUES (	6291461,
+	6291468);
+INSERT INTO SM_ACT
+  VALUES (	6291461,
+	6291468,
+	1,
+	'// Action Logic:
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6291462,
+	6291468,
+	6291462);
+INSERT INTO SM_AH
+  VALUES (	6291462,
+	6291468);
+INSERT INTO SM_ACT
+  VALUES (	6291462,
+	6291468,
+	1,
+	'// Action Logic:
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6291463,
+	6291468,
+	6291463);
+INSERT INTO SM_AH
+  VALUES (	6291463,
+	6291468);
+INSERT INTO SM_ACT
+  VALUES (	6291463,
+	6291468,
+	1,
+	'// Action Logic:
+Bridge pio1::lock_door(tvs:"D_PIOBR::port_locked", ee_id:self.Port_ID);',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6291464,
+	6291468,
+	6291464);
+INSERT INTO SM_AH
+  VALUES (	6291464,
+	6291468);
+INSERT INTO SM_ACT
+  VALUES (	6291464,
+	6291468,
+	1,
+	'Select one disk_tfr related by Self->D_DT[R8];
+
+// Set Status Ready For Robot
+Assign disk_tfr.Status = "Ready_for_Robot";
+
+Select any robot from instances of D_R;
+Generate D_R5:''Robot Request Pending'' () to robot;
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6291465,
+	6291468,
+	6291465);
+INSERT INTO SM_AH
+  VALUES (	6291465,
+	6291468);
+INSERT INTO SM_ACT
+  VALUES (	6291465,
+	6291468,
+	1,
+	'Select one disk_tfr related by Self->D_DT[R8];
+
+// Set Status = Ready For Robot
+Assign disk_tfr.Status = "Ready_for_Robot";
+
+Select any robot from instances of D_R;
+Generate D_R5:''Robot Request Pending'' () to robot;
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6291466,
+	6291468,
+	6291466);
+INSERT INTO SM_AH
+  VALUES (	6291466,
+	6291468);
+INSERT INTO SM_ACT
+  VALUES (	6291466,
+	6291468,
+	1,
+	'Select one disk_tfr related by Self->D_DT[R8];
+
+Unrelate Self from disk_tfr across R8;
+Delete object instance disk_tfr;
+
+// Generate events for simulation
+Generate D_P3:''Port Unlocked'' () to Self;
+Generate D_P6:''Operator Opens Door'' () to Self;
+Generate D_P5:''Operator Removes Disk'' () to Self;
+Generate D_P1:''Operator Closes Door'' () to Self;
+Generate D_P2:''EE Port Locked'' () to Self;
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6291467,
+	6291468,
+	6291467);
+INSERT INTO SM_AH
+  VALUES (	6291467,
+	6291468);
+INSERT INTO SM_ACT
+  VALUES (	6291467,
+	6291468,
+	1,
+	'
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6291468,
+	6291468,
+	6291468);
+INSERT INTO SM_AH
+  VALUES (	6291468,
+	6291468);
+INSERT INTO SM_ACT
+  VALUES (	6291468,
+	6291468,
+	1,
+	'
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6291469,
+	6291468,
+	6291469);
+INSERT INTO SM_AH
+  VALUES (	6291469,
+	6291468);
+INSERT INTO SM_ACT
+  VALUES (	6291469,
+	6291468,
+	1,
+	'
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6291470,
+	6291468,
+	6291470);
+INSERT INTO SM_AH
+  VALUES (	6291470,
+	6291468);
+INSERT INTO SM_ACT
+  VALUES (	6291470,
+	6291468,
+	1,
+	'
+',
+	'');
+INSERT INTO GD_MD
+  VALUES (	6291457,
+	8,
+	6291468,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1877,
+	3797,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6291458,
+	6291457,
+	6291470,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6291458,
+	1344,
+	816,
+	1632,
+	928);
+INSERT INTO GD_GE
+  VALUES (	6291459,
+	6291457,
+	6291469,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6291459,
+	1344,
+	1008,
+	1632,
+	1120);
+INSERT INTO GD_GE
+  VALUES (	6291460,
+	6291457,
+	6291468,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6291460,
+	1344,
+	1200,
+	1632,
+	1312);
+INSERT INTO GD_GE
+  VALUES (	6291461,
+	6291457,
+	6291467,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6291461,
+	1344,
+	1392,
+	1632,
+	1504);
+INSERT INTO GD_GE
+  VALUES (	6291462,
+	6291457,
+	6291466,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6291462,
+	1344,
+	1584,
+	1632,
+	1728);
+INSERT INTO GD_GE
+  VALUES (	6291463,
+	6291457,
+	6291465,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6291463,
+	1584,
+	1792,
+	1888,
+	1968);
+INSERT INTO GD_GE
+  VALUES (	6291464,
+	6291457,
+	6291464,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6291464,
+	2416,
+	752,
+	2704,
+	928);
+INSERT INTO GD_GE
+  VALUES (	6291465,
+	6291457,
+	6291463,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6291465,
+	2416,
+	1008,
+	2704,
+	1120);
+INSERT INTO GD_GE
+  VALUES (	6291466,
+	6291457,
+	6291462,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6291466,
+	2416,
+	1200,
+	2704,
+	1312);
+INSERT INTO GD_GE
+  VALUES (	6291467,
+	6291457,
+	6291461,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6291467,
+	2416,
+	1392,
+	2704,
+	1504);
+INSERT INTO GD_GE
+  VALUES (	6291468,
+	6291457,
+	6291460,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6291468,
+	2416,
+	1584,
+	2704,
+	1696);
+INSERT INTO GD_GE
+  VALUES (	6291469,
+	6291457,
+	6291459,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6291469,
+	2288,
+	1792,
+	2576,
+	1904);
+INSERT INTO GD_GE
+  VALUES (	6291470,
+	6291457,
+	6291458,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6291470,
+	1904,
+	1488,
+	2256,
+	1728);
+INSERT INTO GD_GE
+  VALUES (	6291471,
+	6291457,
+	6291457,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6291471,
+	1904,
+	1120,
+	2304,
+	1328);
+INSERT INTO GD_GE
+  VALUES (	6291472,
+	6291457,
+	6291474,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291472,
+	6291458,
+	6291471,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291472,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1797,
+	826,
+	1946,
+	864,
+	-98,
+	-13,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291473,
+	6291472,
+	1632,
+	864,
+	1952,
+	864,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291474,
+	6291472,
+	1952,
+	864,
+	1952,
+	1120,
+	6291473);
+INSERT INTO GD_GE
+  VALUES (	6291475,
+	6291457,
+	6291473,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291475,
+	6291458,
+	6291459,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291475,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1627,
+	958,
+	1754,
+	995,
+	27,
+	5,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291476,
+	6291475,
+	1616,
+	928,
+	1616,
+	1008,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6291477,
+	6291457,
+	6291472,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291477,
+	6291459,
+	6291458,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291477,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1368,
+	953,
+	1506,
+	993,
+	24,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291478,
+	6291477,
+	1360,
+	1008,
+	1360,
+	928,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6291479,
+	6291457,
+	6291470,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291479,
+	6291459,
+	6291460,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291479,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1624,
+	1145,
+	1758,
+	1186,
+	24,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291480,
+	6291479,
+	1616,
+	1120,
+	1616,
+	1200,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6291481,
+	6291457,
+	6291471,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291481,
+	6291460,
+	6291459,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291481,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1369,
+	1145,
+	1514,
+	1183,
+	25,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291482,
+	6291481,
+	1360,
+	1200,
+	1360,
+	1120,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6291483,
+	6291457,
+	6291468,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291483,
+	6291460,
+	6291461,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291483,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1621,
+	1334,
+	1744,
+	1371,
+	21,
+	-3,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291484,
+	6291483,
+	1616,
+	1312,
+	1616,
+	1392,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6291485,
+	6291457,
+	6291469,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291485,
+	6291461,
+	6291460,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291485,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1365,
+	1337,
+	1489,
+	1378,
+	21,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291486,
+	6291485,
+	1360,
+	1392,
+	1360,
+	1312,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6291487,
+	6291457,
+	6291467,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291487,
+	6291462,
+	6291461,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291487,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1494,
+	1532,
+	1621,
+	1570,
+	22,
+	3,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291488,
+	6291487,
+	1488,
+	1584,
+	1488,
+	1504,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6291489,
+	6291457,
+	6291477,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291489,
+	6291463,
+	6291462,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291489,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1602,
+	1745,
+	1710,
+	1783,
+	18,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291490,
+	6291489,
+	1600,
+	1792,
+	1600,
+	1728,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6291491,
+	6291457,
+	6291476,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291491,
+	6291470,
+	6291463,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291491,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1909,
+	1898,
+	2018,
+	1939,
+	-27,
+	73,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291492,
+	6291491,
+	1952,
+	1728,
+	1952,
+	1888,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291493,
+	6291491,
+	1952,
+	1888,
+	1888,
+	1888,
+	6291492);
+INSERT INTO GD_GE
+  VALUES (	6291494,
+	6291457,
+	6291475,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291494,
+	6291464,
+	6291471,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291494,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2227,
+	795,
+	2441,
+	835,
+	19,
+	-70,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291495,
+	6291494,
+	2416,
+	832,
+	2224,
+	832,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291496,
+	6291494,
+	2224,
+	832,
+	2224,
+	1120,
+	6291495);
+INSERT INTO GD_GE
+  VALUES (	6291497,
+	6291457,
+	6291466,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291497,
+	6291465,
+	6291464,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291497,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2544,
+	945,
+	2728,
+	988,
+	0,
+	-8,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291498,
+	6291497,
+	2560,
+	1008,
+	2560,
+	928,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6291499,
+	6291457,
+	6291464,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291499,
+	6291465,
+	6291466,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291499,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2679,
+	1143,
+	2821,
+	1179,
+	23,
+	-2,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291500,
+	6291499,
+	2672,
+	1120,
+	2672,
+	1200,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6291501,
+	6291457,
+	6291465,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291501,
+	6291466,
+	6291465,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291501,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2455,
+	1146,
+	2588,
+	1183,
+	23,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291502,
+	6291501,
+	2448,
+	1200,
+	2448,
+	1120,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6291503,
+	6291457,
+	6291462,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291503,
+	6291466,
+	6291467,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291503,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2679,
+	1327,
+	2817,
+	1373,
+	23,
+	-10,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291504,
+	6291503,
+	2672,
+	1312,
+	2672,
+	1392,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6291505,
+	6291457,
+	6291463,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291505,
+	6291467,
+	6291466,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291505,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2456,
+	1336,
+	2587,
+	1378,
+	24,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291506,
+	6291505,
+	2448,
+	1392,
+	2448,
+	1312,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6291507,
+	6291457,
+	6291460,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291507,
+	6291467,
+	6291468,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291507,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2686,
+	1521,
+	2816,
+	1565,
+	30,
+	-8,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291508,
+	6291507,
+	2672,
+	1504,
+	2672,
+	1584,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6291509,
+	6291457,
+	6291461,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291509,
+	6291468,
+	6291467,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291509,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2451,
+	1525,
+	2607,
+	1573,
+	19,
+	-4,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291510,
+	6291509,
+	2448,
+	1584,
+	2448,
+	1504,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6291511,
+	6291457,
+	6291459,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291511,
+	6291469,
+	6291468,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291511,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2491,
+	1729,
+	2643,
+	1774,
+	11,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291512,
+	6291511,
+	2496,
+	1792,
+	2496,
+	1696,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6291513,
+	6291457,
+	6291458,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291513,
+	6291470,
+	6291469,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291513,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2121,
+	1842,
+	2277,
+	1897,
+	-87,
+	41,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291514,
+	6291513,
+	2224,
+	1728,
+	2224,
+	1840,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291515,
+	6291513,
+	2224,
+	1840,
+	2288,
+	1840,
+	6291514);
+INSERT INTO GD_GE
+  VALUES (	6291516,
+	6291457,
+	6291457,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6291516,
+	6291471,
+	6291470,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6291516,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2089,
+	1377,
+	2283,
+	1427,
+	25,
+	-16,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6291517,
+	6291516,
+	2080,
+	1328,
+	2080,
+	1488,
+	0);
+INSERT INTO O_OBJ
+  VALUES (	1048590,
+	'Disk Transfer',
+	13,
+	'D_DT',
+	'Object Description:
+
+Object Role:
+',
+	1048578);
+INSERT INTO O_NBATTR
+  VALUES (	1048622,
+	1048590);
+INSERT INTO O_BATTR
+  VALUES (	1048622,
+	1048590);
+INSERT INTO O_ATTR
+  VALUES (	1048622,
+	1048590,
+	0,
+	'Disk_Transfer_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Disk_Transfer_ID',
+	0,
+	524294);
+INSERT INTO O_REF
+  VALUES (	1048590,
+	1048586,
+	0,
+	1048609,
+	1048586,
+	1048602,
+	1048603,
+	1048623,
+	1048581,
+	0,
+	0,
+	'Reference Domain:
+');
+INSERT INTO O_RATTR
+  VALUES (	1048623,
+	1048590,
+	1048609,
+	1048586,
+	0);
+INSERT INTO O_ATTR
+  VALUES (	1048623,
+	1048590,
+	1048622,
+	'Source_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Source_ID',
+	0,
+	524296);
+INSERT INTO O_REF
+  VALUES (	1048590,
+	1048586,
+	0,
+	1048609,
+	1048587,
+	1048604,
+	1048605,
+	1048624,
+	1048582,
+	0,
+	0,
+	'Reference Domain:
+');
+INSERT INTO O_RATTR
+  VALUES (	1048624,
+	1048590,
+	1048609,
+	1048586,
+	0);
+INSERT INTO O_ATTR
+  VALUES (	1048624,
+	1048590,
+	1048623,
+	'Destination_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Destination_ID',
+	0,
+	524296);
+INSERT INTO O_NBATTR
+  VALUES (	1048625,
+	1048590);
+INSERT INTO O_BATTR
+  VALUES (	1048625,
+	1048590);
+INSERT INTO O_ATTR
+  VALUES (	1048625,
+	1048590,
+	1048624,
+	'Status',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Status',
+	0,
+	524305);
+INSERT INTO O_ID
+  VALUES (	0,
+	1048590);
+INSERT INTO O_OIDA
+  VALUES (	1048622,
+	1048590,
+	0);
+INSERT INTO O_RTIDA
+  VALUES (	1048622,
+	1048590,
+	0,
+	1048584,
+	1048599);
+INSERT INTO O_RTIDA
+  VALUES (	1048622,
+	1048590,
+	0,
+	1048585,
+	1048601);
+INSERT INTO O_OBJ
+  VALUES (	1048591,
+	'Robot',
+	12,
+	'D_R',
+	'Object Description:
+
+Object Role:
+',
+	1048578);
+INSERT INTO O_NBATTR
+  VALUES (	1048626,
+	1048591);
+INSERT INTO O_BATTR
+  VALUES (	1048626,
+	1048591);
+INSERT INTO O_ATTR
+  VALUES (	1048626,
+	1048591,
+	0,
+	'Robot_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Robot_ID',
+	0,
+	524291);
+INSERT INTO O_REF
+  VALUES (	1048591,
+	1048590,
+	0,
+	1048622,
+	1048585,
+	1048600,
+	1048601,
+	1048627,
+	1048583,
+	0,
+	0,
+	'Reference Domain:
+');
+INSERT INTO O_RATTR
+  VALUES (	1048627,
+	1048591,
+	1048622,
+	1048590,
+	1);
+INSERT INTO O_ATTR
+  VALUES (	1048627,
+	1048591,
+	1048626,
+	'Disk_Transfer_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Disk_Transfer_ID',
+	0,
+	524296);
+INSERT INTO O_NBATTR
+  VALUES (	1048628,
+	1048591);
+INSERT INTO O_BATTR
+  VALUES (	1048628,
+	1048591);
+INSERT INTO O_ATTR
+  VALUES (	1048628,
+	1048591,
+	1048627,
+	'Actual_X_Coordinate',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Actual_X_Coordinate',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+  VALUES (	1048629,
+	1048591);
+INSERT INTO O_BATTR
+  VALUES (	1048629,
+	1048591);
+INSERT INTO O_ATTR
+  VALUES (	1048629,
+	1048591,
+	1048628,
+	'Actual_Y_Coordinate',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Actual_Y_Coordinate',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+  VALUES (	1048630,
+	1048591);
+INSERT INTO O_BATTR
+  VALUES (	1048630,
+	1048591);
+INSERT INTO O_ATTR
+  VALUES (	1048630,
+	1048591,
+	1048629,
+	'Actual_Theta_Coordinate',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Actual_Theta_Coordinate',
+	0,
+	524291);
+INSERT INTO O_NBATTR
+  VALUES (	1048631,
+	1048591);
+INSERT INTO O_BATTR
+  VALUES (	1048631,
+	1048591);
+INSERT INTO O_ATTR
+  VALUES (	1048631,
+	1048591,
+	1048630,
+	'current_state',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'current_state',
+	0,
+	524295);
+INSERT INTO O_ID
+  VALUES (	0,
+	1048591);
+INSERT INTO O_OIDA
+  VALUES (	1048626,
+	1048591,
+	0);
+INSERT INTO SM_ISM
+  VALUES (	6815757,
+	1048591);
+INSERT INTO SM_SM
+  VALUES (	6815757,
+	'',
+	13);
+INSERT INTO SM_MOORE
+  VALUES (	6815757);
+INSERT INTO SM_SUPDT
+  VALUES (	6815745,
+	6815757,
+	0);
+INSERT INTO SM_LEVT
+  VALUES (	6815745,
+	6815757,
+	6815745);
+INSERT INTO SM_SEVT
+  VALUES (	6815745,
+	6815757,
+	6815745);
+INSERT INTO SM_EVT
+  VALUES (	6815745,
+	6815757,
+	6815745,
+	2,
+	'Robot Move Complete',
+	0,
+	'',
+	'D_R2',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	6815746,
+	6815757,
+	6815745);
+INSERT INTO SM_SEVT
+  VALUES (	6815746,
+	6815757,
+	6815745);
+INSERT INTO SM_EVT
+  VALUES (	6815746,
+	6815757,
+	6815745,
+	3,
+	'Gripper Opened',
+	0,
+	'',
+	'D_R3',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	6815747,
+	6815757,
+	6815745);
+INSERT INTO SM_SEVT
+  VALUES (	6815747,
+	6815757,
+	6815745);
+INSERT INTO SM_EVT
+  VALUES (	6815747,
+	6815757,
+	6815745,
+	4,
+	'Gripper Closed on Disk',
+	0,
+	'',
+	'D_R4',
+	'Event Descriptions:
+');
+INSERT INTO SM_LEVT
+  VALUES (	6815748,
+	6815757,
+	6815745);
+INSERT INTO SM_SEVT
+  VALUES (	6815748,
+	6815757,
+	6815745);
+INSERT INTO SM_EVT
+  VALUES (	6815748,
+	6815757,
+	6815745,
+	5,
+	'Robot Request Pending',
+	0,
+	'',
+	'D_R5',
+	'Event Descriptions:
+');
+INSERT INTO SM_STATE
+  VALUES (	6815745,
+	6815757,
+	6815745,
+	'Idle',
+	1,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	6815745,
+	6815745,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815745,
+	6815745,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815745,
+	6815746,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815745,
+	6815746,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815745,
+	6815747,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815745,
+	6815747,
+	6815757,
+	6815745);
+INSERT INTO SM_SEME
+  VALUES (	6815745,
+	6815748,
+	6815757,
+	6815745);
+INSERT INTO SM_STATE
+  VALUES (	6815746,
+	6815757,
+	6815745,
+	'Going to Source',
+	2,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	6815746,
+	6815745,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815746,
+	6815746,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815746,
+	6815746,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815746,
+	6815747,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815746,
+	6815747,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815746,
+	6815748,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815746,
+	6815748,
+	6815757,
+	6815745);
+INSERT INTO SM_STATE
+  VALUES (	6815747,
+	6815757,
+	6815745,
+	'Extending to Grab Disk',
+	3,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	6815747,
+	6815745,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815747,
+	6815746,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815747,
+	6815746,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815747,
+	6815747,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815747,
+	6815747,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815747,
+	6815748,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815747,
+	6815748,
+	6815757,
+	6815745);
+INSERT INTO SM_STATE
+  VALUES (	6815748,
+	6815757,
+	6815745,
+	'Grabbing Disk',
+	4,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	6815748,
+	6815745,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815748,
+	6815745,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815748,
+	6815746,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815748,
+	6815746,
+	6815757,
+	6815745);
+INSERT INTO SM_SEME
+  VALUES (	6815748,
+	6815747,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815748,
+	6815748,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815748,
+	6815748,
+	6815757,
+	6815745);
+INSERT INTO SM_STATE
+  VALUES (	6815749,
+	6815757,
+	6815745,
+	'Retracting After Grab',
+	5,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	6815749,
+	6815745,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815749,
+	6815746,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815749,
+	6815746,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815749,
+	6815747,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815749,
+	6815747,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815749,
+	6815748,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815749,
+	6815748,
+	6815757,
+	6815745);
+INSERT INTO SM_STATE
+  VALUES (	6815750,
+	6815757,
+	6815745,
+	'Going to Destination',
+	6,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	6815750,
+	6815745,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815750,
+	6815746,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815750,
+	6815746,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815750,
+	6815747,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815750,
+	6815747,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815750,
+	6815748,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815750,
+	6815748,
+	6815757,
+	6815745);
+INSERT INTO SM_STATE
+  VALUES (	6815751,
+	6815757,
+	6815745,
+	'Extending to Release Disk',
+	7,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	6815751,
+	6815745,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815751,
+	6815746,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815751,
+	6815746,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815751,
+	6815747,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815751,
+	6815747,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815751,
+	6815748,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815751,
+	6815748,
+	6815757,
+	6815745);
+INSERT INTO SM_STATE
+  VALUES (	6815752,
+	6815757,
+	6815745,
+	'Releasing Disk',
+	8,
+	0);
+INSERT INTO SM_EIGN
+  VALUES (	6815752,
+	6815745,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815752,
+	6815745,
+	6815757,
+	6815745);
+INSERT INTO SM_SEME
+  VALUES (	6815752,
+	6815746,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815752,
+	6815747,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815752,
+	6815747,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815752,
+	6815748,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815752,
+	6815748,
+	6815757,
+	6815745);
+INSERT INTO SM_STATE
+  VALUES (	6815753,
+	6815757,
+	6815745,
+	'Retracting After Release',
+	9,
+	0);
+INSERT INTO SM_SEME
+  VALUES (	6815753,
+	6815745,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815753,
+	6815746,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815753,
+	6815746,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815753,
+	6815747,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815753,
+	6815747,
+	6815757,
+	6815745);
+INSERT INTO SM_EIGN
+  VALUES (	6815753,
+	6815748,
+	6815757,
+	6815745,
+	'');
+INSERT INTO SM_SEME
+  VALUES (	6815753,
+	6815748,
+	6815757,
+	6815745);
+INSERT INTO SM_NSTXN
+  VALUES (	6815745,
+	6815757,
+	6815745,
+	6815748,
+	6815745);
+INSERT INTO SM_TXN
+  VALUES (	6815745,
+	6815757,
+	6815746,
+	6815745);
+INSERT INTO SM_NSTXN
+  VALUES (	6815746,
+	6815757,
+	6815746,
+	6815745,
+	6815745);
+INSERT INTO SM_TXN
+  VALUES (	6815746,
+	6815757,
+	6815747,
+	6815745);
+INSERT INTO SM_NSTXN
+  VALUES (	6815747,
+	6815757,
+	6815747,
+	6815745,
+	6815745);
+INSERT INTO SM_TXN
+  VALUES (	6815747,
+	6815757,
+	6815748,
+	6815745);
+INSERT INTO SM_NSTXN
+  VALUES (	6815748,
+	6815757,
+	6815748,
+	6815747,
+	6815745);
+INSERT INTO SM_TXN
+  VALUES (	6815748,
+	6815757,
+	6815749,
+	6815745);
+INSERT INTO SM_NSTXN
+  VALUES (	6815749,
+	6815757,
+	6815749,
+	6815745,
+	6815745);
+INSERT INTO SM_TXN
+  VALUES (	6815749,
+	6815757,
+	6815750,
+	6815745);
+INSERT INTO SM_NSTXN
+  VALUES (	6815750,
+	6815757,
+	6815750,
+	6815745,
+	6815745);
+INSERT INTO SM_TXN
+  VALUES (	6815750,
+	6815757,
+	6815751,
+	6815745);
+INSERT INTO SM_NSTXN
+  VALUES (	6815751,
+	6815757,
+	6815751,
+	6815745,
+	6815745);
+INSERT INTO SM_TXN
+  VALUES (	6815751,
+	6815757,
+	6815752,
+	6815745);
+INSERT INTO SM_NSTXN
+  VALUES (	6815752,
+	6815757,
+	6815752,
+	6815746,
+	6815745);
+INSERT INTO SM_TXN
+  VALUES (	6815752,
+	6815757,
+	6815753,
+	6815745);
+INSERT INTO SM_NSTXN
+  VALUES (	6815753,
+	6815757,
+	6815753,
+	6815745,
+	6815745);
+INSERT INTO SM_TXN
+  VALUES (	6815753,
+	6815757,
+	6815745,
+	6815745);
+INSERT INTO SM_MOAH
+  VALUES (	6815745,
+	6815757,
+	6815745);
+INSERT INTO SM_AH
+  VALUES (	6815745,
+	6815757);
+INSERT INTO SM_ACT
+  VALUES (	6815745,
+	6815757,
+	1,
+	'Select one disk_tfr related by Self->D_DT[R9];
+Select one dest_loc related by disk_tfr->D_OL[R11];
+Generate D_OL2:''Robot Delivered Disk'' () to dest_loc;
+
+Unrelate Self from disk_tfr across R9;
+
+Select many waiting_disk_tfrs from instances of D_DT 
+                    where (selected.Status == "Ready_for_Robot");
+if (not_empty waiting_disk_tfrs)
+      Generate D_R5:''Robot Request Pending'' to self;
+End if;
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6815746,
+	6815757,
+	6815746);
+INSERT INTO SM_AH
+  VALUES (	6815746,
+	6815757);
+INSERT INTO SM_ACT
+  VALUES (	6815746,
+	6815757,
+	1,
+	'Select many disk_tfr_set from instances of D_DT;
+Assign transfer_found = FALSE;
+For each disk_tfr in disk_tfr_set
+    If (transfer_found == FALSE)
+
+    // Status = Ready for Robot
+    If (disk_tfr.Status == "Ready_for_Robot")
+        Assign transfer_found = TRUE;
+
+        // Set Status to In Progress and Relate Self to Disk Transfer
+        Assign disk_tfr.Status = "In_Progress";
+        Relate Self to disk_tfr across R9;
+ 
+        Select One source_loc Related by disk_tfr->D_OL[R10];
+        Assign x = source_loc.X_Coordinate;
+        Assign y = source_loc.Y_Coordinate;
+        Assign theta = source_loc.Theta_Coordinate;
+
+        // Load into Stepper Motor
+
+        Assign Self.Actual_X_Coordinate = x;
+        Assign Self.Actual_Y_Coordinate = y;
+        Assign Self.Actual_Theta_Coordinate = theta;
+        
+        // Bridge to PIO: Load Stepper Motors
+        Bridge pio1::load_stepper_motors(tvs:"D_PIOBR::robot_move_complete", 	robot_id:self.Robot_ID, x:x, y:y, theta:theta);
+    End if;
+    End if;
+End for;',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6815747,
+	6815757,
+	6815747);
+INSERT INTO SM_AH
+  VALUES (	6815747,
+	6815757);
+INSERT INTO SM_ACT
+  VALUES (	6815747,
+	6815757,
+	1,
+	'// Extend Hand
+Bridge pio1::extend_hand(tvs:"D_PIOBR::robot_move_complete", robot_id:self.Robot_ID);',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6815748,
+	6815757,
+	6815748);
+INSERT INTO SM_AH
+  VALUES (	6815748,
+	6815757);
+INSERT INTO SM_ACT
+  VALUES (	6815748,
+	6815757,
+	1,
+	'// Bridge to PIO: Close Gripper
+Bridge pio1::close_gripper(tvs:"D_PIOBR::gripper_closed_on_disk", robot_id:self.Robot_ID);',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6815749,
+	6815757,
+	6815749);
+INSERT INTO SM_AH
+  VALUES (	6815749,
+	6815757);
+INSERT INTO SM_ACT
+  VALUES (	6815749,
+	6815757,
+	1,
+	'// Retract Hand
+Bridge pio1::retract_hand(tvs:"D_PIOBR::robot_move_complete", robot_id:self.Robot_ID);',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6815750,
+	6815757,
+	6815750);
+INSERT INTO SM_AH
+  VALUES (	6815750,
+	6815757);
+INSERT INTO SM_ACT
+  VALUES (	6815750,
+	6815757,
+	1,
+	'Select one dest_loc related by Self->D_DT[R9]->D_OL[R11];
+Assign x = dest_loc.X_Coordinate;
+Assign y = dest_loc.Y_Coordinate;
+Assign theta = dest_loc.Theta_Coordinate;
+
+// Load Stepper Motor Registers
+Bridge pio1::load_stepper_motors(tvs:"D_PIOBR::robot_move_complete", robot_id:self.Robot_ID, x:x, y:y, theta:theta);
+
+Assign Self.Actual_X_Coordinate = x;
+Assign Self.Actual_Y_Coordinate = y;
+Assign Self.Actual_Theta_Coordinate = theta;
+
+Select one source_loc related by Self->D_DT[R9]->D_OL[R10];
+Generate D_OL1:''Robot Removed Disk'' () to source_loc;
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6815751,
+	6815757,
+	6815751);
+INSERT INTO SM_AH
+  VALUES (	6815751,
+	6815757);
+INSERT INTO SM_ACT
+  VALUES (	6815751,
+	6815757,
+	1,
+	'// Extend Hand
+Bridge pio1::extend_hand(tvs:"D_PIOBR::robot_move_complete", robot_id:self.Robot_ID);
+',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6815752,
+	6815757,
+	6815752);
+INSERT INTO SM_AH
+  VALUES (	6815752,
+	6815757);
+INSERT INTO SM_ACT
+  VALUES (	6815752,
+	6815757,
+	1,
+	'// Open Gripper
+Bridge pio1::open_gripper(tvs:"D_PIOBR::gripper_opened", robot_id:self.Robot_ID);',
+	'');
+INSERT INTO SM_MOAH
+  VALUES (	6815753,
+	6815757,
+	6815753);
+INSERT INTO SM_AH
+  VALUES (	6815753,
+	6815757);
+INSERT INTO SM_ACT
+  VALUES (	6815753,
+	6815757,
+	1,
+	'// Retract Hand
+
+Select one disk_tfr related by Self->D_DT[R9];
+
+// Set Status to Complete
+Assign disk_tfr.Status = "Complete";
+
+Bridge pio1::retract_hand(tvs:"D_PIOBR::robot_move_complete", robot_id:self.Robot_ID);
+',
+	'');
+INSERT INTO GD_MD
+  VALUES (	6815745,
+	8,
+	6815757,
+	40,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1464,
+	4137,
+	0.750000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6815746,
+	6815745,
+	6815753,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6815746,
+	2272,
+	1440,
+	2624,
+	1616);
+INSERT INTO GD_GE
+  VALUES (	6815747,
+	6815745,
+	6815752,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6815747,
+	2272,
+	1744,
+	2576,
+	1824);
+INSERT INTO GD_GE
+  VALUES (	6815748,
+	6815745,
+	6815751,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6815748,
+	2272,
+	1936,
+	2576,
+	2016);
+INSERT INTO GD_GE
+  VALUES (	6815749,
+	6815745,
+	6815750,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6815749,
+	2272,
+	2112,
+	2768,
+	2480);
+INSERT INTO GD_GE
+  VALUES (	6815750,
+	6815745,
+	6815749,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6815750,
+	1568,
+	2320,
+	1936,
+	2416);
+INSERT INTO GD_GE
+  VALUES (	6815751,
+	6815745,
+	6815748,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6815751,
+	1568,
+	2144,
+	1936,
+	2256);
+INSERT INTO GD_GE
+  VALUES (	6815752,
+	6815745,
+	6815747,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6815752,
+	1568,
+	2000,
+	1936,
+	2080);
+INSERT INTO GD_GE
+  VALUES (	6815753,
+	6815745,
+	6815746,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6815753,
+	1568,
+	1392,
+	2080,
+	1888);
+INSERT INTO GD_GE
+  VALUES (	6815754,
+	6815745,
+	6815745,
+	41);
+INSERT INTO GD_SHP
+  VALUES (	6815754,
+	1872,
+	1072,
+	2304,
+	1360);
+INSERT INTO GD_GE
+  VALUES (	6815755,
+	6815745,
+	6815753,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6815755,
+	6815746,
+	6815754,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6815755,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2439,
+	1261,
+	2576,
+	1301,
+	150,
+	-81,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6815913,
+	6815755,
+	2432,
+	1440,
+	2432,
+	1280,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6815914,
+	6815755,
+	2432,
+	1280,
+	2304,
+	1280,
+	6815913);
+INSERT INTO GD_GE
+  VALUES (	6815758,
+	6815745,
+	6815752,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6815758,
+	6815747,
+	6815746,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6815758,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2446,
+	1674,
+	2552,
+	1714,
+	126,
+	12,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6815874,
+	6815758,
+	2432,
+	1744,
+	2432,
+	1616,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6815760,
+	6815745,
+	6815751,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6815760,
+	6815748,
+	6815747,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6815760,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2440,
+	1861,
+	2554,
+	1901,
+	128,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6815873,
+	6815760,
+	2432,
+	1936,
+	2432,
+	1824,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6815762,
+	6815745,
+	6815750,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6815762,
+	6815749,
+	6815748,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6815762,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2443,
+	2055,
+	2557,
+	2095,
+	131,
+	9,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6815819,
+	6815762,
+	2432,
+	2112,
+	2432,
+	2016,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6815764,
+	6815745,
+	6815749,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6815764,
+	6815750,
+	6815749,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6815764,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1974,
+	2325,
+	2111,
+	2365,
+	-64,
+	3,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6815818,
+	6815764,
+	1936,
+	2368,
+	2272,
+	2368,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6815766,
+	6815745,
+	6815748,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6815766,
+	6815751,
+	6815750,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6815766,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1578,
+	2265,
+	1704,
+	2311,
+	-118,
+	-8,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6815767,
+	6815766,
+	1712,
+	2256,
+	1712,
+	2320,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6815768,
+	6815745,
+	6815747,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6815768,
+	6815752,
+	6815751,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6815768,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1576,
+	2085,
+	1690,
+	2125,
+	-16,
+	-9,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6815821,
+	6815768,
+	1712,
+	2080,
+	1712,
+	2144,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6815770,
+	6815745,
+	6815746,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6815770,
+	6815753,
+	6815752,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6815770,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1744,
+	1917,
+	1881,
+	1957,
+	175,
+	-9,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6815836,
+	6815770,
+	1712,
+	1888,
+	1712,
+	2000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	6815772,
+	6815745,
+	6815745,
+	42);
+INSERT INTO GD_CON
+  VALUES (	6815772,
+	6815754,
+	6815753,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	6815772,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1660,
+	1184,
+	1817,
+	1224,
+	-56,
+	-50,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6815911,
+	6815772,
+	1872,
+	1280,
+	1712,
+	1280,
+	0);
+INSERT INTO GD_LS
+  VALUES (	6815912,
+	6815772,
+	1712,
+	1280,
+	1712,
+	1392,
+	6815911);
+INSERT INTO R_SIMP
+  VALUES (	1048577);
+INSERT INTO R_REL
+  VALUES (	1048577,
+	4,
+	'Relationship Description:
+
+Purpose of Abstraction:
+',
+	1048578);
+INSERT INTO R_FORM
+  VALUES (	1048577,
+	1048577,
+	1048577,
+	0,
+	1,
+	'is permanent home for');
+INSERT INTO R_RGO
+  VALUES (	1048577,
+	1048577,
+	1048577);
+INSERT INTO R_OIR
+  VALUES (	1048577,
+	1048577,
+	1048577,
+	0);
+INSERT INTO R_PART
+  VALUES (	1048578,
+	1048577,
+	1048578,
+	0,
+	0,
+	'is permanently assigned to');
+INSERT INTO R_RTO
+  VALUES (	1048578,
+	1048577,
+	1048578,
+	0);
+INSERT INTO R_OIR
+  VALUES (	1048578,
+	1048577,
+	1048578,
+	0);
+INSERT INTO R_SUBSUP
+  VALUES (	1048578);
+INSERT INTO R_REL
+  VALUES (	1048578,
+	3,
+	'Relationship Description:
+
+Purpose of Abstraction:
+',
+	1048578);
+INSERT INTO R_SUPER
+  VALUES (	1048577,
+	1048578,
+	1048579);
+INSERT INTO R_RTO
+  VALUES (	1048577,
+	1048578,
+	1048579,
+	0);
+INSERT INTO R_OIR
+  VALUES (	1048577,
+	1048578,
+	1048579,
+	0);
+INSERT INTO R_SUB
+  VALUES (	1048579,
+	1048578,
+	1048580);
+INSERT INTO R_RGO
+  VALUES (	1048579,
+	1048578,
+	1048580);
+INSERT INTO R_OIR
+  VALUES (	1048579,
+	1048578,
+	1048580,
+	0);
+INSERT INTO R_SUB
+  VALUES (	1048580,
+	1048578,
+	1048581);
+INSERT INTO R_RGO
+  VALUES (	1048580,
+	1048578,
+	1048581);
+INSERT INTO R_OIR
+  VALUES (	1048580,
+	1048578,
+	1048581,
+	0);
+INSERT INTO R_ASSOC
+  VALUES (	1048579);
+INSERT INTO R_REL
+  VALUES (	1048579,
+	1,
+	'Relationship Description:
+
+Purpose of Abstraction:
+',
+	1048578);
+INSERT INTO R_AONE
+  VALUES (	1048582,
+	1048579,
+	1048582,
+	1,
+	1,
+	'needed by');
+INSERT INTO R_RTO
+  VALUES (	1048582,
+	1048579,
+	1048582,
+	0);
+INSERT INTO R_OIR
+  VALUES (	1048582,
+	1048579,
+	1048582,
+	0);
+INSERT INTO R_AOTH
+  VALUES (	1048577,
+	1048579,
+	1048583,
+	1,
+	1,
+	'needs');
+INSERT INTO R_RTO
+  VALUES (	1048577,
+	1048579,
+	1048583,
+	0);
+INSERT INTO R_OIR
+  VALUES (	1048577,
+	1048579,
+	1048583,
+	0);
+INSERT INTO R_ASSR
+  VALUES (	1048581,
+	1048579,
+	1048584,
+	1);
+INSERT INTO R_RGO
+  VALUES (	1048581,
+	1048579,
+	1048584);
+INSERT INTO R_OIR
+  VALUES (	1048581,
+	1048579,
+	1048584,
+	0);
+INSERT INTO R_ASSOC
+  VALUES (	1048580);
+INSERT INTO R_REL
+  VALUES (	1048580,
+	2,
+	'Relationship Description:
+
+Purpose of Abstraction:
+',
+	1048578);
+INSERT INTO R_AONE
+  VALUES (	1048582,
+	1048580,
+	1048585,
+	0,
+	1,
+	'is owned by');
+INSERT INTO R_RTO
+  VALUES (	1048582,
+	1048580,
+	1048585,
+	0);
+INSERT INTO R_OIR
+  VALUES (	1048582,
+	1048580,
+	1048585,
+	0);
+INSERT INTO R_AOTH
+  VALUES (	1048577,
+	1048580,
+	1048586,
+	1,
+	1,
+	'owns');
+INSERT INTO R_RTO
+  VALUES (	1048577,
+	1048580,
+	1048586,
+	0);
+INSERT INTO R_OIR
+  VALUES (	1048577,
+	1048580,
+	1048586,
+	0);
+INSERT INTO R_ASSR
+  VALUES (	1048583,
+	1048580,
+	1048587,
+	0);
+INSERT INTO R_RGO
+  VALUES (	1048583,
+	1048580,
+	1048587);
+INSERT INTO R_OIR
+  VALUES (	1048583,
+	1048580,
+	1048587,
+	0);
+INSERT INTO R_SUBSUP
+  VALUES (	1048581);
+INSERT INTO R_REL
+  VALUES (	1048581,
+	7,
+	'Relationship Description:
+
+Purpose of Abstraction:
+',
+	1048578);
+INSERT INTO R_SUPER
+  VALUES (	1048586,
+	1048581,
+	1048588);
+INSERT INTO R_RTO
+  VALUES (	1048586,
+	1048581,
+	1048588,
+	0);
+INSERT INTO R_OIR
+  VALUES (	1048586,
+	1048581,
+	1048588,
+	0);
+INSERT INTO R_SUB
+  VALUES (	1048585,
+	1048581,
+	1048589);
+INSERT INTO R_RGO
+  VALUES (	1048585,
+	1048581,
+	1048589);
+INSERT INTO R_OIR
+  VALUES (	1048585,
+	1048581,
+	1048589,
+	0);
+INSERT INTO R_SUB
+  VALUES (	1048588,
+	1048581,
+	1048590);
+INSERT INTO R_RGO
+  VALUES (	1048588,
+	1048581,
+	1048590);
+INSERT INTO R_OIR
+  VALUES (	1048588,
+	1048581,
+	1048590,
+	0);
+INSERT INTO R_SUB
+  VALUES (	1048589,
+	1048581,
+	1048591);
+INSERT INTO R_RGO
+  VALUES (	1048589,
+	1048581,
+	1048591);
+INSERT INTO R_OIR
+  VALUES (	1048589,
+	1048581,
+	1048591,
+	0);
+INSERT INTO R_ASSOC
+  VALUES (	1048582);
+INSERT INTO R_REL
+  VALUES (	1048582,
+	6,
+	'Relationship Description:
+
+Purpose of Abstraction:
+',
+	1048578);
+INSERT INTO R_AONE
+  VALUES (	1048585,
+	1048582,
+	1048592,
+	0,
+	0,
+	'is assigned to');
+INSERT INTO R_RTO
+  VALUES (	1048585,
+	1048582,
+	1048592,
+	0);
+INSERT INTO R_OIR
+  VALUES (	1048585,
+	1048582,
+	1048592,
+	0);
+INSERT INTO R_AOTH
+  VALUES (	1048579,
+	1048582,
+	1048593,
+	0,
+	1,
+	'is assigned to');
+INSERT INTO R_RTO
+  VALUES (	1048579,
+	1048582,
+	1048593,
+	0);
+INSERT INTO R_OIR
+  VALUES (	1048579,
+	1048582,
+	1048593,
+	0);
+INSERT INTO R_ASSR
+  VALUES (	1048587,
+	1048582,
+	1048594,
+	0);
+INSERT INTO R_RGO
+  VALUES (	1048587,
+	1048582,
+	1048594);
+INSERT INTO R_OIR
+  VALUES (	1048587,
+	1048582,
+	1048594,
+	0);
+INSERT INTO R_ASSOC
+  VALUES (	1048583);
+INSERT INTO R_REL
+  VALUES (	1048583,
+	5,
+	'Relationship Description:
+
+Purpose of Abstraction:
+',
+	1048578);
+INSERT INTO R_AONE
+  VALUES (	1048579,
+	1048583,
+	1048595,
+	0,
+	1,
+	'is assigned to');
+INSERT INTO R_RTO
+  VALUES (	1048579,
+	1048583,
+	1048595,
+	0);
+INSERT INTO R_OIR
+  VALUES (	1048579,
+	1048583,
+	1048595,
+	0);
+INSERT INTO R_AOTH
+  VALUES (	1048588,
+	1048583,
+	1048596,
+	0,
+	1,
+	'is assigned to');
+INSERT INTO R_RTO
+  VALUES (	1048588,
+	1048583,
+	1048596,
+	0);
+INSERT INTO R_OIR
+  VALUES (	1048588,
+	1048583,
+	1048596,
+	0);
+INSERT INTO R_ASSR
+  VALUES (	1048584,
+	1048583,
+	1048597,
+	0);
+INSERT INTO R_RGO
+  VALUES (	1048584,
+	1048583,
+	1048597);
+INSERT INTO R_OIR
+  VALUES (	1048584,
+	1048583,
+	1048597,
+	0);
+INSERT INTO R_SIMP
+  VALUES (	1048584);
+INSERT INTO R_REL
+  VALUES (	1048584,
+	8,
+	'Relationship Description:
+
+Purpose of Abstraction:
+',
+	1048578);
+INSERT INTO R_FORM
+  VALUES (	1048589,
+	1048584,
+	1048598,
+	0,
+	1,
+	'is being executed by');
+INSERT INTO R_RGO
+  VALUES (	1048589,
+	1048584,
+	1048598);
+INSERT INTO R_OIR
+  VALUES (	1048589,
+	1048584,
+	1048598,
+	0);
+INSERT INTO R_PART
+  VALUES (	1048590,
+	1048584,
+	1048599,
+	0,
+	1,
+	'is executing');
+INSERT INTO R_RTO
+  VALUES (	1048590,
+	1048584,
+	1048599,
+	0);
+INSERT INTO R_OIR
+  VALUES (	1048590,
+	1048584,
+	1048599,
+	0);
+INSERT INTO R_SIMP
+  VALUES (	1048585);
+INSERT INTO R_REL
+  VALUES (	1048585,
+	9,
+	'Relationship Description:
+
+Purpose of Abstraction:
+',
+	1048578);
+INSERT INTO R_FORM
+  VALUES (	1048591,
+	1048585,
+	1048600,
+	0,
+	1,
+	'is being executed by');
+INSERT INTO R_RGO
+  VALUES (	1048591,
+	1048585,
+	1048600);
+INSERT INTO R_OIR
+  VALUES (	1048591,
+	1048585,
+	1048600,
+	0);
+INSERT INTO R_PART
+  VALUES (	1048590,
+	1048585,
+	1048601,
+	0,
+	1,
+	'is executing');
+INSERT INTO R_RTO
+  VALUES (	1048590,
+	1048585,
+	1048601,
+	0);
+INSERT INTO R_OIR
+  VALUES (	1048590,
+	1048585,
+	1048601,
+	0);
+INSERT INTO R_SIMP
+  VALUES (	1048586);
+INSERT INTO R_REL
+  VALUES (	1048586,
+	10,
+	'Relationship Description:
+
+Purpose of Abstraction:
+',
+	1048578);
+INSERT INTO R_FORM
+  VALUES (	1048590,
+	1048586,
+	1048602,
+	0,
+	1,
+	'is source for');
+INSERT INTO R_RGO
+  VALUES (	1048590,
+	1048586,
+	1048602);
+INSERT INTO R_OIR
+  VALUES (	1048590,
+	1048586,
+	1048602,
+	0);
+INSERT INTO R_PART
+  VALUES (	1048586,
+	1048586,
+	1048603,
+	0,
+	0,
+	'originates at');
+INSERT INTO R_RTO
+  VALUES (	1048586,
+	1048586,
+	1048603,
+	0);
+INSERT INTO R_OIR
+  VALUES (	1048586,
+	1048586,
+	1048603,
+	0);
+INSERT INTO R_SIMP
+  VALUES (	1048587);
+INSERT INTO R_REL
+  VALUES (	1048587,
+	11,
+	'Relationship Description:
+
+Purpose of Abstraction:
+',
+	1048578);
+INSERT INTO R_FORM
+  VALUES (	1048590,
+	1048587,
+	1048604,
+	0,
+	1,
+	'is destination for');
+INSERT INTO R_RGO
+  VALUES (	1048590,
+	1048587,
+	1048604);
+INSERT INTO R_OIR
+  VALUES (	1048590,
+	1048587,
+	1048604,
+	0);
+INSERT INTO R_PART
+  VALUES (	1048586,
+	1048587,
+	1048605,
+	0,
+	0,
+	'completes at');
+INSERT INTO R_RTO
+  VALUES (	1048586,
+	1048587,
+	1048605,
+	0);
+INSERT INTO R_OIR
+  VALUES (	1048586,
+	1048587,
+	1048605,
+	0);
+INSERT INTO R_SIMP
+	VALUES (1048588);
+INSERT INTO R_REL
+	VALUES (1048588,
+	12,
+	'This relationshp tests the import and export of the data values for R_RTO instances between
+BP 6.1 and Tiger.  It should not be formalized.',
+	1048578);
+INSERT INTO R_PART
+	VALUES (1048585,
+	1048588,
+	1048606,
+	0,
+	0,
+	'');
+INSERT INTO R_RTO
+	VALUES (1048585,
+	1048588,
+	1048606,
+	99);
+INSERT INTO R_OIR
+	VALUES (1048585,
+	1048588,
+	1048606,
+	0);
+INSERT INTO R_PART
+	VALUES (1048591,
+	1048588,
+	1048607,
+	0,
+	0,
+	'');
+INSERT INTO R_RTO
+	VALUES (1048591,
+	1048588,
+	1048607,
+	99);
+INSERT INTO R_OIR
+	VALUES (1048591,
+	1048588,
+	1048607,
+	0);
+INSERT INTO CA_COMM
+  VALUES (	1572865,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	1572865,
+	1572867,
+	3145734,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	1572865,
+	3145734,
+	3145733);
+INSERT INTO CA_SMSME
+  VALUES (	1572865,
+	3145734,
+	3145735);
+INSERT INTO CA_SMSME
+  VALUES (	1572865,
+	3145734,
+	3145736);
+INSERT INTO CA_COMM
+  VALUES (	1572866,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	1572866,
+	1572867,
+	5242890,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	1572866,
+	5242890,
+	5242881);
+INSERT INTO CA_COMM
+  VALUES (	1572867,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	1572867,
+	1572867,
+	3670023,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	1572867,
+	3670023,
+	3670017);
+INSERT INTO CA_COMM
+  VALUES (	1572868,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	1572868,
+	1572867,
+	5767179,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	1572868,
+	5767179,
+	5767171);
+INSERT INTO CA_COMM
+  VALUES (	1572869,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	1572869,
+	1572867,
+	4194312,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	1572869,
+	4194312,
+	4194306);
+INSERT INTO CA_COMM
+  VALUES (	2097153,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	2097153,
+	2097156,
+	3145734,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	2097153,
+	3145734,
+	3145729);
+INSERT INTO CA_SMSME
+  VALUES (	2097153,
+	3145734,
+	3145734);
+INSERT INTO CA_COMM
+  VALUES (	2621441,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	2621441,
+	2621445,
+	2097156,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	2621441,
+	2097156,
+	2097153);
+INSERT INTO CA_COMM
+  VALUES (	3145729,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	3145729,
+	3145734,
+	3145734,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	3145729,
+	3145734,
+	3145731);
+INSERT INTO CA_SMSME
+  VALUES (	3145729,
+	3145734,
+	3145732);
+INSERT INTO CA_SMSME
+  VALUES (	3145729,
+	3145734,
+	3145729);
+INSERT INTO CA_SMSME
+  VALUES (	3145729,
+	3145734,
+	3145730);
+INSERT INTO CA_COMM
+  VALUES (	3145730,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	3145730,
+	3145734,
+	1572867,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	3145730,
+	1572867,
+	1572865);
+INSERT INTO CA_SMSME
+  VALUES (	3145730,
+	1572867,
+	1572870);
+INSERT INTO CA_COMM
+  VALUES (	3145731,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	3145731,
+	3145734,
+	2097156,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	3145731,
+	2097156,
+	2097154);
+INSERT INTO CA_COMM
+  VALUES (	3670017,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	3670017,
+	3670023,
+	3670023,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	3670017,
+	3670023,
+	3670017);
+INSERT INTO CA_SMSME
+  VALUES (	3670017,
+	3670023,
+	3670019);
+INSERT INTO CA_SMSME
+  VALUES (	3670017,
+	3670023,
+	3670018);
+INSERT INTO CA_COMM
+  VALUES (	3670018,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	3670018,
+	3670023,
+	5767179,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	3670018,
+	5767179,
+	5767169);
+INSERT INTO CA_COMM
+  VALUES (	4194305,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	4194305,
+	4194312,
+	1572867,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	4194305,
+	1572867,
+	1572869);
+INSERT INTO CA_SMSME
+  VALUES (	4194305,
+	1572867,
+	1572866);
+INSERT INTO CA_SMSME
+  VALUES (	4194305,
+	1572867,
+	1572871);
+INSERT INTO CA_COMM
+  VALUES (	4194306,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	4194306,
+	4194312,
+	5242890,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	4194306,
+	5242890,
+	5242882);
+INSERT INTO CA_COMM
+  VALUES (	4194307,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	4194307,
+	4194312,
+	6291468,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	4194307,
+	6291468,
+	6291465);
+INSERT INTO CA_COMM
+  VALUES (	4718593,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	4718593,
+	4718601,
+	4194312,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	4718593,
+	4194312,
+	4194307);
+INSERT INTO CA_SMSME
+  VALUES (	4718593,
+	4194312,
+	4194308);
+INSERT INTO CA_COMM
+  VALUES (	4718594,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	4718594,
+	4718601,
+	5767179,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	4718594,
+	5767179,
+	5767173);
+INSERT INTO CA_SMSME
+  VALUES (	4718594,
+	5767179,
+	5767174);
+INSERT INTO CA_COMM
+  VALUES (	4718595,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	4718595,
+	4718601,
+	6291468,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	4718595,
+	6291468,
+	6291466);
+INSERT INTO CA_SMSME
+  VALUES (	4718595,
+	6291468,
+	6291467);
+INSERT INTO CA_COMM
+  VALUES (	5242881,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	5242881,
+	5242890,
+	5242890,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	5242881,
+	5242890,
+	5242881);
+INSERT INTO CA_SMSME
+  VALUES (	5242881,
+	5242890,
+	5242883);
+INSERT INTO CA_SMSME
+  VALUES (	5242881,
+	5242890,
+	5242882);
+INSERT INTO CA_COMM
+  VALUES (	5242882,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	5242882,
+	5242890,
+	4194312,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	5242882,
+	4194312,
+	4194305);
+INSERT INTO CA_COMM
+  VALUES (	5767169,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	5767169,
+	5767179,
+	3670023,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	5767169,
+	3670023,
+	3670018);
+INSERT INTO CA_COMM
+  VALUES (	5767170,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	5767170,
+	5767179,
+	6815757,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	5767170,
+	6815757,
+	6815748);
+INSERT INTO CA_COMM
+  VALUES (	5767171,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	5767171,
+	5767179,
+	1572867,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	5767171,
+	1572867,
+	1572867);
+INSERT INTO CA_COMM
+  VALUES (	6291457,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	6291457,
+	6291468,
+	6815757,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	6291457,
+	6815757,
+	6815748);
+INSERT INTO CA_COMM
+  VALUES (	6815745,
+	1048578);
+INSERT INTO CA_SMSMC
+  VALUES (	6815745,
+	6815757,
+	4718601,
+	0,
+	0);
+INSERT INTO CA_SMSME
+  VALUES (	6815745,
+	4718601,
+	4718594);
+INSERT INTO CA_SMSME
+  VALUES (	6815745,
+	4718601,
+	4718593);
+INSERT INTO CA_ACC
+  VALUES (	1572865,
+	1048578,
+	1572867,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	1572865,
+	1048577,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	1572865,
+	1048585,
+	1048577);
+INSERT INTO CA_SMOAA
+  VALUES (	1572865,
+	1048586,
+	1048577);
+INSERT INTO CA_SMOAA
+  VALUES (	1572865,
+	1048577,
+	1048577);
+INSERT INTO CA_SMOAA
+  VALUES (	1572865,
+	1048587,
+	1048577);
+INSERT INTO CA_SMOAA
+  VALUES (	1572865,
+	1048584,
+	1048577);
+INSERT INTO CA_SMOAA
+  VALUES (	1572865,
+	1048578,
+	1048577);
+INSERT INTO CA_ACC
+  VALUES (	1572866,
+	1048578,
+	1572867,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	1572866,
+	1048582,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	1572866,
+	1048599,
+	1048582);
+INSERT INTO CA_ACC
+  VALUES (	1572867,
+	1048578,
+	1572867,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	1572867,
+	1048588,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	1572867,
+	1048616,
+	1048588);
+INSERT INTO CA_ACC
+  VALUES (	2097153,
+	1048578,
+	2097156,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	2097153,
+	1048581,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	2097153,
+	1048597,
+	1048581);
+INSERT INTO CA_ACC
+  VALUES (	2621441,
+	1048578,
+	2621445,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	2621441,
+	1048577,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	2621441,
+	1048577,
+	1048577);
+INSERT INTO CA_ACC
+  VALUES (	3145729,
+	1048578,
+	3145734,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	3145729,
+	1048581,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	3145729,
+	1048597,
+	1048581);
+INSERT INTO CA_ACC
+  VALUES (	3145730,
+	1048578,
+	3145734,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	3145730,
+	1048577,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	3145730,
+	1048586,
+	1048577);
+INSERT INTO CA_SMOAA
+  VALUES (	3145730,
+	1048587,
+	1048577);
+INSERT INTO CA_SMOAA
+  VALUES (	3145730,
+	1048578,
+	1048577);
+INSERT INTO CA_ACC
+  VALUES (	3670017,
+	1048578,
+	3670023,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	3670017,
+	1048577,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	3670017,
+	1048585,
+	1048577);
+INSERT INTO CA_ACC
+  VALUES (	3670018,
+	1048578,
+	3670023,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	3670018,
+	1048588,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	3670018,
+	1048617,
+	1048588);
+INSERT INTO CA_ACC
+  VALUES (	4194305,
+	1048578,
+	4194312,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	4194305,
+	1048585,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	4194305,
+	1048607,
+	1048585);
+INSERT INTO CA_ACC
+  VALUES (	4194306,
+	1048578,
+	4194312,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	4194306,
+	1048577,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	4194306,
+	1048586,
+	1048577);
+INSERT INTO CA_SMOAA
+  VALUES (	4194306,
+	1048587,
+	1048577);
+INSERT INTO CA_ACC
+  VALUES (	4194307,
+	1048578,
+	4194312,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	4194307,
+	1048590,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	4194307,
+	1048625,
+	1048590);
+INSERT INTO CA_ACC
+  VALUES (	5242881,
+	1048578,
+	5242890,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	5242881,
+	1048577,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	5242881,
+	1048584,
+	1048577);
+INSERT INTO CA_ACC
+  VALUES (	5242882,
+	1048578,
+	5242890,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	5242882,
+	1048585,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	5242882,
+	1048607,
+	1048585);
+INSERT INTO CA_ACC
+  VALUES (	5767169,
+	1048578,
+	5767179,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	5767169,
+	1048588,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	5767169,
+	1048616,
+	1048588);
+INSERT INTO CA_SMOAA
+  VALUES (	5767169,
+	1048617,
+	1048588);
+INSERT INTO CA_ACC
+  VALUES (	5767170,
+	1048578,
+	5767179,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	5767170,
+	1048590,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	5767170,
+	1048625,
+	1048590);
+INSERT INTO CA_ACC
+  VALUES (	6291457,
+	1048578,
+	6291468,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	6291457,
+	1048590,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	6291457,
+	1048625,
+	1048590);
+INSERT INTO CA_SMOAA
+  VALUES (	6291457,
+	1048623,
+	1048590);
+INSERT INTO CA_ACC
+  VALUES (	6291458,
+	1048578,
+	6291468,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	6291458,
+	1048589,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	6291458,
+	1048619,
+	1048589);
+INSERT INTO CA_ACC
+  VALUES (	6291459,
+	1048578,
+	6291468,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	6291459,
+	1048577,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	6291459,
+	1048577,
+	1048577);
+INSERT INTO CA_ACC
+  VALUES (	6815745,
+	1048578,
+	6815757,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	6815745,
+	1048590,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	6815745,
+	1048625,
+	1048590);
+INSERT INTO CA_ACC
+  VALUES (	6815746,
+	1048578,
+	6815757,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	6815746,
+	1048586,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	6815746,
+	1048612,
+	1048586);
+INSERT INTO CA_SMOAA
+  VALUES (	6815746,
+	1048610,
+	1048586);
+INSERT INTO CA_SMOAA
+  VALUES (	6815746,
+	1048611,
+	1048586);
+INSERT INTO CA_ACC
+  VALUES (	6815747,
+	1048578,
+	6815757,
+	0);
+INSERT INTO CA_SMOA
+  VALUES (	6815747,
+	1048591,
+	0);
+INSERT INTO CA_SMOAA
+  VALUES (	6815747,
+	1048629,
+	1048591);
+INSERT INTO CA_SMOAA
+  VALUES (	6815747,
+	1048626,
+	1048591);
+INSERT INTO CA_SMOAA
+  VALUES (	6815747,
+	1048628,
+	1048591);
+INSERT INTO CA_SMOAA
+  VALUES (	6815747,
+	1048630,
+	1048591);
+INSERT INTO GD_MD
+  VALUES (	1048583,
+	5,
+	1048578,
+	11,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1980,
+	3596,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048587,
+	1048583,
+	1048591,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048587,
+	2432,
+	1920,
+	2656,
+	2080);
+INSERT INTO GD_GE
+  VALUES (	1048588,
+	1048583,
+	1048590,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048588,
+	2384,
+	2224,
+	2592,
+	2336);
+INSERT INTO GD_GE
+  VALUES (	1048589,
+	1048583,
+	1048589,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048589,
+	1424,
+	1952,
+	1600,
+	2064);
+INSERT INTO GD_GE
+  VALUES (	1048590,
+	1048583,
+	1048588,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048590,
+	1680,
+	1968,
+	1824,
+	2064);
+INSERT INTO GD_GE
+  VALUES (	1048591,
+	1048583,
+	1048587,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048591,
+	1824,
+	1824,
+	2048,
+	1920);
+INSERT INTO GD_GE
+  VALUES (	1048592,
+	1048583,
+	1048586,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048592,
+	1936,
+	2208,
+	2160,
+	2352);
+INSERT INTO GD_GE
+  VALUES (	1048593,
+	1048583,
+	1048585,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048593,
+	1968,
+	1968,
+	2128,
+	2064);
+INSERT INTO GD_GE
+  VALUES (	1048594,
+	1048583,
+	1048584,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048594,
+	1408,
+	1744,
+	1648,
+	1840);
+INSERT INTO GD_GE
+  VALUES (	1048595,
+	1048583,
+	1048583,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048595,
+	1648,
+	1584,
+	1856,
+	1664);
+INSERT INTO GD_GE
+  VALUES (	1048596,
+	1048583,
+	1048582,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048596,
+	1328,
+	1440,
+	1552,
+	1552);
+INSERT INTO GD_GE
+  VALUES (	1048597,
+	1048583,
+	1048581,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048597,
+	1632,
+	1216,
+	1856,
+	1360);
+INSERT INTO GD_GE
+  VALUES (	1048598,
+	1048583,
+	1048580,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048598,
+	2288,
+	1680,
+	2480,
+	1760);
+INSERT INTO GD_GE
+  VALUES (	1048599,
+	1048583,
+	1048579,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048599,
+	1952,
+	1680,
+	2160,
+	1760);
+INSERT INTO GD_GE
+  VALUES (	1048600,
+	1048583,
+	1048578,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048600,
+	2432,
+	1440,
+	2672,
+	1568);
+INSERT INTO GD_GE
+  VALUES (	1048601,
+	1048583,
+	1048577,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048601,
+	1936,
+	1376,
+	2160,
+	1600);
+INSERT INTO GD_GE
+  VALUES (	1048805,
+	1048583,
+	1048587,
+	24);
+INSERT INTO GD_CON
+  VALUES (	1048805,
+	1048592,
+	1048588,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048805,
+	2169,
+	2336,
+	2262,
+	2358,
+	0,
+	0,
+	2257,
+	2290,
+	2290,
+	2312,
+	0,
+	0,
+	2289,
+	2328,
+	2376,
+	2377,
+	-25,
+	33);
+INSERT INTO GD_LS
+  VALUES (	1048806,
+	1048805,
+	2160,
+	2320,
+	2384,
+	2320,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048807,
+	1048583,
+	1048586,
+	24);
+INSERT INTO GD_CON
+  VALUES (	1048807,
+	1048592,
+	1048588,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048807,
+	2167,
+	2187,
+	2257,
+	2209,
+	0,
+	0,
+	2284,
+	2212,
+	2334,
+	2242,
+	37,
+	-3,
+	2279,
+	2247,
+	2368,
+	2269,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048808,
+	1048807,
+	2160,
+	2240,
+	2384,
+	2240,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048809,
+	1048583,
+	1048585,
+	24);
+INSERT INTO GD_CON
+  VALUES (	1048809,
+	1048588,
+	1048587,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048809,
+	2577,
+	2195,
+	2663,
+	2217,
+	0,
+	0,
+	2566,
+	2137,
+	2616,
+	2167,
+	22,
+	0,
+	2578,
+	2083,
+	2665,
+	2123,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048810,
+	1048809,
+	2560,
+	2224,
+	2560,
+	2080,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048811,
+	1048583,
+	1048584,
+	24);
+INSERT INTO GD_CON
+  VALUES (	1048811,
+	1048588,
+	1048589,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048811,
+	2306,
+	2109,
+	2406,
+	2139,
+	-69,
+	-80,
+	1864,
+	2149,
+	1914,
+	2179,
+	-47,
+	30,
+	1378,
+	2091,
+	1451,
+	2140,
+	-37,
+	22);
+INSERT INTO GD_LS
+  VALUES (	1048812,
+	1048811,
+	2416,
+	2224,
+	2416,
+	2144,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048813,
+	1048811,
+	2416,
+	2144,
+	1456,
+	2144,
+	1048812);
+INSERT INTO GD_LS
+  VALUES (	1048814,
+	1048811,
+	1456,
+	2144,
+	1456,
+	2064,
+	1048813);
+INSERT INTO GD_GE
+  VALUES (	1048815,
+	1048583,
+	1048583,
+	24);
+INSERT INTO GD_CON
+  VALUES (	1048815,
+	1048599,
+	1048590,
+	1048817);
+INSERT INTO GD_CTXT
+  VALUES (	1048815,
+	1847,
+	1734,
+	1947,
+	1764,
+	-35,
+	31,
+	1743,
+	1768,
+	1793,
+	1798,
+	15,
+	31,
+	1626,
+	1914,
+	1714,
+	1954,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048816,
+	1048815,
+	1952,
+	1728,
+	1744,
+	1728,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048817,
+	1048815,
+	1744,
+	1728,
+	1744,
+	1968,
+	1048816);
+INSERT INTO GD_GE
+  VALUES (	1048818,
+	1048583,
+	1048582,
+	24);
+INSERT INTO GD_CON
+  VALUES (	1048818,
+	1048593,
+	1048599,
+	1048819);
+INSERT INTO GD_CTXT
+  VALUES (	1048818,
+	2124,
+	1911,
+	2212,
+	1951,
+	0,
+	0,
+	2119,
+	1858,
+	2169,
+	1888,
+	23,
+	1,
+	2133,
+	1775,
+	2221,
+	1815,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048819,
+	1048818,
+	2112,
+	1968,
+	2112,
+	1760,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048820,
+	1048583,
+	1048581,
+	24);
+INSERT INTO GD_CON
+  VALUES (	1048820,
+	1048592,
+	0,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048820,
+	1930,
+	2158,
+	2003,
+	2198,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2080,
+	2158,
+	2104,
+	2180,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048821,
+	1048820,
+	2048,
+	2208,
+	2048,
+	2112,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048822,
+	1048583,
+	1048580,
+	24);
+INSERT INTO GD_CON
+  VALUES (	1048822,
+	1048596,
+	1048601,
+	1048823);
+INSERT INTO GD_CTXT
+  VALUES (	1048822,
+	1570,
+	1518,
+	1656,
+	1540,
+	0,
+	0,
+	1753,
+	1510,
+	1803,
+	1540,
+	34,
+	31,
+	1838,
+	1510,
+	1938,
+	1540,
+	-28,
+	31);
+INSERT INTO GD_LS
+  VALUES (	1048823,
+	1048822,
+	1552,
+	1504,
+	1936,
+	1504,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048824,
+	1048583,
+	1048579,
+	24);
+INSERT INTO GD_CON
+  VALUES (	1048824,
+	1048596,
+	1048601,
+	1048825);
+INSERT INTO GD_CTXT
+  VALUES (	1048824,
+	1578,
+	1414,
+	1655,
+	1436,
+	0,
+	0,
+	1711,
+	1460,
+	1761,
+	1490,
+	-8,
+	29,
+	1834,
+	1463,
+	1934,
+	1493,
+	-32,
+	32);
+INSERT INTO GD_LS
+  VALUES (	1048825,
+	1048824,
+	1552,
+	1456,
+	1936,
+	1456,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048826,
+	1048583,
+	1048578,
+	24);
+INSERT INTO GD_CON
+  VALUES (	1048826,
+	1048601,
+	0,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048826,
+	1943,
+	1603,
+	2016,
+	1643,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2072,
+	1610,
+	2096,
+	1632,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048827,
+	1048826,
+	2048,
+	1600,
+	2048,
+	1648,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048828,
+	1048583,
+	1048577,
+	24);
+INSERT INTO GD_CON
+  VALUES (	1048828,
+	1048601,
+	1048600,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048828,
+	2163,
+	1447,
+	2258,
+	1494,
+	33,
+	-32,
+	2272,
+	1472,
+	2322,
+	1502,
+	1,
+	-7,
+	2315,
+	1517,
+	2423,
+	1561,
+	-47,
+	38);
+INSERT INTO GD_LS
+  VALUES (	1048829,
+	1048828,
+	2160,
+	1504,
+	2432,
+	1504,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048830,
+	1048583,
+	0,
+	-1);
+INSERT INTO GD_CON
+  VALUES (	1048830,
+	1048589,
+	1048820,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048830,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048831,
+	1048830,
+	1552,
+	2064,
+	1552,
+	2112,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048832,
+	1048830,
+	1552,
+	2112,
+	2048,
+	2112,
+	1048831);
+INSERT INTO GD_GE
+  VALUES (	1048833,
+	1048583,
+	0,
+	-1);
+INSERT INTO GD_CON
+  VALUES (	1048833,
+	1048594,
+	1048815,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048833,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048834,
+	1048833,
+	1648,
+	1792,
+	1744,
+	1792,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048835,
+	1048583,
+	0,
+	-1);
+INSERT INTO GD_CON
+  VALUES (	1048835,
+	1048590,
+	1048820,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048835,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048836,
+	1048835,
+	1744,
+	2064,
+	1744,
+	2080,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048837,
+	1048835,
+	1744,
+	2080,
+	2048,
+	2112,
+	1048836);
+INSERT INTO GD_GE
+  VALUES (	1048838,
+	1048583,
+	0,
+	-1);
+INSERT INTO GD_CON
+  VALUES (	1048838,
+	1048591,
+	1048818,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048838,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048839,
+	1048838,
+	2048,
+	1872,
+	2112,
+	1872,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048840,
+	1048583,
+	0,
+	-1);
+INSERT INTO GD_CON
+  VALUES (	1048840,
+	1048593,
+	1048820,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048840,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048841,
+	1048840,
+	2048,
+	2064,
+	2048,
+	2112,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048842,
+	1048583,
+	0,
+	-1);
+INSERT INTO GD_CON
+  VALUES (	1048842,
+	1048595,
+	1048822,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048842,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048843,
+	1048842,
+	1744,
+	1584,
+	1744,
+	1504,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048844,
+	1048583,
+	0,
+	-1);
+INSERT INTO GD_CON
+  VALUES (	1048844,
+	1048597,
+	1048824,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048844,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048845,
+	1048844,
+	1744,
+	1360,
+	1744,
+	1456,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048846,
+	1048583,
+	0,
+	-1);
+INSERT INTO GD_CON
+  VALUES (	1048846,
+	1048598,
+	1048826,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048846,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048847,
+	1048846,
+	2384,
+	1680,
+	2384,
+	1648,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048848,
+	1048846,
+	2384,
+	1648,
+	2048,
+	1648,
+	1048847);
+INSERT INTO GD_GE
+  VALUES (	1048849,
+	1048583,
+	0,
+	-1);
+INSERT INTO GD_CON
+  VALUES (	1048849,
+	1048599,
+	1048826,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048849,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048850,
+	1048849,
+	2048,
+	1680,
+	2048,
+	1648,
+	0);
+INSERT INTO GD_GE
+	VALUES (1048776,
+	1048583,
+	1048588,
+	24);
+INSERT INTO GD_CON
+	VALUES (1048776,
+	1048593,
+	1048597,
+	0);
+INSERT INTO GD_CTXT
+	VALUES (1048776,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+	VALUES (1048777,
+	1048776,
+	2128,
+	2000,
+	2432,
+	2000,
+	0);
+INSERT INTO GD_MD
+  VALUES (	1048584,
+	6,
+	1048578,
+	11,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1053,
+	4095,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048606,
+	1048584,
+	5242890,
+	40);
+INSERT INTO GD_SHP
+  VALUES (	1048606,
+	1600,
+	1472,
+	1792,
+	1536);
+INSERT INTO GD_GE
+  VALUES (	1048607,
+	1048584,
+	1048582,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048607,
+	1168,
+	992,
+	1360,
+	1056);
+INSERT INTO GD_GE
+  VALUES (	1048608,
+	1048584,
+	1048586,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048608,
+	1312,
+	1792,
+	1504,
+	1856);
+INSERT INTO GD_GE
+  VALUES (	1048609,
+	1048584,
+	1048581,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048609,
+	1296,
+	1088,
+	1456,
+	1152);
+INSERT INTO GD_GE
+  VALUES (	1048610,
+	1048584,
+	3145734,
+	40);
+INSERT INTO GD_SHP
+  VALUES (	1048610,
+	1296,
+	1232,
+	1488,
+	1296);
+INSERT INTO GD_GE
+  VALUES (	1048611,
+	1048584,
+	3670023,
+	40);
+INSERT INTO GD_SHP
+  VALUES (	1048611,
+	1040,
+	1472,
+	1232,
+	1536);
+INSERT INTO GD_GE
+  VALUES (	1048612,
+	1048584,
+	1048591,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048612,
+	1312,
+	2000,
+	1504,
+	2064);
+INSERT INTO GD_GE
+  VALUES (	1048613,
+	1048584,
+	1048589,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048613,
+	1632,
+	1872,
+	1824,
+	1936);
+INSERT INTO GD_GE
+  VALUES (	1048614,
+	1048584,
+	1048588,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048614,
+	1024,
+	1616,
+	1280,
+	1680);
+INSERT INTO GD_GE
+  VALUES (	1048615,
+	1048584,
+	1048585,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048615,
+	1552,
+	1632,
+	1808,
+	1696);
+INSERT INTO GD_GE
+  VALUES (	1048616,
+	1048584,
+	1048577,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048616,
+	1280,
+	1392,
+	1504,
+	1472);
+INSERT INTO GD_GE
+  VALUES (	1048620,
+	1048584,
+	1048685,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048620,
+	1048616,
+	1048606,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048620,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1702,
+	1434,
+	1883,
+	1456,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048621,
+	1048620,
+	1504,
+	1408,
+	1696,
+	1408,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048622,
+	1048620,
+	1696,
+	1408,
+	1696,
+	1472,
+	1048621);
+INSERT INTO GD_GE
+  VALUES (	1048623,
+	1048584,
+	1048688,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048623,
+	1048606,
+	1048615,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048623,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1784,
+	1562,
+	1935,
+	1599,
+	24,
+	-7,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048624,
+	1048623,
+	1776,
+	1536,
+	1776,
+	1632,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048625,
+	1048584,
+	1048691,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048625,
+	1048615,
+	1048606,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048625,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1565,
+	1592,
+	1744,
+	1632,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048626,
+	1048625,
+	1728,
+	1632,
+	1728,
+	1536,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048627,
+	1048584,
+	1048694,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048627,
+	1048607,
+	1048609,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048627,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1085,
+	1101,
+	1216,
+	1161,
+	-114,
+	22,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048628,
+	1048627,
+	1200,
+	1056,
+	1200,
+	1104,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048629,
+	1048627,
+	1200,
+	1104,
+	1296,
+	1104,
+	1048628);
+INSERT INTO GD_GE
+  VALUES (	1048630,
+	1048584,
+	1048696,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048630,
+	1048608,
+	1048615,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048630,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1437,
+	1698,
+	1548,
+	1774,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048631,
+	1048630,
+	1504,
+	1824,
+	1584,
+	1824,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048632,
+	1048630,
+	1584,
+	1824,
+	1584,
+	1696,
+	1048631);
+INSERT INTO GD_GE
+  VALUES (	1048633,
+	1048584,
+	1048699,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048633,
+	1048608,
+	1048614,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048633,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1058,
+	1711,
+	1229,
+	1770,
+	-158,
+	-50,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048634,
+	1048633,
+	1312,
+	1792,
+	1232,
+	1792,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048635,
+	1048633,
+	1232,
+	1792,
+	1232,
+	1680,
+	1048634);
+INSERT INTO GD_GE
+  VALUES (	1048636,
+	1048584,
+	1048701,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048636,
+	1048608,
+	1048613,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048636,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1512,
+	1850,
+	1623,
+	1926,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048637,
+	1048636,
+	1504,
+	1840,
+	1648,
+	1840,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048638,
+	1048636,
+	1648,
+	1840,
+	1648,
+	1872,
+	1048637);
+INSERT INTO GD_GE
+  VALUES (	1048639,
+	1048584,
+	1048703,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048639,
+	1048612,
+	1048608,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048639,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1402,
+	1914,
+	1513,
+	1990,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048640,
+	1048639,
+	1392,
+	2000,
+	1392,
+	1856,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048641,
+	1048584,
+	1048707,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048641,
+	1048609,
+	1048610,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048641,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1456,
+	1160,
+	1702,
+	1200,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048642,
+	1048641,
+	1424,
+	1152,
+	1424,
+	1232,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048643,
+	1048584,
+	1048709,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048643,
+	1048610,
+	1048609,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048643,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1171,
+	1175,
+	1313,
+	1219,
+	-134,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048644,
+	1048643,
+	1328,
+	1232,
+	1328,
+	1152,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048645,
+	1048584,
+	1048711,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048645,
+	1048610,
+	1048616,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048645,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1098,
+	1302,
+	1319,
+	1378,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048646,
+	1048645,
+	1328,
+	1296,
+	1328,
+	1392,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048647,
+	1048584,
+	1048713,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048647,
+	1048616,
+	1048610,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048647,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1505,
+	1280,
+	1664,
+	1392,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048648,
+	1048647,
+	1440,
+	1392,
+	1440,
+	1296,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048649,
+	1048584,
+	1048715,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048649,
+	1048616,
+	1048611,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048649,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1068,
+	1423,
+	1276,
+	1463,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048650,
+	1048649,
+	1328,
+	1472,
+	1328,
+	1504,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048651,
+	1048649,
+	1328,
+	1504,
+	1232,
+	1504,
+	1048650);
+INSERT INTO GD_GE
+  VALUES (	1048652,
+	1048584,
+	1048718,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048652,
+	1048611,
+	1048614,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048652,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1073,
+	1563,
+	1227,
+	1597,
+	-79,
+	2,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048653,
+	1048652,
+	1168,
+	1536,
+	1168,
+	1616,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048654,
+	1048584,
+	1048720,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048654,
+	1048614,
+	1048611,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048654,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	900,
+	1569,
+	1058,
+	1609,
+	-140,
+	8,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048655,
+	1048654,
+	1056,
+	1616,
+	1056,
+	1536,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048656,
+	1048584,
+	1048722,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048656,
+	1048614,
+	1048612,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048656,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1172,
+	1936,
+	1338,
+	2008,
+	20,
+	31,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048657,
+	1048656,
+	1168,
+	1680,
+	1168,
+	2016,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048658,
+	1048656,
+	1168,
+	2016,
+	1312,
+	2016,
+	1048657);
+INSERT INTO GD_GE
+  VALUES (	1048659,
+	1048584,
+	1048724,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048659,
+	1048613,
+	1048612,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048659,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1539,
+	2047,
+	1663,
+	2087,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048660,
+	1048659,
+	1664,
+	1936,
+	1664,
+	2016,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048661,
+	1048659,
+	1664,
+	2016,
+	1504,
+	2016,
+	1048660);
+INSERT INTO GD_GE
+  VALUES (	1048662,
+	1048584,
+	1048726,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048662,
+	1048615,
+	1048613,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048662,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1600,
+	1725,
+	1773,
+	1803,
+	-160,
+	-20,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048663,
+	1048662,
+	1776,
+	1696,
+	1776,
+	1872,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048664,
+	1048584,
+	1048730,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048664,
+	1048614,
+	1048616,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048664,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1284,
+	1689,
+	1423,
+	1711,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048665,
+	1048664,
+	1280,
+	1664,
+	1424,
+	1664,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048666,
+	1048664,
+	1424,
+	1664,
+	1424,
+	1472,
+	1048665);
+INSERT INTO GD_GE
+  VALUES (	1048667,
+	1048584,
+	1048733,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048667,
+	1048616,
+	1048614,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048667,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1237,
+	1551,
+	1373,
+	1591,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048668,
+	1048667,
+	1376,
+	1472,
+	1376,
+	1632,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048669,
+	1048667,
+	1376,
+	1632,
+	1280,
+	1632,
+	1048668);
+INSERT INTO GD_GE
+  VALUES (	1048670,
+	1048584,
+	1048736,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048670,
+	1048615,
+	1048616,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048670,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1452,
+	1490,
+	1608,
+	1602,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048671,
+	1048670,
+	1584,
+	1632,
+	1584,
+	1440,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048672,
+	1048670,
+	1584,
+	1440,
+	1504,
+	1440,
+	1048671);
+INSERT INTO GD_GE
+  VALUES (	1048673,
+	1048584,
+	1048738,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048673,
+	1048616,
+	1048615,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048673,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1441,
+	1616,
+	1551,
+	1656,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048674,
+	1048673,
+	1440,
+	1472,
+	1440,
+	1664,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048675,
+	1048673,
+	1440,
+	1664,
+	1552,
+	1664,
+	1048674);
+INSERT INTO GD_MD
+  VALUES (	1048585,
+	7,
+	1048578,
+	11,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	1466,
+	3769,
+	1.000000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048692,
+	1048585,
+	5242890,
+	40);
+INSERT INTO GD_SHP
+  VALUES (	1048692,
+	1952,
+	2192,
+	2144,
+	2256);
+INSERT INTO GD_GE
+  VALUES (	1048693,
+	1048585,
+	3145734,
+	40);
+INSERT INTO GD_SHP
+  VALUES (	1048693,
+	1984,
+	1232,
+	2176,
+	1296);
+INSERT INTO GD_GE
+  VALUES (	1048694,
+	1048585,
+	3670023,
+	40);
+INSERT INTO GD_SHP
+  VALUES (	1048694,
+	1968,
+	1632,
+	2160,
+	1696);
+INSERT INTO GD_GE
+  VALUES (	1048695,
+	1048585,
+	1048591,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048695,
+	1920,
+	1936,
+	2112,
+	2000);
+INSERT INTO GD_GE
+  VALUES (	1048696,
+	1048585,
+	1048590,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048696,
+	1664,
+	1936,
+	1856,
+	2000);
+INSERT INTO GD_GE
+  VALUES (	1048697,
+	1048585,
+	1048589,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048697,
+	1664,
+	2096,
+	1856,
+	2160);
+INSERT INTO GD_GE
+  VALUES (	1048698,
+	1048585,
+	1048588,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048698,
+	1664,
+	1776,
+	1856,
+	1840);
+INSERT INTO GD_GE
+  VALUES (	1048699,
+	1048585,
+	1048587,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048699,
+	2848,
+	1616,
+	3040,
+	1680);
+INSERT INTO GD_GE
+  VALUES (	1048700,
+	1048585,
+	1048586,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048700,
+	1920,
+	1776,
+	2112,
+	1840);
+INSERT INTO GD_GE
+  VALUES (	1048701,
+	1048585,
+	1048585,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048701,
+	1344,
+	1936,
+	1536,
+	2000);
+INSERT INTO GD_GE
+  VALUES (	1048702,
+	1048585,
+	1048584,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048702,
+	2848,
+	1504,
+	3040,
+	1568);
+INSERT INTO GD_GE
+  VALUES (	1048703,
+	1048585,
+	1048583,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048703,
+	2848,
+	1168,
+	3040,
+	1232);
+INSERT INTO GD_GE
+  VALUES (	1048704,
+	1048585,
+	1048582,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048704,
+	1360,
+	1456,
+	1552,
+	1552);
+INSERT INTO GD_GE
+  VALUES (	1048705,
+	1048585,
+	1048581,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048705,
+	1600,
+	1280,
+	1792,
+	1344);
+INSERT INTO GD_GE
+  VALUES (	1048706,
+	1048585,
+	1048580,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048706,
+	2848,
+	1392,
+	3040,
+	1456);
+INSERT INTO GD_GE
+  VALUES (	1048707,
+	1048585,
+	1048579,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048707,
+	2848,
+	1280,
+	3040,
+	1344);
+INSERT INTO GD_GE
+  VALUES (	1048708,
+	1048585,
+	1048578,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048708,
+	1360,
+	1280,
+	1552,
+	1344);
+INSERT INTO GD_GE
+  VALUES (	1048709,
+	1048585,
+	1048577,
+	21);
+INSERT INTO GD_SHP
+  VALUES (	1048709,
+	1984,
+	1488,
+	2176,
+	1552);
+INSERT INTO GD_GE
+  VALUES (	1048713,
+	1048585,
+	2416967987,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048713,
+	1048692,
+	1048709,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048713,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2282,
+	1559,
+	2397,
+	1604,
+	26,
+	-314,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048714,
+	1048713,
+	2144,
+	2224,
+	2272,
+	2224,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048715,
+	1048713,
+	2272,
+	2224,
+	2272,
+	1520,
+	1048714);
+INSERT INTO GD_LS
+  VALUES (	1048716,
+	1048713,
+	2272,
+	1520,
+	2176,
+	1520,
+	1048715);
+INSERT INTO GD_GE
+  VALUES (	1048717,
+	1048585,
+	2416967971,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048717,
+	1048692,
+	1048701,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048717,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1537,
+	2196,
+	1714,
+	2230,
+	-14,
+	-3,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048718,
+	1048717,
+	1952,
+	2224,
+	1424,
+	2224,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048719,
+	1048717,
+	1424,
+	2224,
+	1424,
+	2000,
+	1048718);
+INSERT INTO GD_GE
+  VALUES (	1048720,
+	1048585,
+	1048747,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048720,
+	1048693,
+	1048709,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048720,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1904,
+	1290,
+	2059,
+	1348,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048721,
+	1048720,
+	2080,
+	1296,
+	2080,
+	1488,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048722,
+	1048585,
+	1048749,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048722,
+	1048693,
+	1048705,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048722,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1604,
+	1228,
+	1733,
+	1250,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048723,
+	1048722,
+	1984,
+	1248,
+	1760,
+	1248,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048724,
+	1048722,
+	1760,
+	1248,
+	1760,
+	1280,
+	1048723);
+INSERT INTO GD_GE
+  VALUES (	1048725,
+	1048585,
+	1048751,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048725,
+	1048694,
+	1048709,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048725,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1878,
+	1589,
+	2008,
+	1611,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048726,
+	1048725,
+	1968,
+	1648,
+	2016,
+	1648,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048727,
+	1048725,
+	2016,
+	1648,
+	2016,
+	1552,
+	1048726);
+INSERT INTO GD_GE
+  VALUES (	1048728,
+	1048585,
+	1048754,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048728,
+	1048694,
+	1048698,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048728,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1724,
+	1717,
+	1752,
+	1739,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048729,
+	1048728,
+	1968,
+	1680,
+	1760,
+	1680,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048730,
+	1048728,
+	1760,
+	1680,
+	1760,
+	1776,
+	1048729);
+INSERT INTO GD_GE
+  VALUES (	1048731,
+	1048585,
+	1048756,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048731,
+	1048695,
+	1048700,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048731,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2027,
+	1861,
+	2154,
+	1919,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048732,
+	1048731,
+	2016,
+	1936,
+	2016,
+	1840,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048733,
+	1048585,
+	1048758,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048733,
+	1048695,
+	1048696,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048733,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1863,
+	1984,
+	1911,
+	2006,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048734,
+	1048733,
+	1920,
+	1968,
+	1856,
+	1968,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048735,
+	1048585,
+	2416967846,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048735,
+	1048701,
+	1048696,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048735,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1577,
+	1938,
+	1627,
+	1968,
+	2,
+	-5,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048736,
+	1048735,
+	1536,
+	1968,
+	1664,
+	1968,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048737,
+	1048585,
+	2416967840,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048737,
+	1048698,
+	1048696,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048737,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1768,
+	1870,
+	1818,
+	1900,
+	24,
+	-3,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048738,
+	1048737,
+	1760,
+	1840,
+	1760,
+	1936,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048739,
+	1048585,
+	2416967838,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048739,
+	1048697,
+	1048696,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048739,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1785,
+	2026,
+	1871,
+	2066,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048740,
+	1048739,
+	1760,
+	2096,
+	1760,
+	2000,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048741,
+	1048585,
+	1048766,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048741,
+	1048704,
+	1048698,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048741,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1548,
+	1773,
+	1598,
+	1803,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048742,
+	1048741,
+	1504,
+	1552,
+	1504,
+	1808,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048743,
+	1048741,
+	1504,
+	1808,
+	1664,
+	1808,
+	1048742);
+INSERT INTO GD_GE
+  VALUES (	1048744,
+	1048585,
+	1048769,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048744,
+	1048704,
+	1048701,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048744,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1414,
+	1870,
+	1499,
+	1911,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048745,
+	1048744,
+	1408,
+	1552,
+	1408,
+	1936,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048746,
+	1048585,
+	1048771,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048746,
+	1048704,
+	1048709,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048746,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1803,
+	1480,
+	1863,
+	1502,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048747,
+	1048746,
+	1552,
+	1520,
+	1984,
+	1520,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048748,
+	1048585,
+	1048773,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048748,
+	1048704,
+	1048708,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048748,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1423,
+	1393,
+	1580,
+	1435,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048749,
+	1048748,
+	1456,
+	1456,
+	1456,
+	1344,
+	0);
+INSERT INTO GD_GE
+  VALUES (	1048773,
+	1048585,
+	1049540,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048773,
+	1048701,
+	1048709,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048773,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1657,
+	1451,
+	1819,
+	1491,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048774,
+	1048773,
+	1536,
+	1952,
+	1568,
+	1952,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048775,
+	1048773,
+	1568,
+	1952,
+	1568,
+	1504,
+	1048774);
+INSERT INTO GD_LS
+  VALUES (	1048776,
+	1048773,
+	1568,
+	1504,
+	1984,
+	1504,
+	1048775);
+INSERT INTO GD_GE
+  VALUES (	1048777,
+	1048585,
+	1049605,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048777,
+	1048697,
+	1048709,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048777,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	2162,
+	1587,
+	2222,
+	1609,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048778,
+	1048777,
+	1856,
+	2128,
+	2240,
+	2128,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048779,
+	1048777,
+	2240,
+	2128,
+	2240,
+	1552,
+	1048778);
+INSERT INTO GD_LS
+  VALUES (	1048780,
+	1048777,
+	2240,
+	1552,
+	2176,
+	1552,
+	1048779);
+INSERT INTO GD_GE
+  VALUES (	1048781,
+	1048585,
+	1049691,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048781,
+	1048709,
+	1048698,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048781,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1767,
+	1645,
+	1832,
+	1667,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048782,
+	1048781,
+	1984,
+	1536,
+	1840,
+	1536,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048783,
+	1048781,
+	1840,
+	1536,
+	1840,
+	1776,
+	1048782);
+INSERT INTO GD_GE
+  VALUES (	1048796,
+	1048585,
+	1050180,
+	1005);
+INSERT INTO GD_CON
+  VALUES (	1048796,
+	1048709,
+	1048704,
+	0);
+INSERT INTO GD_CTXT
+  VALUES (	1048796,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	1815,
+	1538,
+	1972,
+	1560,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_LS
+  VALUES (	1048797,
+	1048796,
+	1984,
+	1536,
+	1552,
+	1536,
+	0);

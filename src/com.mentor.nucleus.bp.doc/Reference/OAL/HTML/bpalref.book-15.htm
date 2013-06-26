@@ -1,0 +1,817 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 11">
+<meta name=Originator content="Microsoft Word 11">
+<link rel=File-List href="bpalref.book-15_files/filelist.xml">
+<title> Operations, Bridges, and Functions </title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>kwilliam</o:Author>
+  <o:LastAuthor>MGC</o:LastAuthor>
+  <o:Revision>21</o:Revision>
+  <o:TotalTime>1270</o:TotalTime>
+  <o:Created>2006-03-10T20:21:00Z</o:Created>
+  <o:LastSaved>2007-08-10T16:44:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>816</o:Words>
+  <o:Characters>4655</o:Characters>
+  <o:Company>Mentor Graphics</o:Company>
+  <o:Lines>38</o:Lines>
+  <o:Paragraphs>10</o:Paragraphs>
+  <o:CharactersWithSpaces>5461</o:CharactersWithSpaces>
+  <o:Version>11.8132</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:Compatibility>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" LatentStyleCount="156">
+ </w:LatentStyles>
+</xml><![endif]-->
+<link rel=Stylesheet type="text/css" media=all href=bpalref.book.css>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:2;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+@font-face
+	{font-family:"MS Mincho";
+	panose-1:2 2 6 9 4 2 5 8 3 4;
+	mso-font-alt:"\FF2D\FF33 \660E\671D";
+	mso-font-charset:128;
+	mso-generic-font-family:roman;
+	mso-font-format:other;
+	mso-font-pitch:fixed;
+	mso-font-signature:1 134676480 16 0 131072 0;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:"Arial Unicode MS";
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:0 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+@font-face
+	{font-family:"\@MS Mincho";
+	panose-1:0 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:128;
+	mso-generic-font-family:roman;
+	mso-font-format:other;
+	mso-font-pitch:fixed;
+	mso-font-signature:1 134676480 16 0 131072 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+h1
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-line-height-alt:15.6pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:1;
+	font-size:18.0pt;
+	mso-fareast-font-family:"MS Mincho";}
+h2
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	line-height:15.6pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:12.0pt;
+	mso-fareast-font-family:"MS Mincho";
+	font-weight:bold;}
+h3
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	line-height:15.6pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
+	font-size:11.0pt;
+	mso-fareast-font-family:"MS Mincho";
+	font-weight:bold;}
+h4
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:4;
+	font-size:11.0pt;
+	mso-fareast-font-family:"MS Mincho";
+	font-weight:bold;}
+h5
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:5;
+	font-size:9.0pt;
+	mso-fareast-font-family:"MS Mincho";
+	font-weight:bold;}
+h6
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:6;
+	font-size:12.0pt;
+	mso-fareast-font-family:"MS Mincho";
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:navy;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#0176B9;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-fareast-font-family:SimSun;}
+pre
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:SimSun;}
+p.body-tight, li.body-tight, div.body-tight
+	{mso-style-name:body-tight;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:23.75pt;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	mso-fareast-font-family:SimSun;}
+p.indent, li.indent, div.indent
+	{mso-style-name:indent;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:13.0pt;
+	margin-left:47.5pt;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	mso-fareast-font-family:SimSun;}
+p.body, li.body, div.body
+	{mso-style-name:body;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-fareast-font-family:SimSun;}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:381565867;
+	mso-list-template-ids:-1530778714;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Wingdings;}
+@list l0:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1
+	{mso-list-id:384138097;
+	mso-list-template-ids:-149278234;}
+@list l1:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Wingdings;}
+@list l1:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2
+	{mso-list-id:771706792;
+	mso-list-template-ids:1678011444;}
+@list l2:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Wingdings;}
+@list l2:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3
+	{mso-list-id:838813725;
+	mso-list-template-ids:-1978751400;}
+@list l3:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Wingdings;}
+@list l3:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4
+	{mso-list-id:1609200114;
+	mso-list-template-ids:474506354;}
+@list l4:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Wingdings;}
+@list l4:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5
+	{mso-list-id:2006474684;
+	mso-list-template-ids:-537253712;}
+@list l5:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Wingdings;}
+@list l5:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6
+	{mso-list-id:2110080878;
+	mso-list-template-ids:373294088;}
+@list l6:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Wingdings;}
+@list l6:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+</style>
+<![endif]-->
+<meta http-equiv=Content-Style-Type content="text/css">
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="3074"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9" style='tab-interval:
+.5in'>
+
+<div class=Section1>
+
+<h1>Components and Interfaces</h1>
+
+<h2><a name="50536514_pgfId-511389"></a>Interface Invocation</h2>
+
+<p class=body><a name="50536514_pgfId-516705"></a>The analyst may send messages
+between components. The term &#8216;message&#8217; is used hereafter to mean
+either sending a signal or calling an operation on a component.</p>
+
+<h3><a name="50536514_pgfId-516789"></a>Syntax</h3>
+
+<p class=body>As a message expression:</p>
+
+<p class=body style='margin-left:.5in'><a name="50536514_pgfId-516709"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>[send]
+&lt;Interface Name&gt;::&lt;Message Name&gt;(&lt;Message Parameter Name&gt;:
+&lt;value&gt;) [to &lt;Component Reference&gt;]</span></em><o:p></o:p></p>
+
+<p class=body style='margin-left:.5in'>or<o:p></o:p></p>
+
+<p class=body style='margin-left:.5in'><em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>[send] &lt;Port Name&gt;::&lt;Message
+Name&gt;(&lt;Message Parameter Name&gt;: &lt;value&gt;) [to &lt;Component
+Reference&gt;]</span></em><o:p></o:p></p>
+
+<p class=body>As a stand-alone operation assignment statement:</p>
+
+<p class=body style='margin-left:.5in'><em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>&lt;variable&gt; = [send] &lt;Interface
+Name&gt;::&lt;Message Name&gt;(&lt;Message Parameter Name&gt;: &lt;value&gt;)
+[to &lt;Component Reference&gt;];</span></em><o:p></o:p></p>
+
+<p class=body style='margin-left:.5in'>or<o:p></o:p></p>
+
+<p class=body style='margin-left:.5in'><em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>&lt;variable&gt; = [send] &lt;Port
+Name&gt;::&lt;Message Name&gt;(&lt;Message Parameter Name&gt;: &lt;value&gt;)
+[to &lt;Component Reference&gt;];</span></em><o:p></o:p></p>
+
+<p class=body><o:p>&nbsp;</o:p></p>
+
+<p class=body>If a port has no name, then the first syntax is mandatory. If a
+component requires or provides the same interface more than once, then a
+uniquely named port is required for one or both of the ports. The alternative
+syntax proposed above is required for this situation. In both syntaxes above,
+the keyword <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>'send'</span></em> is optional.<span style='mso-spacerun:yes'> 
+</span>The same syntax allows is used for both synchronous and asynchronous
+inter-component communication. <span style='mso-spacerun:yes'> </span>The analyst
+can optionally specify an explicit component reference to which the message
+should be sent.</p>
+
+<p class=body><a name="50536514_pgfId-516718"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;Interface Name&gt;</span></em>
+is the name of the target interface that contains the message being sent.</p>
+
+<p class=body><a name="50536514_pgfId-519158"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;Port Name&gt;</span></em> is the
+name of the target port though which the message is being sent.</p>
+
+<p class=body><a name="50536514_pgfId-519159"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;Message Name&gt;</span></em>
+is the name of the message being sent.</p>
+
+<p class=body><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;Message Parameter Name&gt;</span></em> is the name of a
+parameter of the message.</p>
+
+<p class=body><a name="50536514_pgfId-516723"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;value&gt;</span></em> is the value
+of the associated message parameter.</p>
+
+<p class=body><a name="50536514_pgfId-516725"></a><a
+name="50536514_pgfId-516729"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>&lt;Component Reference&gt;</span></em> is the name
+of the component reference (as defined in the user&#8217;s OAL) to send the
+message to.</p>
+
+<p class=body><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;variable&gt;</span></em> is a class attribute or a local variable.</p>
+
+<h3>Notes</h3>
+
+<p class=body><a name="50536514_pgfId-516731"></a><a
+name="50536514_pgfId-516734"></a><i style='mso-bidi-font-style:normal'>General<o:p></o:p></i></p>
+
+<p class=body><a name="50536514_pgfId-516735"></a>A message expression may be
+used anywhere an expression is valid (e.g., assignment statement read values<a
+name="50536514_marker-519764"></a>, control logic expressions, etc.).</p>
+
+<p class=body><a name="50536514_pgfId-516732"></a>The stand-alone message must
+always be a stand-alone statement and cannot be used as an expression within another
+statement.</p>
+
+<p class=body><a name="50536514_pgfId-516733"></a>Since <span class=GramE>an</span>
+message expression may be used anywhere an expression may be used, stand-alone message
+assignment statements are not necessary. The user may simply use a message
+expression as a read value and use an <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>assign</span></em> statement to assign
+the return value to <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;variable&gt;</span></em><em><span style='font-family:Arial;
+font-style:normal'>.</span></em></p>
+
+<p class=body>Parentheses are required even if there are no data items.</p>
+
+<p class=body>If <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;variable&gt;</span></em> is a local variable that is being
+assigned for the first time, it will be of the same data type as the return
+value of <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;Message Name&gt;</span></em><em><span style='font-family:Arial;
+font-style:normal'>.</span></em></p>
+
+<p class=body><a name="50536514_pgfId-516736"></a>If the type of <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;variable&gt;</span></em>
+has already been established (that is, if it is the attribute of a class or a
+local variable that has been previously assigned), then either:</p>
+
+<ul type=square>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;margin-bottom:3.0pt;
+     mso-list:l2 level1 lfo1;tab-stops:list .5in'><a
+     name="50536514_pgfId-516794"></a><em><span style='font-size:11.0pt;
+     font-family:"Courier New";color:black'>&lt;variable&gt;</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> must be of the same data type
+     as the output value of the operation,<o:p></o:p></span></li>
+</ul>
+
+<p class=indent><a name="50536514_pgfId-519685"></a>or</p>
+
+<ul type=square>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;margin-bottom:3.0pt;
+     mso-list:l2 level1 lfo1;tab-stops:list .5in'><a
+     name="50536514_pgfId-516738"></a>the output value of the message is of
+     type <em><span style='font-size:11.0pt;font-family:"Courier New";
+     color:black'>integer</span></em> or <em><span style='font-size:11.0pt;
+     font-family:"Courier New";color:black'>real</span></em> and <em><span
+     style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;variable&gt;</span></em>
+     is of type <em><span style='font-size:11.0pt;font-family:"Courier New";
+     color:black'>integer</span></em> or <em><span style='font-size:11.0pt;
+     font-family:"Courier New";color:black'>real</span></em> .<span
+     style='font-size:10.0pt;font-family:Arial'><o:p></o:p></span></li>
+</ul>
+
+<p class=body><i style='mso-bidi-font-style:normal'>Implicit Component
+Addressing<o:p></o:p></i></p>
+
+<p class=body>There are two cases where there is no ambiguity about which
+component is the recipient of a given message. One, when a component interface
+is 1 to 1. Two, when architectural support is turned on for caching component
+identity for a given thread of control. <span style='mso-spacerun:yes'> </span>If
+the optional target component reference is not specified, then the default
+component is determined by the architecture. Implicit component addressing
+requires special architectural support, and there are some cases where
+component ambiguity exists.<span style='mso-spacerun:yes'>  </span>To allow
+users to avoid potential problems associated with these situations, a per model
+preference (<em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>Window &gt; Preferences &gt; BridgePoint &gt; Action Language &gt;
+Allow implicit component addressing</span></em>) shall force all signal
+references to use explicit component addressing only. When this preference is
+selected, the <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>'sender'</span></em> keyword shall be legal in interface
+activities only, where it shall refer to the identity of the component that
+triggered the interface activity. <o:p></o:p></p>
+
+<p class=body>Implicit and explicit component addressing may be mixed (always
+provided implicit component addressing is enabled). So, where a component other
+than the default component must be addressed, this can be achieved by caching
+and explicitly addressing the desired component.<o:p></o:p></p>
+
+<p class=body><i style='mso-bidi-font-style:normal'>Name Scoping and Precedence<o:p></o:p></i></p>
+
+<p class=body>The syntax allows for ambiguities with other pre-existing model
+elements. These are class operations and bridges. This is resolved with a
+precedence hierarchy. Precedence shall flow from local to global; i.e.
+operation, message, then bridge. The default may be overridden as required,
+using the <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>'send'</span></em> or <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>'bridge'</span></em> keywords.</p>
+
+<h3><a name="50536514_pgfId-516741"></a>Example</h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516742"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// messages sent without assigning the return value</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516743"></a><a name="50536514_pgfId-516745"></a><a
+name="50536514_pgfId-516748"></a><a name="50536514_pgfId-516753"></a><em><span
+style='font-family:"Courier New"'>Interface1::Signal2(parm1: 3);<o:p></o:p></span></em></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><em><span style='font-family:
+"Courier New"'>send Port5::Signal1();<o:p></o:p></span></em></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><em><span style='font-family:
+"Courier New"'><o:p>&nbsp;</o:p></span></em></pre><pre style='margin-left:47.5pt;
+vertical-align:baseline'><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>// message as an assignment statement read value</span></em><em><span
+style='font-family:"Courier New"'><o:p></o:p></span></em></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><em><span style='font-family:
+"Courier New"'>result = <span class=SpellE>Controller::RequestTime</span>(<span
+class=SpellE>unit:Time::milliseconds</span>);<o:p></o:p></span></em></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><em><span style='font-family:
+"Courier New"'><o:p>&nbsp;</o:p></span></em></pre><pre style='margin-left:47.5pt;
+vertical-align:baseline'><em><span style='font-family:"Courier New"'>// send message to specific component references<o:p></o:p></span></em></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><em><span style='font-family:
+"Courier New"'>send Port3::Signal11(parm1:rcvd_evt.x, parm2:rcvd_evt.y) to <span
+class=SpellE>rcvd_evt.requestor</span>;<o:p></o:p></span></em></pre>
+
+<h3><a name="50536514_pgfId-516887"></a><a name="50536514_pgfId-519385"></a>Use
+of sender keyword</h3>
+
+<p class=body><a name="50536514_pgfId-519386"></a>The default component may be
+addressed using the syntax, <em><span style='font-family:"Courier New"'>'to
+sender'</span></em> or by omitting the <em><span style='font-family:"Courier New"'>'to
+&lt;Component Reference&gt;'</span></em> syntax altogether.<span
+style='mso-spacerun:yes'>  </span>The <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>sender</span></em> keyword can be used
+anywhere that is valid.</p>
+
+<h4><a name="50536514_pgfId-519418"></a>Note</h4>
+
+<p class=body><a name="50536514_pgfId-519419"></a><a
+name="50536514_pgfId-519395"></a>When <span style='mso-bidi-font-weight:bold'>Implicit
+Component Addressing is disallowed by the user preference</span>, the<b> </b><em><span
+style='font-family:"Courier New";mso-bidi-font-style:normal'>'sender'</span></em><em><span
+style='font-family:"Courier New";font-style:normal'> </span></em>keyword <span
+style='mso-bidi-font-weight:bold'>is</span> legal in interface activities only,
+where it refer<span style='mso-bidi-font-weight:bold'>s</span> to the<b> </b>identity
+of the component that triggered the interface activity.<b><span
+style='mso-spacerun:yes'>  </span></b>Assuming no previous OAL, creating a local
+variable of type <em><span style='font-family:"Courier New"'>'<span
+class=SpellE>component_ref</span>'</span></em> called <em><span
+style='font-family:"Courier New";mso-bidi-font-style:normal'>'sender'</span></em><em><span
+style='font-family:"Courier New"'> </span></em>is perfectly legal in all
+contexts.</p>
+
+<h4>Example</h4>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-519397"></a><em><span style='font-family:"Courier New"'>send <span
+class=SpellE>TXRXPort::ACK</span>() to sender;<o:p></o:p></span></em></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><em><span style='font-family:
+"Courier New"'><o:p>&nbsp;</o:p></span></em></pre><pre style='margin-left:47.5pt;
+vertical-align:baseline'><span style='font-size:11.0pt;font-family:"Times New Roman";
+color:black'><o:p>&nbsp;</o:p></span></pre></div>
+
+</body>
+
+</html>

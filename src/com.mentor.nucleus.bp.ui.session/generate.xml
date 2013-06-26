@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile$
+ Version:   $Revision$
+ Modified:  $Date$
+
+ (c) Copyright 2006-2013 by Mentor Graphics Corp. All rights reserved.
+
+  ========================================================================
+  This document contains information proprietary and confidential to
+  Mentor Graphics Corp., and is not for external distribution.
+  ========================================================================
+
+-->
+<project name="com.mentor.nucleus.bp.ui.session" default="all" basedir=".">
+  <target name="all"
+          description="Generate all code for this project"
+          depends="update_schema,java,format_java">
+  </target>
+
+  <target name="nb_all"
+          description="Generate all code for this project"
+          depends="update_schema,java">
+  </target>
+
+  <property name="eclipse-home" value="${basedir}/../.."/>
+  <property name="plugins-home" value="${ant.home}/../.."/>
+
+  <property name="chain_util_path" value="../com.mentor.nucleus.bp.core"/>
+  <property environment="env"/>
+  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\bin" />
+  <property name="mcj_path" value="../MC-Java" />
+  <property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
+  <property name="schema.output_path" value="../com.mentor.nucleus.bp.ui.tree/sql" />
+  <target name="update_schema"
+          description="See if the schema file should be re-generated and do so">
+  <ant antfile="../com.mentor.nucleus.bp.ui.tree/generate_schema.xml"
+     target="all"
+     dir="../com.mentor.nucleus.bp.ui.tree/">
+  </ant>
+  </target>
+
+  <property name="java.output" value="src/com/mentor/nucleus/bp/ui/session/SessionExplorerContentProvider.java" />
+
+  <target name="java.depends" >
+    <uptodate property="java.buildNotNeeded" targetfile="${java.output}">
+       <srcfiles dir = "sql" includes = "UITree.pei.sql" />
+       <srcfiles dir = "${schema.output_path}" includes = "UITree_schema.sql" />
+       <srcfiles dir = "../com.mentor.nucleus.bp.core/sql" includes = "ooaofooa.sql" />
+       <srcfiles dir = "arc"        includes = "BuildTree.arc,create_SessionExplorer_view.inc" />
+       <srcfiles dir = "../com.mentor.nucleus.bp.ui.tree/arc"        includes = "create_generic_adapters.inc,create_generic_label_provider.inc,create_generic_content_provider.inc,create_generic_filters_content_provider.inc" />
+       <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql,arch_utils.inc"/>
+    </uptodate>
+  </target>
+
+  <target name="java"
+          depends="java.depends"
+          description="Generate the tree explorer files"
+          unless="java.buildNotNeeded" >
+    <echo >Generating ${java.output} ...</echo>
+  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+        <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
+    <arg line="-nopersist
+      -import ${mcj_path}/ooa_schema.sql
+      -import ${schema.output_path}/UITree_schema.sql
+      -import ../com.mentor.nucleus.bp.core/sql/ooaofooa.sql
+      -import sql/UITree.pei.sql
+      -arch arc/BuildTree.arc" />
+  </exec>
+    <delete file="____file.txt" />
+    <delete file="key_lett.txt" />
+    <delete file="rel_chain.txt" />
+    <delete file="rel_num.txt" />
+    <delete file="remainder.txt" />
+  <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+  <touch file="${java.output}" />
+  </target>
+
+  <property name="cvs_java_files" value="SessionExplorerPlugin.java,
+          actions/FilterSelectionAction.java, ISessionExplorerHelpContextIds.java, SessionExplorerTreeViewer.java, adapters/RootAdapter.java, adapters/DomainProxyAdapter.java" />
+
+  <target name="format_java"
+        description="Format the generated java source" >
+
+    <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask" >
+        <classpath>
+            <pathelement path="../com.mentor.nucleus.bp.core/tools/" />
+            <fileset dir="${plugins-home}/plugins" casesensitive="yes">
+                <include name="**/org.eclipse.text_*.jar" />
+                <include name="**/org.eclipse.ui_*.jar" />
+                <include name="**/org.eclipse.jdt.core_*.jar" />
+                <include name="**/org.eclipse.core.runtime_*.jar" />
+                <include name="**/org.eclipse.osgi_*.jar" />
+                <include name="**/org.eclipse.core.resources_*.jar" />
+                <include name="**/org.eclipse.equinox.common_*.jar" />
+            </fileset>
+        </classpath>
+    </taskdef>
+        <PTCodeFormat>
+          <fileset dir="src/com/mentor/nucleus/bp/ui/session" excludes="${cvs_java_files}"
+          includes="adapters/*.java,actions/*.java,views/*.java,*.java" />
+        </PTCodeFormat>
+  </target>
+
+  <!-- COMPILE TARGETS -->
+
+  <!-- This target is not used in the eclipse environment.  The eclipse Java
+       builder handles the java compilation when building BridgePoint under
+       eclipse.  This target is used only when building BridgePoint from the
+       command line on the build server. -->
+  <target name="compile"
+                  description="Compile project" >
+
+    <echo>Compiling ${ant.project.name}</echo>
+
+    <mkdir dir="bin" />
+
+    <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6"
+        fork="yes" destdir="bin" debug="true" debuglevel="lines,vars,source" encoding="UTF-8">
+       <src path="src/com/mentor/nucleus/bp/ui/session" />
+       <classpath>
+         <pathelement path="../com.mentor.nucleus.bp.core/bin" />
+         <pathelement path="../com.mentor.nucleus.bp.ui.properties/bin" />
+         <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
+           <include name="**/org.eclipse.osgi_*.jar" />
+           <include name="**/org.eclipse.ui.ide_*.jar" />
+           <include name="**/org.eclipse.jface_*.jar" />
+           <include name="**/org.eclipse.core.runtime_*.jar" />
+           <include name="**/org.eclipse.core.resources_*.jar" />
+           <include name="**/org.eclipse.ui.workbench_*.jar" />
+           <include name="**/org.eclipse.swt.win32.win32.x86_*.jar" />
+           <include name="**/org.eclipse.ui.views_*.jar" />
+           <include name="**/org.eclipse.ui_*.jar" />
+           <include name="**/org.eclipse.jface.text_*.jar" />
+           <include name="**/org.eclipse.ui.workbench.texteditor_*.jar" />
+           <include name="**/org.eclipse.ui.editors_*.jar" />
+           <include name="**/org.eclipse.equinox.common_*.jar"/>
+           <include name="**/org.eclipse.equinox.registry_*.jar"/>
+           <include name="**/org.eclipse.core.commands_*.jar"/>
+         </fileset>
+       </classpath>
+    </javac>
+
+  </target>
+
+  <!-- CLEAN TARGETS -->
+
+  <target name="clean_all"
+        description="Clean entire project"
+        depends="clean_classes,clean_sql,clean_schema,clean_java" >
+
+    <echo>Done cleaning for ${ant.project.name}</echo>
+
+  </target>
+
+  <target name="clean_sql"
+        description="Remove the sql version of the UI Tree model" >
+  <ant antfile="../com.mentor.nucleus.bp.ui.tree/generate_schema.xml"
+     target="clean_sql"
+     dir="../com.mentor.nucleus.bp.ui.tree/">
+  </ant>
+  </target>
+
+  <target name="clean_schema"
+          description="Remove the UI Tree schema file" >
+  <ant antfile="../com.mentor.nucleus.bp.ui.tree/generate_schema.xml"
+     target="clean_schema"
+     dir="../com.mentor.nucleus.bp.ui.tree/">
+  </ant>
+  </target>
+
+  <target name="clean_java"
+        description="Remove the generated java sources." >
+
+    <echo>Removing the generated java source files ...</echo>
+    <delete verbose="true" >
+      <fileset dir="src/com/mentor/nucleus/bp/ui/session" excludes="${cvs_java_files}, .cvsignore, adapters/.cvsignore" />
+    </delete>
+
+  </target>
+
+  <target name="clean_classes"
+          description="Remove all compiled class files." >
+
+  <echo>Removing all compiled class files ...</echo>
+  <delete verbose="true" dir="bin" />
+
+  </target>
+
+</project>

@@ -1,0 +1,24 @@
+#=============================================================================
+# File: Makefile.in
+#
+# Description:
+# Include paths for compilation.
+#
+# Warnings:
+# !!! THIS IS AN AUTO-GENERATED FILE.  PLEASE DO NOT EDIT. !!!
+#     ROX_CreateIncludesMakefile @ localtime()
+#=============================================================================
+
+#INCLUDES = ${INCLUDES}
+
+ROX_MC_INCLUDES = -Ic:/test2.0.2/BridgePoint/eclipse_extensions/Bridgepoint/eclipse/plugins/com.mentor.nucleus.bp.mc.mc3020_2.0.2//mc3020/mech/indep/include
+
+ROX_APP_ROOT_DIR = C:/test2.0.2/BridgePoint/workspace/Watch/gen/code_generation
+
+ROX_APP_SYS_INCLUDE = -I${ROX_APP_ROOT_DIR}/system/gen/include -I${ROX_APP_ROOT_DIR}/system/user/include
+
+ROX_DOM_tracking_INCLUDE = -I${ROX_APP_ROOT_DIR}/tracking/gen/include -I${ROX_APP_ROOT_DIR}/tracking/user/include
+
+INCLUDES += ${ROX_APP_SYS_INCLUDE}
+INCLUDES += ${ROX_DOM_tracking_INCLUDE}
+

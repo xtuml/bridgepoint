@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="com.mentor.nucleus.bp.io.mdl.test"
+   name="Nucleus BridgePoint IO Mdl Test Plug-in"
+   version="1.0.0"
+   provider-name="Mentor Graphics"
+   class="com.mentor.nucleus.bp.io.mdl.test.IOMdlTestPlugin">
+
+   <runtime>
+      <library name="mdltest.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.ui.workbench.texteditor"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="com.mentor.nucleus.bp.core"/>
+      <import plugin="com.mentor.nucleus.bp.io.mdl"/>
+      <import plugin="com.mentor.nucleus.bp.ui.canvas"/>
+      <import plugin="org.junit"/>
+      <import plugin="com.mentor.nucleus.bp.ui.explorer"/>
+      <import plugin="com.mentor.nucleus.bp.ui.canvas.test"/>
+      <import plugin="com.mentor.nucleus.bp.io.core"/>
+      <import plugin="com.mentor.nucleus.bp.io.sql"/>
+      <import plugin="com.mentor.nucleus.bp.test"/>
+      <import plugin="com.mentor.nucleus.bp.ui.text"/>
+      <import plugin="com.mentor.nucleus.bp.ui.explorer.test"/>
+      <import plugin="com.mentor.nucleus.bp.core.test"/>
+      <import plugin="com.mentor.nucleus.bp.ui.graphics"/>
+      <import plugin="org.eclipse.gef"/>
+      <import plugin="com.mentor.nucleus.bp.utilities"/>
+   </requires>
+</plugin>

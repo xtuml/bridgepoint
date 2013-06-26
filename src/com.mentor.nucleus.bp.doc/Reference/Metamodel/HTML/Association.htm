@@ -1,0 +1,1773 @@
+<html>
+<body>
+<title>Subsystem 'Association'</title>
+<link rel="StyleSheet" href="../../../techpub.css">
+
+<h1>
+<a name="a_1058"></a>
+Subsystem 'Association'
+</h1>
+<p>
+<a name="a_1059"></a>
+The Association subsystem models those model elements used to describe the  associations described in the class diagram. 
+</p>
+<h2>
+<a name="a_1060"></a>
+Links to Classes
+</h2>
+<p>1. <a href="#a_201.Association">Association (R_REL)</a></p>
+<p>2. <a href="#a_209.ClassAsAssociatedOneSide">Class As Associated One Side (R_AONE)</a></p>
+<p>3. <a href="#a_210.ClassAsAssociatedOtherSide">Class As Associated Other Side (R_AOTH)</a></p>
+<p>4. <a href="#a_216.ClassAsDerivedOneSide">Class As Derived One Side (R_CONE)</a></p>
+<p>5. <a href="#a_217.ClassAsDerivedOtherSide">Class As Derived Other Side (R_COTH)</a></p>
+<p>6. <a href="#a_211.ClassAsLink">Class As Link (R_ASSR)</a></p>
+<p>7. <a href="#a_207.ClassAsSimpleFormalizer">Class As Simple Formalizer (R_FORM)</a></p>
+<p>8. <a href="#a_206.ClassAsSimpleParticipant">Class As Simple Participant (R_PART)</a></p>
+<p>9. <a href="#a_214.ClassAsSubtype">Class As Subtype (R_SUB)</a></p>
+<p>10. <a href="#a_213.ClassAsSupertype">Class As Supertype (R_SUPER)</a></p>
+<p>11. <a href="#a_202.ClassInAssociation">Class In Association (R_OIR)</a></p>
+<p>12. <a href="#a_215.DerivedAssociation">Derived Association (R_COMP)</a></p>
+<p>13. <a href="#a_208.LinkedAssociation">Linked Association (R_ASSOC)</a></p>
+<p>14. <a href="#a_203.ReferredToClassinAssoc">Referred To Class in Assoc (R_RTO)</a></p>
+<p>15. <a href="#a_204.ReferringClassInAssoc">Referring Class In Assoc (R_RGO)</a></p>
+<p>16. <a href="#a_205.SimpleAssociation">Simple Association (R_SIMP)</a></p>
+<p>17. <a href="#a_212.SubtypeSupertypeAssociation">Subtype Supertype Association (R_SUBSUP)</a></p>
+</p>
+<h2>
+<a name="a_1061"></a>
+Links to Associations
+</h2>
+<p>
+<a href="#a_R201">R201</a>, <a href="#a_R202">R202</a>, <a href="#a_R203">R203</a>, <a href="#a_R204">R204</a>, <a href="#a_R205">R205</a>, <a href="#a_R206">R206</a>, <a href="#a_R207">R207</a>, <a href="#a_R208">R208</a>, <a href="#a_R209">R209</a>, <a href="#a_R210">R210</a>, <a href="#a_R211">R211</a>, <a href="#a_R212">R212</a>, <a href="#a_R213">R213</a>, <a href="#a_R214">R214</a>, <a href="#a_R215">R215</a></p>
+<h2>
+<a name="a_1062"></a>
+Class and Attribute Descriptions
+</h2>
+<h3>
+<a name="a_201.Association"></a>
+201. Association
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1063"></a>
+Association(Rel_ID, Numb, Descrip, SS_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1064"></a>
+Identifier *: Rel_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1065"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1066"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1067"></a>
+Description: An Association captures an association that exists between things in the  real world. An Association is stated in terms of the formal Class that  participates in the association.
+</p>
+<h4>
+<a name="13_Association.Rel_ID">
+Association.Rel_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1068"></a>
+Full Name: Association Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1069"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1070"></a>
+Data Type: unique_id
+</p>
+<h4>
+Association.Numb
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1071"></a>
+Full Name: Association Number
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1072"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1073"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1074"></a>
+Data Domain: 0-9999
+</p>
+<h4>
+Association.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1075"></a>
+Full Name: Association Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1076"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1077"></a>
+Data Type: string
+</p>
+<h4>
+Association.SS_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1078"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1079"></a>
+Refers to: <a href="Domain.htm#4_Subsystem.SS_ID">Subsystem.SS_ID (R4)</a>
+</p>
+<h3>
+<a name="a_202.ClassInAssociation"></a>
+202. Class In Association
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1080"></a>
+Class In Association(OIR_ID, Obj_ID, Rel_ID, IObj_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1081"></a>
+Identifier *: Obj_ID, OIR_ID, Rel_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1082"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1083"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1084"></a>
+Description: A Class In Association captures the role which a class plays in participating  in an association.
+</p>
+<h4>
+<a name="15_Class In Association.OIR_ID">
+Class In Association.OIR_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1085"></a>
+Full Name: Class In Association Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1086"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1087"></a>
+Data Type: unique_id
+</p>
+<h4>
+Class In Association.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1088"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1089"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R201)</a>
+</p>
+<h4>
+Class In Association.Rel_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1090"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1091"></a>
+Refers to: <a href="Association.htm#13_Association.Rel_ID">Association.Rel_ID (R201)</a>
+</p>
+<h4>
+Class In Association.IObj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1092"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1093"></a>
+Refers to: <a href="Subsystem.htm#16_Imported Class.IObj_ID">Imported Class.IObj_ID (R202)</a>
+</p>
+<h3>
+<a name="a_203.ReferredToClassinAssoc"></a>
+203. Referred To Class in Assoc
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1094"></a>
+Referred To Class In Assoc(Obj_ID, Rel_ID, OIR_ID, Oid_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1095"></a>
+Identifier *: OIR_ID, Obj_ID, Rel_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1096"></a>
+Identifier *2: Obj_ID, Oid_ID, Rel_ID, OIR_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1097"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1098"></a>
+Description: A Referred To Class In Association is a class which contains identifying  attributes which are referred to across the association.
+</p>
+<h4>
+Referred To Class in Assoc.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1099"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1100"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R203)</a>
+</p>
+<h4>
+Referred To Class in Assoc.Rel_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1101"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1102"></a>
+Refers to: <a href="Association.htm#13_Association.Rel_ID">Association.Rel_ID (R203)</a>
+</p>
+<h4>
+Referred To Class in Assoc.OIR_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1103"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1104"></a>
+Refers to: <a href="Association.htm#15_Class In Association.OIR_ID">Class In Association.OIR_ID (R203)</a>
+</p>
+<h4>
+Referred To Class in Assoc.Oid_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1105"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1106"></a>
+Refers to: <a href="Subsystem.htm#17_Class Identifier.Oid_ID">Class Identifier.Oid_ID (R109)</a>
+</p>
+<h3>
+<a name="a_204.ReferringClassInAssoc"></a>
+204. Referring Class In Assoc
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1107"></a>
+Referring Class In Assoc(Obj_ID, Rel_ID, OIR_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1108"></a>
+Identifier *: Obj_ID, Rel_ID, OIR_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1109"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1110"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1111"></a>
+Description: A referring Class In Association is a class which contains referential  attributes which refer to identifying attributes across the association.
+</p>
+<h4>
+Referring Class In Assoc.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1112"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1113"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R203)</a>
+</p>
+<h4>
+Referring Class In Assoc.Rel_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1114"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1115"></a>
+Refers to: <a href="Association.htm#13_Association.Rel_ID">Association.Rel_ID (R203)</a>
+</p>
+<h4>
+Referring Class In Assoc.OIR_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1116"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1117"></a>
+Refers to: <a href="Association.htm#15_Class In Association.OIR_ID">Class In Association.OIR_ID (R203)</a>
+</p>
+<h3>
+<a name="a_205.SimpleAssociation"></a>
+205. Simple Association
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1118"></a>
+Simple Association(Rel_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1119"></a>
+Identifier *: Rel_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1120"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1121"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1122"></a>
+Description: A simple association (R_SIMP) is an association between two classes which  are formalized with referential attributes in one of the classes.  The  class that holds the referential attributes for the association is know as  the referring class in the association (R_RGO) and is the formalizer of the  association (R_FORM).  The class that participates in the association and  carries the identifying attributes used to formalize the association is the  referred to class  (R_RTO) and is a participant in the association (R_PART).
+</p>
+<h4>
+Simple Association.Rel_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1123"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1124"></a>
+Refers to: <a href="Association.htm#13_Association.Rel_ID">Association.Rel_ID (R206)</a>
+</p>
+<h3>
+<a name="a_206.ClassAsSimpleParticipant"></a>
+206. Class As Simple Participant
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1125"></a>
+Class As Simple Participant(Obj_ID, Rel_ID, OIR_ID, Mult, Cond, Txt_Phrs)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1126"></a>
+Identifier *: OIR_ID, Obj_ID, Rel_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1127"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1128"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1129"></a>
+Description: A Class As Simple Participant is the referred to class in a simple  association.
+</p>
+<h4>
+Class As Simple Participant.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1130"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1131"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R204)</a>
+</p>
+<h4>
+Class As Simple Participant.Rel_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1132"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1133"></a>
+Refers to: <a href="Association.htm#13_Association.Rel_ID">Association.Rel_ID (R207)</a>
+</p>
+<h4>
+Class As Simple Participant.OIR_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1134"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1135"></a>
+Refers to: <a href="Association.htm#15_Class In Association.OIR_ID">Class In Association.OIR_ID (R204)</a>
+</p>
+<h4>
+Class As Simple Participant.Mult
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1136"></a>
+Full Name: Multiplicity
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1137"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1138"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1139"></a>
+Description:  Multiplicity at the participant end of the association.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1140"></a>
+Data Domain: 0 = one, 1 = many
+</p>
+<h4>
+Class As Simple Participant.Cond
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1141"></a>
+Full Name: Conditionality
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1142"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1143"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1144"></a>
+Description:  Conditionality at the participant end of the association.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1145"></a>
+Data Domain: 0 = unconditional, 1 = conditional
+</p>
+<h4>
+Class As Simple Participant.Txt_Phrs
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1146"></a>
+Full Name: Text Phrase
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1147"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1148"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1149"></a>
+Description:  Text phrase at the participant end of the association.
+
+</p>
+<h3>
+<a name="a_207.ClassAsSimpleFormalizer"></a>
+207. Class As Simple Formalizer
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1150"></a>
+Class As Simple Formalizer(Obj_ID, Rel_ID, OIR_ID, Mult, Cond, Txt_Phrs)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1151"></a>
+Identifier *: OIR_ID, Rel_ID, Obj_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1152"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1153"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1154"></a>
+Description: A Class As Simple Formalizer is the referring class in a simple association.
+</p>
+<h4>
+Class As Simple Formalizer.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1155"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1156"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R205)</a>
+</p>
+<h4>
+Class As Simple Formalizer.Rel_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1157"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1158"></a>
+Refers to: <a href="Association.htm#13_Association.Rel_ID">Association.Rel_ID (R208)</a>
+</p>
+<h4>
+Class As Simple Formalizer.OIR_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1159"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1160"></a>
+Refers to: <a href="Association.htm#15_Class In Association.OIR_ID">Class In Association.OIR_ID (R205)</a>
+</p>
+<h4>
+Class As Simple Formalizer.Mult
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1161"></a>
+Full Name: Multiplicity
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1162"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1163"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1164"></a>
+Description:  Multiplicity at the formalizing end of the association.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1165"></a>
+Data Domain: 0 = one, 1 = many
+</p>
+<h4>
+Class As Simple Formalizer.Cond
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1166"></a>
+Full Name: Conditionality
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1167"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1168"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1169"></a>
+Description:  Conditionality at the formalizing end of the association.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1170"></a>
+Data Domain: 0 = unconditional, 1 = conditional
+</p>
+<h4>
+Class As Simple Formalizer.Txt_Phrs
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1171"></a>
+Full Name: Text Phrase
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1172"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1173"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1174"></a>
+Description:  Text phrase at the formalizing end of the association.
+
+</p>
+<h3>
+<a name="a_208.LinkedAssociation"></a>
+208. Linked Association
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1175"></a>
+Linked Association(Rel_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1176"></a>
+Identifier *: Rel_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1177"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1178"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1179"></a>
+Description: A linked association (R_ASSOC) is an association between two classes ( R_AONE and R_AOTH)  which is formalized in an associative class (R_ASSR).   The class that holds the referential attributes for  the association is  known as the referring class in the association (R_RGO) and the class that  participates in the association and carries the identifying attributes  used to formalize the association is the referred to class  (R_RTO).   Linked associations require formalization of the association in a class  called the associator (R_ASSR).
+</p>
+<h4>
+Linked Association.Rel_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1180"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1181"></a>
+Refers to: <a href="Association.htm#13_Association.Rel_ID">Association.Rel_ID (R206)</a>
+</p>
+<h3>
+<a name="a_209.ClassAsAssociatedOneSide"></a>
+209. Class As Associated One Side
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1182"></a>
+Class As Associated One Side(Obj_ID, Rel_ID, OIR_ID, Mult, Cond, Txt_Phrs)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1183"></a>
+Identifier *: Obj_ID, Rel_ID, OIR_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1184"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1185"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1186"></a>
+Description: In a linked association, this is one of the two classes in the association.    This class is the one at the other end of the association from R_AOTH.
+</p>
+<h4>
+Class As Associated One Side.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1187"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1188"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R204)</a>
+</p>
+<h4>
+Class As Associated One Side.Rel_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1189"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1190"></a>
+Refers to: <a href="Association.htm#13_Association.Rel_ID">Association.Rel_ID (R209)</a>
+</p>
+<h4>
+Class As Associated One Side.OIR_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1191"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1192"></a>
+Refers to: <a href="Association.htm#15_Class In Association.OIR_ID">Class In Association.OIR_ID (R204)</a>
+</p>
+<h4>
+Class As Associated One Side.Mult
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1193"></a>
+Full Name: Multiplicity
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1194"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1195"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1196"></a>
+Description:  Multiplicity at one end of the linked association.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1197"></a>
+Data Domain: 0 = one, 1 = many
+</p>
+<h4>
+Class As Associated One Side.Cond
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1198"></a>
+Full Name: Conditionality
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1199"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1200"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1201"></a>
+Description:  Conditionality at one end of the linked association.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1202"></a>
+Data Domain: 0 = unconditional, 1 = conditional
+</p>
+<h4>
+Class As Associated One Side.Txt_Phrs
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1203"></a>
+Full Name: Text Phrase
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1204"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1205"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1206"></a>
+Description:  Text phrase at one end of the linked association.
+
+</p>
+<h3>
+<a name="a_210.ClassAsAssociatedOtherSide"></a>
+210. Class As Associated Other Side
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1207"></a>
+Class As Associated Other Side(Obj_ID, Rel_ID, OIR_ID, Mult, Cond, Txt_Phrs)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1208"></a>
+Identifier *: Rel_ID, Obj_ID, OIR_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1209"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1210"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1211"></a>
+Description: In a linked association, this is one of the two classes in the association.   This class is the one at the other end of the association from R_AONE.
+</p>
+<h4>
+Class As Associated Other Side.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1212"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1213"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R204)</a>
+</p>
+<h4>
+Class As Associated Other Side.Rel_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1214"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1215"></a>
+Refers to: <a href="Association.htm#13_Association.Rel_ID">Association.Rel_ID (R210)</a>
+</p>
+<h4>
+Class As Associated Other Side.OIR_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1216"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1217"></a>
+Refers to: <a href="Association.htm#15_Class In Association.OIR_ID">Class In Association.OIR_ID (R204)</a>
+</p>
+<h4>
+Class As Associated Other Side.Mult
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1218"></a>
+Full Name: Multiplicity
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1219"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1220"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1221"></a>
+Description:  Multiplicity at one end of the linked association. 
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1222"></a>
+Data Domain: 0 = one, 1 = many
+</p>
+<h4>
+Class As Associated Other Side.Cond
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1223"></a>
+Full Name: Conditionality
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1224"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1225"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1226"></a>
+Description:  Conditionality at one end of the linked association.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1227"></a>
+Data Domain: 0 = unconditional, 1 = conditional
+</p>
+<h4>
+Class As Associated Other Side.Txt_Phrs
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1228"></a>
+Full Name: Text Phrase
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1229"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1230"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1231"></a>
+Description:  Text phrase at one end of the linked association.
+
+</p>
+<h3>
+<a name="a_211.ClassAsLink"></a>
+211. Class As Link
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1232"></a>
+Class As Link(Obj_ID, Rel_ID, OIR_ID, Mult)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1233"></a>
+Identifier *: Rel_ID, OIR_ID, Obj_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1234"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1235"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1236"></a>
+Description: The Associator is the class that formalizes the linked association between  two classes.
+</p>
+<h4>
+Class As Link.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1237"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1238"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R205)</a>
+</p>
+<h4>
+Class As Link.Rel_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1239"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1240"></a>
+Refers to: <a href="Association.htm#13_Association.Rel_ID">Association.Rel_ID (R211)</a>
+</p>
+<h4>
+Class As Link.OIR_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1241"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1242"></a>
+Refers to: <a href="Association.htm#15_Class In Association.OIR_ID">Class In Association.OIR_ID (R205)</a>
+</p>
+<h4>
+Class As Link.Mult
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1243"></a>
+Full Name: Multiplicity
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1244"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1245"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1246"></a>
+Description:  Multiplicity of the associator.  Indicates how many instances 
+of the associator may exist for each instance of the association between 
+the two related classes.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1247"></a>
+Data Domain: 0 = one, 1 = many
+</p>
+<h3>
+<a name="a_212.SubtypeSupertypeAssociation"></a>
+212. Subtype Supertype Association
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1248"></a>
+Subtype Supertype Association(Rel_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1249"></a>
+Identifier *: Rel_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1250"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1251"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1252"></a>
+Description: A supertype/subtype association (R_SUBSUP) is an association between two  classes, a supertype (R_SUPER) and a subtype (R_SUB).  The class that holds the  referential attributes for  the association is known as the referring  class in the association (R_RGO) and the class that participates in the  association and carries the identifying attributes used to formalize the  association is the referred to class (R_RTO).  Supertype/Subtype associations  are always formalized in the subtype (R_SUB).
+</p>
+<h4>
+Subtype Supertype Association.Rel_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1253"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1254"></a>
+Refers to: <a href="Association.htm#13_Association.Rel_ID">Association.Rel_ID (R206)</a>
+</p>
+<h3>
+<a name="a_213.ClassAsSupertype"></a>
+213. Class As Supertype
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1255"></a>
+Class As Supertype(Obj_ID, Rel_ID, OIR_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1256"></a>
+Identifier *: OIR_ID, Obj_ID, Rel_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1257"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1258"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1259"></a>
+Description: This class represents a class playing a supertype role in a supertype/subtype  association.
+</p>
+<h4>
+Class As Supertype.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1260"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1261"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R204)</a>
+</p>
+<h4>
+Class As Supertype.Rel_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1262"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1263"></a>
+Refers to: <a href="Association.htm#13_Association.Rel_ID">Association.Rel_ID (R212)</a>
+</p>
+<h4>
+Class As Supertype.OIR_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1264"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1265"></a>
+Refers to: <a href="Association.htm#15_Class In Association.OIR_ID">Class In Association.OIR_ID (R204)</a>
+</p>
+<h3>
+<a name="a_214.ClassAsSubtype"></a>
+214. Class As Subtype
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1266"></a>
+Class As Subtype(Obj_ID, Rel_ID, OIR_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1267"></a>
+Identifier *: OIR_ID, Rel_ID, Obj_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1268"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1269"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1270"></a>
+Description: This class represents a class playing a subtype role in a supertype/subtype  association.
+</p>
+<h4>
+Class As Subtype.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1271"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1272"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R205)</a>
+</p>
+<h4>
+Class As Subtype.Rel_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1273"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1274"></a>
+Refers to: <a href="Association.htm#13_Association.Rel_ID">Association.Rel_ID (R213)</a>
+</p>
+<h4>
+Class As Subtype.OIR_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1275"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1276"></a>
+Refers to: <a href="Association.htm#15_Class In Association.OIR_ID">Class In Association.OIR_ID (R205)</a>
+</p>
+<h3>
+<a name="a_215.DerivedAssociation"></a>
+215. Derived Association
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1277"></a>
+Derived Association(Rel_ID, Rel_Chn)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1278"></a>
+Identifier *: Rel_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1279"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1280"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1281"></a>
+Description: A compositional association (R_COMP) is an association between two classes  R_CONE, on one side of the association, and R_COTH, on the other.   A compositional association is one  that is formalized by a query along  other associations in a loop (R_COMP.Rel_Chn).
+</p>
+<h4>
+Derived Association.Rel_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1282"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1283"></a>
+Refers to: <a href="Association.htm#13_Association.Rel_ID">Association.Rel_ID (R206)</a>
+</p>
+<h4>
+Derived Association.Rel_Chn
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1284"></a>
+Full Name: Association Chain
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1285"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1286"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1287"></a>
+Description:  Composed association chain as it appears in the model.
+
+</p>
+<h3>
+<a name="a_216.ClassAsDerivedOneSide"></a>
+216. Class As Derived One Side
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1288"></a>
+Class As Derived One Side(Obj_ID, Rel_ID, OIR_ID, Mult, Cond, Txt_Phrs)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1289"></a>
+Identifier *: OIR_ID, Rel_ID, Obj_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1290"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1291"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1292"></a>
+Description: In a compositional association, this is one of the two classes in the  association.   This class is the one at the other end of the association  from R_COTH.
+</p>
+<h4>
+Class As Derived One Side.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1293"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1294"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R203)</a>
+</p>
+<h4>
+Class As Derived One Side.Rel_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1295"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1296"></a>
+Refers to: <a href="Association.htm#13_Association.Rel_ID">Association.Rel_ID (R214)</a>
+</p>
+<h4>
+Class As Derived One Side.OIR_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1297"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1298"></a>
+Refers to: <a href="Association.htm#15_Class In Association.OIR_ID">Class In Association.OIR_ID (R203)</a>
+</p>
+<h4>
+Class As Derived One Side.Mult
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1299"></a>
+Full Name: Multiplicity
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1300"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1301"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1302"></a>
+Description:  Multiplicity at one side of the compositional association.  
+This attribute is derived from the multiplicities of the classes on the far 
+end of each association in the chain when navigating the loop as specified 
+in R_COMP.Rel_Chn from this class (R_CONE)  to the other participating in the 
+association (R_COTH).  It is one when all multiplicities at the far ends in 
+the loop are one, else it is many.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1303"></a>
+Data Domain: 0 = one, 1 = many
+</p>
+<h4>
+Class As Derived One Side.Cond
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1304"></a>
+Full Name: Conditionality
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1305"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1306"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1307"></a>
+Description:  Conditionality at one side of the compositional association.  
+This attribute is derived from the conditionalities of the classes on the 
+far end of each association in the chain when navigating the loop as specified 
+in R_COMP.Rel_Chn from this class (R_CONE)  to the other participating in the 
+association (R_COTH).  It is one when all conditionalities at the far ends in 
+the loop are one, else it is many.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1308"></a>
+Data Domain: 0 = one, 1 = many
+</p>
+<h4>
+Class As Derived One Side.Txt_Phrs
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1309"></a>
+Full Name: Text Phrase
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1310"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1311"></a>
+Data Type: string
+</p>
+<h3>
+<a name="a_217.ClassAsDerivedOtherSide"></a>
+217. Class As Derived Other Side
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1312"></a>
+Class As Derived Other Side(Obj_ID, Rel_ID, OIR_ID, Mult, Cond, Txt_Phrs)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1313"></a>
+Identifier *: Obj_ID, OIR_ID, Rel_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1314"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1315"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1316"></a>
+Description: In a compositional association, this is one of the two classes in the  association.   This class is the one at the other end of the association  from R_CONE.
+</p>
+<h4>
+Class As Derived Other Side.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1317"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1318"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R203)</a>
+</p>
+<h4>
+Class As Derived Other Side.Rel_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1319"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1320"></a>
+Refers to: <a href="Association.htm#13_Association.Rel_ID">Association.Rel_ID (R215)</a>
+</p>
+<h4>
+Class As Derived Other Side.OIR_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1321"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1322"></a>
+Refers to: <a href="Association.htm#15_Class In Association.OIR_ID">Class In Association.OIR_ID (R203)</a>
+</p>
+<h4>
+Class As Derived Other Side.Mult
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1323"></a>
+Full Name: Multiplicity
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1324"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1325"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1326"></a>
+Description:  Multiplicity at the other side of the compositional association.  
+This attribute is derived from the multiplicities of the classes on the far 
+end of each association in the chain when navigating the loop as specified in 
+R_COMP.Rel_Chn from this class (R_COTH)  to the other participating in the 
+association (R_CONE).  It is one when all multiplicities at the far ends in 
+the loop are one, else it is many.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1327"></a>
+Data Domain: 0 = one, 1 = many
+</p>
+<h4>
+Class As Derived Other Side.Cond
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1328"></a>
+Full Name: Conditionality
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1329"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1330"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1331"></a>
+Description:  Conditionality at the other side of the compositional 
+association.  This attribute is derived from the conditionalities of 
+the classes on the far end of each association in the chain when navigating 
+the loop as specified in R_COMP.Rel_Chn from this class (R_COTH)  to the 
+other participating in the association (R_CONE).  It is one when all 
+conditionalities at the far ends in the loop are one, else it is many.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1332"></a>
+Data Domain: 0 = one, 1 = many
+</p>
+<h4>
+Class As Derived Other Side.Txt_Phrs
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1333"></a>
+Full Name: Text Phrase
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1334"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1335"></a>
+Data Type: string
+</p>
+<h2>
+<a name="a_1336"></a>
+Association Descriptions
+</h2>
+<h3>
+<a name="a_R201"></a>
+R201
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1337"></a>
+Relationship Type: Associative
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1338"></a>
+Multiplicity/Conditionality: M-(Mc:M)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1339"></a>
+Association <em>abstracts association between instances of</em> Model Class
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1340"></a>
+Model Class <em>has instance associations abstracted</em> Association
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1341"></a>
+Formalized By: Class In Association.Obj_ID, Class In Association.Rel_ID
+</p>
+<h3>
+<a name="a_R202"></a>
+R202
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1342"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1343"></a>
+Multiplicity/Conditionality: 1c: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1344"></a>
+Imported Class <em>is used for spanning associations as</em> Class In Association
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1345"></a>
+Class In Association <em>may be represented by Imported Class
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1346"></a>
+Formalized By: Imported Class.IObj_ID
+</p>
+<h3>
+<a name="a_R203"></a>
+R203
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1347"></a>
+Relationship Type: Subtype/Supertype
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1348"></a>
+Subtypes: Referred To Class in Assoc(R_RTO), Referring Class In Assoc(R_RGO), Class As Derived One Side(R_CONE), Class As Derived Other Side(R_COTH)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1349"></a>
+Formalized By: Class In Association.Obj_ID, Class In Association.Rel_ID, Class In Association.OIR_ID
+</p>
+<h3>
+<a name="a_R204"></a>
+R204
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1350"></a>
+Relationship Type: Subtype/Supertype
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1351"></a>
+Subtypes: Class As Supertype(R_SUPER), Class As Simple Participant(R_PART), Class As Associated One Side(R_AONE), Class As Associated Other Side(R_AOTH)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1352"></a>
+Formalized By: Referred To Class in Assoc.Obj_ID, Referred To Class in Assoc.Rel_ID, Referred To Class in Assoc.OIR_ID
+</p>
+<h3>
+<a name="a_R205"></a>
+R205
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1353"></a>
+Relationship Type: Subtype/Supertype
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1354"></a>
+Subtypes: Class As Subtype(R_SUB), Class As Simple Formalizer(R_FORM), Class As Link(R_ASSR)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1355"></a>
+Formalized By: Referring Class In Assoc.Obj_ID, Referring Class In Assoc.Rel_ID, Referring Class In Assoc.OIR_ID
+</p>
+<h3>
+<a name="a_R206"></a>
+R206
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1356"></a>
+Relationship Type: Subtype/Supertype
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1357"></a>
+Subtypes: Simple Association(R_SIMP), Derived Association(R_COMP), Linked Association(R_ASSOC), Subtype Supertype Association(R_SUBSUP)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1358"></a>
+Formalized By: Association.Rel_ID
+</p>
+<h3>
+<a name="a_R207"></a>
+R207
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1359"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1360"></a>
+Multiplicity/Conditionality: 1: M
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1361"></a>
+Simple Association <em>relates</em> Class As Simple Participant
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1362"></a>
+Class As Simple Participant <em>is related to formalizer via Simple Association
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1363"></a>
+Formalized By: Simple Association.Rel_ID
+</p>
+<h3>
+<a name="a_R208"></a>
+R208
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1364"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1365"></a>
+Multiplicity/Conditionality: 1: 1c
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1366"></a>
+Simple Association <em>relates</em> Class As Simple Formalizer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1367"></a>
+Class As Simple Formalizer <em>is related to participant via Simple Association
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1368"></a>
+Formalized By: Simple Association.Rel_ID
+</p>
+<h3>
+<a name="a_R209"></a>
+R209
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1369"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1370"></a>
+Multiplicity/Conditionality: 1: 1
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1371"></a>
+Linked Association <em>relates</em> Class As Associated One Side
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1372"></a>
+Class As Associated One Side <em>is related to other side via Linked Association
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1373"></a>
+Formalized By: Linked Association.Rel_ID
+</p>
+<h3>
+<a name="a_R210"></a>
+R210
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1374"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1375"></a>
+Multiplicity/Conditionality: 1: 1
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1376"></a>
+Linked Association <em>relates</em> Class As Associated Other Side
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1377"></a>
+Class As Associated Other Side <em>is related to one side via Linked Association
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1378"></a>
+Formalized By: Linked Association.Rel_ID
+</p>
+<h3>
+<a name="a_R211"></a>
+R211
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1379"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1380"></a>
+Multiplicity/Conditionality: 1: 1
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1381"></a>
+Linked Association <em>uses a formalizer</em> Class As Link
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1382"></a>
+Class As Link <em>formalizes association between associated classes Linked Association
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1383"></a>
+Formalized By: Linked Association.Rel_ID
+</p>
+<h3>
+<a name="a_R212"></a>
+R212
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1384"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1385"></a>
+Multiplicity/Conditionality: 1: 1
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1386"></a>
+Subtype Supertype Association <em>relates</em> Class As Supertype
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1387"></a>
+Class As Supertype <em>is related to subtypes via Subtype Supertype Association
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1388"></a>
+Formalized By: Subtype Supertype Association.Rel_ID
+</p>
+<h3>
+<a name="a_R213"></a>
+R213
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1389"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1390"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1391"></a>
+Subtype Supertype Association <em>relates</em> Class As Subtype
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1392"></a>
+Class As Subtype <em>is related to supertype via Subtype Supertype Association
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1393"></a>
+Formalized By: Subtype Supertype Association.Rel_ID
+</p>
+<h3>
+<a name="a_R214"></a>
+R214
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1394"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1395"></a>
+Multiplicity/Conditionality: 1: 1
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1396"></a>
+Derived Association <em>relates</em> Class As Derived One Side
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1397"></a>
+Class As Derived One Side <em>is related to other type via Derived Association
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1398"></a>
+Formalized By: Derived Association.Rel_ID
+</p>
+<h3>
+<a name="a_R215"></a>
+R215
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1399"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1400"></a>
+Multiplicity/Conditionality: 1: 1
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1401"></a>
+Derived Association <em>relates</em> Class As Derived Other Side
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1402"></a>
+Class As Derived Other Side <em>is related to one side via Derived Association
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1403"></a>
+Formalized By: Derived Association.Rel_ID
+</p>
+</body>
+</html>
+

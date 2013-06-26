@@ -1,0 +1,40 @@
+-- BP 7.1 content: Interface syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO C_I
+	VALUES ("450f466e-4ca5-43e3-be0c-0acbd2fb6837",
+	"00000000-0000-0000-0000-000000000000",
+	'peripherals',
+	'');
+INSERT INTO C_EP
+	VALUES ("75291f74-ad1c-4651-a141-907b284326be",
+	"450f466e-4ca5-43e3-be0c-0acbd2fb6837",
+	-1);
+INSERT INTO C_AS
+	VALUES ("75291f74-ad1c-4651-a141-907b284326be",
+	'heartRate',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO C_PP
+	VALUES ("5eccaef2-bd99-4934-a5ca-f13386b84af4",
+	"75291f74-ad1c-4651-a141-907b284326be",
+	"3ea1afb9-445e-4890-999a-dd7b42176a56",
+	'beatsPerMinute',
+	'',
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("3ea1afb9-445e-4890-999a-dd7b42176a56",
+	"00000000-0000-0000-0000-000000000000",
+	'integer',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO PE_PE_PROXY
+	VALUES ("450f466e-4ca5-43e3-be0c-0acbd2fb6837",
+	1,
+	"4f67e282-5877-4285-a8e7-8769e4b5959f",
+	"00000000-0000-0000-0000-000000000000",
+	6,
+	'../data recording.xtuml');

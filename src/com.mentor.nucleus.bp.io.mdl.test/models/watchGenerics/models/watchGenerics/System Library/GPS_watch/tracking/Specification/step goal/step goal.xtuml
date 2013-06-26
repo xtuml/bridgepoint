@@ -1,0 +1,25 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("099c6e76-02dd-43ff-8e16-f0071b53b385",
+	'step goal',
+	108,
+	'SGOAL',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_ID
+	VALUES (0,
+	"099c6e76-02dd-43ff-8e16-f0071b53b385");
+INSERT INTO O_ID
+	VALUES (1,
+	"099c6e76-02dd-43ff-8e16-f0071b53b385");
+INSERT INTO O_ID
+	VALUES (2,
+	"099c6e76-02dd-43ff-8e16-f0071b53b385");
+INSERT INTO PE_PE_PROXY
+	VALUES ("099c6e76-02dd-43ff-8e16-f0071b53b385",
+	1,
+	"46db48b0-92c9-4562-8c74-4938e11b7dda",
+	"00000000-0000-0000-0000-000000000000",
+	4,
+	'../Specification.xtuml');

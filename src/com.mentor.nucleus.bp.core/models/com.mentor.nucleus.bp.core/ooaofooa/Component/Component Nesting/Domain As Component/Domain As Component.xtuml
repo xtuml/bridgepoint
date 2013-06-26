@@ -1,0 +1,144 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("3f9a694a-f499-449a-a48d-7baca2480ceb",
+	'Domain As Component',
+	4203,
+	'CN_DC',
+	'',
+	"675a1f4a-34a9-412f-990a-badff1261a13");
+INSERT INTO O_REF
+	VALUES ("3f9a694a-f499-449a-a48d-7baca2480ceb",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"17d61d79-7063-48df-a8b7-1279abe7bab2",
+	"384fe320-51cd-4821-8c49-f19f572a68db",
+	"042293e6-a52f-46ce-b374-52299bbb8832",
+	"a81ce6a4-69fa-4d0a-bc25-81230abcc7e5",
+	"8c09dfba-71c2-4008-9ee9-d473e86375ec",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Domain',
+	'Dom_ID',
+	'R4204');
+INSERT INTO R_RGO_PROXY
+	VALUES ("3f9a694a-f499-449a-a48d-7baca2480ceb",
+	"17d61d79-7063-48df-a8b7-1279abe7bab2",
+	"384fe320-51cd-4821-8c49-f19f572a68db",
+	'../Component Nesting.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	"17d61d79-7063-48df-a8b7-1279abe7bab2",
+	"042293e6-a52f-46ce-b374-52299bbb8832",
+	'../Component Nesting.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("a81ce6a4-69fa-4d0a-bc25-81230abcc7e5",
+	"3f9a694a-f499-449a-a48d-7baca2480ceb",
+	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	1,
+	'Dom_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	'../../../Domain/Domain/Domain.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("a81ce6a4-69fa-4d0a-bc25-81230abcc7e5",
+	"3f9a694a-f499-449a-a48d-7baca2480ceb",
+	"7531e325-e75d-4b66-85e7-ea0e236b2ecd",
+	'Dom_ID',
+	'',
+	'',
+	'Dom_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("3f9a694a-f499-449a-a48d-7baca2480ceb",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	0,
+	"7b9804b1-294c-4909-b563-aae43167f8d6",
+	"17d61d79-7063-48df-a8b7-1279abe7bab2",
+	"384fe320-51cd-4821-8c49-f19f572a68db",
+	"959595f8-bcc4-4882-89ee-de9688f1a733",
+	"7531e325-e75d-4b66-85e7-ea0e236b2ecd",
+	"87fb3bde-f9c1-4f49-941d-8390471ce72a",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Component',
+	'Id',
+	'R4204');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("7b9804b1-294c-4909-b563-aae43167f8d6",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	0,
+	"17d61d79-7063-48df-a8b7-1279abe7bab2",
+	"959595f8-bcc4-4882-89ee-de9688f1a733",
+	'../Component Nesting.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("7531e325-e75d-4b66-85e7-ea0e236b2ecd",
+	"3f9a694a-f499-449a-a48d-7baca2480ceb",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("7531e325-e75d-4b66-85e7-ea0e236b2ecd",
+	"3f9a694a-f499-449a-a48d-7baca2480ceb",
+	"00000000-0000-0000-0000-000000000000",
+	'Id',
+	'',
+	'',
+	'Id',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"3f9a694a-f499-449a-a48d-7baca2480ceb");
+INSERT INTO O_OIDA
+	VALUES ("a81ce6a4-69fa-4d0a-bc25-81230abcc7e5",
+	"3f9a694a-f499-449a-a48d-7baca2480ceb",
+	0,
+	'Dom_ID');
+INSERT INTO O_OIDA
+	VALUES ("7531e325-e75d-4b66-85e7-ea0e236b2ecd",
+	"3f9a694a-f499-449a-a48d-7baca2480ceb",
+	0,
+	'Id');
+INSERT INTO O_ID
+	VALUES (1,
+	"3f9a694a-f499-449a-a48d-7baca2480ceb");
+INSERT INTO O_ID
+	VALUES (2,
+	"3f9a694a-f499-449a-a48d-7baca2480ceb");
+INSERT INTO S_SS_PROXY
+	VALUES ("675a1f4a-34a9-412f-990a-badff1261a13",
+	'Component Nesting',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+
+The Component Diagram subsystem captures data specific to diagram behavior.',
+	'CD',
+	4200,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Component Nesting.xtuml');

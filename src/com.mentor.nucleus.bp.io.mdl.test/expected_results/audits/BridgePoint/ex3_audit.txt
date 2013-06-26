@@ -1,0 +1,77 @@
+AUDIT RESULTS FOR DOMAIN ex3
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+ex
+
+FUNCTIONS WITHOUT DESCRIPTIONS:
+LogDateAndTime
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+External Entity Architecture
+External Entity Logger
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Architecture::shutdown
+External Entity Bridge Logger::LogFailure
+External Entity Bridge Logger::LogSuccess
+External Entity Bridge Logger::LogInfo
+External Entity Bridge Logger::LogDate
+External Entity Bridge Logger::LogTime
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class ex::Initialization
+Class ex::Boolean Expressions
+Class ex::Integer Expressions
+Class ex::Real Expressions
+Class ex::String Expressions
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Initialization::id
+Attribute Initialization::current_state
+Attribute Boolean Expressions::id
+Attribute Boolean Expressions::b
+Attribute Boolean Expressions::my_b
+Attribute Boolean Expressions::current_state
+Attribute Integer Expressions::id
+Attribute Integer Expressions::i
+Attribute Integer Expressions::my_i
+Attribute Integer Expressions::current_state
+Attribute Real Expressions::id
+Attribute Real Expressions::r
+Attribute Real Expressions::my_r
+Attribute Real Expressions::current_state
+Attribute String Expressions::id
+Attribute String Expressions::s
+Attribute String Expressions::my_s
+Attribute String Expressions::current_state
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Initialization
+State Model Boolean Expressions
+State Model Integer Expressions
+State Model Real Expressions
+State Model String Expressions
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event BEX2
+Event BEX1
+Event IEX1
+Event IEX2
+Event REX2
+Event REX1
+Event SEX2
+Event SEX1
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Initialization::Init
+Boolean Expressions::Check Defaults and Assign
+Boolean Expressions::Boolean Operators
+Boolean Expressions::Binary Operations
+Integer Expressions::Check Defaults and Assign
+Integer Expressions::Boolean Operators
+Real Expressions::Check Defaults and Assign
+Real Expressions::Boolean Operators
+String Expressions::Check Defaults and Assign
+String Expressions::Boolean Operators

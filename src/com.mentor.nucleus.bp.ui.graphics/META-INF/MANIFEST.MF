@@ -1,0 +1,29 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Graphics Plug-in
+Bundle-SymbolicName: com.mentor.nucleus.bp.ui.graphics;singleton:=true
+Bundle-Version: 4.0.3
+Bundle-Activator: com.mentor.nucleus.bp.ui.graphics.Activator
+Bundle-Vendor: Mentor Graphics
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ com.mentor.nucleus.bp.ui.canvas,
+ org.eclipse.gef,
+ com.mentor.nucleus.bp.core,
+ org.eclipse.ui.ide,
+ org.eclipse.core.resources,
+ org.eclipse.ui.views,
+ com.mentor.nucleus.bp.ui.properties,
+ org.eclipse.gmf.runtime.diagram.ui;bundle-version="1.1.3",
+ com.mentor.nucleus.bp.ui.explorer
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Export-Package: com.mentor.nucleus.bp.ui.graphics.actions,
+ com.mentor.nucleus.bp.ui.graphics.commands,
+ com.mentor.nucleus.bp.ui.graphics.editor,
+ com.mentor.nucleus.bp.ui.graphics.figures,
+ com.mentor.nucleus.bp.ui.graphics.listeners,
+ com.mentor.nucleus.bp.ui.graphics.outline,
+ com.mentor.nucleus.bp.ui.graphics.parts,
+ com.mentor.nucleus.bp.ui.graphics.print,
+ com.mentor.nucleus.bp.ui.graphics.tools

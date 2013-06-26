@@ -1,0 +1,5 @@
+drawRectangle(0, 0, 684, 512)
+drawText("«external entity»", 141, 11, true)
+drawText("test_project_referenced:...", 24, 76, true)
+drawline(0, 158, 684, 158)
+drawline(0, 185, 684, 185)

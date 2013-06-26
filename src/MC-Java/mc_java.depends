@@ -1,0 +1,18 @@
+#==========================================================================
+#
+# File:      $RCSfile: mc_java.depends,v $
+# Version:   $Revision: 1.13 $
+# Modified:  $Date: 2013/01/10 23:16:48 $
+#
+# (c) Copyright 2003-2013 Mentor Graphics Corporation  All rights reserved.
+#
+#==========================================================================
+
+ooa_oal_pop.arc.depends : ooa_oal_pop.arc,fragment.inc
+
+java.arc.depends : java.arc,do_type.inc,arch_utils.inc, \
+                   enums.inc,model_element.inc,value.inc,statement.inc, \
+                   block.inc,referring.inc,referred_to.inc,translate_oal.inc, \
+				   verify_selects.arc, model_consistency.inc, \
+				   model_consistency_functions.inc
+

@@ -1,0 +1,54 @@
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("b47d6783-3268-4ece-970e-b96e521a37a1",
+	"00000000-0000-0000-0000-000000000000",
+	"2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'UCP in UCP',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("76cf2f59-707f-4452-b05e-9580baaf3979",
+	112,
+	"b47d6783-3268-4ece-970e-b96e521a37a1",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'testProp::UC Package::UCP in UCP');
+INSERT INTO DIM_DIA
+	VALUES ("76cf2f59-707f-4452-b05e-9580baaf3979",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("b47d6783-3268-4ece-970e-b96e521a37a1",
+	1,
+	"87685a52-3339-4847-a2e7-c17e19d04748",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("87685a52-3339-4847-a2e7-c17e19d04748",
+	"00000000-0000-0000-0000-000000000000",
+	"2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'UC Package',
+	'',
+	0,
+	'../UC Package.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'com.mentor.nucleus.bp.ui.properties.test',
+	1,
+	'../../../com.mentor.nucleus.bp.ui.properties.test.xtuml');

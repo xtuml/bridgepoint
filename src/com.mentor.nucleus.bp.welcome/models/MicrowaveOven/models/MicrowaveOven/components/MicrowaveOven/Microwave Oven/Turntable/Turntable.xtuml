@@ -1,0 +1,73 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("48a311fd-78e5-4647-865c-32abb40b09fe",
+	'Turntable',
+	6,
+	'MO_TRN',
+	'A flat circular platter positioned in the middle of the oven floor, where food is placed for cooking. The platter takes the form of a turntable, rotating at a constant speed during cooking to uniformly distribute microwave radiation through the food. ',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("9c573361-0bc4-4860-aacc-90b0d5caf8fd",
+	"48a311fd-78e5-4647-865c-32abb40b09fe");
+INSERT INTO O_BATTR
+	VALUES ("9c573361-0bc4-4860-aacc-90b0d5caf8fd",
+	"48a311fd-78e5-4647-865c-32abb40b09fe");
+INSERT INTO O_ATTR
+	VALUES ("9c573361-0bc4-4860-aacc-90b0d5caf8fd",
+	"48a311fd-78e5-4647-865c-32abb40b09fe",
+	"00000000-0000-0000-0000-000000000000",
+	'TurntableID',
+	'',
+	'',
+	'TurntableID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("dd5acc32-77f6-4396-8c2c-9aa78b6cc68d",
+	"48a311fd-78e5-4647-865c-32abb40b09fe");
+INSERT INTO O_BATTR
+	VALUES ("dd5acc32-77f6-4396-8c2c-9aa78b6cc68d",
+	"48a311fd-78e5-4647-865c-32abb40b09fe");
+INSERT INTO O_ATTR
+	VALUES ("dd5acc32-77f6-4396-8c2c-9aa78b6cc68d",
+	"48a311fd-78e5-4647-865c-32abb40b09fe",
+	"9c573361-0bc4-4860-aacc-90b0d5caf8fd",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"48a311fd-78e5-4647-865c-32abb40b09fe");
+INSERT INTO O_OIDA
+	VALUES ("9c573361-0bc4-4860-aacc-90b0d5caf8fd",
+	"48a311fd-78e5-4647-865c-32abb40b09fe",
+	0,
+	'TurntableID');
+INSERT INTO O_ID
+	VALUES (1,
+	"48a311fd-78e5-4647-865c-32abb40b09fe");
+INSERT INTO O_ID
+	VALUES (2,
+	"48a311fd-78e5-4647-865c-32abb40b09fe");
+INSERT INTO PE_PE
+	VALUES ("48a311fd-78e5-4647-865c-32abb40b09fe",
+	1,
+	"235fff0c-3d20-4fa1-8536-1c30278a65d1",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("235fff0c-3d20-4fa1-8536-1c30278a65d1",
+	"00000000-0000-0000-0000-000000000000",
+	"9cd2cdcf-1f2b-42ce-bc35-718a90a05cab",
+	'Microwave Oven',
+	'The microwave oven subsystem models the microwave oven application',
+	1,
+	'../Microwave Oven.xtuml');

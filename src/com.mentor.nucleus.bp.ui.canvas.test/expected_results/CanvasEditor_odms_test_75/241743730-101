@@ -1,0 +1,4 @@
+drawRectangle(325, 141, 169, 62)
+drawRectangle(325, 198, 577, 521)
+drawText("«function»", 512, 209, true)
+drawText("Unnamed Function Pack...", 359, 433, true)

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+===================================================================
+File:      $RCSfile: plugin.xml,v $
+Version:   $Revision: 1.90 $
+Modified:  $Date: 2013/06/24 14:48:14 $
+
+(c) Copyright 2006-2013 by Mentor Graphics Corp. All rights reserved.
+
+===================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+===================================================================
+This file is the plugin manifest for the BridgePoint Model Explorer
+plugin.
+===================================================================
+-->
+<plugin
+   id="com.mentor.nucleus.bp.ui.explorer"
+   name="BridgePoint Explorer Plug-in"
+   version="4.0.3"
+   provider-name="Mentor Graphics"
+   class="com.mentor.nucleus.bp.ui.explorer.ExplorerPlugin">
+
+   <runtime>
+      <library name="explorer.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.ui.views"/>
+      <import plugin="org.eclipse.ui.workbench.texteditor"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="com.mentor.nucleus.bp.core"/>
+      <import plugin="com.mentor.nucleus.bp.ui.properties"/>
+   </requires>
+
+   <extension
+         id="com.mentor.nucleus.bp.ui.explorer.viewer"
+         name="Model Explorer"
+         point="org.eclipse.ui.views">
+      <view
+            name="Model Explorer"
+            icon="platform:/plugin/com.mentor.nucleus.bp.core/icons/green-bp.gif"
+            category="com.mentor.nucleus.bp.core.ui.viewcats.bp"
+            class="com.mentor.nucleus.bp.ui.explorer.ExplorerView"
+            id="com.mentor.nucleus.bp.ui.explorer.ExplorerView">
+      </view>
+   </extension>
+   <extension
+         id="com.mentor.nucleus.bp.ui.explorer.mon_viewer"
+         name="Monitor"
+         point="org.eclipse.ui.views">
+      <view
+            name="Spotlight"
+            icon="platform:/plugin/com.mentor.nucleus.bp.core/icons/green-bp.gif"
+            category="com.mentor.nucleus.bp.core.ui.viewcats.bp"
+            class="com.mentor.nucleus.bp.ui.explorer.MonitorView"
+            id="com.mentor.nucleus.bp.ui.explorer.MonitorExplorerView">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts file="contexts/contexts.xml"/>
+   </extension>
+   <extension
+         id="xtumlproblem"
+         name="xtUML Problem"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.eclipse.core.resources.problemmarker"/>
+      <persistent value="true"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.decorators">
+   <decorator
+         class="com.mentor.nucleus.bp.ui.explorer.decorators.SynchronizationDecorator"
+         id="com.mentor.nucleus.bp.ui.explorer.synchronizationDecorator"
+         label="BridgePoint Synchronization Decorator"
+         lightweight="true"
+         state="true">
+      <enablement>
+         <or>
+            <objectClass
+                  name="com.mentor.nucleus.bp.core.common.NonRootModelElement">
+            </objectClass>
+         </or>
+      </enablement>
+   </decorator>
+   </extension>
+
+</plugin>

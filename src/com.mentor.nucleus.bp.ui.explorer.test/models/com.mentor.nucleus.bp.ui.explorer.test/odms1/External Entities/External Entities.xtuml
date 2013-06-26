@@ -1,0 +1,517 @@
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("4c0d27e2-1c81-4533-879c-6d66d5d51339",
+	"00000000-0000-0000-0000-000000000000",
+	"32def5f7-ad70-424b-8b01-6d644bf7c337",
+	'External Entities',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("4a14346d-6c3c-4ac5-be9a-aedd2fac8d70",
+	112,
+	"4c0d27e2-1c81-4533-879c-6d66d5d51339",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'odms1::External Entities');
+INSERT INTO GD_GE
+	VALUES ("967907d0-d6e2-4f76-aefb-37f8620b05d8",
+	"4a14346d-6c3c-4ac5-be9a-aedd2fac8d70",
+	"82a82e32-9f94-4492-a8be-a542d14c0b75",
+	12,
+	0,
+	'odms1::External Entities::PIO');
+INSERT INTO GD_SHP
+	VALUES ("967907d0-d6e2-4f76-aefb-37f8620b05d8");
+INSERT INTO GD_NCS
+	VALUES ("967907d0-d6e2-4f76-aefb-37f8620b05d8");
+INSERT INTO DIM_ND
+	VALUES (160.000000,
+	96.000000,
+	"967907d0-d6e2-4f76-aefb-37f8620b05d8");
+INSERT INTO DIM_GE
+	VALUES (1792.000000,
+	1504.000000,
+	"967907d0-d6e2-4f76-aefb-37f8620b05d8",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("967907d0-d6e2-4f76-aefb-37f8620b05d8",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("cd1a5851-d9e1-460b-b31f-bd3e4c780319",
+	"4a14346d-6c3c-4ac5-be9a-aedd2fac8d70",
+	"55a4c222-00c0-49d9-a6d4-e10162743979",
+	12,
+	0,
+	'odms1::External Entities::QP');
+INSERT INTO GD_SHP
+	VALUES ("cd1a5851-d9e1-460b-b31f-bd3e4c780319");
+INSERT INTO GD_NCS
+	VALUES ("cd1a5851-d9e1-460b-b31f-bd3e4c780319");
+INSERT INTO DIM_ND
+	VALUES (160.000000,
+	96.000000,
+	"cd1a5851-d9e1-460b-b31f-bd3e4c780319");
+INSERT INTO DIM_GE
+	VALUES (2048.000000,
+	1504.000000,
+	"cd1a5851-d9e1-460b-b31f-bd3e4c780319",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("cd1a5851-d9e1-460b-b31f-bd3e4c780319",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_DIA
+	VALUES ("4a14346d-6c3c-4ac5-be9a-aedd2fac8d70",
+	'',
+	1.000000,
+	1600.000000,
+	1030.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_EE
+	VALUES ("82a82e32-9f94-4492-a8be-a542d14c0b75",
+	'PIO',
+	'',
+	'pio1',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_BRG
+	VALUES ("8cd51699-9ef1-4e8c-8dad-dd80a62cf70f",
+	"82a82e32-9f94-4492-a8be-a542d14c0b75",
+	'load_stepper_motors',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'::PIO_robot_move_complete(id:param.robot_id);',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("794e48f7-be54-44e1-bc83-8b363c6dd864",
+	"8cd51699-9ef1-4e8c-8dad-dd80a62cf70f",
+	'robot_id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("6c8f800a-c37c-465e-ac52-85bfe1413a83",
+	"8cd51699-9ef1-4e8c-8dad-dd80a62cf70f",
+	'x',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"e7f7e902-809a-4736-8687-59a300042216",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("04acf796-e35f-4cca-9ad4-bcab0b371f63",
+	"8cd51699-9ef1-4e8c-8dad-dd80a62cf70f",
+	'y',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"6c8f800a-c37c-465e-ac52-85bfe1413a83",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("63c6b532-c111-44b7-a444-5cbb074237d3",
+	"8cd51699-9ef1-4e8c-8dad-dd80a62cf70f",
+	'theta',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"794e48f7-be54-44e1-bc83-8b363c6dd864",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("e7f7e902-809a-4736-8687-59a300042216",
+	"8cd51699-9ef1-4e8c-8dad-dd80a62cf70f",
+	'tvs',
+	"38a94999-e65d-4724-ac9c-1843768db62b",
+	0,
+	'',
+	"63c6b532-c111-44b7-a444-5cbb074237d3",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("38a94999-e65d-4724-ac9c-1843768db62b",
+	"00000000-0000-0000-0000-000000000000",
+	'transfer_vector_string',
+	'',
+	'',
+	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_BRG
+	VALUES ("48a7cee0-5d9e-47c2-8d36-1920e596eb21",
+	"82a82e32-9f94-4492-a8be-a542d14c0b75",
+	'extend_hand',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'::PIO_robot_move_complete(id:param.robot_id);',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("554562a5-d075-4fe6-b43e-b0b5c79459ef",
+	"48a7cee0-5d9e-47c2-8d36-1920e596eb21",
+	'robot_id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("37b1b229-fc6a-4bf6-9968-daf7d9ec40f8",
+	"48a7cee0-5d9e-47c2-8d36-1920e596eb21",
+	'tvs',
+	"38a94999-e65d-4724-ac9c-1843768db62b",
+	0,
+	'',
+	"554562a5-d075-4fe6-b43e-b0b5c79459ef",
+	'');
+INSERT INTO S_BRG
+	VALUES ("81c23dff-613d-44b4-b88d-60bc9881afeb",
+	"82a82e32-9f94-4492-a8be-a542d14c0b75",
+	'close_gripper',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'::PIO_gripper_closed_on_disk(id:param.robot_id);',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("84239f74-2f01-4d05-b84a-4f0c1cd28aa3",
+	"81c23dff-613d-44b4-b88d-60bc9881afeb",
+	'robot_id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("8caf5c46-27ab-44d0-86ca-741ad04536e8",
+	"81c23dff-613d-44b4-b88d-60bc9881afeb",
+	'tvs',
+	"38a94999-e65d-4724-ac9c-1843768db62b",
+	0,
+	'',
+	"84239f74-2f01-4d05-b84a-4f0c1cd28aa3",
+	'');
+INSERT INTO S_BRG
+	VALUES ("0b269596-5c59-41d5-af2b-4228c5d9c8fd",
+	"82a82e32-9f94-4492-a8be-a542d14c0b75",
+	'retract_hand',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'::PIO_robot_move_complete(id:param.robot_id);',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("b2c2f925-e4df-4d4e-9827-df0e2fbd5447",
+	"0b269596-5c59-41d5-af2b-4228c5d9c8fd",
+	'robot_id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("081ae007-8bee-428a-b0b1-f7132fe216e5",
+	"0b269596-5c59-41d5-af2b-4228c5d9c8fd",
+	'tvs',
+	"38a94999-e65d-4724-ac9c-1843768db62b",
+	0,
+	'',
+	"b2c2f925-e4df-4d4e-9827-df0e2fbd5447",
+	'');
+INSERT INTO S_BRG
+	VALUES ("3258fa42-9c34-4c73-9669-a41b0f52afe0",
+	"82a82e32-9f94-4492-a8be-a542d14c0b75",
+	'open_gripper',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'::PIO_gripper_opened(id:param.robot_id);',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("4fc20129-536b-41dc-bb5e-6a65faa37cb1",
+	"3258fa42-9c34-4c73-9669-a41b0f52afe0",
+	'robot_id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("b62de0ab-299e-4024-9040-9f5316311278",
+	"3258fa42-9c34-4c73-9669-a41b0f52afe0",
+	'tvs',
+	"38a94999-e65d-4724-ac9c-1843768db62b",
+	0,
+	'',
+	"4fc20129-536b-41dc-bb5e-6a65faa37cb1",
+	'');
+INSERT INTO S_BRG
+	VALUES ("4810376b-03f7-4283-91f7-748a79b2200d",
+	"82a82e32-9f94-4492-a8be-a542d14c0b75",
+	'unlock_door',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'::PIO_port_unlocked(id:param.ee_id);',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("3b874f6d-a11f-4c98-9684-55f29549b939",
+	"4810376b-03f7-4283-91f7-748a79b2200d",
+	'ee_id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("1e104037-5631-44ec-9690-b39114224c6a",
+	"4810376b-03f7-4283-91f7-748a79b2200d",
+	'tvs',
+	"38a94999-e65d-4724-ac9c-1843768db62b",
+	0,
+	'',
+	"3b874f6d-a11f-4c98-9684-55f29549b939",
+	'');
+INSERT INTO S_BRG
+	VALUES ("0b81afaa-dcde-4331-963f-a356f3c16dd2",
+	"82a82e32-9f94-4492-a8be-a542d14c0b75",
+	'lock_door',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'::PIO_port_locked(id:param.ee_id);',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("690885b3-6177-4b4a-b029-268a551d058c",
+	"0b81afaa-dcde-4331-963f-a356f3c16dd2",
+	'ee_id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("22e8ba64-d030-4c39-af95-d53d389545dd",
+	"0b81afaa-dcde-4331-963f-a356f3c16dd2",
+	'tvs',
+	"38a94999-e65d-4724-ac9c-1843768db62b",
+	0,
+	'',
+	"690885b3-6177-4b4a-b029-268a551d058c",
+	'');
+INSERT INTO S_BRG
+	VALUES ("1023b5e7-b4d4-4d64-a4f3-82b092395625",
+	"82a82e32-9f94-4492-a8be-a542d14c0b75",
+	'get_disk',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'select any port from instances of D_P where (selected.Port_ID == param.ee_id);
+select one transfer related by port->D_DT[R8];
+if (transfer.Source_ID == port.Port_ID)
+  ::PIO_operator_opened_door(id:port.Port_ID);
+  ::PIO_operator_inserted_disk(id:port.Port_ID);
+  ::PIO_operator_closed_door(id:port.Port_ID);
+else
+  ::PIO_operator_opened_door(id:port.Port_ID);
+  ::PIO_operator_removed_disk(id:port.Port_ID);
+  ::PIO_operator_closed_door(id:port.Port_ID);
+end if;',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("a65dd6a7-665a-4237-8b9c-6509ad706ad2",
+	"1023b5e7-b4d4-4d64-a4f3-82b092395625",
+	'ee_id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"1b9ee7b0-e3d1-4533-b0dc-f789de5e36a8",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("1b9ee7b0-e3d1-4533-b0dc-f789de5e36a8",
+	"1023b5e7-b4d4-4d64-a4f3-82b092395625",
+	'disk_id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("2b7b2039-67d1-4630-8bf6-3ef16d0f44b3",
+	"1023b5e7-b4d4-4d64-a4f3-82b092395625",
+	'tvs1',
+	"38a94999-e65d-4724-ac9c-1843768db62b",
+	0,
+	'',
+	"a65dd6a7-665a-4237-8b9c-6509ad706ad2",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("849c38b7-3ec3-460b-9908-aaa8ae4a514e",
+	"1023b5e7-b4d4-4d64-a4f3-82b092395625",
+	'tvs2',
+	"38a94999-e65d-4724-ac9c-1843768db62b",
+	0,
+	'',
+	"2b7b2039-67d1-4630-8bf6-3ef16d0f44b3",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("a3b88ef8-e5e5-4768-a3cc-591b11c5f7d2",
+	"1023b5e7-b4d4-4d64-a4f3-82b092395625",
+	'tvs3',
+	"38a94999-e65d-4724-ac9c-1843768db62b",
+	0,
+	'',
+	"849c38b7-3ec3-460b-9908-aaa8ae4a514e",
+	'');
+INSERT INTO S_BRG
+	VALUES ("0371b582-3fde-4f0e-a61f-c18ff4df5712",
+	"82a82e32-9f94-4492-a8be-a542d14c0b75",
+	'spin_up_drive',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'::PIO_drive_at_spin_speed(id:param.drive_id);',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("5ce6261a-2a36-4f8a-8c9b-c889992066f5",
+	"0371b582-3fde-4f0e-a61f-c18ff4df5712",
+	'drive_id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("a2517fff-6afb-42b9-beff-4cacb45b481d",
+	"0371b582-3fde-4f0e-a61f-c18ff4df5712",
+	'tvs',
+	"38a94999-e65d-4724-ac9c-1843768db62b",
+	0,
+	'',
+	"5ce6261a-2a36-4f8a-8c9b-c889992066f5",
+	'');
+INSERT INTO S_BRG
+	VALUES ("ba3fe5d7-8cdb-4467-85cf-bbb11c904989",
+	"82a82e32-9f94-4492-a8be-a542d14c0b75",
+	'spin_down_drive',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'::PIO_drive_stopped(id:param.drive_id);',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("e748f120-2ce3-41df-a0f8-8af2df11d6eb",
+	"ba3fe5d7-8cdb-4467-85cf-bbb11c904989",
+	'drive_id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("b303af61-0602-40f9-8f5b-0701af3a44ad",
+	"ba3fe5d7-8cdb-4467-85cf-bbb11c904989",
+	'tvs',
+	"38a94999-e65d-4724-ac9c-1843768db62b",
+	0,
+	'',
+	"e748f120-2ce3-41df-a0f8-8af2df11d6eb",
+	'');
+INSERT INTO PE_PE
+	VALUES ("82a82e32-9f94-4492-a8be-a542d14c0b75",
+	1,
+	"4c0d27e2-1c81-4533-879c-6d66d5d51339",
+	"00000000-0000-0000-0000-000000000000",
+	5);
+INSERT INTO S_EE
+	VALUES ("55a4c222-00c0-49d9-a6d4-e10162743979",
+	'QP',
+	'',
+	'qp1',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_BRG
+	VALUES ("1da4c167-e369-442c-b39f-40eef4ac8e15",
+	"55a4c222-00c0-49d9-a6d4-e10162743979",
+	'disk_mount_done',
+	'',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("141b845f-252a-401c-a302-7b8889c49eac",
+	"1da4c167-e369-442c-b39f-40eef4ac8e15",
+	'disk_id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("25da7fcd-d908-4fa3-aedb-69e1e500f727",
+	"1da4c167-e369-442c-b39f-40eef4ac8e15",
+	'drive_id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"141b845f-252a-401c-a302-7b8889c49eac",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("57c858c3-3fb7-4245-8105-e71cf8d4282d",
+	"1da4c167-e369-442c-b39f-40eef4ac8e15",
+	'qp_id',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"25da7fcd-d908-4fa3-aedb-69e1e500f727",
+	'');
+INSERT INTO PE_PE
+	VALUES ("55a4c222-00c0-49d9-a6d4-e10162743979",
+	1,
+	"4c0d27e2-1c81-4533-879c-6d66d5d51339",
+	"00000000-0000-0000-0000-000000000000",
+	5);
+INSERT INTO PE_PE
+	VALUES ("4c0d27e2-1c81-4533-879c-6d66d5d51339",
+	1,
+	"96d1aa51-1013-4c53-a4d4-d854bfd404ea",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("96d1aa51-1013-4c53-a4d4-d854bfd404ea",
+	"32def5f7-ad70-424b-8b01-6d644bf7c337",
+	"32def5f7-ad70-424b-8b01-6d644bf7c337",
+	'odms1',
+	'Domain Mission:
+
+Bridges to other Domains:
+',
+	0,
+	'../odms1.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("32def5f7-ad70-424b-8b01-6d644bf7c337",
+	'com.mentor.nucleus.bp.ui.explorer.test',
+	1,
+	'../../com.mentor.nucleus.bp.ui.explorer.test.xtuml');

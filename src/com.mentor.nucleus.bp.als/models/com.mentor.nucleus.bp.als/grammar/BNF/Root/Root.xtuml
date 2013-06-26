@@ -1,0 +1,91 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("e05f76b4-4853-48c4-a7d9-95ba9fd82569",
+	'Root',
+	3,
+	'ROOT',
+	'This is the root of the tree. 
+It doesn''t have a parent.',
+	"5edea08f-a6e1-4146-8e1c-0cade7a477c7");
+INSERT INTO O_REF
+	VALUES ("e05f76b4-4853-48c4-a7d9-95ba9fd82569",
+	"20b4194f-f64d-47b7-896d-542dccf5f8c7",
+	0,
+	"0023f589-56a9-4097-8ca8-34e9cb0f6ec1",
+	"a7351e73-e4c0-4f4b-8ffe-6e634fdd3eaf",
+	"d248f2b8-6eba-427b-b93d-adf9ccd9de61",
+	"160f2a43-f135-4d8d-875b-3c4e663b22ed",
+	"d60db9ee-45af-46c9-939b-9680c29990be",
+	"6482da0d-9dae-4db3-b511-4f45280a5b60",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Non Leaf Node',
+	'nodeId',
+	'R2');
+INSERT INTO R_RGO_PROXY
+	VALUES ("e05f76b4-4853-48c4-a7d9-95ba9fd82569",
+	"a7351e73-e4c0-4f4b-8ffe-6e634fdd3eaf",
+	"d248f2b8-6eba-427b-b93d-adf9ccd9de61",
+	'../BNF.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0023f589-56a9-4097-8ca8-34e9cb0f6ec1",
+	"20b4194f-f64d-47b7-896d-542dccf5f8c7",
+	0,
+	"a7351e73-e4c0-4f4b-8ffe-6e634fdd3eaf",
+	"160f2a43-f135-4d8d-875b-3c4e663b22ed",
+	'../BNF.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("d60db9ee-45af-46c9-939b-9680c29990be",
+	"e05f76b4-4853-48c4-a7d9-95ba9fd82569",
+	"b9e2878f-bc2d-454f-ab46-c30f6f787fda",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	1,
+	'nodeId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("b9e2878f-bc2d-454f-ab46-c30f6f787fda",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	'../Node/Node.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("d60db9ee-45af-46c9-939b-9680c29990be",
+	"e05f76b4-4853-48c4-a7d9-95ba9fd82569",
+	"00000000-0000-0000-0000-000000000000",
+	'nodeId',
+	'',
+	'',
+	'nodeId',
+	0,
+	"73db19ab-e535-4718-ab07-668918299d9a",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("73db19ab-e535-4718-ab07-668918299d9a",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"e05f76b4-4853-48c4-a7d9-95ba9fd82569");
+INSERT INTO O_OIDA
+	VALUES ("d60db9ee-45af-46c9-939b-9680c29990be",
+	"e05f76b4-4853-48c4-a7d9-95ba9fd82569",
+	0,
+	'nodeId');
+INSERT INTO O_ID
+	VALUES (1,
+	"e05f76b4-4853-48c4-a7d9-95ba9fd82569");
+INSERT INTO O_ID
+	VALUES (2,
+	"e05f76b4-4853-48c4-a7d9-95ba9fd82569");
+INSERT INTO S_SS_PROXY
+	VALUES ("5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	'BNF',
+	'',
+	'',
+	1,
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	"00000000-0000-0000-0000-000000100002",
+	'../BNF.xtuml');

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="com.mentor.nucleus.internal.test"
+   name="Test Plug-in"
+   version="1.0.0"
+   provider-name="MENTOR"
+   class="com.mentor.nucleus.internal.test.TestPlugin">
+
+   <runtime>
+      <library name="test.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="com.mentor.nucleus.bp.core"/>
+   </requires>
+<!--  
+   Only want one code builder present (with no user input required) 
+   for mc3020.test.
+   
+   <extension point="com.mentor.nucleus.model-compilers">
+      <model-compiler class="com.mentor.nucleus.internal.test.NewMCTestWizard1"
+         name="New Model Compiler Test Wizard 1"/>
+   </extension>
+
+   <extension point="com.mentor.nucleus.model-compilers">
+      <model-compiler class="com.mentor.nucleus.internal.test.NewMCTestWizard2"
+         name="New Model Compiler Test Wizard 2"/>
+   </extension>
+
+   <extension point="com.mentor.nucleus.code-builders">
+      <code-builder class="com.mentor.nucleus.internal.test.NewCBTestWizard1"
+         name="New Code Builder Test Wizard 1"/>
+   </extension>
+
+   <extension point="com.mentor.nucleus.bp.core.code-builders">
+      <code-builder class="com.mentor.nucleus.internal.test.NewCBTestWizard2"
+         name="New Code Builder Test Wizard 2"/>
+   </extension>
+-->
+</plugin>

@@ -1,0 +1,181 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("8daeb6cd-f7c9-4ce9-bdfe-0a5922e1ba32",
+	'Component Result Set',
+	8004,
+	'PE_CRS',
+	'This class captures set of element instances that are visible to a
+given component for a given search criterion.
+----
+Persistent:false',
+	"61c0aa15-d896-4feb-9c48-5e3f1af4e670");
+INSERT INTO O_TFR
+	VALUES ("d293b27e-b4b5-41f2-ae8c-384452cc1b08",
+	"8daeb6cd-f7c9-4ce9-bdfe-0a5922e1ba32",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Component Result Set.dispose()
+select one component related by self->C_C[R8007];
+select many elemVis related by self->PE_CVS[R8008];
+for each elemV in elemVis
+  select one pe related by elemV->PE_PE[R8004];
+  unrelate component from pe across R8004 using elemV;
+  unrelate self from elemV across R8008;
+  delete object instance elemV;
+end for;
+unrelate self from component across R8007;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("fd024bad-0774-4075-b91d-4f5778b5aad1",
+	"8daeb6cd-f7c9-4ce9-bdfe-0a5922e1ba32");
+INSERT INTO O_BATTR
+	VALUES ("fd024bad-0774-4075-b91d-4f5778b5aad1",
+	"8daeb6cd-f7c9-4ce9-bdfe-0a5922e1ba32");
+INSERT INTO O_ATTR
+	VALUES ("fd024bad-0774-4075-b91d-4f5778b5aad1",
+	"8daeb6cd-f7c9-4ce9-bdfe-0a5922e1ba32",
+	"7e13fa59-aaef-466d-ab08-b810e0d306e1",
+	'Name',
+	'',
+	'',
+	'Name',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("f4c830b6-9e48-4ff2-aa55-3b2cdbaced41",
+	"8daeb6cd-f7c9-4ce9-bdfe-0a5922e1ba32");
+INSERT INTO O_BATTR
+	VALUES ("f4c830b6-9e48-4ff2-aa55-3b2cdbaced41",
+	"8daeb6cd-f7c9-4ce9-bdfe-0a5922e1ba32");
+INSERT INTO O_ATTR
+	VALUES ("f4c830b6-9e48-4ff2-aa55-3b2cdbaced41",
+	"8daeb6cd-f7c9-4ce9-bdfe-0a5922e1ba32",
+	"fd024bad-0774-4075-b91d-4f5778b5aad1",
+	'Type',
+	'',
+	'',
+	'Type',
+	0,
+	"9a52ac80-0dbf-4444-99ce-efd27902d8db",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("9a52ac80-0dbf-4444-99ce-efd27902d8db",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'ElementTypeConstants',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("8daeb6cd-f7c9-4ce9-bdfe-0a5922e1ba32",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	0,
+	"7b9804b1-294c-4909-b563-aae43167f8d6",
+	"70651a40-5541-4333-836a-e08c2db4d462",
+	"05227d00-3a79-40d6-ad5c-fd81056f73be",
+	"1ca5c787-cd0e-4527-9092-7c249cbbddf3",
+	"7e13fa59-aaef-466d-ab08-b810e0d306e1",
+	"b09e67b3-5c7b-4b20-8601-b3a610cf32c3",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Component',
+	'Id',
+	'R8007');
+INSERT INTO R_RGO_PROXY
+	VALUES ("8daeb6cd-f7c9-4ce9-bdfe-0a5922e1ba32",
+	"70651a40-5541-4333-836a-e08c2db4d462",
+	"05227d00-3a79-40d6-ad5c-fd81056f73be",
+	'../Packageable Element.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("7b9804b1-294c-4909-b563-aae43167f8d6",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	0,
+	"70651a40-5541-4333-836a-e08c2db4d462",
+	"1ca5c787-cd0e-4527-9092-7c249cbbddf3",
+	'../Packageable Element.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("7e13fa59-aaef-466d-ab08-b810e0d306e1",
+	"8daeb6cd-f7c9-4ce9-bdfe-0a5922e1ba32",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("7e13fa59-aaef-466d-ab08-b810e0d306e1",
+	"8daeb6cd-f7c9-4ce9-bdfe-0a5922e1ba32",
+	"00000000-0000-0000-0000-000000000000",
+	'Id',
+	'',
+	'',
+	'Id',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"8daeb6cd-f7c9-4ce9-bdfe-0a5922e1ba32");
+INSERT INTO O_OIDA
+	VALUES ("fd024bad-0774-4075-b91d-4f5778b5aad1",
+	"8daeb6cd-f7c9-4ce9-bdfe-0a5922e1ba32",
+	0,
+	'Name');
+INSERT INTO O_OIDA
+	VALUES ("f4c830b6-9e48-4ff2-aa55-3b2cdbaced41",
+	"8daeb6cd-f7c9-4ce9-bdfe-0a5922e1ba32",
+	0,
+	'Type');
+INSERT INTO O_OIDA
+	VALUES ("7e13fa59-aaef-466d-ab08-b810e0d306e1",
+	"8daeb6cd-f7c9-4ce9-bdfe-0a5922e1ba32",
+	0,
+	'Id');
+INSERT INTO O_ID
+	VALUES (1,
+	"8daeb6cd-f7c9-4ce9-bdfe-0a5922e1ba32");
+INSERT INTO O_ID
+	VALUES (2,
+	"8daeb6cd-f7c9-4ce9-bdfe-0a5922e1ba32");
+INSERT INTO S_SS_PROXY
+	VALUES ("61c0aa15-d896-4feb-9c48-5e3f1af4e670",
+	'Packageable Element',
+	'',
+	'PE',
+	8000,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Packageable Element.xtuml');

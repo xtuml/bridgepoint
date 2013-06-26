@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="Model Architecture">
+      <intro>
+      <description>
+         In this cheat sheet, you will continue adding to the model structure for this application.
+      </description>
+      </intro>
+      
+         <item
+         skip="true"
+         title="Create New Package">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Draw Element"
+			param2="Default Toolset" 
+			param3="Package" />
+      <description>
+         Right-click on the canvas, select <b>New &gt; Package</b> Set the package name in the pop up dialog to &apos;Model&apos;
+      </description>
+   </item>
+   <item
+         skip="true"
+         title="Open &apos;Model&apos; package diagram">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Open Diagram"
+			param2="Simple System" 
+			param3="Package" 
+			param4="Model"/>
+      <description>
+         Double-click on the &apos;Model&apos; package to open the package diagram
+      </description>
+   </item>
+      
+ </cheatsheet>

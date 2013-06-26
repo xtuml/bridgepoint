@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.search.searchPages">
+      <page
+            canSearchEnclosingProjects="true"
+            class="com.mentor.nucleus.bp.ui.search.pages.ModelSearchPage"
+            enabled="true"
+            icon="icons/bp_search.gif"
+            id="com.mentor.nucleus.bp.ui.search.xtumlSearchPage"
+            label="xtuml Search"
+            showScopeSection="true"
+            tabPosition="0">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.search.searchResultViewPages">
+      <viewPage
+            class="com.mentor.nucleus.bp.ui.search.pages.ModelSearchResultPage"
+            icon="icons/bp_search.gif"
+            id="com.mentor.nucleus.bp.ui.search.modelSearchResultPage"
+            label="Model Search"
+            searchResultClass="com.mentor.nucleus.bp.search.results.ModelSearchResult">
+      </viewPage>
+   </extension>
+
+</plugin>

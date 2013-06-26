@@ -1,0 +1,156 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("f8533578-7e3d-4d5a-913e-39276cb1592f",
+	'Control',
+	628,
+	'ACT_CTL',
+	'This class generates a control statement within a block.',
+	"76583c73-7a99-4c81-b260-8109e6cef5ca");
+INSERT INTO O_TFR
+	VALUES ("8834fdb3-bd9c-49d9-b6b9-00f493bf4e14",
+	"f8533578-7e3d-4d5a-913e-39276cb1592f",
+	'dispose',
+	'This operation disconnects an instance, and all instances it is 
+responsible for, from the model.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// do nothing
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("f2b9b405-03cf-49b7-b876-f4086f385c5c",
+	"f8533578-7e3d-4d5a-913e-39276cb1592f",
+	'execute',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Control Statement.execute
+
+// Do nothing.
+
+// This statement is required to cause Verifier to suspend, but doing it here
+// stops on the _next_ statement, not the current one. This particularly ugly
+// because control stop is frequently the last statement in an action, so the
+// halt occurs outside the OAL that caused it. Hence, the implementation of
+// this behavior is found in Statement.checkBreakpoint where we have control
+// (in Stack.execute, the caller) over whether we execute the statement or not.',
+	1,
+	'',
+	"8834fdb3-bd9c-49d9-b6b9-00f493bf4e14");
+INSERT INTO O_TPARM
+	VALUES ("1c6348df-911e-4824-ad9a-3742a81f0ef9",
+	"f2b9b405-03cf-49b7-b876-f4086f385c5c",
+	'stack_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("f8533578-7e3d-4d5a-913e-39276cb1592f",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"6444f9e6-609f-43f0-a7d2-bf866159f510",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	"5d057586-8a10-4a9b-b51c-240a6142022c",
+	"cd7330bb-c35c-46ae-b991-bd57661a494a",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Statement',
+	'Statement_ID',
+	'R603');
+INSERT INTO R_RGO_PROXY
+	VALUES ("f8533578-7e3d-4d5a-913e-39276cb1592f",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"6444f9e6-609f-43f0-a7d2-bf866159f510",
+	'../Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	'../Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("5d057586-8a10-4a9b-b51c-240a6142022c",
+	"f8533578-7e3d-4d5a-913e-39276cb1592f",
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	'Statement_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'../Statement/Statement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("5d057586-8a10-4a9b-b51c-240a6142022c",
+	"f8533578-7e3d-4d5a-913e-39276cb1592f",
+	"00000000-0000-0000-0000-000000000000",
+	'Statement_ID',
+	'
+
+',
+	'',
+	'Statement_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"f8533578-7e3d-4d5a-913e-39276cb1592f");
+INSERT INTO O_OIDA
+	VALUES ("5d057586-8a10-4a9b-b51c-240a6142022c",
+	"f8533578-7e3d-4d5a-913e-39276cb1592f",
+	0,
+	'Statement_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"f8533578-7e3d-4d5a-913e-39276cb1592f");
+INSERT INTO O_ID
+	VALUES (2,
+	"f8533578-7e3d-4d5a-913e-39276cb1592f");
+INSERT INTO S_SS_PROXY
+	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	'Body',
+	'This subsystem abstracts the action itself, the blocks and statements
+it contains together with the flow of control statements such as ''while'',
+''for each'' and ''if''.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'ACT',
+	600,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000380007",
+	'../Body.xtuml');

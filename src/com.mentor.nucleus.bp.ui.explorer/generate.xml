@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile: generate.xml,v $
+ Version:   $Revision: 1.50 $
+ Modified:  $Date: 2013/01/10 23:15:53 $
+
+ (c) Copyright 2004-2013 Mentor Graphics Corporation  All rights reserved.
+
+-->
+<project name="bp.ui.explorer" default="all" basedir=".">
+  <target name="all"
+          description="Generate all code for this project"
+          depends="update_schema,java,javamonitor,format_java">
+  </target>
+
+  <target name="nb_all"
+          description="Generate all code for this project"
+          depends="update_schema,java,javamonitor">
+  </target>
+
+  <property name="eclipse-home" value="${basedir}/../.."/>
+  <property name="plugins-home" value="${ant.home}/../.."/>
+
+  <property name="chain_util_path" value="../com.mentor.nucleus.bp.core"/>
+  <property environment="env"/>
+  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\bin" />
+
+  <property name="mcj_path" value="../MC-Java" />
+  <property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
+  <property name="schema.output_path" value="../com.mentor.nucleus.bp.ui.tree/sql" />
+  <target name="update_schema"
+          description="See if the schema file should be re-generated and do so">
+  <ant antfile="../com.mentor.nucleus.bp.ui.tree/generate_schema.xml"
+     target="all"
+     dir="../com.mentor.nucleus.bp.ui.tree/">
+  </ant>
+  </target>
+  <property name="schema.output" value="UITree_schema.sql" />
+  <property name="java.output" value="src/com/mentor/nucleus/bp/ui/explorer/ModelContentProvider.java" />
+
+  <target name="java.depends" >
+    <uptodate property="java.buildNotNeeded" targetfile="${java.output}">
+       <srcfiles dir = "sql" includes = "UITree.pei.sql" />
+       <srcfiles dir = "../com.mentor.nucleus.bp.core/sql" includes = "ooaofooa.sql" />
+       <srcfiles dir = "arc"        includes = "BuildTree.arc,parse_chain.inc,create_adapters.inc,create_label_provider.inc,create_content_provider.inc,create_filters_content_provider.inc,create_explorer_view.inc" />
+       <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql,arch_utils.inc"/>
+    </uptodate>
+  </target>
+
+  <target name="java"
+          depends="java.depends"
+          description="Generate the tree explorer files"
+          unless="java.buildNotNeeded" >
+    <echo >Generating ${java.output} ...</echo>
+  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+        <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
+    <arg line="-nopersist
+      -import ${mcj_path}/ooa_schema.sql
+      -import ${schema.output_path}/${schema.output}
+      -import ../com.mentor.nucleus.bp.core/sql/ooaofooa.sql
+      -import sql/UITree.pei.sql
+      -arch arc/BuildTree.arc" />
+  </exec>
+    <delete file="____file.txt" />
+    <delete file="key_lett.txt" />
+    <delete file="rel_chain.txt" />
+    <delete file="rel_num.txt" />
+    <delete file="remainder.txt" />
+  <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+  <touch file="${java.output}" />
+  </target>
+  <property name="javamonitor.output" value="src/com/mentor/nucleus/bp/ui/explorer/MonitorView.java" />
+
+  <target name="javamonitor.depends" >
+      <uptodate property="javamonitor.buildNotNeeded" targetfile="${javamonitor.output}">
+         <srcfiles dir = "sql" includes = "MonUITree.pei.sql" />
+         <srcfiles dir = "../com.mentor.nucleus.bp.core/sql" includes = "ooaofooa.sql" />
+         <srcfiles dir = "arc" includes = "BuildMonitorTree.arc,parse_chain.inc,create_adapters.inc,create_monitor_label_provider.inc,create_monitor_content_provider.inc,create_monitor_explorer_view.inc" />
+         <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql,arch_utils.inc"/>
+      </uptodate>
+    </target>
+
+    <target name="javamonitor"
+            depends="javamonitor.depends"
+            description="Generate the Monitor View files"
+            unless="javamonitor.buildNotNeeded" >
+      <echo >Generating ${javamonitor.output} ...</echo>
+    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+          <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+          <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
+      <arg line="-nopersist
+        -import ${mcj_path}/ooa_schema.sql
+        -import ${schema.output_path}/${schema.output}
+        -import ../com.mentor.nucleus.bp.core/sql/ooaofooa.sql
+        -import sql/MonUITree.pei.sql
+        -arch arc/BuildMonitorTree.arc" />
+    </exec>
+      <delete file="____file.txt" />
+      <delete file="key_lett.txt" />
+      <delete file="rel_chain.txt" />
+      <delete file="rel_num.txt" />
+      <delete file="remainder.txt" />
+    <!-- Need to touch the output file for the case where the input data
+         changed, but the output didn't -->
+    <touch file="${javamonitor.output}" />
+    </target>
+
+
+  <property name="cvs_java_files" value="ExplorerPlugin.java,
+          FilterSelectionAction.java, IModelExplorerHelpContextIds.java, ExplorerTreeViewer.java,ModelLabelDecorator.java,
+          adapters/RootAdapter.java, decorators/*.java, ILinkWithEditorListener.java,ui/actions/ExplorerCopyAction.java,
+          ui/actions/ExplorerCutAction.java,ui/actions/ExplorerPasteAction.java,MultipleOccurrenceElement.java"/>
+
+  <target name="format_java"
+        description="Format the generated java source" >
+
+    <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask" >
+        <classpath>
+            <pathelement path="../com.mentor.nucleus.bp.core/tools/" />
+            <fileset dir="${plugins-home}/plugins" casesensitive="yes">
+                <include name="**/org.eclipse.text_*.jar" />
+                <include name="**/org.eclipse.ui_*.jar" />
+                <include name="**/org.eclipse.jdt.core_*.jar" />
+                <include name="**/org.eclipse.core.runtime_*.jar" />
+                <include name="**/org.eclipse.osgi_*.jar" />
+                <include name="**/org.eclipse.core.resources_*.jar" />
+                <include name="**/org.eclipse.equinox.common_*.jar" />
+            </fileset>
+        </classpath>
+    </taskdef>
+        <PTCodeFormat>
+          <fileset dir="src/com/mentor/nucleus/bp/ui/explorer" excludes="${cvs_java_files}"
+          includes="adapters/*.java,*.java" />
+        </PTCodeFormat>
+  </target>
+
+  <!-- COMPILE TARGETS -->
+
+  <target name="compile"
+                  description="Compile project" >
+
+    <echo>Compiling ${ant.project.name}</echo>
+
+    <mkdir dir="bin" />
+
+    <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6" fork="yes" destdir="bin" encoding="UTF-8" >
+       <src path="src/com/mentor/nucleus/bp/ui/explorer" />
+       <classpath>
+         <pathelement path="../com.mentor.nucleus.bp.core/bin" />
+         <pathelement path="../com.mentor.nucleus.bp.ui.properties/bin" />
+         <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
+           <include name="**/org.eclipse.osgi_*.jar" />
+           <include name="**/org.eclipse.ui.ide_*.jar" />
+           <include name="**/org.eclipse.jface_*.jar" />
+           <include name="**/org.eclipse.core.runtime_*.jar" />
+           <include name="**/org.eclipse.core.resources_*.jar" />
+           <include name="**/org.eclipse.ui.workbench_*.jar" />
+           <include name="**/org.eclipse.swt.win32.win32.x86_*.jar" />
+           <include name="**/org.eclipse.ui.views_*.jar" />
+           <include name="**/org.eclipse.ui_*.jar" />
+           <include name="**/org.eclipse.ui.workbench.texteditor_*.jar" />
+           <include name="**/org.eclipse.ui.editors_*.jar" />
+           <include name="**/org.eclipse.equinox.common_*.jar"/>
+           <include name="**/org.eclipse.equinox.registry_*.jar"/>
+           <include name="**/org.eclipse.core.commands_*.jar"/>
+           <include name="**/org.eclipse.core.jobs_*.jar"/>
+         </fileset>
+       </classpath>
+    </javac>
+
+  </target>
+
+  <!-- CLEAN TARGETS -->
+
+  <target name="clean_all"
+        description="Clean entire project"
+        depends="clean_classes,clean_sql,clean_schema,clean_java" >
+
+    <echo>Done cleaning for ${ant.project.name}</echo>
+
+  </target>
+
+  <target name="clean_sql"
+        description="Remove the sql version of the UI Tree model" >
+  <ant antfile="../com.mentor.nucleus.bp.ui.tree/generate_schema.xml"
+     target="clean_sql"
+     dir="../com.mentor.nucleus.bp.ui.tree/">
+  </ant>
+  </target>
+
+  <target name="clean_schema"
+          description="Remove the UI Tree schema file" >
+  <ant antfile="../com.mentor.nucleus.bp.ui.tree/generate_schema.xml"
+     target="clean_schema"
+     dir="../com.mentor.nucleus.bp.ui.tree/">
+  </ant>
+  </target>
+
+  <target name="clean_java"
+        description="Remove the generated java sources." >
+
+    <echo>Removing the generated java source files ...</echo>
+    <delete verbose="true" >
+      <fileset dir="src/com/mentor/nucleus/bp/ui/explorer" excludes="${cvs_java_files}, .cvsignore, adapters/.cvsignore" />
+    </delete>
+
+  </target>
+
+  <target name="clean_classes"
+          description="Remove all compiled class files." >
+
+  <echo>Removing all compiled class files ...</echo>
+  <delete verbose="true" dir="bin" />
+
+  </target>
+
+</project>

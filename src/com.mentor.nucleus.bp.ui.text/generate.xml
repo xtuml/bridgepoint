@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile: generate.xml,v $
+ Version:   $Revision: 1.41 $
+ Modified:  $Date: 2013/01/10 23:20:58 $
+
+ (c) Copyright 2004-2013 by Mentor Graphics Corp.  All rights reserved.
+
+-->
+<project name="bp.ui.text" default="all" basedir=".">
+  <!-- The property ${eclipse-home} should be passed into this script -->
+  <!-- Set a meaningful default value for when it is not. -->
+  <property name="eclipse-home" value="${basedir}\..\.."/>
+  <property name="plugins-home" value="${ant.home}/../.."/>
+
+  <target name="all"
+          description="Generate all code for this project"
+          depends="nb_all,format_java">
+  </target>
+
+  <target name="nb_all"
+          description="Generate all code for this project (nightly build)"
+          depends="create_gen,plugin_xml,modeladapter_java,editorinputfactories_java,
+          literal_rule, delete_gen">
+  </target>
+
+  <property environment="env"/>
+  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\bin" />
+  <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\mc3020\bin" />
+
+  <property name="core_sql_dir" value="../com.mentor.nucleus.bp.core/sql" />
+
+  <property name="mcj_path" value="../MC-Java" />
+  <property name="src_path" value="src/com/mentor/nucleus/bp/ui/text" />
+
+  <target name="create_gen.depends"
+          depends="plugin_xml.depends, modeladapter_java.depends, editorinputfactories_java.depends" >
+    <condition property="create_gen.buildNotNeeded" >
+      <and>
+      <istrue value="${plugin_xml.buildNotNeeded}"/>
+      <istrue value="${modeladapter_java.buildNotNeeded}"/>
+      <istrue value="${editorinputfactories_java.buildNotNeeded}"/>
+    </and>
+    </condition>
+  </target>
+
+  <target name="create_gen"
+          depends="create_gen.depends"
+          description="Create the generation database"
+          unless="create_gen.buildNotNeeded" >
+  <delete file="sql/db.gen" />
+    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+      <arg line="-f db.gen
+        -import ../${mcj_path}/ooa_schema.sql
+        -import ../${core_sql_dir}/ooaofooa.sql
+        -import clr_schema.sql
+        -import clr_pei.sql" />
+  </exec>
+  </target>
+
+  <target name="delete_gen"
+          description="Delete the generation database" >
+  <delete file="sql/db.gen" />
+  <delete file="bnfDb.gen"/>
+  <delete file="____file.txt" />
+  <delete file="____actn.arc" />
+    <delete file="key_lett.txt" />
+    <delete file="rel_chain.txt" />
+    <delete file="rel_num.txt" />
+    <delete file="remainder.txt" />
+  </target>
+
+  <property name="plugin_xml.output" value="plugin.xml" />
+
+  <target name="plugin_xml.depends" >
+    <uptodate property="plugin_xml.buildNotNeeded" targetfile="${plugin_xml.output}">
+        <srcfiles dir = "${core_sql_dir}" includes = "ooaofooa.sql" />
+        <srcfiles dir = "arc" includes = "create_plugin_xml.arc"/>
+        <srcfiles dir = "arc" includes = "create_util.inc"/>
+        <srcfiles dir = "sql" includes = "clr_pei.sql"/>
+    </uptodate>
+  </target>
+
+  <target name="plugin_xml"
+          depends="create_gen"
+          description="Generate the text plugin.xml file"
+          unless="plugin_xml.buildNotNeeded" >
+    <echo >Generating plugin.xml ...</echo>
+  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+    <arg line="-f sql/db.gen
+      -arch arc/create_plugin_xml.arc" />
+  </exec>
+  <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+  <touch file="${plugin_xml.output}" />
+  </target>
+
+  <property name="modeladapter_java.output" value="ModelAdapter.java" />
+
+  <target name="modeladapter_java.depends" >
+    <uptodate property="modeladapter_java.buildNotNeeded" targetfile="${src_path}/${modeladapter_java.output}">
+        <srcfiles dir = "${core_sql_dir}" includes = "ooaofooa.sql" />
+        <srcfiles dir = "arc" includes = "create_modeladapter_java.arc"/>
+        <srcfiles dir = "arc" includes = "create_util.inc"/>
+        <srcfiles dir = "sql" includes = "clr_schema.sql"/>
+        <srcfiles dir = "sql" includes = "clr_pei.sql"/>
+        <srcfiles dir = "${mcj_path}" includes = "arch_utils.arc"/>
+    </uptodate>
+  </target>
+
+  <target name="modeladapter_java"
+          depends="modeladapter_java.depends,create_gen"
+          description="Generate the ModelAdapter.java file"
+          unless="modeladapter_java.buildNotNeeded" >
+    <echo >Generating ModelAdapter.java ...</echo>
+  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+    <arg line="-f sql/db.gen
+      -arch arc/create_modeladapter_java.arc" />
+  </exec>
+  <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+  <touch file="${src_path}/${modeladapter_java.output}" />
+  </target>
+
+  <property name="activity_editorinput_factory_java.output" value="activity/ActivityEditorInputFactory.java" />
+  <property name="description_editorinput_factory_java.output" value="description/DescriptionEditorInputFactory.java" />
+
+  <target name="editorinputfactories_java.depends">
+    <uptodate property="editorinputfactories_java.buildNotNeeded" targetfile="${src_path}/${activity_editorinput_factory_java.output}">
+        <srcfiles dir = "${core_sql_dir}" includes = "ooaofooa.sql" />
+        <srcfiles dir = "arc" includes = "create_description_editorinput_factory_java.inc"/>
+        <srcfiles dir = "arc" includes = "create_activity_editorinput_factory_java.inc"/>
+        <srcfiles dir = "arc" includes = "create_util.inc"/>
+        <srcfiles dir = "arc" includes = "create_editorinput_factories_java.arc"/>
+        <srcfiles dir = "sql" includes = "clr_schema.sql"/>
+        <srcfiles dir = "sql" includes = "clr_pei.sql"/>
+        <srcfiles dir = "${mcj_path}" includes = "arch_utils.arc"/>
+    </uptodate>
+  </target>
+
+  <property name="chain_util_path" value="../com.mentor.nucleus.bp.core"/>
+
+  <target name="editorinputfactories_java"
+          depends="create_gen,editorinputfactories_java.depends"
+          description="Generate the Activity and Description EditorInput java files"
+          unless="editorinputfactories_java.buildNotNeeded" >
+    <echo >Activity and Description EditorInputFactory java files ...</echo>
+  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+        <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
+    <arg line="-f sql/db.gen
+      -arch arc/create_editorinput_factories_java.arc" />
+  </exec>
+  <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+  <touch file="${src_path}/${activity_editorinput_factory_java.output}" />
+  </target>
+
+  <!-- Syntax Highlighting  -->
+  <property name="als.dir" value="../com.mentor.nucleus.bp.als/sql" />
+  <property name="literalrule_java.output" value="OALKeywords.java" />
+
+  <target name="literal_rule.depends" >
+    <uptodate property="literal_rule.buildNotNeeded" value="yes" targetfile="${src_path}/editor/oal/${literalrule_java.output}">
+        <srcfiles dir = "${als.dir}" includes = "grammar_schema.sql"/>
+        <srcfiles dir = "${als.dir}" includes = "oal_grammar.sql"/>
+        <srcfiles dir = "arc" includes = "OALKeywords_gen.arc"/>
+        <srcfiles dir = "arc" includes = "kw_utils.inc"/>
+    </uptodate>
+  </target>
+
+  <target name="literal_rule" description="Generate File OALKeywords.java for Syntax Highlighting" unless="literal_rule.buildNotNeeded" depends="literal_rule.depends">
+    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+    <arg line="-nopersist
+      -import ${als.dir}/grammar_schema.sql
+      -import ${als.dir}/oal_grammar.sql
+      -arch arc/OALKeywords_gen.arc" />
+  </exec>
+  </target>
+
+
+  <target name="format_java" description="Format the generated java source" >
+    <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask" >
+        <classpath>
+            <pathelement path="../com.mentor.nucleus.bp.core/tools/" />
+            <fileset dir="${plugins-home}/plugins" casesensitive="yes">
+                <include name="**/org.eclipse.text_*.jar" />
+                <include name="**/org.eclipse.ui_*.jar" />
+                <include name="**/org.eclipse.jdt.core_*.jar" />
+                <include name="**/org.eclipse.core.runtime_*.jar" />
+                <include name="**/org.eclipse.osgi_*.jar" />
+                <include name="**/org.eclipse.core.resources_*.jar" />
+                <include name="**/org.eclipse.equinox.common_*.jar" />
+            </fileset>
+        </classpath>
+    </taskdef>
+     <PTCodeFormat>
+        <fileset dir="${src_path}" excludes=""
+          includes="${modeladapter_java.output},${activity_editorinput_factory_java.output},${description_editorinput_factory_java.output},editor/oal/${literalrule_java.output}" />
+     </PTCodeFormat>
+  </target>
+
+  <!-- COMPILE TARGETS -->
+
+  <!-- This target is not used in the eclipse environment.  The eclipse Java
+       builder handles the java compilation when building BridgePoint under
+       eclipse.  This target is used only when building BridgePoint from the
+       command line on the build server. -->
+  <target name="compile"
+       description="Compile project" >
+    <echo>Compiling ${ant.project.name}</echo>
+    <mkdir dir="bin" />
+    <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6"
+        fork="yes" destdir="bin" debug="true" debuglevel="lines,vars,source" encoding="UTF-8" >
+       <src path="${src_path}" />
+       <classpath>
+         <pathelement path="../com.mentor.nucleus.bp.core/bin" />
+         <pathelement path="../com.mentor.nucleus.bp.als.oal/bin" />
+         <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
+           <include name="**/org.eclipse.osgi_*.jar" />
+           <include name="**/org.eclipse.ui.ide_*.jar" />
+           <include name="**/org.eclipse.core.filebuffers_*.jar" />
+           <include name="**/org.eclipse.core.resources_*.jar"/>
+           <include name="**/org.eclipse.jface_*.jar" />
+           <include name="**/org.eclipse.core.runtime_*.jar" />
+           <include name="**/org.eclipse.ui.workbench_*.jar" />
+           <include name="**/org.eclipse.swt.win32.win32.x86_*.jar" />
+           <include name="**/org.eclipse.ui_*.jar"/>
+           <include name="**/org.eclipse.text_*.jar"/>
+           <include name="**/org.eclipse.jface.text_*.jar"/>
+           <include name="**/org.eclipse.ui.views_*.jar"/>
+           <include name="**/org.eclipse.ui.win32_*.jar"/>
+           <include name="**/org.eclipse.ui.workbench.texteditor_*.jar"/>
+           <include name="**/org.eclipse.ui.editors_*.jar"/>
+           <include name="**/org.antlr_*/antlr.jar"/>
+           <include name="**/org.eclipse.core.boot_*.jar"/>
+           <include name="**/org.eclipse.equinox.common_*.jar"/>
+           <include name="**/org.eclipse.equinox.registry_*.jar"/>
+           <include name="**/org.eclipse.core.commands_*.jar"/>
+           <include name="**/org.eclipse.core.jobs_*.jar"/>
+           <include name="**/org.eclipse.core.contenttype_*.jar"/>
+         </fileset>
+       </classpath>
+    </javac>
+
+  </target>
+
+  <!-- CLEAN TARGETS -->
+
+  <target name="clean_all"
+        description="Clean entire project"
+        depends="clean_plugin,clean_modeladapter,clean_editorinput, clean_literalRule" >
+
+    <echo>Done cleaning for ${ant.project.name}</echo>
+
+  </target>
+
+  <target name="clean_plugin"
+    description="Remove the generated file: ${plugin_xml.output}">
+    <echo>Removing generated file: ${plugin_xml.output} ...</echo>
+    <delete file="${plugin_xml.output}" />
+  </target>
+
+  <target name="clean_modeladapter"
+    description="Remove the generated file: ${modeladapter_java.output}">
+    <echo>Removing generated file: ${modeladapter_java.output} ...</echo>
+     <delete file="${src_path}/${modeladapter_java.output}"/>
+  </target>
+
+  <target name="clean_editorinput"
+    description="Remove the generated files: ${activity_editorinput_factory_java.output} and ${description_editorinput_factory_java.output}">
+    <echo>Removing generated files: ${activity_editorinput_factory_java.output} and ${description_editorinput_factory_java.output} ...</echo>
+     <delete file="${src_path}/${activity_editorinput_factory_java.output}"/>
+     <delete file="${src_path}/${description_editorinput_factory_java.output}"/>
+  </target>
+
+  <target name="clean_literalRule"
+    description="Remove the generated file: ${literalrule_java.output}">
+    <echo>Removing generated file: ${literalrule_java.output} ...</echo>
+     <delete file="${src_path}/editor/oal/${literalrule_java.output}"/>
+  </target>
+
+</project>

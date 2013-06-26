@@ -1,0 +1,158 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("87d042a3-4455-421c-b36c-9f8de5a475e6",
+	'track log',
+	2,
+	'TRACK',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("17737756-e1de-49e6-87ee-cc72bee6ad8a",
+	"87d042a3-4455-421c-b36c-9f8de5a475e6",
+	'samplePoint',
+	'',
+	"86ca546c-3592-417a-8e87-0b77fd17920e",
+	1,
+	'create object instance newpoint of POINT;
+select one first related by self->POINT[R1];
+if (empty first)
+	relate newpoint to self across R1;
+	relate newpoint to self across R8;
+else
+	select one oldpoint related by self->POINT[R8];
+	unrelate oldpoint from self across R8;
+	relate newpoint to self across R8;
+	relate oldpoint to newpoint across R6.''follows'';
+end if;
+newpoint.getData();
+',
+	1,
+	'',
+	"ee0949ab-9c49-4577-9339-17e71d776c6d");
+INSERT INTO S_DT_PROXY
+	VALUES ("86ca546c-3592-417a-8e87-0b77fd17920e",
+	"00000000-0000-0000-0000-000000000000",
+	'void',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("ee0949ab-9c49-4577-9339-17e71d776c6d",
+	"87d042a3-4455-421c-b36c-9f8de5a475e6",
+	'clearHistory',
+	'',
+	"a1c87b95-4b30-43db-b775-31b7a5bc45a8",
+	0,
+	'select many traces from instances of TRACK;
+select any timer from instances of WTIMR;
+select one current_track related by timer->TRACK[R2];
+success = FALSE;
+for each trace in traces
+ 	if (trace != current_track)
+		select one point related by trace->POINT[R1];
+		if (not_empty point)
+			unrelate point from trace across R1;
+			while (not_empty point)
+				select one nextpoint related by point->POINT[R6.''follows''];
+				if (not_empty nextpoint)
+					unrelate nextpoint from point across R6.''follows'';
+				else
+					unrelate point from trace across R8;	// must be last point
+				end if;
+				delete object instance point;
+				success = TRUE;
+				point = nextpoint;
+			end while;
+		end if;
+		select many laps related by trace->LAP[R5];
+		for each lap in laps
+			unrelate lap from trace across R5;
+			delete object instance lap;
+		end for;
+		select many rates related by trace->HRATE[R3];
+		for each rate in rates
+			unrelate rate from trace across R3;
+			delete object instance rate;
+		end for;
+		delete object instance trace;
+	end if;
+end for;
+return success;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("a1c87b95-4b30-43db-b775-31b7a5bc45a8",
+	"00000000-0000-0000-0000-000000000000",
+	'boolean',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("51a61fe7-1e66-485f-b4eb-70d6ac11b85a",
+	"87d042a3-4455-421c-b36c-9f8de5a475e6");
+INSERT INTO O_BATTR
+	VALUES ("51a61fe7-1e66-485f-b4eb-70d6ac11b85a",
+	"87d042a3-4455-421c-b36c-9f8de5a475e6");
+INSERT INTO O_ATTR
+	VALUES ("51a61fe7-1e66-485f-b4eb-70d6ac11b85a",
+	"87d042a3-4455-421c-b36c-9f8de5a475e6",
+	"90a3a258-1563-48e8-858c-706a50c0dc7d",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"ffc69c60-425c-4e7e-9b44-d18757d73ec7",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ffc69c60-425c-4e7e-9b44-d18757d73ec7",
+	"00000000-0000-0000-0000-000000000000",
+	'state<State_Model>',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("90a3a258-1563-48e8-858c-706a50c0dc7d",
+	"87d042a3-4455-421c-b36c-9f8de5a475e6");
+INSERT INTO O_BATTR
+	VALUES ("90a3a258-1563-48e8-858c-706a50c0dc7d",
+	"87d042a3-4455-421c-b36c-9f8de5a475e6");
+INSERT INTO O_ATTR
+	VALUES ("90a3a258-1563-48e8-858c-706a50c0dc7d",
+	"87d042a3-4455-421c-b36c-9f8de5a475e6",
+	"00000000-0000-0000-0000-000000000000",
+	'name',
+	'',
+	'',
+	'name',
+	0,
+	"1c3f2ac9-9079-41ed-bd47-a49dc69a2d9a",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("1c3f2ac9-9079-41ed-bd47-a49dc69a2d9a",
+	"00000000-0000-0000-0000-000000000000",
+	'string',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"87d042a3-4455-421c-b36c-9f8de5a475e6");
+INSERT INTO O_ID
+	VALUES (1,
+	"87d042a3-4455-421c-b36c-9f8de5a475e6");
+INSERT INTO O_ID
+	VALUES (2,
+	"87d042a3-4455-421c-b36c-9f8de5a475e6");
+INSERT INTO PE_PE_PROXY
+	VALUES ("87d042a3-4455-421c-b36c-9f8de5a475e6",
+	1,
+	"b7eadfe3-b995-4f47-9561-d25f9a502ac5",
+	"00000000-0000-0000-0000-000000000000",
+	4,
+	'../Data Aquisition.xtuml');

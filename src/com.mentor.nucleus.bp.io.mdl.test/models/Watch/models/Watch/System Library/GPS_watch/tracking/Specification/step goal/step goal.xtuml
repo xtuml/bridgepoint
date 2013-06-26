@@ -1,0 +1,27 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("baeae991-f184-4b11-97a2-90fc86ce4c77",
+	'step goal',
+	108,
+	'SGOAL',
+	'',
+	"6bfc8243-4630-4cde-9c64-c71fe3dac95b");
+INSERT INTO O_ID
+	VALUES (0,
+	"baeae991-f184-4b11-97a2-90fc86ce4c77");
+INSERT INTO O_ID
+	VALUES (1,
+	"baeae991-f184-4b11-97a2-90fc86ce4c77");
+INSERT INTO O_ID
+	VALUES (2,
+	"baeae991-f184-4b11-97a2-90fc86ce4c77");
+INSERT INTO S_SS_PROXY
+	VALUES ("6bfc8243-4630-4cde-9c64-c71fe3dac95b",
+	'Specification',
+	'This subsystem defines how workout specifications are captured.',
+	'S',
+	101,
+	"7877e6e0-dd19-4087-b158-647c2788232a",
+	"00000000-0000-0000-0000-000000000000",
+	'../Specification.xtuml');

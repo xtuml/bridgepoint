@@ -1,0 +1,1287 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 11">
+<meta name=Originator content="Microsoft Word 11">
+<link rel=File-List href="Samples_files/filelist.xml">
+<link rel=Edit-Time-Data href="Samples_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Getting Started - Samples</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Mentor</o:Author>
+  <o:LastAuthor>kwilliam</o:LastAuthor>
+  <o:Revision>7</o:Revision>
+  <o:TotalTime>132</o:TotalTime>
+  <o:LastPrinted>2005-04-08T16:40:00Z</o:LastPrinted>
+  <o:Created>2005-05-24T18:08:00Z</o:Created>
+  <o:LastSaved>2006-07-06T19:24:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>2202</o:Words>
+  <o:Characters>12553</o:Characters>
+  <o:Company>Mentor Graphics</o:Company>
+  <o:Lines>104</o:Lines>
+  <o:Paragraphs>29</o:Paragraphs>
+  <o:CharactersWithSpaces>14726</o:CharactersWithSpaces>
+  <o:Version>11.6568</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:Compatibility>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" LatentStyleCount="156">
+ </w:LatentStyles>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:\5B8B\4F53;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+@font-face
+	{font-family:Webdings;
+	panose-1:5 3 1 2 1 5 9 6 7 3;
+	mso-font-charset:2;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 135135232 16 0 262145 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+h1
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:1;
+	font-size:18.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;
+	font-weight:normal;}
+h2
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	line-height:15.6pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:12.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	color:navy;
+	font-weight:bold;}
+h3
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
+	font-size:11.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	color:navy;
+	font-weight:bold;}
+h4
+	{margin-top:7.5pt;
+	margin-right:7.5pt;
+	margin-bottom:2.4pt;
+	margin-left:7.5pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:4;
+	font-size:11.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	color:#0176B9;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:navy;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#0176B9;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+p.preformatted-tpcode, li.preformatted-tpcode, div.preformatted-tpcode
+	{mso-style-name:preformatted-tp_code;
+	margin-top:15.0pt;
+	margin-right:0in;
+	margin-bottom:15.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	background:silver;
+	border:none;
+	mso-border-alt:solid black .75pt;
+	padding:0in;
+	mso-padding-alt:8.0pt 8.0pt 8.0pt 8.0pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:SimSun;}
+p.normalnotoc, li.normalnotoc, div.normalnotoc
+	{mso-style-name:normalnotoc;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+span.codeChar
+	{mso-style-name:"code Char";
+	mso-style-locked:yes;
+	mso-style-link:code;
+	mso-ansi-font-size:11.0pt;
+	mso-bidi-font-size:11.0pt;
+	font-family:"Courier New";
+	mso-ascii-font-family:"Courier New";
+	mso-fareast-font-family:SimSun;
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Courier New";
+	mso-ansi-language:EN-US;
+	mso-fareast-language:ZH-CN;
+	mso-bidi-language:AR-SA;}
+p.code, li.code, div.code
+	{mso-style-name:code;
+	mso-style-link:"code Char";
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:SimSun;}
+p.tpcode, li.tpcode, div.tpcode
+	{mso-style-name:tp_code;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:SimSun;}
+p.tpinput, li.tpinput, div.tpinput
+	{mso-style-name:tp_input;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;
+	font-weight:bold;}
+p.tpui, li.tpui, div.tpui
+	{mso-style-name:tp_ui;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;
+	color:navy;}
+p.tpvar, li.tpvar, div.tpvar
+	{mso-style-name:tp_var;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;
+	font-style:italic;}
+p.tpfooter, li.tpfooter, div.tpfooter
+	{mso-style-name:tp_footer;
+	margin:7.5pt;
+	text-align:center;
+	mso-pagination:widow-orphan;
+	background:white;
+	font-size:9.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+p.sub, li.sub, div.sub
+	{mso-style-name:sub;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+p.sublstbody, li.sublstbody, div.sublstbody
+	{mso-style-name:sublstbody;
+	margin:7.5pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+span.tpfile
+	{mso-style-name:tp_file;
+	color:#990000;
+	letter-spacing:1.2pt;}
+span.tpnote
+	{mso-style-name:tp_note;
+	font-weight:bold;}
+span.tpmenuarrow
+	{mso-style-name:tp_menuarrow;
+	font-family:Webdings;
+	mso-ascii-font-family:Webdings;
+	mso-hansi-font-family:Webdings;
+	color:navy;}
+span.hypertext
+	{mso-style-name:hypertext;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:1149324532;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-246011170 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l0:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1
+	{mso-list-id:1456824832;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-397261900 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l1:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:43.5pt;
+	mso-level-number-position:left;
+	margin-left:43.5pt;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l1:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+</style>
+<![endif]-->
+<script language="JavaScript"  src="../../../org.eclipse.help/livehelp.js">
+</script>
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="5122"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9" style='tab-interval:
+.5in'>
+
+<div class=Section1>
+
+<h1 style='mso-line-height-alt:15.6pt'><a name="_Ref100717464">Taking a Look at
+the Sample Models</a></h1>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman"'>In this part of the tour, we take a look at the sample
+models.<span style='mso-spacerun:yes'>  </span>This part of the tour requires
+the MicrowaveOven sample project to exist in the workspace.<span
+style='mso-spacerun:yes'>  </span>If you do not see the MicrowaveOven project
+click the link below.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman"'><a
+href="javascript:liveAction(%22com.mentor.nucleus.bp.welcome%22,%22com.mentor.nucleus.bp.welcome.gettingstarted.GettingStartedLiveHelpAction%22,%22%22)">Click
+here to create the sample project. </a><span style='mso-spacerun:yes'> </span><o:p></o:p></span></p>
+
+<h2>Reviewing the Sample UML Model</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>Before we look at the sample
+model, make sure you are in the xtUML Modeling perspective.<span
+style='mso-spacerun:yes'>  </span>This is usually the default when the tool is
+brought up and can be seen from the tab just above the Model Explorer view
+shown in the following image.<span style='mso-spacerun:yes'>  </span>If you are
+not in this perspective, select <b style='mso-bidi-font-weight:normal'>Window
+&gt; Open Perspective &gt; xtUML Modeling</b>.<span style='mso-spacerun:yes'> 
+</span><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'><!--[if gte vml 1]><v:shapetype
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:520.5pt;
+ height:485.25pt'>
+ <v:imagedata src="Samples_files/image035.jpg" o:title="samples1"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=694 height=647
+src="Samples_files/image035.jpg" v:shapes="_x0000_i1025"><![endif]><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman"'>For this tour, BridgePoint creates a workspace containing an
+xtUML project and model for the MicrowaveOven.<span style='mso-spacerun:yes'> 
+</span>When you change to the xtUML Modeling perspective it will show the </span><span
+class=codeChar><span style='font-size:11.0pt'>MicrowaveOven</span></span><span
+style='font-family:Arial;mso-bidi-font-family:"Times New Roman"'> project
+folder similar to the image above.<span style='mso-spacerun:yes'>  </span><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>Now let’s take a closer look at
+the models and the tool.<o:p></o:p></span></p>
+
+<h3><span style='mso-fareast-language:EN-US'>Model Explorer<o:p></o:p></span></h3>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>Model Explorer is the view you
+use to explore and navigate the model.<span style='mso-spacerun:yes'> 
+</span>From this view you can drill down into the model to see all of the
+constituent model elements.<span style='mso-spacerun:yes'>  </span>It also
+provides the place from which you launch the diagram, activity, and description
+editors.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>The Model Explorer view organizes
+a UML model hierarchically starting with the project, followed by one or more
+models.<span style='mso-spacerun:yes'>  </span>Each model contains packages
+that organize the model elements that make up the model. <o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>Expand the Model Explorer view so that the contents of the </span><span
+class=codeChar><span style='font-size:11.0pt'>MicrowaveOven</span></span><span
+style='font-family:Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'> project and model are
+shown.<span style='mso-spacerun:yes'>  </span>It should look similar to the
+image shown below.<span style='mso-spacerun:yes'>  </span><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'><!--[if gte vml 1]><v:shape id="_x0000_i1026" type="#_x0000_t75"
+ style='width:521.25pt;height:484.5pt'>
+ <v:imagedata src="Samples_files/image036.jpg" o:title="samples2"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=695 height=646
+src="Samples_files/image036.jpg" v:shapes="_x0000_i1026"><![endif]><o:p></o:p></span></p>
+
+<h3><span style='mso-fareast-language:EN-US'>Packages<o:p></o:p></span></h3>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>If you drill down into the hierarchy, you will notice that there are
+many different types of packages, as denoted by two small letters that sit on
+top of the package symbol.<span style='mso-spacerun:yes'>  </span>Each of these
+packages contains unique elements used to build the microwave oven application:<o:p></o:p></span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+Arial'>Domain Package</span></b><span style='font-family:Arial'> – This is the
+top-most package for the entire model.<span style='mso-spacerun:yes'> 
+</span>It is used to organize the other packages in the microwave oven
+model.<span style='mso-spacerun:yes'>  </span><o:p></o:p></span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+Arial'>Data Type Package </span></b><span style='font-family:Arial'>– This
+package is used to describe data types for the microwave oven model.<span
+style='mso-spacerun:yes'>  </span>There are built-in data types (called
+primitive data types), user-defined data types, and enumerations.<span
+style='mso-spacerun:yes'>  </span>Each user-defined data type is based on a
+primitive data type.<o:p></o:p></span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+Arial'>Function Package </span></b><span style='font-family:Arial'>– Function
+packages organize the functions in the model.<span style='mso-spacerun:yes'> 
+</span>Functions describe processing in terms of activities written in OAL
+(Object Action Language) and are used in this model for driving the microwave
+oven test sequences.<o:p></o:p></span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+Arial'>External Entity Package </span></b><span style='font-family:Arial'>– An
+External Entity (EE) package describes those things outside of the current
+model that need to be referenced by this model.<span style='mso-spacerun:yes'> 
+</span>They can represent other models, or pieces of hand-written code with
+which our model needs to interact.<span style='mso-spacerun:yes'>  </span>The
+EE’s used in the microwave oven model control shutdown of the application and
+provide timers.<o:p></o:p></span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+Arial'>Subsystem Package </span></b><span style='font-family:Arial'>– Subsystem
+packages organize the classes and associations for a subsystem.<span
+style='mso-spacerun:yes'>   </span>There can be many subsystems in a
+model.<span style='mso-spacerun:yes'>  </span>Subsystems are provided to break
+up a model into manageable pieces.<span style='mso-spacerun:yes'>  </span>The
+microwave oven model contains two subsystems: Microwave Oven and Test
+Subsystem.<o:p></o:p></span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+Arial'>State Machine Package </span></b><span style='font-family:Arial'>– State
+machine packages organize the states, events, transitions, and activities for a
+class that has behavior.<span style='mso-spacerun:yes'>  </span>There are two
+kinds: instance-based state machines, which describe the behavior of each
+instance of a class, and class-based state machines, which describe the
+behavior of the class as a whole.<span style='mso-spacerun:yes'>  </span>Most
+of the classes in the microwave oven model have behavior described by state
+machines.<o:p></o:p></span></p>
+
+<h3><span style='mso-fareast-language:EN-US'>Taking a Look at the Diagrams<o:p></o:p></span></h3>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>Each package has an associated
+diagram which can be accessed through the Model Explorer by double-clicking on
+the package or right-clicking on the package and selecting <b style='mso-bidi-font-weight:
+normal'>Open</b>.<span style='mso-spacerun:yes'>  </span><o:p></o:p></span></p>
+
+<h4><span style='mso-fareast-language:EN-US'>Domain Package Diagram<o:p></o:p></span></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>Open the Domain Package Diagram
+by double-clicking on the </span><span class=codeChar><span style='font-size:
+11.0pt'>MicrowaveOven</span></span><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'> model.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>Packages are shown on diagrams as
+tabbed folders.<span style='mso-spacerun:yes'>   </span>There are packages for
+the data types, external entities, and functions.<span
+style='mso-spacerun:yes'>  </span>There are also two packages for the two
+subsystems that make up the microwave oven model.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'><!--[if gte vml 1]><v:shape id="_x0000_i1027"
+ type="#_x0000_t75" style='width:338.25pt;height:274.5pt'>
+ <v:imagedata src="Samples_files/image005.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=451 height=366
+src="Samples_files/image006.jpg" v:shapes="_x0000_i1027"><![endif]><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>All diagrams have a diagram
+toolbar which is located above the diagram.<span style='mso-spacerun:yes'> 
+</span>The left-most tools are common to all diagrams and are related to
+performing zoom operations on the diagram.<span style='mso-spacerun:yes'> 
+</span><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'><!--[if gte vml 1]><v:shape id="_x0000_i1028"
+ type="#_x0000_t75" style='width:163.5pt;height:20.25pt'>
+ <v:imagedata src="Samples_files/image007.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=218 height=27
+src="Samples_files/image008.jpg" v:shapes="_x0000_i1028"><![endif]><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>From left to right, the tools
+are:<o:p></o:p></span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+Arial'>Magnifying Glass - Plus Sign</span></b><span style='font-family:Arial'>
+– Zooms in on the diagram.<span style='mso-spacerun:yes'>  </span>The short-cut
+key is Ctrl-Shift + Up Arrow.<span style='mso-spacerun:yes'>  </span><o:p></o:p></span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+Arial'>Magnifying Glass - Minus Sign</span></b><span style='font-family:Arial'>
+– Zooms out on the diagram.<span style='mso-spacerun:yes'>  </span>The
+short-cut key is Ctrl-Shift + Down Arrow.<span style='mso-spacerun:yes'> 
+</span><o:p></o:p></span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+Arial'>Magnifying Glass - Page</span></b><span style='font-family:Arial'> –
+Zooms all elements on the diagram.<span style='mso-spacerun:yes'>  </span><o:p></o:p></span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+Arial'>Magnifying Glass - Elements</span></b><span style='font-family:Arial'> –
+Zooms the currently selected elements only.<span style='mso-spacerun:yes'> 
+</span><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>The button with the arrow is the
+selection tool.<span style='mso-spacerun:yes'>  </span>Use this tool to select
+an element on the diagram.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>Tools to the right of the
+selection tool put the diagram in “draw mode” and are used to draw model
+elements specific to the diagram.<span style='mso-spacerun:yes'>  </span>The
+four tools on the DPD toolbar are used to create new subsystem, external
+entity, function, and data type packages respectively.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>Double-clicking on a package
+inside a diagram brings up the diagram editor for the package. <o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>Open the Datatypes package by
+double-clicking on it.<span style='mso-spacerun:yes'>  </span><o:p></o:p></span></p>
+
+<h4><span style='mso-fareast-language:EN-US'>Data Type Package Diagram<o:p></o:p></span></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>The Data Type Package Diagram for
+the microwave oven looks similar to this:<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'><!--[if gte vml 1]><v:shape id="_x0000_i1029"
+ type="#_x0000_t75" style='width:464.25pt;height:380.25pt'>
+ <v:imagedata src="Samples_files/image009.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=619 height=507
+src="Samples_files/image010.jpg" v:shapes="_x0000_i1029"><![endif]><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial'>Notice that the tools
+to the right of the selection tool have changed for this diagram’s
+context.<span style='mso-spacerun:yes'>  </span>The tools are used to draw user
+data types, enumeration data types, and data type packages.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1030" type="#_x0000_t75" style='width:72.75pt;height:20.25pt'>
+ <v:imagedata src="Samples_files/image011.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=97 height=27
+src="Samples_files/image012.jpg" v:shapes="_x0000_i1030"><![endif]><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial'>The Data Type
+Package Diagram above shows only a portion of the data types for the microwave
+oven.<span style='mso-spacerun:yes'>  </span>Notice that there are a few
+primitive types, as denoted by the </span><span class=codeChar><span
+style='font-size:11.0pt'>&lt;&lt;primitive&gt;&gt;</span></span><span
+style='font-family:Arial'> label, three user-defined data types as denoted by
+the label </span><span class=codeChar><span style='font-size:11.0pt'>&lt;&lt;dataType&gt;&gt;</span></span><span
+style='font-family:Arial'>, and one enumeration type that defines tube
+wattages.<span style='mso-spacerun:yes'>   </span>Once defined on this diagram,
+data types can be used to type class attributes and parameters of UML
+elements.<span style='mso-spacerun:yes'>  </span><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial'>Note that
+primitive data types are provided on the diagram for you and do not need to be
+defined.<o:p></o:p></span></p>
+
+<h4><span style='mso-fareast-language:EN-US'>External Entity Package Diagram<o:p></o:p></span></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>Open the External Entity Package
+Diagram. <span style='mso-spacerun:yes'> </span>You can do this by either going
+back to the Model Explorer or the Domain Package Diagram.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>The External Entity Package
+Diagram shows those things, or entities, that are outside (external) to what we
+are modeling.<span style='mso-spacerun:yes'>  </span>EE’s can represent other
+models, or code that our model needs to interact with.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>The microwave oven model has
+three EE’s: Control Panel, Architecture, and Time.<span
+style='mso-spacerun:yes'>  </span>The Control Panel represents the control
+panel of the microwave.<span style='mso-spacerun:yes'>  </span>The Architecture
+EE represents the model compiler and contains one bridge operation named
+shutdown which is used to shutdown the microwave application (more on this
+later).<span style='mso-spacerun:yes'>  </span><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>The Time EE provides time and
+date bridge operations so that our microwave oven model can have access to
+dates, time, and timer (i.e., delayed) events.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'><!--[if gte vml 1]><v:shape id="_x0000_i1031"
+ type="#_x0000_t75" style='width:462.75pt;height:379.5pt'>
+ <v:imagedata src="Samples_files/image013.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=617 height=506
+src="Samples_files/image014.jpg" v:shapes="_x0000_i1031"><![endif]><o:p></o:p></span></p>
+
+<h4><span style='mso-fareast-language:EN-US'><o:p>&nbsp;</o:p></span></h4>
+
+<h4><span style='mso-fareast-language:EN-US'>Function Package Diagram<o:p></o:p></span></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>Function Package Diagrams provide
+a way to organize functions.<span style='mso-spacerun:yes'>  </span>Function
+packages have a representation on the diagram, but functions don’t – there is
+no UML notation for them.<span style='mso-spacerun:yes'>  </span>They can only
+be seen in the Model Explorer.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>The microwave oven model uses
+several functions to provide initialization and simulate the operation of the
+microwave.<span style='mso-spacerun:yes'>  </span><o:p></o:p></span></p>
+
+<h4><span style='mso-fareast-language:EN-US'>Class Diagram<o:p></o:p></span></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>Subsystems provide a convenient way to break up a model into manageable
+chunks.<span style='mso-spacerun:yes'>  </span>The microwave oven model
+contains two subsystems, one that models the microwave oven, and one that tests
+it.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>Double-clicking on a subsystem opens the Class Diagram.<span
+style='mso-spacerun:yes'>  </span>Open the Class Diagram for the Microwave Oven
+subsystem.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'><!--[if gte vml 1]><v:shape id="_x0000_i1032" type="#_x0000_t75"
+ style='width:510pt;height:464.25pt'>
+ <v:imagedata src="Samples_files/image015.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=680 height=619
+src="Samples_files/image016.jpg" v:shapes="_x0000_i1032"><![endif]><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>When the microwave oven was modeled, the following six classes were identified:<o:p></o:p></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt;mso-list:
+l1 level1 lfo2;tab-stops:list 43.5pt'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;mso-fareast-language:EN-US'><span style='mso-list:Ignore'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>Oven<o:p></o:p></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt;mso-list:
+l1 level1 lfo2;tab-stops:list 43.5pt'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;mso-fareast-language:EN-US'><span style='mso-list:Ignore'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>Door<o:p></o:p></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt;mso-list:
+l1 level1 lfo2;tab-stops:list 43.5pt'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;mso-fareast-language:EN-US'><span style='mso-list:Ignore'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>Turntable<o:p></o:p></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt;mso-list:
+l1 level1 lfo2;tab-stops:list 43.5pt'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;mso-fareast-language:EN-US'><span style='mso-list:Ignore'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>Beeper<o:p></o:p></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt;mso-list:
+l1 level1 lfo2;tab-stops:list 43.5pt'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;mso-fareast-language:EN-US'><span style='mso-list:Ignore'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>Internal light<o:p></o:p></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt;mso-list:
+l1 level1 lfo2;tab-stops:list 43.5pt'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;mso-fareast-language:EN-US'><span style='mso-list:Ignore'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>Magnetron tube<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>The Class Diagram represents the classes as boxes.<span
+style='mso-spacerun:yes'>  </span>The class attributes are the variables listed
+in the boxes, and the associations (relationships) between individual classes
+are the lines between the boxes.<span style='mso-spacerun:yes'> 
+</span>Associations have multiplicity and are named with text phrases.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>The </span><span class=codeChar><span style='font-size:11.0pt'>Oven</span></span><span
+style='font-family:Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'> class (at the center of the
+screen) has an association with several of the other classes. For example,
+there is an association, labeled </span><span class=codeChar><span
+style='font-size:11.0pt'>R4</span></span><span style='font-family:Arial;
+mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+mso-fareast-language:EN-US'>, between the </span><span class=codeChar><span
+style='font-size:11.0pt'>Oven</span></span><span style='font-family:Arial;
+mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+mso-fareast-language:EN-US'> and the </span><span class=codeChar><span
+style='font-size:11.0pt'>Door</span></span><span style='font-family:Arial;
+mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+mso-fareast-language:EN-US'>. The </span><span class=codeChar><span
+style='font-size:11.0pt'>R4</span></span><span style='font-family:Arial;
+mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+mso-fareast-language:EN-US'> association is drawn as a solid, undirected line
+with a 1 at both end points, which denotes a one-to-one association. In our
+example, all of the associations are one-to-one.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>The phrases “is accessed via” and “provides access to” describe the
+association between the two classes.<o:p></o:p></span></p>
+
+<h4><span style='mso-fareast-language:EN-US'>State Machine Diagram<o:p></o:p></span></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>A State Machine Diagram is used to represent the behavior of a
+class.<span style='mso-spacerun:yes'>  </span>Let’s take a look at the State
+Machine Diagram for the </span><span class=codeChar><span style='font-size:
+11.0pt'>Door</span></span><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'> class.<span style='mso-spacerun:yes'>  </span>To open the State Machine
+Diagram for the </span><span class=codeChar><span style='font-size:11.0pt'>Door</span></span><span
+style='font-family:Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>, navigate inside the Door class
+in the Model Explorer and double-click on Instance State Machine.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'><!--[if gte vml 1]><v:shape id="_x0000_i1033" type="#_x0000_t75"
+ style='width:522pt;height:484.5pt'>
+ <v:imagedata src="Samples_files/image037.jpg" o:title="samples3"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=696 height=646
+src="Samples_files/image037.jpg" v:shapes="_x0000_i1033"><![endif]><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>A state is represented by a rectangle with rounded corners.<span
+style='mso-spacerun:yes'>  </span>Each state has a name and number.<span
+style='mso-spacerun:yes'>  </span>The directed arrows represent state
+transitions and are labeled with the event that causes the transition.<span
+style='mso-spacerun:yes'>  </span>Activities are shown inside the rectangle and
+represent the processing that occurs on entry to a state.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>The </span><span class=codeChar><span style='font-size:11.0pt'>Door</span></span><span
+style='font-family:Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'> state machine has two states, </span><span
+class=codeChar><span style='font-size:11.0pt'>Open</span></span><span
+style='font-family:Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'> and </span><span class=codeChar><span
+style='font-size:11.0pt'>Closed</span></span><span style='font-family:Arial;
+mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+mso-fareast-language:EN-US'>.<span style='mso-spacerun:yes'>  </span>When the </span><span
+class=codeChar><span style='font-size:11.0pt'>release</span></span><span
+style='font-family:Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'> event is received and the door
+is closed, it transitions to the </span><span class=codeChar><span
+style='font-size:11.0pt'>Open</span></span><span style='font-family:Arial;
+mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+mso-fareast-language:EN-US'> state.<span style='mso-spacerun:yes'> 
+</span>Likewise when a </span><span class=codeChar><span style='font-size:11.0pt'>close</span></span><span
+style='font-family:Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'> event is received in the </span><span
+class=codeChar><span style='font-size:11.0pt'>Open</span></span><span
+style='font-family:Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'> state the door transitions to
+the </span><span class=codeChar><span style='font-size:11.0pt'>Closed</span></span><span
+style='font-family:Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'> state.<o:p></o:p></span></p>
+
+<h4><span style='mso-fareast-language:EN-US'>Activities<o:p></o:p></span></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>The processing for each state in the State Machine Diagram is specified
+with activities written in OAL (Object Action Language). As an example, let’s
+look at the activities for the </span><span class=codeChar><span
+style='font-size:11.0pt'>Open</span></span><span style='font-family:Arial;
+mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+mso-fareast-language:EN-US'> state of the </span><span class=codeChar><span
+style='font-size:11.0pt'>Door</span></span><span style='font-family:Arial;
+mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Courier New";
+mso-fareast-language:EN-US'> state machine.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>Accessing the activity for a state can be done in one of two ways: by
+double-clicking on the state in either the Model Explorer or the State Machine
+Diagram.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'><!--[if gte vml 1]><v:shape id="_x0000_i1034" type="#_x0000_t75"
+ style='width:522pt;height:485.25pt'>
+ <v:imagedata src="Samples_files/image001.jpg" o:title="samples4"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=696 height=647
+src="Samples_files/image001.jpg" v:shapes="_x0000_i1034"><![endif]><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>The behavior being modeled for the </span><span class=codeChar><span
+style='font-size:11.0pt'>Door</span></span><span style='font-family:Arial;
+mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+mso-fareast-language:EN-US'> is this: when the </span><span style='font-family:
+Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Courier New";
+mso-fareast-language:EN-US'>door</span><span style='font-family:Arial;
+mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+mso-fareast-language:EN-US'> is opened, the </span><span style='font-family:
+Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Courier New";
+mso-fareast-language:EN-US'>oven</span><span style='font-family:Arial;
+mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+mso-fareast-language:EN-US'> is not secure and must be told to stop cooking.
+The activities written for the </span><span class=codeChar><span
+style='font-size:11.0pt'>Open</span></span><span style='font-family:Arial;
+mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+mso-fareast-language:EN-US'> state reflect this by setting the attribute
+variable </span><span class=codeChar><span style='font-size:11.0pt'>is_secure</span></span><span
+style='font-family:Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'> to </span><span class=codeChar><span
+style='font-size:11.0pt'>false</span></span><span style='font-family:Arial;
+mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+mso-fareast-language:EN-US'> and sending the event </span><span class=codeChar><span
+style='font-size:11.0pt'>MO_O4:’cancel_cooking’</span></span><span
+style='font-family:Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'> to an </span><span
+class=codeChar><span style='font-size:11.0pt'>Oven</span></span><span
+style='font-family:Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'> instance.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>The Activity Editor is a context-sensitive editor that provides syntax
+and semantic highlighting, showing you errors as they are typed.<span
+style='mso-spacerun:yes'>  </span>Errors are reported in the Problems View. <o:p></o:p></span></p>
+
+<h3><span style='mso-fareast-language:EN-US'>Testing our Microwave Oven<o:p></o:p></span></h3>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>So far, we have seen the modeling elements for the microwave oven
+application.<span style='mso-spacerun:yes'>  </span>In order to test the
+application model, we need to see how it operates in typical situations.<span
+style='mso-spacerun:yes'>  </span>For that purpose we’ve created a few functions
+and a subsystem dedicated to testing the microwave.<span
+style='mso-spacerun:yes'>  </span><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>Functions are one of the places where we can model activities.<span
+style='mso-spacerun:yes'>  </span>This makes them a convenient place to create
+instances of the classes in the microwave oven model; oven, door, tube, and the
+associations between them.<span style='mso-spacerun:yes'>  </span>We can also
+generate events to kick off the various scenarios.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>The “</span><span class=codeChar><span style='font-size:11.0pt'>Test
+Subsystem</span></span><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>” subsystem models a set of test scenarios used to exercise the
+microwave oven models.<span style='mso-spacerun:yes'>  </span>One of the nice
+things about using a subsystem to model the scenarios is that our tests are
+modeled at the same level of abstraction as the microwave oven model.</span><span
+style='font-size:11.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+EN-US'><o:p></o:p></span></p>
+
+<h4><span style='mso-fareast-language:EN-US'>Initialization<o:p></o:p></span></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>Take a look at the function </span><span
+class=codeChar><span style='font-size:11.0pt'>DefineOven</span></span><span
+style='font-family:Arial;mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>.<span style='mso-spacerun:yes'>  </span>You can access the activities
+for this function by double-clicking on it in the Model Explorer.<span
+style='mso-spacerun:yes'>  </span>This brings up the Activity Editor for the
+function.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'><!--[if gte vml 1]><v:shape id="_x0000_i1035"
+ type="#_x0000_t75" style='width:367.5pt;height:308.25pt'>
+ <v:imagedata src="Samples_files/image021.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=490 height=411
+src="Samples_files/image022.jpg" v:shapes="_x0000_i1035"><![endif]><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'><o:p>&nbsp;</o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>The </span><span class=codeChar><span
+style='font-size:11.0pt'>DefineOven</span></span><span style='font-family:Arial;
+mso-bidi-font-family:"Times New Roman";mso-fareast-language:EN-US'> function
+contains activities that create the instances of the classes, set attribute
+values, and establish the associations between them.<span
+style='mso-spacerun:yes'>  </span>Note that the Activity Editor highlights
+keywords in red and comments in light green.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>Now take a look at the </span><span
+class=codeChar><span style='font-size:11.0pt'>TestSequence1</span></span><span
+style='font-family:Arial;mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'> function.<span style='mso-spacerun:yes'>  </span>This function is used
+to generate an event that kicks off the simulation.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'><!--[if gte vml 1]><v:shape id="_x0000_i1036"
+ type="#_x0000_t75" style='width:368.25pt;height:308.25pt'>
+ <v:imagedata src="Samples_files/image023.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=491 height=411
+src="Samples_files/image024.jpg" v:shapes="_x0000_i1036"><![endif]><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>When we create the instance of
+the class </span><span class=codeChar><span style='font-size:11.0pt'>MO_TS</span></span><span
+style='font-family:Arial;mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>, we get a handle back (</span><span class=codeChar><span
+style='font-size:11.0pt'>testSequence</span></span><span style='font-family:
+Arial;mso-bidi-font-family:"Times New Roman";mso-fareast-language:EN-US'>)
+which can then be used to generate the </span><span class=codeChar><span
+style='font-size:11.0pt'>MO_TS2</span></span><span style='font-family:Arial;
+mso-bidi-font-family:"Times New Roman";mso-fareast-language:EN-US'> event to
+the instance of </span><span class=codeChar><span style='font-size:11.0pt'>Test
+Sequences</span></span><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>.<o:p></o:p></span></p>
+
+<h4><span style='mso-fareast-language:EN-US'>Test Subsystem<o:p></o:p></span></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>Open up the state machine for the </span><span class=codeChar><span
+style='font-size:11.0pt'>Test Sequences</span></span><span style='font-family:
+Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+mso-fareast-language:EN-US'> class so we can see what happens in our model when
+the </span><span class=codeChar><span style='font-size:11.0pt'>MO_TS2</span></span><span
+style='font-family:Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'> event is received.<span
+style='mso-spacerun:yes'>  </span>Remember that the class you are looking for
+is in the </span><span class=codeChar><span style='font-size:11.0pt'>Test
+Subsystem</span></span><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'> subsystem.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>The State Machine Diagram for the </span><span class=codeChar><span
+style='font-size:11.0pt'>Test Sequences</span></span><span style='font-family:
+Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+mso-fareast-language:EN-US'> class is shown below:<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'><!--[if gte vml 1]><v:shape id="_x0000_i1037" type="#_x0000_t75"
+ style='width:652.5pt;height:567pt'>
+ <v:imagedata src="Samples_files/image025.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=870 height=756
+src="Samples_files/image026.jpg" v:shapes="_x0000_i1037"><![endif]><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>There are four states in the diagram.<span style='mso-spacerun:yes'> 
+</span>State 1 (</span><span class=codeChar><span style='font-size:11.0pt'>Awaiting
+Test Sequence Initiation</span></span><span style='font-family:Arial;
+mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+mso-fareast-language:EN-US'>) sends an event to the next state to start a
+specific test sequence.<span style='mso-spacerun:yes'>  </span>States 2 and 3 (</span><span
+class=codeChar><span style='font-size:11.0pt'>Performing Test Sequence 1</span></span><span
+style='font-family:Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:
+"Courier New";mso-fareast-language:EN-US'> and </span><span class=codeChar><span
+style='font-size:11.0pt'>2</span></span><span style='font-family:Arial;
+mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+mso-fareast-language:EN-US'>, respectively) are specific test scenarios for
+operating the oven.<span style='mso-spacerun:yes'>  </span>State 4 (</span><span
+class=codeChar><span style='font-size:11.0pt'>Cooking Complete</span></span><span
+style='font-family:Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>) takes steps necessary to
+terminate the application (note the bridge call to the </span><span
+class=codeChar><span style='font-size:11.0pt'>ARCH</span></span><span
+style='font-family:Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'> external entity).<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>You can see a portion of the activities for state 2 in the diagram
+above. Essentially, it specifies the following processing:<o:p></o:p></span></p>
+
+<p style='margin-left:.5in;text-indent:-.25in;line-height:15.6pt;mso-list:l0 level1 lfo4;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;mso-fareast-language:
+EN-US'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>Open the door.<o:p></o:p></span></p>
+
+<p style='margin-left:.5in;text-indent:-.25in;line-height:15.6pt;mso-list:l0 level1 lfo4;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;mso-fareast-language:
+EN-US'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>Lower the power setting to medium high.<o:p></o:p></span></p>
+
+<p style='margin-left:.5in;text-indent:-.25in;line-height:15.6pt;mso-list:l0 level1 lfo4;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;mso-fareast-language:
+EN-US'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>Close the door.<o:p></o:p></span></p>
+
+<p style='margin-left:.5in;text-indent:-.25in;line-height:15.6pt;mso-list:l0 level1 lfo4;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;mso-fareast-language:
+EN-US'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>Select a cooking time of 10 seconds.<o:p></o:p></span></p>
+
+<p style='margin-left:.5in;text-indent:-.25in;line-height:15.6pt;mso-list:l0 level1 lfo4;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;mso-fareast-language:
+EN-US'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>After 20 seconds, open the door.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'>By default, all state machines start out in the lowest numbered
+state.<span style='mso-spacerun:yes'>  </span>This means that the event sent by
+the </span><span class=codeChar><span style='font-size:11.0pt'>TestSequence1</span></span><span
+style='font-family:Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'> causes this state machine to
+transition from state 1 to state 2.<span style='mso-spacerun:yes'>  </span>Upon
+entering state 2, the activities are executed and the models begin to execute.<o:p></o:p></span></p>
+
+<h3><span style='mso-fareast-language:EN-US'>A Few Other Views and Editors<o:p></o:p></span></h3>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>There are a few other views and
+editors that you need to be aware of when using the tool. <o:p></o:p></span></p>
+
+<h4><span style='mso-fareast-language:EN-US'>Outline View<o:p></o:p></span></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>The Outline view is active when a
+diagram editor has focus.<span style='mso-spacerun:yes'>  </span>It shows an outline
+of the model elements on the diagram.<span style='mso-spacerun:yes'> 
+</span>Here is what the Outline view looks like for the </span><span
+class=codeChar><span style='font-size:11.0pt'>Door</span></span><span
+style='font-family:Arial;mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'> state machine.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'><!--[if gte vml 1]><v:shape id="_x0000_i1038"
+ type="#_x0000_t75" style='width:187.5pt;height:264pt'>
+ <v:imagedata src="Samples_files/image027.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=250 height=352
+src="Samples_files/image028.jpg" v:shapes="_x0000_i1038"><![endif]><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>Bring up the Outline view and see
+how it changes when different diagram editors are selected.<o:p></o:p></span></p>
+
+<h4><span style='mso-fareast-language:EN-US'>Properties View<o:p></o:p></span></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>You can use the Properties view
+to change the attributes of the currently selected model element.<span
+style='mso-spacerun:yes'>  </span>There are basic and advanced properties.<span
+style='mso-spacerun:yes'>   </span>The following is what the Properties view
+looks like for the </span><span class=codeChar><span style='font-size:11.0pt'>Oven</span></span><span
+style='font-family:Arial;mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'> class:<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'><!--[if gte vml 1]><v:shape id="_x0000_i1039"
+ type="#_x0000_t75" style='width:229.5pt;height:264pt'>
+ <v:imagedata src="Samples_files/image029.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=306 height=352
+src="Samples_files/image030.jpg" v:shapes="_x0000_i1039"><![endif]><o:p></o:p></span></p>
+
+<h4><span style='mso-fareast-language:EN-US'>Problems View<o:p></o:p></span></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>Problems with activities (parsing
+errors) are reported on the Problems view.<span style='mso-spacerun:yes'> 
+</span>A brief description of the problem is noted along with the
+location.<span style='mso-spacerun:yes'>  </span>Double-clicking on a problem
+in the Problem view brings up the editor for the activity associated with the
+problem.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>The “</span><span class=codeChar><span
+style='font-size:11.0pt'>unexpected char</span></span><span style='font-family:
+Arial;mso-bidi-font-family:"Times New Roman";mso-fareast-language:EN-US'>”
+problem appears in the Problems view when an underscore is pre-pended to the </span><span
+class=codeChar><span style='font-size:11.0pt'>assign</span></span><span
+style='font-family:Arial;mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'> keyword.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'><!--[if gte vml 1]><v:shape id="_x0000_i1040"
+ type="#_x0000_t75" style='width:405pt;height:264pt'>
+ <v:imagedata src="Samples_files/image031.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=540 height=352
+src="Samples_files/image032.jpg" v:shapes="_x0000_i1040"><![endif]><o:p></o:p></span></p>
+
+<h4><span style='mso-fareast-language:EN-US'>Description Editor<o:p></o:p></span></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>Virtually every model element can
+have a description.<span style='mso-spacerun:yes'>  </span>Descriptions are
+entered using the Description Editor.<span style='mso-spacerun:yes'>  </span>To
+access the description editor for a model element, select it (in the Model
+Explorer or Diagram Editor), right-click, and select <b style='mso-bidi-font-weight:
+normal'>Open With &gt; Description Editor</b>.<span style='mso-spacerun:yes'> 
+</span>The following shows the Description Editor for the </span><span
+class=codeChar><span style='font-size:11.0pt'>Oven</span></span><span
+style='font-family:Arial;mso-bidi-font-family:"Times New Roman";mso-fareast-language:
+EN-US'> Class.<o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'><!--[if gte vml 1]><v:shape id="_x0000_i1041"
+ type="#_x0000_t75" style='width:445.5pt;height:192pt'>
+ <v:imagedata src="Samples_files/image033.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=594 height=256
+src="Samples_files/image034.jpg" v:shapes="_x0000_i1041"><![endif]><o:p></o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:Arial;mso-bidi-font-family:
+"Times New Roman"'>That covers the sample model portion of this tour.<span
+style='mso-spacerun:yes'>  </span>At this point you can either learn about <a href="ModelVerifier.htm">running a model in BridgePoint Verifier</a>.  Or, to learn to translate the sample models with a </span><span
+style='font-family:Arial;mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:
+"Times New Roman";mso-fareast-language:EN-US'>BridgePoint</span><span
+style='font-family:Arial;mso-bidi-font-family:"Times New Roman"'> Compiler,
+please proceed to <a href="Translate.htm">this section</a>.<o:p></o:p></span></p>
+
+</div>
+
+</body>
+
+</html>

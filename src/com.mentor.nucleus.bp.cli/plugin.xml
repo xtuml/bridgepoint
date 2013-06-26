@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="Build"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            thread="main"
+            visible="true">
+         <run
+               class="com.mentor.nucleus.bp.cli.Build">
+         </run>
+      </application>
+   </extension>
+   <extension
+         id="Execute"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            thread="main"
+            visible="true">
+         <run
+               class="com.mentor.nucleus.bp.cli.Execute">
+         </run>
+      </application>
+   </extension>
+   <extension
+         id="Import"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            thread="main"
+            visible="true">
+         <run
+               class="com.mentor.nucleus.bp.cli.Import">
+         </run>
+      </application>
+   </extension>
+   <extension
+         id="Merge"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            thread="main"
+            visible="true">
+         <run
+               class="com.mentor.nucleus.bp.cli.Merge">
+         </run>
+      </application>
+   </extension>
+
+</plugin>

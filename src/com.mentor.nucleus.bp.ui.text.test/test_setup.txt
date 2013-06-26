@@ -1,0 +1,69 @@
+
+To build the test plugin:
+
+- make sure correct test model is in models/testDescrip1.xtuml
+
+- Select build.xml, invoke context menu 'Run Ant...'
+- Select the targets in this order:  clean, build.jars, zip.plugin
+- Run Ant
+
+To setup the test environment:
+
+- Create a directory named 'eclipse-test' as a sibling to your main eclipse directory
+- Unzip the eclipse SDK into eclipse-test
+- Unzip org.eclipse.test, and org.eclipse.ant.optional.junit plugins
+   into the eclipse-test/eclipse/plugins directory.  These plugins are
+   found in the phoenix:/software/software_archive/Eclipse/plug-ins/org.eclipse.test
+- Copy the org.antlr_2.7.2 plugin into eclipse-test/eclipse/plugins
+
+- Either get the Tiger plugin distribution from http://phoenix.projtech.com/tiger_releases
+   or build it using feature-pkg/build.xml
+- Unzip the BridgePoint distribution into the eclipse-test/eclipse directory
+- Place the file ui_text.bat (content should be pasted from below) in the eclipse-test
+- Install unzip (www.info-zip.org) and put it in the path
+
+To execute the test:
+
+- cd eclipse-test
+- ui_text.bat
+- Results are in eclipse-test\UITextSuite.xml
+
+
+ui_text.bat contents:
+
+rmdir /S /Q eclipse\text_folder
+
+cd  eclipse\plugins
+
+set WORKSPACE_PATH=C:\eclipse\workspace\com.mentor.nucleus.bp.ui.text.test\
+
+unzip -qq -o %WORKSPACE_PATH%com.mentor.nucleus.bp.ui.text.test_*.zip
+
+cd ..\..
+
+java -DWORKSPACE_PATH=%WORKSPACE_PATH% -DLOGFILE_PATH=text_folder/.metadata/.log -cp eclipse\startup.jar org.eclipse.core.launcher.Main -noupdate -application org.eclipse.test.uitestapplication -dev bin -data eclipse\text_folder formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,UITextSuite.xml -testPluginName com.mentor.nucleus.bp.ui.text.test -className UITextSuite -dev bin -os win32 -ws win32 -arch x86 -nl en_US
+
+
+To execute the test in your workspace
+-------------------------------------
+
+- In the Java perspective, select Run/Run...
+- Select JUnit Plug-in Test, context menu New
+- Rename the new configuration to 'UIText Test'
+- On the Test tab, under 'Run a single test', specify project
+  'com.mentor.nucleus.bp.ui.text.test' and test class 'UITextSuite'
+- Change workspace data to '${eclipse_home}/bp_tests/text'
+- Change VM Arguments to
+  '-DWORKSPACE_PATH=${workspace_loc}/com.mentor.nucleus.bp.ui.text.test/ -DLOGFILE_PATH=${eclipse_home}/bp_tests/text/.metadata/.log'
+- Add '-noupdate ' to the front of the Program Arguments
+- Check 'Clear workspace data before launching'
+- On the Plug-ins and Fragments page, check the bottom radio button.
+   (Choose plug-ins and fragments to launch from the list)
+   _- Disable (uncheck) the following external plugins
+   		com.mentor.nucleus.builder.welcome
+   		com.mentor.nucleus.debug*
+   		com.mentor.nucleus.target.windows
+   		com.mentor.nucleus.ts*
+
+
+The test results will be written to a file in the Eclipse top-level folder.

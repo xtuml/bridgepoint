@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="com.mentor.nucleus.bp.debug.ui.BPApplication">
+<booleanAttribute key="com.mentor.nucleus.bp.debug.ui.BPApplication.activity" value="true"/>
+<booleanAttribute key="com.mentor.nucleus.bp.debug.ui.BPApplication.deterministic" value="false"/>
+<mapAttribute key="com.mentor.nucleus.bp.debug.ui.BPApplication.models">
+<mapEntry key="MicrowaveOven" value="544a75b3-22ce-4c30-8788-bec6c1772abf_INTERNALTOKEN_1_INTERNALTOKEN_None_INTERNALTOKEN_enabled_TOKEN_"/>
+</mapAttribute>
+<booleanAttribute key="com.mentor.nucleus.bp.debug.ui.BPApplication.simtime" value="false"/>
+</launchConfiguration>

@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: VHDL Model Compiler (Source)
+Bundle-SymbolicName: com.mentor.nucleus.bp.mc.vhdl.source; singleton:=true
+Bundle-Version: 4.0.3
+Bundle-Activator: com.mentor.nucleus.bp.mc.vhdl.source.Activator
+Bundle-Vendor: Mentor Graphics
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.core.variables,
+ com.mentor.nucleus.bp.core,
+ com.mentor.nucleus.bp.io.core,
+ com.mentor.nucleus.bp.mc,
+ com.mentor.nucleus.bp.mc.xmiexport,
+ org.eclipse.debug.ui,
+ org.eclipse.ui.ide,
+ org.eclipse.cdt.core,
+ org.eclipse.cdt.ui,
+ org.eclipse.cdt.managedbuilder.ui
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Export-Package: com.mentor.nucleus.bp.mc.vhdl.source
+Bundle-ClassPath: vhdl.jar

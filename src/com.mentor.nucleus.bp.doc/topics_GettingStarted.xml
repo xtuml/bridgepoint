@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile: topics_GettingStarted.xml,v $
+ Version:   $Revision: 1.21 $
+ Modified:  $Date: 2013/01/10 23:14:46 $
+
+ (c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
+
+ ========================================================================
+ This document contains information proprietary and confidential to
+ Mentor Graphics Corp., and is not for external distribution.
+ ========================================================================
+
+-->
+<?NLS TYPE="org.eclipse.help.toc"?>
+<!-- ========================== -->
+<!-- Define topics for the GettingStarted -->
+<!-- ========================== -->
+<toc label="GettingStarted" href="GettingStarted/HTML/GettingStarted.htm">
+      <topic label="Introduction" href="GettingStarted/HTML/Intro.htm"/>
+      <topic label="Video Tutorials (Internet Required)" href="http://www.mentor.com/products/sm/multimedia/filters/bridgepoint-257221a1-p"/>
+      <topic label="Sample Models" href="GettingStarted/HTML/Samples.htm"/>
+	  <topic label="Model Verification" href="GettingStarted/HTML/ModelVerifier.htm"/>
+      <topic label="Translate" href="GettingStarted/HTML/Translate.htm"/>
+</toc>

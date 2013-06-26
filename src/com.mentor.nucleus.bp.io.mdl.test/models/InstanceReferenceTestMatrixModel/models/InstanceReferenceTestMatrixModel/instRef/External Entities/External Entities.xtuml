@@ -1,0 +1,1413 @@
+-- BP 7.1 content: ExternalEntityPackage syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO S_EEPK
+	VALUES ("099b778d-9b42-443c-aa5e-d49eaa990d82",
+	'External Entities',
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_MD
+	VALUES ("997e27e4-6f00-40db-b38b-df0c16926848",
+	102,
+	"099b778d-9b42-443c-aa5e-d49eaa990d82",
+	55,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	4275,
+	3161,
+	0,
+	0,
+	0,
+	'3.2.3');
+INSERT INTO GD_GE
+	VALUES ("84227290-1aa0-4651-be86-595a18a1263f",
+	"997e27e4-6f00-40db-b38b-df0c16926848",
+	"2916f55d-a93e-4f0f-9de9-bfca6459d3d0",
+	12,
+	0);
+INSERT INTO GD_SHP
+	VALUES ("84227290-1aa0-4651-be86-595a18a1263f");
+INSERT INTO GD_NCS
+	VALUES ("84227290-1aa0-4651-be86-595a18a1263f");
+INSERT INTO DIM_ND
+	VALUES (840.000000,
+	361.000000,
+	"84227290-1aa0-4651-be86-595a18a1263f");
+INSERT INTO DIM_GE
+	VALUES (4116.000000,
+	3264.000000,
+	"84227290-1aa0-4651-be86-595a18a1263f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("84227290-1aa0-4651-be86-595a18a1263f",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("2ad7491b-dd3f-4033-9d82-3efe23aeb555",
+	"997e27e4-6f00-40db-b38b-df0c16926848",
+	"9305359d-f272-421f-9010-3df6eaa2409b",
+	12,
+	0);
+INSERT INTO GD_SHP
+	VALUES ("2ad7491b-dd3f-4033-9d82-3efe23aeb555");
+INSERT INTO GD_NCS
+	VALUES ("2ad7491b-dd3f-4033-9d82-3efe23aeb555");
+INSERT INTO DIM_ND
+	VALUES (240.000000,
+	108.000000,
+	"2ad7491b-dd3f-4033-9d82-3efe23aeb555");
+INSERT INTO DIM_GE
+	VALUES (4116.000000,
+	3000.000000,
+	"2ad7491b-dd3f-4033-9d82-3efe23aeb555",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("2ad7491b-dd3f-4033-9d82-3efe23aeb555",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("a67d06a1-5d6d-409f-8d7a-ed0d375853fa",
+	"997e27e4-6f00-40db-b38b-df0c16926848",
+	"0054b9e6-c89c-494f-b2e5-e34c0568dbf9",
+	12,
+	0);
+INSERT INTO GD_SHP
+	VALUES ("a67d06a1-5d6d-409f-8d7a-ed0d375853fa");
+INSERT INTO GD_NCS
+	VALUES ("a67d06a1-5d6d-409f-8d7a-ed0d375853fa");
+INSERT INTO DIM_ND
+	VALUES (372.000000,
+	216.000000,
+	"a67d06a1-5d6d-409f-8d7a-ed0d375853fa");
+INSERT INTO DIM_GE
+	VALUES (4428.000000,
+	3000.000000,
+	"a67d06a1-5d6d-409f-8d7a-ed0d375853fa",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("a67d06a1-5d6d-409f-8d7a-ed0d375853fa",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("eaa0296b-87c6-4fd9-a316-20374f2aed54",
+	"997e27e4-6f00-40db-b38b-df0c16926848",
+	"becc8817-124e-4898-a806-8c756578ad43",
+	12,
+	0);
+INSERT INTO GD_SHP
+	VALUES ("eaa0296b-87c6-4fd9-a316-20374f2aed54");
+INSERT INTO GD_NCS
+	VALUES ("eaa0296b-87c6-4fd9-a316-20374f2aed54");
+INSERT INTO DIM_ND
+	VALUES (252.000000,
+	204.000000,
+	"eaa0296b-87c6-4fd9-a316-20374f2aed54");
+INSERT INTO DIM_GE
+	VALUES (4152.000000,
+	3648.000000,
+	"eaa0296b-87c6-4fd9-a316-20374f2aed54",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("eaa0296b-87c6-4fd9-a316-20374f2aed54",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("ea18ee84-ce9c-4641-a460-9c4a5a9514b4",
+	"997e27e4-6f00-40db-b38b-df0c16926848",
+	"aa6dd18b-bc27-4605-8f5b-6f62c5ede20f",
+	12,
+	0);
+INSERT INTO GD_SHP
+	VALUES ("ea18ee84-ce9c-4641-a460-9c4a5a9514b4");
+INSERT INTO GD_NCS
+	VALUES ("ea18ee84-ce9c-4641-a460-9c4a5a9514b4");
+INSERT INTO DIM_ND
+	VALUES (252.000000,
+	204.000000,
+	"ea18ee84-ce9c-4641-a460-9c4a5a9514b4");
+INSERT INTO DIM_GE
+	VALUES (4416.000000,
+	3648.000000,
+	"ea18ee84-ce9c-4641-a460-9c4a5a9514b4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("ea18ee84-ce9c-4641-a460-9c4a5a9514b4",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_DIA
+	VALUES ("997e27e4-6f00-40db-b38b-df0c16926848",
+	'',
+	1.000000,
+	3959.000000,
+	3163.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_EEPIP
+	VALUES ("099b778d-9b42-443c-aa5e-d49eaa990d82");
+INSERT INTO PL_EEPID
+	VALUES ("c3928f56-530d-4984-8114-35933dc4cb31",
+	"099b778d-9b42-443c-aa5e-d49eaa990d82");
+INSERT INTO S_DOM_PROXY
+	VALUES ("c3928f56-530d-4984-8114-35933dc4cb31",
+	'instRef',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000002",
+	"13c14d34-d225-4949-89b6-fe738cc62cbb",
+	'../instRef.xtuml');
+INSERT INTO S_EEIP
+	VALUES ("099b778d-9b42-443c-aa5e-d49eaa990d82",
+	"2916f55d-a93e-4f0f-9de9-bfca6459d3d0");
+INSERT INTO S_EE
+	VALUES ("2916f55d-a93e-4f0f-9de9-bfca6459d3d0",
+	'Time',
+	'The Time external entity provides date, timestamp, and timer related operations.',
+	'TIM',
+	"c3928f56-530d-4984-8114-35933dc4cb31");
+INSERT INTO S_BRG
+	VALUES ("0b749f13-8ce6-4fdb-83d6-f30a575881c8",
+	"2916f55d-a93e-4f0f-9de9-bfca6459d3d0",
+	'current_date',
+	'',
+	1,
+	"f95c499d-a9ff-4e38-8230-8915cf64c139",
+	'',
+	0,
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("f95c499d-a9ff-4e38-8230-8915cf64c139",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'date',
+	'Time as known in the external world. For example, 12 October 1492,
+13:25:10. The accuracy of external time is dependent on the architecture and
+implementation.',
+	'',
+	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_BRG
+	VALUES ("cb6e6972-2ad6-4d6c-9084-12681e7268a1",
+	"2916f55d-a93e-4f0f-9de9-bfca6459d3d0",
+	'create_date',
+	'',
+	1,
+	"f95c499d-a9ff-4e38-8230-8915cf64c139",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("a4755c58-6384-41af-b7ce-9876241c0bb9",
+	"cb6e6972-2ad6-4d6c-9084-12681e7268a1",
+	'second',
+	"ef3b04b8-57f1-48d2-a9aa-312e460598a8",
+	0,
+	'',
+	"02f7f900-1e73-4c53-b2f1-b67f559b18df",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ef3b04b8-57f1-48d2-a9aa-312e460598a8",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'integer',
+	'',
+	'',
+	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_BPARM
+	VALUES ("96f0d6cf-cbf7-4f9f-9777-dd73fff7fbd1",
+	"cb6e6972-2ad6-4d6c-9084-12681e7268a1",
+	'minute',
+	"ef3b04b8-57f1-48d2-a9aa-312e460598a8",
+	0,
+	'',
+	"bd1de227-66b3-4e38-995b-41540b0cef5d",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("bd1de227-66b3-4e38-995b-41540b0cef5d",
+	"cb6e6972-2ad6-4d6c-9084-12681e7268a1",
+	'hour',
+	"ef3b04b8-57f1-48d2-a9aa-312e460598a8",
+	0,
+	'',
+	"ecfc498f-2eb1-4c96-a4cc-37a286f09c39",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("ecfc498f-2eb1-4c96-a4cc-37a286f09c39",
+	"cb6e6972-2ad6-4d6c-9084-12681e7268a1",
+	'day',
+	"ef3b04b8-57f1-48d2-a9aa-312e460598a8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("02f7f900-1e73-4c53-b2f1-b67f559b18df",
+	"cb6e6972-2ad6-4d6c-9084-12681e7268a1",
+	'month',
+	"ef3b04b8-57f1-48d2-a9aa-312e460598a8",
+	0,
+	'',
+	"96f0d6cf-cbf7-4f9f-9777-dd73fff7fbd1",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("c84df2e6-0f00-4970-a79a-c4b017fc4371",
+	"cb6e6972-2ad6-4d6c-9084-12681e7268a1",
+	'year',
+	"ef3b04b8-57f1-48d2-a9aa-312e460598a8",
+	0,
+	'',
+	"a4755c58-6384-41af-b7ce-9876241c0bb9",
+	'');
+INSERT INTO S_BRG
+	VALUES ("240787b1-0e83-4cde-8271-aa653b91fa42",
+	"2916f55d-a93e-4f0f-9de9-bfca6459d3d0",
+	'get_second',
+	'',
+	1,
+	"ef3b04b8-57f1-48d2-a9aa-312e460598a8",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("8e1f3626-8513-4fd6-a73f-fd88d3876132",
+	"240787b1-0e83-4cde-8271-aa653b91fa42",
+	'date',
+	"f95c499d-a9ff-4e38-8230-8915cf64c139",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("b931a20d-78d6-4ba5-b691-80b8b76d7c62",
+	"2916f55d-a93e-4f0f-9de9-bfca6459d3d0",
+	'get_minute',
+	'',
+	1,
+	"ef3b04b8-57f1-48d2-a9aa-312e460598a8",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("648500de-f0f1-4e3a-bdb5-74c60de24aac",
+	"b931a20d-78d6-4ba5-b691-80b8b76d7c62",
+	'date',
+	"f95c499d-a9ff-4e38-8230-8915cf64c139",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("12911886-b044-4c56-96c1-0bd28215340a",
+	"2916f55d-a93e-4f0f-9de9-bfca6459d3d0",
+	'get_hour',
+	'',
+	1,
+	"ef3b04b8-57f1-48d2-a9aa-312e460598a8",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("cf80f1db-52dc-45fc-bfb7-68b2827c4e41",
+	"12911886-b044-4c56-96c1-0bd28215340a",
+	'date',
+	"f95c499d-a9ff-4e38-8230-8915cf64c139",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("6a6a1605-4c43-4f89-b51b-8e160661224f",
+	"2916f55d-a93e-4f0f-9de9-bfca6459d3d0",
+	'get_day',
+	'',
+	1,
+	"ef3b04b8-57f1-48d2-a9aa-312e460598a8",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("db2df279-cba2-4704-914d-7220419ae56d",
+	"6a6a1605-4c43-4f89-b51b-8e160661224f",
+	'date',
+	"f95c499d-a9ff-4e38-8230-8915cf64c139",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("49a39bd5-cc70-4d0e-8545-5658d0673fa3",
+	"2916f55d-a93e-4f0f-9de9-bfca6459d3d0",
+	'get_month',
+	'',
+	1,
+	"ef3b04b8-57f1-48d2-a9aa-312e460598a8",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("0e9a59cf-07d6-4efd-af11-302e3e393f09",
+	"49a39bd5-cc70-4d0e-8545-5658d0673fa3",
+	'date',
+	"f95c499d-a9ff-4e38-8230-8915cf64c139",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("b50c71b6-d191-4949-8ae3-36beabb71118",
+	"2916f55d-a93e-4f0f-9de9-bfca6459d3d0",
+	'get_year',
+	'',
+	1,
+	"ef3b04b8-57f1-48d2-a9aa-312e460598a8",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("ef7ebd8e-9c94-462d-a1be-05b87f0e01dd",
+	"b50c71b6-d191-4949-8ae3-36beabb71118",
+	'date',
+	"f95c499d-a9ff-4e38-8230-8915cf64c139",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("e6457824-9237-4c3b-9557-34e9dcf2e96c",
+	"2916f55d-a93e-4f0f-9de9-bfca6459d3d0",
+	'current_clock',
+	'',
+	1,
+	"42cceab1-aacd-4f1d-93f9-bc7ab54caec3",
+	'',
+	0,
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("42cceab1-aacd-4f1d-93f9-bc7ab54caec3",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'timestamp',
+	' The system clock counts time in ticks. The size of a tick is dependent on the
+ architecture and implementation.',
+	'',
+	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_BRG
+	VALUES ("eaf0a749-1e0a-4644-90fd-f92f740feb1f",
+	"2916f55d-a93e-4f0f-9de9-bfca6459d3d0",
+	'timer_start',
+	'This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Returns the instance
+handle of the timer.',
+	1,
+	"fc72ed98-d827-46c2-aab9-04696153dd59",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("451eccc9-5ba4-41a0-9487-5a38d7e10f93",
+	"eaf0a749-1e0a-4644-90fd-f92f740feb1f",
+	'microseconds',
+	"ef3b04b8-57f1-48d2-a9aa-312e460598a8",
+	0,
+	'',
+	"214d8f4e-6c84-44f3-8bb9-da099ed835ae",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("214d8f4e-6c84-44f3-8bb9-da099ed835ae",
+	"eaf0a749-1e0a-4644-90fd-f92f740feb1f",
+	'event_inst',
+	"6f5f2107-4587-4ef4-91d8-5fffbe3d219f",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6f5f2107-4587-4ef4-91d8-5fffbe3d219f",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'inst<Event>',
+	'',
+	'',
+	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("fc72ed98-d827-46c2-aab9-04696153dd59",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'inst_ref<Timer>',
+	'',
+	'',
+	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_BRG
+	VALUES ("a57e32f6-46a4-45da-ac95-103b6191e029",
+	"2916f55d-a93e-4f0f-9de9-bfca6459d3d0",
+	'timer_start_recurring',
+	'This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Upon expiration, the
+timer will be restarted and fire again in the specified number of microseconds
+generating the passed event. This bridge operation returns the instance handle
+of the timer.',
+	1,
+	"fc72ed98-d827-46c2-aab9-04696153dd59",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("3a5f5111-a3ab-45d2-bd42-4bf30b563441",
+	"a57e32f6-46a4-45da-ac95-103b6191e029",
+	'microseconds',
+	"ef3b04b8-57f1-48d2-a9aa-312e460598a8",
+	0,
+	'',
+	"1ccf3990-2f19-47c2-af62-f817b36e31f2",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("1ccf3990-2f19-47c2-af62-f817b36e31f2",
+	"a57e32f6-46a4-45da-ac95-103b6191e029",
+	'event_inst',
+	"6f5f2107-4587-4ef4-91d8-5fffbe3d219f",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("5127373d-8221-47df-a9e5-ad14f28939f0",
+	"2916f55d-a93e-4f0f-9de9-bfca6459d3d0",
+	'timer_remaining_time',
+	'Returns the time remaining (in microseconds) for the passed timer instance. If
+the timer has expired, a zero value is returned.',
+	1,
+	"ef3b04b8-57f1-48d2-a9aa-312e460598a8",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("e9b2011a-5648-489f-a57e-8a00ef7cc476",
+	"5127373d-8221-47df-a9e5-ad14f28939f0",
+	'timer_inst_ref',
+	"fc72ed98-d827-46c2-aab9-04696153dd59",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("289010a3-c6a1-4df7-a3a1-0baf253aa987",
+	"2916f55d-a93e-4f0f-9de9-bfca6459d3d0",
+	'timer_reset_time',
+	'This bridge operation attempts to set the passed existing timer to expire in
+the specified number of microseconds. If the timer exists (that is, it has not
+expired), a TRUE value is returned. If the timer no longer exists, a FALSE value
+is returned.',
+	1,
+	"08a8f4f5-1956-4c56-aa95-73e490a92e44",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("678176bd-ee7c-4aca-8cc9-993a3e6ff2a7",
+	"289010a3-c6a1-4df7-a3a1-0baf253aa987",
+	'timer_inst_ref',
+	"fc72ed98-d827-46c2-aab9-04696153dd59",
+	0,
+	'',
+	"6a24f154-fa64-456e-8ffe-69ed98d3b5e7",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("6a24f154-fa64-456e-8ffe-69ed98d3b5e7",
+	"289010a3-c6a1-4df7-a3a1-0baf253aa987",
+	'microseconds',
+	"ef3b04b8-57f1-48d2-a9aa-312e460598a8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("08a8f4f5-1956-4c56-aa95-73e490a92e44",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'boolean',
+	'',
+	'',
+	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_BRG
+	VALUES ("2c1e63b2-5beb-4430-aadb-af31b20b6765",
+	"2916f55d-a93e-4f0f-9de9-bfca6459d3d0",
+	'timer_add_time',
+	'This bridge operation attempts to add the specified number of microseconds to a
+passed existing timer. If the timer exists (that is, it has not expired), a TRUE
+value is returned. If the timer no longer exists, a FALSE value is returned.',
+	1,
+	"08a8f4f5-1956-4c56-aa95-73e490a92e44",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("9dc45b91-b8e1-42fe-b91f-3de9ce6b38bd",
+	"2c1e63b2-5beb-4430-aadb-af31b20b6765",
+	'timer_inst_ref',
+	"fc72ed98-d827-46c2-aab9-04696153dd59",
+	0,
+	'',
+	"b0fffb0c-9fdd-470c-88c4-c6b0a3375ccd",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("b0fffb0c-9fdd-470c-88c4-c6b0a3375ccd",
+	"2c1e63b2-5beb-4430-aadb-af31b20b6765",
+	'microseconds',
+	"ef3b04b8-57f1-48d2-a9aa-312e460598a8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("6f35163e-ac04-4a44-a7b0-db26ddbcc051",
+	"2916f55d-a93e-4f0f-9de9-bfca6459d3d0",
+	'timer_cancel',
+	'This bridge operation cancels and deletes the passed timer instance. If the 
+timer exists (that is, it had not expired), a TRUE value is returned. If the
+timer no longer exists, a FALSE value is returned.',
+	1,
+	"08a8f4f5-1956-4c56-aa95-73e490a92e44",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("94038eb0-1820-4a0e-a39f-23eec5bf0cfb",
+	"6f35163e-ac04-4a44-a7b0-db26ddbcc051",
+	'timer_inst_ref',
+	"fc72ed98-d827-46c2-aab9-04696153dd59",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_EEIP
+	VALUES ("099b778d-9b42-443c-aa5e-d49eaa990d82",
+	"9305359d-f272-421f-9010-3df6eaa2409b");
+INSERT INTO S_EE
+	VALUES ("9305359d-f272-421f-9010-3df6eaa2409b",
+	'Architecture',
+	'',
+	'ARCH',
+	"c3928f56-530d-4984-8114-35933dc4cb31");
+INSERT INTO S_BRG
+	VALUES ("61e099e3-e34e-49a5-8b2c-28357cc1f725",
+	"9305359d-f272-421f-9010-3df6eaa2409b",
+	'shutdown',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'control stop;',
+	1,
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("63f91549-9407-42c4-a2c0-fdde2812f080",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'void',
+	'',
+	'',
+	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_EEIP
+	VALUES ("099b778d-9b42-443c-aa5e-d49eaa990d82",
+	"0054b9e6-c89c-494f-b2e5-e34c0568dbf9");
+INSERT INTO S_EE
+	VALUES ("0054b9e6-c89c-494f-b2e5-e34c0568dbf9",
+	'Logging',
+	'',
+	'LOG',
+	"c3928f56-530d-4984-8114-35933dc4cb31");
+INSERT INTO S_BRG
+	VALUES ("1709356e-c0dd-4a52-8eed-3766dc33964d",
+	"0054b9e6-c89c-494f-b2e5-e34c0568dbf9",
+	'LogSuccess',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("feb509c1-a666-4496-9879-e070da2521c6",
+	"1709356e-c0dd-4a52-8eed-3766dc33964d",
+	'message',
+	"87a95076-eda4-49e3-9fc9-2eea9cc9f542",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("87a95076-eda4-49e3-9fc9-2eea9cc9f542",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'string',
+	'',
+	'',
+	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_BRG
+	VALUES ("a7836aed-37b0-4d48-a554-2470dd445743",
+	"0054b9e6-c89c-494f-b2e5-e34c0568dbf9",
+	'LogFailure',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("47e4927e-9f5b-4da6-9d41-7bf44843f0be",
+	"a7836aed-37b0-4d48-a554-2470dd445743",
+	'message',
+	"87a95076-eda4-49e3-9fc9-2eea9cc9f542",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("31970041-197d-4f30-a50c-d50c10dba90e",
+	"0054b9e6-c89c-494f-b2e5-e34c0568dbf9",
+	'LogInfo',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("2214bea9-31df-40ff-9424-8daca989442e",
+	"31970041-197d-4f30-a50c-d50c10dba90e",
+	'message',
+	"87a95076-eda4-49e3-9fc9-2eea9cc9f542",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("72e13e86-3edf-4f62-b3a3-06ee8d71776d",
+	"0054b9e6-c89c-494f-b2e5-e34c0568dbf9",
+	'LogDate',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("3060f8bb-207f-4481-8635-385c03ac7406",
+	"72e13e86-3edf-4f62-b3a3-06ee8d71776d",
+	'd',
+	"f95c499d-a9ff-4e38-8230-8915cf64c139",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("fd363e4b-38ff-44ae-a418-cb1eea6d5bbc",
+	"72e13e86-3edf-4f62-b3a3-06ee8d71776d",
+	'message',
+	"87a95076-eda4-49e3-9fc9-2eea9cc9f542",
+	0,
+	'',
+	"3060f8bb-207f-4481-8635-385c03ac7406",
+	'');
+INSERT INTO S_BRG
+	VALUES ("0d859f9d-108a-4ac7-b4e9-bae5f4d3c51f",
+	"0054b9e6-c89c-494f-b2e5-e34c0568dbf9",
+	'LogTime',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("5a650719-984a-4c9a-9021-fef687255ce4",
+	"0d859f9d-108a-4ac7-b4e9-bae5f4d3c51f",
+	't',
+	"42cceab1-aacd-4f1d-93f9-bc7ab54caec3",
+	0,
+	'',
+	"b062ef0c-7b6b-4db6-8aa6-08ad8d6e4c96",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("b062ef0c-7b6b-4db6-8aa6-08ad8d6e4c96",
+	"0d859f9d-108a-4ac7-b4e9-bae5f4d3c51f",
+	'message',
+	"87a95076-eda4-49e3-9fc9-2eea9cc9f542",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("f03526cf-fa71-4bf8-9800-36f128f75112",
+	"0054b9e6-c89c-494f-b2e5-e34c0568dbf9",
+	'LogReal',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("f90f99eb-a35f-489c-8c6e-f7957971d861",
+	"f03526cf-fa71-4bf8-9800-36f128f75112",
+	'r',
+	"ca7f4f81-539a-4c36-83da-bfeefa04b633",
+	0,
+	'',
+	"750ff6ba-06b8-48c1-b2a4-208453a10345",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ca7f4f81-539a-4c36-83da-bfeefa04b633",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'real',
+	'',
+	'',
+	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_BPARM
+	VALUES ("750ff6ba-06b8-48c1-b2a4-208453a10345",
+	"f03526cf-fa71-4bf8-9800-36f128f75112",
+	'message',
+	"87a95076-eda4-49e3-9fc9-2eea9cc9f542",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("f43cdd7a-2fd7-499f-b691-f743484bf729",
+	"0054b9e6-c89c-494f-b2e5-e34c0568dbf9",
+	'LogInteger',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("cecb9bd8-ec26-40a7-9f1d-f8843d7e2813",
+	"f43cdd7a-2fd7-499f-b691-f743484bf729",
+	'message',
+	"ef3b04b8-57f1-48d2-a9aa-312e460598a8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_EEIP
+	VALUES ("099b778d-9b42-443c-aa5e-d49eaa990d82",
+	"becc8817-124e-4898-a806-8c756578ad43");
+INSERT INTO S_EE
+	VALUES ("becc8817-124e-4898-a806-8c756578ad43",
+	'testBridgeParameter_Invalid',
+	'',
+	'BPARM2',
+	"c3928f56-530d-4984-8114-35933dc4cb31");
+INSERT INTO S_BRG
+	VALUES ("b11f9353-2c75-4ec6-9bd8-96d1fc4b45cd",
+	"becc8817-124e-4898-a806-8c756578ad43",
+	'S_BPARM_booleanBinaryOperationLeftOperand',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'LOG::LogInfo(message:"Operation entered: testBridgeParameter_Invalid::S_BPARM_booleanBinaryOperationLeftOperand, Matrix cell : A14 V2 I5");
+select any veh from instances of V;
+if ( not_empty veh)
+   LOG::LogFailure(message:"veh is not empty");
+   LOG::LogFailure(message:"S_BPARM_booleanBinaryOperationLeftOperand -A14 V2 I5-  test failed");
+   return;
+   
+end if;
+if param.instRef == veh
+	LOG::LogSuccess(message:"S_BPARM_booleanBinaryOperationLeftOperand -A14 V2 I5-  test passed");
+else
+	LOG::LogFailure(message:"S_BPARM_booleanBinaryOperationLeftOperand -A14 V2 I5-  test failed");	
+end if;
+
+if param.instRef.model == veh.model	// empty instance access
+	;
+end if;
+LOG::LogFailure(message:"Undetected empty instance access");
+LOG::LogFailure(message:"S_BPARM_booleanBinaryOperationLeftOperand -A14 V2 I5-  test failed");	',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("093e06be-eb9d-4141-af10-42eb033442bd",
+	"b11f9353-2c75-4ec6-9bd8-96d1fc4b45cd",
+	'instRef',
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'inst_ref<vehicle>',
+	'',
+	'',
+	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_BRG
+	VALUES ("a01cf049-db50-4490-8e13-82dde01619ec",
+	"becc8817-124e-4898-a806-8c756578ad43",
+	'S_BPARM_booleanBinaryOperationLeftOperandSet',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'LOG::LogInfo(message:"Operation entered: testBridgeParameter_Invalid::S_BPARM_booleanBinaryOperationLeftOperandSet, Matrix cell : A30 V2 I5");
+select many vehs from instances of V;
+if ( not_empty vehs)
+   LOG::LogFailure(message:"vehs is  not empty instance reference set");
+   LOG::LogFailure(message:"S_BPARM_booleanBinaryOperationLeftOperandSet -A30 V2 I5-  test failed");
+   return;
+   
+end if;
+if param.instRef_set == vehs
+	LOG::LogSuccess(message:"S_BPARM_booleanBinaryOperationLeftOperandSet -A30 V2 I5-  test passed");
+else
+	LOG::LogFailure(message:"S_BPARM_booleanBinaryOperationLeftOperandSet -A30 V2 I5-  test failed");	
+end if;
+',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("9a801eed-25e7-415c-a8de-7be62c596a0a",
+	"a01cf049-db50-4490-8e13-82dde01619ec",
+	'instRef_set',
+	"cab818e3-8b6b-4844-ba65-2b5c63c3e5d4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("cab818e3-8b6b-4844-ba65-2b5c63c3e5d4",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'inst_ref_set<vehicle>',
+	'',
+	'',
+	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_BRG
+	VALUES ("d27e3539-5c19-4a82-94c0-59d3dacf9fc2",
+	"becc8817-124e-4898-a806-8c756578ad43",
+	'S_BPARM_readAttr',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'LOG::LogInfo(message:"Operation entered: testBridgeParameter_Invalid::S_BPARM_readAttir, Matrix cell : A2 V2 I5");
+obj = param.instRef;
+if ( not_empty obj)
+	 LOG::LogFailure(message:"obj is not empty");
+	 LOG::LogFailure(message:"S_BPARM_readAttir -A2 V2 I5-  test failed");
+else
+	LOG::LogSuccess(message:"S_BPARM_readAttir -A2 V2 I5-  test passed");
+end if;
+
+
+model = param.instRef.model;  // empty instance access
+LOG::LogFailure(message:"Undetected empty instance access");
+LOG::LogFailure(message:"S_BPARM_readAttir -A2 V2 I5-  test failed");
+EOF = 1;',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("e7a37c79-7247-4f12-a0fd-3a880ba5197b",
+	"d27e3539-5c19-4a82-94c0-59d3dacf9fc2",
+	'instRef',
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("a80af18b-cfd4-4b8f-bc10-4f7ffec0b0d4",
+	"becc8817-124e-4898-a806-8c756578ad43",
+	'S_BPARM_booleanBinaryOperationRightOperand',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'LOG::LogInfo(message:"Operation entered: testBridgeParameter_Invalid::S_BPARM_booleanBinaryOperationRightOperand, Matrix cell : A15 V2 I5");
+select any veh from instances of V;
+if ( not_empty veh)
+   LOG::LogFailure(message:"veh is not empty");
+   LOG::LogFailure(message:"S_BPARM_booleanBinaryOperationRightOperand -A15 V2 I5-  test failed");
+   return;
+   
+end if;
+if  veh == param.instRef
+	LOG::LogSuccess(message:"S_BPARM_booleanBinaryOperationRightOperand -A14 V2 I5-  test passed");
+else
+	LOG::LogFailure(message:"S_BPARM_booleanBinaryOperationRightOperand -A14 V2 I5-  test failed");
+end if;
+
+if  veh.model == param.instRef.model	// empty instance access
+	;
+end if;
+LOG::LogFailure(message:"Undetected empty instance access");
+LOG::LogFailure(message:"S_BPARM_booleawnBinaryOperationRightOperand -A14 V2 I5-  test failed");',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("4d6dda6f-03b4-4241-8803-228b5cf0c88a",
+	"a80af18b-cfd4-4b8f-bc10-4f7ffec0b0d4",
+	'instRef',
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("e83de00a-d813-44a6-8ea2-743ee1dd9044",
+	"becc8817-124e-4898-a806-8c756578ad43",
+	'S_BPARM_booleanBinaryOperationRightOperandSet',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'LOG::LogInfo(message:"Operation entered: testBridgeParameter_Invalid::S_BPARM_booleanBinaryOperationRightOperandSet, Matrix cell : A31 V2 I5");
+
+select many vehs from instances of V;
+if ( not_empty vehs)
+   LOG::LogFailure(message:"vehs is not empty instance reference set");
+   LOG::LogFailure(message:"S_BPARM_booleanBinaryOperationRightOperandSet -A31 V2 I5-  test failed");
+   return;
+   
+end if;
+if  vehs == param.instRef_set
+	LOG::LogSuccess(message:"S_BPARM_booleanBinaryOperationRightOperandSet -A31 V2 I5-  test passed");
+else
+	LOG::LogFailure(message:"S_BPARM_booleanBinaryOperationRightOperandSet -A31 V2 I5-  test failed");
+end if;
+
+',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("35ba44dd-b9fb-4bfc-aa17-5f28437e6596",
+	"e83de00a-d813-44a6-8ea2-743ee1dd9044",
+	'instRef_set',
+	"cab818e3-8b6b-4844-ba65-2b5c63c3e5d4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("5c350a5a-6ef9-4404-adb0-e1bb007fb440",
+	"becc8817-124e-4898-a806-8c756578ad43",
+	'S_BPARM_WhereClause',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'LOG::LogInfo(message:"Operation entered: testBridgeParameter_Invalid::S_BPARM_WhereClause, Matrix cell : A13 V2 I5");
+select any car from instances of V;
+if ( not_empty car)
+   LOG::LogFailure(message:"car is not empty");
+   LOG::LogFailure(message:"S_BPARM_WhereClause -A13 V2 I5-  test failed");
+   return;
+end if;
+select one ped related by car->P[R1] where( selected.vehicleReference == param.instRef);
+
+if ( not_empty ped)
+   LOG::LogFailure(message:"ped is not empty");
+   LOG::LogFailure(message:"S_BPARM_WhereClause -A13 V2 I5-  test failed");
+   return;
+else
+	LOG::LogSuccess(message:"S_BPARM_WhereClause -A13 V2 I5-  test passed");   
+end if;
+
+select one ped related by car->P[R1] where( selected.vehicleReference.model == param.instRef.model); // empty instance access 
+LOG::LogFailure(message:"Undetected empty instance access");
+LOG::LogFailure(message:"S_BPARM_WhereClause -A13 V2 I5-  test failed");
+ 
+EOF = true;
+
+',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("e953ba15-172e-4321-858a-e89f72c741a9",
+	"5c350a5a-6ef9-4404-adb0-e1bb007fb440",
+	'instRef',
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("1fbe618f-0fee-4984-9e21-81a52842e862",
+	"becc8817-124e-4898-a806-8c756578ad43",
+	'S_BPARM_writeAttr',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'LOG::LogInfo(message:"Operation entered: testBridgeParameter_Invalid::S_BPARM_writeAttr, Matrix cell : A19 V2 I5");
+create object instance newCar of V;   
+param.instRef = newCar;
+if ( param.instRef == newCar )
+	LOG::LogSuccess(message:"S_BPARM_writeAttr -A19 V2 I5-  test passed");
+else
+	LOG::LogFailure(message:"S_BPARM_writeAttr -A19 V2 I5-  test failed");
+end if; 
+delete object instance newCar;
+param.instRef.model = "BMW";	// empty instance access
+if ( param.instRef.model == "BMW" )
+	;
+end if; 
+LOG::LogFailure(message:"Undetected empty instance access");
+LOG::LogFailure(message:"S_BPARM_writeAttr -A19 V2 I5-  test failed");
+EOF= true;
+ 
+',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("44f71f59-2dfb-438c-8003-089eef84af1d",
+	"1fbe618f-0fee-4984-9e21-81a52842e862",
+	'instRef',
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("7c8b612b-73ee-4250-8f78-64cacefc2641",
+	"becc8817-124e-4898-a806-8c756578ad43",
+	'S_BPARM_ActivitiesInvocation',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'LOG::LogInfo(message:"Operation entered: testBridgeParameter_Invalid::S_BPARM_ActivitiesInvocation, Matrix cell : A36 V2 I5");
+
+::EmptyInstRefParameterSetupTest(inst:param.instRef);',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("1d6f4522-5111-4009-bea7-8c5837c6734b",
+	"7c8b612b-73ee-4250-8f78-64cacefc2641",
+	'instRef',
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("34046850-55f5-4e88-b3ff-489eb2e8ba90",
+	"becc8817-124e-4898-a806-8c756578ad43",
+	'S_BPARM_ActivitiesInvocationSet',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'LOG::LogInfo(message:"Operation entered: testBridgeParameter_Invalid::S_BPARM_ActivitiesInvocationSet, Matrix cell : A36 V2 I5");
+
+::EmptyInstRefSetParameterSetupTest(instSet: param.instRef_set); ',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("aaaf3a7b-2309-4af0-88e0-f99460d07d49",
+	"34046850-55f5-4e88-b3ff-489eb2e8ba90",
+	'instRef_set',
+	"cab818e3-8b6b-4844-ba65-2b5c63c3e5d4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_EEIP
+	VALUES ("099b778d-9b42-443c-aa5e-d49eaa990d82",
+	"aa6dd18b-bc27-4605-8f5b-6f62c5ede20f");
+INSERT INTO S_EE
+	VALUES ("aa6dd18b-bc27-4605-8f5b-6f62c5ede20f",
+	'testBridgeParameter_Direct',
+	'',
+	'BPARM1',
+	"c3928f56-530d-4984-8114-35933dc4cb31");
+INSERT INTO S_BRG
+	VALUES ("57a8b111-1c82-4f44-b7f0-01ba7bbafa42",
+	"aa6dd18b-bc27-4605-8f5b-6f62c5ede20f",
+	'S_BPARM_booleanBinaryOperationLeftOperand',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'LOG::LogInfo(message:"Operation entered: testBridgeParameter_Direct::S_BPARM_booleanBinaryOperationLeftOperand, Matrix cell : A14 V1 I5");
+select any veh from instances of V;
+if ( empty veh)
+   LOG::LogFailure(message:"Failed to select veh");
+   LOG::LogFailure(message:"S_BPARM_booleanBinaryOperationLeftOperand -A14 V1 I5-  test failed");
+   return;
+   
+end if;
+if param.instRef == veh
+	LOG::LogSuccess(message:"S_BPARM_booleanBinaryOperationLeftOperand -A14 V1 I5-  test passed");
+else
+	LOG::LogFailure(message:"S_BPARM_booleanBinaryOperationLeftOperand -A14 V1 I5-  test failed");	
+end if;
+
+if param.instRef.model == veh.model
+	LOG::LogSuccess(message:"S_BPARM_booleanBinaryOperationLeftOperand -A14 V1 I5-  test passed");
+else
+	LOG::LogFailure(message:"S_BPARM_booleanBinaryOperationLeftOperand -A14 V1 I5-  test failed");	
+end if;
+',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("6fc24c6c-8025-4340-a491-3c24cbb36343",
+	"57a8b111-1c82-4f44-b7f0-01ba7bbafa42",
+	'instRef',
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("8bee698c-cec5-4669-933f-64fa77ae7744",
+	"aa6dd18b-bc27-4605-8f5b-6f62c5ede20f",
+	'S_BPARM_booleanBinaryOperationLeftOperandSet',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'LOG::LogInfo(message:"Operation entered: testBridgeParameter_Direct::S_BPARM_booleanBinaryOperationLeftOperandSet, Matrix cell : A30 V1 I5");
+select many vehs from instances of V;
+if ( empty vehs)
+   LOG::LogFailure(message:"vehs is empty instance reference set");
+   LOG::LogFailure(message:"S_BPARM_booleanBinaryOperationLeftOperandSet -A30 V1 I5-  test failed");
+   return;
+   
+end if;
+if param.instRef_set == vehs
+	LOG::LogSuccess(message:"S_BPARM_booleanBinaryOperationLeftOperandSet -A30 V1 I5-  test passed");
+else
+	LOG::LogFailure(message:"S_BPARM_booleanBinaryOperationLeftOperandSet -A30 V1 I5-  test failed");	
+end if;
+',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("15f62c5c-6da7-437f-8c8d-739470e502c8",
+	"8bee698c-cec5-4669-933f-64fa77ae7744",
+	'instRef_set',
+	"cab818e3-8b6b-4844-ba65-2b5c63c3e5d4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("b32811f8-fe01-4263-aa56-beabc00caa31",
+	"aa6dd18b-bc27-4605-8f5b-6f62c5ede20f",
+	'S_BPARM_readAttr',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'LOG::LogInfo(message:"Operation entered: testBridgeParameter_Direct::S_BPARM_readAttir, Matrix cell : A2 V1 I5");
+obj = param.instRef;
+if ( empty obj)
+	 LOG::LogFailure(message:"Failed to assign the IR to the transient variable obj");
+	 LOG::LogFailure(message:"S_BPARM_readAttir -A2 V1 I5-  test failed");
+else
+	LOG::LogSuccess(message:"S_BPARM_readAttir -A2 V1 I5-  test passed");
+end if;
+
+
+model = param.instRef.model;
+if ( model == "")
+	 LOG::LogFailure(message:"S_BPARM_readAttir -A2 V1 I5-  test failed");
+else
+	LOG::LogSuccess(message:"S_BPARM_readAttir -A2 V1 I5-  test passed");
+end if;
+
+EOF = 1;',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("a0b0674f-cd7c-470c-8aa6-2765f602a61e",
+	"b32811f8-fe01-4263-aa56-beabc00caa31",
+	'instRef',
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("b9d8c939-1221-4918-81b7-74b80026ddfa",
+	"aa6dd18b-bc27-4605-8f5b-6f62c5ede20f",
+	'S_BPARM_booleanBinaryOperationRightOperand',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'LOG::LogInfo(message:"Operation entered: testBridgeParameter_Direct::S_BPARM_booleanBinaryOperationRightOperand, Matrix cell : A15 V1 I5");
+select any veh from instances of V;
+if ( empty veh)
+   LOG::LogFailure(message:"Failed to select veh");
+   LOG::LogFailure(message:"S_BPARM_booleanBinaryOperationRightOperand -A15 V1 I5-  test failed");
+   return;
+   
+end if;
+if  veh == param.instRef
+	LOG::LogSuccess(message:"S_BPARM_booleanBinaryOperationRightOperand -A14 V1 I5-  test passed");
+else
+	LOG::LogFailure(message:"S_BPARM_booleanBinaryOperationRightOperand -A14 V1 I5-  test failed");
+end if;
+
+if  veh.model == param.instRef.model
+	LOG::LogSuccess(message:"S_BPARM_booleanBinaryOperationRightOperand -A14 V1 I5-  test passed");
+else
+	LOG::LogFailure(message:"S_BPARM_booleanBinaryOperationRightOperand -A14 V1 I5-  test failed");
+end if;
+',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("e452b208-0894-4ee9-8916-4e650ab4a7c0",
+	"b9d8c939-1221-4918-81b7-74b80026ddfa",
+	'instRef',
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("5cde542c-86b9-4364-94b4-fd7e6a34d6ec",
+	"aa6dd18b-bc27-4605-8f5b-6f62c5ede20f",
+	'S_BPARM_booleanBinaryOperationRightOperandSet',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'LOG::LogInfo(message:"Operation entered: testBridgeParameter_Direct::S_BPARM_booleanBinaryOperationRightOperandSet, Matrix cell : A31 V1 I5");
+
+select many vehs from instances of V;
+if ( empty vehs)
+   LOG::LogFailure(message:"vehs is empty instance reference set");
+   LOG::LogFailure(message:"S_BPARM_booleanBinaryOperationRightOperandSet -A31 V1 I5-  test failed");
+   return;
+   
+end if;
+if  vehs == param.instRef_set
+	LOG::LogSuccess(message:"S_BPARM_booleanBinaryOperationRightOperandSet -A31 V1 I5-  test passed");
+else
+	LOG::LogFailure(message:"S_BPARM_booleanBinaryOperationRightOperandSet -A31 V1 I5-  test failed");
+end if;
+
+',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("598dc3bb-442b-4d49-b70e-7e8c741a4d2e",
+	"5cde542c-86b9-4364-94b4-fd7e6a34d6ec",
+	'instRef_set',
+	"cab818e3-8b6b-4844-ba65-2b5c63c3e5d4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("81999b30-7a6c-4d47-9a7b-ec440613cb09",
+	"aa6dd18b-bc27-4605-8f5b-6f62c5ede20f",
+	'S_BPARM_WhereClause',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'LOG::LogInfo(message:"Operation entered: testBridgeParameter_Direct::S_BPARM_WhereClause, Matrix cell : A13 V1 I5");
+select any car from instances of V;
+if ( empty car)
+   LOG::LogFailure(message:"Failed to select car");
+   LOG::LogFailure(message:"S_BPARM_WhereClause -A13 V1 I5-  test failed");
+   return;
+end if;
+select one ped related by car->P[R1] where( selected.vehicleReference == param.instRef);
+
+if ( empty ped)
+   LOG::LogFailure(message:"Failed to select ped");
+   LOG::LogFailure(message:"S_BPARM_WhereClause -A13 V1 I5-  test failed");
+   return;
+else
+	LOG::LogSuccess(message:"S_BPARM_WhereClause -A13 V1 I5-  test passed");   
+end if;
+
+select one ped related by car->P[R1] where( selected.vehicleReference.model == param.instRef.model); 
+if ( empty ped)
+   LOG::LogFailure(message:"Failed to select ped");
+   LOG::LogFailure(message:"S_BPARM_WhereClause -A13 V1 I5-  test failed");
+   return;
+else
+	LOG::LogSuccess(message:"S_BPARM_WhereClause -A13 V1 I5-  test passed");   
+end if;
+ 
+EOF = true;
+
+',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("5842bafe-edfe-4631-b44e-2c9dfd02c2e4",
+	"81999b30-7a6c-4d47-9a7b-ec440613cb09",
+	'instRef',
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("adc73e6e-c739-455b-8da0-a201ef6db689",
+	"aa6dd18b-bc27-4605-8f5b-6f62c5ede20f",
+	'S_BPARM_writeAttr',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'LOG::LogInfo(message:"Operation entered: testBridgeParameter_Direct::S_BPARM_writeAttr, Matrix cell : A19 V1 I5");
+create object instance newCar of V;   
+param.instRef = newCar;
+if ( param.instRef == newCar )
+	LOG::LogSuccess(message:"S_BPARM_writeAttr -A19 V1 I5-  test passed");
+else
+	LOG::LogFailure(message:"S_BPARM_writeAttr -A19 V1 I5-  test failed");
+end if; 
+param.instRef.model = "BMW";
+if ( param.instRef.model == "BMW" )
+	LOG::LogSuccess(message:"S_BPARM_writeAttr -A19 V1 I5-  test passed");
+else
+	LOG::LogFailure(message:"S_BPARM_writeAttr -A19 V1 I5-  test failed");
+end if; 
+EOF= true;
+ 
+',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("e331559a-1c59-45d5-8e69-417d0e82911b",
+	"adc73e6e-c739-455b-8da0-a201ef6db689",
+	'instRef',
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("69a87eb5-9748-4843-a022-bca97319b026",
+	"aa6dd18b-bc27-4605-8f5b-6f62c5ede20f",
+	'S_BPARM_ActivitiesInvocation',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'LOG::LogInfo(message:"Operation entered: testBridgeParameter_Direct::S_BPARM_ActivitiesInvocation, Matrix cell : A36 V1 I5");
+
+::InstRefParameterSetupTest(inst:param.instRef);
+
+',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("347487f2-b979-4382-b1c9-cc1156982b8e",
+	"69a87eb5-9748-4843-a022-bca97319b026",
+	'instRef',
+	"d4c5a13f-383d-4bca-8d5d-06c7eea7f5c9",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("4c91a7ef-86f8-428a-a928-da45d090f560",
+	"aa6dd18b-bc27-4605-8f5b-6f62c5ede20f",
+	'S_BPARM_ActivitiesInvocationSet',
+	'',
+	0,
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	'LOG::LogInfo(message:"Operation entered: testBrdigeParameter_Direct::S_BPARM_ActivitiesInvocationSet, Matrix cell : A36 V1 I5");
+
+::InstRefSetParameterSetupTest(instSet: param.instRef_set); ',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("64b8dd9a-82f9-43f5-820e-05fe902b8ad1",
+	"4c91a7ef-86f8-428a-a928-da45d090f560",
+	'instRef_set',
+	"cab818e3-8b6b-4844-ba65-2b5c63c3e5d4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');

@@ -1,0 +1,78 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("76230a0f-219b-4373-9bab-95815c8be81f",
+	'lap reset button',
+	7,
+	'LAPRESET',
+	'',
+	"e2172687-9ac5-4a99-92b4-60f523664afe");
+INSERT INTO O_NBATTR
+	VALUES ("18d399d9-49dd-4172-a246-acf9d5a7d55a",
+	"76230a0f-219b-4373-9bab-95815c8be81f");
+INSERT INTO O_BATTR
+	VALUES ("18d399d9-49dd-4172-a246-acf9d5a7d55a",
+	"76230a0f-219b-4373-9bab-95815c8be81f");
+INSERT INTO O_ATTR
+	VALUES ("18d399d9-49dd-4172-a246-acf9d5a7d55a",
+	"76230a0f-219b-4373-9bab-95815c8be81f",
+	"00000000-0000-0000-0000-000000000000",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"e4cb5f9a-f54d-4e4b-90fe-f17cba24afcb",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("e4cb5f9a-f54d-4e4b-90fe-f17cba24afcb",
+	"00000000-0000-0000-0000-000000000000",
+	'state<State_Model>',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("acd97e25-a720-408c-99bd-28e0f474f409",
+	"76230a0f-219b-4373-9bab-95815c8be81f");
+INSERT INTO O_BATTR
+	VALUES ("acd97e25-a720-408c-99bd-28e0f474f409",
+	"76230a0f-219b-4373-9bab-95815c8be81f");
+INSERT INTO O_ATTR
+	VALUES ("acd97e25-a720-408c-99bd-28e0f474f409",
+	"76230a0f-219b-4373-9bab-95815c8be81f",
+	"18d399d9-49dd-4172-a246-acf9d5a7d55a",
+	'timeout',
+	'',
+	'',
+	'timeout',
+	0,
+	"fcf3ab37-b61e-4d54-ba47-ef8a134c453b",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("fcf3ab37-b61e-4d54-ba47-ef8a134c453b",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Timer>',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"76230a0f-219b-4373-9bab-95815c8be81f");
+INSERT INTO O_ID
+	VALUES (1,
+	"76230a0f-219b-4373-9bab-95815c8be81f");
+INSERT INTO O_ID
+	VALUES (2,
+	"76230a0f-219b-4373-9bab-95815c8be81f");
+INSERT INTO S_SS_PROXY
+	VALUES ("e2172687-9ac5-4a99-92b4-60f523664afe",
+	'Data Aquisition',
+	'This subsystem modesl the core tracking function of the watch.
+Both a timer and a track data recorder are be toggled between running and not using start_stop button.
+Multiple recording sessions will accumulate on a track unless the timer is rest.
+Only a stopped timer can be reset.  A track then becomes "archived".
+Laps may be marked.
+Heart rate data may be attached to recorded tracks.',
+	'D',
+	0,
+	"7877e6e0-dd19-4087-b158-647c2788232a",
+	"00000000-0000-0000-0000-000000000000",
+	'../Data Aquisition.xtuml');

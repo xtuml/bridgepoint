@@ -1,0 +1,94 @@
+#!/usr/bin/perl -wW
+#
+# (C) Tony Garnock-Jones, 2000.
+# Released under the Perl "Artistic" License:
+# http://www.perl.com/language/misc/Artistic.html
+#
+# $Id: append_to_bz,v 1.1 2007/02/02 20:38:59 tlondon Exp $
+#
+# Usage: logmsg.archive <user> <comment>
+#
+# Puts a complete entry in Bugzilla against the bugs listed
+# in the comment.
+
+use Mysql;
+
+use diagnostics;
+use strict;
+use POSIX qw{ strftime };
+
+use vars qw{ $bugzilla_path };
+
+
+my $scriptdir = `dirname $0`;
+chomp $scriptdir;
+require "$scriptdir/logmsg-parsing.pl";
+our $bugzilla_path;
+require $::bugzilla_path."/localconfig";
+
+
+BEGIN {
+    $::scriptdir = `dirname $0`;
+    chomp $::scriptdir;
+    push @INC, $::scriptdir;
+}
+
+
+require "$::scriptdir/logmsg-parsing.pl";
+
+sub processBug($$$) {
+    my ($username, $bugid, $logentry) = @_;
+    our $db_name;
+
+    # Discover our Bugzilla userid and login name.
+    my $query = $::db->query("select userid, login_name from bugs.profiles"
+			     . " where disabledtext = ''"
+			     . " and login_name like " . $::db->quote("$username\@%"));
+    my ($userid, $realLoginName) = $query->fetchrow();
+
+    # Add our comment.
+    $::db->query("insert into ".$::db_name.".longdescs"
+		 . " (bug_id, who, bug_when, thetext)"
+		 . " values ($bugid, $userid, sysdate(), " . $::db->quote($logentry) . ")");
+
+    # Send off email notifications.
+    system("cd $bugzilla_path; ./processmail $bugid '$realLoginName' >/dev/null");
+}
+
+###########################################################################
+# Main subroutine of script
+
+sub main() {
+
+    my $username = shift @ARGV;
+    my $filechanges = shift @ARGV;
+    my $comment = shift @ARGV;
+    my $revision = shift @ARGV;
+    my @comment = split(/\n/, $comment);
+
+    chomp @comment;
+
+    my $jobline = shift @comment;
+    my ($status, @jobids) = splitJobLine($jobline);
+
+    for (@comment) { s/^\s*$// }
+    my $formatted_comment = join("\n", @comment);
+    $formatted_comment =~ s/^\n+//;
+    $formatted_comment =~ s/\n+$//;
+
+    my $revision_entry = "\nCommit Revision: ".$revision."\n\n";
+    my $start_changed_files = "Changed Files\n_____________\n\n";
+    my $end_changed_files = "\n_____________\n\n";
+    $formatted_comment = $revision_entry.$start_changed_files.$filechanges.$end_changed_files.$formatted_comment;
+
+    for my $job (@jobids) {
+      processBug($username, $job, $formatted_comment);
+    }
+
+}
+
+###########################################################################
+# Main body
+
+main();
+exit(0);

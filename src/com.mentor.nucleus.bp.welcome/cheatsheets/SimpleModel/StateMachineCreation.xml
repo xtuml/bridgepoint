@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="State Machine creation">
+      <intro>
+      <description>
+         Create a state machine
+      </description>
+      </intro>
+      
+      <item
+         skip="true"
+         title="Add new instance state machine">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Add Element"
+			param2="Simple System" 
+			param3="Instance State Machine" 
+			param4="ModelClass" 
+			param5="Monitor" />
+      <description>
+         Right-click on &apos;Monitor&apos;, select <b>New &gt;  Instance State Machine </b>
+      </description>
+   </item>
+   
+      <item
+         skip="true"
+         title="Open instance state machine">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Open Diagram"
+			param2="Simple System" 
+			param3="Instance State Machine" 
+			param4="Monitor" />
+      <description>
+         Double-click on the &apos;Monitor&apos; class to open the instance state machine diagram
+      </description>
+   </item>
+      <item
+            title="Create two states">
+         <description>
+            From the Palette, select <b>State</b> then click on canvas.
+         </description>
+         <subitem
+               label="Create a state.  Set the name in the pop up dialog to &apos;Start&apos;">
+               <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Draw Element"
+			param2="Default Toolset" 
+			param3="State" />
+         </subitem>
+         <subitem
+               label="Create another state.  Set the name in the pop up dialog to &apos;End&apos;">
+               <action pluginId="com.mentor.nucleus.bp.welcome" 
+				class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+				param1="Draw Element"
+				param2="Default Toolset" 
+				param3="State" />
+         </subitem>
+      </item>
+      
+      
+      <item
+            skip="true"
+            title="Create new transition">
+             <action pluginId="com.mentor.nucleus.bp.welcome" 
+         class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+         param1="Draw Connector"
+         param2="Default Toolset" 
+         param3="Transition" 
+         param4="41" 
+         param5="Start" 
+         param6="41" 
+         param7="End"/>
+         <description>
+            Select <b>Transition</b> from the palette, and draw it starting from &apos;Start&apos; state to &apos;End&apos; state
+         </description>
+      </item>
+      
+      <item
+            skip="true"
+            title="Add new event">
+                  <action pluginId="com.mentor.nucleus.bp.welcome" 
+         class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+         param1="Add Element"
+		 param2="Simple System" 
+		 param3="Event" 
+		 param4="Instance State Machine" 
+		 param5="Monitor"/>
+         <description>
+            Right-click on empty space in the canvas, select <b>New &gt; Event</b>.  Set the name in the pop up dialog to &apos;go&apos;
+         </description>
+      </item>
+      
+
+   
+      
+      <item
+            skip="true"
+            title="Assign event to transition">
+                  <action pluginId="com.mentor.nucleus.bp.welcome" 
+         class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+         param1="Assign Event"
+		 param2="No Event Assigned" />
+         <description>
+            Right-click on the transition, select <b>Formalize</b> and choose &apos;go&apos;
+         </description>
+      </item>
+      
+
+   
+      <item
+            title="Add OAL to 'End' state" skip="true">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+         class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+         param1="Write OAL"
+		 param2="Simple System" 
+		 param3="State Machine" 
+		 param4="End" 
+		 param5="LOG::LogInfo(message: &quot;state End has been executed&quot;);"
+		 param6="Monitor"/>
+         <description>
+            Add OAL to the &apos;End&apos; state in order to print some text
+         </description>
+      </item>
+      
+</cheatsheet>

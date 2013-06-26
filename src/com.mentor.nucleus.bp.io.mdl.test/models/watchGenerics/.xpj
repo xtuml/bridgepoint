@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- EDGE version 2.4.0.200912041520
+project name: watchGenerics; type: APPLICATION
+saved path: C:\workspaces\test\watchGenerics\.xpj
+-->
+<project version="2.01">
+    <props/>
+    <configurations default="Configuration 0">
+        <configuration name="Configuration 0" type="APPLICATION">
+            <toolsetConfigurator toolset="mingw" version="5.1.3">
+                <tools>
+                    <tool id="LNKDRV"/>
+                    <tool id="STDASM"/>
+                    <tool id="STDCC"/>
+                    <tool id="STDCPP"/>
+                </tools>
+                <ts tool="mingw32/GNU x86 Automatic Linker">-mno-cygwin</ts>
+                <ts tool="mingw32/GNU x86 Assembler"/>
+                <ts tool="mingw32/GNU x86 C Compiler">-g -gstabs -O0 -mno-cygwin</ts>
+                <ts tool="mingw32/GNU x86 C++ Compiler">-g -gstabs -O0 -mno-cygwin</ts>
+                <bsp/>
+                <folders>
+                    <folder name="ASM Sources"/>
+                    <folder name="C Sources"/>
+                    <folder name="C++ Sources"/>
+                    <folder name="Header Files">
+                        <filters>
+                            <glob>*.h</glob>
+                            <glob>*.hxx</glob>
+                            <glob>*.inc</glob>
+                        </filters>
+                    </folder>
+                    <folder location=".\Configuration 0\Mingw GNU Objects" name="Mingw GNU Objects"/>
+                    <folder location=".\Configuration 0\Output" name="Output" target="true">
+                        <filters/>
+                    </folder>
+                </folders>
+                <actions>
+                    <action tool="mingw32/GNU x86 Assembler">
+                        <destination>Mingw GNU Objects</destination>
+                        <source>ASM Sources</source>
+                    </action>
+                    <action tool="mingw32/GNU x86 Automatic Linker">
+                        <destination>Output</destination>
+                        <source>Mingw GNU Objects</source>
+                    </action>
+                    <action tool="mingw32/GNU x86 C Compiler">
+                        <destination>Mingw GNU Objects</destination>
+                        <source>C Sources</source>
+                    </action>
+                    <action tool="mingw32/GNU x86 C++ Compiler">
+                        <destination>Mingw GNU Objects</destination>
+                        <source>C++ Sources</source>
+                    </action>
+                </actions>
+            </toolsetConfigurator>
+            <buildSettings outputFilename="watchGenerics.exe">
+                <excludedFolders>
+                    <folder path="gen"/>
+                </excludedFolders>
+                <linkLibraries addReferences="true"/>
+            </buildSettings>
+        </configuration>
+    </configurations>
+</project>

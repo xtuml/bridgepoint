@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Welcome Test Plug-in
+Bundle-SymbolicName: com.mentor.nucleus.bp.welcome.test
+Bundle-Version: 1.0.0
+Bundle-Activator: com.mentor.nucleus.bp.welcome.test.TestPlugin
+Bundle-Vendor: Mentor Graphics Corp
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.junit,
+ com.mentor.nucleus.bp.welcome,
+ org.eclipse.core.resources,
+ com.mentor.nucleus.bp.core,
+ com.mentor.nucleus.bp.test,
+ com.mentor.nucleus.bp.ui.explorer,
+ com.mentor.nucleus.bp.internal.tools
+Eclipse-AutoStart: true

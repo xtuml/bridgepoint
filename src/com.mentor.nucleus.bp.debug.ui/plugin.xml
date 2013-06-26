@@ -1,0 +1,805 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+
+ File:      $RCSfile: plugin.xml,v $
+ Version:   $Revision: 1.88 $
+ Modified:  $Date: 2013/06/24 14:48:21 $
+
+ (c) Copyright 2006-2013 by Mentor Graphics Corp. All rights reserved.
+
+ ========================================================================
+ This document contains information proprietary and confidential to
+ Mentor Graphics Corp., and is not for external distribution.
+ ========================================================================
+
+-->
+
+<plugin
+   id="com.mentor.nucleus.bp.debug.ui"
+     name="BridgePoint Debug UI Plug-in"
+     version="4.0.3"
+     provider-name="Mentor Graphics"
+     class="com.mentor.nucleus.bp.debug.ui.BPDebugUIPlugin">
+
+     <runtime>
+        <library name="verifier.jar">
+           <export name="*"/>
+        </library>
+     </runtime>
+     <requires>
+       <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.debug.core"/>
+      <import plugin="org.eclipse.debug.ui"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.core.expressions"/>
+      <import plugin="com.mentor.nucleus.bp.core"/>
+      <import plugin="com.mentor.nucleus.bp.ui.explorer"/>
+      <import plugin="com.mentor.nucleus.bp.ui.text"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.ui.workbench.texteditor"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="com.mentor.nucleus.bp.ui.session"/>
+      <import plugin="com.mentor.nucleus.bp.ui.graphics"/>
+      <import plugin="com.mentor.nucleus.bp.io.core"/>
+     </requires>
+
+  <extension
+       point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            sourceLocatorId="com.mentor.nucleus.bp.debug.oal.locator"
+            name="xtUML eXecute Application"
+            sourcePathComputerId="com.mentor.nucleus.bp.debug.oal.computer"
+            delegate="com.mentor.nucleus.bp.debug.ui.launch.BPLaunchDelegate"
+            migrationDelegate="com.mentor.nucleus.bp.debug.ui.launch.BPLaunchDelegate"
+            modes="debug"
+            id="com.mentor.nucleus.bp.debug.ui.BPApplication">
+        </launchConfigurationType>
+     </extension>
+
+  <extension
+       point="org.eclipse.debug.core.sourceLocators">
+      <sourceLocator
+            name="xtUML eXecute Source Locator"
+            class="com.mentor.nucleus.bp.debug.ui.locator.BPSourceLookupDirector"
+            id="com.mentor.nucleus.bp.debug.oal.locator"/>
+     </extension>
+  <extension
+       point="org.eclipse.debug.core.sourcePathComputers">
+      <sourcePathComputer
+            class="com.mentor.nucleus.bp.debug.ui.locator.BPSourcePathComputerDelegate"
+            id="com.mentor.nucleus.bp.debug.oal.computer"/>
+     </extension>
+
+   <!-- launch image -->
+     <extension
+       point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+        <launchConfigurationTypeImage
+            configTypeID="com.mentor.nucleus.bp.debug.ui.BPApplication"
+            icon="icons/bp_debug.gif"
+            id="com.mentor.nucleus.bp.debug.ui.launch.launchConfigurationTypeImage1"/>
+  </extension>
+
+   <!-- launch tabs -->
+     <extension
+      point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+        <launchConfigurationTabGroup
+            type="com.mentor.nucleus.bp.debug.ui.BPApplication"
+            class="com.mentor.nucleus.bp.debug.ui.launch.BPMainTabGroup"
+            id="com.mentor.nucleus.bp.debug.ui.launch.BPMainTabGroup">
+           <launchMode
+               description="Launch xtUML application in debug mode "
+               mode="debug"
+               perspective="com.mentor.nucleus.bp.debug.ui.DebugPerspective"/>
+        </launchConfigurationTabGroup>
+     </extension>
+
+     <!-- launch shortcut -->
+     <extension
+         point="org.eclipse.debug.ui.launchShortcuts">
+        <shortcut
+           id="com.mentor.nucleus.bp.debug.ui.launch.LaunchShortcut"
+             class="com.mentor.nucleus.bp.debug.ui.launch.LaunchShortcut"
+            icon="platform:/plugin/com.mentor.nucleus.bp.core/icons/bp_debug.gif"
+             label="xtUML Launch"
+             modes="debug">
+             <perspective id="com.mentor.nucleus.bp.core.perspective"/>
+             <contextualLaunch>
+              <enablement>
+                   <with
+                       variable="selection">
+                        <count
+                            value="1">
+                        </count>
+                       <iterate>
+                           <test property="com.mentor.nucleus.bp.debug.ui.XtUMLNature"/>
+                       </iterate>
+                   </with>
+              </enablement>
+           </contextualLaunch>
+        </shortcut>
+     </extension>
+     <extension
+      point="org.eclipse.core.expressions.propertyTesters">
+        <propertyTester
+           class="com.mentor.nucleus.bp.debug.ui.launch.LaunchShortcutTester"
+            id="com.mentor.nucleus.bp.debug.ui.LaunchShortcutTester"
+            namespace="com.mentor.nucleus.bp.debug.ui"
+            properties="XtUMLNature"
+            type="org.eclipse.core.runtime.IAdaptable"/>
+     </extension>
+
+   <extension
+        id="com.mentor.nucleus.bp.ui.explorer.viewer"
+        point="org.eclipse.ui.popupMenus">
+        <objectContribution
+            adaptable="false"
+            objectClass="com.mentor.nucleus.bp.core.SystemModel_c"
+            id="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifierSystemModel">
+         <action
+               label="Launch Verifier"
+               class="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifierAction"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal"
+               enablesFor="1"
+               id="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifier">
+         </action>
+      </objectContribution>
+   </extension>
+   <extension
+        id="com.mentor.nucleus.bp.ui.explorer.viewer"
+        point="org.eclipse.ui.popupMenus">
+        <objectContribution
+            adaptable="false"
+            objectClass="com.mentor.nucleus.bp.core.Domain_c"
+            id="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifierDomain">
+         <action
+               label="Launch Verifier"
+               class="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifierAction"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal"
+               enablesFor="*"
+               id="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifier">
+         </action>
+         <filter name="can" value="launchVerifier" />
+      </objectContribution>
+   </extension>
+   <extension
+        id="com.mentor.nucleus.bp.ui.explorer.viewer"
+        point="org.eclipse.ui.popupMenus">
+        <objectContribution
+            adaptable="false"
+            objectClass="com.mentor.nucleus.bp.core.Component_c"
+            id="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifierComponent">
+         <action
+               label="Launch Verifier"
+               class="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifierAction"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal"
+               enablesFor="*"
+               id="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifier">
+         </action>
+         <filter name="can" value="launchVerifier" />
+      </objectContribution>
+   </extension>
+        <extension
+        id="com.mentor.nucleus.bp.ui.explorer.viewer"
+        point="org.eclipse.ui.popupMenus">
+        <objectContribution
+            adaptable="false"
+            objectClass="com.mentor.nucleus.bp.core.ComponentPackage_c"
+            id="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifierComponentPackage">
+         <action
+               label="Launch Verifier"
+               class="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifierAction"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal"
+               enablesFor="*"
+               id="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifier">
+         </action>
+         <filter name="can" value="launchVerifier" />
+      </objectContribution>
+   </extension>
+   <extension
+        id="com.mentor.nucleus.bp.ui.explorer.viewer"
+        point="org.eclipse.ui.popupMenus">
+        <objectContribution
+            adaptable="false"
+            objectClass="com.mentor.nucleus.bp.core.Package_c"
+            id="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifierPackage">
+         <action
+               label="Launch Verifier"
+               class="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifierAction"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal"
+               enablesFor="*"
+               id="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifier">
+         </action>
+         <filter name="can" value="launchVerifier" />
+      </objectContribution>
+   </extension>
+   <extension
+        id="com.mentor.nucleus.bp.ui.explorer.viewer"
+        point="org.eclipse.ui.popupMenus">
+        <objectContribution
+            adaptable="false"
+            objectClass="com.mentor.nucleus.bp.core.ComponentReference_c"
+            id="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifierImportedComponent">
+         <action
+               label="Launch Verifier"
+               class="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifierAction"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal"
+               enablesFor="*"
+               id="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifier">
+         </action>
+         <filter name="can" value="launchVerifier" />
+      </objectContribution>
+   </extension>
+   <extension
+        id="com.mentor.nucleus.bp.ui.explorer.viewer"
+        point="org.eclipse.ui.popupMenus">
+        <objectContribution
+          adaptable="true"
+            objectClass="com.mentor.nucleus.bp.core.DomainProxy"
+            id="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifierDomainProxy">
+           <action
+              label="Launch Verifier"
+                class="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifierAction"
+                 menubarPath="com.mentor.nucleus.bp.ui.context-internal"
+                 enablesFor="*"
+                 id="com.mentor.nucleus.bp.debug.ui.launch.LaunchVerifier">
+           </action>
+           <filter name="can" value="launchVerifier" />
+        </objectContribution>
+        <objectContribution
+            adaptable="false"
+            objectClass="com.mentor.nucleus.bp.core.ModelClass_c"
+            id="com.mentor.nucleus.bp.debug.ui.actions.MonitorAction">
+            <action
+               label="Put in Spotlight"
+               class="com.mentor.nucleus.bp.debug.ui.actions.MonitorAction"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal"
+               enablesFor="+"
+               id="com.mentor.nucleus.bp.debug.ui.MonitorAction">
+            </action>
+        </objectContribution>
+        <objectContribution
+            adaptable="false"
+            objectClass="com.mentor.nucleus.bp.core.ModelClass_c"
+            id="com.mentor.nucleus.bp.debug.ui.MonitorOffActionModelClass">
+            <action
+               label="Remove from Spotlight"
+               class="com.mentor.nucleus.bp.debug.ui.actions.MonitorOffAction"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal"
+               enablesFor="+"
+               id="com.mentor.nucleus.bp.debug.ui.MonitorOffAction">
+            </action>
+        </objectContribution>
+        <objectContribution
+            adaptable="false"
+            objectClass="com.mentor.nucleus.bp.core.ClassInEngine_c"
+            id="com.mentor.nucleus.bp.debug.ui.MonitorActionClassInEngine">
+            <action
+               label="Put in Spotlight"
+               class="com.mentor.nucleus.bp.debug.ui.actions.MonitorAction"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal"
+               enablesFor="+"
+               id="com.mentor.nucleus.bp.debug.ui.MonitorAction">
+            </action>
+        </objectContribution>
+        <objectContribution
+            adaptable="false"
+            objectClass="com.mentor.nucleus.bp.core.ClassInEngine_c"
+            id="com.mentor.nucleus.bp.debug.ui.MonitorOffActionClassInEngine">
+            <action
+               label="Remove from Spotlight"
+               class="com.mentor.nucleus.bp.debug.ui.actions.MonitorOffAction"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal"
+               enablesFor="+"
+               id="com.mentor.nucleus.bp.debug.ui.MonitorOffAction">
+            </action>
+        </objectContribution>
+        <objectContribution
+            adaptable="false"
+            objectClass="com.mentor.nucleus.bp.core.Instance_c"
+            id="com.mentor.nucleus.bp.debug.ui.MonitorAction">
+            <action
+               label="Put in Spotlight"
+               class="com.mentor.nucleus.bp.debug.ui.actions.MonitorAction"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal"
+               enablesFor="+"
+               id="com.mentor.nucleus.bp.debug.ui.MonitorAction">
+            </action>
+        </objectContribution>
+        <objectContribution
+            adaptable="false"
+            objectClass="com.mentor.nucleus.bp.core.Instance_c"
+            id="com.mentor.nucleus.bp.debug.ui.MonitorOffActionInstance">
+            <action
+               label="Remove from Spotlight"
+               class="com.mentor.nucleus.bp.debug.ui.actions.MonitorOffAction"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal"
+               enablesFor="+"
+               id="com.mentor.nucleus.bp.debug.ui.MonitorOffAction">
+            </action>
+        </objectContribution>
+     </extension>
+   <extension
+        id="com.mentor.nucleus.bp.ui.explorer.viewer"
+        point="org.eclipse.ui.popupMenus">
+        <objectContribution
+            adaptable="false"
+            objectClass="com.mentor.nucleus.bp.core.Package_c"
+            id="com.mentor.nucleus.bp.debug.ui.AuditVerifierPackage">
+         <action
+               label="Audit Realized Bindings"
+               class="com.mentor.nucleus.bp.debug.ui.actions.AuditRealizedCodeAction"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal"
+               enablesFor="+"
+               id="com.mentor.nucleus.bp.debug.ui.AuditVerifier">
+         </action>
+         <filter name="has" value="realized components" />
+      </objectContribution>
+   </extension>
+   <extension
+        id="com.mentor.nucleus.bp.ui.explorer.viewer"
+        point="org.eclipse.ui.popupMenus">
+        <objectContribution
+            adaptable="false"
+            objectClass="com.mentor.nucleus.bp.core.Component_c"
+            id="com.mentor.nucleus.bp.debug.ui.AuditVerifierComponent">
+         <action
+               label="Audit Realized Bindings"
+               class="com.mentor.nucleus.bp.debug.ui.actions.AuditRealizedCodeAction"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal"
+               enablesFor="+"
+               id="com.mentor.nucleus.bp.debug.ui.AuditVerifier">
+         </action>
+         <filter name="has" value="realized components" />
+      </objectContribution>
+   </extension>
+
+  <!-- Debug Model Presentation -->
+     <extension
+         point="org.eclipse.debug.ui.debugModelPresentations">
+        <debugModelPresentation
+            class="com.mentor.nucleus.bp.debug.ui.BPDebugModelPresentation"
+            id="com.mentor.nucleus.bp.debug.ui"/>
+     </extension>
+
+   <!--BP Debug Perspective  -->
+     <extension
+         point="org.eclipse.ui.perspectives">
+        <perspective
+            class="com.mentor.nucleus.bp.debug.ui.perspective.DebugPerspectiveFactory"
+            icon="platform:/plugin/com.mentor.nucleus.bp.core/icons/bp_debug.gif"
+            id="com.mentor.nucleus.bp.debug.ui.DebugPerspective"
+            name="xtUML Debugging"/>
+    </extension>
+
+   <!-- Breakpoints  -->
+
+   <extension
+         point="org.eclipse.ui.editorActions">
+      <editorContribution
+            targetID="com.mentor.nucleus.bp.ui.text.activity.ActivityEditor"
+            id="com.mentor.nucleus.bp.ui.text.activity.ActivityEditor.BreakpointRulerActions">
+         <action
+               label="Toggle &amp;Breakpoint"
+               class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate"
+               actionID="RulerDoubleClick"
+               id="com.mentor.nucleus.bp.debug.ui.actions.ManageBreakpointRulerAction">
+         </action>
+      </editorContribution>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <viewerContribution
+            targetID="#TextRulerContext"
+            id="com.mentor.nucleus.bp.ui.text.activity.ActivityEditor.RulerPopupActions">
+         <action
+               label="Breakpoint Properties..."
+               class="com.mentor.nucleus.bp.debug.ui.actions.OALBreakpointPropertiesRulerActionDelegate"
+               menubarPath="debug"
+               id="com.mentor.nucleus.bp.debug.ui.actions.OALBreakpointPropertiesRulerActionDelegate">
+         </action>
+         <action
+               label="Enable Breakpoint"
+               class="com.mentor.nucleus.bp.debug.ui.actions.EnableDisableBreakpointRulerActionDelegate"
+               menubarPath="debug"
+               id="com.mentor.nucleus.bp.debug.ui.actions.EnableDisableBreakpointRulerActionDelegate">
+         </action>
+         <action
+               label="Toggle &amp;Breakpoint"
+               class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate"
+               menubarPath="debug"
+               id="com.mentor.nucleus.bp.debug.ui.actions.BreakpointRulerActionDelegate">
+         </action>
+      </viewerContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <viewerContribution
+            id="com.mentor.nucleus.bp.debug.ui.ExecuteFunctionAction"
+            targetID="com.mentor.nucleus.bp.ui.session.views.SessionExplorerView">
+         <action
+               class="com.mentor.nucleus.bp.debug.ui.actions.ExecuteAction"
+               enablesFor="1"
+               id="com.mentor.nucleus.bp.debug.ui.ExecuteProvidedSignalAction"
+               label="Execute"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal">
+         </action>
+         <visibility>
+            <objectClass
+                  name="com.mentor.nucleus.bp.core.Function_c">
+            </objectClass>
+         </visibility>
+      </viewerContribution>
+      <viewerContribution
+            id="com.mentor.nucleus.bp.debug.ui.ExecuteOperationAction"
+            targetID="com.mentor.nucleus.bp.ui.session.views.SessionExplorerView">
+         <action
+               class="com.mentor.nucleus.bp.debug.ui.actions.ExecuteAction"
+               enablesFor="1"
+               id="com.mentor.nucleus.bp.debug.ui.ExecuteProvidedSignalAction"
+               label="Execute"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal">
+         </action>
+         <visibility>
+            <objectClass
+                  name="com.mentor.nucleus.bp.core.Operation_c">
+            </objectClass>
+         </visibility>
+      </viewerContribution>
+      <viewerContribution
+            id="com.mentor.nucleus.bp.debug.ui.ExecuteRequiredOperationAction"
+            targetID="com.mentor.nucleus.bp.ui.session.views.SessionExplorerView">
+         <action
+               class="com.mentor.nucleus.bp.debug.ui.actions.ExecuteAction"
+               enablesFor="1"
+               id="com.mentor.nucleus.bp.debug.ui.ExecuteProvidedSignalAction"
+               label="Execute"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal">
+         </action>
+         <visibility>
+            <objectClass
+                  name="com.mentor.nucleus.bp.core.RequiredOperation_c">
+            </objectClass>
+         </visibility>
+      </viewerContribution>
+      <viewerContribution
+            id="com.mentor.nucleus.bp.debug.ui.ExecuteProvidedOperationAction"
+            targetID="com.mentor.nucleus.bp.ui.session.views.SessionExplorerView">
+         <action
+               class="com.mentor.nucleus.bp.debug.ui.actions.ExecuteAction"
+               enablesFor="1"
+               id="com.mentor.nucleus.bp.debug.ui.ExecuteProvidedSignalAction"
+               label="Execute"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal">
+         </action>
+         <visibility>
+            <objectClass
+                  name="com.mentor.nucleus.bp.core.ProvidedOperation_c">
+            </objectClass>
+         </visibility>
+      </viewerContribution>
+      <viewerContribution
+            id="com.mentor.nucleus.bp.debug.ui.ExecuteRequiredSignalAction"
+            targetID="com.mentor.nucleus.bp.ui.session.views.SessionExplorerView">
+         <action
+               class="com.mentor.nucleus.bp.debug.ui.actions.ExecuteAction"
+               enablesFor="1"
+               id="com.mentor.nucleus.bp.debug.ui.ExecuteProvidedSignalAction"
+               label="Execute"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal">
+         </action>
+         <visibility>
+            <objectClass
+                  name="com.mentor.nucleus.bp.core.RequiredSignal_c">
+            </objectClass>
+         </visibility>
+      </viewerContribution>
+      <viewerContribution
+            id="com.mentor.nucleus.bp.debug.ui.ExecuteProvidedSignalAction"
+            targetID="com.mentor.nucleus.bp.ui.session.views.SessionExplorerView">
+         <action
+               class="com.mentor.nucleus.bp.debug.ui.actions.ExecuteAction"
+               enablesFor="1"
+               id="com.mentor.nucleus.bp.debug.ui.ExecuteProvidedSignalAction"
+               label="Execute"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal">
+         </action>
+         <visibility>
+            <objectClass
+                  name="com.mentor.nucleus.bp.core.ProvidedSignal_c">
+            </objectClass>
+         </visibility>
+      </viewerContribution>
+      <objectContribution
+            adaptable="true"
+            id="com.mentor.nucleus.bp.debug.ui.properties"
+            objectClass="com.mentor.nucleus.bp.debug.ui.model.BPBreakpoint">
+         <action
+               label="Breakpoint Properties..."
+               class="com.mentor.nucleus.bp.debug.ui.actions.BPBreakpointPropertiesAction"
+               menubarPath="additions"
+               enablesFor="1"
+               id="com.mentor.nucleus.bp.debug.ui.actions.BPBreakpointPropertiesAction">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="com.mentor.nucleus.bp.debug.ui.setAssocBP"
+            objectClass="com.mentor.nucleus.bp.core.Association_c">
+         <action
+               label="Set Breakpoint"
+               class="com.mentor.nucleus.bp.debug.ui.actions.CreateBPBreakpointAction"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal"
+               enablesFor="1"
+               id="com.mentor.nucleus.bp.debug.ui.actions.CreateBPBreakpointAction">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="com.mentor.nucleus.bp.debug.ui.setEventBP"
+            objectClass="com.mentor.nucleus.bp.core.StateMachineEvent_c">
+         <action
+               label="Set Breakpoint"
+               class="com.mentor.nucleus.bp.debug.ui.actions.CreateBPBreakpointAction"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal"
+               enablesFor="1"
+               id="com.mentor.nucleus.bp.debug.ui.actions.CreateBPBreakpointAction">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="com.mentor.nucleus.bp.debug.ui.setStateBP"
+            objectClass="com.mentor.nucleus.bp.core.StateMachineState_c">
+         <action
+               label="Set Breakpoint"
+               class="com.mentor.nucleus.bp.debug.ui.actions.CreateBPBreakpointAction"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal"
+               enablesFor="1"
+               id="com.mentor.nucleus.bp.debug.ui.actions.CreateBPBreakpointAction">
+         </action>
+      </objectContribution>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            class="com.mentor.nucleus.bp.debug.ui.BPBreakpointAdapterFactory"
+            adaptableType="com.mentor.nucleus.bp.ui.text.activity.ActivityEditor">
+         <adapter
+               type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget">
+         </adapter>
+      </factory>
+   </extension>
+
+   <!--  Breakpoint Definitions -->
+   <extension
+         point="org.eclipse.debug.core.breakpoints">
+      <breakpoint
+            markerType="com.mentor.nucleus.bp.debug.ui.bpBreakpoint.marker"
+            class="com.mentor.nucleus.bp.debug.ui.model.BPBreakpoint"
+            id="com.mentor.nucleus.bp.debug.ui.Breakpoint">
+      </breakpoint>
+   </extension>
+   <extension id="bpBreakpoint.marker"
+       point="org.eclipse.core.resources.markers">
+       <super type="org.eclipse.debug.core.breakpointMarker"></super>
+       <persistent value="true"></persistent>
+       <attribute name="com.mentor.nucleus.bp.debug.core.location">
+       </attribute>
+       <attribute name="com.mentor.nucleus.bp.debug.core.hitCount">
+       </attribute>
+       <attribute name="com.mentor.nucleus.bp.debug.core.modelRootId">
+       </attribute>
+       <attribute name="com.mentor.nucleus.bp.debug.core.modelElementId">
+       </attribute>
+       <attribute name="com.mentor.nucleus.bp.debug.core.condition">
+       </attribute>
+       <attribute name="com.mentor.nucleus.bp.debug.core.conditionEnabled">
+       </attribute>
+       <attribute name="com.mentor.nucleus.bp.debug.core.flags">
+       </attribute>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.breakpoints">
+      <breakpoint
+            markerType="com.mentor.nucleus.bp.debug.ui.bpBreakpoint.marker.assoc"
+            class="com.mentor.nucleus.bp.debug.ui.model.BPAssocCreateDeleteBreakpoint"
+            id="com.mentor.nucleus.bp.debug.ui.AssocBreakpoint">
+      </breakpoint>
+      <breakpoint
+            markerType="com.mentor.nucleus.bp.debug.ui.bpBreakpoint.marker.attribute"
+            class="com.mentor.nucleus.bp.debug.ui.model.BPAttributeBreakpoint"
+            id="com.mentor.nucleus.bp.debug.ui.AttributeBreakpoint">
+      </breakpoint>
+      <breakpoint
+            markerType="com.mentor.nucleus.bp.debug.ui.bpBreakpoint.marker.class"
+            class="com.mentor.nucleus.bp.debug.ui.model.BPClassCreateDeleteBreakpoint"
+            id="com.mentor.nucleus.bp.debug.ui.ClassBreakpoint">
+      </breakpoint>
+      <breakpoint
+            markerType="com.mentor.nucleus.bp.debug.ui.bpBreakpoint.marker.event"
+            class="com.mentor.nucleus.bp.debug.ui.model.BPEventBreakpoint"
+            id="com.mentor.nucleus.bp.debug.ui.EventBreakpoint">
+      </breakpoint>
+      <breakpoint
+            markerType="com.mentor.nucleus.bp.debug.ui.bpBreakpoint.marker.state"
+            class="com.mentor.nucleus.bp.debug.ui.model.BPStateBreakpoint"
+            id="com.mentor.nucleus.bp.debug.ui.StateBreakpoint">
+      </breakpoint>
+      <breakpoint
+            markerType="com.mentor.nucleus.bp.debug.ui.bpBreakpoint.marker.pendingEvent"
+            class="com.mentor.nucleus.bp.debug.ui.model.BPEventBreakpoint"
+            id="com.mentor.nucleus.bp.debug.ui.EventBreakpoint">
+      </breakpoint>
+   </extension>
+   <extension id="bpBreakpoint.marker.assoc"
+       point="org.eclipse.core.resources.markers">
+       <super type="com.mentor.nucleus.bp.debug.ui.bpBreakpoint.marker"></super>
+       <persistent value="true"></persistent>
+   </extension>
+   <extension id="bpBreakpoint.marker.attribute"
+       point="org.eclipse.core.resources.markers">
+       <super type="com.mentor.nucleus.bp.debug.ui.bpBreakpoint.marker"></super>
+       <persistent value="true"></persistent>
+   </extension>
+   <extension id="bpBreakpoint.marker.class"
+       point="org.eclipse.core.resources.markers">
+       <super type="com.mentor.nucleus.bp.debug.ui.bpBreakpoint.marker"></super>
+       <persistent value="true"></persistent>
+   </extension>
+   <extension id="bpBreakpoint.marker.event"
+       point="org.eclipse.core.resources.markers">
+       <super type="com.mentor.nucleus.bp.debug.ui.bpBreakpoint.marker"></super>
+       <persistent value="true"></persistent>
+   </extension>
+   <extension id="bpBreakpoint.marker.state"
+       point="org.eclipse.core.resources.markers">
+       <super type="com.mentor.nucleus.bp.debug.ui.bpBreakpoint.marker"></super>
+       <persistent value="true"></persistent>
+   </extension>
+   <extension id="bpBreakpoint.marker.pendingEvent"
+       point="org.eclipse.core.resources.markers">
+       <super type="com.mentor.nucleus.bp.debug.ui.bpBreakpoint.marker"></super>
+       <persistent value="false"></persistent>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.breakpoints">
+      <breakpoint
+            markerType="com.mentor.nucleus.bp.debug.ui.lineBreakpoint.marker"
+            class="com.mentor.nucleus.bp.debug.ui.model.BPLineBreakpoint"
+            id="com.mentor.nucleus.bp.debug.ui.lineBreakpoint">
+      </breakpoint>
+   </extension>
+   <extension
+         id="lineBreakpoint.marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.debug.core.lineBreakpointMarker">
+      </super>
+      <persistent value="true"></persistent>
+       <attribute name="com.mentor.nucleus.bp.debug.core.location">
+       </attribute>
+       <attribute name="com.mentor.nucleus.bp.debug.core.hitCount">
+       </attribute>
+       <attribute name="com.mentor.nucleus.bp.debug.core.modelRootId">
+       </attribute>
+       <attribute name="com.mentor.nucleus.bp.debug.core.modelElementId">
+       </attribute>
+       <attribute name="com.mentor.nucleus.bp.debug.core.condition">
+       </attribute>
+       <attribute name="com.mentor.nucleus.bp.debug.core.conditionEnabled">
+       </attribute>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.breakpoints">
+      <breakpoint
+            markerType="com.mentor.nucleus.bp.debug.ui.verifierException.marker"
+            class="com.mentor.nucleus.bp.debug.ui.model.VerifierExceptionBreakpoint"
+            id="com.mentor.nucleus.bp.debug.ui.verifierExceptionBreakpoint">
+      </breakpoint>
+   </extension>
+   <extension
+         id="verifierException.marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.debug.core.breakpointMarker">
+      </super>
+      <persistent value="true"></persistent>
+       <attribute name="com.mentor.nucleus.bp.debug.core.exceptionName">
+       </attribute>
+   </extension>
+
+   <!-- Property Pages -->
+   <extension
+         point="org.eclipse.ui.propertyPages">
+
+      <page
+            class="com.mentor.nucleus.bp.debug.ui.propertypages.OALLineBreakpointPage"
+            id="com.mentor.nucleus.bp.debug.ui.propertypages.OALLineBreakpointPropertiesPage"
+            name="Common"
+            nameFilter="*"
+            objectClass="com.mentor.nucleus.bp.debug.ui.model.BPLineBreakpoint"/>
+      <page
+            class="com.mentor.nucleus.bp.debug.ui.propertypages.ClassCreateDeleteBreakpointPage"
+            id="com.mentor.nucleus.bp.debug.ui.propertypages.ClassCreateDeleteBreakpointPropertiesPage"
+            name="Common"
+            nameFilter="*"
+            objectClass="com.mentor.nucleus.bp.debug.ui.model.BPClassCreateDeleteBreakpoint"/>
+      <page
+            class="com.mentor.nucleus.bp.debug.ui.propertypages.AssocCreateDeleteBreakpointPage"
+            id="com.mentor.nucleus.bp.debug.ui.propertypages.AssocCreateDeleteBreakpointPropertiesPage"
+            name="Common"
+            nameFilter="*"
+            objectClass="com.mentor.nucleus.bp.debug.ui.model.BPAssocCreateDeleteBreakpoint"/>
+      <page
+            class="com.mentor.nucleus.bp.debug.ui.propertypages.EventBreakpointPage"
+            id="com.mentor.nucleus.bp.debug.ui.propertypages.EventBreakpointPropertiesPage"
+            name="Common"
+            nameFilter="*"
+            objectClass="com.mentor.nucleus.bp.debug.ui.model.BPEventBreakpoint"/>
+      <page
+            class="com.mentor.nucleus.bp.debug.ui.propertypages.StateBreakpointPage"
+            id="com.mentor.nucleus.bp.debug.ui.propertypages.StateBreakpointPropertiesPage"
+            name="Common"
+            nameFilter="*"
+            objectClass="com.mentor.nucleus.bp.debug.ui.model.BPStateBreakpoint"/>
+      <page
+            class="com.mentor.nucleus.bp.debug.ui.propertypages.PendingEventBreakpointPage"
+            id="com.mentor.nucleus.bp.debug.ui.propertypages.PendingEventBreakpointPropertiesPage"
+            name="Common"
+            nameFilter="*"
+            objectClass="com.mentor.nucleus.bp.debug.ui.model.BPPendingEventBreakpoint"/>
+      <page
+            class="com.mentor.nucleus.bp.debug.ui.propertypages.VerifierExceptionBreakpointPage"
+            id="com.mentor.nucleus.bp.debug.ui.propertypages.VerifierExceptionBreakpointPage"
+            name="Common"
+            nameFilter="*"
+            objectClass="com.mentor.nucleus.bp.debug.ui.model.VerifierExceptionBreakpoint"/>
+            <!--   Disabled in the first release
+      <page
+            class="com.mentor.nucleus.bp.debug.ui.propertypages.AttributeBreakpointPage"
+            id="com.mentor.nucleus.bp.debug.ui.propertypages.AttributeBreakpointPropertiesPage"
+            name="Common"
+            nameFilter="*"
+            objectClass="com.mentor.nucleus.bp.debug.ui.model.BPAttributeBreakpoint"/>
+      <page
+            class="com.mentor.nucleus.bp.debug.ui.propertypages.BreakpointFiltersPage"
+            id="com.mentor.nucleus.bp.debug.ui.propertypages.OALLineBreakpointFiltersPage"
+            name="Filtering"
+            nameFilter="*"
+            objectClass="com.mentor.nucleus.bp.debug.ui.model.BPLineBreakpoint"/>
+      <page
+            class="com.mentor.nucleus.bp.debug.ui.propertypages.BreakpointFiltersPage"
+            id="com.mentor.nucleus.bp.debug.ui.propertypages.AttrBreakpointFiltersPage"
+            name="Filtering"
+            nameFilter="*"
+            objectClass="com.mentor.nucleus.bp.debug.ui.model.BPAttributeBreakpoint"/>
+      <page
+            class="com.mentor.nucleus.bp.debug.ui.propertypages.BreakpointFiltersPage"
+            id="com.mentor.nucleus.bp.debug.ui.propertypages.ClassBreakpointFiltersPage"
+            name="Filtering"
+            nameFilter="*"
+            objectClass="com.mentor.nucleus.bp.debug.ui.model.BPClassCreateDeleteBreakpoint"/>
+      <page
+            class="com.mentor.nucleus.bp.debug.ui.propertypages.BreakpointFiltersPage"
+            id="com.mentor.nucleus.bp.debug.ui.propertypages.AssocBreakpointFiltersPage"
+            name="Filtering"
+            nameFilter="*"
+            objectClass="com.mentor.nucleus.bp.debug.ui.model.BPAssocCreateDeleteBreakpoint"/>
+      <page
+            class="com.mentor.nucleus.bp.debug.ui.propertypages.BreakpointFiltersPage"
+            id="com.mentor.nucleus.bp.debug.ui.propertypages.EventBreakpointFiltersPage"
+            name="Filtering"
+            nameFilter="*"
+            objectClass="com.mentor.nucleus.bp.debug.ui.model.BPEventBreakpoint"/>
+      <page
+            class="com.mentor.nucleus.bp.debug.ui.propertypages.BreakpointFiltersPage"
+            id="com.mentor.nucleus.bp.debug.ui.propertypages.StateBreakpointFiltersPage"
+            name="Filtering"
+            nameFilter="*"
+            objectClass="com.mentor.nucleus.bp.debug.ui.model.BPStateBreakpoint"/>
+            -->
+   </extension>
+</plugin>

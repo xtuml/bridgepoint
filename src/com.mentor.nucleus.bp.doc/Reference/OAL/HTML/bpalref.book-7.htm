@@ -1,0 +1,284 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="bpalref.book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ Events
+</TITLE>
+
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<H1 CLASS="Chapter-Name">
+<A NAME="50536512_pgfId-518875"></A>Events</H1>
+<H2 CLASS="Heading1">
+<A NAME="50536512_pgfId-511389"></A>Receiving Event Data</H2>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-516712"></A>The keyword <A NAME="50536512_marker-518580"></A><EM CLASS="Code">
+rcvd_evt</EM>
+<A NAME="50536512_marker-516710"></A> is the name of a structure containing all of the supplemental data items <A NAME="50536512_marker-516711"></A>received with an event.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536512_pgfId-516714"></A>Syntax</H3>
+<P CLASS="Indent">
+<A NAME="50536512_pgfId-516715"></A><EM CLASS="Code">
+rcvd_evt.&lt;supplemental data item&gt;</EM>
+</P>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-516719"></A><EM CLASS="Code">
+&lt;supplemental data item&gt;</EM>
+ is the name of the data item.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536512_pgfId-516721"></A>Note</H3>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-516722"></A><EM CLASS="Code">
+rcvd_evt.&lt;supplemental data item&gt;</EM>
+ is an <EM CLASS="Code">
+&lt;expression&gt;</EM>
+ and so can be used in any OAL construct specifying an expression.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536512_pgfId-516724"></A>Example</H3>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-516729"></A><EM CLASS="Code">select any robot from instances of R;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-516730"></A><EM CLASS="Code">robot.from = rcvd_evt.source;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-518483"></A><EM CLASS="Code">robot.to = rcvd_evt.destination;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-518488"></A><EM CLASS="Code">//</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-518485"></A><EM CLASS="Code">self.destination = rcvd_evt.destination;</EM>
+</PRE>
+<H2 CLASS="Heading1">
+<A NAME="50536512_pgfId-516758"></A>Event Generation<A NAME="50536512_B_Ref387740458"></A><A NAME="50536512_marker-516756"></A><A NAME="50536512_marker-516757"></A></H2>
+<H3 CLASS="Heading2">
+<A NAME="50536512_pgfId-516760"></A>Syntax</H3>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-516761"></A><EM CLASS="Code">generate &lt;event label&gt; to &lt;target&gt;;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-516763"></A><EM CLASS="Code">generate &lt;event label&gt;:&lt;event meaning&gt; to &lt;target&gt;;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-516765"></A><EM CLASS="Code">generate &lt;event label&gt; (&lt;event parameters&gt;) to &lt;target&gt;;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-516767"></A><EM CLASS="Code">generate &lt;event label&gt;:&lt;event meaning&gt; (&lt;event parameters&gt;) to &lt;target&gt;;</EM>
+</PRE>
+<P CLASS="Indent">
+<A NAME="50536512_pgfId-518914"></A><EM CLASS="Code">
+generate &lt;instance handle&gt;.&lt;attribute&gt;;</EM>
+</P>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-516771"></A><EM CLASS="Code">
+&lt;event label&gt;</EM>
+ is <EM CLASS="Code">
+&lt;keyletter&gt;&lt;event number&gt;</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-516773"></A><EM CLASS="Code">
+&lt;event meaning&gt;</EM>
+ is the meaning of the event, enclosed by tick marks as in <EM CLASS="Code">
+'turn off the light'</EM>
+; the tick marks may be omitted if the event meaning contains no spaces.</P>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-516776"></A><EM CLASS="Code">
+&lt;event parameters&gt;</EM>
+ provides the supplemental data<A NAME="50536512_marker-519156"></A> item<A NAME="50536512_marker-516775"></A>s (if any) to be carried by the event.  Each data item is given in the form <EM CLASS="Code">
+&lt;supplemental data item&gt;:&lt;expression&gt;</EM>
+.  When multiple supplemental data items are required, separate the <EM CLASS="Code">
+&lt;supplemental data item&gt;:&lt;expression&gt;</EM>
+ pairs by commas.  If there are no supplemental data items, the parentheses may be omitted.</P>
+<P CLASS="Indent">
+<A NAME="50536512_pgfId-516778"></A><EM CLASS="Code">
+&lt;supplemental data item&gt;</EM>
+ is the name of a data item to be sent with the event.</P>
+<P CLASS="Indent">
+<A NAME="50536512_pgfId-516780"></A><EM CLASS="Code">
+&lt;expression&gt;</EM>
+ is a string, arithmetic, boolean, simple, or compound expression.  The data type of the expression must match the data type defined for the given data item.</P>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-516782"></A><EM CLASS="Code">
+&lt;target&gt;</EM>
+ is specified in a variety of ways, depending on the destination of the event.</P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="50536512_pgfId-516784"></A>For an event directed to an existing instance of a class, <EM CLASS="Code">
+&lt;target&gt;</EM>
+ is an instance handle	.</LI>
+<LI CLASS="Bulleted">
+<A NAME="50536512_pgfId-516787"></A>For a creation event, <EM CLASS="Code">
+&lt;target&gt;</EM>
+ is:  <EM CLASS="Code">
+&lt;keyletter&gt; creator</EM>
+<A NAME="50536512_marker-518578"></A>.<EM CLASS="Code">
+</EM>
+</LI>
+<LI CLASS="Bulleted-cont">
+<A NAME="50536512_pgfId-516854"></A>For an event directed at a single-instance assigner, <EM CLASS="Code">
+&lt;target&gt;</EM>
+ is:  <A NAME="50536512_marker-516791"></A><EM CLASS="Code">
+&lt;keyletter&gt; class</EM>
+.<EM CLASS="Code">
+</EM>
+</LI>
+<LI CLASS="Bulleted">
+<A NAME="50536512_pgfId-516857"></A>For an event directed at an external entity<A NAME="50536512_marker-516795"></A><A NAME="50536512_marker-516796"></A>, <EM CLASS="Code">
+&lt;target&gt;</EM>
+ is the external entity's keyletters.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-518915"></A><EM CLASS="Code">
+&lt;instance_handle&gt;</EM>
+ is a handle to an instance of a class.</P>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-518916"></A><EM CLASS="Code">
+&lt;attribute&gt;</EM>
+ is the name of an attribute of the class.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536512_pgfId-516860"></A>Notes</H3>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-516802"></A>The <EM CLASS="Code">
+to</EM>
+ clause provides all the information necessary to identify the destination of the event.</P>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-516803"></A>If an event has no supplemental data items, the empty parentheses around <EM CLASS="Code">
+&lt;event parameters&gt;</EM>
+ may be omitted.</P>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-516804"></A>Supplemental data<A NAME="50536512_marker-519164"></A> items may appear in any order in <EM CLASS="Code">
+&lt;event parameters&gt;</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-516805"></A>All supplemental data items defined for the event must be supplied.</P>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-516807"></A>The <EM CLASS="Code">
+&lt;event meaning&gt;</EM>
+<A NAME="50536512_marker-516806"></A> field is optional.  It must be enclosed in tick marks if it contains spaces, and it must be contained on a single line.</P>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-516864"></A>If <EM CLASS="Code">
+&lt;event meaning&gt;</EM>
+<A NAME="50536512_marker-516808"></A> is not used, the colon after <EM CLASS="Code">
+&lt;event label&gt;</EM>
+ must be omitted.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536512_pgfId-516880"></A>Examples<A NAME="50536512_marker-519175"></A></H3>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-518463"></A><EM CLASS="Code">// event to existing instance</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-518474"></A><EM CLASS="Code">// State 1. &quot;Up&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-518465"></A><EM CLASS="Code">self.current_position = &quot;up&quot;;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-518466"></A><EM CLASS="Code">select one row related by self-&gt;ROW[R2];</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-518467"></A><EM CLASS="Code">generate ROW4:sample_complete() to row;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-516869"></A><EM CLASS="Code"></EM>
+&nbsp;</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-516870"></A><EM CLASS="Code">// creation event</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-516871"></A><EM CLASS="Code">generate S1:'Create sale' (dept:dept_no, amount:sale_value) to S creator;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-516872"></A><EM CLASS="Code"></EM>
+&nbsp;</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-516873"></A><EM CLASS="Code">// event to assigner</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-518456"></A><EM CLASS="Code">generate PA_A1:row_needs_probe() to PA class;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-516875"></A><EM CLASS="Code"></EM>
+&nbsp;</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-516876"></A><EM CLASS="Code">// event to external entity</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536512_pgfId-516877"></A><EM CLASS="Code">generate PIO7:'Motor start' (motor_no:motor_id) to PIO;</EM>
+</PRE>
+<H2 CLASS="Heading1">
+<A NAME="50536512_pgfId-516889"></A>Event Pre-creation</H2>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-516891"></A>An event may be created without sending it by using the <EM CLASS="Code">
+create event</EM>
+ statement.  This statement should be used only</P>
+<OL>
+<LI CLASS="Numbered">
+<A NAME="50536512_pgfId-516893"></A>to create an event for an analysis timer.</LI>
+<LI CLASS="Numbered-N">
+<A NAME="50536512_pgfId-517002"></A>as directed by the rules of the particular architecture onto which you plan to translate your models.</LI>
+</OL>
+<H3 CLASS="Heading2">
+<A NAME="50536512_pgfId-516896"></A>Syntax</H3>
+<P CLASS="Indent">
+<A NAME="50536512_pgfId-516898"></A><EM CLASS="Code">
+create event instance &lt;event instance&gt; of &lt;event label&gt; to &lt;target&gt;;</EM>
+<A NAME="50536512_marker-516897"></A></P>
+<P CLASS="Indent">
+<A NAME="50536512_pgfId-516901"></A><EM CLASS="Code">
+create event instance &lt;event instance&gt; of &lt;event label&gt;:&lt;event meaning&gt; to &lt;target&gt;;</EM>
+</P>
+<P CLASS="Indent">
+<A NAME="50536512_pgfId-518601"></A><EM CLASS="Code">
+create event instance &lt;event instance&gt; of &lt;event label&gt; (&lt;event parameters&gt;) to &lt;target&gt;;</EM>
+</P>
+<P CLASS="Indent">
+<A NAME="50536512_pgfId-516908"></A><EM CLASS="Code">
+create event instance &lt;event instance&gt; of &lt;event label&gt;:&lt;event meaning&gt; (&lt;event parameters&gt;)	to &lt;target&gt;;</EM>
+</P>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-516913"></A><EM CLASS="Code">
+&lt;event</EM>
+ <EM CLASS="Code">
+label&gt;</EM>
+, <EM CLASS="Code">
+&lt;event</EM>
+ <EM CLASS="Code">
+meaning&gt;</EM>
+, <EM CLASS="Code">
+&lt;event</EM>
+ <EM CLASS="Code">
+parameters&gt;</EM>
+ and <EM CLASS="Code">
+&lt;target&gt;</EM>
+ are as defined in <A HREF="bpalref.book-7.htm#50536512_B_Ref387740458" CLASS="XRef">Event Generation</A>.</P>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-516917"></A><EM CLASS="Code">
+&lt;event instance&gt;</EM>
+ is a local variable of type event instance.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536512_pgfId-518626"></A>Notes</H3>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-518707"></A>The local variable <EM CLASS="Code">
+&lt;event instance&gt;</EM>
+ can be used to refer to an event instance of any type.</P>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-519137"></A>Event instances can be assigned to attributes of classes that are of type event instance.</P>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-518630"></A>Please refer to the notes in <EM CLASS="body-font">
+<A HREF="bpalref.book-7.htm#50536512_B_Ref387740458" CLASS="XRef">Event Generation</A></EM>
+.</P>
+<H2 CLASS="Heading1">
+<A NAME="50536512_pgfId-518632"></A>Sending a Pre-created Event</H2>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-516926"></A>Event instances may be sent using the <EM CLASS="Code">
+generate</EM>
+ statement.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536512_pgfId-516928"></A>Syntax</H3>
+<P CLASS="Indent">
+<A NAME="50536512_pgfId-516930"></A><EM CLASS="Code">
+generate &lt;event instance&gt;;</EM>
+<A NAME="50536512_marker-516929"></A></P>
+<P CLASS="Indent">
+<A NAME="50536512_pgfId-519138"></A>generate &lt;instance handle&gt;.&lt;attribute&gt;;</P>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-516934"></A><EM CLASS="Code">
+&lt;event instance&gt;</EM>
+ is a local variable of type event instance.</P>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-519139"></A><EM CLASS="Code">
+&lt;instance handle&gt;</EM>
+ is a handle to an instance of a class.</P>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-519140"></A><EM CLASS="Code">
+&lt;attribute&gt;</EM>
+ is an attribute of the class.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536512_pgfId-516936"></A>Notes</H3>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-516937"></A>Sends a pre-created event to its intended recipient.</P>
+<P CLASS="Body">
+<A NAME="50536512_pgfId-519216"></A>This feature is provided for use with analysis timers. These timers will eventually be replaced with delayed events, at which time, support for pre-created events will likely be removed.<A NAME="50536512_B_Ref387570191"></A><A NAME="50536512_B_Ref388149594"></A></P>
+</BODY>
+</HTML>

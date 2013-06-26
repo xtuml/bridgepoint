@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="Build and Code Generation">
+      <intro>
+      <description>
+         Building and generating code from the model.
+      </description>
+      </intro>
+     
+      <item
+            skip="true"
+            title="Change perspective to C/C++">
+         <description>
+            Go to <b>C/C++</b> perspective
+         </description>
+         <command
+               required="false"
+               serialization="org.eclipse.ui.perspectives.showPerspective(org.eclipse.ui.perspectives.showPerspective.perspectiveId=org.eclipse.cdt.ui.CPerspective)"/>
+      </item> 
+      
+      
+      <item
+			skip="true"
+            title="Build the model">
+            
+            <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Build Project"
+			param2="Simple System" 
+			/>
+         <description>
+         Build &apos;Simple System&apos;.  Right-click on the project name, in the context menu select <b>Build Project</b>
+         </description>
+      
+      </item>
+	  
+	  <item
+                skip="true"
+                title="Review generated code">
+            <description>
+            	Expand project tree in Project Explorer view, select &apos;src&apos; folder,  right-click, in the context menu select <b>Refresh</b>, then expand the folder.
+      		</description>
+      </item>
+      
+      
+</cheatsheet>

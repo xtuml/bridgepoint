@@ -1,0 +1,78 @@
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("e2591827-a059-4d2c-9aca-d526fa339611",
+	"00000000-0000-0000-0000-000000000000",
+	"2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'Import Subsystem',
+	'',
+	100);
+INSERT INTO GD_MD
+	VALUES ("39ff8eaa-ddfd-4463-8489-e3ef6dee1b43",
+	112,
+	"e2591827-a059-4d2c-9aca-d526fa339611",
+	108,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'testProp::Import Subsystem');
+INSERT INTO GD_GE
+	VALUES ("b7bb63dc-b11e-42a3-8d0a-c4a0411379b2",
+	"39ff8eaa-ddfd-4463-8489-e3ef6dee1b43",
+	"aa0ca1ee-27d4-47f8-8ba8-1afdcf61256d",
+	21,
+	0,
+	'testProp::Import Subsystem::Imported Class');
+INSERT INTO GD_SHP
+	VALUES ("b7bb63dc-b11e-42a3-8d0a-c4a0411379b2");
+INSERT INTO GD_NCS
+	VALUES ("b7bb63dc-b11e-42a3-8d0a-c4a0411379b2");
+INSERT INTO DIM_ND
+	VALUES (320.000000,
+	224.000000,
+	"b7bb63dc-b11e-42a3-8d0a-c4a0411379b2");
+INSERT INTO DIM_GE
+	VALUES (1840.000000,
+	1328.000000,
+	"b7bb63dc-b11e-42a3-8d0a-c4a0411379b2",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("b7bb63dc-b11e-42a3-8d0a-c4a0411379b2",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_DIA
+	VALUES ("39ff8eaa-ddfd-4463-8489-e3ef6dee1b43",
+	'',
+	1.000000,
+	1600.000000,
+	1179.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("e2591827-a059-4d2c-9aca-d526fa339611",
+	1,
+	"e92dcb49-50f9-45ec-bf2f-2a524e6f5b4a",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("e92dcb49-50f9-45ec-bf2f-2a524e6f5b4a",
+	"2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	"2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'testProp',
+	'',
+	0,
+	'../testProp.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'com.mentor.nucleus.bp.ui.properties.test',
+	1,
+	'../../com.mentor.nucleus.bp.ui.properties.test.xtuml');

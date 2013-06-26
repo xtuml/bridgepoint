@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet
+      title="Heart Pacer Case Study">
+   <intro>
+      <description>
+         <b>Welcome to BridgePoint.</b>  This cheat sheet walks you through the steps to create, execute, and translate a UML application model.
+  The process includes analysis, design, verification, and implementation.
+      </description>
+   </intro>
+   <item
+         title="Open the xtUML Modeling perspective">
+          <action pluginId="org.eclipse.ui.cheatsheets" 
+            class="org.eclipse.ui.internal.cheatsheets.actions.OpenPerspective"
+            param1="com.mentor.nucleus.bp.core.perspective"/>
+      <description>
+         Select <b> Window &gt; Open Perspective &gt; Other… &gt; xtUML Modeling</b>.  This perspective organizes the workbench with views and tools for UML modeling.
+      </description>
+   </item>
+   <item title="Create the case study model project">
+    <action pluginId="com.mentor.nucleus.bp.welcome" 
+           class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.ImportPacerProjectAction"/>
+   
+      <description>
+         The remainder of this walkthrough uses a pre-populated example model project.  Let’s create it now.
+      </description>
+            </item>
+   <item
+         title="Analysis">
+      <description>
+         The analysis phase is where you clarify requirements and consider what your model will do.  Here you create Use Case, Sequence, Activity and Communication diagrams.    Let’s look at some of these diagrams.
+      </description>
+      <subitem
+            label="Click this button to open the communication diagram">
+            <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Open Diagram" param2="avpace" param3="package" param4="Increased Activity comm"/>
+      </subitem>
+      <subitem
+            label="Click this button to open the sequence diagram">
+            <action pluginId="com.mentor.nucleus.bp.welcome" 
+				class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Open Diagram" param2="avpace" param3="package" param4="Increased Activity sd"/>
+      </subitem>
+      <subitem
+            label="Click this button to open the activity diagram">
+            <action pluginId="com.mentor.nucleus.bp.welcome" 
+				class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Open Diagram" param2="avpace" param3="package" param4="Increased Activity activity"/>
+      </subitem>
+   </item>
+   <item
+         title="Design">
+      <description>
+         The design phase is where you create an implementation based on the analysis.  During this executable modeling, you define components, interfaces, classes, and state machines that form the application solution.  Here you also create components to test the solution.  Now let’s consider a few diagrams produced in this step.
+      </description>
+      <subitem
+            label="Click this button to open the diagram to show the design components">
+             <action pluginId="com.mentor.nucleus.bp.welcome" 
+				class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Open Diagram" param2="avpace" param3="package" param4="library"/>
+      </subitem>
+      <subitem
+            label="Click this button to open the heart class diagram">
+             <action pluginId="com.mentor.nucleus.bp.welcome"
+            	class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Open Diagram"  param2="avpace" param3="package" param4="heart"/>
+      </subitem>
+      <subitem
+             label="Click this button to open the pacer class diagram">
+             <action pluginId="com.mentor.nucleus.bp.welcome"
+             class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			 param1="Open Diagram"  param2="avpace" param3="component" param4="pacer"/>
+      </subitem>
+   </item>
+   <item
+         title="Verification">
+      <description>
+         As the design and tests begin to take form, use the xtUML Model Debugging perspective to execute the model.  Let’s execute the heart pacer model.
+      </description>
+      <subitem
+            label="Click this button to launch the verifier">
+             <action pluginId="com.mentor.nucleus.bp.welcome"
+             	class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Launch Verifier" param2="avpace" param3="heart"/>
+      </subitem>
+      <subitem
+            label="Click this button to execute &quot;init&quot; funtcion">
+             <action pluginId="com.mentor.nucleus.bp.welcome"
+             	class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Execute Element"  param2="avpace" param3="function" param4="functions" param5="init"/>
+      </subitem>
+      <subitem
+            label="In the debug view click the red square button to terminate the verifier session">
+            
+      </subitem>
+   </item>
+   <item
+         title="Implementation">
+      <description>
+         Once you are happy with the solution, translate the model into implementation code.  Let’s do this now.
+      </description>
+      <subitem
+            label="Click this button to open the C/C++ perspective">
+         <command
+               required="false"
+               serialization="org.eclipse.ui.perspectives.showPerspective(org.eclipse.ui.perspectives.showPerspective.perspectiveId=org.eclipse.cdt.ui.CPerspective)"/>
+      </subitem>
+      <subitem
+            label="Click this button to generate the code for the verified model">
+            <action pluginId="com.mentor.nucleus.bp.welcome"
+             class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+             param1="Build Project"
+			 param2="avpace"/>
+      </subitem>
+   </item>
+   <item
+         title="Ongoing development">
+      <description>
+         The process is not done in a single pass.  As you uncover new requirements, or add enhancements or fixes to the design, verify and implement actively and iteratively to make sure the model passes verification and the implementation stays up to date.
+      </description>
+   </item>
+</cheatsheet>

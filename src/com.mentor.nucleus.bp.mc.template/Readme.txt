@@ -1,0 +1,1 @@
+See: <cvs>Documentation/internal/process/Procedures/HOWTO-create-a-new-ModelCompiler-Plugin.tnt

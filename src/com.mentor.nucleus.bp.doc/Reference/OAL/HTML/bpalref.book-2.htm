@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="bpalref.book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ Language Structure
+</TITLE>
+
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<H1 CLASS="Chapter-Name">
+<A NAME="50536507_pgfId-517222"></A>Language Structure</H1>
+<H2 CLASS="Heading1">
+<A NAME="50536507_pgfId-511389"></A>Overall Structure</H2>
+<P CLASS="Body">
+<A NAME="50536507_pgfId-515287"></A>An action consists of a number of statements. Each statement can be either a simple statement (such as an access to the attributes of a class) or a control logic structure (such as an <EM CLASS="Code">
+if</EM>
+ construct).</P>
+<P CLASS="Body">
+<A NAME="50536507_pgfId-515216"></A>OAL statements are terminated by a semi-colon except following the <EM CLASS="Code">
+if</EM>
+, <EM CLASS="Code">
+for</EM>
+ <EM CLASS="Code">
+each</EM>
+, and <EM CLASS="Code">
+while</EM>
+ control constructs, described later.</P>
+<H2 CLASS="Heading1">
+<A NAME="50536507_pgfId-511979"></A>Comments</H2>
+<P CLASS="Body">
+<A NAME="50536507_pgfId-515312"></A><A NAME="50536507_marker-515311"></A>Comments may be inserted by the use of the <EM CLASS="Code">
+//</EM>
+ characters at any point in the line. When this pair of characters is detected, the remainder of the line (up to the new-line character) is considered to be a comment and is ignored.</P>
+<H2 CLASS="Heading1">
+<A NAME="50536507_pgfId-515314"></A>Names and Keywords</H2>
+<P CLASS="Body">
+<A NAME="50536507_pgfId-515316"></A>OAL statements are composed of:</P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="50536507_pgfId-515368"></A>keywords (See <A HREF="bpalref.book-13.htm#50536518_56733" CLASS="XRef">Keywords</A>.)</LI>
+<LI CLASS="Bulleted">
+<A NAME="50536507_pgfId-515318"></A>logical and arithmetic operations</LI>
+<LI CLASS="Bulleted">
+<A NAME="50536507_pgfId-515319"></A>names of modeled elements (classes, attributes, class and external entity keyletters, relationship numbers and phrases, event labels and meanings, and supplemental data items)</LI>
+<LI CLASS="Bulleted">
+<A NAME="50536507_pgfId-515320"></A>local variables</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="50536507_pgfId-515373"></A>Keywords may be represented in all upper case, all lower case, or with the first character upper case and all other characters in lower case.</P>
+<P CLASS="Body">
+<A NAME="50536507_pgfId-515323"></A><A NAME="50536507_marker-517393"></A>Names in OAL statements must conform to the following rules:</P>
+<OL>
+<LI CLASS="Numbered">
+<A NAME="50536507_pgfId-515381"></A>Names are case sensitive. This includes local variables, keyletters, class attributes, and event identifiers.</LI>
+<LI CLASS="Numbered-N">
+<A NAME="50536507_pgfId-515387"></A>	Names must not begin with a numeric character [0-9].</LI>
+<LI CLASS="Numbered-N">
+<A NAME="50536507_pgfId-515328"></A>A relationship phrase ('is owned by') or event meaning ('turn off pump')</LI>
+<UL>
+<LI CLASS="Bulleted-Two">
+<A NAME="50536507_pgfId-515401"></A>may contain any ASCII characters.</LI>
+<LI CLASS="Bulleted-Two">
+<A NAME="50536507_pgfId-515404"></A>must be enclosed by tick marks. The tick marks may be omitted from an event meaning if it contains no spaces.</LI>
+<LI CLASS="Bulleted-Two">
+<A NAME="50536507_pgfId-515407"></A>must be contained on a single line.</LI>
+</UL>
+<LI CLASS="Numbered-N">
+<A NAME="50536507_pgfId-515418"></A>Class keyletters, event labels, and attribute names may contain only the characters [a-z][A-Z][0-9][_#]. Spaces are not permitted.</LI>
+</OL>
+<H2 CLASS="Heading1">
+<A NAME="50536507_pgfId-515339"></A><A NAME="50536507_marker-517394"></A>White Space</H2>
+<P CLASS="Body">
+<A NAME="50536507_pgfId-515343"></A>White space (spaces and tabs) may be inserted at any point in an OAL statement other than:</P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="50536507_pgfId-517008"></A>within a name or keyword, </LI>
+<LI CLASS="Bulleted">
+<A NAME="50536507_pgfId-517010"></A>between two consecutive colons, or</LI>
+<LI CLASS="Bulleted">
+<A NAME="50536507_pgfId-517011"></A>between the characters of a comparison operator.</LI>
+</UL>
+</BODY>
+</HTML>

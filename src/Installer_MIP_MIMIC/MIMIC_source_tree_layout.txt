@@ -1,0 +1,90 @@
+This is the layout of the source tree the MIMIC workspace uses:
+---------------------------------------------------------------
+
+BridgePoint:
+BridgePointDeliverables
+EclipseDeliverables
+vcredist_x86
+
+BridgePoint/BridgePointDeliverables:
+bp.ico
+eclipse_extensions
+extras
+install
+jre
+license
+splash.bmp
+tools
+
+BridgePoint/BridgePointDeliverables/eclipse_extensions:
+BridgePoint
+
+BridgePoint/BridgePointDeliverables/eclipse_extensions/BridgePoint:
+  <The contents of the BridgePoint release (plugin set) go here>
+
+BridgePoint/BridgePointDeliverables/extras:
+Launcher.bat
+CLI.bat
+links
+
+BridgePoint/BridgePointDeliverables/extras/links:
+com.mentor.BridgePoint.ide.link
+
+BridgePoint/BridgePointDeliverables/install:
+
+BridgePoint/BridgePointDeliverables/jre:
+  <The contents of JRE 1.6.0_07 go here>
+
+BridgePoint/BridgePointDeliverables/license:
+DATA.TAG
+Lmgrd.exe
+Lmtools.exe
+Lmutil.exe
+MGCLicLDeIsL.isu
+Mgcld.exe
+Mgls.dll
+Pcls_ok.exe
+QuikStrt.cnt
+QuikStrt.hlp
+SETUP.EXE
+SETUP.INI
+_INST32I.EX_
+_ISDEL.EXE
+_SETUP.DLL
+_sys1.cab
+_user1.cab
+data1.cab
+lang.dat
+layout.bin
+lib
+mgc.pkginfo
+os.dat
+setup.ins
+setup.lid
+
+BridgePoint/BridgePointDeliverables/license/lib:
+Mgls.dll
+mgc.pkginfo
+
+BridgePoint/BridgePointDeliverables/tools:
+docgen/
+fontchecker/
+CheckPrivileges.exe
+create_shortcut.vbs
+update_text.exe
+
+BridgePoint/BridgePointDeliverables/MinGW:
+  <The contents of the MinGW package go here>
+
+BridgePoint/EclipseDeliverables:
+eclipse
+
+BridgePoint/EclipseDeliverables/eclipse:
+ <The contents of the eclipse SDK package go here>
+
+BridgePoint/vcredist_x86:
+post_install_script.bat (for Windows)
+pre_uninstall_script.bat (for Windows)
+post_install_script.sh (for Linux)
+pre_uninstall_script.bat (for Linux)
+vcredist_x86.exe

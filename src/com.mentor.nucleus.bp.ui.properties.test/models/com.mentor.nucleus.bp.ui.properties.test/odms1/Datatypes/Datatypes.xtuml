@@ -1,0 +1,141 @@
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("e82c1d47-2a6f-4b04-a5fa-4a92d1eb95d5",
+	"00000000-0000-0000-0000-000000000000",
+	"2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'Datatypes',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("74947570-860a-43ad-b1ef-c833858608dc",
+	112,
+	"e82c1d47-2a6f-4b04-a5fa-4a92d1eb95d5",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'odms1::Datatypes');
+INSERT INTO GD_GE
+	VALUES ("08951ef7-86a0-42dd-a665-9893e8bbbd39",
+	"74947570-860a-43ad-b1ef-c833858608dc",
+	"992e1204-3bcd-45f4-b845-c8ec694935dc",
+	51,
+	0,
+	'odms1::Datatypes::transfer_status');
+INSERT INTO GD_SHP
+	VALUES ("08951ef7-86a0-42dd-a665-9893e8bbbd39");
+INSERT INTO GD_NCS
+	VALUES ("08951ef7-86a0-42dd-a665-9893e8bbbd39");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"08951ef7-86a0-42dd-a665-9893e8bbbd39");
+INSERT INTO DIM_GE
+	VALUES (2280.000000,
+	1540.000000,
+	"08951ef7-86a0-42dd-a665-9893e8bbbd39",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("08951ef7-86a0-42dd-a665-9893e8bbbd39",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("09f9a310-d02f-4568-b92a-806d22ac6ec8",
+	"74947570-860a-43ad-b1ef-c833858608dc",
+	"d45d69e2-2668-4539-9ff9-967da0814125",
+	51,
+	0,
+	'odms1::Datatypes::transfer_vector_string');
+INSERT INTO GD_SHP
+	VALUES ("09f9a310-d02f-4568-b92a-806d22ac6ec8");
+INSERT INTO GD_NCS
+	VALUES ("09f9a310-d02f-4568-b92a-806d22ac6ec8");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"09f9a310-d02f-4568-b92a-806d22ac6ec8");
+INSERT INTO DIM_GE
+	VALUES (2500.000000,
+	1540.000000,
+	"09f9a310-d02f-4568-b92a-806d22ac6ec8",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("09f9a310-d02f-4568-b92a-806d22ac6ec8",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_DIA
+	VALUES ("74947570-860a-43ad-b1ef-c833858608dc",
+	'',
+	1.000000,
+	1600.000000,
+	1030.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT
+	VALUES ("992e1204-3bcd-45f4-b845-c8ec694935dc",
+	"00000000-0000-0000-0000-000000000000",
+	'transfer_status',
+	'Enumerator1: Ready_for_Entry_Exit_Port
+Enumerator2: Ready_for_Robot
+Enumerator3: In_Progress
+Enumerator4: Complete
+',
+	'');
+INSERT INTO S_UDT
+	VALUES ("992e1204-3bcd-45f4-b845-c8ec694935dc",
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0);
+INSERT INTO PE_PE
+	VALUES ("992e1204-3bcd-45f4-b845-c8ec694935dc",
+	1,
+	"e82c1d47-2a6f-4b04-a5fa-4a92d1eb95d5",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("d45d69e2-2668-4539-9ff9-967da0814125",
+	"00000000-0000-0000-0000-000000000000",
+	'transfer_vector_string',
+	'',
+	'');
+INSERT INTO S_UDT
+	VALUES ("d45d69e2-2668-4539-9ff9-967da0814125",
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0);
+INSERT INTO PE_PE
+	VALUES ("d45d69e2-2668-4539-9ff9-967da0814125",
+	1,
+	"e82c1d47-2a6f-4b04-a5fa-4a92d1eb95d5",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO PE_PE
+	VALUES ("e82c1d47-2a6f-4b04-a5fa-4a92d1eb95d5",
+	1,
+	"410f0601-8317-4f42-9d35-06f873a57cae",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("410f0601-8317-4f42-9d35-06f873a57cae",
+	"2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	"2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'odms1',
+	'Domain Mission:
+
+Bridges to other Domains:
+',
+	0,
+	'../odms1.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'com.mentor.nucleus.bp.ui.properties.test',
+	1,
+	'../../com.mentor.nucleus.bp.ui.properties.test.xtuml');

@@ -1,0 +1,82 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("c1e4dc2b-3fcf-49e7-abd6-28ff131245e1",
+	'Workout Plan',
+	101,
+	'WPLAN',
+	'A workout plan specifies a sequence of steps to be executed in sequence.
+If an exercise step specifies a predefined time or distance; the user is notified at completion.
+if neither is specified, the exercise step is ended ended by pressing the lap button.
+An exercise step may also specify target pace or heart rate; feedback is displayed. (not yet implemented)
+Repeats can be embedded in the sequence.  In this implementation repeat sequences can be nested.
+Note: A plan is a specification; no change is made to the data structure while executing.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("82342ecc-815f-4c75-a602-19b94518e2e6",
+	"c1e4dc2b-3fcf-49e7-abd6-28ff131245e1",
+	'start_workout',
+	'',
+	"86ca546c-3592-417a-8e87-0b77fd17920e",
+	1,
+	'select any track from instances of TRACK;
+create object instance workout of WRKEX;
+relate self to track across R201 using workout;
+select one step related by self->SSTEP[R101];
+relate step to workout across R202;  // this is current step
+workout.init_step();
+generate TRACK1:''start_stop_recording'' to track;
+select one timer related by track->WTIMR[R2];
+generate WTIMR1:''start_stop'' to timer;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("86ca546c-3592-417a-8e87-0b77fd17920e",
+	"00000000-0000-0000-0000-000000000000",
+	'void',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("0eb0ca8f-2f94-4402-8354-758a2a7d6f2f",
+	"c1e4dc2b-3fcf-49e7-abd6-28ff131245e1");
+INSERT INTO O_BATTR
+	VALUES ("0eb0ca8f-2f94-4402-8354-758a2a7d6f2f",
+	"c1e4dc2b-3fcf-49e7-abd6-28ff131245e1");
+INSERT INTO O_ATTR
+	VALUES ("0eb0ca8f-2f94-4402-8354-758a2a7d6f2f",
+	"c1e4dc2b-3fcf-49e7-abd6-28ff131245e1",
+	"00000000-0000-0000-0000-000000000000",
+	'name',
+	'',
+	'',
+	'name',
+	0,
+	"1c3f2ac9-9079-41ed-bd47-a49dc69a2d9a",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("1c3f2ac9-9079-41ed-bd47-a49dc69a2d9a",
+	"00000000-0000-0000-0000-000000000000",
+	'string',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"c1e4dc2b-3fcf-49e7-abd6-28ff131245e1");
+INSERT INTO O_ID
+	VALUES (1,
+	"c1e4dc2b-3fcf-49e7-abd6-28ff131245e1");
+INSERT INTO O_ID
+	VALUES (2,
+	"c1e4dc2b-3fcf-49e7-abd6-28ff131245e1");
+INSERT INTO PE_PE_PROXY
+	VALUES ("c1e4dc2b-3fcf-49e7-abd6-28ff131245e1",
+	1,
+	"46db48b0-92c9-4562-8c74-4938e11b7dda",
+	"00000000-0000-0000-0000-000000000000",
+	4,
+	'../Specification.xtuml');

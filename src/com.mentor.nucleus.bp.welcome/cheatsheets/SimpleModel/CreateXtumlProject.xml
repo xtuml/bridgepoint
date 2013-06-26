@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="Creating xtUML project">
+      <intro>
+      <description>
+         This step creates a project to store the xtUML models
+      </description>
+      </intro>
+      
+         <item
+         skip="true" 
+         title="Create xtUML project" dialog="true" href="/com.mentor.nucleus.bp.doc/GettingStarted/HTML/GettingStarted.htm">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+         class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+         param1="Create Project" 
+          />
+          
+           
+      <description>
+         Right-click on the Model Explorer view, then select <b> New &gt; xtUML Project </b>. 
+		Name it  &apos;Simple System&apos;.  Click <b>Next &gt;</b>.
+      </description>
+       
+   </item>
+         <item
+               title="Select a model compiler">
+            <description>
+               The wizard now presents you with page to select the desired model compiler.  Select &apos;C Model Compiler (Binary)&apos; from the list, then click <b>Finish</b>.
+            </description>
+         </item>
+   
+   
+   
+     <item
+         skip="true"
+         title="Open System Model diagram">
+      <action pluginId="com.mentor.nucleus.bp.welcome" 
+           class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+           param1="Open Diagram"
+           param2="Simple System" 
+           param3="System Model" />
+      <description>
+         Double-click on the project name in the Model Explorer
+      </description>
+      <onCompletion> Canvas opened. </onCompletion>
+   </item>
+   
+ </cheatsheet>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="Model Class Creation">
+      <intro>
+      <description>
+         Create model classes
+      </description>
+      </intro>
+
+ <item
+         title="Create new class" skip="true">
+		<action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Draw Element"
+			param2="Classes" 
+			param3="Class"/>
+      <description>
+         From the Palette, expand the &apos;Classes&apos; section, select <b>Class</b> then click on canvas.  Set the name in the pop up dialog to &apos;Monitor&apos;
+      </description>
+   </item>
+   
+   
+   
+      <item
+            skip="true"
+            title="Change &apos;Monitor&apos; class key letter">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+		class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Change Key Letter"
+			param2="Simple System" 
+			param3="ModelClass" 
+			param4="Monitor" 
+			param5="MONITOR"/>
+      <description>
+         Select &apos;Monitor&apos; class, and change the class key letters in the Properties view to &apos;MONITOR&apos;.
+      </description>
+   </item>
+      <item
+            skip="true"
+            title="Create external entity">
+            <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Draw Element"
+			param2="External" 
+			param3="External Entity"/>
+         <description>
+            From the Palette, expand the &apos;External&apos; section, select <b>External Entity</b> then click on canvas.  Set the name in the pop up dialog to &apos;Logging&apos;
+         </description>
+      </item>
+      <item
+            skip="true"
+            title="Change &apos;Logging&apos; external entity key letter">
+            
+            <action pluginId="com.mentor.nucleus.bp.welcome" 
+		    class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Change Key Letter"
+			param2="Simple System" 
+			param3="External Entity" 
+			param4="Logging" 
+			param5="LOG" />
+         <description>
+            Select &apos;Logging&apos; external entity, and change the external entity key letter from the properties view to &apos;LOG&apos;
+         </description>
+      </item>
+      <item
+            skip="true"
+            title="Add new bridge to &apos;Logging&apos;">
+            
+            <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Add Element"
+			param2="Simple System" 
+			param3="Bridge" 
+			param4="External Entity" 
+			param5="Logging"/>
+         <description>
+            Right-click on &apos;Logging&apos; external entity, and select <b>New &gt; Bridge Operation</b>.  Set the name in the pop up dialog to &apos;LogInfo&apos;
+         </description>
+      </item>
+      <item
+            skip="true"
+            title="Add new parameter to &apos;LogInfo&apos; bridge">
+            <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Add Element"
+			param2="Simple System" 
+			param3="Bridge Parameter" 
+			param4="Bridge" 
+			param5="LogInfo"
+			param8="Logging" 
+			/>
+         <description>
+            Select the &apos;LogInfo&apos; bridge, right-click <b>New &gt; Parameter</b>.  Set the name in the pop up dialog to &apos;message&apos;
+         </description>
+      </item>
+      <item
+            skip="true"
+            title="Change the &apos;message&apos; type">
+            
+            <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Change Type"
+			param2="Simple System" 
+			param3="Bridge Parameter" 
+			param4="message" 
+			param5="Logging"
+			param6="LogInfo"
+			/>
+         <description>
+            Select the &apos;message&apos; parameter, right-click it and choose <b>Set Type...</b> &gt; in the context menu.  Select &apos;string&apos; from the DataType Selection dialog.
+         </description>
+      </item>   
+   
+   
+</cheatsheet>

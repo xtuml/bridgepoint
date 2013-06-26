@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="Hello World">
+      <intro>
+      <description>
+         <b>Welcome to BridgePoint. </b>  Let&apos;s create Hello World Model.
+      </description>
+      </intro>
+      <item
+            skip="true"
+            title="Link with editor">
+            <action pluginId="com.mentor.nucleus.bp.welcome" 
+           class="com.mentor.nucleus.bp.welcome.cheatsheets.library.LinkWithEditor"/>
+         <description>
+            <b>Body</b>
+         </description>
+      </item>
+      <onCompletion>
+         Thank you for exploring &lt;em&gt;BridgePoint&lt;/em&gt;.  Now it&apos;s time for you to build some application models.  Good luck and have fun!
+      </onCompletion>
+  
+   
+   <item
+         skip="true"
+         title="Create xtUML project" dialog="true" href="/com.mentor.nucleus.bp.doc/GettingStarted/HTML/Intro.htm">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+           class="com.mentor.nucleus.bp.welcome.actions.OpenNewProjectWizardAction"
+           confirm="true"
+          />
+          
+           
+      <description>
+         Right Click on the ME view <br/> select New-&gt; <b>xtUML Project </b>  , 
+Name it  <b> &quot;HelloWorld&quot; </b>
+      </description>
+       <onCompletion> Project is created. </onCompletion>
+   </item>
+   
+   <item
+         skip="true"
+         title="Open System Mode diagram">
+      <action pluginId="com.mentor.nucleus.bp.welcome" 
+           class="com.mentor.nucleus.bp.welcome.cheatsheets.library.OpenDiagram"
+           param1="HelloWorldModel" param2="System Model" />
+      <description>
+         Double Click on the project icon in the ME
+      </description>
+      <onCompletion> Canvas openned. </onCompletion>
+   </item>
+   <item
+         skip="true"
+         title="Create New Package" 
+         href="/com.mentor.nucleus.bp.doc/Reference/UserInterface/xtUMLModeling/Editors/HTML/Diagram.htm">
+      <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.DrawModelElement"
+			param1="Default Toolset" param2="Package" />
+      <description>
+         Right Click on the canvas, select  New-&gt; Package
+      </description>
+   </item>
+   <item
+         skip="true"
+         title="Rename the package to SystemPackage">
+          <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.RenameCanvasElement"
+			param1="HelloWorldModel" param2="Package" param3="Unnamed Package"/>
+      <description>
+         rename the package to <b> &quot;root package&quot; </b>
+      </description>
+   </item>
+   
+    <item
+         skip="true"
+         title="Open root package diagram">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.OpenDiagram"
+			param1="HelloWorldModel" param2="Package" param3="root package"/>
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+   
+   <item
+         skip="true"
+         title="Create Component">
+           <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.DrawModelElement"
+			param1="Components" param2="Component" />
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+   <item
+         skip="true"
+         title="Rename Component">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.RenameCanvasElement"
+			param1="HelloWorldModel" param2="Component" param3="Unnamed Component"/>
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+   <item
+         skip="true"
+         title="Open the Component diagram">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.OpenDiagram"
+			param1="HelloWorldModel" param2="Component" param3="Root"/>
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+   <item
+         skip="true"
+         title="Create Package">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.DrawModelElement"
+			param1="Default Toolset" param2="Package" />
+      <description>
+         Add new package to the &quot;Root&quot; component
+      </description>
+   </item>
+   <item
+         skip="true"
+         title="Rename the package">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.RenameCanvasElement"
+			param1="HelloWorldModel" param2="Package" param3="Unnamed Package"/>
+      <description>
+         <b> Body </b>
+      </description>
+   </item>
+   <item
+         skip="true"
+         title="Open the package diagram">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.OpenDiagram"
+			param1="HelloWorldModel" param2="Package" param3="Model"/>
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+   <item
+         title="Create two model classes">
+      <description>
+         <b>Body</b>
+      </description>
+      <subitem
+            label="Create model class &quot;one&quot;"
+            skip="true">
+            <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.DrawModelElement"
+			param1="Classes" param2="Class" />
+      </subitem>
+      <subitem
+            label="Create model class &quot;two&quot;"
+            skip="true">
+            <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.DrawModelElement"
+			param1="Classes" param2="Class" />
+      </subitem>
+   </item>
+   
+   
+   <item
+         title="Rename two model classes">
+      <description>
+         <b>Body</b>
+      </description>
+      <subitem
+            label="Rename model class &quot;one&quot;"
+            skip="true">
+            <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.RenameCanvasElement"
+			param1="HelloWorldModel" param2="ModelClass" param3="Unnamed Class"/>
+      </subitem>
+      <subitem
+            label="Rename model class &quot;two&quot;"
+            skip="true">
+            <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.RenameCanvasElement"
+			param1="HelloWorldModel" param2="ModelClass" param3="Unnamed Class-1"/>
+      </subitem>
+   </item>
+   
+   <item
+         title="Change classes key letter">
+      <description>
+         <b>Body</b>
+      </description>
+      <subitem
+            label="Change class 'one' key letter to 'ONE'"
+            skip="true">
+            <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.ChangeKeyLetter"
+			param1="HelloWorldModel" param2="ModelClass" param3="one" param4="ONE"/>
+      </subitem>
+      <subitem
+            label="Change class 'TWO' key letter to 'TWO'"
+            skip="true">
+            <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.ChangeKeyLetter"
+			param1="HelloWorldModel" param2="ModelClass" param3="two" param4="TWO"/>
+      </subitem>
+   </item>
+      
+   
+   <item
+         skip="true"
+         title="Add new attribute to class &quot;one&quot;">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Add Element" param2="HelloWorldModel" param3="Attribute" param4="ModelClass" param5="one" />
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+   
+  	
+	<item
+         skip="true"
+         title="Add new Instance State Machine to class &quot;two&quot;">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.AddElement"
+			param1="HelloWorldModel" param2="Instance State Machine" param3="ModelClass" param4="two" />
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+   
+      <item
+         skip="true"
+         title="Open Instance state machine">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.OpenDiagram"
+			param1="HelloWorldModel" param2="Instance State Machine" param3="two" />
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+      <item
+            title="Create two states">
+         <description>
+            <b>Body</b>
+         </description>
+         <subitem
+               label="Create &lt;b&gt;Start&lt;/b&gt; state">
+               <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.DrawModelElement"
+			param1="Default Toolset" param2="State" />
+         </subitem>
+         <subitem
+               label="Create &lt;b&gt;End.&lt;/b&gt; state">
+               <action pluginId="com.mentor.nucleus.bp.welcome" 
+				class="com.mentor.nucleus.bp.welcome.cheatsheets.library.DrawModelElement"
+				param1="Default Toolset" param2="State" />
+         </subitem>
+      </item>
+      
+      <item
+            title="Rename the created states">
+         <description>
+            <b>Body</b>
+         </description>
+         <subitem
+               label="Rename first state to 'Start' ">
+               <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.RenameCanvasElement"
+			param1="HelloWorldModel" param2="State Machine" param3="Unnamed State" param4="two" />
+         </subitem>
+         <subitem
+               label="Rename the second state to 'End' ">
+               <action pluginId="com.mentor.nucleus.bp.welcome" 
+				class="com.mentor.nucleus.bp.welcome.cheatsheets.library.RenameCanvasElement"
+				param1="HelloWorldModel" param2="State Machine" param3="Unnamed State" param4="two" />
+         </subitem>
+      </item>
+      
+      <item
+            title="Create new transaction">
+             <action pluginId="com.mentor.nucleus.bp.welcome" 
+         class="com.mentor.nucleus.bp.welcome.cheatsheets.library.DrawConnector"
+			param1="Default Toolset" param2="Transition" param3="41" param4="Start" param5="41" param6="End"/>
+         <description>
+            <b>Body</b>
+         </description>
+      </item>
+      
+      <item
+            title="Add new Event">
+                  <action pluginId="com.mentor.nucleus.bp.welcome" 
+         class="com.mentor.nucleus.bp.welcome.cheatsheets.library.AddElement"
+			param1="HelloWorldModel" param2="Event" param3="Instance State Machine" param4="two"/>
+         <description>
+            Add new event called <b>go</b>
+         </description>
+      </item>
+      
+
+   
+      
+      <item
+            title="Assign Event to Transition">
+                  <action pluginId="com.mentor.nucleus.bp.welcome" 
+         class="com.mentor.nucleus.bp.welcome.cheatsheets.library.AssignEvent"
+			param1="No Event Assigned to creation state: End" />
+         <description>
+            Add new event called <b>go</b>
+         </description>
+      </item>
+      
+
+   
+      <item
+            title="Add OAL to 'Start' state" skip="true">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+         class="com.mentor.nucleus.bp.welcome.cheatsheets.library.WriteOAL"
+			param1="HelloWorldModel" param2="State Machine" param3="Start" param4="a = 0;" param5="two"/>
+         <description>
+            <b>Body</b>
+         </description>
+      </item>
+   
+   
+   
+    <item
+         skip="true"
+         title="back to  root package diagram">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.OpenDiagram"
+			param1="HelloWorldModel" param2="Package" param3="root package"/>
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+   
+   <item title="Draw Port" skip="true">
+		<action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.DrawConnector"
+			param1="Components" param2="Provided Interface" param3="98" param4="Root" param5 ="Canvas" param6="-300" param7="0" />
+		<description> Let's do this 
+		</description>
+	</item>
+	
+	<item
+         skip="true"
+         title="Create new Component">
+           <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.DrawModelElement"
+			param1="Components" param2="Component" />
+      <description>
+         Add new Component called <b>TestBench</b>
+      </description>
+   </item>
+	<item
+         skip="true"
+         title="Rename new Component">
+           <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.RenameCanvasElement"
+			param1="HelloWorldModel" param2="Component" param3="Unnamed Component"/>
+      <description>
+         Add new Component called <b>TestBench</b>
+      </description>
+   </item>
+   
+   <item title="Connect Components" skip="true">
+		<action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.DrawConnector"
+			param1="Components" param2="Required Interface" param3="98" param4="TestBench" param5 ="94" param6="Unnamed Interface" />
+		<description> Let's do this 
+		</description>
+	</item>
+   <item
+         title="Create New Interface">
+          <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.DrawModelElement"
+			param1="Components" param2="Interface" />
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+   <item
+         title="Rename Interface">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.RenameCanvasElement"
+			param1="HelloWorldModel" param2="Interface" param3="Unnamed Interface"/>
+      <description>
+         Rename interface to <b>&quot;connection&quot;</b>
+      </description>
+   </item>
+   
+   <item title="Formalize Port to Interface" skip="true">
+		<action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.FormalizePort"
+			param1="Unnamed Interface" param2="93"/>
+		<description> Let's do this 
+		</description>
+	</item>
+   
+   <item title="Add new interface operation" skip="true">
+		<action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.AddElement"
+			param1="HelloWorldModel" param2="Interface Operation" param3="Interface" param4="connection"/>
+		<description> Let's do this 
+		</description>
+	</item>
+	
+	   
+   <item
+         title="Add some OAL to the interface operation">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.WriteOAL"
+			param1="HelloWorldModel" param2="Interface Operation" param3="Unnamed Operation" param4="b= 0;" param5="TestBench" param6="Port1"/>
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+	
+   <item
+         title="Add new Function to package">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.AddElement"
+			param1="HelloWorldModel" param2="Function" param3="Package" param4="Model"/>
+      <description>
+         Add new function called <b> foo </b>
+      </description>
+   </item>
+   
+    <item
+         title="Rename function">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.RenameModelExplorerElement"
+			param1="HelloWorldModel" param2="Function" param3="Unnamed Function" param4="foo"/>
+      <description>
+         rename function to  <b>foo</b>
+      </description>
+   </item>
+   
+   <item
+         title="Add some OAL to function">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.library.WriteOAL"
+			param1="HelloWorldModel" param2="Function" param3="foo" param4="b= 0;"/>
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+   <item
+         title="Launch the verifier">
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+   <item
+         title="Execute &quot;foo&quot; function">
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+
+</cheatsheet>

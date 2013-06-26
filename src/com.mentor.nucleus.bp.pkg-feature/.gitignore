@@ -1,0 +1,6 @@
+bin
+build.xml
+com.mentor.nucleus.bp.pkg_*.jar
+com.mentor.nucleus.bp.pkg_*.bin.dist.zip
+timer.log
+temp.folder

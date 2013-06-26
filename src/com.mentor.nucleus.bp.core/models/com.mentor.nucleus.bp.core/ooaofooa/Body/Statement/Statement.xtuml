@@ -1,0 +1,886 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'Statement',
+	602,
+	'ACT_SMT',
+	'This class represents an action language statement within a block.',
+	"76583c73-7a99-4c81-b260-8109e6cef5ca");
+INSERT INTO O_TFR
+	VALUES ("bbb7c9cf-8f48-4b18-9f26-a7354319d14f",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'dispose',
+	'This operation disconnects an instance, and all instances it is 
+responsible for, from the model.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one ai related by self->ACT_AI[R603];
+if ( not_empty ai )
+  unrelate self from ai across R603;
+  ai.dispose();
+end if;
+
+select one cr related by self->ACT_CR[R603];
+if ( not_empty cr )
+  unrelate self from cr across R603;
+  cr.dispose();
+end if;
+
+select one cnv related by self->ACT_CNV[R603];
+if ( not_empty cnv )
+  unrelate self from cnv across R603;
+  cnv.dispose();
+end if;
+
+select one whl related by self->ACT_WHL[R603];
+if ( not_empty whl )
+  unrelate self from whl across R603;
+  whl.dispose();
+end if;
+
+select one ctl related by self->ACT_CTL[R603];
+if ( not_empty ctl )
+  unrelate self from ctl across R603;
+  ctl.dispose();
+end if;
+
+select one ret related by self->ACT_RET[R603];
+if ( not_empty ret )
+  unrelate self from ret across R603;
+  ret.dispose();
+end if;
+
+select one del related by self->ACT_DEL[R603];
+if ( not_empty del )
+  unrelate self from del across R603;
+  del.dispose();
+end if;
+
+select one rel related by self->ACT_REL[R603];
+if ( not_empty rel )
+  unrelate self from rel across R603;
+  rel.dispose();
+end if;
+
+select one relu related by self->ACT_RU[R603];
+if ( not_empty relu )
+  unrelate self from relu across R603;
+  relu.dispose();
+end if;
+
+select one unrel related by self->ACT_UNR[R603];
+if ( not_empty unrel )
+  unrelate self from unrel across R603;
+  unrel.dispose();
+end if;
+
+select one unrelu related by self->ACT_URU[R603];
+if ( not_empty unrelu )
+  unrelate self from unrelu across R603;
+  unrelu.dispose();
+end if;
+
+select one fio related by self->ACT_FIO[R603];
+if ( not_empty fio )
+  unrelate self from fio across R603;
+  fio.dispose();
+end if;
+
+select one fiw related by self->ACT_FIW[R603];
+if ( not_empty fiw )
+  unrelate self from fiw across R603;
+  fiw.dispose();
+end if;
+
+select one sel related by self->ACT_SEL[R603];
+if ( not_empty sel )
+  unrelate self from sel across R603;
+  sel.dispose();
+end if;
+
+select one brk related by self->ACT_BRK[R603];
+if ( not_empty brk )
+  unrelate self from brk across R603;
+  brk.dispose();
+end if;
+
+select one con related by self->ACT_CON[R603];
+if ( not_empty con )
+  unrelate self from con across R603;
+  con.dispose();
+end if;
+
+select one fstmt related by self->ACT_FOR[R603];
+if ( not_empty fstmt )
+  unrelate self from fstmt across R603;
+  fstmt.dispose();
+end if;
+
+select one ifStmt related by self->ACT_IF[R603];
+if ( not_empty ifStmt )
+  unrelate self from ifStmt across R603;
+  ifStmt.dispose();
+end if;
+
+select one elifStmt related by self->ACT_EL[R603];
+if ( not_empty elifStmt )
+  unrelate self from elifStmt across R603;
+  elifStmt.dispose();
+end if;
+
+select one elseStmt related by self->ACT_E[R603];
+if ( not_empty elseStmt )
+  unrelate self from elseStmt across R603;
+  elseStmt.dispose();
+end if;
+
+select one func related by self->ACT_FNC[R603];
+if ( not_empty func )
+  unrelate self from func across R603;
+  func.dispose();
+end if;
+
+select one brg related by self->ACT_BRG[R603];
+if ( not_empty brg )
+  unrelate self from brg across R603;
+  brg.dispose();
+end if;
+
+select one tfm related by self->ACT_TFM[R603];
+if ( not_empty tfm )
+  unrelate self from tfm across R603;
+  tfm.dispose();
+end if;
+
+select one ess related by self->E_ESS[R603];
+if ( not_empty ess )
+  unrelate self from ess across R603;
+  ess.dispose();
+end if;
+
+select one gpr related by self->E_GPR[R603];
+if ( not_empty gpr )
+  unrelate self from gpr across R603;
+  gpr.dispose();
+end if;
+
+select one opInv related by self->ACT_IOP[R603];
+if not_empty opInv
+  unrelate self from opInv across R603;
+  opInv.dispose();
+end if;
+
+select one sigInv related by self->ACT_SGN[R603];
+if not_empty sigInv
+  unrelate self from sigInv across R603;
+  sigInv.dispose();
+end if;
+
+select one block related by self->ACT_BLK[R602];
+if ( not_empty block )
+  unrelate self from block across R602;
+end if;
+
+select many block_in_stackframes related by self->I_BSF[R2941];
+for each block_in_stackframe in block_in_stackframes
+  unrelate self from block_in_stackframe across R2941;
+end for;
+
+select one OAL_breakpoint related by self->BP_OAL[R3101];
+if(not_empty OAL_breakpoint)
+  unrelate self from OAL_breakpoint across R3101; 
+  select one breakpoint related by OAL_breakpoint->BP_BP[R3102]; 
+  breakpoint.dispose(); 
+end if;  
+
+// Pull self out of the instance order
+select one successor related by self->ACT_SMT[R661.''precedes''];
+select one predecessor related by self->ACT_SMT[R661.''succeeds''];
+if (not_empty successor)
+  unrelate self from successor across R661.''precedes'';
+end if;
+if (not_empty predecessor)
+  unrelate self from predecessor across R661.''succeeds'';
+end if;
+if (not_empty successor and not_empty predecessor)
+  relate predecessor to successor across R661.''precedes'';
+end if;
+
+delete object instance self;
+',
+	1,
+	'',
+	"1e7cd3e0-a4b7-4029-8cf7-429ef08f6349");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("5e6d8def-310f-40f1-848e-99c400e5b9dd",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'execute',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Statement.execute()
+// First check for a valid stack frame id and grab the stack frame
+select one body related by self->ACT_BLK[R602]->ACT_ACT[R601];
+select any stack_frame from instances of I_STF where 
+                              (selected.Stack_Frame_ID == param.stack_frame_id);
+if (empty stack_frame)
+  //Invalid stack frame ID!
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Statement.execute: " +
+                              "Invalid stack frame id. Terminating execution.",path:pathMsg);
+  select any stack from instances of I_STACK;
+  stack.runState = RunStateType::Terminated;
+else 
+  select one whileStmt related by self->ACT_WHL[R603];
+  select one ifStmt related by self->ACT_IF[R603];
+  select one assgnAttrStmt related by self->ACT_AI[R603];
+  select one createStmt related by self->ACT_CR[R603];
+  select one createNoVariableStmt related by self->ACT_CNV[R603];
+  select one deleteStmt related by self->ACT_DEL[R603];
+  select one selFIO related by self->ACT_FIO[R603];
+  select one selectFromInstancesWhere related by self->ACT_FIW[R603];
+  select one forStmt related by self->ACT_FOR[R603];
+  select one evtSpecifier related by self->E_ESS[R603];
+  select one relateStmt related by self->ACT_REL[R603];
+  select one relateUsingStmt related by self->ACT_RU[R603];
+  select one unrelateStmt related by self->ACT_UNR[R603];
+  select one unrelateUsingStmt related by self->ACT_URU[R603];
+  select one selectStmt related by self->ACT_SEL[R603];
+  select one breakStmt related by self->ACT_BRK[R603];
+  select one continueStmt related by self->ACT_CON[R603];
+  select one functionInvocationStmt related by self->ACT_FNC[R603];
+  select one operationInvocationStmt related by self->ACT_TFM[R603];
+  select one bridgeInvocationStmt related by self->ACT_BRG[R603];
+  select one returnStmt related by self->ACT_RET[R603];
+  select one generatePreexistingEventStmt related by self->E_GPR[R603];
+  select one ctrlStmt related by self->ACT_CTL[R603];
+  select one iFaceOpStmt related by self->ACT_IOP[R603];
+  select one signalStmt related by self->ACT_SGN[R603];
+  select one stack related by stack_frame->I_STACK[R2943];
+  if (not_empty whileStmt)
+    whileStmt.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty ifStmt)
+    ifStmt.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty assgnAttrStmt)
+    assgnAttrStmt.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty createStmt)
+    createStmt.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty createNoVariableStmt)
+    createNoVariableStmt.execute();
+  elif (not_empty deleteStmt)
+    deleteStmt.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty selFIO)
+    selFIO.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty selectFromInstancesWhere)
+    selectFromInstancesWhere.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty forStmt)
+    forStmt.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty evtSpecifier)
+    evtSpecifier.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty relateStmt)
+    relateStmt.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty relateUsingStmt)
+    relateUsingStmt.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty unrelateStmt)
+    unrelateStmt.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty unrelateUsingStmt)
+    unrelateUsingStmt.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty selectStmt)
+    selectStmt.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty breakStmt)
+    breakStmt.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty continueStmt)
+    continueStmt.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty functionInvocationStmt)
+    functionInvocationStmt.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty operationInvocationStmt)
+    operationInvocationStmt.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty bridgeInvocationStmt)
+    bridgeInvocationStmt.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty returnStmt)
+    returnStmt.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty generatePreexistingEventStmt)
+    generatePreexistingEventStmt.execute(stack_frame_id: param.stack_frame_id);
+  elif (not_empty ctrlStmt)
+    ctrlStmt.execute(stack_id: stack.Stack_ID);
+  elif(not_empty iFaceOpStmt)
+    iFaceOpStmt.execute(stack_frame_id: param.stack_frame_id);
+  elif(not_empty signalStmt)
+    signalStmt.execute(stack_frame_id: param.stack_frame_id);
+  end if;
+  // If a return statement placed a result onto a remote components queue,
+  // we want to notify the remote component as the last thing we do here.
+  // Get the stack now.
+  select one resultStack related by stack_frame->I_STACK[R2967];
+  // Note this policy is mirrored closely by the policy found at the end
+  // of Stack.dequeue(). Any changes here should be reviewed for
+  // inclusion there.
+  select any bisf related by self->I_BSF[R2941] where
+                          selected.Stack_Frame_ID == stack_frame.Stack_Frame_ID;
+  select one stack related by stack_frame->I_STACK[R2929];
+  //
+  // If there are any intermediate values on the stack frame, then this
+  // indicates that processing has been interrupted during a value
+  // computation. We do not want to progress to the next statement in
+  // this case.
+  //
+  select any intermediateValue related by stack_frame->I_VSF[R2951];
+  //
+  // If there is an instance associated with a selection reference, then a
+  // where clause is being executed. We do not want to progress to the next
+  // statement in that case either.
+  //
+  select one outer_block related by self->ACT_BLK[R602]->
+                                                   ACT_ACT[R601]->ACT_BLK[R666];
+  select any outer_bisf related by stack_frame->I_BSF[R2923]
+                                where selected.Block_ID == outer_block.Block_ID;
+  select any select_where_inst_ref related by outer_bisf->
+                                       L_LCL[R3000]->L_LSR[R3001]->L_IWC[R3006];
+  //
+  // If a statement is blocked on an intercomponent call, we do not want to
+  // progress to the next statement either.
+  //
+  select one blockingFrame related by stack_frame->I_STF[R2965.''blocked by''];
+  
+  if (empty intermediateValue and empty select_where_inst_ref and
+                                 not_empty bisf and bisf.isExecuting and
+                                        not_empty stack and empty blockingFrame)
+    // There was no scope change, so we need to advance our program counter
+    // association, R2941. If the scope had changed, the statement subtype
+    // would have already set up a new instance of this association and
+    // would have created whatever new stack frame and block in stack frame
+    // instances were needed.
+    //
+    self.setupNextStatement(stack_frame_id:param.stack_frame_id);
+  end if;
+  // If a result is ready for a remote component, notify it now.
+  if not_empty resultStack
+    select one exe related by resultStack->I_EXE[R2930];
+    stack_frame.readyForInterrupt = true;
+    if not_empty exe
+      exe.notify();
+    end if;
+  end if;
+end if;',
+	1,
+	'',
+	"bbb7c9cf-8f48-4b18-9f26-a7354319d14f");
+INSERT INTO O_TPARM
+	VALUES ("fb626b69-f4cc-414b-938f-13ba2c7a586b",
+	"5e6d8def-310f-40f1-848e-99c400e5b9dd",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("1e7cd3e0-a4b7-4029-8cf7-429ef08f6349",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'checkBreakpoint',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// Statement.checkBreakpoint()
+result = false;                                    
+select one oal_breakpoint related by self->BP_OAL[R3101]->BP_BP[R3102];
+if (not_empty oal_breakpoint and oal_breakpoint.enabled)
+  result = oal_breakpoint.incrementAndTestHitCount();
+  if (result)
+    select any stack from instances of I_STACK where
+                                            selected.Stack_ID == param.stack_id;
+    stack.suspendReason = "Breakpoint at " + self.Label;
+  end if;
+else
+  // The next two suspend conditions are checked here because otherwise the
+  // suspension occurs too late . . .
+  select one ctrlStmt related by self->ACT_CTL[R603];
+  if (not_empty ctrlStmt)
+    result = true;
+    select any stack from instances of I_STACK where
+                                            selected.Stack_ID == param.stack_id;
+    stack.suspendReason = "Suspended. Control stop encountered at: " +
+                                                                     self.Label;
+  else
+    select one evt related by self->E_ESS[R603]->E_GES[R701]->
+                                                     E_GSME[R703]->SM_EVT[R707];
+    if (not_empty evt and evt.checkBreakpoint(
+                             processType:EventProcessType::Enqueued) == true)
+      result = true;
+      select any stack from instances of I_STACK where
+                                            selected.Stack_ID == param.stack_id;
+      stack.suspendReason = "Break on event enqueue: " + self.Label;
+    end if;
+  end if;
+end if;
+return result;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("3fe22ca4-b957-4b67-b008-4b99f4de6347",
+	"1e7cd3e0-a4b7-4029-8cf7-429ef08f6349",
+	'stack_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("2641a313-ee94-4456-95b8-807c76e625aa",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'stepIn',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// Statement.stepIn
+
+// If next statement is operation, bridge, or function invocation, step in.
+select any first_op_statement related by self->ACT_TFM[R603]->O_TFR[R673]->ACT_OPB[R696]->ACT_ACT[R698]->ACT_BLK[R666]->ACT_SMT[R602]; 
+select any first_funct_statement related by self->ACT_FNC[R603]->S_SYNC[R675]->ACT_FNB[R695]->ACT_ACT[R698]->ACT_BLK[R666]->ACT_SMT[R602];	
+select any first_bridge_statement related by self->ACT_BRG[R603]->S_BRG[R674]->ACT_BRB[R697]->ACT_ACT[R698]->ACT_BLK[R666]->ACT_SMT[R602];
+// TODO need to recursively descend all values and find 
+// the invocation value that will be executed first
+// must consider at the beginning of the descent:
+// if, for, while boolean value
+// select where boolean value
+// assign to attribute value
+// assign to transient value
+// assign to parameter value
+// return value
+// must consider during the descent:
+// actual parameter value
+if (not_empty first_op_statement or not_empty first_funct_statement or not_empty first_bridge_statement)
+
+  // Create breakpoint for stepping
+  create object instance breakpoint of BP_BP;
+  if (not_empty first_op_statement)
+    set_breakpoint = breakpoint.createBreakpoint(breakpoint_type:Breakpoint_Type::OAL,Element_ID:first_op_statement.Statement_ID,hit_count:0,enabled:true,for_step:true); 
+  elif(not_empty first_funct_statement)
+    set_breakpoint = breakpoint.createBreakpoint(breakpoint_type:Breakpoint_Type::OAL,Element_ID:first_funct_statement.Statement_ID,hit_count:0,enabled:true,for_step:true); 
+  elif(not_empty first_bridge_statement)
+    set_breakpoint = breakpoint.createBreakpoint(breakpoint_type:Breakpoint_Type::OAL,Element_ID:first_bridge_statement.Statement_ID,hit_count:0,enabled:true,for_step:true); 
+  end if;   
+  return true;
+end if;
+// The statement cannot be stepped into, indicate this to the stack
+return false;',
+	1,
+	'',
+	"799dc760-b1a6-4dfc-a51d-d82cebd978c5");
+INSERT INTO O_TFR
+	VALUES ("799dc760-b1a6-4dfc-a51d-d82cebd978c5",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'setupNextStatement',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'//Body:Statement.setupNextStatement()
+select any bisf related by self->I_BSF[R2941] where
+                          selected.Stack_Frame_ID == param.stack_frame_id;
+select one next_statement related by self->ACT_SMT[R661.''succeeds''];
+if (not_empty next_statement)
+  unrelate self from bisf across R2941;
+  relate next_statement to bisf across R2941;
+else
+  // There is no next statement, we reached the end of the block.
+  // Find the parent block if there is one and enable execution
+  // on the appropriate block in stack frame.
+  select one containingBlk related by self->ACT_BLK[R602];
+  containingBlk.popUpBlock(stack_frame_id:param.stack_frame_id);
+end if;',
+	1,
+	'',
+	"a391a1ac-5388-408b-ba80-73c49999f36b");
+INSERT INTO O_TPARM
+	VALUES ("366dd416-9c1d-4cba-87bf-bf29d8f78b06",
+	"799dc760-b1a6-4dfc-a51d-d82cebd978c5",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("a391a1ac-5388-408b-ba80-73c49999f36b",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'popUpToBlock',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Now pop out to containing block
+select one body related by self->ACT_BLK[R602]->ACT_ACT[R601];   
+select any target_block related by self->ACT_BLK[R602]->ACT_ACT[R601]->
+                        ACT_BLK[R601] where selected.Block_ID == param.block_id;
+select one current_block related by self->ACT_BLK[R602];
+while (current_block != target_block)
+  select one containingWhile related by current_block->ACT_WHL[R608];
+  select one containingIf related by current_block->ACT_IF[R607];
+  select one containingElse related by current_block->ACT_E[R606];
+  select one containingElif related by current_block->ACT_EL[R658];
+  select one containingFor related by current_block->ACT_FOR[R605];
+  if (not_empty containingWhile or not_empty containingIf or
+    not_empty containingElse or not_empty containingElif or
+    not_empty containingFor)
+    select one containingStmt related by containingFor->ACT_SMT[R603];
+    if (not_empty containingWhile)
+      select one containingStmt related by containingWhile->ACT_SMT[R603];
+    elif (not_empty containingIf)
+      select one containingStmt related by containingIf->ACT_SMT[R603];
+    elif (not_empty containingElse)
+      select one containingStmt related by containingElse->
+                                                    ACT_IF[R683]->ACT_SMT[R603];
+    elif (not_empty containingElif)
+      select one containingStmt related by containingElif->
+                                                    ACT_IF[R682]->ACT_SMT[R603];
+    end if;
+    if (not_empty containingStmt)
+      select any currentBisf related by current_block->I_BSF[R2923] where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+      currentBisf.dispose();
+      select one current_block related by containingStmt->ACT_BLK[R602];
+      if (current_block == target_block)
+        select any containingBisf related by target_block->I_BSF[R2923] where
+                          selected.Stack_Frame_ID == param.stack_frame_id;
+        if (not_empty containingBisf)
+          containingBisf.isExecuting = true;
+        else
+          pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Statement.popUpToBlock Internal error: containing block not found.",path:pathMsg);
+        end if;
+      end if;
+    else
+      pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Statement.popUpToBlock Internal error: containing statement not found.",path:pathMsg);
+    end if;
+  else
+    pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Statement.popUpToBlock Internal error: containing block control statement not found.",path:pathMsg);
+  end if;
+end while;
+
+',
+	1,
+	'',
+	"5e6d8def-310f-40f1-848e-99c400e5b9dd");
+INSERT INTO O_TPARM
+	VALUES ("6defefcc-8842-4ce4-81ef-d2a55ef0a9d6",
+	"a391a1ac-5388-408b-ba80-73c49999f36b",
+	'block_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("cd149225-cef9-4d42-a73b-3b2e9731d8b3",
+	"a391a1ac-5388-408b-ba80-73c49999f36b",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"6defefcc-8842-4ce4-81ef-d2a55ef0a9d6",
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e");
+INSERT INTO O_BATTR
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e");
+INSERT INTO O_ATTR
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	"00000000-0000-0000-0000-000000000000",
+	'Statement_ID',
+	'',
+	'',
+	'Statement_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	0,
+	"1a0afb36-7d42-46cd-b87c-7a52b8ec2857",
+	"5431ee80-0039-433f-8ec1-96f4b81a8e00",
+	"696dcd45-ea5b-4e77-a20a-5c8bd1e8891d",
+	"242edaf3-5d88-4ad2-9449-f006e5ae4786",
+	"4d65f948-7d5b-4e03-96f8-b9a37fa2ca2d",
+	"3cba84ac-e483-4179-bd02-1ab410ce32c1",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Block',
+	'Block_ID',
+	'R602');
+INSERT INTO R_RGO_PROXY
+	VALUES ("e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	"5431ee80-0039-433f-8ec1-96f4b81a8e00",
+	"696dcd45-ea5b-4e77-a20a-5c8bd1e8891d",
+	'../Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("1a0afb36-7d42-46cd-b87c-7a52b8ec2857",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	0,
+	"5431ee80-0039-433f-8ec1-96f4b81a8e00",
+	"242edaf3-5d88-4ad2-9449-f006e5ae4786",
+	'../Body.xtuml');
+INSERT INTO O_REF
+	VALUES ("e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	"4d65f948-7d5b-4e03-96f8-b9a37fa2ca2d",
+	"a56af201-2c25-460c-9750-ac377aa060ac",
+	"a9e91f6c-5f96-44ee-9c11-ecdd659dfe34",
+	"65316214-4a09-44b1-a8f5-a878d3dba826",
+	"4d65f948-7d5b-4e03-96f8-b9a37fa2ca2d",
+	"bffd553c-469b-4810-a001-0d2c2ffb9dbb",
+	"3cba84ac-e483-4179-bd02-1ab410ce32c1",
+	0,
+	'',
+	'Statement',
+	'Block_ID',
+	'R661');
+INSERT INTO R_RGO_PROXY
+	VALUES ("e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	"a56af201-2c25-460c-9750-ac377aa060ac",
+	"a9e91f6c-5f96-44ee-9c11-ecdd659dfe34",
+	'../Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4d65f948-7d5b-4e03-96f8-b9a37fa2ca2d",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	"a56af201-2c25-460c-9750-ac377aa060ac",
+	"65316214-4a09-44b1-a8f5-a878d3dba826",
+	'../Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("4d65f948-7d5b-4e03-96f8-b9a37fa2ca2d",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	"1a0afb36-7d42-46cd-b87c-7a52b8ec2857",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	1,
+	'Block_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("1a0afb36-7d42-46cd-b87c-7a52b8ec2857",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	'../Block/Block.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("4d65f948-7d5b-4e03-96f8-b9a37fa2ca2d",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	'Block_ID',
+	'',
+	'',
+	'Block_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"a56af201-2c25-460c-9750-ac377aa060ac",
+	"a9e91f6c-5f96-44ee-9c11-ecdd659dfe34",
+	"65316214-4a09-44b1-a8f5-a878d3dba826",
+	"eb484c08-ca76-4bf6-9bb5-a8c9bd4e7740",
+	"44236547-a4c4-4166-b1f6-a3ab67fadb54",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Statement',
+	'Statement_ID',
+	'R661');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	"a56af201-2c25-460c-9750-ac377aa060ac",
+	"65316214-4a09-44b1-a8f5-a878d3dba826",
+	'../Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("eb484c08-ca76-4bf6-9bb5-a8c9bd4e7740",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	'Statement_ID');
+INSERT INTO O_ATTR
+	VALUES ("eb484c08-ca76-4bf6-9bb5-a8c9bd4e7740",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	"4d65f948-7d5b-4e03-96f8-b9a37fa2ca2d",
+	'Previous_Statement_ID',
+	'',
+	'Previous_',
+	'Statement_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("5fb3ff1a-55cb-4946-a2fb-499fc62ee4ef",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e");
+INSERT INTO O_BATTR
+	VALUES ("5fb3ff1a-55cb-4946-a2fb-499fc62ee4ef",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e");
+INSERT INTO O_ATTR
+	VALUES ("5fb3ff1a-55cb-4946-a2fb-499fc62ee4ef",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	"eb484c08-ca76-4bf6-9bb5-a8c9bd4e7740",
+	'LineNumber',
+	'The line in the activity at which this statement resides.  For multi-line
+statements, this is the line that the statement starts at.  It has
+a default value of -1, indicating that the location is not known.
+                        
+Not_participating_value: -1',
+	'',
+	'LineNumber',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("59bbc19f-5b3f-44c5-b0e5-7bd9a469573a",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e");
+INSERT INTO O_BATTR
+	VALUES ("59bbc19f-5b3f-44c5-b0e5-7bd9a469573a",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e");
+INSERT INTO O_ATTR
+	VALUES ("59bbc19f-5b3f-44c5-b0e5-7bd9a469573a",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	"5fb3ff1a-55cb-4946-a2fb-499fc62ee4ef",
+	'StartPosition',
+	'The column in the activity at which this statement starts. It has
+a default value of -1, indicating that the location is not known.
+                        
+Not_participating_value: -1',
+	'',
+	'StartPosition',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("295c4e40-9143-4302-800d-3f4884d0b073",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'select one body related by self->ACT_BLK[R602]->ACT_ACT[R601];
+result = "Unknown Activity";
+if (not_empty body)
+  result = body.Label;
+end if;
+self.Label = result + " line: " + GD::int_to_string(value:self.LineNumber);',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("295c4e40-9143-4302-800d-3f4884d0b073",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e");
+INSERT INTO O_ATTR
+	VALUES ("295c4e40-9143-4302-800d-3f4884d0b073",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	"59bbc19f-5b3f-44c5-b0e5-7bd9a469573a",
+	'Label',
+	'',
+	'',
+	'Label',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (1,
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e");
+INSERT INTO O_OIDA
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	'Statement_ID');
+INSERT INTO O_OIDA
+	VALUES ("4d65f948-7d5b-4e03-96f8-b9a37fa2ca2d",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	'Block_ID');
+INSERT INTO O_ID
+	VALUES (0,
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e");
+INSERT INTO O_OIDA
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	'Statement_ID');
+INSERT INTO O_ID
+	VALUES (2,
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e");
+INSERT INTO S_SS_PROXY
+	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	'Body',
+	'This subsystem abstracts the action itself, the blocks and statements
+it contains together with the flow of control statements such as ''while'',
+''for each'' and ''if''.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'ACT',
+	600,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000380007",
+	'../Body.xtuml');

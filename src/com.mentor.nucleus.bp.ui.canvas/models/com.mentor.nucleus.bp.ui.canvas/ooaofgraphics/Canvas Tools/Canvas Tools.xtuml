@@ -1,0 +1,2319 @@
+-- BP 7.1 content: Subsystem syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO S_SS
+	VALUES ("afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	'Canvas Tools',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+  TRANSLATE_FOR_EXTERNAL_USE:FALSE
+  Notify_Changes:false
+',
+	'CT',
+	100,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001a00034");
+INSERT INTO S_SID
+	VALUES ("3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
+INSERT INTO S_DOM_PROXY
+	VALUES ("3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'ooaofgraphics',
+	'========================================================================
+
+File:          $RCSfile$
+Version:   $Revision$
+Modified:  $Date$
+
+(c) Copyright 2004-2013 Mentor Graphics Corporation All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Project Technology, Inc. and is not for external distribution.
+========================================================================
+
+This is the graphics domain for the Tiger project.
+
+The processing in this model describes the activities
+required for model diagram display and editing.
+
+Import:com.mentor.nucleus.bp.core.*
+-------------------------------------------------------------------------------------------------------------
+',
+	0,
+	"00000000-0000-0000-0000-000000000001",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
+	'../ooaofgraphics.xtuml');
+INSERT INTO O_IOBJ
+	VALUES ("50da1b6b-cd0a-4e5e-bec6-ff993d68ab4e",
+	"76253415-b575-4583-9248-5d403cee7647",
+	5,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	'Element Specification',
+	'GD_ES');
+INSERT INTO O_OBJ_PROXY
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	'Element Specification',
+	8,
+	'GD_ES',
+	'An element specification instance defines a type of symbol.
+The OOA_Type defines the OOA of OOA element represented
+by this symbol.
+
+Instances of this class are instantiated at startup from a
+pre-existing instance specification.
+---------------------------------------------------------------------------
+
+PEI:true
+Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+
+',
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	'../Graphical Data/Element Specification/Element Specification.xtuml');
+INSERT INTO O_IOBJ
+	VALUES ("1b3aa6cd-c6b0-4979-8f9a-61cae2fc9da0",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	5,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	'Model',
+	'GD_MD');
+INSERT INTO O_OBJ_PROXY
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	'Model',
+	1,
+	'GD_MD',
+	'A model is a drawing for one particular view of the analysis. There is an instance of model for each glyph on the index window, and each entry in the model element list on the index window. For example, every domain will have four models (DPD, PDD(R), PDD(A), PDD(S)).  Every subsystem will have three models (CD, OCD(A), OCD(S)).  Every state chart has one model (SC).  The STT is not a graphical model.',
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	'../Graphical Data/Model/Model.xtuml');
+INSERT INTO O_IOBJ
+	VALUES ("116549f7-2c80-4a2a-a5fc-8fdb98ab7286",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	5,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	'Line Segment',
+	'GD_LS');
+INSERT INTO O_OBJ_PROXY
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'Line Segment',
+	5,
+	'GD_LS',
+	'The line segment is a single line drawn on the model. If the line segment is the first or last line segment, there may be adornments (cardinality, multiplicity) drawn near where the line segment attaches to the GE it starts/ends at.  Note: BridgePoint is very arbitrary about how it populates line segments in terms of begins and ends.  Line segments do not always run from start element to end element - sometimes they are reversed. ',
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	'../Graphical Data/Line Segment/Line Segment.xtuml');
+INSERT INTO O_IOBJ
+	VALUES ("e69ee033-4143-47e1-90ed-4ecf6368a7fd",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	5,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	'Graphical Element',
+	'GD_GE');
+INSERT INTO O_OBJ_PROXY
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	'Graphical Element',
+	2,
+	'GD_GE',
+	'Graphical element abstracts the different shapes and lines that make up the graphical representation of a model on the canvas.',
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
+INSERT INTO R_SUBSUP
+	VALUES ("79e74e54-a1b2-4be8-bd1d-af9cec9cb358");
+INSERT INTO R_REL
+	VALUES ("79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	102,
+	'',
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
+INSERT INTO R_SUPER
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"10982f14-d77d-457b-9902-02f4d23a5ac0");
+INSERT INTO O_RTIDA
+	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	0,
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"10982f14-d77d-457b-9902-02f4d23a5ac0");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	0,
+	'Tool_ID',
+	'./Model Tool/Model Tool.xtuml');
+INSERT INTO R_RTO
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"10982f14-d77d-457b-9902-02f4d23a5ac0",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	'./Model Tool/Model Tool.xtuml');
+INSERT INTO R_OIR
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"10982f14-d77d-457b-9902-02f4d23a5ac0",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	'Model Tool',
+	101,
+	'CT_MTL',
+	'Each time a new Model instance is created, a set of Tool
+instances are created for it. There is one Tool instance
+created for each Element Specification associated with
+the Model Specification of which the newly created Model
+is an instance. In additon one Selection Tool instance is
+created for each canvas.
+
+---------------------------------------------------------------------------
+Persistent:false',
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	'./Model Tool/Model Tool.xtuml');
+INSERT INTO R_SUB
+	VALUES ("50695bda-823e-45d0-84b9-4e67435ffe23",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"104e9e69-a0a6-4a25-9dcd-768ba5d39c00");
+INSERT INTO R_RGO
+	VALUES ("50695bda-823e-45d0-84b9-4e67435ffe23",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"104e9e69-a0a6-4a25-9dcd-768ba5d39c00");
+INSERT INTO R_OIR
+	VALUES ("50695bda-823e-45d0-84b9-4e67435ffe23",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"104e9e69-a0a6-4a25-9dcd-768ba5d39c00",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("50695bda-823e-45d0-84b9-4e67435ffe23",
+	'Shape Tool',
+	102,
+	'CT_STL',
+	'The Shape Tool owns the state machine that takes the user
+from enabling the tool, through choosing the location and
+size of the symbol before completing and displaying the
+shape.
+
+---------------------------------------------------------------------------
+Persistent:false',
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	'./Shape Tool/Shape Tool.xtuml');
+INSERT INTO R_SUB
+	VALUES ("1439746f-8b00-4b77-a05f-bf32f9817898",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"808a5d71-27cd-4d75-be33-363a002443d8");
+INSERT INTO R_RGO
+	VALUES ("1439746f-8b00-4b77-a05f-bf32f9817898",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"808a5d71-27cd-4d75-be33-363a002443d8");
+INSERT INTO R_OIR
+	VALUES ("1439746f-8b00-4b77-a05f-bf32f9817898",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"808a5d71-27cd-4d75-be33-363a002443d8",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("1439746f-8b00-4b77-a05f-bf32f9817898",
+	'Selection Tool',
+	103,
+	'CT_SEL',
+	'The Selection Tool is the default tool when a Model canvas is
+first opened. When it is activated it allows the user to drag and modify
+existing diagram symbols. It is automatically deactivated when another tool is selected.
+
+---------------------------------------------------------------------------
+Persistent:false',
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	'./Selection Tool/Selection Tool.xtuml');
+INSERT INTO R_SUB
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"9dbcddfd-488f-4e6b-9937-0a56dd5b7ec7");
+INSERT INTO R_RGO
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"9dbcddfd-488f-4e6b-9937-0a56dd5b7ec7");
+INSERT INTO R_OIR
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"9dbcddfd-488f-4e6b-9937-0a56dd5b7ec7",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	'Connector Tool',
+	104,
+	'CT_CTL',
+	'The Connector Tool owns the state machine that takes the
+user from enabling the tool, through choosing the start location
+and either dragging or clicking the connector waypoints to
+recognizing the end location and finally displaying the
+connector.
+--------------------------------------------------------------------------
+Persistent:false                            ',
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	'./Connector Tool/Connector Tool.xtuml');
+INSERT INTO R_SUB
+	VALUES ("be1b57d8-161e-4f96-924a-f25b2576174b",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"e5d67d72-4fb6-4ad2-a0d3-1d292307b9c5");
+INSERT INTO R_RGO
+	VALUES ("be1b57d8-161e-4f96-924a-f25b2576174b",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"e5d67d72-4fb6-4ad2-a0d3-1d292307b9c5");
+INSERT INTO R_OIR
+	VALUES ("be1b57d8-161e-4f96-924a-f25b2576174b",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"e5d67d72-4fb6-4ad2-a0d3-1d292307b9c5",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("be1b57d8-161e-4f96-924a-f25b2576174b",
+	'Scroll Tool',
+	105,
+	'CT_SCR',
+	'This tool lets the user "grab" the canvas and scroll its contents within its current container.  This tool should be available while any other tool is selected, but for drawing tools, only up to the point where a draw is first performed after that tool''s selection.
+
+---------------------------------------------------------------------------
+Persistent:false',
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	'./Scroll Tool/Scroll Tool.xtuml');
+INSERT INTO R_SIMP
+	VALUES ("9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48");
+INSERT INTO R_REL
+	VALUES ("9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	103,
+	'This association captures the element specification that the tool will
+create when it completes its lifecycle. It is conditional at the graphical
+element end because not all tools create elements.',
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
+INSERT INTO R_FORM
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	"746b4906-475b-4747-b6b6-17e6304e6960",
+	1,
+	1,
+	'has elements instantiated by');
+INSERT INTO R_RGO
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	"746b4906-475b-4747-b6b6-17e6304e6960");
+INSERT INTO R_OIR
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	"746b4906-475b-4747-b6b6-17e6304e6960",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	"d281d8b2-cf22-47f7-9119-0a71aa00df56",
+	0,
+	1,
+	'instantiates elements specified by');
+INSERT INTO O_RTIDA
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	"d281d8b2-cf22-47f7-9119-0a71aa00df56");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	'OOA_Type',
+	'../Graphical Data/Element Specification/Element Specification.xtuml');
+INSERT INTO R_RTO
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	"d281d8b2-cf22-47f7-9119-0a71aa00df56",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"76253415-b575-4583-9248-5d403cee7647",
+	'../Graphical Data/Element Specification/Element Specification.xtuml');
+INSERT INTO R_OIR
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	"d281d8b2-cf22-47f7-9119-0a71aa00df56",
+	"50da1b6b-cd0a-4e5e-bec6-ff993d68ab4e");
+INSERT INTO R_SIMP
+	VALUES ("20f384f0-6e59-43a8-9bc4-d9343da69a1d");
+INSERT INTO R_REL
+	VALUES ("20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	100,
+	'',
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
+INSERT INTO R_PART
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	"38ca7d9a-4ce6-4cba-b296-378a3e08b578",
+	0,
+	0,
+	'is assigned to');
+INSERT INTO O_RTIDA
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	"38ca7d9a-4ce6-4cba-b296-378a3e08b578");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	'diagramId',
+	'../Graphical Data/Model/Model.xtuml');
+INSERT INTO R_RTO
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	"38ca7d9a-4ce6-4cba-b296-378a3e08b578",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'../Graphical Data/Model/Model.xtuml');
+INSERT INTO R_OIR
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	"38ca7d9a-4ce6-4cba-b296-378a3e08b578",
+	"1b3aa6cd-c6b0-4979-8f9a-61cae2fc9da0");
+INSERT INTO R_FORM
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	"144a6b5e-e8e3-4154-b552-a372fac543d7",
+	1,
+	1,
+	'has assigned');
+INSERT INTO R_RGO
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	"144a6b5e-e8e3-4154-b552-a372fac543d7");
+INSERT INTO R_OIR
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	"144a6b5e-e8e3-4154-b552-a372fac543d7",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SIMP
+	VALUES ("203ee94b-0d40-476a-bd77-198579f48e79");
+INSERT INTO R_REL
+	VALUES ("203ee94b-0d40-476a-bd77-198579f48e79",
+	106,
+	'',
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
+INSERT INTO R_FORM
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"203ee94b-0d40-476a-bd77-198579f48e79",
+	"ca60055a-e5a2-46e5-a6ff-7a5d8c8bb696",
+	0,
+	1,
+	'is being drawn by');
+INSERT INTO R_RGO
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"203ee94b-0d40-476a-bd77-198579f48e79",
+	"ca60055a-e5a2-46e5-a6ff-7a5d8c8bb696");
+INSERT INTO R_OIR
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"203ee94b-0d40-476a-bd77-198579f48e79",
+	"ca60055a-e5a2-46e5-a6ff-7a5d8c8bb696",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"203ee94b-0d40-476a-bd77-198579f48e79",
+	"10f16a0b-76f2-4fcb-b8d4-1acd5cffb422",
+	0,
+	1,
+	'is drawing');
+INSERT INTO O_RTIDA
+	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	0,
+	"203ee94b-0d40-476a-bd77-198579f48e79",
+	"10f16a0b-76f2-4fcb-b8d4-1acd5cffb422");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	0,
+	'elementId',
+	'../Graphical Data/Line Segment/Line Segment.xtuml');
+INSERT INTO R_RTO
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"203ee94b-0d40-476a-bd77-198579f48e79",
+	"10f16a0b-76f2-4fcb-b8d4-1acd5cffb422",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'../Graphical Data/Line Segment/Line Segment.xtuml');
+INSERT INTO R_OIR
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"203ee94b-0d40-476a-bd77-198579f48e79",
+	"10f16a0b-76f2-4fcb-b8d4-1acd5cffb422",
+	"116549f7-2c80-4a2a-a5fc-8fdb98ab7286");
+INSERT INTO R_SIMP
+	VALUES ("ddde13f4-2335-49b4-a469-e78f3af8d12b");
+INSERT INTO R_REL
+	VALUES ("ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	104,
+	'',
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
+INSERT INTO R_FORM
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	"6fefbb0c-b6d8-4984-9dd1-2446ffe28ed6",
+	0,
+	1,
+	'start');
+INSERT INTO R_RGO
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	"6fefbb0c-b6d8-4984-9dd1-2446ffe28ed6");
+INSERT INTO R_OIR
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	"6fefbb0c-b6d8-4984-9dd1-2446ffe28ed6",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	"6c4d9c60-99ee-4611-ad2b-8fe59fede195",
+	0,
+	1,
+	'is starting at');
+INSERT INTO O_RTIDA
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	"6c4d9c60-99ee-4611-ad2b-8fe59fede195");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	'elementId',
+	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
+INSERT INTO R_RTO
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	"6c4d9c60-99ee-4611-ad2b-8fe59fede195",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	'../Graphical Data/Graphical Element/Graphical Element.xtuml');
+INSERT INTO R_OIR
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	"6c4d9c60-99ee-4611-ad2b-8fe59fede195",
+	"e69ee033-4143-47e1-90ed-4ecf6368a7fd");
+INSERT INTO R_SIMP
+	VALUES ("18728ecc-7a19-4107-9222-e3db43f4e0e0");
+INSERT INTO R_REL
+	VALUES ("18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	105,
+	'',
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
+INSERT INTO R_FORM
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	"b1c992f0-0bce-4e3b-a84c-dbbcc6ff6a7b",
+	0,
+	1,
+	'end');
+INSERT INTO R_RGO
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	"b1c992f0-0bce-4e3b-a84c-dbbcc6ff6a7b");
+INSERT INTO R_OIR
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	"b1c992f0-0bce-4e3b-a84c-dbbcc6ff6a7b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	"451656e0-6907-47f2-b32c-fc0395a064ac",
+	0,
+	1,
+	'is ending at');
+INSERT INTO O_RTIDA
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	"451656e0-6907-47f2-b32c-fc0395a064ac");
+INSERT INTO R_RTO
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	"451656e0-6907-47f2-b32c-fc0395a064ac",
+	0);
+INSERT INTO R_OIR
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	"451656e0-6907-47f2-b32c-fc0395a064ac",
+	"e69ee033-4143-47e1-90ed-4ecf6368a7fd");
+INSERT INTO R_SIMP
+	VALUES ("0e432084-bfb3-42d9-b1d2-db7db29c94fd");
+INSERT INTO R_REL
+	VALUES ("0e432084-bfb3-42d9-b1d2-db7db29c94fd",
+	108,
+	'',
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
+INSERT INTO R_FORM
+	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
+	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
+	"667d3254-adeb-492b-9461-b3abd7145c0a",
+	0,
+	1,
+	'employs');
+INSERT INTO R_RGO
+	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
+	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
+	"667d3254-adeb-492b-9461-b3abd7145c0a");
+INSERT INTO R_OIR
+	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
+	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
+	"667d3254-adeb-492b-9461-b3abd7145c0a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
+	'Tool Activation Policy',
+	106,
+	'CT_ACT',
+	'Governs which tool of a set of tools (each of a different subtype) may be currently active.
+------------
+Persistent:false
+',
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	'./Tool Activation Policy/Tool Activation Policy.xtuml');
+INSERT INTO R_PART
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
+	"005ce4f4-9cb1-4a2f-ad98-a9e4edb440f3",
+	0,
+	0,
+	'governs tool activation for');
+INSERT INTO O_RTIDA
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
+	"005ce4f4-9cb1-4a2f-ad98-a9e4edb440f3");
+INSERT INTO R_RTO
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
+	"005ce4f4-9cb1-4a2f-ad98-a9e4edb440f3",
+	0);
+INSERT INTO R_OIR
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
+	"005ce4f4-9cb1-4a2f-ad98-a9e4edb440f3",
+	"1b3aa6cd-c6b0-4979-8f9a-61cae2fc9da0");
+INSERT INTO R_SIMP
+	VALUES ("e1b55ce8-7e38-4229-98c6-6d45edaa6745");
+INSERT INTO R_REL
+	VALUES ("e1b55ce8-7e38-4229-98c6-6d45edaa6745",
+	109,
+	'',
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
+INSERT INTO R_FORM
+	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
+	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
+	"0ae0993b-f026-4c9b-9862-008f2186f28e",
+	0,
+	0,
+	'');
+INSERT INTO R_RGO
+	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
+	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
+	"0ae0993b-f026-4c9b-9862-008f2186f28e");
+INSERT INTO R_OIR
+	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
+	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
+	"0ae0993b-f026-4c9b-9862-008f2186f28e",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
+	"2ff51718-8902-4cbd-aa3f-172bedd14799",
+	0,
+	0,
+	'knows as previously active tool');
+INSERT INTO O_RTIDA
+	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	0,
+	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
+	"2ff51718-8902-4cbd-aa3f-172bedd14799");
+INSERT INTO R_RTO
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
+	"2ff51718-8902-4cbd-aa3f-172bedd14799",
+	0);
+INSERT INTO R_OIR
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
+	"2ff51718-8902-4cbd-aa3f-172bedd14799",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_MD
+	VALUES ("2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	5,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	11,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	0,
+	2156,
+	2038,
+	0,
+	0,
+	0,
+	'',
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools');
+INSERT INTO GD_GE
+	VALUES ("4b69b4ed-8255-4dd8-afa7-285b745fab0d",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"50da1b6b-cd0a-4e5e-bec6-ff993d68ab4e",
+	23,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Element Specification');
+INSERT INTO GD_SHP
+	VALUES ("4b69b4ed-8255-4dd8-afa7-285b745fab0d");
+INSERT INTO GD_NCS
+	VALUES ("4b69b4ed-8255-4dd8-afa7-285b745fab0d");
+INSERT INTO DIM_ND
+	VALUES (304.000000,
+	272.000000,
+	"4b69b4ed-8255-4dd8-afa7-285b745fab0d");
+INSERT INTO DIM_GE
+	VALUES (1872.000000,
+	1089.000000,
+	"4b69b4ed-8255-4dd8-afa7-285b745fab0d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("4b69b4ed-8255-4dd8-afa7-285b745fab0d",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("6ce9cf88-2942-4522-b0b5-303732d265f2",
+	2112.000000,
+	1361.000000,
+	"4b69b4ed-8255-4dd8-afa7-285b745fab0d");
+INSERT INTO GD_GE
+	VALUES ("f9b94bf9-6d70-4ec2-b594-8e0a41417143",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"1b3aa6cd-c6b0-4979-8f9a-61cae2fc9da0",
+	23,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model');
+INSERT INTO GD_SHP
+	VALUES ("f9b94bf9-6d70-4ec2-b594-8e0a41417143");
+INSERT INTO GD_NCS
+	VALUES ("f9b94bf9-6d70-4ec2-b594-8e0a41417143");
+INSERT INTO DIM_ND
+	VALUES (304.000000,
+	272.000000,
+	"f9b94bf9-6d70-4ec2-b594-8e0a41417143");
+INSERT INTO DIM_GE
+	VALUES (2288.000000,
+	1088.000000,
+	"f9b94bf9-6d70-4ec2-b594-8e0a41417143",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("f9b94bf9-6d70-4ec2-b594-8e0a41417143",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("2b37660e-4a79-42e4-8e81-d01f2f203ba1",
+	2416.000000,
+	1360.000000,
+	"f9b94bf9-6d70-4ec2-b594-8e0a41417143");
+INSERT INTO DIM_CON
+	VALUES ("2d8de2ef-9916-49f5-ac43-c7a700e109bf",
+	2592.000000,
+	1296.000000,
+	"f9b94bf9-6d70-4ec2-b594-8e0a41417143");
+INSERT INTO GD_GE
+	VALUES ("e93ffe31-3568-44da-9db1-0b223d7cf139",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	21,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool');
+INSERT INTO GD_SHP
+	VALUES ("e93ffe31-3568-44da-9db1-0b223d7cf139");
+INSERT INTO GD_NCS
+	VALUES ("e93ffe31-3568-44da-9db1-0b223d7cf139");
+INSERT INTO DIM_ND
+	VALUES (304.000000,
+	176.000000,
+	"e93ffe31-3568-44da-9db1-0b223d7cf139");
+INSERT INTO DIM_GE
+	VALUES (2288.000000,
+	1520.000000,
+	"e93ffe31-3568-44da-9db1-0b223d7cf139",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("e93ffe31-3568-44da-9db1-0b223d7cf139",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("2b7b9c7e-925e-4935-8a62-4e6af110307a",
+	2432.000000,
+	1696.000000,
+	"e93ffe31-3568-44da-9db1-0b223d7cf139");
+INSERT INTO DIM_CON
+	VALUES ("afd841ef-c2a6-4087-980c-51a4c3321665",
+	2288.000000,
+	1616.000000,
+	"e93ffe31-3568-44da-9db1-0b223d7cf139");
+INSERT INTO DIM_CON
+	VALUES ("7ba040ed-d5e3-43d9-9418-6518665e1d02",
+	2416.000000,
+	1520.000000,
+	"e93ffe31-3568-44da-9db1-0b223d7cf139");
+INSERT INTO DIM_CON
+	VALUES ("4e517cd0-1e0b-49f3-b617-15d7667b6ce4",
+	2592.000000,
+	1616.000000,
+	"e93ffe31-3568-44da-9db1-0b223d7cf139");
+INSERT INTO GD_GE
+	VALUES ("b75cf733-8959-4f7a-a6b0-c75af2d1fd9f",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"50695bda-823e-45d0-84b9-4e67435ffe23",
+	21,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Shape Tool');
+INSERT INTO GD_SHP
+	VALUES ("b75cf733-8959-4f7a-a6b0-c75af2d1fd9f");
+INSERT INTO GD_NCS
+	VALUES ("b75cf733-8959-4f7a-a6b0-c75af2d1fd9f");
+INSERT INTO DIM_ND
+	VALUES (288.000000,
+	96.000000,
+	"b75cf733-8959-4f7a-a6b0-c75af2d1fd9f");
+INSERT INTO DIM_GE
+	VALUES (1872.000000,
+	1808.000000,
+	"b75cf733-8959-4f7a-a6b0-c75af2d1fd9f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("b75cf733-8959-4f7a-a6b0-c75af2d1fd9f",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("1a5b11d6-734e-4063-8530-620d26e8f8de",
+	2032.000000,
+	1808.000000,
+	"b75cf733-8959-4f7a-a6b0-c75af2d1fd9f");
+INSERT INTO GD_GE
+	VALUES ("2d404d14-1639-4d6a-ba91-b587fb026b77",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"1439746f-8b00-4b77-a05f-bf32f9817898",
+	21,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Selection Tool');
+INSERT INTO GD_SHP
+	VALUES ("2d404d14-1639-4d6a-ba91-b587fb026b77");
+INSERT INTO GD_NCS
+	VALUES ("2d404d14-1639-4d6a-ba91-b587fb026b77");
+INSERT INTO DIM_ND
+	VALUES (272.000000,
+	160.000000,
+	"2d404d14-1639-4d6a-ba91-b587fb026b77");
+INSERT INTO DIM_GE
+	VALUES (2784.000000,
+	1808.000000,
+	"2d404d14-1639-4d6a-ba91-b587fb026b77",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("2d404d14-1639-4d6a-ba91-b587fb026b77",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("f7eabbe8-4057-408d-851d-bc5fcf44f284",
+	2928.000000,
+	1808.000000,
+	"2d404d14-1639-4d6a-ba91-b587fb026b77");
+INSERT INTO GD_GE
+	VALUES ("f3821e7a-be8d-4d49-835d-5914e4c68364",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824",
+	21,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Connector Tool');
+INSERT INTO GD_SHP
+	VALUES ("f3821e7a-be8d-4d49-835d-5914e4c68364");
+INSERT INTO GD_NCS
+	VALUES ("f3821e7a-be8d-4d49-835d-5914e4c68364");
+INSERT INTO DIM_ND
+	VALUES (560.000000,
+	208.000000,
+	"f3821e7a-be8d-4d49-835d-5914e4c68364");
+INSERT INTO DIM_GE
+	VALUES (2192.000000,
+	1808.000000,
+	"f3821e7a-be8d-4d49-835d-5914e4c68364",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("f3821e7a-be8d-4d49-835d-5914e4c68364",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("2cd57708-f0b1-4f08-a7e9-c939a32ed5bf",
+	2432.000000,
+	1808.000000,
+	"f3821e7a-be8d-4d49-835d-5914e4c68364");
+INSERT INTO DIM_CON
+	VALUES ("28651f64-2a3f-4fff-b5dd-e5398f5e9491",
+	2336.000000,
+	2016.000000,
+	"f3821e7a-be8d-4d49-835d-5914e4c68364");
+INSERT INTO DIM_CON
+	VALUES ("faf4720b-cf6e-45e7-9990-f78069dec4c9",
+	2512.000000,
+	2016.000000,
+	"f3821e7a-be8d-4d49-835d-5914e4c68364");
+INSERT INTO DIM_CON
+	VALUES ("685e0365-a7bb-4a29-8b61-fd9d942bfc49",
+	2608.000000,
+	2016.000000,
+	"f3821e7a-be8d-4d49-835d-5914e4c68364");
+INSERT INTO GD_GE
+	VALUES ("480b8617-6ad8-4c57-a327-819a99166fe5",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"116549f7-2c80-4a2a-a5fc-8fdb98ab7286",
+	23,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Line Segment');
+INSERT INTO GD_SHP
+	VALUES ("480b8617-6ad8-4c57-a327-819a99166fe5");
+INSERT INTO GD_NCS
+	VALUES ("480b8617-6ad8-4c57-a327-819a99166fe5");
+INSERT INTO DIM_ND
+	VALUES (272.000000,
+	208.000000,
+	"480b8617-6ad8-4c57-a327-819a99166fe5");
+INSERT INTO DIM_GE
+	VALUES (2128.000000,
+	2208.000000,
+	"480b8617-6ad8-4c57-a327-819a99166fe5",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("480b8617-6ad8-4c57-a327-819a99166fe5",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("5b47a96e-b3c9-4e65-9187-e9c4256abdcc",
+	2336.000000,
+	2208.000000,
+	"480b8617-6ad8-4c57-a327-819a99166fe5");
+INSERT INTO GD_GE
+	VALUES ("a3428559-9348-465c-8760-97a92dd6d2ba",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"e69ee033-4143-47e1-90ed-4ecf6368a7fd",
+	23,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Graphical Element');
+INSERT INTO GD_SHP
+	VALUES ("a3428559-9348-465c-8760-97a92dd6d2ba");
+INSERT INTO GD_NCS
+	VALUES ("a3428559-9348-465c-8760-97a92dd6d2ba");
+INSERT INTO DIM_ND
+	VALUES (272.000000,
+	176.000000,
+	"a3428559-9348-465c-8760-97a92dd6d2ba");
+INSERT INTO DIM_GE
+	VALUES (2496.000000,
+	2208.000000,
+	"a3428559-9348-465c-8760-97a92dd6d2ba",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("a3428559-9348-465c-8760-97a92dd6d2ba",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("250fca73-31d0-4a05-8ef9-1ec8ccf66a87",
+	2512.000000,
+	2208.000000,
+	"a3428559-9348-465c-8760-97a92dd6d2ba");
+INSERT INTO DIM_CON
+	VALUES ("5b73ec78-9223-4291-9e7a-7f48975bea3d",
+	2608.000000,
+	2208.000000,
+	"a3428559-9348-465c-8760-97a92dd6d2ba");
+INSERT INTO GD_GE
+	VALUES ("f66e37d5-f957-489f-ba44-70e5544ed409",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"be1b57d8-161e-4f96-924a-f25b2576174b",
+	21,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Scroll Tool');
+INSERT INTO GD_SHP
+	VALUES ("f66e37d5-f957-489f-ba44-70e5544ed409");
+INSERT INTO GD_NCS
+	VALUES ("f66e37d5-f957-489f-ba44-70e5544ed409");
+INSERT INTO DIM_ND
+	VALUES (256.000000,
+	160.000000,
+	"f66e37d5-f957-489f-ba44-70e5544ed409");
+INSERT INTO DIM_GE
+	VALUES (3088.000000,
+	1808.000000,
+	"f66e37d5-f957-489f-ba44-70e5544ed409",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("f66e37d5-f957-489f-ba44-70e5544ed409",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("7ca963da-64f8-4d9c-9965-4e47a30fa4d4",
+	3216.000000,
+	1808.000000,
+	"f66e37d5-f957-489f-ba44-70e5544ed409");
+INSERT INTO GD_GE
+	VALUES ("3fa72419-620e-4950-b1a5-487d57b0eddb",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
+	21,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Tool Activation Policy');
+INSERT INTO GD_SHP
+	VALUES ("3fa72419-620e-4950-b1a5-487d57b0eddb");
+INSERT INTO GD_NCS
+	VALUES ("3fa72419-620e-4950-b1a5-487d57b0eddb");
+INSERT INTO DIM_ND
+	VALUES (320.000000,
+	160.000000,
+	"3fa72419-620e-4950-b1a5-487d57b0eddb");
+INSERT INTO DIM_GE
+	VALUES (2832.000000,
+	1200.000000,
+	"3fa72419-620e-4950-b1a5-487d57b0eddb",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("3fa72419-620e-4950-b1a5-487d57b0eddb",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("fb8420ef-a399-4040-8efc-49bd21703816",
+	2832.000000,
+	1296.000000,
+	"3fa72419-620e-4950-b1a5-487d57b0eddb");
+INSERT INTO DIM_CON
+	VALUES ("5a9aea39-6752-4c31-8592-f3057b91a9b0",
+	2976.000000,
+	1360.000000,
+	"3fa72419-620e-4950-b1a5-487d57b0eddb");
+INSERT INTO GD_GE
+	VALUES ("a0f45fc2-31cb-4292-b9a3-bc6e024272f1",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	36,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::R102');
+INSERT INTO GD_CON
+	VALUES ("a0f45fc2-31cb-4292-b9a3-bc6e024272f1",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("5553c489-3ab3-4621-9070-bc26ba9c3845",
+	"a0f45fc2-31cb-4292-b9a3-bc6e024272f1",
+	1,
+	-163.000000,
+	16.000000);
+INSERT INTO DIM_ND
+	VALUES (135.000000,
+	22.000000,
+	"5553c489-3ab3-4621-9070-bc26ba9c3845");
+INSERT INTO DIM_GE
+	VALUES (2274.000000,
+	1722.000000,
+	"5553c489-3ab3-4621-9070-bc26ba9c3845",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("5553c489-3ab3-4621-9070-bc26ba9c3845",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("e313ed7e-589c-4ba9-8f6b-a73018b6901d",
+	"a0f45fc2-31cb-4292-b9a3-bc6e024272f1",
+	3,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"e313ed7e-589c-4ba9-8f6b-a73018b6901d");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"e313ed7e-589c-4ba9-8f6b-a73018b6901d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("e313ed7e-589c-4ba9-8f6b-a73018b6901d",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("9e542be8-9e05-4b2d-8835-1c73cea93a0d",
+	"a0f45fc2-31cb-4292-b9a3-bc6e024272f1",
+	2,
+	29.000000,
+	-9.000000);
+INSERT INTO DIM_ND
+	VALUES (42.000000,
+	22.000000,
+	"9e542be8-9e05-4b2d-8835-1c73cea93a0d");
+INSERT INTO DIM_GE
+	VALUES (2466.000000,
+	1723.000000,
+	"9e542be8-9e05-4b2d-8835-1c73cea93a0d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("9e542be8-9e05-4b2d-8835-1c73cea93a0d",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("bb6188ba-1564-41df-9ec9-bb500d5023e2",
+	"a0f45fc2-31cb-4292-b9a3-bc6e024272f1",
+	"00000000-0000-0000-0000-000000000000",
+	"4f03a2f9-066a-4908-aa9b-0003d38a5f41",
+	"33c3dc89-990f-419a-8693-0f2ab4737bee");
+INSERT INTO GD_AOS
+	VALUES ("680bfecc-7c25-4a9c-a0c0-f54cd9aa9226",
+	"bb6188ba-1564-41df-9ec9-bb500d5023e2");
+INSERT INTO GD_AOS
+	VALUES ("9dc48584-c6ab-42f6-99fb-ea02c17bf5df",
+	"bb6188ba-1564-41df-9ec9-bb500d5023e2");
+INSERT INTO GD_AOS
+	VALUES ("9a19223b-18be-41e0-af64-cda5671ac48e",
+	"bb6188ba-1564-41df-9ec9-bb500d5023e2");
+INSERT INTO GD_AOS
+	VALUES ("a4615911-0b57-4398-9fa7-4c5d018b6786",
+	"bb6188ba-1564-41df-9ec9-bb500d5023e2");
+INSERT INTO DIM_WAY
+	VALUES ("4f03a2f9-066a-4908-aa9b-0003d38a5f41",
+	2432.000000,
+	1696.000000,
+	"a0f45fc2-31cb-4292-b9a3-bc6e024272f1",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("33c3dc89-990f-419a-8693-0f2ab4737bee",
+	2432.000000,
+	1760.000000,
+	"a0f45fc2-31cb-4292-b9a3-bc6e024272f1",
+	"00000000-0000-0000-0000-000000000000",
+	"4f03a2f9-066a-4908-aa9b-0003d38a5f41");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"a0f45fc2-31cb-4292-b9a3-bc6e024272f1",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("a0f45fc2-31cb-4292-b9a3-bc6e024272f1",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("680bfecc-7c25-4a9c-a0c0-f54cd9aa9226",
+	2432.000000,
+	1760.000000,
+	"a0f45fc2-31cb-4292-b9a3-bc6e024272f1");
+INSERT INTO DIM_CON
+	VALUES ("9dc48584-c6ab-42f6-99fb-ea02c17bf5df",
+	2432.000000,
+	1760.000000,
+	"a0f45fc2-31cb-4292-b9a3-bc6e024272f1");
+INSERT INTO DIM_CON
+	VALUES ("9a19223b-18be-41e0-af64-cda5671ac48e",
+	2432.000000,
+	1760.000000,
+	"a0f45fc2-31cb-4292-b9a3-bc6e024272f1");
+INSERT INTO DIM_CON
+	VALUES ("a4615911-0b57-4398-9fa7-4c5d018b6786",
+	2432.000000,
+	1760.000000,
+	"a0f45fc2-31cb-4292-b9a3-bc6e024272f1");
+INSERT INTO DIM_ED
+	VALUES ("2b7b9c7e-925e-4935-8a62-4e6af110307a",
+	"00000000-0000-0000-0000-000000000000",
+	"a0f45fc2-31cb-4292-b9a3-bc6e024272f1");
+INSERT INTO GD_GE
+	VALUES ("87d9fa36-7cdb-4692-914a-d72ac312ef6f",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"104e9e69-a0a6-4a25-9dcd-768ba5d39c00",
+	35,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::R102::Shape Tool');
+INSERT INTO GD_CON
+	VALUES ("87d9fa36-7cdb-4692-914a-d72ac312ef6f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("5058e9a1-1614-41e2-a4d6-2bb1d42b211e",
+	"87d9fa36-7cdb-4692-914a-d72ac312ef6f",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"5058e9a1-1614-41e2-a4d6-2bb1d42b211e");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"5058e9a1-1614-41e2-a4d6-2bb1d42b211e",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("5058e9a1-1614-41e2-a4d6-2bb1d42b211e",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("dfb9cb7b-b90a-469b-a45a-a8ee1779048f",
+	"87d9fa36-7cdb-4692-914a-d72ac312ef6f",
+	3,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"dfb9cb7b-b90a-469b-a45a-a8ee1779048f");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"dfb9cb7b-b90a-469b-a45a-a8ee1779048f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("dfb9cb7b-b90a-469b-a45a-a8ee1779048f",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("4c439a8d-6e5a-4f69-a52a-40788d228065",
+	"87d9fa36-7cdb-4692-914a-d72ac312ef6f",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"4c439a8d-6e5a-4f69-a52a-40788d228065");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"4c439a8d-6e5a-4f69-a52a-40788d228065",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("4c439a8d-6e5a-4f69-a52a-40788d228065",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("d99e5af0-7717-4903-bf97-cccec4f4fbde",
+	"87d9fa36-7cdb-4692-914a-d72ac312ef6f",
+	"00000000-0000-0000-0000-000000000000",
+	"f3b065db-cab2-4ee1-a7b0-a207a1df5567",
+	"d0a89868-09bf-41c7-8886-3774b398e37a");
+INSERT INTO GD_LS
+	VALUES ("1653d818-ab56-4117-b697-e5eabb29efc0",
+	"87d9fa36-7cdb-4692-914a-d72ac312ef6f",
+	"d99e5af0-7717-4903-bf97-cccec4f4fbde",
+	"d0a89868-09bf-41c7-8886-3774b398e37a",
+	"7d463d99-8a82-49b6-adc8-9a9e2110fbd8");
+INSERT INTO DIM_WAY
+	VALUES ("f3b065db-cab2-4ee1-a7b0-a207a1df5567",
+	2032.000000,
+	1808.000000,
+	"87d9fa36-7cdb-4692-914a-d72ac312ef6f",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("d0a89868-09bf-41c7-8886-3774b398e37a",
+	2032.000000,
+	1760.000000,
+	"87d9fa36-7cdb-4692-914a-d72ac312ef6f",
+	"00000000-0000-0000-0000-000000000000",
+	"f3b065db-cab2-4ee1-a7b0-a207a1df5567");
+INSERT INTO DIM_WAY
+	VALUES ("7d463d99-8a82-49b6-adc8-9a9e2110fbd8",
+	2432.000000,
+	1760.000000,
+	"87d9fa36-7cdb-4692-914a-d72ac312ef6f",
+	"00000000-0000-0000-0000-000000000000",
+	"d0a89868-09bf-41c7-8886-3774b398e37a");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"87d9fa36-7cdb-4692-914a-d72ac312ef6f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("87d9fa36-7cdb-4692-914a-d72ac312ef6f",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("1a5b11d6-734e-4063-8530-620d26e8f8de",
+	"680bfecc-7c25-4a9c-a0c0-f54cd9aa9226",
+	"87d9fa36-7cdb-4692-914a-d72ac312ef6f");
+INSERT INTO GD_GE
+	VALUES ("9868b20e-5c49-43dd-bffe-44cf3d343e05",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"808a5d71-27cd-4d75-be33-363a002443d8",
+	35,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::R102::Selection Tool');
+INSERT INTO GD_CON
+	VALUES ("9868b20e-5c49-43dd-bffe-44cf3d343e05",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("ee29a472-961c-4a55-911a-c704f5bf795d",
+	"9868b20e-5c49-43dd-bffe-44cf3d343e05",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"ee29a472-961c-4a55-911a-c704f5bf795d");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"ee29a472-961c-4a55-911a-c704f5bf795d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("ee29a472-961c-4a55-911a-c704f5bf795d",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("8ec80580-1a1b-4fbf-87f0-9239a0748e6b",
+	"9868b20e-5c49-43dd-bffe-44cf3d343e05",
+	3,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"8ec80580-1a1b-4fbf-87f0-9239a0748e6b");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"8ec80580-1a1b-4fbf-87f0-9239a0748e6b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("8ec80580-1a1b-4fbf-87f0-9239a0748e6b",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("6ab63c7d-4959-4061-9604-4c47438a9459",
+	"9868b20e-5c49-43dd-bffe-44cf3d343e05",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"6ab63c7d-4959-4061-9604-4c47438a9459");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"6ab63c7d-4959-4061-9604-4c47438a9459",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("6ab63c7d-4959-4061-9604-4c47438a9459",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("045cdf57-1294-4cb0-a00b-0ead8dba6a3a",
+	"9868b20e-5c49-43dd-bffe-44cf3d343e05",
+	"00000000-0000-0000-0000-000000000000",
+	"cab3aa80-e375-40a2-b54a-a630dbb4bf6f",
+	"171797c4-32dc-4d7c-8f3d-cdc85101fa88");
+INSERT INTO GD_LS
+	VALUES ("40a86c5b-c359-4699-ad98-70ebadc05d32",
+	"9868b20e-5c49-43dd-bffe-44cf3d343e05",
+	"045cdf57-1294-4cb0-a00b-0ead8dba6a3a",
+	"171797c4-32dc-4d7c-8f3d-cdc85101fa88",
+	"33e31ecb-f189-40ca-a2a9-90fa1c1a77dd");
+INSERT INTO DIM_WAY
+	VALUES ("cab3aa80-e375-40a2-b54a-a630dbb4bf6f",
+	2928.000000,
+	1808.000000,
+	"9868b20e-5c49-43dd-bffe-44cf3d343e05",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("171797c4-32dc-4d7c-8f3d-cdc85101fa88",
+	2928.000000,
+	1760.000000,
+	"9868b20e-5c49-43dd-bffe-44cf3d343e05",
+	"00000000-0000-0000-0000-000000000000",
+	"cab3aa80-e375-40a2-b54a-a630dbb4bf6f");
+INSERT INTO DIM_WAY
+	VALUES ("33e31ecb-f189-40ca-a2a9-90fa1c1a77dd",
+	2432.000000,
+	1760.000000,
+	"9868b20e-5c49-43dd-bffe-44cf3d343e05",
+	"00000000-0000-0000-0000-000000000000",
+	"171797c4-32dc-4d7c-8f3d-cdc85101fa88");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"9868b20e-5c49-43dd-bffe-44cf3d343e05",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("9868b20e-5c49-43dd-bffe-44cf3d343e05",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("f7eabbe8-4057-408d-851d-bc5fcf44f284",
+	"9dc48584-c6ab-42f6-99fb-ea02c17bf5df",
+	"9868b20e-5c49-43dd-bffe-44cf3d343e05");
+INSERT INTO GD_GE
+	VALUES ("e4fdc67f-a204-4ae8-b830-3d425f09eac7",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	24,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::R103');
+INSERT INTO GD_CON
+	VALUES ("e4fdc67f-a204-4ae8-b830-3d425f09eac7",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("c795a7d9-06d9-4d23-bdc8-0abbd041d0c1",
+	"e4fdc67f-a204-4ae8-b830-3d425f09eac7",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (97.000000,
+	34.000000,
+	"c795a7d9-06d9-4d23-bdc8-0abbd041d0c1");
+INSERT INTO DIM_GE
+	VALUES (2181.000000,
+	1636.000000,
+	"c795a7d9-06d9-4d23-bdc8-0abbd041d0c1",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("c795a7d9-06d9-4d23-bdc8-0abbd041d0c1",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("054696ed-98e6-41c7-9172-e8b4615595fe",
+	"e4fdc67f-a204-4ae8-b830-3d425f09eac7",
+	3,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (42.000000,
+	22.000000,
+	"054696ed-98e6-41c7-9172-e8b4615595fe");
+INSERT INTO DIM_GE
+	VALUES (2064.000000,
+	1479.000000,
+	"054696ed-98e6-41c7-9172-e8b4615595fe",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("054696ed-98e6-41c7-9172-e8b4615595fe",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("6a02ef94-5726-4c11-b747-1eb05d98aada",
+	"e4fdc67f-a204-4ae8-b830-3d425f09eac7",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (77.000000,
+	50.000000,
+	"6a02ef94-5726-4c11-b747-1eb05d98aada");
+INSERT INTO DIM_GE
+	VALUES (2122.000000,
+	1371.000000,
+	"6a02ef94-5726-4c11-b747-1eb05d98aada",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("6a02ef94-5726-4c11-b747-1eb05d98aada",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("bebeb594-951f-4046-b528-6bf7c1f4abba",
+	"e4fdc67f-a204-4ae8-b830-3d425f09eac7",
+	"00000000-0000-0000-0000-000000000000",
+	"4941d9ec-e7f9-43ac-94e8-76929abddbda",
+	"2686d91c-3a7d-4a8f-bf91-df4738afdf04");
+INSERT INTO GD_LS
+	VALUES ("05c56f97-535a-44c2-b59d-5fcd825bbb65",
+	"e4fdc67f-a204-4ae8-b830-3d425f09eac7",
+	"bebeb594-951f-4046-b528-6bf7c1f4abba",
+	"2686d91c-3a7d-4a8f-bf91-df4738afdf04",
+	"100bbe48-f3aa-4665-a496-34021f1b8688");
+INSERT INTO DIM_WAY
+	VALUES ("4941d9ec-e7f9-43ac-94e8-76929abddbda",
+	2288.000000,
+	1616.000000,
+	"e4fdc67f-a204-4ae8-b830-3d425f09eac7",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("2686d91c-3a7d-4a8f-bf91-df4738afdf04",
+	2112.000000,
+	1616.000000,
+	"e4fdc67f-a204-4ae8-b830-3d425f09eac7",
+	"00000000-0000-0000-0000-000000000000",
+	"4941d9ec-e7f9-43ac-94e8-76929abddbda");
+INSERT INTO DIM_WAY
+	VALUES ("100bbe48-f3aa-4665-a496-34021f1b8688",
+	2112.000000,
+	1361.000000,
+	"e4fdc67f-a204-4ae8-b830-3d425f09eac7",
+	"00000000-0000-0000-0000-000000000000",
+	"2686d91c-3a7d-4a8f-bf91-df4738afdf04");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"e4fdc67f-a204-4ae8-b830-3d425f09eac7",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("e4fdc67f-a204-4ae8-b830-3d425f09eac7",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("afd841ef-c2a6-4087-980c-51a4c3321665",
+	"6ce9cf88-2942-4522-b0b5-303732d265f2",
+	"e4fdc67f-a204-4ae8-b830-3d425f09eac7");
+INSERT INTO GD_GE
+	VALUES ("1062b6af-60d5-499a-89af-6502b41dbabc",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	24,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::R100');
+INSERT INTO GD_CON
+	VALUES ("1062b6af-60d5-499a-89af-6502b41dbabc",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("9e14de84-44c3-406c-b425-98181a02b2c6",
+	"1062b6af-60d5-499a-89af-6502b41dbabc",
+	1,
+	8.000000,
+	1.000000);
+INSERT INTO DIM_ND
+	VALUES (72.000000,
+	58.000000,
+	"9e14de84-44c3-406c-b425-98181a02b2c6");
+INSERT INTO DIM_GE
+	VALUES (2429.000000,
+	1371.000000,
+	"9e14de84-44c3-406c-b425-98181a02b2c6",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("9e14de84-44c3-406c-b425-98181a02b2c6",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("d85b55b1-9d29-408f-ad39-6ed43eab8050",
+	"1062b6af-60d5-499a-89af-6502b41dbabc",
+	3,
+	-1.000000,
+	4.000000);
+INSERT INTO DIM_ND
+	VALUES (42.000000,
+	23.000000,
+	"d85b55b1-9d29-408f-ad39-6ed43eab8050");
+INSERT INTO DIM_GE
+	VALUES (2367.000000,
+	1435.000000,
+	"d85b55b1-9d29-408f-ad39-6ed43eab8050",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("d85b55b1-9d29-408f-ad39-6ed43eab8050",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("36989b5e-4e4e-4880-8550-9a39644d0a5a",
+	"1062b6af-60d5-499a-89af-6502b41dbabc",
+	2,
+	9.000000,
+	-5.000000);
+INSERT INTO DIM_ND
+	VALUES (68.000000,
+	40.000000,
+	"36989b5e-4e4e-4880-8550-9a39644d0a5a");
+INSERT INTO DIM_GE
+	VALUES (2430.000000,
+	1469.000000,
+	"36989b5e-4e4e-4880-8550-9a39644d0a5a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("36989b5e-4e4e-4880-8550-9a39644d0a5a",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("884b00a9-1bea-426b-a80a-cf1ac50eade6",
+	"1062b6af-60d5-499a-89af-6502b41dbabc",
+	"00000000-0000-0000-0000-000000000000",
+	"d6527ca8-462e-4e1b-af69-babd157b3b96",
+	"a8db58ce-96e3-435d-84de-742d3efbd917");
+INSERT INTO DIM_WAY
+	VALUES ("d6527ca8-462e-4e1b-af69-babd157b3b96",
+	2416.000000,
+	1360.000000,
+	"1062b6af-60d5-499a-89af-6502b41dbabc",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("a8db58ce-96e3-435d-84de-742d3efbd917",
+	2416.000000,
+	1520.000000,
+	"1062b6af-60d5-499a-89af-6502b41dbabc",
+	"00000000-0000-0000-0000-000000000000",
+	"d6527ca8-462e-4e1b-af69-babd157b3b96");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"1062b6af-60d5-499a-89af-6502b41dbabc",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("1062b6af-60d5-499a-89af-6502b41dbabc",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("2b37660e-4a79-42e4-8e81-d01f2f203ba1",
+	"7ba040ed-d5e3-43d9-9418-6518665e1d02",
+	"1062b6af-60d5-499a-89af-6502b41dbabc");
+INSERT INTO GD_GE
+	VALUES ("829da7f1-3872-4171-a0e0-b30c95a38911",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"9dbcddfd-488f-4e6b-9937-0a56dd5b7ec7",
+	35,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::R102::Connector Tool');
+INSERT INTO GD_CON
+	VALUES ("829da7f1-3872-4171-a0e0-b30c95a38911",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("2f3c39d5-fe72-48df-ba94-1ec4fd6517b2",
+	"829da7f1-3872-4171-a0e0-b30c95a38911",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"2f3c39d5-fe72-48df-ba94-1ec4fd6517b2");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"2f3c39d5-fe72-48df-ba94-1ec4fd6517b2",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("2f3c39d5-fe72-48df-ba94-1ec4fd6517b2",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("b31500df-02a8-4c49-8ca9-94f5cbaa07d3",
+	"829da7f1-3872-4171-a0e0-b30c95a38911",
+	3,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"b31500df-02a8-4c49-8ca9-94f5cbaa07d3");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"b31500df-02a8-4c49-8ca9-94f5cbaa07d3",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("b31500df-02a8-4c49-8ca9-94f5cbaa07d3",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("ebcbbe9e-377f-406b-a51b-26bdbcd41390",
+	"829da7f1-3872-4171-a0e0-b30c95a38911",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"ebcbbe9e-377f-406b-a51b-26bdbcd41390");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"ebcbbe9e-377f-406b-a51b-26bdbcd41390",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("ebcbbe9e-377f-406b-a51b-26bdbcd41390",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("45cec9ef-2566-494c-ad6a-dd6433e390f7",
+	"829da7f1-3872-4171-a0e0-b30c95a38911",
+	"00000000-0000-0000-0000-000000000000",
+	"5a7839d2-48b4-4179-b062-8565809f9689",
+	"092a6266-461e-4bdf-826f-d2060210d0ed");
+INSERT INTO DIM_WAY
+	VALUES ("5a7839d2-48b4-4179-b062-8565809f9689",
+	2432.000000,
+	1808.000000,
+	"829da7f1-3872-4171-a0e0-b30c95a38911",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("092a6266-461e-4bdf-826f-d2060210d0ed",
+	2432.000000,
+	1760.000000,
+	"829da7f1-3872-4171-a0e0-b30c95a38911",
+	"00000000-0000-0000-0000-000000000000",
+	"5a7839d2-48b4-4179-b062-8565809f9689");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"829da7f1-3872-4171-a0e0-b30c95a38911",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("829da7f1-3872-4171-a0e0-b30c95a38911",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("2cd57708-f0b1-4f08-a7e9-c939a32ed5bf",
+	"9a19223b-18be-41e0-af64-cda5671ac48e",
+	"829da7f1-3872-4171-a0e0-b30c95a38911");
+INSERT INTO GD_GE
+	VALUES ("f2152310-1d3e-4fb5-81be-c2d008614295",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"203ee94b-0d40-476a-bd77-198579f48e79",
+	24,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::R106');
+INSERT INTO GD_CON
+	VALUES ("f2152310-1d3e-4fb5-81be-c2d008614295",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("9a98127a-2f6f-4ded-98d7-740d7d73e11f",
+	"f2152310-1d3e-4fb5-81be-c2d008614295",
+	1,
+	0.000000,
+	16.000000);
+INSERT INTO DIM_ND
+	VALUES (125.000000,
+	22.000000,
+	"9a98127a-2f6f-4ded-98d7-740d7d73e11f");
+INSERT INTO DIM_GE
+	VALUES (2341.000000,
+	2042.000000,
+	"9a98127a-2f6f-4ded-98d7-740d7d73e11f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("9a98127a-2f6f-4ded-98d7-740d7d73e11f",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("a9ccf394-d00c-4f6b-a1e1-8d7cfca2bdcb",
+	"f2152310-1d3e-4fb5-81be-c2d008614295",
+	3,
+	1.000000,
+	13.000000);
+INSERT INTO DIM_ND
+	VALUES (42.000000,
+	22.000000,
+	"a9ccf394-d00c-4f6b-a1e1-8d7cfca2bdcb");
+INSERT INTO DIM_GE
+	VALUES (2289.000000,
+	2116.000000,
+	"a9ccf394-d00c-4f6b-a1e1-8d7cfca2bdcb",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("a9ccf394-d00c-4f6b-a1e1-8d7cfca2bdcb",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("a3ca2363-872b-403a-be1b-089119c2f451",
+	"f2152310-1d3e-4fb5-81be-c2d008614295",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (75.000000,
+	22.000000,
+	"a3ca2363-872b-403a-be1b-089119c2f451");
+INSERT INTO DIM_GE
+	VALUES (2341.000000,
+	2180.000000,
+	"a3ca2363-872b-403a-be1b-089119c2f451",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("a3ca2363-872b-403a-be1b-089119c2f451",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("51bee8a5-f707-4685-a21f-f47bfb97fb21",
+	"f2152310-1d3e-4fb5-81be-c2d008614295",
+	"00000000-0000-0000-0000-000000000000",
+	"f14940d4-d07e-448e-b0db-8c63a3c1638e",
+	"dc9d6f46-017e-4138-8ef9-b57fb8711f9d");
+INSERT INTO DIM_WAY
+	VALUES ("f14940d4-d07e-448e-b0db-8c63a3c1638e",
+	2336.000000,
+	2016.000000,
+	"f2152310-1d3e-4fb5-81be-c2d008614295",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("dc9d6f46-017e-4138-8ef9-b57fb8711f9d",
+	2336.000000,
+	2208.000000,
+	"f2152310-1d3e-4fb5-81be-c2d008614295",
+	"00000000-0000-0000-0000-000000000000",
+	"f14940d4-d07e-448e-b0db-8c63a3c1638e");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"f2152310-1d3e-4fb5-81be-c2d008614295",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("f2152310-1d3e-4fb5-81be-c2d008614295",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("28651f64-2a3f-4fff-b5dd-e5398f5e9491",
+	"5b47a96e-b3c9-4e65-9187-e9c4256abdcc",
+	"f2152310-1d3e-4fb5-81be-c2d008614295");
+INSERT INTO GD_GE
+	VALUES ("75fbed69-767b-4635-89c0-b99880157a6b",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	24,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::R104');
+INSERT INTO GD_CON
+	VALUES ("75fbed69-767b-4635-89c0-b99880157a6b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("ff1482ff-5dc0-4c7a-a92b-8d3e2240b77b",
+	"75fbed69-767b-4635-89c0-b99880157a6b",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (30.000000,
+	24.000000,
+	"ff1482ff-5dc0-4c7a-a92b-8d3e2240b77b");
+INSERT INTO DIM_GE
+	VALUES (2522.000000,
+	2026.000000,
+	"ff1482ff-5dc0-4c7a-a92b-8d3e2240b77b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("ff1482ff-5dc0-4c7a-a92b-8d3e2240b77b",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("214e1a67-f7a7-4589-8c20-ea6196b5cc0e",
+	"75fbed69-767b-4635-89c0-b99880157a6b",
+	3,
+	2.000000,
+	16.000000);
+INSERT INTO DIM_ND
+	VALUES (42.000000,
+	22.000000,
+	"214e1a67-f7a7-4589-8c20-ea6196b5cc0e");
+INSERT INTO DIM_GE
+	VALUES (2466.000000,
+	2119.000000,
+	"214e1a67-f7a7-4589-8c20-ea6196b5cc0e",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("214e1a67-f7a7-4589-8c20-ea6196b5cc0e",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("e388d58f-e873-410c-97e9-14f62f699419",
+	"75fbed69-767b-4635-89c0-b99880157a6b",
+	2,
+	-2.000000,
+	4.000000);
+INSERT INTO DIM_ND
+	VALUES (59.000000,
+	58.000000,
+	"e388d58f-e873-410c-97e9-14f62f699419");
+INSERT INTO DIM_GE
+	VALUES (2515.000000,
+	2148.000000,
+	"e388d58f-e873-410c-97e9-14f62f699419",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("e388d58f-e873-410c-97e9-14f62f699419",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("ebf58be8-39fd-4af3-ad85-637671884d9e",
+	"75fbed69-767b-4635-89c0-b99880157a6b",
+	"00000000-0000-0000-0000-000000000000",
+	"6f15ecf6-5ea4-4c68-be2e-56ba9aaf1be6",
+	"0e974d88-6d8b-449e-b916-b61fd16296d2");
+INSERT INTO DIM_WAY
+	VALUES ("6f15ecf6-5ea4-4c68-be2e-56ba9aaf1be6",
+	2512.000000,
+	2016.000000,
+	"75fbed69-767b-4635-89c0-b99880157a6b",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("0e974d88-6d8b-449e-b916-b61fd16296d2",
+	2512.000000,
+	2208.000000,
+	"75fbed69-767b-4635-89c0-b99880157a6b",
+	"00000000-0000-0000-0000-000000000000",
+	"6f15ecf6-5ea4-4c68-be2e-56ba9aaf1be6");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"75fbed69-767b-4635-89c0-b99880157a6b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("75fbed69-767b-4635-89c0-b99880157a6b",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("faf4720b-cf6e-45e7-9990-f78069dec4c9",
+	"250fca73-31d0-4a05-8ef9-1ec8ccf66a87",
+	"75fbed69-767b-4635-89c0-b99880157a6b");
+INSERT INTO GD_GE
+	VALUES ("7ca3878e-2306-4f58-a10c-d8535790aab3",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	24,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::R105');
+INSERT INTO GD_CON
+	VALUES ("7ca3878e-2306-4f58-a10c-d8535790aab3",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("11aeced4-afd4-4d24-a20b-44051c6cdc89",
+	"7ca3878e-2306-4f58-a10c-d8535790aab3",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (25.000000,
+	24.000000,
+	"11aeced4-afd4-4d24-a20b-44051c6cdc89");
+INSERT INTO DIM_GE
+	VALUES (2618.000000,
+	2026.000000,
+	"11aeced4-afd4-4d24-a20b-44051c6cdc89",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("11aeced4-afd4-4d24-a20b-44051c6cdc89",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("13568027-0b46-4c03-9ffe-165278207412",
+	"7ca3878e-2306-4f58-a10c-d8535790aab3",
+	3,
+	0.000000,
+	16.000000);
+INSERT INTO DIM_ND
+	VALUES (42.000000,
+	22.000000,
+	"13568027-0b46-4c03-9ffe-165278207412");
+INSERT INTO DIM_GE
+	VALUES (2560.000000,
+	2119.000000,
+	"13568027-0b46-4c03-9ffe-165278207412",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("13568027-0b46-4c03-9ffe-165278207412",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("29498c5a-b264-47c8-ac14-84fa7eb7265e",
+	"7ca3878e-2306-4f58-a10c-d8535790aab3",
+	2,
+	-2.000000,
+	18.000000);
+INSERT INTO DIM_ND
+	VALUES (55.000000,
+	58.000000,
+	"29498c5a-b264-47c8-ac14-84fa7eb7265e");
+INSERT INTO DIM_GE
+	VALUES (2612.000000,
+	2148.000000,
+	"29498c5a-b264-47c8-ac14-84fa7eb7265e",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("29498c5a-b264-47c8-ac14-84fa7eb7265e",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("e313f6fa-e51e-4a96-85a1-33f2fe4c0aa9",
+	"7ca3878e-2306-4f58-a10c-d8535790aab3",
+	"00000000-0000-0000-0000-000000000000",
+	"768d7c7c-aff1-4771-aed5-4f895fb17113",
+	"52d6b974-78b3-4934-91a9-68b25610f6d5");
+INSERT INTO DIM_WAY
+	VALUES ("768d7c7c-aff1-4771-aed5-4f895fb17113",
+	2608.000000,
+	2016.000000,
+	"7ca3878e-2306-4f58-a10c-d8535790aab3",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("52d6b974-78b3-4934-91a9-68b25610f6d5",
+	2608.000000,
+	2208.000000,
+	"7ca3878e-2306-4f58-a10c-d8535790aab3",
+	"00000000-0000-0000-0000-000000000000",
+	"768d7c7c-aff1-4771-aed5-4f895fb17113");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"7ca3878e-2306-4f58-a10c-d8535790aab3",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("7ca3878e-2306-4f58-a10c-d8535790aab3",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("685e0365-a7bb-4a29-8b61-fd9d942bfc49",
+	"5b73ec78-9223-4291-9e7a-7f48975bea3d",
+	"7ca3878e-2306-4f58-a10c-d8535790aab3");
+INSERT INTO GD_GE
+	VALUES ("b38d68bb-2ca2-404c-a19b-87f11c011733",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"e5d67d72-4fb6-4ad2-a0d3-1d292307b9c5",
+	35,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::R102::Scroll Tool');
+INSERT INTO GD_CON
+	VALUES ("b38d68bb-2ca2-404c-a19b-87f11c011733",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("b2dc86b6-c246-4679-9de3-4acb5f1a1c07",
+	"b38d68bb-2ca2-404c-a19b-87f11c011733",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"b2dc86b6-c246-4679-9de3-4acb5f1a1c07");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"b2dc86b6-c246-4679-9de3-4acb5f1a1c07",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("b2dc86b6-c246-4679-9de3-4acb5f1a1c07",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("258639fc-cf8d-43f8-93e7-a5cb04c78887",
+	"b38d68bb-2ca2-404c-a19b-87f11c011733",
+	3,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"258639fc-cf8d-43f8-93e7-a5cb04c78887");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"258639fc-cf8d-43f8-93e7-a5cb04c78887",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("258639fc-cf8d-43f8-93e7-a5cb04c78887",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("776ab9d0-cccf-4f00-ac6d-de0a999edfd1",
+	"b38d68bb-2ca2-404c-a19b-87f11c011733",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"776ab9d0-cccf-4f00-ac6d-de0a999edfd1");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"776ab9d0-cccf-4f00-ac6d-de0a999edfd1",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("776ab9d0-cccf-4f00-ac6d-de0a999edfd1",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("66eaffb1-4439-4262-bf93-dbd45196f4d4",
+	"b38d68bb-2ca2-404c-a19b-87f11c011733",
+	"00000000-0000-0000-0000-000000000000",
+	"50df64df-7708-459f-8a2a-1f317c9b42f5",
+	"95ae932b-063e-46c8-984d-53374222d723");
+INSERT INTO GD_LS
+	VALUES ("f9b1aba9-3a53-4a2f-9733-ff9a3bbbfddc",
+	"b38d68bb-2ca2-404c-a19b-87f11c011733",
+	"66eaffb1-4439-4262-bf93-dbd45196f4d4",
+	"95ae932b-063e-46c8-984d-53374222d723",
+	"1b1c2f4e-8b00-4eed-b3cb-4a67db75f259");
+INSERT INTO GD_LS
+	VALUES ("c97c5846-27a8-475d-b1a2-4cc1f7a5b38c",
+	"b38d68bb-2ca2-404c-a19b-87f11c011733",
+	"f9b1aba9-3a53-4a2f-9733-ff9a3bbbfddc",
+	"1b1c2f4e-8b00-4eed-b3cb-4a67db75f259",
+	"6b00db75-2ba8-4782-8785-b4f91e9fa8cf");
+INSERT INTO DIM_WAY
+	VALUES ("50df64df-7708-459f-8a2a-1f317c9b42f5",
+	3216.000000,
+	1808.000000,
+	"b38d68bb-2ca2-404c-a19b-87f11c011733",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("95ae932b-063e-46c8-984d-53374222d723",
+	3216.000000,
+	1744.000000,
+	"b38d68bb-2ca2-404c-a19b-87f11c011733",
+	"00000000-0000-0000-0000-000000000000",
+	"50df64df-7708-459f-8a2a-1f317c9b42f5");
+INSERT INTO DIM_WAY
+	VALUES ("1b1c2f4e-8b00-4eed-b3cb-4a67db75f259",
+	2496.000000,
+	1744.000000,
+	"b38d68bb-2ca2-404c-a19b-87f11c011733",
+	"00000000-0000-0000-0000-000000000000",
+	"95ae932b-063e-46c8-984d-53374222d723");
+INSERT INTO DIM_WAY
+	VALUES ("6b00db75-2ba8-4782-8785-b4f91e9fa8cf",
+	2432.000000,
+	1760.000000,
+	"b38d68bb-2ca2-404c-a19b-87f11c011733",
+	"00000000-0000-0000-0000-000000000000",
+	"1b1c2f4e-8b00-4eed-b3cb-4a67db75f259");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"b38d68bb-2ca2-404c-a19b-87f11c011733",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("b38d68bb-2ca2-404c-a19b-87f11c011733",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("7ca963da-64f8-4d9c-9965-4e47a30fa4d4",
+	"a4615911-0b57-4398-9fa7-4c5d018b6786",
+	"b38d68bb-2ca2-404c-a19b-87f11c011733");
+INSERT INTO GD_GE
+	VALUES ("3b4fdeb1-2e07-4e3f-b98a-731c7fa3a505",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
+	24,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::R108');
+INSERT INTO GD_CON
+	VALUES ("3b4fdeb1-2e07-4e3f-b98a-731c7fa3a505",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("960b2bb2-53ad-4c52-8785-0f460ef7ba0e",
+	"3b4fdeb1-2e07-4e3f-b98a-731c7fa3a505",
+	1,
+	-6.000000,
+	1.000000);
+INSERT INTO DIM_ND
+	VALUES (62.000000,
+	22.000000,
+	"960b2bb2-53ad-4c52-8785-0f460ef7ba0e");
+INSERT INTO DIM_GE
+	VALUES (2758.000000,
+	1302.000000,
+	"960b2bb2-53ad-4c52-8785-0f460ef7ba0e",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("960b2bb2-53ad-4c52-8785-0f460ef7ba0e",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("b1ceb4b1-fddf-4415-b1f4-1af7a9056c40",
+	"3b4fdeb1-2e07-4e3f-b98a-731c7fa3a505",
+	3,
+	11.000000,
+	-7.000000);
+INSERT INTO DIM_ND
+	VALUES (42.000000,
+	22.000000,
+	"b1ceb4b1-fddf-4415-b1f4-1af7a9056c40");
+INSERT INTO DIM_GE
+	VALUES (2704.000000,
+	1261.000000,
+	"b1ceb4b1-fddf-4415-b1f4-1af7a9056c40",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("b1ceb4b1-fddf-4415-b1f4-1af7a9056c40",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("14945a11-5565-4082-aaff-8117c3b83f5b",
+	"3b4fdeb1-2e07-4e3f-b98a-731c7fa3a505",
+	2,
+	-1.000000,
+	1.000000);
+INSERT INTO DIM_ND
+	VALUES (108.000000,
+	22.000000,
+	"14945a11-5565-4082-aaff-8117c3b83f5b");
+INSERT INTO DIM_GE
+	VALUES (2601.000000,
+	1302.000000,
+	"14945a11-5565-4082-aaff-8117c3b83f5b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("14945a11-5565-4082-aaff-8117c3b83f5b",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("fcd5e7ab-7f10-4cdb-9a1d-27bad3cb2064",
+	"3b4fdeb1-2e07-4e3f-b98a-731c7fa3a505",
+	"00000000-0000-0000-0000-000000000000",
+	"7df129f4-df8e-45ee-842d-d9fb6961d629",
+	"05cd87b1-2d9b-4fe8-9ca9-cd1cfe3c3292");
+INSERT INTO DIM_WAY
+	VALUES ("7df129f4-df8e-45ee-842d-d9fb6961d629",
+	2832.000000,
+	1296.000000,
+	"3b4fdeb1-2e07-4e3f-b98a-731c7fa3a505",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("05cd87b1-2d9b-4fe8-9ca9-cd1cfe3c3292",
+	2592.000000,
+	1296.000000,
+	"3b4fdeb1-2e07-4e3f-b98a-731c7fa3a505",
+	"00000000-0000-0000-0000-000000000000",
+	"7df129f4-df8e-45ee-842d-d9fb6961d629");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"3b4fdeb1-2e07-4e3f-b98a-731c7fa3a505",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("3b4fdeb1-2e07-4e3f-b98a-731c7fa3a505",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("fb8420ef-a399-4040-8efc-49bd21703816",
+	"2d8de2ef-9916-49f5-ac43-c7a700e109bf",
+	"3b4fdeb1-2e07-4e3f-b98a-731c7fa3a505");
+INSERT INTO GD_GE
+	VALUES ("bfcbb91d-9c49-4a4e-a638-8a6644b97da4",
+	"2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
+	24,
+	0,
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::R109');
+INSERT INTO GD_CON
+	VALUES ("bfcbb91d-9c49-4a4e-a638-8a6644b97da4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("14fc3fa3-7ee5-4881-8523-ed2ddadd4561",
+	"bfcbb91d-9c49-4a4e-a638-8a6644b97da4",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"14fc3fa3-7ee5-4881-8523-ed2ddadd4561");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"14fc3fa3-7ee5-4881-8523-ed2ddadd4561",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("14fc3fa3-7ee5-4881-8523-ed2ddadd4561",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("29e69102-c4df-4212-9799-457bf015e2d4",
+	"bfcbb91d-9c49-4a4e-a638-8a6644b97da4",
+	3,
+	157.000000,
+	33.000000);
+INSERT INTO DIM_ND
+	VALUES (42.000000,
+	22.000000,
+	"29e69102-c4df-4212-9799-457bf015e2d4");
+INSERT INTO DIM_GE
+	VALUES (2922.000000,
+	1621.000000,
+	"29e69102-c4df-4212-9799-457bf015e2d4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("29e69102-c4df-4212-9799-457bf015e2d4",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("5d4901c2-7a58-4478-bd3e-7b5e77667c02",
+	"bfcbb91d-9c49-4a4e-a638-8a6644b97da4",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (68.000000,
+	50.000000,
+	"5d4901c2-7a58-4478-bd3e-7b5e77667c02");
+INSERT INTO DIM_GE
+	VALUES (2602.000000,
+	1626.000000,
+	"5d4901c2-7a58-4478-bd3e-7b5e77667c02",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("5d4901c2-7a58-4478-bd3e-7b5e77667c02",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("44201222-007a-4812-9f34-c1a54bab8fb3",
+	"bfcbb91d-9c49-4a4e-a638-8a6644b97da4",
+	"00000000-0000-0000-0000-000000000000",
+	"ce90ee26-5a63-4be8-8d91-1adb7da50415",
+	"8c9e6955-9194-4f78-92c1-7e48f1502b40");
+INSERT INTO GD_LS
+	VALUES ("422c46a0-aea1-4fb9-968e-d6c12e0645c5",
+	"bfcbb91d-9c49-4a4e-a638-8a6644b97da4",
+	"44201222-007a-4812-9f34-c1a54bab8fb3",
+	"8c9e6955-9194-4f78-92c1-7e48f1502b40",
+	"61bced4b-cce2-4dcd-bf02-5c5cbe9e707d");
+INSERT INTO DIM_WAY
+	VALUES ("ce90ee26-5a63-4be8-8d91-1adb7da50415",
+	2976.000000,
+	1360.000000,
+	"bfcbb91d-9c49-4a4e-a638-8a6644b97da4",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("8c9e6955-9194-4f78-92c1-7e48f1502b40",
+	2976.000000,
+	1616.000000,
+	"bfcbb91d-9c49-4a4e-a638-8a6644b97da4",
+	"00000000-0000-0000-0000-000000000000",
+	"ce90ee26-5a63-4be8-8d91-1adb7da50415");
+INSERT INTO DIM_WAY
+	VALUES ("61bced4b-cce2-4dcd-bf02-5c5cbe9e707d",
+	2592.000000,
+	1616.000000,
+	"bfcbb91d-9c49-4a4e-a638-8a6644b97da4",
+	"00000000-0000-0000-0000-000000000000",
+	"8c9e6955-9194-4f78-92c1-7e48f1502b40");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"bfcbb91d-9c49-4a4e-a638-8a6644b97da4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("bfcbb91d-9c49-4a4e-a638-8a6644b97da4",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("5a9aea39-6752-4c31-8592-f3057b91a9b0",
+	"4e517cd0-1e0b-49f3-b617-15d7667b6ce4",
+	"bfcbb91d-9c49-4a4e-a638-8a6644b97da4");
+INSERT INTO DIM_DIA
+	VALUES ("2edbdd7d-f932-4f0e-af57-4eefb9621cbc",
+	'',
+	0.833333,
+	2014.000000,
+	1503.000000,
+	"00000000-0000-0000-0000-000000000000");

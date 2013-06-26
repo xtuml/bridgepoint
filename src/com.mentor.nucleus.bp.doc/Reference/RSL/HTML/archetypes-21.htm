@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="archetypes.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+Invoking The Action Translation Process
+</TITLE>
+
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<H1 CLASS="Heading2">
+<A NAME="0_pgfId-520196"></A><A NAME="0_48468"></A>Invoking The <A NAME="0_marker-527037"></A>Action Translation Process</H1>
+<P CLASS="Body">
+<A NAME="0_pgfId-521254"></A>The translation rule generation and interpretation steps can be performed together or apart.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-520197"></A>For translation rule generation only, use the following:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-520201"></A><EM CLASS="Code">
+.al_xlate &lt;action_location&gt; &lt;action_inst_ref&gt; script to file &quot;&lt;file_name&gt;&quot;</EM>
+<A NAME="0_marker-520199"></A><A NAME="0_marker-520200"></A></P>
+<P CLASS="Body">
+<A NAME="0_pgfId-520203"></A>where:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-520205"></A><EM CLASS="Code">
+&lt;action_location&gt;</EM>
+<A NAME="0_marker-527001"></A> is a keyword specifying the type of the action location under translation. <EM CLASS="Code">
+Valid values are: instance_sm (instance state machine), assigner_sm (class state machine), bridge (external entity bridge operation), transformer (class operation), attribute (derived attribute), or synch_service (function).</EM>
+<A NAME="0_marker-520204"></A><A NAME="0_marker-520206"></A></P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-520207"></A><EM CLASS="Code">
+&lt;action_inst_ref&gt;</EM>
+<A NAME="0_marker-527002"></A> is a variable of type <EM CLASS="Code">
+inst_ref</EM>
+ which holds a reference to the an instance in the xtUML database that contains the action: <EM CLASS="Code">
+SM_ACT (state machine action)</EM>
+, <EM CLASS="Code">
+S_BRG (external entity bridge operation)</EM>
+, <EM CLASS="Code">
+O_TFR</EM>
+ (class operation), <EM CLASS="Code">
+O_DBATTR (derived attribute)</EM>
+, or <EM CLASS="Code">
+S_SYNC (function)</EM>
+.</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-520208"></A><EM CLASS="Code">
+&lt;file_name&gt;</EM>
+<A NAME="0_marker-527003"></A> is the name of a file to which the fragment translation rules are written. </P>
+<P CLASS="Body">
+<A NAME="0_pgfId-526064"></A>Using the &quot;<EM CLASS="Code">
+script to file</EM>
+&quot; version of the <EM CLASS="Code">
+.al_xlate</EM>
+ command allows you to easily see the fragment translation functions called for various types of OAL. This is useful in developing and changing the definitions for the fragment translation functions.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-520210"></A>For translation rule interpretation only, use the following:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-520213"></A><EM CLASS="Code">
+.include &quot;&lt;file_name&gt;&quot;</EM>
+<A NAME="0_marker-520212"></A></P>
+<P CLASS="Body">
+<A NAME="0_pgfId-520215"></A>where:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-520216"></A>&lt;file_name&gt; is the name of a file containing the generated fragment translation rules. </P>
+<P CLASS="Body">
+<A NAME="0_pgfId-520218"></A>For both translation rule generation and interpretation:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-520220"></A><EM CLASS="Code">
+.al_xlate &lt;action_location&gt; &lt;action_inst_ref&gt;</EM>
+</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-520222"></A>where:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-533874"></A><EM CLASS="Code">
+&lt;action_location&gt;</EM>
+<A NAME="0_marker-533873"></A> is a keyword specifying the type of the action location under translation. <EM CLASS="Code">
+Valid values are: instance_sm (instance state machine), assigner_sm (class state machine), bridge (external entity bridge operation), transformer (class operation), attribute (derived attribute), or synch_service (function).</EM>
+<A NAME="0_marker-533875"></A><A NAME="0_marker-533876"></A></P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-533878"></A><EM CLASS="Code">
+&lt;action_inst_ref&gt;</EM>
+<A NAME="0_marker-533877"></A> is a variable of type <EM CLASS="Code">
+inst_ref</EM>
+ which holds a reference to the an instance in the xtUML database that contains the action: <EM CLASS="Code">
+SM_ACT (state machine action)</EM>
+, <EM CLASS="Code">
+S_BRG (external entity bridge operation)</EM>
+, <EM CLASS="Code">
+O_TFR</EM>
+ (class operation), <EM CLASS="Code">
+O_DBATTR (derived attribute)</EM>
+, or <EM CLASS="Code">
+S_SYNC (function)</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-520230"></A>For example, a simple snippet from a structural rule used to translate the actions for a state machine might look like:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-520232"></A><EM CLASS="Code">.// include rules that contain fragment translation functions</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-521345"></A><EM CLASS="Code">.include &quot;fragment.arc&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-521346"></A><EM CLASS="Code">.//</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-520233"></A><EM CLASS="Code">.select any state_machine from instances of SM_ISM</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-520235"></A><EM CLASS="Code">.select many states related by state_machine-&gt;SM_SM[R517]-&gt;SM_STATE[R501]</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-521347"></A><EM CLASS="Code">.//</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-520236"></A><EM CLASS="Code">.for each state in states</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-520237"></A><EM CLASS="Code">State_${state.name} ()</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-520238"></A><EM CLASS="Code">{</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-520239"></A><EM CLASS="Code">	.select one action related by state-&gt;SM_MOAH[R511]-&gt;SM -&gt;SM_AH[R513]-&gt;SM_ACT[R514]</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-520240"></A><EM CLASS="Code">	.al_xlate instance_sm action</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-520241"></A><EM CLASS="Code">}</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-520242"></A><EM CLASS="Code">.end for</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-521348"></A><EM CLASS="Code">.//</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-521343"></A><EM CLASS="Code">.invoke fname = GetStateMachineStatesFileName(state_machine)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-521344"></A><EM CLASS="Code">.invoke ext = GetDefinitionFileExtension()</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-520243"></A><EM CLASS="Code">.emit to file &quot;${fname.result}.${ext.result}&quot;</EM>
+</PRE>
+</BODY>
+</HTML>

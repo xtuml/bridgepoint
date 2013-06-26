@@ -1,0 +1,391 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
+	'Function Value',
+	822,
+	'V_FNV',
+	'This class represents the value returned by a function invocation.',
+	"e060f94c-3f82-463e-9d98-d20315b7c196");
+INSERT INTO O_TFR
+	VALUES ("a554dbfd-eedf-48e5-9a01-98782897bf10",
+	"7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
+	'dispose',
+	'This operation disconnects an instance, and all instances it is 
+responsible for, from the model.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one sync related by self->S_SYNC[R827];
+if ( not empty sync )
+  unrelate self from sync across R827;
+end if;
+
+select many parm_set related by self->V_PAR[R817];
+for each parm in parm_set 
+  unrelate self from parm across R817;
+  parm.dispose();
+end for;
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("b72d48d4-084b-4e53-a0b7-61830cf695f4",
+	"7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
+	'getValue',
+	'Executes a function and returns a result.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// (V_FNV) Value:Function Value.getValue()
+
+// Execute the function
+select one body related by self->S_SYNC[R827]->ACT_FNB[R695]->ACT_ACT[R698];
+select any statement related by body->ACT_BLK[R666]->ACT_SMT[R602];
+if (not_empty statement)
+  // Setup the parameter values within the newly created stack frame
+  discard = self.setupParameterValues(stack_frame_id: param.stack_frame_id);
+
+else
+  select one fn related by self->S_SYNC[R827];
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error executing Function: " +
+			     fn.Name + ". No function OAL found, returning default value.",path:pathMsg);
+  select one dt related by fn->S_DT[R25];
+  select any stack_frame from instances of I_STF where
+                                selected.Stack_Frame_ID == param.stack_frame_id; 
+  if empty stack_frame
+    pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Internal error in Function Invocation.execute: Could not get stack frame.",path:pathMsg);
+  else 
+    select one stack related by stack_frame->I_STACK[R2943]; 
+    select any result related by stack_frame->I_VSF[R2951] where
+                                             selected.Value_ID == self.Value_ID;
+    // Return the default result
+    select one rtVal related by result->RV_RVL[R3305];
+    rtVal.setValue(value:dt.getDefaultValue());
+  end if;
+end if;',
+	1,
+	'',
+	"a554dbfd-eedf-48e5-9a01-98782897bf10");
+INSERT INTO O_TPARM
+	VALUES ("1c16ed7b-9e9a-4ed8-b645-5bba13a07865",
+	"b72d48d4-084b-4e53-a0b7-61830cf695f4",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("652eaee5-0289-4714-9fc2-2ae0fbd1ee52",
+	"7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
+	'setupParameterValues',
+	'Initializes the parameters passing to a function.',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// Value:Function Value.setupParameterValues()
+select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
+select one function related by self->S_SYNC[R827];
+select many function_parameters related by function->S_SPARM[R24];
+select many args related by self->V_PAR[R817];
+// Grab the stack frame(should be the new top stack frame)
+select any stack_frame from instances of I_STF where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+if empty stack_frame
+  //Invalid stack frame ID!
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Function Value.setupParameterValues: " +
+                  "Invalid stack frame id used. Using random top stack frame.",path:pathMsg);
+  select any stack from instances of I_STACK;
+  select one stack_frame related by stack->I_STF[R2929];
+end if;
+// Grab the stack as well
+select one stack related by stack_frame->I_STACK[R2929];
+if empty stack
+  //Invalid stack frame ID!
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Function Value.setupParameterValues: " +
+                               "Failure to retieve stack. Using random stack.",path:pathMsg);
+  select any stack from instances of I_STACK;
+  select one new_stack_frame related by stack->I_STF[R2929];
+end if;
+select one outer_block related by function->ACT_FNB[R695]->
+                                                   ACT_ACT[R698]->ACT_BLK[R666];
+if not_empty outer_block
+  for each actual_parameter in args
+    // Seach for a function parameter with the same name as the actual parameter
+    select any func_param related by function->S_SPARM[R24] where
+                                         selected.Name == actual_parameter.Name;
+    if (empty func_param)
+      pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Function Value.setupParameterValues: " +
+                             "did not find a corresponding function parameter",path:pathMsg);
+    else    
+      // We have found the matching function parameter and actual parameter
+      // Now set the value of the parameter value related to the function
+      // parameter to the actual parameter''s value
+      if (func_param.By_Ref == 0)  // by value
+        select one act_val related by actual_parameter->V_VAL[R800];
+        act_val.computeValue(stack_frame_id: stack_frame.Stack_Frame_ID);
+        select any result related by stack_frame->I_VSF[R2951] where
+                                          selected.Value_ID == act_val.Value_ID;
+        select one rtVal related by result->RV_RVL[R3305];
+        if (empty rtVal)
+          // result requires computation. Return and let the new stack frame execute
+          return false;
+        end if;
+      end if;
+    end if;
+  end for;
+  // If we get here, all computation of arguments was completed,
+  //  prepare for execution of the function
+  select one body related by function->ACT_FNB[R695]->ACT_ACT[R698];
+  sf = body.createStackFrame(stack_id:stack.Stack_ID, enqueue: false,
+                     invoking_stack_frame_or_component_id:GD::NULL_UNIQUE_ID());
+  for each arg in args
+    select any func_param related by function->S_SPARM[R24] where
+                                                      selected.Name == arg.Name;
+    // Create a new local value in the new stack frame for each argument
+    loc_id = outer_block.newLocalValue(stack_frame_id: sf);
+    
+    // Find the new local value in the new stack frame
+    select any local related by outer_block->I_BSF[R2923]->
+                                 L_LCL[R3000] where selected.Local_ID == loc_id;
+    select one local_val related by local->L_LVL[R3001];
+    select one act_val related by arg->V_VAL[R800];
+    if not_empty func_param and func_param.By_Ref == 0
+      select any result related by stack_frame->I_VSF[R2951] where
+                                          selected.Value_ID == act_val.Value_ID;
+      select one rtVal related by result->RV_RVL[R3305];
+      create object instance lrtVal of RV_RVL;
+      relate lrtVal to local across R3306;
+      select one dt related by func_param->S_DT[R26];
+      relate lrtVal to dt across R3307;
+      lrtVal.copyValue(from:rtVal.RuntimeValue_ID);
+    else  // assuming by ref
+      relate local_val to act_val across R3010;
+    end if;
+    // Relate the new local value to the function parameter so that
+    // it can be found when the parameter value is referenced.
+    relate func_param to local across R3007;
+    stack_frame.popValue(value_id:arg.Value_ID);
+  end for;
+else
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Function Value.setupParameterValues: " +
+                                        "did not find an outer function block",path:pathMsg);
+end if;
+return true;',
+	1,
+	'',
+	"b72d48d4-084b-4e53-a0b7-61830cf695f4");
+INSERT INTO O_TPARM
+	VALUES ("e819a990-7240-48f4-ae5a-31fc02035d35",
+	"652eaee5-0289-4714-9fc2-2ae0fbd1ee52",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"f45cba3b-f381-475e-b8a9-3b355142054d",
+	"d1ba20b6-b96d-4b60-88a2-bd29bf1b425b",
+	"0a07b8be-4053-4dc6-a060-df5a70cbbed5",
+	"16d936f1-80b5-4203-a1c2-86c5c61ab748",
+	"cb2ff314-2e21-4836-9bbd-4bbaa891475c",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Value',
+	'Value_ID',
+	'R801');
+INSERT INTO R_RGO_PROXY
+	VALUES ("7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
+	"f45cba3b-f381-475e-b8a9-3b355142054d",
+	"d1ba20b6-b96d-4b60-88a2-bd29bf1b425b",
+	'../Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"f45cba3b-f381-475e-b8a9-3b355142054d",
+	"0a07b8be-4053-4dc6-a060-df5a70cbbed5",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("16d936f1-80b5-4203-a1c2-86c5c61ab748",
+	"7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	1,
+	'Value_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'../Value/Value.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("16d936f1-80b5-4203-a1c2-86c5c61ab748",
+	"7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
+	"00000000-0000-0000-0000-000000000000",
+	'Value_ID',
+	'',
+	'',
+	'Value_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("31a6f335-e0a2-4e15-903a-bfcfddfd2d49",
+	"7e90f7bc-14dd-4b30-83a0-cfbdca100bd0");
+INSERT INTO O_BATTR
+	VALUES ("31a6f335-e0a2-4e15-903a-bfcfddfd2d49",
+	"7e90f7bc-14dd-4b30-83a0-cfbdca100bd0");
+INSERT INTO O_ATTR
+	VALUES ("31a6f335-e0a2-4e15-903a-bfcfddfd2d49",
+	"7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
+	"41b85f8f-660e-4c7d-bc8b-a02581c16292",
+	'ParmListOK',
+	'This attribute is true if there were no errors in parsing the function invocation''s parameter list.
+--------------------------------------------------------------------------------
+Bridge:ALS',
+	'',
+	'ParmListOK',
+	0,
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
+	"bc9a6c16-8809-4681-92ab-421898fa108a",
+	0,
+	"f637f378-37a8-4ff0-ad72-79c29b0664ea",
+	"58c99e9d-f716-48f0-b86e-d2234da66a52",
+	"83cde589-3b6a-457f-889f-8fd4ad267d02",
+	"a31802e5-205f-42fc-860a-dc1059c2f771",
+	"41b85f8f-660e-4c7d-bc8b-a02581c16292",
+	"9c4fb503-9b52-4f9a-a480-0d7aa53b230c",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Function',
+	'Sync_ID',
+	'R827');
+INSERT INTO R_RGO_PROXY
+	VALUES ("7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
+	"58c99e9d-f716-48f0-b86e-d2234da66a52",
+	"83cde589-3b6a-457f-889f-8fd4ad267d02",
+	'../Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("f637f378-37a8-4ff0-ad72-79c29b0664ea",
+	"bc9a6c16-8809-4681-92ab-421898fa108a",
+	0,
+	"58c99e9d-f716-48f0-b86e-d2234da66a52",
+	"a31802e5-205f-42fc-860a-dc1059c2f771",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("41b85f8f-660e-4c7d-bc8b-a02581c16292",
+	"7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("41b85f8f-660e-4c7d-bc8b-a02581c16292",
+	"7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
+	"16d936f1-80b5-4203-a1c2-86c5c61ab748",
+	'Sync_ID',
+	'
+
+',
+	'',
+	'Sync_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"7e90f7bc-14dd-4b30-83a0-cfbdca100bd0");
+INSERT INTO O_OIDA
+	VALUES ("16d936f1-80b5-4203-a1c2-86c5c61ab748",
+	"7e90f7bc-14dd-4b30-83a0-cfbdca100bd0",
+	0,
+	'Value_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"7e90f7bc-14dd-4b30-83a0-cfbdca100bd0");
+INSERT INTO O_ID
+	VALUES (2,
+	"7e90f7bc-14dd-4b30-83a0-cfbdca100bd0");
+INSERT INTO S_SS_PROXY
+	VALUES ("e060f94c-3f82-463e-9d98-d20315b7c196",
+	'Value',
+	'This subsystem formalizes the concepts of values (r-values) and variables 
+(l-values). It also captures the concept of an actual parameter.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'V',
+	800,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000400008",
+	'../Value.xtuml');

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<compositeCheatsheet name="Modeling A Simple System">
+   <taskGroup kind="sequence" name="Create Simple System" skip="false">
+      <intro>
+         <b>Welcome to BridgePoint. </b> <br/><br/>
+In this tutorial, you will create a two components system using the steps of the xtUML methodology
+      </intro>
+      <onCompletion>
+         Congratulations you have completed all the tasks.
+You are now qualified to run heart Pacer cheat sheet.
+      </onCompletion>
+      <task kind="cheatsheet" name="Prepare the Workspace" skip="true">
+         <intro>
+            This cheat sheet teaches you how to prepare your workspace for xtUML modeling
+         </intro>
+         <onCompletion>
+            You are now ready to begin creating the xtUML model.
+         </onCompletion>
+         <param name="id" value="org.eclipse.platform.cvs_1">
+         </param>
+         <param name="path" value="SimpleModel/PrepareWorkspace.xml">
+         </param>
+      </task>
+      <task kind="cheatsheet" name="Create xtUML Project" skip="false">
+         <intro>
+            This cheat sheet teaches you how to create an xtUML model
+         </intro>
+         <onCompletion>
+            Your xtUML project is created and ready for Model Design.
+         </onCompletion>
+         <param name="path" value="SimpleModel/CreateXtumlProject.xml">
+         </param>
+      </task>
+      <taskGroup kind="sequence" name="Design" skip="false">
+         <intro>
+            In this phase, you will learn about model design
+         </intro>
+         <onCompletion>
+            Congratulations, you have finished the design phase.
+         </onCompletion>
+         <task id="createJavaProject" kind="cheatsheet" name="Framework" skip="false">
+            <intro>
+               This step adds new packages and components to organize the project.
+            </intro>
+            <onCompletion>
+               Congratulations! You have succeeded in creating the initial structure of an application.
+            </onCompletion>
+            <param name="id" value="org.eclipse.jdt.helloworld">
+            </param>
+            <param name="showIntro" value="false">
+            </param>
+            <param name="path" value="SimpleModel/ModelFramework.xml">
+            </param>
+         </task>
+         <task kind="cheatsheet" name="Architecture" skip="false">
+            <intro>
+               In this step, you will continue to build up the xtUML application.
+            </intro>
+            <onCompletion>
+               Congratulations you are now ready to add implementation details.
+            </onCompletion>
+            <param name="id" value="org.eclipse.jdt.helloworld.swt">
+            </param>
+            <param name="path" value="SimpleModel/ModelArchitecture.xml">
+            </param>
+         </task>
+      </taskGroup>
+      <taskGroup kind="sequence" name="Implementation" skip="false">
+         <intro>
+            In this step, the implementation for each component will be captured using classes.
+         </intro>
+         <onCompletion>
+            Congratulations. Your implementation is finished and ready for testing.
+         </onCompletion>
+         <task kind="cheatsheet" name="Model class creation" skip="false">
+            <intro>
+               Create a class diagram
+            </intro>
+            <onCompletion>
+               Class diagram is done
+            </onCompletion>
+            <param name="path" value="SimpleModel/ModelClassesCreation.xml">
+            </param>
+         </task>
+         <task kind="cheatsheet" name="State machine creation" skip="false">
+            <intro>
+               Next you&apos;ll create a simple state machine with two actions.
+            </intro>
+            <onCompletion>
+               Implementation is done!
+            </onCompletion>
+            <param name="path" value="SimpleModel/StateMachineCreation.xml">
+            </param>
+         </task>
+      </taskGroup>
+      <taskGroup kind="sequence" name="Verification" skip="false">
+         <intro>
+            In this step, OAL is added to the interface port to exercise the system.
+         </intro>
+         <onCompletion>
+            Your stub is finished and ready to execute the model.
+         </onCompletion>
+         <task kind="cheatsheet" name="TestBench creation" skip="false">
+            <intro>
+               Steps to adding OAL.
+            </intro>
+            <onCompletion>
+               Verification complete.
+            </onCompletion>
+            <param name="path" value="SimpleModel/TestBenchCreation.xml">
+            </param>
+         </task>
+      </taskGroup>
+      <taskGroup kind="sequence" name="Execution" skip="false">
+         <intro>
+            In this step, the xtUML eXecute is used to run the system.
+         </intro>
+         <onCompletion>
+            Model verification is complete.
+         </onCompletion>
+         <task kind="cheatsheet" name="Execution in xtUML eXecute" skip="false">
+            <intro>
+               Running the model in xtUML eXecute.
+            </intro>
+            <onCompletion>
+               Model execution done!
+            </onCompletion>
+            <param name="path" value="SimpleModel/Model ExectutionInVerifier.xml">
+            </param>
+         </task>
+      </taskGroup>
+      <taskGroup kind="sequence" name="Build and Code Generation" skip="false">
+         <intro>
+            In this step, the target implementation is created using code generation.
+         </intro>
+         <onCompletion>
+            Congratulations.  You have designed, implemented, verified, executed, built and generated your model.
+         </onCompletion>
+         <task kind="cheatsheet" name="Build and Code Generation" skip="false">
+            <intro>
+               Building and Code generation
+            </intro>
+            <onCompletion>
+               Congratulations! This completes the Simple System Model tutorial.
+            </onCompletion>
+            <param name="path" value="SimpleModel/BuildAndCodeGeneration.xml">
+            </param>
+         </task>
+      </taskGroup>
+   </taskGroup>
+</compositeCheatsheet>

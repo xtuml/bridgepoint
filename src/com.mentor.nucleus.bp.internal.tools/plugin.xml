@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+
+ File:      $RCSfile: plugin.xml,v $
+ Version:   $Revision: 1.40 $
+ Modified:  $Date: 2013/06/24 14:49:24 $
+
+ (c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
+
+ ========================================================================
+ This document contains information proprietary and confidential to
+ Mentor Graphics Corp., and is not for external distribution.
+ ======================================================================== 
+
+-->
+<plugin
+   id="com.mentor.nucleus.bp.internal.tools"
+   name="BridgePoint Tools Plug-in"
+   version="1.0.3"
+   provider-name="Mentor Graphics"
+   class="com.mentor.nucleus.bp.internal.tools.ToolsPlugin">
+
+   <runtime>
+      <library name="tools.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.team.ui"/>
+      <import plugin="org.apache.ant"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="com.mentor.nucleus.bp.core"/>
+      <import plugin="org.eclipse.text"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.core.filesystem"/>
+      <import plugin="org.eclipse.ui.console"/>
+      <import plugin="com.mentor.nucleus.bp.io.image"/>
+      <import plugin="com.mentor.nucleus.bp.ui.explorer"/>
+      <import plugin="org.eclipse.debug.core" version="3.5.1"/>
+      <import plugin="org.eclipse.debug.ui" version="3.5.2"/>
+      <import plugin="org.junit" version="3.8.2"/>
+      <import plugin="org.eclipse.jdt.junit" version="3.5.2"/>
+      <import plugin="org.eclipse.jdt.junit.runtime" version="3.4.100"/>
+      <import plugin="com.mentor.nucleus.bp.debug.ui"/>
+      <import plugin="com.mentor.nucleus.bp.io.core" version="4.0.3"/>
+      <import plugin="com.mentor.nucleus.bp.io.mdl" version="4.0.3"/>
+      <import plugin="com.mentor.nucleus.bp.utilities"/>
+   </requires>
+
+	<extension point="org.eclipse.ui.viewActions">
+		<viewContribution 
+			id="com.mentor.nucleus.bp.internal.tools.process.scrapeCodeChanges" 
+			targetID="org.eclipse.team.sync.views.SynchronizeView">        
+			<action 
+				id="com.mentor.nucleus.bp.internal.tools.process.scrapeCodeChanges" 
+				label="Scrape code changes" 
+				menubarPath="additions"
+				tooltip="Scrapes code changes implied by this view's current contents to the clipboard" 
+				class="com.mentor.nucleus.bp.internal.tools.process.CodeChangesScraper"> 
+			</action>
+		</viewContribution>
+	</extension>
+ <extension
+       point="org.eclipse.ui.popupMenus">
+     <objectContribution
+           objectClass="org.eclipse.core.resources.IFile"
+           adaptable="true"
+           id="com.mentor.nucleus.bp.internal.tools"
+           nameFilter="*.int">
+        <action
+              class="com.mentor.nucleus.bp.internal.tools.process.ChangeSetCreator"
+              enablesFor="1"
+              id="com.mentor.nucleus.bp.internal.tools.process.ChangeSetCreator"
+              label="Create Change Set">
+        </action>
+    </objectContribution>
+     <viewerContribution
+           id="com.mentor.nucleus.bp.internal.tools.viewerContribution1"
+           targetID="com.mentor.nucleus.bp.ui.explorer.ExplorerView">
+        <action
+              class="com.mentor.nucleus.bp.internal.tools.actions.CreateTestProjectAndImportTestModel"
+              id="com.mentor.nucleus.bp.internal.tools.action1"
+              label="Create And Import Test Project..."
+              menubarPath="additions">
+        </action>
+     </viewerContribution>
+ </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="com.mentor.nucleus.bp.internal.tools.cleaner"
+            objectClass="com.mentor.nucleus.bp.core.SystemModel_c">
+         <action
+               class="com.mentor.nucleus.bp.internal.tools.cleaner.CleanseForMCWorker"
+               enablesFor="1"
+               id="com.mentor.nucleus.bp.internal.tools.CleanseForMCWorker"
+               label="Cleanse for Model Compiler"
+               menubarPath="com.mentor.nucleus.bp.ui.context-internal">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="false"
+            id="com.mentor.nucleus.bp.internal.tools.locateOrphanedInTree"
+            objectClass="com.mentor.nucleus.bp.core.common.NonRootModelElement">
+         <action
+               class="com.mentor.nucleus.bp.internal.tools.actions.LocateOrphanedElementsInTreeAction"
+               enablesFor="+"
+               id="com.mentor.nucleus.bp.internal.tools.locateOrphanedInTreeAction"
+               label="Locate Orphaned Elements"
+               menubarPath="com.mentor.nucleus.bp.utilities/com.mentor.nucleus.bp.utilities.separator">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="false"
+            id="com.mentor.nucleus.bp.internal.tools.objectContribution1"
+            objectClass="com.mentor.nucleus.bp.core.SystemModel_c">
+      </objectContribution>
+   </extension>
+ 
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="BridgePoint"
+            id="com.mentor.nucleus.bp.internal.InstancePopulation">
+      </category>
+      <view
+            name="BP Instance Population Monitor"
+            icon="icons/green-bp.gif"
+            category="com.mentor.nucleus.bp.core.ui.viewcats.bp"
+            class="com.mentor.nucleus.bp.internal.tools.views.BPInstancePopulationView"
+            id="com.mentor.nucleus.bp.internal.tools.views.BPInstancePopulationView">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.ui.resourcePerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.TaskList"
+               relationship="right"
+               id="com.mentor.nucleus.bp.internal.tools.views.BPInstancePopulationView">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="BridgePoint"
+            id="com.mentor.nucleus.bp.internal.InstancePopulation">
+      </category>
+      <view
+            name="Instance Population Monitor"
+            icon="icons/green-bp.gif"
+            category="com.mentor.nucleus.bp.core.ui.viewcats.bp"
+            class="com.mentor.nucleus.bp.internal.tools.views.BPInstancePopulationView"
+            id="com.mentor.nucleus.bp.internal.tools.views.BPInstancePopulationView">
+      </view>
+   </extension>
+</plugin>

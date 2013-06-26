@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="bpalref.book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ Date and Time
+</TITLE>
+
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<H1 CLASS="Chapter-Name">
+<A NAME="50536515_pgfId-518556"></A>Date and Time</H1>
+<H2 CLASS="Heading1">
+<A NAME="50536515_pgfId-511287"></A><A NAME="50536515_39196"></A>External and Internal Time</H2>
+<P CLASS="Body">
+<A NAME="50536515_pgfId-511312"></A>This section describes statements that support date and time. The OAL supports two different concepts of time:</P>
+<P CLASS="Indent">
+<A NAME="50536515_pgfId-516711"></A><EM CLASS="Emphasis">
+External time</EM>
+: Time as known in the external world. For example, 12 October 1492, 13:25:10. The accuracy of external time is dependent on the architecture and implementation.</P>
+<P CLASS="Indent">
+<A NAME="50536515_pgfId-516712"></A><EM CLASS="Emphasis">
+Internal time:</EM>
+ An internal system clock that measures time in &quot;ticks&quot;. The value of a tick is dependent upon the architecture and implementation.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536515_pgfId-516713"></A>External Time</H3>
+<H4 CLASS="Heading3">
+<A NAME="50536515_pgfId-516715"></A>Syntax</H4>
+<P CLASS="Body">
+<A NAME="50536515_pgfId-516716"></A>To create a <EM CLASS="Code">
+&lt;date variable&gt;</EM>
+, write</P>
+<PRE CLASS="Indent-Tight"><A NAME="50536515_pgfId-516719"></A><EM CLASS="Code">[bridge] &lt;date variable&gt; = TIM::create_date (day:&lt;arithmetic expression&gt;,   month:&lt;arithmetic expression&gt;, year:&lt;arithmetic expression&gt;,   second:&lt;arithmetic expression&gt;, minute:&lt;arithmetic expression&gt;,   hour:&lt;arithmetic expression&gt;);</EM>
+<A NAME="50536515_marker-516718"></A></PRE>
+<P CLASS="Body">
+<A NAME="50536515_pgfId-518816"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="50536515_pgfId-516721"></A>To read the current date or time, write</P>
+<P CLASS="Indent">
+<A NAME="50536515_pgfId-516723"></A><EM CLASS="Code">
+[bridge] &lt;date variable&gt; = TIM::current_date (); </EM>
+</P>
+<P CLASS="Body">
+<A NAME="50536515_pgfId-516725"></A>To extract components of a <EM CLASS="Code">
+&lt;date variable&gt;</EM>
+</P>
+<PRE CLASS="Indent-Tight"><A NAME="50536515_pgfId-516727"></A><EM CLASS="Code">&lt;integer variable&gt; = TIM::get_day (date:&lt;date variable&gt;);</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536515_pgfId-516729"></A><EM CLASS="Code">&lt;integer variable&gt; = TIM::get_month (date:&lt;date variable&gt;);</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536515_pgfId-516731"></A><EM CLASS="Code">&lt;integer variable&gt; = TIM::get_year (date:&lt;date variable&gt;);</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536515_pgfId-516733"></A><EM CLASS="Code">&lt;integer variable&gt; = TIM::get_second (date:&lt;date variable&gt;);</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536515_pgfId-516735"></A><EM CLASS="Code">&lt;integer variable&gt; = TIM::get_minute (date:&lt;date variable&gt;);</EM>
+</PRE>
+<P CLASS="Indent">
+<A NAME="50536515_pgfId-516737"></A><EM CLASS="Code">
+&lt;integer variable&gt; = TIM::get_hour (date:&lt;date variable&gt;);</EM>
+</P>
+<P CLASS="Body">
+<A NAME="50536515_pgfId-516741"></A><EM CLASS="Code">
+&lt;arithmetic expression&gt;</EM>
+ is an arithmetic expression evaluating to an integer value.</P>
+<P CLASS="Body">
+<A NAME="50536515_pgfId-516743"></A><EM CLASS="Code">
+&lt;date variable&gt;</EM>
+ is a local variable or a class attribute of type <EM CLASS="Code">
+date</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="50536515_pgfId-516745"></A><EM CLASS="Code">
+&lt;integer variable&gt;</EM>
+ is a local variable or a class attribute of type <EM CLASS="Code">
+integer</EM>
+.</P>
+<H4 CLASS="Heading3">
+<A NAME="50536515_pgfId-518772"></A>Note</H4>
+<P CLASS="Body">
+<A NAME="50536515_pgfId-518773"></A>External time is represented by a 24-hour clock.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536515_pgfId-518758"></A>Internal Time</H3>
+<H4 CLASS="Heading3">
+<A NAME="50536515_pgfId-518759"></A>Syntax</H4>
+<P CLASS="Body">
+<A NAME="50536515_pgfId-516754"></A>To read the internal system clock, write</P>
+<P CLASS="Indent">
+<A NAME="50536515_pgfId-516756"></A><EM CLASS="Code">
+[bridge] &lt;time variable&gt; = TIM::current_clock ();</EM>
+</P>
+<P CLASS="Body">
+<A NAME="50536515_pgfId-516760"></A><EM CLASS="Code">
+&lt;time variable&gt;</EM>
+	 is a local variable or a class attribute of type <EM CLASS="Code">
+timestamp</EM>
+.</P>
+<H4 CLASS="Heading3">
+<A NAME="50536515_pgfId-516762"></A>Note</H4>
+<P CLASS="Body">
+<A NAME="50536515_pgfId-516763"></A>The system clock counts time in ticks. The size of a tick is dependent on the architecture and implementation.<EM CLASS="Code">
+</EM>
+</P>
+</BODY>
+</HTML>

@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Model Compare Test
+Bundle-SymbolicName: com.mentor.nucleus.bp.model.compare.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.mentor.nucleus.bp.model.compare.test.Activator
+Bundle-Vendor: Mentor Graphics
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ com.mentor.nucleus.bp.core,
+ com.mentor.nucleus.bp.model.compare,
+ com.mentor.nucleus.bp.test,
+ org.junit,
+ com.mentor.nucleus.bp.ui.canvas,
+ org.eclipse.compare,
+ org.eclipse.core.resources,
+ org.eclipse.team.ui,
+ com.mentor.nucleus.bp.ui.graphics,
+ org.eclipse.team.core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

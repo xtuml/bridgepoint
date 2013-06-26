@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="Create Model Framework ">
+      <intro>
+      <description>
+         In this cheat sheet, we will create the minimal framework in order to start modeling
+      </description>
+      </intro>
+      
+       <item
+         skip="true"
+         title="Create New Package" 
+         href="/com.mentor.nucleus.bp.doc/GettingStarted/HTML/GettingStarted.htm">
+      <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Draw Element"
+			param2="Default Toolset" 
+			param3="Package" />
+      <description>
+         Right-click on the canvas, select <b>New &gt; Package</b>.  Set the name in the pop up dialog to &apos;System&apos;
+      </description>
+   </item>
+   
+    <item
+         skip="true"
+         title="Open &apos;System&apos; package diagram">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Open Diagram"
+			param2="Simple System" 
+			param3="Package" 
+			param4="System"/>
+      <description>
+         Double-click on the &apos;System&apos; package to open the package diagram
+      </description>
+   </item>
+   
+   <item
+         skip="true"
+         title="Create component">
+           <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Draw Element"
+			param2="Components" 
+			param3="Component" />
+      <description>
+         From the Palette, expand the &apos;Components&apos; section, select <b>Component</b> then click on canvas.   Set the name in the pop up dialog to &apos;Device&apos;
+      </description>
+   </item>
+   <item
+         skip="true"
+         title="Open the Component diagram">
+         <action pluginId="com.mentor.nucleus.bp.welcome" 
+			class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
+			param1="Open Diagram"
+			param2="Simple System" 
+			param3="Component" 
+			param4="Device"/>
+      <description>
+         Double-click on the &apos;Device&apos; component to open the component diagram
+      </description>
+   </item>
+      
+</cheatsheet>

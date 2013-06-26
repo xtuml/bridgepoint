@@ -1,0 +1,49 @@
+This is the layout of the the MIMIC workspace:
+----------------------------------------------
+
+Windows:
+--------
+BridgePoint_Release           (Release)
+    BridgePoint               (Product)
+        ixn                   (Platform)
+            BridgePoint.ixn   (Package)
+                Package type: sw
+                User defined location: C:\BridgePoint_e<ver>\BridgePointDeliverables
+            vcredist_x86.ixn  (Package)
+                Package type: sw
+                User defined location: C:\BridgePoint_e<ver>\vcredist_x86
+    BridgePoint_With_Eclipse  (Product)
+        ixn                   (Platform)
+            BridgePoint.ixn   (Package, shared with above)
+            Eclipse.ixn       (Package)
+                Package type: sw
+                User defined location: C:\BridgePoint_e<ver>\EclipseDeliverables
+            vcredist_x86.ixn  (Package, shared with above)
+
+
+Linux:
+--------
+BridgePoint_Release           (Release)
+    BridgePoint               (Product)
+        ixe                   (Platform)
+            BridgePoint.ixe   (Package)
+                Package type: sw
+                User defined location: C:\BridgePoint_for_Linux_e<ver>\BridgePointDeliverables
+            install_tools.ixe  (Package)
+                Package type: sw
+                User defined location: C:\BridgePoint_for_Linux_e<ver>\install_tools
+    BridgePoint_With_Eclipse  (Product)
+        ixn                   (Platform)
+            BridgePoint.ixe   (Package, shared with above)
+            Eclipse.ixe       (Package)
+                Package type: sw
+                User defined location: C:\BridgePoint_for_Linux_e<ver>\EclipseDeliverables
+            install_tools.ixe  (Package, shared with above)
+
+            
+NOTES:
+1) Be sure to set the post-install and pre-uninstall scripts as such in the 
+   file properties under the vcredist_x86.ixn package.  The extension (bat, sh)
+   must also be set correctly.
+   
+2) Create the media and allocate the packages to it.

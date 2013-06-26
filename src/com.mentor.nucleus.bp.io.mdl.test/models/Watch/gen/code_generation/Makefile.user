@@ -1,0 +1,207 @@
+#===========================================================================
+# File:  Makefile.user
+#
+# Edit this file to provide specifics about your compiler, assembler,
+# linker, etc.  The 6 variables CMD_COMPILE, CMD_ASSEMBLE, CMD_PREPROCESS,
+# CMD_LINK, ROX_MC_TARGET_COMPILER, ROX_MC_TARGET_PLATFORM must be defined.
+#
+# Notice:
+# (C) Copyright 1999-2008 Mentor Graphics Corporation
+#     All rights reserved.
+# Enhancements provided by Sony Corporation.
+#===========================================================================
+
+#===========================================================================
+# User specified additional include search paths. Add as needed.
+#===========================================================================
+USER_INCLUDES =
+CCINCS = -I- ${INCLUDES} ${INCL} ${USER_INCLUDES}
+
+#===========================================================================
+# User specified additional compiler flags.
+#   ROX_TM_ENABLED is used to compile in Model Debugger instrumentation.
+#   MC3020_DEFAULT_STATE is a persistence flag which prevents the 
+#   persistence restore operation from restoring the current state
+#   of an instance.
+#   ROX_TM_MVC indicates that we are using MS Visual C and Model Debugger.
+#===========================================================================
+USER_CCFLAGS =
+CCFLAGS = -DROX_TM_ENABLED ${USER_CCFLAGS}
+
+#===========================================================================
+# Microsoft Visual C/C++
+# Note:
+# (1) MKS peculiarities present in macro expansion.
+# (2) Warning level is -Wx. W3 is good for 'production code' compilation.
+#     W4 is really nice and picky, and serves as a decent 'lint'.  However,
+#     it's a bit too noisy for 'production code'.
+#===========================================================================
+MVC_CC      = cl
+MVC_LD      = link
+MVC_CCFLAGS = -nologo -Zp1 -W3 -MT -DROX_TM_MVC ${CCFLAGS}
+MVC_CC_CMD  = ${MVC_CC} ${MVC_CCFLAGS} ${CCINCS} -c -Fo$*.o "$^"
+MVC_LD_CMD  = ${MVC_LD} /OUT:rox.exe @objects.lst /DEFAULTLIB:ws2_32.lib
+
+#===========================================================================
+# GNU gcc
+#===========================================================================
+GNU_CC      = gcc
+GNU_LD      = gcc
+GNU_CCFLAGS = -g -Wall ${CCFLAGS}
+GNU_CCOPTS  = -ansi -Wshadow -Wwrite-strings -Waggregate-return -Wstrict-prototypes -Wmissing-prototypes
+GNU_CC_CMD  = ${GNU_CC} ${GNU_CCFLAGS} ${GNU_CCOPTS} ${CCINCS} -c -o $*.o $?
+GNU_LD_CMD  = ${GNU_LD} '`cat objects.lst`' -o rox
+
+#===========================================================================
+# GNU g++
+#===========================================================================
+GPP_CC      = g++
+GPP_LD      = g++
+GPP_CCFLAGS = -g -Wall ${CCFLAGS}
+GPP_CCOPTS  = -ansi -Wshadow -Wwrite-strings -Waggregate-return -Wstrict-prototypes -Wmissing-prototypes
+GPP_CC_CMD  = ${GNU_CC} ${GNU_CCFLAGS} ${GNU_CCOPTS} ${CCINCS} -c -o $*.o $?
+GPP_LD_CMD  = ${GNU_LD} '`cat objects.lst`' -o rox
+
+#===========================================================================
+# GNU-H8
+#===========================================================================
+LEGOS_ROOT  = c:/cygwin/brickos/
+TOOLPREFIX  = h8300-hitachi-hms-
+GH8_CC      = ${TOOLPREFIX}gcc
+GH8_LD      = ${TOOLPREFIX}ld
+GH8_CCFLAGS = -O2 -fno-builtin
+GH8_CCOPTS  = -Wshadow -Wwrite-strings -Waggregate-return -Wstrict-prototypes -Wmissing-prototypes -Wall
+GH8_CC_CMD  = ${GH8_CC} ${GH8_CCFLAGS} ${GH8_CCOPTS} ${CCINCS} -I${LEGOS_ROOT}include -I. -I${LEGOS_ROOT}boot -c -o $*.o $?
+GH8_LD_CMD  = ${GH8_LD} -T ${LEGOS_ROOT}boot/legOS.lds -relax -L${LEGOS_ROOT}lib '`cat objects.lst`' -lc -lmint -o rox.ds1 -Ttext 0xb000
+
+#===========================================================================
+# Sparworks WorkShop Compiler (using C++ for extra compliance checking)
+#===========================================================================
+SPARC_CC      = CC
+SPARC_LD      = CC
+SPARC_CCFLAGS = -g +w ${CCFLAGS}
+SPARC_CC_CMD  = ${SPARC_CC} ${SPARC_CCFLAGS} ${CCINCS} -c -o $*.o $?
+SPARC_LD_CMD  = ${SPARC_LD} -o rox -lc -ldl
+
+#===========================================================================
+# Tasking 8051
+#===========================================================================
+T8051_CC      = cc51
+T8051_AS      = asm51
+T8051_PP      = mpp51
+T8051_LD      = link51
+T8051_ASFLAGS = db noprint
+T8051_CCFLAGS = -C7 -Mr -e -gl -s -u -D805X
+T8051_CC_CMD  = ${T8051_CC} ${T8051_CCFLAGS} ${CCINCS} -c "$<" -o $*.s
+T8051_AS_CMD  = ${T8051_AS} $*.s ${T8051_ASFLAGS} object\($*.o\)
+T8051_PP_CMD  = ${T8051_PP} -DMODEL=REENTRANT -DMON51=NO "$<" -o $*.s
+T8051_LD_CMD  = ${T8051_LD}
+
+#===========================================================================
+# Texas Instruments TI 470
+#===========================================================================
+TI470_CC      = cl470
+TI470_AS      = asm470
+TI470_LD      = lnk470
+TI470_ASFLAGS = -q -s
+TI470_CCFLAGS = -q -gss -n -md -o2 -pdsw261 -dse262 -pdse118 -pdsw165 -pdse225 -pdse189 -pdse48 -pdse190
+TI470_CC_CMD  = ${TI470_CC} ${CCINCS} ${TI470_CCFLAGS} "$<" -fs../object/
+TI470_AS_CMD  = ${TI470_AS} ../object/$*.asm ../object/$*.o ${TI470_ASFLAGS}
+TI470_LD_CMD  = ${TI470_LD} -x -o rox.out -m rox.map objects.lst
+
+#===========================================================================
+# Borland C/C++ V5.2 (not adequately tested yet)
+# Note: MKS peculiarities present
+#===========================================================================
+BORLAND_CC      = bcc32
+BORLAND_LD      = Tlink32
+BORLAND_CCFLAGS = -R -v -vi -H -A -WC ${CCFLAGS}
+BORLAND_CC_CMD  = ${BORLAND_CC} ${BORLAND_CCFLAGS} ${CCINCS} -P- -c -o$*.o "$^"
+
+#===========================================================================
+# YellowSoft C Cross Compiler for Hitachi H8/300H
+#===========================================================================
+YC_CC      = YCH8
+YC_AS      = YAH8
+YC_LD      = YLINK
+YC_CCFLAGS =
+YC_LDFLAGS = /M:h8.map /SA:200000 /O:h8.s
+YC_CC_CMD  = ${YC_CC} ${YC_CCFLAGS} $*.c
+YS_LD_CMD  = ${YC_LD} ${YC_LDFLAGS} cc0_s4.obj lh8.lib
+
+#===========================================================================
+# CQ RISC Evaluation Board SH-1 (could use GNU gcc/g++ as well)
+#===========================================================================
+EXEGCC_CC      = gcc
+EXEGCC_LD      = gcc
+EXEGCC_CCFLAGS = -g -Wall
+EXEGCC_CCOPTS  = -ansi
+EXEGCC_CC_CMD  = ${EXEGCC_CC} ${EXEGCC_CCFLAGS} ${EXEGCC_CCOPTS} -c $?
+EXEGCC_LD_CMD  = ${EXEGCC_LD} -o rox.out @objects.lst di.o ei.o timintr.o
+
+#===========================================================================
+# Cygwin
+#===========================================================================
+CYGWIN_CC      = ${GNU_CC}
+CYGWIN_LD      = ${GNU_LD}
+CYGWIN_CCFLAGS = ${GNU_CCFLAGS}
+CYGWIN_CCOPTS  = ${GNU_CCOPTS}
+CYGWIN_CC_CMD  = ${GNU_CC_CMD}
+CYGWIN_LD_CMD  = ${GNU_LD_CMD}
+
+#===========================================================================
+# GNU on LynxOS
+# LYNXOS_BASE and LYNXOS_PLATFORM need to be defined in the environment.
+#===========================================================================
+LYNXOS_INCLUDE = ${LYNXOS_BASE}/${LYNXOS_PLATFORM}/include
+LYNXOS_BIN     = ${LYNXOS_BASE}/${LYNXOS_PLATFORM}/usr/bin
+LYNXOS_CC      = ${LYNXOS_BIN}/gcc
+LYNXOS_LD      = ${LYNXOS_BIN}/gcc
+LYNXOS_CCFLAGS = ${GNU_CCFLAGS}
+LYNXOS_CCOPTS  = ${GNU_CCOPTS}
+LYNXOS_CC_CMD  = ${GNU_CC_CMD}
+LYNXOS_LD_CMD  = ${GNU_LD_CMD}
+
+#===========================================================================
+# Cygwin mingw32
+#===========================================================================
+MINGW_CC      = gcc -mno-cygwin -DROX_TM_MVC
+MINGW_LD      = gcc -mno-cygwin
+MINGW_CCFLAGS = -g -Wall ${CCFLAGS}
+MINGW_CCOPTS  = -ansi -Wshadow -Wwrite-strings -Waggregate-return -Wstrict-prototypes -Wmissing-prototypes
+MINGW_CC_CMD  = ${MINGW_CC} ${MINGW_CCFLAGS} ${MINGW_CCOPTS} ${CCINCS} -c -o $*.o $<
+MINGW_LD_CMD  = ${MINGW_LD} '`cat objects.lst`' -lws2_32 -o rox
+
+#===========================================================================
+# Mitsubishi M16C
+#===========================================================================
+M16C_CC      = nc30 -silent
+M16C_LD      = ln30
+M16C_CCFLAGS = -O
+M16C_CCOPTS  =
+M16C_CC_CMD  = ${M16C_CC} ${M16C_CCFLAGS} ${M16C_CCOPTS} ${CCINCS} -c -dir$(dir $*) $<
+M16C_LD_CMD  = "sed 's/\.o$$/.R30/' objects.lst >r30.lst; printf '-l nc30lib.lib\n-o rox\n-NOSTOP\n-.\n'>> r30.lst;${M16C_LD} @r30.lst"
+
+#===========================================================================
+# *** User defininition of compilation criterea.
+#
+# The following six macros must be defined.  You may choose from the above,
+# use them as examples, modify them to taste, or supply your own.
+#===========================================================================
+ROX_MC_TARGET_PLATFORM = "unrestricted"
+ROX_MC_TARGET_COMPILER = "GNU"
+CMD_COMPILE            = ${GNU_CC_CMD}
+CMD_ASSEMBLE           =
+CMD_PREPROCESS         =
+CMD_LINK               = ${GNU_LD_CMD}
+
+
+#===========================================================================
+# Recipes
+#===========================================================================
+
+# target to always force a subordinate target to run
+always :
+	@true
+
+

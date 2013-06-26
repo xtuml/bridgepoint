@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin
+   id="com.mentor.nucleus.bp.ui.sem"
+   name="BridgePoint SEM Editor Plug-in"
+   version="4.0.3"
+   provider-name="Mentor Graphics"
+   class="com.mentor.nucleus.bp.ui.sem.Activator">
+   <runtime>
+      <library name="sem.jar">
+         <export
+               name="*">
+         </export>
+      </library>
+   </runtime>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="com.mentor.nucleus.bp.core"/>
+      <import plugin="com.mentor.nucleus.bp.ui.text"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="com.mentor.nucleus.bp.ui.graphics"/>
+   </requires>
+
+   <extension
+         point="com.mentor.nucleus.bp.ui.graphics.editorTab">
+      <EditorTab
+            EditorTabFactory="com.mentor.nucleus.bp.ui.sem.factories.SEMPageFactory"
+            EditorTitle="State Event Matrix"
+            Input="com.mentor.nucleus.bp.core.InstanceStateMachine_c">
+      </EditorTab>
+      <EditorTab
+            EditorTabFactory="com.mentor.nucleus.bp.ui.sem.factories.SEMPageFactory"
+            EditorTitle="State Event Matrix"
+            Input="com.mentor.nucleus.bp.core.ClassStateMachine_c">
+      </EditorTab>
+   </extension>
+
+</plugin>

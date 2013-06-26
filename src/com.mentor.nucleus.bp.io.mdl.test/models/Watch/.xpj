@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="2.0">
+    <props/>
+    <configurations default="Configuration 0">
+        <configuration name="Configuration 0" type="APPLICATION">
+            <toolsetConfigurator toolset="mingw" version="3.2.3">
+                <tools>
+                    <tool id="ALN3223x86"/>
+                    <tool id="GCPP323x86"/>
+                    <tool id="STDASM"/>
+                    <tool id="STDCC"/>
+                </tools>
+                <ts tool="mingw32/GNU x86 Automatic Linker">-mno-cygwin</ts>
+                <ts tool="mingw32/GNU x86 C++ Compiler 3.2.3">-g -gstabs -mno-cygwin</ts>
+                <ts tool="mingw32/GNU x86 2.13.90 Assembler"></ts>
+                <ts tool="mingw32/GNU x86 C Compiler 3.2.3">-g -gstabs -mno-cygwin</ts>
+                <bsp/>
+                <folders>
+                    <folder name="ASM Sources"/>
+                    <folder name="C Sources">
+                        <file path=".\gen\sys_user_co.c"/>
+                        <file path=".\gen\code_generation\system\user\source\sys_user_co.c"/>
+                    </folder>
+                    <folder name="C++ Sources"/>
+                    <folder name="Header Files">
+                        <filters>
+                            <glob>*.h</glob>
+                            <glob>*.hxx</glob>
+                            <glob>*.inc</glob>
+                        </filters>
+                        <file path=".\gen\sys_user_co.h"/>
+                        <file path=".\gen\code_generation\system\user\include\sys_user_co.h"/>
+                    </folder>
+                    <folder location=".\Configuration 0\Mingw GNU Objects" name="Mingw GNU Objects"/>
+                    <folder location=".\Configuration 0\Output" name="Output" target="true">
+                        <filters/>
+                    </folder>
+                </folders>
+                <actions>
+                    <action tool="mingw32/GNU x86 2.13.90 Assembler">
+                        <destination>Mingw GNU Objects</destination>
+                        <source>ASM Sources</source>
+                    </action>
+                    <action tool="mingw32/GNU x86 Automatic Linker">
+                        <destination>Output</destination>
+                        <source>Mingw GNU Objects</source>
+                    </action>
+                    <action tool="mingw32/GNU x86 C Compiler 3.2.3">
+                        <destination>Mingw GNU Objects</destination>
+                        <source>C Sources</source>
+                    </action>
+                    <action tool="mingw32/GNU x86 C++ Compiler 3.2.3">
+                        <destination>Mingw GNU Objects</destination>
+                        <source>C++ Sources</source>
+                    </action>
+                </actions>
+            </toolsetConfigurator>
+            <buildSettings outputFilename="AM-test.exe">
+                <excludedFiles>
+                    <file path=".\gen\sys_user_co.c"/>
+                    <file path=".\gen\code_generation\system\user\source\sys_user_co.c"/>
+                    <file path=".\gen\sys_user_co.h"/>
+                    <file path=".\gen\code_generation\system\user\include\sys_user_co.h"/>
+                </excludedFiles>
+                <excludedFolders>
+                    <folder path="gen"/>
+                    <folder path="gen\code_generation"/>
+                    <folder path="gen\code_generation\bin"/>
+                    <folder path="gen\code_generation\reports"/>
+                    <folder path="gen\code_generation\reports\html"/>
+                    <folder path="gen\code_generation\reports\html\a.gif"/>
+                    <folder path="gen\code_generation\reports\html\p.gif"/>
+                    <folder path="gen\code_generation\reports\html\p_a.gif"/>
+                    <folder path="gen\code_generation\reports\html\r_p.gif"/>
+                    <folder path="gen\code_generation\reports\html\v_p.gif"/>
+                    <folder path="gen\code_generation\system"/>
+                    <folder path="gen\code_generation\system\color"/>
+                    <folder path="gen\code_generation\system\gen"/>
+                    <folder path="gen\code_generation\system\gen\include"/>
+                    <folder path="gen\code_generation\system\gen\object"/>
+                    <folder path="gen\code_generation\system\gen\source"/>
+                    <folder path="gen\code_generation\system\lib"/>
+                    <folder path="gen\code_generation\system\persist_dir"/>
+                    <folder path="gen\code_generation\system\persist_skel"/>
+                    <folder path="gen\code_generation\system\schema"/>
+                    <folder path="gen\code_generation\system\schema\gen"/>
+                    <folder path="gen\code_generation\system\schema\sql"/>
+                    <folder path="gen\code_generation\system\schema\touch"/>
+                    <folder path="gen\code_generation\system\skel"/>
+                    <folder path="gen\code_generation\system\translate"/>
+                    <folder path="gen\code_generation\system\user"/>
+                    <folder path="gen\code_generation\system\user\include"/>
+                    <folder path="gen\code_generation\system\user\object"/>
+                    <folder path="gen\code_generation\system\user\source"/>
+                    <folder path="gen\code_generation\tracking"/>
+                    <folder path="gen\code_generation\tracking\color"/>
+                    <folder path="gen\code_generation\tracking\gen"/>
+                    <folder path="gen\code_generation\tracking\gen\include"/>
+                    <folder path="gen\code_generation\tracking\gen\object"/>
+                    <folder path="gen\code_generation\tracking\gen\source"/>
+                    <folder path="gen\code_generation\tracking\lib"/>
+                    <folder path="gen\code_generation\tracking\persist_dir"/>
+                    <folder path="gen\code_generation\tracking\persist_skel"/>
+                    <folder path="gen\code_generation\tracking\schema"/>
+                    <folder path="gen\code_generation\tracking\schema\gen"/>
+                    <folder path="gen\code_generation\tracking\schema\sql"/>
+                    <folder path="gen\code_generation\tracking\schema\touch"/>
+                    <folder path="gen\code_generation\tracking\skel"/>
+                    <folder path="gen\code_generation\tracking\translate"/>
+                    <folder path="gen\code_generation\tracking\user"/>
+                    <folder path="gen\code_generation\tracking\user\include"/>
+                    <folder path="gen\code_generation\tracking\user\object"/>
+                    <folder path="gen\code_generation\tracking\user\source"/>
+                </excludedFolders>
+                <linkLibraries addReferences="true"/>
+            </buildSettings>
+        </configuration>
+    </configurations>
+</project>

@@ -1,0 +1,515 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("30125d4c-7b45-4f34-b9a1-802a670a7614",
+	'Executable Property',
+	4004,
+	'C_EP',
+	'',
+	"01aecea1-07ec-46e6-a719-cece731803c9");
+INSERT INTO O_TFR
+	VALUES ("bfdf97d9-c17d-467c-8890-4690848c2f94",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one asynchronousSignal related by self->C_AS[R4004];
+select one synchronousSignal related by self->C_IO[R4004];
+if(not_empty asynchronousSignal)
+  unrelate self from asynchronousSignal across R4004;
+  asynchronousSignal.dispose();
+elif(not_empty synchronousSignal)
+  unrelate self from synchronousSignal across R4004;
+  synchronousSignal.dispose();
+end if;
+select many parms related by self->C_PP[R4006];
+for each parm in parms
+  unrelate self from parm across R4006;
+  parm.dispose();
+end for;
+select one interface related by self->C_I[R4003];
+if(not_empty interface)
+  unrelate self from interface across R4003;
+end if;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("a6e30463-18c5-4bbe-b587-7408b00541a8",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	'initializeOrder',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Alpha-sort the C_PP elements if they have not yet been ordered
+select many peers related by self->C_PP[R4006];
+if (cardinality peers > 1)
+    initialOrderingCheckPerformed = false;
+	select any head related by self->C_PP[R4006] where (selected.PP_Id == GD::NULL_UNIQUE_ID());
+	endOfList = head;
+	loopCnt = 0;
+	for each peer in peers
+	  if ( not initialOrderingCheckPerformed)
+	    select one predecessor related by peer->C_PP[R4021.''precedes''];
+	    select one successor related by peer->C_PP[R4021.''succeeds''];
+	    initialOrderingCheckPerformed = true;
+	    if (not_empty  predecessor or not_empty  successor)
+	      // Already ordered
+	      break;
+	    end if;
+	    head = peer;
+	    endOfList = peer;
+	  end if;
+	  
+      if (loopCnt == 1)
+        if (peer.Name < head.Name)
+          relate peer to head across R4021.''precedes'';
+          endOfList = peer;
+        else
+          relate head to peer across R4021.''precedes'';
+          head = peer;
+        end if;
+      elif (loopCnt > 1)
+        insertPoint = head;
+        select one next related by head->C_PP[R4021.''succeeds''];
+        while (not_empty next)
+          if (next.Name < peer.Name)
+            break;
+          else
+            insertPoint = next;          
+            select one next related by next->C_PP[R4021.''succeeds''];
+          end if;
+        end while;
+        
+        if (empty next)
+          // New end of list
+          relate peer to endOfList across R4021.''precedes'';   
+          endOfList = peer;       
+        else
+          if ((insertPoint == head) and (peer.Name > head.Name))
+            // New head
+            relate head to peer across R4021.''precedes'';
+            head = peer;
+          else
+            unrelate next from insertPoint across R4021.''precedes'';
+            relate peer to insertPoint across R4021.''precedes'';
+            relate next to peer across R4021.''precedes'';
+          end if;          
+        end if;
+      end if;
+      
+      loopCnt = loopCnt + 1;
+	end for;
+end if;',
+	1,
+	'',
+	"bfdf97d9-c17d-467c-8890-4690848c2f94");
+INSERT INTO O_TFR
+	VALUES ("135f8d85-5b58-497a-8a1f-2c3c5a54bc65",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	'pastePropertyParameter',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any parameter from instances of C_PP where (selected.PP_Id == param.id);
+if(not_empty parameter)
+  select one existingEP related by parameter->C_EP[R4006];
+  if(not_empty existingEP)
+    unrelate existingEP from parameter across R4006;
+  end if;
+  relate parameter to self across R4006;
+  parameter.Name = ::getUniqueInitialNameInParent(
+                                         instance:parameter.convertToInstance(),
+                          name:parameter.Name, parent:self.convertToInstance());
+  self.addPropertyParameterToOrder(id:parameter.PP_Id);
+  self.createMessageArgumentsForParameter(id:parameter.PP_Id);
+end if;',
+	1,
+	'',
+	"a6e30463-18c5-4bbe-b587-7408b00541a8");
+INSERT INTO O_TPARM
+	VALUES ("5326e73f-8186-424e-8266-eaa2bd2f5638",
+	"135f8d85-5b58-497a-8a1f-2c3c5a54bc65",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("23355088-2436-435e-9013-d939f0bdfb9c",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	'convertToInstance',
+	'Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'return this;',
+	0,
+	'',
+	"135f8d85-5b58-497a-8a1f-2c3c5a54bc65");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("871c1a25-e46b-478b-aa50-073d032d288e",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	'addPropertyParameterToOrder',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any parameter from instances of C_PP where (selected.PP_Id == param.id);
+::changeNotificationEnablement(enabled:false);
+select many peers related by self->C_PP[R4006];
+for each peer in peers
+  if (peer != parameter)
+    select one predecessor related by peer->C_PP[R4021.''precedes''];
+    if (empty predecessor)
+      relate parameter to peer across R4021.''succeeds'';
+    end if;
+  end if;
+end for;
+::changeNotificationEnablement(enabled:true);
+',
+	1,
+	'',
+	"23355088-2436-435e-9013-d939f0bdfb9c");
+INSERT INTO O_TPARM
+	VALUES ("b6fab508-8b8a-48d5-b8d8-2247d7ce0cd1",
+	"871c1a25-e46b-478b-aa50-073d032d288e",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("a656d869-408e-4e5d-8d04-17629d2628a4",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	'createMessageArgumentsForParameter',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any parameter from instances of C_PP where (selected.PP_Id == param.id);
+if(not_empty parameter)
+  // for each message associated with this interface
+  // create a message argument
+  select many messages related by self->C_AS[R4004]->MSG_SIG[R1021]->
+                                                    MSG_AM[R1019]->MSG_M[R1018];
+  if(empty messages)
+    select many messages related by self->C_IO[R4004]->MSG_IOP[R1022]->
+    											    MSG_SM[R1020]->MSG_M[R1018];
+  end if;
+  for each message in messages
+    create object instance arg of MSG_A;
+    create object instance oa of MSG_EPA;
+    relate oa to parameter across R1023;
+    relate oa to arg across R1013;
+    relate message to arg across R1001;
+  end for;
+end if;',
+	1,
+	'',
+	"871c1a25-e46b-478b-aa50-073d032d288e");
+INSERT INTO O_TPARM
+	VALUES ("6ee3498c-915d-4604-b212-69c770d54d4f",
+	"a656d869-408e-4e5d-8d04-17629d2628a4",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("00c0ffdc-2913-43ac-88f4-2e5c41ab4fa1",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	'getCachedName',
+	'Translate:native',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'	return m_name;',
+	0,
+	'',
+	"a656d869-408e-4e5d-8d04-17629d2628a4");
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("8dafa42d-27c3-4310-bcea-735a3aa949ed",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	'setCachedName',
+	'Translate:native',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'	m_name = p_Name;',
+	0,
+	'',
+	"00c0ffdc-2913-43ac-88f4-2e5c41ab4fa1");
+INSERT INTO O_TPARM
+	VALUES ("f91b259b-f36c-410e-a6b2-634d12b14e70",
+	"8dafa42d-27c3-4310-bcea-735a3aa949ed",
+	'name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("362eea93-9013-4581-b922-f36a88941dd5",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	'getCachedDescrip',
+	'Translate:native',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'	return m_descrip;',
+	0,
+	'',
+	"8dafa42d-27c3-4310-bcea-735a3aa949ed");
+INSERT INTO O_TFR
+	VALUES ("263b60cc-7cc1-4348-b2bf-a2595fa96faf",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	'setCachedDescrip',
+	'Translate:native',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'	m_descrip = p_Descrip;',
+	0,
+	'',
+	"362eea93-9013-4581-b922-f36a88941dd5");
+INSERT INTO O_TPARM
+	VALUES ("cb43b585-6909-4ab7-901b-3c85b3f4c382",
+	"263b60cc-7cc1-4348-b2bf-a2595fa96faf",
+	'descrip',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("98e35966-ecb5-4116-a587-a4f47306b28f",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614");
+INSERT INTO O_BATTR
+	VALUES ("98e35966-ecb5-4116-a587-a4f47306b28f",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614");
+INSERT INTO O_ATTR
+	VALUES ("98e35966-ecb5-4116-a587-a4f47306b28f",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	"00000000-0000-0000-0000-000000000000",
+	'Id',
+	'',
+	'',
+	'Id',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("bb6ee82c-57ec-466d-b4a9-739f86153278",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614");
+INSERT INTO O_BATTR
+	VALUES ("bb6ee82c-57ec-466d-b4a9-739f86153278",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614");
+INSERT INTO O_ATTR
+	VALUES ("bb6ee82c-57ec-466d-b4a9-739f86153278",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	"311ad345-0d12-4ee4-9001-7bb6420fbf5c",
+	'Direction',
+	'User_Visible:false',
+	'',
+	'Direction',
+	0,
+	"814a8f6f-2c12-497b-b693-a86916fdedf7",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("814a8f6f-2c12-497b-b693-a86916fdedf7",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'IFDirectionType',
+	'BridgePoint allows the user to specify communication direction of individual 
+elements in an interface as opposed to on the interface as a whole (which is 
+what UML does).  For example, in UML when an interface is specified as being 
+provided, all that interface''s operations are one way (from server to 
+client).  Likewise, when a interface is specified as being required, all the 
+operations are one way (from client to server).  In reality, interfaces are 
+not often like this. There is a mixture of client to server and server to 
+client in one interface.     This enum is used at the operation/signal level 
+to determine if it is to be used for client to server or server to client 
+communication.',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("30125d4c-7b45-4f34-b9a1-802a670a7614",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	0,
+	"15525823-13f2-4af0-8153-73e882dc2100",
+	"11c19522-c6ca-49b7-b3d4-9c8b518943d1",
+	"f1928131-d0b9-4deb-9c99-d3d0a792755d",
+	"c2043558-baf8-4166-9cc0-72c5c7dca795",
+	"311ad345-0d12-4ee4-9001-7bb6420fbf5c",
+	"f5d09b17-f200-447c-9dd2-aaaed53b239f",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Interface',
+	'Id',
+	'R4003');
+INSERT INTO R_RGO_PROXY
+	VALUES ("30125d4c-7b45-4f34-b9a1-802a670a7614",
+	"11c19522-c6ca-49b7-b3d4-9c8b518943d1",
+	"f1928131-d0b9-4deb-9c99-d3d0a792755d",
+	'../Component.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("15525823-13f2-4af0-8153-73e882dc2100",
+	"f021c5c6-f37d-4215-afe4-a3e777964197",
+	0,
+	"11c19522-c6ca-49b7-b3d4-9c8b518943d1",
+	"c2043558-baf8-4166-9cc0-72c5c7dca795",
+	'../Component.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("311ad345-0d12-4ee4-9001-7bb6420fbf5c",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("311ad345-0d12-4ee4-9001-7bb6420fbf5c",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	"98e35966-ecb5-4116-a587-a4f47306b28f",
+	'Interface_Id',
+	'',
+	'Interface_',
+	'Id',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_DBATTR
+	VALUES ("2688e2d8-5f80-4f06-bb30-7702d3dbb7cc",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	'result = "";
+select one interfaceOp related by self->C_IO[R4004];
+if(not_empty interfaceOp)
+  result = interfaceOp.Name;
+end if;
+select one interfaceSig related by self->C_AS[R4004];
+if(not_empty interfaceSig)
+  result = interfaceSig.Name;
+end if;
+if(result == "")
+  result = self.getCachedName();
+else
+  self.setCachedName(name: result);
+end if;
+self.Name = result;',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("2688e2d8-5f80-4f06-bb30-7702d3dbb7cc",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614");
+INSERT INTO O_ATTR
+	VALUES ("2688e2d8-5f80-4f06-bb30-7702d3dbb7cc",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	"bb6ee82c-57ec-466d-b4a9-739f86153278",
+	'Name',
+	'User_Visible:false',
+	'',
+	'Name',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("36297162-85a0-49b3-9da1-8a407316be43",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	'result = "";
+select one interfaceOp related by self->C_IO[R4004];
+if(not_empty interfaceOp)
+  result = interfaceOp.Descrip;
+end if;
+select one interfaceSig related by self->C_AS[R4004];
+if(not_empty interfaceSig)
+  result = interfaceSig.Descrip;
+end if;
+if(result == "")
+  result = self.getCachedDescrip();
+else
+  self.setCachedDescrip(descrip: result);
+end if;
+self.Descrip = result;',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("36297162-85a0-49b3-9da1-8a407316be43",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614");
+INSERT INTO O_ATTR
+	VALUES ("36297162-85a0-49b3-9da1-8a407316be43",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	"2688e2d8-5f80-4f06-bb30-7702d3dbb7cc",
+	'Descrip',
+	'User_Visible:false',
+	'',
+	'Descrip',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"30125d4c-7b45-4f34-b9a1-802a670a7614");
+INSERT INTO O_OIDA
+	VALUES ("98e35966-ecb5-4116-a587-a4f47306b28f",
+	"30125d4c-7b45-4f34-b9a1-802a670a7614",
+	0,
+	'Id');
+INSERT INTO O_ID
+	VALUES (1,
+	"30125d4c-7b45-4f34-b9a1-802a670a7614");
+INSERT INTO O_ID
+	VALUES (2,
+	"30125d4c-7b45-4f34-b9a1-802a670a7614");
+INSERT INTO S_SS_PROXY
+	VALUES ("01aecea1-07ec-46e6-a719-cece731803c9",
+	'Component',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+
+The component subsystem contains the classes necessary to capture the data
+required for modeling components.',
+	'C',
+	4000,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Component.xtuml');

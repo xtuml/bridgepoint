@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+
+ File:      $RCSfile: plugin.xml,v $
+ Version:   $Revision: 1.37 $
+ Modified:  $Date: 2013/03/14 00:06:33 $
+
+ (c) Copyright 2004-2013 by Mentor Graphics Corp.  All rights reserved.
+
+-->
+<plugin
+   id="com.mentor.nucleus.bp.ui.canvas.test"
+   name="Nucleus BridgePoint Canvas Test Plug-in"
+   version="1.0.0"
+   provider-name="Mentor Graphics"
+   class="com.mentor.nucleus.bp.ui.canvas.test.CanvasTestPlugin">
+
+   <runtime>
+      <library name="test.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.ui.views"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.ui.workbench.texteditor"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="com.mentor.nucleus.bp.core"/>
+      <import plugin="com.mentor.nucleus.bp.ui.canvas"/>
+      <import plugin="org.junit"/>
+      <import plugin="com.mentor.nucleus.bp.ui.explorer"/>
+      <import plugin="com.mentor.nucleus.bp.ui.text"/>
+      <import plugin="com.mentor.nucleus.bp.io.core"/>
+      <import plugin="org.eclipse.pde.junit.runtime"/>
+      <import plugin="org.eclipse.jdt.junit"/>
+      <import plugin="org.eclipse.jdt.junit.runtime"/>
+      <import plugin="com.mentor.nucleus.bp.io.mdl"/>
+      <import plugin="com.mentor.nucleus.bp.test"/>
+      <import plugin="org.eclipse.search"/>
+      <import plugin="org.eclipse.compare"/>
+      <import plugin="com.mentor.nucleus.bp.compare"/>
+      <import plugin="org.antlr"/>
+      <import plugin="com.mentor.nucleus.bp.als.oal"/>
+      <import plugin="com.mentor.nucleus.bp.docgen"/>
+      <import plugin="com.mentor.nucleus.bp.ui.graphics"/>
+      <import plugin="org.eclipse.gef"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui"/>
+      <import plugin="com.mentor.nucleus.bp.utilities"/>
+   </requires>
+
+   <extension
+         id="com.mentor.nucleus.bp.ui.canvas.test.editor"
+         name="Test Diagram Editor"
+         point="com.mentor.nucleus.bp.core.editors">
+      <editor
+            class="com.mentor.nucleus.bp.ui.graphics.editor.ModelEditor"
+            input="com.mentor.nucleus.bp.ui.graphics.editor.GraphicalEditorInput">
+         <symbol
+               class="java.lang.Object"
+               createMethod="createShape"
+               elemType="com.mentor.nucleus.bp.ui.canvas.Ooatype_c.Shape"
+               icon="newclass.gif"
+               name="Shape"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+         </symbol>
+         <symbol
+               class="java.lang.Object"
+               createMethod="createConnector"
+               elemType="com.mentor.nucleus.bp.ui.canvas.Ooatype_c.Connector"
+               icon="newassoc.gif"
+               name="Connector"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start Shape"
+                  symbol="Shape"
+                  symbolClass="java.lang.Object"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Shape"
+                  symbol="Shape"
+                  symbolClass="java.lang.Object"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Connector"
+                  symbol="Connector"
+                  symbolClass="java.lang.Object"
+				  terminatesAt="middle"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Connector"
+                  symbol="Connector"
+                  symbolClass="java.lang.Object"
+                  terminatesAt="middle"
+                  type="connector">
+			</terminator>
+            <terminator
+                  end="end"
+                  name="Whitespace"
+                  type="whitespace" />
+            <terminator
+                  end="start"
+                  name="Whitespace"
+                  type="whitespace" />
+         </symbol>
+         <symbol
+               class="java.lang.Object"
+               createMethod="createConnector"
+               elemType="com.mentor.nucleus.bp.ui.canvas.Ooatype_c.Connector"
+               icon="newassoc.gif"
+               name="ConnectorTerminatingEnd"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start Shape"
+                  symbol="Shape"
+                  symbolClass="java.lang.Object"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Whitespace"
+                  type="whitespace" />
+            <terminator
+                  end="end"
+                  name="End Connector"
+                  symbol="Connector"
+                  symbolClass="java.lang.Object"
+                  terminatesAt="end"
+                  type="connector">
+			</terminator>
+         </symbol>
+         <symbol
+               class="java.lang.Object"
+               createMethod="createConnector"
+               elemType="com.mentor.nucleus.bp.ui.canvas.Ooatype_c.Connector"
+               icon="newassoc.gif"
+               name="ConnectorTerminatingStart"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start Connector"
+                  symbol="Connector"
+                  symbolClass="java.lang.Object"
+				  terminatesAt="start"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Shape"
+                  symbol="Shape"
+                  symbolClass="java.lang.Object"
+                  type="shape">
+			</terminator>
+            <terminator
+                  end="end"
+                  name="Whitespace"
+                  type="whitespace" />
+         </symbol>
+         <defaultFor
+               class="java.lang.Object"
+               modelType="com.mentor.nucleus.bp.ui.canvas.Modeltype_c.TestDiagram"
+               name="Test Diagram"
+               ooaType="com.mentor.nucleus.bp.ui.canvas.Ooatype_c.Diagram">
+            <color
+                  b="210"
+                  g="209"
+                  r="191">
+            </color>
+            <validSymbol name="Shape" tool_category="Symbols"/>
+            <validSymbol name="Connector" tool_category="Symbols"/>
+            <validSymbol name="ConnectorTerminatingStart" tool_category="Symbols"/>
+            <validSymbol name="ConnectorTerminatingEnd" tool_category="Symbols"/>
+         </defaultFor>
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="false"
+            id="com.mentor.nucleus.bp.ui.canvas.test.objectContribution1"
+            objectClass="com.mentor.nucleus.bp.core.common.NonRootModelElement">
+         <action
+               class="com.mentor.nucleus.bp.ui.canvas.test.actions.OpenTestEditorAction"
+               enablesFor="1"
+               icon="platform:/plugin/com.mentor.nucleus.bp.core/icons/green-bp.gif"
+               id="com.mentor.nucleus.bp.ui.canvas.test.actions.OpenGraphicsEditor"
+               label="Open Test Editor"
+               menubarPath="com.mentor.nucleus.bp.ui.openroot/com.mentor.nucleus.bp.ui.openmenu">
+         </action>
+      </objectContribution>
+   </extension>
+   
+</plugin>

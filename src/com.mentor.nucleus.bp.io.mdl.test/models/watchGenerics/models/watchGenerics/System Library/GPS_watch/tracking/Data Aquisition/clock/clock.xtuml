@@ -1,0 +1,79 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("e921c82a-6afd-4d87-9de3-f707fcb637ac",
+	'clock',
+	5,
+	'CLOCK',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("972029af-6f2a-4cef-b1e3-746c38f9724c",
+	"e921c82a-6afd-4d87-9de3-f707fcb637ac");
+INSERT INTO O_BATTR
+	VALUES ("972029af-6f2a-4cef-b1e3-746c38f9724c",
+	"e921c82a-6afd-4d87-9de3-f707fcb637ac");
+INSERT INTO O_ATTR
+	VALUES ("972029af-6f2a-4cef-b1e3-746c38f9724c",
+	"e921c82a-6afd-4d87-9de3-f707fcb637ac",
+	"00000000-0000-0000-0000-000000000000",
+	'time',
+	'',
+	'',
+	'time',
+	0,
+	"3e932036-1954-419b-ad46-b3e3274c4d4f",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("3e932036-1954-419b-ad46-b3e3274c4d4f",
+	"00000000-0000-0000-0000-000000000000",
+	'real',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("26c4296b-5eda-4a9d-87aa-27e0b0ca0d73",
+	"e921c82a-6afd-4d87-9de3-f707fcb637ac");
+INSERT INTO O_BATTR
+	VALUES ("26c4296b-5eda-4a9d-87aa-27e0b0ca0d73",
+	"e921c82a-6afd-4d87-9de3-f707fcb637ac");
+INSERT INTO O_ATTR
+	VALUES ("26c4296b-5eda-4a9d-87aa-27e0b0ca0d73",
+	"e921c82a-6afd-4d87-9de3-f707fcb637ac",
+	"972029af-6f2a-4cef-b1e3-746c38f9724c",
+	'offsetUTC',
+	'',
+	'',
+	'offsetUTC',
+	0,
+	"3ea1afb9-445e-4890-999a-dd7b42176a56",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("3ea1afb9-445e-4890-999a-dd7b42176a56",
+	"00000000-0000-0000-0000-000000000000",
+	'integer',
+	'',
+	'',
+	'../../../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"e921c82a-6afd-4d87-9de3-f707fcb637ac");
+INSERT INTO O_OIDA
+	VALUES ("972029af-6f2a-4cef-b1e3-746c38f9724c",
+	"e921c82a-6afd-4d87-9de3-f707fcb637ac",
+	0);
+INSERT INTO O_ID
+	VALUES (1,
+	"e921c82a-6afd-4d87-9de3-f707fcb637ac");
+INSERT INTO O_ID
+	VALUES (2,
+	"e921c82a-6afd-4d87-9de3-f707fcb637ac");
+INSERT INTO PE_PE_PROXY
+	VALUES ("e921c82a-6afd-4d87-9de3-f707fcb637ac",
+	1,
+	"b7eadfe3-b995-4f47-9561-d25f9a502ac5",
+	"00000000-0000-0000-0000-000000000000",
+	4,
+	'../Data Aquisition.xtuml');

@@ -1,0 +1,4 @@
+drawRectangle(188, 147, 247, 88)
+drawRectangle(188, 229, 849, 483)
+drawText("«function»", 504, 241, true)
+drawText("Child Function Package", 374, 445, true)

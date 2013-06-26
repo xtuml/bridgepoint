@@ -1,0 +1,380 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("1439746f-8b00-4b77-a05f-bf32f9817898",
+	'Selection Tool',
+	103,
+	'CT_SEL',
+	'The Selection Tool is the default tool when a Model canvas is
+first opened. When it is activated it allows the user to drag and modify
+existing diagram symbols. It is automatically deactivated when another tool is selected.
+
+---------------------------------------------------------------------------
+Persistent:false',
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
+INSERT INTO O_TFR
+	VALUES ("d5130011-0223-423a-aba1-717860ab976b",
+	"1439746f-8b00-4b77-a05f-bf32f9817898",
+	'dispose',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one mtl related by self->CT_MTL[R102];
+if ( not_empty mtl )
+  unrelate self from mtl across R102;
+end if;
+delete object instance self;',
+	1,
+	'',
+	"97802dca-e5cf-417d-9e76-62f83c573ce5");
+INSERT INTO S_DT_PROXY
+	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("1fa74a3b-13f7-44bb-bb73-cf7b65d9e919",
+	"1439746f-8b00-4b77-a05f-bf32f9817898",
+	'unSelectAll',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'CL::clearSelection();',
+	1,
+	'',
+	"92ca792e-fb46-405b-a1c6-0f7f065ef743");
+INSERT INTO O_TFR
+	VALUES ("92ca792e-fb46-405b-a1c6-0f7f065ef743",
+	"1439746f-8b00-4b77-a05f-bf32f9817898",
+	'enableTextMoveUnder',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one model related by self->CT_MTL[R102]->GD_MD[R100];
+model.enableTextMoveUnder(x: param.x, y: param.y);
+',
+	1,
+	'',
+	"d5130011-0223-423a-aba1-717860ab976b");
+INSERT INTO O_TPARM
+	VALUES ("7c384c07-5430-45e8-80c4-f48c5e8adccd",
+	"92ca792e-fb46-405b-a1c6-0f7f065ef743",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("df9a4208-f381-4813-9912-7cd4c2b8126e",
+	"92ca792e-fb46-405b-a1c6-0f7f065ef743",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"7c384c07-5430-45e8-80c4-f48c5e8adccd",
+	'');
+INSERT INTO O_TFR
+	VALUES ("97802dca-e5cf-417d-9e76-62f83c573ce5",
+	"1439746f-8b00-4b77-a05f-bf32f9817898",
+	'disableTextMove',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one model related by self->CT_MTL[R102]->GD_MD[R100];
+select one con_text related by model->GD_CTXT[R14];
+if (not_empty con_text)
+  select one tim related by model->GD_TIM[R14];
+  unrelate model from con_text across R14 using tim;
+  delete object instance tim;
+end if;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("0e9c002b-517e-497a-a1bf-68d66892e0fc",
+	"1439746f-8b00-4b77-a05f-bf32f9817898",
+	'waypointMoved',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select any waypoint from instances of DIM_WAY where (selected.Way_ID == param.waypoint_id);
+select one beforeSegment related by waypoint->GD_LS[R22];
+select one afterSegment related by waypoint->GD_LS[R21];
+
+// Ignore if this is not the end of a segment
+if ((not_empty beforeSegment) and (empty afterSegment))
+
+  select one srcElement related by beforeSegment->GD_CON[R6]->GD_GE[R2];
+  select one myCon related by srcElement->GD_CON[R2];
+
+  if(not CL::connectorSupportsLinking(connector:srcElement.represents))
+    return;
+  end if;
+
+  if (myCon.endsOnWS())
+    select one canvas related by srcElement->GD_MD[R1];
+    select one diagram related by canvas->DIM_DIA[R18];
+
+    // See if the position of the waypoint is over another connector''s end
+    // and if so link them
+    select many connectors related by canvas->GD_GE[R1]->GD_CON[R2];
+    for each connector in connectors
+      // skip self
+      if (connector.elementId != myCon.elementId)
+        unScaledX = GR::unScale(value:(waypoint.positionX - diagram.viewportX));
+        unScaledY = GR::unScale(value:(waypoint.positionY - diagram.viewportY));  
+        if (connector.isOver(x:unScaledX, y:unScaledY))
+          select one myConSpec related by myCon->GD_GE[R2]->GD_ES[R10]->
+                                                       TS_CSP[R200];
+          select any srcTermSpec related by connector->GD_GE[R2]->GD_ES[R10]->
+                                                       TS_CSP[R200]->TS_TSP[R203]->TS_CNT[R201] 
+                                 where (selected.OOA_Type == myConSpec.OOA_Type and selected.terminatesAt == End::End);                                                                      
+          if (not_empty srcTermSpec)
+            select one targetElement related by connector->GD_GE[R2];
+            if (not_empty srcElement)
+              select one srcTSSpec related by srcTermSpec->TS_TSP[R201];
+              relate srcTSSpec to targetElement across R206;
+              
+              select any targetCntSpec related by myConSpec->TS_TSP[R203]->TS_CNT[R201]
+              					where (selected.OOA_Type == targetElement.OOA_Type and selected.terminatesAt == End::End);
+	          select one targetTSSpec related by targetCntSpec->TS_TSP[R201];
+              relate targetTSSpec to srcElement across R206;
+            end if;
+
+            success = CL::linkConnector(on:srcElement.represents,
+                        to:CL::getOOAId(from:targetElement.represents));
+            if (success)
+              select one tool related by self->CT_MTL[R102];
+              tool.finalizeConnector(startElement:srcElement.elementId, endElement:targetElement.elementId);
+            end if;      
+          end if;
+        end if;
+      end if;
+    end for;
+  end if;
+end if;
+',
+	1,
+	'',
+	"1fa74a3b-13f7-44bb-bb73-cf7b65d9e919");
+INSERT INTO O_TPARM
+	VALUES ("d71f08a0-d18a-49df-b9fa-3975654a3ccd",
+	"0e9c002b-517e-497a-a1bf-68d66892e0fc",
+	'waypoint_id',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("1439746f-8b00-4b77-a05f-bf32f9817898",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	0,
+	"0304c426-4444-443b-a662-e29749249eb1",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"808a5d71-27cd-4d75-be33-363a002443d8",
+	"10982f14-d77d-457b-9902-02f4d23a5ac0",
+	"1cc4b135-8651-46e4-b276-3b87cb076440",
+	"09994acc-8c88-4cbe-b800-db72a3a8ee46",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Model Tool',
+	'Tool_ID',
+	'R102');
+INSERT INTO R_RGO_PROXY
+	VALUES ("1439746f-8b00-4b77-a05f-bf32f9817898",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"808a5d71-27cd-4d75-be33-363a002443d8",
+	'../Canvas Tools.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	0,
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"10982f14-d77d-457b-9902-02f4d23a5ac0",
+	'../Canvas Tools.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("1cc4b135-8651-46e4-b276-3b87cb076440",
+	"1439746f-8b00-4b77-a05f-bf32f9817898",
+	"0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	1,
+	'Tool_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	'../Model Tool/Model Tool.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("1cc4b135-8651-46e4-b276-3b87cb076440",
+	"1439746f-8b00-4b77-a05f-bf32f9817898",
+	"00000000-0000-0000-0000-000000000000",
+	'Tool_ID',
+	'',
+	'',
+	'Tool_ID',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("467a0e33-993f-4bf5-a3e8-f886b4b636a5",
+	"1439746f-8b00-4b77-a05f-bf32f9817898");
+INSERT INTO O_BATTR
+	VALUES ("467a0e33-993f-4bf5-a3e8-f886b4b636a5",
+	"1439746f-8b00-4b77-a05f-bf32f9817898");
+INSERT INTO O_ATTR
+	VALUES ("467a0e33-993f-4bf5-a3e8-f886b4b636a5",
+	"1439746f-8b00-4b77-a05f-bf32f9817898",
+	"1cc4b135-8651-46e4-b276-3b87cb076440",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"aae0ffdc-3a05-4c94-9878-331bc82097dd",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("aae0ffdc-3a05-4c94-9878-331bc82097dd",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'state<State_Model>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("7b01c814-c646-434c-9afa-686689c57754",
+	"1439746f-8b00-4b77-a05f-bf32f9817898");
+INSERT INTO O_BATTR
+	VALUES ("7b01c814-c646-434c-9afa-686689c57754",
+	"1439746f-8b00-4b77-a05f-bf32f9817898");
+INSERT INTO O_ATTR
+	VALUES ("7b01c814-c646-434c-9afa-686689c57754",
+	"1439746f-8b00-4b77-a05f-bf32f9817898",
+	"467a0e33-993f-4bf5-a3e8-f886b4b636a5",
+	'shouldRestoreCursorShape',
+	'',
+	'',
+	'shouldRestoreCursorShape',
+	0,
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("47b5cad1-9ba4-4cd2-91bf-0deaac0e8e30",
+	"1439746f-8b00-4b77-a05f-bf32f9817898");
+INSERT INTO O_BATTR
+	VALUES ("47b5cad1-9ba4-4cd2-91bf-0deaac0e8e30",
+	"1439746f-8b00-4b77-a05f-bf32f9817898");
+INSERT INTO O_ATTR
+	VALUES ("47b5cad1-9ba4-4cd2-91bf-0deaac0e8e30",
+	"1439746f-8b00-4b77-a05f-bf32f9817898",
+	"7b01c814-c646-434c-9afa-686689c57754",
+	'currentTransaction',
+	'',
+	'',
+	'currentTransaction',
+	0,
+	"a172f187-f843-4aeb-af5b-873deb036646",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a172f187-f843-4aeb-af5b-873deb036646",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'Transaction',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("190b195f-de9e-418d-af0f-e70c40fd0e3e",
+	"1439746f-8b00-4b77-a05f-bf32f9817898");
+INSERT INTO O_BATTR
+	VALUES ("190b195f-de9e-418d-af0f-e70c40fd0e3e",
+	"1439746f-8b00-4b77-a05f-bf32f9817898");
+INSERT INTO O_ATTR
+	VALUES ("190b195f-de9e-418d-af0f-e70c40fd0e3e",
+	"1439746f-8b00-4b77-a05f-bf32f9817898",
+	"47b5cad1-9ba4-4cd2-91bf-0deaac0e8e30",
+	'symbolMoveMouseStartX',
+	'The logical x-position of the mouse cursor at the start of any current dragging of shapes.',
+	'',
+	'symbolMoveMouseStartX',
+	0,
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("fef57d21-e07e-4a06-8372-caf60862099e",
+	"1439746f-8b00-4b77-a05f-bf32f9817898");
+INSERT INTO O_BATTR
+	VALUES ("fef57d21-e07e-4a06-8372-caf60862099e",
+	"1439746f-8b00-4b77-a05f-bf32f9817898");
+INSERT INTO O_ATTR
+	VALUES ("fef57d21-e07e-4a06-8372-caf60862099e",
+	"1439746f-8b00-4b77-a05f-bf32f9817898",
+	"190b195f-de9e-418d-af0f-e70c40fd0e3e",
+	'symbolMoveMouseStartY',
+	'See partner attribute.',
+	'',
+	'symbolMoveMouseStartY',
+	0,
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"1439746f-8b00-4b77-a05f-bf32f9817898");
+INSERT INTO O_OIDA
+	VALUES ("1cc4b135-8651-46e4-b276-3b87cb076440",
+	"1439746f-8b00-4b77-a05f-bf32f9817898",
+	0,
+	'Tool_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"1439746f-8b00-4b77-a05f-bf32f9817898");
+INSERT INTO O_ID
+	VALUES (2,
+	"1439746f-8b00-4b77-a05f-bf32f9817898");
+INSERT INTO S_SS_PROXY
+	VALUES ("afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	'Canvas Tools',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+  TRANSLATE_FOR_EXTERNAL_USE:FALSE
+  Notify_Changes:false
+',
+	'CT',
+	100,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001a00034",
+	'../Canvas Tools.xtuml');
