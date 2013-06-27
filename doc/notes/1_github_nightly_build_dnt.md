@@ -4,89 +4,64 @@ Copyright 2013 Mentor Graphics Corp.  All Rights Reserved.
 
 ---
 
-# Title goes here
+# Set up nightly build to use github
 ### xtUML Project Design Note
 
 
-Note: Each section has a description that states the purpose of that section.
-Delete these section descriptions before checking in your note.  Delete this
-note as well.
 
 1. Abstract
 -----------
-In this section, give a summary of the design that this note aims to
-describe.
+The team is moving the BridgePoint source code from CVS to a private 
+repository on github.com. This note describes the necessary work to make this move.
 
 2. History
 ----------
-In this section, list the file names of review minutes for this note.
-If the minutes have major observations, precede the file name with the
-word 'update'. If the minutes have no major observations, precede the file
-name with the word 'final'.
+None.
 
 3. Document References
 ----------------------
-In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.
-[1] Issues 1, https://github.com/xtuml/doc/issues/1  
-[2] Issues 2, https://github.com/xtuml/doc/issues/2  
+[1] Issues 1, https://github.com/xtuml/internal/issues/1  
+[2] New xtUML SVN repository, http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml  
+[3] Issue 1 Analysis Note, https://github.com/xtuml/internal/blob/master/doc/notes/1_github_nightly_build_ant.md  
 
 4. Background
 -------------
-In this section, outline the important points relating to this issue/bug that
-the reader would need to know in order to understand the rest of this
-document.
+See [3]
 
 5. Requirements
 ---------------
-This section is only required if there is no preceding analysis note. 
-If present it describes the requirements that need to be satisfied.  If there 
-is an SRS, this section may simply refer to it.  Each requirement should be as 
-short and simple as possible and must be clearly defined.
+See [3]
 
 6. Analysis
 -----------
-This section is only required if there is no preceding analysis note. If present
-it sets out a brief analysis of the problem to be resolved by this design note.
-
-* Item 1
-* Item 2
-* Item 3
+See [3]
 
 7. Design
 ---------
-In this section, describe in detail each step of the Work Required section of
-the analysis, how the task will be accomplished, what technologies will
-be used, algorithms, etc.
+7.1  Work with IT to configure a new build server virtual machine.  
 
-7.1 Some design point, with a code example
-```java
-    public void clearDatabase(IProgressMonitor pm) 
-    {
-        // clear the corresponding graphics-root's database
-        OoaofgraphicsUtil.clearGraphicsDatabase(rootId, pm);
-
-        Ooaofooa.getDefaultInstance().fireModelElementUnloaded(this);
-    }
-```
-
+7.2  Store build/installer creation artifacts in RCS  
+7.2.1  The new SVN repository [2] now contains the  
+  * Directories that are used as the install base for windows and linux in the 
+    BridgePoint_e3.7 and BridgePoint_for_Linux_e3.7 projects.  These projects contain
+    the JRE, eclipse base, docbook tools, etc.  The files that are copied into these
+    folders on a per-build basis are added to SVN ignore properties.
+  * The tools to build the installer is in the MIMIC project.  Again, per-build files
+    are ignored.  This includes the tools from corporate installer team as well as 
+    the base versions of the mimic workspaces.
+  * The "extra_files_for_build" project contains generator, mc3020 docs, etc.
+  
 8. Design Comments
 ------------------
-If research carried out during this phase shows that a requirement stated in the
-analysis note is infeasible or needs some modification, enumerate those changes
-here. If there was no preceding analysis note, then this section documents any
-deviations from the design as presented at the design review.
+TODO - remove old build server stuff from bp.core/tools
+TODO - update build scripts to pull(/update) from SVN with every build
+TODO - clean up TODOs in build scripts
 
 9. Work Required
 ----------------
-In this section, follow the same procedure outlined in the Work Required section
-of the analysis note template.  Additional information can be added if it is
-known at this time--for example, names of files to be worked on.
 
 10. Unit Test
 ------------
-Outline all the unit tests that need to pass and describe the method that you
-will use to design and perform the tests.
 
 End
 ---
