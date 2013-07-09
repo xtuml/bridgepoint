@@ -1,7 +1,7 @@
 #!/bin/bash
 #=====================================================================
 #
-# File:      $init_git_repositories.sh $
+# File:      init_git_repositories.sh
 #
 #(c) Copyright 2013 by Mentor Graphics Corp. All rights reserved.
 #
@@ -11,12 +11,15 @@
 #=====================================================================
 #
 #
-#	init_git_repositories.sh takes the following arguments
+#  init_git_repositories.sh takes the following arguments
 #
 #   $1 - product version, actually this is any branch/tag found in git
 #   $2 - git repository root 
 #   $3 - allow fallback to master is specified branch does not 
 #            exist (yes or no)
+#
+#  Since this starting point for pulling the rest of the data from revision
+#  control, it must be manually put into place for the build server to run.
 #
 
 #-------------------------------------------------------------------------------
@@ -40,7 +43,7 @@ init_repository ()
   
   if [ ! -x "${git_repo_root}/${repo_name}" ]; then
     cd ${git_repo_root}
-    git clone https://mgbuilder:pass@github.com/xtuml/${repo_name}.git
+    git clone https://mgbuilder:bui!db0y@github.com/xtuml/${repo_name}.git
   fi
   cd ${git_repo_root}/${repo_name}
   git checkout ${branch}
@@ -71,9 +74,7 @@ branch="$1"
 git_repo_root="$2"
 allow_fallback="yes"
 base_dir=`pwd`
-build_dir="${base_dir}/${branch}"
-log_dir="${build_dir}/log"
-diff_file="${log_dir}/.diff_log"
+diff_file="${base_dir}/diff.log"
 
 if [ "$3" != "" ] && [ "$3" != "yes" ]; then
   allow_fallback="no"
@@ -92,5 +93,3 @@ init_repository mc
 
 echo -e "Repositories are now initialized."
 exit 0
-
-
