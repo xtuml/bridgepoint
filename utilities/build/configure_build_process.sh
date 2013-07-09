@@ -35,23 +35,23 @@ function usage {
 function configure_build_files {
     cd ${git_internal}/${utilities_project}/build
     cp -f configure_external_dependencies.sh ${build_dir}/configure_external_dependencies.sh 2>>${error_file}
-    cp -f create_nightly_build.sh ${build_dir}/create_nightly_build.sh 2>>${error_file}
+    cp -f create_bp_release.sh ${build_dir}/create_bp_release.sh 2>>${error_file}
     cp -f create_release_functions.sh ${build_dir}/create_release_functions.sh 2>>${error_file}
-    cp -f create_tiger_release.sh ${build_dir}/create_tiger_release.sh 2>>${error_file}
+    cp -f post_process_build.sh ${build_dir}/post_process_build.sh 2>>${error_file}
     # TODO: cp -f tag_bp.sh ${build_dir}/tag_bp.sh 2>>${error_file}
     # TODO: cp -f tag_bp_nb.sh ${build_dir}/tag_bp_nb.sh 2>>${error_file}
     
     cd ${build_dir}
     unix2dos configure_external_dependencies.sh
-    unix2dos create_nightly_build.sh
+    unix2dos create_bp_release.sh
     unix2dos create_release_functions.sh
-    unix2dos create_tiger_release.sh
+    unix2dos post_process_build.sh
 }
 
 function configure_installer_files {
     cd ${git_internal}/${install_project}
-    cp -f BridgePoint_Launcher.bat ${bp_deliverables}/extras/BridgePoint_Launcher.bat 2>>${error_file}
-    cp -f BridgePoint_CLI.bat ${bp_deliverables}/extras/BridgePoint_CLI.bat 2>>${error_file}
+    cp -f Launcher.bat ${bp_deliverables}/extras/Launcher.bat 2>>${error_file}
+    cp -f CLI.bat ${bp_deliverables}/extras/CLI.bat 2>>${error_file}
     cp -f build_installer_bp.sh ${build_dir}/build_installer_bp.sh 2>>${error_file}
     cp -f create_shortcut.vbs ${bp_deliverables}/tools/create_shortcut.vbs 2>>${error_file}
     cp -f MSI_Director.java ${mimic_files}/MSI_Director.java 2>>${error_file}
@@ -60,16 +60,16 @@ function configure_installer_files {
     cp -f splash.bmp ${bp_deliverables}/splash.bmp 2>>${error_file}
     cp -f bp.ico ${bp_deliverables}/bp.ico 2>>${error_file}
 
-    unix2dos ${bp_deliverables}/extras/BridgePoint_Launcher.bat
-    unix2dos ${bp_deliverables}/extras/BridgePoint_CLI.bat
+    unix2dos ${bp_deliverables}/extras/Launcher.bat
+    unix2dos ${bp_deliverables}/extras/CLI.bat
     unix2dos ${build_dir}/build_installer_bp.sh
     unix2dos ${bp_deliverables}/tools/create_shortcut.vbs
     unix2dos ${mimic_files}/MSI_Director.java
     unix2dos ${extra_deliverables}/post_install_script.bat
     unix2dos ${extra_deliverables}/pre_uninstall_script.bat
     
-    cp -f BridgePoint_Launcher.sh ${bp_deliverables_linux}/extras/BridgePoint_Launcher.sh 2>>${error_file}
-    cp -f BridgePoint_CLI.sh ${bp_deliverables_linux}/extras/BridgePoint_CLI.sh 2>>${error_file}
+    cp -f Launcher.sh ${bp_deliverables_linux}/extras/Launcher.sh 2>>${error_file}
+    cp -f CLI.sh ${bp_deliverables_linux}/extras/CLI.sh 2>>${error_file}
     cp -f build_installer_bp_linux.sh ${build_dir}/build_installer_bp_linux.sh 2>>${error_file}
     cp -f MSI_DirectorLinux.java ${mimic_files_linux}/MSI_Director.java 2>>${error_file}
     cp -f post_install_script.sh ${extra_deliverables_linux}/post_install_script.sh 2>>${error_file}
@@ -77,8 +77,8 @@ function configure_installer_files {
     cp -f splash.bmp ${bp_deliverables_linux}/splash.bmp 2>>${error_file}
     cp -f bp.ico ${bp_deliverables_linux}/bp.ico 2>>${error_file}
 
-    dos2unix ${bp_deliverables_linux}/extras/BridgePoint_Launcher.sh
-    dos2unix ${bp_deliverables_linux}/extras/BridgePoint_CLI.sh
+    dos2unix ${bp_deliverables_linux}/extras/Launcher.sh
+    dos2unix ${bp_deliverables_linux}/extras/CLI.sh
     dos2unix ${build_dir}/build_installer_bp_linux.sh
     dos2unix ${mimic_files_linux}/MSI_Director.java
     dos2unix ${extra_deliverables_linux}/post_install_script.sh
