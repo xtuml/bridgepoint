@@ -49,7 +49,7 @@ function configure_build_files {
 }
 
 function configure_installer_files {
-    cd ${git_internal}/${install_project}
+    cd ${git_internal}/src/${install_project}
     cp -f Launcher.bat ${bp_deliverables}/extras/Launcher.bat 2>>${error_file}
     cp -f CLI.bat ${bp_deliverables}/extras/CLI.bat 2>>${error_file}
     cp -f build_installer_bp.sh ${build_dir}/build_installer_bp.sh 2>>${error_file}
