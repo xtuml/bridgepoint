@@ -42,10 +42,10 @@ function configure_build_files {
     # TODO: cp -f tag_bp_nb.sh ${build_dir}/tag_bp_nb.sh 2>>${error_file}
     
     cd ${build_dir}
-    unix2dos configure_external_dependencies.sh
-    unix2dos create_bp_release.sh
-    unix2dos create_release_functions.sh
-    unix2dos post_process_build.sh
+    dos2unix configure_external_dependencies.sh
+    dos2unix create_bp_release.sh
+    dos2unix create_release_functions.sh
+    dos2unix post_process_build.sh
 }
 
 function configure_installer_files {
