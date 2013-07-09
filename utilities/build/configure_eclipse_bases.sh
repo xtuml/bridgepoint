@@ -6,29 +6,83 @@
 #
 #=====================================================================
 #
+#-------------------------------------------------------------------------------
+# Functions
+#-------------------------------------------------------------------------------
+error ()
+{
+    echo Error! $1
+    exit 1
+}
+
+get_svn_project ()
+{
+    project="$1"
+    cd ${DATA_DIR}
+    export_trunk="false"
+    if [ "${branch}" = "master" ]; then
+        export_trunk="true"
+    else
+        # check out the branch
+        svn export http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml/branches/${branch}/${project} --username sle_build --password qkfJkv2=
+        
+        # if export failed and build type != nonrelease, then error
+        if [ ! -x ${project} ] && [ "${build_type}" != "nonrelease" ]; then
+            error "SVN branch ${branch} does not exist and is required for this build. Exiting.\n"
+        fi
+        
+        # if export failed and build type = nonrelease, then checkout master
+        if [ ! -x ${project} ] && [ "${build_type}" = "nonrelease" ]; then
+            export_trunk="true"
+        fi
+        
+    fi
+    
+    if [ "${export_trunk}" = "true" ]; then
+        svn export http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml/trunk/${project} --username sle_build --password qkfJkv2=
+    fi
+    
+    if [ ! -x ${project} ]; then
+        error "SVN checkout of ${project} failed. Exiting. \n"
+    fi
+}
+
+#-------------------------------------------------------------------------------
+#  Main
+#-------------------------------------------------------------------------------
 
 # Variables
-PRODUCT_VERSION="$1"
 DATA_DIR="/cygdrive/c/"
+ECLIPSE_VER="3.7"
+BP_WIN_BASE="BridgePoint_e${ECLIPSE_VER}"
+BP_LINUX_BASE="${DATA_DIR}/BridgePoint_for_Linux_e${ECLIPSE_VER}"
+MIMIC_BASE="MIMIC"
+
+branch="$1"
+build_type="$2"
 
 # Check usage
-if [ $# -lt 1 ]; then
-  echo "Usage: $0 branch"
+if [ $# -lt 2 ]; then
+  echo "Usage: $0 branch build-type"
   exit 1
 fi
 
-# Set up the variable for the branch we'll export
-BRANCH_NAME="trunk"
-if [ "${PRODUCT_VERSION}" != "trunk" ]; then
-  BRANCH_NAME="branches/${PRODUCT_VERSION}"
-fi
 
 # Remove existing dirs
+echo -e "Removing existing data for installers."
+cd ${DATA_DIR}
+rm -rf ${BP_WIN_BASE}
+rm -rf ${BP_LINUX_BASE}
+rm -rf ${MIMIC_BASE}
+echo -e "Done."
 
 # Export new dirs from svn
-# ex: svn export http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml/trunk/extra_files_for_build --username sle_build --password qkfJkv2=
-
-# Make sure the export succeded
+echo -e "Exporting new bases from SVN."
+cd ${DATA_DIR}
+get_svn_project ${BP_WIN_BASE}
+get_svn_project ${BP_LINUX_BASE}
+get_svn_project ${MIMIC_BASE}
+echo -e "Done."
 
 # unmap existing drives for eclipse bases? (maybe auto deleted when directory removed)
 # ex: net use v: /Delete
