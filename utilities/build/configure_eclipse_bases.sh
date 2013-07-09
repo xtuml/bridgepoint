@@ -55,7 +55,7 @@ get_svn_project ()
 DATA_DIR="/cygdrive/c/"
 ECLIPSE_VER="3.7"
 BP_WIN_BASE="BridgePoint_e${ECLIPSE_VER}"
-BP_LINUX_BASE="${DATA_DIR}/BridgePoint_for_Linux_e${ECLIPSE_VER}"
+BP_LINUX_BASE="BridgePoint_for_Linux_e${ECLIPSE_VER}"
 MIMIC_BASE="MIMIC"
 branch="$1"
 build_type="$2"
