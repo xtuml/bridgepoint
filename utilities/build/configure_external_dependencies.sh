@@ -31,7 +31,7 @@ get_user_supplied_binaries ()
         export_trunk="true"
     else
         # check out the branch
-        svn export http://sle_build:qkfJkv2=@wv-svn-01.wv.mentorg.com/svn/sle/xtuml/branches/${branch}/extra_files_for_build
+        svn export http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml/branches/${branch}/extra_files_for_build --username sle_build --password qkfJkv2=
         
         # if export failed and build type != nonrelease, then error
         if [ ! -x $USER_SUPPLIED_FILES ] && [ "${build_type}" != "nonrelease" ]; then
@@ -47,7 +47,7 @@ get_user_supplied_binaries ()
     fi
     
     if [ "${export_trunk}" = "true" ]; then
-        svn export http://sle_build:qkfJkv2=@wv-svn-01.wv.mentorg.com/svn/sle/xtuml/trunk/extra_files_for_build
+        svn export http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml/trunk/extra_files_for_build --username sle_build --password qkfJkv2=
     fi
     
     cd $USER_SUPPLIED_FILES
