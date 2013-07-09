@@ -57,16 +57,16 @@ ECLIPSE_VER="3.7"
 BP_WIN_BASE="BridgePoint_e${ECLIPSE_VER}"
 BP_LINUX_BASE="${DATA_DIR}/BridgePoint_for_Linux_e${ECLIPSE_VER}"
 MIMIC_BASE="MIMIC"
-
 branch="$1"
 build_type="$2"
+
 
 # Check usage
 if [ $# -lt 2 ]; then
   echo "Usage: $0 branch build-type"
+  echo "  Example: $0 master nonrelease"
   exit 1
 fi
-
 
 # Remove existing dirs
 echo -e "Removing existing data for installers."
@@ -84,7 +84,18 @@ get_svn_project ${BP_LINUX_BASE}
 get_svn_project ${MIMIC_BASE}
 echo -e "Done."
 
-# unmap existing drives for eclipse bases? (maybe auto deleted when directory removed)
-# ex: net use v: /Delete
+# unmap existing drives and shares for eclipse bases
+echo -e "Removing existing shares for eclipse bases."
+net use U: /Delete
+net use V: /Delete
+net share ${BP_WIN_BASE} /Delete
+net share ${BP_LINUX_BASE} /Delete
+echo -e "Done."
 
 # map drives for eclipse extensions into eclipse bases
+echo -e "Setting up new shared drives for eclipse bases."
+net share ${BP_WIN_BASE}=C:\\${BP_WIN_BASE} /grant:everyone,READ
+net share ${BP_LINUX_BASE}=C:\\${BP_LINUX_BASE} /grant:everyone,READ
+net use U: \\\\localhost\\${BP_LINUX_BASE}\\BridgePointDeliverables\\eclipse_extensions
+net use V: \\\\localhost\\${BP_WIN_BASE}\\BridgePointDeliverables\\eclipse_extensions
+echo -e "Done."
