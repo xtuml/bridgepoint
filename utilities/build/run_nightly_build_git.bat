@@ -22,13 +22,13 @@ path c:\cygwin\bin;%Path%
 
 dos2unix init_git_repositories.sh
 echo Initializing git repositories.
-bash init_git_repositories.sh "%BRANCH%" "%GIT_REPO_ROOT%" "yes"
+bash init_git_repositories.sh "%BRANCH%" "%GIT_REPO_ROOT%" "yes" 1>2> cfg_output.log
 echo Done. 
 
-cp -fv %GIT_REPO_ROOT%/internal/utilities/build/configure_eclipse_bases.sh .
-dos2unix configure_eclipse_bases.sh
-echo Configuring eclipse bases.
-bash configure_eclipse_bases.sh "%BRANCH%" "nonrelease" 1>2> cfg_output.log
+cp -fv %GIT_REPO_ROOT%/internal/utilities/build/init_svn_tools.sh .
+dos2unix init_svn_tools.sh
+echo Initializing the eclipse bases and build tools from SVN.
+bash init_svn_tools.sh "%BRANCH%" "nonrelease" 1>2> cfg_output.log
 echo Done. 
 
 cp -fv %GIT_REPO_ROOT%/internal/utilities/build/configure_build_process.sh .
@@ -37,7 +37,8 @@ echo Configuring build process.
 bash configure_build_process.sh %BRANCH% %GIT_REPO_ROOT% nonrelease 1>2> cfg_output.log
 echo Done. 
 
-rem bash create_bp_release.sh %BRANCH% %GIT_REPO_ROOT% 1>2> nb_output.log
-rem change to post_process_build bash create_nightly_build.sh %BRANCH% nonrelease 1>2> nb_output.log
+bash process_build.sh %BRANCH% %GIT_REPO_ROOT% nonrelease 1>2> build_output.log
+
+move build_output.log %BRANCH%\log
 
 echo end of run_nightly_build_git.bat
