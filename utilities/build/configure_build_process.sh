@@ -147,9 +147,6 @@ if [ ! -x $log_dir ]; then
     mkdir $log_dir
 fi
 
-# Move the log files created by earlier scripts into the new log dir
-mv ${base_dir}/diff.log ${log_dir}
-
 cd ${build_dir}
 configure_build_files
 configure_installer_files
