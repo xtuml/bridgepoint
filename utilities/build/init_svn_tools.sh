@@ -58,6 +58,7 @@ BP_WIN_BASE="BridgePoint_e${ECLIPSE_VER}"
 BP_LINUX_BASE="BridgePoint_for_Linux_e${ECLIPSE_VER}"
 MIMIC_TOOL="MIMIC"
 ANT_TOOL="apache-ant-1.6.1"
+ECLIPSE_TOOL="eclipse3.7.2"
 branch="$1"
 build_type="$2"
 
@@ -76,6 +77,7 @@ rm -rf ${BP_WIN_BASE}
 rm -rf ${BP_LINUX_BASE}
 rm -rf ${MIMIC_TOOL}
 rm -rf ${ANT_TOOL}
+rm -rf ${ECLIPSE_TOOL}
 echo -e "Done."
 
 # Export new dirs from svn
@@ -85,6 +87,7 @@ get_svn_project ${BP_WIN_BASE}
 get_svn_project ${BP_LINUX_BASE}
 get_svn_project ${MIMIC_TOOL}
 get_svn_project ${ANT_TOOL}
+get_svn_project ${ECLIPSE_TOOL}
 echo -e "Done."
 
 # unmap existing drives and shares for eclipse bases
