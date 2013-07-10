@@ -126,7 +126,7 @@ function zip_distribution {
 
     mkdir ${extension_dir}
     mkdir ${extension_dir}/eclipse
-    cp ../../.eclipseextension ${extension_dir}/eclipse
+    touch ${extension_dir}/eclipse/.eclipseextension
     cp -Rd features ${extension_dir}/eclipse
     cp -Rd plugins ${extension_dir}/eclipse
 
@@ -264,6 +264,7 @@ branch="$1"
 git_repo_root="$2"
 build_type="$3"
 base_dir=`pwd`
+base_dir="${base_dir}/.."
 build_dir="${base_dir}/${branch}"
 log_dir="${build_dir}/log"
 error_file="${log_dir}/.errors"
@@ -274,7 +275,6 @@ release_drop="${release_base}/${branch}"
 doc_module="com.mentor.nucleus.bp.doc"
 doc_module_mc3020="com.mentor.nucleus.help.bp.mc"
 pkg_module="com.mentor.nucleus.bp.bld.pkg"
-eclipse_pkg="EclipseDeploymentConfiguration"
 timestamp=`date +%Y%m%d%H%M`
 extension_dir="BridgePoint_${branch}"
 
