@@ -37,15 +37,15 @@ function configure_build_files {
     cp -f configure_external_dependencies.sh ${build_dir}/configure_external_dependencies.sh 2>>${error_file}
     cp -f create_bp_release.sh ${build_dir}/create_bp_release.sh 2>>${error_file}
     cp -f create_release_functions.sh ${build_dir}/create_release_functions.sh 2>>${error_file}
-    cp -f post_process_build.sh ${build_dir}/post_process_build.sh 2>>${error_file}
+    cp -f process_build.sh ${build_dir}/process_build.sh 2>>${error_file}
     # TODO: cp -f tag_bp.sh ${build_dir}/tag_bp.sh 2>>${error_file}
     # TODO: cp -f tag_bp_nb.sh ${build_dir}/tag_bp_nb.sh 2>>${error_file}
     
     cd ${build_dir}
-    dos2unix configure_external_dependencies.sh
-    dos2unix create_bp_release.sh
-    dos2unix create_release_functions.sh
-    dos2unix post_process_build.sh
+    dos2unix -q configure_external_dependencies.sh
+    dos2unix -q create_bp_release.sh
+    dos2unix -q create_release_functions.sh
+    dos2unix -q process_build.sh
 }
 
 function configure_installer_files {
@@ -60,13 +60,13 @@ function configure_installer_files {
     cp -f splash.bmp ${bp_deliverables}/splash.bmp 2>>${error_file}
     cp -f bp.ico ${bp_deliverables}/bp.ico 2>>${error_file}
 
-    unix2dos ${bp_deliverables}/extras/Launcher.bat
-    unix2dos ${bp_deliverables}/extras/CLI.bat
-    unix2dos ${build_dir}/build_installer_bp.sh
-    unix2dos ${bp_deliverables}/tools/create_shortcut.vbs
-    unix2dos ${mimic_files}/MSI_Director.java
-    unix2dos ${extra_deliverables}/post_install_script.bat
-    unix2dos ${extra_deliverables}/pre_uninstall_script.bat
+    unix2dos -q ${bp_deliverables}/extras/Launcher.bat
+    unix2dos -q ${bp_deliverables}/extras/CLI.bat
+    unix2dos -q ${build_dir}/build_installer_bp.sh
+    unix2dos -q ${bp_deliverables}/tools/create_shortcut.vbs
+    unix2dos -q ${mimic_files}/MSI_Director.java
+    unix2dos -q ${extra_deliverables}/post_install_script.bat
+    unix2dos -q ${extra_deliverables}/pre_uninstall_script.bat
     
     cp -f Launcher.sh ${bp_deliverables_linux}/extras/Launcher.sh 2>>${error_file}
     cp -f CLI.sh ${bp_deliverables_linux}/extras/CLI.sh 2>>${error_file}
@@ -77,18 +77,18 @@ function configure_installer_files {
     cp -f splash.bmp ${bp_deliverables_linux}/splash.bmp 2>>${error_file}
     cp -f bp.ico ${bp_deliverables_linux}/bp.ico 2>>${error_file}
 
-    dos2unix ${bp_deliverables_linux}/extras/Launcher.sh
-    dos2unix ${bp_deliverables_linux}/extras/CLI.sh
-    dos2unix ${build_dir}/build_installer_bp_linux.sh
-    dos2unix ${mimic_files_linux}/MSI_Director.java
-    dos2unix ${extra_deliverables_linux}/post_install_script.sh
-    dos2unix ${extra_deliverables_linux}/pre_uninstall_script.sh    
+    dos2unix -q ${bp_deliverables_linux}/extras/Launcher.sh
+    dos2unix -q ${bp_deliverables_linux}/extras/CLI.sh
+    dos2unix -q ${build_dir}/build_installer_bp_linux.sh
+    dos2unix -q ${mimic_files_linux}/MSI_Director.java
+    dos2unix -q ${extra_deliverables_linux}/post_install_script.sh
+    dos2unix -q ${extra_deliverables_linux}/pre_uninstall_script.sh    
 
     cd ${git_internal}/${utilities_project}/fontchecker/Release
     cp -f font_list.txt ${bp_deliverables}/tools/fontchecker/font_list.txt 2>>${error_file}
     cp -f fontchecker.exe ${bp_deliverables}/tools/fontchecker/fontchecker.exe 2>>${error_file}
 
-    unix2dos ${bp_deliverables}/tools/fontchecker/font_list.txt
+    unix2dos -q ${bp_deliverables}/tools/fontchecker/font_list.txt
 }
 
 #-------------------------------------------------------------------------------
@@ -126,11 +126,7 @@ echo "Configuring the build process in ${build_dir}"
 if [ "${branch}" = "master" ] || [ "${build_type}" = "nonrelease" ]; then
     echo -e "Removing old build directory: ${build_dir}"
 
-    rm -rf ${build_dir} 2>>${error_file}
-
-    if [ "$?" != "0" ]; then
-        cat ${error_file}
-    fi
+    rm -rf ${build_dir}
 fi
 
 if [ ! -x ${build_dir} ]; then
