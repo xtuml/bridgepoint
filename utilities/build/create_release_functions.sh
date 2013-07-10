@@ -23,7 +23,7 @@
 #    release_pkg - the tiger release package
 #
 #
-ant_cmd="c:/eclipse3.7.2/ant/apache-ant-1.6.1/bin/ant"
+ant_cmd="c:/apache-ant-1.6.1/bin/ant"
 ant_opts="-Declipse-home=c:/eclipse3.7.2"
 antlr_tool="pt_antlr"
 git_internal="${git_repo_root}/xtuml/internal"
