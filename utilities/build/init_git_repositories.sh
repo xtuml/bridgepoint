@@ -55,7 +55,7 @@ init_repository ()
     fi
   fi
   git fetch
-  echo -e "Changes for repository: ${repo_name}" >> ${diff_file}
+  echo -e "\nChanges for repository: ${repo_name}" >> ${diff_file}
   echo -e "------------------------------------" >> ${diff_file}
   git diff --stat origin/${branch} >> ${diff_file}
   git merge origin/${branch}
