@@ -45,8 +45,7 @@ unit_test_modules="com.mentor.nucleus.bp.als.oal.test
                    MC-Java.test
                    com.mentor.nucleus.bp.welcome.test
                    com.mentor.nucleus.bp.debug.ui.test"
-independent_modules="com.mentor.nucleus.bp.mc.xmiexport
-                     com.mentor.nucleus.bp.mc.mc3020
+independent_modules="com.mentor.nucleus.bp.mc.mc3020
                      com.mentor.nucleus.bp.mc
                      com.mentor.nucleus.bp.mc.c.source
                      com.mentor.nucleus.bp.mc.c.binary
