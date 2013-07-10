@@ -318,9 +318,9 @@ create_build
 echo -e "\nBuild complete, installation can be found at ${release_drop}/BridgePoint_extension_${branch}.zip\n"
 
 # Check for errors, if found report them
-error_count=`grep -c -i -w "Error" ${base_dir}/nb_output.log`
+error_count=`grep -c -i -w "Error" ${base_dir}/build_output.log`
 if [ ${error_count} -gt 0 ]; then
-    echo -e "Errors found in the output log. The most likely cause is that the build server directory mounts are not set up.  Check ${base_dir}/nb_output.log." >> ${error_file}
+    echo -e "Errors found in the output log. The most likely cause is that the build server directory mounts are not set up.  Check ${log_dir}/build_output.log." >> ${error_file}
 fi
 
 if [ -f $error_file ]; then
