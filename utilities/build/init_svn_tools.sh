@@ -56,7 +56,8 @@ DATA_DIR="/cygdrive/c/"
 ECLIPSE_VER="3.7"
 BP_WIN_BASE="BridgePoint_e${ECLIPSE_VER}"
 BP_LINUX_BASE="BridgePoint_for_Linux_e${ECLIPSE_VER}"
-MIMIC_BASE="MIMIC"
+MIMIC_TOOL="MIMIC"
+ANT_TOOL="apache-ant-1.6.1"
 branch="$1"
 build_type="$2"
 
@@ -73,7 +74,8 @@ echo -e "Removing existing data for installers."
 cd ${DATA_DIR}
 rm -rf ${BP_WIN_BASE}
 rm -rf ${BP_LINUX_BASE}
-rm -rf ${MIMIC_BASE}
+rm -rf ${MIMIC_TOOL}
+rm -rf ${ANT_TOOL}
 echo -e "Done."
 
 # Export new dirs from svn
@@ -81,7 +83,8 @@ echo -e "Exporting new bases from SVN."
 cd ${DATA_DIR}
 get_svn_project ${BP_WIN_BASE}
 get_svn_project ${BP_LINUX_BASE}
-get_svn_project ${MIMIC_BASE}
+get_svn_project ${MIMIC_TOOL}
+get_svn_project ${ANT_TOOL}
 echo -e "Done."
 
 # unmap existing drives and shares for eclipse bases
