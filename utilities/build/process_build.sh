@@ -14,18 +14,19 @@
 # Variables
 
 product_version="$1"
-release_type="$2"
+git_repo_root="$2"
+release_type="$3"
 
-if [ $# -lt 1 ]; then
-  echo "Usage: $0 branch"
+if [ $# -lt 3 ]; then
+  echo "Usage: $0 branch git_repository_root release_type"
   exit 1
 fi
 
-BUILD_ADMIN="pt_development@mentor.com"
+# TODO - BUILD_ADMIN="pt_development@mentor.com"
+BUILD_ADMIN="keith_brown@mentor.com"
 MAIL_CMD="/usr/sbin/ssmtp"
 MAIL_TEMP="mailtemp"
 base_dir=`pwd`
-# TODO - remove - build_base="${base_dir}/releases"
 build_dir="${base_dir}/${branch}"
 ROOTDIR=`cygpath -m ${build_dir}`
 timestamp=`date +%Y%m%d`
@@ -44,7 +45,7 @@ nb_tag=""
 version_length=${#product_version}
 
 if [ ${version_length} -lt 21 ]; then
-  ./create_tiger_release.sh ${product_version} ${release_type}
+  ./create_bp_release.sh ${product_version} ${git_repo_root} ${release_type}
 
   if [ "$?" = "0" ]; then
     ${rsh} ${server} "(cd '${release_base}'; if [ ! -x '${release_drop_dt}' ]; then mkdir '${release_drop_dt}'; fi; cp -f '${release_drop}'/BridgePoint_extension_'${product_version}'.zip '${release_drop_dt}'/BridgePoint_extension_'${product_version}'.zip ; chown -R build:staff '${release_drop_dt}')"
@@ -96,8 +97,9 @@ cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
 
 rm -rf ${MAIL_TEMP}
 
-if [ "${nb_tag}" != "" ]; then
-  ./tag_bp_nb.sh ${nb_tag}
-fi
+# TODO
+#if [ "${nb_tag}" != "" ]; then
+#  ./tag_bp_nb.sh ${nb_tag}
+#fi
 
 exit 0
