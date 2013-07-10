@@ -26,7 +26,7 @@
 ant_cmd="c:/apache-ant-1.6.1/bin/ant"
 ant_opts="-Declipse-home=c:/eclipse3.7.2"
 antlr_tool="pt_antlr"
-git_internal="${git_repo_root}/xtuml/internal"
+git_internal="${git_repo_root}/internal"
 internal_modules="com.mentor.nucleus.bp.als
                   com.mentor.nucleus.bp.internal.tools
                   com.mentor.nucleus.bp.test
@@ -69,8 +69,7 @@ feature_modules="com.mentor.nucleus.bp.dap.pkg-feature
 plugin_fragments="com.mentor.nucleus.bp.core.win32.x86
                   com.mentor.nucleus.bp.core.linux.x86"
 all_feature_modules="$feature_pkg_modules $feature_modules"
-model_compiler_modules="model_compilers
-                        MC-Java"
+model_compiler_modules="MC-Java"
 
 build_log_dir="${log_dir}/build_logs"
 compile_log_dir="${log_dir}/compile_logs"
