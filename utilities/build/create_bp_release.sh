@@ -296,10 +296,12 @@ fi
 
 echo "Starting the build process in ${build_dir}"
 
-#
+# Move the log files created by earlier scripts into the new log dir
+mv ${base_dir}/cfg_output.log ${log_dir}
+mv ${base_dir}/diff.log ${log_dir}
+
 # Set the environment variable, PTC_MCC_DISABLED to true so that consistency 
 # checking is not built
-#
 export PTC_MCC_DISABLED=true
 
 # Get back to the base directory
