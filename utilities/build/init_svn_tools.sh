@@ -78,7 +78,7 @@ rm -rf ${BP_WIN_BASE}
 rm -rf ${BP_LINUX_BASE}
 rm -rf ${MIMIC_TOOL}
 rm -rf ${ECLIPSE_TOOL}
-cd ${utils_dir}
+cd ${UTILS_DIR}
 rm -rf ${BP_TOOL}
 echo -e "Done."
 
@@ -97,10 +97,10 @@ mkdir ant
 cd ant
 get_svn_project ${ANT_TOOL}
 cd ${DATA_DIR}
-if [ ! -x ${utils_dir} ]; then
-    mkdir ${utils_dir}
+if [ ! -x ${UTILS_DIR} ]; then
+    mkdir ${UTILS_DIR}
 fi
-cd ${utils_dir}
+cd ${UTILS_DIR}
 get_svn_project ${BP_TOOL}
 cd ${DATA_DIR}
 echo -e "Done."
