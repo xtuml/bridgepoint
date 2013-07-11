@@ -11,34 +11,50 @@ rem
 set BUILD_ROOT=C:\builds
 set BRANCH=master
 set GIT_REPO_ROOT="/git/xtuml"
+set PT_HOME='\utilities\bp_build_tools\bridgepoint'
+set PT_HOME_DRIVE=c:
+set XTUMLGEN_HOME='c:\utilities\bp_build_tools\bridgepoint'
 echo set BUILD_ROOT=%BUILD_ROOT%
 echo set BRANCH=%BRANCH%
 echo set GIT_REPO_ROOT=%GIT_REPO_ROOT%
+echo set PT_HOME=%PT_HOME%
+echo set PT_HOME_DRIVE=%PT_HOME_DRIVE%
+echo set XTUMLGEN_HOME=%XTUMLGEN_HOME%
 
 C:
 chdir %BUILD_ROOT%
+pushd .
 
 path c:\cygwin\bin;%Path%
 
-dos2unix init_git_repositories.sh
-echo Initializing git repositories.
-bash init_git_repositories.sh "%BRANCH%" "%GIT_REPO_ROOT%" "yes" 1>2> cfg_output.log
+echo Initializing git repositories...
+dos2unix -q init_git_repositories.sh
+bash init_git_repositories.sh "%BRANCH%" "%GIT_REPO_ROOT%" "yes" > cfg_output.log
 echo Done. 
 
-cp -fv %GIT_REPO_ROOT%/internal/utilities/build/init_svn_tools.sh .
-dos2unix init_svn_tools.sh
-echo Initializing the eclipse bases and build tools from SVN.
-bash init_svn_tools.sh "%BRANCH%" "nonrelease" 1>2> cfg_output.log
+echo Initializing the eclipse bases and build tools from SVN...
+cp -f %GIT_REPO_ROOT%/internal/utilities/build/init_svn_tools.sh .
+dos2unix -q init_svn_tools.sh
+bash init_svn_tools.sh "%BRANCH%" "nonrelease" > cfg_output.log
 echo Done. 
 
-cp -fv %GIT_REPO_ROOT%/internal/utilities/build/configure_build_process.sh .
-dos2unix configure_build_process.sh
-echo Configuring build process.
-bash configure_build_process.sh %BRANCH% %GIT_REPO_ROOT% nonrelease 1>2> cfg_output.log
+echo Configuring build process...
+cp -f %GIT_REPO_ROOT%/internal/utilities/build/configure_build_process.sh .
+dos2unix -q configure_build_process.sh
+bash configure_build_process.sh %BRANCH% %GIT_REPO_ROOT% nonrelease > cfg_output.log
 echo Done. 
 
-bash process_build.sh %BRANCH% %GIT_REPO_ROOT% nonrelease 1>2> build_output.log
+echo Processing the build...
+chdir %BRANCH%
+bash process_build.sh %BRANCH% %GIT_REPO_ROOT% nonrelease > build_output.log 
+echo Done.
 
-move build_output.log %BRANCH%\log
+rem Clean up build files
+popd
+move configure_build_process.sh %BRANCH%
+move init_svn_tools.sh %BRANCH%
+move %BRANCH%\build_output.log %BRANCH%\log
+
+chdir %BUILD_ROOT%
 
 echo end of run_nightly_build_git.bat
