@@ -1,7 +1,7 @@
 #!/bin/bash
 #=====================================================================
 #
-# File:      post_process_build.sh
+# File:      process_build.sh
 #
 #(c) Copyright 2013 by Mentor Graphics Corp. All rights reserved.
 #
