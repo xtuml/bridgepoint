@@ -51,7 +51,7 @@ if [ ${version_length} -lt 21 ]; then
     ${rsh} ${server} "(cd '${release_base}'; if [ ! -x '${release_drop_dt}' ]; then mkdir '${release_drop_dt}'; fi; cp -f '${release_drop}'/BridgePoint_extension_'${product_version}'.zip '${release_drop_dt}'/BridgePoint_extension_'${product_version}'.zip ; chown -R build:staff '${release_drop_dt}')"
 	echo -e "Creating dated backup of the build"
   else
-    echo -e "create_tiger_release.sh returned with a non-zero value ($?)"
+    echo -e "create_bp_release.sh returned with a non-zero value ($?)"
   fi
   
   # Prune similar releases that are five days old.
