@@ -18,7 +18,6 @@ error ()
 get_svn_project ()
 {
     project="$1"
-    cd ${DATA_DIR}
     export_trunk="false"
     if [ "${branch}" = "master" ]; then
         export_trunk="true"
