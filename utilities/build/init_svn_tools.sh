@@ -52,6 +52,7 @@ get_svn_project ()
 
 # Variables
 DATA_DIR="/cygdrive/c/"
+UTILS_DIR="utilities"
 ECLIPSE_VER="3.7"
 BP_WIN_BASE="BridgePoint_e${ECLIPSE_VER}"
 BP_LINUX_BASE="BridgePoint_for_Linux_e${ECLIPSE_VER}"
@@ -77,7 +78,7 @@ rm -rf ${BP_WIN_BASE}
 rm -rf ${BP_LINUX_BASE}
 rm -rf ${MIMIC_TOOL}
 rm -rf ${ECLIPSE_TOOL}
-cd utilities
+cd ${utils_dir}
 rm -rf ${BP_TOOL}
 echo -e "Done."
 
@@ -96,8 +97,10 @@ mkdir ant
 cd ant
 get_svn_project ${ANT_TOOL}
 cd ${DATA_DIR}
-mkdir utilities
-cd utilities
+if [ ! -x ${utils_dir} ]; then
+    mkdir ${utils_dir}
+fi
+cd ${utils_dir}
 get_svn_project ${BP_TOOL}
 cd ${DATA_DIR}
 echo -e "Done."
