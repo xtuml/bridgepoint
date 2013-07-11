@@ -23,7 +23,7 @@ get_svn_project ()
         export_trunk="true"
     else
         # check out the branch
-        svn export http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml/branches/${branch}/${project} --username sle_build --password qkfJkv2=
+        svn export http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml/branches/${branch}/${project} --username sle_build --password qkfJkv2= --force
         
         # if export failed and build type != nonrelease, then error
         if [ ! -x ${project} ] && [ "${build_type}" != "nonrelease" ]; then
@@ -38,7 +38,7 @@ get_svn_project ()
     fi
     
     if [ "${export_trunk}" = "true" ]; then
-        svn export http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml/trunk/${project} --username sle_build --password qkfJkv2=
+        svn export http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml/trunk/${project} --username sle_build --password qkfJkv2= --force
     fi
     
     if [ ! -x ${project} ]; then
@@ -97,6 +97,7 @@ cd ant
 get_svn_project ${ANT_TOOL}
 cd ${DATA_DIR}
 mkdir utilities
+cd utilities
 get_svn_project ${BP_TOOL}
 cd ${DATA_DIR}
 echo -e "Done."
