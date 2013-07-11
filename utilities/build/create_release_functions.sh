@@ -23,8 +23,9 @@
 #    release_pkg - the tiger release package
 #
 #
-ant_cmd="c:/apache-ant-1.6.1/bin/ant"
-ant_opts="-Declipse-home=c:/eclipse3.7.2"
+eclipse_home="c:/eclipse3.7.2"
+ant_cmd="${eclipse_home}/ant/apache-ant-1.6.1/bin/ant"
+ant_opts="-Declipse-home=${eclipse_home}"
 antlr_tool="pt_antlr"
 git_internal="${git_repo_root}/internal"
 internal_modules="com.mentor.nucleus.bp.als
