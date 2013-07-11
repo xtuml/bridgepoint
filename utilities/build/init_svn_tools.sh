@@ -76,7 +76,6 @@ cd ${DATA_DIR}
 rm -rf ${BP_WIN_BASE}
 rm -rf ${BP_LINUX_BASE}
 rm -rf ${MIMIC_TOOL}
-rm -rf ${ANT_TOOL}
 rm -rf ${ECLIPSE_TOOL}
 echo -e "Done."
 
@@ -86,8 +85,15 @@ cd ${DATA_DIR}
 get_svn_project ${BP_WIN_BASE}
 get_svn_project ${BP_LINUX_BASE}
 get_svn_project ${MIMIC_TOOL}
-get_svn_project ${ANT_TOOL}
 get_svn_project ${ECLIPSE_TOOL}
+#  The source code generate.xml files expect the ant tool to be in a specific
+#  folder under eclipse.  We could modify these files, but for now it is easier
+#  to just check out the ant tool to the current expected location.
+cd ${ECLIPSE_TOOL}
+mkdir ant
+cd ant
+get_svn_project ${ANT_TOOL}
+cd ${DATA_DIR}
 echo -e "Done."
 
 # unmap existing drives and shares for eclipse bases
