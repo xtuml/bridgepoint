@@ -53,9 +53,10 @@ See [3]
   
 8. Design Comments
 ------------------
-TODO - remove old build server stuff from bp.core/tools
-TODO - update build scripts to pull(/update) from SVN with every build
-TODO - clean up TODOs in build scripts
+TODO - Get the build working on the server
+TODO - remove old build server stuff from bp.core/tools  
+TODO - update build scripts to pull(/update) from SVN with every build  
+TODO - clean up TODOs in build scripts  
 
 9. Work Required
 ----------------
