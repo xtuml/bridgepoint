@@ -60,6 +60,7 @@ MIMIC_TOOL="MIMIC"
 ANT_TOOL="apache-ant-1.6.1"
 ECLIPSE_TOOL="eclipse3.7.2"
 BP_TOOL="bp_build_tools"
+GENERATOR_MGLS="mgls"
 branch="$1"
 build_type="$2"
 
@@ -80,6 +81,7 @@ rm -rf ${MIMIC_TOOL}
 rm -rf ${ECLIPSE_TOOL}
 cd ${UTILS_DIR}
 rm -rf ${BP_TOOL}
+rm -rf ${GENERATOR_MGLS}
 echo -e "Done."
 
 # Export new dirs from svn
@@ -102,6 +104,7 @@ if [ ! -x ${UTILS_DIR} ]; then
 fi
 cd ${UTILS_DIR}
 get_svn_project ${BP_TOOL}
+get_svn_project ${GENERATOR_MGLS}
 cd ${DATA_DIR}
 echo -e "Done."
 
