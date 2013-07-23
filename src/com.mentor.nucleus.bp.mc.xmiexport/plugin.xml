@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="com.mentor.nucleus.bp.mc.xmiexport"
+   name="XMI 2.1 Export"
+   version="4.0.3"
+   provider-name="Mentor Graphics"
+   class="com.mentor.nucleus.bp.mc.xmiexport.XMIExport">
+   <runtime>
+      <library name="xmi.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.debug.core"/>
+      <import plugin="com.mentor.nucleus.bp.core"/>
+   </requires>
+   <extension point="org.eclipse.ui.startup">
+   </extension>
+
+<!-- ======================================================= -->
+<!-- Nature/Builder definitions                              -->
+<!-- ======================================================= -->
+   <extension
+         id="XMIExportNature"
+         name="XMI 2.1 Export Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run class="com.mentor.nucleus.bp.mc.xmiexport.XMIExportNature">
+         </run>
+      </runtime>
+      <builder
+            id="com.mentor.nucleus.bp.mc.xmiexport.XMIExportBuilder">
+      </builder>
+   </extension>
+
+   <extension id="XMIExportBuilder" name="XMI 2.1 Export" point="org.eclipse.core.resources.builders">
+  <builder
+       hasNature="true"
+       isConfigurable="true" >
+    <run class="com.mentor.nucleus.bp.mc.xmiexport.XMIExportBuilder"></run>
+  </builder>
+   </extension>
+
+   <extension point="org.eclipse.ui.ide.projectNatureImages">
+      <image
+            icon="platform:/plugin/com.mentor.nucleus.bp.core/icons/xtuml-nature.gif"
+            natureId="com.mentor.nucleus.bp.mc.xmiexport.XMIExportNature"
+            id="com.mentor.nucleus.resoures.natureimage">
+      </image>
+   </extension>
+
+</plugin>
