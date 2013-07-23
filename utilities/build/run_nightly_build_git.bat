@@ -16,6 +16,7 @@ set PT_HOME_DRIVE=c:
 set XTUMLGEN_HOME=c:\utilities\bp_build_tools\bridgepoint
 set MGLS_DLL=c:\utilities\mgls\Mgls.dll
 set MGLS_PKGINFO_FILE=c:\utilities\mgls\mgc.pkginfo
+set MGLS_LICENSE_FILE=1717@wv-lic-01.wv.mentorg.com;1717@wv-lic-02.wv.mentorg.com
 echo BUILD_ROOT=%BUILD_ROOT%
 echo BRANCH=%BRANCH%
 echo GIT_REPO_ROOT=%GIT_REPO_ROOT%
@@ -32,18 +33,18 @@ pushd .
 
 path c:\cygwin\bin;%Path%
 
-echo Initializing git repositories...
+echo "Initializing git repositories..."
 dos2unix -q init_git_repositories.sh
 bash init_git_repositories.sh "%BRANCH%" "%GIT_REPO_ROOT%" "yes" > cfg_output.log
-echo Done. 
+echo "Done."
 
-echo Initializing the eclipse bases and build tools from SVN...
+echo "Initializing the eclipse bases and build tools from SVN..."
 cp -f %GIT_REPO_ROOT%/internal/utilities/build/init_svn_tools.sh .
 dos2unix -q init_svn_tools.sh
 bash init_svn_tools.sh "%BRANCH%" "nonrelease" >> cfg_output.log
-echo Done. 
+echo "Done."
 
-echo Setting Windows EXE & DLL permissions...
+echo "Setting Windows EXE & DLL permissions..."
 icacls "c:\\utilities\\bp_build_tools" /grant build:(OI)(CI)F
 icacls "c:\\utilities\\bp_build_tools\\bridgepoint\\mc3020\\bin\\xtumlmc_build.exe" /grant build:F
 icacls "c:\\utilities\\bp_build_tools\\bridgepoint\\mc3020\\bin\\gen_erate.exe" /grant build:F
@@ -54,20 +55,20 @@ icacls "c:\\utilities\\bp_build_tools\\bridgepoint\\win32\\client\\bin\\gen_erat
 icacls "c:\\utilities\\bp_build_tools\\bridgepoint\\win32\\client\\bin\\msvcrt.dll" /grant build:F
 icacls "c:\\utilities\\bp_build_tools\\bridgepoint\\win32\\client\\bin\\vgalaxy8.vr" /grant build:F
 icacls "c:\\utilities\\bp_build_tools\\bridgepoint\\win32\\client\\lib\\libTRANS.dll" /grant build:F
-icacls "c:\\utilities\\bp_build_tools\\bridgepoint\\win32\\client\\lib\\vgal8c.dll.dll" /grant build:F
+icacls "c:\\utilities\\bp_build_tools\\bridgepoint\\win32\\client\\lib\\vgal8c.dll" /grant build:F
 icacls "c:\\utilities\\mgls\\Mgls.dll" /grant build:F
-echo Done.
+echo "Done."
 
-echo Configuring build process...
+echo "Configuring build process..."
 cp -f %GIT_REPO_ROOT%/internal/utilities/build/configure_build_process.sh .
 dos2unix -q configure_build_process.sh
 bash configure_build_process.sh %BRANCH% %GIT_REPO_ROOT% nonrelease >> cfg_output.log
-echo Done. 
+echo "Done."
 
-echo Processing the build...
+echo "Processing the build..."
 chdir %BRANCH%
 bash process_build.sh %BRANCH% %GIT_REPO_ROOT% nonrelease > build_output.log 
-echo Done.
+echo "Done."
 
 rem Clean up build files
 popd
@@ -77,14 +78,4 @@ move %BRANCH%\build_output.log %BRANCH%\log
 
 chdir %BUILD_ROOT%
 
-echo end of run_nightly_build_git.bat
-
-rem Clean up build files
-popd
-move configure_build_process.sh %BRANCH%
-move init_svn_tools.sh %BRANCH%
-move %BRANCH%\build_output.log %BRANCH%\log
-
-chdir %BUILD_ROOT%
-
-echo end of run_nightly_build_git.bat
+echo "End of run_nightly_build_git.bat"
