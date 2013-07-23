@@ -1,0 +1,93 @@
+//=====================================================================
+//
+//File:      $RCSfile: WorkspaceUtil.java,v $
+//Version:   $Revision: 1.10 $
+//Modified:  $Date: 2012/01/23 21:27:40 $
+//
+//(c) Copyright 2005-2012 by Mentor Graphics Corp. All rights reserved.
+//
+//=====================================================================
+//This document contains information proprietary and confidential to
+//Mentor Graphics Corp. and is not for external distribution.
+//=====================================================================
+
+package com.mentor.nucleus.bp.core.util;
+
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IResourceDeltaVisitor;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceDescription;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+
+import com.mentor.nucleus.bp.core.CorePlugin;
+
+/**
+ * Holds utility methods related to the Eclipse workspace.
+ */
+public class WorkspaceUtil
+{
+    /**
+     * Has the calling thread sleep until the workspace resource
+     * tree is no longer locked for modification.    
+     * 
+     * @param waitExtra     Whether to perform another sleep 
+     *                      cycle at the end to allow other threads
+     *                      that have called this to wake up and do 
+     *                      their processing.  This allows test threads
+     *                      to check results of non-test threads.
+     */
+    public static void waitForWorkspaceTreeToUnlock(boolean waitExtra)
+    {
+        // while the workspace resource tree is locked for modification,
+        // or there is an extra sleep cycle to perform
+        int extraCycles = waitExtra ? 1 : 0;
+        while (CorePlugin.getWorkspace().isTreeLocked() || extraCycles-- > 0) {
+            // wait a bit 
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                CorePlugin.logError("Could not wait until resource tree unlocked", e);
+                return;
+            }
+        }
+    }
+    
+	/**
+	 * Set the workspaces' autobuild option to the given setting.
+	 * 
+	 * @param newSetting
+	 * @return The old value of the setting
+	 */
+	public static boolean setAutobuilding(boolean newSetting) throws CoreException {
+		IWorkspace ws = ResourcesPlugin.getWorkspace();
+		IWorkspaceDescription desc = ws.getDescription();
+		
+		boolean oldSetting = desc.isAutoBuilding();
+		desc.setAutoBuilding(newSetting);
+		ws.setDescription(desc);
+		return oldSetting;		
+	}
+	
+	public static void logResourceActivity(IResourceDelta delta) {
+	   String resourceLogEnabled = System
+         .getProperty("com.mentor.bp.nucleus.logResourceActivity.enabled");
+	  if (resourceLogEnabled != null) {
+      Throwable thr = new Throwable();
+      thr.setStackTrace(Thread.currentThread().getStackTrace());
+      ResourceActivityVisitor rav = new ResourceActivityVisitor();
+      try {
+        delta.accept(rav);
+      }
+      catch (CoreException ce) {
+        // Do nothing this should never fail
+      }
+      if (!rav.getResult().isEmpty()) {
+        String message = "Resources changed: " + delta.getFullPath() +
+                                                         "\n" + rav.getResult();
+        CorePlugin.logError(message, thr);
+      }
+	  }
+	}
+	
+}
