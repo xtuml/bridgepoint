@@ -57,6 +57,7 @@ TODO - Get the build working on the server
 TODO - remove old build server stuff from bp.core/tools  
 TODO - update build scripts to pull(/update) from SVN with every build  
 TODO - clean up TODOs in build scripts  
+TODO - get rid of xmiexport plugin and references to it in the code
 
 9. Work Required
 ----------------
