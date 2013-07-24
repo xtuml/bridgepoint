@@ -57,8 +57,7 @@ independent_modules="com.mentor.nucleus.bp.mc.xmiexport
                      com.mentor.nucleus.bp.mc.template
                      com.mentor.nucleus.help.bp.mc
                      com.mentor.nucleus.bp.ui.session
-                     com.mentor.nucleus.bp.debug.ui
-                     com.mentor.nucleus.bp.cli"
+                     com.mentor.nucleus.bp.debug.ui"
 feature_pkg_modules="com.mentor.nucleus.bp.dap.pkg
                      com.mentor.nucleus.bp.mc.mc3020.pkg
                       com.mentor.nucleus.bp.pkg
