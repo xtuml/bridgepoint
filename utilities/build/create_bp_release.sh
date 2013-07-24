@@ -271,7 +271,8 @@ doc_module_mc3020="com.mentor.nucleus.help.bp.mc"
 pkg_module="com.mentor.nucleus.bp.bld.pkg"
 timestamp=`date +%Y%m%d%H%M`
 extension_dir="BridgePoint_${branch}"
-
+server="tucson.wv.mentorg.com"
+rsh="ssh"
 
 if [ ! -x $pkg_log_dir ]; then
 	echo -e "Creating package log directory: $pkg_log_dir"
