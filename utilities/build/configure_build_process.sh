@@ -62,7 +62,6 @@ function configure_installer_files {
 
     unix2dos -q ${bp_deliverables}/extras/Launcher.bat
     unix2dos -q ${bp_deliverables}/extras/CLI.bat
-    unix2dos -q ${build_dir}/build_installer_bp.sh
     unix2dos -q ${bp_deliverables}/tools/create_shortcut.vbs
     unix2dos -q ${mimic_files}/MSI_Director.java
     unix2dos -q ${extra_deliverables}/post_install_script.bat
@@ -79,10 +78,12 @@ function configure_installer_files {
 
     dos2unix -q ${bp_deliverables_linux}/extras/Launcher.sh
     dos2unix -q ${bp_deliverables_linux}/extras/CLI.sh
-    dos2unix -q ${build_dir}/build_installer_bp_linux.sh
     dos2unix -q ${mimic_files_linux}/MSI_Director.java
     dos2unix -q ${extra_deliverables_linux}/post_install_script.sh
     dos2unix -q ${extra_deliverables_linux}/pre_uninstall_script.sh    
+
+    dos2unix -q ${build_dir}/build_installer_bp_linux.sh
+    dos2unix -q ${build_dir}/build_installer_bp.sh
 
     cd ${git_internal}/${utilities_project}/fontchecker/Release
     cp -f font_list.txt ${bp_deliverables}/tools/fontchecker/font_list.txt 2>>${error_file}
