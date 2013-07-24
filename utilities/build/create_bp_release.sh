@@ -317,15 +317,16 @@ create_build
 
 echo -e "\nBuild complete, installation can be found at ${release_drop}/BridgePoint_extension_${branch}.zip\n"
 
-# Check for errors, if found report them
+# Check for errors, if found report them.  Note that the log file is moved after this script runs, 
+# hence the different paths for where we grep and where we report the user to look.
 error_count=`grep -c -i -w "Error" ${build_dir}/build_output.log`
 if [ ${error_count} -gt 0 ]; then
-    echo -e "Errors found in the output log. The most likely cause is that the build server directory mounts are not set up.  Check ${log_dir}/build_output.log." >> ${error_file}
+    echo -e "Errors found in the output log. Check ${log_dir}/build_output.log." >> ${error_file}
 fi
 
 if [ -f $error_file ]; then
-	echo -e "Errors found during release creation:\n\n\n"
-	cat $error_file
+    echo -e "Errors found during release creation:\n\n\n"
+    cat $error_file
 fi
 
 date
