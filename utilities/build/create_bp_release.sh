@@ -126,7 +126,7 @@ function zip_distribution {
     # Include org.antlr packages in zipped distribuition
     cp -Rd ${git_repo_root}/internal/src/org.antlr_2.7.2 ${extension_dir}/eclipse/plugins
 
-    zip -r BridgePoint_extension_${release_version}.zip ${extension_dir} > ${pkg_log_dir}/BridgePoint_extension_${release_version}_zip.log 2>&1
+    zip -r BridgePoint_extension_${branch}.zip ${extension_dir} > ${pkg_log_dir}/BridgePoint_extension_${branch}_zip.log 2>&1
 }
 
 function jar_specific_plugins {
@@ -170,8 +170,8 @@ function create_build {
     if [ "${host}" = "svr-orw-sle-10" ]; then
       cd ${build_dir}
       ${rsh} ${server} "(cd '${release_base}'; if [ ! -x '${release_drop}' ]; then mkdir '${release_drop}'; fi)"
-      scp BridgePoint_extension_${release_version}.zip build@${server}:${release_drop}
-      ${rsh} ${server} "(touch '${release_drop}'; cd '${remote_build_dir}'; chown -R build:staff '${release_drop}')"
+      scp BridgePoint_extension_${branch}.zip build@${server}:${release_drop}
+      ${rsh} ${server} "(touch '${release_drop}'; chown -R build:staff '${release_drop}')"
     fi
 }
 
@@ -304,8 +304,6 @@ cd ${base_dir}
 
 # Source the functions script
 source ${build_dir}/create_release_functions.sh
-
-remote_build_dir="${remote_build_base}/releases/${branch}"
 
 # Kick off the build chain
 create_build
