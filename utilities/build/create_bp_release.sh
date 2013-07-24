@@ -114,16 +114,7 @@ function zip_distribution {
 
     create_all_features
 
-    # Include org.antlr packages in zipped distribuition
-    # TODO - remove - ${rsh} ${server} "(unzip /software/software_archive/Eclipse/plug-ins/antlr/org.antlr_*.zip -d ${remote_build_dir}/plugins)" > ${pkg_log_dir}/org.antlr_zip.log 2>&1
-    # TODO - There is an OSS request in motion for antlr-eclipse 2.7.6.  Ideally, that will be 
-    #        approved, then all four of the plugins will be put into the BridgePoint base either
-    #        in the dropins/ or actually installed into the base.  If it is not approved, we'll put 
-    #        our existing org.antlr into git under xtuml/internal/src.
-
-    # Return to build dir
     cd ${build_dir}
-
     mkdir ${extension_dir}
     mkdir ${extension_dir}/eclipse
     touch ${extension_dir}/eclipse/.eclipseextension
@@ -131,7 +122,10 @@ function zip_distribution {
     cp -Rd plugins ${extension_dir}/eclipse
 
     jar_specific_plugins
-    
+
+    # Include org.antlr packages in zipped distribuition
+    cp -Rd ${git_repo_root}/internal/src/org.antlr_2.7.2 ${extension_dir}/eclipse/plugins
+
     zip -r BridgePoint_extension_${release_version}.zip ${extension_dir} > ${pkg_log_dir}/BridgePoint_extension_${release_version}_zip.log 2>&1
 }
 
@@ -171,9 +165,9 @@ function create_build {
         zip_distribution
     fi
 
-    # Copy plugins to release drop
+    # If theis build is being run on the official build server, opy plugins to release drop location.
     host=`hostname`
-    if [ "${host}" = "svr-azt-eng-03" ]; then
+    if [ "${host}" = "svr-orw-sle-10" ]; then
       cd ${build_dir}
       ${rsh} ${server} "(cd '${release_base}'; if [ ! -x '${release_drop}' ]; then mkdir '${release_drop}'; fi)"
       scp BridgePoint_extension_${release_version}.zip build@${server}:${release_drop}
