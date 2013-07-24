@@ -118,8 +118,8 @@ echo -e "Done."
 
 # map drives for eclipse extensions into eclipse bases
 echo -e "Setting up new shared drives for eclipse bases."
-net share ${BP_WIN_BASE}=C:\\${BP_WIN_BASE} /grant:everyone,READ
-net share ${BP_LINUX_BASE}=C:\\${BP_LINUX_BASE} /grant:everyone,READ
+net share ${BP_WIN_BASE}=C:\\${BP_WIN_BASE} /grant:everyone,FULL
+net share ${BP_LINUX_BASE}=C:\\${BP_LINUX_BASE} /grant:everyone,FULL
 net use U: \\\\localhost\\${BP_LINUX_BASE}\\BridgePointDeliverables\\eclipse_extensions
 net use V: \\\\localhost\\${BP_WIN_BASE}\\BridgePointDeliverables\\eclipse_extensions
 echo -e "Done."
