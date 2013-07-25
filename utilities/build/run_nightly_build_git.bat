@@ -44,19 +44,10 @@ dos2unix -q init_svn_tools.sh
 bash init_svn_tools.sh "%BRANCH%" "nonrelease" >> cfg_output.log
 echo "Done."
 
-echo "Setting Windows EXE & DLL permissions..."
-icacls "c:\\utilities\\bp_build_tools" /grant build:(OI)(CI)F
-icacls "c:\\utilities\\bp_build_tools\\bridgepoint\\mc3020\\bin\\xtumlmc_build.exe" /grant build:F
-icacls "c:\\utilities\\bp_build_tools\\bridgepoint\\mc3020\\bin\\gen_erate.exe" /grant build:F
-icacls "c:\\utilities\\bp_build_tools\\bridgepoint\\mc3020\\bin\\libTRANS.dll" /grant build:F
-icacls "c:\\utilities\\bp_build_tools\\bridgepoint\\mc3020\\bin\\msvcrt.dll" /grant build:F
-icacls "c:\\utilities\\bp_build_tools\\bridgepoint\\mc3020\\bin\\vgal8c.dll" /grant build:F
-icacls "c:\\utilities\\bp_build_tools\\bridgepoint\\win32\\client\\bin\\gen_erate.exe" /grant build:F
-icacls "c:\\utilities\\bp_build_tools\\bridgepoint\\win32\\client\\bin\\msvcrt.dll" /grant build:F
-icacls "c:\\utilities\\bp_build_tools\\bridgepoint\\win32\\client\\bin\\vgalaxy8.vr" /grant build:F
-icacls "c:\\utilities\\bp_build_tools\\bridgepoint\\win32\\client\\lib\\libTRANS.dll" /grant build:F
-icacls "c:\\utilities\\bp_build_tools\\bridgepoint\\win32\\client\\lib\\vgal8c.dll" /grant build:F
-icacls "c:\\utilities\\mgls\\Mgls.dll" /grant build:F
+echo "Setting Windows permissions on tool directories..."
+icacls "c:\\utilities\\bp_build_tools\\" /grant everyone:F /t /c
+icacls "c:\\utilities\\mgls\\" /grant everyone:F /t /c
+icacls "c:\\MIMIC\\" /grant everyone:F /t /c
 echo "Done."
 
 echo "Configuring build process..."
