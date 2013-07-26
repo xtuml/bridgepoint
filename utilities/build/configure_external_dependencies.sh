@@ -124,6 +124,7 @@ configure_mc3020()
     cd mc3020
     cp -r ${git_repo_root}/mc/bin ./bin
     cp -r ${git_repo_root}/mc/schema ./schema
+    mv ./schema/default-manifest.xml ./
 
     # For legacy purposes create a .pl version of xtumlmc_build
     cd $MC3020/mc3020/bin
