@@ -70,6 +70,7 @@ See [3]
   that we want to include in SVN.  By default these files are ignored by SVN.
   The files must be manually added to SVN version control so they are stored in
   the repository.  
+
 7.2.2  The scripts used by the build server to perform the build are stored in 
   github under xtuml/internal/utilities/build  
 
@@ -77,6 +78,7 @@ See [3]
 7.3.1  The BridgePoint source code is stored in several github repositories:
   * xtuml/internal
   * xtuml/mc
+
 7.3.2  The build process pulls the code from these repositories with each 
   build.  
 7.3.3  Git ignore files apply to every sub-directory under where the ignore file
@@ -105,33 +107,33 @@ See Design.
 ------------
 10.1 Smoke test   
   - Run the installer produced by the new build scripts & server (Win & Linux)
-  R It installs correctly
+  - __R__ It installs correctly
   - Create the MicrowaveOven sample project
   - Translate it
-  R It translates, compiles, and produces and EXE
-  R The EXE runs
+  - __R__ It translates, compiles, and produces and EXE
+  - __R__ The EXE runs
   - eXecute it
-  R It runs in xtUML eXecute 
+  - __R__ It runs in xtUML eXecute 
   - Create the GPS Watch sample project
   - Translate it
-  R It translates, compiles, and produces and EXE
-  R The EXE runs
+  - __R__ It translates, compiles, and produces and EXE
+  - __R__ The EXE runs
   - eXecute it
-  R It runs in xtUML eXecute 
+  - __R__ It runs in xtUML eXecute 
   
 10.2 Difference test  
-  R The installer size is very close to the current installer size
+  - __R__ The installer size is very close to the current installer size
   - Install the existing HEAD build
   - Install the new git master build
   - "diff" the two directory trees
-  R Binary files that are marked different make sense
-  R Text files that are different are checked by hand and validated 
+  - __R__ Binary files that are marked different make sense
+  - __R__ Text files that are different are checked by hand and validated 
 
 10.3 Branch builds work as well as git master builds  
-  R The installer size of a branch build is very close to the master 
+  - __R__ The installer size of a branch build is very close to the master 
   installer size
   - Install the branch build
-  R BridgePoint installs properly and the expected changes from the branch are
+  - __R__ BridgePoint installs properly and the expected changes from the branch are
   visible. 
 
 End
