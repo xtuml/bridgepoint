@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - UseGlobals IO MDL Tests" project="com.mentor.nucleus.bp.io.mdl.test" tests="95" started="95" failures="0" errors="0" ignored="0">
+  <testsuite name="IOMdlGlobalsTestSuite" time="18.493">
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.IOMdlGlobalsTest" time="0.139">
+      <testcase name="testGlobally" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlGlobalsTest" time="0.139"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.IOMdlTestSuiteI" time="0.338">
+      <testcase name="testIOMdlTestSuiteI" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlTestSuiteI" time="0.338"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.ImportVersion7_0ModelsTest" time="0.282">
+      <testcase name="test_canvastest" classname="com.mentor.nucleus.bp.io.mdl.test.ImportVersion7_0ModelsTest" time="0.282"/>
+    </testsuite>
+    <testsuite name="IOMdlTest" time="2.684">
+      <testcase name="test_InteractionDiagramUpgradeTests" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_InteractionDiagramUpgradeTestsGlobals" classname="IOMdlTest" time="0.572"/>
+      <testcase name="test_nested_test" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_nested_testGlobals" classname="IOMdlTest" time="0.354"/>
+      <testcase name="test_odms" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_odmsGlobals" classname="IOMdlTest" time="1.313"/>
+      <testcase name="test_ooaofooa" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_ooaofgraphics" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_asc" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_BP50_evt" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_BP50_evt2" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_br1" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_br2" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_br1f" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_br2f" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_bridges" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_cl" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_dogs" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_enum1" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_enum2" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_enum3" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_enum4" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_event" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_ex1" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_ex2" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_ex3" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_G_ALL_G_EVT_LE_precreated" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_G_ALL_R_BRG_tim" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_G_ALL_multiple_exit_return" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_G_ALL_nested_invoke" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_G_ALL_performance_test1" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_G_ALL_performance_test2" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_G_ALL_performance_test3" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_G_ALL_performance_test4" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_G_ALL_performance_test5" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_G_ALL_performance_test6" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_G_ALL_performance_test7" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_G_ALL_select_where_enum" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_G_BRG_G_ALL_interop" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_G_COP_R_ALL_interop" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_G_EVT_PE_G_EVT_NLE_nle_ignored" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_G_IOP_MDA_self_event" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_G_IOP_R_ALL_interop" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_G_MDA_R_ALL_interop" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_G_STE_G_COP_compare_date" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_G_STE_G_EVT_PE_to_creation" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_G_STE_G_STE_pe_le_same_state" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_G_STE_assoc_rel" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_G_STE_del_inst_mult" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_im1" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_im2" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_im3" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_im4" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_ims" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_ims2" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_imx" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_init1" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_init2" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_interop_otherdom" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_memleak" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_mt1" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_no_inst" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_poly" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_reflexive" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_select" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_self" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_sm" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_sync" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_syntax" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_trans" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_wim2" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_wim3" classname="IOMdlTest" time="0.0"/>
+      <testcase name="test_wims" classname="IOMdlTest" time="0.001"/>
+      <testcase name="test_wimx" classname="IOMdlTest" time="0.0"/>
+      <testcase name="testImportSyntaxError" classname="IOMdlTest" time="0.009"/>
+      <testcase name="testImportMultDomainError" classname="IOMdlTest" time="0.001"/>
+      <testcase name="testImportOdmsFNF" classname="IOMdlTest" time="0.0"/>
+      <testcase name="testImportOdmsAccessError" classname="IOMdlTest" time="0.001"/>
+      <testcase name="testExportOdmsWithGraphicsFNF" classname="IOMdlTest" time="0.0"/>
+      <testcase name="testExportOdmsWithGraphicsAccessError" classname="IOMdlTest" time="0.0"/>
+      <testcase name="testImportOdms" classname="IOMdlTest" time="0.001"/>
+      <testcase name="testExportOdmsWithGraphics" classname="IOMdlTest" time="0.244"/>
+      <testcase name="testExportOdmsWithoutGraphics" classname="IOMdlTest" time="0.168"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.IOMdlUnicodeTest" time="2.52">
+      <testcase name="testUnicode" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlUnicodeTest" time="2.52"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.UniqueDomainIdsTest" time="2.367">
+      <testcase name="testUniqueDomainIds" classname="com.mentor.nucleus.bp.io.mdl.test.UniqueDomainIdsTest" time="0.664"/>
+      <testcase name="testUniqueIdsOnNonNewlyCreatedDomains" classname="com.mentor.nucleus.bp.io.mdl.test.UniqueDomainIdsTest" time="1.703"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.ProxyTests" time="6.093">
+      <testcase name="testConvertToProxyAfterComponentUnload" classname="com.mentor.nucleus.bp.io.mdl.test.ProxyTests" time="1.772"/>
+      <testcase name="testProxyPathWhenReferencingNonLocalProject" classname="com.mentor.nucleus.bp.io.mdl.test.ProxyTests" time="4.321"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.StaleProxyExportTest" time="2.547">
+      <testcase name="testStaleProxyExport" classname="com.mentor.nucleus.bp.io.mdl.test.StaleProxyExportTest" time="2.547"/>
+    </testsuite>
+    <testsuite name="ParseOnImportTestSuite" time="1.522">
+      <testcase name="testParseOnImport" classname="com.mentor.nucleus.bp.io.mdl.test.ParseOnImportTests" time="0.457"/>
+      <testcase name="testParseOnImport" classname="com.mentor.nucleus.bp.io.mdl.test.ParseOnImportTests" time="0.419"/>
+      <testcase name="testParseOnImport" classname="com.mentor.nucleus.bp.io.mdl.test.ParseOnImportTests" time="0.646"/>
+    </testsuite>
+  </testsuite>
+</testrun>

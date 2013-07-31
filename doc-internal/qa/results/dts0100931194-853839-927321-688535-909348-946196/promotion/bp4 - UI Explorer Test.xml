@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - UI Explorer Test" project="com.mentor.nucleus.bp.ui.explorer.test" tests="17" started="17" failures="0" errors="0" ignored="0">
+  <testsuite name="com.mentor.nucleus.bp.ui.explorer.test.ExplorerTestSuite" time="76.087">
+    <testsuite name="com.mentor.nucleus.bp.ui.explorer.test.ExplorerTest" time="66.587">
+      <testcase name="testConnectorSelectionInLinkedMode" classname="com.mentor.nucleus.bp.ui.explorer.test.ExplorerTest" time="7.379"/>
+      <testcase name="testProjectOpenThenClose" classname="com.mentor.nucleus.bp.ui.explorer.test.ExplorerTest" time="3.635"/>
+      <testcase name="testProjectDelete" classname="com.mentor.nucleus.bp.ui.explorer.test.ExplorerTest" time="0.967"/>
+      <testcase name="testDomainDeleteFromModelExplorer" classname="com.mentor.nucleus.bp.ui.explorer.test.ExplorerTest" time="6.631"/>
+      <testcase name="testProjectDeleteFromModelExplorer" classname="com.mentor.nucleus.bp.ui.explorer.test.ExplorerTest" time="2.918"/>
+      <testcase name="testDomainFolderDelete" classname="com.mentor.nucleus.bp.ui.explorer.test.ExplorerTest" time="4.321"/>
+      <testcase name="testSelectionChangeAfterCloseDoesntCauseError" classname="com.mentor.nucleus.bp.ui.explorer.test.ExplorerTest" time="0.608"/>
+      <testcase name="testSystemSelectionUpdatedWhenExplorerViewActivated" classname="com.mentor.nucleus.bp.ui.explorer.test.ExplorerTest" time="3.713"/>
+      <testcase name="testSystemSelectionNotUpdatedWhenExplorerViewActivated" classname="com.mentor.nucleus.bp.ui.explorer.test.ExplorerTest" time="0.359"/>
+      <testcase name="testMultipleOccurrenceInTreeInterfaceOperationParameter" classname="com.mentor.nucleus.bp.ui.explorer.test.ExplorerTest" time="19.787"/>
+      <testcase name="testMultipleOccurrenceInTreeInterfaceSignalParameter" classname="com.mentor.nucleus.bp.ui.explorer.test.ExplorerTest" time="16.269"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.explorer.test.I634ExplorerEmptySelectionTest" time="2.059">
+      <testcase name="testOpenOnEmptyExplorer" classname="com.mentor.nucleus.bp.ui.explorer.test.I634ExplorerEmptySelectionTest" time="0.109"/>
+      <testcase name="testOpenOnLoadedModelInExplorer" classname="com.mentor.nucleus.bp.ui.explorer.test.I634ExplorerEmptySelectionTest" time="1.95"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.explorer.test.FunctionKeyActivationTest" time="3.541">
+      <testcase name="testF2Activation" classname="com.mentor.nucleus.bp.ui.explorer.test.FunctionKeyActivationTest" time="3.292"/>
+      <testcase name="testDeleteActivation" classname="com.mentor.nucleus.bp.ui.explorer.test.FunctionKeyActivationTest" time="0.249"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.explorer.test.AlphaSortingTest" time="3.9">
+      <testcase name="testAlphaSortingOfSystems" classname="com.mentor.nucleus.bp.ui.explorer.test.AlphaSortingTest" time="1.747"/>
+      <testcase name="testAlphaSortingOfDomains" classname="com.mentor.nucleus.bp.ui.explorer.test.AlphaSortingTest" time="2.153"/>
+    </testsuite>
+  </testsuite>
+</testrun>

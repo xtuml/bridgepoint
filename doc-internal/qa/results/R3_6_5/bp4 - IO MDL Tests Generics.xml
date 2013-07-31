@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - IO MDL Tests Generics" project="com.mentor.nucleus.bp.io.mdl.test" tests="29" started="29" failures="0" errors="0" ignored="0">
+  <testsuite name="IOMdlTestSuiteGenerics" time="30.285">
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.IOMdlTestSuiteIGenerics" time="0.14">
+      <testcase name="testIOMdlTestSuiteI" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlTestSuiteIGenerics" time="0.14"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.ImportVersion7_0ModelsTestGenerics" time="1.12">
+      <testcase name="test_canvastest" classname="com.mentor.nucleus.bp.io.mdl.test.ImportVersion7_0ModelsTestGenerics" time="1.12"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.IOMdlNestedTestGenerics" time="4.921">
+      <testcase name="testCreateNestedDTP" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlNestedTestGenerics" time="1.373"/>
+      <testcase name="testCreateNestedFP" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlNestedTestGenerics" time="0.365"/>
+      <testcase name="testCreateNestedEEP" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlNestedTestGenerics" time="0.553"/>
+      <testcase name="testCreateNestedSS" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlNestedTestGenerics" time="0.312"/>
+      <testcase name="testExportWithDomainSelected" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlNestedTestGenerics" time="0.0"/>
+      <testcase name="testExportWithProjectSelected" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlNestedTestGenerics" time="0.0"/>
+      <testcase name="testExportWithPackageSelected" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlNestedTestGenerics" time="0.001"/>
+      <testcase name="testUpgradeModelWithPublishReference" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlNestedTestGenerics" time="2.317"/>
+    </testsuite>
+    <testsuite name="IOMdlTestGenerics" time="3.526">
+      <testcase name="test_InteractionDiagramUpgradeTestsGenerics" classname="IOMdlTestGenerics" time="0.319"/>
+      <testcase name="test_nested_testGenerics" classname="IOMdlTestGenerics" time="0.354"/>
+      <testcase name="test_odmsGenerics" classname="IOMdlTestGenerics" time="1.354"/>
+      <testcase name="testImportSyntaxError" classname="IOMdlTestGenerics" time="0.003"/>
+      <testcase name="testImportOdmsFNF" classname="IOMdlTestGenerics" time="0.035"/>
+      <testcase name="testImportOdmsAccessError" classname="IOMdlTestGenerics" time="0.0"/>
+      <testcase name="testExportOdmsWithGraphicsFNF" classname="IOMdlTestGenerics" time="0.02"/>
+      <testcase name="testExportOdmsWithGraphicsAccessError" classname="IOMdlTestGenerics" time="0.0"/>
+      <testcase name="testImportOdms" classname="IOMdlTestGenerics" time="1.01"/>
+      <testcase name="testExportOdmsWithGraphics" classname="IOMdlTestGenerics" time="0.431"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.IOMdlUnicodeTestGenerics" time="2.162">
+      <testcase name="testUnicode" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlUnicodeTestGenerics" time="2.162"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.ImportReferencedIPRModelTest" time="2.758">
+      <testcase name="test_nothing" classname="com.mentor.nucleus.bp.io.mdl.test.ImportReferencedIPRModelTest" time="2.758"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.ImportPasteElementsWithIPRTest" time="11.617">
+      <testcase name="test_ImportModelWithIPR" classname="com.mentor.nucleus.bp.io.mdl.test.ImportPasteElementsWithIPRTest" time="5.361"/>
+      <testcase name="testCopyPasteElementWithIPR" classname="com.mentor.nucleus.bp.io.mdl.test.ImportPasteElementsWithIPRTest" time="6.256"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.ProxyTestsGenerics" time="0.169">
+      <testcase name="testConvertToProxyAfterComponentUnload" classname="com.mentor.nucleus.bp.io.mdl.test.ProxyTestsGenerics" time="0.169"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.StaleProxyExportTestGenerics" time="3.676">
+      <testcase name="testStaleProxyExport" classname="com.mentor.nucleus.bp.io.mdl.test.StaleProxyExportTestGenerics" time="3.676"/>
+    </testsuite>
+    <testsuite name="ParseOnImportTestSuiteGenerics" time="0.196">
+      <testcase name="testParseOnImport" classname="com.mentor.nucleus.bp.io.mdl.test.ParseOnImportTestsGenerics" time="0.075"/>
+      <testcase name="testParseOnImport" classname="com.mentor.nucleus.bp.io.mdl.test.ParseOnImportTestsGenerics" time="0.061"/>
+      <testcase name="testParseOnImport" classname="com.mentor.nucleus.bp.io.mdl.test.ParseOnImportTestsGenerics" time="0.06"/>
+    </testsuite>
+  </testsuite>
+</testrun>
