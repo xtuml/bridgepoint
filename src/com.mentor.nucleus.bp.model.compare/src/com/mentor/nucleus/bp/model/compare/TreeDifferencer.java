@@ -257,14 +257,28 @@ public class TreeDifferencer extends Differencer {
 						.getComparableTreeObject(rightParent);
 			}
 			int description = getDifferenceType(left, right, ancestor, threeWay);
+			if(left != null && right != null && containsMatch(rightParent, left, right) && containsMatch(leftParent, left, right)) {
+				// set the element for the difference as the matching element
+				// on the other side
+				right = locateElementInOtherVersion(rightParent, left, contentProvider);
+				rightObjectForPath = contentProvider.getComparableTreeObject(right);
+			}
 			TreeDifference leftDifference = new TreeDifference(left,
 					TreeDifference.LOCATION_DIFFERENCE, true,
 					description,
 					getPathForElement(leftObjectForPath, contentProvider));
+			// if left is null do not set a location
+			if(left != null) {
+				leftDifference.setLocation(getLocationOfElement(leftParent, left));
+			}
 			TreeDifference rightDifference = new TreeDifference(right,
 					TreeDifference.LOCATION_DIFFERENCE, true,
 					description,
 					getPathForElement(rightObjectForPath, contentProvider));
+			// if right is null do not set a location
+			if(right != null) {
+				rightDifference.setLocation(getLocationOfElement(rightParent, right));
+			}
 			leftDifference.setMatchingDifference(rightDifference);
 			rightDifference.setMatchingDifference(leftDifference);
 			// if either are null, set the parent and expected location
@@ -273,17 +287,12 @@ public class TreeDifferencer extends Differencer {
 					// need to use for loop value from main entry
 					location = currentOuterLoopValue;
 				}
-				Integer leftMissing = missingMap
-						.get(getRealElement(leftParent));
-				if (leftMissing == null) {
-					leftMissing = new Integer(0);
-				}
 				leftDifference.setParent(contentProvider
 						.getComparableTreeObject(leftParent));
 				if (location == 0) {
 					leftDifference.setLocation(-1);
 				} else {
-					leftDifference.setLocation(location - leftMissing);
+					leftDifference.setLocation(getExpectedLocation(rightParent, right, leftParent));
 				}
 				addDifferenceToMap(leftParent, leftDifference, true);
 			} else {
@@ -294,17 +303,12 @@ public class TreeDifferencer extends Differencer {
 					// need to use for loop value from main entry
 					location = currentOuterLoopValue;
 				}
-				Integer rightMissing = missingMap
-						.get(getRealElement(rightParent));
-				if (rightMissing == null) {
-					rightMissing = new Integer(0);
-				}
 				rightDifference.setParent(contentProvider
 						.getComparableTreeObject(rightParent));
 				if (location == 0) {
 					rightDifference.setLocation(-1);
 				} else {
-					rightDifference.setLocation(location - rightMissing);
+					rightDifference.setLocation(getExpectedLocation(leftParent, left, rightParent));
 				}
 				addDifferenceToMap(rightParent, rightDifference, false);
 			} else {
@@ -419,6 +423,45 @@ public class TreeDifferencer extends Differencer {
 				}
 			}
 		}
+	}
+
+	private int getLocationOfElement(Object parent, Object element) {
+		int count = 0;
+		if(parent == null) {
+			return 0;
+		}
+		Object[] children = contentProvider.getChildrenOfType(
+				((ComparableTreeObject) parent).getRealElement(),
+				((ComparableTreeObject) element).getRealElement().getClass());
+		for(Object child : children) {
+			if(child == ((ComparableTreeObject) element).getRealElement()) {
+				return count;
+			}
+			count++;
+		}
+		return count;
+	}
+	
+	private int getExpectedLocation(Object parent, Object object, Object otherSideParent) {
+		int location = 0;
+		Object[] children = contentProvider.getChildren(parent);
+		for(int i = 0; i < children.length; i++) {
+			if(children[i].equals(object)) {
+				location = i - 1;
+			}
+		}
+		// adjust for additions just before this one
+		for(int i = location; i != 0; i--) {
+			Object otherElement = children[i];
+			Object elementInOtherVersion = locateElementInOtherVersion(
+					otherSideParent, otherElement, contentProvider);
+			if(elementInOtherVersion == null) {
+				location--;
+			} else {
+				break;
+			}
+		}
+		return location;
 	}
 
 	private Object getRealElement(Object element) {
@@ -575,6 +618,16 @@ public class TreeDifferencer extends Differencer {
 		return false;
 	}
 
+	static Object locateElementInOtherVersion(Object parent, Object object, ITreeDifferencerProvider contentProvider) {
+		Object[] children = contentProvider.getChildren(parent);
+		for (int i = 0; i < children.length; i++) {
+			if (children[i].equals(object)) {
+				return children[i];
+			}
+		}
+		return null;
+	}
+	
 	public void addDifferenceToMap(Object key, TreeDifference difference,
 			boolean left) {
 		HashMap<Object, List<TreeDifference>> differenceMap = leftDifferenceMap;

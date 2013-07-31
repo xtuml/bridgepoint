@@ -2,8 +2,8 @@
 <!--
 
  File:      $RCSfile: generate.xml,v $
- Version:   $Revision: 1.7 $
- Modified:  $Date: 2013/03/14 17:13:11 $
+ Version:   $Revision: 1.7.14.1 $
+ Modified:  $Date: 2013/07/31 20:59:04 $
 
  (c) Copyright 2004-2013 by Mentor Graphics Corp. All rights reserved.
 
@@ -54,5 +54,36 @@
 		</exec>
 		<delete file="____file.txt"/>
 	</target>
+
+	<property name="non_generated_files" value=".cvsignore,
+		Activator.java,
+		ElementOrderingTests.java,
+		ModelCompareTestSuite.java,
+		SynchronizedScrollingTests.java" />
+
+	<target name="clean_all"
+	        description="Clean entire project"
+	        depends="clean_classes, clean_source" >
+
+		<echo>Done cleaning for ${ant.project.name}</echo>
+
+	</target>
+
+	<target name="clean_source"
+	        description="Remove the java source files" >
+
+		<echo>Removing generated java files...</echo>
+		<delete verbose="true" dir="src/com/mentor/nucleus/bp/model/compare/test/" excludes="${non_generated_files}"/>
+
+	</target>
+
+	<target name="clean_classes"
+	          description="Remove all compiled class files." >
+
+		<echo>Removing all compiled class files ...</echo>
+		<delete verbose="true" dir="bin" />
+
+	</target>
+
 
 </project>

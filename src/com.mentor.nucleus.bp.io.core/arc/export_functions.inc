@@ -1,8 +1,8 @@
 .//====================================================================
 .//
 .// File:      $RCSfile: export_functions.inc,v $
-.// Version:   $Revision: 1.48 $
-.// Modified:  $Date: 2013/05/12 00:16:34 $
+.// Version:   $Revision: 1.48.18.1 $
+.// Modified:  $Date: 2013/07/08 14:38:19 $
 .//
 .// (c) Copyright 2007-2013 by Mentor Graphics Corp.  All rights reserved.
 .//
@@ -77,7 +77,15 @@
   m_fh.print( inst.${a.body}().replaceAll( "'", "''" ) ); //$$NON-NLS-1$$ //$$NON-NLS-2$$
   m_fh.print( "'"); //$$NON-NLS-1$$
     .elif ( col.type == "boolean" )
+      .if((table.Key_Lett == "S_SYS") and (col.Name == "useGlobals"))
+      if(inst.getModelRoot().isCompareRoot()) {
+  m_fh.print("1");  //$$NON-NLS-1$$ //$$NON-NLS-2$$
+      } else {
   m_fh.print( (inst.${a.body}()) ? "1" : "0" );  //$$NON-NLS-1$$ //$$NON-NLS-2$$
+      }
+      .else
+  m_fh.print( (inst.${a.body}()) ? "1" : "0" );  //$$NON-NLS-1$$ //$$NON-NLS-2$$
+      .end if
     .elif ( col.type == "real" )
       .if ( not nf_output )
   NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
@@ -227,7 +235,11 @@
   m_is_fully_derived = inst.getFull_der() != 0;
         .end if
       .else
-  m_fh.print( inst.${a.body}() );
+        .if(col.isReferential)
+  m_fh.print( outputCachedIDs ? inst.${a.body}CachedValue():inst.${a.body}());
+        .else
+  m_fh.print(inst.${a.body}());
+        .end if
       .end if
     .end if
     .//
