@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - UI Canvas CCP Test" project="com.mentor.nucleus.bp.ui.canvas.test" tests="110" started="110" failures="0" errors="0" ignored="0">
+  <testsuite name="CanvasCCPTestSuite" time="1189.784">
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyPasteTests" time="11.774">
+      <testcase name="testCopyDomainDTPackageToSystem" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyPasteTests" time="3.749"/>
+      <testcase name="testCopySSWithNonSimpleAssociations" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyPasteTests" time="2.134"/>
+      <testcase name="testCopyClassesWithoutSelectingAssociationBetween" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyPasteTests" time="1.992"/>
+      <testcase name="testUndoRedoRestoresPastedElements" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyPasteTests" time="1.044"/>
+      <testcase name="testPasteOutsideOfGraphicsAllowsUpdateOfGraphicalElementModelRoots" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyPasteTests" time="2.855"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.CanvasCCPTestsSuite" time="0.001">
+      <testcase name="testCanvasCCPTestSuite" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCCPTestsSuite" time="0.001"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.CanvasCutTests" time="3.849">
+      <testcase name="testCutNotAllowedOnReadonlyElement" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCutTests" time="1.725"/>
+      <testcase name="testCutRemovesElementAndUndoRestores" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCutTests" time="1.122"/>
+      <testcase name="testCutAvailableAfterReload" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCutTests" time="1.002"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyTests" time="8.358">
+      <testcase name="testCopyAllClasses" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyTests" time="4.672"/>
+      <testcase name="testCutNotAllowedWhenSelectionContainsDefaultDataTypePackage" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyTests" time="1.239"/>
+      <testcase name="testCutNotAllowedOnBuiltInUDT" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyTests" time="0.959"/>
+      <testcase name="testCopyAvailableAfterReload" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyTests" time="1.488"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="64.622">
+      <testcase name="testCopyPasteState" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="2.437"/>
+      <testcase name="testPasteCreationTransitionNotAllowedInClassBasedMachine" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="0.876"/>
+      <testcase name="testPasteCreationTransitionCreatesNewEventWhenExistingAlreadyAssignedToCRTXN" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="1.714"/>
+      <testcase name="testPasteTransitionIntoInstanceMachineWithMatchingEvent" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="1.736"/>
+      <testcase name="testPasteTransitionIntoClassBasedMachineWithMatchingEvent" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="1.748"/>
+      <testcase name="testPasteTransitionIntoClassBasedMachineWithMatchingEventAndDataItem" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="1.789"/>
+      <testcase name="testPasteTransitionIntoMachineWithMatchingEventAndDataItemWithoutTypeMatch" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="2.265"/>
+      <testcase name="testPasteTransitionIntoMachineWithNoMatchingPoly" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="2.043"/>
+      <testcase name="testPasteTransitionIntoMachineWithMatchingNonLocalEvent" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="1.831"/>
+      <testcase name="testPasteTransitionIntoMachineWithDeclaredPoly" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="2.67"/>
+      <testcase name="testPasteSubtypeWithoutSupertype" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="2.101"/>
+      <testcase name="testPasteSubtypeAndSupertypeWithoutAssociation" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="2.445"/>
+      <testcase name="testPasteSubtypeAndSupertypeWithAssociation" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="2.191"/>
+      <testcase name="testPasteSubsystemWithImportedSupertypeWhereSupertypeCanBeResolved" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="3.107"/>
+      <testcase name="testPasteSubsystemWithImportedSupertypeWhereSupertypeCanNotBeResolved" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="4.113"/>
+      <testcase name="testPasteTransitionWhereSignalCanBeResolvedSpecializedPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="12.146"/>
+      <testcase name="testPasteTransitionWhereSignalCanBeResolvedGenericPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="0.655"/>
+      <testcase name="testPasteTransitionWhereSignalUnresolvableByNameSpecializedPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="1.944"/>
+      <testcase name="testPasteTransitionWhereSignalUnresolvableByNameGenericPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="0.686"/>
+      <testcase name="testPasteTransitionWhereSignalUnresolvableByArgumentNameSpecializedPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="1.936"/>
+      <testcase name="testPasteTransitionWhereSignalUnresolvableByArgumentNameGenericPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="0.688"/>
+      <testcase name="testPasteTransitionWhereSignalUnresolvableByArgumentTypeSpecializedPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="2.261"/>
+      <testcase name="testPasteTransitionWhereSignalUnresolvableByArgumentTypeGenericPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="0.637"/>
+      <testcase name="testPasteTransitionWhereSignalUnresolvableTargetLessArgumentsSpecializedPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="1.934"/>
+      <testcase name="testPasteTransitionWhereSignalUnresolvableTargetLessArgumentsGenericPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="0.687"/>
+      <testcase name="testPasteTransitionWhereSignalResolvableTargetMoreArgumentsGenericPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="0.891"/>
+      <testcase name="testPasteTransitionWhereSignalResolvableProvisionToRequirementSpecializedPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="1.93"/>
+      <testcase name="testPasteTransitionWhereSignalResolvableProvisionToRequirementGenericPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="0.641"/>
+      <testcase name="testPasteTransitionWhereSignalResolvableRequirementToProvisionSpecializedPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="1.825"/>
+      <testcase name="testPasteTransitionWhereSignalResolvableRequirementToProvisionGenericPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="0.691"/>
+      <testcase name="testPasteTransitionWhereSignalResolvableTargetMoreArgumentsSpecializedPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="2.004"/>
+    </testsuite>
+    <testsuite name="ModelRecreationTestSuite" time="1101.18">
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="6.822"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="4.449"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="3.598"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="4.452"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="3.937"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="6.934"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="3.819"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="3.733"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="4.376"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="3.094"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="3.351"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="3.674"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="4.399"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="6.928"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="19.804"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="2.214"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="5.234"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="5.267"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="5.896"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="3.855"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="16.443"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="31.97"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="10.04"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="4.155"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="13.856"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="16.274"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="16.285"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="8.127"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="29.287"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="11.283"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="13.914"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="4.337"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="66.739"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="20.485"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="11.151"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="10.309"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="4.159"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="5.271"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="342.413"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="8.138"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="26.33"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="12.695"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="8.943"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="4.614"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="4.841"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="8.84"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="8.81"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="30.71"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="9.437"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="7.81"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="8.649"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="7.99"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="7.81"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="6.234"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="7.674"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="7.889"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="12.28"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="23.807"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="8.293"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="12.71"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="24.441"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="15.243"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="15.563"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="38.708"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="21.787"/>
+      <testcase name="testRecreateModel" classname="com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests" time="8.599"/>
+    </testsuite>
+  </testsuite>
+</testrun>

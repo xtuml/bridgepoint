@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - UI Canvas Suite 1" project="com.mentor.nucleus.bp.ui.canvas.test" tests="139" started="139" failures="0" errors="0" ignored="0">
+  <testsuite name="CanvasSuite1" time="191.086">
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.CanvasTestSuite1" time="0.182">
+      <testcase name="testCanvasSuite1" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasTestSuite1" time="0.182"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.ErrorPathsTest" time="0.053">
+      <testcase name="testGetConnectorText" classname="com.mentor.nucleus.bp.ui.canvas.test.ErrorPathsTest" time="0.02"/>
+      <testcase name="testGetCompartmentText" classname="com.mentor.nucleus.bp.ui.canvas.test.ErrorPathsTest" time="0.008"/>
+      <testcase name="testGetCompartments" classname="com.mentor.nucleus.bp.ui.canvas.test.ErrorPathsTest" time="0.008"/>
+      <testcase name="testGetConnectorStyle" classname="com.mentor.nucleus.bp.ui.canvas.test.ErrorPathsTest" time="0.011"/>
+      <testcase name="testGetOOA_IDfromInstance" classname="com.mentor.nucleus.bp.ui.canvas.test.ErrorPathsTest" time="0.006"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="32.654">
+      <testcase name="testOperationWithSpaces" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="2.443"/>
+      <testcase name="testBridgeWithSpaces" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.726"/>
+      <testcase name="testEnumeratorWithSpaces" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.791"/>
+      <testcase name="testMemberWithSpaces" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.773"/>
+      <testcase name="testLiteralSymbolicConstantWithSpaces" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.798"/>
+      <testcase name="testInterfaceOperationWithSpaces" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.792"/>
+      <testcase name="testMessageArgumentWithSpaces" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.643"/>
+      <testcase name="testInterfaceSignalWithSpaces" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.92"/>
+      <testcase name="testPackageWithInvalidCharacter" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.359"/>
+      <testcase name="testClassWithInvalidCharacter" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.352"/>
+      <testcase name="testComponentWithInvalidCharacter" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.439"/>
+      <testcase name="testInterfaceWithInvalidCharacter" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.364"/>
+      <testcase name="testPackageGraphicalToolWithInvalidCharacter" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.359"/>
+      <testcase name="testClassGraphicalToolWithInvalidCharacter" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.377"/>
+      <testcase name="testComponentGraphicalToolWithInvalidCharacter" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.36"/>
+      <testcase name="testInterfaceGraphicalToolWithInvalidCharacter" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.373"/>
+      <testcase name="testPackageRenameWithInvalidCharacter" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.728"/>
+      <testcase name="testClassRenameWithInvalidCharacter" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.885"/>
+      <testcase name="testComponentRenameWithInvalidCharacter" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.866"/>
+      <testcase name="testInterfaceRenameWithInvalidCharacter" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.947"/>
+      <testcase name="testNewPackageCMENoName" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.372"/>
+      <testcase name="testNewClassCMENoName" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.39"/>
+      <testcase name="testNewComponentCMENoName" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.378"/>
+      <testcase name="testNewInterfaceCMENoName" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.375"/>
+      <testcase name="testRenamePackageNoName" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.762"/>
+      <testcase name="testRenameClassNoName" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.909"/>
+      <testcase name="testRenameComponentNoName" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.859"/>
+      <testcase name="testRenameInterfaceNoName" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.871"/>
+      <testcase name="testNewPackageEditorNoName" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.385"/>
+      <testcase name="testNewClassEditorNoName" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.401"/>
+      <testcase name="testNewComponentEditorNoName" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.4"/>
+      <testcase name="testNewInterfaceEditorNoName" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.384"/>
+      <testcase name="testNewPackageCMEExistingFolder" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.806"/>
+      <testcase name="testNewClassCMEExistingFolder" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.801"/>
+      <testcase name="testNewComponentCMEExistingFolder" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.802"/>
+      <testcase name="testNewInterfaceCMEExistingFolder" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.804"/>
+      <testcase name="testRenamePackageExistingFolder" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="1.376"/>
+      <testcase name="testRenameClassExistingFolder" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="1.538"/>
+      <testcase name="testRenameComponentExistingFolder" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="1.2"/>
+      <testcase name="testRenameInterfaceExistingFolder" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="1.169"/>
+      <testcase name="testNewPackageEditorExistingFolder" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.782"/>
+      <testcase name="testNewClassEditorExistingFolder" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.953"/>
+      <testcase name="testNewComponentEditorExistingFolder" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.829"/>
+      <testcase name="testNewInterfaceEditorExistingFolder" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasInitialNameTests" time="0.813"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.SymbolTest" time="12.02">
+      <testcase name="testCanvasDomainChart" classname="com.mentor.nucleus.bp.ui.canvas.test.SymbolTest" time="3.094"/>
+      <testcase name="testCanvasClassDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.SymbolTest" time="1.103"/>
+      <testcase name="testCanvasExportedClassDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.SymbolTest" time="1.025"/>
+      <testcase name="testCanvas2ndExportedClassDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.SymbolTest" time="1.073"/>
+      <testcase name="testCanvasStateChart" classname="com.mentor.nucleus.bp.ui.canvas.test.SymbolTest" time="1.236"/>
+      <testcase name="testCanvasDTPackageDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.SymbolTest" time="0.875"/>
+      <testcase name="testCanvasEEPackageDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.SymbolTest" time="1.146"/>
+      <testcase name="testCanvasActivityDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.SymbolTest" time="1.187"/>
+      <testcase name="test_CanvasPlugin" classname="com.mentor.nucleus.bp.ui.canvas.test.SymbolTest" time="1.281"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.ODMSTest" time="25.447">
+      <testcase name="testODMSDomainChart" classname="com.mentor.nucleus.bp.ui.canvas.test.ODMSTest" time="2.471"/>
+      <testcase name="testODMSClassDiagramDisplayWithSelection" classname="com.mentor.nucleus.bp.ui.canvas.test.ODMSTest" time="1.211"/>
+      <testcase name="testODMSClassDiagramDisplayZoomedToSelection" classname="com.mentor.nucleus.bp.ui.canvas.test.ODMSTest" time="1.137"/>
+      <testcase name="testODMSClassDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.ODMSTest" time="1.374"/>
+      <testcase name="testDiskStateChart" classname="com.mentor.nucleus.bp.ui.canvas.test.ODMSTest" time="1.176"/>
+      <testcase name="testDiskRequestStateChart" classname="com.mentor.nucleus.bp.ui.canvas.test.ODMSTest" time="1.48"/>
+      <testcase name="testQualifiedProcessStateChart" classname="com.mentor.nucleus.bp.ui.canvas.test.ODMSTest" time="1.056"/>
+      <testcase name="testDiskOwnershipAssignerStateChart" classname="com.mentor.nucleus.bp.ui.canvas.test.ODMSTest" time="1.69"/>
+      <testcase name="testDriveDiskAssignerStateChart" classname="com.mentor.nucleus.bp.ui.canvas.test.ODMSTest" time="1.38"/>
+      <testcase name="testSlotStateChart" classname="com.mentor.nucleus.bp.ui.canvas.test.ODMSTest" time="1.595"/>
+      <testcase name="testOnlineLocationChart" classname="com.mentor.nucleus.bp.ui.canvas.test.ODMSTest" time="1.452"/>
+      <testcase name="testSlotDiskAssignerStateChart" classname="com.mentor.nucleus.bp.ui.canvas.test.ODMSTest" time="1.115"/>
+      <testcase name="testDriveStateChart" classname="com.mentor.nucleus.bp.ui.canvas.test.ODMSTest" time="1.192"/>
+      <testcase name="testPortStateChart" classname="com.mentor.nucleus.bp.ui.canvas.test.ODMSTest" time="1.686"/>
+      <testcase name="testRobotStateChart" classname="com.mentor.nucleus.bp.ui.canvas.test.ODMSTest" time="1.244"/>
+      <testcase name="testODMSDTPackageDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.ODMSTest" time="1.392"/>
+      <testcase name="testODMSFNPackageDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.ODMSTest" time="1.331"/>
+      <testcase name="testODMSEEPackageDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.ODMSTest" time="1.464"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.CanvasEditorReloadContentsTest" time="4.242">
+      <testcase name="testEditorUpdatesOnReload" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasEditorReloadContentsTest" time="2.403"/>
+      <testcase name="testISMEditorStaysOpenOnReload" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasEditorReloadContentsTest" time="1.839"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="41.462">
+      <testcase name="testODMSDTPackageDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="8.264"/>
+      <testcase name="testODMSEEPackageDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="1.384"/>
+      <testcase name="testOOAofOOADomainChart" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="1.48"/>
+      <testcase name="testOOAofOOASubsystemClassDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="1.764"/>
+      <testcase name="testOOAofOOARelationshipClassDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="1.861"/>
+      <testcase name="testOOAofOOACandAClassDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="1.812"/>
+      <testcase name="testOOAofOOAStateModelClassDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="1.857"/>
+      <testcase name="testOOAofOOAObjectClassDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="1.688"/>
+      <testcase name="testOOAofOOAGraphicsClassDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="2.432"/>
+      <testcase name="testOOAofOOAActionClassDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="1.571"/>
+      <testcase name="testOOAofOOAValueClassDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="1.848"/>
+      <testcase name="testOOAofOOAAssignClassDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="1.519"/>
+      <testcase name="testOOAofOOARelateClassDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="1.566"/>
+      <testcase name="testOOAofOOASelectClassDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="1.617"/>
+      <testcase name="testOOAofOOAInvokeClassDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="1.505"/>
+      <testcase name="testOOAofOOAGenerateClassDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="1.408"/>
+      <testcase name="testOOAofOOAUseCaseClassDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="1.522"/>
+      <testcase name="testOOAofOOAConnectorToolStateChart" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="1.71"/>
+      <testcase name="testOOAofOOAModelStateChart" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="1.816"/>
+      <testcase name="testOOAofOOAToolStateChart" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="1.327"/>
+      <testcase name="testOOAofOOANoodeToolStateChart" classname="com.mentor.nucleus.bp.ui.canvas.test.OOAofOOATest" time="1.511"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.ListenerTest" time="9.118">
+      <testcase name="testDPDListener" classname="com.mentor.nucleus.bp.ui.canvas.test.ListenerTest" time="1.403"/>
+      <testcase name="testDTPListener" classname="com.mentor.nucleus.bp.ui.canvas.test.ListenerTest" time="1.268"/>
+      <testcase name="testFPListener" classname="com.mentor.nucleus.bp.ui.canvas.test.ListenerTest" time="1.249"/>
+      <testcase name="testEEPListener" classname="com.mentor.nucleus.bp.ui.canvas.test.ListenerTest" time="1.35"/>
+      <testcase name="testCDListener" classname="com.mentor.nucleus.bp.ui.canvas.test.ListenerTest" time="1.251"/>
+      <testcase name="testISDListener" classname="com.mentor.nucleus.bp.ui.canvas.test.ListenerTest" time="1.346"/>
+      <testcase name="testCSDListener" classname="com.mentor.nucleus.bp.ui.canvas.test.ListenerTest" time="1.251"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="48.518">
+      <testcase name="testCreateSubsystemWithOneClass" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="2.663"/>
+      <testcase name="testCreateFunctionPackage" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="1.29"/>
+      <testcase name="testCreateDataTypePackage" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="1.253"/>
+      <testcase name="testCreateEEPackage" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="1.274"/>
+      <testcase name="testCreateISM" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="1.263"/>
+      <testcase name="testCreateCSM" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="1.313"/>
+      <testcase name="testCreateSubsystemInSubsystem" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="1.502"/>
+      <testcase name="testCreateModelClassInSubsystem" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="2.121"/>
+      <testcase name="testCreateImportedModelClassInSubsystem" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="2.35"/>
+      <testcase name="testCreateFunctionPackageInFunctionPackage" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="1.346"/>
+      <testcase name="testCreateDataTypePackageInDataTypePackage" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="1.407"/>
+      <testcase name="testCreateUserDatatypeInDataTypePackage" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="2.392"/>
+      <testcase name="testCreateEnumDatatypeInDataTypePackage" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="2.216"/>
+      <testcase name="testCreateEEInEEPackage" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="2.405"/>
+      <testcase name="testCreateEEPackageInEEPackage" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="1.287"/>
+      <testcase name="testCreateStateInISM" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="2.493"/>
+      <testcase name="testCreateStateInCSM" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="2.408"/>
+      <testcase name="testCreateActivityInDomain" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="1.373"/>
+      <testcase name="testCreateActivityInSS" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="1.28"/>
+      <testcase name="testCreateActivityInActivity" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="1.245"/>
+      <testcase name="testCreateActivityElements" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCreationTest" time="13.637"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.ShapeResizeTest" time="10.415">
+      <testcase name="testConnectorsAttachedAfterShapeResize" classname="com.mentor.nucleus.bp.ui.canvas.test.ShapeResizeTest" time="3.036"/>
+      <testcase name="testResizeWorksAfterResizeUndo" classname="com.mentor.nucleus.bp.ui.canvas.test.ShapeResizeTest" time="6.073"/>
+      <testcase name="testResizeWorksAfterCancelledMove" classname="com.mentor.nucleus.bp.ui.canvas.test.ShapeResizeTest" time="1.306"/>
+      <testcase name="testResizeFixedAspectShape" classname="com.mentor.nucleus.bp.ui.canvas.test.ShapeResizeTest" time="0.0"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.CanvasEditorTestSuite" time="3.364">
+      <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.OpenCanvasEditor" time="3.364">
+        <testcase name="testOpenPackageDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.OpenCanvasEditor" time="2.957"/>
+        <testcase name="testOpenClassDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.OpenCanvasEditor" time="0.242"/>
+        <testcase name="testOpenInstanceStateChartDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.OpenCanvasEditor" time="0.165"/>
+      </testsuite>
+      <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.CloseCanvasEditor" time="0.0">
+        <testcase name="testCloseTestCD" classname="com.mentor.nucleus.bp.ui.canvas.test.CloseCanvasEditor" time="0.0"/>
+        <testcase name="testCloseDPD" classname="com.mentor.nucleus.bp.ui.canvas.test.CloseCanvasEditor" time="0.0"/>
+        <testcase name="testCloseSC" classname="com.mentor.nucleus.bp.ui.canvas.test.CloseCanvasEditor" time="0.0"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.CreationTransitionTest" time="3.611">
+      <testcase name="testDrawCreationTransition" classname="com.mentor.nucleus.bp.ui.canvas.test.CreationTransitionTest" time="3.611"/>
+    </testsuite>
+  </testsuite>
+</testrun>

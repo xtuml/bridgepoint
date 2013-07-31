@@ -1,0 +1,56 @@
+========================================================================
+File:      Unit_test_checklist.chk
+
+(c) Copyright 2008-2013 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+This document captures the state of the BridgePoint unit tests ran against:
+ 
+branch: promotion of Review-942847-05
+machine: cas-rmulvey-lt
+OS: Win7
+
+Test                                            Who             Result     Time
+--------------------------------------------------------------------------------
+com.mentor.nucleus.bp.als.oal.test              -               -
+              UseGlobals Parse All TestGenerics bob             pass       366s
+com.mentor.nucleus.bp.core.test                 -               -                
+              Core Test-RTO Move                bob             pass       243s
+              Core Test-Consistency             bob             pass       1s
+              Core Test-Workspace Setup Generic bob             pass       1s
+              Core Test-Existing Projects Gener bob             pass       1s 
+              Core Generic Upgrade Test         bob             pass       3s                  
+              UseGlobals Core Test Generics     bob             pass       675s  
+              UseGlobals Core Test 2Generics    bob             fail       281s     (1 failure)
+              UseGlobals Core Test-SystemLevelTests bob         pass       8s              
+com.mentor.nucleus.bp.debug.ui.test (Verifier)    -             -
+              Debug - Verifier Test             bob             fail [2]   651s  (3 failures)
+              Debug - Verifier Test 2           bob             pass       54s
+com.mentor.nucleus.bp.model.compare.test        bob             pass       139s
+com.mentor.nucleus.bp.io.mdl.test                -              -
+              UseGlobals IO MDL Tests Generics  bob             fail       23s (1 error  4 failures)
+              UseGlobals IO MDL Tests 2Generics bob             pass       204s
+              UseGlobals IO MDL PkgCM Test Suite
+                                       Generics bob             fail       634s (3 failures)
+com.mentor.nucleus.bp.io.sql.test               bob             pass        1s
+com.mentor.nucleus.bp.search.test               bob             fail        1018s (it hung and all tests failed)
+com.mentor.nucleus.bp.ui.canvas.test            -               -
+              UseGlobals UI Canvas Suite 1      bob             pass        82s
+              UseGlobals UI Canvas Suite 2      bob             pass       205s
+              UseGlobals UI Canvas CCP Test     bob             fail       525s (1 failure)
+com.mentor.nucleus.bp.ui.explorer.test          -               -
+              UseGlobals UI Explorer Test       bob             pass       42s
+com.mentor.nucleus.bp.ui.properties.test        -               -
+              UseGlobals UI Properties Test     bob             pass       12s
+com.mentor.nucleus.bp.ui.text.test                -             -
+              UseGlobals UI Text Test           bob             pass       98s
+com.mentor.nucleus.bp.welcome                   bob             pass       110s
+
+N/A - Not applicable (Do not run this test.  It has know problems.)
+[1] The test model data is incomplete, many errors and failures expected
+[2] ~3 failures related to "Process not suspended by breakpoint".  Sometimes 
+will yyyy all when run in thirds in debug mode

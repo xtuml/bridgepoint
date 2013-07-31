@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - Core Test - System Level TestsGenerics" project="com.mentor.nucleus.bp.core.test" tests="15" started="15" failures="0" errors="0" ignored="0">
+  <testsuite name="SystemLevelTestSuiteGenerics" time="5.37">
+    <testsuite name="com.mentor.nucleus.bp.core.test.SystemLevelTestsSuiteGenerics" time="0.283">
+      <testcase name="testSystemLevelsTestSuite" classname="com.mentor.nucleus.bp.core.test.SystemLevelTestsSuiteGenerics" time="0.283"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.ComponentContextMenuTestsGenerics" time="5.087">
+      <testcase name="testContextMenuDeleteActionOnCL_IC" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTestsGenerics" time="3.134"/>
+      <testcase name="testContextMenuDisconnectActionOnCL_IR" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTestsGenerics" time="0.203"/>
+      <testcase name="testContextMenuDisconnectActionOnCL_IP" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTestsGenerics" time="0.091"/>
+      <testcase name="testContextMenuDisconnectActionOnC_P" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTestsGenerics" time="0.416"/>
+      <testcase name="testContextMenuDisconnectActionOnC_R" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTestsGenerics" time="0.063"/>
+      <testcase name="testContextMenuUnassignActionOnCL_IC" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTestsGenerics" time="0.072"/>
+      <testcase name="testContextMenuAssignSignalActionOnSM_TXN" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTestsGenerics" time="0.236"/>
+      <testcase name="testContextMenuAssignSignalActionOnSM_TXNInnerComponent" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTestsGenerics" time="0.137"/>
+      <testcase name="testContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTestsGenerics" time="0.138"/>
+      <testcase name="testContextMenuAssignSignalActionOnSM_TXNCantUseSameTwiceInnerComponent" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTestsGenerics" time="0.143"/>
+      <testcase name="testContextMenuAssignSignalActionOnSM_TXNGoesAway" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTestsGenerics" time="0.15"/>
+      <testcase name="testContextMenuAssignSignalActionOnSM_TXNInteractionWithEvent" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTestsGenerics" time="0.077"/>
+      <testcase name="testContextMenuAssignSignalActionOnSM_TXNGoesAwayInnerComponent" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTestsGenerics" time="0.138"/>
+      <testcase name="testContextMenuAssignSignalActionOnSM_TXNInteractionWithEventInnerComponent" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTestsGenerics" time="0.089"/>
+    </testsuite>
+  </testsuite>
+</testrun>

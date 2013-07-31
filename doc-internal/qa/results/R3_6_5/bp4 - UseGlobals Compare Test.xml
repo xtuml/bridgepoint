@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - UseGlobals Compare Test" project="com.mentor.nucleus.bp.compare.test" tests="19" started="19" failures="0" errors="0" ignored="0">
+  <testsuite name="CompareGlobalsTestSuite" time="101.781">
+    <testsuite name="com.mentor.nucleus.bp.compare.test.cases.CompareGlobalsTest" time="0.169">
+      <testcase name="testGlobally" classname="com.mentor.nucleus.bp.compare.test.cases.CompareGlobalsTest" time="0.169"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.cases.CompareSQLFilesTest" time="3.023">
+      <testcase name="testCompareTwoDifferentSQLFiles" classname="com.mentor.nucleus.bp.compare.test.cases.CompareSQLFilesTest" time="2.86"/>
+      <testcase name="testCompareTwoSimilarSQLFiles" classname="com.mentor.nucleus.bp.compare.test.cases.CompareSQLFilesTest" time="0.162"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.cases.GenerateComparisonTextTest" time="0.078">
+      <testcase name="testGenerateTextForSQLFile" classname="com.mentor.nucleus.bp.compare.test.cases.GenerateComparisonTextTest" time="0.078"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.cases.ModelInspectorTest" time="0.064">
+      <testcase name="testModelInspectorTime" classname="com.mentor.nucleus.bp.compare.test.cases.ModelInspectorTest" time="0.064"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.cases.HierarchyFileCoverageTest" time="0.0">
+      <testcase name="testDummy" classname="com.mentor.nucleus.bp.compare.test.cases.HierarchyFileCoverageTest" time="0.0"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.cases.ModelCacheManagerTest" time="0.0">
+      <testcase name="testModelCacheModelCount" classname="com.mentor.nucleus.bp.compare.test.cases.ModelCacheManagerTest" time="0.0"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.cases.CompareFileDeletionCheck" time="1.077">
+      <testcase name="testFileDeletion" classname="com.mentor.nucleus.bp.compare.test.cases.CompareFileDeletionCheck" time="1.077"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.cases.CompareCreationTransitionDiffTest" time="0.702">
+      <testcase name="testCompareCreationTransitionDifference" classname="com.mentor.nucleus.bp.compare.test.cases.CompareCreationTransitionDiffTest" time="0.702"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.cases.I495HierarchyComparisonTest" time="0.151">
+      <testcase name="testCompareDiffTreeAgainstExplorerTree" classname="com.mentor.nucleus.bp.compare.test.cases.I495HierarchyComparisonTest" time="0.151"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.plcm.CompareTest" time="30.554">
+      <testcase name="testCompareTwoDifferentModels" classname="com.mentor.nucleus.bp.compare.test.plcm.CompareTest" time="8.184"/>
+      <testcase name="testCompareTwoSimilarModels" classname="com.mentor.nucleus.bp.compare.test.plcm.CompareTest" time="10.202"/>
+      <testcase name="testCompareTwoLogicallySameModels" classname="com.mentor.nucleus.bp.compare.test.plcm.CompareTest" time="10.19"/>
+      <testcase name="testCompareTwoInvalidModels" classname="com.mentor.nucleus.bp.compare.test.plcm.CompareTest" time="1.978"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.plcm.InspectorTest" time="2.251">
+      <testcase name="testModelInspector" classname="com.mentor.nucleus.bp.compare.test.plcm.InspectorTest" time="2.251"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.plcm.LocalHistoryTest" time="6.701">
+      <testcase name="testRestorefromLocalHistory" classname="com.mentor.nucleus.bp.compare.test.plcm.LocalHistoryTest" time="2.377"/>
+      <testcase name="testCompareWithLocalHistory" classname="com.mentor.nucleus.bp.compare.test.plcm.LocalHistoryTest" time="2.24"/>
+      <testcase name="testReplaceWithLocalHistory" classname="com.mentor.nucleus.bp.compare.test.plcm.LocalHistoryTest" time="2.084"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.plcm.CVSOperationsTest" time="57.011">
+      <testcase name="testCompareWithCVS" classname="com.mentor.nucleus.bp.compare.test.plcm.CVSOperationsTest" time="57.011"/>
+    </testsuite>
+  </testsuite>
+</testrun>

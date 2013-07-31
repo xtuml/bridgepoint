@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - IO MDL Tests 2 Generics" project="com.mentor.nucleus.bp.io.mdl.test" tests="9" started="9" failures="0" errors="0" ignored="0">
+  <testsuite name="IOMdlTestSuite2Generics" time="397.314">
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.IOMdlTestSuiteIIGenerics" time="0.183">
+      <testcase name="testIOMdlTestSuiteII" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlTestSuiteIIGenerics" time="0.183"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.wizards.ImportWizardTestsGenerics" time="7.752">
+      <testcase name="testNoOrphanedElementsOnImportOfCoreDataTypePackage" classname="com.mentor.nucleus.bp.io.mdl.test.wizards.ImportWizardTestsGenerics" time="7.752"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.pkgcm.CVSOperationsTestGenerics" time="26.296">
+      <testcase name="testCVSDirtyMarkOnModelExplorer" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.CVSOperationsTestGenerics" time="26.296"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenerics" time="169.19">
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenerics" time="169.19"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.OALPersistenceTestsGenerics" time="139.558">
+      <testcase name="testPersistOAL" classname="com.mentor.nucleus.bp.io.mdl.test.OALPersistenceTestsGenerics" time="23.447"/>
+      <testcase name="testOALInstancesCreatedWhileBuild" classname="com.mentor.nucleus.bp.io.mdl.test.OALPersistenceTestsGenerics" time="11.607"/>
+      <testcase name="testOALInstancesExportedProperly" classname="com.mentor.nucleus.bp.io.mdl.test.OALPersistenceTestsGenerics" time="104.504"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.SLDTTestsGenerics" time="0.328">
+      <testcase name="testCoreTypeOfSLDTForNewProject" classname="com.mentor.nucleus.bp.io.mdl.test.SLDTTestsGenerics" time="0.328"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.DataUpgradeCreatesNoDeltasTestGenerics" time="54.007">
+      <testcase name="testUpgradeCreatesNoDeltas" classname="com.mentor.nucleus.bp.io.mdl.test.DataUpgradeCreatesNoDeltasTestGenerics" time="54.007"/>
+    </testsuite>
+  </testsuite>
+</testrun>

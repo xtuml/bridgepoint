@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - Core Test 2 - Consistency" project="com.mentor.nucleus.bp.core.test" tests="17" started="17" failures="0" errors="0" ignored="0">
+  <testsuite name="com.mentor.nucleus.bp.core.test.ConsistencyTest" time="3.178">
+    <testcase name="testPrimaryID" classname="com.mentor.nucleus.bp.core.test.ConsistencyTest" time="1.616"/>
+    <testcase name="testSecondaryID" classname="com.mentor.nucleus.bp.core.test.ConsistencyTest" time="0.135"/>
+    <testcase name="testTertiaryID" classname="com.mentor.nucleus.bp.core.test.ConsistencyTest" time="0.1"/>
+    <testcase name="testUnconSinglePart" classname="com.mentor.nucleus.bp.core.test.ConsistencyTest" time="0.117"/>
+    <testcase name="testZeroPart" classname="com.mentor.nucleus.bp.core.test.ConsistencyTest" time="0.099"/>
+    <testcase name="testUnconSingleForm" classname="com.mentor.nucleus.bp.core.test.ConsistencyTest" time="0.102"/>
+    <testcase name="testZeroFormalizer" classname="com.mentor.nucleus.bp.core.test.ConsistencyTest" time="0.095"/>
+    <testcase name="testMultSubtype" classname="com.mentor.nucleus.bp.core.test.ConsistencyTest" time="0.093"/>
+    <testcase name="testZeroSubtype" classname="com.mentor.nucleus.bp.core.test.ConsistencyTest" time="0.1"/>
+    <testcase name="testMultSupertype" classname="com.mentor.nucleus.bp.core.test.ConsistencyTest" time="0.087"/>
+    <testcase name="testZeroSupertype" classname="com.mentor.nucleus.bp.core.test.ConsistencyTest" time="0.09"/>
+    <testcase name="testMultLink" classname="com.mentor.nucleus.bp.core.test.ConsistencyTest" time="0.086"/>
+    <testcase name="testZeroLink" classname="com.mentor.nucleus.bp.core.test.ConsistencyTest" time="0.098"/>
+    <testcase name="testMultOneSide" classname="com.mentor.nucleus.bp.core.test.ConsistencyTest" time="0.097"/>
+    <testcase name="testZeroOneSide" classname="com.mentor.nucleus.bp.core.test.ConsistencyTest" time="0.084"/>
+    <testcase name="testMultOtherSide" classname="com.mentor.nucleus.bp.core.test.ConsistencyTest" time="0.084"/>
+    <testcase name="testZeroOtherSide" classname="com.mentor.nucleus.bp.core.test.ConsistencyTest" time="0.094"/>
+  </testsuite>
+</testrun>

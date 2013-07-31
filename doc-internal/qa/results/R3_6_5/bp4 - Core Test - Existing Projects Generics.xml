@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - Core Test - Existing Projects Generics" project="com.mentor.nucleus.bp.core.test" tests="15" started="15" failures="0" errors="0" ignored="0">
+  <testsuite name="com.mentor.nucleus.bp.core.test.TigerNatureExistingProjectsTestGenerics" time="7.24">
+    <testcase name="testNewShapeAfterRestartOnSequenceDiagram" classname="com.mentor.nucleus.bp.core.test.TigerNatureExistingProjectsTestGenerics" time="1.92"/>
+    <testcase name="testLinkWithEditor" classname="com.mentor.nucleus.bp.core.test.TigerNatureExistingProjectsTestGenerics" time="1.076"/>
+    <testcase name="testXTUMLProjectsExist" classname="com.mentor.nucleus.bp.core.test.TigerNatureExistingProjectsTestGenerics" time="0.608"/>
+    <testcase name="testEditorsRemainOpenAfterClose" classname="com.mentor.nucleus.bp.core.test.TigerNatureExistingProjectsTestGenerics" time="0.562"/>
+    <testcase name="testPlacholderInstances" classname="com.mentor.nucleus.bp.core.test.TigerNatureExistingProjectsTestGenerics" time="0.015"/>
+    <testcase name="testInterfaceAssignmentInterfaceContainedInDifferentPackageRoot" classname="com.mentor.nucleus.bp.core.test.TigerNatureExistingProjectsTestGenerics" time="1.264"/>
+    <testcase name="testComponentAssignmentComponentContainedInDifferentPackageRoot" classname="com.mentor.nucleus.bp.core.test.TigerNatureExistingProjectsTestGenerics" time="0.468"/>
+    <testcase name="testDataTypeAssignmentInterfaceOperationInDifferentPackageRoot" classname="com.mentor.nucleus.bp.core.test.TigerNatureExistingProjectsTestGenerics" time="0.313"/>
+    <testcase name="testDataTypeAssignmentPropertyParameterInDifferentPackageRoot" classname="com.mentor.nucleus.bp.core.test.TigerNatureExistingProjectsTestGenerics" time="0.172"/>
+    <testcase name="testUseCasePackageOnRestart" classname="com.mentor.nucleus.bp.core.test.TigerNatureExistingProjectsTestGenerics" time="0.374"/>
+    <testcase name="testPackageParticipantFormalizedToIPREditorRestoration" classname="com.mentor.nucleus.bp.core.test.TigerNatureExistingProjectsTestGenerics" time="0.094"/>
+    <testcase name="testComponentParticipantFormalizedToIPREditorRestoration" classname="com.mentor.nucleus.bp.core.test.TigerNatureExistingProjectsTestGenerics" time="0.093"/>
+    <testcase name="testExternalEntityParticipantFormalizedToIPREditorRestoration" classname="com.mentor.nucleus.bp.core.test.TigerNatureExistingProjectsTestGenerics" time="0.094"/>
+    <testcase name="testClassParticipantFormalizedToIPREditorRestoration" classname="com.mentor.nucleus.bp.core.test.TigerNatureExistingProjectsTestGenerics" time="0.109"/>
+    <testcase name="testClassInstanceParticipantFormalizedToIPREditorRestoration" classname="com.mentor.nucleus.bp.core.test.TigerNatureExistingProjectsTestGenerics" time="0.078"/>
+  </testsuite>
+</testrun>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - IO MDL PkgCM Tests Generics" project="com.mentor.nucleus.bp.io.mdl.test" tests="107" started="107" failures="0" errors="0" ignored="0">
+  <testsuite name="PkgCMTestSuiteGenerics" time="698.738">
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyContentsTestGenerics" time="110.817">
+      <testcase name="testModifyContentPackage_Desc" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyContentsTestGenerics" time="8.739"/>
+      <testcase name="testModifyContentPackage_Canvas" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyContentsTestGenerics" time="5.722"/>
+      <testcase name="testModifyContentEEPkgInPkg_Activity" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyContentsTestGenerics" time="7.634"/>
+      <testcase name="testModifyContentEEPkgInPkg_Desc" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyContentsTestGenerics" time="7.169"/>
+      <testcase name="testModifyContentEEPkgInPkg_Canvas" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyContentsTestGenerics" time="7.243"/>
+      <testcase name="testModifyContentSubSystem_Canvas" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyContentsTestGenerics" time="5.54"/>
+      <testcase name="testModifyContentSubSystem_Desc" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyContentsTestGenerics" time="5.868"/>
+      <testcase name="testModifyContentSubSystemInSub_Canvas" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyContentsTestGenerics" time="6.638"/>
+      <testcase name="testModifyContentSubSystemInSub_Desc" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyContentsTestGenerics" time="5.906"/>
+      <testcase name="testModifyContentDatatypePkgInPkg_Canvas" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyContentsTestGenerics" time="6.868"/>
+      <testcase name="testModifyContentDatatypePkgInPkg_Desc" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyContentsTestGenerics" time="5.892"/>
+      <testcase name="testModifyContentModelClass_Desc" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyContentsTestGenerics" time="6.969"/>
+      <testcase name="testModifyContentModelClass_Activity" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyContentsTestGenerics" time="6.59"/>
+      <testcase name="testModifyContentISM_Canvas" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyContentsTestGenerics" time="8.335"/>
+      <testcase name="testModifyContentISM_Desc" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyContentsTestGenerics" time="7.987"/>
+      <testcase name="testModifyContentISM_Activity" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyContentsTestGenerics" time="7.716"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyRelationTestGenerics" time="33.134">
+      <testcase name="testModifyDomainPackageWithChildren" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyRelationTestGenerics" time="17.408"/>
+      <testcase name="testModifyDatatypePackageWithChildren" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMModifyRelationTestGenerics" time="15.726"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMCreateTestGenerics" time="62.769">
+      <testcase name="testCreatePackage_ThruCE" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMCreateTestGenerics" time="9.644"/>
+      <testcase name="testCreatePackageInPackage_ThruCE" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMCreateTestGenerics" time="9.003"/>
+      <testcase name="testCreateDatatypePackageInPkg_ThruCE" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMCreateTestGenerics" time="9.015"/>
+      <testcase name="testCreateEEPkgInPkg_ThruCE" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMCreateTestGenerics" time="9.112"/>
+      <testcase name="testCreateModelClass_ThruCE" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMCreateTestGenerics" time="8.782"/>
+      <testcase name="testCreateISM_ThruME" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMCreateTestGenerics" time="10.897"/>
+      <testcase name="testCreateSystem_ThruME_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMCreateTestGenerics" time="4.111"/>
+      <testcase name="testCreateDomain_ThruME_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMCreateTestGenerics" time="2.205"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="155.415">
+      <testcase name="testRenameDomain_ThruME_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="1.961"/>
+      <testcase name="testRenameDomain_ThruME_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="2.141"/>
+      <testcase name="testRenameDomain_ThruME_DescFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="2.19"/>
+      <testcase name="testRenameSubSystem_ThruME_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="2.253"/>
+      <testcase name="testRenameSubSystem_ThruME_DescFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="2.092"/>
+      <testcase name="testRenameSubSystem_ThruME_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="1.762"/>
+      <testcase name="testRenameEEPinPkg_ThruME_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="1.942"/>
+      <testcase name="testRenameEEPinPkg_ThruME_CanvasNotFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="2.129"/>
+      <testcase name="testRenameEEPinPkg_ThruME_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="1.571"/>
+      <testcase name="testRenameSubSystemInSubsys_ThruME_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="2.261"/>
+      <testcase name="testRenameSubSysteInSubsysm_ThruME_DescFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="1.951"/>
+      <testcase name="testRenameSubSystemInSubsys_ThruME_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="1.747"/>
+      <testcase name="testRenameDatatypePackageInPkg_ThruME_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="2.081"/>
+      <testcase name="testRenameDatatypePackageInPkg_ThruME_CanvasNotFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="2.057"/>
+      <testcase name="testRenameDatatypePackageInPkg_ThruME_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="1.734"/>
+      <testcase name="testRenameModelClass_ThruME_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="2.4"/>
+      <testcase name="testRenameModelClass_ThruME_DescFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="2.266"/>
+      <testcase name="testRenameModelClass_ThruME_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="1.745"/>
+      <testcase name="testRenameSubSystemInSubsys_ThruCE" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="0.84"/>
+      <testcase name="testRenameDatatypePackageInPkg_ThruCE" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="0.966"/>
+      <testcase name="testRenameEEPinPkg_ThruCE" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="0.881"/>
+      <testcase name="testRenameModelClass_ThruCE" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="1.246"/>
+      <testcase name="testRenameEEPinPkg_ThruRN_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="10.933"/>
+      <testcase name="testRenameEEPinPkg_ThruRN_CanvasNotFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="10.56"/>
+      <testcase name="testRenameEEPinPkg_ThruRN_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="4.662"/>
+      <testcase name="testRenameSubSystem_ThruRN_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="11.489"/>
+      <testcase name="testRenameSubSystem_ThruRN_DescFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="11.058"/>
+      <testcase name="testRenameSubSystem_ThruRN_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="4.245"/>
+      <testcase name="testRenameDatatypePackageInPkg_ThruRN_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="11.17"/>
+      <testcase name="testRenameDatatypePackageInPkg_ThruRN_CanvasNotFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="12.704"/>
+      <testcase name="testRenameDatatypePackageInPkg_ThruRN_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="4.746"/>
+      <testcase name="testRenameDomain_ThruRN_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="8.78"/>
+      <testcase name="testRenameDomain_ThruRN_DescFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="8.867"/>
+      <testcase name="testRenameDomain_ThruRN_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="4.718"/>
+      <testcase name="testRenameSystem_ThruRN_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="8.654"/>
+      <testcase name="testRenameSystem_ThruME_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMRenameTestGenerics" time="2.613"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="336.603">
+      <testcase name="testDeleteMclass_ThruME_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="11.945"/>
+      <testcase name="testDeleteDTPInPkg_ThruME_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="11.403"/>
+      <testcase name="testDeleteISM_ThruME_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="8.257"/>
+      <testcase name="testDeleteSSInSS_ThruME_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="12.769"/>
+      <testcase name="testDeleteEEP_ThruME_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="13.658"/>
+      <testcase name="testDeleteDomain_ThruME_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="10.663"/>
+      <testcase name="testDeleteISM_ThruME_ActivityFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="9.033"/>
+      <testcase name="testDeleteMclass_ThruME_ActivityFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="11.183"/>
+      <testcase name="testDeleteSSinSS_ThruME_ActivityFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="12.586"/>
+      <testcase name="testDeleteEEP_ThruME_ActivityFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="14.025"/>
+      <testcase name="testDeleteISM_ThruME_DescriptionFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="9.388"/>
+      <testcase name="testDeleteDTPInPkg_ThruME_DescriptionFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="11.9"/>
+      <testcase name="testDeleteMclass_ThruME_DescriptionFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="11.518"/>
+      <testcase name="testDeleteSSinSS_ThruME_DescriptionFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="12.385"/>
+      <testcase name="testDeleteEEP_ThruME_DescriptionFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="13.909"/>
+      <testcase name="testDeleteDomain_ThruME_DescriptionFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="10.624"/>
+      <testcase name="testDeleteISM_ThruME_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="3.608"/>
+      <testcase name="testDeleteMclass_ThruME_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="2.487"/>
+      <testcase name="testDeleteDTPInPkg_ThruME_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="2.57"/>
+      <testcase name="testDeleteSSInSS_ThruME_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="2.494"/>
+      <testcase name="testDeleteSS_ThruME_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="2.535"/>
+      <testcase name="testDeleteEEP_ThruME_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="3.375"/>
+      <testcase name="testDeleteDomain_ThruME_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="2.579"/>
+      <testcase name="testDeleteMclass_ThruCE_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="10.707"/>
+      <testcase name="testDeleteDTPInPkg_ThruCE_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="9.721"/>
+      <testcase name="testDeleteSSinSS_ThruCE_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="10.536"/>
+      <testcase name="testDeleteEEP_ThruCE_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="11.867"/>
+      <testcase name="testDeleteISM_ThruRN_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="8.013"/>
+      <testcase name="testDeleteDTPInPkg_ThruRN_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="6.814"/>
+      <testcase name="testDeleteSS_ThruRN_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="6.161"/>
+      <testcase name="testDeleteEEP_ThruRN_CanvasFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="8.775"/>
+      <testcase name="testDeleteISM_ThruRN_ActivityFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="8.855"/>
+      <testcase name="testDeleteISM_ThruRN_DescriptionFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="6.465"/>
+      <testcase name="testDeleteDTPInPkg_ThruRN_DescriptionFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="6.819"/>
+      <testcase name="testDeleteMclass_ThruRN_DescriptionFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="5.061"/>
+      <testcase name="testDeleteEEP_ThruRN_DescriptionFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="8.106"/>
+      <testcase name="testDeleteDomain_ThruRN_DescriptionFocused" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="6.049"/>
+      <testcase name="testDeleteISM_ThruRN_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="2.646"/>
+      <testcase name="testDeleteMclass_ThruRN_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="1.272"/>
+      <testcase name="testDeleteDTPInPkg_ThruRN_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="1.27"/>
+      <testcase name="testDeleteSSInSS_ThruRN_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="1.169"/>
+      <testcase name="testDeleteSS_ThruRN_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="1.473"/>
+      <testcase name="testDeleteEEP_ThruRN_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="2.639"/>
+      <testcase name="testDeleteDomain_ThruRN_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="1.589"/>
+      <testcase name="testDeleteSystem_ThruME_NoEditor" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.PkgCMDeleteTestGenerics" time="5.702"/>
+    </testsuite>
+  </testsuite>
+</testrun>
