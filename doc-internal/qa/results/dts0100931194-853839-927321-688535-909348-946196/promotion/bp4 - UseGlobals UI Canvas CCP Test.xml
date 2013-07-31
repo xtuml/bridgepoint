@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - UseGlobals UI Canvas CCP Test" project="com.mentor.nucleus.bp.ui.canvas.test" tests="45" started="45" failures="0" errors="0" ignored="0">
+  <testsuite name="CanvasCCPGlobalsTestSuite" time="97.238">
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.CanvasCCPGlobalsTest" time="0.321">
+      <testcase name="testGlobally" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCCPGlobalsTest" time="0.321"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.CanvasCCPTestsSuite" time="0.705">
+      <testcase name="testCanvasCCPTestSuite" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCCPTestsSuite" time="0.705"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.CanvasCutTests" time="6.415">
+      <testcase name="testCutNotAllowedOnReadonlyElement" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCutTests" time="3.505"/>
+      <testcase name="testCutRemovesElementAndUndoRestores" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCutTests" time="1.804"/>
+      <testcase name="testCutAvailableAfterReload" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCutTests" time="1.106"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyTests" time="8.691">
+      <testcase name="testCopyAllClasses" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyTests" time="5.226"/>
+      <testcase name="testCutNotAllowedWhenSelectionContainsDefaultDataTypePackage" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyTests" time="1.242"/>
+      <testcase name="testCutNotAllowedOnBuiltInUDT" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyTests" time="0.956"/>
+      <testcase name="testCopyAvailableAfterReload" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyTests" time="1.267"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyPasteTests" time="11.576">
+      <testcase name="testCopyDomainDTPackageToSystem" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyPasteTests" time="2.91"/>
+      <testcase name="testCopySSWithNonSimpleAssociations" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyPasteTests" time="2.139"/>
+      <testcase name="testCopyClassesWithoutSelectingAssociationBetween" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyPasteTests" time="2.42"/>
+      <testcase name="testUndoRedoRestoresPastedElements" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyPasteTests" time="0.936"/>
+      <testcase name="testPasteOutsideOfGraphicsAllowsUpdateOfGraphicalElementModelRoots" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasCopyPasteTests" time="3.171"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="69.529">
+      <testcase name="testCopyPasteState" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="2.586"/>
+      <testcase name="testPasteCreationTransitionNotAllowedInClassBasedMachine" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="0.889"/>
+      <testcase name="testPasteCreationTransitionCreatesNewEventWhenExistingAlreadyAssignedToCRTXN" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="1.893"/>
+      <testcase name="testPasteTransitionIntoInstanceMachineWithMatchingEvent" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="1.788"/>
+      <testcase name="testPasteTransitionIntoClassBasedMachineWithMatchingEvent" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="1.794"/>
+      <testcase name="testPasteTransitionIntoClassBasedMachineWithMatchingEventAndDataItem" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="2.077"/>
+      <testcase name="testPasteTransitionIntoMachineWithMatchingEventAndDataItemWithoutTypeMatch" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="2.913"/>
+      <testcase name="testPasteTransitionIntoMachineWithNoMatchingPoly" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="2.644"/>
+      <testcase name="testPasteTransitionIntoMachineWithMatchingNonLocalEvent" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="2.214"/>
+      <testcase name="testPasteTransitionIntoMachineWithDeclaredPoly" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="2.654"/>
+      <testcase name="testPasteSubtypeWithoutSupertype" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="2.473"/>
+      <testcase name="testPasteSubtypeAndSupertypeWithoutAssociation" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="2.703"/>
+      <testcase name="testPasteSubtypeAndSupertypeWithAssociation" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="2.836"/>
+      <testcase name="testPasteSubsystemWithImportedSupertypeWhereSupertypeCanBeResolved" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="3.711"/>
+      <testcase name="testPasteSubsystemWithImportedSupertypeWhereSupertypeCanNotBeResolved" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="4.552"/>
+      <testcase name="testPasteTransitionWhereSignalCanBeResolvedSpecializedPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="12.586"/>
+      <testcase name="testPasteTransitionWhereSignalCanBeResolvedGenericPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="0.66"/>
+      <testcase name="testPasteTransitionWhereSignalUnresolvableByNameSpecializedPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="1.975"/>
+      <testcase name="testPasteTransitionWhereSignalUnresolvableByNameGenericPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="0.696"/>
+      <testcase name="testPasteTransitionWhereSignalUnresolvableByArgumentNameSpecializedPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="2.146"/>
+      <testcase name="testPasteTransitionWhereSignalUnresolvableByArgumentNameGenericPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="0.648"/>
+      <testcase name="testPasteTransitionWhereSignalUnresolvableByArgumentTypeSpecializedPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="1.974"/>
+      <testcase name="testPasteTransitionWhereSignalUnresolvableByArgumentTypeGenericPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="0.694"/>
+      <testcase name="testPasteTransitionWhereSignalUnresolvableTargetLessArgumentsSpecializedPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="1.945"/>
+      <testcase name="testPasteTransitionWhereSignalUnresolvableTargetLessArgumentsGenericPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="0.694"/>
+      <testcase name="testPasteTransitionWhereSignalResolvableTargetMoreArgumentsGenericPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="0.734"/>
+      <testcase name="testPasteTransitionWhereSignalResolvableProvisionToRequirementSpecializedPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="1.886"/>
+      <testcase name="testPasteTransitionWhereSignalResolvableProvisionToRequirementGenericPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="0.7"/>
+      <testcase name="testPasteTransitionWhereSignalResolvableRequirementToProvisionSpecializedPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="1.883"/>
+      <testcase name="testPasteTransitionWhereSignalResolvableRequirementToProvisionGenericPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="0.646"/>
+      <testcase name="testPasteTransitionWhereSignalResolvableTargetMoreArgumentsSpecializedPackages" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasStateMachineCopyPasteTests" time="1.933"/>
+    </testsuite>
+  </testsuite>
+</testrun>

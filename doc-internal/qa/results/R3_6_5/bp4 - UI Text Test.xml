@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - UI Text Test" project="com.mentor.nucleus.bp.ui.text.test" tests="212" started="212" failures="0" errors="0" ignored="0">
+  <testsuite name="UITextSuite" time="186.944">
+    <testsuite name="com.mentor.nucleus.bp.ui.text.test.activity.I2046IncorrectPlaceHolderMappingTest" time="9.173">
+      <testcase name="testCorrectPlaceHolderMappingForSameNameActivities" classname="com.mentor.nucleus.bp.ui.text.test.activity.I2046IncorrectPlaceHolderMappingTest" time="9.173"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.text.test.i589Test.I589TestSuite" time="32.368">
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="23.607">
+        <testcase name="testOpenDomainDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="1.683"/>
+        <testcase name="testOpenSubsystemDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.684"/>
+        <testcase name="testOpenExternalEntityDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.774"/>
+        <testcase name="testOpenExternalEntityDataItemDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.724"/>
+        <testcase name="testOpenExternalEntityEventDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.783"/>
+        <testcase name="testOpenExternalEntityEventDataItemDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.766"/>
+        <testcase name="testOpenUserDataTypeDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.769"/>
+        <testcase name="testOpenEnumerationDataTypeDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.769"/>
+        <testcase name="testOpenBridgeDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.767"/>
+        <testcase name="testOpenEnumeratorDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.77"/>
+        <testcase name="testOpenFunctionDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.664"/>
+        <testcase name="testOpenAssociationDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.679"/>
+        <testcase name="testOpenOperationDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.759"/>
+        <testcase name="testOpenAttributeDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.766"/>
+        <testcase name="testOpenModelClassDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.766"/>
+        <testcase name="testOpenAttributeReferenceinClassDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.795"/>
+        <testcase name="testOpenInstanceStateMachineDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.832"/>
+        <testcase name="testOpenInstanceStateMachineEventDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.72"/>
+        <testcase name="testOpenInstanceEventIgnoredDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.764"/>
+        <testcase name="testOpenInstanceCantHappenDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.764"/>
+        <testcase name="testOpenInstanceActionDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.767"/>
+        <testcase name="testOpenInstanceTransitionActionDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.762"/>
+        <testcase name="testOpenInstanceStateMachineEventDataItemDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.785"/>
+        <testcase name="testOpenClassStateMachineDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.765"/>
+        <testcase name="testOpenClassStateMachineEventDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.767"/>
+        <testcase name="testOpenClassEventIgnoredDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.764"/>
+        <testcase name="testOpenClassCantHappenDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.796"/>
+        <testcase name="testOpenClassActionDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.661"/>
+        <testcase name="testOpenClassTransitionActionDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.759"/>
+        <testcase name="testOpenClassStateMachineEventDataItemDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.782"/>
+      </testsuite>
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="7.032">
+        <testcase name="testOpenBridgeActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="0.955"/>
+        <testcase name="testOpenFunctionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="0.691"/>
+        <testcase name="testOpenInstanceOperationActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="0.778"/>
+        <testcase name="testOpenClassOperationActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="0.797"/>
+        <testcase name="testOpenAttributeActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="0.675"/>
+        <testcase name="testOpenInstanceActionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="0.781"/>
+        <testcase name="testOpenInstanceTransitionActionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="0.779"/>
+        <testcase name="testOpenClassActionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="0.797"/>
+        <testcase name="testOpenClassActionTransitionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="0.779"/>
+      </testsuite>
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.i589Test.AllEditorsDirtyTest" time="0.099">
+        <testcase name="testMakeAllEditorsDirty" classname="com.mentor.nucleus.bp.ui.text.test.i589Test.AllEditorsDirtyTest" time="0.098"/>
+      </testsuite>
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.i589Test.ElementDeleteTest" time="1.63">
+        <testcase name="testDeleteElement" classname="com.mentor.nucleus.bp.ui.text.test.i589Test.ElementDeleteTest" time="1.63"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.text.test.description.DescriptionEditorTestSuite" time="32.763">
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="23.229">
+        <testcase name="testOpenDomainDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="1.442"/>
+        <testcase name="testOpenSubsystemDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.683"/>
+        <testcase name="testOpenExternalEntityDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.778"/>
+        <testcase name="testOpenExternalEntityDataItemDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.718"/>
+        <testcase name="testOpenExternalEntityEventDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.68"/>
+        <testcase name="testOpenExternalEntityEventDataItemDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.66"/>
+        <testcase name="testOpenUserDataTypeDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.755"/>
+        <testcase name="testOpenEnumerationDataTypeDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.764"/>
+        <testcase name="testOpenBridgeDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.764"/>
+        <testcase name="testOpenEnumeratorDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.761"/>
+        <testcase name="testOpenFunctionDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.764"/>
+        <testcase name="testOpenAssociationDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.778"/>
+        <testcase name="testOpenOperationDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.76"/>
+        <testcase name="testOpenAttributeDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.761"/>
+        <testcase name="testOpenModelClassDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.758"/>
+        <testcase name="testOpenAttributeReferenceinClassDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.764"/>
+        <testcase name="testOpenInstanceStateMachineDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.766"/>
+        <testcase name="testOpenInstanceStateMachineEventDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.783"/>
+        <testcase name="testOpenInstanceEventIgnoredDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.665"/>
+        <testcase name="testOpenInstanceCantHappenDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.756"/>
+        <testcase name="testOpenInstanceActionDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.761"/>
+        <testcase name="testOpenInstanceTransitionActionDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.762"/>
+        <testcase name="testOpenInstanceStateMachineEventDataItemDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.763"/>
+        <testcase name="testOpenClassStateMachineDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.786"/>
+        <testcase name="testOpenClassStateMachineEventDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.764"/>
+        <testcase name="testOpenClassEventIgnoredDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.764"/>
+        <testcase name="testOpenClassCantHappenDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.765"/>
+        <testcase name="testOpenClassActionDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.765"/>
+        <testcase name="testOpenClassTransitionActionDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.772"/>
+        <testcase name="testOpenClassStateMachineEventDataItemDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.OpenDescriptionEditor" time="0.767"/>
+      </testsuite>
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.24">
+        <testcase name="testCloseDomainDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.022"/>
+        <testcase name="testCloseSubsystemDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.006"/>
+        <testcase name="testCloseExternalEntityDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.005"/>
+        <testcase name="testCloseExternalEntityDataItemDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.0"/>
+        <testcase name="testCloseExternalEntityEventDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.007"/>
+        <testcase name="testCloseExternalEntityEventDataItemDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.015"/>
+        <testcase name="testCloseUserDataTypeDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.016"/>
+        <testcase name="testCloseEnumerationDataTypeDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.005"/>
+        <testcase name="testCloseBridgeDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.006"/>
+        <testcase name="testCloseEnumeratorDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.007"/>
+        <testcase name="testCloseFunctionDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.006"/>
+        <testcase name="testCloseAssociationDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.005"/>
+        <testcase name="testCloseOperationDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.005"/>
+        <testcase name="testCloseAttributeDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.005"/>
+        <testcase name="testCloseModelClassDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.006"/>
+        <testcase name="testCloseAttributeReferenceinClassDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.005"/>
+        <testcase name="testCloseInstanceStateMachineDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.005"/>
+        <testcase name="testCloseInstanceStateMachineEventDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.005"/>
+        <testcase name="testCloseInstanceEventIgnoredDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.004"/>
+        <testcase name="testCloseInstanceCantHappenDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.005"/>
+        <testcase name="testCloseInstanceActionDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.005"/>
+        <testcase name="testCloseInstanceTransitionActionDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.005"/>
+        <testcase name="testCloseInstanceStateMachineEventDataItemDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.007"/>
+        <testcase name="testCloseClassStateMachineDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.005"/>
+        <testcase name="testCloseClassStateMachineEventDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.005"/>
+        <testcase name="testCloseClassEventIgnoredDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.005"/>
+        <testcase name="testCloseClassCantHappenDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.004"/>
+        <testcase name="testCloseClassActionDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.008"/>
+        <testcase name="testCloseClassActionTransitionDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.005"/>
+        <testcase name="testCloseClassStateMachineEventDataItemDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.CloseDescriptionEditor" time="0.051"/>
+      </testsuite>
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.description.DescriptionEditorInteraction" time="9.294">
+        <testcase name="testDirtyFlag" classname="com.mentor.nucleus.bp.ui.text.test.description.DescriptionEditorInteraction" time="0.91"/>
+        <testcase name="testUndo" classname="com.mentor.nucleus.bp.ui.text.test.description.DescriptionEditorInteraction" time="0.637"/>
+        <testcase name="testRevert" classname="com.mentor.nucleus.bp.ui.text.test.description.DescriptionEditorInteraction" time="0.707"/>
+        <testcase name="testSave" classname="com.mentor.nucleus.bp.ui.text.test.description.DescriptionEditorInteraction" time="0.775"/>
+        <testcase name="testOpenChangedDescription" classname="com.mentor.nucleus.bp.ui.text.test.description.DescriptionEditorInteraction" time="0.798"/>
+        <testcase name="testAddBookmark" classname="com.mentor.nucleus.bp.ui.text.test.description.DescriptionEditorInteraction" time="0.9"/>
+        <testcase name="testBookmarkHoverText" classname="com.mentor.nucleus.bp.ui.text.test.description.DescriptionEditorInteraction" time="0.857"/>
+        <testcase name="testAddTaskMarker" classname="com.mentor.nucleus.bp.ui.text.test.description.DescriptionEditorInteraction" time="0.774"/>
+        <testcase name="testMultipleMarkerHoverText" classname="com.mentor.nucleus.bp.ui.text.test.description.DescriptionEditorInteraction" time="0.825"/>
+        <testcase name="testDeleteBookmark" classname="com.mentor.nucleus.bp.ui.text.test.description.DescriptionEditorInteraction" time="0.678"/>
+        <testcase name="testTaskHoverText" classname="com.mentor.nucleus.bp.ui.text.test.description.DescriptionEditorInteraction" time="0.718"/>
+        <testcase name="testDeleteTask" classname="com.mentor.nucleus.bp.ui.text.test.description.DescriptionEditorInteraction" time="0.715"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorTestSuite" time="56.624">
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="7.127">
+        <testcase name="testOpenBridgeActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="1.187"/>
+        <testcase name="testOpenFunctionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="0.729"/>
+        <testcase name="testOpenInstanceOperationActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="0.78"/>
+        <testcase name="testOpenClassOperationActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="0.768"/>
+        <testcase name="testOpenAttributeActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="0.67"/>
+        <testcase name="testOpenInstanceActionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="0.772"/>
+        <testcase name="testOpenInstanceTransitionActionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="0.688"/>
+        <testcase name="testOpenClassActionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="0.764"/>
+        <testcase name="testOpenClassActionTransitionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.OpenActivityEditor" time="0.769"/>
+      </testsuite>
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.activity.CloseActivityEditor" time="0.076">
+        <testcase name="testCloseBridgeActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.CloseActivityEditor" time="0.005"/>
+        <testcase name="testCloseFunctionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.CloseActivityEditor" time="0.005"/>
+        <testcase name="testCloseInstanceOperationActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.CloseActivityEditor" time="0.006"/>
+        <testcase name="testCloseClassOperationActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.CloseActivityEditor" time="0.005"/>
+        <testcase name="testCloseAttributeActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.CloseActivityEditor" time="0.005"/>
+        <testcase name="testCloseInstanceActionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.CloseActivityEditor" time="0.005"/>
+        <testcase name="testCloseInstanceTransitionActionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.CloseActivityEditor" time="0.005"/>
+        <testcase name="testCloseClassActionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.CloseActivityEditor" time="0.006"/>
+        <testcase name="testCloseClassTransitionActionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.CloseActivityEditor" time="0.034"/>
+      </testsuite>
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="19.901">
+        <testcase name="testDirtyFlag" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="0.704"/>
+        <testcase name="testUndo" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="1.036"/>
+        <testcase name="testRevert" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="1.053"/>
+        <testcase name="testSave" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="1.254"/>
+        <testcase name="testOpenChangedDescription" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="0.89"/>
+        <testcase name="testAddBookmark" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="0.763"/>
+        <testcase name="testBookmarkHoverText" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="0.794"/>
+        <testcase name="testAddTaskMarker" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="0.67"/>
+        <testcase name="testMultipleMarkerHoverText" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="0.781"/>
+        <testcase name="testDeleteBookmark" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="0.752"/>
+        <testcase name="testTaskHoverText" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="0.73"/>
+        <testcase name="testDeleteTask" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="0.729"/>
+        <testcase name="testSyntaxError" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="1.707"/>
+        <testcase name="testActivityProblemErrorHoverText" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="0.951"/>
+        <testcase name="testSaveWithError" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="0.694"/>
+        <testcase name="testGotoError" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="1.008"/>
+        <testcase name="testMarkerErrorHoverText" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="0.645"/>
+        <testcase name="testRemoveError" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="1.229"/>
+        <testcase name="testRevertAfterErrorRemoved" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="1.148"/>
+        <testcase name="testSaveAfterErrorRemoved" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="1.175"/>
+        <testcase name="testEditorOpenedWhenFileLocatedOutsideOfWS" classname="com.mentor.nucleus.bp.ui.text.test.activity.ActivityEditorInteraction" time="1.188"/>
+      </testsuite>
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.activity.ParseActivity" time="20.967">
+        <testcase name="testParseBridgeActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.ParseActivity" time="2.687"/>
+        <testcase name="testParseFunctionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.ParseActivity" time="2.18"/>
+        <testcase name="testParseInstanceOperationActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.ParseActivity" time="2.198"/>
+        <testcase name="testParseClassOperationActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.ParseActivity" time="2.211"/>
+        <testcase name="testParseInstanceActionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.ParseActivity" time="2.543"/>
+        <testcase name="testParseInstanceTransitionActionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.ParseActivity" time="2.202"/>
+        <testcase name="testParseCreationTransitionActionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.ParseActivity" time="2.207"/>
+        <testcase name="testParseClassActionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.ParseActivity" time="2.198"/>
+        <testcase name="testParseClassTransitionActionActivity" classname="com.mentor.nucleus.bp.ui.text.test.activity.ParseActivity" time="2.541"/>
+      </testsuite>
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.activity.I697OpenActivityEditorFromMarker" time="7.302">
+        <testcase name="testOpenActivityEditorFromBookmark" classname="com.mentor.nucleus.bp.ui.text.test.activity.I697OpenActivityEditorFromMarker" time="0.728"/>
+        <testcase name="testOpenActivityEditorFromTask" classname="com.mentor.nucleus.bp.ui.text.test.activity.I697OpenActivityEditorFromMarker" time="1.517"/>
+        <testcase name="testOpenActivityEditorFromProblem" classname="com.mentor.nucleus.bp.ui.text.test.activity.I697OpenActivityEditorFromMarker" time="1.65"/>
+        <testcase name="testOpenTransitionActivityEditorFromProblem" classname="com.mentor.nucleus.bp.ui.text.test.activity.I697OpenActivityEditorFromMarker" time="1.705"/>
+        <testcase name="testOpenCreationTransitionActivityEditorFromProblem" classname="com.mentor.nucleus.bp.ui.text.test.activity.I697OpenActivityEditorFromMarker" time="1.702"/>
+      </testsuite>
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.activity.ProcessAllActivitiesTest" time="1.251">
+        <testcase name="testProcessAllActivitiesNPE" classname="com.mentor.nucleus.bp.ui.text.test.activity.ProcessAllActivitiesTest" time="1.251"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.text.editor.oal.test.OALKeywordRuleTest" time="0.0">
+      <testcase name="testEvaluate" classname="com.mentor.nucleus.bp.ui.text.editor.oal.test.OALKeywordRuleTest" time="0.0"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.text.test.activity.I643OALKeywordsHighlightingTest" time="1.481">
+      <testcase name="testHighlighting" classname="com.mentor.nucleus.bp.ui.text.test.activity.I643OALKeywordsHighlightingTest" time="1.481"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.text.test.i372Tests.i372TestSuite" time="6.836">
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.i372Tests.NavigationTest" time="6.548">
+        <testcase name="testForwardNavigationforDescriptionEditor" classname="com.mentor.nucleus.bp.ui.text.test.i372Tests.NavigationTest" time="1.45"/>
+        <testcase name="testForwardNavigationforActivityEditor" classname="com.mentor.nucleus.bp.ui.text.test.i372Tests.NavigationTest" time="1.469"/>
+        <testcase name="testBackwardNavigationWithOutMarkers" classname="com.mentor.nucleus.bp.ui.text.test.i372Tests.NavigationTest" time="1.971"/>
+        <testcase name="testBackwardNavigationWithMarkers" classname="com.mentor.nucleus.bp.ui.text.test.i372Tests.NavigationTest" time="1.658"/>
+      </testsuite>
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.i372Tests.NavigationAfterModelElementDeletionTest" time="0.288">
+        <testcase name="testNavigationLocationRemovalOnModelElementDeletion" classname="com.mentor.nucleus.bp.ui.text.test.i372Tests.NavigationAfterModelElementDeletionTest" time="0.288"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.RenameEditorsTestSuite" time="22.687">
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="18.511">
+        <testcase name="testRenameDomain" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="2.218"/>
+        <testcase name="testRenameSubsystem" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="0.829"/>
+        <testcase name="testRenameExternalEntityEvent" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="1.882"/>
+        <testcase name="testRenameExternalEntity" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="1.069"/>
+        <testcase name="testRenameExternalEntityEventDataItem" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="0.767"/>
+        <testcase name="testRenameBridge_c" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="0.87"/>
+        <testcase name="testRenameEnumerator" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="0.728"/>
+        <testcase name="testRenameFunction" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="0.875"/>
+        <testcase name="testRenameAssociation" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="0.762"/>
+        <testcase name="testRenameStateMachineEventDataItem" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="0.866"/>
+        <testcase name="testRenameOperation" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="1.031"/>
+        <testcase name="testRenameAttribute" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="0.963"/>
+        <testcase name="testRenameModelClass" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="1.37"/>
+        <testcase name="testRenameAttributeReferenceInClass" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="0.0"/>
+        <testcase name="testRenameUserDataType" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="0.713"/>
+        <testcase name="testRenameEnumerationDataType" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="0.774"/>
+        <testcase name="testRenameStateMachineState" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="0.692"/>
+        <testcase name="testRenameStateMachineEventWithEventIgnored" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="0.797"/>
+        <testcase name="testRenameStateMachineEventWithCantHappen" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="1.067"/>
+        <testcase name="testEventIgnoredToCantHappen" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestDescriptionEditors" time="0.238"/>
+      </testsuite>
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestActivityEditors" time="4.176">
+        <testcase name="testRenameFunction" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestActivityEditors" time="0.639"/>
+        <testcase name="testRenameOperation" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestActivityEditors" time="0.951"/>
+        <testcase name="testRenameAttribute" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestActivityEditors" time="0.828"/>
+        <testcase name="testRenameStateMachineState" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestActivityEditors" time="0.93"/>
+        <testcase name="testRenameBridge" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.rename.I673RenameObjectsAndTestActivityEditors" time="0.828"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.text.test.PlaceHolderUpdateTest" time="9.521">
+      <testcase name="testDomainRenameUpdatesPlaceHolders" classname="com.mentor.nucleus.bp.ui.text.test.PlaceHolderUpdateTest" time="5.86"/>
+      <testcase name="testSystemRenameUpdatesPlaceHolders" classname="com.mentor.nucleus.bp.ui.text.test.PlaceHolderUpdateTest" time="3.661"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.text.test.TextEditorReloadContentsTest" time="4.564">
+      <testcase name="testActivityEditorUpdatesOnReload" classname="com.mentor.nucleus.bp.ui.text.test.TextEditorReloadContentsTest" time="2.76"/>
+      <testcase name="testDescriptionEditorUpdatesOnReload" classname="com.mentor.nucleus.bp.ui.text.test.TextEditorReloadContentsTest" time="1.804"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.text.test.i673Tests.placeholder.PlaceHolderLifecycleTestSuite" time="2.747">
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.i673Tests.placeholder.MarkerBasedPlaceholderLifecyleTest" time="2.252">
+        <testcase name="testMarkerBasedPlaceholderLifecyleForDescriptionEditor" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.placeholder.MarkerBasedPlaceholderLifecyleTest" time="0.948"/>
+        <testcase name="testMarkerBasedPlaceholderLifecylceForActivityEditor" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.placeholder.MarkerBasedPlaceholderLifecyleTest" time="1.304"/>
+      </testsuite>
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.i673Tests.placeholder.PlaceholderLifecycleForProjectTest" time="0.252">
+        <testcase name="testOpenProjectWithFiles" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.placeholder.PlaceholderLifecycleForProjectTest" time="0.252"/>
+      </testsuite>
+      <testsuite name="com.mentor.nucleus.bp.ui.text.test.i673Tests.placeholder.PlaceholderLifecyleForDeleteModelElementTest" time="0.243">
+        <testcase name="testLifecycleForDescriptionEditor" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.placeholder.PlaceholderLifecyleForDeleteModelElementTest" time="0.121"/>
+        <testcase name="testLifecycleForActivityEditor" classname="com.mentor.nucleus.bp.ui.text.test.i673Tests.placeholder.PlaceholderLifecyleForDeleteModelElementTest" time="0.122"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.text.test.DomainDeleteTestI744" time="2.916">
+      <testcase name="testDomainDelete" classname="com.mentor.nucleus.bp.ui.text.test.DomainDeleteTestI744" time="2.916"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.text.test.DuplicateRelationshipNumberParseAllTest" time="1.965">
+      <testcase name="testProblemsRemovedByParseAllAfterDuplicateRelationshipNumberChanged" classname="com.mentor.nucleus.bp.ui.text.test.DuplicateRelationshipNumberParseAllTest" time="1.965"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.text.test.ParseAllOnModelReloadTest" time="3.299">
+      <testcase name="testParseAllOccursOnModelReload" classname="com.mentor.nucleus.bp.ui.text.test.ParseAllOnModelReloadTest" time="3.299"/>
+    </testsuite>
+  </testsuite>
+</testrun>

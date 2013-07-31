@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - UseGlobals Core Test 2 Generics" project="com.mentor.nucleus.bp.core.test" tests="282" started="282" failures="0" errors="0" ignored="0">
+  <testsuite name="CoreGlobalsTestSuite2Generics" time="296.759">
+    <testsuite name="com.mentor.nucleus.bp.core.test.CoreGlobalsTestSuiteIIGenerics" time="0.281">
+      <testcase name="testGlobally" classname="com.mentor.nucleus.bp.core.test.CoreGlobalsTestSuiteIIGenerics" time="0.281"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.CoreTestSuiteIIGenerics" time="0.671">
+      <testcase name="testCoreTestSuite2" classname="com.mentor.nucleus.bp.core.test.CoreTestSuiteIIGenerics" time="0.671"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="44.755">
+      <testcase name="testFormalSequenceModeling" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="6.084"/>
+      <testcase name="testInformalSequenceModeling" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="1.342"/>
+      <testcase name="testSequenceInSequenceModeling" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.218"/>
+      <testcase name="testFormalizeInstanceWithNestedClass" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="1.577"/>
+      <testcase name="testFormalizeFormalizedInstance" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="1.389"/>
+      <testcase name="testUnformalizeInstanceRestoresInformalAVs" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.11"/>
+      <testcase name="testFormalizeImportedClassWithNestedClass" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="1.404"/>
+      <testcase name="testFormalizeFormalizedImportedClassWithClass" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="1.404"/>
+      <testcase name="testUnformalizeImportedClassRestoresInformalAttributes" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.093"/>
+      <testcase name="testFormalizeFunctionPackage" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="1.388"/>
+      <testcase name="testFormalizeFormalizedFunctionPackage" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="1.373"/>
+      <testcase name="testFormalizeEE" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="1.39"/>
+      <testcase name="testFormalizeFormalizedEE" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="1.342"/>
+      <testcase name="testFormalizeSynchronousMessageCB" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.421"/>
+      <testcase name="testFormalizeFormalizedSynchronousMessageCB" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.312"/>
+      <testcase name="testFormalizeSynchronousMessageIB" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.329"/>
+      <testcase name="testFormalizeSynchronousMessageWithFunction" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.452"/>
+      <testcase name="testFormalizeSynchronousMessageWithBridgeOperation" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.375"/>
+      <testcase name="testFormalizeAsynchronousMessageWithCBEvent" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.406"/>
+      <testcase name="testFormalizeAsynchronousMessageWithCreationEvent" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.453"/>
+      <testcase name="testFormalizeFormalizedAsynchronousMessageWithCBEvent" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.39"/>
+      <testcase name="testFormalizeAsynchronousMessageWithIBEvent" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.452"/>
+      <testcase name="testUnformalizeFunctionPackage" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.14"/>
+      <testcase name="testUnformalizeEE" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.078"/>
+      <testcase name="testUnformalizeSynchronousMessage" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.063"/>
+      <testcase name="testUnformalizeAsynchronousMessage" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.078"/>
+      <testcase name="testFormalizedInstanceElementChangesAreReflected" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.686"/>
+      <testcase name="testFormalizedEEElementChangesAreReflected" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.172"/>
+      <testcase name="testFormalizedFPElementChangesAreReflected" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.156"/>
+      <testcase name="testFormalMessageArgumentCannotDeleteRename" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.0"/>
+      <testcase name="testFormalAttributeValueCannotDeleteRename" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.0"/>
+      <testcase name="testUnformalizeDisabled" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.0"/>
+      <testcase name="testRenamingAttributeValueRepresentedByLabel" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="5.039"/>
+      <testcase name="testSequenceInSubsystemModeling" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="0.951"/>
+      <testcase name="testSequenceInDomainModeling" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="1.045"/>
+      <testcase name="testFormalizationOfNestedSequenceElement" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="1.312"/>
+      <testcase name="testCreateInformalSequenceUnderSystem" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="4.871"/>
+      <testcase name="testCreateInformalSequenceUnderComponent" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="4.9"/>
+      <testcase name="testDeleteReferredToComponent" classname="com.mentor.nucleus.bp.core.test.SequenceTestsGenerics" time="2.56"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.CommunicationMessageTestsGenerics" time="15.184">
+      <testcase name="testFormalizeMessageWithBridgeOperation" classname="com.mentor.nucleus.bp.core.test.CommunicationMessageTestsGenerics" time="5.056"/>
+      <testcase name="testFormalizeMessageWithFunction" classname="com.mentor.nucleus.bp.core.test.CommunicationMessageTestsGenerics" time="2.06"/>
+      <testcase name="testFormalizeMessageWithInstanceBasedOperation" classname="com.mentor.nucleus.bp.core.test.CommunicationMessageTestsGenerics" time="2.029"/>
+      <testcase name="testFormalizeMessageWithClassBasedOperation" classname="com.mentor.nucleus.bp.core.test.CommunicationMessageTestsGenerics" time="2.013"/>
+      <testcase name="testFormalizeMessageWithClassBasedEvent" classname="com.mentor.nucleus.bp.core.test.CommunicationMessageTestsGenerics" time="2.028"/>
+      <testcase name="testFormalizeMessageWithInstanceBasedEvent" classname="com.mentor.nucleus.bp.core.test.CommunicationMessageTestsGenerics" time="1.998"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.CommunicationTestsGenerics" time="2.293">
+      <testcase name="testCommunicationInDomain" classname="com.mentor.nucleus.bp.core.test.CommunicationTestsGenerics" time="2.199"/>
+      <testcase name="testCommunicationInSubsystem" classname="com.mentor.nucleus.bp.core.test.CommunicationTestsGenerics" time="0.0"/>
+      <testcase name="testGetManyReturnsNoDuplicates" classname="com.mentor.nucleus.bp.core.test.CommunicationTestsGenerics" time="0.078"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.CommunicationLinkTestsGenerics" time="5.457">
+      <testcase name="testCommunicationInCommunication" classname="com.mentor.nucleus.bp.core.test.CommunicationLinkTestsGenerics" time="2.387"/>
+      <testcase name="testFormalizeLinkWithSupertypeSubtype" classname="com.mentor.nucleus.bp.core.test.CommunicationLinkTestsGenerics" time="0.418"/>
+      <testcase name="testFormalizeLinkWithSimpleAssociation" classname="com.mentor.nucleus.bp.core.test.CommunicationLinkTestsGenerics" time="0.343"/>
+      <testcase name="testFormalizeLinkWithLinkAssociation" classname="com.mentor.nucleus.bp.core.test.CommunicationLinkTestsGenerics" time="0.687"/>
+      <testcase name="testFormalizeLinkWithReflexiveAssociation" classname="com.mentor.nucleus.bp.core.test.CommunicationLinkTestsGenerics" time="0.343"/>
+      <testcase name="testFormalizeLinkWithReflexiveLinkedAssociation" classname="com.mentor.nucleus.bp.core.test.CommunicationLinkTestsGenerics" time="0.686"/>
+      <testcase name="testToggleLinkVisibility" classname="com.mentor.nucleus.bp.core.test.CommunicationLinkTestsGenerics" time="0.593"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.ModelTransactionTestGenerics" time="12.734">
+      <testcase name="testEarlyReturnExitTransactionWizard" classname="com.mentor.nucleus.bp.core.test.ModelTransactionTestGenerics" time="2.371"/>
+      <testcase name="testEarlyReturnExitTransaction" classname="com.mentor.nucleus.bp.core.test.ModelTransactionTestGenerics" time="1.624"/>
+      <testcase name="testEarlyExceptionExitTransactionInProperties" classname="com.mentor.nucleus.bp.core.test.ModelTransactionTestGenerics" time="0.062"/>
+      <testcase name="testShapeCreationTransactionThruCanvas" classname="com.mentor.nucleus.bp.core.test.ModelTransactionTestGenerics" time="0.578"/>
+      <testcase name="testShapeMoveTransactionThruCanvas" classname="com.mentor.nucleus.bp.core.test.ModelTransactionTestGenerics" time="0.453"/>
+      <testcase name="testPropertyChangeTransaction" classname="com.mentor.nucleus.bp.core.test.ModelTransactionTestGenerics" time="0.358"/>
+      <testcase name="testDescriptorEditorChangeTransaction" classname="com.mentor.nucleus.bp.core.test.ModelTransactionTestGenerics" time="1.311"/>
+      <testcase name="testActivityEditorChangeTransaction" classname="com.mentor.nucleus.bp.core.test.ModelTransactionTestGenerics" time="1.015"/>
+      <testcase name="testRenamingTransactionOnExplorer" classname="com.mentor.nucleus.bp.core.test.ModelTransactionTestGenerics" time="0.468"/>
+      <testcase name="testDeleteClassTransactionFromExplorer" classname="com.mentor.nucleus.bp.core.test.ModelTransactionTestGenerics" time="0.203"/>
+      <testcase name="testFormalizeSimpleAssociationTransaction" classname="com.mentor.nucleus.bp.core.test.ModelTransactionTestGenerics" time="0.874"/>
+      <testcase name="testMenuItemUserAction" classname="com.mentor.nucleus.bp.core.test.ModelTransactionTestGenerics" time="3.417"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.DeleteDatatypesTestGenerics" time="17.384">
+      <testcase name="testDeletionOfUDT1" classname="com.mentor.nucleus.bp.core.test.DeleteDatatypesTestGenerics" time="4.135"/>
+      <testcase name="testDeletionOfUDT1ByDeletingDtp2" classname="com.mentor.nucleus.bp.core.test.DeleteDatatypesTestGenerics" time="2.856"/>
+      <testcase name="testDeletionOfUDTByDeletingDtp1" classname="com.mentor.nucleus.bp.core.test.DeleteDatatypesTestGenerics" time="3.027"/>
+      <testcase name="testDeletionOfUDTByDeletingPkgQ" classname="com.mentor.nucleus.bp.core.test.DeleteDatatypesTestGenerics" time="2.778"/>
+      <testcase name="testDeletionOfUDTByDeletingPkgP" classname="com.mentor.nucleus.bp.core.test.DeleteDatatypesTestGenerics" time="2.809"/>
+      <testcase name="testDeletionOfUDTAssignedToUDT" classname="com.mentor.nucleus.bp.core.test.DeleteDatatypesTestGenerics" time="1.779"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.CanRenameCanDeleteTestGenerics" time="1.467">
+      <testcase name="testCanRenameAndCanDeleteDataTypePackage" classname="com.mentor.nucleus.bp.core.test.CanRenameCanDeleteTestGenerics" time="1.436"/>
+      <testcase name="testCanRenameAndCanDeleteUserDatatype" classname="com.mentor.nucleus.bp.core.test.CanRenameCanDeleteTestGenerics" time="0.0"/>
+      <testcase name="testCanRenameAndCanDeleteReferentialAttribute" classname="com.mentor.nucleus.bp.core.test.CanRenameCanDeleteTestGenerics" time="0.0"/>
+      <testcase name="testCanRenameAndCanDeleteCurrentStateAttribute" classname="com.mentor.nucleus.bp.core.test.CanRenameCanDeleteTestGenerics" time="0.031"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.CombineSplitReferentialsTestGenerics" time="13.859">
+      <testcase name="testSelectNonReferentialAttribute" classname="com.mentor.nucleus.bp.core.test.CombineSplitReferentialsTestGenerics" time="4.352"/>
+      <testcase name="testClassWithOneReferentialAttribute" classname="com.mentor.nucleus.bp.core.test.CombineSplitReferentialsTestGenerics" time="0.0"/>
+      <testcase name="testReferentialAttributesWithDiffBaseTypes" classname="com.mentor.nucleus.bp.core.test.CombineSplitReferentialsTestGenerics" time="0.0"/>
+      <testcase name="testTwoReferentialAttributesWithSameBaseTypes" classname="com.mentor.nucleus.bp.core.test.CombineSplitReferentialsTestGenerics" time="1.436"/>
+      <testcase name="testSelectCombinedReferentialAttributes" classname="com.mentor.nucleus.bp.core.test.CombineSplitReferentialsTestGenerics" time="0.812"/>
+      <testcase name="testTwoReferentialAttributesSameBaseTypesOneDifferent" classname="com.mentor.nucleus.bp.core.test.CombineSplitReferentialsTestGenerics" time="0.266"/>
+      <testcase name="testTwoCombinedReferentials" classname="com.mentor.nucleus.bp.core.test.CombineSplitReferentialsTestGenerics" time="0.234"/>
+      <testcase name="testThreeReferentials" classname="com.mentor.nucleus.bp.core.test.CombineSplitReferentialsTestGenerics" time="2.607"/>
+      <testcase name="testCombineTwoCombinedRefs" classname="com.mentor.nucleus.bp.core.test.CombineSplitReferentialsTestGenerics" time="0.687"/>
+      <testcase name="testCombineRefWithIDRef" classname="com.mentor.nucleus.bp.core.test.CombineSplitReferentialsTestGenerics" time="0.702"/>
+      <testcase name="testSplitNameLoopGood" classname="com.mentor.nucleus.bp.core.test.CombineSplitReferentialsTestGenerics" time="0.687"/>
+      <testcase name="testSplitNameLoopBad" classname="com.mentor.nucleus.bp.core.test.CombineSplitReferentialsTestGenerics" time="0.687"/>
+      <testcase name="testSplitPrefixLoopGood" classname="com.mentor.nucleus.bp.core.test.CombineSplitReferentialsTestGenerics" time="0.703"/>
+      <testcase name="testSplitPrefixLoopBad" classname="com.mentor.nucleus.bp.core.test.CombineSplitReferentialsTestGenerics" time="0.686"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.RenameInvolvingResourceTestGenerics" time="5.929">
+      <testcase name="testDomainRenameCausesModelFileNameChange" classname="com.mentor.nucleus.bp.core.test.RenameInvolvingResourceTestGenerics" time="4.025"/>
+      <testcase name="testSystemRenameCausesProjectNameChange" classname="com.mentor.nucleus.bp.core.test.RenameInvolvingResourceTestGenerics" time="0.951"/>
+      <testcase name="testProjectRenameCausesSystemNameChange" classname="com.mentor.nucleus.bp.core.test.RenameInvolvingResourceTestGenerics" time="0.953"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.TwoModelsSelectionTestGenerics" time="4.711">
+      <testcase name="testSelectionAffectsOnlyOneModel" classname="com.mentor.nucleus.bp.core.test.TwoModelsSelectionTestGenerics" time="4.711"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.ModelChangeListenersBatchingTestGenerics" time="4.354">
+      <testcase name="testCreateModelElement" classname="com.mentor.nucleus.bp.core.test.ModelChangeListenersBatchingTestGenerics" time="0.422"/>
+      <testcase name="testDeleteModelElement" classname="com.mentor.nucleus.bp.core.test.ModelChangeListenersBatchingTestGenerics" time="0.343"/>
+      <testcase name="testRenameS_SS" classname="com.mentor.nucleus.bp.core.test.ModelChangeListenersBatchingTestGenerics" time="3.12"/>
+      <testcase name="testRenameO_ATTR" classname="com.mentor.nucleus.bp.core.test.ModelChangeListenersBatchingTestGenerics" time="0.469"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="20.718">
+      <testcase name="testComparePaletteWithCME" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="5.679"/>
+      <testcase name="testContextMenuDeleteActionOnS_DOM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="1.373"/>
+      <testcase name="testContextMenuRenameActionOnS_DOM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.125"/>
+      <testcase name="testContextMenuDeleteActionOnS_DPK" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.203"/>
+      <testcase name="testContextMenuRenameActionOnS_DPK" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.109"/>
+      <testcase name="testContextMenuDeleteActionOnS_UDT" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.312"/>
+      <testcase name="testContextMenuRenameActionOnS_UDT" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.047"/>
+      <testcase name="testContextMenuDeleteActionOnS_EDT" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.062"/>
+      <testcase name="testContextMenuRenameActionOnS_EDT" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.063"/>
+      <testcase name="testContextMenuDeleteActionOnS_ENUM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.047"/>
+      <testcase name="testContextMenuRenameActionOnS_ENUM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.0"/>
+      <testcase name="testContextMenuDeleteActionOnCNST_CSP" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.296"/>
+      <testcase name="testContextMenuRenameActionOnCNST_CSP" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.094"/>
+      <testcase name="testContextMenuDeleteActionOnCNST_LSC" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.078"/>
+      <testcase name="testContextMenuRenameActionOnCNST_LSC" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.015"/>
+      <testcase name="testContextMenuDeleteActionOnS_FPK" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.187"/>
+      <testcase name="testContextMenuRenameActionOnS_FPK" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.11"/>
+      <testcase name="testContextMenuDeleteActionOnS_SYNC" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.078"/>
+      <testcase name="testContextMenuRenameActionOnS_SYNC" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.015"/>
+      <testcase name="testContextMenuDeleteActionOnS_SPARM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.016"/>
+      <testcase name="testContextMenuRenameActionOnS_SPARM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.015"/>
+      <testcase name="testContextMenuDeleteActionOnS_EEPK" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.047"/>
+      <testcase name="testContextMenuRenameActionOnS_EEPK" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.125"/>
+      <testcase name="testContextMenuDeleteActionOnS_EE" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.343"/>
+      <testcase name="testContextMenuRenameActionOnS_EE" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.094"/>
+      <testcase name="testContextMenuDeleteActionOnS_BRG" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.078"/>
+      <testcase name="testContextMenuRenameActionOnS_BRG" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.0"/>
+      <testcase name="testContextMenuDeleteActionOnS_BPARM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.015"/>
+      <testcase name="testContextMenuRenameActionOnS_BPARM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.016"/>
+      <testcase name="testContextMenuDeleteActionOnS_SS" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.172"/>
+      <testcase name="testContextMenuRenameActionOnS_SS" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.125"/>
+      <testcase name="testContextMenuDeleteActionOnO_OBJ" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.343"/>
+      <testcase name="testContextMenuRenameActionOnO_OBJ" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.078"/>
+      <testcase name="testContextMenuDeleteActionOnO_ATTR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.047"/>
+      <testcase name="testContextMenuRenameActionOnO_ATTR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.016"/>
+      <testcase name="testContextMenuDeleteActionOnO_TFR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.015"/>
+      <testcase name="testContextMenuRenameActionOnO_TFR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.0"/>
+      <testcase name="testContextMenuDeleteActionOnO_TPARM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.016"/>
+      <testcase name="testContextMenuRenameActionOnO_TPARM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.015"/>
+      <testcase name="testContextMenuDeleteActionOnSM_ISM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.016"/>
+      <testcase name="testContextMenuDeleteActionOnSM_NLEVT" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.0"/>
+      <testcase name="testContextMenuDeleteActionOnSM_EVT" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.016"/>
+      <testcase name="testContextMenuRenameActionOnSM_EVT" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.015"/>
+      <testcase name="testContextMenuDeleteActionOnSM_EVTDI" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.016"/>
+      <testcase name="testContextMenuRenameActionOnSM_EVTDI" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.015"/>
+      <testcase name="testContextMenuDeleteActionOnSM_ASM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.0"/>
+      <testcase name="testContextMenuDeleteActionOnSM_STATE" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.406"/>
+      <testcase name="testContextMenuRenameActionOnSM_STATE" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.109"/>
+      <testcase name="testContextMenuDeleteActionOnO_IOBJ" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.187"/>
+      <testcase name="testContextMenuDeleteActionOnR_REL" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.203"/>
+      <testcase name="testContextMenuDeleteActionOnSM_TXN" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.25"/>
+      <testcase name="testContextMenuDeleteActionOnSM_CRTXN" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.046"/>
+      <testcase name="testContextMenuDeleteActionOnR_ASSR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.047"/>
+      <testcase name="testContextMenuDeleteActionOnR_SUB" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.125"/>
+      <testcase name="testContextMenuAddtoIdentifierActionOnO_ATTR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.047"/>
+      <testcase name="testContextMenuRemovefromIdentifierActionOnO_ATTR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.015"/>
+      <testcase name="testContextMenuSetasDerivedAttributeActionOnO_ATTR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.016"/>
+      <testcase name="testContextMenuSetasBaseAttributeActionOnO_ATTR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.0"/>
+      <testcase name="testContextMenuMoveUpActionOnO_ATTR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.016"/>
+      <testcase name="testContextMenuMoveDownActionOnO_ATTR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.015"/>
+      <testcase name="testContextMenuCombineWithActionOnO_ATTR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.0"/>
+      <testcase name="testContextMenuSplitActionOnO_ATTR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.016"/>
+      <testcase name="testContextMenuBinaryFormalizeActionOnR_REL" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.062"/>
+      <testcase name="testContextMenuLinkedFormalizeActionOnR_REL" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.078"/>
+      <testcase name="testContextMenuLinkedFormalizeActionOnR_ASSR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.047"/>
+      <testcase name="testContextMenuInheritanceFormalizeActionOnR_REL" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.062"/>
+      <testcase name="testContextMenuInheritanceFormalizeActionOnR_SUB" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.063"/>
+      <testcase name="testContextMenuUnformalizeActionOnR_REL" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.234"/>
+      <testcase name="testContextMenuUnformalizeActionOnR_ASSR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.062"/>
+      <testcase name="testContextMenuUnformalizeActionOnR_SUB" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.047"/>
+      <testcase name="testContextMenuGenericPackageAssignEventActionOnSM_TXN" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.187"/>
+      <testcase name="testContextMenuRemoveEventActionOnSM_TXN" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.156"/>
+      <testcase name="testContextMenuGenericPackageAssignEventActionOnSM_CRTXN" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.141"/>
+      <testcase name="testContextMenuRemoveEventActionOnSM_CRTXN" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.124"/>
+      <testcase name="testContextMenuGenericPackageIgnoreinStateActionOnSM_EVT" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.047"/>
+      <testcase name="testContextMenuGenericPackageCantHappeninStateActionOnSM_EVT" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.0"/>
+      <testcase name="testContextMenuGenericPackageIgnoreEventActionOnSM_STATE" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.141"/>
+      <testcase name="testContextMenuGenericPackageCantHappenEventActionOnSM_STATE" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.109"/>
+      <testcase name="testContextMenuDeleteActionOnCOMM_COMM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.218"/>
+      <testcase name="testContextMenuRenameActionOnCOMM_COMM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.125"/>
+      <testcase name="testContextMenuDeleteActionOnCOMM_LNK" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.296"/>
+      <testcase name="testContextMenuDeleteActionOnUC_UCC" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.234"/>
+      <testcase name="testContextMenuRenameActionOnUC_UCC" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.156"/>
+      <testcase name="testContextMenuDeleteActionOnIA_UCP" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.344"/>
+      <testcase name="testContextMenuRenameActionOnIA_UCP" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.093"/>
+      <testcase name="testContextMenuDeleteActionOnUC_BA" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.078"/>
+      <testcase name="testContextMenuDeleteActionOnUC_G" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.094"/>
+      <testcase name="testContextMenuDeleteActionOnUC_I" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.078"/>
+      <testcase name="testContextMenuDeleteActionOnUC_E" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.093"/>
+      <testcase name="testContextMenuDeleteActionOnA_FJ" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.359"/>
+      <testcase name="testContextMenuRenameActionOnA_FJ" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.109"/>
+      <testcase name="testContextMenuDeleteActionOnA_INI" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.11"/>
+      <testcase name="testContextMenuDeleteActionOnA_E" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.093"/>
+      <testcase name="testContextMenuRenameActionOnA_E" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.109"/>
+      <testcase name="testContextMenuDeleteActionOnA_AF" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.11"/>
+      <testcase name="testContextMenuDeleteActionOnA_FF" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.109"/>
+      <testcase name="testContextMenuRenameActionOnA_GA" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.093"/>
+      <testcase name="testContextMenuDeleteActionOnA_GA" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.11"/>
+      <testcase name="testContextMenuRenameActionOnA_DM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.109"/>
+      <testcase name="testContextMenuDeleteActionOnA_DM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.109"/>
+      <testcase name="testContextMenuRenameActionOnA_OBJ" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.094"/>
+      <testcase name="testContextMenuDeleteActionOnA_OBJ" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.109"/>
+      <testcase name="testContextMenuRenameActionOnA_AEA" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.109"/>
+      <testcase name="testContextMenuDeleteActionOnA_AEA" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.094"/>
+      <testcase name="testContextMenuRenameActionOnA_ATE" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.109"/>
+      <testcase name="testContextMenuDeleteActionOnA_ATE" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.093"/>
+      <testcase name="testContextMenuRenameActionOnA_SS" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.11"/>
+      <testcase name="testContextMenuDeleteActionOnA_SS" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.14"/>
+      <testcase name="testContextMenuRenameActionOnA_AP" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.094"/>
+      <testcase name="testContextMenuDeleteActionOnA_AP" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.109"/>
+      <testcase name="testContextMenuDeleteActionOnS_SDT" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.203"/>
+      <testcase name="testContextMenuRenameActionOnS_SDT" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.093"/>
+      <testcase name="testContextMenuDeleteActionOnS_MBR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.047"/>
+      <testcase name="testContextMenuRenameActionOnS_MBR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.031"/>
+      <testcase name="testContextMenuMoveUpActionOnS_MBR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.0"/>
+      <testcase name="testContextMenuMoveDownActionOnS_MBR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.016"/>
+      <testcase name="testContextMenuPublishReferencesActionOnO_OBJ" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.14"/>
+      <testcase name="testContextMenuMoveUpActionOnO_TPARM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.047"/>
+      <testcase name="testContextMenuMoveDownActionOnO_TPARM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.0"/>
+      <testcase name="testContextMenuMoveUpActionOnS_SPARM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.016"/>
+      <testcase name="testContextMenuMoveDownActionOnS_SPARM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.015"/>
+      <testcase name="testContextMenuMoveUpActionOnS_BPARM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.016"/>
+      <testcase name="testContextMenuMoveDownActionOnS_BPARM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.0"/>
+      <testcase name="testContextMenuMoveUpActionOnSM_EVTDI" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.015"/>
+      <testcase name="testContextMenuMoveDownActionOnSM_EVTDI" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.016"/>
+      <testcase name="testContextMenuMoveUpActionOnO_TFR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.0"/>
+      <testcase name="testContextMenuMoveDownActionOnO_TFR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.015"/>
+      <testcase name="testContextMenuMoveUpActionOnS_ENUM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.016"/>
+      <testcase name="testContextMenuMoveDownActionOnS_ENUM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.016"/>
+      <testcase name="testContextMenuSetTypeActionOnS_BPARM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.0"/>
+      <testcase name="testContextMenuSetReturnTypeActionOnS_BRG" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.015"/>
+      <testcase name="testContextMenuSetReturnTypeActionOnS_SYNC" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.0"/>
+      <testcase name="testContextMenuSetTypeActionOnS_SPARM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.016"/>
+      <testcase name="testContextMenuSetTypeActionOnS_MBR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.015"/>
+      <testcase name="testContextMenuSetTypeActionOnSM_EVTDI" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.016"/>
+      <testcase name="testContextMenuSetTypeActionOnO_TPARM" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.0"/>
+      <testcase name="testContextMenuSetReturnTypeActionOnO_TFR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.016"/>
+      <testcase name="testContextMenuSetTypeActionOnO_ATTR" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.015"/>
+      <testcase name="testContextMenuSetTypeActionOnS_UDT" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.109"/>
+      <testcase name="testContextMenuSetTypeActionOnCNST_LSC" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.047"/>
+      <testcase name="testContextMenuGenericPackageAssignClassActionOnO_IOBJ" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.141"/>
+      <testcase name="testContextMenuLinkFormalizeActionOnCOMM_LNK" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.156"/>
+      <testcase name="testContextMenuUnformalizeActionOnCOMM_LNK" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.062"/>
+      <testcase name="testContextMenuToggleStartVisibilityActionOnCOMM_LNK" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.062"/>
+      <testcase name="testContextMenuToggleEndVisibilityActionOnCOMM_LNK" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="0.063"/>
+      <testcase name="testClearingUndoRedoStacksAfterReplaceWith" classname="com.mentor.nucleus.bp.core.test.ui.WritableContextMenuTestGenerics" time="1.373"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.CreationTransitionEventReassignmentTestGenerics" time="1.575">
+      <testcase name="testCreationTransitionEventReassignment" classname="com.mentor.nucleus.bp.core.test.CreationTransitionEventReassignmentTestGenerics" time="1.575"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.PolymorphicEventAssignmentTestGenerics" time="13.075">
+      <testcase name="testPolymorphicEventAssignment" classname="com.mentor.nucleus.bp.core.test.PolymorphicEventAssignmentTestGenerics" time="6.319"/>
+      <testcase name="testPolymorphicEventAssignmentNotAllowedOnCreationTransition" classname="com.mentor.nucleus.bp.core.test.PolymorphicEventAssignmentTestGenerics" time="0.109"/>
+      <testcase name="testSubtypeLineRemovalRemovesNonLocalEvent" classname="com.mentor.nucleus.bp.core.test.PolymorphicEventAssignmentTestGenerics" time="0.031"/>
+      <testcase name="testSubtypeLineRemovalRemovesLowerLevelNonLocalEvent" classname="com.mentor.nucleus.bp.core.test.PolymorphicEventAssignmentTestGenerics" time="0.047"/>
+      <testcase name="testSubtypeLineRemovalOnlyRemovesNonLocalEventsDeliveredViaItself" classname="com.mentor.nucleus.bp.core.test.PolymorphicEventAssignmentTestGenerics" time="2.309"/>
+      <testcase name="testRenamingPolymorphicEventRenamesNonLocalEvent" classname="com.mentor.nucleus.bp.core.test.PolymorphicEventAssignmentTestGenerics" time="2.185"/>
+      <testcase name="testPolymorphicEventRemovalRemovesNonLocalEvents" classname="com.mentor.nucleus.bp.core.test.PolymorphicEventAssignmentTestGenerics" time="2.075"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.UndoRedoTestGenerics" time="25.76">
+      <testcase name="testUndoRedoOfDeletionOfMultipleModelElementTypes" classname="com.mentor.nucleus.bp.core.test.UndoRedoTestGenerics" time="10.158"/>
+      <testcase name="testUndoRedoOfClassMovement" classname="com.mentor.nucleus.bp.core.test.UndoRedoTestGenerics" time="0.858"/>
+      <testcase name="testClearingOfUndoRedoStacksOnFileChange" classname="com.mentor.nucleus.bp.core.test.UndoRedoTestGenerics" time="0.484"/>
+      <testcase name="testRevertPersisted" classname="com.mentor.nucleus.bp.core.test.UndoRedoTestGenerics" time="2.107"/>
+      <testcase name="testUndoDeletionOfSubSystem" classname="com.mentor.nucleus.bp.core.test.UndoRedoTestGenerics" time="12.153"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.UseCaseTestsGenerics" time="6.82">
+      <testcase name="testUseCaseInDomain" classname="com.mentor.nucleus.bp.core.test.UseCaseTestsGenerics" time="3.526"/>
+      <testcase name="testUseCaseSymbols" classname="com.mentor.nucleus.bp.core.test.UseCaseTestsGenerics" time="3.294"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.RefreshTestCoreGenerics" time="4.789">
+      <testcase name="testRefreshBOperationSynchronousMessage" classname="com.mentor.nucleus.bp.core.test.RefreshTestCoreGenerics" time="4.773"/>
+      <testcase name="testRefreshFunctionSynchronousMessage" classname="com.mentor.nucleus.bp.core.test.RefreshTestCoreGenerics" time="0.016"/>
+      <testcase name="testRefreshClassSynchronousMessage" classname="com.mentor.nucleus.bp.core.test.RefreshTestCoreGenerics" time="0.0"/>
+      <testcase name="testRefreshClassAsynchronousMessage" classname="com.mentor.nucleus.bp.core.test.RefreshTestCoreGenerics" time="0.0"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.ModificationValidationTestsGenerics" time="6.818">
+      <testcase name="testMovementOfShapeOnReadonlyDiagram" classname="com.mentor.nucleus.bp.core.test.ModificationValidationTestsGenerics" time="3.244"/>
+      <testcase name="testRenameOfReadonlyComponent" classname="com.mentor.nucleus.bp.core.test.ModificationValidationTestsGenerics" time="1.452"/>
+      <testcase name="testDeletionOfReadonlyComponent" classname="com.mentor.nucleus.bp.core.test.ModificationValidationTestsGenerics" time="0.889"/>
+      <testcase name="testModificationOfReadonlyActivity" classname="com.mentor.nucleus.bp.core.test.ModificationValidationTestsGenerics" time="1.233"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.UniqueNameTestGenerics" time="3.651">
+      <testcase name="testUniqueSubsystemName" classname="com.mentor.nucleus.bp.core.test.UniqueNameTestGenerics" time="3.277"/>
+      <testcase name="testUniqueModelClassName" classname="com.mentor.nucleus.bp.core.test.UniqueNameTestGenerics" time="0.374"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.ModifyNonFullyLoadedModelTestsGenerics" time="27.504">
+      <testcase name="testDeleteClassWithReferringImportedClass" classname="com.mentor.nucleus.bp.core.test.ModifyNonFullyLoadedModelTestsGenerics" time="27.504"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.I810_SlowDeletionTestGenerics" time="10.765">
+      <testcase name="testSlowDeletion" classname="com.mentor.nucleus.bp.core.test.I810_SlowDeletionTestGenerics" time="10.765"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.TransitionActionTestGenerics" time="5.914">
+      <testcase name="testISMCreationTransition" classname="com.mentor.nucleus.bp.core.test.TransitionActionTestGenerics" time="3.776"/>
+      <testcase name="testISMTransition" classname="com.mentor.nucleus.bp.core.test.TransitionActionTestGenerics" time="0.889"/>
+      <testcase name="testASMTransition" classname="com.mentor.nucleus.bp.core.test.TransitionActionTestGenerics" time="1.249"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.ActivityTestsGenerics" time="2.512">
+      <testcase name="testCreateInformalActivityUnderSystem" classname="com.mentor.nucleus.bp.core.test.ActivityTestsGenerics" time="2.512"/>
+      <testcase name="testCreateInformalActivityUnderComponentPackage" classname="com.mentor.nucleus.bp.core.test.ActivityTestsGenerics" time="0.0"/>
+      <testcase name="testCreateInformalActivityUnderComponent" classname="com.mentor.nucleus.bp.core.test.ActivityTestsGenerics" time="0.0"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.TestVisibilityInElementChooser" time="9.22">
+      <testcase name="testVisibilityFilterInElementChooser" classname="com.mentor.nucleus.bp.core.test.TestVisibilityInElementChooser" time="9.22"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.MultipleSelectionAssignmentTests" time="28.559">
+      <testcase name="testMultipleSelectionAssignment" classname="com.mentor.nucleus.bp.core.test.MultipleSelectionAssignmentTests" time="28.559"/>
+    </testsuite>
+  </testsuite>
+</testrun>

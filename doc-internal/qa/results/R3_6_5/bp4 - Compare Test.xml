@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - Compare Test" project="com.mentor.nucleus.bp.compare.test" tests="18" started="18" failures="0" errors="0" ignored="0">
+  <testsuite name="CompareTestSuite" time="50.645">
+    <testsuite name="com.mentor.nucleus.bp.compare.test.cases.CompareSQLFilesTest" time="1.205">
+      <testcase name="testCompareTwoDifferentSQLFiles" classname="com.mentor.nucleus.bp.compare.test.cases.CompareSQLFilesTest" time="1.074"/>
+      <testcase name="testCompareTwoSimilarSQLFiles" classname="com.mentor.nucleus.bp.compare.test.cases.CompareSQLFilesTest" time="0.131"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.cases.GenerateComparisonTextTest" time="0.064">
+      <testcase name="testGenerateTextForSQLFile" classname="com.mentor.nucleus.bp.compare.test.cases.GenerateComparisonTextTest" time="0.064"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.cases.ModelInspectorTest" time="0.063">
+      <testcase name="testModelInspectorTime" classname="com.mentor.nucleus.bp.compare.test.cases.ModelInspectorTest" time="0.063"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.cases.HierarchyFileCoverageTest" time="0.0">
+      <testcase name="testDummy" classname="com.mentor.nucleus.bp.compare.test.cases.HierarchyFileCoverageTest" time="0.0"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.cases.ModelCacheManagerTest" time="0.0">
+      <testcase name="testModelCacheModelCount" classname="com.mentor.nucleus.bp.compare.test.cases.ModelCacheManagerTest" time="0.0"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.cases.CompareFileDeletionCheck" time="1.182">
+      <testcase name="testFileDeletion" classname="com.mentor.nucleus.bp.compare.test.cases.CompareFileDeletionCheck" time="1.182"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.cases.CompareCreationTransitionDiffTest" time="0.691">
+      <testcase name="testCompareCreationTransitionDifference" classname="com.mentor.nucleus.bp.compare.test.cases.CompareCreationTransitionDiffTest" time="0.691"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.cases.I495HierarchyComparisonTest" time="0.036">
+      <testcase name="testCompareDiffTreeAgainstExplorerTree" classname="com.mentor.nucleus.bp.compare.test.cases.I495HierarchyComparisonTest" time="0.036"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.plcm.CompareTest" time="29.918">
+      <testcase name="testCompareTwoDifferentModels" classname="com.mentor.nucleus.bp.compare.test.plcm.CompareTest" time="8.505"/>
+      <testcase name="testCompareTwoSimilarModels" classname="com.mentor.nucleus.bp.compare.test.plcm.CompareTest" time="10.185"/>
+      <testcase name="testCompareTwoLogicallySameModels" classname="com.mentor.nucleus.bp.compare.test.plcm.CompareTest" time="9.293"/>
+      <testcase name="testCompareTwoInvalidModels" classname="com.mentor.nucleus.bp.compare.test.plcm.CompareTest" time="1.935"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.plcm.InspectorTest" time="1.847">
+      <testcase name="testModelInspector" classname="com.mentor.nucleus.bp.compare.test.plcm.InspectorTest" time="1.847"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.plcm.LocalHistoryTest" time="5.749">
+      <testcase name="testRestorefromLocalHistory" classname="com.mentor.nucleus.bp.compare.test.plcm.LocalHistoryTest" time="2.101"/>
+      <testcase name="testCompareWithLocalHistory" classname="com.mentor.nucleus.bp.compare.test.plcm.LocalHistoryTest" time="1.938"/>
+      <testcase name="testReplaceWithLocalHistory" classname="com.mentor.nucleus.bp.compare.test.plcm.LocalHistoryTest" time="1.71"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.compare.test.plcm.CVSOperationsTest" time="9.89">
+      <testcase name="testCompareWithCVS" classname="com.mentor.nucleus.bp.compare.test.plcm.CVSOperationsTest" time="9.89"/>
+    </testsuite>
+  </testsuite>
+</testrun>

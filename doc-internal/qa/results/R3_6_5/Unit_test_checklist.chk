@@ -1,0 +1,91 @@
+========================================================================
+File:      $RCSfile: Unit_test_checklist.chk,v $
+Version:   $Revision: 1.13 $
+Modified   $Date: 2013/01/10 23:51:37 $
+
+(c) Copyright 2008-2013 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+This document captures the state of the BridgePoint unit tests ran against: 
+branch: Promotion-931194-853839-927321-688535-909348-946196
+machine: CAS-RMULVEY-LT.mgc.mentorg.com, rmulvey_vm_w7_1
+OS: Windows 7
+
+Test                                            Who                Result
+-------------------------------------------------------------------------------
+com.mentor.nucleus.bp.als.oal.test              -               -
+              Parse All Test                    bob                pass
+              Parse All Test Generics           bob                pass
+              UseGlobals Parse All Test         bob                pass 
+              UseGlobals Parse All TestGenerics bob                pass 
+com.mentor.nucleus.bp.compare.test                -                -
+              Compare Test                      bob                pass
+              Use Globals Compare Test          bob                pass
+com.mentor.nucleus.bp.core.test                 -                  -
+              Core Test                         bob                pass
+              Core Test Generics                bob                pass
+              Core Test 2                       bob                pass 
+              Core Test 2 Generics              keith              pass              
+              Core Test-SystemLevelTests        bob                pass
+              Core Test-SystemLevelTestsGeneric keith              pass              
+              Core Test-RTO Move                bob                pass
+              Core Test-Consistency             keith              pass
+              Core Test-Workspace Setup Generic keith              pass
+              Core Test-Existing Projects Gener keith              pass 
+              Core Generic Upgrade Test 1       bob                pass
+              Core Generic Upgrade Test 2       bob                pass                            
+              UseGlobals Core Test              bob                pass
+              UseGlobals Core Test Generics     bob                pass  
+              UseGlobals Core Test 2            bob                pass
+              UseGlobals Core Test 2Generics    keith              pass     
+              UseGlobals Core Test-SystemLevelTests bob            pass              
+UseGlobals CopyPasteSourceDestinationTestShort  N/A                N/A [1] 
+com.mentor.nucleus.bp.debug.ui.test (Verifier)    -                -
+              Debug - Verifier Test             keith              2 failures [2]
+              Debug - Verifier Test 2           keith              failures - problems in the testing of inter-component messaging see 953427
+              UseGlobals Debug - Verifier Test  N/A                N/A [3]
+com.mentor.nucleus.bp.model.compare.test        bob                pass
+com.mentor.nucleus.bp.io.mdl.test               -                  -
+              IO MDL Tests                      bob                pass
+              IO MDL Tests 2                    bob                pass
+              IO MDL Tests PkgCM                bob                pass
+              IO MDL Tests Generics             bob                pass
+              IO MDL Tests Generics 2           bob                pass
+              IO MDL Tests PkgCM Generics       bob                pass
+              ConvertInformalDiagramsToGenerics bob                pass                            
+              UseGlobals IO MDL PkgCM Test Suit bob                pass 
+              UseGlobals IO MDL PkgCM Test Suite                
+                                       Generics bob                pass
+              UseGlobals IO MDL Tests           bob                pass
+              UseGlobals IO MDL Tests Generics  bob                pass
+              UseGlobals IO MDL Tests 2         bob                pass
+              UseGlobals IO MDL Tests 2Generics bob                pass
+                       
+com.mentor.nucleus.bp.io.sql.test                bob               pass
+com.mentor.nucleus.bp.search.test                bob               pass
+com.mentor.nucleus.bp.ui.canvas.test             -                 -
+              UI Canvas Suite 1                  bob               pass
+              UI Canvas Suite 2                  bob               pass
+              UI Canvas CCP Test                 bob               pass
+              UseGlobals UI Canvas Suite 1       bob               pass
+              UseGlobals UI Canvas Suite 2       bob               pass
+              UseGlobals UI Canvas CCP Test      bob               pass
+com.mentor.nucleus.bp.ui.explorer.test           -                 -
+              UI Explorer Test                   bob               pass
+              UseGlobals UI Explorer Test        bob               pass
+com.mentor.nucleus.bp.ui.properties.test         -                 -
+              UI Properties Test                 bob               pass
+              UseGlobals UI Properties Test      bob               pass
+com.mentor.nucleus.bp.ui.text.test                -                -
+              UI Text Test                       bob               pass
+              UseGlobals UI Text Test            bob               pass
+com.mentor.nucleus.bp.welcome                    bob               pass
+
+N/A - Not applicable (Do not run this test.  It has know problems.)
+[1] The test model data is incomplete, many errors and failures expected
+[2] ~3 failures related to "Process not suspended by breakpoint"
+[3] Test does not complete run, Console output shows "Object is null"

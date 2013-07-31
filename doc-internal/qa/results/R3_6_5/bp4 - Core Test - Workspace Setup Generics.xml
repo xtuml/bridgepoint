@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - Core Test - Workspace Setup Generics" project="com.mentor.nucleus.bp.core.test" tests="15" started="15" failures="0" errors="0" ignored="0">
+  <testsuite name="com.mentor.nucleus.bp.core.test.TigerNatureWorkspaceSetupTestGenerics" time="92.75">
+    <testcase name="testPackageParticipantFormalizeWithIPRs" classname="com.mentor.nucleus.bp.core.test.TigerNatureWorkspaceSetupTestGenerics" time="20.689"/>
+    <testcase name="testComponentParticipantFormalizeWithIPRs" classname="com.mentor.nucleus.bp.core.test.TigerNatureWorkspaceSetupTestGenerics" time="11.049"/>
+    <testcase name="testExternalEntityParticipantFormalizeWithIPRs" classname="com.mentor.nucleus.bp.core.test.TigerNatureWorkspaceSetupTestGenerics" time="9.927"/>
+    <testcase name="testClassParticipantFormalizeWithIPRs" classname="com.mentor.nucleus.bp.core.test.TigerNatureWorkspaceSetupTestGenerics" time="10.892"/>
+    <testcase name="testClassInstanceParticipantFormalizeWithIPRs" classname="com.mentor.nucleus.bp.core.test.TigerNatureWorkspaceSetupTestGenerics" time="10.036"/>
+    <testcase name="testSetupInitialProjects" classname="com.mentor.nucleus.bp.core.test.TigerNatureWorkspaceSetupTestGenerics" time="15.002"/>
+    <testcase name="testCreatePackage" classname="com.mentor.nucleus.bp.core.test.TigerNatureWorkspaceSetupTestGenerics" time="5.071"/>
+    <testcase name="testCreatePackageInPackage" classname="com.mentor.nucleus.bp.core.test.TigerNatureWorkspaceSetupTestGenerics" time="0.703"/>
+    <testcase name="testCreateSequenceInPackage" classname="com.mentor.nucleus.bp.core.test.TigerNatureWorkspaceSetupTestGenerics" time="0.437"/>
+    <testcase name="testCreateUseCaseDiagramInSystem" classname="com.mentor.nucleus.bp.core.test.TigerNatureWorkspaceSetupTestGenerics" time="1.561"/>
+    <testcase name="testCreatePackageInPackageInPackage" classname="com.mentor.nucleus.bp.core.test.TigerNatureWorkspaceSetupTestGenerics" time="0.515"/>
+    <testcase name="testSetupForInterfaceAssignment" classname="com.mentor.nucleus.bp.core.test.TigerNatureWorkspaceSetupTestGenerics" time="2.934"/>
+    <testcase name="testSetupForComponentAssignment" classname="com.mentor.nucleus.bp.core.test.TigerNatureWorkspaceSetupTestGenerics" time="3.591"/>
+    <testcase name="testSetupForDataTypeAssignment" classname="com.mentor.nucleus.bp.core.test.TigerNatureWorkspaceSetupTestGenerics" time="0.343"/>
+    <testcase name="testConvertProjectsToCDT" classname="com.mentor.nucleus.bp.core.test.TigerNatureWorkspaceSetupTestGenerics" time="0.0"/>
+  </testsuite>
+</testrun>

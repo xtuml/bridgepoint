@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - Search Test" project="com.mentor.nucleus.bp.search.test" tests="10" started="10" failures="0" errors="0" ignored="0">
+  <testsuite name="com.mentor.nucleus.bp.search.test.SearchTests" time="9.598">
+    <testcase name="testCaseSensitivity" classname="com.mentor.nucleus.bp.search.test.SearchTests" time="1.734"/>
+    <testcase name="testRegularExpression" classname="com.mentor.nucleus.bp.search.test.SearchTests" time="0.511"/>
+    <testcase name="testActionLanguageOnlyUnderComponent" classname="com.mentor.nucleus.bp.search.test.SearchTests" time="0.458"/>
+    <testcase name="testActionLanguageOnly" classname="com.mentor.nucleus.bp.search.test.SearchTests" time="0.392"/>
+    <testcase name="testDescriptionsOnly" classname="com.mentor.nucleus.bp.search.test.SearchTests" time="0.406"/>
+    <testcase name="testDescriptionsOnlyUnderComponent" classname="com.mentor.nucleus.bp.search.test.SearchTests" time="0.402"/>
+    <testcase name="testSelectedResourcesScope" classname="com.mentor.nucleus.bp.search.test.SearchTests" time="0.625"/>
+    <testcase name="testEnclosingProjectScope" classname="com.mentor.nucleus.bp.search.test.SearchTests" time="0.589"/>
+    <testcase name="testWorkingSetScope" classname="com.mentor.nucleus.bp.search.test.SearchTests" time="0.499"/>
+    <testcase name="testSelectedResourcesMultipleTimes" classname="com.mentor.nucleus.bp.search.test.SearchTests" time="3.982"/>
+  </testsuite>
+</testrun>
