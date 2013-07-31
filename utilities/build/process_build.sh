@@ -22,8 +22,7 @@ if [ $# -lt 3 ]; then
   exit 1
 fi
 
-# TODO - BUILD_ADMIN="pt_development@mentor.com"
-BUILD_ADMIN="keith_brown@mentor.com"
+BUILD_ADMIN="pt_development@mentor.com"
 MAIL_CMD="/usr/sbin/ssmtp"
 MAIL_TEMP="mailtemp"
 base_dir=`pwd`
