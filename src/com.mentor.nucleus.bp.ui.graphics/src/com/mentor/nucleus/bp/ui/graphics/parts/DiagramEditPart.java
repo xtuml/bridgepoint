@@ -1,8 +1,8 @@
 //========================================================================
 //
 //File:      $RCSfile: DiagramEditPart.java,v $
-//Version:   $Revision: 1.57 $
-//Modified:  $Date: 2013/06/24 14:48:37 $
+//Version:   $Revision: 1.57.2.1 $
+//Modified:  $Date: 2013/07/08 14:32:23 $
 //
 //(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
 //
@@ -549,7 +549,8 @@ public class DiagramEditPart extends AbstractGraphicalEditPart implements
 				&& getChildren().get(0) instanceof ShapeEditPart
 				&& ((ShapeEditPart) getChildren().get(0)).isContainerShape()) {
 			if (getViewer().getSelectedEditParts().contains(
-					getChildren().get(0))) {
+					getChildren().get(0))
+					&& request instanceof ChangeBoundsRequest) {
 				return super.getTargetEditPart(request);
 			}
 			if(request instanceof LocationRequest) {
