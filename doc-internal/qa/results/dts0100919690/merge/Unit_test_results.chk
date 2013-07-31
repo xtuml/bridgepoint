@@ -1,0 +1,68 @@
+========================================================================
+File:      Unit_test_checklist.chk
+
+(c) Copyright 2008-2013 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+This document captures the state of the BridgePoint unit tests ran against:
+ 
+branch: 
+machine: 
+OS: 
+
+Test                                            Who             Result     Time
+--------------------------------------------------------------------------------
+com.mentor.nucleus.bp.als.oal.test              -               -
+              UseGlobals Parse All TestGenerics  CDM            Pass       629s
+com.mentor.nucleus.bp.core.test                 -               -
+              Core Test-RTO Move                 CDM            Pass       271s
+              Core Test-Consistency              CDM            Pass       1s
+              Core Test-Workspace Setup Generic  CDM            Fail [4]   78s
+              Core Test-Existing Projects Gener  CDM            FAIL [5]   8s 
+              Core Generic Upgrade Test          CDM            Pass       7s
+              UseGlobals Core Test Generics      CDM            FAIL [12]  1113s  
+              UseGlobals Core Test 2Generics     CDM            FAIL [4,8] 265s     
+              UseGlobals Core Test-SystemLevelTests  CDM        Pass       14s              
+UseGlobals CopyPasteSourceDestinationTestShort  N/A             N/A  [1] 
+com.mentor.nucleus.bp.debug.ui.test (Verifier)    -             -
+              Debug - Verifier Test              CDM            Pass       890s
+              Debug - Verifier Test 2            CDM            Pass       77s
+              UseGlobals Debug - Verifier Test  N/A             N/A  [3]
+com.mentor.nucleus.bp.model.compare.test         CDM            FAIL [11]  0s
+com.mentor.nucleus.bp.io.mdl.test                -              -
+              ConvertInformalDiagramsToGenerics  CDM            FAIL {9]   0s                            
+              UseGlobals IO MDL Tests Generics   CDM            FAIL [4,7] 258s
+              UseGlobals IO MDL Tests 2Generics  CDM            Pass       295s
+              UseGlobals IO MDL PkgCM Test Suite
+                                       Generics  CDM            Pass       691s
+com.mentor.nucleus.bp.io.sql.test                CDM            Pass       13s
+com.mentor.nucleus.bp.search.test                CDM            Pass       10s
+com.mentor.nucleus.bp.ui.canvas.test            -               -
+              UseGlobals UI Canvas Suite 1       CDM            Pass       102s
+              UseGlobals UI Canvas Suite 2       CDM            Fail [4]   298s
+              UseGlobals UI Canvas CCP Test      CDM            Fail [4]   705s
+com.mentor.nucleus.bp.ui.explorer.test          -               -
+              UseGlobals UI Explorer Test        CDM            Pass       57s
+com.mentor.nucleus.bp.ui.properties.test        -               -
+              UseGlobals UI Properties Test      CDM            Pass       20s
+com.mentor.nucleus.bp.ui.text.test                -             -
+              UseGlobals UI Text Test            CDM            Pass       109s
+com.mentor.nucleus.bp.welcome                    CDM            Pass       228s
+
+N/A - Not applicable (Do not run this test.  It has know problems.)
+[1] The test model data is incomplete, many errors and failures expected
+[2] ~3 failures related to "Process not suspended by breakpoint".  Sometimes 
+will pass all when run in thirds in debug mode
+[3] Test does not complete run, Console output shows "Object is null"
+[4] Graphics translation errors
+[5] testInterfaceAssignmentInterfaceContainedInDifferentPackageRoot:Unable to locate containing package
+[6] 9 failures 3 errors Tree not updating, example: checkProjectNoLongerInModelExplorer
+[7] Operation entry log differences
+[8] Could not locate the expected item in the selection dialog (Another Nested Package). in TestVisibilityInElementChooser
+[9] Not runnable, no test class found
+[11]No tests found (this one previously passed).
+[12]testNewProjectNonDefaultPath: Did not find new Project

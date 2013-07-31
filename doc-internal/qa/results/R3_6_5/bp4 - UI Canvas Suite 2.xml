@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - UI Canvas Suite 2" project="com.mentor.nucleus.bp.ui.canvas.test" tests="255" started="255" failures="0" errors="0" ignored="0">
+  <testsuite name="CanvasSuite2" time="276.652">
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.CanvasTestSuite2" time="0.147">
+      <testcase name="testCanvasSuite2" classname="com.mentor.nucleus.bp.ui.canvas.test.CanvasTestSuite2" time="0.147"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.ConnectorPolicyTests" time="11.274">
+      <testcase name="testOverlappingTargetsForCreateRequestsStart" classname="com.mentor.nucleus.bp.ui.canvas.test.ConnectorPolicyTests" time="11.031"/>
+      <testcase name="testOverlappingTargetsForCreateRequestsEnd" classname="com.mentor.nucleus.bp.ui.canvas.test.ConnectorPolicyTests" time="0.076"/>
+      <testcase name="testOverlappingTargetsForUpdateEndRequestsStart" classname="com.mentor.nucleus.bp.ui.canvas.test.ConnectorPolicyTests" time="0.08"/>
+      <testcase name="testOverlappingTargetsForUpdateEndRequestsEnd" classname="com.mentor.nucleus.bp.ui.canvas.test.ConnectorPolicyTests" time="0.087"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.I686ClearDatabaseTest" time="2.49">
+      <testcase name="testClearDatabase" classname="com.mentor.nucleus.bp.ui.canvas.test.I686ClearDatabaseTest" time="2.49"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.I835OpenDiagramEditorWithSearchView" time="9.074">
+      <testcase name="testOpenDiagramEditorWithSearchView" classname="com.mentor.nucleus.bp.ui.canvas.test.I835OpenDiagramEditorWithSearchView" time="9.074"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.MultipleSupertypeTest" time="3.824">
+      <testcase name="test_selectSubtype" classname="com.mentor.nucleus.bp.ui.canvas.test.MultipleSupertypeTest" time="2.121"/>
+      <testcase name="test_selectImportedSubtype" classname="com.mentor.nucleus.bp.ui.canvas.test.MultipleSupertypeTest" time="1.703"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.ClassToStateDiagramNavigationTest" time="5.73">
+      <testcase name="testOpenActionOnClassOpensStateDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.ClassToStateDiagramNavigationTest" time="4.892"/>
+      <testcase name="testDoubleClickOnMarkerIconOpensStateDiagram" classname="com.mentor.nucleus.bp.ui.canvas.test.ClassToStateDiagramNavigationTest" time="0.838"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.ConnectorsAsAnchorsTest" time="3.041">
+      <testcase name="testBendingConnectorWithConnectorsStartingAt" classname="com.mentor.nucleus.bp.ui.canvas.test.ConnectorsAsAnchorsTest" time="1.876"/>
+      <testcase name="testNewConnectorIntersectingMultipleConnectors" classname="com.mentor.nucleus.bp.ui.canvas.test.ConnectorsAsAnchorsTest" time="0.29"/>
+      <testcase name="testUpdatingEndOfSegmentWithNewSegment" classname="com.mentor.nucleus.bp.ui.canvas.test.ConnectorsAsAnchorsTest" time="0.499"/>
+      <testcase name="testFixedAspectDrawing" classname="com.mentor.nucleus.bp.ui.canvas.test.ConnectorsAsAnchorsTest" time="0.0"/>
+      <testcase name="testFixedAspectResizing" classname="com.mentor.nucleus.bp.ui.canvas.test.ConnectorsAsAnchorsTest" time="0.0"/>
+      <testcase name="testActorDrawnToFullShapeSizeWhenNotNamed" classname="com.mentor.nucleus.bp.ui.canvas.test.ConnectorsAsAnchorsTest" time="0.376"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.FreeFloatingConnectorTest" time="2.258">
+      <testcase name="testCreatingAndMovingFreeFloatingConnectors" classname="com.mentor.nucleus.bp.ui.canvas.test.FreeFloatingConnectorTest" time="1.937"/>
+      <testcase name="testMovingFreeFloatingConnectorsAtHighZoom" classname="com.mentor.nucleus.bp.ui.canvas.test.FreeFloatingConnectorTest" time="0.321"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.I2053F2RenameTest" time="3.546">
+      <testcase name="testContextF2RenameSelection" classname="com.mentor.nucleus.bp.ui.canvas.test.I2053F2RenameTest" time="3.546"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.AutoReconciliationTests" time="5.018">
+      <testcase name="testGraphicalRepresentsSet" classname="com.mentor.nucleus.bp.ui.canvas.test.AutoReconciliationTests" time="5.018"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="24.72">
+      <testcase name="testA1_B1C1" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="5.337"/>
+      <testcase name="testA1_B2C1" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.71"/>
+      <testcase name="testA1_B1C2" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.877"/>
+      <testcase name="testA1_B2C2" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.862"/>
+      <testcase name="testA1_B1C3" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.843"/>
+      <testcase name="testA1_B2C3" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.853"/>
+      <testcase name="testA1_B3C3" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.844"/>
+      <testcase name="testA2_B1C1" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.638"/>
+      <testcase name="testA2_B2C1" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.337"/>
+      <testcase name="testA2_B1C2" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.501"/>
+      <testcase name="testA2_B2C2" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.661"/>
+      <testcase name="testA2_B1C3" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.206"/>
+      <testcase name="testA2_B2C3" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.85"/>
+      <testcase name="testA2_B3C3" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.844"/>
+      <testcase name="testA3_B1C1" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.665"/>
+      <testcase name="testA3_B2C1" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.752"/>
+      <testcase name="testA3_B1C2" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.675"/>
+      <testcase name="testA3_B2C2" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.03"/>
+      <testcase name="testA3_B1C3" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.206"/>
+      <testcase name="testA3_B2C3" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.849"/>
+      <testcase name="testA3_B3C3" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.853"/>
+      <testcase name="testA4_B1C1" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.651"/>
+      <testcase name="testA4_B2C1" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.732"/>
+      <testcase name="testA4_B1C2" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.664"/>
+      <testcase name="testA4_B2C2" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.031"/>
+      <testcase name="testA4_B1C3" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.217"/>
+      <testcase name="testA4_B2C3" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.837"/>
+      <testcase name="testA4_B3C3" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.852"/>
+      <testcase name="testA5_B3C1" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.639"/>
+      <testcase name="testA5_B3C2" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.841"/>
+      <testcase name="testA5_B3C3" classname="com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0" time="0.862"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="185.574">
+      <testcase name="testA1B1_C1D3E1F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="28.682"/>
+      <testcase name="testA1B1_C1D3E2F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.018"/>
+      <testcase name="testA1B1_C2D1E1F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.021"/>
+      <testcase name="testA1B1_C2D1E2F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.025"/>
+      <testcase name="testA1B1_C2D2E1F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.014"/>
+      <testcase name="testA1B1_C2D2E2F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.021"/>
+      <testcase name="testA1B1_C3D1E1F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.045"/>
+      <testcase name="testA1B1_C3D1E2F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.046"/>
+      <testcase name="testA1B1_C3D2E1F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.035"/>
+      <testcase name="testA1B1_C3D2E2F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.04"/>
+      <testcase name="testA1B1_C3D3E1F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.068"/>
+      <testcase name="testA1B1_C3D3E2F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.072"/>
+      <testcase name="testA1B2_C1D3E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.025"/>
+      <testcase name="testA1B2_C1D3E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.093"/>
+      <testcase name="testA1B2_C2D1E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.06"/>
+      <testcase name="testA1B2_C2D1E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.064"/>
+      <testcase name="testA1B2_C2D2E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.082"/>
+      <testcase name="testA1B2_C2D2E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.087"/>
+      <testcase name="testA1B2_C3D1E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.059"/>
+      <testcase name="testA1B2_C3D1E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.12"/>
+      <testcase name="testA1B2_C3D2E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.063"/>
+      <testcase name="testA1B2_C3D2E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.121"/>
+      <testcase name="testA1B2_C3D3E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.086"/>
+      <testcase name="testA1B2_C3D3E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.139"/>
+      <testcase name="testA1B3_C1D3E1F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.116"/>
+      <testcase name="testA1B3_C1D3E2F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.173"/>
+      <testcase name="testA1B3_C2D1E1F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.133"/>
+      <testcase name="testA1B3_C2D1E2F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.187"/>
+      <testcase name="testA1B3_C2D2E1F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.128"/>
+      <testcase name="testA1B3_C2D2E2F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.186"/>
+      <testcase name="testA1B3_C3D1E1F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.187"/>
+      <testcase name="testA1B3_C3D1E2F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.195"/>
+      <testcase name="testA1B3_C3D2E1F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.201"/>
+      <testcase name="testA1B3_C3D2E2F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.206"/>
+      <testcase name="testA1B3_C3D3E1F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.183"/>
+      <testcase name="testA1B3_C3D3E2F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.24"/>
+      <testcase name="testA2B1_C1D3E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.214"/>
+      <testcase name="testA2B1_C1D3E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.194"/>
+      <testcase name="testA2B1_C2D1E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.225"/>
+      <testcase name="testA2B1_C2D1E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.261"/>
+      <testcase name="testA2B1_C2D2E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.25"/>
+      <testcase name="testA2B1_C2D2E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.245"/>
+      <testcase name="testA2B1_C3D1E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.23"/>
+      <testcase name="testA2B1_C3D1E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.286"/>
+      <testcase name="testA2B1_C3D2E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.278"/>
+      <testcase name="testA2B1_C3D2E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.301"/>
+      <testcase name="testA2B1_C3D3E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.301"/>
+      <testcase name="testA2B1_C3D3E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.313"/>
+      <testcase name="testA2B2_C1D3E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.293"/>
+      <testcase name="testA2B2_C1D3E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.325"/>
+      <testcase name="testA2B2_C2D1E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.335"/>
+      <testcase name="testA2B2_C2D1E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.361"/>
+      <testcase name="testA2B2_C2D2E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.349"/>
+      <testcase name="testA2B2_C2D2E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.371"/>
+      <testcase name="testA2B2_C3D1E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.374"/>
+      <testcase name="testA2B2_C3D1E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.427"/>
+      <testcase name="testA2B2_C3D2E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.372"/>
+      <testcase name="testA2B2_C3D2E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.433"/>
+      <testcase name="testA2B2_C3D3E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.419"/>
+      <testcase name="testA2B2_C3D3E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.476"/>
+      <testcase name="testA2B3_C1D3E1F1" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.43"/>
+      <testcase name="testA2B3_C1D3E2F1" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.496"/>
+      <testcase name="testA2B3_C1D3E1F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.503"/>
+      <testcase name="testA2B3_C1D3E2F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.524"/>
+      <testcase name="testA2B3_C2D1E1F1" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.533"/>
+      <testcase name="testA2B3_C2D1E2F1" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.554"/>
+      <testcase name="testA2B3_C2D2E1F1" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.585"/>
+      <testcase name="testA2B3_C2D2E2F1" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.592"/>
+      <testcase name="testA2B3_C2D1E1F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.596"/>
+      <testcase name="testA2B3_C2D1E2F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.658"/>
+      <testcase name="testA2B3_C2D2E1F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.66"/>
+      <testcase name="testA2B3_C2D2E2F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.656"/>
+      <testcase name="testA2B3_C3D1E1F1" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.664"/>
+      <testcase name="testA2B3_C3D1E2F1" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.743"/>
+      <testcase name="testA2B3_C3D2E1F1" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.718"/>
+      <testcase name="testA2B3_C3D2E2F1" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.738"/>
+      <testcase name="testA2B3_C3D3E1F1" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.75"/>
+      <testcase name="testA2B3_C3D3E2F1" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.778"/>
+      <testcase name="testA2B3_C3D1E1F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.794"/>
+      <testcase name="testA2B3_C3D1E2F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.812"/>
+      <testcase name="testA2B3_C3D2E1F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.814"/>
+      <testcase name="testA2B3_C3D2E2F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.832"/>
+      <testcase name="testA2B3_C3D3E1F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.849"/>
+      <testcase name="testA2B3_C3D3E2F2" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.929"/>
+      <testcase name="testA3B2_C1D3E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.891"/>
+      <testcase name="testA3B2_C1D3E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.892"/>
+      <testcase name="testA3B2_C2D1E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.876"/>
+      <testcase name="testA3B2_C2D1E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.924"/>
+      <testcase name="testA3B2_C2D2E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.904"/>
+      <testcase name="testA3B2_C2D2E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.903"/>
+      <testcase name="testA3B2_C3D1E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.909"/>
+      <testcase name="testA3B2_C3D1E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.938"/>
+      <testcase name="testA3B2_C3D2E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.885"/>
+      <testcase name="testA3B2_C3D2E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.938"/>
+      <testcase name="testA3B2_C3D3E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.94"/>
+      <testcase name="testA3B2_C3D3E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.938"/>
+      <testcase name="testA3B3_C1D3E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.93"/>
+      <testcase name="testA3B3_C1D3E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.919"/>
+      <testcase name="testA3B3_C2D1E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.909"/>
+      <testcase name="testA3B3_C2D1E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.99"/>
+      <testcase name="testA3B3_C2D2E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.948"/>
+      <testcase name="testA3B3_C2D2E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.969"/>
+      <testcase name="testA3B3_C3D1E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.96"/>
+      <testcase name="testA3B3_C3D1E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.98"/>
+      <testcase name="testA3B3_C3D2E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.999"/>
+      <testcase name="testA3B3_C3D2E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.995"/>
+      <testcase name="testA3B3_C3D3E1F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="1.973"/>
+      <testcase name="testA3B3_C3D3E2F3" classname="com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0" time="2.0"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.TestReflexiveConnectorCreation" time="8.776">
+      <testcase name="testReflexiveConnectorCreationOnMouseUp" classname="com.mentor.nucleus.bp.ui.canvas.test.TestReflexiveConnectorCreation" time="2.96"/>
+      <testcase name="testReflexiveCornerNonIntersectionWithShape" classname="com.mentor.nucleus.bp.ui.canvas.test.TestReflexiveConnectorCreation" time="1.465"/>
+      <testcase name="testReflexiveConnectorOnConnector" classname="com.mentor.nucleus.bp.ui.canvas.test.TestReflexiveConnectorCreation" time="4.351"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="7.578">
+      <testcase name="testC1D1_A1B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="2.224"/>
+      <testcase name="testC1D1_A2B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.185"/>
+      <testcase name="testC1D1_A3B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.088"/>
+      <testcase name="testC1D1_A4B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.036"/>
+      <testcase name="testC1D1_A5B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.039"/>
+      <testcase name="testC1D1_A6B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.036"/>
+      <testcase name="testC2D1_A1B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.043"/>
+      <testcase name="testC2D1_A1B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.106"/>
+      <testcase name="testC2D1_A2B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.045"/>
+      <testcase name="testC2D1_A2B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.066"/>
+      <testcase name="testC2D1_A3B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.04"/>
+      <testcase name="testC2D1_A3B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.061"/>
+      <testcase name="testC2D1_A4B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.044"/>
+      <testcase name="testC2D1_A4B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.066"/>
+      <testcase name="testC2D1_A5B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.044"/>
+      <testcase name="testC2D1_A5B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.065"/>
+      <testcase name="testC2D1_A6B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.042"/>
+      <testcase name="testC2D1_A6B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.064"/>
+      <testcase name="testC2D2_A1B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.044"/>
+      <testcase name="testC2D2_A1B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.064"/>
+      <testcase name="testC2D2_A2B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.049"/>
+      <testcase name="testC2D2_A2B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.065"/>
+      <testcase name="testC2D2_A4B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.041"/>
+      <testcase name="testC2D2_A4B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.062"/>
+      <testcase name="testC2D2_A5B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.046"/>
+      <testcase name="testC2D2_A5B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.093"/>
+      <testcase name="testC2D3_A1B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.042"/>
+      <testcase name="testC2D3_A1B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.065"/>
+      <testcase name="testC2D3_A2B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.043"/>
+      <testcase name="testC2D3_A2B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.065"/>
+      <testcase name="testC2D3_A4B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.043"/>
+      <testcase name="testC2D3_A4B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.061"/>
+      <testcase name="testC2D3_A5B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.041"/>
+      <testcase name="testC2D3_A5B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.066"/>
+      <testcase name="testC2D4_A1B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.044"/>
+      <testcase name="testC2D4_A1B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.067"/>
+      <testcase name="testC2D4_A2B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.043"/>
+      <testcase name="testC2D4_A2B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.063"/>
+      <testcase name="testC2D4_A4B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.041"/>
+      <testcase name="testC2D4_A4B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.061"/>
+      <testcase name="testC2D4_A5B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.046"/>
+      <testcase name="testC2D4_A5B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.063"/>
+      <testcase name="testC2D5_A1B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.04"/>
+      <testcase name="testC2D5_A1B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.082"/>
+      <testcase name="testC2D5_A2B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.047"/>
+      <testcase name="testC2D5_A2B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.064"/>
+      <testcase name="testC2D5_A4B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.041"/>
+      <testcase name="testC2D5_A4B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.064"/>
+      <testcase name="testC2D5_A5B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.047"/>
+      <testcase name="testC2D5_A5B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.063"/>
+      <testcase name="testC3D1_A1B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.049"/>
+      <testcase name="testC3D1_A1B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.069"/>
+      <testcase name="testC3D1_A2B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.052"/>
+      <testcase name="testC3D1_A2B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.081"/>
+      <testcase name="testC3D1_A4B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.047"/>
+      <testcase name="testC3D1_A4B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.068"/>
+      <testcase name="testC3D1_A5B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.047"/>
+      <testcase name="testC3D1_A5B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.07"/>
+      <testcase name="testC3D2_A1B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.049"/>
+      <testcase name="testC3D2_A1B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.091"/>
+      <testcase name="testC3D2_A2B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.057"/>
+      <testcase name="testC3D2_A2B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.076"/>
+      <testcase name="testC3D2_A4B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.048"/>
+      <testcase name="testC3D2_A4B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.072"/>
+      <testcase name="testC3D2_A5B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.056"/>
+      <testcase name="testC3D2_A5B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.074"/>
+      <testcase name="testC3D3_A1B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.048"/>
+      <testcase name="testC3D3_A1B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.07"/>
+      <testcase name="testC3D3_A2B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.052"/>
+      <testcase name="testC3D3_A2B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.076"/>
+      <testcase name="testC3D3_A4B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.052"/>
+      <testcase name="testC3D3_A4B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.071"/>
+      <testcase name="testC3D3_A5B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.049"/>
+      <testcase name="testC3D3_A5B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.069"/>
+      <testcase name="testC3D4_A1B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.067"/>
+      <testcase name="testC3D4_A1B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.07"/>
+      <testcase name="testC3D4_A2B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.053"/>
+      <testcase name="testC3D4_A2B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.079"/>
+      <testcase name="testC3D4_A4B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.048"/>
+      <testcase name="testC3D4_A4B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.071"/>
+      <testcase name="testC3D4_A5B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.05"/>
+      <testcase name="testC3D4_A5B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.071"/>
+      <testcase name="testC3D5_A1B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.052"/>
+      <testcase name="testC3D5_A1B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.071"/>
+      <testcase name="testC3D5_A2B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.053"/>
+      <testcase name="testC3D5_A2B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.073"/>
+      <testcase name="testC3D5_A4B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.05"/>
+      <testcase name="testC3D5_A4B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.074"/>
+      <testcase name="testC3D5_A5B1" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.056"/>
+      <testcase name="testC3D5_A5B2" classname="com.mentor.nucleus.bp.ui.canvas.test.routing.RectilinearRoutingTests_0" time="0.086"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.canvas.test.GraphicalToolCreationTests" time="3.602">
+      <testcase name="testShapeCreationStickyModeUseDefaultNamesDisabled" classname="com.mentor.nucleus.bp.ui.canvas.test.GraphicalToolCreationTests" time="1.945"/>
+      <testcase name="testShapeCreationStickyModeUseDefaultNamesEnabled" classname="com.mentor.nucleus.bp.ui.canvas.test.GraphicalToolCreationTests" time="1.657"/>
+    </testsuite>
+  </testsuite>
+</testrun>

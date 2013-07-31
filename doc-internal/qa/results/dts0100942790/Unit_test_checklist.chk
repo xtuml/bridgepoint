@@ -1,0 +1,90 @@
+========================================================================
+File:      $RCSfile: Unit_test_checklist.chk,v $
+Version:   $Revision: 1.14 $
+Modified   $Date: 2013/03/13 20:56:20 $
+
+(c) Copyright 2008-2013 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+This document captures the state of the BridgePoint unit tests ran against: 
+branch: <INSERT BRANCH NAME HERE>
+machine: <INSERT MACHINE NAME HERE>
+OS: <INSERT OPERATING SYSTEM HERE>
+
+Test											Who				Result
+-------------------------------------------------------------------------------
+com.mentor.nucleus.bp.als.oal.test              -               -
+              Parse All Test					   				   
+              Parse All Test Generics			   				   
+              UseGlobals Parse All Test            				    
+              UseGlobals Parse All TestGenerics    				    
+com.mentor.nucleus.bp.compare.test				-				-
+			  Compare Test						   				   
+			  Use Globals Compare Test			   				   
+com.mentor.nucleus.bp.core.test					-				-
+              Core Test							   				   
+              Core Test Generics 				   				   
+              Core Test 2                  		                    
+              Core Test 2 Generics         		                                 
+              Core Test-SystemLevelTests		   				   
+              Core Test-SystemLevelTestsGeneric    				                 
+              Core Test-RTO Move                                   
+              Core Test-Consistency				   				   
+              Core Test-Workspace Setup Generic                    
+              Core Test-Existing Projects Gener                     
+			  Core Generic Upgrade Test 1                          
+			  Core Generic Upgrade Test 2                          			  			  
+              UseGlobals Core Test                 				   
+              UseGlobals Core Test Generics        				     
+              UseGlobals Core Test 2               				   
+              UseGlobals Core Test 2Generics       				        
+              UseGlobals Core Test-SystemLevelTests    	           			  
+UseGlobals CopyPasteSourceDestinationTestShort  N/A				N/A [1] 
+com.mentor.nucleus.bp.debug.ui.test (Verifier)	-				-
+              Debug - Verifier Test                    HKA      pass [2]
+              UseGlobals Debug - Verifier Test  N/A				N/A [3]
+com.mentor.nucleus.bp.model.compare.test                           
+com.mentor.nucleus.bp.io.mdl.test				-				-
+              IO MDL Tests						   				   
+              IO MDL Tests 2                   	                   
+              IO MDL Tests PkgCM		   		   				   
+              IO MDL Tests Generics 			   				   
+              IO MDL Tests Generics 2                              
+              IO MDL Tests PkgCM Generics          				   
+              ConvertInformalDiagramsToGenerics                                                
+              UseGlobals IO MDL PkgCM Test Suit                    
+              UseGlobals IO MDL PkgCM Test Suite
+                                       Generics                    
+              UseGlobals IO MDL Tests                              
+              UseGlobals IO MDL Tests Generics                     
+              UseGlobals IO MDL Tests 2                            
+              UseGlobals IO MDL Tests 2Generics                    
+                       
+com.mentor.nucleus.bp.io.sql.test				   				   
+com.mentor.nucleus.bp.search.test				   				   
+com.mentor.nucleus.bp.ui.canvas.test			-				-
+              UI Canvas Suite 1                    				   
+              UI Canvas Suite 2                    				   
+              UI Canvas CCP Test			       				   
+              UseGlobals UI Canvas Suite 1         				   
+              UseGlobals UI Canvas Suite 2         				   
+              UseGlobals UI Canvas CCP Test		   				   
+com.mentor.nucleus.bp.ui.explorer.test			-				-
+			  UI Explorer Test					   				   
+			  UseGlobals UI Explorer Test		   				   
+com.mentor.nucleus.bp.ui.properties.test		-				-
+              UI Properties Test                                   
+              UseGlobals UI Properties Test        				   
+com.mentor.nucleus.bp.ui.text.test				- 				-
+			  UI Text Test						   				   
+			  UseGlobals UI Text Test			   				   
+com.mentor.nucleus.bp.welcome                                      
+
+N/A - Not applicable (Do not run this test.  It has know problems.)
+[1] The test model data is incomplete, many errors and failures expected
+[2] ~3 failures related to "Process not suspended by breakpoint"
+[3] Test does not complete run, Console output shows "Object is null"

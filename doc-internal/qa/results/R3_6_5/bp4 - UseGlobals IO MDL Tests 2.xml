@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - UseGlobals IO MDL Tests 2" project="com.mentor.nucleus.bp.io.mdl.test" tests="10" started="10" failures="0" errors="0" ignored="0">
+  <testsuite name="IOMdlGlobalsTestSuite2" time="73.056">
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.IOMdlIIGlobalsTest" time="0.288">
+      <testcase name="testGlobally" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlIIGlobalsTest" time="0.288"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.IOMdlTestSuiteII" time="0.03">
+      <testcase name="testIOMdlTestSuiteII" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlTestSuiteII" time="0.03"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.SpecificationPackageUpgradeTests" time="3.674">
+      <testcase name="testSpecificationPackageUpgrade" classname="com.mentor.nucleus.bp.io.mdl.test.SpecificationPackageUpgradeTests" time="3.674"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.wizards.ImportWizardTests" time="1.275">
+      <testcase name="testNoOrphanedElementsOnImportOfCoreDataTypePackage" classname="com.mentor.nucleus.bp.io.mdl.test.wizards.ImportWizardTests" time="1.275"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.pkgcm.CVSOperationsTest" time="10.357">
+      <testcase name="testCVSDirtyMarkOnModelExplorer" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.CVSOperationsTest" time="10.357"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.OALPersistenceTests" time="3.264">
+      <testcase name="testPersistOAL" classname="com.mentor.nucleus.bp.io.mdl.test.OALPersistenceTests" time="3.264"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistency" time="15.281">
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistency" time="15.281"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.SLDTTests" time="0.258">
+      <testcase name="testCoreTypeOfSLDTForNewProject" classname="com.mentor.nucleus.bp.io.mdl.test.SLDTTests" time="0.258"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.pkgcm.FileVsFolder_i1608Test" time="5.127">
+      <testcase name="testFileVsFolderCVSOperations" classname="com.mentor.nucleus.bp.io.mdl.test.pkgcm.FileVsFolder_i1608Test" time="5.127"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.DataUpgradeCreatesNoDeltasTest" time="33.502">
+      <testcase name="testUpgradeCreatesNoDeltas" classname="com.mentor.nucleus.bp.io.mdl.test.DataUpgradeCreatesNoDeltasTest" time="33.502"/>
+    </testsuite>
+  </testsuite>
+</testrun>

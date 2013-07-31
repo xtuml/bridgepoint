@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - UseGlobals IO MDL Tests 2 Generics" project="com.mentor.nucleus.bp.io.mdl.test" tests="7" started="7" failures="0" errors="0" ignored="0">
+  <testsuite name="IOMdlGlobalsTestSuite2Generics" time="234.314">
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.IOMdlIIGlobalsTestGenerics" time="0.265">
+      <testcase name="testGlobally" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlIIGlobalsTestGenerics" time="0.265"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.IOMdlTestSuiteIIGenerics" time="1.092">
+      <testcase name="testIOMdlTestSuiteII" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlTestSuiteIIGenerics" time="1.092"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.wizards.ImportWizardTestsGenerics" time="2.327">
+      <testcase name="testNoOrphanedElementsOnImportOfCoreDataTypePackage" classname="com.mentor.nucleus.bp.io.mdl.test.wizards.ImportWizardTestsGenerics" time="2.327"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.OALPersistenceTestsGenerics" time="70.808">
+      <testcase name="testPersistOAL" classname="com.mentor.nucleus.bp.io.mdl.test.OALPersistenceTestsGenerics" time="9.422"/>
+      <testcase name="testOALInstancesCreatedWhileBuild" classname="com.mentor.nucleus.bp.io.mdl.test.OALPersistenceTestsGenerics" time="5.257"/>
+      <testcase name="testOALInstancesExportedProperly" classname="com.mentor.nucleus.bp.io.mdl.test.OALPersistenceTestsGenerics" time="56.129"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="159.822">
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="159.822"/>
+    </testsuite>
+  </testsuite>
+</testrun>

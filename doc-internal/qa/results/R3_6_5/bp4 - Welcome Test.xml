@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="bp4 - Welcome Test" project="com.mentor.nucleus.bp.welcome.test" tests="9" started="9" failures="0" errors="0" ignored="0">
+  <testsuite name="com.mentor.nucleus.bp.welcome.test.WelcomeTestSuite" time="114.37">
+    <testsuite name="com.mentor.nucleus.bp.welcome.test.WelcomePageTestGPS" time="47.902">
+      <testcase name="testProjectCreation" classname="com.mentor.nucleus.bp.welcome.test.WelcomePageTestGPS" time="12.231"/>
+      <testcase name="testNoProjectOverwrite" classname="com.mentor.nucleus.bp.welcome.test.WelcomePageTestGPS" time="2.029"/>
+      <testcase name="testProjectOverwrite" classname="com.mentor.nucleus.bp.welcome.test.WelcomePageTestGPS" time="10.053"/>
+      <testcase name="testImportLoadPersistAndBuild" classname="com.mentor.nucleus.bp.welcome.test.WelcomePageTestGPS" time="23.589"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.welcome.test.WelcomePageTest" time="1.736">
+      <testcase name="testProjectCreation" classname="com.mentor.nucleus.bp.welcome.test.WelcomePageTest" time="1.736"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.welcome.test.WelcomePageTestMetamodel" time="64.731">
+      <testcase name="testProjectCreation" classname="com.mentor.nucleus.bp.welcome.test.WelcomePageTestMetamodel" time="18.598"/>
+      <testcase name="testNoProjectOverwrite" classname="com.mentor.nucleus.bp.welcome.test.WelcomePageTestMetamodel" time="2.016"/>
+      <testcase name="testProjectOverwrite" classname="com.mentor.nucleus.bp.welcome.test.WelcomePageTestMetamodel" time="20.366"/>
+      <testcase name="testImportLoadPersist" classname="com.mentor.nucleus.bp.welcome.test.WelcomePageTestMetamodel" time="23.751"/>
+    </testsuite>
+  </testsuite>
+</testrun>
