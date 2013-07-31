@@ -1,8 +1,8 @@
 //========================================================================
 //
 //File:      $RCSfile: ITreeDifferencerProvider.java,v $
-//Version:   $Revision: 1.2 $
-//Modified:  $Date: 2013/01/10 22:49:58 $
+//Version:   $Revision: 1.2.30.1 $
+//Modified:  $Date: 2013/07/08 14:38:14 $
 //
 //Copyright 2005-2013 Mentor Graphics Corporation. All rights reserved.
 //
@@ -24,4 +24,6 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
  */
 public interface ITreeDifferencerProvider extends ITreeContentProvider {
 	public ComparableTreeObject getComparableTreeObject(Object realElement);
+
+	public Object[] getChildrenOfType(Object parent, Class<?> type);
 }

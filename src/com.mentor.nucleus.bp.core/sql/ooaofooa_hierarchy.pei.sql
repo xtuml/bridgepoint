@@ -1,8 +1,8 @@
 --======================================================================
 --
 -- File:      $RCSfile: ooaofooa_hierarchy.pei.sql,v $
--- Version:   $Revision: 1.67 $
--- Modified:  $Date: 2013/05/12 22:30:47 $
+-- Version:   $Revision: 1.67.16.2 $
+-- Modified:  $Date: 2013/07/23 15:06:41 $
 --
 -- (c) Copyright 2003-2013 Mentor Graphics Corporation All rights reserved.
 --
@@ -156,7 +156,6 @@ INSERT INTO T_TPS VALUES (6, 2,  111, '->A_A[R1100]', '', false);
 INSERT INTO T_TPS VALUES (7, 3,  17, '->S_DT[R25]', 'Return Type', true);
 INSERT INTO T_TPS VALUES (8, 3,  4,  '->S_SPARM[R24]', '', false);
 INSERT INTO T_TPS VALUES (9, 4,  17, '->S_DT[R26]', 'Type', true);
-INSERT INTO T_TPS VALUES (363, 4,  4, '->S_SPARM[R54.'Precedes']', 'Previous Parameter', false, false, '', '', false, 0, '', true);
 INSERT INTO T_TPS VALUES (10, 5,  6,  '->O_OBJ[R2]', '', false);
 INSERT INTO T_TPS VALUES (11, 5,  30, '->R_REL[R4]', '', false);
 INSERT INTO T_TPS VALUES (12, 5,  31, '->O_IOBJ[R3]', '', false);
@@ -167,9 +166,7 @@ INSERT INTO T_TPS VALUES (16, 6,  10, '->SM_ISM[R518]', '', false);
 INSERT INTO T_TPS VALUES (17, 6,  15, '->SM_ASM[R519]', '', false);
 INSERT INTO T_TPS VALUES (18, 7,  17, '->S_DT[R116]', 'Return Type', true);
 INSERT INTO T_TPS VALUES (19, 7,  8,  '->O_TPARM[R117]', '', false);
-INSERT INTO T_TPS VALUES (358, 7,  7,  '->O_TFR[R125.'Precedes']', 'Previous Operation', false, false, '', '', false, 0, '', true);
 INSERT INTO T_TPS VALUES (20, 8,  17, '->S_DT[R118]', 'Type', true);
-INSERT INTO T_TPS VALUES (359, 8,  8, '->O_TPARM[R124.'Precedes']', 'Previous Parameter', false, false, '', '', false, 0, '', true);
 INSERT INTO T_TPS VALUES (22, 10, 11, '->SM_SM[R517]->SM_STATE[R501]', '', false);
 INSERT INTO T_TPS VALUES (23, 10, 12, '->SM_SM[R517]->SM_EVT[R502]->SM_SEVT[R525]->SM_LEVT[R526]->SM_SEVT[R526]->SM_EVT[R525]', 'Local Event', false, false, '', '', true);
 INSERT INTO T_TPS VALUES (234, 10, 12, '->SM_SM[R517]->SM_EVT[R502]->SM_PEVT[R525]->SM_EVT[R525]', 'Declared Event', false, false, '', '', true);
@@ -181,7 +178,6 @@ INSERT INTO T_TPS VALUES (89, 11, 294, '->SM_SEME[R503]->SM_NSTXN[R504]->SM_TXN[
 INSERT INTO T_TPS VALUES (89, 11, 294, '->SM_NETXN[R508]->SM_TXN[R507]', 'No Event Transitions', false, false, '', '', true);
 INSERT INTO T_TPS VALUES (29, 10, 81, '->SM_SM[R517]->SM_EVT[R502]->SM_SEVT[R525]->SM_NLEVT[R526]', 'Inherited Event', false, false, '', '', true);
 INSERT INTO T_TPS VALUES (31, 14, 17, '->S_DT[R524]', 'Type', true);
-INSERT INTO T_TPS VALUES (364, 14, 14, '->SM_EVTDI[R533.'Precedes']', 'Previous Data Item', false, false, '', '', false, 0, '', true);
 INSERT INTO T_TPS VALUES (408, 15, 11, '->SM_SM[R517]->SM_STATE[R501]', '', false);
 INSERT INTO T_TPS VALUES (34, 15, 12, '->SM_SM[R517]->SM_EVT[R502]', '', false);
 INSERT INTO T_TPS VALUES (37, 12, 14, '->SM_EVTDI[R532]', '', false);
@@ -189,7 +185,6 @@ INSERT INTO T_TPS VALUES (388, 12, 306, '->SM_PEVT[R525]', '', false, false, '',
 INSERT INTO T_TPS VALUES (389, 12, 309, '->SM_SEVT[R525]', '', false, false, '', '', false, 0, '', true);
 INSERT INTO T_TPS VALUES (38, 16, 17, '->S_DT[R114]', 'Type', true);
 INSERT INTO T_TPS VALUES (39, 16, 80, '->O_RATTR[R106]', '', false);
-INSERT INTO T_TPS VALUES (353, 16, 16, '->O_ATTR[R103.'Succeeds']', 'Previous Attribute', false);
 INSERT INTO T_TPS VALUES (40, 16, 32, '->O_OIDA[R105]', '', false);
 INSERT INTO T_TPS VALUES (41, 16, 33, '->O_BATTR[R106]->O_DBATTR[R107]', '', false);
 INSERT INTO T_TPS VALUES (41, 16, 305, '->O_BATTR[R106]->O_NBATTR[R107]', '', false);
@@ -201,7 +196,6 @@ INSERT INTO T_TPS VALUES (46, 27, 28, '->S_BRG[R19]', '', false);
 INSERT INTO T_TPS VALUES (50, 28, 17, '->S_DT[R20]', 'Return Type', true);
 INSERT INTO T_TPS VALUES (60, 28, 29, '->S_BPARM[R21]', '', false);
 INSERT INTO T_TPS VALUES (61, 29, 17, '->S_DT[R22]', 'Type', true);
-INSERT INTO T_TPS VALUES (360, 29, 29, '->S_BPARM[R55.'Precedes']', 'Previous Parameter', false, false, '', '', false, 0, '', true);
 INSERT INTO T_TPS VALUES (62, 30, 37, '->R_OIR[R201]->R_RTO[R203]->R_PART[R204]', '', false);
 INSERT INTO T_TPS VALUES (63, 30, 38, '->R_OIR[R201]->R_RGO[R203]->R_FORM[R205]', '', false);
 INSERT INTO T_TPS VALUES (64, 30, 39, '->R_OIR[R201]->R_RTO[R203]->R_AONE[R204]', '', false);
@@ -235,7 +229,6 @@ INSERT INTO T_TPS VALUES (94, 72, 74, '->S_DIP[R39]->S_DT[R39]->S_UDT[R17]', '',
 INSERT INTO T_TPS VALUES (95, 72, 77, '->S_DIP[R39]->S_DT[R39]->S_EDT[R17]', '', false);
 INSERT INTO T_TPS VALUES (96, 73, 27, '->S_EEIP[R33]->S_EE[R33]', '', false);
 INSERT INTO T_TPS VALUES (97, 77, 19, '->S_ENUM[R27]', '', false);
-INSERT INTO T_TPS VALUES (361, 19, 19, '->S_ENUM[R56.'Precedes']', 'Previous Enumerator', false, false, '', '', false, 0, '', true);
 INSERT INTO T_TPS VALUES (99, 79, 44, '->R_CONE[R214]', '', false);
 INSERT INTO T_TPS VALUES (100, 79, 45, '->R_COTH[R215]', '', false);
 INSERT INTO T_TPS VALUES (102, 74, 17, '->S_DT[R18]', 'Core Type', true, false);
@@ -382,13 +375,10 @@ INSERT INTO T_TPS VALUES (214, 128, 130, '->C_IR[R4009]->C_I[R4012]', 'Reference
 INSERT INTO T_TPS VALUES (215, 1, 129, '->IP_IP[R4302]', '', false);
 INSERT INTO T_TPS VALUES (216, 129, 129, '->IP_IPINIP[R4300]->IP_IP[R4301]', '', false);
 INSERT INTO T_TPS VALUES (217, 129, 130, '->C_I[R4303]', '', false);
-INSERT INTO T_TPS VALUES (218, 130, 131, '->C_EP[R4003]->C_AS[R4004]', '', false);
 INSERT INTO T_TPS VALUES (219, 130, 132, '->C_EP[R4003]->C_IO[R4004]', '', false);
+INSERT INTO T_TPS VALUES (218, 130, 131, '->C_EP[R4003]->C_AS[R4004]', '', false);
 INSERT INTO T_TPS VALUES (220, 131, 133, '->C_EP[R4004]->C_PP[R4006]', '', false);
 INSERT INTO T_TPS VALUES (221, 132, 133, '->C_EP[R4004]->C_PP[R4006]', '', false);
-INSERT INTO T_TPS VALUES (355, 131, 131, '->C_AS[R4020.'Succeeds']', 'Previous Signal', false, false, '', '', false, 0, '', true);
-INSERT INTO T_TPS VALUES (356, 132, 132, '->C_IO[R4019.'Succeeds']', 'Previous Operation', false, false, '', '', false, 0, '', true);
-INSERT INTO T_TPS VALUES (357, 133, 133, '->C_PP[R4021.'Precedes']', 'Previous Parameter', false, false, '', '', false, 0, '', true);
 INSERT INTO T_TPS VALUES (222, 1, 72, '->SLD_SDP[R4400]->S_DPK[R4400]', '', false);
 INSERT INTO T_TPS VALUES (223, 125, 2, '->CN_DC[R4204]->S_DOM[R4204]', '', false);
 INSERT INTO T_TPS VALUES (224, 132,  17, '->S_DT[R4008]', 'Return Type', true, true, 'DataTypePackage', 'Domain, ComponentPackage');
@@ -397,7 +387,6 @@ INSERT INTO T_TPS VALUES (230, 72, 288, '->S_DIP[R39]->S_DT[R39]->S_SDT[R17]', '
 INSERT INTO T_TPS VALUES (231, 288, 289, '->S_MBR[R44]', '', false);
 INSERT INTO T_TPS VALUES (232, 289, 17, '->S_DT[R45]', 'Type', true);
 INSERT INTO T_TPS VALUES (233, 288, 17, '->S_DT[R17]', '', false);
-INSERT INTO T_TPS VALUES (362, 289, 289, '->S_MBR[R46.'Precedes']', 'Previous Member', false, false, '', '', false, 0, '', true);
 INSERT INTO T_TPS VALUES (383, 127,136, '->SPR_PEP[R4501]->SPR_PO[R4503]', '', false);
 INSERT INTO T_TPS VALUES (235, 127,137, '->SPR_PEP[R4501]->SPR_PS[R4503]', '', false);
 INSERT INTO T_TPS VALUES (236, 128,134, '->SPR_REP[R4500]->SPR_RO[R4502]', '', false);

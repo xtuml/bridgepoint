@@ -1,8 +1,8 @@
 //====================================================================
 //
 // File:      $RCSfile: sql_insert.g,v $
-// Version:   $Revision: 1.15 $
-// Modified:  $Date: 2013/05/10 13:29:18 $
+// Version:   $Revision: 1.15.20.1 $
+// Modified:  $Date: 2013/07/09 21:33:15 $
 //
 // (c) Copyright 2004-2012 by Mentor Graphics Corp.  All rights reserved.
 //
@@ -50,7 +50,6 @@ insert_statement[ IProgressMonitor pm ]
     :
       { String table;
         String val;
-        String garbage;
         Vector val_list = new Vector(20);
 		Vector rawValues = new Vector(20);
         int col_num = 0;
@@ -58,25 +57,21 @@ insert_statement[ IProgressMonitor pm ]
     "insert"
     "into"
     table = table_name
-    garbage = consume_patch_conflict_start
     "values"
     TOK_LPAREN
-    val = data_value_patch_checking
+    val = data_value
         { val_list.insertElementAt(m_ci.processValue( table, col_num, val ), col_num); 
         	rawValues.insertElementAt(val, col_num);
           col_num += 1;
         }
     (
       TOK_COMMA
-      garbage = consume_patch_conflict_end
-      val = data_value_patch_checking
-        {  
-        		val_list.insertElementAt(m_ci.processValue( table, col_num, val ), col_num); 
-				rawValues.insertElementAt(val, col_num);
-		 	 	col_num += 1;
+      val = data_value
+        { val_list.insertElementAt(m_ci.processValue( table, col_num, val ), col_num); 
+			rawValues.insertElementAt(val, col_num);
+		  col_num += 1;
         }
     )*
-    garbage = consume_patch_conflict_end
     TOK_RPAREN
     Semicolon
       {
@@ -90,37 +85,6 @@ table_name returns [String s]
         id    :TOK_ID   { s = id.getText(); }
     )
     ;
-data_value_patch_checking returns [String s]
-	{ s = ""; }
-	:
-   (
-     PATCH_CONFLICT
-     {
-     	s = "";
-     }
-    )*
-    s = data_value
-	;
-consume_patch_conflict_end returns [String s]
-	{ s = ""; }
-	:
-   (
-     PATCH_CONFLICT_SPLIT
-     {
-     	s = "";
-     }
-    )*
- 	;
-consume_patch_conflict_start returns [String s]
-	{ s = ""; }
-	:
-   (
-     PATCH_CONFLICT
-     {
-     	s = "";
-     }
-    )*
- 	;
 data_value returns [String s]
     { s = ""; }
     :
@@ -180,9 +144,9 @@ SL_COMMENT
   ('\n' { newline(); } )
     { _ttype = Token.SKIP; }
   ; 
-PATCH_CONFLICT : "<<<<<<<" ( options {greedy=false;} : . )*  ( '\n' { newline(); });
-PATCH_CONFLICT_SPLIT : "=======" ( options {greedy=false;} : . )*END_PATCH_CONFLICT;
-END_PATCH_CONFLICT : ">>>>>>>" ( options {greedy=false;} : . )* ( '\n' { newline(); }); 
+PATCH_CONFLICT : "<<<<<<<" ( options {greedy=false;} : . )*  ( '\n' { newline(); }) { _ttype = Token.SKIP; };
+PATCH_CONFLICT_BACK_HALF : "=======" ( options {greedy=false;} : . )* ">>>>>>>"  ( options {greedy=false;} : . )* ( '\n' { newline(); }) { _ttype = Token.SKIP; };
+
 WS
   : (WS1 | WS2)+
 	{ _ttype = Token.SKIP; }

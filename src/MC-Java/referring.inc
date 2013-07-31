@@ -1,8 +1,8 @@
 .//====================================================================
 .//
 .// File:      $RCSfile: referring.inc,v $
-.// Version:   $Revision: 1.41 $
-.// Modified:  $Date: 2013/01/17 03:27:51 $
+.// Version:   $Revision: 1.41.24.2 $
+.// Modified:  $Date: 2013/07/23 15:06:22 $
 .//
 .// (c) Copyright 2003-2013 Mentor Graphics Corporation  All rights reserved.
 .//
@@ -199,24 +199,17 @@ public void unrelateAcrossR${gen_rel.Numb}From${func_suffix}(${tocn.body} target
     .select one b_attr related by ario->O_RTIDA[R111]->O_OIDA[R110]->O_ATTR[R105]
     .invoke attribute_name = get_attribute_name(ref_attr)
     .invoke attribute_accessor = get_attribute_accessor(b_attr)
-    .select one r_attr related by b_attr->O_RATTR[R106]
-        ${attribute_name.body} = ${ref_var_name.body}.${attribute_accessor.body}();
-    .if(not_empty r_attr)
-        .assign default_value = "${ref_attr.Descrip:Not_participating_value}"
-        .invoke result = get_base_attribute_type(ref_attr)
-        .assign orig_type = result.type
-        .if (orig_type.Name == "string")
-        if(${attribute_name.body}.equals("${default_value}"))
-        .elif ( orig_type.Name == "unique_id" )
-        if(IdAssigner.NULL_UUID.equals(${attribute_name.body}))
-        .elif ( default_value != "" )
-        if(${attribute_name.body} == ${default_value})
-        .else
-        if(${attribute_name.body} == 0)
-        .end if
-        {
-          ${attribute_name.body} = ${ref_var_name.body}.${attribute_accessor.body}CachedValue();
-        }       
+    .invoke result = get_base_attribute_type(ref_attr)
+    .assign orig_type = result.type
+    .assign default_value = "${ref_attr.Descrip:Not_participating_value}"
+    .if (orig_type.Name == "string")
+        ${attribute_name.body} = "${default_value}";
+    .elif ( orig_type.Name == "unique_id" )
+        ${attribute_name.body} = IdAssigner.NULL_UUID;
+    .elif ( default_value != "" )
+        ${attribute_name.body} = ${default_value};
+    .else
+        ${attribute_name.body} = 0;
     .end if
   .end if
 .end for

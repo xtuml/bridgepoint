@@ -2,8 +2,8 @@ package com.mentor.nucleus.bp.model.compare.providers;
 //=====================================================================
 //
 //File:      $RCSfile: ModelCompareContentProvider.java,v $
-//Version:   $Revision: 1.5 $
-//Modified:  $Date: 2013/05/10 13:26:04 $
+//Version:   $Revision: 1.5.14.1 $
+//Modified:  $Date: 2013/07/08 14:38:15 $
 //
 //(c) Copyright 2013 by Mentor Graphics Corp. All rights reserved.
 //
@@ -26,9 +26,9 @@ import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.inspector.IModelClassInspector;
 import com.mentor.nucleus.bp.core.inspector.ModelInspector;
 import com.mentor.nucleus.bp.core.inspector.ObjectElement;
+import com.mentor.nucleus.bp.core.sorter.MetadataSortingManager;
 import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 import com.mentor.nucleus.bp.model.compare.ComparePlugin;
-import com.mentor.nucleus.bp.model.compare.DefaultSorter;
 import com.mentor.nucleus.bp.model.compare.ITreeDifferencerProvider;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager.ModelLoadException;
 import com.mentor.nucleus.bp.ui.canvas.GraphicalElement_c;
@@ -38,7 +38,7 @@ import com.mentor.nucleus.bp.ui.canvas.inspector.GraphicalModelInspector;
 
 public class ModelCompareContentProvider implements ITreeDifferencerProvider {
 	
-	ModelInspector inspector = new ModelInspector();
+	ModelInspector inspector = new ModelInspector(MetadataSortingManager.createDefault());
 	GraphicalModelInspector graphicalModelInspector = new GraphicalModelInspector();
 	private Ooaofooa modelRoot;
 	private Object cacheKey;
@@ -107,7 +107,6 @@ public class ModelCompareContentProvider implements ITreeDifferencerProvider {
 			referentials = referentialList
 					.toArray(new ObjectElement[referentialList.size()]);
 			ObjectElement[] objectElementRelations = modelInspector.getChildRelations(element);
-			DefaultSorter.sort(objectElementRelations);
 			List<Object> childRelations = new ArrayList<Object>();
 			// convert child relations to NonRootModelElements
 			for(int i = 0; i < objectElementRelations.length; i++) {
@@ -236,6 +235,32 @@ public class ModelCompareContentProvider implements ITreeDifferencerProvider {
 	@Override
 	public ComparableTreeObject getComparableTreeObject(Object realElement) {
 		return ComparableProvider.getComparableTreeObject(realElement);
+	}
+
+	/**
+	 * Returns a list of children of this given
+	 * childs type, including the given child.
+	 * This method currently excludes all attributes
+	 * and only includes child relations.
+	 */
+	@Override
+	public Object[] getChildrenOfType(Object parent, Class<?> type) {
+		List<Object> children = new ArrayList<Object>();
+		if(parent instanceof NonRootModelElement) {
+			IModelClassInspector modelInspector = inspector;
+			if(((NonRootModelElement) parent).getModelRoot() instanceof Ooaofgraphics) {
+				modelInspector = graphicalModelInspector;
+			}
+			ObjectElement[] childRelations = modelInspector.getChildRelations(parent);
+			for(ObjectElement element : childRelations) {
+				if(element.getValue() instanceof NonRootModelElement) {
+					if(element.getValue().getClass() == type) {
+						children.add(element.getValue());
+					}
+				}
+			}
+		}
+		return children.toArray();
 	}
 
 }

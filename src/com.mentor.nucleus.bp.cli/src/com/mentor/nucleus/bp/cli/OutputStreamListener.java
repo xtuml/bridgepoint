@@ -2,8 +2,8 @@ package com.mentor.nucleus.bp.cli;
 //=====================================================================
 //
 //File:      $RCSfile: OutputStreamListener.java,v $
-//Version:   $Revision: 1.4 $
-//Modified:  $Date: 2013/01/10 23:17:05 $
+//Version:   $Revision: 1.4.30.2 $
+//Modified:  $Date: 2013/07/23 15:06:38 $
 //
 //(c) Copyright 2004-2013 by Mentor Graphics Corp. All rights reserved.
 //
@@ -17,8 +17,6 @@ import java.io.IOException;
 
 import org.eclipse.debug.core.IStreamListener;
 import org.eclipse.debug.core.model.IStreamMonitor;
-
-import com.mentor.nucleus.bp.core.CorePlugin;
 
 public class OutputStreamListener implements IStreamListener {
 

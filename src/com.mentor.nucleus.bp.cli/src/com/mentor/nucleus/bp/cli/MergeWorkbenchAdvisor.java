@@ -2,7 +2,6 @@ package com.mentor.nucleus.bp.cli;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.lang.reflect.InvocationTargetException;
@@ -16,12 +15,14 @@ import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.Ooaofooa;
+import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.Transaction;
 import com.mentor.nucleus.bp.core.ui.AbstractStreamImportFactory;
 import com.mentor.nucleus.bp.core.ui.IModelImport;
 import com.mentor.nucleus.bp.io.core.CoreExport;
 import com.mentor.nucleus.bp.io.core.CoreImport;
+import com.mentor.nucleus.bp.io.core.ImportHelper;
 import com.mentor.nucleus.bp.model.compare.CompareTransactionManager;
 import com.mentor.nucleus.bp.model.compare.ModelMergeProcessor;
 import com.mentor.nucleus.bp.model.compare.TreeDifference;
@@ -37,7 +38,7 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 	String rightFile = "";
 	String ancestorFile = "";
 	String outputFile = "";
-	protected int mergeResult;
+	protected int mergeResult = -1;
 
 	protected MergeWorkbenchAdvisor(BPCLIPreferences prefs) {
 		super(prefs);
@@ -53,28 +54,18 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 	 */
 	@Override
 	public void postStartup() {
-		super.postStartup();
-		Thread runner = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				try {
-					mergeResult = performCLIMerge();
-				} catch (FileNotFoundException e) {
-					BPCLIPreferences.logError("Could not find file to merge.",
-							e);
-				} catch (InvocationTargetException e) {
-					BPCLIPreferences.logError("Could not merge changes.", e);
-				} catch (InterruptedException e) {
-					BPCLIPreferences.logError("Merge was interrupted.", e);
-				} catch (IOException e) {
-					BPCLIPreferences.logError("Could not load file to merge.",
-							e);
-				}
-			}
-		});
-		runner.setName("BP CLI Merge");
-		runner.start();
+		super.postStartup(); 
+		try {
+			mergeResult = performCLIMerge();
+		} catch (InvocationTargetException e) {
+			BPCLIPreferences.logError("Could not merge changes.", e);
+		} catch (InterruptedException e) {
+			BPCLIPreferences.logError("Merge was interrupted.", e);
+		} catch (IOException e) {
+			BPCLIPreferences.logError("Could not load file to merge.",
+					e);
+		}
+		PlatformUI.getWorkbench().close();
 	}
 
 	/**
@@ -118,6 +109,11 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 			IModelImport ancestorImporter = streamImportFactory.create(
 					new ByteArrayInputStream(ancestorBytes),
 					ancestorCompareRoot, true, new Path(""));
+			SystemModel_c sys = new SystemModel_c(Ooaofooa.getDefaultInstance());
+			ImportHelper helper = new ImportHelper(null);
+			helper.setUpGlobals(sys);
+			sys.setParentModelRoot(leftCompareRoot);
+			sys.setModelRoot(leftCompareRoot);
 			leftImporter.run(new NullProgressMonitor());
 			rightImporter.run(new NullProgressMonitor());
 			if (ancestorImporter != null) {
@@ -161,6 +157,7 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 				}
 			}
 			if (foundConflict) {
+				System.out.println("Conflicting changes were found, aborting the merge.");
 				return 1;
 			} else {
 				CompareTransactionManager manager = new CompareTransactionManager();
