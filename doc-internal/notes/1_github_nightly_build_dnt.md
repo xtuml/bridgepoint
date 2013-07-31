@@ -23,10 +23,11 @@ None.
 ----------------------
 [1] Issues 1, https://github.com/xtuml/internal/issues/1   
 [2] New xtUML SVN repository, http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml   
-[3] Issue 1 Analysis Note, https://github.com/xtuml/internal/blob/master/doc/notes/1_github_nightly_build_ant.md   
+[3] Issue 1 Analysis Note, https://github.com/xtuml/internal/blob/master/doc-internal/notes/1_github_nightly_build_ant.md   
 [4] Issues 2 - Transition to github phase 3 - code cleanup, https://github.com/xtuml/internal/issues/2   
 [5] HOWTO configure git build server, https://github.com/xtuml/internal/blob/master/doc-internal/process/releases/HOWTO-configure-git-build-server.md  
-[6] Issues 2 - Transition to github phase 2 - deprecate CVS and cut over development, https://github.com/xtuml/internal/issues/3    
+[6] Issues 2 - Transition to github phase 2 - deprecate CVS and cut over development, https://github.com/xtuml/internal/issues/3        
+[7] Issues 5 - Build process enhancements, https://github.com/xtuml/internal/issues/5  
 
 4. Background
 -------------
@@ -71,8 +72,21 @@ See [3]
   The files must be manually added to SVN version control so they are stored in
   the repository.  
 
+7.2.1.1   The files stored in SVN are checked out fresh with every build in order
+  to simplify the build scripts and to ensure cleanliness between nightly and branch
+  builds which may be interleaved at random by build server users.  This is a heavy
+  hammer to employ, but the penalty is slight given that the SVN and build servers are
+  both on the same mentor network in Wilsonville, so data transfer time is not much 
+  of an issue.  The trade off is simply this data transfer penalty versus the 
+  additional complexity of the build scripts that would be required to be more 
+  intelligent about simply updating or not re-pulling the SVN data between nightly
+  and branch builds. Issue [7] is raised to add more intelligence for a speed up.  
+                           
 7.2.2  The scripts used by the build server to perform the build are stored in 
-  github under xtuml/internal/utilities/build  
+  github under xtuml/internal/utilities/build.  The scripts are heavily based
+  on the current CVS build scripts that live in bp.core/tools.  Those CVS build
+  scripts will soon no longer be needed and a task [4] is open to clean them
+  out.  
 
 7.3  Source code  
 7.3.1  The BridgePoint source code is stored in several github repositories:
@@ -87,7 +101,9 @@ See [3]
   account for these differences and ignore or not ignore the proper files.  
 7.3.4  A .gitignore file is put at the top of the source tree to ignore *.class
   files.  
-
+7.3.5  The point at which CVS HEAD is snapshot and moved to git is tagged in
+  both revision control systems.  The CVS tag is "git_transition_point".  The git
+  tag is "initial_code_from_CVS".
   
 8. Design Comments
 ------------------
