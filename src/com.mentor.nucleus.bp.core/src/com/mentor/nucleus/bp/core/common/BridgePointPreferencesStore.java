@@ -1,8 +1,8 @@
 //========================================================================
 //
 //File:      $RCSfile: BridgePointPreferencesStore.java,v $
-//Version:   $Revision: 1.27 $
-//Modified:  $Date: 2013/01/10 22:54:09 $
+//Version:   $Revision: 1.27.86.1 $
+//Modified:  $Date: 2013/07/19 18:41:35 $
 //
 //(c) Copyright 2004-2013 by Mentor Graphics Corp. All rights reserved.
 //
@@ -130,9 +130,9 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
             store.getString(BridgePointPreferencesStore.ALLOW_REAL_TO_INT_COERCION);
         prefs.allowImplicitComponentAddressing =
             store.getBoolean(BridgePointPreferencesStore.ALLOW_IMPLICIT_COMPONENT_ADDRESSING);
+        store.setDefault(BridgePointPreferencesStore.ALLOW_OPERATIONS_IN_WHERE, false);
         prefs.allowOperationsInWhere =
             store.getBoolean(BridgePointPreferencesStore.ALLOW_OPERATIONS_IN_WHERE);
-        store.setDefault(BridgePointPreferencesStore.ALLOW_OPERATIONS_IN_WHERE, false);
         prefs.disableGradients =
             store.getBoolean(BridgePointPreferencesStore.DISABLE_GRADIENTS);
         prefs.invertGradients =
@@ -142,8 +142,10 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         if ( prefs.gradientBaseColor == 0L ) {
             prefs.gradientBaseColor = 0xc8c8c8;
         }
+        store.setDefault(BridgePointPreferencesStore.EXPORT_OAL, MessageDialogWithToggle.NEVER);
         prefs.exportOAL =
             store.getString(BridgePointPreferencesStore.EXPORT_OAL);
+        store.setDefault(BridgePointPreferencesStore.EXPORT_GRAPHICS, MessageDialogWithToggle.ALWAYS);
         prefs.exportGraphics =
             store.getString(BridgePointPreferencesStore.EXPORT_GRAPHICS);
         prefs.messageDirection =
