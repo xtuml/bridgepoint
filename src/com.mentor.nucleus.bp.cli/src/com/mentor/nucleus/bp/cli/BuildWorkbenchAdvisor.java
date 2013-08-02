@@ -221,13 +221,13 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 				foundConfig = true;
 				buildConfig = configs[i];
 			}
-			if (!foundConfig) {
-				throw new BPCLIException(
-						"Unable to locate the specified build configuration: "
-								+ buildConfigString);
-			}
 		}
-		info.setSelectedConfiguration(buildConfig);
+        if (!foundConfig) {
+            System.err.println("Warning: Unable to locate the specified build configuration: "
+                    + buildConfigString + ".  Using the project's default build configuration.");
+        } else {
+            info.setSelectedConfiguration(buildConfig);
+        }
 		return originalConfig;
 	}
 
