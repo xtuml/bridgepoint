@@ -1,0 +1,132 @@
+========================================================================
+
+File:      promotion.chk 
+
+(c) Copyright 2007-2013 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+xtUML Project Checklist
+Promoting an Issue
+
+Abstract
+--------
+This procedure is used by a reviewer or a manager when promoting an issue.
+Promoting an issue is defined as changing the status of the issue from either
+assigned to fixed or from fixed to closed.
+
+Document References
+-------------------
+TODO -- Update -- [1] Documentation/internal/process/process.txt
+TODO -- not referenced anymore -- [2] Documentation/internal/process/Procedures/reviewer_procedures.txt
+TODO -- still needed?? -- [3] Documentation/internal/process/templates/checklists/release.chk
+
+
+Checklist
+---------
+_- Verify that all required process documentation exists for this issue.  That
+   is: analysis note, design note, implementation note, review minutes, and
+   checklists.  Remember that, depending on the complexity of the issue, some
+   notes are not required.
+
+_- If the issue does not involve model file changes, it can be merged using the
+   github web interface.  Those steps follow.  If model files are included, 
+   skip down to those instructions below.
+
+  --- GitHub Web Merge ---
+  
+  _- Update your local repository with the latest files from github via 
+     git fetch  
+  _- Switch to the development branch
+  _- Build the tool to compile the branch changes
+  _- Run the JUnits for the plug-ins that were affected by the change
+  _- Perform any manual tests specified in the development notes
+  _- Navigate to the pull request on github.com
+  _- Verify that github indicates the changes can be merged safely
+  _- Merge the changes
+  
+  --- End - GitHub Web Merge ---
+
+  --- Local System Merge ---
+  ---------------------------------------------------------------
+  --- TODO - These are the old CVS instructions. They need to ---
+  ---   be updated for git.                                   ---
+  ---                                                         ---
+  _- From the Navigator View select the project you are promoting.  Right-click,
+     select "Replace With" and choose the branch you are promoting the changes
+     into.
+
+  _- Right-click the project you are promoting and select "Team->Merge".
+
+  _- Select the starting point for the merge.
+     The starting point of the merge is the version that was created when the
+     branch was created.  This will be named "Root-Review-<issue number>".  If
+     you do not see the branch listed, then you need then you'll need to
+     "Configure Tags".  For instructions on Configuring Tags see [3].
+
+  _- Select where you want to merge changes from.
+     This will be named "Review-<issue number>"
+
+  _- Go the Team Synchronizing perspective and verify that all files listed as
+     modified are listed in the implementation note "Code Changes" section.
+
+  _- In the Synchronize view look through the modified files.  When you are
+     satisfied that the changes are correct select "Merge".
+
+  _- At this point, in the Navigator view you will see the changed files marked
+     as dirty on your machine.
+
+  _- Once again verify that these are the correct files (according to the
+     implementation note).
+
+  _- Run all the BridgePoint JUnit tests and any extra tests specified in the
+     development notes.
+
+  _- Commit the dirty files.
+  --------------------------------------------------------------
+  --- End - Local System Merge ---
+
+_- If the github issue is a mirror of a CQ issue, you must perform the following
+   steps.  If not, skip to the next section.
+
+  _- Log into ClearQuest and enter the defect number to go to the issue.
+
+  _- Select "Change State->Resolve"
+
+    _- On the Resolution tab, fill in the fields as follows:
+      _- Resolution = Fixed
+      _- Fixed Version = <the target release version> (Should be the current
+                       version of the plugin)
+      _- Resolution Note:
+        _- Summary = <none required>
+        _- Note = Changes look good. Tagged with: <tag from clipboard>
+      
+    _- On the Customer tab:
+      _- Check if a customer service request is specified.  If there is no SR, 
+         the following steps may be skipped.
+      _- If an SR is specified, enter a Customer note:
+        _- Summary = <none required>
+        _- Note = :   
+   The issue has been resolved and is scheduled for release in the next version.
+
+  _- Click "Save"
+
+_- Go to the repository on github.  Open the network graph.  Click the dot on 
+   the master lifeline that represents the point where the promotion is merged
+   in.  Find the commit ID on the merge pull request page that opens.  Record it
+   here:
+            Commit ID:
+
+_- Navigate to the issue in the github Issues tracker.
+  _- Verify that the upcoming milestone is set for the issue. Apply it if not 
+     yet set.
+  _- Close the issue 
+
+_- Check in this file under
+   github.com/xtuml/<repository>/doc-<repository>/checklists/<release_id>/<issue num>-promotion.chk
+
+End
+---
+
