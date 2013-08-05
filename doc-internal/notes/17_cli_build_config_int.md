@@ -20,12 +20,13 @@ None.
 3. Document References
 ----------------------
 [1] Issues 17, https://github.com/xtuml/internal/issues/17  
+[2] Issues 117, https://github.com/xtuml/agilegc/issues/117  
 
 4. Background
 -------------
 A BridgePoint customer has been making use of the command line interface (CLI)
 for building projects.  The customer reports that a valid build configuration
-is specified in the "-buildConfig <config name>" argument to CLI.sh Build.  
+is specified in the "-buildConfig <config name>" argument to CLI.sh Build [2].  
 
 BridgePoint does not give an error indicating that it can't find the build,
 indicating that the initial validity checks succeed.  The pre-build and 
