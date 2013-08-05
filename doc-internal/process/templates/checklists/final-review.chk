@@ -57,8 +57,12 @@ _- If plugin.xml or MANIFEST.MF was modified, verify all changes to the depend-
 
 _- Perform a clean build and verify everything rebuilds successfully.
 
-_- Execute the specific unit tests agreed upon with the code reviewers and 
-   verify that the tests pass.
+_- Execute all JUnits and manual tests specified in the notes.
+     *** NOTE: THIS IS A TEMPORARY STEP UNTIL WE GET ALL THE JUNITS RUNNING ***
+     ***   NIGHTLY ON THE SERVER.  AFTER WE DO THAT THEN WE WILL CHANGE THIS***
+     ***   REQUIREMENT TO:                                                  ***
+     _- Execute the specific unit tests agreed upon with the code reviewers and 
+        verify that the tests pass.
 
 _- Create a Pull Request for the changes
      _- Go to the repository on github.com
