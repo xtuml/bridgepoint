@@ -17,34 +17,27 @@ note as well.
 In this section, give a summary of the design that this note aims to
 describe.
 
-2. History
-----------
-In this section, list the file names of review minutes for this note.
-If the minutes have major observations, precede the file name with the
-word 'update'. If the minutes have no major observations, precede the file
-name with the word 'final'.
-
-3. Document References
+2. Document References
 ----------------------
 In this section, list all the documents that the reader may need to refer to.
 Give the full path to reference a file.
 [1] Issues 1, https://github.com/xtuml/doc/issues/1  
 [2] Issues 2, https://github.com/xtuml/doc/issues/2  
 
-4. Background
+3. Background
 -------------
 In this section, outline the important points relating to this issue/bug that
 the reader would need to know in order to understand the rest of this
 document.
 
-5. Requirements
+4. Requirements
 ---------------
 This section is only required if there is no preceding analysis note. 
 If present it describes the requirements that need to be satisfied.  If there 
 is an SRS, this section may simply refer to it.  Each requirement should be as 
 short and simple as possible and must be clearly defined.
 
-6. Analysis
+5. Analysis
 -----------
 This section is only required if there is no preceding analysis note. If present
 it sets out a brief analysis of the problem to be resolved by this design note.
@@ -53,13 +46,13 @@ it sets out a brief analysis of the problem to be resolved by this design note.
 * Item 2
 * Item 3
 
-7. Design
+6. Design
 ---------
 In this section, describe in detail each step of the Work Required section of
 the analysis, how the task will be accomplished, what technologies will
 be used, algorithms, etc.
 
-7.1 Some design point, with a code example
+6.1 Some design point, with a code example
 ```java
     public void clearDatabase(IProgressMonitor pm) 
     {
@@ -70,20 +63,14 @@ be used, algorithms, etc.
     }
 ```
 
-8. Design Comments
+7. Design Comments
 ------------------
 If research carried out during this phase shows that a requirement stated in the
 analysis note is infeasible or needs some modification, enumerate those changes
 here. If there was no preceding analysis note, then this section documents any
 deviations from the design as presented at the design review.
 
-9. Work Required
-----------------
-In this section, follow the same procedure outlined in the Work Required section
-of the analysis note template.  Additional information can be added if it is
-known at this time--for example, names of files to be worked on.
-
-10. Unit Test
+8. Unit Test
 ------------
 Outline all the unit tests that need to pass and describe the method that you
 will use to design and perform the tests.
