@@ -16,7 +16,7 @@ Present: Bob, Keith, Travis
 
 -- Num Type  Who  Section  Comment
 
-_- 01  min   bob  8.5      The result has a copy/paste error.  TStrike the sentence about "hellobad"
+x- 01  min   bob  8.5      The result has a copy/paste error.  Strike the sentence about "Hellobad"
 
 No major observations, a re-review is not required.
 
