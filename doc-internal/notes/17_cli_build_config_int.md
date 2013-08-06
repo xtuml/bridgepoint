@@ -93,12 +93,13 @@ the default configuration specified in the user interface is used.
 8.5  Test 3  
   - Remove the EXE created in the previous test
   - $ CLI.bat Build -project foo 
-  - __R__ Translation succeeds.  The compilation warns that Hellobad is an 
-  invalid configuration.  GCC build messages are output to the console.  An EXE is created.  
+  - __R__ Translation succeeds.  GCC build messages are output to the console.  
+  An EXE is created.  
 
 9. Code Changes
 ---------------
 Branch name: 17_skb_clibuildconfig 
+Pull request: https://github.com/xtuml/internal/pull/23/files
 
 com.mentor.nucleus.bp.cli/src/com/mentor/nucleus/bp/cli/BuildWorkbenchAdvisor.java  
 
