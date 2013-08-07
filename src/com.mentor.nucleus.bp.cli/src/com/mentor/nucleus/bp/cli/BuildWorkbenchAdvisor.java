@@ -226,7 +226,7 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
             System.err.println("Warning: Unable to locate the specified build configuration: "
                     + buildConfigString + ".  Using the project's default build configuration.");
         } else {
-            info.setSelectedConfiguration(buildConfig);
+            info.setDefaultConfiguration(buildConfig);
         }
 		return originalConfig;
 	}
@@ -244,7 +244,7 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 							+ project.getName());
 		}
 		
-		info.setSelectedConfiguration(originalConfig);
+		info.setDefaultConfiguration(originalConfig);
 	}
 
 	/**
