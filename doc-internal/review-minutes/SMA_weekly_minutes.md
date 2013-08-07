@@ -30,6 +30,49 @@ SMA Weekly Meeting Minutes
 ### Customer Support Status
 **Item 1 -** text
 
+
+---
+
+    Date:     August 7, 2013
+    Start:    noon EDT
+    End:      12:20 EDT
+    Elapsed:  20 minutes
+    Present:  Bob, Travis, Cort, others...
+            Dean, Robert, Jayne, others...
+
+### Engineering Status
+
+See marketing status.
+
+
+### Marketing Status
+**Sony Licensing -** Sony is anxiously looking at using BridgePoint 4.0 on 3 projects.
+They want to share the model compiler licenses among roughly 15 designers.  However, they
+are not satisfied with the linger option.  Also, during their testing, they found that
+in a grid environment, our licensing checks out a different license for different machines.
+Consequently, they are asking for an alternative licensing/packaging approach.
+
+In addition, during the "check availability" of licenses, a license is actually checked out.
+An SR/DR has been filed for this "check availability" option.  Robert is chasing down
+licensing people.  Bob is assigned to the ER/DR.
+
+**Agilent Linux CLI -** At Agilent, the engineers use a mixture of Windows and Linux and a
+mixture of interactive and command line -based builds.  The CLI option (in Linux) was not
+selecting the correct build configuration in some cases.
+
+Keith has created a fix and delivered a patch to the customer.  Bob is promoting the fix
+into our repository (using git).
+
+There is also testing/configuring of 4.0 licensing that needs to be tested on site.
+
+**ASC Team -** The ASC team is focusing on Audi and will be transitioning after that.  We will
+get specifics when more information is available.
+
+ 
+### Customer Support Status
+**realized code interfacing -** Campbell is working on an issue with the xtUML/Java/C interfacing.
+It looks like SAAB is seeing similar/related issues.
+
 ---
 
 
