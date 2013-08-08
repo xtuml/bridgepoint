@@ -103,11 +103,9 @@ public class ExportPreferences extends PreferencePage implements
 	    // license that is causing the license to actually be checked out for
 	    // about 1ms (JLC v2013_2 used in BP 4.0.0).  This bug is tracked as
 	    // CQ issue dts0100993209.  Until the call to test for the presence of
-	    // the license and disable the OAL Export when not licensed is being 
-	    // removed.  When this means is that the user will be allowed to select 
-	    // OAL export, but they will just receive an error during the export 
-	    // informing them that they do not have a license.	    
-	    boolean oalExportIsLicensed = true;	    
+	    // the license and disable the OAL Export when is being 
+	    // removed.  	    
+	    boolean oalExportIsLicensed = false;	    
 //	    boolean oalExportIsLicensed = BridgePointLicenseManager.testLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
 	    
 	    if (bpPrefs.exportOAL.equals(MessageDialogWithToggle.ALWAYS) && oalExportIsLicensed) {
