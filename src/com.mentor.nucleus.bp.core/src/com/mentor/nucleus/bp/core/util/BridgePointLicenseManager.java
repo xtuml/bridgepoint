@@ -162,7 +162,18 @@ public class BridgePointLicenseManager  extends BridgePointDemoEncryptor {
 			// do this to prevent FLEXlm error for this license because this 
 			// is used for usage tracking only.
 			if (licenseCode == LicenseAtomic.XTUMLEDIT) {
-				performLicenseCheck = BridgePointLicenseManager.testLicense(LicenseAtomic.XTUMLEDIT);
+				
+				// job: #24 For now, we shall no longer perform the checkout 
+				// of the  XTUMLEDIT license which is used to track editor 
+				// usage. The reason is that the JLC's call to test the 
+				// license is actually checking the license out
+				// (JLC v2013_2 used in BP 4.0.0).  It only does a 1ms 
+				// checkout, but that is not acceptable.  Until the JLC is 
+				// fixed we are removing the tracking of the editor license.  
+				// This JLC problem is tracked with CQ issue dts0100993029.
+				
+				// performLicenseCheck = BridgePointLicenseManager.testLicense(LicenseAtomic.XTUMLEDIT);
+				performLicenseCheck = false;
 			}
 			if (performLicenseCheck) {
 			    txn_id = license.initHeapAttrs(licenseCode.getCode(), MGLS_XTUML_APP_DATE, getLicenseDisplayString(), secondsToLinger );
@@ -459,7 +470,7 @@ public class BridgePointLicenseManager  extends BridgePointDemoEncryptor {
      * public final static variables in this class. 
      * @return true if license is available and false if not
      */
-    public static boolean testLicense(LicenseAtomic licenseCode) {
+    public static boolean testLicensexxx(LicenseAtomic licenseCode) {
 		//System.out.println("NOTICE: Testing availability of license code " + licenseCode + "\n");
         initConnection();
         
