@@ -170,7 +170,7 @@ public class BridgePointLicenseManager  extends BridgePointDemoEncryptor {
 				// (JLC v2013_2 used in BP 4.0.0).  It only does a 1ms 
 				// checkout, but that is not acceptable.  Until the JLC is 
 				// fixed we are removing the tracking of the editor license.  
-				// This JLC problem is tracked with CQ issue dts0100993029.
+				// This JLC problem is tracked with CQ issue dts0100993209.
 				
 				// performLicenseCheck = BridgePointLicenseManager.testLicense(LicenseAtomic.XTUMLEDIT);
 				performLicenseCheck = false;
