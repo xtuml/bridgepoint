@@ -470,7 +470,7 @@ public class BridgePointLicenseManager  extends BridgePointDemoEncryptor {
      * public final static variables in this class. 
      * @return true if license is available and false if not
      */
-    public static boolean testLicensexxx(LicenseAtomic licenseCode) {
+    public static boolean testLicense(LicenseAtomic licenseCode) {
 		//System.out.println("NOTICE: Testing availability of license code " + licenseCode + "\n");
         initConnection();
         
