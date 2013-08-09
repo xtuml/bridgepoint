@@ -1,0 +1,72 @@
+Possible safe unary operations:
+
+unary operation
+not_empty variable
+
+nested unary operation
+not empty variable
+
+unary operation in a pex
+(not_empty variable)
+
+unary operation in a nested pex
+((not_empty variable))
+
+unary operation in a binary operation in a pex
+(not_empty variable AND x = 1)
+
+unary operation in a binary operation left side
+not_empty variable AND x = 1
+
+unary operation in a binary operation right side
+x = 1 AND not_empty variable
+
+unary operation in a binary operation in a pex
+(not_empty variable) AND (x = 1)
+
+unary operation in a nested binary operation
+x = 1 AND (not_empty variable AND y = 2) 
+
+unary operation in an elif
+elif(not_empty variable)
+
+empty variable test
+(empty variable)
+else <- safe
+
+unary operation in a while statement
+while(not_empty variable)
+
+Dangerous tests
+
+if(x = 1)
+elif(not_empty some_variable)
+else
+for each test in tests
+while(x > 2)
+
+Tests for chain conditionality function
+
+Conditional selects without testing chain
+
+Any select from instances of
+Any select from instances of where
+Any select related by where
+
+Condtional Associations that should trigger variable check
+
+Simple Association
+Reflexive Simple Association
+Associative Link
+Reflexive Associative Link
+Subtype/Supertype Association
+Compositional Association <- not tested, not supported by Tiger
+
+Unconditional Associations that should not trigger a check
+
+Simple Association
+Reflexive Simple Association
+Associative Link
+Reflexive Associative Link
+Subtype/Supertype Association
+Compositional Association <- not tested, not supported by Tiger
