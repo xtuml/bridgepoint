@@ -163,7 +163,7 @@ public class BridgePointLicenseManager  extends BridgePointDemoEncryptor {
 			// is used for usage tracking only.
 			if (licenseCode == LicenseAtomic.XTUMLEDIT) {
 				
-				performLicenseCheck = BridgePointLicenseManager.testLicense(LicenseAtomic.XTUMLEDIT);
+				performLicenseCheck = BridgePointLicenseManager.licenseExists(LicenseAtomic.XTUMLEDIT);
 			}
 			if (performLicenseCheck) {
 			    txn_id = license.initHeapAttrs(licenseCode.getCode(), MGLS_XTUML_APP_DATE, getLicenseDisplayString(), secondsToLinger );
@@ -450,18 +450,18 @@ public class BridgePointLicenseManager  extends BridgePointDemoEncryptor {
 	
 	/**
      * 
-     * Test for a license 
+     * Test for existence of a license 
      * 
-     * Test to see if a license is available. Does not use the license cache and
+     * This looks to see if the specified license exists.
+     * This does not use the license cache and
      * does not actually check the license out.
-     *         
+     *   
      * @param licenseCode This is the BridgePoint license code to test for. 
-     * The values expected by this function are defined as 
-     * public final static variables in this class. 
-     * @return true if license is available and false if not
+     *  
+     * @return true if license exists and false if not
      */
-    public static boolean testLicense(LicenseAtomic licenseCode) {
-		//System.out.println("NOTICE: Testing availability of license code " + licenseCode + "\n");
+    public static boolean licenseExists(LicenseAtomic licenseCode) {
+		//System.out.println("NOTICE: Testing existing of license code " + licenseCode + "\n");
         initConnection();
         
         int[] result = license.heapCandidates(licenseCode.getCode());
@@ -490,6 +490,53 @@ public class BridgePointLicenseManager  extends BridgePointDemoEncryptor {
         
         return licensed;
     }
+
+    
+	/**
+     * 
+     * Test for availability of a license 
+     * 
+     * This looks to see if the specified license is available.
+     * This does not use the license cache.  It DOES check the license out,
+     * but it is a very brief checkout (if uses JLC.checkHeap which in turn
+     * uses MGLS core_Mheap_validv).  
+     *   
+     * @param licenseCode This is the BridgePoint license code to test for. 
+     *  
+     * @return true if license is availble and false if not
+     */
+	public static boolean licenseIsAvailable(LicenseAtomic licenseCode) {
+		// System.out.println("NOTICE: Testing availability of license code " +
+		// licenseCode + "\n");
+		initConnection();
+
+		boolean licensed = false;
+		licensed = license
+				.checkHeap(licenseCode.getCode(), MGLS_XTUML_APP_DATE);
+
+		if (!licensed && IsVeryFirstLicenseCheckAtStartup) {
+			// This is to work around a license bug. The very first
+			// call to the license manager may fail even though the
+			// license is valid.
+			licensed = license.checkHeap(licenseCode.getCode(),
+					MGLS_XTUML_APP_DATE);
+		}
+		IsVeryFirstLicenseCheckAtStartup = false;
+
+		if (!licensed) {
+			// See if there is a demo license.
+			int demo = isDemoLicensed();
+			if (demo == BP_NOT_DEMOING) {
+				// Do nothing
+			} else if (demo == BP_DEMO_LICENSED) {
+				licensed = true;
+			} else if (demo == BP_NOT_DEMO_LICENSED) {
+				licensed = false;
+			}
+		}
+
+		return licensed;
+	}
 
     public static int BP_NOT_DEMOING = 0;
     public static int BP_DEMO_LICENSED = 1;

@@ -222,27 +222,27 @@ public class MCBuilderArgumentHandler {
 
 		if (builderIDString.startsWith(AbstractNature.C_SOURCE_MC_ID)) {
 			isLicensed = BridgePointLicenseManager
-					.testLicense(BridgePointLicenseManager.LicenseAtomic.MC3020SOURCE_MC_LICENSE_CODE);
+					.licenseExists(BridgePointLicenseManager.LicenseAtomic.MC3020SOURCE_MC_LICENSE_CODE);
 		} else if (builderIDString.startsWith(AbstractNature.C_BINARY_MC_ID)) {
 			isLicensed = true;
 		} else if (builderIDString
 				.startsWith(AbstractNature.SYSTEMC_SOURCE_MC_ID)) {
 			isLicensed = BridgePointLicenseManager
-			.testLicense(BridgePointLicenseManager.LicenseAtomic.SYSTEMC_SOURCE_MC_LICENSE_CODE);			
+			.licenseExists(BridgePointLicenseManager.LicenseAtomic.SYSTEMC_SOURCE_MC_LICENSE_CODE);			
 		} else if (builderIDString.startsWith(AbstractNature.CPP_SOURCE_MC_ID)) {
 			isLicensed = BridgePointLicenseManager
-					.testLicense(BridgePointLicenseManager.LicenseAtomic.MC2020SOURCE_MC_LICENSE_CODE);
+					.licenseExists(BridgePointLicenseManager.LicenseAtomic.MC2020SOURCE_MC_LICENSE_CODE);
 		} else if (builderIDString.startsWith(AbstractNature.VHDL_SOURCE_MC_ID)) {
 			isLicensed = BridgePointLicenseManager
-			.testLicense(BridgePointLicenseManager.LicenseAtomic.VHDL_SOURCE_MC_LICENSE_CODE);
+			.licenseExists(BridgePointLicenseManager.LicenseAtomic.VHDL_SOURCE_MC_LICENSE_CODE);
 		} else {
 			// In this case we are looking at a custom MC.  We require either 
 			// a DAP or mc3020 source license in this situation.
 			isLicensed = BridgePointLicenseManager
-					.testLicense(BridgePointLicenseManager.LicenseAtomic.DAP_MC_LICENSE_CODE);
+					.licenseExists(BridgePointLicenseManager.LicenseAtomic.DAP_MC_LICENSE_CODE);
 			if (!isLicensed) {
 				isLicensed = BridgePointLicenseManager
-				.testLicense(BridgePointLicenseManager.LicenseAtomic.MC3020SOURCE_MC_LICENSE_CODE);
+				.licenseExists(BridgePointLicenseManager.LicenseAtomic.MC3020SOURCE_MC_LICENSE_CODE);
 			}
 		}
 

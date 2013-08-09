@@ -99,7 +99,7 @@ public class ExportPreferences extends PreferencePage implements
 
 	    BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
 	    
-	    boolean oalExportIsLicensed = BridgePointLicenseManager.testLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
+	    boolean oalExportIsLicensed = BridgePointLicenseManager.licenseExists(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
 	    
 	    if (bpPrefs.exportOAL.equals(MessageDialogWithToggle.ALWAYS) && oalExportIsLicensed) {
 	        exportOALYesRadio.setSelection(true);
