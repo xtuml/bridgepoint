@@ -103,7 +103,7 @@ public abstract class CoreExport implements IRunnableWithProgress {
 			IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
 	        String option = store.getString(BridgePointPreferencesStore.EXPORT_OAL);
 	        if (option.equals(MessageDialogWithToggle.ALWAYS)) {
-	        	boolean isLicensed = BridgePointLicenseManager.testLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
+	        	boolean isLicensed = BridgePointLicenseManager.licenseExists(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
 	        	
 				if (!isLicensed) {
 					CorePlugin.logError(ExportLicenseError, null);
