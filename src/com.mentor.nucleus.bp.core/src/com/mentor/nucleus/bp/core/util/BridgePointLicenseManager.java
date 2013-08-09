@@ -50,7 +50,10 @@ public class BridgePointLicenseManager  extends BridgePointDemoEncryptor {
 		
 		// The enums from this point down were introduced when the OSS
 		// version of BridgePoint was introduced.
-		XTUMLEDIT(102314),
+		
+		// XTUMLEDIT(102314),   // Use of this was removed as part of Git/internal Issue #24 (CQ dts0100992904)
+		                        // If it is ever determined we should restrore this edit usage tracking 
+		                        // the changes needed can be easily restored.
 		
 		XTUMLMCUIVHDL(102313),  // For possible future use
 		XTUMLMCUISYSC(102312),  // For possible future use
@@ -157,41 +160,23 @@ public class BridgePointLicenseManager  extends BridgePointDemoEncryptor {
 				secondsToLinger = 60 * 60; // 60 minutes.
 			} 
 		
-			boolean performLicenseCheck = true;
-			// Only really attempt to pull this license if it is present.  We 
-			// do this to prevent FLEXlm error for this license because this 
-			// is used for usage tracking only.
-			if (licenseCode == LicenseAtomic.XTUMLEDIT) {
-				
-				performLicenseCheck = BridgePointLicenseManager.licenseExists(LicenseAtomic.XTUMLEDIT);
-			}
-			if (performLicenseCheck) {
-			    txn_id = license.initHeapAttrs(licenseCode.getCode(), MGLS_XTUML_APP_DATE, getLicenseDisplayString(), secondsToLinger );
-				if (txn_id <= 0) {
-					if (IsVeryFirstLicenseCheckAtStartup) {
-						// This is to work around a license bug. The very first
-						// call to the license manager may fail even though the
-						// license is valid.
-						txn_id = license.initHeapAttrs(licenseCode.getCode(), MGLS_XTUML_APP_DATE, getLicenseDisplayString(), secondsToLinger );
-					}
+		    txn_id = license.initHeapAttrs(licenseCode.getCode(), MGLS_XTUML_APP_DATE, getLicenseDisplayString(), secondsToLinger );
+			if (txn_id <= 0) {
+				if (IsVeryFirstLicenseCheckAtStartup) {
+					// This is to work around a license bug. The very first
+					// call to the license manager may fail even though the
+					// license is valid.
+					txn_id = license.initHeapAttrs(licenseCode.getCode(), MGLS_XTUML_APP_DATE, getLicenseDisplayString(), secondsToLinger );
 				}
 			}
 		
 			IsVeryFirstLicenseCheckAtStartup = false;
 	
-			// If this is the editor allow it even if there is no license.
-			// We also cache it so that we do not make lot of attempts to
-			// re-acquire the editor license.
-			if (txn_id > 0 || licenseCode == LicenseAtomic.XTUMLEDIT) {
+			if (txn_id > 0) {
 				isLicensed = true;
 				// Add this license to license cache with the current date, replace
 				// the prior entry if there was one.
-				licensesObtained.put(String.valueOf(licenseCode), new LicenseEntry(txn_id));
-				
-				// If it was the editor license, then release it immediately
-				if ( licenseCode == LicenseAtomic.XTUMLEDIT ) {
-				    releaseLicense(LicenseAtomic.XTUMLEDIT);
-				}
+				licensesObtained.put(String.valueOf(licenseCode), new LicenseEntry(txn_id));				
 			}
 		}
 		return isLicensed;
@@ -268,24 +253,21 @@ public class BridgePointLicenseManager  extends BridgePointDemoEncryptor {
 	 * @param licenseCode
 	 */
 	public static void releaseLicense(LicenseAtomic licenseCode) {
-		BridgePointLicenseManager.LicenseEntry licenseEntry;
-		
-		// Once we put an edit license in the cache, we don't want to remove it.
-		if (licenseCode == LicenseAtomic.XTUMLEDIT) {
-		    licenseEntry = licensesObtained.get(String.valueOf(licenseCode));
-		} else {
-		    licenseEntry = licensesObtained.remove(String.valueOf(licenseCode));
-		}
-		
+
+		BridgePointLicenseManager.LicenseEntry licenseEntry = licensesObtained
+				.remove(String.valueOf(licenseCode));
+
 		// The reason we check that licenseTransactionID > 0 is that we may have
-		// cached an editor license with a transaction ID that invalid (i.e. no
-		// editor license was actually checked out).  In this case, we do not 
-		// want to call MGLS' releaseLicense.
-		if ( licenseEntry != null && licenseEntry.licenseTransactionID > 0) {
-		    boolean releasedLicense = license.releaseLicenses(licenseEntry.licenseTransactionID);
-		    if (!releasedLicense) {
-		     CorePlugin.logError("Failed to release the license: " + licenseCode.getCode(), null);
-		    }
+		// cached an editor license with a transaction ID that invalid. In this
+		// case,
+		// we do not want to call MGLS' releaseLicense.
+		if (licenseEntry != null && licenseEntry.licenseTransactionID > 0) {
+			boolean releasedLicense = license
+					.releaseLicenses(licenseEntry.licenseTransactionID);
+			if (!releasedLicense) {
+				CorePlugin.logError("Failed to release the license: "
+						+ licenseCode.getCode(), null);
+			}
 		}
 	}
 	
@@ -367,44 +349,19 @@ public class BridgePointLicenseManager  extends BridgePointDemoEncryptor {
 		BridgePointLicenseManager.LicenseEntry licenseEntry = licensesObtained.get(String.valueOf(licenseCode));
 		
 		if (licenseEntry != null) {
-		    if (licenseCode == LicenseAtomic.XTUMLEDIT) {
-		        // If we found the edit license in the cache, don't check (or care) about expiration time
-		        licensed = true;
-            } else {
-                // Keep it cached for one hour
-                final int MillisecondsInOneHour = 1000*60*60;
-                Date now = new Date();
-                long timeCachedInMS = now.getTime() - licenseEntry.timeAcquired.getTime();
-                if (timeCachedInMS < MillisecondsInOneHour) {
-                    licensed = true;
-                }
-            }
+			// Keep it cached for one hour
+			final int MillisecondsInOneHour = 1000 * 60 * 60;
+			Date now = new Date();
+			long timeCachedInMS = now.getTime()
+					- licenseEntry.timeAcquired.getTime();
+			if (timeCachedInMS < MillisecondsInOneHour) {
+				licensed = true;
+			}
 		}
-		
+
 		return licensed;
 	}
 	
-	public static synchronized boolean isEditorLicensed() {
-		return isEditorLicensed(EditorLicense);
-		}
-
-	public static synchronized boolean isEditorLicensed(String modelElementType) {
-
-		if (modelElementType.equalsIgnoreCase("Component_c")
-				|| modelElementType.equalsIgnoreCase("ComponentReference_c")
-				|| modelElementType.equalsIgnoreCase("Domain_c")
-				|| modelElementType.equalsIgnoreCase(EditorLicense)) {
-			
-				BridgePointLicenseManager.getLicenseInternal(
-						LicenseAtomic.XTUMLEDIT, false);
-
-		}
-			
-		// The editor is always available.  The sole purpose of this license is 
-		// usage tracking
-		return true;
-	}
-
 	/**
 	 * This function is used to check the model Execution license.
 	 * 
