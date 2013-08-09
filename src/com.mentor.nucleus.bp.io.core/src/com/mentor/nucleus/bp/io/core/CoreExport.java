@@ -103,18 +103,7 @@ public abstract class CoreExport implements IRunnableWithProgress {
 			IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
 	        String option = store.getString(BridgePointPreferencesStore.EXPORT_OAL);
 	        if (option.equals(MessageDialogWithToggle.ALWAYS)) {
-	        	// job: #24 There is a bug in the JLC that presents us from 
-	        	// being able to test for a license without checking it out.
-	        	// (CQ dts0100993209).  Until this is fixed, we can not allow this
-	        	// license test to happen, so we are simply returning false for this
-	        	// case there we are using the OAL Export bridgepoint preference.  
-	        	// To determine if we should export instances.  Note that this  
-	        	// path is NOT used by the prebuilder.  The prebuilder does not
-	        	// look at the user preference, it forces the oalexport flag to
-	        	// true and then attempts to checkout the license.  It does not perform
-	        	// the license test first.
-	        	boolean isLicensed = false;
-	        	// boolean isLicensed = BridgePointLicenseManager.testLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
+	        	boolean isLicensed = BridgePointLicenseManager.testLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
 	        	
 				if (!isLicensed) {
 					CorePlugin.logError(ExportLicenseError, null);
