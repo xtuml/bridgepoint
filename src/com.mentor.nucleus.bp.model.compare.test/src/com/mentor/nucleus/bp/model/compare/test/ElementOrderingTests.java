@@ -1,3 +1,13 @@
+//========================================================================
+//
+//File:      ElementOrderingTests.java
+//
+//Copyright 2005-2013 Mentor Graphics Corporation. All rights reserved.
+//
+//========================================================================
+//This document contains information proprietary and confidential to
+//Mentor Graphics Corp., and is not for external distribution.
+//========================================================================
 package com.mentor.nucleus.bp.model.compare.test;
 
 import java.io.InputStream;
