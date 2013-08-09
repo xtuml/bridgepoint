@@ -464,16 +464,17 @@ public class BridgePointLicenseManager  extends BridgePointDemoEncryptor {
 		//System.out.println("NOTICE: Testing availability of license code " + licenseCode + "\n");
         initConnection();
         
-        boolean licensed = false;
-        licensed = license.checkHeap(licenseCode.getCode(), MGLS_XTUML_APP_DATE);
+        int[] result = license.heapCandidates(licenseCode.getCode());
+        boolean licensed = ((result!=null) & (result.length>0));
         
         if (!licensed && IsVeryFirstLicenseCheckAtStartup) {
             // This is to work around a license bug.  The very first
             // call to the license manager may fail even though the 
             // license is valid.
-            licensed = license.checkHeap(licenseCode.getCode(), MGLS_XTUML_APP_DATE);
-                    }
-                    IsVeryFirstLicenseCheckAtStartup = false;
+        	result = license.heapCandidates(licenseCode.getCode());
+            licensed = ((result!=null) & (result.length>0));
+        }
+        IsVeryFirstLicenseCheckAtStartup = false;
         
         if (!licensed) {
             // See if there is a demo license.
