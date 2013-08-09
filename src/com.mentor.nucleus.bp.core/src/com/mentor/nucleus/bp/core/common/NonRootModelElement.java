@@ -1,8 +1,8 @@
 //========================================================================
 //
 //File:      $RCSfile: NonRootModelElement.java,v $
-//Version:   $Revision: 1.42.20.1 $
-//Modified:  $Date: 2013/07/24 19:20:19 $
+//Version:   $Revision: 1.42 $
+//Modified:  $Date: 2013/05/10 13:26:32 $
 //
 //(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
 //
@@ -32,7 +32,6 @@ import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.DataTypePackage_c;
 import com.mentor.nucleus.bp.core.DataType_c;
 import com.mentor.nucleus.bp.core.Gd_c;
-import com.mentor.nucleus.bp.core.GlobalElementInSystem_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.PackageableElement_c;
@@ -418,22 +417,6 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
             NonRootModelElement i2) {
     	boolean shouldWriteProxy = false;
 		if (i1 != null && i2 != null) {
-			// if either element is a global element do not 
-			// write a proxy
-			if(i1 instanceof DataType_c) {
-				PackageableElement_c pe = PackageableElement_c.getOnePE_PEOnR8001((DataType_c) i1);
-				GlobalElementInSystem_c geis = GlobalElementInSystem_c.getOneG_EISOnR9100(pe);
-				if(geis != null) {
-					return false;
-				}
-			}
-			if(i2 instanceof DataType_c) {
-				PackageableElement_c pe = PackageableElement_c.getOnePE_PEOnR8001((DataType_c) i2);
-				GlobalElementInSystem_c geis = GlobalElementInSystem_c.getOneG_EISOnR9100(pe);
-				if(geis != null) {
-					return false;
-				}
-			}
 	        PersistableModelComponent pmc1 = i1.getPersistableComponent();
 	        PersistableModelComponent pmc2 = i2.getPersistableComponent();
 	        // Only if neither pmc is null and the componets are different should
