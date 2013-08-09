@@ -970,11 +970,15 @@ public class ModelMergeProcessor {
 		if(referredLocal == originalReferredLocal && referredRemote != null) {
 			return;
 		}
-		Method unrelateMethod = findMethod("unrelateAcrossR"
-				+ (String) localReferentialData[2] + "From"
-				+ (String) localReferentialData[3], referringLocal.getClass(),
-				new Class[] { originalReferredLocal.getClass() });
-		invokeMethod(unrelateMethod, referringLocal, new Object[] {originalReferredLocal});
+		// if the referred local element is null do not bother
+		// with an unrelate
+		if(originalReferredLocal != null) {
+			Method unrelateMethod = findMethod("unrelateAcrossR"
+					+ (String) localReferentialData[2] + "From"
+					+ (String) localReferentialData[3], referringLocal.getClass(),
+					new Class[] { originalReferredLocal.getClass() });
+			invokeMethod(unrelateMethod, referringLocal, new Object[] {originalReferredLocal});
+		}
 		if (referredRemote == null) {
 			// only need the unrelate
 			return;
