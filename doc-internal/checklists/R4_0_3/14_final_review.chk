@@ -37,34 +37,34 @@ x- All files are checked-in properly and no file is left ommitted.
      - Your branch is pushed to github and shows up on the repository network
        graph
 
-_- An implementation review was performed, including a code review with at
+x- An implementation review was performed, including a code review with at
    least 2 other engineers
 
-_- Verify that all changes specified in the analysis, design and implementation
+x- Verify that all changes specified in the analysis, design and implementation
    note review minutes were made.
 
-_- Verify that all work specified in the design note (or in the design section 
+x- Verify that all work specified in the design note (or in the design section 
    of the implementation note), was done to the files specified in the Code 
    Changes section of the implementation note.  
 
-_- Verify that any changes made to files in the Code Changes section that are 
+x- Verify that any changes made to files in the Code Changes section that are 
    not traceable back to work required by the design are called out in the 
    Implementation Comments section of the implementation note.  
 
-_- If plugin.xml or MANIFEST.MF was modified, verify all changes to the depend-
+o- If plugin.xml or MANIFEST.MF was modified, verify all changes to the depend-
    encies and required bundles are also made to the compile target in 
    generate.xml
 
-_- Perform a clean build and verify everything rebuilds successfully.
+o- Perform a clean build and verify everything rebuilds successfully.
 
-_- Execute all JUnits and manual tests specified in the notes.
+o- Execute all JUnits and manual tests specified in the notes.
      *** NOTE: THIS IS A TEMPORARY STEP UNTIL WE GET ALL THE JUNITS RUNNING ***
      ***   NIGHTLY ON THE SERVER.  AFTER WE DO THAT THEN WE WILL CHANGE THIS***
      ***   REQUIREMENT TO:                                                  ***
      _- Execute the specific unit tests agreed upon with the code reviewers and 
         verify that the tests pass.
 
-_- Create a Pull Request for the changes
+x- Create a Pull Request for the changes
      _- Go to the repository on github.com
      _- Go to the Pull Requests page
      _- Click the "New pull request" button
@@ -75,7 +75,7 @@ _- Create a Pull Request for the changes
      _- Resolve any conflicts as indicated.  If "Able to merge", then click 
         "Send pull request" button 
 
-_- Add a comment in the BridgePoint chat saying the issue is ready for promotion
+x- Add a comment in the BridgePoint chat saying the issue is ready for promotion
 
 
 End
