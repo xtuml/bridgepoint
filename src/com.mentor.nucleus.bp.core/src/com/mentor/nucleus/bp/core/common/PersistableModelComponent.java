@@ -1,8 +1,8 @@
 // ========================================================================
 //
 //File: $RCSfile: PersistableModelComponent.java,v $
-//Version: $Revision: 1.31 $
-//Modified: $Date: 2013/05/12 22:31:27 $
+//Version: $Revision: 1.31.16.1 $
+//Modified: $Date: 2013/07/24 19:20:20 $
 //
 //(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
 //
@@ -1031,12 +1031,12 @@ public class PersistableModelComponent implements Comparable {
 			NonRootModelElement child = (NonRootModelElement) children.get(i);
 			deleteME(child);
 		}
-		me.batchUnrelate();
 		if (hasExternalRGO) {
 			me.convertToProxy();
 		} else {
 			me.delete_unchecked();
 		}
+		me.batchUnrelate();
 	}
     
     public void excludeChildRootMEs(List externalRGOs) {

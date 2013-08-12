@@ -2,8 +2,8 @@
 <!--
 
  File:      $RCSfile: generate.xml,v $
- Version:   $Revision: 1.94 $
- Modified:  $Date: 2013/05/10 04:38:22 $
+ Version:   $Revision: 1.94.8.1 $
+ Modified:  $Date: 2013/07/31 21:17:58 $
 
  (c) Copyright 2004-2013 by Mentor Graphics Corp.  All rights reserved.
 
@@ -466,7 +466,7 @@
 
   <!-- CLEAN TARGETS -->
 
-  <target name="clean_all" description="Clean entire project" depends="clean_classes,clean_java">
+  <target name="clean_all" description="Clean entire project" depends="clean_classes,clean_java,clean_sql,clean_matrices">
 
     <echo>Done cleaning for ${ant.project.name}</echo>
 
@@ -486,6 +486,14 @@
 
   </target>
 
+  <target name="clean_sql" description="Remove generated sql files">
+  	<fileset dir="sql" includes="*.sql" />
+  </target>
+  	
+  <target name="clean_matrices" description="Remove all generated matrices." >
+  	<fileset dir="matrices/generated" includes="*.txt"/>
+  </target>
+	
   <target name="clean_classes" description="Remove all compiled class files.">
 
     <echo>Removing all compiled class files ...</echo>
