@@ -1,8 +1,8 @@
 //=====================================================================
 //
 //File:      $RCSfile: ModelCacheManager.java,v $
-//Version:   $Revision: 1.4 $
-//Modified:  $Date: 2013/01/17 03:35:56 $
+//Version:   $Revision: 1.4.26.3 $
+//Modified:  $Date: 2013/07/29 21:05:52 $
 //
 //(c) Copyright 2004-2013 by Mentor Graphics Corp. All rights reserved.
 //
@@ -40,6 +40,7 @@ import com.mentor.nucleus.bp.core.inspector.ModelInspector;
 import com.mentor.nucleus.bp.core.sorter.MetadataSortingManager;
 import com.mentor.nucleus.bp.core.ui.IModelImport;
 import com.mentor.nucleus.bp.io.core.CoreImport;
+import com.mentor.nucleus.bp.io.core.ImportHelper;
 import com.mentor.nucleus.bp.io.mdl.ImportModelComponent;
 import com.mentor.nucleus.bp.ui.canvas.Cl_c;
 import com.mentor.nucleus.bp.ui.canvas.ElementSpecification_c;
@@ -68,38 +69,39 @@ public class ModelCacheManager {
 
 	private HashMap<Object, NonRootModelElement[]> rootElementMap = new HashMap<Object, NonRootModelElement[]>();
 	private List<Object> readonlyInputs = new ArrayList<Object>();
-	
-	public ModelCacheManager(){
-		MetadataSortingManager sortingManager = MetadataSortingManager.createDefault();
-		modelInspector  = new ModelInspector(sortingManager);
+
+	public ModelCacheManager() {
+		MetadataSortingManager sortingManager = MetadataSortingManager
+				.createDefault();
+		modelInspector = new ModelInspector(sortingManager);
 		graphicalModelInspector = new GraphicalModelInspector(sortingManager);
 	}
 
-	public IStreamContentAccessor getModel(
-		Object inputObject,
-		Object requester, Ooaofooa compareRoot, Object key)
-		throws ModelLoadException {
+	public IStreamContentAccessor getModel(Object inputObject,
+			Object requester, Ooaofooa compareRoot, Object key)
+			throws ModelLoadException {
 
 		// if input is null, could be an ancestor that is not available
-		if(inputObject == null) {
+		if (inputObject == null) {
 			return null;
 		}
-		
+
 		ModelMapEntry entry = (ModelMapEntry) models.get(key);
 		if (entry == null) {
 			entry = createModelMapEntry(inputObject, compareRoot, key);
-			if(entry != null) {
+			if (entry != null) {
 				models.put(key, entry);
 				if (!entry.isValid()) {
-					throw new ModelLoadException(
-							entry.errorMessage,
+					throw new ModelLoadException(entry.errorMessage,
 							entry.throwable);
 				}
-				entry.references.add(requester);
+				if(requester != null) {
+					entry.references.add(requester);
+				}
 
 				return entry.rootNode;
 			}
-			
+
 		} else {
 			return entry.rootNode;
 		}
@@ -107,37 +109,39 @@ public class ModelCacheManager {
 	}
 
 	public Model_c getLoadedGraphicalModelsForElements(Object element) {
-		for(Object key : models.keySet()) {
+		for (Object key : models.keySet()) {
 			ModelMapEntry entry = (ModelMapEntry) models.get(key);
 			Model_c[] loadedModels = entry.loadedModels;
-			if(loadedModels == null) {
+			if (loadedModels == null) {
 				continue;
 			}
-			for(Model_c model : loadedModels) {
-				if(model.getRepresents() == element) {
+			for (Model_c model : loadedModels) {
+				if (model.getRepresents() == element) {
 					return model;
 				}
 			}
 		}
 		return null;
 	}
-	
+
 	public NonRootModelElement[] getRootElements(Object inputObject,
-			Object requester, boolean reload, Ooaofooa compareRoot, Object key) throws ModelLoadException {
+			Object requester, boolean reload, Ooaofooa compareRoot, Object key)
+			throws ModelLoadException {
 		NonRootModelElement[] rootElements = rootElementMap.get(key);
 		if (rootElements == null && requester != null) {
 			getModel(inputObject, requester, compareRoot, key);
-			rootElements = rootElementMap .get(key);
+			rootElements = rootElementMap.get(key);
 		}
 		return rootElements;
 	}
 
-	public IModelInspectorRegistry getModelInspectorRegistry(){
+	public IModelInspectorRegistry getModelInspectorRegistry() {
 		return modelInspector;
 	}
 
-	public void releaseModel(Object inputObject, Object requester, Ooaofooa compareRoot, Object key) {
-		if(inputObject == null) {
+	public void releaseModel(Object inputObject, Object requester,
+			Ooaofooa compareRoot, Object key) {
+		if (inputObject == null) {
 			return;
 		}
 		ModelMapEntry entry = (ModelMapEntry) models.get(key);
@@ -154,7 +158,7 @@ public class ModelCacheManager {
 					rootElementMap.remove(key);
 				}
 				if (entry != null) {
-					if(entry.loadedModels != null) {
+					if (entry.loadedModels != null) {
 						for (Model_c model : entry.loadedModels) {
 							model.batchUnrelate();
 						}
@@ -176,10 +180,11 @@ public class ModelCacheManager {
 		root.clearDatabase(new NullProgressMonitor());
 		root.delete(true);
 	}
-	
-	protected ModelMapEntry createModelMapEntry(Object input, Ooaofooa compareRoot, Object key) {
+
+	protected ModelMapEntry createModelMapEntry(Object input,
+			Ooaofooa compareRoot, Object key) {
 		ModelMapEntry modelMapEntry = new ModelMapEntry(input);
-		if(!modelMapEntry.loadModel(compareRoot, key)) {
+		if (!modelMapEntry.loadModel(compareRoot, key)) {
 			return null;
 		}
 		return modelMapEntry;
@@ -188,7 +193,7 @@ public class ModelCacheManager {
 	public boolean isInputReadonly(Object key) {
 		return readonlyInputs.contains(key);
 	}
-	
+
 	public int getCachedModelCount() {
 		return models.size();
 	}
@@ -211,15 +216,14 @@ public class ModelCacheManager {
 		public Model_c[] getLoadedGraphicalModels() {
 			return loadedModels;
 		}
-		
+
 		public boolean loadModel(Ooaofooa compareRoot, Object key) {
 			if (!(input instanceof IStreamContentAccessor)) {
 				errorMessage = "Not a valid input";
 			} else {
-				InputStream sca=null;
+				InputStream sca = null;
 				try {
-					sca =
-						((IStreamContentAccessor) input).getContents();
+					sca = ((IStreamContentAccessor) input).getContents();
 					rootNode = ((IStreamContentAccessor) input);
 
 					if (sca == null) {
@@ -230,23 +234,28 @@ public class ModelCacheManager {
 					IdAssigner.setSeedOfAllInstances(1, false);
 
 					SystemModel_c sys = new SystemModel_c(compareRoot);
-
+					sys.setParentModelRoot(Ooaofooa.getDefaultInstance());
+					sys.setModelRoot(Ooaofooa.getDefaultInstance());
+					ImportHelper helper = new ImportHelper(null);
+					helper.setUpGlobals(sys);
+					sys.setParentModelRoot(compareRoot);
+					sys.setModelRoot(compareRoot);
+					
 					ModelStreamProcessor streamProcessor = null;
-					PersistableModelComponent com = new PersistableModelComponent(sys);
-					IModelImport modelInputLoader =
-						new ImportModelComponent(
-							sca,
-							compareRoot, com,
-							false, true, true, false);
+					PersistableModelComponent com = new PersistableModelComponent(
+							sys);
+					IModelImport modelInputLoader = new ImportModelComponent(
+							sca, compareRoot, com, false, true, true, false);
 					boolean isSingleFile = isSingleFile((CoreImport) modelInputLoader);
 					boolean isSingleFileOld = isSingleFileOld((CoreImport) modelInputLoader);
-					if(isSingleFile) {
+					if (isSingleFile) {
 						readonlyInputs.add(key);
 						sca.close();
 						sca = ((IStreamContentAccessor) input).getContents();
-						Scanner scanner = new java.util.Scanner(sca).useDelimiter("\\A");
+						Scanner scanner = new java.util.Scanner(sca)
+								.useDelimiter("\\A");
 						String contents = "";
-						if(scanner.hasNext()) {
+						if (scanner.hasNext()) {
 							contents = scanner.next();
 						}
 						sca.close();
@@ -258,7 +267,7 @@ public class ModelCacheManager {
 						streamProcessor.setContents(contents);
 						streamProcessor.setImporter(modelInputLoader);
 					}
-					if(isSingleFileOld) {
+					if (isSingleFileOld) {
 						readonlyInputs.add(key);
 						sca.close();
 						sca = ((IStreamContentAccessor) input).getContents();
@@ -268,42 +277,49 @@ public class ModelCacheManager {
 										true, false);
 					}
 					int ret_val = 0;
-					if(!isSingleFile) {
-						ret_val = modelInputLoader.countAndValidateInsertStatements();
+					if (!isSingleFile) {
+						ret_val = modelInputLoader
+								.countAndValidateInsertStatements();
 					}
-                    boolean successful = true;
-                    if (ret_val > 0 || isSingleFile) {
-    					modelInputLoader.run(new NullProgressMonitor());
-                    }
-                    else
-                    {
-                        successful = false;
-                    }
-                    if(isSingleFile || isSingleFileOld) {
-                    	modelInputLoader.finishLoad(new NullProgressMonitor());
-                    } else {
-                    	modelInputLoader.finishComponentLoad(new NullProgressMonitor(), false);
-                    }
-					if ((successful && modelInputLoader.getSuccessful()) || (successful && isSingleFile)) {
-						NonRootModelElement ele =  modelInputLoader.getRootModelElement();
+					boolean successful = true;
+					if (ret_val > 0 || isSingleFile) {
+						modelInputLoader.run(new NullProgressMonitor());
+					} else {
+						successful = false;
+					}
+					if (isSingleFile || isSingleFileOld) {
+						modelInputLoader.finishLoad(new NullProgressMonitor());
+					} else {
+						modelInputLoader.finishComponentLoad(
+								new NullProgressMonitor(), false);
+					}
+					if ((successful && modelInputLoader.getSuccessful())
+							|| (successful && isSingleFile)) {
+						NonRootModelElement ele = modelInputLoader
+								.getRootModelElement();
 						NonRootModelElement[] rootElements = null;
-						if(isSingleFile) {
-							rootElements = streamProcessor.getExportedElements();
+						if (isSingleFile) {
+							rootElements = streamProcessor
+									.getExportedElements();
 						} else {
-							rootElements = new NonRootModelElement[] {ele};
+							rootElements = new NonRootModelElement[] { ele };
 						}
 						rootElementMap.put(key, rootElements);
 						// store loaded model before clearing the
 						// database as they have no association
 						// connection to the real elements
-						loadedModels = Model_c.ModelInstances(Ooaofgraphics.getInstance(compareRoot.getId())); 
-						for(Model_c model : loadedModels) {
-					          model.setRepresents(Cl_c.Getinstancefromooa_id(compareRoot,
-   			                       model.getOoa_id(), model.getOoa_typeCachedValue()));
+						loadedModels = Model_c.ModelInstances(Ooaofgraphics
+								.getInstance(compareRoot.getId()));
+						for (Model_c model : loadedModels) {
+							model.setRepresents(Cl_c.Getinstancefromooa_id(
+									compareRoot, model.getOoa_id(),
+									model.getOoa_typeCachedValue()));
 						}
 						// we need to associate graphical elements and the model
-						// with their specification classes otherwise persistence will
-						// not work properly as ooa_types will not be determinable
+						// with their specification classes otherwise
+						// persistence will
+						// not work properly as ooa_types will not be
+						// determinable
 						associateGraphicalSpecifications(loadedModels);
 					} else {
 						errorMessage = modelInputLoader.getErrorMessage();
@@ -322,7 +338,7 @@ public class ModelCacheManager {
 					ComparePlugin.writeToLog(errorMessage, e, this);
 				} catch (CoreException e) {
 					throwable = e;
-					errorMessage =e.getMessage(); 
+					errorMessage = e.getMessage();
 					ComparePlugin.writeToLog(errorMessage, e, this);
 				} finally {
 					CoreImport.createUniqueIds = true;
@@ -367,19 +383,20 @@ public class ModelCacheManager {
 	public void associateGraphicalSpecifications(Model_c[] loadedModels) {
 		for (final Model_c model : loadedModels) {
 			ModelSpecification_c ms = ModelSpecification_c
-					.ModelSpecificationInstance(Ooaofgraphics
-							.getDefaultInstance(), new ClassQueryInterface_c() {
+					.ModelSpecificationInstance(
+							Ooaofgraphics.getDefaultInstance(),
+							new ClassQueryInterface_c() {
 
-						@Override
-						public boolean evaluate(Object candidate) {
-							return ((ModelSpecification_c) candidate)
-									.getModel_type() == model
-									.getModel_typeCachedValue()
-									&& ((ModelSpecification_c) candidate)
-											.getOoa_type() == model
-											.getOoa_typeCachedValue();
-						}
-					});
+								@Override
+								public boolean evaluate(Object candidate) {
+									return ((ModelSpecification_c) candidate)
+											.getModel_type() == model
+											.getModel_typeCachedValue()
+											&& ((ModelSpecification_c) candidate)
+													.getOoa_type() == model
+													.getOoa_typeCachedValue();
+								}
+							});
 			if (ms != null) {
 				ms.relateAcrossR9To(model);
 			}
@@ -387,8 +404,8 @@ public class ModelCacheManager {
 					.getManyGD_GEsOnR1(model);
 			for (final GraphicalElement_c element : elements) {
 				ElementSpecification_c spec = ElementSpecification_c
-						.ElementSpecificationInstance(Ooaofgraphics
-								.getDefaultInstance(),
+						.ElementSpecificationInstance(
+								Ooaofgraphics.getDefaultInstance(),
 								new ClassQueryInterface_c() {
 
 									@Override
@@ -401,9 +418,9 @@ public class ModelCacheManager {
 				if (spec != null) {
 					spec.relateAcrossR10To(element);
 				}
-				element.setRepresents(Cl_c.Getinstancefromooa_id(Ooaofooa
-						.getInstance(element.getModelRoot().getId()), element
-						.getOoa_id(), element.getOoa_type()));
+				element.setRepresents(Cl_c.Getinstancefromooa_id(
+						Ooaofooa.getInstance(element.getModelRoot().getId()),
+						element.getOoa_id(), element.getOoa_type()));
 			}
 		}
 	}

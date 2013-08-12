@@ -1,8 +1,8 @@
 //=====================================================================
 //
 //File:      $RCSfile: BPCLIWorkbenchAdvisor.java,v $
-//Version:   $Revision: 1.17 $
-//Modified:  $Date: 2013/06/12 13:08:01 $
+//Version:   $Revision: 1.17.10.2 $
+//Modified:  $Date: 2013/07/23 15:06:38 $
 //
 //(c) Copyright 2004-2013 by Mentor Graphics Corp. All rights reserved.
 //
@@ -44,7 +44,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 
-import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.core.util.WorkspaceUtil;
 
@@ -178,6 +177,12 @@ abstract public class BPCLIWorkbenchAdvisor extends WorkbenchAdvisor {
 			success = outFile.createNewFile();
 		}
 		return success;
+	}
+
+	@Override
+	public void preStartup() {
+		super.preStartup();
+		Job.getJobManager().suspend();
 	}
 
 	@Override

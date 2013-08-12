@@ -19,6 +19,7 @@ import org.eclipse.ui.PlatformUI;
 import com.mentor.nucleus.bp.core.InstanceStateMachine_c;
 import com.mentor.nucleus.bp.core.ModelClass_c;
 import com.mentor.nucleus.bp.core.Package_c;
+import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.CanvasTestUtils;
 import com.mentor.nucleus.bp.ui.graphics.editor.GraphicalEditor;
@@ -64,7 +65,13 @@ public class OpenCanvasEditor extends BaseTest {
 	
 	public void testOpenPackageDiagram()
 	{	
-		final Package_c uut = Package_c.PackageInstance(modelRoot);
+		final Package_c uut = Package_c.PackageInstance(modelRoot, new ClassQueryInterface_c() {
+			
+			@Override
+			public boolean evaluate(Object candidate) {
+				return ((Package_c) candidate).getName().equals("odms");
+			}
+		});
 		CanvasTestUtils.openDiagramEditor(uut);
 		validateCanvasEditor("odms: Package Diagram", uut.getDescrip());
 	}

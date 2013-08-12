@@ -1,8 +1,8 @@
 //========================================================================
 //
 //File:      $RCSfile: CompareTestUtilities.java,v $
-//Version:   $Revision: 1.6 $
-//Modified:  $Date: 2013/01/17 03:35:15 $
+//Version:   $Revision: 1.6.22.1 $
+//Modified:  $Date: 2013/07/23 15:06:47 $
 //
 //Copyright 2005-2013 Mentor Graphics Corporation. All rights reserved.
 //
@@ -14,7 +14,9 @@
 package com.mentor.nucleus.bp.test.common;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import junit.framework.Assert;
 
@@ -27,16 +29,21 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.ui.part.PageBook;
+import org.eclipse.team.internal.ui.actions.CompareAction;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.compare.ComparePlugin;
 import com.mentor.nucleus.bp.compare.ModelCacheManager;
 import com.mentor.nucleus.bp.compare.ModelCacheManager.ModelLoadException;
 import com.mentor.nucleus.bp.compare.structuremergeviewer.ModelCompareStructureCreator.CompareDocumentRangeNode;
 import com.mentor.nucleus.bp.core.Ooaofooa;
+import com.mentor.nucleus.bp.core.common.NonRootModelElement;
+import com.mentor.nucleus.bp.model.compare.TreeDifferencer;
 
 public class CompareTestUtilities {
 	
@@ -431,6 +438,27 @@ public class CompareTestUtilities {
 			}
 		}
 		return trees;
+	}
+
+	public static TreeDifferencer compareElementWithLocalHistory(IFile file, IFile copy) {
+		CompareAction action = new CompareAction();
+		action.selectionChanged(null, new StructuredSelection(new Object[] {
+				file, copy }));
+		action.run(null);
+		IEditorPart activeEditor = PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		Assert.assertTrue("Unable to locate compare editor.", activeEditor instanceof CompareEditor);
+		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+		Set<Object> keySet = TreeDifferencer.instances.keySet();
+		Object key = null;
+		for(Iterator<Object> iterator = keySet.iterator(); iterator.hasNext();) {
+			key = iterator.next();
+		}
+		return TreeDifferencer.instances.get(key);
+	}
+	
+	public static TreeDifferencer compareElementWithLocalHistory(NonRootModelElement instance, IFile copy) {
+		return compareElementWithLocalHistory(instance.getFile(), copy);
 	}
 
 }

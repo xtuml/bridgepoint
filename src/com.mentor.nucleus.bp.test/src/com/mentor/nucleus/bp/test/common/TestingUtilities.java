@@ -812,11 +812,11 @@ public class TestingUtilities {
 
 	public static void importDevelopmentProjectIntoWorkspace(
 			String developmentWorkspaceProject) {
-		Location launchConfigLocation = Platform.getConfigurationLocation();
-		String launchConfigPath = launchConfigLocation.getURL().getPath();
-		
-		final String pathToProject = launchConfigPath + "../../../../"
-				+ "/" + developmentWorkspaceProject;
+		String workspace_location = System.getenv("XTUML_DEVELOPMENT_REPOSITORY");
+		if(workspace_location == null || workspace_location.equals("")) {
+			workspace_location = BaseTest.DEFAULT_XTUML_DEVELOPMENT_REPOSITORY;
+		}
+		String pathToProject = workspace_location + "/src/" + developmentWorkspaceProject;
 		File file = new File(pathToProject);
 		if(!file.exists()) {
 			Assert.fail("Could not locate test model at: " + pathToProject);
