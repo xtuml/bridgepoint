@@ -46,10 +46,10 @@ None.
 
 8. Unit Test
 ------------
-8.1  Test for correctness:   
-  _- Exit BridgePoint  
-  _- Start BridgePoint  
-  _- __R__ The Model Upgrade dialog does not indicate MC-Java.test needs to be
+8.1  Test for correctness:  
+  - Exit BridgePoint  
+  - Start BridgePoint  
+  - __R__ The Model Upgrade dialog does not indicate MC-Java.test needs to be
   updated.  
 
 9. Code Changes
