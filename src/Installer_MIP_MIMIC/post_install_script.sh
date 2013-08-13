@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2008-2012 Mentor Graphics Corporation. All rights reserved.
+# Copyright 2008-2013 Mentor Graphics Corporation. All rights reserved.
 #
 #
 # DESCRIPTION:                                                          
@@ -43,6 +43,7 @@ configure_mc_files()
   ${MSI_CMD} -c "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/xtumlmc_build.exe" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/xtumlmc_build.exe.win"
   ${MSI_CMD} -c "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/xtumlmc_build" "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/xtumlmc_build.exe"
   chmod 775 "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/xtumlmc_build.exe"
+  dos2unix "$TARGET/eclipse_extensions/BridgePoint/eclipse/plugins/${MC_NAME}_${BPVER}/mc3020/bin/xtumlmc_build.exe"
   echo "Done"
 }
 
