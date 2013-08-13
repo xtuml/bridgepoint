@@ -86,9 +86,10 @@ echo Create desktop shortcut (or not)
 SET CSFLAGFILE=%TARGET%\extras\csflag.txt
 IF EXIST "%CSFLAGFILE%" ECHO Found the create shortcut flag file %CSFLAGFILE%
 IF NOT EXIST "%CSFLAGFILE%" GOTO CreateShortcutDone
-::%MSI_CMD% -k TRUE "BridgePoint" "%ECLIPSEDIR%\Launcher.bat" "" "%ECLIPSEDIR%" "%TARGET%\bp.ico" 0 "" TRUE
+::"msi_cmd -k <AllUsersDesktop> <name> <command> <params> <workingDir> <iconPath> <nIcon> <shortcut> <replace> <runMinimized>"
+%MSI_CMD% -k TRUE "BridgePoint" "%ECLIPSEDIR%\Launcher.bat" "" "%ECLIPSEDIR%" "%TARGET%\bp.ico" 0 "" TRUE TRUE
 ::"%TARGET%\tools\bp_run_min.vbs"
-cscript "%TARGET%\tools\create_shortcut.vbs" TRUE "BridgePoint" "%ECLIPSEDIR%\Launcher.bat" "" "%ECLIPSEDIR%" "%TARGET%\bp.ico" 0 "" TRUE
+::cscript "%TARGET%\tools\create_shortcut.vbs" TRUE "BridgePoint" "%ECLIPSEDIR%\Launcher.bat" "" "%ECLIPSEDIR%" "%TARGET%\bp.ico" 0 "" TRUE
 DEL "%CSFLAGFILE%"
 GOTO CreateShortcutDone
 :CreateShortcutDone
