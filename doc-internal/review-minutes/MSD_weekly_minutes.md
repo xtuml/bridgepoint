@@ -1,4 +1,4 @@
-SMA Weekly Meeting Minutes
+MSD Weekly Meeting Minutes
 --------------------------
 * This document was originally maintained in [SVN]
     (http://wv-svn-01.wv.mentorg.com/svn/tenmile/trunk/documentation/review_minutes/SMA_weekly_minutes.txt).
