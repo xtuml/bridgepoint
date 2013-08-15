@@ -266,6 +266,8 @@ super.toString\
     .assign attr_result = false
   .elif ("$l{attr.Descrip:User_Visible}" == "false")
     .assign attr_result = false
+  .elif ("$l{attr.Descrip:In Properties}" == "false")
+    .assign attr_result = false
   .end if
 .end function
 .//
