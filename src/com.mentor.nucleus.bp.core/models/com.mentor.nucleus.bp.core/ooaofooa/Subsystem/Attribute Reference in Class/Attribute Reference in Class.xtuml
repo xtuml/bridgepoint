@@ -21,20 +21,7 @@ else
   select one attr related by self->O_RTIDA[R111]->O_OIDA[R110]->O_ATTR[R105];
 	if(not_empty attr)
 	  select one obj related by attr->O_OBJ[R102];
-	  select one rto related by self->O_RTIDA[R111]->R_RTO[R110];
-	  select one cone related by rto->R_AONE[R204];
-	  select one coth related by rto->R_AOTH[R204];
-	  select one casp related by rto->R_PART[R204];
-	  txt_phrase = "";
-	  if(not_empty cone)
-	    txt_phrase = cone.Txt_Phrs;
-	  end if;
-	  if(not_empty coth)
-	    txt_phrase = coth.Txt_Phrs;
-	  end if;
-	  if(not_empty casp)
-	    txt_phrase = casp.Txt_Phrs;
-	  end if;
+      txt_phrase = self.get_referential_phrase();
 	  if not_empty attr and not_empty obj
 	    if(txt_phrase == "") 
 		  return obj.Name + "." + attr.Name + "(" + rel.get_name() + ")";
@@ -113,20 +100,7 @@ INSERT INTO O_TFR
 	'result = "R???";
 select one rel related by self->R_RGO[R111]->R_OIR[R203]->R_REL[R201];
 if ( not_empty rel )
-  select one rto related by self->O_RTIDA[R111]->R_RTO[R110];
-  select one cone related by rto->R_AONE[R204];
-  select one coth related by rto->R_AOTH[R204];
-  select one casp related by rto->R_PART[R204];
-  txt_phrase = "";
-  if(not_empty cone)
-    txt_phrase = cone.Txt_Phrs;
-  end if;
-  if(not_empty coth)
-    txt_phrase = coth.Txt_Phrs;
-  end if;
-  if(not_empty casp)
-    txt_phrase = casp.Txt_Phrs;
-  end if;
+  txt_phrase = self.get_referential_phrase();
   if(txt_phrase == "")
     result = rel.get_name();
   else
@@ -181,6 +155,31 @@ end if;
 	1,
 	'',
 	"3e02f1a5-a5f0-4bce-bb4e-056157e7d216");
+INSERT INTO O_TFR
+	VALUES ("ffe5e476-987c-495d-8343-3b2ffd111b70",
+	"fdfd5407-5392-47ec-9fc2-e1957a3b7852",
+	'get_referential_phrase',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one rto related by self->O_RTIDA[R111]->R_RTO[R110];
+select one cone related by rto->R_AONE[R204];
+select one coth related by rto->R_AOTH[R204];
+select one casp related by rto->R_PART[R204];
+txt_phrase = "";
+if(not_empty cone)
+  txt_phrase = cone.Txt_Phrs;
+end if;
+if(not_empty coth)
+  txt_phrase = coth.Txt_Phrs;
+end if;
+if(not_empty casp)
+  txt_phrase = casp.Txt_Phrs;
+end if;
+return txt_phrase;',
+	1,
+	'',
+	"19ab6875-1685-4b64-947b-ca7ecd2957e3");
 INSERT INTO O_REF
 	VALUES ("fdfd5407-5392-47ec-9fc2-e1957a3b7852",
 	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
@@ -621,26 +620,7 @@ INSERT INTO O_DBATTR
 					.getOneR_RTOOnR110(ReferredToIdentifierAttribute_c
 						.getOneO_RTIDAOnR111(this))));
 if (base_association != null){
-		ReferredToClassInAssoc_c rto = ReferredToClassInAssoc_c
-				.getOneR_RTOOnR110(ReferredToIdentifierAttribute_c
-						.getOneO_RTIDAOnR111(this));
-		ClassAsAssociatedOneSide_c cone = ClassAsAssociatedOneSide_c
-				.getOneR_AONEOnR204(rto);
-		ClassAsAssociatedOtherSide_c coth = ClassAsAssociatedOtherSide_c
-				.getOneR_AOTHOnR204(rto);
-		ClassAsSimpleParticipant_c casp = ClassAsSimpleParticipant_c
-				.getOneR_PARTOnR204(rto);
-
-		String txt_phrase = "";
-		if (cone != null) {
-			txt_phrase = cone.getTxt_phrs();
-		}
-		if (coth != null) {
-			txt_phrase = coth.getTxt_phrs();
-		}
-		if (casp != null) {
-			txt_phrase = casp.getTxt_phrs();
-		}
+		String txt_phrase = Get_referential_phrase();
 		if (txt_phrase.equals("")) {
 			m_rel_name = base_association.Get_name();
 		} else {
