@@ -1,4 +1,4 @@
--- BP 7.1 content: ExternalEntityPackage syschar: 3 persistence-version: 7.1.5
+-- BP 7.1 content: ExternalEntityPackage syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO S_EEPK
 	VALUES ("63cc3c32-ee34-4495-af74-c28667a3ac94",
