@@ -1,21 +1,3 @@
-========================================================================
-File:      Unit_test_checklist.chk
-
-(c) Copyright 2008-2013 by Mentor Graphics Corp. All rights reserved.
-
-========================================================================
-This document contains information proprietary and confidential to
-Mentor Graphics Corp., and is not for external distribution.
-========================================================================
-
-This document captures the state of the BridgePoint unit tests ran against:
- 
-branch: 
-machine: 
-OS: 
-
-Test                                            Who             Result     Time
---------------------------------------------------------------------------------
 com.mentor.nucleus.bp.als.oal.test              -               -
               UseGlobals Parse All TestGenerics xxxx            yyyy       zzzz/790s
 com.mentor.nucleus.bp.core.test                 -               -
@@ -29,11 +11,10 @@ com.mentor.nucleus.bp.core.test                 -               -
               UseGlobals Core Test-SystemLevelTests xxxx        yyyy       zzzz/40s              
 UseGlobals CopyPasteSourceDestinationTestShort  N/A             N/A  [1] 
 com.mentor.nucleus.bp.debug.ui.test (Verifier)    -             -
-              Debug - Verifier Test             xxxx            yyyy [2]   zzzz/1660s
-              UseGlobals Debug - Verifier Test  N/A             N/A  [3]
+              Debug - Verifier Test             xxxx            yyyy       zzzz/1660s
+              Debug - Verifier Test 2           xxxx            yyyy       zzzz/248s
 com.mentor.nucleus.bp.model.compare.test        xxxx            yyyy       zzzz/235s
-com.mentor.nucleus.bp.io.mdl.test                -              -
-              ConvertInformalDiagramsToGenerics xxxx            yyyy       zzzz/10s                            
+com.mentor.nucleus.bp.io.mdl.test                -              -                        
               UseGlobals IO MDL Tests Generics  xxxx            yyyy       zzzz/40s
               UseGlobals IO MDL Tests 2Generics xxxx            yyyy       zzzz/75s
               UseGlobals IO MDL PkgCM Test Suite
@@ -51,9 +32,3 @@ com.mentor.nucleus.bp.ui.properties.test        -               -
 com.mentor.nucleus.bp.ui.text.test                -             -
               UseGlobals UI Text Test           xxxx            yyyy       zzzz/265s
 com.mentor.nucleus.bp.welcome                   xxxx            yyyy       zzzz/275s
-
-N/A - Not applicable (Do not run this test.  It has know problems.)
-[1] The test model data is incomplete, many errors and failures expected
-[2] ~3 failures related to "Process not suspended by breakpoint".  Sometimes 
-will pass all when run in thirds in debug mode
-[3] Test does not complete run, Console output shows "Object is null"
