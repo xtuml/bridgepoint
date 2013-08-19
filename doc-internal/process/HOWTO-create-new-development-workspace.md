@@ -69,6 +69,11 @@ _- Modify Launcher.bat with required development settings:
 
 _- Delete the <git>/internal clone folder you created earlier
 
+_- Install perl
+   - Install perl, any perl installation will work.  For a free version you can
+     always download cygwin, installing the perl package.
+   - Once installed be sure to add the perl location to your PATH variable.
+
 _- Launch eclipse using the desktop shortcut
 
 _- Open the Git repository exploring perspective
@@ -97,7 +102,7 @@ _- Close these projects:
    
 _- Selected build automatically
 
-_R The build is successfull
+_R The build is successful
 
 _- Prepare to run unit tests:
     _- Exit Eclipse
@@ -126,8 +131,22 @@ _- Prepare to run unit tests:
 	             That setting must be set to "smaller" 100%
 	             It is is adjusted your graphical compare restuls will not match,
 	_- Launch Eclipse
+
+_- Setup development environment to run MC3020 under a launch configuration
+   _- Open Windows explorer and navigate to the BridgePoint plugin 
+      installation folder.  The default is:
+      C:\MentorGraphics\BridgePoint\eclipse_extensions\BridgePoint\eclipse\plugins\com.mentor.nucleus.bp.mc.mc3020_<ver>\mc3020
+   _- Select all files and folders in the above folder
+   _- Select copy
+   _- Open the Model Explorer view in Eclipse and navigate to:
+      <workspace>/com.mentor.nucleus.bp.mc.mc3020/mc3020
+   _- Paste the previous selection into this folder
+   _- Open the Model Explorer view in Eclipse and navigate to:
+      <workspace>/com.mentor.nucleus.bp.mc.c.binary/mc3020
+   _- Paste the previous selection into this folder
+       
 	
-_R Your environment is not built and ready for unit testing.
+_R Your environment is now built and ready for unit testing.
 
 
  
