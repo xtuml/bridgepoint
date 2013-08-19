@@ -57,32 +57,33 @@ are under the workspace directory.
 
 6. Design
 ---------
-In this section, describe in detail each step of the Work Required section of
-the analysis, how the task will be accomplished, what technologies will
-be used, algorithms, etc.
-
-6.1 Some design point, with a code example
-```java
-    public void clearDatabase(IProgressMonitor pm) 
-    {
-        // clear the corresponding graphics-root's database
-        OoaofgraphicsUtil.clearGraphicsDatabase(rootId, pm);
-
-        Ooaofooa.getDefaultInstance().fireModelElementUnloaded(this);
-    }
-```
 
 7. Design Comments
 ------------------
-If research carried out during this phase shows that a requirement stated in the
-analysis note is infeasible or needs some modification, enumerate those changes
-here. If there was no preceding analysis note, then this section documents any
-deviations from the design as presented at the design review.
 
 8. Unit Test
 ------------
-Outline all the unit tests that need to pass and describe the method that you
-will use to design and perform the tests.
+__Setup:__ BridgePoint has the new plug-ins and generator with the fix in place.  The license
+server has a single license for bpumlmcc_c (available on svr-azt-eng-01).  The source archetypes
+are in place.  BridgePoint is configured to point at the testing license server.  
+
+8.1  Same workspace build
+  - Start BridgePoint, create a new workspace
+  - Create a new xtUML Project named "local" that uses the source model compiler and is 
+  physically located inside the workspace.
+  - Switch to C/C++ perspective
+  - Build the project
+  - __R__ Build runs, neither BridgePoint or generator give a license error
+
+8.2  Outside workspace build
+  - Start BridgePoint on the workspace from the prior test
+  - Create a new xtUML Project named "remote" that uses the source model compiler and is 
+  physically located outside the workspace.
+  - Switch to C/C++ perspective
+  - Build the project
+  - __R__ Build runs, neither BridgePoint or generator give a license error
+
+8.3  TODO - import existing project that has a Model Compiler.launch, test expected behavior.
 
 End
 ---
