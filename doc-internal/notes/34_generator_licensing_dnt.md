@@ -83,11 +83,22 @@ are under the workspace directory.
   flexibility down the road to pass additiona environment variables to xtumlmc_build/generator
   without modifying the launch file.  This option has the drawbacks that it: is a significant 
   change to the code base, requires us to do a "project upgrade" of some sort to deal with getting
-  rid of existing Model Compiler.launch files in order to run the new-style build.
+  rid of existing Model Compiler.launch files in order to run the new-style build. 
   
 6.4  We will go with option 6.1.1.  It provides a clean and simple approach that will not require
-  a "data upgrade" and it will not require nearly as much development and testing as 6.1.2.
+  a "data upgrade" and it will not require nearly as much development and testing as 6.1.2.  
 
+6.5  Required changes to implement chosen approach:  
+6.5.1  Update ```BridgePointLicenseManager.writeXTUMLDisplayFile();``` to take an argument
+  that is the path to the currently building project's gen/code_generation folder.    
+6.5.2  Update the implementation of ```BridgePointLicenseManager.writeXTUMLDisplayFile(path);``` to 
+  write the .xtumldisplay file to the path argument (creating the folder if it doesn't already exist).
+  Note, the gen/code_generation folder is deleted with each build by the pre-builder and recreated to
+  put the <<system>>.sql file pre-builder creates into the newly cleaned folder.  
+6.5.3  In generator, modify ```u_bplic.c::get_display()```.  Change the relative path traversal to 
+  look for the ```.xtumldisplay``` file in the project's gen/code_generation folder rather than the 
+  workspace.  
+  
 7. Design Comments
 ------------------
 None.
