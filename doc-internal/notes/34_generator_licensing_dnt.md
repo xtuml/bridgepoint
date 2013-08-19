@@ -38,7 +38,7 @@ are under the workspace directory.
   
 5. Analysis
 -----------
-5.1  BridgePoint has a bug in generator that is cuasing the license failure the customer
+5.1  BridgePoint has a bug in generator that is causing the license failure the customer
   is experiencing.  What is happening is this:
 - BridgePoint is writing the <workspace>/.metadata/.xtumldisplay file with the 
   <<machine>>+<<workspace>> info as we designed it [3].
