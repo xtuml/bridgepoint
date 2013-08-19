@@ -1,11 +1,9 @@
 #!/bin/bash
 #=====================================================================
 #
-# File:      $RCSfile: build_installer_bp_linux.sh,v $
-# Version:   $Revision: 1.6 $
-# Modified:  $Date:
+# File:      build_installer_bp_linux.sh
 #
-# Copyright 2006-2012 Mentor Graphics Corporation. All rights reserved.
+# Copyright 2006-2013 Mentor Graphics Corporation. All rights reserved.
 #
 #=====================================================================
 # This document contains information proprietary and confidential to
@@ -26,7 +24,7 @@ date
 PRODUCT_VER="$1"
 
 if [ "${PRODUCT_VER}" = "" ]; then
-  echo "ERROR: You must provide a product version (e.g. HEAD, R2_2_2) as the first argument."
+  echo "ERROR: You must provide a product version (e.g. master, R2_2_2) as the first argument."
   exit 1
 fi
 
@@ -132,7 +130,7 @@ echo "INFO: Done."
 DATESTAMP=`date +%Y%m%d%H%M`
 echo "INFO: Renaming the output file to ${BUNDLE_NAME}_${PRODUCT_VER}_${DATESTAMP}.ixl."
 cd "${WKSP_LOC}/Bundles"
-if [ "${PRODUCT_VER}" = "HEAD" ]; then
+if [ "${PRODUCT_VER}" = "master" ]; then
   rm -rf ${BUNDLE_NAME}_${PRODUCT_VER}_*.ixl
 fi
 mv "${BUNDLE_NAME}.ixl" "${BUNDLE_NAME}_${PRODUCT_VER}_${DATESTAMP}.ixl"
@@ -147,7 +145,7 @@ fi
 
 # Move it to the release area
 echo "INFO: Copying the new installer to the release website."
-if [ "${PRODUCT_VER}" = "HEAD" ]; then
+if [ "${PRODUCT_VER}" = "master" ]; then
   ssh ${SERVER} "(cd '${REMOTE_RELEASE_DIR}'; rm -rf ${BUNDLE_NAME}_${PRODUCT_VER}_*.ixl)"
 fi
 scp -B "${BUNDLE_NAME}_${PRODUCT_VER}_${DATESTAMP}.ixl" "${EXT_SRC_DIR}"
