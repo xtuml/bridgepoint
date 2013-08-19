@@ -1,4 +1,4 @@
-SMA Weekly Meeting Minutes
+MSD Weekly Meeting Minutes
 --------------------------
 * This document was originally maintained in [SVN]
     (http://wv-svn-01.wv.mentorg.com/svn/tenmile/trunk/documentation/review_minutes/SMA_weekly_minutes.txt).
@@ -6,7 +6,7 @@ SMA Weekly Meeting Minutes
     [Bugzilla issue 4055](http://tucson.wv.mentorg.com/bugzilla/show_bug.cgi?id=4055).
     It was then changed to  
     [Clearquest issue dts0100563933](http://dtsweb.wv.mentorg.com/cqweb/#/dtr01/dts01/RECORD/dts0100563933&noframes=true&format=HTML&recordType=Defect).
-* In January 2013 the document began being maintained here on github.  Issue #5 is the github tracking issue now.
+* In January 2013 the document began being maintained here on github.  Issue #30 is the github tracking issue now.
 
 
 
@@ -29,6 +29,48 @@ SMA Weekly Meeting Minutes
  
 ### Customer Support Status
 **Item 1 -** text
+
+
+---
+
+    Date:     August 14, 2013
+    Start:    12:00 EDT
+    End:      12:20 EDT
+    Elapsed:  20 minutes
+    Present:  Bob, Keith, Travis, Campbell, Cort, Heba, others...
+            Dean, others ...
+
+### Engineering Status
+**Keith -** we are up and running with git.  We will flip the switch to make CVS read only this week.  The xtuml/doc
+and xtuml/docmg repositories will be deleted soon.  Cort will create xtuml/generator soon and we will move the source
+code into there.  Bob reports that a branch build with git worked fine for him.  
+
+**Bob -** Sony hit an issue in our JLC implementation.  Our call was doing a checkout/checkin sequence to 
+"test" for a license.  Corporate license team provided a new mechanism to test for licenses that does not do
+a checkout/checkin.  We still have similar behavior in generator.  It does this to validate a good connection
+to the license server.  We are not planning to change this right now.  Bob did a branch build with the new
+behavior.  We will put this through promotion process.  
+
+**Cort -** Sony is pouring over the license log.  We are trying to be responsive to their concerns.    
+
+**Keith -** Agilent has 2 issues, a CLI Build problem and a 4.0 licensing problem.  Keith and Bob have worked with
+Martin to resolve the problems.  With a proper setup we have shown 4.0 keys to work.  We just need to get their 
+configuration set up to achieve this success. We have provided patched plugins for the CLI Build issue.  It works now
+on my system, but not on Martin's.  Provided another patched plug-in with more instrumentation to help debug.  Still
+trying to resolve.  
+
+**Heba -** The situation in Cairo is concerning but she and Nehad are safe and working from home.  
+
+### Marketing Status
+**Dean -** 
+- Jayne in Washington at mil-aero trade show.
+- Working with Sony account team to solidify how they want to sell the products.  Sony is not a fan of linger, and wants
+  to explore alternative approaches.
+- There are a group of shows upcoming in September and October.  Plans and presentations are being created.
+
+ 
+### Customer Support Status
+None.
 
 
 ---

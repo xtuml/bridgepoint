@@ -1,30 +1,7 @@
 TODO List - Keith Brown
 --------------------------
 
-DocGen  
-- Check DocGen on \\wv\dfs\bridgepoint\test_data\dts0100909525\Modified_MO.zip, first test had it not showing the internal classes of MO.  
-- "Class Activities" should be proceeded by the name of the class in section title with descriptions "Here are ..."  
-- The attributes and operations of a class are not listed anywhere in table form.  Think this should show up where the text "Class Package" is output.  
-
-git  
-- write tagging HOWTO and update T&Cs
-- build scripts in mc skb_add_artifacts_6 branch (an INT exists)
-
-Get all data off VSI SVN server that we want, move to git  
-
-Write Amazon S3 upload HOWTO  
-- CloudBerry
-- kbrown1 VM
-- FTP/S3 credentials from theotherfirm
-- upload files
-- set security properties (All Users > Read) on newly uploaded files
-- update xtuml.org downloads page
-
-- update new-start (extra git tools in cygwin [libsasl2, ca-certificates], model repo ENV vars)
-
-- Get OSS approval for new egit 2.3, include it in the build  
-
-Commit TODO list against **Issue #8**
+Commit TODO list against **Issue #29**
 
 ---
 
@@ -41,6 +18,71 @@ text
 
 #### Checklist
 - text
+
+---
+
+    Weekly Report for Week of 2013/08/12
+
+#### Hours
+UML Tools:  40 / 
+Holiday: 0 / 
+FTO: 0 / 
+Total: 40
+
+#### Weekly Summary
+text
+
+#### Checklist
+- Review int for #14, complete work to ready for pull
+- Shared desktop session with Martin.  4.0 issues on his local machine seem to be resolved.  He took action to check the server.
+- Added additional printfs to CLI Build.  Delivered to Martin for testing.
+- Fixed build scripts to clean out old installers from tucson webpage master dir
+- Linux: xtumlmc_build.exe launch errors, need to run dos2unix on xtumlmc_build.exe script
+- Updated windows post-install to use MIP Command to create desktop shortcut
+- Write Amazon S3 upload HOWTO  
+- Update tucson:/opt/cqcvslink/verify.pl to be gatekeeper for CVS repository read only rule
+- Closed Agilent #117: Added additional printfs to CLI Build.  Delivered to Martin for testing.
+  - The issue is that his .cproject file was not writeable.  The CLI Build needs to write this file to switch the config.
+    Open an issue to check this.
+- Found the problem with the problem of failing to acquire the MC-3020 source license.  Opened dts0100995063
+
+---
+
+    Weekly Report for Week of 2013/08/05
+
+#### Hours
+UML Tools:  16 / 
+Holiday: 0 / 
+FTO: 24 / 
+Total: 40
+
+#### Weekly Summary
+Worked on Agilent issues with Martin, then took FTO for 3 days.  
+
+#### Checklist  
+- commit doc updates  
+- Review int for #17, complete work to ready for pull  
+- Help Martin with 4.0 licensing probs  
+- Help Martin with CLI build config issue  
+
+---
+
+    Weekly Report for Week of 2013/07/29
+
+#### Hours
+UML Tools:  40 / 
+Holiday: 0 / 
+FTO: 0 / 
+Total: 40
+
+#### Weekly Summary  
+Ongoing cleanup for our git-based process.  
+
+#### Checklist  
+- Initial work to move MC-Java.test to github  
+- Update final review checklist  
+- Update promotion checklist  
+- More fixes for CLI build problems found at Agilent  
 
 ---
 
