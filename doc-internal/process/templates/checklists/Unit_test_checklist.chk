@@ -17,40 +17,40 @@ OS:
 Test                                            Who             Result     Time
 --------------------------------------------------------------------------------
 com.mentor.nucleus.bp.als.oal.test              -               -
-              UseGlobals Parse All TestGenerics xxxx            yyyy       790s
+              UseGlobals Parse All TestGenerics xxxx            yyyy       zzzz/790s
 com.mentor.nucleus.bp.core.test                 -               -
-              Core Test-RTO Move                xxxx            yyyy       290s
-              Core Test-Consistency             xxxx            yyyy       10s
-              Core Test-Workspace Setup Generic xxxx            yyyy       85s
-              Core Test-Existing Projects Gener xxxx            yyyy       10s 
-              Core Generic Upgrade Test         xxxx            yyyy       4s
-              UseGlobals Core Test Generics     xxxx            yyyy       1165s  
-              UseGlobals Core Test 2Generics    xxxx            yyyy       340s     
-              UseGlobals Core Test-SystemLevelTests xxxx        yyyy       40s              
+              Core Test-RTO Move                xxxx            yyyy       zzzz/290s
+              Core Test-Consistency             xxxx            yyyy       zzzz/10s
+              Core Test-Workspace Setup Generic xxxx            yyyy       zzzz/85s
+              Core Test-Existing Projects Gener xxxx            yyyy       zzzz/10s 
+              Core Generic Upgrade Test         xxxx            yyyy       zzzz/4s
+              UseGlobals Core Test Generics     xxxx            yyyy       zzzz/1165s  
+              UseGlobals Core Test 2Generics    xxxx            yyyy       zzzz/340s     
+              UseGlobals Core Test-SystemLevelTests xxxx        yyyy       zzzz/40s              
 UseGlobals CopyPasteSourceDestinationTestShort  N/A             N/A  [1] 
 com.mentor.nucleus.bp.debug.ui.test (Verifier)    -             -
-              Debug - Verifier Test             xxxx            yyyy [2]   1660s
+              Debug - Verifier Test             xxxx            yyyy [2]   zzzz/1660s
               UseGlobals Debug - Verifier Test  N/A             N/A  [3]
-com.mentor.nucleus.bp.model.compare.test        xxxx            yyyy       235s
+com.mentor.nucleus.bp.model.compare.test        xxxx            yyyy       zzzz/235s
 com.mentor.nucleus.bp.io.mdl.test                -              -
-              ConvertInformalDiagramsToGenerics xxxx            yyyy       10s                            
-              UseGlobals IO MDL Tests Generics  xxxx            yyyy       40s
-              UseGlobals IO MDL Tests 2Generics xxxx            yyyy       75s
+              ConvertInformalDiagramsToGenerics xxxx            yyyy       zzzz/10s                            
+              UseGlobals IO MDL Tests Generics  xxxx            yyyy       zzzz/40s
+              UseGlobals IO MDL Tests 2Generics xxxx            yyyy       zzzz/75s
               UseGlobals IO MDL PkgCM Test Suite
-                                       Generics xxxx            yyyy       1370s
-com.mentor.nucleus.bp.io.sql.test               xxxx            yyyy       5s
-com.mentor.nucleus.bp.search.test               xxxx            yyyy       15s
+                                       Generics xxxx            yyyy       zzzz/1370s
+com.mentor.nucleus.bp.io.sql.test               xxxx            yyyy       zzzz/5s
+com.mentor.nucleus.bp.search.test               xxxx            yyyy       zzzz/15s
 com.mentor.nucleus.bp.ui.canvas.test            -               -
-              UseGlobals UI Canvas Suite 1      xxxx            yyyy       2265s
-              UseGlobals UI Canvas Suite 2      xxxx            yyyy       425s
-              UseGlobals UI Canvas CCP Test     xxxx            yyyy       2230s
+              UseGlobals UI Canvas Suite 1      xxxx            yyyy       zzzz/2265s
+              UseGlobals UI Canvas Suite 2      xxxx            yyyy       zzzz/425s
+              UseGlobals UI Canvas CCP Test     xxxx            yyyy       zzzz/2230s
 com.mentor.nucleus.bp.ui.explorer.test          -               -
-              UseGlobals UI Explorer Test       xxxx            yyyy       135s
+              UseGlobals UI Explorer Test       xxxx            yyyy       zzzz/135s
 com.mentor.nucleus.bp.ui.properties.test        -               -
-              UseGlobals UI Properties Test     xxxx            yyyy       35s
+              UseGlobals UI Properties Test     xxxx            yyyy       zzzz/35s
 com.mentor.nucleus.bp.ui.text.test                -             -
-              UseGlobals UI Text Test           xxxx            yyyy       265s
-com.mentor.nucleus.bp.welcome                   xxxx            yyyy       275s
+              UseGlobals UI Text Test           xxxx            yyyy       zzzz/265s
+com.mentor.nucleus.bp.welcome                   xxxx            yyyy       zzzz/275s
 
 N/A - Not applicable (Do not run this test.  It has know problems.)
 [1] The test model data is incomplete, many errors and failures expected
