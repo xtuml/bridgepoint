@@ -50,7 +50,6 @@ public class IOMdlGlobalsTestSuite2Generics extends TestSuite {
 	    addTest(new TestSuite(IOMdlIIGlobalsTestGenerics.class));
 	    addTest(new TestSuite(IOMdlTestSuiteIIGenerics.class));
         addTest(new TestSuite(ImportWizardTestsGenerics.class));
-        addTest(new TestSuite(RCSOperationsTest.class));
         
         TestSuite testSuite = new ConsistencyTestSuite();
 		addTest(testSuite);        

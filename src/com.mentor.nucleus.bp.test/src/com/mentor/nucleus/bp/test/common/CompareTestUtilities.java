@@ -30,7 +30,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.ui.part.PageBook;
 
 import com.mentor.nucleus.bp.compare.ComparePlugin;
 import com.mentor.nucleus.bp.compare.ModelCacheManager;
@@ -232,6 +231,22 @@ public class CompareTestUtilities {
 					} else {
 						string = string.replaceAll("\r", "");
 						rightResult = rightResult + string + "\r\n";
+					}
+				}
+			} else {
+				List<String> targetLines = new ArrayList<String>();
+				String[] rightLines = rightResult.split("\n");
+				for (int i = 0; i < rightLines.length; i++) {
+					targetLines.add(rightLines[i]);
+				}
+				rightResult = "";
+				for (int i = 0; i < targetLines.size(); i++) {
+					String string = targetLines.get(i);
+					if (string.contains("Referenced Over")) {
+						string = string.replaceAll("\\.'.*'", "");
+						rightResult = rightResult + string + "\n";
+					} else {
+						rightResult = rightResult + string + "\n";
 					}
 				}
 			}
