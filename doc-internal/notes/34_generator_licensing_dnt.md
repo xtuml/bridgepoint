@@ -18,7 +18,7 @@ successfully from eclipse to generator causing a generator license failure.
 2. Document References
 ----------------------
 [1] Issues 34, https://github.com/xtuml/internal/issues/34  
-[2] DEI dts0100995063
+[2] DEI dts0100995063  
 [3] <CVS>/Documentation/internal/technical/notes/dts0100969061-969050.int
 
 3. Background
@@ -38,12 +38,22 @@ are under the workspace directory.
   
 5. Analysis
 -----------
-This section is only required if there is no preceding analysis note. If present
-it sets out a brief analysis of the problem to be resolved by this design note.
+5.1  BridgePoint has a bug in generator that is cuasing the license failure the customer
+  is experiencing.  What is happening is this:
+- BridgePoint is writing the <workspace>/.metadata/.xtumldisplay file with the 
+  <machine>+<workspace> info as we designed it [3].
+- Generator is invoked on a project in the workspace.  It then looks for the .xtumldisplay 
+  file using a relative path from the project to the workspace .metadata/ folder.  
 
-* Item 1
-* Item 2
-* Item 3
+5.2  This mechanism works fine, as long as the project is actually in the workspace.  But 
+  eclipse lets you have projects in the workspace that actually live elsewhere on disk (e.g. 
+  a project that lives in a git repository at c:/gitrepo/ but you're running a workspace at 
+  c:/workspace/current).  
+
+  Thus, generator fails to find the .xtumldisplay file and fails to check out the model compiler
+  license because generator defaulted to PID as the display data since it couldn't read it 
+  passed in from eclipse.
+
 
 6. Design
 ---------
