@@ -1,4 +1,4 @@
--- BP 7.1 content: Subsystem syschar: 3 persistence-version: 7.1.5
+-- BP 7.1 content: Subsystem syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO S_SS
 	VALUES ("09200836-48e4-4cd0-b7a9-46650ace0a38",

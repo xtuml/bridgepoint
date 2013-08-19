@@ -21,6 +21,33 @@ text
 
 ---
 
+    Weekly Report for Week of 2013/08/12
+
+#### Hours
+UML Tools:  40 / 
+Holiday: 0 / 
+FTO: 0 / 
+Total: 40
+
+#### Weekly Summary
+text
+
+#### Checklist
+- Review int for #14, complete work to ready for pull
+- Shared desktop session with Martin.  4.0 issues on his local machine seem to be resolved.  He took action to check the server.
+- Added additional printfs to CLI Build.  Delivered to Martin for testing.
+- Fixed build scripts to clean out old installers from tucson webpage master dir
+- Linux: xtumlmc_build.exe launch errors, need to run dos2unix on xtumlmc_build.exe script
+- Updated windows post-install to use MIP Command to create desktop shortcut
+- Write Amazon S3 upload HOWTO  
+- Update tucson:/opt/cqcvslink/verify.pl to be gatekeeper for CVS repository read only rule
+- Closed Agilent #117: Added additional printfs to CLI Build.  Delivered to Martin for testing.
+  - The issue is that his .cproject file was not writeable.  The CLI Build needs to write this file to switch the config.
+    Open an issue to check this.
+- Found the problem with the problem of failing to acquire the MC-3020 source license.  Opened dts0100995063
+
+---
+
     Weekly Report for Week of 2013/08/05
 
 #### Hours

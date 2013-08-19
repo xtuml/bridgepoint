@@ -2,8 +2,8 @@ package com.mentor.nucleus.bp.model.compare.contentmergeviewer;
 //=====================================================================
 //
 //File:      $RCSfile: SynchronizedTreeViewer.java,v $
-//Version:   $Revision: 1.7 $
-//Modified:  $Date: 2013/05/10 13:26:00 $
+//Version:   $Revision: 1.7.14.4 $
+//Modified:  $Date: 2013/07/24 19:20:29 $
 //
 //(c) Copyright 2013 by Mentor Graphics Corp. All rights reserved.
 //
@@ -12,6 +12,8 @@ package com.mentor.nucleus.bp.model.compare.contentmergeviewer;
 //Mentor Graphics Corp. and is not for external distribution.
 //=====================================================================
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,14 +69,18 @@ import com.mentor.nucleus.bp.core.common.ITransactionListener;
 import com.mentor.nucleus.bp.core.common.Transaction;
 import com.mentor.nucleus.bp.core.common.TransactionManager;
 import com.mentor.nucleus.bp.core.inspector.ObjectElement;
+import com.mentor.nucleus.bp.core.sorter.MetadataSortingManager;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 import com.mentor.nucleus.bp.model.compare.ComparePlugin;
+import com.mentor.nucleus.bp.model.compare.CompareTransactionManager;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager;
 import com.mentor.nucleus.bp.model.compare.TreeDifference;
 import com.mentor.nucleus.bp.model.compare.TreeDifferencer;
 import com.mentor.nucleus.bp.model.compare.actions.CollapseAllAction;
 import com.mentor.nucleus.bp.model.compare.actions.ExpandAllAction;
+import com.mentor.nucleus.bp.model.compare.actions.MoveDownAction;
+import com.mentor.nucleus.bp.model.compare.actions.MoveUpAction;
 import com.mentor.nucleus.bp.model.compare.providers.ObjectElementComparable;
 import com.mentor.nucleus.bp.model.compare.structuremergeviewer.ModelStructureDiffViewer;
 import com.mentor.nucleus.bp.ui.explorer.ui.actions.ExplorerCopyAction;
@@ -92,6 +98,7 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 	protected IAction cut, copy, paste;
 	protected IAction open, delete, rename;
 	protected IAction fileImport, fileExport;
+	protected IAction moveUp, moveDown;
 
 	private ModelContentMergeViewer mergeViewer;
 
@@ -581,6 +588,17 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 				// delete.setEnabled(DeleteAction.canDeleteAction());
 				// mgr.add(delete);
 				// }
+				boolean includeMoveUp = includeMoveUpOperation();
+				boolean includeMoveDown = includeMoveDownOperation();
+				if(includeMoveUp || includeMoveDown) {
+					mgr.add(new Separator());
+				}
+				if(includeMoveUp) {
+					mgr.add(moveUp);
+				}
+				if(includeMoveDown) {
+					mgr.add(moveDown);
+				}
 				mgr.add(new Separator());
 				mgr.add(expandAll);
 				mgr.add(collapseAll);
@@ -591,6 +609,72 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 		});
 		Menu menu = menuManager.createContextMenu(getTree());
 		getTree().setMenu(menu);
+	}
+
+	protected boolean includeMoveUpOperation() {
+		if ((getMergeViewer().getLeftViewer() == this && !getMergeViewer()
+				.isLeftEditable())
+				|| (getMergeViewer().getRightViewer() == this && !getMergeViewer()
+						.isRightEditable())) {
+			return false;
+		}
+		IStructuredSelection selection = (IStructuredSelection) getSelection();
+		if (selection.size() == 1) {
+			Object element = selection.getFirstElement();
+			Object realElement = ((ComparableTreeObject) element)
+					.getRealElement();
+			if (MetadataSortingManager.isOrderedElement(realElement)) {
+				try {
+					Method method = realElement.getClass().getMethod("Actionfilter", new Class[] {String.class, String.class}); //$NON-NLS-1$
+					Boolean bool = (Boolean) method.invoke(realElement, new Object[] {"can", "move up"}); //$NON-NLS-1$ $NON-NLS-2$
+					return bool;
+				} catch (SecurityException e) {
+					CorePlugin.logError("Unable to test for ordering ability.", e);
+				} catch (NoSuchMethodException e) {
+					CorePlugin.logError("Unable to test for ordering ability.", e);
+				} catch (IllegalArgumentException e) {
+					CorePlugin.logError("Unable to test for ordering ability.", e);
+				} catch (IllegalAccessException e) {
+					CorePlugin.logError("Unable to test for ordering ability.", e);
+				} catch (InvocationTargetException e) {
+					CorePlugin.logError("Unable to test for ordering ability.", e);
+				}
+			}
+		}
+		return false;
+	}
+
+	protected boolean includeMoveDownOperation() {
+		if ((getMergeViewer().getLeftViewer() == this && !getMergeViewer()
+				.isLeftEditable())
+				|| (getMergeViewer().getRightViewer() == this && !getMergeViewer()
+						.isRightEditable())) {
+			return false;
+		}
+		IStructuredSelection selection = (IStructuredSelection) getSelection();
+		if (selection.size() == 1) {
+			Object element = selection.getFirstElement();
+			Object realElement = ((ComparableTreeObject) element)
+					.getRealElement();
+			if (MetadataSortingManager.isOrderedElement(realElement)) {
+				try {
+					Method method = realElement.getClass().getMethod("Actionfilter", new Class[] {String.class, String.class}); //$NON-NLS-1$
+					Boolean bool = (Boolean) method.invoke(realElement, new Object[] {"can", "move down"}); //$NON-NLS-1$ $NON-NLS-2$
+					return bool;
+				} catch (SecurityException e) {
+					CorePlugin.logError("Unable to test for ordering ability.", e);
+				} catch (NoSuchMethodException e) {
+					CorePlugin.logError("Unable to test for ordering ability.", e);
+				} catch (IllegalArgumentException e) {
+					CorePlugin.logError("Unable to test for ordering ability.", e);
+				} catch (IllegalAccessException e) {
+					CorePlugin.logError("Unable to test for ordering ability.", e);
+				} catch (InvocationTargetException e) {
+					CorePlugin.logError("Unable to test for ordering ability.", e);
+				}
+			}
+		}
+		return false;
 	}
 
 	private void createActions() {
@@ -608,6 +692,10 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 		cut = new ExplorerCutAction(this);
 		copy = new ExplorerCopyAction(this);
 		paste = new ExplorerPasteAction();
+		moveUp = new MoveUpAction(this);
+		moveUp.setText("Move Up");
+		moveDown = new MoveDownAction(this);
+		moveDown.setText("Move Down");
 		// Delete and Rename are retargetable actions defined by core.
 		//
 		//		delete = new DeleteAction(CorePlugin.getImageDescriptor("delete_edit.gif")) { //$NON-NLS-1$
@@ -802,7 +890,7 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 		super.handleTreeExpand(event);
 	}
 
-	TreeItem getMatchingItem(Object data, SynchronizedTreeViewer viewer) {
+	public TreeItem getMatchingItem(Object data, SynchronizedTreeViewer viewer) {
 		if (data == null)
 			return null;
 		TreeItem item = (TreeItem) viewer.findItem(data);
@@ -882,17 +970,7 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 			@Override
 			public void run() {
 				if (SynchronizedTreeViewer.this == SynchronizedTreeViewer.this.mergeViewer
-						.getLeftViewer()) {
-					// only process the transaction if its from the compare
-					// merge
-					// otherwise just refresh as something has changed outside
-					// the
-					// tool
-					if (transaction.getTransactionManager() != TransactionManager
-							.getSingleton()) {
-						mergeViewer.getCompareTransactionManager()
-								.processTransaction(transaction);
-					}
+						.getLeftViewer() && transaction.getTransactionManager() != TransactionManager.getSingleton()) {
 					SynchronizedTreeViewer.this.mergeViewer.getDifferencer()
 							.refresh();
 					// refresh the structural diff view if present
@@ -951,6 +1029,11 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 
 	public boolean isEditable() {
 		return editable;
+	}
+
+	public void unmap() {
+		unmapAllElements();
+		refresh();
 	}
 
 }

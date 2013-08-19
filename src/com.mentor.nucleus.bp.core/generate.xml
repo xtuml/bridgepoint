@@ -2,8 +2,8 @@
 <!--
 
  File:      $RCSfile: generate.xml,v $
- Version:   $Revision: 1.116 $
- Modified:  $Date: 2013/06/12 13:08:23 $
+ Version:   $Revision: 1.116.10.1 $
+ Modified:  $Date: 2013/07/31 20:58:54 $
 
  (c) Copyright 2005-2013 Mentor Graphics Corporation  All rights reserved.
 
@@ -627,6 +627,9 @@
 
     <echo>Removing generated java source files ...</echo>
     <delete verbose="true" >
+    	<fileset dir="src/com/mentor/nucleus/bp/core/util" includes="ActionLanguageDescriptionUtil.java" />
+    	<fileset dir="src/com/mentor/nucleus/bp/core/util" includes="GlobalsUtil.java" />
+    	<fileset dir="src/com/mentor/nucleus/bp/core/util" includes="SupertypeSubtypeUtil.java" />
         <fileset dir="src/com/mentor/nucleus/bp/core"
            excludes="${cvs_java_files}" />
     </delete>

@@ -2,8 +2,8 @@ package com.mentor.nucleus.bp.model.compare.providers;
 //=====================================================================
 //
 //File:      $RCSfile: TreeDifferenceContentProvider.java,v $
-//Version:   $Revision: 1.3 $
-//Modified:  $Date: 2013/05/10 13:26:04 $
+//Version:   $Revision: 1.3.14.2 $
+//Modified:  $Date: 2013/07/24 19:20:30 $
 //
 //(c) Copyright 2013 by Mentor Graphics Corp. All rights reserved.
 //
@@ -103,18 +103,18 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 			NonRootModelElement[] ancestorRoots = new NonRootModelElement[0];
 			try {
 				leftRoots = modelCacheManager.getRootElements(
-						((ICompareInput) inputElement).getLeft(), this, false,
+						((ICompareInput) inputElement).getLeft(), null, false,
 						Ooaofooa.getInstance(Ooaofooa
 								.getLeftCompareRootPrefix()
 								+ inputElement.hashCode()), ModelCacheManager.getLeftKey(inputElement));
 				rightRoots = modelCacheManager.getRootElements(
-						((ICompareInput) inputElement).getRight(), this, false,
+						((ICompareInput) inputElement).getRight(), null, false,
 						Ooaofooa.getInstance(Ooaofooa
 								.getRightCompareRootPrefix()
 								+ inputElement.hashCode()), ModelCacheManager.getRightKey(inputElement));
 				if (((ICompareInput) inputElement).getAncestor() != null) {
 					ancestorRoots = modelCacheManager.getRootElements(
-							((ICompareInput) inputElement).getAncestor(), this,
+							((ICompareInput) inputElement).getAncestor(), null,
 							false, Ooaofooa.getInstance(Ooaofooa
 									.getAncestorCompareRootPrefix()
 									+ inputElement.hashCode()), ModelCacheManager.getAncestorKey(inputElement));
@@ -123,11 +123,8 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 				CorePlugin.logError("Unable to load model for comparison.", e);
 			}
 			if(differencer == null) {
-				differencer = TreeDifferencer.getInstance(inputElement);
-				if(differencer == null) {
-					differencer = new TreeDifferencer(modelContentProvider, leftRoots,
-							rightRoots, ancestorRoots, ancestorRoots != null ? ancestorRoots.length != 0 : false, inputElement);
-				}
+				differencer = new TreeDifferencer(modelContentProvider, leftRoots,
+						rightRoots, ancestorRoots, ancestorRoots != null ? ancestorRoots.length != 0 : false, inputElement);
 				labelProvider.setDifferencer(differencer);
 			} else {
 				differencer.setElements(leftRoots, rightRoots, ancestorRoots);

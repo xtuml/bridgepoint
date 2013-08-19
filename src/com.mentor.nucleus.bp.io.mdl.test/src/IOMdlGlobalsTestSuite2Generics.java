@@ -27,7 +27,6 @@ import com.mentor.nucleus.bp.io.mdl.test.IOMdlTestSuiteIIGenerics;
 import com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals;
 import com.mentor.nucleus.bp.io.mdl.test.OALPersistenceTestsGenerics;
 import com.mentor.nucleus.bp.io.mdl.test.SLDTTestsGenerics;
-import com.mentor.nucleus.bp.io.mdl.test.pkgcm.RCSOperationsTest;
 import com.mentor.nucleus.bp.io.mdl.test.wizards.ImportWizardTestsGenerics;
 import com.mentor.nucleus.bp.ui.canvas.test.ModelRecreationTests;
 

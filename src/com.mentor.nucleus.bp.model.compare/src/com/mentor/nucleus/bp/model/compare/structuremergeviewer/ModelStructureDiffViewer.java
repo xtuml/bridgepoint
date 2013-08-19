@@ -2,8 +2,8 @@ package com.mentor.nucleus.bp.model.compare.structuremergeviewer;
 //=====================================================================
 //
 //File:      $RCSfile: ModelStructureDiffViewer.java,v $
-//Version:   $Revision: 1.3 $
-//Modified:  $Date: 2013/05/10 13:26:06 $
+//Version:   $Revision: 1.3.14.2 $
+//Modified:  $Date: 2013/07/23 15:06:36 $
 //
 //(c) Copyright 2013 by Mentor Graphics Corp. All rights reserved.
 //
@@ -30,19 +30,13 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
-import com.mentor.nucleus.bp.core.CorePlugin;
-import com.mentor.nucleus.bp.core.Ooaofooa;
-import com.mentor.nucleus.bp.model.compare.ComparePlugin;
-import com.mentor.nucleus.bp.model.compare.ModelCacheManager;
 import com.mentor.nucleus.bp.model.compare.TreeDifference;
-import com.mentor.nucleus.bp.model.compare.ModelCacheManager.ModelLoadException;
 import com.mentor.nucleus.bp.model.compare.contentmergeviewer.ModelContentMergeViewer;
 import com.mentor.nucleus.bp.model.compare.providers.TreeDifferenceContentProvider;
 import com.mentor.nucleus.bp.model.compare.providers.TreeDifferenceLabelProvider;
@@ -68,6 +62,7 @@ public class ModelStructureDiffViewer extends TreeViewer implements ICompareInpu
 			
 			@Override
 			public void run() {
+				refresh();
 				TreeItem topItem = getTree().getItem(0);
 				if(topItem.getItemCount() > 0) {
 					TreeDifference difference = ((TreeDifferenceContentProvider) getContentProvider())
@@ -82,7 +77,7 @@ public class ModelStructureDiffViewer extends TreeViewer implements ICompareInpu
 			}
 		});
 	}
-	
+
 	private void createActions() {
 		expandAll = new Action() {
 			
@@ -120,68 +115,21 @@ public class ModelStructureDiffViewer extends TreeViewer implements ICompareInpu
 	}
 
 	@Override
-	public void handleDispose(DisposeEvent event) {
-		releaseModels();
-		super.handleDispose(event);
-	}
-
-	private void releaseModels() {
-		if(getInput() != null) {
-			Ooaofooa leftRoot = Ooaofooa.getInstance(Ooaofooa
-					.getLeftCompareRootPrefix()
-					+ getInput().hashCode());
-			Ooaofooa rightRoot = Ooaofooa.getInstance(Ooaofooa
-					.getRightCompareRootPrefix()
-					+ getInput().hashCode());
-			Ooaofooa ancestorRoot = Ooaofooa.getInstance(Ooaofooa
-					.getAncestorCompareRootPrefix()
-					+ getInput().hashCode());
-			ComparePlugin.getDefault().getModelCacheManager().releaseModel(
-					getInput(), getContentProvider(), leftRoot, ModelCacheManager.getLeftKey(getInput()));
-			ComparePlugin.getDefault().getModelCacheManager().releaseModel(
-					getInput(), getContentProvider(), rightRoot, ModelCacheManager.getRightKey(getInput()));
-			ComparePlugin.getDefault().getModelCacheManager().releaseModel(
-					getInput(), getContentProvider(), ancestorRoot,
-					ModelCacheManager.getAncestorKey(getInput()));
-		}
-	}
-
-	@Override
 	protected void inputChanged(Object input, Object oldInput) {
 		if(input == null && oldInput == null) {
 			return;
 		}
-		releaseModels();
 		if(oldInput != null) {
 			configuration.getContainer().removeCompareInputChangeListener((ICompareInput) oldInput, this);
 		}
 		if(input != null) {
 			configuration.getContainer().addCompareInputChangeListener((ICompareInput) input, this);
-			super.inputChanged(input, oldInput);
-			ModelCacheManager modelCacheManager = ComparePlugin.getDefault().getModelCacheManager();
-			try {
-				modelCacheManager.getRootElements(((ICompareInput) input)
-						.getLeft(), this, false, Ooaofooa.getInstance(Ooaofooa
-						.getLeftCompareRootPrefix()
-						+ input.hashCode()), ModelCacheManager.getLeftKey(getInput()));
-				modelCacheManager.getRootElements(((ICompareInput) input)
-						.getRight(), this, false, Ooaofooa.getInstance(Ooaofooa
-						.getRightCompareRootPrefix()
-						+ input.hashCode()), ModelCacheManager.getRightKey(getInput()));
-				if (((ICompareInput) input).getAncestor() != null) {
-					modelCacheManager.getRootElements(((ICompareInput) input)
-							.getAncestor(), this, false, Ooaofooa.getInstance(Ooaofooa
-							.getAncestorCompareRootPrefix()
-							+ input.hashCode()), ModelCacheManager.getAncestorKey(getInput()));
-				}
-			} catch (ModelLoadException e) {
-				CorePlugin.logError("Unable to load new input.", e);
-			}
 		}
 		inputMap.remove(oldInput);
 		if(input != null) {
 			inputMap.put(input, this);
 		}
+		refreshModel();
 	}
 
 	@Override

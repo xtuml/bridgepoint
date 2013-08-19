@@ -1,4 +1,4 @@
--- BP 7.1 content: Domain syschar: 3 persistence-version: 7.1.5
+-- BP 7.1 content: Domain syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO S_DOM
 	VALUES ("9a662eb5-6f9e-4a55-9a99-709b735261c1",
