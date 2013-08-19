@@ -268,7 +268,7 @@ INSERT INTO O_REF
 	'',
 	'Connector',
 	'GE_ID',
-	'R8');
+	'R8.''is text for''');
 INSERT INTO O_RATTR
 	VALUES ("d1ee8fe0-4b50-6026-e0e8-033a9efda06a",
 	"ef73a5f3-0b6a-14b0-83e7-da26c014496f",
@@ -2224,7 +2224,7 @@ INSERT INTO O_REF
 	'',
 	'Graphical Element',
 	'GE_ID',
-	'R3');
+	'R3.''starts at''');
 INSERT INTO O_RATTR
 	VALUES ("ae5d3533-dad3-85f2-779b-55f6164c1497",
 	"34ecd891-07e3-24b8-6363-8f0029433be0",
@@ -2260,7 +2260,7 @@ INSERT INTO O_REF
 	'',
 	'Graphical Element',
 	'GE_ID',
-	'R4');
+	'R4.''ends at''');
 INSERT INTO O_RATTR
 	VALUES ("b5944ec1-f2ae-8786-0b7b-0a364b052571",
 	"34ecd891-07e3-24b8-6363-8f0029433be0",
@@ -2299,7 +2299,7 @@ In other words, this assertion must always be true:
 Line_Segment[self.assoc_GE_ID].conn_GE_ID == self.GE_ID',
 	'Line Segment',
 	'GE_ID',
-	'R5');
+	'R5.''has connector which ends at''');
 INSERT INTO O_RATTR
 	VALUES ("94572e35-b354-fccc-617b-6d5fb4cf09fa",
 	"34ecd891-07e3-24b8-6363-8f0029433be0",
@@ -2455,7 +2455,7 @@ INSERT INTO O_REF
 	'',
 	'Graphical Element',
 	'GE_ID',
-	'R12');
+	'R12.''is resizing''');
 INSERT INTO O_RATTR
 	VALUES ("e28fc54d-1ae6-1f9c-67f1-d4dd19c0e12a",
 	"cbb02157-372f-b2fc-cd24-d1fa365af7da",
@@ -2490,7 +2490,7 @@ INSERT INTO O_REF
 	'',
 	'Model',
 	'Model_ID',
-	'R12');
+	'R12.''is resized in''');
 INSERT INTO O_RATTR
 	VALUES ("00f0b63c-ba5d-f146-1c77-a09b559fd7d3",
 	"cbb02157-372f-b2fc-cd24-d1fa365af7da",
@@ -2733,7 +2733,7 @@ INSERT INTO O_REF
 	'',
 	'Element Specification',
 	'OOA_Type',
-	'R11');
+	'R11.''can show''');
 INSERT INTO O_RATTR
 	VALUES ("50f56fc7-52c2-1432-1009-ffbb0d97f845",
 	"5dcba253-0e77-0222-a9f3-ad8f807b610a",
@@ -2768,7 +2768,7 @@ INSERT INTO O_REF
 	'',
 	'Model Specification',
 	'Model_Type',
-	'R11');
+	'R11.''can appear on''');
 INSERT INTO O_RATTR
 	VALUES ("5f0b865d-3e8b-c2a8-be36-da917cfe1620",
 	"5dcba253-0e77-0222-a9f3-ad8f807b610a",
@@ -3435,7 +3435,7 @@ INSERT INTO O_REF
 	'',
 	'Model',
 	'Model_ID',
-	'R1');
+	'R1.''is part of''');
 INSERT INTO O_RATTR
 	VALUES ("e5cdce75-29f4-4ad9-a2de-5c394dfa8c44",
 	"0712975f-5f21-1169-4125-3607674c79b8",
@@ -3492,7 +3492,7 @@ INSERT INTO O_REF
 	'',
 	'Element Specification',
 	'OOA_Type',
-	'R10');
+	'R10.''is instance of''');
 INSERT INTO O_RATTR
 	VALUES ("df245e0d-7641-d533-9925-7ced8b4d6b4d",
 	"0712975f-5f21-1169-4125-3607674c79b8",
@@ -3964,7 +3964,7 @@ INSERT INTO O_REF
 	'',
 	'Connector',
 	'GE_ID',
-	'R6');
+	'R6.''is part of''');
 INSERT INTO O_RATTR
 	VALUES ("35551afe-a76c-fedf-ca05-b2136dc57bd8",
 	"0148e812-313c-e562-a349-8365ea0916b3",
@@ -4078,7 +4078,7 @@ INSERT INTO O_REF
 	'',
 	'Line Segment',
 	'GE_ID',
-	'R7');
+	'R7.''follows''');
 INSERT INTO O_RATTR
 	VALUES ("b65a7bbd-0dcd-5acd-e741-164921a7a2ae",
 	"0148e812-313c-e562-a349-8365ea0916b3",
@@ -4740,7 +4740,7 @@ INSERT INTO O_REF
 	'',
 	'Model Specification',
 	'Model_Type',
-	'R9');
+	'R9.''is instance of''');
 INSERT INTO O_RATTR
 	VALUES ("bba6693d-b260-0f89-936a-b9690c1011f7",
 	"06c56d9a-8179-8a62-5274-863d2b8685b7",
@@ -9735,7 +9735,7 @@ INSERT INTO O_REF
 	'',
 	'Line Segment',
 	'GE_ID',
-	'R13');
+	'R13.''is flexing''');
 INSERT INTO O_RATTR
 	VALUES ("5b6eb893-08b6-2fa3-ff99-42fdf1294620",
 	"bbbcab3a-378a-3783-1e7d-11448d7d18ca",
@@ -9770,7 +9770,7 @@ INSERT INTO O_REF
 	'',
 	'Model',
 	'Model_ID',
-	'R13');
+	'R13.''is flexed by''');
 INSERT INTO O_RATTR
 	VALUES ("58ba4b49-5024-125f-90a8-acf5ced489a5",
 	"bbbcab3a-378a-3783-1e7d-11448d7d18ca",

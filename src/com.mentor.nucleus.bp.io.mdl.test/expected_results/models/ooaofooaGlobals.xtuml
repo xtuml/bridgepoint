@@ -4954,7 +4954,7 @@ INSERT INTO O_REF
 	'',
 	'Subsystem',
 	'SS_ID',
-	'R4');
+	'R4.''abstracts associations between classes in''');
 INSERT INTO O_RATTR
 	VALUES ("e43cb824-09b2-85b2-1968-1a7f8f7676da",
 	"94de3800-a27b-b9fd-3a49-faa9864b61f2",
@@ -5081,7 +5081,7 @@ INSERT INTO O_REF
 	'',
 	'Linked Association',
 	'Rel_ID',
-	'R209');
+	'R209.''is related to other side via''');
 INSERT INTO O_REF
 	VALUES ("1486aed0-73ac-5862-4b74-775f969df76f",
 	"fc4dd027-c918-48ff-7168-32a8fc8b2ac6",
@@ -5329,7 +5329,7 @@ INSERT INTO O_REF
 	'',
 	'Linked Association',
 	'Rel_ID',
-	'R210');
+	'R210.''is related to one side via''');
 INSERT INTO O_REF
 	VALUES ("e9a2916b-1781-7150-cb60-53d968058494",
 	"fc4dd027-c918-48ff-7168-32a8fc8b2ac6",
@@ -5577,7 +5577,7 @@ INSERT INTO O_REF
 	'',
 	'Derived Association',
 	'Rel_ID',
-	'R214');
+	'R214.''is related to other type via''');
 INSERT INTO O_REF
 	VALUES ("68a9025d-8200-2a96-10c7-45ac5e3d4225",
 	"b1216f6a-fc8e-626f-2045-50475357cd51",
@@ -5829,7 +5829,7 @@ INSERT INTO O_REF
 	'',
 	'Derived Association',
 	'Rel_ID',
-	'R215');
+	'R215.''is related to one side via''');
 INSERT INTO O_REF
 	VALUES ("c0c471da-d8b6-3c6e-1170-af350d693a0d",
 	"b1216f6a-fc8e-626f-2045-50475357cd51",
@@ -6078,7 +6078,7 @@ INSERT INTO O_REF
 	'',
 	'Linked Association',
 	'Rel_ID',
-	'R211');
+	'R211.''formalizes association between associated classes''');
 INSERT INTO O_REF
 	VALUES ("a8096c04-a03a-3ae7-c668-56e12f164e89",
 	"3f2b0cac-f654-86b1-a834-b7ac15610e8d",
@@ -6286,7 +6286,7 @@ INSERT INTO O_REF
 	'',
 	'Simple Association',
 	'Rel_ID',
-	'R208');
+	'R208.''is related to participant via''');
 INSERT INTO O_REF
 	VALUES ("59d010a0-9b2a-1976-7392-8c0871b92f37",
 	"3f2b0cac-f654-86b1-a834-b7ac15610e8d",
@@ -6535,7 +6535,7 @@ INSERT INTO O_REF
 	'',
 	'Simple Association',
 	'Rel_ID',
-	'R207');
+	'R207.''is related to formalizer via''');
 INSERT INTO O_REF
 	VALUES ("2e91510a-00bd-b98b-069b-41be5da49503",
 	"fc4dd027-c918-48ff-7168-32a8fc8b2ac6",
@@ -6753,7 +6753,7 @@ INSERT INTO O_REF
 	'',
 	'Subtype Supertype Association',
 	'Rel_ID',
-	'R213');
+	'R213.''is related to supertype via''');
 INSERT INTO O_REF
 	VALUES ("9f2de6aa-aace-daa3-7bf3-23806c480763",
 	"3f2b0cac-f654-86b1-a834-b7ac15610e8d",
@@ -6944,7 +6944,7 @@ INSERT INTO O_REF
 	'',
 	'Subtype Supertype Association',
 	'Rel_ID',
-	'R212');
+	'R212.''is related to subtypes via''');
 INSERT INTO O_REF
 	VALUES ("654f469e-a029-f5d9-607d-9e4e6b365f7d",
 	"fc4dd027-c918-48ff-7168-32a8fc8b2ac6",
@@ -7162,7 +7162,7 @@ INSERT INTO O_REF
 	'',
 	'Model Class',
 	'Obj_ID',
-	'R201');
+	'R201.''abstracts association between instances of''');
 INSERT INTO O_RATTR
 	VALUES ("9185817f-770e-cd9a-3ebd-f01ebde62056",
 	"b1216f6a-fc8e-626f-2045-50475357cd51",
@@ -7197,7 +7197,7 @@ INSERT INTO O_REF
 	'',
 	'Association',
 	'Rel_ID',
-	'R201');
+	'R201.''has instance associations abstracted''');
 INSERT INTO O_RATTR
 	VALUES ("e2878997-87d8-ae3c-b35c-171fa4a997ac",
 	"b1216f6a-fc8e-626f-2045-50475357cd51",
@@ -7250,7 +7250,7 @@ INSERT INTO O_REF
 	'',
 	'Imported Class',
 	'IObj_ID',
-	'R202');
+	'R202.''may be represented by''');
 INSERT INTO O_RATTR
 	VALUES ("e271c72b-3628-13d4-3ec2-21c4bb9bc667",
 	"b1216f6a-fc8e-626f-2045-50475357cd51",
@@ -7602,7 +7602,7 @@ INSERT INTO O_REF
 	'',
 	'Class Identifier',
 	'Obj_ID',
-	'R109');
+	'R109.''is identified in this association by''');
 INSERT INTO O_RATTR
 	VALUES ("18cd68c1-6089-b36e-1662-aea97bed5408",
 	"fc4dd027-c918-48ff-7168-32a8fc8b2ac6",
@@ -7707,7 +7707,7 @@ INSERT INTO O_REF
 	'',
 	'Class Identifier',
 	'Oid_ID',
-	'R109');
+	'R109.''is identified in this association by''');
 INSERT INTO O_RATTR
 	VALUES ("38099a11-1d30-74db-77dc-e5f77d9dcaec",
 	"fc4dd027-c918-48ff-7168-32a8fc8b2ac6",
@@ -17724,7 +17724,7 @@ INSERT INTO O_REF
 	'',
 	'Body',
 	'Action_ID',
-	'R601');
+	'R601.''contained by''');
 INSERT INTO O_RATTR
 	VALUES ("641c5f08-1e14-7d8b-a468-732edd0feecb",
 	"838424da-9c90-78ba-f5ee-2eb385c5d573",
@@ -18117,7 +18117,7 @@ INSERT INTO O_REF
 	'',
 	'Block',
 	'Block_ID',
-	'R666');
+	'R666.''has outer''');
 INSERT INTO O_RATTR
 	VALUES ("75cfc9fa-d051-fff5-6acc-00332fcfad65",
 	"6f457ccf-a013-f45b-e058-ccaa1991272f",
@@ -18152,7 +18152,7 @@ INSERT INTO O_REF
 	'',
 	'Block',
 	'Block_ID',
-	'R699');
+	'R699.''has current scope''');
 INSERT INTO O_RATTR
 	VALUES ("20d81e32-ebfa-199e-5794-111d7406f5c7",
 	"6f457ccf-a013-f45b-e058-ccaa1991272f",
@@ -18342,7 +18342,7 @@ INSERT INTO O_REF
 	'',
 	'Bridge',
 	'Brg_ID',
-	'R697');
+	'R697.''specifies processing for''');
 INSERT INTO O_RATTR
 	VALUES ("66644636-0af6-b788-825b-0f886f770ea4",
 	"1fd41ad8-1993-2cf2-f58b-c29e78092fa1",
@@ -18606,7 +18606,7 @@ INSERT INTO O_REF
 	'',
 	'Derived Based Attribute',
 	'Obj_ID',
-	'R693');
+	'R693.''specifies processing for''');
 INSERT INTO O_RATTR
 	VALUES ("cefdb913-6419-5696-3172-62e04379b506",
 	"46daf93f-9ff7-64bd-4216-da6e8c334e87",
@@ -18641,7 +18641,7 @@ INSERT INTO O_REF
 	'',
 	'Derived Based Attribute',
 	'Attr_ID',
-	'R693');
+	'R693.''specifies processing for''');
 INSERT INTO O_RATTR
 	VALUES ("9373cc25-5d66-a1b8-3a16-13589ed75661",
 	"46daf93f-9ff7-64bd-4216-da6e8c334e87",
@@ -18760,7 +18760,7 @@ INSERT INTO O_REF
 	'',
 	'Block',
 	'Block_ID',
-	'R606');
+	'R606.''controls''');
 INSERT INTO O_RATTR
 	VALUES ("45dcc558-06d4-dc36-e0df-a79596d27cd9",
 	"1ea86c71-358f-402b-3eae-6a6d1c11c6a0",
@@ -18923,7 +18923,7 @@ INSERT INTO O_REF
 	'',
 	'Block',
 	'Block_ID',
-	'R658');
+	'R658.''controls''');
 INSERT INTO O_RATTR
 	VALUES ("a7360c99-4860-2b3f-381f-88bab1a9b25f",
 	"95a95140-4af4-5f80-3317-92482f62c48a",
@@ -18958,7 +18958,7 @@ INSERT INTO O_REF
 	'',
 	'Value',
 	'Value_ID',
-	'R659');
+	'R659.''test result''');
 INSERT INTO O_RATTR
 	VALUES ("d137aec4-5794-6b27-531e-f4de4bd7afb3",
 	"95a95140-4af4-5f80-3317-92482f62c48a",
@@ -19130,7 +19130,7 @@ INSERT INTO O_REF
 	'',
 	'Block',
 	'Block_ID',
-	'R605');
+	'R605.''controls''');
 INSERT INTO O_RATTR
 	VALUES ("3e7f66db-4520-41ed-7af6-c90a0ea08ea3",
 	"649ec677-088e-f968-34b2-66f61be447dd",
@@ -19184,7 +19184,7 @@ INSERT INTO O_REF
 	'',
 	'Model Class',
 	'Key_Lett',
-	'R670');
+	'R670.''iterates a set of''');
 INSERT INTO O_RATTR
 	VALUES ("4eec5525-2a7d-dda0-2a32-8f0b39ffd44d",
 	"649ec677-088e-f968-34b2-66f61be447dd",
@@ -19221,7 +19221,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R614');
+	'R614.''loop''');
 INSERT INTO O_RATTR
 	VALUES ("f7acd7ad-7522-eeb3-e911-488238f492cb",
 	"649ec677-088e-f968-34b2-66f61be447dd",
@@ -19258,7 +19258,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R652');
+	'R652.''set''');
 INSERT INTO O_RATTR
 	VALUES ("9076263c-426d-dc4d-eb3a-99d2612a3624",
 	"649ec677-088e-f968-34b2-66f61be447dd",
@@ -19372,7 +19372,7 @@ INSERT INTO O_REF
 	'',
 	'Function',
 	'Sync_ID',
-	'R695');
+	'R695.''specifies processing for''');
 INSERT INTO O_RATTR
 	VALUES ("9ebb2a8d-2914-bb28-0cd3-e50b92711666",
 	"62ab3292-5283-7a29-c8a9-50b395a96143",
@@ -19497,7 +19497,7 @@ INSERT INTO O_REF
 	'',
 	'Block',
 	'Block_ID',
-	'R607');
+	'R607.''controls''');
 INSERT INTO O_RATTR
 	VALUES ("a35a8ea7-f441-1df5-6d9f-cdd1ec897c5c",
 	"4073e62b-6f8d-c086-4315-9220694154b0",
@@ -19532,7 +19532,7 @@ INSERT INTO O_REF
 	'',
 	'Value',
 	'Value_ID',
-	'R625');
+	'R625.''test result''');
 INSERT INTO O_RATTR
 	VALUES ("a0c74e66-e754-b37e-8e57-81f75027bc6d",
 	"4073e62b-6f8d-c086-4315-9220694154b0",
@@ -19646,7 +19646,7 @@ INSERT INTO O_REF
 	'',
 	'Operation',
 	'Tfr_ID',
-	'R696');
+	'R696.''specifies processing for''');
 INSERT INTO O_RATTR
 	VALUES ("1c045667-dd83-9f41-f533-b8703ef2bcb1",
 	"a581acd0-9657-621e-c577-c6b3f796fcc0",
@@ -19758,7 +19758,7 @@ INSERT INTO O_REF
 	'',
 	'Action',
 	'SM_ID',
-	'R691');
+	'R691.''specifies processing for''');
 INSERT INTO O_RATTR
 	VALUES ("306b8862-f105-a957-3aa1-c405d8f1cac6",
 	"904cb4d5-3e2b-439a-b012-12c7cd16493f",
@@ -19793,7 +19793,7 @@ INSERT INTO O_REF
 	'',
 	'Action',
 	'Act_ID',
-	'R691');
+	'R691.''specifies processing for''');
 INSERT INTO O_RATTR
 	VALUES ("55c0e9e9-35a6-ae75-c9d9-02f7e84e2c9c",
 	"904cb4d5-3e2b-439a-b012-12c7cd16493f",
@@ -20073,7 +20073,7 @@ INSERT INTO O_REF
 	'',
 	'Block',
 	'Block_ID',
-	'R602');
+	'R602.''contains''');
 INSERT INTO O_REF
 	VALUES ("e3f450db-76ad-3970-919a-762eccf2059f",
 	"e3f450db-76ad-3970-919a-762eccf2059f",
@@ -20089,7 +20089,7 @@ INSERT INTO O_REF
 	'',
 	'Statement',
 	'Block_ID',
-	'R661');
+	'R661.''precedes''');
 INSERT INTO O_RATTR
 	VALUES ("73750099-6159-d3c5-33a8-519a6c1c057b",
 	"e3f450db-76ad-3970-919a-762eccf2059f",
@@ -20124,7 +20124,7 @@ INSERT INTO O_REF
 	'',
 	'Statement',
 	'Statement_ID',
-	'R661');
+	'R661.''precedes''');
 INSERT INTO O_RATTR
 	VALUES ("cf7988ac-6ae1-7d3c-064a-421c78ebca79",
 	"e3f450db-76ad-3970-919a-762eccf2059f",
@@ -20259,7 +20259,7 @@ INSERT INTO O_REF
 	'',
 	'Value',
 	'Value_ID',
-	'R626');
+	'R626.''continue result''');
 INSERT INTO O_RATTR
 	VALUES ("3826cf11-bce3-8572-a748-82b04a9f17a1",
 	"5b784aa8-d486-3437-5d76-2ba7700379ac",
@@ -20296,7 +20296,7 @@ INSERT INTO O_REF
 	'',
 	'Block',
 	'Block_ID',
-	'R608');
+	'R608.''controls''');
 INSERT INTO O_RATTR
 	VALUES ("db3ce458-bff8-0d1a-e37d-898954abd4a4",
 	"5b784aa8-d486-3437-5d76-2ba7700379ac",
@@ -26563,7 +26563,7 @@ Notes:
 ',
 	'Subsystem',
 	'SS_ID',
-	'R6');
+	'R6.''abstracts synchronous data access between classes in''');
 INSERT INTO O_RATTR
 	VALUES ("59a4f449-06d7-07b3-2f12-859327c54875",
 	"e43157d3-195c-5007-cf30-f6c7c06924b9",
@@ -26598,7 +26598,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine',
 	'SM_ID',
-	'R416');
+	'R416.''originates from''');
 INSERT INTO O_RATTR
 	VALUES ("45ea7850-cde2-bebe-f60d-b7156b90049a",
 	"e43157d3-195c-5007-cf30-f6c7c06924b9",
@@ -26633,7 +26633,7 @@ INSERT INTO O_REF
 	'',
 	'Imported Class',
 	'IObj_ID',
-	'R425');
+	'R425.''origination OBJ can be represented by''');
 INSERT INTO O_RATTR
 	VALUES ("65e48b5e-6815-2256-db1d-9425fd7e45a9",
 	"e43157d3-195c-5007-cf30-f6c7c06924b9",
@@ -26717,7 +26717,7 @@ Notes:
 ',
 	'Subsystem',
 	'SS_ID',
-	'R5');
+	'R5.''abstracts asynchronous communication between classes in''');
 INSERT INTO O_RATTR
 	VALUES ("2d75fe17-e1c7-46e3-6c71-75f35e0a6742",
 	"b27bdd94-2ba6-2331-0d06-730c8d63f035",
@@ -26818,7 +26818,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity in Model',
 	'EEmod_ID',
-	'R402');
+	'R402.''originates from''');
 INSERT INTO O_RATTR
 	VALUES ("666ac765-979f-b365-758f-a681e1855279",
 	"742ef275-9d2d-c938-d6c7-e16129e6585a",
@@ -26853,7 +26853,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity in Model',
 	'EE_ID',
-	'R402');
+	'R402.''originates from''');
 INSERT INTO O_RATTR
 	VALUES ("017124d3-eb83-d7e6-af72-f671468d3163",
 	"742ef275-9d2d-c938-d6c7-e16129e6585a",
@@ -26888,7 +26888,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine',
 	'SM_ID',
-	'R403');
+	'R403.''shows event communication to''');
 INSERT INTO O_RATTR
 	VALUES ("a8f7d0c8-f9c1-a8ba-e1d5-9262ade1a8ef",
 	"742ef275-9d2d-c938-d6c7-e16129e6585a",
@@ -26954,7 +26954,7 @@ Notes:
 ',
 	'EE to SM Comm Path',
 	'CPath_ID',
-	'R404');
+	'R404.''is carried by''');
 INSERT INTO O_RATTR
 	VALUES ("d6e0a3d8-d5cb-0b04-a0b6-85c44ff0f166",
 	"03015d8b-944e-881a-973b-14e395d21eea",
@@ -26989,7 +26989,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event',
 	'SM_ID',
-	'R405');
+	'R405.''represents communication of''');
 INSERT INTO O_RATTR
 	VALUES ("cf8d2e7e-5fbf-a1a7-29ac-bfc10d724c9b",
 	"03015d8b-944e-881a-973b-14e395d21eea",
@@ -27024,7 +27024,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event',
 	'SMevt_ID',
-	'R405');
+	'R405.''represents communication of''');
 INSERT INTO O_RATTR
 	VALUES ("036a6843-3822-6c74-ee23-d5a58aae411c",
 	"03015d8b-944e-881a-973b-14e395d21eea",
@@ -27146,7 +27146,7 @@ Notes:
 ',
 	'External Entity in Model',
 	'EE_ID',
-	'R421');
+	'R421.''accesses data of''');
 INSERT INTO O_RATTR
 	VALUES ("02ccb79a-256a-668e-f191-cf014d5be3f4",
 	"64aa85fe-8bc1-2b93-d8df-d6a353c2f3f2",
@@ -27192,7 +27192,7 @@ Notes:
 ',
 	'External Entity in Model',
 	'EEmod_ID',
-	'R421');
+	'R421.''accesses data of''');
 INSERT INTO O_RATTR
 	VALUES ("c2e93bae-e365-3a8f-c5e2-f43a1dbd34e9",
 	"64aa85fe-8bc1-2b93-d8df-d6a353c2f3f2",
@@ -27310,7 +27310,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine',
 	'SM_ID',
-	'R410');
+	'R410.''originates from''');
 INSERT INTO O_RATTR
 	VALUES ("2bdb30b5-9de3-68bb-a91e-a426065a9717",
 	"252f3cba-a224-1ba0-caee-12df86a2946f",
@@ -27345,7 +27345,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity in Model',
 	'EE_ID',
-	'R411');
+	'R411.''shows event communication to''');
 INSERT INTO O_RATTR
 	VALUES ("88908511-19f7-938e-bdb8-03c35f98e9d0",
 	"252f3cba-a224-1ba0-caee-12df86a2946f",
@@ -27380,7 +27380,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity in Model',
 	'EEmod_ID',
-	'R411');
+	'R411.''shows event communication to''');
 INSERT INTO O_RATTR
 	VALUES ("1d278abd-1172-49a8-94c3-0432d2af1fb8",
 	"252f3cba-a224-1ba0-caee-12df86a2946f",
@@ -27452,7 +27452,7 @@ INSERT INTO O_REF
 	'',
 	'SM to EE Access Path',
 	'APath_ID',
-	'R422');
+	'R422.''is carried by''');
 INSERT INTO O_RATTR
 	VALUES ("59a2c884-63bc-c324-c8ab-35dfabfab6c1",
 	"c2891a2c-3a67-73ca-c059-2dbe66427f89",
@@ -27491,7 +27491,7 @@ Notes:
 ',
 	'External Entity Data Item',
 	'EEdi_ID',
-	'R423');
+	'R423.''represents access of''');
 INSERT INTO O_RATTR
 	VALUES ("564bf725-1040-fb3c-54a1-9da5c057d14e",
 	"c2891a2c-3a67-73ca-c059-2dbe66427f89",
@@ -27537,7 +27537,7 @@ Notes:
 ',
 	'External Entity Data Item',
 	'EE_ID',
-	'R423');
+	'R423.''represents access of''');
 INSERT INTO O_REF
 	VALUES ("c2891a2c-3a67-73ca-c059-2dbe66427f89",
 	"64aa85fe-8bc1-2b93-d8df-d6a353c2f3f2",
@@ -27553,7 +27553,7 @@ INSERT INTO O_REF
 	'',
 	'SM to EE Access Path',
 	'EE_ID',
-	'R422');
+	'R422.''is carried by''');
 INSERT INTO O_RATTR
 	VALUES ("d49ab260-fb52-ec6f-daf4-d31ccd944f47",
 	"c2891a2c-3a67-73ca-c059-2dbe66427f89",
@@ -27629,7 +27629,7 @@ Notes:
 ',
 	'SM to EE Comm Path',
 	'CPath_ID',
-	'R412');
+	'R412.''is carried by''');
 INSERT INTO O_RATTR
 	VALUES ("c5a50d61-dfbb-593c-c06e-cc85a43b3b93",
 	"e363d660-0940-3e40-4838-bc307e35a29a",
@@ -27668,7 +27668,7 @@ Notes:
 ',
 	'External Entity Event',
 	'EE_ID',
-	'R413');
+	'R413.''represents communication of''');
 INSERT INTO O_RATTR
 	VALUES ("a086a627-6072-65d3-01b0-4b1a37661ed0",
 	"e363d660-0940-3e40-4838-bc307e35a29a",
@@ -27707,7 +27707,7 @@ Notes:
 ',
 	'External Entity Event',
 	'EEevt_ID',
-	'R413');
+	'R413.''represents communication of''');
 INSERT INTO O_RATTR
 	VALUES ("424064f7-df0e-a56c-2ac7-2159072800d3",
 	"e363d660-0940-3e40-4838-bc307e35a29a",
@@ -27822,7 +27822,7 @@ Notes:
 ',
 	'Model Class',
 	'Obj_ID',
-	'R417');
+	'R417.''shows accesses of data from''');
 INSERT INTO O_RATTR
 	VALUES ("9b282fbd-07b0-790e-1fd3-ac5dbaaf3fe9",
 	"614c913b-854f-ac69-d29e-2befd4ec327d",
@@ -27857,7 +27857,7 @@ INSERT INTO O_REF
 	'SM to OBJ Access Path (CA_SMOA).IObj_ID must be constrained such that Imported Class (O_IOBJ).Obj_ID is the same as (CA_SMOA).IObj_ID. That is, the Imported Class instance that the SM to OBJ Access Path instance is related to by R420 , if any, must be the one representing the Class (O_OBJ) instance it is related to by R417.',
 	'Imported Class',
 	'IObj_ID',
-	'R420');
+	'R420.''destination OBJ can be represented by''');
 INSERT INTO O_RATTR
 	VALUES ("cf64592f-bbea-5284-a0b8-bb0a512ce1e7",
 	"614c913b-854f-ac69-d29e-2befd4ec327d",
@@ -27929,7 +27929,7 @@ INSERT INTO O_REF
 	'',
 	'SM to OBJ Access Path',
 	'APath_ID',
-	'R418');
+	'R418.''is carried by ''');
 INSERT INTO O_RATTR
 	VALUES ("25b24210-2441-fc09-c994-52c399f3d449",
 	"f4c5f2e8-4796-e9f3-10e0-2894fbc5f369",
@@ -27968,7 +27968,7 @@ Notes:
 ',
 	'Attribute',
 	'Attr_ID',
-	'R419');
+	'R419.''represents access of''');
 INSERT INTO O_RATTR
 	VALUES ("c3391530-1845-45b9-b0af-ec44a8a17946",
 	"f4c5f2e8-4796-e9f3-10e0-2894fbc5f369",
@@ -28014,7 +28014,7 @@ Notes:
 ',
 	'Attribute',
 	'Obj_ID',
-	'R419');
+	'R419.''represents access of''');
 INSERT INTO O_REF
 	VALUES ("f4c5f2e8-4796-e9f3-10e0-2894fbc5f369",
 	"614c913b-854f-ac69-d29e-2befd4ec327d",
@@ -28030,7 +28030,7 @@ INSERT INTO O_REF
 	'',
 	'SM to OBJ Access Path',
 	'Obj_ID',
-	'R418');
+	'R418.''is carried by ''');
 INSERT INTO O_RATTR
 	VALUES ("5427f397-2ecb-d0d5-9512-8e37d6610d0f",
 	"f4c5f2e8-4796-e9f3-10e0-2894fbc5f369",
@@ -28141,7 +28141,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine',
 	'SM_ID',
-	'R406');
+	'R406.''originates from''');
 INSERT INTO O_RATTR
 	VALUES ("f71b9fe5-c0d4-60a6-1e28-d8c0c06ae954",
 	"ba32bc68-f39b-0bd6-e535-a08ab4319ba9",
@@ -28176,7 +28176,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine',
 	'SM_ID',
-	'R407');
+	'R407.''shows event communication to''');
 INSERT INTO O_RATTR
 	VALUES ("26f3ab96-903e-f03f-e032-4873359069f8",
 	"ba32bc68-f39b-0bd6-e535-a08ab4319ba9",
@@ -28211,7 +28211,7 @@ INSERT INTO O_REF
 	'',
 	'Imported Class',
 	'IObj_ID',
-	'R424');
+	'R424.''origination SM can be represented by''');
 INSERT INTO O_RATTR
 	VALUES ("cc8b2c9f-74bf-b8c7-bceb-f5a2fdb9c016",
 	"ba32bc68-f39b-0bd6-e535-a08ab4319ba9",
@@ -28250,7 +28250,7 @@ Notes:
 ',
 	'Imported Class',
 	'IObj_ID',
-	'R414');
+	'R414.''destination SM can be represented by''');
 INSERT INTO O_RATTR
 	VALUES ("02272ba7-fc0d-03d2-d1ba-b54b7a062181",
 	"ba32bc68-f39b-0bd6-e535-a08ab4319ba9",
@@ -28326,7 +28326,7 @@ Notes:
 ',
 	'SM to SM Comm Path',
 	'CPath_ID',
-	'R408');
+	'R408.''is carried by''');
 INSERT INTO O_RATTR
 	VALUES ("9b5e534f-e34d-baaa-7612-1290f3a920f7",
 	"054a10ab-335c-f46f-6a9f-b99585e90ddd",
@@ -28361,7 +28361,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event',
 	'SM_ID',
-	'R409');
+	'R409.''represents communication of''');
 INSERT INTO O_RATTR
 	VALUES ("587c8ea0-5163-73a0-4054-7429803b4cc9",
 	"054a10ab-335c-f46f-6a9f-b99585e90ddd",
@@ -28396,7 +28396,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event',
 	'SMevt_ID',
-	'R409');
+	'R409.''represents communication of''');
 INSERT INTO O_RATTR
 	VALUES ("c2c202b0-011a-923e-f1ac-141892c06956",
 	"054a10ab-335c-f46f-6a9f-b99585e90ddd",
@@ -34488,7 +34488,7 @@ INSERT INTO O_REF
 	'',
 	'Bridge',
 	'Brg_ID',
-	'R21');
+	'R21.''contains''');
 INSERT INTO O_RATTR
 	VALUES ("ac17e9d6-691b-0a56-51d7-825aa14044ca",
 	"440e272c-3bdc-8452-5726-f99bffd33ab9",
@@ -34542,7 +34542,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R22');
+	'R22.''is defined by''');
 INSERT INTO O_RATTR
 	VALUES ("595f9ee3-6368-c27e-94af-2374df0548d1",
 	"440e272c-3bdc-8452-5726-f99bffd33ab9",
@@ -34642,7 +34642,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity',
 	'EE_ID',
-	'R19');
+	'R19.''provides access to''');
 INSERT INTO O_RATTR
 	VALUES ("a99122e4-2257-a996-4a63-f5cc4d7851aa",
 	"8b53f73b-e6e1-033a-524a-9f1732d31659",
@@ -34732,7 +34732,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R20');
+	'R20.''return value defined by''');
 INSERT INTO O_RATTR
 	VALUES ("0a3ff1d4-2a67-8f0d-8eae-39fcd5b70da2",
 	"8b53f73b-e6e1-033a-524a-9f1732d31659",
@@ -34934,7 +34934,7 @@ INSERT INTO O_REF
 	'',
 	'Domain',
 	'Dom_ID',
-	'R14');
+	'R14.''defines types within''');
 INSERT INTO O_RATTR
 	VALUES ("4c86dd0f-ada6-25c9-4b6d-ad9ef4ae4d16",
 	"b072ed50-8a86-e292-bf33-3c29574fd550",
@@ -35352,7 +35352,7 @@ INSERT INTO O_REF
 	'',
 	'Enumeration Data Type',
 	'DT_ID',
-	'R27');
+	'R27.''is defined by''');
 INSERT INTO O_RATTR
 	VALUES ("435a3ec2-277b-80f2-4461-f0db56782641",
 	"3c112306-e015-0d75-4085-433604cb8052",
@@ -35432,7 +35432,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity',
 	'EE_ID',
-	'R11');
+	'R11.''is data for''');
 INSERT INTO O_RATTR
 	VALUES ("2c0dfba8-070f-025a-b76a-def1ceef9c29",
 	"8414c40e-4c36-89f7-3f4d-23b5eab3e376",
@@ -35503,7 +35503,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R15');
+	'R15.''is defined by''');
 INSERT INTO O_RATTR
 	VALUES ("c8892e2c-c6b8-f128-1df2-1f9c77ef8322",
 	"8414c40e-4c36-89f7-3f4d-23b5eab3e376",
@@ -35588,7 +35588,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity',
 	'EE_ID',
-	'R12');
+	'R12.''is data for events of''');
 INSERT INTO O_RATTR
 	VALUES ("53ae30ef-e941-b371-e31a-a289d1d8e678",
 	"e93e9302-f522-ab43-a238-2e43fe3c0395",
@@ -35659,7 +35659,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R16');
+	'R16.''is defined by''');
 INSERT INTO O_RATTR
 	VALUES ("012e39e1-4154-c0e8-e64d-73b4f9ab6e40",
 	"e93e9302-f522-ab43-a238-2e43fe3c0395",
@@ -35726,7 +35726,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity Event Data Item',
 	'EE_ID',
-	'R13');
+	'R13.''may carry''');
 INSERT INTO O_REF
 	VALUES ("0a617c27-fa94-9ff1-198d-be1ac9f958a6",
 	"a15ff15e-a064-c802-ccba-afaf23164187",
@@ -35742,7 +35742,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity Event',
 	'EE_ID',
-	'R13');
+	'R13.''is carried via''');
 INSERT INTO O_RATTR
 	VALUES ("3cf401ad-9c39-b6c9-82cc-972518077648",
 	"0a617c27-fa94-9ff1-198d-be1ac9f958a6",
@@ -35777,7 +35777,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity Event',
 	'EEevt_ID',
-	'R13');
+	'R13.''is carried via''');
 INSERT INTO O_RATTR
 	VALUES ("0fcd576e-2c68-3569-ece3-dc6187b0f39a",
 	"0a617c27-fa94-9ff1-198d-be1ac9f958a6",
@@ -35812,7 +35812,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity Event Data Item',
 	'EEedi_ID',
-	'R13');
+	'R13.''may carry''');
 INSERT INTO O_RATTR
 	VALUES ("8cf98de1-9a03-8a57-e34e-f3e12c69ddc9",
 	"0a617c27-fa94-9ff1-198d-be1ac9f958a6",
@@ -35918,7 +35918,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity',
 	'EE_ID',
-	'R10');
+	'R10.''is vehicle of communication for''');
 INSERT INTO O_RATTR
 	VALUES ("e4dfcf65-7601-1346-7c10-d99960b6274e",
 	"a15ff15e-a064-c802-ccba-afaf23164187",
@@ -36125,7 +36125,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity',
 	'EE_ID',
-	'R9');
+	'R9.''is a presence in subsystem model of''');
 INSERT INTO O_RATTR
 	VALUES ("4dddfb90-61ca-f9c2-fc8c-8ab491575725",
 	"9ad72a30-ca6b-4490-1452-b17f43c2c70d",
@@ -36180,7 +36180,7 @@ INSERT INTO O_REF
 	'',
 	'Subsystem',
 	'SS_ID',
-	'R7');
+	'R7.''is a presence of an an external entity in''');
 INSERT INTO O_RATTR
 	VALUES ("b15857b4-4101-3bc0-91ce-b47301b8e2bc",
 	"9ad72a30-ca6b-4490-1452-b17f43c2c70d",
@@ -36472,7 +36472,7 @@ INSERT INTO O_REF
 	'',
 	'Domain',
 	'Dom_ID',
-	'R8');
+	'R8.''interacts with''');
 INSERT INTO O_RATTR
 	VALUES ("d25e94fa-f63e-a9b1-ddeb-b6e196056661",
 	"9506d8a9-3060-7ca6-bedf-75fa83ed0985",
@@ -36557,7 +36557,7 @@ INSERT INTO O_REF
 	'',
 	'Function',
 	'Sync_ID',
-	'R24');
+	'R24.''is defined for''');
 INSERT INTO O_RATTR
 	VALUES ("291d6ce5-7c2f-cee2-5d81-7e87a713a7fb",
 	"d8a0b603-3ab1-1e0c-1b9f-f0bdf82870b9",
@@ -36610,7 +36610,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R26');
+	'R26.''is typed by ''');
 INSERT INTO O_RATTR
 	VALUES ("a4d44668-db66-68e5-ee35-f04eafd67a26",
 	"d8a0b603-3ab1-1e0c-1b9f-f0bdf82870b9",
@@ -36710,7 +36710,7 @@ INSERT INTO O_REF
 	'',
 	'Domain',
 	'Dom_ID',
-	'R23');
+	'R23.''is defined in ''');
 INSERT INTO O_RATTR
 	VALUES ("dae58cf4-bb07-f300-096a-ae0b9e7e23fc",
 	"18ff6fbd-f68e-4ac4-428b-74138f45e8f8",
@@ -36800,7 +36800,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R25');
+	'R25.''has return type of''');
 INSERT INTO O_RATTR
 	VALUES ("6a74c705-2178-2065-66d3-51dc4b94db73",
 	"18ff6fbd-f68e-4ac4-428b-74138f45e8f8",
@@ -37201,7 +37201,7 @@ INSERT INTO O_REF
 	'',
 	'Domain',
 	'Dom_ID',
-	'R1');
+	'R1.''is first level of partitioning for''');
 INSERT INTO O_RATTR
 	VALUES ("9b17ff2d-f862-7760-1e88-d385da0da919",
 	"5900075d-5e19-8a57-0f57-36baab1a5a4e",
@@ -37390,7 +37390,7 @@ INSERT INTO O_REF
 	'',
 	'Core Data Type',
 	'DT_ID',
-	'R18');
+	'R18.''are defined within''');
 INSERT INTO O_RATTR
 	VALUES ("ac715ca9-aa53-30de-8c2f-3cf9d5d2ada1",
 	"c306421b-6182-57ee-8789-0d3a473c4d10",
@@ -42762,7 +42762,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R710');
+	'R710.''result''');
 INSERT INTO O_RATTR
 	VALUES ("e6c2d9bd-9144-f8be-fcfb-d1043b646a31",
 	"9dc3ed1d-e995-09ef-d75f-de093135ee15",
@@ -43031,7 +43031,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity Event',
 	'EE_ID',
-	'R708');
+	'R708.''creates''');
 INSERT INTO O_RATTR
 	VALUES ("dd2429f7-3368-69f3-cd0e-43ef5a996fec",
 	"c3f39577-5253-0f60-1588-ed155d880dda",
@@ -43068,7 +43068,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity Event',
 	'EEevt_ID',
-	'R708');
+	'R708.''creates''');
 INSERT INTO O_RATTR
 	VALUES ("068e10e0-59e2-d178-24a7-adab1f67ba7d",
 	"c3f39577-5253-0f60-1588-ed155d880dda",
@@ -43185,7 +43185,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R711');
+	'R711.''has recipient''');
 INSERT INTO O_RATTR
 	VALUES ("7f1b2fc9-ae0b-c44a-c4ee-2be64ea157a4",
 	"d1072a9a-9261-ba48-8921-741c9bc2c419",
@@ -43325,7 +43325,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event',
 	'SMevt_ID',
-	'R706');
+	'R706.''creates''');
 INSERT INTO O_RATTR
 	VALUES ("448dcb43-8398-9f4c-7f8a-63810debf605",
 	"eb58fff2-ea88-275e-afd0-a8efd29b9a75",
@@ -43362,7 +43362,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event',
 	'SM_ID',
-	'R706');
+	'R706.''creates''');
 INSERT INTO O_RATTR
 	VALUES ("3f96ec31-7c2d-26ed-9236-dbc4f4364b7a",
 	"eb58fff2-ea88-275e-afd0-a8efd29b9a75",
@@ -43710,7 +43710,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R713');
+	'R713.''generates''');
 INSERT INTO O_RATTR
 	VALUES ("1f25682d-d6ee-4b3b-d244-d3776c2a2e67",
 	"fb2099a9-b9b2-fb24-eda7-46526e06bf0f",
@@ -43747,7 +43747,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Obj_ID',
-	'R714');
+	'R714.''generates''');
 INSERT INTO O_RATTR
 	VALUES ("9dfb047e-628e-66b6-8730-c26d1975ea9c",
 	"fb2099a9-b9b2-fb24-eda7-46526e06bf0f",
@@ -43784,7 +43784,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Attr_ID',
-	'R714');
+	'R714.''generates''');
 INSERT INTO O_RATTR
 	VALUES ("8462a250-b09d-3ad2-1f9c-a262d11f2c8e",
 	"fb2099a9-b9b2-fb24-eda7-46526e06bf0f",
@@ -43923,7 +43923,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event',
 	'SMevt_ID',
-	'R707');
+	'R707.''generates''');
 INSERT INTO O_RATTR
 	VALUES ("74e3507f-6776-997b-2e40-a0373026e247",
 	"ecb1cfab-912f-11c8-55dc-c5ee48069167",
@@ -43960,7 +43960,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event',
 	'SM_ID',
-	'R707');
+	'R707.''generates''');
 INSERT INTO O_RATTR
 	VALUES ("a304c5b6-28db-a7a7-fe25-c04359204fc4",
 	"ecb1cfab-912f-11c8-55dc-c5ee48069167",
@@ -44230,7 +44230,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity Event',
 	'EE_ID',
-	'R709');
+	'R709.''generates''');
 INSERT INTO O_RATTR
 	VALUES ("7f99a7ec-73ac-ab1e-7ebf-1b4712a81006",
 	"1c01e5dc-9209-d214-8857-5aee304baacc",
@@ -44267,7 +44267,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity Event',
 	'EEevt_ID',
-	'R709');
+	'R709.''generates''');
 INSERT INTO O_RATTR
 	VALUES ("b7e15226-3ec3-aff9-8605-337bc0dd8d52",
 	"1c01e5dc-9209-d214-8857-5aee304baacc",
@@ -44384,7 +44384,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R712');
+	'R712.''has recipient''');
 INSERT INTO O_RATTR
 	VALUES ("adba1923-e190-0bd5-5e24-80ebca4d2299",
 	"00e2e233-b89c-71dc-208b-356a8cebd8f6",
@@ -47309,7 +47309,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R629');
+	'R629.''instance''');
 INSERT INTO O_RATTR
 	VALUES ("1cb8a29c-cfa4-63c2-88e8-ad314208f726",
 	"90eab205-fd9c-367e-ce67-9f0c047504e6",
@@ -47383,7 +47383,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Obj_ID',
-	'R630');
+	'R630.''writes to''');
 INSERT INTO O_RATTR
 	VALUES ("af6b642a-9f27-a480-a2aa-6481d72c7c73",
 	"90eab205-fd9c-367e-ce67-9f0c047504e6",
@@ -47420,7 +47420,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Attr_ID',
-	'R630');
+	'R630.''writes to''');
 INSERT INTO O_RATTR
 	VALUES ("28ce6fce-8381-84ad-1b10-5d62294409cc",
 	"90eab205-fd9c-367e-ce67-9f0c047504e6",
@@ -47778,7 +47778,7 @@ INSERT INTO O_REF
 	'',
 	'Value',
 	'Value_ID',
-	'R635');
+	'R635.''source''');
 INSERT INTO O_RATTR
 	VALUES ("f3163cb4-1020-6fbb-1ebb-757e0a6d3d50",
 	"66f60424-4d24-7689-045f-8301e3f5e8d2",
@@ -47815,7 +47815,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R636');
+	'R636.''target''');
 INSERT INTO O_RATTR
 	VALUES ("311c0c25-f145-d662-50b5-cf5ae866364b",
 	"66f60424-4d24-7689-045f-8301e3f5e8d2",
@@ -47953,7 +47953,7 @@ INSERT INTO O_REF
 	'',
 	'Model Class',
 	'Key_Lett',
-	'R672');
+	'R672.''instance of''');
 INSERT INTO O_RATTR
 	VALUES ("a5846ef7-0676-af7b-4c15-3f82e2227c60",
 	"fe9de587-f853-fbce-8acd-f41c48a2de6f",
@@ -48081,7 +48081,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R633');
+	'R633.''result''');
 INSERT INTO O_RATTR
 	VALUES ("e9cea7c6-79a5-620c-904c-a7ebfd56e0d4",
 	"27eb1e57-4bfa-6e91-4cd1-5c3d0b50104f",
@@ -48137,7 +48137,7 @@ INSERT INTO O_REF
 	'',
 	'Model Class',
 	'Key_Lett',
-	'R671');
+	'R671.''instance of''');
 INSERT INTO O_RATTR
 	VALUES ("e1bef895-02a8-171a-05a7-0fdd5ed3c194",
 	"27eb1e57-4bfa-6e91-4cd1-5c3d0b50104f",
@@ -48253,7 +48253,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R634');
+	'R634.''destroys''');
 INSERT INTO O_RATTR
 	VALUES ("eba53830-97b2-4743-a39b-d4a69042791f",
 	"14d769e9-d4ab-b2b0-c953-80bafbebc71c",
@@ -50311,7 +50311,7 @@ INSERT INTO O_REF
 	'',
 	'Bridge',
 	'Brg_ID',
-	'R674');
+	'R674.''is an invocation of''');
 INSERT INTO O_RATTR
 	VALUES ("0c80190f-1f3a-2a12-16f1-37517168ce73",
 	"b480b89c-7b0a-8e48-0452-160f0da8364f",
@@ -50435,7 +50435,7 @@ INSERT INTO O_REF
 	'',
 	'Function',
 	'Sync_ID',
-	'R675');
+	'R675.''is an invocation of''');
 INSERT INTO O_RATTR
 	VALUES ("842f916f-2dbb-3840-f2d5-6aded324d4be",
 	"d0a64588-6d76-5fa0-8744-d4db1bda578f",
@@ -50564,7 +50564,7 @@ INSERT INTO O_REF
 	'',
 	'Operation',
 	'Tfr_ID',
-	'R673');
+	'R673.''is an invocation of''');
 INSERT INTO O_RATTR
 	VALUES ("18c3eb63-2b37-289a-30e5-f72f6bfb996c",
 	"64ffe771-31c8-c029-7610-1d6d4bee1461",
@@ -50601,7 +50601,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R667');
+	'R667.''has target''');
 INSERT INTO O_RATTR
 	VALUES ("fb5eb6cf-eead-7381-fee1-807cbd45a8e6",
 	"64ffe771-31c8-c029-7610-1d6d4bee1461",
@@ -50721,7 +50721,7 @@ INSERT INTO O_REF
 	'',
 	'Value',
 	'Value_ID',
-	'R668');
+	'R668.''has''');
 INSERT INTO O_RATTR
 	VALUES ("d2895b0f-0b7b-a516-d9ec-8584a8ffd281",
 	"8d572485-1b8e-6e39-8f2f-ece8bab80a44",
@@ -53093,7 +53093,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R617');
+	'R617.''one''');
 INSERT INTO O_RATTR
 	VALUES ("6e7e3476-d41f-a575-1729-d2309990325b",
 	"b6245627-de9f-2808-eac0-4a42d32976a3",
@@ -53130,7 +53130,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R618');
+	'R618.''other''');
 INSERT INTO O_RATTR
 	VALUES ("3330bc9f-da77-ac6a-a6fa-eab47033786e",
 	"b6245627-de9f-2808-eac0-4a42d32976a3",
@@ -53167,7 +53167,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R619');
+	'R619.''using''');
 INSERT INTO O_RATTR
 	VALUES ("be8fbef0-5a89-2319-e236-d294e580e826",
 	"b6245627-de9f-2808-eac0-4a42d32976a3",
@@ -53225,7 +53225,7 @@ INSERT INTO O_REF
 	'',
 	'Association',
 	'Rel_ID',
-	'R654');
+	'R654.''creates''');
 INSERT INTO O_RATTR
 	VALUES ("64ab76bf-ab91-266b-940a-de04260bb07b",
 	"b6245627-de9f-2808-eac0-4a42d32976a3",
@@ -53349,7 +53349,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R615');
+	'R615.''one''');
 INSERT INTO O_RATTR
 	VALUES ("e899e93f-2e97-8cdf-9948-e9c0ee7a288a",
 	"4e00b8d3-8c35-111a-f21f-f7d74adddb8e",
@@ -53386,7 +53386,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R616');
+	'R616.''other''');
 INSERT INTO O_RATTR
 	VALUES ("2175b72d-2565-d3b0-2df7-1f6100a660fa",
 	"4e00b8d3-8c35-111a-f21f-f7d74adddb8e",
@@ -53444,7 +53444,7 @@ INSERT INTO O_REF
 	'',
 	'Association',
 	'Rel_ID',
-	'R653');
+	'R653.''creates''');
 INSERT INTO O_RATTR
 	VALUES ("ca66fa91-a5ed-2954-3a26-bff4050da2b9",
 	"4e00b8d3-8c35-111a-f21f-f7d74adddb8e",
@@ -53572,7 +53572,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R622');
+	'R622.''one''');
 INSERT INTO O_RATTR
 	VALUES ("6ce0c9db-063e-383f-3bd1-c7846d93ef2d",
 	"bbfc434d-20a4-9140-513f-0ec2b83610f3",
@@ -53609,7 +53609,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R623');
+	'R623.''other''');
 INSERT INTO O_RATTR
 	VALUES ("19b5138d-00d1-9a21-b48b-e2521e7bc928",
 	"bbfc434d-20a4-9140-513f-0ec2b83610f3",
@@ -53646,7 +53646,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R624');
+	'R624.''using''');
 INSERT INTO O_RATTR
 	VALUES ("cbee5842-9587-1863-0a88-4a0d1ab8d720",
 	"bbfc434d-20a4-9140-513f-0ec2b83610f3",
@@ -53704,7 +53704,7 @@ INSERT INTO O_REF
 	'',
 	'Association',
 	'Rel_ID',
-	'R656');
+	'R656.''destroys''');
 INSERT INTO O_RATTR
 	VALUES ("c2a93708-a552-9350-b9c8-a7b96da35a4d",
 	"bbfc434d-20a4-9140-513f-0ec2b83610f3",
@@ -53828,7 +53828,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R620');
+	'R620.''one''');
 INSERT INTO O_RATTR
 	VALUES ("568a6261-f57b-e0f7-f1e5-7bd7c4602509",
 	"09cfedf4-c361-c0f7-b1d0-3f6764c73403",
@@ -53865,7 +53865,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R621');
+	'R621.''other''');
 INSERT INTO O_RATTR
 	VALUES ("312aeafc-d7de-b0bb-7b6b-0c51a8e2140b",
 	"09cfedf4-c361-c0f7-b1d0-3f6764c73403",
@@ -53923,7 +53923,7 @@ INSERT INTO O_REF
 	'',
 	'Association',
 	'Rel_ID',
-	'R655');
+	'R655.''destroys''');
 INSERT INTO O_RATTR
 	VALUES ("5e5c59d1-2e73-cc3f-d970-ffa16e663a51",
 	"09cfedf4-c361-c0f7-b1d0-3f6764c73403",
@@ -56829,7 +56829,7 @@ INSERT INTO O_REF
 	'',
 	'Model Class',
 	'Key_Lett',
-	'R678');
+	'R678.''specifies instances of''');
 INSERT INTO O_RATTR
 	VALUES ("0e652ea5-1516-4f01-5ef7-3edeef50b738",
 	"d32e13e5-fa6a-aa6b-3aae-47c4caf075bb",
@@ -56923,7 +56923,7 @@ INSERT INTO O_REF
 	'',
 	'Association',
 	'Rel_ID',
-	'R681');
+	'R681.''specifies traversal of''');
 INSERT INTO O_RATTR
 	VALUES ("b067fb18-b8d2-1196-746f-7f2b54a767da",
 	"d32e13e5-fa6a-aa6b-3aae-47c4caf075bb",
@@ -56960,7 +56960,7 @@ INSERT INTO O_REF
 	'',
 	'Chain Link',
 	'Link_ID',
-	'R604');
+	'R604.''precedes''');
 INSERT INTO O_RATTR
 	VALUES ("a37cdfd7-a974-36a6-a7fc-8b74a1de04f1",
 	"d32e13e5-fa6a-aa6b-3aae-47c4caf075bb",
@@ -57113,7 +57113,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R665');
+	'R665.''result''');
 INSERT INTO O_RATTR
 	VALUES ("c7fd8118-a625-5f73-e1b9-655a48175c43",
 	"6a8a1948-d170-772d-5ed3-0977fcf3b115",
@@ -57188,7 +57188,7 @@ INSERT INTO O_REF
 	'',
 	'Model Class',
 	'Key_Lett',
-	'R676');
+	'R676.''from extent of''');
 INSERT INTO O_RATTR
 	VALUES ("1fcbb26c-6078-19d4-b5e9-e07d95847811",
 	"6a8a1948-d170-772d-5ed3-0977fcf3b115",
@@ -57225,7 +57225,7 @@ INSERT INTO O_REF
 	'',
 	'Value',
 	'Value_ID',
-	'R610');
+	'R610.''where clause''');
 INSERT INTO O_RATTR
 	VALUES ("91a91178-dc78-80ae-768b-8635bf4e269e",
 	"6a8a1948-d170-772d-5ed3-0977fcf3b115",
@@ -57352,7 +57352,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R639');
+	'R639.''selection''');
 INSERT INTO O_RATTR
 	VALUES ("d07a5b69-60a2-73ca-5231-ea788bc46dd8",
 	"5898fbe9-663a-edf0-6d05-86626f32585b",
@@ -57427,7 +57427,7 @@ INSERT INTO O_REF
 	'',
 	'Model Class',
 	'Key_Lett',
-	'R677');
+	'R677.''from extent of''');
 INSERT INTO O_RATTR
 	VALUES ("c229bcdc-e337-4d7e-43eb-d3ef5244ec0f",
 	"5898fbe9-663a-edf0-6d05-86626f32585b",
@@ -57593,7 +57593,7 @@ INSERT INTO O_REF
 	'',
 	'Value',
 	'Value_ID',
-	'R611');
+	'R611.''where clause''');
 INSERT INTO O_RATTR
 	VALUES ("b851c8c6-c5b3-1b94-4340-574a4e463677",
 	"4fef0f72-af1d-18f3-a35d-ff184489ad60",
@@ -57751,7 +57751,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R638');
+	'R638.''selection''');
 INSERT INTO O_RATTR
 	VALUES ("ff31d884-0d7b-a942-3fb2-ec242b666e9b",
 	"a331315a-8853-fab7-121d-9e51d6326977",
@@ -57827,7 +57827,7 @@ INSERT INTO O_REF
 	'',
 	'Value',
 	'Value_ID',
-	'R613');
+	'R613.''starting point''');
 INSERT INTO O_RATTR
 	VALUES ("1feabd99-fe5f-66e6-fcec-38ab66578669",
 	"a331315a-8853-fab7-121d-9e51d6326977",
@@ -64919,7 +64919,7 @@ INSERT INTO O_REF
 	'',
 	'Action',
 	'Act_ID',
-	'R514');
+	'R514.''houses''');
 INSERT INTO O_RATTR
 	VALUES ("9ecd81ef-947a-22d8-258d-73c071045d87",
 	"55a6ebfc-a164-addf-7b7a-337b872b3879",
@@ -64954,7 +64954,7 @@ INSERT INTO O_REF
 	'',
 	'Action',
 	'SM_ID',
-	'R514');
+	'R514.''houses''');
 INSERT INTO O_RATTR
 	VALUES ("55092069-b401-614e-8541-2460ef30790e",
 	"55a6ebfc-a164-addf-7b7a-337b872b3879",
@@ -65612,7 +65612,7 @@ INSERT INTO O_REF
 	'',
 	'Local Event',
 	'SM_ID',
-	'R509');
+	'R509.''is assigned to''');
 INSERT INTO O_RATTR
 	VALUES ("82d2f4e0-bd38-6d71-97f0-ffaeca6b50f7",
 	"da7c5d4f-b95c-469c-c010-784c5abd707d",
@@ -65649,7 +65649,7 @@ INSERT INTO O_REF
 	'',
 	'Local Event',
 	'SMevt_ID',
-	'R509');
+	'R509.''is assigned to''');
 INSERT INTO O_RATTR
 	VALUES ("ac4be989-7366-536c-dddf-30db0544c8e7",
 	"da7c5d4f-b95c-469c-c010-784c5abd707d",
@@ -65983,7 +65983,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine',
 	'SM_ID',
-	'R523');
+	'R523.''is assigned to''');
 INSERT INTO O_RATTR
 	VALUES ("265a413f-d133-d4e2-ff2d-64074162bbda",
 	"4429c6e6-4c64-bc02-b177-f8de8a6564a4",
@@ -67131,7 +67131,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine State',
 	'SM_ID',
-	'R508');
+	'R508.''originates from''');
 INSERT INTO O_REF
 	VALUES ("190e4e8f-f99d-7648-906a-7b0ac36d7d3c",
 	"804aa0a0-5f85-9c57-6478-4feedcc9835c",
@@ -67182,7 +67182,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine State',
 	'SMstt_ID',
-	'R508');
+	'R508.''originates from''');
 INSERT INTO O_RATTR
 	VALUES ("cd635bd9-5704-506f-e2b8-cfead440354b",
 	"190e4e8f-f99d-7648-906a-7b0ac36d7d3c",
@@ -67374,7 +67374,7 @@ INSERT INTO O_REF
 	'',
 	'Polymorphic Event',
 	'SMevt_ID',
-	'R527');
+	'R527.''is defined by''');
 INSERT INTO O_RATTR
 	VALUES ("8688cab8-3659-09c3-72d3-ab21920ee88c",
 	"1b19327e-5197-6e99-e3de-9f52e3591087",
@@ -67411,7 +67411,7 @@ INSERT INTO O_REF
 	'',
 	'Polymorphic Event',
 	'SM_ID',
-	'R527');
+	'R527.''is defined by''');
 INSERT INTO O_RATTR
 	VALUES ("9f1f9baf-235b-40e6-d44c-4b643f2a8c22",
 	"1b19327e-5197-6e99-e3de-9f52e3591087",
@@ -67822,7 +67822,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine State',
 	'SMstt_ID',
-	'R503');
+	'R503.''is received by''');
 INSERT INTO O_RATTR
 	VALUES ("3ff41417-240a-ccdb-db91-59207c214671",
 	"fb67dc35-237f-97fe-9e1b-1c29efa68653",
@@ -67859,7 +67859,7 @@ INSERT INTO O_REF
 	'',
 	'SEM Event',
 	'SMevt_ID',
-	'R503');
+	'R503.''receives''');
 INSERT INTO O_RATTR
 	VALUES ("7494d157-191a-26a8-91d2-b4fddceb69ac",
 	"fb67dc35-237f-97fe-9e1b-1c29efa68653",
@@ -67896,7 +67896,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine State',
 	'SM_ID',
-	'R503');
+	'R503.''is received by''');
 INSERT INTO O_REF
 	VALUES ("fb67dc35-237f-97fe-9e1b-1c29efa68653",
 	"8669f57f-7e8d-44dd-1162-e3f0906e15bb",
@@ -67912,7 +67912,7 @@ INSERT INTO O_REF
 	'',
 	'SEM Event',
 	'SM_ID',
-	'R503');
+	'R503.''receives''');
 INSERT INTO O_RATTR
 	VALUES ("7410dc31-dd08-055c-6263-c82dc0bbe6eb",
 	"fb67dc35-237f-97fe-9e1b-1c29efa68653",
@@ -67949,7 +67949,7 @@ INSERT INTO O_REF
 	'',
 	'SEM Event',
 	'SMspd_ID',
-	'R503');
+	'R503.''receives''');
 INSERT INTO O_RATTR
 	VALUES ("cf561233-ddcc-eb17-1da6-138593d98af5",
 	"fb67dc35-237f-97fe-9e1b-1c29efa68653",
@@ -68046,7 +68046,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine',
 	'SM_ID',
-	'R516');
+	'R516.''is carried on events into''');
 INSERT INTO O_RATTR
 	VALUES ("398b9f7a-f24e-a872-641a-df1b0a021812",
 	"1f70db0b-df0b-55c5-de94-c583cd8cc62f",
@@ -68117,7 +68117,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R524');
+	'R524.''is defined by''');
 INSERT INTO O_RATTR
 	VALUES ("8d376f11-b1de-f170-4f5b-0cfaf6874692",
 	"1f70db0b-df0b-55c5-de94-c583cd8cc62f",
@@ -68263,7 +68263,7 @@ INSERT INTO O_REF
 	'',
 	'Event Supplemental Data',
 	'SM_ID',
-	'R520');
+	'R520.''carries''');
 INSERT INTO O_RATTR
 	VALUES ("59c2e198-3820-7a61-b66f-0e6d46666819",
 	"d40cde94-6903-3ce2-96e1-295db2a8ca40",
@@ -68298,7 +68298,7 @@ INSERT INTO O_REF
 	'',
 	'Event Supplemental Data',
 	'SMspd_ID',
-	'R520');
+	'R520.''carries''');
 INSERT INTO O_RATTR
 	VALUES ("4ef4785e-4618-9615-d8ce-8be27822a6e5",
 	"d40cde94-6903-3ce2-96e1-295db2a8ca40",
@@ -68720,7 +68720,7 @@ INSERT INTO O_REF
 	'',
 	'Event Supplemental Data',
 	'SM_ID',
-	'R521');
+	'R521.''receives asynchronous data via''');
 INSERT INTO O_RATTR
 	VALUES ("cd67c496-64e3-decd-707b-154058047b88",
 	"a8e798ba-89a5-c174-eea3-513a836e311d",
@@ -68755,7 +68755,7 @@ INSERT INTO O_REF
 	'',
 	'Event Supplemental Data',
 	'SMspd_ID',
-	'R521');
+	'R521.''receives asynchronous data via''');
 INSERT INTO O_RATTR
 	VALUES ("f17efb25-35dd-1c43-0296-56ed621070aa",
 	"a8e798ba-89a5-c174-eea3-513a836e311d",
@@ -69011,7 +69011,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event Data Item',
 	'SMedi_ID',
-	'R522');
+	'R522.''is made up of''');
 INSERT INTO O_RATTR
 	VALUES ("4a7bc4f0-faac-f452-417b-137481aaca7d",
 	"6fd9f0a6-a8fc-b72d-7950-f16e12d00ea9",
@@ -69046,7 +69046,7 @@ INSERT INTO O_REF
 	'',
 	'Event Supplemental Data',
 	'SMspd_ID',
-	'R522');
+	'R522.''makes up''');
 INSERT INTO O_RATTR
 	VALUES ("781409fb-238b-de35-1ca4-d5309acd872f",
 	"6fd9f0a6-a8fc-b72d-7950-f16e12d00ea9",
@@ -69081,7 +69081,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event Data Item',
 	'SM_ID',
-	'R522');
+	'R522.''is made up of''');
 INSERT INTO O_REF
 	VALUES ("6fd9f0a6-a8fc-b72d-7950-f16e12d00ea9",
 	"4429c6e6-4c64-bc02-b177-f8de8a6564a4",
@@ -69097,7 +69097,7 @@ INSERT INTO O_REF
 	'',
 	'Event Supplemental Data',
 	'SM_ID',
-	'R522');
+	'R522.''makes up''');
 INSERT INTO O_RATTR
 	VALUES ("72698006-92ca-569e-cc9d-abf4e775cf18",
 	"6fd9f0a6-a8fc-b72d-7950-f16e12d00ea9",
@@ -69293,7 +69293,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine State',
 	'SM_ID',
-	'R506');
+	'R506.''is destined to''');
 INSERT INTO O_RATTR
 	VALUES ("2f108dab-d8d2-0f98-c3e5-c941f7e94625",
 	"804aa0a0-5f85-9c57-6478-4feedcc9835c",
@@ -69328,7 +69328,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine State',
 	'SMstt_ID',
-	'R506');
+	'R506.''is destined to''');
 INSERT INTO O_RATTR
 	VALUES ("0a88c250-56db-e6ee-a1c6-04091ef3da99",
 	"804aa0a0-5f85-9c57-6478-4feedcc9835c",
@@ -69363,7 +69363,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine State',
 	'SMspd_ID',
-	'R506');
+	'R506.''is destined to''');
 INSERT INTO O_RATTR
 	VALUES ("248dc5ea-ec6d-3931-7077-513b2fdbd489",
 	"804aa0a0-5f85-9c57-6478-4feedcc9835c",
@@ -74608,7 +74608,7 @@ INSERT INTO O_REF
 	'',
 	'Referential Attribute',
 	'Obj_ID',
-	'R108');
+	'R108.''is resolved by''');
 INSERT INTO O_REF
 	VALUES ("53a8b21c-dc18-cc85-5efa-1d4a5ee93b79",
 	"3f2b0cac-f654-86b1-a834-b7ac15610e8d",
@@ -74624,7 +74624,7 @@ INSERT INTO O_REF
 	'',
 	'Referring Class In Assoc',
 	'Obj_ID',
-	'R111');
+	'R111.''is used to refer class by''');
 INSERT INTO O_RATTR
 	VALUES ("703f0e4d-5fcc-2007-9646-4bd3c7d63542",
 	"53a8b21c-dc18-cc85-5efa-1d4a5ee93b79",
@@ -74659,7 +74659,7 @@ INSERT INTO O_REF
 	'',
 	'Referred To Identifier Attribute',
 	'Obj_ID',
-	'R111');
+	'R111.''refers across association via''');
 INSERT INTO O_RATTR
 	VALUES ("baf6b4de-2421-ef12-5c3a-7aa2471b1f56",
 	"53a8b21c-dc18-cc85-5efa-1d4a5ee93b79",
@@ -74694,7 +74694,7 @@ INSERT INTO O_REF
 	'',
 	'Referred To Identifier Attribute',
 	'Oid_ID',
-	'R111');
+	'R111.''refers across association via''');
 INSERT INTO O_RATTR
 	VALUES ("33ce8eab-1570-e3b1-063e-93a0b8a62174",
 	"53a8b21c-dc18-cc85-5efa-1d4a5ee93b79",
@@ -74729,7 +74729,7 @@ INSERT INTO O_REF
 	'',
 	'Referred To Identifier Attribute',
 	'Attr_ID',
-	'R111');
+	'R111.''refers across association via''');
 INSERT INTO O_RATTR
 	VALUES ("823b8eeb-ea1d-b4a1-3fd2-4b44d9df59b8",
 	"53a8b21c-dc18-cc85-5efa-1d4a5ee93b79",
@@ -74764,7 +74764,7 @@ INSERT INTO O_REF
 	'',
 	'Referring Class In Assoc',
 	'Rel_ID',
-	'R111');
+	'R111.''is used to refer class by''');
 INSERT INTO O_REF
 	VALUES ("53a8b21c-dc18-cc85-5efa-1d4a5ee93b79",
 	"feba74d3-5880-cac6-69d1-abb8046578e3",
@@ -74780,7 +74780,7 @@ INSERT INTO O_REF
 	'',
 	'Referred To Identifier Attribute',
 	'Rel_ID',
-	'R111');
+	'R111.''refers across association via''');
 INSERT INTO O_RATTR
 	VALUES ("7262790b-0142-cea7-72ea-b926e7fb2d76",
 	"53a8b21c-dc18-cc85-5efa-1d4a5ee93b79",
@@ -74815,7 +74815,7 @@ INSERT INTO O_REF
 	'',
 	'Referring Class In Assoc',
 	'OIR_ID',
-	'R111');
+	'R111.''is used to refer class by''');
 INSERT INTO O_RATTR
 	VALUES ("ad3ffa95-b14e-68bc-b170-28ebae6da110",
 	"53a8b21c-dc18-cc85-5efa-1d4a5ee93b79",
@@ -74850,7 +74850,7 @@ INSERT INTO O_REF
 	'',
 	'Referred To Identifier Attribute',
 	'OIR_ID',
-	'R111');
+	'R111.''refers across association via''');
 INSERT INTO O_RATTR
 	VALUES ("cf9aac32-a754-7e8a-d823-f3bf1d0f1684",
 	"53a8b21c-dc18-cc85-5efa-1d4a5ee93b79",
@@ -74885,7 +74885,7 @@ INSERT INTO O_REF
 	'',
 	'Referential Attribute',
 	'Attr_ID',
-	'R108');
+	'R108.''is resolved by''');
 INSERT INTO O_RATTR
 	VALUES ("fc68f0e7-76a8-67d7-6120-6461f54fb779",
 	"53a8b21c-dc18-cc85-5efa-1d4a5ee93b79",
@@ -74940,7 +74940,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute Reference in Class',
 	'ARef_ID',
-	'R112');
+	'R112.''precedes''');
 INSERT INTO O_RATTR
 	VALUES ("d13388e8-2a74-23b8-1955-e25019726501",
 	"53a8b21c-dc18-cc85-5efa-1d4a5ee93b79",
@@ -75095,7 +75095,7 @@ INSERT INTO O_REF
 	'',
 	'Model Class',
 	'Obj_ID',
-	'R102');
+	'R102.''abstracts characteristics of''');
 INSERT INTO O_REF
 	VALUES ("837c4457-3a13-c2f4-e571-999b07657559",
 	"837c4457-3a13-c2f4-e571-999b07657559",
@@ -75111,7 +75111,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Obj_ID',
-	'R103');
+	'R103.''precedes''');
 INSERT INTO O_RATTR
 	VALUES ("ec90e12a-676d-b90b-eb78-ffb93a9fd1af",
 	"837c4457-3a13-c2f4-e571-999b07657559",
@@ -75146,7 +75146,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Attr_ID',
-	'R103');
+	'R103.''precedes''');
 INSERT INTO O_RATTR
 	VALUES ("774c74b0-cee4-9ae3-957c-daef39a11dd4",
 	"837c4457-3a13-c2f4-e571-999b07657559",
@@ -75279,7 +75279,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R114');
+	'R114.''defines type of''');
 INSERT INTO O_RATTR
 	VALUES ("2e08050e-e4fc-58a6-7793-3797c30579ce",
 	"837c4457-3a13-c2f4-e571-999b07657559",
@@ -75453,7 +75453,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Attr_ID',
-	'R105');
+	'R105.''is made up of ''');
 INSERT INTO O_RATTR
 	VALUES ("36187db2-00b1-9901-b5e8-fc42eb191796",
 	"279c5092-d927-8642-c2b4-1b3dc99d89b0",
@@ -75488,7 +75488,7 @@ INSERT INTO O_REF
 	'',
 	'Class Identifier',
 	'Obj_ID',
-	'R105');
+	'R105.''is part of ''');
 INSERT INTO O_REF
 	VALUES ("279c5092-d927-8642-c2b4-1b3dc99d89b0",
 	"837c4457-3a13-c2f4-e571-999b07657559",
@@ -75504,7 +75504,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Obj_ID',
-	'R105');
+	'R105.''is made up of ''');
 INSERT INTO O_RATTR
 	VALUES ("166124fe-24c5-9130-0dbb-04a1d5db63fb",
 	"279c5092-d927-8642-c2b4-1b3dc99d89b0",
@@ -75539,7 +75539,7 @@ INSERT INTO O_REF
 	'',
 	'Class Identifier',
 	'Oid_ID',
-	'R105');
+	'R105.''is part of ''');
 INSERT INTO O_RATTR
 	VALUES ("d3a55b56-89e0-961b-3f70-d315841a03d2",
 	"279c5092-d927-8642-c2b4-1b3dc99d89b0",
@@ -75631,7 +75631,7 @@ INSERT INTO O_REF
 	'',
 	'Model Class',
 	'Obj_ID',
-	'R104');
+	'R104.''identifies''');
 INSERT INTO O_RATTR
 	VALUES ("d838f45a-9608-4063-0ba0-6d819025c5a2",
 	"bbc3dc58-bc4a-0e78-fb01-fbc7b8ae6243",
@@ -76059,7 +76059,7 @@ INSERT INTO O_REF
 	'',
 	'Model Class',
 	'Obj_ID',
-	'R101');
+	'R101.''represents''');
 INSERT INTO O_RATTR
 	VALUES ("c3701d8a-9616-3d7c-14db-27aa1122bb5b",
 	"4151677e-2b4e-cd32-5d23-0f567f110b60",
@@ -76114,7 +76114,7 @@ INSERT INTO O_REF
 	'',
 	'Subsystem',
 	'SS_ID',
-	'R3');
+	'R3.''represents a class from another subsystem in''');
 INSERT INTO O_RATTR
 	VALUES ("edf7c4c8-3a4c-5d34-3ea2-19d625eb450c",
 	"4151677e-2b4e-cd32-5d23-0f567f110b60",
@@ -76630,7 +76630,7 @@ INSERT INTO O_REF
 	'',
 	'Subsystem',
 	'SS_ID',
-	'R2');
+	'R2.''is contained in''');
 INSERT INTO O_RATTR
 	VALUES ("cbad3028-9791-1231-ea84-3abb277ba3aa",
 	"85d9e944-1e6d-ffac-a3e7-11e2f077edf0",
@@ -76823,7 +76823,7 @@ INSERT INTO O_REF
 	'',
 	'Operation',
 	'Tfr_ID',
-	'R117');
+	'R117.''is part of ''');
 INSERT INTO O_RATTR
 	VALUES ("74e8bd85-a9fa-018a-3bf1-52da5286055a",
 	"126a1529-858c-f4af-3b27-07908357b510",
@@ -76877,7 +76877,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R118');
+	'R118.''is defined by''');
 INSERT INTO O_RATTR
 	VALUES ("627c58b6-0f9c-d98d-17d0-fa81e1bba405",
 	"126a1529-858c-f4af-3b27-07908357b510",
@@ -76977,7 +76977,7 @@ INSERT INTO O_REF
 	'',
 	'Model Class',
 	'Obj_ID',
-	'R115');
+	'R115.''is associated with''');
 INSERT INTO O_RATTR
 	VALUES ("503152b7-7917-23f3-ac52-51f53a139dca",
 	"80fe7a4a-4b9c-b925-60c3-55bc0037f13b",
@@ -77050,7 +77050,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R116');
+	'R116.''return code is defined by''');
 INSERT INTO O_RATTR
 	VALUES ("e09f6953-977a-2813-e15d-95a815916a2d",
 	"80fe7a4a-4b9c-b925-60c3-55bc0037f13b",
@@ -77247,7 +77247,7 @@ INSERT INTO O_REF
 	'',
 	'Base Attribute',
 	'Attr_ID',
-	'R113');
+	'R113.''navigates back to''');
 INSERT INTO O_RATTR
 	VALUES ("f814841d-86eb-59bf-664c-a88dc5d295fb",
 	"13f3376b-248c-d882-d4d4-9b5b143dffab",
@@ -77282,7 +77282,7 @@ INSERT INTO O_REF
 	'',
 	'Base Attribute',
 	'Obj_ID',
-	'R113');
+	'R113.''navigates back to''');
 INSERT INTO O_RATTR
 	VALUES ("daef4d3b-5b84-5ce3-a893-58362eb51710",
 	"13f3376b-248c-d882-d4d4-9b5b143dffab",
@@ -77369,7 +77369,7 @@ INSERT INTO O_REF
 	'',
 	'Class Identifier Attribute',
 	'Attr_ID',
-	'R110');
+	'R110.''is identified in this association by''');
 INSERT INTO O_RATTR
 	VALUES ("36dc77db-26d4-1af5-cd14-d322857ad349",
 	"feba74d3-5880-cac6-69d1-abb8046578e3",
@@ -77404,7 +77404,7 @@ INSERT INTO O_REF
 	'',
 	'Referred To Class in Assoc',
 	'Obj_ID',
-	'R110');
+	'R110.''identifies for this association''');
 INSERT INTO O_REF
 	VALUES ("feba74d3-5880-cac6-69d1-abb8046578e3",
 	"279c5092-d927-8642-c2b4-1b3dc99d89b0",
@@ -77420,7 +77420,7 @@ INSERT INTO O_REF
 	'',
 	'Class Identifier Attribute',
 	'Obj_ID',
-	'R110');
+	'R110.''is identified in this association by''');
 INSERT INTO O_RATTR
 	VALUES ("2d54ba8d-6f27-7d96-6e9c-6a83daa9add7",
 	"feba74d3-5880-cac6-69d1-abb8046578e3",
@@ -77455,7 +77455,7 @@ INSERT INTO O_REF
 	'',
 	'Referred To Class in Assoc',
 	'Oid_ID',
-	'R110');
+	'R110.''identifies for this association''');
 INSERT INTO O_REF
 	VALUES ("feba74d3-5880-cac6-69d1-abb8046578e3",
 	"279c5092-d927-8642-c2b4-1b3dc99d89b0",
@@ -77471,7 +77471,7 @@ INSERT INTO O_REF
 	'',
 	'Class Identifier Attribute',
 	'Oid_ID',
-	'R110');
+	'R110.''is identified in this association by''');
 INSERT INTO O_RATTR
 	VALUES ("e991b795-90cb-feda-3613-a93876498d24",
 	"feba74d3-5880-cac6-69d1-abb8046578e3",
@@ -77506,7 +77506,7 @@ INSERT INTO O_REF
 	'',
 	'Referred To Class in Assoc',
 	'Rel_ID',
-	'R110');
+	'R110.''identifies for this association''');
 INSERT INTO O_RATTR
 	VALUES ("bf841b24-76fd-a48e-c1f3-6b27ce08dcb5",
 	"feba74d3-5880-cac6-69d1-abb8046578e3",
@@ -77541,7 +77541,7 @@ INSERT INTO O_REF
 	'',
 	'Referred To Class in Assoc',
 	'OIR_ID',
-	'R110');
+	'R110.''identifies for this association''');
 INSERT INTO O_RATTR
 	VALUES ("c15dea3f-058a-14e7-7453-c45b97717388",
 	"feba74d3-5880-cac6-69d1-abb8046578e3",
@@ -86284,7 +86284,7 @@ INSERT INTO O_REF
 	'',
 	'Value',
 	'Value_ID',
-	'R800');
+	'R800.''has''');
 INSERT INTO O_RATTR
 	VALUES ("f0d90b3c-826e-74d3-41d1-c7986fd127bb",
 	"a032c71e-b204-7aa9-b471-70e85438365f",
@@ -86491,7 +86491,7 @@ INSERT INTO O_REF
 	'',
 	'Actual Parameter',
 	'Value_ID',
-	'R816');
+	'R816.''succeeds''');
 INSERT INTO O_RATTR
 	VALUES ("b899c9e5-5d1d-025c-729b-9722381909c8",
 	"a032c71e-b204-7aa9-b471-70e85438365f",
@@ -86611,7 +86611,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R807');
+	'R807.''instance''');
 INSERT INTO O_RATTR
 	VALUES ("61d23dbc-2d6f-538d-5416-6fac723db1dd",
 	"8d531bd2-42bd-24ae-c2a4-ae7e8dc2f024",
@@ -86648,7 +86648,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Obj_ID',
-	'R806');
+	'R806.''is value of''');
 INSERT INTO O_RATTR
 	VALUES ("c3934a4d-23c0-a470-dea2-3f232cb537d1",
 	"8d531bd2-42bd-24ae-c2a4-ae7e8dc2f024",
@@ -86685,7 +86685,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Attr_ID',
-	'R806');
+	'R806.''is value of''');
 INSERT INTO O_RATTR
 	VALUES ("4b25a277-cf09-8ade-f3c0-14c3ae5c4516",
 	"8d531bd2-42bd-24ae-c2a4-ae7e8dc2f024",
@@ -86808,7 +86808,7 @@ INSERT INTO O_REF
 	'',
 	'Value',
 	'Value_ID',
-	'R803');
+	'R803.''has right''');
 INSERT INTO O_RATTR
 	VALUES ("2de72817-3893-df96-58a9-1950b980e933",
 	"9b9e3f76-c740-6017-314f-e03c9ed7a62d",
@@ -86843,7 +86843,7 @@ INSERT INTO O_REF
 	'',
 	'Value',
 	'Value_ID',
-	'R802');
+	'R802.''has left''');
 INSERT INTO O_RATTR
 	VALUES ("1bfec1c0-794e-0473-5ffb-d79ee5b6cfba",
 	"9b9e3f76-c740-6017-314f-e03c9ed7a62d",
@@ -87115,7 +87115,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event Data Item',
 	'SMedi_ID',
-	'R834');
+	'R834.''is value of''');
 INSERT INTO O_RATTR
 	VALUES ("b3bc329c-ca55-17e7-1abf-f3b1ec7cde6b",
 	"04131e7e-1e1b-d7c2-b7c5-170d83c06616",
@@ -87152,7 +87152,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event Data Item',
 	'SM_ID',
-	'R834');
+	'R834.''is value of''');
 INSERT INTO O_RATTR
 	VALUES ("eeb44370-d6b8-1cc0-1eaa-2541a8c9a065",
 	"04131e7e-1e1b-d7c2-b7c5-170d83c06616",
@@ -87393,7 +87393,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R808');
+	'R808.''refers to''');
 INSERT INTO O_RATTR
 	VALUES ("48badbf6-3192-5d3d-aad0-677434280798",
 	"0bf2c419-c527-5ba9-b7f5-01b631b0acd1",
@@ -87492,7 +87492,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R809');
+	'R809.''refers to''');
 INSERT INTO O_RATTR
 	VALUES ("b7c2806d-f967-5239-7d15-7499a5efc678",
 	"ba0645e3-5420-57c8-c628-0294f0530f7a",
@@ -87593,7 +87593,7 @@ INSERT INTO O_REF
 	'',
 	'Model Class',
 	'Key_Lett',
-	'R819');
+	'R819.''refers to''');
 INSERT INTO O_RATTR
 	VALUES ("fef69aca-194a-b8ff-a788-32390e3431f3",
 	"c74494d6-e4cb-3da8-11aa-8ec22bba0d55",
@@ -87694,7 +87694,7 @@ INSERT INTO O_REF
 	'',
 	'Model Class',
 	'Key_Lett',
-	'R818');
+	'R818.''refers to''');
 INSERT INTO O_RATTR
 	VALUES ("c75c3029-d06b-9291-f5e1-d87148f813b4",
 	"57649d75-5030-c95d-d3c1-d12838c9d129",
@@ -87896,7 +87896,7 @@ INSERT INTO O_REF
 	'',
 	'Enumerator',
 	'Enum_ID',
-	'R824');
+	'R824.''has value''');
 INSERT INTO O_RATTR
 	VALUES ("5dc950bf-c801-1955-e493-04f9edbbe657",
 	"9adc3a70-e20e-90f3-8ab5-86b01063ec60",
@@ -88447,7 +88447,7 @@ INSERT INTO O_REF
 	'',
 	'Bridge Parameter',
 	'BParm_ID',
-	'R831');
+	'R831.''is a value of''');
 INSERT INTO O_RATTR
 	VALUES ("af1856a4-76bd-2f4b-4287-d335e3d0dc78",
 	"33c95ce5-2d74-463c-b7a7-ec58a005904c",
@@ -88482,7 +88482,7 @@ INSERT INTO O_REF
 	'',
 	'Function Parameter',
 	'SParm_ID',
-	'R832');
+	'R832.''is a value of''');
 INSERT INTO O_RATTR
 	VALUES ("d7a1524b-a604-1605-5970-f092f67f630d",
 	"33c95ce5-2d74-463c-b7a7-ec58a005904c",
@@ -88517,7 +88517,7 @@ INSERT INTO O_REF
 	'',
 	'Operation Parameter',
 	'TParm_ID',
-	'R833');
+	'R833.''is a value of''');
 INSERT INTO O_RATTR
 	VALUES ("dba0e4de-3cc7-aca5-ed72-33857235800b",
 	"33c95ce5-2d74-463c-b7a7-ec58a005904c",
@@ -88639,7 +88639,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Obj_ID',
-	'R812');
+	'R812.''member''');
 INSERT INTO O_RATTR
 	VALUES ("e03d4758-4464-db01-8873-83ff3a5b1379",
 	"28e3f59c-a3fb-13cd-a8f0-5bf02ba7e83c",
@@ -88676,7 +88676,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Attr_ID',
-	'R812');
+	'R812.''member''');
 INSERT INTO O_RATTR
 	VALUES ("cc349e62-c3d7-baa6-b95a-53fbbaa02c72",
 	"28e3f59c-a3fb-13cd-a8f0-5bf02ba7e83c",
@@ -88713,7 +88713,7 @@ INSERT INTO O_REF
 	'',
 	'Operation Value',
 	'Value_ID',
-	'R825');
+	'R825.''value''');
 INSERT INTO O_RATTR
 	VALUES ("32eacf1a-3f14-675f-576f-3d041364d1f5",
 	"28e3f59c-a3fb-13cd-a8f0-5bf02ba7e83c",
@@ -88812,7 +88812,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R805');
+	'R805.''references''');
 INSERT INTO O_RATTR
 	VALUES ("47260898-a4bf-495b-794d-53836c7d914d",
 	"7988b99f-42c2-cb3c-981d-6ededb816d7f",
@@ -88917,7 +88917,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R821');
+	'R821.''has''');
 INSERT INTO O_RATTR
 	VALUES ("52ad7226-8a0b-67b6-a00e-3705c29797ba",
 	"0301486c-9f57-d5ba-8b3b-4058e7f825c4",
@@ -89034,7 +89034,7 @@ INSERT INTO O_REF
 	'',
 	'Value',
 	'Value_ID',
-	'R804');
+	'R804.''has operand''');
 INSERT INTO O_RATTR
 	VALUES ("87144cc2-debc-96e3-1a55-a3eb81299459",
 	"324f0aba-51f8-3bdd-de4c-66e692a1bcaa",
@@ -89296,7 +89296,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R820');
+	'R820.''has type''');
 INSERT INTO O_RATTR
 	VALUES ("1a10f3c7-4203-6165-7d72-b69696f7db0d",
 	"0676861e-9698-a07b-0391-9cc419f7f9fc",
@@ -89331,7 +89331,7 @@ INSERT INTO O_REF
 	'',
 	'Block',
 	'Block_ID',
-	'R826');
+	'R826.''has scope''');
 INSERT INTO O_RATTR
 	VALUES ("c88010b9-4ed4-7fd5-5885-930cfc0787f9",
 	"0676861e-9698-a07b-0391-9cc419f7f9fc",

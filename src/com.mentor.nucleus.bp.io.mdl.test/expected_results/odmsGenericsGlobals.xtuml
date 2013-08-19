@@ -4659,7 +4659,7 @@ INSERT INTO O_REF
 ',
 	'Disk',
 	'Disk_ID',
-	'R2');
+	'R2.''owns''');
 INSERT INTO O_RATTR
 	VALUES ("170a2a71-c2e6-1531-c9b9-6ff1251fa544",
 	"fcbc0444-54a8-a16f-32e9-9ecfd4a3741b",
@@ -4698,7 +4698,7 @@ INSERT INTO O_REF
 ',
 	'Qualified Process',
 	'Qualified_Process_ID',
-	'R2');
+	'R2.''is owned by''');
 INSERT INTO O_RATTR
 	VALUES ("546af8ed-2e1c-f26e-de4b-cba572aa81af",
 	"fcbc0444-54a8-a16f-32e9-9ecfd4a3741b",
@@ -7343,7 +7343,7 @@ INSERT INTO O_REF
 ',
 	'Qualified Process',
 	'Qualified_Process_ID',
-	'R1');
+	'R1.''needed by''');
 INSERT INTO O_RATTR
 	VALUES ("7547549d-b85f-ca8f-4fe1-2f156ecfbc4c",
 	"1416cc95-3462-af4c-4075-14d8183ebb6b",
@@ -7382,7 +7382,7 @@ INSERT INTO O_REF
 ',
 	'Disk',
 	'Disk_ID',
-	'R1');
+	'R1.''needs''');
 INSERT INTO O_RATTR
 	VALUES ("11654af2-4e1e-7580-3f24-11f261463655",
 	"1416cc95-3462-af4c-4075-14d8183ebb6b",
@@ -8055,7 +8055,7 @@ INSERT INTO O_REF
 ',
 	'Online Location',
 	'Online_Location_ID',
-	'R10');
+	'R10.''originates at''');
 INSERT INTO O_RATTR
 	VALUES ("3479f352-0a2c-fd88-17ef-28ad31c53d25",
 	"728a04b3-e788-1dbd-f3ff-935eba7c23a8",
@@ -8094,7 +8094,7 @@ INSERT INTO O_REF
 ',
 	'Online Location',
 	'Online_Location_ID',
-	'R11');
+	'R11.''completes at''');
 INSERT INTO O_RATTR
 	VALUES ("eefd9fe6-ce4f-6c83-c019-c9a9962eacbb",
 	"728a04b3-e788-1dbd-f3ff-935eba7c23a8",
@@ -8226,7 +8226,7 @@ INSERT INTO O_REF
 ',
 	'Permanent Home in Library',
 	'Row_Number',
-	'R4');
+	'R4.''is permanently assigned to''');
 INSERT INTO O_RATTR
 	VALUES ("5bd89da3-19fd-37af-89be-ae37d8aa7754",
 	"4bf2d155-176b-5a73-1c93-f4f88ce37e31",
@@ -8265,7 +8265,7 @@ INSERT INTO O_REF
 ',
 	'Permanent Home in Library',
 	'Column_Number',
-	'R4');
+	'R4.''is permanently assigned to''');
 INSERT INTO O_RATTR
 	VALUES ("a99fc535-d99c-7083-a442-8fce7fadd472",
 	"4bf2d155-176b-5a73-1c93-f4f88ce37e31",
@@ -12313,7 +12313,7 @@ INSERT INTO O_REF
 ',
 	'Drive',
 	'Drive_ID',
-	'R5');
+	'R5.''is assigned to''');
 INSERT INTO O_RATTR
 	VALUES ("385da28f-4eab-76dd-ee67-2ae33183683b",
 	"a7fecd58-b286-0d9f-a521-00cef314d36a",
@@ -12352,7 +12352,7 @@ INSERT INTO O_REF
 ',
 	'Online Disk',
 	'Disk_ID',
-	'R5');
+	'R5.''is assigned to''');
 INSERT INTO O_RATTR
 	VALUES ("25633af4-ea1f-b15d-84d4-7bfd34c44806",
 	"a7fecd58-b286-0d9f-a521-00cef314d36a",
@@ -13231,7 +13231,7 @@ INSERT INTO O_REF
 ',
 	'Disk Transfer',
 	'Disk_Transfer_ID',
-	'R8');
+	'R8.''is executing''');
 INSERT INTO O_RATTR
 	VALUES ("4d18df64-aad6-2d76-e812-0548cff30a9f",
 	"20ecfaa1-59b1-c059-eca3-fbec115f4111",
@@ -20178,7 +20178,7 @@ INSERT INTO O_REF
 ',
 	'Disk Transfer',
 	'Disk_Transfer_ID',
-	'R9');
+	'R9.''is executing''');
 INSERT INTO O_RATTR
 	VALUES ("c2e7dbb5-98e9-483c-e2ae-eac0d409bd44",
 	"9f77d51f-fbc3-b42a-0704-cb7c3782f100",
@@ -24174,7 +24174,7 @@ INSERT INTO O_REF
 ',
 	'Online Disk',
 	'Disk_ID',
-	'R6');
+	'R6.''is assigned to''');
 INSERT INTO O_RATTR
 	VALUES ("ceb176af-79b8-6dbb-f6be-dd773a79da27",
 	"257086e5-7aaa-a1dc-d48b-a8b0c95ae543",
@@ -24213,7 +24213,7 @@ INSERT INTO O_REF
 ',
 	'Slot',
 	'Slot_ID',
-	'R6');
+	'R6.''is assigned to''');
 INSERT INTO O_RATTR
 	VALUES ("c78e58d6-1570-39b0-566f-29d2e5bfea23",
 	"257086e5-7aaa-a1dc-d48b-a8b0c95ae543",
