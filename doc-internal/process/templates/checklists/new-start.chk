@@ -1,0 +1,261 @@
+========================================================================
+
+File:      $RCSfile: new-start.chk,v $
+Version:   $Revision: 1.29 $
+Modified:  $Date: 2006/07/05 15:07:35 $
+
+(c) Copyright 2008-2013 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+BridgePoint Project Checklist
+Environment Setup Checklist
+
+_- Setup Sykpe
+   - Download the latest release of Skype
+   - Browse to http://www.skype.com/download/
+   - Create Skype account (follow the Skype setup)
+   - Contact Engineering manager to get the contact list
+   - Select Tools -> Archive Contacts -> Restore Contacts from File
+
+_- Get access to Mentor Graphics resources used by this development team
+   - Email Keith Brown (keith_brown@mentor.com) and ask to be added to the user
+     list for the BridgePoint Subversion repository.
+   - Send e-mail to IT HelpDesk (help_desk@mentor.com) with the following text:
+   
+     Hello, my name is <name> and I am a new member of the BridgePoint develop-
+     ment team.  I need to be set up on the tucson.wv server using the special
+     setup procedures outlined here:  http://kb.wv.mentorg.com/kb1163 
+
+_- Request Licenses
+   - Browse to http://mentorweb/WWOPS/WOF/ShareP/Forms/license.cfm
+   - Click the "I accept" box at the top of the page once you accept the terms.
+   - Fill out the name and phone number information
+   - Click the "This is for my own internal use" box
+   - In the "Part numbers or FEATURE names needed" box, paste the following:
+
+     mentorall_s
+
+   - Scroll down and choose Node Locked
+   - In "Host ID", paste your MAC address
+     . Open a command prompt and type ipconfig /all
+     . The Physical Address is the MAC address.
+     . Remove the hyphens before submitting your MAC address.
+     . For more information on how to get a MAC address for other platforms
+       Browse to http://mentorweb/WWOPS/WOF/RLT/faq.html
+   - Select location
+   - Click "Submit this form"
+   - Wait for the E-mail
+   - Open C:\MentorGraphics\license.dat
+     (after installing the product below)
+   - Append the licenses to the top of the file
+
+_- Create a new development workspace
+   _- https://github.com/xtuml/internal/blob/master/doc-internal/process/HOWTO-create-new-development-workspace.md
+   
+_- Update antlr.jar
+   - **Note** Only complete this section if you make a change to the pt_antlr
+     project, or the antlr.jar file does not exist in the pt_antlr project.
+   - Select pt_antlr
+   - Navigate to pt_antlr/antlr
+   - Right click on antlr.g and select Compile ANTLR Grammar.
+   - Pull-down the icon that has a white triangle inside of a green circle with
+     a red suitcase, and select Run As -> Ant Build.
+   - Wait for the build to finish.
+   - Right click pt_antlr and select Close Project.
+
+_- Run BridgePoint in a runtime workspace
+   _- open the Java perspsective
+   _- Select Run->Debug...
+   _- Under Configurations, select "Eclipse Application > BP Application"
+   _- Select "Debug"
+   _R BridgePoint starts
+
+End
+---
+
+$Log: new-start.chk,v $
+Revision 1.29  2006/07/05 15:07:35  jeremyr
+Job:2164
+Added the bp.ui.tree project to the list of projects per the introducing new modules checklist.
+
+Revision 1.28  2006/07/04 19:44:13  jeremyr
+Job:2164
+Added the session explorer project to the list of projects per the introducing new modules checklist.
+
+Revision 1.27  2006/06/02 21:35:35  greg
+Job: 1554
+Remove internal.io.sql and internal.io.sql.test from required projects
+
+Revision 1.26  2006/05/27 02:35:21  tphan
+Job:2126
+Add com.mentor.nucleus.bp.debug.ui.test
+
+Revision 1.25  2006/05/19 17:50:12  mpowell
+Job: 1770
+Updated per i1770-051106-01.rvm
+
+Revision 1.24  2006/05/19 17:20:05  mpowell
+Job: 1770
+Updated per i1770-051106-01.rvm
+
+Revision 1.23  2006/05/16 20:09:58  mpowell
+Job: 1770
+Updated per i1770-051106-01.rvm
+
+Revision 1.22  2006/04/27 14:00:06  tphan
+job: 1635
+Add com.mentor.nucleus.bp.debug.ui project name
+
+Revision 1.21  2006/04/10 14:13:18  kbrown
+Job:1904
+Added plugins that are now required to build the model compiler features.
+
+Revision 1.20  2005/10/31 15:50:56  kbrown
+Job:1246
+Added mc2020 to new start checklist of modules to check out.
+
+Revision 1.19  2005/10/06 17:48:41  campbell
+Job: 1099
+Cleared last of the typos from this procedure.
+
+Revision 1.18  2005/09/13 21:15:36  tlondon
+Job: 1099
+
+Updated with build automatically setting and added edge_plugins location
+
+Revision 1.17  2005/09/13 19:19:48  tlondon
+Job: 1099
+
+Updated for eclipse 3.1
+
+Revision 1.16  2005/08/09 16:10:27  jmather
+Job: 1121
+Added the Models project as one that must be checked out, due to its usage by this issue's ShapeResizeTest.
+
+Revision 1.15  2005/06/02 17:02:40  greg
+Job: 597
+Add new projects
+
+Revision 1.14  2005/04/27 00:31:14  jmather
+Job: 522
+Adding new plugin to new-start checklist
+
+Revision 1.13  2005/04/25 23:51:18  greg
+Job: 714
+Added internal test project to list of projects to be checked out.
+
+Revision 1.12  2005/04/05 05:11:58  greg
+Job: 293
+Changed com.projtech to com.mentor.nucleus
+Changed refs to old models dir and file extension
+Corrected path to documentation
+
+Revision 1.11  2005/04/01 23:51:36  greg
+Job: 437
+Add instructions for setting up licensing
+
+Revision 1.10.14.1  2005/03/23 18:20:09  pablo
+Job: 437
+Add instructions for setting up licensing
+
+Revision 1.10.10.1  2005/03/22 23:36:23  pablo
+Job: 437
+Add instructions for setting up MGLS.
+
+Revision 1.10  2005/01/24 23:40:05  jmather
+Job: 690
+Moving from issue 653 to 690 and adding step to restart eclipse after
+preferences import
+Adding step to uncheck Build Automatically during import
+Updating project list
+Fixing build order, ui.text must come before io.core and dependents
+Broke out connecting to CVS as a separate step.
+Alphabetized the project checkout list, to make it correspond better with what's in the CVS view.
+Added a step to declare the OS_CACHE_SIZE environment variable.
+Removed the now-unnecessary "Verify the classpath plugin entries" step.
+
+Revision 1.9.10.5  2005/01/24 23:13:03  jmather
+Job: 690
+Broke out connecting to CVS as a separate step.
+Alphabetized the project checkout list, to make it correspond better with what's in the CVS view.
+Added a step to declare the OS_CACHE_SIZE environment variable.
+Removed the now-unnecessary "Verify the classpath plugin entries" step.
+
+Revision 1.9.10.4  2005/01/21 22:17:41  tlondon
+Job: 690
+
+Fixing build order, ui.text must come before io.core and dependents
+
+Revision 1.9.10.3  2005/01/21 21:17:48  tlondon
+Job: 690
+
+Updating project list
+
+Revision 1.9.10.2  2005/01/21 21:08:33  tlondon
+Job: 690
+
+Adding step to uncheck Build Automatically during import
+
+Revision 1.9.10.1  2005/01/21 20:40:41  tlondon
+Job: 690
+
+Moving from issue 653 to 690 and adding step to restart eclipse after
+preferences import
+
+Revision 1.9.6.2  2005/01/20 16:32:44  tlondon
+Job: 653
+
+Removed "Running man" references from eclipse 2.1
+
+Revision 1.9.6.1  2005/01/10 18:41:46  tlondon
+Job: 653
+
+Updated new start checklist to exclude preferences setup.  Removed
+step to install bak2sql.  Added entry for setting OS_CACHE_SIZE.
+
+Revision 1.9.4.1  2005/01/10 18:34:57  tlondon
+Job: 653
+
+Updated new start checklist to exclude preferences setup.  Removed
+step to install bak2sql.  Added entry for setting OS_CACHE_SIZE.
+
+Revision 1.9  2004/12/28 16:06:37  jmather
+Job: 453
+Added bp.ui.explorer.test to list of projects to check out.
+
+Revision 1.8  2004/12/21 19:09:43  greg
+Job: 434
+Changes due to Eclipse 3.0
+
+Revision 1.7  2004/12/17 17:53:58  campbell
+Job: 516
+Change instructions for prebuilt libTRANS.dll in CVS
+
+Revision 1.6  2004/12/16 00:12:02  campbell
+Job: 615
+Increased memory size at startup.
+
+Revision 1.5  2004/12/14 21:39:51  jmather
+Job: 434
+Undid changes made accidentally to HEAD.
+
+Revision 1.3  2004/11/05 03:09:07  greg
+Job:526
+Add doc project to project list
+
+Revision 1.2.14.1  2004/11/03 21:07:06  tanner
+Job:526
+Add doc project to project list
+
+Revision 1.2  2004/10/22 01:39:21  babar
+Job: 448
+Cosmetic changes only
+
+Revision 1.1  2004/10/21 07:50:59  siddique
+Job:448
+Introduced.
+(See i448-102004-01.rvm)
+
