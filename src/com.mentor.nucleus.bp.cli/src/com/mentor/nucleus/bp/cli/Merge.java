@@ -1,8 +1,8 @@
 //=====================================================================
 //
 //File:      $RCSfile: Merge.java,v $
-//Version:   $Revision: 1.4 $
-//Modified:  $Date: 2013/06/12 13:08:01 $
+//Version:   $Revision: 1.4.10.1 $
+//Modified:  $Date: 2013/07/08 14:38:17 $
 //
 //(c) Copyright 2004-2012 by Mentor Graphics Corp. All rights reserved.
 //
@@ -30,7 +30,7 @@ public class Merge implements IApplication {
 					new CommandLineOption("-ancestorFile", "",
 							"The ancestor file for the merge."),
 				    new CommandLineOption("-outputFile", "",
-				    		"The merged output file."),
+				    		"The merged output file.  If there are any conflicting changes no output will be created."),
 					new CommandLineOption(
 							"-debugCLI",
 							false,
@@ -46,15 +46,14 @@ public class Merge implements IApplication {
 				BPCLIWorkbenchAdvisor.redirectSystemOutput(cmdLine);
 				System.out.println("Starting CLI Merge" );
 		    	BPCLIWorkbenchAdvisor workbenchAdvisor = new MergeWorkbenchAdvisor(cmdLine);
-		    	workbenchAdvisor.createAndRunWorkbench();
+		    	return workbenchAdvisor.createAndRunWorkbench();
 			}
 		} catch (BPCLIException err) {
 			BPCLIPreferences.logError("Error during merge: " + err.getMessage(), null);			
 		} catch (Exception err) {
 			BPCLIPreferences.logError("Error during merge: " + err.getMessage(), err);			
 		}
-		
-		return IApplication.EXIT_OK;
+		return new Integer(1);
 	}
 
 	@Override

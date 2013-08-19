@@ -1,8 +1,8 @@
 //=====================================================================
 //
 //File:      $RCSfile: ModelContentMergeViewer.java,v $
-//Version:   $Revision: 1.11 $
-//Modified:  $Date: 2013/05/12 22:30:25 $
+//Version:   $Revision: 1.11.12.3 $
+//Modified:  $Date: 2013/07/24 19:20:29 $
 //
 //(c) Copyright 2004-2013 by Mentor Graphics Corp. All rights reserved.
 //
@@ -47,7 +47,11 @@ import org.eclipse.compare.rangedifferencer.RangeDifference;
 import org.eclipse.compare.structuremergeviewer.Differencer;
 import org.eclipse.compare.structuremergeviewer.ICompareInput;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.ResourceAttributes;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
@@ -108,10 +112,10 @@ import com.mentor.nucleus.bp.io.core.CoreExport;
 import com.mentor.nucleus.bp.model.compare.ComparePlugin;
 import com.mentor.nucleus.bp.model.compare.CompareTransactionManager;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager;
+import com.mentor.nucleus.bp.model.compare.ModelCacheManager.ModelLoadException;
 import com.mentor.nucleus.bp.model.compare.ModelMergeProcessor;
 import com.mentor.nucleus.bp.model.compare.TreeDifference;
 import com.mentor.nucleus.bp.model.compare.TreeDifferencer;
-import com.mentor.nucleus.bp.model.compare.ModelCacheManager.ModelLoadException;
 import com.mentor.nucleus.bp.model.compare.actions.CopyDiffAction;
 import com.mentor.nucleus.bp.model.compare.actions.NavigateDownAction;
 import com.mentor.nucleus.bp.model.compare.actions.NavigateUpAction;
@@ -121,7 +125,7 @@ import com.mentor.nucleus.bp.model.compare.providers.NonRootModelElementComparab
 import com.mentor.nucleus.bp.model.compare.structuremergeviewer.ModelStructureDiffViewer;
 import com.mentor.nucleus.bp.ui.canvas.CanvasPlugin;
 
-public class ModelContentMergeViewer extends ContentMergeViewer implements IModelContentMergeViewer {
+public class ModelContentMergeViewer extends ContentMergeViewer implements IModelContentMergeViewer, IResourceChangeListener {
 
 	private static final String BUNDLE_NAME = "com.mentor.nucleus.bp.model.compare.ComparePluginMessages"; //$NON-NLS-1$;
 	// width for center area
@@ -315,27 +319,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			}
 
 		});
-	}
-
-	public void refresh() {
-//		if(getDifferencer() != null) {
-//			getDifferencer().refresh();
-//			// refresh the structural diff view if present
-//			ModelStructureDiffViewer modelStructureDiffViewer = ModelStructureDiffViewer.inputMap
-//					.get(getInput());
-//			if(modelStructureDiffViewer != null) {
-//				modelStructureDiffViewer.refreshModel();
-//			}
-//			// set the graphical represents for any graphical data affected
-//			leftTreeViewer.refresh();
-//			leftTreeViewer.getTree().redraw();
-//			rightTreeViewer.refresh();
-//			rightTreeViewer.getTree().redraw();		
-//			ancestorTreeViewer.refresh();
-//			ancestorTreeViewer.getTree().redraw();
-//			refreshCenter();
-//		}
-		super.refresh();
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(this);
 	}
 	
 	@Override
@@ -693,33 +677,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 	protected void handleCompareInputChange() {
 		setLeftDirty(false);
 		setRightDirty(false);
-		// do this in a workspace job to allow
-		// waiting for all events to process
-		try {
-			ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
-
-				@Override
-				public void run(IProgressMonitor monitor) throws CoreException {
-					PlatformUI.getWorkbench().getDisplay().asyncExec(
-							new Runnable() {
-
-								@Override
-								public void run() {
-									// grab the old input and refresh the
-									// structure diff view if present
-									Object oldInput = getInput();
-									refresh();
-									ModelStructureDiffViewer diffViewer = ModelStructureDiffViewer.inputMap.get(oldInput);
-									if(diffViewer != null) {
-										diffViewer.setInput(getInput());
-									}
-								}
-							});
-				}
-			}, new NullProgressMonitor());
-		} catch (CoreException e) {
-			CorePlugin.logError("Unable to refresh compare resources.", e);
-		}
+		super.handleCompareInputChange();
 	}
 
 	public CompareConfiguration getConfiguration() {
@@ -1345,7 +1303,10 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 							leftElements, rightElements, ancestorElements,
 							isThreeWay(), getInput());
 					TreeDifferencer.instances.put(getInput(), differencer);
+				} else {
+					differencer.setElements(leftElements, rightElements, ancestorElements);
 				}
+				differencer.refresh();
 				nextDifference.getAction().setEnabled(false);
 				nextDifference.getAction().setEnabled(nextDifference.getAction().isEnabled());
 				previousDifference.getAction().setEnabled(false);
@@ -1367,28 +1328,20 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			}
 		}
 		if (ancestor != null) {
-			if (ancestorTreeViewer.getInput() != ancestor) {
-				ancestorTreeViewer.setInput(ancestor);
-			} else {
-				ancestorTreeViewer.refresh(ancestor, true);
-			}
+			ancestorTreeViewer.setInput(ancestor);
 		}
-		if (leftTreeViewer.getInput() == null || !leftTreeViewer.getInput().equals(left)) {
-			leftTreeViewer.setInput(left);
-		} else {
-			leftTreeViewer.refresh(left, true);
-		}
-		if (rightTreeViewer.getInput() == null || !rightTreeViewer.getInput().equals(right)) {
-			rightTreeViewer.setInput(right);
-		} else {
-			rightTreeViewer.refresh(right, true);
-		}
-		leftTreeViewer.getTree().redraw();
-		rightTreeViewer.getTree().redraw();
+		leftTreeViewer.setInput(left);
+		rightTreeViewer.setInput(right);
 		refreshCenter();
-		if(differencer != null) {
-			revealAndSelectDifference(differencer.getNextDifference(null));
-		}
+		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				if(differencer != null) {
+					revealAndSelectDifference(differencer.getNextDifference(null));
+				}				
+			}
+		});
 	}
 
 	/**
@@ -1461,6 +1414,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 
 	@Override
 	protected void handleDispose(DisposeEvent event) {
+		differencer.dipose();
 		instanceMap.remove(getInput());
 		if (leftTreeViewer != null) {
 			Object leftKey = null;
@@ -1520,6 +1474,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			}
 			colors.clear();
 		}
+		ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
 	}
 
 	public CompareTransactionManager getCompareTransactionManager() {
@@ -1638,30 +1593,46 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 
 
 	public Ooaofooa getLeftCompareRoot() {
-		if(getInput() == null) {
-			return null;
+		if(getInput() != null) {
+			return Ooaofooa.getInstance(ModelRoot.getLeftCompareRootPrefix()
+					+ getInput().hashCode());
 		}
-		return Ooaofooa.getInstance(ModelRoot.getLeftCompareRootPrefix()
-				+ getInput().hashCode());
+		if(oldInput != null) {
+			return Ooaofooa.getInstance(ModelRoot.getLeftCompareRootPrefix()
+					+ oldInput.hashCode());			
+		}
+		return null;
 	}
 
 	public Ooaofooa getRightCompareRoot() {
-		if(getInput() == null) {
-			return null;
+		if(getInput() != null) {
+			return Ooaofooa.getInstance(ModelRoot.getRightCompareRootPrefix()
+					+ getInput().hashCode());
 		}
-		return Ooaofooa.getInstance(ModelRoot.getRightCompareRootPrefix()
-				+ getInput().hashCode());
+		if(oldInput != null) {
+			return Ooaofooa.getInstance(ModelRoot.getRightCompareRootPrefix()
+					+ oldInput.hashCode());			
+		}
+		return null;
 	}
 
 	public Ooaofooa getAncestorCompareRoot() {
-		if(getInput() == null) {
-			return null;
+		if(getInput() != null) {
+			return Ooaofooa.getInstance(ModelRoot.getAncestorCompareRootPrefix()
+					+ getInput().hashCode());
 		}
-		return Ooaofooa.getInstance(ModelRoot.getAncestorCompareRootPrefix()
-				+ getInput().hashCode());
+		if(oldInput != null) {
+			return Ooaofooa.getInstance(ModelRoot.getAncestorCompareRootPrefix()
+					+ oldInput.hashCode());			
+		}
+		return null;
 	}
 
 	public static ModelContentMergeViewer getInstance(Object input) {
+		if(input == null) {
+			Set<Object> keySet = instanceMap.keySet();
+			return instanceMap.get(keySet.iterator().next());
+		}
 		return instanceMap .get(input);
 	}
 
@@ -1705,7 +1676,20 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		IMergeViewerContentProvider cp= (IMergeViewerContentProvider) getContentProvider();
 		if (cp != null) {
 			if (!isPatchHunk()) {
-				return cp.isLeftEditable(getInput());
+				boolean result = cp.isLeftEditable(getInput());
+				if (result) {
+					// also check if the file is writable, for some reason
+					// eclipse does not
+					if (getInput() instanceof ICompareInput) {
+						Object left = ((ICompareInput) getInput()).getLeft();
+						if (left instanceof LocalResourceTypedElement) {
+							ResourceAttributes resourceAttributes = ((LocalResourceTypedElement) left)
+									.getResource().getResourceAttributes();
+							return !resourceAttributes.isReadOnly();
+						}
+					}
+					return result;
+				}
 			}
 		}
 		return false;
@@ -1720,9 +1704,90 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		IMergeViewerContentProvider cp= (IMergeViewerContentProvider) getContentProvider();
 		if (cp != null) {
 			if (!isPatchHunk()) {
-				return cp.isRightEditable(getInput());
+				boolean result = cp.isRightEditable(getInput());
+				if (result) {
+					// also check if the file is writable, for some reason
+					// eclipse does not
+					if (getInput() instanceof ICompareInput) {
+						Object right = ((ICompareInput) getInput()).getRight();
+						if (right instanceof LocalResourceTypedElement) {
+							ResourceAttributes resourceAttributes = ((LocalResourceTypedElement) right)
+									.getResource().getResourceAttributes();
+							return !resourceAttributes.isReadOnly();
+						}
+					}
+					return result;
+				}
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void resourceChanged(IResourceChangeEvent event) {
+		boolean refresh = false;
+		IResourceDelta originalDelta = event.getDelta();
+		IResourceDelta delta = null;
+		if (originalDelta != null) {
+			IResource[] resources = getResourcesFromInput();
+			for(IResource resource : resources) {
+				delta= originalDelta.findMember(resource.getFullPath());
+				if(delta != null) {
+					break;
+				}
+			}
+		}
+		if (delta != null) {
+			final int flags= delta.getFlags();
+			switch (delta.getKind()) {
+				case IResourceDelta.CHANGED:
+					if ((IResourceDelta.CONTENT & flags) != 0) {
+						refresh = true;
+					}
+					break;
+			}
+
+		}
+		if(refresh) {
+			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+				
+				@Override
+				public void run() {
+					if(getInput() != null) {
+						updateContent(((ICompareInput) getInput()).getAncestor(),
+								((ICompareInput) getInput()).getLeft(),
+								((ICompareInput) getInput()).getRight());
+						ModelStructureDiffViewer modelStructureDiffViewer = ModelStructureDiffViewer.inputMap.get(getInput());
+						if(modelStructureDiffViewer != null) {
+							modelStructureDiffViewer.refreshModel();
+						}
+					}
+				}
+			});
+		}
+	}
+
+	private IResource[] getResourcesFromInput() {
+		List<IResource> resources = new ArrayList<IResource>();
+		Object compareInput = getInput();
+		if(compareInput instanceof ICompareInput) {
+			ICompareInput cinput = (ICompareInput) compareInput;
+			ITypedElement left = cinput.getLeft();
+			ITypedElement right = cinput.getRight();
+			ITypedElement anc = cinput.getAncestor();
+			if(left instanceof LocalResourceTypedElement) {
+				IResource leftResource = ((LocalResourceTypedElement) left).getResource();
+				resources.add(leftResource);
+			}
+			if(right instanceof LocalResourceTypedElement) {
+				IResource rightResource = ((LocalResourceTypedElement) right).getResource();
+				resources.add(rightResource);
+			}
+			if(anc != null && anc instanceof LocalResourceTypedElement) {
+				IResource ancResource = ((LocalResourceTypedElement) anc).getResource();
+				resources.add(ancResource);
+			}
+		}
+		return resources.toArray(new IResource[resources.size()]);
 	}
 }

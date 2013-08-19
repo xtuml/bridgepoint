@@ -1,4 +1,4 @@
--- BP 7.1 content: FunctionPackage syschar: 3 persistence-version: 7.1.5
+-- BP 7.1 content: FunctionPackage syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO S_FPK
 	VALUES ("614ea7b4-43af-4ebf-bbb8-10b1f39b9297",

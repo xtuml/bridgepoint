@@ -1,4 +1,4 @@
--- BP 7.1 content: DataTypePackage syschar: 3 persistence-version: 7.1.5
+-- BP 7.1 content: DataTypePackage syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO S_DPK
 	VALUES ("48878a4d-47c4-421e-a16a-bc9b14560810",

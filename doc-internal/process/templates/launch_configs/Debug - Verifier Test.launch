@@ -33,10 +33,10 @@
 <stringAttribute key="org.eclipse.jdt.junit.TESTNAME" value=""/>
 <stringAttribute key="org.eclipse.jdt.junit.TEST_KIND" value="org.eclipse.jdt.junit.loader.junit3"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="VerifierTestSuite"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-pluginCustomization ${workspace_loc}/com.mentor.nucleus.bp.pkg/plugin_customization.ini"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-pluginCustomization ${resource_loc:/com.mentor.nucleus.bp.core}/../com.mentor.nucleus.bp.pkg/plugin_customization.ini"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="com.mentor.nucleus.bp.debug.ui.test"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx1024m -Xms512m -XX:MaxPermSize=512m -DWORKSPACE_PATH=${workspace_loc}/com.mentor.nucleus.bp.debug.ui.test/ -DLOGFILE_PATH=${eclipse_home}/bp_tests/verifier/.metadata/.log -Dfile.encoding=UTF-8"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx1024m -Xms512m -XX:MaxPermSize=512m -DWORKSPACE_PATH=${resource_loc:/com.mentor.nucleus.bp.core}/../com.mentor.nucleus.bp.debug.ui.test/ -DLOGFILE_PATH=${eclipse_home}/bp_tests/verifier/.metadata/.log -Dfile.encoding=UTF-8"/>
 <stringAttribute key="pde.version" value="3.3"/>
 <stringAttribute key="product" value="com.mentor.nucleus.bp.pkg.BridgePoint"/>
 <booleanAttribute key="run_in_ui_thread" value="true"/>
