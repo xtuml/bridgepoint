@@ -59,6 +59,10 @@ _- Verify and merge the change:
 	  	   your local repository why the engineer fixes the problem.  To roll 
 	  	   back the changes:
 	  	   		git reset ---hard origin/master
+	  	   		
+_- Complete the test results checklist and check it in here:
+	github.com/xtuml/<repository>/doc-<repository>/qa/<release_id>/<issue num>/promotion/Unit_test_checklist.chk
+	
 _- If the github issue is a mirror of a CQ issue, you must perform the following
    steps.  If not, skip to the next section.
    
