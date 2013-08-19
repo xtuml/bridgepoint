@@ -19,7 +19,7 @@ successfully from eclipse to generator causing a generator license failure.
 ----------------------
 [1] Issues 34, https://github.com/xtuml/internal/issues/34  
 [2] DEI dts0100995063  
-[3] <<CVS>>/Documentation/internal/technical/notes/dts0100969061-969050.int
+[3] < CVS >/Documentation/internal/technical/notes/dts0100969061-969050.int
 
 3. Background
 -------------
@@ -41,7 +41,7 @@ are under the workspace directory.
 5.1  BridgePoint has a bug in generator that is causing the license failure the customer
   is experiencing.  What is happening is this:
 - BridgePoint is writing the <workspace>/.metadata/.xtumldisplay file with the 
-  <<machine>>+<<workspace>> info as we designed it [3].
+  < machine >+< workspace > info as we designed it [3].
 - Generator is invoked on a project in the workspace.  It then looks for the .xtumldisplay 
   file using a relative path from the project to the workspace .metadata/ folder.  
 
@@ -55,7 +55,7 @@ are under the workspace directory.
   passed in from eclipse.  
 
 5.3  The model compiler builder is controlled by a launch file named 
-  <<project>>/.externalToolBuilders/Model Compiler.launch.  The "pre-builder" builder is, in contrast,
+  < project >/.externalToolBuilders/Model Compiler.launch.  The "pre-builder" builder is, in contrast,
   implemented in source code as a class that implements eclipse's ```IncrementalProjectBuilder```
   class.  
   
@@ -65,7 +65,7 @@ are under the workspace directory.
 6. Design
 ---------
 6.1  There are several options for solving the bug:
-  - 6.1.1 Write the .xtumldisplay file into <<project>>/gen/code_generation
+  - 6.1.1 Write the .xtumldisplay file into < project >/gen/code_generation
   - 6.1.2 Change the Model Compiler builder to work like pre-builder and docgen.  That is, be a 
   code-based implementation.  Here we get rid of Model Compiler.launch, and pass the MGLS_ATTR_DISPLAY 
   key in the environment settings to xtumlmc_build.exe invoked by the code.
@@ -94,7 +94,7 @@ are under the workspace directory.
 6.5.2  Update the implementation of ```BridgePointLicenseManager.writeXTUMLDisplayFile(path);``` to 
   write the .xtumldisplay file to the path argument (creating the folder if it doesn't already exist).
   Note, the gen/code_generation folder is deleted with each build by the pre-builder and recreated to
-  put the <<system>>.sql file pre-builder creates into the newly cleaned folder.  
+  put the < system >.sql file pre-builder creates into the newly cleaned folder.  
 6.5.3  In generator, modify ```u_bplic.c::get_display()```.  Change the relative path traversal to 
   look for the ```.xtumldisplay``` file in the project's gen/code_generation folder rather than the 
   workspace.  
