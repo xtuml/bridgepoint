@@ -15859,6 +15859,7 @@
  Operation entered: ReferentialAttribute::Get_root_name_internal
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
  Operation entered: ClassIdentifierAttribute::Setcachedlocalattributename
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -15866,6 +15867,7 @@
  Operation entered: Attribute::Get_root
  Operation entered: ReferentialAttribute::Root_loop_string
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -15920,6 +15922,7 @@
  Operation entered: Transition::Get_name
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -15927,6 +15930,7 @@
  Operation entered: Attribute::Get_root
  Operation entered: ReferentialAttribute::Root_loop_string
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -15968,17 +15972,20 @@
  Operation entered: Transition::Get_name
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
  Operation entered: ReferentialAttribute::Get_root_name_internal
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
  Operation entered: ReferentialAttribute::Get_root_name_internal
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
  Operation entered: ClassIdentifierAttribute::Setcachedlocalattributename
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -15986,6 +15993,7 @@
  Operation entered: Attribute::Get_root
  Operation entered: ReferentialAttribute::Root_loop_string
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -16019,6 +16027,7 @@
  Operation entered: Transition::Get_name
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -16056,6 +16065,7 @@
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
  Operation entered: ReferentialAttribute::Get_root_name_internal
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -16070,6 +16080,7 @@
  Operation entered: Attribute::Get_root
  Operation entered: ReferentialAttribute::Root_loop_string
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -16106,11 +16117,13 @@
  Operation entered: Transition::Get_name
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
  Operation entered: ReferentialAttribute::Get_root_name_internal
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -16191,6 +16204,7 @@
  Operation entered: Transition::Get_name
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -16211,6 +16225,7 @@
  Operation entered: Attribute::Get_root
  Operation entered: ReferentialAttribute::Root_loop_string
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -16252,6 +16267,7 @@
  Operation entered: Transition::Get_name
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -16288,6 +16304,7 @@
  Operation entered: Transition::Get_name
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -16330,6 +16347,7 @@
  Operation entered: Attribute::Get_root
  Operation entered: ReferentialAttribute::Root_loop_string
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -16345,6 +16363,7 @@
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
  Operation entered: ReferentialAttribute::Get_root_name_internal
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -20851,6 +20870,7 @@
  Operation entered: ReferentialAttribute::Get_root_name_internal
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
  Operation entered: ClassIdentifierAttribute::Setcachedlocalattributename
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -20858,6 +20878,7 @@
  Operation entered: Attribute::Get_root
  Operation entered: ReferentialAttribute::Root_loop_string
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -20912,6 +20933,7 @@
  Operation entered: Transition::Get_name
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -20919,6 +20941,7 @@
  Operation entered: Attribute::Get_root
  Operation entered: ReferentialAttribute::Root_loop_string
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -20960,17 +20983,20 @@
  Operation entered: Transition::Get_name
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
  Operation entered: ReferentialAttribute::Get_root_name_internal
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
  Operation entered: ReferentialAttribute::Get_root_name_internal
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
  Operation entered: ClassIdentifierAttribute::Setcachedlocalattributename
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -20978,6 +21004,7 @@
  Operation entered: Attribute::Get_root
  Operation entered: ReferentialAttribute::Root_loop_string
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -21011,6 +21038,7 @@
  Operation entered: Transition::Get_name
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -21048,6 +21076,7 @@
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
  Operation entered: ReferentialAttribute::Get_root_name_internal
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -21062,6 +21091,7 @@
  Operation entered: Attribute::Get_root
  Operation entered: ReferentialAttribute::Root_loop_string
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -21098,11 +21128,13 @@
  Operation entered: Transition::Get_name
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
  Operation entered: ReferentialAttribute::Get_root_name_internal
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -21183,6 +21215,7 @@
  Operation entered: Transition::Get_name
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -21203,6 +21236,7 @@
  Operation entered: Attribute::Get_root
  Operation entered: ReferentialAttribute::Root_loop_string
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -21244,6 +21278,7 @@
  Operation entered: Transition::Get_name
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -21280,6 +21315,7 @@
  Operation entered: Transition::Get_name
  Operation entered: NewStateTransition::Get_name
  Operation entered: StateMachineEvent::Get_name
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -21322,6 +21358,7 @@
  Operation entered: Attribute::Get_root
  Operation entered: ReferentialAttribute::Root_loop_string
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
@@ -21337,6 +21374,7 @@
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited
  Operation entered: ReferentialAttribute::Get_root_name_internal
  Operation entered: ReferentialAttributeVisitedRecorder::Areanyvisited
+ Operation entered: AttributeReferenceInClass::Get_referential_phrase
  Operation entered: Association::Get_name
  Operation entered: ReferentialAttribute::Get_root_name
  Operation entered: ReferentialAttributeVisitedRecorder::Setalltonotvisited

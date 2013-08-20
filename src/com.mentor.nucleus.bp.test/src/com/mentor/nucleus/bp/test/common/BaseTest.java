@@ -1666,7 +1666,7 @@ public class BaseTest extends TestCase {
 
 	public static String DEFAULT_XTUML_TEST_MODEL_REPOSITORY = "c:/repositories/git/xtuml/models/test";
 	public static final String DEFAULT_PRIVATE_MODEL_REPOSITORY = "c:/repositories/git/xtuml/modelsmg/test";
-
+	
 	public static final String DEFAULT_XTUML_DEVELOPMENT_REPOSITORY = "c:/workspace";
 	
 	public static void compareAndOutputResults(String fileName) throws Exception{

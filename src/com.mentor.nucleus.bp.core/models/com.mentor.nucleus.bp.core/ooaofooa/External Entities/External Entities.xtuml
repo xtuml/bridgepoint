@@ -255,9 +255,9 @@ INSERT INTO S_DOM_PROXY
 	'ooaofooa',
 	'========================================================================
 
-File:          $RCSfile$
-Version:   $Revision$
-Modified:  $Date$
+File:          $RCSfile: ooaofooa.xtuml,v $
+Version:   $Revision: 1.127 $
+Modified:  $Date: 2006/09/26 15:10:20 $
 
 (c) Copyright 2004-2013 by Mentor Graphics Corp. All rights reserved.
 
@@ -2308,6 +2308,16 @@ INSERT INTO S_BPARM
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("eb4768a4-08c3-4102-80ef-303743d1d0c7",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'getTic',
+	'Translate: native',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'return "''";',
+	0,
 	'');
 INSERT INTO S_EEIP
 	VALUES ("53bf3c8b-adde-4d47-8f16-aba92cc91cb2",
