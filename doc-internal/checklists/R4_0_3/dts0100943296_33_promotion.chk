@@ -53,7 +53,7 @@ x- Verify and merge the change:
 	  	xR Changes are merged into the local repository
 	  	x- Build
 	  	x- perform testing by running the "BridgePoint Unit Test" launch group
-	  	_R When tests pass the changes can be pushed.
+	  	xR When tests pass the changes can be pushed.
   	  	   NOTE:  
 	  	   If testing does not pass work with the engineer to resolve the 
 	  	   problem.   If it is a small issue you can commit it directly to the 
@@ -73,34 +73,34 @@ x- Verify and merge the change:
    _- Complete the test results checklist and check it in here:
 	  github.com/xtuml/<repository>/doc-<repository>/qa/<release_id>/<issue num>/promotion/Unit_test_checklist.chk
 	
-_- If the github issue is a mirror of a CQ issue, you must perform the following
+x- If the github issue is a mirror of a CQ issue, you must perform the following
    steps.  If not, skip to the next section.
    
-   _- Log into ClearQuest and enter the defect number to go to the issue.
+   x- Log into ClearQuest and enter the defect number to go to the issue.
 
-  _- Select "Change State->Resolve"
+  x- Select "Change State->Resolve"
 
-    _- On the Resolution tab, fill in the fields as follows:
-      _- Resolution = Fixed
-      _- Fixed Version = <the target release version> (Should be the current
+    x- On the Resolution tab, fill in the fields as follows:
+      x- Resolution = Fixed
+      x- Fixed Version = <the target release version> (Should be the current
                        version of the plugin)
-      _- Resolution Note:
-        _- Summary = <none required>
-        _- Note = Changes look good. Tagged with: <tag from clipboard>
+      x- Resolution Note:
+        x- Summary = <none required>
+        x- Note = Promoted with pull request: https://github.com/xtuml/internal/pull/33
       
-    _- On the Customer tab:
-      _- Check if a customer service request is specified.  If there is no SR, 
+    x- On the Customer tab:
+      x- Check if a customer service request is specified.  If there is no SR, 
          the following steps may be skipped.
-      _- If an SR is specified, enter a Customer note:
+      x- If an SR is specified, enter a Customer note:
         _- Summary = <none required>
-        _- Note = :   
+        _- Note = This issue has been resolved and shall be present in the next release.   
         
-_- Navigate to the issue(s) in the github Issues tracker.
-  _- Verify that the upcoming milestone is set for the issue. Apply it if not 
+x- Navigate to the issue(s) in the github Issues tracker.
+  x- Verify that the upcoming milestone is set for the issue. Apply it if not 
      yet set.
-  _- Close the issue 
+  x- Close the issue 
 
-_- Check in this file under
+x- Check in this file under
    github.com/xtuml/<repository>/doc-<repository>/checklists/<release_id>/<issue num>-promotion.chk
 
 End
