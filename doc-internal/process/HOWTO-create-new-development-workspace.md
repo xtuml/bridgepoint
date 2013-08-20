@@ -95,6 +95,13 @@ _- Using the procedure from above, also clone these repositories:
    https://github.com/xtuml/models.git
    https://github.com/xtuml/modelsmg.git
    
+_- Import the projects into your woprkspace
+   _- In the Git Repositories perspective select "internal"
+   _- Right Click > Import Projects...
+   _- Select "Import Projects Into Existing Workspace" and then "Next"
+   _- Select all projects (do not select any other options)
+   _- Select Finish
+   
 _- Switch to the Java perspective
 
 _- Close these projects:
