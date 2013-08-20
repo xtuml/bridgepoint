@@ -1,3 +1,4 @@
+<pre>
 HOWTO create a new development workspace
 ----------------------------------------
 Note: Prior to using this checklist you should already have an account
@@ -149,4 +150,5 @@ _- Setup development environment to run MC3020 under a launch configuration
 _R Your environment is now built and ready for unit testing.
 
 
+</pre>
  
