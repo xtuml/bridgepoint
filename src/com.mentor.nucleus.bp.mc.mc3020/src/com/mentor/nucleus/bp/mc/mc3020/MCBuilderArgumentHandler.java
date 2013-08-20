@@ -13,7 +13,6 @@
 package com.mentor.nucleus.bp.mc.mc3020;
 
 import java.io.File;
-import java.lang.management.ManagementFactory;
 import java.util.Map;
 import java.util.Properties;
 
@@ -23,11 +22,9 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
 import com.mentor.nucleus.bp.core.util.UIUtil;
-import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager.LicenseAtomic;
 import com.mentor.nucleus.bp.mc.xmiexport.XMIExportBuilder;
 
 public class MCBuilderArgumentHandler {
@@ -83,7 +80,11 @@ public class MCBuilderArgumentHandler {
 				"org.eclipse.ui.externaltools.ATTR_LOCATION", //$NON-NLS-1$
 				ModelCompiler.getPluginPathAbsolute() + xbuild_path);
 
-		BridgePointLicenseManager.writeXTUMLDisplayFile();	
+		String projPath = m_project.getLocation().toOSString();
+        IPath outputPath = new Path(projPath + File.separator
+                + ModelCompiler.GEN_FOLDER_NAME + File.separator
+                + codeGenFolder + File.separator);
+        BridgePointLicenseManager.writeXTUMLDisplayFile(outputPath);	
 		
 	    //refresh directory to pick up new files
         try {

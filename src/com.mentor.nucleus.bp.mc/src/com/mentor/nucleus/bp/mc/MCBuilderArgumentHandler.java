@@ -102,7 +102,11 @@ public class MCBuilderArgumentHandler {
 				AbstractNature.LAUNCH_ATTR_TOOL_LOCATION,
 				m_activator.getPluginPathAbsolute() + xbuild_path);
 
-		BridgePointLicenseManager.writeXTUMLDisplayFile();		
+		String projPath = m_project.getLocation().toOSString();
+        IPath outputPath = new Path(projPath + File.separator
+                + AbstractActivator.GEN_FOLDER_NAME + File.separator
+                + codeGenFolder + File.separator);
+		BridgePointLicenseManager.writeXTUMLDisplayFile(outputPath);		
 		
 		// Note: While this call to update the refresh setting is present when 
 		//       the nature is created we also include it here to assure the 
