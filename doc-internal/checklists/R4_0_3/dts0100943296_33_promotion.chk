@@ -21,16 +21,16 @@ from a local machine or branch into the main/master RCS branch.
 
 Checklist
 ---------
-_- Verify that all required process documentation exists for this issue.  That
+x- Verify that all required process documentation exists for this issue.  That
    is: analysis note, design note, implementation note, review minutes, and
    checklists.  Remember that, depending on the complexity of the issue, some
    notes are not required.
 
-_- Go to the repository on github.  Select the pull request.  
+x- Go to the repository on github.  Select the pull request.  
    Record the pull request URL here:
-            Pull Request Issue URL: https://github.com/xtuml/<repo>/pull/<id>
+            Pull Request Issue URL: https://github.com/xtuml/internal/pull/33
 
-_- Verify and merge the change:
+x- Verify and merge the change:
 	_- Option 1
 	   If the issue does not involve model file changes, and is small it can 
 	   be merged using the github web interface:  
@@ -42,17 +42,17 @@ _- Verify and merge the change:
 	    _- Select the "Merge  Pull Request" option
 	    
 		
-	_- Option 2
+	x- Option 2
 	   If the issue does involve model files and/or it is not small then the 
 	   change must be merge, built and tested on the local workspace: 
 		
-		_- Update your local repository with the latest files from github via 
+		x- Update your local repository with the latest files from github via 
 	       git fetch  
-	  	_- check out master
-	  	_- merge the branch into master.  
-	  	_R Changes are merged into the local repository
-	  	_- Build
-	  	_- perform testing by running the "BridgePoint Unit Test" launch group
+	  	x- check out master
+	  	x- merge the branch into master.  
+	  	xR Changes are merged into the local repository
+	  	x- Build
+	  	x- perform testing by running the "BridgePoint Unit Test" launch group
 	  	_R When tests pass the changes can be pushed.
   	  	   NOTE:  
 	  	   If testing does not pass work with the engineer to resolve the 
