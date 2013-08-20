@@ -1,3 +1,4 @@
+<pre>
 ========================================================================
 
 File:      final-review.chk
@@ -8,7 +9,9 @@ File:      final-review.chk
 This document contains information proprietary and confidential to
 Mentor Graphics Corp., and is not for external distribution.
 ========================================================================
+
 xtUML Project Checklist
+
 Performing Final Review
 
 Document References
@@ -79,3 +82,4 @@ _- Add a comment in the BridgePoint chat saying the issue is ready for promotion
 
 End
 ---
+</pre>
