@@ -12309,7 +12309,7 @@ INSERT INTO O_REF
 	'',
 	'Supertype',
 	'id',
-	'R2');
+	'R2.''is related to''');
 INSERT INTO O_RATTR
 	VALUES ("8e4780ab-2f2f-f814-a46f-86de9263c4f4",
 	"c820a6cd-5ef2-4ef6-b84c-c83c592ec647",
@@ -12344,7 +12344,7 @@ INSERT INTO O_REF
 	'',
 	'Related',
 	'id',
-	'R2');
+	'R2.''is related to''');
 INSERT INTO O_RATTR
 	VALUES ("4afdc54a-655b-4964-909d-f47cdaedd8ce",
 	"c820a6cd-5ef2-4ef6-b84c-c83c592ec647",
