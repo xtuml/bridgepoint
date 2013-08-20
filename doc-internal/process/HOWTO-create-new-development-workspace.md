@@ -7,7 +7,7 @@ Note: Prior to using this checklist you should already have an account
 
 _- Clone the github/internal repository:
    _- open a cygwin shell
-   _- cd <Git local repository folder>
+   _- cd "Git local repository folder"
    _- ./git clone https://github.com/xtuml/internal
    _R git/internal is now cloned
    
@@ -20,8 +20,8 @@ _- Run the installer down-loaded in the previous step.  You can installer
    c:/MentorGraphics/BridgePoint
    
 _- Using the files in the file above:
-   _- copy <git>/internal/doc-internal/process/templates/checklists/development-workspace-setup/BridgePointDev into c:/MentorGraphics
-   _- copy <git>/internal/doc-internal/process/templates/checklists/development-workspace-setup/dropins/* into C:\MentorGraphics\BridgePoint\eclipse\dropins
+   _- copy "git"/internal/doc-internal/process/templates/checklists/development-workspace-setup/BridgePointDev into c:/MentorGraphics
+   _- copy "git"/internal/doc-internal/process/templates/checklists/development-workspace-setup/dropins/* into C:\MentorGraphics\BridgePoint\eclipse\dropins
 
 _- Launch the tool using the desktop shortcut that was created and open a 
    new eclipse workspace that will become your development workspace.
@@ -31,7 +31,7 @@ _- Update eclipse preferences to common and required settings:
    _- Open the navigator view
 	_- Right-click in white space
 	_- Import... > General > preferences
-	_- Select <git>/internal/doc-internal/process/templates/checklists/development-workspace-setup/EclipsePreferences.edf
+	_- Select "git"/internal/doc-internal/process/templates/checklists/development-workspace-setup/EclipsePreferences.edf
 	_- Assure that "Import all" is selected
 	_- select finish
 	
@@ -46,7 +46,7 @@ _- Install required add-ons:
 	_- Open the navigator view
 	_- Right-click in white space
 	_- Install... > Software from file
-	_- Select <git>/internal/doc-internal/process/templates/checklists/development-workspace-setup/xtUML_dev_eclipse_addons.p2f
+	_- Select "git"/internal/doc-internal/process/templates/checklists/development-workspace-setup/xtUML_dev_eclipse_addons.p2f
     _- Select finish
     _R Files are installed and you are promoted to restart
     _- Do NOT restart
@@ -61,12 +61,12 @@ _- Modify Launcher.bat with required development settings:
           For VMs (or even locally at your discretion) add:
           set MGLS_LICENSE_FILE=1717@wv-lic-01.wv.mentorg.com;1717@wv-lic-02.wv.mentorg.com;1717@svr-azt-eng-01  
     _- Directly after "set BP_VERSION=..." add the following:
-          set PT_HOME=\work\BridgePointDev\
-          set PT_HOME_DRIVE=c:
-          set XTUMLGEN_HOME=%MGC_EMBEDDED_HOME%\eclipse_extensions\BridgePoint\eclipse\plugins\com.mentor.nucleus.bp.dap.pkg_%BP_VERSION%\bridgepoint
- 		  set XTUML_TEST_MODEL_REPOSITORY=C:/git/repos/models/test/
-		  set XTUML_PRIVATE_MODEL_REPOSITORY=C:/git/repos/modelsmg/test/
-		  set XTUML_DEVELOPMENT_REPOSITORY=C:/git/repos/internal
+        set PT_HOME=\work\BridgePointDev\
+        set PT_HOME_DRIVE=c:
+        set XTUMLGEN_HOME=%MGC_EMBEDDED_HOME%\eclipse_extensions\BridgePoint\eclipse\plugins\com.mentor.nucleus.bp.dap.pkg_%BP_VERSION%\bridgepoint
+ 	set XTUML_TEST_MODEL_REPOSITORY=C:/git/repos/models/test/
+	set XTUML_PRIVATE_MODEL_REPOSITORY=C:/git/repos/modelsmg/test/
+	set XTUML_DEVELOPMENT_REPOSITORY=C:/git/repos/internal
 
 _- Delete the <git>/internal clone folder you created earlier
 
@@ -136,11 +136,11 @@ _- Prepare to run unit tests:
 _- Setup development environment to run MC3020 under a launch configuration
    _- Open Windows explorer and navigate to the BridgePoint plugin 
       installation folder.  The default is:
-      C:\MentorGraphics\BridgePoint\eclipse_extensions\BridgePoint\eclipse\plugins\com.mentor.nucleus.bp.mc.mc3020_<ver>\mc3020
+      C:\MentorGraphics\BridgePoint\eclipse_extensions\BridgePoint\eclipse\plugins\com.mentor.nucleus.bp.mc.mc3020_"ver"\mc3020
    _- Select all files and folders in the above folder
    _- Select copy
    _- Open the Model Explorer view in Eclipse and navigate to:
-      <workspace>/com.mentor.nucleus.bp.mc.mc3020/mc3020
+      "workspace"/com.mentor.nucleus.bp.mc.mc3020/mc3020
    _- Paste the previous selection into this folder
    _- Open the Model Explorer view in Eclipse and navigate to:
       <workspace>/com.mentor.nucleus.bp.mc.c.binary/mc3020
