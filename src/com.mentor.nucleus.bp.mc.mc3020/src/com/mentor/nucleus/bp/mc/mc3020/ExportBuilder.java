@@ -107,23 +107,21 @@ public class ExportBuilder extends IncrementalProjectBuilder {
 		boolean oalExportIsLicensed = false;
 		try {
 			// Check the license
-			oalExportIsLicensed = BridgePointLicenseManager
-					.getLicense(
-							BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT,
-							true);
+			oalExportIsLicensed = BridgePointLicenseManager.getLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT, true);
 			if (!oalExportIsLicensed) {
-				UIUtil.showErrorDialog("License Request Failed",
-						"Failed to get a Model Compiler prebuilder license.\n");
+				UIUtil.showErrorDialog("License Request Failed", "Failed to get a Model Compiler prebuilder license.\n");
 				return null;
 			}
+			
+			readyBuildArea();
+			
 			MCBuilderArgumentHandler argHandler = new MCBuilderArgumentHandler(
 					getProject());
 			argHandler.setArguments();
 
-			// Calling build again here just forces any builders that have not
-			// yet
-			// run to refresh before starting. This picks up changes we may have
-			// made to the external tool builder launch file.
+            // Calling build again here just forces any builders that have not yet
+            // run to refresh before starting. This picks up changes we may have
+            // made to the external tool builder launch file.
 			getProject().build(kind, monitor);
 
 			PersistenceManager.getDefaultInstance();
@@ -132,8 +130,7 @@ public class ExportBuilder extends IncrementalProjectBuilder {
 			// Must check in this license because as specified in checkout above
 			// it is set to "linger", and the linger starts at checkin
 			if (oalExportIsLicensed) {
-				BridgePointLicenseManager
-						.releaseLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
+				BridgePointLicenseManager.releaseLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
 			}
 		}
 
@@ -143,10 +140,7 @@ public class ExportBuilder extends IncrementalProjectBuilder {
     // The eclipse infrastructure calls this function in response to
     // a request by the user to clean the project
     protected void clean(IProgressMonitor monitor) {
-        String projPath = getProject().getLocation().toOSString();
-        IPath path = new Path(projPath + File.separator
-                + ModelCompiler.GEN_FOLDER_NAME + File.separator
-                + m_outputFolder + File.separator);
+		IPath path = getCodeGenFolderPath();
         deleteDirectory(path.toFile());
     }
 
@@ -165,24 +159,35 @@ public class ExportBuilder extends IncrementalProjectBuilder {
 		return (path.delete());
 	}
 
+    protected IPath getCodeGenFolderPath() {
+        String projPath = getProject().getLocation().toOSString();
+        IPath path = new Path(projPath + File.separator
+                + ModelCompiler.GEN_FOLDER_NAME + File.separator
+                + m_outputFolder + File.separator);
+        return path;
+    }
+    
+    // Performs house-keeping at the start of the build
+    protected void readyBuildArea() 
+        throws CoreException {
+        IPath path = getCodeGenFolderPath();
+        deleteDirectory(path.toFile());
+        
+        // We must force a refresh or eclipse will not always see that
+        // the deletion happened and the folder then does not get created.
+        getProject().refreshLocal(IFile.DEPTH_INFINITE, null);
+        if (!path.toFile().exists()) {
+            path.toFile().mkdir();
+        }
+    }
+
     // The starting point for the model export chain
     protected void exportModel(final IProgressMonitor monitor)
             throws CoreException {
     	
 	    m_exportedSystems.clear();
-        String projPath = getProject().getLocation().toOSString();
-        IPath path = new Path(projPath + File.separator
-                + ModelCompiler.GEN_FOLDER_NAME + File.separator
-                + m_outputFolder + File.separator);
+	    IPath path = getCodeGenFolderPath();
         String destPath = path.toOSString();
-        deleteDirectory(path.toFile());
-        
-		// We must force a refresh or eclipse will not always see that
-		// the deletion happened and the folder then does not get created.
-		getProject().refreshLocal(IFile.DEPTH_INFINITE, null);
-        if (!path.toFile().exists()) {
-            path.toFile().mkdir();
-        }
 
         final String projName = getProject().getDescription().getName();
         SystemModel_c system = SystemModel_c.SystemModelInstance(Ooaofooa
@@ -228,8 +233,7 @@ public class ExportBuilder extends IncrementalProjectBuilder {
             }
             m_outStream = new ByteArrayOutputStream();
             m_exporter = com.mentor.nucleus.bp.core.CorePlugin
-                    .getStreamExportFactory()
-                    .create(
+                    .getStreamExportFactory().create(
                             m_outStream,
                             m_elements
                                     .toArray(new NonRootModelElement[m_elements

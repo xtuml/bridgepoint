@@ -47,7 +47,6 @@ import com.mentor.nucleus.bp.core.common.PersistenceManager;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectPreferences;
 import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
 import com.mentor.nucleus.bp.core.util.UIUtil;
-import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager.LicenseAtomic;
 import com.mentor.nucleus.bp.io.core.CoreExport;
 import com.mentor.nucleus.bp.io.mdl.ExportModelStream;
 import com.mentor.nucleus.bp.utilities.ui.ProjectUtilities;
@@ -78,37 +77,25 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 	// calling the build() function.
 	// This function is a part of IExecutableExtension interface.
 	// This function sets initialization data for this builder.
-	public void setInitializationData(IConfigurationElement config,
-			String propertyName, Object data) throws CoreException {
+	public void setInitializationData(IConfigurationElement config, String propertyName, Object data) throws CoreException {
 		// should be sure to invoke this method on their superclass.
 		super.setInitializationData(config, propertyName, data);
 
-		// added for issue dts0100598323
-		// When this builder is run a check for dirty buffers is made. This
-		// check
-		// is made when the function DebugUIPlugin.preLaunchSave() is called.
-		// From within the preLaunchSave() function it gets the value a string
-		// of
-		// saveDirty to determine weather to prompt for a dialog to ask the user
-		// to
-		// save the dirty buffers or not
-		// It gets the corresponding value form the preference store to
-		// IInternalDebugUIConstants.PREF_SAVE_DIRTY_EDITORS_BEFORE_LAUNCH
-		// The default value returned from the preference store for this is
-		// "prompt"
-		// which causes the dialog to prompt the user for decision
-		// If the user chose yes then it causes the halt,a deadlock occurs on
-		// the
-		// progress monitor between the building thread and the saving thread.
-		// hence we get to change that value to never so the build continues
-		// without the possibility of a halt due to user wanting dirty editors
-		// to be saved before launch
-		DebugUIPlugin
-				.getDefault()
-				.getPreferenceStore()
-				.setValue(
-						IInternalDebugUIConstants.PREF_SAVE_DIRTY_EDITORS_BEFORE_LAUNCH,
-						"never");
+        //added for issue dts0100598323
+        //When this builder is run a check for dirty buffers is made. This check 
+        //is made when the function DebugUIPlugin.preLaunchSave() is called. 
+        //From within the preLaunchSave() function it gets the value a string of
+        //saveDirty to determine weather to prompt for a dialog to ask the user to 
+        //save the dirty buffers or not          
+        //It gets the corresponding value form the preference store to  
+        //IInternalDebugUIConstants.PREF_SAVE_DIRTY_EDITORS_BEFORE_LAUNCH
+        //The default value returned from the preference store for this is "prompt"
+        //which causes the dialog to prompt the user for decision 
+        //If the user chose yes then it causes the halt,a deadlock occurs on the 
+        //progress monitor between the building thread and the saving thread.
+        // hence we get to change that value to never so the build continues  
+        // without the possibility of a halt due to user wanting dirty editors to be saved before launch
+        DebugUIPlugin.getDefault().getPreferenceStore().setValue(IInternalDebugUIConstants.PREF_SAVE_DIRTY_EDITORS_BEFORE_LAUNCH, "never");
 
 	}
 
@@ -126,6 +113,8 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 				UIUtil.showErrorDialog("License Request Failed", "Failed to get a Model Compiler prebuilder license.\n");
 				return null;
 			}
+			
+			readyBuildArea();
 			
 			MCBuilderArgumentHandler argHandler = new MCBuilderArgumentHandler(
 					getProject(), m_activator, m_nature);
@@ -152,10 +141,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 	// The eclipse infrastructure calls this function in response to
 	// a request by the user to clean the project
 	protected void clean(IProgressMonitor monitor) {
-		String projPath = getProject().getLocation().toOSString();
-		IPath path = new Path(projPath + File.separator
-				+ AbstractActivator.GEN_FOLDER_NAME + File.separator
-				+ m_outputFolder + File.separator);
+		IPath path = getCodeGenFolderPath();
 		deleteDirectory(path.toFile());
 	}
 
@@ -174,25 +160,36 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 		return (path.delete());
 	}
 
+	protected IPath getCodeGenFolderPath() {
+        String projPath = getProject().getLocation().toOSString();
+        IPath path = new Path(projPath + File.separator
+                + AbstractActivator.GEN_FOLDER_NAME + File.separator
+                + m_outputFolder + File.separator);
+        return path;
+	}
+	
+    // Performs house-keeping at the start of the build
+    protected void readyBuildArea() 
+        throws CoreException {
+        IPath path = getCodeGenFolderPath();
+        deleteDirectory(path.toFile());
+        
+        // We must force a refresh or eclipse will not always see that
+        // the deletion happened and the folder then does not get created.
+        getProject().refreshLocal(IFile.DEPTH_INFINITE, null);
+        if (!path.toFile().exists()) {
+            path.toFile().mkdir();
+        }
+    }
+
 	// The starting point for the model export chain
 	protected void exportModel(final IProgressMonitor monitor)
 			throws CoreException {
 
 	    m_exportedSystems.clear();
-		String projPath = getProject().getLocation().toOSString();
-		IPath path = new Path(projPath + File.separator
-				+ AbstractActivator.GEN_FOLDER_NAME + File.separator
-				+ m_outputFolder + File.separator);
+	    IPath path = getCodeGenFolderPath();
 		String destPath = path.toOSString();
-		deleteDirectory(path.toFile());
 		
-		// We must force a refresh or eclipse will not always see that
-		// the deletion happened and the folder then does not get created.
-		getProject().refreshLocal(IFile.DEPTH_INFINITE, null);
-		if (!path.toFile().exists()) {
-			path.toFile().mkdir();
-		}
-
 		final String projName = getProject().getDescription().getName();
 		SystemModel_c system = SystemModel_c.SystemModelInstance(Ooaofooa
 				.getDefaultInstance(), new ClassQueryInterface_c() {
