@@ -229,15 +229,16 @@ public class BridgePointLicenseManager  extends BridgePointDemoEncryptor {
 
 	
 	/**
-	 * create the .xtumldisplay file in the given folder (typically the project's
-	 * gen/code_generation folder.  The folder should already exist, but we call
-	 * Java's function to create the path if not just in case.
-	 * This is used by gen_erate to assure the same display grouping is
-	 * used for licensing so that multiple licenses are not checked out
+	 * create the file to hold the MGLS duplicate grouping key in the given 
+	 * folder (typically the project's gen/code_generation folder.  The folder 
+	 * should already exist, but we call Java's function to create the path if 
+	 * not just in case. This is used by gen_erate to assure the same display 
+	 * grouping is used for licensing so that multiple licenses are not checked 
+	 * out.
 	 */
 	public static void writeXTUMLDisplayFile(IPath destFolder) {
 		PrintStream out = null;
-		final String displayFileName = ".xtumldisplay";
+		final String displayFileName = ".mgxtumldisplay";
 
 		IPath displayFilePath = destFolder.append(displayFileName);
 		File displayFile = displayFilePath.toFile();
