@@ -1,8 +1,8 @@
 //========================================================================
 //
 //File:      $RCSfile: AbstractStreamExportFactory.java,v $
-//Version:   $Revision: 1.11 $
-//Modified:  $Date: 2013/01/17 03:40:05 $
+//Version:   $Revision: 1.11.78.1 $
+//Modified:  $Date: 2013/07/26 10:13:27 $
 //
 //(c) Copyright 2005-2012 by Mentor Graphics Corp. All rights reserved.
 //
@@ -14,6 +14,7 @@
 package com.mentor.nucleus.bp.core.ui;
 
 import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -25,13 +26,13 @@ import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 public abstract class AbstractStreamExportFactory {
 
 	public abstract IRunnableWithProgress create(
-			ByteArrayOutputStream outStream, NonRootModelElement[] elements,
+			OutputStream outStream, NonRootModelElement[] elements,
 			boolean exportGraphics, boolean fileExportInProgress, boolean exportUsingCachedIds);
 
 	public abstract IRunnableWithProgress create(
-			ByteArrayOutputStream outStream, NonRootModelElement[] elements,
+			OutputStream outStream, NonRootModelElement[] elements,
 			boolean exportGraphics, boolean fileExportInProgress);
-	
+
 	public static AbstractStreamExportFactory getInstance(String bundle,
 			String className) {
 		try {

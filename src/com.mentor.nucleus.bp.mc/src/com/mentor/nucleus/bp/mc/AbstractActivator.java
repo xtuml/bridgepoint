@@ -1,8 +1,8 @@
 //========================================================================
 //
 //File:      $RCSfile: AbstractActivator.java,v $
-//Version:   $Revision: 1.6 $
-//Modified:  $Date: 2013/01/10 23:43:52 $
+//Version:   $Revision: 1.6.18.1 $
+//Modified:  $Date: 2013/07/26 10:13:15 $
 //
 //(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
 //
@@ -53,6 +53,7 @@ public abstract class AbstractActivator extends AbstractUIPlugin {
 
 	public static final String GEN_FOLDER_NAME = "gen"; //$NON-NLS-1$
 	public static final String SRC_FOLDER_NAME = "src"; //$NON-NLS-1$
+	public static final String MDL_FOLDER_NAME = "models"; //$NON-NLS-1$
 
 	private ILog errorLog = null;
 	private String pluginName = null;
