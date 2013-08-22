@@ -62,7 +62,7 @@ The new files were put into Windows and Linux installations and executed in GUI 
 8. Code Changes
 ---------------
 xtuml/internal branch name: 34_generator_licensing  
-Pull request: https://github.com/xtuml/internal/pull/36  
+Pull request: https://github.com/xtuml/internal/pull/36/files  
 <pre>
 M       src/com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/core/util/BridgePointLicenseManager.java
 M       src/com.mentor.nucleus.bp.mc.mc3020/src/com/mentor/nucleus/bp/mc/mc3020/ExportBuilder.java
@@ -72,7 +72,7 @@ M       src/com.mentor.nucleus.bp.mc/src/com/mentor/nucleus/bp/mc/MCBuilderArgum
 </pre>
 
 xtuml/generator branch name: 2_xtumldisplay_change  
-Pull request: https://github.com/xtuml/generator/pull/3  
+Pull request: https://github.com/xtuml/generator/pull/3/files  
 <pre>
 A       src/gen_erate/.project
 M       src/gen_erate/README.txt
