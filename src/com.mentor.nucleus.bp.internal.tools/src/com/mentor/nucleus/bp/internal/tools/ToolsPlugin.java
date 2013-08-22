@@ -1,8 +1,8 @@
 //========================================================================
 //
 //File:      $RCSfile: ToolsPlugin.java,v $
-//Version:   $Revision: 1.10 $
-//Modified:  $Date: 2013/01/10 23:15:04 $
+//Version:   $Revision: 1.10.24.1 $
+//Modified:  $Date: 2013/07/26 10:13:33 $
 //
 //(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
 //
@@ -13,15 +13,18 @@
 
 package com.mentor.nucleus.bp.internal.tools;
 
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.osgi.framework.BundleContext;
-import java.util.*;
+
+import com.mentor.nucleus.bp.mc.AbstractActivator;
 
 /**
  * The main plugin class to be used in the desktop.
  */
-public class ToolsPlugin extends AbstractUIPlugin  {
+public class ToolsPlugin extends AbstractActivator  {
 	//The shared instance.
 	private static ToolsPlugin plugin;
 	//Resource bundle.
@@ -33,13 +36,14 @@ public class ToolsPlugin extends AbstractUIPlugin  {
 	 * The constructor.
 	 */
 	public ToolsPlugin() {
-		super();
+		super(PLUGIN_ID);
 		plugin = this;
 		try {
 			resourceBundle = ResourceBundle.getBundle(PLUGIN_ID);
 		} catch (MissingResourceException x) {
 			resourceBundle = null;
 		}
+
 	}
 
 	/**
@@ -47,6 +51,7 @@ public class ToolsPlugin extends AbstractUIPlugin  {
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
+		setBundle(context.getBundle());
 	}
 
 	/**
@@ -92,5 +97,17 @@ public class ToolsPlugin extends AbstractUIPlugin  {
 	 */
 	public ResourceBundle getResourceBundle() {
 		return resourceBundle;
+	}
+
+	@Override
+	public void verifyProjectBuilders() {
+		// Nothing to verify at this time.
+		
+	}
+
+	@Override
+	public void earlyStartup() {
+		// No early startup behavior required.
+		
 	}
 }
