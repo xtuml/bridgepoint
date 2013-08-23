@@ -10,42 +10,42 @@ Mentor Graphics Corp., and is not for external distribution.
 
 This document captures the state of the BridgePoint unit tests ran against:
  
-branch: 
-machine: 
-OS: 
+branch: Merge of origin/Review-dts0100919690-35 to master
+machine: kbrown-vm-w7-2
+OS: Win7
 
 Test                                            Who             Result     Time
 --------------------------------------------------------------------------------
 com.mentor.nucleus.bp.als.oal.test              -               -
-              UseGlobals Parse All TestGenerics xxxx            yyyy       zzzz/790s
+              UseGlobals Parse All TestGenerics skb             pass       768/790s
 com.mentor.nucleus.bp.core.test                 -               -
-              Core Test-RTO Move                xxxx            yyyy       zzzz/290s
-              Core Test-Consistency             xxxx            yyyy       zzzz/10s
-              Core Test-Workspace Setup Generic xxxx            yyyy       zzzz/85s
-              Core Test-Existing Projects Gener xxxx            yyyy       zzzz/10s 
-              Core Generic Upgrade Test         xxxx            yyyy       zzzz/4s
-              UseGlobals Core Test Generics     xxxx            yyyy       zzzz/1165s  
-              UseGlobals Core Test 2Generics    xxxx            yyyy       zzzz/340s     
-              UseGlobals Core Test-SystemLevelTests xxxx        yyyy       zzzz/40s              
+              Core Test-RTO Move                skb             pass       251/290s
+              Core Test-Consistency             skb             pass       2/10s
+              Core Test-Workspace Setup Generic skb             pass       77/85s
+              Core Test-Existing Projects Gener skb             pass       7/10s 
+              Core Generic Upgrade Test         skb             pass       6/4s
+              UseGlobals Core Test Generics     skb             pass       1025/1165s  
+              UseGlobals Core Test 2Generics    skb             pass       349/340s     
+              UseGlobals Core Test-SystemLevelTests skb         pass       31/40s              
 com.mentor.nucleus.bp.debug.ui.test (Verifier)    -             -
-              Debug - Verifier Test             xxxx            yyyy       zzzz/1660s
-              Debug - Verifier Test 2           xxxx            yyyy       zzzz/248s
-com.mentor.nucleus.bp.model.compare.test        xxxx            yyyy       zzzz/235s
+              Debug - Verifier Test             skb             3F         1131/1660s
+              Debug - Verifier Test 2           skb             pass       102/248s
+com.mentor.nucleus.bp.model.compare.test        skb             pass       249/235s
 com.mentor.nucleus.bp.io.mdl.test                -              -                        
-              UseGlobals IO MDL Tests Generics  xxxx            yyyy       zzzz/400s
-              UseGlobals IO MDL Tests 2Generics xxxx            yyyy       zzzz/75s
+              UseGlobals IO MDL Tests Generics  skb             1F         418/400s
+              UseGlobals IO MDL Tests 2Generics skb             1F         260/75s
               UseGlobals IO MDL PkgCM Test Suite
-                                       Generics xxxx            yyyy       zzzz/1370s
-com.mentor.nucleus.bp.io.sql.test               xxxx            yyyy       zzzz/5s
-com.mentor.nucleus.bp.search.test               xxxx            yyyy       zzzz/15s
+                                       Generics skb             pass       814/1370s
+com.mentor.nucleus.bp.io.sql.test               skb             pass       2/5s
+com.mentor.nucleus.bp.search.test               skb             pass       13/15s
 com.mentor.nucleus.bp.ui.canvas.test            -               -
-              UseGlobals UI Canvas Suite 1      xxxx            yyyy       zzzz/2265s
-              UseGlobals UI Canvas Suite 2      xxxx            yyyy       zzzz/425s
-              UseGlobals UI Canvas CCP Test     xxxx            yyyy       zzzz/2230s
+              UseGlobals UI Canvas Suite 1      skb             pass       100/2265s
+              UseGlobals UI Canvas Suite 2      skb             pass       227/425s
+              UseGlobals UI Canvas CCP Test     skb             pass       707/2230s
 com.mentor.nucleus.bp.ui.explorer.test          -               -
-              UseGlobals UI Explorer Test       xxxx            yyyy       zzzz/135s
+              UseGlobals UI Explorer Test       skb             pass       56/135s
 com.mentor.nucleus.bp.ui.properties.test        -               -
-              UseGlobals UI Properties Test     xxxx            yyyy       zzzz/35s
+              UseGlobals UI Properties Test     skb             pass       15/35s
 com.mentor.nucleus.bp.ui.text.test                -             -
-              UseGlobals UI Text Test           xxxx            yyyy       zzzz/265s
-com.mentor.nucleus.bp.welcome                   xxxx            yyyy       zzzz/275s
+              UseGlobals UI Text Test           skb             pass       122/265s
+com.mentor.nucleus.bp.welcome                   skb             1F         179/275s
