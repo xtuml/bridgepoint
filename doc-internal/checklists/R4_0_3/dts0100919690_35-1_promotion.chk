@@ -42,7 +42,7 @@ _- Verify and merge the change:
 	    _- Select the "Merge  Pull Request" option
 
 
-	_- Option 2
+	x- Option 2
 	   If the issue does involve model files and/or it is not small then the 
 	   change must be merge, built and tested on the local workspace: 
 
@@ -68,19 +68,19 @@ _- Verify and merge the change:
 *** NOTE: THIS IS A TEMPORARY STEP UNTIL WE GET ALL THE JUNITS RUNNING ***
 ***   NIGHTLY ON THE SERVER.  AFTER WE DO THAT WE WILL SIMPLY RUN THE
 ***   TESTS on the build server after promotion.                       ***
-   _- Execute the specific unit tests agreed upon with the code reviewers and 
+   x- Execute the specific unit tests agreed upon with the code reviewers and 
       verify that the tests pass.
-   _- Complete the test results checklist and check it in here:
+   x- Complete the test results checklist and check it in here:
 	  github.com/xtuml/<repository>/doc-<repository>/qa/<release_id>/<issue num>/promotion/Unit_test_checklist.chk
 
-_- If the github issue is a mirror of a CQ issue, you must perform the following
+x- If the github issue is a mirror of a CQ issue, you must perform the following
    steps.  If not, skip to the next section.
    
-   _- Log into ClearQuest and enter the defect number to go to the issue.
+  x- Log into ClearQuest and enter the defect number to go to the issue.
 
-  _- Select "Change State->Resolve"
+  x- Select "Change State->Resolve"
 
-    _- On the Resolution tab, fill in the fields as follows:
+    x- On the Resolution tab, fill in the fields as follows:
       _- Resolution = Fixed
       _- Fixed Version = "the target release version" (Should be the current
                        version of the plugin)
@@ -96,12 +96,12 @@ _- If the github issue is a mirror of a CQ issue, you must perform the following
         _- Summary = <none required>
         _- Note = This issue has been resolved and shall be present in the next release.
         
-_- Navigate to the issue(s) in the github Issues tracker.
+x- Navigate to the issue(s) in the github Issues tracker.
   _- Verify that the upcoming milestone is set for the issue. Apply it if not 
      yet set.
   _- Close the issue 
 
-_- Check in this file under
+x- Check in this file under
    github.com/xtuml/<repository>/doc-<repository>/checklists/<release_id>/<issue num>-promotion.chk
 
 End
