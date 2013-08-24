@@ -1,8 +1,8 @@
 //========================================================================
 //
 //File:      $RCSfile: AbstractExportBuilder.java,v $
-//Version:   $Revision: 1.10 $
-//Modified:  $Date: 2013/06/12 13:07:58 $
+//Version:   $Revision: 1.10.6.2 $
+//Modified:  $Date: 2013/08/09 15:11:55 $
 //
 //(c) Copyright 2007-2013 by Mentor Graphics Corp. All rights reserved.
 //
@@ -25,7 +25,10 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -127,10 +130,11 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 				return null;
 			}
 			
-			MCBuilderArgumentHandler argHandler = new MCBuilderArgumentHandler(
+			if (m_nature != null) {
+			  MCBuilderArgumentHandler argHandler = new MCBuilderArgumentHandler(
 					getProject(), m_activator, m_nature);
-			argHandler.setArguments(m_nature.getBuilderID());
-	
+			  argHandler.setArguments(m_nature.getBuilderID());
+			}
 			// Calling build again here just forces any builders that have not yet
 			// run to refresh before starting. This picks up changes we may have
 			// made to the external tool builder launch file.
@@ -178,31 +182,94 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 	protected void exportModel(final IProgressMonitor monitor)
 			throws CoreException {
 
-	    m_exportedSystems.clear();
 		String projPath = getProject().getLocation().toOSString();
 		IPath path = new Path(projPath + File.separator
 				+ AbstractActivator.GEN_FOLDER_NAME + File.separator
 				+ m_outputFolder + File.separator);
 		String destPath = path.toOSString();
-		deleteDirectory(path.toFile());
-		
-		// We must force a refresh or eclipse will not always see that
-		// the deletion happened and the folder then does not get created.
-		getProject().refreshLocal(IFile.DEPTH_INFINITE, null);
-		if (!path.toFile().exists()) {
-			path.toFile().mkdir();
+		boolean exportNeeded = true;
+		IPath genPath = new Path(AbstractActivator.GEN_FOLDER_NAME +
+				              File.separator + m_outputFolder + File.separator);
+		IFolder genFolder = getProject().getFolder(genPath);
+		genFolder.refreshLocal(IResource.DEPTH_ONE, null);
+		if (genFolder.exists() && genFolder.members().length != 0) {
+			// Obtain the timestamp of the oldest
+			// file in the code generation folder
+			long oldest = Long.MAX_VALUE;
+			for(IResource res: genFolder.members()) {
+				if (res.getLocalTimeStamp() < oldest) {
+					oldest = res.getLocalTimeStamp();
+				}
+			}
+			// Now visit every xtuml file in the models folder
+			// If any file is younger than the oldest output
+			// file, we need to perform the export.
+			IPath mdlPath = new Path(AbstractActivator.MDL_FOLDER_NAME +
+					                                            File.separator);
+			IFolder mdlFolder = getProject().getFolder(mdlPath);
+			mdlFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
+			final long lastBuilt = oldest;
+			class ExportAssessorVisitor implements IResourceVisitor {
+				boolean exportRequired = false;
+				@Override
+				public boolean visit(IResource resource) throws CoreException {
+				  if (resource instanceof IFile) {
+					if (resource.getFileExtension().equals("xtuml")) {
+                      if( resource.getModificationStamp() > lastBuilt) {
+                    	  exportRequired = true;
+                      }
+					}
+					return false;
+				  }
+				  else if (resource instanceof IFolder) {
+					return true;
+				  }
+				  else {
+				    return false;
+				  }
+				}
+				public boolean getExportRequired() {
+					return exportRequired;
+				}
+			}
+			ExportAssessorVisitor visitor = new ExportAssessorVisitor();
+			mdlFolder.accept(visitor);
+			exportNeeded = visitor.getExportRequired();
 		}
+		if (exportNeeded) {
+		  m_exportedSystems.clear();
+		  deleteDirectory(path.toFile());
+		
+		  // We must force a refresh or eclipse will not always see that
+		  // the deletion happened and the folder then does not get created.
+		  getProject().refreshLocal(IFile.DEPTH_INFINITE, null);
+		  if (!path.toFile().exists()) {
+			path.toFile().mkdir();
+		  }
 
-		final String projName = getProject().getDescription().getName();
-		SystemModel_c system = SystemModel_c.SystemModelInstance(Ooaofooa
+		  final String projName = getProject().getDescription().getName();
+		  SystemModel_c system = SystemModel_c.SystemModelInstance(Ooaofooa
 				.getDefaultInstance(), new ClassQueryInterface_c() {
 			public boolean evaluate(Object candidate) {
 				return ((SystemModel_c) candidate).getName().equals(projName);
 			}
-		});
+		  });
 
-		m_exportedSystems.add(system);
-		exportSystem(system, destPath, monitor, false, "");
+		  m_exportedSystems.add(system);
+		  exportSystem(system, destPath, monitor, false, "");
+	  }
+		else {
+			// Clear the code generation folder of
+			// everything except the output model(s)
+			IResource[] resources = genFolder.members();
+			for (IResource res: resources) {
+				if (res.getFileExtension() == null || 
+						!res.getFileExtension().equals("sql") ||
+                                          res.getName().equals("_system.sql")) {
+					res.delete(true, monitor);
+				}
+			}
+		}
 	}
 
     public List<SystemModel_c> exportSystem(SystemModel_c system, String destDir,

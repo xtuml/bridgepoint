@@ -1,8 +1,8 @@
 //====================================================================
 //
 // File:      $RCSfile: CoreExport.java,v $
-// Version:   $Revision: 1.28 $
-// Modified:  $Date: 2013/06/12 13:08:03 $
+// Version:   $Revision: 1.28.14.1 $
+// Modified:  $Date: 2013/07/26 10:13:23 $
 //
 // (c) Copyright 2004-2012 by Mentor Graphics Corp.  All rights reserved.
 //
@@ -31,10 +31,13 @@ import com.mentor.nucleus.bp.core.Component_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.DomainAsComponent_c;
 import com.mentor.nucleus.bp.core.Domain_c;
+import com.mentor.nucleus.bp.core.ExternalEntityPackage_c;
+import com.mentor.nucleus.bp.core.FunctionPackage_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.PackageableElement_c;
 import com.mentor.nucleus.bp.core.SpecificationPackage_c;
+import com.mentor.nucleus.bp.core.Subsystem_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.common.ModelRoot;
@@ -274,7 +277,10 @@ public abstract class CoreExport implements IRunnableWithProgress {
 		// how to parse this routine returns success
 		if ((selectedElement instanceof Domain_c)
 				|| (selectedElement instanceof Component_c) 
-				|| (selectedElement instanceof Package_c)) 
+				|| (selectedElement instanceof Package_c)
+				|| (selectedElement instanceof Subsystem_c)
+				|| (selectedElement instanceof FunctionPackage_c)
+				|| (selectedElement instanceof ExternalEntityPackage_c)) 
 				{
 			final NonRootModelElement nrme = selectedElement;
 			IRunnableWithProgress rwp = new IRunnableWithProgress() {
@@ -294,6 +300,18 @@ public abstract class CoreExport implements IRunnableWithProgress {
 					} else if (nrme instanceof Package_c) {
 						final AllActivityModifier aam = new AllActivityModifier(
 								(Package_c) nrme, monitor);
+						aam.processAllActivities(AllActivityModifier.PARSE,false);
+					} else if (nrme instanceof Subsystem_c) {
+						final AllActivityModifier aam = new AllActivityModifier(
+								(Subsystem_c) nrme, monitor);
+						aam.processAllActivities(AllActivityModifier.PARSE,false);
+					} else if (nrme instanceof FunctionPackage_c) {
+						final AllActivityModifier aam = new AllActivityModifier(
+								(FunctionPackage_c) nrme, monitor);
+						aam.processAllActivities(AllActivityModifier.PARSE,false);
+					} else if (nrme instanceof ExternalEntityPackage_c) {
+						final AllActivityModifier aam = new AllActivityModifier(
+								(ExternalEntityPackage_c) nrme, monitor);
 						aam.processAllActivities(AllActivityModifier.PARSE,false);
 					}
 					
@@ -358,7 +376,7 @@ public abstract class CoreExport implements IRunnableWithProgress {
 	 * 
 	 * @return A list of domains and/or components.
 	 */
-	private List<NonRootModelElement> getElementsToParse(NonRootModelElement[] pSelectedElements) {
+	public List<NonRootModelElement> getElementsToParse(NonRootModelElement[] pSelectedElements) {
 		return getElementsToParse(pSelectedElements, false);
 	}
 	private List<NonRootModelElement> getElementsToParse(NonRootModelElement[] pSelectedElements, boolean filterForRecursion)
@@ -454,6 +472,12 @@ public abstract class CoreExport implements IRunnableWithProgress {
 					}
 				}
 
+			} else if (pSelectedElement instanceof Subsystem_c) {
+				resultList.add(pSelectedElement);
+			} else if (pSelectedElement instanceof FunctionPackage_c) {
+				resultList.add(pSelectedElement);
+			} else if (pSelectedElement instanceof ExternalEntityPackage_c) {
+				resultList.add(pSelectedElement);
 			}
 		}
 
