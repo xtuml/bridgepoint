@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.Package_c;
@@ -69,6 +70,8 @@ public class IOMdlTestGenerics extends TestCase {
 	
 	}
 	protected void setUp() throws Exception {
+		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeAllEditors(false);
+		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 		super.setUp();
         IdAssigner.setSeedOfAllInstances(getName().hashCode(), true);
         if (m_workspace_path == null || m_workspace_path.equals(""))
