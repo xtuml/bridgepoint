@@ -451,51 +451,52 @@ public class ${class_name}Data
   .end if
   ..print "Generating class ${meta_model_obj.Name} for $r{node.CategoryName}"
     .for each attr in attr_set
-      .select one dt related by attr->S_DT[R114]
-      .select one edt related by dt->S_EDT[R17]
-      .select one rattr related by attr->O_RATTR[R106]
-      .if (((dt.Name != "unique_id") and (empty rattr)) and ("$l{attr.Descrip:User_Visible}" != "false"))
+      .if(("$l{attr.Descrip:In Properties}" == "true") or ("$l{attr.Descrip:In Properties}" == ""))
+        .select one dt related by attr->S_DT[R114]
+        .select one edt related by dt->S_EDT[R17]
+        .select one rattr related by attr->O_RATTR[R106]
+        .if (((dt.Name != "unique_id") and (empty rattr)) and ("$l{attr.Descrip:User_Visible}" != "false"))
 			{
-        .assign readonly = "$l{attr.Descrip:readonly}"
-        .select one dbattr related by attr->O_BATTR[R106]->O_DBATTR[R107]
-        .if ( ((not_empty dbattr) or (readonly == "true")) and (attr.Name != "Action_Semantics") )
+          .assign readonly = "$l{attr.Descrip:readonly}"
+          .select one dbattr related by attr->O_BATTR[R106]->O_DBATTR[R107]
+          .if ( ((not_empty dbattr) or (readonly == "true")) and (attr.Name != "Action_Semantics") )
             .if ( ("${attr.Descrip:enum0}" == "") and (empty edt) )
                 PropertyDescriptor.class.getName(),
             .else
                 EnumPropertyDescriptor.class.getName(),
             .end if
-        .else
-          .if (dt.Name == "boolean" )
+          .else
+            .if (dt.Name == "boolean" )
                BooleanPropertyDescriptor.class.getName(),
-          .elif ((dt.Name == "integer") or (not_empty edt))
-            .if ( ("${attr.Descrip:enum0}" == "") and (empty edt) )
+            .elif ((dt.Name == "integer") or (not_empty edt))
+              .if ( ("${attr.Descrip:enum0}" == "") and (empty edt) )
                IntegerPropertyDescriptor.class.getName(),
-            .else
+              .else
                 EnumPropertyDescriptor.class.getName(),
-            .end if
-          .elif (dt.Name == "string" )
-            .if (attr.Name == "Descrip" )
+              .end if
+            .elif (dt.Name == "string" )
+              .if (attr.Name == "Descrip" )
                DescriptionPropertyDescriptor.class.getName(),
-            .elif ( attr.Name == "Action_Semantics" )
+              .elif ( attr.Name == "Action_Semantics" )
                ActivityPropertyDescriptor.class.getName(),
-            .elif (( attr.Name == "Dimensions" ) or ( attr.Name == "Return_Dimensions"))
+              .elif (( attr.Name == "Dimensions" ) or ( attr.Name == "Return_Dimensions"))
                DimensionsPropertyDescriptor.class.getName(),
-            .elif (( attr.Name == "Value" ) and ( node.Key_Lett == "CNST_LSC"))
+              .elif (( attr.Name == "Value" ) and ( node.Key_Lett == "CNST_LSC"))
                ConstantValuePropertyDescriptor.class.getName(),
-            .else
+              .else
                .//
                .// The default datatype package "Datatypes" has a read-only
                .// name attribute.
                .// This corresponds to the 'canRename' special case in
                .// BuildPropertySource.arc
-               .if ( (meta_model_obj.Key_Lett == "S_DPK") and (attr.Name == "Name") )
+                 .if ( (meta_model_obj.Key_Lett == "S_DPK") and (attr.Name == "Name") )
                PropertyDescriptor.class.getName(),
-               .else
+                 .else
                TextPropertyDescriptor.class.getName(),
+              .end if
             .end if
           .end if
         .end if
-      .end if
 				"${attr.Name}",
 				"${attr.Descrip:Full Name}",
         .if (attr.Name == "Descrip" )
@@ -524,6 +525,7 @@ public class ${class_name}Data
             .end if
           .end if
         .end if
+      .end if
     .end for
     .//
     .//  Now do the referential attributes

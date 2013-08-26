@@ -3,8 +3,8 @@
 <!--
 
  File:      $RCSfile: plugin.xml,v $
- Version:   $Revision: 1.40 $
- Modified:  $Date: 2013/06/24 14:49:24 $
+ Version:   $Revision: 1.40.8.1 $
+ Modified:  $Date: 2013/07/26 10:13:29 $
 
  (c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
 
@@ -50,9 +50,23 @@
       <import plugin="com.mentor.nucleus.bp.io.core" version="4.0.3"/>
       <import plugin="com.mentor.nucleus.bp.io.mdl" version="4.0.3"/>
       <import plugin="com.mentor.nucleus.bp.utilities"/>
+      <import plugin="com.mentor.nucleus.bp.mc" version="4.0.3"/>
    </requires>
 
-	<extension point="org.eclipse.ui.viewActions">
+   <extension
+         id="MCJavaNature"
+         name="model compiler nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="com.mentor.nucleus.bp.internal.tools.mcjava.MCJavaNature">
+         </run>
+      </runtime>
+      <builder
+            id="com.mentor.nucleus.bp.internal.tools.mc_java_export_builder">
+      </builder>
+   </extension>
+   <extension point="org.eclipse.ui.viewActions">
 		<viewContribution 
 			id="com.mentor.nucleus.bp.internal.tools.process.scrapeCodeChanges" 
 			targetID="org.eclipse.team.sync.views.SynchronizeView">        
@@ -162,5 +176,13 @@
             class="com.mentor.nucleus.bp.internal.tools.views.BPInstancePopulationView"
             id="com.mentor.nucleus.bp.internal.tools.views.BPInstancePopulationView">
       </view>
+   </extension>
+   <extension
+         id="mc_java_export_builder"
+         name="Java Model Compiler Pre-Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder>
+        <run class="com.mentor.nucleus.bp.internal.tools.mcjava.JavaExportBuilder" />
+      </builder>
    </extension>
 </plugin>

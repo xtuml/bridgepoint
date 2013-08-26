@@ -67,6 +67,7 @@ public class ModelCompiler extends AbstractUIPlugin implements
   public static final String CC_FILE_EXTENSION = "cc"; //$NON-NLS-1$
   public static final String MARKING_FILE_EXTENSION = "mark"; //$NON-NLS-1$
 	public static final String GEN_FOLDER_NAME = "gen"; //$NON-NLS-1$
+	public static final String MDL_FOLDER_NAME = "models"; //$NON-NLS-1$
 
 
   //Reference to the shared instance, returned when requested.

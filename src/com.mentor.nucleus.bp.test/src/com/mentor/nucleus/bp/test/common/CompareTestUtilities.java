@@ -241,6 +241,22 @@ public class CompareTestUtilities {
 						rightResult = rightResult + string + "\r\n";
 					}
 				}
+			} else {
+				List<String> targetLines = new ArrayList<String>();
+				String[] rightLines = rightResult.split("\n");
+				for (int i = 0; i < rightLines.length; i++) {
+					targetLines.add(rightLines[i]);
+				}
+				rightResult = "";
+				for (int i = 0; i < targetLines.size(); i++) {
+					String string = targetLines.get(i);
+					if (string.contains("Referenced Over")) {
+						string = string.replaceAll("\\.'.*'", "");
+						rightResult = rightResult + string + "\n";
+					} else {
+						rightResult = rightResult + string + "\n";
+					}
+				}
 			}
 			Assert.assertEquals("Copied model element: "
 					+ source.getName()

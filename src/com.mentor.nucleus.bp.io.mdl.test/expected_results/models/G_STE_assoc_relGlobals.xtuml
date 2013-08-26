@@ -11117,7 +11117,7 @@ INSERT INTO O_REF
 	'',
 	'Class AA',
 	'aa_id',
-	'R200');
+	'R200.''right''');
 INSERT INTO O_RATTR
 	VALUES ("05022a1b-d2d0-e320-9021-ab6ca2addb49",
 	"c90cb9eb-1410-393b-a952-ff65708cb24c",
@@ -11152,7 +11152,7 @@ INSERT INTO O_REF
 	'',
 	'Class AA',
 	'aa_id2',
-	'R200');
+	'R200.''left''');
 INSERT INTO O_RATTR
 	VALUES ("a5ace621-abe1-7231-ee7f-699f9db15f30",
 	"c90cb9eb-1410-393b-a952-ff65708cb24c",
@@ -11287,7 +11287,7 @@ INSERT INTO O_REF
 	'',
 	'Class CC',
 	'cc_id',
-	'R201');
+	'R201.''right''');
 INSERT INTO O_RATTR
 	VALUES ("8fd8abb9-1505-734f-9a7c-f7ef338f2946",
 	"3aebbab1-398a-d786-50b2-59092f64e841",
@@ -11322,7 +11322,7 @@ INSERT INTO O_REF
 	'',
 	'Class CC',
 	'cc_id2',
-	'R201');
+	'R201.''left''');
 INSERT INTO O_RATTR
 	VALUES ("56c39e37-4098-4115-b0b5-77ccc3c2dfa9",
 	"3aebbab1-398a-d786-50b2-59092f64e841",
@@ -11480,7 +11480,7 @@ INSERT INTO O_REF
 	'',
 	'Class EE',
 	'ee_id',
-	'R202');
+	'R202.''right''');
 INSERT INTO O_RATTR
 	VALUES ("345d8c61-5fe7-ae81-2be1-a7bac63e38f4",
 	"aa06ed76-350a-8406-e3e8-bc71f78face3",
@@ -11515,7 +11515,7 @@ INSERT INTO O_REF
 	'',
 	'Class EE',
 	'ee_id2',
-	'R202');
+	'R202.''left''');
 INSERT INTO O_RATTR
 	VALUES ("a68ee9a6-6bc5-ec8e-e2fc-f0df44858c07",
 	"aa06ed76-350a-8406-e3e8-bc71f78face3",
@@ -11650,7 +11650,7 @@ INSERT INTO O_REF
 	'',
 	'Class GG',
 	'gg_id',
-	'R203');
+	'R203.''right''');
 INSERT INTO O_RATTR
 	VALUES ("9b6bf174-c071-156e-6eb5-6125f2755db5",
 	"213b9cbb-cbaa-c1e8-5aa5-98d3ca6b49ed",
@@ -11685,7 +11685,7 @@ INSERT INTO O_REF
 	'',
 	'Class GG',
 	'gg_id2',
-	'R203');
+	'R203.''left''');
 INSERT INTO O_RATTR
 	VALUES ("6fb2c63f-4374-e741-877f-8c58e73d6f09",
 	"213b9cbb-cbaa-c1e8-5aa5-98d3ca6b49ed",
@@ -11843,7 +11843,7 @@ INSERT INTO O_REF
 	'',
 	'Class II',
 	'ii_id',
-	'R204');
+	'R204.''right''');
 INSERT INTO O_RATTR
 	VALUES ("4291b313-6c0b-e77a-f8b1-37bc3937a333",
 	"c111bb53-f8f2-639d-477c-0e34c3bbe237",
@@ -11878,7 +11878,7 @@ INSERT INTO O_REF
 	'',
 	'Class II',
 	'ii_id2',
-	'R204');
+	'R204.''left''');
 INSERT INTO O_RATTR
 	VALUES ("e1b0688f-bc36-34db-8b9f-c89eb9fedcb7",
 	"c111bb53-f8f2-639d-477c-0e34c3bbe237",
@@ -12013,7 +12013,7 @@ INSERT INTO O_REF
 	'',
 	'Class KK',
 	'kk_id',
-	'R205');
+	'R205.''right''');
 INSERT INTO O_RATTR
 	VALUES ("a6d046da-cf06-b479-d80c-6af216954cf3",
 	"08905b35-2169-fdc4-c11b-e857feed44cf",
@@ -12048,7 +12048,7 @@ INSERT INTO O_REF
 	'',
 	'Class KK',
 	'kk_id2',
-	'R205');
+	'R205.''left''');
 INSERT INTO O_RATTR
 	VALUES ("7e4f747b-ec35-cef7-920e-00493a40ace0",
 	"08905b35-2169-fdc4-c11b-e857feed44cf",
