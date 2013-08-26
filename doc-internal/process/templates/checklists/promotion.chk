@@ -1,3 +1,4 @@
+<pre>
 ========================================================================
 
 File:      promotion.chk 
@@ -81,18 +82,19 @@ _- If the github issue is a mirror of a CQ issue, you must perform the following
 
     _- On the Resolution tab, fill in the fields as follows:
       _- Resolution = Fixed
-      _- Fixed Version = <the target release version> (Should be the current
+      _- Fixed Version = "the target release version" (Should be the current
                        version of the plugin)
       _- Resolution Note:
-        _- Summary = <none required>
-        _- Note = Changes look good. Tagged with: <tag from clipboard>
+        _- Summary = "none required"
+        _- Note = Promoted with pull request: <pull request url>   (You can get 
+                  this from the promotion checklist)
       
     _- On the Customer tab:
       _- Check if a customer service request is specified.  If there is no SR, 
          the following steps may be skipped.
       _- If an SR is specified, enter a Customer note:
         _- Summary = <none required>
-        _- Note = :   
+        _- Note = This issue has been resolved and shall be present in the next release.
         
 _- Navigate to the issue(s) in the github Issues tracker.
   _- Verify that the upcoming milestone is set for the issue. Apply it if not 
@@ -105,3 +107,4 @@ _- Check in this file under
 End
 ---
 
+</pre>

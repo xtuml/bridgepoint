@@ -2560,7 +2560,7 @@ INSERT INTO O_REF
 	'',
 	'Object I Directional Reflexive',
 	'oi_id',
-	'R4');
+	'R4.''is to the left of''');
 INSERT INTO O_RATTR
 	VALUES ("a9852bf2-e57c-2f11-e72e-e381a3a771a4",
 	"676c2736-aec8-851d-ff45-6142b1c83dc6",
@@ -4639,7 +4639,7 @@ INSERT INTO O_REF
 	'',
 	'Object I2 Directional Reflexive',
 	'oi2_id',
-	'R13');
+	'R13.''has parent''');
 INSERT INTO O_RATTR
 	VALUES ("5af2b57d-f5ca-b1aa-37d3-8e6aaf0ce8d9",
 	"5048d215-b909-47ec-d4e9-fcef07d0b450",
@@ -10568,7 +10568,7 @@ INSERT INTO O_REF
 	'',
 	'Object J Directional Reflexive',
 	'oj_id',
-	'R5');
+	'R5.''is to the right of''');
 INSERT INTO O_RATTR
 	VALUES ("17287407-5ae7-3e40-a563-26f3c030dd03",
 	"31f5f4e8-0fb5-5821-dd44-3230553d3ed3",
@@ -10603,7 +10603,7 @@ INSERT INTO O_REF
 	'',
 	'Object J Directional Reflexive',
 	'oj_id',
-	'R5');
+	'R5.''is to the left of''');
 INSERT INTO O_RATTR
 	VALUES ("d1e91bad-9bd8-04b7-4f61-f0997f1ffea6",
 	"31f5f4e8-0fb5-5821-dd44-3230553d3ed3",
@@ -11034,7 +11034,7 @@ INSERT INTO O_REF
 	'',
 	'Object J2',
 	'oj2_id',
-	'R12');
+	'R12.''precedes''');
 INSERT INTO O_RATTR
 	VALUES ("ff0c1659-2029-5b0f-2aed-f5063f32206f",
 	"70dbcd54-1f4d-c9d4-95f9-7b4fb11c81a2",
@@ -11069,7 +11069,7 @@ INSERT INTO O_REF
 	'',
 	'Object J2',
 	'oj2_id',
-	'R12');
+	'R12.''follows''');
 INSERT INTO O_RATTR
 	VALUES ("409855e3-6e33-aa2e-d9c1-0f2d1b01af78",
 	"70dbcd54-1f4d-c9d4-95f9-7b4fb11c81a2",

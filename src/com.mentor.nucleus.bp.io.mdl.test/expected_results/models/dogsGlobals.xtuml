@@ -508,7 +508,7 @@ INSERT INTO O_REF
 	'',
 	'Dog',
 	'name',
-	'R2');
+	'R2.''is_seen_by''');
 INSERT INTO O_RATTR
 	VALUES ("954d59b9-f881-f399-db2c-b5d8d61c014a",
 	"0c52fc26-fc6d-af53-74cf-4ce1e87c93aa",
@@ -1437,7 +1437,7 @@ INSERT INTO O_REF
 	'',
 	'Cat',
 	'name',
-	'R1');
+	'R1.''chases''');
 INSERT INTO O_RATTR
 	VALUES ("fa28917b-cf9a-1f6f-2eda-cb44253bdf34",
 	"bd98054a-73e4-a273-3a5e-acd806cd5aae",

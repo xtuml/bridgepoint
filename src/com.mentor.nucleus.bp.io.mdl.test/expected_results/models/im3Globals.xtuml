@@ -2579,7 +2579,7 @@ INSERT INTO O_REF
 	'',
 	'Object I Directional Reflexive',
 	'oi_id',
-	'R4');
+	'R4.''is to the left of''');
 INSERT INTO O_RATTR
 	VALUES ("d3cafb8a-a090-fb60-36a5-df0034293a7a",
 	"9c589efb-c14d-4825-568f-be8e0f732be5",
@@ -4642,7 +4642,7 @@ INSERT INTO O_REF
 	'',
 	'Object I2 Directional Reflexive',
 	'oi2_id',
-	'R13');
+	'R13.''has parent''');
 INSERT INTO O_RATTR
 	VALUES ("efd9e110-0ecb-1a5a-3921-c3e9c67cf90c",
 	"192de062-0762-becd-0b9f-e1da8d5c028a",
@@ -10537,7 +10537,7 @@ INSERT INTO O_REF
 	'',
 	'Object J Directional Reflexive',
 	'oj_id',
-	'R5');
+	'R5.''is to the right of''');
 INSERT INTO O_RATTR
 	VALUES ("625023d2-b1eb-d492-2249-7394440a5afd",
 	"8eb162c1-2dd0-6cc4-6156-942587387ea7",
@@ -10572,7 +10572,7 @@ INSERT INTO O_REF
 	'',
 	'Object J Directional Reflexive',
 	'oj_id',
-	'R5');
+	'R5.''is to the left of''');
 INSERT INTO O_RATTR
 	VALUES ("e1b77761-1700-8196-5c94-46934b3f6a4d",
 	"8eb162c1-2dd0-6cc4-6156-942587387ea7",
@@ -11003,7 +11003,7 @@ INSERT INTO O_REF
 	'',
 	'Object J2',
 	'oj2_id',
-	'R12');
+	'R12.''precedes''');
 INSERT INTO O_RATTR
 	VALUES ("dc8e189f-a595-5037-6c72-7b8a6ce531f7",
 	"b3434917-0e62-115e-c180-dc0bb3d598f7",
@@ -11038,7 +11038,7 @@ INSERT INTO O_REF
 	'',
 	'Object J2',
 	'oj2_id',
-	'R12');
+	'R12.''follows''');
 INSERT INTO O_RATTR
 	VALUES ("657f00ec-8130-bd09-8f8b-791864389946",
 	"b3434917-0e62-115e-c180-dc0bb3d598f7",
@@ -21148,7 +21148,7 @@ INSERT INTO O_REF
 	'',
 	'reflex',
 	'ref_id',
-	'R103');
+	'R103.''is right of''');
 INSERT INTO O_RATTR
 	VALUES ("891c312a-03ba-2028-bcd6-2e975de90c1f",
 	"fc58f6a7-8335-6bb1-e6e6-f8b1dd2d28fb",
@@ -21183,7 +21183,7 @@ INSERT INTO O_REF
 	'',
 	'reflex',
 	'ref_id',
-	'R103');
+	'R103.''is left of''');
 INSERT INTO O_RATTR
 	VALUES ("7982d1f4-bfda-16a6-9a5a-f7278de5f165",
 	"fc58f6a7-8335-6bb1-e6e6-f8b1dd2d28fb",
@@ -21268,7 +21268,7 @@ INSERT INTO O_REF
 	'',
 	'reflex',
 	'ref_id',
-	'R105');
+	'R105.''is child of''');
 INSERT INTO O_RATTR
 	VALUES ("582ed4bd-f286-6cf0-dc9b-e61e60e0639f",
 	"e691f8b1-c0a0-23bd-4f8d-01f163209984",
@@ -21303,7 +21303,7 @@ INSERT INTO O_REF
 	'',
 	'reflex',
 	'ref_id',
-	'R105');
+	'R105.''is parent of''');
 INSERT INTO O_RATTR
 	VALUES ("ab80d344-c08d-bb68-98b9-9f07c4942dbb",
 	"e691f8b1-c0a0-23bd-4f8d-01f163209984",
@@ -21388,7 +21388,7 @@ INSERT INTO O_REF
 	'',
 	'reflex',
 	'ref_id',
-	'R106');
+	'R106.''is right of''');
 INSERT INTO O_RATTR
 	VALUES ("4f13ea07-7e62-72d0-259f-11a00aa64cec",
 	"2e2e9c60-3031-bab8-9ebe-3f9e39bc0458",
@@ -21423,7 +21423,7 @@ INSERT INTO O_REF
 	'',
 	'reflex',
 	'ref_id',
-	'R106');
+	'R106.''is left of''');
 INSERT INTO O_RATTR
 	VALUES ("1998ba15-f4df-a63f-da61-be4583f679d4",
 	"2e2e9c60-3031-bab8-9ebe-3f9e39bc0458",
@@ -21513,7 +21513,7 @@ INSERT INTO O_REF
 	'',
 	'reflex',
 	'ref_id',
-	'R102');
+	'R102.''is right of''');
 INSERT INTO O_RATTR
 	VALUES ("cb2b5fc5-f92a-5561-ec86-fbd6d3e877e8",
 	"d7cf7f82-baec-0909-7c66-47375d21287f",
@@ -21548,7 +21548,7 @@ INSERT INTO O_REF
 	'',
 	'reflex',
 	'ref_id',
-	'R102');
+	'R102.''is left of''');
 INSERT INTO O_RATTR
 	VALUES ("198efa66-5a6b-9600-e6d5-33bc9dc78dd9",
 	"d7cf7f82-baec-0909-7c66-47375d21287f",
@@ -21633,7 +21633,7 @@ INSERT INTO O_REF
 	'',
 	'reflex',
 	'ref_id',
-	'R100');
+	'R100.''is right of''');
 INSERT INTO O_RATTR
 	VALUES ("9e5eaad1-9882-90de-c50e-0e7bae73a28b",
 	"f6d6d91e-0276-e1d3-ed85-7150a78e4a98",
@@ -21668,7 +21668,7 @@ INSERT INTO O_REF
 	'',
 	'reflex',
 	'ref_id',
-	'R100');
+	'R100.''is left of''');
 INSERT INTO O_RATTR
 	VALUES ("7ce6eb0b-1551-72fb-bf04-72c2d138683f",
 	"f6d6d91e-0276-e1d3-ed85-7150a78e4a98",
@@ -21758,7 +21758,7 @@ INSERT INTO O_REF
 	'',
 	'reflex',
 	'ref_id',
-	'R101');
+	'R101.''is child of''');
 INSERT INTO O_RATTR
 	VALUES ("05a6214d-33d3-dc7a-3e2f-6bb31fe2bb1a",
 	"e53e2207-5147-4eee-d851-2d9e21b608fe",
@@ -21793,7 +21793,7 @@ INSERT INTO O_REF
 	'',
 	'reflex',
 	'ref_id',
-	'R101');
+	'R101.''is parent of''');
 INSERT INTO O_RATTR
 	VALUES ("aef5be17-6cd1-674e-6176-3cd7a68fd641",
 	"e53e2207-5147-4eee-d851-2d9e21b608fe",
@@ -21878,7 +21878,7 @@ INSERT INTO O_REF
 	'',
 	'reflex',
 	'ref_id',
-	'R107');
+	'R107.''is child of''');
 INSERT INTO O_RATTR
 	VALUES ("2ab4f2bc-48c6-978f-e28b-73170503e41f",
 	"f849c983-534c-2aac-6df1-5a926b68a9e8",
@@ -21913,7 +21913,7 @@ INSERT INTO O_REF
 	'',
 	'reflex',
 	'ref_id',
-	'R104');
+	'R104.''is left of''');
 INSERT INTO O_RATTR
 	VALUES ("9a4c5fc6-1302-fd7f-f4f3-f2e7ff16f9a4",
 	"f849c983-534c-2aac-6df1-5a926b68a9e8",
