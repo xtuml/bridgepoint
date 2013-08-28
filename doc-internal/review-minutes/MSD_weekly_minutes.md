@@ -37,8 +37,8 @@ MSD Weekly Meeting Minutes
 
     Date:     August 28
     Start:    9:00 MST
-    End:       EDT
-    Elapsed:  
+    End:      9:20 MST
+    Elapsed:  20 mins
     Present:  Bob, Keith, Travis, Campbell, Cort, others...
             Dean, Robert, Jayne, others...
 
