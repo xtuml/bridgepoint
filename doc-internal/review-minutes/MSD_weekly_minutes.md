@@ -33,6 +33,81 @@ MSD Weekly Meeting Minutes
 
 ---
 
+---
+
+    Date:     August 28
+    Start:    9:00 MST
+    End:       EDT
+    Elapsed:  
+    Present:  Bob, Keith, Travis, Campbell, Cort, others...
+            Dean, Robert, Jayne, others...
+
+### Engineering Status
+**Bob -** 
+
+Release is not moving quickly.  We lost Heba and Nehad due to Egypt issues.
+Focusing on CQ pending issues for the release.  Updating process documents to
+handle interfacing with CQ and GIT Issues.  Meeting with SAAB, the issue list
+has not changed but they reopened a few.  The promotion that should have
+addressed them did not.
+
+**Nehad -**
+
+Back to work after a one month break.
+Picked up and finished work for dts0100835691, working on finishing automated
+testing.
+Will pick up automated test work for compare editor.
+
+
+**Keith -** 
+
+Campbell's changes had conflicts with outstanding work.  License key
+passing had to be reworked, which was in the same area of work for code split. 
+An enhancement was added to prevent generating data when not necessary
+(in pre-builder).  There were issues found here that have been worked through.
+Automated tests have been added.  Need to redo manual testing for windows and
+linux.  Will need to redo the code review for the issue.  Entered an OSS request
+for upgrading to eGit 1.2.
+
+**Travis -** 
+
+Working on model integrity tool.  Work is complete with the exception of
+dangling references.  CLI merge is currently calling this tool after every
+merge.  Will add UI version of the reporting tool.
+
+**Campbell -** 
+
+Last week we promoted the first step to add infrastructure for splitting the
+code base.  Now merging changes for MC-Java into GIT.  All engineers need to
+run an updated engineering environment (latest promotion).  Next bit of work is
+to split the code and update MC-Java.  There are some outstanding issues that
+affect existing model compilers, these should be updated before we replace the
+dev environment.
+
+### Marketing Status
+**Dean -** 
+
+September will host a number of presentations.  Helping the Japanese team with
+licensing upgrading.
+ 
+### Customer Support Status
+**Robert -**
+
+It has been quite lately, had one question on how to include default external
+entities.  
+
+Looking at issues that were reopened (2) from SAAB meeting (not fixed in 3.7
+promotion).  
+
+Martin has encountered problems with testing the new licensing.  Martin was
+provided with work arounds that he was not completely satisfied with.  
+
+Keith: Provided patches to Agilent for most issues.  Going to provide a fix for
+sharing composite licenses.  We will provide an engineering release before
+Martin's licenses expire.  
+
+---
+
     Date:     August 14, 2013
     Start:    12:00 EDT
     End:      12:20 EDT
