@@ -182,15 +182,26 @@ public class ExportBuilder extends IncrementalProjectBuilder {
         IFolder genFolder = getProject().getFolder(genPath);
         genFolder.refreshLocal(IResource.DEPTH_ONE, null);
         if (genFolder.exists() && genFolder.members().length != 0) {
-            // Obtain the timestamp of the oldest
-            // file in the code generation folder
-            long oldest = Long.MAX_VALUE;
+            // Obtain the timestamp of the oldest SQL file in the code generation folder.
+            // We start by setting the watermark at the "newest" point, then look for 
+            // older SQL (output) files and lower the watermark if one is found.
+            long oldest = System.currentTimeMillis();
+            boolean foundOutputFile = false;
             for (IResource res : genFolder.members()) {
-                if (res.getLocalTimeStamp() < oldest) {
+                if (res.getType() == IResource.FILE &&
+                        res.getFileExtension().equals("sql") &&        //$NON-NLS-1$
+                        !res.getName().equals("_system.sql") &&    //$NON-NLS-1$
+                        (res.getLocalTimeStamp() < oldest)) { 
                     oldest = res.getLocalTimeStamp();
+                    foundOutputFile = true;
                 }
             }
-            // Now visit every xtuml file in the models folder
+            // If no output file was found, we set our watermark to the oldest 
+            // possible point so any xtuml file found is considered newer. 
+            if (!foundOutputFile) {
+                oldest = 0;
+            }
+            // Now visit every xtuml file in the models folder.
             // If any file is younger than the oldest output
             // file, we need to perform the export.
             IPath mdlPath = new Path(ModelCompiler.MDL_FOLDER_NAME + File.separator);
@@ -204,7 +215,7 @@ public class ExportBuilder extends IncrementalProjectBuilder {
                 public boolean visit(IResource resource) throws CoreException {
                     if (resource instanceof IFile) {
                         if (resource.getFileExtension().equals("xtuml")) {
-                            if (resource.getModificationStamp() > lastBuilt) {
+                            if (resource.getLocalTimeStamp() > lastBuilt) {
                                 exportRequired = true;
                             }
                         }
