@@ -60,15 +60,15 @@ init_repository ()
   if [ "$?" = "1" ]; then
     # We have never checked out (and thus created) a local branch named <branch>.
     # The git fetch above will have pulled all the remotes into the origin/refs 
-	# already.  So, now we can check out the branch based on the remote.
+    # already.  So, now we can check out the branch based on the remote.
     git checkout --track origin/${branch}
-	if [ "$?" = "1" ]; then
+    if [ "$?" = "1" ]; then
       if [ "${allow_fallback}" = "no" ]; then
         exit 1
       else
         git checkout master
       fi
-	fi
+    fi
   fi
   
   echo -e "\nChanges for repository: ${repo_name}" >> ${diff_file}
