@@ -46,19 +46,43 @@ init_repository ()
     git clone https://mgbuilder:bui!db0y@github.com/xtuml/${repo_name}.git
   fi
   cd ${git_repo_root}/${repo_name}
+  
+  # Make sure our refs are up to date.  Remove any remote tracking branches
+  # that no longer exist on the remote.
+  git fetch --prune
+  
+  # Just to be safe, discard any local changes before we try to switch branches.
+  git reset --hard HEAD
+
+  # Switch to the desired branch.  First see if we've used it before.  If not,
+  # then get it from the remote.
   git checkout ${branch}
   if [ "$?" = "1" ]; then
-    if [ "${allow_fallback}" = "no" ]; then
-      exit 1
-    else
-      git checkout master
-    fi
+    # We have never checked out (and thus created) a local branch named <branch>.
+    # The git fetch above will have pulled all the remotes into the origin/refs 
+	# already.  So, now we can check out the branch based on the remote.
+    git checkout --track origin/${branch}
+	if [ "$?" = "1" ]; then
+      if [ "${allow_fallback}" = "no" ]; then
+        exit 1
+      else
+        git checkout master
+      fi
+	fi
   fi
-  git fetch
+  
   echo -e "\nChanges for repository: ${repo_name}" >> ${diff_file}
   echo -e "------------------------------------" >> ${diff_file}
-  git diff --stat origin/${branch} >> ${diff_file}
-  git merge origin/${branch}
+  # If the branch we're using is master, we want to diff our local master with origin
+  # first, then merge in the origin/master changes.  Otherwise, merge the origin/<branch>
+  # changes in, then diff with origin/master.
+  if [ "${branch}" = "master" ]; then
+    git diff --name-status origin/master >> ${diff_file}
+    git merge origin/${branch}
+  else
+    git merge origin/${branch}
+    git diff --name-status origin/master >> ${diff_file}
+  fi
 }
 
 
