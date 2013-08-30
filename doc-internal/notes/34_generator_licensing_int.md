@@ -53,11 +53,22 @@ See [3].
   The changeset in the branch represents updates to the build process and instructions to support building
   on the server svr-azt-eng-03 in the workspace c:\workspace\Generator_git with the source code for generator
   and the model compiler coming from git.  
+6.3  This work had some conflicts with the promotion that preceeded it for Issue 35.  While resolving these
+  conflicts that author found problems with the new "smart pre-build" feature.  That feature intends to 
+  only re-export the model data to gen/code_generation/<<project>>.sql when a model file from the project is
+  newer than the most recent exported data.  
+6.3.1  The author reworked the flow of control and the Java API calls used in order to make sure the feature
+  behaves as expected in all cases.  
+6.3.2  The author added a new JUnit test in the bp.welcome test suite that performs a build, does a rebuild, 
+  then modifies the model and rebuilds again.  The test verifies that the output file from pre-builder is left
+  unchanged before the model is modified and is re-exported after the model is modified.
 
 7. Unit Test
 ------------
 See [3].  The author built the plug-ins that contained the changes and build generator with the fix in place.
-The new files were put into Windows and Linux installations and executed in GUI and CLI modes.
+The new files were put into Windows and Linux installations and executed in GUI and CLI modes.  
+
+Since the Welcome test is updated with this work, its JUnit suite obviously needs to be re-run.
 
 8. Code Changes
 ---------------
@@ -67,8 +78,10 @@ Pull request: https://github.com/xtuml/internal/pull/36/files
 M       src/com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/core/util/BridgePointLicenseManager.java
 M       src/com.mentor.nucleus.bp.mc.mc3020/src/com/mentor/nucleus/bp/mc/mc3020/ExportBuilder.java
 M       src/com.mentor.nucleus.bp.mc.mc3020/src/com/mentor/nucleus/bp/mc/mc3020/MCBuilderArgumentHandler.java
+M       src/com.mentor.nucleus.bp.mc.mc3020/src/com/mentor/nucleus/bp/mc/mc3020/ModelCompiler.java
 M       src/com.mentor.nucleus.bp.mc/src/com/mentor/nucleus/bp/mc/AbstractExportBuilder.java
 M       src/com.mentor.nucleus.bp.mc/src/com/mentor/nucleus/bp/mc/MCBuilderArgumentHandler.java
+M       src/com.mentor.nucleus.bp.welcome.test/src/com/mentor/nucleus/bp/welcome/test/WelcomePageTestGPS.java
 </pre>
 
 xtuml/generator branch name: 2_xtumldisplay_change  
