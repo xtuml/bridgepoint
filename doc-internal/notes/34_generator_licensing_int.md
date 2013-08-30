@@ -74,6 +74,7 @@ Since the Welcome test is updated with this work, its JUnit suite obviously need
 ---------------
 xtuml/internal branch name: 34_generator_licensing  
 Pull request: https://github.com/xtuml/internal/pull/36/files  
+Master Root ID to diff against: 98c0ad5
 <pre>
 M       src/com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/core/util/BridgePointLicenseManager.java
 M       src/com.mentor.nucleus.bp.mc.mc3020/src/com/mentor/nucleus/bp/mc/mc3020/ExportBuilder.java
