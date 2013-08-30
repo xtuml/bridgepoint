@@ -50,7 +50,6 @@ import com.mentor.nucleus.bp.core.common.PersistenceManager;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectPreferences;
 import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
 import com.mentor.nucleus.bp.core.util.UIUtil;
-import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager.LicenseAtomic;
 import com.mentor.nucleus.bp.io.core.CoreExport;
 import com.mentor.nucleus.bp.io.mdl.ExportModelStream;
 import com.mentor.nucleus.bp.utilities.ui.ProjectUtilities;
@@ -81,37 +80,25 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 	// calling the build() function.
 	// This function is a part of IExecutableExtension interface.
 	// This function sets initialization data for this builder.
-	public void setInitializationData(IConfigurationElement config,
-			String propertyName, Object data) throws CoreException {
+	public void setInitializationData(IConfigurationElement config, String propertyName, Object data) throws CoreException {
 		// should be sure to invoke this method on their superclass.
 		super.setInitializationData(config, propertyName, data);
 
-		// added for issue dts0100598323
-		// When this builder is run a check for dirty buffers is made. This
-		// check
-		// is made when the function DebugUIPlugin.preLaunchSave() is called.
-		// From within the preLaunchSave() function it gets the value a string
-		// of
-		// saveDirty to determine weather to prompt for a dialog to ask the user
-		// to
-		// save the dirty buffers or not
-		// It gets the corresponding value form the preference store to
-		// IInternalDebugUIConstants.PREF_SAVE_DIRTY_EDITORS_BEFORE_LAUNCH
-		// The default value returned from the preference store for this is
-		// "prompt"
-		// which causes the dialog to prompt the user for decision
-		// If the user chose yes then it causes the halt,a deadlock occurs on
-		// the
-		// progress monitor between the building thread and the saving thread.
-		// hence we get to change that value to never so the build continues
-		// without the possibility of a halt due to user wanting dirty editors
-		// to be saved before launch
-		DebugUIPlugin
-				.getDefault()
-				.getPreferenceStore()
-				.setValue(
-						IInternalDebugUIConstants.PREF_SAVE_DIRTY_EDITORS_BEFORE_LAUNCH,
-						"never");
+        //added for issue dts0100598323
+        //When this builder is run a check for dirty buffers is made. This check 
+        //is made when the function DebugUIPlugin.preLaunchSave() is called. 
+        //From within the preLaunchSave() function it gets the value a string of
+        //saveDirty to determine weather to prompt for a dialog to ask the user to 
+        //save the dirty buffers or not          
+        //It gets the corresponding value form the preference store to  
+        //IInternalDebugUIConstants.PREF_SAVE_DIRTY_EDITORS_BEFORE_LAUNCH
+        //The default value returned from the preference store for this is "prompt"
+        //which causes the dialog to prompt the user for decision 
+        //If the user chose yes then it causes the halt,a deadlock occurs on the 
+        //progress monitor between the building thread and the saving thread.
+        // hence we get to change that value to never so the build continues  
+        // without the possibility of a halt due to user wanting dirty editors to be saved before launch
+        DebugUIPlugin.getDefault().getPreferenceStore().setValue(IInternalDebugUIConstants.PREF_SAVE_DIRTY_EDITORS_BEFORE_LAUNCH, "never");
 
 	}
 
@@ -130,6 +117,8 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 				return null;
 			}
 			
+			boolean exportNeeded = readyBuildArea(monitor);
+			
 			if (m_nature != null) {
 			  MCBuilderArgumentHandler argHandler = new MCBuilderArgumentHandler(
 					getProject(), m_activator, m_nature);
@@ -140,9 +129,10 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 			// made to the external tool builder launch file.
 			getProject().build(kind, monitor);
 	
-			PersistenceManager.getDefaultInstance();
-			exportModel(monitor);
-	
+			if ( exportNeeded ) {
+			    PersistenceManager.getDefaultInstance();
+			    exportModel(monitor);
+			}
 		} finally {
 			// Must check in this license because as specified in checkout above 
 			// it is set to "linger", and the linger starts at checkin
@@ -156,10 +146,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 	// The eclipse infrastructure calls this function in response to
 	// a request by the user to clean the project
 	protected void clean(IProgressMonitor monitor) {
-		String projPath = getProject().getLocation().toOSString();
-		IPath path = new Path(projPath + File.separator
-				+ AbstractActivator.GEN_FOLDER_NAME + File.separator
-				+ m_outputFolder + File.separator);
+		IPath path = getCodeGenFolderPath();
 		deleteDirectory(path.toFile());
 	}
 
@@ -178,77 +165,111 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 		return (path.delete());
 	}
 
+	protected IPath getCodeGenFolderPath() {
+        String projPath = getProject().getLocation().toOSString();
+        IPath path = new Path(projPath + File.separator
+                + AbstractActivator.GEN_FOLDER_NAME + File.separator
+                + m_outputFolder + File.separator);
+        return path;
+	}
+	
+    // Performs house-keeping at the start of the build
+    protected boolean readyBuildArea(IProgressMonitor monitor)
+            throws CoreException {
+        boolean exportNeeded = true;
+        IPath path = getCodeGenFolderPath();
+        IPath genPath = new Path(AbstractActivator.GEN_FOLDER_NAME
+                + File.separator + m_outputFolder + File.separator);
+        IFolder genFolder = getProject().getFolder(genPath);
+        genFolder.refreshLocal(IResource.DEPTH_ONE, null);
+        if (genFolder.exists() && genFolder.members().length != 0) {
+            // Obtain the timestamp of the oldest SQL file in the code generation folder.
+            // We start by setting the watermark at the "newest" point, then look for 
+            // older SQL (output) files and lower the watermark if one is found.
+            long oldest = System.currentTimeMillis();
+            boolean foundOutputFile = false;
+            for (IResource res : genFolder.members()) {
+                if (res.getType() == IResource.FILE &&
+                        res.getFileExtension().equals("sql") &&        //$NON-NLS-1$
+                        !res.getName().equals("_system.sql") &&    //$NON-NLS-1$
+                        (res.getLocalTimeStamp() < oldest)) { 
+                    oldest = res.getLocalTimeStamp();
+                    foundOutputFile = true;
+                }
+            }
+            // If no output file was found, we set our watermark to the oldest 
+            // possible point so any xtuml file found is considered newer. 
+            if (!foundOutputFile) {
+                oldest = 0;
+            }
+            // Now visit every xtuml file in the models folder.
+            // If any file is younger than the oldest output
+            // file, we need to perform the export.
+            IPath mdlPath = new Path(AbstractActivator.MDL_FOLDER_NAME + File.separator);
+            IFolder mdlFolder = getProject().getFolder(mdlPath);
+            mdlFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
+            final long lastBuilt = oldest;
+            class ExportAssessorVisitor implements IResourceVisitor {
+                boolean exportRequired = false;
+
+                @Override
+                public boolean visit(IResource resource) throws CoreException {
+                    if (resource instanceof IFile) {
+                        if (resource.getFileExtension().equals("xtuml")) {
+                            if (resource.getLocalTimeStamp() > lastBuilt) {
+                                exportRequired = true;
+                            }
+                        }
+                        return false;
+                    } else if (resource instanceof IFolder) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                public boolean getExportRequired() {
+                    return exportRequired;
+                }
+            }
+            ExportAssessorVisitor visitor = new ExportAssessorVisitor();
+            mdlFolder.accept(visitor);
+            exportNeeded = visitor.getExportRequired();
+        }
+        if (exportNeeded) {
+            deleteDirectory(path.toFile());
+
+            // We must force a refresh or eclipse will not always see that
+            // the deletion happened and the folder then does not get created.
+            getProject().refreshLocal(IFile.DEPTH_INFINITE, null);
+            if (!path.toFile().exists()) {
+                path.toFile().mkdir();
+            }
+        } else {
+            // Clear the code generation folder of
+            // everything except the output model(s)
+            IResource[] resources = genFolder.members();
+            for (IResource res : resources) {
+                if (res.getFileExtension() == null
+                        || !res.getFileExtension().equals("sql")
+                        || res.getName().equals("_system.sql")) {
+                    res.delete(true, monitor);
+                }
+            }
+        }
+
+        return exportNeeded;
+    }
+
 	// The starting point for the model export chain
 	protected void exportModel(final IProgressMonitor monitor)
 			throws CoreException {
-
-		String projPath = getProject().getLocation().toOSString();
-		IPath path = new Path(projPath + File.separator
-				+ AbstractActivator.GEN_FOLDER_NAME + File.separator
-				+ m_outputFolder + File.separator);
+	    m_exportedSystems.clear();
+	    IPath path = getCodeGenFolderPath();
 		String destPath = path.toOSString();
-		boolean exportNeeded = true;
-		IPath genPath = new Path(AbstractActivator.GEN_FOLDER_NAME +
-				              File.separator + m_outputFolder + File.separator);
-		IFolder genFolder = getProject().getFolder(genPath);
-		genFolder.refreshLocal(IResource.DEPTH_ONE, null);
-		if (genFolder.exists() && genFolder.members().length != 0) {
-			// Obtain the timestamp of the oldest
-			// file in the code generation folder
-			long oldest = Long.MAX_VALUE;
-			for(IResource res: genFolder.members()) {
-				if (res.getLocalTimeStamp() < oldest) {
-					oldest = res.getLocalTimeStamp();
-				}
-			}
-			// Now visit every xtuml file in the models folder
-			// If any file is younger than the oldest output
-			// file, we need to perform the export.
-			IPath mdlPath = new Path(AbstractActivator.MDL_FOLDER_NAME +
-					                                            File.separator);
-			IFolder mdlFolder = getProject().getFolder(mdlPath);
-			mdlFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
-			final long lastBuilt = oldest;
-			class ExportAssessorVisitor implements IResourceVisitor {
-				boolean exportRequired = false;
-				@Override
-				public boolean visit(IResource resource) throws CoreException {
-				  if (resource instanceof IFile) {
-					if (resource.getFileExtension().equals("xtuml")) {
-                      if( resource.getModificationStamp() > lastBuilt) {
-                    	  exportRequired = true;
-                      }
-					}
-					return false;
-				  }
-				  else if (resource instanceof IFolder) {
-					return true;
-				  }
-				  else {
-				    return false;
-				  }
-				}
-				public boolean getExportRequired() {
-					return exportRequired;
-				}
-			}
-			ExportAssessorVisitor visitor = new ExportAssessorVisitor();
-			mdlFolder.accept(visitor);
-			exportNeeded = visitor.getExportRequired();
-		}
-		if (exportNeeded) {
-		  m_exportedSystems.clear();
-		  deleteDirectory(path.toFile());
 		
-		  // We must force a refresh or eclipse will not always see that
-		  // the deletion happened and the folder then does not get created.
-		  getProject().refreshLocal(IFile.DEPTH_INFINITE, null);
-		  if (!path.toFile().exists()) {
-			path.toFile().mkdir();
-		  }
-
-		  final String projName = getProject().getDescription().getName();
-		  SystemModel_c system = SystemModel_c.SystemModelInstance(Ooaofooa
+		final String projName = getProject().getDescription().getName();
+		SystemModel_c system = SystemModel_c.SystemModelInstance(Ooaofooa
 				.getDefaultInstance(), new ClassQueryInterface_c() {
 			public boolean evaluate(Object candidate) {
 				return ((SystemModel_c) candidate).getName().equals(projName);
@@ -257,19 +278,6 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 
 		  m_exportedSystems.add(system);
 		  exportSystem(system, destPath, monitor, false, "");
-	  }
-		else {
-			// Clear the code generation folder of
-			// everything except the output model(s)
-			IResource[] resources = genFolder.members();
-			for (IResource res: resources) {
-				if (res.getFileExtension() == null || 
-						!res.getFileExtension().equals("sql") ||
-                                          res.getName().equals("_system.sql")) {
-					res.delete(true, monitor);
-				}
-			}
-		}
 	}
 
     public List<SystemModel_c> exportSystem(SystemModel_c system, String destDir,

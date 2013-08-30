@@ -12,17 +12,21 @@ package com.mentor.nucleus.bp.welcome.test;
 //Mentor Graphics Corp. and is not for external distribution.
 //=====================================================================
 
+import java.io.File;
 import java.util.Properties;
 
 import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TreeItem;
@@ -32,14 +36,18 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
+import com.mentor.nucleus.bp.core.Attribute_c;
+import com.mentor.nucleus.bp.core.ModelClass_c;
+import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.XtUMLNature;
+import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
+import com.mentor.nucleus.bp.internal.tools.utilities.TreeUtilities;
 import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
 import com.mentor.nucleus.bp.ui.explorer.ExplorerView;
 import com.mentor.nucleus.bp.welcome.gettingstarted.SampleProjectGettingStartedAction;
-import com.mentor.nucleus.bp.internal.tools.utilities.TreeUtilities;
 
 public class WelcomePageTestGPS extends TestCase {
 
@@ -84,7 +92,7 @@ public class WelcomePageTestGPS extends TestCase {
 		action.run(null, props);
 	}
 
-	public boolean projectExists(String projectName) {
+	public boolean projectReady(String projectName) {
 		// Check that project exists in the workspace
 		// and that it is indeed an xtUML project
 		boolean projectExists = false;
@@ -125,7 +133,7 @@ public class WelcomePageTestGPS extends TestCase {
 	}
 
 	public void verifyProjectCreated() {
-		boolean projectExists = projectExists(ProjectName);
+		boolean projectExists = projectReady(ProjectName);
 		if (projectExists)
 			containsProjectMembers();
 	}
@@ -216,12 +224,90 @@ public class WelcomePageTestGPS extends TestCase {
 		
 	}
 
+    public void testSmartPreBuild() throws Exception {
+        // This test builds the project several times, testing that the exported
+        // <project>.sql file from pre-builder is updated when needed and left
+        // unmodified by the build (re-export skipped) when an update is not needed.
+        TestUtil.selectButtonInDialog(1000, "Yes");
+        runGPSGettingStartedAction();
+        TestingUtilities.allowJobCompletion();
+
+        raiseWorkbench();
+
+        verifyProjectCreated();
+
+        final IProject project = getProject(ProjectName);
+
+        // First build
+        buildProject(project);
+        checkForErrors();
+        long firstPrebuildOutputTimestamp = getPrebuildOutputTimestamp();
+        
+        // Second build.  Wait a while, then build again without touching the 
+        // model data.  The pre-builder should not re-export.
+        TestUtil.sleepWithDispatchOfEvents(15000);
+        buildProject(project);
+        checkForErrors();
+        long secondPrebuildOutputTimestamp = getPrebuildOutputTimestamp();
+        assertTrue("The pre-build re-exported the model data.  It should not have done this.", 
+                firstPrebuildOutputTimestamp == secondPrebuildOutputTimestamp);            
+
+        // Third build.  Wait a while, touch the model data by adding a meaningless
+        // attribute to a class, then build again. The pre-builder should re-export.
+        TestUtil.sleepWithDispatchOfEvents(15000);
+        String modelRootId = Ooaofooa.createModelRootId(ProjectName, "Library", true);
+        Ooaofooa modelRoot = Ooaofooa.getInstance(modelRootId, true);
+        ModelClass_c obj = ModelClass_c.ModelClassInstance(modelRoot, 
+                new ClassQueryInterface_c() {
+            public boolean evaluate(Object candidate) {
+                return ((ModelClass_c) candidate).getName().equals("LapMarker");
+            }
+          });
+        assertNotNull(obj);
+        obj.Newattribute();
+        Attribute_c attribute = Attribute_c.getOneO_ATTROnR102(obj,
+                new ClassQueryInterface_c() {
+                    public boolean evaluate(Object candidate) {
+                        Attribute_c selected = (Attribute_c) candidate;
+                        return selected.getName().equals("Unnamed Attribute");
+                    }
+                });
+        assertNotNull(attribute);
+        attribute.setName("dummy");
+        attribute.getPersistableComponent().persist();
+        TestUtil.sleepWithDispatchOfEvents(2000);
+        buildProject(project);
+        checkForErrors();
+        long thirdPrebuildOutputTimestamp = getPrebuildOutputTimestamp();
+        assertTrue("The pre-build did not re-export the model data.  It should have done this.", 
+                thirdPrebuildOutputTimestamp > secondPrebuildOutputTimestamp);            
+    }
+
+    private long getPrebuildOutputTimestamp() throws CoreException {
+        long prebuildOutputTimestamp = Long.MAX_VALUE;
+        IPath genPath = new Path("gen" + File.separator + "code_generation" + File.separator);
+        IFolder genFolder = project.getFolder(genPath);
+        genFolder.refreshLocal(IResource.DEPTH_ONE, null);
+        if (genFolder.exists() && genFolder.members().length != 0) {
+            for (IResource res : genFolder.members()) {
+                if (res.getName().equals( ProjectName + ".sql")) { 
+                    prebuildOutputTimestamp = res.getLocalTimeStamp();
+                }
+            }
+        }
+        else {
+            fail("The pre-builder did not create the expected output.");
+        }
+        
+        return prebuildOutputTimestamp;
+    }
+    
 	private void checkForErrors() {
 		// Check the problems view
         g_view = selectView(project, "org.eclipse.ui.views.ProblemView");
         IViewSite site = g_view.getViewSite();
 
-        // Check the explorer view for orphanded elements
+        // Check the explorer view for orphaned elements
         ExplorerView view = null;
 		try {
 			view = (ExplorerView) PlatformUI.getWorkbench()
