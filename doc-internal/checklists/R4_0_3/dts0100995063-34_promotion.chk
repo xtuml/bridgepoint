@@ -86,35 +86,35 @@ xR When tests pass the changes can be pushed.
 	  	   		git reset ---hard origin/master
 	  	   		
 	
-_- If the github issue is a mirror of a CQ issue, you must perform the following
+x- If the github issue is a mirror of a CQ issue, you must perform the following
    steps.  If not, skip to the next section.
    
-   _- Log into ClearQuest and enter the defect number to go to the issue.
+   x- Log into ClearQuest and enter the defect number to go to the issue.
 
-  _- Select "Change State->Resolve"
+  x- Select "Change State->Resolve"
 
-    _- On the Resolution tab, fill in the fields as follows:
-      _- Resolution = Fixed
-      _- Fixed Version = "the target release version" (Should be the current
+    x- On the Resolution tab, fill in the fields as follows:
+      x- Resolution = Fixed
+      x- Fixed Version = "the target release version" (Should be the current
                        version of the plugin)
-      _- Resolution Note:
-        _- Summary = "none required"
-        _- Note = Promoted with pull request: <pull request url>   (You can get 
+      x- Resolution Note:
+        x- Summary = "none required"
+        x- Note = Promoted with pull request: <pull request url>   (You can get 
                   this from the promotion checklist)
       
-    _- On the Customer tab:
+    o- On the Customer tab:
       _- Check if a customer service request is specified.  If there is no SR, 
          the following steps may be skipped.
       _- If an SR is specified, enter a Customer note:
         _- Summary = <none required>
         _- Note = This issue has been resolved and shall be present in the next release.
         
-_- Navigate to the issue(s) in the github Issues tracker.
-  _- Verify that the upcoming milestone is set for the issue. Apply it if not 
+x- Navigate to the issue(s) in the github Issues tracker.
+  x- Verify that the upcoming milestone is set for the issue. Apply it if not 
      yet set.
-  _- Close the issue 
+  x- Close the issue 
 
-_- Check in this file under
+x- Check in this file under
    github.com/xtuml/<repository>/doc-<repository>/checklists/<release_id>/<issue num>-promotion.chk
 
 End
