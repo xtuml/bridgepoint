@@ -26,7 +26,10 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -107,33 +110,32 @@ public class ExportBuilder extends IncrementalProjectBuilder {
 		boolean oalExportIsLicensed = false;
 		try {
 			// Check the license
-			oalExportIsLicensed = BridgePointLicenseManager
-					.getLicense(
-							BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT,
-							true);
+			oalExportIsLicensed = BridgePointLicenseManager.getLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT, true);
 			if (!oalExportIsLicensed) {
-				UIUtil.showErrorDialog("License Request Failed",
-						"Failed to get a Model Compiler prebuilder license.\n");
+				UIUtil.showErrorDialog("License Request Failed", "Failed to get a Model Compiler prebuilder license.\n");
 				return null;
 			}
-			MCBuilderArgumentHandler argHandler = new MCBuilderArgumentHandler(
-					getProject());
-			argHandler.setArguments();
+			
+			boolean exportNeeded = readyBuildArea(monitor);
+			
+		    MCBuilderArgumentHandler argHandler = new MCBuilderArgumentHandler(
+				getProject());
+		    argHandler.setArguments();
 
-			// Calling build again here just forces any builders that have not
-			// yet
-			// run to refresh before starting. This picks up changes we may have
-			// made to the external tool builder launch file.
+            // Calling build again here just forces any builders that have not yet
+            // run to refresh before starting. This picks up changes we may have
+            // made to the external tool builder launch file.
 			getProject().build(kind, monitor);
 
-			PersistenceManager.getDefaultInstance();
-			exportModel(monitor);
+	        if ( exportNeeded ) {
+	            PersistenceManager.getDefaultInstance();
+	            exportModel(monitor);
+	        }
 		} finally {
 			// Must check in this license because as specified in checkout above
 			// it is set to "linger", and the linger starts at checkin
 			if (oalExportIsLicensed) {
-				BridgePointLicenseManager
-						.releaseLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
+				BridgePointLicenseManager.releaseLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
 			}
 		}
 
@@ -143,10 +145,7 @@ public class ExportBuilder extends IncrementalProjectBuilder {
     // The eclipse infrastructure calls this function in response to
     // a request by the user to clean the project
     protected void clean(IProgressMonitor monitor) {
-        String projPath = getProject().getLocation().toOSString();
-        IPath path = new Path(projPath + File.separator
-                + ModelCompiler.GEN_FOLDER_NAME + File.separator
-                + m_outputFolder + File.separator);
+		IPath path = getCodeGenFolderPath();
         deleteDirectory(path.toFile());
     }
 
@@ -165,24 +164,109 @@ public class ExportBuilder extends IncrementalProjectBuilder {
 		return (path.delete());
 	}
 
+    protected IPath getCodeGenFolderPath() {
+        String projPath = getProject().getLocation().toOSString();
+        IPath path = new Path(projPath + File.separator
+                + ModelCompiler.GEN_FOLDER_NAME + File.separator
+                + m_outputFolder + File.separator);
+        return path;
+    }
+    
+    // Performs house-keeping at the start of the build
+    protected boolean readyBuildArea(IProgressMonitor monitor)
+            throws CoreException {
+        boolean exportNeeded = true;
+        IPath path = getCodeGenFolderPath();
+        IPath genPath = new Path(ModelCompiler.GEN_FOLDER_NAME
+                + File.separator + m_outputFolder + File.separator);
+        IFolder genFolder = getProject().getFolder(genPath);
+        genFolder.refreshLocal(IResource.DEPTH_ONE, null);
+        if (genFolder.exists() && genFolder.members().length != 0) {
+            // Obtain the timestamp of the oldest SQL file in the code generation folder.
+            // We start by setting the watermark at the "newest" point, then look for 
+            // older SQL (output) files and lower the watermark if one is found.
+            long oldest = System.currentTimeMillis();
+            boolean foundOutputFile = false;
+            for (IResource res : genFolder.members()) {
+                if (res.getType() == IResource.FILE &&
+                        res.getFileExtension().equals("sql") &&        //$NON-NLS-1$
+                        !res.getName().equals("_system.sql") &&    //$NON-NLS-1$
+                        (res.getLocalTimeStamp() < oldest)) { 
+                    oldest = res.getLocalTimeStamp();
+                    foundOutputFile = true;
+                }
+            }
+            // If no output file was found, we set our watermark to the oldest 
+            // possible point so any xtuml file found is considered newer. 
+            if (!foundOutputFile) {
+                oldest = 0;
+            }
+            // Now visit every xtuml file in the models folder.
+            // If any file is younger than the oldest output
+            // file, we need to perform the export.
+            IPath mdlPath = new Path(ModelCompiler.MDL_FOLDER_NAME + File.separator);
+            IFolder mdlFolder = getProject().getFolder(mdlPath);
+            mdlFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
+            final long lastBuilt = oldest;
+            class ExportAssessorVisitor implements IResourceVisitor {
+                boolean exportRequired = false;
+
+                @Override
+                public boolean visit(IResource resource) throws CoreException {
+                    if (resource instanceof IFile) {
+                        if (resource.getFileExtension().equals("xtuml")) {
+                            if (resource.getLocalTimeStamp() > lastBuilt) {
+                                exportRequired = true;
+                            }
+                        }
+                        return false;
+                    } else if (resource instanceof IFolder) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                public boolean getExportRequired() {
+                    return exportRequired;
+                }
+            }
+            ExportAssessorVisitor visitor = new ExportAssessorVisitor();
+            mdlFolder.accept(visitor);
+            exportNeeded = visitor.getExportRequired();
+        }
+        if (exportNeeded) {
+            deleteDirectory(path.toFile());
+
+            // We must force a refresh or eclipse will not always see that
+            // the deletion happened and the folder then does not get created.
+            getProject().refreshLocal(IFile.DEPTH_INFINITE, null);
+            if (!path.toFile().exists()) {
+                path.toFile().mkdir();
+            }
+        } else {
+            // Clear the code generation folder of
+            // everything except the output model(s)
+            IResource[] resources = genFolder.members();
+            for (IResource res : resources) {
+                if (res.getFileExtension() == null
+                        || !res.getFileExtension().equals("sql")
+                        || res.getName().equals("_system.sql")) {
+                    res.delete(true, monitor);
+                }
+            }
+        }
+
+        return exportNeeded;
+    }
+
     // The starting point for the model export chain
     protected void exportModel(final IProgressMonitor monitor)
             throws CoreException {
     	
 	    m_exportedSystems.clear();
-        String projPath = getProject().getLocation().toOSString();
-        IPath path = new Path(projPath + File.separator
-                + ModelCompiler.GEN_FOLDER_NAME + File.separator
-                + m_outputFolder + File.separator);
+	    IPath path = getCodeGenFolderPath();
         String destPath = path.toOSString();
-        deleteDirectory(path.toFile());
-        
-		// We must force a refresh or eclipse will not always see that
-		// the deletion happened and the folder then does not get created.
-		getProject().refreshLocal(IFile.DEPTH_INFINITE, null);
-        if (!path.toFile().exists()) {
-            path.toFile().mkdir();
-        }
 
         final String projName = getProject().getDescription().getName();
         SystemModel_c system = SystemModel_c.SystemModelInstance(Ooaofooa
@@ -228,8 +312,7 @@ public class ExportBuilder extends IncrementalProjectBuilder {
             }
             m_outStream = new ByteArrayOutputStream();
             m_exporter = com.mentor.nucleus.bp.core.CorePlugin
-                    .getStreamExportFactory()
-                    .create(
+                    .getStreamExportFactory().create(
                             m_outStream,
                             m_elements
                                     .toArray(new NonRootModelElement[m_elements
