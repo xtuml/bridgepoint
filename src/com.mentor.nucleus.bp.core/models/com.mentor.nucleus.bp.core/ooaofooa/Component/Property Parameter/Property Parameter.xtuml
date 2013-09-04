@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("dcbde5c3-c845-4c4a-99bf-003c6b74e026",
@@ -676,6 +676,47 @@ return iface.getPath(path:self.Name, includeSelf:true);
 	1,
 	'',
 	"93e77db1-3fd8-49a5-8f11-83b7c203fd13");
+INSERT INTO O_TFR
+	VALUES ("d367ac9f-c65e-4af4-85d1-69a1eb34897b",
+	"dcbde5c3-c845-4c4a-99bf-003c6b74e026",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  Create an integrity issue if there are any other ports on this compoenent
+ *  with a matching name
+ */
+select one executableProperty related by self->C_EP[R4006];
+select one interface related by executableProperty->C_I[R4003];
+select one package related by interface->PE_PE[R8001]->EP_PKG[R8000];
+if(empty package)
+  select one component related by interface->PE_PE[R8001]->C_C[R8003];
+  if(not_empty component)
+    pkgId = component.getPackageId();
+    select any package from instances of EP_PKG
+                                           where (selected.Package_ID == pkgId);
+  end if;
+end if;
+select one system related by package->S_SYS[R1405];
+sys_id = GD::NULL_UNIQUE_ID();
+if(not_empty system)
+  sys_id = system.Sys_ID;
+end if;
+select many parameters related by executableProperty->C_PP[R4006];
+for each parameter in parameters
+  if(parameter != self and parameter.Name == self.Name)
+    MI_IM::createIssue(sys_id:sys_id, description:
+           "Found another parameter under the same executable property with a" +
+                                                          " matching name.",
+                                       severity:Severity::Error, name:self.Name,
+                       path:self.getPath(),
+                              id:self.PP_Id, element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"825723f5-f499-44f9-98d5-1b1bc95b28af");
 INSERT INTO O_NBATTR
 	VALUES ("1b92be00-6fc2-4d3f-8cf6-f370882d6255",
 	"dcbde5c3-c845-4c4a-99bf-003c6b74e026");

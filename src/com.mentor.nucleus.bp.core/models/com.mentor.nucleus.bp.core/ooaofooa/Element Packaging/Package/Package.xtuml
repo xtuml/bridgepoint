@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
@@ -6047,7 +6047,7 @@ end for;
 select many compRefs related by self->PE_PE[R8000]->CL_IC[R8001];
 for each compRef in compRefs
   select one component related by compRef->C_C[R4201];
-  if component.hasRealizedComponents() == true
+  if not_empty component and component.hasRealizedComponents() == true
     result = true;
     break;
   end if;

@@ -2319,6 +2319,25 @@ INSERT INTO S_BRG
 	'return "''";',
 	0,
 	'');
+INSERT INTO S_BRG
+	VALUES ("199e0cf7-04c4-4ddf-8ba3-5e2f4a17e12a",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'runIntegrityCheckOnElement',
+	'Translate:native',
+	0,
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	'		((NonRootModelElement) p_Element).Checkintegrity();',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("da8a7814-f28e-40b7-ba05-447f888342d3",
+	"199e0cf7-04c4-4ddf-8ba3-5e2f4a17e12a",
+	'element',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO S_EEIP
 	VALUES ("53bf3c8b-adde-4d47-8f16-aba92cc91cb2",
 	"ca7a7f08-4459-4ff5-bf0b-941446e8b3c5");

@@ -26,22 +26,29 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
+import com.mentor.nucleus.bp.core.ClassStateMachine_c;
 import com.mentor.nucleus.bp.core.Component_c;
 import com.mentor.nucleus.bp.core.CoreDataType_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.DataTypePackage_c;
 import com.mentor.nucleus.bp.core.DataType_c;
 import com.mentor.nucleus.bp.core.Gd_c;
+import com.mentor.nucleus.bp.core.InstanceStateMachine_c;
+import com.mentor.nucleus.bp.core.IntegrityManager_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.PackageableElement_c;
+import com.mentor.nucleus.bp.core.Severity_c;
 import com.mentor.nucleus.bp.core.SpecificationPackage_c;
 import com.mentor.nucleus.bp.core.SystemDatatypePackage_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.UserDataType_c;
+import com.mentor.nucleus.bp.core.inspector.IModelClassInspector;
+import com.mentor.nucleus.bp.core.inspector.ModelInspector;
 import com.mentor.nucleus.bp.core.ui.marker.UmlProblem;
 import com.mentor.nucleus.bp.core.util.OoaofgraphicsUtil;
 import com.mentor.nucleus.bp.core.util.PersistenceUtil;
+import com.mentor.nucleus.bp.core.util.RTOUtil;
 import com.mentor.nucleus.bp.core.util.SupertypeSubtypeUtil;
 
 
@@ -110,6 +117,64 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 				});
 	}
 
+    public void Checkintegrity() {
+    	// do nothing let subtypes override
+    }
+    
+    public void checkReferentialIntegrity() {
+    	// gather all rtos and for any that are not
+    	// resolvable create an integrity issue
+    	List<NonRootModelElement> rtos = RTOUtil.getRTOs(this);
+    	for(NonRootModelElement rto : rtos) {
+    		if(rto.isProxy()) {
+    			// should have been loaded, we have a dangling
+    			// reference
+				IntegrityManager_c
+						.Createissue(
+								getModelRoot(),
+								"Found a danling reference.  An element with the following attributes could not be found:\n\n"
+										+ "Referenced Element ID: "
+										+ rto.Get_ooa_id()
+										+ "\n"
+										+ "Referenced Element file: "
+										+ rto.getContent(), this,
+								Get_ooa_id(), getName(), getPath(),
+								Severity_c.Error,
+								((SystemModel_c) getRoot()).getSys_id());
+    		}
+    	}
+    }
+    
+	public String getPath() {
+		ModelInspector inspector = new ModelInspector();
+		String path = getName();
+		if (this instanceof ClassStateMachine_c) {
+			path = "Class State Machine";
+		} else if (this instanceof InstanceStateMachine_c) {
+			path = "Instance State Machine";
+		}
+		IModelClassInspector elementInspector = inspector
+				.getInspector(getClass());
+		if (elementInspector != null) {
+			NonRootModelElement parent = (NonRootModelElement) elementInspector
+					.getParent(this);
+			while (parent != null) {
+				if (parent instanceof ClassStateMachine_c) {
+					path = "Class State Machine" + "::" + path;
+				} else if (parent instanceof InstanceStateMachine_c) {
+					path = "Instance State Machine" + "::" + path;
+				} else {
+					path = parent.getName() + "::" + path;
+				}
+				parent = (NonRootModelElement) inspector.getParent(parent);
+			}
+		}
+		if (getModelRoot().isCompareRoot()) {
+			return "";
+		}
+		return path;
+	}
+    
 	/**
      * Set the unique id for this instance.
      */

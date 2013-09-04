@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("59ee55e3-b1e8-42e4-ba36-9b119a01a214",
@@ -217,6 +217,43 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("af5d732f-5117-4d21-93da-64c40c68780f",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// create an integrity issue if there are any other enumerators
+// with the same name
+select one edt related by self->S_EDT[R27];
+select one dt related by edt->S_DT[R17];
+select one package related by dt->PE_PE[R8001]->EP_PKG[R8000];
+select one component related by dt->PE_PE[R8001]->C_C[R8003];
+if(not empty component)
+  pkgId = component.getPackageId();
+  select any package from instances of EP_PKG
+                                           where (selected.Package_ID == pkgId);
+end if;
+select one system related by package->S_SYS[R1405];
+sys_id = GD::NULL_UNIQUE_ID();
+if(not_empty system)
+  sys_id = system.Sys_ID;
+end if;
+select many enumerators related by edt->S_ENUM[R27];
+for each enumerator in enumerators
+  if(enumerator != self and enumerator.Name == self.Name)
+    MI_IM::createIssue(sys_id:sys_id, description:
+       "Found another enumerator under the same enumeration data type with a" +
+                                                          " matching name.",
+                                       severity:Severity::Error, name:self.Name,
+                  path:dt.getPath(path:"", includeSelf:true) + "::" + self.Name,
+                             id:self.Enum_ID, element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"e0e55429-fa90-4401-8ae9-fb2d7631ad7f");
 INSERT INTO O_NBATTR
 	VALUES ("49e759ce-2df6-485d-8bf2-d0b21acceb95",
 	"59ee55e3-b1e8-42e4-ba36-9b119a01a214");

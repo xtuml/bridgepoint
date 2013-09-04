@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
@@ -684,6 +684,49 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("d0c5877b-18e9-4c93-8b50-0a7a5e918a23",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// check for any states with the same state number
+select one class related by self->SM_SM[R501]->SM_ISM[R517]->O_OBJ[R518];
+select one package related by class->PE_PE[R8001]->EP_PKG[R8000];
+machineName = "Instance State Machine";
+if(empty package)
+  select one class related by self->SM_SM[R501]->SM_ASM[R517]->O_OBJ[R519];
+  select one package related by class->PE_PE[R8001]->EP_PKG[R8000];
+  machineName = "Class State Machine";
+end if;
+select one system related by package->S_SYS[R1405];
+sys_id = GD::NULL_UNIQUE_ID();
+if(not_empty system)
+  sys_id = system.Sys_ID;
+end if;
+select many states related by self->SM_SM[R501]->SM_STATE[R501];
+for each state in states
+  if(state != self and state.Numb == self.Numb)
+	MI_IM::createIssue(sys_id:sys_id, description:
+	                   "Found another state under the same state machine " +
+ 	    "with the same state number.", severity:Severity::Error, name:self.Name,
+	                     path:class.getPath(path:self.Name, includeSelf:true) +
+	                    "::" + machineName + "::" + self.Name, id:self.SMstt_ID,
+	                                          element:self.convertToInstance());
+  end if;
+  if(state != self and state.Name == self.Name)
+	MI_IM::createIssue(sys_id:sys_id, description:
+	                   "Found another state under the same state machine " +
+ 	    "with a matching name.", severity:Severity::Error, name:self.Name,
+	                     path:class.getPath(path:self.Name, includeSelf:true) +
+	                    "::" + machineName + "::" + self.Name, id:self.SMstt_ID,
+	                                          element:self.convertToInstance());  
+  end if;
+end for;',
+	1,
+	'',
+	"5ff5bb03-7c4c-45de-bd3d-b0e90a4f7774");
 INSERT INTO O_NBATTR
 	VALUES ("c1895e17-60ab-46d5-b6a1-e61e34c67638",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be");

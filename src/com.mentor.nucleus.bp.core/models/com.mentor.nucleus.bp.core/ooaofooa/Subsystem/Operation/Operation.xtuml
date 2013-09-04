@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("32854b2d-b225-40d9-abb2-4519ff4e4af7",
@@ -897,6 +897,60 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("ca6f4164-2b36-4e87-a092-a73d2ed55435",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// check for any operations that have a matching signature
+select one package related by self->O_OBJ[R115]->PE_PE[R8001]->EP_PKG[R8000];
+select many operations related by self->O_OBJ[R115]->O_TFR[R115];
+for each operation in operations
+  if(operation != self and operation.getSignature() == self.getSignature())
+    select one system related by package->S_SYS[R1405];
+    sys_id = GD::NULL_UNIQUE_ID();
+    if(not_empty system)
+      sys_id = system.Sys_ID;
+    end if;
+    select one class related by self->O_OBJ[R115];
+	MI_IM::createIssue(sys_id:sys_id, description:
+	               "Found another operation under the same class " +
+	     "with a matching signature.", severity:Severity::Error, name:self.Name,
+	   path:class.getPath(path:self.Name, includeSelf:true), id:self.Tfr_ID,
+	                                          element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"6d3d58f5-ea5e-4b53-9036-2c09ed1c8354");
+INSERT INTO O_TFR
+	VALUES ("8ba04a71-31b7-4503-90bc-f7c72b75672d",
+	"32854b2d-b225-40d9-abb2-4519ff4e4af7",
+	'getSignature',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'/**
+ *  Return a string representation of this functions signature
+ */
+signature = self.Name;
+count = 0;
+select many parameters related by self->O_TPARM[R117];
+paramLength = cardinality parameters;
+for each parameter in parameters
+  select one type related by parameter->S_DT[R118];
+  if(count == 0)
+    signature = signature + "::" + type.Name;
+  else
+    signature = signature + "," + type.Name;
+  end if;
+end for;
+return signature;',
+	1,
+	'',
+	"ca6f4164-2b36-4e87-a092-a73d2ed55435");
 INSERT INTO O_NBATTR
 	VALUES ("fedd7310-e864-45bb-abf6-b4c4e4a09551",
 	"32854b2d-b225-40d9-abb2-4519ff4e4af7");

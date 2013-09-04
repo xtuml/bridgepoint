@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("b7630071-9e2a-4183-9986-779dca14c275",
@@ -1906,6 +1906,47 @@ end if;',
 	1,
 	'',
 	"3ff28a4d-c69f-4723-8132-f6269e558bb0");
+INSERT INTO O_TFR
+	VALUES ("ee548b22-87a3-41b0-96e4-501ea5511865",
+	"b7630071-9e2a-4183-9986-779dca14c275",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// check for any classes with the same key letters that are
+// also in scope
+select one package related by self->PE_PE[R8001]->EP_PKG[R8000];
+select many objs related by package->PE_PE[R8000]->O_OBJ[R8001];
+for each obj in objs
+  if(obj.Key_Lett == self.Key_Lett and obj != self)
+    select one system related by package->S_SYS[R1405];
+    sys_id = GD::NULL_UNIQUE_ID();
+    if(not_empty system)
+      sys_id = system.Sys_ID;
+    end if;
+	MI_IM::createIssue(sys_id:sys_id, description:
+	              "Another class within the same package has been found " +
+	     "with the same key letters.", severity:Severity::Error, name:self.Name,
+	   path:self.getPath(path:self.Name, includeSelf:true), id:self.Obj_ID,
+	                                          element:self.convertToInstance());
+  end if;
+  // also check for duplicate numbers
+  if(obj.Numb == self.Numb and obj != self)
+    select one system related by package->S_SYS[R1405];
+    sys_id = GD::NULL_UNIQUE_ID();
+    if(not_empty system)
+      sys_id = system.Sys_ID;
+    end if;
+	MI_IM::createIssue(sys_id:sys_id, description:
+	              "Another class within the same package has been found " +
+	   "with the same number.", severity:Severity::Warning, name:self.Name,
+	   path:self.getPath(path:self.Name, includeSelf:true), id:self.Obj_ID,
+	                                          element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"f1a5f54c-2f3e-4d38-9d5b-ecffdc78a14c");
 INSERT INTO O_NBATTR
 	VALUES ("abd8f188-4260-4e03-9844-41b21ef751b3",
 	"b7630071-9e2a-4183-9986-779dca14c275");

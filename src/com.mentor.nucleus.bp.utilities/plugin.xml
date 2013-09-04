@@ -78,6 +78,18 @@
                menubarPath="com.mentor.nucleus.bp.utilities/com.mentor.nucleus.bp.utilities.separator">
          </action>
       </objectContribution>
+      <objectContribution
+            adaptable="false"
+            id="com.mentor.nucleus.bp.utilities.IntegrityCheckContribution"
+            objectClass="com.mentor.nucleus.bp.core.common.NonRootModelElement">
+         <action
+               class="com.mentor.nucleus.bp.utilities.actions.CheckModelIntegrity"
+               enablesFor="+"
+               id="com.mentor.nucleus.bp.utilities.CheckModelIntegrityAction"
+               label="Check Model Integrity"
+               menubarPath="com.mentor.nucleus.bp.utilities/com.mentor.nucleus.bp.utilities.separator">
+         </action>
+      </objectContribution>
       
       <!--<objectContribution
             adaptable="false"
