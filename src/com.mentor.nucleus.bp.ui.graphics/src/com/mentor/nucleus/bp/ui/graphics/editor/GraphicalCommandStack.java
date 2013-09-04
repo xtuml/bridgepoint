@@ -14,21 +14,17 @@
 
 package com.mentor.nucleus.bp.ui.graphics.editor;
 
-import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
-import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.common.Transaction;
-import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.ui.canvas.Cl_c;
 import com.mentor.nucleus.bp.ui.graphics.commands.GraphicalCloneCommand;
 import com.mentor.nucleus.bp.ui.graphics.commands.IExecutionValidationCommand;
 import com.mentor.nucleus.bp.ui.graphics.commands.IValidateDeltaCommand;
-import com.mentor.nucleus.bp.ui.graphics.commands.ShapeCreationCommand;
 
 public class GraphicalCommandStack extends CommandStack {
 
@@ -44,6 +40,11 @@ public class GraphicalCommandStack extends CommandStack {
 			}
 		}
 		if (!shouldCompleteExecution(command)) {
+			return;
+		}
+		if(command instanceof GraphicalCloneCommand) {
+			// we do not need to start a transaction here just execute
+			super.execute(command);
 			return;
 		}
 		Transaction transaction = Cl_c.Starttransaction(fModelElement, command

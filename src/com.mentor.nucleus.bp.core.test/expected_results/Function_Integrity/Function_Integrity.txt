@@ -1,0 +1,12 @@
+ERROR: Found another function under the same package with a matching signature.
+
+Element Name: FunctionSameSig
+Element Path: ModelIntegrityTests::Function Tests::FunctionSameSig
+
+
+ERROR: Found another function under the same package with a matching signature.
+
+Element Name: FunctionSameSig
+Element Path: ModelIntegrityTests::Function Tests::FunctionSameSig
+
+

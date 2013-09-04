@@ -1,0 +1,12 @@
+ERROR: Found another signal under the same interface with a matching signature.
+
+Element Name: InterfaceSignalSameSig
+Element Path: ModelIntegrityTests::Interface Signal Tests
+
+
+ERROR: Found another signal under the same interface with a matching signature.
+
+Element Name: InterfaceSignalSameSig
+Element Path: ModelIntegrityTests::Interface Signal Tests
+
+
