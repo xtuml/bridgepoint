@@ -1,0 +1,12 @@
+ERROR: Found another bridge under the same external entity with a matching signature.
+
+Element Name: BridgeSameSig
+Element Path: ModelIntegrityTests::Bridge Tests::External Entity::BridgeSameSig
+
+
+ERROR: Found another bridge under the same external entity with a matching signature.
+
+Element Name: BridgeSameSig
+Element Path: ModelIntegrityTests::Bridge Tests::External Entity::BridgeSameSig
+
+

@@ -1,0 +1,36 @@
+ERROR: Found another event under the same state machine with a matching signature.
+
+Element Name: EventSameSig
+Element Path: KEY1::Instance Based Satate Machine::ModelIntegrityTests::State Machine Event Tests::Class::Class
+
+
+ERROR: Found another event under the same state machine with a matching number.
+
+Element Name: EventSameSig
+Element Path: KEY1::Instance Based Satate Machine::ModelIntegrityTests::State Machine Event Tests::Class::Class
+
+
+ERROR: Found another event under the same state machine with a matching signature.
+
+Element Name: EventSameSig
+Element Path: KEY1::Instance Based Satate Machine::ModelIntegrityTests::State Machine Event Tests::Class::Class
+
+
+ERROR: Found another event under the same state machine with a matching number.
+
+Element Name: EventSameSig
+Element Path: KEY1::Instance Based Satate Machine::ModelIntegrityTests::State Machine Event Tests::Class::Class
+
+
+ERROR: Found another event under the same state machine with a matching signature.
+
+Element Name: EventSameSig
+Element Path: KEY_A3::Class Based Satate Machine::ModelIntegrityTests::State Machine Event Tests::Class::Class
+
+
+ERROR: Found another event under the same state machine with a matching signature.
+
+Element Name: EventSameSig
+Element Path: KEY_A4::Class Based Satate Machine::ModelIntegrityTests::State Machine Event Tests::Class::Class
+
+

@@ -1,0 +1,12 @@
+ERROR: Found another constant specification under the same package with a matching name.
+
+Element Name: Constant Specification
+Element Path: ModelIntegrityTests::Constant Specification Tests::Constant Specification
+
+
+ERROR: Found another constant specification under the same package with a matching name.
+
+Element Name: Constant Specification
+Element Path: ModelIntegrityTests::Constant Specification Tests::Constant Specification
+
+

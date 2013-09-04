@@ -6,8 +6,12 @@ import com.mentor.nucleus.bp.core.IntegrityIssue_c;
 import com.mentor.nucleus.bp.core.IntegrityManager_c;
 import com.mentor.nucleus.bp.core.Severity_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
+import com.mentor.nucleus.bp.core.inspector.ModelInspector;
+import com.mentor.nucleus.bp.core.inspector.ObjectElement;
 
 public class IntegrityChecker {
+	
+	static ModelInspector inspector = new ModelInspector();
 	
 	public static IntegrityIssue_c[] runIntegrityCheck(NonRootModelElement element) {
 		SystemModel_c system = (SystemModel_c) element.getRoot();
@@ -18,7 +22,7 @@ public class IntegrityChecker {
 		manager.relateAcrossR1301To(system);
 		element.Checkintegrity();
 		element.checkReferentialIntegrity();
-		List<?> children = PersistenceManager.getHierarchyMetaData().getChildren(element, false);
+		ObjectElement[] children = inspector.getChildRelations(element);
 		checkChildrenIntegrity(children);
 		IntegrityIssue_c[] issues = IntegrityIssue_c
 				.getManyMI_IIsOnR1300(IntegrityManager_c
@@ -26,17 +30,16 @@ public class IntegrityChecker {
 		return issues;
 	}
 	
-	private static void checkChildrenIntegrity(List<?> children) {
-		for(Object child : children) {
-			NonRootModelElement nrme = (NonRootModelElement) child;
+	private static void checkChildrenIntegrity(ObjectElement[] children) {
+		for(ObjectElement child : children) {
+			NonRootModelElement nrme = (NonRootModelElement) child.getValue();
 			// skip compare elements
 			if(nrme.getModelRoot().isCompareRoot()) {
 				continue;
 			}
 			nrme.Checkintegrity();
 			nrme.checkReferentialIntegrity();
-			checkChildrenIntegrity(PersistenceManager.getHierarchyMetaData()
-					.getChildren(nrme, false));
+			checkChildrenIntegrity(inspector.getChildRelations(nrme));
 		}
 	}
 	
