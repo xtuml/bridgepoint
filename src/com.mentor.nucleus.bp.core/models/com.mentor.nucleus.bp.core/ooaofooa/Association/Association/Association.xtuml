@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("fccf477f-dde6-4d1a-9020-5effbe338738",
@@ -605,6 +605,48 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("6efa13c2-a742-41dc-8538-975276af3443",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  Create integrity issues if there are any other associations in this package
+ *  with the same association number
+ */
+select many associations related by self->PE_PE[R8001]->EP_PKG[R8000]
+                                                   ->PE_PE[R8000]->R_REL[R8001];
+select one system related by self->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+sys_id = GD::NULL_UNIQUE_ID();
+if(not_empty system)
+  sys_id = system.Sys_ID;
+end if;
+for each association in associations
+  if(association != self and association.Numb == self.Numb)
+    MI_IM::createIssue(sys_id:sys_id, description:
+                      "Found another association in the same package with a " +
+                                                             "matching number.",
+         severity:Severity::Error, name:self.get_name(), path:self.getPath(),
+                              id:self.Rel_ID, element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"7db37c64-90c7-45f2-b8f3-82411f18525a");
+INSERT INTO O_TFR
+	VALUES ("2dd6e6e3-5e2f-465e-8d0b-125c0912c492",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	'getPath',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one package related by self->PE_PE[R8001]->EP_PKG[R8000];
+return package.getPath(path:"") + "::" + self.get_name();',
+	1,
+	'',
+	"6efa13c2-a742-41dc-8538-975276af3443");
 INSERT INTO O_NBATTR
 	VALUES ("40ed956f-425d-4976-8913-ae0859b64e93",
 	"fccf477f-dde6-4d1a-9020-5effbe338738");

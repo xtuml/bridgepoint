@@ -673,6 +673,70 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("c27cedb3-9c80-4e06-8213-9ab042da3ef2",
+	"23a3f406-54ec-43c7-8c16-9e8ba14a92a4",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  Create integrity issues if there are any other operations with a
+ *  matching signature
+ */
+select one iface related by self->C_EP[R4004]->C_I[R4003];
+select many operations related by iface->C_EP[R4003]->C_IO[R4004];
+select one system related by iface->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+if(empty system)
+  select one component related by iface->PE_PE[R8001]->C_C[R8003];
+  pkgId = component.getPackageId();
+  select any package from instances of EP_PKG 
+                                           where (selected.Package_ID == pkgId);
+  select one system related by package->S_SYS[R1405];
+end if;
+sys_id = GD::NULL_UNIQUE_ID();
+if(not_empty system)
+  sys_id = system.Sys_ID;
+end if;
+for each operation in operations
+  if(operation != self and operation.getSignature() == self.getSignature())
+    MI_IM::createIssue(sys_id:sys_id, description:
+                    "Found another operation under the same interface with a " +
+                                                          "matching signature.",
+                                       severity:Severity::Error, name:self.Name,
+                           path:iface.getPath(path:self.Name, includeSelf:true),
+                              id:self.Id, element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"15bfd987-5480-42e4-b6c3-14f7196c80fd");
+INSERT INTO O_TFR
+	VALUES ("3bc2205f-1c2f-47e2-ae3d-960eb6d09ee8",
+	"23a3f406-54ec-43c7-8c16-9e8ba14a92a4",
+	'getSignature',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'/**
+ *  Return a string representation of this operations signature
+ */
+signature = self.Name;
+count = 0;
+select many parameters related by self->C_EP[R4004]->C_PP[R4006];
+paramLength = cardinality parameters;
+for each parameter in parameters
+  select one type related by parameter->S_DT[R4007];
+  if(count == 0)
+    signature = signature + "::" + type.Name;
+  else
+    signature = signature + "," + type.Name;
+  end if;
+end for;
+return signature;',
+	1,
+	'',
+	"c27cedb3-9c80-4e06-8213-9ab042da3ef2");
 INSERT INTO O_REF
 	VALUES ("23a3f406-54ec-43c7-8c16-9e8ba14a92a4",
 	"30125d4c-7b45-4f34-b9a1-802a670a7614",
@@ -915,7 +979,7 @@ INSERT INTO O_ATTR
 	VALUES ("d309d571-1ba8-4a5a-a169-ebaa8aa248b5",
 	"23a3f406-54ec-43c7-8c16-9e8ba14a92a4",
 	"0b3ee1e1-a92b-4f78-a8c4-fdbd82b49164",
-	'Element_IDElement_ID',
+	'DT_ID',
 	'',
 	'',
 	'Element_ID',

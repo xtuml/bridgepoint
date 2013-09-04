@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("10bbec7e-549f-48a0-bf2e-2c442db77b30",
@@ -725,6 +725,45 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("846bd721-d453-43de-b690-5f7ad0262f88",
+	"10bbec7e-549f-48a0-bf2e-2c442db77b30",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  Create an integrity issue if there are any other members in the same
+ *  SDT with a matching name
+ */
+select one sdt related by self->S_SDT[R44];
+select one dt related by sdt->S_DT[R17];
+select one package related by dt->PE_PE[R8001]->EP_PKG[R8000];
+select one component related by dt->PE_PE[R8001]->C_C[R8003];
+if(not empty component)
+  pkgId = component.getPackageId();
+  select any package from instances of EP_PKG
+                                           where (selected.Package_ID == pkgId);
+end if;
+select one system related by package->S_SYS[R1405];
+sys_id = GD::NULL_UNIQUE_ID();
+if(not_empty system)
+  sys_id = system.Sys_ID;
+end if;
+select many members related by sdt->S_MBR[R44];
+for each member in members
+  if(member != self and member.Name == self.Name)
+    MI_IM::createIssue(sys_id:sys_id, description:
+         "Found another member under the same structured data type with a " +
+                                                          "matching name.",
+                                      severity:Severity::Error, name:self.Name,
+                  path:dt.getPath(path:"", includeSelf:true) + "::" + self.Name,
+                    id:self.Member_ID, element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"f1a54ab0-de09-49cf-9021-68da69085e40");
 INSERT INTO O_NBATTR
 	VALUES ("e98dcff5-ffa0-4ec8-b702-a91009ca2cbe",
 	"10bbec7e-549f-48a0-bf2e-2c442db77b30");

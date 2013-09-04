@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("2205f09b-595f-431e-98d5-73d007d124b6",
@@ -171,6 +171,56 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("b6940017-42df-43af-8aa4-338dabad239f",
+	"2205f09b-595f-431e-98d5-73d007d124b6",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  Create an integrity issue if there are any other ports on this compoenent
+ *  with a matching name
+ */
+select one component related by self->C_C[R4010];
+pkgId = component.getPackageId();
+select any package from instances of EP_PKG
+                                           where (selected.Package_ID == pkgId);
+select one system related by package->S_SYS[R1405];
+sys_id = GD::NULL_UNIQUE_ID();
+if(not_empty system)
+  sys_id = system.Sys_ID;
+end if;
+select many ports related by component->C_PO[R4010];
+for each port in ports
+  if(port != self and port.Name == self.Name)
+    MI_IM::createIssue(sys_id:sys_id, description:
+                    "Found another port under the same component with a " +
+                                                          "matching name.",
+                                       severity:Severity::Error, name:self.Name,
+                       path:component.getPath(path:self.Name, includeSelf:true),
+                              id:self.Id, element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"1abf55fa-bcb3-4dd6-be9e-8c1dd2b1fa10");
+INSERT INTO O_TFR
+	VALUES ("bad48f9a-533a-4078-a7d7-ec3b92e55f5c",
+	"2205f09b-595f-431e-98d5-73d007d124b6",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+Translate: native
+',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;
+',
+	0,
+	'',
+	"b6940017-42df-43af-8aa4-338dabad239f");
 INSERT INTO O_NBATTR
 	VALUES ("91a1ccea-bcad-409c-ad5b-3e7ffb77b434",
 	"2205f09b-595f-431e-98d5-73d007d124b6");

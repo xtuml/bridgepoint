@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("ead52fac-9782-434b-a35c-c07452c3b26d",
@@ -798,9 +798,17 @@ select one component related by self->PE_PE[R8001]->C_C[R8003];
 isInGenericPackage = not_empty package or not_empty component;
 if isInGenericPackage
   if not_empty package
-    path = package.getQualifiedName();
+    if(path != "")
+      path = package.getQualifiedName() + "::" + path;
+    else
+      path = package.getQualifiedName();
+    end if;
   else
-    path = component.getQualifiedName();
+    if(path != "")
+      path = component.getQualifiedName() + "::" + path;
+    else
+      path = component.getQualifiedName();
+    end if;
   end if;
 else
   // It has to be in here or else we have a corrupted model
