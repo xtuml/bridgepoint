@@ -1,7 +1,5 @@
 package com.mentor.nucleus.bp.core.common;
 
-import java.util.List;
-
 import com.mentor.nucleus.bp.core.IntegrityIssue_c;
 import com.mentor.nucleus.bp.core.IntegrityManager_c;
 import com.mentor.nucleus.bp.core.Severity_c;

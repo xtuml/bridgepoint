@@ -1,6 +1,9 @@
 package com.mentor.nucleus.bp.utilities.actions;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -20,23 +23,26 @@ public class CheckModelIntegrity implements IActionDelegate {
 
 	@Override
 	public void run(IAction action) {
-		IntegrityIssue_c[] issues = null;
+		List<IntegrityIssue_c> issues = new ArrayList<IntegrityIssue_c>();
 		IStructuredSelection ss = (IStructuredSelection) selection;
-		for(Iterator<?> iterator = ss.iterator(); iterator.hasNext();) {
+		for (Iterator<?> iterator = ss.iterator(); iterator.hasNext();) {
 			NonRootModelElement element = (NonRootModelElement) iterator.next();
-			issues = IntegrityChecker.runIntegrityCheck(element);
+			issues.addAll(Arrays.asList(IntegrityChecker
+					.runIntegrityCheck(element)));
 		}
-		if(issues != null && issues.length != 0) {
+		if (!issues.isEmpty()) {
 			UIUtil.openScrollableTextDialog(PlatformUI.getWorkbench()
 					.getDisplay().getActiveShell(), false,
 					"Model Integrity Issues",
-					IntegrityChecker.createReportForIssues(issues),
-					"The following integrity issues were found.", null, null, false);
+					IntegrityChecker.createReportForIssues(issues
+							.toArray(new IntegrityIssue_c[issues.size()])),
+					"The following integrity issues were found.", null, null,
+					false);
 		} else {
 			UIUtil.openMessageDialog(PlatformUI.getWorkbench().getDisplay()
 					.getActiveShell(), "Model Integrity Issues", null,
-					"No integrity issues found.",
-					BPMessageTypes.INFORMATION, new String[] { "OK" }, 0);
+					"No integrity issues found.", BPMessageTypes.INFORMATION,
+					new String[] { "OK" }, 0);
 		}
 	}
 
