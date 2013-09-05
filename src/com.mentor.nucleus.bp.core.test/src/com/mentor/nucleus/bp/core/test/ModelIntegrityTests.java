@@ -274,6 +274,17 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
+	public void testDanglingReferenceIntegrityChecks() throws IOException {
+		test_id = "Dangling_Reference_Integrity";
+		Package_c pkg = getPackage("Dangling Reference Tests");
+		String report = runIntegrityReportForElement(pkg);
+		if(generateResults) {
+			writeExpectedResults(report);
+		} else {
+			assertEquals(getExpectedResults(), report);
+		}
+	}
+	
 	private String getExpectedResults() throws IOException {
 		String path = m_workspace_path + "expected_results/" + test_id + "/"
 				+ test_id + ".txt";
