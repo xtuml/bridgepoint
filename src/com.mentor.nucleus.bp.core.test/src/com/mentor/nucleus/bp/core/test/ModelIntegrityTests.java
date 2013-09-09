@@ -1,3 +1,13 @@
+//========================================================================
+//
+//File:      com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/bp/core/test/ModelIntegrityTests.java
+//
+//Copyright 2005-2013 Mentor Graphics Corporation. All rights reserved.
+//
+//========================================================================
+//This document contains information proprietary and confidential to
+//Mentor Graphics Corp., and is not for external distribution.
+//======================================================================== 
 package com.mentor.nucleus.bp.core.test;
 
 import java.io.File;
@@ -22,7 +32,7 @@ public class ModelIntegrityTests extends BaseTest {
 	}
 	
 	public void testAssociationIntegrityChecks() throws IOException {
-		test_id = "Association_Integrity";
+		test_id = "Association_Integrity"; 
 		Package_c pkg = getPackage("Association Tests");
 		String report = runIntegrityReportForElement(pkg);
 		if(generateResults) {

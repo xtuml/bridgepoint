@@ -1,3 +1,13 @@
+//========================================================================
+//
+//File:      com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/core/common/IntegrityChecker.java
+//
+//Copyright 2005-2013 Mentor Graphics Corporation. All rights reserved.
+//
+//========================================================================
+//This document contains information proprietary and confidential to
+//Mentor Graphics Corp., and is not for external distribution.
+//======================================================================== 
 package com.mentor.nucleus.bp.core.common;
 
 import com.mentor.nucleus.bp.core.IntegrityIssue_c;
@@ -21,7 +31,7 @@ public class IntegrityChecker {
 		element.Checkintegrity();
 		element.checkReferentialIntegrity();
 		ObjectElement[] children = inspector.getChildRelations(element);
-		checkChildrenIntegrity(children);
+		checkChildrenIntegrity(children); 
 		IntegrityIssue_c[] issues = IntegrityIssue_c
 				.getManyMI_IIsOnR1300(IntegrityManager_c
 						.getManyMI_IMsOnR1301(system));

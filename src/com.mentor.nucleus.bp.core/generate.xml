@@ -401,7 +401,7 @@
 
 	<property name="grtou.output" value="src/com/mentor/nucleus/bp/core/util/RTOUtil.java" />
 
-	<target name="generate_rto_util.depends" depends="sql" >
+	<target name="generate_rto_util.depends" >
 	    <uptodate property="rto_util.buildNotNeeded" targetfile="${grtou.output}">
 	       <srcfiles dir = "arc" includes = "generate_rto_util.arc" />
 	    </uptodate>
@@ -416,6 +416,9 @@
 	      	-import sql/ooaofooa.sql
 	      	-arch arc/generate_rto_util.arc" />
 		</exec>	    	
+		<!-- touch the output file in case generator believes there
+		     are no changes -->
+		<touch file="${grtou.output}"/>
 	</target>
 	
 	<property name="ald.output" value="src/com/mentor/nucleus/bp/core/util/ActionLanguageDescriptionUtil.java" />
