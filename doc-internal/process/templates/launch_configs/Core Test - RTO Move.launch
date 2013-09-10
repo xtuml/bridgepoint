@@ -19,7 +19,7 @@
 <stringAttribute key="location4" value="bp_tests/compare"/>
 <stringAttribute key="location5" value="bp_tests/als.oal"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/bp/core/test/rtomove/RTOMoveTests_0.java"/>
+<listEntry value="/com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/bp/core/test/rtomove/RTOMoveTestsTestSuite.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
@@ -32,11 +32,11 @@
 <booleanAttribute key="org.eclipse.jdt.junit.KEEPRUNNING_ATTR" value="false"/>
 <stringAttribute key="org.eclipse.jdt.junit.TESTNAME" value=""/>
 <stringAttribute key="org.eclipse.jdt.junit.TEST_KIND" value="org.eclipse.jdt.junit.loader.junit3"/>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.mentor.nucleus.bp.core.test.rtomove.RTOMoveTests_0"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.mentor.nucleus.bp.core.test.rtomove.RTOMoveTestsTestSuite"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-pluginCustomization ${resource_loc:/com.mentor.nucleus.bp.core}/../com.mentor.nucleus.bp.pkg/plugin_customization.ini"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="com.mentor.nucleus.bp.core.test"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx1024m -Xms512m -XX:MaxPermSize=512m -DWORKSPACE_PATH=${resource_loc:/com.mentor.nucleus.bp.core}/../com.mentor.nucleus.bp.core.test/ -DLOGFILE_PATH=${eclipse_home}/bp_tests/core/.metadata/.log -Dfile.encoding=UTF-8 -Djava.library.path=&quot;C:\engineering\ides\eclipse\plugins\com.mentor.nucleus.bp.core.win32.x86_4.0.0\os\win32\x86&quot;"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx1024m -Xms512m -XX:MaxPermSize=512m -DWORKSPACE_PATH=${resource_loc:/com.mentor.nucleus.bp.core}/../com.mentor.nucleus.bp.core.test/ -DLOGFILE_PATH=${eclipse_home}/bp_tests/core/.metadata/.log -Dfile.encoding=UTF-8"/>
 <stringAttribute key="pde.version" value="3.3"/>
 <stringAttribute key="product" value="com.mentor.nucleus.edge"/>
 <booleanAttribute key="run_in_ui_thread" value="true"/>
