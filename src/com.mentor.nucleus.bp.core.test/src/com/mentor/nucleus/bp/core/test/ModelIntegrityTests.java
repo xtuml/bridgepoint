@@ -16,7 +16,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.mentor.nucleus.bp.core.IntegrityIssue_c;
+import com.mentor.nucleus.bp.core.IntegrityManager_c;
+import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.Package_c;
+import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.IntegrityChecker;
 import com.mentor.nucleus.bp.test.common.BaseTest;
@@ -24,13 +27,28 @@ import com.mentor.nucleus.bp.test.common.BaseTest;
 public class ModelIntegrityTests extends BaseTest {
 
 	private boolean generateResults = false;
-	private String test_id;	
+	private String test_id;
+	private IntegrityManager_c manager;	
 
 	@Override
 	protected void initialSetup() throws Exception {
 		loadProject("ModelIntegrityTests");
 	}
 	
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
+		SystemModel_c system = SystemModel_c.getOneS_SYSOnR1301(manager);
+		if(system != null) {
+			system.unrelateAcrossR1301From(manager);
+		}
+		IntegrityIssue_c[] relatedIssues = IntegrityIssue_c.getManyMI_IIsOnR1300(manager);
+		for(IntegrityIssue_c issue : relatedIssues) {
+			issue.Dispose();
+		}
+		manager.delete();
+	}
+
 	public void testAssociationIntegrityChecks() throws IOException {
 		test_id = "Association_Integrity"; 
 		Package_c pkg = getPackage("Association Tests");
@@ -321,7 +339,8 @@ public class ModelIntegrityTests extends BaseTest {
 	}
 
 	private String runIntegrityReportForElement(Package_c pkg) {
-		IntegrityIssue_c[] issues = IntegrityChecker.runIntegrityCheck(pkg);
+		manager = new IntegrityManager_c(Ooaofooa.getDefaultInstance());
+		IntegrityIssue_c[] issues = IntegrityChecker.runIntegrityCheck(pkg, manager);
 		return IntegrityChecker.createReportForIssues(issues);
 	}
 

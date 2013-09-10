@@ -17,6 +17,7 @@ import org.eclipse.ui.PlatformUI;
 import com.mentor.nucleus.bp.core.Component_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.IntegrityIssue_c;
+import com.mentor.nucleus.bp.core.IntegrityManager_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
@@ -44,6 +45,7 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 	String ancestorFile = "";
 	String outputFile = "";
 	protected int mergeResult = -1;
+	private boolean checkIntegrity = true;
 
 	protected MergeWorkbenchAdvisor(BPCLIPreferences prefs) {
 		super(prefs);
@@ -52,6 +54,7 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 		rightFile = cmdLine.getStringValue("-rightFile");
 		ancestorFile = cmdLine.getStringValue("-ancestorFile");
 		outputFile = cmdLine.getStringValue("-outputFile");
+		checkIntegrity  = cmdLine.getBooleanValue("-disableIntegrityChecks");
 	}
 
 	/**
@@ -178,32 +181,44 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 				IRunnableWithProgress exporter = CorePlugin.getModelExportFactory().create(outputFile, leftRoot);
 				exporter.run(new NullProgressMonitor());
 				// run an integrity report if possible
-				NonRootModelElement realElement = (NonRootModelElement) Ooaofooa.getDefaultInstance()
-						.getInstanceList(leftRoot.getClass())
-						.getGlobal(leftRoot.getInstanceKey());
-				if(realElement != null) {
-					realElement.getPersistableComponent().load(new NullProgressMonitor(), false, true);
-					Package_c firstParentPackage = realElement.getFirstParentPackage();
-					Component_c firstParentComponent = realElement.getFirstParentComponent();
-					NonRootModelElement elementToCheck = null;
-					if(realElement instanceof Package_c || realElement instanceof Component_c) {
-						elementToCheck = realElement;
-					} else {
-						if(firstParentPackage != null) {
-							elementToCheck = firstParentPackage;
+				if(checkIntegrity) {
+					NonRootModelElement realElement = (NonRootModelElement) Ooaofooa.getDefaultInstance()
+							.getInstanceList(leftRoot.getClass())
+							.getGlobal(leftRoot.getInstanceKey());
+					if(realElement != null) {
+						realElement.getPersistableComponent().load(new NullProgressMonitor(), false, true);
+						Package_c firstParentPackage = realElement.getFirstParentPackage();
+						Component_c firstParentComponent = realElement.getFirstParentComponent();
+						NonRootModelElement elementToCheck = null;
+						if(realElement instanceof Package_c || realElement instanceof Component_c) {
+							elementToCheck = realElement;
 						} else {
-							if(firstParentComponent != null) {
-								elementToCheck = firstParentComponent;
+							if(firstParentPackage != null) {
+								elementToCheck = firstParentPackage;
 							} else {
-								elementToCheck = realElement;
+								if(firstParentComponent != null) {
+									elementToCheck = firstParentComponent;
+								} else {
+									elementToCheck = realElement;
+								}
 							}
 						}
+						IntegrityManager_c iManager = new IntegrityManager_c(Ooaofooa.getDefaultInstance());
+						IntegrityIssue_c[] issues = IntegrityChecker.runIntegrityCheck(elementToCheck, iManager);
+						String report = IntegrityChecker.createReportForIssues(issues);
+						System.out.println(report);
+						SystemModel_c system = SystemModel_c.getOneS_SYSOnR1301(iManager);
+						if(system != null) {
+							system.unrelateAcrossR1301From(iManager);
+						}
+						IntegrityIssue_c[] relatedIssues = IntegrityIssue_c.getManyMI_IIsOnR1300(iManager);
+						for(IntegrityIssue_c issue : relatedIssues) {
+							issue.Dispose();
+						}
+						iManager.delete();
+					} else {
+						printWarning();
 					}
-					IntegrityIssue_c[] issues = IntegrityChecker.runIntegrityCheck(elementToCheck);
-					String report = IntegrityChecker.createReportForIssues(issues);
-					System.out.println(report);
-				} else {
-					printWarning();
 				}
 			}
 			return 0;
@@ -224,7 +239,7 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 	private void printWarning() {
 		System.out
 				.println("Unable to run an integrity report for this merge.  Please check\n"
-						+ "that the CLI configuration points at the correct workspace.");
+						+ "that the CLI configuration points at the correct workspace.\n\nPath for expected element: " + outputFile);
 	}
 
 	@Override

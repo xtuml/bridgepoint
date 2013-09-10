@@ -34,7 +34,11 @@ public class Merge implements IApplication {
 					new CommandLineOption(
 							"-debugCLI",
 							false,
-							"Launch a workbench and leave it open after executing the command."), 
+							"Launch a workbench and leave it open after executing the command."),
+					new CommandLineOption(
+							"-disableIntegrityChecks",
+							false,
+							"Disable automatic integrity checking after a merge has completed."),
 					new CommandLineOption("-help", false, "Display usage information.")
 
 			};

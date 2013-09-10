@@ -702,7 +702,8 @@ for each operation in operations
   if(operation != self and operation.getSignature() == self.getSignature())
     MI_IM::createIssue(sys_id:sys_id, description:
                     "Found another operation under the same interface with a " +
-                                                          "matching signature.",
+                           "matching signature." + GD::newline() + GD::newline()
+                                          + "Signature: " + self.getSignature(),
                                        severity:Severity::Error, name:self.Name,
                            path:iface.getPath(path:self.Name, includeSelf:true),
                               id:self.Id, element:self.convertToInstance());
@@ -720,6 +721,7 @@ INSERT INTO O_TFR
 	1,
 	'/**
  *  Return a string representation of this operations signature
+ *  signature = operation(param1_type, param_type_23
  */
 signature = self.Name;
 count = 0;
@@ -727,11 +729,7 @@ select many parameters related by self->C_EP[R4004]->C_PP[R4006];
 paramLength = cardinality parameters;
 for each parameter in parameters
   select one type related by parameter->S_DT[R4007];
-  if(count == 0)
-    signature = signature + "::" + type.Name;
-  else
-    signature = signature + "," + type.Name;
-  end if;
+  signature = signature + "::" + type.Name;
 end for;
 return signature;',
 	1,
