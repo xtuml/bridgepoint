@@ -1190,10 +1190,20 @@ signature = self.Mning;
 count = 0;
 select many parameters related by self->SM_EVTDI[R532];
 paramLength = cardinality parameters;
+if(paramLength > 0)
+  signature = signature + "(";
+end if;
 for each parameter in parameters
   select one type related by parameter->S_DT[R524];
-  signature = signature + "::" + type.Name;
+  if(count > 0 and count != paramLength - 1)
+    signature = signature + ", ";
+  end if;
+  signature = signature + type.Name;
+  count = count + 1;
 end for;
+if(paramLength > 0)
+  signature = signature + ")";
+end if;
 return signature;',
 	1,
 	'',

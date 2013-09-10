@@ -721,16 +721,26 @@ INSERT INTO O_TFR
 	1,
 	'/**
  *  Return a string representation of this operations signature
- *  signature = operation(param1_type, param_type_23
+ *  signature = operation(param1_type, param2_type, param3_type)
  */
 signature = self.Name;
 count = 0;
 select many parameters related by self->C_EP[R4004]->C_PP[R4006];
 paramLength = cardinality parameters;
+if(paramLength > 0)
+  signature = signature + "(";
+end if;
 for each parameter in parameters
   select one type related by parameter->S_DT[R4007];
-  signature = signature + "::" + type.Name;
+  if(count > 0 and count != paramLength - 1)
+    signature = signature + ", ";
+  end if;
+  signature = signature + type.Name;
+  count = count + 1;
 end for;
+if(paramLength > 0)
+  signature = signature + ")";
+end if;
 return signature;',
 	1,
 	'',

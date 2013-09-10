@@ -137,17 +137,6 @@ public class ModelIntegrityTests extends BaseTest {
 		}
 	}
 
-	public void testConstantSpecificationIntegrityChecks() throws IOException {
-		test_id = "Constant_Specification_Integrity";
-		Package_c pkg = getPackage("Constant Specification Tests");
-		String report = runIntegrityReportForElement(pkg);
-		if(generateResults) {
-			writeExpectedResults(report);
-		} else {
-			assertEquals(getExpectedResults(), report);
-		}
-	}
-
 	public void testEnumerationDataTypeIntegrityChecks() throws IOException {
 		test_id = "Enumeration_Data_Type_Integrity";
 		Package_c pkg = getPackage("Enumeration Data Type Tests");
