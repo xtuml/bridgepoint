@@ -510,37 +510,6 @@ end if;         ',
 	1,
 	'',
 	"5bceb759-69ac-410b-a8f3-de66a0d003e0");
-INSERT INTO O_TFR
-	VALUES ("727a7de4-064e-4bd3-b0bc-87822019c99d",
-	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
-	'checkIntegrity',
-	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	1,
-	'/**
- *  Create an integrity issue if there are any other specifications in the same
- *  package with a matching name
- */
-select one package related by self->PE_PE[R8001]->EP_PKG[R8000];
-select one system related by package->S_SYS[R1405];
-sys_id = GD::NULL_UNIQUE_ID();
-if(not_empty system)
-  sys_id = system.Sys_ID;
-end if;
-select many specs related by package->PE_PE[R8000]->CNST_CSP[R8001];
-for each spec in specs
-  if(spec != self and spec.InformalGroupName == self.InformalGroupName)
-    MI_IM::createIssue(sys_id:sys_id, description:
-         "Found another constant specification under the same package with a" +
-                                                          " matching name.",
-                          severity:Severity::Error, name:self.InformalGroupName,
-                 path:package.getPath(path:"") + "::" + self.InformalGroupName,
-                    id:self.Constant_Spec_ID, element:self.convertToInstance());
-  end if;
-end for;',
-	1,
-	'',
-	"3590b53e-2e3e-44dd-8238-146d3ce81172");
 INSERT INTO O_NBATTR
 	VALUES ("9b9dcb51-0026-4fa9-8e50-a0a14f039a43",
 	"12e6f27b-b831-4008-9d22-f432b1a57ffe");

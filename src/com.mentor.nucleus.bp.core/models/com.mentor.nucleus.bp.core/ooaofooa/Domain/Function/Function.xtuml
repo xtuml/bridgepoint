@@ -861,7 +861,8 @@ for each function in functions
   if(function != self and function.getSignature() == self.getSignature())
     MI_IM::createIssue(sys_id:sys_id, description:
                "Found another function under the same package with a " +
-                                                          "matching signature.",
+                                                          "matching signature."
+          + GD::newline() + GD::newline() + "Signature: " + self.getSignature(),
                                        severity:Severity::Error, name:self.Name,
                            path:self.getPath(),
                              id:self.Sync_ID, element:self.convertToInstance());
@@ -886,11 +887,7 @@ select many parameters related by self->S_SPARM[R24];
 paramLength = cardinality parameters;
 for each parameter in parameters
   select one type related by parameter->S_DT[R26];
-  if(count == 0)
-    signature = signature + "::" + type.Name;
-  else
-    signature = signature + "," + type.Name;
-  end if;
+  signature = signature + "::" + type.Name;
 end for;
 return signature;',
 	1,

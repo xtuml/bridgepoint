@@ -14,7 +14,9 @@ INSERT INTO O_TFR
 	'',
 	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
 	0,
-	'select any system from instances of S_SYS
+	'// Selecting the system here from instances is safe as all systems are stored
+// on the default model root
+select any system from instances of S_SYS
                                         where (selected.Sys_ID == param.sys_id);
 select one manager related by system->MI_IM[R1301];
 if(not_empty manager)

@@ -17,16 +17,21 @@ import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.inspector.ModelInspector;
 import com.mentor.nucleus.bp.core.inspector.ObjectElement;
 
+/**
+ * This is a utility class which will trigger generation of any
+ * integrity issues for the given element.  Additionally it recursively
+ * generates issues for all children of the given element.
+ *
+ */
 public class IntegrityChecker {
 	
 	static ModelInspector inspector = new ModelInspector();
 	
-	public static IntegrityIssue_c[] runIntegrityCheck(NonRootModelElement element) {
+	public static IntegrityIssue_c[] runIntegrityCheck(NonRootModelElement element, IntegrityManager_c manager) {
 		SystemModel_c system = (SystemModel_c) element.getRoot();
 		if(element instanceof SystemModel_c) {
 			system = (SystemModel_c) element;
 		}
-		IntegrityManager_c manager = new IntegrityManager_c(element.getModelRoot());
 		manager.relateAcrossR1301To(system);
 		element.Checkintegrity();
 		element.checkReferentialIntegrity();
@@ -71,6 +76,7 @@ public class IntegrityChecker {
 				severityString = "INFO";
 				break;
 			default:
+				severityString = "UNKNOWN";
 				break;
 			}
 			String elementname = issue.getElementname();

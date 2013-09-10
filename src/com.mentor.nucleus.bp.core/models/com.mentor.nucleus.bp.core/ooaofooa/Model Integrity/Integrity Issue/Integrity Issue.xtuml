@@ -14,8 +14,7 @@ INSERT INTO O_TFR
 	'',
 	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
 	1,
-	'self.dispose();
-Util::runIntegrityCheckOnElement(element:self.Element);',
+	'self.dispose();',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
