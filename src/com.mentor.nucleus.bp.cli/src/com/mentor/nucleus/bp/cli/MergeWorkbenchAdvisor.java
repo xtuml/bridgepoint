@@ -45,7 +45,7 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 	String ancestorFile = "";
 	String outputFile = "";
 	protected int mergeResult = -1;
-	private boolean checkIntegrity = true;
+	private boolean disableIntegrityChecks = false;
 
 	protected MergeWorkbenchAdvisor(BPCLIPreferences prefs) {
 		super(prefs);
@@ -54,7 +54,7 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 		rightFile = cmdLine.getStringValue("-rightFile");
 		ancestorFile = cmdLine.getStringValue("-ancestorFile");
 		outputFile = cmdLine.getStringValue("-outputFile");
-		checkIntegrity  = cmdLine.getBooleanValue("-disableIntegrityChecks");
+		disableIntegrityChecks  = cmdLine.getBooleanValue("-disableIntegrityChecks");
 	}
 
 	/**
@@ -154,6 +154,11 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 					new Object[] { leftRoot }, new Object[] { rightRoot },
 					new Object[] { ancestorRoot }, ancestorRoot != null, new Object());
 			List<TreeDifference> differences = differencer.getRightDifferences();
+			if(differences.isEmpty()) {
+				// early exit, nothing to merge
+				System.out.println("Nothing to merge.");
+				return 0;
+			}
 			boolean foundConflict = false;
 			for (TreeDifference difference : differences) {
 				// if any differences are conflicts return 1 or otherwise we
@@ -181,7 +186,7 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 				IRunnableWithProgress exporter = CorePlugin.getModelExportFactory().create(outputFile, leftRoot);
 				exporter.run(new NullProgressMonitor());
 				// run an integrity report if possible
-				if(checkIntegrity) {
+				if(!disableIntegrityChecks) {
 					NonRootModelElement realElement = (NonRootModelElement) Ooaofooa.getDefaultInstance()
 							.getInstanceList(leftRoot.getClass())
 							.getGlobal(leftRoot.getInstanceKey());
