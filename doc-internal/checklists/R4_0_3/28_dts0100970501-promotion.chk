@@ -70,7 +70,7 @@ x- Execute the specific unit tests agreed upon with the code reviewers and
 x- Complete the test results checklist and check it in here:
 	  github.com/xtuml/<repository>/doc-<repository>/qa/<release_id>/<issue num>/promotion/Unit_test_checklist.chk
 
-_R When tests pass the changes can be pushed.
+xR When tests pass the changes can be pushed.
   	  	   NOTE:  
 	  	   If testing does not pass work with the engineer to resolve the 
 	  	   problem.   If it is a small issue you can commit it directly to the 
