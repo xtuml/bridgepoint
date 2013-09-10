@@ -79,7 +79,7 @@
          </action>
       </objectContribution>
       <objectContribution
-            adaptable="false"
+            adaptable="true"
             id="com.mentor.nucleus.bp.utilities.IntegrityCheckContribution"
             objectClass="com.mentor.nucleus.bp.core.common.NonRootModelElement">
          <action
