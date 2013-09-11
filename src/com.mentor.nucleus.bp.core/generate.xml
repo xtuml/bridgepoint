@@ -16,7 +16,7 @@
 
   <target name="nb_all"
           description="Generate all code for this project"
-          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_globals_util">
+          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_globals_util, generate_rto_util">
   </target>
 
   <property name="eclipse-home" value="${basedir}/../.."/>
