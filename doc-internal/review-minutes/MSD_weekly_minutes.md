@@ -33,6 +33,43 @@ MSD Weekly Meeting Minutes
 
 ---
 
+    Date:     September 11
+    Start:    12:00 EDT
+    End:      12:40 EDT
+    Elapsed:  40 minutes
+    Present:  Bob, Keith, Travis, Campbell, Heba, Nehad
+
+### Engineering Status
+**Bob -** 949572 (Verifier execution and delegation binding problem).  Also working on interfacing with customers.
+  Customer meetings have gone pretty well.  Saab has now just pushed out 3.7 into production.  They reopened a few
+  issues found during their testing.  We also had an Ericsson customer meeting.  They seem pretty happy with the progress
+  of their issues.  We are using a google doc to maintain a list of their highest priority items.  We are pushing them
+  to own the document.  We are making good progress on their issues.  
+
+**Keith -** Working on two issues reported by Ericsson with Audit Realized Bindings.  Analysis is done.  Initial ideas 
+  for fix have been tried and consulted with Campbell.  Design note is about ready for review.  Also have worked on some
+  customer support items.  
+
+**Campbell -** Running supported unit tests against MC-Java.  Found some incorrect behavior in the parser that affects
+  MC-3020 as well.  Is testing a proposed fixed.  Need to test with MC-3020 as well.  Expects the Unit tests to pass.  
+
+**Travis -** Model integrity tool is promoted as of yesterday.  Now working on state machine merge again.  Has received
+  feedback from Ericsson.  Working through this feedback.  
+
+**Nehad -** got feedback from the team about the dialogs.  We have decided not to generate the dialogs with every BP
+  build.  Updating the design note and planning to re-review it.  
+
+**Heba -** working on SVX client.  Migrating to work with the new SVX API.  Showed a small demo of the latest 
+  functionality.  The rest of the team expressed interest in learning more about the fucntionality.  
+
+### Marketing Status
+**None**  
+
+### Customer Support Status
+**Robert -** Completed a beta of a method that Ericsson can use to simultaneously edit and CLI build of a project.  It 
+  contains and example of an ANT-based build process.  dts0100974055 is the issue.  The stuff Robert created is in
+  ``` \\wv\dfs\bridgepoint\field_data\dts0100974055 ```  
+
 ---
 
     Date:     August 28
