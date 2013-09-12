@@ -76,7 +76,7 @@ public class VerifierInvocationAuditor {
         Set<NonRootModelElement> components = null;
         try {
             components = collectElements(elem,
-                    Elementtypeconstants_c.COMPONENT, null);
+                    Elementtypeconstants_c.COMPONENT);
             if (elem instanceof Component_c) {
                 components.add(elem);
             }
@@ -88,7 +88,7 @@ public class VerifierInvocationAuditor {
             result += "Checking interface realizations:" + CR;
 
             Interface_c[] interfaces = collectElements(elem,
-                    Elementtypeconstants_c.INTERFACE, null).toArray(
+                    Elementtypeconstants_c.INTERFACE).toArray(
                     new Interface_c[0]);
             for (Interface_c iface : interfaces) {
                 result += performAudit(iface);
@@ -96,7 +96,7 @@ public class VerifierInvocationAuditor {
             result += "Interface check complete." + CR + CR + CR;
             result += "Checking data type realizations:" + CR;
             DataType_c[] dts = collectElements(elem,
-                    Elementtypeconstants_c.DATATYPE, null).toArray(
+                    Elementtypeconstants_c.DATATYPE).toArray(
                     new DataType_c[0]);
             for (DataType_c dataType : dts) {
                 result += performAudit(dataType);
@@ -126,9 +126,8 @@ public class VerifierInvocationAuditor {
         BPClassLoader.resetTheDefinitionsCache();
     }
 
-    // TODO - We don't need to pass in the class loader any longer since we've stopped using it within this function
     private static Set<NonRootModelElement> collectElements(
-            NonRootModelElement elem, int elemType, BPClassLoader cl)
+            NonRootModelElement elem, int elemType)
             throws ElementCollectionException {
         SortedSet<NonRootModelElement> result = new TreeSet<NonRootModelElement>(
                 new Comparator<NonRootModelElement>(){
@@ -139,7 +138,6 @@ public class VerifierInvocationAuditor {
                         return o1.getName().compareTo(o2.getName());
                     }
                 });
-        PackageableElement_c pe = null;
         Component_c[] components = new Component_c[0];
         Package_c[] packages = new Package_c[0];
         if (elem instanceof Package_c) {
@@ -151,7 +149,7 @@ public class VerifierInvocationAuditor {
                     .getManyCL_ICsOnR8001(PackageableElement_c
                             .getManyPE_PEsOnR8000((Package_c) elem));
             for (ComponentReference_c ref : refs) {
-                result.addAll(collectElements(ref, elemType, cl));
+                result.addAll(collectElements(ref, elemType));
             }
         } else if (elem instanceof Component_c) {
             components = Component_c.getManyC_CsOnR8001(PackageableElement_c
@@ -162,7 +160,7 @@ public class VerifierInvocationAuditor {
                     .getManyCL_ICsOnR8001(PackageableElement_c
                             .getManyPE_PEsOnR8003((Component_c) elem));
             for (ComponentReference_c ref : refs) {
-                result.addAll(collectElements(ref, elemType, cl));
+                result.addAll(collectElements(ref, elemType));
             }
         } else if (elem instanceof ComponentReference_c) {
             components = new Component_c[] { Component_c
@@ -174,43 +172,11 @@ public class VerifierInvocationAuditor {
                             .getOneS_SDTOnR17((DataType_c) elem)));
             result.addAll(Arrays.asList(dts));
             for (DataType_c dt : dts) {
-                result.addAll(collectElements(dt, elemType, cl));
+                result.addAll(collectElements(dt, elemType));
             }
         }
         for (Component_c component : components) {
             if (component.getIsrealized() == true) {
-                // TODO - use new function here to get the class loader?  Or....
-                //   What is the point of doing anything with the class loader here.  Isn't
-                //   it just going to be cleared after collectElements returns?  If so, how is
-                //   the realized component path being added to the new class loader for the system?
-                /*pe = PackageableElement_c.getOnePE_PEOnR8001(component);
-                if (pe != null) {
-                    SystemModel_c sys = OoaofooaUtil.getSystemForElement(pe);
-                    if (sys != null) {
-                        cl = Vm_c.getVmCl(sys.Get_ooa_id());
-                        if (cl != null) {
-                            String[] paths = component.getRealized_class_path()
-                                    .split(";");
-                            for (String path : paths) {
-                                if (!path.equals("")) {
-                                    Vm_c.Adduserclasspath(sys, path);
-                                }
-                            }
-                        } else {
-                            throw new ElementCollectionException(
-                                    "Installation problem: Unable to load Verifier Classloader."
-                                            + CR);
-                        }
-                    } else {
-                        throw new ElementCollectionException(
-                                "Installation problem: Unable to locate system for audited element."
-                                        + CR);
-                    }
-                } else {
-                    throw new ElementCollectionException(
-                            "Realized components are supported under generic packages only."
-                                    + CR);
-                }*/
                 if (elemType == Elementtypeconstants_c.COMPONENT) {
                     result.add(component);
                 } else if (elemType == Elementtypeconstants_c.INTERFACE) {
@@ -230,14 +196,14 @@ public class VerifierInvocationAuditor {
                                             .getManyC_EPsOnR4003(interfaces)));
                     result.addAll(Arrays.asList(dts));
                     for (DataType_c dt : dts) {
-                        result.addAll(collectElements(dt, elemType, cl));
+                        result.addAll(collectElements(dt, elemType));
                     }
                 }
             }
-            result.addAll(collectElements(component, elemType, cl));
+            result.addAll(collectElements(component, elemType));
         }
         for (Package_c pack : packages) {
-            result.addAll(collectElements(pack, elemType, cl));
+            result.addAll(collectElements(pack, elemType));
         }
         return result;
     }
@@ -246,16 +212,18 @@ public class VerifierInvocationAuditor {
         String result = "Checking component " + comp.getName() + CR;
         Class<?> realizedTarget = null;
         String className = "";
-        //TODO Move this class loader assignment into the try block and catch the errors here and add the text to the result...
-        BPClassLoader cl = Vm_c.getVmCl(comp);
+        BPClassLoader cl = null;
         try {
+            cl = Vm_c.getVmCl(comp);
             className = BPDebugTarget.getClassNameForComponent(comp);
             realizedTarget = cl.loadClass(className);
         } catch (ClassNotFoundException cnf) {
             result += "No realized class found for " + comp.getName() + ". "
                     + "Expected to find class: " + className + "." + CR;
+        } catch (IllegalStateException ise) {
+            result += ise.getMessage() + CR;
         }
-        if (realizedTarget != null) {
+        if ((realizedTarget != null) && (cl != null)) {
             // TODO check class implements the expected interfaces
             Port_c[] ports = Port_c.getManyC_POsOnR4010(comp);
             Class<?>[] ctorArgs = new Class[ports.length];
@@ -298,9 +266,9 @@ public class VerifierInvocationAuditor {
         String ifacePath = BPDebugTarget.getClassPathForInterface(iface);
         String className = ifacePath + "." + ifaceName + "ToProvider";
         Class<?> realizedInterface = null;
-        //TODO Move this class loader assignment into the try block and catch the errors here and add the text to the result...
-        BPClassLoader cl = Vm_c.getVmCl(iface);
+        BPClassLoader cl = null;
         try {
+            cl = Vm_c.getVmCl(iface);
             realizedInterface = cl.loadClass(className);
         } catch (ClassNotFoundException cnf) {
             result += "No realized interface found for the provider direction of "
@@ -308,8 +276,10 @@ public class VerifierInvocationAuditor {
                     + ". "
                     + "Expected to find class: "
                     + className + "." + CR;
+        } catch (IllegalStateException ise) {
+            result += ise.getMessage() + CR;
         }
-        if (realizedInterface != null) {
+        if ((realizedInterface != null) && (cl != null)) {
             ExecutableProperty_c[] props = ExecutableProperty_c
                     .getManyC_EPsOnR4003(iface);
             for (ExecutableProperty_c prop : props) {
@@ -338,6 +308,7 @@ public class VerifierInvocationAuditor {
         className = ifacePath + "." + ifaceName + "FromProvider";
         realizedInterface = null;
         try {
+            cl = Vm_c.getVmCl(iface);
             realizedInterface = cl.loadClass(className);
         } catch (ClassNotFoundException cnf) {
             result += "No realized interface found for the requirer direction of "
@@ -345,8 +316,10 @@ public class VerifierInvocationAuditor {
                     + ". "
                     + "Expected to find class: "
                     + className + "." + CR;
+        } catch (IllegalStateException ise) {
+            result += ise.getMessage() + CR;
         }
-        if (realizedInterface != null) {
+        if ((realizedInterface != null) && (cl != null)) {
             ExecutableProperty_c[] props = ExecutableProperty_c
                     .getManyC_EPsOnR4003(iface);
             for (ExecutableProperty_c prop : props) {
