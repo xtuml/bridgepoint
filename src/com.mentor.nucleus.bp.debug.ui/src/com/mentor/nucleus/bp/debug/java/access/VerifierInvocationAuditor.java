@@ -56,7 +56,11 @@ public class VerifierInvocationAuditor {
     public static String performRealizedCodeAudit(Package_c pkg) {
         String result = "Beginning binding check on package " + pkg.getName()
                 + CR + CR;
-        result += internalPerformRealizedCodeAudit(pkg);
+        try {
+            result += internalPerformRealizedCodeAudit(pkg);
+        } catch (Throwable t) {
+            result += "An error occurred while auditing this package: " + t.getMessage() + CR;
+        }
         result += "Binding check on " + pkg.getName() + " complete." + CR + CR;
         return result;
     }
@@ -64,7 +68,11 @@ public class VerifierInvocationAuditor {
     public static String performRealizedCodeAudit(Component_c comp) {
         String result = "Beginning binding check on component "
                 + comp.getName() + CR + CR;
-        result += internalPerformRealizedCodeAudit(comp);
+        try {
+            result += internalPerformRealizedCodeAudit(comp);
+        } catch (Throwable t) {
+            result += "An error occurred while auditing this component: " + t.getMessage() + CR;
+        }
         result += "Binding check on " + comp.getName() + " complete." + CR + CR;
         return result;
     }
