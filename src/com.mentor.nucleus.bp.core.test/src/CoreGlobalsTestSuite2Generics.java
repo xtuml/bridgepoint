@@ -32,6 +32,7 @@ import com.mentor.nucleus.bp.core.test.CreationTransitionEventReassignmentTestGe
 import com.mentor.nucleus.bp.core.test.DeleteDatatypesTestGenerics;
 import com.mentor.nucleus.bp.core.test.I810_SlowDeletionTestGenerics;
 import com.mentor.nucleus.bp.core.test.ModelChangeListenersBatchingTestGenerics;
+import com.mentor.nucleus.bp.core.test.ModelIntegrityTests;
 import com.mentor.nucleus.bp.core.test.ModelTransactionTestGenerics;
 import com.mentor.nucleus.bp.core.test.ModificationValidationTestsGenerics;
 import com.mentor.nucleus.bp.core.test.ModifyNonFullyLoadedModelTestsGenerics;
@@ -98,5 +99,6 @@ public class CoreGlobalsTestSuite2Generics extends TestSuite {
         addTest(new TestSuite(TransitionActionTestGenerics.class));
         addTest(new TestSuite(ActivityTestsGenerics.class));
         addTest(new TestSuite(TestVisibilityInElementChooser.class));
+        addTest(new TestSuite(ModelIntegrityTests.class));
 	}
 }

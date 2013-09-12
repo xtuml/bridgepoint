@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
@@ -1131,6 +1131,83 @@ INSERT INTO O_TFR
 	0,
 	'',
 	"348d4e2e-0a92-4b29-a8eb-2777f74326f3");
+INSERT INTO O_TFR
+	VALUES ("8cc8f452-6a5b-42c2-850a-e3cbfd1e3e18",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  Create integrity issues if there are any other events with a
+ *  matching signature or events sharing the same event number
+ */
+select one machine related by self->SM_SM[R502];
+select one clazz related by machine->SM_ISM[R517]->O_OBJ[R518];
+if(empty clazz)
+  select one clazz related by machine->SM_ASM[R517]->O_OBJ[R519];
+end if;
+select one package related by clazz->PE_PE[R8001]->EP_PKG[R8000];
+select one system related by package->S_SYS[R1405];
+sys_id = GD::NULL_UNIQUE_ID();
+if(not_empty system)
+  sys_id = system.Sys_ID;
+end if;
+select many events related by machine->SM_EVT[R502];
+for each evt in events
+  if(evt != self and evt.getSignature() == self.getSignature())
+    MI_IM::createIssue(sys_id:sys_id, description:
+               "Found another event under the same state machine with a " +
+                                                          "matching signature."
+          + GD::newline() + GD::newline() + "Signature: " + self.getSignature(),
+                                      severity:Severity::Error, name:self.Mning,
+                           path:self.getPath(),
+                            id:self.SMevt_ID, element:self.convertToInstance());
+  end if;
+  if(evt != self and evt.Numb == self.Numb)
+    MI_IM::createIssue(sys_id:sys_id, description:
+               "Found another event under the same state machine with a " +
+                                                          "matching number.",
+                                      severity:Severity::Error, name:self.Mning,
+                           path:self.getPath(),
+                            id:self.SMevt_ID, element:self.convertToInstance());    
+  end if;
+end for;',
+	1,
+	'',
+	"c2c86766-95cd-46dc-9d8d-49049892174c");
+INSERT INTO O_TFR
+	VALUES ("388f5142-ef39-449b-8bc0-c24e6b6fdf9f",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'getSignature',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'/**
+ *  Return a string representation of this events signature
+ */
+signature = self.Mning;
+count = 0;
+select many parameters related by self->SM_EVTDI[R532];
+paramLength = cardinality parameters;
+if(paramLength > 0)
+  signature = signature + "(";
+end if;
+for each parameter in parameters
+  select one type related by parameter->S_DT[R524];
+  if(count > 0 and count != paramLength - 1)
+    signature = signature + ", ";
+  end if;
+  signature = signature + type.Name;
+  count = count + 1;
+end for;
+if(paramLength > 0)
+  signature = signature + ")";
+end if;
+return signature;',
+	1,
+	'',
+	"8cc8f452-6a5b-42c2-850a-e3cbfd1e3e18");
 INSERT INTO O_NBATTR
 	VALUES ("230b2bab-457c-4eae-bfe1-b824ac2f5324",
 	"31832e28-c7f1-4e83-9c56-28614980fb33");

@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("71e37b76-a350-435b-a3fd-e3d016eb39ef",
@@ -1386,6 +1386,72 @@ delete object instance self;',
 	1,
 	'',
 	"14ea58fb-6e80-4594-9ad2-24b3db16d1c9");
+INSERT INTO O_TFR
+	VALUES ("a82fd3c8-fc51-48d6-b0ed-fe41f54aa2d8",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  Create an integrity issue if any other transition a the same source state 
+ *  and shares the same assigned event
+ */
+select one class related by self->SM_SM[R505]->SM_ISM[R517]->O_OBJ[R518];
+select one package related by class->PE_PE[R8001]->EP_PKG[R8000];
+machineName = "Instance State Machine";
+if(empty package)
+  select one class related by self->SM_SM[R505]->SM_ASM[R517]->O_OBJ[R519];
+  select one package related by class->PE_PE[R8001]->EP_PKG[R8000];
+  machineName = "Class State Machine";
+end if;
+select one state related by self->SM_NSTXN[R507]->SM_SEME[R504]->SM_STATE[R503];
+select many transitions related by state->SM_SEME[R503]
+                                                 ->SM_NSTXN[R504]->SM_TXN[R507];
+for each transition in transitions
+  select one selfEvt related by self->SM_NSTXN[R507]->SM_SEME[R504]
+                                                                ->SM_SEVT[R503];
+  select one otherEvt related by transition->SM_NSTXN[R507]->SM_SEME[R504]
+                                                                ->SM_SEVT[R503];                                                                
+  if(transition != self and otherEvt == selfEvt)
+    select one system related by package->S_SYS[R1405];
+    sys_id = GD::NULL_UNIQUE_ID();
+    if(not_empty system)
+      sys_id = system.Sys_ID;
+    end if;
+	MI_IM::createIssue(sys_id:sys_id, description:
+	               "Found another transition with the same event assignment " +
+  "leaving the same state.", severity:Severity::Error, name:self.get_name(),
+	                path:class.getPath(path:self.get_name(), includeSelf:true) +
+	              "::" + machineName + "::" + self.get_name(), id:self.SMstt_ID,
+	                                          element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"ba33eab8-053d-4bed-9ca7-8735470fdd18");
+INSERT INTO O_TFR
+	VALUES ("903b5ac9-63cb-4fd0-9cfd-ee354a1eafd6",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;',
+	0,
+	'',
+	"a82fd3c8-fc51-48d6-b0ed-fe41f54aa2d8");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("36961925-2727-4c75-b0bf-c2cd8bc2611d",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef");

@@ -8,14 +8,20 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.eclipse.compare.structuremergeviewer.Differencer;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.ui.PlatformUI;
 
+import com.mentor.nucleus.bp.core.Component_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.IntegrityIssue_c;
+import com.mentor.nucleus.bp.core.IntegrityManager_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
+import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
+import com.mentor.nucleus.bp.core.common.IntegrityChecker;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.Transaction;
 import com.mentor.nucleus.bp.core.ui.AbstractStreamImportFactory;
@@ -39,6 +45,7 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 	String ancestorFile = "";
 	String outputFile = "";
 	protected int mergeResult = -1;
+	private boolean disableIntegrityChecks = false;
 
 	protected MergeWorkbenchAdvisor(BPCLIPreferences prefs) {
 		super(prefs);
@@ -47,6 +54,7 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 		rightFile = cmdLine.getStringValue("-rightFile");
 		ancestorFile = cmdLine.getStringValue("-ancestorFile");
 		outputFile = cmdLine.getStringValue("-outputFile");
+		disableIntegrityChecks  = cmdLine.getBooleanValue("-disableIntegrityChecks");
 	}
 
 	/**
@@ -146,6 +154,11 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 					new Object[] { leftRoot }, new Object[] { rightRoot },
 					new Object[] { ancestorRoot }, ancestorRoot != null, new Object());
 			List<TreeDifference> differences = differencer.getRightDifferences();
+			if(differences.isEmpty()) {
+				// early exit, nothing to merge
+				System.out.println("Nothing to merge.");
+				return 0;
+			}
 			boolean foundConflict = false;
 			for (TreeDifference difference : differences) {
 				// if any differences are conflicts return 1 or otherwise we
@@ -172,8 +185,51 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 				CoreExport.forceProxyExport = true;
 				IRunnableWithProgress exporter = CorePlugin.getModelExportFactory().create(outputFile, leftRoot);
 				exporter.run(new NullProgressMonitor());
+				// run an integrity report if possible
+				if(!disableIntegrityChecks) {
+					NonRootModelElement realElement = (NonRootModelElement) Ooaofooa.getDefaultInstance()
+							.getInstanceList(leftRoot.getClass())
+							.getGlobal(leftRoot.getInstanceKey());
+					if(realElement != null) {
+						realElement.getPersistableComponent().load(new NullProgressMonitor(), false, true);
+						Package_c firstParentPackage = realElement.getFirstParentPackage();
+						Component_c firstParentComponent = realElement.getFirstParentComponent();
+						NonRootModelElement elementToCheck = null;
+						if(realElement instanceof Package_c || realElement instanceof Component_c) {
+							elementToCheck = realElement;
+						} else {
+							if(firstParentPackage != null) {
+								elementToCheck = firstParentPackage;
+							} else {
+								if(firstParentComponent != null) {
+									elementToCheck = firstParentComponent;
+								} else {
+									elementToCheck = realElement;
+								}
+							}
+						}
+						IntegrityManager_c iManager = new IntegrityManager_c(Ooaofooa.getDefaultInstance());
+						IntegrityIssue_c[] issues = IntegrityChecker.runIntegrityCheck(elementToCheck, iManager);
+						String report = IntegrityChecker.createReportForIssues(issues);
+						System.out.println(report);
+						SystemModel_c system = SystemModel_c.getOneS_SYSOnR1301(iManager);
+						if(system != null) {
+							system.unrelateAcrossR1301From(iManager);
+						}
+						IntegrityIssue_c[] relatedIssues = IntegrityIssue_c.getManyMI_IIsOnR1300(iManager);
+						for(IntegrityIssue_c issue : relatedIssues) {
+							issue.Dispose();
+						}
+						iManager.delete();
+					} else {
+						printWarning();
+					}
+				}
 			}
 			return 0;
+		} catch (CoreException e) {
+			CorePlugin.logError("Unable to reload merged file.", e);
+			return -1;
 		} finally {
 			PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 
@@ -183,6 +239,12 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 				}
 			});
 		}
+	}
+
+	private void printWarning() {
+		System.out
+				.println("Unable to run an integrity report for this merge.  Please check\n"
+						+ "that the CLI configuration points at the correct workspace.\n\nPath for expected element: " + outputFile);
 	}
 
 	@Override

@@ -11,12 +11,12 @@
 <project name="bp.core" default="all" basedir=".">
   <target name="all"
           description="Generate all code for this project"
-          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_globals_util, format_java">
+          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, generate_globals_util, format_java">
   </target>
 
   <target name="nb_all"
           description="Generate all code for this project"
-          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_globals_util">
+          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_globals_util, generate_rto_util">
   </target>
 
   <property name="eclipse-home" value="${basedir}/../.."/>
@@ -399,6 +399,28 @@
 		</exec>	    	
 	</target>
 
+	<property name="grtou.output" value="src/com/mentor/nucleus/bp/core/util/RTOUtil.java" />
+
+	<target name="generate_rto_util.depends" >
+	    <uptodate property="rto_util.buildNotNeeded" targetfile="${grtou.output}">
+	       <srcfiles dir = "arc" includes = "generate_rto_util.arc" />
+	    </uptodate>
+	</target>
+
+	<target name="generate_rto_util" unless="rto_util.buildNotNeeded" depends="generate_rto_util.depends" >
+	    <echo >Generating ${grtou.output} ...</echo>
+	    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+	    	<arg line="-nopersist
+	      	-import ${mcj_path}/ooa_schema.sql
+	      	-import sql/ooaofooa.sql
+	      	-arch arc/generate_rto_util.arc" />
+		</exec>	    	
+		<!-- touch the output file in case generator believes there
+		     are no changes -->
+		<touch file="${grtou.output}"/>
+	</target>
+	
 	<property name="ald.output" value="src/com/mentor/nucleus/bp/core/util/ActionLanguageDescriptionUtil.java" />
 	
 	<target name="action_language_description_util.depends" depends="sql" >
@@ -498,7 +520,7 @@
     </taskdef>
         <PTCodeFormat>
           <fileset dir="../com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/core/" excludes="${cvs_java_files}"
-            includes="inspector/*.java,sorter/*.java,ui/*.java,*.java, ui/actions/*.java, util/SupertypeSubtypeUtil.java, util/ActionLanguageDescriptionUtil.java" />
+            includes="inspector/*.java,sorter/*.java,ui/*.java,*.java, ui/actions/*.java, util/SupertypeSubtypeUtil.java, util/ActionLanguageDescriptionUtil.java, util/RTOUtil.java" />
         </PTCodeFormat>
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
@@ -630,6 +652,7 @@
     	<fileset dir="src/com/mentor/nucleus/bp/core/util" includes="ActionLanguageDescriptionUtil.java" />
     	<fileset dir="src/com/mentor/nucleus/bp/core/util" includes="GlobalsUtil.java" />
     	<fileset dir="src/com/mentor/nucleus/bp/core/util" includes="SupertypeSubtypeUtil.java" />
+    	<fileset dir="src/com/mentor/nucleus/bp/core/util" includes="RTOUtil.java" />
         <fileset dir="src/com/mentor/nucleus/bp/core"
            excludes="${cvs_java_files}" />
     </delete>
