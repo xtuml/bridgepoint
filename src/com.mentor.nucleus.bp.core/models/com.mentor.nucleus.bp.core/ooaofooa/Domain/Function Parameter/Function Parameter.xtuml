@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("f9359d0e-84e9-4ba4-b84c-ee6efc50e841",
@@ -725,6 +725,38 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("1caf58bf-4246-4b31-bb44-3842211f2dda",
+	"f9359d0e-84e9-4ba4-b84c-ee6efc50e841",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  Create an integrity issue if there are any other parameters in the same
+ *  function with a matching name
+ */
+select one function related by self->S_SYNC[R24];
+select one package related by function->PE_PE[R8001]->EP_PKG[R8000];
+select one system related by package->S_SYS[R1405];
+sys_id = GD::NULL_UNIQUE_ID();
+if(not_empty system)
+  sys_id = system.Sys_ID;
+end if;
+select many parameters related by function->S_SPARM[R24];
+for each parameter in parameters
+  if(parameter != self and parameter.Name == self.Name)
+    MI_IM::createIssue(sys_id:sys_id, description:
+         "Found another parameter under the same function with a " +
+                                                          "matching name.",
+                                      severity:Severity::Error, name:self.Name,
+                                     path:function.getPath() + "::" + self.Name,
+                    id:self.Sync_ID, element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"862f18ab-48e8-4e02-8eab-327004d72cdb");
 INSERT INTO O_NBATTR
 	VALUES ("949e7dff-9969-4d65-807a-6b4b5df833af",
 	"f9359d0e-84e9-4ba4-b84c-ee6efc50e841");

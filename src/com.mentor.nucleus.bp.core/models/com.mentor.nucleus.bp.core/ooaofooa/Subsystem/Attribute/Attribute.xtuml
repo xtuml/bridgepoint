@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("d931d595-21f3-4ce8-bad1-6661a0e261b8",
@@ -1059,6 +1059,34 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("5e32d1d5-3602-4b38-b96e-49c0a64464a5",
+	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// check for any attributes with the same name
+select one package related by self->O_OBJ[R102]->PE_PE[R8001]->EP_PKG[R8000];
+select many attributes related by self->O_OBJ[R102]->O_ATTR[R102];
+for each attribute in attributes
+  if(attribute != self and attribute.Name == self.Name)
+    select one system related by package->S_SYS[R1405];
+    sys_id = GD::NULL_UNIQUE_ID();
+    if(not_empty system)
+      sys_id = system.Sys_ID;
+    end if;
+    select one class related by self->O_OBJ[R102];
+	MI_IM::createIssue(sys_id:sys_id, description:
+	               "Found another attribute under the same class " +
+	            "with the same name.", severity:Severity::Error, name:self.Name,
+	   path:class.getPath(path:self.Name, includeSelf:true), id:self.Attr_ID,
+	                                          element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"f854ce28-93eb-4799-a3b7-103e85e0faa6");
 INSERT INTO O_NBATTR
 	VALUES ("fcdcb857-f08e-413d-bf60-637f228f1941",
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8");

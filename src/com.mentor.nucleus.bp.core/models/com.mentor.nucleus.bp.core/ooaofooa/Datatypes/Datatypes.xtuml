@@ -1,4 +1,4 @@
--- BP 7.1 content: DataTypePackage syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: DataTypePackage syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO S_DPK
 	VALUES ("f769227a-8cff-4d99-ad78-9777a890baff",
@@ -19,8 +19,8 @@ INSERT INTO GD_MD
 	1,
 	0,
 	0,
-	0,
-	0,
+	200,
+	150,
 	0,
 	'3.4.9',
 	'com.mentor.nucleus.bp.core::ooaofooa::Datatypes');
@@ -936,6 +936,30 @@ INSERT INTO DIM_ELE
 	VALUES ("4612d419-a16b-4003-a97d-7f190c70b5c9",
 	0,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("c6142468-16ff-446c-a069-06f9e2f2233a",
+	"bc89f565-c994-401b-bd95-55369c58143f",
+	"e7db5662-b75f-4ea5-aa60-b3b76f1c926b",
+	52,
+	0,
+	'com.mentor.nucleus.bp.core::ooaofooa::Datatypes::Severity');
+INSERT INTO GD_SHP
+	VALUES ("c6142468-16ff-446c-a069-06f9e2f2233a");
+INSERT INTO GD_NCS
+	VALUES ("c6142468-16ff-446c-a069-06f9e2f2233a");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"c6142468-16ff-446c-a069-06f9e2f2233a");
+INSERT INTO DIM_GE
+	VALUES (3525.000000,
+	2242.000000,
+	"c6142468-16ff-446c-a069-06f9e2f2233a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("c6142468-16ff-446c-a069-06f9e2f2233a",
+	0,
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_DIA
 	VALUES ("bc89f565-c994-401b-bd95-55369c58143f",
 	'',
@@ -966,9 +990,9 @@ INSERT INTO S_DOM_PROXY
 	'ooaofooa',
 	'========================================================================
 
-File:          $RCSfile$
-Version:   $Revision$
-Modified:  $Date$
+File:          $RCSfile: ooaofooa.xtuml,v $
+Version:   $Revision: 1.127 $
+Modified:  $Date: 2006/09/26 15:10:20 $
 
 (c) Copyright 2004-2013 by Mentor Graphics Corp. All rights reserved.
 
@@ -2479,6 +2503,35 @@ INSERT INTO PE_PE
 	"00000000-0000-0000-0000-000000000000",
 	"00000000-0000-0000-0000-000000000000",
 	3);
+INSERT INTO S_DIP
+	VALUES ("f769227a-8cff-4d99-ad78-9777a890baff",
+	"e7db5662-b75f-4ea5-aa60-b3b76f1c926b");
+INSERT INTO S_DT
+	VALUES ("e7db5662-b75f-4ea5-aa60-b3b76f1c926b",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Severity',
+	'',
+	'');
+INSERT INTO S_EDT
+	VALUES ("e7db5662-b75f-4ea5-aa60-b3b76f1c926b");
+INSERT INTO S_ENUM
+	VALUES ("54da6e18-50fb-4711-af93-3ab7418d75ea",
+	'Warning',
+	'',
+	"e7db5662-b75f-4ea5-aa60-b3b76f1c926b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_ENUM
+	VALUES ("3ee0774d-9496-43da-80ef-3a15364e6458",
+	'Error',
+	'',
+	"e7db5662-b75f-4ea5-aa60-b3b76f1c926b",
+	"54da6e18-50fb-4711-af93-3ab7418d75ea");
+INSERT INTO S_ENUM
+	VALUES ("14ad6a17-1355-4b43-9882-10c54f07a1bd",
+	'Information',
+	'',
+	"e7db5662-b75f-4ea5-aa60-b3b76f1c926b",
+	"3ee0774d-9496-43da-80ef-3a15364e6458");
 INSERT INTO EP_SPKG
 	VALUES ("f769227a-8cff-4d99-ad78-9777a890baff",
 	"00000000-0000-0000-0000-000000000000");

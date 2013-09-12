@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("bc9a6c16-8809-4681-92ab-421898fa108a",
@@ -839,6 +839,70 @@ return result;',
 	1,
 	'',
 	"77ccad62-994a-4eba-97eb-6f83fcc38f90");
+INSERT INTO O_TFR
+	VALUES ("9d318c1d-0992-4718-84b1-34a691ec9739",
+	"bc9a6c16-8809-4681-92ab-421898fa108a",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  Create integrity issues if there are any other functions with a
+ *  matching signature
+ */
+select one package related by self->PE_PE[R8001]->EP_PKG[R8000];
+select one system related by package->S_SYS[R1405];
+sys_id = GD::NULL_UNIQUE_ID();
+if(not_empty system)
+  sys_id = system.Sys_ID;
+end if;
+select many functions related by package->PE_PE[R8000]->S_SYNC[R8001];
+for each function in functions
+  if(function != self and function.getSignature() == self.getSignature())
+    MI_IM::createIssue(sys_id:sys_id, description:
+               "Found another function under the same package with a " +
+                                                          "matching signature."
+          + GD::newline() + GD::newline() + "Signature: " + self.getSignature(),
+                                       severity:Severity::Error, name:self.Name,
+                           path:self.getPath(),
+                             id:self.Sync_ID, element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"1a29e8ec-33a3-405e-929c-6e095c2f8c35");
+INSERT INTO O_TFR
+	VALUES ("db818c67-a176-46df-95bd-be1be9a0ddee",
+	"bc9a6c16-8809-4681-92ab-421898fa108a",
+	'getSignature',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'/**
+ *  Return a string representation of this functions signature
+ */
+signature = self.Name;
+count = 0;
+select many parameters related by self->S_SPARM[R24];
+paramLength = cardinality parameters;
+if(paramLength > 0)
+  signature = signature + "(";
+end if;
+for each parameter in parameters
+  select one type related by parameter->S_DT[R26];
+  if(count > 0 and count != paramLength - 1)
+    signature = signature + ", ";
+  end if;
+  signature = signature + type.Name;
+  count = count + 1;
+end for;
+if(paramLength > 0)
+  signature = signature + ")";
+end if;
+return signature;',
+	1,
+	'',
+	"9d318c1d-0992-4718-84b1-34a691ec9739");
 INSERT INTO O_REF
 	VALUES ("bc9a6c16-8809-4681-92ab-421898fa108a",
 	"07cf2195-f012-4bf5-83c7-f89dd30a8839",

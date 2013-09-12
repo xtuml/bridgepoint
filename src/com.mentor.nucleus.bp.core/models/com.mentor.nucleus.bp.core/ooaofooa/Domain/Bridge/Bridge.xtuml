@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("47a1eb94-2620-4ecd-85d3-29f76391509f",
@@ -772,6 +772,70 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("3a6520c0-ab28-4e05-9723-762bd4e7eb45",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  Create integrity issues if there are any other bridge operations with a
+ *  matching signature
+ */
+select one ee related by self->S_EE[R19];
+select one system related by ee->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+sys_id = GD::NULL_UNIQUE_ID();
+if(not_empty system)
+  sys_id = system.Sys_ID;
+end if;
+select many bridges related by ee->S_BRG[R19];
+for each brg in bridges
+  if(brg != self and brg.getSignature() == self.getSignature())
+    MI_IM::createIssue(sys_id:sys_id, description:
+                 "Found another bridge under the same external entity with a " +
+                          "matching signature." + GD::newline() + GD::newline()
+                                          + "Signature: " + self.getSignature(),
+                                       severity:Severity::Error, name:self.Name,
+                           path:ee.getPath() + "::" + self.Name,
+                              id:self.Brg_ID, element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"b12e3e4b-7b51-4279-8a0e-d6262af6a5ee");
+INSERT INTO O_TFR
+	VALUES ("683e2b72-4be1-4c1b-ae03-dbffe2cb5112",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'getSignature',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'/**
+ *  Return a string representation of this operations signature
+ */
+signature = self.Name;
+count = 0;
+select many parameters related by self->S_BPARM[R21];
+paramLength = cardinality parameters;
+if(paramLength > 0)
+  signature = signature + "(";
+end if;
+for each parameter in parameters
+  select one type related by parameter->S_DT[R22];
+  if(count > 0 and count != paramLength - 1)
+    signature = signature + ", ";
+  end if;
+  signature = signature + type.Name;
+  count = count + 1;
+end for;
+if(paramLength > 0)
+  signature = signature + ")";
+end if;
+return signature;',
+	1,
+	'',
+	"3a6520c0-ab28-4e05-9723-762bd4e7eb45");
 INSERT INTO O_NBATTR
 	VALUES ("eab964fb-80ce-4810-ba03-8a871dfc6923",
 	"47a1eb94-2620-4ecd-85d3-29f76391509f");

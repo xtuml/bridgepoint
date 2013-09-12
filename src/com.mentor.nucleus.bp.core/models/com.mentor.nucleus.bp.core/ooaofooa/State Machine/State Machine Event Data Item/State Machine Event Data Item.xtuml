@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("2ae439ff-559b-458d-88ab-b3bb161e565f",
@@ -708,6 +708,43 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("acf68493-563d-414c-921c-7757a86c50ff",
+	"2ae439ff-559b-458d-88ab-b3bb161e565f",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  Create an integrity issue if there are any other parameters in the same
+ *  event with a matching name
+ */
+select one event related by self->SM_EVT[R532];
+select one machine related by event->SM_SM[R502];
+select one clazz related by machine->SM_ISM[R517]->O_OBJ[R518];
+if(empty clazz)
+  select one clazz related by machine->SM_ASM[R517]->O_OBJ[R519];
+end if;
+select one package related by clazz->PE_PE[R8001]->EP_PKG[R8000];
+select one system related by package->S_SYS[R1405];
+sys_id = GD::NULL_UNIQUE_ID();
+if(not_empty system)
+  sys_id = system.Sys_ID;
+end if;
+select many parameters related by event->SM_EVTDI[R532];
+for each parameter in parameters
+  if(parameter != self and parameter.Name == self.Name)
+    MI_IM::createIssue(sys_id:sys_id, description:
+         "Found another parameter under the same event with a " +
+                                                          "matching name.",
+                                      severity:Severity::Error, name:self.Name,
+                                     path:event.getPath() + "::" + self.Name,
+                    id:self.SMedi_ID, element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"f7ce67eb-0fa6-4236-8942-0c2cd1429161");
 INSERT INTO O_NBATTR
 	VALUES ("df11d8f5-0e94-4daf-b893-3075ae8258a4",
 	"2ae439ff-559b-458d-88ab-b3bb161e565f");

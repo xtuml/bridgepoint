@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("3ae90ee7-3be1-4d6a-a17e-87d2059e6c01",
@@ -750,6 +750,37 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("c38ad8e9-5513-4b1a-8607-7efc2b513e99",
+	"3ae90ee7-3be1-4d6a-a17e-87d2059e6c01",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// check for any operation parameters that have a matching name
+// under the parent operation
+select one package related by self->O_TFR[R117]
+                                     ->O_OBJ[R115]->PE_PE[R8001]->EP_PKG[R8000];
+select one system related by package->S_SYS[R1405];
+select one operation related by self->O_TFR[R117];
+sys_id = GD::NULL_UNIQUE_ID();
+if(not_empty system)
+ sys_id = system.Sys_ID;
+end if;
+select many parameters related by operation->O_TPARM[R117];
+for each parameter in parameters
+  if(parameter != self and parameter.Name == self.Name)
+    select one class related by operation->O_OBJ[R115];
+	MI_IM::createIssue(sys_id:sys_id, description:
+	               "Found another parameter under the same operation " +
+	     "with a matching name.", severity:Severity::Error, name:self.Name,
+	   path:class.getPath(path:"", includeSelf:true) + "::" + operation.Name +
+	      "::" + self.Name, id:self.TParm_ID, element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"ca467fc6-54cd-4224-a976-f5f6575210be");
 INSERT INTO O_NBATTR
 	VALUES ("2fc2d95b-14f2-45b1-a255-b92d101bdd39",
 	"3ae90ee7-3be1-4d6a-a17e-87d2059e6c01");
