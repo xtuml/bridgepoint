@@ -472,28 +472,32 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 					try {
 						exEng.setRealizedby(ctor.newInstance(ctorArgVals));
 					} catch (IllegalArgumentException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (InstantiationException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (IllegalAccessException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (InvocationTargetException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				} catch (ClassNotFoundException cnf) {
-					// TODO error message
+				    Throwable e = new Throwable();
+	                e.fillInStackTrace();
+				    CorePlugin.logError("An error occurred while setting up for realized execution. Please run Audit Realized Bindings.  The internal error message is: " + cnf.getMessage(), e);
 				} catch (NoSuchMethodException nsme) {
-					// TODO error message
+                    Throwable e = new Throwable();
+                    e.fillInStackTrace();
+                    CorePlugin.logError("An error occurred while setting up for realized execution. Please run Audit Realized Bindings.  The internal error message is: " + nsme.getMessage(), e);
 				}
 			} else {
-				// TODO error message
+			    Throwable e = new Throwable();
+			    e.fillInStackTrace();
+			    CorePlugin.logError("Could not find the expected classloader for " + sys.getName() + ". Please run Audit Realized Bindings.", e);
 			}
 		} else {
-			// TODO error message
+            Throwable e = new Throwable();
+            e.fillInStackTrace();
+            CorePlugin.logError("Could not find the expected system for the component " + comp.getName() + ". There appears to be a problem with the model data.", e);
 		}
 	}
 
