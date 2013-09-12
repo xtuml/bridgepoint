@@ -523,8 +523,6 @@ public class Vm_c {
         return getVmCl(pe);
     }
 
-    final static String CR = "\r\n";
-    
     public static BPClassLoader getVmCl(PackageableElement_c pe) {
         BPClassLoader cl;
         
@@ -535,19 +533,13 @@ public class Vm_c {
                 if (cl != null) {
                     return cl;
                 } else {
-                    throw new IllegalStateException(
-                            "Installation problem: Unable to load Verifier Classloader."
-                                    + CR);
+                    throw new IllegalStateException("Unable to load Verifier Classloader.");
                 }
             } else {
-                throw new IllegalStateException(
-                        "Installation problem: Unable to locate system for audited element."
-                                + CR);
+                throw new IllegalStateException("Unable to locate the system for the audited element.");
             }
         } else {
-            throw new IllegalStateException(
-                    "Realized components are supported under generic packages only."
-                            + CR);
+            throw new IllegalStateException("Realized components are supported under generic packages only.");
         }    
     }
 
