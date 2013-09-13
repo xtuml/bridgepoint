@@ -7,8 +7,6 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -46,12 +44,11 @@ import com.mentor.nucleus.bp.core.UserDataType_c;
 import com.mentor.nucleus.bp.core.Vm_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.util.BPClassLoader;
-import com.mentor.nucleus.bp.core.util.OoaofooaUtil;
 import com.mentor.nucleus.bp.debug.ui.model.BPDebugTarget;
 
 public class VerifierInvocationAuditor {
 
-    final static String CR = "\r\n";
+    final static String CR = System.getProperty("line.separator");
 
     public static String performRealizedCodeAudit(Package_c pkg) {
         String result = "Beginning binding check on package " + pkg.getName()
