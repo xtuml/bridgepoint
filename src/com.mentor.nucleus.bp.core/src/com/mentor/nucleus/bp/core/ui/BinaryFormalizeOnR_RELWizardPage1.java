@@ -45,10 +45,14 @@ public class BinaryFormalizeOnR_RELWizardPage1 extends PtWizardPage
 	// widgets on this page (public for unit tests)
 	public Combo Non_formalizerCombo;
 	public Label Non_formalizerLabel;
+	public String Non_formalizerTextPhrase = "";
+	public boolean Reflexsive = false;
+	public Label Hint;
+	public String Hint_message = "";
 
 	// cache for user choices
-	ModelClass_c Non_formalizer = null;
-	ModelClass_c[] Non_formalizerInstances;
+	ClassAsSimpleParticipant_c Non_formalizer = null;
+	ClassAsSimpleParticipant_c[] Non_formalizerInstances;
 
 	/**
 	 * Constructors for BinaryFormalizeOnR_RELWizardPage1.
@@ -64,8 +68,8 @@ public class BinaryFormalizeOnR_RELWizardPage1 extends PtWizardPage
 	}
 
 	private void init() {
-		setTitle("Formalize");
-		setDescription("Select the class whose identifier will be used to formalize the association");
+		setTitle("Formalize Association");
+		setDescription("Select the participating class whose identifier will be used to formalize the association");
 	}
 
 	public void onPageEntry() {
@@ -82,26 +86,32 @@ public class BinaryFormalizeOnR_RELWizardPage1 extends PtWizardPage
 		SimpleAssociation_c v_simp = SimpleAssociation_c
 				.getOneR_SIMPOnR206(v_rel);
 
-		// select related by where USER::selectOne
-		ModelClass_c[] v_non_formalizerInstances = ModelClass_c
-				.getManyO_OBJsOnR201(ClassInAssociation_c
-						.getManyR_OIRsOnR203(ReferredToClassInAssoc_c
-								.getManyR_RTOsOnR204(ClassAsSimpleParticipant_c
-										.getManyR_PARTsOnR207(v_simp))));
+		Reflexsive = false;
+
+		ClassAsSimpleParticipant_c[] v_non_formalizerInstances = ClassAsSimpleParticipant_c .getManyR_PARTsOnR207(v_simp);
+		if (v_non_formalizerInstances.length == 2
+				&& (v_non_formalizerInstances[0].getObj_id() .equals(v_non_formalizerInstances[1].getObj_id()))) {
+			Reflexsive = true;
+			setDescription(" select the class based on the text phrase at the end of the association line");
+			if (v_non_formalizerInstances[0].getTxt_phrs().equalsIgnoreCase("")
+					&& v_non_formalizerInstances[1].getTxt_phrs() .equalsIgnoreCase(""))
+				Hint_message = "Hint : Enter association text phrases to be able to differentiate between association ends";
+		}
+
 		ModelClass_c v_non_formalizer = null;
 		int non_formalizerInstCount;
 		int non_formalizerResultCount = 0;
 		for (non_formalizerInstCount = 0; non_formalizerInstCount < v_non_formalizerInstances.length; non_formalizerInstCount++) {
-			ModelClass_c selected = v_non_formalizerInstances[non_formalizerInstCount];
+			ClassAsSimpleParticipant_c selected = v_non_formalizerInstances[non_formalizerInstCount];
 			if (User_c.Selectone(selected.getObj_id())
 					&& v_simp.Canparticipate(selected.getObj_id())) {
 				non_formalizerResultCount++;
 			}
 		}
-		this.Non_formalizerInstances = new ModelClass_c[non_formalizerResultCount];
+		this.Non_formalizerInstances = new ClassAsSimpleParticipant_c[non_formalizerResultCount];
 		non_formalizerResultCount = 0;
 		for (non_formalizerInstCount = 0; non_formalizerInstCount < v_non_formalizerInstances.length; non_formalizerInstCount++) {
-			ModelClass_c selected = v_non_formalizerInstances[non_formalizerInstCount];
+			ClassAsSimpleParticipant_c selected = v_non_formalizerInstances[non_formalizerInstCount];
 			if (User_c.Selectone(selected.getObj_id())
 					&& v_simp.Canparticipate(selected.getObj_id())) {
 				this.Non_formalizerInstances[non_formalizerResultCount] = selected;
@@ -109,25 +119,21 @@ public class BinaryFormalizeOnR_RELWizardPage1 extends PtWizardPage
 			}
 		}
 		Non_formalizerCombo.removeAll();
-		for (non_formalizerInstCount = 0; non_formalizerInstCount < non_formalizerResultCount; non_formalizerInstCount++)
-			Non_formalizerCombo
-					.add(((ModelClass_c) this.Non_formalizerInstances[non_formalizerInstCount])
-							.getName());
-		if (non_formalizerResultCount == 1) {
-			Non_formalizerCombo.select(0);
-			updateSelectedNon_formalizer();
-		}
+		for (non_formalizerInstCount = 0; non_formalizerInstCount < non_formalizerResultCount; non_formalizerInstCount++) {
+			ModelClass_c v_class = ModelClass_c .getOneO_OBJOnR201(ClassInAssociation_c.getOneR_OIROnR203(
+					ReferredToClassInAssoc_c .getOneR_RTOOnR204(this.Non_formalizerInstances[non_formalizerInstCount])));
+			if (Reflexsive)
+				Non_formalizerCombo.add(v_class.getName() + "  '" + this.Non_formalizerInstances[non_formalizerInstCount].getTxt_phrs() + "'");
+			else
+				Non_formalizerCombo.add(v_class.getName());
 
-		if (((v_non_formalizer != null))) {
-
-			if (((v_Identifier != null))) {
-
+			if (non_formalizerResultCount == 1) {
+				Non_formalizerCombo.select(0);
+				updateSelectedNon_formalizer();
 			}
-
 		}
 
 	}
-
 	public void createControl(Composite parent) {
 		// create the composite to hold the widgets   
 		GridData gd = null;
@@ -135,20 +141,32 @@ public class BinaryFormalizeOnR_RELWizardPage1 extends PtWizardPage
 
 		// create the desired layout for this wizard page
 		GridLayout gl = new GridLayout();
-		int ncol = 4;
+		int ncol = 2;
 		gl.numColumns = ncol;
 		composite.setLayout(gl);
 
 		Non_formalizerLabel = new Label(composite, SWT.NONE);
 		Non_formalizerLabel.setText("Non_formalizer");
 		Non_formalizerCombo = new Combo(composite, SWT.BORDER | SWT.READ_ONLY);
-		Non_formalizerCombo
-				.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		Non_formalizerCombo .setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		// set the composite as the control for this page
 		setControl(composite);
 		onPageEntry(); // Initialize the ui widget contents
-		Non_formalizerLabel.setText("Class");
+		if (Reflexsive) {
+			Non_formalizerLabel.setText("Direction");
+			if (!Hint_message.equalsIgnoreCase("")) {
+				new Label(composite, SWT.None);
+				new Label(composite, SWT.None);
+				new Label(composite, SWT.None);
+				new Label(composite, SWT.None);
+				Hint = new Label(composite, SWT.NONE);
+				Hint.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1));
+				Hint.setText(Hint_message);
+			}
+		} else
+			Non_formalizerLabel.setText("Class");
+
 		addListeners();
 	}
 

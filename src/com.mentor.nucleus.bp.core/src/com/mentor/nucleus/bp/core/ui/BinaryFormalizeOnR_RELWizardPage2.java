@@ -47,6 +47,7 @@ public class BinaryFormalizeOnR_RELWizardPage2 extends PtWizardPage
 	public Label IdentifierLabel;
 	public Text IdentifierPrefix;
 	public Label IdentifierPrefixLabel;
+	public Label Note;
 
 	// cache for user choices
 	ClassIdentifier_c Identifier = null;
@@ -66,8 +67,9 @@ public class BinaryFormalizeOnR_RELWizardPage2 extends PtWizardPage
 	}
 
 	private void init() {
-		setTitle("Formalize");
-		setDescription("Select the class whose identifier will be used to formalize the association");
+		setTitle("Formalize Referential");
+		setDescription("Select the referential identifier whose will be used to formalize the association\n" + 
+		"Adding a prefix to the referential identifier is optional");
 	}
 
 	public void onPageEntry() {
@@ -76,7 +78,8 @@ public class BinaryFormalizeOnR_RELWizardPage2 extends PtWizardPage
 						.getSelection());
 
 		// cache for previous user selections
-		ModelClass_c v_non_formalizer = ((BinaryFormalizeOnR_RELWizard) getWizard()).v_non_formalizer;
+		ClassAsSimpleParticipant_c v_part = ((BinaryFormalizeOnR_RELWizard) getWizard()).v_non_formalizer;
+		ModelClass_c v_non_formalizer = ModelClass_c .getOneO_OBJOnR201(ClassInAssociation_c .getOneR_OIROnR203(ReferredToClassInAssoc_c .getOneR_RTOOnR204(v_part)));
 
 		// cache for context
 		Association_c v_rel = ((BinaryFormalizeOnR_RELWizard) getWizard()).v_rel;
@@ -140,10 +143,6 @@ public class BinaryFormalizeOnR_RELWizardPage2 extends PtWizardPage
 		gl.numColumns = ncol;
 		composite.setLayout(gl);
 
-		IdentifierLabel = new Label(composite, SWT.NONE);
-		IdentifierLabel.setText("Identifier");
-		IdentifierCombo = new Combo(composite, SWT.BORDER | SWT.READ_ONLY);
-		IdentifierCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		IdentifierPrefixLabel = new Label(composite, SWT.NONE);
 		IdentifierPrefixLabel.setText("Prefix");
 		IdentifierPrefix = new Text(composite, SWT.BORDER);
@@ -155,11 +154,24 @@ public class BinaryFormalizeOnR_RELWizardPage2 extends PtWizardPage
 						.getText();
 			}
 		});
+		IdentifierLabel = new Label(composite, SWT.NONE);
+		IdentifierLabel.setText("Identifier");
+		IdentifierCombo = new Combo(composite, SWT.BORDER | SWT.READ_ONLY);
+		IdentifierCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		new Label(composite, SWT.None);
+		new Label(composite, SWT.None);
+		new Label(composite, SWT.None);
+		new Label(composite, SWT.None);
+		Note = new Label(composite, SWT.None);
+		Note.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 4, 1));
+
+		Note.setText("Note : Prefix text will be added at the beginning to the referential identifier name, this will be essential\n" + 
+		"in reflexive association to be able to differentiate between the original and referential identifier");
 
 		// set the composite as the control for this page
 		setControl(composite);
 		onPageEntry(); // Initialize the ui widget contents
-		IdentifierLabel.setText("Class");
 		addListeners();
 	}
 
