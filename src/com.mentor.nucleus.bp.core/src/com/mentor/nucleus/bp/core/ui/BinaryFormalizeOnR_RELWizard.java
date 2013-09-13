@@ -63,10 +63,9 @@ public class BinaryFormalizeOnR_RELWizard extends Wizard {
 	public Association_c v_rel = null;
 
 	// cache for the users selections (public for use by unit tests)
-	public ModelClass_c v_non_formalizer = null;
-	public String v_non_formalizerPrefix = null;
+	public ClassAsSimpleParticipant_c v_non_formalizer = null;
 	public ClassIdentifier_c v_Identifier = null;
-	public String v_IdentifierPrefix = null;
+	public String v_IdentifierPrefix = "";
 
 	/**
 	 * Constructor for BinaryFormalizeOnR_RELWizard.
@@ -148,7 +147,7 @@ public class BinaryFormalizeOnR_RELWizard extends Wizard {
 	}
 
 	private void setPrefixs(SimpleAssociation_c vARel) {
-		if (v_IdentifierPrefix  == null ){
+		if (v_IdentifierPrefix  == "" ){
 			return;
 		}
 		ReferringClassInAssoc_c other = ReferringClassInAssoc_c.getOneR_RGOOnR205(ClassAsSimpleFormalizer_c.getOneR_FORMOnR208(vARel));
@@ -176,7 +175,7 @@ public class BinaryFormalizeOnR_RELWizard extends Wizard {
 
 					if (v_simp != null) {
 						v_simp.Formalize(v_Identifier.getOid_id(),
-								v_non_formalizer.getObj_id());
+								v_non_formalizer.getOir_id());
 					} else {
 						Throwable t = new Throwable();
 						t.fillInStackTrace();
