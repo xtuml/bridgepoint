@@ -133,6 +133,21 @@ public class AllActivityModifier implements IAllActivityModifier
     	parseAll = true;
     }
     
+    public AllActivityModifier(Subsystem_c parent, IProgressMonitor monitor){
+    	this((NonRootModelElement)parent, monitor);
+    	parseAll = true;
+    }
+    
+    public AllActivityModifier(FunctionPackage_c parent, IProgressMonitor monitor){
+    	this((NonRootModelElement)parent, monitor);
+    	parseAll = true;
+    }
+    
+    public AllActivityModifier(ExternalEntityPackage_c parent, IProgressMonitor monitor){
+    	this((NonRootModelElement)parent, monitor);
+    	parseAll = true;
+    }
+    
     public AllActivityModifier(ModelRoot modelRoot, Object[] activities, IProgressMonitor monitor)
     {
         m_pm = monitor;
@@ -1175,6 +1190,16 @@ public class AllActivityModifier implements IAllActivityModifier
           addActivitiesToList(act_set, null, ActivityKind.FUNCTION, m_pkg, onlySharedFragments);
           m_func_set = act_set.toArray(new Function_c[act_set.size()]);
             assert(m_func_set == function_set.toArray(new Function_c[function_set.size()]));
+        }
+        else if(m_parent instanceof FunctionPackage_c) {
+            FunctionPackage_c[] top = {(FunctionPackage_c)m_parent};
+            ArrayList<Function_c> function_set = new ArrayList<Function_c>();
+            FunctionPackage_c[] fpk_set = FunctionPackage_c.getManyS_FPKsOnR30(FunctionPackageInPackage_c.getManyS_FPIPsOnR30(top));
+            addFunctionsToList(function_set, top);
+            for ( int i = 0; i < fpk_set.length; ++i ) {
+                loadChildFPKs(function_set, fpk_set[i]);
+            }
+        	m_func_set = function_set.toArray(new Function_c[function_set.size()]);
         }else{
           m_func_set = (Function_c[])PersistenceManager.getHierarchyMetaData().getActivityModelElements(m_parent, Function_c.class);
         }
@@ -1295,6 +1320,16 @@ public class AllActivityModifier implements IAllActivityModifier
           
 		  m_bridge_set = act_set.toArray(new Bridge_c[act_set.size()]);
             assert(m_bridge_set == bridge_set.toArray(new Bridge_c[bridge_set.size()]));
+        }
+        else if(m_parent instanceof ExternalEntityPackage_c) {
+            ExternalEntityPackage_c[] top = {(ExternalEntityPackage_c)m_parent};
+            ArrayList<Bridge_c> bridge_set = new ArrayList<Bridge_c>();
+            ExternalEntityPackage_c[] eepk_set = ExternalEntityPackage_c.getManyS_EEPKsOnR33(ExternalEntityInPackage_c.getManyS_EEIPsOnR33(top));
+            addBridgesToList(bridge_set, top);
+            for ( int i = 0; i < eepk_set.length; ++i ) {
+                loadChildEEPKs(bridge_set, eepk_set[i]);
+            }
+        	m_bridge_set = bridge_set.toArray(new Bridge_c[bridge_set.size()]);
         }else{
         	m_bridge_set = (Bridge_c[])PersistenceManager.getHierarchyMetaData().getActivityModelElements(m_parent, Bridge_c.class);
         }
@@ -1394,7 +1429,16 @@ public class AllActivityModifier implements IAllActivityModifier
             }
             m_ss_set = (Subsystem_c[])ss_result_set.toArray(new Subsystem_c[ss_result_set.size()]);
         }else{
-            // do nothing
+          if (m_parent instanceof Subsystem_c) {
+              ArrayList<Subsystem_c> ss_result_set = new ArrayList<Subsystem_c>();
+              ss_result_set.add((Subsystem_c)m_parent);
+              Subsystem_c[] ss_set = Subsystem_c.getManyS_SSsOnR41(SubsystemInSubsystem_c.getManyS_SISsOnR41((Subsystem_c)m_parent));
+              for ( int i = 0; i < ss_set.length; ++i ) {
+                  ss_result_set.add(ss_set[i]);
+                  loadChildSSs(ss_result_set, ss_set[i]);
+              }
+              m_ss_set = ss_result_set.toArray(new Subsystem_c[ss_result_set.size()]);
+          }
         }
     }
     private void loadChildSSs(ArrayList ss_result_set, Subsystem_c ss) {
