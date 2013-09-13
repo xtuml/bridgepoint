@@ -472,13 +472,14 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 					try {
 						exEng.setRealizedby(ctor.newInstance(ctorArgVals));
 					} catch (IllegalArgumentException e) {
-						e.printStackTrace();
+						CorePlugin.logError("Captured IllegalArguementException setting up realized execution for component " + comp.getName() + ".", e);
 					} catch (InstantiationException e) {
-						e.printStackTrace();
+                        CorePlugin.logError("Captured InstantiationException setting up realized execution for component " + comp.getName() + ".", e);
 					} catch (IllegalAccessException e) {
-						e.printStackTrace();
+                        CorePlugin.logError("Captured IllegalAccessException setting up realized execution for component " + comp.getName() + ".", e);
 					} catch (InvocationTargetException e) {
 						e.printStackTrace();
+	                    CorePlugin.logError("Captured InvocationTargetException setting up realized execution for component " + comp.getName() + ".", e);
 					}
 				} catch (ClassNotFoundException cnf) {
 				    CorePlugin.err.println("An error occurred while setting up for realized execution. Please run Audit Realized Bindings.  The internal error message is: " + cnf.getMessage());
