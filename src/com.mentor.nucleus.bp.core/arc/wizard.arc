@@ -32,15 +32,21 @@
 .for each wfl in workflows
   .select many fields related by wfl->W_STEP[R2005]->W_FLD[R2009]
   .if (not_empty fields)
-    .invoke wizard = create_wizard(wfl)
-${wizard.body}
     .invoke wizard_name = get_wizard_class_name(wfl)
-    .emit to file "src/com/mentor/nucleus/bp/core/ui/${wizard_name.body}.java"
+    .invoke result =  skip_class_generation(wizard_name.body)
+    .if (result.skip)
+  	  	.// skipping the generation becasue this file is version controlled
+  	.else
+    	.invoke wizard = create_wizard(wfl)
+${wizard.body}
+    	.emit to file "src/com/mentor/nucleus/bp/core/ui/${wizard_name.body}.java"
+    .end if
     .select many steps related by wfl->W_STEP[R2005]
     .for each step in steps
       .invoke gpcn = get_page_class_name(wfl, step)
       .assign page_class_name = gpcn.name
-  	  .if (page_class_name == "GenericPackageAssignEventOnSM_TXNWizardPage1")
+      .invoke result =  skip_class_generation(page_class_name)
+  	  .if (result.skip)
   	  	.// skipping the generation becasue this file is version controlled
   	  .else
          .invoke page = create_page(wfl, step)
