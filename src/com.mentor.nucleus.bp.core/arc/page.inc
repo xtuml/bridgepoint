@@ -12,6 +12,34 @@
 .//====================================================================
 .//
 .//
+.function skip_class_generation
+.param string class_name
+.assign attr_skip = false
+	.if(class_name == "GenericPackageAssignEventOnSM_TXNWizardPage1" )
+	   .assign attr_skip = true
+	.elif (class_name  == "BinaryFormalizeOnR_RELWizard" )
+	   .assign attr_skip = true
+	.elif (class_name  == "BinaryFormalizeOnR_RELWizardPage1" )
+	   .assign attr_skip = true
+	.elif (class_name  == "BinaryFormalizeOnR_RELWizardPage2" )
+	   .assign attr_skip = true
+	.end if
+.end function 
+//
+.function is_linked_association_wizard_page
+.param string class_name
+.assign attr_islinked = false
+	.if(class_name == "LinkedFormalizeOnR_RELWizardPage1" )
+	   .assign attr_islinked = true
+	.elif (class_name  == "LinkedFormalizeOnR_ASSRWizardPage1" )
+	   .assign attr_islinked = true
+	.elif (class_name  == "LinkedFormalizeOnR_RELWizard" )
+	   .assign attr_islinked = true
+	.elif (class_name  == "LinkedFormalizeOnR_ASSRWizard" )
+	   .assign attr_islinked = true
+	.end if
+.end function
+.//
 .function get_page_class_name
   .param inst_ref wfl
   .param inst_ref step
@@ -73,6 +101,7 @@ public class ${page_class_name} extends PtWizardPage implements Listener
   IStructuredSelection selection;
 	
   // widgets on this page (public for unit tests)
+  .invoke isLinkedPage = is_linked_association_wizard_page(page_class_name)
   .select many fields related by step->W_FLD[R2009]
   .for each field in fields
     .if (field.Type == "Text")
@@ -81,9 +110,11 @@ public class ${page_class_name} extends PtWizardPage implements Listener
     .elif (field.Type == "Combo")
   public Combo $cr{field.Instance_Handle}Combo;
   public Label $cr{field.Instance_Handle}Label;
-  	  .if (((page_class_name == "BinaryFormalizeOnR_RELWizardPage2") or (page_class_name == "LinkedFormalizeOnR_RELWizardPage1")) or (page_class_name == "LinkedFormalizeOnR_ASSRWizardPage1"))
+  	  .if (isLinkedPage.islinked)
+  public String $cr{field.Instance_Handle}TextPhrase = "";
   public Text $cr{field.Instance_Handle}Prefix;		
-  public Label $cr{field.Instance_Handle}PrefixLabel;	  
+  public Label $cr{field.Instance_Handle}PrefixLabel;
+  public Label $cr{field.Instance_Handle}Phrase;
   	  .end if
     .elif (field.Type == "List")
   public List $cr{field.Instance_Handle}List;
@@ -213,6 +244,14 @@ public class ${page_class_name} extends PtWizardPage implements Listener
   .end for
   .invoke result = wfl_blck_xlate(outer_block)
 ${result.body}
+		.if ((page_class_name == "LinkedFormalizeOnR_RELWizardPage1") or (page_class_name == "LinkedFormalizeOnR_ASSRWizardPage1"))
+  	  	ClassAsAssociatedOneSide_c v_one_side = ClassAsAssociatedOneSide_c.getOneR_AONEOnR209(v_a_rel);
+		ClassAsAssociatedOtherSide_c v_oth_side = ClassAsAssociatedOtherSide_c.getOneR_AOTHOnR210(v_a_rel);
+		if ( !v_one_side.getTxt_phrs().equals(""))
+			One_idTextPhrase = " for the \"" + v_one_side.getTxt_phrs() + "\" side";
+		if ( !v_oth_side.getTxt_phrs().equals(""))
+			Oth_idTextPhrase = " for the \"" + v_oth_side.getTxt_phrs() + "\" side";  
+		.end if
   .invoke clear_workspace()
   }
   
@@ -223,24 +262,12 @@ ${result.body}
 
     // create the desired layout for this wizard page
     GridLayout gl = new GridLayout();
-    int ncol = 4;
+    int ncol = 5;
     gl.numColumns = ncol;
     composite.setLayout(gl);
 
     .for each field in fields
-    .if (field.Type == "Text")
-    $cr{field.Instance_Handle}Label = new Label (composite, SWT.NONE);
-    $cr{field.Instance_Handle}Label.setText("$cr{field.Instance_Handle}");
-    $cr{field.Instance_Handle}Text = new Text(composite, SWT.BORDER);
-    gd = new GridData(GridData.FILL_HORIZONTAL);
-    gd.horizontalSpan = ncol - 1;
-    $cr{field.Instance_Handle}Text.setLayoutData(gd);
-    .elif (field.Type == "Combo")
-    $cr{field.Instance_Handle}Label = new Label (composite, SWT.NONE);
-    $cr{field.Instance_Handle}Label.setText("$cr{field.Instance_Handle}");						
-    $cr{field.Instance_Handle}Combo = new Combo(composite, SWT.BORDER | SWT.READ_ONLY);
-    $cr{field.Instance_Handle}Combo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-    	.if (((page_class_name == "BinaryFormalizeOnR_RELWizardPage2") or (page_class_name == "LinkedFormalizeOnR_RELWizardPage1")) or ( page_class_name == "LinkedFormalizeOnR_ASSRWizardPage1"))
+    	.if (isLinkedPage.islinked)
   	$cr{field.Instance_Handle}PrefixLabel = new Label (composite, SWT.NONE);
   	$cr{field.Instance_Handle}PrefixLabel.setText("Prefix");		
   	$cr{field.Instance_Handle}Prefix = new Text(composite, SWT.BORDER);
@@ -251,9 +278,29 @@ ${result.body}
 			}
 		});
     	.end if
+.if (field.Type == "Text")
+    $cr{field.Instance_Handle}Label = new Label (composite, SWT.NONE);
+    $cr{field.Instance_Handle}Label.setText("$cr{field.Instance_Handle}");
+    $cr{field.Instance_Handle}Text = new Text(composite, SWT.BORDER);
+    gd = new GridData(GridData.FILL_HORIZONTAL);
+    gd.horizontalSpan = ncol - 1;
+    $cr{field.Instance_Handle}Text.setLayoutData(gd);
+    .elif (field.Type == "Combo")
+    $cr{field.Instance_Handle}Label = new Label (composite, SWT.NONE);
+	.if (isLinkedPage.islinked)
+	    $cr{field.Instance_Handle}Label.setText("goes with identifer");						
+    .else
+    	$cr{field.Instance_Handle}Label.setText("$cr{field.Instance_Handle}");						
+    .end if
+    $cr{field.Instance_Handle}Combo = new Combo(composite, SWT.BORDER | SWT.READ_ONLY);
+    $cr{field.Instance_Handle}Combo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
     .elif (field.Type == "List")
   List $cr{field.Instance_Handle};
     .end if
+		.if (isLinkedPage.islinked)
+    		$cr{field.Instance_Handle}Phrase = new Label (composite, SWT.NONE);
+    		$cr{field.Instance_Handle}Phrase.setText("");
+    	.end if
     .end for
 
     // set the composite as the control for this page
@@ -262,7 +309,11 @@ ${result.body}
     .for each field in fields
       .select one cflx related by field->W_CFL[R2014]
       .if ( not_empty cflx )
-    $cr{field.Instance_Handle}Label.setText(${cflx.Label});
+			.if (isLinkedPage.islinked)
+    $cr{field.Instance_Handle}Phrase.setText("of class \"" + ${cflx.Label} + "\"" + $cr{field.Instance_Handle}TextPhrase );
+			.else     
+    $cr{field.Instance_Handle}Label.setText("of class \"" + ${cflx.Label} + "\"" + $cr{field.Instance_Handle}TextPhrase );
+    		.end if
       .end if
     .end for 
     addListeners();
