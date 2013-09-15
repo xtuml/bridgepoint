@@ -33,6 +33,7 @@ import com.mentor.nucleus.bp.core.test.DeleteTestGenerics;
 import com.mentor.nucleus.bp.core.test.DerivedAttributeTestGenerics;
 import com.mentor.nucleus.bp.core.test.DisposeTestGenerics;
 import com.mentor.nucleus.bp.core.test.FormalizeUnformalizeTestGenerics;
+import com.mentor.nucleus.bp.core.test.FormalizeUnformalizeWithPrefixTestGenerics;
 import com.mentor.nucleus.bp.core.test.GetNameTestGenerics;
 import com.mentor.nucleus.bp.core.test.MultipleReloadGenerics;
 import com.mentor.nucleus.bp.core.test.NumberingTestGenerics;
@@ -80,12 +81,13 @@ public class CoreGlobalsTestSuiteGenerics extends TestSuite {
 		addTest(new TestSuite(DeleteAttributesTestGenerics.class));
 		addTest(new TestSuite(GetNameTestGenerics.class));
 		addTest(new TestSuite(DerivedAttributeTestGenerics.class));
-		addTest(new TestSuite(DeleteTestGenerics.class));
-		addTest(new TestSuite(TigerNatureTestGenerics.class));
 		addTest(new TestSuite(FormalizeUnformalizeTestGenerics.class));
 		addTest(new TestSuite(AttributeMenuItemTestGenerics.class));
 		addTest(new TestSuite(AssignRemoveEventsGenerics.class)); 
 		addTest(new TestSuite(CantHappenEvtIgnoreEvtTestsGenerics.class));
 		addTest(new TestSuite(OperationsTestGenerics.class));
+		addTest(new TestSuite(FormalizeUnformalizeWithPrefixTestGenerics.class));
+		addTest(new TestSuite(DeleteTestGenerics.class));
+		addTest(new TestSuite(TigerNatureTestGenerics.class));
 	}
 }

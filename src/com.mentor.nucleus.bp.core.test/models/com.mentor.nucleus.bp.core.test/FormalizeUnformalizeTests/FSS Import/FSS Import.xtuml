@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("92e91b15-774b-46aa-8e28-cc7d03fab021",
@@ -25,14 +25,14 @@ INSERT INTO GD_MD
 	0,
 	0,
 	'',
-	'FormalizeUnformalizeTests::FSS Import');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::FSS Import');
 INSERT INTO GD_GE
 	VALUES ("8014a651-4dcb-4ccb-9fa1-09fc75b5ae2f",
 	"ccbfa804-d837-4905-82d6-ef872915ae2b",
 	"1e501198-d821-4f4d-974a-5954d859a729",
 	21,
 	0,
-	'FormalizeUnformalizeTests::FSS Import::FormalizeSUBSUP IOBJ_OBJ OBJ');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::FSS Import::FormalizeSUBSUP IOBJ_OBJ OBJ');
 INSERT INTO GD_SHP
 	VALUES ("8014a651-4dcb-4ccb-9fa1-09fc75b5ae2f");
 INSERT INTO GD_NCS
@@ -56,7 +56,7 @@ INSERT INTO GD_GE
 	"799d8832-185e-4d54-8d86-77ea6b0ad5fe",
 	21,
 	0,
-	'FormalizeUnformalizeTests::FSS Import::FormalizeSUBSUP IOBJ_OBJ IOBJ');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::FSS Import::FormalizeSUBSUP IOBJ_OBJ IOBJ');
 INSERT INTO GD_SHP
 	VALUES ("fc178d54-ab29-41c9-93a5-37f1013ecad4");
 INSERT INTO GD_NCS
@@ -80,7 +80,7 @@ INSERT INTO GD_GE
 	"52412a14-2b1e-4766-aa69-aa0fba327a09",
 	21,
 	0,
-	'FormalizeUnformalizeTests::FSS Import::FormalizeSUBSUP IOBJ_IOBJ IOBJ');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::FSS Import::FormalizeSUBSUP IOBJ_IOBJ IOBJ');
 INSERT INTO GD_SHP
 	VALUES ("3a73c8c0-a9db-4b34-bfe1-6e6c8b20f618");
 INSERT INTO GD_NCS
