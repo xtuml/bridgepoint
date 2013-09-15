@@ -166,8 +166,8 @@ public class BinaryFormalizeOnR_RELWizardPage2 extends PtWizardPage
 		Note = new Label(composite, SWT.None);
 		Note.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 4, 1));
 
-		Note.setText("Note : Prefix text will be added at the beginning to the referential identifier name, this will be essential\n" + 
-		"in reflexive association to be able to differentiate between the original and referential identifier");
+		Note.setText("Note : The optional prefix text will be added at the beginning to the referential identifier name, prefix will\n" + 
+		"be essential in reflexive association to be able to differentiate between the original and referential identifier");
 
 		// set the composite as the control for this page
 		setControl(composite);
