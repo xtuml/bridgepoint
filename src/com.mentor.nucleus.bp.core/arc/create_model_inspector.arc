@@ -252,6 +252,7 @@ public class ${model_element_class_name}{
 	private String valueAccessor;
 	private boolean userModifiable;
 	private Object owner;
+	private boolean derived = false;
 	
 	public ${model_element_class_name}(String aName, int aType, Object aValue, Object parent, boolean userModifiable){
 	    this(aName, aType, aValue, parent, "", userModifiable);
@@ -355,6 +356,15 @@ public class ${model_element_class_name}{
 		hash = hash + 31 * getName().hashCode();
 		return hash;
 	}
+	
+	public void setDerived() {
+		derived = true;
+	}
+	
+	public boolean isDerived() {
+	  	return derived;
+	}
+	
 }
   .emit to file "${rel_path}/${inspector_dir}/${model_element_class_name}.java"
 .end if

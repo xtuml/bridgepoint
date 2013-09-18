@@ -294,6 +294,7 @@ ${rel_nav.body}\
         .while (not_empty attr)
             .select one dt related by attr->S_DT[R114]
             .select one rattr related by attr->O_RATTR[R106]
+            .select one dbattr related by attr->O_BATTR[R106]->O_DBATTR[R107]
             .if (((dt.Name != "unique_id") and (empty rattr)) and ("$l{attr.Descrip:User_Visible}" != "false"))             
                 .assign name = "${attr.Name}"
                 .invoke attr_accessor = get_attribute_accessor(attr)
@@ -303,6 +304,9 @@ ${rel_nav.body}\
                   .assign user_modifiable = "false"
                 .end if; 
       attrSet[${original_attr_count}] = new ${model_element_class_name}("${name}", ${model_element_class_name}.ATTRIBUTE_ELEMENT,  invokeMethod(arg, "${attr_accessor.body}"), arg, "${attr_accessor.body}", $l{user_modifiable});
+                .if(not_empty dbattr)
+      attrSet[${original_attr_count}].setDerived();
+                .end if
                 .assign original_attr_count = original_attr_count + 1
             .end if
             .select one nextAttr related by attr->O_ATTR[R103.'succeeds']

@@ -164,4 +164,10 @@ public class ObjectElementComparable extends ComparableTreeObject {
 		}
 		return real.getClass().hashCode();		
 	}
+
+	@Override
+	public boolean isDerived() {
+		ObjectElement ele = (ObjectElement) realElement;
+		return ele.isDerived();
+	}
 }
