@@ -196,7 +196,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 								left, this, false,
 								getLeftCompareRoot(),
 								ModelCacheManager
-										.getLeftKey(getInput()))[0];
+										.getLeftKey(getInput() != null ? getInput() : oldInput))[0];
 						if (left instanceof IEditableContent) {
 							ByteArrayOutputStream baos = new ByteArrayOutputStream();
 							AbstractModelExportFactory modelExportFactory = CorePlugin.getModelExportFactory();
@@ -262,7 +262,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 								right, this, false,
 								getRightCompareRoot(),
 								ModelCacheManager
-										.getRightKey(getInput()))[0];
+										.getRightKey(getInput() != null ? getInput() : oldInput))[0];
 						if (right instanceof IEditableContent) {
 							ByteArrayOutputStream baos = new ByteArrayOutputStream();
 							AbstractModelExportFactory modelExportFactory = CorePlugin.getModelExportFactory();

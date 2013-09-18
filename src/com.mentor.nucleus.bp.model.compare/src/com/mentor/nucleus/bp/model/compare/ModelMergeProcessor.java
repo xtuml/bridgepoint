@@ -18,6 +18,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -53,6 +54,7 @@ import com.mentor.nucleus.bp.core.SimpleAssociation_c;
 import com.mentor.nucleus.bp.core.StateEventMatrixEntry_c;
 import com.mentor.nucleus.bp.core.StateMachineEvent_c;
 import com.mentor.nucleus.bp.core.StateMachineState_c;
+import com.mentor.nucleus.bp.core.StateMachine_c;
 import com.mentor.nucleus.bp.core.SubtypeSupertypeAssociation_c;
 import com.mentor.nucleus.bp.core.Transition_c;
 import com.mentor.nucleus.bp.core.common.BaseModelDelta;
@@ -172,6 +174,24 @@ public class ModelMergeProcessor {
 		if(location == locationOfElement) {
 			// another difference has already handled this
 			return false;
+		}
+		// if this is a change that does not have user ordering
+		// then modify the persistence ordering
+		NonRootModelElementComparable comparable = (NonRootModelElementComparable) difference
+				.getElement();
+		NonRootModelElement element = (NonRootModelElement) comparable
+				.getRealElement();
+		if(!MetadataSortingManager.isOrderedElement(element)) {
+			IPersistableElementParentDetails parentDetails = PersistenceManager
+					.getHierarchyMetaData().getParentDetails(
+							element);
+			Object[] localDetails = new Object[] {
+						parentDetails.getParent(), parentDetails.getChild(),
+						parentDetails.getAssociationNumber(),
+						parentDetails.getAssociationPhrase(),
+						parentDetails.getChildKeyLetters() };
+			callSetOrderOperation(locationOfElement, localDetails);
+			return true;
 		}
 		boolean up = location < destinationLocation;
 		if(up) {
@@ -324,9 +344,13 @@ public class ModelMergeProcessor {
 		if(attributeOwner == null) {
 			attributeOwner = localElement.getParent();
 		}
+		Class<?> paramClass = element.getValue().getClass();
+		if(paramClass == Integer.class) {
+			// use the int class
+			paramClass = Integer.TYPE;
+		}
 		Method setMethod = findMethod("set" + attributeName,
-				attributeOwner.getClass(), new Class[] { element.getValue()
-						.getClass() });
+				attributeOwner.getClass(), new Class[] { paramClass });
 		invokeMethod(setMethod, attributeOwner, new Object[] {element.getValue()});
 		return true;
 	}
@@ -401,20 +425,9 @@ public class ModelMergeProcessor {
 						parentDetails.getAssociationNumber(),
 						parentDetails.getAssociationPhrase(),
 						parentDetails.getChildKeyLetters() };
-				IPersistableElementParentDetails remoteParentDetails = PersistenceManager
-						.getHierarchyMetaData()
-						.getParentDetails(
-								getMatchingElement((NonRootModelElement) object));
-				Object[] remoteDetails = new Object[] {
-						remoteParentDetails.getParent(),
-						remoteParentDetails.getChild(),
-						remoteParentDetails.getAssociationNumber(),
-						remoteParentDetails.getAssociationPhrase(),
-						remoteParentDetails.getChildKeyLetters() };
-				int remoteLocation = getLocationForElementInSource(remoteDetails);
 				int localLocation = getLocationForElementInSource(localDetails);
-				if(remoteLocation != localLocation) {
-					callSetOrderOperation(remoteLocation, localDetails);
+				if(newElementLocation != localLocation) {
+					callSetOrderOperation(newElementLocation, localDetails);
 					return true;
 				}
 			}
@@ -428,8 +441,8 @@ public class ModelMergeProcessor {
 		// some situations required other data to be created first
 		handleCopyNew(newObject, differencer, contentProvider, modelRoot, rightToLeft);
 		// export the element
-		String export = copyExternal(modelRoot, newObject, false, true);
-		newObject = importExternal(newObject, export, parent, modelRoot);
+		String export = copyExternal(modelRoot, newObject, false, false);
+		newObject = importExternal(newObject, export, parent, modelRoot, newElementLocation);
 		// if this element is a graphical element we need to
 		// associate it with an element specification so the
 		// proper ooa_type is exported
@@ -492,9 +505,116 @@ public class ModelMergeProcessor {
 						new Object[] { newObject });
 			}
 		}
+		handlePostCreation(newObject);
+		batchRelateAll(newObject, modelRoot, contentProvider);
 		return true;
 	}
 	
+	private static void batchRelateAll(NonRootModelElement newObject, ModelRoot modelRoot, ITreeContentProvider provider) {
+		newObject.batchRelate(modelRoot, false, false);
+		Object[] children = provider.getChildren(newObject);
+		for(Object element : children) {
+			if(element instanceof NonRootModelElementComparable) {
+				NonRootModelElementComparable comparable = (NonRootModelElementComparable) element;
+				batchRelateAll((NonRootModelElement) comparable.getRealElement(), modelRoot, provider);
+			}
+		}
+	}
+
+	private static void handlePostCreation(NonRootModelElement newObject) {
+		// for events we must create can't happens for all pre-existing
+		// states
+		if(newObject instanceof StateMachineEvent_c) {
+			final StateMachineEvent_c event = (StateMachineEvent_c) newObject;
+			StateMachine_c machine = StateMachine_c.getOneSM_SMOnR502(event);
+			StateMachineState_c[] states = StateMachineState_c
+					.getManySM_STATEsOnR501(machine);
+			for (StateMachineState_c state : states) {
+				StateEventMatrixEntry_c entry = StateEventMatrixEntry_c
+						.getOneSM_SEMEOnR503(state,
+								new ClassQueryInterface_c() {
+
+									@Override
+									public boolean evaluate(Object candidate) {
+										return ((StateEventMatrixEntry_c) candidate)
+												.getSmevt_id().equals(
+														event.getSmevt_id());
+									}
+								});
+				if(entry == null) {
+					SemEvent_c sem = SemEvent_c.getOneSM_SEVTOnR525(event);
+					StateEventMatrixEntry_c newEntry = new StateEventMatrixEntry_c(newObject.getModelRoot());
+					CantHappen_c ch = new CantHappen_c(newObject.getModelRoot());
+					ch.relateAcrossR504To(newEntry);
+					newEntry.relateAcrossR503To(state);
+					newEntry.relateAcrossR503To(sem);
+				}
+			}
+		}
+		if (newObject instanceof StateMachineState_c) {
+			final StateMachineState_c state = (StateMachineState_c) newObject;
+			StateMachine_c machine = StateMachine_c.getOneSM_SMOnR501(state);
+			StateMachineEvent_c[] events = StateMachineEvent_c
+					.getManySM_EVTsOnR502(machine);
+			for (StateMachineEvent_c event : events) {
+				SemEvent_c sem = SemEvent_c.getOneSM_SEVTOnR525(event);
+				StateEventMatrixEntry_c entry = StateEventMatrixEntry_c
+						.getOneSM_SEMEOnR503(sem, new ClassQueryInterface_c() {
+
+							@Override
+							public boolean evaluate(Object candidate) {
+								return ((StateEventMatrixEntry_c) candidate)
+										.getSmstt_id().equals(
+												state.getSmstt_id());
+							}
+						});
+				if(entry == null) {
+					StateEventMatrixEntry_c newEntry = new StateEventMatrixEntry_c(state.getModelRoot());
+					CantHappen_c ch = new CantHappen_c(state.getModelRoot());
+					ch.relateAcrossR504To(newEntry);
+					newEntry.relateAcrossR503To(sem);
+					newEntry.relateAcrossR503To(state);
+				}
+			}
+			// also check all events assigned to transitions leaving this state
+			// as they may have been created as part of this merge
+			Transition_c[] outgoing = Transition_c
+					.getManySM_TXNsOnR507(NewStateTransition_c
+							.getManySM_NSTXNsOnR504(StateEventMatrixEntry_c
+									.getManySM_SEMEsOnR503(state)));
+			for(Transition_c transition : outgoing) {
+				final StateMachineEvent_c evt = StateMachineEvent_c
+						.getOneSM_EVTOnR525(SemEvent_c.getOneSM_SEVTOnR503(StateEventMatrixEntry_c
+								.getOneSM_SEMEOnR504(NewStateTransition_c
+										.getOneSM_NSTXNOnR507(transition))));
+				StateMachineState_c[] states = StateMachineState_c
+						.getManySM_STATEsOnR501(machine);
+				for(StateMachineState_c otherState : states) {
+					StateEventMatrixEntry_c entry = StateEventMatrixEntry_c
+							.getOneSM_SEMEOnR503(otherState,
+									new ClassQueryInterface_c() {
+
+										@Override
+										public boolean evaluate(Object candidate) {
+											return ((StateEventMatrixEntry_c) candidate)
+													.getSmevt_id().equals(
+															evt.getSmevt_id());
+										}
+									});
+					if(entry == null) {
+						SemEvent_c sem = SemEvent_c.getOneSM_SEVTOnR525(evt);
+						StateEventMatrixEntry_c newEntry = new StateEventMatrixEntry_c(newObject.getModelRoot());
+						CantHappen_c ch = new CantHappen_c(newObject.getModelRoot());
+						ch.relateAcrossR504To(newEntry);
+						newEntry.relateAcrossR503To(otherState);
+						newEntry.relateAcrossR503To(sem);
+					}
+
+				}
+			}
+		}
+	}
+
 	private static int getLocationOfElement(Object parent, Object otherSideParent, Object element, ITreeDifferencerProvider contentProvider) {
 		int count = 0;
 		Object[] children = contentProvider.getChildrenOfType(parent,
@@ -511,7 +631,7 @@ public class ModelMergeProcessor {
 			return count;
 		}
 		// adjust for additions just before this one
-		for(int i = count - 1; i != 0; i--) {
+		for(int i = count; i != 0; i--) {
 			Object otherElement = children[i];
 			Object elementInOtherVersion = TreeDifferencer
 					.locateElementInOtherVersion(contentProvider
@@ -528,7 +648,7 @@ public class ModelMergeProcessor {
 		return count;
 	}
 	
-	private static NonRootModelElement importExternal(NonRootModelElement remoteObject, String export, NonRootModelElement parent, Ooaofooa modelRoot) {
+	private static NonRootModelElement importExternal(NonRootModelElement remoteObject, String export, NonRootModelElement parent, Ooaofooa modelRoot, int newElementLocation) {
 		NonRootModelElement newObject = null;
 		ModelStreamProcessor processor = new ModelStreamProcessor();
 		processor.setContents(export);
@@ -560,14 +680,16 @@ public class ModelMergeProcessor {
 								parentDetails.getAssociationNumber(),
 								parentDetails.getAssociationPhrase(),
 								parentDetails.getChildKeyLetters() };
-						IPersistableElementParentDetails remoteParentDetails = PersistenceManager.getHierarchyMetaData().getParentDetails(getMatchingElement(elem));
-						Object[] remoteDetails = new Object[] { remoteParentDetails.getParent(),
-								remoteParentDetails.getChild(),
-								remoteParentDetails.getAssociationNumber(),
-								remoteParentDetails.getAssociationPhrase(),
-								remoteParentDetails.getChildKeyLetters() };
-						int location = getLocationForElementInSource(remoteDetails);
-						callSetOrderOperation(location, localDetails);
+						if(newElementLocation == -1) {
+							IPersistableElementParentDetails remoteParentDetails = PersistenceManager.getHierarchyMetaData().getParentDetails(getMatchingElement(elem));
+							Object[] remoteDetails = new Object[] { remoteParentDetails.getParent(),
+									remoteParentDetails.getChild(),
+									remoteParentDetails.getAssociationNumber(),
+									remoteParentDetails.getAssociationPhrase(),
+									remoteParentDetails.getChildKeyLetters() };
+							newElementLocation = getLocationForElementInSource(remoteDetails);
+						}
+						callSetOrderOperation(newElementLocation, localDetails);
 						Method getLocationInOrdering = findMethod("Getlocationinordering", getMatchingElement(elem).getClass(), new Class[0]);
 						if(getLocationInOrdering != null) {
 							// adjust user configurable order, to do this we unassociate the new
@@ -680,9 +802,8 @@ public class ModelMergeProcessor {
 					}
 				}
 			} else {
-				diffElement = matchingComparable;
 				Object[] newChildren = contentProvider.getChildren(child);
-				recursivelyCopyChildren(newChildren, contentProvider, diffElement, modelRoot, differencer, rightToLeft);
+				recursivelyCopyChildren(newChildren, contentProvider, matchingComparable, modelRoot, differencer, rightToLeft);
 			}
 		}		
 	}
@@ -994,7 +1115,7 @@ public class ModelMergeProcessor {
 			ITreeContentProvider contentProvider, Ooaofooa modelRoot,
 			boolean rightToLeft, TreeDifferencer differencer, ObjectElement localElement, TreeDifference originalDifference) {
 		if (element.getName().equals("referential_To")
-				&& element.getParent() instanceof Transition_c) {
+				&& element.getParent() instanceof Transition_c && originalDifference != null) {
 			// in this case we are treating two different transitions as a
 			// conflict
 			// the reason is that a state cannot have two transitions out of it
@@ -1141,13 +1262,13 @@ public class ModelMergeProcessor {
 									.getOneSM_NSTXNOnR507((Transition_c) remoteTransition));
 					String remoteSEMEData = copyExternal(modelRoot, seme, false, false);
 					NonRootModelElement newSEME = importExternal(seme,
-							remoteSEMEData, state, modelRoot);
+							remoteSEMEData, state, modelRoot, -1);
 					newSEME.batchRelate(modelRoot, true, false);
 					String remoteTransitionData = copyExternal(modelRoot,
 							(Transition_c) remoteTransition, false, false);
 					final NonRootModelElement newObject = importExternal(
 							(Transition_c) remoteTransition,
-							remoteTransitionData, state, modelRoot);
+							remoteTransitionData, state, modelRoot, -1);
 					// locate the GD_GE associated with the new transition
 					// and update the path to the represented element
 					GraphicalElement_c remoteGelem = GraphicalElement_c
@@ -1420,7 +1541,7 @@ public class ModelMergeProcessor {
 			}
 			NonRootModelElement[] elements = new NonRootModelElement[] {(NonRootModelElement) element};
 			if(!writeAsProxy) {
-				NonRootModelElement[] specialElements = includeSpecialElements(element);
+				NonRootModelElement[] specialElements = includeSpecialElements(element, modelRoot);
 				// the stream export logic writes the supertype for
 				// an element if that element is the one selected
 				// we actually need to export (not just write the sql statement)
@@ -1490,8 +1611,8 @@ public class ModelMergeProcessor {
 		return "";
 	}
 
-	private static NonRootModelElement[] includeSpecialElements(Object element) {
-		NonRootModelElement[] specialElements = new NonRootModelElement[0];
+	private static NonRootModelElement[] includeSpecialElements(Object element, ModelRoot destinationRoot) {
+		List<NonRootModelElement> specialElements = new ArrayList<NonRootModelElement>();
 		if(element instanceof ClassAsSimpleParticipant_c) {
 			// must include the Simple Association instance
 			SimpleAssociation_c simp = SimpleAssociation_c.getOneR_SIMPOnR207((ClassAsSimpleParticipant_c) element);
@@ -1515,19 +1636,24 @@ public class ModelMergeProcessor {
 			Transition_c[] noEvents = Transition_c
 					.getManySM_TXNsOnR507(NoEventTransition_c
 							.getManySM_NETXNsOnR508((StateMachineState_c) element));
-			specialElements = new NonRootModelElement[transitions.length + noEvents.length];
-			int current = 0;
 			for(int i = 0; i < transitions.length; i++) {
 				Transition_c transition = transitions[i];
-				specialElements[i] = transition;
-				current = i;
+				StateMachineEvent_c event = StateMachineEvent_c
+						.getOneSM_EVTOnR525(SemEvent_c.getOneSM_SEVTOnR503(StateEventMatrixEntry_c
+								.getOneSM_SEMEOnR504(NewStateTransition_c
+										.getOneSM_NSTXNOnR507(transition))));
+				if(findObjectInDestination(destinationRoot, event) == null) {
+					// we need to include the event as well
+					specialElements.add(event);
+				}
+				specialElements.add(transition);
 			}
 			for(int i = 0; i < noEvents.length; i++) {
-				specialElements[current] = noEvents[i];
-				current++;
+				specialElements.add(noEvents[i]);
 			}
 		}
-		return specialElements;
+		return specialElements.toArray(new NonRootModelElement[specialElements
+				.size()]);
 	}
 
 }

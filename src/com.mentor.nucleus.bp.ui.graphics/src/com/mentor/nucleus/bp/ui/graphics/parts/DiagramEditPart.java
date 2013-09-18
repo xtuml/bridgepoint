@@ -48,6 +48,7 @@ import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.jface.preference.JFacePreferences;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.ui.IActionFilter;
+import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
@@ -490,7 +491,13 @@ public class DiagramEditPart extends AbstractGraphicalEditPart implements
 				udl.removeLayerFromModelMap(this);
 			}
 		}
-		getFigure().repaint();
+		// guarantee this is done on the UI thread
+		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				getFigure().repaint();
+			}
+		});
 	}
 
 	private boolean userDefinedLayerContains(IFigure figure, boolean connection) {
