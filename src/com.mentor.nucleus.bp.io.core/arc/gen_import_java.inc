@@ -862,14 +862,6 @@ ${result.body}\
       .// The relationship pointers are not initialized until later.
         ModelRoot.disableChangeNotification();
       try {
-    	if (!CoreImport.EditorLicenseWasChecked) {
-    		String projectName = Ooaofooa.getProjectNameFromModelRootId(modelRoot.getId());
-    		if (!projectName.equals("")) {
-    			// Check the license for usage tracking.
-    			BridgePointLicenseManager.isEditorLicensed();
-    			CoreImport.EditorLicenseWasChecked = true;
-    		}
-    	}
     	.if (class_name == "ImportModelStream")
     	if (!modelRoot.isCompareRoot() && !initialCheck && table.contains("_PROXY" )){
 	    	String path = (String)parms.lastElement();
