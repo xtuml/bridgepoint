@@ -168,6 +168,9 @@ public class ObjectElementComparable extends ComparableTreeObject {
 	@Override
 	public boolean isDerived() {
 		ObjectElement ele = (ObjectElement) realElement;
-		return ele.isDerived();
+		if(!ele.getName().equals("Action_Semantics")) {
+			return ele.isDerived();
+		}
+		return false;
 	}
 }
