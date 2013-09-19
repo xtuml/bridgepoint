@@ -78,8 +78,6 @@ public abstract class CoreImport implements IModelImport {
      */
     public static String bpSqlVersion = "6.1D";
 
-    protected static boolean EditorLicenseWasChecked = false;
-    
     public CoreImport(Ooaofooa modelRoot, InputStream inStream, boolean clearDatabase, boolean templateFile)
             throws IOException {
         m_success = false;
