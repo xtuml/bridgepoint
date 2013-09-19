@@ -179,20 +179,20 @@ public class MCBuilderArgumentHandler {
                 }
             	if (systemCIsPresent) {
 	              	licenseString = " -lSCs "; //$NON-NLS-1$
-	                if ( BridgePointLicenseManager.testLicense(BridgePointLicenseManager.LicenseAtomic.SYSTEMC_SOURCE_MC_LICENSE_CODE)) {
+	                if ( BridgePointLicenseManager.licenseExists(BridgePointLicenseManager.LicenseAtomic.SYSTEMC_SOURCE_MC_LICENSE_CODE)) {
 	                	isLicensed = true;
 		            }
             	} else if (vhdlIsPresent) {
 	              	licenseString = " -lVHs "; //$NON-NLS-1$
-	                if ( BridgePointLicenseManager.testLicense(BridgePointLicenseManager.LicenseAtomic.VHDL_SOURCE_MC_LICENSE_CODE)) {
+	                if ( BridgePointLicenseManager.licenseExists(BridgePointLicenseManager.LicenseAtomic.VHDL_SOURCE_MC_LICENSE_CODE)) {
 	                	isLicensed = true;
 		            }
             	}
             	
 	            if (!isLicensed) {
 	              	licenseString = " -l3s "; //$NON-NLS-1$
-	                if ( !BridgePointLicenseManager.testLicense(BridgePointLicenseManager.LicenseAtomic.MC3020SOURCE_MC_LICENSE_CODE) &&
-	                     !BridgePointLicenseManager.testLicense(BridgePointLicenseManager.LicenseAtomic.DAP_MC_LICENSE_CODE)) {
+	                if ( !BridgePointLicenseManager.licenseExists(BridgePointLicenseManager.LicenseAtomic.MC3020SOURCE_MC_LICENSE_CODE) &&
+	                     !BridgePointLicenseManager.licenseExists(BridgePointLicenseManager.LicenseAtomic.DAP_MC_LICENSE_CODE)) {
 	                	boolean priorheadlessValue = UIUtil.IsRunningHeadless;
 	                	if (!showErrorDialog) {
 	                		UIUtil.IsRunningHeadless = true;
@@ -203,9 +203,9 @@ public class MCBuilderArgumentHandler {
             	}
             } else {
                	licenseString = " -l3b "; //$NON-NLS-1$
-                if ( !BridgePointLicenseManager.testLicense(BridgePointLicenseManager.LicenseAtomic.MC3020BINARY_MC_LICENSE_CODE) &&
-                     !BridgePointLicenseManager.testLicense(BridgePointLicenseManager.LicenseAtomic.DAP_MC_LICENSE_CODE) &&
-                     !BridgePointLicenseManager.testLicense(BridgePointLicenseManager.LicenseAtomic.MC3020SOURCE_MC_LICENSE_CODE)) {
+                if ( !BridgePointLicenseManager.licenseExists(BridgePointLicenseManager.LicenseAtomic.MC3020BINARY_MC_LICENSE_CODE) &&
+                     !BridgePointLicenseManager.licenseExists(BridgePointLicenseManager.LicenseAtomic.DAP_MC_LICENSE_CODE) &&
+                     !BridgePointLicenseManager.licenseExists(BridgePointLicenseManager.LicenseAtomic.MC3020SOURCE_MC_LICENSE_CODE)) {
                 	boolean priorheadlessValue = UIUtil.IsRunningHeadless;
                 	if (!showErrorDialog) {
                 		UIUtil.IsRunningHeadless = true;
