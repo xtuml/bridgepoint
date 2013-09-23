@@ -638,7 +638,7 @@ public class ModelMergeProcessor {
 							.getComparableTreeObject(otherSideParent),
 							contentProvider
 									.getComparableTreeObject(otherElement),
-							contentProvider);
+							contentProvider, new Object[0]);
 			if(elementInOtherVersion == null) {
 				count--;
 			} else {
