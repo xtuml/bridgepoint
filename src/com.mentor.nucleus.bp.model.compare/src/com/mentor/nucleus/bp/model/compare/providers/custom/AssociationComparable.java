@@ -37,13 +37,29 @@ public class AssociationComparable extends NonRootModelElementComparable {
 				NonRootModelElement thisAssociation = (NonRootModelElement) getRealElement();
 				UUID thisMsgId = getAssociationId(thisAssociation);
 				UUID otherMsgId = getAssociationId(otherAssociation);
-				return thisMsgId.equals(otherMsgId);
+				UUID thisOirId = getObjectInAssociationId(thisAssociation);
+				UUID otherOirId = getObjectInAssociationId(otherAssociation);
+				return thisMsgId.equals(otherMsgId) && thisOirId.equals(otherOirId);
 			} else {
 				return false;
 			}
 		} else {
 			return true;
 		}
+	}
+
+	private UUID getObjectInAssociationId(NonRootModelElement association) {
+		UUID id = null;
+		if (association instanceof ClassAsSimpleParticipant_c) {
+			return ((ClassAsSimpleParticipant_c) association).getOir_id();
+		} else if (association instanceof ClassAsSimpleFormalizer_c) {
+			return ((ClassAsSimpleFormalizer_c) association).getOir_id();
+		} else if (association instanceof ClassAsAssociatedOneSide_c) {
+			return ((ClassAsAssociatedOneSide_c) association).getOir_id();
+		} else if (association instanceof ClassAsAssociatedOtherSide_c) {
+			return ((ClassAsAssociatedOtherSide_c) association).getOir_id();
+		}
+		return id;
 	}
 
 	private UUID getAssociationId(NonRootModelElement association) {
