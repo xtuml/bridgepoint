@@ -71,17 +71,17 @@ init_repository ()
     fi
   fi
   
-  echo -e "\nChanges for repository: ${repo_name}" >> ${diff_file}
-  echo -e "------------------------------------" >> ${diff_file}
-  # If the branch we're using is master, we want to diff our local master with origin
-  # first, then merge in the origin/master changes.  Otherwise, merge the origin/<branch>
-  # changes in, then diff with origin/master.
+  echo -e "\nChanges since yesterday for repository: ${repo_name}" >> ${diff_file}
+  echo -e "------------------------------------------------------" >> ${diff_file}
+  # If the branch we're using is master, we make a hard changeover to the state of origin/master.
+  # Otherwise, merge in the latest origin changes to the local branch (but don't autocommit
+  # fast forwards or stage other commits)
   if [ "${branch}" = "master" ]; then
-    git diff --name-status origin/master >> ${diff_file}
-    git merge origin/${branch}
+    git reset --hard origin/master
+    git diff --name-status HEAD@{yesterday} >> ${diff_file}
   else
-    git merge origin/${branch}
-    git diff --name-status origin/master >> ${diff_file}
+    git merge origin/${branch} --no-commit --no-ff
+    git diff --name-status HEAD@{yesterday} >> ${diff_file}
   fi
 }
 
