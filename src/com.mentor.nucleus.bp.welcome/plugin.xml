@@ -3,7 +3,7 @@
 <plugin
    id="com.mentor.nucleus.bp.welcome"
    name="BridgePoint UML Welcome Plug-in"
-   version="4.0.3"
+   version="4.0.6"
    provider-name="Mentor Graphics"
    class="com.mentor.nucleus.bp.welcome.WelcomePlugin">
 

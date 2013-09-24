@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: MC-3020 Model Compiler User Guide
 Bundle-SymbolicName: com.mentor.nucleus.help.bp.mc; singleton:=true
-Bundle-Version: 4.0.3
+Bundle-Version: 4.0.6
 Bundle-Vendor: Mentor Graphics
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.help
