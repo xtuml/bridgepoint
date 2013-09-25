@@ -446,12 +446,6 @@ public class TransactionManager {
 							}
 						}
 					}
-					if (deltas[j].getKind() == Modeleventnotification_c.DELTA_NEW) {
-						// Check the license.  If the user isn't licensed then return false and abort the transaction
-				        	if (!BridgePointLicenseManager.isEditorLicensed(modelElement.getClass().getSimpleName())) {
-							return false;
-						}
-					}
 				}
 			}
 		}

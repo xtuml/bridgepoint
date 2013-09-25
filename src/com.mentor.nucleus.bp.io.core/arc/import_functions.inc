@@ -202,12 +202,6 @@
 	  parms.setSize(${no_of_cols});
 	  
     .end if
-	.// Check license for licensed model elements
-	.invoke elementIsLicensed = isLicensedElement( cn.body )
-	.if (elementIsLicensed.result)
-        // Check the license.  This is used simply to track usage
-    	BridgePointLicenseManager.isEditorLicensed("${cn.body}");
-	.end if
     .if(multilevel)
         ${local_var} ${cn.body}.resolveInstance(modelRoot,
     .else

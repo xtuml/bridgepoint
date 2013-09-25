@@ -472,28 +472,29 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 					try {
 						exEng.setRealizedby(ctor.newInstance(ctorArgVals));
 					} catch (IllegalArgumentException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						CorePlugin.logError("Captured IllegalArguementException setting up realized execution for component " + comp.getName() + ".", e);
 					} catch (InstantiationException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+                        CorePlugin.logError("Captured InstantiationException setting up realized execution for component " + comp.getName() + ".", e);
 					} catch (IllegalAccessException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+                        CorePlugin.logError("Captured IllegalAccessException setting up realized execution for component " + comp.getName() + ".", e);
 					} catch (InvocationTargetException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
+	                    CorePlugin.logError("Captured InvocationTargetException setting up realized execution for component " + comp.getName() + ".", e);
 					}
 				} catch (ClassNotFoundException cnf) {
-					// TODO error message
+				    CorePlugin.err.println("An error occurred while setting up for realized execution. Please run Audit Realized Bindings.  The internal error message is: " + cnf.getMessage());
 				} catch (NoSuchMethodException nsme) {
-					// TODO error message
+                    CorePlugin.err.println("An error occurred while setting up for realized execution. Please run Audit Realized Bindings.  The internal error message is: " + nsme.getMessage());
 				}
 			} else {
-				// TODO error message
+			    Throwable e = new Throwable();
+			    e.fillInStackTrace();
+			    CorePlugin.logError("Could not find the expected classloader for " + sys.getName() + ".", e);
 			}
 		} else {
-			// TODO error message
+            Throwable e = new Throwable();
+            e.fillInStackTrace();
+            CorePlugin.logError("Could not find the expected system for the component " + comp.getName() + ". There appears to be a problem with the model data.", e);
 		}
 	}
 
