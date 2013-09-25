@@ -3,7 +3,7 @@
 <plugin
    id="com.mentor.nucleus.bp.mc.mc3020"
    name="BridgePoint MC-3020 Model Compiler"
-   version="4.0.3"
+   version="4.0.6"
    provider-name="Mentor Graphics"
    class="com.mentor.nucleus.bp.mc.mc3020.ModelCompiler">
    <runtime>

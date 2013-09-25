@@ -3,7 +3,7 @@
 <plugin
    id="com.mentor.nucleus.bp.verifier.pkg"
    name="BridgePoint Verifier"
-   version="4.0.3"
+   version="4.0.6"
    provider-name="Mentor Graphics"
    class="com.mentor.nucleus.bp.verfier.pkg.Unreferenced">
 
