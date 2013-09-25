@@ -30,6 +30,88 @@ MSD Weekly Meeting Minutes
 ### Customer Support Status
 **Item 1 -** text
 
+---
+
+    Date:     September 25, 2013
+    Start:    12:00 EDT
+    End:      12:40 EDT
+    Elapsed:  40 minutes
+    Present:  Bob, Keith, Travis, Campbell, Cort, others...
+            Dean, Robert, Jayne, others...
+
+### Engineering Status
+**visit with Northrop Grumman in Azusa, CA (Cort) -**
+
+This training came up rather suddenly.  They had been using Matlab, and a bit of Vista.  They were not satisfied 
+with how long it look to create the functional models they need.   They are interested in BridgePoint as a higher-level
+tool that may help provide the solution.   We provided initial training and are continueing to work with them to 
+provide support to help them move forward with their project.
+
+There are currently no BridgePoint licenses at Northrop Grumman.  We are hoping to introduce 
+BridgePonit into the upcoming Northrop Gruman license renewal that happens before the end of the year.
+
+**patch release - 4.0.6 -  (Keith) -**
+
+The release is scheduled for delivery to Ireland team on Friday (9/27/2013).  The version has been bumped and 
+Keith is working on the release notes.  We are putting in one more issue (Nehad's formalization
+wozard work).
+
+**training courses in Europe (Campbell) -**
+
+1) Preparing for a 4-day trainign course in Budapest (Ericsson) in October.  
+
+2) More training at Saab is scheduled for in November.
+
+3) Ericsson wants 2 more training sessions one befoe the end of the year and another at the beginning of 2014.
+
+
+**Ericsson ramping up (Bob/Cort) -**
+
+The 4.0.6 release is geared toward Ericsson.  It contains issues that they identified as critical to expansion. The 
+4.0.6 contains most of what Ericsson requested.  The 4.1 release which will follow in about 1 month contains the rest
+of what they requested.
+
+
+Ferenc met with John Wolfe and explained that in the next 18 months there will be
+significant growth.   There has been a management decision that is driving this.  The decision made
+is that all products must use one of 2 modeling solutions:
+
+Bridgepoint
+
+Conformic 
+
+This is what is driving the additional training.  Ericsson is training a
+key champion in each of the product development  groups.
+
+Jan has setup a meeting that includes Wally Rhines that describes the Duci plans, so there
+will be visibility to this directly to Wally.
+
+
+### Marketing Status
+**IESF Detroit (Cort on behalf of Dean) -**
+
+Dean reports a good amount of interest.  Dean will report more when he returns.
+
+**SAE Montreal info (Cort on behalf of Jayne) -**
+
+Jayne and Dean are at SAE in Montreal.  There is more BridgePoint 
+interest than anticipated.  Dean will report more when he returns.
+
+**Fuji-Xerox deal (Cort) -**
+
+Just made a deal for a little over 100K over the weekend.  It finally came through.  It will likely 
+result in some additional training.
+
+
+
+ 
+### Customer Support Status
+
+**Robert Rice ** There is a request from Saab to implement a UDT as constant.  Nothing else has come in.
+
+
+---
+
 
 ---
 
