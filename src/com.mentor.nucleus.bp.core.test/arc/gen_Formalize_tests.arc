@@ -527,10 +527,15 @@ ${ft.body}\
 		BinaryFormalizeOn${operand_kl}WizardPage1 page1 = (BinaryFormalizeOn${operand_kl}WizardPage1) wd.getCurrentPage();
 		BinaryFormalizeOn${operand_kl}WizardPage2 page2 = (BinaryFormalizeOn${operand_kl}WizardPage2) page1.getNextPage();
 		String strings[] = page1.Non_formalizerCombo.getItems();
+		boolean selected = false;
 		for (int i = 0; i < strings.length; ++i) {
 			if (strings[i].equals("${class.Name}")) {
 				page1.Non_formalizerCombo.select(i);
+				selected = true;
 			}
+		}
+		if (!selected){
+			page1.Non_formalizerCombo.select(0);
 		}
 		page1.updateSelectedNon_formalizer();
 		page2.onPageEntry(); 
