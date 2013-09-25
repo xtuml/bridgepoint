@@ -5,7 +5,7 @@ package com.mentor.nucleus.bp.core.ui;
 //Version:   $Revision:$
 //Modified:  $Date:$
 //
-//(c) Copyright 2005-2012 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
 //This document contains information proprietary and confidential to
