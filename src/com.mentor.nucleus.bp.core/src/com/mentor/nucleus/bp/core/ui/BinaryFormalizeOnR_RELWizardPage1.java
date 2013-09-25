@@ -92,10 +92,10 @@ public class BinaryFormalizeOnR_RELWizardPage1 extends PtWizardPage
 		if (v_non_formalizerInstances.length == 2
 				&& (v_non_formalizerInstances[0].getObj_id() .equals(v_non_formalizerInstances[1].getObj_id()))) {
 			Reflexsive = true;
-			setDescription(" select the class based on the text phrase at the end of the association line");
+			setDescription("Select the class based on the text phrase at the end of the association line");
 			if (v_non_formalizerInstances[0].getTxt_phrs().equalsIgnoreCase("")
 					&& v_non_formalizerInstances[1].getTxt_phrs() .equalsIgnoreCase(""))
-				Hint_message = "Hint : Enter association text phrases to be able to differentiate between association ends";
+				Hint_message = "Hint:  Enter association text phrases to be able to differentiate between association ends.";
 		}
 
 		ModelClass_c v_non_formalizer = null;

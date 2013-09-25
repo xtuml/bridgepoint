@@ -68,7 +68,7 @@ public class BinaryFormalizeOnR_RELWizardPage2 extends PtWizardPage
 
 	private void init() {
 		setTitle("Formalize Referential");
-		setDescription("Select the referential identifier whose will be used to formalize the association\n" + 
+		setDescription("Select the identifier which will be used to formalize the association.\n" + 
 		"Adding a prefix to the referential identifier is optional");
 	}
 
@@ -155,7 +155,7 @@ public class BinaryFormalizeOnR_RELWizardPage2 extends PtWizardPage
 			}
 		});
 		IdentifierLabel = new Label(composite, SWT.NONE);
-		IdentifierLabel.setText("Identifier");
+		IdentifierLabel.setText("goes with identifier");
 		IdentifierCombo = new Combo(composite, SWT.BORDER | SWT.READ_ONLY);
 		IdentifierCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
@@ -166,8 +166,8 @@ public class BinaryFormalizeOnR_RELWizardPage2 extends PtWizardPage
 		Note = new Label(composite, SWT.None);
 		Note.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 4, 1));
 
-		Note.setText("Note : The optional prefix text will be added at the beginning to the referential identifier name, prefix will\n" + 
-		"be essential in reflexive association to be able to differentiate between the original and referential identifier");
+		Note.setText("Note:  The optional prefix text will be added to the beginning of the referential attribute name." +
+				"\nThe prefix is essential in a reflexive association to distinguish the referential from the identifying attribute.");
 
 		// set the composite as the control for this page
 		setControl(composite);

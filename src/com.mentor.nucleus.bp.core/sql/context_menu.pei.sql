@@ -183,8 +183,8 @@ INSERT INTO CME VALUES ('',       'Combine With',       'O_ATTR',   '',         
 INSERT INTO CME VALUES ('',       'Split',              'O_ATTR',   '',                      false, 'Select reference to split from this one' );
 INSERT INTO CME VALUES ('Specialized Package',       'Assign Class',       'O_IOBJ',   '',        false, 'Select class this imported class represents' );
 INSERT INTO CME VALUES ('Binary',     'Formalize',      'R_REL',    '',                      false, 'Select the class whose identifier will be used to formalize the association' );
-INSERT INTO CME VALUES ('Linked',     'Formalize',      'R_REL',    '',                      false, 'Select identifier to use from each class' );
-INSERT INTO CME VALUES ('Linked',     'Formalize',      'R_ASSR',   '',                      false, 'Select identifier to use from each class' );
+INSERT INTO CME VALUES ('Linked',     'Formalize',      'R_REL',    '',                      false, 'Select the identifier to use from each class' );
+INSERT INTO CME VALUES ('Linked',     'Formalize',      'R_ASSR',   '',                      false, 'Select the identifier to use from each class' );
 INSERT INTO CME VALUES ('Inheritance','Formalize',      'R_REL',    '',                      false, 'Select identifier to use in supertype' );
 INSERT INTO CME VALUES ('Inheritance','Formalize',      'R_SUB',    '',                      false, 'Select identifier to use in supertype' );
 INSERT INTO CME VALUES ('',       'Unformalize',        'R_REL',    '',                      false, '' );
