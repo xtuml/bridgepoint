@@ -43,7 +43,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
 <plugin
    id="com.mentor.nucleus.bp.core"
    name="BridgePoint Core Plug-in"
-   version="4.0.3"
+   version="4.0.6"
    provider-name="Mentor Graphics"
    class="com.mentor.nucleus.bp.core.CorePlugin">
 
