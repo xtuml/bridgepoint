@@ -341,7 +341,8 @@
   	CopyPasteComponentReferences.java,
   	HierarchyTests.java,
   	LazyLoadingTests.java,
-  	SystemLevelTestsSuiteGenerics.java"
+  	SystemLevelTestsSuiteGenerics.java,
+  	ModelIntegrityTests.java"
   	
     />
 	
