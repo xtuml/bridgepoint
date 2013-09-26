@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="IO SQL Test" project="com.mentor.nucleus.bp.io.sql.test" tests="8" started="8" failures="0" errors="0" ignored="0">
+  <testsuite name="IOSqlTestSuite" time="1.003">
+    <testsuite name="com.mentor.nucleus.bp.io.sql.test.IOSqlTestsSuite" time="0.388">
+      <testcase name="testIOSqlTestSuite" classname="com.mentor.nucleus.bp.io.sql.test.IOSqlTestsSuite" time="0.388"/>
+    </testsuite>
+    <testsuite name="IOTest" time="0.615">
+      <testcase name="testImportOdmsFNF" classname="IOTest" time="0.008"/>
+      <testcase name="testImportOdmsAccessError" classname="IOTest" time="0.002"/>
+      <testcase name="testImportSyntaxError" classname="IOTest" time="0.005"/>
+      <testcase name="testImportMultDomainError" classname="IOTest" time="0.002"/>
+      <testcase name="testImportOdms" classname="IOTest" time="0.272"/>
+      <testcase name="testImportUnicode" classname="IOTest" time="0.27"/>
+      <testcase name="testPartiallyDerivedDomainImportExport" classname="IOTest" time="0.056"/>
+    </testsuite>
+  </testsuite>
+</testrun>

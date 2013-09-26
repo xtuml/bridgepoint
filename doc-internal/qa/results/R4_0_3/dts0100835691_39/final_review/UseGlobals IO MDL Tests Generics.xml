@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="UseGlobals IO MDL Tests Generics" project="com.mentor.nucleus.bp.io.mdl.test" tests="90" started="90" failures="0" errors="0" ignored="0">
+  <testsuite name="IOMdlGlobalsTestSuiteGenerics" time="231.309">
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.IOMdlGlobalsTestGenerics" time="0.188">
+      <testcase name="testGlobally" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlGlobalsTestGenerics" time="0.188"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.IOMdlNestedTestGenerics" time="4.835">
+      <testcase name="testCreateNestedDTP" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlNestedTestGenerics" time="2.43"/>
+      <testcase name="testCreateNestedFP" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlNestedTestGenerics" time="0.27"/>
+      <testcase name="testCreateNestedEEP" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlNestedTestGenerics" time="0.28"/>
+      <testcase name="testCreateNestedSS" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlNestedTestGenerics" time="0.477"/>
+      <testcase name="testUpgradeModelWithPublishReference" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlNestedTestGenerics" time="1.378"/>
+    </testsuite>
+    <testsuite name="IOMdlTestGenerics" time="195.717">
+      <testcase name="test_InteractionDiagramUpgradeTestsGenerics" classname="IOMdlTestGenerics" time="2.04"/>
+      <testcase name="test_nested_testGenerics" classname="IOMdlTestGenerics" time="1.91"/>
+      <testcase name="test_odmsGenerics" classname="IOMdlTestGenerics" time="4.199"/>
+      <testcase name="test_ooaofooa" classname="IOMdlTestGenerics" time="14.402"/>
+      <testcase name="test_ooaofgraphics" classname="IOMdlTestGenerics" time="3.326"/>
+      <testcase name="test_asc" classname="IOMdlTestGenerics" time="1.72"/>
+      <testcase name="test_BP50_evt" classname="IOMdlTestGenerics" time="2.026"/>
+      <testcase name="test_BP50_evt2" classname="IOMdlTestGenerics" time="1.758"/>
+      <testcase name="test_br1" classname="IOMdlTestGenerics" time="3.725"/>
+      <testcase name="test_br2" classname="IOMdlTestGenerics" time="3.918"/>
+      <testcase name="test_br1f" classname="IOMdlTestGenerics" time="2.857"/>
+      <testcase name="test_br2f" classname="IOMdlTestGenerics" time="2.814"/>
+      <testcase name="test_bridges" classname="IOMdlTestGenerics" time="2.189"/>
+      <testcase name="test_cl" classname="IOMdlTestGenerics" time="1.768"/>
+      <testcase name="test_dogs" classname="IOMdlTestGenerics" time="1.749"/>
+      <testcase name="test_enum1" classname="IOMdlTestGenerics" time="1.851"/>
+      <testcase name="test_enum2" classname="IOMdlTestGenerics" time="1.819"/>
+      <testcase name="test_enum3" classname="IOMdlTestGenerics" time="1.867"/>
+      <testcase name="test_enum4" classname="IOMdlTestGenerics" time="1.591"/>
+      <testcase name="test_event" classname="IOMdlTestGenerics" time="2.859"/>
+      <testcase name="test_ex1" classname="IOMdlTestGenerics" time="3.859"/>
+      <testcase name="test_ex2" classname="IOMdlTestGenerics" time="2.489"/>
+      <testcase name="test_ex3" classname="IOMdlTestGenerics" time="1.9"/>
+      <testcase name="test_G_ALL_G_EVT_LE_precreated" classname="IOMdlTestGenerics" time="2.242"/>
+      <testcase name="test_G_ALL_R_BRG_tim" classname="IOMdlTestGenerics" time="2.812"/>
+      <testcase name="test_G_ALL_multiple_exit_return" classname="IOMdlTestGenerics" time="1.798"/>
+      <testcase name="test_G_ALL_nested_invoke" classname="IOMdlTestGenerics" time="3.23"/>
+      <testcase name="test_G_ALL_performance_test1" classname="IOMdlTestGenerics" time="1.602"/>
+      <testcase name="test_G_ALL_performance_test2" classname="IOMdlTestGenerics" time="1.476"/>
+      <testcase name="test_G_ALL_performance_test3" classname="IOMdlTestGenerics" time="1.531"/>
+      <testcase name="test_G_ALL_performance_test4" classname="IOMdlTestGenerics" time="1.892"/>
+      <testcase name="test_G_ALL_performance_test5" classname="IOMdlTestGenerics" time="1.515"/>
+      <testcase name="test_G_ALL_performance_test6" classname="IOMdlTestGenerics" time="1.788"/>
+      <testcase name="test_G_ALL_performance_test7" classname="IOMdlTestGenerics" time="1.901"/>
+      <testcase name="test_G_ALL_select_where_enum" classname="IOMdlTestGenerics" time="2.143"/>
+      <testcase name="test_G_BRG_G_ALL_interop" classname="IOMdlTestGenerics" time="2.187"/>
+      <testcase name="test_G_COP_R_ALL_interop" classname="IOMdlTestGenerics" time="1.78"/>
+      <testcase name="test_G_EVT_PE_G_EVT_NLE_nle_ignored" classname="IOMdlTestGenerics" time="1.877"/>
+      <testcase name="test_G_IOP_MDA_self_event" classname="IOMdlTestGenerics" time="2.564"/>
+      <testcase name="test_G_IOP_R_ALL_interop" classname="IOMdlTestGenerics" time="2.138"/>
+      <testcase name="test_G_MDA_R_ALL_interop" classname="IOMdlTestGenerics" time="2.072"/>
+      <testcase name="test_G_STE_G_COP_compare_date" classname="IOMdlTestGenerics" time="1.593"/>
+      <testcase name="test_G_STE_G_EVT_PE_to_creation" classname="IOMdlTestGenerics" time="3.007"/>
+      <testcase name="test_G_STE_G_STE_pe_le_same_state" classname="IOMdlTestGenerics" time="3.337"/>
+      <testcase name="test_G_STE_assoc_rel" classname="IOMdlTestGenerics" time="2.889"/>
+      <testcase name="test_G_STE_del_inst_mult" classname="IOMdlTestGenerics" time="2.11"/>
+      <testcase name="test_im1" classname="IOMdlTestGenerics" time="3.623"/>
+      <testcase name="test_im2" classname="IOMdlTestGenerics" time="3.77"/>
+      <testcase name="test_im3" classname="IOMdlTestGenerics" time="3.865"/>
+      <testcase name="test_im4" classname="IOMdlTestGenerics" time="2.342"/>
+      <testcase name="test_ims" classname="IOMdlTestGenerics" time="5.344"/>
+      <testcase name="test_ims2" classname="IOMdlTestGenerics" time="2.906"/>
+      <testcase name="test_imx" classname="IOMdlTestGenerics" time="3.581"/>
+      <testcase name="test_init1" classname="IOMdlTestGenerics" time="1.849"/>
+      <testcase name="test_init2" classname="IOMdlTestGenerics" time="1.835"/>
+      <testcase name="test_interop_otherdom" classname="IOMdlTestGenerics" time="1.396"/>
+      <testcase name="test_memleak" classname="IOMdlTestGenerics" time="1.692"/>
+      <testcase name="test_mt1" classname="IOMdlTestGenerics" time="2.784"/>
+      <testcase name="test_no_inst" classname="IOMdlTestGenerics" time="1.83"/>
+      <testcase name="test_poly" classname="IOMdlTestGenerics" time="5.015"/>
+      <testcase name="test_reflexive" classname="IOMdlTestGenerics" time="2.937"/>
+      <testcase name="test_select" classname="IOMdlTestGenerics" time="1.861"/>
+      <testcase name="test_self" classname="IOMdlTestGenerics" time="1.736"/>
+      <testcase name="test_sm" classname="IOMdlTestGenerics" time="2.857"/>
+      <testcase name="test_sync" classname="IOMdlTestGenerics" time="2.074"/>
+      <testcase name="test_syntax" classname="IOMdlTestGenerics" time="3.016"/>
+      <testcase name="test_trans" classname="IOMdlTestGenerics" time="2.036"/>
+      <testcase name="test_wim2" classname="IOMdlTestGenerics" time="3.643"/>
+      <testcase name="test_wim3" classname="IOMdlTestGenerics" time="2.943"/>
+      <testcase name="test_wims" classname="IOMdlTestGenerics" time="5.263"/>
+      <testcase name="test_wimx" classname="IOMdlTestGenerics" time="3.247"/>
+      <testcase name="testImportSyntaxError" classname="IOMdlTestGenerics" time="0.002"/>
+      <testcase name="testImportOdmsFNF" classname="IOMdlTestGenerics" time="0.073"/>
+      <testcase name="testImportOdmsAccessError" classname="IOMdlTestGenerics" time="0.001"/>
+      <testcase name="testExportOdmsWithGraphicsFNF" classname="IOMdlTestGenerics" time="0.029"/>
+      <testcase name="testExportOdmsWithGraphicsAccessError" classname="IOMdlTestGenerics" time="0.002"/>
+      <testcase name="testImportOdms" classname="IOMdlTestGenerics" time="3.662"/>
+      <testcase name="testExportOdmsWithGraphics" classname="IOMdlTestGenerics" time="0.381"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.IOMdlUnicodeTestGenerics" time="4.673">
+      <testcase name="testUnicode" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlUnicodeTestGenerics" time="4.673"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.ImportReferencedIPRModelTest" time="2.045">
+      <testcase name="test_nothing" classname="com.mentor.nucleus.bp.io.mdl.test.ImportReferencedIPRModelTest" time="2.045"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.ImportPasteElementsWithIPRTest" time="11.618">
+      <testcase name="test_ImportModelWithIPR" classname="com.mentor.nucleus.bp.io.mdl.test.ImportPasteElementsWithIPRTest" time="5.583"/>
+      <testcase name="testCopyPasteElementWithIPR" classname="com.mentor.nucleus.bp.io.mdl.test.ImportPasteElementsWithIPRTest" time="6.035"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.ProxyTestsGenerics" time="0.057">
+      <testcase name="testConvertToProxyAfterComponentUnload" classname="com.mentor.nucleus.bp.io.mdl.test.ProxyTestsGenerics" time="0.057"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.StaleProxyExportTestGenerics" time="12.176">
+      <testcase name="testStaleProxyExport" classname="com.mentor.nucleus.bp.io.mdl.test.StaleProxyExportTestGenerics" time="12.176"/>
+    </testsuite>
+  </testsuite>
+</testrun>
