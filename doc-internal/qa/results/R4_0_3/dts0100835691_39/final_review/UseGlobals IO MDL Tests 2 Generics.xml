@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="UseGlobals IO MDL Tests 2 Generics" project="com.mentor.nucleus.bp.io.mdl.test" tests="77" started="77" failures="0" errors="0" ignored="0">
+  <testsuite name="IOMdlGlobalsTestSuite2Generics" time="205.774">
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.IOMdlIIGlobalsTestGenerics" time="0.434">
+      <testcase name="testGlobally" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlIIGlobalsTestGenerics" time="0.434"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.IOMdlTestSuiteIIGenerics" time="0.094">
+      <testcase name="testIOMdlTestSuiteII" classname="com.mentor.nucleus.bp.io.mdl.test.IOMdlTestSuiteIIGenerics" time="0.094"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.wizards.ImportWizardTestsGenerics" time="1.673">
+      <testcase name="testNoOrphanedElementsOnImportOfCoreDataTypePackage" classname="com.mentor.nucleus.bp.io.mdl.test.wizards.ImportWizardTestsGenerics" time="1.673"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.ConsistencyTestSuite" time="101.132">
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="3.699"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.194"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.656"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.035"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.305"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.024"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="0.924"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.098"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.043"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.057"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.165"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.821"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.5"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="0.943"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.862"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.208"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.353"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="0.991"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.352"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.195"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.04"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.083"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.072"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.069"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.086"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.126"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.799"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.238"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.144"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.241"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.14"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.151"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.5"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.235"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.176"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.741"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.781"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.938"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="2.65"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.308"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="2.296"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.482"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.832"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.3"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.187"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.195"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.189"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.215"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.732"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.131"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.259"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.463"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.231"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.239"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.25"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.342"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="2.114"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.194"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.362"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="2.026"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.21"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="2.275"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.362"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.401"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="2.629"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="2.022"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="1.704"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="2.509"/>
+      <testcase name="testMCModelConsistency" classname="com.mentor.nucleus.bp.io.mdl.test.MCModelConsistencyGenericsGlobals" time="2.037"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.OALPersistenceTestsGenerics" time="79.015">
+      <testcase name="testPersistOAL" classname="com.mentor.nucleus.bp.io.mdl.test.OALPersistenceTestsGenerics" time="19.043"/>
+      <testcase name="testOALInstancesCreatedWhileBuild" classname="com.mentor.nucleus.bp.io.mdl.test.OALPersistenceTestsGenerics" time="15.111"/>
+      <testcase name="testOALInstancesExportedProperly" classname="com.mentor.nucleus.bp.io.mdl.test.OALPersistenceTestsGenerics" time="44.861"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.SLDTTestsGenerics" time="0.51">
+      <testcase name="testCoreTypeOfSLDTForNewProject" classname="com.mentor.nucleus.bp.io.mdl.test.SLDTTestsGenerics" time="0.51"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.io.mdl.test.DataUpgradeCreatesNoDeltasTestGenerics" time="22.916">
+      <testcase name="testUpgradeCreatesNoDeltas" classname="com.mentor.nucleus.bp.io.mdl.test.DataUpgradeCreatesNoDeltasTestGenerics" time="22.916"/>
+    </testsuite>
+  </testsuite>
+</testrun>

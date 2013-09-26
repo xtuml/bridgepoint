@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("17a29ce8-9086-4ae6-882c-d06e97dd58b6",
@@ -25,14 +25,14 @@ INSERT INTO GD_MD
 	0,
 	0,
 	'',
-	'FormalizeUnformalizeTests::USS General Import');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::USS General Import');
 INSERT INTO GD_GE
 	VALUES ("7f44be2b-a9dd-4e6d-a775-b56e903c2827",
 	"918ff3cd-7634-4109-bca3-4ef0d4dc5226",
 	"7e54f4da-69a3-4605-ba51-9d2d10a37182",
 	21,
 	0,
-	'FormalizeUnformalizeTests::USS General Import::TestClassImp 1');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::USS General Import::TestClassImp 1');
 INSERT INTO GD_SHP
 	VALUES ("7f44be2b-a9dd-4e6d-a775-b56e903c2827");
 INSERT INTO GD_NCS
@@ -56,7 +56,7 @@ INSERT INTO GD_GE
 	"68643ca3-961e-4ec0-93bc-f62d0bb7a5d3",
 	21,
 	0,
-	'FormalizeUnformalizeTests::USS General Import::TestClassImp 2');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::USS General Import::TestClassImp 2');
 INSERT INTO GD_SHP
 	VALUES ("640e1acc-048d-4d37-a56d-d684c30aa9ae");
 INSERT INTO GD_NCS
@@ -80,7 +80,7 @@ INSERT INTO GD_GE
 	"cdcdc11a-46e6-4cea-8f9e-c8faeb52349f",
 	21,
 	0,
-	'FormalizeUnformalizeTests::USS General Import::TestClassImp 3');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::USS General Import::TestClassImp 3');
 INSERT INTO GD_SHP
 	VALUES ("7e9d489e-8945-48f6-b251-217e90dcd69f");
 INSERT INTO GD_NCS
@@ -104,7 +104,7 @@ INSERT INTO GD_GE
 	"5587d9fa-2996-4657-b645-89b688473360",
 	21,
 	0,
-	'FormalizeUnformalizeTests::USS General Import::TestClassImp 4');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::USS General Import::TestClassImp 4');
 INSERT INTO GD_SHP
 	VALUES ("16d089f2-f020-48e5-9671-a77105f6f8f1");
 INSERT INTO GD_NCS
@@ -128,7 +128,7 @@ INSERT INTO GD_GE
 	"a8a94e29-e5f9-427c-9c74-401c2df51cff",
 	21,
 	0,
-	'FormalizeUnformalizeTests::USS General Import::TestClassImp 5');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::USS General Import::TestClassImp 5');
 INSERT INTO GD_SHP
 	VALUES ("59e95538-1669-49a3-97d0-deffc740e2e0");
 INSERT INTO GD_NCS
@@ -152,7 +152,7 @@ INSERT INTO GD_GE
 	"06450155-bdda-4301-a486-db883f5df695",
 	21,
 	0,
-	'FormalizeUnformalizeTests::USS General Import::TestClassImp 6');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::USS General Import::TestClassImp 6');
 INSERT INTO GD_SHP
 	VALUES ("d1054da3-44f5-441a-a108-1394ae2ddb7d");
 INSERT INTO GD_NCS

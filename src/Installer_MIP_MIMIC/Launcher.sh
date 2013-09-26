@@ -1,6 +1,6 @@
 #!/bin/bash
 BPHOMEDIR="C:/mgc/BridgePoint"
-BP_VERSION="4.0.3"
+BP_VERSION="4.0.6"
 
 function die() {
   echo -e $@

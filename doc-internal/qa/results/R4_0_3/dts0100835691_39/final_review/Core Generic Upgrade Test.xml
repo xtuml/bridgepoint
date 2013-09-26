@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="Core Generic Upgrade Test" project="com.mentor.nucleus.bp.core.test" tests="39" started="39" failures="0" errors="0" ignored="0">
+  <testsuite name="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="3.846">
+    <testcase name="testGlobalMigrationOperationParameterDomain" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="3.769"/>
+    <testcase name="testGlobalMigrationOperationDomain" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.044"/>
+    <testcase name="testGlobalMigrationAttributeDomain" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testGlobalMigrationStateMachineEventDataItemDomain" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testGlobalMigrationBridgeDomain" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testGlobalMigrationBridgeParameterDomain" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testGlobalMigrationFunctionDomain" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testGlobalMigrationFunctionParameterDomain" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.0"/>
+    <testcase name="testGlobalMigrationStructureMemberDomain" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testGlobalMigrationUserDataTypeDomain" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testGlobalMigrationSymbolicConstantDomain" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.0"/>
+    <testcase name="testGlobalMigrationOperationParameterComponent" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testGlobalMigrationOperationComponent" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.0"/>
+    <testcase name="testGlobalMigrationAttributeComponent" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testGlobalMigrationStateMachineEventDataItemComponent" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testGlobalMigrationBridgeComponent" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testGlobalMigrationBridgeParameterComponent" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testGlobalMigrationFunctionComponent" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testGlobalMigrationFunctionParameterComponent" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.0"/>
+    <testcase name="testGlobalMigrationStructureMemberComponent" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.0"/>
+    <testcase name="testGlobalMigrationUserDataTypeComponent" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testGlobalMigrationSymbolicConstantComponent" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.0"/>
+    <testcase name="testGlobalMigrationPropertyParameter" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testGlobalMigrationInterfaceOperation" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.0"/>
+    <testcase name="testFunctionPackageParticipantUpgrade" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testSystemModelConversion" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testDomainConversion" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.0"/>
+    <testcase name="testSequenceConversion" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testComponentPackageConversion" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testInterfacePackageConversion" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testDomainAsComponentConversion" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testDataTypePackageConversion" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testSubsystemConversion" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testActivityConversion" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testUseCaseConversion" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.001"/>
+    <testcase name="testCommunicationConversion" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.002"/>
+    <testcase name="testFunctionPackageConversion" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.002"/>
+    <testcase name="testExternalEntityPackageConversion" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.002"/>
+    <testcase name="testNoSpecilizedPackagesExist" classname="com.mentor.nucleus.bp.core.test.migrateToGenerics.UpdateToGenericsAndGlobalsTests" time="0.002"/>
+  </testsuite>
+</testrun>

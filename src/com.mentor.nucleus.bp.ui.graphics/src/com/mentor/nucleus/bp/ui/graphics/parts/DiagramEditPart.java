@@ -244,7 +244,7 @@ public class DiagramEditPart extends AbstractGraphicalEditPart implements
 	// We will keep a list of prior versions, plus the current version
 	// here.  Use these to determine when upgrades should occur.
 	// 
-	public static String CURRENT_GRAPHICS_VERSION = "4.0.3"; // $NON-NLS-1$ 
+	public static String CURRENT_GRAPHICS_VERSION = "4.0.6"; // $NON-NLS-1$ 
 	
 	public void upgradeModelData() {
 		Model_c model = (Model_c) getModel();

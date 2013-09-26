@@ -9,9 +9,6 @@ AssignEventOnSM_TXNAction.java
 AssignEventOnSM_TXNWizard.java
 AssignEventOnSM_TXNWizardPage1.java
 BinaryFormalizeOnR_RELAction.java
-BinaryFormalizeOnR_RELWizard.java
-BinaryFormalizeOnR_RELWizardPage1.java
-BinaryFormalizeOnR_RELWizardPage2.java
 CantHappenEventOnSM_STATEAction.java
 CantHappenEventOnSM_STATEWizard.java
 CantHappenEventOnSM_STATEWizardPage1.java

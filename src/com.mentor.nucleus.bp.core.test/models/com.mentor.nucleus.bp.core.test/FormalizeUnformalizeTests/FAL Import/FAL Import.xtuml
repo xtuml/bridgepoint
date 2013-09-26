@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("8a1b0dcf-9078-4e97-9327-d8ef2e6a6d5b",
@@ -25,14 +25,14 @@ INSERT INTO GD_MD
 	0,
 	0,
 	'',
-	'FormalizeUnformalizeTests::FAL Import');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::FAL Import');
 INSERT INTO GD_GE
 	VALUES ("38d71dc0-2869-4b12-81e5-a5bf5a9416c6",
 	"c94cf952-9f86-4a4f-bbb8-0d55e9f27733",
 	"631e2733-a6de-4e17-a892-a2c50089b806",
 	21,
 	0,
-	'FormalizeUnformalizeTests::FAL Import::FormalizeASSR IOBJ_OBJ OBJ');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::FAL Import::FormalizeASSR IOBJ_OBJ OBJ');
 INSERT INTO GD_SHP
 	VALUES ("38d71dc0-2869-4b12-81e5-a5bf5a9416c6");
 INSERT INTO GD_NCS
@@ -56,7 +56,7 @@ INSERT INTO GD_GE
 	"5bf37239-9fa8-4439-a316-1f85b8daabfa",
 	21,
 	0,
-	'FormalizeUnformalizeTests::FAL Import::FormalizeASSR IOBJ_OBJ IOBJ');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::FAL Import::FormalizeASSR IOBJ_OBJ IOBJ');
 INSERT INTO GD_SHP
 	VALUES ("9cbf42ac-bbbc-4fcc-b66d-41b32dd7697e");
 INSERT INTO GD_NCS
@@ -80,7 +80,7 @@ INSERT INTO GD_GE
 	"b506f1c4-8126-4642-946b-bb39ea3ff262",
 	21,
 	0,
-	'FormalizeUnformalizeTests::FAL Import::FormalizeASSR IOBJ_IOBJ IOBJ');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::FAL Import::FormalizeASSR IOBJ_IOBJ IOBJ');
 INSERT INTO GD_SHP
 	VALUES ("e6103f45-d9e8-47fa-bfcd-e631dc193112");
 INSERT INTO GD_NCS
@@ -104,7 +104,7 @@ INSERT INTO GD_GE
 	"49ff234c-0635-4145-ad79-504ac33d1ee6",
 	21,
 	0,
-	'FormalizeUnformalizeTests::FAL Import::FormalizeASSRReflexive IOBJ_OBJ');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::FAL Import::FormalizeASSRReflexive IOBJ_OBJ');
 INSERT INTO GD_SHP
 	VALUES ("d16b12e4-6642-4daa-a648-cf1e8b01998d");
 INSERT INTO GD_NCS
@@ -128,7 +128,7 @@ INSERT INTO GD_GE
 	"dc659063-3296-44dd-ad22-99793fa8c587",
 	21,
 	0,
-	'FormalizeUnformalizeTests::FAL Import::FormalizeASSRReflexive IOBJ_IOBJ');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::FAL Import::FormalizeASSRReflexive IOBJ_IOBJ');
 INSERT INTO GD_SHP
 	VALUES ("8f538f5d-be2d-467e-8f67-e7e9945560db");
 INSERT INTO GD_NCS

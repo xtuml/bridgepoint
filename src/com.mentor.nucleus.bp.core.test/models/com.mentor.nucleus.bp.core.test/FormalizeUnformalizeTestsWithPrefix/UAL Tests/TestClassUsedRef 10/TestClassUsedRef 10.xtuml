@@ -1,0 +1,125 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("444324e7-7aca-486d-940e-f2b25e4056c1",
+	'TestClassUsedRef 10',
+	1222,
+	'KEY',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("444324e7-7aca-486d-940e-f2b25e4056c1",
+	"014296ca-4cfb-4f4d-9e5d-274c3dae4e0c",
+	0,
+	"38b5fb37-6e5a-4fdf-b066-e3f018b15644",
+	"d5cb7412-a76d-4770-93b7-3a6b617b9fdf",
+	"c3dab458-bcc9-4ad4-a9b7-ef301fd8f3c8",
+	"5bf19a79-0ce1-40d2-b393-a0b4c780bf35",
+	"01cd9cf6-0e11-4a68-ad1b-1f0de86795c3",
+	"d4695211-135f-4e25-bd6e-ac243fb2c30b",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'TestClassImp 8',
+	'testAttrFormalizer',
+	'R1215');
+INSERT INTO R_RGO_PROXY
+	VALUES ("444324e7-7aca-486d-940e-f2b25e4056c1",
+	"d5cb7412-a76d-4770-93b7-3a6b617b9fdf",
+	"c3dab458-bcc9-4ad4-a9b7-ef301fd8f3c8",
+	'../UAL Tests.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("38b5fb37-6e5a-4fdf-b066-e3f018b15644",
+	"014296ca-4cfb-4f4d-9e5d-274c3dae4e0c",
+	0,
+	"d5cb7412-a76d-4770-93b7-3a6b617b9fdf",
+	"5bf19a79-0ce1-40d2-b393-a0b4c780bf35",
+	'../UAL Tests.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("01cd9cf6-0e11-4a68-ad1b-1f0de86795c3",
+	"444324e7-7aca-486d-940e-f2b25e4056c1",
+	"ade1ea91-989b-4a7f-b404-b418cf166ed6",
+	"c3c45edd-4b7b-44b6-8763-128cc6b777fe",
+	1,
+	'testAttrFormalizer');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("ade1ea91-989b-4a7f-b404-b418cf166ed6",
+	"c3c45edd-4b7b-44b6-8763-128cc6b777fe",
+	'../../UAL Import/UnformalizeASSRReflexive IOBJ_IOBJ UsedRef/UnformalizeASSRReflexive IOBJ_IOBJ UsedRef.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("01cd9cf6-0e11-4a68-ad1b-1f0de86795c3",
+	"444324e7-7aca-486d-940e-f2b25e4056c1",
+	"00000000-0000-0000-0000-000000000000",
+	'testAttrFormalizer',
+	'',
+	'',
+	'testAttrFormalizer',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("444324e7-7aca-486d-940e-f2b25e4056c1",
+	"014296ca-4cfb-4f4d-9e5d-274c3dae4e0c",
+	0,
+	"55f21de9-8cf4-4dbd-87af-f1abe5616ed0",
+	"d5cb7412-a76d-4770-93b7-3a6b617b9fdf",
+	"c3dab458-bcc9-4ad4-a9b7-ef301fd8f3c8",
+	"5bf19a79-0ce1-40d2-b393-a0b4c780bf35",
+	"ad9337fe-eb09-4e2e-b62b-8a2cdc3abaf8",
+	"91ccf7f5-5837-4586-9a67-12a3fbd3ffdd",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'TestClassImp 8',
+	'testAttrFormalizer',
+	'R1215');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("55f21de9-8cf4-4dbd-87af-f1abe5616ed0",
+	"014296ca-4cfb-4f4d-9e5d-274c3dae4e0c",
+	0,
+	"d5cb7412-a76d-4770-93b7-3a6b617b9fdf",
+	"5bf19a79-0ce1-40d2-b393-a0b4c780bf35",
+	'../UAL Tests.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("ad9337fe-eb09-4e2e-b62b-8a2cdc3abaf8",
+	"444324e7-7aca-486d-940e-f2b25e4056c1",
+	"ade1ea91-989b-4a7f-b404-b418cf166ed6",
+	"c3c45edd-4b7b-44b6-8763-128cc6b777fe",
+	1,
+	'testAttrFormalizer');
+INSERT INTO O_ATTR
+	VALUES ("ad9337fe-eb09-4e2e-b62b-8a2cdc3abaf8",
+	"444324e7-7aca-486d-940e-f2b25e4056c1",
+	"01cd9cf6-0e11-4a68-ad1b-1f0de86795c3",
+	'testAttrFormalizer',
+	'',
+	'',
+	'testAttrFormalizer',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"444324e7-7aca-486d-940e-f2b25e4056c1");
+INSERT INTO O_ID
+	VALUES (1,
+	"444324e7-7aca-486d-940e-f2b25e4056c1");
+INSERT INTO O_ID
+	VALUES (2,
+	"444324e7-7aca-486d-940e-f2b25e4056c1");
+INSERT INTO PE_PE
+	VALUES ("444324e7-7aca-486d-940e-f2b25e4056c1",
+	1,
+	"4f126451-d370-4f85-ae79-a0230e597c7c",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("4f126451-d370-4f85-ae79-a0230e597c7c",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'UAL Tests',
+	'',
+	0,
+	'../UAL Tests.xtuml');

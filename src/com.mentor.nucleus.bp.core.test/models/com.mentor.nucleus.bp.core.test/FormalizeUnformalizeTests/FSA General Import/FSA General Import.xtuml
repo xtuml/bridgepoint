@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("a0d06eee-16c8-419d-9017-d2a6766c3c76",
@@ -25,14 +25,14 @@ INSERT INTO GD_MD
 	0,
 	0,
 	'',
-	'FormalizeUnformalizeTests::FSA General Import');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::FSA General Import');
 INSERT INTO GD_GE
 	VALUES ("ea74ac42-3be5-44bf-9df1-b1516baa4920",
 	"bb13369a-0201-4f91-a0db-30e2497f77d8",
 	"45fc67a6-8d50-4229-a207-f92d6b193332",
 	21,
 	0,
-	'FormalizeUnformalizeTests::FSA General Import::TestClassImp 1');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::FSA General Import::TestClassImp 1');
 INSERT INTO GD_SHP
 	VALUES ("ea74ac42-3be5-44bf-9df1-b1516baa4920");
 INSERT INTO GD_NCS
@@ -56,7 +56,7 @@ INSERT INTO GD_GE
 	"e143a87e-174b-4f96-a02e-71e07648e1ba",
 	21,
 	0,
-	'FormalizeUnformalizeTests::FSA General Import::TestClassImp 2');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::FSA General Import::TestClassImp 2');
 INSERT INTO GD_SHP
 	VALUES ("0536c779-8537-463a-9b19-9585323d5aa8");
 INSERT INTO GD_NCS
