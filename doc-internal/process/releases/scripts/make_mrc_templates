@@ -1,0 +1,41 @@
+#!/bin/ksh
+#set -x
+# This script creates templates for Seamless CVE, Platform Express and Seamless ASAP MRC documents.
+# the functions sp take a string and replaces the first parameter for the second in it.
+# if the corporate template changes then it needs to be downloaded and modified to match the
+# required patterns below.
+# gwb 12/05/2003
+
+master=20091211
+gawk '
+     BEGIN{found=0};
+     /I approve this release for shipment/{print $0;found=1};
+     found==1 && $0 !~ /I approve this release for shipment/{print $0};
+' mrc_checklist_master_${master}.html > tail_mrc_template.html
+for product in AutoSAR_CAN AutoSAR_LIN AutoSAR_COM AutoSAR_WD AutoSAR_Memory BridgePoint Codelink asap fpga h2c inFact perspecta px s4c seamless systemvision Volcano_BL Volcano_DSM Volcano_LTP_SRC Volcano_LTP Volcano_NWM Volcano_TLM Volcano_VNA Volcano_VTP ; do
+     if [ -f  ${product}_head_mrc_template.html ] ; then
+        egrep "Revision: 18" ${product}_head_mrc_template.html > /dev/null  2>&1
+        if [ $? -ne 0 ] ; then
+           mv  ${product}_head_mrc_template.html  ${product}_head_mrc_template.pre_${master}.html
+        fi
+     fi
+gawk '
+     BEGIN{found=0;crit=0};
+     /I approve this release for shipment/{found=1};
+     /criteria can be found at/{crit=1};
+     /Date:/{date=1};
+     found==0 && crit==1 && /____________________<o:p><\/o:p><\/span><\/b><\/p>/{sp("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"http://beta.wv.mentorg.com/codesign/Release_Criteria.txt\">/user/gbales/Release_Criteria.txt</a><o:p></o:p></span></b></p>","____________________<o:p></o:p></span></b></p>",$0);next};
+     found==0 && /Name: _________________________/{sp("<u>%RELEASE_NAME%</u>","_________________________",$0);crit=0;next};
+     found==0 && /Captain: _______________________/{sp("<u>Garry W. Bales</u>","_______________________",$0);next};
+     found==0 && date==1 && /____________<o:p><\/o:p><\/span><\/b><\/p>/{sp("<u>%DATE%</u>","____________",$0);date=0;next};
+     found==0 && /______________________________________________<o:p><\/o:p><\/span><\/b><\/p>/{sp("<u>%RELEASE_RESTRICTIONS%</u><o:p></o:p></span></b></p><br><b>Release Description:<u>%RELEASE_DESCRIPTION%</u></b><br>","______________________________________________<o:p></o:p></span></b></p>",$0);next};
+     found==0 && /\[&nbsp; \] PASS/{sp("[X] PASS","[&nbsp; ] PASS",$0);next};
+     found==0 && /\[  \] PASS/{sp("[X]&nbsp; PASS","[  ] PASS",$0);next};
+     found==0 && /\/pub\/incoming\/ESDM<u>\/&lt;release name&gt;<\/u>/{sp("%ESDM%","/pub/incoming/ESDM<u>/&lt;release name&gt;</u>",$0);next};
+     found==0 && /style="FONT-FAMILY: Arial">___________________________________<\/span><\/b><\/p>/{sp("<u>%RELEASE_PATH%</u>","___________________________________",$0);next};
+     found==0 {print $0};
+     function sp(a,b,c){
+        printf("%s%s%s\n",substr(c,1,index(c,b)-1),a,substr(c,index(c,b)+length(b)));
+     };
+' mrc_checklist_master_${master}.html > ${product}_head_mrc_template.html
+done
