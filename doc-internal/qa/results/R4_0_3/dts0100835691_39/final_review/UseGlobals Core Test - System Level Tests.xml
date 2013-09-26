@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="UseGlobals Core Test - System Level Tests" project="com.mentor.nucleus.bp.core.test" tests="22" started="22" failures="0" errors="0" ignored="0">
+  <testsuite name="SystemLevelGlobalsTestSuite" time="10.84">
+    <testsuite name="com.mentor.nucleus.bp.core.test.SystemLevelGlobalsTest" time="0.379">
+      <testcase name="testGlobally" classname="com.mentor.nucleus.bp.core.test.SystemLevelGlobalsTest" time="0.379"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.ComponentContextMenuTests" time="5.842">
+      <testcase name="testContextMenuDeleteActionOnCL_IC" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTests" time="3.286"/>
+      <testcase name="testContextMenuDisconnectActionOnCL_IR" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTests" time="0.124"/>
+      <testcase name="testContextMenuDisconnectActionOnCL_IP" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTests" time="0.113"/>
+      <testcase name="testContextMenuDisconnectActionOnC_P" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTests" time="0.107"/>
+      <testcase name="testContextMenuDisconnectActionOnC_R" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTests" time="0.503"/>
+      <testcase name="testContextMenuUnassignActionOnCL_IC" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTests" time="0.146"/>
+      <testcase name="testContextMenuDeleteActionOnIP_IP" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTests" time="0.128"/>
+      <testcase name="testContextMenuRenameActionOnEP_PKG" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTests" time="0.019"/>
+      <testcase name="testContextMenuAssignSignalActionOnSM_TXN" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTests" time="0.259"/>
+      <testcase name="testContextMenuAssignSignalActionOnSM_TXNInnerComponent" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTests" time="0.169"/>
+      <testcase name="testContextMenuAssignSignalActionOnSM_TXNCantUseSameTwice" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTests" time="0.172"/>
+      <testcase name="testContextMenuAssignSignalActionOnSM_TXNCantUseSameTwiceInnerComponent" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTests" time="0.211"/>
+      <testcase name="testContextMenuAssignSignalActionOnSM_TXNGoesAway" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTests" time="0.22"/>
+      <testcase name="testContextMenuAssignSignalActionOnSM_TXNInteractionWithEvent" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTests" time="0.097"/>
+      <testcase name="testContextMenuAssignSignalActionOnSM_TXNGoesAwayInnerComponent" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTests" time="0.199"/>
+      <testcase name="testContextMenuAssignSignalActionOnSM_TXNInteractionWithEventInnerComponent" classname="com.mentor.nucleus.bp.core.test.ComponentContextMenuTests" time="0.089"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.ImportedComponentIFTests" time="1.256">
+      <testcase name="testSingleComponentInScopeInterface" classname="com.mentor.nucleus.bp.core.test.ImportedComponentIFTests" time="1.053"/>
+      <testcase name="testMultipleComponentAtLeastOneInScopeIF" classname="com.mentor.nucleus.bp.core.test.ImportedComponentIFTests" time="0.058"/>
+      <testcase name="testRemovalOfImportedReferenceOnReFormalization" classname="com.mentor.nucleus.bp.core.test.ImportedComponentIFTests" time="0.145"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.core.test.RemoveSignalTests" time="3.363">
+      <testcase name="testRemoveSignal" classname="com.mentor.nucleus.bp.core.test.RemoveSignalTests" time="2.961"/>
+      <testcase name="testDeleteTransitionThatHasAnAssignedSignal" classname="com.mentor.nucleus.bp.core.test.RemoveSignalTests" time="0.402"/>
+    </testsuite>
+  </testsuite>
+</testrun>

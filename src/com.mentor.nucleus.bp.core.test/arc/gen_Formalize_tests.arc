@@ -525,13 +525,17 @@ ${ft.body}\
 		IStructuredSelection structuredSelection = Selection.getInstance().getStructuredSelection();
 		WizardDialog wd = fa.${operand_kl}_BinaryFormalize(structuredSelection);
 		BinaryFormalizeOn${operand_kl}WizardPage1 page1 = (BinaryFormalizeOn${operand_kl}WizardPage1) wd.getCurrentPage();
-        assertEquals ("Class", page1.Non_formalizerLabel.getText());
 		BinaryFormalizeOn${operand_kl}WizardPage2 page2 = (BinaryFormalizeOn${operand_kl}WizardPage2) page1.getNextPage();
 		String strings[] = page1.Non_formalizerCombo.getItems();
+		boolean selected = false;
 		for (int i = 0; i < strings.length; ++i) {
 			if (strings[i].equals("${class.Name}")) {
 				page1.Non_formalizerCombo.select(i);
+				selected = true;
 			}
+		}
+		if (!selected){
+			page1.Non_formalizerCombo.select(0);
 		}
 		page1.updateSelectedNon_formalizer();
 		page2.onPageEntry(); 
@@ -590,10 +594,6 @@ ${ft.body}\
 		LinkedFormalizeOn${operand_kl}WizardPage${wizard_page_num} page1 = (LinkedFormalizeOn${operand_kl}WizardPage${wizard_page_num}) wd.getCurrentPage();
     .select any oir related by class->R_OIR[R201]
     .select one rel related by oir->R_REL[R201]
-    .select one aone_obj related by rel->R_ASSOC[R206]->R_AONE[R209]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
-    .select one aoth_obj related by rel->R_ASSOC[R206]->R_AOTH[R210]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201]
-        assertEquals( "${aone_obj.Name}", page1.One_idLabel.getText() );
-        assertEquals( "${aoth_obj.Name}", page1.Oth_idLabel.getText() );
   .end if
   		page1.onPageEntry();
 		IWizard w = page1.getWizard();		

@@ -299,6 +299,7 @@
   	TigerNatureTestGenerics.java,
   	TigerNatureWorkspaceSetupTestGenerics.java,
   	ActivityTestsGenerics.java,
+  	FormalizeUnformalizeWithPrefixTestGenerics.java,
   	CanRenameCanDeleteTestGenerics.java,
 	CombineSplitReferentialsTestGenerics.java,
   	CommunicationLinkTestsGenerics.java,
@@ -340,7 +341,8 @@
   	CopyPasteComponentReferences.java,
   	HierarchyTests.java,
   	LazyLoadingTests.java,
-  	SystemLevelTestsSuiteGenerics.java"
+  	SystemLevelTestsSuiteGenerics.java,
+  	ModelIntegrityTests.java"
   	
     />
 	
