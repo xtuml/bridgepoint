@@ -1,0 +1,77 @@
+========================================================================
+
+File:      $RCSfile: HOWTO-update-exact-access-dates.txt,v $
+Version:   $Revision: 1.5 $
+Modified:  $Date: 2010/11/03 14:19:07 $
+
+(c) Copyright 2007-2010 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+References
+----------
+[1] svn://tucson.wv.mentorg.com/arch1/products/tiger/doc_repository/Development/
+        LicenseManagement/eclipse/plugins/product_generator
+[2] Bug 2548, http://phoenix.projtech.com/bugzilla/show_bug.cgi?id=2548
+[3] Bug 2919, http://phoenix.projtech.com/bugzilla/show_bug.cgi?id=2919
+[4] Generator build instructions, <CVS>/model_compilers/generator/gen_erate/
+      README.txt
+[5] Prepping for release, <CVS>/Documentation/internal/process/releases/
+      HOWTO-build-a-release.txt
+
+
+How to Update Exact Access Dates in BridgePoint
+-----------------------------------------------
+1) Branch the follow projects to begin development:
+        com.mentor.nucleus.bp.core
+        model_compilers/generator/gen_erate
+
+2) Open bp.core/src/com/mentor/nucleus/bp/core/util/BridgePointLicenseManager.java
+    a) Edit the variable MGLS_XTUML_APP_DATE with the new date. (e.g. Oct 10 2010)
+    
+3) Update exact access date in Generator
+    a) Open model_compilers\generator\gen_erate\bp_source\win32\7.1B\utility\
+         src\u_bplic.c
+    b) Find the define MGLS_XTUML_APP_DATE
+    c) Update the exact access date (e.g. Oct 10 2010)
+    d) Open model_compilers\generator\gen_erate\bp_source\win32\7.1B\main\src\
+         gen_erate\main_gen_erate.cc
+    e) Touch the file (add a space and remove it)
+
+4) Check in all modified projects
+
+5) Get all modified projects promoted to HEAD
+
+6) After promotion, rebuild generator [4], then put the new generator EXE on
+    the server [5, 1a] so it is included in the build.
+
+End
+---
+$Log: HOWTO-update-exact-access-dates.txt,v $
+Revision 1.5  2010/11/03 14:19:07  kbrown
+job:dts0100668202
+Update the HOWTO doc that describes how to update the exact access date for the new non-EDGE licensing.
+
+Revision 1.4  2010/01/05 04:29:50  kbrown
+job:dts0100644853
+Batch commit of copyright change from 2009 to 2010 for BP CVS projects.
+
+Revision 1.3  2009/01/01 23:14:16  rmulvey
+Job:4060
+Batch promotion of copyright changes from Review-i4060 and Review-i4060-01.
+
+Revision 1.2.4.1  2008/12/31 16:11:33  rmulvey
+Job:4060
+This is a batch commit of 2009 copyright changes to branch Review-i4060.  This includes the
+report that outlines all changes made (before/after for each line changed).  This report is found here: <cvs>/Documentation/internal/test_results/R2_1_2/i4060/update-copyright-results.txt.
+
+Revision 1.2  2008/04/07 21:07:58  rmulvey
+Job:3462
+Updated the copyright for 2008.
+
+Revision 1.1  2007/07/12 21:14:08  kbrown
+Job:2919
+Created document that details how to update the exact access date in the plugins and generator.

@@ -1,0 +1,145 @@
+========================================================================
+
+File:      $RCSfile: CD\040creation\040scripts.txt,v $
+Version:   $Revision: 1.13 $
+Modified:  $Date: 2013/06/14 20:06:03 $
+
+(c) Copyright 2006-2010 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+BridgePoint Technical Note
+Release CD Creation
+
+Abstract
+--------
+This note describes how to create the BridgePoint CD and Web data for a release
+of the product.  The script is run as part of the release process [1].  The 
+mk_cds_rdme_mrc_BridgePoint.ksh and mk_cd_image scripts create the release 
+repository at /wv/svd_for_cd/BridgePoint_<version>. 
+
+References
+----------
+[1] HOWTO-release-through-WOF.txt
+
+Secondary Files
+---------------
+create_xml_BridgePoint
+    Is usually run by the mk_cds_rdme_mrc_BridgePoint.ksh script.  If not it
+    needs to be run by hand to create the xml files after the 
+    mk_cds_rdme_mrc_BridgePoint.ksh script is run. 
+ 
+/project/miami/For_CD/templates (\\wv\dfs\seamless_archives\templates)
+    MGC_LICENSE.txt                       Text version of the current EULA
+    BridgePoint_head_mrc_template.html    Template with some answers filled in
+    tail_mrc_template.html                Close of the document
+    make_mrc_templates                    Script which take the html base 
+                                            template from WOF and creates the 
+                                            various product templates
+
+Steps
+-----
+Log in to tucson.wv.mentorg.com
+
+#
+# 1) Make sure account is prepped
+#   You must have a .netrc file set up in your /user/$USER dir (and /home/$USER
+#   if that dir exists).  If not, create it and add this line:
+#     default login ftp password <your e-mail>@mentor.com
+#
+cd /user/$USER
+ls .netrc
+
+#
+# 2) Stage the installers
+#
+cd /user/$USER
+mkdir -p downloads/BridgePoint/installers
+cd downloads/BridgePoint/installers
+cp /arch1/products/tiger/releases/<release tag>/*.ixl .
+cp /arch1/products/tiger/releases/<release tag>/*.exe .
+mv BridgePoint_<release tag>_<datestamp>.ixl BridgePoint_<release num>.ixl
+mv BridgePoint_<release tag>_<datestamp>.exe BridgePoint_<release num>.exe
+
+#
+# 3) Prep the MRC
+#   NOTE: If you are only updating the application executables and not the
+#         documentation you may skip to step 6 now.
+#
+Open Documentation/internal/process/releases/scripts/BridgePoint_head_mrc_template.html
+  - Update the effective date in the file to be the MS date
+  - Update the OSS additions and subtractions
+  - Read through the document making any other required changes
+  - Check in the file to CVS
+Open \\wv\dfs\seamless_archives\templates
+Copy the updated file from your local machine into the network directory
+
+#
+# 4) VNC to cveixl4qa2
+#
+# NOTE: Skip this step if you have a Linux VM you can log into on the WV network
+#
+# The BP documentation needs to be unpacked and made available for the build
+# scripts.  This is done by VNC-ing into a Linux host in WV and running the 
+# Linux installer.  The aforementioned server is managed by Garry Bales. 
+#
+telnet to cveixl4qa2
+run "vncserver" from the command prompt
+note the display session information (e.g.  cveixl4qa2:3)
+run "vncpasswd" if required (i.e. if you've never VNC'd here before)
+use a VNC viewer application (like TightVNC) to VNC to the noted machine
+  display
+Log in with the VNC password you set
+If the screensaver kicks in, login with your MG UNIX user/pass
+
+#
+# 5) Run the Linux installer to make documentation tree available
+#
+Log into your linux VM (or open a terminal on the VNC desktop from step 4)
+cd /wv/seamlessweb/usr3/downloads/BridgePoint
+rm -rf MentorGraphics/
+cd /user/$USER/downloads/BridgePoint/installers
+./BridgePoint*.ixl
+#  During the target selection, replace /home/<user> with 
+#  /wv/seamlessweb/usr3/downloads/BridgePoint
+
+#
+# 6) Get the release registration number
+#   
+Navigate to: http://mentorweb.wv.mentorg.com/ReleaseRegistration/
+In the Release Name dropdown list, select "BridgePoint", click Search
+Note the release number/SKU (e.g. 201002064) for the release your packaging
+  now. Should be the top item in the list.
+
+#
+# 7) Run the scripts to create the release cd and web structure
+#   NOTE: if the file is there but when you try to run it you get a "command
+#   not found" error, it means you need to run dos2unix on the script to convert
+#   it to unix format.
+#
+#   NOTE: if there has been new documentation added under bp.doc for this
+#   release, you must update the mk_cds_rdme_mrc_BridgePoint.ksh and
+#   create_xml_BridgePoint scripts and put them into place before running it.
+#
+go back to the tucson.wv shell
+cd /wv/seamless_archives/bin
+./mk_cds_rdme_mrc_BridgePoint.ksh
+    - Enter e-mail
+    - Enter version (e.g 3.1.2)
+    - Enter release location to use (likely use default given)
+        NOTE: If you are just updating the executables and not documentation, 
+              answer "N" to the query about deleting the existing directory.
+    - Enter Release Number (e.g. 201002064)
+    - Enter a reason (e.g. Bug fixes, enhancements, new features)
+    - The script will search for the linux installer. Enter type of release.
+    - The script will search for the Windows installer. Enter type of release.
+    - If you are just updating executables, you will be prompted about skipping
+      the re-creation of documentation.  Answer as you wish. (y or n)
+    - Depending on your previous answer, the script will create the web and CD 
+      trees at <release location>/ (as you specified in substep 3 above)
+    - Proceed back to [1 §9]
+
+ 
