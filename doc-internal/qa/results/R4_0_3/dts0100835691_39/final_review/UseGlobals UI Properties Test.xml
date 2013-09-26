@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="UseGlobals UI Properties Test" project="com.mentor.nucleus.bp.ui.properties.test" tests="162" started="162" failures="0" errors="0" ignored="0">
+  <testsuite name="PropertiesGlobalsTestSuite" time="15.467">
+    <testsuite name="com.mentor.nucleus.bp.ui.properties.test.PropertiesGlobalsTest" time="0.216">
+      <testcase name="testGlobally" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesGlobalsTest" time="0.216"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.properties.test.IsAllowedTypeTest" time="0.823">
+      <testcase name="testAttributeIsAllowedType" classname="com.mentor.nucleus.bp.ui.properties.test.IsAllowedTypeTest" time="0.669"/>
+      <testcase name="testRefAttributeIsAllowedType" classname="com.mentor.nucleus.bp.ui.properties.test.IsAllowedTypeTest" time="0.01"/>
+      <testcase name="testBridgeIsAllowedReturnType" classname="com.mentor.nucleus.bp.ui.properties.test.IsAllowedTypeTest" time="0.012"/>
+      <testcase name="testFunctionIsAllowedReturnType" classname="com.mentor.nucleus.bp.ui.properties.test.IsAllowedTypeTest" time="0.011"/>
+      <testcase name="testOperationIsAllowedReturnType" classname="com.mentor.nucleus.bp.ui.properties.test.IsAllowedTypeTest" time="0.019"/>
+      <testcase name="testBridgeParameterIsAllowedType" classname="com.mentor.nucleus.bp.ui.properties.test.IsAllowedTypeTest" time="0.022"/>
+      <testcase name="testFunctionParameterIsAllowedType" classname="com.mentor.nucleus.bp.ui.properties.test.IsAllowedTypeTest" time="0.026"/>
+      <testcase name="testOperationParameterIsAllowedType" classname="com.mentor.nucleus.bp.ui.properties.test.IsAllowedTypeTest" time="0.019"/>
+      <testcase name="testStateMachineEventDataItemIsAllowedType" classname="com.mentor.nucleus.bp.ui.properties.test.IsAllowedTypeTest" time="0.024"/>
+      <testcase name="testUserDataTypeIsAllowedCoreType" classname="com.mentor.nucleus.bp.ui.properties.test.IsAllowedTypeTest" time="0.011"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.properties.test.NumberRangeTest" time="0.012">
+      <testcase name="testModelClass" classname="com.mentor.nucleus.bp.ui.properties.test.NumberRangeTest" time="0.005"/>
+      <testcase name="testAssociation" classname="com.mentor.nucleus.bp.ui.properties.test.NumberRangeTest" time="0.002"/>
+      <testcase name="testStateMachineEvent" classname="com.mentor.nucleus.bp.ui.properties.test.NumberRangeTest" time="0.003"/>
+      <testcase name="testStateMachineState" classname="com.mentor.nucleus.bp.ui.properties.test.NumberRangeTest" time="0.001"/>
+      <testcase name="testStateMachineConfig_ID" classname="com.mentor.nucleus.bp.ui.properties.test.NumberRangeTest" time="0.001"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.071">
+      <testcase name="testAttributePfx_Mode" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.005"/>
+      <testcase name="testReferentialAttributeRef_Mode" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.005"/>
+      <testcase name="testOperationInstance_Based" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.004"/>
+      <testcase name="testStateMachineEventIs_Lbl_U" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.001"/>
+      <testcase name="testStateMachineStateFinal" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.001"/>
+      <testcase name="testDerivedBaseAttributeSuc_Pars" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.002"/>
+      <testcase name="testImportedClassModl_Typ" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.001"/>
+      <testcase name="testOperationParameterBy_Ref" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.003"/>
+      <testcase name="testOperationSuc_Pars" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.001"/>
+      <testcase name="testAoneMultCond" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.002"/>
+      <testcase name="testAOthMultCond" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.001"/>
+      <testcase name="testCOneMultCond" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.003"/>
+      <testcase name="testCOthMult" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.003"/>
+      <testcase name="testLinkMult" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.002"/>
+      <testcase name="testPartMultCond" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.004"/>
+      <testcase name="testFormMultCond" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.002"/>
+      <testcase name="testBridgeParameterBy_Ref" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.003"/>
+      <testcase name="testBridgeBrg_Typ" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.004"/>
+      <testcase name="testBridgeSuc_Pars" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.001"/>
+      <testcase name="testCoreDataTypeCore_Typ" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.004"/>
+      <testcase name="testFunctionParameterBy_Ref" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.005"/>
+      <testcase name="testFunctionSuc_Pars" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.004"/>
+      <testcase name="testUserDataTypeGen_Type" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.004"/>
+      <testcase name="testActionSuc_Pars" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.001"/>
+      <testcase name="testLinkStartVisibility" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.004"/>
+      <testcase name="testLinkEndVisibility" classname="com.mentor.nucleus.bp.ui.properties.test.EnumRangeTest" time="0.001"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.14">
+      <testcase name="testSystemModel_SystemProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.008"/>
+      <testcase name="testFunction_FunctionProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testFunctionParameter_FunctionParameterProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.0"/>
+      <testcase name="testClassStateMachine_ClassStateChartProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testStateMachineState_StateProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.006"/>
+      <testcase name="testDataType_DataTypeProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.003"/>
+      <testcase name="testEnumerator_EnumeratorProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testExternalEntity_ExternalEntityProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testBridge_BridgeProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testBridgeParameter_BridgeParameterProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.0"/>
+      <testcase name="testAssociation_AssociationProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testImportedClass_ImportedClassProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.003"/>
+      <testcase name="testDerivedBaseAttribute_DerivedAttributeProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.0"/>
+      <testcase name="testClassAsSimpleParticipant_AssociationParticipantEndProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.003"/>
+      <testcase name="testClassAsSimpleFormalizer_AssociationFormalizerEndProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.0"/>
+      <testcase name="testClassAsAssociatedOneSide_AssociativeOneEndProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testClassAsAssociatedOtherSide_AssociativeOtherEndProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testClassAsLink_AssociativeProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.0"/>
+      <testcase name="testClassAsSupertype_SupertypeProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testClassAsSubtype_SubtypeProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testClassAsDerivedOneSide_DerivedOneEndProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testClassAsDerivedOtherSide_DerivedOtherEndProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.0"/>
+      <testcase name="testAction_ActionProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testEventIgnored_EventIgnoredProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testCantHappen_EventCantHappenProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.003"/>
+      <testcase name="testUserDataType_UserDefinedDataTypeProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.0"/>
+      <testcase name="testCoreDataType_CoreDataTypeProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testEnumerationDataType_EnumerationProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testDerivedAssociation_DerivedAssociationProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.003"/>
+      <testcase name="testReferentialAttribute_ReferentialAttributeProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.0"/>
+      <testcase name="testNonLocalEvent_InheritedEventProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.003"/>
+      <testcase name="testExternalEntityEventData_ExternalEntityEventDataProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testInstanceAttributeValue_FormalInstanceAttributeValuesProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testExternalEntityParticipant_ImportedExternalEntitiesProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testLifespan_LifespansProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testClassParticipantAttribute_InformalAttributesProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testTimingMark_TimingMarksProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testTimeSpan_TimeSpansProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testSynchronousMessage_SynchronousMessagesProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testAsynchronousMessage_AsynchronousMessagesProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.004"/>
+      <testcase name="testMessageArgument_InformalMessageArgumentsProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testMessageArgument_MessageArgumentsProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.005"/>
+      <testcase name="testInstanceAttributeValue_InformalInstanceAttributeValuesProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testActorParticipant_ActorsProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testReturnMessage_ReturnMessagesProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testCommunicationLink_CommunicationLinksProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testUseCaseParticipant_UseCasesProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testBinaryAssociation_UseCaseAssociationsProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testGeneralization_UseCaseGeneralizationsProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testInclude_UseCaseIncludesProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testExtend_UseCaseExtendsProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testForkJoinNode_ForkJoinsProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testInitialNode_InitialNodesProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testActivityEdge_ActivityEdgesProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testActivityFinalNode_ActivityFinalNodesProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.0"/>
+      <testcase name="testFlowFinalNode_FlowFinalNodesProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testActivityDiagramAction_ActivityDiagramActionsProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testDecisionMergeNode_DecisionMergeNodesProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testObjectNode_ObjectNodesProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testAcceptEventAction_AcceptEventActionsProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testSendSignal_SendSignalActionsProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testActivityPartition_ActivityPartitionsProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testAcceptTimeEventAction_AcceptTimeEventActionsProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testStructuredDataType_StructuredDataTypeProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testStructureMember_StructureMemberProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.004"/>
+      <testcase name="testTransition_TransitionsProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.003"/>
+      <testcase name="testComponentParticipant_ComponentParticipantsProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.003"/>
+      <testcase name="testConstantSpecification_ConstantSpecificationProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testLiteralSymbolicConstant_LiteralSymbolicConstantProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.005"/>
+      <testcase name="testSymbolicConstant_SymbolicConstantProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.0"/>
+      <testcase name="testNewBaseAttribute_NonDerivedAttributeProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testPolymorphicEvent_PolymorphicEventProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.0"/>
+      <testcase name="testReferredToIdentifierAttribute_ReferencedIdentifierProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testSEMEvent_EventProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.003"/>
+      <testcase name="testInformalSynchronousMessage_InformalMessageProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testInformalAsynchronousMessage_InformalMessageProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testFunctionMessage_FormalFunctionProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.001"/>
+      <testcase name="testBridgeMessage_FormalBridgeOperationProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testOperationMessage_FormalOperationProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testInterfaceOperationMessage_FormalInterfaceOperationProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testEventMessage_FormalEventProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testSignalMessage_FormalSignalProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+      <testcase name="testInformalArgument_InformalArgumentProperties" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest" time="0.002"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.properties.test.DeleteUDTWithPropertyShowing" time="0.098">
+      <testcase name="testDeleteUDT" classname="com.mentor.nucleus.bp.ui.properties.test.DeleteUDTWithPropertyShowing" time="0.098"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest2" time="8.075">
+      <testcase name="testNoPropertiesAreAdvancedAndBasicCategoryFirst" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest2" time="2.663"/>
+      <testcase name="testBasicCategoryListedFirst" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest2" time="0.72"/>
+      <testcase name="testPropertiesMarkedAsNotShownAreNotShown" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest2" time="0.68"/>
+      <testcase name="testSpaceNotAllowedInModelElementsNameProperty" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest2" time="1.036"/>
+      <testcase name="testIsFormalForFormalInstanceAttributeValue" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest2" time="0.588"/>
+      <testcase name="testIsFormalForInformalInstanceAttributeValue" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest2" time="0.599"/>
+      <testcase name="testChooserDialogForChildProperty" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesViewTest2" time="1.788"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.properties.test.RefreshTestProp" time="4.334">
+      <testcase name="testPropertiesFormalClassOperationMessage" classname="com.mentor.nucleus.bp.ui.properties.test.RefreshTestProp" time="0.971"/>
+      <testcase name="testPropertiesFormalBridgeOperationMessage" classname="com.mentor.nucleus.bp.ui.properties.test.RefreshTestProp" time="0.357"/>
+      <testcase name="testPropertiesFormalEventMessage" classname="com.mentor.nucleus.bp.ui.properties.test.RefreshTestProp" time="0.334"/>
+      <testcase name="testPropertiesFormalFunctionMessage" classname="com.mentor.nucleus.bp.ui.properties.test.RefreshTestProp" time="0.31"/>
+      <testcase name="testPropertiesFormalInstanceEntity" classname="com.mentor.nucleus.bp.ui.properties.test.RefreshTestProp" time="0.324"/>
+      <testcase name="testPropertiesFormalExternalEntity" classname="com.mentor.nucleus.bp.ui.properties.test.RefreshTestProp" time="0.277"/>
+      <testcase name="testPropertiesFormalClassEntity" classname="com.mentor.nucleus.bp.ui.properties.test.RefreshTestProp" time="0.299"/>
+      <testcase name="testPropertiesFormalFunctionPkgEntity" classname="com.mentor.nucleus.bp.ui.properties.test.RefreshTestProp" time="0.306"/>
+      <testcase name="testPropertiesFormalClassOperationMessageArgument" classname="com.mentor.nucleus.bp.ui.properties.test.RefreshTestProp" time="0.291"/>
+      <testcase name="testPropertiesFormalBridgeOperationMessageArgument" classname="com.mentor.nucleus.bp.ui.properties.test.RefreshTestProp" time="0.273"/>
+      <testcase name="testPropertiesFormalEventMessageArgument" classname="com.mentor.nucleus.bp.ui.properties.test.RefreshTestProp" time="0.289"/>
+      <testcase name="testPropertiesFormalFunctionMessageArgument" classname="com.mentor.nucleus.bp.ui.properties.test.RefreshTestProp" time="0.303"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.ui.properties.test.PropertiesRenameTests" time="1.698">
+      <testcase name="testRenameFunctionParameter" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesRenameTests" time="1.349"/>
+      <testcase name="testRenameOperationParameter" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesRenameTests" time="0.016"/>
+      <testcase name="testRenameBridgeParameter" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesRenameTests" time="0.02"/>
+      <testcase name="testRenameFunction" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesRenameTests" time="0.021"/>
+      <testcase name="testRenameOperation" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesRenameTests" time="0.028"/>
+      <testcase name="testRenameBridge" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesRenameTests" time="0.025"/>
+      <testcase name="testRenameStateMachineEventDataItem" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesRenameTests" time="0.019"/>
+      <testcase name="testRenameEnumerator" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesRenameTests" time="0.014"/>
+      <testcase name="testRenameLiteralSymbolicConstant" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesRenameTests" time="0.016"/>
+      <testcase name="testRenameStructureMember" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesRenameTests" time="0.014"/>
+      <testcase name="testRenameInterfaceOperation" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesRenameTests" time="0.017"/>
+      <testcase name="testRenameInterfaceSignal" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesRenameTests" time="0.013"/>
+      <testcase name="testRenameMessageArgument" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesRenameTests" time="0.019"/>
+      <testcase name="testRenamePackageInvalidOSChar" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesRenameTests" time="0.052"/>
+      <testcase name="testRenameClassInvalidOSChar" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesRenameTests" time="0.031"/>
+      <testcase name="testRenameComponentInvalidOSChar" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesRenameTests" time="0.02"/>
+      <testcase name="testRenameInterfaceInvalidOSChar" classname="com.mentor.nucleus.bp.ui.properties.test.PropertiesRenameTests" time="0.024"/>
+    </testsuite>
+  </testsuite>
+</testrun>
