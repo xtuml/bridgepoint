@@ -465,7 +465,7 @@
     XtUMLNature.java, ResourceChangeListener.java, ResourceUpdaterModelChangeListener.java,
       common/*.java,
       ui/PtWizardPage.java,ui/Selection.java,ui/IModelImport.java,ui/AbstractModelImportFactory.java,
-    ui/AbstractModelExportFactory.java, ui/NewDomainWizard.java,
+    ui/AbstractModelExportFactory.java, ui/NewDomainWizard.java, ui/BinaryFormalizeOnR_RELWizard.java, ui/BinaryFormalizeOnR_RELWizardPage1.java, ui/BinaryFormalizeOnR_RELWizardPage2.java,
     ui/NewSystemWizard.java, ui/ToggleNatureAction.java, ui/CopyCutAction.java, ui/PasteAction.java,
     ui/WizardNewDomainCreationPage.java, ui/WizardNewSystemCreationPage.java, ui/CutAction.java, ui/CopyAction.java, ui/SetBPProjectPreferencesAction.java,
     ui/perspective/BridgePointPerspective.java,ui/preferences/BridgePointPreferences.java, ui/preferences/BuildTranslationPreferences.java,
@@ -489,7 +489,7 @@
     <uptodate property="format_java.buildNotNeeded" targetfile="${java.output}">
          <srcfiles dir = "src/com/mentor/nucleus/bp/core/" includes="*.java" excludes="${cvs_java_files}" />
          <srcfiles dir = "src/com/mentor/nucleus/bp/core/ui" includes="*.java"  excludes="
-         PtWizardPage.java,Selection.java,IModelImport.java,AbstractModelImportFactory.java,
+         PtWizardPage.java,Selection.java,IModelImport.java,AbstractModelImportFactory.java, BinaryFormalizeOnR_RELWizardPage2.java, BinaryFormalizeOnR_RELWizardPage1.java, BinaryFormalizeOnR_RELWizard.java,
      AbstractModelExportFactory.java, ConvertModel2UUIDAction.java, NewDomainWizard.java, WizardNewSystemCreationPage.java,
      NewSystemWizard.java, ToggleNatureAction.java, WizardNewDomainCreationPage.java, common/OALPersistenceUtil.java,
      preferences/ExportPreferences.java,
