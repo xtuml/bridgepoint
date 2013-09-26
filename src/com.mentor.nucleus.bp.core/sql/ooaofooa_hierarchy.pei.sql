@@ -309,8 +309,6 @@ INSERT INTO T_TPS VALUES (165, 105,  106,  '->UC_PIUC[R1203]->SQ_P[R1203]->IA_UC
 INSERT INTO T_TPS VALUES (166, 105,  101,  '->UC_PIUC[R1203]->SQ_P[R1203]->SQ_AP[R930]', '', false);
 INSERT INTO T_TPS VALUES (167, 107,  101,  '->UC_UCA[R1210]->SQ_P[R1206]->SQ_AP[R930]', 'Association One Side', false);
 INSERT INTO T_TPS VALUES (168, 107,  106,  '->UC_UCA[R1210]->SQ_P[R1207]->IA_UCP[R930]', 'Association Other Side', false);
-INSERT INTO T_TPS VALUES (169, 108,  101,  '->UC_UCA[R1210]->SQ_P[R1206]->SQ_AP[R930]', 'Association One Side', false);
-INSERT INTO T_TPS VALUES (170, 108,  101,  '->UC_UCA[R1210]->SQ_P[R1207]->SQ_AP[R930]', 'Association Other Side', false);
 INSERT INTO T_TPS VALUES (171, 108,  106,  '->UC_UCA[R1210]->SQ_P[R1206]->IA_UCP[R930]', 'Association One Side', false);
 INSERT INTO T_TPS VALUES (172, 108,  106,  '->UC_UCA[R1210]->SQ_P[R1207]->IA_UCP[R930]', 'Association Other Side', false);
 INSERT INTO T_TPS VALUES (173, 109,  106,  '->UC_UCA[R1210]->SQ_P[R1206]->IA_UCP[R930]', 'Association One Side', false);
