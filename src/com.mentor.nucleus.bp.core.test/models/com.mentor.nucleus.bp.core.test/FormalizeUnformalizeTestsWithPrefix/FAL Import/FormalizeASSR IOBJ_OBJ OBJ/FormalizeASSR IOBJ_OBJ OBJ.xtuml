@@ -1,0 +1,32 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("fa77c1cf-09a1-4d27-949b-3c383be5ca4a",
+	'FormalizeASSR IOBJ_OBJ OBJ',
+	400,
+	'T_FORM',
+	'Imported Class',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_ID
+	VALUES (0,
+	"fa77c1cf-09a1-4d27-949b-3c383be5ca4a");
+INSERT INTO O_ID
+	VALUES (1,
+	"fa77c1cf-09a1-4d27-949b-3c383be5ca4a");
+INSERT INTO O_ID
+	VALUES (2,
+	"fa77c1cf-09a1-4d27-949b-3c383be5ca4a");
+INSERT INTO PE_PE
+	VALUES ("fa77c1cf-09a1-4d27-949b-3c383be5ca4a",
+	1,
+	"aebcefd6-b376-4f29-a533-e1431113572b",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("aebcefd6-b376-4f29-a533-e1431113572b",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'FAL Import',
+	'',
+	0,
+	'../FAL Import.xtuml');
