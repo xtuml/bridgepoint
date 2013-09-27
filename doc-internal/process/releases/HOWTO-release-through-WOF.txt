@@ -95,11 +95,40 @@ Steps
 6.2  Decide if we will move to a newer version of MGLS/PCLS.  To update to a new
      version see [12]
  
-7  Docs Freeze & Feature Freeze; followed by Code Freeze (make sure CC & CQ are 
-   updated)
+7  Prepare release candidate
+7.1  Docs Freeze & Feature Freeze; followed by Code Freeze (make sure CC & CQ 
+     are updated)
+7.2  Tag the git xtuml/mc & xtuml/generator repositories and push the tags to github.
+       EGit:
+       - Switch to Git Repository Exploring Perspective
+       - Expand the desired repository
+       - Right-click the repository, Select "Pull" to get the latest refs from github
+       - Right-click on "Tags" under the repository, select "Create Tag..."
+       - Enter the tag name (e.g. v4.0.6).  Enter a brief message.  Select OK.
+       - Right-click the newly created tag, select "Push Tag..."
+       - Select Next to use the default remote repository
+       - In the "Target Ref Name" field enter: refs/tags/<name> (e.g. refs/tags/v4.0.6)
+     
+       Command line:
+       $ git tag -a v4.0.6 -m 'Version of model compiler shipped with BP4.0.6'
+       $ git push --tags
+7.3  Next tag the SVN artifacts repository for the release.
+       - Remote desktop to svr-azt-eng-03
+       - Start BridgePoint, open C:\workspaces\build_artifacts
+       - Switch to SVN Repository Exploring Perspective
+       - Expand the repository, then right click on "branches" and select 
+           "New > Folder".  Add a new branch named the same as the tag used in 
+           github (e.g. "v4.0.6")
+       - Expand "trunk", select all the folders under trunk.  Right-click and 
+           select Copy.  Then Paste the items under the new version branch.
+7.4  Create release build.
+7.5  Notify the BridgePoint customer support representative that a release
+     candidate is ready for testing.
    
 8  Follow instructions in [10]       
 
+#
+# 9 Release doc prep
 #
 # All Mentor Graphics releases that ship on CD/DVD media must have a 
 # Installation Instructions document in PDF format in the release_documents 
@@ -107,7 +136,6 @@ Steps
 # document must also be available for viewing from that release's download page 
 # on SupportNet. This document is not shipped as hardcopy.
 #
-9 Release doc prep
 9.1 Download the template at [8] or use the one from the prior release as a 
       base. The prior release documentation can be found under [9].
 9.2 Create a folder for the new release under [9]
@@ -129,7 +157,8 @@ Steps
 9.9 Commit the new files under [9] to revision control
 
 #
-# Create xml files for SupportNet
+# 10 Create xml files for SupportNet
+#
 # We have a tool that generates them (create_xml_BridgePoint). The tool knows  
 #   about SupportNet hierarchy. Tool is run by mk_cds_rdme_mrc_BridgePoint.ksh 
 #   script inside step 8.
@@ -138,10 +167,10 @@ Steps
 #   NOTE: The release highlights and install doc paths should point into
 #         release_docs/ not docs/pdfdocs/
 #
-10 Check xml files in \\wv\dfs\svd_for_cd\BridgePoint_<ver>\web\<rel#>\docs\xml for correctness
+10.1 Check xml files in \\wv\dfs\svd_for_cd\BridgePoint_<ver>\web\<rel#>\docs\xml for correctness
 
 #
-# Import Documentation to SupportNet
+# 11 Import Documentation to SupportNet
 # Documentation import should occur prior to creating the CD image.  For
 # important information about this step see [7]. You must have JavaScript 
 # enabled and allow popups coming from mentor.com.
@@ -167,11 +196,10 @@ Steps
 #     check sum files to Manufacturing
 #   - Create ESDM request e-mail
 #
-12 Upload the data
 12.1  Log in to your Wilsonville UNIX terminal again
 12.2  Run the following commands:
-cd /wv/seamless_archives/bin
-./mk_cd_image
+  $ cd /wv/seamless_archives/bin
+  $ ./mk_cd_image
     - Enter e-mail
     - Enter Business Unit (e.g. SLE)
     - Enter Release Number (e.g. 201309009)
@@ -201,13 +229,13 @@ cd /wv/seamless_archives/bin
 #
 # 13 Validate CDs (Optional)
 #   
-FTP files from ftp://svr-ies-ftp-01.ies.mentorg.com/pub/wof/<release#>
-Burn and test CD images
+13.1  FTP files from ftp://svr-ies-ftp-01.ies.mentorg.com/pub/wof/<release#>
+13.2  Burn and test CD images
 
 #
 # 14 Submit ESDM request to Release Team and Manufacturing
 # 
-Forward the CD/ESDM release e-mail to rdm_releases@mentor.com and wofmdsesdm@mentor.com
+14.1  Forward the CD/ESDM release e-mail to rdm_releases@mentor.com and wofmdsesdm@mentor.com
   o If you must redo the CD after emailing ESDM e-mail to RDM...
     1) Remove /wv/svd_for_cd/BridgePoint_<ver>/*.tgz
     2) Rename /wv/svd_for_cd/BridgePoint_<ver>/<CD PN> to cd_1 and cd_2 
@@ -215,14 +243,14 @@ Forward the CD/ESDM release e-mail to rdm_releases@mentor.com and wofmdsesdm@men
     3) Repeat starting at step 8
     4) Send ESDM e-mail again with "Rework" added to the subject and in the 
        comments say why the rework is needed.
-Wait for e-mail indicating manufacturing has finished processing the request.
-Validate downloads from SupportNet Authoring Site [11]
+14.2  Wait for e-mail indicating manufacturing has finished processing the request.
+14.3  Validate downloads from SupportNet Authoring Site [11]
   - It is quickest to remote into a machine in Wilsonville, launch a browser and
     pull down the Linux and Windows Installers.  Then do md5sum comparisons
     with the original files from tucson.
   - You can also install on remote machines and smoke test
-
-Create MRC
+14.4  Create Value Sheet or get commitment from Marketing Manager to create it.
+14.5  Create MRC
   o The MRC was automatically created by an earlier script and stored at
     \\wv\dfs\svd_for_cd\BridgePoint_<release #>\BridgePoint_<release #>_mrc.html
   o Open the file with MS Word.  Go through the file and check that all the 
@@ -230,21 +258,16 @@ Create MRC
     that the product table appears at the end of the doc.  If it does not, open 
     this file in a text editor and move the product table at the end of the
     document up inside the body and html tags. Close the file.
-E-mail MRC and Release Highlights to the people marked in the release registration
+14.6  E-mail MRC and Release Highlights to the people marked in the release registration
   as the Product Marketing and Customer Support Managers for approval
   o Save approval e-mails to PDF and copy them to 
     \\wv\dfs\svd_for_cd\BridgePoint_<release #>
-E-mail MRC, Release Highlights and Approvals to Release Team and WOF 
-  (rdm_releases@mentor.com and wofmdsesdm@mentor.com)
-Wait for Release Team to enable MGC SupportNet
-Verify docs & s/w on the MGC supportnet once MS date arrives
+14.7  E-mail MRC, Release Highlights, Value sheet (or commitment) and Approvals to 
+  Release Team and WOF (rdm_releases@mentor.com and wofmdsesdm@mentor.com)
+14.8  Wait for Release Team to enable MGC SupportNet
+14.9  Verify docs & s/w on the MGC supportnet once MS date arrives
 
-Tag the git xtuml/mc & xtuml/generator repositories and push the tags to github.
-  $ git tag -a v4.0.6 -m 'Version of model compiler shipped with BP4.0.6'
-  $ git push --tags
-Next tag the SVN artifacts repository for the release.
-  
-Package, save, and ship the C source arcs (example steps below)
+15  Package, save, and ship the C source arcs (example steps below)
   $ mkdir /tmp/arc
   $ cd /git/xtuml/mc
   $ cp * /tmp/arc
@@ -257,7 +280,7 @@ Package, save, and ship the C source arcs (example steps below)
   o E-mail the zipfile to Robert Rice, Dean McArthur, John Wolfe, John Vargas,
     and Cort Starrett for distribution to source MC customers
     
-Congratulations!  You have finished the relese.
+Congratulations!  You have finished the release.
 
 
 
