@@ -206,11 +206,8 @@ Burn and test CD images
 
 #
 # 14 Submit ESDM request to Release Team and Manufacturing
-#     NOTE: The SupportNet authoring website is finicky about what you can and 
-#           can't do with certain browsers.  If a step doesn't work in Firefox 
-#           try IE, and vice-versa.
 # 
-Forward the CD/ESDM release e-mail to rdm_releaseinfo@mentor.com and wofmdsesdm@mentor.com
+Forward the CD/ESDM release e-mail to rdm_releases@mentor.com and wofmdsesdm@mentor.com
   o If you must redo the CD after emailing ESDM e-mail to RDM...
     1) Remove /wv/svd_for_cd/BridgePoint_<ver>/*.tgz
     2) Rename /wv/svd_for_cd/BridgePoint_<ver>/<CD PN> to cd_1 and cd_2 
@@ -238,7 +235,7 @@ E-mail MRC and Release Highlights to the people marked in the release registrati
   o Save approval e-mails to PDF and copy them to 
     \\wv\dfs\svd_for_cd\BridgePoint_<release #>
 E-mail MRC, Release Highlights and Approvals to Release Team and WOF 
-  (rdm_releaseinfo@mentor.com and wofmdsesdm@mentor.com)
+  (rdm_releases@mentor.com and wofmdsesdm@mentor.com)
 Wait for Release Team to enable MGC SupportNet
 Verify docs & s/w on the MGC supportnet once MS date arrives
 
