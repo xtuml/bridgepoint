@@ -69,11 +69,11 @@ mv BridgePoint_<release tag>_<datestamp>.exe BridgePoint_<release num>.exe
 #   NOTE: If you are only updating the application executables and not the
 #         documentation you may skip to step 6 now.
 #
-Open Documentation/internal/process/releases/scripts/BridgePoint_head_mrc_template.html
+Open doc-internal/process/releases/scripts/BridgePoint_head_mrc_template.html
   - Update the effective date in the file to be the MS date
   - Update the OSS additions and subtractions
   - Read through the document making any other required changes
-  - Check in the file to CVS
+  - Check in the file to git and push to github
 Open \\wv\dfs\seamless_archives\templates
 Copy the updated file from your local machine into the network directory
 
