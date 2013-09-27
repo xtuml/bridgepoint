@@ -91,7 +91,7 @@ read REASON?"Why are we doing this release? "
 
 # copy from release install creation area to cd and web locations
 mkdir -p $rls_loc/web
-for installer in `ls -1 /user/$USER/downloads/BridgePoint/installers/BridgePoint_R${under_version}*.ixl /user/$USER/downloads/BridgePoint/installers/BridgePoint_${version}*.ixl /user/$USER/downloads/BridgePoint/installers/BridgePoint_R${version}*.ixl /user/$USER/downloads/BridgePoint/installers/BridgePoint_${under_version}*.ixl` ; do
+for installer in `ls -1 /user/$USER/downloads/BridgePoint/installers/BridgePoint_*${under_version}*.ixl /user/$USER/downloads/BridgePoint/installers/BridgePoint_*${version}*.ixl` ; do
    mkdir -p ${rls_loc}/cd_1
    echo "Found $installer"
    read type?"What type of release? (release|patch) "
@@ -107,7 +107,7 @@ for installer in `ls -1 /user/$USER/downloads/BridgePoint/installers/BridgePoint
    cp $installer ${rls_loc}/cd_1
    cp $installer ${rls_loc}/web
 done
-for installer in `ls -1 /user/$USER/downloads/BridgePoint/installers/BridgePoint_R${under_version}*.exe /user/$USER/downloads/BridgePoint/installers/BridgePoint_${version}*.exe /user/$USER/downloads/BridgePoint/installers/BridgePoint_R${version}*.exe /user/$USER/downloads/BridgePoint/installers/BridgePoint_${under_version}*.exe` ; do
+for installer in `ls -1 /user/$USER/downloads/BridgePoint/installers/BridgePoint_*${under_version}*.exe /user/$USER/downloads/BridgePoint/installers/BridgePoint_*${version}*.exe` ; do
    mkdir -p ${rls_loc}/cd_2
    echo "Found $installer"
    read type?"What type of release? (release|patch) "
