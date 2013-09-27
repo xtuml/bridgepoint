@@ -268,8 +268,11 @@ Steps
 14.9  Verify docs & s/w on the MGC supportnet once MS date arrives
 
 15  Package, save, and ship the C source arcs (example steps below)
+  # In whatever manner you prefer, navigate to the xtuml/mc repository and pull
+  # the latest data from github.  Then switch to (checkout) the version tag for
+  # this release.
   $ mkdir /tmp/arc
-  $ cd /git/xtuml/mc
+  $ cd <git>/xtuml/mc/arc
   $ cp * /tmp/arc
   $ cd c
   $ cp * /tmp/arc
