@@ -191,6 +191,28 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 					NonRootModelElement realElement = (NonRootModelElement) Ooaofooa.getDefaultInstance()
 							.getInstanceList(leftRoot.getClass())
 							.getGlobal(leftRoot.getInstanceKey());
+					if(realElement == null) {
+						// assure that all workspace systems are loaded
+						// we have to do this in order to locate the
+						// destination element for checking
+						SystemModel_c[] systems = SystemModel_c
+								.SystemModelInstances(Ooaofooa.getDefaultInstance());
+						for (SystemModel_c system : systems) {
+							if (system.getPersistableComponent() != null) {
+								system.getPersistableComponent()
+										.loadComponentAndChildren(
+												new NullProgressMonitor());
+								// check after each system load to prevent any
+								// unnecessary loading
+								realElement = (NonRootModelElement) Ooaofooa.getDefaultInstance()
+										.getInstanceList(leftRoot.getClass())
+										.getGlobal(leftRoot.getInstanceKey());
+								if(realElement != null) {
+									break;
+								}
+							}
+						}
+					}
 					if(realElement != null) {
 						realElement.getPersistableComponent().load(new NullProgressMonitor(), false, true);
 						Package_c firstParentPackage = realElement.getFirstParentPackage();
