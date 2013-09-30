@@ -52,8 +52,13 @@ _R Several html files are found
 _- Copy the new version (ex 1.5.2)  to the Windows Clipboard
 _- Work through the Search view in Eclipse and for each match found open the 
    file in MS Word and update the version using MS Word.
-       IMPORTANT: Do not update any HTML file versions inside eclipse.  Navigate
-                  to the file on disk and edit the file with MS Word.
+   
+       IMPORTANT: 
+         1) Do not update any HTML file versions inside eclipse.  Navigate
+            to the file on disk and edit the file with MS Word.
+         2) The Release Notes and What's New files should be written with 
+            MS Word "Save As..." as type "Web Page, Filtered"
+                  
 _- Select all projects in the workspace, refresh them to pick up the changes
 _R Version update is now complete, all files that must be modified are now
    "dirty" in your workspace.   
