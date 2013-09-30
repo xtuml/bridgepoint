@@ -162,11 +162,11 @@ public class ModelMergeProcessor {
 		}
 		Object destinationElement = ((ComparableTreeObject) difference
 				.getMatchingDifference().getElement()).getRealElement();
-		Object[] children = ((ITreeDifferencerProvider) contentProvider).getChildrenOfType(
-				destinationParent, destinationElement.getClass());
+		Object[] children = ((ITreeDifferencerProvider) contentProvider).getChildren(
+				destinationParent);
 		int locationOfElement = 0;
 		for(int i = 0; i < children.length; i++) {
-			if(children[i] == destinationElement) {
+			if(((ComparableTreeObject) children[i]).getRealElement() == destinationElement) {
 				locationOfElement = i;
 				break;
 			}
@@ -209,10 +209,11 @@ public class ModelMergeProcessor {
 		NonRootModelElement element = (NonRootModelElement) comparable
 				.getRealElement();
 		Object[] existingChildren = ((ITreeDifferencerProvider) contentProvider)
-				.getChildrenOfType(((ComparableTreeObject) contentProvider
-						.getParent(element)).getRealElement(), element
-						.getClass());
+				.getChildren(contentProvider.getParent(element));
 		Object existingElementAtNewLocation = existingChildren[location];
+		if(existingElementAtNewLocation != null) {
+			existingElementAtNewLocation = ((ComparableTreeObject) existingElementAtNewLocation).getRealElement();
+		}
 		String associationNumber = MetadataSortingManager
 				.getAssociationNumber(element);
 		String associationPhrase = MetadataSortingManager
@@ -261,7 +262,7 @@ public class ModelMergeProcessor {
 					+ "To" + associationPhrase, element.getClass(),
 					new Class[] { element.getClass() });
 			invokeMethod(relate, element,
-					new Object[] { element });
+					new Object[] { previousElementToExisting });
 		}
 	}
 
@@ -272,10 +273,14 @@ public class ModelMergeProcessor {
 		NonRootModelElement element = (NonRootModelElement) comparable
 				.getRealElement();
 		Object[] existingChildren = ((ITreeDifferencerProvider) contentProvider)
-				.getChildrenOfType(((ComparableTreeObject) contentProvider
-						.getParent(element)).getRealElement(), element
-						.getClass());
+				.getChildren(contentProvider.getParent(element));
+		if(location == existingChildren.length) {
+			location--;
+		}
 		Object existingElementAtNewLocation = existingChildren[location];
+		if(existingElementAtNewLocation != null) {
+			existingElementAtNewLocation = ((ComparableTreeObject) existingElementAtNewLocation).getRealElement();
+		}
 		String associationNumber = MetadataSortingManager
 				.getAssociationNumber(element);
 		String associationPhrase = MetadataSortingManager
@@ -368,11 +373,11 @@ public class ModelMergeProcessor {
 			parent = (NonRootModelElement) ((NonRootModelElementComparable) difference
 					.getMatchingDifference().getParent()).getRealElement();
 		}
-		int newElementLocation = getLocationOfElement(
-				((ComparableTreeObject) contentProvider.getParent(diffElement))
-						.getRealElement(),
-				parent, ((ComparableTreeObject) diffElement).getRealElement(),
-				(ITreeDifferencerProvider) contentProvider);
+		int newElementLocation = TreeDifferencer
+				.getLocationOfElement(contentProvider.getParent(diffElement),
+						diffElement,
+						contentProvider.getParent(matchingDiffElement),
+						(ITreeDifferencerProvider) contentProvider);
 		// create deltas for the creation of a new element
 		NonRootModelElement newObject = null;
 		Object realElement = ((ComparableTreeObject) diffElement)
@@ -380,18 +385,24 @@ public class ModelMergeProcessor {
 		// grab the existing children, so that ordering can be
 		// fixed after the batch relate calls
 		Object[] existingChildren = ((ITreeDifferencerProvider) contentProvider)
-				.getChildrenOfType(parent, realElement.getClass());
+				.getChildren(parent);
 		// if this element participates in an ordering association
 		// we may need to adjust the ordering after the copy
 		Object existingElementAtNewLocation = null;
 		if(newElementLocation < existingChildren.length) {
-			existingElementAtNewLocation = existingChildren[newElementLocation];
+			existingElementAtNewLocation = ((ComparableTreeObject) existingChildren[newElementLocation]).getRealElement();
 		}
+		Object nextToExisting = null;
 		String associationPhrase = MetadataSortingManager.getAssociationPhrase(realElement);
 		String association = MetadataSortingManager.getAssociationNumber(realElement);
 		if (MetadataSortingManager.isOrderedElement(realElement)
 				&& newElementLocation > 0
 				&& existingElementAtNewLocation != null) {
+			// cache the next to existing so that we can re-relate
+			// batch relate breaks the association as it sets the
+			// existing element up with the new element
+			nextToExisting = MetadataSortingManager
+					.getNextElement((NonRootModelElement) existingElementAtNewLocation);
 			// create an unrelate delta from the previous association
 			Method findMethod = findMethod("unrelateAcrossR" + association
 					+ "From" + associationPhrase,
@@ -478,6 +489,7 @@ public class ModelMergeProcessor {
 				// way merges.  batch relate will automatically hook up the
 				// wrong elements
 				Object previousElement = existingChildren[newElementLocation - 1];
+				previousElement = ((ComparableTreeObject) previousElement).getRealElement();
 				ModelElement currentPrevious = MetadataSortingManager.getPreviousElement(newObject);
 				if(currentPrevious != previousElement && currentPrevious != null) {
 					// first unrelate from the incorrect element
@@ -486,16 +498,16 @@ public class ModelMergeProcessor {
 							newObject.getClass(),
 							new Class[] { newObject.getClass() });
 					invokeMethod(findMethod, newObject,
-							new Object[] { currentPrevious });
+							new Object[] { currentPrevious });					
+					findMethod = findMethod("relateAcrossR"
+							+ association + "To" + associationPhrase,
+							newObject.getClass(),
+							new Class[] { newObject.getClass() });
+					invokeMethod(findMethod, newObject,
+							new Object[] { previousElement });
 				}
-				Method findMethod = findMethod("relateAcrossR"
-						+ association + "To" + associationPhrase,
-						newObject.getClass(),
-						new Class[] { newObject.getClass() });
-				invokeMethod(findMethod, newObject,
-						new Object[] { previousElement });
 			}
-			// create a relate delta
+			// relate the existing element
 			if(existingElementAtNewLocation != null) {
 				Method findMethod = findMethod("relateAcrossR"
 						+ association + "To" + associationPhrase,
@@ -503,6 +515,23 @@ public class ModelMergeProcessor {
 						new Class[] { newObject.getClass() });
 				invokeMethod(findMethod, existingElementAtNewLocation,
 						new Object[] { newObject });
+				if(nextToExisting != null) {
+					// need to first unrelate otherwise the relate
+					// will not work, here we are just trying to fix
+					// the backpointer list
+					findMethod = findMethod("unrelateAcrossR"
+							+ association + "From" + associationPhrase,
+							newObject.getClass(),
+							new Class[] { newObject.getClass() });
+					invokeMethod(findMethod, nextToExisting,
+							new Object[] { existingElementAtNewLocation });	
+					findMethod = findMethod("relateAcrossR"
+							+ association + "To" + associationPhrase,
+							newObject.getClass(),
+							new Class[] { newObject.getClass() });
+					invokeMethod(findMethod, nextToExisting,
+							new Object[] { existingElementAtNewLocation });					
+				}
 			}
 		}
 		handlePostCreation(newObject);
@@ -613,39 +642,6 @@ public class ModelMergeProcessor {
 				}
 			}
 		}
-	}
-
-	private static int getLocationOfElement(Object parent, Object otherSideParent, Object element, ITreeDifferencerProvider contentProvider) {
-		int count = 0;
-		Object[] children = contentProvider.getChildrenOfType(parent,
-				element.getClass());
-		for(Object child : children) {
-			if(child == element) {
-				break;
-			}
-			count++;
-		}
-		// if there is only one element do not worry about the next
-		// step
-		if(count == 0) {
-			return count;
-		}
-		// adjust for additions just before this one
-		for(int i = count; i != 0; i--) {
-			Object otherElement = children[i];
-			Object elementInOtherVersion = TreeDifferencer
-					.locateElementInOtherVersion(contentProvider
-							.getComparableTreeObject(otherSideParent),
-							contentProvider
-									.getComparableTreeObject(otherElement),
-							contentProvider, new Object[0]);
-			if(elementInOtherVersion == null) {
-				count--;
-			} else {
-				break;
-			}
-		}
-		return count;
 	}
 	
 	private static NonRootModelElement importExternal(NonRootModelElement remoteObject, String export, NonRootModelElement parent, Ooaofooa modelRoot, int newElementLocation) {
@@ -1566,6 +1562,7 @@ public class ModelMergeProcessor {
 			CoreExport.forceProxyExport = forceProxies;
 			CoreExport.ignoreAlternateChildren = true;
 			CoreExport.exportSupertypes = false;
+			CoreExport.ignoreMissingPMCErrors = true;
 			if(writeAsProxy) {
 			     CoreExport.forceWriteAsProxy = true;
 			}
@@ -1603,6 +1600,7 @@ public class ModelMergeProcessor {
 				CoreExport.forceProxyExport = false;
 				CoreExport.ignoreAlternateChildren = false;
 				CoreExport.exportSupertypes = true;
+				CoreExport.ignoreMissingPMCErrors = false;
 				if(writeAsProxy) {
 				     CoreExport.forceWriteAsProxy = false;
 				}

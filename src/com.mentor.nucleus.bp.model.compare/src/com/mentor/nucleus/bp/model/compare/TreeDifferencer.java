@@ -72,14 +72,16 @@ public class TreeDifferencer extends Differencer {
 			TreeDifference leftDifference = new TreeDifference(left,
 					TreeDifference.VALUE_DIFFERENCE, true, description,
 					getPathForElement(leftParent, contentProvider));
-			leftDifference.setLocation(getExpectedLocation(
-					contentProvider.getParent(right), right, leftParent));
+			leftDifference.setLocation(getLocationOfElement(
+					contentProvider.getParent(right), right, leftParent,
+					contentProvider));
 			leftDifference.setParent(leftParent);
 			TreeDifference rightDifference = new TreeDifference(right,
 					TreeDifference.VALUE_DIFFERENCE, true, description,
 					getPathForElement(right, contentProvider));
 			rightDifference.setLocation(getLocationOfElement(
-					contentProvider.getParent(right), right));
+					contentProvider.getParent(right), right, leftParent,
+					contentProvider));
 			leftDifference.setMatchingDifference(rightDifference);
 			rightDifference.setMatchingDifference(leftDifference);
 			addDifferenceToMap(leftParent, leftDifference, true);
@@ -113,12 +115,14 @@ public class TreeDifferencer extends Differencer {
 						TreeDifference.VALUE_DIFFERENCE, true,
 						description,
 						getPathForElement(left, contentProvider));
-				leftDifference.setLocation(getLocationOfElement(leftParent, left));
+				leftDifference.setLocation(getLocationOfElement(leftParent,
+						left, rightParent, contentProvider));
 				TreeDifference rightDifference = new TreeDifference(right,
 						TreeDifference.VALUE_DIFFERENCE, true,
 						description,
 						getPathForElement(right, contentProvider));
-				rightDifference.setLocation(getLocationOfElement(rightParent, right));
+				rightDifference.setLocation(getLocationOfElement(rightParent,
+						right, leftParent, contentProvider));
 				leftDifference.setMatchingDifference(rightDifference);
 				rightDifference.setMatchingDifference(leftDifference);
 				addDifferenceToMap(left, leftDifference, true);
@@ -136,13 +140,15 @@ public class TreeDifferencer extends Differencer {
 					TreeDifference.VALUE_DIFFERENCE, true,
 					description,
 					getPathForElement(left, contentProvider));
-			leftDifference.setLocation(getLocationOfElement(leftParent, left));
+			leftDifference.setLocation(getLocationOfElement(leftParent, left,
+					rightParent, contentProvider));
 			TreeDifference rightDifference = new TreeDifference(right,
 					TreeDifference.VALUE_DIFFERENCE, true,
 					description,
 					getPathForElement(rightParent, contentProvider));
 			rightDifference.setParent(rightParent);
-			rightDifference.setLocation(getExpectedLocation(leftParent, left, rightParent));
+			rightDifference.setLocation(getLocationOfElement(leftParent, left,
+					rightParent, contentProvider));
 			leftDifference.setMatchingDifference(rightDifference);
 			rightDifference.setMatchingDifference(leftDifference);
 			addDifferenceToMap(left, leftDifference, true);		
@@ -150,33 +156,6 @@ public class TreeDifferencer extends Differencer {
 		}
 	}
 
-	private int getExpectedLocation(Object parent, Object object, Object otherSideParent) {
-		int location = 0;
-		Object[] children = contentProvider.getChildren(parent);
-		for(int i = 0; i < children.length; i++) {
-			if(children[i].equals(object)) {
-				location = i;
-				break;
-			}
-		}
-		// adjust for additions just before this one
-		for(int i = location; i != 0; i--) {
-			Object otherElement = children[i];
-			boolean matchingElementTypes = true;
-			if(otherElement.getClass() != children[i - 1].getClass()) {
-				matchingElementTypes = false;
-			}
-			Object elementInOtherVersion = locateElementInOtherVersion(
-					otherSideParent, otherElement, contentProvider);
-			if (elementInOtherVersion == null && matchingElementTypes) {
-				location--;
-			} else {
-				break;
-			}
-		}
-		return location;
-	}
-	
 	static Object locateElementInOtherVersion(Object parent, Object object, ITreeDifferencerProvider contentProvider) {
 		Object[] children = contentProvider.getChildren(parent);
 		for (int i = 0; i < children.length; i++) {
@@ -187,23 +166,62 @@ public class TreeDifferencer extends Differencer {
 		return null;
 	}
 
-	private int getLocationOfElement(Object parent, Object element) {
+	private static int getLocationOfElement(Object parent, Object element,
+			ITreeDifferencerProvider contentProvider) {
 		int count = 0;
 		if(parent == null) {
 			return 0;
 		}
-		Object[] children = contentProvider.getChildrenOfType(
-				((ComparableTreeObject) parent).getRealElement(),
-				((ComparableTreeObject) element).getRealElement().getClass());
+		Object[] children = contentProvider.getChildren(parent);
 		for(Object child : children) {
-			if(child == ((ComparableTreeObject) element).getRealElement()) {
+			if(child.equals(element)) {
 				return count;
 			}
 			count++;
 		}
-		return count;
+		return count;		
 	}
-
+	
+	/**
+	 * Walk the opposite side, excluding any missing items until
+	 * the next common element.  This will produce the expected
+	 * location which is used when relocating or adding new 
+	 * elements
+	 */
+	public static int getLocationOfElement(Object parent, Object element,
+			Object otherParent, ITreeDifferencerProvider contentProvider) {
+		if(otherParent == null) {
+			// return our local location
+			return getLocationOfElement(parent, element, contentProvider);
+		}
+		Object otherElement = locateElementInOtherVersion(otherParent, element, contentProvider);
+		if(otherElement == null) {
+			// there is no other element, just return
+			// the local location
+			return getLocationOfElement(parent, element, contentProvider);
+		}
+		// otherwise return the expected location
+		int otherLocation = getLocationOfElement(otherParent, otherElement, contentProvider);
+		int thisLocation = getLocationOfElement(parent, element, contentProvider);
+		if(otherLocation == thisLocation) {
+			// same location
+			return thisLocation;
+		}
+		Object[] otherChildren = contentProvider.getChildren(otherParent);
+		int difference = 0;
+		for(int i = otherLocation - 1; i != 0; i--) {
+			Object object = otherChildren[i];
+			if(locateElementInOtherVersion(parent, object, contentProvider) == null) {
+				difference++;
+			}
+		}
+		if(otherLocation < thisLocation) {
+			return thisLocation - difference;
+		} else {
+			return thisLocation + difference;
+		}
+	}
+	
 	public static TreePath getPathForElement(Object object, ITreeContentProvider contentProvider) {
 		List<Object> segments = new ArrayList<Object>();
 		Object parent = object;
@@ -267,11 +285,24 @@ public class TreeDifferencer extends Differencer {
 						// we need to compare the location of left and right
 						// otherwise a difference may be skipped
 						// check the location of each
-						int leftLocation = getLocationOfElement(contentProvider.getParent(left), left);
-						int rightLocation = getLocationOfElement(contentProvider.getParent(right), right);
+						int leftLocation = getLocationOfElement(
+								contentProvider.getParent(left), left,
+								contentProvider.getParent(right),
+								contentProvider);
+						int rightLocation = getLocationOfElement(
+								contentProvider.getParent(right), right,
+								contentProvider.getParent(left),
+								contentProvider);
 						if(leftLocation != rightLocation) {
-							int ancestorLocation = getLocationOfElement(contentProvider.getParent(ancestor), ancestor);
+							int ancestorLocation = getLocationOfElement(
+									contentProvider.getParent(ancestor),
+									ancestor, contentProvider.getParent(left),
+									contentProvider);
 							ay = ancestorLocation == leftLocation;
+							ancestorLocation = getLocationOfElement(
+									contentProvider.getParent(ancestor),
+									ancestor, contentProvider.getParent(right),
+									contentProvider);
 							am = ancestorLocation == rightLocation;
 						}
 						if (ay && am) {
@@ -329,8 +360,12 @@ public class TreeDifferencer extends Differencer {
 		boolean result = leftComparable.treeItemValueEquals(rightComparable);
 		if(result && !excludeLocationComparison) {
 			// check the location as well
-			int leftLocation = getLocationOfElement(contentProvider.getParent(left), left);
-			int rightLocation = getLocationOfElement(contentProvider.getParent(right), right);
+			int leftLocation = getLocationOfElement(
+					contentProvider.getParent(left), left,
+					contentProvider.getParent(right), contentProvider);
+			int rightLocation = getLocationOfElement(
+					contentProvider.getParent(right), right,
+					contentProvider.getParent(left), contentProvider);
 			if(leftLocation != rightLocation) {
 				return false;
 			}
