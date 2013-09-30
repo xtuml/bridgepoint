@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Sequence Capture Plug-in
 Bundle-SymbolicName: com.mentor.nucleus.bp.sequencecapture; singleton:=true
-Bundle-Version: 4.0.6
+Bundle-Version: 4.0.7
 Bundle-Activator: com.mentor.nucleus.bp.sequencecapture.Activator
 Bundle-Vendor: Mentor Graphics
 Require-Bundle: org.eclipse.ui,
