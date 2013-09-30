@@ -113,7 +113,9 @@ public class ModelMergeProcessor {
 		}
 		if (diffElement instanceof NonRootModelElementComparable
 				&& difference.getElement() != null
-				&& difference.getMatchingDifference().getElement() != null) {
+				&& difference.getMatchingDifference().getElement() != null
+				&& difference.getLocation() != difference
+						.getMatchingDifference().getLocation()) {
 			// this is a positional change
 			return handlePositionChange(difference, contentProvider);
 		}
@@ -1082,6 +1084,12 @@ public class ModelMergeProcessor {
 						new Object[] { newId });
 				return;
 			}
+			// special case for removing an event from a transaction
+			if(localElement != null && localElement.getName().equals("referential_Assigned_Local_Event")) {
+				Transition_c transition = (Transition_c) localElement.getParent();
+				transition.Removeevent();
+				return;
+			}
 		}
 		// another merge action has already handled this
 		if(referredLocal == originalReferredLocal && referredRemote != null) {
@@ -1331,7 +1339,7 @@ public class ModelMergeProcessor {
 					.getSubtypes(remoteSeme);
 			List<NonRootModelElement> localSubtypes = SupertypeSubtypeUtil
 					.getSubtypes(localSeme);
-			if (!remoteSubtypes.get(0).getClass().isInstance(
+			if (localSubtypes.isEmpty() || !remoteSubtypes.get(0).getClass().isInstance(
 					localSubtypes.get(0))) {
 				object = null;
 			}
