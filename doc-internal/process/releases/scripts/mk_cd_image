@@ -438,13 +438,13 @@ echo "${rls_loc}/esdm.txt:"
 cat ${rls_loc}/esdm.txt
 echo ""
 echo "" >> ${rls_loc}/esdm.txt
-echo "Who to mail this to: wofmdsesdm@mentor.com rdmreleaseinfo@mentor.com" >>  ${rls_loc}/esdm.txt
+echo "Who to mail this to: wofmdsesdm@mentor.com rdm_releases@mentor.com" >>  ${rls_loc}/esdm.txt
 echo "" >> ${rls_loc}/esdm.txt
 echo "" >> ${rls_loc}/esdm.txt
 echo ""
 if [ $USER != "gbales" ] ; then
-   cat  ${rls_loc}/esdm.txt | mail -s"${rls_num} - ${rls_name} [CD|DVD]/ESDM form submitted.  Forward to wofmdsesdm@mentor.com and rdmreleaseinfo@mentor.com when ready." gbales $USER
+   cat  ${rls_loc}/esdm.txt | mail -s"${rls_num} - ${rls_name} [CD|DVD]/ESDM form submitted.  Forward to wofmdsesdm@mentor.com and rdm_releases@mentor.com when ready." gbales $USER
 else
-   cat  ${rls_loc}/esdm.txt | mail -s"${rls_num} - ${rls_name} [CD|DVD]/ESDM form submitted.  Forward to wofmdsesdm@mentor.com and rdmreleaseinfo@mentor.com when ready." gbales 
+   cat  ${rls_loc}/esdm.txt | mail -s"${rls_num} - ${rls_name} [CD|DVD]/ESDM form submitted.  Forward to wofmdsesdm@mentor.com and rdm_releases@mentor.com when ready." gbales 
 fi
 echo "Release location is ${rls_loc}"
