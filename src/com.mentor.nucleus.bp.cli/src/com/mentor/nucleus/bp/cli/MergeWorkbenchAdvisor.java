@@ -183,6 +183,7 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 				}
 				manager.endTransaction(transaction);
 				CoreExport.forceProxyExport = true;
+				CoreExport.ignoreMissingPMCErrors = true;
 				IRunnableWithProgress exporter = CorePlugin.getModelExportFactory().create(outputFile, leftRoot);
 				exporter.run(new NullProgressMonitor());
 				// run an integrity report if possible

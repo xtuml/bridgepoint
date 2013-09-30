@@ -1078,18 +1078,8 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 
 				TreeItem otherItem = leftTreeViewer.getMatchingItem(difference
 						.getMatchingDifference().getElement(), rightTreeViewer);
-				TreeItem prevItem = null;
-				int location = difference.getLocation();
-				TreeItem[] items = leftItem.getItems();
-				if (items.length == 0) {
-					prevItem = leftItem;
-				} else if (items.length <= location) {
-					prevItem = items[items.length - 1];
-				} else if (location < 0) {
-					prevItem = leftItem;
-				} else {
-					prevItem = items[location];
-				}
+				TreeItem prevItem = SynchronizedTreeViewer
+						.getPreviousItem(leftItem, difference);
 				if (prevItem == null || prevItem.getData() == null
 						|| otherItem == null || otherItem.getData() == null) {
 					continue;
@@ -1162,18 +1152,9 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 												.getElement(),
 										leftItem.getData())) {
 							// draw a line for each missing item
-							TreeItem prevItem = null;
 							int location = diff.getLocation();
-							TreeItem[] items = otherSideParent.getItems();
-							if (items.length == 0) {
-								prevItem = otherSideParent;
-							} else if (items.length <= location) {
-								prevItem = items[items.length - 1];
-							} else if (location < 0) {
-								prevItem = otherSideParent;
-							} else {
-								prevItem = items[location];
-							}
+							TreeItem prevItem = SynchronizedTreeViewer
+									.getPreviousItem(otherSideParent, diff);
 							Rectangle prevItemBounds = rightTreeViewer
 									.buildHighlightRectangle(prevItem,
 											location >= 0, gc, true, true);
