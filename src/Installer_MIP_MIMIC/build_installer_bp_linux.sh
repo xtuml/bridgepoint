@@ -31,7 +31,7 @@ fi
 PRODUCT_NAME="BridgePoint"
 TEMP_DIR="C:/temp_linux"
 WINDOWS_FRAGMENT="com.mentor.nucleus.bp.core.win32.x86"
-SEQUENCE_CREATOR="com.mentor.nucleus.bp.sequencecapture_4.0.6.jar"
+SEQUENCE_CREATOR="com.mentor.nucleus.bp.sequencecapture_4.0.7.jar"
 SERVER="tucson.wv"
 REMOTE_RELEASE_DIR="/arch1/products/tiger/releases/${PRODUCT_VER}"
 EXT_SRC_DIR="build@${SERVER}:${REMOTE_RELEASE_DIR}" 
