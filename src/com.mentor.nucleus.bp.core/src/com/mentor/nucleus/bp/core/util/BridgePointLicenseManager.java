@@ -84,7 +84,7 @@ public class BridgePointLicenseManager  extends BridgePointDemoEncryptor {
 		}
 	}
 	
-    private static final String MGLS_XTUML_APP_DATE = "Feb 01 2013";
+    private static final String MGLS_XTUML_APP_DATE = "Oct 01 2013";
 	private static JetInitHeap license = null;
 
 	private static final String EditorLicense = "EditorLicense";
