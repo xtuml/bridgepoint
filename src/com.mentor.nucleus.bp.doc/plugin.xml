@@ -17,7 +17,7 @@
 <plugin
    id="com.mentor.nucleus.bp.doc"
    name="BridgePoint Documentation Plug-in"
-   version="4.0.6"
+   version="4.0.7"
    provider-name="Mentor Graphics">
 
    <runtime>

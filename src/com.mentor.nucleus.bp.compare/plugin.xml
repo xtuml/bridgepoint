@@ -18,7 +18,7 @@ This file is the plugin manifest for the BridgePoint compare plugin.
 <plugin
    id="com.mentor.nucleus.bp.compare"
    name="BridgePoint Compare Plug-in"
-   version="4.0.6"
+   version="4.0.7"
    provider-name="Mentor Graphics"
    class="com.mentor.nucleus.bp.compare.ComparePlugin">
 
