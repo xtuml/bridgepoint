@@ -120,6 +120,10 @@ public class ModelMergeProcessor {
 			return handlePositionChange(difference, contentProvider);
 		}
 		if (diffElement instanceof NonRootModelElementComparable) {
+			// do not allow the merge if there is no parent
+			if(difference.getMatchingDifference().getParent() == null) {
+				return false;
+			}
 			return handleNewElement(difference, contentProvider, diffElement,
 					modelRoot, differencer, rightToLeft);
 		} else if (difference.getElement() instanceof ObjectElementComparable) {

@@ -332,7 +332,7 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 				// if the difference indicates a location
 				// this is for the root, place the line under
 				// the element at the given location
-				if (difference.getLocation() >= 0) {
+				if (difference.getLocation() >= 0 && difference.getElement() != null) {
 					TreeItem prevItem = getTree().getItem(
 							difference.getLocation());
 					Rectangle prevItemBounds = buildHighlightRectangle(
