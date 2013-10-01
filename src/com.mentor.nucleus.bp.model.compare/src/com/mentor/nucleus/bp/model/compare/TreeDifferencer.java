@@ -44,11 +44,10 @@ public class TreeDifferencer extends Differencer {
 	}
 
 	public void performDifferencing() {
-		if(left == null && right == null) {
-			return;
-		}
-		for (Object l : left) {
-			collectDifferences(null, null, null, l);
+		if(left != null) {
+			for (Object l : left) {
+				collectDifferences(null, null, null, l);
+			}
 		}
 		// now locate any missing elements from the right
 		// side
