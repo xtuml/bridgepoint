@@ -346,6 +346,8 @@ public class ModelMergeProcessor {
 		if(paramClass == Integer.class) {
 			// use the int class
 			paramClass = Integer.TYPE;
+		} else if(paramClass == Float.class) {
+			paramClass = Float.TYPE;
 		}
 		Method setMethod = findMethod("set" + attributeName,
 				attributeOwner.getClass(), new Class[] { paramClass });

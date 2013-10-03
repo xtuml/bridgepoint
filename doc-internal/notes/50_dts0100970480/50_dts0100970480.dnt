@@ -63,14 +63,15 @@ during automatic merge and end up in future merges.  The reason for this has to
 do with bad logic for determining element locations during differencing.  The
 tool must never miss any difference.
 
-5.6 Support integer attribute value setting
+5.6 Support integer and float attribute value setting
 
 Work from [3] changed the behavior for setting values by requiring the actual
 data be set rather than just creating a change delta.  This was handled by using
 java reflection to set the value for attributes.  This broke setting attribute
-values when that value was an integer.  This is because the tool was using
-Integer.class as the parameter.  This is not expected behavior if the actual
-parameter type is int.  To support this the Integer.TYPE value should be used.
+values when that value was an integer or a float.  This is because the tool was
+using Integer.class and Float.class as the parameter to find the method.  This
+is not expected behavior if the actual parameter type is int.  To support this
+the Integer.TYPE and Float.TYPE values should be used.
 
 5.7 Create event matrix entries for new states and new events
 
@@ -263,6 +264,11 @@ R A difference is created
 - Select the difference and hit Copy from right to left
 R The difference is removed
 R The association number is updated
+- Change a positional value in the graphical data
+R A difference is created
+- Select the difference and hit Copy from right to left
+R The difference is removed
+R The positional value is updated
 
 8.7 Create event matrix entries for new states and new events
 
