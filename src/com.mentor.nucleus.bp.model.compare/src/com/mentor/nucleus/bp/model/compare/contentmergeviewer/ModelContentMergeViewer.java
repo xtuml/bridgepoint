@@ -754,6 +754,22 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			if (leftToRight) {
 				viewer = rightTreeViewer;
 			}
+			// sort the differences, making sure that all additions are first
+			// otherwise ordering differences may not be handled appropriately
+			// when using the copy all action
+			List<TreeDifference> additionsOrRemovals = new ArrayList<TreeDifference>();
+			List<TreeDifference> remainder = new ArrayList<TreeDifference>();
+			for (TreeDifference difference : differences) {
+				if (difference.getElement() != null
+						&& difference.getMatchingDifference().getElement() != null) {
+					remainder.add(difference);
+				} else {
+					additionsOrRemovals.add(difference);
+				}
+			}
+			differences.clear();
+			differences.addAll(additionsOrRemovals);
+			differences.addAll(remainder);
 			for (TreeDifference difference : differences) {
 				if((difference.getKind() & Differencer.DIRECTION_MASK) == Differencer.CONFLICTING && !copySelection) {
 					continue;

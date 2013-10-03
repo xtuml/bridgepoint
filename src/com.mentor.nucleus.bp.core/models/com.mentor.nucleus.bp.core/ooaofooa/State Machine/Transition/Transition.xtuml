@@ -1452,6 +1452,31 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("02e1d375-517d-4275-9df2-1a0cf39d6b36",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'mergeStateMachineEventAssignedLocalEvent',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// only process this if it is a removal, which the given UUID will be null
+if(param.event_id == GD::NULL_UNIQUE_ID())
+  self.removeEvent();
+  return true;
+end if;
+return false;',
+	1,
+	'',
+	"903b5ac9-63cb-4fd0-9cfd-ee354a1eafd6");
+INSERT INTO O_TPARM
+	VALUES ("e77380c6-816a-479c-8fc0-c5d28e5bc9f2",
+	"02e1d375-517d-4275-9df2-1a0cf39d6b36",
+	'event_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("36961925-2727-4c75-b0bf-c2cd8bc2611d",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef");
