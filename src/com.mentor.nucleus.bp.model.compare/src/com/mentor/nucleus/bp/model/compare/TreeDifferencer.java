@@ -101,14 +101,14 @@ public class TreeDifferencer extends Differencer {
 	 * 
 	 */
 	private void collectDifferences(Object leftParent, Object rightParent, Object ancestorParent,
-			Object left) {
-		left = contentProvider.getComparableTreeObject(left);
+			Object l) {
+		ComparableTreeObject left = (ComparableTreeObject) contentProvider.getComparableTreeObject(l);
 		// first see if the element exists on both sides
 		Object right = locateElementInOtherVersion(rightParent, left, contentProvider, this.right);
 		Object ancestor = locateElementInOtherVersion(ancestorParent, left, contentProvider, this.ancestor);
 		if(right != null) {
 			// now check for equivalence, values matching + location matching
-			if(!elementsEqualIncludingValues(left, right, false)) {
+			if(!elementsEqualIncludingValues(left, right, false) && !left.isDerived()) {
 				int description = getDifferenceType(left, right, ancestor, threeWay);
 				TreeDifference leftDifference = new TreeDifference(left,
 						TreeDifference.VALUE_DIFFERENCE, true,
@@ -189,36 +189,22 @@ public class TreeDifferencer extends Differencer {
 	 */
 	public static int getLocationOfElement(Object parent, Object element,
 			Object otherParent, ITreeDifferencerProvider contentProvider) {
-		if(otherParent == null) {
-			// return our local location
-			return getLocationOfElement(parent, element, contentProvider);
-		}
-		Object otherElement = locateElementInOtherVersion(otherParent, element, contentProvider);
-		if(otherElement == null) {
-			// there is no other element, just return
-			// the local location
-			return getLocationOfElement(parent, element, contentProvider);
-		}
-		// otherwise return the expected location
-		int otherLocation = getLocationOfElement(otherParent, otherElement, contentProvider);
 		int thisLocation = getLocationOfElement(parent, element, contentProvider);
-		if(otherLocation == thisLocation) {
-			// same location
+		if(thisLocation == 0) {
 			return thisLocation;
 		}
-		Object[] otherChildren = contentProvider.getChildren(otherParent);
+		// we need to adjust thisLocation to account for any
+		// other new elements above us
+		Object[] localChildren = contentProvider.getChildren(parent);
 		int difference = 0;
-		for(int i = otherLocation - 1; i != 0; i--) {
-			Object object = otherChildren[i];
-			if(locateElementInOtherVersion(parent, object, contentProvider) == null) {
+		for(int i = thisLocation - 1; i != 0; i--) {
+			if (locateElementInOtherVersion(otherParent, localChildren[i],
+					contentProvider) == null) {
 				difference++;
 			}
 		}
-		if(otherLocation < thisLocation) {
-			return thisLocation - difference;
-		} else {
-			return thisLocation + difference;
-		}
+		thisLocation = thisLocation - difference;
+		return thisLocation;
 	}
 	
 	public static TreePath getPathForElement(Object object, ITreeContentProvider contentProvider) {

@@ -121,7 +121,8 @@ public class ModelMergeProcessor {
 		}
 		if (diffElement instanceof NonRootModelElementComparable) {
 			// do not allow the merge if there is no parent
-			if(difference.getMatchingDifference().getParent() == null) {
+			if (difference.getElement() == null
+					&& difference.getMatchingDifference().getParent() == null) {
 				return false;
 			}
 			return handleNewElement(difference, contentProvider, diffElement,
@@ -155,36 +156,24 @@ public class ModelMergeProcessor {
 	 * @return boolean, true if a change was made
 	 */
 	private static boolean handlePositionChange(TreeDifference difference, ITreeContentProvider contentProvider) {
-		int location = difference.getLocation();
-		int destinationLocation = difference.getMatchingDifference()
-				.getLocation();
-		NonRootModelElement destinationParent = null;
-		if (difference.getMatchingDifference().getElement() != null) {
-			destinationParent = (NonRootModelElement) ((NonRootModelElementComparable) contentProvider
-					.getParent(difference.getMatchingDifference().getElement())).getRealElement();
-		} else {
-			destinationParent = (NonRootModelElement) ((NonRootModelElementComparable) difference
-					.getMatchingDifference().getParent()).getRealElement();
-		}
-		Object destinationElement = ((ComparableTreeObject) difference
-				.getMatchingDifference().getElement()).getRealElement();
-		Object[] children = ((ITreeDifferencerProvider) contentProvider).getChildren(
-				destinationParent);
-		int locationOfElement = 0;
-		for(int i = 0; i < children.length; i++) {
-			if(((ComparableTreeObject) children[i]).getRealElement() == destinationElement) {
-				locationOfElement = i;
-				break;
-			}
-		}
-		if(location == locationOfElement) {
+		ComparableTreeObject comparable = (ComparableTreeObject) difference
+				.getElement();
+		Object destinationElement = difference.getMatchingDifference()
+				.getElement();
+		Object destinationParent = contentProvider.getParent(destinationElement);
+		Object localParent = contentProvider.getParent(comparable);
+		int location = TreeDifferencer.getLocationOfElement(localParent,
+				comparable, destinationParent,
+				(ITreeDifferencerProvider) contentProvider);
+		int destinationLocation = TreeDifferencer.getLocationOfElement(
+				destinationParent, destinationElement, localParent,
+				(ITreeDifferencerProvider) contentProvider);
+		if(location == destinationLocation) {
 			// another difference has already handled this
 			return false;
 		}
 		// if this is a change that does not have user ordering
 		// then modify the persistence ordering
-		NonRootModelElementComparable comparable = (NonRootModelElementComparable) difference
-				.getElement();
 		NonRootModelElement element = (NonRootModelElement) comparable
 				.getRealElement();
 		if(!MetadataSortingManager.isOrderedElement(element)) {
@@ -196,20 +185,19 @@ public class ModelMergeProcessor {
 						parentDetails.getAssociationNumber(),
 						parentDetails.getAssociationPhrase(),
 						parentDetails.getChildKeyLetters() };
-			callSetOrderOperation(locationOfElement, localDetails);
+			callSetOrderOperation(location, localDetails);
 			return true;
 		}
 		boolean up = location < destinationLocation;
 		if(up) {
-			moveElementUp(difference, contentProvider);
+			moveElementUp(location, difference, contentProvider);
 		} else {
-			moveElementDown(difference, contentProvider);
+			moveElementDown(location, difference, contentProvider);
 		}
 		return true;
 	}
 	
-	private static void moveElementUp(TreeDifference difference, ITreeContentProvider contentProvider) {
-		int location = difference.getLocation();
+	private static void moveElementUp(int location, TreeDifference difference, ITreeContentProvider contentProvider) {
 		NonRootModelElementComparable comparable = (NonRootModelElementComparable) difference
 				.getMatchingDifference().getElement();
 		NonRootModelElement element = (NonRootModelElement) comparable
@@ -272,16 +260,15 @@ public class ModelMergeProcessor {
 		}
 	}
 
-	private static void moveElementDown(TreeDifference difference, ITreeContentProvider contentProvider) {
-		int location = difference.getLocation();
+	private static void moveElementDown(int location, TreeDifference difference, ITreeContentProvider contentProvider) {
 		NonRootModelElementComparable comparable = (NonRootModelElementComparable) difference
 				.getMatchingDifference().getElement();
 		NonRootModelElement element = (NonRootModelElement) comparable
 				.getRealElement();
 		Object[] existingChildren = ((ITreeDifferencerProvider) contentProvider)
 				.getChildren(contentProvider.getParent(element));
-		if(location == existingChildren.length) {
-			location--;
+		if(location >= existingChildren.length) {
+			location = existingChildren.length - 1;
 		}
 		Object existingElementAtNewLocation = existingChildren[location];
 		if(existingElementAtNewLocation != null) {
@@ -379,10 +366,14 @@ public class ModelMergeProcessor {
 			parent = (NonRootModelElement) ((NonRootModelElementComparable) difference
 					.getMatchingDifference().getParent()).getRealElement();
 		}
+		Object otherParent = contentProvider.getParent(matchingDiffElement);
+		if(otherParent == null) {
+			otherParent = difference.getMatchingDifference().getParent();
+		}
 		int newElementLocation = TreeDifferencer
 				.getLocationOfElement(contentProvider.getParent(diffElement),
 						diffElement,
-						contentProvider.getParent(matchingDiffElement),
+						otherParent,
 						(ITreeDifferencerProvider) contentProvider);
 		// create deltas for the creation of a new element
 		NonRootModelElement newObject = null;
@@ -1084,15 +1075,15 @@ public class ModelMergeProcessor {
 			Method method = findMethod(methodName, referringLocal
 					.getClass(), new Class[] { UUID.class });
 			if (method != null) {
-				invokeMethod(method, referringLocal,
+				Object result = invokeMethod(method, referringLocal,
 						new Object[] { newId });
-				return;
-			}
-			// special case for removing an event from a transaction
-			if(localElement != null && localElement.getName().equals("referential_Assigned_Local_Event")) {
-				Transition_c transition = (Transition_c) localElement.getParent();
-				transition.Removeevent();
-				return;
+				if(result != null && result instanceof Boolean) {
+					if((Boolean) result) {
+						return;
+					}
+				} else { 
+					return;
+				}
 			}
 		}
 		// another merge action has already handled this
