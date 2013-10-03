@@ -81,7 +81,7 @@ that we managed to make IBM uncomfortable by BridgePoints proximity in the booth
 Ericsson are holding their annual internal Solutions Conference next week. There will be a session focussing on
 successes with BridgePoint.
 
-** Opportunities -**
+**Opportunities -**
 Having closed the Fuji-Xerox deal last week, attention is now focused on completing a deal with Sony.
 
 ### Customer Support Status
