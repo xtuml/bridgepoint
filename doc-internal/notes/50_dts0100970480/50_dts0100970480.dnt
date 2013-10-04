@@ -120,12 +120,12 @@ as the Rel_ID when determining equality.
 6.5 Rework location logic for differences
 
 The previous implementation of the tree differencer walked the left tree
-locating differences and keeping track of missing counts.  It then used that
-count to make sure the next common element was compared.  This was clumsy and
-error prone.  In some cases differences after a missing entry would get skipped
-altogether.  This logic is reworked to prevent the need for keeping track of 
-missing elements.  The new logic walks the left tree, locating the matching
-element in the right.  If the right side cannot be located an addition
+locating differences while keeping track of missing elements.  It then used that
+count of elements to make sure the next common element was compared.  This was
+clumsy and error prone.  In some cases differences after a missing entry would
+get skipped altogether.  This logic is reworked to prevent the need for keeping
+track of missing elements.  The new logic walks the left tree, locating the
+matching element in the right.  If the right side cannot be located an addition
 difference is created, otherwise the two elements are compared.  This is done
 recursively so the entire tree hierarchy is checked.  After this the right side
 is inspected for any elements that do not exist on the left.  For each of these
@@ -134,9 +134,9 @@ recursively.
 
 In order for the differences to have the proper expected location set, the
 location methods are reworked.  To determine the proper location when dealing
-with missing elements the children in the opposite tree are checked, for any
-element that does not exist in the local tree the determined location is
-adjusted.  Without doing this the location would not be correct as the
+with missing elements the children in the tree are checked, for any element that
+does not exist in the other tree the determined location is adjusted by
+subtraction.  Without doing this the location would not be correct as the
 differences create an offset.
 
 The ModelMergeProcessor class is modified to account for the new location
