@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.eclipse.compare.structuremergeviewer.Differencer;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -73,7 +74,6 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 			BPCLIPreferences.logError("Could not load file to merge.",
 					e);
 		}
-		PlatformUI.getWorkbench().close();
 	}
 
 	/**
@@ -212,6 +212,20 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 								}
 							}
 						}
+						if (realElement == null) {
+							if (systems.length == 0) {
+								System.err
+										.println("Could not find any systems in the configured workspace.");
+							} else {
+								System.err
+										.println("Found the following systems in the configured workspace, but could\n"
+												+ "not find the destination element:\n\n");
+								for (SystemModel_c system : systems) {
+									System.err.println(system.getName() + "\n");
+								}
+								System.err.println("\n");
+							}
+						}
 					}
 					if(realElement != null) {
 						realElement.getPersistableComponent().load(new NullProgressMonitor(), false, true);
@@ -254,20 +268,24 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 			CorePlugin.logError("Unable to reload merged file.", e);
 			return -1;
 		} finally {
-			PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
-
-				@Override
-				public void run() {
-					PlatformUI.getWorkbench().close();
-				}
-			});
+			if(!debug) {
+				PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+	
+					@Override
+					public void run() {
+						PlatformUI.getWorkbench().close();
+					}
+				});
+			}
 		}
 	}
 
 	private void printWarning() {
 		System.out
 				.println("Unable to run an integrity report for this merge.  Please check\n"
-						+ "that the CLI configuration points at the correct workspace.\n\nPath for expected element: " + outputFile);
+						+ "that the CLI configuration points at the correct workspace.\n\nPath for the configured workspace: "
+						+ ResourcesPlugin.getWorkspace().getRoot()
+								.getLocation());
 	}
 
 	@Override
