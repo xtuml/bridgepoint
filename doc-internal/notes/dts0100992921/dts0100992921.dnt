@@ -33,8 +33,8 @@ reloaded when a Verifier session is restarted.
 
 5. Analysis
 -----------
-Investigation shows that using JNI makes this issue user visible, but is not the
-root cause of the problem.
+Investigation shows that using JNI makes this issue user visible, but is not
+the root cause of the problem.
 
 The full text of the exception thrown is of the form:
 
@@ -42,31 +42,59 @@ java.lang.UnsatisfiedLinkError: Native Library <native library name> already
 loaded in another classloader thrown while loading <library package name>
 
 Java library loading rules are such that the same library cannot be loaded
-through more than one class loader simultaneously.
+through more than one class loader simultaneously. A search for discussions
+about this error indicates that the standard solution is to use a singleton
+classloader so that the libraries are only loaded once.
 
-However, the above is a symptom of the underlying issue, not the direct cause.
-The real problem is that BPClassLoader instances are not being garbage collected
-when a Verification session is terminated. The most obvious solution is to use a singleton classloader so
-that the libraries are only loaded once. Searching the internet for discussions
-about 
-Verifier uses a new classloader instance for each session to
+Unfortunately, Verifier uses a new classloader instance for each session to
 satisfy a customer expectation (ironically, the same customer) that static
-variables in user supplied classes be reset between sessions. We therefore do not
-have to option to change to using a singleton classloader.
+variables in user supplied classes be reset between sessions. We therefore
+do not have the option to change to using a singleton classloader.
 
-So, why is the classloader not being garbage collected? The answer must be that some part of the BridgePoint implementation must be retaining references to it. In other words, a previously undetected memory leak.
 
-I did not reach a full fix for this issue and so I am dumping a record of everything I did here.
+5.1 Garbage Collection
+So, given that we cannot use a singleton Classloader, we must regard the above
+observations as a symptom of the underlying issue, not the direct cause. The
+real problem is that BPClassLoader instances are not being garbage collected
+when a Verification session is terminated.
 
-Java memory leakage is difficult to debug and classloader memory leakage even more so. To investigate it, I used the standard java tool, jconsole and added t -Dcom.sun.management.jmxremote to the arguments of the host launch. This allows jconsole to connect to the running application.
+The only alternative solution, then, is to discover why the classloader is not
+being garbage collected. The answer must be that some part of the BridgePoint
+implementation must be retaining references to it. In other words, there must
+be a previously undetected memory leak.
 
-In jconsole, find dumpHeap under MBeans > com.sun.management > Operations. Invoking this writes a heap snapshot to the file passed as a string. The boolean parameter specifies whether to dump only live (i.e. referenced) objects or all objects. Passing true causes a garbage collection to be forced (see below). The file should specify a .hprof file extension. This is not checked by jconsole, but is required for the next step.
+5.2 Using jConsole
+Java memory leakage is difficult to debug and classloader memory leakage even
+more so. To investigate it, I used the standard java tool, jconsole and added
+t -Dcom.sun.management.jmxremote to the arguments of the host launch. This
+allows jconsole to connect to the running application.
 
-To analyze the heap, I used an eclipse plugin, MAT (Memory Analysis Tool). It can be installed from the standard Eclipse discovery plugins site.
+In jconsole, we use dumpHeap under MBeans > com.sun.management > Operations.
+Invoking this writes a heap snapshot to the file passed as a string. The
+boolean parameter specifies whether to dump only live (i.e. referenced)
+objects or all objects. Passing true causes a garbage collection to be forced
+(see below for why this is significant). The file should specify a .hprof file
+extension. This is not checked by jconsole, but is required for the next step.
 
-The MAT plugin loads the prefiously exported heap file and allows searching and browsing of the objects in the heap snapshot. The heap files are in the 100kB range, so we must use search tools to look for instances of interest. I searched for instances of BPClassLoader with incoming references. This gets a number of hits and I identified the need to dispose the Stack of targetInfo instances in the Vm_c class. This stack structure is held in the static variable 'stackMap' inside VM_c. It retains references to classes created by BPClassLoader. Since all classes created by a classloader must be themselves dereferenced before the classloader can be unloaded, garbage collection is prevented.
+To analyze the heap, an eclipse plugin, MAT (Memory Analysis Tool) was used.
+This is installed using the standard Eclipse discovery plugins site.
 
-I had hoped this would resolved the problem, however all it does is improve the behavior slightly. After adding a call to clear the stack and remove it from the stack map, the following changed behavior is seen:
+5.3 Analysis of the Verifier Virtual Machine External Entity
+The MAT plugin loads the previously exported heap file and allows searching
+and browsing of the objects in the heap snapshot. The heap files are in the
+100kB range, so we must use search tools to look for instances of interest.
+I searched for instances of BPClassLoader with incoming references. This gets
+a number of hits and I identified the need to dispose the Stack of targetInfo
+instances in the Vm_c class. This stack structure is held in the static
+variable 'stackMap' inside VM_c. It retains references to classes created by
+BPClassLoader. Since all classes created by a classloader must be themselves
+dereferenced before the Classloader can be unloaded, garbage collection is
+prevented.
+
+It was hoped that the changes proposed in 5.3 would resolve the problem,
+however all it does is improve the behavior, albeit quite significantly. After
+adding a call to clear the stack and remove it from the stack map, the
+following changed behavior is seen:
 
 _- On termination, the problem persists, but
 _- Clear the debug window by clicking the gray double 'X' button
@@ -75,54 +103,64 @@ _R The ClassLoader is garbage collected
 _- Start a Verifier new session
 _- Launch succeeds without the UnsatisfiedLinkError. JNI calls are successful.
 
-I have so far been unable to determine why the terminated contents of the Debug window prevent Classloader Garbage collection. One of the debug model classes must be holding an indirect reference to a class created by the BPClassLoader.
+I have so far been unable to determine why the terminated contents of the Debug
+window prevent Classloader Garbage collection. One of the debug model classes
+must be holding an indirect reference to a class created by the BPClassLoader.
 
-Here is why the MAT plugin is unable to trace the reference:
+5.4 Searching for indirect references
+Normally we could have used the MAT plugin to find the indirect references.
+Unfortunately, the MAT plugin is unable to trace the reference. Here is what I
+found:
 
 _- Run a session as before
 _- Terminate the session, but do not clear the debug window
 _- Use jconsole to dump a heap snapshot
 
-This produces the following observations. With the 'live' boolean argument as false, we see a number of incoming references to BPClassLoader, none are obvious culprits for preventing garbage collection, since they do not trace back to any BridgePoint implementation classes. Since the 'live' boolean argument is false, the references include objects that are scheduled for garbage collection, so it is difficult to be sure which ones are really holding the BPClassLoader in memory.
+The observations from the above procedure differ depending on the setting of the
+'live' boolean argument in jConsole mentioned above. With the 'live' boolean
+argument set to false, we see a number of incoming references to BPClassLoader,
+none are obvious culprits for preventing garbage collection, since they do not
+trace back to any BridgePoint implementation classes. It is not practical to
+search the heap, since the 'live' boolean argument is false. This means that the
+references include objects that are scheduled for garbage collection, so it is
+difficult to be sure which ones are really holding the BPClassLoader in memory.
 
-What would tell us is a dump where the 'live' argument is true. However this is where it gets interesting. If we attempt to repeat the above steps with a true 'live' argument, jconsole forces garbage collection before making the dump. At this moment BPClassLoader is collected and we have no data to look at.
+What would tell us is a dump where the 'live' argument is true. However this is
+where it gets interesting. If we attempt to repeat the above steps with the
+'live' argument set to true, jconsole forces garbage collection before making
+the dump. At this moment BPClassLoader is collected as it should be and we have
+no data to look at.
 
 The only possible conclusion I can draw is:
-- that by adding the Stack clear and removal from Vm_c, we have done all we need to in BridgePoint code to dereference the classloader.
-- jconsole is doing something special to force full garbage collection (I also tried to explicitly call system.gc() at session termination to force garbage collection, but it did not help).
+- that by adding the Stack clear and removal from Vm_c, we have done all we
+  need to do in BridgePoint code to dereference the Classloader.
+- jConsole is doing something special to force full garbage collection (I also
+  tried to explicitly call system.gc() at session termination to force garbage
+  collection, but it did not help).
 
-While jconsole is obviously implemented in java, a search reveals that the MXBean implementation used for dumpHeap has a native implementation. The source is unavailable. also, since it is native, it could be doing things to the java VM that we cannot do from an Eclipse execution context.
+While jConsole is obviously implemented in java, a search reveals that the
+MXBean implementation used for dumpHeap has a native implementation. Further,
+the source of the MXBean implementation is unavailable. Since it is native, it
+could be doing things to the java VM from outside that we simply cannot do from
+an Eclipse execution context.
 
-At this point, the trail goes rather cold.
+At this point, the trail goes cold, so the only recommendation is that we do as
+much as possible to address the issue by adding the code to clear the Verifier
+Virtual machine stack on termination as proposed in 5.3 above.
 
 6. Design
 ---------
-In this section, describe in detail each step of the Work Required section of
-the analysis, how the task will be accomplished, what technologies will
-be used, algorithms, etc.
-
-6.1 Some design point, with a code example
-```java
-    public void clearDatabase(IProgressMonitor pm) 
-    {
-        // clear the corresponding graphics-root's database
-        OoaofgraphicsUtil.clearGraphicsDatabase(rootId, pm);
-
-        Ooaofooa.getDefaultInstance().fireModelElementUnloaded(this);
-    }
-```
+6.1 Clear the Virtual Machine argument stack when terminating.
 
 7. Design Comments
 ------------------
-If research carried out during this phase shows that a requirement stated in the
-analysis note is infeasible or needs some modification, enumerate those changes
-here. If there was no preceding analysis note, then this section documents any
-deviations from the design as presented at the design review.
+None.
 
 8. Unit Test
 ------------
-Outline all the unit tests that need to pass and describe the method that you
-will use to design and perform the tests.
+8.1 All existing Verifier Unit tests must pass.
+8.2 A new test is created that assures that the UnsatisfiedLinkError does not
+    happen when the Debug Tree is cleared of old launches. 
 
 End
 ---
