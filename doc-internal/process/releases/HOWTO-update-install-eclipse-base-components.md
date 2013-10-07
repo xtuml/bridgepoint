@@ -1,10 +1,11 @@
 HOWTO Install/Update Components in BridgePoint's Eclipse Base
 --------------------------------------------------------------
 
-References
-[1] P2 Director. http://help.eclipse.org/indigo/index.jsp?topic=/org.eclipse.platform.doc.isv/guide/p2_director.html
-[2] BridgePoint SVN. http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml
+### References
+[1] P2 Director. http://help.eclipse.org/indigo/index.jsp?topic=/org.eclipse.platform.doc.isv/guide/p2_director.html  
+[2] BridgePoint SVN. http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml  
 
+###Instructions
 - Get OSS approval for the package(s) to update
 - We use the p2 director application in the mode where it does
     provisioning without running the target application.  We do
@@ -35,12 +36,12 @@ References
 - Use the p2 director to add the desired installable unit.
     For example, for CDT we use a command similar to this one:
 ```
-           C:/MentorGraphics/BridgePoint/eclipse/eclipsec.exe  
-             -application org.eclipse.equinox.p2.director  
-             -repository http://download.eclipse.org/releases/galileo/   
-             -installIU org.eclipse.cdt.feature.group   
-             -destination C:/workspaces/build_artifacts/BridgePoint_e3.7/EclipseDeliverables/eclipse
-             -profile epp.package.modeling
+C:/MentorGraphics/BridgePoint/eclipse/eclipsec.exe  
+ -application org.eclipse.equinox.p2.director  
+ -repository http://download.eclipse.org/releases/galileo/   
+ -installIU org.eclipse.cdt.feature.group   
+ -destination C:/workspaces/build_artifacts/BridgePoint_e3.7/EclipseDeliverables/eclipse  
+ -profile epp.package.modeling  
 ```
 - Don't forget to update both the Windows and Linux eclipse bases
 - Now go back to the running BridgePoint/eclipse with the view of the 
