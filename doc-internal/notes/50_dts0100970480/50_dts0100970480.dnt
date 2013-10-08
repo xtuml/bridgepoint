@@ -159,7 +159,7 @@ new event matrix entries for all existing states.  The ModelMergeProcessor class
 is modified to locate all existing states and for each create and associate a
 can't happen. 
 
-5.8 Support merging assigned event to no event
+6.8 Support merging assigned event to no event
 
 The merge processor has support for custom merging through java reflection and
 a standard naming scheme for a model operation.  This is used to support
@@ -204,6 +204,15 @@ During testing another exception was noticed which occurred when the current
 missing difference was expected at the last location.  To address this the code
 is changed to not advance the location for the element in the ordered children
 list.
+
+7.6 Support creation transitions
+
+The new automated tests revealed that creation transitions are not supported in
+the ooaofooa hierarchy data.  Other transition types are kept under the state
+that they originate from.  For creation transitions there is no such state,
+therefore they are configured to be children of the state machine.  The only
+referential that a creation transition has is with the event assigned to it.
+This is configured as such in the hierarchy.
 
 8. Unit Test
 ------------
