@@ -237,7 +237,10 @@ package ${inspector_package};
 // (c) Copyright 2004-2013 by Mentor Graphics Corp.  All rights reserved.
 //
 //======================================================================
-
+//
+// An ObjectElement represents a metamodel class attribute.  It allows
+// access to it's name and value
+//
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 
 public class ${model_element_class_name}{
