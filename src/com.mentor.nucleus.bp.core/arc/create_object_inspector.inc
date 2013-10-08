@@ -116,6 +116,7 @@ ${rel_nav.body} \
   .assign specCount = 0
   .for each spec in child_specs
     .if ((spec.NameOnly == "") or (spec.UseNameOnlyForUniqueness))
+        .print "Spec ID: ${spec.TPS_ID}, Parent ID: ${spec.Parent_Tree_Node_Spec_ID}"
         .assign specCount = specCount + 1
         .select one child related by spec->T_TNS[R1001]
         .assign child_var_name_extra = ""

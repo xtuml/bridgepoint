@@ -32,8 +32,8 @@ issues regarding state machine merge.
 -----------
 5.1 Ensure integrity check is run after CLI merge
 
-The systems in the destination shall be loaded prior to locating the element to
-run the integrity check on.
+The system containing the element that was merged must be loaded prior to
+running the integrity check.
 
 5.2 Exclude derived attributes from differencing engine
 
@@ -100,7 +100,7 @@ broken.
 6.2 Exclude derived attributes from differencing engine
 
 During code generation for the ObjectElement class attributes are checked to see
-if they are derived.  If they are derived a new field, derived, is set at
+if they are derived.  If they are derived a new attribute, derived, is set at
 creation time.
 
 During difference checking this field is checked, if it is true then the element
@@ -209,7 +209,7 @@ list.
 ------------
 8.1 Ensure integrity check is run after CLI merge
 
-- Setup a GIT repository
+- Use a GIT repository
 - Create and share a new project
 - Create two classes and commit
 - Create a branch adding one attribute
@@ -249,7 +249,7 @@ R The correct entry on the other side is also expanded
 8.5 Rework location logic for differences
 
 - Create a class with three attributes and three operations
-- Delete the second attribute and operation in the same operation
+- Delete the second attribute and operation in the same action
 - Move the last operation up
 - Compare with local history (the third entry in the view)
 R All differences that are additions point to the correct location

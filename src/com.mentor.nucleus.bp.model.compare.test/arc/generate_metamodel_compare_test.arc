@@ -166,20 +166,8 @@ public class ModelComparisonTests extends BaseTest {
 	}
 
 	private int getExpectedSizeForChange(TreeDifferencer differencer, Object testElement) {
-		if(getName().contains("State_Machine_EventNumb") || getName().contains("State_Machine_EventIs_Lbl_U")) {
-			return 2;
-		}
-		if(getName().contains("State_Machine_EventMning")) {
-			return 1;
-		}
-		if(getName().contains("State_Machine_StateName")) {
-			return 1;
-		}
 		if(getName().contains("Layer_Name")) {
 			return 2;
-		}
-		if(getName().contains("Class_Instance_ParticipantName")) {
-			return 1;
 		}
 		if(differencer.getLeftDifferences().size() == 2) {
 			// this could be rename, where the differences
