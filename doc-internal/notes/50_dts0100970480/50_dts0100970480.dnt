@@ -99,9 +99,9 @@ broken.
 
 6.2 Exclude derived attributes from differencing engine
 
-During code generation for the ObjectElement class attributes are checked to see
-if they are derived.  If they are derived a new attribute, derived, is set at
-creation time.
+During code generation for the ObjectElement class, attributes are checked to
+see if they are derived.  If they are derived a new attribute, derived, in the
+generated ObjectElement class is set to true at creation time.
 
 During difference checking this field is checked, if it is true then the element
 is excluded from a comparison.
@@ -146,7 +146,8 @@ in the TreeDifferencer class.
 6.6 Support integer attribute value setting
 
 The ModelMergeProcessor is modified to pass in the Integer.TYPE value when
-looking for the set method for the merge.
+looking for the set method for the merge.  The same type of change is made for
+floats by using the Float.TYPE value.
 
 6.7 Create event matrix entries for new states and new events
 
@@ -180,8 +181,8 @@ It was noticed during testing that exceptions were being thrown during a merge
 due to missing PMCs for an element.  The merge process uses export which is
 where these exceptions were being thrown.  The elements in a merge will never
 have PMCs and these exceptions shall be avoided.  To do so a new flag was
-introduced in CoreExport, ignoreignoreMissingPMCErrors.  This flag defaults to
-false and is set to true during merge exports.
+introduced in CoreExport, ignoreMissingPMCErrors.  This flag defaults to false
+and is set to true during merge exports.
 
 7.3 Empty streams during compare editor initialization
 
