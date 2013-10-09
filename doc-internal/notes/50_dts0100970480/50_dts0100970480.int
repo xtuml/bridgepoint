@@ -15,6 +15,8 @@ This note lists the files that were changes as part of this issues work.
 ----------------------
 [1] Issues 50, https://github.com/xtuml/doc/issues/50  
 [2] /doc-internal/notes/50_dts0100970480.dnt
+[3] CQ Issue dts0100943296 Text phrase for relational attributes in properties
+    window should be visible
 
 3. Background
 -------------
@@ -30,6 +32,16 @@ See [2].
 
 6. Implementation Comments
 --------------------------
+6.1 Remove text phrase from model class graphical compartment
+
+[3] Added support for showing the text phrase for referential attributes.  The
+initial change modified an operation that was shared between the properties view
+and the model class graphical compartments.  We decided this was not what we
+wanted as it would clutter the diagrams.  To remove this in the graphics and
+keep it in the properties view a new parameter is added to the O_REF.get_text()
+operation.  This parameter indicates whether or not the text phrase should be
+added to the name.  For the case of graphical compartments the parameter is
+false, while all other cases are true.
 
 7. Unit Test
 ------------
@@ -46,6 +58,12 @@ com.mentor.nucleus.bp.cli/src/com/mentor/nucleus/bp/cli/
 
 com.mentor.nucleus.bp.core/arc/create_model_inspector.arc
 com.mentor.nucleus.bp.core/arc/create_object_inspector.inc
+com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/
+    Subsystem/Attribute Reference in Class/Attribute Reference in Class.xtuml
+com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/
+    Subsystem/Model Class/Model Class.xtuml
+com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/
+    Subsystem/Referential Attribute/Referential Attribute.xtuml
 com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/
     State Machine/Creation Transition/Creation Transition.xtuml
 com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/
@@ -93,9 +111,6 @@ com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/test/common/
 
 com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/bp/ui/graphics/parts/
     DiagramEditPart.java
-
-doc-internal/notes/50_dts0100970480/50_dts0100970480.dnt
-doc-internal/review-minutes/R4_0_7/50_dts0100970480_dnt.md
 
 End
 ---

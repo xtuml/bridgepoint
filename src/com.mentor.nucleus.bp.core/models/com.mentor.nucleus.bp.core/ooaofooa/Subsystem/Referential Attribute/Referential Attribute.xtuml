@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("30c0ac88-8e1e-4d56-a78d-5df87501c11c",
@@ -89,7 +89,7 @@ INSERT INTO O_TFR
    result = attr.Name;
    select many ref_set related by self->O_REF[R108];
    for each ref in ref_set
-     result = result + " (" + ref.get_text() + ")";
+     result = result + " (" + ref.get_text(includeTextPhrase:true) + ")";
    end for;
    return result;',
 	1,
