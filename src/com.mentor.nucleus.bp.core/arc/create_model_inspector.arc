@@ -360,6 +360,11 @@ public class ${model_element_class_name}{
 		return hash;
 	}
 	
+	/**
+	 * setDerived does not take a parameter as the ObjectElement class can
+	 * be either derived or non-derived, it will never change during its
+	 * existence
+	 */
 	public void setDerived() {
 		derived = true;
 	}

@@ -18,6 +18,7 @@ import com.mentor.nucleus.bp.core.ClassAsAssociatedOneSide_c;
 import com.mentor.nucleus.bp.core.ClassAsAssociatedOtherSide_c;
 import com.mentor.nucleus.bp.core.ClassAsSimpleFormalizer_c;
 import com.mentor.nucleus.bp.core.ClassAsSimpleParticipant_c;
+import com.mentor.nucleus.bp.core.Gd_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.model.compare.providers.NonRootModelElementComparable;
 
@@ -49,7 +50,7 @@ public class AssociationComparable extends NonRootModelElementComparable {
 	}
 
 	private UUID getObjectInAssociationId(NonRootModelElement association) {
-		UUID id = null;
+		UUID id = Gd_c.Null_unique_id();
 		if (association instanceof ClassAsSimpleParticipant_c) {
 			return ((ClassAsSimpleParticipant_c) association).getOir_id();
 		} else if (association instanceof ClassAsSimpleFormalizer_c) {
@@ -63,7 +64,7 @@ public class AssociationComparable extends NonRootModelElementComparable {
 	}
 
 	private UUID getAssociationId(NonRootModelElement association) {
-		UUID id = null;
+		UUID id = Gd_c.Null_unique_id();
 		if (association instanceof ClassAsSimpleParticipant_c) {
 			return ((ClassAsSimpleParticipant_c) association).getRel_id();
 		} else if (association instanceof ClassAsSimpleFormalizer_c) {

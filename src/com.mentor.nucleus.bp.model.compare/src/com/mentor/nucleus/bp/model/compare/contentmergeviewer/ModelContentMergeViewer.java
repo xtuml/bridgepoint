@@ -111,6 +111,7 @@ import com.mentor.nucleus.bp.core.ui.AbstractModelExportFactory;
 import com.mentor.nucleus.bp.io.core.CoreExport;
 import com.mentor.nucleus.bp.model.compare.ComparePlugin;
 import com.mentor.nucleus.bp.model.compare.CompareTransactionManager;
+import com.mentor.nucleus.bp.model.compare.ITreeDifferencerProvider;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager.ModelLoadException;
 import com.mentor.nucleus.bp.model.compare.ModelMergeProcessor;
@@ -122,6 +123,7 @@ import com.mentor.nucleus.bp.model.compare.actions.NavigateUpAction;
 import com.mentor.nucleus.bp.model.compare.providers.ModelCompareContentProvider;
 import com.mentor.nucleus.bp.model.compare.providers.ModelCompareLabelProvider;
 import com.mentor.nucleus.bp.model.compare.providers.NonRootModelElementComparable;
+import com.mentor.nucleus.bp.model.compare.providers.TreeDifferenceContentProvider;
 import com.mentor.nucleus.bp.model.compare.structuremergeviewer.ModelStructureDiffViewer;
 import com.mentor.nucleus.bp.ui.canvas.CanvasPlugin;
 
@@ -775,7 +777,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 					continue;
 				}
 				boolean changed = ModelMergeProcessor.merge(differencer,
-						difference, !leftToRight, (ITreeContentProvider) viewer
+						difference, !leftToRight, (ITreeDifferencerProvider) viewer
 								.getContentProvider(),
 						(ITableLabelProvider) viewer.getLabelProvider(),
 						modelRoot);
