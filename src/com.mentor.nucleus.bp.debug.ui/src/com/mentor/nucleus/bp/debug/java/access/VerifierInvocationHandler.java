@@ -175,8 +175,14 @@ public class VerifierInvocationHandler implements InvocationHandler {
 							.getInstanceList(Body_c.class).getGlobal(bodyID);
 					if (body != null) {
 						// Now marshal the argument values
-						PropertyParameter_c[] pps = PropertyParameter_c
-								.getManyC_PPsOnR4006(exProp);
+						PropertyParameter_c param = PropertyParameter_c
+								.getOneC_PPOnR4006(exProp);
+						PropertyParameter_c tempParam = null;
+						while (param != null){
+							tempParam = param;
+							param = PropertyParameter_c.getOneC_PPOnR4021Succeeds(param);
+						}
+						param  = tempParam;
 						StackFrame_c localStackFrame = StackFrame_c
 								.getOneI_STFOnR2929(Stack_c
 										.getOneI_STACKOnR2930(component));
@@ -193,14 +199,15 @@ public class VerifierInvocationHandler implements InvocationHandler {
 									.getModelRoot().getInstanceList(
 											StackFrame_c.class).getGlobal(sf);
 							Map<RuntimeValue_c, ParameterValue> argMap = new HashMap<RuntimeValue_c, ParameterValue>();
-							for (int i = 0; i < pps.length; i++) {
-								RuntimeValue_c rtVal = marshallValueIn(pps[i],
+							for (int i = 0; param != null ; i++) {
+								RuntimeValue_c rtVal = marshallValueIn(param,
 										arg2[i + 1], exProp.getId(), bodyID,
 										sf, localStackFrame.getStack_frame_id());
-								if (pps[i].getBy_ref() == 1) {
-									Dimensions_c [] dims = Dimensions_c.getManyS_DIMsOnR4017(pps[i]);
+								if (param.getBy_ref() == 1) {
+									Dimensions_c [] dims = Dimensions_c.getManyS_DIMsOnR4017(param);
 									argMap.put(rtVal, new ParameterValue(arg2[i + 1], dims.length));
 								}
+								param = PropertyParameter_c.getOneC_PPOnR4021Precedes(param);
 							}
 							if (targetEngine != null) {
 								if (newStackFrame != null) {
