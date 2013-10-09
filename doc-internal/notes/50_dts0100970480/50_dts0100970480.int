@@ -17,6 +17,8 @@ This note lists the files that were changes as part of this issues work.
 [2] /doc-internal/notes/50_dts0100970480.dnt
 [3] CQ Issue dts0100943296 Text phrase for relational attributes in properties
     window should be visible
+[4] CQ Issue dts0100934967 Provide an option to include built-in EEs
+                                (LOG, ARCH, TIM) when creating new xtUML project
 
 3. Background
 -------------
@@ -64,6 +66,13 @@ During testing it was noticed that some refresh calls to open diagrams could
 occur off of the UI thread.  This results in SWT Exceptions.  To resolve this
 the code that calls the repaint in DiagramEditPart.refreshVisuals() is wrapped
 in an asyncExec call on the platform display.
+
+6.5 Address [4]
+
+[4] added code to allow creation of the default EEs.  The code works as is
+designed, but the necessary data is not properly exported for builds.  To
+address this the Built-in External Entities folder in bp.pkg is added to the
+list of files exported for a build.
 
 7. Unit Test
 ------------
