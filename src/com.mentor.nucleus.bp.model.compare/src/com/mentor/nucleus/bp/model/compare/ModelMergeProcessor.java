@@ -88,7 +88,7 @@ public class ModelMergeProcessor {
 
 	public static boolean merge(TreeDifferencer differencer,
 			TreeDifference difference, boolean rightToLeft,
-			ITreeContentProvider contentProvider, ITableLabelProvider labelProvider, Ooaofooa modelRoot)
+			ITreeDifferencerProvider contentProvider, ITableLabelProvider labelProvider, Ooaofooa modelRoot)
 			throws IOException {
 		// this is a removal
 		if (difference.getElement() == null
@@ -121,6 +121,11 @@ public class ModelMergeProcessor {
 		}
 		if (diffElement instanceof NonRootModelElementComparable) {
 			// do not allow the merge if there is no parent
+			// this is a case where the left element is null and
+			// merging would result in the creation of a new element
+			// This new element could however result in a case where
+			// a duplicate element is created (rename) which the tool
+			// currently does not behave well with
 			if (difference.getElement() == null
 					&& difference.getMatchingDifference().getParent() == null) {
 				return false;
@@ -356,7 +361,7 @@ public class ModelMergeProcessor {
 	}
 
 	private static boolean handleNewElement(TreeDifference difference,
-			ITreeContentProvider contentProvider, Object diffElement,
+			ITreeDifferencerProvider contentProvider, Object diffElement,
 			Ooaofooa modelRoot, TreeDifferencer differencer, boolean rightToLeft) throws IOException {
 		Object matchingDiffElement = difference.getMatchingDifference()
 				.getElement();
@@ -571,11 +576,7 @@ public class ModelMergeProcessor {
 								});
 				if(entry == null) {
 					SemEvent_c sem = SemEvent_c.getOneSM_SEVTOnR525(event);
-					StateEventMatrixEntry_c newEntry = new StateEventMatrixEntry_c(newObject.getModelRoot());
-					CantHappen_c ch = new CantHappen_c(newObject.getModelRoot());
-					ch.relateAcrossR504To(newEntry);
-					newEntry.relateAcrossR503To(state);
-					newEntry.relateAcrossR503To(sem);
+					createSEME(sem, state);
 				}
 			}
 		}
@@ -597,11 +598,7 @@ public class ModelMergeProcessor {
 							}
 						});
 				if(entry == null) {
-					StateEventMatrixEntry_c newEntry = new StateEventMatrixEntry_c(state.getModelRoot());
-					CantHappen_c ch = new CantHappen_c(state.getModelRoot());
-					ch.relateAcrossR504To(newEntry);
-					newEntry.relateAcrossR503To(sem);
-					newEntry.relateAcrossR503To(state);
+					createSEME(sem, state);
 				}
 			}
 			// also check all events assigned to transitions leaving this state
@@ -631,11 +628,7 @@ public class ModelMergeProcessor {
 									});
 					if(entry == null) {
 						SemEvent_c sem = SemEvent_c.getOneSM_SEVTOnR525(evt);
-						StateEventMatrixEntry_c newEntry = new StateEventMatrixEntry_c(newObject.getModelRoot());
-						CantHappen_c ch = new CantHappen_c(newObject.getModelRoot());
-						ch.relateAcrossR504To(newEntry);
-						newEntry.relateAcrossR503To(otherState);
-						newEntry.relateAcrossR503To(sem);
+						createSEME(sem, otherState);
 					}
 
 				}
@@ -643,6 +636,14 @@ public class ModelMergeProcessor {
 		}
 	}
 	
+	private static void createSEME(SemEvent_c sem, StateMachineState_c state) {
+		StateEventMatrixEntry_c newEntry = new StateEventMatrixEntry_c(state.getModelRoot());
+		CantHappen_c ch = new CantHappen_c(state.getModelRoot());
+		ch.relateAcrossR504To(newEntry);
+		newEntry.relateAcrossR503To(sem);
+		newEntry.relateAcrossR503To(state);
+	}
+
 	private static NonRootModelElement importExternal(NonRootModelElement remoteObject, String export, NonRootModelElement parent, Ooaofooa modelRoot, int newElementLocation) {
 		NonRootModelElement newObject = null;
 		ModelStreamProcessor processor = new ModelStreamProcessor();
@@ -710,7 +711,7 @@ public class ModelMergeProcessor {
 	}
 
 	private static void handleCopyNew(NonRootModelElement newObject,
-			TreeDifferencer differencer, ITreeContentProvider contentProvider,
+			TreeDifferencer differencer, ITreeDifferencerProvider contentProvider,
 			Ooaofooa modelRoot, boolean rightToLeft) throws IOException {
 		Object[] children = contentProvider.getChildren(newObject);
 		for (Object child : children) {
@@ -756,7 +757,7 @@ public class ModelMergeProcessor {
 	}
 
 	private static void recursivelyCopyChildren(Object[] children,
-			ITreeContentProvider contentProvider, Object diffElement,
+			ITreeDifferencerProvider contentProvider, Object diffElement,
 			Ooaofooa modelRoot, TreeDifferencer differencer, boolean rightToLeft)
 			throws IOException {
 		for (Object child : children) {
@@ -934,7 +935,7 @@ public class ModelMergeProcessor {
 	 * 
 	 */
 	private static void handleReferential(ObjectElement element,
-			ObjectElement localElement, ITreeContentProvider contentProvider,
+			ObjectElement localElement, ITreeDifferencerProvider contentProvider,
 			Ooaofooa modelRoot, TreeDifferencer differencer, boolean rightToLeft, TreeDifference difference) throws IOException {
 		IModelClassInspector insp = new ModelInspector();
 		if (((NonRootModelElement) element.getParent()).getModelRoot() instanceof Ooaofgraphics) {
@@ -1113,7 +1114,7 @@ public class ModelMergeProcessor {
 	}
 
 	private static void handlePreSpecialCase(ObjectElement element,
-			ITreeContentProvider contentProvider, Ooaofooa modelRoot,
+			ITreeDifferencerProvider contentProvider, Ooaofooa modelRoot,
 			boolean rightToLeft, TreeDifferencer differencer, ObjectElement localElement, TreeDifference originalDifference) {
 		if (element.getName().equals("referential_To")
 				&& element.getParent() instanceof Transition_c && originalDifference != null) {

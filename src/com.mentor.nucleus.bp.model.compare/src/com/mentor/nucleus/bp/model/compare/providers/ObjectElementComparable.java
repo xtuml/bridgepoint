@@ -25,9 +25,9 @@ import com.mentor.nucleus.bp.core.inspector.ObjectElement;
 
 public class ObjectElementComparable extends ComparableTreeObject {
 
-	private Object realElement;
+	private ObjectElement realElement;
 
-	public ObjectElementComparable(Object realElement) {
+	public ObjectElementComparable(ObjectElement realElement) {
 		this.realElement = realElement;
 	}
 	

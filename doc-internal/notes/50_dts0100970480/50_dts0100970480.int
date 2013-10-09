@@ -43,6 +43,28 @@ operation.  This parameter indicates whether or not the text phrase should be
 added to the name.  For the case of graphical compartments the parameter is
 false, while all other cases are true.
 
+6.2 Properly close down workbench
+
+In BPCLIWorkbenchAdvisor we were suspending the eclipse job manager in two
+locations, it should only be suspended during pre-startup before any job has
+been scheduled.  Additionally it should only be suspended when debugging is not
+enabled as the workbench will not shutdown if the job manager is not running.
+
+6.3 Process ordering for merging differences
+
+During testing it was noted that the order of difference merging can have an ill
+effect on the location's determined by the previous differencing.  This results
+in incorrect location's when merging a location difference.  In order to address
+this the logic is modified to process all additions and removals before all
+other changes.
+
+6.4 DiagramEditPart
+
+During testing it was noticed that some refresh calls to open diagrams could
+occur off of the UI thread.  This results in SWT Exceptions.  To resolve this
+the code that calls the repaint in DiagramEditPart.refreshVisuals() is wrapped
+in an asyncExec call on the platform display.
+
 7. Unit Test
 ------------
 See [2].

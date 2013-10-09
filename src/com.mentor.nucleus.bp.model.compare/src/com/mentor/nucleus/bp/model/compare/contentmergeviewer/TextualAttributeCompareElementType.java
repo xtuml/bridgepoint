@@ -139,34 +139,29 @@ public class TextualAttributeCompareElementType implements ITypedElement,
 			method.invoke(element.getParent(),
 					new Object[] { newContentString });
 		} catch (SecurityException e) {
-			CorePlugin
-					.logError(
-							"Unable to invoke set method for textual compare input.",
-							e);
+			CorePlugin.logError("Unable to invoke "
+					+ element.getParent().getClass().getSimpleName()
+					+ methodName + " method for textual compare input.", e);
 			return;
 		} catch (NoSuchMethodException e) {
-			CorePlugin
-					.logError(
-							"Unable to invoke set method for textual compare input.",
-							e);
+			CorePlugin.logError("Unable to invoke "
+					+ element.getParent().getClass().getSimpleName()
+					+ methodName + " method for textual compare input.", e);
 			return;
 		} catch (IllegalArgumentException e) {
-			CorePlugin
-					.logError(
-							"Unable to invoke set method for textual compare input.",
-							e);
+			CorePlugin.logError("Unable to invoke "
+					+ element.getParent().getClass().getSimpleName()
+					+ methodName + " method for textual compare input.", e);
 			return;
 		} catch (IllegalAccessException e) {
-			CorePlugin
-					.logError(
-							"Unable to invoke set method for textual compare input.",
-							e);
+			CorePlugin.logError("Unable to invoke "
+					+ element.getParent().getClass().getSimpleName()
+					+ methodName + " method for textual compare input.", e);
 			return;
 		} catch (InvocationTargetException e) {
-			CorePlugin
-					.logError(
-							"Unable to invoke set method for textual compare input.",
-							e);
+			CorePlugin.logError("Unable to invoke "
+					+ element.getParent().getClass().getSimpleName()
+					+ methodName + " method for textual compare input.", e);
 			return;
 		}
 		element.setValue(newContentString);
