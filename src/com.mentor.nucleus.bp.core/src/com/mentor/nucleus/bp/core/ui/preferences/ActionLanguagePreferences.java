@@ -139,32 +139,7 @@ public class ActionLanguagePreferences
     allowOperationsInWhere.setLayoutData(data);
 
     model = new BridgePointPreferencesModel();
-    model.getStore().loadModel(getPreferenceStore(), null, model);
-
-    BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
-    if (bpPrefs.allowIntToRealPromotion.equals(MessageDialogWithToggle.ALWAYS)) {
-        allowPromotionYesRadio.setSelection(true);
-    } else if (bpPrefs.allowIntToRealPromotion.equals(MessageDialogWithToggle.NEVER)) {
-        allowPromotionNoRadio.setSelection(true);
-    } else {
-        allowPromotionNoRadio.setSelection(true);
-    }
-
-    if (bpPrefs.allowRealToIntCoercion.equals(MessageDialogWithToggle.ALWAYS)) {
-        allowCoercionYesRadio.setSelection(true);
-    } else if (bpPrefs.allowRealToIntCoercion.equals(MessageDialogWithToggle.NEVER)) {
-        allowCoercionNoRadio.setSelection(true);
-    } else {
-        allowCoercionNoRadio.setSelection(true);
-    }
-
-    if ( allowPromotionNoRadio.getSelection() == true ) {
-        allowCoercionYesRadio.setEnabled( false );
-        allowCoercionNoRadio.setEnabled( false );
-    }
-   	allowImplicitComponentAddressing.setSelection(
-   			                          bpPrefs.allowImplicitComponentAddressing);
-   	allowOperationsInWhere.setSelection(bpPrefs.allowOperationsInWhere);
+    syncUIWithPreferences();
     return composite;
   }
 
@@ -229,9 +204,29 @@ public class ActionLanguagePreferences
       
       if (bpPrefs.allowIntToRealPromotion.equals(MessageDialogWithToggle.ALWAYS)) {
           allowPromotionYesRadio.setSelection(true);
+          allowPromotionNoRadio.setSelection(false);
+      } else if (bpPrefs.allowIntToRealPromotion.equals(MessageDialogWithToggle.NEVER)) {
+          allowPromotionYesRadio.setSelection(false);
+          allowPromotionNoRadio.setSelection(true);
+      } else {
+          allowPromotionYesRadio.setSelection(false);
+          allowPromotionNoRadio.setSelection(true);
       }
+
       if (bpPrefs.allowRealToIntCoercion.equals(MessageDialogWithToggle.ALWAYS)) {
           allowCoercionYesRadio.setSelection(true);
+          allowCoercionNoRadio.setSelection(false);
+      } else if (bpPrefs.allowRealToIntCoercion.equals(MessageDialogWithToggle.NEVER)) {
+          allowCoercionYesRadio.setSelection(false);
+          allowCoercionNoRadio.setSelection(true);
+      } else {
+          allowCoercionYesRadio.setSelection(false);
+          allowCoercionNoRadio.setSelection(true);
+      }
+
+      if ( allowPromotionNoRadio.getSelection() == true ) {
+          allowCoercionYesRadio.setEnabled( false );
+          allowCoercionNoRadio.setEnabled( false );
       }
       allowImplicitComponentAddressing.setSelection(bpPrefs.allowImplicitComponentAddressing);
       allowOperationsInWhere.setSelection(bpPrefs.allowOperationsInWhere);
