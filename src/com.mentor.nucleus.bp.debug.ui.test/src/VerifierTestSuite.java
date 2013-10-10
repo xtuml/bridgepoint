@@ -33,6 +33,7 @@ import com.mentor.nucleus.bp.debug.engine.VerifierMessageTest;
 import com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals;
 import com.mentor.nucleus.bp.debug.engine.VerifierTransitionActionTests;
 import com.mentor.nucleus.bp.debug.test.RealizedClassTest;
+import com.mentor.nucleus.bp.debug.test.VIECParameterTest;
 import com.mentor.nucleus.bp.debug.test.VIECTest;
 import com.mentor.nucleus.bp.debug.test.VerifierTestSuiteI;
 import com.mentor.nucleus.bp.debug.test.VerifierUDTAsUDTInitializationTests;
@@ -79,6 +80,7 @@ public class VerifierTestSuite extends TestSuite {
 		addTest(new TestSuite(VerifierExecuteFragmentTest.class));		
 		addTest(new TestSuite(VerifierExecuteActionTests.class));
 		addTest(new TestSuite(VIECTest.class));
+		addTest(new TestSuite(VIECParameterTest.class));
 		addTest(new TestSuite(SignalParameterPassingTest.class));
 		addTest(new TestSuite(VerifierInterfaceExecutionTests.class));
 		addTest(new TestSuite(VerifierTransitionActionTests.class));
