@@ -40,7 +40,6 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String ENABLE_DYNAMICALLY_SIZED_ARRAYS = PREFIX + "enable_dynamically_sized_arrays"; //$NON-NLS-1$
     public static final String ENABLE_DETERMINISTIC_VERIFIER = PREFIX + "enable_deterministic_verifier"; //$NON-NLS-1$
     public static final String ENABLE_INSTANCE_REFERENCES = PREFIX + "enable_instance_references"; //$NON-NLS-1$
-
     public static final String ENABLE_VERIFIER_AUDIT = PREFIX + "enable_verifier_audit"; //$NON-NLS-1$
     public static final String ENABLE_SELECT_AUDIT = PREFIX + "enable_select_audit"; //$NON-NLS-1$
     public static final String ENABLE_RELATE_AUDIT = PREFIX + "enable_relate_audit"; //$NON-NLS-1$
@@ -51,18 +50,17 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String SNAP_TO_GRID = PREFIX + "snapToGrid"; //$NON-NLS-1$
     public static final String GRID_SPACING = PREFIX + "gridSpacing"; //$NON-NLS-1$
     public static final String EMIT_RTO_DATA = PREFIX + "emit_rto_data"; //$NON-NLS-1$
-
 	public static final String DEFAULT_ROUTING_STYLE = PREFIX + "defaultRoutingStyle"; //$NON-NLS-1$
+    public static final String SHOW_SYNC_DELETION_DIALOG = PREFIX + "show_reference_delete_warning"; //$NON-NLS-1$
+    public static final String SHOW_SYNC_REPORT = PREFIX + "show_reference_sync_report"; //$NON-NLS-1$
+    public static final String USE_DEFAULT_NAME_FOR_CREATION = PREFIX + "use_default_name_for_new_element_creation"; //$NON-NLS-1$
 
 	public static final String RECTILINEAR_ROUTING = "RECTILINEAR_ROUTING"; //$NON-NLS-1$
 
 	public static final String OBLIQUE_ROUTING = "OBLIQUE_ROUTING"; //$NON-NLS-1$
 
-	public static final String SHOW_SYNC_DELETION_DIALOG = "SHOW_REFERENCE_DELETE_WARNING"; //$NON-NLS-1$
+	public static final String TO_PROVIDER = "to provider"; //$NON-NLS-1$
 	
-	public static final String SHOW_SYNC_REPORT = "SHOW_REFERENCE_SYNC_REPORT"; //$NON-NLS-1$
-
-	public static final String USE_DEFAULT_NAME_FOR_CREATION = PREFIX + "USE_DEFAULT_NAME_FOR_NEW_ELEMENT_CREATION"; //$NON-NLS-1$
 		
     public Class getModelClass() {
         return BridgePointPreferencesModel.class;
@@ -130,7 +128,6 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
             store.getString(BridgePointPreferencesStore.ALLOW_REAL_TO_INT_COERCION);
         prefs.allowImplicitComponentAddressing =
             store.getBoolean(BridgePointPreferencesStore.ALLOW_IMPLICIT_COMPONENT_ADDRESSING);
-        store.setDefault(BridgePointPreferencesStore.ALLOW_OPERATIONS_IN_WHERE, false);
         prefs.allowOperationsInWhere =
             store.getBoolean(BridgePointPreferencesStore.ALLOW_OPERATIONS_IN_WHERE);
         prefs.disableGradients =
@@ -142,10 +139,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         if ( prefs.gradientBaseColor == 0L ) {
             prefs.gradientBaseColor = 0xc8c8c8;
         }
-        store.setDefault(BridgePointPreferencesStore.EXPORT_OAL, MessageDialogWithToggle.NEVER);
         prefs.exportOAL =
             store.getString(BridgePointPreferencesStore.EXPORT_OAL);
-        store.setDefault(BridgePointPreferencesStore.EXPORT_GRAPHICS, MessageDialogWithToggle.ALWAYS);
         prefs.exportGraphics =
             store.getString(BridgePointPreferencesStore.EXPORT_GRAPHICS);
         prefs.messageDirection =
@@ -155,15 +150,11 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.showEventParameters =
             store.getBoolean(BridgePointPreferencesStore.SHOW_EVENT_PARAMETERS);
 
-        store.setDefault(BridgePointPreferencesStore.ENABLE_FIXED_LENGTH_ARRAYS, true);
     	prefs.enableFLAs =
     		store.getBoolean(BridgePointPreferencesStore.ENABLE_FIXED_LENGTH_ARRAYS);
-
-        store.setDefault(BridgePointPreferencesStore.ENABLE_DYNAMICALLY_SIZED_ARRAYS, true);
         prefs.enableDSAs =
             store.getBoolean(BridgePointPreferencesStore.ENABLE_DYNAMICALLY_SIZED_ARRAYS);
 
-        store.setDefault(BridgePointPreferencesStore.ENABLE_DETERMINISTIC_VERIFIER, true);
         prefs.enableDeterministicVerifier =
             store.getBoolean(BridgePointPreferencesStore.ENABLE_DETERMINISTIC_VERIFIER);
 
@@ -184,18 +175,12 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
           store.getInt(BridgePointPreferencesStore.START_UP_TIME);
         
         prefs.showGrid = store.getBoolean(BridgePointPreferencesStore.SHOW_GRID);
-        store.setDefault(BridgePointPreferencesStore.SNAP_TO_GRID, true);
         prefs.snapToGrid = store.getBoolean(BridgePointPreferencesStore.SNAP_TO_GRID);
-        store.setDefault(BridgePointPreferencesStore.GRID_SPACING, 12);
         prefs.gridSpacing = store.getInt(BridgePointPreferencesStore.GRID_SPACING);
-        store.setDefault(BridgePointPreferencesStore.DEFAULT_ROUTING_STYLE, OBLIQUE_ROUTING);
         prefs.defaultRoutingStyle = store.getString(BridgePointPreferencesStore.DEFAULT_ROUTING_STYLE);
-        store.setDefault(BridgePointPreferencesStore.EMIT_RTO_DATA, true);
         prefs.emitRTOData = store.getBoolean(BridgePointPreferencesStore.EMIT_RTO_DATA);
         prefs.showReferenceRemovalDialog = store.getBoolean(BridgePointPreferencesStore.SHOW_SYNC_DELETION_DIALOG);
-        store.setDefault(BridgePointPreferencesStore.SHOW_SYNC_DELETION_DIALOG, true);
         prefs.showReferenceSyncReport = store.getBoolean(BridgePointPreferencesStore.SHOW_SYNC_REPORT);
-        store.setDefault(BridgePointPreferencesStore.SHOW_SYNC_REPORT, true);
         
         prefs.useDefaultNamesForNewModelElements =
             store.getBoolean(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION);
@@ -213,12 +198,12 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
 
         BridgePointPreferencesModel prefs = (BridgePointPreferencesModel) model;
 
-        prefs.parseAllOnResourceChange = MessageDialogWithToggle.PROMPT;
-        prefs.allowIntToRealPromotion = MessageDialogWithToggle.NEVER;
-        prefs.allowRealToIntCoercion = MessageDialogWithToggle.NEVER;
-        prefs.allowImplicitComponentAddressing = true;
+        prefs.parseAllOnResourceChange = MessageDialogWithToggle.NEVER;
+        prefs.allowIntToRealPromotion = MessageDialogWithToggle.ALWAYS;
+        prefs.allowRealToIntCoercion = MessageDialogWithToggle.ALWAYS;
+        prefs.allowImplicitComponentAddressing = false;
         prefs.allowOperationsInWhere = false;
-        prefs.disableGradients = false;
+        prefs.disableGradients = true;
         prefs.invertGradients = false;
         prefs.gradientBaseColor = 0xc8c8c8;
         prefs.showTransitionActions = false;
@@ -226,12 +211,16 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.enableFLAs = true;
         prefs.enableDSAs = true;
         prefs.enableInstanceReferences = false;
+        prefs.emitRTOData = true;        
+        prefs.exportOAL = MessageDialogWithToggle.NEVER;
+        prefs.exportGraphics = MessageDialogWithToggle.ALWAYS;
+        prefs.messageDirection = TO_PROVIDER;
         
         prefs.enableVerifierAudit = false;
-        prefs.enableSelectAudit = 0;
-        prefs.enableRelateAudit = 0;
-        prefs.enableUnrelateAudit = 0;
-        prefs.enableDeleteAudit = 0;
+        prefs.enableSelectAudit = 1;
+        prefs.enableRelateAudit = 1;
+        prefs.enableUnrelateAudit = 1;
+        prefs.enableDeleteAudit = 1;
         
         prefs.startUpTime = 5;
         
