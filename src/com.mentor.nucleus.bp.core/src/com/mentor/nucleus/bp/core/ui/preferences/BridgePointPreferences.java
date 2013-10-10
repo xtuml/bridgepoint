@@ -173,7 +173,6 @@ public class BridgePointPreferences
 	
     public void performDefaults() {
         super.performDefaults();
-        CorePlugin plugin = CorePlugin.getDefault();
         model.getStore().restoreModelDefaults(model);
         syncUIWithPreferences();
     }
