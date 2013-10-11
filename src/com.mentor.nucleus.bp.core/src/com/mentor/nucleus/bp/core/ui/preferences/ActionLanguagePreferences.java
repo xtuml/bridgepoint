@@ -139,6 +139,8 @@ public class ActionLanguagePreferences
     allowOperationsInWhere.setLayoutData(data);
 
     model = new BridgePointPreferencesModel();
+    model.getStore().loadModel(getPreferenceStore(), null, model);
+
     syncUIWithPreferences();
     return composite;
   }
@@ -200,7 +202,6 @@ public class ActionLanguagePreferences
 
   private void syncUIWithPreferences() {
       BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
-      model.getStore().loadModel(getPreferenceStore(), null, model);
       
       if (bpPrefs.allowIntToRealPromotion.equals(MessageDialogWithToggle.ALWAYS)) {
           allowPromotionYesRadio.setSelection(true);

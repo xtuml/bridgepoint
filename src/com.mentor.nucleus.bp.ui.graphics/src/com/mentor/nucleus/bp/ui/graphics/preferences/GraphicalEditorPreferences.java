@@ -273,7 +273,6 @@ public class GraphicalEditorPreferences extends FieldEditorPreferencePage implem
 
     private void syncUIWithPreferences() {
         BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
-        model.getStore().loadModel(getPreferenceStore(), null, model);
 
         Integer spacing = new Integer(bpPrefs.gridSpacing);
         gridSpacing.setStringValue(spacing.toString());

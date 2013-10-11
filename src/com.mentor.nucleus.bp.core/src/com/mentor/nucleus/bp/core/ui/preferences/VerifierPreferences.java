@@ -169,7 +169,7 @@ public class VerifierPreferences
   
   public void createControl(Composite parent) {
   	super.createControl(parent);
-    // add F1 context support to  main bridgepoint preference page
+    // add F1 context support to  main BridgePoint preference page
     PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), ICoreHelpContextIds.corePreferencesId);
   }
     
@@ -206,7 +206,7 @@ public class VerifierPreferences
 
     private void syncUIWithPreferences() {
       BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
-      model.getStore().loadModel(getPreferenceStore(), null, model);
+      
       enable.setSelection(bpPrefs.enableVerifierAudit);
       auditGroup.setEnabled(bpPrefs.enableVerifierAudit);
       select.select(bpPrefs.enableSelectAudit);

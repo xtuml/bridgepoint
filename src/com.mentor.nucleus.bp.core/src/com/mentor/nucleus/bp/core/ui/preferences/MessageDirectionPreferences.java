@@ -78,6 +78,8 @@ public class MessageDirectionPreferences extends PreferencePage implements
 		fromProviderRadio.setLayoutData(new GridData());
 
 		model = new BridgePointPreferencesModel();
+        model.getStore().loadModel(getPreferenceStore(), null, model);
+
 		syncUIWithPreferences();
 		
 		return composite;
@@ -117,7 +119,6 @@ public class MessageDirectionPreferences extends PreferencePage implements
 	
     private void syncUIWithPreferences() {
         BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
-        model.getStore().loadModel(getPreferenceStore(), null, model);
         
         if (bpPrefs.messageDirection.equals("to provider")) {
             toProviderRadio.setSelection(true);

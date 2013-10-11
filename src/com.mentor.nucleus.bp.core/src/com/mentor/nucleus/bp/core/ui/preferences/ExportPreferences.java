@@ -146,8 +146,6 @@ public class ExportPreferences extends PreferencePage implements
 
     private void syncUIWithPreferences() {
         BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
-        model.getStore().loadModel(getPreferenceStore(), null, model);
-
         boolean oalExportIsLicensed = BridgePointLicenseManager.licenseExists(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
         
         if (bpPrefs.exportOAL.equals(MessageDialogWithToggle.ALWAYS) && oalExportIsLicensed) {
