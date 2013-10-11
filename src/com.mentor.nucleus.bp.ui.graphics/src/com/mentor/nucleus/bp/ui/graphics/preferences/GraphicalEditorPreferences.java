@@ -1,6 +1,7 @@
 package com.mentor.nucleus.bp.ui.graphics.preferences;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.ColorSelector;
 import org.eclipse.jface.preference.ComboFieldEditor;
@@ -26,6 +27,7 @@ import org.eclipse.ui.PlatformUI;
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesModel;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
+import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
 import com.mentor.nucleus.bp.ui.graphics.IGraphicalHelpContextIds;
 import com.mentor.nucleus.bp.ui.graphics.editor.GraphicalEditor;
 
@@ -230,8 +232,9 @@ public class GraphicalEditorPreferences extends FieldEditorPreferencePage implem
 		BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
 		if (showGrid.getBooleanValue()) {
 			bpPrefs.showGrid = true;
-		} else
+		} else {
 			bpPrefs.showGrid = false;
+		}
 		if (snapToGrid.getBooleanValue()) {
 			bpPrefs.snapToGrid = true;
 		} else {
@@ -268,6 +271,36 @@ public class GraphicalEditorPreferences extends FieldEditorPreferencePage implem
 		return true;
 	}
 
+    private void syncUIWithPreferences() {
+        BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
+        model.getStore().loadModel(getPreferenceStore(), null, model);
+
+        Integer spacing = new Integer(bpPrefs.gridSpacing);
+        gridSpacing.setStringValue(spacing.toString());
+        
+        if (bpPrefs.disableGradients == true) {
+            disableGradients.setSelection( true );
+        } else {
+            disableGradients.setSelection( false );
+        }
+
+        if (bpPrefs.invertGradients == true) {
+            invertGradients.setSelection( true );
+        } else {
+            invertGradients.setSelection( false );
+        }
+
+        gradientBaseColor.setColorValue( convertToRGB( bpPrefs.gradientBaseColor ) );
+
+        if ( disableGradients.getSelection() == true ) {
+            invertGradients.setEnabled( false );
+            clrLabel.setEnabled( false );
+            gradientBaseColor.setEnabled( false );
+        }
+        
+        // NOTE: The show grid, snap to grid, and routing style controls are 
+        // handled by eclipse, we don't have to handle them manually.
+    }
 	protected long convertToLong( RGB rgb ) {
 		long rVal = (rgb.red << 16) | (rgb.green << 8) | rgb.blue;
 		return rVal;
@@ -277,6 +310,7 @@ public class GraphicalEditorPreferences extends FieldEditorPreferencePage implem
 	protected void performDefaults() {
 		super.performDefaults();
 		model.getStore().restoreModelDefaults(model);
+		syncUIWithPreferences();
 	}
 
 	protected int convertHorizontalDLUsToPixels(Control control, int dlus) {
