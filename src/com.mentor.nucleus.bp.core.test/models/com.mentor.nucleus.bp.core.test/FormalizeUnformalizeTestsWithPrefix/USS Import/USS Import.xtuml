@@ -1,0 +1,126 @@
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("8e69ec05-f702-490e-8577-04be07a9c8e7",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'USS Import',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("a8e66361-2bc8-4410-9743-5d225657812e",
+	112,
+	"8e69ec05-f702-490e-8577-04be07a9c8e7",
+	108,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTestsWithPrefix::USS Import');
+INSERT INTO GD_GE
+	VALUES ("cab9e41d-ad6e-41ac-935c-23990db1a659",
+	"a8e66361-2bc8-4410-9743-5d225657812e",
+	"7cb5c122-1b84-4eed-8347-005bf8d2c3fc",
+	21,
+	0,
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTestsWithPrefix::USS Import::UnformalizeSUBSUPUsedRef IOBJ_OBJ OBJ');
+INSERT INTO GD_SHP
+	VALUES ("cab9e41d-ad6e-41ac-935c-23990db1a659");
+INSERT INTO GD_NCS
+	VALUES ("cab9e41d-ad6e-41ac-935c-23990db1a659");
+INSERT INTO DIM_ND
+	VALUES (144.000000,
+	128.000000,
+	"cab9e41d-ad6e-41ac-935c-23990db1a659");
+INSERT INTO DIM_GE
+	VALUES (1664.000000,
+	1216.000000,
+	"cab9e41d-ad6e-41ac-935c-23990db1a659",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("cab9e41d-ad6e-41ac-935c-23990db1a659",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("643eb1a8-25cd-4f0d-a75e-b3cdf9ec285a",
+	"a8e66361-2bc8-4410-9743-5d225657812e",
+	"729f4120-a7a7-40ca-95af-31df2e6e2b60",
+	21,
+	0,
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTestsWithPrefix::USS Import::UnformalizeSUBSUPUsedRef IOBJ_OBJ IOBJ');
+INSERT INTO GD_SHP
+	VALUES ("643eb1a8-25cd-4f0d-a75e-b3cdf9ec285a");
+INSERT INTO GD_NCS
+	VALUES ("643eb1a8-25cd-4f0d-a75e-b3cdf9ec285a");
+INSERT INTO DIM_ND
+	VALUES (160.000000,
+	128.000000,
+	"643eb1a8-25cd-4f0d-a75e-b3cdf9ec285a");
+INSERT INTO DIM_GE
+	VALUES (1856.000000,
+	1216.000000,
+	"643eb1a8-25cd-4f0d-a75e-b3cdf9ec285a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("643eb1a8-25cd-4f0d-a75e-b3cdf9ec285a",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("00ef969a-bfa7-4408-85d9-87d147cd60f7",
+	"a8e66361-2bc8-4410-9743-5d225657812e",
+	"22ab3fc0-5564-4197-b724-9b31f4521254",
+	21,
+	0,
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTestsWithPrefix::USS Import::UnformalizeSUBSUPUsedRef IOBJ_IOBJ IOBJ');
+INSERT INTO GD_SHP
+	VALUES ("00ef969a-bfa7-4408-85d9-87d147cd60f7");
+INSERT INTO GD_NCS
+	VALUES ("00ef969a-bfa7-4408-85d9-87d147cd60f7");
+INSERT INTO DIM_ND
+	VALUES (160.000000,
+	128.000000,
+	"00ef969a-bfa7-4408-85d9-87d147cd60f7");
+INSERT INTO DIM_GE
+	VALUES (2048.000000,
+	1216.000000,
+	"00ef969a-bfa7-4408-85d9-87d147cd60f7",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("00ef969a-bfa7-4408-85d9-87d147cd60f7",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_DIA
+	VALUES ("a8e66361-2bc8-4410-9743-5d225657812e",
+	'',
+	1.000000,
+	1600.000000,
+	1179.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("8e69ec05-f702-490e-8577-04be07a9c8e7",
+	1,
+	"eba87b52-a9c4-43c7-b6d4-c2239288c2d5",
+	"00000000-0000-0000-0000-000000000000",
+	-1);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("eba87b52-a9c4-43c7-b6d4-c2239288c2d5",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'FormalizeUnformalizeTestsWithPrefix',
+	'',
+	0,
+	'../FormalizeUnformalizeTestsWithPrefix.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("c6693612-7c4f-42e5-b64f-16c64f288945",
+	'com.mentor.nucleus.bp.core.test',
+	1,
+	'../../com.mentor.nucleus.bp.core.test.xtuml');

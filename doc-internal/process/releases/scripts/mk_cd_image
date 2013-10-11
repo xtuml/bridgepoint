@@ -1,0 +1,450 @@
+#!/bin/ksh
+#
+#File to create CD files and mail for it 
+# set -x
+# Get general info about release
+#
+
+# If this is not a Seamless CVE release we need to create esdm and doc data.
+esdm_data=0
+doc_data=0
+
+if [ $USER != "gbales" ] ; then
+   if [ ! -f /user/$USER/.netrc ] ; then
+      echo "This script requires you to either run it as gbales or have a .netrc file setup."
+      echo "Exiting."
+      exit 1
+   fi
+else
+   cp /user/gbales/mk_cd_image.netrc /user/gbales/.netrc
+   chmod 600 /user/gbales/.netrc
+fi
+
+read email?"Enter your e-mail address [garry_bales@mentor.com]: "
+if [ "${email}" = "" ]; then
+  email=garry_bales@mentor.com
+fi
+
+read business_unit?"Business Unit? "
+read rls_num?"Release Number? "
+read rls_name?"Release Name? "
+rls_top="/wv/svd_for_cd/"
+case ${rls_name} in
+   *Source* )
+      rls_loc_default=/wv/svd_for_cd/`echo ${rls_name} | sed -e "s#Source Code ##g" -e "s# #_#g" -e "s#\.#_#g"`_source
+   ;;
+   *VTP* )
+      rls_loc_default=/wv/svd_for_cd/`echo ${rls_name} | sed -e "s# #_#g" -e "s#\.#_#g"`
+      if [ ! -d ${rls_loc_default} ] ; then
+         rls_loc_default=/wv/svd_for_cd/`echo ${rls_name} | sed -e "s#\.\([0-9]\)\([0-9]\)#_\1_\2#g" -e "s# #_#g" -e "s#\.#_#g"`
+      fi
+   ;;
+   *CVE*)
+      rls_loc_default=/wv/seamless_cve_cd/`echo ${rls_name} | sed -e "s# #_#g" -e "s#\.#_#g"`
+      rls_top="/wv/seamless_cve_cd/"
+      esdm_data=1
+      esdm_cnt=0
+      doc_data=1
+      docs_cnt=0
+   ;;
+   *Boot*)
+      rls_loc_default=/wv/svd_for_cd/`echo ${rls_name} | sed -e "s#Boot Loader#BL#g" -e "s# #_#g" -e "s#\.#_#g"`
+   ;;
+   *Diagnostic*)
+      rls_loc_default=/wv/svd_for_cd/`echo ${rls_name} | sed -e "s#Diagnostic Layer#DSM#g" -e "s# #_#g" -e "s#\.#_#g"`
+   ;;
+   *Management*)
+      rls_loc_default=/wv/svd_for_cd/`echo ${rls_name} | sed -e "s#Network Management#NWM#g" -e "s# #_#g" -e "s#\.#_#g"`
+   ;;
+   *Transport*)
+      rls_loc_default=/wv/svd_for_cd/`echo ${rls_name} | sed -e "s#Transport Layer#TLM#g" -e "s# #_#g" -e "s#\.#_#g"`
+   ;;
+   *)
+      rls_loc_default=/wv/svd_for_cd/`echo ${rls_name} | sed -e "s# #_#g" -e "s#\.#_#g"`
+   ;;
+esac
+if [ -d ${rls_loc_default} ] ; then
+   rls_loc=${rls_loc_default}
+else 
+   found=bad
+   while [ $found = "bad" ] ; do
+      trydir=${rls_top}`echo ${rls_loc_default} | sed -e "s#/[^/]*/[^/]*/##g" -e "s#/#_#g"`
+      if [ -d $trydir ] ; then
+         rls_loc=${trydir}
+         found="good"
+      else
+         trydir=${rls_top}`echo ${rls_loc_default} | sed -e "s#/[^/]*/[^/]*/##g" -e "s#/#_#g" -e "s#-#_#g"`
+         if [ -d $trydir ] ; then
+            rls_loc=${trydir}
+            found="good"
+         else
+            ls ${rls_top}
+            read rls_loc?"Where is the release software located? "
+            if [ -z ${rls_loc} ] ; then
+               if [ -d ${rls_loc_default} ] ; then
+                  found=good
+                  rls_loc=${rls_loc_default}
+               else
+                  echo "Could not find:  ${rls_loc_default}" 
+               fi
+            else
+               if [ -d ${rls_top}/${rls_loc} ] ; then
+                  rls_loc=${rls_top}/${rls_loc}
+                  found=good
+               else
+                  echo "Could not find:  ${rls_loc}" 
+               fi
+            fi
+         fi
+      fi
+   done
+fi
+rls_nam=`basename ${rls_loc}`
+read cd_cnt?"How many [CDs|DVDs] in this release? "
+read patch?"What release is being patched?  If not a patch respond with NA. "
+#
+# Only create ESDM data for non Seamless CVE releases
+# 
+if [ ${esdm_data} -eq 0 ] ; then
+   #
+   # Create ESDM data
+   #
+   esdm_cnt=0
+   esdm_file_name[${esdm_cnt}]=start
+   ls -1 ${rls_loc}/web
+   echo "Enter File names and descriptions for ESDM download."
+   while [ -n "${esdm_file_name[`eval echo ${esdm_cnt}`]}" ] ; do
+      let esdm_cnt=esdm_cnt+1
+      read esdm_file_name[${esdm_cnt}]?"ESDM FILENAME${esdm_cnt}: "
+      while [ ! -f ${rls_loc}/web/${esdm_file_name[`eval echo ${esdm_cnt}`]} ] && [ -n "${esdm_file_name[`eval echo ${esdm_cnt}`]}" ] ; do
+         echo ""
+         echo "Could not find ${rls_loc}/web/${esdm_file_name[`eval echo ${esdm_cnt}`]}."
+         echo ""
+         read esdm_file_name[${esdm_cnt}]?"ESDM FILENAME${esdm_cnt}: "
+      done
+      read esdm_file_desc[${esdm_cnt}]?"ESDM FILEDESCRIPTION${esdm_cnt}: "
+   done
+   let esdm_cnt=esdm_cnt-1
+fi
+#
+# Start writing text file to be mailed to wof_mds-esdm@mentor.com
+# wof_rtm@mentor.com and liz_hartzog@mentor.com
+#
+cat > ${rls_loc}/esdm.txt <<!
+
+Electronic Delivery Data and ISO Files for CD Master Confirmation
+
+Thank you for completing the Electronic Delivery Data and ISO Files for CD Master form
+
+Sent by: ${email}
+
+!
+if [ "${patch}" = "NA" ] ; then
+   cat >> ${rls_loc}/esdm.txt <<!
+This request is for a registered release.
+
+Release type: Point
+
+Release number: ${rls_num}
+
+!
+else
+   cat >> ${rls_loc}/esdm.txt <<!
+This request is for a registered patch.
+
+Release type: Patch
+
+Release number: ${rls_num}
+
+Patched release number: ${patch}
+
+!
+fi
+
+
+cat >> ${rls_loc}/esdm.txt <<!
+Release name: ${rls_name}
+
+Business unit: ${business_unit}
+
+-------------------------------------------------------
+ELECTRONIC DELIVERY DATA
+
+Include Acrobat Reader on Intraware page: No
+
+If yes, in what order should it be listed: 
+
+The checksum tool used for ESDM files:  cksum
+
+The checksum file identity for ESDM files: esdm_cksum.txt
+
+ESDM files located at: ftp://svr-ies-ftp-01.ies.mentorg.com/pub/wof/${rls_num}_esdm
+
+File names and descriptions:
+
+!
+
+if [ ${esdm_data} -eq 0 ] ; then
+   #
+   # write esdm section
+   #
+   loop_cnt=0
+   while [ ${loop_cnt} -ne ${esdm_cnt} ] ; do
+      let loop_cnt=loop_cnt+1
+      echo "FILE NAME ${loop_cnt}: ${esdm_file_name[`eval echo ${loop_cnt}`]} : FILE DESCRIPTION ${loop_cnt}: ${esdm_file_desc[`eval echo ${loop_cnt}`]}" >> ${rls_loc}/esdm.txt
+      echo "" >> ${rls_loc}/esdm.txt
+   done
+else
+   echo "FILE NAME 1: NA : FILE DESCRIPTION 1: NA " >> ${rls_loc}/esdm.txt
+   echo "" >> ${rls_loc}/esdm.txt
+fi
+
+#
+# write additional documentation section and start of CD Master
+#
+cat >> ${rls_loc}/esdm.txt <<!
+
+
+Start ESDM notes
+
+
+End ESDM notes
+
+Additional documentation: 
+
+!
+echo "NA" >> ${rls_loc}/esdm.txt
+
+cat >> ${rls_loc}/esdm.txt <<!
+
+-------------------------------------------------------
+
+ISO FILES FOR CD MASTER
+
+The checksum tool used for .iso files:  cksum
+
+The checksum file identity for .iso files: tgz_cksum.txt
+
+CD files located at: ftp://svr-ies-ftp-01.ies.mentorg.com/pub/wof/${rls_num}_media
+
+!
+#
+# Get and write CD data
+#
+loop_cnt=0
+while [ ${loop_cnt} -ne ${cd_cnt} ] ; do
+   let loop_cnt=loop_cnt+1
+   found=no
+   cd_loc[${loop_cnt}]=${rls_loc}/cd_${loop_cnt}
+   while [ $found = no ] ; do
+      if [ -d ${cd_loc[`eval echo ${loop_cnt}`]} ] ; then
+         found=yes
+      else
+         echo "Could not find ${cd_loc[`eval echo ${loop_cnt}`]}."
+         find ${rls_loc} -type d -name "cd_*" -print
+         read cd_loc[${loop_cnt}]?"What is the CDs location: "
+      fi
+   done
+   cd ${cd_loc[`eval echo ${loop_cnt}`]}
+   ls -1
+   cd ${cd_loc[`eval echo ${loop_cnt}`]}/..
+   read cdpn[${loop_cnt}]?"What is this [CDs|DVDs] part number? Check web page for this releases Media list. "
+   read cdtitle[${loop_cnt}]?"What is this [CDs|DVDs] Title? Check web page for this releases Media list. "
+   if [ -f  ${cdpn[`eval echo ${loop_cnt}`]}.tgz ] ; then
+      ls -l ${cdpn[`eval echo ${loop_cnt}`]}.tgz
+      read clean?"Do you want to replace the existing tgz file: ${cdpn[`eval echo ${loop_cnt}`]}.tgz? (Y|N) "
+      case $clean in
+         [Yy]* )
+            rm ${cdpn[`eval echo ${loop_cnt}`]}.tgz
+         ;;
+         * )
+            echo ""
+            echo "Using the existing tgz file."
+            echo ""
+         ;;
+      esac
+   fi
+   # move cd_# to cd part number directory
+   mv ${cd_loc[`eval echo ${loop_cnt}`]} ${cdpn[`eval echo ${loop_cnt}`]}
+   sleep 10
+   gtar -zcf ${cdpn[`eval echo ${loop_cnt}`]}.tgz ${cdpn[`eval echo ${loop_cnt}`]}
+   echo "ISO FILE ${loop_cnt}: ${cdpn[`eval echo ${loop_cnt}`]}.tgz : Media PN ${loop_cnt}: ${cdpn[`eval echo ${loop_cnt}`]} : Media TITLE ${loop_cnt}: ${cdtitle[`eval echo ${loop_cnt}`]}" >> ${rls_loc}/esdm.txt
+   echo "" >> ${rls_loc}/esdm.txt
+done
+cat >> ${rls_loc}/esdm.txt <<!
+
+Comments:
+
+Files have been copied to ftp://svr-ies-ftp-01.ies.mentorg.com/pub/wof...
+!
+
+echo "Documentation files have been copied to \\\\\\Svr-orw-wst-60\\\\wst\\\\drop\\\\docs\\\\"${rls_num} >> ${rls_loc}/esdm.txt
+echo "" >> ${rls_loc}/esdm.txt
+
+#
+# Put cd tgz files on ftp server
+#
+echo ""
+echo "FTP .tgz files"
+echo ""
+while [ ! -f /user/$USER/.netrc ] ; do
+   sleep 60
+   echo "/user/$USER/.netrc does not exist."
+   echo "Another process maybe performing a ftp operation using sldata as its login."
+   read newuser?"Switch to another user which has .netrc setup [Y|N]?"
+   case ${newuser} in
+      [Yy]*)
+         read username?"What user?"
+         su ${username}
+      ;;
+      *)
+         read netrc_busy?"Continue to wait or Control C to end"
+      ;;
+   esac
+done
+
+if [ -f tgz_cksum.txt ] ; then
+   rm tgz_cksum.txt
+fi
+loop_cnt=0
+while [ ${loop_cnt} -ne ${cd_cnt} ] ; do
+   let loop_cnt=loop_cnt+1
+   if [ ${loop_cnt} -eq 1 ] ; then
+      ftp svr-ies-ftp-01.ies.mentorg.com <<!
+      binary
+      lcd ${rls_loc}
+      mkdir /pub/wof/${rls_num}_media
+      put ${cdpn[`eval echo ${loop_cnt}`]}.tgz /pub/wof/${rls_num}_media/${cdpn[`eval echo ${loop_cnt}`]}.tgz
+      ls /pub/wof/${rls_num}_media
+      bye
+!
+   else
+      # check for existing file delete it if it exists
+      ftp svr-ies-ftp-01.ies.mentorg.com > /tmp/test_ftp_tgz_${rls_num} 2>&1 <<!
+      binary
+      lcd ${rls_loc}
+      size /pub/wof/${rls_num}_media/${cdpn[`eval echo ${loop_cnt}`]}.tgz
+      bye
+!
+      egrep "${cdpn[`eval echo ${loop_cnt}`]}.tgz: No such file or directory" /tmp/test_ftp_tgz_${rls_num} > /dev/null 2>&1
+      if [ $? -eq 0 ] ; then
+         ftp svr-ies-ftp-01.ies.mentorg.com <<!
+         binary
+         lcd ${rls_loc}
+         del /pub/wof/${rls_num}_media/${cdpn[`eval echo ${loop_cnt}`]}.tgz
+         put ${cdpn[`eval echo ${loop_cnt}`]}.tgz /pub/wof/${rls_num}_media/${cdpn[`eval echo ${loop_cnt}`]}.tgz
+         ls /pub/wof/${rls_num}_media
+         bye
+!
+      else
+         ftp svr-ies-ftp-01.ies.mentorg.com <<!
+         binary
+         lcd ${rls_loc}
+         put ${cdpn[`eval echo ${loop_cnt}`]}.tgz /pub/wof/${rls_num}_media/${cdpn[`eval echo ${loop_cnt}`]}.tgz
+         ls /pub/wof/${rls_num}_media
+         bye
+!
+      fi
+   fi
+   here=`pwd`
+   cd ${cd_loc[`eval echo ${loop_cnt}`]}/..
+   /usr/bin/cksum ${cdpn[`eval echo ${loop_cnt}`]}.tgz >> ${here}/tgz_cksum.txt
+   cd ${here}
+done
+   ftp svr-ies-ftp-01.ies.mentorg.com <<!
+      binary
+      put tgz_cksum.txt /pub/wof/${rls_num}_media/tgz_cksum.txt
+      ls /pub/wof/${rls_num}_media
+      bye
+!
+if [ -f tgz_cksum.txt ] ; then
+   rm tgz_cksum.txt
+fi
+if [ -f /tmp/test_ftp_tgz_${rls_num} ] ; then
+   rm /tmp/test_ftp_tgz_${rls_num}
+fi
+#
+# put esdm downloads on ftp server
+#
+echo ""
+echo "FTP ESDM Downloads"
+echo ""
+loop_cnt=0
+if [ -f esdm_cksum.txt ] ; then
+   rm esdm_cksum.txt
+fi
+while [ ${loop_cnt} -ne ${esdm_cnt} ] ; do
+   let loop_cnt=loop_cnt+1
+   if [ ${loop_cnt} -eq 1 ] ; then
+      ftp svr-ies-ftp-01.ies.mentorg.com <<!
+      binary
+      lcd ${rls_loc}/web
+      mkdir /pub/wof/${rls_num}_esdm
+      put ${esdm_file_name[`eval echo ${loop_cnt}`]} /pub/wof/${rls_num}_esdm/${esdm_file_name[`eval echo ${loop_cnt}`]}
+      ls /pub/wof/${rls_num}_esdm
+      bye
+!
+   else
+      # check for existing file delete it if it exists
+      ftp svr-ies-ftp-01.ies.mentorg.com > /tmp/test_ftp_esdm_${rls_num} 2>&1 <<!
+      binary
+      lcd ${rls_loc}/web
+      cd /pub/wof/${rls_num}_esdm
+      size ${esdm_file_name[`eval echo ${loop_cnt}`]}
+      bye
+!
+      egrep "${esdm_file_name[`eval echo ${loop_cnt}`]}: No such file or directory" /tmp/test_ftp_esdm_${rls_num} > /dev/null 2>&1
+      if [ $? -eq 0 ] ; then
+         ftp svr-ies-ftp-01.ies.mentorg.com <<!
+         binary
+         lcd ${rls_loc}/web
+         cd /pub/wof/${rls_num}_esdm
+         del ${esdm_file_name[`eval echo ${loop_cnt}`]} /pub/wof/${rls_num}_esdm/${esdm_file_name[`eval echo ${loop_cnt}`]}
+         put ${esdm_file_name[`eval echo ${loop_cnt}`]} /pub/wof/${rls_num}_esdm/${esdm_file_name[`eval echo ${loop_cnt}`]}
+         ls /pub/wof/${rls_num}_esdm
+         bye
+!
+      else
+         ftp svr-ies-ftp-01.ies.mentorg.com <<!
+         binary
+         lcd ${rls_loc}/web
+         put ${esdm_file_name[`eval echo ${loop_cnt}`]} /pub/wof/${rls_num}_esdm/${esdm_file_name[`eval echo ${loop_cnt}`]}
+         ls /pub/wof/${rls_num}_esdm
+         bye
+!
+      fi
+   fi
+   here=`pwd`
+   cd ${rls_loc}/web
+   /usr/bin/cksum ${esdm_file_name[`eval echo ${loop_cnt}`]} >> ${here}/esdm_cksum.txt
+   cd ${here}
+done
+if [ ${esdm_data} -eq 0 ] ; then
+   ftp svr-ies-ftp-01.ies.mentorg.com <<!
+      binary
+      put esdm_cksum.txt /pub/wof/${rls_num}_esdm/esdm_cksum.txt
+      ls /pub/wof/${rls_num}_esdm
+      bye
+!
+fi
+if [ -f esdm_cksum.txt ] ; then
+   rm esdm_cksum.txt
+fi
+if [ -f /tmp/test_ftp_esdm_${rls_num} ] ; then
+   rm /tmp/test_ftp_esdm_${rls_num}
+fi
+echo ""
+echo "${rls_loc}/esdm.txt:"
+cat ${rls_loc}/esdm.txt
+echo ""
+echo "" >> ${rls_loc}/esdm.txt
+echo "Who to mail this to: wofmdsesdm@mentor.com rdm_releases@mentor.com" >>  ${rls_loc}/esdm.txt
+echo "" >> ${rls_loc}/esdm.txt
+echo "" >> ${rls_loc}/esdm.txt
+echo ""
+if [ $USER != "gbales" ] ; then
+   cat  ${rls_loc}/esdm.txt | mail -s"${rls_num} - ${rls_name} [CD|DVD]/ESDM form submitted.  Forward to wofmdsesdm@mentor.com and rdm_releases@mentor.com when ready." gbales $USER
+else
+   cat  ${rls_loc}/esdm.txt | mail -s"${rls_num} - ${rls_name} [CD|DVD]/ESDM form submitted.  Forward to wofmdsesdm@mentor.com and rdm_releases@mentor.com when ready." gbales 
+fi
+echo "Release location is ${rls_loc}"

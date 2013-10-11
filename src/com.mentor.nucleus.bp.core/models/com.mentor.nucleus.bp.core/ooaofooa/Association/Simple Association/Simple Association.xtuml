@@ -324,7 +324,7 @@ INSERT INTO O_TFR
 end if;
 
 select any part related by self->R_PART[R207]
-  where selected.Obj_ID == param.part_obj_id;
+  where selected.OIR_ID == param.part_oir_id;
 
 // migrate participant to Class As Simple Formalizer
 // select using OIR_ID so that we get a different instance in the reflexive case
@@ -355,7 +355,7 @@ end for;
 INSERT INTO O_TPARM
 	VALUES ("92020e45-ed15-49d8-989b-504cf4c70dda",
 	"5211e040-9664-4a90-bfe5-b7657a940ec0",
-	'part_obj_id',
+	'part_oir_id',
 	"a5f314e0-43b6-40bd-8aee-520de6952a24",
 	0,
 	'',

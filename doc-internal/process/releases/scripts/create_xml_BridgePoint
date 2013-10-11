@@ -1,0 +1,719 @@
+#!/bin/ksh
+#=====================================================================
+#
+# File:      $RCSfile: create_xml_BridgePoint,v $
+# Version:   $Revision: 1.11 $
+# Modified:  $Date: 2013/06/14 20:06:03 $
+#
+#(c) Copyright 2004-2010 by Mentor Graphics Corp. All rights reserved.
+#
+#=====================================================================
+# This document contains information proprietary and confidential to
+# Mentor Graphics Corp. and is not for external distribution.
+#=====================================================================
+# set -x
+# $1 is the release directory
+# $2 is release title
+# $3 is the supportnet product hierarchy name
+# $4 is the release number otherwise known as the sku
+# $5 is the Major version number of the product maybe blank
+# $6 is the Minor version number of the product maybe blank
+if [ ! "$4" ] || [ ! "$3" ] || [ ! "$2" ] || [ ! "$1" ] ; then
+   echo "$0 requires 4 arguments:"
+   echo "# \$1 is the release directory"
+   echo "# \$2 is release title"
+   echo "# \$3 is the supportnet product hierarchy name"
+   echo "# \$4 is the release number otherwise known as the sku"
+   echo "# EXAMPLE:  create_xml_BridgePoint /wv/svd_for_cd/BridgePoint_3.3.2 \"BridgePoint 3.3.2\" bridgepoint 201106082 3.3.2"
+   exit 1
+fi
+
+RELEASE_HIGHLIGHTS=false
+INSTALL_INSTRUCTIONS=false
+
+# setup docsxml path
+docsxml="$1/web/$4/docs/xml"
+
+# setup productname and productid
+case $3 in
+   bridgepoint)
+      productnamecnt=3
+      productname[0]="bridgepoint"
+      productname[1]="bridgepoint_mc2020"
+      productname[2]="bridgepoint_mc3020"
+      productidcnt=3
+      productid[0]="P10475"
+      productid[1]="P10476"
+      productid[2]="P10477"
+   ;;
+   * )
+     productnamecnt=1
+     productname[0]=$3
+     productidcnt=0
+   ;;
+esac
+
+html_copy="false"
+if [ -d $1 ] ; then
+   DT=`date "+%D %T"`
+   VERSION=`date  +"%B %Y"`
+   cwd=`pwd`
+   if [ -d $1/web/$4 ] ; then
+      cd $1/web/$4
+      if [ ! -d docs/xml ] ; then
+         echo "Creating docs tree structure..."
+         for pdf in `find $1/web -type f -name "*.[Pp][Dd][Ff]" -print` ; do
+             mkdir -p docs/pdfdocs
+             cp ${pdf} docs/pdfdocs
+         done
+         for txt in `find $1/web -type f -name "*.[Tt][Xx][Tt]" -print` ; do
+             mkdir -p docs/asciidocs
+             cp ${txt} docs/asciidocs
+         done
+         for html in `find $1/web -type d -name $4 -prune -o -type f -name "*.[Hh][Tt][Mm][Ll]" -print` ; do
+             mkdir -p docs/htmldocs
+             if [ `dirname $html` = "." ] ; then
+                cp $html docs/htmldocs
+             else
+                basehtml=`echo $html | sed "s#$1/web#docs/htmldocs#g"` 
+                if [ ! -f ${basehtml} ] ; then
+                   if [ ${html_copy} = "false" ] ; then
+                      echo "Found html docs need to copy by hand first...exiting"
+                   fi
+                   echo $html
+                   html_copy="true"
+                fi
+             fi
+         done
+         for html in `find $1/web -type d -name $4 -prune -o -type f -name "*.[Hh][Tt][Mm]" -print` ; do
+             mkdir -p docs/htmldocs
+             if [ `dirname $html` = "." ] ; then
+                cp $html docs/htmldocs
+             else
+                basehtml=`echo $html | sed "s#$1/web#docs/htmldocs#g"` 
+                if [ ! -f ${basehtml} ] ; then
+                   if [ ${html_copy} = "false" ] ; then
+                      echo "Found html docs need to copy by hand first...exiting"
+                   fi
+                   echo $html
+                   html_copy="true"
+                fi
+             fi
+         done
+         for bmp in `find $1/web -type f -name "*.[Bb][Mm][Pp]" -print` ; do
+             mkdir -p docs/htmldocs
+             cp ${bmp} docs/htmldocs
+         done
+         for xml in `find $1/web -type f -name "*.[Xx][Mm][Ll]" -print` ; do
+             mkdir -p docs/xmldocs
+             cp ${xml} docs/xmldocs
+         done
+      fi
+      mkdir -p docs/xml
+      docsxml="$1/web/$4/docs/xml"
+   else
+      cd $1/web
+      if [ ! -d docs ] ; then
+         echo "Creating docs tree structure..."
+         for pdf in `find . -type f -name "*.[Pp][Dd][Ff]" -print` ; do
+             mkdir -p $4/docs/pdfdocs
+             cp ${pdf} $4/docs/pdfdocs
+         done
+         for txt in `find . -type f -name "*.[Tt][Xx][Tt]" -print` ; do
+             mkdir -p $4/docs/asciidocs
+             cp ${txt} $4/docs/asciidocs
+         done
+         for html in `find . -type d -name $4 -prune -o -type f -name "*.[Hh][Tt][Mm][Ll]" -print` ; do
+             mkdir -p $4/docs/htmldocs
+             if [ `dirname $html` = "." ] ; then
+                cp $html $4/docs/htmldocs
+             else
+                if [ ${html_copy} = "false" ] ; then
+                   echo "Found html docs need to copy by hand first...exiting"
+                fi
+                echo $html
+                html_copy="true"
+             fi
+         done
+         for html in `find . -type d -name $4 -prune -o -type f -name "*.[Hh][Tt][Mm]" -print` ; do
+             mkdir -p $4/docs/htmldocs
+             if [ `dirname $html` = "." ] ; then
+                cp $html $4/docs/htmldocs
+             else
+                if [ ${html_copy} = "false" ] ; then
+                   echo "Found html docs need to copy by hand first...exiting"
+                fi
+                echo $html
+                html_copy="true"
+             fi
+         done
+         for bmp in `find $1/web -type f -name "*.[Bb][Mm][Pp]" -print` ; do
+             mkdir -p $4/docs/htmldocs
+             cp ${bmp} $4/docs/htmldocs
+         done
+         for xml in `find . -type f -name "*.[Xx][Mm][Ll]" -print` ; do
+             mkdir -p $4/docs/xmldocs
+             cp ${xml} $4/docs/xmldocs
+         done
+      fi
+      mkdir -p $4/docs/xml
+      docsxml="$1/web/$4/docs/xml"
+      cd $4
+   fi
+   if [ ${html_copy} = "true" ] ; then
+      exit 1
+   fi
+   for pdf in `find docs -type f -name "*.[Pp][Dd][Ff]" -print` ; do
+      TITLE="TITLE"
+      echo $pdf | egrep -i "_rev_" > /dev/null 2>&1
+      if [ $? -eq 0 ] ; then
+         VERSION=`echo $pdf | sed "s/.*\([Rr][Ee][Vv]_[a-zA-Z]*\)[_.].*/\1/g"`
+      else
+         VERSION=`date  +"%B %Y"`
+      fi
+      case $pdf in 
+# FLEXNet
+         *flexnet_admin*)
+             TITLE="License Administration Guide"
+             VERSION="11.11.1"
+         ;;
+# Mentor Licensing
+         *mgc_licen*)
+             TITLE="Licensing Mentor Graphics Software"
+             VERSION="v2013_2"
+         ;;
+         *mgc_lic_rn*)
+             TITLE="Release Notes for Licensing Mentor Graphics Software"
+             VERSION="v2013_2"
+         ;;
+# Release Highlights
+         *[Rr]elease_[Hh]ighlights*)
+             FILENAME=`basename $pdf | sed "s/\.[pP][dD][fF]//g"`
+             TITLE=`echo $FILENAME | sed "s/_/ /g"`
+             RELEASE_HIGHLIGHTS=true
+         ;;
+# Install instructions
+         *[Ii]nstall*)
+             FILENAME=`basename $pdf | sed "s/\.[pP][dD][fF]//g"`
+             TITLE=`echo $FILENAME | sed "s/_/ /g"`
+             INSTALL_INSTRUCTIONS=true
+         ;;
+         *DesignGuide.pdf)
+             TITLE="The xtUML Modeling Guide"
+             VERSION="$5"
+         ;;
+         *StyleGuide.pdf)
+             TITLE="The Style Guide to xtUML Modeling"
+             VERSION="$5"
+         ;;            
+# Default
+         *)
+             TITLE="TITLE"
+         ;;
+      esac
+      xml=`echo $pdf | sed "s#\.[Pp][Dd][Ff]#.xml#"`
+      echo $pdf | egrep -i "release_notes|rel_notes|relnotes|rls_notes|rlsnotes|library_note|bootloader_spec" > /dev/null 2>&1
+      if [ $? -eq 0 ] ; then 
+         cat > $xml <<!     
+<?xml version="1.0" ?> 
+<document revision="1" updated="false" xmlcreated="$DT"> 
+   <documentTitle>${TITLE}</documentTitle> 
+   <productVersion>${VERSION}</productVersion>
+   <releaseID>product.releaseid.$4</releaseID> 
+   <files> 
+      <file type="document.fileType.PDF">$pdf</file> 
+   </files> 
+   <products> 
+!
+         cnt=0
+         while [ $cnt -lt $productidcnt ] ; do
+            cat >> $xml <<!
+      <product productID="product.id.${productid[((cnt))]}" /> 
+!
+            let cnt=cnt+1
+         done
+         cat >> $xml <<!
+   </products> 
+   <docTypes> 
+      <docType>doc.type.documentation.user</docType> 
+      <docType>doc.type.documentation.rn</docType> 
+   </docTypes> 
+   <sortOrder>999</sortOrder> 
+   <language>doc.language.en_US</language> 
+</document>
+!
+      else
+         echo $pdf | egrep -i "Application_Notes|App_Note" > /dev/null 2>&1
+         if [ $? -eq 0 ] ; then 
+            cat > $xml <<!     
+<?xml version="1.0" ?> 
+<document revision="1" updated="false" xmlcreated="$DT"> 
+   <documentTitle>${TITLE}</documentTitle> 
+   <productVersion>${VERSION}</productVersion>
+   <releaseID>product.releaseid.$4</releaseID> 
+   <files> 
+      <file type="document.fileType.PDF">$pdf</file> 
+   </files> 
+   <products> 
+!
+            cnt=0
+            while [ $cnt -lt $productidcnt ] ; do
+               cat >> $xml <<!
+      <product productID="product.id.${productid[((cnt))]}" /> 
+!
+               let cnt=cnt+1
+            done
+            cat >> $xml <<!
+   </products> 
+   <docTypes> 
+      <docType>doc.type.documentation.user</docType> 
+      <docType>doc.type.appnote.product</docType> 
+   </docTypes> 
+   <sortOrder>999</sortOrder> 
+   <language>doc.language.en_US</language> 
+</document>
+!
+         else
+            cat > $xml <<!     
+<?xml version="1.0" ?> 
+<document revision="1" updated="false" xmlcreated="$DT"> 
+   <documentTitle>${TITLE}</documentTitle> 
+   <productVersion>${VERSION}</productVersion>
+   <releaseID>product.releaseid.$4</releaseID> 
+   <files> 
+      <file type="document.fileType.PDF">$pdf</file> 
+   </files> 
+   <products> 
+!
+            cnt=0
+            while [ $cnt -lt $productidcnt ] ; do
+               cat >> $xml <<!
+      <product productID="product.id.${productid[((cnt))]}" /> 
+!
+               let cnt=cnt+1
+            done
+            cat >> $xml <<!
+   </products> 
+   <docTypes> 
+!
+            echo $pdf | egrep -i "release_highlights" > /dev/null 2>&1
+            if [ $? -eq 0 ] ; then 
+               cat >> $xml <<!     
+      <docType>doc.type.documentation.rh</docType> 
+!
+            fi
+            echo $pdf | egrep -i "Volcano_LTP_Source_Code_Addendum" > /dev/null 2>&1
+            if [ $? -eq 0 ] ; then
+               cat >> $xml <<!     
+      <docType>doc.type.documentation.rn</docType> 
+!
+            fi
+            cat >> $xml <<!     
+      <docType>doc.type.documentation.user</docType> 
+   </docTypes> 
+   <sortOrder>999</sortOrder> 
+   <language>doc.language.en_US</language> 
+</document>
+!
+         fi
+      fi
+      mv $xml $docsxml
+      echo "Created $docsxml/"`basename $xml`
+   done
+   for html in `find docs -type f -name "*.[Hh][Tt][Mm][Ll]" -print -o -type f -name "*.[Hh][Tt][Mm]" -print` ; do
+      echo $html | egrep -i "_rev_" > /dev/null 2>&1
+      if [ $? -eq 0 ] ; then
+         VERSION=`echo $html | sed "s/.*\/[vV][0-9][0-9]*_.*_\([Rr][Ee][Vv]_[a-zA-Z]*\)_.*/\1/g"`
+      else
+         VERSION="VERSION"
+      fi
+      TITLE=TITLE
+      dirhtmldocs=`find docs -type d -name "htmldocs" -print`
+      dirhtml=`dirname $html`
+      if [ $dirhtml = $dirhtmldocs ] ; then
+         case $html in 
+# BridgePoint - here we handle docs that live directly in -htmldocs-
+            *ModelVerifierJavaInterface.htm)
+               TITLE="Model Verifier Java Interface"
+               VERSION="$5"
+            ;;
+# Default
+            *)
+                TITLE="TITLE"
+            ;;
+         esac
+         xml=`echo $html | sed -e "s#\.[Hh][Tt][Mm][Ll]#.xml#" -e "s#\.[Hh][Tt][Mm]#.xml#"`
+         cat > $xml <<!     
+<?xml version="1.0" ?> 
+<document revision="1" updated="false" xmlcreated="$DT"> 
+   <documentTitle>${TITLE}</documentTitle> 
+   <productVersion>${VERSION}</productVersion>
+   <releaseID>product.releaseid.$4</releaseID> 
+   <files> 
+      <file type="document.fileType.HTML">$html</file> 
+   </files> 
+   <products> 
+!
+         cnt=0
+         while [ $cnt -lt $productidcnt ] ; do
+            cat >> $xml <<!
+      <product productID="product.id.${productid[((cnt))]}" /> 
+!
+            let cnt=cnt+1
+         done
+         cat >> $xml <<!
+   </products> 
+   <docTypes> 
+      <docType>doc.type.documentation.user</docType> 
+   </docTypes> 
+   <sortOrder>999</sortOrder> 
+   <language>doc.language.en_US</language> 
+</document>
+!
+         mv $xml $docsxml
+         echo "Created $docsxml/"`basename $xml`
+      elif [ `basename $dirhtml` = "HTML" ] ; then
+         case $html in 
+# BridgePoint - Here we handle docs that live in HTML subdirectories
+            *GettingStarted.htm)
+               TITLE="BridgePoint Getting Started"
+               VERSION="$5"
+            ;;
+            *TipsAndTricks.htm)
+               TITLE="BridgePoint Tips and Tricks"
+               VERSION="$5"
+            ;;
+            *GPMigrationGuide.htm)
+               TITLE="Generic Package Migration Guide"
+               VERSION="$5"
+            ;;
+            *LinuxGuide.htm)
+               TITLE="Linux Guide"
+               VERSION="$5"
+            ;;
+            *BridgePointAndConfigurationManagement.htm)
+               TITLE="BridgePoint and Configuration Management"
+               VERSION="$5"
+            ;;
+            *xtUMLModeling.htm)
+               TITLE="BridgePoint User Interface xtUMLModeling Perspective"
+               VERSION="$5"
+            ;;
+            *bpalref.book.htm)
+               TITLE="Object Action Language Manual"
+               VERSION="$5"
+            ;;
+            *archetypes-2.htm)
+               TITLE="Rule Specification Language"
+               VERSION="$5"
+            ;;
+            *Translation.htm)
+               TITLE="Translation Reference"
+               VERSION="$5"
+            ;;
+            *RevisionControl.htm)
+               TITLE="Revision Control Reference"
+               VERSION="$5"
+            ;;
+            *SystemModeling.htm)
+               TITLE="System Modeling Reference"
+               VERSION="$5"
+            ;;
+            *Association.htm)
+               TITLE="Metamodel Association Reference"
+               VERSION="$5"
+            ;;
+            *Domain.htm)
+               TITLE="Metamodel Domain Reference"
+               VERSION="$5"
+            ;;
+            *State_Machine.htm)
+               TITLE="Metamodel State_Machine Reference"
+               VERSION="$5"
+            ;;
+            *Subsystem.htm)
+               TITLE="Metamodel Subsystem Reference"
+               VERSION="$5"
+            ;;
+            *ModelVerifierJavaInterface.htm)
+               TITLE="Model Verifier Java Interface"
+               VERSION="$5"
+            ;;
+            *WhatsNew.htm)
+               TITLE="BridgePoint Whats New"
+               VERSION="$5"
+            ;;
+            *EDGE_Licensing_Help.htm)
+               TITLE="BridgePoint Licensing Help"
+               VERSION="$5"
+            ;;
+            *ReleaseNotes.htm)
+               TITLE="BridgePoint Release Notes"
+               VERSION="$5"
+            ;;
+# Default
+            *)
+                continue
+            ;;
+         esac
+         xml=`echo $html | sed -e "s#\.[Hh][Tt][Mm][Ll]#.xml#" -e "s#\.[Hh][Tt][Mm]#.xml#"`
+         cat > $xml <<!     
+<?xml version="1.0" ?> 
+<document revision="1" updated="false" xmlcreated="$DT"> 
+   <documentTitle>${TITLE}</documentTitle> 
+   <productVersion>${VERSION}</productVersion>
+   <releaseID>product.releaseid.$4</releaseID> 
+   <files> 
+      <file type="document.fileType.HTML">$html</file> 
+   </files> 
+   <products> 
+!
+         cnt=0
+         while [ $cnt -lt $productidcnt ] ; do
+            cat >> $xml <<!
+      <product productID="product.id.${productid[((cnt))]}" /> 
+!
+            let cnt=cnt+1
+         done
+         cat >> $xml <<!
+   </products> 
+   <docTypes> 
+      <docType>doc.type.documentation.user</docType> 
+   </docTypes> 
+   <sortOrder>999</sortOrder> 
+   <language>doc.language.en_US</language> 
+</document>
+!
+         mv $xml $docsxml
+         echo "Created $docsxml/"`basename $xml`
+      else
+         case $html in
+           *-olh.htm*)
+              xml=`echo $html | sed -e "s#\.[Hh][Tt][Mm][Ll]#.xml#" -e "s#\.[Hh][Tt][Mm]#.xml#"`
+              cat > $xml <<!     
+<?xml version="1.0" ?> 
+<document revision="1" updated="false" xmlcreated="$DT"> 
+   <documentTitle>${TITLE}</documentTitle> 
+   <productVersion>${VERSION}</productVersion>
+   <releaseID>product.releaseid.$4</releaseID> 
+   <files> 
+      <file type="document.fileType.HTML">$html</file> 
+   </files> 
+   <products> 
+!
+         cnt=0
+         while [ $cnt -lt $productidcnt ] ; do
+            cat >> $xml <<!
+      <product productID="product.id.${productid[((cnt))]}" /> 
+!
+            let cnt=cnt+1
+         done
+         cat >> $xml <<!
+   </products> 
+   <docTypes> 
+      <docType>doc.type.documentation.olh</docType> 
+   </docTypes> 
+   <sortOrder>999</sortOrder> 
+   <language>doc.language.en_US</language> 
+</document>
+!
+              mv $xml $docsxml
+              echo "Created $docsxml/"`basename $xml`
+           ;;
+           wwhelp.htm)
+              xml=`echo $html | sed -e "s#\.[Hh][Tt][Mm][Ll]#.xml#" -e "s#\.[Hh][Tt][Mm]#.xml#"`
+              cat > $xml <<!     
+<?xml version="1.0" ?> 
+<document revision="1" updated="false" xmlcreated="$DT"> 
+   <documentTitle>${TITLE}</documentTitle> 
+   <productVersion>${VERSION}</productVersion>
+   <releaseID>product.releaseid.$4</releaseID> 
+   <files> 
+      <file type="document.fileType.HTML">$html</file> 
+   </files> 
+   <products> 
+!
+         cnt=0
+         while [ $cnt -lt $productidcnt ] ; do
+            cat >> $xml <<!
+      <product productID="product.id.${productid[((cnt))]}" /> 
+!
+            let cnt=cnt+1
+         done
+         cat >> $xml <<!
+   </products> 
+   <docTypes> 
+      <docType>doc.type.documentation.user</docType> 
+   </docTypes> 
+   <sortOrder>999</sortOrder> 
+   <language>doc.language.en_US</language> 
+</document>
+!
+              mv $xml $docsxml
+              echo "Created $docsxml/"`basename $xml`
+           ;;
+         esac
+      fi
+   done
+   for ascii in `find docs -type f -name "*.[Tt][Xx][Tt]" -print` ; do
+      echo $ascii | egrep -i "_rev_" > /dev/null 2>&1
+      if [ $? -eq 0 ] ; then
+         VERSION=`echo $ascii | sed "s/.*\/[vV][0-9][0-9]*_.*_\([Rr][Ee][Vv]_[a-zA-Z]*\)_.*/\1/g"`
+      else
+         VERSION=`date  +"%B %Y"`
+         case $ascii in
+#Default
+            *)
+                TITLE="TITLE"
+            ;;
+         esac
+      fi
+      xml=`echo $ascii | sed "s#\.[Tt][Xx][Tt]#.xml#"`
+      if [ $xml = "docs/asciidocs/ReadMe.xml" ] ; then
+         cat > $xml <<!     
+<?xml version="1.0" ?> 
+<document revision="1" updated="false" xmlcreated="$DT"> 
+   <documentTitle>Installation ReadMe</documentTitle> 
+   <productVersion>${VERSION}</productVersion>
+   <releaseID>product.releaseid.$4</releaseID> 
+   <files> 
+      <file type="document.fileType.TEXT">$ascii</file> 
+   </files> 
+   <products> 
+!
+         cnt=0
+         while [ $cnt -lt $productidcnt ] ; do
+            cat >> $xml <<!
+      <product productID="product.id.${productid[((cnt))]}" /> 
+!
+            let cnt=cnt+1
+         done
+         cat >> $xml <<!
+   </products> 
+   <docTypes> 
+      <docType>doc.type.documentation.user</docType> 
+      <docType>doc.type.documentation.rn</docType> 
+   </docTypes> 
+   <sortOrder>999</sortOrder> 
+   <language>doc.language.en_US</language> 
+</document>
+!
+         mv $xml $docsxml
+         echo "Created $docsxml/"`basename $xml`
+      else
+         cat > $xml <<!     
+<?xml version="1.0" ?> 
+<document revision="1" updated="false" xmlcreated="$DT"> 
+   <documentTitle>${TITLE}</documentTitle> 
+   <productVersion>${VERSION}</productVersion>
+   <releaseID>product.releaseid.$4</releaseID> 
+   <files> 
+      <file type="document.fileType.TEXT">$ascii</file> 
+   </files> 
+   <products> 
+!
+         cnt=0
+         while [ $cnt -lt $productidcnt ] ; do
+            cat >> $xml <<!
+      <product productID="product.id.${productid[((cnt))]}" /> 
+!
+            let cnt=cnt+1
+         done
+         cat >> $xml <<!
+   </products> 
+   <docTypes> 
+!
+         echo ${TITLE} | egrep "Release Notes" > /dev/null 2>&1
+         if [ $? -eq 0 ] ; then
+            cat >> $xml <<!
+      <docType>doc.type.documentation.rn</docType> 
+      <docType>doc.type.documentation.user</docType> 
+   </docTypes> 
+   <sortOrder>999</sortOrder> 
+   <language>doc.language.en_US</language> 
+</document>
+!
+         else
+            cat >> $xml <<!
+      <docType>doc.type.documentation.user</docType> 
+   </docTypes> 
+   <sortOrder>999</sortOrder> 
+   <language>doc.language.en_US</language> 
+</document>
+!
+         fi
+         mv $xml $docsxml
+         echo "Created $docsxml/"`basename $xml`
+      fi
+   done
+   cd $cwd
+else
+   echo "$0 Error $1 is not a directory or can not be found."
+   exit 1
+fi
+if [ ${RELEASE_HIGHLIGHTS} = "false" ] ; then
+   RH=`basename $1`_Release_Highlights
+   RH_TITLE="$2 Release Highlights"
+   VERSION=$5
+   cat > $1/web/$4/docs/xml/${RH}.xml <<!     
+<?xml version="1.0" ?> 
+<document revision="1" updated="false" xmlcreated="$DT"> 
+   <documentTitle>${RH_TITLE}</documentTitle> 
+   <productVersion>${VERSION}</productVersion>
+   <releaseID>product.releaseid.$4</releaseID> 
+   <files> 
+      <file type="document.fileType.PDF">release_docs/${RH}.pdf</file> 
+   </files> 
+   <products> 
+!
+         cnt=0
+         while [ $cnt -lt $productidcnt ] ; do
+            cat >> $1/web/$4/docs/xml/${RH}.xml <<!
+      <product productID="product.id.${productid[((cnt))]}" /> 
+!
+            let cnt=cnt+1
+         done
+         cat >> $1/web/$4/docs/xml/${RH}.xml <<!
+   </products> 
+   <docTypes> 
+      <docType>doc.type.documentation.user</docType> 
+      <docType>doc.type.documentation.rh</docType> 
+   </docTypes> 
+   <sortOrder>999</sortOrder> 
+   <language>doc.language.en_US</language> 
+</document>
+!
+fi
+if [ ${INSTALL_INSTRUCTIONS} = "false" ] ; then
+   INS=`basename $1`_Install
+   INS_TITLE="$2 Installation Instructions"
+   VERSION=$5
+   cat > $1/web/$4/docs/xml/${INS}.xml <<!     
+<?xml version="1.0" ?> 
+<document revision="1" updated="false" xmlcreated="$DT"> 
+   <documentTitle>${INS_TITLE}</documentTitle> 
+   <productVersion>${VERSION}</productVersion>
+   <releaseID>product.releaseid.$4</releaseID> 
+   <files> 
+      <file type="document.fileType.PDF">release_docs/${INS}.pdf</file> 
+   </files> 
+   <products> 
+!
+         cnt=0
+         while [ $cnt -lt $productidcnt ] ; do
+            cat >> $1/web/$4/docs/xml/${INS}.xml <<!
+      <product productID="product.id.${productid[((cnt))]}" /> 
+!
+            let cnt=cnt+1
+         done
+         cat >> $1/web/$4/docs/xml/${INS}.xml <<!
+   </products> 
+   <docTypes> 
+      <docType>doc.type.documentation.user</docType> 
+      <docType>doc.type.documentation.sys</docType> 
+   </docTypes> 
+   <sortOrder>999</sortOrder> 
+   <language>doc.language.en_US</language> 
+</document>
+!
+fi

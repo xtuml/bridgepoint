@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("8251d066-b19a-4b85-a22b-bed29c4c9c7d",
@@ -25,14 +25,14 @@ INSERT INTO GD_MD
 	0,
 	0,
 	'',
-	'FormalizeUnformalizeTests::FSA Import');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::FSA Import');
 INSERT INTO GD_GE
 	VALUES ("a96e85a3-e3ad-4c3d-a3dd-56115f59709e",
 	"81d8addf-cb09-43e8-8fb5-1ab77dea2943",
 	"37f18412-2cf2-4d72-8570-6213d9b1a102",
 	21,
 	0,
-	'FormalizeUnformalizeTests::FSA Import::FormalizeSimpleAssoc IOBJ_OBJ');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::FSA Import::FormalizeSimpleAssoc IOBJ_OBJ');
 INSERT INTO GD_SHP
 	VALUES ("a96e85a3-e3ad-4c3d-a3dd-56115f59709e");
 INSERT INTO GD_NCS
@@ -56,7 +56,7 @@ INSERT INTO GD_GE
 	"40bb5956-2b6d-445f-ada3-5fd4f92d1f68",
 	21,
 	0,
-	'FormalizeUnformalizeTests::FSA Import::FormalizeSimpleAssoc IOBJ_IOBJ');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::FSA Import::FormalizeSimpleAssoc IOBJ_IOBJ');
 INSERT INTO GD_SHP
 	VALUES ("ca6110c5-a37e-4ab3-b988-04ca436288bc");
 INSERT INTO GD_NCS
@@ -80,7 +80,7 @@ INSERT INTO GD_GE
 	"136bab87-fc70-413d-a972-3b36d30451cd",
 	21,
 	0,
-	'FormalizeUnformalizeTests::FSA Import::FormalizeSimpleAssocReflexive IOBJ');
+	'com.mentor.nucleus.bp.core.test::FormalizeUnformalizeTests::FSA Import::FormalizeSimpleAssocReflexive IOBJ');
 INSERT INTO GD_SHP
 	VALUES ("7b11a5e5-a1ae-4c93-b064-6cec32b0b3cb");
 INSERT INTO GD_NCS
