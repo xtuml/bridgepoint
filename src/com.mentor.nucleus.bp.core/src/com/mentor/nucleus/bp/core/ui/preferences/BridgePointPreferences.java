@@ -99,9 +99,6 @@ public class BridgePointPreferences
     promptParseRadio.setText("&Prompt");
     promptParseRadio.setLayoutData(new GridData());
 
-    model = new BridgePointPreferencesModel();
-    model.getStore().loadModel(getPreferenceStore(), null, model);
-    
     showTransitionAction = new Button(composite, SWT.CHECK | SWT.LEFT);
     showTransitionAction.setText("Show actions on transitions");
     showTransitionAction.setLayoutData(new GridData());
@@ -132,7 +129,10 @@ public class BridgePointPreferences
     useDefaultNamesForNewModelElements.setText("Use default names for new model elements");
     useDefaultNamesForNewModelElements.setLayoutData(new GridData());
     useDefaultNamesForNewModelElements.setToolTipText("Shows the rename dialog automatically during new model element creation when not enabled.");
-    	
+
+    model = new BridgePointPreferencesModel();
+    model.getStore().loadModel(getPreferenceStore(), null, model);
+    
     syncUIWithPreferences();
     return composite;
   }
@@ -179,7 +179,6 @@ public class BridgePointPreferences
 
     private void syncUIWithPreferences() {
         BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
-    	model.getStore().loadModel(getPreferenceStore(), null, model);
         if (bpPrefs.parseAllOnResourceChange.equals(MessageDialogWithToggle.ALWAYS)) {
             alwaysParseRadio.setSelection(true);
             neverParseRadio.setSelection(false);

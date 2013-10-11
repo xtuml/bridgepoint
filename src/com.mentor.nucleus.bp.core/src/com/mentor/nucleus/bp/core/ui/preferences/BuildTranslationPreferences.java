@@ -104,7 +104,6 @@ public class BuildTranslationPreferences extends PreferencePage implements
 
     private void syncUIWithPreferences() {
         BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
-        model.getStore().loadModel(getPreferenceStore(), null, model);
         emitRTOData.setSelection(bpPrefs.emitRTOData);
     }
 
