@@ -101,7 +101,7 @@ INSERT INTO O_TFR
 select one rel related by self->R_RGO[R111]->R_OIR[R203]->R_REL[R201];
 if ( not_empty rel )
   txt_phrase = self.get_referential_phrase();
-  if(txt_phrase == "")
+  if(txt_phrase == "" or not param.includeTextPhrase)
     result = rel.get_name();
   else
     result = rel.get_name() + "." + Util::getTic() + txt_phrase
@@ -120,6 +120,22 @@ return result;',
 	1,
 	'',
 	"ac303aa7-cf31-48e1-834a-84d73f5710e7");
+INSERT INTO O_TPARM
+	VALUES ("ca0a0ba3-24db-4240-b481-a95a7f0a219f",
+	"3e02f1a5-a5f0-4bce-bb4e-056157e7d216",
+	'includeTextPhrase',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("19ab6875-1685-4b64-947b-ca7ecd2957e3",
 	"fdfd5407-5392-47ec-9fc2-e1957a3b7852",
@@ -513,13 +529,6 @@ Data Domain: 0 = not  constrained, 1 = constrained',
 	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("33f7e36e-e873-451b-8ac3-de8851273ee4",
 	"fdfd5407-5392-47ec-9fc2-e1957a3b7852");

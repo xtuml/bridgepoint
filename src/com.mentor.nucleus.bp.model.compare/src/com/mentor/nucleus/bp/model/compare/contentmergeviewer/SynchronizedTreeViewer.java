@@ -73,7 +73,6 @@ import com.mentor.nucleus.bp.core.sorter.MetadataSortingManager;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 import com.mentor.nucleus.bp.model.compare.ComparePlugin;
-import com.mentor.nucleus.bp.model.compare.CompareTransactionManager;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager;
 import com.mentor.nucleus.bp.model.compare.TreeDifference;
 import com.mentor.nucleus.bp.model.compare.TreeDifferencer;
@@ -333,7 +332,7 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 				// if the difference indicates a location
 				// this is for the root, place the line under
 				// the element at the given location
-				if (difference.getLocation() >= 0) {
+				if (difference.getLocation() >= 0 && difference.getElement() != null) {
 					TreeItem prevItem = getTree().getItem(
 							difference.getLocation());
 					Rectangle prevItemBounds = buildHighlightRectangle(
@@ -386,18 +385,7 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 					}
 				}
 				if (drawLine) {
-					int location = difference.getLocation();
-					TreeItem[] items = item.getItems();
-					TreeItem prevItem = null;
-					if (items.length == 0) {
-						prevItem = item;
-					} else if (items.length <= location) {
-						prevItem = items[items.length - 1];
-					} else if (location < 0) {
-						prevItem = item;
-					} else {
-						prevItem = items[location];
-					}
+					TreeItem prevItem = getPreviousItem(item, difference);
 					if (prevItem == null || prevItem.isDisposed()
 							|| prevItem.getData() == null) {
 						// refreshing skip at this point
@@ -470,6 +458,22 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 			}
 			gc.setLineStyle(SWT.LINE_SOLID);
 		}
+	}
+
+	public static TreeItem getPreviousItem(TreeItem parent, TreeDifference difference) {
+		int location = difference.getLocation();
+		TreeItem[] items = parent.getItems();
+		TreeItem prevItem = null;
+		if (items.length == 0) {
+			prevItem = parent;
+		} else if (items.length <= location) {
+			prevItem = items[items.length - 1];
+		} else if (location < 0) {
+			prevItem = parent;
+		} else {
+			prevItem = items[location - 1];
+		}
+		return prevItem;
 	}
 
 	TreeItem getItemForDifference(TreeDifference difference) {

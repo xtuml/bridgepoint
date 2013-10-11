@@ -445,7 +445,7 @@ ${attrs.body}\
                   .// in the stream export mechanism but not in the model
                   .// file.  This test is only valid for type that we expect
                   .// should have a PMC.
-                  if (isPersistable && !forceProxyExport) {
+                  if (isPersistable && !forceProxyExport && !ignoreMissingPMCErrors) {
                       if ( ${temp_var}.getPersistableComponent() == null ) {
                             Throwable e = new Throwable("Unable to locate PMC: " + ${temp_var}.getContent());
                             e.fillInStackTrace();

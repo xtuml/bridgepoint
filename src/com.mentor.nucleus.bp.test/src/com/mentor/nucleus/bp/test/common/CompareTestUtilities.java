@@ -13,6 +13,7 @@
 //
 package com.mentor.nucleus.bp.test.common;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,6 +26,7 @@ import org.eclipse.compare.internal.CompareEditor;
 import org.eclipse.compare.structuremergeviewer.DiffNode;
 import org.eclipse.compare.structuremergeviewer.Differencer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFileState;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -477,4 +479,20 @@ public class CompareTestUtilities {
 		return compareElementWithLocalHistory(instance.getFile(), copy);
 	}
 
+	public static IFile openCompareEditor(IFile file) throws CoreException {
+		return openCompareEditor(file, 0);
+	}
+
+	public static IFile openCompareEditor(IFile file, int entry) throws CoreException {
+		// grab the copy from local history
+		IFileState[] history = file.getHistory(new NullProgressMonitor());
+		IFileState state = history[entry];
+		InputStream contents = state.getContents();
+		IFile copy = file.getProject().getFile(file.getName());
+		copy.create(contents, true, new NullProgressMonitor());
+		CompareTestUtilities
+				.compareElementWithLocalHistory(file, copy);
+		return copy;		
+	}
+	
 }

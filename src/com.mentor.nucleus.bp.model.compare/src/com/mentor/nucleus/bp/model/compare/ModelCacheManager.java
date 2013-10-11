@@ -229,6 +229,9 @@ public class ModelCacheManager {
 					if (sca == null) {
 						return false;
 					}
+					if(sca.available() == 0) {
+						return false;
+					}
 					// configure IdAssigners to have upgrade elements
 					// created with the same id
 					IdAssigner.setSeedOfAllInstances(1, false);

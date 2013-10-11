@@ -1452,6 +1452,57 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("02e1d375-517d-4275-9df2-1a0cf39d6b36",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'mergeStateMachineEventAssignedLocalEvent',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// only process this if it is a removal, which the given UUID will be null
+if(param.event_id == GD::NULL_UNIQUE_ID())
+  select one ns_txn related by self->SM_NSTXN[R507];
+  if ( not_empty ns_txn )
+    select one seme related by ns_txn->SM_SEME[R504];
+    select one event related by seme->SM_SEVT[R503];
+    select one state related by seme->SM_STATE[R503];
+    select many existing related by event->SM_SEME[R503]
+                                 where (selected.SMevt_ID == event.SMevt_ID and
+                                           selected.SMstt_ID == state.SMstt_ID);
+    if(cardinality existing == 1)
+      create object instance ch of SM_CH;
+      relate seme to ch across R504;
+    end if;
+    unrelate ns_txn from seme across R504;
+    create object instance ne_txn of SM_NETXN;
+    unrelate ns_txn from self across R507;
+    relate self to ne_txn across R507;
+    delete object instance ns_txn;
+    select one orig_state related by seme->SM_STATE[R503];
+    relate ne_txn to orig_state across R508;
+    select one dest_state related by self->SM_STATE[R506];
+  else
+    select one cr_txn related by self->SM_CRTXN[R507];
+    select one levt related by cr_txn->SM_LEVT[R509];
+    if ( not_empty levt )
+      unrelate cr_txn from levt across R509;
+    end if;
+  end if;
+  return true;
+end if;
+return false;',
+	1,
+	'',
+	"903b5ac9-63cb-4fd0-9cfd-ee354a1eafd6");
+INSERT INTO O_TPARM
+	VALUES ("e77380c6-816a-479c-8fc0-c5d28e5bc9f2",
+	"02e1d375-517d-4275-9df2-1a0cf39d6b36",
+	'event_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("36961925-2727-4c75-b0bf-c2cd8bc2611d",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef");

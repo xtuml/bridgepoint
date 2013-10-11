@@ -1,0 +1,307 @@
+---
+
+Copyright 2013 Mentor Graphics Corp.  All Rights Reserved.
+
+---
+
+# Address multiple issues with compare/merge
+### xtUML Project Design Note
+
+1. Abstract
+-----------
+This note describes the changes required to address multiple issues found
+during customer testing.  It also addresses issues that were found with merging
+and state machines.
+
+2. Document References
+----------------------
+[1] Issues 50, https://github.com/xtuml/doc/issues/50 - State Machine merge issues - CQ dts0100970480
+[2] ClearQuest DEI dts0100970480 - State Machine merging is not working properly
+[3] CQ Issue dts0100970498 - Compare/Merge: Support element ordering
+
+3. Background
+-------------
+Customer testing has revealed some general issues with merging as well as some
+issues regarding state machine merge.
+
+4. Requirements
+---------------
+4.1 State machine differences shall be able to be merged
+
+5. Analysis
+-----------
+5.1 Ensure integrity check is run after CLI merge
+
+The system containing the element that was merged must be loaded prior to
+running the integrity check.
+
+5.2 Exclude derived attributes from differencing engine
+
+Derived attributes are not user modifiable and add clutter to the difference
+lists.  They shall be excluded from the elements that are checked for
+differences.
+
+5.3 Address issue with writing OAL or Description data
+
+Work from [3] changed the merge behavior such that simply creating a delta for
+a model change was not sufficient.  The actual data must now be directly
+modified.  The OAL and Description comparison dialog did not account for this
+and needs to.
+
+5.4 Properly compare associations
+
+In some cases an association difference was being missed as the wrong
+association subtype instance was being selected.  The reason for this is that
+the identity of an association must consider the object in association ID as
+well as the association ID.  The AssociationComparable shall be modified to 
+assure the correct instances are being used.
+
+5.5 Rework location logic for differences
+
+In some cases the tool has not detected differences, these changes are skipped
+during automatic merge and end up in future merges.  The reason for this has to
+do with bad logic for determining element locations during differencing.  The
+tool must never miss any difference.
+
+5.6 Support integer and float attribute value setting
+
+Work from [3] changed the behavior for setting values by requiring the actual
+data be set rather than just creating a change delta.  This was handled by using
+java reflection to set the value for attributes.  This broke setting attribute
+values when that value was an integer or a float.  This is because the tool was
+using Integer.class and Float.class as the parameter to find the method.  This
+is not expected behavior if the actual parameter type is int.  To support this
+the Integer.TYPE and Float.TYPE values should be used.
+
+5.7 Create event matrix entries for new states and new events
+
+When merging a new state or event into the state machine can't happens shall be
+created for all other events or states.
+
+5.8 Support merging assigned event to no event
+
+Currently the tool does not support merging a change where event assignment is
+going to be reverted.  It supports event assignment changes other than this one
+case.  The reason is that the current logic does not consider the subtype
+migration that occurs, new state transition to a no event transition.  The tool
+shall support this in merge by simply calling Transition.removeEvent().
+
+6. Design
+---------
+6.1 Ensure integrity check is run after CLI merge
+
+The problem was that in some cases the element required to run the check against
+may not be loaded.  Considering that we cannot know the exact system all systems
+in the workspace must be loaded.  To prevent as much overhead as possible the
+element is searched for after each system load rather than loading them all and
+then searching for the element.  Once the element is found the loading loop is
+broken.
+
+6.2 Exclude derived attributes from differencing engine
+
+During code generation for the ObjectElement class, attributes are checked to
+see if they are derived.  If they are derived a new attribute, derived, in the
+generated ObjectElement class is set to true at creation time.
+
+During difference checking this field is checked, if it is true then the element
+is excluded from a comparison.
+
+6.3 Address issue with writing OAL or Description data
+
+TextualAttributeCompareElementType is modified to stop creating a delta and
+instead directly set the action semantics or descrip attributes through java
+reflection.
+
+6.4 Properly compare associations
+
+The class, AssociationComparable, is modified to use both the Oir_ID as well
+as the Rel_ID when determining equality.
+
+6.5 Rework location logic for differences
+
+The previous implementation of the tree differencer walked the left tree
+locating differences while keeping track of missing elements.  It then used that
+count of elements to make sure the next common element was compared.  This was
+clumsy and error prone.  In some cases differences after a missing entry would
+get skipped altogether.  This logic is reworked to prevent the need for keeping
+track of missing elements.  The new logic walks the left tree, locating the
+matching element in the right.  If the right side cannot be located an addition
+difference is created, otherwise the two elements are compared.  This is done
+recursively so the entire tree hierarchy is checked.  After this the right side
+is inspected for any elements that do not exist on the left.  For each of these
+a removal difference is created.  As with the left checks this is also done
+recursively.
+
+In order for the differences to have the proper expected location set, the
+location methods are reworked.  To determine the proper location when dealing
+with missing elements the children in the tree are checked, for any element that
+does not exist in the other tree the determined location is adjusted by
+subtraction.  Without doing this the location would not be correct as the
+differences create an offset.
+
+The ModelMergeProcessor class is modified to account for the new location
+approach.  Any methods that require determining a location use the common method
+in the TreeDifferencer class.
+
+6.6 Support integer attribute value setting
+
+The ModelMergeProcessor is modified to pass in the Integer.TYPE value when
+looking for the set method for the merge.  The same type of change is made for
+floats by using the Float.TYPE value.
+
+6.7 Create event matrix entries for new states and new events
+
+When a state is being newly created from a merge, the destination requires some
+new event matrix entries.  The ModelMergeProcessor class is modified to locate
+all other existing events and for each create and associate a can't happen.
+
+When an event is being newly created from a merge, the destination requires
+new event matrix entries for all existing states.  The ModelMergeProcessor class
+is modified to locate all existing states and for each create and associate a
+can't happen. 
+
+6.8 Support merging assigned event to no event
+
+The merge processor has support for custom merging through java reflection and
+a standard naming scheme for a model operation.  This is used to support
+removing the event on the transition when merging an event removal.  The
+operation added is, Transition.mergeStateMachineEventAssignedLocalEvent().
+
+7. Design Comments
+------------------
+7.1 Remove unnecessary tree entries for actor participant
+
+The ooaofooa_hierarchy pei data contained two entries that configured actor
+participants as children of a use case generalization.  This situation is not
+possible and therefore these entries are removed.
+
+7.2 PMC exceptions during testing
+
+It was noticed during testing that exceptions were being thrown during a merge
+due to missing PMCs for an element.  The merge process uses export which is
+where these exceptions were being thrown.  The elements in a merge will never
+have PMCs and these exceptions shall be avoided.  To do so a new flag was
+introduced in CoreExport, ignoreMissingPMCErrors.  This flag defaults to false
+and is set to true during merge exports.
+
+7.3 Empty streams during compare editor initialization
+
+With GIT it is possible to receive an empty stream.  This occurs when one branch
+has deleted an element while the other has modified the same element.  This case
+was not accounted for, which was resulting in a blank screen rather than the
+xtUML compare window.  A check is added in ModelCacheManager to return early if
+the stream is empty.
+
+7.4 Exceptions while switching between xtUML compare and text compare
+
+Testing has shown that it is possible to receive a null input while switching
+compare views.  The existing code did not gracefully handle this and instead was
+throwing exceptions.  In this case the code is changed to use the old input if
+the new one is null.
+
+7.5 Exception when building difference tree in structural difference view
+
+During testing another exception was noticed which occurred when the current
+missing difference was expected at the last location.  To address this the code
+is changed to not advance the location for the element in the ordered children
+list.
+
+7.6 Support creation transitions
+
+The new automated tests revealed that creation transitions are not supported in
+the ooaofooa hierarchy data.  Other transition types are kept under the state
+that they originate from.  For creation transitions there is no such state,
+therefore they are configured to be children of the state machine.  The only
+referential that a creation transition has is with the event assigned to it.
+This is configured as such in the hierarchy.
+
+8. Unit Test
+------------
+8.1 Ensure integrity check is run after CLI merge
+
+- Use a GIT repository
+- Create and share a new project
+- Create two classes and commit
+- Create a branch adding one attribute
+- Create another branch adding one attribute
+- Use CLI merge to merge the first branch
+R Fast forward, xtUML merge is not called
+- Use CLI merge to merge the second branch
+R xtUML merge is called
+R Integrity issues are reported
+
+8.2 Exclude derived attributes from differencing engine
+
+- Create a class with an attribute
+- Change the attribute name
+- Compare with local history
+R Only Attribute Root Name is shown with a difference
+
+8.3 Address issue with writing OAL or Description data
+
+- Modify an element description
+- Compare with local history
+- Open the Description Compare dialog
+- Copy the right to the left
+- Hit Close
+R The difference on the Description tree item is removed
+
+8.4 Properly compare associations
+
+- Create an association between two classes
+- Create a associative link to a new class
+- Compare with local history
+- Expand the first difference
+R The correct entry on the other side is also expanded
+- Expand the second difference
+R The correct entry on the other side is also expanded
+
+8.5 Rework location logic for differences
+
+- Create a class with three attributes and three operations
+- Delete the second attribute and operation in the same action
+- Move the last operation up
+- Compare with local history (the third entry in the view)
+R All differences that are additions point to the correct location
+- Hit Copy All differences from right to left
+R All differences are copied leaving no differences
+
+8.6 Support integer attribute value setting
+
+- Open the local history for a diagram with at least one association
+- Change the association number using the in-place editor
+R A difference is created
+- Select the difference and hit Copy from right to left
+R The difference is removed
+R The association number is updated
+- Change a positional value in the graphical data
+R A difference is created
+- Select the difference and hit Copy from right to left
+R The difference is removed
+R The positional value is updated
+
+8.7 Create event matrix entries for new states and new events
+
+- Add a new state to a state diagram with existing states and events
+- Delete the state
+- Open the local history and add the state back using the compare editor
+- Save the changes
+R Can't Happens are created for all existing events
+- Add a new event to a state diagram with existing states and events
+- Delete the event
+- Open the local history and add the event back using the compare editor
+- Save the changes
+R Can't happens are added for all states against the new event
+
+8.8 Support merging assigned event to no event
+
+- Create a transition between two states
+- Assign an event to the transition
+- Open the local history and copy all changes from right to left
+R All differences are removed
+- Save the changes
+R The transition has no event assignment
+
+End
+---
+
