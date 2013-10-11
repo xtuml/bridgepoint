@@ -21,6 +21,174 @@ text
 
 ---
 
+    Weekly Report for Week of 2013/10/07
+
+#### Hours
+UML Tools:  40 / 
+Holiday: 0 / 
+FTO: 0 / 
+Total: 40
+
+#### Weekly Summary
+text
+
+#### Checklist
+- Update MIMIC/MIP build tools
+- Update to egit 2.3 in our eclipse base, update docs
+- Code review Travis' state machine work
+- Promote Travis state machine work (pull request xtuml/internal/64)
+- Review Nehad's DNT for VIEC
+
+In progress:
+- Fix for preferences issue (dts0100942776_63)
+
+---
+
+    Weekly Report for Week of 2013/09/30
+
+#### Hours
+UML Tools:  16 / 
+Holiday: 0 / 
+FTO: 24 / 
+Total: 40
+
+#### Weekly Summary
+- 3 days FTO for Amanda's surgery
+
+#### Checklist
+- Bump version to 4.0.7
+- Commit release registration for BP 4.1.0 (201310001)
+- Approve artwork for 4.1.0
+- Prep for updating MIP/MIMIC
+
+---
+
+    Weekly Report for Week of 2013/09/23
+
+#### Hours
+UML Tools:  40 / 
+Holiday: 0 / 
+FTO: 0 / 
+Total: 40
+
+#### Weekly Summary
+none
+
+#### Checklist
+- working on patch release
+
+---
+
+    Weekly Report for Week of 2013/09/16
+
+#### Hours
+UML Tools:  0 / 
+Holiday: 0 / 
+FTO: 40 / 
+Total: 40
+
+#### Weekly Summary
+Vacation all week
+
+#### Checklist
+- none
+
+---
+
+    Weekly Report for Week of 2013/09/09
+
+#### Hours
+UML Tools:  40 / 
+Holiday: 0 / 
+FTO: 0 / 
+Total: 40
+
+#### Weekly Summary
+none
+
+#### Checklist
+- Look into problem with the build
+- Talk to Campbell about the issue I found with the class loader maps in Audit
+- Martin contacted me about a licensing problem with the new BP.  It appears to be a launch config issue (file likely not writeable)
+- Dean sent a model with questions about the files produced by the model compiler.  I could not reproduce.
+- Work with Travis on build server build failure
+- Write and review DNT for Audit fixes
+- Hand off 934989_44 for promotion
+- Resolve 994637 and scrub RHEL4 from our supported platforms
+
+In progress:
+- 4.0 licensing issue at Ericsson
+- roll in new egit based on 0SS approval
+
+---
+
+    Weekly Report for Week of 2013/09/02
+
+#### Hours
+UML Tools:  40 / 
+Holiday: 0 / 
+FTO: 0 / 
+Total: 40
+
+#### Weekly Summary
+none
+
+#### Checklist
+- Smoke test latest master build.  Delivered to Martin @ Agilent
+- Investigate problem with images not showing up in eclipse help
+  - The problem is related to the MSWord-specific tags inside the html files.  If I export the file as filtered HTML
+    then eclipse shows the images fine.  I still do not know exactly why this happens on some systems, but not on others.
+	It must be some sort of windows-specific DLL or feature that is different among the machines.
+- Retrieve xtuml/docmgREADONLY to /c/git/xtuml.  Merge changes from Systems_Modeling_Analysis branch into master
+  - Campbell had another branch that conflicts with my changes.  It is possible that my work incorporated his changes,
+    but I'm not sure.  Need to resolve and finally remove this and xtuml/docREADONLY respositories
+- Register 4.0.6 patch release for 9/27
+- Start on issue dts0100934989 - Audit realized bindings bug
+
+---
+
+    Weekly Report for Week of 2013/08/26
+
+#### Hours
+UML Tools:  40 / 
+Holiday: 0 / 
+FTO: 0 / 
+Total: 40
+
+#### Weekly Summary
+none
+
+#### Checklist
+- Issue 34/dts0100995063 - Martin getting DAP license error trying to use source MC on external project
+  - Resolve conflicts with Campbell's recent promotion
+  - Retest
+  - Fix issues with the pre-build smart-ness implementation
+  - Add Junits for pre-build smart-ness
+- Found and resolved issue with the way the build server is managing the git repositories during the nightly build
+
+---
+
+    Weekly Report for Week of 2013/08/19
+
+#### Hours
+UML Tools:  40 / 
+Holiday: 0 / 
+FTO: 0 / 
+Total: 40
+
+#### Weekly Summary
+none
+
+#### Checklist
+- Move generator source code to git
+- Issue 34/dts0100995063 - Martin getting DAP license error trying to use source MC on external project
+  - Work, INT, Test done, but will conflict with Campbell's change, so requires revisiting before promotion
+- Submit OSS approval request for EGit 2.3
+- Promotion work for Issue 35
+
+
+---
+
     Weekly Report for Week of 2013/08/12
 
 #### Hours
