@@ -237,7 +237,10 @@ package ${inspector_package};
 // (c) Copyright 2004-2013 by Mentor Graphics Corp.  All rights reserved.
 //
 //======================================================================
-
+//
+// An ObjectElement represents a metamodel class attribute.  It allows
+// access to it's name and value
+//
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 
 public class ${model_element_class_name}{
@@ -252,6 +255,7 @@ public class ${model_element_class_name}{
 	private String valueAccessor;
 	private boolean userModifiable;
 	private Object owner;
+	private boolean derived = false;
 	
 	public ${model_element_class_name}(String aName, int aType, Object aValue, Object parent, boolean userModifiable){
 	    this(aName, aType, aValue, parent, "", userModifiable);
@@ -355,6 +359,20 @@ public class ${model_element_class_name}{
 		hash = hash + 31 * getName().hashCode();
 		return hash;
 	}
+	
+	/**
+	 * setDerived does not take a parameter as the ObjectElement class can
+	 * be either derived or non-derived, it will never change during its
+	 * existence
+	 */
+	public void setDerived() {
+		derived = true;
+	}
+	
+	public boolean isDerived() {
+	  	return derived;
+	}
+	
 }
   .emit to file "${rel_path}/${inspector_dir}/${model_element_class_name}.java"
 .end if

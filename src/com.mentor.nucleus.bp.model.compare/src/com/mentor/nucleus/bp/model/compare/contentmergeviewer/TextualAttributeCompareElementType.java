@@ -14,6 +14,8 @@ package com.mentor.nucleus.bp.model.compare.contentmergeviewer;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import org.eclipse.compare.CompareConfiguration;
 import org.eclipse.compare.IEditableContent;
@@ -23,9 +25,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.swt.graphics.Image;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
-import com.mentor.nucleus.bp.core.Modeleventnotification_c;
-import com.mentor.nucleus.bp.core.Ooaofooa;
-import com.mentor.nucleus.bp.core.common.AttributeChangeModelDelta;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.Transaction;
 import com.mentor.nucleus.bp.core.inspector.ObjectElement;
@@ -133,11 +132,38 @@ public class TextualAttributeCompareElementType implements ITypedElement,
 		if (element.getName().contains("Action_")) {
 			attributeName = "Action_semantics_internal";
 		}
-		AttributeChangeModelDelta change = new AttributeChangeModelDelta(
-				Modeleventnotification_c.DELTA_ATTRIBUTE_CHANGE,
-				(NonRootModelElement) element.getParent(), attributeName,
-				element.getValue(), newContentString, true);
-		Ooaofooa.getDefaultInstance().fireModelElementAttributeChanged(change);
+		String methodName = "set" + attributeName; //$NON-NLS-1$
+		try {
+			Method method = element.getParent().getClass()
+					.getMethod(methodName, new Class[] { String.class });
+			method.invoke(element.getParent(),
+					new Object[] { newContentString });
+		} catch (SecurityException e) {
+			CorePlugin.logError("Unable to invoke "
+					+ element.getParent().getClass().getSimpleName()
+					+ methodName + " method for textual compare input.", e);
+			return;
+		} catch (NoSuchMethodException e) {
+			CorePlugin.logError("Unable to invoke "
+					+ element.getParent().getClass().getSimpleName()
+					+ methodName + " method for textual compare input.", e);
+			return;
+		} catch (IllegalArgumentException e) {
+			CorePlugin.logError("Unable to invoke "
+					+ element.getParent().getClass().getSimpleName()
+					+ methodName + " method for textual compare input.", e);
+			return;
+		} catch (IllegalAccessException e) {
+			CorePlugin.logError("Unable to invoke "
+					+ element.getParent().getClass().getSimpleName()
+					+ methodName + " method for textual compare input.", e);
+			return;
+		} catch (InvocationTargetException e) {
+			CorePlugin.logError("Unable to invoke "
+					+ element.getParent().getClass().getSimpleName()
+					+ methodName + " method for textual compare input.", e);
+			return;
+		}
 		element.setValue(newContentString);
 		if(transaction != null) {
 			viewer.getMergeViewer().getCompareTransactionManager()

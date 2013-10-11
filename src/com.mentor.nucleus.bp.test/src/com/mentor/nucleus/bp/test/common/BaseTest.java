@@ -121,10 +121,12 @@ import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.ComponentResourceListener;
 import com.mentor.nucleus.bp.core.common.IPersistenceHierarchyMetaData;
 import com.mentor.nucleus.bp.core.common.IdAssigner;
+import com.mentor.nucleus.bp.core.common.ModelElement;
 import com.mentor.nucleus.bp.core.common.ModelRoot;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
+import com.mentor.nucleus.bp.core.common.Transaction;
 import com.mentor.nucleus.bp.core.common.TransactionManager;
 import com.mentor.nucleus.bp.core.inspector.IModelClassInspector;
 import com.mentor.nucleus.bp.core.inspector.ModelInspector;
@@ -2046,5 +2048,27 @@ public class BaseTest extends TestCase {
 			m_name = name;      
 		}
 		private String m_name;
+	}
+	
+	public Transaction startTransaction() {
+		Transaction transaction = null;
+		try {
+			transaction = TransactionManager.getSingleton().startTransaction(
+					"Test Transaction",
+					new ModelElement[] { Ooaofooa.getDefaultInstance(),
+							Ooaofgraphics.getDefaultInstance() });
+			return transaction;
+		} catch (Exception e) {
+			if (transaction != null) {
+				TransactionManager.getSingleton().cancelTransaction(
+						transaction, e);
+			}
+			CorePlugin.logError("Unable to start transaction.", e);
+		}
+		return null;
+	}
+	
+	public void endTransaction(Transaction transaction) {
+		TransactionManager.getSingleton().endTransaction(transaction);
 	}
 }

@@ -167,7 +167,7 @@ elif (param.comp_num == 2)
       // Traverse reference list and add reference to text
       //
       while (not_empty ref)
-        result =  result + tag_sep + ref.get_text();
+        result =  result + tag_sep + ref.get_text(includeTextPhrase:false);
         tag_sep = ",";
         select one ref related by ref->O_REF[R112.''precedes''];
       end while;

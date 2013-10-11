@@ -137,3 +137,4 @@ UseCaseParticipantInspector.java
 UserDataTypeInspector.java
 ObjectElement.java
 PropertyDependsOn.java
+/CreationTransitionInspector.java

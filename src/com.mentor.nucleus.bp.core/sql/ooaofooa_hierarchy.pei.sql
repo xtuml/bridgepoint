@@ -146,6 +146,7 @@ INSERT INTO T_TNS VALUES (315, 'InterfaceOperation.gif',       'MSG_IOP',  '', '
 INSERT INTO T_TNS VALUES (316, 'Event.gif',                          'MSG_E',  '', '','',                 'Formal Event', 						-1, '');
 INSERT INTO T_TNS VALUES (317, 'InterfaceSignal.gif',            'MSG_SIG',  '', '','',                 'Formal Signal', 						-1, '');
 INSERT INTO T_TNS VALUES (318, 'Operation.gif',            'MSG_IA',  '', '','',                 'Informal Argument', 						-1, '');
+INSERT INTO T_TNS VALUES (319, 'Transition.gif',            'SM_CRTXN',  '', '','',                 'Creation Transitions', 						-1, '');
 
 INSERT INTO T_TPS VALUES (1, 1,  2,  '->S_DOM[R28]', '', false);
 INSERT INTO T_TPS VALUES (2, 2,  72, '->S_DPK[R40]', '', false);
@@ -168,6 +169,8 @@ INSERT INTO T_TPS VALUES (18, 7,  17, '->S_DT[R116]', 'Return Type', true);
 INSERT INTO T_TPS VALUES (19, 7,  8,  '->O_TPARM[R117]', '', false);
 INSERT INTO T_TPS VALUES (20, 8,  17, '->S_DT[R118]', 'Type', true);
 INSERT INTO T_TPS VALUES (22, 10, 11, '->SM_SM[R517]->SM_STATE[R501]', '', false);
+INSERT INTO T_TPS VALUES (410, 10, 319, '->SM_SM[R517]->SM_TXN[R505]->SM_CRTXN[R507]', '', false);
+INSERT INTO T_TPS VALUES (411, 319, 12, '->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525]', 'Creation Event', false); 
 INSERT INTO T_TPS VALUES (23, 10, 12, '->SM_SM[R517]->SM_EVT[R502]->SM_SEVT[R525]->SM_LEVT[R526]->SM_SEVT[R526]->SM_EVT[R525]', 'Local Event', false, false, '', '', true);
 INSERT INTO T_TPS VALUES (234, 10, 12, '->SM_SM[R517]->SM_EVT[R502]->SM_PEVT[R525]->SM_EVT[R525]', 'Declared Event', false, false, '', '', true);
 INSERT INTO T_TPS VALUES (28, 81, 306, '->SM_PEVT[R527]', 'Declared Event', false);
@@ -309,8 +312,6 @@ INSERT INTO T_TPS VALUES (165, 105,  106,  '->UC_PIUC[R1203]->SQ_P[R1203]->IA_UC
 INSERT INTO T_TPS VALUES (166, 105,  101,  '->UC_PIUC[R1203]->SQ_P[R1203]->SQ_AP[R930]', '', false);
 INSERT INTO T_TPS VALUES (167, 107,  101,  '->UC_UCA[R1210]->SQ_P[R1206]->SQ_AP[R930]', 'Association One Side', false);
 INSERT INTO T_TPS VALUES (168, 107,  106,  '->UC_UCA[R1210]->SQ_P[R1207]->IA_UCP[R930]', 'Association Other Side', false);
-INSERT INTO T_TPS VALUES (169, 108,  101,  '->UC_UCA[R1210]->SQ_P[R1206]->SQ_AP[R930]', 'Association One Side', false);
-INSERT INTO T_TPS VALUES (170, 108,  101,  '->UC_UCA[R1210]->SQ_P[R1207]->SQ_AP[R930]', 'Association Other Side', false);
 INSERT INTO T_TPS VALUES (171, 108,  106,  '->UC_UCA[R1210]->SQ_P[R1206]->IA_UCP[R930]', 'Association One Side', false);
 INSERT INTO T_TPS VALUES (172, 108,  106,  '->UC_UCA[R1210]->SQ_P[R1207]->IA_UCP[R930]', 'Association Other Side', false);
 INSERT INTO T_TPS VALUES (173, 109,  106,  '->UC_UCA[R1210]->SQ_P[R1206]->IA_UCP[R930]', 'Association One Side', false);
@@ -499,7 +500,7 @@ INSERT INTO T_TPS VALUES (378, 125, 126, '->PE_PE[R8003]->CL_IC[R8001]', '', fal
 INSERT INTO T_TPS VALUES (379, 125, 130, '->PE_PE[R8003]->C_I[R8001]', '', false);
 INSERT INTO T_TPS VALUES (380, 125, 74,  '->PE_PE[R8003]->S_DT[R8001]->S_UDT[R17]', '', false);
 
--- Next available T_TPS ID 409
+-- Next available T_TPS ID 412
 -- The entries below specify the data association between tree elements, it captures
 -- the underlying data's parent/child association as the tree entries above may
 -- include multiple elements to reach a tree child (for display purposes)
