@@ -106,7 +106,9 @@ _- If the github issue is a mirror of a CQ issue, you must perform the following
       _- If an SR is specified, enter a Customer note:
         _- Summary = <none required>
         _- Note = This issue has been resolved and shall be present in the next release.
-        
+      
+    _- "Save" the changes to the DEI
+      
 _- Navigate to the issue(s) in the github Issues tracker.
   _- Verify that the upcoming milestone is set for the issue. Apply it if not 
      yet set.
