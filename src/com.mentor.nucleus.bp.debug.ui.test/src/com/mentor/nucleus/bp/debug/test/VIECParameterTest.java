@@ -1,8 +1,8 @@
 //========================================================================
 //
-//File:      $RCSfile: VIECTest.java,v $
-//Version:   $Revision: 1.4 $
-//Modified:  $Date: 2013/05/10 04:28:33 $
+//File:      $RCSfile:$
+//Version:   $Revision:$
+//Modified:  $Date:$
 //
 //(c) Copyright 2006-2013 by Mentor Graphics Corp. All rights reserved.
 //
@@ -202,20 +202,6 @@ public class VIECParameterTest extends BaseTest {
     private void runVerifier() {
     	Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1401(m_sys);
     	ComponentReference_c[] models = ComponentReference_c.getManyCL_ICsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkgs));
-//    	NonRootModelElement[] selectedElement = null;
-//    	NonRootModelElement[] compRefs = null;
-//    	NonRootModelElement[] components = null;
-//    	for (Package_c pkg : pkgs) {
-//			if (pkg.getName().equalsIgnoreCase("system")){
-//				 components = Component_c.getManyC_CsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg)); 
-//				assertNotNull(components);
-//				 compRefs = ComponentReference_c.getManyCL_ICsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg));
-//				assertNotNull(compRefs);
-//				selectedElement = new NonRootModelElement[components.length + compRefs.length];
-//				System.arraycopy(components, 0, selectedElement, 0, components.length);
-//				System.arraycopy(compRefs, 0, selectedElement, components.length, compRefs.length);
-//			}
-//		}
     	openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);    	  
     	Selection.getInstance().setSelection(new StructuredSelection(models));
     	Menu menu = m_bp_tree.getControl().getMenu();
@@ -237,37 +223,5 @@ public class VIECParameterTest extends BaseTest {
     			UITestingUtilities.menuItemExists(menu, "", "Launch Verifier"));
   	  
 	}
-
-	
-//    public BPDebugTarget startVerifier() {
-//    	Vector<String> modelNames = new Vector<String>();
-//    	modelNames.add("Signal Param Receiver");
-//    	modelNames.add("Signal Param Sender");
-//		BPTestLaunchConfiguration bplc = new BPTestLaunchConfiguration(
-//				              projectName, modelNames , new Vector<Ooaofooa>());
-//		Launch testLaunch = new Launch(bplc, "debug", null);
-//		BPLaunchDelegate bpld = new BPLaunchDelegate();
-//		try {
-//		  // TODO Not currently working, because BPTestLaunchConfiguration
-//		  // getAttribute(String, Map) only works for domains.
-//		  bpld.launch(bplc, "debug", testLaunch, new NullProgressMonitor());
-//		}
-//		catch (CoreException ce) {
-//			fail(ce.toString());
-//		}
-//		BPDebugTarget bpdbt = null; 
-//		while (bpdbt == null || bpdbt.isTerminated()) {
-//			try {
-//			  Thread.sleep(1000);
-//			}
-//			catch (InterruptedException ie) {
-//				// do nothing
-//			}
-//			bpdbt = (BPDebugTarget)testLaunch.getDebugTarget();
-//		}
-//		return bpdbt;
-//    }
-
-
 
 }
