@@ -23,7 +23,7 @@ INSERT INTO GD_MD
 	150,
 	0,
 	'3.2.0',
-	'Context Menu Entry Functions');
+	'com.mentor.nucleus.bp.core::ooaofooa::Functions::Context Menu Entry Functions');
 INSERT INTO DIM_DIA
 	VALUES ("68fd52b9-4f29-4487-97eb-392d8adfb0aa",
 	'',
@@ -3287,7 +3287,7 @@ if ( not_empty non_formalizer )
     where USER::selectOne(id:selected.Obj_ID) and
        O_ID::hasAttributes(obj_id: selected.Obj_ID, oid_id: selected.Oid_ID );
   if ( not_empty Identifier )
-    simp.formalize( part_obj_id: non_formalizer.Obj_ID, id_id: Identifier.Oid_ID );
+    simp.formalize( part_oir_id: non_formalizer.Obj_ID, id_id: Identifier.Oid_ID );
   end if;
 end if;
 ',

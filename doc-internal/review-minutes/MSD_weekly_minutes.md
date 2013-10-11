@@ -32,6 +32,70 @@ MSD Weekly Meeting Minutes
 
 ---
 
+    Date:     October 2nd, 2013
+    Start:    12:00 EDT
+    End:      12:35 EDT
+    Elapsed:  35 minutes
+    Present:  Bob, Keith, Travis, Campbell, Cort, others...
+            Dean, Robert, Jayne, others...
+
+### Engineering Status
+**4.0.6 Release -** 
+This is now complete and available on SupportNet. Mainly fixes for licensing issues.
+
+**4.1 Hercules Release -**
+The target date for this is November 1st immediately following the quarterly release blackout. Working backwards
+from that date means that we have 2 weeks of development time before code freeze and start of pre-release test
+cycle. The issues listed against Hercules are all needed by customers and so cannot be slipped into the next
+release. We must therefore all be working on Hercules related items to ensure we hit the date. In addition to
+the issues listed agfainst Hercules we also need to move to the latest version of the Mentor standard installer.
+
+**OAL Training Videos -**
+These new resources are now linked from xtUML.org. They are found from the home page under Learn > Tutorials >
+Action Language Tutorial (Series). They are designed to make training easier to deliver by allowing students to
+learn at their own pace. This frees up the instructor to spend more time providintg targeted support to
+individual students. Topics are short, between 1 and 3 minutes, allowing students to easily locate any subject
+matter quickly. This organization also allows people to use them as a reference resource. The plan is to build
+up a library of tutorials over time. It was reported that the appearance of these materials has driven lots of
+new subscriber activity on the site. Keith suggested that a single OAL cheatsheet would be a useful addition to
+our support collateral.
+
+### Marketing Status
+**Trade Shows -**
+There is lots of trade show activity in September and October.
+
+SAE AeroTech in Montreal ran from September 24th-26th.
+The booth was extremely busy at times. There were representatives from all the major aerospace manufacturers
+present. One interesting initiative was the formation of an organization to identify open source tool flows for
+safety critical systems.
+
+IESF in Detroit took place on September 19
+This conference had an automotive focus. There were 1000 registrants that led to 665 attendees. There were two
+presentations that touched on BridgePoints capabilities, one of them presented by our own Dean McArthur. Dean
+reported attendance at his session was good, around 30 individuals. There were lots of questions afterwards,
+leading to a 20 minute question and answer session in the corridor outside the presentation room. Much of this
+discussion was about model compilation. This seems to be an area that is misunderstood so perhaps we should
+prepare some marketing collateral to better explain the benefits and demonstrate how open it is. Jayne commented
+that we managed to make IBM uncomfortable by BridgePoints proximity in the booth area.
+
+Ericsson are holding their annual internal Solutions Conference next week. There will be a session focussing on
+successes with BridgePoint.
+
+**Opportunities -**
+Having closed the Fuji-Xerox deal last week, attention is now focused on completing a deal with Sony.
+
+### Customer Support Status
+**Sony Licensing issue -**
+Sony asked why a licensing issue SR they had raised had been closed while the issue still appeared to be present
+in the latest release. Their original issue was related to a 1ms license check out that BridgePoint performed to
+establish which model compilers were available to the customer. Together with the license 'linger' feature, this
+was causing Sony to run out of model compiler licenses. The SR was closed because the issue has been fixed by
+using a license 'peek' feature. Unfortunately it seems the customer is still experiencing the same symptoms.
+Ichimasa-san and Dean will work with Sony to get the problem resolved. It may well turn out to be a license
+server configuration issue.
+
+---
+
     Date:     September 25, 2013
     Start:    12:00 EDT
     End:      12:40 EDT

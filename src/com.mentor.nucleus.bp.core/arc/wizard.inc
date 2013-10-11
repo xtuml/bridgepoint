@@ -114,6 +114,7 @@ public class ${wizard_class_name} extends Wizard
 	protected Stack m_pagesStack = new Stack();
 
 	// wizard pages
+  .invoke isLinkedPage = is_linked_association_wizard_page(wizard_class_name)
   .assign count = 1
   .for each step in steps
     .select any field related by step->W_FLD[R2009]
@@ -159,8 +160,8 @@ public class ${wizard_class_name} extends Wizard
     .if (field.type == "Combo")
       .select any class from instances of O_OBJ where (selected.Key_Lett == field.Key_Lett)
       public $cr{class.Name}_c v_${field.Instance_Handle} = null;
-      .if (((wizard_class_name == "LinkedFormalizeOnR_RELWizard") or (wizard_class_name == "BinaryFormalizeOnR_RELWizard")) or ( wizard_class_name == "LinkedFormalizeOnR_ASSRWizard"))
-      public String v_${field.Instance_Handle}Prefix = null;
+      .if (isLinkedPage.islinked)
+      public String v_${field.Instance_Handle}Prefix = "";
       .end if
     .elif (field.type == "List")
       .select any class from instances of O_OBJ where (selected.Key_Lett == field.Key_Lett)
@@ -300,9 +301,9 @@ public class ${wizard_class_name} extends Wizard
     }
     
     
-    .if ((wizard_class_name == "LinkedFormalizeOnR_RELWizard") or (wizard_class_name == "LinkedFormalizeOnR_ASSRWizard"))
+    .if (isLinkedPage.islinked)
     	private void setPrefixs(LinkedAssociation_c vARel) {
-    	if (v_${field.Instance_Handle}Prefix  == null ){
+    	if (v_${field.Instance_Handle}Prefix.equalsIgnoreCase("") ){
 			return;
 		}
 		ClassAsAssociatedOneSide_c oneSide = ClassAsAssociatedOneSide_c.getOneR_AONEOnR209(vARel);
@@ -325,21 +326,6 @@ public class ${wizard_class_name} extends Wizard
 			}
 		}
 	}
-	.elif (wizard_class_name == "BinaryFormalizeOnR_RELWizard")
-		private void setPrefixs(SimpleAssociation_c vARel) {
-		if (v_${field.Instance_Handle}Prefix  == null ){
-			return;
-		}
-		ReferringClassInAssoc_c other = ReferringClassInAssoc_c.getOneR_RGOOnR205(ClassAsSimpleFormalizer_c.getOneR_FORMOnR208(vARel));
-		AttributeReferenceInClass_c[] ids = AttributeReferenceInClass_c.getManyO_REFsOnR111(other); 
-		for (AttributeReferenceInClass_c id : ids) {
-			Attribute_c attr = Attribute_c.getOneO_ATTROnR106(ReferentialAttribute_c.getOneO_RATTROnR108(id));
-			if (!v_IdentifierPrefix.equalsIgnoreCase("")){
-				attr.setPrefix(v_IdentifierPrefix);
-				attr.setPfx_mode(1);
-			}
-		}
-	}
 	.end if
     
 	public boolean performFinish() 
@@ -351,10 +337,8 @@ public class ${wizard_class_name} extends Wizard
 			transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots(
 				"${transaction_name.name}"); //$$NON-NLS-1$$
 ${ui_result.body}
-		.if ((wizard_class_name == "LinkedFormalizeOnR_RELWizard") or (wizard_class_name == "LinkedFormalizeOnR_ASSRWizard"))
+		.if (isLinkedPage.islinked)
 		setPrefixs(v_a_rel);
-		.elif  (wizard_class_name == "BinaryFormalizeOnR_RELWizard")
-		setPrefixs(v_simp);
 		.end if			
     // catch all exceptions and cancel the transaction
 		} catch (Exception e) {
