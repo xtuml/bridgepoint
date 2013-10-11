@@ -224,9 +224,12 @@ public class ActionLanguagePreferences
           allowCoercionNoRadio.setSelection(true);
       }
 
-      if ( allowPromotionNoRadio.getSelection() == true ) {
-          allowCoercionYesRadio.setEnabled( false );
-          allowCoercionNoRadio.setEnabled( false );
+      if (allowPromotionNoRadio.getSelection() == true) {
+          allowCoercionYesRadio.setEnabled(false);
+          allowCoercionNoRadio.setEnabled(false);
+      } else {
+          allowCoercionYesRadio.setEnabled(true);
+          allowCoercionNoRadio.setEnabled(true);
       }
       allowImplicitComponentAddressing.setSelection(bpPrefs.allowImplicitComponentAddressing);
       allowOperationsInWhere.setSelection(bpPrefs.allowOperationsInWhere);
