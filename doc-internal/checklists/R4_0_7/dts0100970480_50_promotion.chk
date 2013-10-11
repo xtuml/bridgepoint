@@ -21,12 +21,12 @@ from a local machine or branch into the main/master RCS branch.
 
 Checklist
 ---------
-_- Go to the repository on github.  Select the pull request(s).  Note that 
-   there may be multiple requests if the issue spans multiple git repositories.  
+x- Go to the repository on github.  Select the pull request(s).  Note that 
+   there may be multiple requests if the issue spans multiple gi repositories.  
    Record the pull request(s) URL here:
-            Pull Request Issue URL: https://github.com/xtuml/<repo>/pull/<id>
+            Pull Request Issue URL: https://github.com/xtuml/internal/pull/64
 
-_- Verify that all required process documentation exists for this issue.  That
+x- Verify that all required process documentation exists for this issue.  That
    is: analysis note, design note, implementation note, review minutes, and
    checklists.  Remember that, depending on the complexity of the issue, some
    notes are not required.
@@ -35,7 +35,7 @@ _- Verify that all required process documentation exists for this issue.  That
    names used.
 
 _- Verify and merge the change:
-	_- Option 1
+	o- Option 1
 	   If the issue does not involve model file changes, and is small it can 
 	   be merged using the github web interface:  
 		_- Locate the pull request on git hub 
@@ -46,19 +46,19 @@ _- Verify and merge the change:
 	    _- Select the "Merge  Pull Request" option
 	    
 		
-	_- Option 2
+	x- Option 2
 	   If the issue does involve model files and/or it is not small then the 
 	   change must be merged, built and tested on the local workspace: 
 		
-	  	_- Check out master
+	  	_- check out master
 		_- Update your local repository with the latest files from github using 
 	       git pull  
-	  	_- Merge the remote branch(s) into master.  
-			_- Open the Git Repository Exploring perspective
-			_- Select the repository
-			_- Right-click > Merge... > Remote Tracking
+	  	_- merge the remote branch(s) into master.  
+			_- Open the git repository view
+			_- select the repository
+			_- RC > Merge... > Remote Tracking
 			_- Select the branch name
-			_- Assure the option to commit the result is selected
+			_-  Assure the option to commit the result is selected
 			_- Select Merge
 			_R Merge is completed into the local repository
 	  	_- Build
@@ -66,12 +66,12 @@ _- Verify and merge the change:
 *** NOTE: THIS IS A TEMPORARY STEP UNTIL WE GET ALL THE JUNITS RUNNING ***
 ***   NIGHTLY ON THE SERVER.  AFTER WE DO THAT WE WILL SIMPLY RUN THE
 ***   TESTS on the build server after promotion.                       ***
-_- Execute the specific unit tests agreed upon with the code reviewers and 
+x- Execute the specific unit tests agreed upon with the code reviewers and 
       verify that the tests pass.
-_- Complete the test results checklist and check it in here:
+x- Complete the test results checklist and check it in here:
 	  github.com/xtuml/<repository>/doc-<repository>/qa/<release_id>/<issue num>/promotion/Unit_test_checklist.chk
 
-_R When tests pass the changes can be pushed.
+xR When tests pass the changes can be pushed.
   	  	   NOTE:  
 	  	   If testing does not pass work with the engineer to resolve the 
 	  	   problem.   If it is a small issue you can commit it directly to the 
@@ -84,7 +84,7 @@ _R When tests pass the changes can be pushed.
 	  	   		git reset ---hard origin/master
 	  	   		
 	
-_- If the github issue is a mirror of a CQ issue, you must perform the following
+x- If the github issue is a mirror of a CQ issue, you must perform the following
    steps.  If not, skip to the next section.
    
    _- Log into ClearQuest and enter the defect number to go to the issue.
@@ -107,12 +107,12 @@ _- If the github issue is a mirror of a CQ issue, you must perform the following
         _- Summary = <none required>
         _- Note = This issue has been resolved and shall be present in the next release.
         
-_- Navigate to the issue(s) in the github Issues tracker.
+x- Navigate to the issue(s) in the github Issues tracker.
   _- Verify that the upcoming milestone is set for the issue. Apply it if not 
      yet set.
   _- Close the issue 
 
-_- Check in this file under
+x- Check in this file under
    github.com/xtuml/<repository>/doc-<repository>/checklists/<release_id>/<issue num>-promotion.chk
 
 End
