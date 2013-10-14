@@ -219,11 +219,12 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 							} else {
 								System.err
 										.println("Found the following systems in the configured workspace, but could\n"
-												+ "not find the destination element:\n\n");
+												+ "not find the destination element:\n");
 								for (SystemModel_c system : systems) {
-									System.err.println(system.getName() + "\n");
+									if(!system.getName().equals("")) {
+										System.err.print(system.getName() + "\n");
+									}
 								}
-								System.err.println("\n");
 							}
 						}
 					}

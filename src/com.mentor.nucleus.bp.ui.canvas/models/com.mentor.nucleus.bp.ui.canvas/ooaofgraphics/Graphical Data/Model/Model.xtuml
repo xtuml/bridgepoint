@@ -1124,11 +1124,14 @@ if(empty startEle and empty endEle)
   select one existingGE related by existingConnector->GD_GE[R2];
   // we do not reconcile connectors that end on whitespace for
   // both sides, therefore this element is corrupted
-  CL::logException(message:"Found a corrupted connector as the base for" +
+  CL::logException(message:"Found an invalid connector as the base for" +
                   " reconciliation."+ OS::newLine() + "The connector id is: " +
                                       OS::uniqueIdToString(id:param.connector)
                                      + OS::newLine() + "The connector path is: "
-                                                  + existingGE.represents_path);
+                                                  + existingGE.represents_path +
+                            OS::newLine() + "The connector has been recreated");
+  existingConnector.dispose();
+  ars.reprocess = true;
   return;
 end if;
 create object instance newConElem of GD_GE;
