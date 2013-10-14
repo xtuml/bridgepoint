@@ -48,6 +48,7 @@ public class ModelCompareTestSuite extends TestSuite {
 
 		addTest(new TestSuite(ElementOrderingTests.class));
 		addTest(new TestSuite(ModelComparisonTests.class));
+		addTest(new TestSuite(ModelMergeTests.class));
 	}
 
 }

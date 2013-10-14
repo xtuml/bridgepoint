@@ -18,6 +18,7 @@ import com.mentor.nucleus.bp.core.ClassAsAssociatedOneSide_c;
 import com.mentor.nucleus.bp.core.ClassAsAssociatedOtherSide_c;
 import com.mentor.nucleus.bp.core.ClassAsSimpleFormalizer_c;
 import com.mentor.nucleus.bp.core.ClassAsSimpleParticipant_c;
+import com.mentor.nucleus.bp.core.Gd_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.model.compare.providers.NonRootModelElementComparable;
 
@@ -37,7 +38,9 @@ public class AssociationComparable extends NonRootModelElementComparable {
 				NonRootModelElement thisAssociation = (NonRootModelElement) getRealElement();
 				UUID thisMsgId = getAssociationId(thisAssociation);
 				UUID otherMsgId = getAssociationId(otherAssociation);
-				return thisMsgId.equals(otherMsgId);
+				UUID thisOirId = getObjectInAssociationId(thisAssociation);
+				UUID otherOirId = getObjectInAssociationId(otherAssociation);
+				return thisMsgId.equals(otherMsgId) && thisOirId.equals(otherOirId);
 			} else {
 				return false;
 			}
@@ -46,8 +49,22 @@ public class AssociationComparable extends NonRootModelElementComparable {
 		}
 	}
 
+	private UUID getObjectInAssociationId(NonRootModelElement association) {
+		UUID id = Gd_c.Null_unique_id();
+		if (association instanceof ClassAsSimpleParticipant_c) {
+			return ((ClassAsSimpleParticipant_c) association).getOir_id();
+		} else if (association instanceof ClassAsSimpleFormalizer_c) {
+			return ((ClassAsSimpleFormalizer_c) association).getOir_id();
+		} else if (association instanceof ClassAsAssociatedOneSide_c) {
+			return ((ClassAsAssociatedOneSide_c) association).getOir_id();
+		} else if (association instanceof ClassAsAssociatedOtherSide_c) {
+			return ((ClassAsAssociatedOtherSide_c) association).getOir_id();
+		}
+		return id;
+	}
+
 	private UUID getAssociationId(NonRootModelElement association) {
-		UUID id = null;
+		UUID id = Gd_c.Null_unique_id();
 		if (association instanceof ClassAsSimpleParticipant_c) {
 			return ((ClassAsSimpleParticipant_c) association).getRel_id();
 		} else if (association instanceof ClassAsSimpleFormalizer_c) {

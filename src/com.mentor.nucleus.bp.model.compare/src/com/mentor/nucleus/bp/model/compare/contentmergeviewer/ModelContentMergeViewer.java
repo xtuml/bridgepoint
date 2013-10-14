@@ -111,6 +111,7 @@ import com.mentor.nucleus.bp.core.ui.AbstractModelExportFactory;
 import com.mentor.nucleus.bp.io.core.CoreExport;
 import com.mentor.nucleus.bp.model.compare.ComparePlugin;
 import com.mentor.nucleus.bp.model.compare.CompareTransactionManager;
+import com.mentor.nucleus.bp.model.compare.ITreeDifferencerProvider;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager.ModelLoadException;
 import com.mentor.nucleus.bp.model.compare.ModelMergeProcessor;
@@ -122,6 +123,7 @@ import com.mentor.nucleus.bp.model.compare.actions.NavigateUpAction;
 import com.mentor.nucleus.bp.model.compare.providers.ModelCompareContentProvider;
 import com.mentor.nucleus.bp.model.compare.providers.ModelCompareLabelProvider;
 import com.mentor.nucleus.bp.model.compare.providers.NonRootModelElementComparable;
+import com.mentor.nucleus.bp.model.compare.providers.TreeDifferenceContentProvider;
 import com.mentor.nucleus.bp.model.compare.structuremergeviewer.ModelStructureDiffViewer;
 import com.mentor.nucleus.bp.ui.canvas.CanvasPlugin;
 
@@ -196,7 +198,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 								left, this, false,
 								getLeftCompareRoot(),
 								ModelCacheManager
-										.getLeftKey(getInput()))[0];
+										.getLeftKey(getInput() != null ? getInput() : oldInput))[0];
 						if (left instanceof IEditableContent) {
 							ByteArrayOutputStream baos = new ByteArrayOutputStream();
 							AbstractModelExportFactory modelExportFactory = CorePlugin.getModelExportFactory();
@@ -262,7 +264,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 								right, this, false,
 								getRightCompareRoot(),
 								ModelCacheManager
-										.getRightKey(getInput()))[0];
+										.getRightKey(getInput() != null ? getInput() : oldInput))[0];
 						if (right instanceof IEditableContent) {
 							ByteArrayOutputStream baos = new ByteArrayOutputStream();
 							AbstractModelExportFactory modelExportFactory = CorePlugin.getModelExportFactory();
@@ -754,12 +756,28 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			if (leftToRight) {
 				viewer = rightTreeViewer;
 			}
+			// sort the differences, making sure that all additions are first
+			// otherwise ordering differences may not be handled appropriately
+			// when using the copy all action
+			List<TreeDifference> additionsOrRemovals = new ArrayList<TreeDifference>();
+			List<TreeDifference> remainder = new ArrayList<TreeDifference>();
+			for (TreeDifference difference : differences) {
+				if (difference.getElement() != null
+						&& difference.getMatchingDifference().getElement() != null) {
+					remainder.add(difference);
+				} else {
+					additionsOrRemovals.add(difference);
+				}
+			}
+			differences.clear();
+			differences.addAll(additionsOrRemovals);
+			differences.addAll(remainder);
 			for (TreeDifference difference : differences) {
 				if((difference.getKind() & Differencer.DIRECTION_MASK) == Differencer.CONFLICTING && !copySelection) {
 					continue;
 				}
 				boolean changed = ModelMergeProcessor.merge(differencer,
-						difference, !leftToRight, (ITreeContentProvider) viewer
+						difference, !leftToRight, (ITreeDifferencerProvider) viewer
 								.getContentProvider(),
 						(ITableLabelProvider) viewer.getLabelProvider(),
 						modelRoot);
@@ -1078,18 +1096,8 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 
 				TreeItem otherItem = leftTreeViewer.getMatchingItem(difference
 						.getMatchingDifference().getElement(), rightTreeViewer);
-				TreeItem prevItem = null;
-				int location = difference.getLocation();
-				TreeItem[] items = leftItem.getItems();
-				if (items.length == 0) {
-					prevItem = leftItem;
-				} else if (items.length <= location) {
-					prevItem = items[items.length - 1];
-				} else if (location < 0) {
-					prevItem = leftItem;
-				} else {
-					prevItem = items[location];
-				}
+				TreeItem prevItem = SynchronizedTreeViewer
+						.getPreviousItem(leftItem, difference);
 				if (prevItem == null || prevItem.getData() == null
 						|| otherItem == null || otherItem.getData() == null) {
 					continue;
@@ -1162,18 +1170,9 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 												.getElement(),
 										leftItem.getData())) {
 							// draw a line for each missing item
-							TreeItem prevItem = null;
 							int location = diff.getLocation();
-							TreeItem[] items = otherSideParent.getItems();
-							if (items.length == 0) {
-								prevItem = otherSideParent;
-							} else if (items.length <= location) {
-								prevItem = items[items.length - 1];
-							} else if (location < 0) {
-								prevItem = otherSideParent;
-							} else {
-								prevItem = items[location];
-							}
+							TreeItem prevItem = SynchronizedTreeViewer
+									.getPreviousItem(otherSideParent, diff);
 							Rectangle prevItemBounds = rightTreeViewer
 									.buildHighlightRectangle(prevItem,
 											location >= 0, gc, true, true);
