@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
@@ -391,6 +391,10 @@ for each ars in recSpecs
   select one modelSpec related by ars->GD_MS[R33];
   if(empty modelSpec)
     ars.updateAllElements(system_id:param.system_id, removeElements:param.removeElements);
+    if(ars.reprocess)
+      ars.reprocess = false;
+      ars.updateAllElements(system_id: param.system_id, removeElements:param.removeElements);
+    end if;
   end if;
 end for;
 ',
@@ -814,6 +818,24 @@ INSERT INTO O_ATTR
 	'Model_Type',
 	0,
 	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("b9c00edc-e0d7-49e3-9991-40ab23edae49",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_BATTR
+	VALUES ("b9c00edc-e0d7-49e3-9991-40ab23edae49",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874");
+INSERT INTO O_ATTR
+	VALUES ("b9c00edc-e0d7-49e3-9991-40ab23edae49",
+	"0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"45f1b8ac-2115-4a50-9b6a-eacd460b724e",
+	'reprocess',
+	'',
+	'',
+	'reprocess',
+	0,
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
 	'',
 	'');
 INSERT INTO O_ID
