@@ -51,7 +51,6 @@ import com.mentor.nucleus.bp.core.ComponentReference_c;
 import com.mentor.nucleus.bp.core.Component_c;
 import com.mentor.nucleus.bp.core.ConstantSpecification_c;
 import com.mentor.nucleus.bp.core.CoreDataType_c;
-import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.CreationTransition_c;
 import com.mentor.nucleus.bp.core.DataTypePackage_c;
 import com.mentor.nucleus.bp.core.DataType_c;
@@ -2273,7 +2272,7 @@ public static void Settoolbarstate(boolean readonly) {
 	}
 	
 	public static void Logexception(String message) {
-		CorePlugin.logError(message, null);
+		CanvasPlugin.logError(message, null);
 	}
 		
 	public static boolean Connectorsupportslinking(Object connector) {
