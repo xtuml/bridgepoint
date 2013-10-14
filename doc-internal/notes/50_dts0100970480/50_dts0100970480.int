@@ -1,0 +1,147 @@
+---
+
+Copyright 2013 Mentor Graphics Corp.  All Rights Reserved.
+
+---
+
+# Address multiple issues with compare/merge
+### xtUML Project Implementation Note
+
+1. Abstract
+-----------
+This note lists the files that were changes as part of this issues work.
+
+2. Document References
+----------------------
+[1] Issues 50, https://github.com/xtuml/doc/issues/50  
+[2] /doc-internal/notes/50_dts0100970480.dnt
+[3] CQ Issue dts0100943296 Text phrase for relational attributes in properties
+    window should be visible
+[4] CQ Issue dts0100934967 Provide an option to include built-in EEs
+                                (LOG, ARCH, TIM) when creating new xtUML project
+
+3. Background
+-------------
+See [2].
+
+4. Requirements
+---------------
+See [2].
+
+5. Work Required
+----------------
+See [2].
+
+6. Implementation Comments
+--------------------------
+6.1 Remove text phrase from model class graphical compartment
+
+[3] Added support for showing the text phrase for referential attributes.  The
+initial change modified an operation that was shared between the properties view
+and the model class graphical compartments.  We decided this was not what we
+wanted as it would clutter the diagrams.  To remove this in the graphics and
+keep it in the properties view a new parameter is added to the O_REF.get_text()
+operation.  This parameter indicates whether or not the text phrase should be
+added to the name.  For the case of graphical compartments the parameter is
+false, while all other cases are true.
+
+6.2 Properly close down workbench
+
+In BPCLIWorkbenchAdvisor we were suspending the eclipse job manager in two
+locations, it should only be suspended during pre-startup before any job has
+been scheduled.  Additionally it should only be suspended when debugging is not
+enabled as the workbench will not shutdown if the job manager is not running.
+
+6.3 Process ordering for merging differences
+
+During testing it was noted that the order of difference merging can have an ill
+effect on the location's determined by the previous differencing.  This results
+in incorrect location's when merging a location difference.  In order to address
+this the logic is modified to process all additions and removals before all
+other changes.
+
+6.4 DiagramEditPart
+
+During testing it was noticed that some refresh calls to open diagrams could
+occur off of the UI thread.  This results in SWT Exceptions.  To resolve this
+the code that calls the repaint in DiagramEditPart.refreshVisuals() is wrapped
+in an asyncExec call on the platform display.
+
+6.5 Address [4]
+
+[4] added code to allow creation of the default EEs.  The code works as is
+designed, but the necessary data is not properly exported for builds.  To
+address this the Built-in External Entities folder in bp.pkg is added to the
+list of files exported for a build.
+
+7. Unit Test
+------------
+See [2].
+
+8. Code Changes
+---------------
+Branch name: Review-dts0100970480
+
+com.mentor.nucleus.bp.cli/src/com/mentor/nucleus/bp/cli/
+    BPCLIWorkbenchAdvisor.java
+com.mentor.nucleus.bp.cli/src/com/mentor/nucleus/bp/cli/
+    MergeWorkbenchAdvisor.java
+
+com.mentor.nucleus.bp.core/arc/create_model_inspector.arc
+com.mentor.nucleus.bp.core/arc/create_object_inspector.inc
+com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/
+    Subsystem/Attribute Reference in Class/Attribute Reference in Class.xtuml
+com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/
+    Subsystem/Model Class/Model Class.xtuml
+com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/
+    Subsystem/Referential Attribute/Referential Attribute.xtuml
+com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/
+    State Machine/Creation Transition/Creation Transition.xtuml
+com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/
+    State Machine/Transition/Transition.xtuml
+com.mentor.nucleus.bp.core/sql/ooaofooa_hierarchy.pei.sql
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/core/inspector/.gitignore
+
+com.mentor.nucleus.bp.io.core/arc/export_functions.inc
+com.mentor.nucleus.bp.io.core/src/com/mentor/nucleus/bp/io/core/CoreExport.java
+
+com.mentor.nucleus.bp.model.compare/src/com/mentor/nucleus/bp/model/compare/
+    ComparableTreeObject.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/nucleus/bp/model/compare/
+    ModelCacheManager.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/nucleus/bp/model/compare/
+    ModelMergeProcessor.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/nucleus/bp/model/compare/
+    TreeDifferencer.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/nucleus/bp/model/compare/
+    contentmergeviewer/ModelContentMergeViewer.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/nucleus/bp/model/compare/
+    contentmergeviewer/SynchronizedTreeViewer.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/nucleus/bp/model/compare/
+    contentmergeviewer/TextualAttributeCompareElementType.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/nucleus/bp/model/compare/
+    providers/ObjectElementComparable.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/nucleus/bp/model/compare/
+    providers/TreeDifferenceContentProvider.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/nucleus/bp/model/compare/
+    providers/custom/AssociationComparable.java
+
+com.mentor.nucleus.bp.model.compare.test/arc/generate_metamodel_compare_test.arc
+com.mentor.nucleus.bp.model.compare.test/src/com/mentor/nucleus/bp/model/
+    compare/test/ElementOrderingTests.java
+com.mentor.nucleus.bp.model.compare.test/src/com/mentor/nucleus/bp/model/
+    compare/test/ModelCompareTestSuite.java
+com.mentor.nucleus.bp.model.compare.test/src/com/mentor/nucleus/bp/model/
+    compare/test/ModelMergeTests.java
+com.mentor.nucleus.bp.model.compare.test/src/com/mentor/nucleus/bp/model/
+    compare/test/SynchronizedScrollingTests.java
+
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/test/common/BaseTest.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/test/common/
+    CompareTestUtilities.java
+
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/bp/ui/graphics/parts/
+    DiagramEditPart.java
+
+End
+---

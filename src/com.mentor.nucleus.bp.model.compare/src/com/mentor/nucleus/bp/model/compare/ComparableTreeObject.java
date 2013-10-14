@@ -35,4 +35,7 @@ public abstract class ComparableTreeObject {
 		// let subtypes override
 		return "";
 	}
+	public boolean isDerived() {
+		return false;
+	}
 }

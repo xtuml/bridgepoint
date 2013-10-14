@@ -293,7 +293,7 @@ public class ElementOrderingTests extends BaseTest {
 				TransactionManager.getSingleton().cancelTransaction(transaction, e);
 			}
 		}
-		IFile copy = openCompareEditor(op.getFile());
+		IFile copy = CompareTestUtilities.openCompareEditor(op.getFile());
 		try {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer.getInstance(null);
 			SynchronizedTreeViewer leftViewer = viewer.getLeftViewer();
@@ -327,7 +327,7 @@ public class ElementOrderingTests extends BaseTest {
 				TransactionManager.getSingleton().cancelTransaction(transaction, e);
 			}
 		}
-		IFile copy = openCompareEditor(op.getFile());
+		IFile copy = CompareTestUtilities.openCompareEditor(op.getFile());
 		try {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
@@ -366,7 +366,7 @@ public class ElementOrderingTests extends BaseTest {
 				TransactionManager.getSingleton().cancelTransaction(transaction, e);
 			}
 		}
-		IFile copy = openCompareEditor(op.getFile());
+		IFile copy = CompareTestUtilities.openCompareEditor(op.getFile());
 		ResourceAttributes attributes = copy.getResourceAttributes();
 		attributes.setReadOnly(true);
 		copy.setResourceAttributes(attributes);
@@ -414,7 +414,7 @@ public class ElementOrderingTests extends BaseTest {
 				TransactionManager.getSingleton().cancelTransaction(transaction, e);
 			}
 		}
-		IFile copy = openCompareEditor(two.getFile());
+		IFile copy = CompareTestUtilities.openCompareEditor(two.getFile());
 		try {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
@@ -474,7 +474,7 @@ public class ElementOrderingTests extends BaseTest {
 				TransactionManager.getSingleton().cancelTransaction(transaction, e);
 			}
 		}
-		IFile copy = openCompareEditor(two.getFile());
+		IFile copy = CompareTestUtilities.openCompareEditor(two.getFile());
 		try {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
@@ -531,7 +531,7 @@ public class ElementOrderingTests extends BaseTest {
 				TransactionManager.getSingleton().cancelTransaction(transaction, e);
 			}
 		}
-		IFile copy = openCompareEditor(two.getFile());
+		IFile copy = CompareTestUtilities.openCompareEditor(two.getFile());
 		try {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
@@ -588,7 +588,7 @@ public class ElementOrderingTests extends BaseTest {
 				TransactionManager.getSingleton().cancelTransaction(transaction, e);
 			}
 		}
-		IFile copy = openCompareEditor(two.getFile());
+		IFile copy = CompareTestUtilities.openCompareEditor(two.getFile());
 		try {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
@@ -645,7 +645,7 @@ public class ElementOrderingTests extends BaseTest {
 				TransactionManager.getSingleton().cancelTransaction(transaction, e);
 			}
 		}
-		IFile copy = openCompareEditor(two.getFile());
+		IFile copy = CompareTestUtilities.openCompareEditor(two.getFile());
 		try {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
@@ -702,7 +702,7 @@ public class ElementOrderingTests extends BaseTest {
 				TransactionManager.getSingleton().cancelTransaction(transaction, e);
 			}
 		}
-		IFile copy = openCompareEditor(two.getFile());
+		IFile copy = CompareTestUtilities.openCompareEditor(two.getFile());
 		try {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
@@ -759,7 +759,7 @@ public class ElementOrderingTests extends BaseTest {
 				TransactionManager.getSingleton().cancelTransaction(transaction, e);
 			}
 		}
-		IFile copy = openCompareEditor(two.getFile());
+		IFile copy = CompareTestUtilities.openCompareEditor(two.getFile());
 		try {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
@@ -816,7 +816,7 @@ public class ElementOrderingTests extends BaseTest {
 				TransactionManager.getSingleton().cancelTransaction(transaction, e);
 			}
 		}
-		IFile copy = openCompareEditor(two.getFile());
+		IFile copy = CompareTestUtilities.openCompareEditor(two.getFile());
 		try {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
@@ -873,7 +873,7 @@ public class ElementOrderingTests extends BaseTest {
 				TransactionManager.getSingleton().cancelTransaction(transaction, e);
 			}
 		}
-		IFile copy = openCompareEditor(two.getFile());
+		IFile copy = CompareTestUtilities.openCompareEditor(two.getFile());
 		try {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
@@ -930,7 +930,7 @@ public class ElementOrderingTests extends BaseTest {
 				TransactionManager.getSingleton().cancelTransaction(transaction, e);
 			}
 		}
-		IFile copy = openCompareEditor(two.getFile());
+		IFile copy = CompareTestUtilities.openCompareEditor(two.getFile());
 		try {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
@@ -987,7 +987,7 @@ public class ElementOrderingTests extends BaseTest {
 				TransactionManager.getSingleton().cancelTransaction(transaction, e);
 			}
 		}
-		IFile copy = openCompareEditor(two.getFile());
+		IFile copy = CompareTestUtilities.openCompareEditor(two.getFile());
 		try {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
@@ -1024,18 +1024,6 @@ public class ElementOrderingTests extends BaseTest {
 				copy.delete(true, new NullProgressMonitor());
 			}
 		}
-	}
-	
-	private IFile openCompareEditor(IFile file) throws CoreException {
-		// grab the copy from local history
-		IFileState[] history = file.getHistory(new NullProgressMonitor());
-		IFileState state = history[0];
-		InputStream contents = state.getContents();
-		IFile copy = file.getProject().getFile(file.getName());
-		copy.create(contents, true, new NullProgressMonitor());
-		CompareTestUtilities
-				.compareElementWithLocalHistory(file, copy);
-		return copy;
 	}
 	
 	private void performMergeTest(IFile file) throws CoreException {

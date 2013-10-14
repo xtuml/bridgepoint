@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("013b28a8-a7ff-49e2-8a2c-acb4b3dcab7e",
@@ -213,6 +213,28 @@ return result;',
 	1,
 	'',
 	"1bb49cef-e1fd-4ac4-a70b-84ecc48d1485");
+INSERT INTO O_TFR
+	VALUES ("46f707ba-7532-40b0-b41a-e9b7a00ba550",
+	"013b28a8-a7ff-49e2-8a2c-acb4b3dcab7e",
+	'mergeStateMachineEventCreationEvent',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select one transition related by self->SM_TXN[R507];
+return 
+    transition.mergeStateMachineEventAssignedLocalEvent(event_id:param.eventId);',
+	1,
+	'',
+	"f25dc9b9-7ec2-4ee0-9ccb-728b5c1e0317");
+INSERT INTO O_TPARM
+	VALUES ("a520e24f-5208-416e-9624-e5a15ef5e9e0",
+	"46f707ba-7532-40b0-b41a-e9b7a00ba550",
+	'eventId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_REF
 	VALUES ("013b28a8-a7ff-49e2-8a2c-acb4b3dcab7e",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",

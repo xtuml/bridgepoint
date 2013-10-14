@@ -60,7 +60,11 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 				} else {
 					add = 1;
 				}
-				orderedChildren.add(difference.getLocation() + add, difference.getMatchingDifference().getElement());
+				if(orderedChildren.size() == difference.getLocation()) {
+					orderedChildren.add(difference.getLocation(), difference.getMatchingDifference().getElement());
+				} else {
+					orderedChildren.add(difference.getLocation() + add, difference.getMatchingDifference().getElement());
+				}
 				processed = difference.getLocation();
 			}
 		}

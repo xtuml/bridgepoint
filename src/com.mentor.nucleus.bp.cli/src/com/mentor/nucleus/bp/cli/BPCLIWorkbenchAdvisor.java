@@ -14,7 +14,6 @@ package com.mentor.nucleus.bp.cli;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -22,7 +21,6 @@ import java.nio.channels.FileLock;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -182,13 +180,15 @@ abstract public class BPCLIWorkbenchAdvisor extends WorkbenchAdvisor {
 	@Override
 	public void preStartup() {
 		super.preStartup();
-		Job.getJobManager().suspend();
+		// only suspend the job manager if debug is false
+		if(!debug) {
+			Job.getJobManager().suspend();
+		}
 	}
 
 	@Override
 	public void postStartup() {
 		verifyWorkspaceIsNotLocked();
-		Job.getJobManager().suspend();
 		// catch all console output
 		DebugPlugin.getDefault().getLaunchManager().addLaunchListener(
 				new ILaunchListener() {
