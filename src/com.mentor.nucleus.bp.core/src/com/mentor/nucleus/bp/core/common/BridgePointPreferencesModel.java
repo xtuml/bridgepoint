@@ -107,46 +107,46 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         useDefaultNamesForNewModelElements = syncTo.useDefaultNamesForNewModelElements;
 	}
 
-	public Object deepClone(){
-		BridgePointPreferencesModel prefs = new BridgePointPreferencesModel();
-		prefs.parseAllOnResourceChange = parseAllOnResourceChange;
-    prefs.allowIntToRealPromotion = allowIntToRealPromotion;
-    prefs.allowRealToIntCoercion = allowRealToIntCoercion;
-    prefs.allowImplicitComponentAddressing = allowImplicitComponentAddressing;
-    prefs.allowOperationsInWhere = allowOperationsInWhere;
-    prefs.disableGradients = disableGradients;
-    prefs.invertGradients = invertGradients;
-    prefs.gradientBaseColor = gradientBaseColor;
+    public Object deepClone() {
+        BridgePointPreferencesModel prefs = new BridgePointPreferencesModel();
+        prefs.parseAllOnResourceChange = parseAllOnResourceChange;
+        prefs.allowIntToRealPromotion = allowIntToRealPromotion;
+        prefs.allowRealToIntCoercion = allowRealToIntCoercion;
+        prefs.allowImplicitComponentAddressing = allowImplicitComponentAddressing;
+        prefs.allowOperationsInWhere = allowOperationsInWhere;
+        prefs.disableGradients = disableGradients;
+        prefs.invertGradients = invertGradients;
+        prefs.gradientBaseColor = gradientBaseColor;
 
-    prefs.emitRTOData = emitRTOData;
-    prefs.exportOAL = exportOAL;
-    prefs.exportGraphics = exportGraphics;
-    prefs.messageDirection = messageDirection;
-    prefs.showTransitionActions = showTransitionActions;
-    prefs.showEventParameters = showEventParameters;
-    prefs.enableFLAs = enableFLAs;
-    prefs.enableDSAs = enableDSAs;
-    prefs.enableDeterministicVerifier = enableDeterministicVerifier;
-    prefs.enableInstanceReferences = enableInstanceReferences;
+        prefs.emitRTOData = emitRTOData;
+        prefs.exportOAL = exportOAL;
+        prefs.exportGraphics = exportGraphics;
+        prefs.messageDirection = messageDirection;
+        prefs.showTransitionActions = showTransitionActions;
+        prefs.showEventParameters = showEventParameters;
+        prefs.enableFLAs = enableFLAs;
+        prefs.enableDSAs = enableDSAs;
+        prefs.enableDeterministicVerifier = enableDeterministicVerifier;
+        prefs.enableInstanceReferences = enableInstanceReferences;
 
-    prefs.enableVerifierAudit = enableVerifierAudit;
-    prefs.enableSelectAudit = enableSelectAudit;
-    prefs.enableRelateAudit = enableRelateAudit;
-    prefs.enableUnrelateAudit = enableUnrelateAudit;
-    prefs.enableDeleteAudit = enableDeleteAudit;
-    
-    prefs.startUpTime = startUpTime;
+        prefs.enableVerifierAudit = enableVerifierAudit;
+        prefs.enableSelectAudit = enableSelectAudit;
+        prefs.enableRelateAudit = enableRelateAudit;
+        prefs.enableUnrelateAudit = enableUnrelateAudit;
+        prefs.enableDeleteAudit = enableDeleteAudit;
 
-    prefs.showGrid = showGrid;
-    prefs.snapToGrid = snapToGrid;
-    prefs.gridSpacing = gridSpacing;
-    prefs.defaultRoutingStyle = defaultRoutingStyle;
-    prefs.showReferenceRemovalDialog = showReferenceRemovalDialog;
-    prefs.showReferenceSyncReport = showReferenceSyncReport;
-    prefs.useDefaultNamesForNewModelElements = useDefaultNamesForNewModelElements;
-        
-		return prefs;
-	}
+        prefs.startUpTime = startUpTime;
+
+        prefs.showGrid = showGrid;
+        prefs.snapToGrid = snapToGrid;
+        prefs.gridSpacing = gridSpacing;
+        prefs.defaultRoutingStyle = defaultRoutingStyle;
+        prefs.showReferenceRemovalDialog = showReferenceRemovalDialog;
+        prefs.showReferenceSyncReport = showReferenceSyncReport;
+        prefs.useDefaultNamesForNewModelElements = useDefaultNamesForNewModelElements;
+
+        return prefs;
+    }
 
     public void addModelChangeListener(IChangeListener listener) {
         // do nothing
