@@ -68,8 +68,6 @@ public class Vm_c {
 
     private static Object result = null;
 
-    private static UUID currentSystem_ID;
-
     public static void resetClassLoader(SystemModel_c key) {
         vmclMap.remove(key);
     }
@@ -170,7 +168,6 @@ public class Vm_c {
                 IPath path = pr.getLocation();
                 if (path != null) {
                     path = path.append("bin"); //$NON-NLS-1$    
-                    currentSystem_ID = System_ID;
                     Adduserclasspath(sys[i], path);
                     break;
                 } else {
@@ -543,25 +540,17 @@ public class Vm_c {
         }    
     }
 
-    private static String pathToClassName(String name) {
-        String[] segments = name.split("::");
-        String className = "";
-        if (segments.length > 1) {
-            for (int i = 1; i < segments.length; i++) {
-                if (i != 1) {
-                    className += ".";
-                }
-                if (i < segments.length - 1) { // class name must retain
-                    // capitalization
-                    segments[i] = segments[i].toLowerCase();
-                }
-                className += segments[i].replaceAll(" ", "");
-            }
-            return className;
-        } else {
-            return name;
-        }
-    }
+	public static void removeStack(Thread forThread) {
+		synchronized (stackMap) {
+			Stack<targetInfo> result = stackMap.get(forThread);
+			if (result != null) {
+				result.clear();
+				stackMap.remove(result);
+				System.runFinalization();
+				System.gc();
+			}
+		}
+	}
 
 } // End Vm_c
 
