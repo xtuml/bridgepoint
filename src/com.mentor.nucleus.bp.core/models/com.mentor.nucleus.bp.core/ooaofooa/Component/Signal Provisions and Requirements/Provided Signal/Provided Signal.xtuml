@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("e85528c7-bdd7-46da-8137-12e7490df0d0",
@@ -306,10 +306,16 @@ INSERT INTO O_TFR
 select one psb related by self->ACT_PSB[R686];
 if empty psb
   create object instance psb of ACT_PSB;
-  create object instance bdy of ACT_ACT;
-  create object instance blk of ACT_BLK;
-  relate bdy to psb across R698;
   relate self to psb across R686;
+end if;
+select one bdy related by psb->ACT_ACT[R698];
+if empty bdy
+  create object instance bdy of ACT_ACT;
+  relate bdy to psb across R698;
+end if;
+select one blk related by bdy->ACT_BLK[R650];
+if empty blk
+  create object instance blk of ACT_BLK;
   // Associate across the parsed associations, these
   // will be transferred to the committed state as necessary
   relate bdy to blk across R650;

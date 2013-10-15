@@ -572,7 +572,7 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 			}
 			  int startingSize = syncThreads.size();
 			  boolean systemTerminated = false;
-			  while (!systemTerminated) {
+			  while (!systemTerminated && system != null) {
 				systemTerminated = true;
 				boolean systemActive = false;
 			    Iterator<BPThread> executionIterator = syncThreads.iterator();
@@ -1529,6 +1529,7 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 					}
 					prev_modelRoot = modelRoot;
 					thr.resetClassLoader();
+					Vm_c.removeStack(thr.getRunner());
 				}
 				if (thr.canTerminate()) {
 					thr.stop();
@@ -1551,6 +1552,9 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 		if (executionTimer != null) {
 			executionTimer.cancel();
 		}
+		optimized.clear();
+		process = null;
+		System.gc();
 	}
 
 
@@ -1603,7 +1607,12 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 		if (system != null) {
 			return "Verifier [" + system.getName() + "]";
 		} else {
+		  if (!isTerminated()) {
 			return "Error: No system to execute.";
+		  }
+		  else {
+			return "";
+		  }
 		}
 	}
 
@@ -1688,7 +1697,7 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
   
 
 	public void Notify() {
-		if (isDeterministic()) {
+		if (isDeterministic() && system != null) {
 			synchronized (system) {
 				system.notify();
 			}
