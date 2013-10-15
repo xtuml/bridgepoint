@@ -158,7 +158,13 @@ public class ActionLanguagePreferences
 
   public boolean performOk() {
       super.performOk();
-      CorePlugin plugin = CorePlugin.getDefault();
+      
+      // When closing the preferences UI, the performOk() for each page the user
+      // viewed will be called.  Those other performOk()'s may have caused the
+      // store to be updated.  So we need to make sure our copy of the 
+      // preferences model is up to date before we modify and save it.
+      model.getStore().loadModel(getPreferenceStore(), null, model);
+      
       BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
       if (allowPromotionYesRadio.getSelection()) {
           bpPrefs.allowIntToRealPromotion = MessageDialogWithToggle.ALWAYS;
@@ -190,7 +196,7 @@ public class ActionLanguagePreferences
       else {
           bpPrefs.allowOperationsInWhere = false;
       }
-      model.getStore().saveModel(plugin.getPreferenceStore(), model);
+      model.getStore().saveModel(getPreferenceStore(), model);
       return true;
   }
 
