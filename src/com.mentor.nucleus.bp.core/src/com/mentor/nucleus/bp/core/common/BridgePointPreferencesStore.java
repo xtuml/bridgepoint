@@ -225,7 +225,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.startUpTime = 5;
         
         prefs.showGrid = false;
-        prefs.snapToGrid = false;
+        prefs.snapToGrid = true;
         prefs.gridSpacing = 12;
         prefs.defaultRoutingStyle = OBLIQUE_ROUTING;
         prefs.enableDeterministicVerifier = true;
