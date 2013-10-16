@@ -32,6 +32,64 @@ MSD Weekly Meeting Minutes
 
 ---
 
+    Date:     October 16, 2013
+    Start:    12:00pm EDT
+    End:      12:25 EDT
+    Elapsed:  25 minutes
+    Present:  Bob, Keith, Travis, Campbell, Cort, others...
+            Dean, Robert, Jayne, others...
+
+### Engineering Status
+**MC Update - testing progress -** 
+Next version will have an MC update. Updated MCs include C, C++, and SystemC for source, as well as the binary
+MC model-based are being tested.
+
+**Release Status of 4.1 Hercules -**
+Release ship date is scheduled to be Nov 1. Leaves a couple weeks for development and last-minute bug fixes. Have
+19 current issues that we are working to include, and likely none that we can push out. All but 4 issues have had some
+analysis (Bob), but there is quite a bit of work left. Travis has been working directly with Marijan at Ericsson
+on his issues.
+
+### Marketing Status
+**Ericsson Operations -** 
+Ericsson projects are getting good visibility--Montreal is proceeding well.
+
+**Japan Operations -**
+Sony is seeing good ROI on their use of the Sysc model compiler. Looking to expand from 3 or 4 projects in the next 6-8
+months--possibly looking to double their use or more. They have been looking into BridgePoint 4.0 licensing, including
+attempting to defeat "linger". 
+
+FX has again become a BP customer after updating their perp licenses. They are facing the challenge of updating their
+dated models to the 4.0 release. This work is slated to be completed by early April next year. Training new users and
+model migration are the needed tasks here.
+
+Yazaki is a Tier 1 supplier for Toyota and is using BP in a pilot project in the MISRA 'C' MC space. This
+project is scheduled to start in February '14 and proceed for 8-9 months. Potential revenue for this year. They have
+been tasked with developing a model-driven design flow for Toyota.
+
+**Trade Shows and Campaigns -**
+IESF Detroit - Automotive show with a large MGC (BP and others) presence, as well as IBM Rhapsody. Very good traffic
+and lots of interest in the model-driven design flow and model compilers. Presentation on model-driven design was well
+received with good questions afteward. Total attendance was 613 people.
+
+SAE Aero Montreal - Was not as active as IESF. Local host (Bombardier) pulled many attendees due to schedule conflict.
+Polarsys is a new Eclipse-based safety-critical application for the embedded space.
+
+Jayne - Other promotions and whitepapers are in the works. These are being done in exchange for qualified leads. A new
+piece of collateral showing BP-SVX connection is being created. A presentation on BP and SVX product release will be
+delivered to the sales force for BP 4.0.6 and SVX 5.10.2. Ten new members on xtuml.org, and keep looking at ways to 
+integrate existing and new users there more.
+
+### Customer Support Status
+**Field Status -**
+Robert - Many BridgePoint issues on the back burner with Agilent. These have all been reported previously on the
+github issue tracker--Martin is just reporting these on the SupportNet system so they aren't lost. Sony continues to
+fight licensing, though no defects have been reported so far with 4.0.6. CSD initiatives have mandated that (for now) 
+support work is a secondary priority while new revenue opportunities are identified and initiated. This may eventually
+help BP as it can free up Engineering and Marketing from training delivery (maybe).
+
+---
+
     Date:     October 2nd, 2013
     Start:    12:00 EDT
     End:      12:35 EDT
