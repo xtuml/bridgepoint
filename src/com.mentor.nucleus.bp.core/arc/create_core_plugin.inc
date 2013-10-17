@@ -212,7 +212,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
          </action>
       </objectContribution>
       <objectContribution
-            adaptable="false"
+            adaptable="true"
             id="com.mentor.nucleus.bp.core.builtinEEContribution"
             objectClass="com.mentor.nucleus.bp.core.Package_c">
          <action

@@ -180,6 +180,12 @@ public class Vm_c {
         }
     } // End setUserClassPath
 
+    public static void Adduserclasspath(UUID systemId, String path) {
+		SystemModel_c system = (SystemModel_c) Ooaofooa.getDefaultInstance()
+				.getInstanceList(SystemModel_c.class).get(systemId);
+    	Adduserclasspath(system, path);
+    }
+    
     public static void Adduserclasspath(SystemModel_c system, String path) {
         path = expandEclipseVariables(path);
         if (!path.equals("")) {
