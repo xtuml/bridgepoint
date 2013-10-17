@@ -212,7 +212,6 @@ public class BridgePointPreferences
     public IPreferenceStore getPreferenceStore() {
     	if (store == null) {
     		store = super.getPreferenceStore();
-    		store.setDefault(BridgePointPreferencesStore.SHOW_EVENT_PARAMETERS, true);
     	}
     	return store;
     }
