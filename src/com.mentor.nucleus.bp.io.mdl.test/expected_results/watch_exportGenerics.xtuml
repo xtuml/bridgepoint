@@ -17735,7 +17735,8 @@ INSERT INTO S_EE
 	'Time',
 	'The Time external entity provides date, timestamp, and timer related operations.',
 	'TIM',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO S_BRG
 	VALUES ("a995376a-620c-4634-a6f7-a918d0729868",
 	"db9f2fa9-329e-494a-975a-530aa1ea45d3",

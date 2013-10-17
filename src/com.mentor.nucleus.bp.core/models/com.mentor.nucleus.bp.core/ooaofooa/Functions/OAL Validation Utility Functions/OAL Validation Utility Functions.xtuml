@@ -1,4 +1,4 @@
--- BP 7.1 content: FunctionPackage syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: FunctionPackage syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO S_FPK
 	VALUES ("9092f98e-34df-42d0-be42-dc91951c8a73",
@@ -39,9 +39,9 @@ INSERT INTO S_DOM_PROXY
 	'ooaofooa',
 	'========================================================================
 
-File:          $RCSfile$
-Version:   $Revision$
-Modified:  $Date$
+File:          $RCSfile: ooaofooa.xtuml,v $
+Version:   $Revision: 1.127 $
+Modified:  $Date: 2006/09/26 15:10:20 $
 
 (c) Copyright 2004-2013 by Mentor Graphics Corp. All rights reserved.
 
@@ -3581,13 +3581,13 @@ if isInGenericPackage
     component.collectVisibleElementsForName(name:param.key_lett,
          type:ElementTypeConstants::EE, originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:true);
   else
     package.collectVisibleElementsForName(name:param.key_lett,
          type:ElementTypeConstants::EE, descending:false,
                            originatingContainerID:containingElem.Element_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:true);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                     selected.Name == param.key_lett and 

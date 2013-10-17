@@ -306,6 +306,11 @@
           parms.elementAt(${attr_col_num}) != null ? removeTics((String)parms.elementAt(${attr_col_num})) : ""\
           .assign special_case = true
         .end if
+      .elif(table.Key_lett == "S_EE")
+        .if(col.Name == "Realized_Class_Path")
+          parms.elementAt(${attr_col_num}) != null ? removeTics((String)parms.elementAt(${attr_col_num})) : ""\
+          .assign special_case = true
+        .end if
 	  .end if
       .if (special_case == false)
         .if ( col.type == "boolean" )

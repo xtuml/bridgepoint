@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("a361b553-b2e3-46ea-a8f4-8b8633921011",
@@ -672,6 +672,24 @@ Description: Uniquely identifies the external entity in the domain.',
 	'EE_ID',
 	0,
 	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("e9a91c54-22ea-4a4c-9b52-4cf27c191ec7",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011");
+INSERT INTO O_BATTR
+	VALUES ("e9a91c54-22ea-4a4c-9b52-4cf27c191ec7",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011");
+INSERT INTO O_ATTR
+	VALUES ("e9a91c54-22ea-4a4c-9b52-4cf27c191ec7",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011",
+	"10cdb156-4ae5-4a51-86d9-ee4bce9f0de2",
+	'Realized_Class_Path',
+	'Full Name: Realized External Entity Path',
+	'',
+	'Realized_Class_Path',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
 	'',
 	'');
 INSERT INTO O_ID
