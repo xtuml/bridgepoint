@@ -185,7 +185,8 @@ public class DLLRelaunchTest extends BaseTest {
 		}
 		int expectedFound = result.indexOf("Hello JNI.");
 		if (expectedFound == -1) {
-			fail("Expected message not found: \n" + result);
+			fail("Expected message not found: \n" + result +
+			"\nTimeout in testDLLRelaunch may need to be extended, see dts0100992921.");
 		}
 		result = "";
 	}

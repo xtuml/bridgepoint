@@ -546,6 +546,9 @@ public class Vm_c {
 			if (result != null) {
 				result.clear();
 				stackMap.remove(result);
+				// Request garbage collection. This is merely a hint to the JVM
+				// that we need unwanted instances flushed. It can take several
+				// seconds for it to respond.
 				System.runFinalization();
 				System.gc();
 			}

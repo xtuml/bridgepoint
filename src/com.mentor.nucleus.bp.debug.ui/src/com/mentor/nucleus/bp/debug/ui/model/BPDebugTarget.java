@@ -1554,6 +1554,9 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 		}
 		optimized.clear();
 		process = null;
+		// Request garbage collection. This is merely a hint to the JVM
+		// that we need unwanted instances flushed. It can take several
+		// seconds for it to respond.
 		System.gc();
 	}
 
