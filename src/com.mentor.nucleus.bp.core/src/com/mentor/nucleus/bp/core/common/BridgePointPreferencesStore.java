@@ -210,7 +210,7 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.showEventParameters = true;
         prefs.enableFLAs = true;
         prefs.enableDSAs = true;
-        prefs.enableInstanceReferences = false;
+        prefs.enableInstanceReferences = true;
         prefs.emitRTOData = true;        
         prefs.exportOAL = MessageDialogWithToggle.NEVER;
         prefs.exportGraphics = MessageDialogWithToggle.ALWAYS;
