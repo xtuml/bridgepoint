@@ -40,7 +40,7 @@ x- All files are checked-in properly and no file is left ommitted.
      - Your branch is pushed to github and shows up on the repository network
        graph
 
-_- An implementation review was performed, including a code review with at
+x- An implementation review was performed, including a code review with at
    least 2 other engineers
 
 x- Verify that all changes specified in the analysis, design and implementation
@@ -77,7 +77,7 @@ x- Create a Pull Request for the changes
      _- Resolve any conflicts as indicated.  If "Able to merge", then click 
         "Send pull request" button 
 
-_- Add a comment in the BridgePoint chat saying the issue is ready for promotion
+x- Add a comment in the BridgePoint chat saying the issue is ready for promotion
 
 
 End
