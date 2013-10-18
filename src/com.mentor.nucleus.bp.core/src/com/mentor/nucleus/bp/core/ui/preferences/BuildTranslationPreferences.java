@@ -26,7 +26,6 @@ import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesModel;
-import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.ui.ICoreHelpContextIds;
 import com.mentor.nucleus.bp.ui.preference.IPreferenceModel;
 
@@ -77,7 +76,7 @@ public class BuildTranslationPreferences extends PreferencePage implements
 
     public void createControl(Composite parent) {
         super.createControl(parent);
-        // add F1 context support to main bridgepoint preference page
+        // add F1 context support to main BridgePoint preference page
         PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(),
                 ICoreHelpContextIds.corePreferencesId);
     }
@@ -110,6 +109,13 @@ public class BuildTranslationPreferences extends PreferencePage implements
 
     private void syncUIWithPreferences() {
         BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
+        
+        // NOTE: We do NOT want to call model.loadModel(...) here.  The model will
+        // have already been set up with the correct data (either from the store
+        // or defaults) before this function is called.  Calling model.loadModel(...)
+        // here would overwrite the population of the default model data in
+        // performDefaults().
+
         emitRTOData.setSelection(bpPrefs.emitRTOData);
     }
 

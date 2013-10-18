@@ -13,12 +13,8 @@ package com.mentor.nucleus.bp.core.ui.preferences;
 //Mentor Graphics Corp., and is not for external distribution.
 //========================================================================
 
-import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.preference.PreferencePage;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -92,7 +88,7 @@ public class MessageDirectionPreferences extends PreferencePage implements
 
 	public void createControl(Composite parent) {
 		super.createControl(parent);
-		// add F1 context support to main bridgepoint preference page
+		// add F1 context support to main BridgePoint preference page
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(),
 				ICoreHelpContextIds.corePreferencesId);
 	}
@@ -126,6 +122,12 @@ public class MessageDirectionPreferences extends PreferencePage implements
     private void syncUIWithPreferences() {
         BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
         
+        // NOTE: We do NOT want to call model.loadModel(...) here.  The model will
+        // have already been set up with the correct data (either from the store
+        // or defaults) before this function is called.  Calling model.loadModel(...)
+        // here would overwrite the population of the default model data in
+        // performDefaults().
+
         if (bpPrefs.messageDirection.equals("to provider")) {
             toProviderRadio.setSelection(true);
             fromProviderRadio.setSelection(false);
