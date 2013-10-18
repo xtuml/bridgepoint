@@ -65,7 +65,7 @@ if (param.comp_num == 1)
     if (param.at == Justification::Center_in_X)
       result = "«external entity»";
       result = result + GD::newline();
-      result = result + self.Name;
+      result = result + self.Label;
     end if;
   end if;
 elif (param.comp_num == 2)
@@ -688,6 +688,31 @@ INSERT INTO O_ATTR
 	'Full Name: Realized External Entity Path',
 	'',
 	'Realized_Class_Path',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("2e57c2ac-1d9f-4505-b7aa-3af93d02cb5f",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011",
+	'extension = "";
+if(self.Realized_Class_Path == "")
+  extension = " realized by " +
+                     Util::getLastSegmentForPath(path:self.Realized_Class_Path);
+end if;
+self.Label = self.Name + extension;',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("2e57c2ac-1d9f-4505-b7aa-3af93d02cb5f",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011");
+INSERT INTO O_ATTR
+	VALUES ("2e57c2ac-1d9f-4505-b7aa-3af93d02cb5f",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011",
+	"e9a91c54-22ea-4a4c-9b52-4cf27c191ec7",
+	'Label',
+	'',
+	'',
+	'Label',
 	0,
 	"528ced7e-5308-4195-8093-ca0c55401f58",
 	'',

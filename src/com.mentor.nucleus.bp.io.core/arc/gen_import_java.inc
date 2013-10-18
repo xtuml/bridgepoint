@@ -311,6 +311,10 @@
           parms.elementAt(${attr_col_num}) != null ? removeTics((String)parms.elementAt(${attr_col_num})) : ""\
           .assign special_case = true
         .end if
+        .if(col.Name == "Label")
+          parms.elementAt(${attr_col_num}) != null ? removeTics((String)parms.elementAt(${attr_col_num})) : ""\
+          .assign special_case = true
+        .end if
 	  .end if
       .if (special_case == false)
         .if ( col.type == "boolean" )

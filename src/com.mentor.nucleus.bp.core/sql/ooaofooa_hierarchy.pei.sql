@@ -30,7 +30,7 @@ INSERT INTO T_TNS VALUES (14, 'EventData.gif',                  'SM_EVTDI','', '
 INSERT INTO T_TNS VALUES (16, 'Attribute.gif',                  'O_ATTR',  '', 'Name', '',                 'Attribute', 				103, 'succeeds');
 INSERT INTO T_TNS VALUES (17, 'DataType.gif',                       'S_DT',    '', '', '',                 'Data Type', 				-1, '');
 INSERT INTO T_TNS VALUES (19, 'Enumerator.gif',                 'S_ENUM',  '', 'Name', '',                 'Enumerator', 				   56, 'succeeds');
-INSERT INTO T_TNS VALUES (27, 'ExternalEntity.gif',             'S_EE',    '', 'Name', '',                 'External Entity', 			-1, '');
+INSERT INTO T_TNS VALUES (27, 'ExternalEntity.gif',             'S_EE',    '', 'Label', '',                 'External Entity', 			-1, '');
 INSERT INTO T_TNS VALUES (28, 'Bridge.gif',                     'S_BRG',   '', 'Name', '',                 'Bridge', 						-1, '');
 INSERT INTO T_TNS VALUES (29, 'BridgeParameter.gif',            'S_BPARM', '', 'Name', '',                 'Bridge Parameter',        55, 'succeeds');
 INSERT INTO T_TNS VALUES (30, 'Association.gif',                'R_REL',   '', '', '',                     'Association', 					-1, '');
