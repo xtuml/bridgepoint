@@ -1,7 +1,6 @@
 package com.mentor.nucleus.bp.ui.graphics.preferences;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.ColorSelector;
 import org.eclipse.jface.preference.ComboFieldEditor;
@@ -27,7 +26,6 @@ import org.eclipse.ui.PlatformUI;
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesModel;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
-import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
 import com.mentor.nucleus.bp.ui.graphics.IGraphicalHelpContextIds;
 import com.mentor.nucleus.bp.ui.graphics.editor.GraphicalEditor;
 
@@ -280,6 +278,12 @@ public class GraphicalEditorPreferences extends FieldEditorPreferencePage implem
 
     private void syncUIWithPreferences() {
         BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
+
+        // NOTE: We do NOT want to call model.loadModel(...) here.  The model will
+        // have already been set up with the correct data (either from the store
+        // or defaults) before this function is called.  Calling model.loadModel(...)
+        // here would overwrite the population of the default model data in
+        // performDefaults().
 
         Integer spacing = new Integer(bpPrefs.gridSpacing);
         gridSpacing.setStringValue(spacing.toString());

@@ -125,7 +125,7 @@ public class BridgePointProjectPreferences
   
   public void createControl(Composite parent) {
   	super.createControl(parent);
-    // add F1 context support to Bridgepoint project preference page
+    // add F1 context support to BridgePoint project preference page
     PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), ICoreHelpContextIds.corePreferencesId);
   }
     

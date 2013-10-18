@@ -213,6 +213,12 @@ public class VerifierPreferences
     private void syncUIWithPreferences() {
       BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
       
+      // NOTE: We do NOT want to call model.loadModel(...) here.  The model will
+      // have already been set up with the correct data (either from the store
+      // or defaults) before this function is called.  Calling model.loadModel(...)
+      // here would overwrite the population of the default model data in
+      // performDefaults().
+
       enable.setSelection(bpPrefs.enableVerifierAudit);
       auditGroup.setEnabled(bpPrefs.enableVerifierAudit);
       select.select(bpPrefs.enableSelectAudit);
