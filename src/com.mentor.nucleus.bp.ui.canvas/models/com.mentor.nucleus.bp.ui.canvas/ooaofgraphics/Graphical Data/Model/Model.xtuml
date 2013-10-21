@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
@@ -1113,7 +1113,27 @@ select one elemSpec related by ars->GD_ES[R29];
 select any shapeEle related by elemSpec->GD_GE[R10]
 	where (selected.elementId == param.elementId);
 select one canvas related by shapeEle->GD_MD[R1];
-
+select one existingSpec related by ars->GD_ES[R30];
+// get the connector we want to base the reconciliation on
+select any existingConnector related by  existingSpec->GD_GE[R10]->
+                         GD_CON[R2] where selected.elementId == param.connector;
+// detect possible corruption and skip reconciliation if found
+select one startEle related by existingConnector->DIM_ED[R20]->DIM_CON[R320];
+select one endEle related by existingConnector->DIM_ED[R20]->DIM_CON[R321];
+if(empty startEle and empty endEle)
+  select one existingGE related by existingConnector->GD_GE[R2];
+  // we do not reconcile connectors that end on whitespace for
+  // both sides, therefore this element is corrupted
+  CL::logException(message:"Found an invalid connector as the base for" +
+                  " reconciliation."+ OS::newLine() + "The connector id is: " +
+                                      OS::uniqueIdToString(id:param.connector)
+                                     + OS::newLine() + "The connector path is: "
+                                                  + existingGE.represents_path +
+                            OS::newLine() + "The connector has been recreated");
+  existingConnector.dispose();
+  ars.reprocess = true;
+  return;
+end if;
 create object instance newConElem of GD_GE;
 relate newConElem to canvas across R1;
 create object instance connector of GD_CON;
@@ -1156,11 +1176,6 @@ text.createSupertypeInstances();
 // Prepare canvas for drawing segment
 select one diagram related by canvas->DIM_DIA[R18];
 
-select one existingSpec related by ars->GD_ES[R30];
-
-// get the connector we want to base the reconciliation on
-select any existingConnector related by  existingSpec->GD_GE[R10]->
-                         GD_CON[R2] where selected.elementId == param.connector;
 select one reconcileToSpec related by ars->GD_ES[R30];
 select one existingConnectorSpec related by existingConnector->
                                                           GD_GE[R2]->GD_ES[R10];

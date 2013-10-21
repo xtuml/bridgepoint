@@ -2271,6 +2271,10 @@ public static void Settoolbarstate(boolean readonly) {
 		User_c.Logerror(message,"PathNotProvided");
 	}
 	
+	public static void Logexception(String message) {
+		CanvasPlugin.logError(message, null);
+	}
+		
 	public static boolean Connectorsupportslinking(Object connector) {
 		return hasMethod(connector, "Linkconnector", new Class[] {UUID.class}); //$NON-NLS-1$
 	}
