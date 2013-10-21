@@ -572,7 +572,7 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 			}
 			  int startingSize = syncThreads.size();
 			  boolean systemTerminated = false;
-			  while (!systemTerminated) {
+			  while (!systemTerminated && system != null) {
 				systemTerminated = true;
 				boolean systemActive = false;
 			    Iterator<BPThread> executionIterator = syncThreads.iterator();
@@ -1195,7 +1195,7 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 			Satisfaction_c reqSat = Satisfaction_c.getOneC_SFOnR4706(iReq);
 			if (!alreadyWired(exEng, reqSat)) {
 				// We need to traverse the provided side to get the target
-				target = getProviderTargetFor(reqSat);
+				target = getProviderTargetFor(reqSat, parentExEng);
 				if (target != null) {
 					wireChannel(reqSat, true, exEng, target, null);
 				}
@@ -1214,7 +1214,7 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 			for (int i = 0; i < provSats.length; i++) {
 				if (!alreadyWired(exEng, provSats[i])) {
 					// We need to traverse the required side to get the target
-					target = getRequirerTargetFor(provSats[i]);
+					target = getRequirerTargetFor(provSats[i], parentExEng);
 					if (target != null) {
 						wireChannel(provSats[i], false, exEng, target, null);
 					}
@@ -1230,7 +1230,7 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 		}
 	}
 
-	private ComponentInstance_c getProviderTargetFor(NonRootModelElement element) {
+	private ComponentInstance_c getProviderTargetFor(NonRootModelElement element, ComponentInstance_c parent) {
 		ComponentInstance_c result = null;
 		ImportedReference_c iref = null;
 		if (element instanceof Satisfaction_c) {
@@ -1242,9 +1242,35 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 					.getOneCL_IIROnR4704((Delegation_c) element);
 		}
 		if (iref != null) {
-			result = ComponentInstance_c
-					.getOneI_EXEOnR2963(ComponentReference_c
+			ComponentInstance_c[] candidates = ComponentInstance_c
+					.getManyI_EXEsOnR2963(ComponentReference_c
 							.getOneCL_ICOnR4700(iref));
+			if (parent != null) {
+			  ComponentInstance_c[] children = ComponentInstance_c.
+					getManyI_EXEsOnR2975(ComponentInstanceContainer_c.getOneI_CINOnR2974(parent));
+			  for (ComponentInstance_c candidate: candidates) {
+				for(ComponentInstance_c child: children) {
+					if (candidate == child) {
+						result = candidate;  // TODO need to check not already wired?
+						break;
+					}
+				}
+			  }
+			}
+			else {
+				if (candidates.length != 1) {
+				  DebugPlugin.log(new Throwable("Internal warning getting Provider Target. Ambiguous instances found."));
+				}
+				if (candidates.length == 0) {
+				  DebugPlugin.log(new Throwable("Internal warning getting Provider Target. No instances found."));
+				}
+				else {
+				  result = candidates[0];
+				}
+			}
+			if (result == null) {
+			  DebugPlugin.log(new Throwable("Internal error getting Provider Target. No suitable instance found."));
+			}
 		} else {
 			Provision_c prov = null;
 			if (element instanceof Satisfaction_c) {
@@ -1265,7 +1291,7 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 		return result;
 	}
 
-	private ComponentInstance_c getRequirerTargetFor(NonRootModelElement element) {
+	private ComponentInstance_c getRequirerTargetFor(NonRootModelElement element, ComponentInstance_c parent) {
 		ComponentInstance_c result = null;
 		ImportedReference_c iref = null;
 		if (element instanceof Satisfaction_c) {
@@ -1277,9 +1303,35 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 					.getOneCL_IIROnR4704((Delegation_c) element);
 		}
 		if (iref != null) {
-			result = ComponentInstance_c
-					.getOneI_EXEOnR2963(ComponentReference_c
+			ComponentInstance_c[] candidates = ComponentInstance_c
+					.getManyI_EXEsOnR2963(ComponentReference_c
 							.getOneCL_ICOnR4700(iref));
+			if (parent != null) {
+			  ComponentInstance_c[] children = ComponentInstance_c.
+					getManyI_EXEsOnR2975(ComponentInstanceContainer_c.getOneI_CINOnR2974(parent));
+			  for (ComponentInstance_c candidate: candidates) {
+				for(ComponentInstance_c child: children) {
+					if (candidate == child) {
+						result = candidate;  // TODO need to check not already wired?
+						break;
+					}
+				}
+			  }
+			}
+			else {
+				if (candidates.length != 1) {
+					  DebugPlugin.log(new Throwable("Internal warning getting Required Target. Ambiguous instances found."));
+				}
+				if (candidates.length == 0) {
+					  DebugPlugin.log(new Throwable("Internal warning getting Required Target. No instances found."));
+				}
+				else {
+				  result = candidates[0];
+				}
+			}
+			if (result == null) {
+			  DebugPlugin.log(new Throwable("Internal error getting Required Target. No suitable instance found."));
+			}
 		} else {
 			Requirement_c req = null;
 			if (element instanceof Satisfaction_c) {
@@ -1317,9 +1369,9 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 		} else {
       source = exEng;
 			if (isRequired) {
-				target = getProviderTargetFor(element);
+				target = getProviderTargetFor(element, parentExEng);
 			} else {
-				target = getRequirerTargetFor(element);
+				target = getRequirerTargetFor(element, parentExEng);
 			}
 		}
 		wireChannel(element, isRequired, source, target, parentRt);
@@ -1529,6 +1581,7 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 					}
 					prev_modelRoot = modelRoot;
 					thr.resetClassLoader();
+					Vm_c.removeStack(thr.getRunner());
 				}
 				if (thr.canTerminate()) {
 					thr.stop();
@@ -1551,6 +1604,12 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 		if (executionTimer != null) {
 			executionTimer.cancel();
 		}
+		optimized.clear();
+		process = null;
+		// Request garbage collection. This is merely a hint to the JVM
+		// that we need unwanted instances flushed. It can take several
+		// seconds for it to respond.
+		System.gc();
 	}
 
 
@@ -1603,7 +1662,12 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 		if (system != null) {
 			return "Verifier [" + system.getName() + "]";
 		} else {
+		  if (!isTerminated()) {
 			return "Error: No system to execute.";
+		  }
+		  else {
+			return "";
+		  }
 		}
 	}
 
@@ -1688,7 +1752,7 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
   
 
 	public void Notify() {
-		if (isDeterministic()) {
+		if (isDeterministic() && system != null) {
 			synchronized (system) {
 				system.notify();
 			}
