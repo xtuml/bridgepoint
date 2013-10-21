@@ -29,7 +29,6 @@ import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesModel;
-import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.ui.ICoreHelpContextIds;
 import com.mentor.nucleus.bp.ui.preference.IPreferenceModel;
 
@@ -99,9 +98,6 @@ public class BridgePointPreferences
     promptParseRadio.setText("&Prompt");
     promptParseRadio.setLayoutData(new GridData());
 
-    model = new BridgePointPreferencesModel();
-    model.getStore().loadModel(getPreferenceStore(), null, model);
-    
     showTransitionAction = new Button(composite, SWT.CHECK | SWT.LEFT);
     showTransitionAction.setText("Show actions on transitions");
     showTransitionAction.setLayoutData(new GridData());
@@ -132,7 +128,10 @@ public class BridgePointPreferences
     useDefaultNamesForNewModelElements.setText("Use default names for new model elements");
     useDefaultNamesForNewModelElements.setLayoutData(new GridData());
     useDefaultNamesForNewModelElements.setToolTipText("Shows the rename dialog automatically during new model element creation when not enabled.");
-    	
+
+    model = new BridgePointPreferencesModel();
+    model.getStore().loadModel(getPreferenceStore(), null, model);
+    
     syncUIWithPreferences();
     return composite;
   }
@@ -143,13 +142,20 @@ public class BridgePointPreferences
   
   public void createControl(Composite parent) {
   	super.createControl(parent);
-    // add F1 context support to  main bridgepoint preference page
+    // add F1 context support to  main BridgePoint preference page
     PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), ICoreHelpContextIds.corePreferencesId);
   }
     
     public boolean performOk() {
         super.performOk();
-        CorePlugin plugin = CorePlugin.getDefault();
+        
+        // When closing the preferences UI, the performOk() for each page the user
+        // viewed will be called.  Those other performOk()'s may have caused the
+        // store to be updated.  So we need to make sure our copy of the 
+        // preferences model is up to date before we modify and save it.
+        model.getStore().loadModel(getPreferenceStore(), null, model);
+        
+
         BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
         if (alwaysParseRadio.getSelection()) {
             bpPrefs.parseAllOnResourceChange = MessageDialogWithToggle.ALWAYS;
@@ -167,20 +173,25 @@ public class BridgePointPreferences
         bpPrefs.showReferenceRemovalDialog = showReferenceDeletionWarning.getSelection();
         bpPrefs.showReferenceSyncReport = showReferenceSynchronizationReport.getSelection();
         bpPrefs.useDefaultNamesForNewModelElements = useDefaultNamesForNewModelElements.getSelection();
-        model.getStore().saveModel(plugin.getPreferenceStore(), model);
+        model.getStore().saveModel(getPreferenceStore(), model);
         return true;
 	}
 	
     public void performDefaults() {
         super.performDefaults();
-        CorePlugin plugin = CorePlugin.getDefault();
         model.getStore().restoreModelDefaults(model);
         syncUIWithPreferences();
     }
 
     private void syncUIWithPreferences() {
         BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
-    	model.getStore().loadModel(getPreferenceStore(), null, model);
+        
+        // NOTE: We do NOT want to call model.loadModel(...) here.  The model will
+        // have already been set up with the correct data (either from the store
+        // or defaults) before this function is called.  Calling model.loadModel(...)
+        // here would overwrite the population of the default model data in
+        // performDefaults().
+
         if (bpPrefs.parseAllOnResourceChange.equals(MessageDialogWithToggle.ALWAYS)) {
             alwaysParseRadio.setSelection(true);
             neverParseRadio.setSelection(false);
@@ -207,7 +218,6 @@ public class BridgePointPreferences
     public IPreferenceStore getPreferenceStore() {
     	if (store == null) {
     		store = super.getPreferenceStore();
-    		store.setDefault(BridgePointPreferencesStore.SHOW_EVENT_PARAMETERS, true);
     	}
     	return store;
     }

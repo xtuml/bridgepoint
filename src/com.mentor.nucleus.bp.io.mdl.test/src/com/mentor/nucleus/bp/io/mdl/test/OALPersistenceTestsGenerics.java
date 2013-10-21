@@ -108,6 +108,7 @@ public class OALPersistenceTestsGenerics extends BaseTest {
 			IPreferenceStore store = CorePlugin.getDefault()
 					.getPreferenceStore();
 			store.setValue(BridgePointPreferencesStore.EXPORT_OAL, "always"); //$NON-NLS-1$
+			store.setValue(BridgePointPreferencesStore.SHOW_EVENT_PARAMETERS, false); 
 			// export with persisted OAL
 			TestingUtilities.exportModelUsingWizard(m_workspace_path
 					+ (generateResults ? "expected_results"

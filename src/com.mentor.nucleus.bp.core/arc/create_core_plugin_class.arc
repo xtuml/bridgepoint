@@ -89,7 +89,6 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.prefs.Preferences;
 
-import com.mentor.nucleus.bp.core.common.BridgePointPreferencesModel;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.common.ComponentResourceListener;
 import com.mentor.nucleus.bp.core.common.IAllActivityModifier;
@@ -372,8 +371,6 @@ public class CorePlugin extends AbstractUIPlugin {
 	 */
     public IPreferenceStore getPreferenceStore() {
     	IPreferenceStore store = super.getPreferenceStore();
-    	BridgePointPreferencesModel model = new BridgePointPreferencesModel();
-    	model.getStore().loadModel(store, null, model);
     	return store;
     }
 	/**
