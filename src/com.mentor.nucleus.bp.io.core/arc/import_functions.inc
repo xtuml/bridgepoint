@@ -188,6 +188,9 @@
       parms.setSize(${no_of_cols});
         .// set columns size in case of backward compatibility
     .end if
+    .if(table.Key_Lett == "S_EE")
+      parms.setSize(${no_of_cols});
+    .end if
     .//
     .// handle pre-7.1.3 models by creating the missing
     .// sequence number attributes
