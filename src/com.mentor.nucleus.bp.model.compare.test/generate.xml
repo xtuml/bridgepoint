@@ -55,11 +55,11 @@
 		<delete file="____file.txt"/>
 	</target>
 
-	<property name="non_generated_files" value=".cvsignore,
+	<property name="non_generated_files" value="
 		Activator.java,
 		ElementOrderingTests.java,
 		ModelCompareTestSuite.java,
-		SynchronizedScrollingTests.java" />
+		ModelMergeTests.java" />
 
 	<target name="clean_all"
 	        description="Clean entire project"

@@ -13,12 +13,8 @@ package com.mentor.nucleus.bp.core.ui.preferences;
 //Mentor Graphics Corp., and is not for external distribution.
 //========================================================================
 
-import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.preference.PreferencePage;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -40,7 +36,6 @@ public class MessageDirectionPreferences extends PreferencePage implements
 	private Group providerGroup;
 	private Button toProviderRadio;
 	private Button fromProviderRadio;
-	private Button biDirectionalRadio;
 
 	protected IPreferenceModel model;
 
@@ -78,25 +73,11 @@ public class MessageDirectionPreferences extends PreferencePage implements
 		fromProviderRadio.setText("&From Provider");
 		fromProviderRadio.setLayoutData(new GridData());
 
-		// biDirectionalRadio = new Button(providerGroup, SWT.RADIO | SWT.LEFT);
-		// biDirectionalRadio.setText("&Bi Directional");
-		// biDirectionalRadio.setLayoutData(new GridData());
-
 		model = new BridgePointPreferencesModel();
-		model.getStore().loadModel(getPreferenceStore(), null, model);
+        model.getStore().loadModel(getPreferenceStore(), null, model);
 
-		BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
-		if (bpPrefs.messageDirection.equals("to provider")) {
-			toProviderRadio.setSelection(true);
-		} else if (bpPrefs.messageDirection.equals("from provider")) {
-			fromProviderRadio.setSelection(true);
-		} else {
-			toProviderRadio.setSelection(true);
-		}
-		// else if {// bidirectional
-		// biDirectionalRadio.setSelection(true);
-		// }
-
+		syncUIWithPreferences();
+		
 		return composite;
 	}
 
@@ -107,31 +88,56 @@ public class MessageDirectionPreferences extends PreferencePage implements
 
 	public void createControl(Composite parent) {
 		super.createControl(parent);
-		// add F1 context support to main bridgepoint preference page
+		// add F1 context support to main BridgePoint preference page
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(),
 				ICoreHelpContextIds.corePreferencesId);
 	}
 
 	public boolean performOk() {
 		super.performOk();
-		CorePlugin plugin = CorePlugin.getDefault();
+
+		// When closing the preferences UI, the performOk() for each page the user
+		// viewed will be called.  Those other performOk()'s may have caused the
+		// store to be updated.  So we need to make sure our copy of the
+		// preferences model is up to date before we modify and save it.
+        model.getStore().loadModel(getPreferenceStore(), null, model);
+
 		BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
 		if (toProviderRadio.getSelection()) {
 			bpPrefs.messageDirection = "to provider";
 		} else if (fromProviderRadio.getSelection()) {
 			bpPrefs.messageDirection = "from provider";
 		}
-		// else {
-		// bpPrefs.messageDirection = "bidirectional";
-		// }
 
-		model.getStore().saveModel(plugin.getPreferenceStore(), model);
+		model.getStore().saveModel(getPreferenceStore(), model);
 		return true;
 	}
 
 	public void performDefaults() {
 		super.performDefaults();
 		model.getStore().restoreModelDefaults(model);
+		syncUIWithPreferences();
 	}
+	
+    private void syncUIWithPreferences() {
+        BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
+        
+        // NOTE: We do NOT want to call model.loadModel(...) here.  The model will
+        // have already been set up with the correct data (either from the store
+        // or defaults) before this function is called.  Calling model.loadModel(...)
+        // here would overwrite the population of the default model data in
+        // performDefaults().
+
+        if (bpPrefs.messageDirection.equals("to provider")) {
+            toProviderRadio.setSelection(true);
+            fromProviderRadio.setSelection(false);
+        } else if (bpPrefs.messageDirection.equals("from provider")) {
+            toProviderRadio.setSelection(false);
+            fromProviderRadio.setSelection(true);
+        } else {
+            toProviderRadio.setSelection(true);
+            fromProviderRadio.setSelection(false);
+        }
+    }
 
 }

@@ -169,13 +169,19 @@ public class VerifierPreferences
   
   public void createControl(Composite parent) {
   	super.createControl(parent);
-    // add F1 context support to  main bridgepoint preference page
+    // add F1 context support to  main BridgePoint preference page
     PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), ICoreHelpContextIds.corePreferencesId);
   }
     
     public boolean performOk() {
         super.performOk();
-        CorePlugin plugin = CorePlugin.getDefault();
+        
+        // When closing the preferences UI, the performOk() for each page the user
+        // viewed will be called.  Those other performOk()'s may have caused the
+        // store to be updated.  So we need to make sure our copy of the 
+        // preferences model is up to date before we modify and save it.
+        model.getStore().loadModel(getPreferenceStore(), null, model);
+        
         BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
         if (enable.getSelection()) {
           bpPrefs.enableVerifierAudit = true;
@@ -194,7 +200,7 @@ public class VerifierPreferences
 			bpPrefs.enableDeterministicVerifier = false;
 		}
         
-        model.getStore().saveModel(plugin.getPreferenceStore(), model);        
+        model.getStore().saveModel(getPreferenceStore(), model);        
         return true;
 	}
 	
@@ -206,7 +212,13 @@ public class VerifierPreferences
 
     private void syncUIWithPreferences() {
       BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
-      model.getStore().loadModel(getPreferenceStore(), null, model);
+      
+      // NOTE: We do NOT want to call model.loadModel(...) here.  The model will
+      // have already been set up with the correct data (either from the store
+      // or defaults) before this function is called.  Calling model.loadModel(...)
+      // here would overwrite the population of the default model data in
+      // performDefaults().
+
       enable.setSelection(bpPrefs.enableVerifierAudit);
       auditGroup.setEnabled(bpPrefs.enableVerifierAudit);
       select.select(bpPrefs.enableSelectAudit);

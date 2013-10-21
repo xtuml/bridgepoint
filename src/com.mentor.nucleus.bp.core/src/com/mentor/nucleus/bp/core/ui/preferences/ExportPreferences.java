@@ -14,10 +14,7 @@ package com.mentor.nucleus.bp.core.ui.preferences;
 
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.preference.PreferencePage;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -97,30 +94,8 @@ public class ExportPreferences extends PreferencePage implements
 	    model = new BridgePointPreferencesModel();
 	    model.getStore().loadModel(getPreferenceStore(), null, model);
 
-	    BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
+	    syncUIWithPreferences();
 	    
-	    boolean oalExportIsLicensed = BridgePointLicenseManager.licenseExists(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
-	    
-	    if (bpPrefs.exportOAL.equals(MessageDialogWithToggle.ALWAYS) && oalExportIsLicensed) {
-	        exportOALYesRadio.setSelection(true);
-	    } else if (bpPrefs.exportOAL.equals(MessageDialogWithToggle.NEVER)) {
-	        exportOALNoRadio.setSelection(true);
-	    } else {
-	        exportOALNoRadio.setSelection(true);
-	    }
-	    if (!oalExportIsLicensed) {
-		    exportOALYesRadio.setEnabled(false);
-	    }
-
-	    if (bpPrefs.exportGraphics.equals(MessageDialogWithToggle.ALWAYS)) {
-	        exportGraphicsYesRadio.setSelection(true);
-	    } else if (bpPrefs.exportGraphics.equals(MessageDialogWithToggle.NEVER)) {
-	        exportGraphicsNoRadio.setSelection(true);
-	    } else {
-	        exportGraphicsYesRadio.setSelection(true);
-	    }
-
-
 	    return composite;
 	}
 
@@ -129,43 +104,84 @@ public class ExportPreferences extends PreferencePage implements
 	    setPreferenceStore(CorePlugin.getDefault().getPreferenceStore());
 	}
 
-	  public void createControl(Composite parent) {
-		    super.createControl(parent);
-		    // add F1 context support to main bridgepoint preference page
-		    PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), ICoreHelpContextIds.corePreferencesId);
-		  }
+    public void createControl(Composite parent) {
+        super.createControl(parent);
+        // add F1 context support to main BridgePoint preference page
+        PlatformUI.getWorkbench().getHelpSystem()
+                .setHelp(getControl(), ICoreHelpContextIds.corePreferencesId);
+    }
 
-		  public boolean performOk() {
-		      super.performOk();
-		      CorePlugin plugin = CorePlugin.getDefault();
-		      BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
-		      if (exportOALYesRadio.getSelection()) {
-		          bpPrefs.exportOAL = MessageDialogWithToggle.ALWAYS;
-		      }
-		      else if (exportOALNoRadio.getSelection()) {
-		          bpPrefs.exportOAL = MessageDialogWithToggle.NEVER;
-		      }
-		      else {
-		          bpPrefs.exportOAL = MessageDialogWithToggle.NEVER;
-		      }
-		      
-		      if (exportGraphicsYesRadio.getSelection()) {
-		          bpPrefs.exportGraphics = MessageDialogWithToggle.ALWAYS;
-		      }
-		      else if (exportGraphicsNoRadio.getSelection()) {
-		          bpPrefs.exportGraphics = MessageDialogWithToggle.NEVER;
-		      }
-		      else {
-		          bpPrefs.exportGraphics = MessageDialogWithToggle.ALWAYS;
-		      }
-		      
-		      model.getStore().saveModel(plugin.getPreferenceStore(), model);
-		      return true;
-		  }
+    public boolean performOk() {
+        super.performOk();
+        
+        // When closing the preferences UI, the performOk() for each page the user
+        // viewed will be called.  Those other performOk()'s may have caused the
+        // store to be updated.  So we need to make sure our copy of the 
+        // preferences model is up to date before we modify and save it.
+        model.getStore().loadModel(getPreferenceStore(), null, model);
+        
+        BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
+        if (exportOALYesRadio.getSelection()) {
+            bpPrefs.exportOAL = MessageDialogWithToggle.ALWAYS;
+        } else if (exportOALNoRadio.getSelection()) {
+            bpPrefs.exportOAL = MessageDialogWithToggle.NEVER;
+        } else {
+            bpPrefs.exportOAL = MessageDialogWithToggle.NEVER;
+        }
 
-		  public void performDefaults() {
-		      super.performDefaults();
-		      model.getStore().restoreModelDefaults(model);
-		  }
+        if (exportGraphicsYesRadio.getSelection()) {
+            bpPrefs.exportGraphics = MessageDialogWithToggle.ALWAYS;
+        } else if (exportGraphicsNoRadio.getSelection()) {
+            bpPrefs.exportGraphics = MessageDialogWithToggle.NEVER;
+        } else {
+            bpPrefs.exportGraphics = MessageDialogWithToggle.ALWAYS;
+        }
+
+        model.getStore().saveModel(getPreferenceStore(), model);
+        return true;
+    }
+
+    public void performDefaults() {
+        super.performDefaults();
+        model.getStore().restoreModelDefaults(model);
+        syncUIWithPreferences();
+    }
+
+    private void syncUIWithPreferences() {
+        BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
+        
+        // NOTE: We do NOT want to call model.loadModel(...) here.  The model will
+        // have already been set up with the correct data (either from the store
+        // or defaults) before this function is called.  Calling model.loadModel(...)
+        // here would overwrite the population of the default model data in
+        // performDefaults().
+
+        boolean oalExportIsLicensed = BridgePointLicenseManager.licenseExists(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
+        
+        if (bpPrefs.exportOAL.equals(MessageDialogWithToggle.ALWAYS) && oalExportIsLicensed) {
+            exportOALYesRadio.setSelection(true);
+            exportOALNoRadio.setSelection(false);
+        } else if (bpPrefs.exportOAL.equals(MessageDialogWithToggle.NEVER)) {
+            exportOALYesRadio.setSelection(false);
+            exportOALNoRadio.setSelection(true);
+        } else {
+            exportOALYesRadio.setSelection(false);
+            exportOALNoRadio.setSelection(true);
+        }
+        if (!oalExportIsLicensed) {
+            exportOALYesRadio.setEnabled(false);
+        }
+
+        if (bpPrefs.exportGraphics.equals(MessageDialogWithToggle.ALWAYS)) {
+            exportGraphicsYesRadio.setSelection(true);
+            exportGraphicsNoRadio.setSelection(false);
+        } else if (bpPrefs.exportGraphics.equals(MessageDialogWithToggle.NEVER)) {
+            exportGraphicsYesRadio.setSelection(false);
+            exportGraphicsNoRadio.setSelection(true);
+        } else {
+            exportGraphicsYesRadio.setSelection(true);
+            exportGraphicsNoRadio.setSelection(false);
+        }    
+    }
 
 }

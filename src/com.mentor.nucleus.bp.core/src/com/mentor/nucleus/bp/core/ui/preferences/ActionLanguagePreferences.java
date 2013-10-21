@@ -141,30 +141,7 @@ public class ActionLanguagePreferences
     model = new BridgePointPreferencesModel();
     model.getStore().loadModel(getPreferenceStore(), null, model);
 
-    BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
-    if (bpPrefs.allowIntToRealPromotion.equals(MessageDialogWithToggle.ALWAYS)) {
-        allowPromotionYesRadio.setSelection(true);
-    } else if (bpPrefs.allowIntToRealPromotion.equals(MessageDialogWithToggle.NEVER)) {
-        allowPromotionNoRadio.setSelection(true);
-    } else {
-        allowPromotionNoRadio.setSelection(true);
-    }
-
-    if (bpPrefs.allowRealToIntCoercion.equals(MessageDialogWithToggle.ALWAYS)) {
-        allowCoercionYesRadio.setSelection(true);
-    } else if (bpPrefs.allowRealToIntCoercion.equals(MessageDialogWithToggle.NEVER)) {
-        allowCoercionNoRadio.setSelection(true);
-    } else {
-        allowCoercionNoRadio.setSelection(true);
-    }
-
-    if ( allowPromotionNoRadio.getSelection() == true ) {
-        allowCoercionYesRadio.setEnabled( false );
-        allowCoercionNoRadio.setEnabled( false );
-    }
-   	allowImplicitComponentAddressing.setSelection(
-   			                          bpPrefs.allowImplicitComponentAddressing);
-   	allowOperationsInWhere.setSelection(bpPrefs.allowOperationsInWhere);
+    syncUIWithPreferences();
     return composite;
   }
 
@@ -175,13 +152,19 @@ public class ActionLanguagePreferences
 
   public void createControl(Composite parent) {
     super.createControl(parent);
-    // add F1 context support to main bridgepoint preference page
+    // add F1 context support to main BridgePoint preference page
     PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), ICoreHelpContextIds.corePreferencesId);
   }
 
   public boolean performOk() {
       super.performOk();
-      CorePlugin plugin = CorePlugin.getDefault();
+      
+      // When closing the preferences UI, the performOk() for each page the user
+      // viewed will be called.  Those other performOk()'s may have caused the
+      // store to be updated.  So we need to make sure our copy of the 
+      // preferences model is up to date before we modify and save it.
+      model.getStore().loadModel(getPreferenceStore(), null, model);
+      
       BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
       if (allowPromotionYesRadio.getSelection()) {
           bpPrefs.allowIntToRealPromotion = MessageDialogWithToggle.ALWAYS;
@@ -213,7 +196,7 @@ public class ActionLanguagePreferences
       else {
           bpPrefs.allowOperationsInWhere = false;
       }
-      model.getStore().saveModel(plugin.getPreferenceStore(), model);
+      model.getStore().saveModel(getPreferenceStore(), model);
       return true;
   }
 
@@ -225,13 +208,41 @@ public class ActionLanguagePreferences
 
   private void syncUIWithPreferences() {
       BridgePointPreferencesModel bpPrefs = (BridgePointPreferencesModel) model;
-      model.getStore().loadModel(getPreferenceStore(), null, model);
+      
+      // NOTE: We do NOT want to call model.loadModel(...) here.  The model will
+      // have already been set up with the correct data (either from the store
+      // or defaults) before this function is called.  Calling model.loadModel(...)
+      // here would overwrite the population of the default model data in
+      // performDefaults().
       
       if (bpPrefs.allowIntToRealPromotion.equals(MessageDialogWithToggle.ALWAYS)) {
           allowPromotionYesRadio.setSelection(true);
+          allowPromotionNoRadio.setSelection(false);
+      } else if (bpPrefs.allowIntToRealPromotion.equals(MessageDialogWithToggle.NEVER)) {
+          allowPromotionYesRadio.setSelection(false);
+          allowPromotionNoRadio.setSelection(true);
+      } else {
+          allowPromotionYesRadio.setSelection(false);
+          allowPromotionNoRadio.setSelection(true);
       }
+
       if (bpPrefs.allowRealToIntCoercion.equals(MessageDialogWithToggle.ALWAYS)) {
           allowCoercionYesRadio.setSelection(true);
+          allowCoercionNoRadio.setSelection(false);
+      } else if (bpPrefs.allowRealToIntCoercion.equals(MessageDialogWithToggle.NEVER)) {
+          allowCoercionYesRadio.setSelection(false);
+          allowCoercionNoRadio.setSelection(true);
+      } else {
+          allowCoercionYesRadio.setSelection(false);
+          allowCoercionNoRadio.setSelection(true);
+      }
+
+      if (allowPromotionNoRadio.getSelection() == true) {
+          allowCoercionYesRadio.setEnabled(false);
+          allowCoercionNoRadio.setEnabled(false);
+      } else {
+          allowCoercionYesRadio.setEnabled(true);
+          allowCoercionNoRadio.setEnabled(true);
       }
       allowImplicitComponentAddressing.setSelection(bpPrefs.allowImplicitComponentAddressing);
       allowOperationsInWhere.setSelection(bpPrefs.allowOperationsInWhere);
