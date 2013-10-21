@@ -188,7 +188,7 @@
       parms.setSize(${no_of_cols});
         .// set columns size in case of backward compatibility
     .end if
-    .if(table.Key_Lett == "S_EE")
+    .if((table.Key_Lett == "S_EE") or (table.Key_Lett == "S_EE_PROXY"))
       parms.setSize(${no_of_cols});
     .end if
     .//
