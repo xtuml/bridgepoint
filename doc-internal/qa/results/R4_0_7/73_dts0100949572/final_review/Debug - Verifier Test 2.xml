@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="Debug - Verifier Test 2" project="com.mentor.nucleus.bp.debug.ui.test" tests="5" started="5" failures="0" errors="0" ignored="0">
+  <testsuite name="VerifierTestSuite2" time="101.677">
+    <testsuite name="com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals" time="101.677">
+      <testcase name="testDeclaredToDeclaredRootToRoot" classname="com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals" time="24.511"/>
+      <testcase name="testDeclaredToReferencedRootToRoot" classname="com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals" time="20.421"/>
+      <testcase name="testReferencedToDeclaredRootToRoot" classname="com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals" time="20.302"/>
+      <testcase name="testReferencedToReferencedRootToRoot" classname="com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals" time="20.572"/>
+      <testcase name="testReferencedToReferencedJarredRootToRoot" classname="com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals" time="15.871"/>
+    </testsuite>
+  </testsuite>
+</testrun>

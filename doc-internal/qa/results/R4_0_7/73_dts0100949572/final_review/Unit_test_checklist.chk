@@ -1,0 +1,21 @@
+========================================================================
+File:      Unit_test_checklist.chk
+
+(c) Copyright 2008-2013 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+This document captures the state of the BridgePoint unit tests ran against:
+ 
+Pull Request URLs(): https://github.com/xtuml/internal/pull/77
+machine: GBA-CMCCAUSL-W7.mgc.mentorg.com
+OS: Windows 7
+
+Test                                            Who             Result     Time
+--------------------------------------------------------------------------------
+com.mentor.nucleus.bp.debug.ui.test (Verifier)    -             -
+              Debug - Verifier Test             CDM            Pass      1188/1660s
+              Debug - Verifier Test 2           CDM            Pass       102/248s
