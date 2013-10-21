@@ -33,7 +33,7 @@ INSERT INTO T_TNS VALUES (4,  '', 'S_SPARM', '', 'Name', '', 'Function Parameter
 INSERT INTO T_TNS VALUES (17, '',        'S_DPK',   '', 'Name', '', 'Data Type Packages', false);
 INSERT INTO T_TNS VALUES (18, '',        'S_EEPK',  '', 'Name', '', 'External Entity Packages', false);
 INSERT INTO T_TNS VALUES (19, '',          'S_UDT',   '', 'Name', '->S_DT[R17]', 'User Defined Data Types', false);
-INSERT INTO T_TNS VALUES (20, '',      'S_EE',    '', 'Name', '', 'External Entities', false);
+INSERT INTO T_TNS VALUES (20, '',      'S_EE',    '', 'Label', '', 'External Entities', false);
 INSERT INTO T_TNS VALUES (21, '',       'S_BRG',   '', 'Name', '', 'Bridge Operations', false);
 INSERT INTO T_TNS VALUES (22, '', 'S_BPARM', '', 'Name', '', 'Bridge Parameters', true);
 INSERT INTO T_TNS VALUES (23, '',       'S_EDT',   '', 'Name', '->S_DT[R17]', 'Enumerations', false);
