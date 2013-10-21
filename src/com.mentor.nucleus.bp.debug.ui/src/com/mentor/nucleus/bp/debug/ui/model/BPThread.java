@@ -650,7 +650,8 @@ public class BPThread extends BPDebugElement implements IThread {
 		IDebugTarget dbgTgt = getDebugTarget();
 		if (dbgTgt instanceof BPDebugTarget) {
 		  ((BPDebugTarget)dbgTgt).Notify();
-		}		
+		}
+		Vm_c.removeStack(runner);
       }
       finally {
 		// Create a transaction so that viewers will update one more time
@@ -697,6 +698,7 @@ public class BPThread extends BPDebugElement implements IThread {
 	    				LOG.LogInfo("Invocation target exception during shutown of realized component. " + e.getLocalizedMessage());
 						e.printStackTrace();
 					}
+	    			engine.setRealizedby(null);
 	    		}
 				engineTemp =engine;
 				root = engine.getModelRoot();
