@@ -579,7 +579,7 @@ INSERT INTO O_REF
 	'',
 	'Domain',
 	'Dom_ID',
-	'R8');
+	'R8.''interacts with''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a361b553-b2e3-46ea-a8f4-8b8633921011",
 	"b09cd808-3bc7-4c0d-8841-c6b9e6efd52f",
@@ -696,7 +696,7 @@ INSERT INTO O_DBATTR
 	VALUES ("2e57c2ac-1d9f-4505-b7aa-3af93d02cb5f",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
 	'extension = "";
-if(self.Realized_Class_Path == "")
+if(self.Realized_Class_Path != "")
   extension = " realized by " +
                      Util::getLastSegmentForPath(path:self.Realized_Class_Path);
 end if;
