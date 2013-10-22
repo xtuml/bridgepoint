@@ -62,7 +62,9 @@ INSERT INTO S_EE
 	'External Entity Name',
 	'',
 	'KEY',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'External Entity Name');
 INSERT INTO S_BRG
 	VALUES ("41c2b72e-db8c-4b0e-aa70-7fed29899a12",
 	"6cdc923f-870c-4e19-b59d-9fa06d2abd7f",
