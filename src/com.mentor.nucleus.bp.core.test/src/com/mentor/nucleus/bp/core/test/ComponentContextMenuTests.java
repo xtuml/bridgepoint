@@ -13,6 +13,8 @@
 package com.mentor.nucleus.bp.core.test;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardDialog;
@@ -20,7 +22,9 @@ import org.eclipse.swt.widgets.Menu;
 
 import com.mentor.nucleus.bp.core.ClassStateMachine_c;
 import com.mentor.nucleus.bp.core.ComponentReference_c;
+import com.mentor.nucleus.bp.core.Component_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.Delegation_c;
 import com.mentor.nucleus.bp.core.ExecutableProperty_c;
 import com.mentor.nucleus.bp.core.ImportedProvision_c;
 import com.mentor.nucleus.bp.core.ImportedRequirement_c;
@@ -37,6 +41,7 @@ import com.mentor.nucleus.bp.core.Requirement_c;
 import com.mentor.nucleus.bp.core.StateMachineEvent_c;
 import com.mentor.nucleus.bp.core.StateMachineState_c;
 import com.mentor.nucleus.bp.core.StateMachine_c;
+import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.Transition_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.ui.GenericPackageAssignSignalOnSM_TXNAction;
@@ -46,8 +51,10 @@ import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.CanvasTestUtils;
+import com.mentor.nucleus.bp.test.common.TestingUtilities;
 import com.mentor.nucleus.bp.test.common.UITestingUtilities;
 import com.mentor.nucleus.bp.ui.graphics.editor.GraphicalEditor;
+import com.mentor.nucleus.bp.utilities.ui.CanvasUtilities;
 
 public class ComponentContextMenuTests extends BaseTest {
 	/**
@@ -588,5 +595,92 @@ public class ComponentContextMenuTests extends BaseTest {
                 "Remove Event", "", m_readonly));
     }
   
+    /**
+     * Test the formalize and unformalize entries 
+     * are removed for delegation 
+     */
+    public void testFormalizationEntriesAreNotPresentForDelegation()
+    {
+        String projectName = "Delegation";
+        try {
+            loadProject(projectName);
+        } catch (CoreException e) {
+            e.printStackTrace();
+        }
+        Package_c pkg = Package_c.getOneEP_PKGOnR1401(m_sys, new Package_by_name_c("System")); 
+        Component_c comp = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg), new ClassQueryInterface_c() {
+                @Override
+            public boolean evaluate(Object candidate) {
+                Component_c selected =  (Component_c) candidate;
+                return (selected.getName().equals("MostOuterComponent"));
+                
+            }
+        });
+        CanvasUtilities.openCanvasEditor(comp);
+        Delegation_c del = Delegation_c.getOneC_DGOnR9002(comp);
+        Selection.getInstance().clear();
+        Selection.getInstance().addToSelection(del);
+        UITestingUtilities.clearGraphicalSelection();
+        editor = UITestingUtilities.addElementToGraphicalSelection(del);
+        
+        Menu menu = null;
+        
+        if(editor == null) {
+          // this element does not have a diagram
+          // representation, add the element to the
+          // core selection and use the explorer
+          // context menu
+          Selection.getInstance().clear();
+          Selection.getInstance().addToSelection(del);
+          menu = getExplorerView().getTreeViewer().getControl().getMenu();
+        } else {
+          // get the menu from the SWT Canvas
+          menu = editor.getCanvas().getMenu();
+        }
+
+        // check the status of the action
+        assertFalse(UITestingUtilities.checkItemStatusInContextMenu(menu,"Formalize","",m_readonly));
+        assertFalse(UITestingUtilities.checkItemStatusInContextMenu(menu,"Unformalize","",m_readonly));
+    }
+    
+    public void testFormalizationEntriesAreNotPresentForDelegationForCL_IC()
+    {
+        // NOTE: This test relies on the Delegation test model set up in the previous test
+        
+        Package_c pkg = Package_c.getOneEP_PKGOnR1401(m_sys, new Package_by_name_c("System")); 
+        Component_c comp = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg), new ClassQueryInterface_c() {
+                @Override
+            public boolean evaluate(Object candidate) {
+                Component_c selected =  (Component_c) candidate;
+                return (selected.getName().equals("OneOfFourDelegation"));
+                
+            }
+        });
+        CanvasUtilities.openCanvasEditor(comp);
+        Delegation_c del = Delegation_c.getOneC_DGOnR9002(comp);
+        Selection.getInstance().clear();
+        Selection.getInstance().addToSelection(del);
+        UITestingUtilities.clearGraphicalSelection();
+        editor = UITestingUtilities.addElementToGraphicalSelection(del);
+        
+        Menu menu = null;
+        
+        if(editor == null) {
+          // this element does not have a diagram
+          // representation, add the element to the
+          // core selection and use the explorer
+          // context menu
+          Selection.getInstance().clear();
+          Selection.getInstance().addToSelection(del);
+          menu = getExplorerView().getTreeViewer().getControl().getMenu();
+        } else {
+          // get the menu from the SWT Canvas
+          menu = editor.getCanvas().getMenu();
+        }
+
+        // check the status of the action
+        assertFalse(UITestingUtilities.checkItemStatusInContextMenu(menu,"Formalize","",m_readonly));
+        assertFalse(UITestingUtilities.checkItemStatusInContextMenu(menu,"Unformalize","",m_readonly));        
+    }
    
 }

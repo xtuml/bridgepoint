@@ -688,20 +688,27 @@ package com.mentor.nucleus.bp.core.test;
 
 import java.util.UUID;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.*;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
+import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.CanvasTestUtils;
+import com.mentor.nucleus.bp.test.common.ExplorerUtil;
+import com.mentor.nucleus.bp.test.common.TestingUtilities;
 import com.mentor.nucleus.bp.core.ui.*;
 import com.mentor.nucleus.bp.ui.canvas.*;
 import com.mentor.nucleus.bp.ui.graphics.editor.*;
 import com.mentor.nucleus.bp.ui.canvas.test.CanvasTest;
+import com.mentor.nucleus.bp.utilities.ui.CanvasUtilities;
 
 public class FormalizeUnformalizeTestGenerics extends CanvasTest {
 
@@ -977,6 +984,143 @@ ${ft.body}\
 			assertEquals(status, subsup_results[i], assoc_set[i].Actionfilter(
 					"type", "unform subsup"));
 		}
+    }
+
+    /**
+     * This test case is added to test the work done to resolve issue 
+     * dts0100909056
+     * The test steps are descriped in dts0100909056.dnt section 10.1
+     * */
+    public void testDeletingForwardedIdentifierAttr()
+    {
+        String projectName = "orphaned_ref_attribute";
+        try {
+            loadProject(projectName);
+        } catch (CoreException e) {
+            e.printStackTrace();
+        }
+        Package_c pkg1 = Package_c.getOneEP_PKGOnR1401(m_sys, new Package_by_name_c("pkg1")); 
+        
+        // Open the pkg1 diagram
+        CanvasUtilities.openCanvasEditor(pkg1);
+        // Unformalize R1.
+        ModelClass_c mc = ModelClass_c.getOneO_OBJOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg1), new ClassQueryInterface_c() {
+
+            @Override
+            public boolean evaluate(Object candidate) {
+                ModelClass_c selected = (ModelClass_c) candidate;
+                return (selected.getName().equals("C1"));
+
+            }
+        });
+
+        Association_c assoc = Association_c.getOneR_RELOnR201(mc,
+                new ClassQueryInterface_c() {
+
+                    @Override
+                    public boolean evaluate(Object candidate) {
+                        Association_c selected = (Association_c) candidate;
+                        return selected.getName().equals("R1");
+                    }
+                });
+        GraphicalEditor ce = ((ModelEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()).getGraphicalEditor();
+        Cl_c.Clearselection();
+        selection.addToSelection(assoc);
+        UnformalizeOnR_RELAction ufa = new UnformalizeOnR_RELAction();
+        Action a = new Action() {
+        };
+        ufa.setActivePart(a, PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart());
+        ufa.run(a);
+
+        // Unformalize R4.
+        mc = ModelClass_c.getOneO_OBJOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg1), new ClassQueryInterface_c() {
+
+            @Override
+            public boolean evaluate(Object candidate) {
+                ModelClass_c selected = (ModelClass_c) candidate;
+                return (selected.getName().equals("C3"));
+
+            }
+        });
+
+        assoc = Association_c.getOneR_RELOnR201(mc,
+                new ClassQueryInterface_c() {
+
+                    @Override
+                    public boolean evaluate(Object candidate) {
+                        Association_c selected = (Association_c) candidate;
+                        return selected.getName().equals("R4");
+                    }
+                });
+        ce = ((ModelEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()).getGraphicalEditor();
+        Cl_c.Clearselection();
+        selection.addToSelection(assoc);
+        UnformalizeOnR_RELAction ufa2 = new UnformalizeOnR_RELAction();
+        Action a2 = new Action() {
+        };
+        ufa2.setActivePart(a2, PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart());
+        ufa2.run(a2);
+        // In model explorer, delete C2.C1_ID
+        ModelClass_c mc2 = ModelClass_c.getOneO_OBJOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(pkg1), new ClassQueryInterface_c() {
+
+            @Override
+            public boolean evaluate(Object candidate) {
+                ModelClass_c selected = (ModelClass_c) candidate;
+                return (selected.getName().equals("C2"));
+
+            }
+        });
+
+        Attribute_c attr = Attribute_c.getOneO_ATTROnR102(mc2,
+                new ClassQueryInterface_c() {
+
+                    @Override
+                    public boolean evaluate(Object candidate) {
+                        Attribute_c selected = (Attribute_c) candidate;
+                        return (selected.getName().equals("C1_ID"));
+                    }
+                });
+        String itemName = attr.getName();
+
+        while (Display.getCurrent().readAndDispatch())
+            ;
+
+        ExplorerUtil.getTreeViewer().refresh();
+        TreeItem systemItem = ExplorerUtil.findItem(m_sys.getName());
+        ExplorerUtil.getTreeViewer().expandToLevel(5);
+
+        TreeItem attrItem = systemItem.getItems()[1].getItems()[2].getItems()[2];
+        ExplorerUtil.getTreeViewer().setSelection(
+                new StructuredSelection(new Object[] { attrItem.getData() }));
+        while (Display.getCurrent().readAndDispatch())
+            ;
+        // Warning message stating that "Operation
+        // not allowed. The attribute is being used
+        // to formalize one or more associations."
+        // is shown
+        TestUtil.okToDialog(300);
+        DeleteAction del = new DeleteAction(null);
+        del.run();
+
+        // C2.C1_ID is not disposed
+
+        ExplorerUtil.getTreeViewer().refresh();
+        TreeItem systemItem2 = ExplorerUtil.findItem(m_sys.getName());
+        ExplorerUtil.getTreeViewer().expandToLevel(5);
+
+        TreeItem attrItem2 = systemItem.getItems()[1].getItems()[2].getItems()[2];
+        ExplorerUtil.getTreeViewer().setSelection(
+                new StructuredSelection(new Object[] { attrItem.getData() }));
+        while (Display.getCurrent().readAndDispatch())
+            ;
+        assertNotNull(attrItem2);
+        assertTrue(((Attribute_c) attrItem2.getData()).getName().equals(
+                attr.getName()));
+        try {
+            project.delete(true, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }    
