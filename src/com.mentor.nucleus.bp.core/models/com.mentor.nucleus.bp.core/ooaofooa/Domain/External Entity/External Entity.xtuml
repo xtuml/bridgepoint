@@ -710,7 +710,7 @@ INSERT INTO O_ATTR
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
 	"e9a91c54-22ea-4a4c-9b52-4cf27c191ec7",
 	'Label',
-	'',
+	'Full Name: External Entity Label',
 	'',
 	'Label',
 	0,
