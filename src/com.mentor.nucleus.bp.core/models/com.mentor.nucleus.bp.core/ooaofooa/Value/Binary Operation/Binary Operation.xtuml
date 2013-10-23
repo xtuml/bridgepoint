@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("cf40c1ab-d375-4f8d-8664-2593f9c59401",
@@ -158,10 +158,12 @@ elif (self.Operator == "==" or self.Operator == "!=")
   dtLeftRealorInt = false;
   isTimestamp = false;
   isDate = false;
+  isComponentRef = false;
   if (not_empty dtLeft)
     dtLeftRealorInt = ((dtLeft.getCoreDataTypeName() == "integer") or (dtLeft.getCoreDataTypeName() == "real"));    
     isTimestamp = dtLeft.Name == "timestamp" ;
     isDate = dtLeft.Name == "date";
+    isComponentRef = dtLeft.Name == "component_ref";
   end if;
 
   if (dtLeftRealorInt)    
@@ -238,6 +240,20 @@ elif (self.Operator == "==" or self.Operator == "!=")
       end if;
     else  // we know that (self.Operator == "!=")
       if (GD::compare_times(t1:leftRtVal.getValue(),t2:rightRtVal.getValue()) == 0)
+        return false;
+      else
+        return true;
+      end if;
+    end if;
+  elif (isComponentRef)
+    if (self.Operator == "==")
+      if (GD::instance_to_string(value:leftRtVal.getValue()) == GD::instance_to_string(value:rightRtVal.getValue()))
+        return true;
+      else
+        return false;
+      end if;
+    else  // we know that (self.Operator == "!=")
+      if (GD::instance_to_string(value:leftRtVal.getValue()) == GD::instance_to_string(value:rightRtVal.getValue()))
         return false;
       else
         return true;
