@@ -58,9 +58,6 @@ INSERT INTO CME VALUES ('Provided Interface',                     'Unformalize',
 INSERT INTO CME VALUES ('Specialized Package Required Interface', 'Formalize',  'C_R',   '', false, 'Choose the defined interface that this interface reference shall represent' );
 INSERT INTO CME VALUES ('Generic Package',     'Formalize',  'C_R',   'C_I', false, 'Choose the defined interface that this interface reference shall represent', '*', false, '', true, false, 'interface' );
 INSERT INTO CME VALUES ('Required Interface',                     'Unformalize','C_R',   '', false, '', '*' );
-INSERT INTO CME VALUES ('Specialized Package',                'Formalize',     'C_DG', '', false, 'Choose the defined interface that this interface reference shall represent');
-INSERT INTO CME VALUES ('Generic Package',                    'Formalize',     'C_DG', 'C_I', false, 'Choose the defined interface that this interface reference shall represent', '1', false, '', true, false, 'interface' );
-INSERT INTO CME VALUES ('',                                   'Unformalize',   'C_DG', '', false );
 INSERT INTO CME VALUES ('Delete', '',                         'C_DG',  '',                 true );
 INSERT INTO CME VALUES ('Delete', '',                         'SQ_S',  '',                 true );
 INSERT INTO CME VALUES ('Rename', '',                         'SQ_S',  '',                 true );
