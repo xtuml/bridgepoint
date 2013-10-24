@@ -32,6 +32,43 @@ MSD Weekly Meeting Minutes
 
 ---
 
+    Date:     October 23, 2013
+    Start:    11:26 EDT
+    End:      12:16 EDT
+    Elapsed:  50 minutes
+    Present:  Bob, Keith, Travis, Campbell, Cort, Heba, Nehad (online)
+           
+
+### Engineering Status
+[10/23/13, 11:26:06 AM] Cortland Starrett: model compiler:
+Archetypes done and testing complete under BP 4.0.  
+Finishing packaging of the compiled MC today.  
+Testing on the compiled MC tomorrow.  
+Testing with a master build through the end of the week.  
+
+[10/23/13, 11:29:00 AM] Campbell McCausland: dts0100949572: nested component wiring promoted.  
+dts0100992921: dll unloading promoted.  
+dts0100936030: VIEC UUID handling, dnt reviewed, code completed, test model in creation.  
+
+[10/23/13, 11:35:20 AM] Robert Mulvey: release:  
+-The release blocker list is down to 10 issues.  All but 1 are assigned and being worked on.  The one that is not was waiting for customer feedback (dts0100917381).   We have the feedback, but still need to determine what, if anything we can do for it now.  
+-We can start some of the manual testing in parallel with  the remaining issues as soon as someone frees up to do this testing.  We will put the system in the ready to test state today.  
+issues:  
+dts0100942480 #74 -Link with Editor problems in progress  
+
+[10/23/13, 11:37:36 AM] Keith Brown: dts0100951499 - comparison of component references in verifier doesn't work.  Work in progress.  DNT review today. Possibly ready for promotion late today.
+
+[10/23/13, 12:09:02 PM] Travis London: I am working on the Sony "assembly connector" issue.  The code is done just need to finish process on it.  I am also including dts0100974806 in this work.  It hopefully will be done today.
+
+[10/23/13, 12:14:43 PM] Robert Mulvey: FYI, I am planning to kick a build today to send to Ericsson for testing.  Our regular issue status meeting with them is tomorrow.
+
+[10/23/13, 12:14:52 PM] Nehad A. Mohamad: I am writing a design note for dts0100942497
+
+[10/23/13, 12:16:46 PM] Heba Khaled: implementing a work around for storing the svx channel configuration in the pereferences store
+
+
+---
+
     Date:     October 16, 2013
     Start:    12:00pm EDT
     End:      12:25 EDT
