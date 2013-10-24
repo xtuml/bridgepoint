@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("76253415-b575-4583-9248-5d403cee7647",
@@ -585,6 +585,57 @@ INSERT INTO O_ATTR
 	'isAnchorHost',
 	0,
 	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	0,
+	"f0ec00c1-7702-4399-8636-18e344084f7e",
+	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
+	"a4e79568-ba91-4f24-b090-9ccf36d49adb",
+	"ad626bbb-74f5-4ce3-b027-9ca824eaaf79",
+	"1f2def2b-683d-448c-8591-25db2a6badac",
+	"013452b6-7589-4464-bfe3-7f5bac92f62a",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Terminal Specification',
+	'Term_Spec_ID',
+	'R209');
+INSERT INTO R_RGO_PROXY
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
+	"a4e79568-ba91-4f24-b090-9ccf36d49adb",
+	'../../Terminal Specifications/Terminal Specifications.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("f0ec00c1-7702-4399-8636-18e344084f7e",
+	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	0,
+	"91d6bd67-51f3-4775-955c-c4f98e106f9d",
+	"ad626bbb-74f5-4ce3-b027-9ca824eaaf79",
+	'../../Terminal Specifications/Terminal Specifications.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("1f2def2b-683d-448c-8591-25db2a6badac",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"f0ec00c1-7702-4399-8636-18e344084f7e",
+	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	1,
+	'Term_Spec_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("f0ec00c1-7702-4399-8636-18e344084f7e",
+	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	'../../Terminal Specifications/Terminal Specification/Terminal Specification.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("1f2def2b-683d-448c-8591-25db2a6badac",
+	"76253415-b575-4583-9248-5d403cee7647",
+	"12e48a35-8fc8-4943-924c-663f0139a1c6",
+	'Term_Spec_ID',
+	'',
+	'',
+	'Term_Spec_ID',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
 	'',
 	'');
 INSERT INTO O_ID

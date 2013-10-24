@@ -2253,12 +2253,6 @@
             </terminator>
             <terminator
                   end="end"
-                  name="End Component Container"
-                  symbol="Component Container"
-                  type="shape">
-            </terminator>
-            <terminator
-                  end="end"
                   name="End Component"
                   symbol="Component"
                   symbolClass="com.mentor.nucleus.bp.core.Component_c"
@@ -2298,6 +2292,14 @@
                   symbol="Component"
                   symbolClass="com.mentor.nucleus.bp.core.Component_c"
                   type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Component"
+                  symbol="Component"
+                  symbolClass="com.mentor.nucleus.bp.core.Component_c"
+                  type="shape">
+                  <automaticCreation symbol="Required Interface" />
             </terminator>
             <terminator
                   end="end"
@@ -2353,6 +2355,14 @@
                   symbol="Component"
                   symbolClass="com.mentor.nucleus.bp.core.Component_c"
                   type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Component"
+                  symbol="Component"
+                  symbolClass="com.mentor.nucleus.bp.core.Component_c"
+                  type="shape">
+                  <automaticCreation symbol="Provided Interface" />
             </terminator>
             <terminator
                   end="end"

@@ -42,6 +42,7 @@ import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
 import org.eclipse.gmf.runtime.draw2d.ui.geometry.PointListUtilities;
 
+import com.mentor.nucleus.bp.core.End_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.ui.canvas.ConnectorSpecification_c;
 import com.mentor.nucleus.bp.ui.canvas.ConnectorTerminal_c;
@@ -50,10 +51,12 @@ import com.mentor.nucleus.bp.ui.canvas.ContainingShape_c;
 import com.mentor.nucleus.bp.ui.canvas.ElementSpecification_c;
 import com.mentor.nucleus.bp.ui.canvas.GraphicalElement_c;
 import com.mentor.nucleus.bp.ui.canvas.ModelTool_c;
+import com.mentor.nucleus.bp.ui.canvas.ShapeTerminal_c;
 import com.mentor.nucleus.bp.ui.canvas.Shape_c;
 import com.mentor.nucleus.bp.ui.canvas.TerminalSpecification_c;
 import com.mentor.nucleus.bp.ui.canvas.WhitespaceTerminal_c;
 import com.mentor.nucleus.bp.ui.graphics.commands.CreateConnectionCommand;
+import com.mentor.nucleus.bp.ui.graphics.commands.AutocreationCommand;
 import com.mentor.nucleus.bp.ui.graphics.commands.StartConnectionCommand;
 import com.mentor.nucleus.bp.ui.graphics.commands.UpdateEndPointLocationCommand;
 import com.mentor.nucleus.bp.ui.graphics.draw.PrecisionBendpoint;
@@ -75,7 +78,106 @@ public abstract class ConnectionPolicy extends GraphicalNodeEditPolicy {
 			CreateConnectionRequest request) {
 		if (!isValidEndLocation(request))
 			return null;
+		if(autoCreationTerminalSpecExists(request)) {
+			return new AutocreationCommand(request, feedbackFigure,
+					getTerminal(End_c.Start, request), getTerminal(End_c.End,
+							request));
+		}
 		return new CreateConnectionCommand(request, feedbackFigure);
+	}
+
+	private TerminalSpecification_c getTerminal(int end,
+			CreateConnectionRequest request) {
+		GraphicsConnectionCreateRequest gRequest = (GraphicsConnectionCreateRequest) request;
+		UUID toolId = gRequest.getToolId();
+		NonRootModelElement host = (NonRootModelElement) getHost().getModel();
+		ModelTool_c tool = (ModelTool_c) host.getModelRoot()
+				.getInstanceList(ModelTool_c.class).get(toolId.toString());
+		if (tool != null) {
+			ElementSpecification_c newSpec = ElementSpecification_c
+					.getOneGD_ESOnR103(tool);
+			if (end == End_c.Start) {
+				NonRootModelElement startTerm = getStartTerm(newSpec);
+				if (startTerm instanceof ConnectorTerminal_c) {
+					return TerminalSpecification_c
+							.getOneTS_TSPOnR201((ConnectorTerminal_c) startTerm);
+				} else if (startTerm instanceof ShapeTerminal_c) {
+					return TerminalSpecification_c
+							.getOneTS_TSPOnR201((ShapeTerminal_c) startTerm);
+				} else if (startTerm instanceof WhitespaceTerminal_c) {
+					return TerminalSpecification_c
+							.getOneTS_TSPOnR201((WhitespaceTerminal_c) startTerm);
+				}
+			} else {
+				NonRootModelElement endTerm = getEndTerm(newSpec);
+				if (endTerm instanceof ConnectorTerminal_c) {
+					return TerminalSpecification_c
+							.getOneTS_TSPOnR201((ConnectorTerminal_c) endTerm);
+				} else if (endTerm instanceof ShapeTerminal_c) {
+					return TerminalSpecification_c
+							.getOneTS_TSPOnR201((ShapeTerminal_c) endTerm);
+				} else if (endTerm instanceof WhitespaceTerminal_c) {
+					return TerminalSpecification_c
+							.getOneTS_TSPOnR201((WhitespaceTerminal_c) endTerm);
+				}
+			}
+		}
+		return null;
+	}
+
+	private boolean autoCreationTerminalSpecExists(CreateConnectionRequest request) {
+		// check for an auto creation terminal spec
+		GraphicsConnectionCreateRequest gRequest = (GraphicsConnectionCreateRequest) request;
+		UUID toolId = gRequest.getToolId();
+		NonRootModelElement host = (NonRootModelElement) getHost().getModel();
+		ModelTool_c tool = (ModelTool_c) host.getModelRoot()
+				.getInstanceList(ModelTool_c.class).get(toolId.toString());
+		if (tool != null) {
+			ElementSpecification_c newSpec = ElementSpecification_c
+					.getOneGD_ESOnR103(tool);
+			if(request.getTargetEditPart() == getHost() && !gRequest.getSwitchTargets()) {
+				NonRootModelElement endTerm = getEndTerm(newSpec);
+				TerminalSpecification_c end = getTerminalSpecification(endTerm);
+				if(end == null) {
+					return false;
+				}
+				ElementSpecification_c autoCreateSpecEnd = ElementSpecification_c
+						.getOneGD_ESOnR209(end);
+				if (autoCreateSpecEnd != null) {
+					// exclude container symbols
+					EditPart sourceEditPart = request.getSourceEditPart();
+					Object model = sourceEditPart.getModel();
+					if(model instanceof Shape_c) {
+						if(ContainingShape_c.getOneGD_CTROnR28((Shape_c) model) != null) {
+							return false;
+						}
+					}
+					model = request.getTargetEditPart();
+					if(model instanceof Shape_c) {
+						if(ContainingShape_c.getOneGD_CTROnR28((Shape_c) model) != null) {
+							return false;
+						}
+					}
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private TerminalSpecification_c getTerminalSpecification(
+			NonRootModelElement term) {
+		if(term instanceof ConnectorTerminal_c) {
+			return TerminalSpecification_c
+					.getOneTS_TSPOnR201((ConnectorTerminal_c) term);
+		} else if(term instanceof ShapeTerminal_c) {
+			return TerminalSpecification_c
+					.getOneTS_TSPOnR201((ShapeTerminal_c) term);			
+		} else if(term instanceof WhitespaceTerminal_c) {
+			return TerminalSpecification_c
+					.getOneTS_TSPOnR201((WhitespaceTerminal_c) term);
+		}
+		return null;
 	}
 
 	private boolean isValidEndLocation(CreateConnectionRequest request) {
