@@ -291,6 +291,8 @@
 
    <element name="terminator">
       <complexType>
+         <choice minOccurs="0" maxOccurs="1">
+         </choice>
          <attribute name="name" type="string" use="required">
             <annotation>
                <documentation>
@@ -324,6 +326,25 @@
                <documentation>
                   Only significant if terminator type is a connector,
 valid values are &apos;start&apos;, &apos;middle&apos; or &apos;end&apos;
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="automaticCreation">
+      <complexType>
+         <attribute name="symbol" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="symbolClass" type="string">
+            <annotation>
+               <documentation>
+                  
                </documentation>
             </annotation>
          </attribute>

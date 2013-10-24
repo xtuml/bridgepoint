@@ -424,6 +424,47 @@ private CanvasTransactionListener transactionListener;
 	        							  graphicsModelRoot);
 	        					  wst.relateAcrossR201To(tms);
 	        				  }
+							  IConfigurationElement[] automaticCreations = terms[l]
+											.getChildren("automaticCreation");
+							  for(IConfigurationElement automaticCreation : automaticCreations) {
+								  final String creationSymbol = automaticCreation.getAttribute("symbol");
+		        				  final String creationSymbolClassName = automaticCreation
+			                                       .getAttribute("symbolClass");
+		        				  els = ElementSpecification_c
+		        						  	.ElementSpecificationInstance(
+		        						  			graphicsModelRoot,
+		        						  			new ClassQueryInterface_c() {
+		        						  				public boolean evaluate(
+		        						  						Object candidate) {
+		        						  					boolean result = false;
+		        						  					ElementSpecification_c elemSpec = (ElementSpecification_c) candidate;
+		        						  					if (elemSpec.getName()
+		        						  							.equals(creationSymbol)) {
+		        						  						result = true;
+		        						  					}
+							  
+		        						  					if (creationSymbolClassName != null) {
+		        						  						try {
+		        						  							if (elemSpec
+		        						  									.getRepresents() == Class
+		        						  									.forName(creationSymbolClassName) && (elemSpec.getName().equals(creationSymbol))) {
+		        						  								result = true;
+		        						  							} else {
+		        						  								result = false;
+		        						  							}
+		        						  						} catch (ClassNotFoundException e) {
+		        						  							logError(
+		        						  									"Specified metamodel class not found: ",
+		        						  									e);
+		        						  						}
+		        						  					}
+		        						  					return result;
+		        						  				}
+		        						  			});
+		        				  if(els != null) {
+		        					  tms.relateAcrossR209To(els);
+		        				  }
+							  }
 	        			  }
 	        		  } else if (symbolType.equalsIgnoreCase("shape")) {
 	        			  ShapeSpecification_c ss = new ShapeSpecification_c(

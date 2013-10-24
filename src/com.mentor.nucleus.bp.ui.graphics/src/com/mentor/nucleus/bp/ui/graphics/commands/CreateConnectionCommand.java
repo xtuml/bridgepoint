@@ -51,6 +51,7 @@ public class CreateConnectionCommand extends Command {
 
 	private CreateConnectionRequest fRequest;
 	private PolylineConnection fFeedback;
+	public Connector_c result;
 
 	public CreateConnectionCommand(CreateConnectionRequest request,
 			PolylineConnection feedback) {
@@ -141,6 +142,7 @@ public class CreateConnectionCommand extends Command {
 			Connector_c newCon = Connector_c
 					.getOneGD_CONOnR2(GraphicalElement_c
 							.getOneGD_GEOnR23(newGraphele));
+			result = newCon;
 			createBendpoints(newCon);
 			createAnchorOnSegmentInstances(newCon, startPoint, endPoint);
 			if (isAnchorHost(newCon)) {
@@ -246,10 +248,12 @@ public class CreateConnectionCommand extends Command {
 		con.relateAcrossR311To(newElem);
 		con.relateAcrossR321To(targetEdge);
 		AnchorOnSegment_c aos = AnchorOnSegment_c.getOneGD_AOSOnR26(con);
-		LineSegment_c segment = LineSegment_c.getOneGD_LSOnR26(aos);
-		aos.unrelateAcrossR26From(segment);
-		LineSegment_c newSeg = LineSegment_c.getOneGD_LSOnR6(newCon);
-		aos.relateAcrossR26To(newSeg);
+		if(aos != null) {
+			LineSegment_c segment = LineSegment_c.getOneGD_LSOnR26(aos);
+			aos.unrelateAcrossR26From(segment);
+			LineSegment_c newSeg = LineSegment_c.getOneGD_LSOnR6(newCon);
+			aos.relateAcrossR26To(newSeg);
+		}
 	}
 
 	private boolean isAnchorHost(Connector_c newCon) {
