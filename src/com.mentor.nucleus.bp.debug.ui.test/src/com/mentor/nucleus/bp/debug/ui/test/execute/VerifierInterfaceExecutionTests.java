@@ -13,6 +13,8 @@
 package com.mentor.nucleus.bp.debug.ui.test.execute;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -131,6 +133,129 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 	public void tearDown() throws Exception {
 		DebugUITestUtilities.stopSession(m_sys, projectName);
 	}
+
+    public void testComponentRefComparisonInMessageBodies() {
+        final String testSystemName = "TestSystem1";
+        Package_c testPkg = Package_c.getOneEP_PKGOnR1405(m_sys,
+                new ClassQueryInterface_c() {
+                    public boolean evaluate(Object candidate) {
+                        return ((Package_c) candidate).getName().equals(
+                                testSystemName);
+                    }
+                });
+        assertNotNull(testPkg);
+
+        // launch the system
+        // TODO - problem here.  Launching the package with this function apparently
+        //  does not launch all the component refs underneath the package.
+        DebugUITestUtilities.setLogActivityAndLaunchForElement(testPkg,
+                m_bp_tree.getControl().getMenu(), m_sys.getName());
+
+        openPerspectiveAndView(
+                "com.mentor.nucleus.bp.debug.ui.DebugPerspective",
+                BridgePointPerspective.ID_MGC_BP_EXPLORER);
+
+        // Get the Client components in hand.
+        ComponentInstance_c[] engines = ComponentInstance_c.getManyI_EXEsOnR2970(testPkg);
+        assertNotNull(engines);
+        List<Component_c> clientComponents = new ArrayList<Component_c>();
+        for ( ComponentInstance_c engine: engines ) {
+            Component_c comp = Component_c.getOneC_COnR2955(engine, false);
+            if ( !comp.getName().equals("Server") ) {
+                clientComponents.add(comp);
+            }
+        }
+        
+        // Call the Init() required signal on one of the Client component references
+        RequiredSignal_c reqSig = RequiredSignal_c.getOneSPR_RSOnR4502(
+                RequiredExecutableProperty_c.getManySPR_REPsOnR4500(Requirement_c
+                        .getManyC_RsOnR4009(InterfaceReference_c
+                                .getManyC_IRsOnR4016(Port_c
+                                        .getManyC_POsOnR4010(clientComponents.get(0),
+                                                new ClassQueryInterface_c() {
+                                                    public boolean evaluate(
+                                                            Object candidate) {
+                                                        return ((Port_c) candidate)
+                                                                .getName()
+                                                                .equals("CommPort");
+                                                    }
+                                                })))),
+                new ClassQueryInterface_c() {
+                    public boolean evaluate(Object candidate) {
+                        return ((RequiredSignal_c) candidate).getName()
+                                .equals("Init");
+                    }
+                });
+        assertNotNull(reqSig);
+
+        openPerspectiveAndView(
+                "com.mentor.nucleus.bp.debug.ui.DebugPerspective",
+                BridgePointPerspective.ID_MGC_BP_EXPLORER);
+
+        BPDebugUtils.setSelectionInSETree(new StructuredSelection(reqSig));
+
+        Menu menu = DebugUITestUtilities.getMenuInSETree(reqSig);
+        
+        assertTrue(
+                "The execute menu item was not available for a required signal.",
+                UITestingUtilities.checkItemStatusInContextMenu(menu,
+                        "Execute", "", false));
+
+        UITestingUtilities.activateMenuItem(menu, "Execute");
+
+        DebugUITestUtilities.waitForExecution();
+
+        // wait for the execution to complete
+        DebugUITestUtilities.waitForBPThreads(m_sys);
+
+        // Call the Init() required signal on the other Client component references
+        reqSig = RequiredSignal_c.getOneSPR_RSOnR4502(
+                RequiredExecutableProperty_c.getManySPR_REPsOnR4500(Requirement_c
+                        .getManyC_RsOnR4009(InterfaceReference_c
+                                .getManyC_IRsOnR4016(Port_c
+                                        .getManyC_POsOnR4010(clientComponents.get(1),
+                                                new ClassQueryInterface_c() {
+                                                    public boolean evaluate(
+                                                            Object candidate) {
+                                                        return ((Port_c) candidate)
+                                                                .getName()
+                                                                .equals("CommPort");
+                                                    }
+                                                })))),
+                new ClassQueryInterface_c() {
+                    public boolean evaluate(Object candidate) {
+                        return ((RequiredSignal_c) candidate).getName()
+                                .equals("Init");
+                    }
+                });
+        assertNotNull(reqSig);
+
+        openPerspectiveAndView(
+                "com.mentor.nucleus.bp.debug.ui.DebugPerspective",
+                BridgePointPerspective.ID_MGC_BP_EXPLORER);
+
+        BPDebugUtils.setSelectionInSETree(new StructuredSelection(reqSig));
+
+        menu = DebugUITestUtilities.getMenuInSETree(reqSig);
+        
+        assertTrue(
+                "The execute menu item was not available for a required signal.",
+                UITestingUtilities.checkItemStatusInContextMenu(menu,
+                        "Execute", "", false));
+
+        UITestingUtilities.activateMenuItem(menu, "Execute");
+
+        DebugUITestUtilities.waitForExecution();
+
+        // TODO - compare the trace
+        File expectedResults = new File(
+                m_workspace_path
+                        + "expected_results/interface_execution/execution_compare_component_refs_good.txt");
+        String expected_results = TestUtil.getTextFileContents(expectedResults);
+        // get the text representation of the debug tree
+        String actual_results = DebugUITestUtilities.getConsoleText(expected_results);
+        assertEquals(expected_results, actual_results);
+    }
 
 	public void testInterfaceExecutionSignalAssignedToTransition() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
