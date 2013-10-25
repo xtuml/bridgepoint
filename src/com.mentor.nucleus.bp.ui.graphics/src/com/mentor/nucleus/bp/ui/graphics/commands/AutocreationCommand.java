@@ -1,3 +1,13 @@
+//========================================================================
+//
+//File:      com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/bp/ui/graphics/commands/AutocreationCommand.java
+//
+//Copyright 2005-2013 Mentor Graphics Corporation. All rights reserved.
+//
+//========================================================================
+//This document contains information proprietary and confidential to
+//Mentor Graphics Corp., and is not for external distribution.
+//======================================================================== 
 package com.mentor.nucleus.bp.ui.graphics.commands;
 
 import org.eclipse.draw2d.Connection;
