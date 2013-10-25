@@ -209,9 +209,9 @@ public class ParseAllInDomain_Generics extends BaseTest {
 		 * resolve this.
 		 **
 		parseAllProvidedOperations();
+		parseAllRequiredOperations();*/
 		parseAllProvidedSignals();
-		parseAllRequiredOperations();
-		parseAllRequiredSignals();*/
+        parseAllRequiredSignals();
 	}
 	private void parseAllFunctions()
 	{
