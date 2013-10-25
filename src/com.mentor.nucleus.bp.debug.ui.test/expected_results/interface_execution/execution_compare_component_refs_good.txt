@@ -1,0 +1,16 @@
+Simulation started.
+User invoked interface message: Init
+LogInfo:  Inside Client::Init() signal body.  Calling CommPort::Register().
+LogInfo:  Inside Server::Register() signal body.  Performing tests.
+LogInfo:  Success - equality check - refs are the same
+LogInfo:  Success - inequality check - refs are the same
+User invoked interface message: Init
+LogInfo:  Inside Client::Init() signal body.  Calling CommPort::Register().
+LogInfo:  Inside Server::Register() signal body.  Performing tests.
+LogInfo:  Success - equality check - refs are the same
+LogInfo:  Success - inequality check - refs are the same
+User invoked interface message: Init
+LogInfo:  Inside Client::Init() signal body.  Calling CommPort::Register().
+LogInfo:  Inside Server::Register() signal body.  Performing tests.
+LogFailure:  Server unexpectedly found a ClientTracker match.
+LogInfo:  The ClientTracker ref_to_component and sender are the same
