@@ -9,7 +9,7 @@
 //=====================================================================
 //This document contains information proprietary and confidential to
 //Mentor Graphics Corp. and is not for external distribution.
-//=====================================================================
+// =====================================================================
 package com.mentor.nucleus.bp.debug.ui.test.execute;
 
 import java.io.File;
@@ -148,20 +148,6 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
         DebugUITestUtilities.stopSession(m_sys, projectName);
     }
 
-    // TODO - if this works, move it somewhere more generic
-    //  NOTE: this does work to set the highlight (selection) in the tree itself, but this doesn't affect the BPSelection, so it doesn't
-    //  get me all the way to what I need
-    public Menu getMenuInSETree(TreeViewer viewer, TreeItem item) {
-        Tree sevTree = viewer.getTree();
-        TreeItem[] sel = new TreeItem[1];
-        sel[0] = item;
-        sevTree.setSelection(sel);
-        UIUtil.dispatchAll();
-
-        Menu menu = viewer.getTree().getMenu();
-        return menu;
-    }
-
     public void testComponentRefComparisonInMessageBodies() {
         final String testSystemName = "TestSystem1";
         Package_c testPkg = Package_c.getOneEP_PKGOnR1405(m_sys,
@@ -192,55 +178,41 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
         // Call the Init() required signal on one of the Client component references
         TreeItem init_a = sevtv.findItem(clientComponentRefItems.get(0), "Init");
         assertNotNull(init_a);
-        Object rawSignalObj = init_a.getData();
-        assertTrue("Expected Init message to be a Required Signal.", rawSignalObj instanceof RequiredSignal_c);
         
-        // TODO - ?? - BPDebugUtils.setSelectionInSETree(new StructuredSelection((RequiredSignal_c) rawSignalObj));
-        // TODO - ?? - Menu menu = DebugUITestUtilities.getMenuInSETree((RequiredSignal_c) rawSignalObj);
-        Menu menu = getMenuInSETree(sevtv, init_a);
-
-/* TODO - put back        assertTrue(
-                "The execute menu item was not available for a required signal.",
-                UITestingUtilities.checkItemStatusInContextMenu(menu,
-                        "Execute", "", false));
-
-        UITestingUtilities.activateMenuItem(menu, "Execute");
-
-        // wait for the execution to complete
-        DebugUITestUtilities.waitForExecution();
-        DebugUITestUtilities.waitForBPThreads(m_sys);*/
-
-        // Call the Init() required signal on the other Client component references
-        TreeItem init_b = sevtv.findItem(clientComponentRefItems.get(1), "Init");
-        assertNotNull(init_b);
-        rawSignalObj = init_b.getData(); // **** TODO  SKB **** - This line still ends up at the same RequiredSignal_c as init_a so
-        // the setSelectionInSETree below ends up running the same (first) Init
-        assertTrue("Expected Init message to be a Required Signal.", rawSignalObj instanceof RequiredSignal_c);
-        
-        // TODO - BPDebugUtils.setSelectionInSETree(new StructuredSelection((RequiredSignal_c) rawSignalObj));
-        // TODO - menu = DebugUITestUtilities.getMenuInSETree((RequiredSignal_c) rawSignalObj);
-        menu = getMenuInSETree(sevtv, init_b);
-        
+        Menu menu = UIUtil.getMenuForTreeItem(sevtv, init_a);
         assertTrue(
                 "The execute menu item was not available for a required signal.",
                 UITestingUtilities.checkItemStatusInContextMenu(menu,
                         "Execute", "", false));
-
         UITestingUtilities.activateMenuItem(menu, "Execute");
-
-        // wait for the execution to complete
         DebugUITestUtilities.waitForExecution();
         DebugUITestUtilities.waitForBPThreads(m_sys);
 
-        // TODO - Call the second Init() again to force a runtime check failure in the test model
+        // Call the Init() required signal on the other Client component references
+        TreeItem init_b = sevtv.findItem(clientComponentRefItems.get(1), "Init");
+        assertNotNull(init_b);
+        
+        menu = UIUtil.getMenuForTreeItem(sevtv, init_b);
+        assertTrue(
+                "The execute menu item was not available for a required signal.",
+                UITestingUtilities.checkItemStatusInContextMenu(menu,
+                        "Execute", "", false));
+        UITestingUtilities.activateMenuItem(menu, "Execute");
+        DebugUITestUtilities.waitForExecution();
+        DebugUITestUtilities.waitForBPThreads(m_sys);
 
-        // TODO - compare the trace
+        // Call the second Init() again to force a runtime check failure in the test model
+        UITestingUtilities.activateMenuItem(menu, "Execute");
+        DebugUITestUtilities.waitForExecution();
+        DebugUITestUtilities.waitForBPThreads(m_sys);
+
+        // Compare the trace
         File expectedResults = new File(
                 m_workspace_path
                         + "expected_results/interface_execution/execution_compare_component_refs_good.txt");
         String expected_results = TestUtil.getTextFileContents(expectedResults);
         String actual_results = DebugUITestUtilities.getConsoleText(expected_results);
-        assertEquals(expected_results, actual_results);
+        assertEquals(expected_results.trim(), actual_results.trim());
     }
 
     public void testInterfaceExecutionSignalAssignedToTransition() {
