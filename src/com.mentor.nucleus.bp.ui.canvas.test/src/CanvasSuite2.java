@@ -23,6 +23,7 @@ import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.util.WorkspaceUtil;
 import com.mentor.nucleus.bp.ui.canvas.test.AutoReconciliationTests;
+import com.mentor.nucleus.bp.ui.canvas.test.AutomaticCreationTests;
 import com.mentor.nucleus.bp.ui.canvas.test.CanvasTestSuite2;
 import com.mentor.nucleus.bp.ui.canvas.test.ClassToStateDiagramNavigationTest;
 import com.mentor.nucleus.bp.ui.canvas.test.ConnectorPolicyTests;
@@ -79,6 +80,7 @@ public class CanvasSuite2 extends TestSuite {
         addTest(new TestSuite(TestReflexiveConnectorCreation.class));
         addTest(new TestSuite(RectilinearRoutingTests_0.class));
         addTest(new TestSuite(GraphicalToolCreationTests.class));
+        addTest(new TestSuite(AutomaticCreationTests.class));
 	}
 
 }
