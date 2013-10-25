@@ -33,7 +33,9 @@ import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.graphics.Image;
@@ -43,6 +45,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IPageLayout;
@@ -277,6 +280,18 @@ public class UIUtil
                     }
                 });
         }
+    }
+    
+    public static Menu getMenuForTreeItem(TreeViewer viewer, TreeItem item) {
+        Tree sevTree = viewer.getTree();
+        TreeItem[] sel = new TreeItem[1];
+        sel[0] = item;
+        viewer.setSelection(new StructuredSelection(item.getData()));
+        sevTree.setSelection(item);
+        UIUtil.dispatchAll();
+
+        Menu menu = viewer.getTree().getMenu();
+        return menu;
     }
     
     /**
