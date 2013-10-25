@@ -1240,7 +1240,8 @@ by reference into realized code.',
   } else if (p_Type.equals("string")) { //$NON-NLS-1$
     return new lib.BPString((String) p_Value);
   } else if (p_Type.equals("unique_id")) { //$NON-NLS-1$
-    return new lib.BPUniqueId(UUID.fromString((String) p_Value));
+	return new lib.BPUniqueId(
+			IdAssigner.createRuntimeUUIDFromString((String) p_Value, null));
   } else {
     CorePlugin.logError("GD::convertToBPType error: conversion not supported for" + p_Type, null);
     return null;
