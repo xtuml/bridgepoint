@@ -23,13 +23,16 @@ import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.ClassStateMachine_c;
 import com.mentor.nucleus.bp.core.ComponentInstance_c;
 import com.mentor.nucleus.bp.core.Component_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.Function_c;
 import com.mentor.nucleus.bp.core.InterfaceReference_c;
 import com.mentor.nucleus.bp.core.ModelClass_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
@@ -50,6 +53,7 @@ import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
+import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.ui.perspective.BridgePointPerspective;
 import com.mentor.nucleus.bp.debug.ui.launch.BPDebugUtils;
 import com.mentor.nucleus.bp.debug.ui.test.DebugUITestUtilities;
@@ -2213,4 +2217,98 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 				.getConsoleText(expected_results);
 		assertEquals(expected_results, actual_results);
 	}
+	
+	public void testInterfaceExecutionWiredOperationAndSignalNoOALVoidReturn() {
+		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
+
+			public boolean evaluate(Object candidate) {
+				return ((Component_c) candidate).getName().equals("compOne");
+			}
+
+		});
+
+		assertNotNull(component);
+		
+		Component_c[] components = Component_c.getManyC_CsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(
+				Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(component))));
+
+		
+		
+		// launch the component
+//		DebugUITestUtilities.setLogActivityAndLaunchForElement(component,
+//				m_bp_tree.getControl().getMenu(), m_sys.getName());
+    	
+		
+		Selection.getInstance().setSelection(new StructuredSelection(components));
+
+    	Menu menu = m_bp_tree.getControl().getMenu();
+    	assertTrue(
+    			"The Launch Verifier action was not present for a component.",
+    			UITestingUtilities.checkItemStatusInContextMenu(menu,
+    					"Launch Verifier", "", false));
+    	MenuItem launchVerifierItem = DebugUITestUtilities.getLaunchVerifierItem(menu);
+    	assertNotNull(launchVerifierItem);
+    	
+    	ComponentInstance_c[] engines = ComponentInstance_c.ComponentInstanceInstances(components[0].getModelRoot());
+    	assertTrue("Unexpected test state, there should be no Component Instances.", engines.length == 0);
+    	TestUtil.debugToDialog(200);
+    	launchVerifierItem.notifyListeners(SWT.Selection, null);
+    	TestingUtilities.processDisplayEvents();
+
+    	menu = m_bp_tree.getControl().getMenu();
+    	assertFalse(
+    			"The Launch Verifier action was present for an unassigned imported component.",
+    			UITestingUtilities.menuItemExists(menu, "", "Launch Verifier"));
+
+    	
+    	
+		Package_c testPackage = Package_c.getOneEP_PKGOnR8001(PackageableElement_c.getOnePE_PEOnR8003(component));
+		assertNotNull(testPackage);
+		
+		Function_c testFunc = Function_c.getOneS_SYNCOnR8001(PackageableElement_c.getOnePE_PEOnR8000(testPackage));
+		assertNotNull(testFunc);
+
+		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
+		
+		BPDebugUtils.setSelectionInSETree(new StructuredSelection(testFunc));
+
+		ActivityEditor editor = DebugUITestUtilities.openActivityEditorForSelectedElement();
+		DebugUITestUtilities.setBreakpointAtLine(editor, 1);
+		
+		 menu = DebugUITestUtilities.getMenuInSETree(testFunc);
+		
+		assertTrue(
+				"The execute menu item was not available for a required operation.",
+				UITestingUtilities.checkItemStatusInContextMenu(menu,
+						"Execute", "", false));
+
+		UITestingUtilities.activateMenuItem(menu, "Execute");
+
+		DebugUITestUtilities.waitForExecution();
+
+		ComponentInstance_c engine = ComponentInstance_c
+				.getOneI_EXEOnR2955(component);
+		assertNotNull(engine);
+
+		// wait for the execution to complete
+		DebugUITestUtilities.waitForBPThreads(m_sys);
+
+		// check that execution was suspended
+		IProcess process = DebugUITestUtilities.getProcessForEngine(engine);
+		assertNotNull(process);
+
+		IDebugTarget target = process.getLaunch().getDebugTarget();
+		assertTrue("Process was not suspended by breakpoint in provided operation.", target
+				.isSuspended());
+		
+		DebugUITestUtilities.stepOver(engine, 5);
+		
+		String expectedConsoleText = "User invoked function: test\r\nLogInfo:  Test Pass\r\n";	
+		org.eclipse.ui.PlatformUI.getWorkbench().getDisplay().readAndDispatch();
+		String actualConsoleText = DebugUITestUtilities.getConsoleText("null");
+		
+		assertEquals(expectedConsoleText, actualConsoleText);
+	}
+
+	
 }

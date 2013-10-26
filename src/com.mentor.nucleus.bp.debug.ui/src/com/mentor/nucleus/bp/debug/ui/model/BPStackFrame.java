@@ -11,6 +11,8 @@ package com.mentor.nucleus.bp.debug.ui.model;
 //This document contains information proprietary and confidential to
 //Mentor Graphics Corp., and is not for external distribution.
 //======================================================================== 
+import java.util.ArrayList;
+
 import lib.TIM;
 
 import org.eclipse.debug.core.DebugEvent;
@@ -382,6 +384,10 @@ public class BPStackFrame extends BPDebugElement implements IStackFrame {
 		        Ooaofooa.getDefaultInstance().fireModelEvent(mce);
 		        BPThread.refreshVerifierViews();
 		        BPThread.refreshCanvases();
+		        ArrayList<BPDebugTarget> targets = BPDebugTarget.getTargets();
+		        for (BPDebugTarget target : targets) {
+					target.Notify();
+				}
 	      	  }
   		}
 	}
@@ -414,6 +420,10 @@ public class BPStackFrame extends BPDebugElement implements IStackFrame {
 		        Ooaofooa.getDefaultInstance().fireModelEvent(mce);
 		        BPThread.refreshVerifierViews();
 		        BPThread.refreshCanvases();
+		        ArrayList<BPDebugTarget> targets = BPDebugTarget.getTargets();
+		        for (BPDebugTarget target : targets) {
+					target.Notify();
+				}
 	      	  }
   		}
 	}
