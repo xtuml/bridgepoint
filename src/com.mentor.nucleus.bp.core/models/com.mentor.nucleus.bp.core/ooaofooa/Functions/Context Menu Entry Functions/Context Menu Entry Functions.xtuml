@@ -921,51 +921,42 @@ for each ref_attr in ref_attr_set
   end if;
 end for;
 if (not delete_allowed)
-	USER::warning( msg: "Operation not allowed. Referential attributes are deleted by unformalizing or deleting their association." );
+    USER::warning( msg: "Operation not allowed. Referential attributes are deleted by unformalizing or deleting their association." );
 else
-	// for each class-identifier which employs at least one of the
-	// attributes to be deleted
-	select many identifiers related by attrs->O_OIDA[R105]->O_ID[R105];
-	for each identifier in identifiers
-		// if this class-identifier is referenced by any association
-		select many references related by identifier->R_RTO[R109];
-		if (not_empty references)
-			// for each member attribute of this class-identifier
-			select many members related by identifier->O_ATTR[R105];
-			subset = true;
-			for each member in members
-				// for each attribute to be deleted
-				found = false;
-				for each toDelete in attrs
-					// if this method attribute is the same as this
-					// attribute to be deleted
-					if (member == toDelete)
-						// this member belongs to the set of those
-						// attributes to be deleted
-						found = true;
-						break;
-					end if;
-				end for;
-
-				// if this member attribute was not found to be one of
-				// those to be deleted
-				if (not found)
-					// the set of members is not a subset of those to be deleted
-					subset = false;
-					break;
-				end if;
-			end for;
-
-			// if the set of members is a subset of those to be deleted
-			if (subset)
-				// we cannot allow the delete, as it would orphan the
-				// attributes that are referencing this identifier
-				delete_allowed = false;
-				USER::warning( msg: "Operation not allowed.  The attribute is being used to formalize one or more associations." );
-				break;
-			end if;
-		end if;
-	end for;
+    // for each class-identifier which employs at least one of the
+    // attributes to be deleted
+    select many identifiers related by attrs->O_OIDA[R105]->O_ID[R105];
+    for each identifier in identifiers
+        // if this class-identifier is referenced by any association
+        select many references related by identifier->R_RTO[R109];
+        if (not_empty references)
+            // for each member attribute of this class-identifier
+            select many members related by identifier->O_ATTR[R105];
+            found = false;
+            for each member in members
+                // for each attribute to be deleted
+                for each toDelete in attrs
+                    // if this method attribute is the same as this
+                    // attribute to be deleted
+                    if (member == toDelete)
+                        // this member belongs to the set of those
+                        // attributes to be deleted
+                        found = true;
+                        break;
+                    end if;
+                end for;
+            end for;
+             // if this member attribute was not found to be one of
+            // those to be deleted
+            if (found)
+                // we cannot allow the delete, as it would orphan the
+                // attributes that are referencing this identifier
+                delete_allowed = false;
+                USER::warning( msg: "Operation not allowed.  The attribute is being used to formalize one or more associations." );
+                break;
+            end if;
+        end if;
+    end for;
 end if;
 
 if (delete_allowed)
