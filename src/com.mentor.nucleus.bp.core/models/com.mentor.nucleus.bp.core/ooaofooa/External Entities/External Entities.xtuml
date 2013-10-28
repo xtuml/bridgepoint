@@ -1240,7 +1240,8 @@ by reference into realized code.',
   } else if (p_Type.equals("string")) { //$NON-NLS-1$
     return new lib.BPString((String) p_Value);
   } else if (p_Type.equals("unique_id")) { //$NON-NLS-1$
-    return new lib.BPUniqueId(UUID.fromString((String) p_Value));
+	return new lib.BPUniqueId(
+			IdAssigner.createRuntimeUUIDFromString((String) p_Value, null));
   } else {
     CorePlugin.logError("GD::convertToBPType error: conversion not supported for" + p_Type, null);
     return null;
@@ -1283,7 +1284,9 @@ INSERT INTO S_BRG
 	'Translate:native
 
 This bridge should only be for converting data types of parameters being passed
-by reference into realized code.',
+by reference into realized code.
+
+Import:com.mentor.nucleus.bp.core.common.IdAssigner',
 	0,
 	"bc3722c8-5188-4529-8519-cf9eb9816b17",
 	'try
