@@ -284,8 +284,6 @@ public class UIUtil
     
     public static Menu getMenuForTreeItem(TreeViewer viewer, TreeItem item) {
         Tree sevTree = viewer.getTree();
-        TreeItem[] sel = new TreeItem[1];
-        sel[0] = item;
         viewer.setSelection(new StructuredSelection(item.getData()));
         sevTree.setSelection(item);
         UIUtil.dispatchAll();
