@@ -859,6 +859,9 @@ public class DebugUITestUtilities {
 		return space;
 	}
 
+	// Gets the context menu for the given treeElement.  If this doesn't do
+	// quite what you are looking for, check out 
+	// UIUtil::getMenuForTreeItem(TreeViewer viewer, TreeItem item)
 	public static Menu getMenuInSETree(Object treeElement) {
 		SessionExplorerView sev = BPDebugUtils.openSessionExplorerView(true);
 		UIUtil.dispatchAll();
