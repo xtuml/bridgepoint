@@ -1,0 +1,51 @@
+========================================================================
+File:      Unit_test_checklist.chk
+
+(c) Copyright 2008-2013 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+This document captures the state of the BridgePoint unit tests ran against:
+ 
+Pull Request URLs(): 
+machine: CAS-TLONDON-LT
+OS: Win7
+
+Test                                            Who             Result     Time
+--------------------------------------------------------------------------------
+com.mentor.nucleus.bp.als.oal.test              -               -
+              UseGlobals Parse All TestGenerics SKB             pass       434s/790s
+com.mentor.nucleus.bp.core.test                 -               -
+              Core Test-RTO Move                                           -/290s
+              Core Test-Consistency                                        -/10s
+              Core Test-Workspace Setup Generic                            -/85s
+              Core Test-Existing Projects Gener                            -/10s 
+              Core Generic Upgrade Test                                    -/4s
+              UseGlobals Core Test Generics                                -/1165s  
+              UseGlobals Core Test 2Generics                               -/340s     
+              UseGlobals Core Test-SystemLevelTests                        -/40s              
+com.mentor.nucleus.bp.debug.ui.test (Verifier)    -             -
+              Debug - Verifier Test             SKB             pass       934s/1660s
+              Debug - Verifier Test 2           SKB             pass       117s/248s
+com.mentor.nucleus.bp.model.compare.test                                   -/235s
+com.mentor.nucleus.bp.io.mdl.test                -              -                        
+              UseGlobals IO MDL Tests Generics                             -/400s
+              UseGlobals IO MDL Tests 2Generics                            -/75s
+              UseGlobals IO MDL PkgCM Test Suite
+                                       Generics                            -/1370s
+com.mentor.nucleus.bp.io.sql.test                                          -/5s
+com.mentor.nucleus.bp.search.test                                          -/15s
+com.mentor.nucleus.bp.ui.canvas.test            -               -
+              UseGlobals UI Canvas Suite 1                                 -/2265s
+              UseGlobals UI Canvas Suite 2                                 -/425s
+              UseGlobals UI Canvas CCP Test                                -/2230s
+com.mentor.nucleus.bp.ui.explorer.test          -               -
+              UseGlobals UI Explorer Test                                  -/135s
+com.mentor.nucleus.bp.ui.properties.test        -               -
+              UseGlobals UI Properties Test                                -/35s
+com.mentor.nucleus.bp.ui.text.test                -             -
+              UseGlobals UI Text Test                                      -/265s
+com.mentor.nucleus.bp.welcome                                              -/275s
