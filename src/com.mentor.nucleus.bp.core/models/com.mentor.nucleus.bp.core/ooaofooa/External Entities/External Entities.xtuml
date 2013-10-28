@@ -1284,7 +1284,9 @@ INSERT INTO S_BRG
 	'Translate:native
 
 This bridge should only be for converting data types of parameters being passed
-by reference into realized code.',
+by reference into realized code.
+
+Import:com.mentor.nucleus.bp.core.common.IdAssigner',
 	0,
 	"bc3722c8-5188-4529-8519-cf9eb9816b17",
 	'try
