@@ -13,16 +13,21 @@
 
 package com.mentor.nucleus.bp.ui.session;
 
+import java.util.ArrayList;
+
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ITreeSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Item;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 
-import com.mentor.nucleus.bp.core.ClassInEngine_c;
 import com.mentor.nucleus.bp.core.ComponentInstance_c;
 import com.mentor.nucleus.bp.core.Domain_c;
 import com.mentor.nucleus.bp.core.Package_c;
@@ -106,4 +111,87 @@ public class SessionExplorerTreeViewer extends TreeViewer {
 		}
 		return (ComponentInstance_c) result;
 	}
+
+    public ArrayList<TreeItem> findItemsContainingText(TreeItem item, String text )
+    {
+        ArrayList<TreeItem> rvalItems = new ArrayList<TreeItem>();
+
+        if ( item == null ) {
+            final Tree tree = getTree();
+            TreeItem[] items = tree.getItems();
+            // for each of the items given 
+            for (int i = 0; i < items.length; i++) {
+                // if this item's text matches that given
+                if (items[i].getText().contains(text)) {
+                    // return this item
+                    rvalItems.add(items[i]);
+                }
+            }
+        } else {
+            TreeItem[] items = item.getItems();
+            // for each of the items given 
+            for (int i = 0; i < items.length; i++) {
+                // if this item's text matches that given
+                if (items[i].getText().contains(text)) {
+                    // return this item
+                    rvalItems.add(items[i]);
+                }
+            }            
+        }
+        
+        return rvalItems;
+    }
+
+    public TreeItem findItem(String text )
+    {
+        final Tree tree = getTree();
+        TreeItem[] items = tree.getItems();
+        // for each of the items given 
+        for (int i = 0; i < items.length; i++) {
+            // if this item's text matches that given
+            if (items[i].getText().equals(text)) {
+                // return this item
+                return items[i];
+            }
+        }
+        
+        return null;
+    }
+    
+    public TreeItem findItem(TreeItem item, String text) {
+        if(item == null) {
+            final Tree tree = getTree();
+            TreeItem[] items = tree.getItems();
+            // for each of the items given 
+            for (int i = 0; i < items.length; i++) {
+                // if this item's text matches that given
+                if (items[i].getText().equals(text)) {
+                    // return this item
+                    return items[i];
+                } else {
+                    TreeItem findItem = findItem(items[i], text);
+                    if(findItem != null) {
+                        return findItem;
+                    }
+                }
+            }
+        } else {
+            TreeItem[] items = item.getItems();
+            // for each of the items given 
+            for (int i = 0; i < items.length; i++) {
+                // if this item's text matches that given
+                if (items[i].getText().equals(text)) {
+                    // return this item
+                    return items[i];
+                } else {
+                    TreeItem findItem = findItem(items[i], text);
+                    if(findItem != null) {
+                        return findItem;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
 }
