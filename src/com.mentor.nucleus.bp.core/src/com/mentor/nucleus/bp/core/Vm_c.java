@@ -314,7 +314,7 @@ public class Vm_c {
             if (byRef == false) {
                 tgtInfo.argTypes.add(UUID.class);
                 // Make sure we have a valid UUID string
-                UUID id = IdAssigner.createUUIDFromString((String) value);
+                UUID id = IdAssigner.createRuntimeUUIDFromString((String) value, null);
                 tgtInfo.argVals.add(id);
             } else {
                 tgtInfo.argTypes.add(BPUniqueId.class);
@@ -481,19 +481,24 @@ public class Vm_c {
         if (result instanceof Boolean) {
             return (Object) ((Boolean) result).toString();
         }
-        if (result instanceof Integer) {
+        else if (result instanceof Integer) {
             return (Object) ((Integer) result).toString();
         }
-        if (result instanceof Float) {
+        else if (result instanceof Float) {
             return (Object) ((Float) result).toString();
         }
-        if (result instanceof String) {
+        else if (result instanceof String) {
             return (Object) ((String) result).toString();
         }
-        if (result instanceof Long) {
+        else if (result instanceof Long) {
             return (Object) ((Long) result).toString();
-        } else
+        }
+        else if (result instanceof UUID) {
+        	return (Object) ((UUID) result).toString();
+        }
+        else {
             return result;
+        }
     } // end Getresult
 
     public static Object getRawResult() {

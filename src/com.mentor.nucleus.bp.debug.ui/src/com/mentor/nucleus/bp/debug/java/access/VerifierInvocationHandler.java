@@ -73,7 +73,9 @@ import com.mentor.nucleus.bp.core.ValueInStructure_c;
 import com.mentor.nucleus.bp.core.Value_c;
 import com.mentor.nucleus.bp.core.Variable_c;
 import com.mentor.nucleus.bp.core.Vm_c;
+import com.mentor.nucleus.bp.core.common.IdAssigner;
 import com.mentor.nucleus.bp.core.common.ModelRoot;
+import com.mentor.nucleus.bp.core.ui.cells.providers.ComponentInstanceCellProvider;
 import com.mentor.nucleus.bp.core.util.BPClassLoader;
 import com.mentor.nucleus.bp.debug.ui.model.BPThread;
 
@@ -202,7 +204,8 @@ public class VerifierInvocationHandler implements InvocationHandler {
 							for (int i = 0; param != null ; i++) {
 								RuntimeValue_c rtVal = marshallValueIn(param,
 										arg2[i + 1], exProp.getId(), bodyID,
-										sf, localStackFrame.getStack_frame_id());
+										sf, localStackFrame.getStack_frame_id(),
+										ComponentInstance_c.getOneI_EXEOnR2930(targetStack));
 								if (param.getBy_ref() == 1) {
 									Dimensions_c [] dims = Dimensions_c.getManyS_DIMsOnR4017(param);
 									argMap.put(rtVal, new ParameterValue(arg2[i + 1], dims.length));
@@ -252,7 +255,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 																		rtVal,
 																		dt,
 																		argMap
-																				.get(rtVal).getValue(), argMap.get(rtVal).getArrayDepth(), true);
+																				.get(rtVal).getValue(), argMap.get(rtVal).getArrayDepth(), true, targetEngine);
 																disposeTransientValueVariables(rtVal);
 															}
 															// Now need to
@@ -284,7 +287,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 																javaResult = marshallContentOut(
 																		resultRtv,
 																		dt,
-																		null, dims.length, false);
+																		null, dims.length, false, targetEngine);
 															}
 														}
 													}
@@ -343,7 +346,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 		}
 	}
 
-	private static Object convertToRawJavaType(Object toConvert, DataType_c dt, boolean isByRef) {
+	private static Object convertToRawJavaType(Object toConvert, DataType_c dt, boolean isByRef, ComponentInstance_c ci) {
 		String name = dt.getName();
 		if (name.equals("integer")) {
 			try {
@@ -375,7 +378,13 @@ public class VerifierInvocationHandler implements InvocationHandler {
 			  toConvert = floatVal;
 			}
 		} else if (name.equals("unique_id")) {
-			UUID uuidVal = UUID.fromString((String) toConvert);
+			UUID uuidVal = null;
+			if (IdAssigner.isUUID((String) toConvert)) {
+			  uuidVal = UUID.fromString((String) toConvert);
+			}
+			else {
+			  uuidVal = IdAssigner.createRuntimeUUIDFromString(toConvert, ci);
+			}
 			if (isByRef) {
 				toConvert = new BPUniqueId(uuidVal);
 			}
@@ -398,13 +407,13 @@ public class VerifierInvocationHandler implements InvocationHandler {
 
 	private static RuntimeValue_c marshallValueIn(
 			PropertyParameter_c propertyParameterC, Object value, UUID msgid,
-			UUID bodyID, UUID sf, UUID stackFrameId) {
+			UUID bodyID, UUID sf, UUID stackFrameId, ComponentInstance_c ci) {
 		ModelRoot root = propertyParameterC.getModelRoot();
 		DataType_c dt = DataType_c.getOneS_DTOnR4007(propertyParameterC);
 		Dimensions_c[] dims = Dimensions_c
 				.getManyS_DIMsOnR4017(propertyParameterC);
 		RuntimeValue_c rootValue = marshallContentIn(root, null, value, dt,
-				dims.length);
+				dims.length, ci);
 		StackFrame_c lclStackFrame = (StackFrame_c) root.getInstanceList(
 				StackFrame_c.class).getGlobal(stackFrameId);
 		BlockInStackFrame_c bsf = BlockInStackFrame_c
@@ -450,14 +459,14 @@ public class VerifierInvocationHandler implements InvocationHandler {
 
 	private static RuntimeValue_c marshallContentIn(ModelRoot root,
 			RuntimeValue_c rootValue, Object value, DataType_c dt,
-			int arrayDepth) {
+			int arrayDepth, ComponentInstance_c ci) {
 		RuntimeValue_c result = null;
 		if (rootValue != null) {
 			result = rootValue;
 		}
 		if (arrayDepth > 0) {
 			result = marshallArrayValueIn(root, rootValue, value, dt,
-					arrayDepth);
+					arrayDepth, ci);
 		} else {
 			DataType_c rootType = getCoreTypeForDt(dt);
 			CoreDataType_c cdt = CoreDataType_c.getOneS_CDTOnR17(rootType);
@@ -466,10 +475,10 @@ public class VerifierInvocationHandler implements InvocationHandler {
 			EnumerationDataType_c edt = EnumerationDataType_c
 					.getOneS_EDTOnR17(rootType);
 			if (cdt != null) {
-				result = marshallCoreValueIn(root, rootValue, value, dt);
+				result = marshallCoreValueIn(root, rootValue, value, dt, ci);
 			} else if (sdt != null) {
 				result = marshallStructuredValueIn(root, rootValue, value, dt,
-						result);
+						result, ci);
 			} else if (edt != null) {
 				result = marshallEnumeratedValueIn(value, dt, result, rootType);
 			}
@@ -509,7 +518,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 
 	private static RuntimeValue_c marshallStructuredValueIn(ModelRoot root,
 			RuntimeValue_c rootValue, Object value, DataType_c adt,
-			RuntimeValue_c result) {
+			RuntimeValue_c result, ComponentInstance_c ci) {
 		DataType_c rootDt = getCoreTypeForDt(adt);
 		StructuredDataType_c sdt = StructuredDataType_c.getOneS_SDTOnR17(rootDt);
 		StructuredValue_c strVal = null;
@@ -597,7 +606,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 				Dimensions_c[] dims = Dimensions_c
 						.getManyS_DIMsOnR53(strMember);
 				member = marshallContentIn(root, member, javaMember, type,
-						dims.length);
+						dims.length, ci);
 				vis.relateAcrossR3301To(member);
 			}
 		}
@@ -605,7 +614,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 	}
 
 	private static RuntimeValue_c marshallCoreValueIn(ModelRoot root,
-			RuntimeValue_c rootValue, Object value, DataType_c dt) {
+			RuntimeValue_c rootValue, Object value, DataType_c dt, ComponentInstance_c ci) {
 		RuntimeValue_c result = null;
 		if (rootValue != null) {
 			result = rootValue;
@@ -660,7 +669,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 						}
 					}
 					if (javaMember != null) {
-						result = convertFromRawJavaType(javaMember, rootType);
+						result = convertFromRawJavaType(javaMember, rootType, ci);
 						realizedTypeFound = true;
 					}
 				}
@@ -735,7 +744,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 						result = new RuntimeValue_c(root);
 						result.relateAcrossR3307To(dt);
 					}
-					result.Setvalue(Gd_c.Unique_id_to_string((UUID)value));
+					result.Setvalue(IdAssigner.convertFromRuntimeUUID((UUID)value, ci));
 				} else if (value instanceof BPUniqueId) {
 					if (rootValue == null) {
 						result = new RuntimeValue_c(root);
@@ -753,7 +762,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 		return result;
 	}
 
-	private static RuntimeValue_c convertFromRawJavaType(Object value, DataType_c dt) {
+	private static RuntimeValue_c convertFromRawJavaType(Object value, DataType_c dt, ComponentInstance_c ci) {
 		RuntimeValue_c result = null;
 		ModelRoot root = dt.getModelRoot();
 		String dtName = dt.getName();
@@ -789,13 +798,23 @@ public class VerifierInvocationHandler implements InvocationHandler {
 				result.Setvalue(Gd_c.Real_to_string(((BPFloat) value)
 						.getValue()));
 			}
+		} else if (dtName.equals("unique_id")) {
+			if (value instanceof UUID) {
+				result = new RuntimeValue_c(root);
+				result.relateAcrossR3307To(dt);
+				result.Setvalue(IdAssigner.convertFromRuntimeUUID(value, ci));
+			} else if (value instanceof BPUniqueId) {
+				result = new RuntimeValue_c(root);
+				result.relateAcrossR3307To(dt);
+				result.Setvalue(IdAssigner.convertFromRuntimeUUID(((BPUniqueId)value).getValue(), ci));
+			}
 		}
 		return result;
 	}
 
 	public static RuntimeValue_c marshallArrayValueIn(ModelRoot root,
 			RuntimeValue_c rootValue, Object value, DataType_c dt,
-			int arrayDepth) {
+			int arrayDepth, ComponentInstance_c ci) {
 		RuntimeValue_c result = null;
 		if (rootValue != null) {
 			result = rootValue;
@@ -830,7 +849,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 					member = RuntimeValue_c.getOneRV_RVLOnR3302(via);
 				}
 				member = marshallContentIn(root, member, content, dt,
-						arrayDepth - 1);
+						arrayDepth - 1, ci);
 				via.relateAcrossR3302To(member);
 				index++;
 			}
@@ -946,6 +965,8 @@ public class VerifierInvocationHandler implements InvocationHandler {
 												.getOneSPR_PEPOnR4503(provSig));
 							}
 						}
+						ComponentInstance_c ci = ComponentInstance_c
+								.getOneI_EXEOnR2930(stack);
 						if (ep != null) {
 							PropertyParameter_c[] pParms = PropertyParameter_c
 									.getManyC_PPsOnR4006(ep);
@@ -961,7 +982,7 @@ public class VerifierInvocationHandler implements InvocationHandler {
 							Map<RuntimeValue_c, ParameterValue> argMap = new HashMap<RuntimeValue_c, ParameterValue>();
 							while (cursor != null) {
 								marshallValueOut(localStackFrame, cursor, null,
-										argMap);
+										argMap, ci);
 								cursor = PropertyParameter_c
 										.getOneC_PPOnR4021Precedes(cursor);
 							}
@@ -971,13 +992,11 @@ public class VerifierInvocationHandler implements InvocationHandler {
 								marshallContentIn(rtVal.getModelRoot(), rtVal,
 										argMap.get(rtVal).getValue(),
 										DataType_c.getOneS_DTOnR3307(rtVal),
-										argMap.get(rtVal).getArrayDepth());
+										argMap.get(rtVal).getArrayDepth(), ci);
 							}
 						} else {
 							LOG.LogInfo("Message not delivered.");
 						}
-						ComponentInstance_c ci = ComponentInstance_c
-								.getOneI_EXEOnR2930(stack);
 						if (ci != null) { // If component instance is null we're
 							// terminating
 							stack.Pop(!isOperation);
@@ -1002,7 +1021,7 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 									RuntimeValue_c rtV = marshallContentIn(
 											blockedFrame.getModelRoot(), null,
 											Vm_c.getRawResult(), dt,
-											returnArrayDepth);
+											returnArrayDepth, ci);
 									rtV.relateAcrossR3305To(localVsf);
 									rtV.relateAcrossR3310To(localStackFrame);
 								}
@@ -1131,8 +1150,7 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 
 	private static void marshallValueOut(StackFrame_c localStackFrame,
 			PropertyParameter_c prop_param, Object toMarshall,
-			Map<RuntimeValue_c, ParameterValue> argMap) {
-
+			Map<RuntimeValue_c, ParameterValue> argMap, ComponentInstance_c ci) {
 		DataType_c dt = DataType_c.getOneS_DTOnR4007(prop_param);
 		LocalValue_c[] lvls = LocalValue_c.getManyL_LVLsOnR3001(Local_c
 				.getManyL_LCLsOnR3000(BlockInStackFrame_c
@@ -1158,7 +1176,7 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 		if (parVal != null) {
 			Dimensions_c [] dims = Dimensions_c.getManyS_DIMsOnR4017(prop_param);
 			boolean handleByRef = prop_param.getBy_ref() == 1;
-			Object value = marshallContentOut(parVal, dt, toMarshall, dims.length, handleByRef);
+			Object value = marshallContentOut(parVal, dt, toMarshall, dims.length, handleByRef, ci);
 			Vm_c.Addargumentvalue(value);
 			if (handleByRef) {
 				argMap.put(parVal, new ParameterValue(value,
@@ -1168,10 +1186,10 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 	}
 
 	private static Object marshallContentOut(RuntimeValue_c parVal,
-			DataType_c dt, Object toMarshall, int arrayDepth, boolean handleByRef) {
+			DataType_c dt, Object toMarshall, int arrayDepth, boolean handleByRef, ComponentInstance_c ci) {
 		Object result = null;
 		if (arrayDepth > 0) {
-			result = marshallArrayValueOut(toMarshall, dt, parVal, arrayDepth);
+			result = marshallArrayValueOut(toMarshall, dt, parVal, arrayDepth, ci);
 		}
 		else {
 			DataType_c rootType = getCoreTypeForDt(dt);
@@ -1181,9 +1199,9 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 			EnumerationDataType_c edt = EnumerationDataType_c
 					.getOneS_EDTOnR17(rootType);
 			if (cdt != null) {
-				result = marshallCoreValueOut(dt, toMarshall, parVal, handleByRef);
+				result = marshallCoreValueOut(dt, toMarshall, parVal, handleByRef, ci);
 			} else if (sdt != null) {
-				result = marshallStructuredValueOut(dt, toMarshall, parVal);
+				result = marshallStructuredValueOut(dt, toMarshall, parVal, ci);
 			} else if (edt != null) {
 				result = marshallEnumeratedValueOut(dt, toMarshall, parVal);
 			}
@@ -1193,7 +1211,7 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 	}
 
 	private static Object marshallStructuredValueOut(DataType_c dt,
-			Object toMarshall, RuntimeValue_c parVal) {
+			Object toMarshall, RuntimeValue_c parVal, ComponentInstance_c ci) {
 		StructuredValue_c strV = StructuredValue_c.getOneRV_SVLOnR3300(parVal);
 		Object result = null;
 		DataType_c coreType = getCoreTypeForDt(dt);
@@ -1286,7 +1304,7 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 								}
 							}
 							setField(result, member, field, rVal, memberDt,
-									value);
+									value, ci);
 							// continue to next member
 							break;
 						}
@@ -1297,9 +1315,9 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 	}
 
 	private static void setField(Object result, StructureMember_c member,
-			Field field, RuntimeValue_c rVal, DataType_c memberDt, Object value) {
+			Field field, RuntimeValue_c rVal, DataType_c memberDt, Object value, ComponentInstance_c ci) {
 		Dimensions_c [] dims = Dimensions_c.getManyS_DIMsOnR53(member);
-		value = marshallContentOut(rVal, memberDt, value, dims.length, false);
+		value = marshallContentOut(rVal, memberDt, value, dims.length, false, ci);
 		try {
 			field.set(result, value);
 		} catch (IllegalArgumentException e) {
@@ -1311,7 +1329,7 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 		}
 	}
 
-	private static Object marshallCoreValueOut(DataType_c dt, Object toMarshall, RuntimeValue_c parVal, boolean isByRef) {
+	private static Object marshallCoreValueOut(DataType_c dt, Object toMarshall, RuntimeValue_c parVal, boolean isByRef, ComponentInstance_c ci) {
 		UserDataType_c udt = UserDataType_c.getOneS_UDTOnR17(dt);
 		DataType_c coreType = getCoreTypeForDt(dt);
 		boolean realizedTypeFound = false;
@@ -1326,7 +1344,7 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 				if (meth.getName().equals("setValue") &&
                         meth.getParameterTypes().length == 1) {
 					try {
-						meth.invoke(inst, convertToRawJavaType(parVal.Getvalue(),coreType, false));
+						meth.invoke(inst, convertToRawJavaType(parVal.Getvalue(),coreType, false, ci));
 						realizedTypeFound = true;
 						toMarshall = inst;
 					} catch (IllegalArgumentException e) {
@@ -1346,7 +1364,7 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 					for (Field field: fields) {
 						if (field.getName().equals("value")) {
 							try {
-								field.set(inst, convertToRawJavaType(parVal.Getvalue(), coreType, false));
+								field.set(inst, convertToRawJavaType(parVal.Getvalue(), coreType, false, ci));
 								realizedTypeFound = true;
 								toMarshall = inst;
 							} catch (IllegalArgumentException e) {
@@ -1365,11 +1383,11 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 		if (!realizedTypeFound) {
 		  if (toMarshall == null) {
 		    toMarshall = convertToRawJavaType(parVal.Getvalue(),
-                                                             coreType, isByRef);
+                                                             coreType, isByRef, ci);
 		  }
 		  else {
 			Object result = convertToRawJavaType(parVal.Getvalue(),
-                                                               coreType, false);
+                                                               coreType, false, ci);
 			if (isByRef == true) {
 				// Need set the value of the existing toMarshall instance
 				if (toMarshall instanceof BPInteger) {
@@ -1398,7 +1416,7 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 
 	@SuppressWarnings("unchecked")
 	private static Object marshallArrayValueOut(Object toMarshall,
-			DataType_c dt, RuntimeValue_c parVal, int arrayDepth) {
+			DataType_c dt, RuntimeValue_c parVal, int arrayDepth, ComponentInstance_c ci) {
 		ArrayValue_c av = ArrayValue_c.getOneRV_AVLOnR3300(parVal);
 		ArrayList<Object> result = null;
 		if (toMarshall == null) {
@@ -1419,7 +1437,7 @@ ValueInStackFrame_c localVsf = ValueInStackFrame_c.getOneI_VSFOnR2951(localStack
 			if (toMarshall != null && (result.size() > vir.getIndex())) {
 				value = result.get(vir.getIndex());
 			}
-			value = marshallContentOut(content, dt, value, arrayDepth -1, false);
+			value = marshallContentOut(content, dt, value, arrayDepth -1, false, ci);
 			while (result.size() <= vir.getIndex()) {
 				result.add(null);
 			}
