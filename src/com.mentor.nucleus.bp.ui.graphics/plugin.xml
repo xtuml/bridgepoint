@@ -2253,12 +2253,6 @@
             </terminator>
             <terminator
                   end="end"
-                  name="End Component Container"
-                  symbol="Component Container"
-                  type="shape">
-            </terminator>
-            <terminator
-                  end="end"
                   name="End Component"
                   symbol="Component"
                   symbolClass="com.mentor.nucleus.bp.core.Component_c"

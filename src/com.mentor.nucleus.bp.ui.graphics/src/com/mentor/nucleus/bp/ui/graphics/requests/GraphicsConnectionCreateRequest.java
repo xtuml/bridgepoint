@@ -64,4 +64,8 @@ public class GraphicsConnectionCreateRequest extends CreateConnectionRequest {
 	public boolean avoidSnapping() {
 		return avoidSnapping;
 	}
+
+	public void setToolId(UUID tool_id) {
+		fToolId = tool_id;
+	}
 }
