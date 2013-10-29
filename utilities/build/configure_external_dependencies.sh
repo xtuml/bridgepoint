@@ -144,8 +144,8 @@ configure_mc3020()
     
     cp -f $USER_SUPPLIED_FILES/xtumlmc_build.exe ./bin
     cp -f $USER_SUPPLIED_FILES/gen_erate.exe     ./bin
-    cp -f $USER_SUPPLIED_FILES/mcmc.exe          ./bin
     cp -f $USER_SUPPLIED_FILES/mcmc              ./bin
+    cp -f $USER_SUPPLIED_FILES/mcmc.exe          ./bin
     cp -f $USER_SUPPLIED_FILES/msvcrt.dll        ./bin
     cp -f $USER_SUPPLIED_FILES/vgal8c.dll        ./bin
     cp -f $USER_SUPPLIED_FILES/vgalaxy8.vr       ./bin
