@@ -74,6 +74,15 @@ get_user_supplied_binaries ()
     if [ ! -e  ./mc3020_doc.zip ]; then
         error "Missing ./mc3020_doc.zip"
     fi
+    
+    if [ ! -e  ./mcmc ]; then
+        error "Missing ./mcmc"
+    fi
+
+    if [ ! -e  ./mcmc.exe ]; then
+        error "Missing ./mcmc.exe"
+    fi
+    
 }
 
 configure_dap()
@@ -135,6 +144,8 @@ configure_mc3020()
     
     cp -f $USER_SUPPLIED_FILES/xtumlmc_build.exe ./bin
     cp -f $USER_SUPPLIED_FILES/gen_erate.exe     ./bin
+    cp -f $USER_SUPPLIED_FILES/mcmc.exe          ./bin
+    cp -f $USER_SUPPLIED_FILES/mcmc              ./bin
     cp -f $USER_SUPPLIED_FILES/msvcrt.dll        ./bin
     cp -f $USER_SUPPLIED_FILES/vgal8c.dll        ./bin
     cp -f $USER_SUPPLIED_FILES/vgalaxy8.vr       ./bin
@@ -185,6 +196,10 @@ configure_mcsystemc_src()
     rm -rf mc3020
     cp -rf $MC3020/mc3020 .
 
+    # We don't want the model-based MC for this version, so remove it
+    rm -f ./mc3020/bin/mcmc
+    rm -f ./mc3020/bin/mcmc.exe
+     
     cd ${build_dir}
 }
 
@@ -198,6 +213,10 @@ configure_mccpp_src()
     rm -rf mc3020
     cp -rf $MC3020/mc3020 .
 
+    # We don't want the model-based MC for this version, so remove it
+    rm -f ./mc3020/bin/mcmc
+    rm -f ./mc3020/bin/mcmc.exe
+     
     cd ${build_dir}
 }
 
@@ -211,6 +230,10 @@ configure_vhdl_src()
     rm -rf mc3020
     cp -rf $MC3020/mc3020 .
     
+    # We don't want the model-based MC for this version, so remove it
+    rm -f ./mc3020/bin/mcmc
+    rm -f ./mc3020/bin/mcmc.exe
+     
     cd ${build_dir}
 }
 
