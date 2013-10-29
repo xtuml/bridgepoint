@@ -2369,7 +2369,24 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 		assertTrue("Process was not suspended by breakpoint in provided operation.", target
 				.isSuspended());
 		
-		DebugUITestUtilities.stepOver(engine, 5);
+		// This used to use stepOver(engine, 5), but I found this to not always do 5 steps.
+		// Sometimes it did 3, which then caused the check to fail.  If I step one at a time
+		// it always worked for me.
+		DebugUITestUtilities.stepOver(engine, 1);
+        DebugUITestUtilities.waitForExecution();
+        DebugUITestUtilities.waitForBPThreads(m_sys);
+
+        DebugUITestUtilities.stepOver(engine, 1);
+        DebugUITestUtilities.waitForExecution();
+        DebugUITestUtilities.waitForBPThreads(m_sys);
+
+        DebugUITestUtilities.stepOver(engine, 1);
+        DebugUITestUtilities.waitForExecution();
+        DebugUITestUtilities.waitForBPThreads(m_sys);
+
+        DebugUITestUtilities.stepOver(engine, 1);
+        DebugUITestUtilities.waitForExecution();
+        DebugUITestUtilities.waitForBPThreads(m_sys);
 		
 		String expectedConsoleText = "User invoked function: test\r\nLogInfo:  Test Pass\r\n";	
 		org.eclipse.ui.PlatformUI.getWorkbench().getDisplay().readAndDispatch();
