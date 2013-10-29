@@ -2303,13 +2303,8 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 		
 		Component_c[] components = Component_c.getManyC_CsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(
 				Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(component))));
-
-		
 		
 		// launch the component
-//		DebugUITestUtilities.setLogActivityAndLaunchForElement(component,
-//				m_bp_tree.getControl().getMenu(), m_sys.getName());
-    	
 		
 		Selection.getInstance().setSelection(new StructuredSelection(components));
 
