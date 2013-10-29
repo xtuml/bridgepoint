@@ -13,6 +13,7 @@
 package com.mentor.nucleus.bp.debug.ui.test.execute;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -26,6 +27,8 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.ClassStateMachine_c;
@@ -55,12 +58,14 @@ import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.ui.perspective.BridgePointPerspective;
+import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.debug.ui.launch.BPDebugUtils;
 import com.mentor.nucleus.bp.debug.ui.test.DebugUITestUtilities;
 import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
 import com.mentor.nucleus.bp.test.common.UITestingUtilities;
+import com.mentor.nucleus.bp.ui.session.SessionExplorerTreeViewer;
 import com.mentor.nucleus.bp.ui.text.activity.ActivityEditor;
 
 public class VerifierInterfaceExecutionTests extends BaseTest {
@@ -135,6 +140,73 @@ public class VerifierInterfaceExecutionTests extends BaseTest {
 	public void tearDown() throws Exception {
 		DebugUITestUtilities.stopSession(m_sys, projectName);
 	}
+
+    public void testComponentRefComparisonInMessageBodies() {
+        final String testSystemName = "TestSystem1";
+        Package_c testPkg = Package_c.getOneEP_PKGOnR1405(m_sys,
+                new ClassQueryInterface_c() {
+                    public boolean evaluate(Object candidate) {
+                        return ((Package_c) candidate).getName().equals(
+                                testSystemName);
+                    }
+                });
+        assertNotNull(testPkg);
+
+        // launch the system
+        DebugUITestUtilities.setLogActivityAndLaunchForElement(testPkg,
+                m_bp_tree.getControl().getMenu(), m_sys.getName());
+
+        openPerspectiveAndView(
+                "com.mentor.nucleus.bp.debug.ui.DebugPerspective",
+                BridgePointPerspective.ID_MGC_BP_EXPLORER);
+
+        SessionExplorerView sev = BPDebugUtils.openSessionExplorerView(true);
+        SessionExplorerTreeViewer sevtv = sev.getTreeViewer();
+        sevtv.expandAll();
+        Tree sevTree = sevtv.getTree();
+        TreeItem projectTreeItem = sevTree.getItem(0);
+        TreeItem systemPackageTreeItem = sevtv.findItem(projectTreeItem, "TestSystem1");
+        ArrayList<TreeItem> clientComponentRefItems = sevtv.findItemsContainingText(systemPackageTreeItem, "::Client");
+
+        // Call the Init() required signal on one of the Client component references
+        TreeItem init_a = sevtv.findItem(clientComponentRefItems.get(0), "Init");
+        assertNotNull(init_a);
+        
+        Menu menu = UIUtil.getMenuForTreeItem(sevtv, init_a);
+        assertTrue(
+                "The execute menu item was not available for a required signal.",
+                UITestingUtilities.checkItemStatusInContextMenu(menu,
+                        "Execute", "", false));
+        UITestingUtilities.activateMenuItem(menu, "Execute");
+        DebugUITestUtilities.waitForExecution();
+        DebugUITestUtilities.waitForBPThreads(m_sys);
+
+        // Call the Init() required signal on the other Client component references
+        TreeItem init_b = sevtv.findItem(clientComponentRefItems.get(1), "Init");
+        assertNotNull(init_b);
+        
+        menu = UIUtil.getMenuForTreeItem(sevtv, init_b);
+        assertTrue(
+                "The execute menu item was not available for a required signal.",
+                UITestingUtilities.checkItemStatusInContextMenu(menu,
+                        "Execute", "", false));
+        UITestingUtilities.activateMenuItem(menu, "Execute");
+        DebugUITestUtilities.waitForExecution();
+        DebugUITestUtilities.waitForBPThreads(m_sys);
+
+        // Call the second Init() again to force a runtime check failure in the test model
+        UITestingUtilities.activateMenuItem(menu, "Execute");
+        DebugUITestUtilities.waitForExecution();
+        DebugUITestUtilities.waitForBPThreads(m_sys);
+
+        // Compare the trace
+        File expectedResults = new File(
+                m_workspace_path
+                        + "expected_results/interface_execution/execution_compare_component_refs_good.txt");
+        String expected_results = TestUtil.getTextFileContents(expectedResults);
+        String actual_results = DebugUITestUtilities.getConsoleText(expected_results);
+        assertEquals(expected_results.trim(), actual_results.trim());
+    }
 
 	public void testInterfaceExecutionSignalAssignedToTransition() {
 		Component_c component = Component_c.getOneC_COnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)), new ClassQueryInterface_c() {
