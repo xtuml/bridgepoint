@@ -196,6 +196,10 @@ configure_mcsystemc_src()
     rm -rf mc3020
     cp -rf $MC3020/mc3020 .
 
+    # We don't want the model-based MC for this version, so remove it
+    rm -f ./mc3020/bin/mcmc
+    rm -f ./mc3020/bin/mcmc.exe
+     
     cd ${build_dir}
 }
 
@@ -209,6 +213,10 @@ configure_mccpp_src()
     rm -rf mc3020
     cp -rf $MC3020/mc3020 .
 
+    # We don't want the model-based MC for this version, so remove it
+    rm -f ./mc3020/bin/mcmc
+    rm -f ./mc3020/bin/mcmc.exe
+     
     cd ${build_dir}
 }
 
@@ -222,6 +230,10 @@ configure_vhdl_src()
     rm -rf mc3020
     cp -rf $MC3020/mc3020 .
     
+    # We don't want the model-based MC for this version, so remove it
+    rm -f ./mc3020/bin/mcmc
+    rm -f ./mc3020/bin/mcmc.exe
+     
     cd ${build_dir}
 }
 
