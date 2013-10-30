@@ -1350,7 +1350,7 @@ public class GenericPackageUpgradeHelper {
 			pe.relateAcrossR8001To(cs);
 			upgrade.relateAcrossR8000To(pe);
 			dtp.unrelateAcrossR1506From(cips[i]);
-			dtp.unrelateAcrossR1506From(cips[i]);
+			cs.unrelateAcrossR1506From(cips[i]);
 			cips[i].delete();
 		}
 		// Dispose graphics for disposed and suppressed datatype elements
