@@ -29,8 +29,11 @@ if [ "${PRODUCT_VER}" = "" ]; then
 fi
 
 PRODUCT_NAME="BridgePoint"
+ECLIPSE_VER="3.7"
+BP_BASE_DIR="C:/BridgePoint_e${ECLIPSE_VER}"
 TEMP_DIR="C:/temp"
 LINUX_FRAGMENT="com.mentor.nucleus.bp.core.linux.x86"
+MCMC_EXE="com.mentor.nucleus.bp.mc.c.binary_4.0.7/mc3020/bin/mcmc.exe"
 SEQUENCE_CREATOR="com.mentor.nucleus.bp.sequencecapture_4.0.7.jar"
 SERVER="tucson.wv"
 REMOTE_RELEASE_DIR="/arch1/products/tiger/releases/${PRODUCT_VER}"
@@ -78,6 +81,11 @@ echo "INFO: Moving new extension data to ${INSTALLER_DATA_DIR}."
 cd "${INSTALLER_DATA_DIR}"
 rm -rf ${PRODUCT_NAME}
 mv "${TEMP_DIR}/${PRODUCT_NAME}" .
+echo "INFO: Done."
+
+echo "INFO: Setting up docgen executable"
+cd "${BP_BASE_DIR}/BridgePointDeliverables/tools/docgen"
+cp -f "${INSTALLER_DATA_DIR}/${PRODUCT_NAME}/eclipse/plugins/${MCMC_EXE}" docgen.exe
 echo "INFO: Done."
 
 echo "INFO: Removing unneeded Linux plugin fragment."
