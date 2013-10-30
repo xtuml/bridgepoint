@@ -189,6 +189,12 @@ public class GlobalsUtil {
 				}
 			}
 		}
+		ConstantSpecification_c[] specs = ConstantSpecification_c
+				..getManyCNST_CSPsOnR1506(ConstantInPackage_c
+						..getManyCNST_CIPsOnR1506(pkg));
+		if(specs.length != 0) {
+			foundUDT = true;
+		}
 		if(foundUDT) {
 			return false;
 		} else {
