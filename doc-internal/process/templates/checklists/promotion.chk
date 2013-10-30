@@ -40,7 +40,7 @@ _- Verify and merge the change:
 	   be merged using the github web interface:  
 		_- Locate the pull request on git hub 
 		   (https://github.com/xtuml/internal/pulls)
-		_- Select the pul request
+		_- Select the pull request
 		_- Select the "Files Changed" and review the changes too assure the files
 		   changed match the implementation note.
 	    _- Select the "Merge  Pull Request" option
