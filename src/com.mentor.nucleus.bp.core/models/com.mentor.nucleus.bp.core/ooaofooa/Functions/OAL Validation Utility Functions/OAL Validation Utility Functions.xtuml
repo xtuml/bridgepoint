@@ -3604,13 +3604,19 @@ if isInGenericPackage
         msg: "Cannot find external entity ->"+param.key_lett+"<-", 
                                                       token: param.rule_token ); 
   else  // results not empty
-    select many brg_set related by results->S_EE[R8001]->S_BRG[R19]
+    // select the first ee in the result set (it is acceptable to have multiple
+    // ees and we only want to validate multiple bridges in the same ee)
+    select any ee related by results->S_EE[R8001];
+    select many brg_set related by ee->S_BRG[R19]
                                               where selected.Name == param.name;
     if ( empty brg_set )
       ERR::reportParseError( 
           msg: "Cannot find specified bridge ->"+param.key_lett+"::%s<-", 
                                                       token: param.rule_token ); 
-    else // cardinality brg_set >= 1
+    elif ( cardinality brg_set > 1 )
+      ERR::reportParseError(msg: "More than one bridge with name ->%s<- " +
+          "You will need to eventually clear this up", token: param.rule_token);
+    else // cardinality brg_set == 1
       select any brg related by results->S_EE[R8001]->S_BRG[R19]
                                               where selected.Name == param.name;
       create object instance brv of V_BRV;
