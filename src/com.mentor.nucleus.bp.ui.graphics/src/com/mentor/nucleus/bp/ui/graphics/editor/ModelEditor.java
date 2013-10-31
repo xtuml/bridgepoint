@@ -215,6 +215,7 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 
 	@Override
 	public NonRootModelElement getFirstSelectedElement() {
+		if(getGraphicalEditor() == null) { return null; }
 		IStructuredSelection selection = (IStructuredSelection) getGraphicalEditor()
 				.getEditorSite().getSelectionProvider().getSelection();
 		for(Object selected : selection.toList()) {
