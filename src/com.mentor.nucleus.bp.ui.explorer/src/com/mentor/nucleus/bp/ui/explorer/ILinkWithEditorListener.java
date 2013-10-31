@@ -1,4 +1,7 @@
 package com.mentor.nucleus.bp.ui.explorer;
+
+import com.mentor.nucleus.bp.core.common.NonRootModelElement;
+
 //=====================================================================
 //
 // File:      $RCSfile: ILinkWithEditorListener.java,v $
@@ -18,4 +21,5 @@ public interface ILinkWithEditorListener {
 
 	public void notifySelectionLink();
 
+	public NonRootModelElement getFirstSelectedElement();
 }
