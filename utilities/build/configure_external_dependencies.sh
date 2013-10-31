@@ -135,10 +135,6 @@ configure_mc3020()
     cp -r ${git_repo_root}/mc/schema ./schema
     mv ./schema/default-manifest.xml ./
 
-    # For legacy purposes create a .pl version of xtumlmc_build
-    cd $MC3020/mc3020/bin
-    cp -f xtumlmc_build xtumlmc_build.pl
-    
     cd $MC3020/mc3020
     cp -f ${git_repo_root}/mc/libTRANS/libTRANS.dll ./bin
     
