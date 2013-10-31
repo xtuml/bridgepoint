@@ -98,7 +98,10 @@ Steps
 7  Prepare release candidate
 7.1  Docs Freeze & Feature Freeze; followed by Code Freeze (make sure CC & CQ 
      are updated)
-7.2  Tag the git xtuml/mc & xtuml/generator repositories and push the tags to github.
+7.1.1  Once the Release Notes and What's New are done, alert the Product Marketing
+       Manager that they need to create a Value Sheet for the release.
+7.2  Tag the git xtuml/internal, xtuml/mc & xtuml/generator repositories and 
+     push the tags to github.
        EGit:
        - Switch to Git Repository Exploring Perspective
        - Expand the desired repository
