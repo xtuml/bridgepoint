@@ -24,8 +24,8 @@ com.mentor.nucleus.bp.core.test                 -               -
               Core Test-Workspace Setup Generic bob             pass       65/85s
               Core Test-Existing Projects Gener bob             pass       4/10s 
               Core Generic Upgrade Test         bob             pass       4/4s
-              UseGlobals Core Test Generics     bob             fail       zzzz/1165s  (4 errors)
-              UseGlobals Core Test 2Generics    bob             pass       210/340s    (1 failure)
+              UseGlobals Core Test Generics     bob             pass       1430/1165s  
+              UseGlobals Core Test 2Generics    bob             pass       210/340s    
               UseGlobals Core Test-SystemLevelTests bob         pass       13/40s              
 com.mentor.nucleus.bp.debug.ui.test (Verifier)    -             -
               Debug - Verifier Test             bob             pass       779/1660s
