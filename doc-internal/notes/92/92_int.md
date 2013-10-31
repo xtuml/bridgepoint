@@ -65,6 +65,7 @@ _R There are no parse errors
 ---------------
 Branch name: 92_ee_parse_issues   
 
+<pre>
 com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/  
 	Functions/OAL Validation Functions/OAL Validation Functions.xtuml  
 com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/  
@@ -75,6 +76,7 @@ com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/core/common/
 
 com.mentor.nucleus.bp.core.test/expected_results/Dangling_Reference_Integrity/  
 	Dangling_Reference_Integrity.txt
+</pre>
 
 End
 ---
