@@ -15,12 +15,13 @@ when locating more than one External Entity with the same key letters.
 2. Document References
 ----------------------
 [1] Issues 92, https://github.com/xtuml/doc/issues/92   
+[2] CQ Issue: dts0100939989
 
 3. Background
 -------------
-External Entities have recently changed such that they can be referenced from
-other projects.  This change did not remove the parse logic that created errors
-when finding multiple External Entities with the same key letters.  This
+External Entities have recently changed [2] such that they can be referenced
+from other projects.  This change did not remove the parse logic that created
+errors when finding multiple External Entities with the same key letters.  This
 situation will be common at first and there is no reason to create a parse error
 as the collection mechanism will return the first External Entity found.
 
@@ -38,6 +39,10 @@ more than one located External Entity.  In each case this logic is removed and
 the existing OAL for the situation where only one External Entity was found is
 left as is.  The existing OAL will select the first External Entity in the
 search list.
+
+Invocation_function_validation   
+EE_KeyLetters_Validate   
+Identifier_validate
 
 6. Implementation Comments
 --------------------------
