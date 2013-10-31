@@ -8,6 +8,12 @@
 <!--
  /* Font Definitions */
  @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
 	{font-family:Cambria;
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
@@ -98,6 +104,38 @@ p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
 	margin-bottom:.0001pt;
 	font-size:8.0pt;
 	font-family:"Tahoma","sans-serif";}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Arial","sans-serif";}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Arial","sans-serif";}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Arial","sans-serif";}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Arial","sans-serif";}
 span.Heading1Char
 	{mso-style-name:"Heading 1 Char";
 	mso-style-link:"Heading 1";
@@ -151,6 +189,11 @@ span.resultoftext
 	margin:1.0in 1.25in 1.0in 1.25in;}
 div.WordSection1
 	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
 -->
 </style>
 
@@ -173,16 +216,21 @@ color:green'>&nbsp;</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=985
  style='width:739.0pt'>
- <tr style='height:70.8pt'>
-  <td width=138 style='width:103.5pt;border:none;border-bottom:solid windowtext 1.5pt;
-  padding:7.5pt 7.5pt 7.5pt 7.5pt;height:70.8pt'>
+ <tr style='height:52.35pt'>
+  <td width=138 valign=top style='width:103.5pt;border:none;border-bottom:solid windowtext 1.5pt;
+  padding:7.5pt 7.5pt 7.5pt 7.5pt;height:52.35pt'>
   <p class=MsoNormal align=right style='margin-top:7.5pt;margin-right:0in;
   margin-bottom:7.5pt;margin-left:0in;text-align:right'><b><span
-  style='font-size:10.0pt;color:black'>TODO</span></b></p>
+  style='font-size:10.0pt;color:black'>xtUML Translate</span></b></p>
   </td>
-  <td width=847 style='width:635.5pt;border:none;border-bottom:solid windowtext 1.5pt;
-  padding:7.5pt 7.5pt 7.5pt 7.5pt;height:70.8pt'>
-  <p>TODO</p>
+  <td width=847 valign=top style='width:635.5pt;border:none;border-bottom:solid windowtext 1.5pt;
+  padding:7.5pt 7.5pt 7.5pt 7.5pt;height:52.35pt'>
+  <p>The BridgePoint C model compilers contain major enhancements that
+  significantly reduce translation time and memory usage.  The new translation
+  process is integrated seamlessly with the existing functionality.  Users will
+  see added informational messages (in red text) in the Console view during
+  translation.  The performance and memory gains make the translation much more
+  robust for large models.</p>
   </td>
  </tr>
  <tr style='height:41.85pt'>
@@ -191,26 +239,105 @@ color:green'>&nbsp;</span></b></p>
   padding:7.5pt 7.5pt 7.5pt 7.5pt;height:41.85pt'>
   <p class=MsoNormal align=right style='margin-top:7.5pt;margin-right:0in;
   margin-bottom:7.5pt;margin-left:0in;text-align:right'><b><span
-  style='font-size:10.0pt;color:black'>TODO</span></b></p>
+  style='font-size:10.0pt;color:black'>xtUML eXecute</span></b></p>
   </td>
   <td width=847 valign=top style='width:635.5pt;border-top:solid windowtext 1.5pt;
   border-left:none;border-bottom:solid windowtext 1.5pt;border-right:none;
   padding:7.5pt 7.5pt 7.5pt 7.5pt;height:41.85pt'>
-  <p class=MsoNormal><span style='font-size:10.0pt'>TODO</span></p>
+  <p class=MsoNormal><span style='font-size:10.0pt'>A number of fixes and
+  enhancements were made to xtUML eXecute:</span></p>
+  <p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+  <p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+  style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span></span><span style='font-size:10.0pt'>Fixed execution of synchronous
+  operations when using Verifier Interface to Realized Components</span></p>
+  <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+  style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span></span><span style='font-size:10.0pt'>Made the execution of multiple
+  identical configurations more robust</span></p>
+  <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+  style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span></span><span style='font-size:10.0pt'>Fixed comparison of attributes
+  of type </span><span style='font-size:10.0pt;font-family:"Courier New"'>component_ref</span></p>
+  <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+  style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span></span><span style='font-size:10.0pt'>Improved the consistency of
+  lists of interface signals is various views within the tool</span></p>
+  <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+  style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span></span><span style='font-size:10.0pt'>Improved the execution control
+  provided by the “Suspend” and “Step” tools within an execution session</span></p>
+  <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+  style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span></span><span style='font-size:10.0pt'>Improved realized component and interface
+  library unloading on session termination</span></p>
   </td>
  </tr>
  <tr style='height:41.85pt'>
-  <td width=138 style='width:103.5pt;border-top:solid windowtext 1.5pt;
+  <td width=138 valign=top style='width:103.5pt;border-top:solid windowtext 1.5pt;
   border-left:none;border-bottom:solid windowtext 1.5pt;border-right:none;
   padding:7.5pt 7.5pt 7.5pt 7.5pt;height:41.85pt'>
   <p class=MsoNormal align=right style='margin-top:7.5pt;margin-right:0in;
   margin-bottom:7.5pt;margin-left:0in;text-align:right'><b><span
-  style='font-size:10.0pt;color:black'>TODO</span></b></p>
+  style='font-size:10.0pt;color:black'>Document Generation</span></b></p>
   </td>
-  <td width=847 style='width:635.5pt;border-top:solid windowtext 1.5pt;
+  <td width=847 valign=top style='width:635.5pt;border-top:solid windowtext 1.5pt;
   border-left:none;border-bottom:solid windowtext 1.5pt;border-right:none;
   padding:7.5pt 7.5pt 7.5pt 7.5pt;height:41.85pt'>
-  <p class=MsoNormal><span style='font-size:10.0pt'>TODO</span></p>
+  <p class=MsoNormal><span style='font-size:10.0pt'>The output of document
+  generator includes additional formatted information drawn from the model.  </span></p>
+  </td>
+ </tr>
+ <tr style='height:41.85pt'>
+  <td width=138 valign=top style='width:103.5pt;border-top:solid windowtext 1.5pt;
+  border-left:none;border-bottom:solid windowtext 1.5pt;border-right:none;
+  padding:7.5pt 7.5pt 7.5pt 7.5pt;height:41.85pt'>
+  <p class=MsoNormal align=right style='margin-top:7.5pt;margin-right:0in;
+  margin-bottom:7.5pt;margin-left:0in;text-align:right'><b><span
+  style='font-size:10.0pt;color:black'>Model Merge</span></b></p>
+  </td>
+  <td width=847 valign=top style='width:635.5pt;border-top:solid windowtext 1.5pt;
+  border-left:none;border-bottom:solid windowtext 1.5pt;border-right:none;
+  padding:7.5pt 7.5pt 7.5pt 7.5pt;height:41.85pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt'>The model merge capability
+  inside the tool has been enhanced to improve the capability of State Machine
+  merges.</span></p>
+  </td>
+ </tr>
+ <tr style='height:41.85pt'>
+  <td width=138 valign=top style='width:103.5pt;border-top:solid windowtext 1.5pt;
+  border-left:none;border-bottom:solid windowtext 1.5pt;border-right:none;
+  padding:7.5pt 7.5pt 7.5pt 7.5pt;height:41.85pt'>
+  <p class=MsoNormal align=right style='margin-top:7.5pt;margin-right:0in;
+  margin-bottom:7.5pt;margin-left:0in;text-align:right'><b><span
+  style='font-size:10.0pt;color:black'>External Entities</span></b></p>
+  </td>
+  <td width=847 valign=top style='width:635.5pt;border-top:solid windowtext 1.5pt;
+  border-left:none;border-bottom:solid windowtext 1.5pt;border-right:none;
+  padding:7.5pt 7.5pt 7.5pt 7.5pt;height:41.85pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt'>Two new features were added
+  for External Entities.</span></p>
+  <p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+  <p class=MsoNormal><span style='font-size:10.0pt'>First, a tool is provided
+  to include the built-in External Entities Architecture (ARCH), Logging (LOG)
+  and Time (TIM).  Simply select any package (typically a top-level package
+  specifically for EEs) and choose “Add built-in External Entities” from the
+  context menu on the package.</span></p>
+  <p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+  <p class=MsoNormal><span style='font-size:10.0pt'><img border=0 width=510
+  height=288 id="Picture 1" src="WhatsNew_files/image001.jpg"></span></p>
+  <p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+  <p class=MsoNormal><span style='font-size:10.0pt'>Second, the tool now
+  includes support for realized External Entities in the same manner as
+  existing support for realized Components:</span></p>
+  <p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+  <p class=MsoNormal><span style='font-size:10.0pt'><img border=0 width=822
+  height=498 id="Picture 2" src="WhatsNew_files/image002.jpg"></span></p>
+  <p class=MsoNormal><span style='font-size:10.0pt'>&nbsp;</span></p>
+  <p class=MsoNormal><span style='font-size:10.0pt'>Combined with inter-project
+  references, users now have the ability to create EEs in a single project,
+  provide a single Java implementation for the EE, and re-use that
+  implementation across many projects.</span></p>
   </td>
  </tr>
 </table>
