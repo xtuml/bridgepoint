@@ -38,6 +38,7 @@ import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.ui.texteditor.InfoForm;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
 import com.mentor.nucleus.bp.ui.canvas.CanvasPlugin;
@@ -45,6 +46,7 @@ import com.mentor.nucleus.bp.ui.canvas.Model_c;
 import com.mentor.nucleus.bp.ui.canvas.util.GraphicsUtil;
 import com.mentor.nucleus.bp.ui.explorer.ILinkWithEditorListener;
 import com.mentor.nucleus.bp.ui.graphics.Activator;
+import com.mentor.nucleus.bp.ui.graphics.parts.ShapeEditPart;
 
 public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorListener {
 
@@ -209,5 +211,18 @@ public class ModelEditor extends MultiPageEditorPart implements ILinkWithEditorL
 		if(zoomSelected) {
 			getGraphicalEditor().zoomSelected();
 		}
+	}
+
+	@Override
+	public NonRootModelElement getFirstSelectedElement() {
+		IStructuredSelection selection = (IStructuredSelection) getGraphicalEditor()
+				.getEditorSite().getSelectionProvider().getSelection();
+		for(Object selected : selection.toList()) {
+			if (selected instanceof ShapeEditPart) {
+				NonRootModelElement nrme = (NonRootModelElement) ((ShapeEditPart)selected).getGraphicalElement().getRepresents();
+				return nrme;
+			}
+		}
+		return null;
 	}
 }
