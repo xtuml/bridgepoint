@@ -132,7 +132,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 				IntegrityManager_c
 						.Createissue(
 								getModelRoot(),
-								"Found a danling reference.  An element with the following attributes could not be found:\n\n"
+								"Found a dangling reference.  An element with the following attributes could not be found:\n\n"
 										+ "Referenced Element ID: "
 										+ rto.Get_ooa_id()
 										+ "\n"

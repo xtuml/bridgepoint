@@ -3610,10 +3610,7 @@ if isInGenericPackage
       ERR::reportParseError( 
           msg: "Cannot find specified bridge ->"+param.key_lett+"::%s<-", 
                                                       token: param.rule_token ); 
-    elif ( cardinality brg_set > 1 )
-      ERR::reportParseError(msg: "More than one bridge with name ->%s<- " +
-          "You will need to eventually clear this up", token: param.rule_token);
-    else // cardinality brg_set == 1
+    else // cardinality brg_set >= 1
       select any brg related by results->S_EE[R8001]->S_BRG[R19]
                                               where selected.Name == param.name;
       create object instance brv of V_BRV;
