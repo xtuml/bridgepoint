@@ -9,7 +9,6 @@ MSD Weekly Meeting Minutes
 * In January 2013 the document began being maintained here on github.  Issue #30 is the github tracking issue now.
 
 
-
 ---
 
     Date:     date
@@ -29,6 +28,59 @@ MSD Weekly Meeting Minutes
  
 ### Customer Support Status
 **Item 1 -** text
+
+
+---
+
+    Date:     October 30, 2013
+    Start:    6:00 GMT+2 (Cairo)
+    End:      6:25 GMT+2 (Cairo)
+    Elapsed:  25 minutes
+    Present:  Bob, Keith, Travis, Campbell, Cort, Nehad, Heba (online)
+            Dean, Robert, Jayne
+
+### Engineering Status
+**Bob:**  
+ - Testing is started, Travis and Nehad working on  
+ - There are 3 issues remains ( Heba, Cort, and Bob)  
+ - Two issues got pushed off ( Saab and Sony issues )  
+ - Saab issue: is a feature they only want ( changing parameter name anywhere in model) - dts0100917381  
+ - Sony issue: too much work - dts0100974806  
+ - Skip any test related to model compiler until we have release candidate
+
+**Keith** 
+ - We are almost ready to tag 4.1  
+ - update doc gen  with model based model compiler  
+ - master build is currently very close to a release candidate  
+
+**Cort**
+ - Working on model compiler, it is almost delivered
+ - Note need to be reviewed for promotion, and manual testing and testing against customers models
+
+**Travis**
+ - Currently working on testing   
+ - Ericsson report has  31 test cases, and issues have been raised with the failures, and Ericossn is asked to prioritized them  
+
+**Nehad**
+ - Working on manual testing
+
+**Heba**
+ - Reviewed design note note dts0100629397dnt.md  
+ - going through the final review check list to get it to promotion  
+
+
+### Marketing Status
+**Dean**
+- At the end of last year, we were no longer able to sell  modeling package.. new title is  Tier 1 service packages are the replacement  
+- Tier one services are an entension for consulting, which engineering is able to be involved with. Extending revenue sources beyond  SW sales by charging customer for features and unique tool support  
+- Tier one service time frame is 12 monthes  
+- Tier 1 services do not include a commitment os support from CSD. Instead, all deliverables are supported through consulting or engineering efforts. Only if the feature becomes part of a standard BridgePinnt release will CSD be required to offer support.  
+- Potential business opportunity: between $250,000 and high end >$500,000  
+
+ 
+### Customer Support Status
+**Robert**
+ - There is a raised issue about usablity with Japaness character  
 
 ---
 
