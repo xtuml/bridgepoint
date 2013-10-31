@@ -1,5 +1,5 @@
 @echo off
-set BP_VERSION=4.0.7
+set BP_VERSION=4.1.0
 
 if not "%MGLS_LICENSE_FILE%"=="" goto SetCommonVariables
 if not "%LM_LICENSE_FILE%"=="" goto LMLicenseConfigured
