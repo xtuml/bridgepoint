@@ -57,13 +57,14 @@ associated test results is updated to reflect this.
 
 7. Unit Test
 ------------
-_- Load agilegc models
-_- Navigate to the PM component and run Parse All
-_R There are no parse errors
+_- Load agilegc models   
+_- Navigate to the PM component and run Parse All   
+_R There are no parse errors   
 
 8. Code Changes
 ---------------
-Branch name: 92_ee_parse_issues
+Branch name: 92_ee_parse_issues   
+
 com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/  
 	Functions/OAL Validation Functions/OAL Validation Functions.xtuml  
 com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/  
