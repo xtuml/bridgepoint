@@ -387,11 +387,23 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
 		if (!isActivePart())
 			return;
 		if (getSite().getPage().getActiveEditor() != null) {
-			// sync the current core selection with the editor's
 			IEditorPart activeEditor = getSite().getPage().getActiveEditor();
-			activeEditor.getEditorSite()
-					..getSelectionProvider().setSelection(
-							Selection.getInstance().getSelection());
+			if (!Selection.getInstance().getSelection().isEmpty()) {
+			   	// If there is a tree selection then 
+			   	// sync the current core selection with the editor's
+				activeEditor.getEditorSite().getSelectionProvider()
+					..setSelection(Selection.getInstance().getSelection());
+			} else {
+				// If there is a editor selection then set the tree selection and
+                // expend the tree to the selection
+				if (activeEditor instanceof ILinkWithEditorListener) {
+					NonRootModelElement nrme = ((ILinkWithEditorListener) activeEditor).getFirstSelectedElement();
+					if (nrme != null) {
+						selection = adaptSelection(new StructuredSelection(nrme));
+						setTreeSelection(treeViewer, selection);
+					}
+				}
+			}
 			// call client link selection handling
 			if(activeEditor instanceof ILinkWithEditorListener) {
 				((ILinkWithEditorListener) activeEditor).notifySelectionLink();
