@@ -1,4 +1,4 @@
--- BP 7.1 content: ClassStateMachine syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: ClassStateMachine syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO SM_ASM
 	VALUES ("0ba9d299-2690-41e3-b7fe-b2ace54a72aa",
@@ -14,13 +14,14 @@ INSERT INTO SM_SGEVT
 	"0ba9d299-2690-41e3-b7fe-b2ace54a72aa",
 	"00000000-0000-0000-0000-000000000000",
 	"82730550-d5bb-4a48-a6aa-100abece628b",
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	'to_heart::diastolic_pulse');
 INSERT INTO SPR_PS_PROXY
 	VALUES ("82730550-d5bb-4a48-a6aa-100abece628b",
 	'diastolic_pulse',
 	'',
 	'',
-	3,
+	1,
 	'../../../pacemaker.xtuml');
 INSERT INTO SM_SEVT
 	VALUES ("4f69b75c-e42e-49b3-b154-f955b309b351",
@@ -34,20 +35,21 @@ INSERT INTO SM_EVT
 	'diastolic_pulse',
 	0,
 	'',
-	'PACER_A3',
+	'to_heart::diastolic_pulse',
 	'');
 INSERT INTO SM_SGEVT
 	VALUES ("4042bb9b-be7f-44f8-ad0e-f43e1d6bbcae",
 	"0ba9d299-2690-41e3-b7fe-b2ace54a72aa",
 	"00000000-0000-0000-0000-000000000000",
 	"c1748da8-25d1-46d5-867a-60c2d7fdedff",
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	'to_heart::systolic_pulse');
 INSERT INTO SPR_PS_PROXY
 	VALUES ("c1748da8-25d1-46d5-867a-60c2d7fdedff",
 	'systolic_pulse',
 	'',
 	'',
-	3,
+	1,
 	'../../../pacemaker.xtuml');
 INSERT INTO SM_SEVT
 	VALUES ("4042bb9b-be7f-44f8-ad0e-f43e1d6bbcae",
@@ -61,20 +63,21 @@ INSERT INTO SM_EVT
 	'systolic_pulse',
 	0,
 	'',
-	'PACER_A4',
+	'to_heart::systolic_pulse',
 	'');
 INSERT INTO SM_SGEVT
 	VALUES ("1c26cab7-c7e4-4258-8f0e-8a44c5a38892",
 	"0ba9d299-2690-41e3-b7fe-b2ace54a72aa",
 	"00000000-0000-0000-0000-000000000000",
 	"972b929e-b5d5-4544-8fd8-867f73076609",
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	'monitor::increased_activty');
 INSERT INTO SPR_PS_PROXY
 	VALUES ("972b929e-b5d5-4544-8fd8-867f73076609",
 	'increased_activty',
 	'',
 	'',
-	3,
+	1,
 	'../../../pacemaker.xtuml');
 INSERT INTO SM_SEVT
 	VALUES ("1c26cab7-c7e4-4258-8f0e-8a44c5a38892",
@@ -88,7 +91,7 @@ INSERT INTO SM_EVT
 	'increased_activty',
 	0,
 	'',
-	'PACER_A5',
+	'monitor::increased_activty',
 	'');
 INSERT INTO SM_STATE
 	VALUES ("56238f2d-2d9a-45d4-97dd-6a531d435857",
@@ -223,13 +226,15 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'3.4.0');
+	'3.4.0',
+	'avpace::library::pacemaker::pacemaker::pacer::Class State Machine');
 INSERT INTO GD_GE
 	VALUES ("0df8c32c-86a1-490a-b840-7907dac05d87",
 	"b674557f-a478-44b3-8d37-2868a383518c",
 	"56238f2d-2d9a-45d4-97dd-6a531d435857",
 	41,
-	0);
+	0,
+	'avpace::library::pacemaker::pacemaker::pacer::Class State Machine::monitoring host');
 INSERT INTO GD_SHP
 	VALUES ("0df8c32c-86a1-490a-b840-7907dac05d87");
 INSERT INTO GD_NCS
@@ -282,7 +287,8 @@ INSERT INTO GD_GE
 	"b674557f-a478-44b3-8d37-2868a383518c",
 	"03b728a3-57fa-43aa-9cca-00c16027d560",
 	42,
-	0);
+	0,
+	'avpace::library::pacemaker::pacemaker::pacer::Class State Machine::monitoring host::to_heart::diastolic_pulse');
 INSERT INTO GD_CON
 	VALUES ("bc448a6a-941c-4ca1-b92c-e75251c5044f",
 	"00000000-0000-0000-0000-000000000000");
@@ -407,7 +413,8 @@ INSERT INTO GD_GE
 	"b674557f-a478-44b3-8d37-2868a383518c",
 	"1550101c-0ff8-4211-afc7-e30ca848b9fb",
 	42,
-	0);
+	0,
+	'avpace::library::pacemaker::pacemaker::pacer::Class State Machine::monitoring host::to_heart::systolic_pulse');
 INSERT INTO GD_CON
 	VALUES ("73d26b61-cbe5-4d2e-a486-bca752618285",
 	"00000000-0000-0000-0000-000000000000");
@@ -532,7 +539,8 @@ INSERT INTO GD_GE
 	"b674557f-a478-44b3-8d37-2868a383518c",
 	"67b64480-d9c1-4e82-be1d-aa9a0cbfd358",
 	42,
-	0);
+	0,
+	'avpace::library::pacemaker::pacemaker::pacer::Class State Machine::monitoring host::monitor::increased_activty');
 INSERT INTO GD_CON
 	VALUES ("5713bfa2-46a9-4e40-b0cb-3d16619394b7",
 	"00000000-0000-0000-0000-000000000000");

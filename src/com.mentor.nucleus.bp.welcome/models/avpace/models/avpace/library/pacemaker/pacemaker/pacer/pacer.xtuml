@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("37df0e10-44eb-42cf-a2b2-562eaeaa8b91",
@@ -22,16 +22,9 @@ INSERT INTO O_ATTR
 	'',
 	'systolic_tolerance',
 	0,
-	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("6839f81d-65c4-4802-8a7b-29e2dae94930",
-	"00000000-0000-0000-0000-000000000000",
-	'integer',
-	'',
-	'',
-	'../../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("243b5417-e7e1-4d36-94fa-03e3b6159880",
 	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
@@ -47,7 +40,7 @@ INSERT INTO O_ATTR
 	'',
 	'diastolic_tolerance',
 	0,
-	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -65,16 +58,9 @@ INSERT INTO O_ATTR
 	'',
 	'current_state',
 	0,
-	"e45ca3d2-8b4c-491b-ab95-fdef100404c1",
+	"ba5eda7a-def5-0000-0000-000000000006",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("e45ca3d2-8b4c-491b-ab95-fdef100404c1",
-	"00000000-0000-0000-0000-000000000000",
-	'state<State_Model>',
-	'',
-	'',
-	'../../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("30acaacb-b85a-4399-bdda-a483e946d98e",
 	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
@@ -90,7 +76,7 @@ INSERT INTO O_ATTR
 	'',
 	'cycle_count',
 	0,
-	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -108,16 +94,9 @@ INSERT INTO O_ATTR
 	'',
 	'timeout_timer',
 	0,
-	"e3c8a697-cc9b-4b24-9346-ef7bbfbb25a4",
+	"ba5eda7a-def5-0000-0000-00000000000f",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("e3c8a697-cc9b-4b24-9346-ef7bbfbb25a4",
-	"00000000-0000-0000-0000-000000000000",
-	'inst_ref<Timer>',
-	'',
-	'',
-	'../../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("de3bd1ca-a337-4d2b-bf0e-cd900d7cf312",
 	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
@@ -133,7 +112,7 @@ INSERT INTO O_ATTR
 	'',
 	'systolic_timeout',
 	0,
-	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -151,7 +130,7 @@ INSERT INTO O_ATTR
 	'',
 	'diastolic_timeout',
 	0,
-	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_ID
@@ -163,10 +142,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
-INSERT INTO PE_PE_PROXY
+INSERT INTO PE_PE
 	VALUES ("37df0e10-44eb-42cf-a2b2-562eaeaa8b91",
 	1,
 	"79417bd8-4d07-4b9f-aa0f-c64f877051b2",
 	"00000000-0000-0000-0000-000000000000",
-	4,
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("79417bd8-4d07-4b9f-aa0f-c64f877051b2",
+	"00000000-0000-0000-0000-000000000000",
+	"15b2a15d-7110-4efa-b644-89bd96e12c0e",
+	'pacemaker',
+	'',
+	0,
 	'../pacemaker.xtuml');

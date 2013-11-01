@@ -1,4 +1,4 @@
--- BP 7.1 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO SM_ISM
 	VALUES ("1a2debf6-3c64-4272-b4c0-02b53c3e1624",
@@ -200,13 +200,15 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'3.1.2');
+	'3.1.2',
+	'avpace::library::heart::heart::sinus node::Instance State Machine');
 INSERT INTO GD_GE
 	VALUES ("3cf140df-6d19-40f6-8c42-3a80312f595e",
 	"58023df7-caf7-4df6-8d54-f7f33f6e7b1b",
 	"57b4c89f-a17b-4b13-b6a9-29bc71e09c35",
 	41,
-	0);
+	0,
+	'avpace::library::heart::heart::sinus node::Instance State Machine::pulsing systolic');
 INSERT INTO GD_SHP
 	VALUES ("3cf140df-6d19-40f6-8c42-3a80312f595e");
 INSERT INTO GD_NCS
@@ -239,7 +241,8 @@ INSERT INTO GD_GE
 	"58023df7-caf7-4df6-8d54-f7f33f6e7b1b",
 	"f2a9fc6e-c880-4bb9-9346-b0f57919eba6",
 	41,
-	0);
+	0,
+	'avpace::library::heart::heart::sinus node::Instance State Machine::pulsing diastolic');
 INSERT INTO GD_SHP
 	VALUES ("50644f14-4fb6-4963-b66d-40c67f3ed5b6");
 INSERT INTO GD_NCS
@@ -272,7 +275,8 @@ INSERT INTO GD_GE
 	"58023df7-caf7-4df6-8d54-f7f33f6e7b1b",
 	"4b3c6fc6-c7df-427f-885a-569aef0ab5db",
 	42,
-	0);
+	0,
+	'avpace::library::heart::heart::sinus node::Instance State Machine::pulsing systolic::SINUS_NODE1: pop');
 INSERT INTO GD_CON
 	VALUES ("87b2285a-f141-4cf9-a737-1f76a1c65a8f",
 	"00000000-0000-0000-0000-000000000000");
@@ -371,7 +375,8 @@ INSERT INTO GD_GE
 	"58023df7-caf7-4df6-8d54-f7f33f6e7b1b",
 	"ef6cf1cb-480e-40c6-a219-7b040f7e2084",
 	42,
-	0);
+	0,
+	'avpace::library::heart::heart::sinus node::Instance State Machine::pulsing diastolic::SINUS_NODE2: period');
 INSERT INTO GD_CON
 	VALUES ("d5df1311-dcbb-41a5-8ebf-a4962cd3d17e",
 	"00000000-0000-0000-0000-000000000000");

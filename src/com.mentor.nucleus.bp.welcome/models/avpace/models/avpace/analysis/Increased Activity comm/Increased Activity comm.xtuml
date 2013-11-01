@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("43ef2b15-ca85-4abd-9687-17baabee71d7",
@@ -24,13 +24,15 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'3.4.0');
+	'3.4.0',
+	'avpace::analysis::Increased Activity comm');
 INSERT INTO GD_GE
 	VALUES ("f487199a-9596-43dd-ba26-1269a58d9c0f",
 	"a20bd918-b36c-4ab4-98fb-84a4938a0fc1",
 	"b4d5fe72-30fc-4b2f-b2cc-a11ac9340459",
 	61,
-	0);
+	0,
+	'avpace::analysis::Increased Activity comm::Pacer1');
 INSERT INTO GD_SHP
 	VALUES ("f487199a-9596-43dd-ba26-1269a58d9c0f");
 INSERT INTO GD_NCS
@@ -68,7 +70,8 @@ INSERT INTO GD_GE
 	"a20bd918-b36c-4ab4-98fb-84a4938a0fc1",
 	"5bbc61b0-b12a-4852-b020-6d678a1ad0c1",
 	61,
-	0);
+	0,
+	'avpace::analysis::Increased Activity comm::TemperatureMonitor1');
 INSERT INTO GD_SHP
 	VALUES ("2ad9b4a1-cf7c-4877-9e08-957bf74b7c00");
 INSERT INTO GD_NCS
@@ -101,7 +104,8 @@ INSERT INTO GD_GE
 	"a20bd918-b36c-4ab4-98fb-84a4938a0fc1",
 	"e716b809-5690-4349-9924-45d07d119120",
 	61,
-	0);
+	0,
+	'avpace::analysis::Increased Activity comm::RespiratoryMonitor1');
 INSERT INTO GD_SHP
 	VALUES ("e32b8750-6352-4930-974d-eba464089bb5");
 INSERT INTO GD_NCS
@@ -134,7 +138,8 @@ INSERT INTO GD_GE
 	"a20bd918-b36c-4ab4-98fb-84a4938a0fc1",
 	"5bafe46a-78f1-41a3-b136-54ea0fe9d0e9",
 	61,
-	0);
+	0,
+	'avpace::analysis::Increased Activity comm::HostMonitor1');
 INSERT INTO GD_SHP
 	VALUES ("df9bb61e-8241-4497-92bf-469cbe02ecd0");
 INSERT INTO GD_NCS
@@ -172,7 +177,8 @@ INSERT INTO GD_GE
 	"a20bd918-b36c-4ab4-98fb-84a4938a0fc1",
 	"93db3196-6776-4630-ae3f-185bbcf367fa",
 	81,
-	0);
+	0,
+	'avpace::analysis::Increased Activity comm::');
 INSERT INTO GD_CON
 	VALUES ("35569b0a-c16a-4d3a-bb25-adb7b9d24cf0",
 	"00000000-0000-0000-0000-000000000000");
@@ -271,7 +277,8 @@ INSERT INTO GD_GE
 	"a20bd918-b36c-4ab4-98fb-84a4938a0fc1",
 	"146e5fcd-c199-44fe-b52e-22163b42fc8f",
 	66,
-	0);
+	0,
+	'avpace::analysis::Increased Activity comm::increasedTemperature');
 INSERT INTO GD_CON
 	VALUES ("b087cd01-593c-4e76-8151-6071be720285",
 	"00000000-0000-0000-0000-000000000000");
@@ -370,7 +377,8 @@ INSERT INTO GD_GE
 	"a20bd918-b36c-4ab4-98fb-84a4938a0fc1",
 	"96767e7b-ce2f-4b4f-abb4-ed8cce7e9e36",
 	81,
-	0);
+	0,
+	'avpace::analysis::Increased Activity comm::R2');
 INSERT INTO GD_CON
 	VALUES ("25c3ba84-20b4-43ae-990a-32265504b5b7",
 	"00000000-0000-0000-0000-000000000000");
@@ -482,7 +490,8 @@ INSERT INTO GD_GE
 	"a20bd918-b36c-4ab4-98fb-84a4938a0fc1",
 	"6442b060-99fa-42dc-ac68-cbb2490905ea",
 	81,
-	0);
+	0,
+	'avpace::analysis::Increased Activity comm::R3');
 INSERT INTO GD_CON
 	VALUES ("3c8752ad-51c5-4ac6-b9a6-608097a4171e",
 	"00000000-0000-0000-0000-000000000000");
@@ -594,7 +603,8 @@ INSERT INTO GD_GE
 	"a20bd918-b36c-4ab4-98fb-84a4938a0fc1",
 	"68e2ed1c-44b5-486b-b8d6-868059ff5c3c",
 	60,
-	0);
+	0,
+	'avpace::analysis::Increased Activity comm::getCurrentRate');
 INSERT INTO GD_CON
 	VALUES ("7b382e31-f902-4a05-87e5-7e7eeae2fdda",
 	"00000000-0000-0000-0000-000000000000");
@@ -693,7 +703,8 @@ INSERT INTO GD_GE
 	"a20bd918-b36c-4ab4-98fb-84a4938a0fc1",
 	"0a07e7f2-b77c-47aa-bbb3-adf149d2b430",
 	60,
-	0);
+	0,
+	'avpace::analysis::Increased Activity comm::getCurrentTemp');
 INSERT INTO GD_CON
 	VALUES ("258b0e5b-419d-4b85-a656-e4c1128a0e67",
 	"00000000-0000-0000-0000-000000000000");
@@ -794,12 +805,6 @@ INSERT INTO DIM_DIA
 	4000.000000,
 	3000.000000,
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO PE_PE
-	VALUES ("b4d5fe72-30fc-4b2f-b2cc-a11ac9340459",
-	1,
-	"43ef2b15-ca85-4abd-9687-17baabee71d7",
-	"00000000-0000-0000-0000-000000000000",
-	14);
 INSERT INTO SQ_P
 	VALUES ("b4d5fe72-30fc-4b2f-b2cc-a11ac9340459",
 	"00000000-0000-0000-0000-000000000000");
@@ -846,7 +851,7 @@ INSERT INTO O_ATTR_PROXY
 	'',
 	'systolic_tolerance',
 	0,
-	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'',
 	'../../library/pacemaker/pacemaker/pacer/pacer.xtuml');
@@ -872,7 +877,7 @@ INSERT INTO O_ATTR_PROXY
 	'',
 	'diastolic_tolerance',
 	0,
-	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'',
 	'../../library/pacemaker/pacemaker/pacer/pacer.xtuml');
@@ -898,7 +903,7 @@ INSERT INTO O_ATTR_PROXY
 	'',
 	'current_state',
 	0,
-	"e45ca3d2-8b4c-491b-ab95-fdef100404c1",
+	"ba5eda7a-def5-0000-0000-000000000006",
 	'',
 	'',
 	'../../library/pacemaker/pacemaker/pacer/pacer.xtuml');
@@ -924,7 +929,7 @@ INSERT INTO O_ATTR_PROXY
 	'',
 	'cycle_count',
 	0,
-	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'',
 	'../../library/pacemaker/pacemaker/pacer/pacer.xtuml');
@@ -950,7 +955,7 @@ INSERT INTO O_ATTR_PROXY
 	'',
 	'timeout_timer',
 	0,
-	"e3c8a697-cc9b-4b24-9346-ef7bbfbb25a4",
+	"ba5eda7a-def5-0000-0000-00000000000f",
 	'',
 	'',
 	'../../library/pacemaker/pacemaker/pacer/pacer.xtuml');
@@ -976,7 +981,7 @@ INSERT INTO O_ATTR_PROXY
 	'',
 	'systolic_timeout',
 	0,
-	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'',
 	'../../library/pacemaker/pacemaker/pacer/pacer.xtuml');
@@ -1002,7 +1007,7 @@ INSERT INTO O_ATTR_PROXY
 	'',
 	'diastolic_timeout',
 	0,
-	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'',
 	'../../library/pacemaker/pacemaker/pacer/pacer.xtuml');
@@ -1028,7 +1033,7 @@ environmental values have changed.',
 	"b4d5fe72-30fc-4b2f-b2cc-a11ac9340459",
 	"5bafe46a-78f1-41a3-b136-54ea0fe9d0e9");
 INSERT INTO PE_PE
-	VALUES ("5bbc61b0-b12a-4852-b020-6d678a1ad0c1",
+	VALUES ("b4d5fe72-30fc-4b2f-b2cc-a11ac9340459",
 	1,
 	"43ef2b15-ca85-4abd-9687-17baabee71d7",
 	"00000000-0000-0000-0000-000000000000",
@@ -1083,7 +1088,7 @@ INSERT INTO R_REL_PROXY
 	"00000000-0000-0000-0000-000000000000",
 	'../../library/hostmonitor/hostmonitor/hostmonitor.xtuml');
 INSERT INTO PE_PE
-	VALUES ("e716b809-5690-4349-9924-45d07d119120",
+	VALUES ("5bbc61b0-b12a-4852-b020-6d678a1ad0c1",
 	1,
 	"43ef2b15-ca85-4abd-9687-17baabee71d7",
 	"00000000-0000-0000-0000-000000000000",
@@ -1139,7 +1144,7 @@ INSERT INTO R_REL_PROXY
 	"00000000-0000-0000-0000-000000000000",
 	'../../library/hostmonitor/hostmonitor/hostmonitor.xtuml');
 INSERT INTO PE_PE
-	VALUES ("5bafe46a-78f1-41a3-b136-54ea0fe9d0e9",
+	VALUES ("e716b809-5690-4349-9924-45d07d119120",
 	1,
 	"43ef2b15-ca85-4abd-9687-17baabee71d7",
 	"00000000-0000-0000-0000-000000000000",
@@ -1200,7 +1205,7 @@ INSERT INTO O_ATTR_PROXY
 	'',
 	'lastTemp',
 	0,
-	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'',
 	'../../library/hostmonitor/hostmonitor/Host Monitor/Host Monitor.xtuml');
@@ -1226,7 +1231,7 @@ INSERT INTO O_ATTR_PROXY
 	'',
 	'lastRate',
 	0,
-	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'',
 	'../../library/hostmonitor/hostmonitor/Host Monitor/Host Monitor.xtuml');
@@ -1252,7 +1257,7 @@ INSERT INTO O_ATTR_PROXY
 	'',
 	'current_state',
 	0,
-	"e45ca3d2-8b4c-491b-ab95-fdef100404c1",
+	"ba5eda7a-def5-0000-0000-000000000006",
 	'',
 	'',
 	'../../library/hostmonitor/hostmonitor/Host Monitor/Host Monitor.xtuml');
@@ -1265,11 +1270,11 @@ INSERT INTO O_OBJ_PROXY
 	"00000000-0000-0000-0000-000000000000",
 	'../../library/hostmonitor/hostmonitor/Host Monitor/Host Monitor.xtuml');
 INSERT INTO PE_PE
-	VALUES ("146e5fcd-c199-44fe-b52e-22163b42fc8f",
+	VALUES ("5bafe46a-78f1-41a3-b136-54ea0fe9d0e9",
 	1,
 	"43ef2b15-ca85-4abd-9687-17baabee71d7",
 	"00000000-0000-0000-0000-000000000000",
-	17);
+	14);
 INSERT INTO MSG_M
 	VALUES ("146e5fcd-c199-44fe-b52e-22163b42fc8f",
 	"00000000-0000-0000-0000-000000000000",
@@ -1301,7 +1306,7 @@ INSERT INTO MSG_A
 INSERT INTO MSG_IA
 	VALUES ("507d44db-7221-4c13-b018-2e31015f7a0d");
 INSERT INTO PE_PE
-	VALUES ("68e2ed1c-44b5-486b-b8d6-868059ff5c3c",
+	VALUES ("146e5fcd-c199-44fe-b52e-22163b42fc8f",
 	1,
 	"43ef2b15-ca85-4abd-9687-17baabee71d7",
 	"00000000-0000-0000-0000-000000000000",
@@ -1325,7 +1330,7 @@ breaths per minute.',
 INSERT INTO MSG_ISM
 	VALUES ("68e2ed1c-44b5-486b-b8d6-868059ff5c3c");
 INSERT INTO PE_PE
-	VALUES ("0a07e7f2-b77c-47aa-bbb3-adf149d2b430",
+	VALUES ("68e2ed1c-44b5-486b-b8d6-868059ff5c3c",
 	1,
 	"43ef2b15-ca85-4abd-9687-17baabee71d7",
 	"00000000-0000-0000-0000-000000000000",
@@ -1348,15 +1353,28 @@ in celcius.',
 	'1');
 INSERT INTO MSG_ISM
 	VALUES ("0a07e7f2-b77c-47aa-bbb3-adf149d2b430");
-INSERT INTO PE_PE_PROXY
+INSERT INTO PE_PE
+	VALUES ("0a07e7f2-b77c-47aa-bbb3-adf149d2b430",
+	1,
+	"43ef2b15-ca85-4abd-9687-17baabee71d7",
+	"00000000-0000-0000-0000-000000000000",
+	17);
+INSERT INTO PE_PE
 	VALUES ("43ef2b15-ca85-4abd-9687-17baabee71d7",
 	1,
 	"bf32fd17-70ff-4d73-a190-478f0511ee82",
 	"00000000-0000-0000-0000-000000000000",
-	7,
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("bf32fd17-70ff-4d73-a190-478f0511ee82",
+	"15b2a15d-7110-4efa-b644-89bd96e12c0e",
+	"15b2a15d-7110-4efa-b644-89bd96e12c0e",
+	'analysis',
+	'',
+	0,
 	'../analysis.xtuml');
 INSERT INTO S_SYS_PROXY
 	VALUES ("15b2a15d-7110-4efa-b644-89bd96e12c0e",
 	'avpace',
-	0,
+	1,
 	'../../avpace.xtuml');

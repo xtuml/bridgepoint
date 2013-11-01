@@ -1,4 +1,4 @@
--- BP 7.1 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO SM_ISM
 	VALUES ("3c45471f-f807-4ff4-8315-369490b8cc61",
@@ -209,13 +209,15 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'3.4.0');
+	'3.4.0',
+	'avpace::library::hostmonitor::hostmonitor::Host Monitor::Instance State Machine');
 INSERT INTO GD_GE
 	VALUES ("84863401-89bc-42b3-b808-e61ff88a6f4f",
 	"41cd2741-050e-4fe1-bba9-ca099b745048",
 	"84ed9027-2747-4a77-b22d-7e8eae8cf306",
 	41,
-	0);
+	0,
+	'avpace::library::hostmonitor::hostmonitor::Host Monitor::Instance State Machine::Polling monitors');
 INSERT INTO GD_SHP
 	VALUES ("84863401-89bc-42b3-b808-e61ff88a6f4f");
 INSERT INTO GD_NCS
@@ -258,7 +260,8 @@ INSERT INTO GD_GE
 	"41cd2741-050e-4fe1-bba9-ca099b745048",
 	"c8384f15-4be3-4000-a8ea-31bfdece976a",
 	42,
-	0);
+	0,
+	'avpace::library::hostmonitor::hostmonitor::Host Monitor::Instance State Machine::Polling monitors::HM1: poll');
 INSERT INTO GD_CON
 	VALUES ("22803842-9777-4fee-9d46-2c06516186d3",
 	"00000000-0000-0000-0000-000000000000");
@@ -383,7 +386,8 @@ INSERT INTO GD_GE
 	"41cd2741-050e-4fe1-bba9-ca099b745048",
 	"8ba8ad19-b354-4557-860a-a091b2b92c07",
 	41,
-	0);
+	0,
+	'avpace::library::hostmonitor::hostmonitor::Host Monitor::Instance State Machine::Notifying of increased activity');
 INSERT INTO GD_SHP
 	VALUES ("cabac962-004b-432e-943e-cca9d79be109");
 INSERT INTO GD_NCS
@@ -416,7 +420,8 @@ INSERT INTO GD_GE
 	"41cd2741-050e-4fe1-bba9-ca099b745048",
 	"0d203ef0-2511-40d5-9dd7-dc907fdfd42f",
 	42,
-	0);
+	0,
+	'avpace::library::hostmonitor::hostmonitor::Host Monitor::Instance State Machine::Polling monitors::HM2: increasedActivity');
 INSERT INTO GD_CON
 	VALUES ("9de33ea4-9002-4c01-aa60-df0f6ad7a084",
 	"00000000-0000-0000-0000-000000000000");
@@ -515,7 +520,8 @@ INSERT INTO GD_GE
 	"41cd2741-050e-4fe1-bba9-ca099b745048",
 	"37dd0c8e-504b-489f-ab9a-99a67a4c511a",
 	42,
-	0);
+	0,
+	'avpace::library::hostmonitor::hostmonitor::Host Monitor::Instance State Machine::Notifying of increased activity::HM1: poll');
 INSERT INTO GD_CON
 	VALUES ("c0a6a759-3381-474a-b579-1730610b8c9a",
 	"00000000-0000-0000-0000-000000000000");

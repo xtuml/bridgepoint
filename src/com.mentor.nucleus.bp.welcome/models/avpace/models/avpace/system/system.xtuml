@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("94858fb3-8fb4-4321-8ca9-a1bee365a4f1",
@@ -24,13 +24,15 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'3.4.0');
+	'3.4.0',
+	'avpace::system');
 INSERT INTO GD_GE
 	VALUES ("1a28b1ff-f9c0-45e0-adf8-c62a55b68976",
 	"7ffa68b1-e70b-4a4d-bdbd-fb190432f8ed",
 	"a3f539d3-66f7-4f16-8e88-9f84704d5ddc",
 	100,
-	0);
+	0,
+	'avpace::system::avpace::library::heart');
 INSERT INTO GD_SHP
 	VALUES ("1a28b1ff-f9c0-45e0-adf8-c62a55b68976");
 INSERT INTO GD_NCS
@@ -63,7 +65,8 @@ INSERT INTO GD_GE
 	"7ffa68b1-e70b-4a4d-bdbd-fb190432f8ed",
 	"f790253e-6068-4924-bc26-009aefceede2",
 	106,
-	0);
+	0,
+	'avpace::system::avpace::library::heart::synchronization');
 INSERT INTO GD_CON
 	VALUES ("736273a3-4b19-4d5d-beef-bf483be0df78",
 	"00000000-0000-0000-0000-000000000000");
@@ -162,7 +165,8 @@ INSERT INTO GD_GE
 	"7ffa68b1-e70b-4a4d-bdbd-fb190432f8ed",
 	"91f2fa54-b26f-45c3-b6b9-30d19396bc8f",
 	100,
-	0);
+	0,
+	'avpace::system::avpace::library::pacer');
 INSERT INTO GD_SHP
 	VALUES ("e082adcf-8e03-4c9c-86a5-6b1ddf545e46");
 INSERT INTO GD_NCS
@@ -200,7 +204,8 @@ INSERT INTO GD_GE
 	"7ffa68b1-e70b-4a4d-bdbd-fb190432f8ed",
 	"667ffc1e-41c6-4068-9d2f-57b2fcef524b",
 	105,
-	0);
+	0,
+	'avpace::system::avpace::library::pacer::synchronization');
 INSERT INTO GD_CON
 	VALUES ("ac352e05-3970-493a-b9c4-106835e1796a",
 	"00000000-0000-0000-0000-000000000000");
@@ -307,7 +312,8 @@ INSERT INTO GD_GE
 	"7ffa68b1-e70b-4a4d-bdbd-fb190432f8ed",
 	"41666281-5ffb-48f3-8f24-baec344b9968",
 	105,
-	0);
+	0,
+	'avpace::system::avpace::library::pacer::host');
 INSERT INTO GD_CON
 	VALUES ("9553ea6f-e0e8-4c33-b464-57b850bfe244",
 	"00000000-0000-0000-0000-000000000000");
@@ -406,7 +412,8 @@ INSERT INTO GD_GE
 	"7ffa68b1-e70b-4a4d-bdbd-fb190432f8ed",
 	"1695635f-d9ea-4ab1-9d74-e04c6970eb33",
 	106,
-	0);
+	0,
+	'avpace::system::avpace::library::heart::host');
 INSERT INTO GD_CON
 	VALUES ("0d068b99-ab38-411c-9395-609caf9377a8",
 	"00000000-0000-0000-0000-000000000000");
@@ -507,35 +514,6 @@ INSERT INTO DIM_DIA
 	4000.000000,
 	3000.000000,
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO PE_PE
-	VALUES ("4c328a36-e524-47d6-8a5b-ebeaa7b4f1e4",
-	1,
-	"94858fb3-8fb4-4321-8ca9-a1bee365a4f1",
-	"00000000-0000-0000-0000-000000000000",
-	22);
-INSERT INTO C_SF
-	VALUES ("4c328a36-e524-47d6-8a5b-ebeaa7b4f1e4",
-	"f91727a5-250f-4333-9975-1bf60c569d24",
-	"b6871f7e-a5e2-4808-8125-ce38580c2041",
-	'');
-INSERT INTO C_R_PROXY
-	VALUES ("f91727a5-250f-4333-9975-1bf60c569d24",
-	'synchronization',
-	'',
-	'Unnamed Interface',
-	'../library/heart/heart.xtuml');
-INSERT INTO C_P_PROXY
-	VALUES ("b6871f7e-a5e2-4808-8125-ce38580c2041",
-	'synchronization',
-	'Unnamed Interface',
-	'',
-	'../library/pacer/pacer.xtuml');
-INSERT INTO PE_PE
-	VALUES ("a3f539d3-66f7-4f16-8e88-9f84704d5ddc",
-	1,
-	"94858fb3-8fb4-4321-8ca9-a1bee365a4f1",
-	"00000000-0000-0000-0000-000000000000",
-	21);
 INSERT INTO CL_IC
 	VALUES ("a3f539d3-66f7-4f16-8e88-9f84704d5ddc",
 	"ba87c6eb-2533-4e97-ad6a-c00c71348da9",
@@ -581,6 +559,12 @@ INSERT INTO C_IR_PROXY
 	"00000000-0000-0000-0000-000000000000",
 	"f2af2b79-2298-44b4-92be-7f1113c14118",
 	'../library/heart/heart.xtuml');
+INSERT INTO PE_PE
+	VALUES ("a3f539d3-66f7-4f16-8e88-9f84704d5ddc",
+	1,
+	"94858fb3-8fb4-4321-8ca9-a1bee365a4f1",
+	"00000000-0000-0000-0000-000000000000",
+	21);
 INSERT INTO C_C_PROXY
 	VALUES ("ba87c6eb-2533-4e97-ad6a-c00c71348da9",
 	"00000000-0000-0000-0000-000000000000",
@@ -589,13 +573,9 @@ INSERT INTO C_C_PROXY
 	'',
 	0,
 	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
 	'../library/heart/heart.xtuml');
-INSERT INTO PE_PE
-	VALUES ("91f2fa54-b26f-45c3-b6b9-30d19396bc8f",
-	1,
-	"94858fb3-8fb4-4321-8ca9-a1bee365a4f1",
-	"00000000-0000-0000-0000-000000000000",
-	21);
 INSERT INTO CL_IC
 	VALUES ("91f2fa54-b26f-45c3-b6b9-30d19396bc8f",
 	"64cd4cde-e522-4a43-aefa-801975114eb9",
@@ -642,6 +622,12 @@ INSERT INTO C_IR_PROXY
 	"00000000-0000-0000-0000-000000000000",
 	"338b5866-c417-4b6c-a5d6-21150376b65b",
 	'../library/pacer/pacer.xtuml');
+INSERT INTO PE_PE
+	VALUES ("91f2fa54-b26f-45c3-b6b9-30d19396bc8f",
+	1,
+	"94858fb3-8fb4-4321-8ca9-a1bee365a4f1",
+	"00000000-0000-0000-0000-000000000000",
+	21);
 INSERT INTO C_C_PROXY
 	VALUES ("64cd4cde-e522-4a43-aefa-801975114eb9",
 	"00000000-0000-0000-0000-000000000000",
@@ -653,9 +639,43 @@ internal components, one that handles generating a beat and the other that
 listens for increased activity.',
 	0,
 	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
 	'../library/pacer/pacer.xtuml');
+INSERT INTO C_SF
+	VALUES ("4c328a36-e524-47d6-8a5b-ebeaa7b4f1e4",
+	"f91727a5-250f-4333-9975-1bf60c569d24",
+	"b6871f7e-a5e2-4808-8125-ce38580c2041",
+	'',
+	'pacer::to_heart::synchronization -o)- heart::out_to_body::synchronization');
+INSERT INTO PE_PE
+	VALUES ("4c328a36-e524-47d6-8a5b-ebeaa7b4f1e4",
+	1,
+	"94858fb3-8fb4-4321-8ca9-a1bee365a4f1",
+	"00000000-0000-0000-0000-000000000000",
+	22);
+INSERT INTO C_R_PROXY
+	VALUES ("f91727a5-250f-4333-9975-1bf60c569d24",
+	'synchronization',
+	'',
+	'Unnamed Interface',
+	'heart::out_to_body::synchronization',
+	'../library/heart/heart.xtuml');
+INSERT INTO C_P_PROXY
+	VALUES ("b6871f7e-a5e2-4808-8125-ce38580c2041",
+	'synchronization',
+	'Unnamed Interface',
+	'',
+	'pacer::to_heart::synchronization',
+	'../library/pacer/pacer.xtuml');
+INSERT INTO PE_PE
+	VALUES ("94858fb3-8fb4-4321-8ca9-a1bee365a4f1",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	7);
 INSERT INTO S_SYS_PROXY
 	VALUES ("15b2a15d-7110-4efa-b644-89bd96e12c0e",
 	'avpace',
-	0,
+	1,
 	'../avpace.xtuml');
