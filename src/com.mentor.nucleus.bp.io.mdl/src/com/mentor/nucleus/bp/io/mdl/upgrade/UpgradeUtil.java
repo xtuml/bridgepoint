@@ -332,7 +332,11 @@ public class UpgradeUtil {
         }
         projects.add(project);
         upgradePackageableElementsFor716();
-        job.setRule(ResourcesPlugin.getWorkspace().getRoot());
+        // if the job is already running, then do not reset
+        // the rule.  Rescheduling is fine.
+        if(job.getState() == Job.NONE) {
+        	job.setRule(ResourcesPlugin.getWorkspace().getRoot());
+        }
         job.schedule();
     }
 
