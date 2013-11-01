@@ -1,2659 +1,1312 @@
-<html xmlns:v="urn:schemas-microsoft-com:vml"
-xmlns:o="urn:schemas-microsoft-com:office:office"
-xmlns:w="urn:schemas-microsoft-com:office:word"
-xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
-xmlns="http://www.w3.org/TR/REC-html40">
+<html>
 
 <head>
 <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-<meta name=ProgId content=Word.Document>
-<meta name=Generator content="Microsoft Word 12">
-<meta name=Originator content="Microsoft Word 12">
-<link rel=File-List href="ModelVerifierJavaInterface_files/filelist.xml">
-<link rel=Edit-Time-Data href="ModelVerifierJavaInterface_files/editdata.mso">
-<!--[if !mso]>
-<style>
-v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style>
-<![endif]-->
+<meta name=Generator content="Microsoft Word 14 (filtered)">
 <title>Extending an Application Model with Java</title>
-<!--[if gte mso 9]><xml>
- <o:DocumentProperties>
-  <o:Author>Mentor</o:Author>
-  <o:Template>Normal</o:Template>
-  <o:LastAuthor>Keith Brown</o:LastAuthor>
-  <o:Revision>57</o:Revision>
-  <o:TotalTime>8659</o:TotalTime>
-  <o:LastPrinted>2007-08-16T17:49:00Z</o:LastPrinted>
-  <o:Created>2008-03-18T22:12:00Z</o:Created>
-  <o:LastSaved>2012-10-19T16:40:00Z</o:LastSaved>
-  <o:Pages>7</o:Pages>
-  <o:Words>3208</o:Words>
-  <o:Characters>18289</o:Characters>
-  <o:Company>Mentor Graphics</o:Company>
-  <o:Lines>152</o:Lines>
-  <o:Paragraphs>42</o:Paragraphs>
-  <o:CharactersWithSpaces>21455</o:CharactersWithSpaces>
-  <o:Version>12.00</o:Version>
- </o:DocumentProperties>
-</xml><![endif]-->
-<link rel=themeData href="ModelVerifierJavaInterface_files/themedata.thmx">
-<link rel=colorSchemeMapping
-href="ModelVerifierJavaInterface_files/colorschememapping.xml">
-<!--[if gte mso 9]><xml>
- <w:WordDocument>
-  <w:Zoom>BestFit</w:Zoom>
-  <w:TrackMoves>false</w:TrackMoves>
-  <w:TrackFormatting/>
-  <w:ValidateAgainstSchemas/>
-  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
-  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
-  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
-  <w:DoNotPromoteQF/>
-  <w:LidThemeOther>EN-US</w:LidThemeOther>
-  <w:LidThemeAsian>X-NONE</w:LidThemeAsian>
-  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
-  <w:Compatibility>
-   <w:BreakWrappedTables/>
-   <w:SnapToGridInCell/>
-   <w:WrapTextWithPunct/>
-   <w:UseAsianBreakRules/>
-   <w:DontGrowAutofit/>
-   <w:SplitPgBreakAndParaMark/>
-   <w:DontVertAlignCellWithSp/>
-   <w:DontBreakConstrainedForcedTables/>
-   <w:DontVertAlignInTxbx/>
-   <w:Word11KerningPairs/>
-   <w:CachedColBalance/>
-  </w:Compatibility>
-  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
-  <m:mathPr>
-   <m:mathFont m:val="Cambria Math"/>
-   <m:brkBin m:val="before"/>
-   <m:brkBinSub m:val="&#45;-"/>
-   <m:smallFrac m:val="off"/>
-   <m:dispDef/>
-   <m:lMargin m:val="0"/>
-   <m:rMargin m:val="0"/>
-   <m:defJc m:val="centerGroup"/>
-   <m:wrapIndent m:val="1440"/>
-   <m:intLim m:val="subSup"/>
-   <m:naryLim m:val="undOvr"/>
-  </m:mathPr></w:WordDocument>
-</xml><![endif]--><!--[if gte mso 9]><xml>
- <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="false"
-  DefSemiHidden="false" DefQFormat="false" LatentStyleCount="267">
-  <w:LsdException Locked="false" QFormat="true" Name="Normal"/>
-  <w:LsdException Locked="false" QFormat="true" Name="heading 1"/>
-  <w:LsdException Locked="false" QFormat="true" Name="heading 2"/>
-  <w:LsdException Locked="false" QFormat="true" Name="heading 3"/>
-  <w:LsdException Locked="false" QFormat="true" Name="heading 4"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   QFormat="true" Name="heading 5"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   QFormat="true" Name="heading 6"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   QFormat="true" Name="heading 7"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   QFormat="true" Name="heading 8"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   QFormat="true" Name="heading 9"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   QFormat="true" Name="caption"/>
-  <w:LsdException Locked="false" QFormat="true" Name="Title"/>
-  <w:LsdException Locked="false" Priority="1" Name="Default Paragraph Font"/>
-  <w:LsdException Locked="false" QFormat="true" Name="Subtitle"/>
-  <w:LsdException Locked="false" QFormat="true" Name="Strong"/>
-  <w:LsdException Locked="false" QFormat="true" Name="Emphasis"/>
-  <w:LsdException Locked="false" Priority="99" Name="No List"/>
-  <w:LsdException Locked="false" Priority="99" SemiHidden="true"
-   Name="Placeholder Text"/>
-  <w:LsdException Locked="false" Priority="1" QFormat="true" Name="No Spacing"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 1"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 1"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 1"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 1"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 1"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 1"/>
-  <w:LsdException Locked="false" Priority="99" SemiHidden="true" Name="Revision"/>
-  <w:LsdException Locked="false" Priority="34" QFormat="true"
-   Name="List Paragraph"/>
-  <w:LsdException Locked="false" Priority="29" QFormat="true" Name="Quote"/>
-  <w:LsdException Locked="false" Priority="30" QFormat="true"
-   Name="Intense Quote"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 1"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 1"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 1"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 1"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 1"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 1"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 1"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 1"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 2"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 2"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 2"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 2"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 2"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 2"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 2"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 2"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 2"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 2"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 2"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 2"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 2"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 2"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 3"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 3"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 3"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 3"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 3"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 3"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 3"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 3"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 3"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 3"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 3"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 3"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 3"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 3"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 4"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 4"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 4"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 4"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 4"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 4"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 4"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 4"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 4"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 4"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 4"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 4"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 4"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 4"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 5"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 5"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 5"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 5"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 5"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 5"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 5"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 5"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 5"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 5"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 5"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 5"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 5"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 5"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 6"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 6"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 6"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 6"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 6"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 6"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 6"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 6"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 6"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 6"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 6"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 6"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 6"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 6"/>
-  <w:LsdException Locked="false" Priority="19" QFormat="true"
-   Name="Subtle Emphasis"/>
-  <w:LsdException Locked="false" Priority="21" QFormat="true"
-   Name="Intense Emphasis"/>
-  <w:LsdException Locked="false" Priority="31" QFormat="true"
-   Name="Subtle Reference"/>
-  <w:LsdException Locked="false" Priority="32" QFormat="true"
-   Name="Intense Reference"/>
-  <w:LsdException Locked="false" Priority="33" QFormat="true" Name="Book Title"/>
-  <w:LsdException Locked="false" Priority="37" SemiHidden="true"
-   UnhideWhenUsed="true" Name="Bibliography"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" QFormat="true" Name="TOC Heading"/>
- </w:LatentStyles>
-</xml><![endif]-->
 <style>
 <!--
  /* Font Definitions */
  @font-face
 	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;
-	mso-font-alt:\5B8B\4F53;
-	mso-font-charset:134;
-	mso-generic-font-family:auto;
-	mso-font-pitch:variable;
-	mso-font-signature:3 680460288 22 0 262145 0;}
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;
-	mso-font-charset:1;
-	mso-generic-font-family:roman;
-	mso-font-format:other;
-	mso-font-pitch:variable;
-	mso-font-signature:0 0 0 0 0 0;}
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
 	{font-family:"Arial Unicode MS";
-	panose-1:2 11 6 4 2 2 2 2 2 4;
-	mso-font-charset:128;
-	mso-generic-font-family:swiss;
-	mso-font-pitch:variable;
-	mso-font-signature:-134238209 -371195905 63 0 4129279 0;}
+	panose-1:2 11 6 4 2 2 2 2 2 4;}
 @font-face
 	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;
-	mso-font-charset:0;
-	mso-generic-font-family:swiss;
-	mso-font-pitch:variable;
-	mso-font-signature:-520081665 -1073717157 41 0 66047 0;}
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
 @font-face
 	{font-family:Webdings;
-	panose-1:5 3 1 2 1 5 9 6 7 3;
-	mso-font-charset:2;
-	mso-generic-font-family:roman;
-	mso-font-pitch:variable;
-	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+	panose-1:5 3 1 2 1 5 9 6 7 3;}
 @font-face
 	{font-family:"\@SimSun";
-	panose-1:2 1 6 0 3 1 1 1 1 1;
-	mso-font-charset:134;
-	mso-generic-font-family:auto;
-	mso-font-pitch:variable;
-	mso-font-signature:3 680460288 22 0 262145 0;}
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
 	{font-family:"\@Arial Unicode MS";
-	panose-1:2 11 6 4 2 2 2 2 2 4;
-	mso-font-charset:128;
-	mso-generic-font-family:swiss;
-	mso-font-pitch:variable;
-	mso-font-signature:-134238209 -371195905 63 0 4129279 0;}
+	panose-1:2 11 6 4 2 2 2 2 2 4;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-parent:"";
-	margin:0in;
+	{margin:0in;
 	margin-bottom:.0001pt;
-	mso-pagination:widow-orphan;
 	font-size:10.0pt;
-	font-family:"Arial","sans-serif";
-	mso-fareast-font-family:SimSun;}
+	font-family:"Arial","sans-serif";}
 h1
-	{mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-link:"Heading 1 Char";
-	mso-margin-top-alt:auto;
+	{mso-style-link:"Heading 1 Char";
 	margin-right:0in;
-	mso-margin-bottom-alt:auto;
 	margin-left:0in;
-	mso-pagination:widow-orphan;
-	mso-outline-level:1;
 	font-size:18.0pt;
 	font-family:"Arial","sans-serif";
-	mso-fareast-font-family:"Times New Roman";
 	color:black;
 	font-weight:normal;}
 h2
-	{mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-link:"Heading 2 Char";
-	mso-margin-top-alt:auto;
+	{mso-style-link:"Heading 2 Char";
 	margin-right:0in;
-	mso-margin-bottom-alt:auto;
 	margin-left:0in;
 	line-height:15.6pt;
-	mso-pagination:widow-orphan;
-	mso-outline-level:2;
 	font-size:10.0pt;
 	font-family:"Arial","sans-serif";
-	mso-fareast-font-family:"Times New Roman";
 	color:navy;
 	font-weight:bold;}
 h3
-	{mso-style-update:auto;
-	mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-link:"Heading 3 Char";
-	mso-margin-top-alt:auto;
+	{mso-style-link:"Heading 3 Char";
 	margin-right:0in;
 	margin-bottom:2.4pt;
 	margin-left:0in;
-	mso-pagination:widow-orphan;
-	mso-outline-level:3;
 	font-size:11.0pt;
 	font-family:"Arial","sans-serif";
-	mso-fareast-font-family:"Times New Roman";
 	color:maroon;
 	font-weight:bold;}
 h4
-	{mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-link:"Heading 4 Char";
+	{mso-style-link:"Heading 4 Char";
 	margin-top:7.5pt;
 	margin-right:7.5pt;
 	margin-bottom:2.4pt;
 	margin-left:7.5pt;
-	mso-pagination:widow-orphan;
-	mso-outline-level:4;
 	font-size:11.0pt;
 	font-family:"Arial","sans-serif";
-	mso-fareast-font-family:"Times New Roman";
 	color:#0176B9;
 	font-weight:bold;}
 a:link, span.MsoHyperlink
-	{mso-style-unhide:no;
-	color:navy;
-	text-decoration:underline;
-	text-underline:single;}
+	{color:navy;
+	text-decoration:underline;}
 a:visited, span.MsoHyperlinkFollowed
-	{mso-style-unhide:no;
-	color:#0176B9;
-	text-decoration:underline;
-	text-underline:single;}
+	{color:#0176B9;
+	text-decoration:underline;}
 p
-	{mso-style-unhide:no;
-	margin:7.5pt;
-	mso-pagination:widow-orphan;
+	{margin:7.5pt;
 	font-size:10.0pt;
-	font-family:"Arial","sans-serif";
-	mso-fareast-font-family:SimSun;}
+	font-family:"Arial","sans-serif";}
 p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	{mso-style-unhide:no;
-	mso-style-link:"Balloon Text Char";
+	{mso-style-link:"Balloon Text Char";
 	margin:0in;
 	margin-bottom:.0001pt;
-	mso-pagination:widow-orphan;
 	font-size:8.0pt;
-	font-family:"Tahoma","sans-serif";
-	mso-fareast-font-family:SimSun;}
+	font-family:"Tahoma","sans-serif";}
 p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-	{mso-style-priority:34;
-	mso-style-unhide:no;
-	mso-style-qformat:yes;
-	margin-top:0in;
+	{margin-top:0in;
 	margin-right:0in;
 	margin-bottom:0in;
 	margin-left:.5in;
 	margin-bottom:.0001pt;
-	mso-add-space:auto;
-	mso-pagination:widow-orphan;
 	font-size:10.0pt;
-	font-family:"Arial","sans-serif";
-	mso-fareast-font-family:SimSun;}
+	font-family:"Arial","sans-serif";}
 p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
-	{mso-style-priority:34;
-	mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-type:export-only;
-	margin-top:0in;
+	{margin-top:0in;
 	margin-right:0in;
 	margin-bottom:0in;
 	margin-left:.5in;
 	margin-bottom:.0001pt;
-	mso-add-space:auto;
-	mso-pagination:widow-orphan;
 	font-size:10.0pt;
-	font-family:"Arial","sans-serif";
-	mso-fareast-font-family:SimSun;}
+	font-family:"Arial","sans-serif";}
 p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
-	{mso-style-priority:34;
-	mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-type:export-only;
-	margin-top:0in;
+	{margin-top:0in;
 	margin-right:0in;
 	margin-bottom:0in;
 	margin-left:.5in;
 	margin-bottom:.0001pt;
-	mso-add-space:auto;
-	mso-pagination:widow-orphan;
 	font-size:10.0pt;
-	font-family:"Arial","sans-serif";
-	mso-fareast-font-family:SimSun;}
+	font-family:"Arial","sans-serif";}
 p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
-	{mso-style-priority:34;
-	mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-type:export-only;
-	margin-top:0in;
+	{margin-top:0in;
 	margin-right:0in;
 	margin-bottom:0in;
 	margin-left:.5in;
 	margin-bottom:.0001pt;
-	mso-add-space:auto;
-	mso-pagination:widow-orphan;
 	font-size:10.0pt;
-	font-family:"Arial","sans-serif";
-	mso-fareast-font-family:SimSun;}
+	font-family:"Arial","sans-serif";}
 span.Heading1Char
 	{mso-style-name:"Heading 1 Char";
-	mso-style-unhide:no;
-	mso-style-locked:yes;
 	mso-style-link:"Heading 1";
-	mso-ansi-font-size:14.0pt;
-	mso-bidi-font-size:14.0pt;
 	font-family:"Cambria","serif";
-	mso-ascii-font-family:Cambria;
-	mso-ascii-theme-font:major-latin;
-	mso-fareast-font-family:"Times New Roman";
-	mso-fareast-theme-font:major-fareast;
-	mso-hansi-font-family:Cambria;
-	mso-hansi-theme-font:major-latin;
-	mso-bidi-font-family:"Times New Roman";
-	mso-bidi-theme-font:major-bidi;
 	color:#365F91;
-	mso-themecolor:accent1;
-	mso-themeshade:191;
 	font-weight:bold;}
 span.Heading2Char
 	{mso-style-name:"Heading 2 Char";
-	mso-style-unhide:no;
-	mso-style-locked:yes;
 	mso-style-link:"Heading 2";
-	mso-ansi-font-size:13.0pt;
-	mso-bidi-font-size:13.0pt;
 	font-family:"Cambria","serif";
-	mso-ascii-font-family:Cambria;
-	mso-ascii-theme-font:major-latin;
-	mso-fareast-font-family:"Times New Roman";
-	mso-fareast-theme-font:major-fareast;
-	mso-hansi-font-family:Cambria;
-	mso-hansi-theme-font:major-latin;
-	mso-bidi-font-family:"Times New Roman";
-	mso-bidi-theme-font:major-bidi;
 	color:#4F81BD;
-	mso-themecolor:accent1;
 	font-weight:bold;}
 span.Heading3Char
 	{mso-style-name:"Heading 3 Char";
-	mso-style-unhide:no;
-	mso-style-locked:yes;
 	mso-style-link:"Heading 3";
-	mso-ansi-font-size:12.0pt;
-	mso-bidi-font-size:12.0pt;
 	font-family:"Cambria","serif";
-	mso-ascii-font-family:Cambria;
-	mso-ascii-theme-font:major-latin;
-	mso-fareast-font-family:"Times New Roman";
-	mso-fareast-theme-font:major-fareast;
-	mso-hansi-font-family:Cambria;
-	mso-hansi-theme-font:major-latin;
-	mso-bidi-font-family:"Times New Roman";
-	mso-bidi-theme-font:major-bidi;
 	color:#4F81BD;
-	mso-themecolor:accent1;
 	font-weight:bold;}
 span.Heading4Char
 	{mso-style-name:"Heading 4 Char";
-	mso-style-unhide:no;
-	mso-style-locked:yes;
 	mso-style-link:"Heading 4";
-	mso-ansi-font-size:12.0pt;
-	mso-bidi-font-size:12.0pt;
 	font-family:"Cambria","serif";
-	mso-ascii-font-family:Cambria;
-	mso-ascii-theme-font:major-latin;
-	mso-fareast-font-family:"Times New Roman";
-	mso-fareast-theme-font:major-fareast;
-	mso-hansi-font-family:Cambria;
-	mso-hansi-theme-font:major-latin;
-	mso-bidi-font-family:"Times New Roman";
-	mso-bidi-theme-font:major-bidi;
 	color:#4F81BD;
-	mso-themecolor:accent1;
 	font-weight:bold;
 	font-style:italic;}
 span.BalloonTextChar
 	{mso-style-name:"Balloon Text Char";
-	mso-style-unhide:no;
-	mso-style-locked:yes;
 	mso-style-link:"Balloon Text";
-	mso-ansi-font-size:8.0pt;
-	mso-bidi-font-size:8.0pt;
-	font-family:"Tahoma","sans-serif";
-	mso-ascii-font-family:Tahoma;
-	mso-fareast-font-family:SimSun;
-	mso-hansi-font-family:Tahoma;
-	mso-bidi-font-family:Tahoma;}
+	font-family:"Tahoma","sans-serif";}
 p.preformatted-tpcode, li.preformatted-tpcode, div.preformatted-tpcode
 	{mso-style-name:preformatted-tp_code;
-	mso-style-unhide:no;
 	margin-top:15.0pt;
 	margin-right:0in;
 	margin-bottom:15.0pt;
 	margin-left:0in;
-	mso-pagination:widow-orphan;
 	background:silver;
 	border:none;
-	mso-border-alt:solid black .75pt;
 	padding:0in;
-	mso-padding-alt:8.0pt 8.0pt 8.0pt 8.0pt;
 	font-size:10.0pt;
-	font-family:"Courier New";
-	mso-fareast-font-family:SimSun;}
+	font-family:"Courier New";}
 p.normalnotoc, li.normalnotoc, div.normalnotoc
 	{mso-style-name:normalnotoc;
-	mso-style-unhide:no;
 	margin:7.5pt;
-	mso-pagination:widow-orphan;
 	font-size:11.0pt;
-	font-family:"Arial","sans-serif";
-	mso-fareast-font-family:SimSun;}
+	font-family:"Arial","sans-serif";}
 span.codeChar
 	{mso-style-name:"code Char";
-	mso-style-unhide:no;
-	mso-style-locked:yes;
 	mso-style-link:code;
-	mso-ansi-font-size:11.0pt;
-	mso-bidi-font-size:11.0pt;
-	font-family:"Courier New";
-	mso-ascii-font-family:"Courier New";
-	mso-fareast-font-family:SimSun;
-	mso-hansi-font-family:"Courier New";
-	mso-bidi-font-family:"Courier New";
-	mso-ansi-language:EN-US;
-	mso-fareast-language:ZH-CN;
-	mso-bidi-language:AR-SA;}
+	font-family:"Courier New";}
 p.code, li.code, div.code
 	{mso-style-name:code;
-	mso-style-unhide:no;
 	mso-style-link:"code Char";
 	margin:7.5pt;
-	mso-pagination:widow-orphan;
 	font-size:11.0pt;
-	font-family:"Courier New";
-	mso-fareast-font-family:SimSun;}
+	font-family:"Courier New";}
 span.tpcodeChar
 	{mso-style-name:"tp_code Char";
-	mso-style-unhide:no;
-	mso-style-locked:yes;
 	mso-style-link:tp_code;
-	font-family:"Courier New";
-	mso-ascii-font-family:"Courier New";
-	mso-fareast-font-family:SimSun;
-	mso-hansi-font-family:"Courier New";
-	mso-bidi-font-family:"Courier New";
-	mso-ansi-language:EN-US;
-	mso-fareast-language:ZH-CN;
-	mso-bidi-language:AR-SA;}
+	font-family:"Courier New";}
 p.tpcode, li.tpcode, div.tpcode
 	{mso-style-name:tp_code;
-	mso-style-unhide:no;
 	mso-style-link:"tp_code Char";
 	margin:7.5pt;
-	mso-pagination:widow-orphan;
 	font-size:10.0pt;
-	font-family:"Courier New";
-	mso-fareast-font-family:SimSun;}
+	font-family:"Courier New";}
 p.tpinput, li.tpinput, div.tpinput
 	{mso-style-name:tp_input;
-	mso-style-unhide:no;
 	margin:7.5pt;
-	mso-pagination:widow-orphan;
 	font-size:10.0pt;
 	font-family:"Arial","sans-serif";
-	mso-fareast-font-family:SimSun;
 	font-weight:bold;}
 p.tpui, li.tpui, div.tpui
 	{mso-style-name:tp_ui;
-	mso-style-unhide:no;
 	margin:7.5pt;
-	mso-pagination:widow-orphan;
 	font-size:10.0pt;
 	font-family:"Arial","sans-serif";
-	mso-fareast-font-family:SimSun;
 	color:navy;}
 p.tpvar, li.tpvar, div.tpvar
 	{mso-style-name:tp_var;
-	mso-style-unhide:no;
 	margin:7.5pt;
-	mso-pagination:widow-orphan;
 	font-size:10.0pt;
 	font-family:"Arial","sans-serif";
-	mso-fareast-font-family:SimSun;
 	font-style:italic;}
 p.tpfooter, li.tpfooter, div.tpfooter
 	{mso-style-name:tp_footer;
-	mso-style-unhide:no;
 	margin:7.5pt;
 	text-align:center;
-	mso-pagination:widow-orphan;
 	background:white;
 	font-size:9.0pt;
-	font-family:"Arial","sans-serif";
-	mso-fareast-font-family:SimSun;}
+	font-family:"Arial","sans-serif";}
 p.sub, li.sub, div.sub
 	{mso-style-name:sub;
-	mso-style-unhide:no;
 	margin:7.5pt;
-	mso-pagination:widow-orphan;
 	font-size:10.0pt;
-	font-family:"Arial","sans-serif";
-	mso-fareast-font-family:SimSun;}
+	font-family:"Arial","sans-serif";}
 p.sublstbody, li.sublstbody, div.sublstbody
 	{mso-style-name:sublstbody;
-	mso-style-unhide:no;
 	margin:7.5pt;
-	mso-pagination:widow-orphan;
 	font-size:10.0pt;
-	font-family:"Arial","sans-serif";
-	mso-fareast-font-family:SimSun;}
+	font-family:"Arial","sans-serif";}
 span.tpfile
 	{mso-style-name:tp_file;
-	mso-style-unhide:no;
 	color:#990000;
 	letter-spacing:1.2pt;}
 span.tpnote
 	{mso-style-name:tp_note;
-	mso-style-unhide:no;
 	font-weight:bold;}
 span.tpmenuarrow
 	{mso-style-name:tp_menuarrow;
-	mso-style-unhide:no;
 	font-family:Webdings;
-	mso-ascii-font-family:Webdings;
-	mso-hansi-font-family:Webdings;
 	color:navy;}
 span.hypertext
-	{mso-style-name:hypertext;
-	mso-style-unhide:no;}
+	{mso-style-name:hypertext;}
 .MsoChpDefault
-	{mso-style-type:export-only;
-	mso-default-props:yes;
-	font-size:10.0pt;
-	mso-ansi-font-size:10.0pt;
-	mso-bidi-font-size:10.0pt;}
+	{font-size:10.0pt;}
 @page WordSection1
 	{size:8.5in 11.0in;
-	margin:1.0in 1.25in 1.0in 1.25in;
-	mso-header-margin:.5in;
-	mso-footer-margin:.5in;
-	mso-paper-source:0;}
+	margin:1.0in 1.25in 1.0in 1.25in;}
 div.WordSection1
 	{page:WordSection1;}
  /* List Definitions */
- @list l0
-	{mso-list-id:6098265;
-	mso-list-type:hybrid;
-	mso-list-template-ids:786092424 67698705 67698689 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
-@list l0:level1
-	{mso-level-text:"%1\)";
-	mso-level-tab-stop:.25in;
-	mso-level-number-position:left;
-	margin-left:.25in;
-	text-indent:-.25in;}
-@list l0:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:.75in;
-	mso-level-number-position:left;
-	margin-left:.75in;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l0:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level4
-	{mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level5
-	{mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level7
-	{mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level8
-	{mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1
-	{mso-list-id:331880998;
-	mso-list-type:hybrid;
-	mso-list-template-ids:738903892 67698705 67698689 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
-@list l1:level1
-	{mso-level-text:"%1\)";
-	mso-level-tab-stop:.25in;
-	mso-level-number-position:left;
-	margin-left:.25in;
-	text-indent:-.25in;}
-@list l1:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l1:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level4
-	{mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level5
-	{mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level7
-	{mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level8
-	{mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2
-	{mso-list-id:574242780;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-894955202 67698705 67698689 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
-@list l2:level1
-	{mso-level-text:"%1\)";
-	mso-level-tab-stop:.25in;
-	mso-level-number-position:left;
-	margin-left:.25in;
-	text-indent:-.25in;}
-@list l2:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l2:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level4
-	{mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level5
-	{mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level7
-	{mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level8
-	{mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l3
-	{mso-list-id:773553313;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-70340836 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
-@list l3:level1
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:45.75pt;
-	mso-level-number-position:left;
-	margin-left:45.75pt;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l3:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:81.75pt;
-	mso-level-number-position:left;
-	margin-left:81.75pt;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l3:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l3:level4
-	{mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l3:level5
-	{mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l3:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l3:level7
-	{mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l3:level8
-	{mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l3:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4
-	{mso-list-id:1111825617;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-2115436818 67698703 67698689 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
-@list l4:level1
-	{mso-level-tab-stop:.25in;
-	mso-level-number-position:left;
-	margin-left:.25in;
-	text-indent:-.25in;}
-@list l4:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:.75in;
-	mso-level-number-position:left;
-	margin-left:.75in;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l4:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level4
-	{mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level5
-	{mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level7
-	{mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level8
-	{mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l5
-	{mso-list-id:1478107535;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-1622748064 67698703 67698689 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
-@list l5:level1
-	{mso-level-tab-stop:.25in;
-	mso-level-number-position:left;
-	margin-left:.25in;
-	text-indent:-.25in;}
-@list l5:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:.75in;
-	mso-level-number-position:left;
-	margin-left:.75in;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l5:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l5:level4
-	{mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l5:level5
-	{mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l5:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l5:level7
-	{mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l5:level8
-	{mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l5:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l6
-	{mso-list-id:1531988113;
-	mso-list-type:hybrid;
-	mso-list-template-ids:1512736490 67698705 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l6:level1
-	{mso-level-text:"%1\)";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l6:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l6:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l6:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l6:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l6:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l6:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l6:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l6:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l7
-	{mso-list-id:1848861697;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-2128827314 67698705 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l7:level1
-	{mso-level-text:"%1\)";
-	mso-level-tab-stop:.25in;
-	mso-level-number-position:left;
-	margin-left:.25in;
-	text-indent:-.25in;}
-@list l7:level2
-	{mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level4
-	{mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level5
-	{mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level7
-	{mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level8
-	{mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l8
-	{mso-list-id:2077628971;
-	mso-list-type:hybrid;
-	mso-list-template-ids:394329160 67698705 67698689 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
-@list l8:level1
-	{mso-level-text:"%1\)";
-	mso-level-tab-stop:.25in;
-	mso-level-number-position:left;
-	margin-left:.25in;
-	text-indent:-.25in;}
-@list l8:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:.75in;
-	mso-level-number-position:left;
-	margin-left:.75in;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l8:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l8:level4
-	{mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l8:level5
-	{mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l8:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l8:level7
-	{mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l8:level8
-	{mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l8:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-ol
+ ol
 	{margin-bottom:0in;}
 ul
 	{margin-bottom:0in;}
 -->
 </style>
-<!--[if gte mso 10]>
-<style>
- /* Style Definitions */
- table.MsoNormalTable
-	{mso-style-name:"Table Normal";
-	mso-tstyle-rowband-size:0;
-	mso-tstyle-colband-size:0;
-	mso-style-noshow:yes;
-	mso-style-priority:99;
-	mso-style-qformat:yes;
-	mso-style-parent:"";
-	mso-padding-alt:0in 5.4pt 0in 5.4pt;
-	mso-para-margin:0in;
-	mso-para-margin-bottom:.0001pt;
-	mso-pagination:widow-orphan;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";}
-table.MsoTableGrid
-	{mso-style-name:"Table Grid";
-	mso-tstyle-rowband-size:0;
-	mso-tstyle-colband-size:0;
-	mso-style-unhide:no;
-	border:solid windowtext 1.0pt;
-	mso-border-alt:solid windowtext .5pt;
-	mso-padding-alt:0in 5.4pt 0in 5.4pt;
-	mso-border-insideh:.5pt solid windowtext;
-	mso-border-insidev:.5pt solid windowtext;
-	mso-para-margin:0in;
-	mso-para-margin-bottom:.0001pt;
-	mso-pagination:widow-orphan;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";}
-</style>
-<![endif]-->
+
 <script language="JavaScript"  src="../../../org.eclipse.help/livehelp.js">
 </script>
-<!--[if gte mso 9]><xml>
- <o:shapedefaults v:ext="edit" spidmax="2050"/>
-</xml><![endif]--><!--[if gte mso 9]><xml>
- <o:shapelayout v:ext="edit">
-  <o:idmap v:ext="edit" data="1"/>
- </o:shapelayout></xml><![endif]-->
 </head>
 
-<body bgcolor=white lang=EN-US link=navy vlink="#0176B9" style='tab-interval:
-.5in'>
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9">
 
 <div class=WordSection1>
 
 <h1><a name="_Ref100717464">Extending an Application Model with Java</a></h1>
 
-<p class=MsoNormal><span style='mso-bookmark:_Ref100717464'>Mentor Graphics
-BridgePoint UML Suite is a very flexible development tool.<span
-style='mso-spacerun:yes'>  </span>Here we explain how to extend an application
-model by interfacing the xtUML model to native Java code through either
-Java-based External Entities or the more general purpose Java Interface to
-Realized Components. These features provide application developers with endless
+<p class=MsoNormal>Mentor Graphics BridgePoint UML Suite is a very flexible
+development tool.  Here we explain how to extend an application model by
+interfacing the xtUML model to native Java code through either Java-based
+External Entities or the more general purpose Java Interface to Realized
+Components. These features provide application developers with endless
 possibilities, and in this note the details regarding the configuration and
-implementation of each approach are presented.<span style='mso-spacerun:yes'> 
-</span>Note that the use of either approach should be performed by experienced
-BridgePoint users who are also comfortable with Java.</span></p>
+implementation of each approach are presented.  Note that the use of either
+approach should be performed by experienced BridgePoint users who are also
+comfortable with Java.</p>
 
-<p><span style='mso-bookmark:_Ref100717464'><o:p>&nbsp;</o:p></span></p>
+<p>&nbsp;</p>
 
-<h1><span style='mso-bookmark:_Ref100717464'>Extending xtUML models with the
-Java Interface to Realized Components</span></h1>
+<h1>Extending xtUML models with the Java Interface to Realized Components</h1>
 
-<p class=MsoNormal><span style='mso-bookmark:_Ref100717464'>The Java Interface
-to Realized Components is a flexible interface mechanism supporting both
-synchronous and asynchronous communication between xtUML and Realized
-Components. </span></p>
+<p class=MsoNormal>The Java Interface to Realized Components is a flexible
+interface mechanism supporting both synchronous and asynchronous communication
+between xtUML and Realized Components. </p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Ref100717464'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Ref100717464'>The steps to
-configure an xtUML project and then construct an application model that is a
-mixture of xtUML components and Java realized components are presented in this
-section. Prior to executing the system model containing a mixture of xtUML and
-Realized Components, it is recommended that a simplified xtUML model of the
-Realized Component be constructed so that all communication and protocols
-across the shared interfaces can be tested. This proxy for the Java Realized
-Component has proven to be extremely helpful in resolving issues when interface
-mismatches are suspected. </span></p>
+<p class=MsoNormal>The steps to configure an xtUML project and then construct
+an application model that is a mixture of xtUML components and Java realized
+components are presented in this section. Prior to executing the system model
+containing a mixture of xtUML and Realized Components, it is recommended that a
+simplified xtUML model of the Realized Component be constructed so that all communication
+and protocols across the shared interfaces can be tested. This proxy for the
+Java Realized Component has proven to be extremely helpful in resolving issues
+when interface mismatches are suspected. </p>
 
-<h2><span style='mso-bookmark:_Ref100717464'>Task 1: Enable the Project to Use
-the Java Builder</span></h2>
+<h2>Task 1: Enable the Project to Use the Java Builder</h2>
 
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l8 level1 lfo2;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='font-family:"Arial Unicode MS","sans-serif"'><span style='mso-list:Ignore'>1)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Locate
-and open the </span><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Courier New"'>.project</span> file.<span
-style='mso-spacerun:yes'>  </span>This file is located in the root of the
-BridgePoint project.<span style='mso-spacerun:yes'>  </span>Open the C/C++
-perspective (<b style='mso-bidi-font-weight:normal'>Window &gt; Open
-Perspective &gt; Other… &gt; C/C++</b>). If the file is not visible in the
-project root, then it is currently filtered.<span style='mso-spacerun:yes'> 
-</span>To turn off file filtering, select the downward pointing white triangle
-in the top right corner of the<b style='mso-bidi-font-weight:normal'> Project
-Explorer</b> view, select<b style='mso-bidi-font-weight:normal'> Customize
-View...</b> and uncheck the “.* </span><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif"'>resources” box.<span
-style='mso-spacerun:yes'>  </span>Select <b style='mso-bidi-font-weight:normal'>OK</b>.<o:p></o:p></span></span></p>
+<p style='margin-left:.25in;text-indent:-.25in'><span style='font-family:"Arial Unicode MS","sans-serif"'>1)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Locate
+and open the <span style='font-family:"Courier New"'>.project</span> file. 
+This file is located in the root of the BridgePoint project.  Open the C/C++
+perspective (<b>Window &gt; Open Perspective &gt; Other… &gt; C/C++</b>). If
+the file is not visible in the project root, then it is currently filtered.  To
+turn off file filtering, select the downward pointing white triangle in the top
+right corner of the<b> Project Explorer</b> view, select<b> Customize View...</b>
+and uncheck the “.* <span style='font-family:"Arial Unicode MS","sans-serif"'>resources”
+box.  Select <b>OK</b>.</span></p>
 
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l8 level1 lfo2;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>2)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='mso-fareast-font-family:"Arial Unicode MS"'>Now add the following XML in
-the &lt;buildSpec&gt; element:<o:p></o:p></span></span></p>
+<p style='margin-left:.25in;text-indent:-.25in'>2)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Now add the following XML in the &lt;buildSpec&gt; element:</p>
 
-<p><span style='mso-bookmark:_Ref100717464'><span style='font-family:"Arial Unicode MS","sans-serif"'><span
-style='mso-tab-count:1'>          </span>&lt;buildCommand&gt;<o:p></o:p></span></span></p>
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>          &lt;buildCommand&gt;</span></p>
 
-<p><span style='mso-bookmark:_Ref100717464'><span style='font-family:"Arial Unicode MS","sans-serif"'><span
-style='mso-tab-count:2'>                      </span>&lt;name&gt;org.eclipse.jdt.core.javabuilder&lt;/name&gt;<o:p></o:p></span></span></p>
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>                      &lt;name&gt;org.eclipse.jdt.core.javabuilder&lt;/name&gt;</span></p>
 
-<p><span style='mso-bookmark:_Ref100717464'><span style='font-family:"Arial Unicode MS","sans-serif"'><span
-style='mso-tab-count:2'>                      </span>&lt;arguments&gt;<o:p></o:p></span></span></p>
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>                      &lt;arguments&gt;</span></p>
 
-<p><span style='mso-bookmark:_Ref100717464'><span style='font-family:"Arial Unicode MS","sans-serif"'><span
-style='mso-tab-count:2'>                      </span>&lt;/arguments&gt;<o:p></o:p></span></span></p>
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>                      &lt;/arguments&gt;</span></p>
 
-<p><span style='mso-bookmark:_Ref100717464'><span style='font-family:"Arial Unicode MS","sans-serif"'><span
-style='mso-tab-count:1'>          </span>&lt;/buildCommand&gt;<o:p></o:p></span></span></p>
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>          &lt;/buildCommand&gt;</span></p>
 
-<p><span style='mso-bookmark:_Ref100717464'>Note: There may already be other </span><span
-style='mso-bookmark:_Ref100717464'><span style='font-family:"Courier New"'>&lt;buildCommand&gt;</span>
-elements for the model compilers, do not alter these.<span
-style='mso-spacerun:yes'>  </span>Also, ensure that the added element goes in
-as a sibling element and not inside another </span><span style='mso-bookmark:
-_Ref100717464'><span style='font-family:"Courier New"'>&lt;buildCommand&gt;</span>
-element.</span></p>
+<p>Note: There may already be other <span style='font-family:"Courier New"'>&lt;buildCommand&gt;</span>
+elements for the model compilers, do not alter these.  Also, ensure that the
+added element goes in as a sibling element and not inside another <span
+style='font-family:"Courier New"'>&lt;buildCommand&gt;</span> element.</p>
 
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l8 level1 lfo2;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>3)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Now
-add the following XML in the </span><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Courier New"'>&lt;natures&gt;</span><span
-style='mso-spacerun:yes'>  </span>element:</span></p>
+<p style='margin-left:.25in;text-indent:-.25in'>3)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Now add the following XML in the <span style='font-family:"Courier New"'>&lt;natures&gt;</span> 
+element:</p>
 
-<p><span style='mso-bookmark:_Ref100717464'><span style='mso-tab-count:1'>          </span></span><span
-style='mso-bookmark:_Ref100717464'><span style='font-family:"Arial Unicode MS","sans-serif"'>&lt;nature&gt;org.eclipse.jdt.core.javanature&lt;/nature&gt;<o:p></o:p></span></span></p>
+<p>          <span style='font-family:"Arial Unicode MS","sans-serif"'>&lt;nature&gt;org.eclipse.jdt.core.javanature&lt;/nature&gt;</span></p>
 
-<p><span style='mso-bookmark:_Ref100717464'>Note: There should already be an </span><span
-style='mso-bookmark:_Ref100717464'><span style='font-family:"Courier New"'>xtumlnature</span>
-nature. If not, then the wrong project is being extended.</span></p>
+<p>Note: There should already be an <span style='font-family:"Courier New"'>xtumlnature</span>
+nature. If not, then the wrong project is being extended.</p>
 
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l8 level1 lfo2;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>4)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Save
-and close the </span><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Courier New"'>.project </span>file</span></p>
+<p style='margin-left:.25in;text-indent:-.25in'>4)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Save and close the <span style='font-family:"Courier New"'>.project </span>file</p>
 
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l8 level1 lfo2;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>5)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Add
-a </span><span style='mso-bookmark:_Ref100717464'><span style='font-family:
-"Courier New"'>.classpath</span> file</span></p>
+<p style='margin-left:.25in;text-indent:-.25in'>5)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Add a <span style='font-family:"Courier New"'>.classpath</span> file</p>
 
-<p><span style='mso-bookmark:_Ref100717464'>Select the project.<span
-style='mso-spacerun:yes'>  </span>Select <b style='mso-bidi-font-weight:normal'>File
-&gt; New &gt; Other &gt; Simple &gt; File</b>, name the file </span><span
-style='mso-bookmark:_Ref100717464'><span style='font-family:"Courier New"'>.classpath</span>
-(note the leading period). Paste in the following XML:</span></p>
+<p>Select the project.  Select <b>File &gt; New &gt; Other &gt; Simple &gt;
+File</b>, name the file <span style='font-family:"Courier New"'>.classpath</span>
+(note the leading period). Paste in the following XML:</p>
 
-<p><span style='mso-bookmark:_Ref100717464'><span style='font-family:"Arial Unicode MS","sans-serif"'>&lt;?xml
-version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<o:p></o:p></span></span></p>
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>&lt;?xml
+version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></p>
 
-<p><span style='mso-bookmark:_Ref100717464'><span style='font-family:"Arial Unicode MS","sans-serif"'>&lt;classpath&gt;<o:p></o:p></span></span></p>
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>&lt;classpath&gt;</span></p>
 
-<p><span style='mso-bookmark:_Ref100717464'><span style='font-family:"Arial Unicode MS","sans-serif"'>&lt;classpathentry
-kind=&quot;src&quot; path=&quot;javasrc&quot;/&gt;<o:p></o:p></span></span></p>
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>&lt;classpathentry
+kind=&quot;src&quot; path=&quot;javasrc&quot;/&gt;</span></p>
 
-<p><span style='mso-bookmark:_Ref100717464'><span style='font-family:"Arial Unicode MS","sans-serif"'><span
-style='mso-tab-count:1'>          </span>&lt;classpathentry
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>          &lt;classpathentry
 kind=&quot;con&quot;
-path=&quot;org.eclipse.jdt.launching.JRE_CONTAINER&quot;/&gt;<o:p></o:p></span></span></p>
+path=&quot;org.eclipse.jdt.launching.JRE_CONTAINER&quot;/&gt;</span></p>
 
-<p><span style='mso-bookmark:_Ref100717464'><span style='font-family:"Arial Unicode MS","sans-serif"'><span
-style='mso-tab-count:1'>          </span>&lt;classpathentry
-kind=&quot;output&quot; path=&quot;bin&quot;/&gt;<o:p></o:p></span></span></p>
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>          &lt;classpathentry
+kind=&quot;output&quot; path=&quot;bin&quot;/&gt;</span></p>
 
-<p><span style='mso-bookmark:_Ref100717464'><span style='font-family:"Arial Unicode MS","sans-serif"'>&lt;/classpath&gt;<o:p></o:p></span></span></p>
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>&lt;/classpath&gt;</span></p>
 
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l8 level1 lfo2;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>6)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Save
-and close the </span><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Courier New"'>.classpath</span> file.</span></p>
+<p style='margin-left:.25in;text-indent:-.25in'>6)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Save and close the <span style='font-family:"Courier New"'>.classpath</span>
+file.</p>
 
-<h2><span style='mso-bookmark:_Ref100717464'>Task 2: Create a Java Interface
-for the Common Interfaces</span></h2>
+<h2>Task 2: Create a Java Interface for the Common Interfaces</h2>
 
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l5 level1 lfo4;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>1.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>In
-the ./javasrc folder, for each interface into the Realized Component, create a
-pair of files using the naming convention</span></p>
+<p style='margin-left:.25in;text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>In the ./javasrc folder, for each interface into the Realized Component,
+create a pair of files using the naming convention</p>
 
-<p style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif"'>I&lt;interface
-Name&gt;ToProvider.java<o:p></o:p></span></b></span></p>
+<p style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>I&lt;interface
+Name&gt;ToProvider.java</span></b></p>
 
-<p style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif"'>I&lt;interface
-Name&gt;FromProvider.java<o:p></o:p></span></b></span></p>
+<p style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>I&lt;interface
+Name&gt;FromProvider.java</span></b></p>
 
-<p style='margin-left:.25in'><span style='mso-bookmark:_Ref100717464'>Inside
-the <b style='mso-bidi-font-weight:normal'>I&lt;interface Name&gt;ToProvider</b>
+<p style='margin-left:.25in'>Inside the <b>I&lt;interface Name&gt;ToProvider</b>
 will be java declarations for all operations and signals with direction towards
-the Provider component. Similarly, inside the <b style='mso-bidi-font-weight:
-normal'>I&lt;Interface Name&gt;FromProvider</b> are all operations and signals
-with direction from the Provider component towards the Requires component.</span></p>
+the Provider component. Similarly, inside the <b>I&lt;Interface
+Name&gt;FromProvider</b> are all operations and signals with direction from the
+Provider component towards the Requires component.</p>
 
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l5 level1 lfo4;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>2.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>At
-the top of each file add the package statement</span></p>
+<p style='margin-left:.25in;text-indent:-.25in'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>At the top of each file add the package statement</p>
 
-<h2 style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'>package &lt;model path to interface &gt;;<o:p></o:p></span></span></h2>
+<h2 style='margin-left:.5in'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>package &lt;model path to interface &gt;;</span></h2>
 
-<h2 style='margin-left:.25in'><span style='mso-bookmark:_Ref100717464'><span
-style='color:black;mso-themecolor:text1;font-weight:normal;mso-bidi-font-weight:
-bold'>where &lt;model path to interface&gt; equals a “.” delimited path from
-the root to the package containing the interface in the xtUML model hierarchy.
-This path can be identified using the BridgePoint Model Explorer<o:p></o:p></span></span></h2>
+<h2 style='margin-left:.25in'><span style='color:black;font-weight:normal'>where
+&lt;model path to interface&gt; equals a “.” delimited path from the root to
+the package containing the interface in the xtUML model hierarchy. This path
+can be identified using the BridgePoint Model Explorer</span></h2>
 
-<h2 style='margin-left:.25in;text-indent:-.25in;mso-list:l5 level1 lfo4;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial;color:black;mso-themecolor:text1'><span
-style='mso-list:Ignore'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]><span style='color:black;mso-themecolor:text1;
-font-weight:normal;mso-bidi-font-weight:bold'>Next, import the package
-containing Verifier IRC </span></span><span style='mso-bookmark:_Ref100717464'><span
-style='color:black;mso-themecolor:text1'><o:p></o:p></span></span></h2>
+<h2 style='margin-left:.25in;text-indent:-.25in'><span style='color:black'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='color:black;font-weight:normal'>Next, import the package containing
+Verifier IRC </span></h2>
 
-<h2 style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'>import com.mentor.nucleus.bp.core.ComponentInstance_c<o:p></o:p></span></span></h2>
+<h2 style='margin-left:.5in'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>import com.mentor.nucleus.bp.core.ComponentInstance_c</span></h2>
 
-<h2 style='margin-left:.25in;text-indent:-.25in;mso-list:l5 level1 lfo4;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial;color:black;mso-themecolor:text1;
-font-weight:normal;mso-bidi-font-weight:bold'><span style='mso-list:Ignore'>4.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='color:black;mso-themecolor:text1;font-weight:normal;mso-bidi-font-weight:
-bold'>Now define the Java interface using<o:p></o:p></span></span></h2>
+<h2 style='margin-left:.25in;text-indent:-.25in'><span style='color:black;
+font-weight:normal'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:black;font-weight:normal'>Now define the Java
+interface using</span></h2>
 
-<h2 style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'>public interface IActionsAndDataFromProvider</span></span><span
-style='mso-bookmark:_Ref100717464'><span style='font-family:"Arial Unicode MS","sans-serif";
-color:black;mso-themecolor:text1;font-weight:normal;mso-bidi-font-weight:bold'>
-{<br>
+<h2 style='margin-left:.5in'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>public interface IActionsAndDataFromProvider</span><span
+style='font-family:"Arial Unicode MS","sans-serif";color:black;font-weight:
+normal'> {<br>
 ….<br>
-}<o:p></o:p></span></span></h2>
+}</span></h2>
 
-<h2 style='margin-left:.25in;text-indent:-.25in;mso-list:l5 level1 lfo4;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial;color:black;mso-themecolor:text1;
-font-weight:normal;mso-bidi-font-weight:bold'><span style='mso-list:Ignore'>5.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='color:black;mso-themecolor:text1;font-weight:normal;mso-bidi-font-weight:
-bold'>Inside this Java interface, define the java prototype for each operation
-or signal contained in the &lt;Interface Name&gt; and is in the associated
-direction. The message definitions are of the form <br>
+<h2 style='margin-left:.25in;text-indent:-.25in'><span style='color:black;
+font-weight:normal'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:black;font-weight:normal'>Inside this Java interface,
+define the java prototype for each operation or signal contained in the
+&lt;Interface Name&gt; and is in the associated direction. The message
+definitions are of the form <br>
 <br>
-</span></span><span style='mso-bookmark:_Ref100717464'><span style='font-family:
-"Arial Unicode MS","sans-serif";color:black;mso-themecolor:text1'><span
-style='mso-spacerun:yes'>   </span>&lt;ReturnType&gt;
-&lt;BPMessageName&gt;(ComponentInstance_c senderReceiver,<span
-style='mso-spacerun:yes'>  </span>list of &lt;BPArgument&gt;s);</span></span><span
-style='mso-bookmark:_Ref100717464'><span style='color:black;mso-themecolor:
-text1;font-weight:normal;mso-bidi-font-weight:bold'><o:p></o:p></span></span></h2>
+</span><span style='font-family:"Arial Unicode MS","sans-serif";color:black'>  
+&lt;ReturnType&gt; &lt;BPMessageName&gt;(ComponentInstance_c senderReceiver, 
+list of &lt;BPArgument&gt;s);</span></h2>
 
-<h2 style='margin-left:.25in'><span style='mso-bookmark:_Ref100717464'><span
-style='color:black;mso-themecolor:text1;font-weight:normal;mso-bidi-font-weight:
-bold'>Note that the parameter list of the message prototype contains the list
-of parameters from the xtUML model prepended by a component reference to the
+<h2 style='margin-left:.25in'><span style='color:black;font-weight:normal'>Note
+that the parameter list of the message prototype contains the list of
+parameters from the xtUML model prepended by a component reference to the
 message source. Here is an example using the ActionsAndData interface of the
-GPS Watch <o:p></o:p></span></span></h2>
+GPS Watch </span></h2>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif";
-color:black;mso-themecolor:text1'><span style='mso-tab-count:1'>          </span>//
-&quot;From Provider&quot; message definitions of form:<o:p></o:p></span></b></span></p>
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>          // &quot;From Provider&quot; message definitions of
+form:</span></b></p>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif";
-color:black;mso-themecolor:text1'><span style='mso-tab-count:1'>          </span>//<span
-style='mso-spacerun:yes'>   </span>&lt;ReturnType&gt;
-&lt;BPMessageName&gt;(ComponentInstance_c senderReceiver,<span
-style='mso-spacerun:yes'>  </span>list of &lt;BPArgument&gt;s);<o:p></o:p></span></b></span></p>
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>          //   &lt;ReturnType&gt;
+&lt;BPMessageName&gt;(ComponentInstance_c senderReceiver,  list of
+&lt;BPArgument&gt;s);</span></b></p>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif";
-color:black;mso-themecolor:text1'><span style='mso-tab-count:1'>          </span>public
-void lapResetPressed(ComponentInstance_c senderReceiver);<o:p></o:p></span></b></span></p>
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>          public void lapResetPressed(ComponentInstance_c
+senderReceiver);</span></b></p>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif";
-color:black;mso-themecolor:text1'><span style='mso-tab-count:1'>          </span>public
-void lightPressed(ComponentInstance_c senderReceiver);<o:p></o:p></span></b></span></p>
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>          public void lightPressed(ComponentInstance_c senderReceiver);</span></b></p>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif";
-color:black;mso-themecolor:text1'><span style='mso-tab-count:1'>          </span>public
-void modePressed(ComponentInstance_c senderReceiver);<o:p></o:p></span></b></span></p>
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>          public void modePressed(ComponentInstance_c
+senderReceiver);</span></b></p>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif";
-color:black;mso-themecolor:text1'><span style='mso-tab-count:1'>          </span>public
-void startStopPressed(ComponentInstance_c senderReceiver);<o:p></o:p></span></b></span></p>
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>          public void startStopPressed(ComponentInstance_c
+senderReceiver);</span></b></p>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif";
-color:black;mso-themecolor:text1'><span style='mso-tab-count:1'>          </span>public
-void targetPressed(ComponentInstance_c senderReceiver);<o:p></o:p></span></b></span></p>
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>          public void targetPressed(ComponentInstance_c
+senderReceiver);</span></b></p>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif";
-color:black;mso-themecolor:text1'><o:p>&nbsp;</o:p></span></b></span></p>
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;</span></b></p>
 
-<p class=MsoListParagraph style='margin-left:.25in;mso-add-space:auto;
-text-indent:-.25in;mso-list:l5 level1 lfo4;tab-stops:list .25in'><span
-style='mso-bookmark:_Ref100717464'><![if !supportLists]><span style='font-family:
-"Arial Unicode MS","sans-serif";color:black;mso-themecolor:text1'><span
-style='mso-list:Ignore'>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]><span style='font-family:"Arial Unicode MS","sans-serif";
-color:black;mso-themecolor:text1'>Repeat steps 4 and 5 for each interface
-contained in the Realized Component.<o:p></o:p></span></span></p>
+<p class=MsoListParagraph style='margin-left:.25in;text-indent:-.25in'><span
+style='font-family:"Arial Unicode MS","sans-serif";color:black'>6.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-family:"Arial Unicode MS","sans-serif";color:black'>Repeat steps 4
+and 5 for each interface contained in the Realized Component.</span></p>
 
-<h2><span style='mso-bookmark:_Ref100717464'>Task 3: Create a Java Realized
-Component</span></h2>
+<h2>Task 3: Create a Java Realized Component</h2>
 
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l4 level1 lfo6;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>1.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>In
-the sub-folder whose directory path from /javasrc folder matches xtUML
-hierarchical path shown in BridgePoint Model Explorer, create a file named <b
-style='mso-bidi-font-weight:normal'>&lt;xtUML component name&gt;.java</b></span></p>
+<p style='margin-left:.25in;text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>In the sub-folder whose directory path from /javasrc folder matches
+xtUML hierarchical path shown in BridgePoint Model Explorer, create a file
+named <b>&lt;xtUML component name&gt;.java</b></p>
 
-<p style='margin-left:0in'><!--[if gte vml 1]><o:wrapblock><v:shapetype id="_x0000_t75"
-  coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"
-  filled="f" stroked="f">
-  <v:stroke joinstyle="miter"/>
-  <v:formulas>
-   <v:f eqn="if lineDrawn pixelLineWidth 0"/>
-   <v:f eqn="sum @0 1 0"/>
-   <v:f eqn="sum 0 0 @1"/>
-   <v:f eqn="prod @2 1 2"/>
-   <v:f eqn="prod @3 21600 pixelWidth"/>
-   <v:f eqn="prod @3 21600 pixelHeight"/>
-   <v:f eqn="sum @0 0 1"/>
-   <v:f eqn="prod @6 1 2"/>
-   <v:f eqn="prod @7 21600 pixelWidth"/>
-   <v:f eqn="sum @8 21600 0"/>
-   <v:f eqn="prod @7 21600 pixelHeight"/>
-   <v:f eqn="sum @10 21600 0"/>
-  </v:formulas>
-  <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
-  <o:lock v:ext="edit" aspectratio="t"/>
- </v:shapetype><v:shape id="Picture_x0020_5" o:spid="_x0000_s1032" type="#_x0000_t75"
-  alt="Description: Description: C:\Users\dmcarthu\Desktop\tmp.jpg" style='position:absolute;
-  margin-left:130.5pt;margin-top:-280.45pt;width:587.5pt;height:286.55pt;
-  z-index:3;visibility:visible;mso-wrap-style:square;mso-wrap-distance-left:9pt;
-  mso-wrap-distance-top:0;mso-wrap-distance-right:9pt;
-  mso-wrap-distance-bottom:0;mso-position-horizontal:absolute;
-  mso-position-horizontal-relative:text;mso-position-vertical:absolute;
-  mso-position-vertical-relative:text'>
-  <v:imagedata src="ModelVerifierJavaInterface_files/image001.jpg" o:title="tmp"
-   cropbottom="8248f" cropleft="2571f"/>
-  <w:wrap type="topAndBottom"/>
- </v:shape><![endif]--><![if !vml]><span style='mso-ignore:vglayout'>
- <table cellpadding=0 cellspacing=0 align=left>
-  <tr>
-   <td width=174 height=0></td>
-  </tr>
-  <tr>
-   <td></td>
-   <td><img width=783 height=382
-   src="ModelVerifierJavaInterface_files/image002.jpg"
-   alt="Description: Description: C:\Users\dmcarthu\Desktop\tmp.jpg" v:shapes="Picture_x0020_5"></td>
-  </tr>
- </table>
- </span><![endif]><!--[if gte vml 1]></o:wrapblock><![endif]--><br
-style='mso-ignore:vglayout' clear=ALL>
-<span style='mso-bookmark:_Ref100717464'></span></p>
+<p style='margin-left:0in'>
 
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l4 level1 lfo6;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>2.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>To
-this file add the package statement</span></p>
+<table cellpadding=0 cellspacing=0 align=left>
+ <tr>
+  <td width=174 height=0></td>
+ </tr>
+ <tr>
+  <td></td>
+  <td><img width=783 height=382
+  src="ModelVerifierJavaInterface_files/image001.jpg"
+  alt="Description: Description: Description: C:\Users\dmcarthu\Desktop\tmp.jpg"></td>
+ </tr>
+</table>
 
-<h2 style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'>package &lt;model path to interface &gt;;<o:p></o:p></span></span></h2>
+<br clear=ALL>
+</p>
 
-<h2 style='margin-left:.25in'><span style='mso-bookmark:_Ref100717464'><span
-style='color:black;mso-themecolor:text1;font-weight:normal;mso-bidi-font-weight:
-bold'>where &lt;model path to interface&gt; equals a “.” delimited path from
-the root to the package containing the xtUML component model in the model
-hierarchy. This path can be identified using the BridgePoint Model Explorer<o:p></o:p></span></span></h2>
+<p style='margin-left:.25in;text-indent:-.25in'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>To this file add the package statement</p>
 
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l4 level1 lfo6;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>3.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Next,
-add statements to import the *ToProvider and *FromProvider interfaces as well
-as the package containing Verifier IRC. Here, is an example using the UI
-component from the GPS Watch design which implements the
+<h2 style='margin-left:.5in'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>package &lt;model path to interface &gt;;</span></h2>
+
+<h2 style='margin-left:.25in'><span style='color:black;font-weight:normal'>where
+&lt;model path to interface&gt; equals a “.” delimited path from the root to
+the package containing the xtUML component model in the model hierarchy. This
+path can be identified using the BridgePoint Model Explorer</span></h2>
+
+<p style='margin-left:.25in;text-indent:-.25in'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Next, add statements to import the *ToProvider and *FromProvider
+interfaces as well as the package containing Verifier IRC. Here, is an example
+using the UI component from the GPS Watch design which implements the
 IActionsAndDataToProvider interface and requires the
-IActionsAndDataFromProvider interface. </span></p>
+IActionsAndDataFromProvider interface. </p>
 
-<p style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif"'>import
+<p style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>import
 uiinterfaces.IActionsAndDataFromProvider;<br>
 import uiinterfaces.IActionsAndDataToProvider;<br>
-import com.mentor.nucleus.bp.core.ComponentInstance_c;<br style='mso-special-character:
-line-break'>
-<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
-<![endif]><o:p></o:p></span></b></span></p>
+import com.mentor.nucleus.bp.core.ComponentInstance_c;<br>
+<br>
+</span></b></p>
 
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l4 level1 lfo6;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>4.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Create
-a java class to implement the &lt;Interface Name&gt;ToProvider interface. This
-java class will contain a data member to be assigned a reference to an instance
-of the &lt;Instance Name&gt;FromProvider interface, java code to construct all
-instances of the FromProvider interfaces, and java realizations of each
-operation and signal prototype contained in the interface definition. Here is
-the class declaration based on the UI component from the GPS Watch design and
-will be fully populated over the next three steps.</span></p>
+<p style='margin-left:.25in;text-indent:-.25in'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Create a java class to implement the &lt;Interface Name&gt;ToProvider
+interface. This java class will contain a data member to be assigned a
+reference to an instance of the &lt;Instance Name&gt;FromProvider interface,
+java code to construct all instances of the FromProvider interfaces, and java
+realizations of each operation and signal prototype contained in the interface
+definition. Here is the class declaration based on the UI component from the
+GPS Watch design and will be fully populated over the next three steps.</p>
 
-<p style='margin-left:.25in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif"'>public
-class UI implements IActionsAndDataToProvider<o:p></o:p></span></b></span></p>
+<p style='margin-left:.25in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>public
+class UI implements IActionsAndDataToProvider</span></b></p>
 
 <p style='margin-top:0in;margin-right:.1in;margin-bottom:0in;margin-left:.25in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif"'>{<o:p></o:p></span></b></span></p>
+margin-bottom:.0001pt'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>{</span></b></p>
 
 <p style='margin-top:0in;margin-right:.1in;margin-bottom:0in;margin-left:10.5pt;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif"'><span
-style='mso-tab-count:1'>       </span>…<o:p></o:p></span></b></span></p>
+margin-bottom:.0001pt'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>       …</span></b></p>
 
 <p style='margin-top:0in;margin-right:.1in;margin-bottom:0in;margin-left:.25in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif"'>}<o:p></o:p></span></b></span></p>
+margin-bottom:.0001pt'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>}</span></b></p>
 
-<p style='margin-left:0in'><span style='mso-bookmark:_Ref100717464'><o:p>&nbsp;</o:p></span></p>
+<p style='margin-left:0in'>&nbsp;</p>
 
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l4 level1 lfo6;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>5.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Next
-add data members to store a reference to an instance of each *FromProvider
-interface. In the UI component this static data member refers to an instance of
-the IActionsAndDataToProvider interface. </span></p>
+<p style='margin-left:.25in;text-indent:-.25in'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Next add data members to store a reference to an instance of each
+*FromProvider interface. In the UI component this static data member refers to
+an instance of the IActionsAndDataToProvider interface. </p>
 
-<h2><span style='mso-bookmark:_Ref100717464'><span style='color:black;
-mso-themecolor:text1'><span style='mso-tab-count:1'>            </span></span></span><span
-style='mso-bookmark:_Ref100717464'><span style='font-family:"Arial Unicode MS","sans-serif";
-color:black;mso-themecolor:text1'>public static IActionsAndDataFromProvider
-uiComm;<o:p></o:p></span></span></h2>
+<h2><span style='color:black'>            </span><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>public static IActionsAndDataFromProvider uiComm;</span></h2>
 
-<h2 style='margin-left:.25in;text-indent:-.25in;mso-list:l4 level1 lfo6;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial;color:black;mso-themecolor:text1;
-font-weight:normal;mso-bidi-font-weight:bold'><span style='mso-list:Ignore'>6.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='color:black;mso-themecolor:text1;font-weight:normal;mso-bidi-font-weight:
-bold'>Create a constructor for the java class. As part of the construction,
-instances of the *FromProvider interfaces are created and assigned to the
-associated data member. For the UI component, this constructor can be as simple
-as <o:p></o:p></span></span></h2>
+<h2 style='margin-left:.25in;text-indent:-.25in'><span style='color:black;
+font-weight:normal'>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:black;font-weight:normal'>Create a constructor
+for the java class. As part of the construction, instances of the *FromProvider
+interfaces are created and assigned to the associated data member. For the UI
+component, this constructor can be as simple as </span></h2>
 
-<p class=MsoListParagraph><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='color:black;mso-themecolor:
-text1'><o:p>&nbsp;</o:p></span></b></span></p>
+<p class=MsoListParagraph><b><span style='color:black'>&nbsp;</span></b></p>
 
 <h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-.5in;margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'>public UI(IActionsAndDataFromProvider UIComm) {<o:p></o:p></span></span></h2>
+.5in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>public UI(IActionsAndDataFromProvider UIComm) {</span></h2>
 
 <h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-.5in;margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:2'>                   </span>uiComm = UIComm;<o:p></o:p></span></span></h2>
+.5in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>                   uiComm = UIComm;</span></h2>
 
 <h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-.5in;margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:2'>                   </span>CorePlugin.out.println(&quot;Initializing
-realized UI component.&quot;);<o:p></o:p></span></span></h2>
+.5in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>                   CorePlugin.out.println(&quot;Initializing
+realized UI component.&quot;);</span></h2>
 
 <h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-.5in;margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:2'>                   </span>if ( uiComm !=
-null ) {<o:p></o:p></span></span></h2>
+.5in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>                   if ( uiComm != null ) {</span></h2>
 
 <h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-.5in;margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:3'>                             </span>CorePlugin.out.println(&quot;The
-UIComm port value is now set.&quot;);<o:p></o:p></span></span></h2>
+.5in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>                             CorePlugin.out.println(&quot;The
+UIComm port value is now set.&quot;);</span></h2>
 
 <h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-.5in;margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:2'>                   </span>}<o:p></o:p></span></span></h2>
+.5in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>                   }</span></h2>
 
 <h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-.5in;margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-spacerun:yes'>    </span>}<o:p></o:p></span></span></h2>
+.5in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>    }</span></h2>
 
 <h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-.25in;margin-bottom:.0001pt;text-indent:-.25in;mso-list:l4 level1 lfo6;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial;color:black;mso-themecolor:text1;
-font-weight:normal;mso-bidi-font-weight:bold'><span style='mso-list:Ignore'>7.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='color:black;mso-themecolor:text1;font-weight:normal;mso-bidi-font-weight:
-bold'>Define an implementation for each *ToProvider operation or signal. These
-implementations will complete the connection to the Java code describing the
-functionality of the Realized Component. When making this connection, care is
-required to ensure proper marshaling of the parameter data. Compatible
-parameter data types include core data types, user-defined data types,
-enumerated data types and structured data types. Rules for accessing parameter
-data values are summarized in the following table<br style='mso-special-character:
-line-break'>
-<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
-<![endif]><o:p></o:p></span></span></h2>
+.25in;margin-bottom:.0001pt;text-indent:-.25in'><span style='color:black;
+font-weight:normal'>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:black;font-weight:normal'>Define an
+implementation for each *ToProvider operation or signal. These implementations
+will complete the connection to the Java code describing the functionality of
+the Realized Component. When making this connection, care is required to ensure
+proper marshaling of the parameter data. Compatible parameter data types
+include core data types, user-defined data types, enumerated data types and
+structured data types. Rules for accessing parameter data values are summarized
+in the following table<br>
+<br>
+</span></h2>
 
 <div align=center>
 
 <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
- style='border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;
- mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=173 style='width:130.1pt;border:solid windowtext 1.0pt;mso-border-alt:
-  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+ style='border-collapse:collapse;border:none'>
+ <tr>
+  <td width=173 style='width:130.1pt;border:solid windowtext 1.0pt;padding:
+  0in 5.4pt 0in 5.4pt'>
   <h2 align=center style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
   margin-left:0in;margin-bottom:.0001pt;text-align:center'><span
-  style='mso-bookmark:_Ref100717464'><span style='color:black;mso-themecolor:
-  text1;font-weight:normal;mso-bidi-font-weight:bold'>Data type<o:p></o:p></span></span></h2>
+  style='color:black;font-weight:normal'>Data type</span></h2>
   </td>
-  <span style='mso-bookmark:_Ref100717464'></span>
   <td width=504 valign=top style='width:5.25in;border:solid windowtext 1.0pt;
-  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
-  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
   <h2 align=center style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
   margin-left:0in;margin-bottom:.0001pt;text-align:center'><span
-  style='mso-bookmark:_Ref100717464'><span style='color:black;mso-themecolor:
-  text1;font-weight:normal;mso-bidi-font-weight:bold'>Rule to access Attribute
-  Value <o:p></o:p></span></span></h2>
+  style='color:black;font-weight:normal'>Rule to access Attribute Value </span></h2>
   </td>
-  <span style='mso-bookmark:_Ref100717464'></span>
  </tr>
- <tr style='mso-yfti-irow:1'>
+ <tr>
   <td width=173 style='width:130.1pt;border:solid windowtext 1.0pt;border-top:
-  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
-  padding:0in 5.4pt 0in 5.4pt'>
+  none;padding:0in 5.4pt 0in 5.4pt'>
   <h2 align=center style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
   margin-left:0in;margin-bottom:.0001pt;text-align:center'><span
-  style='mso-bookmark:_Ref100717464'><span style='color:black;mso-themecolor:
-  text1;font-weight:normal;mso-bidi-font-weight:bold'>Core<o:p></o:p></span></span></h2>
+  style='color:black;font-weight:normal'>Core</span></h2>
   </td>
-  <span style='mso-bookmark:_Ref100717464'></span>
   <td width=504 valign=top style='width:5.25in;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <h2><span style='mso-bookmark:_Ref100717464'><span style='color:black;
-  mso-themecolor:text1;font-weight:normal;mso-bidi-font-weight:bold'>Core types
-  are directly converted to/from appropriate java types and the value can be
-  accessed via the variable name<o:p></o:p></span></span></h2>
-  </td>
-  <span style='mso-bookmark:_Ref100717464'></span>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=173 style='width:130.1pt;border:solid windowtext 1.0pt;border-top:
-  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
   padding:0in 5.4pt 0in 5.4pt'>
+  <h2><span style='color:black;font-weight:normal'>Core types are directly
+  converted to/from appropriate java types and the value can be accessed via
+  the variable name</span></h2>
+  </td>
+ </tr>
+ <tr>
+  <td width=173 style='width:130.1pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt'>
   <h2 align=center style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
   margin-left:0in;margin-bottom:.0001pt;text-align:center'><span
-  style='mso-bookmark:_Ref100717464'><span style='color:black;mso-themecolor:
-  text1;font-weight:normal;mso-bidi-font-weight:bold'>User Defined<o:p></o:p></span></span></h2>
+  style='color:black;font-weight:normal'>User Defined</span></h2>
   </td>
-  <span style='mso-bookmark:_Ref100717464'></span>
   <td width=504 valign=top style='width:5.25in;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <h2><span style='mso-bookmark:_Ref100717464'><span style='color:black;
-  mso-themecolor:text1;font-weight:normal;mso-bidi-font-weight:bold'>For User
-  Defined types, the access rule depends on the base type to which the user
-  data type resolves.<span style='mso-spacerun:yes'>  </span>If it resolves to
-  a core data type then xtUML models will access the value through a user
-  supplied getValue() accessor, or through a public field named 'value'. If
-  neither accessor nor public field is found, a runtime error is raised.<span
-  style='mso-spacerun:yes'>  </span>Also, if the User Defined Type resolves to
-  a Structured Data Type or an Enumerated Data Type, the rules for those are followed.<o:p></o:p></span></span></h2>
-  </td>
-  <span style='mso-bookmark:_Ref100717464'></span>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=173 style='width:130.1pt;border:solid windowtext 1.0pt;border-top:
-  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
   padding:0in 5.4pt 0in 5.4pt'>
+  <h2><span style='color:black;font-weight:normal'>For User Defined types, the
+  access rule depends on the base type to which the user data type resolves. 
+  If it resolves to a core data type then xtUML models will access the value
+  through a user supplied getValue() accessor, or through a public field named
+  'value'. If neither accessor nor public field is found, a runtime error is
+  raised.  Also, if the User Defined Type resolves to a Structured Data Type or
+  an Enumerated Data Type, the rules for those are followed.</span></h2>
+  </td>
+ </tr>
+ <tr>
+  <td width=173 style='width:130.1pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt'>
   <h2 align=center style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
   margin-left:0in;margin-bottom:.0001pt;text-align:center'><span
-  style='mso-bookmark:_Ref100717464'><span style='color:black;mso-themecolor:
-  text1;font-weight:normal;mso-bidi-font-weight:bold'>Enumerated<o:p></o:p></span></span></h2>
+  style='color:black;font-weight:normal'>Enumerated</span></h2>
   </td>
-  <span style='mso-bookmark:_Ref100717464'></span>
   <td width=504 valign=top style='width:5.25in;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <h2><span style='mso-bookmark:_Ref100717464'><span style='color:black;
-  mso-themecolor:text1;font-weight:normal;mso-bidi-font-weight:bold'>Enumerated
-  data types require that the Realized Component contain a matching java
-  enumeration. If one is found, then usage access to the supplied user
-  enumerators will be by name. If no user supplied java enumeration is found, a
-  runtime error will be raised<o:p></o:p></span></span></h2>
-  </td>
-  <span style='mso-bookmark:_Ref100717464'></span>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=173 style='width:130.1pt;border:solid windowtext 1.0pt;border-top:
-  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
   padding:0in 5.4pt 0in 5.4pt'>
+  <h2><span style='color:black;font-weight:normal'>Enumerated data types
+  require that the Realized Component contain a matching java enumeration. If
+  one is found, then usage access to the supplied user enumerators will be by
+  name. If no user supplied java enumeration is found, a runtime error will be
+  raised</span></h2>
+  </td>
+ </tr>
+ <tr>
+  <td width=173 style='width:130.1pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt'>
   <h2 align=center style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
   margin-left:0in;margin-bottom:.0001pt;text-align:center'><span
-  style='mso-bookmark:_Ref100717464'><span style='color:black;mso-themecolor:
-  text1;font-weight:normal;mso-bidi-font-weight:bold'>Structured<o:p></o:p></span></span></h2>
+  style='color:black;font-weight:normal'>Structured</span></h2>
   </td>
-  <span style='mso-bookmark:_Ref100717464'></span>
   <td width=504 valign=top style='width:5.25in;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
-  <h2><span style='mso-bookmark:_Ref100717464'><span style='color:black;
-  mso-themecolor:text1;font-weight:normal;mso-bidi-font-weight:bold'>The
-  preferred approach to Access to access member of a structured data type is
-  through a user supplied get&lt;MemberName&gt;() accessor. If an accessor is
-  not provided, then the realized field must be public and will be accessed
-  directly by the executing model.<o:p></o:p></span></span></h2>
+  padding:0in 5.4pt 0in 5.4pt'>
+  <h2><span style='color:black;font-weight:normal'>The preferred approach to
+  Access to access member of a structured data type is through a user supplied
+  get&lt;MemberName&gt;() accessor. If an accessor is not provided, then the
+  realized field must be public and will be accessed directly by the executing
+  model.</span></h2>
   </td>
-  <span style='mso-bookmark:_Ref100717464'></span>
  </tr>
 </table>
 
 </div>
 
 <h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-0in;margin-bottom:.0001pt;text-indent:22.5pt'><span style='mso-bookmark:_Ref100717464'><span
-style='color:black;mso-themecolor:text1;font-weight:normal;mso-bidi-font-weight:
-bold'><span style='mso-spacerun:yes'> </span><o:p></o:p></span></span></h2>
+0in;margin-bottom:.0001pt;text-indent:22.5pt'><span style='color:black;
+font-weight:normal'> </span></h2>
 
 <h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-0in;margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='color:black;mso-themecolor:text1;font-weight:normal;mso-bidi-font-weight:
-bold'><o:p>&nbsp;</o:p></span></span></h2>
+0in;margin-bottom:.0001pt'><span style='color:black;font-weight:normal'>&nbsp;</span></h2>
 
 <h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-.25in;margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='color:black;mso-themecolor:text1;font-weight:normal;mso-bidi-font-weight:
-bold'>As an example, in the case of the realized UI component, the setTime and
-setData signals can be expressed as<o:p></o:p></span></span></h2>
+.25in;margin-bottom:.0001pt'><span style='color:black;font-weight:normal'>As an
+example, in the case of the realized UI component, the setTime and setData
+signals can be expressed as</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='color:black;mso-themecolor:text1;font-weight:normal;mso-bidi-font-weight:
-bold'><span style='mso-tab-count:1'>            </span></span></span><span
-style='mso-bookmark:_Ref100717464'><span style='font-family:"Arial Unicode MS","sans-serif";
-color:black;mso-themecolor:text1'>/**<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='color:black;font-weight:normal'>            </span><span
+style='font-family:"Arial Unicode MS","sans-serif";color:black'>/**</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:1'>          </span><span
-style='mso-spacerun:yes'> </span>*/<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>           */</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:1'>          </span>@Override<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>          @Override</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:1'>          </span>public void
-setTime(ComponentInstance_c senderReceiver, int time) {<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>          public void setTime(ComponentInstance_c senderReceiver,
+int time) {</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:2'>                   </span>if (requester !=
-null) {<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>                   if (requester != null) {</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:3'>                             </span>requester.sendMessage(new
-SetTime(time)); // call to Java request handler<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>                             requester.sendMessage(new SetTime(time));
+// call to Java request handler</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:2'>                   </span>} else {<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>                   } else {</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:3'>                             </span>CorePlugin.out.println(&quot;requester
-is null.<span style='mso-spacerun:yes'>  </span>You need to execute
-initialization.&quot;);<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>                             CorePlugin.out.println(&quot;requester
+is null.  You need to execute initialization.&quot;);</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:2'>                   </span>}<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>                   }</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:1'>          </span>}<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>          }</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:1'>          </span>/**<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>          /**</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:1'>          </span><span
-style='mso-spacerun:yes'> </span>*/<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>           */</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:1'>          </span>@Override<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>          @Override</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:1'>          </span>public void
-setData(ComponentInstance_c senderReceiver, float value, int unit) {<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>          public void setData(ComponentInstance_c senderReceiver,
+float value, int unit) {</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:2'>                   </span>if (requester !=
-null) {<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>                    if (requester != null) {</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:3'>                             </span>requester.sendMessage(new
-SetData(value, unit)); // call to Java request handler<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>                             requester.sendMessage(new
+SetData(value, unit)); // call to Java request handler</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:2'>                   </span>} else {<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>                   } else {</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:3'>                             </span>CorePlugin.out.println(&quot;requester
-is null.<span style='mso-spacerun:yes'>  </span>You need to execute
-initialization.&quot;);<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>                             CorePlugin.out.println(&quot;requester
+is null.  You need to execute initialization.&quot;);</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:2'>                   </span>}<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>                   }</span></h2>
 
 <h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><span style='mso-tab-count:1'>          </span>}<o:p></o:p></span></span></h2>
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>          }</span></h2>
 
 <h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-.25in;margin-bottom:.0001pt;text-indent:-.25in;mso-list:l4 level1 lfo6;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial;color:black;mso-themecolor:text1;
-font-weight:normal;mso-bidi-font-weight:bold'><span style='mso-list:Ignore'>8.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='mso-fareast-font-family:"Arial Unicode MS";color:black;mso-themecolor:
-text1;font-weight:normal;mso-bidi-font-weight:bold'>Within the Realized
+.25in;margin-bottom:.0001pt;text-indent:-.25in'><span style='color:black;
+font-weight:normal'>8.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:black;font-weight:normal'>Within the Realized
 Component, operations and signals provided by the &lt;Interface
-Name&gt;FromProvider path can be called through either<o:p></o:p></span></span></h2>
+Name&gt;FromProvider path can be called through either</span></h2>
 
 <h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-.5in;margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'>returnValue = &lt;interface reference&gt;.&lt;Operation name&gt; (
+.5in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>returnValue = &lt;interface reference&gt;.&lt;Operation name&gt; (
 ComponentInstance, &lt;bpParameter list&gt;)<br>
 &lt;interface reference&gt;.&lt;Signal name&gt; ( ComponentInstance,
-&lt;bpParameter list&gt;)<o:p></o:p></span></span></h2>
+&lt;bpParameter list&gt;)</span></h2>
 
 <h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-.25in;margin-bottom:.0001pt;text-indent:-.25in'><span style='mso-bookmark:_Ref100717464'><span
-style='mso-fareast-font-family:"Arial Unicode MS";color:black;mso-themecolor:
-text1;font-weight:normal;mso-bidi-font-weight:bold'><span
-style='mso-spacerun:yes'>     </span>or if the &lt;bpParameter list&gt; is
-empty then the short form notation<o:p></o:p></span></span></h2>
+.25in;margin-bottom:.0001pt;text-indent:-.25in'><span style='color:black;
+font-weight:normal'>     or if the &lt;bpParameter list&gt; is empty then the
+short form notation</span></h2>
 
 <h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-.5in;margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'>returnValue = &lt;interface reference&gt;.&lt;Operation name&gt; ( null)<br>
-&lt;interface reference&gt;.&lt;Signal name&gt; ( null)<o:p></o:p></span></span></h2>
+.5in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>returnValue = &lt;interface reference&gt;.&lt;Operation name&gt; (
+null)<br>
+&lt;interface reference&gt;.&lt;Signal name&gt; ( null)</span></h2>
 
 <h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-.25in;margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='mso-fareast-font-family:"Arial Unicode MS";color:black;mso-themecolor:
-text1;font-weight:normal;mso-bidi-font-weight:bold'>is also accepted. <o:p></o:p></span></span></h2>
+.25in;margin-bottom:.0001pt'><span style='color:black;font-weight:normal'>is
+also accepted. </span></h2>
 
 <h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-.25in;margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='mso-fareast-font-family:"Arial Unicode MS";color:black;mso-themecolor:
-text1;font-weight:normal;mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></span></h2>
+.25in;margin-bottom:.0001pt'><span style='color:black;font-weight:normal'>&nbsp;</span></h2>
 
 <h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-.25in;margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='color:black;mso-themecolor:text1;font-weight:normal;mso-bidi-font-weight:
-bold'>As an example, in the case of the realized UI component, a press of the
-start-stop button is communicated to the xtUML model across the realized </span></span><span
-style='mso-bookmark:_Ref100717464'><span style='color:black;mso-themecolor:
-text1'>uiinterface</span></span><span style='mso-bookmark:_Ref100717464'><span
-style='color:black;mso-themecolor:text1;font-weight:normal;mso-bidi-font-weight:
-bold'> as follows:</span></span><span style='mso-bookmark:_Ref100717464'><span
-style='mso-fareast-font-family:"Arial Unicode MS";color:black;mso-themecolor:
-text1;font-weight:normal;mso-bidi-font-weight:bold'><o:p></o:p></span></span></h2>
+.25in;margin-bottom:.0001pt'><span style='color:black;font-weight:normal'>As an
+example, in the case of the realized UI component, a press of the start-stop
+button is communicated to the xtUML model across the realized </span><span
+style='color:black'>uiinterface</span><span style='color:black;font-weight:
+normal'> as follows:</span></h2>
 
 <h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-0in;margin-bottom:.0001pt'><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Arial Unicode MS","sans-serif";color:black;mso-themecolor:
-text1'><o:p>&nbsp;</o:p></span></span></h2>
+0in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;</span></h2>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif"'>case
-SignalData.SIGNAL_NO_START_STOP_PRESSED:<o:p></o:p></span></b></span></p>
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>case
+SignalData.SIGNAL_NO_START_STOP_PRESSED:</span></b></p>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif"'><span
-style='mso-tab-count:4'>                                      </span>if (
-uiComm == null ) {<o:p></o:p></span></b></span></p>
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>                                      if
+( uiComm == null ) {</span></b></p>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif"'><span
-style='mso-tab-count:6'>                                                          </span>CorePlugin.out.println(&quot;Communication
-port is empty&quot;);<o:p></o:p></span></b></span></p>
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>                                                          CorePlugin.out.println(&quot;Communication
+port is empty&quot;);</span></b></p>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif"'><span
-style='mso-tab-count:4'>                                      </span>} else {<o:p></o:p></span></b></span></p>
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>                                      }
+else {</span></b></p>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif"'><span
-style='mso-tab-count:6'>                                                          </span><span
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>                                                          <span
 style='color:red'>uiComm.startStopPressed(null); //Signal to xtUML model to
-respond to startstop button press<o:p></o:p></span></span></b></span></p>
+respond to startstop button press</span></span></b></p>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif"'><span
-style='mso-tab-count:6'>                                                          </span>CorePlugin.out.println(&quot;UI:
-sending startStopPressed message out UIComm port&quot;);<o:p></o:p></span></b></span></p>
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>                                                          CorePlugin.out.println(&quot;UI:
+sending startStopPressed message out UIComm port&quot;);</span></b></p>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif"'><span
-style='mso-tab-count:4'>                                      </span>}<o:p></o:p></span></b></span></p>
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>                                      }</span></b></p>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='mso-bookmark:_Ref100717464'><b
-style='mso-bidi-font-weight:normal'><span style='font-family:"Arial Unicode MS","sans-serif"'><span
-style='mso-tab-count:4'>                                      </span>break</span></b>;</span></p>
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>                                      break</span></b>;</p>
 
-<h2><span style='mso-bookmark:_Ref100717464'>Task 4: Enable Simulation with the
-Java Realized Component </span></h2>
+<h2>Task 4: Enable Simulation with the Java Realized Component </h2>
 
-<p class=MsoListParagraph style='text-indent:-.25in;mso-list:l6 level1 lfo8'><span
-style='mso-bookmark:_Ref100717464'><![if !supportLists]><span style='mso-fareast-font-family:
-Arial'><span style='mso-list:Ignore'>1)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>If simulation in Verifier is to use the Realized
-Component, then the components property Realized Component must be set to <b
-style='mso-bidi-font-weight:normal'>true</b> as shown below.</span></p>
+<p class=MsoListParagraph style='text-indent:-.25in'>1)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>If simulation in Verifier is to use the Realized Component, then the
+components property Realized Component must be set to <b>true</b> as shown
+below.</p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Ref100717464'><span
-style='mso-no-proof:yes'><o:p>&nbsp;</o:p></span></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal><!--[if gte vml 1]><o:wrapblock><v:shape id="Picture_x0020_2"
-  o:spid="_x0000_s1031" type="#_x0000_t75" style='position:absolute;
-  margin-left:57.75pt;margin-top:-161.9pt;width:317.2pt;height:162.7pt;
-  z-index:2;visibility:visible;mso-wrap-style:square;mso-wrap-distance-left:9pt;
-  mso-wrap-distance-top:0;mso-wrap-distance-right:9pt;
-  mso-wrap-distance-bottom:0;mso-position-horizontal:absolute;
-  mso-position-horizontal-relative:text;mso-position-vertical:absolute;
-  mso-position-vertical-relative:text'>
-  <v:imagedata src="ModelVerifierJavaInterface_files/image003.png" o:title=""/>
-  <w:wrap type="topAndBottom"/>
- </v:shape><![endif]--><![if !vml]><span style='mso-ignore:vglayout'>
- <table cellpadding=0 cellspacing=0 align=left>
-  <tr>
-   <td width=77 height=0></td>
-  </tr>
-  <tr>
-   <td></td>
-   <td><img width=423 height=217
-   src="ModelVerifierJavaInterface_files/image004.jpg" v:shapes="Picture_x0020_2"></td>
-  </tr>
- </table>
- </span><![endif]><!--[if gte vml 1]></o:wrapblock><![endif]--><br
-style='mso-ignore:vglayout' clear=ALL>
-<span style='mso-bookmark:_Ref100717464'><span style='mso-no-proof:yes'><o:p></o:p></span></span></p>
+<p class=MsoNormal>
 
-<p class=MsoNormal><span style='mso-bookmark:_Ref100717464'><span
-style='mso-no-proof:yes'><o:p>&nbsp;</o:p></span></span></p>
+<table cellpadding=0 cellspacing=0 align=left>
+ <tr>
+  <td width=77 height=0></td>
+ </tr>
+ <tr>
+  <td></td>
+  <td><img width=423 height=217
+  src="ModelVerifierJavaInterface_files/image002.jpg"></td>
+ </tr>
+</table>
 
-<p class=MsoListParagraph style='text-indent:-.25in;mso-list:l6 level1 lfo8'><span
-style='mso-bookmark:_Ref100717464'><![if !supportLists]><span style='mso-fareast-font-family:
-Arial;mso-no-proof:yes'><span style='mso-list:Ignore'>2)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]><span style='mso-no-proof:yes'>If the Java
-Realized Component imports packages from outside the project, then the path to
-each of the associated .jar files must be added to the Realized Component Path.
-A semicolon separated list of paths is accepted when more than one package is
-resolved this way.<o:p></o:p></span></span></p>
+<br clear=ALL>
+</p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Ref100717464'><span
-style='mso-no-proof:yes'><span style='mso-spacerun:yes'> </span></span></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in;mso-list:l6 level1 lfo8'><span
-style='mso-bookmark:_Ref100717464'><![if !supportLists]><span style='mso-fareast-font-family:
-Arial'><span style='mso-list:Ignore'>3)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]></span><!--[if gte vml 1]><o:wrapblock><v:shape
-  id="Picture_x0020_1" o:spid="_x0000_s1030" type="#_x0000_t75" style='position:absolute;
-  left:0;text-align:left;margin-left:24pt;margin-top:-156.1pt;width:406.05pt;
-  height:136.05pt;z-index:1;visibility:visible;mso-wrap-style:square;
-  mso-wrap-distance-left:9pt;mso-wrap-distance-top:14.4pt;
-  mso-wrap-distance-right:9pt;mso-wrap-distance-bottom:14.4pt;
-  mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
-  mso-position-vertical:absolute;mso-position-vertical-relative:text'>
-  <v:imagedata src="ModelVerifierJavaInterface_files/image005.png" o:title=""/>
-  <w:wrap type="topAndBottom"/>
- </v:shape><![endif]--><![if !vml]><span style='mso-ignore:vglayout'>
- <table cellpadding=0 cellspacing=0>
-  <tr>
-   <td width=32 height=0></td>
-  </tr>
-  <tr>
-   <td></td>
-   <td><img width=541 height=181
-   src="ModelVerifierJavaInterface_files/image006.jpg" v:shapes="Picture_x0020_1"></td>
-  </tr>
- </table>
- </span><![endif]><!--[if gte vml 1]></o:wrapblock><![endif]--><br
-style='mso-ignore:vglayout' clear=ALL>
-<span style='mso-bookmark:_Ref100717464'>Upon completion of steps 1 and 2 of
-this task, the application model is ready for simulation in BridgePoint
-Verifier</span></p>
+<p class=MsoListParagraph style='text-indent:-.25in'>2)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>If the Java Realized Component imports packages from outside the
+project, then the path to each of the associated .jar files must be added to
+the Realized Component Path. A semicolon separated list of paths is accepted
+when more than one package is resolved this way.</p>
 
-<p class=MsoListParagraphCxSpLast><span style='mso-bookmark:_Ref100717464'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal> </p>
 
-<h2><span style='mso-bookmark:_Ref100717464'>Task 5: Verify the Realized Implementation
-is Complete </span></h2>
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>3)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>
 
-<p class=MsoNormal style='margin-left:.25in'><span style='mso-bookmark:_Ref100717464'>Use
-the “Audit Realized Bindings” action in the context menu to check that all the
-necessary Java artifacts for the realized component, interfaces, and data types
-are in place.<span style='mso-spacerun:yes'>  </span>In the xtUML Modeling
-perspective, this action is available on the context menu via <b
-style='mso-bidi-font-weight:normal'>Right-click &gt; Audit Realized Bindings </b>for
-realized components and for packages that contain realized components.<span
-style='mso-spacerun:yes'>  </span>Invoking this action will perform a series of
+<table cellpadding=0 cellspacing=0>
+ <tr>
+  <td width=32 height=0></td>
+ </tr>
+ <tr>
+  <td></td>
+  <td><img width=541 height=181
+  src="ModelVerifierJavaInterface_files/image003.jpg"></td>
+ </tr>
+</table>
+
+<br clear=ALL>
+Upon completion of steps 1 and 2 of this task, the application model is ready
+for simulation in BridgePoint Verifier</p>
+
+<p class=MsoListParagraphCxSpLast>&nbsp;</p>
+
+<h2>Task 5: Verify the Realized Implementation is Complete </h2>
+
+<p class=MsoNormal style='margin-left:.25in'>Use the “Audit Realized Bindings”
+action in the context menu to check that all the necessary Java artifacts for
+the realized component, interfaces, and data types are in place.  In the xtUML
+Modeling perspective, this action is available on the context menu via <b>Right-click
+&gt; Audit Realized Bindings </b>for realized components and for packages that
+contain realized components.  Invoking this action will perform a series of
 audits on the model and the realized java and report the results in a pop up
-dialog.<span style='mso-spacerun:yes'>  </span>Once the results in the dialog are
-clear of errors (as in the dialog below), proceed to the next step.</span></p>
-
-<p class=MsoNormal style='margin-left:.25in'><span style='mso-bookmark:_Ref100717464'><o:p>&nbsp;</o:p></span></p>
-
-<p class=MsoNormal style='margin-left:.25in'><span style='mso-bookmark:_Ref100717464'><span
-style='mso-no-proof:yes'><!--[if gte vml 1]><v:shape id="Picture_x0020_4"
- o:spid="_x0000_i1026" type="#_x0000_t75" alt="audit_complete.png" style='width:284.25pt;
- height:251.25pt;visibility:visible;mso-wrap-style:square'>
- <v:imagedata src="ModelVerifierJavaInterface_files/image008.png" o:title="audit_complete"/>
-</v:shape><![endif]--><![if !vml]><img width=379 height=335
-src="ModelVerifierJavaInterface_files/image013.jpg" alt="audit_complete.png"
-v:shapes="Picture_x0020_4"><![endif]></span></span></p>
-
-<h2><span style='mso-bookmark:_Ref100717464'>Task 6: Confirming the Interface Connection
-</span></h2>
-
-<p class=MsoNormal style='margin-left:.25in'><span style='mso-bookmark:_Ref100717464'>To
-confirm the successful implementation of a Java Interface to a Realized
-Component, perform a <b style='mso-bidi-font-weight:normal'>Project &gt; Build Project</b>
-and when completed successfully launch BridgePoint Verifier using a debug
-configuration containing the Realized Component. Once Verifier completes its
-initialization, the Debug pane will show the associated component as “Realized,
-Running” which confirms that the xtUML component is now replaced by the Java
-Realized Component in this run.</span></p>
-
-<p class=MsoNormal style='margin-left:.25in'><span style='mso-bookmark:_Ref100717464'><o:p>&nbsp;</o:p></span></p>
-
-<p class=MsoNormal style='margin-left:.25in'><span style='mso-bookmark:_Ref100717464'><span
-style='mso-no-proof:yes'><!--[if gte vml 1]><v:shape id="Picture_x0020_3"
- o:spid="_x0000_i1025" type="#_x0000_t75" style='width:300pt;height:113.25pt;
- visibility:visible;mso-wrap-style:square'>
- <v:imagedata src="ModelVerifierJavaInterface_files/image007.png" o:title=""/>
-</v:shape><![endif]--><![if !vml]><img width=400 height=151
-src="ModelVerifierJavaInterface_files/image014.jpg" v:shapes="Picture_x0020_3"><![endif]></span></span></p>
-
-<p class=MsoNormal style='margin-left:.25in'><span style='mso-bookmark:_Ref100717464'><o:p>&nbsp;</o:p></span></p>
-
-<h2><span style='mso-bookmark:_Ref100717464'>Task 7: Replacing a Realized
-Component with an xtUML Component</span></h2>
-
-<p><span style='mso-bookmark:_Ref100717464'><span style='color:black;
-mso-themecolor:text1'>If at any time, the realized component must be replaced by
-the xtUML modeled component, this action can be achieved by selecting the
-component in the Model Explorer and changing the <b style='mso-bidi-font-weight:
-normal'>Realized Component</b> property value to <b style='mso-bidi-font-weight:
-normal'>false</b>.</span> On the next invocation of Verifier with a system that
-includes this realized component, the post-initialization status will be
-“Running”. In this way, switching between xtUML modeled and Java realized
-components can be easily performed at any stage of development or validation.</span></p>
-
-<p class=MsoListParagraphCxSpFirst><span style='mso-bookmark:_Ref100717464'><o:p>&nbsp;</o:p></span></p>
-
-<p class=MsoListParagraphCxSpLast><span style='mso-bookmark:_Ref100717464'><o:p>&nbsp;</o:p></span></p>
-
-<h1><span style='mso-bookmark:_Ref100717464'>Extending xtUML models with Java
-External Entities</span></h1>
-
-<p class=MsoNormal><span style='mso-bookmark:_Ref100717464'>The Java External
-Entity is a convenient mechanism for attaching xtUML models to server entities
-that are realized in Java and rely solely on synchronous communication. The
-steps to configure an xtUML project and then construct a Java External Entity
-are presented in this section.</span></p>
-
-<h2><span style='mso-bookmark:_Ref100717464'>Task 1: Enable the Project to Use
-the Java Builder</span></h2>
-
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l0 level1 lfo10;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>1)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Locate
-and open the </span><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Courier New"'>.project</span> file.<span
-style='mso-spacerun:yes'>  </span>This file is located in the root of the
-BridgePoint project.<span style='mso-spacerun:yes'>  </span>Open the C/C++
-perspective (<b style='mso-bidi-font-weight:normal'>Window &gt; Open
-Perspective &gt; Other… &gt; C/C++</b>). If the file is not visible in the
-project root, then it is currently filtered.<span style='mso-spacerun:yes'> 
-</span>To turn off file filtering, select the downward pointing white triangle
-in the top right corner of the<b style='mso-bidi-font-weight:normal'> Project
-Explorer</b> view, select<b style='mso-bidi-font-weight:normal'> Customize
-View...</b> and uncheck the “.* resources” box.<span style='mso-spacerun:yes'> 
-</span>Select <b style='mso-bidi-font-weight:normal'>OK</b>.</span></p>
-
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l0 level1 lfo10;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>2)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Now
-add the following XML in the </span><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Courier New"'>&lt;buildSpec&gt;</span> element:</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'><span style='mso-tab-count:1'>          </span>&lt;buildCommand&gt;</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'><span style='mso-tab-count:2'>                      </span>&lt;name&gt;org.eclipse.jdt.core.javabuilder&lt;/name&gt;</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'><span style='mso-tab-count:2'>                      </span>&lt;arguments&gt;</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'><span style='mso-tab-count:2'>                      </span>&lt;/arguments&gt;</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'><span style='mso-tab-count:1'>          </span>&lt;/buildCommand&gt;</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'>Note: There may already be other </span><span
-style='mso-bookmark:_Ref100717464'><span style='font-family:"Courier New"'>&lt;buildCommand&gt;</span>
-elements for the model compilers, do not alter these.<span
-style='mso-spacerun:yes'>  </span>Also, ensure that the added element goes in
-as a sibling element and not inside another </span><span style='mso-bookmark:
-_Ref100717464'><span style='font-family:"Courier New"'>&lt;buildCommand&gt;</span>
-element.</span></p>
-
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l0 level1 lfo10;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>3)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Now
-add the following XML in the </span><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Courier New"'>&lt;natures&gt;</span><span
-style='mso-spacerun:yes'>  </span>element:</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'><span style='mso-tab-count:1'>          </span>&lt;nature&gt;org.eclipse.jdt.core.javanature&lt;/nature&gt;</span><span
-style='mso-bookmark:_Ref100717464'><span style='font-family:"Times New Roman","serif"'><o:p></o:p></span></span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'>Note: There should already be an </span><span
-style='mso-bookmark:_Ref100717464'><span style='font-family:"Courier New"'>xtumlnature</span>
-nature. If not, then the wrong project is being extended.</span></p>
-
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l0 level1 lfo10;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>4)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Save
-and close the </span><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Courier New"'>.project </span>file</span></p>
-
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l0 level1 lfo10;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>5)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Add
-a </span><span style='mso-bookmark:_Ref100717464'><span style='font-family:
-"Courier New"'>.classpath</span> file</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'>Select the project.<span
-style='mso-spacerun:yes'>  </span>Select <b style='mso-bidi-font-weight:normal'>File
-&gt; New &gt; Other &gt; Simple &gt; File</b>, name the file </span><span
-style='mso-bookmark:_Ref100717464'><span style='font-family:"Courier New"'>.classpath</span>
-(note the leading period). Paste in the following XML:</span></p>
+dialog.  Once the results in the dialog are clear of errors (as in the dialog
+below), proceed to the next step.</p>
 
-<p><span style='mso-bookmark:_Ref100717464'>&lt;?xml version=&quot;1.0&quot;
-encoding=&quot;UTF-8&quot;?&gt;</span></p>
+<p class=MsoNormal style='margin-left:.25in'>&nbsp;</p>
 
-<p><span style='mso-bookmark:_Ref100717464'>&lt;classpath&gt;</span></p>
+<p class=MsoNormal style='margin-left:.25in'><img width=379 height=335
+id="Picture 4" src="ModelVerifierJavaInterface_files/image004.jpg"
+alt="Description: audit_complete.png"></p>
 
-<p><span style='mso-bookmark:_Ref100717464'>&lt;classpathentry
-kind=&quot;src&quot; path=&quot;javasrc&quot;/&gt;</span></p>
+<h2>Task 6: Confirming the Interface Connection </h2>
 
-<p><span style='mso-bookmark:_Ref100717464'><span style='mso-tab-count:1'>          </span>&lt;classpathentry
-kind=&quot;con&quot;
-path=&quot;org.eclipse.jdt.launching.JRE_CONTAINER&quot;/&gt;</span></p>
+<p class=MsoNormal style='margin-left:.25in'>To confirm the successful
+implementation of a Java Interface to a Realized Component, perform a <b>Project
+&gt; Build Project</b> and when completed successfully launch BridgePoint
+Verifier using a debug configuration containing the Realized Component. Once
+Verifier completes its initialization, the Debug pane will show the associated
+component as “Realized, Running” which confirms that the xtUML component is now
+replaced by the Java Realized Component in this run.</p>
 
-<p><span style='mso-bookmark:_Ref100717464'><span style='mso-tab-count:1'>          </span>&lt;classpathentry
-kind=&quot;output&quot; path=&quot;bin&quot;/&gt;</span></p>
+<p class=MsoNormal style='margin-left:.25in'>&nbsp;</p>
 
-<p><span style='mso-bookmark:_Ref100717464'>&lt;/classpath&gt;</span></p>
+<p class=MsoNormal style='margin-left:.25in'><img width=400 height=151
+id="Picture 3" src="ModelVerifierJavaInterface_files/image005.jpg"></p>
 
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l0 level1 lfo10;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>6)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Save
-and close the </span><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Courier New"'>.classpath</span> file.</span></p>
+<p class=MsoNormal style='margin-left:.25in'>&nbsp;</p>
 
-<h2><span style='mso-bookmark:_Ref100717464'><o:p>&nbsp;</o:p></span></h2>
+<h2>Task 7: Replacing a Realized Component with an xtUML Component</h2>
 
-<h2><span style='mso-bookmark:_Ref100717464'><a name="_Task_3:_Add"></a>Task 2:
-Add External Java Code</span></h2>
+<p><span style='color:black'>If at any time, the realized component must be
+replaced by the xtUML modeled component, this action can be achieved by
+selecting the component in the Model Explorer and changing the <b>Realized
+Component</b> property value to <b>false</b>.</span> On the next invocation of
+Verifier with a system that includes this realized component, the
+post-initialization status will be “Running”. In this way, switching between
+xtUML modeled and Java realized components can be easily performed at any stage
+of development or validation.</p>
 
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l7 level1 lfo12;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>1)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Add
-a folder for the Java code.<span style='mso-spacerun:yes'>   </span></span></p>
-
-<p style='margin-left:1.0in;text-indent:-.25in;mso-list:l2 level2 lfo14;
-tab-stops:list 1.0in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>Select the </span><span style='mso-bookmark:
-_Ref100717464'><span style='font-family:"Courier New"'>javasrc</span> folder in
-the root of the project.<span style='mso-spacerun:yes'>  </span>If it does not
-exist select <b style='mso-bidi-font-weight:normal'>File &gt; New &gt; Folder</b>
-to create it.</span></p>
-
-<p style='margin-left:1.0in;text-indent:-.25in;mso-list:l2 level2 lfo14;
-tab-stops:list 1.0in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>Create folder </span><span style='mso-bookmark:
-_Ref100717464'><span style='font-family:"Courier New"'>lib</span> in the </span><span
-style='mso-bookmark:_Ref100717464'><span style='font-family:"Courier New"'>javasrc</span>
-folder </span></p>
-
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l7 level1 lfo12;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>2)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Create
-a new file in the </span><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Courier New"'>lib</span> folder called </span><span
-style='mso-bookmark:_Ref100717464'><span style='font-family:"Courier New"'>TEST.java</span>.<span
-style='mso-spacerun:yes'>  </span>Paste the following test code into this file:</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'>//========================================================================</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'>//</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'>// Copyright 2007-2011 by Mentor
-Graphics Corp. All rights reserved.</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'>//</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'>//========================================================================</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'>package lib;</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'><o:p>&nbsp;</o:p></span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'>public class TEST {</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'><o:p>&nbsp;</o:p></span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'>public static String hello_world()
-{</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'>return &quot;Hello world&quot;;</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'>}</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'><o:p>&nbsp;</o:p></span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'><span style='mso-tab-count:1'>          </span>public
-static String int_to_string(int value) {</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'><span style='mso-tab-count:2'>                      </span>return
-Integer.toString(value);</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'><span style='mso-tab-count:1'>          </span>}</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'><span style='mso-tab-count:1'>          </span></span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'><span style='mso-tab-count:1'>          </span>public
-static String real_to_string(double value) {</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'><span style='mso-tab-count:2'>                      </span>return
-Double.toString(value);</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'><span style='mso-tab-count:1'>          </span>}</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'>}</span></p>
-
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l7 level1 lfo12;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>3)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Save
-the file TEST.java</span></p>
-
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l7 level1 lfo12;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>4)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Select<b
-style='mso-bidi-font-weight:normal'> Project &gt; Build Project</b> if it is
-enabled.<span style='mso-spacerun:yes'>  </span>If, instead, <b
-style='mso-bidi-font-weight:normal'>Build Automatically</b> is enabled, the IDE
-should immediately see the saved file and compile and build the java without
-additional action.</span></p>
-
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l7 level1 lfo12;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>5)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Under
-the root of the project, confirm that </span><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Courier New"'>bin/lib/TEST.class</span> exists.<span
-style='mso-spacerun:yes'>  </span></span></p>
-
-<p style='margin-left:1.0in;text-indent:-.25in;mso-list:l2 level2 lfo14;
-tab-stops:list 1.0in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>If this file is not present, or not present in
-the expected place, Model Verifier will not find it.<span
-style='mso-spacerun:yes'>  </span>See the </span><a href="#_Troubleshooting"><span
-style='mso-bookmark:_Ref100717464'>Troubleshooting</span><span
-style='mso-bookmark:_Ref100717464'></span></a><span style='mso-bookmark:_Ref100717464'>
-section. </span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'><o:p>&nbsp;</o:p></span></p>
-
-<h2><span style='mso-bookmark:_Ref100717464'>Task 3: Test the Java Interface</span></h2>
-
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l1 level1 lfo16;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>1)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Locate
-a new or existing External Entity Package in the model.<span
-style='mso-spacerun:yes'>  </span>Create an External Entity named </span><span
-style='mso-bookmark:_Ref100717464'><span style='font-family:"Courier New"'>Test
-Interface</span>, and give it the key letters </span><span style='mso-bookmark:
-_Ref100717464'><span style='font-family:"Courier New"'>TEST</span>.</span></p>
-
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l1 level1 lfo16;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>2)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Add
-a Bridge Operation to the </span><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Courier New"'>Test Interface</span> EE named </span><span
-style='mso-bookmark:_Ref100717464'><span style='font-family:"Courier New"'>hello_world</span>.<span
-style='mso-spacerun:yes'>  </span>In the Properties view set the return type to
-</span><span style='mso-bookmark:_Ref100717464'><span style='font-family:"Courier New"'>string</span>.<span
-style='mso-spacerun:yes'>  </span>Bridges operations are not required for each
-function in the Java class, so we will leave the others (</span><span
-style='mso-bookmark:_Ref100717464'><span style='font-family:"Courier New"'>int_to_string</span>
-and </span><span style='mso-bookmark:_Ref100717464'><span style='font-family:
-"Courier New"'>real_to_string</span>) out until there is confirmation that
-BridgePoint is communicating with test class.</span></p>
-
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l1 level1 lfo16;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>3)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Locate
-a new or existing Function Package.<span style='mso-spacerun:yes'> 
-</span>Create a function named </span><span style='mso-bookmark:_Ref100717464'><span
-style='font-family:"Courier New"'>hello_test</span>.<span
-style='mso-spacerun:yes'>  </span>Open the new function and add the OAL line:</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'>LOG::LogInfo(message:TEST::hello_world());</span><span
-style='mso-bookmark:_Ref100717464'><span style='font-family:"Times New Roman","serif"'><o:p></o:p></span></span></p>
-
-<p style='margin-left:.25in;text-indent:-.25in;mso-list:l1 level1 lfo16;
-tab-stops:list .25in'><span style='mso-bookmark:_Ref100717464'><![if !supportLists]><span
-style='mso-fareast-font-family:Arial'><span style='mso-list:Ignore'>4)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Launch
-the model in Model Verifier, and then execute </span><span style='mso-bookmark:
-_Ref100717464'><span style='font-family:"Courier New"'>hello_test</span> from
-Model Explorer view.<span style='mso-spacerun:yes'>  </span>If the interface is
-working properly, the message:</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'>LogInfo:<span
-style='mso-spacerun:yes'>  </span>Hello world</span></p>
-
-<p><span style='mso-bookmark:_Ref100717464'>will display in the Console view.</span></p>
-
-<h2><span style='mso-bookmark:_Ref100717464'><o:p>&nbsp;</o:p></span></h2>
-
-<h2><span style='mso-bookmark:_Ref100717464'>Task 4: Add Your Own Extensions</span></h2>
-
-<p><span style='mso-bookmark:_Ref100717464'>Congratulations! <span
-style='mso-spacerun:yes'> </span>You now have the capability to interface Model
-Verifier to the outside world.<span style='mso-spacerun:yes'>  </span>Using
-Java, you can read data from a file or the internet, perform a computation,
-interface to hardware, or probe the depths of deep space.<span
-style='mso-spacerun:yes'>  </span>You can even, for instance, use JNI to invoke
-C and C++ program functions.<span style='mso-spacerun:yes'>  </span>Explore the
-possibilities by writing your own Java-based external entities.</span></p>
-
-<h2><o:p>&nbsp;</o:p></h2>
+<p class=MsoListParagraphCxSpFirst>&nbsp;</p>
+
+<p class=MsoListParagraphCxSpLast>&nbsp;</p>
+
+<h1>Extending xtUML models with Java External Entities</h1>
+
+<p class=MsoNormal>The Java External Entity is a convenient mechanism for
+attaching xtUML models to server entities that are realized in Java and rely solely
+on synchronous communication. The steps to configure an xtUML project and then
+construct a Java External Entity are presented in this section.</p>
+
+<h2>Task 1: Enable the Project to Use the Java Builder</h2>
+
+<p style='margin-left:.25in;text-indent:-.25in'>1)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Locate and open the <span style='font-family:"Courier New"'>.project</span>
+file.  This file is located in the root of the BridgePoint project.  Open the
+C/C++ perspective (<b>Window &gt; Open Perspective &gt; Other… &gt; C/C++</b>).
+If the file is not visible in the project root, then it is currently filtered. 
+To turn off file filtering, select the downward pointing white triangle in the
+top right corner of the<b> Project Explorer</b> view, select<b> Customize
+View...</b> and uncheck the “.* resources” box.  Select <b>OK</b>.</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>2)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Now add the following XML in the <span style='font-family:"Courier New"'>&lt;buildSpec&gt;</span>
+element:</p>
+
+<p>          &lt;buildCommand&gt;</p>
+
+<p>                      &lt;name&gt;org.eclipse.jdt.core.javabuilder&lt;/name&gt;</p>
+
+<p>                      &lt;arguments&gt;</p>
+
+<p>                      &lt;/arguments&gt;</p>
+
+<p>          &lt;/buildCommand&gt;</p>
+
+<p>Note: There may already be other <span style='font-family:"Courier New"'>&lt;buildCommand&gt;</span>
+elements for the model compilers, do not alter these.  Also, ensure that the
+added element goes in as a sibling element and not inside another <span
+style='font-family:"Courier New"'>&lt;buildCommand&gt;</span> element.</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>3)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Now add the following XML in the <span style='font-family:"Courier New"'>&lt;natures&gt;</span> 
+element:</p>
+
+<p>          &lt;nature&gt;org.eclipse.jdt.core.javanature&lt;/nature&gt;</p>
+
+<p>Note: There should already be an <span style='font-family:"Courier New"'>xtumlnature</span>
+nature. If not, then the wrong project is being extended.</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>4)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Save and close the <span style='font-family:"Courier New"'>.project </span>file</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>5)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Add a <span style='font-family:"Courier New"'>.classpath</span> file</p>
+
+<p>Select the project.  Select <b>File &gt; New &gt; Other &gt; Simple &gt;
+File</b>, name the file <span style='font-family:"Courier New"'>.classpath</span>
+(note the leading period). Paste in the following XML:</p>
+
+<p>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</p>
+
+<p>&lt;classpath&gt;</p>
+
+<p>&lt;classpathentry kind=&quot;src&quot; path=&quot;javasrc&quot;/&gt;</p>
+
+<p>          &lt;classpathentry kind=&quot;con&quot;
+path=&quot;org.eclipse.jdt.launching.JRE_CONTAINER&quot;/&gt;</p>
+
+<p>          &lt;classpathentry kind=&quot;output&quot;
+path=&quot;bin&quot;/&gt;</p>
+
+<p>&lt;/classpath&gt;</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>6)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Save and close the <span style='font-family:"Courier New"'>.classpath</span>
+file.</p>
+
+<h2>&nbsp;</h2>
+
+<h2><a name="_Task_3:_Add"></a>Task 2: Add External Java Code</h2>
+
+<p style='margin-left:.25in;text-indent:-.25in'>1)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Add a folder for the Java code.   </p>
+
+<p style='margin-left:1.0in;text-indent:-.25in'><span style='font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Select the <span style='font-family:"Courier New"'>javasrc</span>
+folder in the root of the project.  If it does not exist select <b>File &gt;
+New &gt; Folder</b> to create it.</p>
+
+<p style='margin-left:1.0in;text-indent:-.25in'><span style='font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Create folder <span style='font-family:"Courier New"'>lib</span>
+in the <span style='font-family:"Courier New"'>javasrc</span> folder </p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>2)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Create a new file in the <span style='font-family:"Courier New"'>lib</span>
+folder called <span style='font-family:"Courier New"'>TEST.java</span>.  Paste
+the following test code into this file:</p>
+
+<p>//========================================================================</p>
+
+<p>//</p>
+
+<p>// Copyright 2007-2011 by Mentor Graphics Corp. All rights reserved.</p>
+
+<p>//</p>
+
+<p>//========================================================================</p>
+
+<p>package lib;</p>
+
+<p>&nbsp;</p>
+
+<p>public class TEST {</p>
+
+<p>&nbsp;</p>
+
+<p>public static String hello_world() {</p>
+
+<p>return &quot;Hello world&quot;;</p>
+
+<p>}</p>
+
+<p>&nbsp;</p>
+
+<p>          public static String int_to_string(int value) {</p>
+
+<p>                      return Integer.toString(value);</p>
+
+<p>          }</p>
+
+<p>          </p>
+
+<p>          public static String real_to_string(double value) {</p>
+
+<p>                      return Double.toString(value);</p>
+
+<p>          }</p>
+
+<p>}</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>3)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Save the file TEST.java</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>4)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Select<b> Project &gt; Build Project</b> if it is enabled.  If, instead,
+<b>Build Automatically</b> is enabled, the IDE should immediately see the saved
+file and compile and build the java without additional action.</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>5)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Under the root of the project, confirm that <span style='font-family:
+"Courier New"'>bin/lib/TEST.class</span> exists.  </p>
+
+<p style='margin-left:1.0in;text-indent:-.25in'><span style='font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>If this file is not present, or not present in the expected
+place, Model Verifier will not find it.  See the <a href="#_Troubleshooting">Troubleshooting</a>
+section. </p>
+
+<p>&nbsp;</p>
+
+<h2>Task 3: Test the Java Interface</h2>
+
+<p style='margin-left:.25in;text-indent:-.25in'>1)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Locate a new or existing External Entity Package in the model.  Create
+an External Entity named <span style='font-family:"Courier New"'>Test Interface</span>,
+and give it the key letters <span style='font-family:"Courier New"'>TEST</span>.</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>2)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Add a Bridge Operation to the <span style='font-family:"Courier New"'>Test
+Interface</span> EE named <span style='font-family:"Courier New"'>hello_world</span>. 
+In the Properties view set the return type to <span style='font-family:"Courier New"'>string</span>. 
+Bridges operations are not required for each function in the Java class, so we
+will leave the others (<span style='font-family:"Courier New"'>int_to_string</span>
+and <span style='font-family:"Courier New"'>real_to_string</span>) out until
+there is confirmation that BridgePoint is communicating with test class.</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>3)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Locate a new or existing Function Package.  Create a function named <span
+style='font-family:"Courier New"'>hello_test</span>.  Open the new function and
+add the OAL line:</p>
+
+<p>LOG::LogInfo(message:TEST::hello_world());</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>4)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Launch the model in Model Verifier, and then execute <span
+style='font-family:"Courier New"'>hello_test</span> from Model Explorer view. 
+If the interface is working properly, the message:</p>
+
+<p>LogInfo:  Hello world</p>
+
+<p>will display in the Console view.</p>
+
+<h2>&nbsp;</h2>
+
+<h2>Task 4: Add Your Own Extensions</h2>
+
+<p>Congratulations!  You now have the capability to interface Model Verifier to
+the outside world.  Using Java, you can read data from a file or the internet,
+perform a computation, interface to hardware, or probe the depths of deep
+space.  You can even, for instance, use JNI to invoke C and C++ program
+functions.  Explore the possibilities by writing your own Java-based external
+entities.</p>
+
+<h2>&nbsp;</h2>
 
 <h2><a name="_Troubleshooting"></a>Troubleshooting</h2>
 
 <p>This section lists a few ideas that may help if you encounter problems while
 configuring your project to interface with external Java.</p>
 
-<p style='margin-left:45.75pt;text-indent:-.25in;mso-list:l3 level1 lfo18;
-tab-stops:list 45.75pt'><![if !supportLists]><span style='font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
-style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>Due to the way eclipse loads java class files
-into the debugger, you may need to BridgePoint any time you change the contents
-(API or implementation internals) of your java EE. If your changes are not
-being used during subsequent debugging sessions, a restart of the application
-is required.</p>
+<p style='margin-left:45.75pt;text-indent:-.25in'><span style='font-family:
+Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Due to the way eclipse loads java class files into the debugger,
+you may need to BridgePoint any time you change the contents (API or
+implementation internals) of your java EE. If your changes are not being used
+during subsequent debugging sessions, a restart of the application is required.</p>
 
-<p style='margin-left:45.75pt;text-indent:-.25in;mso-list:l3 level1 lfo18;
-tab-stops:list 45.75pt'><![if !supportLists]><span style='font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
-style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>Recheck all the settings in the <span
-style='font-family:"Courier New"'>.classpath </span>file, especially directory
-names.</p>
+<p style='margin-left:45.75pt;text-indent:-.25in'><span style='font-family:
+Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Recheck all the settings in the <span style='font-family:"Courier New"'>.classpath
+</span>file, especially directory names.</p>
 
-<p style='margin-left:45.75pt;text-indent:-.25in;mso-list:l3 level1 lfo18;
-tab-stops:list 45.75pt'><![if !supportLists]><span style='font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
-style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>Verify your Eclipse configuration supports Java
-compilation using a standalone Java project:</p>
+<p style='margin-left:45.75pt;text-indent:-.25in'><span style='font-family:
+Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Verify your Eclipse configuration supports Java compilation using
+a standalone Java project:</p>
 
-<p style='margin-left:81.75pt;text-indent:-.25in;mso-list:l3 level2 lfo18;
-tab-stops:list 81.75pt'><![if !supportLists]><span style='font-family:"Courier New";
-mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Open
-the<b style='mso-bidi-font-weight:normal'> Java </b>or<b style='mso-bidi-font-weight:
-normal'> C/C++</b> perspective</p>
+<p style='margin-left:81.75pt;text-indent:-.25in'><span style='font-family:
+"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Open
+the<b> Java </b>or<b> C/C++</b> perspective</p>
 
-<p style='margin-left:81.75pt;text-indent:-.25in;mso-list:l3 level2 lfo18;
-tab-stops:list 81.75pt'><![if !supportLists]><span style='font-family:"Courier New";
-mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Select
+<p style='margin-left:81.75pt;text-indent:-.25in'><span style='font-family:
+"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Select
 File &gt; New &gt; Project…</p>
 
-<p style='margin-left:81.75pt;text-indent:-.25in;mso-list:l3 level2 lfo18;
-tab-stops:list 81.75pt'><![if !supportLists]><span style='font-family:"Courier New";
-mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Choose
+<p style='margin-left:81.75pt;text-indent:-.25in'><span style='font-family:
+"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Choose
 Java &gt; Java Project </p>
 
-<p style='margin-left:81.75pt;text-indent:-.25in;mso-list:l3 level2 lfo18;
-tab-stops:list 81.75pt'><![if !supportLists]><span style='font-family:"Courier New";
-mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Select
-<b style='mso-bidi-font-weight:normal'>Next &gt;</b></p>
+<p style='margin-left:81.75pt;text-indent:-.25in'><span style='font-family:
+"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Select
+<b>Next &gt;</b></p>
 
-<p style='margin-left:81.75pt;text-indent:-.25in;mso-list:l3 level2 lfo18;
-tab-stops:list 81.75pt'><![if !supportLists]><span style='font-family:"Courier New";
-mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Enter
-the project name <span style='font-family:"Courier New"'>JavaTest</span>.<span
-style='mso-spacerun:yes'>  </span>In the <b style='mso-bidi-font-weight:normal'>Project
-layout</b> section, select <b style='mso-bidi-font-weight:normal'>Create
-separate source and output folders</b><span style='font-family:"Times New Roman","serif"'><o:p></o:p></span></p>
+<p style='margin-left:81.75pt;text-indent:-.25in'><span style='font-family:
+"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Enter
+the project name <span style='font-family:"Courier New"'>JavaTest</span>.  In
+the <b>Project layout</b> section, select <b>Create separate source and output
+folders</b></p>
 
-<p style='margin-left:81.75pt;text-indent:-.25in;mso-list:l3 level2 lfo18;
-tab-stops:list 81.75pt'><![if !supportLists]><span style='font-family:"Courier New";
-mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Select
-<b style='mso-bidi-font-weight:normal'>Finish</b></p>
+<p style='margin-left:81.75pt;text-indent:-.25in'><span style='font-family:
+"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Select
+<b>Finish</b></p>
 
-<p style='margin-left:81.75pt;text-indent:-.25in;mso-list:l3 level2 lfo18;
-tab-stops:list 81.75pt'><![if !supportLists]><span style='font-family:"Courier New";
-mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Select
+<p style='margin-left:81.75pt;text-indent:-.25in'><span style='font-family:
+"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Select
 No on the Open Associated Perspective? dialog</p>
 
-<p style='margin-left:81.75pt;text-indent:-.25in;mso-list:l3 level2 lfo18;
-tab-stops:list 81.75pt'><![if !supportLists]><span style='font-family:"Courier New";
-mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Perform
+<p style='margin-left:81.75pt;text-indent:-.25in'><span style='font-family:
+"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Perform
 <a href="#_Task_3:_Add">Task 2: Add External Java Code</a></p>
 
-<p style='margin-left:81.75pt;text-indent:-.25in;mso-list:l3 level2 lfo18;
-tab-stops:list 81.75pt'><![if !supportLists]><span style='font-family:"Courier New";
-mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Successful
+<p style='margin-left:81.75pt;text-indent:-.25in'><span style='font-family:
+"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span>Successful
 completion of this test is confirmed by existence of the <span
 style='font-family:"Courier New"'>TEST.class</span> file</p>
 
-<p><o:p>&nbsp;</o:p></p>
+<p>&nbsp;</p>
 
 <h2>APIs for Built-in External Entities</h2>
 
 <p>New BridgePoint models are pre-populated with several native EEs: <span
 style='font-family:"Courier New"'>Architecture (ARCH)</span>, <span
 style='font-family:"Courier New"'>Logging (LOG)</span>, and <span
-style='font-family:"Courier New"'>Time (TIM)</span>.<span
-style='mso-spacerun:yes'>  </span>Model Verifier has built-in implementations
-of these external entities that perform the appropriate bridge operations to
-enable their functionality in Verifier.</p>
+style='font-family:"Courier New"'>Time (TIM)</span>.  Model Verifier has
+built-in implementations of these external entities that perform the
+appropriate bridge operations to enable their functionality in Verifier.</p>
 
 <p>Verifier contains built-in implementations for several other EEs that are
-sometimes found in application models.<span style='mso-spacerun:yes'> 
-</span>The APIs for these external entities is provided here.<span
-style='mso-spacerun:yes'>  </span>Note however, that the external entities must
-be modeled in the application before they are accessible in Verifier or the
-generated application.</p>
+sometimes found in application models.  The APIs for these external entities is
+provided here.  Note however, that the external entities must be modeled in the
+application before they are accessible in Verifier or the generated
+application.</p>
 
-<p><o:p>&nbsp;</o:p></p>
+<p>&nbsp;</p>
 
 <p>Non-volatile Storage (NVS)</p>
 
-<p><span style='mso-tab-count:1'>          </span>integer format()</p>
+<p>          integer format()</p>
 
-<p><span style='mso-tab-count:2'>                      </span>Performs no
-actions when executed by Verifier.<span style='mso-spacerun:yes'> 
-</span>Returns 0.</p>
+<p>                      Performs no actions when executed by Verifier. 
+Returns 0.</p>
 
-<p><o:p>&nbsp;</o:p></p>
+<p>&nbsp;</p>
 
-<p><span style='mso-tab-count:1'>          </span>integer version(integer
-first, integer second) </p>
+<p>          integer version(integer first, integer second) </p>
 
-<p><span style='mso-tab-count:2'>                      </span>Performs no actions
-when executed by Verifier.<span style='mso-spacerun:yes'>  </span>Returns 0.</p>
+<p>                      Performs no actions when executed by Verifier. 
+Returns 0.</p>
 
-<p><span style='mso-tab-count:1'>          </span></p>
+<p>          </p>
 
-<p><span style='mso-tab-count:1'>          </span>integer checksum(integer
-first, integer second)</p>
+<p>          integer checksum(integer first, integer second)</p>
 
-<p><span style='mso-tab-count:2'>                      </span>Performs no
-actions when executed by Verifier.<span style='mso-spacerun:yes'> 
-</span>Returns 0.</p>
+<p>                      Performs no actions when executed by Verifier.  Returns
+0.</p>
 
-<p><o:p>&nbsp;</o:p></p>
+<p>&nbsp;</p>
 
-<p><o:p>&nbsp;</o:p></p>
+<p>&nbsp;</p>
 
 <p>Persistence (PERSIST)</p>
 
-<p><span style='mso-tab-count:1'>          </span>integer commit()</p>
+<p>          integer commit()</p>
 
-<p><span style='mso-tab-count:2'>                      </span>Performs no
-actions when executed by Verifier.<span style='mso-spacerun:yes'> 
-</span>Returns 0.</p>
+<p>                      Performs no actions when executed by Verifier. 
+Returns 0.</p>
 
-<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<h2>Another Example<span style='font-size:12.0pt'><o:p></o:p></span></h2>
+<h2>Another Example</h2>
 
 <p>BridgePoint OAL and Verifier do not provide native support for advancing or
-differencing variables of type timestamp.<span style='mso-spacerun:yes'> 
-</span>The example EE here exposes two bridges to provide this functionality
-and also demonstrates passing Java object instances for types that don’t have
-native counterparts between xtUML and Java.<span style='mso-spacerun:yes'> 
-</span>There are two parts, the modeled EE, and the <span style='font-family:
+differencing variables of type timestamp.  The example EE here exposes two
+bridges to provide this functionality and also demonstrates passing Java object
+instances for types that don’t have native counterparts between xtUML and
+Java.  There are two parts, the modeled EE, and the <span style='font-family:
 "Courier New"'>lib/TIMMATH.java</span>. To use the EE in your generated
 application on your target, you will also need to provide a header and
 implementation of <span style='font-family:"Courier New"'>TIMMATH_bridge.&lt;extension&gt;</span>
-in the <span style='font-family:"Courier New"'>gen/</span> folder.<span
-style='mso-spacerun:yes'>  </span>You can use the <span style='font-family:
-"Courier New"'>LOG_bridge.*</span> and <span style='font-family:"Courier New"'>TIM_bridge.*</span>
-generated files as a guide.</p>
+in the <span style='font-family:"Courier New"'>gen/</span> folder.  You can use
+the <span style='font-family:"Courier New"'>LOG_bridge.*</span> and <span
+style='font-family:"Courier New"'>TIM_bridge.*</span> generated files as a
+guide.</p>
 
-<p><o:p>&nbsp;</o:p></p>
+<p>&nbsp;</p>
 
 <p>Modeled External Entity</p>
 
 <p>Time Math (TIMMATH)</p>
 
-<p><span style='mso-tab-count:1'>          </span>timestamp advance(timestamp
-t, integer delta)</p>
+<p>          timestamp advance(timestamp t, integer delta)</p>
 
-<p><span style='mso-tab-count:2'>                      </span>Advances a
-timestamp by the given value.<span style='mso-spacerun:yes'>  </span>Returns a
+<p>                      Advances a timestamp by the given value.  Returns a
 new timestamp that is the result.</p>
 
-<p><o:p>&nbsp;</o:p></p>
+<p>&nbsp;</p>
 
-<p><span style='mso-tab-count:1'>          </span>timestamp diff(timestamp t1,
-timestamp t2) </p>
+<p>          timestamp diff(timestamp t1, timestamp t2) </p>
 
-<p><span style='mso-tab-count:2'>                      </span>Returns a
-timestamp value that represents the difference of t1 subtracted from t2.</p>
+<p>                      Returns a timestamp value that represents the
+difference of t1 subtracted from t2.</p>
 
-<p><o:p>&nbsp;</o:p></p>
+<p>&nbsp;</p>
 
-<p><o:p>&nbsp;</o:p></p>
+<p>&nbsp;</p>
 
-<p>Java source code for Verifier use.<span style='mso-spacerun:yes'>  </span>Put
-in <span style='font-family:"Courier New"'>lib/TIMMATH.java</span></p>
+<p>Java source code for Verifier use.  Put in <span style='font-family:"Courier New"'>lib/TIMMATH.java</span></p>
 
 <p>//========================================================================</p>
 
@@ -2690,7 +1343,7 @@ timestamp<br>
 <br>
 }</p>
 
-<p><o:p>&nbsp;</o:p></p>
+<p>&nbsp;</p>
 
 </div>
 
