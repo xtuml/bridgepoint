@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("79417bd8-4d07-4b9f-aa0f-c64f877051b2",
@@ -24,13 +24,15 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'3.4.0');
+	'3.4.0',
+	'avpace::library::pacemaker::pacemaker');
 INSERT INTO GD_GE
 	VALUES ("3dfaca5e-1aaf-4012-bb2b-e3ba674cf9e6",
 	"2326c58d-c889-426b-a181-495dd3db5a05",
 	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91",
 	21,
-	0);
+	0,
+	'avpace::library::pacemaker::pacemaker::pacer');
 INSERT INTO GD_SHP
 	VALUES ("3dfaca5e-1aaf-4012-bb2b-e3ba674cf9e6");
 INSERT INTO GD_NCS
@@ -61,20 +63,24 @@ INSERT INTO DIM_DIA
 	3000.000000,
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO PE_PE
-	VALUES ("37df0e10-44eb-42cf-a2b2-562eaeaa8b91",
-	1,
-	"79417bd8-4d07-4b9f-aa0f-c64f877051b2",
-	"00000000-0000-0000-0000-000000000000",
-	4);
-INSERT INTO PE_PE_PROXY
 	VALUES ("79417bd8-4d07-4b9f-aa0f-c64f877051b2",
 	1,
 	"00000000-0000-0000-0000-000000000000",
 	"e0b9e174-e379-4344-88b6-ced7f17ce95f",
-	7,
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("e0b9e174-e379-4344-88b6-ced7f17ce95f",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'pacemaker',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
 	'../pacemaker.xtuml');
 INSERT INTO S_SYS_PROXY
 	VALUES ("15b2a15d-7110-4efa-b644-89bd96e12c0e",
 	'avpace',
-	0,
+	1,
 	'../../../avpace.xtuml');

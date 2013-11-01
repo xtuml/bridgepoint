@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("efb4a3a2-4774-40e3-ab8b-4c2da59a10f4",
@@ -22,16 +22,9 @@ INSERT INTO O_ATTR
 	'',
 	'lastTemp',
 	0,
-	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("6839f81d-65c4-4802-8a7b-29e2dae94930",
-	"00000000-0000-0000-0000-000000000000",
-	'integer',
-	'',
-	'',
-	'../../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("700b2269-494c-42b3-b6ed-a1d9131434a1",
 	"efb4a3a2-4774-40e3-ab8b-4c2da59a10f4");
@@ -47,7 +40,7 @@ INSERT INTO O_ATTR
 	'',
 	'lastRate',
 	0,
-	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -65,16 +58,9 @@ INSERT INTO O_ATTR
 	'',
 	'current_state',
 	0,
-	"e45ca3d2-8b4c-491b-ab95-fdef100404c1",
+	"ba5eda7a-def5-0000-0000-000000000006",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("e45ca3d2-8b4c-491b-ab95-fdef100404c1",
-	"00000000-0000-0000-0000-000000000000",
-	'state<State_Model>',
-	'',
-	'',
-	'../../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"efb4a3a2-4774-40e3-ab8b-4c2da59a10f4");
@@ -84,10 +70,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"efb4a3a2-4774-40e3-ab8b-4c2da59a10f4");
-INSERT INTO PE_PE_PROXY
+INSERT INTO PE_PE
 	VALUES ("efb4a3a2-4774-40e3-ab8b-4c2da59a10f4",
 	1,
 	"9e99e4fa-9c62-4ccd-856f-347c8c195c9e",
 	"00000000-0000-0000-0000-000000000000",
-	4,
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("9e99e4fa-9c62-4ccd-856f-347c8c195c9e",
+	"00000000-0000-0000-0000-000000000000",
+	"15b2a15d-7110-4efa-b644-89bd96e12c0e",
+	'hostmonitor',
+	'',
+	0,
 	'../hostmonitor.xtuml');

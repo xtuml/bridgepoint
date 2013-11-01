@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("0299068e-17bb-48bd-a584-a45dea11a6ca",
@@ -24,13 +24,15 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'3.4.0');
+	'3.4.0',
+	'avpace::library::heart::heart');
 INSERT INTO GD_GE
 	VALUES ("0fc2d093-f98c-4cd6-9eb2-d94085fac02d",
 	"0d314373-0700-4cc2-ba09-bb0fa076b0ab",
 	"0ab92247-10bb-454c-9d00-8b34354a6cca",
 	21,
-	0);
+	0,
+	'avpace::library::heart::heart::heart');
 INSERT INTO GD_SHP
 	VALUES ("0fc2d093-f98c-4cd6-9eb2-d94085fac02d");
 INSERT INTO GD_NCS
@@ -58,7 +60,8 @@ INSERT INTO GD_GE
 	"0d314373-0700-4cc2-ba09-bb0fa076b0ab",
 	"2d71d04d-beb6-4ebb-8704-61a35aee894b",
 	21,
-	0);
+	0,
+	'avpace::library::heart::heart::sinus node');
 INSERT INTO GD_SHP
 	VALUES ("04d031da-6684-48fa-936a-f74884752214");
 INSERT INTO GD_NCS
@@ -86,7 +89,8 @@ INSERT INTO GD_GE
 	"0d314373-0700-4cc2-ba09-bb0fa076b0ab",
 	"3c1d3846-9d5c-4fc0-8953-66cc53544a58",
 	24,
-	0);
+	0,
+	'avpace::library::heart::heart::R1');
 INSERT INTO GD_CON
 	VALUES ("fc8efc72-95c1-4faf-8b94-e5ca943a920f",
 	"00000000-0000-0000-0000-000000000000");
@@ -187,24 +191,6 @@ INSERT INTO DIM_DIA
 	4000.000000,
 	3000.000000,
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO PE_PE
-	VALUES ("0ab92247-10bb-454c-9d00-8b34354a6cca",
-	1,
-	"0299068e-17bb-48bd-a584-a45dea11a6ca",
-	"00000000-0000-0000-0000-000000000000",
-	4);
-INSERT INTO PE_PE
-	VALUES ("2d71d04d-beb6-4ebb-8704-61a35aee894b",
-	1,
-	"0299068e-17bb-48bd-a584-a45dea11a6ca",
-	"00000000-0000-0000-0000-000000000000",
-	4);
-INSERT INTO PE_PE
-	VALUES ("3c1d3846-9d5c-4fc0-8953-66cc53544a58",
-	1,
-	"0299068e-17bb-48bd-a584-a45dea11a6ca",
-	"00000000-0000-0000-0000-000000000000",
-	9);
 INSERT INTO R_SIMP
 	VALUES ("3c1d3846-9d5c-4fc0-8953-66cc53544a58");
 INSERT INTO R_REL
@@ -262,15 +248,31 @@ INSERT INTO O_OBJ_PROXY
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'./sinus node/sinus node.xtuml');
-INSERT INTO PE_PE_PROXY
+INSERT INTO PE_PE
+	VALUES ("3c1d3846-9d5c-4fc0-8953-66cc53544a58",
+	1,
+	"0299068e-17bb-48bd-a584-a45dea11a6ca",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO PE_PE
 	VALUES ("0299068e-17bb-48bd-a584-a45dea11a6ca",
 	1,
 	"00000000-0000-0000-0000-000000000000",
 	"ba87c6eb-2533-4e97-ad6a-c00c71348da9",
-	7,
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("ba87c6eb-2533-4e97-ad6a-c00c71348da9",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'heart',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
 	'../heart.xtuml');
 INSERT INTO S_SYS_PROXY
 	VALUES ("15b2a15d-7110-4efa-b644-89bd96e12c0e",
 	'avpace',
-	0,
+	1,
 	'../../../avpace.xtuml');

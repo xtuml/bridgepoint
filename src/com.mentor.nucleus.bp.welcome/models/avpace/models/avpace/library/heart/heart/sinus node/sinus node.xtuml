@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("2d71d04d-beb6-4ebb-8704-61a35aee894b",
@@ -12,7 +12,7 @@ INSERT INTO O_TFR
 	"2d71d04d-beb6-4ebb-8704-61a35aee894b",
 	'log_and_adjust',
 	'',
-	"a048eb52-669f-4f5e-a21a-e1d86cc03cea",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Now log the periods, decrement them and continue.
 LOG::LogInfo( message:"systolic period, diastolic period" );
@@ -28,13 +28,6 @@ end if;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("a048eb52-669f-4f5e-a21a-e1d86cc03cea",
-	"00000000-0000-0000-0000-000000000000",
-	'void',
-	'',
-	'',
-	'../../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("ed8653a7-01a2-4623-99f8-9e19340d24d4",
 	"2d71d04d-beb6-4ebb-8704-61a35aee894b");
@@ -50,16 +43,9 @@ INSERT INTO O_ATTR
 	'',
 	'systolic_period',
 	0,
-	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("6839f81d-65c4-4802-8a7b-29e2dae94930",
-	"00000000-0000-0000-0000-000000000000",
-	'integer',
-	'',
-	'',
-	'../../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("612a0a93-86e8-4adc-9e95-9af3d8152a50",
 	"2d71d04d-beb6-4ebb-8704-61a35aee894b");
@@ -75,7 +61,7 @@ INSERT INTO O_ATTR
 	'',
 	'diastolic_period',
 	0,
-	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -93,16 +79,9 @@ INSERT INTO O_ATTR
 	'',
 	'current_state',
 	0,
-	"e45ca3d2-8b4c-491b-ab95-fdef100404c1",
+	"ba5eda7a-def5-0000-0000-000000000006",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("e45ca3d2-8b4c-491b-ab95-fdef100404c1",
-	"00000000-0000-0000-0000-000000000000",
-	'state<State_Model>',
-	'',
-	'',
-	'../../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("ac822fb9-0787-4df6-9337-4b1c962f691d",
 	"2d71d04d-beb6-4ebb-8704-61a35aee894b");
@@ -118,7 +97,7 @@ INSERT INTO O_ATTR
 	'',
 	'decrement',
 	0,
-	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_ID
@@ -130,10 +109,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"2d71d04d-beb6-4ebb-8704-61a35aee894b");
-INSERT INTO PE_PE_PROXY
+INSERT INTO PE_PE
 	VALUES ("2d71d04d-beb6-4ebb-8704-61a35aee894b",
 	1,
 	"0299068e-17bb-48bd-a584-a45dea11a6ca",
 	"00000000-0000-0000-0000-000000000000",
-	4,
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("0299068e-17bb-48bd-a584-a45dea11a6ca",
+	"00000000-0000-0000-0000-000000000000",
+	"15b2a15d-7110-4efa-b644-89bd96e12c0e",
+	'heart',
+	'',
+	0,
 	'../heart.xtuml');

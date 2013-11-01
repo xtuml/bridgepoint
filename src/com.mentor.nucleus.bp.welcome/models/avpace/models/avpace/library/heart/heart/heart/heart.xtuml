@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("0ab92247-10bb-454c-9d00-8b34354a6cca",
@@ -22,16 +22,9 @@ INSERT INTO O_ATTR
 	'',
 	'current_state',
 	0,
-	"e45ca3d2-8b4c-491b-ab95-fdef100404c1",
+	"ba5eda7a-def5-0000-0000-000000000006",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("e45ca3d2-8b4c-491b-ab95-fdef100404c1",
-	"00000000-0000-0000-0000-000000000000",
-	'state<State_Model>',
-	'',
-	'',
-	'../../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"0ab92247-10bb-454c-9d00-8b34354a6cca");
@@ -41,10 +34,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"0ab92247-10bb-454c-9d00-8b34354a6cca");
-INSERT INTO PE_PE_PROXY
+INSERT INTO PE_PE
 	VALUES ("0ab92247-10bb-454c-9d00-8b34354a6cca",
 	1,
 	"0299068e-17bb-48bd-a584-a45dea11a6ca",
 	"00000000-0000-0000-0000-000000000000",
-	4,
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("0299068e-17bb-48bd-a584-a45dea11a6ca",
+	"00000000-0000-0000-0000-000000000000",
+	"15b2a15d-7110-4efa-b644-89bd96e12c0e",
+	'heart',
+	'',
+	0,
 	'../heart.xtuml');

@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("e5f54653-9393-4c20-b923-38e3392d7a58",
@@ -24,7 +24,8 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'3.1.2');
+	'3.1.2',
+	'avpace::library::heart::functions');
 INSERT INTO DIM_DIA
 	VALUES ("fee088bc-7903-48d7-8286-090d58989c08",
 	'',
@@ -32,12 +33,6 @@ INSERT INTO DIM_DIA
 	4000.000000,
 	3000.000000,
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO PE_PE
-	VALUES ("aac6a539-bfd4-498e-9465-803364402aab",
-	1,
-	"e5f54653-9393-4c20-b923-38e3392d7a58",
-	"00000000-0000-0000-0000-000000000000",
-	1);
 INSERT INTO S_SYNC
 	VALUES ("aac6a539-bfd4-498e-9465-803364402aab",
 	"00000000-0000-0000-0000-000000000000",
@@ -61,25 +56,34 @@ create event instance e of SINUS_NODE2:period() to snode;
 t = TIM::timer_start( microseconds:snode.systolic_period + snode.diastolic_period, event_inst:e );
 
 ',
-	"a048eb52-669f-4f5e-a21a-e1d86cc03cea",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a048eb52-669f-4f5e-a21a-e1d86cc03cea",
+INSERT INTO PE_PE
+	VALUES ("aac6a539-bfd4-498e-9465-803364402aab",
+	1,
+	"e5f54653-9393-4c20-b923-38e3392d7a58",
 	"00000000-0000-0000-0000-000000000000",
-	'void',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
-INSERT INTO PE_PE_PROXY
+	1);
+INSERT INTO PE_PE
 	VALUES ("e5f54653-9393-4c20-b923-38e3392d7a58",
 	1,
 	"00000000-0000-0000-0000-000000000000",
 	"ba87c6eb-2533-4e97-ad6a-c00c71348da9",
-	7,
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("ba87c6eb-2533-4e97-ad6a-c00c71348da9",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'heart',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
 	'../heart.xtuml');
 INSERT INTO S_SYS_PROXY
 	VALUES ("15b2a15d-7110-4efa-b644-89bd96e12c0e",
 	'avpace',
-	0,
+	1,
 	'../../../avpace.xtuml');

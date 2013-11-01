@@ -1,4 +1,4 @@
--- BP 7.1 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO SM_ISM
 	VALUES ("fe897b86-348e-4f91-be9e-44926e987b59",
@@ -14,23 +14,16 @@ INSERT INTO SM_EVTDI
 	"fe897b86-348e-4f91-be9e-44926e987b59",
 	'blood_temp',
 	'',
-	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"b2e23e4d-6075-460f-8f8a-4d678fae5b4a",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6839f81d-65c4-4802-8a7b-29e2dae94930",
-	"00000000-0000-0000-0000-000000000000",
-	'integer',
-	'',
-	'',
-	'../../../../../Datatypes/Datatypes.xtuml');
 INSERT INTO SM_EVTDI
 	VALUES ("05a4199a-a655-4c1a-8cad-2b8f88084321",
 	"fe897b86-348e-4f91-be9e-44926e987b59",
 	'respiratory_rate',
 	'',
-	"6839f81d-65c4-4802-8a7b-29e2dae94930",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"b2e23e4d-6075-460f-8f8a-4d678fae5b4a",
 	"121fc0cc-8728-449e-b3ac-948b6cda5837");
@@ -607,13 +600,15 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'3.4.0');
+	'3.4.0',
+	'avpace::library::pacemaker::pacemaker::pacer::Instance State Machine');
 INSERT INTO GD_GE
 	VALUES ("6295312b-ef42-4bfd-9091-0761d73450d0",
 	"1932ced7-0dda-4bb5-ab68-bc96b91bbe4d",
 	"87b18a90-7e2f-4651-98c4-3fd876899757",
 	41,
-	0);
+	0,
+	'avpace::library::pacemaker::pacemaker::pacer::Instance State Machine::syncing');
 INSERT INTO GD_SHP
 	VALUES ("6295312b-ef42-4bfd-9091-0761d73450d0");
 INSERT INTO GD_NCS
@@ -691,7 +686,8 @@ INSERT INTO GD_GE
 	"1932ced7-0dda-4bb5-ab68-bc96b91bbe4d",
 	"8f42f2fd-54a8-4ee0-8bcc-8a5b2aa72aa6",
 	41,
-	0);
+	0,
+	'avpace::library::pacemaker::pacemaker::pacer::Instance State Machine::listening for systolic pulse');
 INSERT INTO GD_SHP
 	VALUES ("2b82c22c-5d22-4585-ae1e-ac0ae9154a46");
 INSERT INTO GD_NCS
@@ -764,7 +760,8 @@ INSERT INTO GD_GE
 	"1932ced7-0dda-4bb5-ab68-bc96b91bbe4d",
 	"c644a787-3331-451d-9127-a6e833146a0b",
 	41,
-	0);
+	0,
+	'avpace::library::pacemaker::pacemaker::pacer::Instance State Machine::listening for diastolic pulse');
 INSERT INTO GD_SHP
 	VALUES ("f16635b1-472b-4860-b7cc-bec61d3c5900");
 INSERT INTO GD_NCS
@@ -837,7 +834,8 @@ INSERT INTO GD_GE
 	"1932ced7-0dda-4bb5-ab68-bc96b91bbe4d",
 	"3acf6148-0abf-43c6-a778-f5d9dc6ca9fe",
 	42,
-	0);
+	0,
+	'avpace::library::pacemaker::pacemaker::pacer::Instance State Machine::listening for systolic pulse::PACER1: systolic_pulse');
 INSERT INTO GD_CON
 	VALUES ("b4ba3df1-79a6-406e-97ec-16b5735ee136",
 	"00000000-0000-0000-0000-000000000000");
@@ -962,7 +960,8 @@ INSERT INTO GD_GE
 	"1932ced7-0dda-4bb5-ab68-bc96b91bbe4d",
 	"f9692982-4bf2-41a0-a84d-d0b7c2dc1d06",
 	42,
-	0);
+	0,
+	'avpace::library::pacemaker::pacemaker::pacer::Instance State Machine::listening for diastolic pulse::PACER2: diastolic_pulse');
 INSERT INTO GD_CON
 	VALUES ("06ddbef3-c6af-4ce5-9e2c-8346264cd3f0",
 	"00000000-0000-0000-0000-000000000000");
@@ -1087,7 +1086,8 @@ INSERT INTO GD_GE
 	"1932ced7-0dda-4bb5-ab68-bc96b91bbe4d",
 	"d2224dca-11d9-433f-9161-e2f227c7c40b",
 	42,
-	0);
+	0,
+	'avpace::library::pacemaker::pacemaker::pacer::Instance State Machine::syncing::PACER2: diastolic_pulse');
 INSERT INTO GD_CON
 	VALUES ("c95195eb-c573-41d3-aa1c-e3c171fb35bb",
 	"00000000-0000-0000-0000-000000000000");
@@ -1186,7 +1186,8 @@ INSERT INTO GD_GE
 	"1932ced7-0dda-4bb5-ab68-bc96b91bbe4d",
 	"3447de86-f8ae-4ff2-b344-22409b4ea04e",
 	42,
-	0);
+	0,
+	'avpace::library::pacemaker::pacemaker::pacer::Instance State Machine::syncing::PACER1: systolic_pulse');
 INSERT INTO GD_CON
 	VALUES ("ebd4f41f-ac0a-4152-90e1-f2b3520a42ec",
 	"00000000-0000-0000-0000-000000000000");
@@ -1285,7 +1286,8 @@ INSERT INTO GD_GE
 	"1932ced7-0dda-4bb5-ab68-bc96b91bbe4d",
 	"7fe84b89-c82c-4c7d-a7ad-412f9c87a98e",
 	42,
-	0);
+	0,
+	'avpace::library::pacemaker::pacemaker::pacer::Instance State Machine::listening for diastolic pulse::PACER3: timeout');
 INSERT INTO GD_CON
 	VALUES ("0e619c65-5629-4b48-9a35-517428bf8de7",
 	"00000000-0000-0000-0000-000000000000");
@@ -1384,7 +1386,8 @@ INSERT INTO GD_GE
 	"1932ced7-0dda-4bb5-ab68-bc96b91bbe4d",
 	"a9de50ec-f696-40fb-9ed7-68dd1cf92064",
 	42,
-	0);
+	0,
+	'avpace::library::pacemaker::pacemaker::pacer::Instance State Machine::listening for systolic pulse::PACER3: timeout');
 INSERT INTO GD_CON
 	VALUES ("a9e208c4-2909-4dde-be1d-56c339bf6dc1",
 	"00000000-0000-0000-0000-000000000000");
@@ -1496,7 +1499,8 @@ INSERT INTO GD_GE
 	"1932ced7-0dda-4bb5-ab68-bc96b91bbe4d",
 	"02873410-2b59-4375-9edc-ed3740f4ee32",
 	41,
-	0);
+	0,
+	'avpace::library::pacemaker::pacemaker::pacer::Instance State Machine::Increasing rate');
 INSERT INTO GD_SHP
 	VALUES ("c9eaaecb-591c-4ce7-b011-3ce5c34dec43");
 INSERT INTO GD_NCS
@@ -1554,7 +1558,8 @@ INSERT INTO GD_GE
 	"1932ced7-0dda-4bb5-ab68-bc96b91bbe4d",
 	"b2baa07a-3e5b-4c13-a4ba-1de1580e99b5",
 	42,
-	0);
+	0,
+	'avpace::library::pacemaker::pacemaker::pacer::Instance State Machine::Increasing rate::PACER5: rate_increased');
 INSERT INTO GD_CON
 	VALUES ("0376d898-8f1f-4bff-941c-60a4df0b8801",
 	"00000000-0000-0000-0000-000000000000");
@@ -1653,7 +1658,8 @@ INSERT INTO GD_GE
 	"1932ced7-0dda-4bb5-ab68-bc96b91bbe4d",
 	"bdd62489-7247-40ed-b209-37c703e556ea",
 	42,
-	0);
+	0,
+	'avpace::library::pacemaker::pacemaker::pacer::Instance State Machine::syncing::PACER4: increased_activity');
 INSERT INTO GD_CON
 	VALUES ("460bdb3b-25ac-423b-a551-98ff4669c0f4",
 	"00000000-0000-0000-0000-000000000000");
