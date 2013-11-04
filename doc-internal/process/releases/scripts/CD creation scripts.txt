@@ -73,6 +73,7 @@ Open doc-internal/process/releases/scripts/BridgePoint_head_mrc_template.html
   - Update the effective date in the file to be the MS date
   - Update the OSS additions and subtractions
   - Read through the document making any other required changes
+  - Save the file as "Web Page, Filtered"
   - Check in the file to git and push to github
 Open \\wv\dfs\seamless_archives\templates
 Copy the updated file from your local machine into the network directory
