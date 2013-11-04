@@ -2,7 +2,7 @@
 <feature
       id="com.mentor.nucleus.bp.dap.pkg"
       label="BridgePoint Data Access Package"
-      version="4.1.0"
+      version="4.1.1"
       provider-name="Mentor Graphics"
       plugin="com.mentor.nucleus.bp.dap.pkg">
 
@@ -104,12 +104,12 @@ Rev. 130502, Part No. 255853
          id="com.mentor.nucleus.bp.dap.pkg"
          download-size="0"
          install-size="0"
-         version="4.1.0"/>
+         version="4.1.1"/>
 
    <plugin
          id="com.mentor.nucleus.bp.mc.xmiexport"
          download-size="0"
          install-size="0"
-         version="4.1.0"/>
+         version="4.1.1"/>
 
 </feature>
