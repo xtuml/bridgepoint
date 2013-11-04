@@ -19,7 +19,7 @@ plugin.
 <plugin
    id="com.mentor.nucleus.bp.ui.explorer"
    name="BridgePoint Explorer Plug-in"
-   version="4.1.0"
+   version="4.1.1"
    provider-name="Mentor Graphics"
    class="com.mentor.nucleus.bp.ui.explorer.ExplorerPlugin">
 

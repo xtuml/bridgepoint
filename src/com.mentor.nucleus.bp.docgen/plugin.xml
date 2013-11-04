@@ -3,7 +3,7 @@
 <plugin
    id="com.mentor.nucleus.bp.docgen"
    name="BridgePoint Documentation Generator Plug-in"
-   version="4.1.0"
+   version="4.1.1"
    provider-name="Mentor Graphics"
    class="com.mentor.nucleus.bp.docgen.DocGenPlugin">
 
