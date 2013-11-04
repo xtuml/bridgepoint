@@ -18,7 +18,7 @@
 <plugin
    id="com.mentor.nucleus.bp.debug.ui"
      name="BridgePoint Debug UI Plug-in"
-     version="4.1.0"
+     version="4.1.1"
      provider-name="Mentor Graphics"
      class="com.mentor.nucleus.bp.debug.ui.BPDebugUIPlugin">
 
