@@ -1,0 +1,13 @@
+- Create a tracking issue in CQ and git for the new xtUML Editor
+- Branch master in xtuml/internal git repo to <issue#>_xtumleditor_<ver>
+- Merge in the git branch origin/xtUMLeditor_changes
+- Bump the version using the ant script
+- Update the Release Notes and What's New
+- Commit all the changes to the branch
+- Build the branch on the build server
+- Test the installers on Windows and Linux, have Dean, Robert, and Cort test as well.
+- Upload the installers to Amazon S3 using instructions
+- Update the xtUML.org webpages with the new Release Notes and updated Downloads links
+- Notify Jayne she can do a mailing indicating a new release of xtUML Editor is available.
+- Do a posting to the xtuml.org forum indicating the new release is available
+- Bump the BP development version past the editor version
