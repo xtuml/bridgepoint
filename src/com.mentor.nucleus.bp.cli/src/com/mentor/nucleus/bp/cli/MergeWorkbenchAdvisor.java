@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.eclipse.compare.structuremergeviewer.Differencer;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -188,6 +189,12 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 				exporter.run(new NullProgressMonitor());
 				// run an integrity report if possible
 				if(!disableIntegrityChecks) {
+					// refresh the workspace before locating the target element
+					ResourcesPlugin
+							.getWorkspace()
+							.getRoot()
+							.refreshLocal(IWorkspaceRoot.DEPTH_INFINITE,
+									new NullProgressMonitor());
 					NonRootModelElement realElement = (NonRootModelElement) Ooaofooa.getDefaultInstance()
 							.getInstanceList(leftRoot.getClass())
 							.getGlobal(leftRoot.getInstanceKey());
