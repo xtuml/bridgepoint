@@ -21,10 +21,11 @@ publishing it on the interweb.
 6.  Update the Release Notes and What's New  
 7.  Commit all the changes to the branch  
 8.  Build the branch on the build server  
-9.  Test the installers on Windows and Linux.  Have Dean, Robert, and Cort test as well.  
-10. Upload the installers to Amazon S3 [2]  
-11. Update the xtUML.org website with the new Release Notes  
-12. Notify Jayne she can do a mailing indicating a new release of xtUML Editor is available  
-13. Post to the xtuml.org forum indicating the new release is available  
-14. Bump the BP development version past the xtUML Editor version  
-15. Done
+9.  Test the installers on Windows and Linux.  Have Dean, Robert, and Cort test as well.
+10. Rename the files from ```BridgePoint_<branch>*``` to ```xtUML_Editor_<new version>*```
+11. Upload the installers to Amazon S3 [2]  
+12. Update the xtUML.org website with the new Release Notes  
+13. Notify Jayne she can do a mailing indicating a new release of xtUML Editor is available  
+14. Post to the xtuml.org forum indicating the new release is available  
+15. Bump the BP development version past the xtUML Editor version  
+16. Done
