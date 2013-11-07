@@ -21,7 +21,7 @@ creation when using the rectilinear router.
 3. Background
 -------------
 The customer has raised [2] to address an issue where it is hard to see where
-delegations are coming from, specially at lower zoom levels.
+delegations are coming from, specifically at lower zoom levels.
 
 4. Requirements
 ---------------
@@ -76,9 +76,11 @@ the line drawn.  This segment length can be changed after creation.
 
 GMF has recently deprecated direct access to the preciseX, preciseY,
 preciseWidth and preciseHeight attributes from the PrecisionPoint and
-PrecisionRectangle classes.  All references to these attributes is replaced by
+PrecisionRectangle classes.  All references to these attributes are replaced by
 a call to new matching methods, preciseX(), preciseY(), preciseWidth(), and
-preciseHeight().
+preciseHeight().  Another method, Rectangle.expand(), was also deprecated but
+was not replaced by a new method.  We therefore had to add code to cover what
+expand() was doing previously.
 
 7. Unit Test
 ------------
@@ -137,7 +139,34 @@ _R The size of the last segment can be modified by moving the next segment
 ---------------
 Branch name: Review-dts0100974806
 
+com.mentor.nucleus.bp.ui.canvas.test/src/GlobalsCanvasSuite2.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/nucleus/bp/ui/canvas/
+	test/RectilinearRoutingTests.java
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/ModelRecreation_15/
+    ModelRecreation_15-112
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/ModelRecreation_15/
+    ModelRecreation_15-112.jpg
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/ModelRecreation_37/
+    ModelRecreation_37-112
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/ModelRecreation_37/
+    ModelRecreation_37-112.jpg
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/ModelRecreation_8/
+    ModelRecreation_8-112
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/ModelRecreation_8/
+    ModelRecreation_8-112.jpg
 
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/bp/ui/graphics/
+    anchors/ConnectorAnchor.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/bp/ui/graphics/
+    anchors/ShapeAnchor.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/bp/ui/graphics/
+    anchors/WSAnchor.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/bp/ui/graphics/
+    commands/ConnectorBendpointMoveCommand.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/bp/ui/graphics/router/
+    RectilinearRouter.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/bp/ui/graphics/
+    utilities/GraphicsUtil.java
 
 End
 ---
