@@ -21,6 +21,26 @@ text
 
 ---
 
+    Weekly Report for Week of 2013/10/14
+
+#### Hours
+UML Tools:  40 / 
+Holiday: 0 / 
+FTO: 0 / 
+Total: 40
+
+#### Weekly Summary
+See checklist
+
+#### Checklist
+- Debug Cort's licensing issue (issue with manually setting some env vars for running CLI x_build)
+- Review several of Campbell's DNTs
+- Review Travis' code 
+- Review Travis' DNT and code for EEs
+- Finish work on dts0100942776: Preferences issue
+
+---
+
     Weekly Report for Week of 2013/10/07
 
 #### Hours
