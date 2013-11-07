@@ -8,14 +8,14 @@ Note: Prior to using this checklist you should already have an account
 _- Clone the github/internal repository:
    _- open a cygwin shell
    _- cd "Git local repository folder"
-   _- ./git clone https://github.com/xtuml/internal
+   _- git clone https://github.com/xtuml/internal
    _R git/internal is now cloned
    
 _- Download the latest released version of the tool.  You will find all the 
    releases here:
-   http://tucson.wv.mentorg.com/tiger_releases/R<version>
+   http://tucson.wv.mentorg.com/tiger_releases/
    
-_- Run the installer down-loaded in the previous step.  You can installer
+_- Run the installer down-loaded in the previous step.  You can install
    wherever you like, but these instructions assume the default:
    c:/MentorGraphics/BridgePoint
    
@@ -28,38 +28,37 @@ _- Launch the tool using the desktop shortcut that was created and open a
       Example:  c:/workspace/current
 
 _- Update eclipse preferences to common and required settings:
-   _- Open the navigator view
+   _- Open the Navigator view
 	_- Right-click in white space
-	_- Import... > General > preferences
-	_- Select "git"/internal/doc-internal/process/templates/checklists/development-workspace-setup/EclipsePreferences.edf
+	_- Import... > General > Preferences
+	_- Select "git"/internal/doc-internal/process/templates/checklists/development-workspace-setup/EclipsePreferences.epf
 	_- Assure that "Import all" is selected
-	_- select finish
+	_- Select finish
 	
-_- Open the SVN perspective
+_- Open the SVN Repository Exploring perspective
 
-_- You will be promoted to install the SVN connector.  Install the latest 
-   available of the SVN Kit connector.
+_- You will be prompted to install the SVN connector.  Install the latest available of the SVN Kit connector.
    
-_R You will be prmooted to restart.  Do NOT restart yet.
+_R You will be prompted to restart.  Do NOT restart yet.
 	
 _- Install required add-ons:
-	_- Open the navigator view
-	_- Right-click in white space
-	_- Install... > Software from file
-	_- Select "git"/internal/doc-internal/process/templates/checklists/development-workspace-setup/xtUML_dev_eclipse_addons.p2f
-    _- Select finish
-    _R Files are installed and you are promoted to restart
+    _- Open the Navigator view
+    _- Right-click in white space
+    _- Import... > Install > Install Software Items from File
+    _- Select "git"/internal/doc-internal/process/templates/checklists/development-workspace-setup/xtUML_dev_eclipse_addons.p2f
+    _- Select Finish
+    _R Files are installed and you are prompted to restart
     _- Do NOT restart
     
 _- Exit eclipse
 
 _- Modify Launcher.bat with required development settings:
-	_- Open C:\MentorGraphics\BridgePoint\eclipse\BridgePoint_Launcher.bat in a
+    _- Open C:\MentorGraphics\BridgePoint\eclipse\BridgePoint_Launcher.bat in a
        text editor
     _- Update the "set MGLS_LICENSE_FILE..." line to :
-          set MGLS_LICENSE_FILE=c:\MentorGraphics\license.dat   
-          For VMs (or even locally at your discretion) add:
-          set MGLS_LICENSE_FILE=1717@wv-lic-01.wv.mentorg.com;1717@wv-lic-02.wv.mentorg.com;1717@svr-azt-eng-01  
+        set MGLS_LICENSE_FILE=c:\MentorGraphics\license.dat   
+        For VMs (or even locally at your discretion) add:
+        set MGLS_LICENSE_FILE=1717@wv-lic-01.wv.mentorg.com;1717@wv-lic-02.wv.mentorg.com;1717@svr-azt-eng-01  
     _- Directly after "set BP_VERSION=..." add the following:
         set PT_HOME=\work\BridgePointDev\
         set PT_HOME_DRIVE=c:
@@ -75,19 +74,19 @@ _- Install perl
      always download cygwin, installing the perl package.
    - Once installed be sure to add the perl location to your PATH variable.
 
-_- Launch eclipse using the desktop shortcut
+_- Launch BridgePoint using the desktop shortcut
 
-_- Open the Git repository exploring perspective
+_- Open the Git Repository Exploring perspective
 
 _- Select the option to clone and add to view:
    URI: https://github.com/xtuml/internal.git
-   _- enter your user name and password
-   _- Select next
+   _- Enter your user name and password
+   _- Select Next
    _- Select all the branches
-   _- select next
+   _- Select Next
    _- For the Local Destination select your github/repos folder.
       NOTE: DO NOT SELECT YOUR WORKSPACE!  This is the local RCS repository.
-   _- Select finish.
+   _- Select Finish.
 
 _- Using the procedure from above, also clone these repositories:
    https://github.com/xtuml/editor.git
@@ -95,8 +94,8 @@ _- Using the procedure from above, also clone these repositories:
    https://github.com/xtuml/models.git
    https://github.com/xtuml/modelsmg.git
    
-_- Import the projects into your woprkspace
-   _- In the Git Repositories perspective select "internal"
+_- Import the projects into your workspace
+   _- In the Git Repository Exploring perspective select "internal"
    _- Right Click > Import Projects...
    _- Select "Import Projects Into Existing Workspace" and then "Next"
    _- Select all projects (do not select any other options)
@@ -106,14 +105,14 @@ _- Switch to the Java perspective
 
 _- Close these projects:
    libTrans
-   pt_antrl
+   pt_antlr
    
-_- Selected build automatically
+_- Select Project > Build Automatically
 
 _R The build is successful
 
 _- Prepare to run unit tests:
-    _- Exit Eclipse
+    _- Exit BridgePoint
 	_- Configure Windows Vista or Windows 7 for unit test running
 	   - Bring up the Windows Color and Appearance settings
 	     - Right click on the desktop background and select Personalize
