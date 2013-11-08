@@ -1,5 +1,5 @@
 <pre>
-HOWTO create a new development workspace
+HOWTO Create a New Development Workspace
 ----------------------------------------
 Note: Prior to using this checklist you should already have an account
       on github.  If you do not, then see:
