@@ -365,40 +365,16 @@ public class BridgePointLicenseManager  extends BridgePointDemoEncryptor {
 	/**
 	 * This function is used to check the model Execution license.
 	 * 
-	 * @param elementsInSys the list of elements the user has selected to
-	 *        execute
-	 *        
 	 * @return true is it is licensed and false if not.
 	 */
-	public static boolean isExecutionLicensed(
-			List<NonRootModelElement> elementsInSys) {
-
-		/* check to see if system License is required or not */
-		int numLicensedElements = 0;
-		for (int i = 0; i < elementsInSys.size(); i++) {
-			NonRootModelElement curElement = elementsInSys.get(i);
-			if ((curElement instanceof ComponentReference_c)
-					|| (curElement instanceof Component_c)
-					|| (curElement instanceof Domain_c)) {
-				numLicensedElements++;
-			}
-		}
-		boolean requiresSysLicense = (numLicensedElements > 1) ? true : false;
+	public static boolean isExecutionLicensed() {
 
 		LicenseAtomic licenseTypeNeeded = LicenseAtomic.VERIFIER_SYSTEM_LICENSE_CODE;
-		if (!requiresSysLicense) {
-			licenseTypeNeeded = LicenseAtomic.VERIFIER_LICENSE_CODE;
-		}
 
 		boolean isLicensed = BridgePointLicenseManager
 				.getLicense(licenseTypeNeeded);
 		if (!isLicensed) {
-
-			String message = "Failed to get verifier license from license manager.";
-			if (requiresSysLicense) {
-				message = "Failed to get system verifier license from license manager.  You are not licensed to run Model Verifier on multiple components at the same time.";
-			}
-
+			String message = "Failed to get xtUML eXecute license from license manager.";
 			UIUtil.openError(null, "Verifier Launcher", message, true );
 		}
 
