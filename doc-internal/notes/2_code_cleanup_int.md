@@ -110,6 +110,7 @@ address a concern recently raised by a customer.
 ---------------
 Branch name: 2_code_cleanup
 
+```
 com.mentor.nucleus.bp.compare/generate.xml
 
 com.mentor.nucleus.bp.core/doc/external/manuals/mm/
@@ -253,7 +254,7 @@ doc-internal/process/templates/launch_configs/
     UseGlobals UI Text Test.launch
 doc-internal/process/templates/launch_configs/
     Working set.launch
-
+```
 
 End
 ---
