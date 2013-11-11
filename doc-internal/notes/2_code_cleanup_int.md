@@ -104,7 +104,7 @@ address a concern recently raised by a customer.
   - Create MicrowaveOven sample project
   - Launch the MicrowaveOven xtUML eXecute launch config
   - Open the license log file
-  - __R__ There is a request for xtumlsysvrfy, not xtumlvrfy
+  - __R__ There is a request for bpumlexecute_c.  There is no request for xtumlvrfy
   
 8. Code Changes
 ---------------
