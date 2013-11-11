@@ -15,7 +15,7 @@ Present:  Keith,Travis,Bob
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01  min   bob  2 [3]    Add additoinal text to the headline of this issue to
+x- 01  min   bob  2 [3]    Add additoinal text to the headline of this issue to
                            make it clear that with this chage we no longer 
 						   license execution of a single executable element 
 						   seperate from mulitple executable elements.
