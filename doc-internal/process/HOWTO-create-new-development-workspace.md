@@ -19,7 +19,7 @@ _- Run the installer down-loaded in the previous step.  You can install
    c:/MentorGraphics/BridgePoint
    
 _- Using the files in the file above:
-  _- Copy "git"/internal/doc-internal/process/templates/checklists/development-workspace-setup/BridgePointDev into c:/MentorGraphics
+  _- Copy "git"/internal/doc-internal/process/templates/checklists/development-workspace-setup/BridgePointDev into c:/work
   _- Copy "git"/internal/doc-internal/process/templates/checklists/development-workspace-setup/dropins/* into C:\MentorGraphics\BridgePoint\eclipse\dropins
 
 _- Launch the tool using the desktop shortcut that was created and open a new eclipse workspace that will become your development workspace.
