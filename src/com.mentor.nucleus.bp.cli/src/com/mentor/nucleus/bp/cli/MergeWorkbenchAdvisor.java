@@ -24,6 +24,7 @@ import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.IntegrityChecker;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
+import com.mentor.nucleus.bp.core.common.PersistenceManager;
 import com.mentor.nucleus.bp.core.common.Transaction;
 import com.mentor.nucleus.bp.core.ui.AbstractStreamImportFactory;
 import com.mentor.nucleus.bp.core.ui.IModelImport;
@@ -37,6 +38,7 @@ import com.mentor.nucleus.bp.model.compare.TreeDifferencer;
 import com.mentor.nucleus.bp.model.compare.providers.ModelCompareContentProvider;
 import com.mentor.nucleus.bp.model.compare.providers.ModelCompareLabelProvider;
 import com.mentor.nucleus.bp.ui.canvas.CanvasModelListener;
+import com.mentor.nucleus.bp.ui.canvas.Cl_c;
 import com.mentor.nucleus.bp.ui.canvas.Model_c;
 import com.mentor.nucleus.bp.ui.canvas.Ooaofgraphics;
 
@@ -188,10 +190,17 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 				exporter.run(new NullProgressMonitor());
 				// run an integrity report if possible
 				if(!disableIntegrityChecks) {
+					System.out.println("11/11/03 9:51pm");
 					NonRootModelElement realElement = (NonRootModelElement) Ooaofooa.getDefaultInstance()
 							.getInstanceList(leftRoot.getClass())
 							.getGlobal(leftRoot.getInstanceKey());
 					if(realElement == null) {
+						// initialize the workspace, for some reason our advisor
+						// does not always trigger initialization of the workspace
+						// Calling PersistenceManager.getDefault() will initialize
+						// our manager which in turn forces the initialization of
+						// the workspace
+						PersistenceManager.getDefaultInstance();
 						// assure that all workspace systems are loaded
 						// we have to do this in order to locate the
 						// destination element for checking
@@ -229,7 +238,19 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 						}
 					}
 					if(realElement != null) {
+						// we have to write to the real destination before the CM system
+						// does (the CM system will re-write the same changes)  This allows
+						// us to check the latest version of the file.  The CM system will
+						// not write until we have lost control						
+						exporter = CorePlugin.getModelExportFactory().create(
+								realElement.getFile().getLocation().toString(),
+								leftRoot);
+						exporter.run(new NullProgressMonitor());
 						realElement.getPersistableComponent().load(new NullProgressMonitor(), false, true);
+						// reselect the real element after reload
+						realElement = (NonRootModelElement) Ooaofooa.getDefaultInstance()
+								.getInstanceList(leftRoot.getClass())
+								.getGlobal(leftRoot.getInstanceKey());
 						Package_c firstParentPackage = realElement.getFirstParentPackage();
 						Component_c firstParentComponent = realElement.getFirstParentComponent();
 						NonRootModelElement elementToCheck = null;
@@ -246,6 +267,7 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 								}
 							}
 						}
+						System.out.println("Running integrity checks on: " + Cl_c.Getpath(elementToCheck));
 						IntegrityManager_c iManager = new IntegrityManager_c(Ooaofooa.getDefaultInstance());
 						IntegrityIssue_c[] issues = IntegrityChecker.runIntegrityCheck(elementToCheck, iManager);
 						String report = IntegrityChecker.createReportForIssues(issues);
