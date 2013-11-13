@@ -9,7 +9,8 @@ Copyright 2013 Mentor Graphics Corp.  All Rights Reserved.
 
 Note: Each section has a description that states the purpose of that section.
 Delete these section descriptions before checking in your note.  Delete this
-note as well.
+note as well. __If you are using markdown formatting, don't forget to put 2 
+spaces at the end of lines where you want a hard break.__
 
 1. Abstract
 -----------
@@ -19,7 +20,7 @@ describe.
 2. Document References
 ----------------------
 In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.
+Give the full path to reference a file.  
 [1] Issues 1, https://github.com/xtuml/doc/issues/1  
 [2] Issues 2, https://github.com/xtuml/doc/issues/2  
 
@@ -62,8 +63,13 @@ will use to design and perform the tests.
 
 8. Code Changes
 ---------------
-Branch name: <enter your branch name here>
-Enumerate all the files that have been modified while you worked on this issue.
+Branch name: < enter your branch name here >
+
+<pre>
+
+< Put the file list here >
+
+</pre>
 
 End
 ---
