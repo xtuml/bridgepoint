@@ -1,0 +1,54 @@
+========================================================================
+File:      Unit_test_checklist.chk
+
+(c) Copyright 2008-2013 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+This document captures the state of the BridgePoint unit tests ran against:
+
+branch(s) and/or pull request(s)): 
+            	https://github.com/xtuml/internal/pull/110 (git 2)
+            	https://github.com/xtuml/internal/pull/108 (git 107)
+            	https://github.com/xtuml/internal/pull/105 (git 104)
+machine: Bob's laptop
+OS: Windows 7
+
+Test                                            Who      Result     Time 
+-------------------------------------------------------------------------
+com.mentor.nucleus.bp.als.oal.test              -        -
+              Parse All Test                    bob      pass       399/790s
+com.mentor.nucleus.bp.core.test                 -        -          
+              Core Test-RTO Move                bob      pass       253/290s
+              Core Test-Consistency             bob      pass       2/10s
+              Core Test-Workspace Setup         bob      pass       60/85s
+              Core Test-Existing Projects       bob      pass       4/10s 
+              Core Generic Upgrade Test         bob      pass       3/4s
+              Core Test                         bob      pass       1139/1165s  
+              Core Test 2                       bob      pass       171/340s   
+              Core Test-SystemLevelTests        bob      pass       12/40s           
+com.mentor.nucleus.bp.debug.ui.test (Verifier)    -      -          
+              Debug - Verifier Test             bob      pass       747/1660s
+              Debug - Verifier Test 2           bob      pass       109/248s
+com.mentor.nucleus.bp.model.compare.test        bob      pass       199/235s
+com.mentor.nucleus.bp.io.mdl.test                -       -                                    
+              IO MDL Tests                      bob      pass       193/400s
+              IO MDL Tests 2                    bob      pass       155/75s
+              IO MDL PkgCM Test Suite           bob      pass       602/1370s
+com.mentor.nucleus.bp.io.sql.test               bob      pass       1/5s
+com.mentor.nucleus.bp.search.test               bob      pass       10/15s
+com.mentor.nucleus.bp.ui.canvas.test            -        -          
+              UI Canvas Suite 1                 bob      pass       77/2265s
+              UI Canvas Suite 2                 bob      pass       231/425s
+              UI Canvas CCP Test                bob      pass       525/2230s
+com.mentor.nucleus.bp.ui.explorer.test          -        -          
+              UI Explorer Test                  bob      pass       35/135s
+com.mentor.nucleus.bp.ui.properties.test        -        -          
+              UI Properties Test                bob      pass       12/35s
+com.mentor.nucleus.bp.ui.text.test                -      -          
+              UI Text Test                      bob      pass       91/265s
+com.mentor.nucleus.bp.welcome                   bob      pass       175/275s
+                                                                    
