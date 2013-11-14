@@ -1,0 +1,173 @@
+---
+
+Copyright 2013 Mentor Graphics Corp.  All Rights Reserved.
+
+---
+
+# Address rectilinear routing issue with delegations
+### xtUML Project Implementation Note
+
+1. Abstract
+-----------
+This note describes the changes required to properly route delegations on
+creation when using the rectilinear router.
+
+2. Document References
+----------------------
+[1] Issues 104, https://github.com/xtuml/doc/issues/104  
+[2] CQ Issue: dts0100974806 - Rectilinear routing causes delegation to be   
+                              co-linear with parent component boundary   
+
+3. Background
+-------------
+The customer has raised [2] to address an issue where it is hard to see where
+delegations are coming from, specifically at lower zoom levels.
+
+4. Requirements
+---------------
+4.1 The last segment of a delegation shall never be co-linear with the component
+    container boundary during creation.
+
+5. Work Required
+----------------
+5.1. Convince GMF router that the anchor shape for interface references is
+     larger
+       
+The GMF router looks at the anchor's host bounds to determine what side a
+connection is leaving the symbol from.  It does not consider end points of
+connections.  All of the logic that handles this routing is private and
+therefore would have to be copied directly from GMF.  Considering the licensing
+affect of such a change this was not desirable.  Instead the anchor bounds for
+the case of any anchor that is a connector end are modified to large boundaries.
+This forces GMF to always determine the exit direction of the connection as what
+we desire.  Those exit directions are: 
+
+  Connector configuration                    |  exit direction for connection
+  External connector west side of container  |  east
+  External connector east side of container  |  west
+  External connector north side of container |  south
+  External connector south side of container |  north
+  Internal connector west side of shape      |  west
+  Internal connector east side of shape      |  east
+  Internal connector north side of shape     |  north
+  Internal connector south side of shape     |  south
+
+5.2 Prevent intersect detection
+  
+Once the directions are as we expect the connectors are properly routed, with
+the exception of a case where the GMF router considers the two anchors for a
+connector to be intersecting.  GMF already ignores any case where the terminal
+point is on a connection figure, but our figures for the connector anchors are
+not instances of Connection.  The method checkShapesIntersect() is overridden
+to always return false if one end is an instance of ConnectorAnchor.
+
+5.3 New behavior after creation
+
+The rearrangement behavior is changed due to this work.  The new behavior 
+prevents movement of the segment closest to the external reference when there
+are more than two segments.  This is related to the changes that always
+guarantee that segment is coming from the direction we desire.  The initial
+segment length is half of the distance between the starting and ending point of
+the line drawn.  This segment length can be changed after creation.
+
+6. Implementation Comments
+--------------------------
+6.1 Address deprecated warnings for use of precise* attributes   
+
+GMF has recently deprecated direct access to the preciseX, preciseY,
+preciseWidth and preciseHeight attributes from the PrecisionPoint and
+PrecisionRectangle classes.  All references to these attributes are replaced by
+a call to new matching methods, preciseX(), preciseY(), preciseWidth(), and
+preciseHeight().  Another method, Rectangle.expand(), was also deprecated but
+was not replaced by a new method.  We therefore had to add code to cover what
+expand() was doing previously.
+
+7. Unit Test
+------------
+7.1 Test delegation creation from an outer reference to an inner reference  
+
+7.1.1 East to west
+
+_- Draw a delegation from an outer interface reference to an inner interface
+   reference where the two references are not vertically aligned
+_R During the draw operation the ghost figure is rectilinear, with two points
+   sitting at the mid x-point between the two references
+
+7.1.2 West to east
+
+_- Draw a delegation from an outer interface reference to an inner interface
+   reference where the two references are not vertically aligned
+_R During the draw operation the ghost figure is rectilinear, with two points
+   sitting at the mid x-point between the two references
+   
+7.1.3 North to south
+
+_- Draw a delegation from an outer interface reference to an inner interface
+   reference where the two references are not horizontally aligned
+_R During the draw operation the ghost figure is rectilinear, with two points
+   sitting at the mid y-point between the two references
+
+7.1.4 South to north
+
+_- Draw a delegation from an outer interface reference to an inner interface
+   reference where the two references are not horizontally aligned
+_R During the draw operation the ghost figure is rectilinear, with two points
+   sitting at the mid y-point between the two references
+   
+7.2 Test delegation creation from an inner reference to an outer references
+
+_- Repeat test 7.1 but this time draw from the inner reference to the outer
+_R All results should match those from 7.1.
+
+7.3 Test delegation creation from an outer reference to an inner component
+
+_- Repeat test 7.1 but this time draw directly to an inner component
+_R All results should match when changing the result to consider the component
+   shape rather than an internal reference
+
+7.4 Test movement after creation
+
+_- Create a delegation that has no bendpoints
+_- Click and drag the delegation
+_R The delegation is split in two and only the inner segment moves
+_- Leave the delegation such that it has three segments
+_R All segments can move with the exception of the last one (connected to the
+   outer reference)
+_R The size of the last segment can be modified by moving the next segment
+ 
+8. Code Changes
+---------------
+Branch name: Review-dts0100974806
+
+com.mentor.nucleus.bp.ui.canvas.test/src/GlobalsCanvasSuite2.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/nucleus/bp/ui/canvas/
+	test/RectilinearRoutingTests.java
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/ModelRecreation_15/
+    ModelRecreation_15-112
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/ModelRecreation_15/
+    ModelRecreation_15-112.jpg
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/ModelRecreation_37/
+    ModelRecreation_37-112
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/ModelRecreation_37/
+    ModelRecreation_37-112.jpg
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/ModelRecreation_8/
+    ModelRecreation_8-112
+com.mentor.nucleus.bp.ui.canvas.test/expected_results/ModelRecreation_8/
+    ModelRecreation_8-112.jpg
+
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/bp/ui/graphics/
+    anchors/ConnectorAnchor.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/bp/ui/graphics/
+    anchors/ShapeAnchor.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/bp/ui/graphics/
+    anchors/WSAnchor.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/bp/ui/graphics/
+    commands/ConnectorBendpointMoveCommand.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/bp/ui/graphics/router/
+    RectilinearRouter.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/bp/ui/graphics/
+    utilities/GraphicsUtil.java
+
+End
+---
+
