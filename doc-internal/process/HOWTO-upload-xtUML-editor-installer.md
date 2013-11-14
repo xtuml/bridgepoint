@@ -11,7 +11,7 @@ HOWTO Upload the xtUML Editor Installer to xtuml.org
 >     Secret Key: AvMVXuAVMR8MaqfV9UjkcYLkHKiIURgUyDAK8SmN  
 
 - Upload files
-- On each file, right-click > Properties. Open the Security tab. Click on "All Users" and check "Read" 
+- On each newly uploaded file, Right-click > Properties. Open the Security tab. Click on "All Users" and check "Read" 
 - Update xtuml.org downloads page.  Move the Current release links to Prior release links section.  Add new current
   release links that point at the files that were just uploaded.  Add new MD5 sums.
   
