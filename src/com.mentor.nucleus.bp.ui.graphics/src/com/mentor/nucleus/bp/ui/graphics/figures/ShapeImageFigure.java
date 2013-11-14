@@ -282,7 +282,7 @@ public class ShapeImageFigure extends RectangleFigure implements IMapMode {
 	 */
 	@Override
 	public IFigure getParent() {
-		if(part == null) {
+		if(part == null || part.getViewer()==null) {
 			// initializing
 			return super.getParent();
 		}

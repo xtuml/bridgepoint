@@ -15,6 +15,7 @@ package com.mentor.nucleus.bp.ui.graphics.commands;
 
 import java.util.UUID;
 
+import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.gef.EditPart;
@@ -80,8 +81,8 @@ public class ConnectorBendpointMoveCommand extends Command implements
 		// the original location then this command
 		// should not execute
 		Connector_c connector = (Connector_c) part.getModel();
-		Point location = request.getLocation().getCopy();
-		part.getFigure().translateToRelative(location);
+		Point location = ((Connection) request.getSource().getFigure())
+				.getPoints().getPoint(request.getIndex());
 		UUID waypointID = connector.Getwaypointatindex(request.getIndex());
 		if (part.getConnectionFigure().getConnectionRouter() instanceof RectilinearRouter) {
 			waypointID = connector.Getwaypointatindex(request.getIndex() - 1);
