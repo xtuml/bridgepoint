@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("f021c5c6-f37d-4215-afe4-a3e777964197",
@@ -86,10 +86,10 @@ elif(param.comp_num == 2)
   end if;
   if(param.at == Justification::Left)
     if(not_empty opExProps)
-      result = self.get_operation_compartment_text();
+      result = self.get_operation_compartment_text(entry_num: param.ent_num);
     else
-      if(not_empty signaExProps) and (param.ent_num == 2)
-        result = self.get_signal_compartment_text();
+      if(not_empty signaExProps) and (param.ent_num > 1)
+        result = self.get_signal_compartment_text(entry_num: param.ent_num);
       end if;
     end if;
   end if;
@@ -99,8 +99,8 @@ elif(param.comp_num == 3)
       result = "signals" + GD::newline();
     end if;
   end if;
-  if(param.at == Justification::Left) and (param.ent_num == 2)
-    return self.get_signal_compartment_text();
+  if(param.at == Justification::Left) and (param.ent_num > 1)
+    return self.get_signal_compartment_text(entry_num: param.ent_num);
   end if;
 end if;
 return result;',
@@ -182,12 +182,17 @@ INSERT INTO O_TFR
 	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
 	1,
 	'if(param.comp_num == 3)
-  return 2;
+  select many sigs related by self->C_EP[R4003]->C_AS[R4004];
+  return cardinality sigs + 1;
 elif(param.comp_num == 2)
   select many ops related by self->C_EP[R4003]->C_IO[R4004];
   if(empty ops)
-    return 2;
+    select many sigs related by self->C_EP[R4003]->C_AS[R4004];
+    if(not_empty sigs)
+      return cardinality sigs + 1;
+    end if;
   end if;
+  return cardinality ops;
 end if;
 return 1;',
 	1,
@@ -333,40 +338,54 @@ INSERT INTO O_TFR
 	"528ced7e-5308-4195-8093-ca0c55401f58",
 	1,
 	'result = "";
+index = 1;
 select any operation related by self->C_EP[R4003]->C_IO[R4004] where (selected.Previous_Id == GD::NULL_UNIQUE_ID());
 while (not_empty operation)
-  result = result + operation.Name;
-  result = result + "(";
-  parm_separator = "";
-  select any parameter related by operation->C_EP[R4004]->C_PP[R4006] where (selected.Previous_PP_Id == GD::NULL_UNIQUE_ID());
-  while (not_empty parameter)
-    result = result + parm_separator;
-    result = result + parameter.Name;
-    result = result + parameter.Dimensions;
-    result = result + ":";
-    select one dt related by parameter->S_DT[R4007];
-    if ( not_empty dt )
-      result = result + dt.Name;
-    else
-      result = result + ::getOrphanedElementName();
+  if(index == param.entry_num)
+    result = result + operation.Name;
+    result = result + "(";
+    parm_separator = "";
+    select any parameter related by operation->C_EP[R4004]->C_PP[R4006] where (selected.Previous_PP_Id == GD::NULL_UNIQUE_ID());
+    while (not_empty parameter)
+      result = result + parm_separator;
+      result = result + parameter.Name;
+      result = result + parameter.Dimensions;
+      result = result + ":";
+      select one dt related by parameter->S_DT[R4007];
+      if ( not_empty dt )
+        result = result + dt.Name;
+      else
+        result = result + ::getOrphanedElementName();
+      end if;
+      parm_separator = ", ";
+      select one parameter related by parameter->C_PP[R4021.''precedes''];
+    end while;
+    result = result + ")";
+    select one dt related by operation->S_DT[R4008];
+    result = result + ":" + dt.Name;
+    if dt.Name != "void"
+      result = result + operation.Return_Dimensions;
     end if;
-    parm_separator = ", ";
-    select one parameter related by parameter->C_PP[R4021.''precedes''];
-  end while;
-  result = result + ")";
-  select one dt related by operation->S_DT[R4008];
-  result = result + ":" + dt.Name;
-  if dt.Name != "void"
-    result = result + operation.Return_Dimensions;
+    result = result + GD::newline();
+    return result;
   end if;
-  result = result + GD::newline();
+  index = index + 1;
   select one operation related by operation->C_IO[R4019.''precedes''];
 end while;
-return result;
+return "";
 ',
 	1,
 	'',
 	"f3388d7d-6cda-459d-958c-c4ea67546916");
+INSERT INTO O_TPARM
+	VALUES ("1c3f4a33-836f-408b-ac9f-7796a34df83e",
+	"c06ebec1-4f10-46cc-8b9d-86bdbc4bfa9c",
+	'entry_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_TFR
 	VALUES ("1e65fdde-e216-42b1-9069-b128e2ba99a6",
 	"f021c5c6-f37d-4215-afe4-a3e777964197",
@@ -375,33 +394,47 @@ INSERT INTO O_TFR
 	"528ced7e-5308-4195-8093-ca0c55401f58",
 	1,
 	'result = "";
+index = 2;
 select any signal related by self->C_EP[R4003]->C_AS[R4004] where (selected.Previous_Id == GD::NULL_UNIQUE_ID());
 while (not_empty signal)
-  result = result + signal.Name;
-  result = result + "(";
-  parm_separator = "";
-  select any parameter related by signal->C_EP[R4004]->C_PP[R4006] where (selected.Previous_PP_Id == GD::NULL_UNIQUE_ID());
-  while (not_empty parameter)
-    result = result + parm_separator;
-    result = result + parameter.Name;
-    result = result + parameter.Dimensions;
-    result = result + ":";
-    select one dt related by parameter->S_DT[R4007];
-    if ( not_empty dt )
-      result = result + dt.Name;
-    else
-      result = result + ::getOrphanedElementName();
-    end if;
-    parm_separator = ", ";
-    select one parameter related by parameter->C_PP[R4021.''precedes''];
-  end while;
-  result = result + ")" + GD::newline();
+  if(index == param.entry_num)
+    result = result + signal.Name;
+    result = result + "(";
+    parm_separator = "";
+    select any parameter related by signal->C_EP[R4004]->C_PP[R4006] where (selected.Previous_PP_Id == GD::NULL_UNIQUE_ID());
+    while (not_empty parameter)
+      result = result + parm_separator;
+      result = result + parameter.Name;
+      result = result + parameter.Dimensions;
+      result = result + ":";
+      select one dt related by parameter->S_DT[R4007];
+      if ( not_empty dt )
+        result = result + dt.Name;
+      else
+        result = result + ::getOrphanedElementName();
+      end if;
+      parm_separator = ", ";
+      select one parameter related by parameter->C_PP[R4021.''precedes''];
+    end while;
+    result = result + ")" + GD::newline();
+    return result;
+  end if;
+  index = index + 1;
   select one signal related by signal->C_AS[R4020.''precedes''];
 end while;
-return result;',
+return "";',
 	1,
 	'',
 	"c06ebec1-4f10-46cc-8b9d-86bdbc4bfa9c");
+INSERT INTO O_TPARM
+	VALUES ("b66aaeeb-fc94-477f-a94c-2c13079e0616",
+	"1e65fdde-e216-42b1-9069-b128e2ba99a6",
+	'entry_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_TFR
 	VALUES ("7f3e321d-607b-4369-8030-11273bdae3c2",
 	"f021c5c6-f37d-4215-afe4-a3e777964197",
