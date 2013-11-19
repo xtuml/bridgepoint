@@ -394,6 +394,8 @@ INSERT INTO O_TFR
 	"528ced7e-5308-4195-8093-ca0c55401f58",
 	1,
 	'result = "";
+// note that we must start at index 2 here.  The reason is that if we have any
+// signals we always reserve the first slot for the signals title
 index = 2;
 select any signal related by self->C_EP[R4003]->C_AS[R4004] where (selected.Previous_Id == GD::NULL_UNIQUE_ID());
 while (not_empty signal)
