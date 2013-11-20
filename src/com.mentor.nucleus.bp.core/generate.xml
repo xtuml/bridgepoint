@@ -478,7 +478,7 @@
     ui/WizardDelegateChooserPage.java, ui/ConvertModel2UUIDAction.java,
       ui/ExecuteAction.java, ui/MonitorAction.java, ui/MonitorOffAction.java,
     ui/AbstractStreamExportFactory.java, ui/AbstractStreamImportFactory.java,
-      relocatables/*.java, lib/*.java, common/ModelElementFileFacade.java,
+      relocatables/*.java, lib/*.java,
       common/OALPersistenceUtil.java, ui/marker/*.java, ui/ConvertToMultifile*.java,
       ui/tree/*.java, ui/dialogs/*.java, ui/SetValueOnConstantAction.java, ui/ConstantValueInputValidator.java,
   	ui/UpgradeToGlobalsAction.java, ui/DefaultValueInputValidator.java, Search_c.java, search/DocumentCharSequence.java,

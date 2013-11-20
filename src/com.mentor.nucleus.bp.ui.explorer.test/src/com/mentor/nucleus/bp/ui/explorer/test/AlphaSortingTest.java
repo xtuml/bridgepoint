@@ -129,7 +129,7 @@ public class AlphaSortingTest extends BaseTest
                 continue;
             assertTrue("Item: " + domains[i]
                 + ", was not found in the correct order.", domains[i]
-                .equals(children[i].getText()));
+                .equals(children[i-1].getText()));
         }
     }
 

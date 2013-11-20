@@ -695,9 +695,6 @@ ${cfca.body}\
           .assign register_ism = not_empty ism
           .invoke cfcb = create_full_constructor_body(attributes, register_ism, "" )
 ${cfcb.body}\
-	      .if ( is_compRoot)
-	fileFacade=new ModelElementFileFacade(this); 
-	      .end if
           .if(cfcb.unique_id != "")
     setUniqueId(${cfcb.unique_id});
           .end if
@@ -706,12 +703,6 @@ ${cfcb.body}\
     addInstanceToMap(key);
           .end if
   }
-          .if ( is_compRoot)
-  private ModelElementFileFacade fileFacade=null;
-  public ModelElementFileFacade getFileFacade(){
-		return fileFacade;
-  }
-          .end if
           .if (package.is_eclipse_plugin)
   static public ${class_name} createProxy(ModelRoot modelRoot,
 ${cfca.body}, String p_contentPath, IPath p_localPath)
@@ -876,9 +867,6 @@ ${cfca_nt.body}
     // register with event queue poller
     Activepoller_c.register(this) ;
         .end if
-        .if ( is_compRoot)
-	fileFacade=new ModelElementFileFacade(this); 
-	    .end if
   }
 
         .if(key_result.found_key)
@@ -2045,9 +2033,6 @@ ${gsm.body}\
         {
             return comp.getFile();
         }
-	}else if (adapter == ModelElementFileFacade.class) {
-				
-			return getFileFacade();
 	}
 	      .end if
           .if ( object.AdapterName == "IProject" )
@@ -2063,11 +2048,8 @@ ${gsm.body}\
 		}
 	} else if (adapter == org.eclipse.core.resources.IFile.class) {
 		return getFile();
-	} else if (adapter == ModelElementFileFacade.class) {
-				
-			return getFileFacade();
-	}
-          .end if
+	} 
+	          .end if
 	  return null;
   }
           .if ( object.AdapterName == "IProject" )

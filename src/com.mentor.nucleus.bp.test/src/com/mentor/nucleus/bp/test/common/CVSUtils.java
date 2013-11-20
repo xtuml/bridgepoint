@@ -183,7 +183,7 @@ public class CVSUtils {
 
     public static void checkCVSDirtyMarkHierarchy(
             PersistableModelComponent pmc, boolean checkPresence) {
-        checkCVSDirtyMark(pmc.getRootModelElement().getFileFacade(),
+        checkCVSDirtyMark(pmc.getRootModelElement(),
                 checkPresence);
         checkCVSDirtyMark(pmc, checkPresence);
     }

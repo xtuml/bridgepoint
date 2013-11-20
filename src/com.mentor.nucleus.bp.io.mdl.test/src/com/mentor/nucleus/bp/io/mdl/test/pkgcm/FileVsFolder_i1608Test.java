@@ -20,7 +20,6 @@ import org.eclipse.swt.widgets.TreeItem;
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.Domain_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
-import com.mentor.nucleus.bp.core.common.ModelElementFileFacade;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
 import com.mentor.nucleus.bp.test.common.BaseTest;
@@ -93,18 +92,9 @@ public class FileVsFolder_i1608Test extends BaseTest {
         elementName = meFileItem.getText(); 
 		assertEquals("testDomain: Domain Package Diagram",
                 elementName.substring(0, elementName.indexOf("Diagram")+7));
-
-		ModelElementFileFacade fileFacade = (ModelElementFileFacade) dom
-				.getAdapter(ModelElementFileFacade.class);
-		// Component root elements should adapt to a ModelElementFileFacade
-		assertNotNull(fileFacade);
-
-		// perform rename on Model Element through file facade tree item
-		ExplorerUtil.doRenameThruMExplorer(fileFacade, "testDomain_");
 		
 		dispatchEvents(0);
 		
-		treeItem = ExplorerUtil.findTreeItem(fileFacade);
         elementName = treeItem.getText();        
 		assertEquals(">testDomain_: Domain Package Diagram",
 				elementName.substring(0, elementName.indexOf("Diagram")+7));
@@ -113,13 +103,8 @@ public class FileVsFolder_i1608Test extends BaseTest {
 		assertTrue("Expected domain CVS dirty decoration is incorrect.",
 		        treeItem.getText().startsWith(">testDomain_"));
 
-		// revert rename
-		ExplorerUtil.doRenameThruMExplorer(fileFacade, "testDomain");
-		
 		dispatchEvents(0);
 		
-		CVSUtils.checkCVSDirtyMark(fileFacade, true);
-		treeItem = ExplorerUtil.findTreeItem(fileFacade);
         elementName = treeItem.getText();
 		assertEquals(">testDomain: Domain Package Diagram",
                 elementName.substring(0, elementName.indexOf("Diagram")+7));
@@ -137,10 +122,7 @@ public class FileVsFolder_i1608Test extends BaseTest {
 		
 		domainComponent = PersistableModelComponent.findOrCreateInstance(domPath);
 		dom = (Domain_c) domainComponent.getRootModelElement();
-		fileFacade = (ModelElementFileFacade) dom
-				.getAdapter(ModelElementFileFacade.class);
 
-		treeItem = ExplorerUtil.findTreeItem(fileFacade);
         elementName = treeItem.getText();
 		assertEquals("testDomain: Domain Package Diagram",
                 elementName.substring(0, elementName.indexOf("Diagram")+7));

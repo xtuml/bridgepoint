@@ -208,13 +208,19 @@ public class ExplorerTest extends BaseTest
         while (Display.getCurrent().readAndDispatch());
         assertNotNull("No system in tree", systemItem);
         TreeItem [] domains = systemItem.getItems();
-        int expectedItems = 3;
+        int expectedItems = 2;
         if (testGlobals) {
         	// The system data type package is not present in a globals context
-        	expectedItems = 2;
+        	expectedItems = 1;
         }
         assertEquals("No domains in tree", expectedItems, domains.length);
-        TreeItem domainItem = domains[1];
+        TreeItem domainItem = null;
+        if (testGlobals) {
+        	// The system data type package is not present in a globals context
+        	domainItem = domains[0];
+        }else{
+        	domainItem = domains[1];
+        }
         assertTrue("Domain node could not be found",
             domainItem.getText().equals(testModelName));
         ExplorerUtil.selectItem(domainItem);
@@ -479,9 +485,9 @@ public class ExplorerTest extends BaseTest
         // has no children
         final Tree tree = viewer.getTree();
         TreeItem systemItem = tree.getItems()[0];
-        int expectedItems = 2;
+        int expectedItems = 1;
         if (testGlobals) {
-        	expectedItems = 1;
+        	expectedItems = 0;
         }
         assertTrue("System node has children", 
             systemItem.getItems().length == expectedItems);

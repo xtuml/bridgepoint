@@ -45,7 +45,6 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
-import com.mentor.nucleus.bp.core.common.ModelElementFileFacade;
 import com.mentor.nucleus.bp.core.*;
 import com.mentor.nucleus.bp.core.sorter.*;
 import com.mentor.nucleus.bp.ui.explorer.adapters.*;
@@ -118,9 +117,7 @@ public class ${provider_name} implements ITreeContentProvider {
       return $Cr{node.CategoryName}Adapter.getInstance().getParent(element);
     }
   .end for
-     if (element instanceof ModelElementFileFacade) {
-      return ((ModelElementFileFacade)element).getModelElement();
-     }
+     
     return null;
   }
   /**
@@ -138,13 +135,6 @@ public class ${provider_name} implements ITreeContentProvider {
     .invoke result = get_class_name(node_class)
      if (element instanceof ${result.body}) {
      .invoke is_compRoot = is_componentRootElementKL(node.Key_Lett)
-    .if(is_compRoot.result)
-     if(((NonRootModelElement)element).getFile()!=null){
-        .//determin do we have to display tree item represening file 
-       if(((NonRootModelElement)element).getFile().exists())
-           return true;
-       }
-     .end if
      return $Cr{node.CategoryName}Adapter.getInstance().hasChildren(element);
      }
   .end for
