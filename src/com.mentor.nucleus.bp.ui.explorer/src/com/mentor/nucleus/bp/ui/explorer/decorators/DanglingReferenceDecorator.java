@@ -28,7 +28,6 @@ import org.eclipse.jface.viewers.LabelProviderChangedEvent;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.common.IPersistenceHierarchyMetaData;
-import com.mentor.nucleus.bp.core.common.ModelElementFileFacade;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
 import com.mentor.nucleus.bp.core.ui.marker.UmlProblem;
@@ -61,11 +60,7 @@ public class DanglingReferenceDecorator implements ILightweightLabelDecorator {
         IPersistenceHierarchyMetaData hmd = PersistenceManager
                 .getHierarchyMetaData();
         IResource resource = null;
-        if (element instanceof ModelElementFileFacade) {
-            resource = ((NonRootModelElement) ((ModelElementFileFacade) element)
-                    .getModelElement()).getFile();
-            return hasXtUMLMarker(resource, IResource.DEPTH_ZERO);
-        } else if (element instanceof NonRootModelElement) {
+        if (element instanceof NonRootModelElement) {
             NonRootModelElement me = (NonRootModelElement) element;
             if (hmd.isComponentRoot(me)) {
                 resource = me.getFile();

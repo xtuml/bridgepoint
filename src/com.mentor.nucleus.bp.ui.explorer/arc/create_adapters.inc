@@ -54,7 +54,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import com.mentor.nucleus.bp.ui.explorer.ExplorerPlugin;
 .end if
-import com.mentor.nucleus.bp.core.common.ModelElementFileFacade;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import com.mentor.nucleus.bp.core.*;
@@ -182,18 +181,10 @@ ${rel_nav.body}\
     resultSize += ${varName}.length;
   .end for
   
-  .invoke is_compRoot = is_componentRootElementKL(tree_node.Key_Lett)
-  .if(is_compRoot.result)
-      resultSize++; //we have one special file item
-  .end if  
+  .invoke is_compRoot = is_componentRootElementKL(tree_node.Key_Lett) 
     Object [] result = new Object [resultSize];
   .if (not_empty child_specs)
-    .if(is_compRoot.result)
-        result[0]=  ModelElementFileFacade.getFacadeOf(arg);
-	    int count = 1;
-    .else
 	    int count = 0;  
-	  .end if  
   .end if
   .assign childCount = 0
   .for each spec in child_specs
