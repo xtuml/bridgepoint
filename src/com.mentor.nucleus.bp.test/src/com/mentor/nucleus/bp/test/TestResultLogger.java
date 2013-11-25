@@ -185,7 +185,7 @@ public class TestResultLogger extends TestRunListener {
 
 			Result testResult = session.getTestResult(true);
 			if (testResult != ITestElement.Result.OK) {
-				testInfo += createFormattedString(16, "FAIL");
+				testInfo += createFormattedString(16, "FAIL (" + String.valueOf(session.getErrorCount()) + "e/" + String.valueOf(session.getFailureCount()) + "f)");
 			} else {
 				testInfo += createFormattedString(16, "PASS");
 			}
