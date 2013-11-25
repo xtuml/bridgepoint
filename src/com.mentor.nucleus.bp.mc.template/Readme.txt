@@ -1,1 +1,1 @@
-See: <cvs>Documentation/internal/process/Procedures/HOWTO-create-a-new-ModelCompiler-Plugin.tnt
+See: < git >\xtuml\internal\doc-internal\process\HOWTO-create-new-ModelCompiler-plugin.md

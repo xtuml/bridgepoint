@@ -165,8 +165,6 @@ public class ModelCompilerSection extends OptionTemplateSection {
 				.add(new PluginReference(
 						"com.mentor.nucleus.bp.io.core", null, 0)); //$NON-NLS-1$
 		result.add(new PluginReference("com.mentor.nucleus.bp.mc", null, 0)); //$NON-NLS-1$
-		result.add(new PluginReference(
-				"com.mentor.nucleus.bp.mc.xmiexport", null, 0)); //$NON-NLS-1$
 		result.add(new PluginReference("org.eclipse.debug.ui", null, 0)); //$NON-NLS-1$
 		result.add(new PluginReference("org.eclipse.ui", null, 0)); //$NON-NLS-1$
 		result.add(new PluginReference("org.eclipse.ui.ide", null, 0)); //$NON-NLS-1$
