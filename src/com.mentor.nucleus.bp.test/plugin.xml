@@ -17,7 +17,7 @@
 <plugin
    id="com.mentor.nucleus.bp.test"
    name="BridgePoint Test Plug-in"
-   version="1.2.0"
+   version="1.2.1"
    provider-name="Mentor Graphics"
    class="com.mentor.nucleus.bp.test.TestPlugin">
 

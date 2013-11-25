@@ -19,12 +19,18 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jdt.internal.junit.model.TestRunHandler;
 import org.eclipse.jdt.internal.junit.model.TestRunSession;
 import org.eclipse.jdt.junit.JUnitCore;
 import org.eclipse.jdt.junit.TestRunListener;
@@ -40,7 +46,6 @@ import com.mentor.nucleus.bp.core.CorePlugin;
  */
 public class TestResultLogger extends TestRunListener {
 	private final static String Folder_Name = "test_results";
-
 	@Override
 	public void sessionFinished(ITestRunSession session) {
 		writeResults(session);
@@ -70,28 +75,46 @@ public class TestResultLogger extends TestRunListener {
 		}
 		return folder;
 	}
-
+	
 	public static class CaptureTestSummary extends TestCase {
-		static SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
+		private static Map <String, String > ResultMap = new HashMap<String, String>();  // < Test name, data >
 		
+		
+		/**
+		 * This is only here is allow this to be tested in a normal unit test
+		 * instead of as a listener. 
+		 */
+		public void testUnitTestStub() {
+			writeSummary(null);
+		}
 
 		public static void writeSummary(ITestRunSession currentSession) {
 			File resultFolder = TestResultLogger.createTestResultFolder();
 			File reportFile = new File(resultFolder.getPath() + "/"
 					+ "Unit_test_summary.txt");
 			FileWriter writer;
-			String report = getHeader();
-			report += getTestRunResultsFromHistory();
-			report += getDataFromTestSession((TestRunSession)currentSession, sdf.format(System.currentTimeMillis()));
-			
 			try {
-				writer = new FileWriter(reportFile);
-				writer.write(report);
-				writer.close();
-			} catch (IOException e) {
+				String report = getHeader();
+				getTestRunResultsFromHistory();
+				if (currentSession !=  null) {
+					getDataFromTestSession((TestRunSession)currentSession, System.currentTimeMillis());
+				}
+				
+				try {
+					writer = new FileWriter(reportFile);
+					writer.write(report);
+					for (Map.Entry<String,String> entry : ResultMap.entrySet()) {
+						writer.write(entry.getValue());
+					}
+					writer.close();
+				} catch (Exception e) {
+					CorePlugin.logError(
+							"Unable to save test run summary.", e);
+				}			
+			} catch (Exception e) {
 				CorePlugin.logError(
-						"Unable to save test run summary.", e);
-			}			
+						"Unable to load the run summary data.", e);
+			}
 		}
 		
 		public static String getHeader() {
@@ -127,8 +150,7 @@ public class TestResultLogger extends TestRunListener {
 			return report;
 		}
 
-		private static String getTestRunResultsFromHistory() {
-			String report = "";
+		private static void getTestRunResultsFromHistory() {
 			// Get the current test run history from metadata
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
 			String workspaceDirectory = workspace.getRoot().getLocation()
@@ -143,22 +165,20 @@ public class TestResultLogger extends TestRunListener {
 			for (File file : listFiles) {
 				TestRunSession importTestRunSession = null;
 				try {
-					importTestRunSession = (TestRunSession) org.eclipse.jdt.junit.JUnitCore
-							.importTestRunSession(file);
-				} catch (CoreException e) {
+					importTestRunSession = importTestRunSession(file);
+				} catch (Exception e) {
 					CorePlugin.logError("Unable to import the test run summary: " + file.getName(), e);
 				}
 				if (importTestRunSession!=null && !importTestRunSession.getTestRunName().equals(
-						"CaptureTestResults")) {
-					report += getDataFromTestSession(importTestRunSession,
-							sdf.format(file.lastModified()));
+						"CaptureTestSummary")) {
+					getDataFromTestSession(importTestRunSession,
+							file.lastModified());
 				}
 			}
-			return report;
 		}
 		
-		private static String getDataFromTestSession(TestRunSession session,
-				String testRunTimeStamp) {
+		private static void getDataFromTestSession(TestRunSession session,
+				long testRunTimeStamp) {
 			// test name
 			String testInfo = createFormattedString(40,
 					session.getTestRunName());
@@ -177,16 +197,17 @@ public class TestResultLogger extends TestRunListener {
 			// Test time
 			ITestElement[] children = session.getChildren();
 			double time = children[0].getElapsedTimeInSeconds();
-			DecimalFormat decFormat = new DecimalFormat("#.00");
+			DecimalFormat decFormat = new DecimalFormat("0.00");
 			String timeString = decFormat.format(time) + "s";
 			testInfo += createFormattedString(8, timeString);
 
 			// Date
-			testInfo += testRunTimeStamp;
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
+			testInfo += sdf.format(testRunTimeStamp);
 
 			testInfo += "\n";
-
-			return testInfo;
+			
+			ResultMap.put(session.getTestRunName(), testInfo);
 		}
 
 		/**
@@ -211,5 +232,25 @@ public class TestResultLogger extends TestRunListener {
 			}
 			return result;
 		}
+		
+		
+		/**
+		 * This code was taken from org.eclipse.jdt.junit.JUnitCore and
+		 * modified so that the imported session is not added to the list of
+		 * sessions maintained in the junit test history.
+		 *  
+		 * @param file
+		 * @return
+		 * @throws Exception
+		 */
+		public static TestRunSession importTestRunSession(File file) throws Exception {
+			   SAXParserFactory parserFactory= SAXParserFactory.newInstance();
+			//   parserFactory.setValidating(true); // TODO: add DTD and debug flag
+			   SAXParser parser= parserFactory.newSAXParser();
+			   TestRunHandler handler= new TestRunHandler();
+			   parser.parse(file, handler);
+			   TestRunSession session= handler.getTestRunSession();
+			   return session;
+		 }
 	}
 }
