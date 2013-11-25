@@ -34,7 +34,6 @@
        <classpath>
          <pathelement path="../com.mentor.nucleus.bp.core/bin" />
          <pathelement path="../com.mentor.nucleus.bp.io.core/bin" />
-         <pathelement path="../com.mentor.nucleus.bp.mc.xmiexport/bin" />
          <pathelement path="../com.mentor.nucleus.bp.mc/bin" />
          <pathelement path="../com.mentor.nucleus.bp.mc.mc3020/bin" />
          <fileset dir="$${eclipse-home}/plugins" casesensitive="yes">
