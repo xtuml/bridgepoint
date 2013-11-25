@@ -143,6 +143,12 @@ _- Setup development environment to run MC3020 under a launch configuration
   _- Open the Model Explorer view in Eclipse and navigate to:
        < workspace >/com.mentor.nucleus.bp.mc.c.binary/mc3020
   _- Paste the previous selection into this folder
+
+_- Set the unit test history to assure the test summary tool capture all results
+   _- Open the Junit view
+   _- Select the drop-down arrow in the upper-right of the view
+   _- Select the History... option
+   _- Set "Maximum count of remembered test runs" to 30 
 	
 _R Your environment is now built and ready for unit testing.
 
