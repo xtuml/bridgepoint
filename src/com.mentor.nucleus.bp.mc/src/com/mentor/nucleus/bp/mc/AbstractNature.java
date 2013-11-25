@@ -123,10 +123,10 @@ public abstract class AbstractNature implements IProjectNature {
 	public static String BUILD_SETTINGS_FILE = "build_settings/build_setting.properties";
 	
 	/** To hold associated project reference */
-	private IProject project;
+	protected IProject project;
 
 	protected AbstractActivator abstractActivator;
-	private String builderID = null;
+	protected String builderID = null;
 
 	public AbstractNature(AbstractActivator pAbstractActivator, String pBuilderID) {
 		super();
@@ -359,7 +359,7 @@ public abstract class AbstractNature implements IProjectNature {
 		ucsa.run(null);
 	}
 
-	private void createFolderIfNonexistent(IFolder srcFolder) {
+	protected void createFolderIfNonexistent(IFolder srcFolder) {
 		if (!srcFolder.exists()) {
 			try {
 				srcFolder.create(false, true, null);
