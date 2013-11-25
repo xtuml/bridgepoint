@@ -1,0 +1,173 @@
+MC-PaaS Prototype Notes
+-------------------------------
+=========================================================================================
+Phase 1 Requirements
+=========================================================================================
+See 117_mc-paas_phase1_dnt.md
+
+=========================================================================================
+Phase 1 Development
+=========================================================================================
+1) Install node.js on my Linux Mint VM:
+     $ sudo apt-get install nodejs
+     
+2) Read through intro slides and do examples contained inside.
+    o http://s3.amazonaws.com/four.livejournal/20091117/jsconf.pdf
+     
+    o Had to change the library names in the examples to work with
+      newer versions of nodejs.  "sys" -> "util", "tcp" -> "net"
+       
+      The TCP example in this script is out of date.  Used the one
+      from Wikipedia article on node.js instead.
+     
+3) Read through second set of intro slides
+    o http://nodejs.org/jsconf2010.pdf
+
+4) Think about my first test.  Here's the idea:
+    o Create two folders, s-in/ & s-out/
+    o Create a bash script that when called
+      - create a file in s-in/
+      - write a date stamp to it
+      - wait 5 seconds
+      - write new date stamp to it
+      - move the file to s-out/
+    o Create a node.js TCP server that when invoked, calls the bash script
+    o Call the TCP server
+    
+5) Found link: Really simple file uploads with Express 
+  (http://howtonode.org/really-simple-file-uploads)  May be useful.
+  
+6) Set up rsync on Linux Server and Windows/Cygwin client (http://www.gaztronics.net/howtos/rsync-windows.php)
+  o Linux machine is the server, but the Windows client is the rsync "master"
+  o On the server, there are "incoming" and "outgoing" modules pointed into /home/kbrown/node/
+  o On the client, the synched dirs are the gen/ and src/ folders under c:/workspaces/bp410/MicrowaveOven/
+
+  On the Windows client and using cygwin, from the /c/workspaces/bp410/MicrowaveOven/ dir:  
+  o to push the gen/ folder:
+    $ rsync -vrtz --password-file /etc/rsyncd.secret --delete gen/ kbrown@192.168.56.10::incoming
+  o to pull the src/:
+    $ rsync -avrtz --password-file /etc/rsyncd.secret kbrown@192.168.56.10::outgoing src/
+
+7) On Linux, copied BP's Launcher.sh to ~/node/jsLauncher.sh, modified the script to not start eclipse
+   but instead execute the xtumlmc_build command line.  Tested stand-alone and it works.
+  
+8) Create a new script that will:
+  a) Run after pre-builder as usual
+  b) Execute the rsync "push" command above to push the gen/ folder to the server
+  c) Send a simple HTTP request to http://192.168.56.10:8000/ , This will cause the node.js server
+     script to run, which will do the build.
+  d) Execute the rsync "pull" command every 10 seconds until some files show up, then it will exit
+  
+9) Integrate mcpaas.sh script into a new builder so we don't have to leave the UI
+
+10) Create eclipse builder that gens the sql and starts mcpaas.sh
+
+
+=========================================================================================
+Setting up amazon aws server
+=========================================================================================
+1) Cort resurrected his ubuntu 10.04 linux VM on amazon aws and created an account for me
+
+2) Install git
+  sudo apt-get install python-software-properties
+  sudo add-apt-repository ppa:git-core/ppa
+  sudo aptitude update
+  sudo aptitude install git
+
+3) Install node.js
+  sudo add-apt-repository ppa:chris-lea/node.js  
+  sudo aptitude update  
+  sudo aptitude install nodejs
+  
+4) Pull mcpaas stuff from github repo
+  o git clone xtuml/mc
+  o git checkout --track origin/34_mcpaas_proto
+  o cd mc/mcpaas/server
+  o mkdir gen
+  o mkdir src
+
+5) Set up rsync folders on server
+  o sudo vi /etc/rsyncd.secrets
+    kbrown:bpbuild
+    dean:bpbuild
+    cort:bpbuild
+  o sudo chmod 600 /etc/rsyncd.secrets
+  o sudo vi /etc/rsyncd.conf
+      [incoming]
+        path = /home/keith/git/xtuml/mc/mcpaas/server/gen
+        comment = Incoming model data
+        uid = keith
+        gid = keith
+        read only = false
+        auth users = kbrown dean cort
+        secrets file = /etc/rsyncd.secrets
+
+      [outgoing]
+        path = /home/keith/git/xtuml/mc/mcpaas/server/src
+        comment = Outgoing source code
+        uid = keith
+        gid = keith
+        read only = false
+        auth users = kbrown dean cort
+        secrets file = /etc/rsyncd.secrets
+
+6) Run rsync and node.js server
+  a) Poke holes in the AWS server firewall for ports 873 (rsync) and 8000 (nodejs http server)
+     Cort did this roughly following this:
+     I need some more AmazonAWS support from you.  We need to poke holes in the 
+     VM's firewall for rsync (port 873) and the nodejs server (port 8000, http 
+     protocol).  I googled around and found this description for some dude 
+     setting up an EC2-based Minecraft server:
+
+     8. Security Groups. This is your firewall policy - we will need to open a 
+     Minecraft port. Unfortunately Amazon does not let you enter a custom rule 
+     yet. We can name the policy itself though, so call it minecraft-security, 
+     accept the default rules (SSH access only on port 22) and Continue.
+
+     10. Click Security Groups on the left panel. Edit our group 
+     (minecraft-security) and add: Method 'Custom', Protocol 'TCP', Port 
+     25565, Source '0.0.0.0/0'.
+       Notes: If you want a non-default port, make sure and set it here! 
+       The 'Source' just means anyone on the internet can see this open 
+       port (which is fine).
+
+  b) Run rsync daemon:
+    Open the /etc/default/rsync file, (i.e. $ sudo vi /etc/default/rsync) and set:
+       RSYNC_ENABLE=true.
+    Now to start the daemon,
+       $ sudo /etc/init.d/rsync restart
+
+  c) Run node.js server as a daemon
+    - sudo mv < git >/xtuml/mc/mcpaas/server/mcpaas /etc/init.d
+    - edit path in /etc/init.d/mcpaas to point at the right dir to run in
+    - sudo chmod 755 /etc/init.d/mcpaas
+    - sudo apt-get install chkconfig
+    - cd /etc/init.d
+    - sudo chkconfig --add mcpaas
+    - sudo /etc/init.d/mcpaas start
+    
+  d) Additional config:
+    - sudo apt-get install libstdc++5
+    
+7) (Re)Install BP on the AWS server
+  First:
+      $ sudo aptitude install tofrodos
+      $ cd /usr/bin
+      $ sudo ln -s fromdos dos2unix
+      $ sudo ln -s todos unix2dos
+  Then:
+  - Download BP
+  - Install
+  - Update jsLauncher.sh to point at the proper install location
+  - Install time-bomb (semi-open licensed) generator
+  - Go to /usr/local/MentorGraphics/BridgePoint/.../com.mentor.nucleus.bp.mc.c.binary_4.1.0/mc3020/bin and rename:
+      mcmc to mcmc.orig
+      mcmc.exe to mcmc.exe.orig
+      
+8) Set up local machine to talk to amazonaws server
+  - Inside cygwin/linux (add packages rsync, and curl)
+  - Inside cygwin/linux, create /etc/rsyncd.secret that simply contains the word:
+      bpbuild
+  - chmod 600 /etc/rsyncd.secret
+  - Put the MC-PaaS builder & new bp.mc plug-ins into the BridgePoint dropins folder
+    o These are in ftp://mentorweb/pub/BP/mcpaas_dropins.zip
