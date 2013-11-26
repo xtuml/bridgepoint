@@ -17,8 +17,8 @@ perl script to a Windows EXE on the server.
 ----------------------
 [1] Issues 114, https://github.com/xtuml/internal/issues/114  
 [2] CQ DEI dts0101013505 - CQ twin issue  
-[3] Strawberry Perl, http://strawberryperl.com/
-[4] PAR FAQ, http://par.wikia.com/wiki/FAQ
+[3] Strawberry Perl, http://strawberryperl.com/  
+[4] PAR FAQ, http://par.wikia.com/wiki/FAQ  
 [5] PAR::Packer::pp usage.  http://search.cpan.org/~rschupp/PAR-Packer-1.015/lib/pp.pm  
 
 3. Background
