@@ -221,9 +221,9 @@ ${rel_nav.body}\
     .select one child related by spec->T_TNS[R1001]
     .assign relNumber = "$tcf_rel{spec.ParentChildRelChain}"
     .assign varName = "$lr{child.CategoryName}_${relNumber}_${childCount}"
-    .invoke rel_nav = generate_backward_rel_chain_nav(tree_node, spec.ParentChildRelChain, "one", "arg", "${varName}")
+    .invoke rel_nav = generate_backward_rel_chain_nav(tree_node, spec.ParentChildRelChain, "many", "arg", "${varName}")
          ${rel_nav.body}
-         if (${varName}!=null) return true;  
+         if (${varName}.length > 0) return true;  
   .end for
     return false;
   }
