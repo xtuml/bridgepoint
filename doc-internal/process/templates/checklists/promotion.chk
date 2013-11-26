@@ -68,8 +68,8 @@ _- Verify and merge the change:
 ***   TESTS on the build server after promotion.                       ***
 _- Execute the specific unit tests agreed upon with the code reviewers and 
       verify that the tests pass.
-_- Complete the test results checklist and check it in here:
-	  github.com/xtuml/<repository>/doc-<repository>/qa/<release_id>/<issue num>/promotion/Unit_test_checklist.chk
+_- Update the test_results/Unit_test_summary.txt with the branch name check it in here:
+	  github.com/xtuml/<repository>/doc-<repository>/qa/<release_id>/<issue num>/promotion/Unit_test_summary.txt
 
 _R When tests pass the changes can be pushed.
   	  	   NOTE:  

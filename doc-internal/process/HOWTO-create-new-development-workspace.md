@@ -19,7 +19,7 @@ _- Run the installer down-loaded in the previous step.  You can install
    c:/MentorGraphics/BridgePoint
    
 _- Using the files in the file above:
-  _- Copy "git"/internal/doc-internal/process/templates/checklists/development-workspace-setup/BridgePointDev into c:/MentorGraphics
+  _- Copy "git"/internal/doc-internal/process/templates/checklists/development-workspace-setup/BridgePointDev into c:/work
   _- Copy "git"/internal/doc-internal/process/templates/checklists/development-workspace-setup/dropins/* into C:\MentorGraphics\BridgePoint\eclipse\dropins
 
 _- Launch the tool using the desktop shortcut that was created and open a new eclipse workspace that will become your development workspace.
@@ -143,6 +143,12 @@ _- Setup development environment to run MC3020 under a launch configuration
   _- Open the Model Explorer view in Eclipse and navigate to:
        < workspace >/com.mentor.nucleus.bp.mc.c.binary/mc3020
   _- Paste the previous selection into this folder
+
+_- Set the unit test history to assure the test summary tool capture all results
+   _- Open the Junit view
+   _- Select the drop-down arrow in the upper-right of the view
+   _- Select the History... option
+   _- Set "Maximum count of remembered test runs" to 30 
 	
 _R Your environment is now built and ready for unit testing.
 

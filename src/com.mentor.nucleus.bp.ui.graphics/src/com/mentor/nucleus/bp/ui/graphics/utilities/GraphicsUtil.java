@@ -69,14 +69,14 @@ public class GraphicsUtil {
 			point.setLocation(reference.x, point.y);
 			if (point instanceof PrecisionPoint) {
 				PrecisionPoint precisionPoint = (PrecisionPoint) point;
-				precisionPoint.preciseX = point.x;
+				precisionPoint.setPreciseX(point.x);
 			}
 		}
 		if (Math.abs(point.y - reference.y) <= tolerance) {
 			point.setLocation(point.x, reference.y);
 			if (point instanceof PrecisionPoint) {
 				PrecisionPoint precisionPoint = (PrecisionPoint) point;
-				precisionPoint.preciseY = point.y;
+				precisionPoint.setPreciseY(point.y);
 			}
 		}
 	}

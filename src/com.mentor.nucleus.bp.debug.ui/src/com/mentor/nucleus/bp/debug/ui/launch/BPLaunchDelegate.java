@@ -73,18 +73,7 @@ public class BPLaunchDelegate implements ILaunchConfigurationDelegate {
 				launching = true;
 			}
 
-			//
-			// Here we check to see if the users is trying to launch more than
-			// one project at the same time, or a single project with more than
-			// one component/domain.  Either case means we need to check if they
-			// have the system verifier license.
-			//
-	
-		    /*Get NonRootModelElement List of the Selected Elements in Configuration*/	
-	        NonRootModelElement[] selectedElements = VerifierLaunchConfiguration.getElementsSelectedInConfiguration(configuration);
-            List<NonRootModelElement> listOfSelectedElements = Arrays.asList(selectedElements);
-            
-            boolean isLicensed = BridgePointLicenseManager.isExecutionLicensed(listOfSelectedElements);
+            boolean isLicensed = BridgePointLicenseManager.isExecutionLicensed();
 
 			// if in debug mode, create a debug target
 			if (mode.equals(ILaunchManager.DEBUG_MODE) && isLicensed) {

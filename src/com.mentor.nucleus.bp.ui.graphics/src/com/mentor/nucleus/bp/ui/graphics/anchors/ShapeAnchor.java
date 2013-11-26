@@ -138,14 +138,14 @@ public class ShapeAnchor extends AbstractConnectionAnchor implements
 		Rectangle bounds = getOwner().getBounds().getCopy();
 		PrecisionRectangle r = new PrecisionRectangle(bounds);
 		PrecisionPointList ptList = new PrecisionPointList(5);
-		ptList.addPoint(new PrecisionPoint(r.preciseX, r.preciseY));
-		ptList.addPoint(new PrecisionPoint(r.preciseX + r.preciseWidth,
-				r.preciseY));
-		ptList.addPoint(new PrecisionPoint(r.preciseX + r.preciseWidth,
-				r.preciseY + r.preciseHeight));
-		ptList.addPoint(new PrecisionPoint(r.preciseX, r.preciseY
-				+ r.preciseHeight));
-		ptList.addPoint(new PrecisionPoint(r.preciseX, r.preciseY));
+		ptList.addPoint(new PrecisionPoint(r.preciseX(), r.preciseY()));
+		ptList.addPoint(new PrecisionPoint(r.preciseX() + r.preciseWidth(),
+				r.preciseY()));
+		ptList.addPoint(new PrecisionPoint(r.preciseX() + r.preciseWidth(),
+				r.preciseY() + r.preciseHeight()));
+		ptList.addPoint(new PrecisionPoint(r.preciseX(), r.preciseY()
+				+ r.preciseHeight()));
+		ptList.addPoint(new PrecisionPoint(r.preciseX(), r.preciseY()));
 		return ptList;
 	}
 

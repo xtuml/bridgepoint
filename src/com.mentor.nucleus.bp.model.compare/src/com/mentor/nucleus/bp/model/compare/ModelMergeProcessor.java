@@ -502,17 +502,23 @@ public class ModelMergeProcessor {
 							newObject.getClass(),
 							new Class[] { newObject.getClass() });
 					invokeMethod(findMethod, newObject,
-							new Object[] { currentPrevious });					
-					findMethod = findMethod("relateAcrossR"
-							+ association + "To" + associationPhrase,
-							newObject.getClass(),
-							new Class[] { newObject.getClass() });
-					invokeMethod(findMethod, newObject,
-							new Object[] { previousElement });
+							new Object[] { currentPrevious });		
+					// the two element types may differ, do not associate
+					// them if this is true
+					if(newObject.getClass().isInstance(previousElement)) {
+						findMethod = findMethod("relateAcrossR"
+								+ association + "To" + associationPhrase,
+								newObject.getClass(),
+								new Class[] { newObject.getClass() });
+						invokeMethod(findMethod, newObject,
+								new Object[] { previousElement });
+					}
 				}
 			}
 			// relate the existing element
-			if(existingElementAtNewLocation != null) {
+			if (existingElementAtNewLocation != null
+					&& existingElementAtNewLocation.getClass().isInstance(
+							newObject)) {
 				Method findMethod = findMethod("relateAcrossR"
 						+ association + "To" + associationPhrase,
 						newObject.getClass(),
