@@ -29,13 +29,82 @@ MSD Weekly Meeting Minutes
 ### Customer Support Status
 **Item 1 -** text
 
+---
+
+    Date:     Nov 13, 2013
+    Start:    time EDT
+    End:      time EDT
+    Elapsed:  time minutes
+    Present:  Bob, Keith, Travis, Campbell, Cort, others...
+            Dean, Robert, Jayne, others...
+
+### Engineering Status
+**Keith:**
+- The delivered version of BridgePoint that we just finished was 4.1.0
+- Then we immediately bumped the development version to 4.1.1
+- Keith created xtuml editor branch and brought in the changes we had in our 
+  CVS branch over to git. 
+- Now we have a base branch for xtuml editor ready to go, Dean is 
+  coordinating the release of that.
+- Bob has created new demo version of BP 4.1.4 
+- The current development version is BP 4.1.5
+
+**Cort:**
+- We have a chance for potential revenue from Ericsson if we put together tier one 
+  package.
+- Dean is working with the account team along with engineering to put together 
+  the proposal.
+- It will likely impact engineering in non-development ways.
+- If we land business to get the division revenu, we will be focusing the
+  engineering resources on the creation of training materials and examples.
+
+- Heba Has the first integration that slipped off the the release because it 
+  touches the meta model and would have affected the testing.
+  But there's a branch that can be used to communicate this new capability.
+
+- 2013 Japanese tour, We sold some BP licences to Fuji Xerox 10 years ago 
+  and it was a success.
+- We sold them some some licenses this year and as part of that they get trained
+  and some help Upgrading their models and their model compiler.
+- So there is one week worth of training and effectively consulting that is going 
+  on Japan in December and couple of other visits to Sony, Mitsubishi and possibly
+  Fujitsu.
+
+- We need to finish the open source code split, we need to make it so, someone 
+  beside a mentor graphics engineer can build BP because we have people  
+  who possibly want to add features like Sony and Ericsson.
+
+- Campbell has some first steps done with MC-java and will continue down that path.
+  That will help having a server based model compiler to allow developers who edit 
+  the model and want to translate to MC-Java.
+- The first prototype of this will likely be an MC-3020 with BridgePoint model 
+  compiler server that promotes a credentials dialogue when build is clicked.
+  The model compiler runs on the server and the results are transferred back.
+
+- Fuji Xerox are getting some of their really old models updates as part of their 
+  training class. Cort is investigating what it takes to get those upgraded.
+
+### Marketing Status
+**Dean:**
+- Starting at the end of this week first occurrence of a regular news letter that
+  will be shared with xtuml.org members. 
+- They also call for action language tutorial.
+- Also next Monday will be the field update for Bridge Point 4.1.
+ 
+### Customer Support Status
+**Robert:**
+- We still have issues with "dynamic arrays" and determining their exact length.
+  It seems that a newly created dynamic array has the length of one which is wrong
+  Ericsson has realized that and we might need to revisit this again.
+
+- Our model compiler has troubles with the Japanese character set. 
 
 ---
 
     Date:     October 30, 2013
-    Start:    6:00 GMT+2 (Cairo)
-    End:      6:25 GMT+2 (Cairo)
-    Elapsed:  25 minutes
+    Start:    7:00 GMT+2 (Cairo)
+    End:      7:30 GMT+2 (Cairo)
+    Elapsed:  30 minutes
     Present:  Bob, Keith, Travis, Campbell, Cort, Nehad, Heba (online)
             Dean, Robert, Jayne
 

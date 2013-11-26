@@ -32,7 +32,9 @@ import com.mentor.nucleus.bp.ui.canvas.test.GraphicalToolCreationTests;
 import com.mentor.nucleus.bp.ui.canvas.test.I2053F2RenameTest;
 import com.mentor.nucleus.bp.ui.canvas.test.I686ClearDatabaseTest;
 import com.mentor.nucleus.bp.ui.canvas.test.I835OpenDiagramEditorWithSearchView;
+import com.mentor.nucleus.bp.ui.canvas.test.InterfaceDrawingTests;
 import com.mentor.nucleus.bp.ui.canvas.test.MultipleSupertypeTest;
+import com.mentor.nucleus.bp.ui.canvas.test.RectilinearRoutingTests;
 import com.mentor.nucleus.bp.ui.canvas.test.TestReflexiveConnectorCreation;
 import com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0;
 import com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0;
@@ -79,6 +81,8 @@ public class GlobalsCanvasSuite2 extends TestSuite {
         addTest(new TestSuite(TestReflexiveConnectorCreation.class));
         addTest(new TestSuite(RectilinearRoutingTests_0.class));
         addTest(new TestSuite(GraphicalToolCreationTests.class));
+        addTest(new TestSuite(RectilinearRoutingTests.class));
+        addTest(new TestSuite(InterfaceDrawingTests.class));
 	}
 
 }
