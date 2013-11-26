@@ -73,7 +73,7 @@ on the server to build the EXE.
 6.1  Install Strawberry Perl (5.16.3.1 32-bit) on svr-azt-eng-03 to c:\strawberry  
 
 6.2  Using the Strawberry Perl command shell (```Start > All Programs > Strawberry Perl > Perl (command line)```), 
-  install the PAR::Packer module:    
+  install the PAR::Packer module [4]:    
 ```
 C:\> cpan PAR::Packer
 ```
@@ -86,7 +86,7 @@ C:\temp> pp -o xtumlmc_build.exe xtumlmc_build
 
 6.4  After the new EXE is tested, it can be included in the nightly build by
   checking it into the SVN ```extra_files_for_build``` project using the eclipse 
-  ```C:\workspaces\build_artifacts``` workspace.   
+  ```C:\workspaces\build_artifacts``` workspace on this server.   
   
 7. Design Comments
 ------------------
@@ -235,6 +235,9 @@ feature.pm /loader/HASH(0x217990c)/feature.pm
 ------------
 8.1  Put the new xtumlmc_build.exe into a BridgePoint installation and build
   the MicrowaveOven and GPS Watch projects.  Verify that they build successfully.  
+8.2  Perform a BridgePoint build with the new xtumlmc_build.exe to verify it 
+  succeeds since this build uses some other internal functions of the script that
+  a standard project build does not use.  
   
 End
 ---
