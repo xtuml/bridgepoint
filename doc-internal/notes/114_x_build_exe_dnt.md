@@ -18,6 +18,8 @@ perl script to a Windows EXE on the server.
 [1] Issues 114, https://github.com/xtuml/internal/issues/114  
 [2] CQ DEI dts0101013505 - CQ twin issue  
 [3] Strawberry Perl, http://strawberryperl.com/
+[4] PAR FAQ, http://par.wikia.com/wiki/FAQ
+[5] PAR::Packer::pp usage.  http://search.cpan.org/~rschupp/PAR-Packer-1.015/lib/pp.pm  
 
 3. Background
 -------------
@@ -76,7 +78,7 @@ on the server to build the EXE.
 C:\> cpan PAR::Packer
 ```
   
-6.3  Build the EXE:
+6.3  Build the EXE with pp [5]:
 ```
 C:\temp> copy c:\cygwin\git\xtuml\mc\bin\xtumlmc_build xtumlmc_build
 C:\temp> pp -o xtumlmc_build.exe xtumlmc_build
@@ -92,7 +94,8 @@ C:\temp> pp -o xtumlmc_build.exe xtumlmc_build
   reason is that Strawberry Perl has made the design decision to include a lot
   of perl modules into the EXEs it creates to increase the likelyhood that most
   scripts the user creates will work out of the box.  ActivePerl is much more 
-  judicious in the modules it includes.  
+  judicious in the modules it includes.  The PAR FAQ [4] talks about this and 
+  gives some user suggestions for reducing the file size.  
   
   I modified the EXE created by each to output the %INC hash that lists what 
   modules are included in the compiled EXE.  I spent a little time trying to 
