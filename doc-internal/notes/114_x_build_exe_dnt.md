@@ -16,7 +16,7 @@ perl script to a Windows EXE on the server.
 2. Document References
 ----------------------
 [1] Issues 114, https://github.com/xtuml/internal/issues/114  
-[2] CQ DEI dts0101013505 - CQ twin issue
+[2] CQ DEI dts0101013505 - CQ twin issue  
 [3] Strawberry Perl, http://strawberryperl.com/
 
 3. Background
@@ -222,7 +222,12 @@ overload.pm /loader/HASH(0x2179a2c)/overload.pm
 DynaLoader.pm /loader/HASH(0x1dd6344)/DynaLoader.pm
 feature.pm /loader/HASH(0x217990c)/feature.pm
 ```
- 
+  
+7.2  On svr-azt-eng-03, our Windows 2003 build server, I first installed Strawberry Perl
+  5.18.1.1-32bit.  However, I was getting crashes when I tried to install the ```PAR::Packer```
+  perl module.  I dropped back to the previous stable release (5.16.3.1-32bit) and things
+  worked fine.  
+  
 8. Unit Test
 ------------
 8.1  Put the new xtumlmc_build.exe into a BridgePoint installation and build
