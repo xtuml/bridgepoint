@@ -283,6 +283,8 @@ public class ExplorerTest extends BaseTest
         GraphicalEditor editor = ((ModelEditor) ExplorerUtil.openEditor()).getGraphicalEditor();
 
         TestUtil.closeProject(getProject());
+        for(int i = 0; i < 500; i++)
+        		PlatformUI.getWorkbench().getDisplay().readAndDispatch();
 
         checkProjectNoLongerInModelExplorer();
         checkEditorDisposed(editor);
@@ -311,7 +313,8 @@ public class ExplorerTest extends BaseTest
         GraphicalEditor editor = ((ModelEditor) ExplorerUtil.openEditor()).getGraphicalEditor();
         
         TestUtil.deleteProject(getProject());
-
+        for(int i = 0; i < 500; i++)
+    		PlatformUI.getWorkbench().getDisplay().readAndDispatch();
         checkProjectNoLongerInModelExplorer();
         checkEditorDisposed(editor);
         checkProjectDeleted();
