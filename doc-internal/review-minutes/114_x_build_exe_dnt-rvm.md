@@ -13,9 +13,9 @@ Present:   Keith, Bob, Cort
 <pre>
 
 -- Num Type  Who   Section  Comment
-_- 01  min   Bob   6.2      Add reference to [4].
-_- 02  min   Keith 6.4      "on this server"
-_- 03  min   Keith 8        Unit test in a BP build.
+x- 01  min   Bob   6.2      Add reference to [4].
+x- 02  min   Keith 6.4      "on this server"
+x- 03  min   Keith 8        Unit test in a BP build.
 
 </pre>
    
