@@ -4,7 +4,7 @@ Copyright 2013 Mentor Graphics Corp.  All Rights Reserved.
 
 ---
 
-# Fix xtulmc_build.exe on Linux to work with multiple license servers
+# Fix xtumlmc_build.exe on Linux to work with multiple license servers
 ### xtUML Project Implementation Note
 
 1. Abstract
@@ -82,14 +82,14 @@ license from one of the other servers specified.
   
 8. Code Changes
 ---------------
-Internal Branch name: 115_x_build_linux_fix
+xtuml/internal Branch name: 115_x_build_linux_fix
 <pre>
 
 Installer_MIP_MIMIC/Launcher.sh
 
 </pre>
 
-Internal Branch name: 35_x_build_linux_fix
+xtuml/mc branch name: 35_x_build_linux_fix
 <pre>
 
 mc/bin/xtumlmc_build
