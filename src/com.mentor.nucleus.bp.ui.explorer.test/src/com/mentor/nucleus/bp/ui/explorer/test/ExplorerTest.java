@@ -195,7 +195,7 @@ public class ExplorerTest extends BaseTest
      * Selects and returns (what should be) the only domain item present
      * in the model explorer tree. 
      */
-    private TreeItem selectDomainItemInModelExplorer()
+    private TreeItem selectPackageItemInModelExplorer()
     {
         // wait until any pending UI events are processed, 
         // which likely includes the updating of the model explorer, 
@@ -208,19 +208,9 @@ public class ExplorerTest extends BaseTest
         while (Display.getCurrent().readAndDispatch());
         assertNotNull("No system in tree", systemItem);
         TreeItem [] domains = systemItem.getItems();
-        int expectedItems = 2;
-        if (testGlobals) {
-        	// The system data type package is not present in a globals context
-        	expectedItems = 1;
-        }
+        int expectedItems = 1;
         assertEquals("No domains in tree", expectedItems, domains.length);
-        TreeItem domainItem = null;
-        if (testGlobals) {
-        	// The system data type package is not present in a globals context
-        	domainItem = domains[0];
-        }else{
-        	domainItem = domains[1];
-        }
+        TreeItem domainItem = domains[0];
         assertTrue("Domain node could not be found",
             domainItem.getText().equals(testModelName));
         ExplorerUtil.selectItem(domainItem);
@@ -279,13 +269,12 @@ public class ExplorerTest extends BaseTest
         while (Display.getCurrent().readAndDispatch());
         
         // open a domain editor on the test domain
-        selectDomainItemInModelExplorer();
+        selectPackageItemInModelExplorer();
         GraphicalEditor editor = ((ModelEditor) ExplorerUtil.openEditor()).getGraphicalEditor();
 
         TestUtil.closeProject(getProject());
-        for(int i = 0; i < 500; i++)
-        		PlatformUI.getWorkbench().getDisplay().readAndDispatch();
-
+        while (Display.getCurrent().readAndDispatch());
+        
         checkProjectNoLongerInModelExplorer();
         checkEditorDisposed(editor);
         TestUtil.openProject(getProject());
@@ -309,12 +298,12 @@ public class ExplorerTest extends BaseTest
         while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
         
         // open a domain editor on the test domain
-        selectDomainItemInModelExplorer();
+        selectPackageItemInModelExplorer();
         GraphicalEditor editor = ((ModelEditor) ExplorerUtil.openEditor()).getGraphicalEditor();
         
         TestUtil.deleteProject(getProject());
-        for(int i = 0; i < 500; i++)
-    		PlatformUI.getWorkbench().getDisplay().readAndDispatch();
+        while (Display.getCurrent().readAndDispatch());
+        
         checkProjectNoLongerInModelExplorer();
         checkEditorDisposed(editor);
         checkProjectDeleted();
@@ -336,7 +325,7 @@ public class ExplorerTest extends BaseTest
         // select the domain item in the model explorer; also,
         // expand the item and check that its first node isn't 
         // blank, as a test of the work done for issue 1059
-        TreeItem item = selectDomainItemInModelExplorer();
+        TreeItem item = selectPackageItemInModelExplorer();
         TreeViewer viewer = ExplorerUtil.getTreeViewer();
         viewer.expandToLevel(item.getData(), 1);
         assertTrue(!item.getItems()[0].getText().trim().equals(""));
@@ -348,7 +337,7 @@ public class ExplorerTest extends BaseTest
         ExplorerUtil.getTreeViewer().refresh();
         while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 
-        checkDomainNoLongerInModelExplorer();
+        checkPackageNoLongerInModelExplorer();
         checkDomainDeleted(testModelName);
         BaseTest.dispatchEvents(0);
         // restore the domain that was deleted during this test
@@ -396,7 +385,7 @@ public class ExplorerTest extends BaseTest
         PersistableModelComponent pmc = ensureAvailableAndLoaded(packageName, testModelName, false, false, "Package");
 
         // open a domain editor on the test domain
-        selectDomainItemInModelExplorer();
+        selectPackageItemInModelExplorer();
         GraphicalEditor editor = ((ModelEditor) ExplorerUtil.openEditor()).getGraphicalEditor();
 
         // delete the domain's folder
@@ -408,7 +397,7 @@ public class ExplorerTest extends BaseTest
             fail("Could not delete domain folder " + e.getMessage());
         }
 
-        checkDomainNoLongerInModelExplorer();
+        checkPackageNoLongerInModelExplorer();
         checkEditorDisposed(editor);
         checkDomainDeleted(testModelName);
     }
@@ -473,7 +462,7 @@ public class ExplorerTest extends BaseTest
     /**
      * Checks that the current test domain no longer appears in the model explorer.
      */
-    private void checkDomainNoLongerInModelExplorer()
+    private void checkPackageNoLongerInModelExplorer()
     {
         // expand the tree to see the domain level of nodes
         TreeViewer viewer = ExplorerUtil.getTreeViewer();
@@ -488,10 +477,7 @@ public class ExplorerTest extends BaseTest
         // has no children
         final Tree tree = viewer.getTree();
         TreeItem systemItem = tree.getItems()[0];
-        int expectedItems = 1;
-        if (testGlobals) {
-        	expectedItems = 0;
-        }
+        int expectedItems = 0;
         assertTrue("System node has children", 
             systemItem.getItems().length == expectedItems);
     }
