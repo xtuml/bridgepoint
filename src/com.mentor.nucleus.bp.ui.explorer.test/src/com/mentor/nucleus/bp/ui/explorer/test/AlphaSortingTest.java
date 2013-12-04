@@ -109,7 +109,7 @@ public class AlphaSortingTest extends BaseTest
     public void testAlphaSortingOfDomains()
     {
         // contains a blank entry to cover System Model child entry
-        String[] domains = new String[] { "", "-", "1", "a", "AA", "Datatypes" };
+        String[] domains = new String[] { "-", "1", "a", "AA", "Datatypes" };
 
         createNewDomainUsingWizard("a");
         createNewDomainUsingWizard("AA");
@@ -125,11 +125,9 @@ public class AlphaSortingTest extends BaseTest
         TreeItem[] children = ExplorerUtil.getChildren(ExplorerUtil
             .findItem(system));
         for (int i = 0; i < children.length; i++) {
-            if (i == 0)
-                continue;
             assertTrue("Item: " + domains[i]
                 + ", was not found in the correct order.", domains[i]
-                .equals(children[i-1].getText()));
+                .equals(children[i].getText()));
         }
     }
 
