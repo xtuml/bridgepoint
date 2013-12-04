@@ -398,14 +398,14 @@ public class BridgePointLicenseManager  extends BridgePointDemoEncryptor {
         initConnection();
         
         int[] result = license.heapCandidates(licenseCode.getCode());
-        boolean licensed = ((result!=null) & (result.length>0));
+        boolean licensed = ((result!=null) && (result.length>0));
         
         if (!licensed && IsVeryFirstLicenseCheckAtStartup) {
             // This is to work around a license bug.  The very first
             // call to the license manager may fail even though the 
             // license is valid.
         	result = license.heapCandidates(licenseCode.getCode());
-            licensed = ((result!=null) & (result.length>0));
+            licensed = ((result!=null) && (result.length>0));
         }
         IsVeryFirstLicenseCheckAtStartup = false;
         
