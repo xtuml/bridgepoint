@@ -65,12 +65,12 @@ public class MCNature extends AbstractNature {
 	    //   where as this would call configure_common() and not do the argument handler stuff.
         String src = VariablesPlugin.getDefault().getStringVariableManager()
                 .performStringSubstitution(MC_ROOT_DIR_ENV_VAR_REF);
-        String dest = project.getLocation().toOSString();
+        String dest = getProject().getLocation().toOSString();
 
         // Add required folders
-        IFolder srcFolder = project.getFolder(AbstractActivator.SRC_FOLDER_NAME);
-        IFolder genFolder = project.getFolder(AbstractActivator.GEN_FOLDER_NAME);
-        IFolder builderFolder = project.getFolder(EXTERNALTOOLBUILDER_FOLDER);
+        IFolder srcFolder = getProject().getFolder(AbstractActivator.SRC_FOLDER_NAME);
+        IFolder genFolder = getProject().getFolder(AbstractActivator.GEN_FOLDER_NAME);
+        IFolder builderFolder = getProject().getFolder(EXTERNALTOOLBUILDER_FOLDER);
         createFolderIfNonexistent(srcFolder);
         createFolderIfNonexistent(genFolder);
         createFolderIfNonexistent(builderFolder);
@@ -86,13 +86,13 @@ public class MCNature extends AbstractNature {
                 String curPathName = "";
                 for (int j = 0; j < segs.length - 1; j++) {
                     curPathName = curPathName + File.separator + segs[j];
-                    IFolder fldr = project.getFolder(curPathName);
+                    IFolder fldr = getProject().getFolder(curPathName);
                     if (!fldr.exists()) {
                         createFolderIfNonexistent(fldr);
                     }
                 }
                 IPath destPath = new Path(destFileDef[i]);
-                IFolder destFolder = project.getFolder(destPath
+                IFolder destFolder = getProject().getFolder(destPath
                         .uptoSegment(destPath.segmentCount() - 1));
                 File srcFile = srcFilePath.toFile();
                 IFile destFile = destFolder.getFile(destPath.lastSegment());
@@ -102,7 +102,7 @@ public class MCNature extends AbstractNature {
                                 destFile.getLocation().toOSString());
                     } catch (IOException e) {
                         String err_msg = "Error copying file " + srcFileDef[i]
-                                + " in the " + project.getName() + " project ";
+                                + " in the " + getProject().getName() + " project ";
                         abstractActivator.logError(err_msg, e);
                     }
                 }
@@ -114,7 +114,7 @@ public class MCNature extends AbstractNature {
 
         String tgtFilePath = dest.toString() + File.separator
                 + EXTERNALTOOLBUILDER_FOLDER + File.separator + MC_LAUNCH_ID;
-        IFolder destLaunchFolder = project
+        IFolder destLaunchFolder = getProject()
                 .getFolder(EXTERNALTOOLBUILDER_FOLDER);
         createFolderIfNonexistent(destLaunchFolder);
         IFile destLaunchFile = destLaunchFolder.getFile(MC_LAUNCH_ID);
@@ -126,18 +126,18 @@ public class MCNature extends AbstractNature {
                             tgtFilePath);
                 } catch (IOException e) {
                     String err_msg = "Error copying file " + MC_LAUNCH_ID
-                            + " in the " + project.getName() + " project ";
+                            + " in the " + getProject().getName() + " project ";
                     abstractActivator.logError(err_msg, e);
                 }
             }
         }
 
         // Add the Builder to the project
-        addBuilderToBuildSpec(project, builderID);
+        addBuilderToBuildSpec(getProject(), getBuilderID());
 
         // refresh directory to pick up new files
         try {
-            project.refreshLocal(IResource.DEPTH_INFINITE, null);
+            getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
         } catch (CoreException e) {
             abstractActivator.logError("During refresh while adding nature", e);
         }
