@@ -123,10 +123,10 @@ public abstract class AbstractNature implements IProjectNature {
 	public static String BUILD_SETTINGS_FILE = "build_settings/build_setting.properties";
 	
 	/** To hold associated project reference */
-	protected IProject project;
+	private IProject project;
 
 	protected AbstractActivator abstractActivator;
-	protected String builderID = null;
+	private String builderID = null;
 
 	public AbstractNature(AbstractActivator pAbstractActivator, String pBuilderID) {
 		super();
