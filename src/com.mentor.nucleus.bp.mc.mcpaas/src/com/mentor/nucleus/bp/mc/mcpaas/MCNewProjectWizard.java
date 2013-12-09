@@ -1,4 +1,4 @@
-package $packageName$;
+package com.mentor.nucleus.bp.mc.mcpaas;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.IStructuredSelection;
