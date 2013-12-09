@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
- File:      $$RCSfile: generate.xml,v $$
- Version:   $$Revision: 1.4 $$
- Modified:  $$Date: 2013/01/10 23:19:29 $$
+ File:      $RCSfile: generate.xml,v $
+ Version:   $Revision: 1.4 $
+ Modified:  $Date: 2013/01/10 23:19:29 $
 
  (c) Copyright 2005-2013 by Mentor Graphics Corp.  All rights reserved.
 
 -->
-<project name="$packageName$" default="all" basedir=".">
-  <!-- The property $${eclipse-home} should be passed into this script -->
+<project name="com.mentor.nucleus.bp.mc.mcpaas" default="all" basedir=".">
+  <!-- The property ${eclipse-home} should be passed into this script -->
   <!-- Set a meaningful default value for when it is not. -->
-  <property name="eclipse-home" value="$${ant.home}\..\.."/>
+  <property name="eclipse-home" value="${ant.home}\..\.."/>
 
   <target name="all"
           description="Build entire project"
@@ -26,7 +26,7 @@
        command line on the build server. -->
   <target name="compile"
        description="Compile project" >
-    <echo>Compiling $${ant.project.name}</echo>
+    <echo>Compiling ${ant.project.name}</echo>
     <mkdir dir="bin" />
     <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6"
         fork="yes" destdir="bin" debug="true" debuglevel="lines,vars,source" encoding="UTF-8">
@@ -36,7 +36,7 @@
          <pathelement path="../com.mentor.nucleus.bp.io.core/bin" />
          <pathelement path="../com.mentor.nucleus.bp.mc/bin" />
          <pathelement path="../com.mentor.nucleus.bp.mc.mc3020/bin" />
-         <fileset dir="$${eclipse-home}/plugins" casesensitive="yes">
+         <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
            <include name="**/org.eclipse.ui.ide_*.jar" />
            <include name="**/org.eclipse.core.resources_*.jar"/>
            <include name="**/org.eclipse.core.variables_*.jar"/>
@@ -67,7 +67,7 @@
         description="Clean entire project"
         depends="clean_classes" >
 
-    <echo>Done cleaning for $${ant.project.name}</echo>
+    <echo>Done cleaning for ${ant.project.name}</echo>
 
   </target>
 

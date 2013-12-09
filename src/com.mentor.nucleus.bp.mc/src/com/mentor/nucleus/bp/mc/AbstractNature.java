@@ -359,7 +359,7 @@ public abstract class AbstractNature implements IProjectNature {
 		ucsa.run(null);
 	}
 
-	private void createFolderIfNonexistent(IFolder srcFolder) {
+	protected void createFolderIfNonexistent(IFolder srcFolder) {
 		if (!srcFolder.exists()) {
 			try {
 				srcFolder.create(false, true, null);
