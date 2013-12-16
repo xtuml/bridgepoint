@@ -18,17 +18,29 @@ Document References
     Note: This was the issue where we introduced a way to provide a demo 
     version of BP.  The development notes describe the options we examined
     and why we selected the method we did.
-[2] Documentation/internal/process/releases/HOWTO-build-a-release.txt
-[3] Documentation/internal/process/releases/HOWTO-update-the-BP-version-number.txt
-    
-    
+[2] <git/internal>doc-internal/process/HOWTO-update-the-BP-version-number.txt
+[4] <git/generator>gen_erate/README.txt
+    This document describes how to build the generator.    
+[5] http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml
+    This is the svn repository where the "extra files" for the build are stored.
+    These are the large binary files like the eclipse installation, and other 
+    binaries.
+[6] svr-orw-sle-10.wv.mentorg.com
+    This is the BridgePoint build server    
+        
 How to create a BP demo
 -----------------------
 -- Determine the demo period.  You will need to know the start date and the end
    date.
+   20131212-20140331
    
--- Create a issue in ClearQuest to track the request for a new demo.   
+_- Create a issue in ClearQuest to track the request for a new demo.   
    For an example see dts0100685202.
+         cq issue: <TODO>
+         
+_- Create a issue in the git/internal repository to serve as a "twin" for
+   the CQ issue.
+         git: <TODO>
 
 -- Build the source with the demo license check enabled   
 	_- Open a standard BridgePoint development workspace based on the head 
@@ -37,23 +49,11 @@ How to create a BP demo
 	_- Get the appropriate version of the source for the demo.  Use a 
 	   release tag to check out the appropriate version if needed.
 	 
-	_- Branch the plugins that will be modified.  NOTE!!  These changes will 
+	_- Create a new branch for the demo version.  NOTE!!  These changes will 
 	   NOT be promoted to head.	  
-		_- Create a branch (example R131Demo) for the 
-		   following projects:
-		   Note: The changes made here will NOT be promoted to head.
-		   WARNING!!:  Keep the name of the branch short.  A branch build will be 
-		               utilized and a long name causes the GettingStarted demo
-		               ISM files not to be copied (255 character limit).
-		   com.mentor.nucleus.bp.core
-		   Installer_MIP_MIMIC
-           model_compilers 
-	
-	       Note: If creating this demo based on a recent release, then ALL 
-	             plugins must be included in the branch.  For example, if
-	             you used the R3_1_0 tag to get all the plugin in the 
-	             previous step, then you should branch all plugins at this
-	             time. 
+		_- Create a branch (example v4.1.4Demo) for the changes
+		   You will need to branch the git/internal and git/generator
+		   repositories 
 	             
 	_- Enable the demo license check in bp.core	
 		_- "Uncomment" the java code in 
@@ -66,16 +66,14 @@ How to create a BP demo
 	       and post_install_script.sh that removes unneeded MCs from demo 
 	       installations.
 	       
-	_- Update the BridgePoint version number as described in [3]
+	_- Update the BridgePoint version number as described in [2]
 	
 	_- Build the workspace
 
 	_R The workspace builds successfully
          
 -- Create a new demo key file
-	_- Checkout the BridgePointDemoKeyCreator from HEAD in the BridgePoint CVS 
-	   repository.
-	_- Open the Java perspective   
+	_- Open the BridgePointDemoKeyCreator project in the Java perspective   
 	_- Select the BridgePointDemoKeyCreator project and build it 
 	  (Project > Build Project)
 	_R BridgePointDemoKeyCreator builds with no errors
@@ -88,62 +86,64 @@ How to create a BP demo
 	   <workspace>/BridgePointDemoKeyCreator/license_files_handed_out/BridgePointDemo.txt-<startdate>-thru-<enddate>
 	   where startdate is the YYYYMMDD for the demo start and enddate is 
 	   YYYYMMDD for the end of the  demo.
-	_- Check in the demo file to the CVS repository
+	_- Check in the demo file to the branch
 
 -- Modify gen_erate.exe to allow the binary model compiler to run during the 
    demo period.	
-	_- Modify model_compilers/generator/gen_erate/bp_source/win32/7.1B/main/src/gen_erate/main_gen_erate.cc
+	_- Modify <git>generator//gen_erate/bp_source/win32/7.1B/main/src/gen_erate/main_gen_erate.cc
 	   and put in the hard-coded date-check.  To see what this code looks like 
-	   compare revisions 1.55.2.3 and 1.55 of main_gen_erate.cc.
+	   compare branch v4.1.4Demo of main_gen_erate.cc with master.
 	   Note that this change simply wraps the binary 3020 license in a 
 	   try/catch block that allows the binary license to work for the specified 
 	   (hardcoded) demo period.
 	_- Note!!  Make sure you change the 2 hard-coded dates in the above code to
 	   reflect the correct demo start and end dates.
 	_- check in the change to the branch
-	_- Build a new gen_erate.exe
--- Copy the gen_erate.exe to the tucson server so the build can include it.	
-	_- Use ftp to copy the new gen_erate.exe to your home directory on the
-	   tucson.wv.mentorg.com server
-	_- Log in to tucson.wv.mentorg.com using putty, or some other terminal
-	_- Copy the new gen_erate.exe into the folder where all copies
-	   of generator ever used are stored.
-	       Note: In the following command replace <branch name>
-	             with the branch being used.  
-	             For example: R326Demo	             
-		_- cp ~/gen_erate.exe /arch1/products/tiger/extra_files_for_build/old_files/gen_erate.exe-<branch name>
-		_- cd /arch1/products/tiger/extra_files_for_build
-		_- mv ./gen_erate.exe old_files/gen_erate.exe-tempForDemoBuild
-		_- cp old_files/gen_erate.exe-<branch name> ./gen_erate.exe
-	    
-	    NOTE: Later in this procedure, after the build is done, we 
-	          will return to this location on tucson.wv.mentorg.com,
-	          and restore  old_files/gen_erate.exe-tempForDemoBuild
-	          
+	_- Build a new gen_erate.exe [3]
+-- Create a branch in svn [5] to hold all the "extra files" needed for the 
+   BridgePoint build
+    _- open the SVN Repositories view in eclipse
+    _- create a branch in svn [5] with the same name used for the git branch
+       (for example: v4.1.4Demo)
+    _- from the svn repositories view, copy the following projects from trunk 
+       and paste them into the new branch:
+       apache-ant
+       bp_build_tools
+       BridgePoint_e<X.X>
+       BridgePoint_for_Linux_e<X.X>
+       eclipse
+       extra_files_for_build
+       mgls
+       MIMIC
+    _R The new branch is now created with all the files needed for the build 
+       server.
+   	
+-- Checkin gen_erate.exe to the svn branch created above that the build server 
+   will use to build the product.	
+    _- check out the extra_files_for_build project from the svn branch 
+    _- Copy the new gen_erate.exe into extra_files_for_build/gen_erate.exe and
+       check this into the branch.
+    	          
 -- Copy the BridgePointDemo.txt file into place so it can be include in the 
    build of the installer.
-	_- Use ftp to copy 
-	   <workspace>BridgePointDemoKeyCreator\license_files_handed_out\BridgePointDemo.txt-<startdate>-thru-<enddate> 
-	   that was created in prior steps to your home directory on the 
-	   tucson.wv.mentorg.com server
-	_- Use Remote desktop to log in to the build server (svr-azt-eng-03)
-	_- On the build server (svr-azt-eng-03), use ftp to copy 
-	   BridgePointDemo.txt-<startdate>-thru-<enddate> into the following 
-	   folder: 
-	   C:\BridgePoint_e3.5\BridgePointDeliverables\license
-	_- On the build server (svr-azt-eng-03), use ftp to copy 
-	   BridgePointDemo.txt-<startdate>-thru-<enddate> into the following 
-	   folder: 
-	   C:\BridgePoint_for_Linux_e3.5\BridgePointDeliverables\license
-	_- On the build server (svr-azt-eng-03), open windows explorer, and
-	   navigate to C:\BridgePoint_e3.5\BridgePointDeliverables\license
-	_- rename BridgePointDemo.txt-<startdate>-thru-<enddate> to
+   
+   -- First we do this for the windows version of the tool
+    _- check out BridgePoint_e<X.Y>/BridgePointDeliverables/license 
+       from the svn branch.
+       Note: We only check out this folder because the BridgePoint_e<X.Y> 
+             project is HUGE and we don't need the whole thing.
+    _- copy <git internal>BridgePointDemoKeyCreator/license_files_handed_out/BridgePointDemo.txt-<startdate>-thru-<enddate> to 
+       the "license" folder that was just checked out.
+    _- rename BridgePointDemo.txt-<startdate>-thru-<enddate> to
 	   BridgePointDemo.txt
-	_- On the build server (svr-azt-eng-03), open windows explorer, and
-	   navigate to C:\BridgePoint_for_Linux_e3.5\BridgePointDeliverables\license
-	_- rename BridgePointDemo.txt-<startdate>-thru-<enddate> to
-	   BridgePointDemo.txt
-_- Launch the branch build on the build server.
+	_- Check BridgePointDemo.txt into the branch	   
+	_- delete the "license" project from your workspace
+
+	-- Now repeat the above steps for Linux		
+    _- Repeat the steps above, but instead of BridgePoint_e<X.Y>, use 
+       BridgePoint_for_Linux_e<X.Y>
+	   
+_- Launch the branch build on the build server [6].
 _R Build is successful
 
 -- Test the installers
@@ -178,19 +178,3 @@ _R Build is successful
   _- Create a subdir with the release number and purpose
   _- Copy the Windows installer into this directory
   _- Copy the Linux installer into this directory
-
---Restore the build server files
--- Restore gen_erate.exe on tucson
-	_- Log in to tucson.wv.mentorg.com using putty, or some other terminal
-	_- Restore the backed-up gen_erate.exe 
-		_- cd /arch1/products/tiger/extra_files_for_build
-		_- rm ./gen_erate.exe
-		_- mv old_files/gen_erate.exe-tempForDemoBuild ./gen_erate.exe
--- Remove BridgePointDemo.txt from the installer file folder
-	_- On the build server (svr-azt-eng-03), open windows explorer, and
-	   navigate to C:\BridgePoint_e3.5\BridgePointDeliverables\license
-	_- delete BridgePointDemo.txt
-	_- On the build server (svr-azt-eng-03), open windows explorer, and
-	   navigate to C:\BridgePoint_for_Linux_e3.5\BridgePointDeliverables\license
-	_- delete BridgePointDemo.txt
-   
