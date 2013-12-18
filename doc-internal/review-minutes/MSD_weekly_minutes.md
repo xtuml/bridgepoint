@@ -31,6 +31,35 @@ MSD Weekly Meeting Minutes
 
 ---
 
+    Date:     Dec 11,2013
+    Start:    12:00 EDT
+    End:      12:01 EDT
+    Elapsed:  time minutes
+    Present:  Bob, Keith, Travis, Dean
+
+**This meeting moved to online forum:**
+
+### Engineering Status
+**Keith:**
+ Assisted with Saab and Japanese support issues as well as working on the Phase 2 implementation of MC-PaaS (Model Compiler Platform as a Service)
+ 
+**Bob:**
+ Assisted Cort by creating a simple model compiler that works against sequence diagrams.   Currently, working on an model import parser bug involving model merge, and building the BP 4.1.4 demo which has a end-date of 20130331.
+
+**Travis:**
+Working on dts0100836686, provided a screenshot to SAAB.  SAAB requested further work on it.  Currently trying to determine a way to display the tree as they requested.
+Investigated Sony build issue.  The problem is that generator does not support UTF-8.
+
+**Nehad:**
+I am working on tooltip enhancement request. The enhacements are to change focus to the tooltip, scrollbars and may be resizable tooltip windows as well. JDT tooltip is a very good example of what we want. Unfortunately, JDT tooltip is not reusable and coupled with text editor, and we need one can be used with GEF . I found more than one implementation appraoch, and investigating estimated amount of work needed for them
+
+### Marketing Status
+**Dean -** 
+This week Cort is in Japan providing training to FujiXerox and sales training to MGJ AEs. Campbell has completed the xtUML training class at Ericsson and Serge will be visiting with management to establish a dialog on BridgePoint production usage. Efforts continue to complete the description of the Ericsson Tier 1 package and negotiate the list of deliverables.
+ 
+
+---
+
     Date:     Nov 13, 2013
     Start:    time EDT
     End:      time EDT
