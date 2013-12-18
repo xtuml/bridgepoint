@@ -31,6 +31,111 @@ MSD Weekly Meeting Minutes
 
 ---
 
+    Date:     Dec 18, 3013
+    Start:    12:00 EDT
+    End:      12:45 EDT
+    Elapsed:  45 minutes
+    Present:  Bob, Keith, Travis, Campbell, Cort, others...
+            Dean, Robert, Jayne, others...
+
+### Engineering Status
+#### holiday vacation plans
+* Cairo office is closed on 7 Jan.
+* Travis London: Travis: Dec 23 - Jan 4
+* Keith: Dec 23 - 27
+* Bob: Dec 23 - 27
+* Dean: Dec 20 - 31st 
+* Cort: Dec 21 - Jan 4th
+* Campbell: Now - Dec 31st
+
+Note: everyone above will be monitoring email
+
+#### MC-PaaS Update (Keith)
+
+###### PaaS Intro Meeting (Keith, Bob, Dean, Subba, Willy)
+- Keith gave a PPT presentation discussing the MC-PaaS prototype that relied on rsync
+ to shuttle data from client to build server and layed out some phase2 requirements
+- Willy shared a presentation that discussed some of the technologies he has built
+ the SystemVision PaaS simulator on.
+- In a follow up meeting Willy gave an live demo to Keith, Bob, and Dean
+
+
+###### MC-PaaS Phase 2 Done:
+- Client and server updated to transfer files via HTTP instead of rsync
+- Client-side implementation now completely Java-based, got rid of cygwin dependencies from phase 1
+- Server now supports multiple simultaneous builds
+
+######  MC-PaaS Phase 2 TODO:
+- Productize MC-PaaS plugin.  Clean up TODOs, read some settings from preferences
+- Change Export Builder to not include OAL Instance data
+- User authentication.  Collaborate with Willy as he is ahead in this area.
+- Secure file transfer, either via the user auth middleware or another mechanism
+- Per-user usage tracking on the server
+
+#### Made in Japan 2013 (Cort)
+
+###### Thurs:
+- MGJ Office
+  - Fujitsu and Yazaki meetings with account teams
+  - AE training
+  - FXAT prep (with Ichimasa and Watanabe)
+  
+###### Fri:
+- Sony LSI (on-site)
+  - "Help us expand into other projects and disciplines."
+  - Training class at was not a "canned classes", it was built on the requirements of the moment.  The goal was to help them expand their usage.
+  
+###### Mon-Fri:
+- FXAT in Yokohama, 5 days of training
+  - 8 engineers + 1 manager + sporadic visits from others
+    - Converted their models from old BP format to the new format
+    - Worked on these models and taught how to update these models to work with the newer version of BridgePoint (Component-based vs the old Domain-based models)
+  - dinner on Thurs w/ FXAT was positive for Mentor, FXAT wants to expand
+
+
+### Marketing/Sales Status
+#### Tier 1 Package for Ericsson (Dean)
+* In Sept/Oct Ericsson made a commitment to move BridgePoint to a more prevalent production role
+  * Since then discussions have been in progress to determine how to best handle this ramp-up
+  * this tier-1 package is what is being offered
+  * Over the 5 months discussion has been focused on how to help with this ramp-up
+    1) Eductiion/training - Updated current course material tailored to their industry and even their specific needs
+    2) Rapid response for any tool enhancement requests (prioritization for Ericsson SRs)
+    3) Project management/engineering process help - They would like to work with John Wolfe on this
+
+  * Timeframe is to focus enginnering in the first quarter.  
+  * From a business point of view, this will likely not come in until later in the year, but this is still being negotiated.  Software versus service deals are what are causing this delay.
+
+
+#### Ericsson Feedback/Response (Cort)
+* Dec 12th Serge met with Ericsson and we have all seen the feedback from this.   It was in the form of a presentation that Ericsson gave to Serge.  Ericsson bascially says BP is the best tool availble, but it has many problems they want to see fixed and they want commitment that issues will be addressed.
+
+* Serge says we had opportunity for $700K and now it is 1/2 of that.  The reason is that there is a large training component.
+
+* If we do win the tier 1 and the expansion that brings 1 - 1.4 million that would make our numbers for 2014 all by itself.  Therefore we could consider an Ericsson focus.  The options around this are currently being worked on by Cort.
+
+
+
+#### Upcoming businessiness (Jayne)
+* Model package from Ericsson
+* Sony Renewal
+
+#### Upcoming marketing (Jayne)
+* A January promotion for BP is being done through Tech Brief.  There was a good result from this company with SystemVision that brought it some new good leads, and we are hopeful for the same with BridgePoint.
+
+* There was a new bubble of acivity on xtUML.org during Cort's trip to Japan that was seen
+
+ 
+### Customer Support Status (Robert Rice)
+
+- Cleaning up a flurry of Sony issues, which are now resolved with the exception of one ER that John Wolfe wanted to look into
+
+- Working with Erik at Saab to get a "user archetype not run issue" solved
+
+- Working on two critical Ericsson SRs describing problems with Verifier and large numbers of init functions: they mention slow performance at load, and non-sequential execution of OAL code 
+
+---
+
     Date:     Dec 11,2013
     Start:    12:00 EDT
     End:      12:01 EDT
