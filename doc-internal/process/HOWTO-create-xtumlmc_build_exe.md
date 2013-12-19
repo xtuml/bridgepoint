@@ -23,6 +23,6 @@ build process.
 5.  Start BridgePoint on the ```c:\workspaces\build_artifacts``` workspace.  This workspace is already connected to [1].
 6.  Switch to the Resource perspective
 7.  Expand the ```extra_files_for_build``` project
-8.  Copy the newly build created xtumlmc_build.exe from disk into this folder inside BridgePoint, overwriting the existing EXE
+8.  Copy the newly created xtumlmc_build.exe from disk into this project inside BridgePoint, overwriting the existing EXE
 9.  Commit the new EXE to SVN
 10. Done
