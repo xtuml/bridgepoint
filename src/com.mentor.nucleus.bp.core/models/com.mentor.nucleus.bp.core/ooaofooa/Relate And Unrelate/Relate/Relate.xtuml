@@ -1,4 +1,4 @@
--- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("0a929dad-7ee8-4c26-aaba-741271d10359",
@@ -116,22 +116,10 @@ select one relationship_spec related by self->R_REL[R653];
 reflexive = relationship_spec.is_reflexive();
 rel_phrase = GD::strip_tics(value:self.relationship_phrase);
 
-select any srcIil from instances of I_LIP
-                                where (selected.Rel_ID == GD::NULL_UNIQUE_ID());
-if(not_empty source)
-  create object instance srcIil of I_LIP;
-  relate srcIil to source across R2958;
-  relate srcIil to relationship_spec across R2959;
-end if;
-
-select any dstIil from instances of I_LIP
-                                where (selected.Rel_ID == GD::NULL_UNIQUE_ID());
-if(not_empty destination)
-  create object instance dstIil of I_LIP;
-  relate dstIil to destination across R2958;
-  relate dstIil to relationship_spec across R2959;
-end if;
-
+select any srcIil related by source->I_LIP[R2958] where
+                                    selected.Rel_ID == relationship_spec.Rel_ID;
+select any dstIil related by destination->I_LIP[R2958] where
+                                    selected.Rel_ID == relationship_spec.Rel_ID;
 srcMultiplicity = 0;
 if not_empty source
   select one sourceClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
@@ -240,12 +228,10 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
       if dstMultiplicity == 0 // 0 == Multiplicity one
         linkCard = 0;
         if relatingFwd
-          select many fromLinks related by source->I_LIP[R2958]->I_LNK[R2901]
-                            where (selected.Rel_ID == relationship_spec.Rel_ID);
+          select many fromLinks related by srcIil->I_LNK[R2901];
           linkCard = cardinality fromLinks;
         else
-          select many toLinks related by source->I_LIP[R2958]->I_LNK[R2902]
-                            where (selected.Rel_ID == relationship_spec.Rel_ID);
+          select many toLinks related by srcIil->I_LNK[R2902];
           linkCard = cardinality toLinks;
         end if;
         if linkCard > 0 
@@ -256,12 +242,10 @@ if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")== true)
       if srcMultiplicity == 0 // 0 == Multiplicity one
         linkCard = 0;
         if relatingFwd
-          select many toLinks related by destination->I_LIP[R2958]->I_LNK[R2902]
-                            where (selected.Rel_ID == relationship_spec.Rel_ID);
+          select many toLinks related by dstIil->I_LNK[R2902];
           linkCard = cardinality toLinks;
         else
-          select many fromLinks related by destination->I_LIP[R2958]
-             ->I_LNK[R2901] where (selected.Rel_ID == relationship_spec.Rel_ID);
+          select many fromLinks related by dstIil->I_LNK[R2901];
           linkCard = cardinality fromLinks;
         end if;
         if linkCard > 0 
@@ -408,7 +392,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R615.''one''');
+	'R615');
 INSERT INTO R_RGO_PROXY
 	VALUES ("0a929dad-7ee8-4c26-aaba-741271d10359",
 	"99f312e1-793f-4716-b0df-b283046442da",
@@ -461,7 +445,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R616.''other''');
+	'R616');
 INSERT INTO R_RGO_PROXY
 	VALUES ("0a929dad-7ee8-4c26-aaba-741271d10359",
 	"192f2c7f-e59b-4b5e-a422-d6a98b6915a6",
@@ -617,7 +601,7 @@ INSERT INTO O_REF
 	'',
 	'Association',
 	'Rel_ID',
-	'R653.''creates''');
+	'R653');
 INSERT INTO R_RGO_PROXY
 	VALUES ("0a929dad-7ee8-4c26-aaba-741271d10359",
 	"d362e004-331d-4ae3-ace4-64a808bb4297",
