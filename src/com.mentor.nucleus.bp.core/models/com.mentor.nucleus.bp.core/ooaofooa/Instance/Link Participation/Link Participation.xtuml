@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("51639b01-a417-4a8b-8b22-c80dd91abf10",
@@ -15,20 +15,23 @@ INSERT INTO O_TFR
 	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
 	1,
 	'// Get rid of the link relationships related to this instance
-select many originLinks related by self->I_LNK[R2901];
-for each originLink in originLinks
-  originLink.dispose();
-end for;
+select one partLink related by self->I_LNK[R2901];
+if(not_empty partLink)
+  unrelate partLink from self across R2901;
+  partLink.dispose();
+end if;
 
-select many destinationLinks related by self->I_LNK[R2902];
-for each destinationLink in destinationLinks
-  destinationLink.dispose();
-end for;
+select one formalizingLink related by self->I_LNK[R2902];
+if(not_empty formalizingLink)
+  unrelate formalizingLink from self across R2902;
+  formalizingLink.dispose();
+end if;
 
-select many associatorLinks related by self->I_LNK[R2903];
-for each associatorLink in associatorLinks
+select one associatorLink related by self->I_LNK[R2903];
+if(not_empty associatorLink)
+  unrelate associatorLink from self across R2903;
   associatorLink.dispose();
-end for;
+end if;
 
 select one ins related by self->I_INS[R2958];
 if (not_empty ins)
@@ -116,7 +119,45 @@ INSERT INTO O_DBATTR
 	"51639b01-a417-4a8b-8b22-c80dd91abf10",
 	'select one assoc related by self->R_REL[R2959];
 if not_empty assoc
-  self.Label = assoc.get_name();
+  phrase = "";
+  select one origin related by self->I_LNK[R2901];
+  select one associator related by self->I_LNK[R2903];
+  if(empty associator)
+    select one simp related by assoc->R_SIMP[R206];
+    if(not_empty simp)
+      if(not_empty origin)
+        select one form related by simp->R_FORM[R208];
+        if(not_empty form)
+          phrase = form.Txt_Phrs;
+        end if;
+      else
+        select any part related by simp->R_PART[R207];
+        if(not_empty part)
+          phrase = part.Txt_Phrs;
+        end if;
+      end if;
+    end if;
+    select one linked related by assoc->R_ASSOC[R206];
+    if(not_empty linked)
+      if(not_empty origin)
+        select one aone related by linked->R_AONE[R209];
+        if(not_empty aone)
+          phrase = aone.Txt_Phrs;
+        end if;
+      else
+        select one aoth related by linked->R_AOTH[R210];
+        if(not_empty aoth)
+          phrase = aoth.Txt_Phrs;
+        end if;
+      end if;
+    end if;
+  end if;
+  if(phrase != "")
+    self.Label = assoc.get_name() + "."
+                                     + Util::getTic() + phrase + Util::getTic();
+  else
+  	self.Label = assoc.get_name();
+  end if;
 else
   self.Label = "Unknown Association";
 end if;',
@@ -185,7 +226,7 @@ INSERT INTO O_BATTR_PROXY
 INSERT INTO O_ATTR
 	VALUES ("78d98fab-fdac-46c5-b714-fab9418ebff5",
 	"51639b01-a417-4a8b-8b22-c80dd91abf10",
-	"00000000-0000-0000-0000-000000000000",
+	"bc910ce7-95a1-419a-b4ae-3930bb72a3b5",
 	'Rel_ID',
 	'',
 	'',
@@ -194,19 +235,44 @@ INSERT INTO O_ATTR
 	"df379511-9dda-46ee-a114-9d591239938d",
 	'',
 	'');
+INSERT INTO O_NBATTR
+	VALUES ("bc910ce7-95a1-419a-b4ae-3930bb72a3b5",
+	"51639b01-a417-4a8b-8b22-c80dd91abf10");
+INSERT INTO O_BATTR
+	VALUES ("bc910ce7-95a1-419a-b4ae-3930bb72a3b5",
+	"51639b01-a417-4a8b-8b22-c80dd91abf10");
+INSERT INTO O_ATTR
+	VALUES ("bc910ce7-95a1-419a-b4ae-3930bb72a3b5",
+	"51639b01-a417-4a8b-8b22-c80dd91abf10",
+	"00000000-0000-0000-0000-000000000000",
+	'Participation_ID',
+	'',
+	'',
+	'Participation_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"51639b01-a417-4a8b-8b22-c80dd91abf10");
-INSERT INTO O_OIDA
-	VALUES ("12e15297-839f-4e6c-9ee6-e519ebcb548f",
-	"51639b01-a417-4a8b-8b22-c80dd91abf10",
-	0,
-	'Inst_ID');
 INSERT INTO O_OIDA
 	VALUES ("78d98fab-fdac-46c5-b714-fab9418ebff5",
 	"51639b01-a417-4a8b-8b22-c80dd91abf10",
 	0,
 	'Rel_ID');
+INSERT INTO O_OIDA
+	VALUES ("bc910ce7-95a1-419a-b4ae-3930bb72a3b5",
+	"51639b01-a417-4a8b-8b22-c80dd91abf10",
+	0,
+	'Participation_ID');
 INSERT INTO O_ID
 	VALUES (1,
 	"51639b01-a417-4a8b-8b22-c80dd91abf10");
