@@ -30,7 +30,6 @@
          <pathelement path="../com.mentor.nucleus.bp.core/bin" />
        	 <pathelement path="../com.mentor.nucleus.bp.io.mdl/bin" />
          <pathelement path="../com.mentor.nucleus.bp.ui.explorer/bin" />
-         <pathelement path="../com.mentor.nucleus.bp.mc.mc3020/bin" />
        	 <pathelement path="../com.mentor.nucleus.bp.ui.canvas/bin" />
        	 <pathelement path="../com.mentor.nucleus.bp.ui.graphics/bin" />
        	 <pathelement path="../com.mentor.nucleus.bp.ui.text/bin" />

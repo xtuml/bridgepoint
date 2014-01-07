@@ -47,7 +47,6 @@ unit_test_modules="com.mentor.nucleus.bp.als.oal.test
                    com.mentor.nucleus.bp.welcome.test
                    com.mentor.nucleus.bp.debug.ui.test"
 independent_modules="com.mentor.nucleus.bp.mc.xmiexport
-                     com.mentor.nucleus.bp.mc.mc3020
                      com.mentor.nucleus.bp.mc
                      com.mentor.nucleus.bp.mc.c.source
                      com.mentor.nucleus.bp.mc.c.binary
@@ -59,11 +58,9 @@ independent_modules="com.mentor.nucleus.bp.mc.xmiexport
                      com.mentor.nucleus.bp.ui.session
                      com.mentor.nucleus.bp.debug.ui"
 feature_pkg_modules="com.mentor.nucleus.bp.dap.pkg
-                     com.mentor.nucleus.bp.mc.mc3020.pkg
                       com.mentor.nucleus.bp.pkg
                      com.mentor.nucleus.bp.verifier.pkg"
 feature_modules="com.mentor.nucleus.bp.dap.pkg-feature
-                 com.mentor.nucleus.bp.mc.mc3020.pkg-feature
                  com.mentor.nucleus.bp.pkg-feature
                  com.mentor.nucleus.bp.verifier.pkg-feature"
 plugin_fragments="com.mentor.nucleus.bp.core.win32.x86
@@ -165,11 +162,9 @@ function build_modules {
 function compile_modules {
     build_modules
 
-    # Have to make sure the plugin compilation is ordered properly, specifically that
-    # some plugins are compiled after bp.mc.mc3020
+    # Have to make sure the plugin compilation is ordered properly.
+    # Move bp.utilities so it compiles to before bp.mc, and move several others to later in the build order.
     modules=`echo ${modules} | sed s/com.mentor.nucleus.bp.docgen// | sed s/com.mentor.nucleus.bp.cdt// | sed s/com.mentor.nucleus.bp.utilities// | sed s/com.mentor.nucleus.bp.welcome// | sed s/com.mentor.nucleus.bp.cli//`
-
-    # Now, move bp.utilities so it compiles to before bp.mc, but after bp.mc.mc3020
     modules=`echo ${modules} | sed 's/com.mentor.nucleus.bp.mc /com.mentor.nucleus.bp.utilities com.mentor.nucleus.bp.mc /'`
     modules_to_compile_later="com.mentor.nucleus.bp.docgen com.mentor.nucleus.bp.cdt com.mentor.nucleus.bp.welcome com.mentor.nucleus.bp.cli"
     

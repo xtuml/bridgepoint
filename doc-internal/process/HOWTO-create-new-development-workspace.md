@@ -132,14 +132,11 @@ _- Prepare to run unit tests:
   _- Launch BridgePoint
 
 _- Setup development environment to run MC3020 under a launch configuration
-  _- Open Windows explorer and navigate to the BridgePoint plugin 
+  _- Open Windows explorer and navigate to the BridgePoint plug-in 
      installation folder.  The default is:
-     C:\MentorGraphics\BridgePoint\eclipse_extensions\BridgePoint\eclipse\plugins\com.mentor.nucleus.bp.mc.mc3020_"ver"\mc3020
+     C:\MentorGraphics\BridgePoint\eclipse_extensions\BridgePoint\eclipse\plugins\com.mentor.nucleus.bp.mc.c.binary_"ver"\mc3020
   _- Select all files and folders in the above folder
   _- Select Copy
-  _- Open the Model Explorer view in Eclipse and navigate to:
-       < workspace >/com.mentor.nucleus.bp.mc.mc3020/mc3020
-  _- Paste the previous selection into this folder
   _- Open the Model Explorer view in Eclipse and navigate to:
        < workspace >/com.mentor.nucleus.bp.mc.c.binary/mc3020
   _- Paste the previous selection into this folder

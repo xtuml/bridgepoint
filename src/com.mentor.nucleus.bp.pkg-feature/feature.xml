@@ -111,11 +111,6 @@ Rev. 130502, Part No. 255853
          name="BridgePoint Data Access Package"/>
 
    <includes
-         id="com.mentor.nucleus.bp.mc.mc3020.pkg"
-         version="4.1.1"
-         name="BridgePoint MC-3020 Model Compiler"/>
-
-   <includes
          id="com.mentor.nucleus.bp.verifier.pkg"
          version="4.1.1"
          name="BridgePoint Verifier"/>
