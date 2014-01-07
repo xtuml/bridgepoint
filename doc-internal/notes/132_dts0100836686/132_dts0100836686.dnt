@@ -42,8 +42,8 @@ with.  Consider the following OAL:
 create object instance a of KEY;
 create object instance b of KEY;
 create object instance c of KEY;
-relate a to b across R1.'end';
-relate b to c across R1.'end';
+relate a to b across R1.'start';
+relate b to c across R1.'start';
 
 The tree produced is:
 
