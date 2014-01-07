@@ -38,7 +38,6 @@
        	 <pathelement path="../com.mentor.nucleus.bp.utilities/bin" />
          <pathelement path="../com.mentor.nucleus.bp.mc.xmiexport/bin" />
          <pathelement path="../com.mentor.nucleus.bp.mc/bin" />
-         <pathelement path="../com.mentor.nucleus.bp.mc.mc3020/bin" />
          <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
            <include name="**/org.eclipse.ui.ide_*.jar" />
            <include name="**/org.eclipse.core.resources_*.jar"/>
