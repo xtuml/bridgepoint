@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("18b14e53-1b85-4412-b10c-ebf0a62e1023",
@@ -183,21 +183,19 @@ select any matchingLink related by relationship_spec->I_LNK[R2904] where
                                        selected.Link_ID == GD::NULL_UNIQUE_ID();
 for each link in links
   // See if this is a link between our source and destination
-  if ( not_empty source and link.fromInst_ID == source.Inst_ID )
-    if ( not_empty destination)
-      if (link.toInst_ID == destination.Inst_ID )
-        matchingLink = link;
-      end if;
+  select one sourceParticipant related by link->I_LIP[R2901]->I_INS[R2958];
+  select one destinationParticipant related by link->I_LIP[R2902]->I_INS[R2958];
+  if ( sourceParticipant == source )
+    if ( destinationParticipant == destination )
+      matchingLink = link;
     else
       // the destination is empty and the source matched, remove the link
       link.dispose();
       // incomplete match, this may not be our link. Keep looking.
     end if;
-  elif ( not_empty destination and link.toInst_ID == destination.Inst_ID )
-    if (not_empty source)
-      if ( link.fromInst_ID == source.Inst_ID )
-        matchingLink = link;      
-      end if;
+  elif ( destinationParticipant == destination )
+    if ( sourceParticipant == source )
+      matchingLink = link;      
     else
       // the source is empty and the desination matched, remove the link
       link.dispose();
@@ -337,7 +335,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R620');
+	'R620.''one''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("18b14e53-1b85-4412-b10c-ebf0a62e1023",
 	"3d9203eb-8e8b-4f84-a962-1948ae3dbe0c",
@@ -390,7 +388,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R621');
+	'R621.''other''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("18b14e53-1b85-4412-b10c-ebf0a62e1023",
 	"aea14d78-0ffa-429f-bb9e-3fc07582c3a6",
@@ -546,7 +544,7 @@ INSERT INTO O_REF
 	'',
 	'Association',
 	'Rel_ID',
-	'R655');
+	'R655.''destroys''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("18b14e53-1b85-4412-b10c-ebf0a62e1023",
 	"67c44532-9903-4c87-9f7a-59ea982ed04a",

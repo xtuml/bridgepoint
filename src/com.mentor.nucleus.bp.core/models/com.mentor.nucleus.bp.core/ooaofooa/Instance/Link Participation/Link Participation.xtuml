@@ -126,14 +126,25 @@ if not_empty assoc
     select one simp related by assoc->R_SIMP[R206];
     if(not_empty simp)
       if(not_empty origin)
-        select one form related by simp->R_FORM[R208];
-        if(not_empty form)
-          phrase = form.Txt_Phrs;
-        end if;
-      else
         select any part related by simp->R_PART[R207];
         if(not_empty part)
           phrase = part.Txt_Phrs;
+        end if;
+      else
+        select one form related by simp->R_FORM[R208];
+        if(not_empty form)
+          phrase = form.Txt_Phrs;
+        else
+          // we are dealing with an unformalized
+          // association, in which case the first
+          // R_PART is always used as the origin
+          // we want to return the second R_PART
+          select many parts related by simp->R_PART[R207];
+          for each part in parts
+            // we overwrite the first giving
+            // us the seconds text phrase
+            phrase = part.Txt_Phrs;
+          end for;          
         end if;
       end if;
     end if;
