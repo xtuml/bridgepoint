@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("ffd7706f-e278-4639-8779-1f07366d4626",
@@ -146,31 +146,27 @@ select many links related by relationship_spec->I_LNK[R2904];
 select any matchingLink related by relationship_spec->I_LNK[R2904] where
                                        selected.Link_ID == GD::NULL_UNIQUE_ID();
 for each link in links
+  select one sourceParticipant related by link->I_LIP[R2901]->I_INS[R2958];
+  select one destinationParticipant related by link->I_LIP[R2902]->I_INS[R2958];
+  select one associativeParticipant related by link->I_LIP[R2903]->I_INS[R2958];
   // See if this is a link between our source and destination
-  if (not_empty associative)
+  if ( associativeParticipant == associative )
     // There is exactly one associative instance per link.
     // We can therefore unambiguously remove the link
-    if ( link.assocInst_ID == associative.Inst_ID )
-      // Found the link.  Now destroy it.
-      matchingLink = link;
-    end if;
+    matchingLink = link;
     // See if this is a link between our source and destination
-  elif ( not_empty source and link.toInst_ID == source.Inst_ID )
-    if ( not_empty destination)
-      if (link.fromInst_ID == destination.Inst_ID )
-        matchingLink = link;
-      end if;
+  elif ( sourceParticipant == source )
+    if ( destinationParticipant == destination )
+      matchingLink = link;
     else
       // the destination is empty and the source matched, remove the link
       link.dispose();
       // incomplete match, this may not be our link. Keep looking.
     end if;
-  elif ( not_empty destination and link.toInst_ID == destination.Inst_ID )
-    if (not_empty source)
-      if ( link.fromInst_ID == source.Inst_ID )
-        // Found the link. Now destroy it.
-        matchingLink = link;
-      end if;
+  elif ( destinationParticipant == destination )
+    if ( sourceParticipant == source )
+      // Found the link. Now destroy it.
+      matchingLink = link;
     else
       // the source is empty and the desination matched, remove the link
       link.dispose();
@@ -310,7 +306,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R622');
+	'R622.''one''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("ffd7706f-e278-4639-8779-1f07366d4626",
 	"3034698e-a383-48fe-ace6-626b472f7e28",
@@ -363,7 +359,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R623');
+	'R623.''other''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("ffd7706f-e278-4639-8779-1f07366d4626",
 	"a7e8f574-0f5d-4caf-ae77-a1b646e0337f",
@@ -412,7 +408,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R624');
+	'R624.''using''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("ffd7706f-e278-4639-8779-1f07366d4626",
 	"5d631272-6f34-4051-9563-e5c8862998a8",
@@ -568,7 +564,7 @@ INSERT INTO O_REF
 	'',
 	'Association',
 	'Rel_ID',
-	'R656');
+	'R656.''destroys''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("ffd7706f-e278-4639-8779-1f07366d4626",
 	"5e98e0e0-3953-4f63-aa11-95f3ae37bab9",
