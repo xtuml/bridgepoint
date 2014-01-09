@@ -31,6 +31,57 @@ MSD Weekly Meeting Minutes
 
 ---
 
+    Date:     Jan 8, 2014
+    Start:    12:00 EDT
+    End:      12:45 EDT
+    Elapsed:  45 min
+    Present:  Bob, Keith, Travis, Campbell, Cort, others...
+            Dean, Robert, others...
+
+### Engineering Status
+**Cort -**
+- Delivered compiled MC in 4.1, including performance improvements.  Feedback from Saab for a model dealing largely with string data: the speedup was very nice, but some expressions and param lists are exceeding some buffer limitations in the mcmc (size greater than 870 chars). They indicate the max is probably 2000-3000 chars. We are making progress on a dynamic memory allocation solution.  Worked on a bit over the holiday and will finish late this week or early next week.  This could be made into a marking feature.  Will discuss with marketing.
+
+**Bob -**
+- Ericsson engineering still updates their priorities list (last did it 1/7/14).  Robert Rice triages the list.  We have tried to start always using the BCC SR email CC to have e-mail conversations go into SR tracking.
+- Working with Heba on Saab request analysis.
+- Working on an Ericsson issue for dynamic array size being 1 when it should be 0
+- Will set up a meeting to talk about CLI and code split.
+  
+**Keith -**
+- Not much has happend on MC-PaaS since the last update.  Will be synching up with Willie and getting this moving again next week.
+- Working on another encoding problem that came from Japan.  Similar to the last one with Japanese chars at the end of an activity field.  This time the problem area is description fields.
+- Met with TheOtherFirm to discuss new enhancements to xtuml.org they are giving us to test.  These include podcasting, mail blaster integration, and a daily digest feature for the forum.
+- Working on removing the long-deprecated mc.mc3020 plug-in.  The changes to remove it are done.  Hit some problems during unit testing.  Still in progress.
+
+**Heba -**
+- Working on Saab request that has to do with Ports not showing on component refs in session explorer.  Analysis note ready for review. The lack of ports is confusing when they component using the same interface more than once.
+- SVX work is done.  Created a demo video.  
+  
+**Nehad -**
+- Saab requested to have the ability to show the state machine diagram aside to state event matrix, I spent sometime on it tryin to find out if GEF can allow this, but I could not find easy way, and meanwhile I found a workaround for this using Eclipse functionality. Bob sent Saab mail to ask their acceptence regarding this workaround and we did not hear from them since that due to Holidays 
+- There was a previous work done to enahnce the variable view, by displaying more info for model classes instance, one of these enhacement to list all related instances with the selected instance, this work is brought up because of customer request to display the associations text phrases in SE.  The work is almost done, a design note was previously reviewed. 
+- Currently working on an issue reported by both Ericsson and Saab, dts0100533805, and have some difficulty to reproduce it.
+
+**Campbell -**
+- Picking up high priority Ericsson issues.  One is a "Works as designed".  Also looking at Verifier performance.  There is no immediate smoking gun, so investigation is ongoing.
+- Will talk to Cort about priorities and how that affects open tasks like training, issues, and code split. 
+  
+**Travis -**
+- Working on issue to show text phrase in session explorer.  Testing now.
+- Over my vacation time I introduced declaration searching.  The support allows for entering text and searching for that text in named elements.  There are limitations in that the element will have to have either a Name attribute or a get_name operation.  Additionally there should be a "Show in Model Explorer" or "Show in Canvas" action.  There is also an issue with double clicking to open, but that should be fixed easily.  This is one item on the report from Ericsson.  I estimate that it would be 4 days to promote the issue (including documentation and tests).  
+
+### Marketing Status
+**Dean -** 
+- Getting things ready for Sales Kickoff
+- Pushing to get deals done for this quarter, Sony and Ericsson Tier 1 Services
+ 
+### Customer Support Status
+**Robert -**
+- Ericsson and Saab have now returned from holiday and are opening issues. No suprises so far.
+
+---
+
     Date:     Dec 18, 3013
     Start:    12:00 EDT
     End:      12:45 EDT
