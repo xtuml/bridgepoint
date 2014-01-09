@@ -140,7 +140,7 @@ associated with the link participation.
 
 6.2.1 Association changes
 
-As stated in 5.2 the metmodel is changed to make the three associations between
+As stated in 5.2 the metamodel is changed to make the three associations between
 a Link and Link Participation a one to one multiplicity.
 
 In addition the text phrases for 2901 and 2902 are updated to better reflect the
@@ -177,7 +177,7 @@ other two attributes are removed.
 The Link.dispose() operation is modified to call the Link
 Participation.dispose() operation.  Previously the Link Participation class was
 treated as a singleton and disposal was only necessary at the time its related
-Instance was disposed.  Now a Link Participant cannot exist without a being
+Instance was disposed.  Now a Link Participant cannot exist without being
 associated with a Link, and each will call the other classes dispose if still
 associated.
 
@@ -210,7 +210,7 @@ In Relate.execute() and Relate Using.execute() the audit checks previously
 selected the associated Link instances for the singleton Link Participation.  If
 the number of links found does not match the modeled multiplicity an audit error
 is logged.  That selection is now modified to start from the instance and select
-all links through all associated Link Participation instances.  Additionally an
+all links through all associated Link Participation instances.  Additionally a
 where clause is added that assures the Link Participation instances used are
 for the appropriate metamodel association.
 
@@ -355,6 +355,9 @@ instance link2
   R1.'end'
     instance link2
     instance c
+
+8.4
+- All existing verifier tests must pass
 
 End
 ---
