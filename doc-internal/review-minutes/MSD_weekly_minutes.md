@@ -31,6 +31,50 @@ MSD Weekly Meeting Minutes
 
 ---
 
+    Date:     Jan 15, 2014
+    Start:    12:00 EDT
+    End:      time EDT
+    Elapsed:  time minutes
+    Present:  Bob, Keith, Travis, Campbell, Cort, Heba, Nehad, others...
+            Dean, Robert, others...
+
+### Engineering Status
+
+**Campbell -**
+- Ericsson Budapest reported very slow performance with Verifier. Campbell uncovered that Ericsson model produced 15000 instance population, so it is a very large model. Further testing found that significant portion of time spent deleting instances. Changes to strategy for locating and delete instances have been made and produced a 50x speedup. Still looking at this issue and Campbell feels there is more to find.
+- There is potential to split this SR into several DRs and to provide Ericsson with a test build containing this performance enhancement. Timeframe will depend on Unit testing and interest from Ericsson Budapest
+
+**Cort -**
+- Working on an Analysis note for the revised training material. Changes initiated in response to Ericsson requirements but these changes will benefit all xtUML training and users of xtUML.org
+- Material to be split into self-paced technique training and in-class methodology training.
+- Team will be asked to participate in the creation of several 5-minute How To videos that collectively describe the mechanics of using BridgePoint.
+- John Wolfe to produce high level outline for instructor led portion of the training.
+
+**Keith -**
+- Investigated an issue from FujiXerox related to non-ascii characters causing model compilation to fail. Analysis note reviewed and completed work has been delivered to MGJ for final testing. Expect customer to receive it later this week.
+- Change had the potential to break DocGen support when non-ascii characters are present in the model. Keith has identified a DocGen change that will resolve this potential issue.
+
+
+### Marketing Status
+**Tier 1 Services -** 
+- Dean is working the the Ericsson and Sony account teams to construct a services proposal that will target each customer's top 5 SRs and accelerate engineering closure of the issues. Ericsson proposal is in review by Mentor Finance and Sony proposal is expected to be sent to account team next week.
+
+- SKO preparations are in high gear and BridgePoint will have its own 90 minute breakout session. 
+
+ 
+### Customer Support Status
+**Ericsson Performance issue -** 
+Worked with Campbell to fully characterize issue and now waiting for opportunity to test fix.
+
+**Ericsson OAL Bridges binding issue -**
+Working with Campbell to fully characterize the issue and DR is expected soon.
+
+**Japanese character support -**
+This is a high priority issue with FujiXerox actively contacting MGJ CSD. Keith's solution will be welcomed by Robert's counterpart in Japan
+
+
+---
+
     Date:     Jan 8, 2014
     Start:    12:00 EDT
     End:      12:45 EDT
