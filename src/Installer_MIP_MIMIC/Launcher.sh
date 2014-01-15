@@ -17,19 +17,13 @@ if [ "${MGLS_LICENSE_FILE}" == "" ]; then
     # example configuration for a remote license server
     #    export MGLS_LICENSE_FILE=1717@svr-taz-eng-05
     #
-    MGLS_LICENSE_FILE="$BPHOMEDIR/license/license.dat"
+    export MGLS_LICENSE_FILE="$BPHOMEDIR/license/license.dat"
   else
-    MGLS_LICENSE_FILE=$LM_LICENSE_FILE
+    export MGLS_LICENSE_FILE=$LM_LICENSE_FILE
   fi
 fi
 
-# Replace any ':' in environment variable with ',' for compatibility
-# with MC3020
-MGLS_LICENSE_FILE=`echo $MGLS_LICENSE_FILE | sed 's/:/,/g'`
-
-export MGLS_LICENSE_FILE
-
-[ $MGLS_LICENSE_FILE ] || die "No license is setup (missing \$LM_LICENSE_FILE)"
+[ $MGLS_LICENSE_FILE ] || die "No license is setup in ENV variable MGLS_LICENSE_FILE or LM_LICENSE_FILE)"
 
 #
 # DO NOT MODIFY ANY OF THE FOLLOWING LINES.
