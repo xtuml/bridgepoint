@@ -9,13 +9,8 @@ import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
@@ -28,17 +23,13 @@ import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.ModelRoot;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.ui.Selection;
-import com.mentor.nucleus.bp.core.ui.dialogs.ScrolledTextDialog;
 import com.mentor.nucleus.bp.core.ui.perspective.BridgePointPerspective;
-import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.debug.ui.launch.BPDebugUtils;
 import com.mentor.nucleus.bp.debug.ui.test.DebugUITestUtilities;
 import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
 import com.mentor.nucleus.bp.test.common.UITestingUtilities;
-import com.mentor.nucleus.bp.test.common.BaseTest.Function_by_name_c;
-import com.mentor.nucleus.bp.test.common.BaseTest.Package_by_name_c;
 
 public class VerifierRealizedUDTTest extends BaseTest {
 
@@ -190,18 +181,10 @@ public class VerifierRealizedUDTTest extends BaseTest {
 			}
 		}
         assertNotNull(testFunc);
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(testFunc));
+		
+		BPDebugUtils.executeElement(testFunc);
 
-		menu = DebugUITestUtilities.getMenuInSETree(testFunc);
-
-		assertTrue(
-				"The execute menu item was not available for a required operation.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
-
+		
 		DebugUITestUtilities.waitForExecution();
 
 		DebugUITestUtilities.waitForBPThreads(m_sys);

@@ -11,8 +11,6 @@ import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.internal.ui.preferences.IDebugPreferenceConstants;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.ComponentInstance_c;
@@ -26,13 +24,11 @@ import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.ui.perspective.BridgePointPerspective;
-import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.debug.ui.launch.BPDebugUtils;
 import com.mentor.nucleus.bp.debug.ui.test.DebugUITestUtilities;
 import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
-import com.mentor.nucleus.bp.test.common.UITestingUtilities;
 
 //========================================================================
 //
@@ -126,18 +122,7 @@ public class VerifierAuditTest extends BaseTest {
 
 		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(testSixCases));
-
-		Menu menu = DebugUITestUtilities.getMenuInSETree(testSixCases);
-		
-		UIUtil.dispatchAll();
-
-		assertTrue(
-				"The execute menu item was not available for a required function.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+		BPDebugUtils.executeElement(testSixCases);
 
 		DebugUITestUtilities.waitForExecution();
 		ComponentInstance_c engine = ComponentInstance_c.getOneI_EXEOnR2955(component);
@@ -192,18 +177,7 @@ public class VerifierAuditTest extends BaseTest {
 
 		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(testSixCases));
-
-		Menu menu = DebugUITestUtilities.getMenuInSETree(testSixCases);
-		
-		UIUtil.dispatchAll();
-
-		assertTrue(
-				"The execute menu item was not available for a required function.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+		BPDebugUtils.executeElement(testSixCases);
 
 		DebugUITestUtilities.waitForExecution();
 		ComponentInstance_c engine = ComponentInstance_c.getOneI_EXEOnR2955(component);
@@ -261,19 +235,8 @@ public class VerifierAuditTest extends BaseTest {
 
 		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(testSixCases));
-
-		Menu menu = DebugUITestUtilities.getMenuInSETree(testSixCases);
+		BPDebugUtils.executeElement(testSixCases);
 		
-		UIUtil.dispatchAll();
-
-		assertTrue(
-				"The execute menu item was not available for a required function.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
-
 		DebugUITestUtilities.waitForExecution();
 		ComponentInstance_c engine = ComponentInstance_c.getOneI_EXEOnR2955(component);
 		assertNotNull(engine);
@@ -345,19 +308,8 @@ public class VerifierAuditTest extends BaseTest {
         
 		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(runAllTests));
-
-		Menu menu = DebugUITestUtilities.getMenuInSETree(runAllTests);
+		BPDebugUtils.executeElement(runAllTests);
 		
-		UIUtil.dispatchAll();
-
-		assertTrue(
-				"The execute menu item was not available for a required function.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
-
 		DebugUITestUtilities.waitForExecution();
 		ComponentInstance_c engine = ComponentInstance_c.getOneI_EXEOnR2955(component);
 		assertNotNull(engine);
