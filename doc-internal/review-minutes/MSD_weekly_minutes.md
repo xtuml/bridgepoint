@@ -31,6 +31,101 @@ MSD Weekly Meeting Minutes
 
 ---
 
+    Date:     Jan 15, 2014
+    Start:    12:00 EDT
+    End:      time EDT
+    Elapsed:  time minutes
+    Present:  Bob, Keith, Travis, Campbell, Cort, Heba, Nehad, others...
+            Dean, Robert, others...
+
+### Engineering Status
+
+**Campbell -**
+- Ericsson Budapest reported very slow performance with Verifier. Campbell uncovered that Ericsson model produced 15000 instance population, so it is a very large model. Further testing found that significant portion of time spent deleting instances. Changes to strategy for locating and delete instances have been made and produced a 50x speedup. Still looking at this issue and Campbell feels there is more to find.
+- There is potential to split this SR into several DRs and to provide Ericsson with a test build containing this performance enhancement. Timeframe will depend on Unit testing and interest from Ericsson Budapest
+
+**Cort -**
+- Working on an Analysis note for the revised training material. Changes initiated in response to Ericsson requirements but these changes will benefit all xtUML training and users of xtUML.org
+- Material to be split into self-paced technique training and in-class methodology training.
+- Team will be asked to participate in the creation of several 5-minute How To videos that collectively describe the mechanics of using BridgePoint.
+- John Wolfe to produce high level outline for instructor led portion of the training.
+
+**Keith -**
+- Investigated an issue from FujiXerox related to non-ascii characters causing model compilation to fail. Analysis note reviewed and completed work has been delivered to MGJ for final testing. Expect customer to receive it later this week.
+- Change had the potential to break DocGen support when non-ascii characters are present in the model. Keith has identified a DocGen change that will resolve this potential issue.
+
+
+### Marketing Status
+**Tier 1 Services -** 
+- Dean is working the the Ericsson and Sony account teams to construct a services proposal that will target each customer's top 5 SRs and accelerate engineering closure of the issues. Ericsson proposal is in review by Mentor Finance and Sony proposal is expected to be sent to account team next week.
+
+- SKO preparations are in high gear and BridgePoint will have its own 90 minute breakout session. 
+
+ 
+### Customer Support Status
+**Ericsson Performance issue -** 
+Worked with Campbell to fully characterize issue and now waiting for opportunity to test fix.
+
+**Ericsson OAL Bridges binding issue -**
+Working with Campbell to fully characterize the issue and DR is expected soon.
+
+**Japanese character support -**
+This is a high priority issue with FujiXerox actively contacting MGJ CSD. Keith's solution will be welcomed by Robert's counterpart in Japan
+
+
+---
+
+    Date:     Jan 8, 2014
+    Start:    12:00 EDT
+    End:      12:45 EDT
+    Elapsed:  45 min
+    Present:  Bob, Keith, Travis, Campbell, Cort, others...
+            Dean, Robert, others...
+
+### Engineering Status
+**Cort -**
+- Delivered compiled MC in 4.1, including performance improvements.  Feedback from Saab for a model dealing largely with string data: the speedup was very nice, but some expressions and param lists are exceeding some buffer limitations in the mcmc (size greater than 870 chars). They indicate the max is probably 2000-3000 chars. We are making progress on a dynamic memory allocation solution.  Worked on a bit over the holiday and will finish late this week or early next week.  This could be made into a marking feature.  Will discuss with marketing.
+
+**Bob -**
+- Ericsson engineering still updates their priorities list (last did it 1/7/14).  Robert Rice triages the list.  We have tried to start always using the BCC SR email CC to have e-mail conversations go into SR tracking.
+- Working with Heba on Saab request analysis.
+- Working on an Ericsson issue for dynamic array size being 1 when it should be 0
+- Will set up a meeting to talk about CLI and code split.
+  
+**Keith -**
+- Not much has happend on MC-PaaS since the last update.  Will be synching up with Willie and getting this moving again next week.
+- Working on another encoding problem that came from Japan.  Similar to the last one with Japanese chars at the end of an activity field.  This time the problem area is description fields.
+- Met with TheOtherFirm to discuss new enhancements to xtuml.org they are giving us to test.  These include podcasting, mail blaster integration, and a daily digest feature for the forum.
+- Working on removing the long-deprecated mc.mc3020 plug-in.  The changes to remove it are done.  Hit some problems during unit testing.  Still in progress.
+
+**Heba -**
+- Working on Saab request that has to do with Ports not showing on component refs in session explorer.  Analysis note ready for review. The lack of ports is confusing when they component using the same interface more than once.
+- SVX work is done.  Created a demo video.  
+  
+**Nehad -**
+- Saab requested to have the ability to show the state machine diagram aside to state event matrix, I spent sometime on it tryin to find out if GEF can allow this, but I could not find easy way, and meanwhile I found a workaround for this using Eclipse functionality. Bob sent Saab mail to ask their acceptence regarding this workaround and we did not hear from them since that due to Holidays 
+- There was a previous work done to enahnce the variable view, by displaying more info for model classes instance, one of these enhacement to list all related instances with the selected instance, this work is brought up because of customer request to display the associations text phrases in SE.  The work is almost done, a design note was previously reviewed. 
+- Currently working on an issue reported by both Ericsson and Saab, dts0100533805, and have some difficulty to reproduce it.
+
+**Campbell -**
+- Picking up high priority Ericsson issues.  One is a "Works as designed".  Also looking at Verifier performance.  There is no immediate smoking gun, so investigation is ongoing.
+- Will talk to Cort about priorities and how that affects open tasks like training, issues, and code split. 
+  
+**Travis -**
+- Working on issue to show text phrase in session explorer.  Testing now.
+- Over my vacation time I introduced declaration searching.  The support allows for entering text and searching for that text in named elements.  There are limitations in that the element will have to have either a Name attribute or a get_name operation.  Additionally there should be a "Show in Model Explorer" or "Show in Canvas" action.  There is also an issue with double clicking to open, but that should be fixed easily.  This is one item on the report from Ericsson.  I estimate that it would be 4 days to promote the issue (including documentation and tests).  
+
+### Marketing Status
+**Dean -** 
+- Getting things ready for Sales Kickoff
+- Pushing to get deals done for this quarter, Sony and Ericsson Tier 1 Services
+ 
+### Customer Support Status
+**Robert -**
+- Ericsson and Saab have now returned from holiday and are opening issues. No suprises so far.
+
+---
+
     Date:     Dec 18, 3013
     Start:    12:00 EDT
     End:      12:45 EDT
