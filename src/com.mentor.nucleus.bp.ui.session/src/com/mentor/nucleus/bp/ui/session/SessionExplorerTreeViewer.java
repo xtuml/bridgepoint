@@ -125,6 +125,9 @@ public class SessionExplorerTreeViewer extends TreeViewer {
                 if (items[i].getText().contains(text)) {
                     // return this item
                     rvalItems.add(items[i]);
+                } else {
+                	// look for nested elements
+                	rvalItems.addAll(findItemsContainingText(items[i], text));
                 }
             }
         } else {
@@ -135,6 +138,9 @@ public class SessionExplorerTreeViewer extends TreeViewer {
                 if (items[i].getText().contains(text)) {
                     // return this item
                     rvalItems.add(items[i]);
+                } else {
+                	// look for nested elements
+                	rvalItems.addAll(findItemsContainingText(items[i], text));
                 }
             }            
         }

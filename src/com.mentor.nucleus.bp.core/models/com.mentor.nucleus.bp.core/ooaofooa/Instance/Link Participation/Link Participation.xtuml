@@ -144,8 +144,6 @@ if not_empty assoc
           // we want to return its text phrase
           select many parts related by simp->R_PART[R207];
           for each part in parts
-            // we overwrite the first giving
-            // us the seconds text phrase
             phrase = part.Txt_Phrs;
             break;
           end for;          

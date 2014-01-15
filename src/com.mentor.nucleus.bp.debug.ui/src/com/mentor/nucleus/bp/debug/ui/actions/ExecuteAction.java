@@ -18,7 +18,6 @@ import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IViewActionDelegate;
@@ -63,10 +62,12 @@ import com.mentor.nucleus.bp.core.StateMachineEvent_c;
 import com.mentor.nucleus.bp.core.Statement_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.ModelChangedEvent;
+import com.mentor.nucleus.bp.core.common.ModelRoot;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.debug.ui.launch.BPDebugUtils;
 import com.mentor.nucleus.bp.debug.ui.model.BPDebugTarget;
+import com.mentor.nucleus.bp.ui.session.SessionExplorerContentProvider;
 import com.mentor.nucleus.bp.ui.session.views.SessionExplorerView;
 
 public class ExecuteAction implements IViewActionDelegate {
@@ -79,6 +80,7 @@ public class ExecuteAction implements IViewActionDelegate {
 	}
 
 	private NonRootModelElement element = null;
+	private NonRootModelElement elementToExecute = null;
 	private ComponentInstance_c engine = null;
 	private static Thread runner = null;
 
@@ -97,9 +99,7 @@ public class ExecuteAction implements IViewActionDelegate {
 
 		Runnable r = new Runnable() {
 			public void run() {
-				IStructuredSelection selection = (IStructuredSelection) Selection
-						.getInstance().getSelection();
-				execute(selection);
+				execute();
 			}
 		};
 		runner = new Thread(r, "Verifier user invocation");
@@ -152,34 +152,45 @@ public class ExecuteAction implements IViewActionDelegate {
 					.getActiveWorkbenchWindow().getActivePage().getActivePart();
       if(activePart instanceof SessionExplorerView) {
 		SessionExplorerView sessionExplorer = (SessionExplorerView) activePart;
-		ComponentInstance_c engine = sessionExplorer.getTreeViewer()
-							             .getExecutionEngineOfSelectedElement();
-		if(engine != null) {
-			return engine;
+		if(sessionExplorer.getTreeViewer().getTree().getSelection().length > 0) {
+			ComponentInstance_c engine = sessionExplorer.getTreeViewer()
+								             .getExecutionEngineOfSelectedElement();
+			if(engine != null) {
+				return engine;
+			}
 		}
+	  }
+      // if we get here, try the content provider
+      // as it could be an initializer being executed
+      // which does not require a selection or the tree
+      // to even show
+	  SessionExplorerContentProvider provider = new SessionExplorerContentProvider();
+	  Object parent = provider.getParent(element);
+	  while(parent != null && !(parent instanceof ComponentInstance_c)) {
+		parent = provider.getParent(parent);
+	  }
+	  if(parent instanceof ComponentInstance_c) {
+		return (ComponentInstance_c) parent;
 	  }
 	  return null;
 	}
 
-	private void execute(IStructuredSelection selection) {
-	  try {
-      IStructuredSelection structuredSelection = (IStructuredSelection) Selection
-          .getInstance().getSelection();
-      Ooaofooa modelRoot = Selection
-          .getModelRoot((StructuredSelection) structuredSelection);
-		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
-			public void run() {
-				// execute the runnable
-				  engine = getExecutionEngine();
-			}
-		});
-		boolean launchSuccessful = false;
-      Ooaofooa.beginVerifierExecution(engine.getExecution_engine_id());
-      try {
+	private void execute() {
+		try {
+			ModelRoot modelRoot = elementToExecute.getModelRoot();
+			boolean launchSuccessful = false;
+			PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+				public void run() {
+					// execute the runnable
+					  engine = getExecutionEngine();
+				}
+			});
+			Ooaofooa.beginVerifierExecution(engine.getExecution_engine_id());
+			try {
 				Body_c bdy = getBody();
 				Statement_c smt = Statement_c.getOneACT_SMTOnR602(Block_c
 						.getOneACT_BLKOnR666(bdy));
-				if (element instanceof SignalEvent_c) {
+				if (elementToExecute instanceof SignalEvent_c) {
 					// if a signal event, then just add it
 					// to the event queue
 					PendingEvent_c pendingEvt = new PendingEvent_c(modelRoot);
@@ -187,7 +198,7 @@ public class ExecuteAction implements IViewActionDelegate {
 
 					StateMachineEvent_c evt = StateMachineEvent_c
 							.getOneSM_EVTOnR525(SemEvent_c
-									.getOneSM_SEVTOnR526((SignalEvent_c) element));
+									.getOneSM_SEVTOnR526((SignalEvent_c) elementToExecute));
 					evt.relateAcrossR2906To(pendingEvt, false);
 					// no event data, no need to initalize paramters until
 					// the event data is supported
@@ -196,32 +207,32 @@ public class ExecuteAction implements IViewActionDelegate {
 					// wake the Component Instance up
 					engine.Notify();
 					launchSuccessful = true;
-					ModelChangedEvent mce = new ModelChangedEvent(engine
-							.getModelRoot(),
+					ModelChangedEvent mce = new ModelChangedEvent(
+							engine.getModelRoot(),
 							Modeleventnotification_c.MODEL_EXECUTION_STOPPED,
 							engine);
 					Ooaofooa.getDefaultInstance().fireModelEvent(mce);
 				} else {
 					String calledElement = "interface message";
-					if (element instanceof Function_c) {
+					if (elementToExecute instanceof Function_c) {
 						calledElement = "function";
-					} else if (element instanceof Operation_c) {
+					} else if (elementToExecute instanceof Operation_c) {
 						calledElement = "operation";
 					}
 
 					// log error that Component Instance was not found
 					if (engine == null) {
 						System.out.println("User invoked " + calledElement
-								+ ": " + element.getName()
+								+ ": " + elementToExecute.getName()
 								+ " failed, no Component Instance found.");
 					}
 
 					// log that the user invoked something
 					CorePlugin.out.println("User invoked " + calledElement
-							+ ": " + element.getName());
+							+ ": " + elementToExecute.getName());
 
-					if (element instanceof RequiredSignal_c
-							|| element instanceof ProvidedSignal_c) {
+					if (elementToExecute instanceof RequiredSignal_c
+							|| elementToExecute instanceof ProvidedSignal_c) {
 						// for signals that are not assigned to transitions
 						// we need to queue a stack frame at the end of the
 						// destination stack
@@ -244,9 +255,12 @@ public class ExecuteAction implements IViewActionDelegate {
 					} else {
 						Stack_c stack = Stack_c.getOneI_STACKOnR2930(engine);
 						if (stack != null) {
-							if (bdy != null && engine != null && (smt != null || engine.getRealizedby() != null)) {
-								UUID sfid = bdy.Createstackframe(true, Gd_c
-										.Null_unique_id(), stack.getStack_id());
+							if (bdy != null
+									&& engine != null
+									&& (smt != null || engine.getRealizedby() != null)) {
+								UUID sfid = bdy.Createstackframe(true,
+										Gd_c.Null_unique_id(),
+										stack.getStack_id());
 								bdy.Startstackframeformessage(sfid);
 								launchSuccessful = true;
 							} else {
@@ -268,23 +282,25 @@ public class ExecuteAction implements IViewActionDelegate {
 
 					}
 				}
-      }
-      finally {
-        Ooaofooa.endVerifierExecution(engine.getExecution_engine_id());
-        if (launchSuccessful ) {
-    	  IDebugTarget target = BPDebugUtils.getTargetForEngine(engine);
-    	  if (target instanceof BPDebugTarget) {
-    		((BPDebugTarget)target).Notify();
-    	  }
-    	}
-      }
-    } catch (Exception e) {
-      CorePlugin.logError("Exception encountered during execute action", e);
-    }
+			} finally {
+				Ooaofooa.endVerifierExecution(engine.getExecution_engine_id());
+				if (launchSuccessful) {
+					IDebugTarget target = BPDebugUtils
+							.getTargetForEngine(engine);
+					if (target instanceof BPDebugTarget) {
+						((BPDebugTarget) target).Notify();
+					}
+				}
+			}
+		} catch (Exception e) {
+			CorePlugin.logError("Exception encountered during execute action",
+					e);
+		}
 	}
 
-	private void setOALElement(NonRootModelElement selectedElement) {
+	public void setOALElement(NonRootModelElement selectedElement) {
 		element = selectedElement;
+		elementToExecute = element;
 		ComponentInstance_c exe = getExecutionEngine();
 		boolean isWired = false;
 		if (selectedElement instanceof RequiredOperation_c) {
@@ -332,7 +348,7 @@ public class ExecuteAction implements IViewActionDelegate {
 										}
 
 									});
-					element = providedOperation;
+					elementToExecute = providedOperation;
 					return;
 				}
 			}
@@ -367,7 +383,7 @@ public class ExecuteAction implements IViewActionDelegate {
 						// if assigned to a transition we need
 						// to add the signal as an event to the
 						// element's queue
-						element = signalEvent;
+						elementToExecute = signalEvent;
 					}
 					
 				}
@@ -389,7 +405,7 @@ public class ExecuteAction implements IViewActionDelegate {
 						// if assigned to a transition we need
 						// to add the signal as an event to the
 						// element's queue
-						element = signalEvent;
+						elementToExecute = signalEvent;
 						return;
 					}
 				} else {
@@ -414,9 +430,9 @@ public class ExecuteAction implements IViewActionDelegate {
 					SignalEvent_c signalEvent = SignalEvent_c
 					          .getOneSM_SGEVTOnR528(providedSignal);
 					if(signalEvent == null) {
-						element = providedSignal;
+						elementToExecute = providedSignal;
 					} else {
-						element = signalEvent;
+						elementToExecute = signalEvent;
 					}
 				}
 				return;
@@ -463,7 +479,7 @@ public class ExecuteAction implements IViewActionDelegate {
 										}
 
 									});
-					element = requiredOperation;
+					elementToExecute = requiredOperation;
 				}
 			}			
 		} else if(selectedElement instanceof ProvidedSignal_c) {
@@ -497,7 +513,7 @@ public class ExecuteAction implements IViewActionDelegate {
 						// if assigned to a transition we need
 						// to add the signal as an event to the
 						// element's queue
-						element = signalEvent;
+						elementToExecute = signalEvent;
 						return;
 					}
 					
@@ -516,7 +532,7 @@ public class ExecuteAction implements IViewActionDelegate {
 					if(signalEvent == null) {
 						return;
 					} else {
-						element = signalEvent;
+						elementToExecute = signalEvent;
 						return;
 					}
 				} else {
@@ -539,9 +555,9 @@ public class ExecuteAction implements IViewActionDelegate {
 					SignalEvent_c signalEvent = SignalEvent_c
 							.getOneSM_SGEVTOnR529(requiredSignal);
 					if (signalEvent == null) {
-						element = requiredSignal;
+						elementToExecute = requiredSignal;
 					} else {
-						element = signalEvent;
+						elementToExecute = signalEvent;
 					}
 				}
 			}			
