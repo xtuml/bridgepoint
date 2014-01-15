@@ -66,12 +66,12 @@ is currently designed.  More information about this will follow.
 The tree that is desired for the same OAL above is as follows: 
 
 instance a
-  R1.'end'
+  R1.'start'
     instance b
 instance b
   R1.'start'
     instance a
-  R1.'end'
+  R1.'start'
     instance c
 instance c
   R1.'start'
@@ -245,18 +245,18 @@ _- Create a function under the nested package with the following OAL:
 create object instance a of KEY;
 create object instance b of KEY;
 create object instance c of KEY;
-relate a to b across R1.'end';
-relate b to c across R1.'end';
+relate a to b across R1.'start';
+relate b to c across R1.'start';
 
 _- Launch verifier on the component
 _- Execute the function
 _R The tree is as follows:
 
 instance a
-  R1.'end'
+  R1.'start'
     instance b
 instance b
-  R1.'end'
+  R1.'start'
     instance c
   R1.'start'
     instance a
@@ -281,18 +281,18 @@ _- Create a function under the nested package with the following OAL:
 create object instance a of KEY;
 create object instance b of KEY;
 create object instance c of KEY;
-relate a to b across R1.'end';
-relate b to c across R1.'end';
+relate a to b across R1.'start';
+relate b to c across R1.'start';
 
 _- Launch verifier on the component
 _- Execute the function
 _R The tree is as follows:
 
 instance a
-  R1.'end'
+  R1.'start'
     instance b
 instance b
-  R1.'end'
+  R1.'start'
     instance c
   R1.'start'
     instance a
@@ -319,19 +319,19 @@ create object instance b of KEY;
 create object instance c of KEY;
 create object instance link of LINK;
 create object instance link2 of LINK;
-relate a to b across R1.'end' using link;
-relate b to c across R1.'end' using link2;
+relate a to b across R1.'start' using link;
+relate b to c across R1.'start' using link2;
 
 _- Launch verifier on the component
 _- Execute the function
 _R The tree is as follows:
 
 instance a
-  R1.'end'
+  R1.'start'
     instance link
     instance b
 instance b
-  R1.'end'
+  R1.'start'
     instance link2
     instance c
   R1.'start'
@@ -345,14 +345,14 @@ instance link
   R1.'start'
     instance link
     instance a
-  R1.'end'
+  R1.'start'
     instance link
     instance b
 instance link2
   R1.'start'
     instance link2
     instance b
-  R1.'end'
+  R1.'start'
     instance link2
     instance c
 
