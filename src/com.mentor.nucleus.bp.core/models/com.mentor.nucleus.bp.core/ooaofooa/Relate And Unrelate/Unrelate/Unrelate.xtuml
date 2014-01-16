@@ -186,16 +186,20 @@ for each link in links
   select one sourceParticipant related by link->I_LIP[R2901]->I_INS[R2958];
   select one destinationParticipant related by link->I_LIP[R2902]->I_INS[R2958];
   if ( sourceParticipant == source )
-    if ( destinationParticipant == destination )
-      matchingLink = link;
-    else
+    if(not_empty destination)
+      if ( destinationParticipant == destination )
+        matchingLink = link;
+	  end if;
+	else
       // the destination is empty and the source matched, remove the link
       link.dispose();
       // incomplete match, this may not be our link. Keep looking.
     end if;
   elif ( destinationParticipant == destination )
-    if ( sourceParticipant == source )
-      matchingLink = link;      
+    if(not_empty source)
+      if ( sourceParticipant == source )
+        matchingLink = link;      
+      end if;
     else
       // the source is empty and the desination matched, remove the link
       link.dispose();

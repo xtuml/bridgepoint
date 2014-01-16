@@ -116,24 +116,19 @@ select one relationship_spec related by self->R_REL[R653];
 reflexive = relationship_spec.is_reflexive();
 rel_phrase = GD::strip_tics(value:self.relationship_phrase);
 
+
 select any srcIil from instances of I_LIP
                                 where (selected.Rel_ID == GD::NULL_UNIQUE_ID());
-if(not_empty source)
-  create object instance srcIil of I_LIP;
-  relate srcIil to source across R2958;
-  relate srcIil to relationship_spec across R2959;
-end if;
-
 select any dstIil from instances of I_LIP
                                 where (selected.Rel_ID == GD::NULL_UNIQUE_ID());
-if(not_empty destination)
-  create object instance dstIil of I_LIP;
-  relate dstIil to destination across R2958;
-  relate dstIil to relationship_spec across R2959;
-end if;
 
 srcMultiplicity = 0;
 if not_empty source
+  // create the link participation
+  create object instance srcIil of I_LIP;
+  relate srcIil to source across R2958;
+  relate srcIil to relationship_spec across R2959;
+  
   select one sourceClass related by source->CSME_CIE[R2962]->O_OBJ[R2961];
   select many srcClassInAssociations related by sourceClass->
                              R_OIR[R201] where selected.Rel_ID == srcIil.Rel_ID;
@@ -167,6 +162,11 @@ end if;
 relatingFwd = true;
 dstMultiplicity = 0;
 if not_empty destination
+  // create the link participation
+  create object instance dstIil of I_LIP;
+  relate dstIil to destination across R2958;
+  relate dstIil to relationship_spec across R2959;
+  
   select one destClass related by destination->CSME_CIE[R2962]->O_OBJ[R2961];
   select many dstClassInAssociations related by destClass->
                              R_OIR[R201] where selected.Rel_ID == dstIil.Rel_ID;

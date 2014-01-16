@@ -79,7 +79,7 @@ public class ExecuteAction implements IViewActionDelegate {
 		super();
 	}
 
-	private NonRootModelElement element = null;
+	private NonRootModelElement selectedElement = null;
 	private NonRootModelElement elementToExecute = null;
 	private ComponentInstance_c engine = null;
 	private static Thread runner = null;
@@ -165,7 +165,7 @@ public class ExecuteAction implements IViewActionDelegate {
       // which does not require a selection or the tree
       // to even show
 	  SessionExplorerContentProvider provider = new SessionExplorerContentProvider();
-	  Object parent = provider.getParent(element);
+	  Object parent = provider.getParent(selectedElement);
 	  while(parent != null && !(parent instanceof ComponentInstance_c)) {
 		parent = provider.getParent(parent);
 	  }
@@ -249,7 +249,7 @@ public class ExecuteAction implements IViewActionDelegate {
 									.println("User invoked "
 											+ calledElement
 											+ ": "
-											+ element.getName()
+											+ selectedElement.getName()
 											+ " failed, no statements to execute. Check for OAL problems.");
 						}
 					} else {
@@ -268,7 +268,7 @@ public class ExecuteAction implements IViewActionDelegate {
 										.println("User invoked "
 												+ calledElement
 												+ ": "
-												+ element.getName()
+												+ selectedElement.getName()
 												+ " failed, no statements to execute. Check for OAL problems.");
 							}
 						} else {
@@ -276,7 +276,7 @@ public class ExecuteAction implements IViewActionDelegate {
 									.println("User invoked "
 											+ calledElement
 											+ ": "
-											+ element.getName()
+											+ selectedElement.getName()
 											+ " failed, internal error. No stack found for execution.");
 						}
 
@@ -298,9 +298,9 @@ public class ExecuteAction implements IViewActionDelegate {
 		}
 	}
 
-	public void setOALElement(NonRootModelElement selectedElement) {
-		element = selectedElement;
-		elementToExecute = element;
+	public void setOALElement(NonRootModelElement element) {
+		selectedElement = element;
+		elementToExecute = selectedElement;
 		ComponentInstance_c exe = getExecutionEngine();
 		boolean isWired = false;
 		if (selectedElement instanceof RequiredOperation_c) {
@@ -369,14 +369,14 @@ public class ExecuteAction implements IViewActionDelegate {
 				InterfaceSignal_c signal = InterfaceSignal_c
 						.getOneC_ASOnR4004(ExecutableProperty_c
 								.getOneC_EPOnR4500(RequiredExecutableProperty_c
-										.getOneSPR_REPOnR4502((RequiredSignal_c) element)));
+										.getOneSPR_REPOnR4502((RequiredSignal_c) selectedElement)));
 				if(signal.getDirection() == Ifdirectiontype_c.ClientServer) {
 					return;
 				} else {
 					// otherwise we need to execute its OAL if
 					// the signal is not assigned to a transition
 					SignalEvent_c signalEvent = SignalEvent_c
-							.getOneSM_SGEVTOnR529((RequiredSignal_c) element);
+							.getOneSM_SGEVTOnR529((RequiredSignal_c) selectedElement);
 					if(signalEvent == null) {
 						return;
 					} else {
@@ -391,14 +391,14 @@ public class ExecuteAction implements IViewActionDelegate {
 				InterfaceSignal_c signal = InterfaceSignal_c
 					.getOneC_ASOnR4004(ExecutableProperty_c
 						.getOneC_EPOnR4500(RequiredExecutableProperty_c
-								.getOneSPR_REPOnR4502((RequiredSignal_c) element)));
+								.getOneSPR_REPOnR4502((RequiredSignal_c) selectedElement)));
 				if(signal.getDirection() == Ifdirectiontype_c.ServerClient) {
 					// if server to client then execute this required signals
 					// body, or add an event if assigned to a transition
 					// otherwise we need to execute its OAL if
 					// the signal is not assigned to a transition
 					SignalEvent_c signalEvent = SignalEvent_c
-							.getOneSM_SGEVTOnR529((RequiredSignal_c) element);
+							.getOneSM_SGEVTOnR529((RequiredSignal_c) selectedElement);
 					if(signalEvent == null) {
 						return;
 					} else {
@@ -499,14 +499,14 @@ public class ExecuteAction implements IViewActionDelegate {
 				InterfaceSignal_c signal = InterfaceSignal_c
 						.getOneC_ASOnR4004(ExecutableProperty_c
 								.getOneC_EPOnR4501(ProvidedExecutableProperty_c
-										.getOneSPR_PEPOnR4503((ProvidedSignal_c) element)));
+										.getOneSPR_PEPOnR4503((ProvidedSignal_c) selectedElement)));
 				if(signal.getDirection() == Ifdirectiontype_c.ServerClient) {
 					return;
 				} else {
 					// otherwise we need to execute its OAL if
 					// the signal is not assigned to a transition
 					SignalEvent_c signalEvent = SignalEvent_c
-							.getOneSM_SGEVTOnR528((ProvidedSignal_c) element);
+							.getOneSM_SGEVTOnR528((ProvidedSignal_c) selectedElement);
 					if(signalEvent == null) {
 						return;
 					} else {
@@ -525,10 +525,10 @@ public class ExecuteAction implements IViewActionDelegate {
 				InterfaceSignal_c signal = InterfaceSignal_c
 						.getOneC_ASOnR4004(ExecutableProperty_c
 								.getOneC_EPOnR4501(ProvidedExecutableProperty_c
-										.getOneSPR_PEPOnR4503((ProvidedSignal_c) element)));
+										.getOneSPR_PEPOnR4503((ProvidedSignal_c) selectedElement)));
 				if(signal.getDirection() == Ifdirectiontype_c.ClientServer) {
 					SignalEvent_c signalEvent = SignalEvent_c
-						.getOneSM_SGEVTOnR528((ProvidedSignal_c) element);
+						.getOneSM_SGEVTOnR528((ProvidedSignal_c) selectedElement);
 					if(signalEvent == null) {
 						return;
 					} else {
@@ -622,24 +622,24 @@ public class ExecuteAction implements IViewActionDelegate {
 
 	private Body_c getBody() {
 		Body_c bdy = null;
-		if(element instanceof Function_c) {
-			Function_c fn = (Function_c) element;
+		if(selectedElement instanceof Function_c) {
+			Function_c fn = (Function_c) selectedElement;
 			bdy = Body_c.getOneACT_ACTOnR698(FunctionBody_c
 					.getOneACT_FNBOnR695(fn));
-		} else if(element instanceof Operation_c) {
-			Operation_c op = (Operation_c) element;
+		} else if(selectedElement instanceof Operation_c) {
+			Operation_c op = (Operation_c) selectedElement;
 			bdy = Body_c.getOneACT_ACTOnR698(OperationBody_c.getOneACT_OPBOnR696(op));
-		} else if(element instanceof ProvidedOperation_c) {
-			ProvidedOperation_c proOp = (ProvidedOperation_c) element;
+		} else if(selectedElement instanceof ProvidedOperation_c) {
+			ProvidedOperation_c proOp = (ProvidedOperation_c) selectedElement;
 			bdy = Body_c.getOneACT_ACTOnR698(ProvidedOperationBody_c.getOneACT_POBOnR687(proOp));
-		} else if(element instanceof ProvidedSignal_c) {
-			ProvidedSignal_c proSig = (ProvidedSignal_c) element;
+		} else if(selectedElement instanceof ProvidedSignal_c) {
+			ProvidedSignal_c proSig = (ProvidedSignal_c) selectedElement;
 			bdy = Body_c.getOneACT_ACTOnR698(ProvidedSignalBody_c.getOneACT_PSBOnR686(proSig));
-		} else if(element instanceof RequiredOperation_c) {
-			RequiredOperation_c reqOp = (RequiredOperation_c) element;
+		} else if(selectedElement instanceof RequiredOperation_c) {
+			RequiredOperation_c reqOp = (RequiredOperation_c) selectedElement;
 			bdy = Body_c.getOneACT_ACTOnR698(RequiredOperationBody_c.getOneACT_ROBOnR685(reqOp));
-		} else if(element instanceof RequiredSignal_c) {
-			RequiredSignal_c reqSig = (RequiredSignal_c) element;
+		} else if(selectedElement instanceof RequiredSignal_c) {
+			RequiredSignal_c reqSig = (RequiredSignal_c) selectedElement;
 			bdy = Body_c.getOneACT_ACTOnR698(RequiredSignalBody_c.getOneACT_RSBOnR684(reqSig));
 		}
 		return bdy;
