@@ -1,0 +1,34 @@
+This document captures the state of the BridgePoint unit tests:
+===============================================================
+Branch: 136_del_mc3020
+Hostname:   kbrown-vm-w7-1
+OS Name:    Windows 7
+    Version:    6.1
+    Architecture:   x86
+
+Test Suite                              Status          TestRuns    Time    Timestamp
+---------------------------------------------------------------------------------------------
+Core Generic Upgrade Test               PASS            39          5.45s   20140111 14:51:55
+UI Canvas CCP Test                      PASS            102         792.18s 20140111 16:57:53
+Core Test                               PASS            1093        2264.24s20140111 15:30:06
+UI Explorer Test                        PASS            18          62.06s  20140111 16:59:18
+Core Test - Workspace Setup             PASS            14          74.26s  20140111 14:50:54
+Parse All Test                          PASS            4596        743.90s 20140111 14:43:58
+IO MDL PkgCM Tests                      PASS            108         1350.68s20140117 11:46:08
+Core Test 2                             PASS            305         308.21s 20140111 15:35:40
+Debug - Verifier Test                   PASS            95          1243.18s20140117 07:59:49
+Core Test - System Level Tests          PASS            24          20.53s  20140111 15:36:22
+Core Test 2 - Consistency               PASS            17          1.51s   20140111 14:49:18
+IO MDL Tests                            PASS            90          332.52s 20140117 11:03:00
+UI Properties Test                      PASS            162         21.10s  20140111 17:00:01
+Core Test - Existing Projects           PASS            15          8.66s   20140111 14:51:27
+Model Compare Test                      PASS            257         297.89s 20140111 16:05:03
+Welcome Test                            PASS            10          337.39s 20140113 06:59:57
+UI Canvas Suite 1                       PASS            84          112.26s 20140111 16:34:11
+Core Test - RTO Move                    PASS            136         272.97s 20140111 14:48:55
+Search Test                             PASS            10          16.00s  20140111 16:31:56
+UI Canvas Suite 2                       PASS            270         579.46s 20140111 16:44:17
+IO MDL Tests 2                          PASS            77          313.58s 20140117 11:23:17
+IO SQL Test                             PASS            8           1.86s   20140111 16:31:19
+Debug - Verifier Test 2                 PASS            6           145.87s 20140111 15:59:34
+UI Text Test                            PASS            163         125.12s 20140111 17:02:28
