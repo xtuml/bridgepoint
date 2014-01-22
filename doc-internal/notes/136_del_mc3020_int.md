@@ -27,7 +27,7 @@ plug-in forward and thus we will remove it.
 
 4. Requirements
 ---------------
-4.1  The bp.mc.mc3020 plug-in is no longer shipped with the product  
+4.1  The bp.mc.mc3020 plug-in is no longer shipped with the product.  
 
 5. Work Required
 ---------------- 
