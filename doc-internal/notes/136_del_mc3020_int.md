@@ -4,7 +4,7 @@ Copyright 2013-2014 Mentor Graphics Corporation.  All Rights Reserved.
 
 ---
 
-# Remove Deprecated bp.mc.mc3020 Plug-In
+# Remove Deprecated bp.mc.mc3020 Plug-in
 ### xtUML Project Implementation Note
 
 
