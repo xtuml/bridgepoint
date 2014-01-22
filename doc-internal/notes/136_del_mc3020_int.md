@@ -1,6 +1,6 @@
 ---
 
-Copyright 2014 Mentor Graphics Corp.  All Rights Reserved.
+Copyright 2013-2014 Mentor Graphics Corp.  All Rights Reserved.
 
 ---
 
@@ -30,7 +30,7 @@ plug-in forward and thus we will remove it.
 4.1  The bp.mc.mc3020 plug-in is no longer shipped with the product  
 
 5. Work Required
-----------------
+---------------- 
 5.1  Remove the plug-ins: ```com.mentor.nucleus.bp.mc.mc3020, com.mentor.nucleus.bp.mc.mc3020.test, com.mentor.nucleus.bp.mc.mc3020.pkg, com.mentor.nucleus.bp.mc.mc3020.pkg-feature```  
 5.2  Remove all references in other plug-ins & projects to the removed plug-ins  
 
