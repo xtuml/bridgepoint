@@ -92,6 +92,7 @@ _- Import the projects into your workspace
   _- Right Click > Import Projects...
   _- Select "Import Projects Into Existing Workspace" and then "Next"
   _- Select all projects (do not select any other options)
+  _- Ensure "Search for nested projects" is UNchecked.
   _- Select Finish
    
 _- Switch to the Java perspective
