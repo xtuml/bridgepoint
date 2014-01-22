@@ -18,7 +18,7 @@ This note describes the work and testing done to remove an unused plug-in.
 [2] CQ DEI dts0101019774  
 
 3. Background
--------------
+--------------
 The ```com.mentor.nucleus.bp.mc.mc3020``` plug-in has not been used for quite a
 few releases now.  We have carried it simply to provide backwards compatibility
 for customer projects that may not yet have been updated to one of the new
