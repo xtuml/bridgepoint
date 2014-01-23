@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("9a8228db-50d7-44ad-ae91-7533fd2e65e8",
@@ -151,16 +151,19 @@ else
   end if;   
 
 
-  for each parm in parms
+  // set the value in the user-defined order
+  select any orderedParm related by brg->S_BPARM[R21]
+                     where (selected.Previous_BParm_ID == GD::NULL_UNIQUE_ID());
+  while(not_empty orderedParm)
     for each arg in args
-      if (parm.Name == arg.Name)
+      if (orderedParm.Name == arg.Name)
         select one cval related by arg->V_VAL[R800];
-        select one ctype related by parm->S_DT[R22];
+        select one ctype related by orderedParm->S_DT[R22];
         select any result related by top_stack_frame->I_VSF[R2951] where
                                              selected.Value_ID == cval.Value_ID;
         select one rtVal related by result->RV_RVL[R3305];
         isByRef = false;
-        if (parm.By_Ref == 1)
+        if (orderedParm.By_Ref == 1)
           isByRef = true;
           // TODO By Reference arguments probably don''t work, this is a hack
           newValue = GD::convertToBPDataType(type: ctype.Name, value:
@@ -172,7 +175,8 @@ else
         VM::addArgumentValue(value:rtVal.getValue(), type:ctype.Name, byRef: isByRef);
       end if;
     end for;
-  end for;
+    select one orderedParm related by orderedParm->S_BPARM[R55.''precedes''];
+  end while;
 
   // Look for a user''s class that matches the EE name
 

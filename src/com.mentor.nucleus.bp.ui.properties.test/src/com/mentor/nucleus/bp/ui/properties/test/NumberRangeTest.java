@@ -15,21 +15,20 @@ package com.mentor.nucleus.bp.ui.properties.test;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import com.mentor.nucleus.bp.core.Association_c;
-import com.mentor.nucleus.bp.core.ExternalEntityEvent_c;
 import com.mentor.nucleus.bp.core.ModelClass_c;
 import com.mentor.nucleus.bp.core.StateMachineEvent_c;
 import com.mentor.nucleus.bp.core.StateMachineState_c;
-import com.mentor.nucleus.bp.core.Subsystem_c;
+import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.ui.properties.AssociationR_RELPropertySource;
 import com.mentor.nucleus.bp.ui.properties.ClassO_OBJPropertySource;
 import com.mentor.nucleus.bp.ui.properties.EventSM_EVTPropertySource;
 import com.mentor.nucleus.bp.ui.properties.IntegerPropertyDescriptor;
 import com.mentor.nucleus.bp.ui.properties.StateSM_STATEPropertySource;
 
-public class NumberRangeTest extends PropertiesTest
+public class NumberRangeTest extends BaseTest
 {
     public NumberRangeTest(String name) {
-        super(name);
+        super(null, name);
     }
     private void verifyRange(String prop, IPropertyDescriptor[] pd_set)
     {
