@@ -125,8 +125,29 @@ public class RealizedClassTest extends BaseTest {
 
 	}
 	
-	
-	
+	public void testBridgeParameterOrdering() throws CoreException {
+		loadProject("BridgeParameterOrderingTest");
+		Function_c testFunction = Function_c
+				.getOneS_SYNCOnR8001(PackageableElement_c
+						.getManyPE_PEsOnR8000(Package_c
+								.getManyEP_PKGsOnR1405(m_sys)));
+		assertNotNull(testFunction);
+		Selection.getInstance().setSelection(new StructuredSelection(m_sys));
+		runVerifier();
+		BPDebugUtils.setSelectionInSETree(new StructuredSelection(testFunction));
+		Menu menu = DebugUITestUtilities.getMenuInSETree(testFunction);
+		assertTrue(
+				"The execute menu item was not available for a required operation.",
+				UITestingUtilities.checkItemStatusInContextMenu(menu,
+						"Execute", "", false));
+		UITestingUtilities.activateMenuItem(menu, "Execute");
+		DebugUITestUtilities.waitForExecution();
+		DebugUITestUtilities.waitForBPThreads(m_sys);
+		DebugUITestUtilities.waitForExecution();
+		String expectedConsoleText = "User invoked function: test_function\r\nLogInfo:  Hello, World!\r\n";
+		String actualConsoleText = DebugUITestUtilities.getConsoleText("null");
+		assertEquals(expectedConsoleText, actualConsoleText);
+	}
 
     private void runVerifier() {
     	Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1401(m_sys);
