@@ -7,8 +7,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.ui.IDebugUIConstants;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.Component_c;
@@ -26,7 +24,6 @@ import com.mentor.nucleus.bp.debug.ui.test.DebugUITestUtilities;
 import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
-import com.mentor.nucleus.bp.test.common.UITestingUtilities;
 
 public class VerifierExecuteFragmentTest extends BaseTest {
 	private static String projectName = "VerifierFragmentExecutionTest";
@@ -135,17 +132,10 @@ public class VerifierExecuteFragmentTest extends BaseTest {
 		});
 		assertNotNull(uf1);
 
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(uf1));
-		Menu menu = DebugUITestUtilities.getMenuInSETree(uf1);
-		assertTrue(
-				"The execute menu item was not available for a class operation.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
 		BPDebugUtils.openSessionExplorerView(true);
 
-		UITestingUtilities.activateMenuItem(menu, "Execute");
-
+		BPDebugUtils.executeElement(uf1);
+		
 		DebugUITestUtilities.waitForExecution();
 
 		// wait for the execution to complete
@@ -228,17 +218,10 @@ public class VerifierExecuteFragmentTest extends BaseTest {
 		});
 		assertNotNull(uf2);
 
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(uf2));
-		Menu menu = DebugUITestUtilities.getMenuInSETree(uf2);
-		assertTrue(
-				"The execute menu item was not available for a class operation.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
 		BPDebugUtils.openSessionExplorerView(true);
 
-		UITestingUtilities.activateMenuItem(menu, "Execute");
-
+		BPDebugUtils.executeElement(uf2);
+		
 		DebugUITestUtilities.waitForExecution();
 
 		// wait for the execution to complete
