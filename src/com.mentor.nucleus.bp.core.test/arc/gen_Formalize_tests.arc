@@ -1089,7 +1089,7 @@ ${ft.body}\
         TreeItem systemItem = ExplorerUtil.findItem(m_sys.getName());
         ExplorerUtil.getTreeViewer().expandToLevel(5);
 
-        TreeItem attrItem = systemItem.getItems()[1].getItems()[2].getItems()[2];
+        TreeItem attrItem = systemItem.getItems()[0].getItems()[2].getItems()[2];
         ExplorerUtil.getTreeViewer().setSelection(
                 new StructuredSelection(new Object[] { attrItem.getData() }));
         while (Display.getCurrent().readAndDispatch())
@@ -1108,7 +1108,7 @@ ${ft.body}\
         TreeItem systemItem2 = ExplorerUtil.findItem(m_sys.getName());
         ExplorerUtil.getTreeViewer().expandToLevel(5);
 
-        TreeItem attrItem2 = systemItem.getItems()[1].getItems()[2].getItems()[2];
+        TreeItem attrItem2 = systemItem.getItems()[0].getItems()[2].getItems()[2];
         ExplorerUtil.getTreeViewer().setSelection(
                 new StructuredSelection(new Object[] { attrItem.getData() }));
         while (Display.getCurrent().readAndDispatch())
