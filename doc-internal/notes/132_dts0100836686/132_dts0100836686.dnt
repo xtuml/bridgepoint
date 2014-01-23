@@ -1,0 +1,364 @@
+---
+
+Copyright 2013 Mentor Graphics Corp.  All Rights Reserved.
+
+---
+
+# Provide association text phrases for links in session explorer
+### xtUML Project Design Note
+
+1. Abstract
+-----------
+This note describes the changes required to show association text phrases for
+links that an instance participates in.
+
+2. Document References
+----------------------
+[1] Issues 132, https://github.com/xtuml/doc/issues/132  
+[2] CQ Issue: dts0100836686
+
+3. Background
+-------------
+Currently it is impossible to tell which direction that a reflexive association
+was executed without stopping execution and stepping through the relate
+statement.
+
+4. Requirements
+---------------
+4.1 Session explorer shall include text phrases in a link's label.
+
+5. Analysis
+-----------
+5.1 Tree format
+
+The model today has three interesting classes, Instance, Link Participation and
+Link.  Currently there is one link participation for each association
+(meta-association) that an instance participates in.  The ability to participate
+in the same link multiple times is covered across the associations between the
+link and the link participation.  The tree produced shows each link
+participation and under them all instances the owning instance is associated
+with.  Consider the following OAL:
+
+create object instance a of KEY;
+create object instance b of KEY;
+create object instance c of KEY;
+relate a to b across R1.'start';
+relate b to c across R1.'start';
+
+The tree produced is:
+
+instance a
+  R1
+    instance b
+instance b
+  R1
+    instance a
+    instance c
+instance c
+  R1
+    instance b
+
+This tree does not allow for any indication of what end of the association an
+instance is associated across.  Additionally, there is no way to append the
+association text phrase to the instance label.  This is due to the way the model
+is currently designed.  More information about this will follow.
+
+The tree that is desired for the same OAL above is as follows: 
+
+instance a
+  R1.'start'
+    instance b
+instance b
+  R1.'start'
+    instance a
+  R1.'start'
+    instance c
+instance c
+  R1.'start'
+    instance b
+  
+5.2 Instance model
+
+As stated in section 5.1, the model as designed will not allow for us to place
+text phrases on the instances under a link participation.  The reason is that
+the current many multiplicity is across the associations between the link
+participation and the link.  The traversals to build the tree today cross to the
+link and back to the other link participation instances.  Considering that there
+is one link participation instance for every metamodel association, that link
+participation can be associated with more than one link.  In the example OAL
+from 5.1 instance b will have one link participation associated and that link
+participation instance will be associated with two links.  This prevents us from
+determining which text phrase to use.  There are three associations between a
+link and link participation, these three associations capture whether an
+instance is a participant, formalizer or associator for the link.
+
+In order to address this issue the model shall be changed in the following 
+manner:
+
+1. Remove the many multiplicity on the three associations between link and link
+   participation.
+2. Change the OAL such that the behavior is that a link participation exists for
+   all links that the instance participates in, not just one for each metamodel
+   association.
+   
+This changes the behavior in a way that allows an instance to have multiple
+link participations per metamodel association, which the model is already set up
+for.
+
+5.3 Link Participation label
+
+With the changes in 5.2 we will be able to traverse the three associations
+between link and link participation to determine what text phrases to use.  The
+OAL for the Link Participation label attribute shall be modified to do this and
+then traverse to the appropriate subtype of Association and include the text
+phrase.
+
+6. Design
+---------
+6.1 Tree
+
+In order to build the desired tree in 5.1 the session tree pei data is modified
+to include traversals from the instance to the other associated instances in
+the following manner:
+
+I_INS->I_LIP[R2958]->I_LNK[R2901]->I_LIP[R2902]
+I_INS->I_LIP[R2958]->I_LNK[R2902]->I_LIP[R2901]
+I_INS->I_LIP[R2958]->I_LNK[R2903]->I_LIP[R2901]
+I_INS->I_LIP[R2958]->I_LNK[R2903]->I_LIP[R2902]
+I_LIP->I_LNK[R2901]->I_LIP[R2903]->I_INS[R2958]
+I_LIP->I_LNK[R2902]->I_LIP[R2903]->I_INS[R2958]
+I_LIP->I_INS[R2958] 
+
+The first set of traversals (four) give the instances associated on either the
+participant or formalizer side.  The second set of traversals (two) allow for
+the associator instance to show under the link participant along with the one
+side.  This is done as a linked association has two instances per side, and this
+allows the user to see this fact.  The last traversal is to show the instance
+associated with the link participation.
+
+6.2 Model changes
+
+6.2.1 Association changes
+
+As stated in 5.2 the metamodel is changed to make the three associations between
+a Link and Link Participation a one to one multiplicity.
+
+In addition the text phrases for 2901 and 2902 are updated to better reflect the
+roles.  The text phrases are changed as follows:
+
+R2901
+
+old
+---
+I_LNK (is origin of) <--> I_LIP (originates at)
+
+new
+---
+I_LNK (participates in) <--> I_LIP (has participant)
+
+R2902
+
+old
+---
+I_LNK (is destination of) <--> I_LIP (ends at)
+
+new
+---
+I_LNK (formalizes) <--> I_LIP (has formalizing participant)
+
+Before this work a link participation had two identifiers, one from the instance
+and the other from the link.  This no longer allows a link participation to be
+uniquely identified.  A new attribute is added to the link participation class,
+Participation_ID.  This attribute is made part of the first identifier and the
+other two attributes are removed.
+
+6.2.2 Disposal
+
+The Link.dispose() operation is modified to call the Link
+Participation.dispose() operation.  Previously the Link Participation class was
+treated as a singleton and disposal was only necessary at the time its related
+Instance was disposed.  Now a Link Participant cannot exist without being
+associated with a Link, and each will call the other classes dispose if still
+associated.
+
+The Link Participation.dispose() operation is modified to select the associated
+link instance, if it is not empty the code unrelates the two and then calls the
+Link.dispose() operation.
+
+The Link disposals occur in the Unrelate and Unrelate Using execute operations.
+Previously the operations used the referential Instance id that was part of the
+singleton Link Participation's identifier.  This can no longer be done to match
+a link with the instances involved as that id is not part of the identifier.
+Instead the OAL is changed to select the associated Link Participants and the
+Instance instances associated with them.  Those instances are now compared with
+the source, destination, and associator instances local to the statements.
+ 
+6.2.3 Creation
+
+Relate.execute() is modified to create a new Link Participation for the source
+instance and the destination instance.  Previously it was selecting the
+singleton instance associated with the source and destination instances.  The
+created Link Participation instances are associated with the created Link
+instance as the singletons were before.
+
+Relate Using.execute() is modified in the same way as Relate.execute() only a
+Link Participation is created for the associator instance.
+
+6.2.4 Selection
+
+In Relate.execute() and Relate Using.execute() the audit checks previously
+selected the associated Link instances for the singleton Link Participation.  If
+the number of links found does not match the modeled multiplicity an audit error
+is logged.  That selection is now modified to start from the instance and select
+all links through all associated Link Participation instances.  Additionally a
+where clause is added that assures the Link Participation instances used are
+for the appropriate metamodel association.
+
+6.3 Label changes
+
+In order to display the text phrases in the tree the Link Participation.label
+attribute is modified to traverse the associated Association subtypes.  If the
+Link Participant is associated with a Link across R2901 the RTO subtypes are
+used, otherwise the RGO subtypes are used.
+
+When an association is unformalized verifier will use the first R_PART as the
+participant and the second R_PART as the formalizer.  This is considered in the
+new label OAL.
+
+7. Design Comments
+------------------
+
+8. Unit Test
+------------
+8.1 Reflexive simple association (unformalized)
+
+_- Create a system
+_- Create a package
+_- Create a component
+_- Create a package under the component
+_- Create a class in the nested package
+_- Create a reflexive association
+_- Set the first simple participant text phrase to 'start'
+_- Set the second simple participant text phrase to 'end'
+_- Create a function under the nested package with the following OAL:
+
+create object instance a of KEY;
+create object instance b of KEY;
+create object instance c of KEY;
+relate a to b across R1.'start';
+relate b to c across R1.'start';
+
+_- Launch verifier on the component
+_- Execute the function
+_R The tree is as follows:
+
+instance a
+  R1.'start'
+    instance b
+instance b
+  R1.'start'
+    instance c
+  R1.'start'
+    instance a
+instance c
+  R1.'start'
+    instance b
+
+8.2 Reflexive simple association (formalized)
+
+_- Create a system
+_- Create a package
+_- Create a component
+_- Create a package under the component
+_- Create a class in the nested package
+_- Create a reflexive association
+_- Set the first simple participant text phrase to 'start'
+_- Set the second simple participant text phrase to 'end'
+_- Create an attribute and add it to the first identifier
+_- Formalize the association
+_- Create a function under the nested package with the following OAL:
+
+create object instance a of KEY;
+create object instance b of KEY;
+create object instance c of KEY;
+relate a to b across R1.'start';
+relate b to c across R1.'start';
+
+_- Launch verifier on the component
+_- Execute the function
+_R The tree is as follows:
+
+instance a
+  R1.'start'
+    instance b
+instance b
+  R1.'start'
+    instance c
+  R1.'start'
+    instance a
+instance c
+  R1.'start'
+    instance b
+
+8.3 Linked association
+
+_- Create a system
+_- Create a package
+_- Create a component
+_- Create a package under the component
+_- Create a class in the nested package
+_- Create a reflexive association
+_- Create another class in the nested package
+_- Create a linked association to the first class
+_- Set the Associative One End text phrase to 'start'
+_- Set the Associative Other End text phrase to 'end'
+_- Create a function under the nested package with the following OAL:
+
+create object instance a of KEY;
+create object instance b of KEY;
+create object instance c of KEY;
+create object instance link of LINK;
+create object instance link2 of LINK;
+relate a to b across R1.'start' using link;
+relate b to c across R1.'start' using link2;
+
+_- Launch verifier on the component
+_- Execute the function
+_R The tree is as follows:
+
+instance a
+  R1.'start'
+    instance link
+    instance b
+instance b
+  R1.'start'
+    instance link2
+    instance c
+  R1.'start'
+    instance link
+    instance a
+instance c
+  R1.'start'
+    instance link2
+    instance b
+instance link
+  R1.'start'
+    instance link
+    instance a
+  R1.'start'
+    instance link
+    instance b
+instance link2
+  R1.'start'
+    instance link2
+    instance b
+  R1.'start'
+    instance link2
+    instance c
+
+8.4
+- All existing verifier tests must pass
+
+End
+---
+

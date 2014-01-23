@@ -17,14 +17,9 @@ import java.util.Vector;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.IBreakpointManager;
-import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.Launch;
 import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.core.model.IDebugTarget;
@@ -151,18 +146,8 @@ public class SignalParameterPassingTest extends BaseTest {
 		Selection.getInstance().setSelection(new StructuredSelection(m_sys));
 		runVerifier();
 		
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(testFunc));
-
-		Menu menu = DebugUITestUtilities.getMenuInSETree(testFunc);
-
-		assertTrue(
-				"The execute menu item was not available for a required operation.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
-
+		BPDebugUtils.executeElement(testFunc);
+		
 		DebugUITestUtilities.waitForExecution();
 
 		Component_c[] comps = Component_c.ComponentInstances(root);
