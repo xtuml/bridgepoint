@@ -158,7 +158,7 @@ public class ExplorerTest extends BaseTest
         
         // zoom all contents
         editor.zoomAll();
-        while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+        BaseTest.dispatchEvents(0);
         
         // get a handle to the R4 relationship
         Ooaofgraphics graphicsModelRoot = Ooaofgraphics.getInstance(modelRoot.getId());
@@ -201,11 +201,11 @@ public class ExplorerTest extends BaseTest
         // which likely includes the updating of the model explorer, 
         // the contents of which are checked, below
         ExplorerUtil.getTreeViewer().refresh();
-        while (Display.getCurrent().readAndDispatch());
+        BaseTest.dispatchEvents(0);
         // select the only domain node that should be present
         TreeItem systemItem = ExplorerUtil.findItem(getProject().getName());
         ExplorerUtil.getTreeViewer().expandToLevel(2);
-        while (Display.getCurrent().readAndDispatch());
+        BaseTest.dispatchEvents(0);
         assertNotNull("No system in tree", systemItem);
         TreeItem [] domains = systemItem.getItems();
         int expectedItems = 1;
@@ -226,7 +226,7 @@ public class ExplorerTest extends BaseTest
     	// wait until any pending UI events are processed, 
     	// which likely includes the updating of the model explorer, 
     	// the contents of which are checked, below
-    	while (Display.getCurrent().readAndDispatch());
+        BaseTest.dispatchEvents(0);
 
         // check that system model has been deleted
         ClassQueryInterface_c query = new ClassQueryInterface_c() {
@@ -266,14 +266,14 @@ public class ExplorerTest extends BaseTest
         // processed now, will cause this test to fail; an issue has been 
         // raised to determine where this event comes from, in the hopes 
         // of being able to remove this line
-        while (Display.getCurrent().readAndDispatch());
+        BaseTest.dispatchEvents(0);
         
         // open a domain editor on the test domain
         selectPackageItemInModelExplorer();
         GraphicalEditor editor = ((ModelEditor) ExplorerUtil.openEditor()).getGraphicalEditor();
 
         TestUtil.closeProject(getProject());
-        while (Display.getCurrent().readAndDispatch());
+        BaseTest.dispatchEvents(0);
         
         checkProjectNoLongerInModelExplorer();
         checkEditorDisposed(editor);
@@ -295,14 +295,14 @@ public class ExplorerTest extends BaseTest
         TestUtil.openProject(getProject());
      
         ExplorerUtil.getTreeViewer().refresh();
-        while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+        BaseTest.dispatchEvents(0);
         
         // open a domain editor on the test domain
         selectPackageItemInModelExplorer();
         GraphicalEditor editor = ((ModelEditor) ExplorerUtil.openEditor()).getGraphicalEditor();
         
         TestUtil.deleteProject(getProject());
-        while (Display.getCurrent().readAndDispatch());
+        BaseTest.dispatchEvents(0);
         
         checkProjectNoLongerInModelExplorer();
         checkEditorDisposed(editor);
@@ -320,7 +320,7 @@ public class ExplorerTest extends BaseTest
     public void testDomainDeleteFromModelExplorer() throws CoreException, IOException
     {
         ExplorerUtil.getTreeViewer().refresh();
-        while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+        BaseTest.dispatchEvents(0);
         
         // select the domain item in the model explorer; also,
         // expand the item and check that its first node isn't 
@@ -335,7 +335,7 @@ public class ExplorerTest extends BaseTest
         TransactionManager.getSingleton().disableDialog = false;
         
         ExplorerUtil.getTreeViewer().refresh();
-        while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+        BaseTest.dispatchEvents(0);
 
         checkPackageNoLongerInModelExplorer();
         checkDomainDeleted(testModelName);
@@ -361,7 +361,7 @@ public class ExplorerTest extends BaseTest
         ExplorerUtil.deleteItem();
         
         ExplorerUtil.getTreeViewer().refresh();
-        while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+        BaseTest.dispatchEvents(0);
         
         checkProjectNoLongerInModelExplorer();
         checkProjectDeleted();
@@ -471,7 +471,7 @@ public class ExplorerTest extends BaseTest
         // wait until any pending UI events are processed, 
         // which likely includes the updating of the model explorer, 
         // the contents of which are checked, below
-        while (Display.getCurrent().readAndDispatch());
+        BaseTest.dispatchEvents(0);
 
         // check that (what should be) the only system node present
         // has no children
@@ -499,8 +499,7 @@ public class ExplorerTest extends BaseTest
         // since this test is running on the event-dispatch thread, we
         // have to fire the event pump manually to get the 
         // selection event reported, before proceeding
-        Display display = Display.getCurrent();
-        while (display.readAndDispatch());
+        BaseTest.dispatchEvents(0);
         waitForDecorator();
         assertTrue("Tree Item with text '"+name+"' dz not exist", 
         			tree.getSelection()[0].getText().startsWith(name));
@@ -523,8 +522,7 @@ public class ExplorerTest extends BaseTest
         // since this test is running on the event-dispatch thread, we
         // have to fire the event pump manually to get the 
         // selection event reported, before proceeding
-        Display display = Display.getCurrent();
-        while (display.readAndDispatch());
+        BaseTest.dispatchEvents(0);
         assertTrue("Tree Item still exist after deletion ", tree.getSelectionCount()==0);
     }
     
@@ -615,7 +613,7 @@ public class ExplorerTest extends BaseTest
     	// verify that the current system selection
     	// equals that of what was selected above before
     	// the canvas selection was made
-    	while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+    	BaseTest.dispatchEvents(0);
     	
     	Iterator<?> iterator = selection.iterator();
     	while(iterator.hasNext()) {
@@ -670,7 +668,7 @@ public class ExplorerTest extends BaseTest
     	// verify that the current system selection
     	// equals that of what was selected above before
     	// the canvas selection was made
-    	while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+    	BaseTest.dispatchEvents(0);
     	
     	Iterator<?> iterator = selection.iterator();
     	while(iterator.hasNext()) {
@@ -717,7 +715,7 @@ public class ExplorerTest extends BaseTest
 		Component_c component = components[components.length - 1];
 		// create a provided interface
 		CanvasTestUtilities.openDiagramEditor(referringContainer);
-		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+		BaseTest.dispatchEvents(0);
 		AbstractTool tool = UITestingUtilities.getTool("Components",
 				"Provided Interface");
 		UITestingUtilities.activateTool(tool);
@@ -752,7 +750,7 @@ public class ExplorerTest extends BaseTest
 		DecoratingLabelProvider labelProvider = (DecoratingLabelProvider) getExplorerView()
 				.getTreeViewer().getLabelProvider();
 		ExplorerUtil.expandAll();
-		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+		BaseTest.dispatchEvents(0);
 		TreeItem findItem = ExplorerUtil.findItem(null, "Unnamed Parameter");
 		assertTrue("Expected to find a wrapper class.",
 				findItem.getData() instanceof MultipleOccurrenceElement);
@@ -788,7 +786,6 @@ public class ExplorerTest extends BaseTest
 		Selection.getInstance().clear();
 		Selection.getInstance().addToSelection(ele);
 		ExplorerUtil.selectItem(findItem);
-		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 		ExplorerUtil.renameItem("new_name");
 		List<MultipleOccurrenceElement> moes = getAllMultipleOccurrenceElements(ExplorerUtil
 				.findItem(container));
@@ -805,9 +802,8 @@ public class ExplorerTest extends BaseTest
 					labelProvider.getText(element).equals("new_name"));
 		}
 		ExplorerUtil.selectItem(findItem);
-		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 		ExplorerUtil.deleteItem();
-		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+		BaseTest.dispatchEvents(0);
 		moes = getAllMultipleOccurrenceElements(ExplorerUtil
 				.findItem(container));
 		otherMoes = getAllMultipleOccurrenceElements(ExplorerUtil
@@ -853,7 +849,7 @@ public class ExplorerTest extends BaseTest
 		Component_c component = components[components.length - 1];
 		// create a provided interface
 		CanvasTestUtilities.openDiagramEditor(referringContainer);
-		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+		BaseTest.dispatchEvents(0);
 		AbstractTool tool = UITestingUtilities.getTool("Components",
 				"Provided Interface");
 		UITestingUtilities.activateTool(tool);
@@ -888,7 +884,7 @@ public class ExplorerTest extends BaseTest
 		DecoratingLabelProvider labelProvider = (DecoratingLabelProvider) getExplorerView()
 				.getTreeViewer().getLabelProvider();
 		ExplorerUtil.expandAll();
-		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+		BaseTest.dispatchEvents(0);
 		TreeItem findItem = ExplorerUtil.findItem(null, "Unnamed Parameter");
 		assertTrue("Expected to find a wrapper class.",
 				findItem.getData() instanceof MultipleOccurrenceElement);
@@ -924,7 +920,6 @@ public class ExplorerTest extends BaseTest
 		Selection.getInstance().clear();
 		Selection.getInstance().addToSelection(ele);
 		ExplorerUtil.selectItem(findItem);
-		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 		ExplorerUtil.renameItem("new_name");
 		List<MultipleOccurrenceElement> moes = getAllMultipleOccurrenceElements(ExplorerUtil
 				.findItem(container));
@@ -941,9 +936,8 @@ public class ExplorerTest extends BaseTest
 					labelProvider.getText(element).equals("new_name"));
 		}
 		ExplorerUtil.selectItem(findItem);
-		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 		ExplorerUtil.deleteItem();
-		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+		BaseTest.dispatchEvents(0);
 		moes = getAllMultipleOccurrenceElements(ExplorerUtil
 				.findItem(container));
 		otherMoes = getAllMultipleOccurrenceElements(ExplorerUtil
