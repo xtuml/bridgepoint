@@ -326,11 +326,6 @@ public class VerifierSessionExplorerTests extends BaseTest {
 		String result = DebugUITestUtilities.getTreeTextRepresentation(tree);
 		result = result.trim();
 		File expectedResultsFile = new File(m_workspace_path + expected_result);
-//		try {
-//		FileWriter writer = new FileWriter(expectedResultsFile);
-//		writer.write(result);
-//		writer.close();
-//		} catch (Exception e) {};
 		String expected_results = TestUtil.getTextFileContents(expectedResultsFile);
 		assertEquals(expected_results, result);
 	}
