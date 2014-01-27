@@ -20,10 +20,10 @@ import com.mentor.nucleus.bp.core.ui.DeleteAction;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 
-public class DeleteUDTWithPropertyShowing extends PropertiesTest
+public class DeleteUDTWithPropertyShowing extends BaseTest
 {
 	public DeleteUDTWithPropertyShowing(String name) {
-        super(name);
+        super(null, name);
     }
 
 	public void testDeleteUDT() throws Exception

@@ -32,10 +32,7 @@ import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.PackageableElement_c;
 import com.mentor.nucleus.bp.core.Pref_c;
-import com.mentor.nucleus.bp.core.SystemModel_c;
-import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.ModelRoot;
-import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectPreferences;
 import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
@@ -93,10 +90,15 @@ public class ImportPasteElementsWithIPRTest extends BaseTest {
 		m_sys.Newpackage();
 		setIPRPreference(projectName, false);
 		ModelRoot [] roots = Ooaofooa.getInstancesUnderSystem(projectName);
-		ModelRoot root = roots[0];
 		
 		// Copy the component reference
-		ComponentReference_c cpElement = ComponentReference_c.ComponentReferenceInstance(root);
+		ComponentReference_c cpElement = null;
+		for(ModelRoot root : roots) {
+			cpElement = ComponentReference_c.ComponentReferenceInstance(root);
+			if(cpElement != null) {
+				break;
+			}
+		}
 		assertNotNull(cpElement);
 		assertFalse(cpElement.getAssignedcomp_id() == Gd_c.Null_unique_id());
 		

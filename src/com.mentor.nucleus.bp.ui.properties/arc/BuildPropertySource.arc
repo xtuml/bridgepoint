@@ -493,6 +493,7 @@ super.toString\
   .for each spec in child_specs
     .select one child related by spec->T_TNS[R1001]
     .assign child_var_name = "v_$lr{child.CategoryName}$r{spec.NameOnly}"
+    .select one parent_node related by spec->T_TNS[R1000]
     .//
     .// declare referred to instance arrays
     .if ( spec.UserModifiable )
@@ -510,7 +511,6 @@ super.toString\
     .else
       .select one child related by spec->T_TNS[R1001]
       .select any child_class from instances of O_OBJ where (selected.Key_Lett == child.Key_Lett)
-      .select one parent_node related by spec->T_TNS[R1000]
       .// This is a special case to allow view of DT in case of user defined
       .// udt
       .if (parent_node.Key_Lett == "S_UDT")
@@ -526,9 +526,13 @@ super.toString\
           .assign attr_instance_init = attr_instance_init + "       m_$r{child.categoryName}$r{spec.NameOnly} = ${child_var_name};\n"
           .assign attr_instance_init = attr_instance_init + "       num_children += m_$r{child.categoryName}$r{spec.NameOnly}.length;\n"
           .if (parent_node.Key_Lett == "S_UDT")
-          .assign attr_instance_init = attr_instance_init + "      }"
+            .assign attr_instance_init = attr_instance_init + "\n\t\tsorter.sort(${child_var_name});\n"
+            .assign attr_instance_init = attr_instance_init + "      }"
           .end if
       .end if  
+    .end if
+    .if((not spec.UserModifiable) and (parent_node.Key_Lett != "S_UDT"))
+      .assign attr_instance_init = attr_instance_init + "\n\t\tsorter.sort(${child_var_name});\n"
     .end if
   .end for
   .//
@@ -1043,6 +1047,7 @@ import com.mentor.nucleus.bp.ui.properties.*;
 .end if
 import com.mentor.nucleus.bp.core.*;
 import com.mentor.nucleus.bp.core.common.*;
+import com.mentor.nucleus.bp.core.sorter.MetadataSortingManager;
 import com.mentor.nucleus.bp.core.ui.cells.editors.*;
 import com.mentor.nucleus.bp.core.util.DimensionsUtil;
 
@@ -1052,6 +1057,7 @@ public class ${attr_class_name} implements IPropertySource
 ${rad.instance_decls}\
     private PropertyDescriptor[] m_propertyDescriptors;
 ${sad.enum_decls}
+	MetadataSortingManager sorter = MetadataSortingManager.createDefault();
 
     public ${attr_class_name}(${arch_class_name.body} inst)
     {

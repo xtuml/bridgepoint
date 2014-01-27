@@ -347,7 +347,7 @@ public class TIM {
 	// ========================================================================
 	// Bridge: timer_start
 	// ========================================================================
-	public static Object timer_start(int microseconds, Object event_inst) {
+	public static Object timer_start(Object event_inst, int microseconds) {
 		if (event_inst instanceof PendingEvent_c) {
 			PendingEvent_c pendingEvent = (PendingEvent_c) event_inst;
 			// create object instance timer of I_TIM;
@@ -368,9 +368,9 @@ public class TIM {
 	// ========================================================================
 	// Bridge: timer_start_recurring
 	// ========================================================================
-	public static Object timer_start_recurring(int microseconds,
-			Object event_inst) {
-		Timer_c result = (Timer_c) timer_start(microseconds, event_inst);
+	public static Object timer_start_recurring(Object event_inst,
+			int microseconds) {
+		Timer_c result = (Timer_c) timer_start(event_inst, microseconds);
 		if (result != null) {
 			result.setRecurring(true);
 			return result;
@@ -406,7 +406,7 @@ public class TIM {
 	// ========================================================================
 	// Bridge: timer_reset_time
 	// ========================================================================
-	public static boolean timer_reset_time(Object timer_inst, int microseconds) {
+	public static boolean timer_reset_time(int microseconds, Object timer_inst) {
 		if ((timer_inst instanceof Timer_c) && timersList.contains(timer_inst)) {		
 			Timer_c timer = (Timer_c) timer_inst;
 			ComponentInstance_c compInst = timersMap.get(timer);
@@ -422,7 +422,7 @@ public class TIM {
 	// ========================================================================
 	// Bridge: timer_add_time
 	// ========================================================================
-	public static boolean timer_add_time(Object timer_inst, int microseconds) {
+	public static boolean timer_add_time(int microseconds, Object timer_inst) {
 		if ((timer_inst instanceof Timer_c) && timersList.contains(timer_inst)) {
 			Timer_c timer = (Timer_c) timer_inst;
 			ComponentInstance_c compInst = timersMap.get(timer);
@@ -533,8 +533,8 @@ public class TIM {
 	// ========================================================================
 	// Bridge: create_date
 	// ========================================================================
-	public static Object create_date(int sec, int min, int hour, int day,
-			int month, int year) {
+	public static Object create_date(int day, int hour, int min, int month,
+			int sec, int year) {
 		Calendar cal = Calendar.getInstance();
 		cal.clear();
 		cal.set(year, month, day, hour, min, sec);

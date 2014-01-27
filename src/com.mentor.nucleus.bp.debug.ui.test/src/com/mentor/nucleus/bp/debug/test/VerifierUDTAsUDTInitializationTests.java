@@ -1,8 +1,5 @@
 package com.mentor.nucleus.bp.debug.test;
 
-import java.io.File;
-
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IVariable;
@@ -13,7 +10,6 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.ComponentInstance_c;
-import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.Function_c;
 import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.PackageableElement_c;
@@ -81,24 +77,10 @@ public class VerifierUDTAsUDTInitializationTests extends BaseTest {
         assertFalse(
                 "The Launch Verifier action was present for an unassigned imported component.",
                 UITestingUtilities.menuItemExists(menu, "", "Launch Verifier"));
+        
         // execute the funtion
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(
-                function));
-
-        while (PlatformUI.getWorkbench().getDisplay().readAndDispatch())
-            ;
-
-        Selection.getInstance().clear();
-        Selection.getInstance().addToSelection(function);
-
-        menu = DebugUITestUtilities.getMenuInSETree(function);
-
-        assertTrue("The execute menu item was not available for a function.",
-                UITestingUtilities.checkItemStatusInContextMenu(menu,
-                        "Execute", "", false));
-
-        UITestingUtilities.activateMenuItem(menu, "Execute");
-
+		BPDebugUtils.executeElement(function);
+		
         DebugUITestUtilities.waitForExecution();
 
         DebugUITestUtilities.waitForBPThreads(m_sys);

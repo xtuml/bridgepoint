@@ -220,17 +220,10 @@ public class VerifierStaticVariablesInRealizedClassesTest extends BaseTest {
 				.getManyPE_PEsOnR8000(Package_c
 						.getManyEP_PKGsOnR8001(PackageableElement_c
 								.getManyPE_PEsOnR8003(comp))));
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(fun));
-		Menu menu = DebugUITestUtilities.getMenuInSETree(fun);
-		if (UITestingUtilities.checkItemStatusInContextMenu(menu, "Execute",
-				"", false)) {
-			BPDebugUtils.setSelectionInSETree(new StructuredSelection(
-					fun));
-			UITestingUtilities.activateMenuItem(menu, "Execute");
-			// wait for the execution to complete
-			DebugUITestUtilities.waitForBPThreads(m_sys);
-			DebugUITestUtilities.waitForExecution();
-		}
+		BPDebugUtils.executeElement(fun);
+		// wait for the execution to complete
+		DebugUITestUtilities.waitForBPThreads(m_sys);
+		DebugUITestUtilities.waitForExecution();
 		while (PlatformUI.getWorkbench().getDisplay().readAndDispatch())
 			;
 		// compare the trace
@@ -255,7 +248,7 @@ public class VerifierStaticVariablesInRealizedClassesTest extends BaseTest {
 		assertNotNull(process);
 
 		DebugUITestUtilities.setSelectionInDebugTree(process);
-		menu = DebugUITestUtilities.getMenuForSelectionInDebugView();
+		Menu menu = DebugUITestUtilities.getMenuForSelectionInDebugView();
 		if (menu == null) {
 			fail("Failed to get tree viewer in Debug View.");
 		}
@@ -265,18 +258,14 @@ public class VerifierStaticVariablesInRealizedClassesTest extends BaseTest {
 		DebugUITestUtilities.waitForExecution();
 		DebugUITestUtilities.waitForBPThreads(m_sys);
 
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(fun));
-		menu = DebugUITestUtilities.getMenuInSETree(fun);
-		if (UITestingUtilities.checkItemStatusInContextMenu(menu, "Execute",
-				"", false)) {
-			BPDebugUtils.setSelectionInSETree(new StructuredSelection(
-					fun));
-			UITestingUtilities.activateMenuItem(menu, "Execute");
-			DebugUITestUtilities.waitForExecution();
-			// wait for the execution to complete
-			DebugUITestUtilities.waitForBPThreads(m_sys);
-			DebugUITestUtilities.waitForExecution();
-		}
+		BPDebugUtils.executeElement(fun);
+
+		
+		DebugUITestUtilities.waitForExecution();
+		// wait for the execution to complete
+		DebugUITestUtilities.waitForBPThreads(m_sys);
+		DebugUITestUtilities.waitForExecution();
+
 		// compare the trace
 		expectedResults = new File(
 				m_workspace_path

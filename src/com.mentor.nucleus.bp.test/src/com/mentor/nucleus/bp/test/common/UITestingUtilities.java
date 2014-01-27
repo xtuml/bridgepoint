@@ -55,6 +55,7 @@ import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
 import com.mentor.nucleus.bp.core.ui.Selection;
+import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.ui.canvas.Cl_c;
 import com.mentor.nucleus.bp.ui.canvas.Connector_c;
 import com.mentor.nucleus.bp.ui.canvas.ElementInSuppression_c;
@@ -411,6 +412,7 @@ public class UITestingUtilities {
 		MenuItem item = getMenuItem(menu, name);
 		activateMenuItem(item);
 	}
+		UIUtil.dispatchAll();
 	}
 
 	public class Tool_by_id_c implements ClassQueryInterface_c {

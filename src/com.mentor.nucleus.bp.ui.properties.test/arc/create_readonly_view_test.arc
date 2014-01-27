@@ -54,10 +54,10 @@ import com.mentor.nucleus.bp.ui.properties.*;
 import com.mentor.nucleus.bp.test.*;
 import com.mentor.nucleus.bp.test.TestUtil.Result1;
 
-public class ${class_name} extends PropertiesTest
+public class ${class_name} extends BaseTest
 {
   public ${class_name}(String name) {
-  	super(name);
+  	super(null, name);
   }	
     static private boolean firstTime = true;
 	public void setUp() throws Exception {

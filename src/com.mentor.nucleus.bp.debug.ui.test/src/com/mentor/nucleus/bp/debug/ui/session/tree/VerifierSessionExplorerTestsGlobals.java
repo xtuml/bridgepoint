@@ -261,16 +261,7 @@ public class VerifierSessionExplorerTestsGlobals extends BaseTest {
 		});
 		assertNotNull(test);
 		
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(test));
-		
-		Menu menu = DebugUITestUtilities.getMenuInSETree(test);
-		
-		assertTrue(
-				"The execute menu item was not available for a required function.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-		
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+		BPDebugUtils.executeElement(test);
 		
 		DebugUITestUtilities.waitForExecution();
 		TestingUtilities.processDisplayEvents();

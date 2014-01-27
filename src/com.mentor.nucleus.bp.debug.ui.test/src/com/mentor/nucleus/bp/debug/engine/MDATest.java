@@ -9,8 +9,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.ui.IDebugUIConstants;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.ComponentInstance_c;
@@ -24,13 +22,11 @@ import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.ui.perspective.BridgePointPerspective;
-import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.debug.ui.launch.BPDebugUtils;
 import com.mentor.nucleus.bp.debug.ui.test.DebugUITestUtilities;
 import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
-import com.mentor.nucleus.bp.test.common.UITestingUtilities;
 
 //========================================================================
 //
@@ -143,19 +139,7 @@ public class MDATest extends BaseTest {
 				"com.mentor.nucleus.bp.debug.ui.DebugPerspective",
 				BridgePointPerspective.ID_MGC_BP_EXPLORER);
 
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(
-				fnc));
-
-		Menu menu = DebugUITestUtilities.getMenuInSETree(fnc);
-
-		UIUtil.dispatchAll();
-
-		assertTrue(
-				"The execute menu item was not available for a required function.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+		BPDebugUtils.executeElement(fnc);
 
 		DebugUITestUtilities.waitForExecution();
 		ComponentInstance_c engine = ComponentInstance_c

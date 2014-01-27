@@ -44,7 +44,6 @@ import java.util.Map;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
-import com.mentor.nucleus.bp.core.common.ModelElementFileFacade;
 import com.mentor.nucleus.bp.core.*;
 import com.mentor.nucleus.bp.core.util.CoreUtil;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
@@ -64,8 +63,6 @@ public class ${provider_name} extends LabelProvider {
   public Image getImage(Object element) {
     .select any domain_class from instances of O_OBJ where (selected.Key_Lett == "S_DOM")
     .invoke ncn = get_class_name(domain_class)
-    if(element instanceof ModelElementFileFacade)
-            element=((ModelElementFileFacade)element).getModelElement();
 	if(element instanceof MultipleOccurrenceElement) {
 		element = ((MultipleOccurrenceElement) element).getElement();
 	}
@@ -117,21 +114,7 @@ ${nav_string.body}\
     .end if
     }
   .end for
-  else if(element instanceof ModelElementFileFacade){
-			final NonRootModelElement me = (NonRootModelElement) ((ModelElementFileFacade) element).getModelElement();
-			
-			String elementName = getText(me);
-			
-			String text = CoreUtil.getCanvasEditorPostTitle(me, false);
-
-			if (text == null) {//not found
-				text = elementName + ": "
-						+ CoreUtil.getModelElementType(me) + " Properties";
-			} else {
-				text = elementName + text;
-			}
-			return text;
-  }
+  
     return "Unknown Model Element";
   }
   /**

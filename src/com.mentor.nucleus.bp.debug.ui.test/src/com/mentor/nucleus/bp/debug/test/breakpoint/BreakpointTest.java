@@ -8,7 +8,6 @@ import org.eclipse.debug.core.IBreakpointManager;
 import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.ui.IDebugUIConstants;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
@@ -19,12 +18,11 @@ import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.SemEvent_c;
 import com.mentor.nucleus.bp.core.StateEventMatrixEntry_c;
 import com.mentor.nucleus.bp.core.StateMachineEvent_c;
-import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.Transition_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
-import com.mentor.nucleus.bp.debug.ui.launch.BPDebugUtils;
+import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.debug.ui.test.DebugUITestUtilities;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
@@ -115,7 +113,8 @@ public class BreakpointTest extends BaseTest {
     }
 
     private void setAndConfirmBreakpoint(NonRootModelElement tr) {
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(tr));
+		Selection.getInstance().clear();
+		Selection.getInstance().addToSelection(tr);
 		ActivityEditor editor = DebugUITestUtilities
 		                                .openActivityEditorForSelectedElement();
         DebugUITestUtilities.setBreakpointAtLine(editor, 2);
