@@ -111,17 +111,7 @@ public class SendMessageOverDelegationTest extends BaseTest {
 		Selection.getInstance().setSelection(new StructuredSelection(m_sys));
 		runVerifier();
 		
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(testFunc));
-
-		Menu menu = DebugUITestUtilities.getMenuInSETree(testFunc);
-
-		assertTrue(
-				"The execute menu item was not available for a required operation.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+		BPDebugUtils.executeElement(testFunc);
 
 		DebugUITestUtilities.waitForExecution();
 
@@ -178,17 +168,7 @@ public class SendMessageOverDelegationTest extends BaseTest {
 		Selection.getInstance().setSelection(new StructuredSelection(m_sys));
 		runVerifier();
 		
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(testFunc));
-		
-		Menu menu = DebugUITestUtilities.getMenuInSETree(testFunc);
-		
-		assertTrue(
-				"The execute menu item was not available for a required operation.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-		
-		
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+		BPDebugUtils.executeElement(testFunc);
 		
 		DebugUITestUtilities.waitForExecution();
 		
@@ -254,17 +234,7 @@ public class SendMessageOverDelegationTest extends BaseTest {
 		Selection.getInstance().setSelection(new StructuredSelection(m_sys));
 		runVerifier();
 		
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(testFunc));
-		
-		Menu menu = DebugUITestUtilities.getMenuInSETree(testFunc);
-		
-		assertTrue(
-				"The execute menu item was not available for a required operation.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-		
-		
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+		BPDebugUtils.executeElement(testFunc);
 		
 		DebugUITestUtilities.waitForExecution();
 		
@@ -290,17 +260,7 @@ public class SendMessageOverDelegationTest extends BaseTest {
 		Selection.getInstance().setSelection(new StructuredSelection(m_sys));
 		runVerifier();
 		
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(testFunc));
-		
-		Menu menu = DebugUITestUtilities.getMenuInSETree(testFunc);
-		
-		assertTrue(
-				"The execute menu item was not available for a required operation.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-		
-		
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+		BPDebugUtils.executeElement(testFunc);
 		
 		DebugUITestUtilities.waitForExecution();
 		

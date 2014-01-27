@@ -13,28 +13,15 @@ package com.mentor.nucleus.bp.debug.ui.launch;
 //Mentor Graphics Corp., and is not for external distribution.
 //======================================================================== 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-import java.util.Vector;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.debug.core.DebugException;
-import org.eclipse.debug.core.DebugPlugin;
-import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.IDebugTarget;
-import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IThread;
 import org.eclipse.debug.ui.IDebugView;
-import org.eclipse.jface.viewers.IStructuredSelection;
-
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.SWTException;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
@@ -52,15 +39,13 @@ import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.PackageableElement_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
-import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.InstanceList;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
-import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.util.UIUtil;
-import com.mentor.nucleus.bp.debug.ui.BPDebugUIPlugin;
 import com.mentor.nucleus.bp.debug.ui.IBPDebugUIPluginConstants;
+import com.mentor.nucleus.bp.debug.ui.actions.ExecuteAction;
 import com.mentor.nucleus.bp.debug.ui.model.BPDebugTarget;
 import com.mentor.nucleus.bp.debug.ui.model.BPThread;
 import com.mentor.nucleus.bp.ui.session.views.SessionExplorerView;
@@ -348,14 +333,6 @@ public class BPDebugUtils {
 		return null;
 	}
 	
-	public static void setSelectionInSETree(IStructuredSelection sel) {
-		SessionExplorerView sev = BPDebugUtils.openSessionExplorerView(true);
-		sev.getTreeViewer().expandAll();
-		sev.getTreeViewer().setSelection(sel);
-		Selection.getInstance().setSelection(sel);
-		UIUtil.dispatchAll();
-	}
-
 	public static SessionExplorerView openSessionExplorerView(
 			final boolean showView) {
 
@@ -434,6 +411,14 @@ public class BPDebugUtils {
 			}
 		}
 		return null;
+    }
+    
+    public static void executeElement(NonRootModelElement element) {
+    	openSessionExplorerView(true);
+    	ExecuteAction action = new ExecuteAction();
+    	action.setOALElement(element);
+    	action.run(null);
+    	UIUtil.dispatchAll();
     }
 
 }

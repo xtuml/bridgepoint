@@ -201,10 +201,8 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 								
 								// Execute this initializer
 								ExecuteAction action = new ExecuteAction();
-								IStructuredSelection selection = new StructuredSelection(initializer);
-								BPDebugUtils.setSelectionInSETree(selection);
-								action.selectionChanged(null, selection);
-								action.run(null);								
+								action.setOALElement(initializer);
+								action.run(null);					
 							}
 						});
 					}

@@ -40,6 +40,7 @@ import com.mentor.nucleus.bp.core.StateMachineEvent_c;
 import com.mentor.nucleus.bp.core.StateMachineState_c;
 import com.mentor.nucleus.bp.core.UserDataType_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
+import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.ui.properties.ActionSM_ACTPropertySource;
 import com.mentor.nucleus.bp.ui.properties.AssociationFormalizerEndR_FORMPropertySource;
 import com.mentor.nucleus.bp.ui.properties.AssociationParticipantEndR_PARTPropertySource;
@@ -64,10 +65,10 @@ import com.mentor.nucleus.bp.ui.properties.ReferentialAttributeO_RATTRPropertySo
 import com.mentor.nucleus.bp.ui.properties.StateSM_STATEPropertySource;
 import com.mentor.nucleus.bp.ui.properties.UserDefinedDataTypeS_UDTPropertySource;
 
-public class EnumRangeTest extends PropertiesTest
+public class EnumRangeTest extends BaseTest
 {
     public EnumRangeTest(String name) {
-        super(name);
+        super(null, name);
     }
     public static final String[] Return_Dimensions_vals =
     {

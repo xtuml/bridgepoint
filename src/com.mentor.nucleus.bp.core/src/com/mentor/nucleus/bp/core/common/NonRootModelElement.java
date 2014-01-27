@@ -620,9 +620,6 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
     public boolean isReferenced() {
         return PersistenceManager.getHierarchyMetaData().hasExternalRGO(this, false);
     }
-    public ModelElementFileFacade getFileFacade(){
-        return null;
-    }
 
     public boolean ensureLoaded(boolean load) {
         if (load) {

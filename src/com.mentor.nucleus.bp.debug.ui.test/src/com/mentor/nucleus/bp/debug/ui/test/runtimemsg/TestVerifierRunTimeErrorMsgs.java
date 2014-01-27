@@ -44,6 +44,7 @@ import com.mentor.nucleus.bp.core.common.InstanceList;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.ui.perspective.BridgePointPerspective;
+import com.mentor.nucleus.bp.debug.ui.actions.ExecuteAction;
 import com.mentor.nucleus.bp.debug.ui.launch.BPDebugUtils;
 import com.mentor.nucleus.bp.debug.ui.test.DebugUITestUtilities;
 import com.mentor.nucleus.bp.test.TestUtil;
@@ -277,21 +278,10 @@ public class TestVerifierRunTimeErrorMsgs extends BaseTest {
     	 runVerifier();
 		
 	       
-	       BPDebugUtils.setSelectionInSETree(new StructuredSelection(rowInstance));
- 
-		
-
-	       Menu menu = DebugUITestUtilities.getMenuInSETree(rowInstance);
-		
-		if(UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false))
-		{
-			
-
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(rowInstance));
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
-
+ 		ExecuteAction action = new ExecuteAction();
+ 		action.setOALElement(rowInstance);
+ 		action.run(null);
+ 		
 		DebugUITestUtilities.waitForExecution();
 
 //		ComponentInstance_c engine = ComponentInstance_c
@@ -301,7 +291,6 @@ public class TestVerifierRunTimeErrorMsgs extends BaseTest {
 		// wait for the execution to complete
 		DebugUITestUtilities.waitForBPThreads(m_sys);
 		DebugUITestUtilities.waitForExecution();
-		}
 	
         //TODO: Implement
 

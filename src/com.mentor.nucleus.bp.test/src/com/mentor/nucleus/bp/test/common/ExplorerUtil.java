@@ -28,7 +28,6 @@ import org.eclipse.ui.IEditorPart;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.common.IPersistenceHierarchyMetaData;
-import com.mentor.nucleus.bp.core.common.ModelElementFileFacade;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
@@ -480,8 +479,6 @@ public class ExplorerUtil {
         while (index < path.segmentCount()) {
             item = null;
             for (int i = 0; i < items.length; i++) {
-                if(items[i].getData() instanceof ModelElementFileFacade)
-                    continue;
                 
                 String itemText = metaData
                         .getRootElementName((NonRootModelElement) items[i]

@@ -26,7 +26,6 @@ import com.mentor.nucleus.bp.core.FunctionParameter_c;
 import com.mentor.nucleus.bp.core.Function_c;
 import com.mentor.nucleus.bp.core.Gd_c;
 import com.mentor.nucleus.bp.core.InstanceReferenceDataType_c;
-import com.mentor.nucleus.bp.core.InstanceStateMachine_c;
 import com.mentor.nucleus.bp.core.ModelClass_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.OperationParameter_c;
@@ -42,11 +41,12 @@ import com.mentor.nucleus.bp.core.StructuredDataType_c;
 import com.mentor.nucleus.bp.core.UserDataType_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
+import com.mentor.nucleus.bp.test.common.BaseTest;
 
-public class IsAllowedTypeTest extends PropertiesTest
+public class IsAllowedTypeTest extends BaseTest
 {
     public IsAllowedTypeTest(String name) {
-        super(name);
+        super(null, name);
     }
 
     static boolean initialized = false;

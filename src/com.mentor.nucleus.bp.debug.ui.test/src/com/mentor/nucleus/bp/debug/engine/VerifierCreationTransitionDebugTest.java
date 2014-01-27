@@ -19,14 +19,12 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.ui.IDebugUIConstants;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.PlatformUI;
 
+import com.mentor.nucleus.bp.core.ComponentInstance_c;
 import com.mentor.nucleus.bp.core.Component_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.CreationTransition_c;
-import com.mentor.nucleus.bp.core.ComponentInstance_c;
 import com.mentor.nucleus.bp.core.Function_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.Package_c;
@@ -35,14 +33,13 @@ import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
+import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.ui.perspective.BridgePointPerspective;
-import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.debug.ui.launch.BPDebugUtils;
 import com.mentor.nucleus.bp.debug.ui.test.DebugUITestUtilities;
 import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
-import com.mentor.nucleus.bp.test.common.UITestingUtilities;
 import com.mentor.nucleus.bp.ui.text.activity.ActivityEditor;
 
 public class VerifierCreationTransitionDebugTest extends BaseTest {
@@ -134,7 +131,8 @@ public class VerifierCreationTransitionDebugTest extends BaseTest {
 			}
 		});
 		assertNotNull(Ctrans);
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(Ctrans));
+		Selection.getInstance().clear();
+		Selection.getInstance().addToSelection(Ctrans);
 		// set a breakpoint at line 3
 		ActivityEditor editor = DebugUITestUtilities
 		.openActivityEditorForSelectedElement();
@@ -149,16 +147,14 @@ public class VerifierCreationTransitionDebugTest extends BaseTest {
 			}
 
 		});
-		assertNotNull(testFunction);
-		
+		assertNotNull(testFunction);		
 		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
-		
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(testFunction));
-		
-		Menu menu = DebugUITestUtilities.getMenuInSETree(testFunction);		
-		UIUtil.dispatchAll();
+				
+		Selection.getInstance().clear();
+		Selection.getInstance().addToSelection(testFunction);
 		editor = DebugUITestUtilities.openActivityEditorForSelectedElement();
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+		BPDebugUtils.executeElement(testFunction);
+		
 		BPDebugUtils.openSessionExplorerView(true);
 		DebugUITestUtilities.waitForExecution();
 
