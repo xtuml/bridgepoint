@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<launchConfiguration type="org.eclipse.ui.externaltools.ProgramBuilderLaunchConfigurationType">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><launchConfiguration type="org.eclipse.ui.externaltools.ProgramBuilderLaunchConfigurationType">
 <booleanAttribute key="org.eclipse.ui.externaltools.ATTR_BUILDER_ENABLED" value="true"/>
 <booleanAttribute key="org.eclipse.debug.ui.ATTR_LAUNCH_IN_BACKGROUND" value="false"/>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS" value=" -l3b  -e -d code_generation -O &quot;C:/test2.0.2/BridgePoint/workspace/Watch/src&quot; -home &quot;c:/test2.0.2/BridgePoint/eclipse_extensions/Bridgepoint/eclipse/plugins/com.mentor.nucleus.bp.mc.mc3020_2.0.2/&quot;  -f bridge.mark -f datatype.mark -f registry.mark -f sys_user_co.c -f sys_user_co.h -f system.mark -f tracking_class.mark -f tracking_domain.mark -f tracking_event.mark"/>
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS" value=" -home &quot;C:/MentorGraphics/xtUML_Dev_1/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.mc.mc3020_4.0.4/&quot;  -l3b  -e -d code_generation -O ../../src/"/>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_RUN_BUILD_KINDS" value="full,incremental,"/>
 <stringAttribute key="org.eclipse.debug.core.ATTR_REFRESH_SCOPE" value="${container}"/>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_WORKING_DIRECTORY" value="${build_project}/gen"/>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="c:/test2.0.2/BridgePoint/eclipse_extensions/Bridgepoint/eclipse/plugins/com.mentor.nucleus.bp.mc.mc3020_2.0.2/mc3020/bin/xtumlmc_build.exe"/>
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="C:/MentorGraphics/xtUML_Dev_1/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.mc.mc3020_4.0.4/mc3020/bin/xtumlmc_build.exe"/>
 <booleanAttribute key="org.eclipse.ui.externaltools.ATTR_TRIGGERS_CONFIGURED" value="true"/>
 <booleanAttribute key="org.eclipse.debug.core.appendEnvironmentVariables" value="true"/>
-</launchConfiguration>
+<mapAttribute key="org.eclipse.debug.core.environmentVariables"><mapEntry value="Console"/></mapAttribute></launchConfiguration>
