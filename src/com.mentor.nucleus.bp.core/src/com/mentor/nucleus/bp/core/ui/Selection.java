@@ -30,7 +30,6 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 
 import com.mentor.nucleus.bp.core.Ooaofooa;
-import com.mentor.nucleus.bp.core.common.ModelElementFileFacade;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 
 /**
@@ -75,10 +74,7 @@ public class Selection implements ISelectionProvider
     	};
 		for (Iterator iter = elements.iterator(); iter.hasNext();) {
 			Object element = iter.next();
-			if(element instanceof ModelElementFileFacade)
-				result.add(((ModelElementFileFacade)element).getModelElement());
-			else
-				result.add(element);
+			result.add(element);
 		}
 		return result.toArray();
     }

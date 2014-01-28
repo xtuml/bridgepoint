@@ -476,7 +476,6 @@ public class ${viewer_name} extends ViewPart implements IModelViewerProvider {
     .invoke cn = get_class_name( class )
     if ( o instanceof ${cn.body} ) return true;
   .end for
-    if ( o instanceof ModelElementFileFacade ) return true;
     return false;
   }
   /**
