@@ -31,9 +31,11 @@ plug-in forward and thus we will remove it.
 
 5. Work Required
 ---------------- 
-5.1  Remove the plug-ins: ```com.mentor.nucleus.bp.mc.mc3020, com.mentor.nucleus.bp.mc.mc3020.test, com.mentor.nucleus.bp.mc.mc3020.pkg, com.mentor.nucleus.bp.mc.mc3020.pkg-feature```  
-5.2  Remove all references in other plug-ins & projects to the removed plug-ins  
-
+5.1  Removed the plug-ins: ```com.mentor.nucleus.bp.mc.mc3020, com.mentor.nucleus.bp.mc.mc3020.test, com.mentor.nucleus.bp.mc.mc3020.pkg, com.mentor.nucleus.bp.mc.mc3020.pkg-feature```    
+5.2  Removed all references in other plug-ins & projects to the removed plug-ins    
+5.3  Updated the test models in the ```xtuml/models``` and ```xtuml/modelsmg``` repositories to convert the 
+  launch files and project builders and natures from the old MC-3020 plug-in to mc.c.binary.  
+  
 6. Implementation Comments
 --------------------------
 6.1  While performing the clean-up, the author found that the ```bp.io.mdl.test```
@@ -49,10 +51,10 @@ plug-in forward and thus we will remove it.
 
 8. Code Changes
 ---------------
-Branch name: 136_del_mc3020  
+Repository: xtuml/internal  
+Branch name: 136_del_mc3020    
 
 <pre>
-
 com.mentor.nucleus.bp.core.test/src/com/mentor/
     nucleus/bp/core/test/TigerNatureWorkspaceSetupTestGenerics.java
 com.mentor.nucleus.bp.core.test/plugin.xml
@@ -640,10 +642,13 @@ com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/
 com.mentor.nucleus.bp.welcome/generate.xml
 com.mentor.nucleus.bp.welcome/plugin.xml
 
+doc-internal/notes/136_del_mc3020_int.md
 doc-internal/process/
     HOWTO-create-new-development-workspace.md
 doc-internal/process/
     HOWTO-update-the-BP-copyright.txt
+doc-internal/qa/results/R4_1_1/136_del_mc3020/
+    Unit_test_summary_FR.txt
 
 Installer_MIP_MIMIC/post_install_script.sh
 
@@ -653,6 +658,257 @@ utilities/build/create_release_functions.sh
 
 </pre>
 
+Repository: xtuml/models  
+Branch name: 20_del_mc3020    
+
+<pre>
+AssignClassTests/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+AssignClassTests/.externalToolBuilders/
+    Model Compiler.launch
+AssignClassTests/.project
+
+AssignComponentTests/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+AssignComponentTests/.externalToolBuilders/
+    Model Compiler.launch
+AssignComponentTests/.project
+
+AssignRemoveEvents/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+AssignRemoveEvents/.externalToolBuilders/
+    Model Compiler.launch
+AssignRemoveEvents/.project
+
+AttributeMenuItemTests/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+AttributeMenuItemTests/.externalToolBuilders/
+    Model Compiler.launch
+AttributeMenuItemTests/.project
+
+CantHappenEvtIgnoreEvtTests/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+CantHappenEvtIgnoreEvtTests/.externalToolBuilders/
+    Model Compiler.launch
+CantHappenEvtIgnoreEvtTests/.project
+
+CombineSplitReferentialsTest/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+CombineSplitReferentialsTest/.externalToolBuilders/
+    Model Compiler.launch
+CombineSplitReferentialsTest/.project
+
+CommunicationTestModel/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+CommunicationTestModel/.externalToolBuilders/
+    Model Compiler.launch
+CommunicationTestModel/.project
+
+ConnectorMoveTests/.externalToolBuilders/
+    com.mentor.nucleus.bp.mc.mc3020.export_builder (13).launch
+ConnectorMoveTests/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+ConnectorMoveTests/.externalToolBuilders/
+    Model Compiler.launch
+ConnectorMoveTests/.project
+
+ConnectorPolicyTestModel/.externalToolBuilders/
+    com.mentor.nucleus.bp.mc.mc3020.export_builder (13).launch
+ConnectorPolicyTestModel/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+ConnectorPolicyTestModel/.externalToolBuilders/
+    Model Compiler.launch
+ConnectorPolicyTestModel/.project
+
+ContextMenuTests/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+ContextMenuTests/.externalToolBuilders/
+    Model Compiler.launch
+ContextMenuTests/.project
+
+CreationTransitionEventReassignmentTest/
+    .externalToolBuilders/MC-3020 Model Compiler.launch
+CreationTransitionEventReassignmentTest/
+    .externalToolBuilders/Model Compiler.launch
+CreationTransitionEventReassignmentTest/.project
+
+DatatypeTest/.project
+
+DeterministicBehaviorTestModel/.externalToolBuilders/
+    com.mentor.nucleus.bp.mc.mc3020.export_builder.launch
+DeterministicBehaviorTestModel/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+DeterministicBehaviorTestModel/.externalToolBuilders/
+    Model Compiler.launch
+DeterministicBehaviorTestModel/.project
+
+EERealizedStaticDataTestLibraryDuplicateRealizedEE/
+    .externalToolBuilders/com.mentor.nucleus.bp.mc.mc3020.export_builder.launch
+EERealizedStaticDataTestLibraryDuplicateRealizedEE/
+    .externalToolBuilders/MC-3020 Model Compiler.launch
+EERealizedStaticDataTestLibraryDuplicateRealizedEE/
+    .externalToolBuilders/Model Compiler.launch
+EERealizedStaticDataTestLibraryDuplicateRealizedEE/
+    .project
+
+EERealizedStaticDataTestNoLocalRealizedEE/
+    .externalToolBuilders/MC-3020 Model Compiler.launch
+EERealizedStaticDataTestNoLocalRealizedEE/
+    .externalToolBuilders/Model Compiler.launch
+EERealizedStaticDataTestNoLocalRealizedEE/.project
+
+GraphicalAnchorTests/.externalToolBuilders/
+    com.mentor.nucleus.bp.mc.mc3020.export_builder (14).launch
+GraphicalAnchorTests/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+GraphicalAnchorTests/.externalToolBuilders/
+    Model Compiler.launch
+GraphicalAnchorTests/.project
+
+InstanceReferenceTestMatrixModel/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+InstanceReferenceTestMatrixModel/.externalToolBuilders/
+    Model Compiler.launch
+
+Looper/.externalToolBuilders/
+    com.mentor.nucleus.bp.mc.mc3020.export_builder (4).launch
+Looper/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+Looper/.externalToolBuilders/Model Compiler.launch
+Looper/.project
+
+mfp_issue34/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+mfp_issue34/.externalToolBuilders/Model Compiler.launch
+mfp_issue34/.project
+
+MicrowaveOven/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+MicrowaveOven/.externalToolBuilders/Model Compiler.launch
+MicrowaveOven/.project
+
+ModificationValidationTests/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+ModificationValidationTests/.externalToolBuilders/
+    Model Compiler.launch
+ModificationValidationTests/.project
+
+ModifyNonFullyLoadedModelTest/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+ModifyNonFullyLoadedModelTest/.externalToolBuilders/
+    Model Compiler.launch
+ModifyNonFullyLoadedModelTest/.project
+
+MultipleSelectionAssignmentTests/.externalToolBuilders/
+    com.mentor.nucleus.bp.mc.mc3020.export_builder (16).launch
+MultipleSelectionAssignmentTests/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+MultipleSelectionAssignmentTests/.externalToolBuilders/
+    Model Compiler.launch
+MultipleSelectionAssignmentTests/.project
+
+OperationsTest/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+OperationsTest/.externalToolBuilders/
+    Model Compiler.launch
+OperationsTest/.project
+
+PolymorphicEventAssignmentTest/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+PolymorphicEventAssignmentTest/.externalToolBuilders/
+    Model Compiler.launch
+PolymorphicEventAssignmentTest/.project
+
+SequenceTestModel/.externalToolBuilders/
+    com.mentor.nucleus.bp.mc.mc3020.export_builder.launch
+SequenceTestModel/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+SequenceTestModel/.externalToolBuilders/
+    Model Compiler.launch
+SequenceTestModel/.project
+
+Sumo/.externalToolBuilders/MC-3020 Model Compiler.launch
+Sumo/.externalToolBuilders/Model Compiler.launch
+Sumo/.project
+
+testCanRenameDelete/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+testCanRenameDelete/.externalToolBuilders/
+    Model Compiler.launch
+testCanRenameDelete/.project
+
+testMessageDirectionIndicationOnPort/
+    .externalToolBuilders/MC-3020 Model Compiler.launch
+testMessageDirectionIndicationOnPort/
+    .externalToolBuilders/Model Compiler.launch
+testMessageDirectionIndicationOnPort/.project
+
+testSignalAssignmentCCP/.externalToolBuilders/
+    com.mentor.nucleus.bp.mc.mc3020.export_builder (10).launch
+testSignalAssignmentCCP/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+testSignalAssignmentCCP/.externalToolBuilders/
+    Model Compiler.launch
+testSignalAssignmentCCP/.project
+
+testSignalAssignmentCCPDestination/
+    .externalToolBuilders/
+    com.mentor.nucleus.bp.mc.mc3020.export_builder (11).launch
+testSignalAssignmentCCPDestination/
+    .externalToolBuilders/MC-3020 Model Compiler.launch
+testSignalAssignmentCCPDestination/
+    .externalToolBuilders/Model Compiler.launch
+testSignalAssignmentCCPDestination/.project
+
+testTransaction/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+testTransaction/.externalToolBuilders/
+    Model Compiler.launch
+testTransaction/.project
+
+testVisibilityFilterInElementChooser/
+    .externalToolBuilders/
+    com.mentor.nucleus.bp.mc.mc3020.export_builder (15).launch
+testVisibilityFilterInElementChooser/
+    .externalToolBuilders/MC-3020 Model Compiler.launch
+testVisibilityFilterInElementChooser/
+    .externalToolBuilders/Model Compiler.launch
+testVisibilityFilterInElementChooser/.project
+
+VerifierMessageTestGlobals/.externalToolBuilders/
+    com.mentor.nucleus.bp.mc.mc3020.export_builder (1).launch
+VerifierMessageTestGlobals/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+VerifierMessageTestGlobals/.externalToolBuilders/
+    Model Compiler.launch
+VerifierMessageTestGlobals/.project
+
+VerifierTransitionActionTest/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+VerifierTransitionActionTest/.externalToolBuilders/
+    Model Compiler.launch
+
+watchGenerics/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+watchGenerics/.externalToolBuilders/Model Compiler.launch
+watchGenerics/.project
+
+
+</pre>
+
+Repository: xtuml/modelsmg  
+Branch name: 7_del_mc3020    
+
+<pre>
+Integration/.externalToolBuilders/
+    com.mentor.nucleus.bp.mc.mc3020.export_builder (20).launch
+Integration/.externalToolBuilders/
+    MC-3020 Model Compiler.launch
+Integration/.externalToolBuilders/Model Compiler.launch
+Integration/.project
+
+
+</pre>
 End
 ---
 
