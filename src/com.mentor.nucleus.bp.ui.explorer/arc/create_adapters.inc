@@ -54,7 +54,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import com.mentor.nucleus.bp.ui.explorer.ExplorerPlugin;
 .end if
-import com.mentor.nucleus.bp.core.common.ModelElementFileFacade;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import com.mentor.nucleus.bp.core.*;
@@ -182,18 +181,10 @@ ${rel_nav.body}\
     resultSize += ${varName}.length;
   .end for
   
-  .invoke is_compRoot = is_componentRootElementKL(tree_node.Key_Lett)
-  .if(is_compRoot.result)
-      resultSize++; //we have one special file item
-  .end if  
+  .invoke is_compRoot = is_componentRootElementKL(tree_node.Key_Lett) 
     Object [] result = new Object [resultSize];
   .if (not_empty child_specs)
-    .if(is_compRoot.result)
-        result[0]=  ModelElementFileFacade.getFacadeOf(arg);
-	    int count = 1;
-    .else
 	    int count = 0;  
-	  .end if  
   .end if
   .assign childCount = 0
   .for each spec in child_specs
@@ -230,9 +221,9 @@ ${rel_nav.body}\
     .select one child related by spec->T_TNS[R1001]
     .assign relNumber = "$tcf_rel{spec.ParentChildRelChain}"
     .assign varName = "$lr{child.CategoryName}_${relNumber}_${childCount}"
-    .invoke rel_nav = generate_backward_rel_chain_nav(tree_node, spec.ParentChildRelChain, "one", "arg", "${varName}")
+    .invoke rel_nav = generate_backward_rel_chain_nav(tree_node, spec.ParentChildRelChain, "many", "arg", "${varName}")
          ${rel_nav.body}
-         if (${varName}!=null) return true;  
+         if (${varName}.length > 0) return true;  
   .end for
     return false;
   }

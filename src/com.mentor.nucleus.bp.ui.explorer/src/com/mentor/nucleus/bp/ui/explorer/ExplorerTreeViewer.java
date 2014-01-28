@@ -69,9 +69,6 @@ public class ExplorerTreeViewer extends TreeViewer {
             if (mElement instanceof IFile) {
                 path = ((IFile) mElement).getFullPath();
                 pmc = PersistenceManager.findComponent(path);
-                if (pmc != null && pmc.getRootModelElement() != null) {
-                    mElement = pmc.getRootModelElement().getFileFacade();
-                }
             } else if (mElement instanceof IFolder) {
                 path = ((IFolder) mElement).getFullPath();
                 path = path.append(path.lastSegment() + "."
