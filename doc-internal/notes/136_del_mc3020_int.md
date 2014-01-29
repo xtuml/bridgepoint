@@ -15,7 +15,8 @@ This note describes the work and testing done to remove an unused plug-in.
 2. Document References
 ----------------------
 [1] Issues 136, https://github.com/xtuml/internal/issues/136    
-[2] CQ DEI dts0101019774  
+[2] CQ DEI dts0101019774 - Remove Deprecated bp.mc.mc3020 Plug-in    
+[3] CQ DEI dts0101035711 - Remove EDGE to CDT conversion utility  
 
 3. Background
 --------------
@@ -43,7 +44,16 @@ plug-in forward and thus we will remove it.
   The Watch project is old and no longer used.  The Library and watchGenerics 
   projects are now used from the test model repository and they no longer need
   to exist in the io.mdl.test plug-in.  They are removed with this work.    
-
+6.2  The work done for this issue address [3].  The EDGE to CDT conversion utility
+  is removed.  This will remove the menu item as well as the BridgePoint startup
+  check we perform.  
+6.3  This work removes ```bp.utilities\src\...\VerifiyPreBuilderPresentAction.java```.  This 
+  was a utility check we performed at each startup to make sure that projects had
+  been converted to use pre-builder.  We now assume that all projects have been updated
+  to use pre-builder, just as we are now assuming they are set up to use CDT.  If a project
+  is encountered that is not yet converted, the user must install BP 4.1.0, do the conversion,
+  then proceed to use a newer version of the tool.  
+    
 7. Unit Test
 ------------
 7.1  Verify all JUnit tests pass    
