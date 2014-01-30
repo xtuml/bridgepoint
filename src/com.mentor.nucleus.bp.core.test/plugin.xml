@@ -34,7 +34,6 @@
       <import plugin="com.mentor.nucleus.bp.ui.explorer.test"/>
       <import plugin="org.eclipse.ui.navigator"/>
       <import plugin="com.mentor.nucleus.bp.ui.graphics"/>
-      <import plugin="com.mentor.nucleus.bp.mc.mc3020"/>
       <import plugin="org.eclipse.gef"/>
       <import plugin="com.mentor.nucleus.bp.compare"/>
       <import plugin="org.eclipse.compare"/>

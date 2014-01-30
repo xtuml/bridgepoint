@@ -23,7 +23,6 @@
       <import plugin="org.eclipse.core.variables"/>
       <import plugin="org.apache.ant"/>
       <import plugin="org.eclipse.ant.core"/>
-      <import plugin="com.mentor.nucleus.bp.mc.mc3020"/>
       <import plugin="com.mentor.nucleus.bp.mc"/>
       <import plugin="com.mentor.nucleus.bp.mc.c.binary"/>
       <import plugin="com.mentor.nucleus.bp.mc.c.source"/>
