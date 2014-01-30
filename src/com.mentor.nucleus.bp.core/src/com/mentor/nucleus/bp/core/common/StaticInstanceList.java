@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 //========================================================================
 //
-//File:      $RCSfile: InstanceList.java,v $
-//Version:   $Revision: 1.34 $
-//Modified:  $Date: 2013/05/10 13:26:32 $
+//File:      StaticInstanceList.java
 //
-//(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
 //This document contains information proprietary and confidential to
