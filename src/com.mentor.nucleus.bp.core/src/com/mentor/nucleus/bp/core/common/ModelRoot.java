@@ -27,10 +27,19 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.util.ListenerList;
 
+import com.mentor.nucleus.bp.core.ArrayValue_c;
+import com.mentor.nucleus.bp.core.ComponentReferenceValue_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.InstanceReferenceValue_c;
 import com.mentor.nucleus.bp.core.Modeleventnotification_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
+import com.mentor.nucleus.bp.core.RuntimeValue_c;
+import com.mentor.nucleus.bp.core.SimpleCoreValue_c;
+import com.mentor.nucleus.bp.core.SimpleValue_c;
+import com.mentor.nucleus.bp.core.StructuredValue_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
+import com.mentor.nucleus.bp.core.ValueInArray_c;
+import com.mentor.nucleus.bp.core.ValueInStructure_c;
 
 /**
  * The root element of the tree of elements that belongs to a domain.  
@@ -110,12 +119,31 @@ public abstract class ModelRoot extends ModelElement implements IModelChangeProv
     }
     
     protected Map<Class, InstanceList> instanceListMap = new Hashtable<Class, InstanceList>();
+    private static final Class<?>[] runtimes = {RuntimeValue_c.class,
+    	StructuredValue_c.class, SimpleValue_c.class, ArrayValue_c.class,
+    	InstanceReferenceValue_c.class, SimpleCoreValue_c.class,
+    	ComponentReferenceValue_c.class, ValueInStructure_c.class,
+    	ValueInArray_c.class};
+
+    private static boolean isRuntime (Class<?> clazz) {
+    	for (Class<?> runtime: runtimes) {
+    		if (runtime.equals(clazz)) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 
     public synchronized InstanceList getInstanceList(Class type)
     {
-        InstanceList list = instanceListMap.get(type);
+    	InstanceList list = instanceListMap.get(type);
         if(list == null){
-            list = new InstanceList(this, type);
+        	if (isRuntime(type)) {
+              list = new RuntimeInstanceList(this, type);
+        	}
+        	else {
+              list = new StaticInstanceList(this, type);
+        	}
             instanceListMap.put(list.getType(), list);
         }
         return list;

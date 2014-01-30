@@ -20,7 +20,7 @@ import java.util.UUID;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 
-public class InstanceList extends ArrayList<NonRootModelElement> {
+public abstract class InstanceList extends ArrayList<NonRootModelElement> {
 	ModelRoot root;
 	Class type;
     HashMap<BPElementID, NonRootModelElement> instanceMap = new HashMap<BPElementID, NonRootModelElement>();
@@ -31,7 +31,7 @@ public class InstanceList extends ArrayList<NonRootModelElement> {
 		type = aType;
 	}
 
-  private InstanceList(ArrayList list, HashMap map, ModelRoot aRoot, Class aType) {
+  protected InstanceList(ArrayList list, HashMap map, ModelRoot aRoot, Class aType) {
     super(list);
     instanceMap = map;
     root = aRoot;
@@ -202,7 +202,7 @@ public class InstanceList extends ArrayList<NonRootModelElement> {
     	updateKey(oldKey, newKey, object, true);
     }
     
-    private synchronized void removeOldKey(Object key, Object object) {
+    protected synchronized void removeOldKey(Object key, Object object) {
       BPElementID uKey = new BPElementID((Object [])key);
       if (instanceMap.get(uKey) == object) {
         // It can happen that the wrong object is found, when
@@ -266,16 +266,8 @@ public class InstanceList extends ArrayList<NonRootModelElement> {
 	  }
 	  return super.remove(object);
 	}
-	public synchronized boolean remove(Object key, Object object) {
-		boolean removed = super.remove(object);
-		if (removed) {
-			if (size() == 0) {
-				instanceMap.clear();
-			}
-			removeOldKey(key, object);
-		}
-		return removed;
-	}
+	
+	public abstract boolean remove(Object key, Object object);
 
 	public synchronized void removeAllElements() {
 		super.clear();
@@ -368,9 +360,7 @@ public class InstanceList extends ArrayList<NonRootModelElement> {
 	  return super.isEmpty();
 	}
 	
-	public synchronized boolean contains(NonRootModelElement element) {
-		return super.contains(element);
-	}
+	public abstract boolean contains(NonRootModelElement element);
 	
 	public synchronized int indexOf(NonRootModelElement element) {
 	  return super.indexOf(element);
@@ -381,9 +371,13 @@ public class InstanceList extends ArrayList<NonRootModelElement> {
 	}
 	
 	public synchronized Object clone() {
-	  return new InstanceList((ArrayList)super.clone(), instanceMap, root, type );
+		  return clone((ArrayList)super.clone(), instanceMap, root, type );
 	}
-		
+
+    abstract Object clone(ArrayList clone,
+			HashMap<BPElementID, NonRootModelElement> instanceMap,
+			ModelRoot root, Class type);
+
   //public Object[] toArray() don't want this overridden
   //public Object[] toArray(NonRootModelElement []) don't want this overridden
 
@@ -402,7 +396,12 @@ public class InstanceList extends ArrayList<NonRootModelElement> {
 	}
 	
 	public synchronized NonRootModelElement remove(int index) {
-	  return super.remove(index);
+		if (index == -1) {
+			return null;
+		}
+		else {
+	      return super.remove(index);
+		}
 	}
 	// public boolean remove (NonRootModelElement element) already overridden
 	
