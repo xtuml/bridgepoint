@@ -373,7 +373,7 @@ public abstract class InstanceList extends ArrayList<NonRootModelElement> {
 	public synchronized Object clone() {
 		  return clone((ArrayList)super.clone(), instanceMap, root, type );
 	}
-
+	// Allow specialized InstanceList to clone itself
     abstract Object clone(ArrayList clone,
 			HashMap<BPElementID, NonRootModelElement> instanceMap,
 			ModelRoot root, Class type);

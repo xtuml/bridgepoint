@@ -119,12 +119,17 @@ public abstract class ModelRoot extends ModelElement implements IModelChangeProv
     }
     
     protected Map<Class, InstanceList> instanceListMap = new Hashtable<Class, InstanceList>();
+    
+    // List of meta-model classes which particpate exclusively at
+    // Verifier runtime. We use this list to allocate an instance
+    // extent class with a backward search policy to optimize
+    // Verifier runtime delete performance. See dts0101019516.
     private static final Class<?>[] runtimes = {RuntimeValue_c.class,
     	StructuredValue_c.class, SimpleValue_c.class, ArrayValue_c.class,
     	InstanceReferenceValue_c.class, SimpleCoreValue_c.class,
     	ComponentReferenceValue_c.class, ValueInStructure_c.class,
     	ValueInArray_c.class};
-
+    // Traverse the list to see if the passed class is in the runtime set
     private static boolean isRuntime (Class<?> clazz) {
     	for (Class<?> runtime: runtimes) {
     		if (runtime.equals(clazz)) {
@@ -139,9 +144,11 @@ public abstract class ModelRoot extends ModelElement implements IModelChangeProv
     	InstanceList list = instanceListMap.get(type);
         if(list == null){
         	if (isRuntime(type)) {
+        	  // Allocate a Verifier runtime optimized instance extent
               list = new RuntimeInstanceList(this, type);
         	}
         	else {
+        	  // Allocate a standard instance extent
               list = new StaticInstanceList(this, type);
         	}
             instanceListMap.put(list.getType(), list);
