@@ -57,9 +57,10 @@ public class StaleProxyExportTestGenerics extends BaseTest {
 		
 		BaseTest.dispatchEvents(0); 
 
-		if ( Platform.getLogFileLocation().toFile().exists() ) {
+		String result = getLogViewResult("");
+		if(!result.equals("")) {
 			fail(".log file is not empty after import.");
-		} 
+		}		
 		
 		final IProject projectHandle = ResourcesPlugin.getWorkspace().getRoot().getProject(
 				"watchGenerics");
@@ -95,9 +96,11 @@ public class StaleProxyExportTestGenerics extends BaseTest {
         Selection.getInstance().clear(); 
         Selection.getInstance().addToSelection(cp);
 
-		if ( Platform.getLogFileLocation().toFile().exists() ) {
+		result = getLogViewResult("");
+		if(!result.equals("")) {
 			fail(".log file is not empty before the model export.");
-		}
+		}		
+
 		
 		// export with persisted OAL	        
         TestingUtilities.exportModelUsingWizard(m_workspace_path + (generateResults ? 
@@ -106,7 +109,8 @@ public class StaleProxyExportTestGenerics extends BaseTest {
 
         /* This part of the test is temporarily removed see issue dts0100753682
         // We expect an error log at this point
-		if ( !Platform.getLogFileLocation().toFile().exists() ) {
+		result = getLogViewResult("");
+		if(!result.equals("")) {
 			fail("Expected an error log containing messages: \"Unable to locate PMC\".");
 		} else {
 			// Reset the log, there should be no errors after this
