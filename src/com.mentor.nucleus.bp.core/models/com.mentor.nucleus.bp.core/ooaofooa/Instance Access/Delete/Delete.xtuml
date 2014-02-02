@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1",
@@ -44,6 +44,15 @@ select one instHandle related by self->V_VAR[R634]->V_INT[R814];
 if (not empty instHandle)
   //  Get the instance
   select any loc_ref related by instHandle->L_LCR[R3004];
+  // Due to recursion, select the local reference based on stack frame id
+  select many loc_refs related by instHandle->L_LCR[R3004];
+  for each localref in loc_refs
+  	select one blk related by localref->L_LCL[R3001]->I_BSF[R3000];
+  	if ( param.stack_frame_id == blk.Stack_Frame_ID ) 
+  		loc_ref = localref;
+  		break;
+  	end if;
+  end for;
   if (not_empty loc_ref)
     select any inst related by loc_ref->L_LCL[R3001]->RV_RVL[R3306]->
                        RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
@@ -237,7 +246,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R634');
+	'R634.''destroys''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1",
 	"3cf34728-d137-48fe-8b74-3c542b48ff37",
