@@ -290,12 +290,13 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import com.mentor.nucleus.bp.core.*;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
+import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.ui.properties.*;
 
-public class ${class_name} extends PropertiesTest
+public class ${class_name} extends BaseTest
 {
     public ${class_name}(String name) {
-        super(name);
+        super(null, name);
     }
 .select many node_set from instances of T_TNS
 .for each node in node_set

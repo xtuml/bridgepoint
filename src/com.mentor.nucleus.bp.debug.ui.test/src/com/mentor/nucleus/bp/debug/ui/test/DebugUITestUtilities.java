@@ -34,7 +34,6 @@ import org.eclipse.debug.ui.AbstractDebugView;
 import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.debug.ui.IDebugView;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -81,7 +80,6 @@ import com.mentor.nucleus.bp.core.util.TransactionUtil;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.debug.ui.actions.ExecuteAction;
 import com.mentor.nucleus.bp.debug.ui.launch.BPDebugUtils;
-import com.mentor.nucleus.bp.debug.ui.launch.LaunchShortcut;
 import com.mentor.nucleus.bp.debug.ui.launch.VerifierLaunchConfiguration;
 import com.mentor.nucleus.bp.debug.ui.model.BPDebugTarget;
 import com.mentor.nucleus.bp.debug.ui.model.BPProcess;
@@ -92,7 +90,6 @@ import com.mentor.nucleus.bp.test.common.ExplorerUtil;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
 import com.mentor.nucleus.bp.test.common.UITestingUtilities;
 import com.mentor.nucleus.bp.ui.explorer.ExplorerView;
-import com.mentor.nucleus.bp.ui.session.views.SessionExplorerView;
 import com.mentor.nucleus.bp.ui.text.activity.ActivityEditor;
 
 public class DebugUITestUtilities {
@@ -808,6 +805,9 @@ public class DebugUITestUtilities {
 		String result = "";
 		TreeItem[] items = getAllTreeItems(tree);
 		for (int i = 0; i < items.length; i++) {
+			if(items[i].getData() == null || items[i].getText().equals("")) {
+				continue;
+			}
 			String indent = getNestingLevel(items[i]);
 			String simpleName = "";
 			if (items[i].getData() != null) {
@@ -857,46 +857,6 @@ public class DebugUITestUtilities {
 			parent = parent.getParentItem();
 		}
 		return space;
-	}
-
-	// Gets the context menu for the given treeElement.  If this doesn't do
-	// quite what you are looking for, check out 
-	// UIUtil::getMenuForTreeItem(TreeViewer viewer, TreeItem item)
-	public static Menu getMenuInSETree(Object treeElement) {
-		SessionExplorerView sev = BPDebugUtils.openSessionExplorerView(true);
-		UIUtil.dispatchAll();
-
-		String text = "";
-		if (treeElement instanceof NonRootModelElement) {
-			text = ((NonRootModelElement) treeElement).getName();
-		}
-		TreeViewer viewer = sev.getTreeViewer();
-		viewer.expandAll();
-		UIUtil.refreshViewer(viewer);
-		Selection.getInstance().setSelection(
-				new StructuredSelection(treeElement));
-		UIUtil.dispatchAll();
-		Tree sevTree = viewer.getTree();
-		sevTree.selectAll();
-		UIUtil.dispatchAll();
-
-		TreeItem x[] = sevTree.getSelection();
-
-		for (int i = 0; i < x.length; ++i) {
-
-			String item = x[i].getText();
-
-			if (item.equals(text)) {
-				TreeItem[] sel = new TreeItem[1];
-				sel[0] = x[i];
-				sevTree.setSelection(sel);
-				UIUtil.dispatchAll();
-				break;
-			}
-		}
-
-		Menu menu = viewer.getTree().getMenu();
-		return menu;
 	}
 	
 	public static void setSelectionInDebugTree(IProcess process) {
@@ -1056,4 +1016,5 @@ public class DebugUITestUtilities {
 		}
 		return result;
 	}
+
 }

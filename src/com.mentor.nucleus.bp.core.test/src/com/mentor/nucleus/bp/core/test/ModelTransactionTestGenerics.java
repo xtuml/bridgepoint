@@ -160,7 +160,12 @@ public class ModelTransactionTestGenerics extends BaseTest {
 		getSystemModel().getTransactionManager().addTransactionListener(
 				listener);
 
-		Package_c dom = Package_c.PackageInstance(modelRoot);
+		Package_c[] pkgs = Package_c.PackageInstances(modelRoot);
+		Package_c dom = null;
+		for (Package_c pkg : pkgs) {
+			if (pkg.getName().equalsIgnoreCase("A Subsystem"))
+				dom = pkg;
+		}
 		CanvasTestUtils.openCanvasEditor(dom);
 
 		// Create Subsystem in domain, as this forces 
