@@ -689,7 +689,7 @@ public class CorePlugin extends AbstractUIPlugin {
       //  name += "BiDirectional";
       //}
       return name;
-    }
+    } 
     
     class ProjectListener extends ResourceChangeListener implements IResourceDeltaVisitor {
 
@@ -703,31 +703,36 @@ public class CorePlugin extends AbstractUIPlugin {
 							addProjectPreferenceListenerToProject((IProject) resource, listener);
 						}
 					}
-				} else if(delta.getKind() == IResourceDelta.REMOVED) {
-					if((delta.getFlags() & IResourceDelta.MOVED_FROM) != IResourceDelta.MOVED_FROM) {
-						for(IPreferenceChangeListener listener : projectPreferenceListeners) {
-							removeProjectPreferenceListenerFromProject((IProject) resource, listener);
-						}
-					}
 				}
+			} else {
+				return true;
 			}
 			return false;
 		}
 
 		@Override
 		public void resourceChanged(IResourceChangeEvent event) {
-			if (event.getResource() != null
-					&& event.getResource().getLocation().segmentCount() == 1) {
-				try {
-					event.getDelta().accept(this);
-				} catch (CoreException e) {
-					logError("Unable to visit resource delta.", e);
+			if (event.getDelta() == null) {
+				if (event.getType() == IResourceChangeEvent.PRE_DELETE) {
+					if (event.getResource() != null
+							&& event.getResource() instanceof IProject) {
+						for (IPreferenceChangeListener listener : projectPreferenceListeners) {
+							removeProjectPreferenceListenerFromProject(
+									(IProject) event.getResource(), listener);
+							return;
+						}
+					}
 				}
+			}
+			try {
+				event.getDelta().accept(this);
+			} catch (CoreException e) {
+				logError("Unable to visit resource delta.", e);
 			}
 		}
     	
     }
-    
+        
 	/* (non-Javadoc)
 	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
 	 */
