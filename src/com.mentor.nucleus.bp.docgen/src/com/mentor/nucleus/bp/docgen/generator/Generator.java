@@ -51,9 +51,7 @@ import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.mc.AbstractActivator;
 import com.mentor.nucleus.bp.mc.AbstractNature;
-import com.mentor.nucleus.bp.mc.mc3020.ExportBuilder;
-import com.mentor.nucleus.bp.mc.mc3020.MC3020Nature;
-import com.mentor.nucleus.bp.mc.mc3020.MCBuilderArgumentHandler;
+import com.mentor.nucleus.bp.mc.c.binary.ExportBuilder;
 
 public class Generator extends Task {
     
@@ -123,43 +121,32 @@ public class Generator extends Task {
             
             try {
                 // Make sure the settings in the launch file are up to date so
-                // we can invoke xtumlmc_build properly.  Here we first try to 
-                // update the launch for old-style mc plugins.  If that doesn't
-                // apply, update the launch for the appropriate new-style mc 
-                // plugin.
-                // Old style
-                MCBuilderArgumentHandler argHandler = new  MCBuilderArgumentHandler(project);
-                argHandler.setArguments();
-                // New style
-                String app = MC3020Nature.getLaunchAttribute(project, 
-                        com.mentor.nucleus.bp.mc.AbstractNature.LAUNCH_ATTR_TOOL_LOCATION);
+                // we can invoke xtumlmc_build properly.
                 AbstractNature nature = null;
                 AbstractActivator activator = null;
-                if (app.isEmpty()) {
-                    if ( project.hasNature(com.mentor.nucleus.bp.mc.c.binary.MCNature.MC_NATURE_ID) ) {
-                        nature = com.mentor.nucleus.bp.mc.c.binary.MCNature.getDefault();
-                        activator = com.mentor.nucleus.bp.mc.c.binary.Activator.getDefault();
-                    }
-                    else if ( project.hasNature(com.mentor.nucleus.bp.mc.c.source.MCNature.MC_NATURE_ID) ) {
-                        nature = com.mentor.nucleus.bp.mc.c.source.MCNature.getDefault();
-                        activator = com.mentor.nucleus.bp.mc.c.source.Activator.getDefault();
-                    }
-                    else if ( project.hasNature(com.mentor.nucleus.bp.mc.cpp.source.MCNature.MC_NATURE_ID) ) {
-                        nature = com.mentor.nucleus.bp.mc.cpp.source.MCNature.getDefault();
-                        activator = com.mentor.nucleus.bp.mc.cpp.source.Activator.getDefault();
-                    }
-                    else if ( project.hasNature(com.mentor.nucleus.bp.mc.systemc.source.MCNature.MC_NATURE_ID) ) {
-                        nature = com.mentor.nucleus.bp.mc.systemc.source.MCNature.getDefault();
-                        activator = com.mentor.nucleus.bp.mc.systemc.source.Activator.getDefault();
-                    }
-                    else if ( project.hasNature(com.mentor.nucleus.bp.mc.vhdl.source.MCNature.MC_NATURE_ID) ) {
-                        nature = com.mentor.nucleus.bp.mc.vhdl.source.MCNature.getDefault();
-                        activator = com.mentor.nucleus.bp.mc.vhdl.source.Activator.getDefault();
-                    }
-                    com.mentor.nucleus.bp.mc.MCBuilderArgumentHandler argHandlerAbstract = new com.mentor.nucleus.bp.mc.MCBuilderArgumentHandler(
-                            project, activator, nature);
-                    argHandlerAbstract.setArguments(nature.getBuilderID());                
+                if ( project.hasNature(com.mentor.nucleus.bp.mc.c.binary.MCNature.MC_NATURE_ID) ) {
+                    nature = com.mentor.nucleus.bp.mc.c.binary.MCNature.getDefault();
+                    activator = com.mentor.nucleus.bp.mc.c.binary.Activator.getDefault();
                 }
+                else if ( project.hasNature(com.mentor.nucleus.bp.mc.c.source.MCNature.MC_NATURE_ID) ) {
+                    nature = com.mentor.nucleus.bp.mc.c.source.MCNature.getDefault();
+                    activator = com.mentor.nucleus.bp.mc.c.source.Activator.getDefault();
+                }
+                else if ( project.hasNature(com.mentor.nucleus.bp.mc.cpp.source.MCNature.MC_NATURE_ID) ) {
+                    nature = com.mentor.nucleus.bp.mc.cpp.source.MCNature.getDefault();
+                    activator = com.mentor.nucleus.bp.mc.cpp.source.Activator.getDefault();
+                }
+                else if ( project.hasNature(com.mentor.nucleus.bp.mc.systemc.source.MCNature.MC_NATURE_ID) ) {
+                    nature = com.mentor.nucleus.bp.mc.systemc.source.MCNature.getDefault();
+                    activator = com.mentor.nucleus.bp.mc.systemc.source.Activator.getDefault();
+                }
+                else if ( project.hasNature(com.mentor.nucleus.bp.mc.vhdl.source.MCNature.MC_NATURE_ID) ) {
+                    nature = com.mentor.nucleus.bp.mc.vhdl.source.MCNature.getDefault();
+                    activator = com.mentor.nucleus.bp.mc.vhdl.source.Activator.getDefault();
+                }
+                com.mentor.nucleus.bp.mc.MCBuilderArgumentHandler argHandlerAbstract = new com.mentor.nucleus.bp.mc.MCBuilderArgumentHandler(
+                        project, activator, nature);
+                argHandlerAbstract.setArguments(nature.getBuilderID());                
 
                 // Next proceed with actually running docgen on the model
                 IWorkbenchPage page = PlatformUI.getWorkbench()
@@ -338,12 +325,8 @@ public class Generator extends Task {
         throws IOException, RuntimeException, CoreException, InterruptedException
     {
         // Call xtumlmc_build.exe xtumlmc_cleanse_model <infile> <outfile>
-        String app = MC3020Nature.getLaunchAttribute(project, 
-                com.mentor.nucleus.bp.mc.AbstractNature.LAUNCH_ATTR_TOOL_LOCATION);
-        if (app.isEmpty()) {
-            app = AbstractNature.getLaunchAttribute(project, 
+        String app = AbstractNature.getLaunchAttribute(project, 
                     com.mentor.nucleus.bp.mc.AbstractNature.LAUNCH_ATTR_TOOL_LOCATION);
-        }
         String args = "xtumlmc_cleanse_model";  //$NON-NLS-1$
         String inputfile = project.getName() + ".sql"; //$NON-NLS-1$
         String middlefile = "z.xtuml";  //$NON-NLS-1$

@@ -30,7 +30,6 @@ import com.mentor.nucleus.bp.core.SystemDatatypeInPackage_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.UserDataType_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
-import com.mentor.nucleus.bp.core.common.ModelElementFileFacade;
 import com.mentor.nucleus.bp.core.sorter.AlphaSorter;
 import com.mentor.nucleus.bp.core.sorter.MetadataSortingManager;
 import com.mentor.nucleus.bp.ui.explorer.adapters.ComponentPackagesAdapter;
@@ -59,7 +58,6 @@ public Object[] getChildren(Object parentElement) {
 			Object[] children = SystemAdapter.getInstance().getChildren(parentElement);
 			ArrayList<Object> list = new ArrayList<Object>();
 			for(int i = 0; i < children.length; i++) {
-				if(!(children[i] instanceof ModelElementFileFacade)) {
 					if(children[i] instanceof DataTypePackage_c) {
 						DataTypePackage_c dtPkg = (DataTypePackage_c) children[i];
 						if (dtPkg.getName().equals(
@@ -75,7 +73,6 @@ public Object[] getChildren(Object parentElement) {
 						list.add(children[i]);
 					}
 				}
-			}
 			return list.toArray(new Object[list.size()]);
 		}
 		return null;

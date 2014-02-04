@@ -13,6 +13,7 @@
 
 package com.mentor.nucleus.bp.ui.properties.test;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -31,9 +32,11 @@ import org.eclipse.ui.views.properties.IPropertySource;
 
 import com.mentor.nucleus.bp.core.Association_c;
 import com.mentor.nucleus.bp.core.Attribute_c;
+import com.mentor.nucleus.bp.core.Bridge_c;
 import com.mentor.nucleus.bp.core.ClassInstanceParticipant_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.DataType_c;
+import com.mentor.nucleus.bp.core.ExternalEntity_c;
 import com.mentor.nucleus.bp.core.FormalAttributeValue_c;
 import com.mentor.nucleus.bp.core.Function_c;
 import com.mentor.nucleus.bp.core.InformalAttributeValue_c;
@@ -41,17 +44,21 @@ import com.mentor.nucleus.bp.core.InstanceAttributeValue_c;
 import com.mentor.nucleus.bp.core.Message_c;
 import com.mentor.nucleus.bp.core.ModelClass_c;
 import com.mentor.nucleus.bp.core.Package_c;
+import com.mentor.nucleus.bp.core.PackageableElement_c;
 import com.mentor.nucleus.bp.core.SynchronousMessage_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.util.OoaofooaUtil;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.test.TestUtil;
+import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.ExplorerUtil;
 import com.mentor.nucleus.bp.test.common.FailableRunnable;
 import com.mentor.nucleus.bp.ui.canvas.test.CanvasTestUtilities;
 import com.mentor.nucleus.bp.ui.explorer.ExplorerView;
 import com.mentor.nucleus.bp.ui.properties.AttributeO_ATTRPropertySource;
+import com.mentor.nucleus.bp.ui.properties.BridgeParameterS_BPARMPropertySource;
+import com.mentor.nucleus.bp.ui.properties.BridgeS_BRGPropertySource;
 import com.mentor.nucleus.bp.ui.properties.ChooserPropertyDescriptor;
 import com.mentor.nucleus.bp.ui.properties.ClassO_OBJPropertySource;
 import com.mentor.nucleus.bp.ui.properties.FormalInstanceAttributeValuesSQ_AVPropertySource;
@@ -62,7 +69,7 @@ import com.mentor.nucleus.bp.ui.properties.PackagesEP_PKGPropertySource;
 /**
  * Contains tests that exercise various aspects of the properties view.
  */
-public class PropertiesViewTest2 extends PropertiesTest 
+public class PropertiesViewTest2 extends BaseTest 
 {
     /**
      * Whether the first test of this class is the one that's currently 
@@ -76,7 +83,7 @@ public class PropertiesViewTest2 extends PropertiesTest
     private static Selection selection = Selection.getInstance();
 
     public PropertiesViewTest2(String name) {
-        super(name);
+        super(null, name);
     }    
     /* (non-Javadoc)
      * @see junit.framework.TestCase#setUp()
@@ -319,6 +326,45 @@ public class PropertiesViewTest2 extends PropertiesTest
 		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 		DataType_c dt = DataType_c.getOneS_DTOnR114(attr);
 		assertTrue("boolean data type was not set as type for attribute.", dt.getName().equals("boolean"));
+    }
+    
+    public void testElementOrderingInView() throws CoreException {
+    	loadProject("BridgeParameterOrderingTest");
+    	Package_c eePkg = Package_c.getOneEP_PKGOnR1405(m_sys, new ClassQueryInterface_c() {
+			
+			@Override
+			public boolean evaluate(Object candidate) {
+				return ((Package_c) candidate).getName().equals("External Entities");
+			}
+		});
+    	assertNotNull(eePkg);
+    	Bridge_c bridge = Bridge_c.getOneS_BRGOnR19(ExternalEntity_c.getManyS_EEsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(eePkg)), new ClassQueryInterface_c() {
+			
+			@Override
+			public boolean evaluate(Object candidate) {
+				return ((Bridge_c) candidate).getName().equals("concat_string");
+			}
+		});
+    	BridgeS_BRGPropertySource source = new BridgeS_BRGPropertySource(bridge);
+    	IPropertyDescriptor[] propertyDescriptors = source.getPropertyDescriptors();
+    	boolean foundCorrectOrder = false;
+    	boolean foundOne = false;
+    	for(IPropertyDescriptor descriptor : propertyDescriptors) {
+    		Object propertyValue = source.getPropertyValue(descriptor.getId());
+    		if(propertyValue instanceof BridgeParameterS_BPARMPropertySource) {
+    			BridgeParameterS_BPARMPropertySource paramSource = (BridgeParameterS_BPARMPropertySource) propertyValue;
+    			if(paramSource.toString().equals("s1")) {
+    				foundOne = true;
+    			}
+    			if(paramSource.toString().equals("s2")) {
+    				if(foundOne) {
+    					foundCorrectOrder = true;
+    				}
+    				break;
+    			}
+    		}
+    	}
+    	assertTrue("User-defined ordering is not honored in the properties view.", foundCorrectOrder);
     }
     
 	private void checkIsFormalPropertyForAttributeValue(IPropertySource ps, String value) {

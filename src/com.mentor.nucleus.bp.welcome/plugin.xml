@@ -21,7 +21,6 @@
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.help"/>
       <import plugin="com.mentor.nucleus.bp.io.core"/>
-      <import plugin="com.mentor.nucleus.bp.mc.mc3020"/>
       <import plugin="com.mentor.nucleus.bp.utilities"/>
       <import plugin="org.eclipse.ui.intro"/>
       <import plugin="org.eclipse.ui.editors"/>

@@ -122,12 +122,12 @@ configure_dap()
     cd ${build_dir}
 }
 
-configure_mc3020()
+configure_mcc_src()
 {
     echo ""
-    echo "Configuring mc3020 for build."
+    echo "Configuring mcc_src for build."
 
-    cd $MC3020
+    cd $MCC_SRC
     rm -rf mc3020
     mkdir mc3020
     cd mc3020
@@ -135,7 +135,7 @@ configure_mc3020()
     cp -r ${git_repo_root}/mc/schema ./schema
     mv ./schema/default-manifest.xml ./
 
-    cd $MC3020/mc3020
+    cd $MCC_SRC/mc3020
     cp -f ${git_repo_root}/mc/libTRANS/libTRANS.dll ./bin
     
     cp -f $USER_SUPPLIED_FILES/xtumlmc_build.exe ./bin
@@ -152,19 +152,6 @@ configure_mc3020()
     rm -f $MC3020_HELP/toc.xml    
     cp -r ${git_repo_root}/mc/doc/ug/xml/techpub.css $MC3020_HELP
     cp -r ${git_repo_root}/mc/doc/ug/xml/toc.xml $MC3020_HELP
-
-    cd ${build_dir}
-}
-
-configure_mcc_src()
-{
-    echo ""
-    echo "Configuring mcc_src for build."
-
-    # Copy in the "bp.mc.mc3020/mc3020/" dir
-    cd $MCC_SRC
-    rm -rf mc3020
-    cp -rf $MC3020/mc3020 .
     
     cd ${build_dir}
 }
@@ -174,10 +161,10 @@ configure_mcc_bin()
     echo ""
     echo "Configuring mcc_bin for build."
 
-    # Copy in the "bp.mc.mc3020/mc3020/" dir
+    # Copy in the "bp.mc.c.source/mc3020/" dir
     cd $MCC_BIN
     rm -rf mc3020
-    cp -rf $MC3020/mc3020 .
+    cp -rf $MCC_SRC/mc3020 .
     
     cd ${build_dir}
 }
@@ -187,10 +174,10 @@ configure_mcsystemc_src()
     echo ""
     echo "Configuring mcsystemc_src for build."
 
-    # Copy in the "bp.mc.mc3020/mc3020/" dir
+    # Copy in the "bp.mc.c.source/mc3020/" dir
     cd $MCSYSTEMC_SRC
     rm -rf mc3020
-    cp -rf $MC3020/mc3020 .
+    cp -rf $MCC_SRC/mc3020 .
 
     # We don't want the model-based MC for this version, so remove it
     rm -f ./mc3020/bin/mcmc
@@ -204,10 +191,10 @@ configure_mccpp_src()
     echo ""
     echo "Configuring mccpp_src for build."
 
-    # Copy in the "bp.mc.mc3020/mc3020/" dir
+    # Copy in the "bp.mc.c.source/mc3020/" dir
     cd $MCCPP_SRC
     rm -rf mc3020
-    cp -rf $MC3020/mc3020 .
+    cp -rf $MCC_SRC/mc3020 .
 
     # We don't want the model-based MC for this version, so remove it
     rm -f ./mc3020/bin/mcmc
@@ -221,10 +208,10 @@ configure_vhdl_src()
     echo ""
     echo "Configuring mcvhdl_src for build."
 
-    # Copy in the "bp.mc.mc3020/mc3020/" dir
+    # Copy in the "bp.mc.c.source/mc3020/" dir
     cd $MCVHDL_SRC
     rm -rf mc3020
-    cp -rf $MC3020/mc3020 .
+    cp -rf $MCC_SRC/mc3020 .
     
     # We don't want the model-based MC for this version, so remove it
     rm -f ./mc3020/bin/mcmc
@@ -260,7 +247,6 @@ echo "Configuring external dependencies."
 USER_SUPPLIED_FILES=${build_dir}/extra_files_for_build
 BP_PKG=${build_dir}/com.mentor.nucleus.bp.pkg
 DAP=${build_dir}/com.mentor.nucleus.bp.dap.pkg
-MC3020=${build_dir}/com.mentor.nucleus.bp.mc.mc3020
 MCC_SRC=${build_dir}/com.mentor.nucleus.bp.mc.c.source
 MCC_BIN=${build_dir}/com.mentor.nucleus.bp.mc.c.binary
 MCSYSTEMC_SRC=${build_dir}/com.mentor.nucleus.bp.mc.systemc.source
@@ -270,7 +256,6 @@ MC3020_HELP=${build_dir}/com.mentor.nucleus.help.bp.mc
 
 get_user_supplied_binaries
 
-configure_mc3020
 configure_mcc_src
 configure_mcc_bin
 configure_mcsystemc_src

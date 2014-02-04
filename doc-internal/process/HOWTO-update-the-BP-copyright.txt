@@ -66,8 +66,8 @@ _- Examine the report and modify it (and the modified files) to remove:
     _- Items that have 3rd party copyrights. Following are the ones I know of 
        currently.  These will need to be manually "unchanged" after the
        update.
-       _- ./com.mentor.nucleus.bp.mc.mc3020/mc3020/ (The files in this folder
-       are ignored by CVS and thus will not be checked in and do not need to be
+       _- ./com.mentor.nucleus.bp.mc.c.binary/mc3020/ (The files in this folder
+       are ignored by RCS and thus will not be checked in and do not need to be
        recorded)
        _- ./model_compilers/mc3020/translate/pt_trans.h
        _- pt_antlr/antrl/Tool.java
