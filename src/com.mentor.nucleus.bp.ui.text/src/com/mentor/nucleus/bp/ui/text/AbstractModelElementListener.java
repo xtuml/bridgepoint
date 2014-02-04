@@ -20,12 +20,8 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.runtime.CoreException;
 
-import com.mentor.nucleus.bp.core.Domain_c;
-
-import com.mentor.nucleus.bp.core.Modeleventnotification_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.AttributeChangeModelDelta;
-import com.mentor.nucleus.bp.core.common.IModelChangeListener;
 import com.mentor.nucleus.bp.core.common.IModelDelta;
 import com.mentor.nucleus.bp.core.common.IPersistenceHierarchyMetaData;
 import com.mentor.nucleus.bp.core.common.ModelChangeAdapter;
@@ -44,16 +40,19 @@ public abstract class AbstractModelElementListener extends ModelChangeAdapter
      * model is not going away, but is only being reloaded.
      */
     private boolean ignoreNextDeleteAll = false;
+    private static boolean ignoreResourceChangesMarker = false;
 
     public void resourceChanged(IResourceChangeEvent event) {
-        IResourceDelta delta = event.getDelta();
-        try {
-            if (delta != null) {
-                delta.accept(this);
-            }
-        } catch (CoreException e) {
-            TextPlugin.logError("Error while handling resource change", e); //$NON-NLS-1$
-        }
+    	if(!ignoreResourceChangesMarker) {
+	        IResourceDelta delta = event.getDelta();
+	        try {
+	            if (delta != null) {
+	                delta.accept(this);
+	            }
+	        } catch (CoreException e) {
+	            TextPlugin.logError("Error while handling resource change", e); //$NON-NLS-1$
+	        }
+    	}
     }
 
     public boolean visit(IResourceDelta delta) throws CoreException {
@@ -139,6 +138,10 @@ public abstract class AbstractModelElementListener extends ModelChangeAdapter
 
         handleModelElementDeleted(event, delta, modelElementAdapter
                 .createModelElementID(deletedElement));
+    }
+    
+    public static void setIgnoreResourceChangesMarker(boolean value) {
+    	ignoreResourceChangesMarker = value;
     }
 
     protected abstract void handleResourceMarkersChanged(IResourceDelta delta);

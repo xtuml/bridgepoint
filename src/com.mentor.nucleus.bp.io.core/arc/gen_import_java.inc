@@ -310,6 +310,9 @@
         .if(col.Name == "Realized_Class_Path")
           parms.elementAt(${attr_col_num}) != null ? removeTics((String)parms.elementAt(${attr_col_num})) : ""\
           .assign special_case = true
+        .elif(col.Name == "isRealized")
+          parms.elementAt(${attr_col_num}) != null && ((String)parms.elementAt(${attr_col_num})).equals( "true" ) ? true : false\
+          .assign special_case = true        
         .end if
         .if(col.Name == "Label")
           parms.elementAt(${attr_col_num}) != null ? removeTics((String)parms.elementAt(${attr_col_num})) : ""\

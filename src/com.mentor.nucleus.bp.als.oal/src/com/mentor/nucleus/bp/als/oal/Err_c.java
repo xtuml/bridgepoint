@@ -12,6 +12,11 @@ package com.mentor.nucleus.bp.als.oal;
 //Project Technology, Inc. and is not for external distribution.
 //=====================================================================
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import com.mentor.nucleus.bp.core.CorePlugin;
+
 import antlr.Token;
 
      // Error Reporting
@@ -28,5 +33,10 @@ import antlr.Token;
     	throw new pt_SemanticException( output, token );  //$NON-NLS-1$
     } // End reportParseError
        
+    
+	public static boolean Tokenhasvalues(final Token token) {
+		return token.getColumn() > 1;
+	} // End tokenHasValues
+
   } // End ERR_c
 

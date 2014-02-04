@@ -47,6 +47,7 @@ import com.mentor.nucleus.bp.core.common.Transaction;
 import com.mentor.nucleus.bp.core.common.TransactionException;
 import com.mentor.nucleus.bp.core.common.TransactionManager;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectPreferences;
+import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
 import com.mentor.nucleus.bp.ui.canvas.Ooaofgraphics;
@@ -152,7 +153,7 @@ public class ProxyTests extends BaseTest {
     		Preferences projectNode = projectScope
     				.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
     		projectNode.putBoolean(
-    				BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, true);
+    				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
 
         	SystemModel_c system = getSystemModel(external.getName());
         	SystemModel_c localSystem = getSystemModel(local.getName());

@@ -47,7 +47,7 @@ import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
-import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectPreferences;
+import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.io.core.CoreExport;
@@ -339,7 +339,10 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
                 // Check to see if the user has set the preferences to export RTO data for this project.
                 // Their project setting overrides the workspace setting.  If they've never set the value
                 // for the project, the workspace setting is used as the default.
-                boolean doEmitRTOs = BridgePointProjectPreferences.getProjectBoolean(BridgePointProjectPreferences.BP_PROJECT_EMITRTODATA_ID, originalSystem);
+				boolean doEmitRTOs = BridgePointProjectReferencesPreferences
+						.getProjectBoolean(
+								BridgePointProjectReferencesPreferences.BP_PROJECT_EMITRTODATA_ID,
+								originalSystem);
                 if ( doEmitRTOs ) {
                     Set<String> rtoSystems = ((ExportModelStream) m_exporter).getSavedRTOSystems();
                     m_elements.clear();

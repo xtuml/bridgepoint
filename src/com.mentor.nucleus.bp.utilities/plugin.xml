@@ -78,6 +78,16 @@
                menubarPath="com.mentor.nucleus.bp.utilities/com.mentor.nucleus.bp.utilities.separator">
          </action>
       </objectContribution>
+      <objectContribution
+            adaptable="false"
+            id="com.mentor.nucleus.bp.utilities.objectContribution1"
+            objectClass="com.mentor.nucleus.bp.core.ExternalEntity_c">
+         <action
+               class="com.mentor.nucleus.bp.utilities.actions.UpgradeEEs"
+               id="com.mentor.nucleus.bp.utilities.action1"
+               label="Upgrade EEs">
+         </action>
+      </objectContribution>
       
    </extension>
    
