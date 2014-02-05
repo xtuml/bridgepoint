@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("013bfc9e-d3c0-4807-8613-deccd09763b5",
@@ -518,13 +518,19 @@ elif not_empty strVal
   end if;
 elif not_empty arrVal
   select many vias related by arrVal->RV_VIA[R3302];
-  length = 0;
+  highestIndex = -1;
   for each via in vias
-    if via.Index > length
-      length = via.Index;
+    if via.Index > highestIndex
+      highestIndex = via.Index;
     end if;
   end for;
-  result = result + " [" + GD::int_to_string(value:length + 1) + "]";
+  length = 0;
+  // If the array has been initialized then we must add 1 to 
+  // get the length because the index is 0-based
+  if (highestIndex >= 0) 
+    length = highestIndex + 1;
+  end if;
+  result = result + " [" + GD::int_to_string(value:length) + "]";
 end if;
 self.Label = result;',
 	1);
@@ -565,7 +571,7 @@ INSERT INTO O_REF
 	'',
 	'Stack Frame',
 	'Stack_Frame_ID',
-	'R3310');
+	'R3310.''disposed by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("013bfc9e-d3c0-4807-8613-deccd09763b5",
 	"7c2565ab-e7c9-4b55-b559-5fda6b83fc4b",
