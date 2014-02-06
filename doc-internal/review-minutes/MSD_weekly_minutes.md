@@ -31,6 +31,35 @@ MSD Weekly Meeting Minutes
 
 ---
 
+    Date:     Feb 5, 2014
+    Start:    12:00 EDT
+    End:      12:31 EDT
+    Elapsed:  31 minutes
+    Present:  Bob, Keith, Travis, Campbell, Cort, others...
+            Dean, Robert, others...
+
+### Engineering Status
+**Campbell -** Found and fixed Verifier's usage of a very large instance extents.  The design note contains a table that shows the major runtime improvements.  See https://github.com/xtuml/internal/blob/master/doc-internal/notes/146_dts0101019516/146_dts0101019516_dnt.md .  Also talked to the customer about improvements to their model which they implemented and have seen improvements from. Consider this table and ordering of execution tips for release notes or SupportNet
+
+**Bob -** We have a number of issues fixed and a few in progress that directly relate to Ericsson.  In the longer term, Ericsson has requested a number of editor enhancements.  We still have to do analysis for a number of these in order to determine the best path forward.  Ericsson's top 3 will definitely be included in the short-term release.  The issues list we are all working from is now mostly Ericsson-focused.
+
+**Cort -** 
+  - We plan to deliver a patch or out-of-band release to Ericsson to show our support for them.  But, we don't want to put everything into this one release.  We want to continually show support and progress through the summer.   
+  - There is such a demand for Training coming from customers that CSD wants to proactively get involved in helping get the training course updated.  It looks like CSD will help us with packaging as well as content (contracted outside resources).
+
+
+### Marketing Status
+**Dean -** Goal for the year was 3.5M in product bookings for SV and BP.  The BP part was 800K to 1.5M. Coming out of Q3 our numbers were light in all accounts.  But, in the end, we achieved a combined number of 3.5M + 50K.  BP contributed ~850K.  In the end, our booking numbers were pretty much right on, but the services side were ~80K light.
+
+ 
+### Customer Support Status
+**Robert -**  
+  - Working with Campbell and Tamas at Ericsson to improve Verifier performance
+  - Investigating a SONY problem where using eXceed in Windows to access a Linux BP install produces a "no such file" error
+  - Worked with Ericsson to try to reproduce a "'Value:Value.computeValue() Error: Result not computed" error, but unable to reproduce in a debuggable way
+
+---
+
     Date:     Jan 15, 2014
     Start:    12:00 EDT
     End:      time EDT
