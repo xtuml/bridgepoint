@@ -29,9 +29,10 @@ February of 2013, we announced via xtuml.org that code was available.  In realit
 little code was thereafter made available as we worked on the long-running project
 to fully separate the editor and verifier code [3][4].  
 
-We have decided that we can no longer wait for full separation in the OOAofOOA and 
-a buildable environment for any user.  We will instead consider simply dumping some 
-generated code into the public repository.  
+In response to customer requests, we have decided that we can no longer wait for 
+full separation in the OOAofOOA and a build-able environment for any user.  We 
+will instead simply dump some generated code and most of the meta-model into the 
+public repository.  
 
 4. Requirements
 ---------------
