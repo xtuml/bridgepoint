@@ -30,9 +30,9 @@ little code was thereafter made available as we worked on the long-running proje
 to fully separate the editor and verifier code [3][4].  
 
 In response to customer requests, we have decided that we can no longer wait for 
-full separation in the OOAofOOA and a build-able environment for any user.  We 
-will instead simply dump some generated code and most of the meta-model into the 
-public repository.  
+full separation in the OOAofOOA of the builder and verifier parts and a build-able 
+environment for any user.  We will instead simply dump some generated code and 
+most of the meta-model into the public repository.  
 
 4. Requirements
 ---------------
