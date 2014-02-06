@@ -43,16 +43,10 @@ select one body related by self ->V_VAR[R634]->ACT_BLK[R823]->ACT_ACT[R601];
 select one instHandle related by self->V_VAR[R634]->V_INT[R814];
 if (not empty instHandle)
   //  Get the instance
-  select any loc_ref related by instHandle->L_LCR[R3004];
-  // Due to recursion, select the local reference based on stack frame id
-  select many loc_refs related by instHandle->L_LCR[R3004];
-  for each localref in loc_refs
-  	select one blk related by localref->L_LCL[R3001]->I_BSF[R3000];
-  	if ( param.stack_frame_id == blk.Stack_Frame_ID ) 
-  		loc_ref = localref;
-  		break;
-  	end if;
-  end for;
+  
+  select any loc related by instHandle->L_LCR[R3004]->L_LCL[R3001] where (selected.Stack_Frame_ID == param.stack_frame_id);
+  select one loc_ref related by loc->L_LCR[R3001];
+  
   if (not_empty loc_ref)
     select any inst related by loc_ref->L_LCL[R3001]->RV_RVL[R3306]->
                        RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
