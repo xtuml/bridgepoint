@@ -39,8 +39,7 @@ most of the meta-model into the public repository.
 4.1  The plug-ins that make up the xtUML Editor shall be available in the public
   xtuml/editor repository on github.  
 4.1.1  The JUnit test plug-ins shall be included.  
-4.1.2  The licensing bits in the core OS-specific fragments shall not be included.    
-4.1.3  The generated java shall be included.  Compiled Java class files shall not.   
+4.1.2  The generated java shall be included.  Compiled Java class files shall not.   
     
 4.2  Mentor Graphics proprietary IP not specifically part of the xtUML Editor 
   code base shall not be distributed.  
