@@ -36,15 +36,13 @@ generated code into the public repository.
 4. Requirements
 ---------------
 4.1  The plug-ins that make up the xtUML Editor shall be available in the public
-  xtuml/editor repository on github.
+  xtuml/editor repository on github.  
 4.1.1  The JUnit test plug-ins shall be included.  
 4.1.2  The licensing bits in the core OS-specific fragments shall not be included.    
 4.1.3  The generated java shall be included.  Compiled Java class files shall not.   
     
 4.2  Mentor Graphics proprietary IP not specifically part of the xtUML Editor 
   code base shall not be distributed.  
-4.2.1  The Java Licensing Component (JLC) and SVX jars shall be removed from bp.core
-  before the project is posted to xtuml/editor.  
   
 4.3  It is desirable, but not required, that the java code be compilable into usable plug-ins.  
   
@@ -168,16 +166,34 @@ pt_antlr
   - Wiring
 ```  
 5.3.1  Items marked with ** were previously stripped from the OOAofOOA shipped
-  in the bp.welcome plug-in, but they will no longer be stripped.  
+  in the bp.welcome plug-in, but they will no longer be stripped.      
+
+5.4  The license files in the plug-ins that are put into xtuml/editor needs to be
+  changed from the Mentor Graphics EULA to the Apache license.    
+  
+5.5 The Java Licensing Component (JLC) and SVX jars shall be removed from bp.core
+  before the project is posted to xtuml/editor.    
 
 6. Design
 ---------
+6.1  Process  
+6.1.1  Build the latest master files for xtuml/internal  
+6.1.2  Create a branch of xtuml/editor  
+6.1.3  Copy all the desired plug-ins from xtuml/internal to xtuml/editor  
+6.1.4  Extract  the model data from bp.core/ooaofooa as specified in 5.3  
+6.1.5  Update license files to Apache  
+6.1.6  Extract Mentor IP as specified in 5.5  
+6.1.7  Commit the files to xtuml/editor branch  
+6.1.8  Promote the files to master  
+6.1.9  Make announcement on xtuml.org that lots of code has been released  
 
 7. Design Comments
 ------------------
+None.
 
 8. Unit Test
 ------------
+None.
 
 End
 ---
