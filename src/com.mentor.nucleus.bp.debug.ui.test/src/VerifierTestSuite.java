@@ -40,6 +40,7 @@ import com.mentor.nucleus.bp.debug.test.VerifierUDTAsUDTInitializationTests;
 import com.mentor.nucleus.bp.debug.test.breakpoint.BreakpointTest;
 import com.mentor.nucleus.bp.debug.ui.launch.VerifierLaunchTestSuite;
 import com.mentor.nucleus.bp.debug.ui.session.tree.VerifierSessionExplorerTests;
+import com.mentor.nucleus.bp.debug.ui.test.execute.RecursionExecutionTest;
 import com.mentor.nucleus.bp.debug.ui.test.execute.VerifierExecuteActionTests;
 import com.mentor.nucleus.bp.debug.ui.test.execute.VerifierExecuteFragmentTest;
 import com.mentor.nucleus.bp.debug.ui.test.execute.VerifierInterfaceExecutionTests;
@@ -98,6 +99,7 @@ public class VerifierTestSuite extends TestSuite {
 		addTest(new TestSuite(RealizedClassTest.class));
 		addTest(new TestSuite(VerifierBindingAuditTest.class));
 		addTest(new TestSuite(VerifierRealizedUDTTest.class));
+		addTest(new TestSuite(RecursionExecutionTest.class));
 		addTest(new TestSuite(VerifierUDTAsUDTInitializationTests.class));
 	}
 
