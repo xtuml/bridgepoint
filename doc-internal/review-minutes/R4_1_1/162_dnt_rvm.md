@@ -13,9 +13,9 @@ Present:  CM, BM, CS, KB, TL
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01 *min   BM   3        Expound the background.
-_- 02 *min   CS   3        Note the longer time period of OSS.
-_- 03 *min   CMcC 4        Require that we are satisfying the customers.
+x- 01 *min   BM   3        Expound the background.
+x- 02 *min   CS   3        Note the longer time period of OSS.
+x- 03 *min   CMcC 4        Require that we are satisfying the customers.
 _- 04  min   CS   4.3      compiled is required
 _- 05  min   TL   4        Generate from the updated model.
 _- 06  min   TL   4        Explicitly mention the protection of prebuilder.

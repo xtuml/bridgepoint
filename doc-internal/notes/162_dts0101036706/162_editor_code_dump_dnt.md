@@ -24,19 +24,30 @@ in the Open Source repository.
 3. Background
 -------------
 The BridgePoint team formally announced our intention to put the source code to
-(most of) BridgePoint into the Open Source Domain in September of 2012.  In 
+(most of) BridgePoint into the Open Source Domain in September of 2012.  Customers
+had been informed privately in March of 2012.  In 
 February of 2013, we announced via xtuml.org that code was available.  In reality,
 little code was thereafter made available as we worked on the long-running project
 to fully separate the editor and verifier code [3][4].  
 
-In response to customer requests, we have decided that we can no longer wait for 
-full separation in the OOAofOOA of the builder and verifier parts and a build-able 
-environment for any user.  We will instead simply dump some generated code and 
-most of the meta-model into the public repository.  
+Customers and customer advocates are concerned that the move to OSS is not
+progressing quickly enough.  Customers are expressing concern over vendor
+lock-in with xtUML and BridgePoint.  Dissatisfaction is growing.
+
+In response to customer requests, we must move a bit more quickly.  While we
+continue in parallel on the infrastructure to build OOAofOOA and while we
+complete the extraction/separation of the key bits of Verifer and prebuilder
+IP, we will make available now a version of the models and plugins.  These
+models and plugins will satisfy the need of customers to be assured that
+they are not locked in to closed source UML editing.
+
+The strategy for xtUML/BP development will be to protect as little as
+possible to maintain control of Verifier and prebuilder (model compilers).
+Default to open source.
 
 4. Requirements
 ---------------
-4.1  The plug-ins that make up the xtUML Editor shall be available in the public
+4.1  Models and plug-ins that make up the xtUML Editor shall be available in the public
   xtuml/editor repository on github.  
 4.1.1  The JUnit test plug-ins shall be included.  
 4.1.2  The generated java shall be included.  Compiled Java class files shall not.   
@@ -44,7 +55,7 @@ most of the meta-model into the public repository.
 4.2  Mentor Graphics proprietary IP not specifically part of the xtUML Editor 
   code base shall not be distributed.  
   
-4.3  It is desirable, but not required, that the java code be compilable into usable plug-ins.  
+4.3  The java code shall be compilable into usable plug-ins.  
   
 5. Analysis
 -----------
