@@ -19,7 +19,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.debug.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Export-Package: com.mentor.nucleus.bp.utilities.build,
- com.mentor.nucleus.bp.utilities.data,
+Export-Package: com.mentor.nucleus.bp.utilities.data,
  com.mentor.nucleus.bp.utilities.load,
  com.mentor.nucleus.bp.utilities.ui
