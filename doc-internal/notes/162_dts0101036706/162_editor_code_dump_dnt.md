@@ -83,7 +83,7 @@ pt_antlr
   However, the Java Export Builder cannot be made OSS.  Thus, we will keep this plug-in private to 
   contain MC-Java tools and move all the rest of classes to the OSS plug-in bp.utilities.
   - __Note 3:__ the BridgePointCDTProjectWizard in the bp.cdt plug-in currently relies on some utility functions
-  in bp.mc.  These functions will have to be moved out of that plug-in so the OSS code will build.
+  in bp.mc.  These functions shall be moved out of that plug-in so the OSS code will build.
   
 5.2  The OOAofOOA model in bp.core will be stripped of the following subsystems/packages
   (marked with X) before the project is posted to xtuml/editor:
@@ -146,7 +146,7 @@ pt_antlr
 6.1.6.1  Remove the projects & plug-ins specified in 5.1    
 6.1.6.2  Update license files to Apache  
 6.1.6.3  Extract Mentor IP as specified in 5.4  
-6.1.6.4  Update the projects to not run the Ant builder (since we won't be generating any code from models)
+6.1.6.4  Update the projects to not run the Ant builder (since we won't be generating any code from models)  
 6.1.7  Commit the files to xtuml/editor branch  
 6.1.8  Create a HOWTO/Readme in xtuml/editor that explains how to build the plug-ins  
 6.1.9  Promote the files to master  
