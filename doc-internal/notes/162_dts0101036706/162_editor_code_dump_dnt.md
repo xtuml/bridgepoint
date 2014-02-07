@@ -60,8 +60,7 @@ part of "the editor" and will not be kept private.
 ```
 com.mentor.nucleus.bp.core.linux.x86
 com.mentor.nucleus.bp.core.win.x86
-com.mentor.nucleus.bp.docgen  ??? - contains pre-builder stuff or not?
-com.mentor.nucleus.bp.internal.tools  ??? - This could be made public if Java Export Builder (and other proprietary stuff?) is stripped out
+com.mentor.nucleus.bp.internal.tools  ** See Note 1
 com.mentor.nucleus.bp.mc
 com.mentor.nucleus.bp.mc.c.binary
 com.mentor.nucleus.bp.mc.c.source
@@ -76,6 +75,11 @@ MC-Java
 MC-Java.test
 pt_antlr
 ```
+  - __Note 1:__ Many of the classes in this plug-in provide small utilities we use during development.
+  However, the Java Export Builder cannot be made OSS.  Thus, we will keep this plug-in private to 
+  contain Java Export Builder and move all the rest of classes to the OSS plug-in bp.utilities.
+  - __Note 2:__ com.mentor.nucleus.bp.docgen will be made OSS, as it, of itself, contains no real IP.  However, 
+  it relies entirely on tools we will not make OSS or put into xtuml/editor: pre-builder, xtumlmc_build.exe, docgen.exe, xsltproc  
 
 5.2  The OOAofOOA model in bp.core will be stripped of the following subsystems/packages
   (marked with X) before the project is posted to xtuml/editor:
@@ -148,7 +152,9 @@ pt_antlr
   document that can be ran through again upon each BP release until we have fully
   implemented our code separation under [4].  Note that it may make sense for the 
   reusable process to rely on merging in updates from the private repository 
-  upon a new release rather than reapplying all the steps from 6.1 again.  
+  upon a new release rather than reapplying all the steps from 6.1 again.  This
+  process will also help when we switch our development process to use code from
+  the public repository rather than the private repository.    
   
 7. Design Comments
 ------------------
@@ -164,7 +170,10 @@ None.
   - __R__ Build succeeds on all projects
   - Create an eclipse Run Launch configuration for all internal and workspace plug-ins
   - Run the launch
-  - __R__ The launch contains the xtUML Modeling perspective.  Modeling tools function as expected.
+  - __R__ The launch contains the xtUML Modeling perspective.  
+  - Create a new project
+  - __R__ The project is created
+  - __R__ User can draw with modeling tools as normal
 
 
 End

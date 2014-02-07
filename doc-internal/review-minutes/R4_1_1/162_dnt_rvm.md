@@ -23,7 +23,7 @@ x- 07  maj   CS   4,5      List only what gets excluded (rather than included).
 x- 08  maj   TL   6        Update to take the model-first approach.
 x- 09  maj   TL   8        Add unit test section to do build.
 x- 10  min   CS   6        Add HOWTO/README that explains how to build.
-o- 11  min   CMcC          Consider how/if we move stuff to open repo.
+x- 11  min   CMcC          Consider how/if we move stuff to open repo.
 x- 12  min   TL            Document steps so we can do this for 4.2, 4.3, etc.
 x- 13  min   CS            Anything that is verifier user interface is part of the "editor"
 
