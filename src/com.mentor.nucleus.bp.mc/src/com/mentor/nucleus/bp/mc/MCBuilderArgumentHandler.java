@@ -13,34 +13,21 @@
 package com.mentor.nucleus.bp.mc;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.io.RandomAccessFile;
-import java.lang.management.ManagementFactory;
 import java.util.Map;
 import java.util.Properties;
 
 import org.eclipse.core.resources.ICommand;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
 import com.mentor.nucleus.bp.core.util.UIUtil;
-import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager.LicenseAtomic;
 import com.mentor.nucleus.bp.mc.xmiexport.XMIExportBuilder;
-import com.mentor.nucleus.bp.utilities.build.UpgradeCompilerSettingsAction;
+import com.mentor.nucleus.bp.utilities.build.BuilderManagement;
 
 /**
  *  This class manages command-line arguments for MC.  These arguments are not
@@ -92,13 +79,13 @@ public class MCBuilderArgumentHandler {
 				+ "/" + AbstractNature.EXTERNALTOOLBUILDER_FOLDER //$NON-NLS-1$
 				+ "/" + AbstractNature.MC_LAUNCH_ID; //$NON-NLS-1$
 		
-		m_nature.replaceBuilderInfo(launchFile,
+		BuilderManagement.replaceBuilderInfo(launchFile,
 				AbstractNature.LAUNCH_ATTR_TOOL_ARGS, cmdLine);
 
 		// make sure the path for xtulmc_build is correct
 		String xbuild_path = AbstractProperties.getPropertyOrDefault(properties,
 				AbstractProperties.XBUILD_LOCAL_LOCATION);
-		m_nature.replaceBuilderInfo(launchFile,
+		BuilderManagement.replaceBuilderInfo(launchFile,
 				AbstractNature.LAUNCH_ATTR_TOOL_LOCATION,
 				m_activator.getPluginPathAbsolute() + xbuild_path);
 
@@ -159,10 +146,6 @@ public class MCBuilderArgumentHandler {
 					String launchSpec = (String) args.get("LaunchConfigHandle"); //$NON-NLS-1$
 					if (launchSpec != null) {
 						if (launchSpec.indexOf(AbstractNature.MC_LAUNCH_ID) == -1
-								// Also ignore Edge code builder in its disabled
-								// form
-								&& launchSpec
-										.indexOf(AbstractNature.EDGE_CODEBUILDER_LAUNCH_ID) == -1
 								// do not treat XMI builder as a supplied
 								// builder
 								&& launchSpec

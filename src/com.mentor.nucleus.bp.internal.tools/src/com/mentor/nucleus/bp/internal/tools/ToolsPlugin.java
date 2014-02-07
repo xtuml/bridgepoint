@@ -100,12 +100,6 @@ public class ToolsPlugin extends AbstractActivator  {
 	}
 
 	@Override
-	public void verifyProjectBuilders() {
-		// Nothing to verify at this time.
-		
-	}
-
-	@Override
 	public void earlyStartup() {
 		// No early startup behavior required.
 		
