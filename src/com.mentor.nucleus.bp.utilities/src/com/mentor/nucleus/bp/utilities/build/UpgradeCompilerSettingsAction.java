@@ -113,17 +113,17 @@ public class UpgradeCompilerSettingsAction implements IActionDelegate {
 						} catch (ParserConfigurationException e) {
 							CorePlugin
 									.logError(
-											"Unable to determine tool builder type for file.",
+											"Unable to determine tool builder type for file: " + toolFile.getFullPath() + "  Name: " + toolFile.getName(),
 											e);
 						} catch (SAXException e) {
 							CorePlugin
 									.logError(
-											"Unable to determine tool builder type for file.",
+											"Unable to determine tool builder type for file: " + toolFile.getFullPath() + "  Name: " + toolFile.getName(),
 											e);
 						} catch (IOException e) {
 							CorePlugin
 									.logError(
-											"Unable to determine tool builder type for file.",
+											"Unable to determine tool builder type for file: " + toolFile.getFullPath() + "  Name: " + toolFile.getName(),
 											e);
 						}
 					}
