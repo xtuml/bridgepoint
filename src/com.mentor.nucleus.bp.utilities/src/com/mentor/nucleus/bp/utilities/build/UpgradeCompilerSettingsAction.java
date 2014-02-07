@@ -13,6 +13,7 @@ package com.mentor.nucleus.bp.utilities.build;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.RandomAccessFile;
 import java.util.Iterator;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -103,13 +104,20 @@ public class UpgradeCompilerSettingsAction implements IActionDelegate {
 					if (member instanceof IFile) {
 						IFile toolFile = (IFile) member;
 						// ignore files other then launch configurations
-						if (toolFile.getName().contains(".launch")) {
 							try {
-								toolFile.refreshLocal(IFile.DEPTH_ONE, new NullProgressMonitor());
-								if (toolFileRequiresUpgrade(toolFile)) {
-									requiresUpgrade = true;
-									if (performUpgrade) {
-										configureRefreshOptionForBuildConfiguration(toolFile);
+								RandomAccessFile inFile = new RandomAccessFile(
+										toolFile.getLocation().toPortableString(), "r");
+								String lineData = inFile.readLine();
+								boolean isXML = lineData.contains("xml version");  // verify this is an xml file
+								inFile.close();								
+								if (isXML) {
+									toolFile.refreshLocal(IFile.DEPTH_ONE,
+											new NullProgressMonitor());
+									if (toolFileRequiresUpgrade(toolFile)) {
+										requiresUpgrade = true;
+										if (performUpgrade) {
+											configureRefreshOptionForBuildConfiguration(toolFile);
+										}
 									}
 								}
 							} catch (ParserConfigurationException e) {
@@ -128,7 +136,6 @@ public class UpgradeCompilerSettingsAction implements IActionDelegate {
 												"Unable to determine tool builder type for file: " + toolFile.getFullPath(),
 												e);
 							}
-						}
 					}
 				}
 			} catch (CoreException e) {
