@@ -102,29 +102,32 @@ public class UpgradeCompilerSettingsAction implements IActionDelegate {
 				for (IResource member : members) {
 					if (member instanceof IFile) {
 						IFile toolFile = (IFile) member;
-						try {
-							toolFile.refreshLocal(IFile.DEPTH_ONE, new NullProgressMonitor());
-							if (toolFileRequiresUpgrade(toolFile)) {
-								requiresUpgrade = true;
-								if (performUpgrade) {
-									configureRefreshOptionForBuildConfiguration(toolFile);
+						// ignore files other then launch configurations
+						if (toolFile.getName().contains(".launch")) {
+							try {
+								toolFile.refreshLocal(IFile.DEPTH_ONE, new NullProgressMonitor());
+								if (toolFileRequiresUpgrade(toolFile)) {
+									requiresUpgrade = true;
+									if (performUpgrade) {
+										configureRefreshOptionForBuildConfiguration(toolFile);
+									}
 								}
+							} catch (ParserConfigurationException e) {
+								CorePlugin
+										.logError(
+												"Unable to determine tool builder type for file: " + toolFile.getFullPath(),
+												e);
+							} catch (SAXException e) {
+								CorePlugin
+										.logError(
+												"Unable to determine tool builder type for file: " + toolFile.getFullPath(),
+												e);
+							} catch (IOException e) {
+								CorePlugin
+										.logError(
+												"Unable to determine tool builder type for file: " + toolFile.getFullPath(),
+												e);
 							}
-						} catch (ParserConfigurationException e) {
-							CorePlugin
-									.logError(
-											"Unable to determine tool builder type for file: " + toolFile.getFullPath() + "  Name: " + toolFile.getName(),
-											e);
-						} catch (SAXException e) {
-							CorePlugin
-									.logError(
-											"Unable to determine tool builder type for file: " + toolFile.getFullPath() + "  Name: " + toolFile.getName(),
-											e);
-						} catch (IOException e) {
-							CorePlugin
-									.logError(
-											"Unable to determine tool builder type for file: " + toolFile.getFullPath() + "  Name: " + toolFile.getName(),
-											e);
 						}
 					}
 				}
