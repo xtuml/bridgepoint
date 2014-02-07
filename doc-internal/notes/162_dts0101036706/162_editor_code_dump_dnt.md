@@ -60,7 +60,8 @@ part of "the editor" and will not be kept private.
 ```
 com.mentor.nucleus.bp.core.linux.x86
 com.mentor.nucleus.bp.core.win.x86
-com.mentor.nucleus.bp.internal.tools  ** See Note 1
+com.mentor.nucleus.bp.docgen          ** See Note 1
+com.mentor.nucleus.bp.internal.tools  ** See Note 2
 com.mentor.nucleus.bp.mc
 com.mentor.nucleus.bp.mc.c.binary
 com.mentor.nucleus.bp.mc.c.source
@@ -75,12 +76,15 @@ MC-Java
 MC-Java.test
 pt_antlr
 ```
-  - __Note 1:__ Many of the classes in this plug-in provide small utilities we use during development.
+  - __Note 1:__ com.mentor.nucleus.bp.docgen will be made OSS, as it, of itself, contains no real IP.  However, 
+  it relies entirely on tools we will not make OSS or put into xtuml/editor: pre-builder, xtumlmc_build.exe, docgen.exe, xsltproc.  It 
+  also has build dependencies on the bp.mc* plug-ins and will not compile without them.  
+  - __Note 2:__ Many of the classes in this plug-in provide small utilities we use during development.
   However, the Java Export Builder cannot be made OSS.  Thus, we will keep this plug-in private to 
-  contain Java Export Builder and move all the rest of classes to the OSS plug-in bp.utilities.
-  - __Note 2:__ com.mentor.nucleus.bp.docgen will be made OSS, as it, of itself, contains no real IP.  However, 
-  it relies entirely on tools we will not make OSS or put into xtuml/editor: pre-builder, xtumlmc_build.exe, docgen.exe, xsltproc  
-
+  contain MC-Java tools and move all the rest of classes to the OSS plug-in bp.utilities.
+  - __Note 3:__ the BridgePointCDTProjectWizard in the bp.cdt plug-in currently relies on some utility functions
+  in bp.mc.  These functions will have to be moved out of that plug-in so the OSS code will build.
+  
 5.2  The OOAofOOA model in bp.core will be stripped of the following subsystems/packages
   (marked with X) before the project is posted to xtuml/editor:
 ```
