@@ -32,7 +32,7 @@ import org.eclipse.ui.PlatformUI;
 import com.mentor.nucleus.bp.core.XtUMLNature;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
-import com.mentor.nucleus.bp.internal.tools.utilities.TreeUtilities;
+import com.mentor.nucleus.bp.utilities.ui.TreeUtilities;
 import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
 import com.mentor.nucleus.bp.ui.explorer.ExplorerView;

@@ -1,4 +1,4 @@
-package com.mentor.nucleus.bp.internal.tools.utilities;
+package com.mentor.nucleus.bp.utilities.ui;
 
 import java.util.ArrayList;
 
