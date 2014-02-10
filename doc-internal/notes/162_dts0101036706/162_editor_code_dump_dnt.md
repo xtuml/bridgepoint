@@ -131,7 +131,9 @@ pt_antlr
 5.2.2  The Instance package (marked XX above) is divided so that Verifier specific
   IP is placed into a separate package which is then reserved as if it was marked
   with an X. The only elements left public will be Instance, Attribute Value, Link
-  Participation and Link. The new reserved package will be named Engine. The pruned
+  Participation and Link. The future possibility of pre-created events shall also
+  be supported, requiring Pending Event, Data Item Value, Event Queue Entry and
+  Self Queue Entry. The new reserved package will be named Engine. The pruned
   Instance package will be published.
   
 
