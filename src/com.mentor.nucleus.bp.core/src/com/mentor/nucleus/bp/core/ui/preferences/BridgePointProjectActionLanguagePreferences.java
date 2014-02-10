@@ -1,5 +1,12 @@
 package com.mentor.nucleus.bp.core.ui.preferences;
-
+//====================================================================
+//
+//File:      BridgePointProjectActionLanguagePreferences.java
+//
+//(c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
+//
+//====================================================================
+//
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
