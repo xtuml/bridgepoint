@@ -132,9 +132,8 @@ pt_antlr
   IP is placed into a separate package which is then reserved as if it was marked
   with an X. The only elements left public will be Instance, Attribute Value, Link
   Participation and Link. The future possibility of pre-created events shall also
-  be supported, requiring Pending Event, Data Item Value, Event Queue Entry and
-  Self Queue Entry. The new reserved package will be named Engine. The pruned
-  Instance package will be published.
+  be supported, requiring Pending Event and Data Item Value. The new reserved
+  package will be named Engine. The pruned Instance package will be published.
   
 
 5.3  The license files in the plug-ins that are put into xtuml/editor needs to be
