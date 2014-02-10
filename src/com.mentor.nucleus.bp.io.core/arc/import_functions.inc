@@ -242,7 +242,7 @@
       .end if
     .end if
     loadedInstances.add(newInst);
-    .if(table.Key_Lett == "S_EE")
+    .if((table.Key_Lett == "S_EE") and (callingProject == "NBP"))
       if(addToUpgradeList) {
       	ImportHelper.addEEToUpgradeForIsRealized(newInst);
       }

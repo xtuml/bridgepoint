@@ -37,13 +37,15 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChangeListener;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences.PreferenceChangeEvent;
@@ -663,15 +665,29 @@ public class PlaceHolderManager {
 								// reparsed
 								AbstractModelElementListener.setIgnoreResourceChangesMarker(true);
 								try {
-									for(IMarker marker : markersToDelete) {
-										try {
-											if(marker.exists()) {
-												marker.delete();
+									WorkspaceJob job = new WorkspaceJob("Remove problem markers") {
+										
+										@Override
+										public IStatus runInWorkspace(IProgressMonitor monitor)
+												throws CoreException {
+											for(IMarker marker : markersToDelete) {
+												try {
+													if(marker.exists()) {
+														marker.delete();
+														// also remove the oal file associated
+														marker.getResource()
+																.delete(true,
+																		new NullProgressMonitor());
+													}
+												} catch (CoreException e) {
+													CorePlugin.logError("Unable to delete marker.", e);
+												}
 											}
-										} catch (CoreException e) {
-											CorePlugin.logError("Unable to delete marker.", e);
+											return Status.OK_STATUS;
 										}
-									}
+									};
+									job.setRule(ResourcesPlugin.getWorkspace().getRoot());
+									job.schedule();
 								} finally {
 									AbstractModelElementListener.setIgnoreResourceChangesMarker(false);
 								}
