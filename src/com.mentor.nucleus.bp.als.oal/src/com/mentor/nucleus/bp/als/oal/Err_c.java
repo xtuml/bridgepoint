@@ -12,11 +12,6 @@ package com.mentor.nucleus.bp.als.oal;
 //Project Technology, Inc. and is not for external distribution.
 //=====================================================================
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import com.mentor.nucleus.bp.core.CorePlugin;
-
 import antlr.Token;
 
      // Error Reporting

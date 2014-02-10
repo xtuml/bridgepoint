@@ -1,4 +1,12 @@
 package com.mentor.nucleus.bp.core.ui.preferences;
+//====================================================================
+//
+//File:      BridgePointProjectActionLanguagePreferenceNode.java
+//
+//(c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
+//
+//====================================================================
+//
 
 import org.eclipse.jface.preference.PreferenceNode;
 import org.osgi.service.prefs.Preferences;
