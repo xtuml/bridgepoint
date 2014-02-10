@@ -7,8 +7,17 @@
 .// (c) Copyright 2005-2013 by Mentor Graphics Corp.  All rights reserved.
 .//
 .//=======================================================================
-.// This document contains information proprietary and confidential to
-.// Mentor Graphics Corp., and is not for external distribution.
+.// Licensed under the Apache License, Version 2.0 (the "License"); you may not
+.// use this file except in compliance with the License.  You may obtain a copy
+.// of the License at
+.//
+.//      http://www.apache.org/licenses/LICENSE-2.0
+.//
+.// Unless required by applicable law or agreed to in writing, software
+.// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+.// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+.// License for the specific language governing permissions and limitations under
+.// the License.
 .//=======================================================================
 .invoke arc_env = GET_ENV_VAR( "PTC_MC_ARC_DIR" )
 .assign mc_archetypes = arc_env.result
@@ -405,8 +414,17 @@ Subsystem_c subsystem = Subsystem_c.SubsystemInstance(modelRoot, new ClassQueryI
 // (c) Copyright 2005-2013 by Mentor Graphics Corp.  All rights reserved.
 //
 //========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //========================================================================
 
 package com.mentor.nucleus.bp.core.test.ui;
@@ -663,8 +681,17 @@ ${result.body}
 // (c) Copyright 2005-2013 by Mentor Graphics Corp.  All rights reserved.
 //
 //========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //========================================================================
 
 package com.mentor.nucleus.bp.core.test.ui;
@@ -857,8 +884,17 @@ Package_c subsystem = Package_c.PackageInstance(modelRoot, new ClassQueryInterfa
 // (c) Copyright 2005-2013 by Mentor Graphics Corp.  All rights reserved.
 //
 //========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //========================================================================
 
 package com.mentor.nucleus.bp.core.test.ui;
@@ -1347,8 +1383,17 @@ ${result.body}
 // (c) Copyright 2005-2013 by Mentor Graphics Corp.  All rights reserved.
 //
 //========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //========================================================================
 
 package com.mentor.nucleus.bp.core.test.ui;

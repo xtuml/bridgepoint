@@ -8,8 +8,17 @@
 # (c) Copyright 2007-2013 by Mentor Graphics Corp. All rights reserved.
 # 
 # =====================================================================
-# This document contains information proprietary and confidential to
-# Mentor Graphics Corp. and is not for external distribution.
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+# use this file except in compliance with the License.  You may obtain a copy 
+# of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+# License for the specific language governing permissions and limitations under
+# the License.
 # =====================================================================
 #/
 my $perlScriptRevision = '$Revision: 1.14 $';
@@ -570,8 +579,17 @@ sub createCopyrightAndPackageSpec() {
 	print $outputFH "//(c) Copyright 2007-2013 by Mentor Graphics Corp. All rights reserved.\n";
 	print $outputFH "//\n";
 	print $outputFH "//=====================================================================\n";
-	print $outputFH "//This document contains information proprietary and confidential to\n";
-	print $outputFH "//Mentor Graphics Corp. and is not for external distribution.\n";
+    print $outputFH "// Licensed under the Apache License, Version 2.0 (the \"License\"); you may not\n"; 
+    print $outputFH "// use this file except in compliance with the License.  You may obtain a copy \n";
+    print $outputFH "// of the License at\n";
+    print $outputFH "// \n";
+    print $outputFH "//       http://www.apache.org/licenses/LICENSE-2.0\n";
+    print $outputFH "// \n";
+    print $outputFH "// Unless required by applicable law or agreed to in writing, software\n"; 
+    print $outputFH "// distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT\n"; 
+    print $outputFH "// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the \n";
+    print $outputFH "// License for the specific language governing permissions and limitations under\n";
+    print $outputFH "// the License.\n";
 	print $outputFH "//=====================================================================\n";
 	print $outputFH "\n";
 	print $outputFH "package $packageName;\n";

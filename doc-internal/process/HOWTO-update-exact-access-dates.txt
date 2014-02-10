@@ -6,7 +6,7 @@ File:      HOWTO-update-exact-access-dates.txt
 
 ========================================================================
 This document contains information proprietary and confidential to
-Mentor Graphics Corp., and is not for external distribution.
+Mentor Graphics Corp. and is not for external distribution.
 ========================================================================
 
 References

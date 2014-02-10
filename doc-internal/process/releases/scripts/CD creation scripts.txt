@@ -8,7 +8,7 @@ Modified:  $Date: 2013/06/14 20:06:03 $
 
 ========================================================================
 This document contains information proprietary and confidential to
-Mentor Graphics Corp., and is not for external distribution.
+Mentor Graphics Corp. and is not for external distribution.
 ========================================================================
 
 BridgePoint Technical Note

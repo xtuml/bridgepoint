@@ -8,7 +8,7 @@
 //
 //========================================================================
 //This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+//Mentor Graphics Corp. and is not for external distribution.
 //======================================================================== 
 package com.mentor.nucleus.bp.mc.xmiexport;
 
