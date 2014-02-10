@@ -132,7 +132,8 @@ pt_antlr
   IP is placed into a separate package which is then reserved as if it was marked
   with an X. The only elements left public will be Instance, Attribute Value, Link
   Participation and Link. The future possibility of pre-created events shall also
-  be supported, requiring Pending Event and Data Item Value. The new reserved
+  be supported, requiring Pending Event and Data Item Value. The Timer and
+  Component Instance classes will also be made public. The new reserved
   package will be named Engine. The pruned Instance package will be published.
   
 
