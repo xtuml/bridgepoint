@@ -67,7 +67,7 @@ end if;
 // Execute the bridge
 select one body related by brg->ACT_BRB[R697]->ACT_ACT[R698];
 select any statement related by body->ACT_BLK[R601]->ACT_SMT[R602];
-if (not_empty statement and ee.Realized_Class_Path == "")
+if (not_empty statement and not ee.isRealized)
   // Setup the parameter values within the newly created stack frame
   // We discard the result because it just tells us if we''re going yet deeper
   // in the call tree. This can happen if a parameter is itself a call, but
