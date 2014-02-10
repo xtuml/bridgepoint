@@ -136,12 +136,12 @@ if (not empty instHandle)
         inst.dispose();
       end if;
     end if;
-  else // if (not_empty loc_ref)
+  else // empty loc_ref
     pathMsg = "<No Path Available - Empty instance>";
     if (not_empty body)
       pathMsg = body.getPath();
     end if;
-	USER::logError(msg:"Error in Delete statement: Cannot locate deleted variable",path:pathMsg);  
+	USER::logError(msg:"Error in Delete statement: Cannot locate instance during deletion",path:pathMsg);  
   end if;
 else
   // Log an error that we were instructed to delete something that doesn''t exist
