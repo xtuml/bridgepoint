@@ -563,7 +563,9 @@ public class ${class_name} extends CoreImport
      * @see org.eclipse.core.resources.IWorkspaceRunnable#run(org.eclipse.core.runtime.IProgressMonitor)
      */
     public void run(IProgressMonitor pm) {
+    .if (callingProject == "NBP")
     	ImportHelper.eesToUpgradeForIsRealized.clear();
+    .end if
         m_success = doLoadSql(pm);
         .if(not setComponent)
         finishLoad(pm);
