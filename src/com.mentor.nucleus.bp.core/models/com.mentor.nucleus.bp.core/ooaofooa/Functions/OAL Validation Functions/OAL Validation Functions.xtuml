@@ -698,7 +698,7 @@ if not_empty act and act.return_is_required() and not act.ReturnFound
     end if;
     if(not_empty function)
       select any component from instances of C_C
-                    where (selected.Id == operation.getContainingComponentId());
+                    where (selected.Id == function.getContainingComponentId());
       if(empty component)
         select one package related by function->PE_PE[R8001]->EP_PKG[R8000];
         select one system related by package->S_SYS[R1405];

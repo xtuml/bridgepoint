@@ -38,6 +38,7 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.texteditor.AbstractMarkerAnnotationModel;
 import org.eclipse.ui.texteditor.MarkerAnnotation;
 
+import com.mentor.nucleus.bp.ui.text.AbstractModelElementListener;
 import com.mentor.nucleus.bp.ui.text.TextPlugin;
 import com.mentor.nucleus.bp.ui.text.annotation.ActivityMarkerAnnotation;
 import com.mentor.nucleus.bp.ui.text.annotation.ActivityProblem;
@@ -506,11 +507,16 @@ public class ActivityAnnotationModel
           IWorkspace workspace = ResourcesPlugin.getWorkspace();
           IResourceRuleFactory ruleFactory = workspace.getRuleFactory();
           ISchedulingRule markerRule = ruleFactory.modifyRule(fInput.getFile());
-          workspace.run(new IWorkspaceRunnable() {
-              public void run(IProgressMonitor monitor) throws CoreException {
-                  removeAnnotations(deletedMarkers, false, true);
-              }
-            }, markerRule, IWorkspace.AVOID_UPDATE, null);
+    	  AbstractModelElementListener.setIgnoreResourceChangesMarker(true);
+    	  try {
+	          workspace.run(new IWorkspaceRunnable() {
+	              public void run(IProgressMonitor monitor) throws CoreException {
+	                  removeAnnotations(deletedMarkers, false, true);
+	              }
+	            }, markerRule, IWorkspace.AVOID_UPDATE, null);
+    	  } finally {
+    		  AbstractModelElementListener.setIgnoreResourceChangesMarker(false);
+    	  }
 		super.updateMarkers(document);
 	}
 

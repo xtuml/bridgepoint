@@ -43,6 +43,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChangeListener;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences.PreferenceChangeEvent;
@@ -60,6 +61,7 @@ import com.mentor.nucleus.bp.core.ProvidedOperation_c;
 import com.mentor.nucleus.bp.core.RequiredOperation_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.AttributeChangeModelDelta;
+import com.mentor.nucleus.bp.core.common.IAllActivityModifier;
 import com.mentor.nucleus.bp.core.common.IModelDelta;
 import com.mentor.nucleus.bp.core.common.IdAssigner;
 import com.mentor.nucleus.bp.core.common.ModelChangedEvent;
@@ -73,6 +75,7 @@ import com.mentor.nucleus.bp.ui.text.AbstractModelElementListener;
 import com.mentor.nucleus.bp.ui.text.ModelElementID;
 import com.mentor.nucleus.bp.ui.text.TextPlugin;
 import com.mentor.nucleus.bp.ui.text.activity.ActivityEditorInputFactory;
+import com.mentor.nucleus.bp.ui.text.activity.AllActivityModifier;
 import com.mentor.nucleus.bp.ui.text.description.DescriptionEditorInputFactory;
 import com.mentor.nucleus.bp.ui.text.placeholder.PlaceHolderEntry.PlaceHolderFileProxy;
 
@@ -593,9 +596,14 @@ public class PlaceHolderManager {
 			// and the parse process requires a model root which there can be
 			// many
 			final HashMap<ModelRoot, List<NonRootModelElement>> elementsToParse = new HashMap<ModelRoot, List<NonRootModelElement>>();
+			final List<IMarker> markersToDelete = new ArrayList<IMarker>();
 			for(IMarker marker : markers) {
 				if(marker.getResource() instanceof IFile) {
 					IFile resource = (IFile) marker.getResource();
+					// if the resource does not exist skip
+					if(!resource.exists()) {
+						continue;
+					}
 					ModelElementID key = null;
 					try {
 						key = ModelElementID.createInstance(resource);
@@ -632,6 +640,7 @@ public class PlaceHolderManager {
 										}
 										list.add(element);
 										elementsToParse.put(modelRoot, list);
+										markersToDelete.add(marker);
 									}
 								}
 							}
@@ -644,23 +653,42 @@ public class PlaceHolderManager {
 					}
 				}
 			}
-			if(!elementsToParse.isEmpty()) {
-				BusyIndicator.showWhile(PlatformUI.getWorkbench().getDisplay(), new Runnable() {
-					
-					@Override
-					public void run() {
-						AbstractModelElementListener.setIgnoreResourceChangesMarker(true);
-						Set<ModelRoot> keySet = elementsToParse.keySet();
-						for (Iterator<ModelRoot> iterator = keySet.iterator(); iterator
-								.hasNext();) {
-							ModelRoot modelRoot = iterator.next();
-							CorePlugin.parseAllActions(modelRoot,
-									elementsToParse.get(modelRoot).toArray(),
-									new NullProgressMonitor());
-						}
-						AbstractModelElementListener.setIgnoreResourceChangesMarker(false);						
-					}
-				});
+			if (!elementsToParse.isEmpty()) {
+				BusyIndicator.showWhile(PlatformUI.getWorkbench().getDisplay(),
+						new Runnable() {
+
+							@Override
+							public void run() {
+								// clear all markers that are going to be
+								// reparsed
+								AbstractModelElementListener.setIgnoreResourceChangesMarker(true);
+								try {
+									for(IMarker marker : markersToDelete) {
+										try {
+											if(marker.exists()) {
+												marker.delete();
+											}
+										} catch (CoreException e) {
+											CorePlugin.logError("Unable to delete marker.", e);
+										}
+									}
+								} finally {
+									AbstractModelElementListener.setIgnoreResourceChangesMarker(false);
+								}
+								AbstractModelElementListener.setIgnoreResourceChangesMarker(false);
+								Set<ModelRoot> keySet = elementsToParse
+										.keySet();
+								for (Iterator<ModelRoot> iterator = keySet
+										.iterator(); iterator.hasNext();) {
+									ModelRoot modelRoot = iterator.next();
+									AllActivityModifier aam = new AllActivityModifier(
+											modelRoot, elementsToParse.get(
+													modelRoot).toArray(),
+											new NullProgressMonitor());
+									aam.processAllActivities(IAllActivityModifier.PARSE);
+								}
+							}
+						});
 			}
 		}
 		

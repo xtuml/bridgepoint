@@ -89,11 +89,16 @@ public class BridgePointProjectActionLanguagePreferences extends
 
 	@Override
 	protected void syncPreferencesWithUI() {
-		getStore().putBoolean(ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE,
-				enableErrorForEmptySynchronousMessage.getSelection());
+		// we need to sync preferences with the realized
+		// value first, otherwise the listener will create
+		// parse errors where we may not want them, and then
+		// will have to immediately delete them on the event
+		// sent to the listener for the realized change
 		getStore().putBoolean(
 				ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED,
 				enableErrorForEmptySynchronousMessageRealized.getSelection());
+		getStore().putBoolean(ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE,
+				enableErrorForEmptySynchronousMessage.getSelection());
 	}
 
 }
