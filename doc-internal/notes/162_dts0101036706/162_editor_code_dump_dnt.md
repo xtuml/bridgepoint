@@ -103,7 +103,7 @@ pt_antlr
   - Element Packaging
   - Event
   - Globals
-  - Instance
+  XX Instance
   - Instance Access
   - Interaction
   - Interface Package
@@ -126,7 +126,14 @@ pt_antlr
   - Wiring
 ```  
 5.2.1  Items marked with ** were previously stripped from the OOAofOOA shipped
-  in the bp.welcome plug-in, but they will no longer be stripped.      
+  in the bp.welcome plug-in, but they will no longer be stripped.
+
+5.2.2  The Instance package (marked XX above) is divided so that Verifier specific
+  IP is placed into a separate package which is then reserved as if it was marked
+  with an X. The only elements left public will be Instance, Attribute Value, Link
+  Participation and Link. The new reserved package will be named Engine. The pruned
+  Instance package will be published.
+  
 
 5.3  The license files in the plug-ins that are put into xtuml/editor needs to be
   changed from the Mentor Graphics EULA to the Apache license.    
