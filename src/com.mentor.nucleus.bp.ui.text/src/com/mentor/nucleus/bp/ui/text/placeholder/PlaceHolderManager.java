@@ -610,7 +610,9 @@ public class PlaceHolderManager {
 					try {
 						key = ModelElementID.createInstance(resource);
 					} catch (CoreException e) {
-						CorePlugin.logError("Unable to resolve model element from marker.", e);
+						// do not log an error here, this will most likely mean
+						// that we are looking at a problem marker that is not
+						// related to parse issues
 					}
 					if(key != null) {
 						key.resolve(); 
