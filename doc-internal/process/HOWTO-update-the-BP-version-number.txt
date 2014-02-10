@@ -6,7 +6,7 @@ File:      HOWTO-update-the-BP-version-number.txt
 
 ========================================================================
 This document contains information proprietary and confidential to
-Mentor Graphics Corp., and is not for external distribution.
+Mentor Graphics Corp. and is not for external distribution.
 ========================================================================
 
 BridgePoint Technical Note
