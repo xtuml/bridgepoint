@@ -1,0 +1,36 @@
+This document captures the state of the BridgePoint unit tests:
+===============================================================
+Branch:  Review_160_dts0101022652
+         133_dts0100798454_Dynamic_Array_Length_Bug
+         
+Hostname: 	CAS-RMULVEY-LT
+OS Name:  	Windows 7
+	Version:	6.1
+	Architecture:	x86
+
+Test Suite                              Status			TestRuns	Time    Timestamp
+---------------------------------------------------------------------------------------------
+Core Generic Upgrade Test				PASS			39			2.91s	20140211 13:15:08
+UI Canvas CCP Test						FAIL (0e/2f)	102			495.66s	20140211 15:08:08
+Core Test								PASS			1093		859.37s	20140211 13:29:40
+UI Explorer Test						PASS			18			51.23s	20140211 14:26:45
+Core Test - Workspace Setup				PASS			14			61.06s	20140211 13:14:38
+Parse All Test							PASS			4596		380.47s	20140211 13:08:59
+IO MDL PkgCM Tests						PASS			108			822.57s	20140211 14:11:16
+Core Test 2								PASS			305			188.68s	20140211 14:57:46
+Debug - Verifier Test					PASS			99			752.91s	20140211 13:46:09
+Core Test - System Level Tests			PASS			24			11.66s	20140211 13:33:23
+Core Test 2 - Consistency				PASS			17			1.03s	20140211 13:13:27
+IO MDL Tests							PASS			90			170.21s	20140211 13:54:37
+UI Properties Test						PASS			163			13.51s	20140211 14:27:10
+Core Test - Existing Projects			PASS			15			3.56s	20140211 13:14:54
+Model Compare Test						PASS			257			202.72s	20140211 13:51:35
+Welcome Test							PASS			10			170.99s	20140211 15:40:24
+UI Canvas Suite 1						PASS			84			81.35s	20140211 14:13:24
+Core Test - RTO Move					PASS			136			244.62s	20140211 13:13:15
+Search Test								PASS			10			8.60s	20140211 14:11:51
+UI Canvas Suite 2						PASS			270			211.22s	20140211 14:17:08
+IO MDL Tests 2							PASS			77			152.40s	20140211 13:57:21
+IO SQL Test								PASS			8			0.82s	20140211 14:11:27
+Debug - Verifier Test 2					PASS			7			107.78s	20140211 15:34:51
+UI Text Test							PASS			163			94.42s	20140211 14:28:56
