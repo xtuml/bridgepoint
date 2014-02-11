@@ -57,17 +57,6 @@
      
       <objectContribution
             adaptable="true"
-            id="com.mentor.nucleus.bp.utilities.updateBuilder.projectContribution"
-            objectClass="org.eclipse.core.resources.IProject">
-         <action
-               class="com.mentor.nucleus.bp.utilities.build.UpgradeCompilerSettingsAction"
-               id="com.mentor.nucleus.bp.utilities.upgradeCompilerSettingsAction"
-               label="Upgrade Compiler Settings"
-               menubarPath="com.mentor.nucleus.bp.utilities/com.mentor.nucleus.bp.utilities.separator">
-         </action>
-      </objectContribution>
-      <objectContribution
-            adaptable="true"
             id="com.mentor.nucleus.bp.utilities.IntegrityCheckContribution"
             objectClass="com.mentor.nucleus.bp.core.common.NonRootModelElement">
          <action

@@ -8,20 +8,14 @@
 <!--
  /* Font Definitions */
  @font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
 	{font-family:"Arial Unicode MS";
 	panose-1:2 11 6 4 2 2 2 2 2 4;}
 @font-face
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
 	{font-family:Tahoma;
 	panose-1:2 11 6 4 3 5 4 4 2 4;}
-@font-face
-	{font-family:"\@SimSun";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
 	{font-family:Webdings;
 	panose-1:5 3 1 2 1 5 9 6 7 3;}
@@ -122,8 +116,6 @@ p.preformatted-tpcode, li.preformatted-tpcode, div.preformatted-tpcode
 	margin-bottom:15.0pt;
 	margin-left:0in;
 	background:silver;
-	border:none;
-	padding:0in;
 	font-size:10.0pt;
 	font-family:"Courier New";}
 p.normalnotoc, li.normalnotoc, div.normalnotoc
@@ -186,6 +178,11 @@ p.sublstbody, li.sublstbody, div.sublstbody
 	margin:7.5pt;
 	font-size:10.0pt;
 	font-family:"Times New Roman","serif";}
+p.msochpdefault, li.msochpdefault, div.msochpdefault
+	{mso-style-name:msochpdefault;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
 span.tpfile
 	{mso-style-name:tp_file;
 	color:#990000;
@@ -206,11 +203,6 @@ span.hypertext
 	margin:1.0in 41.25pt 1.0in 1.25in;}
 div.WordSection1
 	{page:WordSection1;}
- /* List Definitions */
- ol
-	{margin-bottom:0in;}
-ul
-	{margin-bottom:0in;}
 -->
 </style>
 
@@ -232,10 +224,10 @@ using the following command structure:</span></p>
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
 
 <p style='text-indent:28.5pt;line-height:15.6pt'><b><span style='font-size:
-12.0pt;font-family:"Arial Unicode MS","sans-serif"'>CLI &lt;Build | Import |
-Execute | Merge&gt; &lt;Argument List&gt;</span></b></p>
+12.0pt;font-family:"Arial Unicode MS","sans-serif"'>CLI &lt;Build | Import | Execute
+| Merge&gt; &lt;Argument List&gt;</span></b></p>
 
-<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'> </span></p>
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
 
 <p style='margin-right:17.25pt;line-height:15.6pt'><span style='font-family:
 "Arial","sans-serif"'>where &lt;Argument List&gt; depends on the task. Further
@@ -267,21 +259,21 @@ to invoking the CLI, the target project and associated workspace will require
 some setup. Initially, the CLI script must be customized as follows:</span></p>
 
 <p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
-style='font-family:"Arial","sans-serif"'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Arial","sans-serif"'>Copy the CLI
-script into the project workspace</span></p>
+style='font-family:"Arial","sans-serif"'>1.</span><span style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style='font-family:"Arial","sans-serif"'>Copy the CLI script into
+the project workspace</span></p>
 
 <p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
-style='font-family:"Arial","sans-serif"'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Arial","sans-serif"'>Modify the script
-to assign the WORKSPACE variable to the correct path </span></p>
+style='font-family:"Arial","sans-serif"'>2.</span><span style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style='font-family:"Arial","sans-serif"'>Modify the script to
+assign the WORKSPACE variable to the correct path </span></p>
 
 <p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
-style='font-family:"Arial","sans-serif"'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Arial","sans-serif"'>For projects
-created prior to 3.6.0, switch to the Model Explorer view, select the project
-and then perform <b>&lt;Right Mouse Button&gt; &gt; BridgePoint Utilities &gt;
-Upgrade Compiler Settings</b></span></p>
+style='font-family:"Arial","sans-serif"'>3.</span><span style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style='font-family:"Arial","sans-serif"'>For projects created
+prior to 3.6.0, switch to the Model Explorer view, select the project and then
+perform <b>&lt;Right Mouse Button&gt; &gt; BridgePoint Utilities &gt; Upgrade
+Compiler Settings</b></span></p>
 
 <p style='margin-left:43.5pt;line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
 
@@ -290,33 +282,28 @@ each target project, launch and build configurations are required under the
 following circumstances:</span></p>
 
 <p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
-style='font-family:"Arial","sans-serif"'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Arial","sans-serif"'>For projects using
-the Build task,  a CDT build configuration must exist for each name requested
+style='font-family:"Arial","sans-serif"'>1.</span><span style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style='font-family:"Arial","sans-serif"'>For projects using the
+Build task,&nbsp; a CDT build configuration must exist for each name requested
 by option –buildConfig</span></p>
 
 <p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
-style='font-family:"Arial","sans-serif"'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Arial","sans-serif"'>For projects using
-the Execute task, a launch configuration must exist for each name requested by
+style='font-family:"Arial","sans-serif"'>2.</span><span style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style='font-family:"Arial","sans-serif"'>For projects using the
+Execute task, a launch configuration must exist for each name requested by
 option –launch and each configuration must identify at least one Initializer
-(an interface operation, interface signal or state machine event). It is
-recommended that the &quot;Execution timeout (seconds)&quot; selection be set
-to a value great than 0 (no termination) which will force execution to
-terminate with a timeout error message if the execution time exceeds this
-limit.</span></p>
+(an interface operation, interface signal or state machine event). It is recommended
+that the &quot;Execution timeout (seconds)&quot; selection be set to a value
+great than 0 (no termination) which will force execution to terminate with a
+timeout error message if the execution time exceeds this limit.</span></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
 
-<p style='margin-top:0in;line-height:15.6pt'><span style='position:absolute;
-z-index:251658240;left:0px;margin-left:205px;margin-top:450px;width:207px;
-height:35px'><img width=207 height=35
-src="CommandLineInterface_files/image001.gif"></span><span style='position:
-absolute;z-index:251657216;left:0px;margin-left:600px;margin-top:319px;
-width:101px;height:33px'><img width=101 height=33
-src="CommandLineInterface_files/image002.gif"></span><span style='font-family:
-"Arial","sans-serif"'><img width=742 height=637 id="Picture 1"
-src="CommandLineInterface_files/image003.gif"></span></p>
+<p style='margin-top:0in;line-height:15.6pt'><span style='left:0px;position:
+absolute;z-index:251658240'><img width=207 height=35
+src="CommandLineInterface_files/image001.gif"><img width=101 height=33
+src="CommandLineInterface_files/image002.gif"><span style='font-family:"Arial","sans-serif"'><img
+width=742 height=637 src="CommandLineInterface_files/image003.gif"></span></p>
 
 <h2>&nbsp;</h2>
 
@@ -328,15 +315,15 @@ model compiler. The task is initiated by</span></p>
 
 <p style='margin-top:12.0pt;margin-right:.1in;margin-bottom:24.0pt;margin-left:
 .1in;text-indent:.4in;line-height:15.6pt'><b><span style='font-size:12.0pt;
-font-family:"Courier New"'>CLI  Build  &lt;Argument List&gt;</span></b></p>
+font-family:"Courier New"'>CLI&nbsp; Build&nbsp; &lt;Argument List&gt;</span></b></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>where
 &lt;Argument List&gt; can contain any of the following options</span></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
 
-<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
- style='margin-left:40.1pt;border-collapse:collapse;border:none'>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:40.1pt;border-collapse:collapse'>
  <tr>
   <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
@@ -428,15 +415,15 @@ is initiated by</span></p>
 
 <p style='margin-top:12.0pt;margin-right:.1in;margin-bottom:24.0pt;margin-left:
 .1in;text-indent:.4in;line-height:15.6pt'><b><span style='font-size:12.0pt;
-font-family:"Courier New"'>CLI  Import  &lt;Argument List&gt;</span></b></p>
+font-family:"Courier New"'>CLI&nbsp; Import&nbsp; &lt;Argument List&gt;</span></b></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>where
 &lt;Argument List&gt; can contain any of the following options</span></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
 
-<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
- style='margin-left:7.5pt;border-collapse:collapse;border:none'>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:7.5pt;border-collapse:collapse'>
  <tr>
   <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
@@ -483,20 +470,20 @@ font-family:"Courier New"'>CLI  Import  &lt;Argument List&gt;</span></b></p>
 <h2>Executing a project using the CLI</h2>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
-Execute task is used to run an xtUML model using BridgePoint’s xtUML Debug Perspective.
-The task is initiated by</span></p>
+Execute task is used to run an xtUML model using BridgePoint’s xtUML Debug
+Perspective. The task is initiated by</span></p>
 
 <p style='margin-top:12.0pt;margin-right:.1in;margin-bottom:24.0pt;margin-left:
 .1in;text-indent:.4in;line-height:15.6pt'><b><span style='font-size:12.0pt;
-font-family:"Courier New"'>CLI  Execute  &lt;Argument List&gt;</span></b></p>
+font-family:"Courier New"'>CLI&nbsp; Execute&nbsp; &lt;Argument List&gt;</span></b></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>where
 &lt;Argument List&gt; can contain any of the following options</span></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
 
-<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
- style='margin-left:7.5pt;border-collapse:collapse;border:none'>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:7.5pt;border-collapse:collapse'>
  <tr>
   <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
@@ -547,15 +534,15 @@ The task is initiated by</span></p>
 
 <p style='margin-top:12.0pt;margin-right:.1in;margin-bottom:24.0pt;margin-left:
 .1in;text-indent:.4in;line-height:15.6pt'><b><span style='font-size:12.0pt;
-font-family:"Courier New"'>CLI  Merge  &lt;Argument List&gt;</span></b></p>
+font-family:"Courier New"'>CLI&nbsp; Merge&nbsp; &lt;Argument List&gt;</span></b></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>where
 &lt;Argument List&gt; must contain either –help or the other arguments</span></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
 
-<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
- style='margin-left:7.5pt;border-collapse:collapse;border:none'>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:7.5pt;border-collapse:collapse'>
  <tr>
   <td width=163 valign=top style='width:122.6pt;border:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
@@ -634,39 +621,33 @@ specified for the left, right, ancestor and output files.</span></p>
 
 <h2>Suggestions when Troubleshooting CLI Problems</h2>
 
-<p><span style='font-family:"Arial","sans-serif"'>When problems involving
-scripts that interact with CLI arise, consider these suggestions while
-investigating the problem</span></p>
+<p><span style='font-family:"Arial","sans-serif"'>When problems involving scripts
+that interact with CLI arise, consider these suggestions while investigating
+the problem</span></p>
 
-<p style='margin-left:43.5pt;text-indent:-.25in'><span style='font-family:"Arial","sans-serif"'>1)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
-style='font-family:"Arial","sans-serif"'>Has the utility <b>BridgePoint Utility
-&gt; Upgrade Compiler Settings</b> been applied to the project? If not, apply
-the utility to the project and rerun the script.</span></p>
+<p style='margin-left:43.5pt;text-indent:-.25in'><span style='font-family:"Arial","sans-serif"'>1)</span><span
+style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp; </span><span style='font-family:
+"Arial","sans-serif"'>Interactively, repeat the scripted steps inside the tool
+GUI. The information contained in the console window will assist in isolating
+the problem and will confirm whether the issue relates to the CLI or other
+aspects of the scripted process.</span></p>
 
-<p style='margin-left:43.5pt;text-indent:-.25in'><span style='font-family:"Arial","sans-serif"'>2)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
-style='font-family:"Arial","sans-serif"'>Interactively, repeat the scripted
-steps inside the tool GUI. The information contained in the console window will
-assist in isolating the problem and will confirm whether the issue relates to
-the CLI or other aspects of the scripted process.</span></p>
-
-<p style='margin-left:43.5pt;text-indent:-.25in'><span style='font-family:"Arial","sans-serif"'>3)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
-style='font-family:"Arial","sans-serif"'>Once confirmed that the issue is most
-likely a CLI problem, modify the eclipsec invocation inside the CLI.bat script
-to add </span><span style='font-size:12.0pt;font-family:"Courier New"'>-debug
-–console –consoleLog</span><span style='font-family:"Arial","sans-serif"'> to
-the command just before </span><span style='font-size:12.0pt;font-family:"Courier New"'>–application</span><span
+<p style='margin-left:43.5pt;text-indent:-.25in'><span style='font-family:"Arial","sans-serif"'>2)</span><span
+style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp; </span><span style='font-family:
+"Arial","sans-serif"'>Once confirmed that the issue is most likely a CLI
+problem, modify the eclipsec invocation inside the CLI.bat script to add </span><span
+style='font-size:12.0pt;font-family:"Courier New"'>-debug –console –consoleLog</span><span
+style='font-family:"Arial","sans-serif"'> to the command just before </span><span
+style='font-size:12.0pt;font-family:"Courier New"'>–application</span><span
 style='font-family:"Arial","sans-serif"'> and rerun the script. These
 additional settings will cause extra detail to be added to the console output.</span></p>
 
-<p style='margin-left:43.5pt;text-indent:-.25in'><span style='font-family:"Arial","sans-serif"'>4)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
-style='font-family:"Arial","sans-serif"'>If the problem continues to be
-elusive, add </span><span style='font-size:12.0pt;font-family:"Courier New"'>–debugCLI</span><span
-style='font-family:"Arial","sans-serif"'> to interesting CLI.bat commands.  The
-</span><span style='font-size:12.0pt;font-family:"Courier New"'>–debugCLI</span><span
+<p style='margin-left:43.5pt;text-indent:-.25in'><span style='font-family:"Arial","sans-serif"'>3)</span><span
+style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp; </span><span style='font-family:
+"Arial","sans-serif"'>If the problem continues to be elusive, add </span><span
+style='font-size:12.0pt;font-family:"Courier New"'>–debugCLI</span><span
+style='font-family:"Arial","sans-serif"'> to interesting CLI.bat
+commands.&nbsp; The </span><span style='font-size:12.0pt;font-family:"Courier New"'>–debugCLI</span><span
 style='font-family:"Arial","sans-serif"'> option is analogous to a breakpoint
 at the end of the CLI.bat command that will leave the Eclipse workbench open
 for further interactive probing.</span></p>
@@ -680,11 +661,11 @@ suggestions is often sufficient to isolate and correct CLI problems.</span></p>
 <h2>A CLI Example for the GPS Watch</h2>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>In
-this example, the GPS Watch project is imported from the workspace at
-c:/Projects/BridgePoint/temp into the local workspace. Once imported, the
-project is built using the Debug configuration and then executed using the
-GPS_Watch_test debug configuration. To perform this sequence, a simple script
-containing the following CLI commands is sufficient:</span></p>
+this example, the GPS Watch project is imported from the workspace at c:/Projects/BridgePoint/temp
+into the local workspace. Once imported, the project is built using the Debug
+configuration and then executed using the GPS_Watch_test debug configuration.
+To perform this sequence, a simple script containing the following CLI commands
+is sufficient:</span></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
 
@@ -708,19 +689,19 @@ the GPS watch is modified in two branches, GPS1 and GPS2, then a merged
 model.xtuml file can be produced from the CLI command </span></p>
 
 <p style='text-indent:37.5pt;line-height:15.6pt'><span style='font-size:12.0pt;
-font-family:"Courier New"'>CLI.bat Merge –leftFile c:\workspace\GPS1\model.xtuml
-^</span></p>
+font-family:"Courier New"'>CLI.bat Merge –leftFile
+c:\workspace\GPS1\model.xtuml ^</span></p>
 
 <p style='margin-left:106.5pt;text-indent:37.5pt;line-height:15.6pt'><span
-style='font-size:12.0pt;font-family:"Courier New"'> –rightFile
+style='font-size:12.0pt;font-family:"Courier New"'>&nbsp;–rightFile
 c:\workspace\GPS2\model.xtuml ^</span></p>
 
 <p style='margin-left:106.5pt;text-indent:37.5pt;line-height:15.6pt'><span
-style='font-size:12.0pt;font-family:"Courier New"'> -ancestorFile
+style='font-size:12.0pt;font-family:"Courier New"'>&nbsp;-ancestorFile
 C:\MentorGraphics\BridgePoint\workspace\GPS_Watch\model.xtuml</span></p>
 
 <p style='margin-left:106.5pt;text-indent:37.5pt;line-height:15.6pt'><span
-style='font-size:12.0pt;font-family:"Courier New"'> -output\File
+style='font-size:12.0pt;font-family:"Courier New"'>&nbsp;-output\File
 c:\workspace\GPS_merge\model.xtuml </span></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
