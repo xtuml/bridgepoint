@@ -245,12 +245,12 @@ _- If this test has an associated BridgePoint CQ item, then open the SMA QA -
      either be the recent engineering version (we're doing the cycle as a pre-
      release sweep), or the upcoming field version (we've bumped to the official
      release number and are doing official release testing)
-  _- Create a query that looks for the cycle version in the version_reported 
-     field.
+  _- Edit the "Release Cycle Prep - check reported" query to look for the current 
+     cycle version in the version_reported field.  Run it.
     _- If DEIs are returned, use the block update tool to modify these DEIs so
        they do NOT contain this cycle's version in the version_reported field.
-  _- Create another query that looks for the cycle version in the 
-     version_validated field.
+  _- Edit the "Release Cycle Prep - check validated" query to look for the current 
+     cycle version in the version_validated field.  Run it.
     _- If DEIs are returned, use the block update tool to modify these DEIs so
        they do NOT contain this cycle's version in the version_validated field.
   _- Update the prior version queries [§6.1] for this cycle version
