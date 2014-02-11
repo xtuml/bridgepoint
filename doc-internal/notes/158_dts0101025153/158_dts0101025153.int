@@ -29,7 +29,7 @@ these elements is valid even without the return statement in OAL.
 
 4. Requirements
 ---------------
-4.1 An option should be available to prevent parse errors when an element
+4.1 An option shall be available to prevent parse errors when an element
 requires a return value and is realized.
 
 5. Work Required
@@ -44,14 +44,19 @@ elements.  The parser shall ignore this preference when dealing with elements
 that have action language and shall create errors in the same way as it does
 today.
 
+The preferences are labeled as follows:
+
+[] Create an error for empty synchronous messages
+   [] Include realized elements
+   
 When the child preference is enabled the parent preference shall automatically
 be enabled.  When the parent preference is disabled the child preference shall
 automatically be disabled.
 
 The defaults for these two preferences shall be:
 
-non-realized elements : enabled
-realized elements : disabled
+modeled elements (parent preference) : enabled
+realized elements (child preference) : disabled
 
 The current project preference classes are refactored to include a supertype
 class that can be extended by client classes.  Two new classes are added to
@@ -68,7 +73,7 @@ if its return type is non-void.  This OAL is modified to determine whether an
 element is realized or not.  The OAL then checks the two added preferences.  A
 parse error will be created in the following situations:
 
-- Preference is enabled for non-realized elements and the element is not
+- Preference is enabled for a modeled element, where that element is not
   realized
 - Preference is enabled for realized elements and the element is realized
 - Any text exists in the buffer being parsed
@@ -123,10 +128,12 @@ The example models, GPS Watch and MicrowaveOven, are upgraded such that all of
 the External Entities have the isRealized attribute set to true.  The built-in
 External Entity model is also upgraded in the same manner.
  
-5.2.2 Update MC-Java schema
+5.2.2 Update schemas
 
 The MC-Java schema is updated to account for the new attribute on the External
 Entity class.
+
+The other model compiler schemas shall be updated outside of this work.
 
 6. Implementation Comments
 --------------------------
