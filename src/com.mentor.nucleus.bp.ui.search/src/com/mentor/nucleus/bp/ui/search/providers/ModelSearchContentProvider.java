@@ -5,7 +5,7 @@ package com.mentor.nucleus.bp.ui.search.providers;
 //Version:   $Revision: 1.9 $
 //Modified:  $Date: 2013/06/12 13:07:46 $
 //
-//Copyright (c) 2005-2013 Mentor Graphics Corporation.  All rights reserved.
+//Copyright (c) 2005-2014 Mentor Graphics Corporation.  All rights reserved.
 //
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 

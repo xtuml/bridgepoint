@@ -5,7 +5,7 @@ package com.mentor.nucleus.bp.als.oal.test;
 //Version:   $Revision: 1.4 $
 //Modified:  $Date: 2013/01/10 23:00:37 $
 //
-//(c) Copyright 2003-2013 Mentor Graphics Corporation All rights reserved.
+//(c) Copyright 2003-2014 Mentor Graphics Corporation All rights reserved.
 //
 //=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not

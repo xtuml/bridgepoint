@@ -5,7 +5,7 @@ package com.mentor.nucleus.bp.ui.canvas;
 //Version:   $Revision: 1.39 $
 //Modified:  $Date: 2013/01/10 23:19:00 $
 //
-//(c) Copyright 2004-2013 Mentor Graphics Corporation All rights reserved.
+//(c) Copyright 2004-2014 Mentor Graphics Corporation All rights reserved.
 //
 //=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not

@@ -8,7 +8,7 @@
  * The Architecture external entity is used to model a shutdown bridge operation. This operation is called when the system has finished the test scenario.  
 
 When the microwave oven models are translated into code by the model compiler, the call to this bridge operation is mapped to an architecture method used to shut down the system.
- * (C) Copyright 1998-2013 Mentor Graphics Corporation.  All rights reserved.
+ * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
  *--------------------------------------------------------------------------*/
 
 #ifndef MICROWAVEOVEN_ARCH_BRIDGE_H

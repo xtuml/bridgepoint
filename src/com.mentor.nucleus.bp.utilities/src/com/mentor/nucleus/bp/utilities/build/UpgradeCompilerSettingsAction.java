@@ -6,7 +6,7 @@ package com.mentor.nucleus.bp.utilities.build;
 // Version:   $Revision: 1.4 $
 // Modified:  $Date: 2013/01/10 23:21:53 $
 //
-// (c) Copyright 2010-2013 by Mentor Graphics Corp.  All rights reserved.
+// (c) Copyright 2010-2014 by Mentor Graphics Corp.  All rights reserved.
 //
 //====================================================================
 //

@@ -9,7 +9,7 @@
 // Version:      1.12
 // Matrix:       CopyPasteSourceDestinationTestMatrix.txt
 //
-//(c) Copyright 2007-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 

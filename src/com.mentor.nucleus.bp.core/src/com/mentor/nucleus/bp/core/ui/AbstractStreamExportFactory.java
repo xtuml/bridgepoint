@@ -4,7 +4,7 @@
 //Version:   $Revision: 1.11.78.1 $
 //Modified:  $Date: 2013/07/26 10:13:27 $
 //
-//(c) Copyright 2005-2012 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 

@@ -5,7 +5,7 @@ package com.mentor.nucleus.bp.model.compare.structuremergeviewer;
 //Version:   $Revision: 1.3.14.2 $
 //Modified:  $Date: 2013/07/23 15:06:36 $
 //
-//(c) Copyright 2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2013-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 

@@ -1,10 +1,8 @@
 ========================================================================
 
-File:      $RCSfile: HOWTO-update-the-BP-copyright.txt,v $
-Version:   $Revision: 1.8 $
-Modified:  $Date: 2013/01/11 00:24:05 $
+File:      HOWTO-update-the-BP-copyright.txt
 
-(c) Copyright 2007-2010 by Mentor Graphics Corp. All rights reserved.
+Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
 
 ========================================================================
 This document contains information proprietary and confidential to
@@ -28,7 +26,6 @@ Document References
 -------------------
 [1] Bugzilla Issue 2673 
     http://phoenix.projtech.com/bugzilla/show_bug.cgi?id=2673
-[2] cvs://Documentation/internal/process/templates/checklists/new-start.chk
 
 Background
 ----------
@@ -43,105 +40,32 @@ Steps
 -----
 _- You must have perl installed on your machine
 _- Launch Eclipse
-_- Update your development workspace with the latest version from HEAD of 
-   all BridgePoint projects whose copyrights need to be updated.  This list
-   can be obtained from the new-start checklist [2].
-   _- In order to speed up the process and only modify the external facing 
-      projects, it is recommended you go on disk and move all of the model and 
-      documentation projects to another directory before running the update
-      script.  After the update is run, you can move the directories back.
-_- Checkout the cvs://utilities project in your workspace
+_- For each repository to update: xtuml/internal, xtuml/mc, etc
+_- Update your development workspace with the latest version master
+_- Create a branch
+_- Verify your cloned xtuml/internal repository contains the "utilities" project
 _R The utility that is used to update copyright messages is
-   cvs://utilities/update-copyright/update-copyright.pl
+   <xtuml/internal>/utilities/update-copyright/update-copyright.pl
 _R Note: This utility does have a usage screen.  To see it use the --help 
          option.
 _- Open a shell
-_- cd <development workspace>
-_- ./<path>/update-copyright.pl --recursive --year YYYY ./
+_- cd <git repository home>/xtuml/internal/src
+_- ../utilities/update-copyright/update-copyright.pl --recursive --year YYYY ./
 _R A message will be displayed when the procedure is complete and it will tell 
    you that a file named update-copyright-results.txt has been created.  This
    contains a report of the changes.
 _- Examine the report and modify it (and the modified files) to remove:
-    _- Items from the ./metadata folder
-    _- Items that have 3rd party copyrights. Following are the ones I know of 
-       currently.  These will need to be manually "unchanged" after the
-       update.
-       _- ./com.mentor.nucleus.bp.mc.c.binary/mc3020/ (The files in this folder
-       are ignored by RCS and thus will not be checked in and do not need to be
-       recorded)
-       _- ./model_compilers/mc3020/translate/pt_trans.h
-       _- pt_antlr/antrl/Tool.java
-       _- ./utilities/ (The files here are not customer facing and do not need
-       to be updated)
+    _- Items that have 3rd party copyrights. 
    _- Anything else you see in the report that you will not be checking-in
 _- Search workspace for "opyright*<old year>"
-  _- Fix any occurances to new year
-_- Commit the modified files to the CVS repository by following normal check-in 
+  _- Fix any matches to the new year.  Ignore matches under the utilities project.
+     Only update files doc-internal/process that make sense.
+_- Move the update-copyright-results.txt to the issue # folder under doc-internal/notes
+_- Commit the modified files to the repository by following normal check-in 
    procedures.
-_- Restore the documentation and model directories that were moved out of the
-   workspace in an earlier step.
    
-_- cd <development workspace>/Documentation/internal/process/templates
-  _- <path to copyright utility>/update-copyright.pl --recursive --year YYYY ./
-  _- Edit <development workspace>/Documentation/internal/process/standard-file-headers.txt
-    _- Search for "opyright*<oldyear>" and update to new year
-  _- Combine the update-copyright-results.txt from the templates folder with the
-     one generated earlier
-  _- Commit the changed files from these steps
-_- Commit the update-copyright-results.txt report to the CVS test_results folder.
-
-_- cd <github repository folder>/mc
-  _- <path to copyright utility>/update-copyright.pl --recursive --year YYYY ./
-  _- Combine the update-copyright-results.txt from the mc folder with the
-     one generated earlier
-  _- Commit the changed files from these steps
-  _- repeat this section again for the other github repositories that 
-     contain copyrights that need to be updated.
-  
-_- Commit the update-copyright-results.txt report to the CVS test_results folder.
+ 
 
 End
 ---
-
-$Log: HOWTO-update-the-BP-copyright.txt,v $
-Revision 1.8  2013/01/11 00:24:05  rmulvey
-job:dts0100939343
-Updated the instructions to account for github.
-
-Revision 1.7  2011/05/31 02:20:14  kbrown
-job:dts0100742889
-Tweaked for more copyright updates.
-
-Revision 1.6  2011/05/31 01:58:54  kbrown
-job:dts0100742889
-Updated the HOWTO based on this runs experience.
-
-Revision 1.5  2010/01/05 04:29:50  kbrown
-job:dts0100644853
-Batch commit of copyright change from 2009 to 2010 for BP CVS projects.
-
-Revision 1.4  2009/01/01 23:14:16  rmulvey
-Job:4060
-Batch promotion of copyright changes from Review-i4060 and Review-i4060-01.
-
-Revision 1.3.4.1  2008/12/31 16:11:33  rmulvey
-Job:4060
-This is a batch commit of 2009 copyright changes to branch Review-i4060.  This includes the
-report that outlines all changes made (before/after for each line changed).  This report is found here: <cvs>/Documentation/internal/test_results/R2_1_2/i4060/update-copyright-results.txt.
-
-Revision 1.3  2008/04/07 21:07:58  rmulvey
-Job:3462
-Updated the copyright for 2008.
-
-Revision 1.2  2008/04/07 20:36:35  rmulvey
-Job:3462
-Updated to note that if "Documentation" is excluded a second pass with the tool needs to be made on files undet <cvs>Documentation/internal/process.
-
-Revision 1.1  2007/12/21 14:40:24  rmulvey
-Job:3349
-Introduced
-
-Revision 1.2  2007/12/21 14:27:43  rmulvey
-Job:3349
-Introduced
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2008-2012 Mentor Graphics Corporation. All rights reserved.
+# Copyright 2008-2014 Mentor Graphics Corporation. All rights reserved.
 # All Rights Reserved
 #
 #

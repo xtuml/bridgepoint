@@ -5,7 +5,7 @@ package com.mentor.nucleus.bp.core.ui;
 //Version: $Revision: 1.2 $
 //Modified: $Date: 2013/05/12 00:16:26 $
 //
-//(c) Copyright 2005-2012 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
@@ -44,7 +44,7 @@ import java.util.List;
 public class GenericPackageAssignEventOnSM_TXNWizardPage1 extends PtWizardPage
 		implements
 			Listener {
-	public static final String copyright = "(c) Copyright 2003-2013 Mentor Graphics Corporation  All rights reserved.";
+	public static final String copyright = "(c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.";
 
 	IWorkbench workbench;
 	IStructuredSelection selection;

@@ -33,7 +33,7 @@ import com.mentor.nucleus.bp.core.common.UUIDMap;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 
 public class ConvertToMultifileWizard extends Wizard {
-	public static final String copyright = "(c) Copyright 2005-2012 by Mentor Graphics Corporation.  All rights reserved.";
+	public static final String copyright = "(c) Copyright 2005-2014 by Mentor Graphics Corporation.  All rights reserved.";
 
 	private IProject project;
 

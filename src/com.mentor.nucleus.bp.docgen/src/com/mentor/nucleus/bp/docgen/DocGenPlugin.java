@@ -4,7 +4,7 @@
 //Version:   $Revision: 1.6 $
 //Modified:  $Date: 2013/01/10 23:43:44 $
 //
-//(c) Copyright 2008-2013 by Mentor Graphics Corp.  All rights reserved.
+//(c) Copyright 2008-2014 by Mentor Graphics Corp.  All rights reserved.
 //
 //====================================================================
 package com.mentor.nucleus.bp.docgen;

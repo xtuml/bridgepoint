@@ -4,7 +4,7 @@
 // Version:   $Revision: 1.33 $
 // Modified:  $Date: 2013/06/12 13:08:03 $
 //
-// (c) Copyright 2004-2013 by Mentor Graphics Corp.  All rights reserved.
+// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
 //
 //====================================================================
 package com.mentor.nucleus.bp.io.core;

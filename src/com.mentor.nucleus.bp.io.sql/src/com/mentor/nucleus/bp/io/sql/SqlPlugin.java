@@ -4,7 +4,7 @@
 //Version:   $Revision: 1.15 $
 //Modified:  $Date: 2013/05/10 16:17:58 $
 //
-//(c) Copyright 2003-2013 Mentor Graphics Corporation  All rights reserved.
+//(c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
 //
 //====================================================================
 package com.mentor.nucleus.bp.io.sql;

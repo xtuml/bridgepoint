@@ -5,7 +5,7 @@ package com.mentor.nucleus.bp.ui.search;
 //Version:   $Revision: 1.4 $
 //Modified:  $Date: 2013/01/10 23:13:48 $
 //
-//Copyright (c) 2005-2013 Mentor Graphics Corporation.  All rights reserved.
+//Copyright (c) 2005-2014 Mentor Graphics Corporation.  All rights reserved.
 //
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 

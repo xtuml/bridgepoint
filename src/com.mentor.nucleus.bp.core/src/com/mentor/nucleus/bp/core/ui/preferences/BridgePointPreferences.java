@@ -5,7 +5,7 @@ package com.mentor.nucleus.bp.core.ui.preferences;
 //Version:   $Revision: 1.19 $
 //Modified:  $Date: 2012/07/21 01:50:58 $
 //
-//(c) Copyright 2003-2012 Mentor Graphics Corporation  All rights reserved.
+//(c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
 //
 //====================================================================
 //

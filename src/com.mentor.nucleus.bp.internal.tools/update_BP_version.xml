@@ -5,7 +5,7 @@
  Version:   $Revision: 1.23 $
  Modified:  $Date: 2013/06/24 14:49:24 $
 
- (c) Copyright 2011-2013 by Mentor Graphics Corp.  All rights reserved.
+ (c) Copyright 2011-2014 by Mentor Graphics Corp.  All rights reserved.
 
 -->
 <project name="bp.internal.tools" default="updateVersion" basedir="./..">

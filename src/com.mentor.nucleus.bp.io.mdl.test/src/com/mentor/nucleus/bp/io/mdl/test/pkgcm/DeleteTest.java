@@ -6,7 +6,7 @@ package com.mentor.nucleus.bp.io.mdl.test.pkgcm;
 //Version:   $Revision: 1.13 $
 //Modified:  $Date: 2013/01/17 03:32:36 $
 //
-//(c) Copyright 2004-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
