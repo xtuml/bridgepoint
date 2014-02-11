@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
@@ -756,16 +756,22 @@ elif (not_empty unaryOperation or not_empty binaryOperation or
                                                    RV_AVL[R3300]->RV_VIA[R3302];
         // Verifier uses sparse array population, so we traverse
         // the array looking for the highest index.
-        length = 0;
+        highestIndex = -1;
         for each val in valsInArray
-          if val.Index > length
-            length = val.Index;
+          if val.Index > highestIndex
+            highestIndex = val.Index;
           end if;
         end for;
+        length = 0;
+        // If the array has been initialized then we must add 1 to 
+        // get the length because the index is 0-based
+        if (highestIndex >= 0) 
+          length = highestIndex + 1;
+        end if;
         create object instance rucRtVal of RV_RVL;
         relate rucRtVal to resultUnderComputation across R3305;
         relate rucRtVal to dt across R3307;
-        rucRtVal.setValue(value:GD::int_to_instance(value:length + 1));
+        rucRtVal.setValue(value:GD::int_to_instance(value:length));
       end if;
     else
       create object instance rucRtVal of RV_RVL;
@@ -1778,7 +1784,7 @@ INSERT INTO O_REF
 	'',
 	'Block',
 	'Block_ID',
-	'R826');
+	'R826.''has scope''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
 	"4c6ee172-2e1c-4f48-9f91-3948fded3603",
@@ -2037,7 +2043,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R820');
+	'R820.''has type''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
 	"1c96094f-8722-4f35-99fa-8fbe12460e74",
