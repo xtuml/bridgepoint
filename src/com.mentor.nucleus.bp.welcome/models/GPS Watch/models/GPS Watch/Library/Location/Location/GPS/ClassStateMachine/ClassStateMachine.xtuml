@@ -1,4 +1,4 @@
--- BP 7.1 content: ClassStateMachine syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: ClassStateMachine syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO SM_ASM
 	VALUES ("11acae23-f326-4952-94e9-966c846ec489",
@@ -32,7 +32,8 @@ INSERT INTO SM_SGEVT
 	"11acae23-f326-4952-94e9-966c846ec489",
 	"00000000-0000-0000-0000-000000000000",
 	"55d56674-a44b-4b05-8204-464a33fc6490",
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	'LOC::registerListener');
 INSERT INTO SPR_PS_PROXY
 	VALUES ("55d56674-a44b-4b05-8204-464a33fc6490",
 	'registerListener',
@@ -52,14 +53,15 @@ INSERT INTO SM_EVT
 	'registerListener',
 	0,
 	'',
-	'GPS_A2',
+	'LOC::registerListener',
 	'');
 INSERT INTO SM_SGEVT
 	VALUES ("7bcb1555-31f0-4e86-9509-ad7768c9523d",
 	"11acae23-f326-4952-94e9-966c846ec489",
 	"00000000-0000-0000-0000-000000000000",
 	"9317eb2f-573f-4674-bb32-b2695b39d02d",
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	'LOC::unregisterListener');
 INSERT INTO SPR_PS_PROXY
 	VALUES ("9317eb2f-573f-4674-bb32-b2695b39d02d",
 	'unregisterListener',
@@ -79,7 +81,7 @@ INSERT INTO SM_EVT
 	'unregisterListener',
 	0,
 	'',
-	'GPS_A3',
+	'LOC::unregisterListener',
 	'');
 INSERT INTO SM_STATE
 	VALUES ("1fc98e00-6f80-47b3-ab66-e5f467cded5b",
@@ -227,7 +229,7 @@ INSERT INTO SM_ACT
 	VALUES ("ea1d936e-7137-4b43-8326-537a93bfae9b",
 	"11acae23-f326-4952-94e9-966c846ec489",
 	1,
-	'// the GPS is a singleton, create if it doesn�t exist
+	'// the GPS is a singleton, create if it doesn�ｽ�ｽ�ｽ�ｽt exist
 select any gps from instances of GPS;
 if (empty gps)
   create object instance gps of GPS;
@@ -287,13 +289,15 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'');
+	'',
+	'GPS Watch::Library::Location::Location::GPS::Class State Machine');
 INSERT INTO GD_GE
 	VALUES ("65b03dc0-cbc6-48c3-b72a-be15bea202fa",
 	"885040c6-6f55-49f7-95b4-65f12d3e52be",
 	"1fc98e00-6f80-47b3-ab66-e5f467cded5b",
 	41,
-	0);
+	0,
+	'GPS Watch::Library::Location::Location::GPS::Class State Machine::idle');
 INSERT INTO GD_SHP
 	VALUES ("65b03dc0-cbc6-48c3-b72a-be15bea202fa");
 INSERT INTO GD_NCS
@@ -326,7 +330,8 @@ INSERT INTO GD_GE
 	"885040c6-6f55-49f7-95b4-65f12d3e52be",
 	"8639c338-95d9-45fa-99d8-4a9331db8c8c",
 	41,
-	0);
+	0,
+	'GPS Watch::Library::Location::Location::GPS::Class State Machine::locating');
 INSERT INTO GD_SHP
 	VALUES ("be8ef8b1-dbc3-4566-9a79-574eaa59f61f");
 INSERT INTO GD_NCS
@@ -369,7 +374,8 @@ INSERT INTO GD_GE
 	"885040c6-6f55-49f7-95b4-65f12d3e52be",
 	"2f9b2d06-34ea-4159-ad97-97a0d91dbadf",
 	42,
-	0);
+	0,
+	'GPS Watch::Library::Location::Location::GPS::Class State Machine::idle::LOC::registerListener');
 INSERT INTO GD_CON
 	VALUES ("9b196649-2cd8-4131-9ce0-e8d6cd02e939",
 	"00000000-0000-0000-0000-000000000000");
@@ -468,7 +474,8 @@ INSERT INTO GD_GE
 	"885040c6-6f55-49f7-95b4-65f12d3e52be",
 	"ed5981e1-4c57-4d18-baa7-98b03df7d944",
 	42,
-	0);
+	0,
+	'GPS Watch::Library::Location::Location::GPS::Class State Machine::locating::LOC::unregisterListener');
 INSERT INTO GD_CON
 	VALUES ("94595ea8-054e-4df1-8977-756b5cc5dd45",
 	"00000000-0000-0000-0000-000000000000");
@@ -567,7 +574,8 @@ INSERT INTO GD_GE
 	"885040c6-6f55-49f7-95b4-65f12d3e52be",
 	"93241bb9-dcd3-40d6-b432-23fd64abb6d3",
 	42,
-	0);
+	0,
+	'GPS Watch::Library::Location::Location::GPS::Class State Machine::locating::GPS_A1: timeout');
 INSERT INTO GD_CON
 	VALUES ("da0352db-0629-4a11-8681-d54fe774146c",
 	"00000000-0000-0000-0000-000000000000");

@@ -45,34 +45,242 @@ elements.  The parser shall ignore this preference when dealing with elements
 that have action language and shall create errors in the same way as it does
 today.
 
+When the child preference is enabled the parent preference shall automatically
+be enabled.  When the parent preference is disabled the child preference shall
+automatically be disabled.
+
 The defaults for these two preferences shall be:
 
 non-realized elements : enabled
 realized elements : disabled
 
+The current project preference classes are refactored to include a supertype
+class that can be extended by client classes.  Two new classes are added to
+support the action language preferences as a new entry in the main preference
+page.  Code from the BridgePointProjectPreferences class is refactored out into
+a new class to support the IPR preferences.  This change propagates many changes
+throughout the tool, mostly in test classes.  The change is to point at the new
+preference class.
+
+5.1.2 Action_end
+
+In Action_end the parser verifies that a synchronous message has a return value
+if its return type is non-void.  This OAL is modified to determine whether an
+element is realized or not.  The OAL then checks the two added preferences.  A
+parse error will be created in the following situations:
+
+- Preference is enabled for non-realized elements and the element is not
+  realized
+- Preference is enabled for realized elements and the element is realized
+- Any text exists in the buffer being parsed
+
+5.1.3 Parser support changes
+
+In the ERR external entity a new bridge is added, tokenHasValues(Token token).  
+This bridge looks at the current antlr token for existing text, if none then the
+new OAL is entered to determine if parse errors shall be created.  Note that we 
+cannot look at the Action_Semantics attribute of each model element as the user
+may have just started typing and this attribute will be empty until a save is
+performed.
+
+5.1.4 Preference listener
+
+Support for a project preference listener is added to CorePlugin.java.  This
+support allows for registering a preference listener to all existing projects
+and any that will be created in the future.  A resource change listener is added
+to the same class to handle adding listeners to newly created projects and
+removing existing listeners from deleted projects.
+
+5.1.5 Action language preference listener
+
+In ui.text.placeholder.PlaceHolderManager.java a new preference change listener
+is created.  The listener will clear any existing parse errors that are on
+elements affected by the two new preferences.  It does this only when the change
+is to prevent parse errors.  To clear the parse errors the existing markers in
+the project are deleted if they can be resolved to a parse problem.  If they
+cannot be resolved they are not relative markers and an exception is thrown.
+This exception is caught and ignored for this case.
+
 5.2 External entities
 
 Currently external entities can be realized without the need to set a flag.  The
 realization can occur automatically by placing realized code at the appropriate
-location.  Recently a new attribute was added to the External Entity class, this
-attribute allows specifying a location to realized code.  As 5.1 suggests there
-is a preference to disable parsing for realized elements.  Since we cannot
-always know if an EE is intended to be realized, this work shall only assume
-them realized when a path is specified.  [3] is raised to add a flag in the same
-way the Component class has one.  At that point the check for the realized path
-can be removed and can be switched to check the flag value.
+location.  At this time a new boolean attribute shall be added to the External
+Entity class, isRealized.  Verifier shall be modified to only look for realized
+code when this attribute is set to true.  Newly created External Entities shall
+default to true for this attribute as an external entity is meant to be
+realized.  Existing external entities shall be upgraded to have this boolean set
+to true as well.  This new attribute shall only be set to false on upgrade if
+the External Entity being loaded has any bridge with OAL and does not have the
+Do Not Parse flag set.
 
-Until the flag is added, users can either specify the path to the realized code
-or disable parsing using the Successful Parse Indicator value of 'Do not parse'.
+io.mdl and io.sql are modified to adjust the parameter size to include the new
+isRealized attribute.
+
+5.2.1 Upgrade of example models and built-in EEs
+
+The example models, GPS Watch and MicrowaveOven, are upgraded such that all of
+the External Entities have the isRealized attribute set to true.  The built-in
+External Entity model is also upgraded in the same manner.
  
+5.2.2 Update MC-Java schema
+
+The MC-Java schema is updated to account for the new attribute on the External
+Entity class.
+
 6. Implementation Comments
 --------------------------
+6.1 Resource change listeners
+
+While testing the 5.1.5 change it was noted that one of our resource listeners
+was picking up the marker deletion changes and trying to update the place holder
+files.  Since our code is handling the modification to the marker we do not need
+to respond to the change.  A new attribute is added that disables responding to
+a resource change listening when set to true.  This attribute is added to
+AbstractModelElementListener.java.  In ActivityAnnotationModel.java,
+ActivityProblem.java, and PlaceHolderManager.java this flag is set to true when
+the markers are going to be modified.
 
 7. Unit Test
 ------------
+7.1 Preferences
+
+_- Create the following:
+  _- A new bridge operation
+  _- A new function
+  _- A new class operation
+  _- A new provided interface operation
+  _- A new required interface operation (must be set requirer to provider)
+_- Do not add OAL to any of the elements
+_- Set the project preference for action language to checked for:
+  _- Create an error for empty synchronous messages
+_- Run a parse all
+_R 5 parse errors are created
+_- Set the owning EE of the bridge to isRealized = true
+_- Run a parse all
+_R 4 parse errors are created
+_- Set both preferences to checked
+_- Run a parse all
+_R 5 parse errors are created
+_- Set both preference to unchecked
+_R The 5 parse errors are removed
+_- Move all elements into a component
+_- Set the component attribute isRealized to true
+_- Set the preferences such that the parent preference is checked and the child
+   preference is not checked
+_- Run a parse all
+_R No parse errors are created
+_- Add OAL to one of the messages
+_- Run a parse all
+_R One parse error is created
+_- Set the preferences to checked
+_- Run a parse all
+_R 5 parse errors are created
+_- Set the preference to unchecked
+_R All parse errors are removed
+
+7.2 Example models and built-in EEs
+
+_- Create the GPS Watch and Microwave Oven projects using the getting started
+   actions
+_- Select each EE in the projects
+_R The properties view shows that isRealized = true
+_- Create a new package in a project and use the Add Built-in External Entities
+   action
+_- Select each created EE and make sure the properties view shows that each EE
+   has isRealized = true
+_- Run each model
+_R There are no errors during the run
+_R The EEs used are properly executed as realized
+_- Set the isRealized value for the LOG EE to false in GPS Watch
+_- Run GPS Watch
+_R There are errors regarding no OAL found
+_- Set the isRealized value for the LOG EE back to true in GPS Watch
+_- Set the isRealized value for the TIM EE to false in GPS Watch
+_- Add this OAL to the UI::connect operation:
+   date = TIM::current_date();
+   LOG::LogDate(d:date, message: " is the current date";
+_- Launch GPS Watch and execute the UI::connect operation
+_R There are errors explaining that the EE is not realized and has no OAL
+_R There are errors explaining that a default value is returned
 
 8. Code Changes
 ---------------
+com.mentor.nucleus.bp.als.oal/src/com/mentor/nucleus/bp/als/oal/Err_c.java
+
+com.mentor.nucleus.bp.core/arc/create_core_plugin_class.arc
+com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/Domain/
+    External Entity/External Entity.xtuml
+com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/
+    External Entities/External Entities.xtuml
+com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/
+    Functions/OAL Validation Functions/OAL Validation Functions.xtuml
+com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/
+    Invocation/Bridge Invocation/Bridge Invocation.xtuml
+com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa/
+	Value/Bridge Value/Bridge Value.xtuml
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/core/ui/preferences/
+    BridgePointProjectActionLanguagePreferenceNode.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/core/ui/preferences/
+    BridgePointProjectActionLanguagePreferences.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/core/ui/preferences/
+    BridgePointProjectPreferences.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/core/ui/preferences/
+    BridgePointProjectReferencesPreferenceNode.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/core/ui/preferences/
+    BridgePointProjectReferencesPreferences.java
+
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/bp/core/test/
+    CopyPasteComponentReferences.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/bp/core/test/
+    InteractionResolutionTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/bp/core/test/
+    InterfaceResolutionTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/bp/core/test/
+    TigerNatureWorkspaceSetupTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/bp/core/test/rtomove/
+    RTOMoveTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/bp/core/test/ui/
+    DocGenTest.java
+
+com.mentor.nucleus.bp.internal.tools/src/com/mentor/nucleus/bp/internal/tools/
+    mcjava/JavaExportBuilder.java
+
+com.mentor.nucleus.bp.io.core/arc/gen_import_java.inc
+com.mentor.nucleus.bp.io.core/arc/import_functions.inc
+com.mentor.nucleus.bp.io.core/src/com/mentor/nucleus/bp/io/core/
+    ImportHelper.java
+
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/bp/io/mdl/test/
+    ProxyTests.java
+
+com.mentor.nucleus.bp.io.sql/sql/bp_ooa_ooa.sql
+
+com.mentor.nucleus.bp.mc/src/com/mentor/nucleus/bp/mc/AbstractExportBuilder.java
+
+com.mentor.nucleus.bp.pkg/Built-in External Entities/ee.xtuml
+com.mentor.nucleus.bp.pkg/plugin_customization.ini
+
+com.mentor.nucleus.bp.ui.explorer.test/src/com/mentor/nucleus/bp/ui/explorer/
+    test/ExplorerTest.java
+
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/ui/text/
+    AbstractModelElementListener.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/ui/text/activity/
+    ActivityAnnotationModel.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/ui/text/annotation/
+    ActivityProblem.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/ui/text/placeholder/
+    PlaceHolderManager.java
+
+com.mentor.nucleus.bp.welcome/models/GPS Watch/models/GPS Watch/Shared EEs/
+    Shared EEs.xtuml
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/models/MicrowaveOven/
+    components/MicrowaveOven/External Entities/External Entities.xtuml
+com.mentor.nucleus.bp.welcome/models/TemplateProject/models/TemplateProject/
+    External Entities/External Entities.xtuml
+
+MC-Java/ooa_schema.sql
 
 End
 ---
