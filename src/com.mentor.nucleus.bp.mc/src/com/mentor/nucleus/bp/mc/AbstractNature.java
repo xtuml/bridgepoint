@@ -63,7 +63,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
-import com.mentor.nucleus.bp.utilities.build.UpgradeCompilerSettingsAction;
 
 /**
  * implementation of a nature that customizes a project by adding the nature to
@@ -348,15 +347,6 @@ public abstract class AbstractNature implements IProjectNature {
 		MCBuilderArgumentHandler argHandler = new MCBuilderArgumentHandler(
 				project, abstractActivator, this);
 		argHandler.setArguments(builderID);
-		AbstractNature.configureRefreshOptionForBuildConfiguration(destLaunchFile, project);
-	}
-
-	public static void configureRefreshOptionForBuildConfiguration(
-			IFile launchFile, IProject project) throws CoreException {
-		UpgradeCompilerSettingsAction ucsa = new UpgradeCompilerSettingsAction();
-		IStructuredSelection selection = new StructuredSelection(project);
-		ucsa.selectionChanged(null, selection);
-		ucsa.run(null);
 	}
 
 	protected void createFolderIfNonexistent(IFolder srcFolder) {
