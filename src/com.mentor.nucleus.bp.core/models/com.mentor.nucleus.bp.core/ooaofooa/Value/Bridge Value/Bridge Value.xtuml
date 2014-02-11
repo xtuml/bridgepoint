@@ -79,7 +79,28 @@ if (not_empty statement)
   return;
 
 else
-
+  if(not ee.isRealized)
+	pathMsg = "<No Path Available - Empty instance>";
+	if (not_empty body)
+	  pathMsg = body.getPath();
+	end if;
+	USER::logError(msg:"Error executing Bridge: "
+						+ brg.Name
+						+ ". No bridge OAL found and the External Entity is not"
+						+ " configured as realized, returning default value.",
+						path:pathMsg);
+    select one dt related by brg->S_DT[R20];
+    // Return the default result
+    create object instance callRtVal of RV_RVL;
+    callRtVal.createSimpleValue();
+    relate callRtVal to callResult across R3305;
+    callRtVal.setValue(value:dt.getDefaultValue());
+    // remove all intermediate values from the stack
+    for each arg in args
+      top_stack_frame.popValue(value_id:arg.Value_ID);
+    end for;
+    return;
+  end if;
   // We could not find OAL to execute, try to execute an automatically wired
   // bridge instead.
 
@@ -225,24 +246,7 @@ else
   for each arg in args
     top_stack_frame.popValue(value_id:arg.Value_ID);
   end for;
-end if;
-	pathMsg = "<No Path Available - Empty instance>";
-	if (not_empty body)
-	  pathMsg = body.getPath();
-	end if;
-	USER::logError(msg:"Error executing Bridge: "
-						+ brg.Name
-						+ ". No bridge OAL or bridge wiring found, returning default value.",path:pathMsg);
-select one dt related by brg->S_DT[R20];
-// Return the default result
-create object instance callRtVal of RV_RVL;
-callRtVal.createSimpleValue();
-relate callRtVal to callResult across R3305;
-callRtVal.setValue(value:dt.getDefaultValue());
-// remove all intermediate values from the stack
-for each arg in args
-  top_stack_frame.popValue(value_id:arg.Value_ID);
-end for;',
+end if;',
 	1,
 	'',
 	"d2b47707-97d9-4858-96b6-43d55c1e4154");
