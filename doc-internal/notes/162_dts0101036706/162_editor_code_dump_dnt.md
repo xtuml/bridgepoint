@@ -70,13 +70,14 @@ com.mentor.nucleus.bp.mc.mcpaas
 com.mentor.nucleus.bp.mc.systemc.source
 com.mentor.nucleus.bp.mc.template
 com.mentor.nucleus.bp.mc.vhdl.source
+com.mentor.nucleus.bp.sequencecapture
 Installer_MIP_MIMIC
 libTRANS
 MC-Java
 MC-Java.test
 pt_antlr
 ```
-  - __Note 1:__ com.mentor.nucleus.bp.docgen will be made OSS, as it, of itself, contains no real IP.  However, 
+  - __Note 1:__ com.mentor.nucleus.bp.docgen will not be made OSS.  It contains no real IP. However, 
   it relies entirely on tools we will not make OSS or put into xtuml/editor: pre-builder, xtumlmc_build.exe, docgen.exe, xsltproc.  It 
   also has build dependencies on the bp.mc* plug-ins and will not compile without them.  
   - __Note 2:__ Many of the classes in this plug-in provide small utilities we use during development.
