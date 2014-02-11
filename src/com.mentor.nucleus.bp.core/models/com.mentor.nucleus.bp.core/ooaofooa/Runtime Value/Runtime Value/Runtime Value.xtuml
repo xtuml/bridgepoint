@@ -501,6 +501,9 @@ if(not_empty valInStruct)
 end if;
 select one valInArray related by self->RV_VIA[R3302];
 if(not_empty valInArray)
+  // We display the actual index of this element here.  This is used
+  // in multi-dimensional arrays when the user expands one of the dimensions
+  // and that entry contains more dimensions.
   result = "[" + GD::int_to_string(value:valInArray.Index) + "]";
 end if;
 select one smplVal related by self->RV_SMV[R3300];
