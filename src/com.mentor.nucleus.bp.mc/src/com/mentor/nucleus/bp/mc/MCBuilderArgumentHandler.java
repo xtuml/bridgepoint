@@ -29,6 +29,7 @@ import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.mc.xmiexport.XMIExportBuilder;
 import com.mentor.nucleus.bp.utilities.build.BuilderManagement;
 
+
 /**
  *  This class manages command-line arguments for MC.  These arguments are not
  *  different between different MCs, therefore this class is not
@@ -95,18 +96,6 @@ public class MCBuilderArgumentHandler {
                 + codeGenFolder + File.separator);
 		BridgePointLicenseManager.writeXTUMLDisplayFile(outputPath);		
 		
-		// Note: While this call to update the refresh setting is present when 
-		//       the nature is created we also include it here to assure the 
-		//		 setting is in place just prior to the build.  If the setting
-		//		 is already present no action is taken during this call to
-		//		 configureRefreshOptionForBuildConfiguration().
-		try {
-			AbstractNature.configureRefreshOptionForBuildConfiguration(
-					m_project.getFile(launchFile), m_project);
-		} catch (Throwable e1) {
-			m_activator.logError("Failed to update the project's reresh option.", e1);
-		}
-			
 	    //refresh directory to pick up new files
         try {
             if (m_project != null) {
