@@ -107,7 +107,8 @@ Currently external entities can be realized without the need to set a flag.  The
 realization can occur automatically by placing realized code at the appropriate
 location.  At this time a new boolean attribute shall be added to the External
 Entity class, isRealized.  Verifier shall be modified to only look for realized
-code when this attribute is set to true.  Newly created External Entities shall
+code when this attribute is set to true.  This is done in both Bridge Invocation
+.execute() and Bridge Value.getValue().  Newly created External Entities shall
 default to true for this attribute as an external entity is meant to be
 realized.  Existing external entities shall be upgraded to have this boolean set
 to true as well.  This new attribute shall only be set to false on upgrade if
