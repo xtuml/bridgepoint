@@ -43,8 +43,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.variables.VariablesPlugin;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -52,7 +50,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.mentor.nucleus.bp.utilities.build.BuilderManagement;
-import com.mentor.nucleus.bp.utilities.build.UpgradeCompilerSettingsAction;
+
 
 /**
  * implementation of a nature that customizes a project by adding the nature to
@@ -290,15 +288,6 @@ public abstract class AbstractNature implements IProjectNature {
 		MCBuilderArgumentHandler argHandler = new MCBuilderArgumentHandler(
 				project, abstractActivator, this);
 		argHandler.setArguments(builderID);
-		AbstractNature.configureRefreshOptionForBuildConfiguration(destLaunchFile, project);
-	}
-
-	public static void configureRefreshOptionForBuildConfiguration(
-			IFile launchFile, IProject project) throws CoreException {
-		UpgradeCompilerSettingsAction ucsa = new UpgradeCompilerSettingsAction();
-		IStructuredSelection selection = new StructuredSelection(project);
-		ucsa.selectionChanged(null, selection);
-		ucsa.run(null);
 	}
 
 	protected void createFolderIfNonexistent(IFolder srcFolder) {

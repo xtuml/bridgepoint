@@ -1110,6 +1110,10 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 		UITestingUtilities.pasteClipboardContents(new Point(200, 200),
 				destinationEditor);
 		BaseTest.dispatchEvents(0);
+boolean debug = false;
+while (debug) {
+	PlatformUI.getWorkbench().getDisplay().readAndDispatch();
+}
 		validateOrGenerateResults(destinationEditor, generateResults);
 	}
 	
