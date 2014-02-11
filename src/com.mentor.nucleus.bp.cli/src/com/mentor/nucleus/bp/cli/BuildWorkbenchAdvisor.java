@@ -17,7 +17,6 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
-import com.mentor.nucleus.bp.utilities.build.UpgradeCompilerSettingsAction;
 
 public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 	String projectName = null;
@@ -97,18 +96,6 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 						System.out.println("Removing all builders except the MC pre-builder for: " + project.getName());
 					}
 					orginalCommands = configurePreBuildOnly(project);
-				} else {
-					// If the user wants to build assure that the proper refresh setting 
-					// has been applied
-					boolean requiresUpgrade = UpgradeCompilerSettingsAction.builderRequiresUpgrade(project);
-					if (requiresUpgrade) {
-						System.out
-								.println("Error: You must use the \"Upgrade Model Compiler Settings\" utility on this project, "
-										+ project.getName()
-										+ ",\nbefore building from the command-line.");
-						// Allow the build to continue.  Without the proper refresh setting it may work or it may not, 
-						// this error will be present for the user.
-					}					
 				}
 				System.out.println("Performing the build of project: " + project.getName());
 				performBuild(project, IncrementalProjectBuilder.FULL_BUILD);
