@@ -1,0 +1,12 @@
+This document captures the state of the BridgePoint unit tests:
+===============================================================
+Branch: Review_160_dts0101022652
+Hostname: 	nmohamad_dsktp
+OS Name:  	Windows 7
+	Version:	6.1
+	Architecture:	x86
+
+Test Suite                              Status			TestRuns	Time    Timestamp
+---------------------------------------------------------------------------------------------
+Debug - Verifier Test 2					PASS			7			119.98s	20140209 20:21:08
+Debug - Verifier Test					PASS			99			923.44s	20140209 20:50:18

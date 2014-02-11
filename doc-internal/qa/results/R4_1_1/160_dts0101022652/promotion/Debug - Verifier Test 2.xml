@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="Debug - Verifier Test 2" project="com.mentor.nucleus.bp.debug.ui.test" tests="7" started="7" failures="0" errors="0" ignored="0">
+  <testsuite name="VerifierTestSuite2" time="119.983">
+    <testsuite name="com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals" time="64.704">
+      <testcase name="testDeclaredToDeclaredRootToRoot" classname="com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals" time="18.107"/>
+      <testcase name="testDeclaredToReferencedRootToRoot" classname="com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals" time="11.146"/>
+      <testcase name="testReferencedToDeclaredRootToRoot" classname="com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals" time="12.245"/>
+      <testcase name="testReferencedToReferencedRootToRoot" classname="com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals" time="11.787"/>
+      <testcase name="testReferencedToReferencedJarredRootToRoot" classname="com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals" time="11.418"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.ui.launch.DLLRelaunchTest" time="47.534">
+      <testcase name="testDLLRelaunch" classname="com.mentor.nucleus.bp.debug.ui.launch.DLLRelaunchTest" time="47.534"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.ui.test.execute.RecursionExecutionTest" time="7.745">
+      <testcase name="testDeleteInstanceInRecursion" classname="com.mentor.nucleus.bp.debug.ui.test.execute.RecursionExecutionTest" time="7.745"/>
+    </testsuite>
+  </testsuite>
+</testrun>
