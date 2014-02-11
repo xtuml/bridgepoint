@@ -11,7 +11,7 @@
 @echo off
 
 echo Starting post-install script
-SET BPVER=4.1.1
+SET BPVER=4.1.6
 
 :: Localization Note: To support UNICODE paths for Source, Target, or MIP 
 :: location, the scripts should ignore the command line $1, $2 arguments and use
