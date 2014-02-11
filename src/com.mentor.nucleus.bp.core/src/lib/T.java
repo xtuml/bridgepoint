@@ -41,7 +41,7 @@ import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 //Version:   $Revision$
 //Modified:  $Date$
 //
-//(c) Copyright 2006-2012 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 

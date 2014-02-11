@@ -5,7 +5,7 @@ package com.mentor.nucleus.bp.debug.ui.perspective;
 // Version:   $Revision: 1.10 $
 // Modified:  $Date: 2013/01/10 23:18:20 $
 //
-// (c) Copyright 2005-2013 by Mentor Graphics Corp.  All rights reserved.
+// (c) Copyright 2005-2014 by Mentor Graphics Corp.  All rights reserved.
 //
 //====================================================================
 import org.eclipse.debug.ui.IDebugUIConstants;

@@ -5,7 +5,7 @@ package com.mentor.nucleus.bp.core.ui.preferences;
 //Version:   $Revision: 1.11 $
 //Modified:  $Date: 2012/08/27 19:20:00 $
 //
-//(c) Copyright 2006-2012 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 

@@ -5,7 +5,7 @@
  Version:   $Revision: 1.8 $
  Modified:  $Date: 2013/05/10 13:29:35 $
 
- (c) Copyright 2005-2013 by Mentor Graphics Corp.  All rights reserved.
+ (c) Copyright 2005-2014 by Mentor Graphics Corp.  All rights reserved.
 
 -->
 <project name="bp.cli" default="all" basedir=".">

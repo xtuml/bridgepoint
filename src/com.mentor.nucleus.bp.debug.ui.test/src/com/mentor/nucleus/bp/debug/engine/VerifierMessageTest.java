@@ -36,7 +36,7 @@ import com.mentor.nucleus.bp.test.common.TestingUtilities;
 //Version:   $Revision: 1.5 $
 //Modified:  $Date: 2013/05/10 04:28:38 $
 //
-//(c) Copyright 2011-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2011-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 

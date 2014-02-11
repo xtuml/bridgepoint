@@ -5,7 +5,7 @@
  Version:   $Revision: 1.116.10.1 $
  Modified:  $Date: 2013/07/31 20:58:54 $
 
- (c) Copyright 2005-2013 Mentor Graphics Corporation  All rights reserved.
+ (c) Copyright 2005-2014 Mentor Graphics Corporation  All rights reserved.
 
 -->
 <project name="bp.core" default="all" basedir=".">

@@ -4,7 +4,7 @@
 //Version:   $Revision: 1.13 $
 //Modified:  $Date: 2013/06/12 13:07:58 $
 //
-//(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
 //This document contains information proprietary and confidential to
@@ -91,14 +91,6 @@ public abstract class AbstractNature implements IProjectNature {
 	// present
 	public static final String VHDL_Archetype = "t.sys_main.vhd"; //$NON-NLS-1$
 
-	/* TODO - SKB
-	private static int REPLACE = 0;
-	private static int PREPEND = 1;
-	private static int APPEND = 2;
-
-	private static String XML_KEY = "key"; //$NON-NLS-1$
-	private static String XML_VALUE = "value"; //$NON-NLS-1$
-	private static String ENV_ATTR_NAME = "org.eclipse.debug.core.environmentVariables"; //$NON-NLS-1$*/
 	public static String LAUNCH_ATTR_TOOL_LOCATION = "org.eclipse.ui.externaltools.ATTR_LOCATION"; //$NON-NLS-1$
     public static String LAUNCH_ATTR_TOOL_ARGS = "org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS"; //$NON-NLS-1$
 
@@ -475,158 +467,6 @@ public abstract class AbstractNature implements IProjectNature {
 		}
 		return new String[0];
 	}
-
-	/* TODO - SKB
-	public String replaceBuilderInfo(String tgtFilePath, String attr,
-			String data) {
-		return updateBuilder(tgtFilePath, attr, data, REPLACE);
-	}
-
-	public String prependBuilderInfo(String tgtFilePath, String attr,
-			String data) {
-		return updateBuilder(tgtFilePath, attr, data, PREPEND);
-	}
-
-	public String appendBuilderInfo(String tgtFilePath, String attr, String data) {
-		return updateBuilder(tgtFilePath, attr, data, APPEND);
-	}
-
-	private String rVal = "";
-	
-	public String updateBuilder(final String tgtFilePath, final String attr, final String data,
-			final int action) {
-		try {
-			ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
-				
-				@Override
-				public void run(IProgressMonitor monitor) throws CoreException {
-					rVal = data;
-					boolean saveFile = false;
-					boolean foundAsStringAttr = false;
-					try {
-						FileInputStream file = new FileInputStream(tgtFilePath);
-						DocumentBuilder parser = DocumentBuilderFactory.newInstance()
-								.newDocumentBuilder();
-						Document document = parser.parse(file);
-
-						file.close();
-
-						document.getDocumentElement().normalize();
-
-						// Make sure the launch config contains the environment variables
-						// map
-						boolean containsEnvMap = false;
-						NodeList nodes = document.getElementsByTagName("mapAttribute"); //$NON-NLS-1$
-
-						for (int s = 0; s < nodes.getLength(); s++) {
-							Node firstNode = nodes.item(s);
-							if (firstNode.getNodeType() == Node.ELEMENT_NODE) {
-								Element firstNodeElement = (Element) firstNode;
-								String key = firstNodeElement.getAttribute(XML_KEY);
-								if (key.equals(ENV_ATTR_NAME)) {
-									containsEnvMap = true;
-								}
-							}
-						}
-
-						// If the launch config doesn't contain the environment vars map,
-						// add it
-						if (!containsEnvMap) {
-							Node launchConfig = document.getFirstChild();
-							Element envMap = document.createElement("mapAttribute");
-							envMap.setAttribute(XML_KEY, ENV_ATTR_NAME);
-							Element mapEntry = document.createElement("mapEntry");
-							mapEntry.setAttribute(XML_VALUE, "Console");
-							envMap.appendChild(mapEntry);
-							launchConfig.appendChild(envMap);
-						}
-
-						// Set the attribute if it is a stringAttribute
-						nodes = document.getElementsByTagName("stringAttribute"); //$NON-NLS-1$
-
-						for (int s = 0; s < nodes.getLength(); s++) {
-							Node firstNode = nodes.item(s);
-							if (firstNode.getNodeType() == Node.ELEMENT_NODE) {
-
-								Element firstNodeElement = (Element) firstNode;
-								String key = firstNodeElement.getAttribute(XML_KEY);
-								if (key.equals(attr)) {
-									String value = firstNodeElement.getAttribute(XML_VALUE);
-									foundAsStringAttr = true;
-									if (!value.equals(data)) {
-										if (action == PREPEND) {
-											rVal = data + value;
-										} else if (action == APPEND) {
-											rVal = value + data;
-										} else {
-											rVal = data;
-										}
-										firstNodeElement.setAttribute(XML_VALUE, rVal);
-										saveFile = true;
-									}
-								}
-							}
-						}
-
-						// Otherwise possibly set the attribute as a mapEntry
-						if (!foundAsStringAttr) {
-							nodes = document.getElementsByTagName("mapEntry"); //$NON-NLS-1$
-
-							for (int s = 0; s < nodes.getLength(); s++) {
-								Node firstNode = nodes.item(s);
-								if (firstNode.getNodeType() == Node.ELEMENT_NODE) {
-
-									Element firstNodeElement = (Element) firstNode;
-									String key = firstNodeElement.getAttribute(XML_KEY);
-									if (key.equals(attr)) {
-										String value = firstNodeElement
-												.getAttribute(XML_VALUE);
-										foundAsStringAttr = true;
-										if (!value.equals(data)) {
-											if (action == PREPEND) {
-												rVal = data + value;
-											} else if (action == APPEND) {
-												rVal = value + data;
-											} else {
-												rVal = data;
-											}
-											firstNodeElement.setAttribute(XML_VALUE, rVal);
-											saveFile = true;
-										}
-									}
-								}
-							}
-						}
-
-						if (saveFile) {
-							TransformerFactory tFactory = TransformerFactory.newInstance();
-
-							Transformer transformer = tFactory.newTransformer();
-							ByteArrayOutputStream stream = new ByteArrayOutputStream();
-							DOMSource source = new DOMSource(document);
-							StreamResult result = new StreamResult(stream);
-							transformer.transform(source, result);
-
-							// Save the document
-							FileOutputStream fileOut = new FileOutputStream(tgtFilePath);
-							fileOut.write(stream.toByteArray());
-							fileOut.close();
-						}
-
-					} catch (TransformerConfigurationException e) {
-					} catch (TransformerException e) {
-					} catch (FileNotFoundException e) {
-					} catch (ParserConfigurationException e) {
-					} catch (SAXException e) {
-					} catch (IOException e) {
-					}					
-				}
-			}, new NullProgressMonitor());
-		} catch (CoreException e) {
-			CorePlugin.logError("Unable to update builder.", e);
-		}
-		return rVal;
-	}*/
 
 	/*
 	 * Sets "src" folder as source folder. All other folders including "gen"

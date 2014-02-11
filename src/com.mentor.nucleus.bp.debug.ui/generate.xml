@@ -5,7 +5,7 @@
  Version:   $Revision$
  Modified:  $Date$
 
- (c) Copyright 2006-2013 by Mentor Graphics Corp.  All rights reserved.
+ (c) Copyright 2006-2014 by Mentor Graphics Corp.  All rights reserved.
 
 -->
 <project name="bp.debug.ui" default="all" basedir=".">

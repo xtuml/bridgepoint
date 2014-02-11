@@ -3,7 +3,7 @@
  *
  * Description:
  * Here we have the system-level instance create and delete declaration.
- * (C) Copyright 1998-2013 Mentor Graphics Corporation.  All rights reserved.
+ * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
  *--------------------------------------------------------------------------*/
 
 #ifndef SYS_FACTORY_H

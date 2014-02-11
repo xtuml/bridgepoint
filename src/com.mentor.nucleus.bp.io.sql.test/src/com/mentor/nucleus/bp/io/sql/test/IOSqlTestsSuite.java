@@ -5,7 +5,7 @@ package com.mentor.nucleus.bp.io.sql.test;
 //Version:   $Revision: 1.5 $
 //Modified:  $Date: 2013/01/10 23:07:35 $
 //
-//(c) Copyright 2004-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 

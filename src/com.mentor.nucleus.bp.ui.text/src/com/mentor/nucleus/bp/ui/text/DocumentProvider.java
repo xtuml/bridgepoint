@@ -5,7 +5,7 @@ package com.mentor.nucleus.bp.ui.text;
 // Version:   $Revision: 1.27 $
 // Modified:  $Date: 2013/05/10 13:25:24 $
 //
-// (c) Copyright 2004-2013 by Mentor Graphics Corp.  All rights reserved.
+// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
 //
 //====================================================================
 //

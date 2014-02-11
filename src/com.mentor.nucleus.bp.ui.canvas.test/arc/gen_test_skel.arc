@@ -4,7 +4,7 @@
 .// Version:   $Revision: 1.11 $
 .// Modified:  $Date: 2013/01/10 22:44:11 $
 .//
-.// (c) Copyright 2004-2013 Mentor Graphics Corporation  All rights reserved.
+.// (c) Copyright 2004-2014 Mentor Graphics Corporation  All rights reserved.
 .//
 .//====================================================================
 .//
@@ -22,7 +22,7 @@ package com.mentor.nucleus.bp.ui.canvas.test;
 //Version:   $$Revision: 1.11 $$
 //Modified:  $$Date: 2013/01/10 22:44:11 $$
 //
-//(c) Copyright 2004-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 

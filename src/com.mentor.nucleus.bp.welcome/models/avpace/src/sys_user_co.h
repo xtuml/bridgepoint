@@ -5,7 +5,7 @@
  * Function declarations for user supplied (non-translated) call out entry
  * points in the generated application.
  *
- * (C) Copyright 1998-2013 Mentor Graphics Corporation.  All rights reserved.
+ * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
  *--------------------------------------------------------------------------*/
 
 #ifndef SYS_USER_CO_H

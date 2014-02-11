@@ -4,7 +4,7 @@
 //Version:   $Revision: 1.8 $
 //Modified:  $Date: 2013/03/13 22:59:56 $
 //
-//(c) Copyright 2004-2012 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
@@ -64,7 +64,7 @@ public class BridgePointDemoEncryptor {
      * BridgePoint.
      */
     protected static final String ExpecectedCopyrightAndLicense = 
-        "//(c) Copyright 2004-2012 by Mentor Graphics Corp. All rights reserved.\n" +
+        "//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.\n" +
         "//\n" +
         "//=====================================================================\n" +
         "//This document contains information proprietary and confidential to\n" +

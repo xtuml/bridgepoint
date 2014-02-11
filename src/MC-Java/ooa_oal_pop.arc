@@ -1,10 +1,8 @@
 .//====================================================================
 .//
-.// File:      $RCSfile: ooa_oal_pop.arc,v $
-.// Version:   $Revision: 1.13 $
-.// Modified:  $Date: 2013/01/10 23:16:44 $
+.// File:      ooa_oal_pop.arc
 .//
-.// (c) Copyright 2003-2013 Mentor Graphics Corporation  All rights reserved.
+.// Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
 .//
 .//====================================================================
 .//
@@ -118,98 +116,4 @@
   .end for
 .end if
 .emit to file "sql/$cr{domain.Name}.bpi.sql"
-.//
-.// $Log: ooa_oal_pop.arc,v $
-.// Revision 1.13  2013/01/10 23:16:44  rmulvey
-.// job:dts0100939343
-.// Updated the copyright to 2013
-.//
-.// Revision 1.12  2012/01/23 21:24:37  kbrown
-.// job:dts0100848212
-.// Batch commit of copyright updated files.
-.//
-.// Revision 1.11  2011/05/30 20:22:54  kbrown
-.// job:dts0100742889
-.// Updated copy right.
-.//
-.// Revision 1.10  2010/04/14 02:41:07  rmulvey
-.// job:dts0100631941 dts0100633469 dts0100676286 dts0100641311 dts0100670560
-.// Promoted from Review-dts0100631941-05
-.//
-.// Revision 1.9.16.1  2010/03/29 14:34:03  rmulvey
-.// job:dts0100631941 dts0100633469  dts0100676286  dts0100641311 dts0100670560
-.// Created branch Review-631941-633469-676286-641311-670560 to serve as a prmotion workspace for a batch of issues being promoted together.
-.//
-.// Revision 1.9.14.1  2010/03/18 14:54:25  campbell
-.// Job:dts0100631941
-.// Check in work in progress. Split build into two passes.
-.//
-.// Revision 1.9  2010/01/05 03:17:02  kbrown
-.// job:dts0100644853
-.// Batch commit of copyright change from 2009 to 2010 for BP CVS projects.
-.//
-.// Revision 1.8  2009/01/01 23:17:04  rmulvey
-.// Job:4060
-.// Batch promotion of copyright changes from Review-i4060 and Review-i4060-01.
-.//
-.// Revision 1.7.50.1  2008/12/31 16:22:51  rmulvey
-.// Job:4060
-.// This is a batch commit of 2009 copyright changes to branch Review-i4060.  This includes the
-.// report that outlines all changes made (before/after for each line changed).  This report is found here: <cvs>/Documentation/internal/test_results/R2_1_2/i4060/update-copyright-results.txt.
-.//
-.// Revision 1.7  2008/01/08 20:24:50  rmulvey
-.// Job:3349
-.// Promoted from Review-i3349.  The copyright has been updated to 2008 and the version has been bumped to 1.5.4.
-.//
-.// Revision 1.6.20.1  2007/12/21 17:55:01  rmulvey
-.// Job:3339
-.// Checking-in the copyriight changes in branch Review-i3349.  A detailed list of these changes is found
-.// in the report produced by the utility used to changesthese messages.  This report is here:
-.// Documentation/internal/test_results/R1_5_4/i3349/update-copyright-results.txt
-.//
-.// Revision 1.6  2007/09/05 02:43:10  kbrown
-.// Job:2673
-.// Promoting copyright changes for projects:
-.// MC-Java
-.// MC-Java.test
-.// pt_antlr
-.//
-.// Revision 1.5.94.1  2007/09/01 01:36:27  rmulvey
-.// Job:2673
-.// Updated copyright messages and version numbers in Review-i2673-01.
-.//
-.// Revision 1.5  2006/06/02 21:28:40  greg
-.// Job: 1554
-.// - Only generated function bodies for functions that are not context menu entries
-.//   or OAL validation functions
-.//
-.// Revision 1.4  2004/12/08 21:29:53  greg
-.// Job: 384
-.// Added include for arch_utils.inc
-.//
-.// Revision 1.3.64.1  2004/12/08 13:29:14  campbell
-.// Job: 384
-.// Added include for arch_utils.inc
-.//
-.// Revision 1.3.36.1  2004/11/18 02:37:00  greg
-.// Job: 384
-.// Added include for arch_utils.inc
-.//
-.// Revision 1.3.6.1  2004/10/27 00:32:14  greg
-.// Job: 384
-.// Added include for arch_utils.inc
-.//
-.// Revision 1.3  2004/09/17 21:19:14  greg
-.// Job: 31
-.// Add MDA support
-.//
-.// Revision 1.2  2004/03/19 20:52:39  greg
-.// Job: 143
-.// Changed from binary to ASCII -kkv
-.//
-.// Revision 1.2  2003/02/11 18:24:03  campbell
-.// BP 6.1 ODMS running
-.//
-.// Revision 1.1  2003/01/22 20:18:17  campbell
-.// Finalized RCS Header
 .//

@@ -5,7 +5,7 @@
 # Version:   $Revision: 1.14 $
 # Modified:  $Date: 2013/01/10 23:21:36 $
 # 
-# (c) Copyright 2007-2013 by Mentor Graphics Corp. All rights reserved.
+# (c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
 # 
 # =====================================================================
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not 
@@ -57,7 +57,7 @@ my $usage = <<USAGE;
 #===========================================================================
 #
 # UnitTestGenerator $perlScriptRevision
-# (c) Copyright 2007-2013 by Mentor Graphics Corp. All rights reserved.
+# (c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
 #
 # usage:  
 # UnitTestGenerator <TestMatrix> <ResultName> [options]
@@ -576,7 +576,7 @@ sub createCopyrightAndPackageSpec() {
 	$myMatrix .= $mySuffix;
 	print $outputFH "// Matrix:       $myMatrix\n";
 	print $outputFH "//\n";
-	print $outputFH "//(c) Copyright 2007-2013 by Mentor Graphics Corp. All rights reserved.\n";
+	print $outputFH "//(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.\n";
 	print $outputFH "//\n";
 	print $outputFH "//=====================================================================\n";
     print $outputFH "// Licensed under the Apache License, Version 2.0 (the \"License\"); you may not\n"; 

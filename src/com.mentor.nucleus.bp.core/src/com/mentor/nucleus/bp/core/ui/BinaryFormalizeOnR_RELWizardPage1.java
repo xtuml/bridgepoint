@@ -5,7 +5,7 @@ package com.mentor.nucleus.bp.core.ui;
 //Version:   $Revision:$
 //Modified:  $Date:$
 //
-//(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
@@ -46,7 +46,7 @@ import java.util.List;
 public class BinaryFormalizeOnR_RELWizardPage1 extends PtWizardPage
 		implements
 			Listener {
-	public static final String copyright = "(c) Copyright 2003-2013 Mentor Graphics Corporation  All rights reserved.";
+	public static final String copyright = "(c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.";
 
 	IWorkbench workbench;
 	IStructuredSelection selection;

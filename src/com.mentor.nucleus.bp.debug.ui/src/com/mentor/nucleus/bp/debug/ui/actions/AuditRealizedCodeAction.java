@@ -6,7 +6,7 @@ package com.mentor.nucleus.bp.debug.ui.actions;
 // Version:   $Revision: 1.4 $
 // Modified:  $Date: 2013/01/10 23:17:40 $
 //
-//(c) Copyright 2007-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 

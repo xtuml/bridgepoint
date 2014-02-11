@@ -4,7 +4,7 @@
 .// Version:   $Revision: 1.29 $
 .// Modified:  $Date: 2013/01/10 23:21:16 $
 .//
-.// Copyright 2003-2013 Mentor Graphics Corporation  All rights reserved.
+.// Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
 .//
 .//====================================================================
 .//

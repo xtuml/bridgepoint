@@ -4,7 +4,7 @@
 .// Version:   $Revision: 1.34 $
 .// Modified:  $Date: 2013/01/17 03:27:51 $
 .//
-.// (c) Copyright 2003-2013 Mentor Graphics Corporation  All rights reserved.
+.// (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
 .//
 .//====================================================================
 .function declare_cnonicl_rto_nav_path

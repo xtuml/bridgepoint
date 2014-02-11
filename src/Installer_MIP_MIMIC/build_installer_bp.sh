@@ -3,7 +3,7 @@
 #
 # File:      build_installer_bp.sh
 #
-# Copyright 2006-2013 Mentor Graphics Corporation. All rights reserved.
+# Copyright 2006-2014 Mentor Graphics Corporation. All rights reserved.
 #
 #=====================================================================
 # This document contains information proprietary and confidential to

@@ -5,7 +5,7 @@ package com.mentor.nucleus.bp.core.ui;
 //Version:   $Revision:$
 //Modified:  $Date:$
 //
-//(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
@@ -41,7 +41,7 @@ import java.util.Stack;
  * BinaryFormalizeOnR_RELWizard class
  */
 public class BinaryFormalizeOnR_RELWizard extends Wizard {
-	public static final String copyright = "(c) Copyright 2003-2013 Mentor Graphics Corporation  All rights reserved.";
+	public static final String copyright = "(c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.";
 
 	// workbench selection when the wizard was started
 	protected IStructuredSelection m_selection;
