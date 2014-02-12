@@ -12,11 +12,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide,
  org.eclipse.cdt.core,
  com.mentor.nucleus.bp.core,
- com.mentor.nucleus.bp.mc.xmiexport,
  com.mentor.nucleus.bp.utilities,
  org.eclipse.cdt.managedbuilder.core,
  org.eclipse.cdt.make.ui,
- org.eclipse.cdt.managedbuilder.ui,
- com.mentor.nucleus.bp.mc
+ org.eclipse.cdt.managedbuilder.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

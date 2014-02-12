@@ -57,11 +57,6 @@ import com.mentor.nucleus.bp.utilities.build.BuilderManagement;
  * the project description.
  */
 public abstract class AbstractNature implements IProjectNature {
-	/** id of builder - matches plugin.xml (concatenate pluginid.builderid) */
-	public static final String CUST_BUILDER_ID = "org.eclipse.ui.externaltools.ExternalToolBuilder"; //$NON-NLS-1$
-	public static final String CDT_BUILDER_ID = "org.eclipse.cdt.managedbuilder.core.genmakebuilder"; //$NON-NLS-1$
-	public static final String CDT_SCANNER_BUILDER_ID = "org.eclipse.cdt.managedbuilder.core.ScannerConfigBuilder"; //$NON-NLS-1$
-
 	/** ID of BridgePoint Model Compilers **/
 	public static final String C_SOURCE_MC_ID = "com.mentor.nucleus.bp.mc.c.source";
 	public static final String C_BINARY_MC_ID = "com.mentor.nucleus.bp.mc.c.binary";
@@ -315,7 +310,7 @@ public abstract class AbstractNature implements IProjectNature {
 		boolean custBuilderFound = false;
 
 		for (int i = 0; i < commands.length; ++i) {
-			if (commands[i].getBuilderName().equals(CUST_BUILDER_ID)) {
+			if (commands[i].getBuilderName().equals(BuilderManagement.CUST_BUILDER_ID)) {
 				custBuilderFound = true;
 				break;
 			}
@@ -326,7 +321,7 @@ public abstract class AbstractNature implements IProjectNature {
 		if (!custBuilderFound) {
 
 			ICommand custCommand = desc.newCommand();
-			custCommand.setBuilderName(CUST_BUILDER_ID);
+			custCommand.setBuilderName(BuilderManagement.CUST_BUILDER_ID);
 			// Create map with arguments specific to builder in project here
 			// custCommand.setArguments(Map args);
 			final Map<String, String> buildsetting;

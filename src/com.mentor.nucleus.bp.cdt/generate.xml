@@ -32,8 +32,7 @@
        <src path="src/com/mentor/nucleus/bp/cdt" />
        <classpath>
          <pathelement path="../com.mentor.nucleus.bp.core/bin" />
-       	 <pathelement path="../com.mentor.nucleus.bp.mc/bin" />
-       	 <pathelement path="../com.mentor.nucleus.bp.mc.xmiexport/bin" />
+       	 <pathelement path="../com.mentor.nucleus.bp.utilities/bin" />
          <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
             <include name="**/org.eclipse.ui_*.jar" />
             <include name="**/org.eclipse.core.runtime_*.jar" />
