@@ -39,9 +39,13 @@ public class BuilderManagement {
     private static int PREPEND = 1;
     private static int APPEND = 2;
 
-    public static String XML_KEY = "key"; //$NON-NLS-1$
-    public static String XML_VALUE = "value"; //$NON-NLS-1$
-    private static String ENV_ATTR_NAME = "org.eclipse.debug.core.environmentVariables"; //$NON-NLS-1$
+    public static final String XML_KEY = "key"; //$NON-NLS-1$
+    public static final String XML_VALUE = "value"; //$NON-NLS-1$
+    private static final String ENV_ATTR_NAME = "org.eclipse.debug.core.environmentVariables"; //$NON-NLS-1$
+
+    public static final String CUST_BUILDER_ID = "org.eclipse.ui.externaltools.ExternalToolBuilder"; //$NON-NLS-1$
+    public static final String CDT_BUILDER_ID = "org.eclipse.cdt.managedbuilder.core.genmakebuilder"; //$NON-NLS-1$
+    public static final String CDT_SCANNER_BUILDER_ID = "org.eclipse.cdt.managedbuilder.core.ScannerConfigBuilder"; //$NON-NLS-1$
 
     /**
      * @return 0-based position of the found builder in the array returned by

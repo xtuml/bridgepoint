@@ -43,7 +43,6 @@ import org.eclipse.ui.PlatformUI;
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.ui.DelegatingWizard;
 import com.mentor.nucleus.bp.core.ui.Selection;
-import com.mentor.nucleus.bp.mc.AbstractNature;
 import com.mentor.nucleus.bp.utilities.build.BuilderManagement;
 
 
@@ -74,8 +73,8 @@ public class BridgePointCDTProjectWizard extends DelegatingWizard {
           success = false;
         }
         // Reorder builders to put CDT at bottom
-        BuilderManagement.makeBuilderLast(project, AbstractNature.CDT_BUILDER_ID);
-        BuilderManagement.makeBuilderLast(project, AbstractNature.CDT_SCANNER_BUILDER_ID);
+        BuilderManagement.makeBuilderLast(project, BuilderManagement.CDT_BUILDER_ID);
+        BuilderManagement.makeBuilderLast(project, BuilderManagement.CDT_SCANNER_BUILDER_ID);
 		return success;
 	}
 
