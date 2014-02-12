@@ -8,7 +8,7 @@ import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
-import com.mentor.nucleus.bp.internal.tools.utilities.TreeUtilities;
+import com.mentor.nucleus.bp.utilities.ui.TreeUtilities;
 import com.mentor.nucleus.bp.ui.explorer.ExplorerView;
 
 public class LocateOrphanedElementsInTreeAction implements IActionDelegate {

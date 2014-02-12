@@ -3,7 +3,7 @@
 #
 # File:      build_installer_bp_linux.sh
 #
-# Copyright 2006-2013 Mentor Graphics Corporation. All rights reserved.
+# Copyright 2006-2014 Mentor Graphics Corporation. All rights reserved.
 #
 #=====================================================================
 # This document contains information proprietary and confidential to
@@ -33,8 +33,8 @@ ECLIPSE_VER="3.7"
 BP_BASE_DIR="C:/BridgePoint_for_Linux_e${ECLIPSE_VER}"
 TEMP_DIR="C:/temp_linux"
 WINDOWS_FRAGMENT="com.mentor.nucleus.bp.core.win32.x86"
-MCMC_EXE="com.mentor.nucleus.bp.mc.c.binary_4.1.1/mc3020/bin/mcmc"
-SEQUENCE_CREATOR="com.mentor.nucleus.bp.sequencecapture_4.1.1.jar"
+MCMC_EXE="com.mentor.nucleus.bp.mc.c.binary_4.1.6/mc3020/bin/mcmc"
+SEQUENCE_CREATOR="com.mentor.nucleus.bp.sequencecapture_4.1.6.jar"
 SERVER="tucson.wv"
 REMOTE_RELEASE_DIR="/arch1/products/tiger/releases/${PRODUCT_VER}"
 EXT_SRC_DIR="build@${SERVER}:${REMOTE_RELEASE_DIR}" 

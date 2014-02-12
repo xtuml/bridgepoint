@@ -4,7 +4,7 @@ package com.mentor.nucleus.bp.debug.ui.actions;
 //
 // File: com/mentor/nucleus/bp/core/ui/MonitorAction.java
 //
-// (c) Copyright 2006-2013 by Mentor Graphics Corp.  All rights reserved.
+// (c) Copyright 2006-2014 by Mentor Graphics Corp.  All rights reserved.
 //
 //======================================================================
 //
