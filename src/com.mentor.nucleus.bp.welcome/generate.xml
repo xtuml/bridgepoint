@@ -5,7 +5,7 @@
  Version:   $Revision: 1.32 $
  Modified:  $Date: 2013/01/10 23:32:31 $
 
- (c) Copyright 2005-2013 by Mentor Graphics Corp.  All rights reserved.
+ (c) Copyright 2005-2014 by Mentor Graphics Corp.  All rights reserved.
 
 -->
 <project name="bp.welcome" default="all" basedir=".">
@@ -34,7 +34,6 @@
        <classpath>
          <pathelement path="../com.mentor.nucleus.bp.core/bin" />
          <pathelement path="../com.mentor.nucleus.bp.io.core/bin" />
-       	 <pathelement path="../com.mentor.nucleus.bp.mc.mc3020/bin" />
        	 <pathelement path="../com.mentor.nucleus.bp.utilities/bin" />
        	 <pathelement path="../com.mentor.nucleus.bp.cdt/bin" />
        	 <pathelement path="../com.mentor.nucleus.bp.ui.canvas/bin" />

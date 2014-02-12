@@ -9,11 +9,20 @@
 // Version:      1.12
 // Matrix:       t.txt
 //
-//(c) Copyright 2007-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp. and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //=====================================================================
 
 package com.mentor.nucleus.bp.debug.ui.test.realizedClasses;
@@ -220,17 +229,10 @@ public class VerifierStaticVariablesInRealizedClassesTest extends BaseTest {
 				.getManyPE_PEsOnR8000(Package_c
 						.getManyEP_PKGsOnR8001(PackageableElement_c
 								.getManyPE_PEsOnR8003(comp))));
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(fun));
-		Menu menu = DebugUITestUtilities.getMenuInSETree(fun);
-		if (UITestingUtilities.checkItemStatusInContextMenu(menu, "Execute",
-				"", false)) {
-			BPDebugUtils.setSelectionInSETree(new StructuredSelection(
-					fun));
-			UITestingUtilities.activateMenuItem(menu, "Execute");
-			// wait for the execution to complete
-			DebugUITestUtilities.waitForBPThreads(m_sys);
-			DebugUITestUtilities.waitForExecution();
-		}
+		BPDebugUtils.executeElement(fun);
+		// wait for the execution to complete
+		DebugUITestUtilities.waitForBPThreads(m_sys);
+		DebugUITestUtilities.waitForExecution();
 		while (PlatformUI.getWorkbench().getDisplay().readAndDispatch())
 			;
 		// compare the trace
@@ -255,7 +257,7 @@ public class VerifierStaticVariablesInRealizedClassesTest extends BaseTest {
 		assertNotNull(process);
 
 		DebugUITestUtilities.setSelectionInDebugTree(process);
-		menu = DebugUITestUtilities.getMenuForSelectionInDebugView();
+		Menu menu = DebugUITestUtilities.getMenuForSelectionInDebugView();
 		if (menu == null) {
 			fail("Failed to get tree viewer in Debug View.");
 		}
@@ -265,18 +267,14 @@ public class VerifierStaticVariablesInRealizedClassesTest extends BaseTest {
 		DebugUITestUtilities.waitForExecution();
 		DebugUITestUtilities.waitForBPThreads(m_sys);
 
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(fun));
-		menu = DebugUITestUtilities.getMenuInSETree(fun);
-		if (UITestingUtilities.checkItemStatusInContextMenu(menu, "Execute",
-				"", false)) {
-			BPDebugUtils.setSelectionInSETree(new StructuredSelection(
-					fun));
-			UITestingUtilities.activateMenuItem(menu, "Execute");
-			DebugUITestUtilities.waitForExecution();
-			// wait for the execution to complete
-			DebugUITestUtilities.waitForBPThreads(m_sys);
-			DebugUITestUtilities.waitForExecution();
-		}
+		BPDebugUtils.executeElement(fun);
+
+		
+		DebugUITestUtilities.waitForExecution();
+		// wait for the execution to complete
+		DebugUITestUtilities.waitForBPThreads(m_sys);
+		DebugUITestUtilities.waitForExecution();
+
 		// compare the trace
 		expectedResults = new File(
 				m_workspace_path

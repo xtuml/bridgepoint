@@ -1,0 +1,44 @@
+========================================================================
+
+File:      HOWTO-update-exact-access-dates.txt
+
+Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp. and is not for external distribution.
+========================================================================
+
+References
+----------
+[1] Generator build instructions, 
+      https://github.com/xtuml/generator/blob/master/src/gen_erate/README.txt
+
+
+How to Update Exact Access Dates in BridgePoint
+-----------------------------------------------
+1) Create github issues in both xtuml/internal and xtuml/generator repositories
+   for this work.
+   
+2) Branch the xtuml/internal and xtuml/generator repositories
+
+3) Open bp.core/src/com/mentor/nucleus/bp/core/util/BridgePointLicenseManager.java
+    a) Edit the variable MGLS_XTUML_APP_DATE with the new date. (e.g. Oct 01 2013)
+    
+4) Update exact access date in Generator
+    a) Open generator\src\gen_erate\bp_source\win32\7.1B\utility\src\u_bplic.c
+    b) Find the define MGLS_XTUML_APP_DATE
+    c) Update the exact access date (e.g. Oct 01 2013)
+    d) Open generator\src\gen_erate\bp_source\win32\7.1B\main\src\
+         gen_erate\main_gen_erate.cc
+    e) Find the "Revision" string around line 77.  Increment the version number.
+
+5) Check in all modified projects
+
+6) Commit and push the changes.  Create and merge pull requests for the branches
+   in each repository to promote the changes to master.
+
+7) After promotion, rebuild generator [1]
+
+End
+---

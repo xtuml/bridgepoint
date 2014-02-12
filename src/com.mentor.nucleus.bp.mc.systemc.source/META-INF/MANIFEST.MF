@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: SystemC Model Compiler (Source)
 Bundle-SymbolicName: com.mentor.nucleus.bp.mc.systemc.source; singleton:=true
-Bundle-Version: 4.0.7
+Bundle-Version: 4.1.6
 Bundle-Activator: com.mentor.nucleus.bp.mc.systemc.source.Activator
 Bundle-Vendor: Mentor Graphics
 Require-Bundle: org.eclipse.ui,

@@ -4,11 +4,20 @@
 //Version:   $Revision: 1.8 $
 //Modified:  $Date: 2013/05/10 04:52:48 $
 //
-//(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //========================================================================
 //
 package com.mentor.nucleus.bp.als.oal.test;
@@ -32,6 +41,7 @@ import com.mentor.nucleus.bp.core.BaseAttribute_c;
 import com.mentor.nucleus.bp.core.Block_c;
 import com.mentor.nucleus.bp.core.Bridge_c;
 import com.mentor.nucleus.bp.core.ClassStateMachine_c;
+import com.mentor.nucleus.bp.core.Component_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.DerivedBaseAttribute_c;
 import com.mentor.nucleus.bp.core.ExternalEntity_c;
@@ -42,10 +52,16 @@ import com.mentor.nucleus.bp.core.MooreActionHome_c;
 import com.mentor.nucleus.bp.core.Oalconstants_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.Operation_c;
+import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.Parsestatus_c;
+import com.mentor.nucleus.bp.core.ProvidedOperation_c;
+import com.mentor.nucleus.bp.core.ProvidedSignal_c;
+import com.mentor.nucleus.bp.core.RequiredOperation_c;
+import com.mentor.nucleus.bp.core.RequiredSignal_c;
 import com.mentor.nucleus.bp.core.StateMachineState_c;
 import com.mentor.nucleus.bp.core.StateMachine_c;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
+import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.util.DomainUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
@@ -196,6 +212,15 @@ public class ParseAllInDomain_Generics extends BaseTest {
 		parseAllOperations();
 		parseAllMDAttrs();
 		parseAllStateActivities();
+		/* TODO - SKB 10/2013 - was going to start parsing message bodies, but
+		 * some of our test models don't pass when we do.  We have to delay
+		 * fixing this due to R4.1.0 deadline.  Opened issue dts0101009201 to 
+		 * resolve this.
+		 **
+		parseAllProvidedOperations();
+		parseAllRequiredOperations();*/
+		parseAllProvidedSignals();
+        parseAllRequiredSignals();
 	}
 	private void parseAllFunctions()
 	{
@@ -296,13 +321,99 @@ public class ParseAllInDomain_Generics extends BaseTest {
 			}
 		}
 	}
+    private void parseAllProvidedOperations()
+    {
+        ProvidedOperation_c[] op_set = ProvidedOperation_c.ProvidedOperationInstances(modelRoot);
+        for ( int i = 0; i < op_set.length; ++i )
+        {
+            if( op_set[i].getSuc_pars() == Parsestatus_c.parseSuccessful )
+            {
+                String x = parseAction(op_set[i], op_set[i].getAction_semantics(),
+                    op_set[i].getId(), Oalconstants_c.PROV_OPERATION_TYPE);
+                if ( ! x.equals("") )
+                {
+                    assertEquals("Provided Operation " + op_set[i].getName(), "", x);
+                }
+            }
+        }
+    }
+    private void parseAllProvidedSignals()
+    {
+        ProvidedSignal_c[] sig_set = ProvidedSignal_c.ProvidedSignalInstances(modelRoot);
+        for ( int i = 0; i < sig_set.length; ++i )
+        {
+            if( sig_set[i].getSuc_pars() == Parsestatus_c.parseSuccessful )
+            {
+                String x = parseAction(sig_set[i], sig_set[i].getAction_semantics(),
+                    sig_set[i].getId(), Oalconstants_c.PROV_SIGNAL_TYPE);
+                if ( ! x.equals("") )
+                {
+                    assertEquals("Provided Signal " + sig_set[i].getName(), "", x);
+                }
+            }
+        }
+    }
+    private void parseAllRequiredOperations()
+    {
+        RequiredOperation_c[] op_set = RequiredOperation_c.RequiredOperationInstances(modelRoot);
+        for ( int i = 0; i < op_set.length; ++i )
+        {
+            if( op_set[i].getSuc_pars() == Parsestatus_c.parseSuccessful )
+            {
+                String x = parseAction(op_set[i], op_set[i].getAction_semantics(),
+                    op_set[i].getId(), Oalconstants_c.REQ_OPERATION_TYPE);
+                if ( ! x.equals("") )
+                {
+                    assertEquals("Required Operation " + op_set[i].getName(), "", x);
+                }
+            }
+        }
+    }
+    private void parseAllRequiredSignals()
+    {
+        RequiredSignal_c[] sig_set = RequiredSignal_c.RequiredSignalInstances(modelRoot);
+        for ( int i = 0; i < sig_set.length; ++i )
+        {
+            if( sig_set[i].getSuc_pars() == Parsestatus_c.parseSuccessful )
+            {
+                String x = parseAction(sig_set[i], sig_set[i].getAction_semantics(),
+                    sig_set[i].getId(), Oalconstants_c.REQ_SIGNAL_TYPE);
+                if ( ! x.equals("") )
+                {
+                    assertEquals("Required Signal " + sig_set[i].getName(), "", x);
+                }
+            }
+        }
+    }
 
+    public class Package_by_id_c implements ClassQueryInterface_c {
+        public boolean evaluate(Object candidate) {
+            Package_c selected = (Package_c) candidate;
+            return (selected.getPackage_id().equals(m_id));
+        }
+        public Package_by_id_c(UUID id) {
+            m_id = id;
+        }
+        private UUID m_id;
+    }
+    
 	private String parseAction(NonRootModelElement nrme, String stmts, UUID funcId, int funcType)
 	{
 		boolean foundPackage = false;
 		if(nrme.getFirstParentPackage() != null) {
 			foundPackage = true;
 			nrme = nrme.getFirstParentPackage();
+		} else {
+		    // In this case, nrme is likely under a Component hierarchy
+		    Component_c comp = nrme.getFirstParentComponent();
+		    if ( comp != null ) {
+		        Package_c pkg = Package_c.PackageInstance(modelRoot,
+	                new Package_by_id_c(comp.Getpackageid()));
+		        if (pkg != null) {
+                    foundPackage = true;
+		            nrme = pkg.getFirstParentPackage();
+		        }
+		    }
 		}
 		OalLexer lexer = new OalLexer(new StringReader(stmts));
 		OalParser parser = new OalParser(modelRoot, lexer);

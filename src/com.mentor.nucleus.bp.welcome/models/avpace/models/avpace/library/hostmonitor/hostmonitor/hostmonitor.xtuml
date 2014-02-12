@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("9e99e4fa-9c62-4ccd-856f-347c8c195c9e",
@@ -24,13 +24,15 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'3.4.0');
+	'3.4.0',
+	'avpace::library::hostmonitor::hostmonitor');
 INSERT INTO GD_GE
 	VALUES ("fa314a1f-3b70-4fb9-8ff3-0e1eb0ab907a",
 	"a92f386b-d41d-4652-ab42-1fb50e2a5437",
 	"efb4a3a2-4774-40e3-ab8b-4c2da59a10f4",
 	21,
-	0);
+	0,
+	'avpace::library::hostmonitor::hostmonitor::Host Monitor');
 INSERT INTO GD_SHP
 	VALUES ("fa314a1f-3b70-4fb9-8ff3-0e1eb0ab907a");
 INSERT INTO GD_NCS
@@ -68,7 +70,8 @@ INSERT INTO GD_GE
 	"a92f386b-d41d-4652-ab42-1fb50e2a5437",
 	"39bf89fb-5ccd-41c6-9947-87aba6c1c824",
 	21,
-	0);
+	0,
+	'avpace::library::hostmonitor::hostmonitor::Temperature Monitor');
 INSERT INTO GD_SHP
 	VALUES ("78fbb3c2-8052-4fab-890a-558680bb9a02");
 INSERT INTO GD_NCS
@@ -96,7 +99,8 @@ INSERT INTO GD_GE
 	"a92f386b-d41d-4652-ab42-1fb50e2a5437",
 	"2ee04072-4080-4ee3-98be-dcbda7b06c6d",
 	21,
-	0);
+	0,
+	'avpace::library::hostmonitor::hostmonitor::Respiratory Monitor');
 INSERT INTO GD_SHP
 	VALUES ("3979206f-f765-4e06-94bc-1a7af901045e");
 INSERT INTO GD_NCS
@@ -124,7 +128,8 @@ INSERT INTO GD_GE
 	"a92f386b-d41d-4652-ab42-1fb50e2a5437",
 	"d645fe2e-8801-4e24-8a41-d568dfba3317",
 	24,
-	0);
+	0,
+	'avpace::library::hostmonitor::hostmonitor::R2');
 INSERT INTO GD_CON
 	VALUES ("1b177cbf-f5e9-4171-ab19-4835f2eda017",
 	"00000000-0000-0000-0000-000000000000");
@@ -236,7 +241,8 @@ INSERT INTO GD_GE
 	"a92f386b-d41d-4652-ab42-1fb50e2a5437",
 	"4a3af8fc-5a0f-431b-b1a8-ae27e75f53bf",
 	24,
-	0);
+	0,
+	'avpace::library::hostmonitor::hostmonitor::R3');
 INSERT INTO GD_CON
 	VALUES ("edabad52-182c-4ab6-a9b4-c3f6c352b014",
 	"00000000-0000-0000-0000-000000000000");
@@ -350,30 +356,6 @@ INSERT INTO DIM_DIA
 	4000.000000,
 	3000.000000,
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO PE_PE
-	VALUES ("efb4a3a2-4774-40e3-ab8b-4c2da59a10f4",
-	1,
-	"9e99e4fa-9c62-4ccd-856f-347c8c195c9e",
-	"00000000-0000-0000-0000-000000000000",
-	4);
-INSERT INTO PE_PE
-	VALUES ("39bf89fb-5ccd-41c6-9947-87aba6c1c824",
-	1,
-	"9e99e4fa-9c62-4ccd-856f-347c8c195c9e",
-	"00000000-0000-0000-0000-000000000000",
-	4);
-INSERT INTO PE_PE
-	VALUES ("2ee04072-4080-4ee3-98be-dcbda7b06c6d",
-	1,
-	"9e99e4fa-9c62-4ccd-856f-347c8c195c9e",
-	"00000000-0000-0000-0000-000000000000",
-	4);
-INSERT INTO PE_PE
-	VALUES ("d645fe2e-8801-4e24-8a41-d568dfba3317",
-	1,
-	"9e99e4fa-9c62-4ccd-856f-347c8c195c9e",
-	"00000000-0000-0000-0000-000000000000",
-	9);
 INSERT INTO R_SIMP
 	VALUES ("d645fe2e-8801-4e24-8a41-d568dfba3317");
 INSERT INTO R_REL
@@ -432,7 +414,7 @@ INSERT INTO O_OBJ_PROXY
 	"00000000-0000-0000-0000-000000000000",
 	'./Temperature Monitor/Temperature Monitor.xtuml');
 INSERT INTO PE_PE
-	VALUES ("4a3af8fc-5a0f-431b-b1a8-ae27e75f53bf",
+	VALUES ("d645fe2e-8801-4e24-8a41-d568dfba3317",
 	1,
 	"9e99e4fa-9c62-4ccd-856f-347c8c195c9e",
 	"00000000-0000-0000-0000-000000000000",
@@ -486,15 +468,31 @@ INSERT INTO O_OBJ_PROXY
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'./Respiratory Monitor/Respiratory Monitor.xtuml');
-INSERT INTO PE_PE_PROXY
+INSERT INTO PE_PE
+	VALUES ("4a3af8fc-5a0f-431b-b1a8-ae27e75f53bf",
+	1,
+	"9e99e4fa-9c62-4ccd-856f-347c8c195c9e",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO PE_PE
 	VALUES ("9e99e4fa-9c62-4ccd-856f-347c8c195c9e",
 	1,
 	"00000000-0000-0000-0000-000000000000",
 	"ec30e476-2277-4a97-b32f-3df5784b0726",
-	7,
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("ec30e476-2277-4a97-b32f-3df5784b0726",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'hostmonitor',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
 	'../hostmonitor.xtuml');
 INSERT INTO S_SYS_PROXY
 	VALUES ("15b2a15d-7110-4efa-b644-89bd96e12c0e",
 	'avpace',
-	0,
+	1,
 	'../../../avpace.xtuml');

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Utilities Plug-in
 Bundle-SymbolicName: com.mentor.nucleus.bp.utilities;singleton:=true
-Bundle-Version: 4.0.7
+Bundle-Version: 4.1.6
 Bundle-Activator: com.mentor.nucleus.bp.utilities.Activator
 Bundle-Vendor: Mentor Graphics
 Require-Bundle: org.eclipse.ui,
@@ -12,7 +12,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.ui.ide,
  com.mentor.nucleus.bp.ui.explorer,
- com.mentor.nucleus.bp.mc.mc3020,
  com.mentor.nucleus.bp.ui.canvas,
  com.mentor.nucleus.bp.ui.graphics,
  com.mentor.nucleus.bp.ui.text,

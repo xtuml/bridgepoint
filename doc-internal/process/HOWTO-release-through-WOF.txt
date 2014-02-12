@@ -1,0 +1,283 @@
+========================================================================
+
+File:      $RCSfile: HOWTO-release-through-WOF.txt,v $
+Version:   $Revision: 1.19 $
+Modified   $Date: 2013/06/14 20:06:09 $
+
+(c) Copyright 2006-2010 by Mentor Graphics, Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics, Corp. and is not for external distribution.
+========================================================================
+
+HOWTO Release through Worldwide Order Fulfillment (WOF)
+
+Abstract
+--------
+The division has established a process for the release and distribution of our
+products to the outside world.  The process is outlined at [3].  This document
+attempts to fill in the blanks of that document.
+
+
+References
+----------
+[1] License Detective. http://chopper/oss/oss_util/index.html
+[2] OSS Request Form. http://chopper/oss/oss_request_form.php
+[3] Product Release Process. http://teams-na/wof/RELEASE/default.aspx
+[4] Release Registration Tool. 
+      http://mentorweb.wv.mentorg.com/ReleaseRegistration/releasetool
+[5] Software Product Handoff Guide. 
+      http://teams-na/WOF/MFG_Delivery/SWMFG/Release%20Administration/Software_Product_Handoff_Guides.pdf
+[6] Release Captain's Checklist. 
+      http://teams.mgc.mentorg.com/go/collaboration/Releases/_layouts/WordViewer.aspx?id=/go/collaboration/Releases/Documents/Release%20Captain%27s%20Checklist.doc&Source=http%3A%2F%2Fteams%2Emgc%2Ementorg%2Ecom%2Fgo%2Fcollaboration%2FReleases%2FDocuments%2FForms%2FAllItems%2Easpx&DefaultItemOpen=1&DefaultItemOpen=1
+[7] Importing Documentation to Supportnet. 
+      http://mentorweb.wv.mentorg.com/techpubs/snet/import_docs_process.html
+[8] Install Instructions Template. 
+      http://mentorweb.wv.mentorg.com/techpubs/templates/techpubs_template_install.html
+[9] <git>/xtuml/internal/tree/master/doc-internal/process/releases
+[10] CD Creation Script Instructions
+      <git>/xtuml/internal/tree/master/doc-internal/process/releases/scripts/CD creation scripts.txt
+[11] Support Net Authoring Site.  http://auth.support.mentor.com/
+[12] HOWTO Update to a New Version of Mentor Licensing (PCLS/MGLS)
+     <git>/xtuml/internal/tree/master/doc-internal/process/releases/HOWTO-update-mentor-licensing-libs.txt
+          
+Introduction
+------------
+There are various people involved in the release process.  Here are some names
+to be aware of:
+    o Gail Flanagan (Team lead - WoF)
+    o Joanne StJohn (BridgePoint Release Analyst - WoF)
+
+WOF has created a document [5] that provides important information for the
+release captain and developers. The Release Captain's Checklist [6] captures
+important milestones along the road of making a release.
+
+NOTE: Mentor enforces a blackout period.  There are no releases in the last two
+weeks of a quarter without high-level approvals (Serge, Todd Christensen, 
+Rick Trebing)
+
+Steps
+-----
+1  Make sure all Open Source Software to be released with the product has the 
+   proper approvals from Mentor Legal Department.
+1.1  If necessary, run the license detective [1] and submit new OSS requests 
+     for approval [2].
+     
+2  Decide on the configuration of the release (# of CDs, names, etc, EAD, MSI 
+   version, MGLS version)
+            
+3  Start Documentation
+3.1  Retrieve the Release Captain's checklist template [6].  Create a new
+     release number dir under [9]. Copy the release captain checklist to this
+     dir and start filling it out.  Continue to follow the steps to during the
+     release process. 
+
+4  Register the release
+4.1  Navigate to [4]
+4.2  Search for the prior product release using the listbox at the bottom of 
+     the page.
+4.3  Locate the previous release, click on the release number.  This will take
+     you back to [4], with the prior release number filled in.
+4.4  Click the "Retrieve Committed For New Registration" button.
+4.5  Fill out the form and submit it.
+4.6  The release will be registered.
+        
+5  Validate artwork
+5.1  We validate artwork, match part numbers, versions, copyrights, platform 
+     info, etc.
+5.2  Wait for artwork to be created by Ireland.  Validate it once received.
+     Artwork *must* be validated at least 7 days before manufacturing start.
+        
+6  Develop product, docs, generate internal releases, installer, QA & test
+6.1  Update the metamodel model in bp.welcome.  Follow the steps in 
+     bp.welcome/README.txt
+6.2  Decide if we will move to a newer version of MGLS/PCLS.  To update to a new
+     version see [12]
+ 
+7  Prepare release candidate
+7.1  Docs Freeze & Feature Freeze; followed by Code Freeze (make sure CC & CQ 
+     are updated)
+7.1.1  Once the Release Notes and What's New are done, alert the Product Marketing
+       Manager that they need to create a Value Sheet for the release.  Save
+       the Value sheet to \\wv\dfs\svd_for_cd\BridgePoint_<ver>
+7.2  Create a release branch (e.g. "v4.1.0") in the git xtuml/internal, 
+     xtuml/mc & xtuml/generator repositories.  Push the new branch upstream.
+7.3  Create a release branch for the SVN artifacts repository for the release.
+       - Remote desktop to svr-azt-eng-03
+       - Start BridgePoint, open C:\workspaces\build_artifacts
+       - Switch to SVN Repository Exploring Perspective
+       - Expand the repository, then right click on "branches" and select 
+           "New > Folder".  Add a new branch named the same as the branch used in 
+           github (e.g. "v4.1.0")
+       - Expand "trunk", select all the folders under trunk.  Right-click and 
+           select Copy.  Then Paste the items under the new version branch.
+7.4  Create release build.
+7.5  Notify the BridgePoint customer support representative that a release
+     candidate is ready for testing.
+   
+8  Follow instructions in [10]       
+
+#
+# 9 Release doc prep
+#
+# All Mentor Graphics releases that ship on CD/DVD media must have a 
+# Installation Instructions document in PDF format in the release_documents 
+# directory, at the top level of Disk 1. For web-based releases, this PDF 
+# document must also be available for viewing from that release's download page 
+# on SupportNet. This document is not shipped as hardcopy.
+#
+9.1 Download the template at [8] or use the one from the prior release as a 
+      base. The prior release documentation can be found under [9].
+9.2 Create a folder for the new release under [9]
+9.3 Update the install doc to account for the new version, release date, headers,
+      footers, TOC, and any changes to the document content
+9.4 Save it to BridgePoint_<version>_Install.doc
+9.5 Use MS Word's Save As... feature to save the file in PDF format
+9.6 Perform the same steps to update the Release Highlights document for this
+      release.
+9.7 Copy the Install PDF file to the following locations:
+      \\wv\dfs\svd_for_cd\BridgePoint_<ver>\web\<release #>\release_docs
+      \\wv\dfs\svd_for_cd\BridgePoint_<ver>\web
+      \\wv\dfs\svd_for_cd\BridgePoint_<ver>\cd_1\release_documents
+      \\wv\dfs\svd_for_cd\BridgePoint_<ver>\cd_2\release_documents
+9.8 Copy the Release Highlights PDF file to the following locations:
+      \\wv\dfs\svd_for_cd\BridgePoint_<ver>\web\<release #>\release_docs 
+      \\wv\dfs\svd_for_cd\BridgePoint_<ver>\cd_1\release_documents
+      \\wv\dfs\svd_for_cd\BridgePoint_<ver>\cd_2\release_documents
+9.9 Commit the new files under [9] to revision control
+
+#
+# 10 Create xml files for SupportNet
+#
+# We have a tool that generates them (create_xml_BridgePoint). The tool knows  
+#   about SupportNet hierarchy. Tool is run by mk_cds_rdme_mrc_BridgePoint.ksh 
+#   script inside step 8.
+# Have to do hand edits to fix title, version, and paths as necessary. Check
+# each file.
+#   NOTE: The release highlights and install doc paths should point into
+#         release_docs/ not docs/pdfdocs/
+#
+10.1 Check xml files in \\wv\dfs\svd_for_cd\BridgePoint_<ver>\web\<rel#>\docs\xml for correctness
+
+#
+# 11 Import Documentation to SupportNet
+# Documentation import should occur prior to creating the CD image.  For
+# important information about this step see [7]. You must have JavaScript 
+# enabled and allow popups coming from mentor.com.
+#
+11.1 Navigate to [7] and follow Step 2 to import the docs to SupportNet. 
+     Subactions 1 & 2 are basically:
+    o On a Wilsonville UNIX machine: 
+      $ cd /wv/svd_for_cd/BridgePoint_<version>/web
+      $ zip -r <SKU> <SKU>
+      $ cp <SKU>.zip /wv/techpubs/docimportdrop/    (NOTE: this step requires proper permissions.  See [7].)
+11.2 Still on [7], follow Step 3 to verify the imported docs on the authoring server
+
+#
+# 12 Upload the files for Manufacturing
+#   NOTE: Previous steps can be performed multiple times.  The following steps
+#         should only be run ONCE, as they trigger  activities in the 
+#         manufacturing process.
+#
+#   Steps performed by this script:
+#   - Create tgz image of CDs
+#   - FTP image and its check sum file to Manufacturing
+#   - FTP web ReadMe and any other files required for Intraware Site and their 
+#     check sum files to Manufacturing
+#   - Create ESDM request e-mail
+#
+12.1  Log in to your Wilsonville UNIX terminal again
+12.2  Run the following commands:
+  $ cd /wv/seamless_archives/bin
+  $ ./mk_cd_image
+    - Enter e-mail
+    - Enter Business Unit (e.g. SLE)
+    - Enter Release Number (e.g. 201310001)
+    - Enter Release Name   (e.g. BridgePoint_4.1.0)
+    - Enter release software location  (e.g. BridgePoint_4.1.0)
+    - Enter number of CDs (e.g. 2)
+    - Answer patch question (e.g. 201305035)
+    - Enter ESDM Filenames and Descriptions for the EXE, IXL, and Install doc.
+        Enter no data to exit the loop.  For example:
+            ESDM FILENAME1: BridgePoint_4.1.0_Install.pdf
+            ESDM FILEDESCRIPTION1: BridgePoint 4.1.0 Installation Instructions
+            ESDM FILENAME2: BridgePoint_v4.1.0.ixl
+            ESDM FILEDESCRIPTION2: BridgePoint 4.1.0 Linux Installer
+            ESDM FILENAME3: BridgePoint_v4.1.0.exe
+            ESDM FILEDESCRIPTION3: BridgePoint 4.1.0 Windows Installer
+            ESDM FILENAME4: <enter>
+            ESDM FILEDESCRIPTION4: <enter>
+    - Enter CD part number (e.g.  257809)
+      o Navigate to [4], enter the SKU, click View Media Content
+      o Find the CD part number of the appropriate OS for the given files
+    - Enter the CD title (e.g. BridgePoint 4.1.0, Linux)
+        NOTE: The CD image is created here, this can take a few minutes.
+    - Repeat for the other CD
+        NOTE: The FTP step can take some time.
+    - An e-mail will be sent to you with the ESDM data. Keep this e-mail handy.
+
+#
+# 13 Validate CDs (Optional)
+#   
+13.1  FTP files from ftp://svr-ies-ftp-01.ies.mentorg.com/pub/wof/<release#>
+13.2  Burn and test CD images
+
+#
+# 14 Submit ESDM request to Release Team and Manufacturing
+# 
+14.1  Forward the CD/ESDM release e-mail to rdm_releases@mentor.com and wofmdsesdm@mentor.com
+  o If you must redo the CD after emailing ESDM e-mail to RDM...
+    1) Remove /wv/svd_for_cd/BridgePoint_<ver>/*.tgz
+    2) Rename /wv/svd_for_cd/BridgePoint_<ver>/<CD PN> to cd_1 and cd_2 
+       appropriately
+    3) Repeat starting at step 8
+    4) Send ESDM e-mail again with "Rework" added to the subject and in the 
+       comments say why the rework is needed.
+14.2  Wait for e-mail indicating manufacturing has finished processing the request.
+14.3  Validate downloads from SupportNet Authoring Site [11]
+  - It is quickest to remote into a machine in Wilsonville, launch a browser and
+    pull down the Linux and Windows Installers.  Then do md5sum comparisons
+    with the original files from tucson.
+  - You can also install on remote machines and smoke test
+14.4  Create MRC
+  o The MRC was automatically created by an earlier script and stored at
+    \\wv\dfs\svd_for_cd\BridgePoint_<release #>\BridgePoint_<release #>_mrc.html
+  o Open the file with MS Word.  Go through the file and check that all the 
+    fields are filled out properly and the proper checkboxes are checked. Verify
+    that the product table appears at the end of the doc.  If it does not, open 
+    this file in a text editor and move the product table at the end of the
+    document up inside the body and html tags. Close the file.
+  o Use MS Word's "Save As" to save the file in PDF form
+14.5  E-mail MRC and Release Highlights to the people marked in the release registration
+  as the Product Marketing and Customer Support Managers for approval
+  o Save approval e-mails to PDF and copy them to 
+    \\wv\dfs\svd_for_cd\BridgePoint_<release #>
+14.6  E-mail MRC, Release Highlights, Value sheet (or commitment to create it) 
+  and Approvals to Release Team and WOF (rdm_releases@mentor.com and wofmdsesdm@mentor.com)
+14.7  Wait for Release Team to enable MGC SupportNet
+14.8  Verify docs & s/w on the MGC supportnet once MS date arrives
+
+15  Package, save, and ship the C source arcs (example steps below)
+  # In whatever manner you prefer, navigate to the xtuml/mc repository and pull
+  # the latest data from github.  Then switch to (checkout) the version tag for
+  # this release.
+  $ mkdir /tmp/arc
+  $ cd <git>/xtuml/mc/arc
+  $ cp * /tmp/arc
+  $ cd c
+  $ cp * /tmp/arc
+  $ cd /tmp
+  $ zip -r arc arc
+  $ mv arc.zip BridgePoint_<ver>_C_templates.zip   (e.g. BridgePoint_4.1.0_C_templates.zip)
+  o Then copy the zip to \\wv\dfs\bridgepoint\engineering_releases\v<ver>_MC3020\  (e.g. v4.1.0_MC3020\)
+  o E-mail the zipfile to Robert Rice, Dean McArthur, John Wolfe, John Vargas,
+    and Cort Starrett for distribution to source MC customers
+    
+Congratulations!  You have finished the release.
+
+
+
+End
+---
+

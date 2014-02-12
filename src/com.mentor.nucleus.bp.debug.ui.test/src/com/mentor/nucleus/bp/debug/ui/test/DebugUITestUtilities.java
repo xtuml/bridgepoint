@@ -4,11 +4,20 @@
 //Version:   $Revision: 1.28 $
 //Modified:  $Date: 2013/05/10 04:28:45 $
 //
-//(c) Copyright 2008-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2008-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp. and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //=====================================================================
 package com.mentor.nucleus.bp.debug.ui.test;
 
@@ -34,7 +43,6 @@ import org.eclipse.debug.ui.AbstractDebugView;
 import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.debug.ui.IDebugView;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -81,7 +89,6 @@ import com.mentor.nucleus.bp.core.util.TransactionUtil;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.debug.ui.actions.ExecuteAction;
 import com.mentor.nucleus.bp.debug.ui.launch.BPDebugUtils;
-import com.mentor.nucleus.bp.debug.ui.launch.LaunchShortcut;
 import com.mentor.nucleus.bp.debug.ui.launch.VerifierLaunchConfiguration;
 import com.mentor.nucleus.bp.debug.ui.model.BPDebugTarget;
 import com.mentor.nucleus.bp.debug.ui.model.BPProcess;
@@ -92,7 +99,6 @@ import com.mentor.nucleus.bp.test.common.ExplorerUtil;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
 import com.mentor.nucleus.bp.test.common.UITestingUtilities;
 import com.mentor.nucleus.bp.ui.explorer.ExplorerView;
-import com.mentor.nucleus.bp.ui.session.views.SessionExplorerView;
 import com.mentor.nucleus.bp.ui.text.activity.ActivityEditor;
 
 public class DebugUITestUtilities {
@@ -808,6 +814,9 @@ public class DebugUITestUtilities {
 		String result = "";
 		TreeItem[] items = getAllTreeItems(tree);
 		for (int i = 0; i < items.length; i++) {
+			if(items[i].getData() == null || items[i].getText().equals("")) {
+				continue;
+			}
 			String indent = getNestingLevel(items[i]);
 			String simpleName = "";
 			if (items[i].getData() != null) {
@@ -857,43 +866,6 @@ public class DebugUITestUtilities {
 			parent = parent.getParentItem();
 		}
 		return space;
-	}
-
-	public static Menu getMenuInSETree(Object treeElement) {
-		SessionExplorerView sev = BPDebugUtils.openSessionExplorerView(true);
-		UIUtil.dispatchAll();
-
-		String text = "";
-		if (treeElement instanceof NonRootModelElement) {
-			text = ((NonRootModelElement) treeElement).getName();
-		}
-		TreeViewer viewer = sev.getTreeViewer();
-		viewer.expandAll();
-		UIUtil.refreshViewer(viewer);
-		Selection.getInstance().setSelection(
-				new StructuredSelection(treeElement));
-		UIUtil.dispatchAll();
-		Tree sevTree = viewer.getTree();
-		sevTree.selectAll();
-		UIUtil.dispatchAll();
-
-		TreeItem x[] = sevTree.getSelection();
-
-		for (int i = 0; i < x.length; ++i) {
-
-			String item = x[i].getText();
-
-			if (item.equals(text)) {
-				TreeItem[] sel = new TreeItem[1];
-				sel[0] = x[i];
-				sevTree.setSelection(sel);
-				UIUtil.dispatchAll();
-				break;
-			}
-		}
-
-		Menu menu = viewer.getTree().getMenu();
-		return menu;
 	}
 	
 	public static void setSelectionInDebugTree(IProcess process) {
@@ -1053,4 +1025,5 @@ public class DebugUITestUtilities {
 		}
 		return result;
 	}
+
 }

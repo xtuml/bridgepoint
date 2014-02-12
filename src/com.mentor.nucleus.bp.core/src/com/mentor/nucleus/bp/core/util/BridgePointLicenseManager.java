@@ -4,11 +4,20 @@
 //Version:   $Revision: 1.25 $
 //Modified:  $Date: 2013/06/12 15:45:39 $
 //
-//(c) Copyright 2004-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp. and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //=====================================================================
 
 package com.mentor.nucleus.bp.core.util;
@@ -365,40 +374,16 @@ public class BridgePointLicenseManager  extends BridgePointDemoEncryptor {
 	/**
 	 * This function is used to check the model Execution license.
 	 * 
-	 * @param elementsInSys the list of elements the user has selected to
-	 *        execute
-	 *        
 	 * @return true is it is licensed and false if not.
 	 */
-	public static boolean isExecutionLicensed(
-			List<NonRootModelElement> elementsInSys) {
-
-		/* check to see if system License is required or not */
-		int numLicensedElements = 0;
-		for (int i = 0; i < elementsInSys.size(); i++) {
-			NonRootModelElement curElement = elementsInSys.get(i);
-			if ((curElement instanceof ComponentReference_c)
-					|| (curElement instanceof Component_c)
-					|| (curElement instanceof Domain_c)) {
-				numLicensedElements++;
-			}
-		}
-		boolean requiresSysLicense = (numLicensedElements > 1) ? true : false;
+	public static boolean isExecutionLicensed() {
 
 		LicenseAtomic licenseTypeNeeded = LicenseAtomic.VERIFIER_SYSTEM_LICENSE_CODE;
-		if (!requiresSysLicense) {
-			licenseTypeNeeded = LicenseAtomic.VERIFIER_LICENSE_CODE;
-		}
 
 		boolean isLicensed = BridgePointLicenseManager
 				.getLicense(licenseTypeNeeded);
 		if (!isLicensed) {
-
-			String message = "Failed to get verifier license from license manager.";
-			if (requiresSysLicense) {
-				message = "Failed to get system verifier license from license manager.  You are not licensed to run Model Verifier on multiple components at the same time.";
-			}
-
+			String message = "Failed to get xtUML eXecute license from license manager.";
 			UIUtil.openError(null, "Verifier Launcher", message, true );
 		}
 
@@ -422,14 +407,14 @@ public class BridgePointLicenseManager  extends BridgePointDemoEncryptor {
         initConnection();
         
         int[] result = license.heapCandidates(licenseCode.getCode());
-        boolean licensed = ((result!=null) & (result.length>0));
+        boolean licensed = ((result!=null) && (result.length>0));
         
         if (!licensed && IsVeryFirstLicenseCheckAtStartup) {
             // This is to work around a license bug.  The very first
             // call to the license manager may fail even though the 
             // license is valid.
         	result = license.heapCandidates(licenseCode.getCode());
-            licensed = ((result!=null) & (result.length>0));
+            licensed = ((result!=null) && (result.length>0));
         }
         IsVeryFirstLicenseCheckAtStartup = false;
         

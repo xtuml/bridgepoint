@@ -1,0 +1,335 @@
+========================================================================
+
+File:      qa_procedures.txt
+
+Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp., and is not for external distribution.
+========================================================================
+
+BridgePoint Procedures Document
+Procedures defined for BridgePoint Quality Assurance Roles
+
+Document Reference
+------------------
+[1] CQ DEI dts0100633110
+    Define new test procedure for spring2010 release
+[2] svn://tucson.wv.mentorg.com/arch1/products/tiger/doc_repository/trunk/Models/Test
+    The URL of the location in SVN where BridgePoint test models are stored.
+[3] http://wv-svn-01.wv.mentorg.com/svn/tenmile/trunk/documentation/qa/test_procedures
+    The URL of the location in SVN where BridgePoint test procedures are stored.
+[4] http://svr-orw-dts-12.mgc.mentorg.com/cqweb/blk_update/get_query_list.cgi
+    This is the Mentor Graphics block update utility that allows us to work
+    around limitation of the built-in CQ multi-record update functionality.
+    A tutorial for this utility is available under Administrator Resource
+    at the bottom of the Mentor Graphics ClearQuest welcome page.
+[5] ClearQuest DEI dts0100637117
+    This is an example of a CQ issue whose procedure is defined in an HTML 
+    document.
+[6] Example test procedure that shows a complex test procedure linking to
+    sub-procedures.   
+    http://wv-svn-01.wv.mentorg.com/svn/tenmile/trunk/documentation/qa/test_procedures/tp1_run_in_mv.html    
+[7] <cvs>Documentation/internal/process/Procedures/test_procedure_versus_steps_to_reproduce.txt
+    This is a copy of an email that describes good practices for creating new 
+    test procedures.
+    
+1. Introduction
+---------------
+1.1 CQ has a product named "SMA QA - BridgePoint QA" with components
+    
+1.2 Any user with valid CQ credentials has access to write test cases.
+
+1.3 Any user with valid CQ credentials has access to execute test cases and
+    store the results.
+     
+1.4 Any user with valid CQ credentials has access to gather reports on the
+    status of tests run.
+
+1.5 Queries to generate reports are stored in the folder: Public Queries >
+    Organization Specific > SLE > BridgePoint QA.  
+
+1.6 Additional information about the ClearQuest SMA QA products can be found
+    in the [1] and in the analysis note associated with [1].
+
+1.7 Important data pertaining to a test (additional required files, output
+    logs, etc...) may be stored in \\wv\dfs\bridgepoint\test_data\<dts0100nnnn>
+    
+
+1.7.1 Procedure for gather data associated with BridgePoint problems.      
+      When a bug or potential bug is discovered it is important to immediately 
+      gather information that may assist engineers in reproducing and 
+      understanding the problem.  The following list describes all data that can 
+      be useful.
+      _- The test model.  
+         In a situation where the test is in a workspace that is not a standard 
+         development (or test) workspace.  It is best to zip-up the entire 
+         workspace and place it here [§1.7].
+
+         In a situation where it is a standard environment but the test model 
+         is not a version-controlled model, export the test model and put it 
+         with the test data here [§1.7].
+         
+     _- Step-by-step instructions to reproduce the problem.  
+        If there is not a test procedure defined that allows this problem to 
+        be reproduced, then one must be created.  To do this, follow the
+        guidelines specified here [§2.4].  If there is a procedure then the
+        note required by the tester [§3.2.2] when marking the issue failed is 
+        sufficient.
+        
+     _- Error log
+        Often, when a issue fails important data is written to the Eclipse
+        error log.  You should capture this log and place it with the issues
+        data here [§1.7].  To capture the error log:
+          _- Window > Show View > Error Log
+          _- In the Error Log view select the "Export Log" icon that is shown 
+             in the upper-right of the Error Log view. 
+        
+1.8  Virtual machines are a handy way to test a specific environment or
+     configuration (e.g. an internationalized OS).  The drawback is that
+     they tend to be very large in size which hampers their distributability
+     across our worldwide team.  Virtual machines are stored in the 
+     \\wv\dfs\bridgepoint\test_data\virtual_machines share.
+     
+1.9  Specific CQ fields are used to flag specific information about the test
+     case:
+       version_reported (Main tab) - this field is used to indicate if a test
+         has been executed against a specific version of the tool.
+       version_validated (Validation/Release tab) - this field is used to
+         indicate if a test has passed against a specific version of the tool.
+       note_list (Notes tab) - we record additional information about passing
+         or failure of the test here.
+       product_field6 (Product Specific tab) - used to indicate desired test
+         run scenario: manual - never automate, manual - automate in future, or
+         automated
+     
+     
+2. Role: Test Writer
+--------------------
+2.1 Test writers are responsible for creating individual test cases. 
+2.2 The test models should be in CVS in the Models_SF project for simple 
+    single file models or SVN [2] for multi-file models.
+2.3 A test procedure may be created directly in the description field of the
+    issue created, or at the test writer's discretion it may be placed
+    in a HTML document in SVN under this location [3].   The advantage of using 
+    a HTML document is that the procedure will be revision controlled [5].  
+    Another advantage of HTML is the ability to link to other procedures for 
+    common tasks like importing a model or launching verifier [6].
+2.4 Before enter your first new test procedure read [7].
+        
+2.5 How to enter a test:
+    
+_- Create a new CQ Defect
+
+_-  Set the Product to "SMA QA - BridgePoint"
+_-  Set the component based on the focus of the test
+_-  Set the headline to a meaningful description of the test case
+_-  The Severity is set to 3 (Average) and Priority is set to 3 (Normal Queue). 
+_-  The Version Type is set to Release, Version is set to new_test 
+_-  The test description will contain the following:
+            Test Data: <Model or workspace to use>
+             
+             Test Instructions:
+               _- <action>
+               _- <action>
+               _R <expected result>
+_- Open the Product Specific tab and set PSF6 (Test Type) to the
+   appropriate value.
+      1) Manual - Never Automate
+         This is a manual test that should always remain manual.
+      2) Manual - Automate in future
+         This is a manual test that should be automated when the schedule
+         allows.  Anytime there is an associated BridgePoint CQ issue
+         this option should be selected unless the JUnit has already been
+         written in which case select "Automated".
+      3) Automated
+         This is an automated test (BridgePoint Junit).
+   
+_- Save the issue
+_- If this test has an associated BridgePoint CQ item, then open the SMA QA - 
+   BridgePoint item that was just created, select modify, enter the 
+   associated CQ item under Resolution > Related To, and save the change. 
+
+
+3. Role: Tester
+---------------
+3.0 Testers run tests and report the results.
+
+3.1 How to set up an environment to be a tester
+    _- Download the BridgePoint installer from [6]
+    _- Install BridgePoint to the default location
+    _- You will need to have licenses for BridgePoint Builder, BridgePoint Verifier,
+       BridgePoint Generator, BridgePoint MC-3020 Binary Model Compiler, 
+       BridgePoint System Builder, and BridgePoint System Verifier either as individual
+       feature codes or part of mentorall_s
+
+3.2 Recording the test results
+3.2.1 Test Passed
+    _- Open the DEI
+    _- Go to the main tab
+    _- Under Version, add the version that was tested if it is not yet present.
+    _- Go to the Validation/Release tab
+    _- Under Validated Version, ADD the version that was tested.
+       Note: if the version isn't present look under Ver Type: Build
+  	_- Go to the Notes tab
+    _- Set type to "Comments"
+    _- Set the Note Summary to "Pass"
+    _- Set the "New Note" to the version of the product being tested. This 
+       string should be the same as version seen in the Version list box on the
+       main page.  For example: BP3.0.2 
+    _- Save the changes 
+
+3.2.2 Test Failed
+    _- Note: If the test failed because of an error in the test procedure
+             use [§3.2.3] instead of this section.
+    _- Gather data that will assist the Software Engineer who looks into this
+       problem to duplicate and understand the problem.  See [§1.7.1] to assist
+       with gathering information that may be useful.
+    _- Create a new DEI for the product and include the information gathered         
+    _- Open the qa procedure DEI
+    _- Go to the Main tab
+    _- Under Version, add the version that was tested if it is not yet present.
+       Note: if the version isn't present look under Ver Type: Build
+    _- Go to the Validation/Release tab
+    _- Under Validated Version, REMOVE the version that was tested, if it is 
+       present.
+  	_- Go to the Notes tab
+    _- Sets type to "Comments"
+    _- Set the Note Summary to "Fail"
+    _- Set the first line of "New Note" to the version of the product being 
+       tested. This string should be the same as version seen in the Version 
+       list box on the main page.  On the lines after the version enter a 
+       short description for the failure and note the bug DEI opened to capture
+       the problem.  For example: 
+       BP3.0.2
+       The import failed when parse on import was selected. See the Resolution 
+       tab for the related DEI.
+    _- Go to the Resolution tab, scroll to the bottom and add the newly created
+       bug DEI in the Related To field.
+    _- Save the changes 
+       
+3.2.3 Error in defined test procedure
+    _- Open the DEI
+    _- Select Change State > Request_Info
+    _- Open the Notes tab and enter a description of the problem and/or the
+       question about this test.
+    _- Save the changes 
+    _- Directly contact the person that submitted this issue and let them know
+       you had a problem so they are sure to see that the issue is now assigned 
+       to them. If you can not contact that person for some reason contact the
+       test manager and let them know.
+
+                  
+4. Role: Test Manager
+---------------------
+4.1 Procedure to prepare a new test cycle:
+  _- Run the report "Tests to Triage" [§5.1.5] and assign tests as
+     described in [§4.2].
+  _- Decide what tests to run in this release.  
+      _- Run the Postponed Issues query
+      _- Examine the issues
+      _- Close issues that will not be run (or leave them in the postponed
+         state to examine again in the next version).
+      _- Change the state of issues that will be run to Assigned
+      _- Run the "Information Requested" query
+      _- Examine the issues
+      _- Close issues that will not be run (or leave them in the Information
+         Requested state to examine again in the next version).
+      _- If the issue should be run, then follow up with the engineers
+         involved to assure the problem is resolved so the issue gets
+         moved back into the assigned state.      
+  _- Prioritize tests as desired
+  _- Assign tests as desired
+  _- Decide on the version of BP to be tested during this cycle.  This will
+     either be the recent engineering version (we're doing the cycle as a pre-
+     release sweep), or the upcoming field version (we've bumped to the official
+     release number and are doing official release testing)
+  _- Edit the "Release Cycle Prep - check reported" query to look for the current 
+     cycle version in the version_reported field.  Run it.
+    _- If DEIs are returned, use the block update tool to modify these DEIs so
+       they do NOT contain this cycle's version in the version_reported field.
+  _- Edit the "Release Cycle Prep - check validated" query to look for the current 
+     cycle version in the version_validated field.  Run it.
+    _- If DEIs are returned, use the block update tool to modify these DEIs so
+       they do NOT contain this cycle's version in the version_validated field.
+  _- Update the prior version queries [§6.1] for this cycle version
+    _- Run the "Failing for <version>" query and assure no issues are shown.
+    _- Run the "Passed for <version>" query and assure no issues are shown.
+    _- Run the "Ready To Run For <version>" query and assure that all the issues 
+       are shown.
+  _- Announce to the team that the test is ready to start          
+    
+
+4.2 Triage New tests.  Note: Tests will not be run until they 
+    have been put into the assigned state.  When initially entered, they
+    are in the "Submitted" state.
+	_- Run the report "Tests to Triage" [§5.1.5]to see the list of items.
+	_- For each item (Note: the batch update utility [4] may be used if there 
+	   are a lot of issues).
+		_- Assign the item to a team member (or BP Team)
+		_- Modify the Version lists on the Main and Validation/Release tabs to 
+		   make sure the current cycle version is not included in either list.
+		   This will guarantee that the issue shows up in the Ready to Run 
+		   query.
+		         
+4.3 Monitor tests that are in the "Information Requested" state to assure they
+    are being addressed [§5.1.6].  Issues that are not being addressed shall be
+    closed at the or put into the postponed state at the discretion of the test 
+    manager.
+    
+
+5. Role: Software Engineer
+--------------------------
+The software engineer investigates test failures.
+_- Run the Failing for Version query to see what tests are failing.
+_- Determine priority by talking with the Test Manager, looking at
+   issues assigned to you, and checking the priority of the test issue.
+   Additionally, if there is an associated BridgePoint CQ issue, you should 
+   examine that associated issue and check its priority.  The associated bug 
+   is found by looking at the "Resolution > Related To" field in CQ.
+_- Investigate the issue
+_- Follow the BridgePoint procedure as outlined in the Bridgepoint development
+   checklists.
+_- If the issue can not be fixed, discuss it with the Test Manager and determine
+   if it is appropriate to place the issue in the "Postponed" state.   
+_- The BridgePoint documentation will reflect that when an issue is fixed, the
+   promoter will remove the version to test from the the version_submitted and
+   version_validated field so that the issue will again show up as 
+   "Ready to Run".
+
+
+6. Test Reports and Queries
+---------------------------
+6.1  Queries are placed in Public Queries > Organization Specific > SLE >
+     BridgePoint > QA
+6.1.1  Failing for Version
+       Used to find which tests are marked as failing for a release entered by 
+       the user.  
+       
+6.1.2  Passing for Version
+       Used to find which tests are marked as passing for a release entered by 
+       the user.
+       
+6.1.3  Ready To Run For Version 
+       Used to find which tests are marked as needing to be run for the
+       version.
+       
+6.1.4  All Tests  
+       Lists all the tests with their component and test result status for all versions
+       run.
+       
+6.1.5 Tests to Triage 
+      List Issues that are in the submitted state      
+       
+6.1.6 Information Requested 
+      A list of tests in the "Information Requested" state.  As long as a test 
+      in the Information Requested state, it will not be run.
+                                 
+6.1.7 Postponed 
+      A list of tests in the "Postponed" state.  As long as a test is in the 
+      postponed state, it will not be run.
+  
+       
+End
+---

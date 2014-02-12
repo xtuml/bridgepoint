@@ -23,6 +23,7 @@ get_svn_project ()
         export_trunk="true"
     else
         # check out the branch
+        echo "  Attempting to check out ${project} from the branch ${branch} in SVN."
         svn export http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml/branches/${branch}/${project} --username sle_build --password qkfJkv2= --force
         
         # if export failed and build type != nonrelease, then error
@@ -32,12 +33,14 @@ get_svn_project ()
         
         # if export failed and build type = nonrelease, then checkout master
         if [ ! -x ${project} ] && [ "${build_type}" = "nonrelease" ]; then
+            echo "  The project ${project} does not exist in branch ${branch}.  Will try trunk."
             export_trunk="true"
         fi
         
     fi
     
     if [ "${export_trunk}" = "true" ]; then
+        echo "  Attempting to check out ${project} from trunk in SVN."
         svn export http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml/trunk/${project} --username sle_build --password qkfJkv2= --force
     fi
     
@@ -76,12 +79,30 @@ fi
 echo -e "Removing existing data for installers."
 cd ${DATA_DIR}
 rm -rf ${BP_WIN_BASE}
+if [ -x ${BP_WIN_BASE} ]; then
+  error "Removal of ${BP_WIN_BASE} failed. Exiting. \n"
+fi
 rm -rf ${BP_LINUX_BASE}
+if [ -x ${BP_LINUX_BASE} ]; then
+  error "Removal of ${BP_LINUX_BASE} failed. Exiting. \n"
+fi
 rm -rf ${MIMIC_TOOL}
+if [ -x ${MIMIC_TOOL} ]; then
+  error "Removal of ${MIMIC_TOOL} failed. Exiting. \n"
+fi
 rm -rf ${ECLIPSE_TOOL}
+if [ -x ${ECLIPSE_TOOL} ]; then
+  error "Removal of ${ECLIPSE_TOOL} failed. Exiting. \n"
+fi
 cd ${UTILS_DIR}
 rm -rf ${BP_TOOL}
+if [ -x ${BP_TOOL} ]; then
+  error "Removal of ${BP_TOOL} failed. Exiting. \n"
+fi
 rm -rf ${GENERATOR_MGLS}
+if [ -x ${GENERATOR_MGLS} ]; then
+  error "Removal of ${GENERATOR_MGLS} failed. Exiting. \n"
+fi
 echo -e "Done."
 
 # Export new dirs from svn

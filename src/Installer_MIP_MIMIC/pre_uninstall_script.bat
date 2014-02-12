@@ -1,4 +1,4 @@
-:: Copyright 2008-2012 Mentor Graphics Corporation. All rights reserved.
+:: Copyright 2008-2014 Mentor Graphics Corporation. All rights reserved.
 ::
 
 :: THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY

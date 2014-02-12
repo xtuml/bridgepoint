@@ -1,4 +1,4 @@
--- BP 7.1 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO SM_ISM
 	VALUES ("7be3c37f-d198-43a1-8de3-77558c9269f7",
@@ -635,13 +635,15 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'3.1.2');
+	'3.1.2',
+	'avpace::library::heart::heart::heart::Instance State Machine');
 INSERT INTO GD_GE
 	VALUES ("3cd769cd-d470-4b30-90cb-d652f005184f",
 	"2f559440-0c8e-452c-a32a-8564bdbb33c0",
 	"75232a46-3b40-4f36-8c5d-4489a20549be",
 	41,
-	0);
+	0,
+	'avpace::library::heart::heart::heart::Instance State Machine::atrial systole');
 INSERT INTO GD_SHP
 	VALUES ("3cd769cd-d470-4b30-90cb-d652f005184f");
 INSERT INTO GD_NCS
@@ -684,7 +686,8 @@ INSERT INTO GD_GE
 	"2f559440-0c8e-452c-a32a-8564bdbb33c0",
 	"3a9c87ad-740f-4654-8292-906c35df9a04",
 	41,
-	0);
+	0,
+	'avpace::library::heart::heart::heart::Instance State Machine::ventricular systole');
 INSERT INTO GD_SHP
 	VALUES ("e188a6df-003c-44f9-a299-6c78ea0fa625");
 INSERT INTO GD_NCS
@@ -722,7 +725,8 @@ INSERT INTO GD_GE
 	"2f559440-0c8e-452c-a32a-8564bdbb33c0",
 	"b75b21d4-5485-4e01-9018-01cbf19de246",
 	41,
-	0);
+	0,
+	'avpace::library::heart::heart::heart::Instance State Machine::atrial diastole');
 INSERT INTO GD_SHP
 	VALUES ("c399ebac-26f8-457a-a8b6-9a8409557ba6");
 INSERT INTO GD_NCS
@@ -765,7 +769,8 @@ INSERT INTO GD_GE
 	"2f559440-0c8e-452c-a32a-8564bdbb33c0",
 	"8470e680-40e0-416b-af00-0f936c596662",
 	41,
-	0);
+	0,
+	'avpace::library::heart::heart::heart::Instance State Machine::ventricular diastole');
 INSERT INTO GD_SHP
 	VALUES ("3222f97f-01f8-4259-b012-2a660920d3c9");
 INSERT INTO GD_NCS
@@ -803,7 +808,8 @@ INSERT INTO GD_GE
 	"2f559440-0c8e-452c-a32a-8564bdbb33c0",
 	"28a737a5-0ba8-4f74-aa8e-51142bccd2b8",
 	42,
-	0);
+	0,
+	'avpace::library::heart::heart::heart::Instance State Machine::atrial systole::HEART1: done');
 INSERT INTO GD_CON
 	VALUES ("79115af4-b8ae-48ef-8900-0ff83c1b8055",
 	"00000000-0000-0000-0000-000000000000");
@@ -902,7 +908,8 @@ INSERT INTO GD_GE
 	"2f559440-0c8e-452c-a32a-8564bdbb33c0",
 	"af255ca0-3973-48b9-916d-e1a2eaf559b7",
 	42,
-	0);
+	0,
+	'avpace::library::heart::heart::heart::Instance State Machine::ventricular systole::HEART4: diastolic_pulse');
 INSERT INTO GD_CON
 	VALUES ("b440348f-b2e7-4a92-9120-42e4f6f1e29e",
 	"00000000-0000-0000-0000-000000000000");
@@ -1001,7 +1008,8 @@ INSERT INTO GD_GE
 	"2f559440-0c8e-452c-a32a-8564bdbb33c0",
 	"f0476b7d-21a8-47d7-8daa-e8bfb6be7c26",
 	42,
-	0);
+	0,
+	'avpace::library::heart::heart::heart::Instance State Machine::atrial diastole::HEART1: done');
 INSERT INTO GD_CON
 	VALUES ("8f6301a6-ee20-4a8d-a448-5217f40a745e",
 	"00000000-0000-0000-0000-000000000000");
@@ -1100,7 +1108,8 @@ INSERT INTO GD_GE
 	"2f559440-0c8e-452c-a32a-8564bdbb33c0",
 	"f1175a5f-66e7-4940-8f5a-6ac8401e0678",
 	42,
-	0);
+	0,
+	'avpace::library::heart::heart::heart::Instance State Machine::ventricular diastole::HEART5: systolic_pulse');
 INSERT INTO GD_CON
 	VALUES ("4b06c41b-3369-4e36-920b-fee8c92e2b4b",
 	"00000000-0000-0000-0000-000000000000");
@@ -1199,7 +1208,8 @@ INSERT INTO GD_GE
 	"2f559440-0c8e-452c-a32a-8564bdbb33c0",
 	"31bc9cc7-39e5-429b-919b-b106f2784015",
 	42,
-	0);
+	0,
+	'avpace::library::heart::heart::heart::Instance State Machine::ventricular diastole::HEART3: systolic_pace');
 INSERT INTO GD_CON
 	VALUES ("a4fcddaf-6023-4695-9c2a-6d75fe98afcd",
 	"00000000-0000-0000-0000-000000000000");
@@ -1298,7 +1308,8 @@ INSERT INTO GD_GE
 	"2f559440-0c8e-452c-a32a-8564bdbb33c0",
 	"06927f39-1b0f-4a6c-900b-892f3d770cac",
 	42,
-	0);
+	0,
+	'avpace::library::heart::heart::heart::Instance State Machine::ventricular systole::HEART2: diastolic_pace');
 INSERT INTO GD_CON
 	VALUES ("1c588847-846a-49db-8273-f55a2230442e",
 	"00000000-0000-0000-0000-000000000000");
@@ -1397,7 +1408,8 @@ INSERT INTO GD_GE
 	"2f559440-0c8e-452c-a32a-8564bdbb33c0",
 	"e7b65438-2a83-4f3c-a30a-077dafaf70d1",
 	41,
-	0);
+	0,
+	'avpace::library::heart::heart::heart::Instance State Machine::born');
 INSERT INTO GD_SHP
 	VALUES ("f2f2f36d-9f5f-4007-a6aa-5002cef0f5b9");
 INSERT INTO GD_NCS
@@ -1430,7 +1442,8 @@ INSERT INTO GD_GE
 	"2f559440-0c8e-452c-a32a-8564bdbb33c0",
 	"d2a28c8b-587f-44eb-b66c-685c85198398",
 	42,
-	0);
+	0,
+	'avpace::library::heart::heart::heart::Instance State Machine::born::HEART5: systolic_pulse');
 INSERT INTO GD_CON
 	VALUES ("a1326dea-894e-47d4-bcbc-acb84eb2e43c",
 	"00000000-0000-0000-0000-000000000000");
@@ -1529,7 +1542,8 @@ INSERT INTO GD_GE
 	"2f559440-0c8e-452c-a32a-8564bdbb33c0",
 	"c6b3e3ef-8905-44cf-8957-d0623af1e820",
 	42,
-	0);
+	0,
+	'avpace::library::heart::heart::heart::Instance State Machine::born::HEART4: diastolic_pulse');
 INSERT INTO GD_CON
 	VALUES ("140f0310-d562-4158-9050-2ea09897489a",
 	"00000000-0000-0000-0000-000000000000");

@@ -6,14 +6,12 @@ package com.mentor.nucleus.bp.welcome.gettingstarted;
 //	Version: $Revision: 1.9 $
 //	Modified: $Date: 2013/06/12 13:09:36 $
 //
-//	(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
+//	(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //====================================================================
 //
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.Properties;
 
 import org.eclipse.core.resources.IFile;
@@ -24,20 +22,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -46,15 +33,12 @@ import org.eclipse.ui.intro.IIntroPart;
 import org.eclipse.ui.intro.IIntroSite;
 import org.eclipse.ui.intro.config.IIntroAction;
 import org.eclipse.ui.part.FileEditorInput;
-import org.eclipse.ui.wizards.datatransfer.ExternalProjectImportWizard;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.SystemModel_c;
-import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.core.util.WorkspaceUtil;
-import com.mentor.nucleus.bp.mc.mc3020.MCBuilderArgumentHandler;
 import com.mentor.nucleus.bp.utilities.ui.ProjectUtilities;
 import com.mentor.nucleus.bp.welcome.WelcomePlugin;
 
@@ -144,14 +128,7 @@ public class SampleProjectGettingStartedAction implements IIntroAction {
 	                    + "/" + modelName); //$NON-NLS-1$
 	            
 	            if (modelPath != "") {
-	            	setupSucceeded = ProjectUtilities.importExistingProject(modelPath);
-		            
-	            	if (setupSucceeded) {
-		            	// Make sure good command-line options are in place.
-		            	// Some of these are location dependent.  
-		            	MCBuilderArgumentHandler argHandler = new  MCBuilderArgumentHandler(project);     
-		            	argHandler.setArguments(false);
-		            } 
+	            	setupSucceeded = ProjectUtilities.importExistingProject(modelPath);		            
 	            }	            
            	}
             

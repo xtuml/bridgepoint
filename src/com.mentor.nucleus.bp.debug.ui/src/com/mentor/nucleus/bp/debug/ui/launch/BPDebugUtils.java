@@ -6,35 +6,31 @@ package com.mentor.nucleus.bp.debug.ui.launch;
 // Version:   $Revision: 1.23 $
 // Modified:  $Date: 2013/01/10 23:17:47 $
 //
-// (c) Copyright 2005-2013 by Mentor Graphics Corp.  All rights reserved.
+// (c) Copyright 2005-2014 by Mentor Graphics Corp.  All rights reserved.
 //
 //====================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //======================================================================== 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-import java.util.Vector;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.debug.core.DebugException;
-import org.eclipse.debug.core.DebugPlugin;
-import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.IDebugTarget;
-import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IThread;
 import org.eclipse.debug.ui.IDebugView;
-import org.eclipse.jface.viewers.IStructuredSelection;
-
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.SWTException;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
@@ -52,15 +48,13 @@ import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.PackageableElement_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
-import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.InstanceList;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
-import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.util.UIUtil;
-import com.mentor.nucleus.bp.debug.ui.BPDebugUIPlugin;
 import com.mentor.nucleus.bp.debug.ui.IBPDebugUIPluginConstants;
+import com.mentor.nucleus.bp.debug.ui.actions.ExecuteAction;
 import com.mentor.nucleus.bp.debug.ui.model.BPDebugTarget;
 import com.mentor.nucleus.bp.debug.ui.model.BPThread;
 import com.mentor.nucleus.bp.ui.session.views.SessionExplorerView;
@@ -348,14 +342,6 @@ public class BPDebugUtils {
 		return null;
 	}
 	
-	public static void setSelectionInSETree(IStructuredSelection sel) {
-		SessionExplorerView sev = BPDebugUtils.openSessionExplorerView(true);
-		sev.getTreeViewer().expandAll();
-		sev.getTreeViewer().setSelection(sel);
-		Selection.getInstance().setSelection(sel);
-		UIUtil.dispatchAll();
-	}
-
 	public static SessionExplorerView openSessionExplorerView(
 			final boolean showView) {
 
@@ -434,6 +420,14 @@ public class BPDebugUtils {
 			}
 		}
 		return null;
+    }
+    
+    public static void executeElement(NonRootModelElement element) {
+    	openSessionExplorerView(true);
+    	ExecuteAction action = new ExecuteAction();
+    	action.setOALElement(element);
+    	action.run(null);
+    	UIUtil.dispatchAll();
     }
 
 }

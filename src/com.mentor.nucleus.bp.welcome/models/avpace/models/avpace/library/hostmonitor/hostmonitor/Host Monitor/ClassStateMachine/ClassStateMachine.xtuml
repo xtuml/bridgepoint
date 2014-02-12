@@ -1,4 +1,4 @@
--- BP 7.1 content: ClassStateMachine syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: ClassStateMachine syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO SM_ASM
 	VALUES ("70f9a58e-32b5-4ff8-ac4a-4c1d77b7066c",
@@ -14,13 +14,14 @@ INSERT INTO SM_SGEVT
 	"70f9a58e-32b5-4ff8-ac4a-4c1d77b7066c",
 	"00000000-0000-0000-0000-000000000000",
 	"ad3540b0-f035-4e93-80e6-923e3530641e",
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	'host::breath_taken');
 INSERT INTO SPR_PS_PROXY
 	VALUES ("ad3540b0-f035-4e93-80e6-923e3530641e",
 	'breath_taken',
 	'',
 	'',
-	3,
+	1,
 	'../../../../pacer/pacer.xtuml');
 INSERT INTO SM_SEVT
 	VALUES ("e4a18c15-0153-4433-bf2a-f7f05da75cd2",
@@ -34,20 +35,21 @@ INSERT INTO SM_EVT
 	'breath_taken',
 	0,
 	'',
-	'HM_A1',
+	'host::breath_taken',
 	'');
 INSERT INTO SM_SGEVT
 	VALUES ("04441243-f329-4acc-9614-fea211c27366",
 	"70f9a58e-32b5-4ff8-ac4a-4c1d77b7066c",
 	"00000000-0000-0000-0000-000000000000",
 	"9aee5af6-fabd-40d2-8f57-85fd54e3a062",
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	'host::current_temp');
 INSERT INTO SPR_PS_PROXY
 	VALUES ("9aee5af6-fabd-40d2-8f57-85fd54e3a062",
 	'current_temp',
 	'',
 	'',
-	3,
+	1,
 	'../../../../pacer/pacer.xtuml');
 INSERT INTO SM_SEVT
 	VALUES ("04441243-f329-4acc-9614-fea211c27366",
@@ -61,7 +63,7 @@ INSERT INTO SM_EVT
 	'current_temp',
 	0,
 	'',
-	'HM_A2',
+	'host::current_temp',
 	'');
 INSERT INTO SM_STATE
 	VALUES ("9b06cc05-446b-42c4-95fa-e2560e64c0d2",
@@ -158,13 +160,15 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'3.4.0');
+	'3.4.0',
+	'avpace::library::hostmonitor::hostmonitor::Host Monitor::Class State Machine');
 INSERT INTO GD_GE
 	VALUES ("62c45929-1abd-4f84-848c-dbf941c17bc8",
 	"b961af3d-6289-4c32-99e9-5efa426416e9",
 	"9b06cc05-446b-42c4-95fa-e2560e64c0d2",
 	41,
-	0);
+	0,
+	'avpace::library::hostmonitor::hostmonitor::Host Monitor::Class State Machine::listening to host events');
 INSERT INTO GD_SHP
 	VALUES ("62c45929-1abd-4f84-848c-dbf941c17bc8");
 INSERT INTO GD_NCS
@@ -207,7 +211,8 @@ INSERT INTO GD_GE
 	"b961af3d-6289-4c32-99e9-5efa426416e9",
 	"a6d825a0-027a-4b69-ad9f-167b6231e159",
 	42,
-	0);
+	0,
+	'avpace::library::hostmonitor::hostmonitor::Host Monitor::Class State Machine::listening to host events::host::breath_taken');
 INSERT INTO GD_CON
 	VALUES ("62eb8e32-5c99-4c6b-8b04-070cf7b6c045",
 	"00000000-0000-0000-0000-000000000000");
@@ -332,7 +337,8 @@ INSERT INTO GD_GE
 	"b961af3d-6289-4c32-99e9-5efa426416e9",
 	"82f9764a-0e44-439b-a7be-94a80a12c99f",
 	42,
-	0);
+	0,
+	'avpace::library::hostmonitor::hostmonitor::Host Monitor::Class State Machine::listening to host events::host::current_temp');
 INSERT INTO GD_CON
 	VALUES ("39da7fb9-c139-42fb-92ee-d379d8f19b40",
 	"00000000-0000-0000-0000-000000000000");

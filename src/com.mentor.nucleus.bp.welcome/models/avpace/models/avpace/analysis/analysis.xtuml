@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("bf32fd17-70ff-4d73-a190-478f0511ee82",
@@ -24,13 +24,15 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'3.4.0');
+	'3.4.0',
+	'avpace::analysis');
 INSERT INTO GD_GE
 	VALUES ("18f71323-ca91-4df3-916d-8910e871daf7",
 	"69fb3276-6e04-4f0b-b02e-153fafa91865",
 	"43ef2b15-ca85-4abd-9687-17baabee71d7",
 	108,
-	0);
+	0,
+	'avpace::analysis::Increased Activity comm');
 INSERT INTO GD_SHP
 	VALUES ("18f71323-ca91-4df3-916d-8910e871daf7");
 INSERT INTO GD_NCS
@@ -53,7 +55,8 @@ INSERT INTO GD_GE
 	"69fb3276-6e04-4f0b-b02e-153fafa91865",
 	"97973cef-d3f8-499d-a9fe-12bcdae29193",
 	108,
-	0);
+	0,
+	'avpace::analysis::Increased Activity sd');
 INSERT INTO GD_SHP
 	VALUES ("041bc72e-dc61-4725-969d-fa1fe43922d7");
 INSERT INTO GD_NCS
@@ -76,7 +79,8 @@ INSERT INTO GD_GE
 	"69fb3276-6e04-4f0b-b02e-153fafa91865",
 	"bec4a9e9-d0c2-4e51-ab16-1ee16f93dd4a",
 	108,
-	0);
+	0,
+	'avpace::analysis::Increased Activity activity');
 INSERT INTO GD_SHP
 	VALUES ("53a60059-2248-437e-873d-ead0e802503b");
 INSERT INTO GD_NCS
@@ -102,25 +106,13 @@ INSERT INTO DIM_DIA
 	3000.000000,
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO PE_PE
-	VALUES ("43ef2b15-ca85-4abd-9687-17baabee71d7",
+	VALUES ("bf32fd17-70ff-4d73-a190-478f0511ee82",
 	1,
-	"bf32fd17-70ff-4d73-a190-478f0511ee82",
 	"00000000-0000-0000-0000-000000000000",
-	7);
-INSERT INTO PE_PE
-	VALUES ("97973cef-d3f8-499d-a9fe-12bcdae29193",
-	1,
-	"bf32fd17-70ff-4d73-a190-478f0511ee82",
-	"00000000-0000-0000-0000-000000000000",
-	7);
-INSERT INTO PE_PE
-	VALUES ("bec4a9e9-d0c2-4e51-ab16-1ee16f93dd4a",
-	1,
-	"bf32fd17-70ff-4d73-a190-478f0511ee82",
 	"00000000-0000-0000-0000-000000000000",
 	7);
 INSERT INTO S_SYS_PROXY
 	VALUES ("15b2a15d-7110-4efa-b644-89bd96e12c0e",
 	'avpace',
-	0,
+	1,
 	'../avpace.xtuml');

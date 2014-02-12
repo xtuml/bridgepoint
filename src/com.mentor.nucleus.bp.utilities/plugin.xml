@@ -56,29 +56,6 @@
       </objectContribution>
      
       <objectContribution
-            adaptable="false"
-            id="com.mentor.nucleus.bp.utilities.convertFromEDGEToCDT"
-            objectClass="com.mentor.nucleus.bp.core.common.NonRootModelElement">
-         <action
-               class="com.mentor.nucleus.bp.utilities.ui.BPCDTConversionAction"
-               enablesFor="+"
-               id="com.mentor.nucleus.bp.utilities.convertToCDT"
-               label="Enable xtUML Projects for CDT"
-               menubarPath="com.mentor.nucleus.bp.utilities/com.mentor.nucleus.bp.utilities.separator">
-         </action>
-      </objectContribution>
-      <objectContribution
-            adaptable="true"
-            id="com.mentor.nucleus.bp.utilities.updateBuilder.projectContribution"
-            objectClass="org.eclipse.core.resources.IProject">
-         <action
-               class="com.mentor.nucleus.bp.utilities.build.UpgradeCompilerSettingsAction"
-               id="com.mentor.nucleus.bp.utilities.upgradeCompilerSettingsAction"
-               label="Upgrade Compiler Settings"
-               menubarPath="com.mentor.nucleus.bp.utilities/com.mentor.nucleus.bp.utilities.separator">
-         </action>
-      </objectContribution>
-      <objectContribution
             adaptable="true"
             id="com.mentor.nucleus.bp.utilities.IntegrityCheckContribution"
             objectClass="com.mentor.nucleus.bp.core.common.NonRootModelElement">
@@ -90,19 +67,6 @@
                menubarPath="com.mentor.nucleus.bp.utilities/com.mentor.nucleus.bp.utilities.separator">
          </action>
       </objectContribution>
-      
-      <!--<objectContribution
-            adaptable="false"
-            id="com.mentor.nucleus.bp.utilities.verifyPreBuilder"
-            objectClass="com.mentor.nucleus.bp.core.common.NonRootModelElement">
-         <action
-               class="com.mentor.nucleus.bp.utilities.ui.VerifyPreBuilderPresentAction"
-               enablesFor="+"
-               id="com.mentor.nucleus.bp.utilities.verifyPreBuilders"
-               label="Verify Projects Use Pre-builder"
-               menubarPath="com.mentor.nucleus.bp.utilities/com.mentor.nucleus.bp.utilities.separator">
-         </action>
-      </objectContribution>-->
       
    </extension>
    

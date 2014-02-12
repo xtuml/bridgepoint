@@ -2,11 +2,11 @@
 <feature
       id="com.mentor.nucleus.bp.verifier.pkg"
       label="BridgePoint Verifier"
-      version="4.0.7"
+      version="4.1.6"
       provider-name="Mentor Graphics">
 
    <copyright>
-      Copyright © 1999-2013 Mentor Graphics Corporation.  All rights reserved.
+      Copyright © 1999-2014 Mentor Graphics Corporation.  All rights reserved.
    </copyright>
 
    <license url="license.html">
@@ -103,6 +103,6 @@ Rev. 130502, Part No. 255853
          id="com.mentor.nucleus.bp.verifier.pkg"
          download-size="0"
          install-size="0"
-         version="4.0.7"/>
+         version="4.1.6"/>
 
 </feature>

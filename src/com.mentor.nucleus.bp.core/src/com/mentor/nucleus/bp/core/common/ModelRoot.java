@@ -4,11 +4,20 @@
 //Version:   $Revision: 1.46 $
 //Modified:  $Date: 2013/05/10 13:26:31 $
 //
-//(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp. and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //=====================================================================
 
 package com.mentor.nucleus.bp.core.common;
@@ -27,10 +36,19 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.util.ListenerList;
 
+import com.mentor.nucleus.bp.core.ArrayValue_c;
+import com.mentor.nucleus.bp.core.ComponentReferenceValue_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.InstanceReferenceValue_c;
 import com.mentor.nucleus.bp.core.Modeleventnotification_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
+import com.mentor.nucleus.bp.core.RuntimeValue_c;
+import com.mentor.nucleus.bp.core.SimpleCoreValue_c;
+import com.mentor.nucleus.bp.core.SimpleValue_c;
+import com.mentor.nucleus.bp.core.StructuredValue_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
+import com.mentor.nucleus.bp.core.ValueInArray_c;
+import com.mentor.nucleus.bp.core.ValueInStructure_c;
 
 /**
  * The root element of the tree of elements that belongs to a domain.  
@@ -110,12 +128,38 @@ public abstract class ModelRoot extends ModelElement implements IModelChangeProv
     }
     
     protected Map<Class, InstanceList> instanceListMap = new Hashtable<Class, InstanceList>();
+    
+    // List of meta-model classes which particpate exclusively at
+    // Verifier runtime. We use this list to allocate an instance
+    // extent class with a backward search policy to optimize
+    // Verifier runtime delete performance. See dts0101019516.
+    private static final Class<?>[] runtimes = {RuntimeValue_c.class,
+    	StructuredValue_c.class, SimpleValue_c.class, ArrayValue_c.class,
+    	InstanceReferenceValue_c.class, SimpleCoreValue_c.class,
+    	ComponentReferenceValue_c.class, ValueInStructure_c.class,
+    	ValueInArray_c.class};
+    // Traverse the list to see if the passed class is in the runtime set
+    private static boolean isRuntime (Class<?> clazz) {
+    	for (Class<?> runtime: runtimes) {
+    		if (runtime.equals(clazz)) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 
     public synchronized InstanceList getInstanceList(Class type)
     {
-        InstanceList list = instanceListMap.get(type);
+    	InstanceList list = instanceListMap.get(type);
         if(list == null){
-            list = new InstanceList(this, type);
+        	if (isRuntime(type)) {
+        	  // Allocate a Verifier runtime optimized instance extent
+              list = new RuntimeInstanceList(this, type);
+        	}
+        	else {
+        	  // Allocate a standard instance extent
+              list = new StaticInstanceList(this, type);
+        	}
             instanceListMap.put(list.getType(), list);
         }
         return list;

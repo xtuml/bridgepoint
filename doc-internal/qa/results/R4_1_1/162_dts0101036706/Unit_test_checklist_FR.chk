@@ -1,0 +1,38 @@
+This document captures the state of the BridgePoint unit tests:
+===============================================================
+Branch: 162_phase1
+Hostname:   ILS-KBROWN-LT
+OS Name:    Windows 7
+    Version:    6.1
+    Architecture:   x86
+
+Test Suite                              Status          TestRuns    Time    Timestamp
+---------------------------------------------------------------------------------------------
+Core Generic Upgrade Test               PASS            39          3.37s   20140211 21:14:49
+UI Canvas CCP Test                      PASS            102         530.67s 20140212 10:21:50
+Core Test                               PASS            1093        936.43s 20140211 21:30:40
+UI Explorer Test                        PASS            18          55.86s  20140211 22:30:57
+Core Test - Workspace Setup             PASS            14          62.68s  20140212 09:46:45
+Parse All Test                          PASS            4596        445.53s 20140211 21:08:22
+IO MDL PkgCM Tests                      PASS            108         823.48s 20140212 10:59:07
+Core Test 2                             PASS            305         194.04s 20140212 11:12:20
+Debug - Verifier Test                   FAIL(0e/1f)     99          818s    20140212 11:33:23 [1]
+Core Test - System Level Tests          PASS            24          12.86s  20140211 21:34:53
+Core Test 2 - Consistency               PASS            17          1.15s   20140211 21:13:00
+IO MDL Tests                            PASS            90          180.61s 20140212 11:06:30
+UI Properties Test                      PASS            163         14.49s  20140212 11:00:03
+Core Test - Existing Projects           PASS            15          3.94s   20140212 09:47:17
+Model Compare Test                      PASS            257         208.33s 20140211 21:53:59
+Welcome Test                            PASS            10          216.03s 20140212 09:58:46
+UI Canvas Suite 1                       PASS            84          84.86s  20140212 10:06:05
+Core Test - RTO Move                    PASS            136         249.68s 20140211 21:12:47
+Search Test                             PASS            10          12.26s  20140211 22:14:47
+UI Canvas Suite 2                       PASS            270         214.60s 20140212 10:11:54
+IO MDL Tests 2                          PASS            77          181.54s 20140211 22:00:28
+IO SQL Test                             PASS            8           0.92s   20140211 22:14:23
+Debug - Verifier Test 2                 PASS            7           112.74s 20140212 10:03:39
+UI Text Test                            PASS            163         102.15s 20140211 22:33:20
+
+
+[1]  Does not fail if I comment out all the other suites and just run the one with the failure 
+by itself.  Thus, must be an interaction or timing issue.

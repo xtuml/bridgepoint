@@ -4,11 +4,20 @@
 //Version:   $Revision: 1.5 $
 //Modified:  $Date: 2013/01/10 23:06:12 $
 //
-//Copyright (c) 2005-2013 Mentor Graphics Corporation.  All rights reserved.
+//Copyright (c) 2005-2014 Mentor Graphics Corporation.  All rights reserved.
 //
 //========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //========================================================================
 package com.mentor.nucleus.bp.ui.graphics.router;
 
@@ -27,6 +36,7 @@ import org.eclipse.gmf.runtime.draw2d.ui.geometry.PointListUtilities;
 import org.eclipse.gmf.runtime.draw2d.ui.geometry.PrecisionPointList;
 import org.eclipse.gmf.runtime.draw2d.ui.internal.routers.OrthogonalRouterUtilities;
 
+import com.mentor.nucleus.bp.ui.graphics.anchors.ConnectorAnchor;
 import com.mentor.nucleus.bp.ui.graphics.anchors.WSAnchor;
 import com.mentor.nucleus.bp.ui.graphics.figures.DecoratedPolylineConnection;
 import com.mentor.nucleus.bp.ui.graphics.parts.DiagramEditPart;
@@ -45,7 +55,7 @@ public class RectilinearRouter extends
 			return true;
 		}
 		if (!(figure instanceof DecoratedPolylineConnection)
-				&& (figure.getSourceAnchor() instanceof WSAnchor && figure
+				&& (figure.getSourceAnchor() instanceof WSAnchor || figure
 						.getTargetAnchor() instanceof WSAnchor)) {
 			return true;
 		}
@@ -107,7 +117,7 @@ public class RectilinearRouter extends
 				point);
 		if (vertical) {
 			// Vertical
-			if (source.preciseY < target.preciseY) {
+			if (source.preciseY() < target.preciseY()) {
 				newLine.addPoint(lastStartAnchor.x,
 						(source.getBottom().y + target.getTop().y) / 2);
 				newLine.addPoint(lastEndAnchor.x,
@@ -120,7 +130,7 @@ public class RectilinearRouter extends
 			}
 		} else {
 			// Horizontal
-			if (source.preciseX < target.preciseX) {
+			if (source.preciseX() < target.preciseX()) {
 				newLine.addPoint(
 						(source.getRight().x + target.getLeft().x) / 2,
 						lastStartAnchor.y);
@@ -209,14 +219,14 @@ public class RectilinearRouter extends
 	protected PointList getPolygonPoints(Rectangle bounds) {
 		PrecisionRectangle r = new PrecisionRectangle(bounds);
 		PrecisionPointList ptList = new PrecisionPointList(5);
-		ptList.addPoint(new PrecisionPoint(r.preciseX, r.preciseY));
-		ptList.addPoint(new PrecisionPoint(r.preciseX + r.preciseWidth,
-				r.preciseY));
-		ptList.addPoint(new PrecisionPoint(r.preciseX + r.preciseWidth,
-				r.preciseY + r.preciseHeight));
-		ptList.addPoint(new PrecisionPoint(r.preciseX, r.preciseY
-				+ r.preciseHeight));
-		ptList.addPoint(new PrecisionPoint(r.preciseX, r.preciseY));
+		ptList.addPoint(new PrecisionPoint(r.preciseX(), r.preciseY()));
+		ptList.addPoint(new PrecisionPoint(r.preciseX() + r.preciseWidth(),
+				r.preciseY()));
+		ptList.addPoint(new PrecisionPoint(r.preciseX() + r.preciseWidth(),
+				r.preciseY() + r.preciseHeight()));
+		ptList.addPoint(new PrecisionPoint(r.preciseX(), r.preciseY()
+				+ r.preciseHeight()));
+		ptList.addPoint(new PrecisionPoint(r.preciseX(), r.preciseY()));
 		return ptList;
 	}
 
@@ -232,6 +242,15 @@ public class RectilinearRouter extends
 			return;
 		}
 		super.resetEndPointsToEdge(conn, line);
+	}
+
+	@Override
+	protected boolean checkShapesIntersect(Connection conn, PointList newLine) {
+		if (conn.getSourceAnchor() instanceof ConnectorAnchor
+				&& conn.getTargetAnchor() instanceof ConnectionAnchor) {
+			return false;
+		}
+		return super.checkShapesIntersect(conn, newLine);
 	}
 
 	@Override

@@ -4,11 +4,20 @@
 //Version:   $Revision: 1.8 $
 //Modified:  $Date: 2013/01/10 23:05:47 $
 //
-//(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //======================================================================== 
 //
 package com.mentor.nucleus.bp.ui.graphics.anchors;
@@ -31,6 +40,11 @@ import org.eclipse.gmf.runtime.draw2d.ui.geometry.LineSeg;
 import org.eclipse.gmf.runtime.draw2d.ui.geometry.PointListUtilities;
 
 import com.mentor.nucleus.bp.core.End_c;
+import com.mentor.nucleus.bp.ui.canvas.Connector_c;
+import com.mentor.nucleus.bp.ui.canvas.Direction_c;
+import com.mentor.nucleus.bp.ui.graphics.figures.DecoratedPolylineConnection;
+import com.mentor.nucleus.bp.ui.graphics.parts.ConnectorEditPart;
+import com.mentor.nucleus.bp.ui.graphics.parts.ShapeEditPart;
 
 public class ConnectorAnchor extends AbstractConnectionAnchor implements
 		IAdjustableReferencePointAnchor, OrthogonalConnectionAnchor {
@@ -88,7 +102,12 @@ public class ConnectorAnchor extends AbstractConnectionAnchor implements
 				return segmentPoints.getBounds();
 			}
 			rectangleBounds.setLocation(point);
-			rectangleBounds.setSize(1, 1);
+			rectangleBounds.setSize(4, 4);
+			// if we are dealing with a connector to connector
+			// end we have to create the point a bit different
+			// in order to convince the rectilinear router to
+			// position the connector off the appropriate side
+			adjustBoundsForAnchor(rectangleBounds);
 			return rectangleBounds;
 		}
 
@@ -107,6 +126,76 @@ public class ConnectorAnchor extends AbstractConnectionAnchor implements
 			figure.setParent(super.getOwner());
 		}
 		return figure;
+	}
+
+	protected void adjustBoundsForAnchor(Rectangle rectangleBounds) {
+		if(super.getOwner() instanceof DecoratedPolylineConnection) {
+			ConnectorEditPart part = ((DecoratedPolylineConnection) super.getOwner()).getPart();
+			if(part.getSource() instanceof ShapeEditPart && end == End_c.Start) {
+				// the source is a container we must adjust the bounds
+				// so that it considers the inward direction
+				ShapeEditPart source = (ShapeEditPart) part.getSource();
+				boolean inward = source.isContainerShape();
+				// we are dealing with a connector to connector and need to handle this
+				// differently, for this case we are creating intentionally large
+				// bounds so that the GMF routing logic always considers the correct
+				// exit side for the owning connector
+				int shapeEdge = ((Connector_c) part.getModel()).Getshapeedge(End_c.Start);
+				switch (shapeEdge) {
+				case Direction_c.East:
+					if(inward) {
+						rectangleBounds.y = 0;
+						rectangleBounds.height = Integer.MAX_VALUE;
+						rectangleBounds.width = Integer.MAX_VALUE;
+					} else {
+						rectangleBounds.width = rectangleBounds.x
+								+ rectangleBounds.width;
+						rectangleBounds.x = 0;
+						rectangleBounds.y = 0;
+						rectangleBounds.height = Integer.MAX_VALUE;
+					}
+					break;
+				case Direction_c.West:
+					if(inward) {
+						rectangleBounds.width = rectangleBounds.x;
+						rectangleBounds.x = 0;
+						rectangleBounds.y = 0;
+						rectangleBounds.height = Integer.MAX_VALUE;					
+					} else {
+						rectangleBounds.y = 0;
+						rectangleBounds.height = Integer.MAX_VALUE;
+						rectangleBounds.width = Integer.MAX_VALUE;
+					}
+					break;
+				case Direction_c.North:
+					if(inward) {
+						rectangleBounds.height = rectangleBounds.y;
+						rectangleBounds.x = 0;
+						rectangleBounds.y = 0;
+						rectangleBounds.width = Integer.MAX_VALUE;
+					} else {
+						rectangleBounds.x = 0;
+						rectangleBounds.width = Integer.MAX_VALUE;
+						rectangleBounds.height = Integer.MAX_VALUE;
+					}
+					break;
+				case Direction_c.South:
+					if(inward) {
+						rectangleBounds.x = 0;
+						rectangleBounds.width = Integer.MAX_VALUE;
+						rectangleBounds.height = Integer.MAX_VALUE;
+					} else {
+						rectangleBounds.height = rectangleBounds.y + rectangleBounds.height;
+						rectangleBounds.x = 0;
+						rectangleBounds.y = 0;
+						rectangleBounds.width = Integer.MAX_VALUE;						
+					}					
+					break;
+				default:
+					break;
+				}
+			}
+		}
 	}
 
 	@Override
@@ -193,17 +282,18 @@ public class ConnectorAnchor extends AbstractConnectionAnchor implements
 		PrecisionPoint copy = new PrecisionPoint(referencePoint.getCopy());
 		PrecisionRectangle bounds = new PrecisionRectangle(FigureUtilities
 				.getAnchorableFigureBounds(getOwner()));
-		bounds.expand(0.000001, 0.000001);
-		if (preciseOrthoRef.preciseX >= bounds.preciseX
-				&& preciseOrthoRef.preciseX <= bounds.preciseX
-						+ bounds.preciseWidth) {
-			copy.preciseX = preciseOrthoRef.x;
-			copy.updateInts();
-		} else if (preciseOrthoRef.preciseY >= bounds.preciseY
-				&& preciseOrthoRef.preciseY <= bounds.preciseY
-						+ bounds.preciseHeight) {
-			copy.preciseY = preciseOrthoRef.y;
-			copy.updateInts();
+		bounds.setPreciseX(bounds.preciseX() + -0.000001);
+		bounds.setPreciseWidth(bounds.preciseWidth() - (-0.000001 + -0.000001));
+		bounds.setPreciseY(bounds.preciseY() + -0.000001);
+		bounds.setPreciseHeight(bounds.preciseHeight() - (-0.000001 + -0.000001));
+		if (preciseOrthoRef.preciseX() >= bounds.preciseX()
+				&& preciseOrthoRef.preciseX() <= bounds.preciseX()
+						+ bounds.preciseWidth()) {
+			copy.setPreciseX(preciseOrthoRef.x);
+		} else if (preciseOrthoRef.preciseY() >= bounds.preciseY()
+				&& preciseOrthoRef.preciseY() <= bounds.preciseY()
+						+ bounds.preciseHeight()) {
+			copy.setPreciseY(preciseOrthoRef.y);
 		}
 		PrecisionPoint intersectionPoint = getIntersectionPointWithPoints(copy,
 				preciseOrthoRef, ((Connection) super.getOwner()).getPoints());

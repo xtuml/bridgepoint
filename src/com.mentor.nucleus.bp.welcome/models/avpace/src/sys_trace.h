@@ -4,7 +4,7 @@
  * Description:
  *  Run time instrumentation and tracing declarations
  *
- * (C) Copyright 1998-2013 Mentor Graphics Corporation.  All rights reserved.
+ * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
  *--------------------------------------------------------------------------*/
 
 #ifndef SYS_TRACE_H

@@ -4,18 +4,29 @@
 //Version:   $Revision$
 //Modified:  $Date$
 //
-//(c) Copyright 2008-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2008-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp. and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //=====================================================================
 package com.mentor.nucleus.bp.debug.ui.session.tree;
 
 import java.io.File;
+import java.io.FileWriter;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.ui.IDebugUIConstants;
@@ -26,6 +37,7 @@ import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.Component_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.Function_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.PackageableElement_c;
@@ -35,6 +47,7 @@ import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.ui.perspective.BridgePointPerspective;
+import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.debug.ui.launch.BPDebugUtils;
 import com.mentor.nucleus.bp.debug.ui.test.DebugUITestUtilities;
 import com.mentor.nucleus.bp.test.TestUtil;
@@ -190,6 +203,145 @@ public class VerifierSessionExplorerTests extends BaseTest {
 		Menu menu = sev.getTreeViewer().getTree().getMenu();
 		assertTrue("Delete was not disabled for model element.",
 				UITestingUtilities.getMenuItem(menu, "Rename") == null);
+	}
+	
+	public void testAssociationPhraseReflexiveSimpleFormalized() throws CoreException {
+		loadProject("AssociationPhraseTestModel");
+		Component_c component = Component_c
+				.getOneC_COnR8001(PackageableElement_c
+						.getManyPE_PEsOnR8000(Package_c
+								.getManyEP_PKGsOnR1401(m_sys)));
+		assertNotNull(component);
+		DebugUITestUtilities.setLogActivityAndLaunchForElement(component,
+				m_bp_tree.getControl().getMenu(), m_sys.getName());
+		Function_c relateTest = Function_c.getOneS_SYNCOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR8001(PackageableElement_c.getManyPE_PEsOnR8003(component))), new ClassQueryInterface_c() {
+			
+			@Override
+			public boolean evaluate(Object candidate) {
+				return ((Function_c) candidate).getName().equals("reflexive_simple_formalized");
+			}
+		});
+		assertNotNull(relateTest);
+		Function_c unrelateTest = Function_c.getOneS_SYNCOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR8001(PackageableElement_c.getManyPE_PEsOnR8003(component))), new ClassQueryInterface_c() {
+			
+			@Override
+			public boolean evaluate(Object candidate) {
+				return ((Function_c) candidate).getName().equals("unrelate_reflexive_simple_formalized");
+			}
+		});
+		assertNotNull(unrelateTest);
+		Function_c clearInstances = Function_c.getOneS_SYNCOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR8001(PackageableElement_c.getManyPE_PEsOnR8003(component))), new ClassQueryInterface_c() {
+			
+			@Override
+			public boolean evaluate(Object candidate) {
+				return ((Function_c) candidate).getName().equals("clear_instances");
+			}
+		});
+		assertNotNull(clearInstances);
+		executeFunction(relateTest);
+		verifyTree("expected_results/session_tree/relate_simple_reflexive_formalized.txt");
+		executeFunction(clearInstances);
+		executeFunction(unrelateTest);
+		verifyTree("expected_results/session_tree/unrelate_simple_reflexive_formalized.txt");
+	}
+
+	public void testAssociationPhraseReflexiveSimpleUnformalized() throws CoreException {
+		loadProject("AssociationPhraseTestModel");
+		Component_c component = Component_c
+				.getOneC_COnR8001(PackageableElement_c
+						.getManyPE_PEsOnR8000(Package_c
+								.getManyEP_PKGsOnR1401(m_sys)));
+		assertNotNull(component);
+		DebugUITestUtilities.setLogActivityAndLaunchForElement(component,
+				m_bp_tree.getControl().getMenu(), m_sys.getName());
+		Function_c relateTest = Function_c.getOneS_SYNCOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR8001(PackageableElement_c.getManyPE_PEsOnR8003(component))), new ClassQueryInterface_c() {
+			
+			@Override
+			public boolean evaluate(Object candidate) {
+				return ((Function_c) candidate).getName().equals("reflexive_simple_unformalized");
+			}
+		});
+		assertNotNull(relateTest);
+		Function_c unrelateTest = Function_c.getOneS_SYNCOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR8001(PackageableElement_c.getManyPE_PEsOnR8003(component))), new ClassQueryInterface_c() {
+			
+			@Override
+			public boolean evaluate(Object candidate) {
+				return ((Function_c) candidate).getName().equals("unrelate_reflexive_simple_unformalized");
+			}
+		});
+		assertNotNull(unrelateTest);
+		Function_c clearInstances = Function_c.getOneS_SYNCOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR8001(PackageableElement_c.getManyPE_PEsOnR8003(component))), new ClassQueryInterface_c() {
+			
+			@Override
+			public boolean evaluate(Object candidate) {
+				return ((Function_c) candidate).getName().equals("clear_instances");
+			}
+		});
+		assertNotNull(clearInstances);
+		executeFunction(relateTest);
+		verifyTree("expected_results/session_tree/relate_simple_reflexive_unformalized.txt");
+		executeFunction(clearInstances);
+		executeFunction(unrelateTest);
+		verifyTree("expected_results/session_tree/unrelate_simple_reflexive_unformalized.txt");
+	}
+
+	public void testAssociationPhraseReflexiveLinkedAssociation() throws CoreException {
+		loadProject("AssociationPhraseTestModel");
+		Component_c component = Component_c
+				.getOneC_COnR8001(PackageableElement_c
+						.getManyPE_PEsOnR8000(Package_c
+								.getManyEP_PKGsOnR1401(m_sys)));
+		assertNotNull(component);
+		DebugUITestUtilities.setLogActivityAndLaunchForElement(component,
+				m_bp_tree.getControl().getMenu(), m_sys.getName());
+		Function_c relateTest = Function_c.getOneS_SYNCOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR8001(PackageableElement_c.getManyPE_PEsOnR8003(component))), new ClassQueryInterface_c() {
+			
+			@Override
+			public boolean evaluate(Object candidate) {
+				return ((Function_c) candidate).getName().equals("linked_association");
+			}
+		});
+		assertNotNull(relateTest);
+		Function_c unrelateTest = Function_c.getOneS_SYNCOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR8001(PackageableElement_c.getManyPE_PEsOnR8003(component))), new ClassQueryInterface_c() {
+			
+			@Override
+			public boolean evaluate(Object candidate) {
+				return ((Function_c) candidate).getName().equals("unrelate_linked_association");
+			}
+		});
+		assertNotNull(unrelateTest);
+		Function_c clearInstances = Function_c.getOneS_SYNCOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR8001(PackageableElement_c.getManyPE_PEsOnR8003(component))), new ClassQueryInterface_c() {
+			
+			@Override
+			public boolean evaluate(Object candidate) {
+				return ((Function_c) candidate).getName().equals("clear_instances");
+			}
+		});
+		assertNotNull(clearInstances);
+		executeFunction(relateTest);
+		verifyTree("expected_results/session_tree/relate_simple_reflexive_linked_association.txt");
+		executeFunction(clearInstances);
+		executeFunction(unrelateTest);
+		verifyTree("expected_results/session_tree/unrelate_simple_reflexive_linked_association.txt");
+	}
+
+	private void verifyTree(String expected_result) {
+		SessionExplorerView sev = BPDebugUtils.openSessionExplorerView(true);
+		sev.getTreeViewer().expandToLevel(9);
+		sev.getTreeViewer().refresh();
+		UIUtil.dispatchAll();
+		TestingUtilities.processDisplayEvents();
+		Tree tree = sev.getTreeViewer().getTree();
+		String result = DebugUITestUtilities.getTreeTextRepresentation(tree);
+		result = result.trim();
+		File expectedResultsFile = new File(m_workspace_path + expected_result);
+		String expected_results = TestUtil.getTextFileContents(expectedResultsFile);
+		assertEquals(expected_results, result);
+	}
+
+	private void executeFunction(Function_c function) {
+		BPDebugUtils.executeElement(function);
+		DebugUITestUtilities.waitForExecution();
 	}
 	
 	/* This test stopped working with the promotion of 

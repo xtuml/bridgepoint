@@ -1,0 +1,71 @@
+========================================================================
+
+File:      HOWTO-update-the-BP-copyright.txt
+
+Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp. and is not for external distribution.
+========================================================================
+
+BridgePoint Technical Note
+HOWTO Update the BridgePoint Copyright
+
+
+Abstract
+--------
+This note describes the steps to be performed in order to update the copyright
+messages in BridgePoint to include a new year.
+
+History
+-------
+None.
+
+Document References
+-------------------
+[1] Bugzilla Issue 2673 
+    http://phoenix.projtech.com/bugzilla/show_bug.cgi?id=2673
+
+Background
+----------
+With each new year it is necessary to update to copyright messages in the
+BridgePoint source repository.  There is a utility for this purpose.  
+
+Intended Audience
+-----------------
+This document is intended for the BridgePoint development team.
+
+Steps
+-----
+_- You must have perl installed on your machine
+_- Launch Eclipse
+_- For each repository to update: xtuml/internal, xtuml/mc, etc
+_- Update your development workspace with the latest version master
+_- Create a branch
+_- Verify your cloned xtuml/internal repository contains the "utilities" project
+_R The utility that is used to update copyright messages is
+   <xtuml/internal>/utilities/update-copyright/update-copyright.pl
+_R Note: This utility does have a usage screen.  To see it use the --help 
+         option.
+_- Open a shell
+_- cd <git repository home>/xtuml/internal/src
+_- ../utilities/update-copyright/update-copyright.pl --recursive --year YYYY ./
+_R A message will be displayed when the procedure is complete and it will tell 
+   you that a file named update-copyright-results.txt has been created.  This
+   contains a report of the changes.
+_- Examine the report and modify it (and the modified files) to remove:
+    _- Items that have 3rd party copyrights. 
+   _- Anything else you see in the report that you will not be checking-in
+_- Search workspace for "opyright*<old year>"
+  _- Fix any matches to the new year.  Ignore matches under the utilities project.
+     Only update files doc-internal/process that make sense.
+_- Move the update-copyright-results.txt to the issue # folder under doc-internal/notes
+_- Commit the modified files to the repository by following normal check-in 
+   procedures.
+   
+ 
+
+End
+---
+

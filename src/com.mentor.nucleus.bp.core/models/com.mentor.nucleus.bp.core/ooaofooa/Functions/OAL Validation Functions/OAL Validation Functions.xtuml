@@ -43,11 +43,20 @@ File:          $RCSfile: ooaofooa.xtuml,v $
 Version:   $Revision: 1.127 $
 Modified:  $Date: 2006/09/26 15:10:20 $
 
-(c) Copyright 2004-2013 by Mentor Graphics Corp. All rights reserved.
+(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
 
 ========================================================================
-This document contains information proprietary and confidential to
-Mentor Graphics Corp. and is not for external distribution.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
 ========================================================================
 
 This is the application domain for the Tiger project.
@@ -9521,13 +9530,13 @@ if isInGenericPackage
          type:ElementTypeConstants::EE,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:true);
   else
     package.collectVisibleElementsForName(name:param.a3_text,
          type:ElementTypeConstants::EE, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:true);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                  selected.Name == param.a3_text and 
@@ -9544,21 +9553,13 @@ if isInGenericPackage
     ERR::reportParseError( 
         msg: "Cannot find specified external entity key letters ->%s<-.", 
         token: param.a1_rule_token );
-  elif EECount == 1
-    // store the textual position of the key letters
+  elif EECount >= 1
+    // store the textual position of the key letters for the first match
+    // found   
     block.currentKeyLettersLineNumber = ::getLineNumber(rule_token: param.a1_rule_token);
     block.currentKeyLettersColumn = ::getColumn(rule_token: param.a1_rule_token);
     select any ee related by results->S_EE[R8001];
     return ee.EE_ID;
-  elif EECount > 1
-    resultList = "";
-    sep = "";
-    for each result in results
-      resultList = resultList + sep + result.getQualifiedName();
-      sep = " ,";
-    end for;
-    ERR::reportParseError(msg: "Multiple external entities found for ->%s<-: " +
-                                           resultList, token: param.a1_rule_token);
   end if;
   return GD::NULL_UNIQUE_ID();
 else
@@ -10171,18 +10172,8 @@ if isInGenericPackage
                                       selected.Type == ElementTypeConstants::EE; 
       select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
     end if;
-    if cardinality results == 1
+    if cardinality results >= 1
       identifier_ok = true;
-    elif cardinality results > 1
-      resultList = "";
-      sep = "";
-      for each result in results
-        resultList = resultList + sep + result.getQualifiedName();
-        sep = " ,";
-      end for;
-      ERR::reportParseError(
-                 msg: "Multiple external entities found for ->%s<-: " +
-                                        resultList, token: param.a1_rule_token); 
     else // No result found yet
       // Check for Interface match for token
       if not_empty comp
@@ -10432,13 +10423,13 @@ if isInGenericPackage
     component.collectVisibleElementsForName(name:identifier,
          type:ElementTypeConstants::EE,originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:true);
   else
     package.collectVisibleElementsForName(name:identifier,
          type:ElementTypeConstants::EE, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:true);
   end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                   selected.Name == identifier and 
@@ -10450,7 +10441,7 @@ if isInGenericPackage
                                       selected.Type == ElementTypeConstants::EE; 
     select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
   end if;
-  if cardinality results == 1
+  if cardinality results >= 1
     select any ee related by results->S_EE[R8001];
     if not_empty ee
       select any brg related by ee->S_BRG[R19] where
@@ -10464,15 +10455,6 @@ if isInGenericPackage
         numMatches = numMatches + 1;
       end if;
     end if; // empty ee
-  elif cardinality results > 1
-    resultList = "";
-    sep = "";
-    for each result in results
-      resultList = resultList + sep + result.getQualifiedName();
-      sep = " ,";
-    end for;
-    ERR::reportParseError(msg: "Multiple external entities found for ->%s<-: " +
-                                        resultList, token: param.a1_rule_token); 
   end if; // ee
   //    
   componentContainer = component;

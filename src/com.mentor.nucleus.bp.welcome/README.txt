@@ -2,27 +2,27 @@ HOWTO Update the Metamodel model
 --------------------------------
 - Update local xtuml/mc git repository with latest from master
 - Start BridgePoint
-- Import existing project com.mentor.nucleus.bp.corefrom xtuml/mc/model/
-- export bp.core ooaofooa package to single file model mm_first.xtuml 
+- Import existing project com.mentor.nucleus.bp.core from xtuml/mc/model/
+- Export bp.core ooaofooa package to single file model mm_first.xtuml 
     with "Export OAL" preference turned off, and "Export Graphics" preference 
     turned on
-- import mm_first.xtuml into a new project named com.mentor.nucleus.bp.core in a sandbox workspace
+- Import mm_first.xtuml into a new project named com.mentor.nucleus.bp.core in a sandbox workspace
 - Right-click on the project and select "Cleanse for Model Compiler"
 - From the xtUML Modeling Perspective, edit the model to remove the following packages
   - Breakpoint
+  - DocGen
   - Document
   - Document Data Types
-  - Instance Reference Data Types
-  - DocGen
   - External Entities
   - Functions
+  - Instance Reference Data Types
   - MC
   - MCfunctions
   - Search
-- export the modified ooaofooa to single file model xtUML_Metamodel.xtuml
+- Export the (now modified) ooaofooa package to single file model xtUML_Metamodel.xtuml
     with "Export OAL" preference turned off, and "Export Graphics" preference 
     turned on
-- copy xtUML_Metamodel.xtuml to com.mentor.nucleus.bp.welcome/models/xtUML_Metamodel.xtuml
+- Copy xtUML_Metamodel.xtuml to com.mentor.nucleus.bp.welcome/models/xtUML_Metamodel.xtuml
 
 
 HOWTO Add/Update the Welcome Projects

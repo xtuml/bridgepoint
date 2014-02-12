@@ -4,7 +4,7 @@
 // Version:   $Revision: 1.6 $
 // Modified:  $Date: 2013/01/10 23:21:54 $
 //
-// (c) Copyright 2005-2013 by Mentor Graphics Corp.  All rights reserved.
+// (c) Copyright 2005-2014 by Mentor Graphics Corp.  All rights reserved.
 //
 //====================================================================
 //
@@ -24,7 +24,6 @@ import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
-import com.mentor.nucleus.bp.core.common.ModelElementFileFacade;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.util.UIUtil;

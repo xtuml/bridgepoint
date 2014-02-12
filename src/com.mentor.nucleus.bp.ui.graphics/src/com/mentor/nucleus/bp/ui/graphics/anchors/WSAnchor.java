@@ -4,11 +4,20 @@
 //Version:   $Revision: 1.8 $
 //Modified:  $Date: 2013/03/14 02:49:32 $
 //
-//(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //======================================================================== 
 //
 package com.mentor.nucleus.bp.ui.graphics.anchors;
@@ -136,19 +145,20 @@ public class WSAnchor extends AbstractConnectionAnchor implements
 		PrecisionPoint copy = new PrecisionPoint(currentPoint.getCopy());
 		PrecisionRectangle bounds = new PrecisionRectangle(FigureUtilities
 				.getAnchorableFigureBounds(getOwner()));
-		bounds.expand(0.000001, 0.000001);
-		if (preciseOrthoRef.preciseX >= bounds.preciseX
-				&& preciseOrthoRef.preciseX <= bounds.preciseX
-						+ bounds.preciseWidth) {
+		bounds.setPreciseX(bounds.preciseX() + -0.000001);
+		bounds.setPreciseWidth(bounds.preciseWidth() - (-0.000001 + -0.000001));
+		bounds.setPreciseY(bounds.preciseY() + -0.000001);
+		bounds.setPreciseHeight(bounds.preciseHeight() - (-0.000001 + -0.000001));
+		if (preciseOrthoRef.preciseX() >= bounds.preciseX()
+				&& preciseOrthoRef.preciseX() <= bounds.preciseX()
+						+ bounds.preciseWidth()) {
 			// vertical
-			copy.preciseX = preciseOrthoRef.x;
-			copy.updateInts();
-		} else if (preciseOrthoRef.preciseY >= bounds.preciseY
-				&& preciseOrthoRef.preciseY <= bounds.preciseY
-						+ bounds.preciseHeight) {
+			copy.setPreciseX(preciseOrthoRef.x);
+		} else if (preciseOrthoRef.preciseY() >= bounds.preciseY()
+				&& preciseOrthoRef.preciseY() <= bounds.preciseY()
+						+ bounds.preciseHeight()) {
 			// horizontal
-			copy.preciseY = preciseOrthoRef.y;
-			copy.updateInts();
+			copy.setPreciseY(preciseOrthoRef.y);
 		}
 		getOwner().translateToAbsolute(copy);
 		return copy;
