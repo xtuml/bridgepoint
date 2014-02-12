@@ -4,11 +4,20 @@
 //Version:   $Revision: 1.6 $
 //Modified:  $Date: 2013/05/10 04:28:33 $
 //
-//(c) Copyright 2006-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //========================================================================
 package com.mentor.nucleus.bp.debug.test;
 
@@ -17,21 +26,11 @@ import java.util.Vector;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.IBreakpointManager;
-import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.Launch;
 import org.eclipse.debug.core.model.IBreakpoint;
-import org.eclipse.debug.core.model.IDebugTarget;
-import org.eclipse.debug.core.model.IProcess;
-import org.eclipse.debug.internal.core.commands.ForEachCommand;
-import org.eclipse.debug.internal.ui.DebugUIPlugin;
-import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
@@ -46,17 +45,13 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
-import com.mentor.nucleus.bp.core.ClassStateMachine_c;
 import com.mentor.nucleus.bp.core.ComponentInstance_c;
-import com.mentor.nucleus.bp.core.ComponentReference_c;
 import com.mentor.nucleus.bp.core.Component_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.Function_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.PackageableElement_c;
-import com.mentor.nucleus.bp.core.StateMachineState_c;
-import com.mentor.nucleus.bp.core.StateMachine_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.ModelRoot;
@@ -71,7 +66,6 @@ import com.mentor.nucleus.bp.debug.ui.model.BPDebugTarget;
 import com.mentor.nucleus.bp.debug.ui.test.DebugUITestUtilities;
 import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
-import com.mentor.nucleus.bp.test.common.CVSUtils;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
 import com.mentor.nucleus.bp.test.common.UITestingUtilities;
 import com.mentor.nucleus.bp.ui.text.activity.ActivityEditor;
@@ -127,18 +121,8 @@ public class RealizedClassTest extends BaseTest {
 		Selection.getInstance().setSelection(new StructuredSelection(m_sys));
 		runVerifier();
 		
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(testFunc));
-
-		Menu menu = DebugUITestUtilities.getMenuInSETree(testFunc);
-
-		assertTrue(
-				"The execute menu item was not available for a required operation.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
-
+		BPDebugUtils.executeElement(testFunc);
+		
 		DebugUITestUtilities.waitForExecution();
 
 		DebugUITestUtilities.waitForBPThreads(m_sys);
@@ -150,8 +134,23 @@ public class RealizedClassTest extends BaseTest {
 
 	}
 	
-	
-	
+	public void testBridgeParameterOrdering() throws CoreException {
+	    loadProject("BridgeParameterOrderingTest");
+	    Function_c testFunction = Function_c
+	      .getOneS_SYNCOnR8001(PackageableElement_c
+	        .getManyPE_PEsOnR8000(Package_c
+	          .getManyEP_PKGsOnR1405(m_sys)));
+	    assertNotNull(testFunction);
+	    Selection.getInstance().setSelection(new StructuredSelection(m_sys));
+	    runVerifier();
+	    BPDebugUtils.executeElement(testFunction);
+	    DebugUITestUtilities.waitForExecution();
+	    DebugUITestUtilities.waitForBPThreads(m_sys);
+	    DebugUITestUtilities.waitForExecution();
+	    String expectedConsoleText = "User invoked function: test_function\r\nLogInfo:  Hello, World!\r\n";
+	    String actualConsoleText = DebugUITestUtilities.getConsoleText("null");
+	    assertEquals(expectedConsoleText, actualConsoleText);
+	}
 
     private void runVerifier() {
     	Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1401(m_sys);

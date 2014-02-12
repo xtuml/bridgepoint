@@ -5,11 +5,20 @@
 //Version:   $Revision: 1.3 $
 //Modified:  $Date: 2013/05/10 04:28:44 $
 //
-//(c) Copyright 2006-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp. and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //=====================================================================
 
 
@@ -23,6 +32,7 @@ import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.util.WorkspaceUtil;
 import com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals;
 import com.mentor.nucleus.bp.debug.ui.launch.DLLRelaunchTest;
+import com.mentor.nucleus.bp.debug.ui.test.execute.RecursionExecutionTest;
 
 /**
 * Test all areas of the core
@@ -51,6 +61,8 @@ public class VerifierTestSuite2 extends TestSuite {
 
 		addTest(new TestSuite(VerifierMessageTestGlobals.class));
 		addTest(new TestSuite(DLLRelaunchTest.class));
+		addTest(new TestSuite(RecursionExecutionTest.class));
+
 	}
 
 }

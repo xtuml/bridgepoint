@@ -4,13 +4,14 @@
 // Version:   $Revision: 1.33 $
 // Modified:  $Date: 2013/06/12 13:08:03 $
 //
-// (c) Copyright 2004-2013 by Mentor Graphics Corp.  All rights reserved.
+// (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
 //
 //====================================================================
 package com.mentor.nucleus.bp.io.core;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -23,6 +24,7 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 
@@ -167,9 +169,10 @@ public abstract class CoreImport implements IModelImport {
     }
 
     protected void read(File file) throws IOException {
-        FileReader reader = null;
+    	InputStreamReader reader = null;
         try {
-            reader = new FileReader(file);
+			reader = new InputStreamReader(new FileInputStream(file),
+					ResourcesPlugin.getEncoding());
             read(reader);
         } finally {
             if (reader != null) {

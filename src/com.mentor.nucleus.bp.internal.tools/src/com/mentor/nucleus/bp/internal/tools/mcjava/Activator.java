@@ -64,9 +64,4 @@ public class Activator extends AbstractActivator implements IStartup {
 		singleton.earlyStartup();
 	}
 
-	@Override
-	public void verifyProjectBuilders() {
-		super.verifyProjectBuilders(MCJavaNature.getDefault(),
-				MCJavaNature.EDGE_NATURE_ID, MCJavaNature.EXPORT_BUILDER_ID);
-	}
 }

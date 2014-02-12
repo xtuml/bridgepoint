@@ -3,7 +3,7 @@
 <plugin
    id="com.mentor.nucleus.bp.docgen"
    name="BridgePoint Documentation Generator Plug-in"
-   version="4.0.7"
+   version="4.1.6"
    provider-name="Mentor Graphics"
    class="com.mentor.nucleus.bp.docgen.DocGenPlugin">
 
@@ -23,7 +23,6 @@
       <import plugin="org.eclipse.core.variables"/>
       <import plugin="org.apache.ant"/>
       <import plugin="org.eclipse.ant.core"/>
-      <import plugin="com.mentor.nucleus.bp.mc.mc3020"/>
       <import plugin="com.mentor.nucleus.bp.mc"/>
       <import plugin="com.mentor.nucleus.bp.mc.c.binary"/>
       <import plugin="com.mentor.nucleus.bp.mc.c.source"/>

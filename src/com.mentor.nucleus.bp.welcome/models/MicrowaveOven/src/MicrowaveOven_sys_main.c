@@ -2,7 +2,7 @@
  * File:  MicrowaveOven_sys_main.c
  *
  * Description:  main, system initialization (and idle loop)
- * (C) Copyright 1998-2013 Mentor Graphics Corporation.  All rights reserved.
+ * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
  *--------------------------------------------------------------------------*/
 
 #include "MicrowaveOven_sys_types.h"

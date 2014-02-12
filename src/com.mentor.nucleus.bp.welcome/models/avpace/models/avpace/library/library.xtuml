@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("61a575fd-fcfc-433c-a24d-97ab5f20738a",
@@ -24,13 +24,15 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'3.4.0');
+	'3.4.0',
+	'avpace::library');
 INSERT INTO GD_GE
 	VALUES ("6e787640-1d23-4ca9-82c6-f87c2f8fee69",
 	"65bdd0f9-eefd-4a68-acb2-1ee1ea583a67",
 	"ba87c6eb-2533-4e97-ad6a-c00c71348da9",
 	98,
-	0);
+	0,
+	'avpace::library::heart');
 INSERT INTO GD_SHP
 	VALUES ("6e787640-1d23-4ca9-82c6-f87c2f8fee69");
 INSERT INTO GD_NCS
@@ -63,7 +65,8 @@ INSERT INTO GD_GE
 	"65bdd0f9-eefd-4a68-acb2-1ee1ea583a67",
 	"64cd4cde-e522-4a43-aefa-801975114eb9",
 	98,
-	0);
+	0,
+	'avpace::library::pacer');
 INSERT INTO GD_SHP
 	VALUES ("aa9f46e7-7f40-483f-a6eb-fbf0f93a823b");
 INSERT INTO GD_NCS
@@ -101,7 +104,8 @@ INSERT INTO GD_GE
 	"65bdd0f9-eefd-4a68-acb2-1ee1ea583a67",
 	"f91727a5-250f-4333-9975-1bf60c569d24",
 	93,
-	0);
+	0,
+	'avpace::library::heart::out_to_body::synchronization');
 INSERT INTO GD_CON
 	VALUES ("32018cd8-b219-4a84-bdea-79c0c31b7c2d",
 	"00000000-0000-0000-0000-000000000000");
@@ -200,7 +204,8 @@ INSERT INTO GD_GE
 	"65bdd0f9-eefd-4a68-acb2-1ee1ea583a67",
 	"b6871f7e-a5e2-4808-8125-ce38580c2041",
 	94,
-	0);
+	0,
+	'avpace::library::pacer::to_heart::synchronization');
 INSERT INTO GD_CON
 	VALUES ("6c143bea-46af-42e9-b31c-60bbf0c2a734",
 	"00000000-0000-0000-0000-000000000000");
@@ -299,7 +304,8 @@ INSERT INTO GD_GE
 	"65bdd0f9-eefd-4a68-acb2-1ee1ea583a67",
 	"e0b9e174-e379-4344-88b6-ced7f17ce95f",
 	98,
-	0);
+	0,
+	'avpace::library::pacemaker');
 INSERT INTO GD_SHP
 	VALUES ("155037f1-e6dc-4efd-af9e-0ef45d08b9ed");
 INSERT INTO GD_NCS
@@ -332,7 +338,8 @@ INSERT INTO GD_GE
 	"65bdd0f9-eefd-4a68-acb2-1ee1ea583a67",
 	"8d3df991-ac02-4460-92a2-cf1561252f7b",
 	94,
-	0);
+	0,
+	'avpace::library::pacemaker::to_heart::synchronization');
 INSERT INTO GD_CON
 	VALUES ("cf77fd88-f435-42e2-9b3b-278519245f3a",
 	"00000000-0000-0000-0000-000000000000");
@@ -431,7 +438,8 @@ INSERT INTO GD_GE
 	"65bdd0f9-eefd-4a68-acb2-1ee1ea583a67",
 	"ec30e476-2277-4a97-b32f-3df5784b0726",
 	98,
-	0);
+	0,
+	'avpace::library::hostmonitor');
 INSERT INTO GD_SHP
 	VALUES ("1eedb121-a1c5-4d55-97c3-aad8bd24304a");
 INSERT INTO GD_NCS
@@ -469,7 +477,8 @@ INSERT INTO GD_GE
 	"65bdd0f9-eefd-4a68-acb2-1ee1ea583a67",
 	"2990e0fc-907b-4012-97c7-a834716abbba",
 	93,
-	0);
+	0,
+	'avpace::library::hostmonitor::monitor::monitor');
 INSERT INTO GD_CON
 	VALUES ("c479cf56-9491-4c66-8f22-1368a3e83b9c",
 	"00000000-0000-0000-0000-000000000000");
@@ -568,7 +577,8 @@ INSERT INTO GD_GE
 	"65bdd0f9-eefd-4a68-acb2-1ee1ea583a67",
 	"f48df434-22ff-4bb0-8975-8f9bd7b88c8a",
 	94,
-	0);
+	0,
+	'avpace::library::pacemaker::monitor::monitor');
 INSERT INTO GD_CON
 	VALUES ("f1756ee4-cab1-464c-99e4-b9ec9fe22284",
 	"00000000-0000-0000-0000-000000000000");
@@ -667,7 +677,8 @@ INSERT INTO GD_GE
 	"65bdd0f9-eefd-4a68-acb2-1ee1ea583a67",
 	"d4051d51-e8fe-44b5-a867-57cdfff4f5ed",
 	94,
-	0);
+	0,
+	'avpace::library::pacer::host::host');
 INSERT INTO GD_CON
 	VALUES ("f2a8e18a-8acb-4bc1-9490-cf473434f7f9",
 	"00000000-0000-0000-0000-000000000000");
@@ -766,7 +777,8 @@ INSERT INTO GD_GE
 	"65bdd0f9-eefd-4a68-acb2-1ee1ea583a67",
 	"64ae06b2-81a1-4a20-9c2c-af8bfb75a212",
 	94,
-	0);
+	0,
+	'avpace::library::hostmonitor::host::host');
 INSERT INTO GD_CON
 	VALUES ("aa3a160a-3512-43a3-9788-de420d1ce311",
 	"00000000-0000-0000-0000-000000000000");
@@ -865,7 +877,8 @@ INSERT INTO GD_GE
 	"65bdd0f9-eefd-4a68-acb2-1ee1ea583a67",
 	"79019045-5212-4970-a66f-a4a532cc55a1",
 	93,
-	0);
+	0,
+	'avpace::library::heart::host::host');
 INSERT INTO GD_CON
 	VALUES ("44180496-57fe-4df9-b53c-e36c87a4a704",
 	"00000000-0000-0000-0000-000000000000");
@@ -967,54 +980,13 @@ INSERT INTO DIM_DIA
 	3000.000000,
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO PE_PE
-	VALUES ("ba87c6eb-2533-4e97-ad6a-c00c71348da9",
+	VALUES ("61a575fd-fcfc-433c-a24d-97ab5f20738a",
 	1,
-	"61a575fd-fcfc-433c-a24d-97ab5f20738a",
 	"00000000-0000-0000-0000-000000000000",
-	2);
-INSERT INTO PE_PE
-	VALUES ("64cd4cde-e522-4a43-aefa-801975114eb9",
-	1,
-	"61a575fd-fcfc-433c-a24d-97ab5f20738a",
 	"00000000-0000-0000-0000-000000000000",
-	2);
-INSERT INTO PE_PE
-	VALUES ("e0b9e174-e379-4344-88b6-ced7f17ce95f",
-	1,
-	"61a575fd-fcfc-433c-a24d-97ab5f20738a",
-	"00000000-0000-0000-0000-000000000000",
-	2);
-INSERT INTO PE_PE
-	VALUES ("ec30e476-2277-4a97-b32f-3df5784b0726",
-	1,
-	"61a575fd-fcfc-433c-a24d-97ab5f20738a",
-	"00000000-0000-0000-0000-000000000000",
-	2);
-INSERT INTO PE_PE
-	VALUES ("485320c8-bcdf-4c2e-9135-1db08349b450",
-	1,
-	"61a575fd-fcfc-433c-a24d-97ab5f20738a",
-	"00000000-0000-0000-0000-000000000000",
-	22);
-INSERT INTO C_SF
-	VALUES ("485320c8-bcdf-4c2e-9135-1db08349b450",
-	"2990e0fc-907b-4012-97c7-a834716abbba",
-	"f48df434-22ff-4bb0-8975-8f9bd7b88c8a",
-	'');
-INSERT INTO C_R_PROXY
-	VALUES ("2990e0fc-907b-4012-97c7-a834716abbba",
-	'monitor',
-	'',
-	'Unnamed Interface',
-	'./hostmonitor/hostmonitor.xtuml');
-INSERT INTO C_P_PROXY
-	VALUES ("f48df434-22ff-4bb0-8975-8f9bd7b88c8a",
-	'monitor',
-	'Unnamed Interface',
-	'',
-	'./pacemaker/pacemaker.xtuml');
+	7);
 INSERT INTO S_SYS_PROXY
 	VALUES ("15b2a15d-7110-4efa-b644-89bd96e12c0e",
 	'avpace',
-	0,
+	1,
 	'../avpace.xtuml');

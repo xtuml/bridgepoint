@@ -4,11 +4,20 @@
 //Version:   $Revision: 1.18 $
 //Modified:  $Date: 2013/01/10 22:54:10 $
 //
-//(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp. and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //=====================================================================
 
 package com.mentor.nucleus.bp.core.common;
@@ -19,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.mentor.nucleus.bp.core.ComponentInstance_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
 
 /**
@@ -88,7 +98,55 @@ public class IdAssigner
     		randomGenerator.setSeed(seed);
     	}
     }
-    
+
+	public static UUID createRuntimeUUIDFromString(Object value, ComponentInstance_c ci) {
+		// Runtime UUID's are created by Verifier. A remotely created UUID is one that
+		// was created in raw java, or originated from a remote component. They are
+		// stored as full UUID strings. Locally created UUID's have a particular format
+		// starting with 'ideeda7a'.
+		if (isUUID((String)value)) {
+			// This is a remotely created UUID, convert and return it
+			return UUID.fromString((String)value);
+		}
+		else {
+			// This is a locally created UUID, synthesize it
+			String id = String.format("%012x",Integer.parseInt((String)value));
+			String comp_id = "00000000";
+			if (ci != null) {
+			  // Component Instance can be null when called from a bridge
+			  comp_id = String.format("%08x",ci.Getenginenumber());
+			}
+			return UUID.fromString("1deeda7a-0000-" +
+					         comp_id.substring(0,3) + "-" +
+					         comp_id.substring(4) + "-" +
+					         id);
+		}
+	}
+
+	public static String convertFromRuntimeUUID(Object value, ComponentInstance_c ci) {
+		if (value instanceof UUID) {
+			String [] fields = ((UUID)value).toString().split("-");
+			if (fields[0].equals("1deeda7a")) {
+				// Its an xtUML originated UUID, parse it to see what to do
+				// We have to ignore the most significant digit of field 2, else it won't fit in an
+				// integer. A genuine xtUML originated UUID will never have these top bits set anyway.
+				String field2 = fields[2].substring(1);
+				int comp_id = Integer.parseInt(field2+fields[3], 16);
+				if  (comp_id == 0 || comp_id == ci.Getenginenumber()) {
+					// It's a UUID that originated from this running component
+	                // or was passed out of a bridge call from any component. Turn
+                    // it back into an integer
+					return Integer.toString(Integer.parseInt(fields[4]));
+			    }
+			}
+			// Either it's not an xtUML UUID, it's not local to this component and it didn't originate from a bridge
+			return ((UUID)value).toString();
+		}
+		else {
+			return null;
+		}
+	}
+
     public static final UUID createUUIDFromString(String id){
     	return createUUIDFromString(id, false);
     }

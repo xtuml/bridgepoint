@@ -6,11 +6,20 @@ package com.mentor.nucleus.bp.debug.ui.launch;
 // Version:   $Revision: 1.17 $
 // Modified:  $Date: 2013/01/10 23:17:49 $
 //
-// (c) Copyright 2005-2013 by Mentor Graphics Corp.  All rights reserved.
+// (c) Copyright 2005-2014 by Mentor Graphics Corp.  All rights reserved.
 //
 //====================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //======================================================================== 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
@@ -73,18 +82,7 @@ public class BPLaunchDelegate implements ILaunchConfigurationDelegate {
 				launching = true;
 			}
 
-			//
-			// Here we check to see if the users is trying to launch more than
-			// one project at the same time, or a single project with more than
-			// one component/domain.  Either case means we need to check if they
-			// have the system verifier license.
-			//
-	
-		    /*Get NonRootModelElement List of the Selected Elements in Configuration*/	
-	        NonRootModelElement[] selectedElements = VerifierLaunchConfiguration.getElementsSelectedInConfiguration(configuration);
-            List<NonRootModelElement> listOfSelectedElements = Arrays.asList(selectedElements);
-            
-            boolean isLicensed = BridgePointLicenseManager.isExecutionLicensed(listOfSelectedElements);
+            boolean isLicensed = BridgePointLicenseManager.isExecutionLicensed();
 
 			// if in debug mode, create a debug target
 			if (mode.equals(ILaunchManager.DEBUG_MODE) && isLicensed) {

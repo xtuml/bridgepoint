@@ -5,11 +5,20 @@
 //Version:   $Revision: 1.3 $
 //Modified:  $Date: 2013/05/10 05:47:48 $
 //
-//(c) Copyright 2007-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp. and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //=====================================================================
 
 
@@ -32,7 +41,9 @@ import com.mentor.nucleus.bp.ui.canvas.test.GraphicalToolCreationTests;
 import com.mentor.nucleus.bp.ui.canvas.test.I2053F2RenameTest;
 import com.mentor.nucleus.bp.ui.canvas.test.I686ClearDatabaseTest;
 import com.mentor.nucleus.bp.ui.canvas.test.I835OpenDiagramEditorWithSearchView;
+import com.mentor.nucleus.bp.ui.canvas.test.InterfaceDrawingTests;
 import com.mentor.nucleus.bp.ui.canvas.test.MultipleSupertypeTest;
+import com.mentor.nucleus.bp.ui.canvas.test.RectilinearRoutingTests;
 import com.mentor.nucleus.bp.ui.canvas.test.TestReflexiveConnectorCreation;
 import com.mentor.nucleus.bp.ui.canvas.test.anchors.GraphicalAnchorTests_0;
 import com.mentor.nucleus.bp.ui.canvas.test.movement.ConnectorMoveTests_0;
@@ -79,6 +90,8 @@ public class GlobalsCanvasSuite2 extends TestSuite {
         addTest(new TestSuite(TestReflexiveConnectorCreation.class));
         addTest(new TestSuite(RectilinearRoutingTests_0.class));
         addTest(new TestSuite(GraphicalToolCreationTests.class));
+        addTest(new TestSuite(RectilinearRoutingTests.class));
+        addTest(new TestSuite(InterfaceDrawingTests.class));
 	}
 
 }

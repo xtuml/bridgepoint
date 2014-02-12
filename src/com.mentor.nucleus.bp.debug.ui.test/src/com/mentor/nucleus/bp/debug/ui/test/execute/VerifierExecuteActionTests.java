@@ -4,11 +4,20 @@
 //Version:   $Revision$
 //Modified:  $Date$
 //
-//(c) Copyright 2008-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2008-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp. and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //=====================================================================
 package com.mentor.nucleus.bp.debug.ui.test.execute;
 
@@ -20,11 +29,7 @@ import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IThread;
 import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.ui.IDebugUIConstants;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.ComponentInstance_c;
@@ -57,7 +62,6 @@ import com.mentor.nucleus.bp.debug.ui.test.DebugUITestUtilities;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
 import com.mentor.nucleus.bp.test.common.UITestingUtilities;
-import com.mentor.nucleus.bp.ui.session.views.SessionExplorerView;
 import com.mentor.nucleus.bp.ui.text.activity.ActivityEditor;
 
 public class VerifierExecuteActionTests extends BaseTest {
@@ -167,12 +171,8 @@ public class VerifierExecuteActionTests extends BaseTest {
 
         openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
         
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(operation));
-        Menu menu = DebugUITestUtilities.getMenuInSETree(operation);
-        assertTrue(
-                "The execute menu item was not available for a class operation.",
-                UITestingUtilities.checkItemStatusInContextMenu(menu,
-                        "Execute", "", false));
+        Selection.getInstance().clear();
+        Selection.getInstance().addToSelection(operation);
 
 		ActivityEditor editor = DebugUITestUtilities
 				.openActivityEditorForSelectedElement();
@@ -181,8 +181,8 @@ public class VerifierExecuteActionTests extends BaseTest {
 		
 		BPDebugUtils.openSessionExplorerView(true);
 
-		UITestingUtilities.activateMenuItem(menu, "Execute");
-
+		BPDebugUtils.executeElement(operation);
+		
 		DebugUITestUtilities.waitForExecution();
 		
 		ComponentInstance_c engine = ComponentInstance_c
@@ -247,20 +247,10 @@ public class VerifierExecuteActionTests extends BaseTest {
 								.getOnePE_PEOnR8001(container)), m_bp_tree.getControl()
 				.getMenu());
 		DebugUITestUtilities.waitForElementsToStart(1);
-
-		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(operation));
-
-		Menu menu = DebugUITestUtilities.getMenuInSETree(operation);
-
-		assertTrue(
-				"The execute menu item was not available for a class operation.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
-
+		UIUtil.dispatchAll();
+		BPDebugUtils.executeElement(operation);
+		
 		DebugUITestUtilities.waitForExecution();
 		
 		ComponentInstance_c engine = ComponentInstance_c
@@ -331,24 +321,16 @@ public class VerifierExecuteActionTests extends BaseTest {
 
         openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
         		
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(operation));
-
-        Menu menu = DebugUITestUtilities.getMenuInSETree(operation);
+        Selection.getInstance().clear();
+        Selection.getInstance().addToSelection(operation);
 
 		ActivityEditor editor = DebugUITestUtilities
 			.openActivityEditorForSelectedElement();
 
 		DebugUITestUtilities.setBreakpointAtLine(editor, 1);
 		
-		assertTrue(
-				"The execute menu item was not available for a class operation.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-		BPDebugUtils.openSessionExplorerView(true);
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
-
+		BPDebugUtils.executeElement(operation);
+		
 		DebugUITestUtilities.waitForExecution();
 		
 		ComponentInstance_c engine = ComponentInstance_c
@@ -407,7 +389,8 @@ public class VerifierExecuteActionTests extends BaseTest {
 		DebugUITestUtilities.waitForElementsToStart(1);
 		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective", BridgePointPerspective.ID_MGC_BP_EXPLORER);
 
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(state));
+		Selection.getInstance().clear();
+		Selection.getInstance().addToSelection(state);
 
 		ProvidedSignal_c proSignal = ProvidedSignal_c
 			.getOneSPR_PSOnR4503(ProvidedExecutableProperty_c
@@ -434,18 +417,8 @@ public class VerifierExecuteActionTests extends BaseTest {
 
 		DebugUITestUtilities.setBreakpointAtLine(editor, 2);
 
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(proSignal));
-
-		Menu menu = DebugUITestUtilities.getMenuInSETree(proSignal);
-		assertTrue(
-			"The execute menu item was not available for a provided signal assigned to a transition.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(proSignal));
+		BPDebugUtils.executeElement(proSignal);
 		
-		UITestingUtilities.activateMenuItem(menu, "Execute");
-
 		DebugUITestUtilities.waitForExecution();
 		
 		ComponentInstance_c engine = ComponentInstance_c.getOneI_EXEOnR2955(component);
@@ -501,7 +474,8 @@ public class VerifierExecuteActionTests extends BaseTest {
 										});
 		assertNotNull(proSignal);
 		
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(proSignal));
+        Selection.getInstance().clear();
+        Selection.getInstance().addToSelection(proSignal);
 		
 		ActivityEditor editor = DebugUITestUtilities
 			.openActivityEditorForSelectedElement();
@@ -560,26 +534,16 @@ public class VerifierExecuteActionTests extends BaseTest {
 		
 		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(state));
+        Selection.getInstance().clear();
+        Selection.getInstance().addToSelection(state);
 		
 		ActivityEditor editor = DebugUITestUtilities
 			.openActivityEditorForSelectedElement();
 
 		DebugUITestUtilities.setBreakpointAtLine(editor, 2);
 		
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(proSignal));
-
-		Menu menu = DebugUITestUtilities.getMenuInSETree(proSignal);
-
-		assertTrue(
-			"The execute menu item was not available for a provided signal assigned to a transition.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(proSignal));
+		BPDebugUtils.executeElement(proSignal);
 		
-		UITestingUtilities.activateMenuItem(menu, "Execute");
-
 		DebugUITestUtilities.waitForExecution();
 		
 		ComponentInstance_c engine = ComponentInstance_c.getOneI_EXEOnR2955(component);
@@ -648,23 +612,15 @@ public class VerifierExecuteActionTests extends BaseTest {
 		
 		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(reqSignal));
+        Selection.getInstance().clear();
+        Selection.getInstance().addToSelection(reqSignal);
 		
 		ActivityEditor editor = DebugUITestUtilities
 			.openActivityEditorForSelectedElement();
 
 		DebugUITestUtilities.setBreakpointAtLine(editor, 2);
 
-		Menu menu = DebugUITestUtilities.getMenuInSETree(reqSignal);
-
-		assertTrue(
-			"The execute menu item was not available for a required signal not assigned to a transition.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(reqSignal));
-		
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+		BPDebugUtils.executeElement(reqSignal);
 
 		DebugUITestUtilities.waitForExecution();
 		
@@ -726,7 +682,8 @@ public class VerifierExecuteActionTests extends BaseTest {
 		
 		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(reqSignal));
+        Selection.getInstance().clear();
+        Selection.getInstance().addToSelection(reqSignal);
 		
 		ActivityEditor editor = DebugUITestUtilities
 			.openActivityEditorForSelectedElement();
@@ -735,16 +692,7 @@ public class VerifierExecuteActionTests extends BaseTest {
 	
 		assertTrue("OAL was not removed from signal.", reqSignal.getAction_semantics().equals(""));
 		
-		Menu menu = DebugUITestUtilities.getMenuInSETree(reqSignal);
-		
-		while (Display.getCurrent().readAndDispatch());
-		
-		assertTrue(
-			"The execute menu item was not available for a required signal not assigned to a transition.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+		BPDebugUtils.executeElement(reqSignal);
 
 		DebugUITestUtilities.waitForExecution();
 		
@@ -810,21 +758,15 @@ public class VerifierExecuteActionTests extends BaseTest {
 		
 		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(reqSignal));
+        Selection.getInstance().clear();
+        Selection.getInstance().addToSelection(reqSignal);
 		
 		ActivityEditor editor = DebugUITestUtilities
 			.openActivityEditorForSelectedElement();
 
 		DebugUITestUtilities.setBreakpointAtLine(editor, 2);
 
-		Menu menu = DebugUITestUtilities.getMenuInSETree(reqSignal);
-
-		assertTrue(
-			"The execute menu item was not available for a required signal not assigned to a transition.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+		BPDebugUtils.executeElement(reqSignal);
 
 		DebugUITestUtilities.waitForExecution();
 		
@@ -892,21 +834,15 @@ public class VerifierExecuteActionTests extends BaseTest {
 		
 		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(reqOp));
+        Selection.getInstance().clear();
+        Selection.getInstance().addToSelection(reqOp);
 		
 		ActivityEditor editor = DebugUITestUtilities
 			.openActivityEditorForSelectedElement();
 
 		DebugUITestUtilities.setBreakpointAtLine(editor, 2);
 
-		Menu menu = DebugUITestUtilities.getMenuInSETree(reqOp);
-
-		assertTrue(
-			"The execute menu item was not available for a required operation.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+		BPDebugUtils.executeElement(reqOp);
 
 		DebugUITestUtilities.waitForExecution();
 		
@@ -968,24 +904,16 @@ public class VerifierExecuteActionTests extends BaseTest {
 		
 		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(reqOp));
+        Selection.getInstance().clear();
+        Selection.getInstance().addToSelection(reqOp);
 		
 		ActivityEditor editor = DebugUITestUtilities
 			.openActivityEditorForSelectedElement();
 		editor.getDocumentProvider().getDocument(editor.getEditorInput()).set("");
 		editor.doSave(new NullProgressMonitor());
 		
-		Menu menu = DebugUITestUtilities.getMenuInSETree(reqOp);
-
-		assertTrue(
-			"The execute menu item was not available for a required operation.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(reqOp));
+		BPDebugUtils.executeElement(reqOp);
 		
-		UITestingUtilities.activateMenuItem(menu, "Execute");
-
 		DebugUITestUtilities.waitForExecution();
 		
 		ComponentInstance_c engine = ComponentInstance_c.getOneI_EXEOnR2955(component);
@@ -1052,21 +980,15 @@ public class VerifierExecuteActionTests extends BaseTest {
 		
 		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		
-        BPDebugUtils.setSelectionInSETree(new StructuredSelection(reqOp));
+        Selection.getInstance().clear();
+        Selection.getInstance().addToSelection(reqOp);
 		
 		ActivityEditor editor = DebugUITestUtilities
 			.openActivityEditorForSelectedElement();
 
 		DebugUITestUtilities.setBreakpointAtLine(editor, 2);
 
-		Menu menu = DebugUITestUtilities.getMenuInSETree(reqOp);
-
-		assertTrue(
-			"The execute menu item was not available for a required operation.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+		BPDebugUtils.executeElement(reqOp);
 
 		DebugUITestUtilities.waitForExecution();
 		
@@ -1126,7 +1048,8 @@ public class VerifierExecuteActionTests extends BaseTest {
 
 		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(testCase));
+		Selection.getInstance().clear();
+		Selection.getInstance().addToSelection(testCase);
 
 		ActivityEditor editor = DebugUITestUtilities
 		.openActivityEditorForSelectedElement();
@@ -1141,27 +1064,8 @@ public class VerifierExecuteActionTests extends BaseTest {
     private void performTerminateAndRelaunchTest(Function_c testCase) {
     	Package_c dom = Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(testCase));
 		Menu menu = null;
-		boolean readyToExecute = false;
-    	while (!readyToExecute) {
-        	Selection.getInstance().clear();
-        	SessionExplorerView sev = BPDebugUtils.openSessionExplorerView(true);
-        	Tree sevTree = sev.getTreeViewer().getTree();
-        	sevTree.setSelection(new TreeItem[0]);
-        	sev.getTreeViewer().refresh();
-        	sev.getTreeViewer().reveal(testCase);
-        	UIUtil.dispatchAll();
-        	BPDebugUtils.setSelectionInSETree(new StructuredSelection(testCase));
-        	
-    		menu = DebugUITestUtilities.getMenuInSETree(testCase);
-    		readyToExecute = UITestingUtilities.checkItemStatusInContextMenu(menu,
-    				"Execute", "", false);
-    	}
-    	
-		assertTrue(
-				"The execute menu item was not available for a required function.",
-				readyToExecute);
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+		
+		BPDebugUtils.executeElement(testCase);
 
 		DebugUITestUtilities.waitForExecution();
 		ComponentInstance_c engine = ComponentInstance_c

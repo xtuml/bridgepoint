@@ -6,11 +6,20 @@ package com.mentor.nucleus.bp.io.mdl.test;
 //Version:   $Revision: 1.6 $
 //Modified:  $Date: 2013/05/10 05:13:52 $
 //
-//(c) Copyright 2008-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2008-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp. and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //=====================================================================
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -57,9 +66,10 @@ public class StaleProxyExportTestGenerics extends BaseTest {
 		
 		BaseTest.dispatchEvents(0); 
 
-		if ( Platform.getLogFileLocation().toFile().exists() ) {
+		String result = getLogViewResult("");
+		if(!result.equals("")) {
 			fail(".log file is not empty after import.");
-		} 
+		}		
 		
 		final IProject projectHandle = ResourcesPlugin.getWorkspace().getRoot().getProject(
 				"watchGenerics");
@@ -95,9 +105,11 @@ public class StaleProxyExportTestGenerics extends BaseTest {
         Selection.getInstance().clear(); 
         Selection.getInstance().addToSelection(cp);
 
-		if ( Platform.getLogFileLocation().toFile().exists() ) {
+		result = getLogViewResult("");
+		if(!result.equals("")) {
 			fail(".log file is not empty before the model export.");
-		}
+		}		
+
 		
 		// export with persisted OAL	        
         TestingUtilities.exportModelUsingWizard(m_workspace_path + (generateResults ? 
@@ -106,7 +118,8 @@ public class StaleProxyExportTestGenerics extends BaseTest {
 
         /* This part of the test is temporarily removed see issue dts0100753682
         // We expect an error log at this point
-		if ( !Platform.getLogFileLocation().toFile().exists() ) {
+		result = getLogViewResult("");
+		if(!result.equals("")) {
 			fail("Expected an error log containing messages: \"Unable to locate PMC\".");
 		} else {
 			// Reset the log, there should be no errors after this

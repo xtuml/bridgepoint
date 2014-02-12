@@ -4,11 +4,20 @@
 //Version:   $Revision: 1.5.14.5 $
 //Modified:  $Date: 2013/07/23 15:06:35 $
 //
-//Copyright 2005-2013 Mentor Graphics Corporation. All rights reserved.
+//Copyright 2005-2014 Mentor Graphics Corporation. All rights reserved.
 //
 //========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //======================================================================== 
 //
 package com.mentor.nucleus.bp.model.compare;
@@ -502,17 +511,23 @@ public class ModelMergeProcessor {
 							newObject.getClass(),
 							new Class[] { newObject.getClass() });
 					invokeMethod(findMethod, newObject,
-							new Object[] { currentPrevious });					
-					findMethod = findMethod("relateAcrossR"
-							+ association + "To" + associationPhrase,
-							newObject.getClass(),
-							new Class[] { newObject.getClass() });
-					invokeMethod(findMethod, newObject,
-							new Object[] { previousElement });
+							new Object[] { currentPrevious });		
+					// the two element types may differ, do not associate
+					// them if this is true
+					if(newObject.getClass().isInstance(previousElement)) {
+						findMethod = findMethod("relateAcrossR"
+								+ association + "To" + associationPhrase,
+								newObject.getClass(),
+								new Class[] { newObject.getClass() });
+						invokeMethod(findMethod, newObject,
+								new Object[] { previousElement });
+					}
 				}
 			}
 			// relate the existing element
-			if(existingElementAtNewLocation != null) {
+			if (existingElementAtNewLocation != null
+					&& existingElementAtNewLocation.getClass().isInstance(
+							newObject)) {
 				Method findMethod = findMethod("relateAcrossR"
 						+ association + "To" + associationPhrase,
 						newObject.getClass(),

@@ -5,11 +5,20 @@ package com.mentor.nucleus.bp.ui.properties.test;
 //Version:   $Revision: 1.21 $
 //Modified:  $Date: 2013/05/10 05:34:58 $
 //
-//(c) Copyright 2004-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp. and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //=====================================================================
 
 import com.mentor.nucleus.bp.core.Attribute_c;
@@ -26,7 +35,6 @@ import com.mentor.nucleus.bp.core.FunctionParameter_c;
 import com.mentor.nucleus.bp.core.Function_c;
 import com.mentor.nucleus.bp.core.Gd_c;
 import com.mentor.nucleus.bp.core.InstanceReferenceDataType_c;
-import com.mentor.nucleus.bp.core.InstanceStateMachine_c;
 import com.mentor.nucleus.bp.core.ModelClass_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.OperationParameter_c;
@@ -42,11 +50,12 @@ import com.mentor.nucleus.bp.core.StructuredDataType_c;
 import com.mentor.nucleus.bp.core.UserDataType_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
+import com.mentor.nucleus.bp.test.common.BaseTest;
 
-public class IsAllowedTypeTest extends PropertiesTest
+public class IsAllowedTypeTest extends BaseTest
 {
     public IsAllowedTypeTest(String name) {
-        super(name);
+        super(null, name);
     }
 
     static boolean initialized = false;

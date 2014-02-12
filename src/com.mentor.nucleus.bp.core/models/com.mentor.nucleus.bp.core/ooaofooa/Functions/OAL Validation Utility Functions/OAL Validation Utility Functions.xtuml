@@ -43,11 +43,20 @@ File:          $RCSfile: ooaofooa.xtuml,v $
 Version:   $Revision: 1.127 $
 Modified:  $Date: 2006/09/26 15:10:20 $
 
-(c) Copyright 2004-2013 by Mentor Graphics Corp. All rights reserved.
+(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
 
 ========================================================================
-This document contains information proprietary and confidential to
-Mentor Graphics Corp. and is not for external distribution.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
 ========================================================================
 
 This is the application domain for the Tiger project.
@@ -3604,7 +3613,10 @@ if isInGenericPackage
         msg: "Cannot find external entity ->"+param.key_lett+"<-", 
                                                       token: param.rule_token ); 
   else  // results not empty
-    select many brg_set related by results->S_EE[R8001]->S_BRG[R19]
+    // select the first ee in the result set (it is acceptable to have multiple
+    // ees and we only want to validate multiple bridges in the same ee)
+    select any ee related by results->S_EE[R8001];
+    select many brg_set related by ee->S_BRG[R19]
                                               where selected.Name == param.name;
     if ( empty brg_set )
       ERR::reportParseError( 

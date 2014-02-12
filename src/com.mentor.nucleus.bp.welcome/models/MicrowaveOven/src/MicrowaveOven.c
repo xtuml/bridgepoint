@@ -4,7 +4,7 @@
  * UML Component Port Messages
  * Component/Module Name:  MicrowaveOven
  *
- * (C) Copyright 1998-2013 Mentor Graphics Corporation.  All rights reserved.
+ * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
  *--------------------------------------------------------------------------*/
 /*
  

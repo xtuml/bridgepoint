@@ -5,7 +5,7 @@ package com.mentor.nucleus.bp.core.ui.perspective;
 //Version:   $Revision: 1.19 $
 //Modified:  $Date: 2013/03/13 23:15:37 $
 //
-//(c) Copyright 2003-2012 Mentor Graphics Corporation  All rights reserved.
+//(c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
 //
 //====================================================================
 //

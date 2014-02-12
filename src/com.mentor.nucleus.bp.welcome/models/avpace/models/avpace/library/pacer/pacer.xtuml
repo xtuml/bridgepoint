@@ -1,4 +1,4 @@
--- BP 7.1 content: Component syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: Component syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO C_C
 	VALUES ("64cd4cde-e522-4a43-aefa-801975114eb9",
@@ -10,7 +10,9 @@ increase the rate depending on the host''s current rate.  It consists of two
 internal components, one that handles generating a beat and the other that
 listens for increased activity.',
 	0,
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'');
 INSERT INTO GD_MD
 	VALUES ("35cb1deb-8846-427d-bc52-83844c19d21c",
 	111,
@@ -28,13 +30,15 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'3.4.0');
+	'3.4.0',
+	'avpace::library::pacer');
 INSERT INTO GD_GE
 	VALUES ("318d2f79-8cba-4437-aa18-e062ca233ebf",
 	"35cb1deb-8846-427d-bc52-83844c19d21c",
 	"64cd4cde-e522-4a43-aefa-801975114eb9",
 	103,
-	0);
+	0,
+	'avpace::library::pacer');
 INSERT INTO GD_SHP
 	VALUES ("318d2f79-8cba-4437-aa18-e062ca233ebf");
 INSERT INTO GD_CTR
@@ -72,7 +76,8 @@ INSERT INTO GD_GE
 	"35cb1deb-8846-427d-bc52-83844c19d21c",
 	"b6871f7e-a5e2-4808-8125-ce38580c2041",
 	94,
-	0);
+	0,
+	'avpace::library::pacer::to_heart::synchronization');
 INSERT INTO GD_CON
 	VALUES ("63890888-243f-4f6c-a915-e43d257abd34",
 	"00000000-0000-0000-0000-000000000000");
@@ -187,7 +192,8 @@ INSERT INTO GD_GE
 	"35cb1deb-8846-427d-bc52-83844c19d21c",
 	"2f35a681-993a-4966-b581-f41a20d414fe",
 	100,
-	0);
+	0,
+	'avpace::library::pacer::avpace::library::pacemaker');
 INSERT INTO GD_SHP
 	VALUES ("474f49ad-c3b1-4039-927a-9cfca9344aba");
 INSERT INTO GD_NCS
@@ -220,7 +226,8 @@ INSERT INTO GD_GE
 	"35cb1deb-8846-427d-bc52-83844c19d21c",
 	"28a50159-b123-4b18-a6a0-ce2afb598de7",
 	105,
-	0);
+	0,
+	'avpace::library::pacer::avpace::library::pacemaker::monitor');
 INSERT INTO GD_CON
 	VALUES ("fa7e9914-d25e-406c-90ad-87037098530d",
 	"00000000-0000-0000-0000-000000000000");
@@ -327,7 +334,8 @@ INSERT INTO GD_GE
 	"35cb1deb-8846-427d-bc52-83844c19d21c",
 	"046423a0-66ed-47cb-aafd-112c1b8e26fd",
 	104,
-	0);
+	0,
+	'avpace::library::pacer::to_heart::synchronization::-> pacemaker::to_heart::synchronization');
 INSERT INTO GD_CON
 	VALUES ("642a48dd-6c65-4c2d-84b6-bc8277bd3ac8",
 	"00000000-0000-0000-0000-000000000000");
@@ -426,7 +434,8 @@ INSERT INTO GD_GE
 	"35cb1deb-8846-427d-bc52-83844c19d21c",
 	"9b75af22-0b0c-465e-b178-138763712405",
 	100,
-	0);
+	0,
+	'avpace::library::pacer::avpace::library::hostmonitor');
 INSERT INTO GD_SHP
 	VALUES ("8d48d6a3-fe88-40c8-b84e-45511610cde0");
 INSERT INTO GD_NCS
@@ -464,7 +473,8 @@ INSERT INTO GD_GE
 	"35cb1deb-8846-427d-bc52-83844c19d21c",
 	"e2ca288d-4de2-4215-aa62-a6999735579b",
 	106,
-	0);
+	0,
+	'avpace::library::pacer::avpace::library::hostmonitor::monitor');
 INSERT INTO GD_CON
 	VALUES ("e1826815-cab5-4903-99e6-95568520a8ba",
 	"00000000-0000-0000-0000-000000000000");
@@ -563,7 +573,8 @@ INSERT INTO GD_GE
 	"35cb1deb-8846-427d-bc52-83844c19d21c",
 	"d4051d51-e8fe-44b5-a867-57cdfff4f5ed",
 	94,
-	0);
+	0,
+	'avpace::library::pacer::host::host');
 INSERT INTO GD_CON
 	VALUES ("c23b5567-d68a-4c77-bb49-44e41e8f1c9a",
 	"00000000-0000-0000-0000-000000000000");
@@ -670,7 +681,8 @@ INSERT INTO GD_GE
 	"35cb1deb-8846-427d-bc52-83844c19d21c",
 	"cbfa3dae-c229-4a5d-a0e1-d53c90b74ce7",
 	104,
-	0);
+	0,
+	'avpace::library::pacer::host::host::-> hostmonitor::host::host');
 INSERT INTO GD_CON
 	VALUES ("eb80951c-89a3-4bfb-8a2b-f4ad1267255d",
 	"00000000-0000-0000-0000-000000000000");
@@ -786,7 +798,8 @@ INSERT INTO C_P
 	VALUES ("b6871f7e-a5e2-4808-8125-ce38580c2041",
 	'synchronization',
 	'Unnamed Interface',
-	'');
+	'',
+	'pacer::to_heart::synchronization');
 INSERT INTO SPR_PEP
 	VALUES ("392f9d99-0953-4843-a94a-d1c8d6a90ef5",
 	"0f2056aa-552d-47ee-863f-1112ca801894",
@@ -801,6 +814,8 @@ INSERT INTO C_EP_PROXY
 	VALUES ("0f2056aa-552d-47ee-863f-1112ca801894",
 	"0bd9915b-76d2-4a1e-897b-8e05cbe04e89",
 	-1,
+	'systolic_pulse',
+	'',
 	'../../interfaces/synchronization/synchronization.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("9ceabb50-f4f2-44ed-adb8-caebe1863e00",
@@ -816,6 +831,8 @@ INSERT INTO C_EP_PROXY
 	VALUES ("538342c3-6d25-4d02-8645-befa35b9427f",
 	"0bd9915b-76d2-4a1e-897b-8e05cbe04e89",
 	-1,
+	'diastolic_pulse',
+	'',
 	'../../interfaces/synchronization/synchronization.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("a44a5420-cd1f-464f-9a31-7b3f8e14836b",
@@ -831,6 +848,8 @@ INSERT INTO C_EP_PROXY
 	VALUES ("2a89dc7f-4e1b-4de6-82a1-88786929e624",
 	"0bd9915b-76d2-4a1e-897b-8e05cbe04e89",
 	-1,
+	'systolic_pace',
+	'',
 	'../../interfaces/synchronization/synchronization.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("e63227dc-3512-4f68-9d1c-fd3859c03ad2",
@@ -846,6 +865,8 @@ INSERT INTO C_EP_PROXY
 	VALUES ("cae54907-3b8e-4378-8caf-9fcb1c8016a0",
 	"0bd9915b-76d2-4a1e-897b-8e05cbe04e89",
 	-1,
+	'diastolic_pace',
+	'',
 	'../../interfaces/synchronization/synchronization.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("7ca059b9-96b0-4975-a315-078a753fa124",
@@ -861,6 +882,8 @@ INSERT INTO C_EP_PROXY
 	VALUES ("66dc1146-68a1-41cb-81e5-82b26ee7682f",
 	"0bd9915b-76d2-4a1e-897b-8e05cbe04e89",
 	-1,
+	'init',
+	'',
 	'../../interfaces/synchronization/synchronization.xtuml');
 INSERT INTO C_I_PROXY
 	VALUES ("0bd9915b-76d2-4a1e-897b-8e05cbe04e89",
@@ -883,7 +906,8 @@ INSERT INTO C_P
 	VALUES ("d4051d51-e8fe-44b5-a867-57cdfff4f5ed",
 	'host',
 	'Unnamed Interface',
-	'');
+	'',
+	'pacer::host::host');
 INSERT INTO SPR_PEP
 	VALUES ("ad3540b0-f035-4e93-80e6-923e3530641e",
 	"29471dd1-27a0-4595-b0b7-467c27ce3e5a",
@@ -898,6 +922,8 @@ INSERT INTO C_EP_PROXY
 	VALUES ("29471dd1-27a0-4595-b0b7-467c27ce3e5a",
 	"92228dbd-dd96-4df2-a320-af096975a042",
 	-1,
+	'breath_taken',
+	'',
 	'../../interfaces/host/host.xtuml');
 INSERT INTO SPR_PEP
 	VALUES ("9aee5af6-fabd-40d2-8f57-85fd54e3a062",
@@ -913,6 +939,8 @@ INSERT INTO C_EP_PROXY
 	VALUES ("22f9d5f3-9583-4006-a41c-976ffcfafae7",
 	"92228dbd-dd96-4df2-a320-af096975a042",
 	-1,
+	'current_temp',
+	'',
 	'../../interfaces/host/host.xtuml');
 INSERT INTO C_I_PROXY
 	VALUES ("92228dbd-dd96-4df2-a320-af096975a042",
@@ -924,7 +952,8 @@ INSERT INTO PA_DIC
 	VALUES ("64cd4cde-e522-4a43-aefa-801975114eb9",
 	"046423a0-66ed-47cb-aafd-112c1b8e26fd");
 INSERT INTO C_DG
-	VALUES ("046423a0-66ed-47cb-aafd-112c1b8e26fd");
+	VALUES ("046423a0-66ed-47cb-aafd-112c1b8e26fd",
+	'-> pacemaker::to_heart::synchronization');
 INSERT INTO C_RID
 	VALUES ("b6871f7e-a5e2-4808-8125-ce38580c2041",
 	"046423a0-66ed-47cb-aafd-112c1b8e26fd");
@@ -932,23 +961,25 @@ INSERT INTO PA_DIC
 	VALUES ("64cd4cde-e522-4a43-aefa-801975114eb9",
 	"cbfa3dae-c229-4a5d-a0e1-d53c90b74ce7");
 INSERT INTO C_DG
-	VALUES ("cbfa3dae-c229-4a5d-a0e1-d53c90b74ce7");
+	VALUES ("cbfa3dae-c229-4a5d-a0e1-d53c90b74ce7",
+	'-> hostmonitor::host::host');
 INSERT INTO C_RID
 	VALUES ("d4051d51-e8fe-44b5-a867-57cdfff4f5ed",
 	"cbfa3dae-c229-4a5d-a0e1-d53c90b74ce7");
-INSERT INTO PE_PE_PROXY
+INSERT INTO PE_PE
 	VALUES ("64cd4cde-e522-4a43-aefa-801975114eb9",
 	1,
 	"61a575fd-fcfc-433c-a24d-97ab5f20738a",
 	"00000000-0000-0000-0000-000000000000",
-	2,
+	2);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("61a575fd-fcfc-433c-a24d-97ab5f20738a",
+	"15b2a15d-7110-4efa-b644-89bd96e12c0e",
+	"15b2a15d-7110-4efa-b644-89bd96e12c0e",
+	'library',
+	'',
+	0,
 	'../library.xtuml');
-INSERT INTO PE_PE
-	VALUES ("2f35a681-993a-4966-b581-f41a20d414fe",
-	-1,
-	"00000000-0000-0000-0000-000000000000",
-	"64cd4cde-e522-4a43-aefa-801975114eb9",
-	-1);
 INSERT INTO CL_IC
 	VALUES ("2f35a681-993a-4966-b581-f41a20d414fe",
 	"e0b9e174-e379-4344-88b6-ced7f17ce95f",
@@ -989,18 +1020,18 @@ INSERT INTO CL_IP
 INSERT INTO CL_IPINS
 	VALUES ("485320c8-bcdf-4c2e-9135-1db08349b450",
 	"28a50159-b123-4b18-a6a0-ce2afb598de7");
-INSERT INTO C_SF_PROXY
-	VALUES ("485320c8-bcdf-4c2e-9135-1db08349b450",
-	"2990e0fc-907b-4012-97c7-a834716abbba",
-	"f48df434-22ff-4bb0-8975-8f9bd7b88c8a",
-	'',
-	'../library.xtuml');
 INSERT INTO C_IR_PROXY
 	VALUES ("f48df434-22ff-4bb0-8975-8f9bd7b88c8a",
 	"604336a3-9bef-4909-b4e0-7e21963a471d",
 	"00000000-0000-0000-0000-000000000000",
 	"0289f340-750d-4301-a890-91788ac05479",
 	'../pacemaker/pacemaker.xtuml');
+INSERT INTO PE_PE
+	VALUES ("2f35a681-993a-4966-b581-f41a20d414fe",
+	-1,
+	"00000000-0000-0000-0000-000000000000",
+	"64cd4cde-e522-4a43-aefa-801975114eb9",
+	-1);
 INSERT INTO C_C_PROXY
 	VALUES ("e0b9e174-e379-4344-88b6-ced7f17ce95f",
 	"00000000-0000-0000-0000-000000000000",
@@ -1009,13 +1040,9 @@ INSERT INTO C_C_PROXY
 	'',
 	0,
 	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
 	'../pacemaker/pacemaker.xtuml');
-INSERT INTO PE_PE
-	VALUES ("9b75af22-0b0c-465e-b178-138763712405",
-	-1,
-	"00000000-0000-0000-0000-000000000000",
-	"64cd4cde-e522-4a43-aefa-801975114eb9",
-	-1);
 INSERT INTO CL_IC
 	VALUES ("9b75af22-0b0c-465e-b178-138763712405",
 	"ec30e476-2277-4a97-b32f-3df5784b0726",
@@ -1060,6 +1087,12 @@ INSERT INTO C_IR_PROXY
 	"cbfa3dae-c229-4a5d-a0e1-d53c90b74ce7",
 	"43094b33-864a-4f16-a473-0807079c6690",
 	'../hostmonitor/hostmonitor.xtuml');
+INSERT INTO PE_PE
+	VALUES ("9b75af22-0b0c-465e-b178-138763712405",
+	-1,
+	"00000000-0000-0000-0000-000000000000",
+	"64cd4cde-e522-4a43-aefa-801975114eb9",
+	-1);
 INSERT INTO C_C_PROXY
 	VALUES ("ec30e476-2277-4a97-b32f-3df5784b0726",
 	"00000000-0000-0000-0000-000000000000",
@@ -1068,4 +1101,32 @@ INSERT INTO C_C_PROXY
 	'',
 	0,
 	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
 	'../hostmonitor/hostmonitor.xtuml');
+INSERT INTO C_SF
+	VALUES ("485320c8-bcdf-4c2e-9135-1db08349b450",
+	"2990e0fc-907b-4012-97c7-a834716abbba",
+	"f48df434-22ff-4bb0-8975-8f9bd7b88c8a",
+	'',
+	'pacemaker::monitor::monitor -o)- hostmonitor::monitor::monitor');
+INSERT INTO PE_PE
+	VALUES ("485320c8-bcdf-4c2e-9135-1db08349b450",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"64cd4cde-e522-4a43-aefa-801975114eb9",
+	22);
+INSERT INTO C_R_PROXY
+	VALUES ("2990e0fc-907b-4012-97c7-a834716abbba",
+	'monitor',
+	'',
+	'Unnamed Interface',
+	'hostmonitor::monitor::monitor',
+	'../hostmonitor/hostmonitor.xtuml');
+INSERT INTO C_P_PROXY
+	VALUES ("f48df434-22ff-4bb0-8975-8f9bd7b88c8a",
+	'monitor',
+	'Unnamed Interface',
+	'',
+	'pacemaker::monitor::monitor',
+	'../pacemaker/pacemaker.xtuml');

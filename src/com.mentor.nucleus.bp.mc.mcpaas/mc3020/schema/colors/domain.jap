@@ -1,0 +1,258 @@
+.//============================================================================
+.// File:  domain.mark
+.//
+.// Description:
+.// xtUMLドメインのドメイン全体に対する色付けを定義する。
+.//
+.// Notice:
+.// (C) Copyright 1999-2014 Mentor Graphics Corporation
+.//     All rights reserved.
+.//============================================================================
+.// Notes:
+.// (1) Marking is specified via archetype function invocation(s) in this file.
+.//     .invokeで始まる色付け定義文中に改行を入れないこと。
+.//      必ず１行に記述すること。各関数の入力パラメータは全て定義すること。
+.// (2) 文字列パラメータは、大文字・小文字の違いがある。
+.// (3) .// で始まる行がコメントとなる。
+.// (4) 本ファイル中には空白行を入れないこと。
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Tag Inititialization Function:
+.//
+.// To indicate to the model compiler that a function serves as an
+.// initialization function in a domain, use the following invocation
+.// (one for each initialization object):
+.//
+.// TagInitializationFunction( "function_name" )
+.//
+.// Where the input parameter(s) are:
+.//   function_name = name of the domain function (synchronous service)
+.//
+.// Example:
+.//   .invoke TagInitializationFunction( "intitialize_domain" )
+.//
+.// Notes:
+.// (1) If multiple functions are tagged, they will be invoked in
+.//     alphabetical order.
+.// (2) Function bearing arguments may not be used as initalization
+.//     functions.
+.// (3) This interface supercedes and obsoletes tagging initialization
+.//     objects.
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Exclude Function(s) From Implementation Code Generation:
+.//
+.// To indicate to the model compiler that a function should be excluded
+.// from implementation code generation, use the following invocation
+.// (one for each excluded object):
+.//
+.// TagFunctionTranslationOff( "function_name" )
+.//
+.// Where the input parameter(s) are:
+.//   function_name = name of domain function to not be translated
+.//
+.// Example:
+.//   .invoke TagFunctionTranslationOff( "initialize_AS" )
+.//   .invoke TagFunctionTranslationOff( "*" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Exclude Object From Implementation Code Generation:
+.//
+.// To indicate to the model compiler that an object should be excluded
+.// from implementation code generation, use the following invocation
+.// (one for each excluded object):
+.//
+.// TagExcludeObjectFromCodeGen( "key_letters" )
+.//
+.// パラメータ入力は次の通りです:
+.//   key_letters = Key letters of the object to be excluded.
+.//
+.// Example:
+.//   .invoke TagExcludeObjectFromCodeGen( "TST_OBJ" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// コード生成の対象外とするサブシステムの定義:
+.//
+.// モデル中には存在するが、コード生成の対象外とするサブシステムを定義する
+.// （サブシステムに存在する全てのオブジェクトをコード生成の対象外とするのと
+.// 同等)。対象外とするサブシステム毎に１つの定義文で指定すること。
+.//
+.// TagExcludeSubsystemFromCodeGen( "subsystem" )
+.//
+.// パラメータ入力は次の通りです:
+.//   subsystem = Nコード生成の対象外とするサブシステム名
+.//
+.// 注意: 1) サブシステム内の空白文字は除去さる。
+.//       2) サブシステム名に大文字・小文字の区別はない。
+.//
+.// Example:
+.//   .invoke TagExcludeSubsystemFromCodeGen( "ModelVerifier Unit Tests" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// *** デバック情報の為の色づけ ***
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// デバッグツール：状態遷移レベルのトレース
+.//
+.// 状態が遷移したことを出力をするトレース情報をＯＮにする指定。:
+.//
+.// TagStateTransitionTracingOn()
+.//
+.// Example:
+.//   .invoke TagStateTransitionTracingOn()
+.//============================================================================
+.invoke TagStateTransitionTracingOn()
+.//
+.//
+.//============================================================================
+.// デバッグツール：状態のアクションレベルのトレース
+.//
+.// アクションを出力するトレース情報をＯＮにする指定。
+.//
+.// TagActionStatementTracingOn()
+.//
+.// Example:
+.//   .invoke TagActionStatementTracingOn()
+.//============================================================================
+.invoke TagActionStatementTracingOn()
+.//
+.//
+.//============================================================================
+.// Debug Tooling:  Enable interface message tracing.
+.//
+.// To turn on the tracing of messages passing between components, use
+.// the following invocation:
+.//
+.// MarkMessageTracingOn( "component", "port", "message" )
+.//
+.// Where the input parameter(s) are:
+.//   component = name of component being marked
+.//   port = name of specific port on the component being marked
+.//   message = name of one message 
+.//
+.// Example:
+.//   .invoke MarkMessageTracingOn( "Tracking", "HR", "heartRateChanged" )
+.//   .invoke MarkMessageTracingOn( "Tracking", "*", "*" )
+.//============================================================================
+.// .invoke MarkMessageTracingOn( "*", "*", "*" )
+.//
+.//
+.//============================================================================
+.// デバッグツール：存在しないインスタンスの使用の検出
+.//
+.// 存在しないインスタンスに対しての参照や呼び出しがあった場合の検出を指定。
+.//
+.// TagEmptyHandleDetectionOn()
+.//
+.// Example:
+.//   .invoke TagEmptyHandleDetectionOn()
+.//============================================================================
+.invoke TagEmptyHandleDetectionOn()
+.//
+.//
+.//============================================================================
+.// デバッグツール：コード生成の最適化をしない
+.//
+.// コード生成時に、第1パス（モデルのパース）の結果による最適化をしない指定。
+.// 
+.// TagFirstPassOptimizationsOff()
+.//
+.// Example:
+.//   .invoke TagFirstPassOptimizationsOff()
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// *** 生成コードのコメントと変数名や関数名に対する色付け ***
+.//
+.// 生成コードに対して、アクションのコメント出力の方法と変数名や関数名
+.// に対する色付け。
+.//
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// 各状態毎のアクションを全てコメントとして出力
+.//
+.// TagStateActionCommentBlocksEnabled
+.// 
+.// 生成コード内の各状態に対する関数の前に、状態のアクションをそのまま全て
+.// コメントとして出力する指定をする。本色付けを指定しない場合は、出力されない。
+.// 
+.// Example:
+.//   .invoke TagStateActionCommentBlocksEnabled()
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// 各アクションのコメント出力ＯＦＦ
+.// 
+.// TagStateActionStatementCommentsDisabled
+.//
+.// 本色付けによって、各アクション行対するコードの直前に出力する
+.// アクションのコメントを出力しないようにする。本色付けを指定しない
+.// 場合は、コメントが出力される。
+.// 
+.// Example:
+.//   .invoke TagStateActionStatementCommentsDisabled()
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// アクション内での変数名
+.// 
+.// TagStateActionVariableNamesEnabled
+.//
+.// 各状態毎の関数内のローカル変数名を分析モデルのアクションで使用している
+.// 変数名でコード生成するように指定する。本色付けがない場合は、
+.// ローカル変数名には任意の文字列が使われる。
+.// 
+.// Example:
+.//   .invoke TagStateActionVariableNamesEnabled()
+.//============================================================================
+.invoke TagStateActionVariableNamesEnabled()
+.//
+.//
+.//============================================================================
+.// 再帰関連の関数名
+.// 
+.// TagVerboseReflexivePhrasesEnabled
+.//
+.// 分析モデル内の再帰関連から生成される関数の名前にＯＯＡモデル内で使用している
+.// 関連名の使用を指定。本色付けがない場合は、単純な任意の関数名が割り当てられる。
+.//
+.// Example:
+.//   .invoke TagVerboseReflexivePhrasesEnabled()
+.//============================================================================
+.invoke TagVerboseReflexivePhrasesEnabled()
+.//
+.//
+.//============================================================================
+.// 旧静的インスタンス生成
+.// 
+.// TagStaticPopulateOld( action )
+.//
+.// 入力パラメータは次の通りです:
+.//   action = TRUE or FALSE
+.//            旧静的インスタンス生成を使用するにはTRUE
+.//
+.// Example:
+.//   .invoke TagStaticPopulateOld( TRUE )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Do not add anything at the end of this file!
+.//============================================================================

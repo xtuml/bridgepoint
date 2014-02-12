@@ -4,11 +4,20 @@
 //Version: $Revision: 1.13 $
 //Modified: $Date: 2013/03/14 02:37:43 $
 //
-//(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //========================================================================
 package com.mentor.nucleus.bp.core.test;
 
@@ -41,22 +50,17 @@ import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.osgi.framework.Bundle;
 import org.osgi.service.prefs.Preferences;
 
-import com.mentor.nucleus.bp.core.Activity_c;
 import com.mentor.nucleus.bp.core.ActorParticipant_c;
 import com.mentor.nucleus.bp.core.ClassInstanceParticipant_c;
 import com.mentor.nucleus.bp.core.ClassParticipant_c;
-import com.mentor.nucleus.bp.core.Communication_c;
-import com.mentor.nucleus.bp.core.ComponentPackage_c;
 import com.mentor.nucleus.bp.core.ComponentParticipant_c;
 import com.mentor.nucleus.bp.core.ComponentReference_c;
 import com.mentor.nucleus.bp.core.Component_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
-import com.mentor.nucleus.bp.core.DataTypePackage_c;
 import com.mentor.nucleus.bp.core.DataType_c;
 import com.mentor.nucleus.bp.core.ExternalEntityParticipant_c;
 import com.mentor.nucleus.bp.core.ExternalEntity_c;
 import com.mentor.nucleus.bp.core.InteractionParticipant_c;
-import com.mentor.nucleus.bp.core.InterfacePackage_c;
 import com.mentor.nucleus.bp.core.Interface_c;
 import com.mentor.nucleus.bp.core.ModelClass_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
@@ -64,7 +68,6 @@ import com.mentor.nucleus.bp.core.Operation_c;
 import com.mentor.nucleus.bp.core.PackageParticipant_c;
 import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.PackageableElement_c;
-import com.mentor.nucleus.bp.core.Sequence_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.UserDataType_c;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
@@ -72,17 +75,14 @@ import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.ModelElement;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.Transaction;
-import com.mentor.nucleus.bp.core.common.TransactionException;
 import com.mentor.nucleus.bp.core.common.TransactionManager;
 import com.mentor.nucleus.bp.core.ui.NewSystemWizard;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectPreferences;
 import com.mentor.nucleus.bp.core.util.WorkspaceUtil;
-import com.mentor.nucleus.bp.mc.mc3020.ModelCompiler;
 import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.CanvasTestUtils;
-import com.mentor.nucleus.bp.test.common.TestingUtilities;
 import com.mentor.nucleus.bp.test.common.UITestingUtilities;
 import com.mentor.nucleus.bp.ui.canvas.Cl_c;
 import com.mentor.nucleus.bp.ui.canvas.Ooaofgraphics;
@@ -1147,11 +1147,6 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		graphicsModelRoot = Ooaofgraphics.getInstance(dtPkg.getModelRoot().getId());
 		validateOrGenerateResults(ce, generateResults, true);
 	}
-
-    public void testConvertProjectsToCDT() {
-        TestUtil.yesToDialog(3000);
-        ModelCompiler.convertFromEDGEToCDT();
-    }
 
 	static Class<?> loadClassFromPlugin(String pluginName, String className){
 		//get the required class from the given plugin

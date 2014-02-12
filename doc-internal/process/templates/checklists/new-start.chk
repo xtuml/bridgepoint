@@ -1,16 +1,14 @@
 <pre>
-========================================================================
+=======================================================================
 
-File:      $RCSfile: new-start.chk,v $
-Version:   $Revision: 1.29 $
-Modified:  $Date: 2006/07/05 15:07:35 $
+File:      new-start.chk
 
-(c) Copyright 2008-2013 by Mentor Graphics Corp. All rights reserved.
+(c) Copyright 2008-2014 by Mentor Graphics Corp. All rights reserved.
 
-========================================================================
+=======================================================================
 This document contains information proprietary and confidential to
-Mentor Graphics Corp., and is not for external distribution.
-========================================================================
+Mentor Graphics Corp. and is not for external distribution.
+=======================================================================
 BridgePoint Project Checklist
 Environment Setup Checklist
 

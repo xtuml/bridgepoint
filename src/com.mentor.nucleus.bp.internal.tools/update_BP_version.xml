@@ -5,13 +5,13 @@
  Version:   $Revision: 1.23 $
  Modified:  $Date: 2013/06/24 14:49:24 $
 
- (c) Copyright 2011-2013 by Mentor Graphics Corp.  All rights reserved.
+ (c) Copyright 2011-2014 by Mentor Graphics Corp.  All rights reserved.
 
 -->
 <project name="bp.internal.tools" default="updateVersion" basedir="./..">
 
-    <property name="currentVersion" value="4.0.6" />
-    <property name="newVersion" value="4.0.7" />
+    <property name="currentVersion" value="4.1.1" />
+    <property name="newVersion" value="4.1.6" />
 
     <target name="updateVersion" description="Update the version of BridgePoint">
         <echo>Starting version update from ${currentVersion} to ${newVersion}</echo>

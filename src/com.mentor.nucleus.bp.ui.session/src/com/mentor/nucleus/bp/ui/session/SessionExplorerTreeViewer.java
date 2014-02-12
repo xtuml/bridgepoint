@@ -4,14 +4,25 @@
 //Version:   $Revision$
 //Modified:  $Date$
 //
-// (c) Copyright 2006-2013 by Mentor Graphics Corp.  All rights reserved.
+// (c) Copyright 2006-2014 by Mentor Graphics Corp.  All rights reserved.
 //
 //========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //======================================================================== 
 
 package com.mentor.nucleus.bp.ui.session;
+
+import java.util.ArrayList;
 
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ISelection;
@@ -21,8 +32,9 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Item;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 
-import com.mentor.nucleus.bp.core.ClassInEngine_c;
 import com.mentor.nucleus.bp.core.ComponentInstance_c;
 import com.mentor.nucleus.bp.core.Domain_c;
 import com.mentor.nucleus.bp.core.Package_c;
@@ -106,4 +118,110 @@ public class SessionExplorerTreeViewer extends TreeViewer {
 		}
 		return (ComponentInstance_c) result;
 	}
+
+	/**
+	 * This method will find all tree items that have the given string as their
+	 * display name.  The method has a high limit that when reached will abort
+	 * searching, as the session tree can be infinitely deep.  This high limit
+	 * is set to 250.
+	 * 
+	 * @param item
+	 * @param text
+	 * @return
+	 */
+	public ArrayList<TreeItem> findItemsContainingText(TreeItem item, String text) {
+		return findItemsContainingText(item, text, 0);
+	}
+	
+    public ArrayList<TreeItem> findItemsContainingText(TreeItem item, String text, int count)
+    {
+    	count++;
+        ArrayList<TreeItem> rvalItems = new ArrayList<TreeItem>();
+    	if(count == 250) {
+    		return rvalItems;
+    	}
+        if ( item == null ) {
+            final Tree tree = getTree();
+            TreeItem[] items = tree.getItems();
+            // for each of the items given 
+            for (int i = 0; i < items.length; i++) {
+                // if this item's text matches that given
+                if (items[i].getText().contains(text)) {
+                    // return this item
+                    rvalItems.add(items[i]);
+                } else {
+                	// look for nested elements
+                	rvalItems.addAll(findItemsContainingText(items[i], text, count));
+                }
+            }
+        } else {
+            TreeItem[] items = item.getItems();
+            // for each of the items given 
+            for (int i = 0; i < items.length; i++) {
+                // if this item's text matches that given
+                if (items[i].getText().contains(text)) {
+                    // return this item
+                    rvalItems.add(items[i]);
+                } else {
+                	// look for nested elements
+                	rvalItems.addAll(findItemsContainingText(items[i], text, count));
+                }
+            }            
+        }
+        
+        return rvalItems;
+    }
+
+    public TreeItem findItem(String text )
+    {
+        final Tree tree = getTree();
+        TreeItem[] items = tree.getItems();
+        // for each of the items given 
+        for (int i = 0; i < items.length; i++) {
+            // if this item's text matches that given
+            if (items[i].getText().equals(text)) {
+                // return this item
+                return items[i];
+            }
+        }
+        
+        return null;
+    }
+    
+    public TreeItem findItem(TreeItem item, String text) {
+        if(item == null) {
+            final Tree tree = getTree();
+            TreeItem[] items = tree.getItems();
+            // for each of the items given 
+            for (int i = 0; i < items.length; i++) {
+                // if this item's text matches that given
+                if (items[i].getText().equals(text)) {
+                    // return this item
+                    return items[i];
+                } else {
+                    TreeItem findItem = findItem(items[i], text);
+                    if(findItem != null) {
+                        return findItem;
+                    }
+                }
+            }
+        } else {
+            TreeItem[] items = item.getItems();
+            // for each of the items given 
+            for (int i = 0; i < items.length; i++) {
+                // if this item's text matches that given
+                if (items[i].getText().equals(text)) {
+                    // return this item
+                    return items[i];
+                } else {
+                    TreeItem findItem = findItem(items[i], text);
+                    if(findItem != null) {
+                        return findItem;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
 }

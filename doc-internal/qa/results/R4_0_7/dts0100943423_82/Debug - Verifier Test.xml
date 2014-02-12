@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="Debug - Verifier Test" project="com.mentor.nucleus.bp.debug.ui.test" tests="93" started="93" failures="0" errors="0" ignored="0">
+  <testsuite name="VerifierTestSuite" time="694.504">
+    <testsuite name="com.mentor.nucleus.bp.debug.test.VerifierTestSuiteI" time="0.155">
+      <testcase name="testVerifierTestSuite1" classname="com.mentor.nucleus.bp.debug.test.VerifierTestSuiteI" time="0.155"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.ui.test.realizedClasses.VerifierStaticVariablesInRealizedClassesTest" time="27.589">
+      <testcase name="testSingleProjectDualLocalComponents" classname="com.mentor.nucleus.bp.debug.ui.test.realizedClasses.VerifierStaticVariablesInRealizedClassesTest" time="18.207"/>
+      <testcase name="testSingleProjectComponentAndReference" classname="com.mentor.nucleus.bp.debug.ui.test.realizedClasses.VerifierStaticVariablesInRealizedClassesTest" time="3.165"/>
+      <testcase name="testDualProjectLocalComponentIPReferenceNoEE" classname="com.mentor.nucleus.bp.debug.ui.test.realizedClasses.VerifierStaticVariablesInRealizedClassesTest" time="3.109"/>
+      <testcase name="testDualProjectLocalComponentIPReferenceDuplicateEE" classname="com.mentor.nucleus.bp.debug.ui.test.realizedClasses.VerifierStaticVariablesInRealizedClassesTest" time="3.108"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.ui.launch.VerifierLaunchTestSuite" time="5.536">
+      <testsuite name="com.mentor.nucleus.bp.debug.ui.launch.VerifierLaunchConfigurationTests" time="1.539">
+        <testcase name="testLaunchConfigurationTree" classname="com.mentor.nucleus.bp.debug.ui.launch.VerifierLaunchConfigurationTests" time="1.539"/>
+      </testsuite>
+      <testsuite name="com.mentor.nucleus.bp.debug.ui.launch.VerifierLaunchActionTests" time="3.997">
+        <testcase name="testLaunchComponent" classname="com.mentor.nucleus.bp.debug.ui.launch.VerifierLaunchActionTests" time="2.048"/>
+        <testcase name="testLaunchNotAssignedImportedComponent" classname="com.mentor.nucleus.bp.debug.ui.launch.VerifierLaunchActionTests" time="1.949"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierExecuteFragmentTest" time="11.462">
+      <testcase name="testtopLevelFragment" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierExecuteFragmentTest" time="6.54"/>
+      <testcase name="testnestedFragment" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierExecuteFragmentTest" time="4.922"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierExecuteActionTests" time="73.788">
+      <testcase name="testExecuteClassBasedOperationOAL" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierExecuteActionTests" time="5.065"/>
+      <testcase name="testExecuteClassBasedOperationNoOAL" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierExecuteActionTests" time="7.149"/>
+      <testcase name="testExecuteClassBasedOperationWithParameters" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierExecuteActionTests" time="4.831"/>
+      <testcase name="testExecuteSignalAssignedToTransition" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierExecuteActionTests" time="2.946"/>
+      <testcase name="testExecuteSignalAssignedToTransitionNoOAL" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierExecuteActionTests" time="4.274"/>
+      <testcase name="testExecuteSignalAssignedToTransitionWithParameters" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierExecuteActionTests" time="3.301"/>
+      <testcase name="testExecuteSignalNotAssignedToTransition" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierExecuteActionTests" time="5.531"/>
+      <testcase name="testExecuteSignalNotAssignedToTransitionNoOAL" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierExecuteActionTests" time="7.185"/>
+      <testcase name="testExecuteSignalNotAssignedToTransitionWithParameters" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierExecuteActionTests" time="4.862"/>
+      <testcase name="testExecuteInterfaceOperation" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierExecuteActionTests" time="4.87"/>
+      <testcase name="testExecuteInterfaceOperationNoOAL" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierExecuteActionTests" time="7.34"/>
+      <testcase name="testExecuteInterfaceOperationWithParameters" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierExecuteActionTests" time="4.888"/>
+      <testcase name="testTerminateAndRelaunch" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierExecuteActionTests" time="11.546"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.test.VIECTest" time="11.155">
+      <testcase name="testVIECTwoPort" classname="com.mentor.nucleus.bp.debug.test.VIECTest" time="6.556"/>
+      <testcase name="testVIECSinglePort" classname="com.mentor.nucleus.bp.debug.test.VIECTest" time="4.599"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.engine.SignalParameterPassingTest" time="8.185">
+      <testcase name="testSignalParameterPassing" classname="com.mentor.nucleus.bp.debug.engine.SignalParameterPassingTest" time="8.185"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierInterfaceExecutionTests" time="76.378">
+      <testcase name="testInterfaceExecutionSignalAssignedToTransition" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierInterfaceExecutionTests" time="4.474"/>
+      <testcase name="testInterfaceExecutionSignalNoOALAssignedToTransition" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierInterfaceExecutionTests" time="4.649"/>
+      <testcase name="testInterfaceExecutionSignalParametersAssignedToTransition" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierInterfaceExecutionTests" time="4.805"/>
+      <testcase name="testInterfaceExecutionSignalWithQueuedEventsBadState" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierInterfaceExecutionTests" time="4.962"/>
+      <testcase name="testInterfaceExecutionSignalWithQueuedEventsGoodState" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierInterfaceExecutionTests" time="5.081"/>
+      <testcase name="testInterfaceExecutionSignalNotAssignedWithOAL" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierInterfaceExecutionTests" time="4.855"/>
+      <testcase name="testInterfaceExecutionSignalNotAssignedWithNoOAL" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierInterfaceExecutionTests" time="4.995"/>
+      <testcase name="testInterfaceExecutionSignalNotAssignedCurrentExecutingAction" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierInterfaceExecutionTests" time="4.935"/>
+      <testcase name="testInterfaceExecutionSignalNotAssignedWithParameters" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierInterfaceExecutionTests" time="4.73"/>
+      <testcase name="testInterfaceExectuionOperationOALNonVoidReturn" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierInterfaceExecutionTests" time="5.083"/>
+      <testcase name="testInterfaceExecutionOperationNoOALVoidReturn" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierInterfaceExecutionTests" time="4.857"/>
+      <testcase name="testInterfaceExecutionOperationNoOALNonVoidReturn" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierInterfaceExecutionTests" time="4.863"/>
+      <testcase name="testInterfaceExecutionOperationCurrentExecutingAction" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierInterfaceExecutionTests" time="6.815"/>
+      <testcase name="testInterfaceExecutionOperationWithParamatersNonVoidReturn" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierInterfaceExecutionTests" time="4.697"/>
+      <testcase name="testInterfaceExecutionWiredOperationAndSignalNoOALVoidReturn" classname="com.mentor.nucleus.bp.debug.ui.test.execute.VerifierInterfaceExecutionTests" time="6.577"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.engine.VerifierTransitionActionTests" time="13.78">
+      <testcase name="testTransitionActions" classname="com.mentor.nucleus.bp.debug.engine.VerifierTransitionActionTests" time="4.347"/>
+      <testcase name="testISMTransitionAction" classname="com.mentor.nucleus.bp.debug.engine.VerifierTransitionActionTests" time="4.715"/>
+      <testcase name="testCSMTransitionAction" classname="com.mentor.nucleus.bp.debug.engine.VerifierTransitionActionTests" time="4.718"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.ui.session.tree.VerifierSessionExplorerTests" time="13.58">
+      <testcase name="testComponentsInSessionExplorerTree" classname="com.mentor.nucleus.bp.debug.ui.session.tree.VerifierSessionExplorerTests" time="4.752"/>
+      <testcase name="testDeleteDisabledForModelElement" classname="com.mentor.nucleus.bp.debug.ui.session.tree.VerifierSessionExplorerTests" time="4.359"/>
+      <testcase name="testRenameDisabledForModelElement" classname="com.mentor.nucleus.bp.debug.ui.session.tree.VerifierSessionExplorerTests" time="4.469"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.engine.ExternalEntityTest" time="3.195">
+      <testcase name="testBasicEE" classname="com.mentor.nucleus.bp.debug.engine.ExternalEntityTest" time="3.195"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.engine.CreateAndGenerateEventTest" time="4.868">
+      <testcase name="testBasicCreateAndGenerateEvent" classname="com.mentor.nucleus.bp.debug.engine.CreateAndGenerateEventTest" time="4.868"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.engine.TimerTest" time="13.597">
+      <testcase name="testTimer" classname="com.mentor.nucleus.bp.debug.engine.TimerTest" time="13.597"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.engine.VerifierCreationTransitionDebugTest" time="5.306">
+      <testcase name="testVerifierCreationTransitionBP" classname="com.mentor.nucleus.bp.debug.engine.VerifierCreationTransitionDebugTest" time="5.306"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.engine.VerifierAuditTest" time="242.298">
+      <testcase name="testVerifierAudit" classname="com.mentor.nucleus.bp.debug.engine.VerifierAuditTest" time="52.744"/>
+      <testcase name="testVerifierAudit_Warning" classname="com.mentor.nucleus.bp.debug.engine.VerifierAuditTest" time="55.467"/>
+      <testcase name="testVerifierAudit_Fatal" classname="com.mentor.nucleus.bp.debug.engine.VerifierAuditTest" time="55.627"/>
+      <testcase name="testVerifierAudit_runAllTests" classname="com.mentor.nucleus.bp.debug.engine.VerifierAuditTest" time="78.459"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.test.breakpoint.BreakpointTest" time="2.798">
+      <testcase name="testSetBreakpointOnNewStateTransitionWithLongEventDataList" classname="com.mentor.nucleus.bp.debug.test.breakpoint.BreakpointTest" time="1.174"/>
+      <testcase name="testSetBreakpointOnCreationTransitionWithLongEventDataList" classname="com.mentor.nucleus.bp.debug.test.breakpoint.BreakpointTest" time="1.624"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.engine.MDATest" time="4.143">
+      <testcase name="testRunModel" classname="com.mentor.nucleus.bp.debug.engine.MDATest" time="4.143"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.engine.SendMessageOverDelegationTest" time="23.404">
+      <testcase name="testSendInterfaceOperationOverDele" classname="com.mentor.nucleus.bp.debug.engine.SendMessageOverDelegationTest" time="7.49"/>
+      <testcase name="testSendInterfaceOperationWithReturnOverLongDele" classname="com.mentor.nucleus.bp.debug.engine.SendMessageOverDelegationTest" time="5.295"/>
+      <testcase name="testSendInterfaceOperationWithReturnOutOfLongDele" classname="com.mentor.nucleus.bp.debug.engine.SendMessageOverDelegationTest" time="5.247"/>
+      <testcase name="testSendInterfaceSignalOverDele" classname="com.mentor.nucleus.bp.debug.engine.SendMessageOverDelegationTest" time="5.372"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_0" time="61.891">
+      <testcase name="testA8_C1N1CSM" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_0" time="6.162"/>
+      <testcase name="testA1_C3N3" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_0" time="5.052"/>
+      <testcase name="testA2_C3N3" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_0" time="5.049"/>
+      <testcase name="testA3_C1N1" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_0" time="4.955"/>
+      <testcase name="testA3_C3N3" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_0" time="5.07"/>
+      <testcase name="testA4_C3N3" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_0" time="5.107"/>
+      <testcase name="testA5_C3N3" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_0" time="5.098"/>
+      <testcase name="testA6_C3N3" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_0" time="5.114"/>
+      <testcase name="testA7_C3N3" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_0" time="5.103"/>
+      <testcase name="testA8_C3N3" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_0" time="5.003"/>
+      <testcase name="testA9_C3N3" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_0" time="5.101"/>
+      <testcase name="testA10_C3N3" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_0" time="5.077"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_1" time="55.158">
+      <testcase name="testA1_C1N1" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_1" time="5.941"/>
+      <testcase name="testA2_C1N1" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_1" time="4.89"/>
+      <testcase name="testA4_C1N1" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_1" time="4.924"/>
+      <testcase name="testA5_C1N1" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_1" time="4.973"/>
+      <testcase name="testA6_C1N1" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_1" time="4.944"/>
+      <testcase name="testA7_C1N1" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_1" time="4.905"/>
+      <testcase name="testA8_C1N1" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_1" time="4.977"/>
+      <testcase name="testA9_C1N1" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_1" time="4.883"/>
+      <testcase name="testA10_C1N1" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_1" time="4.915"/>
+      <testcase name="testCantHappenEvent" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_1" time="4.897"/>
+      <testcase name="testCantCreationTransition" classname="com.mentor.nucleus.bp.debug.ui.test.runtimemsg.TestVerifierRunTimeErrorMsgs_1" time="4.908"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.test.RealizedClassTest" time="6.761">
+      <testcase name="testExectureTest" classname="com.mentor.nucleus.bp.debug.test.RealizedClassTest" time="6.761"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.ui.test.realizedClasses.VerifierBindingAuditTest" time="7.467">
+      <testcase name="testVerifyReadyToRun" classname="com.mentor.nucleus.bp.debug.ui.test.realizedClasses.VerifierBindingAuditTest" time="1.964"/>
+      <testcase name="testMenuEntryAbsent" classname="com.mentor.nucleus.bp.debug.ui.test.realizedClasses.VerifierBindingAuditTest" time="2.486"/>
+      <testcase name="testRealizedCodeAudit" classname="com.mentor.nucleus.bp.debug.ui.test.realizedClasses.VerifierBindingAuditTest" time="3.017"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.ui.test.realizedClasses.VerifierRealizedUDTTest" time="19.304">
+      <testcase name="testVerifyReadyToRun" classname="com.mentor.nucleus.bp.debug.ui.test.realizedClasses.VerifierRealizedUDTTest" time="1.971"/>
+      <testcase name="testRealizedUDTsInInterfaceOperations" classname="com.mentor.nucleus.bp.debug.ui.test.realizedClasses.VerifierRealizedUDTTest" time="8.51"/>
+      <testcase name="testRealizedUDTsInSignals" classname="com.mentor.nucleus.bp.debug.ui.test.realizedClasses.VerifierRealizedUDTTest" time="8.823"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.test.VerifierUDTAsUDTInitializationTests" time="2.706">
+      <testcase name="testUDTAsSDTIntialization" classname="com.mentor.nucleus.bp.debug.test.VerifierUDTAsUDTInitializationTests" time="2.706"/>
+    </testsuite>
+  </testsuite>
+</testrun>

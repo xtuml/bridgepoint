@@ -1,40 +1,37 @@
 package com.mentor.nucleus.bp.debug.engine;
 
-import java.io.File;
+import java.lang.annotation.Target;
+import java.util.ArrayList;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.ui.IDebugUIConstants;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.ComponentInstance_c;
-import com.mentor.nucleus.bp.core.ComponentPackageInPackage_c;
-import com.mentor.nucleus.bp.core.ComponentPackage_c;
 import com.mentor.nucleus.bp.core.ComponentReference_c;
 import com.mentor.nucleus.bp.core.Component_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
-import com.mentor.nucleus.bp.core.DomainAsComponent_c;
-import com.mentor.nucleus.bp.core.Domain_c;
 import com.mentor.nucleus.bp.core.Function_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.PackageableElement_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
+import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.ui.perspective.BridgePointPerspective;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.debug.ui.launch.BPDebugUtils;
 import com.mentor.nucleus.bp.debug.ui.test.DebugUITestUtilities;
-import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
-import com.mentor.nucleus.bp.test.common.UITestingUtilities;
+import com.mentor.nucleus.bp.ui.session.SessionExplorerTreeViewer;
+import com.mentor.nucleus.bp.ui.session.views.SessionExplorerView;
 
 //========================================================================
 //
@@ -42,11 +39,20 @@ import com.mentor.nucleus.bp.test.common.UITestingUtilities;
 //Version:   $Revision: 1.8 $
 //Modified:  $Date: 2013/05/14 00:32:47 $
 //
-//(c) Copyright 2011-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2011-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //========================================================================
 
 public class VerifierMessageTestGlobals extends BaseTest {
@@ -195,125 +201,64 @@ public class VerifierMessageTestGlobals extends BaseTest {
 				});
 		assertNotNull(compRef);
 
-		Function_c testSetup = Function_c.getOneS_SYNCOnR8001(
-				PackageableElement_c.getManyPE_PEsOnR8000(Package_c
-						.getManyEP_PKGsOnR8001(PackageableElement_c
-								.getManyPE_PEsOnR8003(Component_c.getOneC_COnR4201(compRef)))),
-				new ClassQueryInterface_c() {
-
-					public boolean evaluate(Object candidate) {
-						return ((Function_c) candidate).getName().equals(
-								"set_up");
-					}
-
-				});
-		assertNotNull(testSetup);
-
 		openPerspectiveAndView(
 				"com.mentor.nucleus.bp.debug.ui.DebugPerspective",
 				BridgePointPerspective.ID_MGC_BP_EXPLORER);
 
-		Menu menu = null;
-		boolean menuReady = false;
-		for (int i = 0; !menuReady && i < 10; i++) {
-			UIUtil.dispatchAll();
-			BPDebugUtils.setSelectionInSETree(new StructuredSelection(
-					testSetup));
-	
-			menu = DebugUITestUtilities.getMenuInSETree(testSetup);
-	
-			UIUtil.dispatchAll();
-			menuReady = UITestingUtilities.checkItemStatusInContextMenu(menu,
-							"Execute", "", false);
-		}
-		assertTrue(
-				"The execute menu item was not available for a required function.",
-				menuReady);
+        SessionExplorerView sev = BPDebugUtils.openSessionExplorerView(true);
+        SessionExplorerTreeViewer sevtv = sev.getTreeViewer();
+        sevtv.expandAll();
+        Tree sevTree = sevtv.getTree();
+        TreeItem projectTreeItem = sevTree.getItem(0);
+        TreeItem mainPackage = sevtv.findItem(projectTreeItem, mainName);
+        ArrayList<TreeItem> functions = sevtv.findItemsContainingText(mainPackage, "set_up");
 
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+        // Call the Init() required signal on one of the Client component references
+        
+        TreeItem testSetup = functions.get(0);
+        if(functions.size() > 1) {
+        	testSetup = functions.get(1);
+        }
+        sevTree.deselectAll();
+        sevTree.select(testSetup);
+		BPDebugUtils.executeElement((NonRootModelElement) testSetup.getData());
 
 		DebugUITestUtilities.waitForExecution();
 		// wait for the execution to complete
 		DebugUITestUtilities.waitForBPThreads(m_sys);
-
-		Function_c testLaunch = Function_c.getOneS_SYNCOnR8001(
-				PackageableElement_c.getManyPE_PEsOnR8000(Package_c
-						.getManyEP_PKGsOnR8001(PackageableElement_c
-								.getManyPE_PEsOnR8003(Component_c.getOneC_COnR4201(compRef)))),
-				new ClassQueryInterface_c() {
-
-					public boolean evaluate(Object candidate) {
-						return ((Function_c) candidate).getName().equals(
-								"test");
-					}
-
-				});
-		assertNotNull(testLaunch);
 
 		openPerspectiveAndView(
 				"com.mentor.nucleus.bp.debug.ui.DebugPerspective",
 				BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		BPDebugUtils.openSessionExplorerView(true);
 
-		menuReady = false;
-		for (int i = 0; !menuReady && i < 10; i++) {
-			UIUtil.dispatchAll();
-			BPDebugUtils.setSelectionInSETree(new StructuredSelection(
-					testLaunch));
-	
-			menu = DebugUITestUtilities.getMenuInSETree(testLaunch);
-	
-			UIUtil.dispatchAll();
-	
-			menuReady = UITestingUtilities.checkItemStatusInContextMenu(menu,
-							"Execute", "", false);
-		}
-		assertTrue(
-				"The execute menu item was not available for a required function.",
-				menuReady);
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+		functions = sevtv.findItemsContainingText(mainPackage, "test");
+        TreeItem test = functions.get(0);
+        if(functions.size() > 1) {
+        	test = functions.get(1);
+        }
+        sevTree.deselectAll();
+        sevTree.select(test);		
+		BPDebugUtils.executeElement((NonRootModelElement) test.getData());
 
 		DebugUITestUtilities.waitForExecution();
 		// wait for the execution to complete
 		DebugUITestUtilities.waitForBPThreads(m_sys);
 		
-		Function_c tearDown = Function_c.getOneS_SYNCOnR8001(
-				PackageableElement_c.getManyPE_PEsOnR8000(Package_c
-						.getManyEP_PKGsOnR8001(PackageableElement_c
-								.getManyPE_PEsOnR8003(Component_c.getOneC_COnR4201(compRef)))),
-				new ClassQueryInterface_c() {
-
-					public boolean evaluate(Object candidate) {
-						return ((Function_c) candidate).getName().equals(
-								"tear_down");
-					}
-
-				});
-		assertNotNull(tearDown);
-
 		openPerspectiveAndView(
 				"com.mentor.nucleus.bp.debug.ui.DebugPerspective",
 				BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		BPDebugUtils.openSessionExplorerView(true);
 
-		menuReady = false;
-		for (int i = 0; !menuReady && i < 10; i++) {
-		
-			UIUtil.dispatchAll();
-			BPDebugUtils.setSelectionInSETree(new StructuredSelection(
-					tearDown));
-	
-			menu = DebugUITestUtilities.getMenuInSETree(tearDown);
-	
-			UIUtil.dispatchAll();
+		functions = sevtv.findItemsContainingText(mainPackage, "tear_down");
+        TreeItem tearDown = functions.get(0);
+        if(functions.size() > 1) {
+        	tearDown = functions.get(1);
+        }
+        sevTree.deselectAll();
+        sevTree.select(tearDown);
+		BPDebugUtils.executeElement((NonRootModelElement) tearDown.getData());
 
-			menuReady = UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false);
-		}
-		
-		assertTrue("The execute menu item was not available for a required function.",
-				menuReady);
-		UITestingUtilities.activateMenuItem(menu, "Execute");
 
 		DebugUITestUtilities.waitForExecution();
 
@@ -392,24 +337,7 @@ public class VerifierMessageTestGlobals extends BaseTest {
 				"com.mentor.nucleus.bp.debug.ui.DebugPerspective",
 				BridgePointPerspective.ID_MGC_BP_EXPLORER);
 
-		Menu menu = null;
-		boolean menuReady = false;
-		for (int i = 0; !menuReady && i < 10; i++) {
-			UIUtil.dispatchAll();
-			BPDebugUtils.setSelectionInSETree(new StructuredSelection(
-					testSetup));
-	
-			menu = DebugUITestUtilities.getMenuInSETree(testSetup);
-	
-			UIUtil.dispatchAll();
-	
-			menuReady = UITestingUtilities.checkItemStatusInContextMenu(menu,
-							"Execute", "", false);
-		}
-
-		assertTrue("The execute menu item was not available for a required function.",
-				menuReady);
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+		BPDebugUtils.executeElement(testSetup);
 
 		DebugUITestUtilities.waitForExecution();
 		// wait for the execution to complete
@@ -433,25 +361,9 @@ public class VerifierMessageTestGlobals extends BaseTest {
 				"com.mentor.nucleus.bp.debug.ui.DebugPerspective",
 				BridgePointPerspective.ID_MGC_BP_EXPLORER);
 
-		menuReady = false;
-		for (int i = 0; !menuReady && i < 10; i++) {
-			UIUtil.dispatchAll();
-			BPDebugUtils.setSelectionInSETree(new StructuredSelection(
-					testLaunch));
-	
-			menu = DebugUITestUtilities.getMenuInSETree(testLaunch);
-	
-			UIUtil.dispatchAll();
-	
-			menuReady = UITestingUtilities.checkItemStatusInContextMenu(menu,
-							"Execute", "", false);
-		}
+		BPDebugUtils.executeElement(testLaunch);
 
-		assertTrue(
-				"The execute menu item was not available for a required function.",
-				menuReady);
-		UITestingUtilities.activateMenuItem(menu, "Execute");
-
+		
 		DebugUITestUtilities.waitForExecution();
 		// wait for the execution to complete
 		DebugUITestUtilities.waitForBPThreads(m_sys);
@@ -479,24 +391,8 @@ public class VerifierMessageTestGlobals extends BaseTest {
 				BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		UIUtil.dispatchAll();
 
-		menuReady = false;
-		for (int i = 0; !menuReady && i < 10; i++) {
-			UIUtil.dispatchAll();
-			BPDebugUtils.setSelectionInSETree(new StructuredSelection(
-					testTeardown));
-			UIUtil.dispatchAll();
-			menu = DebugUITestUtilities.getMenuInSETree(testTeardown);
-	
-			UIUtil.dispatchAll();
-			
-			menuReady = UITestingUtilities.checkItemStatusInContextMenu(menu,
-					"Execute", "", false);		
-		}
+		BPDebugUtils.executeElement(testTeardown);
 
-		assertTrue("The execute menu item was not available for a required function.",
-				menuReady);
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
 
 		DebugUITestUtilities.waitForExecution();
 		// wait for the execution to complete

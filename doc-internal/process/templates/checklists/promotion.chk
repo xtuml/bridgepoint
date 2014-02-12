@@ -3,12 +3,13 @@
 
 File:      promotion.chk 
 
-(c) Copyright 2007-2013 by Mentor Graphics Corp. All rights reserved.
+(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
 
 ========================================================================
 This document contains information proprietary and confidential to
-Mentor Graphics Corp., and is not for external distribution.
+Mentor Graphics Corp. and is not for external distribution.
 ========================================================================
+
 xtUML Project Checklist
 Promoting an Issue
 
@@ -40,7 +41,7 @@ _- Verify and merge the change:
 	   be merged using the github web interface:  
 		_- Locate the pull request on git hub 
 		   (https://github.com/xtuml/internal/pulls)
-		_- Select the pul request
+		_- Select the pull request
 		_- Select the "Files Changed" and review the changes too assure the files
 		   changed match the implementation note.
 	    _- Select the "Merge  Pull Request" option
@@ -68,8 +69,8 @@ _- Verify and merge the change:
 ***   TESTS on the build server after promotion.                       ***
 _- Execute the specific unit tests agreed upon with the code reviewers and 
       verify that the tests pass.
-_- Complete the test results checklist and check it in here:
-	  github.com/xtuml/<repository>/doc-<repository>/qa/<release_id>/<issue num>/promotion/Unit_test_checklist.chk
+_- Update the test_results/Unit_test_summary.txt with the branch name check it in here:
+	  github.com/xtuml/<repository>/doc-<repository>/qa/<release_id>/<issue num>/promotion/Unit_test_summary.txt
 
 _R When tests pass the changes can be pushed.
   	  	   NOTE:  

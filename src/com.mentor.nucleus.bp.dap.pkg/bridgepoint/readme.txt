@@ -4,7 +4,7 @@
  Version:   $Revision$
  Modified:  $Date$
  
- (c) Copyright 2006-2013 by Mentor Graphics, Inc.  All rights reserved.
+ (c) Copyright 2006-2014 by Mentor Graphics, Inc.  All rights reserved.
 
 ====================================================================
 

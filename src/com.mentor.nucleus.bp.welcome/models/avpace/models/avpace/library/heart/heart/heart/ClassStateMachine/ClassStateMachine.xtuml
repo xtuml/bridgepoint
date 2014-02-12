@@ -1,4 +1,4 @@
--- BP 7.1 content: ClassStateMachine syschar: 3 persistence-version: 7.1.5
+-- BP 7.1.6 content: ClassStateMachine syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO SM_ASM
 	VALUES ("02b20249-461c-4374-8bfe-9aa25236adba",
@@ -14,7 +14,8 @@ INSERT INTO SM_SGEVT
 	"02b20249-461c-4374-8bfe-9aa25236adba",
 	"00000000-0000-0000-0000-000000000000",
 	"00000000-0000-0000-0000-000000000000",
-	"0135ad38-3be7-4ced-98a4-5fc10319baef");
+	"0135ad38-3be7-4ced-98a4-5fc10319baef",
+	'out_to_body::diastolic_pace');
 INSERT INTO SPR_RS_PROXY
 	VALUES ("0135ad38-3be7-4ced-98a4-5fc10319baef",
 	'diastolic_pace',
@@ -34,14 +35,15 @@ INSERT INTO SM_EVT
 	'diastolic_pace',
 	0,
 	'',
-	'HEART_A1',
+	'out_to_body::diastolic_pace',
 	'');
 INSERT INTO SM_SGEVT
 	VALUES ("7190a0b3-4a29-48ed-9e96-310dabf63048",
 	"02b20249-461c-4374-8bfe-9aa25236adba",
 	"00000000-0000-0000-0000-000000000000",
 	"00000000-0000-0000-0000-000000000000",
-	"72503faf-492e-4e86-8512-f6a3a0aa2abe");
+	"72503faf-492e-4e86-8512-f6a3a0aa2abe",
+	'out_to_body::systolic_pace');
 INSERT INTO SPR_RS_PROXY
 	VALUES ("72503faf-492e-4e86-8512-f6a3a0aa2abe",
 	'systolic_pace',
@@ -61,7 +63,7 @@ INSERT INTO SM_EVT
 	'systolic_pace',
 	0,
 	'',
-	'HEART_A2',
+	'out_to_body::systolic_pace',
 	'');
 INSERT INTO SM_STATE
 	VALUES ("f387b50b-bd60-45aa-833b-c9eac6621b50",
@@ -160,13 +162,15 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'3.1.2');
+	'3.1.2',
+	'avpace::library::heart::heart::heart::Class State Machine');
 INSERT INTO GD_GE
 	VALUES ("df9da8df-f948-4ef5-8f21-dde7220e74ac",
 	"6d0642c5-fd64-4711-b4cc-3b3a3370c27b",
 	"f387b50b-bd60-45aa-833b-c9eac6621b50",
 	41,
-	0);
+	0,
+	'avpace::library::heart::heart::heart::Class State Machine::receiving paces');
 INSERT INTO GD_SHP
 	VALUES ("df9da8df-f948-4ef5-8f21-dde7220e74ac");
 INSERT INTO GD_NCS
@@ -209,7 +213,8 @@ INSERT INTO GD_GE
 	"6d0642c5-fd64-4711-b4cc-3b3a3370c27b",
 	"416634df-bfc9-40fc-b78e-823ff414402f",
 	42,
-	0);
+	0,
+	'avpace::library::heart::heart::heart::Class State Machine::receiving paces::out_to_body::diastolic_pace');
 INSERT INTO GD_CON
 	VALUES ("e88d780a-1e68-479e-ab12-c924527f67a3",
 	"00000000-0000-0000-0000-000000000000");
@@ -334,7 +339,8 @@ INSERT INTO GD_GE
 	"6d0642c5-fd64-4711-b4cc-3b3a3370c27b",
 	"43f1e087-ab6c-4790-9dec-219a06540547",
 	42,
-	0);
+	0,
+	'avpace::library::heart::heart::heart::Class State Machine::receiving paces::out_to_body::systolic_pace');
 INSERT INTO GD_CON
 	VALUES ("e432b298-3a4b-428e-8131-763d66955c1b",
 	"00000000-0000-0000-0000-000000000000");

@@ -11,8 +11,6 @@ import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.internal.ui.preferences.IDebugPreferenceConstants;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.ComponentInstance_c;
@@ -26,13 +24,11 @@ import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.ui.perspective.BridgePointPerspective;
-import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.debug.ui.launch.BPDebugUtils;
 import com.mentor.nucleus.bp.debug.ui.test.DebugUITestUtilities;
 import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
-import com.mentor.nucleus.bp.test.common.UITestingUtilities;
 
 //========================================================================
 //
@@ -40,11 +36,20 @@ import com.mentor.nucleus.bp.test.common.UITestingUtilities;
 //Version:   $Revision: 1.8 $
 //Modified:  $Date: 2013/05/10 04:28:38 $
 //
-//(c) Copyright 2006-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //========================================================================
 
 public class VerifierAuditTest extends BaseTest {
@@ -126,18 +131,7 @@ public class VerifierAuditTest extends BaseTest {
 
 		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(testSixCases));
-
-		Menu menu = DebugUITestUtilities.getMenuInSETree(testSixCases);
-		
-		UIUtil.dispatchAll();
-
-		assertTrue(
-				"The execute menu item was not available for a required function.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+		BPDebugUtils.executeElement(testSixCases);
 
 		DebugUITestUtilities.waitForExecution();
 		ComponentInstance_c engine = ComponentInstance_c.getOneI_EXEOnR2955(component);
@@ -192,18 +186,7 @@ public class VerifierAuditTest extends BaseTest {
 
 		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(testSixCases));
-
-		Menu menu = DebugUITestUtilities.getMenuInSETree(testSixCases);
-		
-		UIUtil.dispatchAll();
-
-		assertTrue(
-				"The execute menu item was not available for a required function.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
+		BPDebugUtils.executeElement(testSixCases);
 
 		DebugUITestUtilities.waitForExecution();
 		ComponentInstance_c engine = ComponentInstance_c.getOneI_EXEOnR2955(component);
@@ -261,19 +244,8 @@ public class VerifierAuditTest extends BaseTest {
 
 		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(testSixCases));
-
-		Menu menu = DebugUITestUtilities.getMenuInSETree(testSixCases);
+		BPDebugUtils.executeElement(testSixCases);
 		
-		UIUtil.dispatchAll();
-
-		assertTrue(
-				"The execute menu item was not available for a required function.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
-
 		DebugUITestUtilities.waitForExecution();
 		ComponentInstance_c engine = ComponentInstance_c.getOneI_EXEOnR2955(component);
 		assertNotNull(engine);
@@ -345,19 +317,8 @@ public class VerifierAuditTest extends BaseTest {
         
 		openPerspectiveAndView("com.mentor.nucleus.bp.debug.ui.DebugPerspective",BridgePointPerspective.ID_MGC_BP_EXPLORER);
 		
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(runAllTests));
-
-		Menu menu = DebugUITestUtilities.getMenuInSETree(runAllTests);
+		BPDebugUtils.executeElement(runAllTests);
 		
-		UIUtil.dispatchAll();
-
-		assertTrue(
-				"The execute menu item was not available for a required function.",
-				UITestingUtilities.checkItemStatusInContextMenu(menu,
-						"Execute", "", false));
-
-		UITestingUtilities.activateMenuItem(menu, "Execute");
-
 		DebugUITestUtilities.waitForExecution();
 		ComponentInstance_c engine = ComponentInstance_c.getOneI_EXEOnR2955(component);
 		assertNotNull(engine);

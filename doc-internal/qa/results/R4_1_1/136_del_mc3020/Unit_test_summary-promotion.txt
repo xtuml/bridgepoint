@@ -1,0 +1,47 @@
+This document captures the state of the BridgePoint unit tests:
+===============================================================
+Branch: 
+	Repository: xtuml/internal  
+	Branch name: 136_del_mc3020    
+
+	Repository: xtuml/models  
+	Branch name: 20_del_mc3020    
+
+	Repository: xtuml/modelsmg  
+	Branch name: 7_del_mc3020    
+
+	https://github.com/xtuml/internal/issues/161
+
+	https://github.com/xtuml/internal/issues/146
+
+Hostname: 	CAS-RMULVEY-LT
+OS Name:  	Windows 7
+	Version:	6.1
+	Architecture:	x86
+
+Test Suite                              Status			TestRuns	Time    Timestamp
+---------------------------------------------------------------------------------------------
+Core Generic Upgrade Test				PASS			39			3.18s	20140130 17:22:46
+UI Canvas CCP Test						PASS			102			741.74s	20140130 18:44:13
+Core Test								PASS			1093		876.69s	20140130 17:37:36
+UI Explorer Test						PASS			18			54.73s	20140130 18:45:20
+Core Test - Workspace Setup				PASS			14			63.82s	20140130 17:22:15
+Parse All Test							PASS			4596		404.41s	20140130 17:16:02
+IO MDL PkgCM Tests						PASS			108			851.88s	20140130 18:24:16
+Core Test 2								PASS			305			209.49s	20140131 09:34:32
+Debug - Verifier Test					PASS			99			828.62s	20140130 17:55:45
+Core Test - System Level Tests			PASS			24			14.28s	20140130 17:41:43
+Core Test 2 - Consistency				PASS			17			1.28s	20140130 17:20:59
+IO MDL Tests							PASS			90			202.78s	20140131 12:15:53
+UI Properties Test						PASS			163			20.19s	20140130 18:45:53
+Core Test - Existing Projects			PASS			15			4.13s	20140130 17:22:31
+Model Compare Test						PASS			257			323.27s	20140130 18:03:19
+Welcome Test							PASS			10			178.52s	20140131 08:29:11
+UI Canvas Suite 1						PASS			84			89.76s	20140130 18:26:36
+Core Test - RTO Move					PASS			136			271.91s	20140130 17:20:47
+Search Test								PASS			10			12.35s	20140130 18:24:55
+UI Canvas Suite 2						PASS			270			288.23s	20140130 18:31:39
+IO MDL Tests 2							PASS			77			173.23s	20140130 18:09:52
+IO SQL Test								PASS			8			0.93s	20140130 18:24:28
+Debug - Verifier Test 2					PASS			6			106.29s	20140130 17:57:43
+UI Text Test							PASS			163			107.36s	20140130 18:47:53

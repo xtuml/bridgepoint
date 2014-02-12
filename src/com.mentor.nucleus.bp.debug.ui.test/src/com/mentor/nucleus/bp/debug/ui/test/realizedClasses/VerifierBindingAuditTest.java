@@ -22,10 +22,10 @@ import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
+import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.ui.dialogs.ScrolledTextDialog;
 import com.mentor.nucleus.bp.core.ui.perspective.BridgePointPerspective;
 import com.mentor.nucleus.bp.core.util.UIUtil;
-import com.mentor.nucleus.bp.debug.ui.launch.BPDebugUtils;
 import com.mentor.nucleus.bp.debug.ui.test.DebugUITestUtilities;
 import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
@@ -124,10 +124,9 @@ public class VerifierBindingAuditTest extends BaseTest {
 				"com.mentor.nucleus.bp.debug.ui.DebugPerspective",
 				BridgePointPerspective.ID_MGC_BP_EXPLORER);
 
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(
-				nonRealizedcomponentPkg));
+		Selection.getInstance().setSelection(new StructuredSelection(nonRealizedcomponentPkg));
 
-		Menu menu = DebugUITestUtilities.getMenuInSETree(nonRealizedcomponentPkg);
+		Menu menu = getExplorerView().getTreeViewer().getTree().getMenu();
 
 		UIUtil.dispatchAll();
 
@@ -156,10 +155,9 @@ public class VerifierBindingAuditTest extends BaseTest {
 				"com.mentor.nucleus.bp.debug.ui.DebugPerspective",
 				BridgePointPerspective.ID_MGC_BP_EXPLORER);
 
-		BPDebugUtils.setSelectionInSETree(new StructuredSelection(
-				realizedComponentPkg));
+		Selection.getInstance().setSelection(new StructuredSelection(realizedComponentPkg));
 
-		final Menu menu = DebugUITestUtilities.getMenuInSETree(realizedComponentPkg);
+		Menu menu = getExplorerView().getTreeViewer().getTree().getMenu();
 
 		UIUtil.dispatchAll();
 

@@ -1,6 +1,6 @@
 ---
 
-Copyright 2013 Mentor Graphics Corp.  All Rights Reserved.
+Copyright 2014 Mentor Graphics Corp.  All Rights Reserved.
 
 ---
 

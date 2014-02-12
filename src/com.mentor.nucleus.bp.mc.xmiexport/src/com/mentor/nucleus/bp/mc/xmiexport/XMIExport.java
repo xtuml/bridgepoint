@@ -4,11 +4,11 @@
 //Version:   $Revision: 1.8 $
 //Modified:  $Date: 2013/01/10 22:44:48 $
 //
-//(c) Copyright 2006-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
 //This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+//Mentor Graphics Corp. and is not for external distribution.
 //======================================================================== 
 package com.mentor.nucleus.bp.mc.xmiexport;
 

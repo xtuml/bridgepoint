@@ -1,10 +1,8 @@
 .//====================================================================
 .//
-.// File:      $RCSfile: translate_oal.inc,v $
-.// Version:   $Revision: 1.9 $
-.// Modified:  $Date: 2013/01/10 23:16:50 $
+.// File:      translate_oal.inc
 .//
-.// (c) Copyright 2003-2013 Mentor Graphics Corporation  All rights reserved.
+.// Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
 .//
 .//====================================================================
 .//
@@ -103,84 +101,4 @@
   .invoke translate_control_statements()
   .invoke translate_other_statements(main_class_name, output_change_messages)
 .end function
-.//
-.// $Log: translate_oal.inc,v $
-.// Revision 1.9  2013/01/10 23:16:50  rmulvey
-.// job:dts0100939343
-.// Updated the copyright to 2013
-.//
-.// Revision 1.8  2012/01/23 21:24:38  kbrown
-.// job:dts0100848212
-.// Batch commit of copyright updated files.
-.//
-.// Revision 1.7  2011/05/30 20:22:54  kbrown
-.// job:dts0100742889
-.// Updated copy right.
-.//
-.// Revision 1.6  2010/01/05 03:17:02  kbrown
-.// job:dts0100644853
-.// Batch commit of copyright change from 2009 to 2010 for BP CVS projects.
-.//
-.// Revision 1.5  2009/01/01 23:17:04  rmulvey
-.// Job:4060
-.// Batch promotion of copyright changes from Review-i4060 and Review-i4060-01.
-.//
-.// Revision 1.4.50.1  2008/12/31 16:22:52  rmulvey
-.// Job:4060
-.// This is a batch commit of 2009 copyright changes to branch Review-i4060.  This includes the
-.// report that outlines all changes made (before/after for each line changed).  This report is found here: <cvs>/Documentation/internal/test_results/R2_1_2/i4060/update-copyright-results.txt.
-.//
-.// Revision 1.4  2008/01/08 20:24:49  rmulvey
-.// Job:3349
-.// Promoted from Review-i3349.  The copyright has been updated to 2008 and the version has been bumped to 1.5.4.
-.//
-.// Revision 1.3.20.1  2007/12/21 17:55:00  rmulvey
-.// Job:3339
-.// Checking-in the copyriight changes in branch Review-i3349.  A detailed list of these changes is found
-.// in the report produced by the utility used to changesthese messages.  This report is here:
-.// Documentation/internal/test_results/R1_5_4/i3349/update-copyright-results.txt
-.//
-.// Revision 1.3  2007/09/05 02:43:10  kbrown
-.// Job:2673
-.// Promoting copyright changes for projects:
-.// MC-Java
-.// MC-Java.test
-.// pt_antlr
-.//
-.// Revision 1.2.718.1  2007/09/01 01:36:21  rmulvey
-.// Job:2673
-.// Updated copyright messages and version numbers in Review-i2673-01.
-.//
-.// Revision 1.2  2004/03/19 20:52:39  greg
-.// Job: 143
-.// Changed from binary to ASCII -kkv
-.//
-.// Revision 1.5  2004/02/23 18:55:08  greg
-.// Job: 98
-.// Add break and continue statements
-.//
-.// Revision 1.4  2004/02/04 22:10:12  greg
-.// Job: 108
-.// Remove unneeded parameter to gen_function_statements invocation
-.//
-.// Revision 1.3  2003/08/14 18:30:34  greg
-.// Job: 76
-.// Add invocation of gen_paren_expr_values
-.//
-.// Revision 1.2  2003/08/04 18:54:03  greg
-.// Job: 44
-.// Fixed header
-.//
-.// Revision 1.1  2003/08/04 18:47:20  greg
-.// Job: 44
-.// Renamed from Includes.inc
-.//
-.// Revision 1.3  2003/02/12 03:04:57  campbell
-.// Close to completion, only associative 'get' functions unresolved
-.//
-.// Revision 1.2  2003/02/11 18:24:03  campbell
-.// BP 6.1 ODMS running
-.//
-.// Revision 1.1  2003/01/22 20:18:16  campbell
-.// Finalized RCS Header
 .//
