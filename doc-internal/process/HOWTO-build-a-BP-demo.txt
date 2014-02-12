@@ -8,7 +8,7 @@ Modified:  $Date: 2013/02/01 19:29:02 $
 
 ========================================================================
 This document contains information proprietary and confidential to
-Mentor Graphics Corp., and is not for external distribution.
+Mentor Graphics Corp. and is not for external distribution.
 ========================================================================
 
 Document References

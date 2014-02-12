@@ -3,7 +3,7 @@
  *
  * Description:
  * This file provides the dispatcher loops for the xtUML event queues.
- * (C) Copyright 1998-2013 Mentor Graphics Corporation.  All rights reserved.
+ * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
  *--------------------------------------------------------------------------*/
 
 #include "sys_types.h"

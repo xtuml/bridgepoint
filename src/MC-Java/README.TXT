@@ -5,7 +5,7 @@
  Modified:  $Date: 2013/01/10 23:16:30 $
  By:        $Author: rmulvey $
 
- (c) Copyright 2003-2013 Mentor Graphics Corporation  All rights reserved.
+ (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
 
 ====================================================================
 
@@ -17,7 +17,7 @@ generic java code. The configuration can be done by setting different coloring
 information.
 
 MC-Java does two pass parsing to translate a model into code. See section 
-“Translating model using MC-Java” for further details. 
+ï¿½Translating model using MC-Javaï¿½ for further details. 
 The first pass is to scan the action language, the result of this scan are than 
 loaded back into the generation database, the second pass then generates the 
 code from this database.
@@ -180,13 +180,13 @@ If the attr_is_eclipse_plugin is false, it generates a main function, hence
 acting as the main class for the program.
 
 - attr_threading_model
-The values that this can possibly have are “polling” or “one_shot”. This 
+The values that this can possibly have are ï¿½pollingï¿½ or ï¿½one_shotï¿½. This 
 variable effects the behavior of the application_root_class, by making it an 
 event based class or a one go class. 
 By making the application one_shot, the one_shot function of activePoller_c 
 class is to be called manually from application_root_class, and than after each 
 event is received one manually needs to add a call to one_shot function.
-The “polling” makes the activePoller_c to continue polling for event until the 
+The ï¿½pollingï¿½ makes the activePoller_c to continue polling for event until the 
 halt() is not called. Method start() of activePoller_c must be called to start 
 the polling thread.
 
@@ -206,7 +206,7 @@ IModelChangeListener.java
 IModelChangeProvider.java
 ModelDelta.java
 
-If this variable is true then every class of domain “extends” ModelElement and 
+If this variable is true then every class of domain ï¿½extendsï¿½ ModelElement and 
 implements IAdaptable and Cloneable.
 This variable is used in various decisions across the code generation. 
 
@@ -339,11 +339,11 @@ For Functions, Bridges and Class operations (also called Transformers) if this
 value is native then the output is the text written in action_semantics, else it
 parses the OAL in it and generate code accordingly.
 
-For an External entity if this value is “false” then MC-Java skips that External 
+For an External entity if this value is ï¿½falseï¿½ then MC-Java skips that External 
 Entity, else generates a class for each External Entity and parses the bridges 
 as well.
 
-For a subsystem if this value is “false” then MC-Java skips code generation for 
+For a subsystem if this value is ï¿½falseï¿½ then MC-Java skips code generation for 
 all the classes in the subsystem.
 
 3.	Data
@@ -352,7 +352,7 @@ the class. These variables can be added using this keyword. The variables are by
 default static and initialized to null.
 
 4.	PEI
-This has string values “true” to mention that this is PEI class. Hence exist 
+This has string values ï¿½trueï¿½ to mention that this is PEI class. Hence exist 
 only in Class Description.
 
 5.	Persistent
@@ -451,64 +451,3 @@ value.inc         : This archetype contains functions for each of
                     and place the resulting Java code into the
                     buffer attribute of the related V_VAL instance.
 
-$Log: README.TXT,v $
-Revision 1.11  2013/01/10 23:16:30  rmulvey
-job:dts0100939343
-Updated the copyright to 2013
-
-Revision 1.10  2012/01/23 21:24:37  kbrown
-job:dts0100848212
-Batch commit of copyright updated files.
-
-Revision 1.9  2011/05/30 20:22:53  kbrown
-job:dts0100742889
-Updated copy right.
-
-Revision 1.8  2010/01/05 03:17:01  kbrown
-job:dts0100644853
-Batch commit of copyright change from 2009 to 2010 for BP CVS projects.
-
-Revision 1.7  2009/01/01 23:17:03  rmulvey
-Job:4060
-Batch promotion of copyright changes from Review-i4060 and Review-i4060-01.
-
-Revision 1.6.50.1  2008/12/31 16:22:51  rmulvey
-Job:4060
-This is a batch commit of 2009 copyright changes to branch Review-i4060.  This includes the
-report that outlines all changes made (before/after for each line changed).  This report is found here: <cvs>/Documentation/internal/test_results/R2_1_2/i4060/update-copyright-results.txt.
-
-Revision 1.6  2008/01/08 20:24:49  rmulvey
-Job:3349
-Promoted from Review-i3349.  The copyright has been updated to 2008 and the version has been bumped to 1.5.4.
-
-Revision 1.5.20.1  2007/12/21 17:55:00  rmulvey
-Job:3339
-Checking-in the copyriight changes in branch Review-i3349.  A detailed list of these changes is found
-in the report produced by the utility used to changesthese messages.  This report is here:
-Documentation/internal/test_results/R1_5_4/i3349/update-copyright-results.txt
-
-Revision 1.5  2007/09/05 02:43:10  kbrown
-Job:2673
-Promoting copyright changes for projects:
-MC-Java
-MC-Java.test
-pt_antlr
-
-Revision 1.4.708.1  2007/09/01 01:36:23  rmulvey
-Job:2673
-Updated copyright messages and version numbers in Review-i2673-01.
-
-Revision 1.4  2004/07/21 18:08:19  greg
-Job: 331
-Changed arch_names to arch_utils
-
-Revision 1.3  2004/06/24 05:22:37  siddique
-Job:101
-Added information about coloring files. and parse keywords.
-
-Revision 1.2  2004/03/19 20:52:39  greg
-Job: 143
-Changed from binary to ASCII -kkv
-
-Revision 1.1  2003/01/22 20:18:17  campbell
-Finalized RCS Header

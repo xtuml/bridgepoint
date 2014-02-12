@@ -4,7 +4,7 @@
  * Class:       Test Sequences  (MO_TS)
  * Component:   MicrowaveOven
  *
- * (C) Copyright 1998-2013 Mentor Graphics Corporation.  All rights reserved.
+ * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
  *--------------------------------------------------------------------------*/
 
 #ifndef MICROWAVEOVEN_MO_TS_CLASS_H

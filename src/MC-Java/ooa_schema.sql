@@ -9,7 +9,7 @@
 -- Model Repository:  ooa_ooa_1_9.ooa
 --
 -- Notice:
--- (c) Copyright 2000-2013 Mentor Graphics Corporation  All rights reserved.
+-- (c) Copyright 2000-2014 Mentor Graphics Corporation  All rights reserved.
 --     All rights reserved.
 --
 --   !!! THIS IS AN AUTO-GENERATED FILE. PLEASE DO NOT EDIT. !!!

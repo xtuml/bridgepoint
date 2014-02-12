@@ -4,7 +4,7 @@
  * Class:       Magnetron Tube  (MO_MT)
  * Component:   MicrowaveOven
  *
- * (C) Copyright 1998-2013 Mentor Graphics Corporation.  All rights reserved.
+ * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
  *--------------------------------------------------------------------------*/
 
 #include "MicrowaveOven_sys_types.h"

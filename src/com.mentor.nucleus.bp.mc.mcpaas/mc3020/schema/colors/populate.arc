@@ -6,7 +6,7 @@
 .// for each object tagged as a static population.
 .//
 .// Notice:
-.// (C) Copyright 1999-2013 Mentor Graphics Corporation
+.// (C) Copyright 1999-2014 Mentor Graphics Corporation
 .//     All rights reserved.
 .//
 .//============================================================================

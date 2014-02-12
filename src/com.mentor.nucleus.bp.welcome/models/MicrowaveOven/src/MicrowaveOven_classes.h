@@ -4,7 +4,7 @@
  * This file defines the object type identification numbers for all classes
  * in the component:  MicrowaveOven
  *
- * (C) Copyright 1998-2013 Mentor Graphics Corporation.  All rights reserved.
+ * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
  *--------------------------------------------------------------------------*/
 
 #ifndef MICROWAVEOVEN_CLASSES_H

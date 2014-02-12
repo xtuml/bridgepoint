@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2008-2013 Mentor Graphics Corporation. All rights reserved.
+# Copyright 2008-2014 Mentor Graphics Corporation. All rights reserved.
 #
 #
 # DESCRIPTION:                                                          
@@ -27,7 +27,7 @@
 #
 
 echo Starting post-install script
-BPVER=4.1.1
+BPVER=4.1.6
 
 #===============================================================================
 # UTILITY FUNCTIONS

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint CDT Integration
 Bundle-SymbolicName: com.mentor.nucleus.bp.cdt;singleton:=true
-Bundle-Version: 4.1.1
+Bundle-Version: 4.1.6
 Bundle-Activator: com.mentor.nucleus.bp.cdt.Activator
 Bundle-Vendor: Mentor Graphics
 Require-Bundle: org.eclipse.ui,
@@ -13,6 +13,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.cdt.core,
  com.mentor.nucleus.bp.core,
  com.mentor.nucleus.bp.mc.xmiexport,
+ com.mentor.nucleus.bp.utilities,
  org.eclipse.cdt.managedbuilder.core,
  org.eclipse.cdt.make.ui,
  org.eclipse.cdt.managedbuilder.ui,
