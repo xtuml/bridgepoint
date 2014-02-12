@@ -13,10 +13,6 @@ Our development process requires that each file produced during a process artifa
 shall have a header/footer based on its type.  This document defines the 
 header/footer for each file type.
 
-Standard Headers & Footers
---------------------------
-The headers (and footers) added to a file depend on the file type. 
-
 
 Hand-written Java Files
 -----------------------
@@ -79,7 +75,7 @@ This comment should be embedded in the archetype file that generates the given f
 
 Archetype Files
 ---------------
-Archetype files can have the extensions .arc, .inc, and .clr. All of these files should have the following header:
+Archetype files can have the extensions .arc, .inc, .mark, and .clr. All of these files should have the following header:
 ```
 .//=======================================================================
 .//
@@ -134,7 +130,6 @@ the License.
 SQL Files
 -------------
 The .sql files have the following header:
-  Header:
 ```
 --========================================================================
 --
