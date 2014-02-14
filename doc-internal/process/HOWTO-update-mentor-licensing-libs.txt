@@ -1,30 +1,36 @@
 HOWTO Update to a New Version of Mentor Licensing (PCLS/MGLS)
 -------------------------------------------------------------
-_- Log into the build server
+_- Log into the server svr-azt-eng-03
+_- Create a desktop folder named "license", with subdirs "win" and "linux"
 _- Open Firefox
-_- Go on DevNet to the Reusable Assets > Licensing section
-_- Locate the release you want to update to
-_- Create a desktop folder license, with subdirs win and linux
+
+_- Go to http://mentorweb.wv.mentorg.com/licenseDefinitions/build/build!currentFile
 _- Download the Windows and Unix mgc.pkginfo files to the appropriate desktop
     dirs just created
-_- Download the Windows PCLS and RHEL4 MGLS license runtime files to the 
-    appropriate desktop dir
+    
+_- Go on DevNet to the Reusable Assets > Licensing section : http://devnet.mentorg.com/assets/licensing/
+_- Download the Windows PCLS (32-bit/ixn) and RHEL (32-bit/ixl) MGLS license 
+    runtime files to the appropriate desktop folder
 _- Extract the downloaded runtime files for each OS
-_- Copy the **Windows** version of mgc.pkginfo to 
-    C:\BridgePoint_for_Linux_e3.7\BridgePointDeliverables\extras\wine_addons
+
+_- Open BridgePoint on the workspace c:/workspaces/build_artifacts
+_- Copy the **Windows** version of mgc.pkginfo to the eclipse project location: 
+    BridgePoint_for_Linux_e3.7\BridgePointDeliverables\extras\wine_addons
       NOTE: Generator is currently tied the an old version of MGLS.dll, one that
       was built with VC6 as generator is.  It cannot be upgraded to a newer
       MGLS.dll without updating the generator build, which we've found to be 
       very difficult and have given up on several times.
-_- Start BridgePoint, open workspace C:\workspaces\mgls_update
-_- Check out the HEAD versions of the plugins:
-    com.mentor.nucleus.bp.core.linux.x86
-    com.mentor.nucleus.bp.core.win32.x86
+_- Commit the updated file
+_- Close BridgePoint
+      
+_- Open BridgePoint on the workspace c:/workspaces/mgls_update
+_- Switch to Git Repository Exploring perspective and Pull to get the latest master data
+_- Switch to the Java perspective
 _- Update the linux mgls files
-  _- Open <desktop>/license/linux/exports<version>-ixf\mgc_home\pkgs\mgls.ixf in
+  _- Open <desktop>/license/linux/exports<version>-ixl\mgc_home\pkgs\mgls.ixl in
       Windows explorer
   _- Copy the bin/, etc/, and lib/ folders
-  _- Paste the folders into eclipse to 
+  _- Paste the folders into the project inside BridgePoint at: 
       com.mentor.nucleus.bp.core.linux.x86\os\linux\x86\, overwrite the existing
       files
   _- Copy the **Linux** version of mgc.pkginfo to 
@@ -33,13 +39,26 @@ _- Update the linux mgls files
 _- Update the Windows pcls files
   _- Open <desktop>/license/win/mgls.ixn/lib in Windows explorer
   _- Copy the MGCLD.EXE and MGLS.DLL files
-  _- Paste the file into eclipse to 
+  _- Paste the files into the project inside BridgePoint at: 
       com.mentor.nucleus.bp.core.win32.x86\os\win32\x86\lib\, overwrite the 
       existing file
   _- Copy the **Windows** version of mgc.pkginfo to 
       com.mentor.nucleus.bp.core.win32.x86\os\win32\x86\lib, overwrite the 
       existing file
-_- Commit the files to HEAD
+_- Commit the files to master
+
+_- Update the Java Licensing Component (JLC)
+  -- NOTE: the JLC can be downloaded here: http://devnet.mentorg.com/assets/licensing/
+     We only use the 32-bit Windows and Unix versions.
+  _- Put a new JLC jar in com.mentor.nucleus.bp.core
+    - TODO - This needs more detail
+    - Download the 32-bit Windows runtime version zipfile
+    - Using the existing bp.core/jlc_<ver>.jar as a guide, create a new jar with
+      the class files from the 32-bit Windows runtime that was just downloaded.
+  _- Search the bp.core plugin for "jlc"
+  _- Update the references to the new jar file
+_- Commit the files to master
+
 _- Navigate to \\wv\dfs\seamless_archives\templates
   _- Verify there exists a license documentation dir (e.g. mgc_lic_v2011_1) for
      the version of licensing you're upgrading to.  If one does not exist,
@@ -50,9 +69,4 @@ _- Edit <BP CVS>/Documentation/internal/process/releases/scripts/mk_cds_rdme_mrc
 _- Edit <BP CVS>/Documentation/internal/process/releases/scripts/create_xml_BridgePoint
    to use the new version numbers in the xml files created for the new license docs
 _- Upload the updated scripts to \\wv\dfs\seamless_archives\bin
-_- Update the Java Licensing Component (JLC)
-  -- NOTE: the JLC can be downloaded here: http://devnet.mentorg.com/assets/licensing/lsjava/windows_release.html
-     We only use the Windows version.
-  _- Put a new JLC jar in com.mentor.nucleus.bp.core
-  _- Search the bp.core plugin for "jlc"
-  _- Update the references to the new jar file
+
