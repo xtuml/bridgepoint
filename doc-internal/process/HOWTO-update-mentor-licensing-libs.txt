@@ -22,8 +22,12 @@ _- Copy the **Windows** version of mgc.pkginfo to the eclipse project location:
       very difficult and have given up on several times.
 _- Commit the updated file
 _- Close BridgePoint
-      
-_- Open BridgePoint on the workspace c:/workspaces/mgls_update
+   
+NOTE:  The following steps involve committing files to git repositories, which is
+  hard to do on our shared server.  It is recommended that the following steps be
+  performed on a user's development machine.
+     
+_- Open BridgePoint on the development workspace
 _- Switch to Git Repository Exploring perspective and Pull to get the latest master data
 _- Switch to the Java perspective
 _- Update the linux mgls files
