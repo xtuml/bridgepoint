@@ -88,7 +88,7 @@ else
 	  pathMsg = body.getPath();
 	end if;
 	USER::logError(msg:"External Entity: " + ee.Name
-						    + " is not configured as realized and the bridge: "
+						    + " is modeled and the bridge: "
             + brg.Name + " has no OAL to execute.  Skipping bridge invocation.",
 						path:pathMsg);
     for each arg in args

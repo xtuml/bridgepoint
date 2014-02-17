@@ -2890,6 +2890,23 @@ Translate:native',
 			IScopeContext projectScope = new ProjectScope(selectedProject);
 			Preferences projectNode = projectScope
 					.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+			// handle defaults for parse preferences
+			if (p_Name
+					.equals(BridgePointProjectActionLanguagePreferences.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE)
+					|| p_Name
+							.equals(BridgePointProjectActionLanguagePreferences.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED)) {
+				// we need to consider the workspace preference if a project preference
+				// has not been set
+				boolean workspacePreference = CorePlugin.getDefault()
+						.getPreferenceStore().getBoolean(p_Name);
+				// use the workspace preference as the default
+				return projectNode.getBoolean(p_Name, workspacePreference);
+			}
+			// handle defaults for emit RTO data
+			if (p_Name
+					.equals(BridgePointProjectReferencesPreferences.BP_PROJECT_EMITRTODATA_ID)) {
+				return projectNode.getBoolean(p_Name, true);
+			}
 			return projectNode.getBoolean(p_Name, false);
 		}
 		return false;

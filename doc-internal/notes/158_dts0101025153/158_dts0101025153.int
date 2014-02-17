@@ -23,14 +23,17 @@ statement.
 When realized elements were introduced we did not consider what the parser does
 with elements that require a return value.  Currently when doing a parse all,
 all elements that require a return value and do not have one will have an error
-created.  Users would like to suppress these errors as they do not intend to
-write OAL in the action body.  Additionally, execution and code generation for
-these elements is valid even without the return statement in OAL.
+created.  Users would like to suppress these errors for realized elements as
+they do not intend to write OAL in the action body.  Additionally, execution and
+code generation for these elements is valid even without the return statement in
+OAL.
 
 4. Requirements
 ---------------
 4.1 An option shall be available to prevent parse errors when an element
 requires a return value and is realized.
+4.2 An option shall be available to prevent parse errors when an element
+requires a return value and is not realized.
 
 5. Work Required
 ----------------
@@ -58,6 +61,11 @@ The defaults for these two preferences shall be:
 modeled elements (parent preference) : enabled
 realized elements (child preference) : disabled
 
+The preferences shall be added in two locations, one at the workspace level and
+one at the project level.  The project level preferences shall override the
+workspace preferences.  This will allow organizations to specify their own
+defaults.
+
 The current project preference classes are refactored to include a supertype
 class that can be extended by client classes.  Two new classes are added to
 support the action language preferences as a new entry in the main preference
@@ -65,6 +73,12 @@ page.  Code from the BridgePointProjectPreferences class is refactored out into
 a new class to support the IPR preferences.  This change propagates many changes
 throughout the tool, mostly in test classes.  The change is to point at the new
 preference class.
+
+Matching workspace preferences are also added.  These provide the default
+preference settings and are overridden when the project preference have been
+configured.  To provide the proper default the Pref external entity is modified
+to pass the workspace preference setting as the default when accessing the
+project preferences.
 
 5.1.2 Action_end
 
@@ -76,7 +90,8 @@ parse error will be created in the following situations:
 - Preference is enabled for a modeled element, where that element is not
   realized
 - Preference is enabled for realized elements and the element is realized
-- Any text exists in the buffer being parsed
+- Any text exists in the buffer being parsed and that OAL does not contain a
+  return value
 
 5.1.3 Parser support changes
 
@@ -124,10 +139,16 @@ isRealized attribute.
 
 5.2.1 Upgrade of example models and built-in EEs
 
-The example models, GPS Watch and MicrowaveOven, are upgraded such that all of
-the External Entities have the isRealized attribute set to true.  The built-in
-External Entity model is also upgraded in the same manner.
- 
+The example models, GPS Watch, MicrowaveOven, and TemplateProject are upgraded
+such that all of the External Entities have the isRealized attribute set to
+true.  The built-in External Entity model is also upgraded in the same manner.
+
+5.2.2 GPS Watch hybrid EE
+
+The GPS Watch example contained an EE that had both realized and modeled
+bridges.  This is no longer supported at the same time during execution.  The
+bridges that start with send* are converted to functions.
+
 5.2.2 Update schemas
 
 The MC-Java schema is updated to account for the new attribute on the External
@@ -143,7 +164,7 @@ While testing the 5.1.5 change it was noted that one of our resource listeners
 was picking up the marker deletion changes and trying to update the place holder
 files.  Since our code is handling the modification to the marker we do not need
 to respond to the change.  A new attribute is added that disables responding to
-a resource change listening when set to true.  This attribute is added to
+a resource change listener when set to true.  This attribute is added to
 AbstractModelElementListener.java.  In ActivityAnnotationModel.java,
 ActivityProblem.java, and PlaceHolderManager.java this flag is set to true when
 the markers are going to be modified.
@@ -169,7 +190,7 @@ _R 4 parse errors are created
 _- Set both preferences to checked
 _- Run a parse all
 _R 5 parse errors are created
-_- Set both preference to unchecked
+_- Set both preferences to unchecked
 _R The 5 parse errors are removed
 _- Move all elements into a component
 _- Set the component attribute isRealized to true
@@ -183,7 +204,7 @@ _R One parse error is created
 _- Set the preferences to checked
 _- Run a parse all
 _R 5 parse errors are created
-_- Set the preference to unchecked
+_- Set the preferences to unchecked
 _R All parse errors are removed
 
 7.2 Example models and built-in EEs

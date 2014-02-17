@@ -229,7 +229,7 @@ INSERT INTO SM_ACT
 	VALUES ("ea1d936e-7137-4b43-8326-537a93bfae9b",
 	"11acae23-f326-4952-94e9-966c846ec489",
 	1,
-	'// the GPS is a singleton, create if it doesn�ｽ�ｽ�ｽ�ｽt exist
+	'// the GPS is a singleton, create if it doesn''t exist
 select any gps from instances of GPS;
 if (empty gps)
   create object instance gps of GPS;

@@ -701,8 +701,19 @@ public class CorePlugin extends AbstractUIPlugin {
 					if((delta.getFlags() & IResourceDelta.MOVED_FROM) != IResourceDelta.MOVED_FROM) {
 						for(IPreferenceChangeListener listener : projectPreferenceListeners) {
 							addProjectPreferenceListenerToProject((IProject) resource, listener);
+							return false;
 						}
 					}
+				}
+                if ((delta.getFlags() & IResourceDelta.OPEN) != 0) {
+					// this covers the case where a project was opened
+                	IProject project = (IProject) resource;
+                	if(project.isOpen()) {
+						for(IPreferenceChangeListener listener : projectPreferenceListeners) {
+							addProjectPreferenceListenerToProject((IProject) resource, listener);
+							return false;
+						}
+                	}
 				}
 			} else {
 				return true;
@@ -713,7 +724,8 @@ public class CorePlugin extends AbstractUIPlugin {
 		@Override
 		public void resourceChanged(IResourceChangeEvent event) {
 			if (event.getDelta() == null) {
-				if (event.getType() == IResourceChangeEvent.PRE_DELETE) {
+				if (event.getType() == IResourceChangeEvent.PRE_DELETE
+						|| event.getType() == IResourceChangeEvent.PRE_CLOSE) {
 					if (event.getResource() != null
 							&& event.getResource() instanceof IProject) {
 						for (IPreferenceChangeListener listener : projectPreferenceListeners) {
@@ -723,6 +735,9 @@ public class CorePlugin extends AbstractUIPlugin {
 						}
 					}
 				}
+				// if there is no delta and it is not a pre-delete
+				// event, then just ignore
+				return;
 			}
 			try {
 				event.getDelta().accept(this);

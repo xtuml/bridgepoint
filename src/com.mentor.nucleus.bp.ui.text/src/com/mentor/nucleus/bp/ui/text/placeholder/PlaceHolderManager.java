@@ -735,7 +735,7 @@ public class PlaceHolderManager {
 			}
 			Component_c component = (Component_c) element.getModelRoot()
 					.getInstanceList(Component_c.class).get(componentId);
-			if (component.getIsrealized()) {
+			if (component != null && component.getIsrealized()) {
 				return true;
 			}
 			// otherwise it can be realized if a bridge with an EE

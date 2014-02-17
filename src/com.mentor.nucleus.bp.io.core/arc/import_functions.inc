@@ -190,7 +190,7 @@
     .end if
     .if(table.Key_Lett == "S_EE")
       boolean addToUpgradeList = false;
-      if(parms.size() < ${no_of_cols}) {
+      if(parms.size() == 7 && ${no_of_cols} == 8) {
         addToUpgradeList = true;
       }
       parms.setSize(${no_of_cols});
