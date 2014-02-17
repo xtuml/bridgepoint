@@ -5,7 +5,7 @@
  Version:   $Revision: 1.35 $
  Modified:  $Date: 2013/05/10 05:36:06 $
 
- (c) Copyright 2004-2013 by Mentor Graphics Corp.  All rights reserved.
+ (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
 
 -->
 <project name="bp.ui.properties.test" default="all" basedir=".">

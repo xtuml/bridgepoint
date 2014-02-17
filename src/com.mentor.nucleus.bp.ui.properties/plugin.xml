@@ -6,13 +6,13 @@
  Version:   $Revision: 1.83 $
  Modified:  $Date: 2013/06/24 14:48:25 $
 
- (c) Copyright 2006-2013 by Mentor Graphics Corp.  All rights reserved.
+ (c) Copyright 2006-2014 by Mentor Graphics Corp.  All rights reserved.
 
 -->
 <plugin
    id="com.mentor.nucleus.bp.ui.properties"
    name="BridgePoint Properties Plug-in"
-   version="4.1.1"
+   version="4.1.6"
    provider-name="Mentor Graphics">
 
    <runtime>

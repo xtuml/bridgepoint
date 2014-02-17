@@ -5,11 +5,20 @@ INSERT INTO S_DOM
 	'ooaofooa',
 	'========================================================================
 
-(c) Copyright 2004-2013 by Mentor Graphics Corp. All rights reserved.
+(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
 
 ========================================================================
-This document contains information proprietary and confidential to
-Mentor Graphics Corp. and is not for external distribution.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+use this file except in compliance with the License.  You may obtain a copy 
+of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+License for the specific language governing permissions and limitations under
+the License.
 ========================================================================
 
 This is the application domain for the Tiger project.
@@ -34011,11 +34020,20 @@ INSERT INTO S_EE
 	'Parse Error Reporting',
 	'========================================================================
 
-(c) Copyright 2004-2013 Mentor Graphics Corporation All rights reserved.
+(c) Copyright 2004-2014 Mentor Graphics Corporation All rights reserved.
 
 ========================================================================
-This document contains information proprietary and confidential to
-Project Technology, Inc. and is not for external distribution.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
 ========================================================================
 
 This external entity contains bridges that notify the user of parse errors that have occurred.
@@ -34055,11 +34073,20 @@ INSERT INTO S_EE
 	'Operating System',
 	'========================================================================
 
-(c) Copyright 2004-2013 Mentor Graphics Corporation All rights reserved.
+(c) Copyright 2004-2014 Mentor Graphics Corporation All rights reserved.
 
 ========================================================================
-This document contains information proprietary and confidential to
-Project Technology, Inc. and is not for external distribution.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
 ========================================================================
 
 This external entity provides utility operations that are typically supplied
@@ -35802,7 +35829,7 @@ Bridge:GD',
 	1,
 	'result = "";
 if (param.at == Justification::Center_in_X)
-  result = "«Subsystem»";
+  result = "ï¿½Subsystemï¿½";
 elif (param.at == Justification::Center)
   result = self.Name;
   select many objs related by self->O_OBJ[R2];
@@ -36191,7 +36218,7 @@ Bridge:GD',
 	1,
 	'result = "";
 if (param.at == Justification::Center_in_X)
-  result = "«External Entity»";
+  result = "ï¿½External Entityï¿½";
 elif (param.at == Justification::Center)
   result = self.Name;
   if (self.Key_Lett != "")
@@ -61643,7 +61670,7 @@ if (not_empty cl)
   if (param.comp_num == 1)
     if (param.ent_num == 1)
       if (param.at == Justification::Center_in_X)
-        return "«Imported»" + GD::newline() +
+        return "ï¿½Importedï¿½" + GD::newline() +
                   cl.get_compartment_text(comp_num:param.comp_num,
                                                            ent_num:param.ent_num,
                                                            at:param.at);
@@ -61658,7 +61685,7 @@ else
   if (param.comp_num == 1)
     if (param.ent_num == 1)
       if (param.at == Justification::Center_in_X)
-        return "«Imported»" + GD::newline() + "Unassigned";
+        return "ï¿½Importedï¿½" + GD::newline() + "Unassigned";
       end if;
     end if;
   end if;

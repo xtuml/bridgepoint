@@ -5,7 +5,7 @@
  *  Data stuctures an methods associated with the even base class of this
  * model compiler.
  *
- * (C) Copyright 1998-2013 Mentor Graphics Corporation.  All rights reserved.
+ * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
  *--------------------------------------------------------------------------*/
 
 #ifndef ESCHER_SYS_EVENTS_H

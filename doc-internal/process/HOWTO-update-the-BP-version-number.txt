@@ -2,11 +2,11 @@
 
 File:      HOWTO-update-the-BP-version-number.txt
 
-(c) Copyright 2007-2013 by Mentor Graphics Corp. All rights reserved.
+Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
 
 ========================================================================
 This document contains information proprietary and confidential to
-Mentor Graphics Corp., and is not for external distribution.
+Mentor Graphics Corp. and is not for external distribution.
 ========================================================================
 
 BridgePoint Technical Note

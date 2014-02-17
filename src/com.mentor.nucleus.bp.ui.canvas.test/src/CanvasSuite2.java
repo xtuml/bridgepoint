@@ -5,11 +5,20 @@
 //Version:   $Revision: 1.3 $
 //Modified:  $Date: 2013/05/10 05:47:48 $
 //
-//(c) Copyright 2007-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //=====================================================================
-//This document contains information proprietary and confidential to
-//Mentor Graphics Corp. and is not for external distribution.
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+// use this file except in compliance with the License.  You may obtain a copy 
+// of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+// License for the specific language governing permissions and limitations under
+// the License.
 //=====================================================================
 
 
@@ -23,6 +32,7 @@ import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.util.WorkspaceUtil;
 import com.mentor.nucleus.bp.ui.canvas.test.AutoReconciliationTests;
+import com.mentor.nucleus.bp.ui.canvas.test.AutomaticCreationTests;
 import com.mentor.nucleus.bp.ui.canvas.test.CanvasTestSuite2;
 import com.mentor.nucleus.bp.ui.canvas.test.ClassToStateDiagramNavigationTest;
 import com.mentor.nucleus.bp.ui.canvas.test.ConnectorPolicyTests;
@@ -79,6 +89,7 @@ public class CanvasSuite2 extends TestSuite {
         addTest(new TestSuite(TestReflexiveConnectorCreation.class));
         addTest(new TestSuite(RectilinearRoutingTests_0.class));
         addTest(new TestSuite(GraphicalToolCreationTests.class));
+        addTest(new TestSuite(AutomaticCreationTests.class));
 	}
 
 }

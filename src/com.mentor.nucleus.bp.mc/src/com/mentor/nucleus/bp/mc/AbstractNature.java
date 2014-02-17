@@ -4,19 +4,17 @@
 //Version:   $Revision: 1.13 $
 //Modified:  $Date: 2013/06/12 13:07:58 $
 //
-//(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
 //This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+//Mentor Graphics Corp. and is not for external distribution.
 //========================================================================
 package com.mentor.nucleus.bp.mc;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -27,12 +25,6 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 import org.eclipse.cdt.core.CCorePlugin;
 import org.eclipse.cdt.core.settings.model.CSourceEntry;
@@ -46,37 +38,25 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspaceRunnable;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.variables.VariablesPlugin;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.utilities.build.BuilderManagement;
+
 
 /**
  * implementation of a nature that customizes a project by adding the nature to
  * the project description.
  */
 public abstract class AbstractNature implements IProjectNature {
-	public static final String EDGE_NATURE_ID = "com.mentor.nucleus.builder.MultiCoreNature"; //$NON-NLS-1$
-
-	/** id of builder - matches plugin.xml (concatenate pluginid.builderid) */
-	public static final String CUST_BUILDER_ID = "org.eclipse.ui.externaltools.ExternalToolBuilder"; //$NON-NLS-1$
-	public static final String EDGE_BUILDER_ID = "com.mentor.nucleus.builder.CodeLabBuilder"; //$NON-NLS-1$
-	public static final String CDT_BUILDER_ID = "org.eclipse.cdt.managedbuilder.core.genmakebuilder"; //$NON-NLS-1$
-	public static final String CDT_SCANNER_BUILDER_ID = "org.eclipse.cdt.managedbuilder.core.ScannerConfigBuilder"; //$NON-NLS-1$
-
 	/** ID of BridgePoint Model Compilers **/
 	public static final String C_SOURCE_MC_ID = "com.mentor.nucleus.bp.mc.c.source";
 	public static final String C_BINARY_MC_ID = "com.mentor.nucleus.bp.mc.c.binary";
@@ -88,12 +68,7 @@ public abstract class AbstractNature implements IProjectNature {
 
 	public static final String EXTERNALTOOLBUILDER_FOLDER = ".externalToolBuilders"; //$NON-NLS-1$
 
-	public static final String EDGE_CODEBUILDER_LAUNCH_ID = "com.mentor.nucleus.builder.CodeLabBuilder.launch"; //$NON-NLS-1$
-
 	public static final String MANIFEST_FILE_NAME = "default-manifest.xml"; //$NON-NLS-1$
-
-	public static final String EDGE_PROJECT_FILE_NAME = ".xpj"; //$NON-NLS-1$
-	public static final String EDGE_BUILD_FOLDER_NAME = "Configuration 0"; //$NON-NLS-1$
 
 	public static String MC_ROOT_DIR_ENV_VAR_REF = "mc3020"; //$NON-NLS-1$
 	private static boolean has_set_mc_root_dir = false;
@@ -109,13 +84,6 @@ public abstract class AbstractNature implements IProjectNature {
 	// present
 	public static final String VHDL_Archetype = "t.sys_main.vhd"; //$NON-NLS-1$
 
-	private static int REPLACE = 0;
-	private static int PREPEND = 1;
-	private static int APPEND = 2;
-
-	private static String XML_KEY = "key"; //$NON-NLS-1$
-	private static String XML_VALUE = "value"; //$NON-NLS-1$
-	private static String ENV_ATTR_NAME = "org.eclipse.debug.core.environmentVariables"; //$NON-NLS-1$
 	public static String LAUNCH_ATTR_TOOL_LOCATION = "org.eclipse.ui.externaltools.ATTR_LOCATION"; //$NON-NLS-1$
     public static String LAUNCH_ATTR_TOOL_ARGS = "org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS"; //$NON-NLS-1$
 
@@ -151,38 +119,6 @@ public abstract class AbstractNature implements IProjectNature {
 					+ "\" for project " + project.getName(), e);
 		}
 		return ret_val;
-	}
-
-	/**
-	 * @return 0-based position of the found builder in the array returned by
-	 *         IProjectDescription.getBuildSpec(). -1 if not found.
-	 */
-	public static int hasBuilder(IProject project, String name) throws CoreException {
-		int position = -1;
-
-		if (project.isOpen()) {
-			// Get project description and then the associated build commands
-			IProjectDescription desc = project.getDescription();
-			ICommand[] commands = desc.getBuildSpec();
-
-			for (int i = 0; i < commands.length; ++i) {
-				// Check for builder in enabled state
-				if (commands[i].getBuilderName().equals(name)) {
-					position = i;
-					break;
-				}
-				// Check for builder in disabled state
-				Map<?, ?> args = commands[i].getArguments();
-				if (args != null) {
-					String value = (String) args.get("LaunchConfigHandle");
-					if (value != null && value.contains(name)) {
-						position = i;
-						break;
-					}
-				}
-			}
-		}
-		return position;
 	}
 
 	public boolean addNature(IProject project, final String natureId) {
@@ -374,7 +310,7 @@ public abstract class AbstractNature implements IProjectNature {
 		boolean custBuilderFound = false;
 
 		for (int i = 0; i < commands.length; ++i) {
-			if (commands[i].getBuilderName().equals(CUST_BUILDER_ID)) {
+			if (commands[i].getBuilderName().equals(BuilderManagement.CUST_BUILDER_ID)) {
 				custBuilderFound = true;
 				break;
 			}
@@ -385,7 +321,7 @@ public abstract class AbstractNature implements IProjectNature {
 		if (!custBuilderFound) {
 
 			ICommand custCommand = desc.newCommand();
-			custCommand.setBuilderName(CUST_BUILDER_ID);
+			custCommand.setBuilderName(BuilderManagement.CUST_BUILDER_ID);
 			// Create map with arguments specific to builder in project here
 			// custCommand.setArguments(Map args);
 			final Map<String, String> buildsetting;
@@ -408,7 +344,7 @@ public abstract class AbstractNature implements IProjectNature {
 		}
 
 		// Determine if MC-3020 pre-gen (export) builder already associated
-		if (hasBuilder(project, builderID) == -1) {
+		if (BuilderManagement.hasBuilder(project, builderID) == -1) {
 			commands = desc.getBuildSpec();
 
 			// add builder to project
@@ -421,59 +357,6 @@ public abstract class AbstractNature implements IProjectNature {
 			newCommands[0] = command;
 			desc.setBuildSpec(newCommands);
 			project.setDescription(desc, null);
-		}
-	}
-
-	public int removeBuilder(IProject project, final String builderId) {
-		int position = -1;
-		try {
-			position = hasBuilder(project, builderId);
-			if (position != -1) {
-				IProjectDescription description = project.getDescription();
-				ICommand[] commands = description.getBuildSpec();
-				ICommand[] newCommands = new ICommand[commands.length - 1];
-				int curIndex = 0;
-				int newIndex = 0;
-				for (; curIndex < commands.length; ++curIndex) {
-					if (curIndex != position) {
-						newCommands[newIndex] = commands[curIndex];
-						newIndex++;
-					}
-				}
-				description.setBuildSpec(newCommands);
-				project.setDescription(description, null);
-			}
-		} catch (CoreException e) {
-			abstractActivator.logError("Error removing the builder \"" + builderId
-					+ "\" from the " + project.getName() + " project.", e);
-		}
-		return position;
-	}
-
-	public static void makeBuilderLast(IProject project, final String builderId) {
-		int position = -1;
-		try {
-			position = hasBuilder(project, builderId);
-			if (position != -1) {
-				IProjectDescription description = project.getDescription();
-				ICommand[] commands = description.getBuildSpec();
-				ICommand[] newCommands = new ICommand[commands.length];
-				int curIndex = 0;
-				int newIndex = 0;
-				for (; curIndex < commands.length; ++curIndex) {
-					if (curIndex != position) {
-						newCommands[newIndex] = commands[curIndex];
-						newIndex++;
-					}
-				}
-				newCommands[newIndex] = commands[position];
-				description.setBuildSpec(newCommands);
-				project.setDescription(description, null);
-			}
-		} catch (CoreException e) {
-			CorePlugin.logError("Error moving the builder \"" + builderId
-					+ "\" to be last for the " + project.getName()
-					+ " project.", e);
 		}
 	}
 
@@ -569,157 +452,6 @@ public abstract class AbstractNature implements IProjectNature {
 		return new String[0];
 	}
 
-	public String replaceBuilderInfo(String tgtFilePath, String attr,
-			String data) {
-		return updateBuilder(tgtFilePath, attr, data, REPLACE);
-	}
-
-	public String prependBuilderInfo(String tgtFilePath, String attr,
-			String data) {
-		return updateBuilder(tgtFilePath, attr, data, PREPEND);
-	}
-
-	public String appendBuilderInfo(String tgtFilePath, String attr, String data) {
-		return updateBuilder(tgtFilePath, attr, data, APPEND);
-	}
-
-	private String rVal = "";
-	
-	public String updateBuilder(final String tgtFilePath, final String attr, final String data,
-			final int action) {
-		try {
-			ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
-				
-				@Override
-				public void run(IProgressMonitor monitor) throws CoreException {
-					rVal = data;
-					boolean saveFile = false;
-					boolean foundAsStringAttr = false;
-					try {
-						FileInputStream file = new FileInputStream(tgtFilePath);
-						DocumentBuilder parser = DocumentBuilderFactory.newInstance()
-								.newDocumentBuilder();
-						Document document = parser.parse(file);
-
-						file.close();
-
-						document.getDocumentElement().normalize();
-
-						// Make sure the launch config contains the environment variables
-						// map
-						boolean containsEnvMap = false;
-						NodeList nodes = document.getElementsByTagName("mapAttribute"); //$NON-NLS-1$
-
-						for (int s = 0; s < nodes.getLength(); s++) {
-							Node firstNode = nodes.item(s);
-							if (firstNode.getNodeType() == Node.ELEMENT_NODE) {
-								Element firstNodeElement = (Element) firstNode;
-								String key = firstNodeElement.getAttribute(XML_KEY);
-								if (key.equals(ENV_ATTR_NAME)) {
-									containsEnvMap = true;
-								}
-							}
-						}
-
-						// If the launch config doesn't contain the environment vars map,
-						// add it
-						if (!containsEnvMap) {
-							Node launchConfig = document.getFirstChild();
-							Element envMap = document.createElement("mapAttribute");
-							envMap.setAttribute(XML_KEY, ENV_ATTR_NAME);
-							Element mapEntry = document.createElement("mapEntry");
-							mapEntry.setAttribute(XML_VALUE, "Console");
-							envMap.appendChild(mapEntry);
-							launchConfig.appendChild(envMap);
-						}
-
-						// Set the attribute if it is a stringAttribute
-						nodes = document.getElementsByTagName("stringAttribute"); //$NON-NLS-1$
-
-						for (int s = 0; s < nodes.getLength(); s++) {
-							Node firstNode = nodes.item(s);
-							if (firstNode.getNodeType() == Node.ELEMENT_NODE) {
-
-								Element firstNodeElement = (Element) firstNode;
-								String key = firstNodeElement.getAttribute(XML_KEY);
-								if (key.equals(attr)) {
-									String value = firstNodeElement.getAttribute(XML_VALUE);
-									foundAsStringAttr = true;
-									if (!value.equals(data)) {
-										if (action == PREPEND) {
-											rVal = data + value;
-										} else if (action == APPEND) {
-											rVal = value + data;
-										} else {
-											rVal = data;
-										}
-										firstNodeElement.setAttribute(XML_VALUE, rVal);
-										saveFile = true;
-									}
-								}
-							}
-						}
-
-						// Otherwise possibly set the attribute as a mapEntry
-						if (!foundAsStringAttr) {
-							nodes = document.getElementsByTagName("mapEntry"); //$NON-NLS-1$
-
-							for (int s = 0; s < nodes.getLength(); s++) {
-								Node firstNode = nodes.item(s);
-								if (firstNode.getNodeType() == Node.ELEMENT_NODE) {
-
-									Element firstNodeElement = (Element) firstNode;
-									String key = firstNodeElement.getAttribute(XML_KEY);
-									if (key.equals(attr)) {
-										String value = firstNodeElement
-												.getAttribute(XML_VALUE);
-										foundAsStringAttr = true;
-										if (!value.equals(data)) {
-											if (action == PREPEND) {
-												rVal = data + value;
-											} else if (action == APPEND) {
-												rVal = value + data;
-											} else {
-												rVal = data;
-											}
-											firstNodeElement.setAttribute(XML_VALUE, rVal);
-											saveFile = true;
-										}
-									}
-								}
-							}
-						}
-
-						if (saveFile) {
-							TransformerFactory tFactory = TransformerFactory.newInstance();
-
-							Transformer transformer = tFactory.newTransformer();
-							ByteArrayOutputStream stream = new ByteArrayOutputStream();
-							DOMSource source = new DOMSource(document);
-							StreamResult result = new StreamResult(stream);
-							transformer.transform(source, result);
-
-							// Save the document
-							FileOutputStream fileOut = new FileOutputStream(tgtFilePath);
-							fileOut.write(stream.toByteArray());
-							fileOut.close();
-						}
-
-					} catch (TransformerConfigurationException e) {
-					} catch (TransformerException e) {
-					} catch (FileNotFoundException e) {
-					} catch (ParserConfigurationException e) {
-					} catch (SAXException e) {
-					} catch (IOException e) {
-					}					
-				}
-			}, new NullProgressMonitor());
-		} catch (CoreException e) {
-			CorePlugin.logError("Unable to update builder.", e);
-		}
-		return rVal;
-	}
-
 	/*
 	 * Sets "src" folder as source folder. All other folders including "gen"
 	 * won't be considered as source folder so CDT won't attempt to build the
@@ -777,9 +509,9 @@ public abstract class AbstractNature implements IProjectNature {
 				Node firstNode = nodes.item(s);
 				if (firstNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element firstNodeElement = (Element) firstNode;
-					String key = firstNodeElement.getAttribute(XML_KEY);
+					String key = firstNodeElement.getAttribute(BuilderManagement.XML_KEY);
 					if (key.equals(attr)) {
-						rVal = firstNodeElement.getAttribute(XML_VALUE);
+						rVal = firstNodeElement.getAttribute(BuilderManagement.XML_VALUE);
 					}
 				}
 			}

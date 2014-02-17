@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Utilities Plug-in
 Bundle-SymbolicName: com.mentor.nucleus.bp.utilities;singleton:=true
-Bundle-Version: 4.1.1
+Bundle-Version: 4.1.6
 Bundle-Activator: com.mentor.nucleus.bp.utilities.Activator
 Bundle-Vendor: Mentor Graphics
 Require-Bundle: org.eclipse.ui,
@@ -19,6 +19,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.debug.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Export-Package: com.mentor.nucleus.bp.utilities.data,
+Export-Package: com.mentor.nucleus.bp.utilities.build,
+ com.mentor.nucleus.bp.utilities.data,
  com.mentor.nucleus.bp.utilities.load,
  com.mentor.nucleus.bp.utilities.ui

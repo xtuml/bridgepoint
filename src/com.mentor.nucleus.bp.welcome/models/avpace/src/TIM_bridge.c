@@ -29,7 +29,7 @@
  * asynchronously based upon the duration of the next most pending
  * timer.
  *
- * (C) Copyright 1998-2013 Mentor Graphics Corporation.  All rights reserved.
+ * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
  *-------------------------------------------------------------------*/
 
 #include "sys_types.h"
