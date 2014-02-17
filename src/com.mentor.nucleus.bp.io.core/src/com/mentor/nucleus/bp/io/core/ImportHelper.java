@@ -2994,8 +2994,9 @@ public class ImportHelper
 				// if we find any bridge that has action semantics
 				// and is not set to do not parse, consider this
 				// EE as non-realized
-				if (!bridge.getAction_semantics_internal().equals("")
-						&& bridge.getSuc_pars() != Parsestatus_c.doNotParse) {
+				if ((!bridge.getAction_semantics_internal().equals("") && bridge
+						.getSuc_pars() != Parsestatus_c.doNotParse)
+						&& (ee.getRealized_class_path().equals(""))) {
 					isRealized = false;
 					break;
 				}

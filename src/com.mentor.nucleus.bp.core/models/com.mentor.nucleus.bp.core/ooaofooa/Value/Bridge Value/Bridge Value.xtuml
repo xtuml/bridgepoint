@@ -84,10 +84,9 @@ else
 	if (not_empty body)
 	  pathMsg = body.getPath();
 	end if;
-	USER::logError(msg:"Error executing Bridge: "
-						+ brg.Name
-						+ ". No bridge OAL found and the External Entity is not"
-						+ " configured as realized, returning default value.",
+	USER::logError(msg:"External Entity: " + ee.Name
+						    + " is modeled and the bridge: "
+            + brg.Name + " has no OAL to execute.  Returning default value.",
 						path:pathMsg);
     select one dt related by brg->S_DT[R20];
     // Return the default result

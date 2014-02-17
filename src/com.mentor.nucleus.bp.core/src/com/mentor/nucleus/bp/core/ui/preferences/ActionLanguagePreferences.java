@@ -19,12 +19,15 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.PlatformUI;
@@ -45,6 +48,9 @@ public class ActionLanguagePreferences
     private Button allowCoercionNoRadio;
     private Button allowImplicitComponentAddressing;
     private Button allowOperationsInWhere;
+    private Button enableErrorForEmptySynchronousMessage;
+	private Button enableErrorForEmptySynchronousMessageRealized;
+    
     protected IPreferenceModel model;
 
   public ActionLanguagePreferences() {
@@ -63,20 +69,16 @@ public class ActionLanguagePreferences
 
     // Create the desired layout for this wizard page
     GridLayout gl = new GridLayout();
-    int ncol = 1;
-    gl.numColumns = ncol;
-    gl.horizontalSpacing = 10;
-    gl.verticalSpacing = 10;
+    gl.numColumns = 1;
+    
     composite.setLayout(gl);
 
     // Create the "Allow promotion?" group box and set its layout
     allowPromotionGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
-    GridLayout bkLayout = new GridLayout(2, true);
-    allowPromotionGroup.setLayout(bkLayout);
+    allowPromotionGroup.setLayout(gl);
 
     GridData data = new GridData(GridData.FILL_HORIZONTAL);
     data.grabExcessHorizontalSpace = true;
-    data.horizontalIndent = -1;
     allowPromotionGroup.setLayoutData(data);
 
     // The "Allow promotion?" group box data
@@ -84,15 +86,13 @@ public class ActionLanguagePreferences
 
     allowPromotionYesRadio = new Button(allowPromotionGroup, SWT.RADIO | SWT.LEFT);
     allowPromotionYesRadio.setText("&Yes");
-    allowPromotionYesRadio.setLayoutData(new GridData());
 
     allowPromotionNoRadio = new Button(allowPromotionGroup, SWT.RADIO | SWT.LEFT);
     allowPromotionNoRadio.setText("&No");
-    allowPromotionNoRadio.setLayoutData(new GridData());
 
     // Create the "Allow coercion?" group box and set its layout
     allowCoercionGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
-    allowCoercionGroup.setLayout(bkLayout);
+    allowCoercionGroup.setLayout(gl);
     allowCoercionGroup.setLayoutData(data);
 
     // The "Allow coercion?" group box data
@@ -100,11 +100,9 @@ public class ActionLanguagePreferences
 
     allowCoercionYesRadio = new Button(allowCoercionGroup, SWT.RADIO | SWT.LEFT);
     allowCoercionYesRadio.setText("&Yes");
-    allowCoercionYesRadio.setLayoutData(new GridData());
 
     allowCoercionNoRadio = new Button(allowCoercionGroup, SWT.RADIO | SWT.LEFT);
     allowCoercionNoRadio.setText("&No");
-    allowCoercionNoRadio.setLayoutData(new GridData());
 
     // Add selection handlers for the Allow promotion radios.  We want
     // to disable allow coercion when allow promotion is set to "No".
@@ -123,11 +121,26 @@ public class ActionLanguagePreferences
         }
     });
 
+    Group emptyOALGroup = new Group(composite, SWT.None);
+    emptyOALGroup.setText("Missing return value on synchronous messages");
+    emptyOALGroup.setLayout(new GridLayout(2, false));
+    GridData emptyOALGroupData = new GridData(GridData.FILL_HORIZONTAL);
+    emptyOALGroup.setLayoutData(emptyOALGroupData);
+    Button[] buttons = EmptySynchronousMessageParsePreferenceButtons.createPreferenceButtons(emptyOALGroup, true);
+    enableErrorForEmptySynchronousMessage = buttons[0];
+    enableErrorForEmptySynchronousMessageRealized = buttons[1];
+    
+    Label startLabel = new Label(emptyOALGroup, SWT.None);
+    startLabel.setText("Note:");
+    applyBoldFont(startLabel);
+    Label parseLabel = new Label(emptyOALGroup, SWT.None);
+	parseLabel
+			.setText(" These preferences will not take effect until Parse All Activities is performed");
+
     allowImplicitComponentAddressing = new Button(composite,
     		                                             SWT.CHECK | SWT.LEFT);
     allowImplicitComponentAddressing.setText(
     		                             "Allow implicit component addressing");
-    allowImplicitComponentAddressing.setLayoutData(data);
 
     allowOperationsInWhere = new Button(composite, SWT.CHECK | SWT.LEFT);
     allowOperationsInWhere.setText("Allow operations inside where clauses of select statements");
@@ -136,8 +149,7 @@ public class ActionLanguagePreferences
             "messages or bridges inside the where clause of a select statement. Enabling\n" + 
             "this option silences the parser error that is raised when this syntax is\n" + 
             "encountered.");
-    allowOperationsInWhere.setLayoutData(data);
-
+	
     model = new BridgePointPreferencesModel();
     model.getStore().loadModel(getPreferenceStore(), null, model);
 
@@ -145,6 +157,22 @@ public class ActionLanguagePreferences
     return composite;
   }
 
+	private void applyBoldFont(Label label) {
+		Font font = label.getFont();
+		if (font == null) {
+			return;
+		}
+		FontData[] fontDataArray = font.getFontData();
+		if (fontDataArray == null) {
+			return;
+		}
+		for (int index = 0; index < fontDataArray.length; index++) {
+			FontData fData = fontDataArray[index];
+			fData.setStyle(SWT.BOLD);
+		}
+		label.setFont(new Font(getFont().getDevice(), fontDataArray));
+	}
+  
   public void init(IWorkbench workbench) {
     // Initialize the Core preference store
     setPreferenceStore(CorePlugin.getDefault().getPreferenceStore());
@@ -196,6 +224,10 @@ public class ActionLanguagePreferences
       else {
           bpPrefs.allowOperationsInWhere = false;
       }
+	  bpPrefs.enableErrorForEmptySynchronousMessage = enableErrorForEmptySynchronousMessage
+			.getSelection();
+	  bpPrefs.enableErrorForEmptySynchronousMessageRealized = enableErrorForEmptySynchronousMessageRealized
+			.getSelection();
       model.getStore().saveModel(getPreferenceStore(), model);
       return true;
   }
@@ -246,6 +278,10 @@ public class ActionLanguagePreferences
       }
       allowImplicitComponentAddressing.setSelection(bpPrefs.allowImplicitComponentAddressing);
       allowOperationsInWhere.setSelection(bpPrefs.allowOperationsInWhere);
+	  enableErrorForEmptySynchronousMessage
+			.setSelection(bpPrefs.enableErrorForEmptySynchronousMessage);
+	  enableErrorForEmptySynchronousMessageRealized
+			.setSelection(bpPrefs.enableErrorForEmptySynchronousMessageRealized);
   }
 
 }

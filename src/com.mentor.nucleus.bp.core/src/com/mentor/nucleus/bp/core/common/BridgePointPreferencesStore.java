@@ -28,6 +28,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
     public static final String ALLOW_REAL_TO_INT_COERCION = PREFIX + "allow_real_to_int_coercion"; //$NON-NLS-1$
     public static final String ALLOW_OPERATIONS_IN_WHERE = PREFIX + "allow_operations_in_where"; //$NON-NLS-1$
     public static final String ALLOW_IMPLICIT_COMPONENT_ADDRESSING = PREFIX + "allow_implicit_component_addressing"; //$NON-NLS-1$
+    public static final String ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE = PREFIX + "enable_error_for_empty_synchronous_message"; //$NON-NLS-1$
+    public static final String ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED = PREFIX + "enable_error_for_empty_synchronous_message_realized"; //$NON-NLS-1$
     public static final String DISABLE_GRADIENTS = PREFIX + "disable_gradients"; //$NON-NLS-1$
     public static final String INVERT_GRADIENTS = PREFIX + "invert_gradients"; //$NON-NLS-1$
     public static final String GRADIENT_BASE_COLOR = PREFIX + "gradient_base_color"; //$NON-NLS-1$
@@ -78,6 +80,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(ALLOW_REAL_TO_INT_COERCION, prefs.allowRealToIntCoercion);
         store.setValue(ALLOW_IMPLICIT_COMPONENT_ADDRESSING, prefs.allowImplicitComponentAddressing);
         store.setValue(ALLOW_OPERATIONS_IN_WHERE, prefs.allowOperationsInWhere);
+        store.setValue(ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE, prefs.enableErrorForEmptySynchronousMessage);
+        store.setValue(ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED, prefs.enableErrorForEmptySynchronousMessageRealized);
         store.setValue(DISABLE_GRADIENTS, prefs.disableGradients);
         store.setValue(INVERT_GRADIENTS, prefs.invertGradients);
         store.setValue(GRADIENT_BASE_COLOR, prefs.gradientBaseColor);
@@ -130,6 +134,10 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
             store.getBoolean(BridgePointPreferencesStore.ALLOW_IMPLICIT_COMPONENT_ADDRESSING);
         prefs.allowOperationsInWhere =
             store.getBoolean(BridgePointPreferencesStore.ALLOW_OPERATIONS_IN_WHERE);
+		prefs.enableErrorForEmptySynchronousMessage = store
+				.getBoolean(BridgePointPreferencesStore.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE);
+		prefs.enableErrorForEmptySynchronousMessageRealized = store
+				.getBoolean(BridgePointPreferencesStore.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED);
         prefs.disableGradients =
             store.getBoolean(BridgePointPreferencesStore.DISABLE_GRADIENTS);
         prefs.invertGradients =
@@ -203,6 +211,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.allowRealToIntCoercion = MessageDialogWithToggle.ALWAYS;
         prefs.allowImplicitComponentAddressing = false;
         prefs.allowOperationsInWhere = false;
+        prefs.enableErrorForEmptySynchronousMessage = true;
+        prefs.enableErrorForEmptySynchronousMessageRealized = false;
         prefs.disableGradients = true;
         prefs.invertGradients = false;
         prefs.gradientBaseColor = 0xc8c8c8;

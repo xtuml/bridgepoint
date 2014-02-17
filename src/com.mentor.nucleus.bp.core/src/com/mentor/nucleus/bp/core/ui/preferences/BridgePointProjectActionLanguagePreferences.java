@@ -8,20 +8,21 @@ package com.mentor.nucleus.bp.core.ui.preferences;
 //====================================================================
 //
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.osgi.service.prefs.Preferences;
 
+import com.mentor.nucleus.bp.core.CorePlugin;
+
 public class BridgePointProjectActionLanguagePreferences extends
 		BridgePointProjectPreferences {
 
-	public static final String ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE = "com.mentor.nucleus.bp.ui.project.synchMessageError"; //$NON-NLS-1$
-	public static final String ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED = "com.mentor.nucleus.bp.ui.project.realizedSynchMessageError"; //$NON-NLS-1$
+	private static final String PREFIX = "bridgepoint_prefs_";  //$NON-NLS-1$
+    public static final String ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE = PREFIX + "enable_error_for_empty_synchronous_message"; //$NON-NLS-1$
+    public static final String ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED = PREFIX + "enable_error_for_empty_synchronous_message_realized"; //$NON-NLS-1$
+
 
 	private Button enableErrorForEmptySynchronousMessage;
 	private Button enableErrorForEmptySynchronousMessageRealized;
@@ -35,63 +36,42 @@ public class BridgePointProjectActionLanguagePreferences extends
 		// create the composite to hold the widgets
 		Composite composite = new Composite(parent, SWT.NULL);
 		composite.setLayout(new GridLayout());
-		
-		enableErrorForEmptySynchronousMessage = new Button(composite,
-				SWT.CHECK | SWT.LEFT);
-		enableErrorForEmptySynchronousMessage
-				.setText("Create an error for empty synchronous messages");
-		enableErrorForEmptySynchronousMessage
-				.addSelectionListener(new SelectionAdapter() {
-					@Override
-					public void widgetSelected(SelectionEvent e) {
-						// always uncheck the realized button when
-						// this one is unchecked
-						if (!enableErrorForEmptySynchronousMessage
-								.getSelection()) {
-							enableErrorForEmptySynchronousMessageRealized
-									.setSelection(false);
-						}
-					}
-				});
-
-		enableErrorForEmptySynchronousMessageRealized = new Button(
-				composite, SWT.CHECK | SWT.LEFT);
-		enableErrorForEmptySynchronousMessageRealized
-				.setText("Include realized elements");
-		GridData childData = new GridData();
-		childData.horizontalIndent = 20;
-		enableErrorForEmptySynchronousMessageRealized.setLayoutData(childData);
-		enableErrorForEmptySynchronousMessageRealized
-				.addSelectionListener(new SelectionAdapter() {
-					@Override
-					public void widgetSelected(SelectionEvent e) {
-						// if this button is enabled and the non-realized
-						// one is not, then enable that one
-						if (enableErrorForEmptySynchronousMessageRealized
-								.getSelection()) {
-							enableErrorForEmptySynchronousMessage
-									.setSelection(true);
-						}
-					}
-				});
+		Button[] buttons = EmptySynchronousMessageParsePreferenceButtons.createPreferenceButtons(composite);
+		enableErrorForEmptySynchronousMessage = buttons[0];
+		enableErrorForEmptySynchronousMessageRealized = buttons[1];
 		syncUIWithPreferences();
 		return composite;
 	}
 
 	@Override
 	public void subtypePerformDefaults() {
-		enableErrorForEmptySynchronousMessage.setSelection(true);
-		enableErrorForEmptySynchronousMessageRealized.setSelection(false);
+		// defaults need to match the workspace preferences
+		boolean enabledForSyncMessages = CorePlugin.getDefault()
+				.getPreferenceStore()
+				.getBoolean(ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE);
+		boolean enabledForRealizedSyncMessages = CorePlugin
+				.getDefault()
+				.getPreferenceStore()
+				.getBoolean(ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED);
+		enableErrorForEmptySynchronousMessage.setSelection(enabledForSyncMessages);
+		enableErrorForEmptySynchronousMessageRealized.setSelection(enabledForRealizedSyncMessages);
 	}
 
 	@Override
 	protected void syncUIWithPreferences() {
+		boolean enabledForSyncMessages = CorePlugin.getDefault()
+				.getPreferenceStore()
+				.getBoolean(ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE);
+		boolean enabledForRealizedSyncMessages = CorePlugin
+				.getDefault()
+				.getPreferenceStore()
+				.getBoolean(ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED);
 		enableErrorForEmptySynchronousMessage.setSelection(getStore()
-				.getBoolean(ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE, true));
+				.getBoolean(ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE, enabledForSyncMessages));
 		enableErrorForEmptySynchronousMessageRealized.setSelection(getStore()
 				.getBoolean(
 						ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED,
-						false));
+						enabledForRealizedSyncMessages));
 	}
 
 	@Override

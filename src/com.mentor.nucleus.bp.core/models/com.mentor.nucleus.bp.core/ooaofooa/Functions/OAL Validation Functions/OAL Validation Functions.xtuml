@@ -604,9 +604,9 @@ if not_empty act and act.return_is_required() and not act.ReturnFound
         end if;
       end if;
       emptyNonRealizedCheck = PREF::getSystemBoolean(
-            name:"com.mentor.nucleus.bp.ui.project.synchMessageError", systemName:system.Name);
+            name:"bridgepoint_prefs_enable_error_for_empty_synchronous_message", systemName:system.Name);
       emptyRealizedCheck = PREF::getSystemBoolean(
-                    name:"com.mentor.nucleus.bp.ui.project.realizedSynchMessageError", systemName:system.Name);
+                    name:"bridgepoint_prefs_enable_error_for_empty_synchronous_message_realized", systemName:system.Name);
       reportError = (not isRealized and emptyNonRealizedCheck)
                                          or (isRealized and emptyRealizedCheck);
     end if;
@@ -637,9 +637,9 @@ if not_empty act and act.return_is_required() and not act.ReturnFound
                              where (selected.Sys_ID == component.getSystemId());
              end if;
              emptyNonRealizedCheck = PREF::getSystemBoolean(
-                             name:"com.mentor.nucleus.bp.ui.project.synchMessageError", systemName:system.Name);
+                             name:"bridgepoint_prefs_enable_error_for_empty_synchronous_message", systemName:system.Name);
              emptyRealizedCheck = PREF::getSystemBoolean(
-                    name:"com.mentor.nucleus.bp.ui.project.realizedSynchMessageError", systemName:system.Name);
+                    name:"bridgepoint_prefs_enable_error_for_empty_synchronous_message_realized", systemName:system.Name);
              reportError = (not isRealized and emptyNonRealizedCheck)
                                          or (isRealized and emptyRealizedCheck);
            end if;
@@ -668,9 +668,9 @@ if not_empty act and act.return_is_required() and not act.ReturnFound
                              where (selected.Sys_ID == component.getSystemId());
              end if;
              emptyNonRealizedCheck = PREF::getSystemBoolean(
-                             name:"com.mentor.nucleus.bp.ui.project.synchMessageError", systemName:system.Name);
+                             name:"bridgepoint_prefs_enable_error_for_empty_synchronous_message", systemName:system.Name);
              emptyRealizedCheck = PREF::getSystemBoolean(
-                    name:"com.mentor.nucleus.bp.ui.project.realizedSynchMessageError", systemName:system.Name);
+                    name:"bridgepoint_prefs_enable_error_for_empty_synchronous_message_realized", systemName:system.Name);
              reportError = (not isRealized and emptyNonRealizedCheck)
                                          or (isRealized and emptyRealizedCheck);
            end if;
@@ -712,9 +712,9 @@ if not_empty act and act.return_is_required() and not act.ReturnFound
                              where (selected.Sys_ID == component.getSystemId());
       end if;
       emptyNonRealizedCheck = PREF::getSystemBoolean(
-                             name:"com.mentor.nucleus.bp.ui.project.synchMessageError", systemName:system.Name);
+                             name:"bridgepoint_prefs_enable_error_for_empty_synchronous_message", systemName:system.Name);
       emptyRealizedCheck = PREF::getSystemBoolean(
-                    name:"com.mentor.nucleus.bp.ui.project.realizedSynchMessageError", systemName:system.Name);
+                    name:"bridgepoint_prefs_enable_error_for_empty_synchronous_message_realized", systemName:system.Name);
       reportError = (not isRealized and emptyNonRealizedCheck)
                                          or (isRealized and emptyRealizedCheck);
     end if;
