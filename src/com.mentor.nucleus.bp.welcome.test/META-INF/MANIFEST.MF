@@ -14,5 +14,5 @@ Require-Bundle: org.eclipse.ui,
  com.mentor.nucleus.bp.core,
  com.mentor.nucleus.bp.test,
  com.mentor.nucleus.bp.ui.explorer,
- com.mentor.nucleus.bp.internal.tools
+ com.mentor.nucleus.bp.utilities
 Eclipse-AutoStart: true

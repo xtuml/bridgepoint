@@ -1,0 +1,3002 @@
+---
+
+Copyright 2014 Mentor Graphics Corp.  All Rights Reserved.
+
+---
+
+# Dump BridgePoint Code into xtuml/editor Repository - Phase 1
+### xtUML Project Implementation Note
+
+
+1. Abstract
+-----------
+This note describes the work done to prepare the xtuml/internal projects and 
+plug-ins for the work to move some of them to the OSS domain.  
+
+2. Document References
+----------------------
+[1] Issues 162, https://github.com/xtuml/internal/issues/162  
+[2] CQ DEI dts0101036706 - Place more code into public repository  
+[3] HOWTO Update the copyright, https://github.com/xtuml/internal/blob/master/doc-internal/process/HOWTO-update-the-BP-copyright.txt  
+[4] HOWTO Update the version,  https://github.com/xtuml/internal/blob/master/doc-internal/process/HOWTO-update-the-BP-version-number.txt  
+
+3. Background
+-------------
+The work to dump code to xtuml/editor is broken into several phases.  The first
+phase will cover work that will make the publishing phase easier by reorganizing
+some code.  This phase will also cover a number of tasks we need to do both 
+for the move and for the upcoming Indus release.  
+
+4. Requirements
+---------------
+4.1  The code shall be updated so that plug-ins to be published are not dependent on bp.mc* plug-ins  
+4.2  The copyright shall be updated to 2014  
+4.3  The license for the xtuml Editor plug-ins shall be updated to Apache  
+4.4  The version shall be updated to 4.1.6  
+
+5. Work Required
+----------------
+5.1 Move builder management code from bp.mc to bp.utilities to break bp.cdt's 
+  dependency on bp.mc.    
+5.2 Update the copyright to 2014 following the steps provided in [3].  
+5.3 Update the license to Apache  
+5.3.1  Run the bp.utilities/convert_to_apache.xml tool to convert code comment
+  blocks that specify Mentor Graphics proprietary and confidential to the 
+  Apache 2.0 notification block.  
+5.3.2  Update the license in the feature plug-ins (except Verifier) to the 
+  Apache 2.0 license.    
+5.4 Update the version 4.1.6 following the steps provided in [4].  
+
+6. Implementation Comments
+--------------------------
+None.
+
+7. Unit Test
+------------
+7.1  All JUnit tests must pass
+
+8. Code Changes
+---------------
+Branch name: 162_phase1
+
+<pre>
+
+com.mentor.nucleus.bp.als/arc/als_sql.inc
+com.mentor.nucleus.bp.als/arc/extract_function_bodies.arc
+com.mentor.nucleus.bp.als/arc/function_gen.arc
+com.mentor.nucleus.bp.als/arc/get_names.inc
+com.mentor.nucleus.bp.als/arc/grammar_enhancer.arc
+com.mentor.nucleus.bp.als/arc/ooa_oal_pop_func.arc
+com.mentor.nucleus.bp.als/arc/validate_gen.arc
+com.mentor.nucleus.bp.als/generate.xml
+
+com.mentor.nucleus.bp.als.oal/bnf/oal.bnf
+com.mentor.nucleus.bp.als.oal/src/com/mentor/nucleus/bp/
+    als/oal/Err_c.java
+com.mentor.nucleus.bp.als.oal/src/com/mentor/nucleus/bp/
+    als/oal/oal_lex.g
+com.mentor.nucleus.bp.als.oal/src/com/mentor/nucleus/bp/
+    als/oal/OalPlugin.java
+com.mentor.nucleus.bp.als.oal/src/com/mentor/nucleus/bp/
+    als/oal/pt_SemanticException.java
+com.mentor.nucleus.bp.als.oal/plugin.xml
+
+com.mentor.nucleus.bp.als.oal.test/matrices/
+    non-generated/SingleDimensionFixedArrayAssigmentMatrix.txt
+com.mentor.nucleus.bp.als.oal.test/src/
+    OALGlobalsTestSuite_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/
+    OALGlobalsTestSuite.java
+com.mentor.nucleus.bp.als.oal.test/src/
+    OALTestSuite_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/OALTestSuite.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/ArrayBaseTest_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/ArrayBaseTest.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/OalParserTest_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/OalParserTest.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/ParseAllInDomain_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/ParseAllInDomain.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/PolyEventTest.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/RelaxedSameDataTest_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/RelaxedSameDataTest.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_0_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_0.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_1_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_1.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_10_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_10.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_11_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_11.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_12_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_12.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_13_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_13.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_14_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_14.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_15_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_15.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_16_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_16.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_17_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_17.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_18_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_18.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_19_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_19.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_2_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_2.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_3_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_3.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_4_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_4.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_5_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_5.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_6_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_6.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_7_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_7.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_8_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_8.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/
+    SingleDimensionFixedArrayAssigmentTest_9_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/SingleDimensionFixedArrayAssigmentTest_9.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestArray_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestArray.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestAssign_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestAssign.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestAttribute_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestAttribute.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestBPPrefAllowPromotion_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestBPPrefAllowPromotion.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestBPPrefStrictTyping_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestBPPrefStrictTyping.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestConstant_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestControl_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestControl.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestCRUD_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestCRUD.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestEvent_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestEvent.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestExpr_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestExpr.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestInvocation_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestInvocation.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestLineNumbers_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestLineNumbers.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestParser_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestParser.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestPlugin_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestPlugin.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestSelect_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestSelect.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestSelectWhere_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestSelectWhere.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestStructuredDataType_Generics.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/TestStructuredDataType.java
+com.mentor.nucleus.bp.als.oal.test/src/com/mentor/
+    nucleus/bp/als/oal/test/VisibilityParserTest.java
+
+com.mentor.nucleus.bp.bld.pkg/about.mappings
+com.mentor.nucleus.bp.bld.pkg/about.properties
+com.mentor.nucleus.bp.bld.pkg/plugin.xml
+
+com.mentor.nucleus.bp.bld.pkg-feature/license_files/
+    colorschememapping.xml
+com.mentor.nucleus.bp.bld.pkg-feature/license_files/
+    filelist.xml
+com.mentor.nucleus.bp.bld.pkg-feature/license_files/
+    themedata.thmx
+com.mentor.nucleus.bp.bld.pkg-feature/feature.xml
+com.mentor.nucleus.bp.bld.pkg-feature/license.html
+
+com.mentor.nucleus.bp.cdt/META-INF/MANIFEST.MF
+com.mentor.nucleus.bp.cdt/src/com/mentor/nucleus/bp/cdt/
+    Activator.java
+com.mentor.nucleus.bp.cdt/src/com/mentor/nucleus/bp/cdt/
+    wizards/BridgePointCDTProjectWizard.java
+com.mentor.nucleus.bp.cdt/generate.xml
+
+com.mentor.nucleus.bp.cli/META-INF/MANIFEST.MF
+com.mentor.nucleus.bp.cli/src/com/mentor/nucleus/bp/cli/
+    Activator.java
+com.mentor.nucleus.bp.cli/src/com/mentor/nucleus/bp/cli/
+    BPCLIException.java
+com.mentor.nucleus.bp.cli/src/com/mentor/nucleus/bp/cli/
+    BPCLIPreferences.java
+com.mentor.nucleus.bp.cli/src/com/mentor/nucleus/bp/cli/
+    BPCLIWorkbenchAdvisor.java
+com.mentor.nucleus.bp.cli/src/com/mentor/nucleus/bp/cli/
+    Build.java
+com.mentor.nucleus.bp.cli/src/com/mentor/nucleus/bp/cli/
+    ErrorOutputStreamListener.java
+com.mentor.nucleus.bp.cli/src/com/mentor/nucleus/bp/cli/
+    Execute.java
+com.mentor.nucleus.bp.cli/src/com/mentor/nucleus/bp/cli/
+    ForwardingStream.java
+com.mentor.nucleus.bp.cli/src/com/mentor/nucleus/bp/cli/
+    Import.java
+com.mentor.nucleus.bp.cli/src/com/mentor/nucleus/bp/cli/
+    Merge.java
+com.mentor.nucleus.bp.cli/src/com/mentor/nucleus/bp/cli/
+    OutputStreamListener.java
+com.mentor.nucleus.bp.cli/generate.xml
+
+com.mentor.nucleus.bp.compare/arc/BuildComparisonTree.arc
+com.mentor.nucleus.bp.compare/arc/
+    create_properties_file.inc
+com.mentor.nucleus.bp.compare/contexts/contexts.xml
+com.mentor.nucleus.bp.compare/src/com/mentor/nucleus/bp/
+    compare/ComparePlugin.java
+com.mentor.nucleus.bp.compare/src/com/mentor/nucleus/bp/
+    compare/ICompareHelpContextIds.java
+com.mentor.nucleus.bp.compare/src/com/mentor/nucleus/bp/
+    compare/ModelCacheManager.java
+com.mentor.nucleus.bp.compare/src/com/mentor/nucleus/bp/
+    compare/contentmergeviewer/ModelContentMergeViewer.java
+com.mentor.nucleus.bp.compare/src/com/mentor/nucleus/bp/
+    compare/contentmergeviewer/ModelContentMergeViewerCreator.java
+com.mentor.nucleus.bp.compare/src/com/mentor/nucleus/bp/
+    compare/contentmergeviewer/ModelContentViewer.java
+com.mentor.nucleus.bp.compare/src/com/mentor/nucleus/bp/
+    compare/contentmergeviewer/ModelContentViewerCreator.java
+com.mentor.nucleus.bp.compare/src/com/mentor/nucleus/bp/
+    compare/contentmergeviewer/ModelMergeViewerContentProvider.java
+com.mentor.nucleus.bp.compare/src/com/mentor/nucleus/bp/
+    compare/structuremergeviewer/ModelCompareStructureCreator.java
+com.mentor.nucleus.bp.compare/src/com/mentor/nucleus/bp/
+    compare/structuremergeviewer/ModelStructureDiffViewer.java
+com.mentor.nucleus.bp.compare/src/com/mentor/nucleus/bp/
+    compare/structuremergeviewer/ModelStructureDiffViewerCreator.java
+com.mentor.nucleus.bp.compare/src/com/mentor/nucleus/bp/
+    compare/text/DefaultTextBuffer.java
+com.mentor.nucleus.bp.compare/src/com/mentor/nucleus/bp/
+    compare/text/ITextGenerator.java
+com.mentor.nucleus.bp.compare/src/com/mentor/nucleus/bp/
+    compare/text/ModelClassTextGenerator.java
+com.mentor.nucleus.bp.compare/generate.xml
+com.mentor.nucleus.bp.compare/plugin.xml
+
+com.mentor.nucleus.bp.core/arc/
+    action_language_description_util.arc
+com.mentor.nucleus.bp.core/arc/
+    chooser_elements_provider.inc
+com.mentor.nucleus.bp.core/arc/cme_names.inc
+com.mentor.nucleus.bp.core/arc/cme_ooa_oal_pop.arc
+com.mentor.nucleus.bp.core/arc/create_context_menus.arc
+com.mentor.nucleus.bp.core/arc/
+    create_core_plugin_class.arc
+com.mentor.nucleus.bp.core/arc/create_core_plugin.inc
+com.mentor.nucleus.bp.core/arc/create_dependson.arc
+com.mentor.nucleus.bp.core/arc/create_global_action.inc
+com.mentor.nucleus.bp.core/arc/
+    create_metadata_elements_sorters.arc
+com.mentor.nucleus.bp.core/arc/create_model_inspector.arc
+com.mentor.nucleus.bp.core/arc/create_object_action.inc
+com.mentor.nucleus.bp.core/arc/create_object_inspector.inc
+com.mentor.nucleus.bp.core/arc/create_rename_action.inc
+com.mentor.nucleus.bp.core/arc/
+    create_selection_dialog_action.inc
+com.mentor.nucleus.bp.core/arc/function_body.inc
+com.mentor.nucleus.bp.core/arc/generate_cell_modifiers.arc
+com.mentor.nucleus.bp.core/arc/generate_globals_util.arc
+com.mentor.nucleus.bp.core/arc/
+    generate_RGO_resolution_methods.inc
+com.mentor.nucleus.bp.core/arc/generate_rto_util.arc
+com.mentor.nucleus.bp.core/arc/
+    generate_supertype_subtype_util.arc
+com.mentor.nucleus.bp.core/arc/page.inc
+com.mentor.nucleus.bp.core/arc/parse_chain.inc
+com.mentor.nucleus.bp.core/arc/ui_ident.inc
+com.mentor.nucleus.bp.core/arc/ui_processing.inc
+com.mentor.nucleus.bp.core/arc/wfl_block.inc
+com.mentor.nucleus.bp.core/arc/wfl_pop.arc
+com.mentor.nucleus.bp.core/arc/wfl_processing.inc
+com.mentor.nucleus.bp.core/arc/wizard.arc
+com.mentor.nucleus.bp.core/arc/wizard.inc
+com.mentor.nucleus.bp.core/color/ooaofooa_import_spec.clr
+com.mentor.nucleus.bp.core/color/ooaofooa_package_spec.clr
+com.mentor.nucleus.bp.core/color/ooaofooa_startspec.clr
+com.mentor.nucleus.bp.core/contexts/contexts.xml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/context_menu/context_menu.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/context_menu/Context Menu/Context Menu.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/context_menu/Datatypes/Datatypes.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/context_menu/OOA/OOA.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/ooaofooa.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa_hierarchy/ooaofooa_hierarchy.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa_hierarchy/CompTree/CompTree.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa_hierarchy/Datatypes/Datatypes.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Activity/Activity.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Association/Association.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Body/Body.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Breakpoint/Breakpoint.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Communication/Communication.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Communication And Access/
+    Communication And Access.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Component/Component.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Component/Component Library/
+    Component Library.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Component/Component Nesting/
+    Component Nesting.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Component/Component Packaging/
+    Component Packaging.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Component/
+    Signal Provisions and Requirements/Signal Provisions and Requirements.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Constants/Constants.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Datatypes/Datatypes.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Domain/Domain.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Domain/Package Linking/
+    Package Linking.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Element Packaging/
+    Element Packaging.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Event/Event.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/External Entities/
+    External Entities.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Functions/Functions.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Functions/Context Menu Entry Functions/
+    Context Menu Entry Functions.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Functions/OAL Validation Functions/
+    OAL Validation Functions.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Functions/
+    OAL Validation Utility Functions/OAL Validation Utility Functions.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Globals/Globals.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Instance/Instance.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Instance/Class State Machine Execution/
+    Class State Machine Execution.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Instance Access/Instance Access.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Interaction/Interaction.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Interface Package/
+    Interface Package.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Invocation/Invocation.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Local/Local.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Message/Message.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Model Integrity/Model Integrity.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Packageable Element/
+    Packageable Element.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Persistence Associations/
+    Persistence Associations.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Relate And Unrelate/
+    Relate And Unrelate.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Runtime Value/Runtime Value.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Search/Search.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Search/Engine/Engine.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Search/Participation/Participation.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Search/Query/Query.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Search/Result/Result.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Selection/Selection.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Sequence/Sequence.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/State Machine/State Machine.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Subsystem/Subsystem.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/System Level Datatypes/
+    System Level Datatypes.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Use Case/Use Case.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Value/Value.xtuml
+com.mentor.nucleus.bp.core/models/
+    com.mentor.nucleus.bp.core/ooaofooa/Wiring/Wiring.xtuml
+com.mentor.nucleus.bp.core/sql/context_menu.pei.sql
+com.mentor.nucleus.bp.core/sql/ooaofooa_hierarchy.pei.sql
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/EclipseOoaofooa.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/OoaofooaBase.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/PropertyViewListener.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ResourceChangeListener.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ResourceUpdaterModelChangeListener.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/Search_c.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/Vm_c.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/XtUMLNature.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/ActiveObject_c.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/Activepoller_c.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/AttributeChangeModelDelta.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/BaseModelDelta.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/BPElementID.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/BridgePointPreferencesModel.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/BridgePointPreferencesStore.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/ClassQueryInterface_c.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/ComponentResourceListener.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/ComponentTransactionListener.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/CompoundDeltaCollector.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/ConsistencyTransactionListener.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/genericEvent_c.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/IAllActivityModifier.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/IdAssigner.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/IDConvertor.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/IDeltaCollector.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/ILogger.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/IModelChangeListener.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/IModelChangeProvider.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/IModelDelta.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/IModelViewerProvider.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/InputValueValidator.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/InstanceList.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/IntegrityChecker.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/IPasteListener.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/IPersistableElementParentDetails.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/IPersistenceHierarchyMetaData.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/ITransactionListener.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/masterTimer_c.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/ModelChangeAdapter.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/ModelChangedEvent.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/ModelElement.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/ModelRoot.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/ModelStreamProcessor.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/NonRootModelElement.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/NullEditorInput.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/NullLogger.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/OALPersistenceUtil.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/PersistableModelComponent.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/PersistenceChangeTracker.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/PersistenceManager.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/RelationshipChangeModelDelta.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/RuntimeInstanceList.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/SortedCompoundDeltaCollector.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/StaticInstanceList.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/SystemLogger.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/Tim_c.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/timerClient_c.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/TraceLogger.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/Transaction.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/TransactionException.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/TransactionManager.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/common/UUIDMap.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/inspector/BaseModelClassInspector.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/inspector/IModelInspectorRegistry.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/inspector/MessageArgumentInspector.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/inspector/PackageInspector.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/relocatables/Relocatables.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/relocatables/RelocatableTagConversionUtil.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/relocatables/RelocatableTagCreationUtil.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/search/DocumentCharSequence.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/sorter/AlphaSorter.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/sorter/BaseTypeSpecificSorter.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/AbstractModelExportFactory.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/AbstractModelImportFactory.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/AbstractStreamExportFactory.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/AbstractStreamImportFactory.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/BinaryFormalizeOnR_RELWizard.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/BinaryFormalizeOnR_RELWizardPage1.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/BinaryFormalizeOnR_RELWizardPage2.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/ConstantValueInputValidator.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/ConvertModel2UUIDAction.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/ConvertToMultifileAction.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/ConvertToMultifileWizard.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/CopyAction.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/CopyCutAction.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/CutAction.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/DefaultValueInputValidator.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/DelegatingWizard.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/GenericPackageAssignEventOnSM_TXNWizardPage1.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/ICoreHelpContextIds.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/IModelImport.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/NewDomainWizard.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/NewSystemWizard.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/PasteAction.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/PtWizardPage.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/Selection.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/SetBPProjectPreferencesAction.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/SetValueOnConstantAction.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/WizardDelegate.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/WizardDelegateChooserPage.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/WizardNewDomainCreationPage.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/WizardNewSystemCreationPage.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/actions/ElementChange.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/actions/PublishSynchronizationChanges.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/actions/PullSynchronizationChanges.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/cells/ICellProvider.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/cells/editors/BooleanCellEditor.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/cells/editors/DimensionsValidator.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/cells/editors/EnumCellEditor.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/cells/editors/FloatCellEditor.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/cells/editors/IntegerCellEditor.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/cells/editors/ModelElementNameValidator.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/dialogs/ElementSelectionDialog.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/dialogs/ElementSelectionFlatView.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/dialogs/ScrolledTextDialog.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/marker/CreateMarkerEvent.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/marker/DelayedMarkerJob.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/marker/MarkerEvent.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/marker/ProblemModelChangeListener.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/marker/UmlProblem.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/perspective/BridgePointPerspective.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/preferences/ActionLanguagePreferences.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/preferences/BridgePointPreferences.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/preferences/BridgePointProjectPreferences.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/preferences/BuildTranslationPreferences.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/preferences/ExportPreferences.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/preferences/MessageDirectionPreferences.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/preferences/VerifierPreferences.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/tree/ModelCheckedTreeViewer.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/ui/tree/SpinnerBoxCellEditor.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/util/AccumulatorInterface.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/util/AccumulatorTimer.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/util/BPClassLoader.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/util/BridgePointDemoEncryptor.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/util/BridgePointLicenseManager.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/util/ContainerUtil.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/util/CoreUtil.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/util/DimensionsUtil.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/util/DomainUtil.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/util/EditorUtil.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/util/OoaofgraphicsUtil.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/util/OoaofooaUtil.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/util/PersistenceUtil.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/util/PlaceHolderUtil.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/util/TransactionUtil.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/util/UIUtil.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/
+    core/util/WorkspaceUtil.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/ui/
+    preference/BaseModelEditor.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/ui/
+    preference/BasePlugin.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/ui/
+    preference/IPreferenceModel.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/ui/
+    preference/IPreferenceModelEditor.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/ui/
+    preference/IPreferenceModelStore.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/ui/
+    preference/SharedColorRepository.java
+com.mentor.nucleus.bp.core/src/com/mentor/nucleus/bp/ui/
+    preference/TabbedPreferenceContainer.java
+com.mentor.nucleus.bp.core/src/lib/ARCH.java
+com.mentor.nucleus.bp.core/src/lib/BPBoolean.java
+com.mentor.nucleus.bp.core/src/lib/BPFloat.java
+com.mentor.nucleus.bp.core/src/lib/BPInteger.java
+com.mentor.nucleus.bp.core/src/lib/BPString.java
+com.mentor.nucleus.bp.core/src/lib/BPUniqueId.java
+com.mentor.nucleus.bp.core/src/lib/LOG.java
+com.mentor.nucleus.bp.core/src/lib/NVS.java
+com.mentor.nucleus.bp.core/src/lib/PERSIST.java
+com.mentor.nucleus.bp.core/src/lib/T.java
+com.mentor.nucleus.bp.core/src/lib/TEST.java
+com.mentor.nucleus.bp.core/src/lib/TIM.java
+com.mentor.nucleus.bp.core/generate.xml
+com.mentor.nucleus.bp.core/plugin.properties
+
+com.mentor.nucleus.bp.core.linux.x86/META-INF/MANIFEST.MF
+com.mentor.nucleus.bp.core.linux.x86/os/linux/x86/bin/
+    mgls_child_ver
+
+com.mentor.nucleus.bp.core.test/arc/create_action_test.arc
+com.mentor.nucleus.bp.core.test/arc/
+    create_context_menu_tests.arc
+com.mentor.nucleus.bp.core.test/arc/
+    create_dispose_test.arc
+com.mentor.nucleus.bp.core.test/arc/gen_cme_test_skel.arc
+com.mentor.nucleus.bp.core.test/arc/gen_delete_test.arc
+com.mentor.nucleus.bp.core.test/arc/
+    gen_Formalize_tests.arc
+com.mentor.nucleus.bp.core.test/arc/
+    generate_rto_move_matrix.arc
+com.mentor.nucleus.bp.core.test/arc/
+    generate_test_matrix_for_copy_paste.arc
+com.mentor.nucleus.bp.core.test/color/
+    Consistencytest_import_spec.clr
+com.mentor.nucleus.bp.core.test/color/
+    Consistencytest_package_spec.clr
+com.mentor.nucleus.bp.core.test/color/
+    Consistencytest_startspec.clr
+com.mentor.nucleus.bp.core.test/src/
+    CopyPasteGlobalsTestSuite.java
+com.mentor.nucleus.bp.core.test/src/
+    CoreGlobalsTestSuite2Generics.java
+com.mentor.nucleus.bp.core.test/src/
+    CoreGlobalsTestSuiteGenerics.java
+com.mentor.nucleus.bp.core.test/src/
+    SystemLevelGlobalsTestSuite.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/ActivityTestsGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/AssignClassTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/AssignComponentTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/AssignRemoveEventsGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/AttributeMenuItemTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/CanRenameCanDeleteTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/CantHappenEvtIgnoreEvtTestsGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/CombineSplitReferentialsTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/CommunicationLinkTestsGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/CommunicationMessageTestsGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/CommunicationTestsGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/ComponentContextMenuTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/ComponentFormalizationTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/ConsistencyTest.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/CopyPasteComponentReferences.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/CoreTest.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/CoreTestResultCreator.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/CoreTestSuiteIGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/CoreTestSuiteIIGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/CreationTransitionEventReassignmentTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/DeleteAttributesTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/DeleteDatatypesTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/DeleteProvidedAndRequiredSignalsAndOperations.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/DerivedAttributeTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/FormalizeUnformalizeWithPrefixTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/GetNameTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/HierarchyTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/I810_SlowDeletionTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/ImportDuplicatedModelTest.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/ImportedComponentIFTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/InterfaceResolutionTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/LazyLoadingTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/ModelChangeListenersBatchingTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/ModelIntegrityTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/ModelTransactionTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/ModificationValidationTestsGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/ModifyNonFullyLoadedModelTestsGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/MultipleReloadGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/MultipleSelectionAssignmentTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/MultipleSelectionInterfaceReferenceFormalizationTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/NumberingTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/OperationsTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/PolymorphicEventAssignmentTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/RefreshTestCoreGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/RemoveSignalTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/RenameInvolvingResourceTest.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/RenameInvolvingResourceTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/RenameTest2Generics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/SequenceTestsGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/SetTypeTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/SubtypeSupertypeFormalizeTest.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/TestVisibilityInElementChooser.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/TigerNatureExistingProjectsTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/TigerNatureTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/TigerNatureWorkspaceSetupTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/TransitionActionTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/TwoModelsSelectionTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/UndoRedoTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/UniqueNameTestGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/UseCaseTestsGenerics.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/UserDataTypeCopyPasteTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/consistency/ConsistencyBase.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/cpts/CopyPasteSourceDestinationTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/cpts/CPSDTElementResolver.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/cpts_full/CopyPasteSourceDestinationTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/globals/CopyPasteSourceDestinationGlobalsTestsTestSuite.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/globals/RTOMoveGlobalTestsTestSuite.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/rtomove/RTOMoveTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/synchronization/
+    ComponentReferenceAutomatedSynchronizationTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/synchronization/
+    ComponentReferenceManualSynchronizationTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/synchronization/
+    InterfaceReferenceAutomatedSynchronizationTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/synchronization/
+    InterfaceReferenceManualSynchronizationTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/synchronization/SynchronizationTestSuite.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/synchronization/SynchronizationTestUtils.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/synchronization/SynchronizeDialogTests.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/ui/DocGenTest.java
+com.mentor.nucleus.bp.core.test/src/com/mentor/nucleus/
+    bp/core/test/util/EventSelectionUtil.java
+com.mentor.nucleus.bp.core.test/src/lib/BT.java
+com.mentor.nucleus.bp.core.test/src/lib/LOG.java
+com.mentor.nucleus.bp.core.test/generate.xml
+
+com.mentor.nucleus.bp.core.win32.x86/META-INF/MANIFEST.MF
+
+com.mentor.nucleus.bp.dap.pkg/bridgepoint/readme.txt
+com.mentor.nucleus.bp.dap.pkg/about.mappings
+com.mentor.nucleus.bp.dap.pkg/about.properties
+com.mentor.nucleus.bp.dap.pkg/plugin.xml
+
+com.mentor.nucleus.bp.dap.pkg-feature/license_files/
+    colorschememapping.xml
+com.mentor.nucleus.bp.dap.pkg-feature/license_files/
+    filelist.xml
+com.mentor.nucleus.bp.dap.pkg-feature/license_files/
+    themedata.thmx
+com.mentor.nucleus.bp.dap.pkg-feature/feature.xml
+com.mentor.nucleus.bp.dap.pkg-feature/license.html
+
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/BPBreakpointAdapterFactory.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/BPDebugModelPresentation.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/BPDebugUIPlugin.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/BPLineBreakpointAdapter.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/IBPDebugHelpContext.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/IBPDebugUIPluginConstants.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/ModelElementLocation.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/actions/AbstractBreakpointRulerAction.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/actions/AuditRealizedCodeAction.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/actions/BPBreakpointPropertiesAction.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/actions/CreateBPBreakpointAction.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/actions/EnableDisableBreakpointRulerAction.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/actions/EnableDisableBreakpointRulerActionDelegate.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/actions/ExecuteAction.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/actions/MonitorAction.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/actions/MonitorOffAction.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/actions/OALBreakpointPropertiesRulerAction.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/actions/OALBreakpointPropertiesRulerActionDelegate.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/launch/BPDebugUtils.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/launch/BPLaunchDelegate.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/launch/BPMainTabGroup.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/launch/ISWTCustomUpdate.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/launch/LaunchShortcut.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/launch/LaunchShortcutTester.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/launch/LaunchVerifierAction.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/launch/ModelSelectionTab.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/launch/VerifiableElementComposite.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/launch/VerifiableElementInitializerDialog.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/launch/VerifierTableTreeStateChangeListener.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/model/BPAssocCreateDeleteBreakpoint.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/model/BPAttributeBreakpoint.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/model/BPBreakpoint.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/model/BPClassCreateDeleteBreakpoint.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/model/BPDebugElement.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/model/BPDebugTarget.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/model/BPEventBreakpoint.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/model/BPExecutionTimer.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/model/BPLineBreakpoint.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/model/BPPendingEventBreakpoint.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/model/BPProcess.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/model/BPStackFrame.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/model/BPStateBreakpoint.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/model/BPThread.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/model/IBPBreakpoint.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/model/VerifierExceptionBreakpoint.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/perspective/DebugPerspectiveFactory.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/propertypages/AssocCreateDeleteBreakpointPage.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/propertypages/AttributeBreakpointPage.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/propertypages/BPBreakpointPage.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/propertypages/BreakpointConditionEditor.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/propertypages/BreakpointFiltersPage.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/propertypages/ClassCreateDeleteBreakpointPage.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/propertypages/EventBreakpointPage.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/propertypages/InstanceFilterEditor.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/propertypages/OALLineBreakpointPage.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/propertypages/PendingEventBreakpointPage.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/propertypages/StateBreakpointPage.java
+com.mentor.nucleus.bp.debug.ui/src/com/mentor/nucleus/bp/
+    debug/ui/propertypages/VerifierExceptionBreakpointPage.java
+com.mentor.nucleus.bp.debug.ui/generate.xml
+com.mentor.nucleus.bp.debug.ui/plugin.xml
+
+com.mentor.nucleus.bp.debug.ui.test/src/
+    VerifierGlobalTestSuite.java
+com.mentor.nucleus.bp.debug.ui.test/src/
+    VerifierTestSuite.java
+com.mentor.nucleus.bp.debug.ui.test/src/
+    VerifierTestSuite2.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/engine/AutomaticWiringTest.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/engine/CreateAndGenerateEventTest.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/engine/ExternalEntityTest.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/engine/ExternalEntityUserTest.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/engine/MDATest.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/engine/ParameterPassingTest.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/engine/RingTimerTest.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/engine/SendMessageOverDelegationTest.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/engine/SignalParameterPassingTest.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/engine/TimerTest.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/engine/VerifierAuditTest.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/engine/VerifierCreationTransitionDebugTest.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/engine/VerifierMessageTest.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/engine/VerifierMessageTestGlobals.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/engine/VerifierTransitionActionTests.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/engine/VerifierTransitionActionTestsGlobals.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/test/RealizedClassTest.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/test/VerifierTest.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/test/VerifierTestSuiteI.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/test/VIECParameterTest.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/test/VIECTest.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/ui/launch/DLLRelaunchTest.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/ui/launch/VerifierLaunchActionTests.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/ui/launch/VerifierLaunchActionTestsGlobals.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/ui/launch/VerifierLaunchConfigurationTests.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/ui/launch/VerifierLaunchTestSuite.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/ui/launch/VerifierLaunchTestSuiteGlobals.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/ui/session/tree/VerifierSessionExplorerTests.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/ui/session/tree/VerifierSessionExplorerTestsGlobals.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/ui/test/DebugUITestUtilities.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/ui/test/execute/VerifierExecuteActionTests.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/ui/test/execute/VerifierExecuteActionTestsGlobals.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/ui/test/execute/VerifierInterfaceExecutionTests.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/ui/test/execute/VerifierInterfaceExecutionTestsGlobals.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/ui/test/realizedClasses/
+    VerifierStaticVariablesInRealizedClassesTest.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/ui/test/runtimemsg/TestVerifierRunTimeErrorMsgs_0.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/ui/test/runtimemsg/TestVerifierRunTimeErrorMsgs_1.java
+com.mentor.nucleus.bp.debug.ui.test/src/com/mentor/
+    nucleus/bp/debug/ui/test/runtimemsg/TestVerifierRunTimeErrorMsgs.java
+
+com.mentor.nucleus.bp.doc/license/copyright.htm
+com.mentor.nucleus.bp.doc/license/oss.htm
+com.mentor.nucleus.bp.doc/Reference/UserInterface/
+    ModelVerifierJavaInterface/ModelVerifierJavaInterface.htm
+com.mentor.nucleus.bp.doc/ReleaseNotes/HTML/
+    ReleaseNotes.htm
+com.mentor.nucleus.bp.doc/WhatsNew/HTML/WhatsNew.htm
+com.mentor.nucleus.bp.doc/plugin.properties
+com.mentor.nucleus.bp.doc/plugin.xml
+com.mentor.nucleus.bp.doc/toc.xml
+com.mentor.nucleus.bp.doc/topics_GettingStarted.xml
+com.mentor.nucleus.bp.doc/topics_Reference.xml
+
+com.mentor.nucleus.bp.docgen/src/com/mentor/nucleus/bp/
+    docgen/DocGenPlugin.java
+com.mentor.nucleus.bp.docgen/src/com/mentor/nucleus/bp/
+    docgen/actions/makeDocumentationAction.java
+com.mentor.nucleus.bp.docgen/src/com/mentor/nucleus/bp/
+    docgen/ant/tasks/DocGenTask.java
+com.mentor.nucleus.bp.docgen/src/com/mentor/nucleus/bp/
+    docgen/generator/Generator.java
+com.mentor.nucleus.bp.docgen/generate.xml
+com.mentor.nucleus.bp.docgen/plugin.xml
+
+com.mentor.nucleus.bp.internal.tools/src/
+    PTCodeFormatterTask.java
+com.mentor.nucleus.bp.internal.tools/src/com/mentor/
+    nucleus/bp/internal/tools/ToolsPlugin.java
+com.mentor.nucleus.bp.internal.tools/src/com/mentor/
+    nucleus/bp/internal/tools/actions/LocateOrphanedElementsInTreeAction.java
+com.mentor.nucleus.bp.internal.tools/src/com/mentor/
+    nucleus/bp/internal/tools/cleaner/CleanseForMCWorker.java
+com.mentor.nucleus.bp.internal.tools/src/com/mentor/
+    nucleus/bp/internal/tools/mcjava/Activator.java
+com.mentor.nucleus.bp.internal.tools/src/com/mentor/
+    nucleus/bp/internal/tools/process/ChangeSetCreator.java
+com.mentor.nucleus.bp.internal.tools/src/com/mentor/
+    nucleus/bp/internal/tools/process/CodeChangesScraper.java
+com.mentor.nucleus.bp.internal.tools/src/com/mentor/
+    nucleus/bp/internal/tools/utilities/TreeUtilities.java
+com.mentor.nucleus.bp.internal.tools/
+    convert_to_apache_license.xml
+com.mentor.nucleus.bp.internal.tools/plugin.xml
+com.mentor.nucleus.bp.internal.tools/
+    SummarizeJunitTests.xml
+com.mentor.nucleus.bp.internal.tools/update_BP_version.xml
+
+com.mentor.nucleus.bp.io.core/arc/class2table.arc
+com.mentor.nucleus.bp.io.core/arc/crosslink_validation.inc
+com.mentor.nucleus.bp.io.core/arc/export_functions.inc
+com.mentor.nucleus.bp.io.core/arc/gen_export_java.inc
+com.mentor.nucleus.bp.io.core/arc/gen_import_java.inc
+com.mentor.nucleus.bp.io.core/arc/
+    generate_configurable_components.inc
+com.mentor.nucleus.bp.io.core/arc/import_functions.inc
+com.mentor.nucleus.bp.io.core/contexts/contexts.xml
+com.mentor.nucleus.bp.io.core/models/
+    com.mentor.nucleus.bp.io.core/file_io/file_io.xtuml
+com.mentor.nucleus.bp.io.core/models/
+    com.mentor.nucleus.bp.io.core/file_io/Datatypes/Datatypes.xtuml
+com.mentor.nucleus.bp.io.core/models/
+    com.mentor.nucleus.bp.io.core/file_io/File IO/File IO.xtuml
+com.mentor.nucleus.bp.io.core/src/com/mentor/nucleus/bp/
+    io/core/CoreExport.java
+com.mentor.nucleus.bp.io.core/src/com/mentor/nucleus/bp/
+    io/core/CoreExportPage.java
+com.mentor.nucleus.bp.io.core/src/com/mentor/nucleus/bp/
+    io/core/CoreExportWizard.java
+com.mentor.nucleus.bp.io.core/src/com/mentor/nucleus/bp/
+    io/core/CoreImport.java
+com.mentor.nucleus.bp.io.core/src/com/mentor/nucleus/bp/
+    io/core/CoreImportPage.java
+com.mentor.nucleus.bp.io.core/src/com/mentor/nucleus/bp/
+    io/core/CoreImportWizard.java
+com.mentor.nucleus.bp.io.core/src/com/mentor/nucleus/bp/
+    io/core/IIOCoreHelpContextIds.java
+com.mentor.nucleus.bp.io.core/src/com/mentor/nucleus/bp/
+    io/core/ImportHelper.java
+com.mentor.nucleus.bp.io.core/src/com/mentor/nucleus/bp/
+    io/core/ImportInteger.java
+com.mentor.nucleus.bp.io.core/src/com/mentor/nucleus/bp/
+    io/core/sql_insert.g
+com.mentor.nucleus.bp.io.core/generate.xml
+com.mentor.nucleus.bp.io.core/plugin.xml
+
+com.mentor.nucleus.bp.io.image/generate.xml
+com.mentor.nucleus.bp.io.image/plugin.xml
+
+com.mentor.nucleus.bp.io.mdl/arc/
+    create_external_link_evaluator.arc
+com.mentor.nucleus.bp.io.mdl/arc/
+    create_persistence_meta_data.arc
+com.mentor.nucleus.bp.io.mdl/arc/gen_export_java.arc
+com.mentor.nucleus.bp.io.mdl/arc/gen_import_java.arc
+com.mentor.nucleus.bp.io.mdl/arc/gen_stream_export.arc
+com.mentor.nucleus.bp.io.mdl/arc/gen_stream_import.arc
+com.mentor.nucleus.bp.io.mdl/arc/gen_uuid_convert_util.arc
+com.mentor.nucleus.bp.io.mdl/arc/gen_xtuml_export_java.arc
+com.mentor.nucleus.bp.io.mdl/arc/gen_xtuml_import_java.arc
+com.mentor.nucleus.bp.io.mdl/sql/file_io.pei.sql
+com.mentor.nucleus.bp.io.mdl/sql/stream.pei.sql
+com.mentor.nucleus.bp.io.mdl/src/com/mentor/nucleus/bp/
+    io/mdl/ExportModelFactory.java
+com.mentor.nucleus.bp.io.mdl/src/com/mentor/nucleus/bp/
+    io/mdl/ExportStreamFactory.java
+com.mentor.nucleus.bp.io.mdl/src/com/mentor/nucleus/bp/
+    io/mdl/ImportModelFactory.java
+com.mentor.nucleus.bp.io.mdl/src/com/mentor/nucleus/bp/
+    io/mdl/ImportStreamFactory.java
+com.mentor.nucleus.bp.io.mdl/src/com/mentor/nucleus/bp/
+    io/mdl/MdlPlugin.java
+com.mentor.nucleus.bp.io.mdl/src/com/mentor/nucleus/bp/
+    io/mdl/PersistableElementParentDetails.java
+com.mentor.nucleus.bp.io.mdl/src/com/mentor/nucleus/bp/
+    io/mdl/tree/ModelCheckedTreeContentProvider.java
+com.mentor.nucleus.bp.io.mdl/src/com/mentor/nucleus/bp/
+    io/mdl/upgrade/GenericPackageUpgradeHelper.java
+com.mentor.nucleus.bp.io.mdl/src/com/mentor/nucleus/bp/
+    io/mdl/upgrade/UpgradeUtil.java
+com.mentor.nucleus.bp.io.mdl/src/com/mentor/nucleus/bp/
+    io/mdl/wizards/ModelExportPage.java
+com.mentor.nucleus.bp.io.mdl/src/com/mentor/nucleus/bp/
+    io/mdl/wizards/ModelExportWizard.java
+com.mentor.nucleus.bp.io.mdl/src/com/mentor/nucleus/bp/
+    io/mdl/wizards/ModelImportPage.java
+com.mentor.nucleus.bp.io.mdl/src/com/mentor/nucleus/bp/
+    io/mdl/wizards/ModelImportWizard.java
+com.mentor.nucleus.bp.io.mdl/generate.xml
+com.mentor.nucleus.bp.io.mdl/plugin.xml
+
+com.mentor.nucleus.bp.io.mdl.test/expected_results/
+    models/canvastest.xtuml
+com.mentor.nucleus.bp.io.mdl.test/expected_results/
+    models/canvastestGenerics.xtuml
+com.mentor.nucleus.bp.io.mdl.test/expected_results/
+    models/canvastestGenericsGlobals.xtuml
+com.mentor.nucleus.bp.io.mdl.test/expected_results/
+    models/ooaofgraphics.xtuml
+com.mentor.nucleus.bp.io.mdl.test/expected_results/
+    models/ooaofgraphicsGlobals.xtuml
+com.mentor.nucleus.bp.io.mdl.test/expected_results/
+    models/ooaofooa.xtuml
+com.mentor.nucleus.bp.io.mdl.test/expected_results/
+    models/ooaofooaGlobals.xtuml
+com.mentor.nucleus.bp.io.mdl.test/expected_results/sql/
+    ooaofgraphics.sql
+com.mentor.nucleus.bp.io.mdl.test/expected_results/sql/
+    ooaofooa.sql
+com.mentor.nucleus.bp.io.mdl.test/models/
+    DataUpgradeCreatesNoDeltasTestGenerics/ooaofgraphics.xtuml
+com.mentor.nucleus.bp.io.mdl.test/models/
+    InstanceReferenceTestMatrixModel/Matrix/InstanceReferenceTestMatrix.txt
+com.mentor.nucleus.bp.io.mdl.test/models/
+    OldModelsWithLongBasedUUIDs/graphics4MLPersistence.xtuml
+com.mentor.nucleus.bp.io.mdl.test/models/
+    single_file_archive/graphics4MLPersistence.xtuml
+com.mentor.nucleus.bp.io.mdl.test/models/sql/
+    ooaofgraphics.sql
+com.mentor.nucleus.bp.io.mdl.test/models/sql/ooaofooa.sql
+com.mentor.nucleus.bp.io.mdl.test/src/ConvertModels.java
+com.mentor.nucleus.bp.io.mdl.test/src/
+    IOMdlGlobalsTestSuite2Generics.java
+com.mentor.nucleus.bp.io.mdl.test/src/
+    IOMdlGlobalsTestSuiteGenerics.java
+com.mentor.nucleus.bp.io.mdl.test/src/
+    IOMdlTestGenerics.java
+com.mentor.nucleus.bp.io.mdl.test/src/
+    IOMdlTestResultSuiteGenerics.java
+com.mentor.nucleus.bp.io.mdl.test/src/
+    PkgCMGlobalsTestSuiteGenerics.java
+com.mentor.nucleus.bp.io.mdl.test/src/
+    PkgCmResultsTestSuite.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/ConsistencyTestSuite.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/DataUpgradeCreatesNoDeltasTestGenerics.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/ImportPasteElementsWithIPRTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/ImportReferencedIPRModelTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/IOMdlNestedTestGenerics.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/IOMdlTestPlugin.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/IOMdlTestSuiteIGenerics.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/IOMdlTestSuiteIIGenerics.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/IOMdlUnicodeTestGenerics.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/IOMdlUtilities.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/ParseOnImportTests.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/ParseOnImportTestsGenerics.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/ProxyTests.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/ProxyTestsGenerics.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/SLDTTests.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/SLDTTestsGenerics.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/SpecificationPackageUpgradeTestsGenerics.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/StaleProxyExportTestGenerics.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/UniqueDomainIdsTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/dangle/DanglingReferenceTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/dangle/DRBaseTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/CreateTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/DeleteTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/EditorTestUtilities.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/ModifyContentsTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/ModifyRelationTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/ModifyTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/PkgCMBaseTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/PkgCMCreateTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/PkgCMCreateTestGenerics.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/PkgCMDeleteTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/PkgCMDeleteTestGenerics.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/PkgCMModifyContentsTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/PkgCMModifyContentsTestGenerics.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/PkgCMModifyRelationTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/PkgCMModifyRelationTestGenerics.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/PkgCMRenameTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/PkgCMRenameTestGenerics.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/RenameTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/restore/PkgCMRestoreCreateTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/restore/PkgCMRestoreDeleteTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/restore/PkgCMRestoreModifyContentsTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/restore/PkgCMRestoreModifyRelationTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/restore/PkgCMRestoreRenameTest.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/pkgcm/restore/PkgCMRestoreTestSuite.java
+com.mentor.nucleus.bp.io.mdl.test/src/com/mentor/nucleus/
+    bp/io/mdl/test/wizards/ImportWizardTestsGenerics.java
+
+com.mentor.nucleus.bp.io.sql/arc/class_rename.inc
+com.mentor.nucleus.bp.io.sql/arc/gen_import_java.arc
+com.mentor.nucleus.bp.io.sql/sql/bp_gd.sql
+com.mentor.nucleus.bp.io.sql/sql/bp_ooa_ooa.sql
+com.mentor.nucleus.bp.io.sql/sql/file_io.pei.sql
+com.mentor.nucleus.bp.io.sql/src/com/mentor/nucleus/bp/
+    io/sql/ImportBPSqlHelper.java
+com.mentor.nucleus.bp.io.sql/src/com/mentor/nucleus/bp/
+    io/sql/ImportModelFactory.java
+com.mentor.nucleus.bp.io.sql/src/com/mentor/nucleus/bp/
+    io/sql/SqlPlugin.java
+com.mentor.nucleus.bp.io.sql/generate.xml
+com.mentor.nucleus.bp.io.sql/plugin.xml
+
+com.mentor.nucleus.bp.io.sql.test/src/IOSqlTestSuite.java
+com.mentor.nucleus.bp.io.sql.test/src/IOTest.java
+com.mentor.nucleus.bp.io.sql.test/src/com/mentor/nucleus/
+    bp/io/sql/test/IOSqlTestPlugin.java
+com.mentor.nucleus.bp.io.sql.test/src/com/mentor/nucleus/
+    bp/io/sql/test/IOSqlTestsSuite.java
+com.mentor.nucleus.bp.io.sql.test/plugin.xml
+
+com.mentor.nucleus.bp.mc/META-INF/MANIFEST.MF
+com.mentor.nucleus.bp.mc/src/com/mentor/nucleus/bp/mc/
+    AbstractActivator.java
+com.mentor.nucleus.bp.mc/src/com/mentor/nucleus/bp/mc/
+    AbstractExportBuilder.java
+com.mentor.nucleus.bp.mc/src/com/mentor/nucleus/bp/mc/
+    AbstractNature.java
+com.mentor.nucleus.bp.mc/src/com/mentor/nucleus/bp/mc/
+    AbstractProperties.java
+com.mentor.nucleus.bp.mc/src/com/mentor/nucleus/bp/mc/
+    MCBuilderArgumentHandler.java
+com.mentor.nucleus.bp.mc/generate.xml
+
+com.mentor.nucleus.bp.mc.c.binary/META-INF/MANIFEST.MF
+com.mentor.nucleus.bp.mc.c.binary/src/com/mentor/nucleus/
+    bp/mc/c/binary/Activator.java
+com.mentor.nucleus.bp.mc.c.binary/generate.xml
+
+com.mentor.nucleus.bp.mc.c.source/META-INF/MANIFEST.MF
+com.mentor.nucleus.bp.mc.c.source/src/com/mentor/nucleus/
+    bp/mc/c/source/Activator.java
+com.mentor.nucleus.bp.mc.c.source/generate.xml
+
+com.mentor.nucleus.bp.mc.cpp.source/META-INF/MANIFEST.MF
+com.mentor.nucleus.bp.mc.cpp.source/src/com/mentor/
+    nucleus/bp/mc/cpp/source/Activator.java
+com.mentor.nucleus.bp.mc.cpp.source/generate.xml
+
+com.mentor.nucleus.bp.mc.mcpaas/mc3020/schema/colors/
+    bridge.jap
+com.mentor.nucleus.bp.mc.mcpaas/mc3020/schema/colors/
+    bridge.mark
+com.mentor.nucleus.bp.mc.mcpaas/mc3020/schema/colors/
+    class.mark
+com.mentor.nucleus.bp.mc.mcpaas/mc3020/schema/colors/
+    datatype.jap
+com.mentor.nucleus.bp.mc.mcpaas/mc3020/schema/colors/
+    datatype.mark
+com.mentor.nucleus.bp.mc.mcpaas/mc3020/schema/colors/
+    dom_functions.arc
+com.mentor.nucleus.bp.mc.mcpaas/mc3020/schema/colors/
+    domain.jap
+com.mentor.nucleus.bp.mc.mcpaas/mc3020/schema/colors/
+    domain.mark
+com.mentor.nucleus.bp.mc.mcpaas/mc3020/schema/colors/
+    event.jap
+com.mentor.nucleus.bp.mc.mcpaas/mc3020/schema/colors/
+    event.mark
+com.mentor.nucleus.bp.mc.mcpaas/mc3020/schema/colors/
+    object.jap
+com.mentor.nucleus.bp.mc.mcpaas/mc3020/schema/colors/
+    populate.arc
+com.mentor.nucleus.bp.mc.mcpaas/mc3020/schema/colors/
+    sys_functions.arc
+com.mentor.nucleus.bp.mc.mcpaas/mc3020/schema/colors/
+    system.jap
+com.mentor.nucleus.bp.mc.mcpaas/mc3020/schema/colors/
+    system.mark
+com.mentor.nucleus.bp.mc.mcpaas/src/com/mentor/nucleus/
+    bp/mc/mcpaas/Activator.java
+com.mentor.nucleus.bp.mc.mcpaas/generate.xml
+
+com.mentor.nucleus.bp.mc.systemc.source/META-INF/
+    MANIFEST.MF
+com.mentor.nucleus.bp.mc.systemc.source/src/com/mentor/
+    nucleus/bp/mc/systemc/source/Activator.java
+com.mentor.nucleus.bp.mc.systemc.source/generate.xml
+
+com.mentor.nucleus.bp.mc.template/META-INF/MANIFEST.MF
+com.mentor.nucleus.bp.mc.template/templates/
+    model_compiler/generate.xml
+com.mentor.nucleus.bp.mc.template/generate.xml
+
+com.mentor.nucleus.bp.mc.vhdl.source/META-INF/MANIFEST.MF
+com.mentor.nucleus.bp.mc.vhdl.source/src/com/mentor/
+    nucleus/bp/mc/vhdl/source/Activator.java
+com.mentor.nucleus.bp.mc.vhdl.source/generate.xml
+
+com.mentor.nucleus.bp.mc.xmiexport/src/com/mentor/
+    nucleus/bp/mc/xmiexport/XMIExport.java
+com.mentor.nucleus.bp.mc.xmiexport/src/com/mentor/
+    nucleus/bp/mc/xmiexport/XMIExportBuilder.java
+com.mentor.nucleus.bp.mc.xmiexport/src/com/mentor/
+    nucleus/bp/mc/xmiexport/XMIExportNature.java
+com.mentor.nucleus.bp.mc.xmiexport/generate.xml
+com.mentor.nucleus.bp.mc.xmiexport/plugin.xml
+
+com.mentor.nucleus.bp.model.compare/arc/
+    BuildComparisonTree.arc
+com.mentor.nucleus.bp.model.compare/arc/
+    create_properties_file.inc
+com.mentor.nucleus.bp.model.compare/contexts/contexts.xml
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/ComparableTreeObject.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/ComparePlugin.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/ICompareHelpContextIds.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/ITreeDifferencerProvider.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/ModelCacheManager.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/ModelMergeProcessor.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/actions/CopyDiffAction.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/actions/MoveDownAction.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/actions/MoveUpAction.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/actions/NavigateDownAction.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/actions/NavigateUpAction.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/contentmergeviewer/ElementEditingSupport.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/contentmergeviewer/ErrorToolTip.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/contentmergeviewer/IModelContentMergeViewer.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/contentmergeviewer/ModelContentMergeViewer.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/contentmergeviewer/
+    ModelContentMergeViewerCreator.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/contentmergeviewer/ModelMergeViewer.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/contentmergeviewer/SynchronizedTreeViewer.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/contentmergeviewer/
+    TextualAttributeCompareEditorInput.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/contentmergeviewer/
+    TextualAttributeCompareElementType.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/contentmergeviewer/TreeDifferenceFilter.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/providers/ComparableProvider.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/providers/ModelCompareContentProvider.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/providers/ModelCompareLabelProvider.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/providers/NonRootModelElementComparable.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/providers/ObjectElementComparable.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/providers/OverlayCompositeImageDescriptor.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/providers/TreeDifferenceContentProvider.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/providers/TreeDifferenceLabelProvider.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/providers/custom/ActionComparable.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/providers/custom/AssignedEventComparable.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/providers/custom/AssociationComparable.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/providers/custom/
+    DerivedBaseAttributeComparable.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/providers/custom/MessageComparable.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/providers/custom/NewBaseAttributeComparable.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/providers/custom/PolymorphicEventComparable.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/providers/custom/SemEventComparable.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/providers/custom/TransitionComparable.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/structuremergeviewer/ModelStructureDiffViewer.java
+com.mentor.nucleus.bp.model.compare/src/com/mentor/
+    nucleus/bp/model/compare/structuremergeviewer/StructureViewerCreator.java
+com.mentor.nucleus.bp.model.compare/generate.xml
+com.mentor.nucleus.bp.model.compare/plugin.xml
+
+com.mentor.nucleus.bp.model.compare.test/arc/
+    generate_metamodel_compare_test.arc
+com.mentor.nucleus.bp.model.compare.test/src/com/mentor/
+    nucleus/bp/model/compare/test/ElementOrderingTests.java
+com.mentor.nucleus.bp.model.compare.test/src/com/mentor/
+    nucleus/bp/model/compare/test/ModelCompareTestSuite.java
+com.mentor.nucleus.bp.model.compare.test/src/com/mentor/
+    nucleus/bp/model/compare/test/ModelMergeTests.java
+com.mentor.nucleus.bp.model.compare.test/generate.xml
+
+com.mentor.nucleus.bp.pkg/about.mappings
+com.mentor.nucleus.bp.pkg/about.properties
+com.mentor.nucleus.bp.pkg/plugin.properties
+com.mentor.nucleus.bp.pkg/plugin.xml
+
+com.mentor.nucleus.bp.pkg-feature/license_files/
+    colorschememapping.xml
+com.mentor.nucleus.bp.pkg-feature/license_files/
+    filelist.xml
+com.mentor.nucleus.bp.pkg-feature/license_files/
+    themedata.thmx
+com.mentor.nucleus.bp.pkg-feature/feature.xml
+com.mentor.nucleus.bp.pkg-feature/license.html
+
+com.mentor.nucleus.bp.search/META-INF/MANIFEST.MF
+com.mentor.nucleus.bp.search/src/com/mentor/nucleus/bp/
+    search/Activator.java
+com.mentor.nucleus.bp.search/src/com/mentor/nucleus/bp/
+    search/adapters/EditorMatchAdapter.java
+com.mentor.nucleus.bp.search/src/com/mentor/nucleus/bp/
+    search/adapters/FileMatchAdapter.java
+com.mentor.nucleus.bp.search/src/com/mentor/nucleus/bp/
+    search/query/ModelQueryProvider.java
+com.mentor.nucleus.bp.search/src/com/mentor/nucleus/bp/
+    search/query/ModelSearchInput.java
+com.mentor.nucleus.bp.search/src/com/mentor/nucleus/bp/
+    search/query/ModelSearchQuery.java
+com.mentor.nucleus.bp.search/src/com/mentor/nucleus/bp/
+    search/results/ModelMatch.java
+com.mentor.nucleus.bp.search/src/com/mentor/nucleus/bp/
+    search/results/ModelSearchResult.java
+com.mentor.nucleus.bp.search/generate.xml
+
+com.mentor.nucleus.bp.sequencecapture/META-INF/MANIFEST.MF
+com.mentor.nucleus.bp.sequencecapture/generate.xml
+
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/TestPlugin.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/TestResultLogger.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/TestUtil.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/common/BaseTest.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/common/CanvasEditorUtils.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/common/CanvasTestUtils.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/common/CompareTestUtilities.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/common/CVSUtils.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/common/ExplorerUtil.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/common/FailableRunnable.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/common/GeneralPurposeLogger.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/common/GenericEditorUtil.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/common/ILogable.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/common/ITestResultsCreator.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/common/ObjectLogger.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/common/TestingUtilities.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/common/TextEditorUtils.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/common/TransactionListener.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/common/UITestingUtilities.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/launcher/restore/RestoreMainTab.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/launcher/restore/RestoreTestLauncherDelegate.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/launcher/restore/RestoreTestLauncherTabGroup.java
+com.mentor.nucleus.bp.test/src/com/mentor/nucleus/bp/
+    test/launcher/restore/RestoreTestResultLogger.java
+com.mentor.nucleus.bp.test/plugin.xml
+com.mentor.nucleus.bp.test/UnitTestGenerator.pl
+
+com.mentor.nucleus.bp.ui.canvas/arc/BuildOutline.arc
+com.mentor.nucleus.bp.ui.canvas/arc/
+    create_outline_sorter.inc
+com.mentor.nucleus.bp.ui.canvas/color/
+    ooaofgraphics_import_spec.clr
+com.mentor.nucleus.bp.ui.canvas/color/
+    ooaofgraphics_package_spec.clr
+com.mentor.nucleus.bp.ui.canvas/color/
+    ooaofgraphics_startspec.clr
+com.mentor.nucleus.bp.ui.canvas/models/
+    com.mentor.nucleus.bp.ui.canvas/ooaofgraphics/ooaofgraphics.xtuml
+com.mentor.nucleus.bp.ui.canvas/models/
+    com.mentor.nucleus.bp.ui.canvas/ooaofgraphics/Canvas Tools/
+    Canvas Tools.xtuml
+com.mentor.nucleus.bp.ui.canvas/models/
+    com.mentor.nucleus.bp.ui.canvas/ooaofgraphics/Datatypes/Datatypes.xtuml
+com.mentor.nucleus.bp.ui.canvas/models/
+    com.mentor.nucleus.bp.ui.canvas/ooaofgraphics/External Entities/
+    External Entities.xtuml
+com.mentor.nucleus.bp.ui.canvas/models/
+    com.mentor.nucleus.bp.ui.canvas/ooaofgraphics/Functions/Functions.xtuml
+com.mentor.nucleus.bp.ui.canvas/models/
+    com.mentor.nucleus.bp.ui.canvas/ooaofgraphics/Graphical Data/
+    Graphical Data.xtuml
+com.mentor.nucleus.bp.ui.canvas/models/
+    com.mentor.nucleus.bp.ui.canvas/ooaofgraphics/Styles/Styles.xtuml
+com.mentor.nucleus.bp.ui.canvas/models/
+    com.mentor.nucleus.bp.ui.canvas/ooaofgraphics/Terminal Specifications/
+    Terminal Specifications.xtuml
+com.mentor.nucleus.bp.ui.canvas/models/
+    com.mentor.nucleus.bp.ui.canvas/ooaofgraphics/UML 2.0 Diagram Interchange/
+    UML 2.0 Diagram Interchange.xtuml
+com.mentor.nucleus.bp.ui.canvas/src/com/mentor/nucleus/
+    bp/ui/canvas/CanvasModelListener.java
+com.mentor.nucleus.bp.ui.canvas/src/com/mentor/nucleus/
+    bp/ui/canvas/CanvasPlugin.java
+com.mentor.nucleus.bp.ui.canvas/src/com/mentor/nucleus/
+    bp/ui/canvas/CanvasTransactionListener.java
+com.mentor.nucleus.bp.ui.canvas/src/com/mentor/nucleus/
+    bp/ui/canvas/Cl_c.java
+com.mentor.nucleus.bp.ui.canvas/src/com/mentor/nucleus/
+    bp/ui/canvas/GCDelegate.java
+com.mentor.nucleus.bp.ui.canvas/src/com/mentor/nucleus/
+    bp/ui/canvas/Gr_c.java
+com.mentor.nucleus.bp.ui.canvas/src/com/mentor/nucleus/
+    bp/ui/canvas/ModelContentOutlinePage.java
+com.mentor.nucleus.bp.ui.canvas/src/com/mentor/nucleus/
+    bp/ui/canvas/OoaofgraphicsBase.java
+com.mentor.nucleus.bp.ui.canvas/src/com/mentor/nucleus/
+    bp/ui/canvas/ToolAction.java
+com.mentor.nucleus.bp.ui.canvas/src/com/mentor/nucleus/
+    bp/ui/canvas/util/ConnectorUtil.java
+com.mentor.nucleus.bp.ui.canvas/src/com/mentor/nucleus/
+    bp/ui/canvas/util/GraphicalElementUtil.java
+com.mentor.nucleus.bp.ui.canvas/src/com/mentor/nucleus/
+    bp/ui/canvas/util/GraphicsUtil.java
+com.mentor.nucleus.bp.ui.canvas/src/com/mentor/nucleus/
+    bp/ui/canvas/util/GraphNodeUtil.java
+com.mentor.nucleus.bp.ui.canvas/generate.xml
+com.mentor.nucleus.bp.ui.canvas/plugin.xml
+
+com.mentor.nucleus.bp.ui.canvas.test/arc/
+    gen_test_matrix.arc
+com.mentor.nucleus.bp.ui.canvas.test/arc/gen_test_skel.arc
+com.mentor.nucleus.bp.ui.canvas.test/arc/
+    gen_testClearDatabaseClass.arc
+com.mentor.nucleus.bp.ui.canvas.test/matrices/
+    non_generated/connector_move.txt
+com.mentor.nucleus.bp.ui.canvas.test/matrices/
+    non_generated/graphical_anchors.txt
+com.mentor.nucleus.bp.ui.canvas.test/matrices/
+    non_generated/rectilinear_routing.txt
+com.mentor.nucleus.bp.ui.canvas.test/src/
+    CanvasCCPGlobalsTestSuite.java
+com.mentor.nucleus.bp.ui.canvas.test/src/
+    CanvasCCPResultSuite.java
+com.mentor.nucleus.bp.ui.canvas.test/src/
+    CanvasCCPTestSuite.java
+com.mentor.nucleus.bp.ui.canvas.test/src/CanvasSuite1.java
+com.mentor.nucleus.bp.ui.canvas.test/src/CanvasSuite2.java
+com.mentor.nucleus.bp.ui.canvas.test/src/
+    CanvasTestResultSuite.java
+com.mentor.nucleus.bp.ui.canvas.test/src/
+    GlobalsCanvasSuite1.java
+com.mentor.nucleus.bp.ui.canvas.test/src/
+    GlobalsCanvasSuite2.java
+com.mentor.nucleus.bp.ui.canvas.test/src/
+    ModelRecreationResultSuite.java
+com.mentor.nucleus.bp.ui.canvas.test/src/
+    ModelRecreationTestSuite.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/AutoReconciliationTests.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/CanvasCCPTestsSuite.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/CanvasCopyPasteTests.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/CanvasCopyTests.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/CanvasCreationTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/CanvasCutTests.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/CanvasEditorReloadContentsTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/CanvasEditorTestSuite.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/CanvasInitialNameTests.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/CanvasStateMachineCopyPasteTests.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/CanvasTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/CanvasTestPlugin.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/CanvasTestSuite1.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/CanvasTestSuite2.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/CanvasTestUtilities.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/ClassToStateDiagramNavigationTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/CloseCanvasEditor.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/ConnectorsAsAnchorsTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/ConnectorToolSCTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/DissatisfactionTests.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/ErrorPathsTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/FreeFloatingConnectorTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/GraphicalToolCreationTests.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/GridSnapTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/I2053F2RenameTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/I835OpenDiagramEditorWithSearchView.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/InterfaceDrawingTests.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/ListenerTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/ModelRecreationTests.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/ModelToolSCTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/MultipleSupertypeTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/ODMSTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/OpenCanvasEditor.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/ReadonlySelectionToolTests.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/ReadonlyShapeToolTests.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/ReadonlyToolbarActionTests.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/ScrollToolSCTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/SelectionToolSCTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/ShapeResizeTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/ShapeToolSCTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/StatechartTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/SymbolTest.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/TestReflexiveConnectorCreation.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/actions/OpenTestEditorAction.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/anchors/GraphicalAnchorTests.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/model/ConnectorElement.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/model/DiagramElement.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/model/ShapeElement.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/movement/ConnectorMoveTests.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/routing/RectilinearRoutingTests.java
+com.mentor.nucleus.bp.ui.canvas.test/src/com/mentor/
+    nucleus/bp/ui/canvas/test/util/MouseUtil.java
+com.mentor.nucleus.bp.ui.canvas.test/generate.xml
+com.mentor.nucleus.bp.ui.canvas.test/plugin.xml
+com.mentor.nucleus.bp.ui.canvas.test/test.xml
+
+com.mentor.nucleus.bp.ui.explorer/arc/BuildMonitorTree.arc
+com.mentor.nucleus.bp.ui.explorer/arc/BuildTree.arc
+com.mentor.nucleus.bp.ui.explorer/arc/create_adapters.inc
+com.mentor.nucleus.bp.ui.explorer/arc/
+    create_content_provider.inc
+com.mentor.nucleus.bp.ui.explorer/arc/
+    create_explorer_view.inc
+com.mentor.nucleus.bp.ui.explorer/arc/
+    create_filters_content_provider.inc
+com.mentor.nucleus.bp.ui.explorer/arc/
+    create_label_provider.inc
+com.mentor.nucleus.bp.ui.explorer/arc/
+    create_mon_content_provider.inc
+com.mentor.nucleus.bp.ui.explorer/arc/
+    create_mon_explorer_view.inc
+com.mentor.nucleus.bp.ui.explorer/arc/
+    create_mon_label_provider.inc
+com.mentor.nucleus.bp.ui.explorer/arc/parse_chain.inc
+com.mentor.nucleus.bp.ui.explorer/contexts/contexts.xml
+com.mentor.nucleus.bp.ui.explorer/sql/MonUITree.pei.sql
+com.mentor.nucleus.bp.ui.explorer/sql/UITree.pei.sql
+com.mentor.nucleus.bp.ui.explorer/src/com/mentor/nucleus/
+    bp/ui/explorer/ExplorerPlugin.java
+com.mentor.nucleus.bp.ui.explorer/src/com/mentor/nucleus/
+    bp/ui/explorer/ExplorerTreeViewer.java
+com.mentor.nucleus.bp.ui.explorer/src/com/mentor/nucleus/
+    bp/ui/explorer/FilterSelectionAction.java
+com.mentor.nucleus.bp.ui.explorer/src/com/mentor/nucleus/
+    bp/ui/explorer/ILinkWithEditorListener.java
+com.mentor.nucleus.bp.ui.explorer/src/com/mentor/nucleus/
+    bp/ui/explorer/IModelExplorerHelpContextIds.java
+com.mentor.nucleus.bp.ui.explorer/src/com/mentor/nucleus/
+    bp/ui/explorer/MultipleOccurrenceElement.java
+com.mentor.nucleus.bp.ui.explorer/src/com/mentor/nucleus/
+    bp/ui/explorer/adapters/RootAdapter.java
+com.mentor.nucleus.bp.ui.explorer/src/com/mentor/nucleus/
+    bp/ui/explorer/decorators/DanglingReferenceDecorator.java
+com.mentor.nucleus.bp.ui.explorer/src/com/mentor/nucleus/
+    bp/ui/explorer/decorators/SynchronizationDecorator.java
+com.mentor.nucleus.bp.ui.explorer/src/com/mentor/nucleus/
+    bp/ui/explorer/ui/actions/ExplorerCopyAction.java
+com.mentor.nucleus.bp.ui.explorer/src/com/mentor/nucleus/
+    bp/ui/explorer/ui/actions/ExplorerCutAction.java
+com.mentor.nucleus.bp.ui.explorer/src/com/mentor/nucleus/
+    bp/ui/explorer/ui/actions/ExplorerPasteAction.java
+com.mentor.nucleus.bp.ui.explorer/generate.xml
+com.mentor.nucleus.bp.ui.explorer/plugin.xml
+
+com.mentor.nucleus.bp.ui.explorer.test/src/com/mentor/
+    nucleus/bp/ui/explorer/test/AlphaSortingTest.java
+com.mentor.nucleus.bp.ui.explorer.test/src/com/mentor/
+    nucleus/bp/ui/explorer/test/ExplorerGlobalsTestSuite.java
+com.mentor.nucleus.bp.ui.explorer.test/src/com/mentor/
+    nucleus/bp/ui/explorer/test/ExplorerTest.java
+com.mentor.nucleus.bp.ui.explorer.test/src/com/mentor/
+    nucleus/bp/ui/explorer/test/ExplorerTestSuite.java
+com.mentor.nucleus.bp.ui.explorer.test/src/com/mentor/
+    nucleus/bp/ui/explorer/test/FunctionKeyActivationTest.java
+com.mentor.nucleus.bp.ui.explorer.test/src/com/mentor/
+    nucleus/bp/ui/explorer/test/I634ExplorerEmptySelectionTest.java
+com.mentor.nucleus.bp.ui.explorer.test/src/com/mentor/
+    nucleus/bp/ui/explorer/test/TestPlugin.java
+com.mentor.nucleus.bp.ui.explorer.test/Test_Readme.txt
+
+com.mentor.nucleus.bp.ui.graphics/contexts/contexts.xml
+com.mentor.nucleus.bp.ui.graphics/META-INF/MANIFEST.MF
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/IGraphicalHelpContextIds.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/AddToLayerAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/CanvasCopyAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/CanvasCutAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/CanvasPasteAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/DeleteLayerAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/DynamicLayersContributionItem.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/EditHiddenLayerAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/GraphicsActionBarContributor.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/GraphicsZoomComboContributionItem.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/HideLayerAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/NewLayerAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/OpenGraphicsEditor.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/RemoveFromLayerAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/RenameLayerAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/RestoreDefaultFillColorAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/RestoreDefaultLineColorAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/SetCustomFillColorAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/SetCustomLineColorAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/SetFontAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/SetObliqueRoutingAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/SetRectilinearRoutingAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/SetSystemColorAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/ShowLayerAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/ToggleGridSnapAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/actions/ToggleGridViewAction.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/anchors/ConnectorAnchor.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/anchors/IAdjustableReferencePointAnchor.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/anchors/ShapeAnchor.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/anchors/ShapeSlidableAnchor.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/anchors/WSAnchor.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/commands/AutocreationCommand.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/commands/ConnectorBendpointCreateCommand.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/commands/ConnectorBendpointDeleteCommand.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/commands/ConnectorBendpointMoveCommand.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/commands/ConnectorMoveCommand.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/commands/CreateConnectionCommand.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/commands/GraphicalCloneCommand.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/commands/ShapeCreationCommand.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/commands/ShapeSetConstraintCommand.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/commands/StartConnectionCommand.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/commands/UpdateEndPointLocationCommand.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/decorations/ConnectorEllipseDecoration.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/decorations/ConnectorPolygonDecoration.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/decorations/ConnectorPolylineDecoration.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/decorations/ConnectorSemiCircleDecoration.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/decorations/TooltipDecoration.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/draw/GraphicsGCDelegate.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/editor/CanvasDummyIFile.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/editor/GraphicalCommandStack.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/editor/GraphicalEditDomain.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/editor/GraphicalEditor.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/editor/GraphicalEditorFactory.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/editor/GraphicalEditorInput.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/editor/IEditorTabFactory.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/editor/ModelEditor.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/editor/SimpleGraphicalEditorInput.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/factories/AdapterFactory.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/factories/ConnectorCreationFactory.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/factories/ShapeCreationFactory.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/figures/DecoratedPolylineConnection.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/figures/GraphicsFreeformLayeredPane.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/figures/GraphicsViewport.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/figures/OffsetImageFigure.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/figures/ShapeImageFigure.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/handles/SnappingBendpointCreationHandle.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/handles/SnappingBendpointMoveHandle.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/handles/SnappingConnectionEndPointHandle.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/layers/DefaultLayer.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/layers/LayerUtils.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/layers/UserDefinedConnectionLayer.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/layers/UserDefinedLayer.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/layout/ContainerXYLayout.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/layout/FixedTextLocator.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/layout/ShapeTextLayout.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/layout/XYDelegatingLayout.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/listeners/GraphicalPasteListener.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/listeners/GraphicsEditorListener.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/listeners/GraphicsModelTransactionListener.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/outline/GraphicalOutlinePage.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/palette/GraphicsConnectionCreationToolEntry.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/palette/GraphicsCreationToolEntry.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/palette/ZoomToolEntry.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/parts/ConnectorEditPart.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/parts/DiagramEditPart.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/parts/GraphicalEditPartFilter.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/parts/GraphicalZoomManager.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/parts/GraphicsEditPartFactory.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/parts/GraphicsScalableFreeformEditPart.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/parts/ShapeEditPart.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/parts/TextEditPart.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/policies/ConnectionPolicy.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/policies/ConnectorBendPointEditPolicy.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/policies/ConnectorGraphicalNodeEditPolicy.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/policies/ConnectorMoveEditPolicy.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/policies/ContainerXYLayoutPolicy.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/policies/FreeFloatingGraphicalNodeEditPolicy.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/policies/GraphicsConnectionLineSegPolicy.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/policies/GraphicsXYLayoutPolicy.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/policies/ShapeGraphicalNodeEditPolicy.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/policies/TextResizableEditPolicy.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/print/PrintDiagramOperation.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/properties/GraphicsPropertySourceProvider.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/providers/CanvasEditorContextMenuProvider.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/requests/ConnectorEditPartChangeBoundsRequest.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/requests/GraphicsConnectionCreateRequest.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/requests/GraphicsCreateRequest.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/router/RectilinearRouter.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/router/Routing.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/selection/GraphicalSelectionManager.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/tools/GraphicalPanningSelectionTool.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/tools/GraphicalZoomTool.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/tools/GraphicsConnectionCreationTool.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/tools/GraphicsCreationTool.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/trackers/ConnectorEditPartDragTracker.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/trackers/GraphicalMarqueeDragTracker.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/trackers/SnappingBendpointTracker.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/trackers/SnappingConnectionEndpointTracker.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/trackers/TextDragEditPartsTracker.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/trackers/TextResizeTracker.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/utilities/ClientUtil.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/utilities/ElementMap.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/utilities/GraphicsUtil.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/utilities/PointUtilities.java
+com.mentor.nucleus.bp.ui.graphics/src/com/mentor/nucleus/
+    bp/ui/graphics/utilities/TextUtilities.java
+com.mentor.nucleus.bp.ui.graphics/generate.xml
+
+com.mentor.nucleus.bp.ui.properties/arc/
+    BuildPropertySource.arc
+com.mentor.nucleus.bp.ui.properties/src/com/mentor/
+    nucleus/bp/ui/properties/ActivityPropertyDescriptor.java
+com.mentor.nucleus.bp.ui.properties/src/com/mentor/
+    nucleus/bp/ui/properties/BooleanPropertyDescriptor.java
+com.mentor.nucleus.bp.ui.properties/src/com/mentor/
+    nucleus/bp/ui/properties/BridgepointPropertySheetPage.java
+com.mentor.nucleus.bp.ui.properties/src/com/mentor/
+    nucleus/bp/ui/properties/BridgepointPropertySheetSorter.java
+com.mentor.nucleus.bp.ui.properties/src/com/mentor/
+    nucleus/bp/ui/properties/ChooserPropertyDescriptor.java
+com.mentor.nucleus.bp.ui.properties/src/com/mentor/
+    nucleus/bp/ui/properties/ConstantValuePropertyDescriptor.java
+com.mentor.nucleus.bp.ui.properties/src/com/mentor/
+    nucleus/bp/ui/properties/DescriptionPropertyDescriptor.java
+com.mentor.nucleus.bp.ui.properties/src/com/mentor/
+    nucleus/bp/ui/properties/DimensionsPropertyDescriptor.java
+com.mentor.nucleus.bp.ui.properties/src/com/mentor/
+    nucleus/bp/ui/properties/EnumPropertyDescriptor.java
+com.mentor.nucleus.bp.ui.properties/src/com/mentor/
+    nucleus/bp/ui/properties/IntegerPropertyDescriptor.java
+com.mentor.nucleus.bp.ui.properties/generate.xml
+com.mentor.nucleus.bp.ui.properties/plugin.xml
+
+com.mentor.nucleus.bp.ui.properties.test/arc/
+    create_readonly_view_test.arc
+com.mentor.nucleus.bp.ui.properties.test/arc/
+    create_view_test.arc
+com.mentor.nucleus.bp.ui.properties.test/sql/
+    proxy_schema.sql
+com.mentor.nucleus.bp.ui.properties.test/src/
+    PropertiesGlobalsTestSuite.java
+com.mentor.nucleus.bp.ui.properties.test/src/
+    PropertiesTestSuite.java
+com.mentor.nucleus.bp.ui.properties.test/src/com/mentor/
+    nucleus/bp/ui/properties/test/DeleteUDTWithPropertyShowing.java
+com.mentor.nucleus.bp.ui.properties.test/src/com/mentor/
+    nucleus/bp/ui/properties/test/EnumRangeTest.java
+com.mentor.nucleus.bp.ui.properties.test/src/com/mentor/
+    nucleus/bp/ui/properties/test/IsAllowedTypeTest.java
+com.mentor.nucleus.bp.ui.properties.test/src/com/mentor/
+    nucleus/bp/ui/properties/test/NumberRangeTest.java
+com.mentor.nucleus.bp.ui.properties.test/src/com/mentor/
+    nucleus/bp/ui/properties/test/PropertiesRenameTests.java
+com.mentor.nucleus.bp.ui.properties.test/src/com/mentor/
+    nucleus/bp/ui/properties/test/PropertiesTestPlugin.java
+com.mentor.nucleus.bp.ui.properties.test/src/com/mentor/
+    nucleus/bp/ui/properties/test/PropertiesUtil.java
+com.mentor.nucleus.bp.ui.properties.test/src/com/mentor/
+    nucleus/bp/ui/properties/test/PropertiesViewTest2.java
+com.mentor.nucleus.bp.ui.properties.test/src/com/mentor/
+    nucleus/bp/ui/properties/test/RefreshTestProp.java
+com.mentor.nucleus.bp.ui.properties.test/generate.xml
+
+com.mentor.nucleus.bp.ui.search/META-INF/MANIFEST.MF
+com.mentor.nucleus.bp.ui.search/src/com/mentor/nucleus/
+    bp/ui/search/Activator.java
+com.mentor.nucleus.bp.ui.search/src/com/mentor/nucleus/
+    bp/ui/search/pages/ModelSearchPage.java
+com.mentor.nucleus.bp.ui.search/src/com/mentor/nucleus/
+    bp/ui/search/pages/ModelSearchResultPage.java
+com.mentor.nucleus.bp.ui.search/src/com/mentor/nucleus/
+    bp/ui/search/providers/DecoratingModelSearchLabelProvider.java
+com.mentor.nucleus.bp.ui.search/src/com/mentor/nucleus/
+    bp/ui/search/providers/ModelSearchContentProvider.java
+com.mentor.nucleus.bp.ui.search/src/com/mentor/nucleus/
+    bp/ui/search/providers/ModelSearchLabelProvider.java
+com.mentor.nucleus.bp.ui.search/src/com/mentor/nucleus/
+    bp/ui/search/providers/ModelSearchTableContentProvider.java
+com.mentor.nucleus.bp.ui.search/generate.xml
+
+com.mentor.nucleus.bp.ui.sem/src/com/mentor/nucleus/bp/
+    ui/sem/Activator.java
+com.mentor.nucleus.bp.ui.sem/src/com/mentor/nucleus/bp/
+    ui/sem/factories/SEMPageFactory.java
+com.mentor.nucleus.bp.ui.sem/src/com/mentor/nucleus/bp/
+    ui/sem/listeners/SemEditorListener.java
+com.mentor.nucleus.bp.ui.sem/src/com/mentor/nucleus/bp/
+    ui/sem/pages/SEMEditorPage.java
+com.mentor.nucleus.bp.ui.sem/src/com/mentor/nucleus/bp/
+    ui/sem/viewers/SEMEditingSupport.java
+com.mentor.nucleus.bp.ui.sem/src/com/mentor/nucleus/bp/
+    ui/sem/viewers/SEMFocusCellHighlighter.java
+com.mentor.nucleus.bp.ui.sem/src/com/mentor/nucleus/bp/
+    ui/sem/viewers/SEMTableViewer.java
+com.mentor.nucleus.bp.ui.sem/generate.xml
+com.mentor.nucleus.bp.ui.sem/plugin.xml
+
+com.mentor.nucleus.bp.ui.session/arc/BuildTree.arc
+com.mentor.nucleus.bp.ui.session/arc/
+    create_SessionExplorer_view.inc
+com.mentor.nucleus.bp.ui.session/sql/UITree.pei.sql
+com.mentor.nucleus.bp.ui.session/src/com/mentor/nucleus/
+    bp/ui/session/ISessionExplorerHelpContextIds.java
+com.mentor.nucleus.bp.ui.session/src/com/mentor/nucleus/
+    bp/ui/session/SessionExplorerTreeViewer.java
+com.mentor.nucleus.bp.ui.session/src/com/mentor/nucleus/
+    bp/ui/session/actions/FilterSelectionAction.java
+com.mentor.nucleus.bp.ui.session/src/com/mentor/nucleus/
+    bp/ui/session/adapters/RootAdapter.java
+com.mentor.nucleus.bp.ui.session/generate.xml
+com.mentor.nucleus.bp.ui.session/plugin.xml
+
+com.mentor.nucleus.bp.ui.text/arc/
+    create_activity_editorinput_factory_java.inc
+com.mentor.nucleus.bp.ui.text/arc/
+    create_description_editorinput_factory_java.inc
+com.mentor.nucleus.bp.ui.text/arc/
+    create_editorinput_factories_java.arc
+com.mentor.nucleus.bp.ui.text/arc/
+    create_modeladapter_java.arc
+com.mentor.nucleus.bp.ui.text/arc/create_plugin_xml.arc
+com.mentor.nucleus.bp.ui.text/arc/create_util.inc
+com.mentor.nucleus.bp.ui.text/arc/kw_utils.inc
+com.mentor.nucleus.bp.ui.text/arc/OALKeywords_gen.arc
+com.mentor.nucleus.bp.ui.text/contexts/contexts.xml
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/AbstractModelElementEditorInput.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/AbstractModelElementEditorInputFactory.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/AbstractModelElementListener.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/AbstractModelElementPropertyEditorInput.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/AbstractModelElementTextEditor.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/DocumentProvider.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/EditorAnnotationIterator.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/EditorConfiguration.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/EditorHover.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/IElementRenameListener.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/IModelElementEditorInputFactory.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/IUITextHelpContextIds.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/ModelElementID.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/ModelElementPropertyStorage.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/OALEditorConstants.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/OALEditorPlugin.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/TextPlugin.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/activity/ActivityAnnotationModel.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/activity/ActivityEditor.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/activity/ActivityEditorInput.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/activity/AllActivityModifier.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/activity/ParseAllActivitiesAction.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/activity/ShowActivityAction.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/activity/TextParser.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/annotation/ActivityAnnotationAccess.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/annotation/ActivityAnnotationType.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/annotation/ActivityMarkerAnnotation.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/annotation/ActivityProblem.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/annotation/ActivityProblemAnnotation.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/annotation/IActivityProblemAnnotation.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/annotation/IActivityProblemReporter.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/description/DescriptionAnnotationModel.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/description/DescriptionEditor.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/description/DescriptionEditorInput.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/description/ShowDescriptionAction.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/editor/SyntaxHighlightingPreferences.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/editor/SyntaxHighlightingPreferencesStore.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/editor/oal/OALDocumentProvider.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/editor/oal/OALEditor.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/editor/oal/OALEditorConfiguration.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/editor/oal/OALKeywordRule.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/editor/oal/OALPartitionScanner.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/editor/oal/OALScanner.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/editor/oal/OALTokenTypes.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/editor/oal/WhitespaceDetector.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/editor/oal/preference/OALEditorPreferencesPage.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/editor/oal/preference/OALEditorSyntaxPreferencePage.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/placeholder/PlaceHolderEntry.java
+com.mentor.nucleus.bp.ui.text/src/com/mentor/nucleus/bp/
+    ui/text/placeholder/PlaceHolderManager.java
+com.mentor.nucleus.bp.ui.text/generate.xml
+
+com.mentor.nucleus.bp.ui.text.test/src/
+    UITextGlobalsSuite.java
+com.mentor.nucleus.bp.ui.text.test/src/UITextSuite.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/editor/oal/test/OALKeywordRuleTest.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/DomainDeleteTestI744.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/DuplicateRelationshipNumberParseAllTest.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/ParseAllOnModelReloadTest.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/PlaceHolderUpdateTest.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/TextEditorReloadContentsTest.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/TextTestPlugin.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/UITextTest.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/activity/ActivityEditorInteraction.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/activity/ActivityEditorTestSuite.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/activity/CloseActivityEditor.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/activity/I2046IncorrectPlaceHolderMappingTest.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/activity/I643OALKeywordsHighlightingTest.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/activity/I697OpenActivityEditorFromMarker.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/activity/OpenActivityEditor.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/activity/ParseActivity.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/activity/ProcessAllActivitiesTest.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/activity/RelocatablesTest.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/description/CloseDescriptionEditor.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/description/DescriptionEditorInteraction.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/description/DescriptionEditorTestSuite.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/description/OpenDescriptionEditor.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/i372Tests/i372TestSuite.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/i372Tests/
+    NavigationAfterModelElementDeletionTest.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/i372Tests/NavigationTest.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/i589Test/AllEditorsDirtyTest.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/i589Test/ElementDeleteTest.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/i589Test/I589TestSuite.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/i673Tests/placeholder/
+    MarkerBasedPlaceholderLifecyleTest.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/i673Tests/placeholder/
+    PlaceholderLifecycleForProjectTest.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/i673Tests/placeholder/
+    PlaceHolderLifecycleTestSuite.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/i673Tests/placeholder/
+    PlaceholderLifecyleForDeleteModelElementTest.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/i673Tests/rename/
+    I673RenameObjectsAndTestActivityEditors.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/i673Tests/rename/
+    I673RenameObjectsAndTestDescriptionEditors.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/i673Tests/rename/RenameEditorsTestSuite.java
+com.mentor.nucleus.bp.ui.text.test/src/com/mentor/
+    nucleus/bp/ui/text/test/utils/ParserPerformanceTest.java
+com.mentor.nucleus.bp.ui.text.test/plugin.xml
+
+com.mentor.nucleus.bp.ui.tree/arc/
+    create_generic_adapters.inc
+com.mentor.nucleus.bp.ui.tree/arc/
+    create_generic_content_provider.inc
+com.mentor.nucleus.bp.ui.tree/arc/
+    create_generic_filters_content_provider.inc
+com.mentor.nucleus.bp.ui.tree/arc/
+    create_generic_label_provider.inc
+com.mentor.nucleus.bp.ui.tree/models/
+    com.mentor.nucleus.bp.ui.tree/UITree/UITree.xtuml
+com.mentor.nucleus.bp.ui.tree/models/
+    com.mentor.nucleus.bp.ui.tree/UITree/Datatypes/Datatypes.xtuml
+com.mentor.nucleus.bp.ui.tree/models/
+    com.mentor.nucleus.bp.ui.tree/UITree/UITree/UITree.xtuml
+com.mentor.nucleus.bp.ui.tree/templates/BuildTree.arc
+com.mentor.nucleus.bp.ui.tree/templates/create_view.inc
+com.mentor.nucleus.bp.ui.tree/templates/
+    ExplorerTreeViewer.java
+com.mentor.nucleus.bp.ui.tree/templates/
+    FilterSelectionAction.java
+com.mentor.nucleus.bp.ui.tree/templates/generate.xml
+com.mentor.nucleus.bp.ui.tree/templates/
+    IModelExplorerHelpContextIds.java
+com.mentor.nucleus.bp.ui.tree/templates/UITree.pei.sql
+com.mentor.nucleus.bp.ui.tree/templates/adapters/
+    RootAdapter.java
+com.mentor.nucleus.bp.ui.tree/add_plugin_dependencies.xml
+com.mentor.nucleus.bp.ui.tree/generate_schema.xml
+com.mentor.nucleus.bp.ui.tree/generate_skeleton_files.xml
+com.mentor.nucleus.bp.ui.tree/
+    How to add a generated tree to a project.txt
+com.mentor.nucleus.bp.ui.tree/
+    How to add a node to a generated tree.txt
+com.mentor.nucleus.bp.ui.tree/
+    Identifying generated tree files.txt
+
+com.mentor.nucleus.bp.utilities/META-INF/MANIFEST.MF
+com.mentor.nucleus.bp.utilities/src/com/mentor/nucleus/
+    bp/utilities/Activator.java
+com.mentor.nucleus.bp.utilities/src/com/mentor/nucleus/
+    bp/utilities/actions/CheckModelIntegrity.java
+com.mentor.nucleus.bp.utilities/src/com/mentor/nucleus/
+    bp/utilities/build/BuilderManagement.java
+com.mentor.nucleus.bp.utilities/src/com/mentor/nucleus/
+    bp/utilities/data/FixMissingMatrixEntryAction.java
+com.mentor.nucleus.bp.utilities/src/com/mentor/nucleus/
+    bp/utilities/load/LoadAndPersistAction.java
+com.mentor.nucleus.bp.utilities/src/com/mentor/nucleus/
+    bp/utilities/load/LoadByExpansionAction.java
+com.mentor.nucleus.bp.utilities/src/com/mentor/nucleus/
+    bp/utilities/load/LoadingUtilities.java
+com.mentor.nucleus.bp.utilities/src/com/mentor/nucleus/
+    bp/utilities/ui/ProjectUtilities.java
+com.mentor.nucleus.bp.utilities/src/com/mentor/nucleus/
+    bp/utilities/ui/TreeUtilities.java
+com.mentor.nucleus.bp.utilities/generate.xml
+
+com.mentor.nucleus.bp.verifier.pkg/about.mappings
+com.mentor.nucleus.bp.verifier.pkg/about.properties
+com.mentor.nucleus.bp.verifier.pkg/plugin.xml
+
+com.mentor.nucleus.bp.verifier.pkg-feature/feature.xml
+
+com.mentor.nucleus.bp.welcome/models/xtUML_Metamodel.xtuml
+com.mentor.nucleus.bp.welcome/models/avpace/
+    .externalToolBuilders/Model Compiler.launch
+com.mentor.nucleus.bp.welcome/models/avpace/gen/
+    bridge.mark
+com.mentor.nucleus.bp.welcome/models/avpace/gen/class.mark
+com.mentor.nucleus.bp.welcome/models/avpace/gen/
+    datatype.mark
+com.mentor.nucleus.bp.welcome/models/avpace/gen/
+    domain.mark
+com.mentor.nucleus.bp.welcome/models/avpace/gen/event.mark
+com.mentor.nucleus.bp.welcome/models/avpace/gen/
+    system.mark
+com.mentor.nucleus.bp.welcome/models/avpace/src/
+    sys_events.c
+com.mentor.nucleus.bp.welcome/models/avpace/src/
+    sys_events.h
+com.mentor.nucleus.bp.welcome/models/avpace/src/
+    sys_factory.h
+com.mentor.nucleus.bp.welcome/models/avpace/src/sys_main.c
+com.mentor.nucleus.bp.welcome/models/avpace/src/sys_sets.c
+com.mentor.nucleus.bp.welcome/models/avpace/src/sys_sets.h
+com.mentor.nucleus.bp.welcome/models/avpace/src/
+    sys_thread.h
+com.mentor.nucleus.bp.welcome/models/avpace/src/
+    sys_trace.h
+com.mentor.nucleus.bp.welcome/models/avpace/src/
+    sys_types.h
+com.mentor.nucleus.bp.welcome/models/avpace/src/
+    sys_user_co.c
+com.mentor.nucleus.bp.welcome/models/avpace/src/
+    sys_user_co.h
+com.mentor.nucleus.bp.welcome/models/avpace/src/
+    TIM_bridge.c
+com.mentor.nucleus.bp.welcome/models/avpace/src/
+    TIM_bridge.h
+com.mentor.nucleus.bp.welcome/models/GPS Watch/.classpath
+com.mentor.nucleus.bp.welcome/models/GPS Watch/
+    .externalToolBuilders/Model Compiler.launch
+com.mentor.nucleus.bp.welcome/models/GPS Watch/gen/
+    class.mark
+com.mentor.nucleus.bp.welcome/models/GPS Watch/gen/
+    datatype.mark
+com.mentor.nucleus.bp.welcome/models/GPS Watch/gen/
+    domain.mark
+com.mentor.nucleus.bp.welcome/models/GPS Watch/gen/
+    system.mark
+com.mentor.nucleus.bp.welcome/models/GPS Watch/gen/
+    UI_GuiBridge_bridge.c
+com.mentor.nucleus.bp.welcome/models/GPS Watch/javasrc/
+    lib/GuiBridge.java
+com.mentor.nucleus.bp.welcome/models/GPS Watch/src/
+    UI_GuiBridge_bridge.c
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/gen/
+    class.mark
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/gen/
+    datatype.mark
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/gen/
+    domain.mark
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/gen/
+    system.mark
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven_ARCH_bridge.c
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven_ARCH_bridge.h
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven_classes.h
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven_MO_B_class.c
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven_MO_B_class.h
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven_MO_D_class.c
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven_MO_D_class.h
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven_MO_IL_class.c
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven_MO_IL_class.h
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven_MO_MT_class.c
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven_MO_MT_class.h
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven_MO_O_class.c
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven_MO_O_class.h
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven_MO_TRN_class.c
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven_MO_TRN_class.h
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven_MO_TS_class.c
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven_MO_TS_class.h
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven_sys_main.c
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven_sys_types.h
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven.c
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    MicrowaveOven.h
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    sys_user_co.c
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    sys_user_co.h
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    sys_xtuml.c
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    sys_xtuml.h
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    TIM_bridge.c
+com.mentor.nucleus.bp.welcome/models/MicrowaveOven/src/
+    TIM_bridge.h
+com.mentor.nucleus.bp.welcome/models/TemplateProject/gen/
+    bridge.mark
+com.mentor.nucleus.bp.welcome/models/TemplateProject/gen/
+    class.mark
+com.mentor.nucleus.bp.welcome/models/TemplateProject/gen/
+    datatype.mark
+com.mentor.nucleus.bp.welcome/models/TemplateProject/gen/
+    domain.mark
+com.mentor.nucleus.bp.welcome/models/TemplateProject/gen/
+    event.mark
+com.mentor.nucleus.bp.welcome/models/TemplateProject/gen/
+    system.mark
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/actions/CheatSheetAction.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/actions/ImportPacerProjectAction.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/library/AddElement.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/library/AssignEvent.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/library/BuildProjectAction.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/library/ChangeKeyLetter.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/library/ChangeType.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/library/DrawConnector.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/library/DrawModelElement.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/library/ExecuteElementAction.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/library/FormalizePort.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/library/LaunchVerifierAction.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/library/LinkWithEditor.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/library/OpenDiagram.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/library/OpenDiagramAction.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/library/OpenEditor.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/library/OpenNewProjectWizardAction.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/library/RenameCanvasElement.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/library/RenameModelExplorerElement.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/library/WriteOAL.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/utilities/CheatSheetsUIUtilities.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/cheatsheets/utilities/CheatSheetsUtilities.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/gettingstarted/GettingStartedLiveHelpAction.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/gettingstarted/IGettingStartedConstants.java
+com.mentor.nucleus.bp.welcome/src/com/mentor/nucleus/bp/
+    welcome/gettingstarted/SampleProjectGettingStartedAction.java
+com.mentor.nucleus.bp.welcome/generate.xml
+com.mentor.nucleus.bp.welcome/plugin.xml
+
+com.mentor.nucleus.bp.welcome.test/META-INF/MANIFEST.MF
+com.mentor.nucleus.bp.welcome.test/src/com/mentor/
+    nucleus/bp/welcome/test/TestPlugin.java
+com.mentor.nucleus.bp.welcome.test/src/com/mentor/
+    nucleus/bp/welcome/test/WelcomePageTest.java
+com.mentor.nucleus.bp.welcome.test/src/com/mentor/
+    nucleus/bp/welcome/test/WelcomePageTestGPS.java
+com.mentor.nucleus.bp.welcome.test/src/com/mentor/
+    nucleus/bp/welcome/test/WelcomePageTestMetamodel.java
+com.mentor.nucleus.bp.welcome.test/src/com/mentor/
+    nucleus/bp/welcome/test/WelcomeTestSuite.java
+com.mentor.nucleus.bp.welcome.test/Test_Readme.txt
+com.mentor.nucleus.bp.welcome.test/test.xml
+
+com.mentor.nucleus.help.bp.mc/META-INF/MANIFEST.MF
+
+com.mentor.nucleus.internal.test/src/com/mentor/nucleus/
+    internal/test/NewCBTestWizard1.java
+com.mentor.nucleus.internal.test/src/com/mentor/nucleus/
+    internal/test/NewCBTestWizard2.java
+com.mentor.nucleus.internal.test/src/com/mentor/nucleus/
+    internal/test/NewMCTestWizard1.java
+com.mentor.nucleus.internal.test/src/com/mentor/nucleus/
+    internal/test/NewMCTestWizard2.java
+com.mentor.nucleus.internal.test/src/com/mentor/nucleus/
+    internal/test/TestPlugin.java
+com.mentor.nucleus.internal.test/src/com/mentor/nucleus/
+    internal/test/WizardCodeBuilderChooserPage.java
+
+doc-internal/process/HOWTO-build-a-BP-demo.txt
+doc-internal/process/HOWTO-update-exact-access-dates.txt
+doc-internal/process/HOWTO-update-the-BP-copyright.txt
+doc-internal/process/
+    HOWTO-update-the-BP-version-number.txt
+doc-internal/process/qa_procedures.txt
+doc-internal/process/releases/scripts/
+    CD creation scripts.txt
+doc-internal/process/templates/ant_template.md
+doc-internal/process/templates/dnt_template.md
+doc-internal/process/templates/int_template.md
+doc-internal/process/templates/rvm_template.md
+doc-internal/process/templates/checklists/
+    final-review.chk
+doc-internal/process/templates/checklists/new-start.chk
+doc-internal/process/templates/checklists/promotion.chk
+doc-internal/process/templates/checklists/
+    development-workspace-setup/BridgePointDev/bin/pt_gen_file.cmd
+doc-internal/process/templates/checklists/
+    development-workspace-setup/BridgePointDev/bin/pt_gen_import.cmd
+doc-internal/process/templates/checklists/
+    development-workspace-setup/BridgePointDev/bin/README.txt
+doc-internal/process/templates/checklists/
+    development-workspace-setup/BridgePointDev/bin/xtumlmc_gen_erate.cmd
+doc-internal/process/templates/checklists/
+    development-workspace-setup/dropins/com.mentor.nucleus.bp.compare_3.6.3/
+    plugin.xml
+doc-internal/process/templates/checklists/
+    development-workspace-setup/dropins/com.mentor.nucleus.bp.compare_3.6.3/
+    contexts/contexts.xml
+doc-internal/process/templates/checklists/
+    development-workspace-setup/dropins/
+    com.mentor.nucleus.bp.internal.tools_1.0.3/plugin.xml
+doc-internal/process/templates/checklists/
+    development-workspace-setup/dropins/com.mentor.nucleus.bp.test_1.2.1/
+    plugin.xml
+doc-internal/qa/results/R4_1_1/162_dts0101036706/
+    Unit_test_checklist_FR.chk
+
+Installer_MIP_MIMIC/build_installer_bp_linux.sh
+Installer_MIP_MIMIC/build_installer_bp.sh
+Installer_MIP_MIMIC/CLI.bat
+Installer_MIP_MIMIC/CLI.sh
+Installer_MIP_MIMIC/Launcher.bat
+Installer_MIP_MIMIC/Launcher.sh
+Installer_MIP_MIMIC/MSI_Director.java
+Installer_MIP_MIMIC/MSI_DirectorLinux.java
+Installer_MIP_MIMIC/post_install_script.bat
+Installer_MIP_MIMIC/post_install_script.sh
+Installer_MIP_MIMIC/pre_uninstall_script.bat
+Installer_MIP_MIMIC/pre_uninstall_script.sh
+
+MC-Java/doc/tiger_core.txt
+MC-Java/arch_utils.inc
+MC-Java/block.inc
+MC-Java/BUILD.SH
+MC-Java/build.xml
+MC-Java/do_type.inc
+MC-Java/enums.inc
+MC-Java/fragment.inc
+MC-Java/GEN.SH
+MC-Java/java.arc
+MC-Java/mc_java.depends
+MC-Java/mfp_utils.inc
+MC-Java/model_consistency_functions.inc
+MC-Java/model_consistency.inc
+MC-Java/ooa_oal_pop.arc
+MC-Java/ooa_schema.sql
+MC-Java/README.TXT
+MC-Java/referred_to.inc
+MC-Java/referring.inc
+MC-Java/schema_gen.arc
+MC-Java/statement.inc
+MC-Java/translate_oal.inc
+MC-Java/value.inc
+MC-Java/verify_selects.arc
+
+utilities/update-copyright/test_input.txt
+utilities/update-copyright/update-copyright.pl
+
+
+</pre>
+
+End
+---
+

@@ -6,7 +6,7 @@ package com.mentor.nucleus.bp.welcome.gettingstarted;
 //	Version: $Revision: 1.9 $
 //	Modified: $Date: 2013/06/12 13:09:36 $
 //
-//	(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
+//	(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //====================================================================
 //

@@ -1,6 +1,6 @@
 //========================================================================
 //
-//(c) Copyright 2007-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
  

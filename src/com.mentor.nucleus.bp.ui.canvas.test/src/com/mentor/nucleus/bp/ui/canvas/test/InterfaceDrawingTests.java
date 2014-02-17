@@ -3,7 +3,7 @@ package com.mentor.nucleus.bp.ui.canvas.test;
 //
 //File:      InterfaceDrawingTests.java
 //
-//(c) Copyright 2004-2013 Mentor Graphics Corporation All rights reserved.
+//(c) Copyright 2004-2014 Mentor Graphics Corporation All rights reserved.
 //
 //=====================================================================
 import com.mentor.nucleus.bp.core.Package_c;

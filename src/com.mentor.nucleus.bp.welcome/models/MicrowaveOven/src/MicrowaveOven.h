@@ -3,7 +3,7 @@
  *
  * UML Component (Module) Declaration (Operations and Signals)
  *
- * (C) Copyright 1998-2013 Mentor Graphics Corporation.  All rights reserved.
+ * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
  *--------------------------------------------------------------------------*/
 
 #ifndef MICROWAVEOVEN_H

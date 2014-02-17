@@ -4,11 +4,11 @@
 //Version:   $Revision: 1.6.18.1 $
 //Modified:  $Date: 2013/07/26 10:13:15 $
 //
-//(c) Copyright 2005-2013 by Mentor Graphics Corp. All rights reserved.
+//(c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 //
 //========================================================================
 //This document contains information proprietary and confidential to
-//Mentor Graphics Corp., and is not for external distribution.
+//Mentor Graphics Corp. and is not for external distribution.
 //========================================================================
 package com.mentor.nucleus.bp.mc;
 
@@ -83,22 +83,6 @@ public abstract class AbstractActivator extends AbstractUIPlugin {
 	}
 
 	public void earlyStartup(final AbstractNature nature) {
-		// if we're running on the UI thread
-		Display display = Display.getCurrent();
-		if (display != null) {
-			// make the call directly
-			convertFromEDGEToCDT(nature);
-		}
-		// otherwise
-		else {
-			// ask the default UI thread to make the call
-			display = Display.getDefault();
-			display.asyncExec(new Runnable() {
-				public void run() {
-					convertFromEDGEToCDT(nature);
-				}
-			});
-		}
 	}
 
 	public void copyFile(String inputFile, String outputFile)
@@ -144,143 +128,6 @@ public abstract class AbstractActivator extends AbstractUIPlugin {
 		return absPath.toString();
 	}
 
-	protected void verifyProjectBuilders(AbstractNature nature, final String natureID, final String builderID) {
-		try {
-			IWorkspace root = ResourcesPlugin.getWorkspace();
-			IProject[] projects = root.getRoot().getProjects();
-			boolean requiresUpdate = false;
-
-			for (int i = 0; i < projects.length; ++i) {
-				if (projects[i].isOpen()
-						&& nature.hasNature(projects[i], natureID)
-						&& (AbstractNature.hasBuilder(projects[i],
-								builderID) == -1)) {
-					requiresUpdate = true;
-					break;
-				}
-			}
-
-			boolean userOKsUpdate = false;
-			if (requiresUpdate) {
-				String msg = "Your workspace contains xtUML projects that need to be "
-						+ "updated.  BridgePoint requires the Model Compiler Pre-builder "
-						+ "to be added to each xtUML project.  Code generation will not "
-						+ "work until this update is performed.\n\nDo you wish to perform "
-						+ "this update now?";
-				userOKsUpdate = UIUtil.displayYesNoQuestion(msg);
-			}
-
-			if (requiresUpdate && userOKsUpdate) {
-				for (int i = 0; i < projects.length; ++i) {
-					if (projects[i].isOpen() && nature.hasNature(projects[i], natureID)) {
-						AbstractNature mcNature = ((AbstractNature) projects[i]
-								.getNature(natureID));
-						if (mcNature != null) {
-							mcNature.addBuilderToBuildSpec(projects[i], builderID);
-						}
-					}
-				}
-			}
-		} catch (CoreException e) {
-			logError(
-					"Error encountered while verifing xtUML project builders.",
-					e);
-		}
-	}
-
-	public void convertFromEDGEToCDT(AbstractNature nature) {
-		IWorkspace root = ResourcesPlugin.getWorkspace();
-		IProject[] projects = root.getRoot().getProjects();
-		boolean requiresUpdate = false;
-
-		for (int i = 0; i < projects.length; ++i) {
-			if (projects[i].isOpen()
-					&& nature.hasNature(projects[i],
-							AbstractNature.EDGE_NATURE_ID)) {
-				requiresUpdate = true;
-				break;
-			}
-		}
-
-		boolean userOKsUpdate = false;
-		if (requiresUpdate) {
-			String msg = "Your workspace contains xtUML projects that need to be "
-					+ "updated.  BridgePoint requires support for the Eclipse C/C++ "
-					+ "development toolkit (CDT) be added to each xtUML project.  Code "
-					+ "compilation will not work until this update is performed.\n\nDo "
-					+ "you wish to perform this update now?";
-			userOKsUpdate = UIUtil.displayYesNoQuestion(msg);
-		}
-
-		if (requiresUpdate && userOKsUpdate) {
-			for (int i = 0; i < projects.length; ++i) {
-				if (projects[i].isOpen()
-						&& nature.hasNature(projects[i],
-								AbstractNature.EDGE_NATURE_ID)) {
-					// Remove EDGE nature and builder
-					nature.removeNature(projects[i],
-							AbstractNature.EDGE_NATURE_ID);
-					nature.removeBuilder(projects[i], AbstractNature.EDGE_BUILDER_ID);
-
-					// Add CDT, basically run the same functionality provided by
-					// the "Convert to C/C++" action that CDT provides
-					IWorkbenchWindow window = PlatformUI.getWorkbench()
-							.getActiveWorkbenchWindow();
-					ConvertToMakeWizard wizard = new ConvertToMakeWizard();
-					Selection selection = new Selection();
-					selection.addToSelection(projects[i]);
-					wizard.init(window.getWorkbench(), selection
-							.getStructuredSelection());
-					Shell parent = window.getShell();
-					WizardDialog dialog = new WizardDialog(parent, wizard);
-					dialog.create();
-					wizard.performFinish();
-
-					// Reorder builders to put CDT at bottom
-					AbstractNature.makeBuilderLast(projects[i], AbstractNature.CDT_BUILDER_ID);
-					AbstractNature.makeBuilderLast(projects[i],
-							AbstractNature.CDT_SCANNER_BUILDER_ID);
-
-					// Set the source code folder for CDT
-					try {
-						nature.setSourceFolder(projects[i]);
-					} catch (CoreException e) {
-						logError(
-								"Error setting the source code folder for CDT for the "
-										+ projects[i].getName() + " project.",
-								e);
-					}
-
-					// Remove EDGE .xpj file
-					try {
-						IFile file = projects[i]
-								.getFile(AbstractNature.EDGE_PROJECT_FILE_NAME);
-						file.delete(true, null);
-						projects[i].refreshLocal(IProject.DEPTH_INFINITE, null);
-					} catch (CoreException e) {
-						logError("Error removing the EDGE project file \""
-								+ AbstractNature.EDGE_PROJECT_FILE_NAME
-								+ "\" from the " + projects[i].getName()
-								+ " project.", e);
-					}
-
-					// Remove Configuration 0/
-					try {
-						IFolder folder = projects[i]
-								.getFolder(AbstractNature.EDGE_BUILD_FOLDER_NAME);
-						folder.delete(true, null);
-						projects[i].refreshLocal(IProject.DEPTH_INFINITE, null);
-					} catch (CoreException e) {
-						logError("Error removing the EDGE build folder \""
-								+ AbstractNature.EDGE_BUILD_FOLDER_NAME
-								+ "\" from the " + projects[i].getName()
-								+ " project.", e);
-					}
-				}
-			}
-		}
-	}
-
 	public void logError(String msg, Throwable e) {
 		if (errorLog != null) {
 			Status status = new Status(IStatus.ERROR, pluginName,
@@ -299,8 +146,6 @@ public abstract class AbstractActivator extends AbstractUIPlugin {
 	 * function will cause the correct ones to be added if they do not already
 	 * exist.
 	 */
-	public abstract void verifyProjectBuilders();
-
 	public abstract void earlyStartup();
 	
 
