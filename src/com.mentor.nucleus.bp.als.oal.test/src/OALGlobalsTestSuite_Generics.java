@@ -30,6 +30,7 @@ import com.mentor.nucleus.bp.als.oal.test.ImplicitComponentAddressTest_Generics;
 import com.mentor.nucleus.bp.als.oal.test.OalParserGlobalsTest_Generics;
 import com.mentor.nucleus.bp.als.oal.test.OalParserTest_Generics;
 import com.mentor.nucleus.bp.als.oal.test.ParseAllInDomain_Generics;
+import com.mentor.nucleus.bp.als.oal.test.ParseErrorForEmptySynchronousMessagesTests;
 import com.mentor.nucleus.bp.als.oal.test.PolyEventTest;
 import com.mentor.nucleus.bp.als.oal.test.RelaxedSameDataTest_Generics;
 import com.mentor.nucleus.bp.als.oal.test.SingleDimensionFixedArrayAssigmentTest_0_Generics;
@@ -120,5 +121,6 @@ public class OALGlobalsTestSuite_Generics extends TestSuite {
 		addTest(new TestSuite(TestConstant_Generics.class));
 	    addTest(new TestSuite(TestSelectWhere_Generics.class));
 	    addTest(new TestSuite(PolyEventTest.class));
+	    addTest(new TestSuite(ParseErrorForEmptySynchronousMessagesTests.class));
 	}
 }
