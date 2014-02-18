@@ -190,7 +190,7 @@
     .end if
     .if(table.Key_Lett == "S_EE")
       boolean addToUpgradeList = false;
-      if(parms.size() == 7 && ${no_of_cols} == 8) {
+      if(parms.size() <= 7) {
         addToUpgradeList = true;
       }
       parms.setSize(${no_of_cols});
@@ -244,7 +244,7 @@
     loadedInstances.add(newInst);
     .if((table.Key_Lett == "S_EE") and (callingProject == "NBP"))
       if(addToUpgradeList) {
-      	ImportHelper.addEEToUpgradeForIsRealized(newInst);
+      	helper.addEEToUpgradeForIsRealized(newInst);
       }
     .end if
     .// Data upgrade for 1.4.5 alpha only

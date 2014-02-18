@@ -564,7 +564,7 @@ public class ${class_name} extends CoreImport
      */
     public void run(IProgressMonitor pm) {
     .if (callingProject == "NBP")
-    	ImportHelper.eesToUpgradeForIsRealized.clear();
+    	helper.eesToUpgradeForIsRealized.clear();
     .end if
         m_success = doLoadSql(pm);
         .if(not setComponent)

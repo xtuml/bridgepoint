@@ -2989,9 +2989,9 @@ public class ImportHelper
 		
 	}
 
-	public static List<ExternalEntity_c> eesToUpgradeForIsRealized = new ArrayList<ExternalEntity_c>();
+	public List<ExternalEntity_c> eesToUpgradeForIsRealized = new ArrayList<ExternalEntity_c>();
 
-	public static void addEEToUpgradeForIsRealized(ExternalEntity_c ee) {
+	public void addEEToUpgradeForIsRealized(ExternalEntity_c ee) {
 		eesToUpgradeForIsRealized.add(ee);
 	}
 
