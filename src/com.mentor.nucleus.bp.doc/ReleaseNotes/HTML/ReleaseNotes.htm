@@ -438,33 +438,33 @@ name="_General_Notes"></a>3.<span style='font-size:7.0pt;font-family:"Times New 
 
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
-     font-family:"Arial","sans-serif"'>A summary of the release highlights and
-     new functionality is available on the </span><a
+     font-family:"Arial","sans-serif"'>A summary of the release highlights and new
+     functionality is available on the </span><a
      href="../../WhatsNew/HTML/WhatsNew.htm"><span style='font-size:10.0pt;
      font-family:"Arial","sans-serif"'>Whats New</span></a><span
      style='font-size:10.0pt;font-family:"Arial","sans-serif"'> page.</span></li>
  <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
      font-family:"Arial","sans-serif"'>In the recent release BridgePoint has
-     been modified to pass bridge parameters in the user-defined order when executing
-     realized bridge code. This may cause unexpected failures in Java realized
-     code as the values passed may not match the modeled external entity. To
-     address this issue there are two approaches, one where the Java code is
-     modified and the other where the modeled external entity is modified. In
-     any case both must have a matching parameter ordering.</span></li>
+     been modified to pass bridge parameters in the user-defined order when
+     executing realized bridge code. This may cause unexpected failures in Java
+     realized code as the values passed may not match the modeled external
+     entity. To address this issue there are two approaches, one where the Java
+     code is modified and the other where the modeled external entity is
+     modified. In any case both must have a matching parameter ordering.</span></li>
  <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
      font-family:"Arial","sans-serif"'>The provided and required interface
      tools can now be used to draw a connection between two components
-     directly, functioning as an assembly connector.&nbsp; The connection
-     created will produce a provided interface and a required interface.&nbsp;
-     This allows for a simpler approach to creating interface satisfactions.</span></li>
+     directly, functioning as an assembly connector.&nbsp; The connection created
+     will produce a provided interface and a required interface.&nbsp; This
+     allows for a simpler approach to creating interface satisfactions.</span></li>
  <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
      font-family:"Arial","sans-serif"'>The legacy plug-in
-     com.mentor.nucleus.bp.mc.mc3020 has been removed.&nbsp; We expect that
-     projects moved away from this plug-in with BridgePoint’s automatic
-     migration a while back.&nbsp; However, if build errors are encountered on
-     a project, users may need to open the project in BridgePoint 4.1.0 and
-     allow it to update the project’s build settings in order to work with
-     newer releases.</span></li>
+     com.mentor.nucleus.bp.mc.mc3020 has been removed.&nbsp; A utility is
+     provided that allows users to “Switch Project Model Compiler”.  Users must
+     run this tool on any projects that reference the old builder before xtUML
+     Translate will run.  To run the tool, select a project, right-click to
+     bring up the context menu, then choose “BridgePoint Utilities &gt; Switch
+     Project Model Compiler”.</span></li>
  <li class=MsoNormal style='margin-bottom:12.0pt'><b><span style='font-size:
      10.0pt;font-family:"Arial","sans-serif";color:red'>IMPORTANT:</span></b><span
      style='font-size:10.0pt;font-family:"Arial","sans-serif"'> BridgePoint
@@ -497,10 +497,10 @@ font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp; </span>Interoperabilit
 with Previous Releases</h2>
 
 <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>BridgePoint
-4.1.6 is fully data compatible with workspaces and projects created with BridgePoint
-3.7.0 and xtUML.org’s xtUML Editor 3.7.2.&nbsp; BridgePoint 4.1.6 can open
-model projects created with BridgePoint 3.5.x and 3.6.x, but requires the
-projects to be upgraded completely to generic packages just like the 3.7.x
+4.1.6 is fully data compatible with workspaces and projects created with
+BridgePoint 3.7.0 and xtUML.org’s xtUML Editor 3.7.2.&nbsp; BridgePoint 4.1.6
+can open model projects created with BridgePoint 3.5.x and 3.6.x, but requires
+the projects to be upgraded completely to generic packages just like the 3.7.x
 series of tools.</span></p>
 
 <p class=MsoNormal>&nbsp;</p>
@@ -560,18 +560,18 @@ name="_Known_Issues"></a>5.<span style='font-size:7.0pt;font-family:"Times New R
  <li class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Using
      the return statement in a Mathematically Derived Attribute (MDA) is
      incompatible with the semantics of MDAs. The act of writing the attribute
-     value is considered the end of the computation. Return statements should
-     therefore not be used in MDA OAL, even though the parser permits it.</span></li>
+     value is considered the end of the computation. Return statements should therefore
+     not be used in MDA OAL, even though the parser permits it.</span></li>
  <li class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Pushing
      the suspend button during Verifier execution causes Verifier to stop what
      it is doing immediately. It stops whether it is processing an activity or
      not. If it should stop between activities, then the Debug View may show
      only events pending (or none at all if Verifier is waiting for an external
      stimulus). Verifier will only source locate (i.e. open an activity editor)
-     if it stops inside of an activity; so in the cases outlined above, no source
-     location will occur. If this happens and there are events in the queue,
-     pushing the Step Into button will enter the next state action and source
-     location will immediately occur.</span></li>
+     if it stops inside of an activity; so in the cases outlined above, no
+     source location will occur. If this happens and there are events in the
+     queue, pushing the Step Into button will enter the next state action and
+     source location will immediately occur.</span></li>
  <li class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Verifier
      does not fully support instance reference passing.</span></li>
 </ul>
@@ -946,6 +946,58 @@ color:black'>&nbsp;</span></b></p>
   border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
   <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2606635349</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Return
+  value names are duplicated&nbsp;</span></h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2598151082</span></span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Potential
+  deadlock in InsertElement&nbsp;</span></h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Dynamically
+  allocated events index memory incorrectly</span></span></h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Copying
+  set transients can fail going out of scope</span></span></h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='height:12.75pt'>
