@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-
-
+   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="com.mentor.nucleus.bp.utilities.updateBuilder.projectContribution"
+            objectClass="org.eclipse.core.resources.IProject">
+         <action
+               class="com.mentor.nucleus.bp.mc.tools.SwitchProjectModelCompilerAction"
+               id="com.mentor.nucleus.bp.mc.tools.SwitchProjectMCAction"
+               label="Switch Project Model Compiler"
+               menubarPath="com.mentor.nucleus.bp.utilities/com.mentor.nucleus.bp.utilities.separator">
+         </action>
+      </objectContribution>
+   </extension>
 </plugin>
