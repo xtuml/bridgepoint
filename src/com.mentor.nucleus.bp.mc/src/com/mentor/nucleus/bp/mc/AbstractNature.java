@@ -174,7 +174,8 @@ public abstract class AbstractNature implements IProjectNature {
 
     public void removeAllMCNatures(IProject project) {
         try {
-            // First remove the nature(s) we don't want
+            // First remove the old MC nature.  We also do some housekeeping here 
+            // to remove the old (deprecated) XMI Nature if it still exists on the project.
             IProjectDescription description = project.getDescription();
             String[] natures = description.getNatureIds();
             int curIndex = 0;
@@ -182,14 +183,17 @@ public abstract class AbstractNature implements IProjectNature {
                 if (natures[curIndex].matches(".*bp.+mc.*MC.*Nature")) {
                     removeNature(project, natures[curIndex]);
                 }
+                if (natures[curIndex].matches(".*bp.+mc.*XMIExportNature")) {
+                    removeNature(project, natures[curIndex]);
+                }
             }
             
-            // Next remove the builder(s)
+            // Next remove the prior builders for pre-builder and the MC itself
             BuilderManagement.findAndRemoveBuilder(project, ".*bp.+mc.*export_builder");
+            BuilderManagement.findAndRemoveBuilder(project, ".*externalToolBuilders.*Model Compiler.+launch");
             
-            // TODO - special case to remove old MC3020 model compiler launch.  Since all
-            // the other MC plug-ins use the name "Model Compiler.launch" we don't have to 
-            // swap that one when we swap MCs
+            // Housekeeping to remove old (deprecated) XMI builder.
+            BuilderManagement.findAndRemoveBuilder(project, ".*bp.+mc.*XMIExportBuilder.*");
         } catch (CoreException ce) {
             abstractActivator.logError(
                     "Could not read project description data for  "
