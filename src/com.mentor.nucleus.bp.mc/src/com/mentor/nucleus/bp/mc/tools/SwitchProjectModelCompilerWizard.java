@@ -36,7 +36,7 @@ public class SwitchProjectModelCompilerWizard extends DelegatingWizard {
     private IProject currentProject;
     
     SwitchProjectModelCompilerWizard(IProject project) {
-        currentProject = project; // TODO - needed?
+        currentProject = project; 
         setNeedsProgressMonitor(true);
         String[] mcis = null;
         if (getDelegatingWizard() != null) {
