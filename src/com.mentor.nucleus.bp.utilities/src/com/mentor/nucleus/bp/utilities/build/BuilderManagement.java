@@ -118,14 +118,14 @@ public class BuilderManagement {
                     // Check for builder in enabled state
                     if (commands[i].getBuilderName().matches(builderNameRegex)) {
                         removeBuilder(project, commands[i].getBuilderName());
+                        break;
                     }
                     // Check for builder in disabled state
                     Map<?, ?> args = commands[i].getArguments();
                     if (args != null) {
                         String value = (String) args.get("LaunchConfigHandle");
                         if (value != null && value.matches(builderNameRegex)) {
-                            // TODO - not sure we can remove by name since .ExternalToolBuilder could be 
-                            // used in multiple places.  Probably need to remove via position.
+                            removeBuilder(project, i);
                             break;
                         }
                     }
@@ -142,6 +142,16 @@ public class BuilderManagement {
         int position = -1;
         try {
             position = hasBuilder(project, builderId);
+            removeBuilder(project, position);
+        } catch (CoreException e) {
+            CorePlugin.logError("Error removing the builder \"" + builderId
+                    + "\" from the " + project.getName() + " project.", e);
+        }
+        return position;
+    }
+    
+    public static int removeBuilder(IProject project, int position) {
+        try {
             if (position != -1) {
                 IProjectDescription description = project.getDescription();
                 ICommand[] commands = description.getBuildSpec();
@@ -158,7 +168,7 @@ public class BuilderManagement {
                 project.setDescription(description, null);
             }
         } catch (CoreException e) {
-            CorePlugin.logError("Error removing the builder \"" + builderId
+            CorePlugin.logError("Error removing the builder at position \"" + position
                     + "\" from the " + project.getName() + " project.", e);
         }
         return position;
