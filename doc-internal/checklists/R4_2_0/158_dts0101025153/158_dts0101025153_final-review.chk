@@ -62,22 +62,22 @@ x- Perform a clean build and verify everything rebuilds successfully.
 
 x- Execute all JUnits and manual tests specified in the notes.
 
-_- Update the test_results/Unit_test_summary.txt with the branch name check it in here:
+x- Update the test_results/Unit_test_summary.txt with the branch name check it in here:
 	  github.com/xtuml/<repository>/doc-<repository>/qa/<release_id>/<issue num>/promotion/Unit_test_summary.txt
 	
 
-_- Create a Pull Request for the changes
-     _- Go to the repository on github.com
-     _- Go to the Pull Requests page
-     _- Click the "New pull request" button
-     _- Select the desired branch
-     _- Review the changeset
-     _- Select "Click to create a pull request for this comparison" link at 
+x- Create a Pull Request for the changes
+     x- Go to the repository on github.com
+     x- Go to the Pull Requests page
+     x- Click the "New pull request" button
+     x- Select the desired branch
+     x- Review the changeset
+     x- Select "Click to create a pull request for this comparison" link at 
         the top of the page.
-     _- Resolve any conflicts as indicated.  If "Able to merge", then click 
+     x- Resolve any conflicts as indicated.  If "Able to merge", then click 
         "Send pull request" button 
 
-_- Add a comment in the BridgePoint chat saying the issue is ready for promotion
+x- Add a comment in the BridgePoint chat saying the issue is ready for promotion
 
 
 End
