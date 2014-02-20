@@ -517,7 +517,11 @@ public class ${class_name}Data
 				"" },
         .else
           .if ( dt.Name == "boolean" )
+            .if((meta_model_obj.Key_Lett == "S_EE") and (attr.Name == "isRealized"))
+				"true" },            
+            .else
 				"$$l{${mm_obj_var}.${attr.Name}}" },
+		    .end if
 		  .elif ( ("${attr.Descrip:enum0}" != "") or (not_empty edt) )
             .if ( attr.Name == "Is_Lbl_U" )
 				EnumRangeTest.${meta_model_obj.Key_Lett}_${attr.name}_vals[$${${mm_obj_var}.${attr.Name}}] },

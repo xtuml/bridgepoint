@@ -1144,7 +1144,7 @@ public class ArrayBaseTest extends CanvasTest {
 			String result) {
 		boolean ReturnFailureBridge4 = false;
 		Pattern resultPatten = Pattern
-		.compile(":3:\\d+-\\d+: Return type has an incompatible array length for dimension 0.\nline 3:\\d+: expecting Semicolon, found 'null'\n");
+		.compile(":3:\\d+-\\d+: Return type has an incompatible array length for dimension 0.\nline 3:\\d+: expecting Semicolon, found 'null'\n:3:\\d+-\\d+: Return value required by bridge\n");
 		java.util.regex.Matcher match = resultPatten.matcher(result);
 		ReturnFailureBridge4 = match.matches();
 		return ReturnFailureBridge4;
@@ -1236,7 +1236,7 @@ public class ArrayBaseTest extends CanvasTest {
 			String result) {
 		boolean ReturnFailureBridge2 = false;
 		Pattern resultPatten = Pattern
-		.compile(":3:\\d+-\\d+: Return type has incompatible array depth.\nline 3:\\d+: expecting Semicolon, found 'null'\n");
+		.compile(":3:\\d+-\\d+: Return type has incompatible array depth.\nline 3:\\d+: expecting Semicolon, found 'null'\n:3:\\d+-\\d+: Return value required by bridge\n");
 		java.util.regex.Matcher match = resultPatten.matcher(result);
 		ReturnFailureBridge2 = match.matches();
 		return ReturnFailureBridge2;

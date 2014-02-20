@@ -38,7 +38,8 @@ import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.XtUMLNature;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
-import com.mentor.nucleus.bp.test.TestUtil;
+import com.mentor.nucleus.bp.test.common.BaseTest;
+import com.mentor.nucleus.bp.test.common.TestingUtilities;
 import com.mentor.nucleus.bp.welcome.gettingstarted.GettingStartedLiveHelpAction;
 import com.mentor.nucleus.bp.welcome.gettingstarted.SampleProjectGettingStartedAction;
 
@@ -122,9 +123,15 @@ public class WelcomePageTest extends TestCase {
 		verifyProjectCreated();
 	}
 	
-	public void testExternalEntityDefaults() {
-		TestUtil.selectButtonInDialog(1000, "Yes");
-		runGettingStartedAction();
+	public void testExternalEntityDefaults() throws CoreException {
+		IProject existing = ResourcesPlugin.getWorkspace().getRoot().getProject("MicrowaveOven");
+		if(existing.exists()) {
+			existing.delete(true, new NullProgressMonitor());
+			BaseTest.dispatchEvents(0);
+		}
+		TestingUtilities
+				.importDevelopmentProjectIntoWorkspace("com.mentor.nucleus.bp.welcome/models/MicrowaveOven");
+		BaseTest.dispatchEvents(0);
 		verifyProjectCreated();
 		
 		SystemModel_c system = SystemModel_c.SystemModelInstance(
