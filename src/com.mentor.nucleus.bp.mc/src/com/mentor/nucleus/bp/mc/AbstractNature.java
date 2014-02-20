@@ -189,8 +189,8 @@ public abstract class AbstractNature implements IProjectNature {
             }
             
             // Next remove the prior builders for pre-builder and the MC itself
-            BuilderManagement.findAndRemoveBuilder(project, ".*bp.+mc.*export_builder");
-            BuilderManagement.findAndRemoveBuilder(project, ".*externalToolBuilders.*Model Compiler.+launch");
+            BuilderManagement.findAndRemoveBuilder(project, ".*bp.+mc.*export_builder.*");
+            BuilderManagement.findAndRemoveBuilder(project, ".*externalToolBuilders.*Model Compiler.+launch.*");
             
             // Housekeeping to remove old (deprecated) XMI builder.
             BuilderManagement.findAndRemoveBuilder(project, ".*bp.+mc.*XMIExportBuilder.*");
