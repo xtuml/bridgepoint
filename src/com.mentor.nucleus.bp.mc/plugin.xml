@@ -9,7 +9,7 @@
          <action
                class="com.mentor.nucleus.bp.mc.tools.SwitchProjectModelCompilerAction"
                id="com.mentor.nucleus.bp.mc.tools.SwitchProjectMCAction"
-               label="Switch Project Model Compiler"
+               label="Set Model Compiler"
                menubarPath="com.mentor.nucleus.bp.utilities/com.mentor.nucleus.bp.utilities.separator">
          </action>
       </objectContribution>
