@@ -94,11 +94,7 @@ public class SwitchProjectModelCompilerWizard extends DelegatingWizard {
      * @see org.eclipse.jface.wizard.IWizard#performFinish()
      */
     public boolean performMCSwitch(IProgressMonitor monitor) {
-        boolean rval = true;
-        
-        rval = super.performFinish(currentProject);
-        
-        return rval;
+        return super.performFinish(currentProject);
     }
 
 }
