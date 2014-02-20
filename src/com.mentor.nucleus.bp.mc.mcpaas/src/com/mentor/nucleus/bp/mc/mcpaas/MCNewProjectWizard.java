@@ -47,11 +47,12 @@ public class MCNewProjectWizard extends AbstractNewProjectWizard {
 	 * 
 	 */
 	@Override
-	public boolean performFinish(IProject newProject) {
+	public boolean performFinish(IProject project) {
 		MCNature nature = MCNature.getDefault();
-		if (!nature.addNature(newProject)) {
+		nature.removeAllMCNatures(project);
+		if (!nature.addNature(project)) {
 			return false;
 		}
-		return super.performFinish(newProject);
+		return super.performFinish(project);
 	}
 }

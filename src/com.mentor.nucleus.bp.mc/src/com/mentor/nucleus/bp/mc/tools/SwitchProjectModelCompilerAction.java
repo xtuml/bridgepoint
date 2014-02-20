@@ -31,12 +31,7 @@ import com.mentor.nucleus.bp.core.XtUMLNature;
 public class SwitchProjectModelCompilerAction implements IActionDelegate {
 
     private IStructuredSelection selection;
-    private static final String EXTERNALTOOLBUILDER_FOLDER = ".externalToolBuilders"; //$NON-NLS-1$
 
-    private static final String OLD_MC3020_NATURE_ID = "com.mentor.nucleus.bp.mc.mc3020.MC3020Nature"; //$NON-NLS-1$
-    public static final String  OLD_EXPORT_BUILDER_ID = "com.mentor.nucleus.bp.mc.mc3020.export_builder"; //$NON-NLS-1$
-    public static final String  OLD_MC3020_LAUNCH_ID = "MC-3020 Model Compiler.launch"; //$NON-NLS-1$
-    
     @Override
     public void run(IAction action) {
         
@@ -64,28 +59,6 @@ public class SwitchProjectModelCompilerAction implements IActionDelegate {
                 new SwitchProjectModelCompilerWizard(project));
         wizardDialog.open();        
     }
-    
-    // TODO - check if we have xtUML MC nature (old or new)
-    // TODO - just call the MC configure() and let it do the work???
-    
-    /*private static void configureRefreshOptionForBuildConfiguration(IFile launchFile)
-            throws CoreException {
-        launchFile.refreshLocal(IFile.DEPTH_ONE, new NullProgressMonitor());
-        ILaunchManager manager = DebugPlugin.getDefault().getLaunchManager();
-        ILaunchConfiguration launchConfiguration = manager
-                .getLaunchConfiguration(launchFile);
-        IWorkingSetManager workingSetManager = PlatformUI.getWorkbench()
-                .getWorkingSetManager();
-        IWorkingSet workingSet = workingSetManager.createWorkingSet(
-                "working set", new IAdaptable[] { launchFile.getProject() });
-        String scope = RefreshTab.getRefreshAttribute(workingSet);
-        ILaunchConfigurationWorkingCopy workingCopy = launchConfiguration
-                .getWorkingCopy();
-        workingCopy.setAttribute(RefreshTab.ATTR_REFRESH_SCOPE, scope);
-        workingCopy.setAttribute(RefreshTab.ATTR_REFRESH_RECURSIVE, true);
-        workingCopy.doSave();
-    }*/
-
     
     @Override
     public void selectionChanged(IAction action, ISelection selection) {
