@@ -1,17 +1,21 @@
 //========================================================================
 //
-//File:      $RCSfile: Activator.java,v $
-package $packageName$;
+// File: Activator.java
+//
+// Copyright 2005-2014 Mentor Graphics Corporation. All rights reserved.
+//
+//========================================================================
+//
+package com.mentor.nucleus.bp.mc.none;
 
 import org.eclipse.ui.IStartup;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import com.mentor.nucleus.bp.mc.AbstractActivator;
 
 public class Activator extends AbstractActivator implements IStartup {
 
-	public static final String PLUGIN_ID = "$packageName$";
+	public static final String PLUGIN_ID = "com.mentor.nucleus.bp.mc.none";
 	
 	// The shared instance
 	private static Activator singleton = null;

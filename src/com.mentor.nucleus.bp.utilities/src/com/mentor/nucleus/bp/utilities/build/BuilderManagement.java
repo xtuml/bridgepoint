@@ -1,3 +1,12 @@
+//========================================================================
+//
+// File: BuilderManagement.java
+//
+// (c) Copyright 2005-2014 by Mentor Graphics Corp.  All rights reserved.
+//
+//====================================================================
+//
+
 package com.mentor.nucleus.bp.utilities.build;
 
 import java.io.ByteArrayOutputStream;
@@ -79,6 +88,7 @@ public class BuilderManagement {
         return position;
     }
 
+
     public static void makeBuilderLast(IProject project, final String builderId) {
         int position = -1;
         try {
@@ -105,11 +115,61 @@ public class BuilderManagement {
                     + " project.", e);
         }
     }
+    
+    public static int findBuilder(IProject project, final String builderNameRegex) {
+        int position = -1;
+        
+        try {
+            if (project.isOpen()) {
+                // Get project description and then the associated build commands
+                IProjectDescription desc = project.getDescription();
+                ICommand[] commands = desc.getBuildSpec();
+
+                for (int i = 0; i < commands.length; ++i) {
+                    // Check for builder in enabled state
+                    if (commands[i].getBuilderName().matches(builderNameRegex)) {
+                        position = i;
+                        break;
+                    }
+                    // Check for builder in disabled state
+                    Map<?, ?> args = commands[i].getArguments();
+                    if (args != null) {
+                        String value = (String) args.get("LaunchConfigHandle");
+                        if (value != null && value.matches(builderNameRegex)) {
+                            position = i;
+                            break;
+                        }
+                    }
+                }
+            }
+        } catch (CoreException e) {
+            CorePlugin.logError("Error running findBuilder for "
+                    + " project.", e);
+        }
+        return position;
+    }
+
+    public static void findAndRemoveBuilder(IProject project, final String builderNameRegex) {
+        int position = -1;
+        position = findBuilder(project, builderNameRegex);
+        removeBuilder(project, position);
+        return;
+    }
 
     public static int removeBuilder(IProject project, final String builderId) {
         int position = -1;
         try {
             position = hasBuilder(project, builderId);
+            removeBuilder(project, position);
+        } catch (CoreException e) {
+            CorePlugin.logError("Error removing the builder \"" + builderId
+                    + "\" from the " + project.getName() + " project.", e);
+        }
+        return position;
+    }
+    
+    public static int removeBuilder(IProject project, int position) {
+        try {
             if (position != -1) {
                 IProjectDescription description = project.getDescription();
                 ICommand[] commands = description.getBuildSpec();
@@ -126,7 +186,7 @@ public class BuilderManagement {
                 project.setDescription(description, null);
             }
         } catch (CoreException e) {
-            CorePlugin.logError("Error removing the builder \"" + builderId
+            CorePlugin.logError("Error removing the builder at position \"" + position
                     + "\" from the " + project.getName() + " project.", e);
         }
         return position;
