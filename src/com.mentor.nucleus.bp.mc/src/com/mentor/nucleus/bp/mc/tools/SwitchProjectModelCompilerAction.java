@@ -38,18 +38,6 @@ public class SwitchProjectModelCompilerAction implements IActionDelegate {
         // UI guarantees only IProjects are selected
         for (Iterator<?> iterator = selection.iterator(); iterator.hasNext();) {
             IProject project = (IProject) iterator.next();
-            try {
-                if (!project.hasNature(XtUMLNature.ID)) {
-                    // TODO - If we don't have the xtuml nature, maybe we want to add it here???
-                    continue;
-                }
-            } catch (CoreException e) {
-                CorePlugin
-                        .logError(
-                                "Unable to determine if the project has the xtUML nature.",
-                                e);
-                continue;
-            }
             switchMC(project);
         }
     }
