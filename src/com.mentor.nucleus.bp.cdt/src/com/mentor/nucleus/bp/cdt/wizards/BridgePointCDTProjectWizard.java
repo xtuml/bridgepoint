@@ -55,6 +55,12 @@ public class BridgePointCDTProjectWizard extends DelegatingWizard {
 	}
 
 	public boolean performFinish(IProject project) {
+	    // If the project has no MC export builder at this point, the user selected "None"
+	    // during MC selection.  If that's the case, skip adding CDT stuff.
+	    if ( -1 == BuilderManagement.findBuilder(project, ".*bp.+mc.*export_builder.*")) {
+	        return true;
+	    }
+	    
 		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
         ConvertToMakeWizard wizard = new ConvertToMakeWizard();
         Selection selection = new Selection();
