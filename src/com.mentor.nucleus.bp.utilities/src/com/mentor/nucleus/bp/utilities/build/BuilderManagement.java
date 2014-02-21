@@ -141,33 +141,9 @@ public class BuilderManagement {
     }
 
     public static void findAndRemoveBuilder(IProject project, final String builderNameRegex) {
-        try {
-            if (project.isOpen()) {
-                // Get project description and then the associated build commands
-                IProjectDescription desc = project.getDescription();
-                ICommand[] commands = desc.getBuildSpec();
-
-                for (int i = 0; i < commands.length; ++i) {
-                    // Check for builder in enabled state
-                    if (commands[i].getBuilderName().matches(builderNameRegex)) {
-                        removeBuilder(project, commands[i].getBuilderName());
-                        break;
-                    }
-                    // Check for builder in disabled state
-                    Map<?, ?> args = commands[i].getArguments();
-                    if (args != null) {
-                        String value = (String) args.get("LaunchConfigHandle");
-                        if (value != null && value.matches(builderNameRegex)) {
-                            removeBuilder(project, i);
-                            break;
-                        }
-                    }
-                }
-            }
-        } catch (CoreException e) {
-            CorePlugin.logError("Error running findAndRemoveBuilder for "
-                    + " project.", e);
-        }
+        int position = -1;
+        position = findBuilder(project, builderNameRegex);
+        removeBuilder(project, position);
         return;
     }
 
