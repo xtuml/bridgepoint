@@ -41,15 +41,13 @@ public class SwitchProjectModelCompilerWizard extends DelegatingWizard {
         String[] mcis = null;
         if (getDelegatingWizard() != null) {
             mcis = getDelegatingWizard().getChoices();
-            if (mcis.length > 1) {
+            if (mcis.length >= 1) {
                 addPage(new WizardDelegateChooserPage(
                         "switchxtUMLModelCompilerChooser",
-                        "Multiple xtUML Model Compilers found",
+                        "Set Model Compiler",
                         "Select the model compiler to use with this (" + project.getName() + ") xtUML project",
                         "Available xtUML model compilers:"));
-            } else if (mcis.length == 1) {
-                setDelegate(mcis[0]);
-            }
+            } 
         }
     }
     

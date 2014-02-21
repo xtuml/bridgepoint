@@ -1,3 +1,12 @@
+//========================================================================
+//
+// File: BuilderManagement.java
+//
+// (c) Copyright 2005-2014 by Mentor Graphics Corp.  All rights reserved.
+//
+//====================================================================
+//
+
 package com.mentor.nucleus.bp.utilities.build;
 
 import java.io.ByteArrayOutputStream;
