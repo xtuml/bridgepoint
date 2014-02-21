@@ -1,23 +1,17 @@
 //========================================================================
 //
-// File: SwitchProjectModelCompilerAction.java
+// File: MCNewProjectWizard.java
 //
 // Copyright 2005-2014 Mentor Graphics Corporation. All rights reserved.
 //
 //========================================================================
-// This document contains information proprietary and confidential to
-// Mentor Graphics Corp. and is not for external distribution.
-//======================================================================== 
 //
-//
-
-package $packageName$;
+package com.mentor.nucleus.bp.mc.none;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.ui.IWorkbenchWizard;
 
 import com.mentor.nucleus.bp.mc.AbstractNewProjectWizard;
-import com.mentor.nucleus.bp.mc.MCBuilderArgumentHandler;
 
 /**
  * This is the class that implements the com.mentor.bp.core.model-compilers
@@ -37,21 +31,16 @@ public class MCNewProjectWizard extends AbstractNewProjectWizard {
 	 * 
 	 * @param arguments
 	 * 
-	 * @return The instance or null if this Model compiler is not licensed.
-	 *         This simply prevents unlicensed Model Compilers from showing
-	 *         as available in the New Project Wizard.
+	 * @return The instance 
 	 */
 	public static IWorkbenchWizard getWizard(Object arguments) {
-		
 		MCNewProjectWizard npw = null;
-		if (MCBuilderArgumentHandler.isLicensed(Activator.PLUGIN_ID)) {
-				npw = new MCNewProjectWizard();
-		}
+        npw = new MCNewProjectWizard();
 		return npw;
 	}
 
 	/**
-	 * This is where we add the xtUML nature
+	 * This is where we add the xtUML natures
 	 * 
 	 */
 	@Override
@@ -61,9 +50,8 @@ public class MCNewProjectWizard extends AbstractNewProjectWizard {
 		// "Switcher" utility.  In the New Project Wizard this does nothing 
 		// (because there are no natures to remove)
 		nature.removeAllMCNatures(project);
-		if (!nature.addNature(project)) {
-			return false;
-		}
+		// Note: Since this is mc.none, we removed the nature and we do not 
+		// add another nature back
 		return super.performFinish(project);
 	}
 }

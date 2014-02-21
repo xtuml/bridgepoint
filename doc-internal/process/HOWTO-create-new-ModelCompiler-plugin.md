@@ -8,6 +8,14 @@ An Eclipse plugin creation template was created to make generating new plugins
 (and recreating existing plugins) trivial.  This document describes how to use 
 this template to create a new BridgePoint Model Compiler plugin
 
+Note that in the example below, the name com.mentor.nucleus.bp.mc.* is used to 
+create new plugins.  This convention was used to create all the BridgePoint 
+model compilers.  While the generated MCs could be recreated doing so may not be 
+a good idea.  The reason is that some mcs have been specialized after 
+initial generation.  For example, bp.mcpass, and bp.mc.none.  Therefore, if a
+change is made that effects all MCs it may be best to modify the existing MCs
+rather than regenerate them.
+
 Document References
 -------------------
 [1] ClearQuest DEI dts0100782785

@@ -172,6 +172,36 @@ public abstract class AbstractNature implements IProjectNature {
 		return hasNature;
 	}
 
+    public void removeAllMCNatures(IProject project) {
+        try {
+            // First remove the old MC nature.  We also do some housekeeping here 
+            // to remove the old (deprecated) XMI Nature if it still exists on the project.
+            IProjectDescription description = project.getDescription();
+            String[] natures = description.getNatureIds();
+            int curIndex = 0;
+            for (; curIndex < natures.length; ++curIndex) {
+                if (natures[curIndex].matches(".*bp.+mc.*MC.*Nature")) {
+                    removeNature(project, natures[curIndex]);
+                }
+                if (natures[curIndex].matches(".*bp.+mc.*XMIExportNature")) {
+                    removeNature(project, natures[curIndex]);
+                }
+            }
+            
+            // Next remove the prior builders for pre-builder and the MC itself
+            BuilderManagement.findAndRemoveBuilder(project, ".*bp.+mc.*export_builder.*");
+            BuilderManagement.findAndRemoveBuilder(project, ".*externalToolBuilders.*Model Compiler.+launch.*");
+            
+            // Housekeeping to remove old (deprecated) XMI builder.
+            BuilderManagement.findAndRemoveBuilder(project, ".*bp.+mc.*XMIExportBuilder.*");
+        } catch (CoreException ce) {
+            abstractActivator.logError(
+                    "Could not read project description data for  "
+                            + project.getName() + "project.", ce);
+        }
+        return;
+    }
+
 	private String getProperty(int propertyID) {
 		Properties properties = abstractActivator
 				.readProperties(AbstractNature.BUILD_SETTINGS_FILE); //$NON-NLS-1$
