@@ -438,33 +438,35 @@ name="_General_Notes"></a>3.<span style='font-size:7.0pt;font-family:"Times New 
 
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
-     font-family:"Arial","sans-serif"'>A summary of the release highlights and new
-     functionality is available on the </span><a
+     font-family:"Arial","sans-serif"'>A summary of the release highlights and
+     new functionality is available on the </span><a
      href="../../WhatsNew/HTML/WhatsNew.htm"><span style='font-size:10.0pt;
      font-family:"Arial","sans-serif"'>Whats New</span></a><span
      style='font-size:10.0pt;font-family:"Arial","sans-serif"'> page.</span></li>
  <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
      font-family:"Arial","sans-serif"'>In the recent release BridgePoint has
-     been modified to pass bridge parameters in the user-defined order when
-     executing realized bridge code. This may cause unexpected failures in Java
-     realized code as the values passed may not match the modeled external
-     entity. To address this issue there are two approaches, one where the Java
-     code is modified and the other where the modeled external entity is
-     modified. In any case both must have a matching parameter ordering.</span></li>
+     been modified to pass bridge parameters in the user-defined order when executing
+     realized bridge code. This may cause unexpected failures in Java realized
+     code as the values passed may not match the modeled external entity. To
+     address this issue there are two approaches, one where the Java code is
+     modified and the other where the modeled external entity is modified. In
+     any case both must have a matching parameter ordering.</span></li>
  <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
      font-family:"Arial","sans-serif"'>The provided and required interface
      tools can now be used to draw a connection between two components
-     directly, functioning as an assembly connector.&nbsp; The connection created
-     will produce a provided interface and a required interface.&nbsp; This
-     allows for a simpler approach to creating interface satisfactions.</span></li>
- <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
-     font-family:"Arial","sans-serif"'>The legacy plug-in
-     com.mentor.nucleus.bp.mc.mc3020 has been removed.&nbsp; A utility is
-     provided that allows users to “Switch Project Model Compiler”.  Users must
+     directly, functioning as an assembly connector.&nbsp; The connection
+     created will produce a provided interface and a required interface.&nbsp;
+     This allows for a simpler approach to creating interface satisfactions.</span></li>
+ <li class=MsoNormal style='margin-bottom:12.0pt'><b><span style='font-size:
+     10.0pt;font-family:"Arial","sans-serif";color:red'>IMPORTANT: </span></b><span
+     style='font-size:10.0pt;font-family:"Arial","sans-serif"'>The legacy
+     plug-in com.mentor.nucleus.bp.mc.mc3020 has been removed.&nbsp; A utility
+     is provided that allows users to “Set Model Compiler”.&nbsp; Users must
      run this tool on any projects that reference the old builder before xtUML
-     Translate will run.  To run the tool, select a project, right-click to
-     bring up the context menu, then choose “BridgePoint Utilities &gt; Switch
-     Project Model Compiler”.</span></li>
+     Translate will run.&nbsp; To run the tool, select a project, right-click
+     to bring up the context menu, then choose “BridgePoint Utilities &gt; Set
+     Model Compiler”. &nbsp; See BridgePoint UML Suite Help &gt; Reference &gt;
+     Translation Reference &gt; Setting the Model Compiler for full details.</span></li>
  <li class=MsoNormal style='margin-bottom:12.0pt'><b><span style='font-size:
      10.0pt;font-family:"Arial","sans-serif";color:red'>IMPORTANT:</span></b><span
      style='font-size:10.0pt;font-family:"Arial","sans-serif"'> BridgePoint
@@ -559,9 +561,9 @@ name="_Known_Issues"></a>5.<span style='font-size:7.0pt;font-family:"Times New R
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Using
      the return statement in a Mathematically Derived Attribute (MDA) is
-     incompatible with the semantics of MDAs. The act of writing the attribute
-     value is considered the end of the computation. Return statements should therefore
-     not be used in MDA OAL, even though the parser permits it.</span></li>
+     incompatible with the semantics of MDAs. The act of writing the attribute value
+     is considered the end of the computation. Return statements should
+     therefore not be used in MDA OAL, even though the parser permits it.</span></li>
  <li class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Pushing
      the suspend button during Verifier execution causes Verifier to stop what
      it is doing immediately. It stops whether it is processing an activity or
@@ -913,9 +915,8 @@ color:black'>&nbsp;</span></b></p>
   <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
   none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
   <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
-  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Add
-  possibility to view Graphical and Matrix State Machine Representation at the
-  same time</span>&nbsp;</h4>
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Add possibility
+  to view Graphical and Matrix State Machine Representation at the same time</span>&nbsp;</h4>
   </td>
   <td width=161 style='width:121.05pt;border-top:none;border-left:none;
   border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
@@ -958,7 +959,46 @@ color:black'>&nbsp;</span></b></p>
   <td width=161 style='width:121.05pt;border-top:none;border-left:none;
   border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2598151082</span></span></p>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2598151082</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Provide
+  utility to change Model Compiler after project is created</span></span></h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2573071202</span></span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>TemplateProject
+  does not import as first project in workspace on NFS directory on RHEL5</span></h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2607819651</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>&nbsp;Change
+  the background color for Component Diagrams</span></h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2418942511</span></p>
   </td>
  </tr>
  <tr style='height:12.75pt'>
@@ -979,7 +1019,7 @@ color:black'>&nbsp;</span></b></p>
   none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
   <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
   0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Dynamically
-  allocated events index memory incorrectly</span></span></h4>
+  allocated events index memory incorrectly</span></h4>
   </td>
   <td width=161 style='width:121.05pt;border-top:none;border-left:none;
   border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
@@ -992,7 +1032,7 @@ color:black'>&nbsp;</span></b></p>
   none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
   <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
   0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Copying
-  set transients can fail going out of scope</span></span></h4>
+  set transients can fail going out of scope</span></h4>
   </td>
   <td width=161 style='width:121.05pt;border-top:none;border-left:none;
   border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;

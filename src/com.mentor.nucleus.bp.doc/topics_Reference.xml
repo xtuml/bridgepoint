@@ -109,6 +109,7 @@ the License.
       <topic label="Syntax Summary" href="Reference/OAL/HTML/bpalref.book-14.htm"/>
     </topic>
     <topic label="Translation Reference" href="Reference/Translation/HTML/Translation.htm" >
+	  <topic label="Setting the Model Compiler" href="Reference/Translation/HTML/SettingTheModelCompiler.htm" />
       <topic label="Overview" href="Reference/Translation/HTML/Overview.htm" />
       <topic label="The Translation Process in Detail" href="Reference/Translation/HTML/Detail.htm" />
     </topic>
