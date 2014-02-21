@@ -46,11 +46,12 @@ public class MCNewProjectWizard extends AbstractNewProjectWizard {
 	@Override
 	public boolean performFinish(IProject project) {
 		MCNature nature = MCNature.getDefault();
+		// The call to remove natures was added to support the Model Compiler
+		// "Switcher" utility.  In the New Project Wizard this does nothing 
+		// (because there are no natures to remove)
 		nature.removeAllMCNatures(project);
-		// TODO - SKB 
-		//if (!nature.addNature(project)) {
-		//	return false;
-		//}
+		// Note: Since this is mc.none, we removed the nature and we do not 
+		// add another nature back
 		return super.performFinish(project);
 	}
 }

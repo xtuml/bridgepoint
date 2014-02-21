@@ -1,3 +1,16 @@
+//========================================================================
+//
+// File: SwitchProjectModelCompilerAction.java
+//
+// Copyright 2005-2014 Mentor Graphics Corporation. All rights reserved.
+//
+//========================================================================
+// This document contains information proprietary and confidential to
+// Mentor Graphics Corp. and is not for external distribution.
+//======================================================================== 
+//
+//
+
 package $packageName$;
 
 import org.eclipse.core.resources.IProject;
