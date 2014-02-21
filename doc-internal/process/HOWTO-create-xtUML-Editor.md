@@ -17,6 +17,10 @@ publishing it on the interweb.
 2.  Create a tracking issue in CQ and git for the new xtUML Editor  
 3.  Branch master in the xtuml/internal git repository to ```<issue#>_xtumleditor_<new version>```, check out this branch  
 4.  Merge in the git branch origin/xtUMLeditor_changes  
+
+__NOTE: For the first xtUML Editor creation after BP 4.1.6... The xtUMLeditor changes branch will need to be 
+updated.  We will want to switch from leaving mc.c.binary to mc.none instead.__
+
 5.  Bump the version using the ant script [1] to the new xtUML Editor version  
 6.  Update the Release Notes and What's New  
 7.  Commit all the changes to the branch  
