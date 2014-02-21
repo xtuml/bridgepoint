@@ -1,15 +1,17 @@
-package com.mentor.nucleus.bp.mc.mcpaas;
+//========================================================================
+//
+// File: MCNewProjectWizard.java
+//
+// Copyright 2005-2014 Mentor Graphics Corporation. All rights reserved.
+//
+//========================================================================
+//
+package com.mentor.nucleus.bp.mc.none;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
 
-import com.mentor.nucleus.bp.core.ui.DelegatingWizard;
-import com.mentor.nucleus.bp.core.ui.WizardDelegate;
-import com.mentor.nucleus.bp.core.ui.WizardDelegateChooserPage;
 import com.mentor.nucleus.bp.mc.AbstractNewProjectWizard;
-import com.mentor.nucleus.bp.mc.MCBuilderArgumentHandler;
 
 /**
  * This is the class that implements the com.mentor.bp.core.model-compilers
@@ -29,30 +31,26 @@ public class MCNewProjectWizard extends AbstractNewProjectWizard {
 	 * 
 	 * @param arguments
 	 * 
-	 * @return The instance or null if this Model compiler is not licensed.
-	 *         This simply prevents unlicensed Model Compilers from showing
-	 *         as available in the New Project Wizard.
+	 * @return The instance 
 	 */
 	public static IWorkbenchWizard getWizard(Object arguments) {
-		
 		MCNewProjectWizard npw = null;
-		if (MCBuilderArgumentHandler.isLicensed(Activator.PLUGIN_ID)) {
-				npw = new MCNewProjectWizard();
-		}
+        npw = new MCNewProjectWizard();
 		return npw;
 	}
 
 	/**
-	 * This is where we add the xtUML nature
+	 * This is where we add the xtUML natures
 	 * 
 	 */
 	@Override
 	public boolean performFinish(IProject project) {
 		MCNature nature = MCNature.getDefault();
 		nature.removeAllMCNatures(project);
-		if (!nature.addNature(project)) {
-			return false;
-		}
+		// TODO - SKB 
+		//if (!nature.addNature(project)) {
+		//	return false;
+		//}
 		return super.performFinish(project);
 	}
 }

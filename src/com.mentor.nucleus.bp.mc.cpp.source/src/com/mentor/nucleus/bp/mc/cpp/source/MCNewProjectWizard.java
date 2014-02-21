@@ -1,16 +1,10 @@
 package com.mentor.nucleus.bp.mc.cpp.source;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
 
-import com.mentor.nucleus.bp.core.ui.DelegatingWizard;
-import com.mentor.nucleus.bp.core.ui.WizardDelegate;
-import com.mentor.nucleus.bp.core.ui.WizardDelegateChooserPage;
 import com.mentor.nucleus.bp.mc.AbstractNewProjectWizard;
 import com.mentor.nucleus.bp.mc.MCBuilderArgumentHandler;
-import com.mentor.nucleus.bp.mc.xmiexport.XMIExportNature;
 
 /**
  * This is the class that implements the com.mentor.bp.core.model-compilers
@@ -44,15 +38,16 @@ public class MCNewProjectWizard extends AbstractNewProjectWizard {
 	}
 
 	/**
-	 * This is where we add the xtUML and XMIExport natures
+	 * This is where we add the xtUML nature
 	 * 
 	 */
 	@Override
-	public boolean performFinish(IProject newProject) {
+	public boolean performFinish(IProject project) {
 		MCNature nature = MCNature.getDefault();
-		if (!nature.addNature(newProject)) {
+		nature.removeAllMCNatures(project);
+		if (!nature.addNature(project)) {
 			return false;
 		}
-		return super.performFinish(newProject);
+		return super.performFinish(project);
 	}
 }

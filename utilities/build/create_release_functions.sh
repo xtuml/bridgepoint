@@ -48,6 +48,7 @@ unit_test_modules="com.mentor.nucleus.bp.als.oal.test
                    com.mentor.nucleus.bp.debug.ui.test"
 independent_modules="com.mentor.nucleus.bp.mc.xmiexport
                      com.mentor.nucleus.bp.mc
+                     com.mentor.nucleus.bp.mc.none
                      com.mentor.nucleus.bp.mc.c.source
                      com.mentor.nucleus.bp.mc.c.binary
                      com.mentor.nucleus.bp.mc.systemc.source
