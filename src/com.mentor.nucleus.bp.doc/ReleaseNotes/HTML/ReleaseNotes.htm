@@ -444,8 +444,8 @@ name="_General_Notes"></a>3.<span style='font-size:7.0pt;font-family:"Times New 
      font-family:"Arial","sans-serif"'>Whats New</span></a><span
      style='font-size:10.0pt;font-family:"Arial","sans-serif"'> page.</span></li>
  <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
-     font-family:"Arial","sans-serif"'>In the recent release BridgePoint has
-     been modified to pass bridge parameters in the user-defined order when
+     font-family:"Arial","sans-serif"'>In this release BridgePoint has been
+     modified to pass bridge parameters in the user-defined order when
      executing realized bridge code. This may cause unexpected failures in Java
      realized code as the values passed may not match the modeled external
      entity. To address this issue there are two approaches, one where the Java
@@ -453,10 +453,15 @@ name="_General_Notes"></a>3.<span style='font-size:7.0pt;font-family:"Times New 
      modified. In any case both must have a matching parameter ordering.</span></li>
  <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
      font-family:"Arial","sans-serif"'>The provided and required interface
-     tools can now be used to draw a connection between two components
-     directly, functioning as an assembly connector.&nbsp; The connection created
-     will produce a provided interface and a required interface.&nbsp; This
-     allows for a simpler approach to creating interface satisfactions.</span></li>
+     tools can now be used to draw a connection between two components in a
+     single stroke, functioning as an assembly connector.&nbsp; The connection
+     created will produce a provided interface and a required interface.&nbsp;
+     This allows for a simpler approach to creating interface satisfactions.</span></li>
+ <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
+     font-family:"Arial","sans-serif"'>xtUML eXecute now creates dynamic arrays
+     with an initial size of 0.  Previously they were created with an initial
+     size of 1.  Models that relied on the initial size being 1 must be updated
+     to account for the new behavior.</span></li>
  <li class=MsoNormal style='margin-bottom:12.0pt'><b><span style='font-size:
      10.0pt;font-family:"Arial","sans-serif";color:red'>IMPORTANT: </span></b><span
      style='font-size:10.0pt;font-family:"Arial","sans-serif"'>The legacy
@@ -464,8 +469,8 @@ name="_General_Notes"></a>3.<span style='font-size:7.0pt;font-family:"Times New 
      is provided that allows users to “Set Model Compiler”.&nbsp; Users must
      run this tool on any projects that reference the old builder before xtUML
      Translate will run.&nbsp; To run the tool, select a project, right-click
-     to bring up the context menu, then choose “BridgePoint Utilities &gt; Set Model
-     Compiler”. &nbsp; See BridgePoint UML Suite Help &gt; Reference &gt;
+     to bring up the context menu, then choose “BridgePoint Utilities &gt; Set
+     Model Compiler”. &nbsp; See BridgePoint UML Suite Help &gt; Reference &gt;
      Translation Reference &gt; Setting the Model Compiler for full details.</span></li>
  <li class=MsoNormal style='margin-bottom:12.0pt'><b><span style='font-size:
      10.0pt;font-family:"Arial","sans-serif";color:red'>IMPORTANT:</span></b><span
@@ -549,9 +554,9 @@ name="_Known_Issues"></a>5.<span style='font-size:7.0pt;font-family:"Times New R
      a function's Successful Parse Indicator to &quot;Do not parse&quot; does
      not clear the function's parse errors from the Problems list.</span></li>
  <li class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>If
-     model execution or model compilation is to be performed on a modeling
-     project modified using the xtUML.org Open Sourced editor, the project must
-     be initially created using BridgePoint (licensed product). </span></li>
+     model execution or model compilation is to be performed on a modeling project
+     modified using the xtUML.org Open Sourced editor, the project must be
+     initially created using BridgePoint (licensed product). </span></li>
 </ul>
 
 <p class=MsoNormal>&nbsp;</p>
@@ -1006,12 +1011,12 @@ color:black'>&nbsp;</span></b></p>
   none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
   <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
   0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Test
-  and document recommended approach for xtUML Editor to Model Compiler flow</span></span></h4>
+  and document recommended approach for xtUML Editor to Model Compiler flow</span></h4>
   </td>
   <td width=161 style='width:121.05pt;border-top:none;border-left:none;
   border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2550460491</span></span></p>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2550460491</span></p>
   </td>
  </tr>
  <tr style='height:12.75pt'>

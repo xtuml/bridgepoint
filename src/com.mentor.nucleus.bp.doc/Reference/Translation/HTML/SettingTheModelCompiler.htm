@@ -222,7 +222,8 @@ Compiler” wizard on an existing project</span></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>In
 both cases, the selection wizard will only display model compilers that you are
-licensed to use.</span></p>
+licensed to use.  If the desired model compiler is not listed, check licensing
+as there may be a configuration issue.</span></p>
 
 <p style='margin-left:43.5pt;line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
 
@@ -234,10 +235,10 @@ Project.&nbsp; When you are creating a project you often know what the target
 language of the translated model will be.&nbsp; Alternatively, you may intend
 the new project to be a library of elements that will be accessed via
 inter-project references.&nbsp; In such a case, you can choose “None” on the
-model compiler selection page.&nbsp; When you choose none, no model compiler or
-CDT builders or support files and directories are added to the new project.
-&nbsp;When you create a new project with xtUML Editor, the “None” option is
-automatically selected by the tool.</span></p>
+model compiler selection page.&nbsp; When you choose “None”, no model compiler
+or CDT builders or support files and directories are added to the new project.
+&nbsp;The “None” option is automatically selected by the xtUML Editor for all
+projects.</span></p>
 
 <p style='line-height:15.6pt'>&nbsp;</p>
 
@@ -265,14 +266,15 @@ editing and translating natures.</span></p>
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>To
 run the utility, select a project, then right-click to bring up the context
 menu.&nbsp; Next select <b>BridgePoint Utilities &gt; Set Model Compiler</b>
-(see Figure 1).&nbsp; You will then be presented with a wizard (Figure 2) that
-shows the model compiler selection dialog.&nbsp; Once again: this dialog will
-only display model compilers that you are licensed to use.</span></p>
+(see Figure 1) which triggers a wizard (Figure 2) that shows the model compiler
+selection dialog.&nbsp; Once again: this dialog will only display model
+compilers that are correctly licensed.</span></p>
 
 <p style='line-height:15.6pt'>&nbsp;</p>
 
-<p style='line-height:15.6pt'><img width=633 height=342 id="Picture 3"
-src="SettingTheModelCompiler_files/image001.gif"></p>
+<p style='line-height:15.6pt'><img width=633 height=342
+src="SettingTheModelCompiler_files/image001.gif"
+alt="Description: C:\git2\xtuml\internal\src\com.mentor.nucleus.bp.doc\Reference\Translation\HTML\SettingTheModelCompiler_files\image001.gif"></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Figure
 1</span></p>
@@ -281,7 +283,7 @@ src="SettingTheModelCompiler_files/image001.gif"></p>
 
 <p style='line-height:15.6pt'><img width=525 height=433
 src="SettingTheModelCompiler_files/image001.jpg"
-alt="Description: C:\git2\xtuml\internal\src\com.mentor.nucleus.bp.doc\Reference\Translation\HTML\SettingTheModelCompiler_files\image001.jpg"></p>
+alt="Description: Description: C:\git2\xtuml\internal\src\com.mentor.nucleus.bp.doc\Reference\Translation\HTML\SettingTheModelCompiler_files\image001.jpg"></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Figure
 2</span></p>
@@ -289,9 +291,9 @@ alt="Description: C:\git2\xtuml\internal\src\com.mentor.nucleus.bp.doc\Reference
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>You
-can run the “Set Model Compiler” utility as often as you want to change the
-project model compiler, just remember the tool does modify the project settings
-and will make the project “dirty” in the eyes of your revision control system.</span></p>
+can run the “Set Model Compiler” utility as often as required to change the
+project model compiler.  Note, the tool does modify the project settings and
+will make the project “dirty” in the eyes of your revision control system.</span></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
 
@@ -302,8 +304,8 @@ Note about Converting to No Model Compiler:</span></b><span style='font-family:
 "Arial","sans-serif"'> </span></p>
 
 <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>When
-you convert a project that is associated with a model compiler to “None”, only the
-model compiler builders are removed.&nbsp; The CDT builders are left
+you convert a project that is associated with a model compiler to “None”, only
+the model compiler builders are removed.&nbsp; The CDT builders are left
 alone.&nbsp; All files and folders on disk that were previously created by the
 model compiler association are also not removed or modified.</span></p>
 
