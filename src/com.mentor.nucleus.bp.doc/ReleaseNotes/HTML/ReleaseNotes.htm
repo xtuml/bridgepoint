@@ -8,12 +8,6 @@
 <!--
  /* Font Definitions */
  @font-face
-	{font-family:Wingdings;
-	panose-1:5 0 0 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:Wingdings;
-	panose-1:5 0 0 0 0 0 0 0 0 0;}
-@font-face
 	{font-family:Cambria;
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
@@ -444,19 +438,19 @@ name="_General_Notes"></a>3.<span style='font-size:7.0pt;font-family:"Times New 
 
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
-     font-family:"Arial","sans-serif"'>A summary of the release highlights and
-     new functionality is available on the </span><a
+     font-family:"Arial","sans-serif"'>A summary of the release highlights and new
+     functionality is available on the </span><a
      href="../../WhatsNew/HTML/WhatsNew.htm"><span style='font-size:10.0pt;
      font-family:"Arial","sans-serif"'>Whats New</span></a><span
      style='font-size:10.0pt;font-family:"Arial","sans-serif"'> page.</span></li>
  <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
      font-family:"Arial","sans-serif"'>In this release BridgePoint has been
-     modified to pass bridge parameters in the user-defined order when executing
-     realized bridge code. This may cause unexpected failures in Java realized
-     code as the values passed may not match the modeled external entity. To
-     address this issue there are two approaches, one where the Java code is
-     modified and the other where the modeled external entity is modified. In
-     any case both must have a matching parameter ordering.</span></li>
+     modified to pass bridge parameters in the user-defined order when
+     executing realized bridge code. This may cause unexpected failures in Java
+     realized code as the values passed may not match the modeled external
+     entity. To address this issue there are two approaches, one where the Java
+     code is modified and the other where the modeled external entity is
+     modified. In any case both must have a matching parameter ordering.</span></li>
  <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
      font-family:"Arial","sans-serif"'>The provided and required interface
      tools can now be used to draw a connection between two components in a
@@ -468,17 +462,14 @@ name="_General_Notes"></a>3.<span style='font-size:7.0pt;font-family:"Times New 
      with an initial size of 0.&nbsp; Previously they were created with an
      initial size of 1.&nbsp; Models that relied on the initial size being 1
      must be updated to account for the new behavior.</span></li>
+ <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
+     font-family:"Arial","sans-serif"'>When using Java Realized Components with
+     JNI, DLLs are not unloaded when the session terminates.&nbsp; After
+     terminating the session, the option to &quot;Clear Terminated
+     Sessions&quot; (the X icon) must be run to clear these sessions. &nbsp;The
+     terminated sessions hold resources that prevent the DLL from unloading.
+     &nbsp;Once those terminated sessions are cleared, the DLL is unloaded.</span></li>
 </ul>
-
-<p style='margin-left:.5in;text-indent:-.25in'><span style='font-family:Symbol'>·<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Arial","sans-serif"'>When using Java
-Realized Components with JNI, DLLs are not unloaded when the session
-terminates.  After terminating the session, the option to &quot;Clear
-Terminated Sessions&quot; (the X icon) must be run to clear these sessions.
-&nbsp;The terminated sessions hold resources that prevent the DLL from
-unloading. &nbsp;Once those terminated sessions are cleared, the DLL is
-unloaded.</span></p>
 
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal style='margin-bottom:12.0pt'><b><span style='font-size:
@@ -554,9 +545,9 @@ name="_Known_Issues"></a>5.<span style='font-size:7.0pt;font-family:"Times New R
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Port
      multiplicity is partially supported. It is present in the meta-model. The
-     user interface allows setting One and Many (in properties). A future
-     release of BridgePoint will allow integer values and will be displayable
-     on the canvas.</span></li>
+     user interface allows setting One and Many (in properties). A future release
+     of BridgePoint will allow integer values and will be displayable on the
+     canvas.</span></li>
  <li class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Defects
      in states designated as 'final'. Final state is available for class-based
      state machines. Transitions can be drawn out of final states. States with
@@ -591,13 +582,13 @@ name="_Known_Issues"></a>5.<span style='font-size:7.0pt;font-family:"Times New R
  <li class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Pushing
      the suspend button during Verifier execution causes Verifier to stop what
      it is doing immediately. It stops whether it is processing an activity or
-     not. If it should stop between activities, then the Debug View may show
-     only events pending (or none at all if Verifier is waiting for an external
+     not. If it should stop between activities, then the Debug View may show only
+     events pending (or none at all if Verifier is waiting for an external
      stimulus). Verifier will only source locate (i.e. open an activity editor)
      if it stops inside of an activity; so in the cases outlined above, no
-     source location will occur. If this happens and there are events in the queue,
-     pushing the Step Into button will enter the next state action and source
-     location will immediately occur.</span></li>
+     source location will occur. If this happens and there are events in the
+     queue, pushing the Step Into button will enter the next state action and
+     source location will immediately occur.</span></li>
  <li class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Verifier
      does not fully support instance reference passing.</span></li>
 </ul>
@@ -634,8 +625,8 @@ cause generator to hang as well.</span></p>
 font-family:"Arial","sans-serif"'>Enabling East Asian font support on a Windows
 XP Professional computer usually installs the DOS fonts listed above. If you do
 install EA-font-support you may want to save off the fonts, remove EA-support
-and then copy the fonts back in. EA-support causes a big performance hit on
-American English computers.</span></p>
+and then copy the fonts back in. EA-support causes a big performance hit on American
+English computers.</span></p>
 
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>The
@@ -679,8 +670,8 @@ American English computers.</span></p>
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Eclipse
      CDT has an internal error when attempting to rebuild an executable with
-     spaces in the name.&nbsp; The recommended workaround is to open the project
-     properties, then navigate to C/C++ Build &gt; Settings &gt; Build
+     spaces in the name.&nbsp; The recommended workaround is to open the
+     project properties, then navigate to C/C++ Build &gt; Settings &gt; Build
      Artifact.&nbsp; In the Artifact name field, replace “${ProjName}” with an
      exact name with no spaces.</span></li>
 </ul>
@@ -1030,8 +1021,8 @@ color:black'>&nbsp;</span></b></p>
   <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
   none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
   <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
-  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Test and
-  document recommended approach for xtUML Editor to Model Compiler flow</span></h4>
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Test
+  and document recommended approach for xtUML Editor to Model Compiler flow</span></h4>
   </td>
   <td width=161 style='width:121.05pt;border-top:none;border-left:none;
   border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
