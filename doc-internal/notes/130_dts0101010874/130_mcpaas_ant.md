@@ -8,53 +8,78 @@ Copyright 2014 Mentor Graphics Corp.  All Rights Reserved.
 ### xtUML Project Analysis Note
 
 
-Note: Each section has a description that states the purpose of that section.
-Delete these section descriptions before checking in your note.  Delete this
-note as well.
 
 1. Abstract
 -----------
-In this section, give a summary of the design that this note aims to
-describe.
+The BridgePoint product line needs to provide access to a model compiler 
+for customers who need usage-based access.  This note describes the requirements
+for providing the model compiler as a network-based "platform as a service".  
 
 2. Document References
 ----------------------
-In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.
-[1] Issues 1, https://github.com/xtuml/doc/issues/1  
-[2] Issues 2, https://github.com/xtuml/doc/issues/2  
+[1] Issues 130, https://github.com/xtuml/internal/issues/130  
+[2] CQ DEI dts0101010874  
+[3] Issues 117, https://github.com/xtuml/internal/issues/117  
 
 3. Background
 -------------
-In this section, outline the important points relating to this issue/bug that
-the reader would need to know in order to understand the rest of this
-document.
+Model compilers have always been bundled with BridgePoint as a high-cost 
+licensed product.  Some customers want to use BridgePoint modeling and 
+execution but do not want to pay for a model compiler.  Other customers want
+to use the free xtUML Editor and pay for limited access to model compilation.
+Still other customers want to model and execute in BridgePoint but move 
+to usage-based payment and licensing for translation.  
+
+By offering the model compilation (translation) to our customers as a 
+network-based service platform, Mentor Graphics stands to satisfy customer
+requirements and capture additional revenue from small-scale users and 
+shops that are modeling with xtUML Editor.  
+
+A proof-of-concept was created in [3] and promoted to xtuml/internal master.  It
+did not affect any parts of the BridgePoint product.  An enhancement to the 
+proof of concept was created in xtuml/internal branch 130_mcpaas_phase2.  This 
+branch has not been promoted to master (as of 3/1/2014) since some of the changes
+in the branch would affect the BridgePoint product plug-ins.  
 
 4. Requirements
 ---------------
-This section is only required if there is no preceding analysis note. 
-If present it describes the requirements that need to be satisfied.  If there 
-is an SRS, this section may simply refer to it.  Each requirement should be as 
-short and simple as possible and must be clearly defined.
+4.1  User interface  
+- 4.1.1  A user shall be able to navigate to a MC-PaaS webpage, submit a project zipfile, run MC-PaaS, and receive a zipfile containing the translated model source code in return.
+- 4.1.2  Integrated build
+  - 4.1.2.1  A user shall be able to configure a project to use the MC-PaaS model compiler.
+  - 4.1.2.2  User shall then be able to click "Build Project" inside BridgePoint or xtUML Editor.  The tool shall transfer the project data to an MC-PaaS server, run the translation, and populate the project ```src/``` folder with the source code resulting from the translation.  
+ 
+4.2  User management  
+- 4.2.1  A web interface shall be provided for individuals to register to use MC-PaaS
+- 4.2.2  A web interface shall be provided for an organization representative to register their organization to use MC-PaaS
+  - 4.2.2.1  A web interface shall allow the organization to select registered users and add them to the organization  
 
-5. Analysis
------------
-This section is only required if there is no preceding analysis note. If present
-it sets out a brief analysis of the problem to be resolved by this design note.
+4.3  Security  
+- 4.3.1  All MC-PaaS communication across a network shall be under a secure connection
+- 4.3.2  All project data sent across a network shall be symmetically encrypted/decrypted at each end  
+- 4.3.3  MC-PaaS shall not store passwords
+- 4.3.4  BridgePoint/xE shall not store passwords
+- reuse xtuml.org logins
 
-* Item 1
-* Item 2
-* Item 3
+- data storage? access to old completed builds?
+ 
+4.4  Accounting  
+- on demand, web-based payment acceptance?  Where does the money go?
+  - instantaneous access to newly purchased builds  
 
-6. Work Required
+4.5  Deployment  
+- Amazon? xtuml.org?  
+- licensing of tools on external server?
+
+5. Work Required
 ----------------
-In this section, break out the consequential work (as a numbered list) needed
-to meet the requirements specified in the Requirements section.
+    In this section, break out the consequential work (as a numbered list) needed
+    to meet the requirements specified in the Requirements section.
 
-7. Acceptance Test
+6. Acceptance Test
 ------------------
-In this section, list the tests that need to be performed in order to
-verify that all the requirements are satisfied.
+    In this section, list the tests that need to be performed in order to
+    verify that all the requirements are satisfied.
 
 End
 ---
