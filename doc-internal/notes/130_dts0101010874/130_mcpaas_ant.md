@@ -18,7 +18,7 @@ for providing the model compiler as a network-based "platform as a service".
 2. Document References
 ----------------------
 [1] Issues 130, https://github.com/xtuml/internal/issues/130  
-[2] CQ DEI dts0101010874  
+[2] CQ DEI dts0101010874 - this issue  
 [3] Issues 117, https://github.com/xtuml/internal/issues/117  
 
 3. Background
@@ -48,6 +48,7 @@ in the branch would affect the BridgePoint product plug-ins.
 - 4.1.2  Integrated build
   - 4.1.2.1  A user shall be able to configure a project to use the MC-PaaS model compiler.
   - 4.1.2.2  User shall then be able to click "Build Project" inside BridgePoint or xtUML Editor.  The tool shall transfer the project data to an MC-PaaS server, run the translation, and populate the project ```src/``` folder with the source code resulting from the translation.  
+- 4.1.3  The MC-PaaS server shall handle multiple concurrent build requests  
  
 4.2  User management  
 - 4.2.1  A web interface shall be provided for individuals to register to use MC-PaaS
@@ -59,17 +60,19 @@ in the branch would affect the BridgePoint product plug-ins.
 - 4.3.2  All project data sent across a network shall be symmetically encrypted/decrypted at each end  
 - 4.3.3  MC-PaaS shall not store passwords
 - 4.3.4  BridgePoint/xE shall not store passwords
-- reuse xtuml.org logins
-
-- data storage? access to old completed builds?
+- _require reuse xtuml.org logins?_
+- _data storage? access to old completed builds?_
  
 4.4  Accounting  
-- on demand, web-based payment acceptance?  Where does the money go?
-  - instantaneous access to newly purchased builds  
+- Each build request shall decrement the number of builds available to the user or organization by one
+- _on demand, web-based payment acceptance?  Where does the money go?_
+  - _instantaneous access to newly purchased builds_
 
 4.5  Deployment  
-- Amazon? xtuml.org?  
-- licensing of tools on external server?
+- MC-PaaS shall be available via any computer with internet access
+- MC-PaaS shall be installable and accessible on a server inside an organization's intranet
+- _Amazon? xtuml.org?_
+- _licensing of tools on server?_
 
 5. Work Required
 ----------------
