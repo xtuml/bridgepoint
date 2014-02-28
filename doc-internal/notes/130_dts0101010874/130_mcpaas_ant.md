@@ -43,19 +43,19 @@ in the branch would affect the BridgePoint product plug-ins.
 
 4. Requirements
 ---------------
-4.1  User interface  
+__4.1  User interface__  
 - 4.1.1  A user shall be able to navigate to a MC-PaaS webpage, submit a project zipfile, run MC-PaaS, and receive a zipfile containing the translated model source code in return.
 - 4.1.2  Integrated build
   - 4.1.2.1  A user shall be able to configure a project to use the MC-PaaS model compiler.
-  - 4.1.2.2  User shall then be able to click "Build Project" inside BridgePoint or xtUML Editor.  The tool shall transfer the project data to an MC-PaaS server, run the translation, and populate the project ```src/``` folder with the source code resulting from the translation.  
+  - 4.1.2.2  User shall then be able to click "Build Project" inside BridgePoint or xtUML Editor.  The tool shall transfer the project data to an MC-PaaS server, run the translation, and populate the project's local ```src/``` folder with the source code resulting from the translation.  
 - 4.1.3  The MC-PaaS server shall handle multiple concurrent build requests  
  
-4.2  User management  
+__4.2  User management__  
 - 4.2.1  A web interface shall be provided for individuals to register to use MC-PaaS
 - 4.2.2  A web interface shall be provided for an organization representative to register their organization to use MC-PaaS
   - 4.2.2.1  A web interface shall allow the organization to select registered users and add them to the organization  
 
-4.3  Security  
+__4.3  Security__  
 - 4.3.1  All MC-PaaS communication across a network shall be under a secure connection
 - 4.3.2  All project data sent across a network shall be symmetically encrypted/decrypted at each end  
 - 4.3.3  MC-PaaS shall not store passwords
@@ -63,14 +63,14 @@ in the branch would affect the BridgePoint product plug-ins.
 - _require reuse xtuml.org logins?_
 - _data storage? access to old completed builds?_
  
-4.4  Accounting  
-- Each build request shall decrement the number of builds available to the user or organization by one
+__4.4  Accounting__  
+- 4.4.1  Each build request shall decrement the number of builds available to the user or organization by one
 - _on demand, web-based payment acceptance?  Where does the money go?_
   - _instantaneous access to newly purchased builds_
 
-4.5  Deployment  
-- MC-PaaS shall be available via any computer with internet access
-- MC-PaaS shall be installable and accessible on a server inside an organization's intranet
+__4.5  Deployment__  
+- 4.5.1  MC-PaaS shall be available via any computer with internet access
+- 4.5.2  MC-PaaS shall be installable and accessible on a server inside an organization's intranet
 - _Amazon? xtuml.org?_
 - _licensing of tools on server?_
 
