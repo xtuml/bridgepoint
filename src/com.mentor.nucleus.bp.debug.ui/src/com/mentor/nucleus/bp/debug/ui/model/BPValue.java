@@ -155,9 +155,18 @@ public class BPValue extends BPDebugElement implements IValue {
 		else if (value instanceof AttributeValue_c) {
 			AttributeValue_c attrVal = (AttributeValue_c)value;
 			RuntimeValue_c rtVal = RuntimeValue_c.getOneRV_RVLOnR3304(attrVal);
-			return getValueString(rtVal);
-
-
+			if ( rtVal == null){
+				// Referential attribute
+				rtVal = (RuntimeValue_c) ((AttributeValue_c)value).getModelRoot().getInstanceList(
+						RuntimeValue_c.class).getGlobal(null, ((AttributeValue_c)value).Getruntimevalue());
+				
+				String valueString = getValueString(rtVal);
+				if ("Unknown Runtime Value".equalsIgnoreCase(valueString)){
+					return "not participating";
+				}
+			}
+			return  getValueString(rtVal);
+			
 		}
 		else if (value instanceof LocalReference_c) {
 			RuntimeValue_c rtVal = RuntimeValue_c.getOneRV_RVLOnR3306( Local_c.getOneL_LCLOnR3001(
