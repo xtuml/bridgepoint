@@ -31,8 +31,8 @@ import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.util.WorkspaceUtil;
 import com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals;
+import com.mentor.nucleus.bp.debug.test.VariableViewTests;
 import com.mentor.nucleus.bp.debug.ui.launch.DLLRelaunchTest;
-import com.mentor.nucleus.bp.debug.ui.test.execute.RecursionExecutionTest;
 
 /**
 * Test all areas of the core
@@ -61,8 +61,7 @@ public class VerifierTestSuite2 extends TestSuite {
 
 		addTest(new TestSuite(VerifierMessageTestGlobals.class));
 		addTest(new TestSuite(DLLRelaunchTest.class));
-		addTest(new TestSuite(RecursionExecutionTest.class));
-
+		addTest(new TestSuite(VariableViewTests.class));
 	}
 
 }
