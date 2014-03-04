@@ -1,0 +1,12 @@
+This document captures the state of the BridgePoint unit tests:
+===============================================================
+Branch: 179_dts0101040857
+Hostname: 	CAS-RMULVEY-LT
+OS Name:  	Windows 7
+	Version:	6.1
+	Architecture:	x86
+
+Test Suite                              Status			TestRuns	Time    Timestamp
+---------------------------------------------------------------------------------------------
+Debug - Verifier Test 2					PASS			8			114.19s	20140304 20:50:31
+Debug - Verifier Test					PASS			99			756.04s	20140304 21:03:17
