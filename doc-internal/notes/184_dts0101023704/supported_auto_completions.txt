@@ -1,0 +1,41 @@
+Supported auto-completions in OAL
+---------------------------------
+
+1. References
+[1] BridgePoint UML Suite Help > Reference > OAL Reference > Keywords
+
+Keywords
+--------
+See [1].
+
+Invocation
+----------
+Bridge Invocation
+Function Invocation
+Operation Invocation (Instanced and Class based)
+Interface Operation Invocation
+Signal Invocation
+
+Member access
+-------------
+Attribute access
+Constant access
+Structure member access
+Enumerator access
+Parameter access
+
+Path
+----
+Interface
+Port
+Interface operation
+Interface signal
+
+(Interface 1::Port 1::operation||signal)
+
+Additional
+----------
+Key Letter
+event name (creation and generation)
+Acceptable variables (for delete, relate, unrelate, return, assignment)
+->R<AssocNumb> (in related by case, full chain support)
