@@ -155,9 +155,6 @@ public class VariableViewTests extends BaseTest {
 
 		assertNotNull(component);
 		
-//		Component_c[] components = Component_c.getManyC_CsOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(
-//				Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(component))));
-//		
 		// launch the component
 		
 		Selection.getInstance().setSelection(new StructuredSelection(component));
