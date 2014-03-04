@@ -867,10 +867,14 @@ public class BPThread extends BPDebugElement implements IThread {
 	public static boolean qdResultsReady(Stack_c stack) {
 		boolean qdResultsReady = false;
 		StackFrame_c [] qdResults = StackFrame_c.getManyI_STFsOnR2967(stack);
+		StackFrame_c topFrame = StackFrame_c.getOneI_STFOnR2929(stack);
 		for (int i=0; i < qdResults.length; i++) {
 			if (qdResults[i].getReadyforinterrupt()== true) {
-				qdResultsReady = true;
-				break;
+				StackFrame_c blockedFrame = StackFrame_c.getOneI_STFOnR2965Blocks(qdResults[i]);
+				if (topFrame == blockedFrame) {
+				  qdResultsReady = true;
+				  break;
+				}
 			}
 		}
 		return qdResultsReady;
