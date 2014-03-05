@@ -697,7 +697,7 @@ public class DebugUITestUtilities {
 		for (int i = 0; i < viewReferences.length; i++) {
 			if (viewReferences[i].getId().equals(
 					IDebugUIConstants.ID_VARIABLE_VIEW)) {
-				for (int trial = 0; trial< 250 ; trial++) {
+				for (int trial = 0; trial< 25 ; trial++) {
 					while ( org.eclipse.ui.PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 					Tree tree = getTreeInView(viewReferences[i]);
 					TreeItem[] items = tree.getItems();
@@ -743,7 +743,7 @@ public class DebugUITestUtilities {
 			boolean clicked = false;
 			openVariablesView();
 			maximizeVariablesView();
-			for (int trial = 0; trial< 100; trial++) {
+			for (int trial = 0; trial< 25; trial++) {
 				while ( org.eclipse.ui.PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 				IViewReference[] viewReferences = PlatformUI.getWorkbench()
 						.getActiveWorkbenchWindow().getActivePage().getViewReferences();
@@ -761,7 +761,7 @@ public class DebugUITestUtilities {
 									variablesView.doubleClick(new DoubleClickEvent(viewer, new TreeSelection()));
 									clicked = true;
 								}
-								for (int k = 0; k < 50; k++) {
+								for (; trial < 25; trial++) {
 									while ( org.eclipse.ui.PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 									TreeItem[] treeItems = items[j].getItems();
 									int len = treeItems.length;
