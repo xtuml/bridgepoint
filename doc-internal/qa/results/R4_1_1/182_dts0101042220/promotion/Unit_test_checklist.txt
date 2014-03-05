@@ -1,0 +1,12 @@
+This document captures the state of the BridgePoint unit tests:
+===============================================================
+Branch: 182_dts0101042220_NM
+Hostname: 	gbahig_lptp2
+OS Name:  	Windows 7
+	Version:	6.1
+	Architecture:	x86
+
+Test Suite                              Status			TestRuns	Time    Timestamp
+---------------------------------------------------------------------------------------------
+Debug - Verifier Test 2					PASS			8			153.33s	20140305 17:14:50
+Debug - Verifier Test					PASS			99			1377.20s20140305 19:25:14
