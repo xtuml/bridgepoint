@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("a3c1cfbf-1744-4b5e-9297-55e8f611835c",
@@ -75,17 +75,24 @@ if (empty return_value)
     select one invokingFrame related by stack_frame->I_STF[R2965.''blocks''];
     select one statement related by top_blk_in_stack_frame->ACT_SMT[R2941];
     if (empty invokingFrame)
-      if(not_empty statement)
-      statement.setupNextStatement(stack_frame_id:
+      select one blockingFrame related by  stack_frame->I_STF[R2965.''blocked by''];
+      select any intermediate_value related by stack_frame->I_VSF[R2951];
+      if (empty intermediate_value and empty blockingFrame)
+        // If a value computation is in progress, or we were blocked waiting
+        // for a synchronous operation when we were interrupted we want to
+        // complete work on the current statement.
+        if (not_empty statement)
+          statement.setupNextStatement(stack_frame_id:
                                          top_blk_in_stack_frame.Stack_Frame_ID);
-      else
-        select one stmt related by self ->ACT_SMT[R603];
-        select one blk related by stmt ->ACT_BLK[R602];
-        select one body related by blk ->ACT_ACT[R601];
-        if (not_empty body)
-          blk.exitAsynchronousActivity(stack_ID:stack.Stack_ID,body_ID:body.Action_ID);  
-        end if;                                                                 
-      end if;                                                                  
+        else
+          select one stmt related by self ->ACT_SMT[R603];
+          select one blk related by stmt ->ACT_BLK[R602];
+          select one body related by blk ->ACT_ACT[R601];
+          if (not_empty body)
+            blk.exitAsynchronousActivity(stack_ID:stack.Stack_ID,body_ID:body.Action_ID);  
+          end if;                                                                 
+        end if;
+      end if;
     end if;
   end if;
 else
@@ -245,7 +252,7 @@ INSERT INTO O_REF
 	'',
 	'Value',
 	'Value_ID',
-	'R668');
+	'R668.''has''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a3c1cfbf-1744-4b5e-9297-55e8f611835c",
 	"745911e8-7606-4edc-8d12-44d5c2a18f5f",
