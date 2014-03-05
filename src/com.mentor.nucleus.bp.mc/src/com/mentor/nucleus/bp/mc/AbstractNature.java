@@ -336,20 +336,9 @@ public abstract class AbstractNature implements IProjectNature {
 		IProjectDescription desc = project.getDescription();
 		ICommand[] commands = desc.getBuildSpec();
 
-		// Determine if MC-3020 code gen builder already associated
-		boolean custBuilderFound = false;
-
-		for (int i = 0; i < commands.length; ++i) {
-			if (commands[i].getBuilderName().equals(BuilderManagement.CUST_BUILDER_ID)) {
-				custBuilderFound = true;
-				break;
-			}
-
-		}
-
+		// Determine if MC code gen builder already associated
 		// Add builder if not already in project
-		if (!custBuilderFound) {
-
+		if (BuilderManagement.hasBuilder(project, MC_LAUNCH_ID) == -1) {
 			ICommand custCommand = desc.newCommand();
 			custCommand.setBuilderName(BuilderManagement.CUST_BUILDER_ID);
 			// Create map with arguments specific to builder in project here
