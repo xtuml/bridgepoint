@@ -67,6 +67,7 @@ com.mentor.nucleus.bp.mc.c.binary
 com.mentor.nucleus.bp.mc.c.source
 com.mentor.nucleus.bp.mc.cpp.source
 com.mentor.nucleus.bp.mc.mcpaas
+com.mentor.nucleus.bp.mc.none         
 com.mentor.nucleus.bp.mc.systemc.source
 com.mentor.nucleus.bp.mc.template
 com.mentor.nucleus.bp.mc.vhdl.source
@@ -78,14 +79,13 @@ MC-Java.test
 pt_antlr
 ```
   - __Note 1:__ com.mentor.nucleus.bp.docgen will not be made OSS.  It contains no real IP. However, 
-  it relies entirely on tools we will not make OSS or put into xtuml/editor: pre-builder, xtumlmc_build.exe, docgen.exe, xsltproc.  It 
-  also has build dependencies on the bp.mc* plug-ins and will not compile without them.  
-  - __Note 2:__ Many of the classes in this plug-in provide small utilities we use during development.
-  However, the Java Export Builder cannot be made OSS.  Thus, we will keep this plug-in private to 
-  contain MC-Java tools and move all the rest of classes to the OSS plug-in bp.utilities.
-  - __Note 3:__ the BridgePointCDTProjectWizard in the bp.cdt plug-in currently relies on some utility functions
-  in bp.mc.  These functions shall be moved out of that plug-in so the OSS code will build.
-  
+  it relies entirely on tools we will not make OSS or put into xtuml/editor: pre-builder, xtumlmc_build.exe, docgen.exe, xsltproc.  It also has build dependencies on the bp.mc* plug-ins and will not compile without them.  
+  - __Note 2:__ Some of the classes in this plug-in provide small utilities we use during development.
+  However, the Java Export Builder cannot be made OSS.  Additionally, we don't want to move stuff to bp.utilities
+  that would make bp.utilities dependent on other parts of the tool.  Other projects should depend on bp.utilities, 
+  not it on others.  Thus, we will keep the bp.internal.tools plug-in private to contain MC-Java tools and 
+  carefully consider moving other classes to the OSS plug-in bp.utilities.
+
 5.2  The OOAofOOA model in bp.core will be stripped of the following subsystems/packages
   (marked with X) before the project is posted to xtuml/editor:
 ```
@@ -127,22 +127,26 @@ pt_antlr
   - Wiring
 ```  
 5.2.1  Items marked with ** were previously stripped from the OOAofOOA shipped
-  in the bp.welcome plug-in, but they will no longer be stripped.
-
+  in the bp.welcome plug-in, but they will no longer be stripped.  
 5.2.2  The Instance package (marked XX above) is divided so that Verifier specific
   IP is placed into a separate package which is then reserved as if it was marked
   with an X. The only elements left public will be Instance, Attribute Value, Link
   Participation and Link. The future possibility of pre-created events shall also
   be supported, requiring Pending Event and Data Item Value. The Timer and
   Component Instance classes will also be made public. The new reserved
-  package will be named Engine. The pruned Instance package will be published.
-  
+  package will be named Engine. The pruned Instance package will be published.  
 
 5.3  The license files in the plug-ins that are put into xtuml/editor needs to be
   changed from the Mentor Graphics EULA to the Apache license.    
   
-5.4 The Java Licensing Component (JLC) and SVX jars shall be removed from bp.core
+5.4 Mentor IP   
+5.4.1 The Java Licensing Component (JLC) and SVX jars shall be removed from bp.core
   before the project is posted to xtuml/editor.    
+5.4.2 The demo BP encryption pieces shall be removed from bp.core before the project 
+  is posted to xtuml/editor.   
+5.4.3 The expected results in io.mdl.test has an ooaofooa model that shall be removed 
+  before the project is posted to xtuml/editor.  
+  
 
 6. Design
 ---------
@@ -157,6 +161,7 @@ pt_antlr
 6.1.6.2  Update license files to Apache  
 6.1.6.3  Extract Mentor IP as specified in 5.4  
 6.1.6.4  Update the projects to not run the Ant builder (since we won't be generating any code from models)  
+6.1.6.5  Update ```.gitignore``` files to allow the check-in of generated Java files.  
 6.1.7  Commit the files to xtuml/editor branch  
 6.1.8  Create a HOWTO/Readme in xtuml/editor that explains how to build the plug-ins  
 6.1.9  Promote the files to master  
