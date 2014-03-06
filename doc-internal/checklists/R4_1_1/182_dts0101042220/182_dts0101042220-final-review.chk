@@ -60,7 +60,7 @@ o- If plugin.xml or MANIFEST.MF was modified, verify all changes to the depend-
 
 x- Perform a clean build and verify everything rebuilds successfully.
 
-o- Execute all JUnits and manual tests specified in the notes.
+x- Execute all JUnits and manual tests specified in the notes.
 
 x- Update the test_results/Unit_test_summary.txt with the branch name check it in here:
 	  github.com/xtuml/<repository>/doc-<repository>/qa/<release_id>/<issue num>/promotion/Unit_test_summary.txt
