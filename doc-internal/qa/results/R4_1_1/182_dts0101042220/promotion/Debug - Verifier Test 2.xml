@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="Debug - Verifier Test 2" project="com.mentor.nucleus.bp.debug.ui.test" tests="8" started="8" failures="0" errors="0" ignored="0">
+  <testsuite name="VerifierTestSuite2" time="153.332">
+    <testsuite name="com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals" time="62.781">
+      <testcase name="testDeclaredToDeclaredRootToRoot" classname="com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals" time="18.471"/>
+      <testcase name="testDeclaredToReferencedRootToRoot" classname="com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals" time="10.421"/>
+      <testcase name="testReferencedToDeclaredRootToRoot" classname="com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals" time="11.33"/>
+      <testcase name="testReferencedToReferencedRootToRoot" classname="com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals" time="11.99"/>
+      <testcase name="testReferencedToReferencedJarredRootToRoot" classname="com.mentor.nucleus.bp.debug.engine.VerifierMessageTestGlobals" time="10.569"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.ui.launch.DLLRelaunchTest" time="46.446">
+      <testcase name="testDLLRelaunch" classname="com.mentor.nucleus.bp.debug.ui.launch.DLLRelaunchTest" time="46.446"/>
+    </testsuite>
+    <testsuite name="com.mentor.nucleus.bp.debug.test.VariableViewTests" time="44.105">
+      <testcase name="testReferentialAttributeValueAfterSetup" classname="com.mentor.nucleus.bp.debug.test.VariableViewTests" time="7.07"/>
+      <testcase name="testReferentialAttributeValueBeforeSetup" classname="com.mentor.nucleus.bp.debug.test.VariableViewTests" time="37.035"/>
+    </testsuite>
+  </testsuite>
+</testrun>
