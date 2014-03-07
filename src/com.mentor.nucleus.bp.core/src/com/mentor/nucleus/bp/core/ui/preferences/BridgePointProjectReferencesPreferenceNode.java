@@ -13,7 +13,7 @@ public class BridgePointProjectReferencesPreferenceNode extends PreferenceNode {
 	}
 
 	public void createPage() {
-		BridgePointProjectPreferences page = new BridgePointProjectPreferences(node);
+		BridgePointProjectPreferences page = new BridgePointProjectReferencesPreferences(node);
 		page.setTitle(getLabelText());
 		setPage(page);
 	}

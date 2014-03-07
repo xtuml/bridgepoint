@@ -189,6 +189,10 @@
         .// set columns size in case of backward compatibility
     .end if
     .if(table.Key_Lett == "S_EE")
+      boolean addToUpgradeList = false;
+      if(parms.size() <= 7) {
+        addToUpgradeList = true;
+      }
       parms.setSize(${no_of_cols});
     .end if
     .//
@@ -238,6 +242,11 @@
       .end if
     .end if
     loadedInstances.add(newInst);
+    .if((table.Key_Lett == "S_EE") and (callingProject == "NBP"))
+      if(addToUpgradeList) {
+      	helper.addEEToUpgradeForIsRealized(newInst);
+      }
+    .end if
     .// Data upgrade for 1.4.5 alpha only
     .if (table.Key_Lett == "S_DPK")
         dataPkgUUID = IdAssigner.createUUIDFromString((String)parms.elementAt(0));
@@ -1026,6 +1035,7 @@ ${setSize.body}
         helper.upgradeEventData(getModelRoot(), getRootModelElement());
         helper.upgradeLifespans(getRootModelElement());
         helper.upgradeElementOrder(getModelRoot());
+        helper.upgradeEEsForIsRealized();
 		.if(multilevel or setComponent)
 		loadedInstances.addAll(helper.upgradeDatatypes(loadedInstances));
 		loadedInstances.addAll(helper.upgradeSystemLevelPackages(loadedInstances));

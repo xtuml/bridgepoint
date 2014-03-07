@@ -47,6 +47,7 @@ import com.mentor.nucleus.bp.core.test.GetNameTestGenerics;
 import com.mentor.nucleus.bp.core.test.MultipleReloadGenerics;
 import com.mentor.nucleus.bp.core.test.NumberingTestGenerics;
 import com.mentor.nucleus.bp.core.test.OperationsTestGenerics;
+import com.mentor.nucleus.bp.core.test.PreferencesTests;
 import com.mentor.nucleus.bp.core.test.RenameTest2Generics;
 import com.mentor.nucleus.bp.core.test.RenameTestGenerics;
 import com.mentor.nucleus.bp.core.test.SetTypeTestGenerics;
@@ -98,5 +99,6 @@ public class CoreGlobalsTestSuiteGenerics extends TestSuite {
 		addTest(new TestSuite(FormalizeUnformalizeWithPrefixTestGenerics.class));
 		addTest(new TestSuite(DeleteTestGenerics.class));
 		addTest(new TestSuite(TigerNatureTestGenerics.class));
+        addTest(new TestSuite(PreferencesTests.class));
 	}
 }

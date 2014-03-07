@@ -46,7 +46,8 @@ CREATE TABLE S_EE (
 	Key_Lett	STRING,
 	Dom_ID	UNIQUE_ID,
 	Realized_Class_Path STRING,
-    Label STRING  );
+    Label STRING,
+    isRealized BOOLEAN );
 
 -- Object: 4.  External Entity in Model
 CREATE TABLE S_EEM (

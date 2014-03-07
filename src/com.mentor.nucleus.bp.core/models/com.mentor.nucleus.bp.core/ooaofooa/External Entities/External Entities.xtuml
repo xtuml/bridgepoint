@@ -299,7 +299,9 @@ capture required interactions with that user.
 Import:com.mentor.nucleus.bp.core.common.*
 ',
 	'USER',
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43");
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'',
+	'User');
 INSERT INTO S_BRG
 	VALUES ("2065b330-f57e-4fb9-9d45-8503aaafb1a6",
 	"2f1f82f7-9389-4b32-8a37-2885d5c591fc",
@@ -544,7 +546,9 @@ some point in the near future.
 
 Import:java.util.UUID;import java.util.Calendar',
 	'GD',
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43");
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'',
+	'Graphics Domain');
 INSERT INTO S_BRG
 	VALUES ("49df0b4c-f3b7-4159-8a92-289bc53dc162",
 	"058cdd28-59e8-461f-8413-8013501f3a1a",
@@ -1588,7 +1592,9 @@ modeled.
 Import:java.util.*; import com.mentor.nucleus.bp.core.ui.actions.ElementChange
 ',
 	'Util',
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43");
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'',
+	'Utilities');
 INSERT INTO S_BRG
 	VALUES ("043564b8-e004-4789-a29f-ca8ce63bad78",
 	"b69262ac-62eb-4030-b329-b967033f0ee0",
@@ -2340,7 +2346,9 @@ INSERT INTO S_EE
 	'This EE contains bridge operations that provide access to the tool''s selection
 provider which cannot be modeled.',
 	'Sel',
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43");
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'',
+	'Selection');
 INSERT INTO S_BRG
 	VALUES ("d7b1c345-d705-4eb3-8fc6-ef868a4af640",
 	"ca7a7f08-4459-4ff5-bf0b-941446e8b3c5",
@@ -2381,7 +2389,9 @@ user data types.
 
 Translate: false',
 	'ERR',
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43");
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'',
+	'Parse Error Reporting');
 INSERT INTO S_BRG
 	VALUES ("34c3f3bd-33fe-45ec-9185-fe08c495a9ea",
 	"e12d9b52-9420-4f36-a733-995bd2e6fadf",
@@ -2422,6 +2432,25 @@ function, if the verification fails.
 Bridge:ALS',
 	'',
 	'../Datatypes/Datatypes.xtuml');
+INSERT INTO S_BRG
+	VALUES ("c588786d-51c3-4b9d-bb25-b375dc1da919",
+	"e12d9b52-9420-4f36-a733-995bd2e6fadf",
+	'tokenHasValues',
+	'Translate:native',
+	0,
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("433d5ba9-b31b-4e3b-b37f-8728b7d99459",
+	"c588786d-51c3-4b9d-bb25-b375dc1da919",
+	'token',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO S_EEIP
 	VALUES ("53bf3c8b-adde-4d47-8f16-aba92cc91cb2",
 	"fa4909c3-df7a-4238-91e9-92095e8a6824");
@@ -2434,7 +2463,9 @@ by the operating system.  It is implemented by a hand-written class.
 This External Entity should be exported with graphics and with Only Referenced
 user data types.',
 	'OS',
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43");
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'',
+	'Operating System');
 INSERT INTO S_BRG
 	VALUES ("4d05e188-4384-4ba1-9009-2280d1607161",
 	"fa4909c3-df7a-4238-91e9-92095e8a6824",
@@ -2573,7 +2604,9 @@ We use this to load users realized code.
 -----------------------------------------------------------------------------------
 Translate:false',
 	'VM',
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43");
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'',
+	'Virtual Machine');
 INSERT INTO S_BRG
 	VALUES ("c445c967-1cea-4769-93d0-bc54402626d2",
 	"78c0d209-aae1-4a81-a2d1-e5876d473deb",
@@ -2746,7 +2779,9 @@ provide a means for action language to access the preferences.
 Import: com.mentor.nucleus.bp.core.common.*; import org.eclipse.jface.dialogs.*; import com.mentor.nucleus.bp.core.ui.preferences.*; import org.osgi.service.prefs.Preferences; import org.eclipse.core.resources.*; import org.eclipse.jface.preference.*; import org.eclipse.core.runtime.preferences.IScopeContext; import org.eclipse.jface.dialogs.MessageDialogWithToggle
 ',
 	'PREF',
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43");
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'',
+	'Preferences');
 INSERT INTO S_BRG
 	VALUES ("e505d8b9-b276-4891-b8ff-947bfc8e03e9",
 	"1b0b6da2-9849-46f1-8c76-390cd1e4f934",
@@ -2864,6 +2899,23 @@ Translate:native',
 			IScopeContext projectScope = new ProjectScope(selectedProject);
 			Preferences projectNode = projectScope
 					.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+			// handle defaults for parse preferences
+			if (p_Name
+					.equals(BridgePointProjectActionLanguagePreferences.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE)
+					|| p_Name
+							.equals(BridgePointProjectActionLanguagePreferences.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED)) {
+				// we need to consider the workspace preference if a project preference
+				// has not been set
+				boolean workspacePreference = CorePlugin.getDefault()
+						.getPreferenceStore().getBoolean(p_Name);
+				// use the workspace preference as the default
+				return projectNode.getBoolean(p_Name, workspacePreference);
+			}
+			// handle defaults for emit RTO data
+			if (p_Name
+					.equals(BridgePointProjectReferencesPreferences.BP_PROJECT_EMITRTODATA_ID)) {
+				return projectNode.getBoolean(p_Name, true);
+			}
 			return projectNode.getBoolean(p_Name, false);
 		}
 		return false;
@@ -2896,7 +2948,9 @@ INSERT INTO S_EE
 	'Search',
 	'Translate:false',
 	'Search',
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43");
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'',
+	'Search');
 INSERT INTO S_BRG
 	VALUES ("a7a39a94-0ad3-4526-840c-33ae87608670",
 	"4dbc824e-7f35-4e67-b275-79632eac75cc",

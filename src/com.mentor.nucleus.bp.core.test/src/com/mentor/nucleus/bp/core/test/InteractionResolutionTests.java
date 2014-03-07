@@ -23,6 +23,7 @@ import com.mentor.nucleus.bp.core.PackageableElement_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectPreferences;
+import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import com.mentor.nucleus.bp.core.util.WorkspaceUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
@@ -55,7 +56,7 @@ public class InteractionResolutionTests extends BaseTest {
 		Preferences projectNode = projectScope
 				.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 		projectNode.putBoolean(
-				BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, true);
+				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
 		
 		IProject inscope = TestingUtilities.createProject("InScope Other");
 		inscopeOtherProject = getSystemModel(inscope.getName());
@@ -64,7 +65,7 @@ public class InteractionResolutionTests extends BaseTest {
 		projectNode = projectScope
 				.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 		projectNode.putBoolean(
-				BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, true);
+				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
 		inscopeOtherProject.Newpackage();
 	}
 	

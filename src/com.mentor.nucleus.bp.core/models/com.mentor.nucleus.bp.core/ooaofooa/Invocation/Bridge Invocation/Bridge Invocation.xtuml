@@ -67,7 +67,7 @@ end if;
 // Execute the bridge
 select one body related by brg->ACT_BRB[R697]->ACT_ACT[R698];
 select any statement related by body->ACT_BLK[R601]->ACT_SMT[R602];
-if (not_empty statement and ee.Realized_Class_Path == "")
+if (not_empty statement and not ee.isRealized)
   // Setup the parameter values within the newly created stack frame
   // We discard the result because it just tells us if we''re going yet deeper
   // in the call tree. This can happen if a parameter is itself a call, but
@@ -78,6 +78,24 @@ else
   // Select the parameter and arguments for this bridge invocation
   select many parms related by brg->S_BPARM[R21];
   select many args related by self->V_PAR[R628];
+  // do not attempt any realized execution unless the user has the EE
+  // configured as realized
+  if(not ee.isRealized)
+    // log an error so that the user knows that nothing
+    // will be done
+	pathMsg = "<No Path Available - Empty instance>";
+	if (not_empty body)
+	  pathMsg = body.getPath();
+	end if;
+	USER::logError(msg:"External Entity: " + ee.Name
+						    + " is modeled and the bridge: "
+            + brg.Name + " has no OAL to execute.  Skipping bridge invocation.",
+						path:pathMsg);
+    for each arg in args
+      stack_frame.popValue(value_id:arg.Value_ID);
+    end for;
+    return;
+  end if;
   for each parm in parms
     for each arg in args
       if (parm.Name == arg.Name)
@@ -95,42 +113,40 @@ else
     end for;
   end for;
   // We could not find OAL to execute, try to execute an automatically wired
-  // bridge instead.  Unless a realized path has been specified.
-  if(ee.Realized_Class_Path == "")
-    // Check for wiring
-    select one function related by brg->S_AW[R3200]->S_SYNC[R3201];   
-    if (not_empty function)
-      // Found a matching function name in the domain, now we need to 
-      // setup the stack frame and parameters and execute it.
-      select one func_body related by function->ACT_FNB[R695]->ACT_ACT[R698];
+  // bridge instead.
+  // Check for wiring
+  select one function related by brg->S_AW[R3200]->S_SYNC[R3201];   
+  if (not_empty function)
+    // Found a matching function name in the domain, now we need to 
+    // setup the stack frame and parameters and execute it.
+    select one func_body related by function->ACT_FNB[R695]->ACT_ACT[R698];
 
-      sf_id = func_body.createStackFrameForBridge(stack_frame_id_caller:
+    sf_id = func_body.createStackFrameForBridge(stack_frame_id_caller:
                                                     stack_frame.Stack_Frame_ID);
 
-      if(sf_id != GD::NULL_UNIQUE_ID())
+    if(sf_id != GD::NULL_UNIQUE_ID())
 
-        success = self.setupParameterValues(target_stack_frame_id: sf_id,
+      success = self.setupParameterValues(target_stack_frame_id: sf_id,
                                     stack_frame_id: stack_frame.Stack_Frame_ID);
-        if(not success)
-          select any targetFrame from instances of I_STF
+      if(not success)
+        select any targetFrame from instances of I_STF
                                        where (selected.Stack_Frame_ID == sf_id);
-          if(not_empty targetFrame)
-            select one targetStack related by targetFrame->I_STACK[R2929];
-            if(empty targetStack)
-              // there is no action currently executing in the
-              // target engine, pop the created target frame to
-              // allow execution
-              select one targetStack related by targetFrame->I_STACK[R2943];
-              targetStack.pop(disposeFrame:true);
-              // recompute the parameter values
-              discard = self.setupParameterValues(target_stack_frame_id: sf_id,
+        if(not_empty targetFrame)
+          select one targetStack related by targetFrame->I_STACK[R2929];
+          if(empty targetStack)
+            // there is no action currently executing in the
+            // target engine, pop the created target frame to
+            // allow execution
+            select one targetStack related by targetFrame->I_STACK[R2943];
+            targetStack.pop(disposeFrame:true);
+            // recompute the parameter values
+            discard = self.setupParameterValues(target_stack_frame_id: sf_id,
                                     stack_frame_id: stack_frame.Stack_Frame_ID);
-            end if;
           end if;
         end if;
-      end if; 
-    return;
+      end if;
     end if; 
+    return; 
   end if;
   // We could not find OAL or a wired domain function to execute, try to execute  
   // realized code instead.  
@@ -207,7 +223,6 @@ else
           if (parm.By_Ref == 1 and parm.Name == arg.Name)
             select one cval related by arg->V_VAL[R800];
             select one ctype related by parm->S_DT[R22];
-
             select any result related by stack_frame->I_VSF[R2951] where
                                              selected.Value_ID == cval.Value_ID;
             select one rtVal related by result->RV_RVL[R3305];
@@ -466,7 +481,7 @@ INSERT INTO O_REF
 	'',
 	'Bridge',
 	'Brg_ID',
-	'R674');
+	'R674.''is an invocation of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("5c555031-8a96-48b8-b278-74709d129fa3",
 	"74618ee9-2255-48fe-bbb1-7807963d49cd",

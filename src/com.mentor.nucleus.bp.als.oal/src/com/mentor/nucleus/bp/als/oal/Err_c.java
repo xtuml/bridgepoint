@@ -37,5 +37,10 @@ import antlr.Token;
     	throw new pt_SemanticException( output, token );  //$NON-NLS-1$
     } // End reportParseError
        
+    
+	public static boolean Tokenhasvalues(final Token token) {
+		return token.getColumn() > 1;
+	} // End tokenHasValues
+
   } // End ERR_c
 
