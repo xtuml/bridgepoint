@@ -66,6 +66,7 @@ import com.mentor.nucleus.bp.core.EventSupplementalData_c;
 import com.mentor.nucleus.bp.core.ExecutableProperty_c;
 import com.mentor.nucleus.bp.core.ExternalEntityPackageInDomain_c;
 import com.mentor.nucleus.bp.core.ExternalEntityPackage_c;
+import com.mentor.nucleus.bp.core.ExternalEntity_c;
 import com.mentor.nucleus.bp.core.FunctionPackageInDomain_c;
 import com.mentor.nucleus.bp.core.FunctionPackage_c;
 import com.mentor.nucleus.bp.core.FunctionParameter_c;
@@ -2984,6 +2985,32 @@ public class ImportHelper
 					element.batchRelate(element.getModelRoot(), true, true);
 				}
 			}
+		}
+		
+	}
+
+	public List<ExternalEntity_c> eesToUpgradeForIsRealized = new ArrayList<ExternalEntity_c>();
+
+	public void addEEToUpgradeForIsRealized(ExternalEntity_c ee) {
+		eesToUpgradeForIsRealized.add(ee);
+	}
+
+	public void upgradeEEsForIsRealized() {
+		for (ExternalEntity_c ee : eesToUpgradeForIsRealized) {
+			boolean isRealized = true;
+			Bridge_c[] bridges = Bridge_c.getManyS_BRGsOnR19(ee);
+			for (Bridge_c bridge : bridges) {
+				// if we find any bridge that has action semantics
+				// and is not set to do not parse, consider this
+				// EE as non-realized
+				if ((!bridge.getAction_semantics_internal().equals("") && bridge
+						.getSuc_pars() != Parsestatus_c.doNotParse)
+						&& (ee.getRealized_class_path().equals(""))) {
+					isRealized = false;
+					break;
+				}
+			}
+			ee.setIsrealized(isRealized);
 		}
 	}
 }

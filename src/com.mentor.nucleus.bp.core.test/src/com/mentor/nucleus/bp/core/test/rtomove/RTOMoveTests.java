@@ -64,6 +64,7 @@ import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.Transaction;
 import com.mentor.nucleus.bp.core.common.TransactionManager;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectPreferences;
+import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import com.mentor.nucleus.bp.core.util.WorkspaceUtil;
 import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
@@ -119,7 +120,7 @@ public class RTOMoveTests extends CanvasTest {
 		Preferences projectNode = projectScope
 				.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 		projectNode.putBoolean(
-				BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, true);
+				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
 		
 		IProject inscope = TestingUtilities.createProject("InScope Other");
 		inscopeOtherProject = getSystemModel(inscope.getName());
@@ -128,7 +129,7 @@ public class RTOMoveTests extends CanvasTest {
 		projectNode = projectScope
 				.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 		projectNode.putBoolean(
-				BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, true);
+				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
 		inscopeOtherProject.Newpackage();
 		IProject outOfScope = TestingUtilities
 				.createProject("OutOfScope Other");
@@ -285,14 +286,14 @@ public class RTOMoveTests extends CanvasTest {
 			Preferences projectNode = projectScope
 					.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 			projectNode.putBoolean(
-					BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, false);
+					BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, false);
 		} else {
 			// allow inter-project referencing
 			IScopeContext projectScope = new ProjectScope(getProjectHandle(m_sys.getName()));
 			Preferences projectNode = projectScope
 					.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 			projectNode.putBoolean(
-					BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, true);			
+					BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);			
 		}
 		NonRootModelElement destination = getDestination(getSelectableElement(rto));
 		// cut the source

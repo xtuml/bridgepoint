@@ -110,7 +110,10 @@ INSERT INTO S_EE
 	'Time',
 	'The Time external entity provides date, timestamp, and timer related operations.',
 	'TIM',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'Time',
+	1);
 INSERT INTO S_BRG
 	VALUES ("862b0677-aa93-41e0-ba6a-4a63a346d8f6",
 	"c1b7c821-d436-44d1-a073-e125099f8cae",
@@ -119,7 +122,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-00000000000e",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BRG
 	VALUES ("520b7b58-d1f2-4373-b368-e2f74a6898e4",
@@ -129,7 +132,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-00000000000e",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("a771ef2b-eced-4b74-b96e-3f7d2782e874",
@@ -193,7 +196,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("3fab00c5-f30a-449e-ba38-80e8c85cd9dd",
@@ -212,7 +215,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("2d923241-2adf-4921-8cfe-43a9e385e133",
@@ -231,7 +234,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("ab95c0fc-7cf3-4d82-8685-9076901395f0",
@@ -250,7 +253,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("024e1dcf-a5a6-4e9b-aaea-c3c9585eb27c",
@@ -269,7 +272,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("cc6556a6-639a-4140-90c8-c256b7431bb6",
@@ -288,7 +291,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("d9de5ae0-9fb9-4bff-85a2-9d6a035b5e7e",
@@ -307,7 +310,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-000000000010",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BRG
 	VALUES ("1ee8b16e-0b87-4fba-9459-efdc90d08a03",
@@ -319,7 +322,7 @@ handle of the timer.',
 	1,
 	"ba5eda7a-def5-0000-0000-00000000000f",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("7c4e6e16-7fb1-4abf-8da1-eadca8ef9619",
@@ -351,7 +354,7 @@ of the timer.',
 	1,
 	"ba5eda7a-def5-0000-0000-00000000000f",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("239ca3c3-510c-489c-b830-08d855df117d",
@@ -380,7 +383,7 @@ the timer has expired, a zero value is returned.',
 	1,
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("a7060368-91bb-41a6-a162-eca50bcf6e63",
@@ -402,7 +405,7 @@ is returned.',
 	1,
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("a777854e-41f2-4b9b-bf6a-119005e8f2cb",
@@ -432,7 +435,7 @@ value is returned. If the timer no longer exists, a FALSE value is returned.',
 	1,
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("25b5a52a-1c48-463d-834c-c880df7a175c",
@@ -462,7 +465,7 @@ timer no longer exists, a FALSE value is returned.',
 	1,
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("e2e9a209-3469-4724-bb2b-13216bf5576a",
@@ -484,7 +487,10 @@ INSERT INTO S_EE
 	'Architecture',
 	'',
 	'ARCH',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'Architecture',
+	1);
 INSERT INTO S_BRG
 	VALUES ("d5e551c5-6d06-4225-8e73-cefc34bc279c",
 	"33f2f5b6-3700-485a-b0f0-8d501358f80b",
@@ -506,7 +512,10 @@ INSERT INTO S_EE
 	'Logging',
 	'',
 	'LOG',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'Logging',
+	1);
 INSERT INTO S_BRG
 	VALUES ("f378f3d2-1c10-4952-b85f-060fa7dcfa95",
 	"e80cd0e8-dd94-4991-a9f1-5ce58deb2d43",
@@ -656,7 +665,7 @@ INSERT INTO S_BRG
 	0,
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("66c49bba-2513-4c41-8002-1f4c53e306a5",

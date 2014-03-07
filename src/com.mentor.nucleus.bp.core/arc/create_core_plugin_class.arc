@@ -63,8 +63,12 @@ import java.util.ResourceBundle;
 import java.util.Vector;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
@@ -79,20 +83,25 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChangeListener;
+import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
-import org.eclipse.jface.preference.*;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.preference.PreferenceManager;
+import org.eclipse.jface.preference.PreferenceNode;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ExportResourcesAction;
 import org.eclipse.ui.actions.ImportResourcesAction;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -101,9 +110,9 @@ import org.osgi.service.prefs.Preferences;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.common.ComponentResourceListener;
 import com.mentor.nucleus.bp.core.common.IAllActivityModifier;
-import com.mentor.nucleus.bp.core.common.NonRootModelElement;
-import com.mentor.nucleus.bp.core.common.ModelRoot;
 import com.mentor.nucleus.bp.core.common.IPasteListener;
+import com.mentor.nucleus.bp.core.common.ModelRoot;
+import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.PersistenceChangeTracker;
 import com.mentor.nucleus.bp.core.ui.AbstractModelExportFactory;
 import com.mentor.nucleus.bp.core.ui.AbstractModelImportFactory;
@@ -114,8 +123,9 @@ import com.mentor.nucleus.bp.core.ui.IModelImport;
 import com.mentor.nucleus.bp.core.ui.RenameAction;
 import com.mentor.nucleus.bp.core.ui.marker.DelayedMarkerJob;
 import com.mentor.nucleus.bp.core.ui.marker.ProblemModelChangeListener;
+import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferenceNode;
+import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectPreferences;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectReferencesPreferenceNode;
-
 /**
  * The main plugin class to be used in the desktop.
  */
@@ -145,6 +155,8 @@ public class CorePlugin extends AbstractUIPlugin {
     private static ProblemModelChangeListener problemListener;
     
     private static NonRootModelElement[] loadedGlobals;
+    
+    private ResourceChangeListener projectListener;
     
 	/**
 	 * The constructor.
@@ -686,7 +698,65 @@ public class CorePlugin extends AbstractUIPlugin {
       //  name += "BiDirectional";
       //}
       return name;
+    } 
+    
+    class ProjectListener extends ResourceChangeListener implements IResourceDeltaVisitor {
+
+		@Override
+		public boolean visit(IResourceDelta delta) throws CoreException {
+			IResource resource = delta.getResource();
+			if(resource instanceof IProject) {
+				if(delta.getKind() == IResourceDelta.ADDED) {
+					if((delta.getFlags() & IResourceDelta.MOVED_FROM) != IResourceDelta.MOVED_FROM) {
+						for(IPreferenceChangeListener listener : projectPreferenceListeners) {
+							addProjectPreferenceListenerToProject((IProject) resource, listener);
+							return false;
+						}
+					}
+				}
+                if ((delta.getFlags() & IResourceDelta.OPEN) != 0) {
+					// this covers the case where a project was opened
+                	IProject project = (IProject) resource;
+                	if(project.isOpen()) {
+						for(IPreferenceChangeListener listener : projectPreferenceListeners) {
+							addProjectPreferenceListenerToProject((IProject) resource, listener);
+							return false;
+						}
+                	}
+				}
+			} else {
+				return true;
+			}
+			return false;
+		}
+
+		@Override
+		public void resourceChanged(IResourceChangeEvent event) {
+			if (event.getDelta() == null) {
+				if (event.getType() == IResourceChangeEvent.PRE_DELETE
+						|| event.getType() == IResourceChangeEvent.PRE_CLOSE) {
+					if (event.getResource() != null
+							&& event.getResource() instanceof IProject) {
+						for (IPreferenceChangeListener listener : projectPreferenceListeners) {
+							removeProjectPreferenceListenerFromProject(
+									(IProject) event.getResource(), listener);
+							return;
+						}
+					}
+				}
+				// if there is no delta and it is not a pre-delete
+				// event, then just ignore
+				return;
+			}
+			try {
+				event.getDelta().accept(this);
+			} catch (CoreException e) {
+				logError("Unable to visit resource delta.", e);
+			}
+		}
+    	
     }
+        
 	/* (non-Javadoc)
 	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
 	 */
@@ -699,11 +769,18 @@ public class CorePlugin extends AbstractUIPlugin {
 
 		problemListener = new ProblemModelChangeListener();
         Ooaofooa.addModelChangeListenerToAll(problemListener);
+        projectListener = new ProjectListener();
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(projectListener);
 	}
 	public void stop(BundleContext context) throws Exception {
 		Ooaofooa.removeModelChangeListenerFromAll(problemListener);
 		Ooaofooa.shutdown();
 		DelayedMarkerJob.internal_cancel();
+		for(IPreferenceChangeListener listener : projectPreferenceListeners) {
+			removeProjectPreferenceListener(listener);
+		}
+		projectPreferenceListeners.clear();
+		ResourcesPlugin.getWorkspace().removeResourceChangeListener(projectListener);
 		super.stop(context);
 	}
 	/**
@@ -992,6 +1069,8 @@ public class CorePlugin extends AbstractUIPlugin {
 			PreferenceManager pm = new PreferenceManager();
 			PreferenceNode pn = new BridgePointProjectReferencesPreferenceNode(projectNode);
 			pm.addToRoot(pn);
+			pn = new BridgePointProjectActionLanguagePreferenceNode(projectNode);
+			pm.addToRoot(pn);
 			return pm;
         }
         
@@ -1065,6 +1144,61 @@ public class CorePlugin extends AbstractUIPlugin {
 			} catch (InvocationTargetException e) {
 				CorePlugin.logError("Unable to perform model upgrade.", e);
 			}			
+		}
+		
+		private static List<IPreferenceChangeListener> projectPreferenceListeners = new ArrayList<IPreferenceChangeListener>();
+
+		public static void addProjectPreferenceListener(
+				IPreferenceChangeListener listener) {
+			projectPreferenceListeners.add(listener);
+			addProjectPreferenceListenerToExistingProjects(listener);
+		}
+
+		private static void addProjectPreferenceListenerToExistingProjects(
+				IPreferenceChangeListener listener) {
+			IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+			for(IProject project : projects) {
+				addProjectPreferenceListenerToProject(project, listener);
+			}
+		}
+		
+		private static void addProjectPreferenceListenerToProject(
+				IProject project, IPreferenceChangeListener listener) {
+			try {
+				if(project.hasNature(XtUMLNature.ID)) {
+					IScopeContext projectScope = new ProjectScope(project);
+					IEclipsePreferences projectNode = projectScope
+							..getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+					projectNode.addPreferenceChangeListener(listener);
+				}
+			} catch (CoreException e) {
+				logError("Unable to determine if project has xtUML nature.", e);
+			}
+		}
+
+		public static void removeProjectPreferenceListener(IPreferenceChangeListener listener) {
+			removeProjectPreferenceListenerFromExistingProjects(listener);
+		}
+
+		private static void removeProjectPreferenceListenerFromExistingProjects(
+				IPreferenceChangeListener listener) {
+			IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+			for(IProject project : projects) {
+				removeProjectPreferenceListenerFromProject(project, listener);
+			}			
+		}
+		
+		private static void removeProjectPreferenceListenerFromProject(IProject project, IPreferenceChangeListener listener) {
+			try {
+				if(project.hasNature(XtUMLNature.ID)) {
+					IScopeContext projectScope = new ProjectScope(project);
+					IEclipsePreferences projectNode = projectScope
+							..getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+					projectNode.removePreferenceChangeListener(listener);
+				}
+			} catch (CoreException e) {
+				logError("Unable to determine if project has xtUML nature.", e);
+			}
 		}
 }
 .end function

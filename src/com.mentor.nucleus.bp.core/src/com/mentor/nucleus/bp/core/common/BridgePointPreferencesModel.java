@@ -37,6 +37,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
     public String allowRealToIntCoercion;
     public boolean allowImplicitComponentAddressing;
     public boolean allowOperationsInWhere;
+    public boolean enableErrorForEmptySynchronousMessage;
+    public boolean enableErrorForEmptySynchronousMessageRealized;
     public boolean disableGradients;
     public boolean invertGradients;
     public long gradientBaseColor;
@@ -85,6 +87,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         allowImplicitComponentAddressing =
                                         syncTo.allowImplicitComponentAddressing;
         allowOperationsInWhere = syncTo.allowOperationsInWhere;
+        enableErrorForEmptySynchronousMessage = syncTo.enableErrorForEmptySynchronousMessage;
+        enableErrorForEmptySynchronousMessageRealized = syncTo.enableErrorForEmptySynchronousMessageRealized;
         disableGradients = syncTo.disableGradients;
         invertGradients = syncTo.invertGradients;
         gradientBaseColor = syncTo.gradientBaseColor;
@@ -123,6 +127,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.allowRealToIntCoercion = allowRealToIntCoercion;
         prefs.allowImplicitComponentAddressing = allowImplicitComponentAddressing;
         prefs.allowOperationsInWhere = allowOperationsInWhere;
+        prefs.enableErrorForEmptySynchronousMessage = enableErrorForEmptySynchronousMessage;
+        prefs.enableErrorForEmptySynchronousMessageRealized = enableErrorForEmptySynchronousMessageRealized;
         prefs.disableGradients = disableGradients;
         prefs.invertGradients = invertGradients;
         prefs.gradientBaseColor = gradientBaseColor;

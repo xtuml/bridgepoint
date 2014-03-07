@@ -50,6 +50,7 @@ import com.mentor.nucleus.bp.core.common.Transaction;
 import com.mentor.nucleus.bp.core.common.TransactionManager;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectPreferences;
+import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
 import com.mentor.nucleus.bp.test.common.UITestingUtilities;
@@ -66,7 +67,7 @@ public class CopyPasteComponentReferences extends BaseTest {
 		Preferences projectNode = projectScope
 				.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 		projectNode.putBoolean(
-				BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, true);
+				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
 		Transaction transaction = null;
 		try {
 			transaction = TransactionManager.getSingleton().startTransaction(

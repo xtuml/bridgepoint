@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("a8b1c702-aabf-4119-8438-464bae707f04",
@@ -62,7 +62,10 @@ INSERT INTO S_EE
 	'Graphical User Interface',
 	'',
 	'GuiBridge',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'Graphical User Interface',
+	1);
 INSERT INTO S_BRG
 	VALUES ("3d48b184-4b0f-49b8-93cf-fc73fb5af4bb",
 	"3a099662-ffa5-4007-90d7-9c29bc7c235c",
@@ -213,56 +216,6 @@ INSERT INTO S_BRG
 	0,
 	"ba5eda7a-def5-0000-0000-000000000000",
 	'',
-	1,
-	'');
-INSERT INTO S_BRG
-	VALUES ("292f9d21-a006-4842-a10c-11d28b092f44",
-	"3a099662-ffa5-4007-90d7-9c29bc7c235c",
-	'sendModePressed',
-	'',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000000",
-	'send UI::modePressed();',
-	1,
-	'');
-INSERT INTO S_BRG
-	VALUES ("fd6bfd88-165c-4296-886c-b932aeb384a1",
-	"3a099662-ffa5-4007-90d7-9c29bc7c235c",
-	'sendLightPressed',
-	'',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000000",
-	'send UI::lightPressed();',
-	1,
-	'');
-INSERT INTO S_BRG
-	VALUES ("89685a15-7dde-4f44-9d0e-4f8a168dc3e8",
-	"3a099662-ffa5-4007-90d7-9c29bc7c235c",
-	'sendLapResetPressed',
-	'',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000000",
-	'send UI::lapResetPressed();',
-	1,
-	'');
-INSERT INTO S_BRG
-	VALUES ("94ea7d19-f932-4b4c-aada-700f444cc412",
-	"3a099662-ffa5-4007-90d7-9c29bc7c235c",
-	'sendStartStopPressed',
-	'',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000000",
-	'send UI::startStopPressed();',
-	1,
-	'');
-INSERT INTO S_BRG
-	VALUES ("c9eda9fd-fbfa-4ab7-afd6-87ab6f7d3e2e",
-	"3a099662-ffa5-4007-90d7-9c29bc7c235c",
-	'sendTargetPressed',
-	'',
-	0,
-	"ba5eda7a-def5-0000-0000-000000000000",
-	'send UI::setTargetPressed();',
 	1,
 	'');
 INSERT INTO PE_PE

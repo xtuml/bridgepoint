@@ -25,14 +25,20 @@ package com.mentor.nucleus.bp.ui.text.placeholder;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.UUID;
 
+import org.eclipse.core.internal.resources.Marker;
+import org.eclipse.core.internal.resources.ProjectPreferences;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceRuleFactory;
@@ -40,26 +46,47 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChangeListener;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences.PreferenceChangeEvent;
+import org.eclipse.swt.custom.BusyIndicator;
+import org.eclipse.ui.PlatformUI;
 
-import com.mentor.nucleus.bp.core.Domain_c;
+import com.mentor.nucleus.bp.core.Bridge_c;
+import com.mentor.nucleus.bp.core.Component_c;
+import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.ExternalEntity_c;
+import com.mentor.nucleus.bp.core.Function_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
+import com.mentor.nucleus.bp.core.Operation_c;
+import com.mentor.nucleus.bp.core.ProvidedOperation_c;
+import com.mentor.nucleus.bp.core.RequiredOperation_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.AttributeChangeModelDelta;
+import com.mentor.nucleus.bp.core.common.IAllActivityModifier;
 import com.mentor.nucleus.bp.core.common.IModelDelta;
+import com.mentor.nucleus.bp.core.common.IdAssigner;
 import com.mentor.nucleus.bp.core.common.ModelChangedEvent;
 import com.mentor.nucleus.bp.core.common.ModelElement;
+import com.mentor.nucleus.bp.core.common.ModelRoot;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
+import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferences;
 import com.mentor.nucleus.bp.ui.text.AbstractModelElementListener;
 import com.mentor.nucleus.bp.ui.text.ModelElementID;
 import com.mentor.nucleus.bp.ui.text.TextPlugin;
 import com.mentor.nucleus.bp.ui.text.activity.ActivityEditorInputFactory;
+import com.mentor.nucleus.bp.ui.text.activity.AllActivityModifier;
 import com.mentor.nucleus.bp.ui.text.description.DescriptionEditorInputFactory;
 import com.mentor.nucleus.bp.ui.text.placeholder.PlaceHolderEntry.PlaceHolderFileProxy;
 
@@ -84,6 +111,8 @@ public class PlaceHolderManager {
 		initializeFor(PersistenceManager.findRootComponentInstances());
 		Ooaofooa.getDefaultInstance().addModelChangeListener(stateSynchronizer);
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(stateSynchronizer);
+		
+		CorePlugin.addProjectPreferenceListener(stateSynchronizer);
 	}
 
 	private static PlaceHolderManager defaultInstance = null;
@@ -344,7 +373,7 @@ public class PlaceHolderManager {
 		return false;
 	}
 	
-	class PlaceHolderStateSynchronizer extends AbstractModelElementListener{
+	class PlaceHolderStateSynchronizer extends AbstractModelElementListener implements IPreferenceChangeListener {
 		
 		protected void handleResourceMarkersChanged(IResourceDelta delta) {
 			PlaceHolderFileProxy placeHolderFile = findPlaceHolder((IFile)delta.getResource());
@@ -508,6 +537,245 @@ public class PlaceHolderManager {
 		}
 
 		protected void handleModelReloaded(ModelChangedEvent event) {}
+
+		@Override
+		public void preferenceChange(PreferenceChangeEvent event) {
+			if (event.getKey() == BridgePointProjectActionLanguagePreferences.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE) {
+				Object newValue = event.getNewValue();
+				if (newValue instanceof String) {
+					boolean enabled = Boolean.valueOf(newValue.toString());
+					if (!enabled) {
+						if (event.getSource() instanceof ProjectPreferences) {
+							String absolutePath = ((ProjectPreferences) event
+									.getSource()).absolutePath();
+							Path path = new Path(absolutePath);
+							if(path.segmentCount() > 1) {
+								String projectName = path.segments()[1];
+								IProject project = ResourcesPlugin.getWorkspace()
+										.getRoot().getProject(projectName);
+								reparseSynchronousMessages(project);
+							}
+						}
+					}
+				}
+			}
+			if (event.getKey() == BridgePointProjectActionLanguagePreferences.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE_REALIZED) {
+				Object newValue = event.getNewValue();
+				if (newValue instanceof String) {
+					boolean enabled = Boolean.valueOf(newValue.toString());
+					if (!enabled) {
+						if (event.getSource() instanceof ProjectPreferences) {
+							String absolutePath = ((ProjectPreferences) event
+									.getSource()).absolutePath();
+							Path path = new Path(absolutePath);
+							if(path.segmentCount() > 1) {
+								String projectName = path.segments()[1];
+								IProject project = ResourcesPlugin.getWorkspace()
+										.getRoot().getProject(projectName);
+								reparseRealizedSynchronousMessages(project);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		private void reparseSynchronousMessages(IProject project) {
+			reparseRealizedAndNonRealizedSynchronousMessages(project, false);
+		}
+
+		private void reparseRealizedSynchronousMessages(IProject project) {
+			reparseRealizedAndNonRealizedSynchronousMessages(project, true);
+		}
+		
+		private void reparseRealizedAndNonRealizedSynchronousMessages(IProject project, boolean checkRealized) {
+			IMarker[] markers = new IMarker[0];
+			try {
+				markers = project.findMarkers(Marker.PROBLEM, true,
+						IResource.DEPTH_INFINITE);
+			} catch (CoreException e) {
+				CorePlugin
+						.logError(
+								"Unable to locate problem markers to clear parse errors.",
+								e);
+			}
+			// note that we must do this from the markers rather than use the
+			// local place holder map as on restart the map is not populated
+			// until a place holder file is requested
+			//
+			// we need a map as we parse at one time rather than multiple times
+			// and the parse process requires a model root which there can be
+			// many
+			final HashMap<ModelRoot, List<NonRootModelElement>> elementsToParse = new HashMap<ModelRoot, List<NonRootModelElement>>();
+			final List<IMarker> markersToDelete = new ArrayList<IMarker>();
+			for(IMarker marker : markers) {
+				if(marker.getResource() instanceof IFile) {
+					IFile resource = (IFile) marker.getResource();
+					// if the resource does not exist skip
+					if(!resource.exists()) {
+						continue;
+					}
+					ModelElementID key = null;
+					try {
+						key = ModelElementID.createInstance(resource);
+					} catch (CoreException e) {
+						// do not log an error here, this will most likely mean
+						// that we are looking at a problem marker that is not
+						// related to parse issues
+					}
+					if(key != null) {
+						key.resolve(); 
+						String className = key.getType();
+						final Ooaofooa modelRoot = key.getModelRoot();
+						Object[] ids = new Object[key.getIdCount()];
+						for(int i = 0; i < key.getIdCount(); i++) {
+							ids[i] = UUID.fromString(key.getId(i));
+						}
+						try {
+							final NonRootModelElement element = (NonRootModelElement) modelRoot
+									.getInstanceList(Class.forName(className)).get(ids);
+							if(element != null) {
+								boolean synchronousMessage = isSynchronousMessage(element);
+								if(synchronousMessage) {
+									boolean reparse = false;
+									boolean realized = isRealizedElement(element);
+									if(realized && checkRealized) {
+										// reparse this element
+										reparse = true;
+									} else {
+										// reparse this element
+										reparse = true;
+									}
+									if(reparse) {
+										List<NonRootModelElement> list = elementsToParse.get(modelRoot);
+										if(list == null) {
+											list = new ArrayList<NonRootModelElement>();
+										}
+										list.add(element);
+										elementsToParse.put(modelRoot, list);
+										markersToDelete.add(marker);
+									}
+								}
+							}
+						} catch (ClassNotFoundException e) {
+							CorePlugin
+							.logError(
+									"Unable to locate element class from given model element id.",
+									e);
+						}
+					}
+				}
+			}
+			if (!elementsToParse.isEmpty()) {
+				BusyIndicator.showWhile(PlatformUI.getWorkbench().getDisplay(),
+						new Runnable() {
+
+							@Override
+							public void run() {
+								// clear all markers that are going to be
+								// reparsed
+								AbstractModelElementListener.setIgnoreResourceChangesMarker(true);
+								try {
+									WorkspaceJob job = new WorkspaceJob("Remove problem markers") {
+										
+										@Override
+										public IStatus runInWorkspace(IProgressMonitor monitor)
+												throws CoreException {
+											for(IMarker marker : markersToDelete) {
+												try {
+													if(marker.exists()) {
+														marker.delete();
+														// also remove the oal file associated
+														marker.getResource()
+																.delete(true,
+																		new NullProgressMonitor());
+													}
+												} catch (CoreException e) {
+													CorePlugin.logError("Unable to delete marker.", e);
+												}
+											}
+											return Status.OK_STATUS;
+										}
+									};
+									job.setRule(ResourcesPlugin.getWorkspace().getRoot());
+									job.schedule();
+								} finally {
+									AbstractModelElementListener.setIgnoreResourceChangesMarker(false);
+								}
+								AbstractModelElementListener.setIgnoreResourceChangesMarker(false);
+								Set<ModelRoot> keySet = elementsToParse
+										.keySet();
+								for (Iterator<ModelRoot> iterator = keySet
+										.iterator(); iterator.hasNext();) {
+									ModelRoot modelRoot = iterator.next();
+									AllActivityModifier aam = new AllActivityModifier(
+											modelRoot, elementsToParse.get(
+													modelRoot).toArray(),
+											new NullProgressMonitor());
+									aam.processAllActivities(IAllActivityModifier.PARSE);
+								}
+							}
+						});
+			}
+		}
+		
+		private boolean isRealizedElement(NonRootModelElement element) {
+			// is realized if contained in a component that
+			// is realized
+			UUID componentId = IdAssigner.NULL_UUID;
+			if (element instanceof Operation_c) {
+				componentId = ((Operation_c) element)
+						.Getcontainingcomponentid();
+			}
+			if (element instanceof Bridge_c) {
+				componentId = ((Bridge_c) element).Getcontainingcomponentid();
+			}
+			if (element instanceof Function_c) {
+				componentId = ((Function_c) element).Getcontainingcomponentid();
+			}
+			if (element instanceof RequiredOperation_c) {
+				componentId = ((RequiredOperation_c) element).Getcomponentid();
+			}
+			if (element instanceof ProvidedOperation_c) {
+				componentId = ((ProvidedOperation_c) element).Getcomponentid();
+			}
+			if (componentId.equals(IdAssigner.NULL_UUID)) {
+				return false;
+			}
+			Component_c component = (Component_c) element.getModelRoot()
+					.getInstanceList(Component_c.class).get(componentId);
+			if (component != null && component.getIsrealized()) {
+				return true;
+			}
+			// otherwise it can be realized if a bridge with an EE
+			// that has its realized path value set
+			if (element instanceof Bridge_c) {
+				ExternalEntity_c ee = ExternalEntity_c
+						.getOneS_EEOnR19((Bridge_c) element);
+				return ee.getIsrealized();
+			}
+			return false;
+		}
+
+		private boolean isSynchronousMessage(NonRootModelElement element) {
+			if (element instanceof Operation_c) {
+				return true;
+			}
+			if (element instanceof Bridge_c) {
+				return true;
+			}
+			if (element instanceof Function_c) {
+				return true;
+			}
+			if (element instanceof RequiredOperation_c) {
+				return true;
+			}
+			if (element instanceof ProvidedOperation_c) {
+				return true;
+			}
+			return false;
+		}
+
     }
 	
 	/**

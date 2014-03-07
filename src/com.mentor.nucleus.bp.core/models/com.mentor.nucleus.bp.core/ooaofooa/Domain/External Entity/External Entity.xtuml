@@ -266,6 +266,7 @@ INSERT INTO O_TFR
 success = ::getNewElementName(name:name,instance: self.convertToInstance(),validateName:true);    
 if ( success!="") 
  self.Name=success;
+ self.isRealized = true;
 else 
  self.dispose();
 end if;        ',
@@ -696,9 +697,11 @@ INSERT INTO O_DBATTR
 	VALUES ("2e57c2ac-1d9f-4505-b7aa-3af93d02cb5f",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
 	'extension = "";
-if(self.Realized_Class_Path != "")
-  extension = " realized by " +
+if(self.isRealized)
+  if(self.Realized_Class_Path != "")
+    extension = " realized by " +
                      Util::getLastSegmentForPath(path:self.Realized_Class_Path);
+  end if;
 end if;
 self.Label = self.Name + extension;',
 	1);
@@ -717,6 +720,32 @@ INSERT INTO O_ATTR
 	"528ced7e-5308-4195-8093-ca0c55401f58",
 	'',
 	'');
+INSERT INTO O_NBATTR
+	VALUES ("61b07fbd-2411-4387-9e28-ad3482283336",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011");
+INSERT INTO O_BATTR
+	VALUES ("61b07fbd-2411-4387-9e28-ad3482283336",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011");
+INSERT INTO O_ATTR
+	VALUES ("61b07fbd-2411-4387-9e28-ad3482283336",
+	"a361b553-b2e3-46ea-a8f4-8b8633921011",
+	"2e57c2ac-1d9f-4505-b7aa-3af93d02cb5f",
+	'isRealized',
+	'Full Name: Realized External Entity
+Description: If true, Verifier will bind to an externally supplied implementation.',
+	'',
+	'isRealized',
+	0,
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"a361b553-b2e3-46ea-a8f4-8b8633921011");

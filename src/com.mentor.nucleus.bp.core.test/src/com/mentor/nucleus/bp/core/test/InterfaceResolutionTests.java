@@ -39,6 +39,7 @@ import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.test.synchronization.SynchronizationTestUtils;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectPreferences;
+import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
 import com.mentor.nucleus.bp.test.common.UITestingUtilities;
@@ -68,16 +69,16 @@ public class InterfaceResolutionTests extends BaseTest {
 		IScopeContext projectScope = new ProjectScope(interfaceProject);
 		Preferences projectNode = projectScope.getNode(
 				BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
-		projectNode.put(BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, "true");
+		projectNode.put(BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, "true");
 		projectScope = new ProjectScope(interfaceNonResolve);
 		projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
-		projectNode.put(BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, "true");
+		projectNode.put(BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, "true");
 		projectScope = new ProjectScope(interfaceNonResolveOther);
 		projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
-		projectNode.put(BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, "true");
+		projectNode.put(BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, "true");
 		projectScope = new ProjectScope(resTestProject);
 		projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
-		projectNode.put(BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, "true");
+		projectNode.put(BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, "true");
 	}
 
 	public void testCrossProjectResolutionPrecise() {

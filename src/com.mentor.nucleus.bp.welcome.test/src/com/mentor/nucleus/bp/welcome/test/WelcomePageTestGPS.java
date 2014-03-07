@@ -46,8 +46,10 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.Attribute_c;
+import com.mentor.nucleus.bp.core.ExternalEntity_c;
 import com.mentor.nucleus.bp.core.ModelClass_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
+import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.XtUMLNature;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
@@ -391,4 +393,41 @@ public class WelcomePageTestGPS extends TestCase {
 		return g_view;
 	}
 
+	public void testExternalEntityDefaults() {
+		TestUtil.selectButtonInDialog(1000, "Yes");
+		runGPSGettingStartedAction();
+
+		// Give the import time to work
+		TestUtil.sleepWithDispatchOfEvents(5000);
+
+		verifyProjectCreated();
+
+		SystemModel_c system = SystemModel_c.SystemModelInstance(
+				Ooaofooa.getDefaultInstance(), new ClassQueryInterface_c() {
+
+					@Override
+					public boolean evaluate(Object candidate) {
+						return ((SystemModel_c) candidate).getName().equals(
+								"GPS Watch");
+					}
+				});
+
+		assertNotNull(system);
+		system.getPersistableComponent().loadComponentAndChildren(
+				new NullProgressMonitor());
+
+		Ooaofooa[] instancesUnderSystem = Ooaofooa
+				.getInstancesUnderSystem("GPS Watch");
+		for (Ooaofooa root : instancesUnderSystem) {
+			ExternalEntity_c[] ees = ExternalEntity_c
+					.ExternalEntityInstances(root);
+			for (ExternalEntity_c ee : ees) {
+				if (!ee.getIsrealized()) {
+					fail("External Entity: "
+							+ ee.getName()
+							+ " was not configured with the default isRealized = true");
+				}
+			}
+		}
+	}
 }

@@ -79,6 +79,7 @@ import com.mentor.nucleus.bp.core.common.TransactionManager;
 import com.mentor.nucleus.bp.core.ui.NewSystemWizard;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectPreferences;
+import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.CanvasTestUtils;
@@ -695,7 +696,7 @@ public class ExplorerTest extends BaseTest
 		IEclipsePreferences projectNode = projectScope
 				.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 		projectNode.putBoolean(
-				BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, true);
+				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
 		// create interface with operation and signal each with a parameter
 		SystemModel_c referredToSys = getSystemModel(referredTo.getName());
 		SystemModel_c referringSys = getSystemModel(referring.getName());
@@ -829,7 +830,7 @@ public class ExplorerTest extends BaseTest
 		IEclipsePreferences projectNode = projectScope
 				.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 		projectNode.putBoolean(
-				BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, true);
+				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
 		// create interface with operation and signal each with a parameter
 		SystemModel_c referredToSys = getSystemModel(referredTo.getName());
 		SystemModel_c referringSys = getSystemModel(referring.getName());

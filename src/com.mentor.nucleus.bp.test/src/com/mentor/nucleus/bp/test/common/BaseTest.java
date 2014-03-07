@@ -1578,7 +1578,9 @@ public class BaseTest extends TestCase {
 	
 	public static void waitForDecorator() {
 		try {
-			ExplorerUtil.getTreeViewer().refresh();
+			if(ExplorerUtil.getTreeViewer() != null) {
+				ExplorerUtil.getTreeViewer().refresh();
+			}
 			while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 			CVSLightweightDecorator.refresh();
 			Job.getJobManager().join(DecoratorManager.FAMILY_DECORATE, null);

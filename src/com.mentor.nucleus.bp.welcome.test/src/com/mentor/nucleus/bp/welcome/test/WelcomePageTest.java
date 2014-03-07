@@ -21,16 +21,25 @@ package com.mentor.nucleus.bp.welcome.test;
 // the License.
 //=====================================================================
 
+import java.util.Properties;
+
 import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 
-import com.mentor.nucleus.bp.core.Domain_c;
+import com.mentor.nucleus.bp.core.ExternalEntity_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
+import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.XtUMLNature;
+import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
+import com.mentor.nucleus.bp.test.common.BaseTest;
+import com.mentor.nucleus.bp.test.common.TestingUtilities;
 import com.mentor.nucleus.bp.welcome.gettingstarted.GettingStartedLiveHelpAction;
 import com.mentor.nucleus.bp.welcome.gettingstarted.SampleProjectGettingStartedAction;
 
@@ -113,4 +122,86 @@ public class WelcomePageTest extends TestCase {
 		runGettingStartedAction();
 		verifyProjectCreated();
 	}
+	
+	public void testExternalEntityDefaults() throws CoreException {
+		IProject existing = ResourcesPlugin.getWorkspace().getRoot().getProject("MicrowaveOven");
+		if(existing.exists()) {
+			existing.delete(true, new NullProgressMonitor());
+			BaseTest.dispatchEvents(0);
+		}
+		TestingUtilities
+				.importDevelopmentProjectIntoWorkspace("com.mentor.nucleus.bp.welcome/models/MicrowaveOven");
+		BaseTest.dispatchEvents(0);
+		verifyProjectCreated();
+		
+		SystemModel_c system = SystemModel_c.SystemModelInstance(
+				Ooaofooa.getDefaultInstance(), new ClassQueryInterface_c() {
+
+					@Override
+					public boolean evaluate(Object candidate) {
+						return ((SystemModel_c) candidate).getName().equals(
+								"MicrowaveOven");
+					}
+				});
+
+		assertNotNull(system);
+		system.getPersistableComponent().loadComponentAndChildren(
+				new NullProgressMonitor());
+
+		Ooaofooa[] instancesUnderSystem = Ooaofooa
+				.getInstancesUnderSystem("MicrowaveOven");
+		for (Ooaofooa root : instancesUnderSystem) {
+			ExternalEntity_c[] ees = ExternalEntity_c
+					.ExternalEntityInstances(root);
+			for (ExternalEntity_c ee : ees) {
+				if (!ee.getIsrealized()) {
+					fail("External Entity: "
+							+ ee.getName()
+							+ " was not configured with the default isRealized = true");
+				}
+			}
+		}
+	}
+	
+	public void testExternalEntityDefaultsTemplateProject() {
+		// get handle to help shell in order to display after completing below actions
+		SampleProjectGettingStartedAction action = new SampleProjectGettingStartedAction();
+		Properties props = new Properties();
+		props.put("model", "TemplateProject");
+		props.put("SingleFileModel", "false");
+		action.run(null, props);
+        
+        Shell helpShell = Display.getCurrent().getActiveShell();
+        if (! helpShell.isDisposed())
+            helpShell.forceActive();
+		
+		SystemModel_c system = SystemModel_c.SystemModelInstance(
+				Ooaofooa.getDefaultInstance(), new ClassQueryInterface_c() {
+
+					@Override
+					public boolean evaluate(Object candidate) {
+						return ((SystemModel_c) candidate).getName().equals(
+								"TemplateProject");
+					}
+				});
+
+		assertNotNull(system);
+		system.getPersistableComponent().loadComponentAndChildren(
+				new NullProgressMonitor());
+
+		Ooaofooa[] instancesUnderSystem = Ooaofooa
+				.getInstancesUnderSystem("TemplateProject");
+		for (Ooaofooa root : instancesUnderSystem) {
+			ExternalEntity_c[] ees = ExternalEntity_c
+					.ExternalEntityInstances(root);
+			for (ExternalEntity_c ee : ees) {
+				if (!ee.getIsrealized()) {
+					fail("External Entity: "
+							+ ee.getName()
+							+ " was not configured with the default isRealized = true");
+				}
+			}
+		}
+	}
+
 }

@@ -79,6 +79,7 @@ import com.mentor.nucleus.bp.core.common.TransactionManager;
 import com.mentor.nucleus.bp.core.ui.NewSystemWizard;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectPreferences;
+import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import com.mentor.nucleus.bp.core.util.WorkspaceUtil;
 import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
@@ -268,7 +269,7 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		Preferences projectNode = projectScope
 				.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 		projectNode.putBoolean(
-				BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, true);
+				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
 		TestUtil.chooseItemInDialog(500, "referenced");
 		TestUtil.okToDialog(1000);
 		UITestingUtilities.activateMenuItem(getExplorerView().getTreeViewer()
@@ -316,7 +317,7 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		Preferences projectNode = projectScope
 				.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 		projectNode.putBoolean(
-				BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, false);
+				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, false);
 		SystemModel_c referencingSystem = getSystemModel(projectOne.getName());
 		SystemModel_c referencedSystem = getSystemModel(projectTwo.getName());
 		// create a container package, and the formalize to element
@@ -365,7 +366,7 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		executeInTransaction(comp, "Dispose", new Object[0]);
 		// enable IPRs
 		projectNode.putBoolean(
-				BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, true);
+				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
 		assertTrue(
 				"Formalize menu item was not present when accessible elements were.",
 				UITestingUtilities.menuItemExists(getExplorerView()
@@ -395,7 +396,7 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		Preferences projectNode = projectScope
 				.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 		projectNode.putBoolean(
-				BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, false);
+				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, false);
 		SystemModel_c referencingSystem = getSystemModel(projectOne.getName());
 		SystemModel_c referencedSystem = getSystemModel(projectTwo.getName());
 		// create a container package, and the formalize to element
@@ -442,7 +443,7 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		executeInTransaction(ee, "Dispose", new Object[0]);
 		// enable IPRs
 		projectNode.putBoolean(
-				BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, true);
+				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
 		assertTrue(
 				"Formalize menu item was not present when accessible elements were.",
 				UITestingUtilities.menuItemExists(getExplorerView()
@@ -472,7 +473,7 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		Preferences projectNode = projectScope
 				.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 		projectNode.putBoolean(
-				BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, false);
+				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, false);
 		SystemModel_c referencingSystem = getSystemModel(projectOne.getName());
 		SystemModel_c referencedSystem = getSystemModel(projectTwo.getName());
 		// create a container package, and the formalize to element
@@ -519,7 +520,7 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		executeInTransaction(clazz, "Dispose", new Object[0]);
 		// enable IPRs
 		projectNode.putBoolean(
-				BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, true);
+				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
 		assertTrue(
 				"Formalize menu item was not present when accessible elements were.",
 				UITestingUtilities.menuItemExists(getExplorerView()
@@ -549,7 +550,7 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		Preferences projectNode = projectScope
 				.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
 		projectNode.putBoolean(
-				BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, false);
+				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, false);
 		SystemModel_c referencingSystem = getSystemModel(projectOne.getName());
 		SystemModel_c referencedSystem = getSystemModel(projectTwo.getName());
 		// create a container package, and the formalize to element
@@ -596,7 +597,7 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		executeInTransaction(clazz, "Dispose", new Object[0]);
 		// enable IPRs
 		projectNode.putBoolean(
-				BridgePointProjectPreferences.BP_PROJECT_REFERENCES_ID, true);
+				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
 		assertTrue(
 				"Formalize menu item was not present when accessible elements were.",
 				UITestingUtilities.menuItemExists(getExplorerView()

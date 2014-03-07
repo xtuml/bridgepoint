@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.texteditor.MarkerUtilities;
 
+import com.mentor.nucleus.bp.ui.text.AbstractModelElementListener;
 import com.mentor.nucleus.bp.ui.text.TextPlugin;
 import com.mentor.nucleus.bp.ui.text.activity.ActivityEditorInput;
 
@@ -64,6 +65,7 @@ public class ActivityProblem {
 	public boolean isWarning() {
 		return fSeverity == IMarker.SEVERITY_WARNING;
 	}
+	
 	public void createMarker() {
 		Map attributes = new HashMap(11);
 		MarkerUtilities.setMessage(attributes, fMessage);
@@ -84,6 +86,7 @@ public class ActivityProblem {
         // the rule is for the parent of the file, as creating a marker file
         // modifies the directory
         final ISchedulingRule markerRule = ruleFactory.modifyRule(file.getParent());
+        AbstractModelElementListener.setIgnoreResourceChangesMarker(true);
         try {
             workspace.run(new IWorkspaceRunnable() {
                 public void run(IProgressMonitor monitor) throws CoreException {
@@ -94,6 +97,8 @@ public class ActivityProblem {
             }, markerRule, IWorkspace.AVOID_UPDATE, null);
         } catch (CoreException e) {
             TextPlugin.logError("Core Exception in ActionProblem.createMarker", e); //$NON-NLS-1$
-        }       
+        } finally {
+            AbstractModelElementListener.setIgnoreResourceChangesMarker(false);
+        }
 	}
 }

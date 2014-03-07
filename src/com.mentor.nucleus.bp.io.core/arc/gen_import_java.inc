@@ -310,6 +310,9 @@
         .if(col.Name == "Realized_Class_Path")
           parms.elementAt(${attr_col_num}) != null ? removeTics((String)parms.elementAt(${attr_col_num})) : ""\
           .assign special_case = true
+        .elif(col.Name == "isRealized")
+          parms.elementAt(${attr_col_num}) != null && ((String)parms.elementAt(${attr_col_num})).equals( "false" ) ? false : true\
+          .assign special_case = true        
         .end if
         .if(col.Name == "Label")
           parms.elementAt(${attr_col_num}) != null ? removeTics((String)parms.elementAt(${attr_col_num})) : ""\
@@ -560,6 +563,9 @@ public class ${class_name} extends CoreImport
      * @see org.eclipse.core.resources.IWorkspaceRunnable#run(org.eclipse.core.runtime.IProgressMonitor)
      */
     public void run(IProgressMonitor pm) {
+    .if (callingProject == "NBP")
+    	helper.eesToUpgradeForIsRealized.clear();
+    .end if
         m_success = doLoadSql(pm);
         .if(not setComponent)
         finishLoad(pm);
@@ -787,6 +793,7 @@ public class ${class_name} extends CoreImport
 			loadedInstances.addAll(helper.upgradeNestedPackages(getRootModelElement()));
 			loadedInstances.addAll(helper.addLinkClassesForContainment(loadedInstances));
 			helper.removeSupertypePackageableElement(loadedInstances);
+			helper.upgradeEEsForIsRealized();
           }
           finally {
             mr.enableDeltaCollection();

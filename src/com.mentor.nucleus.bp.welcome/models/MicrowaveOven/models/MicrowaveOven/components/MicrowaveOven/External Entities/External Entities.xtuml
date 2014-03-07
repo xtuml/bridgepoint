@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("bae954bf-1329-4988-9569-07da6c5506ea",
@@ -110,7 +110,10 @@ INSERT INTO S_EE
 	'Time',
 	'The Time external entity provides date, timestamp, and timer related operations.',
 	'TIM',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'Time',
+	1);
 INSERT INTO S_BRG
 	VALUES ("0b8017cb-e46d-4a3c-a9a8-c292ac4574c2",
 	"faaf7acd-1518-4cc7-b5cf-c2f47458ecdb",
@@ -119,7 +122,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-00000000000e",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BRG
 	VALUES ("b16dbfdb-217f-4905-ad31-13670c3c029b",
@@ -129,7 +132,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-00000000000e",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("82f5448f-df59-4f95-adc4-c6d7fe99219e",
@@ -193,7 +196,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("0157ae4a-c288-4ead-a3f4-a585bc685467",
@@ -212,7 +215,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("9f7f79f5-c97b-4f80-b0e3-6b896de54f6d",
@@ -231,7 +234,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("0083aa27-b3e2-451a-9175-ef032aa8a0e6",
@@ -250,7 +253,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("1a05a3f1-61ad-4d1a-b918-73f64d231a30",
@@ -269,7 +272,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("da9aa8e5-300c-4cb1-8185-56b2f3fe7a53",
@@ -288,7 +291,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("f2cdf7f0-3581-47d2-8cc4-af9d59eceb21",
@@ -307,7 +310,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-000000000010",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BRG
 	VALUES ("03a46075-6e6b-44a0-9203-72f9ef1b94a2",
@@ -317,7 +320,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-00000000000f",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("5a0be35e-a353-4170-a567-0207494ad19f",
@@ -345,7 +348,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-00000000000f",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("39cd65b1-cc99-435b-b6f8-35a0353b5dba",
@@ -373,7 +376,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("e5574cd8-4bbf-42d5-8aa8-c2884e73961e",
@@ -392,7 +395,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("0c1c3c9d-2f4d-48a4-8563-d4d9d6edf0aa",
@@ -420,7 +423,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("db4cff19-800c-4986-96df-fe58feb6da97",
@@ -448,7 +451,7 @@ INSERT INTO S_BRG
 	1,
 	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
-	0,
+	1,
 	'');
 INSERT INTO S_BPARM
 	VALUES ("dcbc830e-8476-4a04-80d4-df66a58ec645",
@@ -470,7 +473,10 @@ INSERT INTO S_EE
 	'Control Panel',
 	'The Control Panel is used to simulate button presses on the microwave oven.  See the Object Communication Diagram (Asynchronous) for a detailed view of the events.',
 	'CP',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'Control Panel',
+	1);
 INSERT INTO PE_PE
 	VALUES ("2776f9a9-7100-4b34-a112-ff60e2ac0538",
 	1,
@@ -484,7 +490,10 @@ INSERT INTO S_EE
 
 When the microwave oven models are translated into code by the model compiler, the call to this bridge operation is mapped to an architecture method used to shut down the system.',
 	'ARCH',
-	"00000000-0000-0000-0000-000000000000");
+	"00000000-0000-0000-0000-000000000000",
+	'',
+	'Architecture',
+	1);
 INSERT INTO S_BRG
 	VALUES ("d6a6aa5e-fb7f-4817-8aec-2548ebc88e3c",
 	"c881cf8c-ab05-4bbd-a18e-3f39fb88cc4e",

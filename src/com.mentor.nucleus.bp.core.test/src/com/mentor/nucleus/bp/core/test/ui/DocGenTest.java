@@ -19,6 +19,7 @@ import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectPreferences;
+import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
@@ -125,7 +126,7 @@ public class DocGenTest extends BaseTest {
         if (selectedProject != null) {
             IScopeContext projectScope = new ProjectScope(selectedProject);
             Preferences projectNode = projectScope.getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
-            projectNode.putBoolean(BridgePointProjectPreferences.BP_PROJECT_EMITRTODATA_ID, false);
+            projectNode.putBoolean(BridgePointProjectReferencesPreferences.BP_PROJECT_EMITRTODATA_ID, false);
         }
         
         runDocGenAndCheckResults("_RTO_Off");
