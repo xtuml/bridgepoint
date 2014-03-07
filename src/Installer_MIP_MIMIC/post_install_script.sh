@@ -27,7 +27,7 @@
 #
 
 echo Starting post-install script
-BPVER=4.1.6
+BPVER=4.1.7
 
 #===============================================================================
 # UTILITY FUNCTIONS
