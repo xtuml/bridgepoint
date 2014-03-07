@@ -33,9 +33,13 @@ Interface signal
 
 (Interface 1::Port 1::operation||signal)
 
+External Entity
+Class Key Letter, where at least one class based operation exists.
+
 Additional
 ----------
 Key Letter
 event name (creation and generation)
-Acceptable variables (for delete, relate, unrelate, return, assignment)
+Acceptable variables, or in-scope variables (for delete, relate, unrelate,
+return, assignment)
 ->R<AssocNumb> (in related by case, full chain support)
