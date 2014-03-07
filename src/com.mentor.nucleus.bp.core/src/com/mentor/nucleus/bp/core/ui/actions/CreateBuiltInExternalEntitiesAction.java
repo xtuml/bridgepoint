@@ -81,7 +81,7 @@ public class CreateBuiltInExternalEntitiesAction implements IActionDelegate {
 
 	private String getEEString() {
 		Bundle bpBundle = Platform.getBundle("com.mentor.nucleus.bp.pkg");
-		Path eePath = new Path("Built-in External Entities/ee.xtuml");
+		Path eePath = new Path("Built-inExternalEntities/ee.xtuml");
 		URL fileURL = FileLocator.find(bpBundle, eePath, null);
 		String fileName = null;
 		try {
@@ -90,7 +90,7 @@ public class CreateBuiltInExternalEntitiesAction implements IActionDelegate {
 			StringBuffer buffer = read(new FileReader(new File(fileName)));
 			return buffer.toString();
 		} catch (IOException e) {
-			String msg = "Unable to locate: Built-in External Entities/ee.xtuml.  ";
+			String msg = "Unable to locate: Built-inExternalEntities/ee.xtuml.  ";
 			if (bpBundle == null) {
 				msg += "Unable to get bundle: com.mentor.nucleus.bp.pkg  ";
 			}
