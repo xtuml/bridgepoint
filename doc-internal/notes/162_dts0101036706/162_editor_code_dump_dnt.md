@@ -146,7 +146,10 @@ pt_antlr
   is posted to xtuml/editor.   
 5.4.3 The expected results in io.mdl.test has an ooaofooa model that shall be removed 
   before the project is posted to xtuml/editor.  
-  
+5.4.4 The BridgePointLicenseManager.java shall be removed from bp.core before the project
+  is posted to xtuml/editor.  If we leave it, people can modify the license code to 
+  just never check a license.  They could then put this change in the licensed version of the tool.  
+                           
 
 6. Design
 ---------
@@ -154,26 +157,33 @@ pt_antlr
 6.1.1  Create a branch of xtuml/internal  
 6.1.2  Extract  the model data from bp.core/ooaofooa as specified in 5.2  
 6.1.3  Build the branch  
-6.1.4  Create a branch of xtuml/editor  
-6.1.5  Copy all the plug-ins and projects from the xtuml/internal branch to the xtuml/editor branch  
-6.1.6  Modify the data copied into xtuml/editor    
+6.1.4  Create a new private repository xtuml/editor-test, branch it  
+6.1.5  Copy all the plug-ins and projects from the xtuml/internal branch to the xtuml/editor-test branch  
+6.1.6  Modify the data copied into xtuml/editor-test    
 6.1.6.1  Remove the projects & plug-ins specified in 5.1    
 6.1.6.2  Update license files to Apache  
 6.1.6.3  Extract Mentor IP as specified in 5.4  
 6.1.6.4  Update the projects to not run the Ant builder (since we won't be generating any code from models)  
 6.1.6.5  Update ```.gitignore``` files to allow the check-in of generated Java files.  
-6.1.7  Commit the files to xtuml/editor branch  
-6.1.8  Create a HOWTO/Readme in xtuml/editor that explains how to build the plug-ins  
-6.1.9  Promote the files to master  
-6.1.10  Make announcement on xtuml.org that lots of code has been released  
+6.1.7  Commit the files to xtuml/editor-test branch  
+6.1.8  Create a HOWTO/Readme in xtuml/editor-test that explains how to build the plug-ins  
+6.1.9  Promote the files to master in xtuml/editor-test  
+6.1.10  Have other members of the development team review xtuml/editor-test for sensitive data
+6.1.11  Create a branch of xtuml/editor  
+6.1.12  Copy files from private repo xtuml/editor-test to xtuml/editor branch  
+6.1.13  Promote files from branch in xtuml/editor to master  
+6.1.14  Remove temporary private repo xtuml/editor-test  
+6.1.15  Make announcement on xtuml.org that lots of code has been released  
 
 6.2  Capture the details of the actual steps performed in 6.1 into a reusable 
   document that can be ran through again upon each BP release until we have fully
-  implemented our code separation under [4].  Note that it may make sense for the 
-  reusable process to rely on merging in updates from the private repository 
+  implemented our code separation under [4].  Put this HOWTO document under our
+  internal repository at ```https://github.com/xtuml/internal/tree/master/doc-internal/process```.
+  Note that it may make sense for the reusable process to rely on merging in updates from the private repository 
   upon a new release rather than reapplying all the steps from 6.1 again.  This
   process will also help when we switch our development process to use code from
   the public repository rather than the private repository.    
+  
   
 7. Design Comments
 ------------------
@@ -193,7 +203,7 @@ None.
   - Create a new project
   - __R__ The project is created
   - __R__ User can draw with modeling tools as normal
-
+  - __R__ User can run JUnit tests using the eclipse development environment and they pass
 
 End
 ---
