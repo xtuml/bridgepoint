@@ -86,7 +86,7 @@ xR When tests pass the changes can be pushed.
 	  	   		git reset ---hard origin/master
 	  	   		
 	
-_- If the github issue is a mirror of a CQ issue, you must perform the following
+x- If the github issue is a mirror of a CQ issue, you must perform the following
    steps.  If not, skip to the next section.
    
    _- Log into ClearQuest and enter the defect number to go to the issue.
@@ -111,12 +111,12 @@ _- If the github issue is a mirror of a CQ issue, you must perform the following
       
     _- "Save" the changes to the DEI
       
-_- Navigate to the issue(s) in the github Issues tracker.
+x- Navigate to the issue(s) in the github Issues tracker.
   _- Verify that the upcoming milestone is set for the issue. Apply it if not 
      yet set.
   _- Close the issue 
 
-_- Check in this file under
+x- Check in this file under
    github.com/xtuml/<repository>/doc-<repository>/checklists/<release_id>/<issue num>-promotion.chk
 
 End
