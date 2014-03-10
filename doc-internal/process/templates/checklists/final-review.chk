@@ -63,7 +63,7 @@ _- Perform a clean build and verify everything rebuilds successfully.
 _- Execute all JUnits and manual tests specified in the notes.
 
 _- Update the test_results/Unit_test_summary.txt with the branch name check it in here:
-	  github.com/xtuml/<repository>/doc-<repository>/qa/<release_id>/<issue num>/promotion/Unit_test_summary.txt
+	  github.com/xtuml/<repository>/doc-<repository>/qa/<release_id>/<issue num>/final-review/Unit_test_summary.txt
 	
 
 _- Create a Pull Request for the changes
