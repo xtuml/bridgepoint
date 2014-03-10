@@ -5,7 +5,7 @@ Commit TODO list against **Issue #29**
 
 ---
 
-    Weekly Report for Week of 2013//
+    Weekly Report for Week of 2013/12/30
 
 #### Hours
 UML Tools:  40 / 
@@ -13,11 +13,198 @@ Holiday: 0 /
 FTO: 0 / 
 Total: 40
 
-#### Weekly Summary
-text
+#### Checklist
+- Expense reports
+- Rework SMA QA license tests.  Deprecate old tests, write new ones.
+- Installed Papyrus UML tool
+- Read Encoding paper
+- Put new test plug-in into VM BP installs
+
+---
+
+    Weekly Report for Week of 2013/12/23
+
+#### Hours
+UML Tools:  8 / 
+Holiday: 16 / 
+FTO: 16 / 
+Total: 40
 
 #### Checklist
-- text
+- Working on the Japanese char problems with generator.  Solved with some extra comment parsing.  Sent to Watanabe
+- Christmas vacation, then two days of FTO
+
+---
+
+    Weekly Report for Week of 2013/12/16
+
+#### Hours
+UML Tools:  40 / 
+Holiday: 0 / 
+FTO: 0 / 
+Total: 40
+
+#### Checklist
+- Update xtumlmc_build to handle comments with //**
+- FujiXerox build issues
+  - To build ipocrm, I had to go to the arc/ folder and rename c/ to specialized/.  Code then gen'd but didn't compile,
+    got "make not found" error.
+- Investigate Symmantec issue running xtumlmc_build.exe
+- Investigate Passport.js for Node.js
+- Contact theotherfirm about remote user authentication from xtuml.org
+
+---
+
+    Weekly Report for Week of 2013/12/09
+
+#### Hours
+UML Tools:  40 / 
+Holiday: 0 / 
+FTO: 0 / 
+Total: 40
+
+#### Checklist
+- Work on getting familiar with express.js middleware for node.js
+- Investigate relationship issue for Erik Wedin (Saab), send him thoughts on what I found
+- Investigate domain upgrade for Cort
+- Capture Cort's analysis of duplicate return values in the MC
+- Working on HTTP-based MC-PaaS
+
+---
+
+    Weekly Report for Week of 2013/12/02
+
+#### Hours
+UML Tools:  32 / 
+Holiday: 0 / 
+FTO: 8 / 
+Total: 40
+
+#### Checklist
+- Find videos and slides for 2-day xtUML training for Cort
+- Store HLS SysC code to engineering-releases area
+- Review Nehad's note and code
+- xtumlmc_build update for linux
+  o changes made, testing BP build on Windows with (strawberry perl) compiled EXE
+- Create slides for PaaS discussion with Subba and SV team
+- Sick day Friday
+
+---
+
+    Weekly Report for Week of 2013/11/25
+
+#### Hours
+UML Tools:  24 / 
+Holiday: 16 / 
+FTO: 0 / 
+Total: 40
+
+#### Checklist
+- Finalize MC-PaaS server on AmazonAWS.  Help Dean get set up to use it.
+- Write 114 dnt - xtumlmc_build.exe via Strawberry Perl, review it
+- Build new demo generator and update the instructions for creating it.
+- Updated Linux Mint and Fedora to get BP running.  Note on xtuml.org.
+- Thanksgiving holiday
+
+---
+
+    Weekly Report for Week of 2013/11/18
+
+#### Hours
+UML Tools:  40 / 
+Holiday: 0 / 
+FTO: 0 / 
+Total: 40
+
+#### Checklist
+- Investigate Japanese Linux license server issue with Robert Rice
+- Follow up with Japanese AEs regarding BP4/BP3 license mix at Sony
+- Set up MC-PaaS on local VM + Windows
+- Create new MC-PaaS builder plug-in
+- Set up MC-PaaS server on AmazonAWS
+
+---
+
+    Weekly Report for Week of 2013/11/11
+
+#### Hours
+UML Tools:  40 / 
+Holiday: 0 / 
+FTO: 0 / 
+Total: 40
+
+#### Checklist
+- Grant Travis, Cort, Bob access to my japanese VM
+- Work with Cort to build mcmc
+- Promote Cort's work to update mcmc build and docgen fix
+- Email Casey in CQ team, telling him we won't be using the e-mail interface at this time
+- Finish documentation and review INT for 2_code_cleanup
+- Work with Install_help team to get through BP install problems on Linux Mint
+- Download and install local Fedora VM
+- Put new MCMCs into nightly build
+- Upload new xtUML Editor 4.1.2 to xtuml.org
+
+---
+
+    Weekly Report for Week of 2013/11/04
+
+#### Hours
+UML Tools:  40 / 
+Holiday: 0 / 
+FTO: 0 / 
+Total: 40
+
+#### Checklist
+- In progress: Licensing problem at Siemens
+- In progress: xtUML Editor
+- Review Travis' routing note
+- Install new EXE for development
+- Work through process updates with Bob
+- Update the git best practices HOWTO
+- Work through Issue #2
+- Test CQ mailer interface
+- WebEx with Audi customer to work though Licensing failure
+
+---
+
+    Weekly Report for Week of 2013/10/28
+
+#### Hours
+UML Tools:  40 / 
+Holiday: 0 / 
+FTO: 0 / 
+Total: 40
+
+#### Checklist
+- Work with Bob to fix git master pointer that got set at the wrong point
+- Finish process for issue 80, hand off for promotion
+- Update build scripts for new mcmc executables
+- rebuild generator (2.0) with the latest from master
+- Create new xtumlmc_build EXE
+- Promote Nehad's verifier work
+  - have to merge model branch
+  - have to add back: import com.mentor.nucleus.bp.ui.session.views.SessionExplorerView; to VerifierInterfaceExecutionTests.java
+- Review Heba's SVX DNT
+- Review Travis' constants fix INT
+- Update scripts to handle mcmc as docgen, remove docgen exes from build bases
+- Update release notes and what's new
+- bump version to 4.1.0
+- Review Travis' EE parse error fix
+
+---
+
+    Weekly Report for Week of 2013/10/21
+
+#### Hours
+UML Tools:  40 / 
+Holiday: 0 / 
+FTO: 0 / 
+Total: 40
+
+#### Checklist
+- Work on 80_dts0100951499
+- Build new generator (1.85) with latest from cds_mbmc_4
+- Release prep work
 
 ---
 
