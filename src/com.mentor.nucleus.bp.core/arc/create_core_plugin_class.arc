@@ -1165,7 +1165,7 @@ public class CorePlugin extends AbstractUIPlugin {
 		private static void addProjectPreferenceListenerToProject(
 				IProject project, IPreferenceChangeListener listener) {
 			try {
-				if(project.hasNature(XtUMLNature.ID)) {
+				if(project.isAccessible() && project.hasNature(XtUMLNature.ID)) {
 					IScopeContext projectScope = new ProjectScope(project);
 					IEclipsePreferences projectNode = projectScope
 							..getNode(BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
