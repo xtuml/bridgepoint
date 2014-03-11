@@ -293,6 +293,7 @@
   	MultipleReloadGenerics.java,
   	NumberingTestGenerics.java,
   	OperationsTestGenerics.java,
+  	PreferencesTests.java,
   	RenameTest2Generics.java,
   	SetTypeTestGenerics.java
   	TigerNatureExistingProjectsTestGenerics.java,
