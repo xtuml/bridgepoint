@@ -238,6 +238,7 @@
            <include name="**/org.eclipse.core.boot_*.jar"/>
            <include name="**/org.eclipse.equinox.common_*.jar"/>
            <include name="**/org.eclipse.equinox.registry_*.jar"/>
+           <include name="**/org.eclipse.equinox.preferences_*.jar"/>
            <include name="**/org.eclipse.core.commands_*.jar"/>
            <include name="**/org.eclipse.core.jobs_*.jar"/>
            <include name="**/org.eclipse.core.contenttype_*.jar"/>
