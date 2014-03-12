@@ -87,8 +87,8 @@ keep time in no smaller than an hour.
 
 Completed the final issue for the last release.  Main focus is continuing to be
 the field contact with Ericsson.  Will be visiting Saab Monday and Tuesday of
-next week.  A recent Toyota recall has sub-contracted Tako fugugami to look into
-a possible modeling approach.  They will be looking into BridgePoint and
+next week.  A recent Toyota recall has sub-contracted Takao Futagami to look
+into a possible modeling approach.  They will be looking into BridgePoint and
 Simulink via an interview with Saab.  
 Will be visiting Ericsson on Thursday, discussing open-source based BridgePoint.
 
