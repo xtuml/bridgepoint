@@ -53,7 +53,7 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'4.0.0',
+	'4.1.6',
 	'com.mentor.nucleus.bp.core::ooaofooa');
 INSERT INTO GD_GE
 	VALUES ("8c36e607-f03e-4668-9123-4e23d6b31aeb",
@@ -397,7 +397,7 @@ INSERT INTO GD_GE
 	"53bf3c8b-adde-4d47-8f16-aba92cc91cb2",
 	55,
 	0,
-	'External Entities');
+	'com.mentor.nucleus.bp.core::ooaofooa::External Entities');
 INSERT INTO GD_SHP
 	VALUES ("62bcfb9c-6f5b-4c4d-9847-1ea95987c3c4");
 INSERT INTO GD_NCS
@@ -901,7 +901,7 @@ INSERT INTO GD_GE
 	"1958f769-4f92-4439-870a-76f07b38281c",
 	11,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Search-1');
+	'com.mentor.nucleus.bp.core::ooaofooa::Model Integrity');
 INSERT INTO GD_SHP
 	VALUES ("08f87c20-9576-46e2-83d6-4585d105ab47");
 INSERT INTO GD_NCS
@@ -917,6 +917,30 @@ INSERT INTO DIM_GE
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_ELE
 	VALUES ("08f87c20-9576-46e2-83d6-4585d105ab47",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("65047100-5633-49bb-9b1a-76b47dce57ec",
+	"1c0267f3-3299-449d-824f-fa7db420d58f",
+	"ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56",
+	11,
+	0,
+	'com.mentor.nucleus.bp.core::ooaofooa::Instance-1');
+INSERT INTO GD_SHP
+	VALUES ("65047100-5633-49bb-9b1a-76b47dce57ec");
+INSERT INTO GD_NCS
+	VALUES ("65047100-5633-49bb-9b1a-76b47dce57ec");
+INSERT INTO DIM_ND
+	VALUES (216.000000,
+	132.000000,
+	"65047100-5633-49bb-9b1a-76b47dce57ec");
+INSERT INTO DIM_GE
+	VALUES (3602.000000,
+	1610.000000,
+	"65047100-5633-49bb-9b1a-76b47dce57ec",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("65047100-5633-49bb-9b1a-76b47dce57ec",
 	0,
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_DIA
