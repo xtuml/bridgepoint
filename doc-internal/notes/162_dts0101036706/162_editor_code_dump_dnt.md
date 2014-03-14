@@ -102,9 +102,10 @@ pt_antlr
   - Constants
   - Domain
   - Element Packaging
+  X Engine (new subsystem)
   - Event
   - Globals
-  XX Instance
+  - Instance [see note 5.2.2]
   - Instance Access
   - Interaction
   - Interface Package
@@ -128,12 +129,12 @@ pt_antlr
 ```  
 5.2.1  Items marked with ** were previously stripped from the OOAofOOA shipped
   in the bp.welcome plug-in, but they will no longer be stripped.  
-5.2.2  The Instance package (marked XX above) is divided so that Verifier specific
-  IP is placed into a separate package which is then reserved as if it was marked
-  with an X. The elements left public will be Instance, Attribute Value, Link
+5.2.2  The Instance package is divided so that Verifier specific
+  IP is placed into a separate package (Engine) which is then reserved. The 
+  elements left public will be Instance, Attribute Value, Link
   Participation and Link. The future possibility of pre-created events shall also
-  be supported, requiring Pending Event and Data Item Value to be left public. The Timer and
-  Component Instance classes will also be made public. The new reserved
+  be supported, requiring Pending Event and Data Item Value to also be left public. The Timer, 
+  Component Instance and Component Instance Container classes will also be made public. The new reserved
   package will be named Engine. The pruned Instance package will be published.  
 
 5.3  The license files in the plug-ins that are put into xtuml/editor needs to be
