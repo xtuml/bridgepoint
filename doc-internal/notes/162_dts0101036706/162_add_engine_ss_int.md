@@ -5,7 +5,7 @@ Copyright 2014 Mentor Graphics Corp.  All Rights Reserved.
 ---
 
 # Dump BridgePoint Code into xtuml/editor Repository - Instance SS Split Baby Step
-### xtUML Project Design Note
+### xtUML Project Implementation Note
 
 
 1. Abstract
@@ -70,19 +70,42 @@ other classes and imported classes.  Remove the Class State Machine Execution SS
   - Add imported classes: Stack Frame, Value in Stack Frame (now from Engine)
   - Re-add relationships (re-using the previous relationship numbers and cardinality) to the new imported classes
 
-5.7 Inspect each attribute, and attribute order of all classes in the updated Instance, 
+5.7  Inspect each attribute, and attribute order of all classes in the updated Instance, 
   Engine, and Class State Machine Execution subsystems.  Fix any order problems.  Fix any
   missing attributes due to formalization changes.  
+  
   
 6. Implementation Comments
 --------------------------
 6.1  While running JUnits I noticed that we had an old and unnecessary test 
-  file ```CoreTestSuiteIIGenerics.java```.  This file is removed.
+  file ```CoreTestSuiteIIGenerics.java```.  This file is removed.  
+  
+6.2  We could leave SQE and EQE public in the Instance SS.  However, there is 
+  sentiment in the team that these probably shouldn't even be in the meta-model 
+  proper.  Therefore, this will change not be done and these classes will go 
+  into Engine SS.  
+  
+6.3  We currently strip all I_ instances before model compilation.  We could 
+  potentially leave the new public Engine instances.  However, we will not do so.
+  We will continue to strip all of I_.  The value of making this change is low
+  right now and in order to implement we would have to proceed with re-prefixing
+  all classes in the Engine SS from I_ to ENG_.  Then we would modify xtumlmc_build
+  to strip ENG_ in ```xtumlmc_cleanse_model``` and leave I_.  
+  
+6.4  While doing this work I noted there were three unassigned imported classes
+  in the Instance SS.  These are removed.  
+  
+6.5  We could potentially change the Instance SS marking (in the subsystem Description)
+  ```TRANSLATE_FOR_EXTERNAL_USE:FALSE``` to TRUE.  However, we have decided to make
+  as few changes as possible with this work and will not change it at this time.  
   
 7. Unit Test
 ------------
 7.1  All JUnit tests must pass
-
+7.2  MC-Java runs schema-gen and puts the output schema in ```bp.core/sql/metamodel_schema.sql```.
+  Compare the schema from the workspace with the new branch against master.  Verify functional
+  equivalence.  
+      
 8. Code Changes
 ---------------
 Branch name: 162_add_engine_ss
