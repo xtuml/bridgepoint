@@ -25,7 +25,7 @@ _- 04  min   cds  7       Run schema_gen on the updated model to help check orde
                            Call this out in the note.
 _- 05  min   trl  5      Note this marking in the 2 subsystems being modified:
                            TRANSLATE_FOR_EXTERNAL_USE:FALSE
-			We are leaving this as-is, but it could potentially change to false.
+			We are leaving this as-is, but it could potentially change to true.
 			call this out in the note.
 _- 06  min   bob  5      If ordering of Subsystems is presumed somewhere in the tool, then introduction of this
                            new SS could cause a problem.  However, discussion about this has revealed no such know places.
