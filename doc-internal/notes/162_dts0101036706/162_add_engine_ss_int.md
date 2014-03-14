@@ -4,7 +4,7 @@ Copyright 2014 Mentor Graphics Corp.  All Rights Reserved.
 
 ---
 
-# Dump BridgePoint Code into xtuml/editor Repository
+# Dump BridgePoint Code into xtuml/editor Repository - Instance SS Split Baby Step
 ### xtUML Project Design Note
 
 
@@ -35,8 +35,8 @@ of the larger project of OSS code dump.
   
 5. Work Required
 ----------------
-5.1. Create Engine subsystem by copying Instance subsystem   
-5.2. Edit Instance SS such that the following classes are left
+5.1. Create Engine subsystem by copying Instance subsystem     
+5.2. Edit Instance SS such that the following classes are left  
   - Attribute Value
   - Component Instance 
   - Component Instance Container
@@ -47,24 +47,29 @@ of the larger project of OSS code dump.
   - Pending Event
   - Timer
   
-  Also leave any imported classes that are related to these classes.  Remove all
-  other classes and imported classes.  Remove the Class State Machine Execution SS.    
-5.3. Engine SS changes
+Also leave any imported classes that are related to these classes.  Remove all
+other classes and imported classes.  Remove the Class State Machine Execution SS.  
+  
+5.3. Engine SS changes  
   - Remove the classes listed in 5.2 along with any imported classes that are related to these classes
   - Add imported classes: Instance, Component Instance, Pending Event
   - Re-add relationships (re-using the previous relationship numbers and cardinality) to the new imported classes
-5.4. Class State Machine Execution SS changes
+
+5.4. Class State Machine Execution SS changes  
   - Remove the classes: Instance, Component Instance, Pending Event
   - Add imported classes: Instance, Component Instance, Pending Event
   - Re-add relationships (re-using the previous relationship numbers and cardinality) to the new imported classes
-5.5  Local SS changes
+
+5.5  Local SS changes  
   - Remove the class: Block in Stack Frame
   - Add imported classes: Block in Stack Frame (now from Engine)
   - Re-add relationship (re-using the previous relationship number and cardinality) to the new imported class
-5.6  Runtime Value SS changes
+
+5.6  Runtime Value SS changes  
   - Remove the class: Stack Frame, Value in Stack Frame
   - Add imported classes: Stack Frame, Value in Stack Frame (now from Engine)
   - Re-add relationships (re-using the previous relationship numbers and cardinality) to the new imported classes
+
 5.7 Inspect each attribute, and attribute order of all classes in the updated Instance, 
   Engine, and Class State Machine Execution subsystems.  Fix any order problems.  Fix any
   missing attributes due to formalization changes.  
