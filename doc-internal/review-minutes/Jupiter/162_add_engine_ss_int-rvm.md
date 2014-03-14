@@ -15,7 +15,7 @@ Present:  Cort, Keith,Bob,Travis,Campbell
 
 -- Num Type  Who  Section  Comment
 _- 01  min   CMC  5        We could leave SQE and EQE public.  However, Cort notes that these
-                           probably shouldn't even be in the meta-model.  Therefore, this will
+                           probably shouldn't even be in the meta-model proper.  Therefore, this will
                            not be done.  Put this decision in the note.
 _- 02  min   bob  general      We currently strip all I_ instances before model compilation.  We could potentially
                            leave the new public engine instances.  However, we will not do so.
