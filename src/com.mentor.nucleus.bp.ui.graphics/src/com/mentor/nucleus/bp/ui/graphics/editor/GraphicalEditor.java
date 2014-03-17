@@ -39,11 +39,13 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.PositionConstants;
+import org.eclipse.draw2d.ToolTipHelper;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
+import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
@@ -73,6 +75,7 @@ import org.eclipse.gef.ui.actions.ZoomInAction;
 import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.palette.FlyoutPaletteComposite;
 import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
+import org.eclipse.gef.ui.parts.DomainEventDispatcher;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
@@ -620,6 +623,26 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 				// it is not completely visible
 				// We at this time do not believe that this
 				// is a "good feature"
+			}
+			
+			/*
+			 * override setEditDomain where the event dispatcher object is 
+			 * created in order to use BridgePoint custom tooltip helper
+			 */
+			@Override
+			public void setEditDomain(EditDomain domain){
+				super.setEditDomain(domain);
+				getLightweightSystem().setEventDispatcher(new DomainEventDispatcher(domain, this){
+
+					// Override the creation of ToolTip helper object 
+					BPToolTipHelper  tooltipHealper = null;
+					@Override 
+					protected ToolTipHelper getToolTipHelper() {
+						if (tooltipHealper == null)
+							tooltipHealper = new BPToolTipHelper(control);
+						return tooltipHealper;
+					}
+				});
 			}
 
 		};
