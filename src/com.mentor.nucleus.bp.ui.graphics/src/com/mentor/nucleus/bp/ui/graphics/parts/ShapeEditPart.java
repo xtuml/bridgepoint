@@ -29,18 +29,23 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.FigureUtilities;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.RectangleFigure;
+import org.eclipse.draw2d.ScrollPane;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.draw2d.text.FlowPage;
+import org.eclipse.draw2d.text.TextFlow;
 import org.eclipse.gef.CompoundSnapToHelper;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPart;
@@ -101,8 +106,63 @@ import com.mentor.nucleus.bp.ui.graphics.utilities.TextUtilities;
 public class ShapeEditPart extends AbstractGraphicalEditPart implements
 		NodeEditPart {
 
+	public class TooltipFigure extends ScrollPane {
+	    private final Border TOOLTIP_BORDER = new MarginBorder(1, 2, 3, 4);
+	    private TextFlow message;
+	    private FlowPage container;
+	    
+	    public TooltipFigure() {
+	        setOpaque(true);
+	        setBorder(TOOLTIP_BORDER);
+	        message = new TextFlow();
+	        container = new FlowPage();
+	        container.add(message);
+	        Dimension MIN = new Dimension(5, 5);
+	        Dimension MAX = new Dimension(10, 10);
+	        container.setMaximumSize(MAX);
+	        
+//	        message.setMinimumSize(MIN);
+	        message.setMaximumSize(MAX);
+	        setContents(container);
+//	        add(message);
+	        createVerticalScrollBar();
+	        createHorizontalScrollBar();
+	        setScrollBarVisibility(2);
+	        setFocusTraversable(true);
+	        setRequestFocusEnabled(true);
+	        setMinimumSize(MIN);
+	        setMaximumSize(MAX);
+	        
+	    }
+	     
+	    @Override
+	    public Dimension getPreferredSize(int w, int h) {
+	        Dimension d = super.getPreferredSize(-1, -1);
+	        if (d.width > 150)
+	            d = super.getPreferredSize(150, -1);
+	        return d;
+	    }
+	     
+	    public void setMessage(String txt) {
+	        message.setText(txt);
+	        revalidate();
+	        repaint();
+	    }
+
+		@Override
+		public void paint(Graphics graphics) {
+			// TODO Auto-generated method stub
+			super.paint(graphics);
+			System.out.println("TEST");
+			setFocus(true);
+		}
+	}
+	
+
+	
 	@Override
 	protected IFigure createFigure() {
+		TooltipFigure tooltipFigure = new TooltipFigure();
 		Dimension extents = new Dimension();
 		if (isContainerShape()) {
 			Shape_c shape = (Shape_c) getModel();
@@ -127,9 +187,8 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements
 		} else
 			figure.setMinimumSize(new Dimension(8, 8));
 		if (!getTextDescription().equals("")) {
-			Label label = new Label(getTextDescription());
-			label.setBorder(new MarginBorder(3, 3, 3, 3));
-			figure.setToolTip(label);
+			tooltipFigure.setMessage(getTextDescription());
+			figure.setToolTip(tooltipFigure);
 		}
 		return figure;
 	}
@@ -267,9 +326,9 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements
 			((EditPart) text).refresh();
 		}
 		if (!getTextDescription().equals("")) {
-			Label label = new Label(getTextDescription());
-			label.setBorder(new MarginBorder(3, 3, 3, 3));
-			getFigure().setToolTip(label);
+			TooltipFigure tooltipFigure = new TooltipFigure();
+			tooltipFigure.setMessage(getTextDescription());
+			getFigure().setToolTip(tooltipFigure);
 		} else {
 			if (getFigure().getToolTip() != null)
 				getFigure().setToolTip(null);
