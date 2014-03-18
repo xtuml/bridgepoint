@@ -140,7 +140,17 @@ public class VariableViewTests extends BaseTest {
 	}
 
 	public void tearDown() throws Exception {
-		DebugUITestUtilities.stopSession(m_sys, projectName);
+		// terminate all launches
+		DebugUITestUtilities.terminateAllProcesses(m_sys);
+		// clear the any console output
+		DebugUITestUtilities.clearConsoleOutput();
+		DebugUITestUtilities.clearDebugView();
+		// remove all breakpoints
+		DebugUITestUtilities.removeAllBreakpoints();
+		// wait for display events to complete
+		TestingUtilities.processDisplayEvents();
+
+		TestingUtilities.waitForThread("Verifier (" + projectName + ")");	
 	}
 
 
