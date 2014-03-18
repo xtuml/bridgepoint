@@ -75,6 +75,7 @@ import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.common.ITransactionListener;
+import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.Transaction;
 import com.mentor.nucleus.bp.core.common.TransactionManager;
 import com.mentor.nucleus.bp.core.inspector.ObjectElement;
@@ -89,8 +90,10 @@ import com.mentor.nucleus.bp.model.compare.actions.CollapseAllAction;
 import com.mentor.nucleus.bp.model.compare.actions.ExpandAllAction;
 import com.mentor.nucleus.bp.model.compare.actions.MoveDownAction;
 import com.mentor.nucleus.bp.model.compare.actions.MoveUpAction;
+import com.mentor.nucleus.bp.model.compare.providers.NonRootModelElementComparable;
 import com.mentor.nucleus.bp.model.compare.providers.ObjectElementComparable;
 import com.mentor.nucleus.bp.model.compare.structuremergeviewer.ModelStructureDiffViewer;
+import com.mentor.nucleus.bp.ui.canvas.Ooaofgraphics;
 import com.mentor.nucleus.bp.ui.explorer.ui.actions.ExplorerCopyAction;
 import com.mentor.nucleus.bp.ui.explorer.ui.actions.ExplorerCutAction;
 import com.mentor.nucleus.bp.ui.explorer.ui.actions.ExplorerPasteAction;
@@ -318,6 +321,11 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 			differences = mergeViewer.getDifferencer().getRightDifferences();
 		}
 		for (TreeDifference difference : differences) {
+			if(differenceIsGraphical(difference)) {
+				// we do not include graphical differences
+				// at this time
+				continue;
+			}
 			if (mergeViewer.getAncestorTree() == this) {
 				Object diffObj = difference.getElement();
 				if (diffObj == null) {
@@ -469,6 +477,45 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 		}
 	}
 
+	public static boolean differenceIsGraphical(TreeDifference difference) {
+		Object diffElement = difference.getElement();
+		if (diffElement == null) {
+			diffElement = difference.getMatchingDifference().getElement();
+		}
+		if (diffElement != null) {
+			return differenceElementIsGraphical(diffElement);
+		}
+		return false;
+	}
+	
+	public static boolean differenceElementIsGraphical(Object diffElement) {
+		if (diffElement instanceof ObjectElementComparable) {
+			ObjectElementComparable comparable = (ObjectElementComparable) diffElement;
+			if (comparable.getRealElement() instanceof ObjectElement) {
+				ObjectElement objEle = (ObjectElement) comparable
+						.getRealElement();
+				if (objEle.getParent() instanceof NonRootModelElement) {
+					NonRootModelElement nrme = (NonRootModelElement) objEle
+							.getParent();
+					if (nrme.getModelRoot() instanceof Ooaofgraphics) {
+						return true;
+					}
+				}
+			}
+		}
+		if (diffElement instanceof NonRootModelElementComparable) {
+			NonRootModelElementComparable comparable = (NonRootModelElementComparable) diffElement;
+			if (comparable.getRealElement() instanceof NonRootModelElement) {
+				NonRootModelElement nrme = (NonRootModelElement) comparable
+						.getRealElement();
+				if (nrme.getModelRoot() instanceof Ooaofgraphics) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	public static TreeItem getPreviousItem(TreeItem parent, TreeDifference difference) {
 		int location = difference.getLocation();
 		TreeItem[] items = parent.getItems();
@@ -480,7 +527,11 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 		} else if (location < 0) {
 			prevItem = parent;
 		} else {
-			prevItem = items[location - 1];
+			if(location == 0) {
+				prevItem = items[0];
+			} else {
+				prevItem = items[location - 1];
+			}
 		}
 		return prevItem;
 	}

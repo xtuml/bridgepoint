@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.Vector;
 
 import org.eclipse.compare.IStreamContentAccessor;
@@ -140,6 +141,13 @@ public class ModelCacheManager {
 		if (rootElements == null && requester != null) {
 			getModel(inputObject, requester, compareRoot, key);
 			rootElements = rootElementMap.get(key);
+		} else {
+			if(requester != null) {
+				ModelMapEntry entry = (ModelMapEntry) models.get(key);
+				if(entry != null && !entry.references.contains(requester)) {
+					entry.references.add(requester);
+				}
+			}
 		}
 		return rootElements;
 	}
@@ -148,8 +156,7 @@ public class ModelCacheManager {
 		return modelInspector;
 	}
 
-	public void releaseModel(Object inputObject, Object requester,
-			Ooaofooa compareRoot, Object key) {
+	public void releaseModel(Object inputObject, Object requester, Object key) {
 		if (inputObject == null) {
 			return;
 		}
@@ -157,26 +164,30 @@ public class ModelCacheManager {
 		if (entry != null) {
 			entry.references.remove(requester);
 			if (entry.references.isEmpty()) {
-				releaseModelEntry(entry);
-				models.remove(key);
-				NonRootModelElement[] rootElements = rootElementMap.get(key);
-				if (rootElements != null) {
-					for (NonRootModelElement rootElement : rootElements) {
-						rootElement.batchUnrelate();
-					}
-					rootElementMap.remove(key);
-				}
-				if (entry != null) {
-					if (entry.loadedModels != null) {
-						for (Model_c model : entry.loadedModels) {
-							model.batchUnrelate();
-						}
-					}
-				}
-				readonlyInputs.remove(key);
-				deleteModelRoot(compareRoot);
+				clearEntry(entry, key);
 			}
 		}
+	}
+
+	private void clearEntry(ModelMapEntry entry, Object key) {
+		releaseModelEntry(entry);
+		models.remove(key);
+		NonRootModelElement[] rootElements = rootElementMap.get(key);
+		if (rootElements != null) {
+			for (NonRootModelElement rootElement : rootElements) {
+				rootElement.batchUnrelate();
+			}
+			rootElementMap.remove(key);
+		}
+		if (entry != null) {
+			if (entry.loadedModels != null) {
+				for (Model_c model : entry.loadedModels) {
+					model.batchUnrelate();
+				}
+			}
+		}
+		readonlyInputs.remove(key);
+		deleteModelRoot(entry.compareRoot);
 	}
 
 	private void deleteModelRoot(Ooaofooa root) {
@@ -192,7 +203,7 @@ public class ModelCacheManager {
 
 	protected ModelMapEntry createModelMapEntry(Object input,
 			Ooaofooa compareRoot, Object key) {
-		ModelMapEntry modelMapEntry = new ModelMapEntry(input);
+		ModelMapEntry modelMapEntry = new ModelMapEntry(input, compareRoot);
 		if (!modelMapEntry.loadModel(compareRoot, key)) {
 			return null;
 		}
@@ -217,9 +228,11 @@ public class ModelCacheManager {
 		List<Object> references = new Vector<Object>();
 		private Object input;
 		private Model_c[] loadedModels = null;
+		private Ooaofooa compareRoot;
 
-		ModelMapEntry(Object input) {
+		ModelMapEntry(Object input, Ooaofooa compareRoot) {
 			this.input = input;
+			this.compareRoot = compareRoot;
 		}
 
 		public Model_c[] getLoadedGraphicalModels() {
@@ -454,5 +467,28 @@ public class ModelCacheManager {
 
 	public static Object getRightKey(Object inputElement) {
 		return RIGHT + inputElement.hashCode();
+	}
+
+	public void releaseAllFor(Object requester) {
+		HashMap<Object, List<ModelMapEntry>> entriesToRemove = new HashMap<Object, List<ModelMapEntry>>();
+		Set<Object> keySet = models.keySet();
+		for(Object key : keySet) {
+			ModelMapEntry object = (ModelMapEntry) models.get(key);
+			if(object != null) {
+				List<ModelMapEntry> list = entriesToRemove.get(key);
+				if(list == null) {
+					list = new ArrayList<ModelCacheManager.ModelMapEntry>();
+				}
+				list.add(object);
+				entriesToRemove.put(key, list);
+			}
+		}
+		Set<Object> toRemoveKeySet = entriesToRemove.keySet();
+		for(Object key : toRemoveKeySet) {
+			List<ModelMapEntry> list = entriesToRemove.get(key);
+			for(ModelMapEntry entry : list) {
+				releaseModel(entry.input, requester, key);
+			}
+		}
 	}
 }

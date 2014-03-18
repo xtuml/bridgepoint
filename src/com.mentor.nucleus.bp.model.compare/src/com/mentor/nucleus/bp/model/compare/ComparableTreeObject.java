@@ -35,6 +35,7 @@ public abstract class ComparableTreeObject {
 	public abstract boolean treeItemTypeEquals(Object other);
 	public abstract boolean treeItemNameMatches(Object other);
 	public abstract boolean treeItemValueEquals(Object other);
+	public abstract boolean treeItemValueEqualsIncludingChildren(Object other);
 	public abstract Object getRealElement();
 	@Override
 	public boolean equals(Object other) {

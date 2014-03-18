@@ -2337,6 +2337,71 @@ INSERT INTO S_BRG
 	'return "''";',
 	0,
 	'');
+INSERT INTO S_BRG
+	VALUES ("c69d4b56-7ec3-45a4-9ac2-bca5ab6ca915",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'getNewUniqueId',
+	'Translate:native',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'	return UUID.randomUUID();',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES ("13525d6f-5a99-4486-ace5-f6066e733e51",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'createInstanceStateMachine',
+	'Translate:native',
+	0,
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	'		if(p_Class instanceof ModelClass_c) {
+			ModelClass_c modelClass = (ModelClass_c) p_Class;
+			StateMachine_c sm = new StateMachine_c(modelClass.getModelRoot(),
+					modelClass.getIsm_id(), "", 0);
+			InstanceStateMachine_c ism = new InstanceStateMachine_c(
+					modelClass.getModelRoot());
+			modelClass.relateAcrossR518To(ism);
+			sm.relateAcrossR517To(ism);
+		}',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("f4a447fd-3108-4440-b8aa-90cb4bc1d0af",
+	"13525d6f-5a99-4486-ace5-f6066e733e51",
+	'class',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BRG
+	VALUES ("90b89064-a5f6-46e6-94bc-9fb03219f006",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'createClassStateMachine',
+	'Translate:native',
+	0,
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	'		if(p_Class instanceof ModelClass_c) {
+			ModelClass_c modelClass = (ModelClass_c) p_Class;
+			StateMachine_c sm = new StateMachine_c(modelClass.getModelRoot(),
+					modelClass.getCsm_id(), "", 0);
+			ClassStateMachine_c csm = new ClassStateMachine_c(
+					modelClass.getModelRoot());
+			modelClass.relateAcrossR519To(csm);
+			sm.relateAcrossR517To(csm);
+		}
+',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("40915c8d-5270-4731-a835-0e0915f6d2ca",
+	"90b89064-a5f6-46e6-94bc-9fb03219f006",
+	'class',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO S_EEIP
 	VALUES ("53bf3c8b-adde-4d47-8f16-aba92cc91cb2",
 	"ca7a7f08-4459-4ff5-bf0b-941446e8b3c5");
