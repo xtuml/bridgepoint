@@ -47,6 +47,7 @@ import com.mentor.nucleus.bp.core.ClassInAssociation_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.DataType_c;
 import com.mentor.nucleus.bp.core.Elementtypeconstants_c;
+import com.mentor.nucleus.bp.core.EventIgnored_c;
 import com.mentor.nucleus.bp.core.Gd_c;
 import com.mentor.nucleus.bp.core.LinkedAssociation_c;
 import com.mentor.nucleus.bp.core.ModelClass_c;
@@ -89,6 +90,7 @@ import com.mentor.nucleus.bp.model.compare.providers.NonRootModelElementComparab
 import com.mentor.nucleus.bp.model.compare.providers.ObjectElementComparable;
 import com.mentor.nucleus.bp.ui.canvas.ElementSpecification_c;
 import com.mentor.nucleus.bp.ui.canvas.GraphicalElement_c;
+import com.mentor.nucleus.bp.ui.canvas.Layer_c;
 import com.mentor.nucleus.bp.ui.canvas.Model_c;
 import com.mentor.nucleus.bp.ui.canvas.Ooaofgraphics;
 import com.mentor.nucleus.bp.ui.canvas.inspector.GraphicalModelInspector;
@@ -97,7 +99,7 @@ public class ModelMergeProcessor {
 
 	public static boolean merge(TreeDifferencer differencer,
 			TreeDifference difference, boolean rightToLeft,
-			ITreeDifferencerProvider contentProvider, ITableLabelProvider labelProvider, Ooaofooa modelRoot)
+			ITreeDifferencerProvider contentProvider, ITableLabelProvider labelProvider, Ooaofooa destinationModelRoot)
 			throws IOException {
 		// this is a removal
 		if (difference.getElement() == null
@@ -140,7 +142,7 @@ public class ModelMergeProcessor {
 				return false;
 			}
 			return handleNewElement(difference, contentProvider, diffElement,
-					modelRoot, differencer, rightToLeft);
+					destinationModelRoot, differencer, rightToLeft);
 		} else if (difference.getElement() instanceof ObjectElementComparable) {
 			// just copy the value over, but create deltas so that they
 			// can be applied to the real local copy
@@ -155,7 +157,7 @@ public class ModelMergeProcessor {
 				return handleAttributeChange(localElement, element);
 			} else if (element.getType() == ObjectElement.REFERENTIAL_ATTRIBUTE_ELEMENT) {
 				handleReferential(element, localElement, contentProvider,
-						modelRoot, differencer, rightToLeft, difference);
+						destinationModelRoot, differencer, rightToLeft, difference);
 				return true;
 			}
 		}
@@ -486,6 +488,25 @@ public class ModelMergeProcessor {
 			if (spec != null) {
 				spec.relateAcrossR10To(element);
 			}
+			// additionally if the Model_c instance is null
+			// the graphical element came from a situation where
+			// the semantic elements were different (one case is
+			// a state machine being created in two different branches)
+			if(Model_c.getOneGD_MDOnR1(element) == null) {
+				Model_c newModel = Model_c.ModelInstance(Ooaofgraphics
+						.getInstance(modelRoot.getId()));
+				element.relateAcrossR1To(newModel);
+			}
+		}
+		// as above we may need to reassociate graphical layers with
+		// the new Model instance
+		if(newObject instanceof Layer_c) {
+			Layer_c layer = (Layer_c) newObject;
+			if(Model_c.getOneGD_MDOnR34(layer) == null) {
+				Model_c newModel = Model_c.ModelInstance(Ooaofgraphics
+						.getInstance(modelRoot.getId()));
+				layer.relateAcrossR34To(newModel);
+			}
 		}
 		Object[] children = contentProvider.getChildren(contentProvider
 				.getParent(diffElement));
@@ -553,7 +574,7 @@ public class ModelMergeProcessor {
 				}
 			}
 		}
-		handlePostCreation(newObject);
+		handlePostCreation(newObject, (NonRootModelElement) realElement);
 		batchRelateAll(newObject, modelRoot, contentProvider);
 		return true;
 	}
@@ -569,7 +590,7 @@ public class ModelMergeProcessor {
 		}
 	}
 
-	private static void handlePostCreation(NonRootModelElement newObject) {
+	private static void handlePostCreation(NonRootModelElement newObject, NonRootModelElement originalObject) {
 		// for events we must create can't happens for all pre-existing
 		// states
 		if(newObject instanceof StateMachineEvent_c) {
@@ -649,6 +670,45 @@ public class ModelMergeProcessor {
 				}
 			}
 		}
+		if(newObject instanceof Transition_c) {
+			// here we need to create a new SEME entry
+			// or convert an existing one
+			Transition_c transition = (Transition_c) newObject;
+			StateEventMatrixEntry_c seme = StateEventMatrixEntry_c
+					.getOneSM_SEMEOnR504(NewStateTransition_c
+							.getOneSM_NSTXNOnR507((Transition_c) newObject));
+			if(seme == null) {
+				// look for the source state
+				StateEventMatrixEntry_c originalSEM = StateEventMatrixEntry_c
+						.getOneSM_SEMEOnR504(NewStateTransition_c
+								.getOneSM_NSTXNOnR507((Transition_c) originalObject));
+				StateMachineState_c originalState = StateMachineState_c
+						.getOneSM_STATEOnR503(originalSEM);
+				SemEvent_c originalEvent = SemEvent_c
+						.getOneSM_SEVTOnR503(originalSEM);
+				SemEvent_c destEvent = (SemEvent_c) getMatchingElement(originalEvent);
+				StateMachineState_c destState = (StateMachineState_c) getMatchingElement(originalState);
+				StateEventMatrixEntry_c newEntry = new StateEventMatrixEntry_c(
+							transition.getModelRoot());
+				destState.relateAcrossR503To(newEntry);
+				destEvent.relateAcrossR503To(newEntry);
+				newEntry.relateAcrossR504To(NewStateTransition_c
+						.getOneSM_NSTXNOnR507(transition));
+			} else {
+				// convert the existing SEM
+				CantHappen_c ch = CantHappen_c.getOneSM_CHOnR504(seme);
+				if(ch != null) {
+					ch.Dispose();
+				}
+				EventIgnored_c ei = EventIgnored_c.getOneSM_EIGNOnR504(seme);
+				if(ei != null) {
+					ei.unrelateAcrossR504From(seme);
+					ei.delete();
+				}
+				seme.relateAcrossR504To(NewStateTransition_c
+						.getOneSM_NSTXNOnR507(transition));
+			}
+		}
 	}
 	
 	private static void createSEME(SemEvent_c sem, StateMachineState_c state) {
@@ -683,6 +743,9 @@ public class ModelMergeProcessor {
 						// old data type that has a packageable element with
 						// no package or component, these have PEs so that they
 						// can be used in the chooser dialog
+						if (elem.cachedIdentityEquals(remoteObject)) {
+							newObject = elem;
+						}
 						continue;
 					}
 					if(parentDetails.isMany()) {

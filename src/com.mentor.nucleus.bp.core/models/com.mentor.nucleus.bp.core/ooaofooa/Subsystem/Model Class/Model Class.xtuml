@@ -437,7 +437,10 @@ end for;
 self.Key_Lett = self.Key_Lett + "KEY";
 self.addIdentifiers();
 
-',
+// create an instance state machine id and a class state machine
+// id
+self.Ism_ID = Util::getNewUniqueId();
+self.Csm_ID = Util::getNewUniqueId();',
 	1,
 	'',
 	"0fbc7afe-0620-4884-a3a4-fbb33e6e740c");
@@ -606,10 +609,13 @@ if (param.sm_type == "ISM")
   if (not_empty ism)
     return FALSE;
   else
-    create object instance ism of SM_ISM;
-    relate self to ism across R518;
-    create object instance sm of SM_SM;
-    relate ism to sm across R517;
+    // in order to use the already created ism id
+    // we must use a bridge function which allows
+    // setting the SM_ID, the SM_ISM and SM_SM
+    // instances must be created natively
+    Util::createInstanceStateMachine(class:self.convertToInstance());
+    select one ism related by self->SM_ISM[R518];
+    select one sm related by ism->SM_SM[R517];
     create object instance moore of SM_MOORE;
     relate sm to moore across R510;
     // add current state attribute
@@ -654,10 +660,9 @@ elif (param.sm_type == "ASM")
   if(not_empty asm)
     return FALSE;
   else
-    create object instance asm of SM_ASM;
-    relate self to asm across R519;
-    create object instance sm of SM_SM;
-    relate asm to sm across R517;
+    Util::createClassStateMachine(class:self.convertToInstance());
+    select one csm related by self->SM_ASM[R519];
+    select one sm related by csm->SM_SM[R517];
     create object instance moore of SM_MOORE;
     relate sm to moore across R510;
   end if;
@@ -2041,7 +2046,7 @@ INSERT INTO O_REF
 	'',
 	'Subsystem',
 	'SS_ID',
-	'R2');
+	'R2.''is contained in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("b7630071-9e2a-4183-9986-779dca14c275",
 	"b546c771-d03a-49e8-ba24-c221183f06a8",
@@ -2133,6 +2138,42 @@ INSERT INTO O_ATTR
 	'Obj_ID',
 	0,
 	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("570e8071-716a-4c42-9083-0b18ce411f21",
+	"b7630071-9e2a-4183-9986-779dca14c275");
+INSERT INTO O_BATTR
+	VALUES ("570e8071-716a-4c42-9083-0b18ce411f21",
+	"b7630071-9e2a-4183-9986-779dca14c275");
+INSERT INTO O_ATTR
+	VALUES ("570e8071-716a-4c42-9083-0b18ce411f21",
+	"b7630071-9e2a-4183-9986-779dca14c275",
+	"2111b10e-7e13-454f-b568-10465e7eb2b6",
+	'Ism_ID',
+	'',
+	'',
+	'Ism_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("a0cd478c-143b-4db1-ada3-7c3f6e50e741",
+	"b7630071-9e2a-4183-9986-779dca14c275");
+INSERT INTO O_BATTR
+	VALUES ("a0cd478c-143b-4db1-ada3-7c3f6e50e741",
+	"b7630071-9e2a-4183-9986-779dca14c275");
+INSERT INTO O_ATTR
+	VALUES ("a0cd478c-143b-4db1-ada3-7c3f6e50e741",
+	"b7630071-9e2a-4183-9986-779dca14c275",
+	"570e8071-716a-4c42-9083-0b18ce411f21",
+	'Csm_ID',
+	'',
+	'',
+	'Csm_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
 	'',
 	'');
 INSERT INTO O_ID

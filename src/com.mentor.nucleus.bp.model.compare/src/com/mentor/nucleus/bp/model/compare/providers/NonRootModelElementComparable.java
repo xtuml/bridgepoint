@@ -96,7 +96,40 @@ public class NonRootModelElementComparable extends ComparableTreeObject implemen
 
 	@Override
 	public boolean treeItemValueEquals(Object other) {
-		// no value comparison with NonRootModelElements
+		// for normal operations do not compare
+		// values as different comparables will
+		// be used for that
+		return true;
+	}
+	
+	@Override
+	public boolean treeItemValueEqualsIncludingChildren(Object other) {
+		// value comparison equals a recursive value check
+		if(other == this) {
+			return true;
+		}
+		if(other instanceof NonRootModelElementComparable) {
+			NonRootModelElementComparable otherComparable = (NonRootModelElementComparable) other;
+			// first check children size
+			ModelCompareContentProvider provider = new ModelCompareContentProvider();
+			Object[] thisChildren = provider.getChildren(this);
+			Object[] otherChildren = provider.getChildren(otherComparable);
+			if(thisChildren.length != otherChildren.length) {
+				return false;
+			}
+			// next check each child
+			for(int i = 0; i < thisChildren.length; i++) {
+				Object child = thisChildren[i];
+				if(!child.equals(otherChildren[i])) {
+					return false;
+				} else {
+					if (!((ComparableTreeObject) child)
+							.treeItemValueEquals(otherChildren[i])) {
+						return false;
+					}
+				}
+			}
+		}
 		return true;
 	}
 	

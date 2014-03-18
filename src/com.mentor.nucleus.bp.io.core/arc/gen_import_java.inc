@@ -794,6 +794,7 @@ public class ${class_name} extends CoreImport
 			loadedInstances.addAll(helper.addLinkClassesForContainment(loadedInstances));
 			helper.removeSupertypePackageableElement(loadedInstances);
 			helper.upgradeEEsForIsRealized();
+			helper.upgradeModelClassesForSMIds(loadedInstances);
           }
           finally {
             mr.enableDeltaCollection();

@@ -45,6 +45,7 @@ import com.mentor.nucleus.bp.core.AsynchronousMessage_c;
 import com.mentor.nucleus.bp.core.Attribute_c;
 import com.mentor.nucleus.bp.core.BridgeParameter_c;
 import com.mentor.nucleus.bp.core.Bridge_c;
+import com.mentor.nucleus.bp.core.ClassStateMachine_c;
 import com.mentor.nucleus.bp.core.Communication_c;
 import com.mentor.nucleus.bp.core.ComponentPackage_c;
 import com.mentor.nucleus.bp.core.ComponentReference_c;
@@ -77,6 +78,7 @@ import com.mentor.nucleus.bp.core.ImportedProvisionInSatisfaction_c;
 import com.mentor.nucleus.bp.core.ImportedProvision_c;
 import com.mentor.nucleus.bp.core.ImportedReference_c;
 import com.mentor.nucleus.bp.core.ImportedRequirement_c;
+import com.mentor.nucleus.bp.core.InstanceStateMachine_c;
 import com.mentor.nucleus.bp.core.InteractionParticipant_c;
 import com.mentor.nucleus.bp.core.InterfaceOperation_c;
 import com.mentor.nucleus.bp.core.InterfacePackage_c;
@@ -3011,6 +3013,29 @@ public class ImportHelper
 				}
 			}
 			ee.setIsrealized(isRealized);
+		}
+	}
+	
+	/**
+	 * Store any existing SM_ID in newly created id holders
+	 */
+	public void upgradeModelClassesForSMIds(List<NonRootModelElement> loadedElements) {
+		for(NonRootModelElement element : loadedElements) {
+			if(element instanceof InstanceStateMachine_c) {
+				InstanceStateMachine_c ism = (InstanceStateMachine_c) element;
+				ModelClass_c clazz = ModelClass_c
+						.getOneO_OBJOnR518(ism);
+				if(clazz.getIsm_id().equals(Gd_c.Null_unique_id())) {
+					clazz.setIsm_id(ism.getSm_id());
+				}
+			}
+			if(element instanceof ClassStateMachine_c) {
+				ClassStateMachine_c csm = (ClassStateMachine_c) element;
+				ModelClass_c clazz = ModelClass_c.getOneO_OBJOnR519(csm);
+				if(clazz.getCsm_id().equals(Gd_c.Null_unique_id())) {
+					clazz.setCsm_id(csm.getSm_id());
+				}
+			}
 		}
 	}
 }
