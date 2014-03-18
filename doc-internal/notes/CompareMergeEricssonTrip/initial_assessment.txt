@@ -1,0 +1,234 @@
+dts0101041613
+-------------
+
+1. Reported issue
+-----------------
+See accompanying document:
+
+dts0101041613/mergetooldoesnotshowanyconflictsafterthegitmergeidentifiedthem.pdf
+
+2. Investigation
+----------------
+Investigation shows that the xtUML compare and merge tool behaves appropriately.
+There is a more general issue here and that is that renames cannot currently be
+handled gracefully.  The git merge is automatically merging the class file
+renames.  BridgePoint currently cannot support multiple elements with the same
+unique id.  The tool relies on the fact that the identifier will be unique.  The
+load infrastructure is loading both of the classes as loading starts when an
+xtuml file is located.  Once the xtUML data is loaded into memory there is no
+guarantee as to which element's name will be used, or which element's children
+will be listed.
+
+Git is reporting a conflict on the package file due to internal xtUML data.  The
+compare tool appropriately ignores these as conflicts.  If the renaming issue
+were resolved (only one class brought in) there would be no conflicts on the
+internal data.
+
+3. Resolution
+-------------
+At this point there is no resolution that will not require significant time.  At
+this point there are a couple of possibilities:
+
+ a) Enhance the eclipse team logical model framework.  The idea of the framework
+    is that a merge would be done on a logical set of data, ignoring the file
+    structure.  This would allow us to perform the merge with multiple files
+    included in the data set.  With this information we could detect that a
+    conflict exists and allow the user to choose the right change, thereby
+    discarding the unwanted file.  It would also allow a merge of additional
+    data added in either of the files.
+ b) Change the xtUML naming scheme such that folders and files are named after an
+    elements unique id rather than after the element's name.
+ c) Prevent deletion of the initial file before the rename.  Insert something
+    into the left over file that would trigger a conflict by the repository
+    provider.
+
+ d) Prevent this situation through process.
+ 
+Out of the three a) is the cleanest solution.  There are other issues that would
+get resolved by choosing this approach.  The problem with this solution is that
+eGit does not fully support the logical model framework.  The framework also
+may not do everything that is expected.  The BridgePoint team does not have
+expertise in the team framework or the team logical model framework.  Any
+workable solution using a) would take a significant amount of time.
+
+b) is not a favorable solution as the impact on the tool's infrastructure would
+be large.  This solution would also take a significant about of time.
+
+c) is not really a solution to the problem but more of a work around.  This
+solution provides notification to the user that the problem has occurred.  This
+approach along with d) would catch the case where the process described by d)
+failed.
+
+d) of course is not a solution to the problem with the tool but a way to
+minimize the situation's occurrence.
+
+For the issue of the compare/merge tool not showing a conflict due to internal
+data there is no work to do.
+
+dts0101043334
+-------------
+
+1. Reported issue
+-----------------
+See accompanying document:
+
+dts0101043334/mergetoolnotdetectingoutgoingandincomingchangesclassadditions.pdf
+
+2. Investigation
+----------------
+Investigation shows that there are no issues with the compare engine or with the
+way that the differences are shown in the tree.  The confusion begins with the
+fact that two different associations are being looked at as if they were the
+same.  The two associations do share the same association number, but
+associations are not identified by number.  They are identified by the Rel_ID
+attribute of the Association meta-class.
+
+3. Resolution
+-------------
+No resolution required.  However, graphics shall be removed which will prevent
+some confusion.
+
+dts0101042909
+-------------
+
+1. Reported issue
+-----------------
+See accompanying document:
+
+dts0101042909/MergetoolMergeofchangesinstatemachinecausesforanincomingtransitiontobecameorphaned.pdf
+
+2. Investigation
+----------------
+Investigation shows that there is an issue here with merging transitions.  The
+differences are shown correctly in the tree.  When a transition is added and
+assigned a Can't happen is removed from the source state. 
+
+3. Resolution
+-------------
+The merge tool is modified to support this test case.  All possible approaches
+to completing the merge are successful.  More details about the implementation
+will follow in a design note.
+
+dts0101042915
+-------------
+
+1. Reported issue
+-----------------
+See accompanying document:
+
+dts0101042915/mergetoolImpossibletoresolveconflictsothatlocalleftchangeisacceptedasfinal.pdf
+
+2. Investigation
+----------------
+The issue here was that the graphical addition is being copied over without the
+semantic element that the graphic represents.
+
+3. Resolution
+-------------
+Graphics have currently been removed from the tree comparison.  At the end of a
+merge session all incoming and conflicting changes are copied over
+automatically.  Any additions or removals that do not have a matching semantic
+change are not copied over.
+
+dts0101009925
+-------------
+
+1. Reported issue
+-----------------
+Currently BP will create a new state machine with a unique id.  If an instance
+state machine or class state machine is created in two different branches, the
+compare/merge tool cannot consider them identical.  This is because their unique
+ids are different so they are not considered for comparison.  Additionally the
+metamodel does not allow for more than one state machine (instance based or
+class based), so this situation is not able to be merged.
+
+2. Investigation
+----------------
+Investigation determined that there is only one good approach to resolving this.
+That approach is to capture two unique identifiers at class creation time.
+These identifiers will then be used to identify new instance state machines and
+new class state machines.
+
+3. Resolution
+-------------
+The approach specified in the investigation is implemented.  For existing state
+machines the existing identifiers are added to the place holders in the class.
+
+dts0101040652
+-------------
+
+1. Reported issue
+-----------------
+This is an enhancement request to remove graphical data from comparisons.
+
+2. Investigation
+----------------
+None required.
+
+3. Resolution
+-------------
+The graphics have been removed from the tree.  See the resolution for
+dts0101042915 above.
+
+dts0101009924
+-------------
+
+1. Reported issue
+-----------------
+In git do the following:
+
+- In an existing state machine add two states with two transitions
+- Assign a new event to the two transitions
+- In another branch add two states and two transitions
+- Assign a new event to the two transitions
+- Merge branch one
+R Fast-forward
+- Merge branch two
+R Error log is flooded with exceptions during the drawing of difference lines
+  between two sides
+  
+2. Investigation
+----------------
+Investigation shows that there were some exceptions due to the expected location
+of new elements.
+
+3. Resolution
+-------------
+The exceptions are now prevented and the ordering is handled more efficiently.
+
+dts0101039702
+-------------
+
+1. Reported issue
+-----------------
+See accompanying document:
+
+dts0101039702/1-A1IFTE.pdf
+
+2. Investigation
+----------------
+Investigation shows that the issue is related to refreshing of the graphics
+after a resource change.  Some graphical data relies on semantic data from
+another file.  In the case where the semantic data changes and the root file for
+the graphics does not, updates are being missed.
+
+3. Resolution
+-------------
+The graphics model listener is modified to update the represents value for all
+graphical elements in a file, not just those that have changed.
+
+dts0101039330
+-------------
+
+1. Reported issue
+-----------------
+Interface port floating text disappears when restoring a deleted interface
+operation using local file.
+
+2. Investigation
+----------------
+Investigation shows that this issue is directly related to dts0101039702 above.
+
+3. Resolution
+-------------
+See dts0101039702 above.
