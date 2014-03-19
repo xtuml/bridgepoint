@@ -229,7 +229,9 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 
 	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-		// not interested
+		if(oldInput != null) {
+			ComparePlugin.getDefault().getModelCacheManager().releaseAllFor(this);
+		}
 	}
 
 	public TreeDifferencer getDifferencer() {
@@ -237,7 +239,6 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 	}
 
 	public void refresh() {
-
 	}
 
 }
