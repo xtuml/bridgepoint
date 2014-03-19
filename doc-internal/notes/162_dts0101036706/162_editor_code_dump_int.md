@@ -1,0 +1,159 @@
+---
+
+Copyright 2014 Mentor Graphics Corp.  All Rights Reserved.
+
+---
+
+# Dump BridgePoint Code into xtuml/editor Repository
+### xtUML Project Implementation Note
+
+
+1. Abstract
+-----------
+This note describes the work to be done to quickly make BridgePoint code available in the Open Source repository.
+
+2. Document References
+----------------------
+[1] Issues 162, https://github.com/xtuml/internal/issues/162  
+[2] CQ DEI dts0101036706 - Place more code into public repository  
+[3] 162_editor_code_dump_dnt.md  
+
+3. Background
+-------------
+See [3].
+
+4. Requirements
+---------------
+See [3]
+
+5. Work Performed
+----------------
+Prepping OSS code
+-------------------
+6.1.1 Create a branch of xtuml/internal
+  - 162_oss_prep
+  
+6.1.2 Extract the model data from bp.core/ooaofooa as specified in 5.2
+  - Removed Breakpoint SS, Engine SS, Local SS, and Runtime Value SS.  This removed some referential
+  attributes from some classes under Instance SS, which is OK.
+  - Run Parse All, remove content of functions with parse errors due to missing classes from 
+  removed subsystems.  Leave comment: 
+// Mentor Graphics Verifier-specific Implementation
+return GD::NULL_UNIQUE_ID(); 
+or 
+return GD::NULL_INSTANCE();
+  - Re-run parse all activities until ooaofooa parses clean
+  - Edit java native functions in the model, paste in the verifier-specific comment:
+    - Value/BinaryOperation.compareInstRefSets()
+	- Value/Value.getRuntimeValue()
+  - Clean up old *.oal files that may be left over from parse
+  - Clean all projects
+  - Commit the updated branch
+  
+  - Edit ooaofooa_hierarchy.pei.sql, remove:
+    - T_TNS 290 for "Runtime Value", T_TPS entry that starts at 290
+    - T_TNS 299 for "Class in Engine"
+  - Edit bp.core/common/ModelRoot.java around line 136.  Remove all the classes in 
+  the "runtimes" array.  Clean up imports.
+  - Edit lib/ARCH.java to remove stuff related to Stack_c
+  - Edit bp.ui.canvas/CL_c.java, clean out contents of Ishighlighted(), update imports
+  - Remove all the T_TNS and T_TPS entries in bp.ui.explorer/sql/MonUITree.pei.sql
+  - Edit bp.ui.explorer/arc/create_mon_content_provider.inc::addTo(), remove contents
+  - Edit bp.io.mdl/sql/stream.pei.sql, remove all of 2.1.6 section and reference to 2.1.6
+  
+xxx  Not shipping bp.debug.ui(.test), bp.verifier.pkg(-feature), bp.ui.session right now
+
+6.1.3 Build the branch
+  
+6.1.4 Create a new private repository xtuml/editor-test, branch it
+  - Done
+  
+6.1.5 Copy all the plug-ins and projects from the xtuml/internal branch to the xtuml/editor-test branch
+  - Did not copy over dap or debug.ui, bp.qa.odometer, verifier.pkg, help.bp.mc
+  
+6.1.6 Modify the data copied into xtuml/editor-test
+6.1.6.1 Remove the projects & plug-ins specified in 5.1
+  - Removed bp.core/lib/T.java 
+  - Removed bp.core/Vm_c.java
+  - Removed model element bp.core/ooaofooa/External Entities/Virtual Machine
+  - Removed bp.cli's Execute.java and ExecuteWorkbenchAdvisor.java and the MANIFEST.MF dependency on bp.debug.ui
+  - Removed bp.welcome/.../library/ExecuteElementAction.java and LaunchVerifierAction.java
+  - Edited bp.welcome/.../actions/CheatSheetAction.java to fix code errors
+  - Edited bp.welcome/plugin.xml to remove imports for bp.debug.ui and bp.ui.session
+  
+6.1.6.2 Update license files to Apache
+  - Already done.
+  
+6.1.6.3 Extract Mentor IP as specified in 5.4
+  - Removed JLC jar file.  Edit properties of bp.core to remove reference to JLC jar file from build path
+  - Removed bp.core/src/.../util/BridgePointDemoEncryptor.java
+  - Removed bp.core/src/.../util/BridgePointLicenseManager.java
+  - Removed code the references the BridgePointLicenseManager.  Remove "Export OAL Instances" preference bits.
+  - Contrary to what 5.4.3 says, there is no private stuff in the io.mdl.test/ooaofooa test model.  So it was left.
+  - Updated metamodel in bp.welcome plug-in (it still had some private Instance stuff)
+  
+6.1.6.4 Update the projects to not run the Ant builder (since we won't be generating any code from models)
+  - Disabled ANT (or antlr) builders in: bp.als, bp.als.oal, bp.compare, bp.core, bp.core.test, bp,io.core,
+  bp.io.mdl, bp.io.sql, bp.model.compare, bp.model.compare.test, bp.ui.canvas, bp.ui.canvas.test, bp.ui.explorer,
+  bp.ui.properties, bp.ui.properties.test, bp.ui.text
+  - Updated clean targets to not remove java files, .g files, generated matrices
+  - Build in xtuml/editor-test
+  
+6.1.6.5 Update .gitignore files to allow the check-in of generated Java files.
+  - Allow java files, ignore .gitignore files under bin/ folders.
+  - Allow generated txt files for test matrices to be committed
+  - Allow bp.[model].compare/src/.../ComparePluginMessages.properties
+  - Allow plugin.xml in bp.core/.gitignore and bp.ui.text/.gitignore
+  
+6.1.7 Commit the files to xtuml/editor-test branch
+  - Done
+  
+6.1.8 Create a HOWTO/Readme in xtuml/editor-test that explains how to build the plug-ins
+  - Done
+  
+6.1.9 Promote the files to master in xtuml/editor-test
+  - Done
+  
+6.1.10 Have other members of the development team review xtuml/editor-test for sensitive data 
+  - Done
+  
+6.1.11 Create a branch of xtuml/editor
+  - Done
+  
+6.1.12 Copy files from private repo xtuml/editor-test to xtuml/editor branch
+  - Done
+  
+6.1.13 Promote files from branch in xtuml/editor to master
+  - Done
+  
+6.1.14 Remove temporary private repo xtuml/editor-test
+
+TODO - update to explain packaging the plug-ins
+
+Bugs:
+-----
+- JUnits don't run clean
+    NOTE: I may have been too aggressive when deleting info from dispose operations...
+- Import/export problems?
+
+6. Implementation Comments
+--------------------------
+
+7. Unit Test
+------------
+
+8. Code Changes
+---------------
+Branch name: 162_oss_prep  
+
+No promoteable changes.  
+
+<pre>
+
+< Put the file list here >
+
+</pre>
+
+End
+---
+
