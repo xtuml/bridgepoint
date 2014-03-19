@@ -1324,9 +1324,15 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				Object ancestorKey = ModelCacheManager.getAncestorKey(getInput());
 				ModelCacheManager modelCacheManager = ComparePlugin
 						.getDefault().getModelCacheManager();
-				modelCacheManager.releaseModel(left, this, leftKey);
-				modelCacheManager.releaseModel(right, this, rightKey);
-				modelCacheManager.releaseModel(ancestor, this, ancestorKey);
+				ICompareInput previous = (ICompareInput) oldInput;
+				if(previous != null) {
+					ITypedElement oldLeft = previous.getLeft();
+					ITypedElement oldRight = previous.getRight();
+					ITypedElement oldAncestor = previous.getAncestor();
+					modelCacheManager.releaseModel(oldLeft, this, ModelCacheManager.getLeftKey(oldInput));
+					modelCacheManager.releaseModel(oldRight, this, ModelCacheManager.getRightKey(oldInput));
+					modelCacheManager.releaseModel(oldAncestor, this, ModelCacheManager.getAncestorKey(oldInput));
+				}
 				NonRootModelElement[] leftElements = null;
 				NonRootModelElement[] rightElements = null;
 				NonRootModelElement[] ancestorElements = null;

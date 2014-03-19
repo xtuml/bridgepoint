@@ -74,6 +74,8 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.StateMachineState_c;
+import com.mentor.nucleus.bp.core.Transition_c;
 import com.mentor.nucleus.bp.core.common.ITransactionListener;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.Transaction;
@@ -90,6 +92,7 @@ import com.mentor.nucleus.bp.model.compare.actions.CollapseAllAction;
 import com.mentor.nucleus.bp.model.compare.actions.ExpandAllAction;
 import com.mentor.nucleus.bp.model.compare.actions.MoveDownAction;
 import com.mentor.nucleus.bp.model.compare.actions.MoveUpAction;
+import com.mentor.nucleus.bp.model.compare.providers.ComparableProvider;
 import com.mentor.nucleus.bp.model.compare.providers.NonRootModelElementComparable;
 import com.mentor.nucleus.bp.model.compare.providers.ObjectElementComparable;
 import com.mentor.nucleus.bp.model.compare.structuremergeviewer.ModelStructureDiffViewer;
@@ -822,6 +825,48 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 			return null;
 		}
 		Object current = sel.iterator().next();
+		// if the current selection has an Action_Semantics field
+		// the grab the necessary object element to open that, failing
+		// that look for a description attribute
+		if(current instanceof NonRootModelElementComparable) {
+			NonRootModelElement nrme = (NonRootModelElement) ((NonRootModelElementComparable) current).getRealElement();
+			if(nrme instanceof StateMachineState_c || nrme instanceof Transition_c) {
+				// we need to navigate to the Action element
+				// for the activity and description attributes
+				Object[] children = ((ITreeContentProvider) getContentProvider()).getChildren(current);
+				for(Object child : children) {
+					if(child instanceof NonRootModelElementComparable) {
+						current = child;
+						break;
+					}
+				}
+			}
+			ObjectElement actionObjEle = null;
+			ObjectElement descripObjEle = null;
+			Object[] children = ((ITreeContentProvider) getContentProvider()).getChildren(current);
+			for(Object child : children) {
+				if(child instanceof ObjectElementComparable) {
+					ObjectElementComparable comparable = (ObjectElementComparable) child;
+					ObjectElement objElement = (ObjectElement) comparable.getRealElement();
+					if(objElement.getName().equals("Action_Semantics")) {
+						actionObjEle = objElement;
+					} else {
+						if(objElement.getName().equals("Descrip")) {
+							descripObjEle = objElement;
+						}
+					}
+				}
+			}
+			if(actionObjEle != null) {
+				current = ComparableProvider
+						.getComparableTreeObject(actionObjEle);
+			} else {
+				if(descripObjEle != null) {
+					current = ComparableProvider
+							.getComparableTreeObject(descripObjEle);
+				}
+			}
+		}
 		if (current instanceof ObjectElementComparable) {
 			ObjectElementComparable comparable = (ObjectElementComparable) current;
 			ObjectElement objElement = (ObjectElement) comparable.getRealElement();
