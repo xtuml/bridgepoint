@@ -60,16 +60,16 @@ return GD::NULL_INSTANCE();
   - Edited bp.ui.explorer/arc/create_mon_content_provider.inc::addTo(), remove contents
   - Edited bp.io.mdl/sql/stream.pei.sql, removed all of 2.1.6 section and reference to 2.1.6
   
-6.1.3 Build the branch
+5.3 [3 §6.1.3] Build the branch  
+
+5.4 [3 §6.1.4] Create a new private repository xtuml/editor-private, branch it  
   
-6.1.4 Create a new private repository xtuml/editor-test, branch it
-  - Done
-  
-6.1.5 Copy all the plug-ins and projects from the xtuml/internal branch to the xtuml/editor-test branch
+5.5 [3 §6.1.5] Copy all the plug-ins and projects from the xtuml/internal branch to the xtuml/editor-private branch
   - Did not copy over dap or debug.ui, bp.qa.odometer, verifier.pkg, help.bp.mc
+  - Had to use cygwin to copy to get around long path problems with Windows copy
   
-6.1.6 Modify the data copied into xtuml/editor-test
-6.1.6.1 Remove the projects & plug-ins specified in 5.1
+5.6 [3 §6.1.6] Modify the data copied into xtuml/editor-test
+5.6.1 [3 §6.1.6.1] Remove the projects & plug-ins specified in [3 §5.1]
   - Removed bp.core/lib/T.java 
   - Removed bp.core/Vm_c.java
   - Removed model element bp.core/ooaofooa/External Entities/Virtual Machine
@@ -78,15 +78,14 @@ return GD::NULL_INSTANCE();
   - Edited bp.welcome/.../actions/CheatSheetAction.java to fix code errors
   - Edited bp.welcome/plugin.xml to remove imports for bp.debug.ui and bp.ui.session
   
-6.1.6.2 Update license files to Apache
-  - Already done.
+5.6.2 [3 §6.1.6.2] Update license files to Apache
+  - This was already done prior to this work.
   
-6.1.6.3 Extract Mentor IP as specified in 5.4
+5.6.3 [3 §6.1.6.3] Extract Mentor IP as specified in [3 §5.4]
   - Removed JLC jar file.  Edit properties of bp.core to remove reference to JLC jar file from build path
   - Removed bp.core/src/.../util/BridgePointDemoEncryptor.java
   - Removed bp.core/src/.../util/BridgePointLicenseManager.java
   - Removed code the references the BridgePointLicenseManager.  Remove "Export OAL Instances" preference bits.
-  - Contrary to what 5.4.3 says, there is no private stuff in the io.mdl.test/ooaofooa test model.  So it was left.
   - Updated metamodel in bp.welcome plug-in (it still had some private Instance stuff)
   
 6.1.6.4 Update the projects to not run the Ant builder (since we won't be generating any code from models)
@@ -135,8 +134,9 @@ Bugs:
 
 6. Implementation Comments
 --------------------------
-6.1  The design note called for us to ship the Verifier UI plug-ins as part of the initial OSS release.  However, those plug-ins are full of dependencies on the private parts of the metamodel.  We decided it was not worth the effort to try to publish them at this time.  Therefore, the OSS code dump does not include ```bp.debug.ui, bp.debug.ui.test, bp.verifier.pkg, bp.verifier.pkg-feature, and bp.ui.session```
+6.1  The design note called for us to ship the Verifier UI plug-ins as part of the initial OSS release.  However, those plug-ins are full of dependencies on the private parts of the metamodel.  We decided it was not worth the effort to try to publish them at this time.  Therefore, the OSS code dump does not include ```bp.debug.ui, bp.debug.ui.test, bp.verifier.pkg, bp.verifier.pkg-feature, and bp.ui.session```  
 
+6.2 Contrary to what [3 §5.4.3] says, there is no private stuff in the io.mdl.test/ooaofooa test model.  So it was left.  
 
 7. Unit Test
 ------------
