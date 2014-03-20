@@ -28,41 +28,38 @@ See [3]
 
 5. Work Performed
 ----------------
-Prepping OSS code
--------------------
-6.1.1 Create a branch of xtuml/internal
-  - 162_oss_prep
+5.1 [3 §6.1.1] Create a branch of xtuml/internal
+  - Created new branch named ```162_oss_prep```
   
-6.1.2 Extract the model data from bp.core/ooaofooa as specified in 5.2
+5.2 [3 §6.1.2] Extract the model data from bp.core/ooaofooa as specified in [3 §5.2]
   - Removed Breakpoint SS, Engine SS, Local SS, and Runtime Value SS.  This removed some referential
   attributes from some classes under Instance SS, which is OK.
-  - Run Parse All, remove content of functions with parse errors due to missing classes from 
-  removed subsystems.  Leave comment: 
+  - Ran Parse All, remove content of functions with parse errors due to missing classes from removed subsystems.  Leave comment:
+  
+``` 
 // Mentor Graphics Verifier-specific Implementation
 return GD::NULL_UNIQUE_ID(); 
 or 
 return GD::NULL_INSTANCE();
-  - Re-run parse all activities until ooaofooa parses clean
-  - Edit java native functions in the model, paste in the verifier-specific comment:
+```
+
+  - Re-ran Parse All Activities until ooaofooa parsed clean
+  - Edited java native functions in the model, pasted in the verifier-specific comment from above
     - Value/BinaryOperation.compareInstRefSets()
-	- Value/Value.getRuntimeValue()
-  - Clean up old *.oal files that may be left over from parse
-  - Clean all projects
-  - Commit the updated branch
-  
-  - Edit ooaofooa_hierarchy.pei.sql, remove:
+    - Value/Value.getRuntimeValue()
+  - Cleaned up old *.oal files that may be left over from parse
+  - Cleaned all projects
+  - Commited the updated branch
+  - Edited ooaofooa_hierarchy.pei.sql, removed:
     - T_TNS 290 for "Runtime Value", T_TPS entry that starts at 290
     - T_TNS 299 for "Class in Engine"
-  - Edit bp.core/common/ModelRoot.java around line 136.  Remove all the classes in 
-  the "runtimes" array.  Clean up imports.
-  - Edit lib/ARCH.java to remove stuff related to Stack_c
-  - Edit bp.ui.canvas/CL_c.java, clean out contents of Ishighlighted(), update imports
-  - Remove all the T_TNS and T_TPS entries in bp.ui.explorer/sql/MonUITree.pei.sql
-  - Edit bp.ui.explorer/arc/create_mon_content_provider.inc::addTo(), remove contents
-  - Edit bp.io.mdl/sql/stream.pei.sql, remove all of 2.1.6 section and reference to 2.1.6
+  - Edited bp.core/common/ModelRoot.java around line 136.  Removed all the classes in the "runtimes" array.  Clean up imports.
+  - Edited lib/ARCH.java to remove stuff related to Stack_c
+  - Edited bp.ui.canvas/CL_c.java, clean out contents of Ishighlighted(), updated imports
+  - Removed all the T_TNS and T_TPS entries in bp.ui.explorer/sql/MonUITree.pei.sql
+  - Edited bp.ui.explorer/arc/create_mon_content_provider.inc::addTo(), remove contents
+  - Edited bp.io.mdl/sql/stream.pei.sql, removed all of 2.1.6 section and reference to 2.1.6
   
-xxx  Not shipping bp.debug.ui(.test), bp.verifier.pkg(-feature), bp.ui.session right now
-
 6.1.3 Build the branch
   
 6.1.4 Create a new private repository xtuml/editor-test, branch it
@@ -138,6 +135,8 @@ Bugs:
 
 6. Implementation Comments
 --------------------------
+6.1  The design note called for us to ship the Verifier UI plug-ins as part of the initial OSS release.  However, those plug-ins are full of dependencies on the private parts of the metamodel.  We decided it was not worth the effort to try to publish them at this time.  Therefore, the OSS code dump does not include ```bp.debug.ui, bp.debug.ui.test, bp.verifier.pkg, bp.verifier.pkg-feature, and bp.ui.session```
+
 
 7. Unit Test
 ------------
