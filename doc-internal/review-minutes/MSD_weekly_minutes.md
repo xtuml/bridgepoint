@@ -29,6 +29,53 @@ MSD Weekly Meeting Minutes
 ### Customer Support Status
 **Item 1 -** text
 
+
+
+
+---
+
+    Date:     03/19/2014
+    Start:    6:00 GMT+2
+    End:      6:15 GMT+2
+    Elapsed:  15 minutes
+    Present:  Bob, Keith, Travis, Campbell, Heba, Nehad, Robert 
+
+
+### Engineering Status
+**Bob  -** 
+- Helping in field issues coming from Cort.
+- Wokring on promoting Keith work, there are junit tests failures to fix
+- Resolved issue coming from Ericson (dts0101039702), and working on failed automated tests. 
+
+**Keith  -**
+- Pushed all the generated Java files to Editor repo. so BridgePoint Editor is open source now
+- There still changes to be done (seperate metamodel properly so customers can built it)
+- There are JUnit test failures, but we will not try to clean them up at this time.
+ 
+**Travis  -**
+- Preparing for Ericsson trip, leaving Sunday.  Will spend the entire week there.
+- Completed all of the top priority compare issues, except two that will take too long.  Will discuss these with the ericsson team.
+
+**Campbell  -**
+- Working on MC-Java to remove dependency on the generator parser
+- Implementing the new MC-Java changes on the build server
+- Supporting Corts discussions with Ericsson about integrating with EMF based tools
+
+**Heba  -**
+- Finishing work on Port Reference issue 
+
+All Junit tests pass, except one test because the port reference is not presisted in the file system after model upgrade ( Travis will help )
+
+**Nehad  -**
+- Fixed verifier automated tests failed in server.
+- Presented a demo for tooltip enhamcenet, working to resolve some issues regarding window position for large text, window appearence and others.
+- Creating a new issue/branch to import the work done in #135 for session explorer view mirroring part only
+ 
+### Customer Support Status
+**Rovert  -** text
+- Using Java Model Access API to provide an example to Ericsson 
+- Working on issues regarding documents we provide for creating realized component
+
 ---
 
     Date:     03/12/2014
