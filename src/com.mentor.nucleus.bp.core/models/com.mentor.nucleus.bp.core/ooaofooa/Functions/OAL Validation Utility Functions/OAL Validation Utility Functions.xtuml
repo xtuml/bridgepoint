@@ -7328,13 +7328,13 @@ if (isInGenericPackage)
          type:ElementTypeConstants::CONSTANT,
                           originatingContainerID:component.Id,
                                    delegatingContainerID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:true);
     else
     package.collectVisibleElementsForName(name:param.a1_name,
          type:ElementTypeConstants::CONSTANT, descending:false,
                            originatingContainerID:package.Package_ID,
                                           delegatingPkgID:GD::NULL_UNIQUE_ID(),
-                                                         collectGlobally:false);
+                                                         collectGlobally:true); 
     end if;
   select any resultSet related by component->PE_CRS[R8007] where
                                     selected.Name == param.a1_name and 
