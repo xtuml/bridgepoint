@@ -16,7 +16,7 @@ Core Test - Workspace Setup				PASS			14			73.09s	20140320 13:55:07
 Parse All Test							PASS			4598		435.31s	20140320 13:48:27
 IO MDL PkgCM Tests						PASS			108			879.06s	20140320 14:42:25
 Core Test 2								PASS			304			253.18s	20140320 16:02:31
-Debug - Verifier Test					FAIL (0e/2f)	100			934.85s	20140320 16:18:24
+Debug - Verifier Test					PASS			100			747.01s	20140321 12:58:55
 Core Test - System Level Tests			PASS			24			17.34s	20140320 14:11:54
 Core Test 2 - Consistency				PASS			17			1.53s	20140320 13:53:40
 IO MDL Tests							PASS			90			238.79s	20140320 16:22:36
