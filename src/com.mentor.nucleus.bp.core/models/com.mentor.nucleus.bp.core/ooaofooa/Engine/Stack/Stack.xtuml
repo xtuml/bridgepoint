@@ -1,0 +1,899 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	'Stack',
+	2910,
+	'I_STACK',
+	'An instance of this Core class will be created for each core or processor in the system.',
+	"ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56");
+INSERT INTO O_TFR
+	VALUES ("37e38dda-ae68-4dc7-8a9b-f09f9d5b8421",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	'run',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'//Instance:Stack.run()
+self.unblock();
+select one top_stack_frame related by self->I_STF[R2929];
+select one blockingFrame related by top_stack_frame->I_STF[R2965.''blocked by''];
+if empty top_stack_frame or not_empty blockingFrame
+  self.dequeue(deliverEvents:true);
+  self.unblock();
+  select one top_stack_frame related by self->I_STF[R2929];
+  select one blockingFrame related by top_stack_frame->I_STF[R2965.''blocked by''];
+end if;
+executionStateChanged = false;
+if (not_empty top_stack_frame and self.runState == RunStateType::Running)
+  if empty blockingFrame
+    executionStateChanged = true;
+    while (not_empty top_stack_frame and
+                 self.runState == RunStateType::Running and empty blockingFrame)
+      self.execute(force:false);
+      select one top_stack_frame related by self->I_STF[R2929];
+      select one blockingFrame related by
+                                     top_stack_frame->I_STF[R2965.''blocked by''];
+    end while;
+  end if;
+else
+  if (self.runState == RunStateType::Running)
+    self.processEvent();
+    select one top_stack_frame related by self->I_STF[R2929];
+    while (not_empty top_stack_frame and
+                 self.runState == RunStateType::Running and empty blockingFrame)
+      executionStateChanged = true;
+      self.execute(force:false);
+      select one top_stack_frame related by self->I_STF[R2929];
+      select one blockingFrame related by
+                                     top_stack_frame->I_STF[R2965.''blocked by''];
+    end while;
+  end if;
+end if;
+return executionStateChanged;
+',
+	1,
+	'',
+	"6561f32c-1da6-4673-8837-0ac20c84aca0");
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("6561f32c-1da6-4673-8837-0ac20c84aca0",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	'push',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Stack.push(stack_frame_id - unique_id)
+
+// Get the instance handle to the given stack frame
+select any new_stack_frame from instances of I_STF where selected.Stack_Frame_ID == param.stack_frame_id;
+if (not_empty new_stack_frame)
+  // Get instance handle to current top stack frame
+  select one oldTop related by self->I_STF[R2929];
+  if (not_empty oldTop)
+    // There was a top stack frame, so remove that relationship as the top stack frame
+    unrelate oldTop from self across R2929;
+    
+    // Relate the given stack frame as the new top stack frame
+    relate new_stack_frame to self across R2929;
+    
+    // Relate stack to stack frame
+    relate new_stack_frame to self across R2943; 
+    
+    // Link the stack frame chain so we can navigate through the stack
+    relate oldTop to new_stack_frame across R2928.''next context'';
+    
+  else
+    // This new stack frame will be the only stack frame, so it is the top of the stack
+    relate new_stack_frame to self across R2929; 
+    
+    // Relate stack to stack frame
+    relate new_stack_frame to self across R2943;  
+  end if;
+
+else 
+     USER::logError(msg:"Error in Stack.push(stack_frame_id): no such stack frame exists in the system",path:"");
+end if;
+',
+	1,
+	'',
+	"520646ee-5189-401a-9641-89b9ec1d5cd6");
+INSERT INTO O_TPARM
+	VALUES ("a85f5040-141b-4392-af38-d0972f645f43",
+	"6561f32c-1da6-4673-8837-0ac20c84aca0",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("aa09fa9b-cbf2-4c31-afcf-337619acd5fe",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	'pop',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Stack.pop()
+
+// Get the instance handle to the current top stack frame
+select one oldTop related by self->I_STF[R2929];
+
+if (not_empty oldTop)
+    unrelate self from oldTop across R2929;
+    
+       // Find the previous stack frame in the chain
+    select one previous_stack_frame related by oldTop->I_STF[R2928.''previous context''];
+
+    // Make the previous context the new top of the stack
+    if (not_empty previous_stack_frame)
+      unrelate oldTop from previous_stack_frame across R2928.''previous context'';
+	  relate previous_stack_frame to self across R2929;
+	end if;     
+
+    if param.disposeFrame
+      //  Dispose of the old stack frame, also unrelates the stack frame from this stack
+      oldTop.dispose();
+    end if;
+    
+else
+    USER::logError(msg:"Attempted to pop empty stack.",path:""); 
+end if;',
+	1,
+	'',
+	"f1e151f7-e7d2-48a4-919f-8258724580c5");
+INSERT INTO O_TPARM
+	VALUES ("afd4853b-5fe3-4a08-887a-e68a61e2fbde",
+	"aa09fa9b-cbf2-4c31-afcf-337619acd5fe",
+	'disposeFrame',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("d6355fc7-7d90-4627-8648-fc371f8a8495",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Stack.dispose()
+
+select one top_stack_frame related by self->I_STF[R2929];
+if (not_empty top_stack_frame)
+  unrelate top_stack_frame from self across R2929;
+  top_stack_frame.dispose();
+end if;
+
+select one sf related by self->I_STF[R2929];
+if (not_empty sf)
+  unrelate self from sf across R2929; 
+  sf.dispose();
+end if;
+
+select many stackFrames related by self->I_STF[R2966];
+for each stackFrame in stackFrames
+  select one queueEntry related by stackFrame->I_ICQE[R2966];
+  unrelate self from stackFrame across R2966 using queueEntry;
+  select one sendingComponent related by queueEntry->I_EXE[R2977];
+  if not_empty sendingComponent
+    unrelate sendingComponent from queueEntry across R2977;
+  end if;
+  delete object instance queueEntry;
+end for;
+
+select many stackFrames related by self->I_STF[R2967];
+for each stackFrame in stackFrames
+  unrelate self from stackFrame across R2967;
+end for;
+
+select many stack_frames related by self->I_STF[R2943];
+for each stack_frame in stack_frames
+  unrelate self from stack_frame across R2943;
+  stack_frame.dispose();
+end for;
+
+select one exEng related by self->I_EXE[R2930];
+if (not_empty exEng)
+  unrelate self from exEng across R2930;
+end if;
+
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("f1e151f7-e7d2-48a4-919f-8258724580c5",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	'execute',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Instance::Stack.execute()
+select one top_stack_frame related by self->I_STF[R2929];
+select any bisf related by top_stack_frame->I_BSF[R2923] where
+                                                           selected.isExecuting;
+if (not_empty bisf)
+  select one statement related by bisf->ACT_SMT[R2941];
+  if (not_empty statement)
+    if (self.runState != RunStateType::Suspended and 
+               self.runState != RunStateType::Terminated and not param.force and
+                      statement.checkBreakpoint(stack_id:self.Stack_ID) == true)
+      self.runState = RunStateType::Suspended;
+    else
+      statement.execute(stack_frame_id:top_stack_frame.Stack_Frame_ID);
+      // We may have a new block in stack frame context . . . 
+      select any bisf related by top_stack_frame->I_BSF[R2923] where
+                                                           selected.isExecuting;
+      if not_empty bisf
+        select one statement related by bisf->ACT_SMT[R2941];
+        // If there are no statements, there is nothing to do,
+        // we just want to pop up to the previous context . . .
+        if empty statement
+          select one block related by bisf->ACT_BLK[R2923];
+          if not_empty block
+            block.popUpBlock(stack_frame_id:top_stack_frame.Stack_Frame_ID);
+          end if;
+        end if;
+      end if;
+    end if;
+  else
+    select one block related by bisf->ACT_BLK[R2923];
+    block.popUpBlock(stack_frame_id:top_stack_frame.Stack_Frame_ID);
+  end if;
+else
+  USER::logError(msg:"Stack.execute() Error:No block found for stack frame. Terminating.",path:"");
+  self.runState = RunStateType::Terminated;
+end if;',
+	1,
+	'',
+	"d6355fc7-7d90-4627-8648-fc371f8a8495");
+INSERT INTO O_TPARM
+	VALUES ("75fcb397-de42-4d95-a760-78d713300d6e",
+	"f1e151f7-e7d2-48a4-919f-8258724580c5",
+	'force',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("520646ee-5189-401a-9641-89b9ec1d5cd6",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	'processEvent',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'signalFound = false;
+// Signals are processed as soon as there
+// is a possible chance, which is once a
+// currently executing activity has completed
+
+select one exEng related by self->I_EXE[R2930];
+
+// Check self event queue
+selfEventFound = false;
+if(not signalFound and not_empty exEng)
+  exEng.lockQueue(queue_name:"I_SQE");
+
+  select many pendingSelfEvtQEntries related by exEng->I_SQE[R2946];
+  for each pendingSelfEvtQEntry in pendingSelfEvtQEntries
+    select one prevSelfEvtQEntry related by pendingSelfEvtQEntry
+                                                      ->I_SQE[R2947.''precedes''];
+    if (empty prevSelfEvtQEntry)
+      select one evt related by pendingSelfEvtQEntry->I_EVI[R2946];
+      select one inst related by evt->I_INS[R2935];
+      if (not_empty inst)
+        inst.takeEvent(stack_id: self.Stack_ID, step_in:false,
+                 event_queue_entry_id:pendingSelfEvtQEntry.Self_Queue_Entry_ID);
+        selfEventFound = true;
+        break;
+      else
+        select one cie related by evt->CSME_CIE[R2931];
+        if (not_empty cie)
+          cie.takeEvent(stack_id: self.Stack_ID, step_in:false,
+                  event_queue_entry_id:pendingSelfEvtQEntry.Self_Queue_Entry_ID);
+          selfEventFound = true;
+          break;
+        else
+          event_name = "unknown name";
+          select one sm_evt related by evt->SM_EVT[R2906];
+          path="";
+          if (not_empty sm_evt)
+            event_name = sm_evt.get_name();
+            path = sm_evt.getPath();
+          end if;
+          USER::logError(msg:"Could not find target for event ",path:"");
+        end if;
+      end if;
+    end if;
+  end for;
+  exEng.unlockQueue(queue_name:"I_SQE");
+end if;
+if (not selfEventFound and not_empty exEng)
+  // Check inter-instance event queue
+  exEng.lockQueue(queue_name:"I_EQE");
+  select many pendingEvtQEntries related by exEng->I_EQE[R2944];
+  for each pendingEvtQEntry in pendingEvtQEntries
+    select one prevEvtQEntry related by pendingEvtQEntry
+                                                      ->I_EQE[R2945.''precedes''];
+    if (empty prevEvtQEntry)
+      select one evt related by pendingEvtQEntry->I_EVI[R2944];
+      select one inst related by evt->I_INS[R2935];
+      if (not_empty inst)
+        inst.takeEvent(stack_id: self.Stack_ID, step_in:false,
+                    event_queue_entry_id:pendingEvtQEntry.Event_Queue_Entry_ID);
+        break;
+      else
+        select one cie related by evt->CSME_CIE[R2931];
+        if (not_empty cie)
+          cie.takeEvent(stack_id: self.Stack_ID, step_in:false,
+            event_queue_entry_id:pendingEvtQEntry.Event_Queue_Entry_ID);
+            break;
+        else
+          event_name = "unknown name";
+          select one sm_evt related by evt->SM_EVT[R2906];
+          path="";
+          if (not_empty sm_evt)
+            event_name = sm_evt.get_name();
+            path= sm_evt.getPath();
+          end if;
+          USER::logError(msg:"Could not find target for event " + event_name,path:path);
+        end if;
+      end if;
+    end if;
+  end for;
+  exEng.unlockQueue(queue_name:"I_EQE");
+end if;',
+	1,
+	'',
+	"aa09fa9b-cbf2-4c31-afcf-337619acd5fe");
+INSERT INTO O_TFR
+	VALUES ("b94c3f96-ffdf-4169-8031-21c1ea72f91e",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	'stepIn',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'//Instance:Stack.stepIn()
+self.runState = RunStateType::Stepping;
+self.suspendReason = "";
+select one top_stack_frame related by self->I_STF[R2929];
+if (not_empty top_stack_frame)
+  select one blockingFrame related by
+                                     top_stack_frame->I_STF[R2965.''blocked by''];
+  if empty blockingFrame
+    self.execute(force:true);
+  end if; 
+else
+  self.processEvent();
+end if;
+self.runState = RunStateType::Suspended;',
+	1,
+	'',
+	"37e38dda-ae68-4dc7-8a9b-f09f9d5b8421");
+INSERT INTO O_TFR
+	VALUES ("b3a13c8f-6fae-4f2e-a5f6-5d7ea7f6a0c1",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	'stepOver',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'//Instance:Stack.stepOver()
+self.runState = RunStateType::Stepping;
+self.suspendReason = "";
+select any cur_stack_frame related by self->I_STF[R2943] where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+if (not_empty cur_stack_frame)
+  // We''re stepping over some OAL
+  self.execute(force:true);
+  select one top_stack_frame related by self->I_STF[R2929];
+  select one blockingFrame related by
+                                     top_stack_frame->I_STF[R2965.''blocked by''];
+  // If the statement causes a stack frame change, continue
+  // running until the old stack frame is back on top
+  select many valueInStackFrames related by cur_stack_frame->I_VSF[R2951];
+  select any whereClauseReference related by cur_stack_frame->
+                         I_BSF[R2923]->L_LCL[R3000]->L_LSR[R3001]->L_IWC[R3006];
+  while (self.runState == RunStateType::Stepping and
+             (not_empty top_stack_frame and empty blockingFrame) and
+             ((not cur_stack_frame.isDisposed() and
+                              top_stack_frame != cur_stack_frame) or
+              (not_empty valueInStackFrames or not_empty whereClauseReference)))
+    // We still have stack frames to execute (not_empty top_stack_frame) and
+    // We''re not blocked by an intercomponent message (empty blockedFrame) and
+    // We didn''t step out of an action (cur_stack_frame.isDisposed()) and 
+    // We haven''t returned to the context we were stepping in
+    //                                   (top_stack_frame != cur_stack_frame) or
+    // There is outstanding value computation occurring
+    //                                            (not_empty valueInStackFrames)
+    // There is outstanding where clause selection occurring
+    //                                          (not_empty whereClauseReference)
+    self.execute(force:false);
+    select one top_stack_frame related by self->I_STF[R2929];
+    select many valueInStackFrames related by cur_stack_frame->I_VSF[R2951];
+    select any whereClauseReference related by cur_stack_frame->
+                         I_BSF[R2923]->L_LCL[R3000]->L_LSR[R3001]->L_IWC[R3006];
+    select one blockingFrame related by
+                                   top_stack_frame->I_STF[R2965.''blocked by''];     
+  end while;
+else
+  // we''re stepping over an event
+  self.processEvent();
+  select one top_stack_frame related by self->I_STF[R2929];
+  while (self.runState == RunStateType::Stepping and not_empty top_stack_frame)
+    self.execute(force:false);
+    select one top_stack_frame related by self->I_STF[R2929];
+  end while;
+end if;
+self.runState = RunStateType::Suspended;',
+	1,
+	'',
+	"b94c3f96-ffdf-4169-8031-21c1ea72f91e");
+INSERT INTO O_TPARM
+	VALUES ("ee6e5812-c417-43f9-81ee-f89f21d4ca07",
+	"b3a13c8f-6fae-4f2e-a5f6-5d7ea7f6a0c1",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("6c7c6efc-8af2-419d-845d-fb399a7cda6b",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	'enqueue',
+	'synchronized:true',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Stack.enqueue(stack_frame_id)
+
+// Get the instance handle to the given stack frame
+select any new_stack_frame from instances of I_STF
+                          where selected.Stack_Frame_ID == param.stack_frame_id;
+if (not_empty new_stack_frame)
+  // Get instance handle to current top stack frame
+  select many queuedFrames related by self->I_ICQE[R2966]->I_STF[R2966];
+  if param.isActivity == false
+     // We need the result queue
+     select many queuedFrames related by self->I_STF[R2967];
+  end if;
+  select any lastFrame from instances of I_STF where
+                                selected.Stack_Frame_ID == GD::NULL_UNIQUE_ID();
+  // Find the stack frame at the top of the queue
+  for each candidateFrame in queuedFrames
+    select one prevFrame related by
+                                candidateFrame->I_STF[R2928.''previous context''];
+    if empty prevFrame
+      lastFrame = candidateFrame;
+      break;
+    end if;
+  end for;
+  if param.isActivity == true
+    //put it on the activity queue
+    create object instance queueEntry of I_ICQE;
+    relate new_stack_frame to self across R2966 using queueEntry;
+    select any remoteStackFrame from instances of I_STF where
+                         selected.Stack_Frame_ID == param.remote_stack_frame_id;
+    if not_empty remoteStackFrame
+      select one remoteComponentInstance related by remoteStackFrame->
+                                                   I_STACK[R2943]->I_EXE[R2930];
+      relate remoteComponentInstance to queueEntry across R2977;
+    end if;
+  else
+    //put it on the result queue
+    relate new_stack_frame to self across R2967;
+  end if;
+  if (not_empty lastFrame)
+    // There was a top stack frame, so link up the list
+    relate lastFrame to new_stack_frame across R2928.''previous context'';
+  end if;
+else 
+  USER::logError(msg:"Error in Stack.enqueue(stack_frame_id): no such stack frame exists in the system",path:"");
+end if;
+',
+	1,
+	'',
+	"b3a13c8f-6fae-4f2e-a5f6-5d7ea7f6a0c1");
+INSERT INTO O_TPARM
+	VALUES ("7f2a2de1-ef39-4280-a033-42b55ae6641e",
+	"6c7c6efc-8af2-419d-845d-fb399a7cda6b",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("c7d2d585-0b5c-46f0-82fe-1bdffeb502f2",
+	"6c7c6efc-8af2-419d-845d-fb399a7cda6b",
+	'isActivity',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"7f2a2de1-ef39-4280-a033-42b55ae6641e",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("42d5f57b-29a5-47a5-90d9-fdbf0d84fc71",
+	"6c7c6efc-8af2-419d-845d-fb399a7cda6b",
+	'remote_stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"c7d2d585-0b5c-46f0-82fe-1bdffeb502f2",
+	'');
+INSERT INTO O_TFR
+	VALUES ("8122f414-bb94-41e1-8636-7fecb433502c",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	'dequeue',
+	'synchronized:true',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Stack.dequeue()
+// Service incoming intercomponent messages.
+select many queuedFrames related by self->I_STF[R2966];
+select any topFrame from instances of I_STF where
+                                selected.Stack_Frame_ID == GD::NULL_UNIQUE_ID();
+// Find the stack frame at the top of the queue
+for each candidateFrame in queuedFrames
+  select one nextFrame related by candidateFrame->I_STF[R2928.''next context''];
+  if empty nextFrame
+    topFrame = candidateFrame;
+    break;
+  end if;
+end for;
+if not_empty topFrame and topFrame.readyForInterrupt == true
+  select one prevFrame related by topFrame->I_STF[R2928.''previous context''];
+  if not_empty prevFrame
+    unrelate topFrame from prevFrame across R2928.''previous context'';
+  end if;
+  select one queueEntry related by topFrame->I_ICQE[R2966];
+  select one sendingComponent related by queueEntry->I_EXE[R2977];
+  if not_empty sendingComponent
+    unrelate sendingComponent from queueEntry across R2977;
+  end if;
+  unrelate self from topFrame across R2966 using queueEntry;
+  delete object instance queueEntry;
+  select any reqSig related by topFrame->I_BSF[R2923]->ACT_BLK[R2923]->
+                                     ACT_ACT[R601]->ACT_RSB[R698]->SPR_RS[R684];
+  select any provSig related by topFrame->I_BSF[R2923]->ACT_BLK[R2923]->
+                                     ACT_ACT[R601]->ACT_PSB[R698]->SPR_PS[R686];
+  select one sigEvt related by reqSig->SM_SGEVT[R529];
+  select one ep related by reqSig->SPR_REP[R4502]->C_EP[R4500];
+  if not_empty provSig
+    select one sigEvt related by provSig->SM_SGEVT[R528];
+    select one ep related by provSig->SPR_PEP[R4503]->C_EP[R4501];
+  end if;
+  if not_empty sigEvt and param.deliverEvents
+    select one evt related by sigEvt->SM_SEVT[R526]->SM_EVT[R525];
+    create object instance pendingEvt of I_EVI;
+    select one ci related by self->I_EXE[R2930];
+    relate pendingEvt to ci across R2964;
+    relate pendingEvt to sendingComponent across R2976;
+    relate evt to pendingEvt across R2906;
+    select many args related by ep->C_PP[R4006];
+    select any cursor related by ep->C_PP[R4006];
+    for each arg in args
+      select one nextArg related by arg->C_PP[R4021.''succeeds''];
+      if empty nextArg
+        cursor = arg;
+        break;
+      end if;
+    end for;
+    while not_empty cursor
+      select any localValue related by topFrame->I_BSF[R2923]->L_LCL[R3000]->
+                              L_LVL[R3001] where selected.PP_Id == cursor.PP_Id;
+      select one local related by localValue->L_LCL[R3001];
+      select one runtimeVal related by local->RV_RVL[R3306];
+      create object instance eventVal of I_DIV;
+      relate eventVal to cursor across R2956;
+      relate eventVal to pendingEvt across R2933;
+      create object instance eventRuntimeVal of RV_RVL;
+      eventRuntimeVal.copyValue(from:runtimeVal.RuntimeValue_ID);
+      relate eventRuntimeVal to eventVal across R3303;
+      select one cursor related by cursor->C_PP[R4021.''precedes''];     
+    end while;
+    pendingEvt.fire();
+    topFrame.dispose(); 
+  else
+    self.push(stack_frame_id:topFrame.Stack_Frame_ID);
+  end if;
+end if;',
+	1,
+	'',
+	"6c7c6efc-8af2-419d-845d-fb399a7cda6b");
+INSERT INTO O_TPARM
+	VALUES ("cf99ec0c-e9a0-4926-9588-fd54a2fff22f",
+	"8122f414-bb94-41e1-8636-7fecb433502c",
+	'deliverEvents',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("9cf20155-1a0d-4b6f-b772-3eb5273135d0",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	'unblock',
+	'synchronized:true',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Stack.unblock()
+// Deal with any returned data from an interface operation call
+// and unblock the stack.
+select many queuedFrames related by self->I_STF[R2967];
+for each frame in queuedFrames
+  if frame.readyForInterrupt == true
+    // Following policy is similar to that in the local part of
+    // ReturnStmt.execute() because it is doing basically the same job.
+    // get the computed result
+    select one blockedFrame related by frame->I_STF[R2965.''blocks''];
+    select one stack related by blockedFrame->I_STACK[R2929];
+    if not_empty stack
+      // We only want to process result frames for the top stack frame.
+      // No stack here means the blocked frame isn''t the top one across R2929.
+      select any result related by frame->I_VSF[R2951];
+      select one rtVal related by result->RV_RVL[R3305];
+      // Now locate the required target frame
+      select many targetResults related by blockedFrame->I_VSF[R2951] where
+                               selected.RuntimeValue_ID == GD::NULL_UNIQUE_ID();
+      // Set the value of the last one in the set . . .
+      resultCount = cardinality targetResults;
+      if resultCount > 0
+        for each targetResult in targetResults
+          resultCount = resultCount - 1;
+          if (resultCount == 0)
+            create object instance newRtVal of RV_RVL;
+            relate newRtVal to targetResult across R3305;
+            select one dt related by targetResult->V_VAL[R2978]->S_DT[R820];
+            relate newRtVal to dt across R3307;
+            newRtVal.copyValue(from:rtVal.RuntimeValue_ID);
+            rtVal.dispose();
+            unrelate self from frame across R2967;
+            unrelate frame from blockedFrame across R2965.''blocks'';
+            // The remote frames result is now copied into the local frame
+            // where it is needed and the local frame is unblocked. We can now
+            // dispose the frame.
+            frame.dispose(); 
+            break;
+          end if;
+        end for;
+      else
+        // void return frame
+        unrelate self from frame across R2967;
+        unrelate frame from blockedFrame across R2965.''blocks'';
+        frame.dispose();
+        // The blocked frame is ready to continue execution,
+        // move it to the next statement. 
+        if not_empty blockedFrame
+          // Note this policy is mirrored closely by the policy found at the end
+          // of Statement.execute(). Any changes here should be reviewed for
+          // inclusion there.
+          select any bisf related by blockedFrame->I_BSF[R2923] where
+                                                           selected.isExecuting;
+          select one currentStatement related by bisf->ACT_SMT[R2941];
+          //
+          // If there are any intermediate values on the stack frame, then this
+          // indicates that processing has been interrupted during a value
+          // computation. We do not want to progress to the next statement in
+          // this case.
+          //
+          select any intermediateValue related by blockedFrame->I_VSF[R2951];
+          //
+          // If there is an instance associated with a selection reference, then
+          // a where clause is being executed. We do not want to progress to the
+          // next statement in that case either.
+          //
+          select one outer_block related by bisf->ACT_BLK[R2923]->
+                                                   ACT_ACT[R601]->ACT_BLK[R666];
+          select any outer_bisf related by blockedFrame->I_BSF[R2923]
+                                where selected.Block_ID == outer_block.Block_ID;
+          select any select_where_inst_ref related by outer_bisf->
+                                       L_LCL[R3000]->L_LSR[R3001]->L_IWC[R3006];
+          //
+          // If a statement is blocked on an intercomponent call, we do not want
+          // to progress to the next statement either.
+          //
+          select one blockingFrame related by blockedFrame->
+                                                      I_STF[R2965.''blocked by''];
+  
+          if (empty intermediateValue and empty select_where_inst_ref and
+                                 not_empty bisf and bisf.isExecuting and
+                                                            empty blockingFrame)
+            // There was no scope change, so we need to advance our program
+            // counter association, R2941. If the scope had changed, the
+            // statement subtype would have already set up a new instance of
+            // this association and would have created whatever new stack frame
+            // and block in stack frame instances were needed.
+            //
+            if not_empty currentStatement
+              currentStatement.setupNextStatement(
+                                    stack_frame_id:blockedFrame.Stack_Frame_ID);
+            else
+              // The block is empty, must be a realized component.
+              // We do nothing, since disposal of the stack frame
+              // is managed in the realized code interface.
+            end if;
+          end if;
+        end if;
+      end if;
+    end if;
+  end if;
+end for;',
+	1,
+	'',
+	"8122f414-bb94-41e1-8636-7fecb433502c");
+INSERT INTO O_NBATTR
+	VALUES ("7313ae64-4788-4ca8-ba6b-d020a3286655",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1");
+INSERT INTO O_BATTR
+	VALUES ("7313ae64-4788-4ca8-ba6b-d020a3286655",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1");
+INSERT INTO O_ATTR
+	VALUES ("7313ae64-4788-4ca8-ba6b-d020a3286655",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	"00000000-0000-0000-0000-000000000000",
+	'Stack_ID',
+	'',
+	'',
+	'Stack_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("8465dc9b-5975-44af-a2b6-f4d5c480d293",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1");
+INSERT INTO O_BATTR
+	VALUES ("8465dc9b-5975-44af-a2b6-f4d5c480d293",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1");
+INSERT INTO O_ATTR
+	VALUES ("8465dc9b-5975-44af-a2b6-f4d5c480d293",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	"a3e7c4da-7cc8-404d-b90b-1321ad468273",
+	'runState',
+	'',
+	'',
+	'runState',
+	0,
+	"bfc8e5a0-661d-42f0-b43f-513e0df80ebc",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("bfc8e5a0-661d-42f0-b43f-513e0df80ebc",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'RunStateType',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("9bb79730-d3f6-4411-bf74-dbef7b92d90e",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1");
+INSERT INTO O_BATTR
+	VALUES ("9bb79730-d3f6-4411-bf74-dbef7b92d90e",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1");
+INSERT INTO O_ATTR
+	VALUES ("9bb79730-d3f6-4411-bf74-dbef7b92d90e",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	"8465dc9b-5975-44af-a2b6-f4d5c480d293",
+	'suspendReason',
+	'',
+	'',
+	'suspendReason',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	0,
+	"28aa4283-2190-4d46-b247-2cf82958ad34",
+	"a6b69a89-169c-4eed-8be0-70eb31603a9c",
+	"3b7af30f-7566-4542-97c9-dcef14aded69",
+	"f7f80e95-b766-434b-944b-0e671914db1c",
+	"a3e7c4da-7cc8-404d-b90b-1321ad468273",
+	"3ca558c1-8978-4a10-a953-f50856143eb9",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Component Instance',
+	'Execution_Engine_ID',
+	'R2930.''is controlled by''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	"a6b69a89-169c-4eed-8be0-70eb31603a9c",
+	"3b7af30f-7566-4542-97c9-dcef14aded69",
+	'../Engine.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("28aa4283-2190-4d46-b247-2cf82958ad34",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	0,
+	"a6b69a89-169c-4eed-8be0-70eb31603a9c",
+	"f7f80e95-b766-434b-944b-0e671914db1c",
+	'../Engine.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("a3e7c4da-7cc8-404d-b90b-1321ad468273",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	"28aa4283-2190-4d46-b247-2cf82958ad34",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	1,
+	'Execution_Engine_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("28aa4283-2190-4d46-b247-2cf82958ad34",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'../../Instance/Component Instance/Component Instance.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("a3e7c4da-7cc8-404d-b90b-1321ad468273",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	"7313ae64-4788-4ca8-ba6b-d020a3286655",
+	'Execution_Engine_ID',
+	'',
+	'',
+	'Execution_Engine_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1");
+INSERT INTO O_OIDA
+	VALUES ("7313ae64-4788-4ca8-ba6b-d020a3286655",
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1",
+	0,
+	'Stack_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1");
+INSERT INTO O_ID
+	VALUES (2,
+	"94dc4a69-fab9-4ad8-b3cf-c58bf023b9d1");
+INSERT INTO S_SS_PROXY
+	VALUES ("ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56",
+	'Engine',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+Persistent:false
+Import: java.util.concurrent.locks.ReentrantLock',
+	'I',
+	900,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Engine.xtuml');
