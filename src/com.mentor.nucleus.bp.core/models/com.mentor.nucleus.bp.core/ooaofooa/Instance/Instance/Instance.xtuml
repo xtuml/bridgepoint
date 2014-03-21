@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
@@ -915,7 +915,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine State',
 	'SM_ID',
-	'R2915');
+	'R2915.''occupies''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
 	"4dd0ebce-6b50-4caa-b72c-9f85987cb00f",
@@ -943,7 +943,7 @@ INSERT INTO O_REF
 	'',
 	'Transition',
 	'SM_ID',
-	'R2953');
+	'R2953.''entered last state via''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
 	"6b3eb066-24c6-49d0-8122-2f0379c74f1b",
@@ -1001,7 +1001,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine State',
 	'SMstt_ID',
-	'R2915');
+	'R2915.''occupies''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("c1895e17-60ab-46d5-b6a1-e61e34c67638",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
@@ -1080,7 +1080,7 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("6038e7a8-00d6-4750-81fe-68b90748fced",
 	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
-	"e2d3d3c3-f161-41dd-87a7-223eaa919113",
+	"8da35837-51c1-4125-bc9d-2f19c3e2cf59",
 	'Label',
 	'',
 	'',
@@ -1122,7 +1122,7 @@ INSERT INTO O_REF
 	'',
 	'Transition',
 	'Trans_ID',
-	'R2953');
+	'R2953.''entered last state via''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("36961925-2727-4c75-b0bf-c2cd8bc2611d",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
@@ -1168,7 +1168,7 @@ INSERT INTO O_REF
 	'',
 	'Component Instance',
 	'Execution_Engine_ID',
-	'R2957');
+	'R2957.''created by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
 	"9850bb30-0522-4292-906e-9256c4b6f253",
@@ -1206,45 +1206,45 @@ INSERT INTO O_ATTR
 	'');
 INSERT INTO O_REF
 	VALUES ("c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
-	"d5ab7f71-387d-4661-ba76-3265de8d6cdd",
+	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
 	0,
-	"8aac4700-4ba7-461c-93af-b8e82730222c",
-	"053e0926-2152-4bf1-8e68-0943b4adddf3",
-	"ff2d2da4-08e6-45b9-af20-6ef5cef38f96",
-	"86c6977d-8e13-4e2a-b34f-c6399bd665d1",
-	"e2d3d3c3-f161-41dd-87a7-223eaa919113",
-	"fef435fa-6590-4787-b287-f65033488ff8",
+	"ab96f30b-1d4f-46d4-b23c-215ddd08a110",
+	"6e75fa60-50e0-4fce-ab9c-01ad7b0f2438",
+	"2a414a62-b0a6-4be3-81c5-0eae1cbbd378",
+	"d927b924-059f-4ef3-bf93-68d14e4a532a",
+	"8da35837-51c1-4125-bc9d-2f19c3e2cf59",
+	"06fe2ed9-7f94-4748-a1a1-3ae8c489546d",
 	"00000000-0000-0000-0000-000000000000",
 	0,
 	'',
 	'Class In Engine',
 	'CIE_ID',
-	'R2962');
+	'R2962.''instance of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
-	"053e0926-2152-4bf1-8e68-0943b4adddf3",
-	"ff2d2da4-08e6-45b9-af20-6ef5cef38f96",
-	'../Class State Machine Execution/Class State Machine Execution.xtuml');
+	"6e75fa60-50e0-4fce-ab9c-01ad7b0f2438",
+	"2a414a62-b0a6-4be3-81c5-0eae1cbbd378",
+	'../../Engine/Class State Machine Execution/Class State Machine Execution.xtuml');
 INSERT INTO O_RTIDA_PROXY
-	VALUES ("8aac4700-4ba7-461c-93af-b8e82730222c",
-	"d5ab7f71-387d-4661-ba76-3265de8d6cdd",
+	VALUES ("ab96f30b-1d4f-46d4-b23c-215ddd08a110",
+	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
 	0,
-	"053e0926-2152-4bf1-8e68-0943b4adddf3",
-	"86c6977d-8e13-4e2a-b34f-c6399bd665d1",
-	'../Class State Machine Execution/Class State Machine Execution.xtuml');
+	"6e75fa60-50e0-4fce-ab9c-01ad7b0f2438",
+	"d927b924-059f-4ef3-bf93-68d14e4a532a",
+	'../../Engine/Class State Machine Execution/Class State Machine Execution.xtuml');
 INSERT INTO O_RATTR
-	VALUES ("e2d3d3c3-f161-41dd-87a7-223eaa919113",
+	VALUES ("8da35837-51c1-4125-bc9d-2f19c3e2cf59",
 	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
-	"8aac4700-4ba7-461c-93af-b8e82730222c",
-	"d5ab7f71-387d-4661-ba76-3265de8d6cdd",
+	"ab96f30b-1d4f-46d4-b23c-215ddd08a110",
+	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
 	1,
 	'CIE_ID');
 INSERT INTO O_BATTR_PROXY
-	VALUES ("8aac4700-4ba7-461c-93af-b8e82730222c",
-	"d5ab7f71-387d-4661-ba76-3265de8d6cdd",
-	'../Class State Machine Execution/Class In Engine/Class In Engine.xtuml');
+	VALUES ("ab96f30b-1d4f-46d4-b23c-215ddd08a110",
+	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
+	'../../Engine/Class State Machine Execution/Class In Engine/Class In Engine.xtuml');
 INSERT INTO O_ATTR
-	VALUES ("e2d3d3c3-f161-41dd-87a7-223eaa919113",
+	VALUES ("8da35837-51c1-4125-bc9d-2f19c3e2cf59",
 	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
 	"ea293b53-1899-4e09-bfd7-0c84be3689f5",
 	'CIE_ID',

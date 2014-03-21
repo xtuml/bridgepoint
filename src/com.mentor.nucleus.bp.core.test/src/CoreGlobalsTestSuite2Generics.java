@@ -36,7 +36,6 @@ import com.mentor.nucleus.bp.core.test.CommunicationLinkTestsGenerics;
 import com.mentor.nucleus.bp.core.test.CommunicationMessageTestsGenerics;
 import com.mentor.nucleus.bp.core.test.CommunicationTestsGenerics;
 import com.mentor.nucleus.bp.core.test.CoreGlobalsTestSuiteIIGenerics;
-import com.mentor.nucleus.bp.core.test.CoreTestSuiteIIGenerics;
 import com.mentor.nucleus.bp.core.test.CreationTransitionEventReassignmentTestGenerics;
 import com.mentor.nucleus.bp.core.test.DeleteDatatypesTestGenerics;
 import com.mentor.nucleus.bp.core.test.I810_SlowDeletionTestGenerics;
@@ -81,19 +80,18 @@ public class CoreGlobalsTestSuite2Generics extends TestSuite {
 		// turn off autobuild to stop MC-3020 builders from running
 		WorkspaceUtil.setAutobuilding(false);   // throws CoreException
 		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION, true);
-        addTest(new TestSuite(MultipleSelectionAssignmentTests.class));
 		addTest(new TestSuite(CoreGlobalsTestSuiteIIGenerics.class));
-		addTest(new TestSuite(CoreTestSuiteIIGenerics.class));
+		addTest(new TestSuite(MultipleSelectionAssignmentTests.class));
         addTest(new TestSuite(SequenceTestsGenerics.class));
-	    addTest(new TestSuite(CommunicationMessageTestsGenerics.class));
+	    addTest(new TestSuite(CommunicationMessageTestsGenerics.class));/*3*/
 	    addTest(new TestSuite(CommunicationTestsGenerics.class));
 	    addTest(new TestSuite(CommunicationLinkTestsGenerics.class));
-        addTest(new TestSuite(ModelTransactionTestGenerics.class));
+        addTest(new TestSuite(ModelTransactionTestGenerics.class));/*2*/
         addTest(new TestSuite(DeleteDatatypesTestGenerics.class));
 		addTest(new TestSuite(CanRenameCanDeleteTestGenerics.class));
   		addTest(new TestSuite(CombineSplitReferentialsTestGenerics.class));
      	addTest(new TestSuite(RenameInvolvingResourceTestGenerics.class));
-     	addTest(new TestSuite(TwoModelsSelectionTestGenerics.class));
+     	addTest(new TestSuite(TwoModelsSelectionTestGenerics.class));/*1*/
     	addTest(new TestSuite(ModelChangeListenersBatchingTestGenerics.class));
 		addTest(new TestSuite(WritableContextMenuTestGenerics.class));
 		addTest(new TestSuite(CreationTransitionEventReassignmentTestGenerics.class));

@@ -286,7 +286,6 @@
   	CommunicationMessageTestsGenerics.java,
   	CommunicationTestsGenerics.java,
   	CoreTestSuiteIGenerics.java,
-  	CoreTestSuiteIIGenerics.java,
   	DeleteAttributesTestGenerics.java,
   	DerivedAttributeTestGenerics.java,
   	GetNameTestGenerics.java,
