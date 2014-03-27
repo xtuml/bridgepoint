@@ -38,6 +38,7 @@ import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
@@ -55,6 +56,7 @@ import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.Domain_c;
+import com.mentor.nucleus.bp.core.IntegrityManager_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.XtUMLNature;
@@ -134,11 +136,22 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
 	}
 	private void loadCollectedComponents() {
 		// first locate the system PMC
-		for(PersistableModelComponent component : componentsToLoad) {
+		for(final PersistableModelComponent component : componentsToLoad) {
 			NonRootModelElement rootME = component.getRootModelElement();
             Ooaofooa.getDefaultInstance().fireModelElementAboutToBeReloaded(rootME);
 			try {
 				component.load(new NullProgressMonitor(), false, true);
+				WorkspaceJob job = new WorkspaceJob("") {
+					
+					@Override
+					public IStatus runInWorkspace(IProgressMonitor monitor)
+							throws CoreException {
+						IntegrityManager_c manager = new IntegrityManager_c(component.getRootModelElement().getModelRoot());
+						IntegrityChecker.runIntegrityCheck(component.getRootModelElement(), manager);
+						return Status.OK_STATUS;
+					}
+				};
+				job.schedule();
 			} catch (CoreException e) {
 				CorePlugin.logError("Unable to load replaced component.", e);
 			}

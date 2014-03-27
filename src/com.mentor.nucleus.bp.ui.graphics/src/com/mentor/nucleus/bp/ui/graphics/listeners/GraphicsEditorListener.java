@@ -183,7 +183,7 @@ public class GraphicsEditorListener extends ModelChangeAdapter implements ITrans
 				&& !m_editor.getCanvas().isDisposed()) {
 			// if the event concerns the element the editor is editing
 			Object editorData = m_editor.getModel().getRepresents();
-			if (event.getModelElement() == editorData) {
+			if (event.getModelElement().equals(editorData)) {
 				// try to locate the reloaded content of our editor,
 				// and point our editor to it
 				Model_c newModel = getModelFor((NonRootModelElement) event.getNewModelElement());

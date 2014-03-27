@@ -204,152 +204,101 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 
 			@Override
 			public void saveLeftContent(Object element, byte[] bytes) {
-				try {
 					if(element instanceof ICompareInput) {
 						ICompareInput node = (ICompareInput) element;
-						ITypedElement left = node.getLeft();
-						final NonRootModelElement rootElement = modelManager.getRootElements(
-								left, null, false,
-								getLeftCompareRoot(),
-								ModelCacheManager
-										.getLeftKey(getInput() != null ? getInput() : oldInput))[0];
-						if (left instanceof IEditableContent) {
-							// before saving copy all graphical changes that are
-							// non-conflicting
-							List<TreeDifference> incomingGraphicalDifferences = getIncomingGraphicalDifferences(true);
-							if(incomingGraphicalDifferences.size() > 0) {
-								mergeIncomingGraphicalChanges(incomingGraphicalDifferences, true);
-							}
-							ByteArrayOutputStream baos = new ByteArrayOutputStream();
-							AbstractModelExportFactory modelExportFactory = CorePlugin.getModelExportFactory();
-							IRunnableWithProgress runnable = modelExportFactory
-									.create(getLeftCompareRoot(), baos, rootElement);
-							CoreExport.forceProxyExport = true;
-							runnable.run(new NullProgressMonitor());
-							CoreExport.forceProxyExport = false;
-							((IEditableContent)left).setContent(baos.toByteArray());
-							if(left instanceof LocalResourceTypedElement) {
-								((IFile) ((LocalResourceTypedElement) left)
-										.getResource()).setContents(new ByteArrayInputStream(baos.toByteArray()),
-										IFile.FORCE | IFile.KEEP_HISTORY, new NullProgressMonitor());
-							}
-							WorkspaceJob job = new WorkspaceJob("Refresh workspace content") {
-								
-								@Override
-								public IStatus runInWorkspace(IProgressMonitor monitor)
-										throws CoreException {
-									NonRootModelElement elementGlobally = (NonRootModelElement) Ooaofooa
-											.getDefaultInstance()
-											.getInstanceList(
-													rootElement.getClass())
-											.getGlobal(
-													rootElement
-															.getInstanceKey());
-									if(elementGlobally != null) {
-										if(elementGlobally.getFile() != null) {
-											elementGlobally.getFile().refreshLocal(IFile.DEPTH_INFINITE, monitor);
-										}
-									}
-									return Status.OK_STATUS;
-								}
-							};
-							job.schedule(1500);
-						}
+						writeData(node, true);
 					}
-				} catch (FileNotFoundException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
-				} catch (ModelLoadException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
-				} catch (InvocationTargetException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
-				} catch (InterruptedException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
-				} catch (CoreException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
-				}
 			}
 
 			@Override
 			public void saveRightContent(Object element, byte[] bytes) {
-				try {
-					if(element instanceof ICompareInput) {
-						ICompareInput node = (ICompareInput) element;
-						ITypedElement right = node.getRight();
-						final NonRootModelElement rootElement = modelManager.getRootElements(
-								right, null, false,
-								getRightCompareRoot(),
-								ModelCacheManager
-										.getRightKey(getInput() != null ? getInput() : oldInput))[0];
-						if (right instanceof IEditableContent) {
-							// before saving copy all graphical changes that are
-							// non-conflicting
-							List<TreeDifference> incomingGraphicalDifferences = getIncomingGraphicalDifferences(false);
-							if(incomingGraphicalDifferences.size() > 0) {
-								mergeIncomingGraphicalChanges(incomingGraphicalDifferences, false);
-							}
-							ByteArrayOutputStream baos = new ByteArrayOutputStream();
-							AbstractModelExportFactory modelExportFactory = CorePlugin.getModelExportFactory();
-							IRunnableWithProgress runnable = modelExportFactory
-									.create(getRightCompareRoot(), baos, rootElement);
-							CoreExport.forceProxyExport = true;
-							runnable.run(new NullProgressMonitor());
-							CoreExport.forceProxyExport = false;
-							((IEditableContent)right).setContent(baos.toByteArray());
-							if(right instanceof LocalResourceTypedElement) {
-								((IFile) ((LocalResourceTypedElement) right)
-										.getResource()).setContents(new ByteArrayInputStream(baos.toByteArray()),
-										IFile.FORCE | IFile.KEEP_HISTORY, new NullProgressMonitor());
-							}
-							WorkspaceJob job = new WorkspaceJob("Refresh workspace content") {
-								
-								@Override
-								public IStatus runInWorkspace(IProgressMonitor monitor)
-										throws CoreException {
-									NonRootModelElement elementGlobally = (NonRootModelElement) Ooaofooa
-											.getDefaultInstance()
-											.getInstanceList(
-													rootElement.getClass())
-											.getGlobal(
-													rootElement
-															.getInstanceKey());
-									if(elementGlobally != null) {
-										if(elementGlobally.getFile() != null) {
-											elementGlobally.getFile().refreshLocal(IFile.DEPTH_INFINITE, monitor);
-										}
-									}
-									return Status.OK_STATUS;
-								}
-							};
-							job.schedule(1500);
-						}
-					}
-				} catch (FileNotFoundException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
-				} catch (ModelLoadException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
-				} catch (InvocationTargetException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
-				} catch (InterruptedException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
-				} catch (CoreException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
+				if (element instanceof ICompareInput) {
+					ICompareInput node = (ICompareInput) element;
+					writeData(node, false);
 				}
+
 			}
 
 		});
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(this);
 	}
 	
+	protected void writeData(ICompareInput input, boolean toLeft) {
+		try {
+			ITypedElement destination = input.getLeft();
+			Ooaofooa root = getLeftCompareRoot();
+			if (!toLeft) {
+				destination = input.getRight();
+				root = getRightCompareRoot();
+			}
+			final NonRootModelElement rootElement = modelManager
+					.getRootElements(destination, null, false, root,
+							ModelCacheManager
+									.getLeftKey(getInput() != null ? getInput()
+											: oldInput))[0];
+			if (destination instanceof IEditableContent) {
+				// before saving copy all graphical changes that are
+				// non-conflicting
+				List<TreeDifference> incomingGraphicalDifferences = getIncomingGraphicalDifferences(toLeft);
+				if (incomingGraphicalDifferences.size() > 0) {
+					mergeIncomingGraphicalChanges(incomingGraphicalDifferences,
+							toLeft);
+				}
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				AbstractModelExportFactory modelExportFactory = CorePlugin
+						.getModelExportFactory();
+				IRunnableWithProgress runnable = modelExportFactory.create(
+						getLeftCompareRoot(), baos, rootElement);
+				CoreExport.forceProxyExport = true;
+				runnable.run(new NullProgressMonitor());
+				CoreExport.forceProxyExport = false;
+				((IEditableContent) destination).setContent(baos.toByteArray());
+				if (destination instanceof LocalResourceTypedElement) {
+					((IFile) ((LocalResourceTypedElement) destination)
+							.getResource()).setContents(
+							new ByteArrayInputStream(baos.toByteArray()),
+							IFile.FORCE | IFile.KEEP_HISTORY,
+							new NullProgressMonitor());
+				}
+				WorkspaceJob job = new WorkspaceJob("Refresh workspace content") {
+
+					@Override
+					public IStatus runInWorkspace(IProgressMonitor monitor)
+							throws CoreException {
+						NonRootModelElement elementGlobally = (NonRootModelElement) Ooaofooa
+								.getDefaultInstance()
+								.getInstanceList(rootElement.getClass())
+								.getGlobal(rootElement.getInstanceKey());
+						if (elementGlobally != null) {
+							if (elementGlobally.getFile() != null) {
+								elementGlobally.getFile().refreshLocal(
+										IFile.DEPTH_INFINITE, monitor);
+							}
+						}
+						return Status.OK_STATUS;
+					}
+				};
+				job.schedule(1500);
+			}
+
+		} catch (FileNotFoundException e) {
+			ComparePlugin.writeToLog("Unable to save merge data.", e,
+					ModelContentMergeViewer.class);
+		} catch (ModelLoadException e) {
+			ComparePlugin.writeToLog("Unable to save merge data.", e,
+					ModelContentMergeViewer.class);
+		} catch (InvocationTargetException e) {
+			ComparePlugin.writeToLog("Unable to save merge data.", e,
+					ModelContentMergeViewer.class);
+		} catch (InterruptedException e) {
+			ComparePlugin.writeToLog("Unable to save merge data.", e,
+					ModelContentMergeViewer.class);
+		} catch (CoreException e) {
+			ComparePlugin.writeToLog("Unable to save merge data.", e,
+					ModelContentMergeViewer.class);
+		}
+	}
+
 	protected void mergeIncomingGraphicalChanges(
 			List<TreeDifference> incomingGraphicalDifferences, boolean left) {
 		ITreeDifferencerProvider provider = (ITreeDifferencerProvider) leftTreeViewer
@@ -1601,6 +1550,10 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 
 	@Override
 	protected void handleDispose(DisposeEvent event) {
+		// force a write here to remove any
+		// git conflict markers
+		ICompareInput compareInput = (ICompareInput) getInput();
+		writeData(compareInput, true);
 		differencer.dipose();
 		instanceMap.remove(getInput());
 		if (leftTreeViewer != null) {

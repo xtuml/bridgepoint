@@ -775,8 +775,12 @@ public class ModelMergeProcessor {
 							}
 						}
 					}
-					if (elem.cachedIdentityEquals(remoteObject)) {
+					if (elem.equals(remoteObject)) {
 						newObject = elem;
+					} else {
+						if (elem.cachedIdentityEquals(remoteObject)) {
+							newObject = elem;
+						}
 					}
 				}
 			}
@@ -1482,6 +1486,9 @@ public class ModelMergeProcessor {
 		InstanceList instanceList = otherRoot.getInstanceList(elem.getClass());
 		for(Object instance : instanceList) {
 			NonRootModelElement other = (NonRootModelElement) instance;
+			if(other.equals(elem)) {
+				return other;
+			}
 			if(other.cachedIdentityEquals(elem)) {
 				return other;
 			}

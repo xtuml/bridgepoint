@@ -74,6 +74,8 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.Ooaofooa;
+import com.mentor.nucleus.bp.core.Operation_c;
 import com.mentor.nucleus.bp.core.StateMachineState_c;
 import com.mentor.nucleus.bp.core.Transition_c;
 import com.mentor.nucleus.bp.core.common.ITransactionListener;
@@ -100,6 +102,7 @@ import com.mentor.nucleus.bp.ui.canvas.Ooaofgraphics;
 import com.mentor.nucleus.bp.ui.explorer.ui.actions.ExplorerCopyAction;
 import com.mentor.nucleus.bp.ui.explorer.ui.actions.ExplorerCutAction;
 import com.mentor.nucleus.bp.ui.explorer.ui.actions.ExplorerPasteAction;
+import com.sun.org.apache.xpath.internal.operations.Operation;
 
 public class SynchronizedTreeViewer extends TreeViewer implements
 		ITransactionListener {
@@ -352,7 +355,9 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 				// if the difference indicates a location
 				// this is for the root, place the line under
 				// the element at the given location
-				if (difference.getLocation() >= 0 && difference.getElement() != null) {
+				if (difference.getLocation() >= 0
+						&& difference.getElement() != null
+						&& tree.getTopItem() != null) {
 					TreeItem prevItem = getTree().getItem(
 							difference.getLocation());
 					Rectangle prevItemBounds = buildHighlightRectangle(
@@ -374,7 +379,8 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 				// we need to draw a line at the top of that
 				// tree
 				if (difference.getElement() == null
-						&& difference.getParent() == null) {
+						&& (difference.getParent() == null || (tree
+								.getTopItem() == null))) {
 					if (mergeViewer.getLeftViewer() != this) {
 						gc.drawLine(tree.getClientArea().x, 2, 5, 2);
 					} else {
@@ -457,6 +463,10 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 						}
 						continue;
 					}
+				}
+				if (getMatchingItem(difference.getMatchingDifference()
+						.getElement(), this) == null && this == mergeViewer.getAncestorTree()) {
+					continue;
 				}
 				gc.setLineDash(new int[] { 3 });
 				gc.setLineStyle(SWT.LINE_CUSTOM);

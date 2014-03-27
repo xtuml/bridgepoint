@@ -19,6 +19,11 @@
 //======================================================================== 
 package com.mentor.nucleus.bp.core.common;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.runtime.CoreException;
+
+import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.IntegrityIssue_c;
 import com.mentor.nucleus.bp.core.IntegrityManager_c;
 import com.mentor.nucleus.bp.core.Severity_c;
@@ -42,6 +47,11 @@ public class IntegrityChecker {
 			system = (SystemModel_c) element;
 		}
 		manager.relateAcrossR1301To(system);
+		try {
+			element.getFile().deleteMarkers(IMarker.PROBLEM, true, IFile.DEPTH_ONE);
+		} catch (CoreException e) {
+			CorePlugin.logError("Unable to delete existing integrity markers.", e);
+		}
 		element.Checkintegrity();
 		element.checkReferentialIntegrity();
 		ObjectElement[] children = inspector.getChildRelations(element);

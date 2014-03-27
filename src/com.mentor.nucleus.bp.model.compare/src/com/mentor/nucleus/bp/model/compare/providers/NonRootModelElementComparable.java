@@ -24,11 +24,9 @@ package com.mentor.nucleus.bp.model.compare.providers;
 
 import org.eclipse.core.runtime.IAdaptable;
 
-import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 import com.mentor.nucleus.bp.core.Ooaofooa;
-import com.mentor.nucleus.bp.core.common.BPElementID;
-import com.mentor.nucleus.bp.core.common.InstanceList;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
+import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 
 public class NonRootModelElementComparable extends ComparableTreeObject implements IAdaptable {
 
@@ -140,12 +138,7 @@ public class NonRootModelElementComparable extends ComparableTreeObject implemen
 	@Override
 	public int hashCode() {
 		NonRootModelElement real = (NonRootModelElement) getRealElement();
-		InstanceList instanceList = real.getModelRoot().getInstanceList(real.getClass());
-		BPElementID convertToUUID = instanceList.convertToUUID(real.getInstanceKey());
-		if(convertToUUID != null) {
-			return convertToUUID.hashCode();
-		}
-		return real.getClass().hashCode();
+		return real.getClass().getSimpleName().hashCode();
 	}
 	@Override
 	public Object getAdapter(Class adapter) {
