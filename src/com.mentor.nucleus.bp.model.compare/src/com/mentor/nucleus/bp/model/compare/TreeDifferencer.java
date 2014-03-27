@@ -240,8 +240,9 @@ public class TreeDifferencer extends Differencer {
 					if (right == null) {
 						description= LEFT | ADDITION;
 					} else {
-						if (elementsEqualIncludingValues(left, right, true, true))
-							description= CONFLICTING | ADDITION;
+						description= CONFLICTING | ADDITION;
+						if (elementsEqualIncludingValues(left, right, false, true))
+							description|= PSEUDO_CONFLICT;
 					}
 				}
 			} else {

@@ -21,6 +21,7 @@
 //========================================================================
 package com.mentor.nucleus.bp.model.compare;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
@@ -251,8 +252,27 @@ public class ModelCacheManager {
 					if (sca == null) {
 						return false;
 					}
+
 					if(sca.available() == 0) {
-						return false;
+						List<Integer> bytes = new ArrayList<Integer>();
+						int read = sca.read();
+						if(read == -1) {
+							return false;
+						} else {
+							bytes.add(read);
+							while(read != -1) {
+						         read = sca.read();
+						         if(read != -1) {
+						        	 bytes.add(read);
+						         }
+						     }
+							sca.close();
+							byte[] b = new byte[bytes.size()];
+							for(int i = 0; i < bytes.size(); i++) {
+								b[i] = bytes.get(i).byteValue();
+							}
+							sca = new ByteArrayInputStream(b);
+						}
 					}
 					// configure IdAssigners to have upgrade elements
 					// created with the same id
