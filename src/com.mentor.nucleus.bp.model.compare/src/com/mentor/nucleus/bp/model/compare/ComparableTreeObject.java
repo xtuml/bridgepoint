@@ -48,4 +48,7 @@ public abstract class ComparableTreeObject {
 	public boolean isDerived() {
 		return false;
 	}
+	public boolean ignoreOrdering() {
+		return false;
+	}
 }

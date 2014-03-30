@@ -43,6 +43,7 @@ import com.mentor.nucleus.bp.core.OperationMessage_c;
 import com.mentor.nucleus.bp.core.PolymorphicEvent_c;
 import com.mentor.nucleus.bp.core.SemEvent_c;
 import com.mentor.nucleus.bp.core.SignalMessage_c;
+import com.mentor.nucleus.bp.core.StateEventMatrixEntry_c;
 import com.mentor.nucleus.bp.core.Transition_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.inspector.ObjectElement;
@@ -58,6 +59,7 @@ import com.mentor.nucleus.bp.model.compare.providers.custom.MessageComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.NewBaseAttributeComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.PolymorphicEventComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.SemEventComparable;
+import com.mentor.nucleus.bp.model.compare.providers.custom.SemeComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.StateMachineComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.TransitionComparable;
 import com.mentor.nucleus.bp.ui.canvas.Model_c;
@@ -136,6 +138,9 @@ public class ComparableProvider {
 		}
 		if(element instanceof Action_c) {
 			return new ActionComparable((NonRootModelElement) element);
+		}
+		if(element instanceof StateEventMatrixEntry_c) {
+			return new SemeComparable((NonRootModelElement) element);
 		}
 		return new NonRootModelElementComparable((NonRootModelElement) element);
 	}
