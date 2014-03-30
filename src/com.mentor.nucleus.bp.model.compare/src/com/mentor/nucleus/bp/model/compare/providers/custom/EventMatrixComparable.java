@@ -74,5 +74,12 @@ public class EventMatrixComparable extends NonRootModelElementComparable {
 		}
 		return true;
 	}
+	/* (non-Javadoc)
+	 * @see com.mentor.nucleus.bp.model.compare.ComparableTreeObject#ignoreOrdering()
+	 */
+	@Override
+	public boolean ignoreOrdering() {
+		return true;
+	}
 
 }

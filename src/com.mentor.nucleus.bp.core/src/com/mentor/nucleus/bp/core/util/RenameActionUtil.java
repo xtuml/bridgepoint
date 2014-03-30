@@ -11,6 +11,7 @@ import com.mentor.nucleus.bp.core.InstanceAttributeValue_c;
 import com.mentor.nucleus.bp.core.LeafSymbolicConstant_c;
 import com.mentor.nucleus.bp.core.LiteralSymbolicConstant_c;
 import com.mentor.nucleus.bp.core.MessageArgument_c;
+import com.mentor.nucleus.bp.core.ModelClass_c;
 import com.mentor.nucleus.bp.core.PackageParticipant_c;
 import com.mentor.nucleus.bp.core.StateMachineEvent_c;
 import com.mentor.nucleus.bp.core.StructuredDataType_c;
@@ -63,6 +64,10 @@ public class RenameActionUtil {
 			((InstanceAttributeValue_c) newElement)
 					.setInformalname(proposedName);
 		} else {
+			if(classType == ModelClass_c.class) {
+				ModelClass_c mc = (ModelClass_c) newElement;
+				mc.setKey_lett(proposedName.replaceAll(" ", ""));
+			}
 			newElement.setName(proposedName);
 		}
 

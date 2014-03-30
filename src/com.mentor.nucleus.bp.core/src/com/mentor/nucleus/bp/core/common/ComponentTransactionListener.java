@@ -39,6 +39,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import com.mentor.nucleus.bp.core.Component_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.Domain_c;
+import com.mentor.nucleus.bp.core.IntegrityIssue_c;
 import com.mentor.nucleus.bp.core.IntegrityManager_c;
 import com.mentor.nucleus.bp.core.Modeleventnotification_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
@@ -375,8 +376,7 @@ public class ComponentTransactionListener implements ITransactionListener {
 			try {
 				component.persist();
 				persisted.add(component);
-				IntegrityManager_c manager = new IntegrityManager_c(component.getRootModelElement().getModelRoot());
-				IntegrityChecker.runIntegrityCheck(component.getRootModelElement(), manager);
+				IntegrityChecker.createIntegrityIssues(component.getRootModelElement());
 				return true;
 			} catch (CoreException e) {
 				CorePlugin

@@ -384,14 +384,10 @@ public class ModelMergeProcessor {
 			parent = (NonRootModelElement) ((NonRootModelElementComparable) difference
 					.getMatchingDifference().getParent()).getRealElement();
 		}
-		Object otherParent = contentProvider.getParent(matchingDiffElement);
-		if(otherParent == null) {
-			otherParent = difference.getMatchingDifference().getParent();
-		}
 		int newElementLocation = TreeDifferencer
 				.getLocationOfElement(contentProvider.getParent(diffElement),
 						diffElement,
-						otherParent,
+						parent,
 						(ITreeDifferencerProvider) contentProvider);
 		// create deltas for the creation of a new element
 		NonRootModelElement newObject = null;
@@ -764,14 +760,17 @@ public class ModelMergeProcessor {
 							newElementLocation = getLocationForElementInSource(remoteDetails);
 						}
 						callSetOrderOperation(newElementLocation, localDetails);
-						Method getLocationInOrdering = findMethod("Getlocationinordering", getMatchingElement(elem).getClass(), new Class[0]);
-						if(getLocationInOrdering != null) {
-							// adjust user configurable order, to do this we unassociate the new
-							// element from the ordering association first
-							int order = (Integer) invokeMethod(getLocationInOrdering, getMatchingElement(elem), new Object[0]);
-							Method mergeOrdering = findMethod("Mergeordering", elem.getClass(), new Class[] {Integer.TYPE});
-							if(mergeOrdering != null) {
-								invokeMethod(mergeOrdering, elem, new Object[] {order});
+						NonRootModelElement matchingElement = getMatchingElement(elem);
+						if(matchingElement != null) {
+							Method getLocationInOrdering = findMethod("Getlocationinordering", matchingElement.getClass(), new Class[0]);
+							if(getLocationInOrdering != null) {
+								// adjust user configurable order, to do this we unassociate the new
+								// element from the ordering association first
+								int order = (Integer) invokeMethod(getLocationInOrdering, getMatchingElement(elem), new Object[0]);
+								Method mergeOrdering = findMethod("Mergeordering", elem.getClass(), new Class[] {Integer.TYPE});
+								if(mergeOrdering != null) {
+									invokeMethod(mergeOrdering, elem, new Object[] {order});
+								}
 							}
 						}
 					}

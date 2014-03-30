@@ -139,6 +139,11 @@ public class ModelCacheManager {
 			Object requester, boolean reload, Ooaofooa compareRoot, Object key)
 			throws ModelLoadException {
 		NonRootModelElement[] rootElements = rootElementMap.get(key);
+		if(rootElements != null && reload) {
+			ModelMapEntry entry = (ModelMapEntry) models.get(key);
+			clearEntry(entry, key);
+		}
+		rootElements = rootElementMap.get(key);
 		if (rootElements == null && requester != null) {
 			getModel(inputObject, requester, compareRoot, key);
 			rootElements = rootElementMap.get(key);
@@ -220,6 +225,7 @@ public class ModelCacheManager {
 	}
 
 	protected void releaseModelEntry(ModelMapEntry entry) {
+		entry.references.clear();
 	}
 
 	class ModelMapEntry {
@@ -290,7 +296,7 @@ public class ModelCacheManager {
 					PersistableModelComponent com = new PersistableModelComponent(
 							sys);
 					IModelImport modelInputLoader = new ImportModelComponent(
-							sca, compareRoot, com, false, true, true, false);
+							sca, compareRoot, com, false, false, true, false);
 					boolean isSingleFile = isSingleFile((CoreImport) modelInputLoader);
 					boolean isSingleFileOld = isSingleFileOld((CoreImport) modelInputLoader);
 					if (isSingleFile) {

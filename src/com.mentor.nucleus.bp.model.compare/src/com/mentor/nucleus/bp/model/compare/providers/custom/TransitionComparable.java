@@ -119,4 +119,12 @@ public class TransitionComparable extends NonRootModelElementComparable {
 			return ourTransition.getTrans_id().hashCode();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.mentor.nucleus.bp.model.compare.ComparableTreeObject#ignoreOrdering()
+	 */
+	@Override
+	public boolean ignoreOrdering() {
+		return true;
+	}
+
 }

@@ -38,7 +38,6 @@ import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
@@ -56,6 +55,7 @@ import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.Domain_c;
+import com.mentor.nucleus.bp.core.IntegrityIssue_c;
 import com.mentor.nucleus.bp.core.IntegrityManager_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.SystemModel_c;
@@ -141,13 +141,12 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
             Ooaofooa.getDefaultInstance().fireModelElementAboutToBeReloaded(rootME);
 			try {
 				component.load(new NullProgressMonitor(), false, true);
-				WorkspaceJob job = new WorkspaceJob("") {
+				WorkspaceJob job = new WorkspaceJob("Integrity check job") {
 					
 					@Override
 					public IStatus runInWorkspace(IProgressMonitor monitor)
 							throws CoreException {
-						IntegrityManager_c manager = new IntegrityManager_c(component.getRootModelElement().getModelRoot());
-						IntegrityChecker.runIntegrityCheck(component.getRootModelElement(), manager);
+						IntegrityChecker.createIntegrityIssues(component.getRootModelElement());
 						return Status.OK_STATUS;
 					}
 				};

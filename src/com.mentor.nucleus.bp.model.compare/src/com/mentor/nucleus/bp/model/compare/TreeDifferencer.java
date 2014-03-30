@@ -342,7 +342,7 @@ public class TreeDifferencer extends Differencer {
 			result = leftComparable
 					.treeItemValueEqualsIncludingChildren(rightComparable);
 		}
-		if(result && !excludeLocationComparison) {
+		if(result && !excludeLocationComparison && !leftComparable.ignoreOrdering()) {
 			// check the location as well
 			int leftLocation = getLocationOfElement(
 					contentProvider.getParent(left), left,

@@ -434,7 +434,7 @@ for each clazz in classes
   end if;
 end for;
 
-self.Key_Lett = self.Key_Lett + "KEY";
+self.Key_Lett = name;
 self.addIdentifiers();
 
 // create an instance state machine id and a class state machine

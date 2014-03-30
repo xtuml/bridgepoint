@@ -25,6 +25,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +34,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -185,6 +187,8 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 	private CTabFolder rightFolder;
 	private List<ModelMergeViewer> leftExtensions = new ArrayList<ModelMergeViewer>();
 	private List<ModelMergeViewer> rightExtensions = new ArrayList<ModelMergeViewer>();
+	private Map<NonRootModelElement, ICompareInput> savedModels = new HashMap<NonRootModelElement, ICompareInput>();
+	private Map<NonRootModelElement, ICompareInput> visitedModels = new HashMap<NonRootModelElement, ICompareInput>();
 	
 	public ModelContentMergeViewer(Composite parent,
 			CompareConfiguration configuration) {
@@ -204,10 +208,30 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 
 			@Override
 			public void saveLeftContent(Object element, byte[] bytes) {
-					if(element instanceof ICompareInput) {
-						ICompareInput node = (ICompareInput) element;
-						writeData(node, true);
+				if (element instanceof ICompareInput) {
+					ICompareInput node = (ICompareInput) element;
+					writeData(node, true);
+					NonRootModelElement[] rootElements = new NonRootModelElement[0];
+					try {
+						rootElements = modelManager.getRootElements(element,
+								this, false, getLeftCompareRoot(),
+								ModelCacheManager.getLeftKey(element));
+						if (rootElements.length != 0) {
+							ICompareInput savedInput = savedModels.get(rootElements[0]);
+							if(savedInput == null) {
+								savedModels.put(rootElements[0], node);
+							}
+						}
+					} catch (ModelLoadException e) {
+						CorePlugin
+								.logError(
+										"Unable to get root model elements from compare input.",
+										e);
+					} finally {
+						modelManager.releaseModel(element, this,
+								ModelCacheManager.getLeftKey(element));
 					}
+				}
 			}
 
 			@Override
@@ -215,6 +239,26 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				if (element instanceof ICompareInput) {
 					ICompareInput node = (ICompareInput) element;
 					writeData(node, false);
+					NonRootModelElement[] rootElements = new NonRootModelElement[0];
+					try {
+						rootElements = modelManager.getRootElements(element,
+								this, false, getRightCompareRoot(),
+								ModelCacheManager.getRightKey(element));
+						if (rootElements.length != 0) {
+							ICompareInput savedInput = savedModels.get(rootElements[0]);
+							if(savedInput == null) {
+								savedModels.put(rootElements[0], node);
+							}
+						}
+					} catch (ModelLoadException e) {
+						CorePlugin
+								.logError(
+										"Unable to get root model elements from compare input.",
+										e);
+					} finally {
+						modelManager.releaseModel(element, this,
+								ModelCacheManager.getRightKey(element));
+					}
 				}
 
 			}
@@ -226,29 +270,30 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 	protected void writeData(ICompareInput input, boolean toLeft) {
 		try {
 			ITypedElement destination = input.getLeft();
-			Ooaofooa root = getLeftCompareRoot();
+			Ooaofooa root = Ooaofooa.getInstance(ModelRoot
+					.getLeftCompareRootPrefix() + input.hashCode());
 			if (!toLeft) {
 				destination = input.getRight();
-				root = getRightCompareRoot();
+				root = Ooaofooa.getInstance(ModelRoot
+						.getRightCompareRootPrefix() + input.hashCode());
 			}
 			final NonRootModelElement rootElement = modelManager
 					.getRootElements(destination, null, false, root,
 							ModelCacheManager
-									.getLeftKey(getInput() != null ? getInput()
-											: oldInput))[0];
+									.getLeftKey(input))[0];
 			if (destination instanceof IEditableContent) {
 				// before saving copy all graphical changes that are
 				// non-conflicting
 				List<TreeDifference> incomingGraphicalDifferences = getIncomingGraphicalDifferences(toLeft);
 				if (incomingGraphicalDifferences.size() > 0) {
 					mergeIncomingGraphicalChanges(incomingGraphicalDifferences,
-							toLeft);
+							toLeft, input);
 				}
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				AbstractModelExportFactory modelExportFactory = CorePlugin
 						.getModelExportFactory();
 				IRunnableWithProgress runnable = modelExportFactory.create(
-						getLeftCompareRoot(), baos, rootElement);
+						root, baos, rootElement);
 				CoreExport.forceProxyExport = true;
 				runnable.run(new NullProgressMonitor());
 				CoreExport.forceProxyExport = false;
@@ -300,18 +345,20 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 	}
 
 	protected void mergeIncomingGraphicalChanges(
-			List<TreeDifference> incomingGraphicalDifferences, boolean left) {
+			List<TreeDifference> incomingGraphicalDifferences, boolean left, ICompareInput input) {
 		ITreeDifferencerProvider provider = (ITreeDifferencerProvider) leftTreeViewer
 				.getContentProvider();
 		ITableLabelProvider labelProvider = (ITableLabelProvider) leftTreeViewer
 				.getLabelProvider();
-		Ooaofooa destinationRoot = getLeftCompareRoot();
+		Ooaofooa destinationRoot = Ooaofooa.getInstance(ModelRoot.getLeftCompareRootPrefix()
+					+ input.hashCode());
 		if (!left) {
 			provider = (ITreeDifferencerProvider) rightTreeViewer
 					.getContentProvider();
 			labelProvider = (ITableLabelProvider) rightTreeViewer
 					.getLabelProvider();
-			destinationRoot = getRightCompareRoot();
+			destinationRoot = Ooaofooa.getInstance(ModelRoot.getRightCompareRootPrefix()
+						+ input.hashCode());
 		}
 		for (TreeDifference difference : incomingGraphicalDifferences) {
 			try {
@@ -1253,9 +1300,13 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		boolean rightEditable = getCompareConfiguration().isRightEditable();
 		if(left instanceof IEditableContent) {
 			leftEditable = ((IEditableContent) left).isEditable();
+		} else {
+			leftEditable = false;
 		}
 		if(right instanceof IEditableContent) {
 			rightEditable = ((IEditableContent) right).isEditable();
+		} else {
+			rightEditable = false;
 		}
 		getLeftViewer().setEditable(leftEditable);
 		getRightViewer().setEditable(rightEditable);
@@ -1273,32 +1324,34 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				Object ancestorKey = ModelCacheManager.getAncestorKey(getInput());
 				ModelCacheManager modelCacheManager = ComparePlugin
 						.getDefault().getModelCacheManager();
-				ICompareInput previous = (ICompareInput) oldInput;
-				if(previous != null) {
-					ITypedElement oldLeft = previous.getLeft();
-					ITypedElement oldRight = previous.getRight();
-					ITypedElement oldAncestor = previous.getAncestor();
-					modelCacheManager.releaseModel(oldLeft, this, ModelCacheManager.getLeftKey(oldInput));
-					modelCacheManager.releaseModel(oldRight, this, ModelCacheManager.getRightKey(oldInput));
-					modelCacheManager.releaseModel(oldAncestor, this, ModelCacheManager.getAncestorKey(oldInput));
-				}
 				NonRootModelElement[] leftElements = null;
 				NonRootModelElement[] rightElements = null;
 				NonRootModelElement[] ancestorElements = null;
 				if(left instanceof IStreamContentAccessor) {
 					leftElements = modelCacheManager
-							.getRootElements(left, this, true,
+							.getRootElements(left, this, false,
 									getLeftCompareRoot(), leftKey);
 				}
 				if(right instanceof IStreamContentAccessor) {
 					rightElements = modelCacheManager
-							.getRootElements(right, this, true,
+							.getRootElements(right, this, false,
 									getRightCompareRoot(), rightKey);
 				}
 				if(ancestor instanceof IStreamContentAccessor) {
 					ancestorElements = modelCacheManager
-							.getRootElements(ancestor, this, true,
+							.getRootElements(ancestor, this, false,
 									getAncestorCompareRoot(), ancestorKey);
+				}
+				if(leftElements.length != 0) {
+					ICompareInput visited = visitedModels.get(leftElements[0]);
+					if(visited == null) {
+						visitedModels.put(leftElements[0], (ICompareInput) getInput());
+					}
+				} else if (rightElements.length != 0) {
+					ICompareInput visited = visitedModels.get(rightElements[0]);
+					if(visited == null) {
+						visitedModels.put(rightElements[0], (ICompareInput) getInput());
+					}
 				}
 				// configure cache key for left, right and ancestor label providers
 				((ModelCompareContentProvider) leftTreeViewer
@@ -1550,42 +1603,88 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 
 	@Override
 	protected void handleDispose(DisposeEvent event) {
-		// force a write here to remove any
-		// git conflict markers
-		ICompareInput compareInput = (ICompareInput) getInput();
-		writeData(compareInput, true);
+		// persist any non-saved left inputs
+		Set<NonRootModelElement> elements = visitedModels.keySet();
+		for (NonRootModelElement element : elements) {
+			ICompareInput saved = savedModels.get(element);
+			if (saved == null) {
+				// only do this for any that have the
+				// git annotations
+				NonRootModelElement elementGlobally = (NonRootModelElement) Ooaofooa
+						.getDefaultInstance()
+						.getInstanceList(element.getClass())
+						.getGlobal(element.getInstanceKey());
+				if (elementGlobally != null) {
+					InputStream actualContents = null;
+					try {
+						actualContents = elementGlobally.getFile()
+								.getContents();
+					} catch (CoreException e) {
+						CorePlugin
+								.logError(
+										"Unable to load local file for conflict annotation removal.",
+										e);
+					}
+					if (actualContents != null) {
+						String data = readData(actualContents);
+						if (data.contains(">>>>>>>")
+								&& data.contains("<<<<<<<")
+								&& data.contains("=======")) {
+							// we need to reload the data from the input, incase
+							// a user has modified and the closed without saving
+							ICompareInput input = (ICompareInput) visitedModels
+									.get(element);
+							Ooaofooa compareRoot = Ooaofooa
+									.getInstance(ModelRoot
+											.getLeftCompareRootPrefix()
+											+ input.hashCode());
+							try {
+								ITypedElement left = input.getLeft();
+								modelManager.getRootElements(left, this, true,
+										compareRoot,
+										ModelCacheManager.getLeftKey(input));
+								elementGlobally
+										.getFile()
+										.setContents(
+												((IStreamContentAccessor) input
+														.getLeft())
+														.getContents(),
+												IResource.FORCE,
+												new NullProgressMonitor());
+							} catch (CoreException e) {
+								CorePlugin
+										.logError(
+												"Unable to update local contents to remove conflict annotations.",
+												e);
+							} catch (ModelLoadException e) {
+								CorePlugin
+										.logError(
+												"Unable to load compare contents to remove conflict annotations.",
+												e);
+							}
+						}
+					}
+				}
+			}
+		}
+		for (NonRootModelElement element : elements) {
+			ICompareInput previous = visitedModels.get(element);
+			ITypedElement oldLeft = previous.getLeft();
+			ITypedElement oldRight = previous.getRight();
+			ITypedElement oldAncestor = previous.getAncestor();
+			ModelCacheManager modelCacheManager = ComparePlugin.getDefault()
+					.getModelCacheManager();
+			modelCacheManager.releaseModel(oldLeft, this,
+					ModelCacheManager.getLeftKey(previous));
+			modelCacheManager.releaseModel(oldRight, this,
+					ModelCacheManager.getRightKey(previous));
+			modelCacheManager.releaseModel(oldAncestor, this,
+					ModelCacheManager.getAncestorKey(previous));
+		}
+		visitedModels.clear();
+		savedModels.clear();
 		differencer.dipose();
 		instanceMap.remove(getInput());
-		if (leftTreeViewer != null) {
-			Object leftKey = null;
-			if (getInput() != null) {
-				leftKey = ModelCacheManager.getLeftKey(getInput());
-			} else {
-				leftKey = ModelCacheManager.getLeftKey(oldInput);
-			}
-			ComparePlugin.getDefault().getModelCacheManager().releaseModel(
-					leftTreeViewer.getInput(), this, leftKey);
-		}
-		if (rightTreeViewer != null) {
-			Object rightKey = null;
-			if (getInput() != null) {
-				rightKey = ModelCacheManager.getRightKey(getInput());
-			} else {
-				rightKey = ModelCacheManager.getRightKey(oldInput);
-			}
-			ComparePlugin.getDefault().getModelCacheManager().releaseModel(
-					rightTreeViewer.getInput(), this, rightKey);
-		}
-		if (ancestorTreeViewer != null) {
-			Object ancestorKey = null;
-			if (getInput() != null) {
-				ancestorKey = ModelCacheManager.getAncestorKey(getInput());
-			} else {
-				ancestorKey = ModelCacheManager.getAncestorKey(oldInput);
-			}
-			ComparePlugin.getDefault().getModelCacheManager().releaseModel(
-					ancestorTreeViewer.getInput(), this, ancestorKey);
-		}
 		super.handleDispose(event);
 		if (canvas != null) {
 			canvas.dispose();
@@ -1612,6 +1711,26 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			colors.clear();
 		}
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
+	}
+
+	private String readData(InputStream contents) {
+		try {
+			byte[] resultBuff = new byte[0];
+			byte[] buff = new byte[1024];
+			int i = -1;
+			while ((i = contents.read(buff, 0, buff.length)) > -1) {
+				byte[] tbuff = new byte[resultBuff.length + i];
+				System.arraycopy(resultBuff, 0, tbuff, 0, resultBuff.length);
+				System.arraycopy(buff, 0, tbuff, resultBuff.length, i);
+				resultBuff = tbuff;
+			}
+			String result = new String(resultBuff);
+			contents.close();
+			return result;
+		} catch (IOException e) {
+			CorePlugin.logError("Unable to read compare contents.", e);
+		}
+		return "";
 	}
 
 	public CompareTransactionManager getCompareTransactionManager() {
