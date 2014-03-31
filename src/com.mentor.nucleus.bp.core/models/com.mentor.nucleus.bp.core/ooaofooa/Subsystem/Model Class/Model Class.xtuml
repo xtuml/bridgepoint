@@ -439,8 +439,8 @@ self.addIdentifiers();
 
 // create an instance state machine id and a class state machine
 // id
-self.Ism_ID = Util::getNewUniqueId();
-self.Csm_ID = Util::getNewUniqueId();',
+self.Ism_ID = Util::getUniqueStateMachineId(classId:self.Obj_ID, type:"i");
+self.Csm_ID = Util::getUniqueStateMachineId(classId:self.Obj_ID, type:"c");',
 	1,
 	'',
 	"0fbc7afe-0620-4884-a3a4-fbb33e6e740c");

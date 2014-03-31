@@ -2340,12 +2340,34 @@ INSERT INTO S_BRG
 INSERT INTO S_BRG
 	VALUES ("c69d4b56-7ec3-45a4-9ac2-bca5ab6ca915",
 	"b69262ac-62eb-4030-b329-b967033f0ee0",
-	'getNewUniqueId',
+	'getUniqueStateMachineId',
 	'Translate:native',
 	0,
 	"a5f314e0-43b6-40bd-8aee-520de6952a24",
-	'	return UUID.randomUUID();',
+	'		IdAssigner assigner = new IdAssigner();
+		int hashCode = p_Classid.hashCode() + p_Type.hashCode();
+		assigner.setSeed(hashCode);
+		UUID stateId = assigner.createUUID();
+		return stateId;',
 	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("d4edd0a0-eb44-4195-9698-81dd3b2d47a8",
+	"c69d4b56-7ec3-45a4-9ac2-bca5ab6ca915",
+	'classId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("2aa97545-d33a-4e97-ae6d-9bac9334d8eb",
+	"c69d4b56-7ec3-45a4-9ac2-bca5ab6ca915",
+	'type',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"d4edd0a0-eb44-4195-9698-81dd3b2d47a8",
 	'');
 INSERT INTO S_BRG
 	VALUES ("13525d6f-5a99-4486-ace5-f6066e733e51",
@@ -2354,12 +2376,18 @@ INSERT INTO S_BRG
 	'Translate:native',
 	0,
 	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	'		if(p_Class instanceof ModelClass_c) {
+	'		if (p_Class instanceof ModelClass_c) {
 			ModelClass_c modelClass = (ModelClass_c) p_Class;
 			StateMachine_c sm = new StateMachine_c(modelClass.getModelRoot(),
 					modelClass.getIsm_id(), "", 0);
+			Ooaofooa.getDefaultInstance().fireModelElementCreated(
+					new BaseModelDelta(Modeleventnotification_c.DELTA_NEW, sm));
 			InstanceStateMachine_c ism = new InstanceStateMachine_c(
 					modelClass.getModelRoot());
+			Ooaofooa.getDefaultInstance()
+					.fireModelElementCreated(
+							new BaseModelDelta(
+									Modeleventnotification_c.DELTA_NEW, ism));
 			modelClass.relateAcrossR518To(ism);
 			sm.relateAcrossR517To(ism);
 		}',
@@ -2381,12 +2409,18 @@ INSERT INTO S_BRG
 	'Translate:native',
 	0,
 	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	'		if(p_Class instanceof ModelClass_c) {
+	'		if (p_Class instanceof ModelClass_c) {
 			ModelClass_c modelClass = (ModelClass_c) p_Class;
 			StateMachine_c sm = new StateMachine_c(modelClass.getModelRoot(),
 					modelClass.getCsm_id(), "", 0);
+			Ooaofooa.getDefaultInstance().fireModelElementCreated(
+					new BaseModelDelta(Modeleventnotification_c.DELTA_NEW, sm));
 			ClassStateMachine_c csm = new ClassStateMachine_c(
 					modelClass.getModelRoot());
+			Ooaofooa.getDefaultInstance()
+					.fireModelElementCreated(
+							new BaseModelDelta(
+									Modeleventnotification_c.DELTA_NEW, csm));
 			modelClass.relateAcrossR519To(csm);
 			sm.relateAcrossR517To(csm);
 		}
