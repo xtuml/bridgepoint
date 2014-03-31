@@ -22,12 +22,14 @@ We shall consider best-in-industry tools including cousera.org and WordPress.
 [1] Issues 167, https://github.com/xtuml/internal/issues/167    
 [2] CQ DEI dts0101037431  
 [3] Issues 166, dts0101037420 - xtUML Self-Paced Tool Training  
+[4] Training Collateral Enhancement - Analysis Note, https://github.com/xtuml/internal/blob/d78935e061defd0ce0a758d5537d2ebfa432b947/doc-internal/notes/141_dts0101022089_training/141.ant.md  
 
 3. Background
 -------------
 
 4. Requirements
 ---------------
+The requirements for the online training platform are set forth in [4].  
 
 5. Analysis
 -----------
@@ -116,6 +118,14 @@ We shall consider best-in-industry tools including cousera.org and WordPress.
 
 6. Work Required
 ----------------
+6.1  Based on the requirements stated in [4], the following are most appealing:
+  - __Moodle (https://moodle.com/)__ (In reality, a provider that hosts a moodle server that others can create courses on)
+  - __openlearning (http://www.openlearning.com)__
+  - __Eliademy (http://eliademy.com)__
+  - __WordPress plug-ins__ There are WordPress plug-ins that provide Learning Management Systems (LMS)
+    - TalentLMS WordPress plugin
+    - WP Courseware (http://wpcourseware.com/)
+    - BuddyPress Courseware
 
 7. Acceptance Test
 ------------------
