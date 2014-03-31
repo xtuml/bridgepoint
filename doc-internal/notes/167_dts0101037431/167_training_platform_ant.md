@@ -118,7 +118,7 @@ The requirements for the online training platform are set forth in [4].
 
 6. Work Required
 ----------------
-6.1  Based on the requirements stated in [4], the following are most appealing:
+6.1  Much of the MOOC world is being driven by universities starting to put course content online.  This sites built on this philosophy are too restrictive for our needs.  Based on the requirements stated in [4], the following are most appealing:
   - __Moodle (https://moodle.com/)__ (In reality, a provider that hosts a moodle server that others can create courses on)
   - __openlearning (http://www.openlearning.com)__
   - __Eliademy (http://eliademy.com)__
@@ -126,6 +126,7 @@ The requirements for the online training platform are set forth in [4].
     - TalentLMS WordPress plugin
     - WP Courseware (http://wpcourseware.com/)
     - BuddyPress Courseware
+  - __mooc.org (http://mooc.org)__  
 
 7. Acceptance Test
 ------------------
