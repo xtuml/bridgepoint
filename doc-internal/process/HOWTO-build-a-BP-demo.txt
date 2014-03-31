@@ -1,10 +1,8 @@
 ========================================================================
 
 File:      $RCSfile: HOWTO-build-a-BP-demo.txt,v $
-Version:   $Revision: 1.14 $
-Modified:  $Date: 2013/02/01 19:29:02 $
 
-(c) Copyright 2006-2010 by Mentor Graphics Corp. All rights reserved.
+(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
 
 ========================================================================
 This document contains information proprietary and confidential to
@@ -34,37 +32,37 @@ How to create a BP demo
    date.
    20131212-20140331
    
-_- Create a issue in ClearQuest to track the request for a new demo.   
+_- Create an issue in ClearQuest to track the request for a new demo.   
    For an example see dts0100685202.
          cq issue: <TODO>
          
-_- Create a issue in the git/internal repository to serve as a "twin" for
+_- Create an issue in the git/internal repository to serve as a "twin" for
    the CQ issue.
          git: <TODO>
 
 -- Build the source with the demo license check enabled   
-	_- Open a standard BridgePoint development workspace based on the head 
-	   branch.
+	_- Open a standard BridgePoint development workspace.
 	
 	_- Get the appropriate version of the source for the demo.  Use a 
 	   release tag to check out the appropriate version if needed.
 	 
 	_- Create a new branch for the demo version.  NOTE!!  These changes will 
-	   NOT be promoted to head.	  
-		_- Create a branch (example v4.1.4Demo) for the changes
+	   NOT be promoted to master.	  
+		_- Create a branch (example v4.1.4Demo) for the changes.
 		   You will need to branch the git/internal and git/generator
-		   repositories 
+		   repositories. 
 	             
 	_- Enable the demo license check in bp.core	
-		_- "Uncomment" the java code in 
+		_- Uncomment the java code in 
 		   bp/core/util/BridgePointLicenseManager.java::isDemoLicensed()
 		   that turns on the demo license
 		_- Check in the change to the branch
 	
 	_- Allow demo post-install cleanup
-	    _- Uncomment the script code in Installer_MIP_MIMIC/post_install_script.bat
-	       and post_install_script.sh that removes unneeded MCs from demo 
-	       installations.
+	    _- Add the script code in Installer_MIP_MIMIC/post_install_script.bat
+	       and post_install_script.sh that removes unneeded MCs (leaving mc.none) from demo 
+	       installations.  Compare these files with a previous demo branch (e.g. v4.1.8Demo) to 
+	       see the necessary changes.
 	       
 	_- Update the BridgePoint version number as described in [2]
 	
@@ -98,14 +96,21 @@ _- Create a issue in the git/internal repository to serve as a "twin" for
 	   (hardcoded) demo period.
 	_- Note!!  Make sure you change the 2 hard-coded dates in the above code to
 	   reflect the correct demo start and end dates.
-	_- check in the change to the branch
-	_- Build a new gen_erate.exe [3]
+	_- Update the version number in this same file
+	_- Check in the change to the branch
+	_- Build a new gen_erate.exe [3] on svr-azt-eng-03
+	
 -- Create a branch in svn [5] to hold all the "extra files" needed for the 
    BridgePoint build
-    _- open the SVN Repositories view in eclipse
-    _- create a branch in svn [5] with the same name used for the git branch
-       (for example: v4.1.4Demo)
-    _- from the svn repositories view, copy the following projects from trunk 
+    _- Log in to svr-azt-eng-03
+    _- Open BridgePoint on c:/workspaces/build_artifacts
+    _- Open the SVN Repository Exploring perspective
+    _- Expand http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml, log in with 
+       your MGC user/pass.  Do not save credentials.
+    _- Create a branch in svn [5] with the same name used for the git branch
+       (for example: v4.1.4Demo), by right-clicking on "branches" and selecting 
+       New > Folder.
+    _- From the svn repositories view, copy the following projects from trunk 
        and paste them into the new branch:
        apache-ant
        bp_build_tools
@@ -118,28 +123,30 @@ _- Create a issue in the git/internal repository to serve as a "twin" for
     _R The new branch is now created with all the files needed for the build 
        server.
    	
--- Checkin gen_erate.exe to the svn branch created above that the build server 
+-- Check in gen_erate.exe to the svn branch created above that the build server 
    will use to build the product.	
-    _- check out the extra_files_for_build project from the svn branch 
+    _- Check out the extra_files_for_build project from the svn branch 
     _- Copy the new gen_erate.exe into extra_files_for_build/gen_erate.exe and
        check this into the branch.
     	          
 -- Copy the BridgePointDemo.txt file into place so it can be include in the 
    build of the installer.
    
-   -- First we do this for the windows version of the tool
-    _- check out BridgePoint_e<X.Y>/BridgePointDeliverables/license 
-       from the svn branch.
+   _- Transfer the BridgePointDemo.txt from earlier to svr-azt-eng-03
+   
+   -- First we do the process for the windows version of the tool
+    _- Still using the c:/workspaces/build_artifacts workspace, check out 
+       BridgePoint_e<X.Y>/BridgePointDeliverables/license from the svn branch for the demo.
        Note: We only check out this folder because the BridgePoint_e<X.Y> 
              project is HUGE and we don't need the whole thing.
-    _- copy <git internal>BridgePointDemoKeyCreator/license_files_handed_out/BridgePointDemo.txt-<startdate>-thru-<enddate> to 
+    _- Copy <git internal>BridgePointDemoKeyCreator/license_files_handed_out/BridgePointDemo.txt-<startdate>-thru-<enddate> to 
        the "license" folder that was just checked out.
-    _- rename BridgePointDemo.txt-<startdate>-thru-<enddate> to
+    _- Rename BridgePointDemo.txt-<startdate>-thru-<enddate> to
 	   BridgePointDemo.txt
 	_- Check BridgePointDemo.txt into the branch	   
-	_- delete the "license" project from your workspace
+	_- Delete the "license" project from your workspace
 
-	-- Now repeat the above steps for Linux		
+    -- Now repeat the above steps for Linux		
     _- Repeat the steps above, but instead of BridgePoint_e<X.Y>, use 
        BridgePoint_for_Linux_e<X.Y>
 	   
