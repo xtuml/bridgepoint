@@ -434,7 +434,7 @@ for each clazz in classes
   end if;
 end for;
 
-self.Key_Lett = name;
+self.Key_Lett = OS::remove_spaces(s:name);
 self.addIdentifiers();
 
 // create an instance state machine id and a class state machine
@@ -1471,7 +1471,10 @@ INSERT INTO O_TFR
 associated with this class.',
 	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
 	1,
-	'self.Name = param.new_name;
+	'if(OS::remove_spaces(s:self.Name) == self.Key_Lett)
+  self.Key_Lett = OS::remove_spaces(s:param.new_name);
+end if;
+self.Name = param.new_name;
 
 select any ir related by self->S_IRDT[R123] where selected.isSet == false;
 if (not_empty ir)
