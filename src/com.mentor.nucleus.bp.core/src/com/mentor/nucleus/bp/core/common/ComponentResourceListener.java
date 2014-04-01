@@ -26,7 +26,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -55,8 +58,6 @@ import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.Domain_c;
-import com.mentor.nucleus.bp.core.IntegrityIssue_c;
-import com.mentor.nucleus.bp.core.IntegrityManager_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.XtUMLNature;
@@ -135,7 +136,9 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
     	}
 	}
 	private void loadCollectedComponents() {
-		// first locate the system PMC
+		// we need to capture the old and new elements during the load
+		// run, they will be used later during change notification
+		Map<ModelElement, ModelElement> elementMap = new HashMap<ModelElement, ModelElement>();
 		for(final PersistableModelComponent component : componentsToLoad) {
 			NonRootModelElement rootME = component.getRootModelElement();
             Ooaofooa.getDefaultInstance().fireModelElementAboutToBeReloaded(rootME);
@@ -151,15 +154,20 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
 					}
 				};
 				job.schedule();
+				elementMap.put(rootME, component.getRootModelElement());
 			} catch (CoreException e) {
 				CorePlugin.logError("Unable to load replaced component.", e);
 			}
+		}
+		// we must fire notification after all components have been
+		// loaded, otherwise change notification may be disabled
+		// while loading another component causing lost notification
+		Set<ModelElement> keySet = elementMap.keySet();
+		for(ModelElement key : keySet) {
+			ModelElement newElement = elementMap.get(key);
             // reload will cause the rootME to be deleted/created
             // so get the new instance 
-            if(component.isLoaded()){// if component is invalid and could not load then it will not fire reload event.
-                NonRootModelElement newRootME = component.getRootModelElement();
-                Ooaofooa.getDefaultInstance().fireModelElementReloaded(rootME, newRootME);
-            }
+            Ooaofooa.getDefaultInstance().fireModelElementReloaded(key, newElement);
 		}
 	}
 	public boolean visit(IResourceDelta delta) {
