@@ -1,0 +1,23 @@
+This document captures the state of the BridgePoint unit tests:
+===============================================================
+Branch: 
+	Repository: xtuml/internal  
+	Branch name: 200_949005_HKA    
+
+	Repository: xtuml/models  
+	Branch name: 200_949005_HKA    
+ 
+ 
+ 
+ 	https://github.com/xtuml/internal/issues/200
+
+ 
+
+Hostname: 	hkhaled_lptp 
+OS Name:  	Windows 7
+ 
+
+Test Suite                              Status			TestRuns	Time    Timestamp
+---------------------------------------------------------------------------------------------
+Parse All Test						             	PASS			4600		391.517s 20140327	 
+
