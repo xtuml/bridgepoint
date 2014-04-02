@@ -106,40 +106,24 @@ import com.mentor.nucleus.bp.ui.graphics.utilities.TextUtilities;
 public class ShapeEditPart extends AbstractGraphicalEditPart implements
 		NodeEditPart {
 
-	public class TooltipFigure extends ScrollPane {
-	    private final Border TOOLTIP_BORDER = new MarginBorder(1, 2, 3, 4);
+	
+	public class TooltipFigure extends FlowPage {
+	    private final Border TOOLTIP_BORDER = new MarginBorder(0, 2, 1, 0);
 	    private TextFlow message;
-	    private FlowPage container;
-	    
+	     
 	    public TooltipFigure() {
 	        setOpaque(true);
 	        setBorder(TOOLTIP_BORDER);
 	        message = new TextFlow();
-	        container = new FlowPage();
-	        container.add(message);
-	        Dimension MIN = new Dimension(5, 5);
-	        Dimension MAX = new Dimension(10, 10);
-	        container.setMaximumSize(MAX);
-	        
-//	        message.setMinimumSize(MIN);
-	        message.setMaximumSize(MAX);
-	        setContents(container);
-//	        add(message);
-	        createVerticalScrollBar();
-	        createHorizontalScrollBar();
-	        setScrollBarVisibility(2);
-	        setFocusTraversable(true);
-	        setRequestFocusEnabled(true);
-	        setMinimumSize(MIN);
-	        setMaximumSize(MAX);
-	        
+	        message.setText("");
+	        add(message);
 	    }
 	     
 	    @Override
 	    public Dimension getPreferredSize(int w, int h) {
 	        Dimension d = super.getPreferredSize(-1, -1);
-	        if (d.width > 150)
-	            d = super.getPreferredSize(150, -1);
+//	        if (d.width > 150)
+//	            d = super.getPreferredSize(150, -1);
 	        return d;
 	    }
 	     
@@ -148,15 +132,59 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements
 	        revalidate();
 	        repaint();
 	    }
-
-		@Override
-		public void paint(Graphics graphics) {
-			// TODO Auto-generated method stub
-			super.paint(graphics);
-			System.out.println("TEST");
-			setFocus(true);
-		}
 	}
+	
+//	public class TooltipFigure extends ScrollPane {
+//	    private final Border TOOLTIP_BORDER = new MarginBorder(1, 2, 3, 4);
+//	    private TextFlow message;
+//	    private FlowPage container;
+//	    
+//	    public TooltipFigure() {
+//	        setOpaque(true);
+//	        setBorder(TOOLTIP_BORDER);
+//	        message = new TextFlow();
+//	        container = new FlowPage();
+//	        container.add(message);
+////	        Dimension MIN = new Dimension(5, 5);
+////	        Dimension MAX = new Dimension(10, 10);
+////	        container.setMaximumSize(MAX);
+//	        setScrollBarVisibility(0);
+////	        message.setMinimumSize(MIN);
+////	        message.setMaximumSize(MAX);
+//	        setContents(container);
+////	        add(message);
+////	        createVerticalScrollBar();
+////	        createHorizontalScrollBar();
+////	        setScrollBarVisibility(2);
+////	        setFocusTraversable(true);
+////	        setRequestFocusEnabled(true);
+////	        setMinimumSize(MIN);
+////	        setMaximumSize(MAX);
+//	        
+//	    }
+//	     
+//	    @Override
+//	    public Dimension getPreferredSize(int w, int h) {
+//	        Dimension d = super.getPreferredSize(-1, -1);
+//	        if (d.width > 150)
+//	            d = super.getPreferredSize(150, -1);
+//	        return d;
+//	    }
+//	     
+//	    public void setMessage(String txt) {
+//	        message.setText(txt);
+//	        revalidate();
+//	        repaint();
+//	    }
+//
+//		@Override
+//		public void paint(Graphics graphics) {
+//			// TODO Auto-generated method stub
+//			super.paint(graphics);
+//			System.out.println("TEST");
+//			setFocus(true);
+//		}
+//	}
 	
 
 	
