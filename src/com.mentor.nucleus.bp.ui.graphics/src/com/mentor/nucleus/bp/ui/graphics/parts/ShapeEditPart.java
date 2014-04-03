@@ -217,6 +217,10 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements
 		if (!getTextDescription().equals("")) {
 			tooltipFigure.setMessage(getTextDescription());
 			figure.setToolTip(tooltipFigure);
+		}else{
+//			tooltipFigure = new TooltipFigure();
+//			tooltipFigure.setMessage("Click here to add description");
+//			getFigure().setToolTip(tooltipFigure);
 		}
 		return figure;
 	}
@@ -358,8 +362,9 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements
 			tooltipFigure.setMessage(getTextDescription());
 			getFigure().setToolTip(tooltipFigure);
 		} else {
-			if (getFigure().getToolTip() != null)
-				getFigure().setToolTip(null);
+			TooltipFigure tooltipFigure = new TooltipFigure();
+			tooltipFigure.setMessage("Click here to add description");
+			getFigure().setToolTip(tooltipFigure);
 		}
 		if (isContainerShape()) {
 			Shape_c shape = (Shape_c) getModel();

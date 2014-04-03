@@ -35,6 +35,8 @@ import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.ShellEvent;
+import org.eclipse.swt.events.ShellListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
@@ -52,11 +54,14 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Slider;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.Package_c;
+import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.ui.canvas.GraphicalElement_c;
 import com.mentor.nucleus.bp.ui.canvas.Model_c;
@@ -72,10 +77,10 @@ public class BPToolTipHelper extends ToolTipHelper {
 	private IFigure currentTipSource;
 	private boolean tooltipClicked = false;
 	protected int TooltipStyle = SWT.NONE;
-	private Shell BPTooltipShell;
-	private Shell BPTooltipFocusShell;
+	private Shell BPSimpleTooltipShell;
+	private Shell BPDetailedTooltipShell;
 	private boolean tipShowing;
-	private boolean  Reshow = false;
+	private boolean  ReplaceShell = false;
 	private int BPeventX;
 	private int BPeventY;
 	private IFigure BPtip;
@@ -86,20 +91,30 @@ public class BPToolTipHelper extends ToolTipHelper {
 	private Timer mouseInCloseTimer;
 	private Timer mouseOutCloseTimer;
 	protected boolean showDetailedTooltip = false;
+	protected Text styledText;
 
 	
 	@Override
 	public void displayToolTipNear(IFigure hoverSource, IFigure tip,
 			int eventX, int eventY) {
-		if (tip != null && hoverSource != currentTipSource || Reshow) {
-			if (!Reshow)
+		if (tip != null && hoverSource != currentTipSource || ReplaceShell) {
+			if (!showDetailedTooltip)
 				getLightweightSystem().setContents(tip);
 			Point displayPoint = computeWindowLocation(tip, eventX, eventY);
-			Dimension shellSize = getLightweightSystem().getRootFigure()
-					.getPreferredSize().getExpanded(getShellTrimSize());
-			setShellBounds(displayPoint.x, displayPoint.y, tipSize.width,
-					tipSize.height);
-//			getShell()
+//			Dimension shellSize = getLightweightSystem().getRootFigure()
+//					.getPreferredSize().getExpanded(getShellTrimSize());
+			if(showDetailedTooltip){
+				setShellBounds(displayPoint.x, displayPoint.y, MaxPreferredTooltipSize.width,
+						MaxPreferredTooltipSize.height);
+			}
+			else{ 
+				setShellBounds(displayPoint.x, displayPoint.y, tipSize.width,
+						tipSize.height);
+			}
+
+				
+				
+				//			getShell()
 //			getLightweightSystem().getRootFigure() .getPreferredSize().setSize(10, 10);
 //			getLightweightSystem().getRootFigure().setFocusTraversable(true);
 //			getLightweightSystem().getRootFigure().setMaximumSize(new Dimension(11, 11));
@@ -111,7 +126,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 			BPtip = tip;
 			BPeventX = eventX;
 			BPeventY = eventY;
-			Reshow = false;
+			ReplaceShell = false;
 			
 			timer = new Timer(true);
 			timer.schedule(new TimerTask() {
@@ -136,6 +151,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 		
 		Point preferredLocation = new Point(eventX, eventY + 26);
 
+//		tipSize = tip.getSize();
 		tipSize = getLightweightSystem().getRootFigure()
 				.getPreferredSize().getExpanded(getShellTrimSize());
 		tipSize = CropTipSizeIfNeeded(tipSize);
@@ -177,9 +193,12 @@ public class BPToolTipHelper extends ToolTipHelper {
 	@Override
 	protected void hookShellListeners() {
 
+		
 		getShell().addMouseTrackListener(new MouseTrackAdapter() {
 			@Override
 			public void mouseExit(MouseEvent e) {
+				if (showDetailedTooltip)
+					return;
 				mouseOutCloseTimer = new Timer(true);
 				mouseOutCloseTimer.schedule(new TimerTask() {
 					public void run() {
@@ -194,7 +213,8 @@ public class BPToolTipHelper extends ToolTipHelper {
 			}
 
 			public void mouseEnter(org.eclipse.swt.events.MouseEvent e) {
-//				hide();
+				if (showDetailedTooltip)
+					return;
 				if ( mouseInCloseTimer != null)
 					mouseInCloseTimer.cancel();
 				getShell().setVisible(true);
@@ -216,22 +236,24 @@ public class BPToolTipHelper extends ToolTipHelper {
 			
 			@Override
 			public void mouseUp(MouseEvent e) {
-				int a = 1;
-				int b = a;
-				int c = b + a;
-				a = b + c;
+			
 			}
 			
 			@Override
 			public void mouseDown(MouseEvent e) {
-				tooltipClicked = true;
+//				tooltipClicked = true;
+				if ( showDetailedTooltip)
+					return;
+						
 				getShell().setVisible(false);
-				createAnotherShell();
+				ReplaceShell = true;
+//				lws = null;
+				if (!showDetailedTooltip)
+					showDetailedTooltip = true;
+				createDetailedShell();
+				displayToolTipNear(currentTipSource, BPtip, BPeventX, BPeventY);
 				getShell().setActive();
 				getShell().setFocus();
-				Reshow = true;
-				lws = null;
-				displayToolTipNear(currentTipSource, BPtip, BPeventX, BPeventY);
 				
 			}
 			
@@ -244,21 +266,23 @@ public class BPToolTipHelper extends ToolTipHelper {
 				a = b + c;
 			}
 		});
-		getShell().addFocusListener(new FocusListener() {
-			
-			@Override
-			public void focusLost(FocusEvent e) {
-				hide();
-				timer.cancel();	
-				tooltipClicked = false;
-			}
-			
-			@Override
-			public void focusGained(FocusEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+//		getShell().addFocusListener(new FocusListener() {
+//			
+//			@Override
+//			public void focusLost(FocusEvent e) {
+//				if (showDetailedTooltip)
+//					return;
+//				hide();
+//				timer.cancel();	
+////				showDetailedTooltip = false;
+//			}
+//			
+//			@Override
+//			public void focusGained(FocusEvent e) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//		});
 	}
 	
 	private Shell fShell;
@@ -269,7 +293,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 	private Composite fContentComposite;
 
 	
-	private void createAnotherShell() {
+	private Shell createDetailedShell() {
 		
 		/* JDT tooltip look like  
 		 * \
@@ -335,8 +359,8 @@ public class BPToolTipHelper extends ToolTipHelper {
 		
 		
 //				TooltipStyle = SWT.RESIZE;
-		fShell = BPTooltipShell = new Shell(control.getShell(), SWT.TOOL | SWT.ON_TOP | SWT.RESIZE);
-//				getShell().setVisible(true);
+		fShell = new Shell(control.getShell(), SWT.TOOL | SWT.ON_TOP | SWT.RESIZE);
+//				getShell().setVisible(true); 
 //				tipShowing = true;
 		Display display  = fShell.getDisplay();
 		Color foreground= display.getSystemColor(SWT.COLOR_INFO_FOREGROUND);
@@ -354,15 +378,17 @@ public class BPToolTipHelper extends ToolTipHelper {
 		fContentComposite.setLayout(new FillLayout());
 		setColor(fContentComposite, foreground, background);
 		
-		StyledText styledText = new StyledText(fContentComposite, SWT.BORDER | SWT.V_SCROLL | SWT.WRAP );
+		styledText = new Text(fContentComposite, SWT.BORDER | SWT.V_SCROLL | SWT.WRAP | SWT.MULTI);
 //		styledText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		setColor(styledText, foreground, background);
+		
 		
 		FlowPage flowgage = (FlowPage)BPtip;
 		List list = flowgage.getChildren();
 		TextFlow textflow = (TextFlow)list.get(0);
 		
-		styledText.setText(textflow.getText());
+		if ( !textflow.getText().equalsIgnoreCase("Click here to add description"))
+			styledText.setText(textflow.getText());
 		
 		///  toolbar 
 		fStatusComposite= new Composite(fShell, SWT.NONE);
@@ -410,6 +436,12 @@ public class BPToolTipHelper extends ToolTipHelper {
 		ToolItem tltmOpenDescription = new ToolItem(fToolBar, SWT.NONE);
 		tltmOpenDescription.setText("Open Description");
 		
+		ToolItem separator = new ToolItem(fToolBar, SWT.SEPARATOR);
+//		tltmOpenDescription.setText("Open Description");
+
+		ToolItem closeTooltip = new ToolItem(fToolBar, SWT.NONE);
+		closeTooltip.setText("Close tooltip window");
+		
 		tltmOpenDescription.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -437,8 +469,22 @@ public class BPToolTipHelper extends ToolTipHelper {
 				
 			}
 		});
+		closeTooltip.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				ShapeEditPart part = ((ShapeImageFigure)currentTipSource).getPart();
+				Shape_c shape = (Shape_c) part.getModel();
+//				Model_c model = Model_c.getOneGD_MDOnR1(GraphicalElement_c.getManyGD_GEsOnR2(shape));
+				Package_c modelElement = (Package_c)GraphicalElement_c.getOneGD_GEOnR2(shape).getRepresents();
+				modelElement.setDescrip(styledText.getText());
+				
+				hide();
+				timer.cancel();	
+				
+			}
+		});
 
-		
+		return fShell;
 		/*
 		BPTooltipShell.setLayout(new FillLayout(SWT.VERTICAL));
 		
@@ -514,29 +560,30 @@ public class BPToolTipHelper extends ToolTipHelper {
 		 * control. Hide the tool tip.
 		 */
 		if (figureUnderMouse != null){
-			if ( mouseOutCloseTimer != null)
-				mouseOutCloseTimer.cancel();
-			
+			if (!showDetailedTooltip)
+				if ( mouseOutCloseTimer != null)
+					mouseOutCloseTimer.cancel();
 		}
 		
 		if (figureUnderMouse == null) {
-			if (isShowing()) {
-//				hide();
-//				timer.cancel();
-				mouseInCloseTimer = new Timer(true);
-				mouseInCloseTimer.schedule(new TimerTask() {
-					public void run() {
-						Display.getDefault().asyncExec(new Runnable() {
-							public void run() {
-								hide();
-								mouseInCloseTimer.cancel();
-							}
-						});
-					}
-				}, 500);
-				
-				
-			}
+			if (!showDetailedTooltip)
+				if (isShowing()) {
+					//				hide();
+					//				timer.cancel();
+					mouseInCloseTimer = new Timer(true);
+					mouseInCloseTimer.schedule(new TimerTask() {
+						public void run() {
+							Display.getDefault().asyncExec(new Runnable() {
+								public void run() {
+									hide();
+									mouseInCloseTimer.cancel();
+								}
+							});
+						}
+					}, 500);
+
+
+				}
 		}
 		// Makes tooltip appear without a hover event if a tip is currently
 		// being displayed
@@ -545,7 +592,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 			return;
 		}
 		if (isShowing() && figureUnderMouse != currentTipSource && figureUnderMouse != null) {
-			if (tooltipClicked)
+			if (showDetailedTooltip)
 				return;
 			hide();
 			timer.cancel();
@@ -566,22 +613,51 @@ public class BPToolTipHelper extends ToolTipHelper {
 	
 	@Override
 	protected Shell getShell() {
-		if (BPTooltipShell == null || BPTooltipShell.isDisposed() ) {
-			BPTooltipShell = createShell();
-			hookShellListeners();
+		if (showDetailedTooltip){
+			if (BPDetailedTooltipShell == null || BPDetailedTooltipShell.isDisposed() ) {
+				BPDetailedTooltipShell = createDetailedShell();
+				
+				BPDetailedTooltipShell.addFocusListener(new FocusListener() {
+					
+					@Override
+					public void focusLost(FocusEvent e) {
+						
+//						hide();
+//						timer.cancel();	
+//						showDetailedTooltip = false;
+					}
+					
+					@Override
+					public void focusGained(FocusEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+				
+				hookShellListeners();
+			}
+			return BPDetailedTooltipShell;
 		}
-		return BPTooltipShell;
+			
+		else{
+			if (BPSimpleTooltipShell == null || BPSimpleTooltipShell.isDisposed() ) {
+				BPSimpleTooltipShell = createShell();
+				hookShellListeners();
+			}
+			return BPSimpleTooltipShell;
+		}
 	}
 	
 	@Override
 	protected void hide() {
-		if (BPTooltipShell != null && !BPTooltipShell.isDisposed())
-			BPTooltipShell.setVisible(false);
+		if (getShell() != null && !getShell().isDisposed())
+			getShell().setVisible(false);
 		tipShowing = false;
+		showDetailedTooltip = false;
 	}
 	
 	protected Dimension getShellTrimSize() {
-		Rectangle trim = BPTooltipShell.computeTrim(0, 0, 0, 0);
+		Rectangle trim = getShell().computeTrim(0, 0, 0, 0);
 		return new Dimension(trim.width, trim.height);
 	}
 	
