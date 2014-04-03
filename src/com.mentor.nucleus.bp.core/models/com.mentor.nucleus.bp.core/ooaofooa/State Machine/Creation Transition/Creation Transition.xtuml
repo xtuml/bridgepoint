@@ -235,6 +235,18 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("ab9c7cca-58c2-4362-a5db-fe6263f617f9",
+	"013b28a8-a7ff-49e2-8a2c-acb4b3dcab7e",
+	'getDescription',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one transition related by self->SM_TXN[R507];
+return transition.getDescription();',
+	1,
+	'',
+	"46f707ba-7532-40b0-b41a-e9b7a00ba550");
 INSERT INTO O_REF
 	VALUES ("013b28a8-a7ff-49e2-8a2c-acb4b3dcab7e",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
@@ -333,7 +345,7 @@ INSERT INTO O_REF
 	'',
 	'Local Event',
 	'SM_ID',
-	'R509');
+	'R509.''is assigned to''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("013b28a8-a7ff-49e2-8a2c-acb4b3dcab7e",
 	"61a3550c-993c-4cd2-a4f5-8c39feda4981",
@@ -386,7 +398,7 @@ INSERT INTO O_REF
 	'',
 	'Local Event',
 	'SMevt_ID',
-	'R509');
+	'R509.''is assigned to''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("8afec7f6-5d77-455e-aaf3-a8a417a79bb7",
 	"dd50ce3c-2f09-48bb-8e2d-70f9880240b3",
