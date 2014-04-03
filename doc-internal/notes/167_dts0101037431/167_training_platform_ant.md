@@ -123,9 +123,7 @@ The requirements for the online training platform are set forth in [4].
 6. Work Required
 ----------------
 6.1  Much of the externally-hosted MOOC world is being driven by universities starting to put course content online.  The sites built on this philosophy are too restrictive for our needs.  Based on the requirements stated in [4], the following are most appealing:
-  - __Moodle (https://moodle.com/)__ (In reality, a provider that hosts a moodle server that others can create courses on)
   - __openlearning (http://www.openlearning.com)__
-  - __Eliademy (http://eliademy.com)__
   - __WordPress plug-in, WP Courseware (http://wpcourseware.com/)__
 
 7. Acceptance Test
