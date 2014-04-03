@@ -59,11 +59,7 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IActionFilter;
 
-import com.mentor.nucleus.bp.core.ActionHome_c;
-import com.mentor.nucleus.bp.core.Action_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
-import com.mentor.nucleus.bp.core.MooreActionHome_c;
-import com.mentor.nucleus.bp.core.StateMachineState_c;
 import com.mentor.nucleus.bp.core.Style_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.ui.canvas.Cl_c;
@@ -150,15 +146,10 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements
 		if (elem != null && elem.getRepresents() != null) {
 			Method findMethod = Cl_c.findMethod(elem.getRepresents(),
 					"getDescrip", new Class[0]);
-			if (findMethod == null
-					&& elem.getRepresents() instanceof StateMachineState_c) {
-				Action_c action = Action_c.getOneSM_ACTOnR514(ActionHome_c
-						.getOneSM_AHOnR513(MooreActionHome_c
-								.getOneSM_MOAHOnR511((StateMachineState_c) elem
-										.getRepresents())));
-				if(action != null && !action.getDescrip().equals("")) {
-					return action.getDescrip();
-				}
+			if(findMethod == null) {
+				// try for an operation that returns the description
+				findMethod = Cl_c.findMethod(elem.getRepresents(),
+						"Getdescription", new Class[0]);
 			}
 			if (findMethod != null) {
 				String descrip = (String) Cl_c.doMethod(findMethod, elem

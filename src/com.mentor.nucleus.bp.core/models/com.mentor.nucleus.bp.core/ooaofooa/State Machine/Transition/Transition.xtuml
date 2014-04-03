@@ -1503,6 +1503,19 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
+INSERT INTO O_TFR
+	VALUES ("977c124f-5c4b-4b2a-a46f-f2adf9a9803f",
+	"71e37b76-a350-435b-a3fd-e3d016eb39ef",
+	'getDescription',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one action related by self->SM_TAH[R530]->SM_AH[R513]
+                                                                 ->SM_ACT[R514];
+return action.Descrip;',
+	1,
+	'',
+	"02e1d375-517d-4275-9df2-1a0cf39d6b36");
 INSERT INTO O_NBATTR
 	VALUES ("36961925-2727-4c75-b0bf-c2cd8bc2611d",
 	"71e37b76-a350-435b-a3fd-e3d016eb39ef");
@@ -1564,7 +1577,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine State',
 	'SM_ID',
-	'R506');
+	'R506.''is destined to''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("71e37b76-a350-435b-a3fd-e3d016eb39ef",
 	"be366024-6cad-4ddd-a841-bd3687eb9408",
@@ -1622,7 +1635,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine State',
 	'SMstt_ID',
-	'R506');
+	'R506.''is destined to''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("c1895e17-60ab-46d5-b6a1-e61e34c67638",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
@@ -1668,7 +1681,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine State',
 	'SMspd_ID',
-	'R506');
+	'R506.''is destined to''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("8a37312c-1e1d-4e75-8c6e-911c28662d2b",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",

@@ -61,13 +61,8 @@ import org.eclipse.gmf.runtime.gef.ui.internal.tools.SelectConnectionEditPartTra
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IActionFilter;
 
-import com.mentor.nucleus.bp.core.ActionHome_c;
-import com.mentor.nucleus.bp.core.Action_c;
-import com.mentor.nucleus.bp.core.CreationTransition_c;
 import com.mentor.nucleus.bp.core.End_c;
 import com.mentor.nucleus.bp.core.Style_c;
-import com.mentor.nucleus.bp.core.TransitionActionHome_c;
-import com.mentor.nucleus.bp.core.Transition_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.ui.canvas.AnchorOnSegment_c;
@@ -193,23 +188,10 @@ public class ConnectorEditPart extends AbstractConnectionEditPart implements
 		if (elem != null && elem.getRepresents() != null) {
 			Method findMethod = Cl_c.findMethod(elem.getRepresents(),
 					"getDescrip", new Class[0]);
-			if(findMethod == null && elem.getRepresents() instanceof Transition_c) {
-				Action_c action = Action_c.getOneSM_ACTOnR514(ActionHome_c
-						.getOneSM_AHOnR513(TransitionActionHome_c
-								.getOneSM_TAHOnR530((Transition_c) elem
-										.getRepresents())));
-				if(action != null && !action.getDescrip().equals("")) {
-					return action.getDescrip();
-				}
-			}
-			if(findMethod == null && elem.getRepresents() instanceof CreationTransition_c) {
-				Action_c action = Action_c
-						.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513(TransitionActionHome_c.getOneSM_TAHOnR530(Transition_c
-								.getOneSM_TXNOnR507((CreationTransition_c) elem
-										.getRepresents()))));
-				if(action != null && !action.getDescrip().equals("")) {
-					return action.getDescrip();
-				}
+			if(findMethod == null) {
+				// try for an operation that returns the description
+				findMethod = Cl_c.findMethod(elem.getRepresents(),
+						"Getdescription", new Class[0]);
 			}
 			if (findMethod != null) {
 				String descrip = (String) Cl_c.doMethod(findMethod, elem
