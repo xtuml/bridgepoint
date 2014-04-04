@@ -98,7 +98,8 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
         //progress monitor between the building thread and the saving thread.
         // hence we get to change that value to never so the build continues  
         // without the possibility of a halt due to user wanting dirty editors to be saved before launch
-        DebugUIPlugin.getDefault().getPreferenceStore().setValue(IInternalDebugUIConstants.PREF_SAVE_DIRTY_EDITORS_BEFORE_LAUNCH, "never");
+// TODO FIXME: This needs to be refactored		
+//        DebugUIPlugin.getDefault().getPreferenceStore().setValue(IInternalDebugUIConstants.PREF_SAVE_DIRTY_EDITORS_BEFORE_LAUNCH, "never");
 
 	}
 

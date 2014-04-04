@@ -43,6 +43,7 @@ import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.common.ModelRoot;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
+import com.mentor.nucleus.bp.core.util.CoreUtil;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.ui.canvas.Ooaofgraphics;
 import com.mentor.nucleus.bp.ui.text.activity.AllActivityModifier;
@@ -345,15 +346,16 @@ public abstract class CoreExport implements IRunnableWithProgress {
 			CorePlugin.logError(message, null);
 		}
 
-		// Make sure that all events in the asynchronous event queue
-		// are dispatched. This is here is help assure that parse errors
-		// are detected by the ILogListener
-		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
-			public void run() {
-				// do nothing
-			}
-		});
-		
+		if (!CoreUtil.IsRunningHeadless) {
+			// Make sure that all events in the asynchronous event queue
+			// are dispatched. This is here is help assure that parse errors
+			// are detected by the ILogListener
+			PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+				public void run() {
+					// do nothing
+				}
+			});
+		}
 		
 		if (errorLoggedDuringParse) {
 			String message = "Warning: Parse errors encountered prior to model export.  ";
