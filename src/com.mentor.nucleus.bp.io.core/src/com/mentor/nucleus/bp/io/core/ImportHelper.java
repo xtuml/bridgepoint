@@ -37,10 +37,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 
 import com.mentor.nucleus.bp.core.*;
-import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.ComponentResourceListener;
-import com.mentor.nucleus.bp.core.common.IDConvertor;
 import com.mentor.nucleus.bp.core.common.IdAssigner;
 import com.mentor.nucleus.bp.core.common.InstanceList;
 import com.mentor.nucleus.bp.core.common.ModelRoot;
@@ -2997,7 +2995,6 @@ public class ImportHelper
 	}
 
 	private void updateSubtypes(StateMachine_c sm) {
-		// TODO: Consider a better way then below
 		InstanceStateMachine_c ism = InstanceStateMachine_c.getOneSM_ISMOnR517(sm);
 		if(ism != null) {
 			Object oldKey = ism.getInstanceKey();
@@ -3141,7 +3138,7 @@ public class ImportHelper
 					Object oldMahKey = mah.getInstanceKey();
 					mah.unrelateAcrossR513From(actionHome);
 					mah.relateAcrossR513To(actionHome);
-					mah.updateInstanceKey(actionHome, mah.getInstanceKey());
+					mah.updateInstanceKey(oldMahKey, mah.getInstanceKey());
 				}
 				MooreActionHome_c moah = MooreActionHome_c.getOneSM_MOAHOnR513(actionHome);
 				if(moah != null) {
