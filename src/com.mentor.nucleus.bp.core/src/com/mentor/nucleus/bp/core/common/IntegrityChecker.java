@@ -103,7 +103,7 @@ public class IntegrityChecker {
 				continue;
 			}
 			// do not create markers for any element that has
-			// a no file
+			// no file
 			if(nrme.getFile() != null) {
 				try {
 					nrme.getFile().deleteMarkers(IMarker.PROBLEM, true, IFile.DEPTH_ONE);

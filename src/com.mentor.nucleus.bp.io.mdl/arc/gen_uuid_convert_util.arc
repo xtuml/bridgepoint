@@ -255,7 +255,6 @@ public class ${class_name} extends IDConvertor{
     
     public final void setId(NonRootModelElement modelElement, UUID id){
 .for each id_eo in id_eos
-  .select one eo_t related by id_eo->EI[R3]->T[R4]
   .invoke cn = get_class_name(id_eo) 
   .if(first id_eos)
         if(modelElement instanceof ${cn.body}){
@@ -266,46 +265,6 @@ public class ${class_name} extends IDConvertor{
   .assign col = result.col
   .if (not col.isOptional)
             ((${cn.body})modelElement).set$cr{col.Name}(id);
-.//            // update all of the cached values for any referential
-.//    .select any class from instances of O_OBJ where (selected.Key_Lett == eo_t.Key_Lett)
-.//    .if(class.Name == "State Machine")
-.//    .select many attributes related by class->O_ATTR[R102]->O_BATTR[R106]
-.//    .for each attribute in attributes
-.//      .select many referentials related by attribute->O_RATTR[R113]
-.//      .for each referential in referentials
-.//        .select one referringObj related by referential->O_ATTR[R106]->O_OBJ[R102]
-.//        .select many rgos related by referential->O_REF[R108]->R_RGO[R111]
-.//        .for each rgo in rgos
-.//          .select one sub related by rgo->R_SUB[R205]
-.//          .select one rel related by rgo->R_SUB[R205]->R_SUBSUP[R213]->R_REL[R206]
-.//          .assign mult = 0;
-.//          .if(not_empty sub)
-.//            .select one rel related by sub->R_SUBSUP[R213]->R_REL[R206]
-.//            .assign mult = 0 
-.//          .else
-.//            .select one link related by rgo->R_ASSR[R205];
-.//            .if(not_empty link)
-.//              .assign mult = link.Mult 
-.//              .select one rel related by link->R_ASSOC[R211]->R_REL[R206]
-.//            .else
-.//              .select one form related by rgo->R_FORM[R205]
-.//              .if(not_empty form)
-.//                .assign mult = form.Mult
-.//                .select one rel related by form->R_SIMP[R208]->R_REL[R206]
-.//              .end if
-.//            .end if
-.//          .end if
-.//          .if(mult == 1)
-.//            $Cr{referringObj.Name}_c[] ref${rel.Numb}s = $Cr{referringObj.Name}_c.getMany${referringObj.Key_Lett}sOnR${rel.Numb}((${cn.body})modelElement);
-.//            for($Cr{referringObj.Name}_c ref${rel.Numb} : ref${rel.Numb}s) {
-.//            }
-.//          .else
-.//      		$Cr{referringObj.Name}_c ref${rel.Numb} = $Cr{referringObj.Name}_c.getOne${referringObj.Key_Lett}OnR${rel.Numb}((${cn.body})modelElement);
-.//          .end if
-.//        .end for
-.//      .end for       
-.//    .end for
-.//    .end if
   .else
             // identifier is a referential.  We are setting it because
             // in this case there is no RTO.
