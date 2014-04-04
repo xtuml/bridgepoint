@@ -83,7 +83,6 @@ public class UIUtil
 {
 	private static boolean displayYesNoQuestion_isYes = true;
     private static volatile boolean booleanDialogResult = false;
-    public static boolean IsRunningHeadless = false;
     
 	
     /**
@@ -361,7 +360,7 @@ public class UIUtil
 			boolean allowCancel, String title, String textContents,
 			String message, String optionalText, String preferenceKey,
 			boolean defaultReturn) {
-		if (IsRunningHeadless) {
+		if (CoreUtil.IsRunningHeadless) {
 			outputTextForheadlessRun(BPMessageTypes.QUESTION, title, message, String.valueOf(defaultReturn));
 		} else {
     		ScrolledTextDialog dialog = new ScrolledTextDialog(parentShell, allowCancel, title, textContents, message, optionalText, preferenceKey);
@@ -483,7 +482,7 @@ public class UIUtil
 				dialogButtonLabels, defaultIndex);
 		dialog.setBlockOnOpen(true);
 		boolean  result = (defaultIndex == MessageDialog.OK);
-		if (IsRunningHeadless) {
+		if (CoreUtil.IsRunningHeadless) {
 			outputTextForheadlessRun(dialogType, dialogTitle, dialogMessage, "");
 		} else {
 			int actualResult = dialog.open();				
@@ -519,7 +518,7 @@ public class UIUtil
         			m_parent = activeWBWindow.getShell();
         		}
         	}
-        	if (m_parent != null && !IsRunningHeadless) {
+        	if (m_parent != null && !CoreUtil.IsRunningHeadless) {
 	            if ( m_type == BPMessageTypes.INFORMATION ) {
 	                org.eclipse.jface.dialogs.MessageDialog.openInformation(
 	                	m_parent,
@@ -555,7 +554,7 @@ public class UIUtil
 	                        m_msg
 	                        );                	
 	            }
-        	} else if (IsRunningHeadless) {
+        	} else if (CoreUtil.IsRunningHeadless) {
     			outputTextForheadlessRun(m_type, m_title, m_msg, "");
         	} else{
         		// No Active shell is available for a UI dialog.
@@ -638,7 +637,7 @@ public class UIUtil
     public static boolean inputDialog(Shell parentShell, String dialogTitle,
             String dialogMessage, String initialValue, IInputValidator validator) {
     	inputDialogResult = "";
-    	if(IsRunningHeadless) {
+    	if(CoreUtil.IsRunningHeadless) {
     		outputTextForheadlessRun(BPMessageTypes.INPUT, dialogTitle, dialogMessage, initialValue);
     	} else {
 	    	InputDialog id = new InputDialog(parentShell, dialogTitle,
@@ -702,7 +701,7 @@ public class UIUtil
 	}
 
 	public static Object[] openSelectionDialog(Object[] objects, String message, String title) {
-		if(IsRunningHeadless) {
+		if(CoreUtil.IsRunningHeadless) {
 			return new Object[0];
 		}
 		UIUtil ui = new UIUtil();

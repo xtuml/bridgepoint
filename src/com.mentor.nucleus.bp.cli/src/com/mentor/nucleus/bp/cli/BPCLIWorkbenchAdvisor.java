@@ -51,6 +51,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 
+import com.mentor.nucleus.bp.core.util.CoreUtil;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.core.util.WorkspaceUtil;
 
@@ -101,7 +102,7 @@ abstract public class BPCLIWorkbenchAdvisor extends WorkbenchAdvisor {
 			// This is how we make sure no BridgePoint dialogs are 
 			// displayed.  Eclipse error dialogs are suppressed using the 
 			// --launcher.suppressErrors Eclipse command-line option
-			UIUtil.IsRunningHeadless = true;
+			CoreUtil.IsRunningHeadless = true;
 			ErrorDialog.AUTOMATED_MODE = true;  // This should be what the --launcher.suppressErrors 
 			                                    // command-line option does.  Setting it here also.
 		} else {
