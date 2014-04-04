@@ -353,10 +353,20 @@ public class AllActivityModifier implements IAllActivityModifier
        		oalText = ((Function_c)modelElement).getAction_semantics();
        	} else if (modelElement instanceof Bridge_c) {
        		oalText = ((Bridge_c)modelElement).getAction_semantics();
+       	} else if (modelElement instanceof Subsystem_c) {
+       		// TODO: FIXME I am not sure what to do here...
+       		// oalText = ((Subsystem_c)modelElement).getAction_semantics();
+       		CorePlugin.logError("Type Subsystem_c needs to be supported and is not", null);
        	} else if (modelElement instanceof Operation_c) {
        		oalText = ((Operation_c)modelElement).getAction_semantics();
+       	} else if (modelElement instanceof Attribute_c) {
+       		// TODO: FIXME I am not sure what to do here...
+       		// oalText = ((Attribute_c)modelElement).getAction_semantics();
+       		CorePlugin.logError("Type Attribute_c needs to be supported and is not", null);
        	} else if (modelElement instanceof StateMachineState_c) {
-       		oalText = ((StateMachineState_c)modelElement).getAction_semantics();
+       		// TODO: FIXME I am not sure what to do here...
+       		// oalText = ((StateMachineState_c)modelElement).getAction_semantics();
+       		CorePlugin.logError("Type StateMachineState needs to be supported and is not", null);
        	} else if (modelElement instanceof RequiredSignal_c) {
        		oalText = ((RequiredSignal_c)modelElement).getAction_semantics();
        	} else if (modelElement instanceof RequiredOperation_c) {
@@ -366,9 +376,11 @@ public class AllActivityModifier implements IAllActivityModifier
        	} else if (modelElement instanceof ProvidedOperation_c) {
        		oalText = ((ProvidedOperation_c)modelElement).getAction_semantics();
        	} else if (modelElement instanceof Transition_c) {
-       		oalText = ((Transition_c)modelElement).getAction_semantics();
+       		// TODO: FIXME I am not sure what to do here...
+       		// oalText = ((Transition_c)modelElement).getAction_semantics();
+       		CorePlugin.logError("Type Transition_c needs to be supported and is not", null);
        	} else {
-       		
+       		CorePlugin.logError("AllActivityModifier::parseAction encountered an unexpeced type: " + modelElement.toString(), null);       		
        	}
 		
         parseRunner = new ParseRunnable((NonRootModelElement)modelElement, oalText);
@@ -644,6 +656,7 @@ public class AllActivityModifier implements IAllActivityModifier
           m_required_signals = act_set.toArray(
         		                          new RequiredSignal_c[act_set.size()]);
             assert(m_required_signals == rs_set.toArray(new RequiredSignal_c[rs_set.size()]));
+            ArrayList<ProvidedSignal_c> pv_set = new ArrayList<ProvidedSignal_c>();
             addProvidedSignalsToList(pv_set, m_pkgElem);
           act_set.clear();
           addActivitiesToList(act_set, m_pkgElem,
