@@ -855,7 +855,7 @@ public class TransactionManager {
 			if (delta == null)
 				return;
 
-			WorkspaceUtil.logResourceActivity(delta);
+			CorePlugin.logResourceActivity(delta);
 
 			Job buildJob = Job.getJobManager().currentJob();
 			if (buildJob != null
