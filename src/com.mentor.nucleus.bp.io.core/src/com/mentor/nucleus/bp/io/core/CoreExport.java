@@ -26,6 +26,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
+import com.mentor.nucleus.bp.als.oal.AllActivityModifier;
 import com.mentor.nucleus.bp.core.ComponentPackage_c;
 import com.mentor.nucleus.bp.core.Component_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
@@ -46,7 +47,6 @@ import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
 import com.mentor.nucleus.bp.core.util.CoreUtil;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.ui.canvas.Ooaofgraphics;
-import com.mentor.nucleus.bp.ui.text.activity.AllActivityModifier;
 
 public abstract class CoreExport implements IRunnableWithProgress {
     protected Ooaofooa m_modelRoot = null;
