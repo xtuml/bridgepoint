@@ -1,6 +1,6 @@
 package com.mentor.nucleus.bp.ui.graphics.editor;
 
-import java.util.List;
+import java.awt.Component;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -8,7 +8,6 @@ import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LightweightSystem;
@@ -18,12 +17,9 @@ import org.eclipse.draw2d.text.FlowPage;
 import org.eclipse.draw2d.text.TextFlow;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.browser.Browser;
-import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.MouseAdapter;
@@ -35,14 +31,10 @@ import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.ShellEvent;
-import org.eclipse.swt.events.ShellListener;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.graphics.TextLayout;
-import org.eclipse.swt.graphics.TextStyle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -51,7 +43,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Slider;
 import org.eclipse.swt.widgets.Text;
@@ -59,40 +50,57 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.PlatformUI;
 
+import com.mentor.nucleus.bp.core.ClassStateMachine_c;
+import com.mentor.nucleus.bp.core.ComponentReference_c;
+import com.mentor.nucleus.bp.core.Component_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.InstanceStateMachine_c;
+import com.mentor.nucleus.bp.core.ModelClass_c;
 import com.mentor.nucleus.bp.core.Package_c;
+import com.mentor.nucleus.bp.core.StateMachineState_c;
+import com.mentor.nucleus.bp.core.Transition_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.ui.Selection;
+import com.mentor.nucleus.bp.ui.canvas.Connector_c;
 import com.mentor.nucleus.bp.ui.canvas.GraphicalElement_c;
-import com.mentor.nucleus.bp.ui.canvas.Model_c;
 import com.mentor.nucleus.bp.ui.canvas.Shape_c;
 import com.mentor.nucleus.bp.ui.graphics.actions.OpenGraphicsEditor;
+import com.mentor.nucleus.bp.ui.graphics.figures.DecoratedPolylineConnection;
 import com.mentor.nucleus.bp.ui.graphics.figures.ShapeImageFigure;
+import com.mentor.nucleus.bp.ui.graphics.parts.ConnectorEditPart;
 import com.mentor.nucleus.bp.ui.graphics.parts.ShapeEditPart;
+import com.mentor.nucleus.bp.ui.text.activity.ShowActivityAction;
 import com.mentor.nucleus.bp.ui.text.description.ShowDescriptionAction;
 
 public class BPToolTipHelper extends ToolTipHelper {
 
-//	private Timer timer;
+	
+	// Eclipse passed argument 
 	private IFigure currentTipSource;
-	private boolean tooltipClicked = false;
-	protected int TooltipStyle = SWT.NONE;
-	private Shell BPSimpleTooltipShell;
-	private Shell BPDetailedTooltipShell;
-	private boolean tipShowing;
-	private boolean  ReplaceShell = false;
+	private IFigure BPtip;
 	private int BPeventX;
 	private int BPeventY;
-	private IFigure BPtip;
+	
+	protected int TooltipStyle = SWT.NONE;
+	
+	// Tooltip elements
+	private Shell BPSimpleTooltipShell;
+	private Shell BPDetailedTooltipShell;
 	private LightweightSystem lws;
-	private TextLayout fTextLayout;
-	private Dimension MaxPreferredTooltipSize = new Dimension(350, 125);
-	private Dimension tipSize;
+	protected Text styledText;
+	
+	// Flow control fields
+	private boolean tipShowing;
+	private boolean  ReplaceShell = false;
 	private Timer mouseInCloseTimer;
 	private Timer mouseOutCloseTimer;
 	protected boolean showDetailedTooltip = false;
-	protected Text styledText;
-
+	
+	
+	// Shell Style fields
+	public static final Dimension MaxPreferredTooltipSize = new Dimension(400, 175);
+	private Dimension tipSize;
+	private int resizeImageSize = -1;
 	
 	@Override
 	public void displayToolTipNear(IFigure hoverSource, IFigure tip,
@@ -101,86 +109,61 @@ public class BPToolTipHelper extends ToolTipHelper {
 			
 			setTooltipText(tip);
 			Point displayPoint = computeWindowLocation(tip, eventX, eventY);
-//			Dimension shellSize = getLightweightSystem().getRootFigure()
-//					.getPreferredSize().getExpanded(getShellTrimSize());
 			if(showDetailedTooltip){
 				setShellBounds(displayPoint.x, displayPoint.y, MaxPreferredTooltipSize.width,
 						MaxPreferredTooltipSize.height);
 			}
 			else{ 
 				setShellBounds(displayPoint.x, displayPoint.y, tipSize.width,
-						tipSize.height);
+						tipSize.height+15);
 			}
-
-				
-				//			getShell()
-//			getLightweightSystem().getRootFigure() .getPreferredSize().setSize(10, 10);
-//			getLightweightSystem().getRootFigure().setFocusTraversable(true);
-//			getLightweightSystem().getRootFigure().setMaximumSize(new Dimension(11, 11));
-			//getShell().setMenuBar(new Menu(getShell()));
-//			getShell().setActive();
 			getShell().setFocus();
 			show();
-			currentTipSource = hoverSource;
-			BPtip = tip;
-			BPeventX = eventX;
-			BPeventY = eventY;
+			updateEclipsePassedArgument(hoverSource, tip, eventX, eventY);
 			ReplaceShell = false;
-			
-//			timer = new Timer(true);
-//			timer.schedule(new TimerTask() {
-//				public void run() {
-//					Display.getDefault().asyncExec(new Runnable() {
-//						public void run() {
-//							hide();
-//							timer.cancel();
-//						}
-//					});
-//				}
-//			}, 50000);
 		}
 	}
 	
+	private void updateEclipsePassedArgument(IFigure hoverSource, IFigure tip,
+			int eventX, int eventY) {
+		currentTipSource = hoverSource;
+		BPtip = tip;
+		BPeventX = eventX;
+		BPeventY = eventY;		
+	}
+
 	private void setTooltipText(IFigure tip) {
 		if (!showDetailedTooltip){
 			getLightweightSystem().setContents(tip);
 		}else{
 			FlowPage flowgage = (FlowPage)tip;
-			List list = flowgage.getChildren();
-			TextFlow textflow = (TextFlow)list.get(0);
-
-//			if ( !textflow.getText().equalsIgnoreCase("Click here to add description"))
+			TextFlow textflow = (TextFlow)flowgage.getChildren().get(0);
 			styledText.setText(textflow.getText());
 		}
 	}
 
 	private Point computeWindowLocation(IFigure tip, int eventX, int eventY) {
-		org.eclipse.swt.graphics.Rectangle clientArea = control.getDisplay()
-				.getClientArea();
-		
 		FigureCanvas figureCanvas = (FigureCanvas)control;
 		Dimension visibleArea = figureCanvas.getViewport().getSize();
 		
-		Point preferredLocation = new Point(eventX, eventY + 26);
+		Point location = new Point(eventX +5, eventY + 5);
 
-//		tipSize = tip.getSize();
+		tipSize = tip.getPreferredSize(-1, -1);
 		tipSize = getLightweightSystem().getRootFigure()
 				.getPreferredSize().getExpanded(getShellTrimSize());
 		tipSize = CropTipSizeIfNeeded(tipSize);
 
 		
 		// Adjust location if tip is going to fall outside display
-		if (preferredLocation.y + tipSize.height - 200 > visibleArea.height)
-			preferredLocation.y = eventY - tipSize.height;
+		if (location.y + tipSize.height - 200 > visibleArea.height)
+			location.y = eventY - tipSize.height;
 
-		if (preferredLocation.x + tipSize.width - 300 > visibleArea.width)
-			preferredLocation.x = eventX - tipSize.width;
-//			preferredLocation.x -= (preferredLocation.x + tipSize.width)
-//					- clientArea.width;
-		if ( preferredLocation.x < 0 || preferredLocation.y < 0 ){
-			return new Point(eventX, eventY + 26);
+		if (location.x + tipSize.width - 300 > visibleArea.width)
+			location.x = eventX - tipSize.width;
+		if ( location.x < 0 || location.y < 0 ){
+			return new Point(eventX, eventY);
 		}
-		return preferredLocation;
+		return location;
 	}
 	
 	private Dimension CropTipSizeIfNeeded(Dimension tipSize) {
@@ -196,7 +179,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 	@Override
 	public void dispose() {
 		if (isShowing()) {
-//			timer.cancel();
 			hide();
 		}
 		getShell().dispose();
@@ -208,8 +190,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 	}
 	
 	protected void hookSimpleShellListeners() {
-
-		
 		getShell().addMouseTrackListener(new MouseTrackAdapter() {
 			@Override
 			public void mouseExit(MouseEvent e) {
@@ -217,8 +197,10 @@ public class BPToolTipHelper extends ToolTipHelper {
 					return;
 				mouseOutCloseTimer = new Timer(true);
 				mouseOutCloseTimer.schedule(new TimerTask() {
+					@Override
 					public void run() {
 						Display.getDefault().asyncExec(new Runnable() {
+							@Override
 							public void run() {
 								hide();
 								mouseOutCloseTimer.cancel();
@@ -228,6 +210,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 				}, 500);
 			}
 
+			@Override
 			public void mouseEnter(org.eclipse.swt.events.MouseEvent e) {
 				if (showDetailedTooltip)
 					return;
@@ -237,283 +220,299 @@ public class BPToolTipHelper extends ToolTipHelper {
 			}
 		});
 		
-		
-		
 		getShell().addMouseListener(new MouseListener() {
 			
 			@Override
 			public void mouseUp(MouseEvent e) {
-			
+				// Skip
 			}
 			
 			@Override
 			public void mouseDown(MouseEvent e) {
-//				tooltipClicked = true;
-//				if ( showDetailedTooltip)
-//					return;
-						
 				hide();
 				ReplaceShell = true;
-//				lws = null;
 				if (!showDetailedTooltip)
 					showDetailedTooltip = true;
-//				createDetailedShell();
 				getShell();
 				displayToolTipNear(currentTipSource, BPtip, BPeventX, BPeventY);
 				getShell().setActive();
-//				getShell().setFocus();
-				
 			}
 
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
-				int a = 1;
-				int b = a; 
-				int c = b + a;
-				a = b + c;
+				// Skip
 			}
 		});
-		
-		getShell().addMouseMoveListener(new MouseMoveListener() {
-			
-			@Override
-			public void mouseMove(MouseEvent e) {
-				int a= 1;
-				int b = a;
-				a = b;
-			}
-		});
-//		getShell().addFocusListener(new FocusListener() {
-//			
-//			@Override
-//			public void focusLost(FocusEvent e) {
-//				if (showDetailedTooltip)
-//					return;
-//				hide();
-//				timer.cancel();	
-////				showDetailedTooltip = false;
-//			}
-//			
-//			@Override
-//			public void focusGained(FocusEvent e) {
-//				// TODO Auto-generated method stub
-//				
-//			}
-//		});
 	}
 	
-//	private Shell fShell;
-	private Composite fStatusComposite;
-	private Label fSeparator;
-	private ToolBar fToolBar;
-	private int fResizeHandleSize = -1;
-	private Composite fContentComposite;
+	
 
 	
 	private Shell createDetailedShell() {
 		
-		/* JDT tooltip look like  
-		 * \
-		 *
-		BPTooltipShell= new Shell(control.getShell(), 16404);
-		Display display = control.getShell().getDisplay();
+		Shell detailedShell = new Shell(control.getShell(), SWT.TOOL | SWT.ON_TOP | SWT.RESIZE);
+		
+		Display display  = detailedShell.getDisplay();
+		
 		Color foreground= display.getSystemColor(SWT.COLOR_INFO_FOREGROUND);
 		Color background= display.getSystemColor(SWT.COLOR_INFO_BACKGROUND);
 		
-		BPTooltipShell.setForeground(foreground);
-		BPTooltipShell.setBackground(background);
-		
-		
-		GridLayout layout= new GridLayout(1, false);
-		layout.marginHeight= 0;
-		layout.marginWidth= 0;
-		layout.verticalSpacing= 0;
-		BPTooltipShell.setLayout(layout);
+		setColor(detailedShell, foreground, background);
 
-		Composite fContentComposite= new Composite(BPTooltipShell, SWT.NONE);
-		fContentComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		fContentComposite.setLayout(new FillLayout());
+		CreateImageCompartment(detailedShell);
 		
-		fContentComposite.setForeground(foreground);
-		fContentComposite.setBackground(background);
+		CreateDescriptionTextCompartment(detailedShell);
 		
-		
-		
-		Browser fBrowser= new Browser(fContentComposite, SWT.NONE);
-		fBrowser.setJavascriptEnabled(false);
+		CreateActionsCompartment(detailedShell);
 
-		fBrowser.setForeground(foreground);
-		fBrowser.setBackground(background);
+		return detailedShell;
+	}
+	
+	
+	private void CreateActionsCompartment(Shell detailedShell) {
 		
-		fBrowser.setMenu(new Menu(getShell(), SWT.NONE));
 		
-		
-		fTextLayout= new TextLayout(fBrowser.getDisplay());
+		///  toolbar 
+		Composite bottomComposite= new Composite(detailedShell, SWT.NONE);
+		GridData gridData= new GridData(SWT.FILL, SWT.BOTTOM, true, false);
+		bottomComposite.setLayoutData(gridData);
+		GridLayout statusLayout= new GridLayout(1, false);
+		statusLayout.marginHeight= 0;
+		statusLayout.marginWidth= 0;
+		statusLayout.verticalSpacing= 1;
+		bottomComposite.setLayout(statusLayout);
 
-		// Initialize fonts
-		Font font= JFaceResources.getFont("org.eclipse.jdt.ui.javadocfont");
-		fTextLayout.setFont(font);
-		fTextLayout.setWidth(-1);
-		font= JFaceResources.getFontRegistry().getBold("org.eclipse.jdt.ui.javadocfont");
+		Label lineSeperator= new Label(bottomComposite, SWT.SEPARATOR | SWT.HORIZONTAL);
+		lineSeperator.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-		// Compute and set tab width
-		fTextLayout.setText("    "); //$NON-NLS-1$
-		int tabWidth= fTextLayout.getBounds().width;
-		fTextLayout.setTabs(new int[] { tabWidth });
-		String  text = "This is descrtiot" +
-		"\n This is descrtiot This is descrtiot This is descrtiot This is descrtiot " +
-		"\n This is descrtiot This is descrtiot This is descrtiot " +
-		"\n This is descrtiot This is descrtiot This is descrtiot This is descrtiot This is descrtiot This is descrtiot " +
-		"\n This is descrtiot This is descrtiot This is descrtiot This is descrtiot "; 
+		//
+		final Composite actionComposite= new Composite(bottomComposite, SWT.NONE);
+		actionComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
+
+		GridLayout actionCompositeLayout= new GridLayout(3, false);
+		actionCompositeLayout.marginHeight= 0;
+		actionCompositeLayout.marginWidth= 0;
+		actionCompositeLayout.horizontalSpacing= 0;
+		actionCompositeLayout.verticalSpacing= 0;
+		actionComposite.setLayout(actionCompositeLayout);
+
+		ToolBarManager actionManager= new ToolBarManager(SWT.FLAT);
 		
-//		fTextLayout.setText(text); //$NON-NLS-1$
-		fBrowser.setText(text, false);
+		ToolBar bar= actionManager.createControl(actionComposite);
+		GridData toolBarLayout= new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false);
+		toolBarLayout.horizontalIndent = 0;
+		toolBarLayout.verticalIndent= 0;
+		bar.setLayoutData(toolBarLayout);
+
+//		toolBarLayout= new GridData(SWT.FILL, SWT.FILL, true, true);
+//		toolBarLayout.widthHint= 0;
+//		toolBarLayout.heightHint= 0;
 		
-		*/
+		Composite spacer= new Composite(actionComposite, SWT.FILL);
+		GridData spacerLayout= new GridData(SWT.FILL, SWT.FILL, true, true);
+		spacerLayout.widthHint= 0;
+		spacerLayout.heightHint= 0;
+		spacer.setLayoutData(spacerLayout);
+
+		addResizeSupportIfNecessary(detailedShell, actionComposite);
+
+		
+		addMoveSupport(detailedShell, spacer);
+		
+
+		addTooltipAction(bar);
+		
+	}
+	private Object getTooltipModelElement() {
+//		if ( )
+//		
+//		else if ( )
+		if (currentTipSource instanceof ShapeImageFigure ){
+		ShapeEditPart part = ((ShapeImageFigure)currentTipSource).getPart();
+		Shape_c shape = (Shape_c) part.getModel();
+		Object modelElement = GraphicalElement_c.getOneGD_GEOnR2(shape).getRepresents();
+		return modelElement;
+		}
+		else if ( currentTipSource instanceof DecoratedPolylineConnection){
+			
+			ConnectorEditPart part = ((DecoratedPolylineConnection)currentTipSource).getPart();
+			Connector_c connector = (Connector_c)part.getModel();
+			Object modelElement = GraphicalElement_c.getOneGD_GEOnR2(connector).getRepresents();
+			return modelElement;
+		}
+		else {
+			CorePlugin.logError("Tooltip is created for unsupported canvas element", null);
+			return null;
+		}
+	}
+
+	private void addTooltipAction(ToolBar bar) {
+		Object element = getTooltipModelElement();
+		NonRootModelElement temp = null;
+		if (element instanceof NonRootModelElement){
+			temp= (NonRootModelElement)element;
+		}
+		final NonRootModelElement modelElement = temp;
+		
+		ToolItem openDescriptionAction = new ToolItem(bar, SWT.None);
+		openDescriptionAction.setToolTipText("Open Description Editor");
+		openDescriptionAction.setImage(CorePlugin.getImageDescriptor("edit_dsc.gif").createImage());
 		
 		
+		openDescriptionAction.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				
+				hide();
+				if (modelElement != null )
+					openDescriptionEditor(modelElement);
+			}
+
+		});
+		
+		addExtraTooltipActions(bar, modelElement);
+		
+		addCloseAction(bar);
+	}
+
+	private void addCloseAction(ToolBar bar) {
+		new ToolItem(bar, SWT.SEPARATOR);
+
+		ToolItem closeActionTooltip = new ToolItem(bar, SWT.NONE);
+		closeActionTooltip.setImage(CorePlugin.getImageDescriptor("safe_close.png").createImage());
+		closeActionTooltip.setToolTipText("Close Tooltip Window");
+		closeActionTooltip.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				hide();
+			}
+		});
+	}
+
+	private void addExtraTooltipActions(ToolBar bar, NonRootModelElement modelElement) {
 		
 		
+		if (modelElement instanceof ModelClass_c){
+			InstanceStateMachine_c ism = InstanceStateMachine_c.getOneSM_ISMOnR518((ModelClass_c)modelElement);
+			ClassStateMachine_c csm = ClassStateMachine_c.getOneSM_ASMOnR519((ModelClass_c)modelElement);
+			if (ism != null){
+				addOpenInstanceStateMachineDiagram(bar, ism);
+			}
+			if ( csm != null){
+				addOpenClassStateMachineDiagram(bar, csm);
+			}
+		}
+			
+		else if (modelElement instanceof Component_c){
+			addOpenDiagramAction(bar, modelElement);
+		}
 		
-//				TooltipStyle = SWT.RESIZE;
-		Shell detailedShell = new Shell(control.getShell(), SWT.TOOL | SWT.ON_TOP | SWT.RESIZE);
-//				getShell().setVisible(true); 
-//				tipShowing = true;
+		else if (modelElement instanceof  ComponentReference_c){
+			addOpenDiagramAction(bar, modelElement);
+		}
+		else if (modelElement instanceof  Package_c){
+			addOpenDiagramAction(bar, modelElement);
+		}
+		else if (modelElement instanceof  StateMachineState_c){
+			addOpenOALEditorAction(bar, modelElement);
+		}
+		else if (modelElement instanceof Transition_c){
+			addOpenOALEditorAction(bar, modelElement);
+		}
+			
+			
+	}
+
+	private void addOpenClassStateMachineDiagram(ToolBar bar, final ClassStateMachine_c csm) {
+		new ToolItem(bar, SWT.SEPARATOR);
+		ToolItem openCSMAction = new ToolItem(bar, SWT.NONE);
+		openCSMAction.setImage(CorePlugin.getImageDescriptor("metadata/ClassStateChart.gif").createImage());
+		openCSMAction.setToolTipText("Open Class State Machine");
+		openCSMAction.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				hide();
+				openCanvasEditor(csm);
+			}
+		});
+		
+	}
+
+	private void addOpenInstanceStateMachineDiagram(ToolBar bar, final InstanceStateMachine_c ism) {
+		new ToolItem(bar, SWT.SEPARATOR);
+		ToolItem openISMmAction = new ToolItem(bar, SWT.NONE);
+		openISMmAction.setImage(CorePlugin.getImageDescriptor("metadata/InstanceStateChart.gif").createImage());
+		openISMmAction.setToolTipText("Open Instance State Machine");
+		openISMmAction.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				hide();
+				openCanvasEditor(ism);
+			}
+		});
+		
+	}
+
+	private void addOpenOALEditorAction(ToolBar bar, final NonRootModelElement modelElement) {
+		new ToolItem(bar, SWT.SEPARATOR);
+		ToolItem openActivityEditorAction = new ToolItem(bar, SWT.NONE);
+		openActivityEditorAction.setImage(CorePlugin.getImageDescriptor("edit_oal.gif").createImage());
+		openActivityEditorAction.setToolTipText("Open Activity Editor");
+		openActivityEditorAction.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				hide();
+				openActivityEditor(modelElement);
+			}
+		});
+		
+	}
+
+	private void addOpenDiagramAction(ToolBar bar, final NonRootModelElement modelElement) {
+		new ToolItem(bar, SWT.SEPARATOR);
+		ToolItem openDiagramAction = new ToolItem(bar, SWT.NONE);
+		openDiagramAction.setImage(CorePlugin.getImageDescriptor("green-bp.gif").createImage());
+		openDiagramAction.setToolTipText("Open Diagram Editor");
+		openDiagramAction.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				hide();
+				openCanvasEditor(modelElement);
+			}
+		});
+		
+	}
+
+	private void CreateDescriptionTextCompartment(Shell detailedShell) {
 		Display display  = detailedShell.getDisplay();
 		Color foreground= display.getSystemColor(SWT.COLOR_INFO_FOREGROUND);
 		Color background= display.getSystemColor(SWT.COLOR_INFO_BACKGROUND);
-		setColor(detailedShell, foreground, background);
-
+		
 		GridLayout layout= new GridLayout(1, false);
 		layout.marginHeight= 0;
 		layout.marginWidth= 0;
 		layout.verticalSpacing= 0;
 		detailedShell.setLayout(layout);
 
-		fContentComposite= new Composite(detailedShell, SWT.NONE);
-		fContentComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		fContentComposite.setLayout(new FillLayout());
-		setColor(fContentComposite, foreground, background);
+		Composite descriptionTextComposite= new Composite(detailedShell, SWT.NONE);
+		descriptionTextComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		descriptionTextComposite.setLayout(new FillLayout());
+		setColor(descriptionTextComposite, foreground, background);
 		
-		styledText = new Text(fContentComposite, SWT.BORDER | SWT.V_SCROLL | SWT.WRAP | SWT.MULTI);
-//		styledText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		styledText = new Text(descriptionTextComposite, SWT.READ_ONLY | SWT.BORDER | SWT.V_SCROLL | SWT.WRAP | SWT.MULTI);
 		setColor(styledText, foreground, background);
 		
-		///  toolbar 
-		fStatusComposite= new Composite(detailedShell, SWT.NONE);
-		GridData gridData= new GridData(SWT.FILL, SWT.BOTTOM, true, false);
-		fStatusComposite.setLayoutData(gridData);
-		GridLayout statusLayout= new GridLayout(1, false);
-		statusLayout.marginHeight= 0;
-		statusLayout.marginWidth= 0;
-		statusLayout.verticalSpacing= 1;
-		fStatusComposite.setLayout(statusLayout);
-
-		fSeparator= new Label(fStatusComposite, SWT.SEPARATOR | SWT.HORIZONTAL);
-		fSeparator.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-
-		//
-		final Composite bars= new Composite(fStatusComposite, SWT.NONE);
-		bars.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
-
-		GridLayout glayout= new GridLayout(3, false);
-		glayout.marginHeight= 0;
-		glayout.marginWidth= 0;
-		glayout.horizontalSpacing= 0;
-		glayout.verticalSpacing= 0;
-		bars.setLayout(glayout);
-
-		ToolBarManager tbm= new ToolBarManager(SWT.FLAT);
-		
-		fToolBar= tbm.createControl(bars);
-		GridData gd= new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false);
-		fToolBar.setLayoutData(gd);
-
-		Composite spacer= new Composite(bars, SWT.NONE);
-		gd= new GridData(SWT.FILL, SWT.FILL, true, true);
-		gd.widthHint= 0;
-		gd.heightHint= 0;
-		spacer.setLayoutData(gd);
-
-		addMoveSupport(detailedShell, spacer);
-		addResizeSupportIfNecessary(detailedShell, bars);
-		
-
-		ToolItem tltmOpenCanvas = new ToolItem(fToolBar, SWT.NONE);
-		tltmOpenCanvas.setText("Open Canvas");
-		
-		ToolItem tltmOpenDescription = new ToolItem(fToolBar, SWT.NONE);
-		tltmOpenDescription.setText("Open Description");
-		
-		ToolItem separator = new ToolItem(fToolBar, SWT.SEPARATOR);
-//		tltmOpenDescription.setText("Open Description");
-
-		ToolItem closeTooltip = new ToolItem(fToolBar, SWT.NONE);
-		closeTooltip.setText("Close tooltip window");
-		
-		tltmOpenDescription.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				ShapeEditPart part = ((ShapeImageFigure)currentTipSource).getPart();
-				Shape_c shape = (Shape_c) part.getModel();
-//				Model_c model = Model_c.getOneGD_MDOnR1(GraphicalElement_c.getManyGD_GEsOnR2(shape));
-				Object modelElement = GraphicalElement_c.getOneGD_GEOnR2(shape).getRepresents();
-				
-				hide();
-				openDescriptionEditor(modelElement);
-				
-			}
-		});
-		
-		tltmOpenCanvas.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				ShapeEditPart part = ((ShapeImageFigure)currentTipSource).getPart();
-				Shape_c shape = (Shape_c) part.getModel();
-//				Model_c model = Model_c.getOneGD_MDOnR1(GraphicalElement_c.getManyGD_GEsOnR2(shape));
-				Object modelElement = GraphicalElement_c.getOneGD_GEOnR2(shape).getRepresents();
-				
-				hide();
-				openCanvasEditor(modelElement);
-				
-			}
-		});
-		closeTooltip.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				hide();
-//				timer.cancel();	
-			}
-		});
-
-		return detailedShell;
-		/*
-		BPTooltipShell.setLayout(new FillLayout(SWT.VERTICAL));
-		
-		// MULTI, READ_ONLY, SINGLE, WRAP
-		StyledText styledText = new StyledText(BPTooltipShell, SWT.V_SCROLL | SWT.WRAP | SWT.READ_ONLY | SWT.MULTI);
-		styledText.setText("This is descrtiot" +
-				"\n This is descrtiot This is descrtiot This is descrtiot This is descrtiot " +
-				"\n This is descrtiot\n\n\n This is descrtiot This is descrtiot " +
-				"\n This is descrtiot This is descrtiot\n\n\n This is descrtiot This is descrtiot This is descrtiot This is descrtiot " +
-				"\n This is descrtiot This is descrtiot This is descrtiot\n\n\n\n This is descrtiot "); 
-		
-
-		
-		ToolBar toolBar = new ToolBar(BPTooltipShell, SWT.FLAT | SWT.RIGHT);
-		
-		ToolItem tltmOpenCanvas = new ToolItem(toolBar, SWT.NONE);
-		tltmOpenCanvas.setText("Open Canvas");
-		
-		ToolItem tltmOpenDescription = new ToolItem(toolBar, SWT.NONE);
-		tltmOpenDescription.setText("Open Description");
-		*/
 	}
-	
-	
+
+	private void CreateImageCompartment(Shell detailedShell) {
+		// Add Composite and Label here for photos
+		
+	}
+
 	protected void openDescriptionEditor(final Object uut) {
 		try {
 			IWorkspaceRunnable r = new IWorkspaceRunnable() {
+				@Override
 				public void run(IProgressMonitor monitor) throws CoreException {
 					
 					IStructuredSelection ss = new StructuredSelection(uut);
@@ -534,6 +533,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 	static public void openCanvasEditor(final Object uut) {
 		try {
 			IWorkspaceRunnable r = new IWorkspaceRunnable() {
+				@Override
 				public void run(IProgressMonitor monitor) throws CoreException {
 					
 					IStructuredSelection ss = new StructuredSelection(uut);
@@ -553,14 +553,32 @@ public class BPToolTipHelper extends ToolTipHelper {
 		}
 	}
 	
+	static public void openActivityEditor(final Object uut) {
+
+		try {
+			IWorkspaceRunnable r = new IWorkspaceRunnable() {
+				public void run(IProgressMonitor monitor)
+				throws CoreException {
+					IStructuredSelection ss = new StructuredSelection(uut);
+					ShowActivityAction sda = new ShowActivityAction();
+					Action a = new Action() {
+					};
+					sda.selectionChanged(a, ss);
+					sda.run(a);
+				}
+			};
+			ResourcesPlugin.getWorkspace().run(r, null);
+		} catch (CoreException x) {
+			CorePlugin.logError("Unable to open activity editor.", x);
+		}
+
+	}
+	
 
 	@Override
 	public void updateToolTip(IFigure figureUnderMouse, IFigure tip,
 			int eventX, int eventY) {
-		/*
-		 * If the cursor is not on any Figures, it has been moved off of the
-		 * control. Hide the tool tip.
-		 */
+	
 		if (figureUnderMouse != null){
 			if (!showDetailedTooltip)
 				if ( mouseOutCloseTimer != null)
@@ -574,8 +592,10 @@ public class BPToolTipHelper extends ToolTipHelper {
 					//				timer.cancel();
 					mouseInCloseTimer = new Timer(true);
 					mouseInCloseTimer.schedule(new TimerTask() {
+						@Override
 						public void run() {
 							Display.getDefault().asyncExec(new Runnable() {
+								@Override
 								public void run() {
 									hide();
 									mouseInCloseTimer.cancel();
@@ -587,9 +607,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 
 				}
 		}
-		// Makes tooltip appear without a hover event if a tip is currently
-		// being displayed
-//		getLightweightSystem();
 		if ( figureUnderMouse == lws){
 			return;
 		}
@@ -597,7 +614,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 			if (showDetailedTooltip)
 				return;
 			hide();
-//			timer.cancel();
 			displayToolTipNear(figureUnderMouse, tip, eventX, eventY);
 		} else if (!isShowing() && figureUnderMouse != currentTipSource)
 			currentTipSource = null;
@@ -605,7 +621,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 
 	public BPToolTipHelper(Control c) {
 		super(c);
-//		getShell().
 	}
 	
 	@Override
@@ -618,23 +633,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 		if (showDetailedTooltip){
 			if (BPDetailedTooltipShell == null || BPDetailedTooltipShell.isDisposed() ) {
 				BPDetailedTooltipShell = createDetailedShell();
-				
-//				BPDetailedTooltipShell.addFocusListener(new FocusListener() {
-//					
-//					@Override
-//					public void focusGained(FocusEvent e) {
-//						showDetailedTooltip = true;
-//						
-//					}
-//					@Override
-//					public void focusLost(FocusEvent e) {
-//						
-//						hide();
-//						timer.cancel();	
-//						showDetailedTooltip = true;
-//					}
-//					
-//				});
 				
 				hookDetailedShellListeners();
 			}
@@ -655,9 +653,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 			
 			@Override
 			public void focusGained(FocusEvent e) {
-				int a = 1; // Nothing to do
-				int b = a;
-				a=  b;
 				System.out.println("Gain");
 			}
 			@Override
@@ -669,7 +664,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 					return;
 				}
 				hide();
-//				timer.cancel();	
 				showDetailedTooltip = false;
 			}
 
@@ -685,6 +679,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 		showDetailedTooltip = false;
 	}
 	
+	@Override
 	protected Dimension getShellTrimSize() {
 		Rectangle trim = getShell().computeTrim(0, 0, 0, 0);
 		return new Dimension(trim.width, trim.height);
@@ -701,6 +696,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 		tipShowing = true;
 	}
 	
+	@Override
 	protected LightweightSystem getLightweightSystem() {
 		if (lws == null) {
 			lws = createLightweightSystem();
@@ -717,29 +713,29 @@ public class BPToolTipHelper extends ToolTipHelper {
 	
 	private void addMoveSupport(final Shell detailedShell, final Control control) {
 		MouseAdapter moveSupport= new MouseAdapter() {
-			private MouseMoveListener fMoveListener;
+			private MouseMoveListener mouseMoveListener;
 
+			@Override
 			public void mouseDown(MouseEvent e) {
-				Point shellLoc= detailedShell.getLocation();
-				final int shellX= shellLoc.x;
-				final int shellY= shellLoc.y;
-				Point mouseLoc= control.toDisplay(e.x, e.y);
-				final int mouseX= mouseLoc.x;
-				final int mouseY= mouseLoc.y;
-				fMoveListener= new MouseMoveListener() {
+				final Point currentShellLocation= detailedShell.getLocation();
+				final Point oldMouseLocation= control.toDisplay(e.x, e.y);
+				mouseMoveListener = new MouseMoveListener() {
+					
+					@Override
 					public void mouseMove(MouseEvent e2) {
-						Point mouseLoc2= control.toDisplay(e2.x, e2.y);
-						int dx= mouseLoc2.x - mouseX;
-						int dy= mouseLoc2.y - mouseY;
-						detailedShell.setLocation(shellX + dx, shellY + dy);
+						Point newMouseLocation= control.toDisplay(e2.x, e2.y);
+						int dx= newMouseLocation.x - oldMouseLocation.x;
+						int dy= newMouseLocation.y - oldMouseLocation.y;
+						detailedShell.setLocation(currentShellLocation.x + dx, currentShellLocation.y + dy);
 					}
 				};
-				control.addMouseMoveListener(fMoveListener);
+				control.addMouseMoveListener(mouseMoveListener);
 			}
 
+			@Override
 			public void mouseUp(MouseEvent e) {
-				control.removeMouseMoveListener(fMoveListener);
-				fMoveListener= null;
+				control.removeMouseMoveListener(mouseMoveListener);
+				mouseMoveListener= null;
 			}
 		};
 		control.addMouseListener(moveSupport);		
@@ -747,90 +743,41 @@ public class BPToolTipHelper extends ToolTipHelper {
 
 	
 
-	private void addResizeSupportIfNecessary(final Shell detailedShell,final Composite bars) {
+	private void addResizeSupportIfNecessary(final Shell detailedShell,final Composite actionsComposite) {
+		final Canvas resizer= new Canvas(actionsComposite, SWT.NONE);
+		resizer.setBackgroundImage(CorePlugin.getImageDescriptor("resize_icon.gif").createImage());
 
-		// XXX: workarounds for
-		// - https://bugs.eclipse.org/bugs/show_bug.cgi?id=219139 : API to add resize grip / grow box in lower right corner of shell
-		// - https://bugs.eclipse.org/bugs/show_bug.cgi?id=23980 : platform specific shell resize behavior
-		String platform= SWT.getPlatform();
-		final boolean isWin= platform.equals("win32"); //$NON-NLS-1$
-		if (!isWin && !platform.equals("gtk")) //$NON-NLS-1$
-			return;
+		int resizeImageSize= computeResizeHandleSize(actionsComposite);
 
-		final Canvas resizer= new Canvas(bars, SWT.NONE);
+		GridData grid= new GridData(SWT.END, SWT.END, false, true);
+		grid.widthHint= resizeImageSize;
+		grid.heightHint= resizeImageSize;
+		resizer.setLayoutData(grid);
 
-		int size= getResizeHandleSize(bars);
-
-		GridData data= new GridData(SWT.END, SWT.END, false, true);
-		data.widthHint= size;
-		data.heightHint= size;
-		resizer.setLayoutData(data);
-		resizer.addPaintListener(new PaintListener() {
-			public void paintControl(PaintEvent e) {
-				Point s= resizer.getSize();
-				int x= s.x - 2;
-				int y= s.y - 2;
-				int min= Math.min(x, y);
-				if (isWin) {
-					// draw dots
-					e.gc.setBackground(resizer.getDisplay().getSystemColor(SWT.COLOR_WIDGET_HIGHLIGHT_SHADOW));
-					int end= min - 1;
-					for (int i= 0; i <= 2; i++)
-						for (int j= 0; j <= 2 - i; j++)
-							e.gc.fillRectangle(end - 4 * i, end - 4 * j, 2, 2);
-					end--;
-					e.gc.setBackground(resizer.getDisplay().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
-					for (int i= 0; i <= 2; i++)
-						for (int j= 0; j <= 2 - i; j++)
-							e.gc.fillRectangle(end - 4 * i, end - 4 * j, 2, 2);
-
-				} else {
-					// draw diagonal lines
-					e.gc.setForeground(resizer.getDisplay().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
-					for (int i= 1; i < min; i+= 4) {
-						e.gc.drawLine(i, y, x, i);
-					}
-					e.gc.setForeground(resizer.getDisplay().getSystemColor(SWT.COLOR_WIDGET_HIGHLIGHT_SHADOW));
-					for (int i= 2; i < min; i+= 4) {
-						e.gc.drawLine(i, y, x, i);
-					}
-				}
-			}
-		});
-
-		final boolean isRTL= (resizer.getShell().getStyle() & SWT.RIGHT_TO_LEFT) != 0;
-		resizer.setCursor(resizer.getDisplay().getSystemCursor(isRTL ? SWT.CURSOR_SIZESW : SWT.CURSOR_SIZESE));
+		resizer.setCursor(resizer.getDisplay().getSystemCursor(SWT.CURSOR_SIZESE));
 		MouseAdapter resizeSupport= new MouseAdapter() {
-			private MouseMoveListener fResizeListener;
+			private MouseMoveListener mouseMoveListener;
 
+			@Override
 			public void mouseDown(MouseEvent e) {
-				Rectangle shellBounds= detailedShell.getBounds();
-				final int shellX= shellBounds.x;
-				final int shellY= shellBounds.y;
-				final int shellWidth= shellBounds.width;
-				final int shellHeight= shellBounds.height;
-				Point mouseLoc= resizer.toDisplay(e.x, e.y);
-				final int mouseX= mouseLoc.x;
-				final int mouseY= mouseLoc.y;
-				fResizeListener= new MouseMoveListener() {
+				final Rectangle bounds= detailedShell.getBounds();
+				final Point oldMouseLocation= resizer.toDisplay(e.x, e.y);
+				mouseMoveListener= new MouseMoveListener() {
+					@Override
 					public void mouseMove(MouseEvent e2) {
-						Point mouseLoc2= resizer.toDisplay(e2.x, e2.y);
-						int dx= mouseLoc2.x - mouseX;
-						int dy= mouseLoc2.y - mouseY;
-						if (isRTL) {
-							detailedShell.setLocation(new Point(shellX + dx, shellY));
-							detailedShell.setSize(shellWidth - dx, shellHeight + dy);
-						} else {
-							detailedShell.setSize(shellWidth + dx, shellHeight + dy);
-						}
+						Point newMouseLocation= resizer.toDisplay(e2.x, e2.y);
+						int dx= newMouseLocation.x - oldMouseLocation.x;
+						int dy= newMouseLocation.y - oldMouseLocation.y;
+						detailedShell.setSize(bounds.width + dx, bounds.height + dy);
 					}
 				};
-				resizer.addMouseMoveListener(fResizeListener);
+				resizer.addMouseMoveListener(mouseMoveListener);
 			}
 
+			@Override
 			public void mouseUp(MouseEvent e) {
-				resizer.removeMouseMoveListener(fResizeListener);
-				fResizeListener= null;
+				resizer.removeMouseMoveListener(mouseMoveListener);
+				mouseMoveListener= null;
 			}
 		};
 		resizer.addMouseListener(resizeSupport);
@@ -838,18 +785,18 @@ public class BPToolTipHelper extends ToolTipHelper {
 	}
 	
 	
-	private int getResizeHandleSize(Composite parent) {
-		if (fResizeHandleSize  == -1) {
-			Slider sliderV= new Slider(parent, SWT.VERTICAL);
-			Slider sliderH= new Slider(parent, SWT.HORIZONTAL);
-			int width= sliderV.computeSize(SWT.DEFAULT, SWT.DEFAULT).x;
-			int height= sliderH.computeSize(SWT.DEFAULT, SWT.DEFAULT).y;
-			sliderV.dispose();
-			sliderH.dispose();
-			fResizeHandleSize= Math.min(width, height);
+	private int computeResizeHandleSize(Composite actionsComposite) {
+		if (resizeImageSize  == -1) {
+			Slider virtecalSlide = new Slider(actionsComposite, SWT.VERTICAL);
+			Slider horeizontalSlide = new Slider(actionsComposite, SWT.HORIZONTAL);
+			int width = virtecalSlide.computeSize(SWT.DEFAULT, SWT.DEFAULT).x;
+			int height = horeizontalSlide .computeSize(SWT.DEFAULT, SWT.DEFAULT).y;
+			virtecalSlide.dispose();
+			horeizontalSlide.dispose();
+			resizeImageSize = Math.min(width, height);
 		}
 
-		return fResizeHandleSize;
+		return resizeImageSize;
 	}
 
 }

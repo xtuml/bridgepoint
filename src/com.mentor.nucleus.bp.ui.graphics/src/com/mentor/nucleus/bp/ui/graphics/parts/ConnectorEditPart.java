@@ -167,9 +167,9 @@ public class ConnectorEditPart extends AbstractConnectionEditPart implements
 	protected IFigure createFigure() {
 		DecoratedPolylineConnection connection = new DecoratedPolylineConnection(this);
 		if (!getTextDescription().equals("")) {
-			Label tooltip = new Label(getTextDescription());
-			tooltip.setBorder(new MarginBorder(3, 3, 3, 3));
-			connection.setToolTip(tooltip);
+			SimpleTooltipFigure tooltipFigure = new SimpleTooltipFigure();
+			tooltipFigure.setMessage(getTextDescription());
+			connection.setToolTip(tooltipFigure);
 		}
 		connection.setLineStyle(getLineStyle());
 		connection.setLineWidth(getConfiguredLineWidth());
@@ -476,9 +476,9 @@ public class ConnectorEditPart extends AbstractConnectionEditPart implements
 		}
 
 		if (!getTextDescription().equals("")) {
-			Label tooltip = new Label(getTextDescription());
-			tooltip.setBorder(new MarginBorder(3, 3, 3, 3));
-			getFigure().setToolTip(tooltip);
+			SimpleTooltipFigure tooltipFigure = new SimpleTooltipFigure();
+			tooltipFigure.setMessage(getTextDescription());
+			getFigure().setToolTip(tooltipFigure);
 		} else {
 			if (getFigure().getToolTip() != null)
 				getFigure().setToolTip(null);
