@@ -73,7 +73,7 @@ import com.mentor.nucleus.bp.ui.text.description.ShowDescriptionAction;
 
 public class BPToolTipHelper extends ToolTipHelper {
 
-	private Timer timer;
+//	private Timer timer;
 	private IFigure currentTipSource;
 	private boolean tooltipClicked = false;
 	protected int TooltipStyle = SWT.NONE;
@@ -127,17 +127,17 @@ public class BPToolTipHelper extends ToolTipHelper {
 			BPeventY = eventY;
 			ReplaceShell = false;
 			
-			timer = new Timer(true);
-			timer.schedule(new TimerTask() {
-				public void run() {
-					Display.getDefault().asyncExec(new Runnable() {
-						public void run() {
-							hide();
-							timer.cancel();
-						}
-					});
-				}
-			}, 50000);
+//			timer = new Timer(true);
+//			timer.schedule(new TimerTask() {
+//				public void run() {
+//					Display.getDefault().asyncExec(new Runnable() {
+//						public void run() {
+//							hide();
+//							timer.cancel();
+//						}
+//					});
+//				}
+//			}, 50000);
 		}
 	}
 	
@@ -145,12 +145,12 @@ public class BPToolTipHelper extends ToolTipHelper {
 		if (!showDetailedTooltip){
 			getLightweightSystem().setContents(tip);
 		}else{
-			FlowPage flowgage = (FlowPage)BPtip;
+			FlowPage flowgage = (FlowPage)tip;
 			List list = flowgage.getChildren();
 			TextFlow textflow = (TextFlow)list.get(0);
 
-			if ( !textflow.getText().equalsIgnoreCase("Click here to add description"))
-				styledText.setText(textflow.getText());
+//			if ( !textflow.getText().equalsIgnoreCase("Click here to add description"))
+			styledText.setText(textflow.getText());
 		}
 	}
 
@@ -196,7 +196,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 	@Override
 	public void dispose() {
 		if (isShowing()) {
-			timer.cancel();
+//			timer.cancel();
 			hide();
 		}
 		getShell().dispose();
@@ -257,7 +257,8 @@ public class BPToolTipHelper extends ToolTipHelper {
 //				lws = null;
 				if (!showDetailedTooltip)
 					showDetailedTooltip = true;
-				createDetailedShell();
+//				createDetailedShell();
+				getShell();
 				displayToolTipNear(currentTipSource, BPtip, BPeventX, BPeventY);
 				getShell().setActive();
 //				getShell().setFocus();
@@ -398,14 +399,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 //		styledText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		setColor(styledText, foreground, background);
 		
-		
-		FlowPage flowgage = (FlowPage)BPtip;
-		List list = flowgage.getChildren();
-		TextFlow textflow = (TextFlow)list.get(0);
-		
-		if ( !textflow.getText().equalsIgnoreCase("Click here to add description"))
-			styledText.setText(textflow.getText());
-		
 		///  toolbar 
 		fStatusComposite= new Composite(detailedShell, SWT.NONE);
 		GridData gridData= new GridData(SWT.FILL, SWT.BOTTOM, true, false);
@@ -488,15 +481,8 @@ public class BPToolTipHelper extends ToolTipHelper {
 		closeTooltip.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				ShapeEditPart part = ((ShapeImageFigure)currentTipSource).getPart();
-				Shape_c shape = (Shape_c) part.getModel();
-//				Model_c model = Model_c.getOneGD_MDOnR1(GraphicalElement_c.getManyGD_GEsOnR2(shape));
-				Package_c modelElement = (Package_c)GraphicalElement_c.getOneGD_GEOnR2(shape).getRepresents();
-				modelElement.setDescrip(styledText.getText());
-				
 				hide();
-				timer.cancel();	
-				
+//				timer.cancel();	
 			}
 		});
 
@@ -611,7 +597,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 			if (showDetailedTooltip)
 				return;
 			hide();
-			timer.cancel();
+//			timer.cancel();
 			displayToolTipNear(figureUnderMouse, tip, eventX, eventY);
 		} else if (!isShowing() && figureUnderMouse != currentTipSource)
 			currentTipSource = null;
@@ -683,7 +669,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 					return;
 				}
 				hide();
-				timer.cancel();	
+//				timer.cancel();	
 				showDetailedTooltip = false;
 			}
 
