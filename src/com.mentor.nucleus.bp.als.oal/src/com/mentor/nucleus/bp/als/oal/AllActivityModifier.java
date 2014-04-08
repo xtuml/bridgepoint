@@ -346,6 +346,18 @@ public class AllActivityModifier implements IAllActivityModifier
             return;
         }
 
+        /**
+         * 
+         * In the old code, in AllActivityModifier.java::parseAction()::367
+    	 *  editorInput = (ActivityEditorInput)activityInputFactory.createInstance(modelElement);
+         * that is where we get the "editor" for the given model element.  It 
+         * is from this editor we then extract the OAL text.   In the version 
+         * with no editor this is replaced with code that directly gets the 
+         * OAL instead of getting it through the editor.  In the old code, this
+         * call is handled by 
+         * AbstractModelElementEditorInputFactory.java::createInstance().
+         */
+        
         // Get the string representation of the OAL for this 
         // model element.
        	String oalText = "";
@@ -353,34 +365,43 @@ public class AllActivityModifier implements IAllActivityModifier
        		oalText = ((Function_c)modelElement).getAction_semantics();
        	} else if (modelElement instanceof Bridge_c) {
        		oalText = ((Bridge_c)modelElement).getAction_semantics();
-       	} else if (modelElement instanceof Subsystem_c) {
-       		// TODO: FIXME I am not sure what to do here...
-       		// oalText = ((Subsystem_c)modelElement).getAction_semantics();
-       		CorePlugin.logError("Type Subsystem_c needs to be supported and is not", null);
        	} else if (modelElement instanceof Operation_c) {
        		oalText = ((Operation_c)modelElement).getAction_semantics();
        	} else if (modelElement instanceof Attribute_c) {
-       		// TODO: FIXME I am not sure what to do here...
-       		// oalText = ((Attribute_c)modelElement).getAction_semantics();
-       		CorePlugin.logError("Type Attribute_c needs to be supported and is not", null);
+       		DerivedBaseAttribute_c dba = 
+                    DerivedBaseAttribute_c.getOneO_DBATTROnR107(
+                        BaseAttribute_c.getOneO_BATTROnR106((Attribute_c)modelElement));
+       		if ( dba != null ) {
+       			oalText = dba.getAction_semantics();
+       		}
        	} else if (modelElement instanceof StateMachineState_c) {
-       		// TODO: FIXME I am not sure what to do here...
-       		// oalText = ((StateMachineState_c)modelElement).getAction_semantics();
-       		CorePlugin.logError("Type StateMachineState needs to be supported and is not", null);
-       	} else if (modelElement instanceof RequiredSignal_c) {
-       		oalText = ((RequiredSignal_c)modelElement).getAction_semantics();
+       		Action_c act = Action_c.getOneSM_ACTOnR514(ActionHome_c.getOneSM_AHOnR513(
+     		          MooreActionHome_c.getOneSM_MOAHOnR511((StateMachineState_c)modelElement)));
+       		if ( act != null ) {
+       			oalText = act.getAction_semantics();
+       		}
+       	} else if (modelElement instanceof Transition_c) {
+       		TransitionActionHome_c tah = TransitionActionHome_c.getOneSM_TAHOnR530((Transition_c)modelElement);
+            ActionHome_c ah = ActionHome_c.getOneSM_AHOnR513(tah);
+            Action_c act = Action_c.getOneSM_ACTOnR514(ah);
+   			oalText = act.getAction_semantics();
+       	} else if (modelElement instanceof CreationTransition_c) {
+       		Transition_c tr = Transition_c.getOneSM_TXNOnR507((CreationTransition_c)modelElement);
+            TransitionActionHome_c tah = TransitionActionHome_c.getOneSM_TAHOnR530(tr);
+            ActionHome_c ah = ActionHome_c.getOneSM_AHOnR513(tah);
+            Action_c act = Action_c.getOneSM_ACTOnR514(ah);
+            oalText = act.getAction_semantics();
+       	} else if (modelElement instanceof ProvidedOperation_c) {
+       		oalText = ((ProvidedOperation_c)modelElement).getAction_semantics();
        	} else if (modelElement instanceof RequiredOperation_c) {
        		oalText = ((RequiredOperation_c)modelElement).getAction_semantics();
        	} else if (modelElement instanceof ProvidedSignal_c) {
        		oalText = ((ProvidedSignal_c)modelElement).getAction_semantics();
-       	} else if (modelElement instanceof ProvidedOperation_c) {
-       		oalText = ((ProvidedOperation_c)modelElement).getAction_semantics();
-       	} else if (modelElement instanceof Transition_c) {
-       		// TODO: FIXME I am not sure what to do here...
-       		// oalText = ((Transition_c)modelElement).getAction_semantics();
-       		CorePlugin.logError("Type Transition_c needs to be supported and is not", null);
+       	} else if (modelElement instanceof RequiredSignal_c) {
+       		oalText = ((RequiredSignal_c)modelElement).getAction_semantics();
        	} else {
-       		CorePlugin.logError("AllActivityModifier::parseAction encountered an unexpeced type: " + modelElement.toString(), null);       		
+       		IllegalArgumentException ia = new IllegalArgumentException("AllActivityModifier::parseAction encountered an unexpeced type: " + modelElement.getClass().toString());
+       		CorePlugin.logError("AllActivityModifier.parseAction:Unrecognized Action Home", ia);       		
        	}
 		
         parseRunner = new ParseRunnable((NonRootModelElement)modelElement, oalText);
