@@ -61,6 +61,10 @@ public class Build implements IApplication {
 				Boolean cleanBuild = cmdLine.getBooleanValue("-cleanCLI");
 				
 				CoreUtil.IsRunningHeadless = true;
+				if(!debug) {
+				     Job.getJobManager().suspend();
+				}
+				
 				try {
 					IProject[] projects = null;
 					if (projectName == "") {
