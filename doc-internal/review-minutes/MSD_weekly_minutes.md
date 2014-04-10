@@ -35,6 +35,85 @@ MSD Weekly Meeting Minutes
 ---
 ---
 
+    Date:     04/09/2014
+    Start:    9:00 MST
+    End:      10:00 MST
+    Elapsed:  1 hour
+    Present:  Bob, Keith, Travis, Campbell, Cort, others...
+            Dean, Robert, Jayne, others...
+
+### Engineering Status
+**Keith -** The upcoming patch release will be 4.1.10.  Focuses on providing
+key features for Ericsson, CLI prebuild and compare/merge.  We are shooting for
+an April 25th date.  Just a patch release but we still need to go through most
+of the release process.  Travis is working on testing for the compare/merge
+work.  Bob is working on development of the CLI pre-builder.  Nehad will have
+the tooltip changes ready for this patch release.  Heba will have the port
+reference work ready for this promotion.
+
+All work should be handed over by the evening of April 24th.
+
+Cort: Would like a nightly build in the customer's hands one week before the
+24th.
+
+### Webex training material
+
+We will provide self tool training.  This meets Ericsson requirements but also
+helps all customers.
+
+Bob: 
+
+6.9 Add reflexive navigation
+6.9.18  Why is action language homes in this section?  
+		  This section describes where action language can be used.
+Should add command line interface topic.
+Cover both linux and windows during installation and include discussion about
+licensing.
+
+Travis:
+
+Model testings - We already have long videos for this, we could index the
+existing videos pointing to parts of the video
+
+Realized code execution
+
+$t function
+
+Include video showing an open source build and tool modification.
+
+Nehad:
+
+- Show cheat sheets
+- Show spot light
+- Best practice for model building and verifier
+- Should we enhance the current cheat sheets, one for all videos?
+
+John:
+
+- Video ads take more time than the actual content.  Can we remove the ads
+before we integrate them into the training course?
+  
+- We will strip them from the action language series.  We do want some sort of
+  transition between sections.
+        
+Robert:
+
+CSD is changing the business model, trying to provide pro-active support.
+Each SR now has a value assigned that determines the cost.  This will be used
+to determine the amount of revenue brought in.
+
+April 2012 - April 2013 - 80% (SR raise rate vs fix)
+April 2013 - April 2014 - 60% (SR raise rate vs fix)
+
+Management sees the product as being expensive to support if the number of SRs
+raised is too high.
+
+We raise SRs just to track issues addressed.  These need to be understood and
+excluded from the expense calculations.
+
+---
+---
+
     Date:     04/02/2014
     Start:    6:00 GMT+2
     End:      6:37 GMT+2
