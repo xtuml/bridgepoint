@@ -110,8 +110,10 @@ public class BPToolTipHelper extends ToolTipHelper {
 			setTooltipText(tip);
 			Point displayPoint = computeWindowLocation(tip, eventX, eventY);
 			if(showDetailedTooltip){
-				setShellBounds(displayPoint.x, displayPoint.y, MaxPreferredTooltipSize.width,
-						MaxPreferredTooltipSize.height);
+//				setShellBounds(displayPoint.x, displayPoint.y, MaxPreferredTooltipSize.width,
+//						MaxPreferredTooltipSize.height);
+				setShellBounds(displayPoint.x, displayPoint.y, tipSize.width,
+						tipSize.height+15);
 			}
 			else{ 
 				setShellBounds(displayPoint.x, displayPoint.y, tipSize.width,
@@ -136,9 +138,14 @@ public class BPToolTipHelper extends ToolTipHelper {
 		if (!showDetailedTooltip){
 			getLightweightSystem().setContents(tip);
 		}else{
+			if ( tip instanceof FlowPage){
 			FlowPage flowgage = (FlowPage)tip;
 			TextFlow textflow = (TextFlow)flowgage.getChildren().get(0);
 			styledText.setText(textflow.getText());
+			} else if ( tip instanceof org.eclipse.draw2d.Label){
+				org.eclipse.draw2d.Label label = (org.eclipse.draw2d.Label)tip;
+				styledText.setText(label.getText());
+			}
 		}
 	}
 
@@ -147,11 +154,13 @@ public class BPToolTipHelper extends ToolTipHelper {
 		Dimension visibleArea = figureCanvas.getViewport().getSize();
 		
 		Point location = new Point(eventX +5, eventY + 5);
-
+		tip.invalidate();
 		tipSize = tip.getPreferredSize(-1, -1);
-		tipSize = getLightweightSystem().getRootFigure()
-				.getPreferredSize().getExpanded(getShellTrimSize());
-		tipSize = CropTipSizeIfNeeded(tipSize);
+		if ( showDetailedTooltip){
+			tipSize.width = tipSize.width + 100; 
+			tipSize.height = tipSize.height + 50; 
+		}
+		tipSize = adjustTooltipSizeIfNeeded(tipSize);
 
 		
 		// Adjust location if tip is going to fall outside display
@@ -166,13 +175,15 @@ public class BPToolTipHelper extends ToolTipHelper {
 		return location;
 	}
 	
-	private Dimension CropTipSizeIfNeeded(Dimension tipSize) {
+	private Dimension adjustTooltipSizeIfNeeded(Dimension tipSize) {
 		if ( tipSize.height > MaxPreferredTooltipSize.height && tipSize.width > MaxPreferredTooltipSize.width )
 			return MaxPreferredTooltipSize;
 		else if ( tipSize.height > MaxPreferredTooltipSize.height )
 			return new Dimension(tipSize.width, MaxPreferredTooltipSize.height);
 		else if ( tipSize.width > MaxPreferredTooltipSize.width )
 			return new Dimension(MaxPreferredTooltipSize.width, tipSize.height);
+		else if (tipSize.width < 75 && tipSize.height < 25 )
+			return new Dimension(75,25);
 		return tipSize;
 	}
 
@@ -304,20 +315,16 @@ public class BPToolTipHelper extends ToolTipHelper {
 		toolBarLayout.verticalIndent= 0;
 		bar.setLayoutData(toolBarLayout);
 
-//		toolBarLayout= new GridData(SWT.FILL, SWT.FILL, true, true);
-//		toolBarLayout.widthHint= 0;
-//		toolBarLayout.heightHint= 0;
-		
-		Composite spacer= new Composite(actionComposite, SWT.FILL);
+		Composite moveSupportCanvas= new Composite(actionComposite, SWT.FILL);
 		GridData spacerLayout= new GridData(SWT.FILL, SWT.FILL, true, true);
 		spacerLayout.widthHint= 0;
 		spacerLayout.heightHint= 0;
-		spacer.setLayoutData(spacerLayout);
+		moveSupportCanvas.setLayoutData(spacerLayout);
 
 		addResizeSupportIfNecessary(detailedShell, actionComposite);
 
 		
-		addMoveSupport(detailedShell, spacer);
+		addMoveSupport(detailedShell, moveSupportCanvas);
 		
 
 		addTooltipAction(bar);
@@ -348,6 +355,10 @@ public class BPToolTipHelper extends ToolTipHelper {
 
 	private void addTooltipAction(ToolBar bar) {
 		Object element = getTooltipModelElement();
+		if ( element == null){
+			addCloseAction(bar);
+			return;
+		}
 		NonRootModelElement temp = null;
 		if (element instanceof NonRootModelElement){
 			temp= (NonRootModelElement)element;
@@ -372,14 +383,14 @@ public class BPToolTipHelper extends ToolTipHelper {
 		
 		addExtraTooltipActions(bar, modelElement);
 		
+		new ToolItem(bar, SWT.SEPARATOR);
 		addCloseAction(bar);
 	}
 
 	private void addCloseAction(ToolBar bar) {
-		new ToolItem(bar, SWT.SEPARATOR);
 
 		ToolItem closeActionTooltip = new ToolItem(bar, SWT.NONE);
-		closeActionTooltip.setImage(CorePlugin.getImageDescriptor("safe_close.png").createImage());
+		closeActionTooltip.setImage(CorePlugin.getImageDescriptor("delete_edit.gif").createImage());
 		closeActionTooltip.setToolTipText("Close Tooltip Window");
 		closeActionTooltip.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -744,9 +755,10 @@ public class BPToolTipHelper extends ToolTipHelper {
 	
 
 	private void addResizeSupportIfNecessary(final Shell detailedShell,final Composite actionsComposite) {
-		final Canvas resizer= new Canvas(actionsComposite, SWT.NONE);
-		resizer.setBackgroundImage(CorePlugin.getImageDescriptor("resize_icon.gif").createImage());
-
+		final Label resizer= new Label(actionsComposite, SWT.NONE);
+		
+		
+		resizer.setImage(CorePlugin.getImageDescriptor("resize.gif").createImage());
 		int resizeImageSize= computeResizeHandleSize(actionsComposite);
 
 		GridData grid= new GridData(SWT.END, SWT.END, false, true);
