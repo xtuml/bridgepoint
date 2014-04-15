@@ -54,5 +54,6 @@ plugin.
       <import plugin="com.mentor.nucleus.bp.io.core"/>
       <import plugin="com.mentor.nucleus.bp.io.mdl"/>
       <import plugin="com.mentor.nucleus.bp.test"/>
+      <import plugin="com.mentor.nucleus.bp.als.oal"/>
    </requires>
 </plugin>

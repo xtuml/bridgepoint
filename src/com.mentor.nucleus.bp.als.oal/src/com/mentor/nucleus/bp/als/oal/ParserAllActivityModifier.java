@@ -90,7 +90,7 @@ import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
 
-public class AllActivityModifier implements IAllActivityModifier
+public class ParserAllActivityModifier implements IAllActivityModifier
 {
     private Function_c[] m_func_set;
     private Bridge_c[] m_bridge_set;
@@ -116,48 +116,48 @@ public class AllActivityModifier implements IAllActivityModifier
     private PackageableElement_c m_pkgElem = null;
     private Package_c m_pkg = null;
     
-    private IProgressMonitor m_pm = null;
+    protected IProgressMonitor m_pm = null;
     
     private ParseRunnable parseRunner;
     
-    public AllActivityModifier(Domain_c parent, IProgressMonitor monitor){
+    public ParserAllActivityModifier(Domain_c parent, IProgressMonitor monitor){
     	this((NonRootModelElement)parent, monitor);
     	parseAll = true;
     }
     
-    public AllActivityModifier(Component_c parent, IProgressMonitor monitor){
+    public ParserAllActivityModifier(Component_c parent, IProgressMonitor monitor){
     	this((NonRootModelElement)parent, monitor);
     	parseAll = true;
     }
     
-    public AllActivityModifier(Package_c parent, IProgressMonitor monitor){
+    public ParserAllActivityModifier(Package_c parent, IProgressMonitor monitor){
     	this((NonRootModelElement)parent, monitor);
     	parseAll = true;
     }
     
-    public AllActivityModifier(Subsystem_c parent, IProgressMonitor monitor){
+    public ParserAllActivityModifier(Subsystem_c parent, IProgressMonitor monitor){
     	this((NonRootModelElement)parent, monitor);
     	parseAll = true;
     }
     
-    public AllActivityModifier(FunctionPackage_c parent, IProgressMonitor monitor){
+    public ParserAllActivityModifier(FunctionPackage_c parent, IProgressMonitor monitor){
     	this((NonRootModelElement)parent, monitor);
     	parseAll = true;
     }
     
-    public AllActivityModifier(ExternalEntityPackage_c parent, IProgressMonitor monitor){
+    public ParserAllActivityModifier(ExternalEntityPackage_c parent, IProgressMonitor monitor){
     	this((NonRootModelElement)parent, monitor);
     	parseAll = true;
     }
     
-    public AllActivityModifier(ModelRoot modelRoot, Object[] activities, IProgressMonitor monitor)
+    public ParserAllActivityModifier(ModelRoot modelRoot, Object[] activities, IProgressMonitor monitor)
     {
         m_pm = monitor;
         m_root = modelRoot;
         activitiesToParse = activities;
     }
     
-    public AllActivityModifier(NonRootModelElement parent, IProgressMonitor monitor)
+    public ParserAllActivityModifier(NonRootModelElement parent, IProgressMonitor monitor)
     {
     	m_parent = parent;
     	if(parent instanceof Domain_c) {
@@ -318,7 +318,7 @@ public class AllActivityModifier implements IAllActivityModifier
                 // When running with no editors there is no placeholder.
             	// This comment is left here to call out that placeholder is 
             	// needed when there is an editor.
-            	// clearActionPlaceholder(activities[i]);
+            	clearActionPlaceholder(activities[i]);
             }
             if (m_pm != null && m_pm.isCanceled()) {
             	break;
@@ -328,7 +328,7 @@ public class AllActivityModifier implements IAllActivityModifier
 
     public void parseAction(Object modelElement)
     {
-        int toParse = AllActivityModifier.accessSuc_Pars( false, 0, modelElement );
+        int toParse = ParserAllActivityModifier.accessSuc_Pars( false, 0, modelElement );
         if ( toParse == Parsestatus_c.doNotParse )
         {
         	if (modelElement instanceof ProvidedOperation_c) {
@@ -411,7 +411,7 @@ public class AllActivityModifier implements IAllActivityModifier
 
     
 
-	private static int accessSuc_Pars( boolean writeValue, int newValue, Object o_input )
+	public static int accessSuc_Pars( boolean writeValue, int newValue, Object o_input )
     {
         if ( o_input instanceof Function_c )
         {
@@ -1928,7 +1928,7 @@ public class AllActivityModifier implements IAllActivityModifier
 	 */
    	public static  void initializeAllBodies(final NonRootModelElement nrme) {
 		ModelRoot modelRoot = nrme.getModelRoot();
-		AllActivityModifier.initializeBodies(modelRoot, null);
+		ParserAllActivityModifier.initializeBodies(modelRoot, null);
 	}
 
 	/**
@@ -2047,5 +2047,12 @@ public class AllActivityModifier implements IAllActivityModifier
 
 			pkg = pkg.getParentPackage();
 		}
+	}
+
+	@Override
+	public void clearActionPlaceholder(Object o_input) 
+	{
+		// Noop in this implementation
+		
 	}
 }
