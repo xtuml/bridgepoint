@@ -53,10 +53,13 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 	/**
 	 * Perform the CLI build
 	 */
-	private void performCLIBuild() {
+	protected void performCLIBuild() {
 		// configure allowed console output
-		int consoleLines = CUIPlugin.getDefault().getPreferenceStore().getInt("buildConsoleLines"); //$NON-NLS-1$
-		CUIPlugin.getDefault().getPreferenceStore().setValue("buildConsoleLines", Integer.MAX_VALUE); //$NON-NLS-1$
+		int originalConsoleLines = 0;
+		if (!prebuilderOnly) {
+			CUIPlugin.getDefault().getPreferenceStore().getInt("buildConsoleLines"); //$NON-NLS-1$
+			CUIPlugin.getDefault().getPreferenceStore().setValue("buildConsoleLines", Integer.MAX_VALUE); //$NON-NLS-1$
+		}
 		try {
 			IProject[] projects = null;
 			if (projectName == "") {
@@ -119,19 +122,24 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 					}
 					restoreBuildConfiguration(project, orginalConfig);
 				}
-				// insert any data from the CDT console
-				IDocument consoleDocument = CUIPlugin.getDefault()
-						.getConsoleManager().getConsoleDocument(project);
-				String documentContents = consoleDocument.get();
-				System.out.write(documentContents.getBytes());
+				if (!prebuilderOnly) {
+					// insert any data from the CDT console
+					IDocument consoleDocument = CUIPlugin.getDefault()
+							.getConsoleManager().getConsoleDocument(project);
+					String documentContents = consoleDocument.get();
+					System.out.write(documentContents.getBytes());
+				}
 			}
 		} catch (Exception e) {
 			BPCLIPreferences.logError(e.getMessage(), e);
 		} finally {
-			CUIPlugin.getDefault().getPreferenceStore().setValue("buildConsoleLines", consoleLines); //$NON-NLS-1$
+			if (!prebuilderOnly) {
+				CUIPlugin.getDefault().getPreferenceStore().setValue("buildConsoleLines", originalConsoleLines); //$NON-NLS-1$
+			}
 			System.out.println("Build complete.  Exiting.");
-			// Unless running in debug exit after the build
-			if (!debug) {
+			// Unless running in debug exit after the build.  Of course if this
+			// is prebuidlerOnly there is no workbench to have to close
+			if (!debug && !prebuilderOnly) {
 				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 					
 					@Override
@@ -172,8 +180,10 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 		try {
 			jobManager.join(ResourcesPlugin.FAMILY_MANUAL_BUILD, null);
 			jobManager.join(ResourcesPlugin.FAMILY_AUTO_BUILD, null);
-			while(ResourcesPlugin.getWorkspace().isTreeLocked()) {
-				   PlatformUI.getWorkbench().getDisplay().readAndDispatch();
+			if (!prebuilderOnly) {
+				while(ResourcesPlugin.getWorkspace().isTreeLocked()) {
+					   PlatformUI.getWorkbench().getDisplay().readAndDispatch();
+				}
 			}
 			project.refreshLocal(IProject.DEPTH_INFINITE, null);
 		} catch (OperationCanceledException e) {
