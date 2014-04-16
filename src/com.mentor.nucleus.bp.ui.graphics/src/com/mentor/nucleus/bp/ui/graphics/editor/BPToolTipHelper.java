@@ -110,8 +110,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 			setTooltipText(tip);
 			Point displayPoint = computeWindowLocation(tip, eventX, eventY);
 			if(showDetailedTooltip){
-//				setShellBounds(displayPoint.x, displayPoint.y, MaxPreferredTooltipSize.width,
-//						MaxPreferredTooltipSize.height);
 				setShellBounds(displayPoint.x, displayPoint.y, tipSize.width,
 						tipSize.height+15);
 			}
@@ -161,9 +159,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 			tipSize.height = tipSize.height + 50; 
 		}
 		tipSize = adjustTooltipSizeIfNeeded(tipSize);
-
 		
-		// Adjust location if tip is going to fall outside display
 		if (location.y + tipSize.height - 200 > visibleArea.height)
 			location.y = eventY - tipSize.height;
 
@@ -315,6 +311,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 		toolBarLayout.verticalIndent= 0;
 		bar.setLayoutData(toolBarLayout);
 
+		
 		Composite moveSupportCanvas= new Composite(actionComposite, SWT.FILL);
 		GridData spacerLayout= new GridData(SWT.FILL, SWT.FILL, true, true);
 		spacerLayout.widthHint= 0;
@@ -327,13 +324,9 @@ public class BPToolTipHelper extends ToolTipHelper {
 		addMoveSupport(detailedShell, moveSupportCanvas);
 		
 
-		addTooltipAction(bar);
 		
 	}
 	private Object getTooltipModelElement() {
-//		if ( )
-//		
-//		else if ( )
 		if (currentTipSource instanceof ShapeImageFigure ){
 		ShapeEditPart part = ((ShapeImageFigure)currentTipSource).getPart();
 		Shape_c shape = (Shape_c) part.getModel();
@@ -599,8 +592,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 		if (figureUnderMouse == null) {
 			if (!showDetailedTooltip)
 				if (isShowing()) {
-					//				hide();
-					//				timer.cancel();
 					mouseInCloseTimer = new Timer(true);
 					mouseInCloseTimer.schedule(new TimerTask() {
 						@Override
