@@ -1,0 +1,89 @@
+1. Should consider removing key letters.  Key letters cause confusion and allow
+   two different ways for defining access to a class.
+2. auto-completion for OAL, support ->[Class names], consider completing 1 with
+   this issue
+3. Need to look into logical model support, need to see where eGit is.  Needs to
+   be done before the end of year.  For now the team will work around issue
+   dts0101041613.
+4. Identifiers shall not be used for comparison.  Need to determine proper
+   identifier's for all elements (example: association number).  Consider the
+   name of an element as the identifier for others.  The filesystem will enforce
+   duplicate classes, packages, interfaces, components, ee's.  Namespace will
+   prevent ambiguity.
+   
+   Example: system::package::component::package a::class a
+            system::package::component::package a::package a::class a
+            system::package::component::package b::class a
+   
+   Merging with name as identifier needs consideration.  If an association is
+   added on a new class that is not added in both branches when dealing with
+   two different classes (by id) we need to move that association to the
+   class that is local.
+   
+5. Is the package correct for name spacing.
+
+Example: system::package::component::package a::R1
+         system::package::component::package b::R1
+   
+   Should we consider R1 to be an integrity issue?
+   
+6. Do we enforce new identifiers during creation/modification?  Elements that
+   are the root of a file will already be covered.  We need to consider all
+   other elements.  We currently consider signatures for elements like functions
+   and operations.  They can therefore have the same name.  I think we should
+   enforce all identifiers, the compare tool will then work appropriately.
+7. Change integrity tool to create problem markers with proper linking to the
+   element in either the tree or the diagram.  Should be configurable between
+   error and warning.  Should do this after every transaction. (prototype
+   delivered)
+8. Add support to show markers in the explorer tree and consider the graphics as
+   well.
+9. Add parse all after a merge (start at the parent component).
+10. See about disabling auto-merge in git.
+11. Saw an issue where the state machine diagram was orphaned on branch
+    switching.
+    
+    _- Open the state diagram in 42915 master
+    _- Merge slave branch into 42915 master, leaving conflict in place
+    _- Save the merge
+    _- Reset soft to master
+    _- Replace all changes with the latest head
+    _R The state diagram becomes orphaned
+    
+    Mostly fixed, now issue with replace with on provision/requirement.
+    
+12. Hit the refresh issue on merge and on all team operations after.
+13. Memory data still leaking after merging and reopening merge tool.
+14. Add utility to scan for state machine ids missing on class.
+15. Use a modified version of the O_OBJ ID, adding c or i. (fixed)
+16. Change class based operations to be italic (consider different icon).
+17. Consider graphical merge pre-logical model
+18. Can we live with unique_ids based off of the class unique id?  There will
+    still be issues where if an old branch already contains a state machine
+    where master or another branch adds a state machine.  We could convert the
+    existing machine ids to match what will be created in the newer branches.
+    This could even have a force persistence on upgrade, but if the class is
+    never loaded and instead just merged to master you would not be able to
+    properly compare the two state machines with different unique ids.
+19. Compare does not support jgit autocrlf=true (fixed)
+20. Test that git patch annotations are removed when no merge is done (i.e, the
+    patch data is removed from the xtUML file).  For non-xtuml merges this
+    requires a user to touch the file then add to index.  For xtuml models this
+    same workaround can be achieved by using text comparison pull down and
+    adding a space in the SQL file.  Longer term we will automatically touch the
+    file on close if no changes were made and there were conflicts.  This allows
+    the user to only require viewing the conflicts.
+  
+  	(fixed)
+
+21. Prevent false problem markers for integrity issues.
+
+Create an SR for the following:
+
+1.
+3.
+4.
+7.
+8.
+9.
+17. (support what we can for now, for example state machines)
