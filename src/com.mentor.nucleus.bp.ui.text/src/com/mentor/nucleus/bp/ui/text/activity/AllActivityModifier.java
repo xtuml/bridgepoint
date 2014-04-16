@@ -32,11 +32,17 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ui.texteditor.IElementStateListener;
 
 import com.mentor.nucleus.bp.als.oal.ParserAllActivityModifier;
+import com.mentor.nucleus.bp.core.Component_c;
+import com.mentor.nucleus.bp.core.Domain_c;
+import com.mentor.nucleus.bp.core.ExternalEntityPackage_c;
+import com.mentor.nucleus.bp.core.FunctionPackage_c;
+import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.Parsestatus_c;
 import com.mentor.nucleus.bp.core.ProvidedOperation_c;
 import com.mentor.nucleus.bp.core.ProvidedSignal_c;
 import com.mentor.nucleus.bp.core.RequiredOperation_c;
 import com.mentor.nucleus.bp.core.RequiredSignal_c;
+import com.mentor.nucleus.bp.core.Subsystem_c;
 import com.mentor.nucleus.bp.core.common.ModelRoot;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.util.UIUtil;
@@ -55,6 +61,48 @@ public class AllActivityModifier extends ParserAllActivityModifier
     
     private ActivityEditor.ParseRunnable parseRunner = new ActivityEditor.ParseRunnable();
 
+    public AllActivityModifier(Domain_c parent, IProgressMonitor monitor){
+    	super(parent, monitor);
+        if(activityInputFactory == null){
+        	activityInputFactory = ActivityEditorInputFactory.getDefaultInstance();
+        }
+    }
+    
+    public AllActivityModifier(Component_c parent, IProgressMonitor monitor){
+    	super(parent, monitor);
+        if(activityInputFactory == null){
+        	activityInputFactory = ActivityEditorInputFactory.getDefaultInstance();
+        }
+    }
+    
+    public AllActivityModifier(Package_c parent, IProgressMonitor monitor){
+    	super(parent, monitor);
+        if(activityInputFactory == null){
+        	activityInputFactory = ActivityEditorInputFactory.getDefaultInstance();
+        }
+    }
+    
+    public AllActivityModifier(Subsystem_c parent, IProgressMonitor monitor){
+    	super(parent, monitor);
+        if(activityInputFactory == null){
+        	activityInputFactory = ActivityEditorInputFactory.getDefaultInstance();
+        }
+    }
+    
+    public AllActivityModifier(FunctionPackage_c parent, IProgressMonitor monitor){
+    	super(parent, monitor);
+        if(activityInputFactory == null){
+        	activityInputFactory = ActivityEditorInputFactory.getDefaultInstance();
+        }
+    }
+    
+    public AllActivityModifier(ExternalEntityPackage_c parent, IProgressMonitor monitor){
+    	super(parent, monitor);
+        if(activityInputFactory == null){
+        	activityInputFactory = ActivityEditorInputFactory.getDefaultInstance();
+        }
+    }
+    
     public AllActivityModifier(ModelRoot modelRoot, Object[] activities, IProgressMonitor monitor)
     {
     	super(modelRoot, activities, monitor);
