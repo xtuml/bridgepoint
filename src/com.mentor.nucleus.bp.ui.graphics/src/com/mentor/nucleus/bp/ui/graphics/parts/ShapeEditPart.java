@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.ConnectionAnchor;
@@ -127,9 +126,9 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements
 		} else
 			figure.setMinimumSize(new Dimension(8, 8));
 		if (!getTextDescription().equals("")) {
-			Label label = new Label(getTextDescription());
-			label.setBorder(new MarginBorder(3, 3, 3, 3));
-			figure.setToolTip(label);
+			SimpleTooltipFigure tooltipFigure = new SimpleTooltipFigure();
+			tooltipFigure.setMessage(getTextDescription());
+			figure.setToolTip(tooltipFigure);
 		}
 		return figure;
 	}
@@ -267,9 +266,9 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements
 			((EditPart) text).refresh();
 		}
 		if (!getTextDescription().equals("")) {
-			Label label = new Label(getTextDescription());
-			label.setBorder(new MarginBorder(3, 3, 3, 3));
-			getFigure().setToolTip(label);
+			SimpleTooltipFigure tooltipFigure = new SimpleTooltipFigure();
+			tooltipFigure.setMessage(getTextDescription());
+			getFigure().setToolTip(tooltipFigure);
 		} else {
 			if (getFigure().getToolTip() != null)
 				getFigure().setToolTip(null);

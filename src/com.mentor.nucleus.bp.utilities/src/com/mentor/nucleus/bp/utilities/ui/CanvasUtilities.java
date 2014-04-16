@@ -47,6 +47,7 @@ import com.mentor.nucleus.bp.ui.graphics.actions.OpenGraphicsEditor;
 import com.mentor.nucleus.bp.ui.graphics.editor.GraphicalEditor;
 import com.mentor.nucleus.bp.ui.graphics.editor.ModelEditor;
 import com.mentor.nucleus.bp.ui.text.activity.ShowActivityAction;
+import com.mentor.nucleus.bp.ui.text.description.ShowDescriptionAction;
 
 public class CanvasUtilities {
 	private static Point fDownLocation;
@@ -335,6 +336,26 @@ public class CanvasUtilities {
 			CorePlugin.logError("Unable to open activity editor.", x);
 		}
 
+	}
+	static public void openDescriptionEditor(final Object uut) {
+		
+		try {
+			IWorkspaceRunnable r = new IWorkspaceRunnable() {
+				public void run(IProgressMonitor monitor)
+						throws CoreException {
+					IStructuredSelection ss = new StructuredSelection(uut);
+					ShowDescriptionAction sda = new ShowDescriptionAction();
+					Action a = new Action() {
+					};
+					sda.selectionChanged(a, ss);
+					sda.run(a);
+				}
+			};
+			CanvasUtilities.getWorkspace().run(r, null);
+		} catch (CoreException x) {
+			CorePlugin.logError("Unable to open activity editor.", x);
+		}
+		
 	}
 	public static void doMousePress(int x, int y)
     {
