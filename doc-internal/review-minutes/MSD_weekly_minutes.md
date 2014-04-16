@@ -33,7 +33,185 @@ MSD Weekly Meeting Minutes
 
 
 ---
+---
 
+    Date:     04/09/2014
+    Start:    9:00 MST
+    End:      10:00 MST
+    Elapsed:  1 hour
+    Present:  Bob, Keith, Travis, Campbell, Cort, others...
+            Dean, Robert, Jayne, others...
+
+### Engineering Status
+**Keith -** The upcoming patch release will be 4.1.10.  Focuses on providing
+key features for Ericsson, CLI prebuild and compare/merge.  We are shooting for
+an April 25th date.  Just a patch release but we still need to go through most
+of the release process.  Travis is working on testing for the compare/merge
+work.  Bob is working on development of the CLI pre-builder.  Nehad will have
+the tooltip changes ready for this patch release.  Heba will have the port
+reference work ready for this promotion.
+
+All work should be handed over by the evening of April 24th.
+
+Cort: Would like a nightly build in the customer's hands one week before the
+24th.
+
+### Webex training material
+
+We will provide self tool training.  This meets Ericsson requirements but also
+helps all customers.
+
+Bob: 
+
+6.9 Add reflexive navigation
+6.9.18  Why is action language homes in this section?  
+		  This section describes where action language can be used.
+Should add command line interface topic.
+Cover both linux and windows during installation and include discussion about
+licensing.
+
+Travis:
+
+Model testings - We already have long videos for this, we could index the
+existing videos pointing to parts of the video
+
+Realized code execution
+
+$t function
+
+Include video showing an open source build and tool modification.
+
+Nehad:
+
+- Show cheat sheets
+- Show spot light
+- Best practice for model building and verifier
+- Should we enhance the current cheat sheets, one for all videos?
+
+John:
+
+- Video ads take more time than the actual content.  Can we remove the ads
+before we integrate them into the training course?
+  
+- We will strip them from the action language series.  We do want some sort of
+  transition between sections.
+        
+Robert:
+
+CSD is changing the business model, trying to provide pro-active support.
+Each SR now has a value assigned that determines the cost.  This will be used
+to determine the amount of revenue brought in.
+
+April 2012 - April 2013 - 80% (SR raise rate vs fix)
+April 2013 - April 2014 - 60% (SR raise rate vs fix)
+
+Management sees the product as being expensive to support if the number of SRs
+raised is too high.
+
+We raise SRs just to track issues addressed.  These need to be understood and
+excluded from the expense calculations.
+
+---
+---
+
+    Date:     04/02/2014
+    Start:    6:00 GMT+2
+    End:      6:37 GMT+2
+    Elapsed:  time minutes
+    Present:  Bob, Keith, Travis, Campbell, Cort, others...
+            Dean, Robert, Jayne, others...
+
+### Engineering Status  
+
+ **Ericsson pending issues and 4.1.10 "patch release" -**   
+- Bob is working on the main issue of making the CLI build truly headless because currently it requires eclipse workbench to be present.  
+- Add support for constants via IPR issue is going into the release.  
+- The expected date for this release would be April 18ths if possible 
+  but Bob is still going to discuss that with Keith.  
+ 
+**Summary of on-site time in Croatia** 
+-Travis:
+  It was good.  He was able to help them understand the current limitations and our plans.  
+  They accept that they must wait for the logical model integration.  
+  They were also very pleased with the changes that He gave them.  
+  They feel more comfortable using it now.  
+  They aligned my thoughts and what they need pretty well.  
+  He was able to show them how to use the open source model compare code to debug an issue one of the Budapest guys was having (that impressed them). 
+  It will be helpful in the future.  
+  
+  Compare/Merge to them is the highest priority, they need it to be very easy and fool proof.  
+	Issues fixed (probably more):
+	dts0101042909 - Fixed  
+	dts0101042915 - Fixed  
+	dts0101009925 - Fixed  
+	dts0101040652 - Fixed  
+	dts0101009924 - Fixed  
+	dts0101039702 - Fixed  
+	dts0101039330 - Fixed  
+	Problems created for integrity issues automatically, after model modification and merge (prototype delivery)
+    Fixed issue with the jgit autocrlf=true configuration option
+    On merge files are written even when the user does not perform a merge (wants to keep the left data), this removes the git annotations from the file.
+    Fixed an issue where state machine elements description hover was not working.
+    Modified the tool so that key letters take on the class name with spaces removed.  They also keep synchronized until the user modifies the key letters manually.  
+	Robert has identified at least 70 merge test variations, He will work with them to create test matrices which we will handle the test implementation for.
+    Went over a list of over 20 bugs that Marijan has written down but has not raised SRs for yet.  Had him raise issues for the larger ones.
+    Something interesting was discussed, a java model compiler.  They were not aware that we had one and have been working on their own.  They asked for it, told them it was currently closed source.  Something we need to keep in mind.
+    Fixed an issue where we were losing model change notification during file replacing (bug was that diagrams were orphaned and had to be closed and reopened.
+
+
+
+
+**Demo of new hover text feature -** 
+
+Nehad showed the tooltip enhancement 
+Tooltips shows when the mouse hovers over a canvas element 
+When user clicks inside the tooltip window, a detailed tooltip window is painted 
+with scrollbars,resize, move features and toolbar items
+Making it editable or not is still being investigated 
+The remaining work is adding icons to toolbar items, fix Ericsson issue for missing tooltip window, and minor fixes for tooltip shell.
+
+
+**Fuji-Xerox model compiler customization -**    
+They recently bought some BP licenses and it includes the source version of the C-ModelCompiler
+They are using that and they are making customizations 
+They have accumulations of models IP that made them large models.
+And because of that they can't use the compiled model compiler quick build times 
+and they are running into memory limitations. 
+ 
+Cort is helping them  in the short term just as working for a longer term strategy enabling them update the mc themselves
+but he is making the first one on their behalf.
+
+He received their archetype files yesterday, he's investigating them and will have a meeting with the Mentor Graphics Japan this week.
+
+
+
+### Marketing Status
+**Dean  -**   
+Marketing activities we are happily involved in Engineering shows .
+In three venues in Dallas , Seattle and long beach California. 
+This show is  military focus and we will be showing BridgePoint , System Vision and discussing other SLE tools.   
+"Connected Engineering" is this year slogan.
+ 
+They are doing some preparation for the xtuml and some promotions to raise awareness
+of the source code and build instructions are now available.  
+The broader community is getting convinced we are more open source than vendor specific trying to recruit the broader community to participat.  
+
+Ericsson T1 activity, one thing that is significant is the development of the new course material. 
+Much of that is being leveraged through CSD and the consultant they hired.   
+Ericsson may do trial running of the material in the may time frame.
+
+ 
+### Customer Support Status
+**Robert -**  
+Had a number of ericsson issues mostly related to compare/mege
+Had filed number of enhancement requests  that SAAB mentioned 
+The most important request for Ericsson is the need for headless is to be truly headless.
+Arguing with Sony they have a problem with Copy/Paste that doesn't look like it's our problem, could have been related to the OS having the clipboard locked 
+
+
+
+
+---
     Date:     03/19/2014
     Start:    6:00 GMT+2
     End:      6:15 GMT+2

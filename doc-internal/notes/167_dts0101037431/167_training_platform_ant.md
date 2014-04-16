@@ -22,16 +22,19 @@ We shall consider best-in-industry tools including cousera.org and WordPress.
 [1] Issues 167, https://github.com/xtuml/internal/issues/167    
 [2] CQ DEI dts0101037431  
 [3] Issues 166, dts0101037420 - xtUML Self-Paced Tool Training  
+[4] Training Collateral Enhancement - Analysis Note, https://github.com/xtuml/internal/blob/d78935e061defd0ce0a758d5537d2ebfa432b947/doc-internal/notes/141_dts0101022089_training/141.ant.md  
 
 3. Background
 -------------
 
 4. Requirements
 ---------------
+The requirements for the online training platform are set forth in [4].  
 
 5. Analysis
 -----------
 5.1  Definitions  
+  - LMS : Learning Management System
   - MOOC : Massive Open On-line Course
 
 5.2  Overview of available course delivery sites
@@ -45,8 +48,8 @@ We shall consider best-in-industry tools including cousera.org and WordPress.
   
   - __mooc.org (http://mooc.org)__
     - Collaboration between google and edX for non xConsortium members to build and host courses
-    - Not yet live.  Opens "first half of 2014"
     - "mooc.org is an edX destination. We're working to help educational institutions, businesses and teachers easily build and host courses for the world to take."
+    - Looks like it could be very interesting, but not yet live.  Opens "first half of 2014"
   
   - __P2PU - Peer to Peer Univeristy (https://p2pu.org/en/)__
     - [wikipedia] Peer to Peer University (P2PU) is a nonprofit online open learning community which allows users to organize and participate in courses and study groups to learn about specific topics.  P2PU offers some of the features of massive open online courses, but is focused on people sharing their knowledge on a topic or learning about a topic offered by another user with a DIY wiki-type mentality.[3] Unlike typical massive open online courses, anyone can create a course as well as take one.[4] Additionally, because of its less hierarchical nature, P2PU activities need not necessary be Courses; the admin of the learning environment can select from Study Group and Challenge as well as creating their own term.
@@ -103,12 +106,15 @@ We shall consider best-in-industry tools including cousera.org and WordPress.
     - classes are not free
   
   - __WordPress plug-ins__ There are WordPress plug-ins that provide Learning Management Systems (LMS)
-    - TalentLMS WordPress plugin
     - WP Courseware (http://wpcourseware.com/)
-    - BuddyPress Courseware
+    - WooThemes Sensei (http://http://www.woothemes.com/products/sensei/)
+    - Train-Up! (http://http://wptrainup.co.uk/)
+    - ~~TalentLMS WordPress plugin~~ - _It starts from $29/month for 25 users and a cost of $99/month for 100 users._
+    - ~~BuddyPress Courseware~~ - _No longer maintained_
     
   - __Mentor Graphics Course System: (http://todo)__
-    - TODO - Overview
+    - Built in to mentor.com
+    - Run by Mentor Educational Services & Customer Support
 
 5.3  Interesting/Useful Links
   - How MOOC Video Production Affects Student Engagement: https://www.edx.org/blog/how-mooc-video-production-affects
@@ -116,6 +122,9 @@ We shall consider best-in-industry tools including cousera.org and WordPress.
 
 6. Work Required
 ----------------
+6.1  Much of the externally-hosted MOOC world is being driven by universities starting to put course content online.  The sites built on this philosophy are too restrictive for our needs.  Based on the requirements stated in [4], the following are most appealing:
+  - __openlearning (http://www.openlearning.com)__
+  - __WordPress plug-in, WP Courseware (http://wpcourseware.com/)__
 
 7. Acceptance Test
 ------------------
