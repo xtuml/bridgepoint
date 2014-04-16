@@ -163,7 +163,13 @@ public class TextUtilities {
 		if (source instanceof Shape_c) {
 			// only shapes require this check
 			Shape_c shape = (Shape_c) source;
-			return GraphicalElement_c.getOneGD_GEOnR2(shape).getOoa_type() == Ooatype_c.ImportedClass;
+			GraphicalElement_c ge = GraphicalElement_c.getOneGD_GEOnR2(shape);
+			// during project deletes this ge can be null as the editor is
+			// being refreshed after an object's deletion, yet before its 
+			// element has been removed
+			if(ge != null) {
+				return ge.getOoa_type() == Ooatype_c.ImportedClass;
+			}
 		}
 		return false;
 	}
@@ -184,8 +190,13 @@ public class TextUtilities {
 			source = connectorPart.getTarget().getModel();
 		if (source instanceof Shape_c) {
 			Shape_c shape = (Shape_c) source;
-			return Cl_c.Getooaid(GraphicalElement_c.getOneGD_GEOnR2(shape)
-					.getRepresents());
+			GraphicalElement_c ge = GraphicalElement_c.getOneGD_GEOnR2(shape);
+			// during project deletes this ge can be null as the editor is
+			// being refreshed after an object's deletion, yet before its 
+			// element has been removed
+			if(ge != null) {
+				return Cl_c.Getooaid(ge.getRepresents());
+			}
 		}
 		if (source instanceof Connector_c) {
 			Connector_c connector = (Connector_c) source;
