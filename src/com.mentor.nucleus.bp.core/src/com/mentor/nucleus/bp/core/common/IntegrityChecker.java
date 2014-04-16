@@ -74,7 +74,9 @@ public class IntegrityChecker {
 					}
 					manager.relateAcrossR1301To(system);
 					try {
-						elementToCheck.getFile().deleteMarkers(IMarker.PROBLEM, true, IFile.DEPTH_ONE);
+						if(elementToCheck.getFile() != null && elementToCheck.getFile().isAccessible()) {
+							elementToCheck.getFile().deleteMarkers(IMarker.PROBLEM, true, IFile.DEPTH_ONE);
+						}
 					} catch (CoreException e) {
 						CorePlugin.logError("Unable to delete existing integrity markers.", e);
 					}
@@ -104,7 +106,7 @@ public class IntegrityChecker {
 			}
 			// do not create markers for any element that has
 			// no file
-			if(nrme.getFile() != null) {
+			if(nrme.getFile() != null && nrme.getFile().isAccessible()) {
 				try {
 					nrme.getFile().deleteMarkers(IMarker.PROBLEM, true, IFile.DEPTH_ONE);
 				} catch (CoreException e) {

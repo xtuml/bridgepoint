@@ -2953,7 +2953,9 @@ public class ImportHelper
 											.getOoa_id().equals(ism.getSm_idCachedValue());
 								}
 							});
-					gm.setOoa_id(id);
+					if(gm != null) {
+						gm.setOoa_id(id);
+					}
 					StateMachine_c sm = StateMachine_c.getOneSM_SMOnR517(ism);
 					Object oldKey = sm.getInstanceKey();
 					sm.setSm_id(id);
@@ -2980,7 +2982,9 @@ public class ImportHelper
 											.equals(csm.getSm_idCachedValue());
 								}
 							});
-					gm.setOoa_id(id);
+					if(gm != null) {
+						gm.setOoa_id(id);
+					}
 					StateMachine_c sm = StateMachine_c.getOneSM_SMOnR517(csm);
 					Object oldKey = sm.getInstanceKey();
 					sm.setSm_id(id);
@@ -3040,11 +3044,24 @@ public class ImportHelper
 					Object oldNlKey = nle.getInstanceKey();
 					nle.unrelateAcrossR526From(sem);
 					nle.relateAcrossR526To(sem);
+					PolymorphicEvent_c poly = PolymorphicEvent_c.getOneSM_PEVTOnR527(nle);
+					if(poly != null) {
+						poly.unrelateAcrossR527From(nle);
+						poly.relateAcrossR527To(nle);
+					}
 					nle.updateInstanceKey(oldNlKey, nle.getInstanceKey());
 				}
 			}
 			PolymorphicEvent_c poly = PolymorphicEvent_c.getOneSM_PEVTOnR525(event);
 			if(poly != null) {
+				NonLocalEvent_c[] nlevts = NonLocalEvent_c.getManySM_NLEVTsOnR527(poly);
+				for(NonLocalEvent_c nlevt : nlevts) {
+					// no instance key update required
+					// just unrelate and relate to update
+					// the cached value
+					nlevt.unrelateAcrossR527From(poly);
+					nlevt.relateAcrossR527To(poly);
+				}
 				Object oldPKey = poly.getInstanceKey();
 				poly.unrelateAcrossR525From(event);
 				poly.relateAcrossR525To(event);
