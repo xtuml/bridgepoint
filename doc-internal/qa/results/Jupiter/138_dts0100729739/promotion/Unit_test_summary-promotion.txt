@@ -1,0 +1,34 @@
+This document captures the state of the BridgePoint unit tests:
+===============================================================
+Branch: <TODO: Fill This In>
+Hostname: 	hkhaled_lptp
+OS Name:  	Windows 7
+	Version:	6.1
+	Architecture:	x86
+
+Test Suite                              Status			TestRuns	Time    Timestamp
+---------------------------------------------------------------------------------------------
+Core Generic Upgrade Test				PASS			39			2.98s	20140409 22:00:48
+UI Canvas CCP Test						PASS			102			591.42s	20140409 23:22:46
+Core Test								PASS			1098		916.27s	20140409 22:16:19
+UI Explorer Test						PASS			18			77.58s	20140410 00:30:11
+Core Test - Workspace Setup				PASS			14			92.04s	20140409 22:00:16
+Parse All Test							PASS        	4598		229.52s	20140409 21:54:00
+IO MDL PkgCM Tests						PASS			108			867.19s	20140409 23:05:52
+Core Test 2								PASS			305			198.59s	20140409 22:19:50
+Debug - Verifier Test					PASS			100			790.13s	20140410 10:47:49
+Core Test - System Level Tests			PASS			24			12.30s	20140409 22:20:14
+Core Test 2 - Consistency				PASS			17			1.34s	20140409 21:58:33
+IO MDL Tests							PASS			90			214.34s	20140409 22:46:50
+UI Properties Test						PASS			163			19.35s	20140409 23:30:10
+Core Test - Existing Projects			PASS			15			4.16s	20140409 22:00:33
+Model Compare Test						PASS			258			269.57s	20140409 22:43:03
+Welcome Test							PASS			13			307.12s	20140410 00:01:26
+UI Canvas Suite 1						PASS			84			86.68s	20140409 23:08:11
+Core Test - RTO Move					PASS			144			247.18s	20140409 21:58:20
+Search Test								PASS			10			11.30s	20140409 23:06:33
+UI Canvas Suite 2						PASS			270			256.02s	20140409 23:12:42
+IO MDL Tests 2							PASS			77			250.64s	20140409 22:51:13
+IO SQL Test								PASS			8			0.91s	20140409 23:06:06
+Debug - Verifier Test 2					PASS			10			312.82s	20140410 14:28:53
+UI Text Test							PASS			163			103.92s	20140409 23:32:08
