@@ -49,7 +49,6 @@ import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.util.ContainerUtil;
 
 public class TextParser extends OalParser {
-	//IDocument document = null;
 	long m_act_id = 0;
 
 	public TextParser(Ooaofooa modelRoot, TokenStream lexer) {
@@ -151,37 +150,45 @@ public class TextParser extends OalParser {
 		return super.action(act_id, type);
 	}
 
+	protected String parserTokenText = " ";
+	protected int parserLineNumber = 0;
+	protected String parserMessage = " ";
 	public void reportError(RecognitionException ex) {
-		String tokenText = " ";
-		final int lineNumber = ex.getLine();
-		String message = ex.getMessage();
+		reportError(ex, true);
+	}
+	public void reportError(RecognitionException ex, boolean reportError) {
+		parserTokenText = " ";
+		parserLineNumber = ex.getLine();
+		parserMessage = ex.getMessage();
 		if (ex instanceof MismatchedTokenException) {
 			MismatchedTokenException mmex = (MismatchedTokenException) ex;
 			Token token = mmex.token;
 			if (token != null && token.getText() != null) {
-				tokenText = token.getText();
+				parserTokenText = token.getText();
 			}
-		} else if (ex instanceof NoViableAltException) {
+		} else if (ex instanceof NoViableAltException) { 
 			NoViableAltException nvex = (NoViableAltException) ex;
 			Token token = nvex.token;
 			AST ast = nvex.node;
 			if (token != null) {
-				tokenText = token.getText();
+				parserTokenText = token.getText();
 			} else if (ast != null) {
-				tokenText = token.getText();
+				parserTokenText = token.getText();
 			}
-			if (tokenText == null) {
-				tokenText = " ";
+			if (parserTokenText == null) {
+				parserTokenText = " ";
 			}
 		} else if (ex instanceof pt_SemanticException) {
-			tokenText = ((pt_SemanticException) ex).token.getText();
-			if (tokenText == null) {
-				tokenText = " ";
+			parserTokenText = ((pt_SemanticException) ex).token.getText();
+			if (parserTokenText == null) {
+				parserTokenText = " ";
 			}
 		}
 
-		// Report the error
-		CorePlugin.logError("Parse error: " + message + "line: " + lineNumber,
-				null);
+		if (reportError) {
+			// Report the error
+			CorePlugin.logError("Parse error: " + parserMessage + "line: " + parserLineNumber,
+					null);
+		}
 	}
 };
