@@ -635,12 +635,12 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 				getLightweightSystem().setEventDispatcher(new DomainEventDispatcher(domain, this){
 
 					// Override the creation of ToolTip helper object 
-					BPToolTipHelper  tooltipHealper = null;
+					BPToolTipHelper  tooltipHelper = null;
 					@Override 
 					protected ToolTipHelper getToolTipHelper() {
-						if (tooltipHealper == null)
-							tooltipHealper = new BPToolTipHelper(control);
-						return tooltipHealper;
+						if (tooltipHelper == null)
+							tooltipHelper = new BPToolTipHelper(control);
+						return tooltipHelper;
 					}
 				});
 			}
