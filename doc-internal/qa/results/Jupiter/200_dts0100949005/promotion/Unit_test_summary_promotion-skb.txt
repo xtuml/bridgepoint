@@ -1,0 +1,41 @@
+This document captures the state of the BridgePoint unit tests:
+===============================================================
+Branch: master with local merge of branches for 200_
+Hostname:   kbrown-vm-w7-1
+OS Name:    Windows 7
+    Version:    6.1
+    Architecture:   x86
+
+Test Suite                              Status          TestRuns    Time    Timestamp
+---------------------------------------------------------------------------------------------
+Core Generic Upgrade Test               PASS            39          3.32s   20140413 11:25:47
+UI Canvas CCP Test                      PASS            102         525.06s 20140413 12:34:28
+Core Test                               PASS            1097        964.64s 20140413 11:42:08
+UI Explorer Test                        PASS            18          55.26s  20140413 12:35:36
+Core Test - Workspace Setup             PASS            14          63.89s  20140413 11:25:11
+Parse All Test                          PASS            4600        762.22s 20140416 06:41:08
+IO MDL PkgCM Tests                      PASS            108         816.82s 20140413 12:19:19
+Core Test 2                             PASS            305         205.05s 20140413 11:45:47
+Debug - Verifier Test                   FAIL (0e/3f)    100         1363.00s20140416 10:47:52 [1]
+Core Test - System Level Tests          PASS            24          13.01s  20140413 11:46:13
+Core Test 2 - Consistency               PASS            17          1.17s   20140413 11:23:53
+IO MDL Tests                            PASS            90          176.82s 20140413 12:02:18
+UI Properties Test                      PASS            163         13.75s  20140413 12:36:03
+Core Test - Existing Projects           PASS            15          4.22s   20140413 11:25:30
+Model Compare Test                      PASS            258         192.99s 20140413 11:59:08
+Welcome Test                            PASS            13          227.22s 20140413 12:55:14
+UI Canvas Suite 1                       PASS            84          87.86s  20140413 12:21:42
+Core Test - RTO Move                    PASS            136         244.85s 20140413 11:23:39
+Search Test                             PASS            10          10.92s  20140413 12:20:01
+UI Canvas Suite 2                       PASS            270         212.58s 20140413 12:25:29
+IO MDL Tests 2                          PASS            77          177.10s 20140413 12:05:28
+IO SQL Test                             PASS            8           0.94s   20140413 12:19:32
+Debug - Verifier Test 2                 PASS            10          134.47s 20140413 11:55:42
+UI Text Test                            PASS            163         97.87s  20140413 12:37:55
+
+
+[1] I'm getting consistent issues with these tests that appear to be timing related:
+  - testSingleProjectComponentAndReference
+  - testDualProjectLocalComponentIPReferenceDuplicateEE
+  - testInterfaceExecutionOperationNoOALNonVoidReturn
+  
