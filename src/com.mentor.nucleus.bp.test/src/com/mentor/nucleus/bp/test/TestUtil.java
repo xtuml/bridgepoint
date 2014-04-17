@@ -1244,6 +1244,8 @@ public class TestUtil
 		for(int i = 0; i < parameters.length; i++) {
 			if(parameters[i] instanceof Integer) {
 				paramClasses[i] = Integer.TYPE;
+			} else if(parameters[i] instanceof Boolean) {
+				paramClasses[i] = Boolean.TYPE;
 			} else {
 				paramClasses[i] = parameters[i].getClass();
 			}
