@@ -276,6 +276,8 @@ public class ModelMergeTests extends BaseTest {
 		m_sys = getSystemModel("testNoGraphics");
 		TestUtil.executeInTransaction(m_sys, "Newpackage", new Object[0]);
 		Package_c testPackage = Package_c.getOneEP_PKGOnR1401(m_sys);
+		TestUtil.executeInTransaction(testPackage, "setName",
+				new Object[] { "testNoGraphics" });
 		modelRoot = (Ooaofooa) testPackage.getModelRoot();
 		TestUtil.executeInTransaction(testPackage, "Newexternalentity", new Object[0]);
 		BaseTest.dispatchEvents(0);

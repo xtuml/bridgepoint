@@ -180,7 +180,7 @@ public class ModelComparisonTests extends BaseTest {
 		}
 		if(differencer.getLeftDifferences().size() == 2) {
 			// this could be rename, where the differences
-			// are showed both for the attribute and the root
+			// are shown both for the attribute and the root
 			// element
 			for(TreeDifference difference : differencer.getLeftDifferences()) {
 				if(difference.getType().equals(TreeDifference.VALUE_DIFFERENCE)) {
@@ -299,7 +299,7 @@ public class ModelComparisonTests extends BaseTest {
 			}
 		}      
    .else
-		Ooaofooa[] roots = Ooaofooa.getInstances();
+		Ooaofooa[] roots = Ooaofooa.getInstancesUnderSystem("HierarchyTestModel");
 		for(Ooaofooa root : roots) {
 			instance = $Cr{class.Name}_c.$Cr{class.Name}Instance(root);
      .if(attr.Name == "Visibility")
@@ -479,6 +479,23 @@ public class ModelComparisonTests extends BaseTest {
       .assign attr_result = true
     .end if
 .end function
+.function non_mod_attribute
+  .param Inst_Ref attribute
+    .assign attr_non_mod = false 
+    .select one class related by attribute->O_OBJ[R102]
+    .if((class.Name == "Package") and (attribute.Name == "Name"))
+      .assign attr_non_mod = true
+    .end if
+    .if((class.Name == "Interface") and (attribute.Name == "Name"))
+      .assign attr_non_mod = true
+    .end if
+    .if((class.Name == "Model Class") and (attribute.Name == "Name"))
+      .assign attr_non_mod = true
+    .end if
+    .if((class.Name == "Component") and (attribute.Name == "Name"))
+      .assign attr_non_mod = true
+    .end if
+.end function
 .select many classes from instances of O_OBJ
 .assign count = 0
 .assign c = 0;
@@ -511,6 +528,10 @@ ${gch.body}
       .end if
       .if(not non_mod)
         .assign non_mod = "$l{attr.Descrip:Persistent}" == "false"
+      .end if
+      .invoke nma = non_mod_attribute(attr)
+      .if(not non_mod)
+        .assign non_mod = nma.non_mod
       .end if
       .select one rattr related by attr->O_RATTR[R106];
       .select one dbattr related by attr->O_BATTR[R106]->O_DBATTR[R107]

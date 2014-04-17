@@ -155,13 +155,20 @@ public class IntegrityChecker {
 	public static void createProblemsForIssues(IntegrityIssue_c[] issues) {
 		for(IntegrityIssue_c issue : issues) {
 			try {
-				IMarker createMarker = ((NonRootModelElement) issue
-						.getElement()).getFile().createMarker(IMarker.PROBLEM);
-				createMarker.setAttribute(IMarker.MESSAGE,
-						issue.getDescription());
-				createMarker.setAttribute(IMarker.LOCATION, issue.getPath());
-				createMarker.setAttribute(IMarker.SEVERITY,
-						IMarker.SEVERITY_ERROR);
+				// do not create an issue for an element with no
+				// accessible file
+				if(issue.getElement() instanceof NonRootModelElement) {
+					NonRootModelElement element = (NonRootModelElement) issue.getElement();
+					if(element.getFile() != null && element.getFile().isAccessible()) {
+						IMarker createMarker = ((NonRootModelElement) issue
+								.getElement()).getFile().createMarker(IMarker.PROBLEM);
+						createMarker.setAttribute(IMarker.MESSAGE,
+								issue.getDescription());
+						createMarker.setAttribute(IMarker.LOCATION, issue.getPath());
+						createMarker.setAttribute(IMarker.SEVERITY,
+								IMarker.SEVERITY_ERROR);
+					}
+				}
 			} catch (CoreException e) {
 				CorePlugin.logError(
 						"Unable to create problem marker for integrity issue.",
