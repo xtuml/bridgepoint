@@ -45,6 +45,7 @@ import com.mentor.nucleus.bp.core.common.ModelChangedEvent;
 import com.mentor.nucleus.bp.core.common.ModelRoot;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
+import com.mentor.nucleus.bp.core.util.CoreUtil;
 import com.mentor.nucleus.bp.core.util.OoaofgraphicsUtil;
 import com.mentor.nucleus.bp.core.util.PlaceHolderUtil;
 
@@ -276,8 +277,8 @@ public class EclipseOoaofooa extends OoaofooaBase {
       for (int i = 0; i < listeners.length; ++i) {
         try {
           IModelChangeListener listener = (IModelChangeListener)listeners[i];
-          if ((isChangeNotificationEnabled() || !listener.isMaskable()) &&
-                                                     listener.isSynchronous()) {
+				if ((isChangeNotificationEnabled() || !listener.isMaskable())
+						&& (listener.isSynchronous() || CoreUtil.IsRunningHeadless)) {
             super.callFireMethodSynchronously(runnable, listener);
           }
         } catch (Throwable e) {
