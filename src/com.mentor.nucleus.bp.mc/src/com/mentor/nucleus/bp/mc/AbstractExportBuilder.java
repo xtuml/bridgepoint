@@ -115,7 +115,13 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 			// Check the license 
 			oalExportIsLicensed = BridgePointLicenseManager.getLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT, true);
 			if (!oalExportIsLicensed) {
-				UIUtil.showErrorDialog("License Request Failed", "Failed to get a Model Compiler prebuilder license.\n");
+				String msgTitle = "License Request Failed";
+				String msg = "Failed to get a Model Compiler prebuilder license.\n";
+				if (CoreUtil.IsRunningHeadless) {
+					CorePlugin.logError(msgTitle + ", " + msg, null);
+				} else {
+					UIUtil.showErrorDialog(msgTitle, msg);
+				}
 				return null;
 			}
 			
