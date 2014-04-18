@@ -247,7 +247,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 				ReplaceShell = true;
 				if (!showDetailedTooltip)
 					showDetailedTooltip = true;
-				getShell();
+				detailedtooltipFigure = createDetailedShell();
 				displayToolTipNear(currentTipSource, BPtip, BPeventX, BPeventY);
 				getShell().setActive();
 			}
@@ -319,8 +319,8 @@ public class BPToolTipHelper extends ToolTipHelper {
 		if (showDetailedTooltip){
 			if ( detailedtooltipFigure == null){
 				detailedtooltipFigure = createDetailedShell();
-			}
-			else if (detailedtooltipFigure.getShell() == null || detailedtooltipFigure.getShell().isDisposed() ) {
+			}else if (detailedtooltipFigure.getShell() == null || detailedtooltipFigure.getShell().isDisposed() ) {
+				detailedtooltipFigure = createDetailedShell();
 			}
 			return detailedtooltipFigure.getShell();
 		}
