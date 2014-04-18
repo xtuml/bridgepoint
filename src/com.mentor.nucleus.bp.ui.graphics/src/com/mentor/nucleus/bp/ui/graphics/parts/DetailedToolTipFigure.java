@@ -150,11 +150,11 @@ public class DetailedToolTipFigure {
 		Composite bottomComposite= new Composite(detailedShell, SWT.NONE);
 		GridData gridData= new GridData(SWT.FILL, SWT.BOTTOM, true, false);
 		bottomComposite.setLayoutData(gridData);
-		GridLayout statusLayout= new GridLayout(1, false);
-		statusLayout.marginHeight= 0;
-		statusLayout.marginWidth= 0;
-		statusLayout.verticalSpacing= 1;
-		bottomComposite.setLayout(statusLayout);
+		GridLayout bottomLayout= new GridLayout(1, false);
+		bottomLayout.marginHeight= 0;
+		bottomLayout.marginWidth= 0;
+		bottomLayout.verticalSpacing= 1;
+		bottomComposite.setLayout(bottomLayout);
 
 		Label lineSeperator= new Label(bottomComposite, SWT.SEPARATOR | SWT.HORIZONTAL);
 		lineSeperator.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -181,10 +181,10 @@ public class DetailedToolTipFigure {
 		setTooltipActions(bar);
 
 		Composite moveSupportCanvas= new Composite(actionComposite, SWT.FILL);
-		GridData spacerLayout= new GridData(SWT.FILL, SWT.FILL, true, true);
-		spacerLayout.widthHint= 0;
-		spacerLayout.heightHint= 0;
-		moveSupportCanvas.setLayoutData(spacerLayout);
+		GridData moveCompositeLayout= new GridData(SWT.FILL, SWT.FILL, true, true);
+		moveCompositeLayout.widthHint= 0;
+		moveCompositeLayout.heightHint= 0;
+		moveSupportCanvas.setLayoutData(moveCompositeLayout);
 
 		addResizeSupportIfNecessary(detailedShell, actionComposite);
 
