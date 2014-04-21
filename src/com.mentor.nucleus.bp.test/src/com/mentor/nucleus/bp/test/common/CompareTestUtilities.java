@@ -22,6 +22,7 @@
 //
 package com.mentor.nucleus.bp.test.common;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -54,7 +55,12 @@ import com.mentor.nucleus.bp.compare.ModelCacheManager.ModelLoadException;
 import com.mentor.nucleus.bp.compare.structuremergeviewer.ModelCompareStructureCreator.CompareDocumentRangeNode;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
+import com.mentor.nucleus.bp.model.compare.TreeDifference;
 import com.mentor.nucleus.bp.model.compare.TreeDifferencer;
+import com.mentor.nucleus.bp.model.compare.contentmergeviewer.ModelContentMergeViewer;
+import com.mentor.nucleus.bp.model.compare.contentmergeviewer.SynchronizedTreeViewer;
+import com.mentor.nucleus.bp.model.compare.providers.ComparableProvider;
+import com.mentor.nucleus.bp.test.TestUtil;
 
 public class CompareTestUtilities {
 	
@@ -504,4 +510,110 @@ public class CompareTestUtilities {
 		return copy;		
 	}
 	
+	public static void copyConflictingChangesFromRightToLeft() throws IOException {
+		ModelContentMergeViewer viewer = ModelContentMergeViewer
+				.getInstance(null);
+		TreeDifferencer differencer = viewer.getDifferencer();
+		List<TreeDifference> leftDifferences = differencer.getLeftDifferences();
+		List<TreeDifference> differencesToCopy = new ArrayList<TreeDifference>();
+		for (TreeDifference difference : leftDifferences) {
+			if ((difference.getKind() & Differencer.DIRECTION_MASK) == Differencer.CONFLICTING) {
+				differencesToCopy.add(difference);
+			}
+		}
+		List<Object> elementsToSelect = new ArrayList<Object>();
+		for(TreeDifference difference : differencesToCopy) {
+			Object differenceToSelect = difference.getElement();
+			if(differenceToSelect == null) {
+				differenceToSelect = difference.getMatchingDifference().getElement();
+			}
+			elementsToSelect.add(differenceToSelect);
+		}
+		viewer.getLeftViewer().setSelection(new StructuredSelection(elementsToSelect));
+		viewer.setCopySelection(true);
+		viewer.copy(false);
+		BaseTest.dispatchEvents(0);
+	}
+
+	public static void copyAllNonConflictingChangesFromRightToLeft() {
+		ModelContentMergeViewer viewer = ModelContentMergeViewer.getInstance(null);
+		viewer.setCopySelection(false);
+		viewer.copy(false);
+		BaseTest.dispatchEvents(0);
+	}
+	
+	public static void flushMergeEditor() {
+		flushMergeEditor(true);
+	}
+	
+	public static void flushMergeEditor(boolean closeEditor) {
+		if(closeEditor) {
+			TestUtil.yesToDialog(200);
+			PlatformUI
+					.getWorkbench()
+					.getActiveWorkbenchWindow()
+					.getActivePage()
+					.closeEditor(
+							PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+									.getActivePage().getActiveEditor(), true);
+		} else {
+			ModelContentMergeViewer viewer = ModelContentMergeViewer.getInstance(null);
+			viewer.flush(new NullProgressMonitor());
+		}
+	}
+
+	public static List<TreeDifference> getConflictingChanges() {
+		return getChanges(Differencer.CONFLICTING);
+	}
+
+	private static List<TreeDifference> getChanges(int type) {
+		ModelContentMergeViewer viewer = ModelContentMergeViewer
+				.getInstance(null);
+		TreeDifferencer differencer = viewer.getDifferencer();
+		List<TreeDifference> leftDifferences = differencer.getLeftDifferences();
+		List<TreeDifference> differences = new ArrayList<TreeDifference>();
+		for (TreeDifference difference : leftDifferences) {
+			if ((difference.getKind() & Differencer.DIRECTION_MASK) == type) {
+				differences.add(difference);
+			}
+		}
+		return differences;
+	}
+
+	public static List<TreeDifference> getIncomingChanges() {
+		return getChanges(Differencer.ADDITION);
+	}
+
+	public static void selectElementInTree(boolean left, NonRootModelElement element) {
+		ModelContentMergeViewer viewer = ModelContentMergeViewer
+				.getInstance(null);
+		SynchronizedTreeViewer tree = viewer.getLeftViewer();
+		if (!left) {
+			tree = viewer.getRightViewer();
+		}
+		tree.setSelection(new StructuredSelection(ComparableProvider
+				.getComparableTreeObject(element)));
+		while (PlatformUI.getWorkbench().getDisplay().readAndDispatch())
+			;
+	}
+
+	public static void mergeSelection() {
+		ModelContentMergeViewer viewer = ModelContentMergeViewer
+				.getInstance(null);
+		viewer.setCopySelection(true);
+		viewer.copy(false);
+		BaseTest.dispatchEvents(0);
+	}
+
+	public static void closeMergeEditor(boolean save) {
+		TestUtil.noToDialog(200);
+		PlatformUI
+				.getWorkbench()
+				.getActiveWorkbenchWindow()
+				.getActivePage()
+				.closeEditor(
+						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+								.getActivePage().getActiveEditor(), save);
+	}
+
 }

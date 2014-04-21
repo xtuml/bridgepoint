@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.ConnectionAnchor;
@@ -147,6 +146,11 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements
 		if (elem != null && elem.getRepresents() != null) {
 			Method findMethod = Cl_c.findMethod(elem.getRepresents(),
 					"getDescrip", new Class[0]);
+			if(findMethod == null) {
+				// try for an operation that returns the description
+				findMethod = Cl_c.findMethod(elem.getRepresents(),
+						"Getdescription", new Class[0]);
+			}
 			if (findMethod != null) {
 				String descrip = (String) Cl_c.doMethod(findMethod, elem
 						.getRepresents(), new Object[0]);

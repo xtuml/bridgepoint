@@ -48,16 +48,14 @@ public class ModelCompareTestSuite extends TestSuite {
 	 * Construct the test suite.
 	 */
 	public ModelCompareTestSuite() throws CoreException {
-
 		// turn off autobuild to stop MC-3020 builders from running
 		WorkspaceUtil.setAutobuilding(false);   // throws CoreException
 		CorePlugin.getDefault().getPreferenceStore().
         setValue(BridgePointPreferencesStore.
   		              USE_DEFAULT_NAME_FOR_CREATION, true);
-
+		addTest(new TestSuite(ModelMergeTests.class));
 		addTest(new TestSuite(ElementOrderingTests.class));
 		addTest(new TestSuite(ModelComparisonTests.class));
-		addTest(new TestSuite(ModelMergeTests.class));
 	}
 
 }

@@ -13,10 +13,8 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreePath;
 
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
-import com.mentor.nucleus.bp.core.inspector.ObjectElement;
+import com.mentor.nucleus.bp.model.compare.contentmergeviewer.SynchronizedTreeViewer;
 import com.mentor.nucleus.bp.model.compare.providers.NonRootModelElementComparable;
-import com.mentor.nucleus.bp.model.compare.providers.ObjectElementComparable;
-import com.mentor.nucleus.bp.ui.canvas.Ooaofgraphics;
 
 public class TreeDifferencer extends Differencer {
 
@@ -108,7 +106,7 @@ public class TreeDifferencer extends Differencer {
 		Object ancestor = locateElementInOtherVersion(ancestorParent, left, contentProvider, this.ancestor);
 		if(right != null) {
 			// now check for equivalence, values matching + location matching
-			if(!elementsEqualIncludingValues(left, right, false) && !left.isDerived()) {
+			if(!elementsEqualIncludingValues(left, right, false, false) && !left.isDerived()) {
 				int description = getDifferenceType(left, right, ancestor, threeWay);
 				TreeDifference leftDifference = new TreeDifference(left,
 						TreeDifference.VALUE_DIFFERENCE, true,
@@ -243,7 +241,7 @@ public class TreeDifferencer extends Differencer {
 						description= LEFT | ADDITION;
 					} else {
 						description= CONFLICTING | ADDITION;
-						if (elementsEqualIncludingValues(left, right, false))
+						if (elementsEqualIncludingValues(left, right, false, true))
 							description|= PSEUDO_CONFLICT;
 					}
 				}
@@ -252,20 +250,20 @@ public class TreeDifferencer extends Differencer {
 					if (right == null) {
 						description= CONFLICTING | DELETION | PSEUDO_CONFLICT;
 					} else {
-						if (elementsEqualIncludingValues(ancestor, right, true))		
+						if (elementsEqualIncludingValues(ancestor, right, true, true))		
 							description= LEFT | DELETION;
 						else
 							description= CONFLICTING | CHANGE;	
 					}
 				} else {
 					if (right == null) {
-						if (elementsEqualIncludingValues(ancestor, left, true))	
+						if (elementsEqualIncludingValues(ancestor, left, true, true))	
 							description= RIGHT | DELETION;
 						else
 							description= CONFLICTING | CHANGE;	
 					} else {
-						boolean ay= elementsEqualIncludingValues(ancestor, left, false);
-						boolean am= elementsEqualIncludingValues(ancestor, right, false);
+						boolean ay= elementsEqualIncludingValues(ancestor, left, false, true);
+						boolean am= elementsEqualIncludingValues(ancestor, right, false, true);
 						
 						// we need to compare the location of left and right
 						// otherwise a difference may be skipped
@@ -298,7 +296,7 @@ public class TreeDifferencer extends Differencer {
 							description= LEFT | CHANGE;
 						} else {
 							description= CONFLICTING | CHANGE;
-							if (elementsEqualIncludingValues(left, right, false))
+							if (elementsEqualIncludingValues(left, right, false, true))
 								description|= PSEUDO_CONFLICT;
 						}
 					}
@@ -316,25 +314,22 @@ public class TreeDifferencer extends Differencer {
 				if (right == null) {
 					description= LEFT | DELETION;
 				} else {
-					if (! elementsEqualIncludingValues(left, right, false))
+					if (! elementsEqualIncludingValues(left, right, false, false))
 						description= LEFT | CHANGE;
 				}
 			}
 		}
 		int direction = description & DIRECTION_MASK;
-		if(direction == CONFLICTING && left instanceof ObjectElementComparable) {
-			ObjectElementComparable comparable = (ObjectElementComparable) left;
-			ObjectElement objEle = (ObjectElement) comparable.getRealElement();
-			if(objEle.getParent() instanceof NonRootModelElement) {
-				if(((NonRootModelElement) objEle.getParent()).getModelRoot() instanceof Ooaofgraphics) {
-					return Differencer.RIGHT + Differencer.CHANGE;
-				}
-			}
+		if (direction == CONFLICTING
+				&& SynchronizedTreeViewer.differenceElementIsGraphical(left)) {
+			// consider all graphical changes as non-conflicting for now
+			return Differencer.RIGHT + Differencer.CHANGE;
 		}
 		return description;
 	}
 
-	private boolean elementsEqualIncludingValues(Object left, Object right, boolean excludeLocationComparison) {
+	private boolean elementsEqualIncludingValues(Object left, Object right,
+			boolean excludeLocationComparison, boolean includeChildren) {
 		if (!elementsEqual(left, right)) {
 			return false;
 		}
@@ -343,7 +338,11 @@ public class TreeDifferencer extends Differencer {
 		ComparableTreeObject rightComparable = contentProvider
 				.getComparableTreeObject(right);
 		boolean result = leftComparable.treeItemValueEquals(rightComparable);
-		if(result && !excludeLocationComparison) {
+		if (includeChildren && result) {
+			result = leftComparable
+					.treeItemValueEqualsIncludingChildren(rightComparable);
+		}
+		if(result && !excludeLocationComparison && !leftComparable.ignoreOrdering()) {
 			// check the location as well
 			int leftLocation = getLocationOfElement(
 					contentProvider.getParent(left), left,

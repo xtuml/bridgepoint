@@ -78,11 +78,11 @@ public class IdAssigner
 	}
     
     /*
-     * This method is only provide for unit tests so that we can have predicted
-     * series of UUID often required in unit tests which determine the name of
-     * expected results by the identifer of given model element. 
+     * This method allows one to configure the IdAssigner such that
+     * the randomness is removed.  It is used by creation of the state
+     * machine identifiers as well as by unit tests.
      */
-    private void setSeed(long seed){
+    public void setSeed(long seed){
 		this.seed = seed;
     	if(seed == 0){
     		randomGenerator = null;

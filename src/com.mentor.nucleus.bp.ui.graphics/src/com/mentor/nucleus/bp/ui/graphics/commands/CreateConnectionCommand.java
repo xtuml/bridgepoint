@@ -61,6 +61,7 @@ public class CreateConnectionCommand extends Command {
 	private CreateConnectionRequest fRequest;
 	private PolylineConnection fFeedback;
 	public Connector_c result;
+	private boolean disableCropping;
 
 	public CreateConnectionCommand(CreateConnectionRequest request,
 			PolylineConnection feedback) {
@@ -114,7 +115,7 @@ public class CreateConnectionCommand extends Command {
 			// is not accounted for
 			// no need to do this for connectors that start and end on
 			// the same shape
-			if(fRequest.getSourceEditPart() != fRequest.getTargetEditPart()) {
+			if(fRequest.getSourceEditPart() != fRequest.getTargetEditPart() && !disableCropping) {
 				if(!(fRequest.getSourceEditPart() instanceof DiagramEditPart)) {
 					startPoint = ConnectorAnchor.getIntersectionPointWithPoints(
 							startPoint, endPoint, getSourcePoints());
@@ -357,6 +358,10 @@ public class CreateConnectionCommand extends Command {
 			return elem.getElementid();
 		}
 		return Gd_c.Null_unique_id();
+	}
+
+	public void disableCropping() {
+		disableCropping = true;
 	}
 
 }
