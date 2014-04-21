@@ -2008,7 +2008,7 @@ private static String s_invoke(
 		      
 }
 
-private static String[] errorReportingIgnoredFor = new String[] { "getDescrip", "not used", "Get_connector_tooltip"};
+private static String[] errorReportingIgnoredFor = new String[] { "Getdescription", "getDescrip", "not used", "Get_connector_tooltip"};
 public static Method findMethod (Object target, String methodName, Class[] argTypes)
   {
     try {

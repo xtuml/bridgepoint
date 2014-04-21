@@ -23,7 +23,6 @@
 package com.mentor.nucleus.bp.ui.explorer.test;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -44,7 +43,6 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
@@ -71,10 +69,8 @@ import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.XtUMLNature;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
-import com.mentor.nucleus.bp.core.common.ModelElement;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
-import com.mentor.nucleus.bp.core.common.Transaction;
 import com.mentor.nucleus.bp.core.common.TransactionManager;
 import com.mentor.nucleus.bp.core.ui.NewSystemWizard;
 import com.mentor.nucleus.bp.core.ui.Selection;
@@ -701,24 +697,24 @@ public class ExplorerTest extends BaseTest
 		SystemModel_c referredToSys = getSystemModel(referredTo.getName());
 		SystemModel_c referringSys = getSystemModel(referring.getName());
 		Menu menu = getExplorerView().getTreeViewer().getTree().getMenu();
-		executeInTransaction(referredToSys, "Newpackage", new Object[0]);
+		TestUtil.executeInTransaction(referredToSys, "Newpackage", new Object[0]);
 		Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1401(referredToSys);
 		Package_c container = pkgs[pkgs.length - 1];
-		executeInTransaction(container, "Newinterface", new Object[0]);
+		TestUtil.executeInTransaction(container, "Newinterface", new Object[0]);
 		Interface_c[] ifaces = Interface_c
 				.getManyC_IsOnR8001(PackageableElement_c
 						.getManyPE_PEsOnR8000(container));
 		Interface_c iface = ifaces[ifaces.length - 1];
-		executeInTransaction(iface, "Newexecutableproperty", new Object[] {false});
+		TestUtil.executeInTransaction(iface, "Newexecutableproperty", new Object[] {false});
 		InterfaceOperation_c iop = InterfaceOperation_c
 				.getOneC_IOOnR4004(ExecutableProperty_c
 						.getManyC_EPsOnR4003(iface));
-		executeInTransaction(iop, "Newparameter", new Object[0]);
+		TestUtil.executeInTransaction(iop, "Newparameter", new Object[0]);
 		// create the referring elements
-		executeInTransaction(referringSys, "Newpackage", new Object[0]);
+		TestUtil.executeInTransaction(referringSys, "Newpackage", new Object[0]);
 		pkgs = Package_c.getManyEP_PKGsOnR1401(referringSys);
 		Package_c referringContainer = pkgs[pkgs.length - 1];
-		executeInTransaction(referringContainer, "Newcomponent", new Object[0]);
+		TestUtil.executeInTransaction(referringContainer, "Newcomponent", new Object[0]);
 		Component_c[] components = Component_c
 				.getManyC_CsOnR8001(PackageableElement_c
 						.getManyPE_PEsOnR8000(referringContainer));
@@ -835,24 +831,24 @@ public class ExplorerTest extends BaseTest
 		SystemModel_c referredToSys = getSystemModel(referredTo.getName());
 		SystemModel_c referringSys = getSystemModel(referring.getName());
 		Menu menu = getExplorerView().getTreeViewer().getTree().getMenu();
-		executeInTransaction(referredToSys, "Newpackage", new Object[0]);
+		TestUtil.executeInTransaction(referredToSys, "Newpackage", new Object[0]);
 		Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1401(referredToSys);
 		Package_c container = pkgs[pkgs.length - 1];
-		executeInTransaction(container, "Newinterface", new Object[0]);
+		TestUtil.executeInTransaction(container, "Newinterface", new Object[0]);
 		Interface_c[] ifaces = Interface_c
 				.getManyC_IsOnR8001(PackageableElement_c
 						.getManyPE_PEsOnR8000(container));
 		Interface_c iface = ifaces[ifaces.length - 1];
-		executeInTransaction(iface, "Newexecutableproperty", new Object[] {true});
+		TestUtil.executeInTransaction(iface, "Newexecutableproperty", new Object[] {true});
 		InterfaceSignal_c signal = InterfaceSignal_c
 				.getOneC_ASOnR4004(ExecutableProperty_c
 						.getManyC_EPsOnR4003(iface));
-		executeInTransaction(signal, "Newparameter", new Object[0]);
+		TestUtil.executeInTransaction(signal, "Newparameter", new Object[0]);
 		// create the referring elements
-		executeInTransaction(referringSys, "Newpackage", new Object[0]);
+		TestUtil.executeInTransaction(referringSys, "Newpackage", new Object[0]);
 		pkgs = Package_c.getManyEP_PKGsOnR1401(referringSys);
 		Package_c referringContainer = pkgs[pkgs.length - 1];
-		executeInTransaction(referringContainer, "Newcomponent", new Object[0]);
+		TestUtil.executeInTransaction(referringContainer, "Newcomponent", new Object[0]);
 		Component_c[] components = Component_c
 				.getManyC_CsOnR8001(PackageableElement_c
 						.getManyPE_PEsOnR8000(referringContainer));
@@ -965,33 +961,6 @@ public class ExplorerTest extends BaseTest
 			moes.addAll(getAllMultipleOccurrenceElements(item));
 		}
 		return moes;
-	}
-
-	private void executeInTransaction(NonRootModelElement element, String method, Object[] parameters) {
-		Class<?>[] paramClasses = new Class<?>[parameters.length];
-		for(int i = 0; i < parameters.length; i++) {
-			if(parameters[i] instanceof Boolean) {
-				paramClasses[i] = Boolean.TYPE;
-			} else {
-				paramClasses[i] = parameters[i].getClass();
-			}
-		}
-		Transaction transaction = null;
-		TransactionManager manager = TransactionManager.getSingleton();
-		try {
-			transaction = manager.startTransaction("test transaction",
-					new ModelElement[] { Ooaofooa.getDefaultInstance(),
-							Ooaofgraphics.getDefaultInstance() });
-			Method m = element.getClass().getMethod(method, paramClasses);
-			m.invoke(element, parameters);
-			manager.endTransaction(transaction);
-		} catch (Exception e) {
-			if(transaction != null) {
-				manager.cancelTransaction(transaction, e);
-			}
-			CorePlugin.logError("Unable to complete transaction.", e);
-		}
-		BaseTest.dispatchEvents(0);
 	}
 
 	private IProject createXtUMLProject(String name) {

@@ -506,7 +506,9 @@ CREATE TABLE O_OBJ (
 	Numb	INTEGER,
 	Key_Lett	STRING,
 	Descrip	STRING,
-	SS_ID	UNIQUE_ID,
+	SS_ID	UNIQUE_ID
+	Ism_ID  UNIQUE_ID,
+	Csm_ID  UNIQUE_ID,
 	AdapterName STRING,
 	Order INTEGER );
 

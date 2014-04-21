@@ -805,6 +805,18 @@ end for;',
 	1,
 	'',
 	"af5585fd-a41c-4fa0-9542-532febb1f367");
+INSERT INTO O_TFR
+	VALUES ("d9b28ec7-1e4d-4244-8780-5449b797cd90",
+	"2150fa65-813f-46c3-a6f9-7c7dbae3aced",
+	'getDescription',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one dt related by self->S_DT[R17];
+return dt.Descrip;',
+	1,
+	'',
+	"71c2b3e4-a52c-4f93-870a-397ee6facf54");
 INSERT INTO O_NBATTR
 	VALUES ("a681e0de-40d5-491f-a628-c369bf13952a",
 	"2150fa65-813f-46c3-a6f9-7c7dbae3aced");
@@ -905,7 +917,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R18');
+	'R18.''are defined within''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("2150fa65-813f-46c3-a6f9-7c7dbae3aced",
 	"0783bf1b-96a7-4627-a83b-5072c8e7d1e3",

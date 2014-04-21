@@ -21,6 +21,9 @@ package com.mentor.nucleus.bp.model.compare.providers.custom;
 // the License.
 //=====================================================================
 
+import com.mentor.nucleus.bp.core.Attribute_c;
+import com.mentor.nucleus.bp.core.BaseAttribute_c;
+import com.mentor.nucleus.bp.core.DataType_c;
 import com.mentor.nucleus.bp.core.DerivedBaseAttribute_c;
 import com.mentor.nucleus.bp.core.NewBaseAttribute_c;
 import com.mentor.nucleus.bp.model.compare.providers.NonRootModelElementComparable;
@@ -47,6 +50,23 @@ public class NewBaseAttributeComparable extends NonRootModelElementComparable {
 					return false;
 				}
 			} else {
+				if(other instanceof NewBaseAttributeComparable) {
+					// special-case for state<State_Model> attribute
+					Attribute_c attribute = Attribute_c
+							.getOneO_ATTROnR106(BaseAttribute_c
+									.getOneO_BATTROnR107((NewBaseAttribute_c) getRealElement()));
+					DataType_c dt = DataType_c.getOneS_DTOnR114(attribute);
+					Attribute_c otherAttribute = Attribute_c
+							.getOneO_ATTROnR106(BaseAttribute_c
+									.getOneO_BATTROnR107((NewBaseAttribute_c) ((NonRootModelElementComparable) other)
+											.getRealElement()));
+					DataType_c otherDt = DataType_c
+							.getOneS_DTOnR114(otherAttribute);
+					if (dt.getName().equals("state<State_Model>")
+							&& otherDt.getName().equals("state<State_Model>")) {
+						return true;
+					}
+				}
 				return false;
 			}
 		} else {
