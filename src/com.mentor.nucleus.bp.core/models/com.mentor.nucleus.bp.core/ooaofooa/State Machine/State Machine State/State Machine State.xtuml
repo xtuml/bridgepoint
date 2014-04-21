@@ -727,6 +727,18 @@ end for;',
 	1,
 	'',
 	"5ff5bb03-7c4c-45de-bd3d-b0e90a4f7774");
+INSERT INTO O_TFR
+	VALUES ("eb01618a-4f49-43d3-aa61-c89c8d8f408e",
+	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
+	'getDescription',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one action related by self->SM_MOAH[R511]->SM_AH[R513]->SM_ACT[R514];
+return action.Descrip;',
+	1,
+	'',
+	"d0c5877b-18e9-4c93-8b50-0a7a5e918a23");
 INSERT INTO O_NBATTR
 	VALUES ("c1895e17-60ab-46d5-b6a1-e61e34c67638",
 	"aee0c0bf-2bc2-41e5-b9ad-01341d2944be");
@@ -788,7 +800,7 @@ INSERT INTO O_REF
 	'',
 	'Event Supplemental Data',
 	'SM_ID',
-	'R521');
+	'R521.''receives asynchronous data via''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("aee0c0bf-2bc2-41e5-b9ad-01341d2944be",
 	"0dcfc602-2e12-4cc0-af78-f4ba93a5f918",
@@ -846,7 +858,7 @@ INSERT INTO O_REF
 	'',
 	'Event Supplemental Data',
 	'SMspd_ID',
-	'R521');
+	'R521.''receives asynchronous data via''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("6a29b768-e433-4a27-9b47-12b1d34fd0ae",
 	"a4e6c94c-670a-4e7f-b085-6727308a33db",

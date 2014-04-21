@@ -74,7 +74,12 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.Ooaofooa;
+import com.mentor.nucleus.bp.core.Operation_c;
+import com.mentor.nucleus.bp.core.StateMachineState_c;
+import com.mentor.nucleus.bp.core.Transition_c;
 import com.mentor.nucleus.bp.core.common.ITransactionListener;
+import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.Transaction;
 import com.mentor.nucleus.bp.core.common.TransactionManager;
 import com.mentor.nucleus.bp.core.inspector.ObjectElement;
@@ -89,11 +94,15 @@ import com.mentor.nucleus.bp.model.compare.actions.CollapseAllAction;
 import com.mentor.nucleus.bp.model.compare.actions.ExpandAllAction;
 import com.mentor.nucleus.bp.model.compare.actions.MoveDownAction;
 import com.mentor.nucleus.bp.model.compare.actions.MoveUpAction;
+import com.mentor.nucleus.bp.model.compare.providers.ComparableProvider;
+import com.mentor.nucleus.bp.model.compare.providers.NonRootModelElementComparable;
 import com.mentor.nucleus.bp.model.compare.providers.ObjectElementComparable;
 import com.mentor.nucleus.bp.model.compare.structuremergeviewer.ModelStructureDiffViewer;
+import com.mentor.nucleus.bp.ui.canvas.Ooaofgraphics;
 import com.mentor.nucleus.bp.ui.explorer.ui.actions.ExplorerCopyAction;
 import com.mentor.nucleus.bp.ui.explorer.ui.actions.ExplorerCutAction;
 import com.mentor.nucleus.bp.ui.explorer.ui.actions.ExplorerPasteAction;
+import com.sun.org.apache.xpath.internal.operations.Operation;
 
 public class SynchronizedTreeViewer extends TreeViewer implements
 		ITransactionListener {
@@ -318,6 +327,11 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 			differences = mergeViewer.getDifferencer().getRightDifferences();
 		}
 		for (TreeDifference difference : differences) {
+			if(differenceIsGraphical(difference)) {
+				// we do not include graphical differences
+				// at this time
+				continue;
+			}
 			if (mergeViewer.getAncestorTree() == this) {
 				Object diffObj = difference.getElement();
 				if (diffObj == null) {
@@ -341,7 +355,9 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 				// if the difference indicates a location
 				// this is for the root, place the line under
 				// the element at the given location
-				if (difference.getLocation() >= 0 && difference.getElement() != null) {
+				if (difference.getLocation() >= 0
+						&& difference.getElement() != null
+						&& tree.getTopItem() != null) {
 					TreeItem prevItem = getTree().getItem(
 							difference.getLocation());
 					Rectangle prevItemBounds = buildHighlightRectangle(
@@ -363,7 +379,8 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 				// we need to draw a line at the top of that
 				// tree
 				if (difference.getElement() == null
-						&& difference.getParent() == null) {
+						&& (difference.getParent() == null || (tree
+								.getTopItem() == null))) {
 					if (mergeViewer.getLeftViewer() != this) {
 						gc.drawLine(tree.getClientArea().x, 2, 5, 2);
 					} else {
@@ -447,6 +464,10 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 						continue;
 					}
 				}
+				if (getMatchingItem(difference.getMatchingDifference()
+						.getElement(), this) == null && this == mergeViewer.getAncestorTree()) {
+					continue;
+				}
 				gc.setLineDash(new int[] { 3 });
 				gc.setLineStyle(SWT.LINE_CUSTOM);
 			} else {
@@ -469,6 +490,45 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 		}
 	}
 
+	public static boolean differenceIsGraphical(TreeDifference difference) {
+		Object diffElement = difference.getElement();
+		if (diffElement == null) {
+			diffElement = difference.getMatchingDifference().getElement();
+		}
+		if (diffElement != null) {
+			return differenceElementIsGraphical(diffElement);
+		}
+		return false;
+	}
+	
+	public static boolean differenceElementIsGraphical(Object diffElement) {
+		if (diffElement instanceof ObjectElementComparable) {
+			ObjectElementComparable comparable = (ObjectElementComparable) diffElement;
+			if (comparable.getRealElement() instanceof ObjectElement) {
+				ObjectElement objEle = (ObjectElement) comparable
+						.getRealElement();
+				if (objEle.getParent() instanceof NonRootModelElement) {
+					NonRootModelElement nrme = (NonRootModelElement) objEle
+							.getParent();
+					if (nrme.getModelRoot() instanceof Ooaofgraphics) {
+						return true;
+					}
+				}
+			}
+		}
+		if (diffElement instanceof NonRootModelElementComparable) {
+			NonRootModelElementComparable comparable = (NonRootModelElementComparable) diffElement;
+			if (comparable.getRealElement() instanceof NonRootModelElement) {
+				NonRootModelElement nrme = (NonRootModelElement) comparable
+						.getRealElement();
+				if (nrme.getModelRoot() instanceof Ooaofgraphics) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	public static TreeItem getPreviousItem(TreeItem parent, TreeDifference difference) {
 		int location = difference.getLocation();
 		TreeItem[] items = parent.getItems();
@@ -480,7 +540,11 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 		} else if (location < 0) {
 			prevItem = parent;
 		} else {
-			prevItem = items[location - 1];
+			if(location == 0) {
+				prevItem = items[0];
+			} else {
+				prevItem = items[location - 1];
+			}
 		}
 		return prevItem;
 	}
@@ -771,6 +835,48 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 			return null;
 		}
 		Object current = sel.iterator().next();
+		// if the current selection has an Action_Semantics field
+		// the grab the necessary object element to open that, failing
+		// that look for a description attribute
+		if(current instanceof NonRootModelElementComparable) {
+			NonRootModelElement nrme = (NonRootModelElement) ((NonRootModelElementComparable) current).getRealElement();
+			if(nrme instanceof StateMachineState_c || nrme instanceof Transition_c) {
+				// we need to navigate to the Action element
+				// for the activity and description attributes
+				Object[] children = ((ITreeContentProvider) getContentProvider()).getChildren(current);
+				for(Object child : children) {
+					if(child instanceof NonRootModelElementComparable) {
+						current = child;
+						break;
+					}
+				}
+			}
+			ObjectElement actionObjEle = null;
+			ObjectElement descripObjEle = null;
+			Object[] children = ((ITreeContentProvider) getContentProvider()).getChildren(current);
+			for(Object child : children) {
+				if(child instanceof ObjectElementComparable) {
+					ObjectElementComparable comparable = (ObjectElementComparable) child;
+					ObjectElement objElement = (ObjectElement) comparable.getRealElement();
+					if(objElement.getName().equals("Action_Semantics")) {
+						actionObjEle = objElement;
+					} else {
+						if(objElement.getName().equals("Descrip")) {
+							descripObjEle = objElement;
+						}
+					}
+				}
+			}
+			if(actionObjEle != null) {
+				current = ComparableProvider
+						.getComparableTreeObject(actionObjEle);
+			} else {
+				if(descripObjEle != null) {
+					current = ComparableProvider
+							.getComparableTreeObject(descripObjEle);
+				}
+			}
+		}
 		if (current instanceof ObjectElementComparable) {
 			ObjectElementComparable comparable = (ObjectElementComparable) current;
 			ObjectElement objElement = (ObjectElement) comparable.getRealElement();
