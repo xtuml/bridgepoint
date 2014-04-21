@@ -56,6 +56,7 @@ the License.
 				-import ../com.mentor.nucleus.bp.core/sql/ooaofooa.sql
 				-import ../com.mentor.nucleus.bp.io.core/sql/file_io_schema.sql
 				-import ../com.mentor.nucleus.bp.io.mdl/sql/file_io.pei.sql
+				-import ../com.mentor.nucleu.bp.core/sql/ooaofooa_heirarchy.pei.sql
 				-arch arc/generate_metamodel_compare_test.arc" />
 		</exec>
 		<delete file="____file.txt"/>

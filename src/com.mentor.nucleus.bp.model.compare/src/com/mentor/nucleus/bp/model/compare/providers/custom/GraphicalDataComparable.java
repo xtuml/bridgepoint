@@ -39,8 +39,13 @@ public class GraphicalDataComparable extends NonRootModelElementComparable {
 			ModelCompareContentProvider provider = new ModelCompareContentProvider();
 			Object otherParent = provider.getParent(other);
 			Object thisParent = provider.getParent(this);
-			if(otherParent.equals(thisParent)) {
+			if(otherParent == null && thisParent == null) {
 				return true;
+			}
+			if(otherParent != null && thisParent != null) {
+				if(otherParent.equals(thisParent)) {
+					return true;
+				}
 			}
 		}
 		return false;
