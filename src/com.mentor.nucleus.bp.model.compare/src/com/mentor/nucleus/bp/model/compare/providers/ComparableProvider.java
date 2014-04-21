@@ -22,24 +22,28 @@ package com.mentor.nucleus.bp.model.compare.providers;
 //=====================================================================
 
 import com.mentor.nucleus.bp.core.Action_c;
+import com.mentor.nucleus.bp.core.Attribute_c;
 import com.mentor.nucleus.bp.core.BridgeMessage_c;
 import com.mentor.nucleus.bp.core.CantHappen_c;
 import com.mentor.nucleus.bp.core.ClassAsAssociatedOneSide_c;
 import com.mentor.nucleus.bp.core.ClassAsAssociatedOtherSide_c;
 import com.mentor.nucleus.bp.core.ClassAsSimpleFormalizer_c;
 import com.mentor.nucleus.bp.core.ClassAsSimpleParticipant_c;
+import com.mentor.nucleus.bp.core.ClassStateMachine_c;
 import com.mentor.nucleus.bp.core.DerivedBaseAttribute_c;
 import com.mentor.nucleus.bp.core.EventIgnored_c;
 import com.mentor.nucleus.bp.core.EventMessage_c;
 import com.mentor.nucleus.bp.core.FunctionMessage_c;
 import com.mentor.nucleus.bp.core.InformalAsynchronousMessage_c;
 import com.mentor.nucleus.bp.core.InformalSynchronousMessage_c;
+import com.mentor.nucleus.bp.core.InstanceStateMachine_c;
 import com.mentor.nucleus.bp.core.InterfaceOperationMessage_c;
 import com.mentor.nucleus.bp.core.NewBaseAttribute_c;
 import com.mentor.nucleus.bp.core.OperationMessage_c;
 import com.mentor.nucleus.bp.core.PolymorphicEvent_c;
 import com.mentor.nucleus.bp.core.SemEvent_c;
 import com.mentor.nucleus.bp.core.SignalMessage_c;
+import com.mentor.nucleus.bp.core.StateEventMatrixEntry_c;
 import com.mentor.nucleus.bp.core.Transition_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.inspector.ObjectElement;
@@ -47,13 +51,18 @@ import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 import com.mentor.nucleus.bp.model.compare.providers.custom.ActionComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.AssignedEventComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.AssociationComparable;
+import com.mentor.nucleus.bp.model.compare.providers.custom.AttributeComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.DerivedBaseAttributeComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.EventMatrixComparable;
+import com.mentor.nucleus.bp.model.compare.providers.custom.GraphicalDataComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.MessageComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.NewBaseAttributeComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.PolymorphicEventComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.SemEventComparable;
+import com.mentor.nucleus.bp.model.compare.providers.custom.SemeComparable;
+import com.mentor.nucleus.bp.model.compare.providers.custom.StateMachineComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.TransitionComparable;
+import com.mentor.nucleus.bp.ui.canvas.Model_c;
 
 public class ComparableProvider {
 
@@ -81,6 +90,16 @@ public class ComparableProvider {
 
 	private static ComparableTreeObject getNonRootModelElementComparable(
 			Object element) {
+		if (element instanceof Attribute_c) {
+			return new AttributeComparable((NonRootModelElement) element);
+		}
+		if (element instanceof Model_c) {
+			return new GraphicalDataComparable((Model_c) element);
+		}
+		if (element instanceof InstanceStateMachine_c
+				|| element instanceof ClassStateMachine_c) {
+			return new StateMachineComparable((NonRootModelElement) element);
+		}
 		if (element instanceof SemEvent_c) {
 			return new SemEventComparable((SemEvent_c) element);
 		}
@@ -119,6 +138,9 @@ public class ComparableProvider {
 		}
 		if(element instanceof Action_c) {
 			return new ActionComparable((NonRootModelElement) element);
+		}
+		if(element instanceof StateEventMatrixEntry_c) {
+			return new SemeComparable((NonRootModelElement) element);
 		}
 		return new NonRootModelElementComparable((NonRootModelElement) element);
 	}

@@ -195,6 +195,9 @@
       }
       parms.setSize(${no_of_cols});
     .end if
+    .if(table.Key_Lett == "O_OBJ")
+      parms.setSize(${no_of_cols});
+    .end if
     .//
     .// handle pre-7.1.3 models by creating the missing
     .// sequence number attributes
@@ -1036,6 +1039,7 @@ ${setSize.body}
         helper.upgradeLifespans(getRootModelElement());
         helper.upgradeElementOrder(getModelRoot());
         helper.upgradeEEsForIsRealized();
+        helper.upgradeModelClassesForSMIds(loadedInstances);
 		.if(multilevel or setComponent)
 		loadedInstances.addAll(helper.upgradeDatatypes(loadedInstances));
 		loadedInstances.addAll(helper.upgradeSystemLevelPackages(loadedInstances));
@@ -1148,6 +1152,10 @@ ${setSize.body}
         .// set columns size for backward compatibility
     .end if
     .if (table.Key_Lett == "S_EE" )
+      parms.setSize(${no_of_cols});
+        .// set columns size for backward compatibility
+    .end if
+    .if (table.Key_Lett == "O_OBJ" )
       parms.setSize(${no_of_cols});
         .// set columns size for backward compatibility
     .end if

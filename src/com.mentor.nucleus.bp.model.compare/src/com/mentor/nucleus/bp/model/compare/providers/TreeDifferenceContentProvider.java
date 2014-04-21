@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.compare.structuremergeviewer.Differencer;
 import org.eclipse.compare.structuremergeviewer.ICompareInput;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
@@ -35,6 +36,7 @@ import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 import com.mentor.nucleus.bp.model.compare.ComparePlugin;
+import com.mentor.nucleus.bp.model.compare.ITreeDifferencerProvider;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager;
 import com.mentor.nucleus.bp.model.compare.TreeDifference;
 import com.mentor.nucleus.bp.model.compare.TreeDifferencer;
@@ -63,6 +65,10 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 		int processed = 0;
 		int add = 0;
 		for(TreeDifference difference : missingDiffs) {
+			if(SynchronizedTreeViewer.differenceIsGraphical(difference)) {
+				// ignore graphical differences for now
+				continue;
+			}
 			if(difference.getElement() == null) {
 				if(processed == difference.getLocation()) {
 					add++;
@@ -72,12 +78,20 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 				if(orderedChildren.size() == difference.getLocation()) {
 					orderedChildren.add(difference.getLocation(), difference.getMatchingDifference().getElement());
 				} else {
-					orderedChildren.add(difference.getLocation() + add, difference.getMatchingDifference().getElement());
+					if(orderedChildren.size() < difference.getLocation() + add) {
+						orderedChildren.add(difference.getMatchingDifference().getElement());
+					} else {
+						orderedChildren.add(difference.getLocation() + add, difference.getMatchingDifference().getElement());
+					}
 				}
 				processed = difference.getLocation();
 			}
 		}
 		for (Object child : orderedChildren) {
+			if(SynchronizedTreeViewer.differenceElementIsGraphical(child)) {
+				// ignore graphical data for now
+				continue;
+			}
 			List<TreeDifference> directDiffs = differencer.getDifferences(child, true);
 			if(directDiffs.isEmpty()) {
 				directDiffs = differencer.getDifferences(child, false);
@@ -87,7 +101,7 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 			} else {
 				List<TreeDifference> differences = SynchronizedTreeViewer
 						.scanChildrenForDifferences(child, differencer,
-								modelContentProvider, true);
+								(ITreeContentProvider) modelContentProvider, true);
 				if (!differences.isEmpty()) {
 					differenceSet.add(child);
 				}
@@ -116,18 +130,18 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 			NonRootModelElement[] ancestorRoots = new NonRootModelElement[0];
 			try {
 				leftRoots = modelCacheManager.getRootElements(
-						((ICompareInput) inputElement).getLeft(), null, false,
+						((ICompareInput) inputElement).getLeft(), this, false,
 						Ooaofooa.getInstance(Ooaofooa
 								.getLeftCompareRootPrefix()
 								+ inputElement.hashCode()), ModelCacheManager.getLeftKey(inputElement));
 				rightRoots = modelCacheManager.getRootElements(
-						((ICompareInput) inputElement).getRight(), null, false,
+						((ICompareInput) inputElement).getRight(), this, false,
 						Ooaofooa.getInstance(Ooaofooa
 								.getRightCompareRootPrefix()
 								+ inputElement.hashCode()), ModelCacheManager.getRightKey(inputElement));
 				if (((ICompareInput) inputElement).getAncestor() != null) {
 					ancestorRoots = modelCacheManager.getRootElements(
-							((ICompareInput) inputElement).getAncestor(), null,
+							((ICompareInput) inputElement).getAncestor(), this,
 							false, Ooaofooa.getInstance(Ooaofooa
 									.getAncestorCompareRootPrefix()
 									+ inputElement.hashCode()), ModelCacheManager.getAncestorKey(inputElement));
@@ -136,8 +150,13 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 				CorePlugin.logError("Unable to load model for comparison.", e);
 			}
 			if(differencer == null) {
-				differencer = new TreeDifferencer(modelContentProvider, leftRoots,
-						rightRoots, ancestorRoots, ancestorRoots != null ? ancestorRoots.length != 0 : false, inputElement);
+				differencer = new TreeDifferencer(
+						(ITreeDifferencerProvider) modelContentProvider,
+						leftRoots,
+						rightRoots,
+						ancestorRoots,
+						(((ICompareInput) inputElement).getKind() & Differencer.DIRECTION_MASK) != 0,
+						inputElement);
 				labelProvider.setDifferencer(differencer);
 			} else {
 				differencer.setElements(leftRoots, rightRoots, ancestorRoots);
@@ -201,13 +220,18 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 
 	@Override
 	public void dispose() {
+		ModelCacheManager modelCacheManager = ComparePlugin.getDefault()
+				.getModelCacheManager();
+		modelCacheManager.releaseAllFor(this);
 		modelContentProvider.dispose();
 		differencer.dipose();
 	}
 
 	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-		// not interested
+		if(oldInput != null) {
+			ComparePlugin.getDefault().getModelCacheManager().releaseAllFor(this);
+		}
 	}
 
 	public TreeDifferencer getDifferencer() {
@@ -215,7 +239,6 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 	}
 
 	public void refresh() {
-
 	}
 
 }

@@ -175,6 +175,7 @@ public class AutocreationCommand extends Command {
 				gRequest.setToolId(newTool.getTool_id());
 				CreateConnectionCommand command = new CreateConnectionCommand(
 						request, feedback);
+				command.disableCropping();
 				command.execute();
 				// reset the active tool states
 				newTool.setActive(false);

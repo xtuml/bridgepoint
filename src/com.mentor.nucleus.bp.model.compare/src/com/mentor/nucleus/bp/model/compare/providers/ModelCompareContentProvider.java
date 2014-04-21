@@ -38,14 +38,13 @@ import com.mentor.nucleus.bp.core.inspector.ObjectElement;
 import com.mentor.nucleus.bp.core.sorter.MetadataSortingManager;
 import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 import com.mentor.nucleus.bp.model.compare.ComparePlugin;
-import com.mentor.nucleus.bp.model.compare.ITreeDifferencerProvider;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager.ModelLoadException;
 import com.mentor.nucleus.bp.ui.canvas.GraphicalElement_c;
 import com.mentor.nucleus.bp.ui.canvas.Model_c;
 import com.mentor.nucleus.bp.ui.canvas.Ooaofgraphics;
 import com.mentor.nucleus.bp.ui.canvas.inspector.GraphicalModelInspector;
 
-public class ModelCompareContentProvider implements ITreeDifferencerProvider {
+public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider {
 	
 	ModelInspector inspector = new ModelInspector(MetadataSortingManager.createDefault());
 	GraphicalModelInspector graphicalModelInspector = new GraphicalModelInspector();
@@ -127,24 +126,26 @@ public class ModelCompareContentProvider implements ITreeDifferencerProvider {
 					childRelations.add(objectElementRelations[i]);
 				}
 			}
-			// include graphical data if present
-			Model_c model = ComparePlugin.getDefault().getModelCacheManager().getLoadedGraphicalModelsForElements(element);
-			if(model == null && modelRoots != null) {
-				for(Ooaofooa modelRoot : modelRoots) {
-					model = Model_c.ModelInstance(Ooaofgraphics.getInstance(modelRoot.getId()), new ClassQueryInterface_c() {
-						
-						@Override
-						public boolean evaluate(Object candidate) {
-							return ((Model_c) candidate).getRepresents() == finalElement; 
+			if(getIncludeNonTreeData()) {
+				// include graphical data if asked for
+				Model_c model = ComparePlugin.getDefault().getModelCacheManager().getLoadedGraphicalModelsForElements(element);
+				if(model == null && modelRoots != null) {
+					for(Ooaofooa modelRoot : modelRoots) {
+						model = Model_c.ModelInstance(Ooaofgraphics.getInstance(modelRoot.getId()), new ClassQueryInterface_c() {
+							
+							@Override
+							public boolean evaluate(Object candidate) {
+								return ((Model_c) candidate).getRepresents() == finalElement; 
+							}
+						});
+						if(model != null) {
+							break;
 						}
-					});
-					if(model != null) {
-						break;
 					}
 				}
-			}
-			if(model != null) {
-				childRelations.add(model);
+				if(model != null) {
+					childRelations.add(model);
+				}
 			}
 			Object[] childRelationArray = childRelations.toArray();
 			Object[] all = new Object[attributes.length

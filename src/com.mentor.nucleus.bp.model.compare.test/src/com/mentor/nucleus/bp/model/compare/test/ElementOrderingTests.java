@@ -247,6 +247,8 @@ public class ElementOrderingTests extends BaseTest {
 	
 	public void testMergePositionalChangeTop() throws CoreException {
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot);
+		// persist the class file to upgrade any new attributes added
+		clazz.getPersistableComponent().persist();
 		Operation_c[] ops = Operation_c.getManyO_TFRsOnR115(clazz);
 		Operation_c op = ops[0];
 		Transaction transaction = null;

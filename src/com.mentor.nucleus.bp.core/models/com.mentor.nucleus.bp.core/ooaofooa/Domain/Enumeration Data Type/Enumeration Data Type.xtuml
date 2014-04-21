@@ -547,6 +547,18 @@ end for;',
 	1,
 	'',
 	"c638ef3c-93c1-413d-be81-a426dcace1fb");
+INSERT INTO O_TFR
+	VALUES ("b3aa28fb-5069-434b-8a2e-e6f60edeede7",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'getDescription',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one dt related by self->S_DT[R17];
+return dt.Descrip;',
+	1,
+	'',
+	"8c05285e-8df2-434e-b3f4-00287cca24f2");
 INSERT INTO O_REF
 	VALUES ("942a736a-d379-4a82-9b01-d8e56ae947be",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
