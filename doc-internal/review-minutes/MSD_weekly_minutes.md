@@ -12,6 +12,140 @@ MSD Weekly Meeting Minutes
 ---
 
     Date:     date
+    Start:    6:00 GMT+@
+    End:      6:40 GMT+2
+    Elapsed:  40
+    Present:  Bob, Keith, Travis, Campbell, Cort, others...
+            Dean, Robert, Jayne, others...
+
+### Engineering Status
+**Bob  -** 
+The Upcoming release is going to be 4.1.10.  
+It's going to be done by the end of the next week.  
+Bob has to deliver something to Ericsson it had to go to them on Friday so they would start testing.  
+It could be in the form of nightly build or branch build.  
+The main feature of that deliverable is the true headless prebuilder.  
+Cort asked to see a version that has every thing in it.  
+
+There's something that was promoted was Heba's issue it is not the most critical 
+but SAAB wanted it in the release.  
+ 
+He had separated the parser front end from the eclipse editors.   
+The parser front end was tightly coupled in UI text to UI eclipse editors and UI editors.     
+The parser didn't need workbench nor GUI things.  
+So he broke that away, by copying classes and refactoring.  
+It went fine but he did hit problems with model compiler tho.  
+The original requirement is to enable the user to set up configurations and run them from the command line.  
+So the whole build had to work not just the pre-builder.  
+The model compiler coupling with the eclipse UI is a problem spot.  
+He tried some different solutions to break that up but there's no easy way to do so.  
+Cort asked him to clean what he has regarding the pre-builder separation and raise and issue for the remaining work to handle that when needed.  
+He's now is refactoring the code and removing duplications but he's facing some problems with the testing.  
+He's wrapping it up.  
+
+If Travis's work is ready it will be included.  
+
+Ericsson is not pushing, Bob will deliver either on Friday or on Monday.  
+
+
+**Keith  -** 
+**OpenAir  -**
+
+Now we officially switched to open air for time reporting.  
+Claudia sent a document describing the steps to be done.  
+That document included a temp. password that worked for some people and didn't work for other's.  
+If your password didn't work you should contact her.  
+That document indicated attaching a spread sheet file but that's not required.  
+
+Once you are inside Open air you will be presented with a login page.  
+You fill fields in the first page as shown in the document.  
+Then you hit save on that page, you'll be taken to a time sheet page.
+In the time sheet page you are required to fill the fields with the hours spent with each task.  
+Every one is asked to fill time sheets in hour increments.  
+Every one last week spent one hour on the presentation given by Keith learning how to set up training material.  
+Keith is suggesting every one should keep track of their hours on a daily basis.  
+They can be then submitted each week.  
+The hours of each month should be submitted before the 25th of that month.  
+
+**Keith status  -**
+Been working on promoting the IPR constant support issue.
+He has been on the training material work.  
+He set up a course on OpenLearing "introductiontoxtuml".  
+He started with the installation video, he will be uploading the videos to you tube shortly.  
+He will add then the data to the OpenLearning course pages.  
+He added several new pages including a quiz.
+
+
+
+**Travis  -**
+He's cleaning up the branch he created while he was on site.
+He's going through automated tests, he added some testes that was described in the note.
+He's facing some test problems, in verifier test, that doesn't seem to have a direct relation to the work he did.
+He's hoping to finish running the tests tomorrow before he has a code review. 
+
+Keith had the same problem with the verifier test during the promotion of Heba's issue.
+He thinks verifier test went back to the state of getting in the way.
+Bob had another branch, he had two failures but he doesn't think they are verifier related. 
+Travis has troubles with the realized external entities tests.  
+Bob thinks it's because Keith is running on VM and that's related to their bad performance.
+Campbell runs tests on VM too but he didn't see a difference in the results.
+It depends on how the promotion goes whither Travis's branch will be included in Bob's delivery or not.
+But Ericsson does have the work in their hands already because Travis has given them a branch.  
+
+
+**Campbell  -**
+He did not really have much status to report because of his family issues there.
+This week, He started to script training video material for Verifier.
+The previous week He was giving training classes at SAAB.
+It was mentioned to him that Grippen projects are now going to be using BridgePoint, which is quite exciting, since the Grippen aircraft is SAAB's flagship product.
+
+
+**Nehad  -**
+Finishing the tooltip work, the work is delayed due to  found more cornor cases failure  during the tests
+Failures are fixed and in branch, and finishing the design note and manual tests steps
+
+**Heba  -**
+Been working on the model compiler work for the issue of adding port reference support and did put it ready for promotion.
+Been working on an SVX related issue, Dean reported that he can't use timing values in microseconds as oposed to the existing milliseconds support.
+She looked into it but it appeared that this is a limitation from the SVX APIs side.
+She confirmed with AbdelHalim. he stated that this is solved in the newer version of SVX but that version was not released for java yet.
+So she will have to write the java wrapper herself after the work for the release is done as recommended by Dean.
+
+**Cort  -**
+He's currently on FTO.
+He's been working on Ericsson with T1 learning activities .
+He's been doing model compiler work for Fuji Xerox 
+the customization for their model compilers 
+He was working close with MGJ site.
+
+
+
+### Marketing Status
+**Dean -**  
+He stated that with the expanding use of Bridge Point within Ericsson, there comes some pros and cons.
+In terms of the direct connection we are going to see ourselves expanding beyond Budapest and Croatian team. 
+From Bob's comment it sounds we start to include Canadian team in Montreal.  
+Dean Encourages every body to interact with them if they got an opportunity.  
+With the expansion many groups will act independently.
+There will be more user interaction and more training activities.
+
+Preparing for a series of Mentor sponsored events that will be targeting North American mil-aero.
+ 
+### Customer Support Status
+**Robert -** 
+He stated that we had the first BridgePoint call from US in two years.
+Someone submitted an SR trying to run docgen on Ubuntu, we don't support it officially but Keith is giving him help going through the debugging process.  
+The sale was made two weeks ago.  
+They are a user of the editor for couple of years now.  
+They just purchased model compiler and verifier.   
+
+
+
+---
+
+---
+
+    Date:     16/4/2014
     Start:    time EDT
     End:      time EDT
     Elapsed:  time minutes
