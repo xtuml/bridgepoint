@@ -32,15 +32,18 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 
 import com.mentor.nucleus.bp.core.Component_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.Domain_c;
-import com.mentor.nucleus.bp.core.IntegrityIssue_c;
-import com.mentor.nucleus.bp.core.IntegrityManager_c;
 import com.mentor.nucleus.bp.core.Modeleventnotification_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.SystemModel_c;
@@ -253,6 +256,26 @@ public class ComponentTransactionListener implements ITransactionListener {
 		for(int i = 0; i < instances.length; i++) {
 			instances[i].clearUnreferencedProxies();
 		}
+		// run this in a workspace job so that it does not
+		// interfere with our file writing
+		WorkspaceJob job = new WorkspaceJob("Create integrity issues") {
+			
+			@Override
+			public IStatus runInWorkspace(IProgressMonitor monitor)
+					throws CoreException {
+				// for all persisted files run an integrity check
+				for(PersistableModelComponent component: persisted) {
+					// deletions will have a null root element
+					if(component.getRootModelElement() != null) {
+						IntegrityChecker.createIntegrityIssues(component.getRootModelElement());
+					}
+				}
+				return Status.OK_STATUS;
+			}
+		};
+		job.setPriority(Job.DECORATE);
+		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
+		job.schedule();
 	}
     private void handleComponentFormalization(Domain_c dom, Component_c comp) {
       final IWorkspaceRoot wsRoot = ResourcesPlugin.getWorkspace().getRoot();
@@ -376,7 +399,6 @@ public class ComponentTransactionListener implements ITransactionListener {
 			try {
 				component.persist();
 				persisted.add(component);
-				IntegrityChecker.createIntegrityIssues(component.getRootModelElement());
 				return true;
 			} catch (CoreException e) {
 				CorePlugin

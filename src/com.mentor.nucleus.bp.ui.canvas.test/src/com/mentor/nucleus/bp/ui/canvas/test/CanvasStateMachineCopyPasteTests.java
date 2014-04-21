@@ -1037,7 +1037,6 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 	}
 	
 	private void performSignalTransitionPasteTest(final String testCaseName, boolean resolvable) {
-		BaseTest.dispatchEvents(0);
 		SystemModel_c system = TestingUtilities.getSystemModel(testProject
 				.getName());
 		SystemModel_c destinationSystem = TestingUtilities
