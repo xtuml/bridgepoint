@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!--
+
+ File:      $RCSfile: default-manifest.xml,v $
+ Version:   $Revision: 1.10 $
+ Modified:  $Date: 2010/01/05 04:08:54 $
+
+ (c) Copyright 2005-2010 by Mentor Graphics Corp. All rights reserved.
+
+ ========================================================================
+ This document contains information proprietary and confidential to
+ Mentor Graphics Corp., and is not for external distribution.
+ ======================================================================== 
+
+-->
+<manifest>
+   <system> 
+      <file src="schema/colors/bridge.mark" dest="gen/bridge.mark"/> 
+      <file src="schema/colors/datatype.mark" dest="gen/datatype.mark"/> 
+      <file src="schema/colors/system.mark" dest="gen/system.mark"/> 
+      <file src="schema/colors/class.mark" dest="gen/class.mark"/> 
+      <file src="schema/colors/domain.mark" dest="gen/domain.mark"/> 
+      <file src="schema/colors/event.mark" dest="gen/event.mark"/> 
+   </system>
+</manifest> 

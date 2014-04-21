@@ -1,0 +1,235 @@
+.//============================================================================
+.// File:  system.mark
+.//
+.// Description:
+.// 生成するコードに対するシステム全体のパラメータ値を定義する。
+.//
+.// Notice:
+.// (C) Copyright 1999-2010 Mentor Graphics Corporation
+.//     All rights reserved.
+.//============================================================================
+.// Notes:
+.// (1) 色づけを指定することにより、アーキタイプのファンクションが実施されます。
+.//     .invokeで始まる色付け定義文中に改行を入れないこと。
+.//      必ず１行に記述すること。各関数の入力パラメータは全て定義すること。
+.// (2) 文字列パラメータは、大文字・小文字の違いがある。
+.// (3) .// で始まる行がコメントとなる。
+.// (4) 本ファイル中には空白行を入れないこと。
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Enable Multi-tasking/threading Capability
+.//   To cause MC-3020 to generate multi-tasking/threading code invoke
+.//   the EnableTasking marking function.  Pass it arguments to specify
+.//   the type of multi-tasking environment and whether or not to
+.//   serialize all action processing (across all tasks).
+.//
+.// EnableTasking( "type", "serialize_processing", tasks )
+.//
+.// Where the input parameter(s) are:
+.//   type = The flavor of RTOS or threading being integrated.
+.//   serialize_processing = When set to serialize, all actions across
+.//     all tasks are forced to be serialized.  Note that serializing
+.//     the action processing reduces data access contention, but
+.//     can severely reduce the multi-tasking performance of the
+.//     generated system.
+.//   tasks = number of threads/tasks in the xtUML generated system
+.//
+.// Example:
+.//   .invoke EnableTasking( "Nucleus", "", 4 )
+.//   .invoke EnableTasking( "POSIX", "serialize", 2 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Establish Task Priority
+.//   In systems that support explicit prioritization of tasks,
+.//   each task (of the number specified in EnableTasking) can have
+.//   a priority assigned.  Use the SetTaskPriority marking function
+.//   to set the priority for each task.
+.//
+.// SetTaskPriority( task number, "priority" )
+.//
+.// Where the input parameter(s) are:
+.//   task_number = the number of the task (starting with 0)
+.//   priority = priority of the designated task
+.//
+.// Example:
+.//   .invoke SetTaskPriority( 0, "100" )
+.//   .invoke SetTaskPriority( 3, "high" )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// 文字列の最大長の定義
+.//
+.// TagMaximumStringLength( max_len )
+.//
+.// パラメータ入力は次の通りです:
+.//   max_len = 文字列の最大長(byte)
+.//
+.// Example:
+.//   .invoke TagMaximumStringLength( 64 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// 関連のインスタンスの最大値の定義
+.//
+.// TagMaximumRelationshipExtentSize( value )
+.//
+.// パラメータ入力は次の通りです:
+.//   value = 関連のインスタンスを保持する領域の最大
+.//
+.// Example:
+.//   .invoke TagMaximumRelationshipExtentSize( 100 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// SELECTされるインスタンスの最大値の定義
+.//
+.// TagMaximumSelectionExtentSize( value )
+.//
+.// パラメータ入力は次の通りです:
+.//   value = BridgePointアクションのSELECT文で抽出されるインスタンス数の最大値
+.//
+.// Example:
+.//   .invoke TagMaximumSelectionExtentSize( 50 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// 自己遷移イベントのキューの最大値
+.//
+.// TagMaximumSelfDirectedEvents( value )
+.//
+.// パラメータ入力は次の通りです:
+.//   value = 自己遷移イベント(selfイベント）に対するキューの最大値
+.//
+.// Example:
+.//   .invoke TagMaximumSelfDirectedEvents( 5 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// 非自己遷移イベントのキューの最大値
+.//
+.// TagMaximumNonSelfDirectedEvents( value )
+.//
+.// パラメータ入力は次の通りです:
+.//   value = 非自己遷移イベントに対するキューの最大値
+.//
+.// Example:
+.//   .invoke TagMaximumNonSelfDirectedEvents( 20 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// 同時に使用しているxtUML Timerの数の定義
+.//
+.// TagMaximumPendingOoaTimers( value )
+.//
+.// パラメータ入力は次の通りです:
+.//   value = 同時に使用しているxtUML Timerの数
+.//
+.// Example:
+.//   .invoke TagMaximumPendingOoaTimers( 10 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// SafeBridgeを登録するキューの最大値の定義
+.// 
+.// TagMaximumInterleavedBridges( value )
+.//
+.// パラメータ入力は次の通りです:
+.//   value = SafeBridgeを登録キューの最大値（SafeBridgeの個数）
+.//
+.//　本色付けによってSafeBridgeを登録するキューの大きさを変更することが
+.//　できる。本色付けを指定しない場合は、モデル内のSafeBridgeの数から予測した
+.//　大きさがディフォールトとして割り当てられる。
+.//
+.// Example:
+.//   .invoke TagMaximumInterleavedBridges( 4 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// synchronous serviceを登録するキューの最大値の定義
+.//
+.// TagInterleavedBridgeDataSize( value )
+.//
+.// パラメータ入力は次の通りです:
+.//   value = The greatest number of bytes required to pass argument
+.//     data through an interleaved bridge (synchronous service tagged
+.//     "SafeForInterrupts").
+.//
+.// Use this mark to define how many bytes of argument data comes
+.// in across an interleaved bridge operation.
+.// The default is 8.
+.//
+.// Example:
+.//   .invoke TagInterleavedBridgeDataSize( 2 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// TagCollectionsFlavor( value )
+.//
+.// パラメータ入力は次の通りです:
+.//   value = The greatest number representing the type of collection
+.//     mechanism to use.  The default (not marked) value is 0 and
+.//     represents a singly linked (slist) flavor of container.
+.//     20 represents a doubly linked (dlist) flavor of container.
+.//     (Dlists make deleting instances faster.)
+.//
+.// Use this mark to define the flavor of collection container desired.
+.// The default is 0.
+.//
+.// Example:
+.//   .invoke TagCollectionsFlavor( 20 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// TagModelDebuggingOn()
+.//
+.// TagModelDebuggingOn is used to indicate that model debugging code will be
+.// output in the generated files.
+.//
+.// The generated debugging code can be compiled out by:
+.//     1) Remove the "-DROX_TM_ENABLED" compiler flag in the workspace
+.//        Makefile.user file.
+.//     2) Run 'make all_no_gen' to re-compile and link the workspace.
+.//
+.// Example:
+.//   .invoke TagModelDebuggingOn()
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Mark Depth of Persistence Cache Queue
+.//
+.// This mark is used to specify the maximum number of instances and
+.// links that can be queued waiting to be flushed to non-volatile
+.// storage (NVS).  As instances and links become "dirty" they get
+.// queued to NVS.  When Persist::Commit is called this queue is flushed.
+.//
+.// MarkPersistenceCacheDepth( instance_depth, link_depth )
+.//
+.// Where the input parameter(s) are:
+.//   instance_depth = the integer depth of the linked list of instances
+.//   link_depth = the integer depth of the linked list of persistent links
+.//
+.// Note:  The default depth of both cache queues is 128.
+.//
+.// Example:
+.//   .invoke MarkPersistenceCacheDepth( 30 )
+.//============================================================================
+.//
+.//
+.//============================================================================
+.// Do not add anything at the end of this file!
+.//============================================================================
