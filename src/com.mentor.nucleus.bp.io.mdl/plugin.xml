@@ -22,6 +22,7 @@
       <import plugin="com.mentor.nucleus.bp.ui.canvas"/>
       <import plugin="com.mentor.nucleus.bp.ui.text"/>
       <import plugin="com.mentor.nucleus.bp.ui.explorer"/>
+      <import plugin="com.mentor.nucleus.bp.als.oal"/>
    </requires>
 
 
