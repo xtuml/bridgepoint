@@ -61,6 +61,7 @@ import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.ui.marker.DelayedMarkerJob;
 import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
+import com.mentor.nucleus.bp.core.util.CoreUtil;
 import com.mentor.nucleus.bp.core.util.OoaofgraphicsUtil;
 import com.mentor.nucleus.bp.core.util.TransactionUtil;
 import com.mentor.nucleus.bp.core.util.UIUtil;
@@ -774,9 +775,6 @@ public class TransactionManager {
 	 */
 	public Action getUndoAction() {
 		if (undoAction == null) {
-			Image image = PlatformUI.getWorkbench().getSharedImages().getImage(
-					ISharedImages.IMG_TOOL_UNDO);
-			ImageDescriptor desc = ImageDescriptor.createFromImage(image);
 			undoAction = new Action(ActionFactory.UNDO.getId()) {
 				public void run() {
 					revertLastTransaction(Transaction.UNDO_TYPE);
@@ -784,7 +782,12 @@ public class TransactionManager {
 			};
 			undoAction.setText("Undo");
 			undoAction.setToolTipText("Undo the last modification");
-			undoAction.setImageDescriptor(desc);
+			if (!CoreUtil.IsRunningHeadless) {
+				Image image = PlatformUI.getWorkbench().getSharedImages().getImage(
+						ISharedImages.IMG_TOOL_UNDO);
+				ImageDescriptor desc = ImageDescriptor.createFromImage(image);
+				undoAction.setImageDescriptor(desc);
+			}
 			undoAction.setEnabled(false);
 			undoAction.setActionDefinitionId(ActionFactory.UNDO.getCommandId());
 		}
@@ -855,13 +858,13 @@ public class TransactionManager {
 			if (delta == null)
 				return;
 
-			WorkspaceUtil.logResourceActivity(delta);
+			CorePlugin.logResourceActivity(delta);
 
 			Job buildJob = Job.getJobManager().currentJob();
 			if (buildJob != null
 					&& (buildJob.belongsTo(ResourcesPlugin.FAMILY_AUTO_BUILD) || (buildJob
 							.belongsTo(ResourcesPlugin.FAMILY_MANUAL_BUILD)
-							|| buildJob instanceof DelayedMarkerJob
+							|| buildJob.belongsTo(DelayedMarkerJob.FAMILY_DELAYED_MARKER_JOB)
 							|| buildJob.belongsTo("System Data Type Upgrade") || buildJob.belongsTo(FAMILY_TRANSACTION)))) { //$NON-NLS-1$
 				return;
 			}

@@ -53,11 +53,13 @@ import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.ModelRoot;
 import com.mentor.nucleus.bp.core.common.TransactionManager;
+import com.mentor.nucleus.bp.core.util.CoreUtil;
 public class CanvasPlugin extends AbstractUIPlugin {
   private static CanvasPlugin plugin;
   private ResourceBundle resourceBundle;
   private CanvasModelListener modelChangeListener;
-private CanvasTransactionListener transactionListener;
+  private CanvasTransactionListener transactionListener;
+  private static boolean isActivated;
   public CanvasPlugin() {
     super();
     plugin = this;
@@ -693,10 +695,15 @@ private ElementSpecification_c locateEsByNameAndClassType(ModelRoot modelRoot,
    */
   public void start(BundleContext context) throws Exception
   {
-    super.start(context);
-        
-    initializeCanvases();
-    hookListeners();
+	if (!CoreUtil.IsRunningHeadless) {
+	    super.start(context);
+	        
+	    initializeCanvases();
+	    hookListeners();
+		CanvasPlugin.isActivated = true;
+	} else {
+		CanvasPlugin.isActivated = false;
+	}
   }
 
     /* (non-Javadoc)
@@ -704,11 +711,13 @@ private ElementSpecification_c locateEsByNameAndClassType(ModelRoot modelRoot,
      */
     public void stop(BundleContext context) throws Exception
     {
-        super.stop(context);
-        
-        Ooaofooa.getDefaultInstance().removeModelChangeListener(modelChangeListener);
-        
-        TransactionManager.getSingleton().removeTransactionListener(transactionListener);
+    	if (CanvasPlugin.isActivated) {
+	        super.stop(context);
+	        
+	        Ooaofooa.getDefaultInstance().removeModelChangeListener(modelChangeListener);
+	        
+	        TransactionManager.getSingleton().removeTransactionListener(transactionListener);
+    	}
     }
     
   private static int getValueFor(String enumeration) {

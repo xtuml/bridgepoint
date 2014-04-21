@@ -78,25 +78,4 @@ public class WorkspaceUtil
 		return oldSetting;		
 	}
 	
-	public static void logResourceActivity(IResourceDelta delta) {
-	   String resourceLogEnabled = System
-         .getProperty("com.mentor.bp.nucleus.logResourceActivity.enabled");
-	  if (resourceLogEnabled != null) {
-      Throwable thr = new Throwable();
-      thr.setStackTrace(Thread.currentThread().getStackTrace());
-      ResourceActivityVisitor rav = new ResourceActivityVisitor();
-      try {
-        delta.accept(rav);
-      }
-      catch (CoreException ce) {
-        // Do nothing this should never fail
-      }
-      if (!rav.getResult().isEmpty()) {
-        String message = "Resources changed: " + delta.getFullPath() +
-                                                         "\n" + rav.getResult();
-        CorePlugin.logError(message, thr);
-      }
-	  }
-	}
-	
 }

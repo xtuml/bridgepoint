@@ -1,0 +1,35 @@
+This document captures the state of the BridgePoint unit tests:
+===============================================================
+Branch: <TODO: Fill This In>
+Hostname: 	CAS-RMULVEY-LT
+OS Name:  	Windows 7
+	Version:	6.1
+	Architecture:	x86
+
+Test Suite                              Status			TestRuns	Time    Timestamp
+---------------------------------------------------------------------------------------------
+UI Canvas CCP Test						PASS			102			916.40s	20140417 16:26:59
+Parse All Test							PASS			4600		442.85s	20140417 14:22:31
+IO MDL PkgCM Tests						PASS			108			1029.58s20140417 16:03:29
+Core Test 2								PASS			304			244.36s	20140417 15:12:21
+Debug - Verifier Test					FAIL (0e/2f)	100			948.57s	20140417 17:34:41
+Core Test - System Level Tests			PASS			24			13.49s	20140417 15:12:49
+Core Test - Existing Projects			PASS			15			4.38s	20140417 14:31:38
+Parse All Test (2)						PASS			4598		875.96s	20140417 13:23:01
+UI Properties Test						PASS			163			21.56s	20140417 16:28:48
+Model Compare Test						PASS			258			319.53s	20140417 15:37:15
+Core Test - RTO Move					PASS			136			413.13s	20140417 14:29:42
+Welcome Test							PASS			13			244.95s	20140417 16:57:59
+Search Test								PASS			10			13.44s	20140417 16:04:13
+Debug - Verifier Test 2					PASS			10			183.69s	20140417 15:31:41
+IO SQL Test								PASS			8			1.02s	20140417 16:03:42
+Core Generic Upgrade Test				PASS			39			3.23s	20140417 14:31:54
+Core Test								FAIL (0e/1f)	1097		1222.56s20140417 17:18:37(log not empty in TigerNatureTestGenerics::testNewProjectDefaultPath)
+UI Explorer Test						PASS			18			59.54s	20140417 16:28:12
+Core Test - Workspace Setup				PASS			14			72.08s	20140417 14:31:21
+Core Test 2 - Consistency				PASS			17			1.16s	20140417 14:29:56
+IO MDL Tests							FAIL (0e/1f)	90			299.25s	20140417 17:39:53  (log not empty in testStaleProxyExport() (the last test in the suite))
+UI Canvas Suite 1						PASS			84			137.62s	20140417 16:06:45
+UI Canvas Suite 2						PASS			270			268.65s	20140417 16:11:29
+IO MDL Tests 2							FAIL (0e/2f)	77			270.26s	20140417 17:44:36 (both errors are in OALPersistenceTestGenerics and are log not empty.  testPersistOAL, and testOALInstancesCreatedWhileBuild)
+UI Text Test							PASS			163			135.08s	20140417 16:31:18
