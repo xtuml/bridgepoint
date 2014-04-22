@@ -10,7 +10,6 @@ import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -23,6 +22,8 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.ShellEvent;
+import org.eclipse.swt.events.ShellListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -64,16 +65,21 @@ import com.mentor.nucleus.bp.ui.graphics.figures.ShapeImageFigure;
 
 public class DetailedToolTipFigure {
 
+	public static final int ToolTip_Shell_Style = SWT.TOOL | SWT.RESIZE;
+	public static final int Tooltip_Text_Style = SWT.READ_ONLY | SWT.BORDER | SWT.V_SCROLL | SWT.WRAP | SWT.MULTI;
+	public static final String ACTIVITY_EDITOR_ID = "com.mentor.nucleus.bp.ui.text.activity.ActivityEditor";
+	public static final String ACTIVITY_EDITOR_INPUT_ID = "com.mentor.nucleus.bp.ui.text.activity.ActivityEditorInput";
+	public static final String DESCRIPTION_EDITOR_ID = "com.mentor.nucleus.bp.ui.text.description.DescriptionEditor";
+	public static final String DESCRIPTION_EDITOR_INPUT_ID = "com.mentor.nucleus.bp.ui.text.description.DescriptionEditorInput";
+	public static final String Text_Editors_Extension_ID = "com.mentor.nucleus.bp.ui.text.com.mentor.nucleus.bp.ui.text.editors";
 	protected Shell detailedShell;
 	protected Text styledText;
 	private int resizeImageSize = -1;
-	private IFigure currentTipSource;
 	private BPToolTipHelper tooltipHelper;
 
 
 	public DetailedToolTipFigure(Control parent, BPToolTipHelper bpToolTipHelper){
 		tooltipHelper = bpToolTipHelper; 
-		currentTipSource = bpToolTipHelper.getTooltipSource();
 
 		detailedShell = createDetailedShell(parent);
 		hookDetailedShellListeners();
@@ -86,7 +92,7 @@ public class DetailedToolTipFigure {
 
 	private Shell createDetailedShell(Control control) {
 
-		Shell detailedShell = new Shell(control.getShell(), SWT.TOOL | SWT.ON_TOP | SWT.RESIZE);
+		Shell detailedShell = new Shell(control.getShell(), ToolTip_Shell_Style);
 
 		Display display  = detailedShell.getDisplay();
 
@@ -95,34 +101,59 @@ public class DetailedToolTipFigure {
 
 		setColor(detailedShell, foreground, background);
 
-		CreateImageCompartment(detailedShell);
+		createImageCompartment(detailedShell);
 
-		CreateDescriptionTextCompartment(detailedShell);
+		createDescriptionTextCompartment(detailedShell);
 
-		CreateActionsCompartment(detailedShell);
+		createActionsCompartment(detailedShell);
 
 		return detailedShell;
 	}
 
 	private void hookDetailedShellListeners() {
-		//
-
+		detailedShell.addShellListener(new ShellListener() {
+			
+			@Override
+			public void shellIconified(ShellEvent e) {
+				// Do nothing 
+			}
+			
+			@Override
+			public void shellDeiconified(ShellEvent e) {
+				// Do nothing 
+			}
+			
+			@Override
+			public void shellDeactivated(ShellEvent e) {
+				// Do nothing 
+			}
+			
+			@Override
+			public void shellClosed(ShellEvent e) {
+				tooltipHelper.hide();
+			}
+			
+			@Override
+			public void shellActivated(ShellEvent e) {
+				// Do nothing 
+			}
+		});
 	}
 
 
 
-	private static void setColor(Control control, Color foreground, Color background) {
+	public static void setColor(Control control, Color foreground, Color background) {
 		control.setForeground(foreground);
 		control.setBackground(background);
 	}
 
 
-	private void CreateImageCompartment(Shell detailedShell) {
+	public void createImageCompartment(Shell detailedShell) {
 		// Add Composite and Label here for photos
 
 	}
 
-	private void CreateDescriptionTextCompartment(Shell detailedShell) {
+	public void createDescriptionTextCompartment(Shell detailedShell) {
 		Display display  = detailedShell.getDisplay();
 		Color foreground= display.getSystemColor(SWT.COLOR_INFO_FOREGROUND);
 		Color background= display.getSystemColor(SWT.COLOR_INFO_BACKGROUND);
@@ -138,29 +169,29 @@ public class DetailedToolTipFigure {
 		descriptionTextComposite.setLayout(new FillLayout());
 		setColor(descriptionTextComposite, foreground, background);
 
-		styledText = new Text(descriptionTextComposite, SWT.READ_ONLY | SWT.BORDER | SWT.V_SCROLL | SWT.WRAP | SWT.MULTI);
+		styledText = new Text(descriptionTextComposite, Tooltip_Text_Style);
 		setColor(styledText, foreground, background);
 
 	}
 
-	private void CreateActionsCompartment(Shell detailedShell) {
+	public void createActionsCompartment(Shell detailedShell) {
 
 
-		///  toolbar 
+		// Create Action Compartment
 		Composite bottomComposite= new Composite(detailedShell, SWT.NONE);
 		GridData gridData= new GridData(SWT.FILL, SWT.BOTTOM, true, false);
 		bottomComposite.setLayoutData(gridData);
 		GridLayout bottomLayout= new GridLayout(1, false);
 		bottomLayout.marginHeight= 0;
 		bottomLayout.marginWidth= 0;
-		bottomLayout.verticalSpacing= 1;
+		bottomLayout.verticalSpacing= 3;
 		bottomComposite.setLayout(bottomLayout);
 
 		Label lineSeperator= new Label(bottomComposite, SWT.SEPARATOR | SWT.HORIZONTAL);
 		lineSeperator.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-		//
-		final Composite actionComposite= new Composite(bottomComposite, SWT.NONE);
+		//  Create Action Composite
+		Composite actionComposite= new Composite(bottomComposite, SWT.NONE);
 		actionComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
 
 		GridLayout actionCompositeLayout= new GridLayout(3, false);
@@ -170,32 +201,42 @@ public class DetailedToolTipFigure {
 		actionCompositeLayout.verticalSpacing= 0;
 		actionComposite.setLayout(actionCompositeLayout);
 
-		ToolBarManager actionManager= new ToolBarManager(SWT.FLAT);
+		
+		// Create ToolBar Composite
+		Composite toolbarComposite = new Composite(actionComposite, SWT.NONE);
+		GridData toolbarCompositeData = new GridData(SWT.BEGINNING,SWT.BEGINNING, false,false);
+		toolbarComposite.setLayoutData(toolbarCompositeData);
 
-		ToolBar bar= actionManager.createControl(actionComposite);
-		GridData toolBarLayout= new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false);
-		toolBarLayout.horizontalIndent = 0;
-		toolBarLayout.verticalIndent= 0;
-		bar.setLayoutData(toolBarLayout);
+		GridLayout toolbarLayout= new GridLayout(1, false);
+		toolbarLayout.marginHeight = 0;
+		toolbarLayout.marginWidth = 0;
+		toolbarComposite.setLayout(toolbarLayout);
+		
+		
+		ToolBarManager actionManager = new ToolBarManager(SWT.FLAT);
 
-		setTooltipActions(bar);
+		// Add action button to the tool bar 
+		setTooltipActions(toolbarComposite, actionManager);
 
+		
+		addMoveSupport(detailedShell, actionComposite);
+		
+		addResizeSupport(detailedShell, actionComposite);
+	}
+
+	public Composite addMoveSupport(Shell detailedShell,
+			Composite actionComposite) {
 		Composite moveSupportCanvas= new Composite(actionComposite, SWT.FILL);
 		GridData moveCompositeLayout= new GridData(SWT.FILL, SWT.FILL, true, true);
 		moveCompositeLayout.widthHint= 0;
 		moveCompositeLayout.heightHint= 0;
 		moveSupportCanvas.setLayoutData(moveCompositeLayout);
 
-		addResizeSupportIfNecessary(detailedShell, actionComposite);
-
-
-		addMoveSupport(detailedShell, moveSupportCanvas);
-
-
-
+		setMoveSupportAction(detailedShell, moveSupportCanvas);
+		return moveSupportCanvas;
 	}
 
-	private void addResizeSupportIfNecessary(final Shell detailedShell,final Composite actionsComposite) {
+	public void addResizeSupport(final Shell detailedShell,final Composite actionsComposite) {
 		final Label resizer= new Label(actionsComposite, SWT.NONE);
 
 
@@ -238,7 +279,7 @@ public class DetailedToolTipFigure {
 	}
 
 
-	private int computeResizeHandleSize(Composite actionsComposite) {
+	public int computeResizeHandleSize(Composite actionsComposite) {
 		if (resizeImageSize  == -1) {
 			Slider virtecalSlide = new Slider(actionsComposite, SWT.VERTICAL);
 			Slider horeizontalSlide = new Slider(actionsComposite, SWT.HORIZONTAL);
@@ -253,7 +294,7 @@ public class DetailedToolTipFigure {
 	}
 
 	private Object getTooltipModelElement() {
-		currentTipSource = getToolltipSource();
+		Object currentTipSource = getToolltipSource();
 		
 		if (currentTipSource instanceof ShapeImageFigure ){
 			ShapeEditPart part = ((ShapeImageFigure)currentTipSource).getPart();
@@ -276,71 +317,46 @@ public class DetailedToolTipFigure {
 
 
 	protected void openDescriptionEditor(final Object uut) {
-		getDescriptionEditor();
+		getEditor(Text_Editors_Extension_ID,
+				DESCRIPTION_EDITOR_INPUT_ID,
+				DESCRIPTION_EDITOR_ID,
+				getTooltipModelElement());
 	}
 
-	protected IEditorPart getDescriptionEditor(){
-		Object current = getTooltipModelElement();
-
-		IExtensionRegistry reg = Platform.getExtensionRegistry();
-		IExtensionPoint editorExtPt = reg .getExtensionPoint("com.mentor.nucleus.bp.core.editors");//$NON-NLS-1$
-		IExtension[] extensions = editorExtPt.getExtensions();
-		for (int i = 0; i < extensions.length; i++) {
-			if ( !extensions[i].getUniqueIdentifier().equals("com.mentor.nucleus.bp.ui.text.com.mentor.nucleus.bp.ui.text.editors"))
-				continue;
-			String classPath = "com.mentor.nucleus.bp.ui.text.description.DescriptionEditorInput";
-
-			try{
-				Bundle bundle2 = Platform
-						.getBundle(extensions[i].getNamespace());
-				Class inputClass = bundle2.loadClass(classPath);
-				Class[] type = new Class[1];
-				type[0] = Object.class;
-				//
-				// Dynamically get the method createInstance, the supplied class must implement this
-				//
-				Method createInstanceMethod = inputClass
-						.getMethod("createInstance", type); //$NON-NLS-1$
-				Object[] args = new Object[1];
-				args[0] = current;
-				//
-				// Invoke the method.
-				// The method is static; no instance is needed, so first argument is null
-				//
-				IEditorInput input = (IEditorInput) createInstanceMethod
-						.invoke(null, args);
-				//
-				// pass the input to the Eclipse editor, along with the class name supplied by
-				// the extending plugin.
-				//
-				if (input != null) {
-					return PlatformUI
-							.getWorkbench()
-							.getActiveWorkbenchWindow()
-							.getActivePage()
-							.openEditor(
-									input,
-									"com.mentor.nucleus.bp.ui.text.description.DescriptionEditor"); //$NON-NLS-1$`
-				}
-			}catch (Exception e) {
-				// TODO: handle exception
-			}
-		}
-		return null;
-	}
-
-	private void setTooltipActions(ToolBar bar) {
+	public void setTooltipActions(Composite toolbarComposite, ToolBarManager actionManager) {
+		ToolBar bar= actionManager.createControl(toolbarComposite);
+		GridData toolBarLayout= new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false);
+		toolBarLayout.horizontalIndent = 0;
+		toolBarLayout.verticalIndent= 0;
+		bar.setLayoutData(toolBarLayout);
+		
+		
 		Object element = getTooltipModelElement();
+		
 		if ( element == null){
 			addCloseAction(bar);
 			return;
 		}
-		NonRootModelElement temp = null;
+		
+		
+		NonRootModelElement modelElement = null;
 		if (element instanceof NonRootModelElement){
-			temp= (NonRootModelElement)element;
+			modelElement= (NonRootModelElement)element;
+		}else{
+			addCloseAction(bar);
+			return;
 		}
-		final NonRootModelElement modelElement = temp;
 
+		addOpenDescriptionAction(bar, modelElement);
+
+		addExtraTooltipActions(bar, modelElement);
+
+		new ToolItem(bar, SWT.SEPARATOR);
+		addCloseAction(bar);
+	}
+
+	public void addOpenDescriptionAction(ToolBar bar,
+			final NonRootModelElement modelElement) {
 		ToolItem openDescriptionAction = new ToolItem(bar, SWT.None);
 		openDescriptionAction.setToolTipText("Open Description Editor");
 		openDescriptionAction.setImage(CorePlugin.getImageDescriptor("edit_dsc.gif").createImage());
@@ -356,18 +372,13 @@ public class DetailedToolTipFigure {
 			}
 
 		});
-
-		addExtraTooltipActions(bar, modelElement);
-
-		new ToolItem(bar, SWT.SEPARATOR);
-		addCloseAction(bar);
 	}
 
 
 
 
 
-	private void addCloseAction(ToolBar bar) {
+	public void addCloseAction(ToolBar bar) {
 
 		ToolItem closeActionTooltip = new ToolItem(bar, SWT.NONE);
 		closeActionTooltip.setImage(CorePlugin.getImageDescriptor("delete_edit.gif").createImage());
@@ -405,7 +416,7 @@ public class DetailedToolTipFigure {
 	}
 
 
-	private void addExtraTooltipActions(ToolBar bar, NonRootModelElement modelElement) {
+	public void addExtraTooltipActions(ToolBar bar, NonRootModelElement modelElement) {
 
 
 		if (modelElement instanceof ModelClass_c){
@@ -441,7 +452,7 @@ public class DetailedToolTipFigure {
 
 
 
-	private void addOpenInstanceStateMachineDiagram(ToolBar bar, final InstanceStateMachine_c ism) {
+	public void addOpenInstanceStateMachineDiagram(ToolBar bar, final InstanceStateMachine_c ism) {
 		new ToolItem(bar, SWT.SEPARATOR);
 		ToolItem openISMmAction = new ToolItem(bar, SWT.NONE);
 		openISMmAction.setImage(CorePlugin.getImageDescriptor("metadata/InstanceStateChart.gif").createImage());
@@ -456,7 +467,7 @@ public class DetailedToolTipFigure {
 
 	}
 
-	private void addOpenOALEditorAction(ToolBar bar, final NonRootModelElement modelElement) {
+	public void addOpenOALEditorAction(ToolBar bar, final NonRootModelElement modelElement) {
 		new ToolItem(bar, SWT.SEPARATOR);
 		ToolItem openActivityEditorAction = new ToolItem(bar, SWT.NONE);
 		openActivityEditorAction.setImage(CorePlugin.getImageDescriptor("edit_oal.gif").createImage());
@@ -472,7 +483,7 @@ public class DetailedToolTipFigure {
 	}
 
 
-	private void addOpenDiagramAction(ToolBar bar, final NonRootModelElement modelElement) {
+	public void addOpenDiagramAction(ToolBar bar, final NonRootModelElement modelElement) {
 		new ToolItem(bar, SWT.SEPARATOR);
 		ToolItem openDiagramAction = new ToolItem(bar, SWT.NONE);
 		openDiagramAction.setImage(CorePlugin.getImageDescriptor("green-bp.gif").createImage());
@@ -490,12 +501,15 @@ public class DetailedToolTipFigure {
 
 
 	public void openActivityEditor(final Object uut) {
-		getActivityEditor();
+		getEditor(Text_Editors_Extension_ID, 
+				ACTIVITY_EDITOR_INPUT_ID,
+				ACTIVITY_EDITOR_ID,
+				getTooltipModelElement());
 	}
 
 
 
-	private void addMoveSupport(final Shell detailedShell, final Control control) {
+	public void setMoveSupportAction(final Shell detailedShell, final Control control) {
 		MouseAdapter moveSupport= new MouseAdapter() {
 			private MouseMoveListener mouseMoveListener;
 
@@ -526,7 +540,7 @@ public class DetailedToolTipFigure {
 	}
 
 
-	private void addOpenClassStateMachineDiagram(ToolBar bar, final ClassStateMachine_c csm) {
+	public void addOpenClassStateMachineDiagram(ToolBar bar, final ClassStateMachine_c csm) {
 		new ToolItem(bar, SWT.SEPARATOR);
 		ToolItem openCSMAction = new ToolItem(bar, SWT.NONE);
 		openCSMAction.setImage(CorePlugin.getImageDescriptor("metadata/ClassStateChart.gif").createImage());
@@ -546,26 +560,24 @@ public class DetailedToolTipFigure {
 		styledText.setText(text);
 	}
 
-	public IFigure getToolltipSource(){
+	public Object getToolltipSource(){
 		return tooltipHelper.getTooltipSource();
 	}
 
 
-	protected IEditorPart getActivityEditor(){
-		Object current = getTooltipModelElement();
-
+	@SuppressWarnings({ "rawtypes", "unchecked", "deprecation" })
+	protected IEditorPart getEditor(String ExtensionID, String ClassPath, String EditorId, Object ModelElement){
 		IExtensionRegistry reg = Platform.getExtensionRegistry();
 		IExtensionPoint editorExtPt = reg .getExtensionPoint("com.mentor.nucleus.bp.core.editors");//$NON-NLS-1$
 		IExtension[] extensions = editorExtPt.getExtensions();
 		for (int i = 0; i < extensions.length; i++) {
-			if ( !extensions[i].getUniqueIdentifier().equals("com.mentor.nucleus.bp.ui.text.com.mentor.nucleus.bp.ui.text.editors"))
+			if ( !extensions[i].getUniqueIdentifier().equals(ExtensionID))
 				continue;
-			String classPath = "com.mentor.nucleus.bp.ui.text.activity.ActivityEditorInput";
 
 			try{
 				Bundle bundle2 = Platform
 						.getBundle(extensions[i].getNamespace());
-				Class inputClass = bundle2.loadClass(classPath);
+				Class inputClass = bundle2.loadClass(ClassPath);
 				Class[] type = new Class[1];
 				type[0] = Object.class;
 				//
@@ -574,7 +586,7 @@ public class DetailedToolTipFigure {
 				Method createInstanceMethod = inputClass
 						.getMethod("createInstance", type); //$NON-NLS-1$
 				Object[] args = new Object[1];
-				args[0] = current;
+				args[0] = ModelElement;
 				//
 				// Invoke the method.
 				// The method is static; no instance is needed, so first argument is null
@@ -592,10 +604,10 @@ public class DetailedToolTipFigure {
 							.getActivePage()
 							.openEditor(
 									input,
-									"com.mentor.nucleus.bp.ui.text.activity.ActivityEditor"); //$NON-NLS-1$`
+									EditorId); //$NON-NLS-1$`
 				}
 			}catch (Exception e) {
-				// TODO: handle exception
+				continue;
 			}
 
 		}
