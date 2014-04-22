@@ -49,6 +49,7 @@ import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
+import com.mentor.nucleus.bp.core.util.CoreUtil;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.io.core.CoreExport;
 import com.mentor.nucleus.bp.io.mdl.ExportModelStream;
@@ -98,8 +99,9 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
         //progress monitor between the building thread and the saving thread.
         // hence we get to change that value to never so the build continues  
         // without the possibility of a halt due to user wanting dirty editors to be saved before launch
-        DebugUIPlugin.getDefault().getPreferenceStore().setValue(IInternalDebugUIConstants.PREF_SAVE_DIRTY_EDITORS_BEFORE_LAUNCH, "never");
-
+		if (!CoreUtil.IsRunningHeadless) {
+			DebugUIPlugin.getDefault().getPreferenceStore().setValue(IInternalDebugUIConstants.PREF_SAVE_DIRTY_EDITORS_BEFORE_LAUNCH, "never");
+		}
 	}
 
 	// The eclipse infrastructure calls this function in response to
@@ -113,7 +115,13 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 			// Check the license 
 			oalExportIsLicensed = BridgePointLicenseManager.getLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT, true);
 			if (!oalExportIsLicensed) {
-				UIUtil.showErrorDialog("License Request Failed", "Failed to get a Model Compiler prebuilder license.\n");
+				String msgTitle = "License Request Failed";
+				String msg = "Failed to get a Model Compiler prebuilder license.\n";
+				if (CoreUtil.IsRunningHeadless) {
+					CorePlugin.logError(msgTitle + ", " + msg, null);
+				} else {
+					UIUtil.showErrorDialog(msgTitle, msg);
+				}
 				return null;
 			}
 			

@@ -54,6 +54,8 @@ import com.mentor.nucleus.bp.core.common.PersistenceManager;
  * Utility methods related to Core
  */
 public class CoreUtil {
+    public static boolean IsRunningHeadless = false;
+	
     public static String getName(NonRootModelElement element) {
         String result = "";
         Class inputClass = element.getClass();
