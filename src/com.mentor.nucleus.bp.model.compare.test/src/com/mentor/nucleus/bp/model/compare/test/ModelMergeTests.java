@@ -26,6 +26,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFileState;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
@@ -76,6 +78,7 @@ import com.mentor.nucleus.bp.test.common.CanvasTestUtils;
 import com.mentor.nucleus.bp.test.common.CompareTestUtilities;
 import com.mentor.nucleus.bp.test.common.GitUtil;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
+import com.mentor.nucleus.bp.test.common.ZipUtil;
 import com.mentor.nucleus.bp.ui.canvas.Connector_c;
 import com.mentor.nucleus.bp.ui.canvas.GraphicalElement_c;
 import com.mentor.nucleus.bp.ui.canvas.Model_c;
@@ -84,24 +87,52 @@ import com.mentor.nucleus.bp.ui.canvas.Shape_c;
 
 public class ModelMergeTests extends BaseTest {
 
+	private String test_repositories = Platform.getInstanceLocation().getURL()
+			.getFile()
+			+ "/" + "test_repositories";
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.mentor.nucleus.bp.test.common.BaseTest#initialSetup()
+	 */
+	@Override
+	protected void initialSetup() throws Exception {
+		String test_repository_location = System
+				.getenv("XTUML_TEST_MODEL_REPOSITORY");
+		if (test_repository_location == null
+				|| test_repository_location.equals("")) {
+			// use the default location
+			test_repository_location = BaseTest.DEFAULT_XTUML_TEST_MODEL_REPOSITORY;
+		}
+		test_repository_location = new Path(test_repository_location)
+				.removeLastSegments(1).toString();
+		ZipUtil.unzipFileContents(
+				test_repository_location + "/"
+						+ "test_repositories"
+						+ "/" + "204.zip",
+				test_repositories);
+	}
+
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
 		loadProject("HierarchyTestModel");
 		project = getProjectHandle("HierarchyTestModel");
 	}
-	
+
 	@Override
 	public void tearDown() throws Exception {
 		super.tearDown();
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.closeAllEditors(false);
 	}
-	
+
 	public void testMergeOfTransitionNoOrphanedTransitions() throws Exception {
 		String projectName = "dts0101042909";
 		// import git repository from models repo
-		GitUtil.loadRepository("test_repositories/" + projectName);
+		GitUtil.loadRepository(test_repositories
+				+ "/" + projectName);
 		// import test project
 		GitUtil.loadProject(projectName, projectName);
 		// merge the test branch
@@ -115,7 +146,7 @@ public class ModelMergeTests extends BaseTest {
 		assertTrue("Found conflicting changes remaining.", CompareTestUtilities
 				.getConflictingChanges().size() == 0);
 		assertTrue("Found incoming changes remaining.", CompareTestUtilities
-				.getIncomingChanges().size() == 0);		
+				.getIncomingChanges().size() == 0);
 		// save and close
 		CompareTestUtilities.flushMergeEditor();
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
@@ -123,24 +154,30 @@ public class ModelMergeTests extends BaseTest {
 		// validate
 		// Look for orphaned transitions
 		Ooaofooa[] roots = Ooaofooa.getInstancesUnderSystem(projectName);
-		for(Ooaofooa root : roots) {
+		for (Ooaofooa root : roots) {
 			Transition_c[] transitions = Transition_c.TransitionInstances(root);
-			for(Transition_c transition : transitions) {
+			for (Transition_c transition : transitions) {
 				// make sure there is a state and event associated
 				// unless it is a no event transition
-				NoEventTransition_c net = NoEventTransition_c.getOneSM_NETXNOnR507(transition);
-				if(net == null) {
-					NewStateTransition_c nst = NewStateTransition_c.getOneSM_NSTXNOnR507(transition);
-					if(nst != null) {
+				NoEventTransition_c net = NoEventTransition_c
+						.getOneSM_NETXNOnR507(transition);
+				if (net == null) {
+					NewStateTransition_c nst = NewStateTransition_c
+							.getOneSM_NSTXNOnR507(transition);
+					if (nst != null) {
 						StateMachineState_c state = StateMachineState_c
 								.getOneSM_STATEOnR503(StateEventMatrixEntry_c
 										.getOneSM_SEMEOnR504(nst));
-						assertNotNull("Transition after merge did not have a destination state.", state);
+						assertNotNull(
+								"Transition after merge did not have a destination state.",
+								state);
 						StateMachineEvent_c event = StateMachineEvent_c
 								.getOneSM_EVTOnR525(SemEvent_c
 										.getOneSM_SEVTOnR503(StateEventMatrixEntry_c
 												.getOneSM_SEMEOnR504(nst)));
-						assertNotNull("Transition after merge did not have an event assigned.", event);
+						assertNotNull(
+								"Transition after merge did not have an event assigned.",
+								event);
 					}
 				}
 			}
@@ -150,10 +187,12 @@ public class ModelMergeTests extends BaseTest {
 		TestUtil.deleteProject(getProjectHandle(projectName));
 	}
 
-	public void testNoGraphicalElementCopiedWithoutSemanticCopy() throws Exception {
+	public void testNoGraphicalElementCopiedWithoutSemanticCopy()
+			throws Exception {
 		String projectName = "dts0101042915";
 		// import git repository from models repo
-		GitUtil.loadRepository("test_repositories/" + projectName);
+		GitUtil.loadRepository(test_repositories
+				+ "/" + projectName);
 		// import test project
 		GitUtil.loadProject(projectName, projectName);
 		// merge the test branch
@@ -166,7 +205,7 @@ public class ModelMergeTests extends BaseTest {
 		assertTrue("Found conflicting changes remaining.", CompareTestUtilities
 				.getConflictingChanges().size() == 1);
 		assertTrue("Found incoming changes remaining.", CompareTestUtilities
-				.getIncomingChanges().size() == 0);		
+				.getIncomingChanges().size() == 0);
 		// save and close
 		CompareTestUtilities.flushMergeEditor();
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
@@ -175,10 +214,12 @@ public class ModelMergeTests extends BaseTest {
 		BaseTest.dispatchEvents(0);
 		// Look for orphaned graphics
 		Ooaofooa[] roots = Ooaofooa.getInstancesUnderSystem(projectName);
-		for(Ooaofooa root : roots) {
-			Ooaofgraphics graphicsRoot = Ooaofgraphics.getInstance(root.getId());
-			GraphicalElement_c[] elements = GraphicalElement_c.GraphicalElementInstances(graphicsRoot);
-			for(GraphicalElement_c element : elements) {
+		for (Ooaofooa root : roots) {
+			Ooaofgraphics graphicsRoot = Ooaofgraphics
+					.getInstance(root.getId());
+			GraphicalElement_c[] elements = GraphicalElement_c
+					.GraphicalElementInstances(graphicsRoot);
+			for (GraphicalElement_c element : elements) {
 				// make sure no graphical elements exist that have no
 				// represented semantic
 				assertTrue(
@@ -191,10 +232,12 @@ public class ModelMergeTests extends BaseTest {
 		TestUtil.deleteProject(getProjectHandle(projectName));
 	}
 
-	public void testMergeWithStateMachineAddedInSeparateBranches() throws Exception {
+	public void testMergeWithStateMachineAddedInSeparateBranches()
+			throws Exception {
 		String projectName = "dts0101009925";
 		// import git repository from models repo
-		GitUtil.loadRepository("test_repositories/" + projectName);
+		GitUtil.loadRepository(test_repositories
+				+ "/" + projectName);
 		// import test project
 		GitUtil.loadProject(projectName, projectName);
 		// merge the test branch
@@ -207,7 +250,7 @@ public class ModelMergeTests extends BaseTest {
 		assertTrue("Found conflicting changes remaining.", CompareTestUtilities
 				.getConflictingChanges().size() == 0);
 		assertTrue("Found incoming changes remaining.", CompareTestUtilities
-				.getIncomingChanges().size() == 0);		
+				.getIncomingChanges().size() == 0);
 		// save and close
 		CompareTestUtilities.flushMergeEditor(false);
 		// switch to next editor and copy all changes
@@ -217,7 +260,7 @@ public class ModelMergeTests extends BaseTest {
 		assertTrue("Found conflicting changes remaining.", CompareTestUtilities
 				.getConflictingChanges().size() == 0);
 		assertTrue("Found incoming changes remaining.", CompareTestUtilities
-				.getIncomingChanges().size() == 0);		
+				.getIncomingChanges().size() == 0);
 		// save and close
 		CompareTestUtilities.flushMergeEditor();
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
@@ -256,8 +299,8 @@ public class ModelMergeTests extends BaseTest {
 		assertTrue(
 				"Did not find a valid number of states in the class state machine.",
 				states.length == 4);
-		Transition_c[] transitions = Transition_c.getManySM_TXNsOnR505(StateMachine_c
-						.getManySM_SMsOnR517(isms));
+		Transition_c[] transitions = Transition_c
+				.getManySM_TXNsOnR505(StateMachine_c.getManySM_SMsOnR517(isms));
 		assertTrue(
 				"Did not find a valid number of transitions in the instance state machine.",
 				transitions.length == 4);
@@ -270,7 +313,7 @@ public class ModelMergeTests extends BaseTest {
 		// and reset the repository
 		TestUtil.deleteProject(getProjectHandle(projectName));
 	}
-	
+
 	public void testNoGraphicalDataInCompareEditor() throws CoreException {
 		TestingUtilities.createProject("testNoGraphics");
 		m_sys = getSystemModel("testNoGraphics");
@@ -279,7 +322,8 @@ public class ModelMergeTests extends BaseTest {
 		TestUtil.executeInTransaction(testPackage, "setName",
 				new Object[] { "testNoGraphics" });
 		modelRoot = (Ooaofooa) testPackage.getModelRoot();
-		TestUtil.executeInTransaction(testPackage, "Newexternalentity", new Object[0]);
+		TestUtil.executeInTransaction(testPackage, "Newexternalentity",
+				new Object[0]);
 		BaseTest.dispatchEvents(0);
 		final ExternalEntity_c ee = ExternalEntity_c
 				.ExternalEntityInstance(modelRoot);
@@ -308,18 +352,20 @@ public class ModelMergeTests extends BaseTest {
 		CompareTestUtilities.compareElementWithLocalHistory(file, copy);
 		ModelContentMergeViewer viewer = ModelContentMergeViewer
 				.getInstance(null);
-		List<TreeDifference> leftDifferences = viewer.getDifferencer().getLeftDifferences();
-		for(TreeDifference difference: leftDifferences) {
-			if(!SynchronizedTreeViewer.differenceIsGraphical(difference)) {
+		List<TreeDifference> leftDifferences = viewer.getDifferencer()
+				.getLeftDifferences();
+		for (TreeDifference difference : leftDifferences) {
+			if (!SynchronizedTreeViewer.differenceIsGraphical(difference)) {
 				fail("Difference found in editor when only graphical differences should be found.");
 			}
 		}
 	}
-	
+
 	public void testAutomaticGraphicalMergeElementDeletion() throws Exception {
 		String projectName = "AutomaticGraphicalMerge";
 		// import git repository from models repo
-		GitUtil.loadRepository("test_repositories/" + projectName);
+		GitUtil.loadRepository(test_repositories
+				+ "/" + projectName);
 		// import test project
 		GitUtil.loadProject(projectName, projectName);
 		// merge the test branch
@@ -329,15 +375,16 @@ public class ModelMergeTests extends BaseTest {
 		// copy name change
 		m_sys = getSystemModel(projectName);
 		Package_c pkg = Package_c.getOneEP_PKGOnR1401(m_sys);
-		ActivityDiagramAction_c an = ActivityDiagramAction_c.getOneA_GAOnR1107(ActionNode_c.getManyA_ACTsOnR1105(ActivityNode_c
-				.getManyA_NsOnR8001(PackageableElement_c
-						.getManyPE_PEsOnR8000(pkg))),
+		ActivityDiagramAction_c an = ActivityDiagramAction_c.getOneA_GAOnR1107(
+				ActionNode_c.getManyA_ACTsOnR1105(ActivityNode_c
+						.getManyA_NsOnR8001(PackageableElement_c
+								.getManyPE_PEsOnR8000(pkg))),
 				new ClassQueryInterface_c() {
 
 					@Override
 					public boolean evaluate(Object candidate) {
-						return ((ActivityDiagramAction_c) candidate).getName().equals(
-								"ActionOneRenamed");
+						return ((ActivityDiagramAction_c) candidate).getName()
+								.equals("ActionOneRenamed");
 					}
 				});
 		CompareTestUtilities.selectElementInTree(false, an);
@@ -347,15 +394,16 @@ public class ModelMergeTests extends BaseTest {
 		// as the change to remove the edge was not merged
 		m_sys = getSystemModel(projectName);
 		pkg = Package_c.getOneEP_PKGOnR1401(m_sys);
-		an = ActivityDiagramAction_c.getOneA_GAOnR1107(ActionNode_c.getManyA_ACTsOnR1105(ActivityNode_c
-				.getManyA_NsOnR8001(PackageableElement_c
-						.getManyPE_PEsOnR8000(pkg))),
+		an = ActivityDiagramAction_c.getOneA_GAOnR1107(ActionNode_c
+				.getManyA_ACTsOnR1105(ActivityNode_c
+						.getManyA_NsOnR8001(PackageableElement_c
+								.getManyPE_PEsOnR8000(pkg))),
 				new ClassQueryInterface_c() {
 
 					@Override
 					public boolean evaluate(Object candidate) {
-						return ((ActivityDiagramAction_c) candidate).getName().equals(
-								"ActionOne");
+						return ((ActivityDiagramAction_c) candidate).getName()
+								.equals("ActionOne");
 					}
 				});
 		assertNotNull(an);
@@ -377,15 +425,16 @@ public class ModelMergeTests extends BaseTest {
 		CompareTestUtilities.flushMergeEditor();
 		m_sys = getSystemModel(projectName);
 		pkg = Package_c.getOneEP_PKGOnR1401(m_sys);
-		an = ActivityDiagramAction_c.getOneA_GAOnR1107(ActionNode_c.getManyA_ACTsOnR1105(ActivityNode_c
-				.getManyA_NsOnR8001(PackageableElement_c
-						.getManyPE_PEsOnR8000(pkg))),
+		an = ActivityDiagramAction_c.getOneA_GAOnR1107(ActionNode_c
+				.getManyA_ACTsOnR1105(ActivityNode_c
+						.getManyA_NsOnR8001(PackageableElement_c
+								.getManyPE_PEsOnR8000(pkg))),
 				new ClassQueryInterface_c() {
 
 					@Override
 					public boolean evaluate(Object candidate) {
-						return ((ActivityDiagramAction_c) candidate).getName().equals(
-								"ActionOneRenamed");
+						return ((ActivityDiagramAction_c) candidate).getName()
+								.equals("ActionOneRenamed");
 					}
 				});
 		edge = ActivityEdge_c.getOneA_EOnR1104(ActivityNode_c
@@ -405,7 +454,8 @@ public class ModelMergeTests extends BaseTest {
 	public void testAutomaticGraphicalMergeElementAdded() throws Exception {
 		String projectName = "AutomaticGraphicalMergeAddition";
 		// import git repository from models repo
-		GitUtil.loadRepository("test_repositories/" + projectName);
+		GitUtil.loadRepository(test_repositories
+				+ "/" + projectName);
 		// import test project
 		GitUtil.loadProject(projectName, projectName);
 		// merge the test branch
@@ -415,7 +465,8 @@ public class ModelMergeTests extends BaseTest {
 		// copy name change
 		m_sys = getSystemModel(projectName);
 		Package_c pkg = Package_c.getOneEP_PKGOnR1401(m_sys);
-		ActivityEdge_c edge = ActivityEdge_c.ActivityEdgeInstance(pkg.getModelRoot());
+		ActivityEdge_c edge = ActivityEdge_c.ActivityEdgeInstance(pkg
+				.getModelRoot());
 		CompareTestUtilities.selectElementInTree(true, edge);
 		CompareTestUtilities.mergeSelection();
 		CompareTestUtilities.flushMergeEditor();
@@ -435,14 +486,17 @@ public class ModelMergeTests extends BaseTest {
 				connector);
 		GitUtil.startMergeTool(projectName);
 		// now copy the semantic addition
-		ModelContentMergeViewer viewer = ModelContentMergeViewer.getInstance(null);
-		edge = ActivityEdge_c.ActivityEdgeInstance(viewer.getRightCompareRoot());
+		ModelContentMergeViewer viewer = ModelContentMergeViewer
+				.getInstance(null);
+		edge = ActivityEdge_c
+				.ActivityEdgeInstance(viewer.getRightCompareRoot());
 		CompareTestUtilities.selectElementInTree(false, edge);
 		CompareTestUtilities.mergeSelection();
 		CompareTestUtilities.flushMergeEditor();
 		m_sys = getSystemModel(projectName);
 		pkg = Package_c.getOneEP_PKGOnR1401(m_sys);
-		ActivityEdge_c[] edges = ActivityEdge_c.ActivityEdgeInstances(pkg.getModelRoot());
+		ActivityEdge_c[] edges = ActivityEdge_c.ActivityEdgeInstances(pkg
+				.getModelRoot());
 		assertTrue(
 				"The edge was not added during merge, the test data is not valid.",
 				edges.length == 2);
@@ -458,7 +512,8 @@ public class ModelMergeTests extends BaseTest {
 	public void testAddStatesAndTransitionsNoExceptions() throws Exception {
 		String projectName = "dts0101009924";
 		// import git repository from models repo
-		GitUtil.loadRepository("test_repositories/" + projectName);
+		GitUtil.loadRepository(test_repositories
+				+ "/" + projectName);
 		// import test project
 		GitUtil.loadProject(projectName, projectName);
 		// merge the test branch
@@ -476,7 +531,8 @@ public class ModelMergeTests extends BaseTest {
 	public void testConnectorTextDoesNotDisappear() throws Exception {
 		String projectName = "dts0101039702";
 		// import git repository from models repo
-		GitUtil.loadRepository("test_repositories/" + projectName);
+		GitUtil.loadRepository(test_repositories
+				+ "/" + projectName);
 		// import test project
 		GitUtil.loadProject(projectName, projectName);
 		// switch to slave and make sure the provision and
@@ -489,10 +545,12 @@ public class ModelMergeTests extends BaseTest {
 				.getInstance(modelRootId));
 		assertTrue("Could not locate connectors in the model.",
 				connectors.length > 0);
-		for(Connector_c connector : connectors) {
-			GraphicalElement_c ge = GraphicalElement_c.getOneGD_GEOnR2(connector);
+		for (Connector_c connector : connectors) {
+			GraphicalElement_c ge = GraphicalElement_c
+					.getOneGD_GEOnR2(connector);
 			NonRootModelElement nrme = (NonRootModelElement) ge.getRepresents();
-			assertFalse("Found an orphaned connector represents value.", nrme.isOrphaned());
+			assertFalse("Found an orphaned connector represents value.",
+					nrme.isOrphaned());
 		}
 		// switch to master and make sure the text is not
 		// missing
@@ -501,17 +559,20 @@ public class ModelMergeTests extends BaseTest {
 				.getInstance(modelRootId));
 		assertTrue("Could not locate connectors in the model.",
 				connectors.length > 0);
-		for(Connector_c connector : connectors) {
-			GraphicalElement_c ge = GraphicalElement_c.getOneGD_GEOnR2(connector);
+		for (Connector_c connector : connectors) {
+			GraphicalElement_c ge = GraphicalElement_c
+					.getOneGD_GEOnR2(connector);
 			NonRootModelElement nrme = (NonRootModelElement) ge.getRepresents();
-			assertFalse("Found an orphaned connector represents value.", nrme.isOrphaned());
+			assertFalse("Found an orphaned connector represents value.",
+					nrme.isOrphaned());
 		}
 		// delete test project if no failures/errors
 		// and reset the repository
 		TestUtil.deleteProject(getProjectHandle(projectName));
 	}
-	
-	public void testValueModificationOfDescriptionThroughCompareDialog() throws CoreException {
+
+	public void testValueModificationOfDescriptionThroughCompareDialog()
+			throws CoreException {
 		modelRoot = Ooaofooa.getInstance(Ooaofooa.createModelRootId(
 				getProject(), "Classes", true));
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot);
@@ -537,7 +598,7 @@ public class ModelMergeTests extends BaseTest {
 				"Textual compare dialog did not properly set the value for a class description.",
 				clazz.getDescrip().equals(""));
 	}
-	
+
 	public void testAssociationComparable() {
 		modelRoot = Ooaofooa.getInstance(Ooaofooa.createModelRootId(
 				getProject(), "Classes", true));
@@ -561,16 +622,18 @@ public class ModelMergeTests extends BaseTest {
 				"A class as associated one side and a class as associated other side were considered identical.",
 				!comparable1.equals(comparable2));
 	}
-	
+
 	public void testLocationDetection() throws CoreException {
 		modelRoot = Ooaofooa.getInstance(Ooaofooa.createModelRootId(
 				getProject(), "Classes", true));
-		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot, new ClassQueryInterface_c() {
-			@Override
-			public boolean evaluate(Object candidate) {
-				return ((ModelClass_c) candidate).getName().equals("Other");
-			}
-		});
+		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot,
+				new ClassQueryInterface_c() {
+					@Override
+					public boolean evaluate(Object candidate) {
+						return ((ModelClass_c) candidate).getName().equals(
+								"Other");
+					}
+				});
 		Transaction transaction = startTransaction();
 		clazz.Newattribute();
 		Attribute_c one = getLastCreatedAttribute(clazz);
@@ -598,7 +661,8 @@ public class ModelMergeTests extends BaseTest {
 		endTransaction(transaction);
 		// verify all of the difference locations
 		CompareTestUtilities.openCompareEditor(clazz.getFile(), 0);
-		ModelContentMergeViewer viewer = ModelContentMergeViewer.getInstance(null);
+		ModelContentMergeViewer viewer = ModelContentMergeViewer
+				.getInstance(null);
 		TreeDifferencer differencer = viewer.getDifferencer();
 		List<TreeDifference> leftDifferences = differencer.getLeftDifferences();
 		assertTrue(
@@ -610,9 +674,10 @@ public class ModelMergeTests extends BaseTest {
 		validateDifference(leftDifferences.get(3));
 		viewer.setCopySelection(false);
 		viewer.copy(false);
-		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+		while (PlatformUI.getWorkbench().getDisplay().readAndDispatch())
+			;
 		assertTrue("Not all differences were removed by the copy all button.",
-				viewer.getDifferencer().getLeftDifferences().size() == 0);			
+				viewer.getDifferencer().getLeftDifferences().size() == 0);
 	}
 
 	public void testIntegerValueMerge() throws Exception {
@@ -656,18 +721,21 @@ public class ModelMergeTests extends BaseTest {
 				"Association number was not updated by the copy difference button.",
 				compareAssoc.getNumb() != 22);
 	}
-	
+
 	public void testCantHappenCreationOnNewState() throws Exception {
 		modelRoot = Ooaofooa.getInstance(Ooaofooa.createModelRootId(
 				getProject(), "Classes", true));
-		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot, new ClassQueryInterface_c() {
-			
-			@Override
-			public boolean evaluate(Object candidate) {
-				return ((ModelClass_c) candidate).getName().equals("ModelClass");
-			}
-		});
-		InstanceStateMachine_c ism = InstanceStateMachine_c.getOneSM_ISMOnR518(clazz);
+		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot,
+				new ClassQueryInterface_c() {
+
+					@Override
+					public boolean evaluate(Object candidate) {
+						return ((ModelClass_c) candidate).getName().equals(
+								"ModelClass");
+					}
+				});
+		InstanceStateMachine_c ism = InstanceStateMachine_c
+				.getOneSM_ISMOnR518(clazz);
 		Transaction transaction = startTransaction();
 		ism.Newstate();
 		StateMachineState_c[] states = StateMachineState_c
@@ -678,7 +746,8 @@ public class ModelMergeTests extends BaseTest {
 		state.Dispose();
 		endTransaction(transaction);
 		CompareTestUtilities.openCompareEditor(ism.getFile());
-		ModelContentMergeViewer viewer = ModelContentMergeViewer.getInstance(null);
+		ModelContentMergeViewer viewer = ModelContentMergeViewer
+				.getInstance(null);
 		TreeDifferencer differencer = viewer.getDifferencer();
 		assertTrue("No differences created for state addition.", differencer
 				.getLeftDifferences().size() != 0);
@@ -687,7 +756,7 @@ public class ModelMergeTests extends BaseTest {
 		StateMachineEvent_c[] events = StateMachineEvent_c
 				.getManySM_EVTsOnR502(StateMachine_c.getManySM_SMsOnR517(ism));
 		int existingSemeCount = 0;
-		for(StateMachineEvent_c event : events) {
+		for (StateMachineEvent_c event : events) {
 			StateEventMatrixEntry_c[] semes = StateEventMatrixEntry_c
 					.getManySM_SEMEsOnR503(SemEvent_c
 							.getManySM_SEVTsOnR525(event));
@@ -696,7 +765,7 @@ public class ModelMergeTests extends BaseTest {
 		viewer.setCopySelection(false);
 		viewer.copy(false);
 		int newSemeCount = 0;
-		for(StateMachineEvent_c event : events) {
+		for (StateMachineEvent_c event : events) {
 			StateEventMatrixEntry_c[] semes = StateEventMatrixEntry_c
 					.getManySM_SEMEsOnR503(SemEvent_c
 							.getManySM_SEVTsOnR525(event));
@@ -710,14 +779,17 @@ public class ModelMergeTests extends BaseTest {
 	public void testCantHappenCreationOnNewEvent() throws Exception {
 		modelRoot = Ooaofooa.getInstance(Ooaofooa.createModelRootId(
 				getProject(), "Classes", true));
-		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot, new ClassQueryInterface_c() {
-			
-			@Override
-			public boolean evaluate(Object candidate) {
-				return ((ModelClass_c) candidate).getName().equals("ModelClass");
-			}
-		});
-		InstanceStateMachine_c ism = InstanceStateMachine_c.getOneSM_ISMOnR518(clazz);
+		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot,
+				new ClassQueryInterface_c() {
+
+					@Override
+					public boolean evaluate(Object candidate) {
+						return ((ModelClass_c) candidate).getName().equals(
+								"ModelClass");
+					}
+				});
+		InstanceStateMachine_c ism = InstanceStateMachine_c
+				.getOneSM_ISMOnR518(clazz);
 		Transaction transaction = startTransaction();
 		ism.Newevent();
 		StateMachineEvent_c[] events = StateMachineEvent_c
@@ -728,7 +800,8 @@ public class ModelMergeTests extends BaseTest {
 		event.Dispose();
 		endTransaction(transaction);
 		CompareTestUtilities.openCompareEditor(ism.getFile());
-		ModelContentMergeViewer viewer = ModelContentMergeViewer.getInstance(null);
+		ModelContentMergeViewer viewer = ModelContentMergeViewer
+				.getInstance(null);
 		TreeDifferencer differencer = viewer.getDifferencer();
 		assertTrue("No differences created for state addition.", differencer
 				.getLeftDifferences().size() != 0);
@@ -737,7 +810,7 @@ public class ModelMergeTests extends BaseTest {
 		StateMachineState_c[] states = StateMachineState_c
 				.getManySM_STATEsOnR501(StateMachine_c.getManySM_SMsOnR517(ism));
 		int existingSemeCount = 0;
-		for(StateMachineState_c state : states) {
+		for (StateMachineState_c state : states) {
 			StateEventMatrixEntry_c[] semes = StateEventMatrixEntry_c
 					.getManySM_SEMEsOnR503(state);
 			existingSemeCount = existingSemeCount + semes.length;
@@ -745,7 +818,7 @@ public class ModelMergeTests extends BaseTest {
 		viewer.setCopySelection(false);
 		viewer.copy(false);
 		int newSemeCount = 0;
-		for(StateMachineState_c state : states) {
+		for (StateMachineState_c state : states) {
 			StateEventMatrixEntry_c[] semes = StateEventMatrixEntry_c
 					.getManySM_SEMEsOnR503(state);
 			newSemeCount = newSemeCount + semes.length;
@@ -799,16 +872,18 @@ public class ModelMergeTests extends BaseTest {
 				.getLeftDifferences().size() != 0);
 		viewer.setCopySelection(false);
 		viewer.copy(false);
-		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+		while (PlatformUI.getWorkbench().getDisplay().readAndDispatch())
+			;
 		assertTrue(
 				"Differences were not removed on copy for unassigning an event from a transition",
 				viewer.getDifferencer().getLeftDifferences().size() == 0);
 	}
-	
+
 	public void testGitConflictAnnotationRemoval() throws Exception {
 		String projectName = "GitAnnotationRemovalTest";
 		// import git repository from models repo
-		GitUtil.loadRepository("test_repositories/" + projectName);
+		GitUtil.loadRepository(test_repositories
+				+ "/" + projectName);
 		// import test project
 		GitUtil.loadProject(projectName, projectName);
 		// merge the test branch
@@ -825,10 +900,14 @@ public class ModelMergeTests extends BaseTest {
 				.InstanceStateMachineInstance(pkg.getModelRoot());
 		ClassStateMachine_c csm = ClassStateMachine_c
 				.ClassStateMachineInstance(pkg.getModelRoot());
-		ModelClass_c clazz = ModelClass_c.ModelClassInstance(pkg.getModelRoot());
-		String ismContents = TestUtil.getTextFileContents(ism.getFile().getLocation().toFile());
-		String csmContents = TestUtil.getTextFileContents(csm.getFile().getLocation().toFile());
-		String classContents = TestUtil.getTextFileContents(clazz.getFile().getLocation().toFile());
+		ModelClass_c clazz = ModelClass_c
+				.ModelClassInstance(pkg.getModelRoot());
+		String ismContents = TestUtil.getTextFileContents(ism.getFile()
+				.getLocation().toFile());
+		String csmContents = TestUtil.getTextFileContents(csm.getFile()
+				.getLocation().toFile());
+		String classContents = TestUtil.getTextFileContents(clazz.getFile()
+				.getLocation().toFile());
 		assertTrue(
 				"Did not find the git annotation markers in an unviewed file.",
 				ismContents.contains(">>>"));
@@ -840,11 +919,11 @@ public class ModelMergeTests extends BaseTest {
 		GitUtil.switchToFile("InstanceStateMachine.xtuml");
 		CompareTestUtilities.copyAllNonConflictingChangesFromRightToLeft();
 		CompareTestUtilities.closeMergeEditor(false);
-		ism = InstanceStateMachine_c
-				.InstanceStateMachineInstance(pkg.getModelRoot());
-		ismContents = TestUtil.getTextFileContents(ism.getFile().getLocation().toFile());
-		assertFalse(
-				"Found git annotation markers in an viewed file.",
+		ism = InstanceStateMachine_c.InstanceStateMachineInstance(pkg
+				.getModelRoot());
+		ismContents = TestUtil.getTextFileContents(ism.getFile().getLocation()
+				.toFile());
+		assertFalse("Found git annotation markers in an viewed file.",
 				ismContents.contains(">>>"));
 		StateMachineState_c[] states = StateMachineState_c
 				.getManySM_STATEsOnR501(StateMachine_c.getOneSM_SMOnR517(ism));
@@ -855,11 +934,11 @@ public class ModelMergeTests extends BaseTest {
 		// and reset the repository
 		TestUtil.deleteProject(getProjectHandle(projectName));
 	}
-	
+
 	public void testAutocrlfOption() throws Exception {
-		
+
 	}
-	
+
 	private void validateDifference(TreeDifference difference) {
 		NonRootModelElement realElement = getRealElement((ComparableTreeObject) difference
 				.getMatchingDifference().getElement());
@@ -878,7 +957,8 @@ public class ModelMergeTests extends BaseTest {
 	}
 
 	private NonRootModelElement getRealElement(ComparableTreeObject element) {
-		return (NonRootModelElement) ((ComparableTreeObject) element).getRealElement();
+		return (NonRootModelElement) ((ComparableTreeObject) element)
+				.getRealElement();
 	}
 
 	private Operation_c getLastCreatedOperation(ModelClass_c clazz) {
