@@ -338,7 +338,13 @@ public class BPToolTipHelper extends ToolTipHelper {
 	@Override
 	public void hide() {
 		if (getShell() != null && !getShell().isDisposed())
+		
+		if (showDetailedTooltip){
+			getShell().dispose();
+			detailedtooltipFigure = null;
+		}else{
 			getShell().setVisible(false);
+		}
 		tipShowing = false;
 		showDetailedTooltip = false;
 	}
