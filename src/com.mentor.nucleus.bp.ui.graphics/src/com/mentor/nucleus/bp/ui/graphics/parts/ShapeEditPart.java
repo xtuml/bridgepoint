@@ -87,6 +87,7 @@ import com.mentor.nucleus.bp.ui.graphics.anchors.WSAnchor;
 import com.mentor.nucleus.bp.ui.graphics.editor.GraphicalEditor;
 import com.mentor.nucleus.bp.ui.graphics.figures.OffsetImageFigure;
 import com.mentor.nucleus.bp.ui.graphics.figures.ShapeImageFigure;
+import com.mentor.nucleus.bp.ui.graphics.figures.SimpleTooltipFigure;
 import com.mentor.nucleus.bp.ui.graphics.layout.ContainerXYLayout;
 import com.mentor.nucleus.bp.ui.graphics.layout.FloatingTextLocator;
 import com.mentor.nucleus.bp.ui.graphics.layout.XYDelegatingLayout;

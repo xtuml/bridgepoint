@@ -1,4 +1,4 @@
-package com.mentor.nucleus.bp.ui.graphics.parts;
+package com.mentor.nucleus.bp.ui.graphics.figures;
 
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.ColorConstants;
