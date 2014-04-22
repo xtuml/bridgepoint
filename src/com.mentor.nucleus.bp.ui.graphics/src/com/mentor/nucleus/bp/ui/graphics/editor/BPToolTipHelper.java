@@ -112,14 +112,8 @@ public class BPToolTipHelper extends ToolTipHelper {
 				return;
 			setTooltipText(tip);
 			Point displayPoint = computeWindowLocation(tip, eventX, eventY);
-			if(showDetailedTooltip){
-				setShellBounds(displayPoint.x, displayPoint.y, tipSize.width,
+			setShellBounds(displayPoint.x, displayPoint.y, tipSize.width,
 						tipSize.height+15);
-			}
-			else{ 
-				setShellBounds(displayPoint.x, displayPoint.y, tipSize.width,
-						tipSize.height+15);
-			}
 			getShell().setFocus();
 			show();
 			updateEclipsePassedArgument(hoverSource, tip, eventX, eventY);
