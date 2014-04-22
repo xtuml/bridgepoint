@@ -103,6 +103,7 @@ import com.mentor.nucleus.bp.ui.graphics.decorations.TooltipDecoration;
 import com.mentor.nucleus.bp.ui.graphics.draw.PrecisionBendpoint;
 import com.mentor.nucleus.bp.ui.graphics.editor.GraphicalEditor;
 import com.mentor.nucleus.bp.ui.graphics.figures.DecoratedPolylineConnection;
+import com.mentor.nucleus.bp.ui.graphics.figures.SimpleTooltipFigure;
 import com.mentor.nucleus.bp.ui.graphics.layers.LayerUtils;
 import com.mentor.nucleus.bp.ui.graphics.layers.UserDefinedLayer;
 import com.mentor.nucleus.bp.ui.graphics.layout.FixedTextLocator;
