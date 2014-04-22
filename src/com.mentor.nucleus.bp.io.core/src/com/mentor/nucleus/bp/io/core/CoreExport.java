@@ -26,6 +26,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
+import com.mentor.nucleus.bp.als.oal.ParserAllActivityModifier;
 import com.mentor.nucleus.bp.core.ComponentPackage_c;
 import com.mentor.nucleus.bp.core.Component_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
@@ -43,9 +44,9 @@ import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.common.ModelRoot;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
+import com.mentor.nucleus.bp.core.util.CoreUtil;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.ui.canvas.Ooaofgraphics;
-import com.mentor.nucleus.bp.ui.text.activity.AllActivityModifier;
 
 public abstract class CoreExport implements IRunnableWithProgress {
     protected Ooaofooa m_modelRoot = null;
@@ -241,7 +242,7 @@ public abstract class CoreExport implements IRunnableWithProgress {
 		    // loop below because there may be a shared model root in the 
 		    // selected elements that we parsed individually below.
 		for (int i = 0; i < elementsToParse.size(); i++) {
-		    AllActivityModifier.disposeAllBodies(elementsToParse.get(i).getModelRoot());
+		    ParserAllActivityModifier.disposeAllBodies(elementsToParse.get(i).getModelRoot());
 	      }
 		for (int i = 0; i < elementsToParse.size(); i++) {
 			parseOneElement(elementsToParse.get(i), monitor, dialogShell);			
@@ -252,7 +253,7 @@ public abstract class CoreExport implements IRunnableWithProgress {
 			// this even if we have parse errors.  We simply warn about parse
 			// errors, but proceed.
 			if(!rootsParsed.contains(elementsToParse.get(i).getModelRoot())) {
-				AllActivityModifier.initializeAllBodies(elementsToParse.get(i));
+				ParserAllActivityModifier.initializeAllBodies(elementsToParse.get(i));
 				rootsParsed.add(elementsToParse.get(i).getModelRoot());
 			}
 		}
@@ -292,29 +293,29 @@ public abstract class CoreExport implements IRunnableWithProgress {
 					}
 					
 					if (nrme instanceof Domain_c) {
-						final AllActivityModifier aam = new AllActivityModifier(
+						final ParserAllActivityModifier aam = new ParserAllActivityModifier(
 								(Domain_c) nrme, monitor);
-						aam.processAllActivities(AllActivityModifier.PARSE,false);
+						aam.processAllActivities(ParserAllActivityModifier.PARSE,false);
 					} else if (nrme instanceof Component_c) {
-						final AllActivityModifier aam = new AllActivityModifier(
+						final ParserAllActivityModifier aam = new ParserAllActivityModifier(
 								(Component_c) nrme, monitor);
-						aam.processAllActivities(AllActivityModifier.PARSE,false);
+						aam.processAllActivities(ParserAllActivityModifier.PARSE,false);
 					} else if (nrme instanceof Package_c) {
-						final AllActivityModifier aam = new AllActivityModifier(
+						final ParserAllActivityModifier aam = new ParserAllActivityModifier(
 								(Package_c) nrme, monitor);
-						aam.processAllActivities(AllActivityModifier.PARSE,false);
+						aam.processAllActivities(ParserAllActivityModifier.PARSE,false);
 					} else if (nrme instanceof Subsystem_c) {
-						final AllActivityModifier aam = new AllActivityModifier(
+						final ParserAllActivityModifier aam = new ParserAllActivityModifier(
 								(Subsystem_c) nrme, monitor);
-						aam.processAllActivities(AllActivityModifier.PARSE,false);
+						aam.processAllActivities(ParserAllActivityModifier.PARSE,false);
 					} else if (nrme instanceof FunctionPackage_c) {
-						final AllActivityModifier aam = new AllActivityModifier(
+						final ParserAllActivityModifier aam = new ParserAllActivityModifier(
 								(FunctionPackage_c) nrme, monitor);
-						aam.processAllActivities(AllActivityModifier.PARSE,false);
+						aam.processAllActivities(ParserAllActivityModifier.PARSE,false);
 					} else if (nrme instanceof ExternalEntityPackage_c) {
-						final AllActivityModifier aam = new AllActivityModifier(
+						final ParserAllActivityModifier aam = new ParserAllActivityModifier(
 								(ExternalEntityPackage_c) nrme, monitor);
-						aam.processAllActivities(AllActivityModifier.PARSE,false);
+						aam.processAllActivities(ParserAllActivityModifier.PARSE,false);
 					}
 					
 					if (monitor != null) {
@@ -345,15 +346,16 @@ public abstract class CoreExport implements IRunnableWithProgress {
 			CorePlugin.logError(message, null);
 		}
 
-		// Make sure that all events in the asynchronous event queue
-		// are dispatched. This is here is help assure that parse errors
-		// are detected by the ILogListener
-		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
-			public void run() {
-				// do nothing
-			}
-		});
-		
+		if (!CoreUtil.IsRunningHeadless) {
+			// Make sure that all events in the asynchronous event queue
+			// are dispatched. This is here is help assure that parse errors
+			// are detected by the ILogListener
+			PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+				public void run() {
+					// do nothing
+				}
+			});
+		}
 		
 		if (errorLoggedDuringParse) {
 			String message = "Warning: Parse errors encountered prior to model export.  ";

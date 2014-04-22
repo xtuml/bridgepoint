@@ -34,4 +34,5 @@ public interface IAllActivityModifier {
         
     public void processAllActivities(int op);
 
+    public void clearActionPlaceholder(Object o_input);
 }

@@ -21,11 +21,14 @@
 //========================================================================
 package com.mentor.nucleus.bp.cli;
 
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
+import org.eclipse.jface.dialogs.ErrorDialog;
 
 import com.mentor.nucleus.bp.cli.BPCLIPreferences.CommandLineOption;
 import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.util.CoreUtil;
 
 public class Build implements IApplication {
 	
@@ -58,9 +61,19 @@ public class Build implements IApplication {
 				cmdLine.usage("Build");
 			} else {
 				BPCLIWorkbenchAdvisor.redirectSystemOutput(cmdLine);
+				BuildWorkbenchAdvisor workbenchAdvisor = new BuildWorkbenchAdvisor(cmdLine);
 				System.out.println("Starting CLI Build" );
-		    	BPCLIWorkbenchAdvisor workbenchAdvisor = new BuildWorkbenchAdvisor(cmdLine);
-		    	workbenchAdvisor.createAndRunWorkbench();
+				if (workbenchAdvisor.prebuilderOnly) {  // if prebuildOnly then don't create the workbench.
+					if(!workbenchAdvisor.debug) {
+						Job.getJobManager().suspend();
+						CoreUtil.IsRunningHeadless = true;
+						ErrorDialog.AUTOMATED_MODE = true;  // This should be what the --launcher.suppressErrors 
+						                                    // command-line option does.  Setting it here also.
+						workbenchAdvisor.performCLIBuild();
+					}
+				} else {
+			    	workbenchAdvisor.createAndRunWorkbench();
+				}
 			}
 		} catch (BPCLIException err) { 
 			BPCLIPreferences.logError("Error during build: " + err.getMessage(), null);			
