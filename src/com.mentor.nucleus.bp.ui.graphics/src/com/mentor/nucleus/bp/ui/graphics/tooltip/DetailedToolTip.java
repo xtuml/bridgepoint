@@ -1,4 +1,4 @@
-package com.mentor.nucleus.bp.ui.graphics.parts;
+package com.mentor.nucleus.bp.ui.graphics.tooltip;
 
 import java.lang.reflect.Method;
 
@@ -62,6 +62,8 @@ import com.mentor.nucleus.bp.ui.graphics.actions.OpenGraphicsEditor;
 import com.mentor.nucleus.bp.ui.graphics.editor.BPToolTipHelper;
 import com.mentor.nucleus.bp.ui.graphics.figures.DecoratedPolylineConnection;
 import com.mentor.nucleus.bp.ui.graphics.figures.ShapeImageFigure;
+import com.mentor.nucleus.bp.ui.graphics.parts.ConnectorEditPart;
+import com.mentor.nucleus.bp.ui.graphics.parts.ShapeEditPart;
 
 public class DetailedToolTip {
 
