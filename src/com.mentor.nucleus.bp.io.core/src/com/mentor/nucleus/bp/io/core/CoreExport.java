@@ -47,6 +47,7 @@ import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
 import com.mentor.nucleus.bp.core.util.CoreUtil;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.ui.canvas.Ooaofgraphics;
+import com.mentor.nucleus.bp.ui.text.activity.AllActivityModifier;
 
 public abstract class CoreExport implements IRunnableWithProgress {
     protected Ooaofooa m_modelRoot = null;
@@ -292,29 +293,59 @@ public abstract class CoreExport implements IRunnableWithProgress {
 						monitor.subTask("Parsing " + instanceName);
 					}
 					
+					ParserAllActivityModifier aam = null;
+					boolean workBenchIsRunning= PlatformUI.isWorkbenchRunning(); 
 					if (nrme instanceof Domain_c) {
-						final ParserAllActivityModifier aam = new ParserAllActivityModifier(
-								(Domain_c) nrme, monitor);
-						aam.processAllActivities(ParserAllActivityModifier.PARSE,false);
+						if (workBenchIsRunning) {
+							aam = new AllActivityModifier(
+									(Domain_c) nrme, monitor);	
+						} else {
+							aam = new ParserAllActivityModifier(
+									(Domain_c) nrme, monitor);
+						}
 					} else if (nrme instanceof Component_c) {
-						final ParserAllActivityModifier aam = new ParserAllActivityModifier(
-								(Component_c) nrme, monitor);
-						aam.processAllActivities(ParserAllActivityModifier.PARSE,false);
+						if (workBenchIsRunning) {
+							aam = new AllActivityModifier(
+									(Component_c) nrme, monitor);
+						} else {
+							aam = new ParserAllActivityModifier(
+									(Component_c) nrme, monitor);
+						}
 					} else if (nrme instanceof Package_c) {
-						final ParserAllActivityModifier aam = new ParserAllActivityModifier(
-								(Package_c) nrme, monitor);
-						aam.processAllActivities(ParserAllActivityModifier.PARSE,false);
+						if (workBenchIsRunning) {
+							aam = new AllActivityModifier(
+									(Package_c) nrme, monitor);
+						} else {
+							aam = new ParserAllActivityModifier(
+									(Package_c) nrme, monitor);
+						}
 					} else if (nrme instanceof Subsystem_c) {
-						final ParserAllActivityModifier aam = new ParserAllActivityModifier(
-								(Subsystem_c) nrme, monitor);
-						aam.processAllActivities(ParserAllActivityModifier.PARSE,false);
+						if (workBenchIsRunning) {
+							aam = new AllActivityModifier(
+									(Subsystem_c) nrme, monitor);
+						} else {
+							aam = new ParserAllActivityModifier(
+									(Subsystem_c) nrme, monitor);
+						}
 					} else if (nrme instanceof FunctionPackage_c) {
-						final ParserAllActivityModifier aam = new ParserAllActivityModifier(
-								(FunctionPackage_c) nrme, monitor);
-						aam.processAllActivities(ParserAllActivityModifier.PARSE,false);
+						if (workBenchIsRunning) {
+							aam = new AllActivityModifier(
+									(FunctionPackage_c) nrme, monitor);
+						} else {
+							aam = new ParserAllActivityModifier(
+									(FunctionPackage_c) nrme, monitor);
+						}
 					} else if (nrme instanceof ExternalEntityPackage_c) {
-						final ParserAllActivityModifier aam = new ParserAllActivityModifier(
-								(ExternalEntityPackage_c) nrme, monitor);
+						if (workBenchIsRunning) {
+							aam = new AllActivityModifier(
+									(ExternalEntityPackage_c) nrme, monitor);
+						} else {
+							aam = new ParserAllActivityModifier(
+									(ExternalEntityPackage_c) nrme, monitor);
+						}
+					}
+						
+					if (aam != null) {
 						aam.processAllActivities(ParserAllActivityModifier.PARSE,false);
 					}
 					
