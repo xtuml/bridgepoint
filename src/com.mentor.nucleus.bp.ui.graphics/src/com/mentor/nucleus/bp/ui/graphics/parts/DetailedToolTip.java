@@ -63,7 +63,7 @@ import com.mentor.nucleus.bp.ui.graphics.editor.BPToolTipHelper;
 import com.mentor.nucleus.bp.ui.graphics.figures.DecoratedPolylineConnection;
 import com.mentor.nucleus.bp.ui.graphics.figures.ShapeImageFigure;
 
-public class DetailedToolTipFigure {
+public class DetailedToolTip {
 
 	public static final int ToolTip_Shell_Style = SWT.TOOL | SWT.RESIZE;
 	public static final int Tooltip_Text_Style = SWT.READ_ONLY | SWT.BORDER | SWT.V_SCROLL | SWT.WRAP | SWT.MULTI;
@@ -78,7 +78,7 @@ public class DetailedToolTipFigure {
 	private BPToolTipHelper tooltipHelper;
 
 
-	public DetailedToolTipFigure(Control parent, BPToolTipHelper bpToolTipHelper){
+	public DetailedToolTip(Control parent, BPToolTipHelper bpToolTipHelper){
 		tooltipHelper = bpToolTipHelper; 
 
 		detailedShell = createDetailedShell(parent);
