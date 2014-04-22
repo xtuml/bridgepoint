@@ -294,46 +294,53 @@ public abstract class CoreExport implements IRunnableWithProgress {
 					}
 					
 					ParserAllActivityModifier aam = null;
+					boolean workBenchIsRunning= PlatformUI.isWorkbenchRunning(); 
 					if (nrme instanceof Domain_c) {
-						if (!PlatformUI.isWorkbenchRunning()) {
-							aam = new ParserAllActivityModifier(
-								(Domain_c) nrme, monitor);
-						} else {
+						if (workBenchIsRunning) {
 							aam = new AllActivityModifier(
 									(Domain_c) nrme, monitor);	
+						} else {
+							aam = new ParserAllActivityModifier(
+									(Domain_c) nrme, monitor);
 						}
 					} else if (nrme instanceof Component_c) {
-						if (!PlatformUI.isWorkbenchRunning()) {
-							aam = new ParserAllActivityModifier(
-								(Component_c) nrme, monitor);
+						if (workBenchIsRunning) {
+							aam = new AllActivityModifier(
+									(Component_c) nrme, monitor);
 						} else {
+							aam = new ParserAllActivityModifier(
+									(Component_c) nrme, monitor);
 						}
 					} else if (nrme instanceof Package_c) {
-						if (!PlatformUI.isWorkbenchRunning()) {
-							aam = new ParserAllActivityModifier(
-								(Package_c) nrme, monitor);
-					} else if (nrme instanceof Subsystem_c) {
-						if (!PlatformUI.isWorkbenchRunning()) {
-							aam = new ParserAllActivityModifier(
-								(Subsystem_c) nrme, monitor);
-						} else {
+						if (workBenchIsRunning) {
 							aam = new AllActivityModifier(
+									(Package_c) nrme, monitor);
+						} else {
+							aam = new ParserAllActivityModifier(
+									(Package_c) nrme, monitor);
+						}
+					} else if (nrme instanceof Subsystem_c) {
+						if (workBenchIsRunning) {
+							aam = new AllActivityModifier(
+									(Subsystem_c) nrme, monitor);
+						} else {
+							aam = new ParserAllActivityModifier(
 									(Subsystem_c) nrme, monitor);
 						}
 					} else if (nrme instanceof FunctionPackage_c) {
-						if (!PlatformUI.isWorkbenchRunning()) {
-							aam = new ParserAllActivityModifier(
-								(FunctionPackage_c) nrme, monitor);
-						} else {
+						if (workBenchIsRunning) {
 							aam = new AllActivityModifier(
+									(FunctionPackage_c) nrme, monitor);
+						} else {
+							aam = new ParserAllActivityModifier(
 									(FunctionPackage_c) nrme, monitor);
 						}
 					} else if (nrme instanceof ExternalEntityPackage_c) {
-						if (!PlatformUI.isWorkbenchRunning()) {
-							aam = new ParserAllActivityModifier(
-								(ExternalEntityPackage_c) nrme, monitor);
-						} else {
+						if (workBenchIsRunning) {
 							aam = new AllActivityModifier(
+									(ExternalEntityPackage_c) nrme, monitor);
+						} else {
+							aam = new ParserAllActivityModifier(
 									(ExternalEntityPackage_c) nrme, monitor);
 						}
 					}
@@ -346,7 +353,7 @@ public abstract class CoreExport implements IRunnableWithProgress {
 						monitor.done();
 					}					
 				}
-			}};
+			};
 	
 			// parse the element
 			if (dialogShell == null) {
