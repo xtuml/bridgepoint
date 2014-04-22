@@ -65,29 +65,20 @@ public class GitUtil {
 	/**
 	 * Loads a local repository into memory using the given repository path
 	 */
-	public static void loadRepository(String inRepositoryLocation) {
+	public static void loadRepository(String location) {
 		BaseTest.dispatchEvents(0);
-		String test_repository_location = System
-				.getenv("XTUML_TEST_MODEL_REPOSITORY");
-		if (test_repository_location == null
-				|| test_repository_location.equals("")) {
-			// use the default location
-			test_repository_location = BaseTest.DEFAULT_XTUML_TEST_MODEL_REPOSITORY;
-		}
-		test_repository_location = test_repository_location + "/.." + "/"
-				+ inRepositoryLocation;
 		IViewPart gitRepositoryView = showGitRepositoriesView();
 		CommonNavigator view = (CommonNavigator) gitRepositoryView;
 		Control control = view.getCommonViewer().getControl();
 		CorePlugin.getSystemClipboard().setContents(
-				new Object[] { test_repository_location },
+				new Object[] { location },
 				new Transfer[] { TextTransfer.getInstance() });
 		UITestingUtilities.activateMenuItem(control.getMenu(),
 				"Paste R&epository Path or URI	Ctrl+V");
 		BaseTest.dispatchEvents(0);
 		// if the repository is not in a clean
 		// state reset it here
-		String[] repositoryPath = inRepositoryLocation.split("/");
+		String[] repositoryPath = location.split("/");
 		String repositoryName = repositoryPath[repositoryPath.length - 1];
 		resetRepository(repositoryName);
 	}
