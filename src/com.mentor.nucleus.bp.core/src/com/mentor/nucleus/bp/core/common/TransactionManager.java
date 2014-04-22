@@ -45,7 +45,6 @@ import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.Action;
-
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.graphics.Image;
@@ -60,13 +59,10 @@ import com.mentor.nucleus.bp.core.PropertyViewListener;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.ui.marker.DelayedMarkerJob;
-import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
 import com.mentor.nucleus.bp.core.util.CoreUtil;
 import com.mentor.nucleus.bp.core.util.OoaofgraphicsUtil;
 import com.mentor.nucleus.bp.core.util.TransactionUtil;
 import com.mentor.nucleus.bp.core.util.UIUtil;
-import com.mentor.nucleus.bp.core.util.WorkspaceUtil;
-import com.mentor.nucleus.bp.core.common.ComponentResourceListener;
 
 /**
  * Goal 1: batching of deltas Goal 2: providing locking mechanism
@@ -864,8 +860,11 @@ public class TransactionManager {
 			if (buildJob != null
 					&& (buildJob.belongsTo(ResourcesPlugin.FAMILY_AUTO_BUILD) || (buildJob
 							.belongsTo(ResourcesPlugin.FAMILY_MANUAL_BUILD)
-							|| buildJob.belongsTo(DelayedMarkerJob.FAMILY_DELAYED_MARKER_JOB)
-							|| buildJob.belongsTo("System Data Type Upgrade") || buildJob.belongsTo(FAMILY_TRANSACTION)))) { //$NON-NLS-1$
+							|| buildJob
+									.belongsTo(DelayedMarkerJob.FAMILY_DELAYED_MARKER_JOB)
+							|| buildJob.belongsTo("System Data Type Upgrade") //$NON-NLS-1$
+							|| buildJob.belongsTo(FAMILY_TRANSACTION) || buildJob
+								.belongsTo(ComponentTransactionListener.INTEGRITY_ISSUE_JOB_FAMILY)))) {
 				return;
 			}
 
