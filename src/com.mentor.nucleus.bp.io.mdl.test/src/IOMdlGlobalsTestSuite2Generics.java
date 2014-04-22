@@ -56,12 +56,12 @@ public class IOMdlGlobalsTestSuite2Generics extends TestSuite {
     {
 		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION,true);
 	    addTest(new TestSuite(IOMdlIIGlobalsTestGenerics.class));
-//	    addTest(new TestSuite(IOMdlTestSuiteIIGenerics.class));
-//        addTest(new TestSuite(ImportWizardTestsGenerics.class));
-//        
-//        TestSuite testSuite = new ConsistencyTestSuite();
-//		addTest(testSuite);        
-//        
+	    addTest(new TestSuite(IOMdlTestSuiteIIGenerics.class));
+        addTest(new TestSuite(ImportWizardTestsGenerics.class));
+        
+        TestSuite testSuite = new ConsistencyTestSuite();
+		addTest(testSuite);        
+        
         addTest(new TestSuite(OALPersistenceTestsGenerics.class));
         addTest(new TestSuite(SLDTTestsGenerics.class));
         addTest(new TestSuite(DataUpgradeCreatesNoDeltasTestGenerics.class));
