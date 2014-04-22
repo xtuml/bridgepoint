@@ -73,7 +73,7 @@ import com.mentor.nucleus.bp.ui.graphics.actions.OpenGraphicsEditor;
 import com.mentor.nucleus.bp.ui.graphics.figures.DecoratedPolylineConnection;
 import com.mentor.nucleus.bp.ui.graphics.figures.ShapeImageFigure;
 import com.mentor.nucleus.bp.ui.graphics.parts.ConnectorEditPart;
-import com.mentor.nucleus.bp.ui.graphics.parts.DetailedToolTipFigure;
+import com.mentor.nucleus.bp.ui.graphics.parts.DetailedToolTip;
 import com.mentor.nucleus.bp.ui.graphics.parts.ShapeEditPart;
 
 public class BPToolTipHelper extends ToolTipHelper {
@@ -89,7 +89,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 	
 	// Tooltip elements
 	private Shell BPSimpleTooltipShell;
-	private DetailedToolTipFigure detailedtooltipFigure;
+	private DetailedToolTip detailedtooltip;
 	private LightweightSystem lws;
 	
 	// Flow control fields
@@ -140,10 +140,10 @@ public class BPToolTipHelper extends ToolTipHelper {
 			if ( tip instanceof FlowPage){
 			FlowPage flowgage = (FlowPage)tip;
 			TextFlow textflow = (TextFlow)flowgage.getChildren().get(0);
-			detailedtooltipFigure.setDescriptionText(textflow.getText());
+			detailedtooltip.setDescriptionText(textflow.getText());
 			} else if ( tip instanceof org.eclipse.draw2d.Label){
 				org.eclipse.draw2d.Label label = (org.eclipse.draw2d.Label)tip;
-				detailedtooltipFigure.setDescriptionText(label.getText());
+				detailedtooltip.setDescriptionText(label.getText());
 			}
 		}
 	}
@@ -241,7 +241,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 				ReplaceShell = true;
 				if (!showDetailedTooltip)
 					showDetailedTooltip = true;
-				detailedtooltipFigure = createDetailedShell();
+				detailedtooltip = createDetailedShell();
 				displayToolTipNear(currentTipSource, BPtip, BPeventX, BPeventY);
 				getShell().setActive();
 			}
@@ -253,8 +253,8 @@ public class BPToolTipHelper extends ToolTipHelper {
 		});
 	}
 	
-	private DetailedToolTipFigure createDetailedShell() {
-		return new DetailedToolTipFigure(control, this);
+	private DetailedToolTip createDetailedShell() {
+		return new DetailedToolTip(control, this);
 	}
 	
 	@Override
@@ -311,12 +311,12 @@ public class BPToolTipHelper extends ToolTipHelper {
 	@Override
 	protected Shell getShell() {
 		if (showDetailedTooltip){
-			if ( detailedtooltipFigure == null){
-				detailedtooltipFigure = createDetailedShell();
-			}else if (detailedtooltipFigure.getShell() == null || detailedtooltipFigure.getShell().isDisposed() ) {
-				detailedtooltipFigure = createDetailedShell();
+			if ( detailedtooltip == null){
+				detailedtooltip = createDetailedShell();
+			}else if (detailedtooltip.getShell() == null || detailedtooltip.getShell().isDisposed() ) {
+				detailedtooltip = createDetailedShell();
 			}
-			return detailedtooltipFigure.getShell();
+			return detailedtooltip.getShell();
 		}
 			
 		else{
@@ -335,7 +335,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 		
 		if (showDetailedTooltip){
 			getShell().dispose();
-			detailedtooltipFigure = null;
+			detailedtooltip = null;
 		}else{
 			getShell().setVisible(false);
 		}
