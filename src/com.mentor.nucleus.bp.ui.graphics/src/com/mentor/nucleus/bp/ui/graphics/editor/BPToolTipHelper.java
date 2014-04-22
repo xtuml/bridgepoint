@@ -73,8 +73,8 @@ import com.mentor.nucleus.bp.ui.graphics.actions.OpenGraphicsEditor;
 import com.mentor.nucleus.bp.ui.graphics.figures.DecoratedPolylineConnection;
 import com.mentor.nucleus.bp.ui.graphics.figures.ShapeImageFigure;
 import com.mentor.nucleus.bp.ui.graphics.parts.ConnectorEditPart;
-import com.mentor.nucleus.bp.ui.graphics.parts.DetailedToolTip;
 import com.mentor.nucleus.bp.ui.graphics.parts.ShapeEditPart;
+import com.mentor.nucleus.bp.ui.graphics.tooltip.DetailedToolTip;
 
 public class BPToolTipHelper extends ToolTipHelper {
 
