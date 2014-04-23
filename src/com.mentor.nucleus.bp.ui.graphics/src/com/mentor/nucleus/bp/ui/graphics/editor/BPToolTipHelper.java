@@ -2,6 +2,7 @@ package com.mentor.nucleus.bp.ui.graphics.editor;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -98,6 +99,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 	private Timer mouseInCloseTimer;
 	private Timer mouseOutCloseTimer;
 	protected boolean showDetailedTooltip = false;
+	private static HashMap<IFigure, String> figureWithOpenedToolTip = new HashMap<IFigure, String>();
 	
 	
 	// Shell Style fields
@@ -110,9 +112,12 @@ public class BPToolTipHelper extends ToolTipHelper {
 		if (tip != null && hoverSource != currentTipSource || ReplaceShell) {
 			if ( showDetailedTooltip && isShowing())
 				return;
+			if ( figureWithOpenedToolTip.get(hoverSource) != null)
+				return;
+			
 			setTooltipText(tip);
 			Point displayPoint = computeWindowLocation(tip, eventX, eventY);
-			setShellBounds(displayPoint.x, displayPoint.y, tipSize.width,
+			setShellBounds(displayPoint.x, displayPoint.y, tipSize.width+30,
 						tipSize.height+15);
 			getShell().setFocus();
 			show();
@@ -141,9 +146,8 @@ public class BPToolTipHelper extends ToolTipHelper {
 			FlowPage flowgage = (FlowPage)tip;
 			TextFlow textflow = (TextFlow)flowgage.getChildren().get(0);
 			detailedtooltip.setDescriptionText(textflow.getText());
-			} else if ( tip instanceof org.eclipse.draw2d.Label){
-				org.eclipse.draw2d.Label label = (org.eclipse.draw2d.Label)tip;
-				detailedtooltip.setDescriptionText(label.getText());
+			} else{
+				// Do nothing
 			}
 		}
 	}
@@ -237,6 +241,9 @@ public class BPToolTipHelper extends ToolTipHelper {
 			
 			@Override
 			public void mouseDown(MouseEvent e) {
+				if ( BPtip instanceof org.eclipse.draw2d.Label){
+					return;
+				}
 				hide();
 				ReplaceShell = true;
 				if (!showDetailedTooltip)
@@ -336,6 +343,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 		if (showDetailedTooltip){
 			getShell().dispose();
 			detailedtooltip = null;
+			figureWithOpenedToolTip.remove(currentTipSource);
 		}else{
 			getShell().setVisible(false);
 		}
@@ -358,6 +366,9 @@ public class BPToolTipHelper extends ToolTipHelper {
 	protected void show() {
 		getShell().setVisible(true);
 		tipShowing = true;
+		if (showDetailedTooltip){
+			figureWithOpenedToolTip.put(currentTipSource, "");
+		}
 	}
 	
 	@Override
