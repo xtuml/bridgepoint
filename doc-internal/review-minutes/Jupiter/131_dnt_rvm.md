@@ -20,6 +20,22 @@ _- 04  min   KB   6.3.6    Strike this
 _- 05  min   TL   6        Add a new line item that allows multiple tooltips to display at the same time
 _- 06  min   TL   8        We need automated tests
 
+Code Review:
+
+_- 01 min  TL  BPToolTipHelper.java   make constructor first method in class
+_- 02 min  RM  BPToolTipHelper.java   make sure we are disposing the class
+                                      properly
+_- 03 min  RM  GraphicalEditor        we are instantiating the tooltip helper
+                                      but we are not destroying the instance
+_- 04 min  RM  BPToolTipHelper        Add comment that this is the default for
+                                      maximum size  
+_- 05 min  RM  BPToolTipHelper        Add comments for the hard coded values
+_- 06 min  RM  All                    Instantiate local variables to prevent
+                                      NPEs (either in declaration or
+                                            constructor, if its already
+                                                instantiated then comment on it)
+
+                                      
 </pre>
    
 No major observations, a re-review is not required.
