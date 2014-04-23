@@ -635,12 +635,17 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 				getLightweightSystem().setEventDispatcher(new DomainEventDispatcher(domain, this){
 
 					// Override the creation of ToolTip helper object 
-					BPToolTipHelper  tooltipHelper = null;
 					@Override 
 					protected ToolTipHelper getToolTipHelper() {
-						if (tooltipHelper == null)
-							tooltipHelper = new BPToolTipHelper(control);
-						return tooltipHelper;
+						/*
+						 * Create new helper each time to support multi tool tip
+						 * window. In order to associate their tooltip helper
+						 * with their editor to hide when the editor is not 
+						 * visible, reshow when it is visible, a hash map 
+						 * shall be created to store created helper, to be
+						 * notified by editor visiblity change
+						 */
+						return new BPToolTipHelper(control);
 					}
 				});
 			}
