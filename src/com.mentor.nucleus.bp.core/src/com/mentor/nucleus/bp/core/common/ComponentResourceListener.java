@@ -105,7 +105,7 @@ public class ComponentResourceListener implements IResourceChangeListener, IReso
             // we aren't interested in it
             return;
         }
-      WorkspaceUtil.logResourceActivity(delta);
+      CorePlugin.logResourceActivity(delta);
       Job buildJob = Job.getJobManager().currentJob();
 		if (buildJob != null
 				&& (buildJob.belongsTo(ResourcesPlugin.FAMILY_AUTO_BUILD)

@@ -40,7 +40,6 @@ import com.mentor.nucleus.bp.core.common.IdAssigner;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.io.mdl.ExportModel;
 import com.mentor.nucleus.bp.io.mdl.ImportModel;
-import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.GeneralPurposeLogger;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
@@ -277,22 +276,11 @@ public class IOMdlTestGenerics extends TestCase {
 		}
 		assertTrue("access error did not occur", accessError);//$NON-NLS-1$
 	}
-
-    public void testImportOdms() throws FileNotFoundException {
-        m_domain_name = "odmsGenerics";
-        importModel( Ooaofooa.MODELS_DIRNAME + "/");
-        if (!BaseTest.testGlobals) {
-            outputLogsCompare(m_workspace_path
-                    + "expected_results/odmsGenerics.imp"); //$NON-NLS-1$
-        } else {
-            outputLogsCompare(m_workspace_path
-                    + "expected_results/odmsGenericsGlobals.imp"); //$NON-NLS-1$}
-        }
-
-    }
-
+	
     public void testExportOdmsWithGraphics()
     {
+        m_domain_name = "odmsGenerics";
+        importModel( Ooaofooa.MODELS_DIRNAME + "/");
         // add the system and top-level packages to the selection
         m_system = SystemModel_c.SystemModelInstance(
                 Ooaofooa.getDefaultInstance(), new ClassQueryInterface_c() {
@@ -419,22 +407,6 @@ public class IOMdlTestGenerics extends TestCase {
             //              workspace_path + "actual_results/" + Ooaofooa.MODELS_DIRNAME + "/" + m_domain_name + "." + Ooaofooa.MODELS_EXT ); //$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
         }
     }
-
-   private void outputLogsCompare(String expected_file)
-   {
-       String[] log1Entries = log1.getLogs(), log2Entries = log2.getLogs();
-       if (generateResults) {
-           TestUtil.writeToFile(TestUtil.join(log1Entries, log2Entries),
-               expected_file);
-           return;
-       }
-
-       String actualResults = TestUtil.join(log1Entries)
-           + (log2Entries.length > 0 ? "\r\n" + TestUtil.join(log2Entries) : "");
-       String expectedResults = TestUtil.getTextFileContents(
-           new Path(expected_file).toFile());
-       assertEquals(expectedResults, actualResults);
-   }
 
    /**
     * See field.
