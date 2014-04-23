@@ -59,6 +59,8 @@ public class ComponentTransactionListener implements ITransactionListener {
 
 	private Transaction transaction = null;
 
+	protected static Object INTEGRITY_ISSUE_JOB_FAMILY = "__intergrity_marker_job";
+
 	public ComponentTransactionListener() {
 
 	}
@@ -260,6 +262,14 @@ public class ComponentTransactionListener implements ITransactionListener {
 		// interfere with our file writing
 		WorkspaceJob job = new WorkspaceJob("Create integrity issues") {
 			
+			/* (non-Javadoc)
+			 * @see org.eclipse.core.runtime.jobs.Job#belongsTo(java.lang.Object)
+			 */
+			@Override
+			public boolean belongsTo(Object family) {
+				return family.equals(INTEGRITY_ISSUE_JOB_FAMILY);
+			}
+
 			@Override
 			public IStatus runInWorkspace(IProgressMonitor monitor)
 					throws CoreException {

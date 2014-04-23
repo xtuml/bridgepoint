@@ -206,7 +206,7 @@
     </taskdef>
         <PTCodeFormat>
           <fileset dir="../com.mentor.nucleus.bp.als.oal/src/com/mentor/nucleus/bp/als/oal"
-                 excludes="Err_c.java, OalPlugin.java, pt_SemanticException.java"
+                 excludes="Err_c.java, OalPlugin.java, pt_SemanticException.java, TextParser.java, ParseRunnable.java"
           includes="*.java" />
         </PTCodeFormat>
   </target>

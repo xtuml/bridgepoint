@@ -126,6 +126,8 @@ import com.mentor.nucleus.bp.core.ui.marker.ProblemModelChangeListener;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectActionLanguagePreferenceNode;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectPreferences;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectReferencesPreferenceNode;
+import com.mentor.nucleus.bp.core.util.CoreUtil;
+import com.mentor.nucleus.bp.core.util.ResourceActivityVisitor;
 /**
  * The main plugin class to be used in the desktop.
  */
@@ -163,6 +165,11 @@ public class CorePlugin extends AbstractUIPlugin {
 	 */
 	public CorePlugin() {
 		super();
+		
+		if (!PlatformUI.isWorkbenchRunning()) { 
+			CoreUtil.IsRunningHeadless = true;
+		}
+		
 		plugin = this;
 		try {
 			resourceBundle = ResourceBundle.getBundle("com.mentor.nucleus.bp.core.CorePluginResources"); //$$NON-NLS-1$$
@@ -820,6 +827,25 @@ public class CorePlugin extends AbstractUIPlugin {
 				e.printStackTrace();
 			}
 		}
+	}
+	public static void logResourceActivity(IResourceDelta delta) {
+	  String resourceLogEnabled = System.getProperty("com.mentor.bp.nucleus.logResourceActivity.enabled");
+	  if (resourceLogEnabled != null) {
+        Throwable thr = new Throwable();
+        thr.setStackTrace(Thread.currentThread().getStackTrace());
+        ResourceActivityVisitor rav = new ResourceActivityVisitor();
+        try {
+          delta.accept(rav);
+        }
+        catch (CoreException ce) {
+          // Do nothing this should never fail
+        }
+        if (!rav.getResult().isEmpty()) {
+          String message = "Resources changed: " + delta.getFullPath() +
+                                                         "\n" + rav.getResult();
+          CorePlugin.logError(message, thr);
+        }
+	  }
 	}
 	private static final boolean caseInsensitive = new File("a").compareTo(new File("A")) == 0; //$$NON-NLS-1$$ //$$NON-NLS-2$$
 	public static boolean osIsCaseInsensitive() {

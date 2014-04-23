@@ -160,7 +160,7 @@ public class ActivityEditor extends OALEditor
 		Ooaofooa modelRoot = (Ooaofooa)m_modelElement.getModelRoot();
 		OalLexer lexer = new OalLexer(
 				new StringReader(m_document.get()));
-		TextParser parser = new TextParser(modelRoot, lexer,
+		EditorTextParser parser = new EditorTextParser(modelRoot, lexer,
 				m_myAnnotationModel, m_ae_input, m_document);
         boolean parseCompleted = false;
         boolean problemsFound = false;
