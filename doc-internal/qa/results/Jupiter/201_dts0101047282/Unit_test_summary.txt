@@ -1,6 +1,6 @@
 This document captures the state of the BridgePoint unit tests:
 ===============================================================
-Branch: <TODO: Fill This In>
+Branch: 201_truly_headless_build
 Hostname: 	CAS-RMULVEY-LT
 OS Name:  	Windows 7
 	Version:	6.1
@@ -10,7 +10,7 @@ Test Suite                              Status			TestRuns	Time    Timestamp
 ---------------------------------------------------------------------------------------------
 Core Generic Upgrade Test				PASS			39			6.65s	20140421 17:42:28
 UI Canvas CCP Test						PASS			102			1769.31s20140422 12:28:11
-Core Test								FAIL (0e/1f)	1097		1820.48s20140423 10:25:11
+Core Test								PASS			1097		1820.48s20140423 10:25:11model 
 UI Explorer Test						PASS			18			106.83s	20140421 21:01:53
 Core Test - Workspace Setup				PASS			14			88.38s	20140421 17:41:14
 Parse All Test							PASS			4600		956.45s	20140421 17:26:03
@@ -19,7 +19,7 @@ Core Test 2								PASS			306			314.67s	20140421 18:19:45
 Debug - Verifier Test					FAIL (0e/3f)	100			1497.66s20140421 18:45:29
 Core Test - System Level Tests			PASS			24			15.22s	20140421 18:20:15
 Core Test 2 - Consistency				PASS			17			2.29s	20140421 17:39:18
-IO MDL Tests							FAIL (0e/1f)	90			354.29s	20140422 11:46:18 (testImportOdms)
+IO MDL Tests							PASS			89			367.29s	20140423 11:46:18
 UI Properties Test						PASS			163			50.98s	20140421 21:03:11
 Core Test - Existing Projects			PASS			15			11.20s	20140421 17:41:56
 Model Compare Test						FAIL (0e/3f)	245			821.67s	20140423 10:09:46
