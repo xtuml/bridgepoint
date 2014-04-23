@@ -46,7 +46,6 @@ import com.mentor.nucleus.bp.core.util.CoreUtil;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.debug.ui.model.BPDebugTarget;
 import com.mentor.nucleus.bp.debug.ui.model.BPThread;
-import com.mentor.nucleus.bp.internal.tools.mcjava.Activator;
 
 /**
  * This sample class demonstrates how to plug-in a new workbench view. The view
