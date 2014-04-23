@@ -186,9 +186,7 @@ public class TextParser extends OalParser {
 		}
 
 		if (reportError) {
-			// Report the error
-			CorePlugin.logError("Parse error: " + parserMessage + "line: " + parserLineNumber,
-					null);
+			System.out.println("Parse error: " + parserMessage + "line: " + parserLineNumber);
 		}
 	}
 };
