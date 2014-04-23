@@ -161,15 +161,17 @@ public class DelayedMarkerJob extends Job {
 		// then set shutdown flag
 		shutdown = true;
 		// next try to cancel the current job
-		boolean result = getDefaultInst().cancel();
-		if(!result) {
-			// if the job could not be cancelled
-			// join the job waiting for the
-			// current element to get processed
-			try {
-				getDefaultInst().join();
-			} catch (InterruptedException e) {
-				CorePlugin.logError("Unable to join job during shutdown.", e);
+		if (defaultInst != null) {
+			boolean result = getDefaultInst().cancel();
+			if(!result) {
+				// if the job could not be cancelled
+				// join the job waiting for the
+				// current element to get processed
+				try {
+					getDefaultInst().join();
+				} catch (InterruptedException e) {
+					CorePlugin.logError("Unable to join job during shutdown.", e);
+				}
 			}
 		}
 	}
