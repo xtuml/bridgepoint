@@ -25,15 +25,14 @@ package com.mentor.nucleus.bp.internal.tools;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.eclipse.core.runtime.Plugin;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.osgi.framework.BundleContext;
-
-import com.mentor.nucleus.bp.mc.AbstractActivator;
 
 /**
  * The main plugin class to be used in the desktop.
  */
-public class ToolsPlugin extends AbstractActivator  {
+public class ToolsPlugin extends Plugin  {
 	//The shared instance.
 	private static ToolsPlugin plugin;
 	//Resource bundle.
@@ -45,7 +44,7 @@ public class ToolsPlugin extends AbstractActivator  {
 	 * The constructor.
 	 */
 	public ToolsPlugin() {
-		super(PLUGIN_ID);
+		super();
 		plugin = this;
 		try {
 			resourceBundle = ResourceBundle.getBundle(PLUGIN_ID);
@@ -60,7 +59,6 @@ public class ToolsPlugin extends AbstractActivator  {
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		setBundle(context.getBundle());
 	}
 
 	/**
@@ -91,26 +89,10 @@ public class ToolsPlugin extends AbstractActivator  {
 	}
 
 	/**
-	 * Returns an image descriptor for the image file at the given
-	 * plug-in relative path
-	 *
-	 * @param path the path
-	 * @return the image descriptor
-	 */
-	public static ImageDescriptor getImageDescriptor(String path) {
-		return imageDescriptorFromPlugin(PLUGIN_ID, path);
-	}
-	
-	/**
 	 * Returns the plugin's resource bundle,
 	 */
 	public ResourceBundle getResourceBundle() {
 		return resourceBundle;
 	}
 
-	@Override
-	public void earlyStartup() {
-		// No early startup behavior required.
-		
-	}
 }

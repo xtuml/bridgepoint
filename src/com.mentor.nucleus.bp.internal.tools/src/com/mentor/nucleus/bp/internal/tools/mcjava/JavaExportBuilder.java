@@ -29,7 +29,6 @@ import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
-import com.mentor.nucleus.bp.internal.tools.ToolsPlugin;
 import com.mentor.nucleus.bp.io.core.CoreExport;
 import com.mentor.nucleus.bp.io.mdl.ExportModelStream;
 import com.mentor.nucleus.bp.mc.AbstractActivator;
@@ -47,7 +46,7 @@ public class JavaExportBuilder extends AbstractExportBuilder {
 	private Map m_args;
 
 	public JavaExportBuilder() {
-		super(ToolsPlugin.getDefault(), null);
+		super(Activator.getDefault(), null);
 		m_elements = new ArrayList<NonRootModelElement>();
 		m_exportedSystems = new ArrayList<SystemModel_c>();
 	}

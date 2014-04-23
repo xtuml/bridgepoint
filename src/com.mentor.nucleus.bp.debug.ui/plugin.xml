@@ -53,6 +53,7 @@ the License.
       <import plugin="com.mentor.nucleus.bp.ui.session"/>
       <import plugin="com.mentor.nucleus.bp.ui.graphics"/>
       <import plugin="com.mentor.nucleus.bp.io.core"/>
+      <import plugin="com.mentor.nucleus.bp.als.oal"/>
      </requires>
 
   <extension
