@@ -72,6 +72,9 @@ public class ModelStructureDiffViewer extends TreeViewer implements ICompareInpu
 			@Override
 			public void run() {
 				refresh();
+				if(getTree().getItems().length == 0) {
+					return;
+				}
 				TreeItem topItem = getTree().getItem(0);
 				if(topItem.getItemCount() > 0) {
 					TreeDifference difference = ((TreeDifferenceContentProvider) getContentProvider())

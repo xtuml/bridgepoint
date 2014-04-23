@@ -71,6 +71,7 @@ the License.
       <import plugin="com.mentor.nucleus.bp.compare"/>
       <import plugin="org.eclipse.compare"/>
       <import plugin="com.mentor.nucleus.bp.model.compare"/>
+      <import plugin="org.eclipse.ui.navigator"/>
    </requires>
 
    <extension
