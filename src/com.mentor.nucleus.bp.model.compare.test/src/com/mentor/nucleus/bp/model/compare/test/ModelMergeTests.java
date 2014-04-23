@@ -41,6 +41,7 @@ import com.mentor.nucleus.bp.core.Attribute_c;
 import com.mentor.nucleus.bp.core.ClassAsAssociatedOneSide_c;
 import com.mentor.nucleus.bp.core.ClassAsAssociatedOtherSide_c;
 import com.mentor.nucleus.bp.core.ClassStateMachine_c;
+import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.ExternalEntity_c;
 import com.mentor.nucleus.bp.core.InstanceStateMachine_c;
 import com.mentor.nucleus.bp.core.LinkedAssociation_c;
@@ -58,6 +59,7 @@ import com.mentor.nucleus.bp.core.StateMachineState_c;
 import com.mentor.nucleus.bp.core.StateMachine_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.Transition_c;
+import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.Transaction;
@@ -98,6 +100,12 @@ public class ModelMergeTests extends BaseTest {
 	 */
 	@Override
 	protected void initialSetup() throws Exception {
+		CorePlugin
+				.getDefault()
+				.getPreferenceStore()
+				.setValue(
+						BridgePointPreferencesStore.ENABLE_ERROR_FOR_EMPTY_SYNCHRONOUS_MESSAGE,
+						false);
 		String test_repository_location = System
 				.getenv("XTUML_TEST_MODEL_REPOSITORY");
 		if (test_repository_location == null
