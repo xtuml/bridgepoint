@@ -31,6 +31,7 @@ import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.test.ActivityTestsGenerics;
 import com.mentor.nucleus.bp.core.test.CanRenameCanDeleteTestGenerics;
+import com.mentor.nucleus.bp.core.test.ClassKeyLetters;
 import com.mentor.nucleus.bp.core.test.CombineSplitReferentialsTestGenerics;
 import com.mentor.nucleus.bp.core.test.CommunicationLinkTestsGenerics;
 import com.mentor.nucleus.bp.core.test.CommunicationMessageTestsGenerics;
@@ -39,6 +40,7 @@ import com.mentor.nucleus.bp.core.test.CoreGlobalsTestSuiteIIGenerics;
 import com.mentor.nucleus.bp.core.test.CreationTransitionEventReassignmentTestGenerics;
 import com.mentor.nucleus.bp.core.test.DeleteDatatypesTestGenerics;
 import com.mentor.nucleus.bp.core.test.I810_SlowDeletionTestGenerics;
+import com.mentor.nucleus.bp.core.test.IntegrityIssueTests;
 import com.mentor.nucleus.bp.core.test.ModelChangeListenersBatchingTestGenerics;
 import com.mentor.nucleus.bp.core.test.ModelIntegrityTests;
 import com.mentor.nucleus.bp.core.test.ModelTransactionTestGenerics;
@@ -80,6 +82,7 @@ public class CoreGlobalsTestSuite2Generics extends TestSuite {
 		// turn off autobuild to stop MC-3020 builders from running
 		WorkspaceUtil.setAutobuilding(false);   // throws CoreException
 		CorePlugin.getDefault().getPreferenceStore().setValue(BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION, true);
+        addTest(new TestSuite(IntegrityIssueTests.class));
 		addTest(new TestSuite(CoreGlobalsTestSuiteIIGenerics.class));
 		addTest(new TestSuite(MultipleSelectionAssignmentTests.class));
         addTest(new TestSuite(SequenceTestsGenerics.class));
@@ -107,5 +110,6 @@ public class CoreGlobalsTestSuite2Generics extends TestSuite {
         addTest(new TestSuite(ActivityTestsGenerics.class));
         addTest(new TestSuite(TestVisibilityInElementChooser.class));
         addTest(new TestSuite(ModelIntegrityTests.class));
+        addTest(new TestSuite(ClassKeyLetters.class));
 	}
 }

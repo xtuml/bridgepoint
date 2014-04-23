@@ -38,7 +38,6 @@ import com.mentor.nucleus.bp.core.FunctionPackage_c;
 import com.mentor.nucleus.bp.core.InstanceStateMachine_c;
 import com.mentor.nucleus.bp.core.InterfacePackage_c;
 import com.mentor.nucleus.bp.core.ModelClass_c;
-import com.mentor.nucleus.bp.core.Modeleventnotification_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.Sequence_c;
@@ -157,41 +156,42 @@ public class CanvasModelListener extends ModelChangeAdapter  {
 		}
 	}
 	
-    public static void setGraphicalRepresents(final Model_c model) {
-        Ooaofooa modelRoot = Ooaofooa.getInstance(model.getModelRoot().getId());
-        if (model.getRepresents() == null) {
-        	ModelSpecification_c ms = ModelSpecification_c.getOneGD_MSOnR9(model);
-        	if(ms == null) {
+	public static void setGraphicalRepresents(final Model_c model) {
+		Ooaofooa modelRoot = Ooaofooa.getInstance(model.getModelRoot().getId());
+		if (model.getRepresents() == null) {
+			ModelSpecification_c ms = ModelSpecification_c.getOneGD_MSOnR9(model);
+			if (ms == null) {
 				ms = ModelSpecification_c
 						.ModelSpecificationInstance(Ooaofgraphics
 								.getDefaultInstance(),
-								new ClassQueryInterface_c() {
+						new ClassQueryInterface_c() {
 
-									@Override
-									public boolean evaluate(Object candidate) {
-										return ((ModelSpecification_c) candidate)
-												.getModel_type() == model
-												.getModel_typeCachedValue()
-												&& ((ModelSpecification_c) candidate)
-														.getOoa_type() == model
-														.getOoa_typeCachedValue();
-									}
-								});
+							@Override
+							public boolean evaluate(Object candidate) {
+								return ((ModelSpecification_c) candidate)
+										.getModel_type() == model
+										.getModel_typeCachedValue()
+										&& ((ModelSpecification_c) candidate)
+												.getOoa_type() == model
+												.getOoa_typeCachedValue();
+							}
+						});
+
 				if (ms != null) {
 					ms.relateAcrossR9To(model);
 				}
-        	}
-          model.setRepresents(Cl_c.Getinstancefromooa_id(modelRoot,
-        			                       model.getOoa_id(), model.getOoa_type()));
-        }
-        ArrayList<GraphicalElement_c> ges =
-        	      new ArrayList<GraphicalElement_c>(
-        	    		Arrays.asList(GraphicalElement_c.getManyGD_GEsOnR1(model)));
-        ges.addAll(Arrays.asList(GraphicalElement_c.getManyGD_GEsOnR32(
-        		               ElementInSuppression_c.getManyGD_EISsOnR32(model))));
-        for (Iterator<GraphicalElement_c> it = ges.iterator(); it.hasNext(); ) {
-          final GraphicalElement_c ge = it.next();
-          ElementSpecification_c es = ElementSpecification_c.getOneGD_ESOnR10(ge);
+			}
+			model.setRepresents(Cl_c.Getinstancefromooa_id(modelRoot,
+					model.getOoa_id(), model.getOoa_type()));
+		}
+		ArrayList<GraphicalElement_c> ges = 
+				new ArrayList<GraphicalElement_c>(
+						Arrays.asList(GraphicalElement_c.getManyGD_GEsOnR1(model)));
+		ges.addAll(Arrays.asList(GraphicalElement_c.getManyGD_GEsOnR32(
+				ElementInSuppression_c.getManyGD_EISsOnR32(model))));
+		for (Iterator<GraphicalElement_c> it = ges.iterator(); it.hasNext();) {
+			final GraphicalElement_c ge = it.next();
+			ElementSpecification_c es = ElementSpecification_c.getOneGD_ESOnR10(ge);
 			if (es == null) {
 				ElementSpecification_c spec = ElementSpecification_c
 						.ElementSpecificationInstance(Ooaofgraphics
@@ -208,24 +208,21 @@ public class CanvasModelListener extends ModelChangeAdapter  {
 				if (spec != null) {
 					spec.relateAcrossR10To(ge);
 				}
-          }
-          if (ge.getRepresents() == null) {
-            if (model.getRepresents() instanceof SystemModel_c) {
-              ge.setRepresents(Cl_c.Getinstancefromooa_id(
-            				              (SystemModel_c) model.getRepresents(),
-            				                                       ge.getOoa_id(),
-            				                                     ge.getOoa_type()));
-            }
-            else {
-              NonRootModelElement nrme =
-            			  (NonRootModelElement) Cl_c.Getinstancefromooa_id(
-            					       modelRoot, ge.getOoa_id(), ge.getOoa_type());
-              if (nrme != null && nrme.getPersistableComponent() != null) {
-                ge.setRepresents(nrme);
-              }
-            }
-          }
-        }
+			}
+			Object instanceFromId = null;
+			if (model.getRepresents() instanceof SystemModel_c) {
+				instanceFromId = Cl_c.Getinstancefromooa_id(
+						(SystemModel_c) model.getRepresents(), ge.getOoa_id(),
+						ge.getOoa_type());
+			} else {
+				instanceFromId = Cl_c.Getinstancefromooa_id(modelRoot,
+						ge.getOoa_id(), ge.getOoa_type());
+			}
+			if (instanceFromId != null
+					&& (ge.getRepresents() == null || ge.getRepresents() != instanceFromId)) {
+				ge.setRepresents(instanceFromId);
+			}
+		}
 	}
 	
     public static boolean classInView(Model_c canvas,
@@ -337,18 +334,16 @@ public class CanvasModelListener extends ModelChangeAdapter  {
         Ooaofgraphics mr = Ooaofgraphics.getInstance(modelElement.getModelRoot().getId());
         
         GraphicalElement_c ge = getGraphicalElement(mr, modelElement);
-        if(ge!=null && ge.getRepresents()==null){
-            int old_val = Ooaofooa.Enablemodelchangelistenersfor(
-                    mr,
-                    Modeleventnotification_c.MASK_NO_DELTAS,
-                    Modeleventnotification_c.MASK_NO_EVENTS);
-            try {
-            ge.setRepresents(modelElement);
-            }
-            finally {
-            Ooaofooa.Enablemodelchangelistenersfor(mr, old_val, old_val );
-        }
-      }
+                 if(ge!=null){
+        	             // reset the represents for the entire diagram as the
+        	             // element that was replaced may contain additional data
+        	             // that requires refreshing, an example is the case of an
+        	             // interface reference.  In this example the interface
+        	             // reference was replaced as well and its represents
+        	             // also requires updating
+        	         	setGraphicalRepresents(Model_c.getOneGD_MDOnR1(ge));
+        	         }        
+
     }
 	public void modelElementRelationChanged(ModelChangedEvent event, IModelDelta delta) {
 		handleElementChanged(event, delta);

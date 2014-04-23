@@ -115,7 +115,11 @@ public class GraphicsUtil {
     	GraphicalElement_c gElement = GraphicalElement_c.GraphicalElementInstance(root, new ClassQueryInterface_c() {
 		
 			public boolean evaluate(Object candidate) {
-				return ((GraphicalElement_c) candidate).getRepresents() == element;
+				GraphicalElement_c elem = (GraphicalElement_c) candidate;
+				if(elem.getRepresents() != null) {
+					return elem.getRepresents().equals(element);
+				}
+				return false;
 			}
 		
 		});
