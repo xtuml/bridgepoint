@@ -2,7 +2,7 @@
 <feature
       id="com.mentor.nucleus.bp.pkg"
       label="BridgePoint UML"
-      version="4.1.9"
+      version="4.1.10"
       provider-name="Mentor Graphics"
       image="images/GreenChip.gif">
 
@@ -26,23 +26,23 @@ the License.
 
    <includes
          id="com.mentor.nucleus.bp.bld.pkg"
-         version="4.1.9"
+         version="4.1.10"
          name="BridgePoint Builder"/>
 
    <includes
          id="com.mentor.nucleus.bp.dap.pkg"
-         version="4.1.9"
+         version="4.1.10"
          name="BridgePoint Data Access Package"/>
 
    <includes
          id="com.mentor.nucleus.bp.verifier.pkg"
-         version="4.1.9"
+         version="4.1.10"
          name="BridgePoint Verifier"/>
 
    <plugin
          id="com.mentor.nucleus.bp.pkg"
          download-size="0"
          install-size="0"
-         version="4.1.9"/>
+         version="4.1.10"/>
 
 </feature>
