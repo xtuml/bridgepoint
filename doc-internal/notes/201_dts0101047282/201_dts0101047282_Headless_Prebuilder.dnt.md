@@ -212,24 +212,35 @@ none
 8. Unit Test
 ------------
 
-These tests must be run on linux.  Therefore, they are manual tests.
+These tests must be run on linux.  Therefore, they are manual tests.  
 
-8.1 Verify that -prebuildOnly works when no DISPLAY is available
+ This test is only valid in a linux installation  
 
-* This test is only valid in a linux installation
-* create a test workspace with the MicrowaveOven project installed in it
+1) Test to assure -prebuildOnly with no DISPLAY works
+*  Launch BridgePoint and create a test workspace with the MicrowaveOven project installed in it.
 * modify the CLI.sh shell script and add a valid license, for example:  
 export MGLS_LICENSE_FILE=1717@wv-lic-01.wv.mentorg.com:1717@wv-lic-02.wv.mentorg.com:1717@svr-azt-eng-01
-* In CLI.sh add the following setting to force no DISPLAY to be available:  
+* delete the gen/code_generation folder under the MicrwaveOven project
+* Exit from Bridgepoint 
+*  In CLI.sh add the following setting to force no DISPLAY to be available:  
 export DISPLAY=
-* Exit from Bridgepoint (if it is running)
-* open a shell and go to the folder where the CLI.sh modeified above exists.
+* open a shell and go to the folder where the CLI.sh that was modified above exists.
 * run the following command:  
 CLI.sh Build -project MicrowaveOven -prebuidlOnly
-* RESULT - 
+* RESULT - The MicroWaveOven.sql file exists in the gen/code_generation folder
+* RESULT - No error were seen on the console
 
-8.2 Verify that when -prebuildOnly is used under linux and there is a license
-error, it is reported properly.
+2) Test to assure that errors are properly reported when no DISPLAY is present
+* delete the gen/code_generation folder from under the MicrowaveOven project
+* modify the CLI.sh shell script and remove the LICENSE (w want it to fail):  
+export MGLS_LICENSE_FILE=
+*  In CLI.sh add the following setting to force no DISPLAY to be available:  
+export DISPLAY=
+* open a shell and go to the folder where the CLI.sh that was modified above exists.
+* run the following command:  
+CLI.sh Build -project MicrowaveOven -prebuidlOnly
+* RESULT - A license error is displayed on the console, but no exception stack it seen, just a license error
+* RESULT - The MicrowaveOven.sql file is NOT present in the gen/code_generation folder
 
 
 End
