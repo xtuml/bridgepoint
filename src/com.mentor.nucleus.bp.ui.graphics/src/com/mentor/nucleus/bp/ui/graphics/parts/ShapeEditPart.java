@@ -87,6 +87,7 @@ import com.mentor.nucleus.bp.ui.graphics.anchors.WSAnchor;
 import com.mentor.nucleus.bp.ui.graphics.editor.GraphicalEditor;
 import com.mentor.nucleus.bp.ui.graphics.figures.OffsetImageFigure;
 import com.mentor.nucleus.bp.ui.graphics.figures.ShapeImageFigure;
+import com.mentor.nucleus.bp.ui.graphics.figures.SimpleTooltipFigure;
 import com.mentor.nucleus.bp.ui.graphics.layout.ContainerXYLayout;
 import com.mentor.nucleus.bp.ui.graphics.layout.FloatingTextLocator;
 import com.mentor.nucleus.bp.ui.graphics.layout.XYDelegatingLayout;
@@ -126,9 +127,9 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements
 		} else
 			figure.setMinimumSize(new Dimension(8, 8));
 		if (!getTextDescription().equals("")) {
-			Label label = new Label(getTextDescription());
-			label.setBorder(new MarginBorder(3, 3, 3, 3));
-			figure.setToolTip(label);
+			SimpleTooltipFigure tooltipFigure = new SimpleTooltipFigure();
+			tooltipFigure.setMessage(getTextDescription());
+			figure.setToolTip(tooltipFigure);
 		}
 		return figure;
 	}
@@ -271,9 +272,9 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements
 			((EditPart) text).refresh();
 		}
 		if (!getTextDescription().equals("")) {
-			Label label = new Label(getTextDescription());
-			label.setBorder(new MarginBorder(3, 3, 3, 3));
-			getFigure().setToolTip(label);
+			SimpleTooltipFigure tooltipFigure = new SimpleTooltipFigure();
+			tooltipFigure.setMessage(getTextDescription());
+			getFigure().setToolTip(tooltipFigure);
 		} else {
 			if (getFigure().getToolTip() != null)
 				getFigure().setToolTip(null);
