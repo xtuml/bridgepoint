@@ -26,6 +26,8 @@ package com.mentor.nucleus.bp.ui.graphics.editor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -38,6 +40,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.FigureCanvas;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.ToolTipHelper;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -161,6 +164,8 @@ import com.mentor.nucleus.bp.ui.graphics.actions.CanvasPasteAction;
 import com.mentor.nucleus.bp.ui.graphics.actions.GraphicalActionConstants;
 import com.mentor.nucleus.bp.ui.graphics.factories.ConnectorCreationFactory;
 import com.mentor.nucleus.bp.ui.graphics.factories.ShapeCreationFactory;
+import com.mentor.nucleus.bp.ui.graphics.figures.DecoratedPolylineConnection;
+import com.mentor.nucleus.bp.ui.graphics.figures.ShapeImageFigure;
 import com.mentor.nucleus.bp.ui.graphics.listeners.GraphicsEditorListener;
 import com.mentor.nucleus.bp.ui.graphics.outline.GraphicalOutlinePage;
 import com.mentor.nucleus.bp.ui.graphics.palette.GraphicsConnectionCreationToolEntry;
@@ -216,7 +221,8 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 	private String DIAGRAM_VIEWPORT_Y = "__DIAGRAM_VIEWPORT_Y"; //$NON-NLS-1$
 	private String DIAGRAM_ZOOM = "__DIAGRAM_ZOOM"; //$NON-NLS-1$
 	private static Font diagramFont;
-	private ArrayList<BPToolTipHelper> helpers = new ArrayList<BPToolTipHelper>();
+//	private ArrayList<BPToolTipHelper> helpers = new ArrayList<BPToolTipHelper>();
+	private HashMap<IFigure, BPToolTipHelper> tooltipMap = new HashMap<IFigure, BPToolTipHelper>();
 
 
 	@Override
@@ -637,6 +643,7 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 				getLightweightSystem().setEventDispatcher(new DomainEventDispatcher(domain, this){
 
 					// Override the creation of ToolTip helper object 
+					BPToolTipHelper defaultHelper;
 					@Override 
 					protected ToolTipHelper getToolTipHelper() {
 						/*
@@ -647,9 +654,28 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 						 * shall be created to store created helper, to be
 						 * notified by editor visiblity change
 						 */
-						BPToolTipHelper newHelper = new BPToolTipHelper(control);
-						helpers.add(newHelper);
-						return newHelper;
+						IFigure hoverSource = this.getCursorTarget();
+						if (hoverSource instanceof ShapeImageFigure || hoverSource instanceof DecoratedPolylineConnection){
+							BPToolTipHelper existedHelper = tooltipMap.get(hoverSource);
+							if ( existedHelper != null)
+								return existedHelper;
+
+							BPToolTipHelper newHelper = new BPToolTipHelper(control);
+							tooltipMap.put(hoverSource,newHelper);
+							return newHelper;
+						}
+						
+						if (defaultHelper == null)
+							defaultHelper = new BPToolTipHelper(control);
+						
+						// Notify all editor helpers to close their simple tooltip if up
+						Collection<BPToolTipHelper> helpers = tooltipMap.values();
+						for (BPToolTipHelper helper : helpers) {
+							helper.hideSimpleToolTip();
+						}
+						
+						return defaultHelper;
+						
 					}
 				});
 			}
@@ -1265,6 +1291,7 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 				diagramFont = null;
 			}
 		}
+		Collection<BPToolTipHelper> helpers = tooltipMap.values();
 		for (BPToolTipHelper helper : helpers) {
 			helper.dispose();
 		}
@@ -1301,6 +1328,13 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 			// additionally reset the current canvas variable
 			// in the Gr_c class
 			Gr_c.cur_canvas = (Canvas) getCanvas();
+			
+			// Notify all editor tooltip helpers to redisplay the tooltip if 
+			// possible
+			Collection<BPToolTipHelper> helpers = tooltipMap.values();
+			for (BPToolTipHelper helper : helpers) {
+				helper.activate();
+			}
 		}
 	}
 
@@ -1316,7 +1350,14 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 
 	@Override
 	public void partDeactivated(IWorkbenchPart part) {
-		// do nothing
+		// Notify all editor tooltip helpers to hide the tooltips if 
+		// visible
+		Collection<BPToolTipHelper> helpers = tooltipMap.values();
+		if (part == this || part == getParentEditor()) {
+			for (BPToolTipHelper helper : helpers) {
+				helper.deactivate();
+			}
+		}
 	}
 
 	@Override
