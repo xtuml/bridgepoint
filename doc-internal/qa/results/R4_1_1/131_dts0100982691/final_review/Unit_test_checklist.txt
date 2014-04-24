@@ -1,0 +1,13 @@
+This document captures the state of the BridgePoint unit tests:
+===============================================================
+Branch: 131_dts0100982691_NM
+Hostname: 	nmohama-vm-w7-1
+OS Name:  	Windows 7
+	Version:	6.1
+	Architecture:	x86
+
+Test Suite                              Status			TestRuns	Time    Timestamp
+---------------------------------------------------------------------------------------------
+UI Canvas CCP Test						PASS			102			839.44s	20140423 18:56:39
+UI Canvas Suite 1						PASS			84			149.47s	20140423 18:32:04
+UI Canvas Suite 2						PASS			270			580.06s	20140423 18:42:22
