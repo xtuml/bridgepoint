@@ -94,7 +94,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 	private LightweightSystem lws;
 	
 	// Flow control fields
-	private boolean tipShowing;
+	private boolean tipDisplayed;
 	private boolean  ReplaceShell = false;
 	private Timer mouseInCloseTimer;
 	private Timer mouseOutCloseTimer;
@@ -119,7 +119,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 	
 	@Override
 	public void displayToolTipNear(IFigure hoverSource, IFigure tip, int eventX, int eventY) {
-		if (tip != null && hoverSource != currentTipSource || ReplaceShell) {
+		if (tip != null && hoverSource != currentTipSource || ReplaceShell || !isShowing()) {
 			if ( showDetailedTooltip && isShowing())
 				return;
 			if ( figureWithOpenedToolTip.get(hoverSource) != null)
@@ -357,7 +357,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 		}else{
 			getShell().setVisible(false);
 		}
-		tipShowing = false;
+		tipDisplayed = false;
 		showDetailedTooltip = false;
 	}
 	
@@ -369,13 +369,13 @@ public class BPToolTipHelper extends ToolTipHelper {
 	
 	@Override
 	public boolean isShowing() {
-		return tipShowing;
+		return tipDisplayed;
 	}
 	
 	@Override
 	protected void show() {
 		getShell().setVisible(true);
-		tipShowing = true;
+		tipDisplayed = true;
 		if (showDetailedTooltip){
 			figureWithOpenedToolTip.put(currentTipSource, "");
 		}
@@ -390,4 +390,13 @@ public class BPToolTipHelper extends ToolTipHelper {
 		return lws;
 	}
 	
+	public void deactivate(){
+		if (tipDisplayed)
+			getShell().setVisible(false);
+		
+	}
+	public void activate(){
+		if (tipDisplayed)
+			getShell().setVisible(true);
+	}
 }
