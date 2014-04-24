@@ -26,6 +26,7 @@ package com.mentor.nucleus.bp.ui.graphics.editor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -38,6 +39,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.FigureCanvas;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.ToolTipHelper;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -161,6 +163,8 @@ import com.mentor.nucleus.bp.ui.graphics.actions.CanvasPasteAction;
 import com.mentor.nucleus.bp.ui.graphics.actions.GraphicalActionConstants;
 import com.mentor.nucleus.bp.ui.graphics.factories.ConnectorCreationFactory;
 import com.mentor.nucleus.bp.ui.graphics.factories.ShapeCreationFactory;
+import com.mentor.nucleus.bp.ui.graphics.figures.DecoratedPolylineConnection;
+import com.mentor.nucleus.bp.ui.graphics.figures.ShapeImageFigure;
 import com.mentor.nucleus.bp.ui.graphics.listeners.GraphicsEditorListener;
 import com.mentor.nucleus.bp.ui.graphics.outline.GraphicalOutlinePage;
 import com.mentor.nucleus.bp.ui.graphics.palette.GraphicsConnectionCreationToolEntry;
@@ -217,6 +221,7 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 	private String DIAGRAM_ZOOM = "__DIAGRAM_ZOOM"; //$NON-NLS-1$
 	private static Font diagramFont;
 	private ArrayList<BPToolTipHelper> helpers = new ArrayList<BPToolTipHelper>();
+	private HashMap<IFigure, BPToolTipHelper> tooltipMap = new HashMap<IFigure, BPToolTipHelper>();
 
 
 	@Override
@@ -637,6 +642,7 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 				getLightweightSystem().setEventDispatcher(new DomainEventDispatcher(domain, this){
 
 					// Override the creation of ToolTip helper object 
+					BPToolTipHelper defaultHelper;
 					@Override 
 					protected ToolTipHelper getToolTipHelper() {
 						/*
@@ -647,9 +653,22 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 						 * shall be created to store created helper, to be
 						 * notified by editor visiblity change
 						 */
-						BPToolTipHelper newHelper = new BPToolTipHelper(control);
-						helpers.add(newHelper);
-						return newHelper;
+						IFigure hoverSource = this.getCursorTarget();
+						if (hoverSource instanceof ShapeImageFigure || hoverSource instanceof DecoratedPolylineConnection){
+							BPToolTipHelper existedHelper = tooltipMap.get(hoverSource);
+							if ( existedHelper != null)
+								return existedHelper;
+
+							BPToolTipHelper newHelper = new BPToolTipHelper(control);
+							tooltipMap.put(hoverSource,newHelper);
+							helpers.add(newHelper);
+							return newHelper;
+						}
+						
+						if (defaultHelper == null)
+							defaultHelper = new BPToolTipHelper(control);
+						return defaultHelper;
+						
 					}
 				});
 			}
@@ -1265,9 +1284,6 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 				diagramFont = null;
 			}
 		}
-		for (BPToolTipHelper helper : helpers) {
-			helper.dispose();
-		}
 		JFaceResources.getFontRegistry().removeListener(this);
 	}
 
@@ -1301,6 +1317,9 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 			// additionally reset the current canvas variable
 			// in the Gr_c class
 			Gr_c.cur_canvas = (Canvas) getCanvas();
+			for (BPToolTipHelper helper : helpers) {
+				helper.activate();
+			}
 		}
 	}
 
@@ -1316,7 +1335,11 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 
 	@Override
 	public void partDeactivated(IWorkbenchPart part) {
-		// do nothing
+		if (part == this || part == getParentEditor()) {
+			for (BPToolTipHelper helper : helpers) {
+				helper.deactivate();
+			}
+		}
 	}
 
 	@Override
