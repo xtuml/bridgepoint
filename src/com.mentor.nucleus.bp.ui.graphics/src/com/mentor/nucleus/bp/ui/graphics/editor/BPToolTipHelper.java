@@ -118,7 +118,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 	
 	// Flow control fields
 	private boolean tipDisplayed;
-	private boolean  ReplaceShell = false;
 	private Timer mouseInCloseTimer;
 	private Timer mouseOutCloseTimer;
 	protected boolean showDetailedTooltip = false;
@@ -141,7 +140,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 	
 	@Override
 	public void displayToolTipNear(IFigure hoverSource, IFigure tip, int eventX, int eventY) {
-		if (tip != null && hoverSource != currentTipSource || ReplaceShell ) {
+		if (tip != null && !isShowing()) {
 			if ( showDetailedTooltip && isShowing())
 				return;
 			
@@ -152,7 +151,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 			getShell().setFocus();
 			show();
 			updateEclipsePassedArgument(hoverSource, tip, eventX, eventY);
-			ReplaceShell = false;
 		}
 	}
 	
@@ -279,7 +277,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 					return;
 				}
 				hide();
-				ReplaceShell = true;
 				if (!showDetailedTooltip)
 					showDetailedTooltip = true;
 				detailedtooltip = createDetailedShell();
@@ -378,7 +375,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 		}
 		tipDisplayed = false;
 		showDetailedTooltip = false;
-		ReplaceShell = true;
 	}
 	
 	@Override
