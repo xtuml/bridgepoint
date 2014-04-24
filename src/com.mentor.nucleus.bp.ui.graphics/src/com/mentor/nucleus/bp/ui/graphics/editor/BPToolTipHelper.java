@@ -99,7 +99,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 	private Timer mouseInCloseTimer;
 	private Timer mouseOutCloseTimer;
 	protected boolean showDetailedTooltip = false;
-	private static HashMap<IFigure, String> figureWithOpenedToolTip = new HashMap<IFigure, String>();
 	private static final int tooltipLocationIndent = 5;
 	private static final int DetailedTipWidthIncrement = 100;
 	private static final int DetailedTipHeightIncrement = 50;
@@ -119,10 +118,8 @@ public class BPToolTipHelper extends ToolTipHelper {
 	
 	@Override
 	public void displayToolTipNear(IFigure hoverSource, IFigure tip, int eventX, int eventY) {
-		if (tip != null && hoverSource != currentTipSource || ReplaceShell || !isShowing()) {
+		if (tip != null && hoverSource != currentTipSource || ReplaceShell ) {
 			if ( showDetailedTooltip && isShowing())
-				return;
-			if ( figureWithOpenedToolTip.get(hoverSource) != null)
 				return;
 			
 			setTooltipText(tip);
@@ -233,7 +230,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 							}
 						});
 					}
-				}, 500);
+				}, 50);
 			}
 
 			@Override
@@ -303,7 +300,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 								}
 							});
 						}
-					}, 500);
+					}, 50);
 
 
 				}
@@ -353,12 +350,12 @@ public class BPToolTipHelper extends ToolTipHelper {
 		if (showDetailedTooltip){
 			getShell().dispose();
 			detailedtooltip = null;
-			figureWithOpenedToolTip.remove(currentTipSource);
 		}else{
 			getShell().setVisible(false);
 		}
 		tipDisplayed = false;
 		showDetailedTooltip = false;
+		ReplaceShell = true;
 	}
 	
 	@Override
@@ -376,9 +373,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 	protected void show() {
 		getShell().setVisible(true);
 		tipDisplayed = true;
-		if (showDetailedTooltip){
-			figureWithOpenedToolTip.put(currentTipSource, "");
-		}
 	}
 	
 	@Override
@@ -398,5 +392,13 @@ public class BPToolTipHelper extends ToolTipHelper {
 	public void activate(){
 		if (tipDisplayed)
 			getShell().setVisible(true);
+	}
+
+	public void hideSimpleToolTip() {
+		if (!showDetailedTooltip && isShowing())
+		{
+			hide();
+		}
+		
 	}
 }
