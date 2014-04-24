@@ -100,12 +100,22 @@ public class BPToolTipHelper extends ToolTipHelper {
 	private Timer mouseOutCloseTimer;
 	protected boolean showDetailedTooltip = false;
 	private static HashMap<IFigure, String> figureWithOpenedToolTip = new HashMap<IFigure, String>();
-	
+	private static final int tooltipLocationIndent = 5;
+	private static final int DetailedTipWidthIncrement = 100;
+	private static final int DetailedTipHeightIncrement = 50;
 	
 	// Shell Style fields
+	// Default ToolTip Maximum Size
 	public static final Dimension MaxPreferredTooltipSize = new Dimension(400, 175);
+	// Default ToolTip Minimum Size
+	public static final Dimension MinPreferredTooltipSize = new Dimension(75,25);
+	
 	private Dimension tipSize;
 	
+	
+	public BPToolTipHelper(Control c) {
+		super(c);
+	}
 	
 	@Override
 	public void displayToolTipNear(IFigure hoverSource, IFigure tip, int eventX, int eventY) {
@@ -156,12 +166,12 @@ public class BPToolTipHelper extends ToolTipHelper {
 		FigureCanvas figureCanvas = (FigureCanvas)control;
 		Dimension visibleArea = figureCanvas.getViewport().getSize();
 		
-		Point location = new Point(eventX +5, eventY + 5);
+		Point location = new Point(eventX + tooltipLocationIndent, eventY + tooltipLocationIndent);
 		tip.invalidate();
 		tipSize = tip.getPreferredSize(-1, -1);
 		if ( showDetailedTooltip){
-			tipSize.width = tipSize.width + 100; 
-			tipSize.height = tipSize.height + 50; 
+			tipSize.width = tipSize.width + DetailedTipWidthIncrement; 
+			tipSize.height = tipSize.height + DetailedTipHeightIncrement; 
 		}
 		tipSize = adjustTooltipSizeIfNeeded(tipSize);
 		
@@ -183,8 +193,8 @@ public class BPToolTipHelper extends ToolTipHelper {
 			return new Dimension(tipSize.width, MaxPreferredTooltipSize.height);
 		else if ( tipSize.width > MaxPreferredTooltipSize.width )
 			return new Dimension(MaxPreferredTooltipSize.width, tipSize.height);
-		else if (tipSize.width < 75 && tipSize.height < 25 )
-			return new Dimension(75,25);
+		else if (tipSize.width < MinPreferredTooltipSize.width && tipSize.height < MinPreferredTooltipSize.height )
+			return MinPreferredTooltipSize;
 		return tipSize;
 	}
 
@@ -193,7 +203,11 @@ public class BPToolTipHelper extends ToolTipHelper {
 		if (isShowing()) {
 			hide();
 		}
-		getShell().dispose();
+		BPSimpleTooltipShell.dispose();
+		if ( detailedtooltip != null){
+			if (! detailedtooltip.getShell().isDisposed())
+				detailedtooltip.getShell().dispose();
+		}
 	}
 	
 	@Override 
@@ -306,10 +320,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 			currentTipSource = null;
 	}
 
-	public BPToolTipHelper(Control c) {
-		super(c);
-	}
-	
 	@Override
 	protected Shell createShell() {
 		return new Shell(control.getShell(), TooltipStyle);

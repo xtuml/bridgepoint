@@ -216,6 +216,8 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 	private String DIAGRAM_VIEWPORT_Y = "__DIAGRAM_VIEWPORT_Y"; //$NON-NLS-1$
 	private String DIAGRAM_ZOOM = "__DIAGRAM_ZOOM"; //$NON-NLS-1$
 	private static Font diagramFont;
+	private ArrayList<BPToolTipHelper> helpers = new ArrayList<BPToolTipHelper>();
+
 
 	@Override
 	protected FlyoutPreferences getPalettePreferences() {
@@ -645,7 +647,9 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 						 * shall be created to store created helper, to be
 						 * notified by editor visiblity change
 						 */
-						return new BPToolTipHelper(control);
+						BPToolTipHelper newHelper = new BPToolTipHelper(control);
+						helpers.add(newHelper);
+						return newHelper;
 					}
 				});
 			}
@@ -1260,6 +1264,9 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 				diagramFont.dispose();
 				diagramFont = null;
 			}
+		}
+		for (BPToolTipHelper helper : helpers) {
+			helper.dispose();
 		}
 		JFaceResources.getFontRegistry().removeListener(this);
 	}
