@@ -230,7 +230,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 							}
 						});
 					}
-				}, 500);
+				}, 50);
 			}
 
 			@Override
@@ -300,7 +300,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 								}
 							});
 						}
-					}, 500);
+					}, 50);
 
 
 				}
@@ -392,5 +392,13 @@ public class BPToolTipHelper extends ToolTipHelper {
 	public void activate(){
 		if (tipDisplayed)
 			getShell().setVisible(true);
+	}
+
+	public void hideSimpleToolTip() {
+		if (!showDetailedTooltip && isShowing())
+		{
+			hide();
+		}
+		
 	}
 }
