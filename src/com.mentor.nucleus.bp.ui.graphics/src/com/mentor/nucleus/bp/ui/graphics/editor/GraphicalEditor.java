@@ -39,11 +39,13 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.PositionConstants;
+import org.eclipse.draw2d.ToolTipHelper;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
+import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
@@ -73,6 +75,7 @@ import org.eclipse.gef.ui.actions.ZoomInAction;
 import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.palette.FlyoutPaletteComposite;
 import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
+import org.eclipse.gef.ui.parts.DomainEventDispatcher;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
@@ -213,6 +216,8 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 	private String DIAGRAM_VIEWPORT_Y = "__DIAGRAM_VIEWPORT_Y"; //$NON-NLS-1$
 	private String DIAGRAM_ZOOM = "__DIAGRAM_ZOOM"; //$NON-NLS-1$
 	private static Font diagramFont;
+	private ArrayList<BPToolTipHelper> helpers = new ArrayList<BPToolTipHelper>();
+
 
 	@Override
 	protected FlyoutPreferences getPalettePreferences() {
@@ -620,6 +625,33 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 				// it is not completely visible
 				// We at this time do not believe that this
 				// is a "good feature"
+			}
+			
+			/*
+			 * override setEditDomain where the event dispatcher object is 
+			 * created in order to use BridgePoint custom tooltip helper
+			 */
+			@Override
+			public void setEditDomain(EditDomain domain){
+				super.setEditDomain(domain);
+				getLightweightSystem().setEventDispatcher(new DomainEventDispatcher(domain, this){
+
+					// Override the creation of ToolTip helper object 
+					@Override 
+					protected ToolTipHelper getToolTipHelper() {
+						/*
+						 * Create new helper each time to support multi tool tip
+						 * window. In order to associate their tooltip helper
+						 * with their editor to hide when the editor is not 
+						 * visible, reshow when it is visible, a hash map 
+						 * shall be created to store created helper, to be
+						 * notified by editor visiblity change
+						 */
+						BPToolTipHelper newHelper = new BPToolTipHelper(control);
+						helpers.add(newHelper);
+						return newHelper;
+					}
+				});
 			}
 
 		};
@@ -1232,6 +1264,9 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 				diagramFont.dispose();
 				diagramFont = null;
 			}
+		}
+		for (BPToolTipHelper helper : helpers) {
+			helper.dispose();
 		}
 		JFaceResources.getFontRegistry().removeListener(this);
 	}
