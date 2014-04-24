@@ -667,6 +667,13 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 						
 						if (defaultHelper == null)
 							defaultHelper = new BPToolTipHelper(control);
+						
+						// Notify all editor helpers to close their simple tooltip if up
+						Collection<BPToolTipHelper> helpers = tooltipMap.values();
+						for (BPToolTipHelper helper : helpers) {
+							helper.hideSimpleToolTip();
+						}
+						
 						return defaultHelper;
 						
 					}
