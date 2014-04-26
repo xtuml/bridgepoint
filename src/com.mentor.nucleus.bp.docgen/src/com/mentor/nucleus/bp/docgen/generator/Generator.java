@@ -208,7 +208,7 @@ public class Generator extends Task {
                                     break;
                                 case 5:
                                     monitor.subTask("Prepping model for document generation");
-                                    runXbuild(project, destPath);
+                                    ExportBuilder.runXbuild(project, destPath, DOCGEN_INPUT);
                                     monitor.worked(1);
                                     break;
                                 case 6:
@@ -321,57 +321,6 @@ public class Generator extends Task {
         }        
     }
 
-    private static void runXbuild(IProject project, String workingDir) 
-        throws IOException, RuntimeException, CoreException, InterruptedException
-    {
-        // Call xtumlmc_build.exe xtumlmc_cleanse_model <infile> <outfile>
-        String app = AbstractNature.getLaunchAttribute(project, 
-                    com.mentor.nucleus.bp.mc.AbstractNature.LAUNCH_ATTR_TOOL_LOCATION);
-        String args = "xtumlmc_cleanse_model";  //$NON-NLS-1$
-        String inputfile = project.getName() + ".sql"; //$NON-NLS-1$
-        String middlefile = "z.xtuml";  //$NON-NLS-1$
-        String outputfile = DOCGEN_INPUT;
-        File output = new File(workingDir + outputfile);
-        File middle = new File(workingDir + middlefile);
-        File sqlfile = new File(workingDir + inputfile);
-
-        if ( middle.exists() ) {
-            middle.delete();
-        }
-        if ( output.exists() ) {
-            output.delete();
-        }
-        
-        ProcessBuilder pb = new ProcessBuilder(app, args, inputfile, middlefile);
-        pb.directory(new File(workingDir));
-        Process process = pb.start();
-        process.waitFor();
-        
-        project.refreshLocal(IResource.DEPTH_INFINITE, null);
-        if ( !middle.exists() ) {
-            RuntimeException re = new RuntimeException("Expected output file doesn't exist: " +
-                    middle.toString());
-            throw re;
-        }
-
-        // Call xtumlmc_build.exe ReplaceUUIDWithLong <infile> <outfile>
-        args = "ReplaceUUIDWithLong";  //$NON-NLS-1$
-
-        pb = new ProcessBuilder(app, args, middlefile, outputfile);
-        pb.directory(new File(workingDir));
-        process = pb.start();
-        process.waitFor();
-        
-        sqlfile.delete();
-        middle.delete();
-        project.refreshLocal(IResource.DEPTH_INFINITE, null);
-        if ( !output.exists() ) {
-            RuntimeException re = new RuntimeException("Expected output file doesn't exist: " +
-                    output.toString());
-            throw re;
-        }
-    }
-    
     private static void runDocgen(IProject project, String workingDir) 
         throws IOException, RuntimeException, CoreException, InterruptedException 
     {
