@@ -1,5 +1,9 @@
 package com.mentor.nucleus.bp.cli;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 import org.eclipse.cdt.managedbuilder.core.IConfiguration;
 import org.eclipse.cdt.managedbuilder.core.IManagedBuildInfo;
 import org.eclipse.cdt.managedbuilder.core.ManagedBuildManager;
@@ -10,13 +14,22 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.Ooaofooa;
+import com.mentor.nucleus.bp.core.SystemModel_c;
+import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
+import com.mentor.nucleus.bp.mc.AbstractActivator;
+import com.mentor.nucleus.bp.mc.AbstractExportBuilder;
+import com.mentor.nucleus.bp.mc.AbstractProperties;
 
 public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 	String projectName = null;
@@ -86,7 +99,6 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 					waitForBuildToFinish(project);
 				}
 
-				ICommand[] orginalCommands = null;
 				IConfiguration orginalConfig = null;
 				if (buildConfigString != "") {
 					if (debug) {
@@ -94,14 +106,15 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 					}
 					orginalConfig = setSelectedBuildConfiguration(project);
 				}
+				System.out.println("Performing the build of project: " + project.getName());
 				if (prebuilderOnly) {					
 					if (debug) {
 						System.out.println("Removing all builders except the MC pre-builder for: " + project.getName());
 					}
-					orginalCommands = configurePreBuildOnly(project);
+					prebuildOnly(project);
+				} else {
+					performBuild(project, IncrementalProjectBuilder.FULL_BUILD);
 				}
-				System.out.println("Performing the build of project: " + project.getName());
-				performBuild(project, IncrementalProjectBuilder.FULL_BUILD);
 				if (debug) {
 					System.out.println("Build was launched.  Waiting for build to finish for: " + project.getName());
 				}
@@ -110,12 +123,6 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 					System.out.println("Build finished for: " + project.getName());
 				}
 				
-				if (prebuilderOnly) {
-					if (debug) {
-						System.out.println("Restoring orginal project builder settings for: " + project.getName());
-					}
-					restoreBuilderCommands(project, orginalCommands);
-				}
 				if (buildConfigString != "") {
 					if (debug) {
 						System.out.println("Restoring original build configuration for: " + project.getName());
@@ -252,53 +259,26 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 	 * @see restoreBuilderCommands()
 	 * @throws CoreException
 	 * @return The list of ICommands before any changes were made
+	 * @throws InterruptedException 
+	 * @throws RuntimeException 
+	 * @throws IOException 
 	 */
-	private ICommand[] configurePreBuildOnly(IProject project) throws CoreException {
-		IProjectDescription desc = project.getDescription();
-		// get the description of the project (.project file
-		// information)
-		ICommand[] orginalCommands = desc.getBuildSpec();
-		
-		ICommand exportbuilderCmd = null;
-		
-		// get the build commands already associated with project.
-		for (int i = 0; i < orginalCommands.length; ++i) {
-			// See if this is one of the MC export builder.  There will only
-			// be one of these associated with the given project.
-			if (orginalCommands[i].getBuilderName().contains(
-					"com.mentor.nucleus.bp.mc")
-					&& orginalCommands[i].getBuilderName().contains(
-							"export_builder")) {
-				exportbuilderCmd = orginalCommands[i];
-			}
-		}
+	private void prebuildOnly(final IProject project) throws CoreException, IOException, RuntimeException, InterruptedException {
+		 String projPath = project.getLocation().toOSString();
+         final IPath path = new Path(projPath + File.separator
+                 + AbstractActivator.GEN_FOLDER_NAME + File.separator + AbstractProperties.GENERATED_CODE_DEST);
+         final String destPath = path.toOSString();
+         ExportBuilder eb = new ExportBuilder();
+         SystemModel_c sys = SystemModel_c.SystemModelInstance(Ooaofooa
+					.getDefaultInstance(), new ClassQueryInterface_c() {
 
-		// create a new build command
-		ICommand[] newCommands = new ICommand[1];
-		newCommands[0] = exportbuilderCmd;
-		desc.setBuildSpec(newCommands);
-		
-		// write to .project file.  
-		project.setDescription(desc, null); 
-		project.refreshLocal(IProject.DEPTH_INFINITE, null);
-		return orginalCommands;
+				public boolean evaluate(Object candidate) {
+					return ((SystemModel_c) candidate).getName().equals(
+							project.getName());
+				}
+
+			});
+         List<SystemModel_c> exportedSystems = eb.exportSystem(sys, destPath, new NullProgressMonitor());
+         AbstractExportBuilder.runXbuild(project, destPath, AbstractExportBuilder.PREPROCESSED_MODEL_FILE);
 	}
-
-	/**
-	 * This function is used after configurePreBuildOnly() to restore the 
-	 * builder settings.
-	 * 
-	 * @see configurePreBuildOnly()
-	 * @param originalCommands List of ICommands before configurePreBuildOnly() was run
-	 * @throws CoreException
-	 */
-	private void restoreBuilderCommands(IProject project, ICommand[] originalCommands) throws CoreException {
-		IProjectDescription desc = project.getDescription();
-		desc.setBuildSpec(originalCommands);
-		
-		// write to .project file.  
-		project.setDescription(desc, null); 
-		project.refreshLocal(IProject.DEPTH_INFINITE, null);
-
-	}		
 }
