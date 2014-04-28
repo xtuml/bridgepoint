@@ -1,8 +1,0 @@
-.invoke MarkClassToTask( "heart", "", "HEART", 1 )
-.invoke MarkClassToTask( "heart", "", "SINUS_NODE", 1 )
-.invoke MarkClassToTask( "pacer", "", "PACER", 1 )
-.invoke MarkInitializationFunction( "*", "init" )
-.invoke MarkStateTransitionTracingOn( "*" )
-.invoke MarkActionStatementTracingOn( "*" )
-.invoke MarkEmptyHandleDetectionOn( "*" )
-.invoke MarkSystemConfigurationPackage( "system" )
