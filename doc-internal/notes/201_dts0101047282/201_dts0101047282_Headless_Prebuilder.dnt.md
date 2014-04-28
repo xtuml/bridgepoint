@@ -221,6 +221,7 @@ These tests must be run on linux.  Therefore, they are manual tests.
 * modify the CLI.sh shell script and add a valid license, for example:  
 export MGLS_LICENSE_FILE=1717@wv-lic-01.wv.mentorg.com:1717@wv-lic-02.wv.mentorg.com:1717@svr-azt-eng-01
 * delete the gen/code_generation folder under the MicrwaveOven project
+* rename the .project file from the MicrwaveOven project to ".project-temp"
 * Exit from Bridgepoint 
 *  In CLI.sh add the following setting to force no DISPLAY to be available:  
 export DISPLAY=
@@ -229,6 +230,8 @@ export DISPLAY=
 CLI.sh Build -project MicrowaveOven -prebuidlOnly
 * RESULT - The MicroWaveOven.sql file exists in the gen/code_generation folder
 * RESULT - No error were seen on the console
+* RESULT - No <project>/.project file was created
+* Restore the .project from the copied made in the test setup
 
 2) Test to assure that errors are properly reported when no DISPLAY is present
 * delete the gen/code_generation folder from under the MicrowaveOven project
