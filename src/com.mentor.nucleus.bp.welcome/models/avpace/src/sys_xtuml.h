@@ -1,13 +1,15 @@
 /*----------------------------------------------------------------------------
- * File:  sys_sets.h
+ * File:  sys_xtuml.h
  *
- * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
+ * Description:
+ * Here we have the system-level instance create and delete declaration.
+ * your copyright statement can go here (from te_copyright.body)
  *--------------------------------------------------------------------------*/
 
-#ifndef SYS_SETS_H
-#define SYS_SETS_H
-#ifdef  __cplusplus
-extern "C" {
+#ifndef SYS_XTUML_H
+#define SYS_XTUML_H
+#ifdef	__cplusplus
+extern	"C"	{
 #endif
 
 /*
@@ -49,13 +51,13 @@ typedef struct {
   Escher_InstanceIndex_t population;
 } Escher_Extent_t;
 
-extern void Escher_SetFactoryInit( void );
-extern void Escher_CopySet( Escher_ObjectSet_s *,
+void Escher_SetFactoryInit( const i_t );
+void Escher_CopySet( Escher_ObjectSet_s *,
                 Escher_ObjectSet_s * const );
-extern void Escher_ClearSet( Escher_ObjectSet_s * );
-extern void Escher_SetInsertElement( Escher_ObjectSet_s *,
+void Escher_ClearSet( Escher_ObjectSet_s * );
+void Escher_SetInsertElement( Escher_ObjectSet_s *,
                          void * const );
-extern Escher_SetElement_s *
+Escher_SetElement_s *
 Escher_SetInsertBlock( Escher_SetElement_s *,
                        const u1_t *,
                        const u2_t,
@@ -67,15 +69,15 @@ Escher_SetInsertBlock( Escher_SetElement_s *,
   (pextent)->head = node
 
 
-extern Escher_SetElement_s *
+Escher_SetElement_s *
 Escher_SetRemoveNode( Escher_ObjectSet_s *,
                       const void * const );
-extern void Escher_SetRemoveElement( Escher_ObjectSet_s *,
+void Escher_SetRemoveElement( Escher_ObjectSet_s *,
                          const void * const );
-extern const void * Escher_SetContains( const Escher_ObjectSet_s * const,
+const void * Escher_SetContains( const Escher_ObjectSet_s * const,
                     const void * const );
-extern u2_t Escher_SetCardinality( const Escher_ObjectSet_s * const );
-extern bool Escher_SetEquality( Escher_ObjectSet_s * const,
+u2_t Escher_SetCardinality( const Escher_ObjectSet_s * const );
+bool Escher_SetEquality( Escher_ObjectSet_s * const,
                     Escher_ObjectSet_s * const );
 #define Escher_InitSet( S ) (S)->head = 0
 #define Escher_SetGetAny( S ) ( ((S)->head != 0) ? (S)->head->object : 0 )
@@ -91,26 +93,36 @@ struct Escher_Iterator_s {
   Escher_SetElement_s * cursor;
 };
 #define Escher_IteratorReset( I, S ) ( ((I)->cursor = (S)->head) )
-extern void * Escher_IteratorNext( Escher_Iterator_s * const );
+void * Escher_IteratorNext( Escher_Iterator_s * const );
 
 /* We could easily replace this function declaration with a macro
    that invoked the compiler (C library) supplied strlen.  */
-extern u2_t Escher_strlen( const c_t * );
+i_t Escher_strlen( const c_t * );
 
 /* We could easily replace this function declaration with a macro
    that invoked the compiler (C library) supplied memset.  */
-extern void Escher_memset( void * const, const u1_t, u2_t );
+void Escher_memset( void * const, const u1_t, u2_t );
 
 /* We could easily replace this function declaration with a macro
    that invoked the compiler (C library) supplied memmove.  */
-extern void Escher_memmove( void * const, const void * const, u2_t );
-extern void Escher_strcpy( c_t *, const c_t * );
-extern c_t * Escher_stradd( const c_t *, const c_t * );
+void Escher_memmove( void * const, const void * const, u2_t );
+c_t * Escher_strcpy( c_t *, const c_t * );
+c_t * Escher_stradd( const c_t *, const c_t * );
 /* We could easily replace this function declaration with a macro
    that invoked the compiler (C library) supplied strcmp.  */
-extern c_t Escher_strcmp( const c_t *, const c_t * );
+c_t Escher_strcmp( const c_t *, const c_t * );
+c_t * Escher_strget( void );
 
-#ifdef    __cplusplus
+Escher_iHandle_t Escher_CreateInstance( const Escher_DomainNumber_t, const Escher_ClassNumber_t );
+void Escher_DeleteInstance( Escher_iHandle_t, const Escher_DomainNumber_t, const Escher_ClassNumber_t );
+/*
+ * Initialize object factory services.
+ * Initialize class instance storage free pool (inanimate list)
+ * by linking the empty instances into a collection.
+ */
+void Escher_ClassFactoryInit( const Escher_DomainNumber_t, const Escher_ClassNumber_t );
+
+#ifdef	__cplusplus
 }
 #endif
-#endif  /* SYS_SETS_H */
+#endif   /* SYS_XTUML_H */
