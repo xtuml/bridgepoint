@@ -13,13 +13,13 @@ Present:  CS, KB, BM
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01  min   CS   References Reference [1] link is wrong
-_- 02  min   CS   3     "he workbench" > "the workbench"
-_- 03  min   KB   4.1   change to say we won't modify the .project, not that we don't require it to be present
-_- 04  min   CS   4     4.2 run-on formatting issue
-_- 05  min   BM   5.2.1 Raise and issue to consider what to do with bp.cli for editor build and OSS distribution
-_- 06  min   CS   5.3   spelling error on BPCLIExcption
-_- 07  min   CS   7.1   "not needed" to "not modified"
+x- 01  min   CS   References Reference [1] link is wrong
+x- 02  min   CS   3     "he workbench" > "the workbench"
+x- 03  min   KB   4.1   change to say we won't modify the .project, not that we don't require it to be present
+x- 04  min   CS   4     4.2 run-on formatting issue
+x- 05  min   BM   5.2.1 Raise and issue to consider what to do with bp.cli for editor build and OSS distribution
+x- 06  min   CS   5.3   spelling error on BPCLIExcption
+x- 07  min   CS   7.1   "not needed" to "not modified"
 
 
 Unit test
