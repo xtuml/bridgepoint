@@ -3,7 +3,7 @@
 <plugin
    id="com.mentor.nucleus.bp.io.core"
    name="BridgePoint IO Core Plug-in"
-   version="4.1.10"
+   version="4.1.9"
    provider-name="Mentor Graphics"
    class="com.mentor.nucleus.bp.io.core.CorePlugin">
 
