@@ -1,0 +1,85 @@
+<pre>
+========================================================================
+
+File:      final-review.chk
+
+Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp. and is not for external distribution.
+========================================================================
+
+xtUML Project Checklist
+
+Performing Final Review
+
+Document References
+-------------------
+[1] Documentation/internal/process/templates/checklists/
+                                                    introducing-new-modules.chk
+[2] Documentation/internal/process/standard-file-headers.txt
+[3] Documentation/internal/process/coding-standards.txt
+[4] Documentation/internal/process/templates/checklists/doc_final_review.chk
+
+Checklist
+---------
+o- If work done under assigned issue introduces a new module/plugin then 
+   execute checklist for introducing new modules[1].
+
+o- If work done under assigned issue introduces changes to the user
+   documentation in com.mentor.nucleus.bp.doc perform the doc_final_review
+   checklist.
+   
+o- All introduced files have standard headers and required footers [2].
+
+x- All applicable coding standards [3] are followed.
+
+x- All files are checked-in properly and no file is left ommitted.
+     - "git status" run on your branch reports "nothing to commit" 
+     - Your branch is pushed to github and shows up on the repository network
+       graph
+
+x- An implementation review was performed, including a code review with at
+   least 2 other engineers
+
+x- Verify that all changes specified in the analysis, design and implementation
+   note review minutes were made.
+
+x- Verify that all work specified in the design note (or in the design section 
+   of the implementation note), was done to the files specified in the Code 
+   Changes section of the implementation note.  
+
+x- Verify that any changes made to files in the Code Changes section that are 
+   not traceable back to work required by the design are called out in the 
+   Implementation Comments section of the implementation note.  
+
+o- If plugin.xml or MANIFEST.MF was modified, verify all changes to the depend-
+   encies and required bundles are also made to the compile target in 
+   generate.xml
+
+x- Perform a clean build and verify everything rebuilds successfully.
+
+o- Execute all JUnits and manual tests specified in the notes.
+
+o- Update the test_results/Unit_test_summary.txt with the branch name check it in here:
+	  github.com/xtuml/<repository>/doc-<repository>/qa/<release_id>/<issue num>/final-review/Unit_test_summary.txt
+	
+
+x- Create a Pull Request for the changes
+     _- Go to the repository on github.com
+     _- Go to the Pull Requests page
+     _- Click the "New pull request" button
+     _- Select the desired branch
+     _- Review the changeset
+     _- Select "Click to create a pull request for this comparison" link at 
+        the top of the page.
+     _- Resolve any conflicts as indicated.  If "Able to merge", then click 
+        "Send pull request" button 
+
+x- Add a comment in the BridgePoint chat saying the issue is ready for promotion
+
+
+End
+---
+</pre>
