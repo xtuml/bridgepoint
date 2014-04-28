@@ -1,0 +1,14060 @@
+-- root-types-contained: SystemModel_c,PackageableElement_c,DataType_c,CoreDataType_c,UserDataType_c
+-- BP 7.1 content: StreamData syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO S_SYS
+	VALUES (1,
+	'avpace',
+	1);
+INSERT INTO EP_PKG
+	VALUES (2,
+	1,
+	1,
+	'analysis',
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES (3,
+	1,
+	2,
+	0,
+	7);
+INSERT INTO EP_PKG
+	VALUES (3,
+	0,
+	1,
+	'Increased Activity activity',
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES (4,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (4,
+	0);
+INSERT INTO A_OBJ
+	VALUES (4,
+	'Monitor',
+	'');
+INSERT INTO PE_PE
+	VALUES (5,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (5,
+	0);
+INSERT INTO A_OBJ
+	VALUES (5,
+	'Pacer',
+	'');
+INSERT INTO PE_PE
+	VALUES (6,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (6,
+	0);
+INSERT INTO A_OBJ
+	VALUES (6,
+	'Host',
+	'');
+INSERT INTO PE_PE
+	VALUES (7,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (7,
+	0);
+INSERT INTO A_ACT
+	VALUES (7);
+INSERT INTO A_GA
+	VALUES (7,
+	'Check activity levels',
+	'This action asks the associated low level monitor elements for the current
+readings to determing the current activity level.');
+INSERT INTO PE_PE
+	VALUES (8,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (8,
+	0);
+INSERT INTO A_CTL
+	VALUES (8);
+INSERT INTO A_DM
+	VALUES (8,
+	'increased activity?',
+	'');
+INSERT INTO PE_PE
+	VALUES (9,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (9,
+	0);
+INSERT INTO A_ACT
+	VALUES (9);
+INSERT INTO A_AE
+	VALUES (9);
+INSERT INTO A_AEA
+	VALUES (9,
+	'Accept increased activity',
+	'');
+INSERT INTO PE_PE
+	VALUES (10,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (10,
+	0);
+INSERT INTO A_ACT
+	VALUES (10);
+INSERT INTO A_SS
+	VALUES (10,
+	'Notify of increased activity',
+	'');
+INSERT INTO PE_PE
+	VALUES (11,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (11,
+	0);
+INSERT INTO A_ACT
+	VALUES (11);
+INSERT INTO A_GA
+	VALUES (11,
+	'Diastole',
+	'');
+INSERT INTO PE_PE
+	VALUES (12,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (12,
+	0);
+INSERT INTO A_ACT
+	VALUES (12);
+INSERT INTO A_GA
+	VALUES (12,
+	'Systole',
+	'');
+INSERT INTO PE_PE
+	VALUES (13,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (13,
+	0);
+INSERT INTO A_ACT
+	VALUES (13);
+INSERT INTO A_GA
+	VALUES (13,
+	'Synchronize with host',
+	'');
+INSERT INTO PE_PE
+	VALUES (14,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (14,
+	0);
+INSERT INTO A_CTL
+	VALUES (14);
+INSERT INTO A_FJ
+	VALUES (14,
+	'',
+	'');
+INSERT INTO PE_PE
+	VALUES (15,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (15,
+	0);
+INSERT INTO A_CTL
+	VALUES (15);
+INSERT INTO A_FJ
+	VALUES (15,
+	'',
+	'');
+INSERT INTO PE_PE
+	VALUES (16,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (16,
+	0);
+INSERT INTO A_CTL
+	VALUES (16);
+INSERT INTO A_DM
+	VALUES (16,
+	'recevied increased activity notification?',
+	'');
+INSERT INTO PE_PE
+	VALUES (17,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (17,
+	0);
+INSERT INTO A_ACT
+	VALUES (17);
+INSERT INTO A_GA
+	VALUES (17,
+	'Increase pulse frequency',
+	'');
+INSERT INTO PE_PE
+	VALUES (18,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (18,
+	0);
+INSERT INTO A_ACT
+	VALUES (18);
+INSERT INTO A_GA
+	VALUES (18,
+	'Generate pulse',
+	'');
+INSERT INTO PE_PE
+	VALUES (19,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (19,
+	0);
+INSERT INTO A_CTL
+	VALUES (19);
+INSERT INTO A_DM
+	VALUES (19,
+	'',
+	'');
+INSERT INTO PE_PE
+	VALUES (20,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (20,
+	0);
+INSERT INTO A_CTL
+	VALUES (20);
+INSERT INTO A_DM
+	VALUES (20,
+	'Diastole or Systole?',
+	'');
+INSERT INTO PE_PE
+	VALUES (21,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (21,
+	0);
+INSERT INTO A_CTL
+	VALUES (21);
+INSERT INTO A_FJ
+	VALUES (21,
+	'',
+	'');
+INSERT INTO PE_PE
+	VALUES (22,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (22,
+	0);
+INSERT INTO A_CTL
+	VALUES (22);
+INSERT INTO A_FJ
+	VALUES (22,
+	'',
+	'');
+INSERT INTO PE_PE
+	VALUES (23,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (23,
+	0);
+INSERT INTO A_CTL
+	VALUES (23);
+INSERT INTO A_DM
+	VALUES (23,
+	'',
+	'');
+INSERT INTO PE_PE
+	VALUES (24,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (24,
+	0);
+INSERT INTO A_CTL
+	VALUES (24);
+INSERT INTO A_DM
+	VALUES (24,
+	'',
+	'');
+INSERT INTO PE_PE
+	VALUES (25,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (25,
+	0);
+INSERT INTO A_CTL
+	VALUES (25);
+INSERT INTO A_DM
+	VALUES (25,
+	'',
+	'');
+INSERT INTO PE_PE
+	VALUES (26,
+	1,
+	3,
+	0,
+	18);
+INSERT INTO A_N
+	VALUES (26,
+	0);
+INSERT INTO A_CTL
+	VALUES (26);
+INSERT INTO A_DM
+	VALUES (26,
+	'',
+	'');
+INSERT INTO PE_PE
+	VALUES (27,
+	1,
+	3,
+	0,
+	11);
+INSERT INTO A_AP
+	VALUES (27,
+	0,
+	'',
+	'');
+INSERT INTO PE_PE
+	VALUES (28,
+	1,
+	3,
+	0,
+	11);
+INSERT INTO A_AP
+	VALUES (28,
+	0,
+	'',
+	'');
+INSERT INTO PE_PE
+	VALUES (29,
+	1,
+	3,
+	0,
+	11);
+INSERT INTO A_AP
+	VALUES (29,
+	0,
+	'',
+	'');
+INSERT INTO PE_PE
+	VALUES (30,
+	1,
+	3,
+	0,
+	11);
+INSERT INTO A_AP
+	VALUES (30,
+	0,
+	'',
+	'');
+INSERT INTO PE_PE
+	VALUES (31,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (31,
+	0,
+	'',
+	'',
+	8,
+	7);
+INSERT INTO PE_PE
+	VALUES (32,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (32,
+	0,
+	'increased activity',
+	'',
+	10,
+	8);
+INSERT INTO PE_PE
+	VALUES (33,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (33,
+	0,
+	'',
+	'',
+	14,
+	11);
+INSERT INTO PE_PE
+	VALUES (34,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (34,
+	0,
+	'',
+	'',
+	15,
+	12);
+INSERT INTO PE_PE
+	VALUES (35,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (35,
+	0,
+	'increased activity',
+	'',
+	17,
+	16);
+INSERT INTO PE_PE
+	VALUES (36,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (36,
+	0,
+	'',
+	'',
+	16,
+	13);
+INSERT INTO PE_PE
+	VALUES (37,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (37,
+	0,
+	'',
+	'',
+	19,
+	17);
+INSERT INTO PE_PE
+	VALUES (38,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (38,
+	0,
+	'',
+	'',
+	18,
+	19);
+INSERT INTO PE_PE
+	VALUES (39,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (39,
+	0,
+	'',
+	'',
+	21,
+	10);
+INSERT INTO PE_PE
+	VALUES (40,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (40,
+	0,
+	'',
+	'',
+	9,
+	21);
+INSERT INTO PE_PE
+	VALUES (41,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (41,
+	0,
+	'',
+	'',
+	22,
+	18);
+INSERT INTO PE_PE
+	VALUES (42,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (42,
+	0,
+	'',
+	'',
+	20,
+	22);
+INSERT INTO PE_PE
+	VALUES (43,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (43,
+	0,
+	'',
+	'',
+	23,
+	5);
+INSERT INTO PE_PE
+	VALUES (44,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (44,
+	0,
+	'',
+	'',
+	13,
+	23);
+INSERT INTO PE_PE
+	VALUES (45,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (45,
+	0,
+	'',
+	'',
+	23,
+	9);
+INSERT INTO PE_PE
+	VALUES (46,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (46,
+	0,
+	'',
+	'',
+	23,
+	22);
+INSERT INTO PE_PE
+	VALUES (47,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (47,
+	0,
+	'',
+	'',
+	23,
+	15);
+INSERT INTO PE_PE
+	VALUES (48,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (48,
+	0,
+	'',
+	'',
+	23,
+	14);
+INSERT INTO PE_PE
+	VALUES (49,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (49,
+	0,
+	'',
+	'',
+	24,
+	4);
+INSERT INTO PE_PE
+	VALUES (50,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (50,
+	0,
+	'',
+	'',
+	7,
+	24);
+INSERT INTO PE_PE
+	VALUES (51,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (51,
+	0,
+	'',
+	'',
+	24,
+	21);
+INSERT INTO PE_PE
+	VALUES (52,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (52,
+	0,
+	'normal activity',
+	'',
+	24,
+	8);
+INSERT INTO PE_PE
+	VALUES (53,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (53,
+	0,
+	'',
+	'',
+	25,
+	14);
+INSERT INTO PE_PE
+	VALUES (54,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (54,
+	0,
+	'',
+	'',
+	12,
+	25);
+INSERT INTO PE_PE
+	VALUES (55,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (55,
+	0,
+	'systole',
+	'',
+	25,
+	20);
+INSERT INTO PE_PE
+	VALUES (56,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (56,
+	0,
+	'',
+	'',
+	26,
+	6);
+INSERT INTO PE_PE
+	VALUES (57,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (57,
+	0,
+	'',
+	'',
+	11,
+	26);
+INSERT INTO PE_PE
+	VALUES (58,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (58,
+	0,
+	'diastole',
+	'',
+	26,
+	20);
+INSERT INTO PE_PE
+	VALUES (59,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (59,
+	0,
+	'',
+	'',
+	26,
+	15);
+INSERT INTO PE_PE
+	VALUES (60,
+	1,
+	3,
+	0,
+	12);
+INSERT INTO A_E
+	VALUES (60,
+	0,
+	'normal activity',
+	'',
+	19,
+	16);
+INSERT INTO PE_PE
+	VALUES (61,
+	1,
+	2,
+	0,
+	7);
+INSERT INTO EP_PKG
+	VALUES (61,
+	0,
+	1,
+	'Increased Activity sd',
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES (62,
+	1,
+	61,
+	0,
+	14);
+INSERT INTO SQ_P
+	VALUES (62,
+	0);
+INSERT INTO SQ_CIP
+	VALUES (62,
+	63,
+	'Pacer1',
+	'Informal Class',
+	'Pacer1 : pacer',
+	'',
+	1);
+INSERT INTO SQ_AV
+	VALUES (64,
+	63,
+	65,
+	'systolic_tolerance',
+	'',
+	'',
+	0,
+	62,
+	'',
+	1);
+INSERT INTO SQ_FAV
+	VALUES (64);
+INSERT INTO SQ_AV
+	VALUES (66,
+	63,
+	67,
+	'diastolic_tolerance',
+	'',
+	'',
+	0,
+	62,
+	'',
+	1);
+INSERT INTO SQ_FAV
+	VALUES (66);
+INSERT INTO SQ_AV
+	VALUES (68,
+	63,
+	69,
+	'current_state',
+	'',
+	'',
+	0,
+	62,
+	'',
+	1);
+INSERT INTO SQ_FAV
+	VALUES (68);
+INSERT INTO SQ_AV
+	VALUES (70,
+	63,
+	71,
+	'cycle_count',
+	'',
+	'',
+	0,
+	62,
+	'',
+	1);
+INSERT INTO SQ_FAV
+	VALUES (70);
+INSERT INTO SQ_AV
+	VALUES (72,
+	63,
+	73,
+	'timeout_timer',
+	'',
+	'',
+	0,
+	62,
+	'',
+	1);
+INSERT INTO SQ_FAV
+	VALUES (72);
+INSERT INTO SQ_AV
+	VALUES (74,
+	63,
+	75,
+	'systolic_timeout',
+	'',
+	'',
+	0,
+	62,
+	'',
+	1);
+INSERT INTO SQ_FAV
+	VALUES (74);
+INSERT INTO SQ_AV
+	VALUES (76,
+	63,
+	77,
+	'diastolic_timeout',
+	'',
+	'',
+	0,
+	62,
+	'',
+	1);
+INSERT INTO SQ_FAV
+	VALUES (76);
+INSERT INTO PE_PE
+	VALUES (78,
+	1,
+	61,
+	0,
+	14);
+INSERT INTO SQ_P
+	VALUES (78,
+	0);
+INSERT INTO MSG_M
+	VALUES (79,
+	80,
+	78,
+	0);
+INSERT INTO MSG_AM
+	VALUES (79,
+	'Informal Message',
+	'',
+	'blood_temp > 37.5 or respiratory_rate > 18',
+	'',
+	'',
+	0,
+	'Informal Message',
+	'');
+INSERT INTO MSG_IAM
+	VALUES (79);
+INSERT INTO SQ_LS
+	VALUES (78,
+	62,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES (81,
+	1,
+	61,
+	0,
+	14);
+INSERT INTO SQ_P
+	VALUES (81,
+	0);
+INSERT INTO SQ_CIP
+	VALUES (81,
+	0,
+	'HostMonitor1',
+	'Informal Class',
+	'HostMonitor1 : Informal Class',
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES (80,
+	1,
+	61,
+	0,
+	14);
+INSERT INTO SQ_P
+	VALUES (80,
+	0);
+INSERT INTO MSG_M
+	VALUES (82,
+	80,
+	80,
+	0);
+INSERT INTO MSG_AM
+	VALUES (82,
+	'Informal Message',
+	'',
+	'',
+	'',
+	'',
+	0,
+	'Informal Message',
+	'');
+INSERT INTO MSG_IAM
+	VALUES (82);
+INSERT INTO MSG_M
+	VALUES (83,
+	80,
+	80,
+	0);
+INSERT INTO MSG_AM
+	VALUES (83,
+	'Informal Message',
+	'',
+	'',
+	'',
+	'',
+	0,
+	'Informal Message',
+	'');
+INSERT INTO MSG_IAM
+	VALUES (83);
+INSERT INTO SQ_LS
+	VALUES (80,
+	81,
+	'',
+	0);
+INSERT INTO SQ_TM
+	VALUES (84,
+	'increased activity detection',
+	80,
+	'');
+INSERT INTO SQ_TS
+	VALUES (85,
+	86,
+	84,
+	'< 10ms',
+	'');
+INSERT INTO SQ_TM
+	VALUES (86,
+	'notification sent',
+	80,
+	'');
+INSERT INTO PE_PE
+	VALUES (87,
+	1,
+	61,
+	0,
+	14);
+INSERT INTO SQ_P
+	VALUES (87,
+	0);
+INSERT INTO SQ_CIP
+	VALUES (87,
+	0,
+	'TemperatureMonitor1',
+	'Informal Class',
+	'TemperatureMonitor1 : Informal Class',
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES (88,
+	1,
+	61,
+	0,
+	14);
+INSERT INTO SQ_P
+	VALUES (88,
+	0);
+INSERT INTO SQ_CIP
+	VALUES (88,
+	0,
+	'Respiratory Monitor',
+	'Informal Class',
+	'Respiratory Monitor : Informal Class',
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES (89,
+	1,
+	61,
+	0,
+	14);
+INSERT INTO SQ_P
+	VALUES (89,
+	0);
+INSERT INTO MSG_M
+	VALUES (90,
+	80,
+	89,
+	0);
+INSERT INTO MSG_SM
+	VALUES (90,
+	'Informal Message',
+	'',
+	'',
+	'lastTemp',
+	'37.84',
+	0,
+	'Informal Message',
+	'');
+INSERT INTO MSG_ISM
+	VALUES (90);
+INSERT INTO SQ_LS
+	VALUES (89,
+	87,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES (91,
+	1,
+	61,
+	0,
+	14);
+INSERT INTO SQ_P
+	VALUES (91,
+	0);
+INSERT INTO MSG_M
+	VALUES (92,
+	80,
+	91,
+	0);
+INSERT INTO MSG_SM
+	VALUES (92,
+	'Informal Message',
+	'',
+	'',
+	'lastRate',
+	'35',
+	0,
+	'Informal Message',
+	'');
+INSERT INTO MSG_ISM
+	VALUES (92);
+INSERT INTO SQ_LS
+	VALUES (91,
+	88,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES (90,
+	1,
+	61,
+	0,
+	17);
+INSERT INTO PE_PE
+	VALUES (92,
+	1,
+	61,
+	0,
+	17);
+INSERT INTO PE_PE
+	VALUES (79,
+	1,
+	61,
+	0,
+	17);
+INSERT INTO PE_PE
+	VALUES (82,
+	1,
+	61,
+	0,
+	17);
+INSERT INTO PE_PE
+	VALUES (83,
+	1,
+	61,
+	0,
+	17);
+INSERT INTO PE_PE
+	VALUES (93,
+	1,
+	2,
+	0,
+	7);
+INSERT INTO EP_PKG
+	VALUES (93,
+	0,
+	1,
+	'Increased Activity comm',
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES (94,
+	1,
+	93,
+	0,
+	14);
+INSERT INTO SQ_P
+	VALUES (94,
+	0);
+INSERT INTO SQ_CIP
+	VALUES (94,
+	63,
+	'Pacer1',
+	'Pacer',
+	'Pacer1 : pacer',
+	'The pacer instance has an increased amount of signals delivered during Increased
+Activity.  This allows the Pacer to deliver the appropriate number of beats to
+accomodate the heart under the increased activity.',
+	1);
+INSERT INTO SQ_AV
+	VALUES (95,
+	0,
+	0,
+	'Informal Attribute',
+	'',
+	'Informal Attribute',
+	94,
+	0,
+	'',
+	0);
+INSERT INTO SQ_AV
+	VALUES (96,
+	63,
+	65,
+	'systolic_tolerance',
+	'',
+	'',
+	0,
+	94,
+	'',
+	1);
+INSERT INTO SQ_FAV
+	VALUES (96);
+INSERT INTO SQ_AV
+	VALUES (97,
+	63,
+	67,
+	'diastolic_tolerance',
+	'',
+	'',
+	0,
+	94,
+	'',
+	1);
+INSERT INTO SQ_FAV
+	VALUES (97);
+INSERT INTO SQ_AV
+	VALUES (98,
+	63,
+	69,
+	'current_state',
+	'',
+	'',
+	0,
+	94,
+	'',
+	1);
+INSERT INTO SQ_FAV
+	VALUES (98);
+INSERT INTO SQ_AV
+	VALUES (99,
+	63,
+	71,
+	'cycle_count',
+	'',
+	'',
+	0,
+	94,
+	'',
+	1);
+INSERT INTO SQ_FAV
+	VALUES (99);
+INSERT INTO SQ_AV
+	VALUES (100,
+	63,
+	73,
+	'timeout_timer',
+	'',
+	'',
+	0,
+	94,
+	'',
+	1);
+INSERT INTO SQ_FAV
+	VALUES (100);
+INSERT INTO SQ_AV
+	VALUES (101,
+	63,
+	75,
+	'systolic_timeout',
+	'',
+	'',
+	0,
+	94,
+	'',
+	1);
+INSERT INTO SQ_FAV
+	VALUES (101);
+INSERT INTO SQ_AV
+	VALUES (102,
+	63,
+	77,
+	'diastolic_timeout',
+	'',
+	'',
+	0,
+	94,
+	'',
+	1);
+INSERT INTO SQ_FAV
+	VALUES (102);
+INSERT INTO COMM_LNK
+	VALUES (103,
+	0,
+	'',
+	'The R1 link allows for a Host Monitor to help control a Pacer when certain
+environmental values have changed.',
+	'notifies of increased activity',
+	'',
+	0,
+	0,
+	0,
+	94,
+	104);
+INSERT INTO PE_PE
+	VALUES (105,
+	1,
+	93,
+	0,
+	14);
+INSERT INTO SQ_P
+	VALUES (105,
+	0);
+INSERT INTO SQ_CIP
+	VALUES (105,
+	106,
+	'TemperatureMonitor1',
+	'TemperatureMonitor',
+	'TemperatureMonitor1 : Temperature Monitor',
+	'The TemperatureMonitor monitors the current temperature of the host''s blood.',
+	1);
+INSERT INTO SQ_AV
+	VALUES (107,
+	0,
+	0,
+	'current_temp = 37.84',
+	'37.84',
+	'current_temp',
+	105,
+	0,
+	'',
+	0);
+INSERT INTO COMM_LNK
+	VALUES (108,
+	109,
+	'2',
+	'The R2 Link allows for the HostMonitor to communicate with a temperature
+monitor.  Allowing for readings of the hots''s current temperature.',
+	'',
+	'provides temperature monitoring',
+	1,
+	0,
+	0,
+	105,
+	104);
+INSERT INTO PE_PE
+	VALUES (110,
+	1,
+	93,
+	0,
+	14);
+INSERT INTO SQ_P
+	VALUES (110,
+	0);
+INSERT INTO SQ_CIP
+	VALUES (110,
+	111,
+	'RespiratoryMonitor1',
+	'RespiratoryMonitor',
+	'RespiratoryMonitor1 : Respiratory Monitor',
+	'The RespiratoryMonitor continually measures the host''s breaths per minute.',
+	1);
+INSERT INTO SQ_AV
+	VALUES (112,
+	0,
+	0,
+	'current_rate = 35 bpms',
+	'35 bpms',
+	'current_rate',
+	110,
+	0,
+	'',
+	0);
+INSERT INTO COMM_LNK
+	VALUES (113,
+	114,
+	'3',
+	'The R3 Link allows for a HostMonitor to have access to a continually measured
+respiratory value.  The Respiratory Monitor measures the value in breaths per
+minute.',
+	'',
+	'provides respiratory monitoring',
+	1,
+	0,
+	0,
+	110,
+	104);
+INSERT INTO PE_PE
+	VALUES (104,
+	1,
+	93,
+	0,
+	14);
+INSERT INTO SQ_P
+	VALUES (104,
+	0);
+INSERT INTO SQ_CIP
+	VALUES (104,
+	115,
+	'HostMonitor1',
+	'HostMonitor',
+	'HostMonitor1 : Host Monitor',
+	'The HostMonitor instance watches lower level monitors for values that exceed
+normal activity levels.',
+	1);
+INSERT INTO SQ_AV
+	VALUES (116,
+	0,
+	0,
+	'lastTemp = 37.84',
+	'37.84',
+	'lastTemp',
+	104,
+	0,
+	'',
+	0);
+INSERT INTO SQ_AV
+	VALUES (117,
+	0,
+	0,
+	'lastRate = 35',
+	'35',
+	'lastRate',
+	104,
+	0,
+	'',
+	0);
+INSERT INTO SQ_AV
+	VALUES (118,
+	115,
+	119,
+	'lastTemp',
+	'',
+	'',
+	0,
+	104,
+	'',
+	1);
+INSERT INTO SQ_FAV
+	VALUES (118);
+INSERT INTO SQ_AV
+	VALUES (120,
+	115,
+	121,
+	'lastRate',
+	'',
+	'',
+	0,
+	104,
+	'',
+	1);
+INSERT INTO SQ_FAV
+	VALUES (120);
+INSERT INTO SQ_AV
+	VALUES (122,
+	115,
+	123,
+	'current_state',
+	'',
+	'',
+	0,
+	104,
+	'',
+	1);
+INSERT INTO SQ_FAV
+	VALUES (122);
+INSERT INTO PE_PE
+	VALUES (124,
+	1,
+	93,
+	0,
+	17);
+INSERT INTO MSG_M
+	VALUES (124,
+	0,
+	0,
+	1);
+INSERT INTO MSG_AM
+	VALUES (124,
+	'increasedTemperature',
+	'The increased_activity message asynchronously notifies the Pacer of an event
+where the Host''s temperature and respiratory rate have exceeded normal activity
+levels.',
+	'blood_temp > 37.5 or resipiratory_rate > 18',
+	'',
+	'',
+	0,
+	'increasedTemperature',
+	'3');
+INSERT INTO MSG_IAM
+	VALUES (124);
+INSERT INTO MSG_A
+	VALUES (125,
+	124,
+	0,
+	'current_temp = 37.84',
+	'37.84',
+	'current_temp',
+	'',
+	0);
+INSERT INTO MSG_IA
+	VALUES (125);
+INSERT INTO PE_PE
+	VALUES (126,
+	1,
+	93,
+	0,
+	17);
+INSERT INTO MSG_M
+	VALUES (126,
+	0,
+	0,
+	1);
+INSERT INTO MSG_SM
+	VALUES (126,
+	'getCurrentRate',
+	'The getCurrentRate operation is used to retrieve the current respiratory rate in
+breaths per minute.',
+	'',
+	'lastRate',
+	'35',
+	0,
+	'getCurrentRate',
+	'2');
+INSERT INTO MSG_ISM
+	VALUES (126);
+INSERT INTO PE_PE
+	VALUES (127,
+	1,
+	93,
+	0,
+	17);
+INSERT INTO MSG_M
+	VALUES (127,
+	0,
+	0,
+	1);
+INSERT INTO MSG_SM
+	VALUES (127,
+	'getCurrentTemp',
+	'The getCurrentTemp operation is used to retrieve the latest temperature reading
+in celcius.',
+	'',
+	'lastTemp',
+	'37.84',
+	0,
+	'getCurrentTemp',
+	'1');
+INSERT INTO MSG_ISM
+	VALUES (127);
+INSERT INTO EP_PKG
+	VALUES (128,
+	1,
+	1,
+	'library',
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES (129,
+	1,
+	128,
+	0,
+	2);
+INSERT INTO C_C
+	VALUES (129,
+	0,
+	0,
+	'heart',
+	'',
+	0,
+	0,
+	0,
+	'');
+INSERT INTO C_PO
+	VALUES (130,
+	129,
+	'out_to_body',
+	0,
+	0);
+INSERT INTO C_IR
+	VALUES (131,
+	132,
+	0,
+	130);
+INSERT INTO C_R
+	VALUES (131,
+	'synchronization',
+	'',
+	'Unnamed Interface',
+	'heart::out_to_body::synchronization');
+INSERT INTO SPR_REP
+	VALUES (133,
+	134,
+	131);
+INSERT INTO SPR_RS
+	VALUES (133,
+	'systolic_pulse',
+	'',
+	'',
+	1);
+INSERT INTO ACT_RSB
+	VALUES (135,
+	133);
+INSERT INTO ACT_ACT
+	VALUES (135,
+	'signal',
+	0,
+	136,
+	0,
+	0,
+	'out_to_body::synchronization::systolic_pulse',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (136,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	135,
+	0);
+INSERT INTO SPR_REP
+	VALUES (137,
+	138,
+	131);
+INSERT INTO SPR_RS
+	VALUES (137,
+	'diastolic_pulse',
+	'',
+	'',
+	1);
+INSERT INTO ACT_RSB
+	VALUES (139,
+	137);
+INSERT INTO ACT_ACT
+	VALUES (139,
+	'signal',
+	0,
+	140,
+	0,
+	0,
+	'out_to_body::synchronization::diastolic_pulse',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (140,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	139,
+	0);
+INSERT INTO SPR_REP
+	VALUES (141,
+	142,
+	131);
+INSERT INTO SPR_RS
+	VALUES (141,
+	'systolic_pace',
+	'',
+	'',
+	1);
+INSERT INTO ACT_RSB
+	VALUES (143,
+	141);
+INSERT INTO ACT_ACT
+	VALUES (143,
+	'signal',
+	0,
+	144,
+	0,
+	0,
+	'out_to_body::synchronization::systolic_pace',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (144,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	143,
+	0);
+INSERT INTO SPR_REP
+	VALUES (145,
+	146,
+	131);
+INSERT INTO SPR_RS
+	VALUES (145,
+	'diastolic_pace',
+	'',
+	'',
+	1);
+INSERT INTO ACT_RSB
+	VALUES (147,
+	145);
+INSERT INTO ACT_ACT
+	VALUES (147,
+	'signal',
+	0,
+	148,
+	0,
+	0,
+	'out_to_body::synchronization::diastolic_pace',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (148,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	147,
+	0);
+INSERT INTO SPR_REP
+	VALUES (149,
+	150,
+	131);
+INSERT INTO SPR_RO
+	VALUES (149,
+	'init',
+	'',
+	'',
+	1);
+INSERT INTO ACT_ROB
+	VALUES (151,
+	149);
+INSERT INTO ACT_ACT
+	VALUES (151,
+	'interface operation',
+	0,
+	152,
+	0,
+	0,
+	'out_to_body::synchronization::init',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (152,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	151,
+	0);
+INSERT INTO C_PO
+	VALUES (153,
+	129,
+	'host',
+	0,
+	0);
+INSERT INTO C_IR
+	VALUES (154,
+	155,
+	0,
+	153);
+INSERT INTO C_R
+	VALUES (154,
+	'host',
+	'',
+	'Unnamed Interface',
+	'heart::host::host');
+INSERT INTO SPR_REP
+	VALUES (156,
+	157,
+	154);
+INSERT INTO SPR_RS
+	VALUES (156,
+	'breath_taken',
+	'',
+	'',
+	1);
+INSERT INTO ACT_RSB
+	VALUES (158,
+	156);
+INSERT INTO ACT_ACT
+	VALUES (158,
+	'signal',
+	0,
+	159,
+	0,
+	0,
+	'host::host::breath_taken',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (159,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	158,
+	0);
+INSERT INTO SPR_REP
+	VALUES (160,
+	161,
+	154);
+INSERT INTO SPR_RS
+	VALUES (160,
+	'current_temp',
+	'',
+	'',
+	1);
+INSERT INTO ACT_RSB
+	VALUES (162,
+	160);
+INSERT INTO ACT_ACT
+	VALUES (162,
+	'signal',
+	0,
+	163,
+	0,
+	0,
+	'host::host::current_temp',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (163,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	162,
+	0);
+INSERT INTO PE_PE
+	VALUES (164,
+	1,
+	0,
+	129,
+	7);
+INSERT INTO EP_PKG
+	VALUES (164,
+	0,
+	1,
+	'External Entities',
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES (165,
+	1,
+	164,
+	0,
+	5);
+INSERT INTO S_EE
+	VALUES (165,
+	'Time',
+	'The Time external entity provides date, timestamp, and timer related operations.',
+	'TIM',
+	0,
+	'',
+	'Time');
+INSERT INTO S_BRG
+	VALUES (166,
+	165,
+	'current_date',
+	'',
+	1,
+	167,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (168,
+	165,
+	'create_date',
+	'',
+	1,
+	167,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (169,
+	168,
+	'second',
+	170,
+	0,
+	'',
+	171,
+	'');
+INSERT INTO S_BPARM
+	VALUES (172,
+	168,
+	'minute',
+	170,
+	0,
+	'',
+	173,
+	'');
+INSERT INTO S_BPARM
+	VALUES (173,
+	168,
+	'hour',
+	170,
+	0,
+	'',
+	174,
+	'');
+INSERT INTO S_BPARM
+	VALUES (174,
+	168,
+	'day',
+	170,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (171,
+	168,
+	'month',
+	170,
+	0,
+	'',
+	172,
+	'');
+INSERT INTO S_BPARM
+	VALUES (175,
+	168,
+	'year',
+	170,
+	0,
+	'',
+	169,
+	'');
+INSERT INTO S_BRG
+	VALUES (176,
+	165,
+	'get_second',
+	'',
+	1,
+	170,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (177,
+	176,
+	'date',
+	167,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (178,
+	165,
+	'get_minute',
+	'',
+	1,
+	170,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (179,
+	178,
+	'date',
+	167,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (180,
+	165,
+	'get_hour',
+	'',
+	1,
+	170,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (181,
+	180,
+	'date',
+	167,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (182,
+	165,
+	'get_day',
+	'',
+	1,
+	170,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (183,
+	182,
+	'date',
+	167,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (184,
+	165,
+	'get_month',
+	'',
+	1,
+	170,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (185,
+	184,
+	'date',
+	167,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (186,
+	165,
+	'get_year',
+	'',
+	1,
+	170,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (187,
+	186,
+	'date',
+	167,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (188,
+	165,
+	'current_clock',
+	'',
+	1,
+	189,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (190,
+	165,
+	'timer_start',
+	'This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Returns the instance
+handle of the timer.',
+	1,
+	191,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (192,
+	190,
+	'microseconds',
+	170,
+	0,
+	'',
+	193,
+	'');
+INSERT INTO S_BPARM
+	VALUES (193,
+	190,
+	'event_inst',
+	194,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (195,
+	165,
+	'timer_start_recurring',
+	'This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Upon expiration, the
+timer will be restarted and fire again in the specified number of microseconds
+generating the passed event. This bridge operation returns the instance handle
+of the timer.',
+	1,
+	191,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (196,
+	195,
+	'microseconds',
+	170,
+	0,
+	'',
+	197,
+	'');
+INSERT INTO S_BPARM
+	VALUES (197,
+	195,
+	'event_inst',
+	194,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (198,
+	165,
+	'timer_remaining_time',
+	'Returns the time remaining (in microseconds) for the passed timer instance. If
+the timer has expired, a zero value is returned.',
+	1,
+	170,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (199,
+	198,
+	'timer_inst_ref',
+	191,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (200,
+	165,
+	'timer_reset_time',
+	'This bridge operation attempts to set the passed existing timer to expire in
+the specified number of microseconds. If the timer exists (that is, it has not
+expired), a TRUE value is returned. If the timer no longer exists, a FALSE value
+is returned.',
+	1,
+	201,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (202,
+	200,
+	'timer_inst_ref',
+	191,
+	0,
+	'',
+	203,
+	'');
+INSERT INTO S_BPARM
+	VALUES (203,
+	200,
+	'microseconds',
+	170,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (204,
+	165,
+	'timer_add_time',
+	'This bridge operation attempts to add the specified number of microseconds to a
+passed existing timer. If the timer exists (that is, it has not expired), a TRUE
+value is returned. If the timer no longer exists, a FALSE value is returned.',
+	1,
+	201,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (205,
+	204,
+	'timer_inst_ref',
+	191,
+	0,
+	'',
+	206,
+	'');
+INSERT INTO S_BPARM
+	VALUES (206,
+	204,
+	'microseconds',
+	170,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (207,
+	165,
+	'timer_cancel',
+	'This bridge operation cancels and deletes the passed timer instance. If the 
+timer exists (that is, it had not expired), a TRUE value is returned. If the
+timer no longer exists, a FALSE value is returned.',
+	1,
+	201,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (208,
+	207,
+	'timer_inst_ref',
+	191,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO PE_PE
+	VALUES (209,
+	1,
+	164,
+	0,
+	5);
+INSERT INTO S_EE
+	VALUES (209,
+	'Architecture',
+	'',
+	'ARCH',
+	0,
+	'',
+	'Architecture');
+INSERT INTO S_BRG
+	VALUES (210,
+	209,
+	'shutdown',
+	'',
+	0,
+	211,
+	'control stop;',
+	1,
+	'');
+INSERT INTO ACT_BRB
+	VALUES (212,
+	210);
+INSERT INTO ACT_ACT
+	VALUES (212,
+	'bridge',
+	0,
+	213,
+	0,
+	0,
+	'Architecture::shutdown',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (213,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	1,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	212,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (214,
+	213,
+	0,
+	1,
+	1,
+	'Architecture::shutdown line: 1');
+INSERT INTO ACT_CTL
+	VALUES (214);
+INSERT INTO PE_PE
+	VALUES (215,
+	1,
+	164,
+	0,
+	5);
+INSERT INTO S_EE
+	VALUES (215,
+	'Logging',
+	'',
+	'LOG',
+	0,
+	'',
+	'Logging');
+INSERT INTO S_BRG
+	VALUES (216,
+	215,
+	'LogSuccess',
+	'',
+	0,
+	211,
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES (217,
+	216,
+	'message',
+	218,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO ACT_BRB
+	VALUES (219,
+	216);
+INSERT INTO ACT_ACT
+	VALUES (219,
+	'bridge',
+	0,
+	220,
+	0,
+	0,
+	'Logging::LogSuccess',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (220,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	219,
+	0);
+INSERT INTO S_BRG
+	VALUES (221,
+	215,
+	'LogFailure',
+	'',
+	0,
+	211,
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES (222,
+	221,
+	'message',
+	218,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO ACT_BRB
+	VALUES (223,
+	221);
+INSERT INTO ACT_ACT
+	VALUES (223,
+	'bridge',
+	0,
+	224,
+	0,
+	0,
+	'Logging::LogFailure',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (224,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	223,
+	0);
+INSERT INTO S_BRG
+	VALUES (225,
+	215,
+	'LogInfo',
+	'',
+	0,
+	211,
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES (226,
+	225,
+	'message',
+	218,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO ACT_BRB
+	VALUES (227,
+	225);
+INSERT INTO ACT_ACT
+	VALUES (227,
+	'bridge',
+	0,
+	228,
+	0,
+	0,
+	'Logging::LogInfo',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (228,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	227,
+	0);
+INSERT INTO S_BRG
+	VALUES (229,
+	215,
+	'LogDate',
+	'',
+	0,
+	211,
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES (230,
+	229,
+	'd',
+	167,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (231,
+	229,
+	'message',
+	218,
+	0,
+	'',
+	230,
+	'');
+INSERT INTO ACT_BRB
+	VALUES (232,
+	229);
+INSERT INTO ACT_ACT
+	VALUES (232,
+	'bridge',
+	0,
+	233,
+	0,
+	0,
+	'Logging::LogDate',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (233,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	232,
+	0);
+INSERT INTO S_BRG
+	VALUES (234,
+	215,
+	'LogTime',
+	'',
+	0,
+	211,
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES (235,
+	234,
+	't',
+	189,
+	0,
+	'',
+	236,
+	'');
+INSERT INTO S_BPARM
+	VALUES (236,
+	234,
+	'message',
+	218,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO ACT_BRB
+	VALUES (237,
+	234);
+INSERT INTO ACT_ACT
+	VALUES (237,
+	'bridge',
+	0,
+	238,
+	0,
+	0,
+	'Logging::LogTime',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (238,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	237,
+	0);
+INSERT INTO S_BRG
+	VALUES (239,
+	215,
+	'LogReal',
+	'',
+	0,
+	211,
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES (240,
+	239,
+	'r',
+	241,
+	0,
+	'',
+	242,
+	'');
+INSERT INTO S_BPARM
+	VALUES (242,
+	239,
+	'message',
+	218,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO ACT_BRB
+	VALUES (243,
+	239);
+INSERT INTO ACT_ACT
+	VALUES (243,
+	'bridge',
+	0,
+	244,
+	0,
+	0,
+	'Logging::LogReal',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (244,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	243,
+	0);
+INSERT INTO S_BRG
+	VALUES (245,
+	215,
+	'LogInteger',
+	'',
+	0,
+	211,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (246,
+	245,
+	'message',
+	170,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO PE_PE
+	VALUES (247,
+	1,
+	0,
+	129,
+	7);
+INSERT INTO EP_PKG
+	VALUES (247,
+	0,
+	1,
+	'functions',
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES (248,
+	1,
+	247,
+	0,
+	1);
+INSERT INTO S_SYNC
+	VALUES (248,
+	0,
+	'init',
+	'',
+	'// Create the instances of heart and nervous system.
+// Relate them together.
+// Initialize the nervous system with (half) periods for the pulsing.
+// Send message out to the body (pacer) to initialize.
+// Kick off the simulation by sending an event to the nervous system.
+create object instance heart of HEART;
+create object instance snode of SINUS_NODE;
+relate heart to snode across R1;
+snode.systolic_period = 500000;
+snode.diastolic_period = 500000;
+snode.decrement = 0;
+send out_to_body::init(systolic_period:snode.systolic_period, diastolic_period:snode.diastolic_period);
+// Set a timer for the diastolic period to start things going.
+create event instance e of SINUS_NODE2:period() to snode;
+//t = TIM::timer_start_recurring( microseconds:snode.systolic_period + snode.diastolic_period, event_inst:e );
+t = TIM::timer_start( microseconds:snode.systolic_period + snode.diastolic_period, event_inst:e );
+
+',
+	211,
+	1,
+	'');
+INSERT INTO ACT_FNB
+	VALUES (249,
+	248);
+INSERT INTO ACT_ACT
+	VALUES (249,
+	'function',
+	0,
+	250,
+	0,
+	0,
+	'init',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (250,
+	0,
+	0,
+	0,
+	'TIM',
+	'',
+	'',
+	16,
+	1,
+	16,
+	5,
+	0,
+	0,
+	8,
+	30,
+	0,
+	0,
+	0,
+	0,
+	0,
+	249,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (251,
+	250,
+	252,
+	6,
+	1,
+	'init line: 6');
+INSERT INTO ACT_CR
+	VALUES (251,
+	253,
+	1,
+	254,
+	6,
+	33);
+INSERT INTO ACT_SMT
+	VALUES (252,
+	250,
+	255,
+	7,
+	1,
+	'init line: 7');
+INSERT INTO ACT_CR
+	VALUES (252,
+	256,
+	1,
+	257,
+	7,
+	33);
+INSERT INTO ACT_SMT
+	VALUES (255,
+	250,
+	258,
+	8,
+	1,
+	'init line: 8');
+INSERT INTO ACT_REL
+	VALUES (255,
+	253,
+	256,
+	'',
+	259,
+	8,
+	30,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (258,
+	250,
+	260,
+	9,
+	1,
+	'init line: 9');
+INSERT INTO ACT_AI
+	VALUES (258,
+	261,
+	262,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (260,
+	250,
+	263,
+	10,
+	1,
+	'init line: 10');
+INSERT INTO ACT_AI
+	VALUES (260,
+	264,
+	265,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (263,
+	250,
+	266,
+	11,
+	1,
+	'init line: 11');
+INSERT INTO ACT_AI
+	VALUES (263,
+	267,
+	268,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (266,
+	250,
+	269,
+	12,
+	1,
+	'init line: 12');
+INSERT INTO ACT_IOP
+	VALUES (266,
+	12,
+	19,
+	12,
+	6,
+	0,
+	149,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (269,
+	250,
+	270,
+	14,
+	1,
+	'init line: 14');
+INSERT INTO E_ESS
+	VALUES (269,
+	1,
+	0,
+	14,
+	28,
+	14,
+	40,
+	12,
+	6,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO E_CES
+	VALUES (269,
+	1,
+	271);
+INSERT INTO E_CSME
+	VALUES (269,
+	272);
+INSERT INTO E_CEI
+	VALUES (269,
+	256);
+INSERT INTO ACT_SMT
+	VALUES (270,
+	250,
+	0,
+	16,
+	1,
+	'init line: 16');
+INSERT INTO ACT_AI
+	VALUES (270,
+	273,
+	274,
+	0,
+	0);
+INSERT INTO V_VAL
+	VALUES (275,
+	1,
+	0,
+	9,
+	1,
+	5,
+	0,
+	0,
+	0,
+	0,
+	276,
+	250);
+INSERT INTO V_IRF
+	VALUES (275,
+	256);
+INSERT INTO V_VAL
+	VALUES (262,
+	1,
+	0,
+	9,
+	7,
+	21,
+	0,
+	0,
+	0,
+	0,
+	170,
+	250);
+INSERT INTO V_AVL
+	VALUES (262,
+	275,
+	257,
+	277);
+INSERT INTO V_VAL
+	VALUES (261,
+	0,
+	0,
+	9,
+	25,
+	30,
+	0,
+	0,
+	0,
+	0,
+	170,
+	250);
+INSERT INTO V_LIN
+	VALUES (261,
+	'500000');
+INSERT INTO V_VAL
+	VALUES (278,
+	1,
+	0,
+	10,
+	1,
+	5,
+	0,
+	0,
+	0,
+	0,
+	276,
+	250);
+INSERT INTO V_IRF
+	VALUES (278,
+	256);
+INSERT INTO V_VAL
+	VALUES (265,
+	1,
+	0,
+	10,
+	7,
+	22,
+	0,
+	0,
+	0,
+	0,
+	170,
+	250);
+INSERT INTO V_AVL
+	VALUES (265,
+	278,
+	257,
+	279);
+INSERT INTO V_VAL
+	VALUES (264,
+	0,
+	0,
+	10,
+	26,
+	31,
+	0,
+	0,
+	0,
+	0,
+	170,
+	250);
+INSERT INTO V_LIN
+	VALUES (264,
+	'500000');
+INSERT INTO V_VAL
+	VALUES (280,
+	1,
+	0,
+	11,
+	1,
+	5,
+	0,
+	0,
+	0,
+	0,
+	276,
+	250);
+INSERT INTO V_IRF
+	VALUES (280,
+	256);
+INSERT INTO V_VAL
+	VALUES (268,
+	1,
+	0,
+	11,
+	7,
+	15,
+	0,
+	0,
+	0,
+	0,
+	170,
+	250);
+INSERT INTO V_AVL
+	VALUES (268,
+	280,
+	257,
+	281);
+INSERT INTO V_VAL
+	VALUES (267,
+	0,
+	0,
+	11,
+	19,
+	19,
+	0,
+	0,
+	0,
+	0,
+	170,
+	250);
+INSERT INTO V_LIN
+	VALUES (267,
+	'0');
+INSERT INTO V_VAL
+	VALUES (282,
+	0,
+	0,
+	12,
+	40,
+	44,
+	0,
+	0,
+	0,
+	0,
+	276,
+	250);
+INSERT INTO V_IRF
+	VALUES (282,
+	256);
+INSERT INTO V_VAL
+	VALUES (283,
+	0,
+	0,
+	12,
+	46,
+	60,
+	0,
+	0,
+	0,
+	0,
+	170,
+	250);
+INSERT INTO V_AVL
+	VALUES (283,
+	282,
+	257,
+	277);
+INSERT INTO V_PAR
+	VALUES (283,
+	266,
+	0,
+	'systolic_period',
+	284,
+	12,
+	24);
+INSERT INTO V_VAL
+	VALUES (285,
+	0,
+	0,
+	12,
+	80,
+	84,
+	0,
+	0,
+	0,
+	0,
+	276,
+	250);
+INSERT INTO V_IRF
+	VALUES (285,
+	256);
+INSERT INTO V_VAL
+	VALUES (284,
+	0,
+	0,
+	12,
+	86,
+	101,
+	0,
+	0,
+	0,
+	0,
+	170,
+	250);
+INSERT INTO V_AVL
+	VALUES (284,
+	285,
+	257,
+	279);
+INSERT INTO V_PAR
+	VALUES (284,
+	266,
+	0,
+	'diastolic_period',
+	0,
+	12,
+	63);
+INSERT INTO V_VAL
+	VALUES (274,
+	1,
+	1,
+	16,
+	1,
+	1,
+	0,
+	0,
+	0,
+	0,
+	191,
+	250);
+INSERT INTO V_TVL
+	VALUES (274,
+	286);
+INSERT INTO V_VAL
+	VALUES (273,
+	0,
+	0,
+	16,
+	10,
+	-1,
+	16,
+	23,
+	16,
+	84,
+	191,
+	250);
+INSERT INTO V_BRV
+	VALUES (273,
+	190,
+	1,
+	16,
+	5);
+INSERT INTO V_VAL
+	VALUES (287,
+	0,
+	0,
+	16,
+	36,
+	40,
+	0,
+	0,
+	0,
+	0,
+	276,
+	250);
+INSERT INTO V_IRF
+	VALUES (287,
+	256);
+INSERT INTO V_VAL
+	VALUES (288,
+	0,
+	0,
+	16,
+	42,
+	56,
+	0,
+	0,
+	0,
+	0,
+	170,
+	250);
+INSERT INTO V_AVL
+	VALUES (288,
+	287,
+	257,
+	277);
+INSERT INTO V_VAL
+	VALUES (289,
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	170,
+	250);
+INSERT INTO V_BIN
+	VALUES (289,
+	290,
+	288,
+	'+');
+INSERT INTO V_PAR
+	VALUES (289,
+	0,
+	273,
+	'microseconds',
+	291,
+	16,
+	23);
+INSERT INTO V_VAL
+	VALUES (292,
+	0,
+	0,
+	16,
+	60,
+	64,
+	0,
+	0,
+	0,
+	0,
+	276,
+	250);
+INSERT INTO V_IRF
+	VALUES (292,
+	256);
+INSERT INTO V_VAL
+	VALUES (290,
+	0,
+	0,
+	16,
+	66,
+	81,
+	0,
+	0,
+	0,
+	0,
+	170,
+	250);
+INSERT INTO V_AVL
+	VALUES (290,
+	292,
+	257,
+	279);
+INSERT INTO V_VAL
+	VALUES (291,
+	0,
+	0,
+	16,
+	95,
+	95,
+	0,
+	0,
+	0,
+	0,
+	194,
+	250);
+INSERT INTO V_TVL
+	VALUES (291,
+	271);
+INSERT INTO V_PAR
+	VALUES (291,
+	0,
+	273,
+	'event_inst',
+	0,
+	16,
+	84);
+INSERT INTO V_VAR
+	VALUES (253,
+	250,
+	'heart',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (253,
+	0,
+	254);
+INSERT INTO V_VAR
+	VALUES (256,
+	250,
+	'snode',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (256,
+	0,
+	257);
+INSERT INTO V_VAR
+	VALUES (271,
+	250,
+	'e',
+	1,
+	194);
+INSERT INTO V_TRN
+	VALUES (271,
+	0,
+	'');
+INSERT INTO V_VAR
+	VALUES (286,
+	250,
+	't',
+	1,
+	191);
+INSERT INTO V_TRN
+	VALUES (286,
+	0,
+	'');
+INSERT INTO PE_PE
+	VALUES (308,
+	1,
+	0,
+	129,
+	7);
+INSERT INTO EP_PKG
+	VALUES (308,
+	0,
+	1,
+	'heart',
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES (259,
+	1,
+	308,
+	0,
+	9);
+INSERT INTO R_REL
+	VALUES (259,
+	1,
+	'',
+	0);
+INSERT INTO R_SIMP
+	VALUES (259);
+INSERT INTO R_PART
+	VALUES (254,
+	259,
+	309,
+	0,
+	0,
+	'triggers');
+INSERT INTO R_RTO
+	VALUES (254,
+	259,
+	309,
+	-1);
+INSERT INTO R_OIR
+	VALUES (254,
+	259,
+	309,
+	0);
+INSERT INTO R_PART
+	VALUES (257,
+	259,
+	310,
+	0,
+	0,
+	'is triggered by');
+INSERT INTO R_RTO
+	VALUES (257,
+	259,
+	310,
+	-1);
+INSERT INTO R_OIR
+	VALUES (257,
+	259,
+	310,
+	0);
+INSERT INTO PE_PE
+	VALUES (254,
+	1,
+	308,
+	0,
+	4);
+INSERT INTO O_OBJ
+	VALUES (254,
+	'heart',
+	1,
+	'HEART',
+	'',
+	0);
+INSERT INTO O_NBATTR
+	VALUES (311,
+	254);
+INSERT INTO O_BATTR
+	VALUES (311,
+	254);
+INSERT INTO O_ATTR
+	VALUES (311,
+	254,
+	0,
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	312,
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	254);
+INSERT INTO O_ID
+	VALUES (1,
+	254);
+INSERT INTO O_ID
+	VALUES (2,
+	254);
+INSERT INTO SM_ISM
+	VALUES (313,
+	254);
+INSERT INTO SM_SM
+	VALUES (313,
+	'',
+	0);
+INSERT INTO SM_MOORE
+	VALUES (313);
+INSERT INTO SM_LEVT
+	VALUES (314,
+	313,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (314,
+	313,
+	0);
+INSERT INTO SM_EVT
+	VALUES (314,
+	313,
+	0,
+	1,
+	'done',
+	0,
+	'',
+	'HEART1',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (315,
+	313,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (315,
+	313,
+	0);
+INSERT INTO SM_EVT
+	VALUES (315,
+	313,
+	0,
+	2,
+	'diastolic_pace',
+	0,
+	'',
+	'HEART2',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (316,
+	313,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (316,
+	313,
+	0);
+INSERT INTO SM_EVT
+	VALUES (316,
+	313,
+	0,
+	3,
+	'systolic_pace',
+	0,
+	'',
+	'HEART3',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (317,
+	313,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (317,
+	313,
+	0);
+INSERT INTO SM_EVT
+	VALUES (317,
+	313,
+	0,
+	4,
+	'diastolic_pulse',
+	0,
+	'',
+	'HEART4',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (318,
+	313,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (318,
+	313,
+	0);
+INSERT INTO SM_EVT
+	VALUES (318,
+	313,
+	0,
+	5,
+	'systolic_pulse',
+	0,
+	'',
+	'HEART5',
+	'');
+INSERT INTO SM_STATE
+	VALUES (319,
+	313,
+	0,
+	'atrial systole',
+	5,
+	0);
+INSERT INTO SM_SEME
+	VALUES (319,
+	314,
+	313,
+	0);
+INSERT INTO SM_CH
+	VALUES (319,
+	315,
+	313,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (319,
+	315,
+	313,
+	0);
+INSERT INTO SM_CH
+	VALUES (319,
+	316,
+	313,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (319,
+	316,
+	313,
+	0);
+INSERT INTO SM_CH
+	VALUES (319,
+	317,
+	313,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (319,
+	317,
+	313,
+	0);
+INSERT INTO SM_CH
+	VALUES (319,
+	318,
+	313,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (319,
+	318,
+	313,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (320,
+	313,
+	319);
+INSERT INTO SM_AH
+	VALUES (320,
+	313);
+INSERT INTO SM_ACT
+	VALUES (320,
+	313,
+	1,
+	'generate HEART1:done() to self;',
+	'');
+INSERT INTO ACT_SAB
+	VALUES (321,
+	313,
+	320);
+INSERT INTO ACT_ACT
+	VALUES (321,
+	'state',
+	0,
+	322,
+	0,
+	0,
+	'heart::atrial systole',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (322,
+	0,
+	0,
+	0,
+	'V_VAR.Var_ID',
+	'',
+	'',
+	1,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	321,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (323,
+	322,
+	0,
+	1,
+	1,
+	'heart::atrial systole line: 1');
+INSERT INTO E_ESS
+	VALUES (323,
+	1,
+	0,
+	1,
+	10,
+	1,
+	17,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO E_GES
+	VALUES (323);
+INSERT INTO E_GSME
+	VALUES (323,
+	314);
+INSERT INTO E_GEN
+	VALUES (323,
+	324);
+INSERT INTO V_VAR
+	VALUES (324,
+	322,
+	'self',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (324,
+	0,
+	254);
+INSERT INTO SM_STATE
+	VALUES (326,
+	313,
+	0,
+	'ventricular systole',
+	2,
+	0);
+INSERT INTO SM_EIGN
+	VALUES (326,
+	314,
+	313,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (326,
+	314,
+	313,
+	0);
+INSERT INTO SM_SEME
+	VALUES (326,
+	315,
+	313,
+	0);
+INSERT INTO SM_CH
+	VALUES (326,
+	316,
+	313,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (326,
+	316,
+	313,
+	0);
+INSERT INTO SM_SEME
+	VALUES (326,
+	317,
+	313,
+	0);
+INSERT INTO SM_CH
+	VALUES (326,
+	318,
+	313,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (326,
+	318,
+	313,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (327,
+	313,
+	326);
+INSERT INTO SM_AH
+	VALUES (327,
+	313);
+INSERT INTO SM_ACT
+	VALUES (327,
+	313,
+	1,
+	'',
+	'');
+INSERT INTO ACT_SAB
+	VALUES (328,
+	313,
+	327);
+INSERT INTO ACT_ACT
+	VALUES (328,
+	'state',
+	0,
+	329,
+	0,
+	0,
+	'heart::ventricular systole',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (329,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	328,
+	0);
+INSERT INTO SM_STATE
+	VALUES (330,
+	313,
+	0,
+	'atrial diastole',
+	3,
+	0);
+INSERT INTO SM_SEME
+	VALUES (330,
+	314,
+	313,
+	0);
+INSERT INTO SM_CH
+	VALUES (330,
+	315,
+	313,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (330,
+	315,
+	313,
+	0);
+INSERT INTO SM_CH
+	VALUES (330,
+	316,
+	313,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (330,
+	316,
+	313,
+	0);
+INSERT INTO SM_CH
+	VALUES (330,
+	317,
+	313,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (330,
+	317,
+	313,
+	0);
+INSERT INTO SM_CH
+	VALUES (330,
+	318,
+	313,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (330,
+	318,
+	313,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (331,
+	313,
+	330);
+INSERT INTO SM_AH
+	VALUES (331,
+	313);
+INSERT INTO SM_ACT
+	VALUES (331,
+	313,
+	1,
+	'generate HEART1:done() to self;',
+	'');
+INSERT INTO ACT_SAB
+	VALUES (332,
+	313,
+	331);
+INSERT INTO ACT_ACT
+	VALUES (332,
+	'state',
+	0,
+	333,
+	0,
+	0,
+	'heart::atrial diastole',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (333,
+	0,
+	0,
+	0,
+	'V_VAR.Var_ID',
+	'',
+	'',
+	1,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	332,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (334,
+	333,
+	0,
+	1,
+	1,
+	'heart::atrial diastole line: 1');
+INSERT INTO E_ESS
+	VALUES (334,
+	1,
+	0,
+	1,
+	10,
+	1,
+	17,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO E_GES
+	VALUES (334);
+INSERT INTO E_GSME
+	VALUES (334,
+	314);
+INSERT INTO E_GEN
+	VALUES (334,
+	335);
+INSERT INTO V_VAR
+	VALUES (335,
+	333,
+	'self',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (335,
+	0,
+	254);
+INSERT INTO SM_STATE
+	VALUES (337,
+	313,
+	0,
+	'ventricular diastole',
+	4,
+	0);
+INSERT INTO SM_CH
+	VALUES (337,
+	314,
+	313,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (337,
+	314,
+	313,
+	0);
+INSERT INTO SM_CH
+	VALUES (337,
+	315,
+	313,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (337,
+	315,
+	313,
+	0);
+INSERT INTO SM_SEME
+	VALUES (337,
+	316,
+	313,
+	0);
+INSERT INTO SM_CH
+	VALUES (337,
+	317,
+	313,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (337,
+	317,
+	313,
+	0);
+INSERT INTO SM_SEME
+	VALUES (337,
+	318,
+	313,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (338,
+	313,
+	337);
+INSERT INTO SM_AH
+	VALUES (338,
+	313);
+INSERT INTO SM_ACT
+	VALUES (338,
+	313,
+	1,
+	'',
+	'');
+INSERT INTO ACT_SAB
+	VALUES (339,
+	313,
+	338);
+INSERT INTO ACT_ACT
+	VALUES (339,
+	'state',
+	0,
+	340,
+	0,
+	0,
+	'heart::ventricular diastole',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (340,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	339,
+	0);
+INSERT INTO SM_STATE
+	VALUES (341,
+	313,
+	0,
+	'born',
+	1,
+	0);
+INSERT INTO SM_CH
+	VALUES (341,
+	314,
+	313,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (341,
+	314,
+	313,
+	0);
+INSERT INTO SM_CH
+	VALUES (341,
+	315,
+	313,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (341,
+	315,
+	313,
+	0);
+INSERT INTO SM_CH
+	VALUES (341,
+	316,
+	313,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (341,
+	316,
+	313,
+	0);
+INSERT INTO SM_SEME
+	VALUES (341,
+	317,
+	313,
+	0);
+INSERT INTO SM_SEME
+	VALUES (341,
+	318,
+	313,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (342,
+	313,
+	341);
+INSERT INTO SM_AH
+	VALUES (342,
+	313);
+INSERT INTO SM_ACT
+	VALUES (342,
+	313,
+	1,
+	'',
+	'');
+INSERT INTO ACT_SAB
+	VALUES (343,
+	313,
+	342);
+INSERT INTO ACT_ACT
+	VALUES (343,
+	'state',
+	0,
+	344,
+	0,
+	0,
+	'heart::born',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (344,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	343,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (345,
+	313,
+	319,
+	314,
+	0);
+INSERT INTO SM_TAH
+	VALUES (346,
+	313,
+	345);
+INSERT INTO SM_AH
+	VALUES (346,
+	313);
+INSERT INTO SM_ACT
+	VALUES (346,
+	313,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (347,
+	313,
+	346);
+INSERT INTO ACT_ACT
+	VALUES (347,
+	'transition',
+	0,
+	348,
+	0,
+	0,
+	'HEART1: done',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (348,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	347,
+	0);
+INSERT INTO SM_TXN
+	VALUES (345,
+	313,
+	326,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (349,
+	313,
+	326,
+	317,
+	0);
+INSERT INTO SM_TAH
+	VALUES (350,
+	313,
+	349);
+INSERT INTO SM_AH
+	VALUES (350,
+	313);
+INSERT INTO SM_ACT
+	VALUES (350,
+	313,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (351,
+	313,
+	350);
+INSERT INTO ACT_ACT
+	VALUES (351,
+	'transition',
+	0,
+	352,
+	0,
+	0,
+	'HEART4: diastolic_pulse',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (352,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	351,
+	0);
+INSERT INTO SM_TXN
+	VALUES (349,
+	313,
+	330,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (353,
+	313,
+	330,
+	314,
+	0);
+INSERT INTO SM_TAH
+	VALUES (354,
+	313,
+	353);
+INSERT INTO SM_AH
+	VALUES (354,
+	313);
+INSERT INTO SM_ACT
+	VALUES (354,
+	313,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (355,
+	313,
+	354);
+INSERT INTO ACT_ACT
+	VALUES (355,
+	'transition',
+	0,
+	356,
+	0,
+	0,
+	'HEART1: done',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (356,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	355,
+	0);
+INSERT INTO SM_TXN
+	VALUES (353,
+	313,
+	337,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (357,
+	313,
+	337,
+	318,
+	0);
+INSERT INTO SM_TAH
+	VALUES (358,
+	313,
+	357);
+INSERT INTO SM_AH
+	VALUES (358,
+	313);
+INSERT INTO SM_ACT
+	VALUES (358,
+	313,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (359,
+	313,
+	358);
+INSERT INTO ACT_ACT
+	VALUES (359,
+	'transition',
+	0,
+	360,
+	0,
+	0,
+	'HEART5: systolic_pulse',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (360,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	359,
+	0);
+INSERT INTO SM_TXN
+	VALUES (357,
+	313,
+	319,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (361,
+	313,
+	337,
+	316,
+	0);
+INSERT INTO SM_TAH
+	VALUES (362,
+	313,
+	361);
+INSERT INTO SM_AH
+	VALUES (362,
+	313);
+INSERT INTO SM_ACT
+	VALUES (362,
+	313,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (363,
+	313,
+	362);
+INSERT INTO ACT_ACT
+	VALUES (363,
+	'transition',
+	0,
+	364,
+	0,
+	0,
+	'HEART3: systolic_pace',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (364,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	363,
+	0);
+INSERT INTO SM_TXN
+	VALUES (361,
+	313,
+	319,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (365,
+	313,
+	326,
+	315,
+	0);
+INSERT INTO SM_TAH
+	VALUES (366,
+	313,
+	365);
+INSERT INTO SM_AH
+	VALUES (366,
+	313);
+INSERT INTO SM_ACT
+	VALUES (366,
+	313,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (367,
+	313,
+	366);
+INSERT INTO ACT_ACT
+	VALUES (367,
+	'transition',
+	0,
+	368,
+	0,
+	0,
+	'HEART2: diastolic_pace',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (368,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	367,
+	0);
+INSERT INTO SM_TXN
+	VALUES (365,
+	313,
+	330,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (369,
+	313,
+	341,
+	318,
+	0);
+INSERT INTO SM_TAH
+	VALUES (370,
+	313,
+	369);
+INSERT INTO SM_AH
+	VALUES (370,
+	313);
+INSERT INTO SM_ACT
+	VALUES (370,
+	313,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (371,
+	313,
+	370);
+INSERT INTO ACT_ACT
+	VALUES (371,
+	'transition',
+	0,
+	372,
+	0,
+	0,
+	'HEART5: systolic_pulse',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (372,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	371,
+	0);
+INSERT INTO SM_TXN
+	VALUES (369,
+	313,
+	319,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (373,
+	313,
+	341,
+	317,
+	0);
+INSERT INTO SM_TAH
+	VALUES (374,
+	313,
+	373);
+INSERT INTO SM_AH
+	VALUES (374,
+	313);
+INSERT INTO SM_ACT
+	VALUES (374,
+	313,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (375,
+	313,
+	374);
+INSERT INTO ACT_ACT
+	VALUES (375,
+	'transition',
+	0,
+	376,
+	0,
+	0,
+	'HEART4: diastolic_pulse',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (376,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	375,
+	0);
+INSERT INTO SM_TXN
+	VALUES (373,
+	313,
+	330,
+	0);
+INSERT INTO SM_ASM
+	VALUES (377,
+	254);
+INSERT INTO SM_SM
+	VALUES (377,
+	'',
+	0);
+INSERT INTO SM_MOORE
+	VALUES (377);
+INSERT INTO SM_SGEVT
+	VALUES (378,
+	377,
+	0,
+	0,
+	145,
+	'out_to_body::diastolic_pace');
+INSERT INTO SM_SEVT
+	VALUES (378,
+	377,
+	0);
+INSERT INTO SM_EVT
+	VALUES (378,
+	377,
+	0,
+	1,
+	'diastolic_pace',
+	0,
+	'',
+	'out_to_body::diastolic_pace',
+	'');
+INSERT INTO SM_SGEVT
+	VALUES (379,
+	377,
+	0,
+	0,
+	141,
+	'out_to_body::systolic_pace');
+INSERT INTO SM_SEVT
+	VALUES (379,
+	377,
+	0);
+INSERT INTO SM_EVT
+	VALUES (379,
+	377,
+	0,
+	2,
+	'systolic_pace',
+	0,
+	'',
+	'out_to_body::systolic_pace',
+	'');
+INSERT INTO SM_STATE
+	VALUES (380,
+	377,
+	0,
+	'receiving paces',
+	1,
+	0);
+INSERT INTO SM_SEME
+	VALUES (380,
+	378,
+	377,
+	0);
+INSERT INTO SM_SEME
+	VALUES (380,
+	379,
+	377,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (381,
+	377,
+	380);
+INSERT INTO SM_AH
+	VALUES (381,
+	377);
+INSERT INTO SM_ACT
+	VALUES (381,
+	377,
+	1,
+	'',
+	'');
+INSERT INTO ACT_SAB
+	VALUES (382,
+	377,
+	381);
+INSERT INTO ACT_ACT
+	VALUES (382,
+	'class state',
+	0,
+	383,
+	0,
+	0,
+	'heart::receiving paces',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (383,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	382,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (384,
+	377,
+	380,
+	378,
+	0);
+INSERT INTO SM_TAH
+	VALUES (385,
+	377,
+	384);
+INSERT INTO SM_AH
+	VALUES (385,
+	377);
+INSERT INTO SM_ACT
+	VALUES (385,
+	377,
+	1,
+	'select any heart from instances of HEART;
+generate HEART2:diastolic_pace() to heart;',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (386,
+	377,
+	385);
+INSERT INTO ACT_ACT
+	VALUES (386,
+	'class transition',
+	0,
+	387,
+	0,
+	0,
+	'out_to_body::diastolic_pace',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (387,
+	1,
+	0,
+	0,
+	'V_VAR.Var_ID',
+	'',
+	'',
+	2,
+	1,
+	1,
+	36,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	386,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (388,
+	387,
+	389,
+	1,
+	1,
+	'out_to_body::diastolic_pace line: 1');
+INSERT INTO ACT_FIO
+	VALUES (388,
+	390,
+	1,
+	'any',
+	254,
+	1,
+	36);
+INSERT INTO ACT_SMT
+	VALUES (389,
+	387,
+	0,
+	2,
+	1,
+	'out_to_body::diastolic_pace line: 2');
+INSERT INTO E_ESS
+	VALUES (389,
+	1,
+	0,
+	2,
+	10,
+	2,
+	17,
+	1,
+	36,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO E_GES
+	VALUES (389);
+INSERT INTO E_GSME
+	VALUES (389,
+	315);
+INSERT INTO E_GEN
+	VALUES (389,
+	390);
+INSERT INTO V_VAR
+	VALUES (390,
+	387,
+	'heart',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (390,
+	0,
+	254);
+INSERT INTO SM_TXN
+	VALUES (384,
+	377,
+	380,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (393,
+	377,
+	380,
+	379,
+	0);
+INSERT INTO SM_TAH
+	VALUES (394,
+	377,
+	393);
+INSERT INTO SM_AH
+	VALUES (394,
+	377);
+INSERT INTO SM_ACT
+	VALUES (394,
+	377,
+	1,
+	'select any heart from instances of HEART;
+generate HEART3:systolic_pace() to heart;',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (395,
+	377,
+	394);
+INSERT INTO ACT_ACT
+	VALUES (395,
+	'class transition',
+	0,
+	396,
+	0,
+	0,
+	'out_to_body::systolic_pace',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (396,
+	1,
+	0,
+	0,
+	'V_VAR.Var_ID',
+	'',
+	'',
+	2,
+	1,
+	1,
+	36,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	395,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (397,
+	396,
+	398,
+	1,
+	1,
+	'out_to_body::systolic_pace line: 1');
+INSERT INTO ACT_FIO
+	VALUES (397,
+	399,
+	1,
+	'any',
+	254,
+	1,
+	36);
+INSERT INTO ACT_SMT
+	VALUES (398,
+	396,
+	0,
+	2,
+	1,
+	'out_to_body::systolic_pace line: 2');
+INSERT INTO E_ESS
+	VALUES (398,
+	1,
+	0,
+	2,
+	10,
+	2,
+	17,
+	1,
+	36,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO E_GES
+	VALUES (398);
+INSERT INTO E_GSME
+	VALUES (398,
+	316);
+INSERT INTO E_GEN
+	VALUES (398,
+	399);
+INSERT INTO V_VAR
+	VALUES (399,
+	396,
+	'heart',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (399,
+	0,
+	254);
+INSERT INTO SM_TXN
+	VALUES (393,
+	377,
+	380,
+	0);
+INSERT INTO PE_PE
+	VALUES (257,
+	1,
+	308,
+	0,
+	4);
+INSERT INTO O_OBJ
+	VALUES (257,
+	'sinus node',
+	2,
+	'SINUS_NODE',
+	'',
+	0);
+INSERT INTO O_TFR
+	VALUES (402,
+	257,
+	'log_and_adjust',
+	'',
+	211,
+	1,
+	'// Now log the periods, decrement them and continue.
+LOG::LogInfo( message:"systolic period, diastolic period" );
+LOG::LogInteger( message:self.systolic_period );
+LOG::LogInteger( message:self.diastolic_period );
+if ( self.decrement < self.systolic_period )
+  self.systolic_period = self.systolic_period - self.decrement;
+end if;
+if ( self.decrement < self.diastolic_period )
+  self.diastolic_period = self.diastolic_period - self.decrement;
+end if;
+',
+	1,
+	'',
+	0);
+INSERT INTO ACT_OPB
+	VALUES (403,
+	402);
+INSERT INTO ACT_ACT
+	VALUES (403,
+	'operation',
+	0,
+	404,
+	0,
+	0,
+	'sinus node::log_and_adjust',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (404,
+	0,
+	0,
+	0,
+	'LOG',
+	'',
+	'',
+	8,
+	1,
+	4,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	403,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (405,
+	404,
+	406,
+	2,
+	1,
+	'sinus node::log_and_adjust line: 2');
+INSERT INTO ACT_BRG
+	VALUES (405,
+	225,
+	2,
+	6,
+	2,
+	1);
+INSERT INTO ACT_SMT
+	VALUES (406,
+	404,
+	407,
+	3,
+	1,
+	'sinus node::log_and_adjust line: 3');
+INSERT INTO ACT_BRG
+	VALUES (406,
+	245,
+	3,
+	6,
+	3,
+	1);
+INSERT INTO ACT_SMT
+	VALUES (407,
+	404,
+	408,
+	4,
+	1,
+	'sinus node::log_and_adjust line: 4');
+INSERT INTO ACT_BRG
+	VALUES (407,
+	245,
+	4,
+	6,
+	4,
+	1);
+INSERT INTO ACT_SMT
+	VALUES (408,
+	404,
+	409,
+	5,
+	1,
+	'sinus node::log_and_adjust line: 5');
+INSERT INTO ACT_IF
+	VALUES (408,
+	410,
+	411,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (409,
+	404,
+	0,
+	8,
+	1,
+	'sinus node::log_and_adjust line: 8');
+INSERT INTO ACT_IF
+	VALUES (409,
+	412,
+	413,
+	0,
+	0);
+INSERT INTO V_VAL
+	VALUES (414,
+	0,
+	0,
+	2,
+	23,
+	56,
+	0,
+	0,
+	0,
+	0,
+	218,
+	404);
+INSERT INTO V_LST
+	VALUES (414,
+	'systolic period, diastolic period');
+INSERT INTO V_PAR
+	VALUES (414,
+	405,
+	0,
+	'message',
+	0,
+	2,
+	15);
+INSERT INTO V_VAL
+	VALUES (415,
+	0,
+	0,
+	3,
+	26,
+	29,
+	0,
+	0,
+	0,
+	0,
+	276,
+	404);
+INSERT INTO V_IRF
+	VALUES (415,
+	416);
+INSERT INTO V_VAL
+	VALUES (417,
+	0,
+	0,
+	3,
+	31,
+	45,
+	0,
+	0,
+	0,
+	0,
+	170,
+	404);
+INSERT INTO V_AVL
+	VALUES (417,
+	415,
+	257,
+	277);
+INSERT INTO V_PAR
+	VALUES (417,
+	406,
+	0,
+	'message',
+	0,
+	3,
+	18);
+INSERT INTO V_VAL
+	VALUES (418,
+	0,
+	0,
+	4,
+	26,
+	29,
+	0,
+	0,
+	0,
+	0,
+	276,
+	404);
+INSERT INTO V_IRF
+	VALUES (418,
+	416);
+INSERT INTO V_VAL
+	VALUES (419,
+	0,
+	0,
+	4,
+	31,
+	46,
+	0,
+	0,
+	0,
+	0,
+	170,
+	404);
+INSERT INTO V_AVL
+	VALUES (419,
+	418,
+	257,
+	279);
+INSERT INTO V_PAR
+	VALUES (419,
+	407,
+	0,
+	'message',
+	0,
+	4,
+	18);
+INSERT INTO V_VAL
+	VALUES (420,
+	0,
+	0,
+	5,
+	6,
+	9,
+	0,
+	0,
+	0,
+	0,
+	276,
+	404);
+INSERT INTO V_IRF
+	VALUES (420,
+	416);
+INSERT INTO V_VAL
+	VALUES (421,
+	0,
+	0,
+	5,
+	11,
+	19,
+	0,
+	0,
+	0,
+	0,
+	170,
+	404);
+INSERT INTO V_AVL
+	VALUES (421,
+	420,
+	257,
+	281);
+INSERT INTO V_VAL
+	VALUES (411,
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	201,
+	404);
+INSERT INTO V_BIN
+	VALUES (411,
+	422,
+	421,
+	'<');
+INSERT INTO V_VAL
+	VALUES (423,
+	0,
+	0,
+	5,
+	23,
+	26,
+	0,
+	0,
+	0,
+	0,
+	276,
+	404);
+INSERT INTO V_IRF
+	VALUES (423,
+	416);
+INSERT INTO V_VAL
+	VALUES (422,
+	0,
+	0,
+	5,
+	28,
+	42,
+	0,
+	0,
+	0,
+	0,
+	170,
+	404);
+INSERT INTO V_AVL
+	VALUES (422,
+	423,
+	257,
+	277);
+INSERT INTO V_VAL
+	VALUES (424,
+	0,
+	0,
+	8,
+	6,
+	9,
+	0,
+	0,
+	0,
+	0,
+	276,
+	404);
+INSERT INTO V_IRF
+	VALUES (424,
+	416);
+INSERT INTO V_VAL
+	VALUES (425,
+	0,
+	0,
+	8,
+	11,
+	19,
+	0,
+	0,
+	0,
+	0,
+	170,
+	404);
+INSERT INTO V_AVL
+	VALUES (425,
+	424,
+	257,
+	281);
+INSERT INTO V_VAL
+	VALUES (413,
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	201,
+	404);
+INSERT INTO V_BIN
+	VALUES (413,
+	426,
+	425,
+	'<');
+INSERT INTO V_VAL
+	VALUES (427,
+	0,
+	0,
+	8,
+	23,
+	26,
+	0,
+	0,
+	0,
+	0,
+	276,
+	404);
+INSERT INTO V_IRF
+	VALUES (427,
+	416);
+INSERT INTO V_VAL
+	VALUES (426,
+	0,
+	0,
+	8,
+	28,
+	43,
+	0,
+	0,
+	0,
+	0,
+	170,
+	404);
+INSERT INTO V_AVL
+	VALUES (426,
+	427,
+	257,
+	279);
+INSERT INTO V_VAR
+	VALUES (416,
+	404,
+	'self',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (416,
+	0,
+	257);
+INSERT INTO ACT_BLK
+	VALUES (410,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	6,
+	3,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	403,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (440,
+	410,
+	0,
+	6,
+	3,
+	'sinus node::log_and_adjust line: 6');
+INSERT INTO ACT_AI
+	VALUES (440,
+	441,
+	442,
+	0,
+	0);
+INSERT INTO V_VAL
+	VALUES (443,
+	1,
+	0,
+	6,
+	3,
+	6,
+	0,
+	0,
+	0,
+	0,
+	276,
+	410);
+INSERT INTO V_IRF
+	VALUES (443,
+	416);
+INSERT INTO V_VAL
+	VALUES (442,
+	1,
+	0,
+	6,
+	8,
+	22,
+	0,
+	0,
+	0,
+	0,
+	170,
+	410);
+INSERT INTO V_AVL
+	VALUES (442,
+	443,
+	257,
+	277);
+INSERT INTO V_VAL
+	VALUES (444,
+	0,
+	0,
+	6,
+	26,
+	29,
+	0,
+	0,
+	0,
+	0,
+	276,
+	410);
+INSERT INTO V_IRF
+	VALUES (444,
+	416);
+INSERT INTO V_VAL
+	VALUES (445,
+	0,
+	0,
+	6,
+	31,
+	45,
+	0,
+	0,
+	0,
+	0,
+	170,
+	410);
+INSERT INTO V_AVL
+	VALUES (445,
+	444,
+	257,
+	277);
+INSERT INTO V_VAL
+	VALUES (441,
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	170,
+	410);
+INSERT INTO V_BIN
+	VALUES (441,
+	446,
+	445,
+	'-');
+INSERT INTO V_VAL
+	VALUES (447,
+	0,
+	0,
+	6,
+	49,
+	52,
+	0,
+	0,
+	0,
+	0,
+	276,
+	410);
+INSERT INTO V_IRF
+	VALUES (447,
+	416);
+INSERT INTO V_VAL
+	VALUES (446,
+	0,
+	0,
+	6,
+	54,
+	62,
+	0,
+	0,
+	0,
+	0,
+	170,
+	410);
+INSERT INTO V_AVL
+	VALUES (446,
+	447,
+	257,
+	281);
+INSERT INTO ACT_BLK
+	VALUES (412,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	9,
+	3,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	403,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (448,
+	412,
+	0,
+	9,
+	3,
+	'sinus node::log_and_adjust line: 9');
+INSERT INTO ACT_AI
+	VALUES (448,
+	449,
+	450,
+	0,
+	0);
+INSERT INTO V_VAL
+	VALUES (451,
+	1,
+	0,
+	9,
+	3,
+	6,
+	0,
+	0,
+	0,
+	0,
+	276,
+	412);
+INSERT INTO V_IRF
+	VALUES (451,
+	416);
+INSERT INTO V_VAL
+	VALUES (450,
+	1,
+	0,
+	9,
+	8,
+	23,
+	0,
+	0,
+	0,
+	0,
+	170,
+	412);
+INSERT INTO V_AVL
+	VALUES (450,
+	451,
+	257,
+	279);
+INSERT INTO V_VAL
+	VALUES (452,
+	0,
+	0,
+	9,
+	27,
+	30,
+	0,
+	0,
+	0,
+	0,
+	276,
+	412);
+INSERT INTO V_IRF
+	VALUES (452,
+	416);
+INSERT INTO V_VAL
+	VALUES (453,
+	0,
+	0,
+	9,
+	32,
+	47,
+	0,
+	0,
+	0,
+	0,
+	170,
+	412);
+INSERT INTO V_AVL
+	VALUES (453,
+	452,
+	257,
+	279);
+INSERT INTO V_VAL
+	VALUES (449,
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	170,
+	412);
+INSERT INTO V_BIN
+	VALUES (449,
+	454,
+	453,
+	'-');
+INSERT INTO V_VAL
+	VALUES (455,
+	0,
+	0,
+	9,
+	51,
+	54,
+	0,
+	0,
+	0,
+	0,
+	276,
+	412);
+INSERT INTO V_IRF
+	VALUES (455,
+	416);
+INSERT INTO V_VAL
+	VALUES (454,
+	0,
+	0,
+	9,
+	56,
+	64,
+	0,
+	0,
+	0,
+	0,
+	170,
+	412);
+INSERT INTO V_AVL
+	VALUES (454,
+	455,
+	257,
+	281);
+INSERT INTO O_NBATTR
+	VALUES (277,
+	257);
+INSERT INTO O_BATTR
+	VALUES (277,
+	257);
+INSERT INTO O_ATTR
+	VALUES (277,
+	257,
+	0,
+	'systolic_period',
+	'The systolic period is the duration of time between diastolic and systolic pulses.',
+	'',
+	'systolic_period',
+	0,
+	170,
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES (279,
+	257);
+INSERT INTO O_BATTR
+	VALUES (279,
+	257);
+INSERT INTO O_ATTR
+	VALUES (279,
+	257,
+	277,
+	'diastolic_period',
+	'The diastolic period is the duration of time between systolic and diastolic pulses.',
+	'',
+	'diastolic_period',
+	0,
+	170,
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES (456,
+	257);
+INSERT INTO O_BATTR
+	VALUES (456,
+	257);
+INSERT INTO O_ATTR
+	VALUES (456,
+	257,
+	281,
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	312,
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES (281,
+	257);
+INSERT INTO O_BATTR
+	VALUES (281,
+	257);
+INSERT INTO O_ATTR
+	VALUES (281,
+	257,
+	279,
+	'decrement',
+	'This is the value that we reduce the periods each cycle.',
+	'',
+	'decrement',
+	0,
+	170,
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	257);
+INSERT INTO O_ID
+	VALUES (1,
+	257);
+INSERT INTO O_ID
+	VALUES (2,
+	257);
+INSERT INTO SM_ISM
+	VALUES (457,
+	257);
+INSERT INTO SM_SM
+	VALUES (457,
+	'',
+	0);
+INSERT INTO SM_MOORE
+	VALUES (457);
+INSERT INTO SM_LEVT
+	VALUES (458,
+	457,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (458,
+	457,
+	0);
+INSERT INTO SM_EVT
+	VALUES (458,
+	457,
+	0,
+	1,
+	'pop',
+	0,
+	'',
+	'SINUS_NODE1',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (272,
+	457,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (272,
+	457,
+	0);
+INSERT INTO SM_EVT
+	VALUES (272,
+	457,
+	0,
+	2,
+	'period',
+	0,
+	'',
+	'SINUS_NODE2',
+	'');
+INSERT INTO SM_STATE
+	VALUES (459,
+	457,
+	0,
+	'pulsing systolic',
+	3,
+	0);
+INSERT INTO SM_SEME
+	VALUES (459,
+	458,
+	457,
+	0);
+INSERT INTO SM_CH
+	VALUES (459,
+	272,
+	457,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (459,
+	272,
+	457,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (460,
+	457,
+	459);
+INSERT INTO SM_AH
+	VALUES (460,
+	457);
+INSERT INTO SM_ACT
+	VALUES (460,
+	457,
+	1,
+	'// Tell the upper heart to pulse.
+select one heart related by self->HEART[R1];
+generate HEART5:systolic_pulse() to heart;
+// Let the rest of the body "hear" the pulse.
+send out_to_body::systolic_pulse();
+// Set a timer for the systolic period.
+create event instance e of SINUS_NODE1:pop() to self;
+t = TIM::timer_start( microseconds:self.diastolic_period, event_inst:e );
+
+self.log_and_adjust();
+',
+	'');
+INSERT INTO ACT_SAB
+	VALUES (461,
+	457,
+	460);
+INSERT INTO ACT_ACT
+	VALUES (461,
+	'state',
+	0,
+	462,
+	0,
+	0,
+	'sinus node::pulsing systolic',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (462,
+	1,
+	0,
+	0,
+	'TIM',
+	'',
+	'',
+	10,
+	1,
+	8,
+	5,
+	0,
+	0,
+	2,
+	41,
+	0,
+	0,
+	0,
+	0,
+	0,
+	461,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (463,
+	462,
+	464,
+	2,
+	1,
+	'sinus node::pulsing systolic line: 2');
+INSERT INTO ACT_SEL
+	VALUES (463,
+	465,
+	1,
+	'one',
+	466);
+INSERT INTO ACT_SR
+	VALUES (463);
+INSERT INTO ACT_LNK
+	VALUES (467,
+	'',
+	463,
+	259,
+	0,
+	2,
+	254,
+	2,
+	35,
+	2,
+	41,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (464,
+	462,
+	468,
+	3,
+	1,
+	'sinus node::pulsing systolic line: 3');
+INSERT INTO E_ESS
+	VALUES (464,
+	1,
+	0,
+	3,
+	10,
+	3,
+	17,
+	2,
+	35,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO E_GES
+	VALUES (464);
+INSERT INTO E_GSME
+	VALUES (464,
+	318);
+INSERT INTO E_GEN
+	VALUES (464,
+	465);
+INSERT INTO ACT_SMT
+	VALUES (468,
+	462,
+	469,
+	5,
+	1,
+	'sinus node::pulsing systolic line: 5');
+INSERT INTO ACT_SGN
+	VALUES (468,
+	5,
+	19,
+	5,
+	6,
+	0,
+	133,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (469,
+	462,
+	470,
+	7,
+	1,
+	'sinus node::pulsing systolic line: 7');
+INSERT INTO E_ESS
+	VALUES (469,
+	1,
+	0,
+	7,
+	28,
+	7,
+	40,
+	5,
+	6,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO E_CES
+	VALUES (469,
+	1,
+	471);
+INSERT INTO E_CSME
+	VALUES (469,
+	458);
+INSERT INTO E_CEI
+	VALUES (469,
+	472);
+INSERT INTO ACT_SMT
+	VALUES (470,
+	462,
+	473,
+	8,
+	1,
+	'sinus node::pulsing systolic line: 8');
+INSERT INTO ACT_AI
+	VALUES (470,
+	474,
+	475,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (473,
+	462,
+	0,
+	10,
+	1,
+	'sinus node::pulsing systolic line: 10');
+INSERT INTO ACT_TFM
+	VALUES (473,
+	402,
+	472,
+	10,
+	6,
+	0,
+	0);
+INSERT INTO V_VAL
+	VALUES (466,
+	0,
+	0,
+	2,
+	29,
+	32,
+	0,
+	0,
+	0,
+	0,
+	276,
+	462);
+INSERT INTO V_IRF
+	VALUES (466,
+	472);
+INSERT INTO V_VAL
+	VALUES (475,
+	1,
+	1,
+	8,
+	1,
+	1,
+	0,
+	0,
+	0,
+	0,
+	191,
+	462);
+INSERT INTO V_TVL
+	VALUES (475,
+	476);
+INSERT INTO V_VAL
+	VALUES (474,
+	0,
+	0,
+	8,
+	10,
+	-1,
+	8,
+	23,
+	8,
+	59,
+	191,
+	462);
+INSERT INTO V_BRV
+	VALUES (474,
+	190,
+	1,
+	8,
+	5);
+INSERT INTO V_VAL
+	VALUES (477,
+	0,
+	0,
+	8,
+	36,
+	39,
+	0,
+	0,
+	0,
+	0,
+	276,
+	462);
+INSERT INTO V_IRF
+	VALUES (477,
+	472);
+INSERT INTO V_VAL
+	VALUES (478,
+	0,
+	0,
+	8,
+	41,
+	56,
+	0,
+	0,
+	0,
+	0,
+	170,
+	462);
+INSERT INTO V_AVL
+	VALUES (478,
+	477,
+	257,
+	279);
+INSERT INTO V_PAR
+	VALUES (478,
+	0,
+	474,
+	'microseconds',
+	479,
+	8,
+	23);
+INSERT INTO V_VAL
+	VALUES (479,
+	0,
+	0,
+	8,
+	70,
+	70,
+	0,
+	0,
+	0,
+	0,
+	194,
+	462);
+INSERT INTO V_TVL
+	VALUES (479,
+	471);
+INSERT INTO V_PAR
+	VALUES (479,
+	0,
+	474,
+	'event_inst',
+	0,
+	8,
+	59);
+INSERT INTO V_VAR
+	VALUES (465,
+	462,
+	'heart',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (465,
+	0,
+	254);
+INSERT INTO V_VAR
+	VALUES (472,
+	462,
+	'self',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (472,
+	0,
+	257);
+INSERT INTO V_VAR
+	VALUES (471,
+	462,
+	'e',
+	1,
+	194);
+INSERT INTO V_TRN
+	VALUES (471,
+	0,
+	'');
+INSERT INTO V_VAR
+	VALUES (476,
+	462,
+	't',
+	1,
+	191);
+INSERT INTO V_TRN
+	VALUES (476,
+	0,
+	'');
+INSERT INTO SM_STATE
+	VALUES (488,
+	457,
+	0,
+	'pulsing diastolic',
+	1,
+	0);
+INSERT INTO SM_CH
+	VALUES (488,
+	458,
+	457,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (488,
+	458,
+	457,
+	0);
+INSERT INTO SM_SEME
+	VALUES (488,
+	272,
+	457,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (489,
+	457,
+	488);
+INSERT INTO SM_AH
+	VALUES (489,
+	457);
+INSERT INTO SM_ACT
+	VALUES (489,
+	457,
+	1,
+	'// Pulse the heart to relax.
+select one heart related by self->HEART[R1];
+generate HEART4:diastolic_pulse() to heart;
+// Let the rest of the body "hear" the pulse.
+send out_to_body::diastolic_pulse();
+// Set a timer for the diastolic period.
+create event instance e of SINUS_NODE2:period() to self;
+t = TIM::timer_start( microseconds:self.systolic_period, event_inst:e );
+',
+	'');
+INSERT INTO ACT_SAB
+	VALUES (490,
+	457,
+	489);
+INSERT INTO ACT_ACT
+	VALUES (490,
+	'state',
+	0,
+	491,
+	0,
+	0,
+	'sinus node::pulsing diastolic',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (491,
+	1,
+	0,
+	0,
+	'TIM',
+	'',
+	'',
+	8,
+	1,
+	8,
+	5,
+	0,
+	0,
+	2,
+	41,
+	0,
+	0,
+	0,
+	0,
+	0,
+	490,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (492,
+	491,
+	493,
+	2,
+	1,
+	'sinus node::pulsing diastolic line: 2');
+INSERT INTO ACT_SEL
+	VALUES (492,
+	494,
+	1,
+	'one',
+	495);
+INSERT INTO ACT_SR
+	VALUES (492);
+INSERT INTO ACT_LNK
+	VALUES (496,
+	'',
+	492,
+	259,
+	0,
+	2,
+	254,
+	2,
+	35,
+	2,
+	41,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (493,
+	491,
+	497,
+	3,
+	1,
+	'sinus node::pulsing diastolic line: 3');
+INSERT INTO E_ESS
+	VALUES (493,
+	1,
+	0,
+	3,
+	10,
+	3,
+	17,
+	2,
+	35,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO E_GES
+	VALUES (493);
+INSERT INTO E_GSME
+	VALUES (493,
+	317);
+INSERT INTO E_GEN
+	VALUES (493,
+	494);
+INSERT INTO ACT_SMT
+	VALUES (497,
+	491,
+	498,
+	5,
+	1,
+	'sinus node::pulsing diastolic line: 5');
+INSERT INTO ACT_SGN
+	VALUES (497,
+	5,
+	19,
+	5,
+	6,
+	0,
+	137,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (498,
+	491,
+	499,
+	7,
+	1,
+	'sinus node::pulsing diastolic line: 7');
+INSERT INTO E_ESS
+	VALUES (498,
+	1,
+	0,
+	7,
+	28,
+	7,
+	40,
+	5,
+	6,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO E_CES
+	VALUES (498,
+	1,
+	500);
+INSERT INTO E_CSME
+	VALUES (498,
+	272);
+INSERT INTO E_CEI
+	VALUES (498,
+	501);
+INSERT INTO ACT_SMT
+	VALUES (499,
+	491,
+	0,
+	8,
+	1,
+	'sinus node::pulsing diastolic line: 8');
+INSERT INTO ACT_AI
+	VALUES (499,
+	502,
+	503,
+	0,
+	0);
+INSERT INTO V_VAL
+	VALUES (495,
+	0,
+	0,
+	2,
+	29,
+	32,
+	0,
+	0,
+	0,
+	0,
+	276,
+	491);
+INSERT INTO V_IRF
+	VALUES (495,
+	501);
+INSERT INTO V_VAL
+	VALUES (503,
+	1,
+	1,
+	8,
+	1,
+	1,
+	0,
+	0,
+	0,
+	0,
+	191,
+	491);
+INSERT INTO V_TVL
+	VALUES (503,
+	504);
+INSERT INTO V_VAL
+	VALUES (502,
+	0,
+	0,
+	8,
+	10,
+	-1,
+	8,
+	23,
+	8,
+	58,
+	191,
+	491);
+INSERT INTO V_BRV
+	VALUES (502,
+	190,
+	1,
+	8,
+	5);
+INSERT INTO V_VAL
+	VALUES (505,
+	0,
+	0,
+	8,
+	36,
+	39,
+	0,
+	0,
+	0,
+	0,
+	276,
+	491);
+INSERT INTO V_IRF
+	VALUES (505,
+	501);
+INSERT INTO V_VAL
+	VALUES (506,
+	0,
+	0,
+	8,
+	41,
+	55,
+	0,
+	0,
+	0,
+	0,
+	170,
+	491);
+INSERT INTO V_AVL
+	VALUES (506,
+	505,
+	257,
+	277);
+INSERT INTO V_PAR
+	VALUES (506,
+	0,
+	502,
+	'microseconds',
+	507,
+	8,
+	23);
+INSERT INTO V_VAL
+	VALUES (507,
+	0,
+	0,
+	8,
+	69,
+	69,
+	0,
+	0,
+	0,
+	0,
+	194,
+	491);
+INSERT INTO V_TVL
+	VALUES (507,
+	500);
+INSERT INTO V_PAR
+	VALUES (507,
+	0,
+	502,
+	'event_inst',
+	0,
+	8,
+	58);
+INSERT INTO V_VAR
+	VALUES (494,
+	491,
+	'heart',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (494,
+	0,
+	254);
+INSERT INTO V_VAR
+	VALUES (501,
+	491,
+	'self',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (501,
+	0,
+	257);
+INSERT INTO V_VAR
+	VALUES (500,
+	491,
+	'e',
+	1,
+	194);
+INSERT INTO V_TRN
+	VALUES (500,
+	0,
+	'');
+INSERT INTO V_VAR
+	VALUES (504,
+	491,
+	't',
+	1,
+	191);
+INSERT INTO V_TRN
+	VALUES (504,
+	0,
+	'');
+INSERT INTO SM_NSTXN
+	VALUES (515,
+	457,
+	459,
+	458,
+	0);
+INSERT INTO SM_TAH
+	VALUES (516,
+	457,
+	515);
+INSERT INTO SM_AH
+	VALUES (516,
+	457);
+INSERT INTO SM_ACT
+	VALUES (516,
+	457,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (517,
+	457,
+	516);
+INSERT INTO ACT_ACT
+	VALUES (517,
+	'transition',
+	0,
+	518,
+	0,
+	0,
+	'SINUS_NODE1: pop',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (518,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	517,
+	0);
+INSERT INTO SM_TXN
+	VALUES (515,
+	457,
+	488,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (519,
+	457,
+	488,
+	272,
+	0);
+INSERT INTO SM_TAH
+	VALUES (520,
+	457,
+	519);
+INSERT INTO SM_AH
+	VALUES (520,
+	457);
+INSERT INTO SM_ACT
+	VALUES (520,
+	457,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (521,
+	457,
+	520);
+INSERT INTO ACT_ACT
+	VALUES (521,
+	'transition',
+	0,
+	522,
+	0,
+	0,
+	'SINUS_NODE2: period',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (522,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	521,
+	0);
+INSERT INTO SM_TXN
+	VALUES (519,
+	457,
+	459,
+	0);
+INSERT INTO PE_PE
+	VALUES (523,
+	1,
+	128,
+	0,
+	2);
+INSERT INTO C_C
+	VALUES (523,
+	0,
+	0,
+	'hostmonitor',
+	'',
+	0,
+	0,
+	0,
+	'');
+INSERT INTO C_PO
+	VALUES (524,
+	523,
+	'monitor',
+	0,
+	0);
+INSERT INTO C_IR
+	VALUES (525,
+	526,
+	0,
+	524);
+INSERT INTO C_R
+	VALUES (525,
+	'monitor',
+	'',
+	'Unnamed Interface',
+	'hostmonitor::monitor::monitor');
+INSERT INTO SPR_REP
+	VALUES (527,
+	528,
+	525);
+INSERT INTO SPR_RS
+	VALUES (527,
+	'increased_activty',
+	'',
+	'',
+	1);
+INSERT INTO ACT_RSB
+	VALUES (529,
+	527);
+INSERT INTO ACT_ACT
+	VALUES (529,
+	'signal',
+	0,
+	530,
+	0,
+	0,
+	'monitor::monitor::increased_activty',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (530,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	529,
+	0);
+INSERT INTO C_PO
+	VALUES (531,
+	523,
+	'host',
+	0,
+	0);
+INSERT INTO C_IR
+	VALUES (532,
+	155,
+	533,
+	531);
+INSERT INTO C_P
+	VALUES (532,
+	'host',
+	'Unnamed Interface',
+	'',
+	'hostmonitor::host::host');
+INSERT INTO SPR_PEP
+	VALUES (534,
+	157,
+	532);
+INSERT INTO SPR_PS
+	VALUES (534,
+	'breath_taken',
+	'',
+	'',
+	1);
+INSERT INTO ACT_PSB
+	VALUES (535,
+	534);
+INSERT INTO ACT_ACT
+	VALUES (535,
+	'signal',
+	0,
+	536,
+	0,
+	0,
+	'host::host::breath_taken',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (536,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	535,
+	0);
+INSERT INTO SPR_PEP
+	VALUES (537,
+	161,
+	532);
+INSERT INTO SPR_PS
+	VALUES (537,
+	'current_temp',
+	'',
+	'',
+	1);
+INSERT INTO ACT_PSB
+	VALUES (538,
+	537);
+INSERT INTO ACT_ACT
+	VALUES (538,
+	'signal',
+	0,
+	539,
+	0,
+	0,
+	'host::host::current_temp',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (539,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	538,
+	0);
+INSERT INTO PE_PE
+	VALUES (540,
+	1,
+	0,
+	523,
+	7);
+INSERT INTO EP_PKG
+	VALUES (540,
+	0,
+	1,
+	'hostmonitor',
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES (109,
+	1,
+	540,
+	0,
+	9);
+INSERT INTO R_REL
+	VALUES (109,
+	2,
+	'',
+	0);
+INSERT INTO R_SIMP
+	VALUES (109);
+INSERT INTO R_PART
+	VALUES (115,
+	109,
+	541,
+	0,
+	0,
+	'provides temperature monitoring');
+INSERT INTO R_RTO
+	VALUES (115,
+	109,
+	541,
+	-1);
+INSERT INTO R_OIR
+	VALUES (115,
+	109,
+	541,
+	0);
+INSERT INTO R_PART
+	VALUES (106,
+	109,
+	542,
+	0,
+	0,
+	'');
+INSERT INTO R_RTO
+	VALUES (106,
+	109,
+	542,
+	-1);
+INSERT INTO R_OIR
+	VALUES (106,
+	109,
+	542,
+	0);
+INSERT INTO PE_PE
+	VALUES (114,
+	1,
+	540,
+	0,
+	9);
+INSERT INTO R_REL
+	VALUES (114,
+	3,
+	'',
+	0);
+INSERT INTO R_SIMP
+	VALUES (114);
+INSERT INTO R_PART
+	VALUES (115,
+	114,
+	543,
+	0,
+	0,
+	'provides respiratory monitoring');
+INSERT INTO R_RTO
+	VALUES (115,
+	114,
+	543,
+	-1);
+INSERT INTO R_OIR
+	VALUES (115,
+	114,
+	543,
+	0);
+INSERT INTO R_PART
+	VALUES (111,
+	114,
+	544,
+	0,
+	1,
+	'');
+INSERT INTO R_RTO
+	VALUES (111,
+	114,
+	544,
+	-1);
+INSERT INTO R_OIR
+	VALUES (111,
+	114,
+	544,
+	0);
+INSERT INTO PE_PE
+	VALUES (115,
+	1,
+	540,
+	0,
+	4);
+INSERT INTO O_OBJ
+	VALUES (115,
+	'Host Monitor',
+	2,
+	'HM',
+	'',
+	0);
+INSERT INTO O_NBATTR
+	VALUES (119,
+	115);
+INSERT INTO O_BATTR
+	VALUES (119,
+	115);
+INSERT INTO O_ATTR
+	VALUES (119,
+	115,
+	0,
+	'lastTemp',
+	'',
+	'',
+	'lastTemp',
+	0,
+	170,
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES (121,
+	115);
+INSERT INTO O_BATTR
+	VALUES (121,
+	115);
+INSERT INTO O_ATTR
+	VALUES (121,
+	115,
+	119,
+	'lastRate',
+	'',
+	'',
+	'lastRate',
+	0,
+	170,
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES (123,
+	115);
+INSERT INTO O_BATTR
+	VALUES (123,
+	115);
+INSERT INTO O_ATTR
+	VALUES (123,
+	115,
+	121,
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	312,
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	115);
+INSERT INTO O_ID
+	VALUES (1,
+	115);
+INSERT INTO O_ID
+	VALUES (2,
+	115);
+INSERT INTO SM_ISM
+	VALUES (545,
+	115);
+INSERT INTO SM_SM
+	VALUES (545,
+	'',
+	0);
+INSERT INTO SM_MOORE
+	VALUES (545);
+INSERT INTO SM_LEVT
+	VALUES (546,
+	545,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (546,
+	545,
+	0);
+INSERT INTO SM_EVT
+	VALUES (546,
+	545,
+	0,
+	1,
+	'poll',
+	0,
+	'',
+	'HM1',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (547,
+	545,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (547,
+	545,
+	0);
+INSERT INTO SM_EVT
+	VALUES (547,
+	545,
+	0,
+	2,
+	'increasedActivity',
+	0,
+	'',
+	'HM2',
+	'');
+INSERT INTO SM_STATE
+	VALUES (548,
+	545,
+	0,
+	'Polling monitors',
+	1,
+	0);
+INSERT INTO SM_SEME
+	VALUES (548,
+	546,
+	545,
+	0);
+INSERT INTO SM_SEME
+	VALUES (548,
+	547,
+	545,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (549,
+	545,
+	548);
+INSERT INTO SM_AH
+	VALUES (549,
+	545);
+INSERT INTO SM_ACT
+	VALUES (549,
+	545,
+	1,
+	'select one tm related by self->TM[R2];
+self.lastTemp = tm.getCurrentTemp();
+select one rm related by self->RM[R3];
+self.lastRate = rm.getCurrentRate();
+if(self.lastTemp > 37.5 or self.lastRate > 18)
+  generate HM2 to self;
+end if;
+generate HM1 to self;',
+	'');
+INSERT INTO ACT_SAB
+	VALUES (550,
+	545,
+	549);
+INSERT INTO ACT_ACT
+	VALUES (550,
+	'state',
+	0,
+	551,
+	0,
+	0,
+	'Host Monitor::Polling monitors',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (551,
+	1,
+	0,
+	0,
+	'V_VAR.Var_ID',
+	'',
+	'',
+	8,
+	1,
+	3,
+	32,
+	0,
+	0,
+	3,
+	35,
+	0,
+	0,
+	0,
+	0,
+	0,
+	550,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (552,
+	551,
+	553,
+	1,
+	1,
+	'Host Monitor::Polling monitors line: 1');
+INSERT INTO ACT_SEL
+	VALUES (552,
+	554,
+	1,
+	'one',
+	555);
+INSERT INTO ACT_SR
+	VALUES (552);
+INSERT INTO ACT_LNK
+	VALUES (556,
+	'',
+	552,
+	109,
+	0,
+	2,
+	106,
+	1,
+	32,
+	1,
+	35,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (553,
+	551,
+	557,
+	2,
+	1,
+	'Host Monitor::Polling monitors line: 2');
+INSERT INTO ACT_AI
+	VALUES (553,
+	558,
+	559,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (557,
+	551,
+	560,
+	3,
+	1,
+	'Host Monitor::Polling monitors line: 3');
+INSERT INTO ACT_SEL
+	VALUES (557,
+	561,
+	1,
+	'one',
+	562);
+INSERT INTO ACT_SR
+	VALUES (557);
+INSERT INTO ACT_LNK
+	VALUES (563,
+	'',
+	557,
+	114,
+	0,
+	2,
+	111,
+	3,
+	32,
+	3,
+	35,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (560,
+	551,
+	564,
+	4,
+	1,
+	'Host Monitor::Polling monitors line: 4');
+INSERT INTO ACT_AI
+	VALUES (560,
+	565,
+	566,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (564,
+	551,
+	567,
+	5,
+	1,
+	'Host Monitor::Polling monitors line: 5');
+INSERT INTO ACT_IF
+	VALUES (564,
+	568,
+	569,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (567,
+	551,
+	0,
+	8,
+	1,
+	'Host Monitor::Polling monitors line: 8');
+INSERT INTO E_ESS
+	VALUES (567,
+	1,
+	0,
+	8,
+	10,
+	0,
+	0,
+	3,
+	32,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO E_GES
+	VALUES (567);
+INSERT INTO E_GSME
+	VALUES (567,
+	546);
+INSERT INTO E_GEN
+	VALUES (567,
+	570);
+INSERT INTO V_VAL
+	VALUES (555,
+	0,
+	0,
+	1,
+	26,
+	29,
+	0,
+	0,
+	0,
+	0,
+	276,
+	551);
+INSERT INTO V_IRF
+	VALUES (555,
+	570);
+INSERT INTO V_VAL
+	VALUES (571,
+	1,
+	0,
+	2,
+	1,
+	4,
+	0,
+	0,
+	0,
+	0,
+	276,
+	551);
+INSERT INTO V_IRF
+	VALUES (571,
+	570);
+INSERT INTO V_VAL
+	VALUES (559,
+	1,
+	0,
+	2,
+	6,
+	13,
+	0,
+	0,
+	0,
+	0,
+	170,
+	551);
+INSERT INTO V_AVL
+	VALUES (559,
+	571,
+	115,
+	119);
+INSERT INTO V_VAL
+	VALUES (558,
+	0,
+	0,
+	2,
+	20,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	170,
+	551);
+INSERT INTO V_TRV
+	VALUES (558,
+	572,
+	554,
+	1,
+	0,
+	0);
+INSERT INTO V_VAL
+	VALUES (562,
+	0,
+	0,
+	3,
+	26,
+	29,
+	0,
+	0,
+	0,
+	0,
+	276,
+	551);
+INSERT INTO V_IRF
+	VALUES (562,
+	570);
+INSERT INTO V_VAL
+	VALUES (573,
+	1,
+	0,
+	4,
+	1,
+	4,
+	0,
+	0,
+	0,
+	0,
+	276,
+	551);
+INSERT INTO V_IRF
+	VALUES (573,
+	570);
+INSERT INTO V_VAL
+	VALUES (566,
+	1,
+	0,
+	4,
+	6,
+	13,
+	0,
+	0,
+	0,
+	0,
+	170,
+	551);
+INSERT INTO V_AVL
+	VALUES (566,
+	573,
+	115,
+	121);
+INSERT INTO V_VAL
+	VALUES (565,
+	0,
+	0,
+	4,
+	20,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	170,
+	551);
+INSERT INTO V_TRV
+	VALUES (565,
+	574,
+	561,
+	1,
+	0,
+	0);
+INSERT INTO V_VAL
+	VALUES (575,
+	0,
+	0,
+	5,
+	4,
+	7,
+	0,
+	0,
+	0,
+	0,
+	276,
+	551);
+INSERT INTO V_IRF
+	VALUES (575,
+	570);
+INSERT INTO V_VAL
+	VALUES (576,
+	0,
+	0,
+	5,
+	9,
+	16,
+	0,
+	0,
+	0,
+	0,
+	170,
+	551);
+INSERT INTO V_AVL
+	VALUES (576,
+	575,
+	115,
+	119);
+INSERT INTO V_VAL
+	VALUES (577,
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	201,
+	551);
+INSERT INTO V_BIN
+	VALUES (577,
+	578,
+	576,
+	'>');
+INSERT INTO V_VAL
+	VALUES (578,
+	0,
+	0,
+	5,
+	20,
+	23,
+	0,
+	0,
+	0,
+	0,
+	241,
+	551);
+INSERT INTO V_LRL
+	VALUES (578,
+	'37.5');
+INSERT INTO V_VAL
+	VALUES (579,
+	0,
+	0,
+	5,
+	28,
+	31,
+	0,
+	0,
+	0,
+	0,
+	276,
+	551);
+INSERT INTO V_IRF
+	VALUES (579,
+	570);
+INSERT INTO V_VAL
+	VALUES (580,
+	0,
+	0,
+	5,
+	33,
+	40,
+	0,
+	0,
+	0,
+	0,
+	170,
+	551);
+INSERT INTO V_AVL
+	VALUES (580,
+	579,
+	115,
+	121);
+INSERT INTO V_VAL
+	VALUES (581,
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	201,
+	551);
+INSERT INTO V_BIN
+	VALUES (581,
+	582,
+	580,
+	'>');
+INSERT INTO V_VAL
+	VALUES (582,
+	0,
+	0,
+	5,
+	44,
+	45,
+	0,
+	0,
+	0,
+	0,
+	170,
+	551);
+INSERT INTO V_LIN
+	VALUES (582,
+	'18');
+INSERT INTO V_VAL
+	VALUES (569,
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	201,
+	551);
+INSERT INTO V_BIN
+	VALUES (569,
+	581,
+	577,
+	'or');
+INSERT INTO V_VAR
+	VALUES (554,
+	551,
+	'tm',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (554,
+	0,
+	106);
+INSERT INTO V_VAR
+	VALUES (570,
+	551,
+	'self',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (570,
+	0,
+	115);
+INSERT INTO V_VAR
+	VALUES (561,
+	551,
+	'rm',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (561,
+	0,
+	111);
+INSERT INTO ACT_BLK
+	VALUES (568,
+	0,
+	0,
+	0,
+	'V_VAR.Var_ID',
+	'',
+	'',
+	6,
+	3,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	550,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (593,
+	568,
+	0,
+	6,
+	3,
+	'Host Monitor::Polling monitors line: 6');
+INSERT INTO E_ESS
+	VALUES (593,
+	1,
+	0,
+	6,
+	12,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO E_GES
+	VALUES (593);
+INSERT INTO E_GSME
+	VALUES (593,
+	547);
+INSERT INTO E_GEN
+	VALUES (593,
+	570);
+INSERT INTO SM_STATE
+	VALUES (594,
+	545,
+	0,
+	'Notifying of increased activity',
+	2,
+	0);
+INSERT INTO SM_SEME
+	VALUES (594,
+	546,
+	545,
+	0);
+INSERT INTO SM_CH
+	VALUES (594,
+	547,
+	545,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (594,
+	547,
+	545,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (595,
+	545,
+	594);
+INSERT INTO SM_AH
+	VALUES (595,
+	545);
+INSERT INTO SM_ACT
+	VALUES (595,
+	545,
+	1,
+	'send monitor::increased_activty(current_temp:self.lastTemp,
+                                                    current_rate:self.lastRate);
+generate HM1 to self;',
+	'');
+INSERT INTO ACT_SAB
+	VALUES (596,
+	545,
+	595);
+INSERT INTO ACT_ACT
+	VALUES (596,
+	'state',
+	0,
+	597,
+	0,
+	0,
+	'Host Monitor::Notifying of increased activity',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (597,
+	0,
+	0,
+	0,
+	'V_VAR.Var_ID',
+	'',
+	'',
+	3,
+	1,
+	1,
+	6,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	596,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (598,
+	597,
+	599,
+	1,
+	1,
+	'Host Monitor::Notifying of increased activity line: 1');
+INSERT INTO ACT_SGN
+	VALUES (598,
+	1,
+	15,
+	1,
+	6,
+	0,
+	527,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (599,
+	597,
+	0,
+	3,
+	1,
+	'Host Monitor::Notifying of increased activity line: 3');
+INSERT INTO E_ESS
+	VALUES (599,
+	1,
+	0,
+	3,
+	10,
+	0,
+	0,
+	1,
+	6,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO E_GES
+	VALUES (599);
+INSERT INTO E_GSME
+	VALUES (599,
+	546);
+INSERT INTO E_GEN
+	VALUES (599,
+	600);
+INSERT INTO V_VAL
+	VALUES (601,
+	0,
+	0,
+	1,
+	46,
+	49,
+	0,
+	0,
+	0,
+	0,
+	276,
+	597);
+INSERT INTO V_IRF
+	VALUES (601,
+	600);
+INSERT INTO V_VAL
+	VALUES (602,
+	0,
+	0,
+	1,
+	51,
+	58,
+	0,
+	0,
+	0,
+	0,
+	170,
+	597);
+INSERT INTO V_AVL
+	VALUES (602,
+	601,
+	115,
+	119);
+INSERT INTO V_PAR
+	VALUES (602,
+	598,
+	0,
+	'current_temp',
+	603,
+	1,
+	33);
+INSERT INTO V_VAL
+	VALUES (604,
+	0,
+	0,
+	2,
+	66,
+	69,
+	0,
+	0,
+	0,
+	0,
+	276,
+	597);
+INSERT INTO V_IRF
+	VALUES (604,
+	600);
+INSERT INTO V_VAL
+	VALUES (603,
+	0,
+	0,
+	2,
+	71,
+	78,
+	0,
+	0,
+	0,
+	0,
+	170,
+	597);
+INSERT INTO V_AVL
+	VALUES (603,
+	604,
+	115,
+	121);
+INSERT INTO V_PAR
+	VALUES (603,
+	598,
+	0,
+	'current_rate',
+	0,
+	2,
+	53);
+INSERT INTO V_VAR
+	VALUES (600,
+	597,
+	'self',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (600,
+	0,
+	115);
+INSERT INTO SM_NSTXN
+	VALUES (608,
+	545,
+	548,
+	546,
+	0);
+INSERT INTO SM_TAH
+	VALUES (609,
+	545,
+	608);
+INSERT INTO SM_AH
+	VALUES (609,
+	545);
+INSERT INTO SM_ACT
+	VALUES (609,
+	545,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (610,
+	545,
+	609);
+INSERT INTO ACT_ACT
+	VALUES (610,
+	'transition',
+	0,
+	611,
+	0,
+	0,
+	'HM1: poll',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (611,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	610,
+	0);
+INSERT INTO SM_TXN
+	VALUES (608,
+	545,
+	548,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (612,
+	545,
+	548,
+	547,
+	0);
+INSERT INTO SM_TAH
+	VALUES (613,
+	545,
+	612);
+INSERT INTO SM_AH
+	VALUES (613,
+	545);
+INSERT INTO SM_ACT
+	VALUES (613,
+	545,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (614,
+	545,
+	613);
+INSERT INTO ACT_ACT
+	VALUES (614,
+	'transition',
+	0,
+	615,
+	0,
+	0,
+	'HM2: increasedActivity',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (615,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	614,
+	0);
+INSERT INTO SM_TXN
+	VALUES (612,
+	545,
+	594,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (616,
+	545,
+	594,
+	546,
+	0);
+INSERT INTO SM_TAH
+	VALUES (617,
+	545,
+	616);
+INSERT INTO SM_AH
+	VALUES (617,
+	545);
+INSERT INTO SM_ACT
+	VALUES (617,
+	545,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (618,
+	545,
+	617);
+INSERT INTO ACT_ACT
+	VALUES (618,
+	'transition',
+	0,
+	619,
+	0,
+	0,
+	'HM1: poll',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (619,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	618,
+	0);
+INSERT INTO SM_TXN
+	VALUES (616,
+	545,
+	548,
+	0);
+INSERT INTO SM_ASM
+	VALUES (620,
+	115);
+INSERT INTO SM_SM
+	VALUES (620,
+	'',
+	0);
+INSERT INTO SM_MOORE
+	VALUES (620);
+INSERT INTO SM_SGEVT
+	VALUES (621,
+	620,
+	0,
+	622,
+	0,
+	'host::breath_taken');
+INSERT INTO SM_SEVT
+	VALUES (621,
+	620,
+	0);
+INSERT INTO SM_EVT
+	VALUES (621,
+	620,
+	0,
+	1,
+	'breath_taken',
+	0,
+	'',
+	'host::breath_taken',
+	'');
+INSERT INTO SM_SGEVT
+	VALUES (623,
+	620,
+	0,
+	624,
+	0,
+	'host::current_temp');
+INSERT INTO SM_SEVT
+	VALUES (623,
+	620,
+	0);
+INSERT INTO SM_EVT
+	VALUES (623,
+	620,
+	0,
+	2,
+	'current_temp',
+	0,
+	'',
+	'host::current_temp',
+	'');
+INSERT INTO SM_STATE
+	VALUES (625,
+	620,
+	0,
+	'listening to host events',
+	1,
+	0);
+INSERT INTO SM_SEME
+	VALUES (625,
+	621,
+	620,
+	0);
+INSERT INTO SM_SEME
+	VALUES (625,
+	623,
+	620,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (626,
+	620,
+	625);
+INSERT INTO SM_AH
+	VALUES (626,
+	620);
+INSERT INTO SM_ACT
+	VALUES (626,
+	620,
+	1,
+	'',
+	'');
+INSERT INTO ACT_SAB
+	VALUES (627,
+	620,
+	626);
+INSERT INTO ACT_ACT
+	VALUES (627,
+	'class state',
+	0,
+	628,
+	0,
+	0,
+	'Host Monitor::listening to host events',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (628,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	627,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (629,
+	620,
+	625,
+	621,
+	0);
+INSERT INTO SM_TAH
+	VALUES (630,
+	620,
+	629);
+INSERT INTO SM_AH
+	VALUES (630,
+	620);
+INSERT INTO SM_ACT
+	VALUES (630,
+	620,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (631,
+	620,
+	630);
+INSERT INTO ACT_ACT
+	VALUES (631,
+	'class transition',
+	0,
+	632,
+	0,
+	0,
+	'host::breath_taken',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (632,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	631,
+	0);
+INSERT INTO SM_TXN
+	VALUES (629,
+	620,
+	625,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (633,
+	620,
+	625,
+	623,
+	0);
+INSERT INTO SM_TAH
+	VALUES (634,
+	620,
+	633);
+INSERT INTO SM_AH
+	VALUES (634,
+	620);
+INSERT INTO SM_ACT
+	VALUES (634,
+	620,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (635,
+	620,
+	634);
+INSERT INTO ACT_ACT
+	VALUES (635,
+	'class transition',
+	0,
+	636,
+	0,
+	0,
+	'host::current_temp',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (636,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	635,
+	0);
+INSERT INTO SM_TXN
+	VALUES (633,
+	620,
+	625,
+	0);
+INSERT INTO PE_PE
+	VALUES (111,
+	1,
+	540,
+	0,
+	4);
+INSERT INTO O_OBJ
+	VALUES (111,
+	'Respiratory Monitor',
+	4,
+	'RM',
+	'',
+	0);
+INSERT INTO O_TFR
+	VALUES (574,
+	111,
+	'getCurrentRate',
+	'',
+	170,
+	1,
+	'return 0;',
+	1,
+	'',
+	0);
+INSERT INTO ACT_OPB
+	VALUES (637,
+	574);
+INSERT INTO ACT_ACT
+	VALUES (637,
+	'operation',
+	0,
+	638,
+	0,
+	0,
+	'Respiratory Monitor::getCurrentRate',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (638,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	1,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	637,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (639,
+	638,
+	0,
+	1,
+	1,
+	'Respiratory Monitor::getCurrentRate line: 1');
+INSERT INTO ACT_RET
+	VALUES (639,
+	640);
+INSERT INTO V_VAL
+	VALUES (640,
+	0,
+	0,
+	1,
+	8,
+	8,
+	0,
+	0,
+	0,
+	0,
+	170,
+	638);
+INSERT INTO V_LIN
+	VALUES (640,
+	'0');
+INSERT INTO O_ID
+	VALUES (0,
+	111);
+INSERT INTO O_ID
+	VALUES (1,
+	111);
+INSERT INTO O_ID
+	VALUES (2,
+	111);
+INSERT INTO PE_PE
+	VALUES (106,
+	1,
+	540,
+	0,
+	4);
+INSERT INTO O_OBJ
+	VALUES (106,
+	'Temperature Monitor',
+	3,
+	'TM',
+	'',
+	0);
+INSERT INTO O_TFR
+	VALUES (572,
+	106,
+	'getCurrentTemp',
+	'',
+	170,
+	1,
+	'return 0;',
+	1,
+	'',
+	0);
+INSERT INTO ACT_OPB
+	VALUES (641,
+	572);
+INSERT INTO ACT_ACT
+	VALUES (641,
+	'operation',
+	0,
+	642,
+	0,
+	0,
+	'Temperature Monitor::getCurrentTemp',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (642,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	1,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	641,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (643,
+	642,
+	0,
+	1,
+	1,
+	'Temperature Monitor::getCurrentTemp line: 1');
+INSERT INTO ACT_RET
+	VALUES (643,
+	644);
+INSERT INTO V_VAL
+	VALUES (644,
+	0,
+	0,
+	1,
+	8,
+	8,
+	0,
+	0,
+	0,
+	0,
+	170,
+	642);
+INSERT INTO V_LIN
+	VALUES (644,
+	'0');
+INSERT INTO O_ID
+	VALUES (0,
+	106);
+INSERT INTO O_ID
+	VALUES (1,
+	106);
+INSERT INTO O_ID
+	VALUES (2,
+	106);
+INSERT INTO PE_PE
+	VALUES (645,
+	1,
+	128,
+	0,
+	2);
+INSERT INTO C_C
+	VALUES (645,
+	0,
+	0,
+	'pacemaker',
+	'',
+	0,
+	0,
+	0,
+	'');
+INSERT INTO C_PO
+	VALUES (646,
+	645,
+	'to_heart',
+	0,
+	0);
+INSERT INTO C_IR
+	VALUES (647,
+	132,
+	648,
+	646);
+INSERT INTO C_P
+	VALUES (647,
+	'synchronization',
+	'Unnamed Interface',
+	'',
+	'pacemaker::to_heart::synchronization');
+INSERT INTO SPR_PEP
+	VALUES (649,
+	134,
+	647);
+INSERT INTO SPR_PS
+	VALUES (649,
+	'systolic_pulse',
+	'',
+	'',
+	1);
+INSERT INTO ACT_PSB
+	VALUES (650,
+	649);
+INSERT INTO ACT_ACT
+	VALUES (650,
+	'signal',
+	0,
+	651,
+	0,
+	0,
+	'to_heart::synchronization::systolic_pulse',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (651,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	650,
+	0);
+INSERT INTO SPR_PEP
+	VALUES (652,
+	138,
+	647);
+INSERT INTO SPR_PS
+	VALUES (652,
+	'diastolic_pulse',
+	'',
+	'',
+	1);
+INSERT INTO ACT_PSB
+	VALUES (653,
+	652);
+INSERT INTO ACT_ACT
+	VALUES (653,
+	'signal',
+	0,
+	654,
+	0,
+	0,
+	'to_heart::synchronization::diastolic_pulse',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (654,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	653,
+	0);
+INSERT INTO SPR_PEP
+	VALUES (655,
+	142,
+	647);
+INSERT INTO SPR_PS
+	VALUES (655,
+	'systolic_pace',
+	'',
+	'',
+	1);
+INSERT INTO ACT_PSB
+	VALUES (656,
+	655);
+INSERT INTO ACT_ACT
+	VALUES (656,
+	'signal',
+	0,
+	657,
+	0,
+	0,
+	'to_heart::synchronization::systolic_pace',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (657,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	656,
+	0);
+INSERT INTO SPR_PEP
+	VALUES (658,
+	146,
+	647);
+INSERT INTO SPR_PS
+	VALUES (658,
+	'diastolic_pace',
+	'',
+	'',
+	1);
+INSERT INTO ACT_PSB
+	VALUES (659,
+	658);
+INSERT INTO ACT_ACT
+	VALUES (659,
+	'signal',
+	0,
+	660,
+	0,
+	0,
+	'to_heart::synchronization::diastolic_pace',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (660,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	659,
+	0);
+INSERT INTO SPR_PEP
+	VALUES (661,
+	150,
+	647);
+INSERT INTO SPR_PO
+	VALUES (661,
+	'init',
+	'',
+	'// Initialize by creating the pacer instance and setting its attribute values.
+create object instance pacer of PACER;
+pacer.systolic_tolerance = 25;   // percent
+pacer.diastolic_tolerance = 25;  // percent
+pacer.cycle_count = 0;
+
+// Compute the timeouts using the period and tolerance
+pacer.systolic_timeout = param.systolic_period + (param.systolic_period * pacer.systolic_tolerance/100);
+pacer.diastolic_timeout = param.diastolic_period + (param.diastolic_period * pacer.diastolic_tolerance/100);',
+	1);
+INSERT INTO ACT_POB
+	VALUES (662,
+	661);
+INSERT INTO ACT_ACT
+	VALUES (662,
+	'interface operation',
+	0,
+	663,
+	0,
+	0,
+	'to_heart::synchronization::init',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (663,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	9,
+	1,
+	2,
+	33,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	662,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (664,
+	663,
+	665,
+	2,
+	1,
+	'to_heart::synchronization::init line: 2');
+INSERT INTO ACT_CR
+	VALUES (664,
+	666,
+	1,
+	63,
+	2,
+	33);
+INSERT INTO ACT_SMT
+	VALUES (665,
+	663,
+	667,
+	3,
+	1,
+	'to_heart::synchronization::init line: 3');
+INSERT INTO ACT_AI
+	VALUES (665,
+	668,
+	669,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (667,
+	663,
+	670,
+	4,
+	1,
+	'to_heart::synchronization::init line: 4');
+INSERT INTO ACT_AI
+	VALUES (667,
+	671,
+	672,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (670,
+	663,
+	673,
+	5,
+	1,
+	'to_heart::synchronization::init line: 5');
+INSERT INTO ACT_AI
+	VALUES (670,
+	674,
+	675,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (673,
+	663,
+	676,
+	8,
+	1,
+	'to_heart::synchronization::init line: 8');
+INSERT INTO ACT_AI
+	VALUES (673,
+	677,
+	678,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (676,
+	663,
+	0,
+	9,
+	1,
+	'to_heart::synchronization::init line: 9');
+INSERT INTO ACT_AI
+	VALUES (676,
+	679,
+	680,
+	0,
+	0);
+INSERT INTO V_VAL
+	VALUES (681,
+	1,
+	0,
+	3,
+	1,
+	5,
+	0,
+	0,
+	0,
+	0,
+	276,
+	663);
+INSERT INTO V_IRF
+	VALUES (681,
+	666);
+INSERT INTO V_VAL
+	VALUES (669,
+	1,
+	0,
+	3,
+	7,
+	24,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_AVL
+	VALUES (669,
+	681,
+	63,
+	65);
+INSERT INTO V_VAL
+	VALUES (668,
+	0,
+	0,
+	3,
+	28,
+	29,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_LIN
+	VALUES (668,
+	'25');
+INSERT INTO V_VAL
+	VALUES (682,
+	1,
+	0,
+	4,
+	1,
+	5,
+	0,
+	0,
+	0,
+	0,
+	276,
+	663);
+INSERT INTO V_IRF
+	VALUES (682,
+	666);
+INSERT INTO V_VAL
+	VALUES (672,
+	1,
+	0,
+	4,
+	7,
+	25,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_AVL
+	VALUES (672,
+	682,
+	63,
+	67);
+INSERT INTO V_VAL
+	VALUES (671,
+	0,
+	0,
+	4,
+	29,
+	30,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_LIN
+	VALUES (671,
+	'25');
+INSERT INTO V_VAL
+	VALUES (683,
+	1,
+	0,
+	5,
+	1,
+	5,
+	0,
+	0,
+	0,
+	0,
+	276,
+	663);
+INSERT INTO V_IRF
+	VALUES (683,
+	666);
+INSERT INTO V_VAL
+	VALUES (675,
+	1,
+	0,
+	5,
+	7,
+	17,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_AVL
+	VALUES (675,
+	683,
+	63,
+	71);
+INSERT INTO V_VAL
+	VALUES (674,
+	0,
+	0,
+	5,
+	21,
+	21,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_LIN
+	VALUES (674,
+	'0');
+INSERT INTO V_VAL
+	VALUES (684,
+	1,
+	0,
+	8,
+	1,
+	5,
+	0,
+	0,
+	0,
+	0,
+	276,
+	663);
+INSERT INTO V_IRF
+	VALUES (684,
+	666);
+INSERT INTO V_VAL
+	VALUES (678,
+	1,
+	0,
+	8,
+	7,
+	22,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_AVL
+	VALUES (678,
+	684,
+	63,
+	75);
+INSERT INTO V_VAL
+	VALUES (685,
+	0,
+	0,
+	8,
+	32,
+	46,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_PVL
+	VALUES (685,
+	0,
+	0,
+	0,
+	686);
+INSERT INTO V_VAL
+	VALUES (677,
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_BIN
+	VALUES (677,
+	687,
+	685,
+	'+');
+INSERT INTO V_VAL
+	VALUES (688,
+	0,
+	0,
+	8,
+	57,
+	71,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_PVL
+	VALUES (688,
+	0,
+	0,
+	0,
+	686);
+INSERT INTO V_VAL
+	VALUES (689,
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_BIN
+	VALUES (689,
+	690,
+	688,
+	'*');
+INSERT INTO V_VAL
+	VALUES (691,
+	0,
+	0,
+	8,
+	75,
+	79,
+	0,
+	0,
+	0,
+	0,
+	276,
+	663);
+INSERT INTO V_IRF
+	VALUES (691,
+	666);
+INSERT INTO V_VAL
+	VALUES (690,
+	0,
+	0,
+	8,
+	81,
+	98,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_AVL
+	VALUES (690,
+	691,
+	63,
+	65);
+INSERT INTO V_VAL
+	VALUES (687,
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_BIN
+	VALUES (687,
+	692,
+	689,
+	'/');
+INSERT INTO V_VAL
+	VALUES (692,
+	0,
+	0,
+	8,
+	100,
+	102,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_LIN
+	VALUES (692,
+	'100');
+INSERT INTO V_VAL
+	VALUES (693,
+	1,
+	0,
+	9,
+	1,
+	5,
+	0,
+	0,
+	0,
+	0,
+	276,
+	663);
+INSERT INTO V_IRF
+	VALUES (693,
+	666);
+INSERT INTO V_VAL
+	VALUES (680,
+	1,
+	0,
+	9,
+	7,
+	23,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_AVL
+	VALUES (680,
+	693,
+	63,
+	77);
+INSERT INTO V_VAL
+	VALUES (694,
+	0,
+	0,
+	9,
+	33,
+	48,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_PVL
+	VALUES (694,
+	0,
+	0,
+	0,
+	695);
+INSERT INTO V_VAL
+	VALUES (679,
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_BIN
+	VALUES (679,
+	696,
+	694,
+	'+');
+INSERT INTO V_VAL
+	VALUES (697,
+	0,
+	0,
+	9,
+	59,
+	74,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_PVL
+	VALUES (697,
+	0,
+	0,
+	0,
+	695);
+INSERT INTO V_VAL
+	VALUES (698,
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_BIN
+	VALUES (698,
+	699,
+	697,
+	'*');
+INSERT INTO V_VAL
+	VALUES (700,
+	0,
+	0,
+	9,
+	78,
+	82,
+	0,
+	0,
+	0,
+	0,
+	276,
+	663);
+INSERT INTO V_IRF
+	VALUES (700,
+	666);
+INSERT INTO V_VAL
+	VALUES (699,
+	0,
+	0,
+	9,
+	84,
+	102,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_AVL
+	VALUES (699,
+	700,
+	63,
+	67);
+INSERT INTO V_VAL
+	VALUES (696,
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_BIN
+	VALUES (696,
+	701,
+	698,
+	'/');
+INSERT INTO V_VAL
+	VALUES (701,
+	0,
+	0,
+	9,
+	104,
+	106,
+	0,
+	0,
+	0,
+	0,
+	170,
+	663);
+INSERT INTO V_LIN
+	VALUES (701,
+	'100');
+INSERT INTO V_VAR
+	VALUES (666,
+	663,
+	'pacer',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (666,
+	0,
+	63);
+INSERT INTO C_PO
+	VALUES (710,
+	645,
+	'monitor',
+	0,
+	0);
+INSERT INTO C_IR
+	VALUES (711,
+	526,
+	0,
+	710);
+INSERT INTO C_P
+	VALUES (711,
+	'monitor',
+	'Unnamed Interface',
+	'',
+	'pacemaker::monitor::monitor');
+INSERT INTO SPR_PEP
+	VALUES (712,
+	528,
+	711);
+INSERT INTO SPR_PS
+	VALUES (712,
+	'increased_activty',
+	'',
+	'',
+	1);
+INSERT INTO ACT_PSB
+	VALUES (713,
+	712);
+INSERT INTO ACT_ACT
+	VALUES (713,
+	'signal',
+	0,
+	714,
+	0,
+	0,
+	'monitor::monitor::increased_activty',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (714,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	713,
+	0);
+INSERT INTO PE_PE
+	VALUES (715,
+	1,
+	0,
+	645,
+	7);
+INSERT INTO EP_PKG
+	VALUES (715,
+	0,
+	1,
+	'External Entities',
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES (716,
+	1,
+	715,
+	0,
+	5);
+INSERT INTO S_EE
+	VALUES (716,
+	'Logging',
+	'',
+	'LOG',
+	0,
+	'',
+	'Logging');
+INSERT INTO S_BRG
+	VALUES (717,
+	716,
+	'LogInteger',
+	'',
+	0,
+	211,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (718,
+	717,
+	'message',
+	170,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (719,
+	716,
+	'LogReal',
+	'',
+	0,
+	211,
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES (720,
+	719,
+	'message',
+	218,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (721,
+	719,
+	'r',
+	241,
+	0,
+	'',
+	720,
+	'');
+INSERT INTO ACT_BRB
+	VALUES (722,
+	719);
+INSERT INTO ACT_ACT
+	VALUES (722,
+	'bridge',
+	0,
+	723,
+	0,
+	0,
+	'Logging::LogReal',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (723,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	722,
+	0);
+INSERT INTO S_BRG
+	VALUES (724,
+	716,
+	'LogTime',
+	'',
+	0,
+	211,
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES (725,
+	724,
+	'message',
+	218,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (726,
+	724,
+	't',
+	189,
+	0,
+	'',
+	725,
+	'');
+INSERT INTO ACT_BRB
+	VALUES (727,
+	724);
+INSERT INTO ACT_ACT
+	VALUES (727,
+	'bridge',
+	0,
+	728,
+	0,
+	0,
+	'Logging::LogTime',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (728,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	727,
+	0);
+INSERT INTO S_BRG
+	VALUES (729,
+	716,
+	'LogDate',
+	'',
+	0,
+	211,
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES (730,
+	729,
+	'message',
+	218,
+	0,
+	'',
+	731,
+	'');
+INSERT INTO S_BPARM
+	VALUES (731,
+	729,
+	'd',
+	167,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO ACT_BRB
+	VALUES (732,
+	729);
+INSERT INTO ACT_ACT
+	VALUES (732,
+	'bridge',
+	0,
+	733,
+	0,
+	0,
+	'Logging::LogDate',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (733,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	732,
+	0);
+INSERT INTO S_BRG
+	VALUES (734,
+	716,
+	'LogInfo',
+	'',
+	0,
+	211,
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES (735,
+	734,
+	'message',
+	218,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO ACT_BRB
+	VALUES (736,
+	734);
+INSERT INTO ACT_ACT
+	VALUES (736,
+	'bridge',
+	0,
+	737,
+	0,
+	0,
+	'Logging::LogInfo',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (737,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	736,
+	0);
+INSERT INTO S_BRG
+	VALUES (738,
+	716,
+	'LogFailure',
+	'',
+	0,
+	211,
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES (739,
+	738,
+	'message',
+	218,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO ACT_BRB
+	VALUES (740,
+	738);
+INSERT INTO ACT_ACT
+	VALUES (740,
+	'bridge',
+	0,
+	741,
+	0,
+	0,
+	'Logging::LogFailure',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (741,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	740,
+	0);
+INSERT INTO S_BRG
+	VALUES (742,
+	716,
+	'LogSuccess',
+	'',
+	0,
+	211,
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES (743,
+	742,
+	'message',
+	218,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO ACT_BRB
+	VALUES (744,
+	742);
+INSERT INTO ACT_ACT
+	VALUES (744,
+	'bridge',
+	0,
+	745,
+	0,
+	0,
+	'Logging::LogSuccess',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (745,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	744,
+	0);
+INSERT INTO PE_PE
+	VALUES (746,
+	1,
+	715,
+	0,
+	5);
+INSERT INTO S_EE
+	VALUES (746,
+	'Architecture',
+	'',
+	'ARCH',
+	0,
+	'',
+	'Architecture');
+INSERT INTO S_BRG
+	VALUES (747,
+	746,
+	'shutdown',
+	'',
+	0,
+	211,
+	'control stop;',
+	1,
+	'');
+INSERT INTO ACT_BRB
+	VALUES (748,
+	747);
+INSERT INTO ACT_ACT
+	VALUES (748,
+	'bridge',
+	0,
+	749,
+	0,
+	0,
+	'Architecture::shutdown',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (749,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	1,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	748,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (750,
+	749,
+	0,
+	1,
+	1,
+	'Architecture::shutdown line: 1');
+INSERT INTO ACT_CTL
+	VALUES (750);
+INSERT INTO PE_PE
+	VALUES (751,
+	1,
+	715,
+	0,
+	5);
+INSERT INTO S_EE
+	VALUES (751,
+	'Time',
+	'The Time external entity provides date, timestamp, and timer related operations.',
+	'TIM',
+	0,
+	'',
+	'Time');
+INSERT INTO S_BRG
+	VALUES (752,
+	751,
+	'timer_cancel',
+	'This bridge operation cancels and deletes the passed timer instance. If the 
+timer exists (that is, it had not expired), a TRUE value is returned. If the
+timer no longer exists, a FALSE value is returned.',
+	1,
+	201,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (753,
+	752,
+	'timer_inst_ref',
+	191,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (754,
+	751,
+	'timer_add_time',
+	'This bridge operation attempts to add the specified number of microseconds to a
+passed existing timer. If the timer exists (that is, it has not expired), a TRUE
+value is returned. If the timer no longer exists, a FALSE value is returned.',
+	1,
+	201,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (755,
+	754,
+	'microseconds',
+	170,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (756,
+	754,
+	'timer_inst_ref',
+	191,
+	0,
+	'',
+	755,
+	'');
+INSERT INTO S_BRG
+	VALUES (757,
+	751,
+	'timer_reset_time',
+	'This bridge operation attempts to set the passed existing timer to expire in
+the specified number of microseconds. If the timer exists (that is, it has not
+expired), a TRUE value is returned. If the timer no longer exists, a FALSE value
+is returned.',
+	1,
+	201,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (758,
+	757,
+	'microseconds',
+	170,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (759,
+	757,
+	'timer_inst_ref',
+	191,
+	0,
+	'',
+	758,
+	'');
+INSERT INTO S_BRG
+	VALUES (760,
+	751,
+	'timer_remaining_time',
+	'Returns the time remaining (in microseconds) for the passed timer instance. If
+the timer has expired, a zero value is returned.',
+	1,
+	170,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (761,
+	760,
+	'timer_inst_ref',
+	191,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (762,
+	751,
+	'timer_start_recurring',
+	'This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Upon expiration, the
+timer will be restarted and fire again in the specified number of microseconds
+generating the passed event. This bridge operation returns the instance handle
+of the timer.',
+	1,
+	191,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (763,
+	762,
+	'event_inst',
+	194,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (764,
+	762,
+	'microseconds',
+	170,
+	0,
+	'',
+	763,
+	'');
+INSERT INTO S_BRG
+	VALUES (765,
+	751,
+	'timer_start',
+	'This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Returns the instance
+handle of the timer.',
+	1,
+	191,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (766,
+	765,
+	'event_inst',
+	194,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (767,
+	765,
+	'microseconds',
+	170,
+	0,
+	'',
+	766,
+	'');
+INSERT INTO S_BRG
+	VALUES (768,
+	751,
+	'current_clock',
+	'',
+	1,
+	189,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (769,
+	751,
+	'get_year',
+	'',
+	1,
+	170,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (770,
+	769,
+	'date',
+	167,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (771,
+	751,
+	'get_month',
+	'',
+	1,
+	170,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (772,
+	771,
+	'date',
+	167,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (773,
+	751,
+	'get_day',
+	'',
+	1,
+	170,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (774,
+	773,
+	'date',
+	167,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (775,
+	751,
+	'get_hour',
+	'',
+	1,
+	170,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (776,
+	775,
+	'date',
+	167,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (777,
+	751,
+	'get_minute',
+	'',
+	1,
+	170,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (778,
+	777,
+	'date',
+	167,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (779,
+	751,
+	'get_second',
+	'',
+	1,
+	170,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (780,
+	779,
+	'date',
+	167,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (781,
+	751,
+	'create_date',
+	'',
+	1,
+	167,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (782,
+	781,
+	'year',
+	170,
+	0,
+	'',
+	783,
+	'');
+INSERT INTO S_BPARM
+	VALUES (784,
+	781,
+	'month',
+	170,
+	0,
+	'',
+	785,
+	'');
+INSERT INTO S_BPARM
+	VALUES (786,
+	781,
+	'day',
+	170,
+	0,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (787,
+	781,
+	'hour',
+	170,
+	0,
+	'',
+	786,
+	'');
+INSERT INTO S_BPARM
+	VALUES (785,
+	781,
+	'minute',
+	170,
+	0,
+	'',
+	787,
+	'');
+INSERT INTO S_BPARM
+	VALUES (783,
+	781,
+	'second',
+	170,
+	0,
+	'',
+	784,
+	'');
+INSERT INTO S_BRG
+	VALUES (788,
+	751,
+	'current_date',
+	'',
+	1,
+	167,
+	'',
+	0,
+	'');
+INSERT INTO PE_PE
+	VALUES (789,
+	1,
+	0,
+	645,
+	7);
+INSERT INTO EP_PKG
+	VALUES (789,
+	0,
+	1,
+	'pacemaker',
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES (63,
+	1,
+	789,
+	0,
+	4);
+INSERT INTO O_OBJ
+	VALUES (63,
+	'pacer',
+	1,
+	'PACER',
+	'',
+	0);
+INSERT INTO O_NBATTR
+	VALUES (65,
+	63);
+INSERT INTO O_BATTR
+	VALUES (65,
+	63);
+INSERT INTO O_ATTR
+	VALUES (65,
+	63,
+	0,
+	'systolic_tolerance',
+	'',
+	'',
+	'systolic_tolerance',
+	0,
+	170,
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES (67,
+	63);
+INSERT INTO O_BATTR
+	VALUES (67,
+	63);
+INSERT INTO O_ATTR
+	VALUES (67,
+	63,
+	65,
+	'diastolic_tolerance',
+	'',
+	'',
+	'diastolic_tolerance',
+	0,
+	170,
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES (69,
+	63);
+INSERT INTO O_BATTR
+	VALUES (69,
+	63);
+INSERT INTO O_ATTR
+	VALUES (69,
+	63,
+	71,
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	312,
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES (71,
+	63);
+INSERT INTO O_BATTR
+	VALUES (71,
+	63);
+INSERT INTO O_ATTR
+	VALUES (71,
+	63,
+	67,
+	'cycle_count',
+	'',
+	'',
+	'cycle_count',
+	0,
+	170,
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES (73,
+	63);
+INSERT INTO O_BATTR
+	VALUES (73,
+	63);
+INSERT INTO O_ATTR
+	VALUES (73,
+	63,
+	69,
+	'timeout_timer',
+	'',
+	'',
+	'timeout_timer',
+	0,
+	191,
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES (75,
+	63);
+INSERT INTO O_BATTR
+	VALUES (75,
+	63);
+INSERT INTO O_ATTR
+	VALUES (75,
+	63,
+	73,
+	'systolic_timeout',
+	'Duration of wait time before we decide that the expected systolic pulse has been missed.',
+	'',
+	'systolic_timeout',
+	0,
+	170,
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES (77,
+	63);
+INSERT INTO O_BATTR
+	VALUES (77,
+	63);
+INSERT INTO O_ATTR
+	VALUES (77,
+	63,
+	75,
+	'diastolic_timeout',
+	'Duration of wait time before we decide that the expected diastolic pulse has been missed.',
+	'',
+	'diastolic_timeout',
+	0,
+	170,
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	63);
+INSERT INTO O_ID
+	VALUES (1,
+	63);
+INSERT INTO O_ID
+	VALUES (2,
+	63);
+INSERT INTO SM_ISM
+	VALUES (790,
+	63);
+INSERT INTO SM_SM
+	VALUES (790,
+	'',
+	0);
+INSERT INTO SM_MOORE
+	VALUES (790);
+INSERT INTO SM_EVTDI
+	VALUES (791,
+	790,
+	'blood_temp',
+	'',
+	170,
+	'',
+	792,
+	0);
+INSERT INTO SM_EVTDI
+	VALUES (793,
+	790,
+	'respiratory_rate',
+	'',
+	170,
+	'',
+	792,
+	791);
+INSERT INTO SM_LEVT
+	VALUES (794,
+	790,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (794,
+	790,
+	0);
+INSERT INTO SM_EVT
+	VALUES (794,
+	790,
+	0,
+	1,
+	'systolic_pulse',
+	0,
+	'',
+	'PACER1',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (795,
+	790,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (795,
+	790,
+	0);
+INSERT INTO SM_EVT
+	VALUES (795,
+	790,
+	0,
+	2,
+	'diastolic_pulse',
+	0,
+	'',
+	'PACER2',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (796,
+	790,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (796,
+	790,
+	0);
+INSERT INTO SM_EVT
+	VALUES (796,
+	790,
+	0,
+	3,
+	'timeout',
+	0,
+	'',
+	'PACER3',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (792,
+	790,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (792,
+	790,
+	0);
+INSERT INTO SM_EVT
+	VALUES (792,
+	790,
+	0,
+	4,
+	'increased_activity',
+	0,
+	'',
+	'PACER4',
+	'');
+INSERT INTO SM_LEVT
+	VALUES (797,
+	790,
+	0);
+INSERT INTO SM_SEVT
+	VALUES (797,
+	790,
+	0);
+INSERT INTO SM_EVT
+	VALUES (797,
+	790,
+	0,
+	5,
+	'rate_increased',
+	0,
+	'',
+	'PACER5',
+	'');
+INSERT INTO SM_STATE
+	VALUES (798,
+	790,
+	0,
+	'syncing',
+	1,
+	0);
+INSERT INTO SM_SEME
+	VALUES (798,
+	794,
+	790,
+	0);
+INSERT INTO SM_SEME
+	VALUES (798,
+	795,
+	790,
+	0);
+INSERT INTO SM_CH
+	VALUES (798,
+	796,
+	790,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (798,
+	796,
+	790,
+	0);
+INSERT INTO SM_SEME
+	VALUES (798,
+	792,
+	790,
+	0);
+INSERT INTO SM_CH
+	VALUES (798,
+	797,
+	790,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (798,
+	797,
+	790,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (799,
+	790,
+	798);
+INSERT INTO SM_AH
+	VALUES (799,
+	790);
+INSERT INTO SM_ACT
+	VALUES (799,
+	790,
+	1,
+	'',
+	'');
+INSERT INTO ACT_SAB
+	VALUES (800,
+	790,
+	799);
+INSERT INTO ACT_ACT
+	VALUES (800,
+	'state',
+	0,
+	801,
+	0,
+	0,
+	'pacer::syncing',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (801,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	800,
+	0);
+INSERT INTO SM_STATE
+	VALUES (802,
+	790,
+	0,
+	'listening for systolic pulse',
+	2,
+	0);
+INSERT INTO SM_SEME
+	VALUES (802,
+	794,
+	790,
+	0);
+INSERT INTO SM_CH
+	VALUES (802,
+	795,
+	790,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (802,
+	795,
+	790,
+	0);
+INSERT INTO SM_SEME
+	VALUES (802,
+	796,
+	790,
+	0);
+INSERT INTO SM_CH
+	VALUES (802,
+	792,
+	790,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (802,
+	792,
+	790,
+	0);
+INSERT INTO SM_CH
+	VALUES (802,
+	797,
+	790,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (802,
+	797,
+	790,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (803,
+	790,
+	802);
+INSERT INTO SM_AH
+	VALUES (803,
+	790);
+INSERT INTO SM_ACT
+	VALUES (803,
+	790,
+	1,
+	'// Cancel existing timeout timer
+existed = TIM::timer_cancel(timer_inst_ref:self.timeout_timer);
+
+// Set up the timeout timer
+create event instance timeout of PACER3:''timeout'' to self;
+self.timeout_timer = TIM::timer_start(microseconds:self.systolic_timeout,
+                                                            event_inst:timeout);
+
+self.cycle_count = self.cycle_count + 1;
+LOG::LogInfo( message:"cycle count" );
+LOG::LogInteger( message:self.cycle_count );
+',
+	'');
+INSERT INTO ACT_SAB
+	VALUES (804,
+	790,
+	803);
+INSERT INTO ACT_ACT
+	VALUES (804,
+	'state',
+	0,
+	805,
+	0,
+	0,
+	'pacer::listening for systolic pulse',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (805,
+	0,
+	0,
+	0,
+	'LOG',
+	'',
+	'',
+	11,
+	1,
+	11,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	804,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (806,
+	805,
+	807,
+	2,
+	1,
+	'pacer::listening for systolic pulse line: 2');
+INSERT INTO ACT_AI
+	VALUES (806,
+	808,
+	809,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (807,
+	805,
+	810,
+	5,
+	1,
+	'pacer::listening for systolic pulse line: 5');
+INSERT INTO E_ESS
+	VALUES (807,
+	1,
+	0,
+	5,
+	34,
+	5,
+	41,
+	2,
+	11,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO E_CES
+	VALUES (807,
+	1,
+	811);
+INSERT INTO E_CSME
+	VALUES (807,
+	796);
+INSERT INTO E_CEI
+	VALUES (807,
+	812);
+INSERT INTO ACT_SMT
+	VALUES (810,
+	805,
+	813,
+	6,
+	1,
+	'pacer::listening for systolic pulse line: 6');
+INSERT INTO ACT_AI
+	VALUES (810,
+	814,
+	815,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (813,
+	805,
+	816,
+	9,
+	1,
+	'pacer::listening for systolic pulse line: 9');
+INSERT INTO ACT_AI
+	VALUES (813,
+	817,
+	818,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (816,
+	805,
+	819,
+	10,
+	1,
+	'pacer::listening for systolic pulse line: 10');
+INSERT INTO ACT_BRG
+	VALUES (816,
+	734,
+	10,
+	6,
+	10,
+	1);
+INSERT INTO ACT_SMT
+	VALUES (819,
+	805,
+	0,
+	11,
+	1,
+	'pacer::listening for systolic pulse line: 11');
+INSERT INTO ACT_BRG
+	VALUES (819,
+	717,
+	11,
+	6,
+	11,
+	1);
+INSERT INTO V_VAL
+	VALUES (809,
+	1,
+	1,
+	2,
+	1,
+	7,
+	0,
+	0,
+	0,
+	0,
+	201,
+	805);
+INSERT INTO V_TVL
+	VALUES (809,
+	820);
+INSERT INTO V_VAL
+	VALUES (808,
+	0,
+	0,
+	2,
+	16,
+	-1,
+	2,
+	29,
+	0,
+	0,
+	201,
+	805);
+INSERT INTO V_BRV
+	VALUES (808,
+	752,
+	1,
+	2,
+	11);
+INSERT INTO V_VAL
+	VALUES (821,
+	0,
+	0,
+	2,
+	44,
+	47,
+	0,
+	0,
+	0,
+	0,
+	276,
+	805);
+INSERT INTO V_IRF
+	VALUES (821,
+	812);
+INSERT INTO V_VAL
+	VALUES (822,
+	0,
+	0,
+	2,
+	49,
+	61,
+	0,
+	0,
+	0,
+	0,
+	191,
+	805);
+INSERT INTO V_AVL
+	VALUES (822,
+	821,
+	63,
+	73);
+INSERT INTO V_PAR
+	VALUES (822,
+	0,
+	808,
+	'timer_inst_ref',
+	0,
+	2,
+	29);
+INSERT INTO V_VAL
+	VALUES (823,
+	1,
+	0,
+	6,
+	1,
+	4,
+	0,
+	0,
+	0,
+	0,
+	276,
+	805);
+INSERT INTO V_IRF
+	VALUES (823,
+	812);
+INSERT INTO V_VAL
+	VALUES (815,
+	1,
+	0,
+	6,
+	6,
+	18,
+	0,
+	0,
+	0,
+	0,
+	191,
+	805);
+INSERT INTO V_AVL
+	VALUES (815,
+	823,
+	63,
+	73);
+INSERT INTO V_VAL
+	VALUES (814,
+	0,
+	0,
+	6,
+	27,
+	-1,
+	6,
+	39,
+	7,
+	61,
+	191,
+	805);
+INSERT INTO V_BRV
+	VALUES (814,
+	765,
+	1,
+	6,
+	22);
+INSERT INTO V_VAL
+	VALUES (824,
+	0,
+	0,
+	6,
+	52,
+	55,
+	0,
+	0,
+	0,
+	0,
+	276,
+	805);
+INSERT INTO V_IRF
+	VALUES (824,
+	812);
+INSERT INTO V_VAL
+	VALUES (825,
+	0,
+	0,
+	6,
+	57,
+	72,
+	0,
+	0,
+	0,
+	0,
+	170,
+	805);
+INSERT INTO V_AVL
+	VALUES (825,
+	824,
+	63,
+	75);
+INSERT INTO V_PAR
+	VALUES (825,
+	0,
+	814,
+	'microseconds',
+	826,
+	6,
+	39);
+INSERT INTO V_VAL
+	VALUES (826,
+	0,
+	0,
+	7,
+	72,
+	78,
+	0,
+	0,
+	0,
+	0,
+	194,
+	805);
+INSERT INTO V_TVL
+	VALUES (826,
+	811);
+INSERT INTO V_PAR
+	VALUES (826,
+	0,
+	814,
+	'event_inst',
+	0,
+	7,
+	61);
+INSERT INTO V_VAL
+	VALUES (827,
+	1,
+	0,
+	9,
+	1,
+	4,
+	0,
+	0,
+	0,
+	0,
+	276,
+	805);
+INSERT INTO V_IRF
+	VALUES (827,
+	812);
+INSERT INTO V_VAL
+	VALUES (818,
+	1,
+	0,
+	9,
+	6,
+	16,
+	0,
+	0,
+	0,
+	0,
+	170,
+	805);
+INSERT INTO V_AVL
+	VALUES (818,
+	827,
+	63,
+	71);
+INSERT INTO V_VAL
+	VALUES (828,
+	0,
+	0,
+	9,
+	20,
+	23,
+	0,
+	0,
+	0,
+	0,
+	276,
+	805);
+INSERT INTO V_IRF
+	VALUES (828,
+	812);
+INSERT INTO V_VAL
+	VALUES (829,
+	0,
+	0,
+	9,
+	25,
+	35,
+	0,
+	0,
+	0,
+	0,
+	170,
+	805);
+INSERT INTO V_AVL
+	VALUES (829,
+	828,
+	63,
+	71);
+INSERT INTO V_VAL
+	VALUES (817,
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	170,
+	805);
+INSERT INTO V_BIN
+	VALUES (817,
+	830,
+	829,
+	'+');
+INSERT INTO V_VAL
+	VALUES (830,
+	0,
+	0,
+	9,
+	39,
+	39,
+	0,
+	0,
+	0,
+	0,
+	170,
+	805);
+INSERT INTO V_LIN
+	VALUES (830,
+	'1');
+INSERT INTO V_VAL
+	VALUES (831,
+	0,
+	0,
+	10,
+	23,
+	34,
+	0,
+	0,
+	0,
+	0,
+	218,
+	805);
+INSERT INTO V_LST
+	VALUES (831,
+	'cycle count');
+INSERT INTO V_PAR
+	VALUES (831,
+	816,
+	0,
+	'message',
+	0,
+	10,
+	15);
+INSERT INTO V_VAL
+	VALUES (832,
+	0,
+	0,
+	11,
+	26,
+	29,
+	0,
+	0,
+	0,
+	0,
+	276,
+	805);
+INSERT INTO V_IRF
+	VALUES (832,
+	812);
+INSERT INTO V_VAL
+	VALUES (833,
+	0,
+	0,
+	11,
+	31,
+	41,
+	0,
+	0,
+	0,
+	0,
+	170,
+	805);
+INSERT INTO V_AVL
+	VALUES (833,
+	832,
+	63,
+	71);
+INSERT INTO V_PAR
+	VALUES (833,
+	819,
+	0,
+	'message',
+	0,
+	11,
+	18);
+INSERT INTO V_VAR
+	VALUES (820,
+	805,
+	'existed',
+	1,
+	201);
+INSERT INTO V_TRN
+	VALUES (820,
+	0,
+	'');
+INSERT INTO V_VAR
+	VALUES (812,
+	805,
+	'self',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (812,
+	0,
+	63);
+INSERT INTO V_VAR
+	VALUES (811,
+	805,
+	'timeout',
+	1,
+	194);
+INSERT INTO V_TRN
+	VALUES (811,
+	0,
+	'');
+INSERT INTO SM_STATE
+	VALUES (844,
+	790,
+	0,
+	'listening for diastolic pulse',
+	3,
+	0);
+INSERT INTO SM_CH
+	VALUES (844,
+	794,
+	790,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (844,
+	794,
+	790,
+	0);
+INSERT INTO SM_SEME
+	VALUES (844,
+	795,
+	790,
+	0);
+INSERT INTO SM_SEME
+	VALUES (844,
+	796,
+	790,
+	0);
+INSERT INTO SM_CH
+	VALUES (844,
+	792,
+	790,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (844,
+	792,
+	790,
+	0);
+INSERT INTO SM_CH
+	VALUES (844,
+	797,
+	790,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (844,
+	797,
+	790,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (845,
+	790,
+	844);
+INSERT INTO SM_AH
+	VALUES (845,
+	790);
+INSERT INTO SM_ACT
+	VALUES (845,
+	790,
+	1,
+	'// Cancel existing timeout timer
+existed = TIM::timer_cancel(timer_inst_ref:self.timeout_timer);
+
+// Set up the timeout timer
+create event instance timeout of PACER3:''timeout'' to self;
+self.timeout_timer=TIM::timer_start(microseconds:self.diastolic_timeout,
+                                                            event_inst:timeout);
+',
+	'');
+INSERT INTO ACT_SAB
+	VALUES (846,
+	790,
+	845);
+INSERT INTO ACT_ACT
+	VALUES (846,
+	'state',
+	0,
+	847,
+	0,
+	0,
+	'pacer::listening for diastolic pulse',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (847,
+	0,
+	0,
+	0,
+	'TIM',
+	'',
+	'',
+	6,
+	1,
+	6,
+	20,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	846,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (848,
+	847,
+	849,
+	2,
+	1,
+	'pacer::listening for diastolic pulse line: 2');
+INSERT INTO ACT_AI
+	VALUES (848,
+	850,
+	851,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (849,
+	847,
+	852,
+	5,
+	1,
+	'pacer::listening for diastolic pulse line: 5');
+INSERT INTO E_ESS
+	VALUES (849,
+	1,
+	0,
+	5,
+	34,
+	5,
+	41,
+	2,
+	11,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO E_CES
+	VALUES (849,
+	1,
+	853);
+INSERT INTO E_CSME
+	VALUES (849,
+	796);
+INSERT INTO E_CEI
+	VALUES (849,
+	854);
+INSERT INTO ACT_SMT
+	VALUES (852,
+	847,
+	0,
+	6,
+	1,
+	'pacer::listening for diastolic pulse line: 6');
+INSERT INTO ACT_AI
+	VALUES (852,
+	855,
+	856,
+	0,
+	0);
+INSERT INTO V_VAL
+	VALUES (851,
+	1,
+	1,
+	2,
+	1,
+	7,
+	0,
+	0,
+	0,
+	0,
+	201,
+	847);
+INSERT INTO V_TVL
+	VALUES (851,
+	857);
+INSERT INTO V_VAL
+	VALUES (850,
+	0,
+	0,
+	2,
+	16,
+	-1,
+	2,
+	29,
+	0,
+	0,
+	201,
+	847);
+INSERT INTO V_BRV
+	VALUES (850,
+	752,
+	1,
+	2,
+	11);
+INSERT INTO V_VAL
+	VALUES (858,
+	0,
+	0,
+	2,
+	44,
+	47,
+	0,
+	0,
+	0,
+	0,
+	276,
+	847);
+INSERT INTO V_IRF
+	VALUES (858,
+	854);
+INSERT INTO V_VAL
+	VALUES (859,
+	0,
+	0,
+	2,
+	49,
+	61,
+	0,
+	0,
+	0,
+	0,
+	191,
+	847);
+INSERT INTO V_AVL
+	VALUES (859,
+	858,
+	63,
+	73);
+INSERT INTO V_PAR
+	VALUES (859,
+	0,
+	850,
+	'timer_inst_ref',
+	0,
+	2,
+	29);
+INSERT INTO V_VAL
+	VALUES (860,
+	1,
+	0,
+	6,
+	1,
+	4,
+	0,
+	0,
+	0,
+	0,
+	276,
+	847);
+INSERT INTO V_IRF
+	VALUES (860,
+	854);
+INSERT INTO V_VAL
+	VALUES (856,
+	1,
+	0,
+	6,
+	6,
+	18,
+	0,
+	0,
+	0,
+	0,
+	191,
+	847);
+INSERT INTO V_AVL
+	VALUES (856,
+	860,
+	63,
+	73);
+INSERT INTO V_VAL
+	VALUES (855,
+	0,
+	0,
+	6,
+	25,
+	-1,
+	6,
+	37,
+	7,
+	61,
+	191,
+	847);
+INSERT INTO V_BRV
+	VALUES (855,
+	765,
+	1,
+	6,
+	20);
+INSERT INTO V_VAL
+	VALUES (861,
+	0,
+	0,
+	6,
+	50,
+	53,
+	0,
+	0,
+	0,
+	0,
+	276,
+	847);
+INSERT INTO V_IRF
+	VALUES (861,
+	854);
+INSERT INTO V_VAL
+	VALUES (862,
+	0,
+	0,
+	6,
+	55,
+	71,
+	0,
+	0,
+	0,
+	0,
+	170,
+	847);
+INSERT INTO V_AVL
+	VALUES (862,
+	861,
+	63,
+	77);
+INSERT INTO V_PAR
+	VALUES (862,
+	0,
+	855,
+	'microseconds',
+	863,
+	6,
+	37);
+INSERT INTO V_VAL
+	VALUES (863,
+	0,
+	0,
+	7,
+	72,
+	78,
+	0,
+	0,
+	0,
+	0,
+	194,
+	847);
+INSERT INTO V_TVL
+	VALUES (863,
+	853);
+INSERT INTO V_PAR
+	VALUES (863,
+	0,
+	855,
+	'event_inst',
+	0,
+	7,
+	61);
+INSERT INTO V_VAR
+	VALUES (857,
+	847,
+	'existed',
+	1,
+	201);
+INSERT INTO V_TRN
+	VALUES (857,
+	0,
+	'');
+INSERT INTO V_VAR
+	VALUES (854,
+	847,
+	'self',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (854,
+	0,
+	63);
+INSERT INTO V_VAR
+	VALUES (853,
+	847,
+	'timeout',
+	1,
+	194);
+INSERT INTO V_TRN
+	VALUES (853,
+	0,
+	'');
+INSERT INTO SM_STATE
+	VALUES (871,
+	790,
+	0,
+	'Increasing rate',
+	4,
+	0);
+INSERT INTO SM_CH
+	VALUES (871,
+	794,
+	790,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (871,
+	794,
+	790,
+	0);
+INSERT INTO SM_CH
+	VALUES (871,
+	795,
+	790,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (871,
+	795,
+	790,
+	0);
+INSERT INTO SM_CH
+	VALUES (871,
+	796,
+	790,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (871,
+	796,
+	790,
+	0);
+INSERT INTO SM_CH
+	VALUES (871,
+	792,
+	790,
+	0,
+	'');
+INSERT INTO SM_SEME
+	VALUES (871,
+	792,
+	790,
+	0);
+INSERT INTO SM_SEME
+	VALUES (871,
+	797,
+	790,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (872,
+	790,
+	871);
+INSERT INTO SM_AH
+	VALUES (872,
+	790);
+INSERT INTO SM_ACT
+	VALUES (872,
+	790,
+	1,
+	'// calculate an increased rate based on the blood temperature
+// and the current respiratory rate
+self.systolic_timeout = self.systolic_timeout + 1;
+self.diastolic_timeout = self.diastolic_timeout + 1;
+generate PACER5 to self;',
+	'');
+INSERT INTO ACT_SAB
+	VALUES (873,
+	790,
+	872);
+INSERT INTO ACT_ACT
+	VALUES (873,
+	'state',
+	0,
+	874,
+	0,
+	0,
+	'pacer::Increasing rate',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (874,
+	0,
+	0,
+	0,
+	'V_VAR.Var_ID',
+	'',
+	'',
+	5,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	873,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (875,
+	874,
+	876,
+	3,
+	1,
+	'pacer::Increasing rate line: 3');
+INSERT INTO ACT_AI
+	VALUES (875,
+	877,
+	878,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (876,
+	874,
+	879,
+	4,
+	1,
+	'pacer::Increasing rate line: 4');
+INSERT INTO ACT_AI
+	VALUES (876,
+	880,
+	881,
+	0,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (879,
+	874,
+	0,
+	5,
+	1,
+	'pacer::Increasing rate line: 5');
+INSERT INTO E_ESS
+	VALUES (879,
+	1,
+	0,
+	5,
+	10,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO E_GES
+	VALUES (879);
+INSERT INTO E_GSME
+	VALUES (879,
+	797);
+INSERT INTO E_GEN
+	VALUES (879,
+	882);
+INSERT INTO V_VAL
+	VALUES (883,
+	1,
+	0,
+	3,
+	1,
+	4,
+	0,
+	0,
+	0,
+	0,
+	276,
+	874);
+INSERT INTO V_IRF
+	VALUES (883,
+	882);
+INSERT INTO V_VAL
+	VALUES (878,
+	1,
+	0,
+	3,
+	6,
+	21,
+	0,
+	0,
+	0,
+	0,
+	170,
+	874);
+INSERT INTO V_AVL
+	VALUES (878,
+	883,
+	63,
+	75);
+INSERT INTO V_VAL
+	VALUES (884,
+	0,
+	0,
+	3,
+	25,
+	28,
+	0,
+	0,
+	0,
+	0,
+	276,
+	874);
+INSERT INTO V_IRF
+	VALUES (884,
+	882);
+INSERT INTO V_VAL
+	VALUES (885,
+	0,
+	0,
+	3,
+	30,
+	45,
+	0,
+	0,
+	0,
+	0,
+	170,
+	874);
+INSERT INTO V_AVL
+	VALUES (885,
+	884,
+	63,
+	75);
+INSERT INTO V_VAL
+	VALUES (877,
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	170,
+	874);
+INSERT INTO V_BIN
+	VALUES (877,
+	886,
+	885,
+	'+');
+INSERT INTO V_VAL
+	VALUES (886,
+	0,
+	0,
+	3,
+	49,
+	49,
+	0,
+	0,
+	0,
+	0,
+	170,
+	874);
+INSERT INTO V_LIN
+	VALUES (886,
+	'1');
+INSERT INTO V_VAL
+	VALUES (887,
+	1,
+	0,
+	4,
+	1,
+	4,
+	0,
+	0,
+	0,
+	0,
+	276,
+	874);
+INSERT INTO V_IRF
+	VALUES (887,
+	882);
+INSERT INTO V_VAL
+	VALUES (881,
+	1,
+	0,
+	4,
+	6,
+	22,
+	0,
+	0,
+	0,
+	0,
+	170,
+	874);
+INSERT INTO V_AVL
+	VALUES (881,
+	887,
+	63,
+	77);
+INSERT INTO V_VAL
+	VALUES (888,
+	0,
+	0,
+	4,
+	26,
+	29,
+	0,
+	0,
+	0,
+	0,
+	276,
+	874);
+INSERT INTO V_IRF
+	VALUES (888,
+	882);
+INSERT INTO V_VAL
+	VALUES (889,
+	0,
+	0,
+	4,
+	31,
+	47,
+	0,
+	0,
+	0,
+	0,
+	170,
+	874);
+INSERT INTO V_AVL
+	VALUES (889,
+	888,
+	63,
+	77);
+INSERT INTO V_VAL
+	VALUES (880,
+	0,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	0,
+	0,
+	0,
+	170,
+	874);
+INSERT INTO V_BIN
+	VALUES (880,
+	890,
+	889,
+	'+');
+INSERT INTO V_VAL
+	VALUES (890,
+	0,
+	0,
+	4,
+	51,
+	51,
+	0,
+	0,
+	0,
+	0,
+	170,
+	874);
+INSERT INTO V_LIN
+	VALUES (890,
+	'1');
+INSERT INTO V_VAR
+	VALUES (882,
+	874,
+	'self',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (882,
+	0,
+	63);
+INSERT INTO SM_NSTXN
+	VALUES (896,
+	790,
+	802,
+	794,
+	0);
+INSERT INTO SM_TAH
+	VALUES (897,
+	790,
+	896);
+INSERT INTO SM_AH
+	VALUES (897,
+	790);
+INSERT INTO SM_ACT
+	VALUES (897,
+	790,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (898,
+	790,
+	897);
+INSERT INTO ACT_ACT
+	VALUES (898,
+	'transition',
+	0,
+	899,
+	0,
+	0,
+	'PACER1: systolic_pulse',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (899,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	898,
+	0);
+INSERT INTO SM_TXN
+	VALUES (896,
+	790,
+	844,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (900,
+	790,
+	844,
+	795,
+	0);
+INSERT INTO SM_TAH
+	VALUES (901,
+	790,
+	900);
+INSERT INTO SM_AH
+	VALUES (901,
+	790);
+INSERT INTO SM_ACT
+	VALUES (901,
+	790,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (902,
+	790,
+	901);
+INSERT INTO ACT_ACT
+	VALUES (902,
+	'transition',
+	0,
+	903,
+	0,
+	0,
+	'PACER2: diastolic_pulse',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (903,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	902,
+	0);
+INSERT INTO SM_TXN
+	VALUES (900,
+	790,
+	802,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (904,
+	790,
+	798,
+	795,
+	0);
+INSERT INTO SM_TAH
+	VALUES (905,
+	790,
+	904);
+INSERT INTO SM_AH
+	VALUES (905,
+	790);
+INSERT INTO SM_ACT
+	VALUES (905,
+	790,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (906,
+	790,
+	905);
+INSERT INTO ACT_ACT
+	VALUES (906,
+	'transition',
+	0,
+	907,
+	0,
+	0,
+	'PACER2: diastolic_pulse',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (907,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	906,
+	0);
+INSERT INTO SM_TXN
+	VALUES (904,
+	790,
+	802,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (908,
+	790,
+	798,
+	794,
+	0);
+INSERT INTO SM_TAH
+	VALUES (909,
+	790,
+	908);
+INSERT INTO SM_AH
+	VALUES (909,
+	790);
+INSERT INTO SM_ACT
+	VALUES (909,
+	790,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (910,
+	790,
+	909);
+INSERT INTO ACT_ACT
+	VALUES (910,
+	'transition',
+	0,
+	911,
+	0,
+	0,
+	'PACER1: systolic_pulse',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (911,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	910,
+	0);
+INSERT INTO SM_TXN
+	VALUES (908,
+	790,
+	844,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (912,
+	790,
+	844,
+	796,
+	0);
+INSERT INTO SM_TAH
+	VALUES (913,
+	790,
+	912);
+INSERT INTO SM_AH
+	VALUES (913,
+	790);
+INSERT INTO SM_ACT
+	VALUES (913,
+	790,
+	1,
+	'send to_heart::diastolic_pace();',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (914,
+	790,
+	913);
+INSERT INTO ACT_ACT
+	VALUES (914,
+	'transition',
+	0,
+	915,
+	0,
+	0,
+	'PACER3: timeout',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (915,
+	0,
+	0,
+	0,
+	'to_heart',
+	'',
+	'',
+	1,
+	1,
+	1,
+	6,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	914,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (916,
+	915,
+	0,
+	1,
+	1,
+	'PACER3: timeout line: 1');
+INSERT INTO ACT_SGN
+	VALUES (916,
+	1,
+	16,
+	1,
+	6,
+	658,
+	0,
+	0);
+INSERT INTO SM_TXN
+	VALUES (912,
+	790,
+	798,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (917,
+	790,
+	802,
+	796,
+	0);
+INSERT INTO SM_TAH
+	VALUES (918,
+	790,
+	917);
+INSERT INTO SM_AH
+	VALUES (918,
+	790);
+INSERT INTO SM_ACT
+	VALUES (918,
+	790,
+	1,
+	'send to_heart::systolic_pace();',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (919,
+	790,
+	918);
+INSERT INTO ACT_ACT
+	VALUES (919,
+	'transition',
+	0,
+	920,
+	0,
+	0,
+	'PACER3: timeout',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (920,
+	0,
+	0,
+	0,
+	'to_heart',
+	'',
+	'',
+	1,
+	1,
+	1,
+	6,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	919,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (921,
+	920,
+	0,
+	1,
+	1,
+	'PACER3: timeout line: 1');
+INSERT INTO ACT_SGN
+	VALUES (921,
+	1,
+	16,
+	1,
+	6,
+	655,
+	0,
+	0);
+INSERT INTO SM_TXN
+	VALUES (917,
+	790,
+	798,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (922,
+	790,
+	871,
+	797,
+	0);
+INSERT INTO SM_TAH
+	VALUES (923,
+	790,
+	922);
+INSERT INTO SM_AH
+	VALUES (923,
+	790);
+INSERT INTO SM_ACT
+	VALUES (923,
+	790,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (924,
+	790,
+	923);
+INSERT INTO ACT_ACT
+	VALUES (924,
+	'transition',
+	0,
+	925,
+	0,
+	0,
+	'PACER5: rate_increased',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (925,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	924,
+	0);
+INSERT INTO SM_TXN
+	VALUES (922,
+	790,
+	798,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (926,
+	790,
+	798,
+	792,
+	0);
+INSERT INTO SM_TAH
+	VALUES (927,
+	790,
+	926);
+INSERT INTO SM_AH
+	VALUES (927,
+	790);
+INSERT INTO SM_ACT
+	VALUES (927,
+	790,
+	1,
+	'',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (928,
+	790,
+	927);
+INSERT INTO ACT_ACT
+	VALUES (928,
+	'transition',
+	0,
+	929,
+	0,
+	0,
+	'PACER4: increased_activity',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (929,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	928,
+	0);
+INSERT INTO SM_TXN
+	VALUES (926,
+	790,
+	871,
+	0);
+INSERT INTO SM_ASM
+	VALUES (930,
+	63);
+INSERT INTO SM_SM
+	VALUES (930,
+	'',
+	0);
+INSERT INTO SM_MOORE
+	VALUES (930);
+INSERT INTO SM_SGEVT
+	VALUES (931,
+	930,
+	0,
+	652,
+	0,
+	'to_heart::diastolic_pulse');
+INSERT INTO SM_SEVT
+	VALUES (931,
+	930,
+	0);
+INSERT INTO SM_EVT
+	VALUES (931,
+	930,
+	0,
+	3,
+	'diastolic_pulse',
+	0,
+	'',
+	'to_heart::diastolic_pulse',
+	'');
+INSERT INTO SM_SGEVT
+	VALUES (932,
+	930,
+	0,
+	649,
+	0,
+	'to_heart::systolic_pulse');
+INSERT INTO SM_SEVT
+	VALUES (932,
+	930,
+	0);
+INSERT INTO SM_EVT
+	VALUES (932,
+	930,
+	0,
+	4,
+	'systolic_pulse',
+	0,
+	'',
+	'to_heart::systolic_pulse',
+	'');
+INSERT INTO SM_SGEVT
+	VALUES (933,
+	930,
+	0,
+	712,
+	0,
+	'monitor::increased_activty');
+INSERT INTO SM_SEVT
+	VALUES (933,
+	930,
+	0);
+INSERT INTO SM_EVT
+	VALUES (933,
+	930,
+	0,
+	5,
+	'increased_activty',
+	0,
+	'',
+	'monitor::increased_activty',
+	'');
+INSERT INTO SM_STATE
+	VALUES (934,
+	930,
+	0,
+	'monitoring host',
+	1,
+	0);
+INSERT INTO SM_SEME
+	VALUES (934,
+	931,
+	930,
+	0);
+INSERT INTO SM_SEME
+	VALUES (934,
+	932,
+	930,
+	0);
+INSERT INTO SM_SEME
+	VALUES (934,
+	933,
+	930,
+	0);
+INSERT INTO SM_MOAH
+	VALUES (935,
+	930,
+	934);
+INSERT INTO SM_AH
+	VALUES (935,
+	930);
+INSERT INTO SM_ACT
+	VALUES (935,
+	930,
+	1,
+	'',
+	'');
+INSERT INTO ACT_SAB
+	VALUES (936,
+	930,
+	935);
+INSERT INTO ACT_ACT
+	VALUES (936,
+	'class state',
+	0,
+	937,
+	0,
+	0,
+	'pacer::monitoring host',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (937,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	936,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (938,
+	930,
+	934,
+	931,
+	0);
+INSERT INTO SM_TAH
+	VALUES (939,
+	930,
+	938);
+INSERT INTO SM_AH
+	VALUES (939,
+	930);
+INSERT INTO SM_ACT
+	VALUES (939,
+	930,
+	1,
+	'// Redirect signal from heart to become event to pacer.
+select any pacer from instances of PACER;
+generate PACER2:diastolic_pulse() to pacer;
+',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (940,
+	930,
+	939);
+INSERT INTO ACT_ACT
+	VALUES (940,
+	'class transition',
+	0,
+	941,
+	0,
+	0,
+	'to_heart::diastolic_pulse',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (941,
+	1,
+	0,
+	0,
+	'V_VAR.Var_ID',
+	'',
+	'',
+	3,
+	1,
+	2,
+	36,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	940,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (942,
+	941,
+	943,
+	2,
+	1,
+	'to_heart::diastolic_pulse line: 2');
+INSERT INTO ACT_FIO
+	VALUES (942,
+	944,
+	1,
+	'any',
+	63,
+	2,
+	36);
+INSERT INTO ACT_SMT
+	VALUES (943,
+	941,
+	0,
+	3,
+	1,
+	'to_heart::diastolic_pulse line: 3');
+INSERT INTO E_ESS
+	VALUES (943,
+	1,
+	0,
+	3,
+	10,
+	3,
+	17,
+	2,
+	36,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO E_GES
+	VALUES (943);
+INSERT INTO E_GSME
+	VALUES (943,
+	795);
+INSERT INTO E_GEN
+	VALUES (943,
+	944);
+INSERT INTO V_VAR
+	VALUES (944,
+	941,
+	'pacer',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (944,
+	0,
+	63);
+INSERT INTO SM_TXN
+	VALUES (938,
+	930,
+	934,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (947,
+	930,
+	934,
+	932,
+	0);
+INSERT INTO SM_TAH
+	VALUES (948,
+	930,
+	947);
+INSERT INTO SM_AH
+	VALUES (948,
+	930);
+INSERT INTO SM_ACT
+	VALUES (948,
+	930,
+	1,
+	'// Redirect signal from heart to become event to pacer.
+select any pacer from instances of PACER;
+generate PACER1:systolic_pulse() to pacer;
+',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (949,
+	930,
+	948);
+INSERT INTO ACT_ACT
+	VALUES (949,
+	'class transition',
+	0,
+	950,
+	0,
+	0,
+	'to_heart::systolic_pulse',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (950,
+	1,
+	0,
+	0,
+	'V_VAR.Var_ID',
+	'',
+	'',
+	3,
+	1,
+	2,
+	36,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	949,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (951,
+	950,
+	952,
+	2,
+	1,
+	'to_heart::systolic_pulse line: 2');
+INSERT INTO ACT_FIO
+	VALUES (951,
+	953,
+	1,
+	'any',
+	63,
+	2,
+	36);
+INSERT INTO ACT_SMT
+	VALUES (952,
+	950,
+	0,
+	3,
+	1,
+	'to_heart::systolic_pulse line: 3');
+INSERT INTO E_ESS
+	VALUES (952,
+	1,
+	0,
+	3,
+	10,
+	3,
+	17,
+	2,
+	36,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO E_GES
+	VALUES (952);
+INSERT INTO E_GSME
+	VALUES (952,
+	794);
+INSERT INTO E_GEN
+	VALUES (952,
+	953);
+INSERT INTO V_VAR
+	VALUES (953,
+	950,
+	'pacer',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (953,
+	0,
+	63);
+INSERT INTO SM_TXN
+	VALUES (947,
+	930,
+	934,
+	0);
+INSERT INTO SM_NSTXN
+	VALUES (956,
+	930,
+	934,
+	933,
+	0);
+INSERT INTO SM_TAH
+	VALUES (957,
+	930,
+	956);
+INSERT INTO SM_AH
+	VALUES (957,
+	930);
+INSERT INTO SM_ACT
+	VALUES (957,
+	930,
+	1,
+	'// Redirect signal from monitor to become event to pacer.
+select any pacer from instances of PACER;
+generate PACER5:rate_increased() to pacer;
+',
+	'');
+INSERT INTO ACT_TAB
+	VALUES (958,
+	930,
+	957);
+INSERT INTO ACT_ACT
+	VALUES (958,
+	'class transition',
+	0,
+	959,
+	0,
+	0,
+	'monitor::increased_activty',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (959,
+	1,
+	0,
+	0,
+	'V_VAR.Var_ID',
+	'',
+	'',
+	3,
+	1,
+	2,
+	36,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	958,
+	0);
+INSERT INTO ACT_SMT
+	VALUES (960,
+	959,
+	961,
+	2,
+	1,
+	'monitor::increased_activty line: 2');
+INSERT INTO ACT_FIO
+	VALUES (960,
+	962,
+	1,
+	'any',
+	63,
+	2,
+	36);
+INSERT INTO ACT_SMT
+	VALUES (961,
+	959,
+	0,
+	3,
+	1,
+	'monitor::increased_activty line: 3');
+INSERT INTO E_ESS
+	VALUES (961,
+	1,
+	0,
+	3,
+	10,
+	3,
+	17,
+	2,
+	36,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO E_GES
+	VALUES (961);
+INSERT INTO E_GSME
+	VALUES (961,
+	797);
+INSERT INTO E_GEN
+	VALUES (961,
+	962);
+INSERT INTO V_VAR
+	VALUES (962,
+	959,
+	'pacer',
+	1,
+	276);
+INSERT INTO V_INT
+	VALUES (962,
+	0,
+	63);
+INSERT INTO SM_TXN
+	VALUES (956,
+	930,
+	934,
+	0);
+INSERT INTO PE_PE
+	VALUES (965,
+	1,
+	128,
+	0,
+	2);
+INSERT INTO C_C
+	VALUES (965,
+	0,
+	0,
+	'pacer',
+	'The pacer component listens to the host''s heartbeat and sends signals to
+increase the rate depending on the host''s current rate.  It consists of two
+internal components, one that handles generating a beat and the other that
+listens for increased activity.',
+	0,
+	0,
+	0,
+	'');
+INSERT INTO C_PO
+	VALUES (966,
+	965,
+	'to_heart',
+	0,
+	0);
+INSERT INTO C_IR
+	VALUES (967,
+	132,
+	0,
+	966);
+INSERT INTO C_P
+	VALUES (967,
+	'synchronization',
+	'Unnamed Interface',
+	'',
+	'pacer::to_heart::synchronization');
+INSERT INTO SPR_PEP
+	VALUES (968,
+	134,
+	967);
+INSERT INTO SPR_PS
+	VALUES (968,
+	'systolic_pulse',
+	'',
+	'',
+	1);
+INSERT INTO ACT_PSB
+	VALUES (969,
+	968);
+INSERT INTO ACT_ACT
+	VALUES (969,
+	'signal',
+	0,
+	970,
+	0,
+	0,
+	'to_heart::synchronization::systolic_pulse',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (970,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	969,
+	0);
+INSERT INTO SPR_PEP
+	VALUES (971,
+	138,
+	967);
+INSERT INTO SPR_PS
+	VALUES (971,
+	'diastolic_pulse',
+	'',
+	'',
+	1);
+INSERT INTO ACT_PSB
+	VALUES (972,
+	971);
+INSERT INTO ACT_ACT
+	VALUES (972,
+	'signal',
+	0,
+	973,
+	0,
+	0,
+	'to_heart::synchronization::diastolic_pulse',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (973,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	972,
+	0);
+INSERT INTO SPR_PEP
+	VALUES (974,
+	142,
+	967);
+INSERT INTO SPR_PS
+	VALUES (974,
+	'systolic_pace',
+	'',
+	'',
+	1);
+INSERT INTO ACT_PSB
+	VALUES (975,
+	974);
+INSERT INTO ACT_ACT
+	VALUES (975,
+	'signal',
+	0,
+	976,
+	0,
+	0,
+	'to_heart::synchronization::systolic_pace',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (976,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	975,
+	0);
+INSERT INTO SPR_PEP
+	VALUES (977,
+	146,
+	967);
+INSERT INTO SPR_PS
+	VALUES (977,
+	'diastolic_pace',
+	'',
+	'',
+	1);
+INSERT INTO ACT_PSB
+	VALUES (978,
+	977);
+INSERT INTO ACT_ACT
+	VALUES (978,
+	'signal',
+	0,
+	979,
+	0,
+	0,
+	'to_heart::synchronization::diastolic_pace',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (979,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	978,
+	0);
+INSERT INTO SPR_PEP
+	VALUES (980,
+	150,
+	967);
+INSERT INTO SPR_PO
+	VALUES (980,
+	'init',
+	'',
+	'',
+	1);
+INSERT INTO ACT_POB
+	VALUES (981,
+	980);
+INSERT INTO ACT_ACT
+	VALUES (981,
+	'interface operation',
+	0,
+	982,
+	0,
+	0,
+	'to_heart::synchronization::init',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (982,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	981,
+	0);
+INSERT INTO C_PO
+	VALUES (983,
+	965,
+	'host',
+	0,
+	0);
+INSERT INTO C_IR
+	VALUES (984,
+	155,
+	0,
+	983);
+INSERT INTO C_P
+	VALUES (984,
+	'host',
+	'Unnamed Interface',
+	'',
+	'pacer::host::host');
+INSERT INTO SPR_PEP
+	VALUES (622,
+	157,
+	984);
+INSERT INTO SPR_PS
+	VALUES (622,
+	'breath_taken',
+	'',
+	'',
+	1);
+INSERT INTO ACT_PSB
+	VALUES (985,
+	622);
+INSERT INTO ACT_ACT
+	VALUES (985,
+	'signal',
+	0,
+	986,
+	0,
+	0,
+	'host::host::breath_taken',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (986,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	985,
+	0);
+INSERT INTO SPR_PEP
+	VALUES (624,
+	161,
+	984);
+INSERT INTO SPR_PS
+	VALUES (624,
+	'current_temp',
+	'',
+	'',
+	1);
+INSERT INTO ACT_PSB
+	VALUES (987,
+	624);
+INSERT INTO ACT_ACT
+	VALUES (987,
+	'signal',
+	0,
+	988,
+	0,
+	0,
+	'host::host::current_temp',
+	0);
+INSERT INTO ACT_BLK
+	VALUES (988,
+	0,
+	0,
+	0,
+	'',
+	'',
+	'',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	987,
+	0);
+INSERT INTO PA_DIC
+	VALUES (965,
+	648);
+INSERT INTO C_DG
+	VALUES (648,
+	'-> pacemaker::to_heart::synchronization');
+INSERT INTO C_RID
+	VALUES (967,
+	648);
+INSERT INTO PA_DIC
+	VALUES (965,
+	533);
+INSERT INTO C_DG
+	VALUES (533,
+	'-> hostmonitor::host::host');
+INSERT INTO C_RID
+	VALUES (984,
+	533);
+INSERT INTO PE_PE
+	VALUES (989,
+	-1,
+	0,
+	965,
+	-1);
+INSERT INTO CL_IC
+	VALUES (989,
+	645,
+	0,
+	0,
+	0,
+	'',
+	'avpace::library::pacemaker',
+	'');
+INSERT INTO CL_IIR
+	VALUES (990,
+	647,
+	989,
+	648,
+	'synchronization',
+	'');
+INSERT INTO CL_IP
+	VALUES (990,
+	'synchronization',
+	'');
+INSERT INTO CL_IIR
+	VALUES (991,
+	711,
+	989,
+	0,
+	'monitor',
+	'');
+INSERT INTO CL_IP
+	VALUES (991,
+	'monitor',
+	'');
+INSERT INTO CL_IPINS
+	VALUES (992,
+	991);
+INSERT INTO PE_PE
+	VALUES (993,
+	-1,
+	0,
+	965,
+	-1);
+INSERT INTO CL_IC
+	VALUES (993,
+	523,
+	0,
+	0,
+	0,
+	'',
+	'avpace::library::hostmonitor',
+	'');
+INSERT INTO CL_IIR
+	VALUES (994,
+	525,
+	993,
+	0,
+	'monitor',
+	'');
+INSERT INTO CL_IR
+	VALUES (994,
+	992,
+	'monitor',
+	'');
+INSERT INTO CL_IIR
+	VALUES (995,
+	532,
+	993,
+	533,
+	'host',
+	'');
+INSERT INTO CL_IP
+	VALUES (995,
+	'host',
+	'');
+INSERT INTO PE_PE
+	VALUES (992,
+	1,
+	0,
+	965,
+	22);
+INSERT INTO C_SF
+	VALUES (992,
+	525,
+	711,
+	'',
+	'pacemaker::monitor::monitor -o)- hostmonitor::monitor::monitor');
+INSERT INTO EP_PKG
+	VALUES (996,
+	1,
+	1,
+	'interfaces',
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES (155,
+	1,
+	996,
+	0,
+	6);
+INSERT INTO C_I
+	VALUES (155,
+	0,
+	'host',
+	'');
+INSERT INTO C_EP
+	VALUES (157,
+	155,
+	-1,
+	'breath_taken',
+	'');
+INSERT INTO C_AS
+	VALUES (157,
+	'breath_taken',
+	'',
+	0,
+	0);
+INSERT INTO C_EP
+	VALUES (161,
+	155,
+	-1,
+	'current_temp',
+	'');
+INSERT INTO C_AS
+	VALUES (161,
+	'current_temp',
+	'',
+	0,
+	157);
+INSERT INTO PE_PE
+	VALUES (526,
+	1,
+	996,
+	0,
+	6);
+INSERT INTO C_I
+	VALUES (526,
+	0,
+	'monitor',
+	'');
+INSERT INTO C_EP
+	VALUES (528,
+	526,
+	-1,
+	'increased_activty',
+	'');
+INSERT INTO C_AS
+	VALUES (528,
+	'increased_activty',
+	'',
+	0,
+	0);
+INSERT INTO C_PP
+	VALUES (997,
+	528,
+	170,
+	'current_temp',
+	'',
+	0,
+	'',
+	0);
+INSERT INTO C_PP
+	VALUES (998,
+	528,
+	170,
+	'current_rate',
+	'',
+	0,
+	'',
+	997);
+INSERT INTO PE_PE
+	VALUES (132,
+	1,
+	996,
+	0,
+	6);
+INSERT INTO C_I
+	VALUES (132,
+	0,
+	'synchronization',
+	'');
+INSERT INTO C_EP
+	VALUES (134,
+	132,
+	-1,
+	'systolic_pulse',
+	'');
+INSERT INTO C_AS
+	VALUES (134,
+	'systolic_pulse',
+	'',
+	0,
+	0);
+INSERT INTO C_EP
+	VALUES (138,
+	132,
+	-1,
+	'diastolic_pulse',
+	'');
+INSERT INTO C_AS
+	VALUES (138,
+	'diastolic_pulse',
+	'',
+	0,
+	134);
+INSERT INTO C_EP
+	VALUES (142,
+	132,
+	-1,
+	'systolic_pace',
+	'');
+INSERT INTO C_AS
+	VALUES (142,
+	'systolic_pace',
+	'',
+	1,
+	138);
+INSERT INTO C_EP
+	VALUES (146,
+	132,
+	-1,
+	'diastolic_pace',
+	'');
+INSERT INTO C_AS
+	VALUES (146,
+	'diastolic_pace',
+	'',
+	1,
+	142);
+INSERT INTO C_EP
+	VALUES (150,
+	132,
+	-1,
+	'init',
+	'');
+INSERT INTO C_IO
+	VALUES (150,
+	211,
+	'init',
+	'',
+	0,
+	'',
+	0);
+INSERT INTO C_PP
+	VALUES (686,
+	150,
+	170,
+	'systolic_period',
+	'The systolic period is the duration of time between diastolic and systolic pulses.',
+	0,
+	'',
+	0);
+INSERT INTO C_PP
+	VALUES (695,
+	150,
+	170,
+	'diastolic_period',
+	'The diastolic period is the duration of time between systolic and diastolic pulses.',
+	0,
+	'',
+	686);
+INSERT INTO EP_PKG
+	VALUES (999,
+	1,
+	1,
+	'system',
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES (1000,
+	1,
+	999,
+	0,
+	21);
+INSERT INTO CL_IC
+	VALUES (1000,
+	129,
+	0,
+	0,
+	0,
+	'',
+	'avpace::library::heart',
+	'');
+INSERT INTO CL_IIR
+	VALUES (1001,
+	131,
+	1000,
+	0,
+	'synchronization',
+	'');
+INSERT INTO CL_IR
+	VALUES (1001,
+	1002,
+	'synchronization',
+	'');
+INSERT INTO CL_IIR
+	VALUES (1003,
+	154,
+	1000,
+	0,
+	'host',
+	'');
+INSERT INTO CL_IR
+	VALUES (1003,
+	0,
+	'host',
+	'');
+INSERT INTO PE_PE
+	VALUES (1004,
+	1,
+	999,
+	0,
+	21);
+INSERT INTO CL_IC
+	VALUES (1004,
+	965,
+	0,
+	0,
+	0,
+	'',
+	'avpace::library::pacer',
+	'');
+INSERT INTO CL_IIR
+	VALUES (1005,
+	967,
+	1004,
+	0,
+	'synchronization',
+	'');
+INSERT INTO CL_IP
+	VALUES (1005,
+	'synchronization',
+	'');
+INSERT INTO CL_IPINS
+	VALUES (1002,
+	1005);
+INSERT INTO CL_IIR
+	VALUES (1006,
+	984,
+	1004,
+	0,
+	'host',
+	'');
+INSERT INTO CL_IP
+	VALUES (1006,
+	'host',
+	'');
+INSERT INTO PE_PE
+	VALUES (1002,
+	1,
+	999,
+	0,
+	22);
+INSERT INTO C_SF
+	VALUES (1002,
+	131,
+	967,
+	'',
+	'pacer::to_heart::synchronization -o)- heart::out_to_body::synchronization');
+INSERT INTO PE_PE
+	VALUES (211,
+	1,
+	0,
+	0,
+	3);
+INSERT INTO S_DT
+	VALUES (211,
+	0,
+	'void',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (211,
+	0);
+INSERT INTO PE_PE
+	VALUES (201,
+	1,
+	0,
+	0,
+	3);
+INSERT INTO S_DT
+	VALUES (201,
+	0,
+	'boolean',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (201,
+	1);
+INSERT INTO PE_PE
+	VALUES (170,
+	1,
+	0,
+	0,
+	3);
+INSERT INTO S_DT
+	VALUES (170,
+	0,
+	'integer',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (170,
+	2);
+INSERT INTO PE_PE
+	VALUES (241,
+	1,
+	0,
+	0,
+	3);
+INSERT INTO S_DT
+	VALUES (241,
+	0,
+	'real',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (241,
+	3);
+INSERT INTO PE_PE
+	VALUES (218,
+	1,
+	0,
+	0,
+	3);
+INSERT INTO S_DT
+	VALUES (218,
+	0,
+	'string',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (218,
+	4);
+INSERT INTO PE_PE
+	VALUES (1007,
+	1,
+	0,
+	0,
+	3);
+INSERT INTO S_DT
+	VALUES (1007,
+	0,
+	'unique_id',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (1007,
+	5);
+INSERT INTO PE_PE
+	VALUES (312,
+	1,
+	0,
+	0,
+	3);
+INSERT INTO S_DT
+	VALUES (312,
+	0,
+	'state<State_Model>',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (312,
+	6);
+INSERT INTO PE_PE
+	VALUES (1008,
+	1,
+	0,
+	0,
+	3);
+INSERT INTO S_DT
+	VALUES (1008,
+	0,
+	'same_as<Base_Attribute>',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (1008,
+	7);
+INSERT INTO PE_PE
+	VALUES (276,
+	1,
+	0,
+	0,
+	3);
+INSERT INTO S_DT
+	VALUES (276,
+	0,
+	'inst_ref<Object>',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (276,
+	8);
+INSERT INTO PE_PE
+	VALUES (1009,
+	1,
+	0,
+	0,
+	3);
+INSERT INTO S_DT
+	VALUES (1009,
+	0,
+	'inst_ref_set<Object>',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (1009,
+	9);
+INSERT INTO PE_PE
+	VALUES (194,
+	1,
+	0,
+	0,
+	3);
+INSERT INTO S_DT
+	VALUES (194,
+	0,
+	'inst<Event>',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (194,
+	10);
+INSERT INTO PE_PE
+	VALUES (1010,
+	1,
+	0,
+	0,
+	3);
+INSERT INTO S_DT
+	VALUES (1010,
+	0,
+	'inst<Mapping>',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (1010,
+	11);
+INSERT INTO PE_PE
+	VALUES (1011,
+	1,
+	0,
+	0,
+	3);
+INSERT INTO S_DT
+	VALUES (1011,
+	0,
+	'inst_ref<Mapping>',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (1011,
+	12);
+INSERT INTO PE_PE
+	VALUES (1012,
+	1,
+	0,
+	0,
+	3);
+INSERT INTO S_DT
+	VALUES (1012,
+	0,
+	'component_ref',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (1012,
+	13);
+INSERT INTO PE_PE
+	VALUES (167,
+	1,
+	0,
+	0,
+	3);
+INSERT INTO S_DT
+	VALUES (167,
+	0,
+	'date',
+	'',
+	'');
+INSERT INTO S_UDT
+	VALUES (167,
+	1010,
+	1);
+INSERT INTO PE_PE
+	VALUES (191,
+	1,
+	0,
+	0,
+	3);
+INSERT INTO S_DT
+	VALUES (191,
+	0,
+	'inst_ref<Timer>',
+	'',
+	'');
+INSERT INTO S_UDT
+	VALUES (191,
+	1011,
+	3);
+INSERT INTO PE_PE
+	VALUES (189,
+	1,
+	0,
+	0,
+	3);
+INSERT INTO S_DT
+	VALUES (189,
+	0,
+	'timestamp',
+	'',
+	'');
+INSERT INTO S_UDT
+	VALUES (189,
+	1010,
+	2);
