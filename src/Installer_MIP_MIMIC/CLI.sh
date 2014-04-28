@@ -1,6 +1,6 @@
 #!/bin/bash
 BPHOMEDIR="C:/mgc/BridgePoint"
-BP_VERSION="4.1.9"
+BP_VERSION="4.1.10"
 WORKSPACE="$HOME/workspace"
 
 function die() {
