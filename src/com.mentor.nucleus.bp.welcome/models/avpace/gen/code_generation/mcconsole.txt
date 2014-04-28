@@ -1,0 +1,23 @@
+Marked configuration package system found.
+Enabling detection of empty handles for component(s) *.
+Action statement tracing enabled for component heart.
+Action statement tracing enabled for component hostmonitor.
+Action statement tracing enabled for component pacemaker.
+Action statement tracing enabled for component pacer.
+Enabling state transition tracing for component(s) *.
+Function init marked as initialization function.
+ERROR:  Initialization function (init) not found in component hostmonitor.
+  => TagInitializationFunction( init )
+ERROR:  Initialization function (init) not found in component pacemaker.
+  => TagInitializationFunction( init )
+ERROR:  Initialization function (init) not found in component pacer.
+  => TagInitializationFunction( init )
+Analyzing model and making optimizations....
+Self event queue needed.
+Instance event queue needed.
+11 attributes read
+11 attributes written
+translating control statements
+translating other statements
+rolling up statements into action bodies
+done translating statements
