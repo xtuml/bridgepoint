@@ -65,19 +65,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 	private List<SystemModel_c> m_exportedSystems;
 	private AbstractActivator m_activator = null;
 	private AbstractNature m_nature = null;
-	public static final String PREPROCESSED_MODEL_FILE = "_system.sql";
-	
-	protected AbstractExportBuilder(Activator activator) {
-		super();
-		m_elements = new ArrayList<NonRootModelElement>();
-		m_exportedSystems = new ArrayList<SystemModel_c>();
-		m_outputFolder = AbstractProperties.getPropertyOrDefault(activator
-				.readProperties(AbstractNature.BUILD_SETTINGS_FILE),
-				AbstractProperties.GENERATED_CODE_DEST);
-		m_activator = activator;
-		m_nature = null;
-	}
-	
+
 	protected AbstractExportBuilder(AbstractActivator activator, AbstractNature nature) {
 		super();
 		m_elements = new ArrayList<NonRootModelElement>();
@@ -211,7 +199,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
             for (IResource res : genFolder.members()) {
                 if (res.getType() == IResource.FILE &&
                         res.getFileExtension().equals("sql") &&        //$NON-NLS-1$
-                        !res.getName().equals(PREPROCESSED_MODEL_FILE) &&    //$NON-NLS-1$
+                        !res.getName().equals("_system.sql") &&    //$NON-NLS-1$
                         (res.getLocalTimeStamp() < oldest)) { 
                     oldest = res.getLocalTimeStamp();
                     foundOutputFile = true;
@@ -272,7 +260,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
             for (IResource res : resources) {
                 if (res.getFileExtension() == null
                         || !res.getFileExtension().equals("sql")
-                        || res.getName().equals(PREPROCESSED_MODEL_FILE)) {
+                        || res.getName().equals("_system.sql")) {
                     res.delete(true, monitor);
                 }
             }
@@ -306,58 +294,6 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
         return m_exportedSystems;
     }
     
-    
-    public static void runXbuild(IProject project, String workingDir, String p_outputFile) 
-            throws IOException, RuntimeException, CoreException, InterruptedException
-        {
-            // Call xtumlmc_build.exe xtumlmc_cleanse_model <infile> <outfile>
-            String app = AbstractNature.getLaunchAttribute(project, 
-                        com.mentor.nucleus.bp.mc.AbstractNature.LAUNCH_ATTR_TOOL_LOCATION);
-            String args = "xtumlmc_cleanse_model";  //$NON-NLS-1$
-            String inputfile = project.getName() + ".sql"; //$NON-NLS-1$
-            String middlefile = "z.xtuml";  //$NON-NLS-1$
-            String outputfile = p_outputFile;
-            File output = new File(workingDir + outputfile);
-            File middle = new File(workingDir + middlefile);
-            File sqlfile = new File(workingDir + inputfile);
-
-            if ( middle.exists() ) {
-                middle.delete();
-            }
-            if ( output.exists() ) {
-                output.delete();
-            }
-            
-            ProcessBuilder pb = new ProcessBuilder(app, args, inputfile, middlefile);
-            pb.directory(new File(workingDir));
-            Process process = pb.start();
-            process.waitFor();
-            
-            project.refreshLocal(IResource.DEPTH_INFINITE, null);
-            if ( !middle.exists() ) {
-                RuntimeException re = new RuntimeException("Expected output file doesn't exist: " +
-                        middle.toString());
-                throw re;
-            }
-
-            // Call xtumlmc_build.exe ReplaceUUIDWithLong <infile> <outfile>
-            args = "ReplaceUUIDWithLong";  //$NON-NLS-1$
-
-            pb = new ProcessBuilder(app, args, middlefile, outputfile);
-            pb.directory(new File(workingDir));
-            process = pb.start();
-            process.waitFor();
-            
-            sqlfile.delete();
-            middle.delete();
-            project.refreshLocal(IResource.DEPTH_INFINITE, null);
-            if ( !output.exists() ) {
-                RuntimeException re = new RuntimeException("Expected export builder output file doesn't exist: " +
-                        output.toString());
-                throw re;
-            }
-        }
-        
 	public List<SystemModel_c> exportSystem(SystemModel_c system, String destDir,
 			final IProgressMonitor monitor, boolean append, String originalSystem) throws CoreException {
 
