@@ -654,7 +654,7 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 						 * shall be created to store created helper, to be
 						 * notified by editor visiblity change
 						 */
-						IFigure hoverSource = this.getCursorTarget();
+						IFigure hoverSource = this.getMouseTarget();
 						if (hoverSource instanceof ShapeImageFigure || hoverSource instanceof DecoratedPolylineConnection){
 							BPToolTipHelper existedHelper = tooltipMap.get(hoverSource);
 							if ( existedHelper != null)
