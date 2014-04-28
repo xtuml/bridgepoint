@@ -278,10 +278,10 @@ Suite Release Notes</span></h1>
 <p class=MsoNormal><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
 
 <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Release
-4.1.10</span></p>
+4.1.9</span></p>
 
 <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Last
-revised April 2014</span></p>
+revised March 2014</span></p>
 
 <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
 
@@ -438,27 +438,54 @@ name="_General_Notes"></a>3.<span style='font-size:7.0pt;font-family:"Times New 
 
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
-     font-family:"Arial","sans-serif"'>A summary of the release highlights and
-     new functionality is available on the </span><a
+     font-family:"Arial","sans-serif"'>A summary of the release highlights and new
+     functionality is available on the </span><a
      href="../../WhatsNew/HTML/WhatsNew.htm"><span style='font-size:10.0pt;
      font-family:"Arial","sans-serif"'>Whats New</span></a><span
      style='font-size:10.0pt;font-family:"Arial","sans-serif"'> page.</span></li>
  <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
-     font-family:"Arial","sans-serif"'>This version of BridgePoint compare has
-     been modified to remove graphical differences from the comparison trees.
-     The graphical merging is now handled automatically based on the semantic
-     merge. In some situations only graphical changes may exist on a file. In
-     this case the BridgePoint compare editor will not show any differences in
-     the tree. To determine what has changed in the file the text comparison
-     must be used. This can be done by clicking the BridgePoint Structural
-     Compare pull down menu and choosing Text Compare.</span></li>
+     font-family:"Arial","sans-serif"'>In this release BridgePoint has been
+     modified to pass bridge parameters in the user-defined order when
+     executing realized bridge code. This may cause unexpected failures in Java
+     realized code as the values passed may not match the modeled external
+     entity. To address this issue there are two approaches, one where the Java
+     code is modified and the other where the modeled external entity is
+     modified. In any case both must have a matching parameter ordering.</span></li>
+ <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
+     font-family:"Arial","sans-serif"'>The provided and required interface
+     tools can now be used to draw a connection between two components in a
+     single stroke, functioning as an assembly connector.&nbsp; The connection
+     created will produce a provided interface and a required interface.&nbsp;
+     This allows for a simpler approach to creating interface satisfactions.</span></li>
+ <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
+     font-family:"Arial","sans-serif"'>xtUML eXecute now creates dynamic arrays
+     with an initial size of 0.&nbsp; Previously they were created with an
+     initial size of 1.&nbsp; Models that relied on the initial size being 1
+     must be updated to account for the new behavior.</span></li>
+ <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
+     font-family:"Arial","sans-serif"'>When using Java Realized Components with
+     JNI, DLLs are not unloaded when the session terminates.&nbsp; After
+     terminating the session, the option to &quot;Clear Terminated
+     Sessions&quot; (the X icon) must be run to clear these sessions. &nbsp;The
+     terminated sessions hold resources that prevent the DLL from unloading.
+     &nbsp;Once those terminated sessions are cleared, the DLL is unloaded.</span></li>
 </ul>
 
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal style='margin-bottom:12.0pt'><b><span style='font-size:
+     10.0pt;font-family:"Arial","sans-serif";color:red'>IMPORTANT: </span></b><span
+     style='font-size:10.0pt;font-family:"Arial","sans-serif"'>The legacy
+     plug-in com.mentor.nucleus.bp.mc.mc3020 has been removed.&nbsp; A utility
+     is provided that allows users to “Set Model Compiler”.&nbsp; Users must
+     run this tool on any projects that reference the old builder before xtUML
+     Translate will run.&nbsp; To run the tool, select a project, right-click
+     to bring up the context menu, then choose “BridgePoint Utilities &gt; Set
+     Model Compiler”. &nbsp; See BridgePoint UML Suite Help &gt; Reference &gt;
+     Translation Reference &gt; Setting the Model Compiler for full details.</span></li>
+ <li class=MsoNormal style='margin-bottom:12.0pt'><b><span style='font-size:
      10.0pt;font-family:"Arial","sans-serif";color:red'>IMPORTANT:</span></b><span
-     style='font-size:10.0pt;font-family:"Arial","sans-serif"'> BridgePoint 4.0.0
-     and later releases represent a major change in the licensing of the
+     style='font-size:10.0pt;font-family:"Arial","sans-serif"'> BridgePoint
+     4.0.0 and later releases represent a major change in the licensing of the
      tool.&nbsp; The xtUML Editor is now unrestricted.&nbsp;&nbsp; The xtUML
      eXecute Application (formerly Model Verifier) and xtUML Translate (Model
      Compiler) tools remain licensed Mentor Graphics products.&nbsp; Customers
@@ -487,8 +514,8 @@ font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp; </span>Interoperabilit
 with Previous Releases</h2>
 
 <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>BridgePoint
-4.1.10 is fully data compatible with workspaces and projects created with
-BridgePoint 3.7.0 and xtUML.org’s xtUML Editor 3.7.2.&nbsp; BridgePoint 4.1.10
+4.1.9 is fully data compatible with workspaces and projects created with
+BridgePoint 3.7.0 and xtUML.org’s xtUML Editor 3.7.2.&nbsp; BridgePoint 4.1.9
 can open model projects created with BridgePoint 3.5.x and 3.6.x, but requires
 the projects to be upgraded completely to generic packages just like the 3.7.x
 series of tools.</span></p>
@@ -518,9 +545,9 @@ name="_Known_Issues"></a>5.<span style='font-size:7.0pt;font-family:"Times New R
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Port
      multiplicity is partially supported. It is present in the meta-model. The
-     user interface allows setting One and Many (in properties). A future
-     release of BridgePoint will allow integer values and will be displayable
-     on the canvas.</span></li>
+     user interface allows setting One and Many (in properties). A future release
+     of BridgePoint will allow integer values and will be displayable on the
+     canvas.</span></li>
  <li class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Defects
      in states designated as 'final'. Final state is available for class-based
      state machines. Transitions can be drawn out of final states. States with
@@ -555,8 +582,8 @@ name="_Known_Issues"></a>5.<span style='font-size:7.0pt;font-family:"Times New R
  <li class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Pushing
      the suspend button during Verifier execution causes Verifier to stop what
      it is doing immediately. It stops whether it is processing an activity or
-     not. If it should stop between activities, then the Debug View may show only
-     events pending (or none at all if Verifier is waiting for an external
+     not. If it should stop between activities, then the Debug View may show
+     only events pending (or none at all if Verifier is waiting for an external
      stimulus). Verifier will only source locate (i.e. open an activity editor)
      if it stops inside of an activity; so in the cases outlined above, no
      source location will occur. If this happens and there are events in the
@@ -598,8 +625,8 @@ cause generator to hang as well.</span></p>
 font-family:"Arial","sans-serif"'>Enabling East Asian font support on a Windows
 XP Professional computer usually installs the DOS fonts listed above. If you do
 install EA-font-support you may want to save off the fonts, remove EA-support
-and then copy the fonts back in. EA-support causes a big performance hit on American
-English computers.</span></p>
+and then copy the fonts back in. EA-support causes a big performance hit on
+American English computers.</span></p>
 
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>The
@@ -643,8 +670,8 @@ English computers.</span></p>
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Eclipse
      CDT has an internal error when attempting to rebuild an executable with
-     spaces in the name.&nbsp; The recommended workaround is to open the
-     project properties, then navigate to C/C++ Build &gt; Settings &gt; Build
+     spaces in the name.&nbsp; The recommended workaround is to open the project
+     properties, then navigate to C/C++ Build &gt; Settings &gt; Build
      Artifact.&nbsp; In the Artifact name field, replace “${ProjName}” with an
      exact name with no spaces.</span></li>
 </ul>
@@ -672,7 +699,7 @@ color:black'>&nbsp;</span></b></p>
   0in 5.4pt 0in 5.4pt;height:21.55pt'>
   <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
   6.0pt;margin-left:0in'><b><span style='font-family:"Arial","sans-serif";
-  color:black'>BridgePoint 4.1.10</span></b></p>
+  color:black'>BridgePoint 4.1.9</span></b></p>
   </td>
   <td width=161 style='width:121.05pt;border:solid windowtext 1.0pt;border-left:
   none;padding:0in 5.4pt 0in 5.4pt;height:21.55pt'>
@@ -731,6 +758,466 @@ color:black'>&nbsp;</span></b></p>
 
 <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
 color:black'>&nbsp;</span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=953
+ style='width:714.6pt;border-collapse:collapse'>
+ <tr style='height:21.55pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;padding:
+  0in 5.4pt 0in 5.4pt;height:21.55pt'>
+  <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+  6.0pt;margin-left:0in'><b><span style='font-family:"Arial","sans-serif";
+  color:black'>BridgePoint 4.1.6</span></b></p>
+  </td>
+  <td width=161 style='width:121.05pt;border:solid windowtext 1.0pt;border-left:
+  none;padding:0in 5.4pt 0in 5.4pt;height:21.55pt'>
+  <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0in;
+  margin-bottom:6.0pt;margin-left:0in;text-align:center'><b><span
+  style='font-family:"Arial","sans-serif";color:black'>Service Request #</span></b></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Length
+  of dynamic array at creation time is 1</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2426116029</span></p>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2591953014</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Provide
+  a way to indicate 'relate' text phrases in Session Explorer</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2444854814</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Single
+  quotes (') immediately within double quotes in OAL string literals are not
+  interpreted correctly by MC</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2519099998</span></p>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2595094200</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Rectilinear
+  routing causes delegation to be co-linear with parent component boundary</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2561620569</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Missing
+  descriptions for use case blobs, actors, message sequences, class attributes,
+  etc., in the DocGen output</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2569914941</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Investigate
+  missing figures in BridgePoint help documents</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2565568299</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Cannot
+  merge added operations and signals from two branches</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2589175377</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Large
+  number of functions make Verifier extremely slow</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2598628416</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Japanese
+  characters in model can cause generator to crash</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2606635343</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Verifier
+  doesn't correctly preserve invocation stack when used in pseudo recursive
+  fashion</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2600713517</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Verifier
+  does not respect user specified order of Java-realized bridges</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2601450996</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Invoking
+  pre-builder from CLI results in fatal error messages</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2606284483</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Incorrect
+  setting of referential attribute values for reflexive associations in
+  generated code</span></h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2607065561</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Fix
+  xtumlmc_build.exe (on Linux) to work with multiple license servers</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2592969446&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Add
+  an &quot;assembly connector&quot; to Component drawer in Palette to connect
+  components with interface</span></h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2525115972</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Do
+  not have double representation of model elements in Model Explorer (tree
+  view).</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2531966879&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Create
+  a proper analysis to improve the BridgePoint training class</span></h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2607507471</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Add
+  possibility to view Graphical and Matrix State Machine Representation at the
+  same time</span>&nbsp;</h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2593084354</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>//**
+  comments in OAL crash the model compiler</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2606635348&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Stop
+  requesting xtumlvrfy license – don’t treat single-component execution
+  different than multi-component execution</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2606635349</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Return
+  value names are duplicated&nbsp;</span></h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2598151082</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Provide
+  utility to change Model Compiler after project is created</span></h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2573071202</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>TemplateProject
+  does not import as first project in workspace on NFS directory on RHEL5</span></h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2607819651</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Change
+  the background color for Component Diagrams</span></h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2418942511</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Test and
+  document recommended approach for xtUML Editor to Model Compiler flow</span></h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2550460491</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Potential
+  deadlock in InsertElement&nbsp;</span></h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Dynamically
+  allocated events index memory incorrectly</span></h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>Copying
+  set transients can fail going out of scope</span></h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Remove
+  EDGE to CDT conversion utility</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Interface
+  decoration has inconsistency behavior</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>NPE
+  while switching branches in git causes the UI to no longer refresh</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Remove
+  automated CDT conversion check</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Stop
+  shipping heritage mc3020 plugin</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Add
+  a realized flag attribute to External Entity</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <h4 style='margin-top:0in;margin-right:45.0pt;margin-bottom:1.5pt;margin-left:
+  0in'><span style='font-size:10.0pt;color:windowtext;font-weight:normal'>&nbsp;</span></h4>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
 
 <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
 color:black'>&nbsp;</span></b></p>

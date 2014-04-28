@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Utilities Plug-in
 Bundle-SymbolicName: com.mentor.nucleus.bp.utilities;singleton:=true
-Bundle-Version: 4.1.10
+Bundle-Version: 4.1.9
 Bundle-Activator: com.mentor.nucleus.bp.utilities.Activator
 Bundle-Vendor: Mentor Graphics
 Require-Bundle: org.eclipse.ui,
