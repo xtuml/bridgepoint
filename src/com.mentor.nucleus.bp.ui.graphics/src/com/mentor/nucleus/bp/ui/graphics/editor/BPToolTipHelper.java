@@ -23,20 +23,9 @@
 package com.mentor.nucleus.bp.ui.graphics.editor;
 
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.eclipse.core.resources.IWorkspaceRunnable;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IExtension;
-import org.eclipse.core.runtime.IExtensionPoint;
-import org.eclipse.core.runtime.IExtensionRegistry;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LightweightSystem;
@@ -44,60 +33,16 @@ import org.eclipse.draw2d.ToolTipHelper;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.text.FlowPage;
 import org.eclipse.draw2d.text.TextFlow;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
-import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackAdapter;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Slider;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.swt.widgets.ToolItem;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
-import org.osgi.framework.Bundle;
 
-import com.mentor.nucleus.bp.core.ClassStateMachine_c;
-import com.mentor.nucleus.bp.core.ComponentReference_c;
-import com.mentor.nucleus.bp.core.Component_c;
-import com.mentor.nucleus.bp.core.CorePlugin;
-import com.mentor.nucleus.bp.core.InstanceStateMachine_c;
-import com.mentor.nucleus.bp.core.ModelClass_c;
-import com.mentor.nucleus.bp.core.Package_c;
-import com.mentor.nucleus.bp.core.StateMachineState_c;
-import com.mentor.nucleus.bp.core.Transition_c;
-import com.mentor.nucleus.bp.core.common.NonRootModelElement;
-import com.mentor.nucleus.bp.core.ui.Selection;
-import com.mentor.nucleus.bp.ui.canvas.Connector_c;
-import com.mentor.nucleus.bp.ui.canvas.GraphicalElement_c;
-import com.mentor.nucleus.bp.ui.canvas.Shape_c;
-import com.mentor.nucleus.bp.ui.graphics.actions.OpenGraphicsEditor;
-import com.mentor.nucleus.bp.ui.graphics.figures.DecoratedPolylineConnection;
-import com.mentor.nucleus.bp.ui.graphics.figures.ShapeImageFigure;
-import com.mentor.nucleus.bp.ui.graphics.parts.ConnectorEditPart;
-import com.mentor.nucleus.bp.ui.graphics.parts.ShapeEditPart;
 import com.mentor.nucleus.bp.ui.graphics.tooltip.DetailedToolTip;
 
 public class BPToolTipHelper extends ToolTipHelper {
@@ -118,7 +63,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 	
 	// Flow control fields
 	private boolean tipDisplayed;
-	private boolean  ReplaceShell = false;
 	private Timer mouseInCloseTimer;
 	private Timer mouseOutCloseTimer;
 	protected boolean showDetailedTooltip = false;
@@ -141,7 +85,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 	
 	@Override
 	public void displayToolTipNear(IFigure hoverSource, IFigure tip, int eventX, int eventY) {
-		if (tip != null && hoverSource != currentTipSource || ReplaceShell ) {
+		if (tip != null && !isShowing()) {
 			if ( showDetailedTooltip && isShowing())
 				return;
 			
@@ -152,7 +96,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 			getShell().setFocus();
 			show();
 			updateEclipsePassedArgument(hoverSource, tip, eventX, eventY);
-			ReplaceShell = false;
 		}
 	}
 	
@@ -279,7 +222,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 					return;
 				}
 				hide();
-				ReplaceShell = true;
 				if (!showDetailedTooltip)
 					showDetailedTooltip = true;
 				detailedtooltip = createDetailedShell();
@@ -336,8 +278,9 @@ public class BPToolTipHelper extends ToolTipHelper {
 				return;
 			hide();
 			displayToolTipNear(figureUnderMouse, tip, eventX, eventY);
-		} else if (!isShowing() && figureUnderMouse != currentTipSource)
-			currentTipSource = null;
+		} else if (!isShowing() && figureUnderMouse != currentTipSource) {
+			currentTipSource = null;	
+		}
 	}
 
 	@Override
@@ -378,7 +321,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 		}
 		tipDisplayed = false;
 		showDetailedTooltip = false;
-		ReplaceShell = true;
 	}
 	
 	@Override
