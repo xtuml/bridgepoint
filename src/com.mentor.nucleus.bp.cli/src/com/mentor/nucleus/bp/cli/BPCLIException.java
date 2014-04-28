@@ -31,4 +31,8 @@ public class BPCLIException extends Exception {
 	public BPCLIException(String msg) {
 		super(msg);
 	}
+
+	public BPCLIException(String string, Exception e) {
+		super(string, e);
+	}
 }
