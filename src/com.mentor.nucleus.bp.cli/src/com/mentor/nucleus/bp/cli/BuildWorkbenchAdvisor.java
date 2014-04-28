@@ -28,8 +28,8 @@ import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.mc.AbstractActivator;
-import com.mentor.nucleus.bp.mc.AbstractExportBuilder;
 import com.mentor.nucleus.bp.mc.AbstractProperties;
+import com.mentor.nucleus.bp.mc.c.binary.ExportBuilder;
 
 public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 	String projectName = null;
@@ -268,7 +268,11 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
          final IPath path = new Path(projPath + File.separator
                  + AbstractActivator.GEN_FOLDER_NAME + File.separator + AbstractProperties.GENERATED_CODE_DEST);
          final String destPath = path.toOSString();
-         ExportBuilder eb = new ExportBuilder();
+         ExportBuilder eb = new ExportBuilder();   // Note that we are using the bp.mc.c binary pluing to instantiate this EXportBuilder
+                                                   // We are only using the "Export Builder" license atomic, so it does not matter 
+         										   // which Model Compiler is used, and the binary MC is always supplied with any
+                                                   // system licensed for a model compiler.  Note that DocGen takes this same approach
+                                                   // to acquire an ExportBuilder instance.
          SystemModel_c sys = SystemModel_c.SystemModelInstance(Ooaofooa
 					.getDefaultInstance(), new ClassQueryInterface_c() {
 
@@ -279,6 +283,5 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 
 			});
          List<SystemModel_c> exportedSystems = eb.exportSystem(sys, destPath, new NullProgressMonitor());
-         AbstractExportBuilder.runXbuild(project, destPath, AbstractExportBuilder.PREPROCESSED_MODEL_FILE);
 	}
 }
