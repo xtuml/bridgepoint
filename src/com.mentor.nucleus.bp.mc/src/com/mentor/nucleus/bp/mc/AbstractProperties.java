@@ -57,7 +57,7 @@ public abstract class AbstractProperties {
 
 	private static final String GENERATED_CODE_DEST_NAME = "generated_code_dest"; //$NON-NLS-1$
 
-	public static final String GENERATED_CODE_DEST_DEFAULT = "code_generation"; //$NON-NLS-1$
+	private static final String GENERATED_CODE_DEST_DEFAULT = "code_generation"; //$NON-NLS-1$
 
 	private static final String LAUNCH_SPEC_LOCATION_NAME = "launch_spec_location"; //$NON-NLS-1$
 
