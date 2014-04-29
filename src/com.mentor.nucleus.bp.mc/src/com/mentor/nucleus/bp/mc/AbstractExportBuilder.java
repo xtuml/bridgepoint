@@ -113,15 +113,8 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 		boolean oalExportIsLicensed = false;
 		try {
 			// Check the license 
-			oalExportIsLicensed = BridgePointLicenseManager.getLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT, true);
+			oalExportIsLicensed = checkoutLicense();
 			if (!oalExportIsLicensed) {
-				String msgTitle = "License Request Failed";
-				String msg = "Failed to get a Model Compiler prebuilder license.\n";
-				if (CoreUtil.IsRunningHeadless) {
-					CorePlugin.logError(msgTitle + ", " + msg, null);
-				} else {
-					UIUtil.showErrorDialog(msgTitle, msg);
-				}
 				return null;
 			}
 			
@@ -145,7 +138,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 			// Must check in this license because as specified in checkout above 
 			// it is set to "linger", and the linger starts at checkin
 			if (oalExportIsLicensed) {
-				BridgePointLicenseManager.releaseLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
+				checkinLicense();
 			}
 		}
 		return null;
@@ -172,6 +165,27 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 		}
 		return (path.delete());
 	}
+
+    private boolean checkoutLicense() {
+        boolean oalExportIsLicensed = false;
+        oalExportIsLicensed = BridgePointLicenseManager.getLicense(
+                BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT, true);
+        if (!oalExportIsLicensed) {
+            String msgTitle = "License Request Failed";
+            String msg = "Failed to get a Model Compiler prebuilder license.\n";
+            if (CoreUtil.IsRunningHeadless) {
+                CorePlugin.logError(msgTitle + ", " + msg, null);
+            } else {
+                UIUtil.showErrorDialog(msgTitle, msg);
+            }
+        }
+        return oalExportIsLicensed;
+    }
+
+    private void checkinLicense() {
+        BridgePointLicenseManager
+                .releaseLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
+    }
 
 	public IPath getCodeGenFolderPath(IProject proj) {		
         String projPath = proj.getLocation().toOSString();
@@ -299,15 +313,8 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
         boolean oalExportIsLicensed = false;
         try {
             // Check the license 
-            oalExportIsLicensed = BridgePointLicenseManager.getLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT, true);
+            oalExportIsLicensed = checkoutLicense();
             if (!oalExportIsLicensed) {
-                String msgTitle = "License Request Failed";
-                String msg = "Failed to get a Model Compiler prebuilder license.\n";
-                if (CoreUtil.IsRunningHeadless) {
-                    CorePlugin.logError(msgTitle + ", " + msg, null);
-                } else {
-                    UIUtil.showErrorDialog(msgTitle, msg);
-                }
                 return null;
             }
             
@@ -316,7 +323,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
             // Must check in this license because as specified in checkout above 
             // it is set to "linger", and the linger starts at checkin
             if (oalExportIsLicensed) {
-                BridgePointLicenseManager.releaseLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
+                checkinLicense();
             }
         }
 
