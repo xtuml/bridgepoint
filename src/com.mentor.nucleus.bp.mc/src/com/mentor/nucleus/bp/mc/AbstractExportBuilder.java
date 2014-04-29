@@ -173,7 +173,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 		return (path.delete());
 	}
 
-	protected IPath getCodeGenFolderPath() {
+	public IPath getCodeGenFolderPath() {
         String projPath = getProject().getLocation().toOSString();
         IPath path = new Path(projPath + File.separator
                 + AbstractActivator.GEN_FOLDER_NAME + File.separator

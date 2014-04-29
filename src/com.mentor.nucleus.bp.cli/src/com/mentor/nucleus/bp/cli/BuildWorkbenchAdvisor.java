@@ -30,6 +30,7 @@ import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
 import com.mentor.nucleus.bp.mc.AbstractActivator;
+import com.mentor.nucleus.bp.mc.AbstractNature;
 import com.mentor.nucleus.bp.mc.AbstractProperties;
 import com.mentor.nucleus.bp.mc.c.binary.ExportBuilder;
 
@@ -290,15 +291,17 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
  							+ project.getName());         
         }
 
-		 String projPath = project.getLocation().toOSString();
-         final IPath path = new Path(projPath + File.separator
-                 + AbstractActivator.GEN_FOLDER_NAME + File.separator + AbstractProperties.GENERATED_CODE_DEST_DEFAULT + File.separator);
-         final String destPath = path.toOSString();
          ExportBuilder eb = new ExportBuilder();   // Note that we are using the bp.mc.c binary plugin to instantiate this EXportBuilder
-                                                   // We are only using the "Export Builder" license atomic, so it does not matter 
-         										   // which Model Compiler is used, and the binary MC is always supplied with any
-                                                   // system licensed for a model compiler.  Note that DocGen takes this same approach
-                                                   // to acquire an ExportBuilder instance.
-         List<SystemModel_c> exportedSystems = eb.exportSystem(sys, destPath, new NullProgressMonitor());
+											         // We are only using the "Export Builder" license atomic, so it does not matter 
+													   // which Model Compiler is used, and the binary MC is always supplied with any
+											         // system licensed for a model compiler.  Note that DocGen takes this same approach
+											         // to acquire an ExportBuilder instance.
+
+         
+         IPath destPath = eb.getCodeGenFolderPath();
+         if (!destPath.toFile().exists()) {
+        	 destPath.toFile().mkdir();
+         }
+         eb.exportSystem(sys, destPath.toOSString(), new NullProgressMonitor());
 	}
 }
