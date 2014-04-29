@@ -15,9 +15,9 @@ checking out a license when executed.
 
 2. Document References
 ----------------------
-[1] Issues 219, https://github.com/xtuml/internal/issues/219
-[2] CQ DEI dts0101052685
-[3] Issues 201, https://github.com/xtuml/internal/issues/201
+[1] Issues 219, https://github.com/xtuml/internal/issues/219  
+[2] CQ DEI dts0101052685  
+[3] Issues 201, https://github.com/xtuml/internal/issues/201  
 
 3. Background
 -------------
@@ -41,6 +41,7 @@ None.
 
 7. Unit Test
 ------------
+7.1  Using the CLI Build launch, run with -prebuildOnly, verify the code checks out a license
 
 8. Code Changes
 ---------------
