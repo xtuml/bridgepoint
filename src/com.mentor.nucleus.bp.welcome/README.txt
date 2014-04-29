@@ -9,6 +9,10 @@ HOWTO Update the Metamodel model
 - Import mm_first.xtuml into a new project named com.mentor.nucleus.bp.core in a sandbox workspace
 - Right-click on the project and select "Cleanse for Model Compiler"
 - From the xtUML Modeling Perspective, edit the model to remove the following packages
+  - afun
+  - afunmark
+  - afunsmt
+  - afunval
   - Breakpoint
   - DocGen
   - Document
@@ -18,7 +22,6 @@ HOWTO Update the Metamodel model
   - Instance Reference Data Types
   - MC
   - MCfunctions
-  - Search
 - Export the (now modified) ooaofooa package to single file model xtUML_Metamodel.xtuml
     with "Export OAL" preference turned off, and "Export Graphics" preference 
     turned on
