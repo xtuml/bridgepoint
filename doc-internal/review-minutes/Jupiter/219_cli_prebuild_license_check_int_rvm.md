@@ -13,9 +13,9 @@ Present: Keith, Cort, Travis
 <pre>
 
 -- Num Type  Who   Section  Comment
-_- 01  min   Cort  2        Call out headline for reference 3
-_- 02  min   Keith 3        Raise follow on issue for doc gen licensing
-_- 03  min   Cort  7        Add test that disables licensing and see it fail
+x- 01  min   Cort  2        Call out headline for reference 3
+x- 02  min   Keith 3        Raise follow on issue for doc gen licensing
+x- 03  min   Cort  7        Add test that disables licensing and see it fail
 
 </pre>
    
