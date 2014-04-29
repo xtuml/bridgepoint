@@ -292,7 +292,7 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 
 		 String projPath = project.getLocation().toOSString();
          final IPath path = new Path(projPath + File.separator
-                 + AbstractActivator.GEN_FOLDER_NAME + File.separator + AbstractProperties.GENERATED_CODE_DEST);
+                 + AbstractActivator.GEN_FOLDER_NAME + File.separator + AbstractProperties.GENERATED_CODE_DEST_DEFAULT + File.separator);
          final String destPath = path.toOSString();
          ExportBuilder eb = new ExportBuilder();   // Note that we are using the bp.mc.c binary plugin to instantiate this EXportBuilder
                                                    // We are only using the "Export Builder" license atomic, so it does not matter 
