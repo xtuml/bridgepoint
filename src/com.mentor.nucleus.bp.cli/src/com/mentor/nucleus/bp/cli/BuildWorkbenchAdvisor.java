@@ -29,9 +29,6 @@ import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
-import com.mentor.nucleus.bp.mc.AbstractActivator;
-import com.mentor.nucleus.bp.mc.AbstractNature;
-import com.mentor.nucleus.bp.mc.AbstractProperties;
 import com.mentor.nucleus.bp.mc.c.binary.ExportBuilder;
 
 public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
