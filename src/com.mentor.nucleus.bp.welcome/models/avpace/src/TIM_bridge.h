@@ -10,40 +10,40 @@
  * indeterminate) delay between the expiration of a timer and the delivery
  * of the associated event to the receiving state machine.
  *
- * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
+ * your copyright statement can go here (from te_copyright.body)
  *--------------------------------------------------------------------------*/
 
 #ifndef TIM_BRIDGE_H
 #define TIM_BRIDGE_H
-#ifdef  __cplusplus
-extern "C" {
+#ifdef	__cplusplus
+extern	"C"	{
 #endif
 
 /*
  * Bridge method to create an analysis specific date instance.
  */
-extern Escher_Date_t TIM_create_date(
+Escher_Date_t TIM_create_date(
   const i_t, const i_t, const i_t, const i_t, const i_t, const i_t );
 
 /*
  * Bridge method to get the current date.
  */
-extern Escher_Date_t TIM_current_date( void );
+Escher_Date_t TIM_current_date( void );
 
 /*
  * Bridge methods to get time piece components of a given date.
  */
-extern i_t TIM_get_year   ( const Escher_Date_t );
-extern i_t TIM_get_month  ( const Escher_Date_t );
-extern i_t TIM_get_day    ( const Escher_Date_t );
-extern i_t TIM_get_hour   ( const Escher_Date_t );
-extern i_t TIM_get_minute ( const Escher_Date_t );
-extern i_t TIM_get_second ( const Escher_Date_t );
+i_t TIM_get_year   ( const Escher_Date_t );
+i_t TIM_get_month  ( const Escher_Date_t );
+i_t TIM_get_day    ( const Escher_Date_t );
+i_t TIM_get_hour   ( const Escher_Date_t );
+i_t TIM_get_minute ( const Escher_Date_t );
+i_t TIM_get_second ( const Escher_Date_t );
 
 /*
  * Bridge method to get the current clock.
  */
-extern Escher_TimeStamp_t TIM_current_clock( void );
+Escher_TimeStamp_t TIM_current_clock( void );
 
 /*
  * Starts a (one shot) timer to expire in <expression> microseconds,
@@ -51,8 +51,7 @@ extern Escher_TimeStamp_t TIM_current_clock( void );
  * Note that upon expiration the timer will be (automatically) deleted.
  * Returns the instance handle of the non-recurring timer.
  */
-extern Escher_Timer_t * TIM_timer_start( Escher_xtUMLEvent_t *,
-                                         const Escher_uSec_t );
+Escher_Timer_t * TIM_timer_start( Escher_xtUMLEvent_t *, const Escher_uSec_t );
 
 /*
  * Starts a (recurring) timer to expire in <expression> microseconds,
@@ -61,8 +60,7 @@ extern Escher_Timer_t * TIM_timer_start( Escher_xtUMLEvent_t *,
  * <expression> microseconds and (re)generate the event <event>.
  * Returns the instance handle of the recurring timer.
  */
-extern Escher_Timer_t * TIM_timer_start_recurring( Escher_xtUMLEvent_t *,
-                                                   const Escher_uSec_t );
+Escher_Timer_t * TIM_timer_start_recurring( Escher_xtUMLEvent_t *, const Escher_uSec_t );
 
 /*
  * Returns the time remaining (in microseconds) before the timer
@@ -72,7 +70,7 @@ extern Escher_Timer_t * TIM_timer_start_recurring( Escher_xtUMLEvent_t *,
  * transit (e.g., was generated) from a previous <timer> expiration.
  * Respectable analysis must account for this "ships passing" possibility.
  */
-extern Escher_uSec_t TIM_timer_remaining_time( const Escher_Timer_t * const );
+Escher_uSec_t TIM_timer_remaining_time( const Escher_Timer_t * const );
 
 /*
  * This method attempts to set an existing timer handle <timer> to expire
@@ -83,7 +81,7 @@ extern Escher_uSec_t TIM_timer_remaining_time( const Escher_Timer_t * const );
  * generated) from a previous expiration prior to this method invocation.
  * Respectable analysis must account for this "ships passing" possibility.
  */
-extern bool TIM_timer_reset_time( const Escher_uSec_t,
+bool TIM_timer_reset_time( const Escher_uSec_t,
                                   Escher_Timer_t * const );
 
 /*
@@ -95,7 +93,7 @@ extern bool TIM_timer_reset_time( const Escher_uSec_t,
  * generated) from a previous expiration prior to this method invocation.
  * Respectable analysis must account for this "ships passing" possibility.
  */
-extern bool TIM_timer_add_time( const Escher_uSec_t,
+bool TIM_timer_add_time( const Escher_uSec_t,
                                 Escher_Timer_t * const );
 
 /*
@@ -107,7 +105,7 @@ extern bool TIM_timer_add_time( const Escher_uSec_t,
  * generated) from a previous expiration prior to this method invocation.
  * Respectable analysis must account for this "ships passing" possibility.
  */
-extern bool TIM_timer_cancel( Escher_Timer_t * const );
+bool TIM_timer_cancel( Escher_Timer_t * const );
 
 /*
  * This provides a periodic tick to give the timer subsystem the
@@ -117,26 +115,26 @@ extern bool TIM_timer_cancel( Escher_Timer_t * const );
  * appropriate place to make this call is from UserBackgroundProcessingCallout
  * found among the system callout routines.
  */
-extern void TIM_tick( void );
+void TIM_tick( void );
 
 /*
  * This routine is used by some tasking implementation to get a value
  * to load into a timed wait.
  */
-extern void * TIM_duration_until_next_timer_pop( void * );
+void * TIM_duration_until_next_timer_pop( void * );
 
 /*
  * This method initializes the timer subsystem.  It must be called
  * during system bring-up.  An appropriate place to make this call
  * is from UserPreOoaInitializationCallout.
  */
-extern void TIM_init( void );
+void TIM_init( void );
 
 /*
  * Pause all ticking timers.  This is useful during debugging.  It
  * allows timers to freeze during stepping and debug interfacing.
  */
-extern void TIM_pause( void );
+void TIM_pause( void );
 
 /*
  * Resume all ticking timers.  This is useful during debugging.  It
@@ -144,9 +142,9 @@ extern void TIM_pause( void );
  * Ticking timers will have their expirations adjusted, and ticker
  * will continue ticking.
  */
-extern void TIM_resume( void );
+void TIM_resume( void );
 
-#ifdef    __cplusplus
+#ifdef	__cplusplus
 }
 #endif
 #endif   /* TIM_BRIDGE_H */
