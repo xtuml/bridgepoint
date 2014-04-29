@@ -299,6 +299,6 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
          if (!destPath.toFile().exists()) {
         	 destPath.toFile().mkdir();
          }
-         eb.exportSystem(sys, destPath.toOSString(), new NullProgressMonitor());
+         eb.exportSystemWithLicenseCheck(sys, destPath.toOSString(), new NullProgressMonitor());
 	}
 }

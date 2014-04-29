@@ -294,6 +294,35 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 		  exportSystem(system, destPath, monitor, false, "");
 	}
 
+    public List<SystemModel_c> exportSystemWithLicenseCheck(SystemModel_c system, String destDir,
+            final IProgressMonitor monitor) throws CoreException {
+        boolean oalExportIsLicensed = false;
+        try {
+            // Check the license 
+            oalExportIsLicensed = BridgePointLicenseManager.getLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT, true);
+            if (!oalExportIsLicensed) {
+                String msgTitle = "License Request Failed";
+                String msg = "Failed to get a Model Compiler prebuilder license.\n";
+                if (CoreUtil.IsRunningHeadless) {
+                    CorePlugin.logError(msgTitle + ", " + msg, null);
+                } else {
+                    UIUtil.showErrorDialog(msgTitle, msg);
+                }
+                return null;
+            }
+            
+            exportSystem(system, destDir, monitor, false, "");
+        } finally {
+            // Must check in this license because as specified in checkout above 
+            // it is set to "linger", and the linger starts at checkin
+            if (oalExportIsLicensed) {
+                BridgePointLicenseManager.releaseLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
+            }
+        }
+
+        return m_exportedSystems;
+    }
+
     public List<SystemModel_c> exportSystem(SystemModel_c system, String destDir,
             final IProgressMonitor monitor) throws CoreException {
         exportSystem(system, destDir, monitor, false, "");
