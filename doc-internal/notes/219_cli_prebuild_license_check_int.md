@@ -17,7 +17,8 @@ checking out a license when executed.
 ----------------------
 [1] Issues 219, https://github.com/xtuml/internal/issues/219  
 [2] CQ DEI dts0101052685  
-[3] Issues 201, https://github.com/xtuml/internal/issues/201  
+[3] Issues 201, https://github.com/xtuml/internal/issues/201 - Implement CLI Build as truly headless  
+[4] CQ DEI dts0101052706 - Reconsider DocGen licensing  
 
 3. Background
 -------------
@@ -32,8 +33,7 @@ a license.
 5. Work Required
 ----------------
 5.1. Add a new entry point to the ExportBuilder that will export a system with a license check.  
-5.2. We have chosen not to require the prebuild license during docgen at this time.  
-
+5.2. We have chosen not to require the prebuild license during docgen at this time and raised [4].  
 
 6. Implementation Comments
 --------------------------
@@ -41,7 +41,10 @@ None.
 
 7. Unit Test
 ------------
-7.1  Using the CLI Build launch, run with -prebuildOnly, verify the code checks out a license
+7.1  Using the CLI Build launch, run with -prebuildOnly and valid licenses enabled, verify the code checks 
+out a license  
+7.2  Using the CLI Build launch, run with -prebuildOnly and no valid licenses, verify the code fails when 
+checking out a license  
 
 8. Code Changes
 ---------------
