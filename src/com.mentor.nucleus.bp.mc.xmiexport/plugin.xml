@@ -3,7 +3,7 @@
 <plugin
    id="com.mentor.nucleus.bp.mc.xmiexport"
    name="XMI 2.1 Export"
-   version="4.1.10"
+   version="4.1.11"
    provider-name="Mentor Graphics"
    class="com.mentor.nucleus.bp.mc.xmiexport.XMIExport">
    <runtime>

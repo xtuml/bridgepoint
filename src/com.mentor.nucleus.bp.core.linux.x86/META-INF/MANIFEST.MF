@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Core Linux Components
 Bundle-SymbolicName: com.mentor.nucleus.bp.core.linux.x86
-Bundle-Version: 4.1.10
+Bundle-Version: 4.1.11
 Bundle-Vendor: Mentor Graphics
 Fragment-Host: com.mentor.nucleus.bp.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
