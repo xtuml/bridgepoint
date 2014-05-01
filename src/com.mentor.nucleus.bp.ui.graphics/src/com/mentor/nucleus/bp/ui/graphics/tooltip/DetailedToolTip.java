@@ -125,6 +125,8 @@ public class DetailedToolTip {
 
 		setColor(detailedShell, foreground, background);
 
+		createTitleCompartment(detailedShell);
+		
 		createImageCompartment(detailedShell);
 
 		createDescriptionTextCompartment(detailedShell);
@@ -177,6 +179,20 @@ public class DetailedToolTip {
 
 	}
 
+	private void createTitleCompartment(Shell detailedShell) {
+		Composite titleComposite = new Composite(detailedShell, SWT.NONE);
+		titleComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
+		FillLayout layout= new FillLayout();
+		layout.marginHeight = 3;
+		titleComposite.setLayout(layout);
+		Label titleLabel = new Label(titleComposite,  SWT.CENTER);
+		titleLabel.setText("ToolTip");
+		Object modelElement = getTooltipModelElement();
+		if (modelElement instanceof NonRootModelElement){
+			titleLabel.setText( ((NonRootModelElement)modelElement).getName() + 
+					" Description");
+		}	
+	}
 	public void createDescriptionTextCompartment(Shell detailedShell) {
 		Display display  = detailedShell.getDisplay();
 		Color foreground= display.getSystemColor(SWT.COLOR_INFO_FOREGROUND);
