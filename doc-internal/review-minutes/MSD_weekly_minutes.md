@@ -11,6 +11,100 @@ MSD Weekly Meeting Minutes
 
 ---
 
+    Date:     7th May 2014
+    Start:    6:00 GMT+@
+    End:      6:42 GMT+2
+    Elapsed:  42
+    Present:  Bob, Keith, Travis, Campbell, Cort, others...
+            Dean, Robert, others...
+
+### Agenda
+* KB heading to Budapest to provide developer training
+* Training material progress
+* Engineering status: Kari
+* Marketing
+* Support
+
+### Training Materials
+
+**Bob  -** 
+Did some work on outlines for CLI and Configuration and build topics, but stopped work to concentrate on
+bringing the xtUML Editor up to date with Jupiter changes. The source will be updated prior to KB leaving
+for Budapest. The xtUML Editor source workflow is currently very ugly, since parts of the model need to
+be manually removed.
+
+**Keith  -** 
+Heading to Budapest to provide developer training.
+Capturing the content as videos to additionally support the open source training materials.
+Started with a basic outline similar to the User training under issue #5. Working with Travis
+to create and edit videos to support the training. Keith may need some assistance from other
+team members to get his materials ready for next week.
+Currently we are clarifying the goals for the exercises. The high level goal is to be able to download and
+build the git source, make small modifications and debug them. These goals will be met with various hands on
+exercises. Ericsson requested an extra day of programming exercise to build on training. It would be good to
+select an item from Farenc Bozoki's list of suggestions, but they all seem rather large to achieve in one day.
+
+**Cort  -**
+Working on training materials for OAL. Going through the existing materials to understand what we have already.
+Looking to produce quiz assessments for every three to four videos.
+
+**Nehad  -**
+Writing materials for the BP UI and editors.
+
+**Heba  -**
+Resumed work on training materials, 4 scenarios and 2 videos. Tried making Voice-overs but progress was slow.
+
+**Campbell  -**
+Focused on scripting and video content as the home office was not sufficiently quiet for recording voice-
+overs. Hence just one video completed to test the full workflow. Voice overs will be viable going forward
+as the office is now quiet.
+
+**Travis  -**
+Worked with Keith to deliver training videos.
+
+### Engineering Status
+
+**Bob  -**
+Jupiter now wrapped up. We just squeezed it under an Ericsson deadline. In, fact something else was needed
+for the headless CLI support and this was rolled in after the deadline.
+We are now moving to work on the next release, Kari. The issues list is updated and ready to go although the
+current focus is on T1 materials development.
+
+**Nehad  -**
+Multiple tooltip work almost completed.
+
+### Marketing Status
+**Dean -**
+Concluded IESF tour of US. Good responses received, now following up on leads. Many good contacts forged including
+at Boeing (WA) and Rockwell Collins (TX).
+There has been a noticable focus shift in the EDA literature towards the Connected Cars arena. Mentor is well
+positioned in this area with its AUTOSAR products and BridgePoint has traditionally had good ties with these.
+BridgePoint has always had good contacts with Mentor Graphics Japan (MGJ) who often turn up unique usage models for
+BridgePoint. One such opportunity is at Yazaki. The engineers there were educated on the standard BridgePoint
+development flow, but subsequently focused on modeling an ECU application flow...
+
+**Cort  -**
+... Yazaki is looking for BridgePoint with AUTOSAR which will require us to re-instate the integration with VSI. This
+is expected to present challenges given the maturity of some of the cpomponents involved. The challenge for the team
+will be to keep a balance so that the work for Ericsson and the opportunity at Yasaki are both kept progressing.
+
+**Dean  -**
+SAAB is planning to upgrade to the latest BridgePoint from 3.7. This has been prompted by the addition of a long-
+awaited feature ,?, and by increased Verifier performance. Per Johnsson is actively working on xtUML.org creating
+editor enhancements. He expects others to begin personal projects before long.
+
+### Customer Support Status
+**Robert -** 
+Not a great deal of activity to report. Fuji-Xerox had a build issue where a Unicode whitespace character was appended
+to the name of a variable such that it had a different name. A solution involving some filtering in a Perl script was
+provided, but this is recognized as incomplete. What is really needed is to provide a warning when such Unicode white-
+space is found.
+
+
+---
+
+---
+
     Date:     date
     Start:    6:00 GMT+@
     End:      6:40 GMT+2
