@@ -87,6 +87,8 @@ development flow, but subsequently focused on modeling an ECU application flow..
 ... Yazaki is looking for BridgePoint with AUTOSAR which will require us to re-instate the integration with VSI. This
 is expected to present challenges given the maturity of some of the cpomponents involved. The challenge for the team
 will be to keep a balance so that the work for Ericsson and the opportunity at Yasaki are both kept progressing.
+Fuji-Xerox are moving forward again after the holiday season. It is expected that they will complete upgrades to
+their own model compiler this week.
 
 **Dean  -**
 SAAB is planning to upgrade to the latest BridgePoint from 3.7. This has been prompted by the addition of a long-
