@@ -1401,6 +1401,26 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 					viewer.setKey(rightKey);
 					viewer.setInput(getInput());
 				}
+				if(left instanceof IStreamContentAccessor && leftIsLocal()) {
+					// here we will automatically merge any incoming/conflicting
+					// graphics this will cover the case where only graphics
+					// are changed
+					mergeIncomingGraphicalChanges(
+							getIncomingGraphicalDifferences(leftIsLocal()),
+							leftIsLocal(), (ICompareInput) getInput());
+					markLeftDirty(true);
+					differencer.refresh();
+				}
+				if(right instanceof IStreamContentAccessor && !leftIsLocal()) {
+					// here we will automatically merge any incoming/conflicting
+					// graphics this will cover the case where only graphics
+					// are changed
+					mergeIncomingGraphicalChanges(
+							getIncomingGraphicalDifferences(!leftIsLocal()),
+							!leftIsLocal(), (ICompareInput) getInput());
+					markRightDirty(true);
+					differencer.refresh();
+				}
 			} catch (ModelLoadException e) {
 				CorePlugin.logError("Unable to load data for comparison.", e);
 			}
