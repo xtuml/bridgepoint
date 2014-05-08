@@ -91,9 +91,10 @@ Fuji-Xerox are moving forward again after the holiday season. It is expected tha
 their own model compiler this week.
 
 **Dean  -**
-SAAB is planning to upgrade to the latest BridgePoint from 3.7. This has been prompted by the addition of a long-
-awaited feature ,?, and by increased Verifier performance. Per Johnsson is actively working on xtUML.org creating
-editor enhancements. He expects others to begin personal projects before long.
+SAAB is planning to upgrade to the latest BridgePoint from 3.7. This has been prompted by the addition of a few long-
+awaited features; inter project constants, enhanced association handling in the Explorer tree and by increased Verifier
+performance. Per Johnsson is actively working on xtUML.org creating editor enhancements. He expects others to begin
+personal projects before long.
 
 ### Customer Support Status
 **Robert -** 
