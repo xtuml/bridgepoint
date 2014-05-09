@@ -162,17 +162,13 @@ public class Selection implements ISelectionProvider
     
     public void setSelection(ISelection selection, boolean fireChange) {
     	selection = adaptSelection(selection);
-        // if the given selection is different from the current one
-        if (elements.size() != ((StructuredSelection)selection).size()
-            || !elements.containsAll(((StructuredSelection)selection).toList())) {
-            // wipe out the previous selection
-            elements.clear();
-            
-            // set the given selection into this object
-            elements.addAll(((IStructuredSelection)selection).toList());
-            if(fireChange)
-            	fireSelectionChanged(new SelectionChangedEvent(this, selection));
-        }
+    	// wipe out the previous selection
+    	elements.clear();
+
+    	// set the given selection into this object
+    	elements.addAll(((IStructuredSelection)selection).toList());
+    	if(fireChange)
+    		fireSelectionChanged(new SelectionChangedEvent(this, selection));
     }
 
 	/**
