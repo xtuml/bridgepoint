@@ -1105,7 +1105,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				TreeItem topItem = rightTreeViewer.getTree().getItems()[0];
 				Rectangle otherHighlightRect = rightTreeViewer
 						.buildHighlightRectangle(topItem, false, gc, true, true);
-				int[] points = getCenterCurvePoints(0, leftTreeViewer.getTree().getHeaderHeight(),
+				int[] points = getCenterCurvePoints(0, leftTreeViewer.getTree().getHeaderHeight() + 2,
 						canvas.getBounds().width, otherHighlightRect.y
 								+ (otherHighlightRect.height / 2));
 				for (int i = 1; i < points.length; i++)
@@ -1179,14 +1179,14 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 					false, gc, true, true);
 			if (matchingItem == null) {
 				// if the right side is empty, draw a line at the top
-				if ((rightTreeViewer.getTree().getItems().length == 0 || difference
+				if ((rightTreeViewer.getTree().getItems().length == 0 || (difference
 						.getMatchingDifference().getParent() == null
 						&& difference.getMatchingDifference().getElement() == null)
-						&& !(difference.getMatchingDifference().getLocation() >= 0)) {
+						&& !(difference.getMatchingDifference().getLocation() >= 0))) {
 					// draw a line for each missing item
 					int[] points = getCenterCurvePoints(0, leftBounds.y
 							+ (leftBounds.height / 2),
-							canvas.getBounds().width, rightTreeViewer.getTree().getHeaderHeight());
+							canvas.getBounds().width, rightTreeViewer.getTree().getHeaderHeight() + 2);
 					for (int i = 1; i < points.length; i++)
 						gc.drawLine(i - 1, points[i - 1], i, points[i]);
 				} else {
