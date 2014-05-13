@@ -60,6 +60,7 @@ the License.
       <import plugin="com.mentor.nucleus.bp.io.mdl" version="4.1.11"/>
       <import plugin="com.mentor.nucleus.bp.utilities"/>
       <import plugin="com.mentor.nucleus.bp.mc" version="4.1.11"/>
+      <import plugin="com.mentor.nucleus.bp.ui.canvas" version="4.1.11"/>
    </requires>
 
    <extension
@@ -142,6 +143,17 @@ the License.
             adaptable="false"
             id="com.mentor.nucleus.bp.internal.tools.objectContribution1"
             objectClass="com.mentor.nucleus.bp.core.SystemModel_c">
+      </objectContribution>
+      <objectContribution
+            adaptable="false"
+            id="com.mentor.nucleus.bp.internal.tools.updateSMIDs"
+            objectClass="com.mentor.nucleus.bp.core.InstanceStateMachine_c">
+         <action
+               class="com.mentor.nucleus.bp.internal.tools.actions.UpdateSMIDs"
+               id="com.mentor.nucleus.bp.internal.tools.action1"
+               label="Update SM IDs"
+               menubarPath="com.mentor.nucleus.bp.utilities/com.mentor.nucleus.bp.utilities.separator">
+         </action>
       </objectContribution>
    </extension>
  

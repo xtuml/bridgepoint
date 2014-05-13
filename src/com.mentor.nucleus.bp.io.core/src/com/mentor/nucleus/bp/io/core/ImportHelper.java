@@ -32,9 +32,12 @@ import java.util.Vector;
 
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
 
 import com.mentor.nucleus.bp.core.*;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
@@ -2931,6 +2934,25 @@ public class ImportHelper
 		}
 	}
 	
+	private void persistPersistableComponent(final PersistableModelComponent pmc) throws CoreException {
+		WorkspaceJob job = new WorkspaceJob("Upgrade Persistence") {
+			
+			@Override
+			public IStatus runInWorkspace(IProgressMonitor monitor)
+					throws CoreException {
+				pmc.persist();
+				return Status.OK_STATUS;
+			}
+		};
+		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
+		job.schedule();
+		try {
+			job.join();
+		} catch (InterruptedException e) {
+			CorePlugin.logError("Error joining the upgrade persistence job.", e);
+		}
+	}
+	
 	/**
 	 * Store any existing SM_ID in newly created id holders
 	 */
@@ -2963,6 +2985,22 @@ public class ImportHelper
 					sm.updateInstanceKey(oldKey, sm.getInstanceKey());
 					if (clazz.getIsm_id().equals(Gd_c.Null_unique_id())) {
 						clazz.setIsm_id(ism.getSm_id());
+						try {
+							persistPersistableComponent(clazz.getPersistableComponent());
+						} catch (CoreException e) {
+							CorePlugin
+									.logError(
+											"Unable to persist updated state machine ids in the model class.",
+											e);
+						}
+					}
+					try {
+						persistPersistableComponent(sm
+								.getPersistableComponent());
+					} catch (CoreException e) {
+						CorePlugin.logError(
+								"Unable to persist updated state machine ids.",
+								e);
 					}
 				}
 			}
@@ -2992,6 +3030,22 @@ public class ImportHelper
 					sm.updateInstanceKey(oldKey, sm.getInstanceKey());
 					if(clazz.getCsm_id().equals(Gd_c.Null_unique_id())) {
 						clazz.setCsm_id(csm.getSm_id());
+						try {
+							persistPersistableComponent(clazz.getPersistableComponent());
+						} catch (CoreException e) {
+							CorePlugin
+									.logError(
+											"Unable to persist updated state machine ids in the model class.",
+											e);
+						}
+					}
+					try {
+						persistPersistableComponent(sm
+								.getPersistableComponent());
+					} catch (CoreException e) {
+						CorePlugin.logError(
+								"Unable to persist updated state machine ids.",
+								e);
 					}
 				}
 			}
