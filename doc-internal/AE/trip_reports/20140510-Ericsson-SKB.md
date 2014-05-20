@@ -3,7 +3,7 @@
 Keith Brown
 2014 - 5/10 to 5/16
 
-__Primary Objective:___ Deliver new two-day training course for "xtUML Editor Developer Training".
+__Primary Objective:__ Deliver new two-day training course for "xtUML Editor Developer Training".
 
 
 __My Thoughts:__
@@ -14,9 +14,13 @@ sound.  The videos were short (<4 mins), so we generally watched the video throu
 with stopping to allow the users to follow along.  Sometimes we just watched through and did not 
 replay the video.
 - There were 14 attendees
+  - ELTE: János Hack (zodiakus@caesar.elte.hu)
+  - BME: András Vörös (vori@mit.bme.hu), Oszkár Semeráth (semerath@mit.bme.hu) 
+  - ETH: Ádám Balogh (adam.balogh@ericsson.com), Adam Darvas (adam.darvas@ericsson.com), Antal Wu-Hen-Chang (antal.wu-hen-chang@ericsson.com), Ferenc Bozóki (ferenc.bozoki@ericsson.com), Gábor Bátori (Gabor.Batori@ericsson.com), Gergely Dévai (gergely.devai@ericsson.com), Zoltán Jász (zoltan.jasz@ericsson.com), Máté Karácsony (mate.karacsony@ericsson.com)
+  - ETK: Marijan Zemljic (marijan.zemljic@ericsson.com), Nenad Ukic (nenad.ukic@ericsson.com), Robert Inkret (robert.inkret@ericsson.com)
 - Some users came wth xtUML Editor already installed.  Thus, they were bored for the first 45mins of
 the course while we got other users set up.
-- Some users had problems installing the developer add-ons file.  One had "<" translated to "&lt;"
+- Some users had problems installing the developer add-ons file.  One had ```<``` translated to ```&lt;```
 in the downloaded file.  Some users hit proxy issues inside eclipse trying to install.  I helped 
 debug the character problem.  The Ericsson developers deal with these proxy issues regularly due to
 Ericsson's IT strategy and the students worked through the problems by copying settings from working
@@ -91,7 +95,7 @@ __Student Comments:__
 - Remove the BridgePoint Odometer view from showing by default (Marijan)
 - Change keyletters on OOAofOOA classes to <name>_c form to match generated class.  Current scheme
 of keyletters is not descriptive enough. (Marijan)
-- The MC-PaaS demo video goes through steps way to fast.
+- The MC-PaaS demo video goes through steps way too fast.
 
 
 __Ericsson Interest Areas:__
@@ -99,7 +103,7 @@ __Ericsson Interest Areas:__
 expessed intent to write their own XMI import and or import from other files.  At least 6 people were interested in this 
 are and got started on projects to do this on the "programming challenge day".  This led quickly into questions about 
 how to programmatically create xtUML model elements and graphics.   Travis supported these efforts (particularly the graphics
-questions) is is non-trivial.  We may need to extend our API in this area.
+questions) as this is non-trivial.  We may need to extend our API in this area.
 - Adam Balogh got pretty far on an implementation of drag and drop for class attributes.  He is tried of endless "move up/down" 
 clicks and really wants D-n-D support.
 - Robert Inkret and Marijan made good progress editing generated code to make class-based operations show up differently on the
@@ -119,3 +123,4 @@ voice note to "uncheck search for nested projects"
 - In "HOWTO build xtUML Editor" doc, the instructions for setting the window preferences need to be updated for Win7
 - I gave them the code for the function creation tool bp.core.function.gen and talked about how it could be used
 and extended
+- Need to get the videos uploaded to YouTube and fill in the holes with videos where I did live presentations.  Then get it into an online course system.
