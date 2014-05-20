@@ -104,7 +104,7 @@ expessed intent to write their own XMI import and or import from other files.  A
 are and got started on projects to do this on the "programming challenge day".  This led quickly into questions about 
 how to programmatically create xtUML model elements and graphics.   Travis supported these efforts (particularly the graphics
 questions) as this is non-trivial.  We may need to extend our API in this area.
-- Adam Balogh got pretty far on an implementation of drag and drop for class attributes.  He is tried of endless "move up/down" 
+- Adam Balogh got pretty far on an implementation of drag and drop for class attributes.  He is tired of endless "move up/down" 
 clicks and really wants D-n-D support.
 - Robert Inkret and Marijan made good progress editing generated code to make class-based operations show up differently on the
 canvas and in ME, which is something they really want
