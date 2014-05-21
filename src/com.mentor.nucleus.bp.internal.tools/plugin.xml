@@ -60,7 +60,6 @@ the License.
       <import plugin="com.mentor.nucleus.bp.io.mdl" version="4.1.11"/>
       <import plugin="com.mentor.nucleus.bp.utilities"/>
       <import plugin="com.mentor.nucleus.bp.mc" version="4.1.11"/>
-      <import plugin="com.mentor.nucleus.bp.ui.canvas" version="4.1.11"/>
    </requires>
 
    <extension
