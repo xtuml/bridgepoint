@@ -1039,7 +1039,6 @@ ${setSize.body}
         helper.upgradeLifespans(getRootModelElement());
         helper.upgradeElementOrder(getModelRoot());
         helper.upgradeEEsForIsRealized();
-        helper.upgradeModelClassesForSMIds(loadedInstances);
 		.if(multilevel or setComponent)
 		loadedInstances.addAll(helper.upgradeDatatypes(loadedInstances));
 		loadedInstances.addAll(helper.upgradeSystemLevelPackages(loadedInstances));
