@@ -8,10 +8,74 @@ MSD Weekly Meeting Minutes
     [Clearquest issue dts0100563933](http://dtsweb.wv.mentorg.com/cqweb/#/dtr01/dts01/RECORD/dts0100563933&noframes=true&format=HTML&recordType=Defect).
 * In January 2013 the document began being maintained here on github.  Issue #30 is the github tracking issue now.
 
+---
+---
+    Date:     21th May 2014
+
+    Start:    1200 EDT
+    End:      
+    Present:  Bob, Keith, Travis, Campbell, Cort, others...
+            Dean, Robert, others...
+
+### Agenda
+* Compare and Merge (Travis)
+* Summary of Training last week (Keith)
+* C++ MC dispatch and binding issue (Cort)
+* Training Materials (Keith)
+* Update on timesheets for Ericsson T1 (Dean)
+* Saab licensing issues with linger (Dean/Bob).
+
+### Engineering Status
+
+**Compare and Merge (Travis)  -**
+The Ericsson EATF group raised 4 issue against 4.1.10.  One of them caused corruption and is critical.  It involved updating 2 different state machines in 2 different branches.  Travis found a way to change the upgrade to happen in memory and avoid the problems.  A test has been sent to EATF to test.
+
+Bob mentions that Saab really doesn't want us to force persistence so the resolution now proposed is very good news.
+
+**Summary of Ericsson Training last week (Keith)  -**
+Training went well overall.  Keith is capturing the things he presented live in video form so it can be used in the developer course online.  There were 14 attendees.  Keith thinks the difficulty level was abut right.   There was a "free programming day" where the attendees worked on their on projects.  2 teams worked on model import tasks *like xmi import).  Another user worked on drag/drop of attributes.  Others worked on draw code to display class based operations in a different way.  A couple university students were interested in formal verification, they worked on transforming the model into a form that can be input into their functional verification tool.   We are providing input to keep all these projects moving.   
+All these projects made the customers very anxious to get MC-Java into open source.
+KEith found they have not really made good progress on the model-based MC since Bob and Cort visited.  We captured info to try and help push them.   In a meeting with Gergo Seres, Keith found that they really want to get the tool to integrate with other tools and technologies.  Keith's full trip report is available.
+
+
+**Training Materials for full xtUML Editor Training (Keith)  -**
+We need to move this forward so we have at least a partial course.  The training materials need to take priority over new development.   Keith is going to take a more hands-on approach to moving this project forward to completion.  We will have both an editor training course as well as a developer training course.
+This has priority over new development.  It does not have priority over field issues.
+
+**C++ MC dispatch and binding issue (Cort)  -**
+The C++ model compiler has been deliver to Ikaria, there were a couple of problems, but we have now got to the bottom of them.
+
+
+### Marketing Status
+**Update on timesheets for Ericsson T1 (Dean)  -**
+Overall tier 1 we are at under 300 hours remaining.  We are over 70% consumed.  We have been charging mostly against task 1 (training), but that task is now complete, so we will no longer charge against Task 1.   We do not want to get into a situation where we do a cost overrun, so we now much be more careful about the tasks the items are submitted against.
+
+
+**Saab licensing issues with linger (Dean/Bob/Jayne).  -**
+Saab Aero is only migrating to 4.0 and beyond now.  They are concerned with
+the linger features because they are just now seeing it.  They think it 
+will lead to license denials in the way they use the tool.  They 
+have 38 users of verifier, but those users also use the MC.
+
+Jayne says they have 60 engineers trained but they need some issues resolved.  She said this came from Walter
+Sebia, (system vision simulation expert).   Bob reports that in our BP meeting with Saab aero today e discussed the issue list,
+there are no specific issues at this time according to them.  They are working on updating the issue list now we are not sure what these issues Walter spoke of are.  
+
+Vricon is taking 3 licenses from Saab Dynamics. Vricon is a wholly owned subsidiary of Saab.
+
+	
+
+
+### Customer Support Status
+**Robert -** 
+Robert is interested in the result of the linger option.
+
+Marijian has entered some enhancement requests, Robert is filing DRs as needed.  These are mostly the issues Travis discussed earlier in the meeting.  Bob mentioned that Ericsson is keeping their priority document up to date to let us know what they want us to be working on.
 
 ---
-
+---
     Date:     7th May 2014
+
     Start:    6:00 GMT+@
     End:      6:42 GMT+2
     Elapsed:  42
