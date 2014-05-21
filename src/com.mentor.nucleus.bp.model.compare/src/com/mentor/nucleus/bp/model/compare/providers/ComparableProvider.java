@@ -96,10 +96,6 @@ public class ComparableProvider {
 		if (element instanceof Model_c) {
 			return new GraphicalDataComparable((Model_c) element);
 		}
-		if (element instanceof InstanceStateMachine_c
-				|| element instanceof ClassStateMachine_c) {
-			return new StateMachineComparable((NonRootModelElement) element);
-		}
 		if (element instanceof SemEvent_c) {
 			return new SemEventComparable((SemEvent_c) element);
 		}

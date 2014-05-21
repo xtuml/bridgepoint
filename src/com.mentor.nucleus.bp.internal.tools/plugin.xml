@@ -144,17 +144,6 @@ the License.
             id="com.mentor.nucleus.bp.internal.tools.objectContribution1"
             objectClass="com.mentor.nucleus.bp.core.SystemModel_c">
       </objectContribution>
-      <objectContribution
-            adaptable="false"
-            id="com.mentor.nucleus.bp.internal.tools.updateSMIDs"
-            objectClass="com.mentor.nucleus.bp.core.InstanceStateMachine_c">
-         <action
-               class="com.mentor.nucleus.bp.internal.tools.actions.UpdateSMIDs"
-               id="com.mentor.nucleus.bp.internal.tools.action1"
-               label="Update SM IDs"
-               menubarPath="com.mentor.nucleus.bp.utilities/com.mentor.nucleus.bp.utilities.separator">
-         </action>
-      </objectContribution>
    </extension>
  
    <extension

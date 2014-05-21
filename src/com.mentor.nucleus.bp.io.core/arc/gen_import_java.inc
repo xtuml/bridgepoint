@@ -318,11 +318,6 @@
           parms.elementAt(${attr_col_num}) != null ? removeTics((String)parms.elementAt(${attr_col_num})) : ""\
           .assign special_case = true
         .end if
-      .elif(table.Key_lett == "O_OBJ")
-        .if((col.Name == "Ism_ID") or (col.Name == "Csm_ID"))
-        parms.elementAt(${attr_col_num}) != null && IdAssigner.isUUID((String)parms.elementAt(${attr_col_num}))?IdAssigner.createUUIDFromString((String)parms.elementAt(${attr_col_num})):Gd_c.Null_unique_id()\
-        .assign special_case = true
-        .end if
 	  .end if
       .if (special_case == false)
         .if ( col.type == "boolean" )
@@ -799,7 +794,6 @@ public class ${class_name} extends CoreImport
 			loadedInstances.addAll(helper.addLinkClassesForContainment(loadedInstances));
 			helper.removeSupertypePackageableElement(loadedInstances);
 			helper.upgradeEEsForIsRealized();
-			helper.upgradeModelClassesForSMIds(loadedInstances);
           }
           finally {
             mr.enableDeltaCollection();
