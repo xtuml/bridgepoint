@@ -57,9 +57,9 @@ the linger features because they are just now seeing it.  They think it
 will lead to license denials in the way they use the tool.  They 
 have 38 users of verifier, but those users also use the MC.
 
-Jayne says they have 60 engineers trained but need.  She said this came from Walter
-Sebia, (system vision simulation expert).   In our BP meeting with Saab aero there we discussed the issue list,
-there are no specific issues at this time according to them.  They are working on updating the issue list now.  
+Jayne says they have 60 engineers trained but they need some issues resolved.  She said this came from Walter
+Sebia, (system vision simulation expert).   Bob reports that in our BP meeting with Saab aero today e discussed the issue list,
+there are no specific issues at this time according to them.  They are working on updating the issue list now we are not sure what these issues Walter spoke of are.  
 
 Vricon is taking 3 licenses from Saab Dynamics. Vricon is a wholly owned subsidiary of Saab.
 
