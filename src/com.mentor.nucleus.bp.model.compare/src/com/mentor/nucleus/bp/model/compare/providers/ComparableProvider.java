@@ -29,14 +29,12 @@ import com.mentor.nucleus.bp.core.ClassAsAssociatedOneSide_c;
 import com.mentor.nucleus.bp.core.ClassAsAssociatedOtherSide_c;
 import com.mentor.nucleus.bp.core.ClassAsSimpleFormalizer_c;
 import com.mentor.nucleus.bp.core.ClassAsSimpleParticipant_c;
-import com.mentor.nucleus.bp.core.ClassStateMachine_c;
 import com.mentor.nucleus.bp.core.DerivedBaseAttribute_c;
 import com.mentor.nucleus.bp.core.EventIgnored_c;
 import com.mentor.nucleus.bp.core.EventMessage_c;
 import com.mentor.nucleus.bp.core.FunctionMessage_c;
 import com.mentor.nucleus.bp.core.InformalAsynchronousMessage_c;
 import com.mentor.nucleus.bp.core.InformalSynchronousMessage_c;
-import com.mentor.nucleus.bp.core.InstanceStateMachine_c;
 import com.mentor.nucleus.bp.core.InterfaceOperationMessage_c;
 import com.mentor.nucleus.bp.core.NewBaseAttribute_c;
 import com.mentor.nucleus.bp.core.OperationMessage_c;
@@ -60,7 +58,6 @@ import com.mentor.nucleus.bp.model.compare.providers.custom.NewBaseAttributeComp
 import com.mentor.nucleus.bp.model.compare.providers.custom.PolymorphicEventComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.SemEventComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.SemeComparable;
-import com.mentor.nucleus.bp.model.compare.providers.custom.StateMachineComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.TransitionComparable;
 import com.mentor.nucleus.bp.ui.canvas.Model_c;
 
