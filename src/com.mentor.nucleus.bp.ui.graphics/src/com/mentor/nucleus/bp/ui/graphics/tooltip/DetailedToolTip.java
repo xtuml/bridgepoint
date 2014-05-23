@@ -82,6 +82,8 @@ import com.mentor.nucleus.bp.ui.canvas.GraphicalElement_c;
 import com.mentor.nucleus.bp.ui.canvas.Shape_c;
 import com.mentor.nucleus.bp.ui.graphics.actions.OpenGraphicsEditor;
 import com.mentor.nucleus.bp.ui.graphics.editor.BPToolTipHelper;
+import com.mentor.nucleus.bp.ui.graphics.editor.GraphicalEditor;
+import com.mentor.nucleus.bp.ui.graphics.editor.ModelEditor;
 import com.mentor.nucleus.bp.ui.graphics.figures.DecoratedPolylineConnection;
 import com.mentor.nucleus.bp.ui.graphics.figures.ShapeImageFigure;
 import com.mentor.nucleus.bp.ui.graphics.parts.ConnectorEditPart;
@@ -180,18 +182,18 @@ public class DetailedToolTip {
 	}
 
 	private void createTitleCompartment(Shell detailedShell) {
-		Composite titleComposite = new Composite(detailedShell, SWT.NONE);
-		titleComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
-		FillLayout layout= new FillLayout();
-		layout.marginHeight = 3;
-		titleComposite.setLayout(layout);
-		Label titleLabel = new Label(titleComposite,  SWT.CENTER);
-		titleLabel.setText("ToolTip");
-		Object modelElement = getTooltipModelElement();
-		if (modelElement instanceof NonRootModelElement){
-			titleLabel.setText( ((NonRootModelElement)modelElement).getName() + 
-					" Description");
-		}	
+//		Composite titleComposite = new Composite(detailedShell, SWT.NONE);
+//		titleComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
+//		FillLayout layout= new FillLayout();
+//		layout.marginHeight = 3;
+//		titleComposite.setLayout(layout);
+//		Label titleLabel = new Label(titleComposite,  SWT.CENTER);
+//		titleLabel.setText("ToolTip");
+//		Object modelElement = getTooltipModelElement();
+//		if (modelElement instanceof NonRootModelElement){
+//			titleLabel.setText( ((NonRootModelElement)modelElement).getName() + 
+//					" Description");
+//		}	
 	}
 	public void createDescriptionTextCompartment(Shell detailedShell) {
 		Display display  = detailedShell.getDisplay();
@@ -211,6 +213,32 @@ public class DetailedToolTip {
 
 		styledText = new Text(descriptionTextComposite, Tooltip_Text_Style);
 		setColor(styledText, foreground, background);
+		styledText.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				IEditorPart activeEditor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+				GraphicalEditor gEditor = null;
+				if(activeEditor instanceof ModelEditor) {
+					ModelEditor editor = (ModelEditor)activeEditor;
+					gEditor = editor.getGraphicalEditor();
+				}					
+				if(activeEditor instanceof GraphicalEditor) {
+					gEditor = (GraphicalEditor)activeEditor;
+				}
+				if ( gEditor != null){	
+					StructuredSelection sel = new StructuredSelection(getTooltipModelElement());
+					gEditor.getGraphicalViewer().getSelectionManager().deselectAll();
+					gEditor.getGraphicalViewer().getSelectionManager().setSelection(sel);
+				}
+			}
+		});
 
 	}
 
