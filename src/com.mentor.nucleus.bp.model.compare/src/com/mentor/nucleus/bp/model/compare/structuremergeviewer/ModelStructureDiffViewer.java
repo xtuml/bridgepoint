@@ -67,27 +67,6 @@ public class ModelStructureDiffViewer extends TreeViewer implements ICompareInpu
 		getTree().setData(CompareUI.COMPARE_VIEWER_TITLE, "BridgePoint Structural Differences");
 		createActions();
 		setupMenus();
-		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-			
-			@Override
-			public void run() {
-				refresh();
-				if(getTree().getItems().length == 0) {
-					return;
-				}
-				TreeItem topItem = getTree().getItem(0);
-				if(topItem.getItemCount() > 0) {
-					TreeDifference difference = ((TreeDifferenceContentProvider) getContentProvider())
-							.getDifferencer().getLeftDifferences().get(0);
-					if(difference.getElement() == null) {
-						difference = difference.getMatchingDifference();
-					}
-					// reveal and select first difference
-					setSelection(new StructuredSelection(difference
-							.getElement()), true);
-				}
-			}
-		});
 	}
 
 	private void createActions() {
@@ -136,6 +115,27 @@ public class ModelStructureDiffViewer extends TreeViewer implements ICompareInpu
 		}
 		if(input != null) {
 			configuration.getContainer().addCompareInputChangeListener((ICompareInput) input, this);
+			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+				
+				@Override
+				public void run() {
+					refresh();
+					if(getTree().getItems().length == 0) {
+						return;
+					}
+					TreeItem topItem = getTree().getItem(0);
+					if(topItem.getItemCount() > 0) {
+						TreeDifference difference = ((TreeDifferenceContentProvider) getContentProvider())
+								.getDifferencer().getLeftDifferences().get(0);
+						if(difference.getElement() == null) {
+							difference = difference.getMatchingDifference();
+						}
+						// reveal and select first difference
+						setSelection(new StructuredSelection(difference
+								.getElement()), true);
+					}
+				}
+			});
 		}
 		inputMap.remove(oldInput);
 		if(input != null) {
