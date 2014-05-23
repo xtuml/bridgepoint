@@ -47,15 +47,21 @@ public class SemEditorListener extends ModelChangeAdapter {
 		if(event.getModelElement() instanceof InstanceStateMachine_c) {
 			InstanceStateMachine_c ism = (InstanceStateMachine_c) event.getModelElement();
 			StateMachine_c editorStateMachine = editor.getStateMahine();
-			if(editorStateMachine.getSm_id().equals(ism.getSm_idCachedValue())) {
-				refresh = true;
+			// can be null during reloads
+			if(editorStateMachine != null) {
+				if(editorStateMachine.getSm_id().equals(ism.getSm_idCachedValue())) {
+					refresh = true;
+				}
 			}
 		}
 		if(event.getModelElement() instanceof ClassStateMachine_c) {
 			ClassStateMachine_c csm = (ClassStateMachine_c) event.getModelElement();
 			StateMachine_c editorStateMachine = editor.getStateMahine();
-			if(editorStateMachine.getSm_id().equals(csm.getSm_idCachedValue())) {
-				refresh = true;
+			// can be null during reloads
+			if(editorStateMachine != null) {
+				if(editorStateMachine.getSm_id().equals(csm.getSm_idCachedValue())) {
+					refresh = true;
+				}
 			}
 		}
 		if(refresh) {
@@ -70,10 +76,13 @@ public class SemEditorListener extends ModelChangeAdapter {
 			if(element == null) {
 				element = (NonRootModelElement) delta.getModelElement();
 			}
-			if (element.getPersistableComponent() == editor.getStateMahine()
-					.getPersistableComponent()) {
-				// just refresh
-				editor.refresh(null, false);
+			// can be null during reloads
+			if(editor.getStateMahine() != null) {
+				if (element.getPersistableComponent() == editor.getStateMahine()
+						.getPersistableComponent()) {
+					// just refresh
+					editor.refresh(null, false);
+				}
 			}
 		}
 	}

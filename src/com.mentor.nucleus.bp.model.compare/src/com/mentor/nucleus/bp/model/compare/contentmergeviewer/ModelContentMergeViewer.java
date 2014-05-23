@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.UUID;
 
 import org.eclipse.compare.CompareConfiguration;
 import org.eclipse.compare.CompareNavigator;
@@ -112,8 +113,11 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.texteditor.IDocumentProvider;
 
+import com.mentor.nucleus.bp.core.ClassStateMachine_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.InstanceStateMachine_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
+import com.mentor.nucleus.bp.core.StateMachine_c;
 import com.mentor.nucleus.bp.core.common.ModelRoot;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.Transaction;
@@ -210,6 +214,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			public void saveLeftContent(Object element, byte[] bytes) {
 				if (element instanceof ICompareInput) {
 					ICompareInput node = (ICompareInput) element;
+					updateSMIds(node, true);
 					writeData(node, true);
 					NonRootModelElement[] rootElements = new NonRootModelElement[0];
 					try {
@@ -238,6 +243,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			public void saveRightContent(Object element, byte[] bytes) {
 				if (element instanceof ICompareInput) {
 					ICompareInput node = (ICompareInput) element;
+					updateSMIds(node, false);
 					writeData(node, false);
 					NonRootModelElement[] rootElements = new NonRootModelElement[0];
 					try {
@@ -267,6 +273,44 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(this);
 	}
 	
+	protected void updateSMIds(ICompareInput node, boolean left) {
+		// reset any SM ids that were upgrade for compare/merge
+		Object key = ModelCacheManager.getLeftKey(node);
+		if(!left) {
+			key = ModelCacheManager.getRightKey(node);
+		}
+		Ooaofooa compareRoot = getLeftCompareRoot();
+		if(!left) {
+			compareRoot = getRightCompareRoot();
+		}
+		UUID originalSMId = modelManager
+				.getOriginalSMIdFromEntry(key);
+		if (originalSMId != null) {
+			NonRootModelElement[] rootElements;
+			try {
+				rootElements = modelManager.getRootElements(node, this, false,
+						compareRoot, key);
+				// only support case where there is only one root
+				StateMachine_c sm = null;
+				if (rootElements[0] instanceof InstanceStateMachine_c) {
+					sm = StateMachine_c
+							.getOneSM_SMOnR517((InstanceStateMachine_c) rootElements[0]);
+				}
+				if (rootElements[0] instanceof ClassStateMachine_c) {
+					sm = StateMachine_c
+							.getOneSM_SMOnR517((ClassStateMachine_c) rootElements[0]);
+				}
+				if (sm != null) {
+					ModelCacheManager.updateIdForStateMachine(
+							originalSMId, sm);
+				}
+			} catch (ModelLoadException e) {
+				CorePlugin.logError("Unable to load compare data.",
+						e);
+			}
+		}
+	}
+
 	protected void writeData(ICompareInput input, boolean toLeft) {
 		try {
 			ITypedElement destination = input.getLeft();
@@ -1105,7 +1149,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				TreeItem topItem = rightTreeViewer.getTree().getItems()[0];
 				Rectangle otherHighlightRect = rightTreeViewer
 						.buildHighlightRectangle(topItem, false, gc, true, true);
-				int[] points = getCenterCurvePoints(0, leftTreeViewer.getTree().getHeaderHeight(),
+				int[] points = getCenterCurvePoints(0, leftTreeViewer.getTree().getHeaderHeight() + 2,
 						canvas.getBounds().width, otherHighlightRect.y
 								+ (otherHighlightRect.height / 2));
 				for (int i = 1; i < points.length; i++)
@@ -1179,14 +1223,14 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 					false, gc, true, true);
 			if (matchingItem == null) {
 				// if the right side is empty, draw a line at the top
-				if ((rightTreeViewer.getTree().getItems().length == 0 || difference
+				if ((rightTreeViewer.getTree().getItems().length == 0 || (difference
 						.getMatchingDifference().getParent() == null
 						&& difference.getMatchingDifference().getElement() == null)
-						&& !(difference.getMatchingDifference().getLocation() >= 0)) {
+						&& !(difference.getMatchingDifference().getLocation() >= 0))) {
 					// draw a line for each missing item
 					int[] points = getCenterCurvePoints(0, leftBounds.y
 							+ (leftBounds.height / 2),
-							canvas.getBounds().width, rightTreeViewer.getTree().getHeaderHeight());
+							canvas.getBounds().width, rightTreeViewer.getTree().getHeaderHeight() + 2);
 					for (int i = 1; i < points.length; i++)
 						gc.drawLine(i - 1, points[i - 1], i, points[i]);
 				} else {
@@ -1400,6 +1444,30 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 					viewer.setCompareRoot(getRightCompareRoot());
 					viewer.setKey(rightKey);
 					viewer.setInput(getInput());
+				}
+				if(left instanceof IStreamContentAccessor && leftIsLocal()) {
+					// here we will automatically merge any incoming/conflicting
+					// graphics this will cover the case where only graphics
+					// are changed
+					List<TreeDifference> graphicalDifferences = getIncomingGraphicalDifferences(leftIsLocal());
+					if(!graphicalDifferences.isEmpty()) {
+						mergeIncomingGraphicalChanges(graphicalDifferences,
+								leftIsLocal(), (ICompareInput) getInput());
+						markLeftDirty(true);
+						differencer.refresh();
+					}
+				}
+				if(right instanceof IStreamContentAccessor && !leftIsLocal()) {
+					// here we will automatically merge any incoming/conflicting
+					// graphics this will cover the case where only graphics
+					// are changed
+					List<TreeDifference> graphicalDifferences = getIncomingGraphicalDifferences(!leftIsLocal());
+					if(!graphicalDifferences.isEmpty()) {
+						mergeIncomingGraphicalChanges(graphicalDifferences,
+								!leftIsLocal(), (ICompareInput) getInput());
+						markRightDirty(true);
+						differencer.refresh();
+					}
 				}
 			} catch (ModelLoadException e) {
 				CorePlugin.logError("Unable to load data for comparison.", e);
