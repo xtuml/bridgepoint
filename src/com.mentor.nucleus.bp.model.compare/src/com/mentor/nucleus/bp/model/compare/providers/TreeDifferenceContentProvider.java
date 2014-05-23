@@ -160,8 +160,12 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 				labelProvider.setDifferencer(differencer);
 			} else {
 				differencer.setElements(leftRoots, rightRoots, ancestorRoots);
-				differencer.setIsThreeWay((((ICompareInput) inputElement)
-						.getKind() & Differencer.DIRECTION_MASK) != 0);
+				boolean isThreeWay = (((ICompareInput) inputElement)
+						.getKind() & Differencer.DIRECTION_MASK) != 0;
+				if(!isThreeWay) {
+					isThreeWay = ancestorRoots.length != 0;
+				}
+				differencer.setIsThreeWay(isThreeWay);
 				differencer.refresh();
 			}
 			return uniqueSet(leftRoots, rightRoots, ancestorRoots);
