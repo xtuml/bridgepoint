@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: C Model Compiler (Binary)
 Bundle-SymbolicName: com.mentor.nucleus.bp.mc.c.binary; singleton:=true
-Bundle-Version: 4.1.10
+Bundle-Version: 4.1.11
 Bundle-Activator: com.mentor.nucleus.bp.mc.c.binary.Activator
 Bundle-Vendor: Mentor Graphics
 Require-Bundle: org.eclipse.ui,
