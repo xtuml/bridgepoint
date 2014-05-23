@@ -162,9 +162,6 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 				differencer.setElements(leftRoots, rightRoots, ancestorRoots);
 				boolean isThreeWay = (((ICompareInput) inputElement)
 						.getKind() & Differencer.DIRECTION_MASK) != 0;
-				if(!isThreeWay) {
-					isThreeWay = ancestorRoots.length != 0;
-				}
 				differencer.setIsThreeWay(isThreeWay);
 				differencer.refresh();
 			}
