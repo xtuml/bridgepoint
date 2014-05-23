@@ -3,7 +3,7 @@
 <plugin
    id="com.mentor.nucleus.bp.io.mdl"
    name="BridgePoint Model Plug-in"
-   version="4.1.10"
+   version="4.1.11"
    provider-name="Mentor Graphics"
    class="com.mentor.nucleus.bp.io.mdl.MdlPlugin">
 

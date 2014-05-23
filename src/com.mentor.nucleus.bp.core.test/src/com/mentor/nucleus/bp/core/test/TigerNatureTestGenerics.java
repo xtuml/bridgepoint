@@ -264,9 +264,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 				+ '"' + ",\n\t'" + modelClass.getName() + "',\n\t"
 				+ modelClass.getNumb() + ",\n\t'" + modelClass.getKey_lett()
 				+ "',\n\t'" + modelClass.getDescrip() + "',\n\t" + '"'
-				+ modelClass.getSs_id() + '"' + ",\n\t" + '"'
-				+ modelClass.getIsm_id() + '"' + ",\n\t" + '"'
-				+ modelClass.getCsm_id() + '"' + ");";
+				+ modelClass.getSs_id() + '"' + ");";
 		return classInsert;
 	}
 
