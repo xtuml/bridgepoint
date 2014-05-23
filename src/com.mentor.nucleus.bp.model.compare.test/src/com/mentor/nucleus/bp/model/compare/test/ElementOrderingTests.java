@@ -20,6 +20,7 @@
 package com.mentor.nucleus.bp.model.compare.test;
 
 import java.io.InputStream;
+import java.util.UUID;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFileState;
@@ -37,6 +38,7 @@ import com.mentor.nucleus.bp.core.EnumerationDataType_c;
 import com.mentor.nucleus.bp.core.Enumerator_c;
 import com.mentor.nucleus.bp.core.FunctionParameter_c;
 import com.mentor.nucleus.bp.core.Function_c;
+import com.mentor.nucleus.bp.core.InstanceStateMachine_c;
 import com.mentor.nucleus.bp.core.InterfaceOperation_c;
 import com.mentor.nucleus.bp.core.InterfaceSignal_c;
 import com.mentor.nucleus.bp.core.Interface_c;
@@ -47,12 +49,15 @@ import com.mentor.nucleus.bp.core.Operation_c;
 import com.mentor.nucleus.bp.core.PropertyParameter_c;
 import com.mentor.nucleus.bp.core.StateMachineEventDataItem_c;
 import com.mentor.nucleus.bp.core.StateMachineEvent_c;
+import com.mentor.nucleus.bp.core.StateMachine_c;
 import com.mentor.nucleus.bp.core.StructureMember_c;
 import com.mentor.nucleus.bp.core.StructuredDataType_c;
+import com.mentor.nucleus.bp.core.Util_c;
 import com.mentor.nucleus.bp.core.common.ModelElement;
 import com.mentor.nucleus.bp.core.common.Transaction;
 import com.mentor.nucleus.bp.core.common.TransactionManager;
 import com.mentor.nucleus.bp.model.compare.ITreeDifferencerProvider;
+import com.mentor.nucleus.bp.model.compare.ModelCacheManager;
 import com.mentor.nucleus.bp.model.compare.TreeDifferencer;
 import com.mentor.nucleus.bp.model.compare.contentmergeviewer.ModelContentMergeViewer;
 import com.mentor.nucleus.bp.model.compare.contentmergeviewer.SynchronizedTreeViewer;
@@ -72,6 +77,15 @@ public class ElementOrderingTests extends BaseTest {
 	public void initialSetup() throws Exception {
 		loadProject(projectName);
 		modelRoot = Ooaofooa.getInstance("/ElementOrderTesting/models/ElementOrderTesting/Package/Package.xtuml");
+		StateMachine_c sm = StateMachine_c.StateMachineInstance(modelRoot);
+		ModelClass_c clazz = ModelClass_c
+				.getOneO_OBJOnR518(InstanceStateMachine_c
+						.getOneSM_ISMOnR517(sm));
+		// we need to update the in-memory SM ids which is what the compare
+		// editor will do, otherwise some tests cannot find the elements they
+		// need
+		UUID smId = Util_c.Getuniquestatemachineid(clazz.getObj_id(), "i");
+		ModelCacheManager.updateIdForStateMachine(smId, sm);
 	}
 	
 	@Override
@@ -322,6 +336,15 @@ public class ElementOrderingTests extends BaseTest {
 	public void testMoveDownNotAvailable() throws CoreException {
 		loadProject(projectName);
 		modelRoot = Ooaofooa.getInstance("/ElementOrderTesting/models/ElementOrderTesting/Package/Package.xtuml");
+		StateMachine_c sm = StateMachine_c.StateMachineInstance(modelRoot);
+		ModelClass_c smClass = ModelClass_c
+				.getOneO_OBJOnR518(InstanceStateMachine_c
+						.getOneSM_ISMOnR517(sm));
+		// we need to update the in-memory SM ids which is what the compare
+		// editor will do, otherwise some tests cannot find the elements they
+		// need
+		UUID smId = Util_c.Getuniquestatemachineid(smClass.getObj_id(), "i");
+		ModelCacheManager.updateIdForStateMachine(smId, sm);
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot);
 		Operation_c[] ops = Operation_c.getManyO_TFRsOnR115(clazz);
 		Operation_c op = ops[0];
@@ -468,6 +491,15 @@ public class ElementOrderingTests extends BaseTest {
 	public void testOperationMoveUpandDown() throws CoreException {
 		loadProject(projectName);
 		modelRoot = Ooaofooa.getInstance("/ElementOrderTesting/models/ElementOrderTesting/Package/Package.xtuml");
+		StateMachine_c sm = StateMachine_c.StateMachineInstance(modelRoot);
+		ModelClass_c smClass = ModelClass_c
+				.getOneO_OBJOnR518(InstanceStateMachine_c
+						.getOneSM_ISMOnR517(sm));
+		// we need to update the in-memory SM ids which is what the compare
+		// editor will do, otherwise some tests cannot find the elements they
+		// need
+		UUID smId = Util_c.Getuniquestatemachineid(smClass.getObj_id(), "i");
+		ModelCacheManager.updateIdForStateMachine(smId, sm);
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot);
 		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
 		Object[] children = provider.getChildrenOfType(clazz, Operation_c.class);
