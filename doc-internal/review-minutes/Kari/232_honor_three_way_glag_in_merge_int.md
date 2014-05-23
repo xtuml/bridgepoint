@@ -14,8 +14,8 @@ Present:  Travis,Bob,
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01  min   bob  7      Add the link to the uploaded EATF model repository
-_- 02  min   bob  3      Add a note in the background that describes that in the structural diff view what should be outgoing changes are shown as incoming
+x- 01  min   bob  7      Add the link to the uploaded EATF model repository
+x- 02  min   bob  3      Add a note in the background that describes that in the structural diff view what should be outgoing changes are shown as incoming
 
 
 Code Review (branch 232): 
