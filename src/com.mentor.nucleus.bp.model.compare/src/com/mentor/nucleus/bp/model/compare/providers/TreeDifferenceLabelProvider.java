@@ -81,10 +81,13 @@ public class TreeDifferenceLabelProvider implements ILabelProvider {
 			}
 		}
 		Image image = modelLabelProvider.getColumnImage(element, 0);
-		Image overlay = configuration.getImage(kind);
-		OverlayCompositeImageDescriptor descriptor = new OverlayCompositeImageDescriptor(
+		if(kind != Differencer.CHANGE) {
+			Image overlay = configuration.getImage(kind);
+			OverlayCompositeImageDescriptor descriptor = new OverlayCompositeImageDescriptor(
 				image.getImageData(), overlay.getImageData());
-		return getResourceManager().createImage(descriptor);
+			return getResourceManager().createImage(descriptor);
+		}
+		return image;
 	}
 
 	private ResourceManager getResourceManager() {

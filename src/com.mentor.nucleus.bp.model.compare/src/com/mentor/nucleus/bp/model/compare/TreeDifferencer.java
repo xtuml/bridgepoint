@@ -308,14 +308,14 @@ public class TreeDifferencer extends Differencer {
 					Assert.isTrue(false);
 					// shouldn't happen
 				} else {
-					description= LEFT | ADDITION;
+					description= ADDITION;
 				}
 			} else {
 				if (right == null) {
-					description= LEFT | DELETION;
+					description= DELETION;
 				} else {
 					if (! elementsEqualIncludingValues(left, right, false, false))
-						description= LEFT | CHANGE;
+						description= CHANGE;
 				}
 			}
 		}
@@ -504,6 +504,10 @@ public class TreeDifferencer extends Differencer {
 
 	public static TreeDifferencer getInstance(Object left) {
 		return instances.get(left);
+	}
+
+	public void setIsThreeWay(boolean isThreeWay) {
+		threeWay = isThreeWay;
 	}
 
 }
