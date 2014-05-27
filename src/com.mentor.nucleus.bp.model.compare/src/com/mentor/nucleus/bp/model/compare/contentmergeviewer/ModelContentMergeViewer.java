@@ -1427,6 +1427,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 					TreeDifferencer.instances.put(getInput(), differencer);
 				} else {
 					differencer.setElements(leftElements, rightElements, ancestorElements);
+					differencer.setIsThreeWay(isThreeWay());
 				}
 				differencer.refresh();
 				nextDifference.getAction().setEnabled(false);
