@@ -98,7 +98,7 @@ x- If the github issue is a mirror of a CQ issue, you must perform the following
                        version of the plugin)
       _- Resolution Note:
         _- Summary = "none required"
-        _- Note = Promoted with pull request: <pull request url>   (You can get 
+        _- Note = Promoted with pull request: https://github.com/xtuml/internal/pull/231   (You can get 
                   this from the promotion checklist)
       
     _- On the Customer tab:
