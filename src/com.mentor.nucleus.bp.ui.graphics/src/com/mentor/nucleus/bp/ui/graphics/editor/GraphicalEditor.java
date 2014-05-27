@@ -46,6 +46,8 @@ import org.eclipse.draw2d.ToolTipHelper;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.draw2d.text.FlowPage;
+import org.eclipse.draw2d.text.TextFlow;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditDomain;
@@ -221,7 +223,6 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 	private String DIAGRAM_VIEWPORT_Y = "__DIAGRAM_VIEWPORT_Y"; //$NON-NLS-1$
 	private String DIAGRAM_ZOOM = "__DIAGRAM_ZOOM"; //$NON-NLS-1$
 	private static Font diagramFont;
-//	private ArrayList<BPToolTipHelper> helpers = new ArrayList<BPToolTipHelper>();
 	private HashMap<IFigure, BPToolTipHelper> tooltipMap = new HashMap<IFigure, BPToolTipHelper>();
 
 
@@ -654,7 +655,15 @@ public class GraphicalEditor extends GraphicalEditorWithFlyoutPalette implements
 						 * shall be created to store created helper, to be
 						 * notified by editor visiblity change
 						 */
-						IFigure hoverSource = this.getMouseTarget();
+						IFigure hoverSource = this.getCursorTarget();
+						
+						if(hoverSource instanceof TextFlow) {
+							hoverSource = hoverSource.getParent();
+						}
+						if(hoverSource instanceof FlowPage) {
+							hoverSource = hoverSource.getParent();
+						}
+						
 						if (hoverSource instanceof ShapeImageFigure || hoverSource instanceof DecoratedPolylineConnection){
 							BPToolTipHelper existedHelper = tooltipMap.get(hoverSource);
 							if ( existedHelper != null)

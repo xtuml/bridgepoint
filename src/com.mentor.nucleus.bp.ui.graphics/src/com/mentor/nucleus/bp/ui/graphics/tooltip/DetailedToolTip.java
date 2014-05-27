@@ -82,6 +82,8 @@ import com.mentor.nucleus.bp.ui.canvas.GraphicalElement_c;
 import com.mentor.nucleus.bp.ui.canvas.Shape_c;
 import com.mentor.nucleus.bp.ui.graphics.actions.OpenGraphicsEditor;
 import com.mentor.nucleus.bp.ui.graphics.editor.BPToolTipHelper;
+import com.mentor.nucleus.bp.ui.graphics.editor.GraphicalEditor;
+import com.mentor.nucleus.bp.ui.graphics.editor.ModelEditor;
 import com.mentor.nucleus.bp.ui.graphics.figures.DecoratedPolylineConnection;
 import com.mentor.nucleus.bp.ui.graphics.figures.ShapeImageFigure;
 import com.mentor.nucleus.bp.ui.graphics.parts.ConnectorEditPart;
@@ -125,6 +127,8 @@ public class DetailedToolTip {
 
 		setColor(detailedShell, foreground, background);
 
+		createTitleCompartment(detailedShell);
+		
 		createImageCompartment(detailedShell);
 
 		createDescriptionTextCompartment(detailedShell);
@@ -173,10 +177,21 @@ public class DetailedToolTip {
 
 
 	public void createImageCompartment(Shell detailedShell) {
-		// Add Composite and Label here for photos
-
+		/* 
+		 * Use this stub to add a image viewer section in the tooltip window. 
+		 * This section will be between the title section (if exsit) and the 
+		 * description text section. Create a composite on the top of the passed 
+		 * argument 'detailedShell' and other graphical elements as needed
+		*/
 	}
 
+	private void createTitleCompartment(Shell detailedShell) {
+		/*
+		 * Use this stub to add a title section for the tooltip window at the 
+		 * top. Create a composite on the top of the passed 
+		 * argument 'detailedShell' and other graphical elements as needed
+		 */
+	}
 	public void createDescriptionTextCompartment(Shell detailedShell) {
 		Display display  = detailedShell.getDisplay();
 		Color foreground= display.getSystemColor(SWT.COLOR_INFO_FOREGROUND);
@@ -195,6 +210,31 @@ public class DetailedToolTip {
 
 		styledText = new Text(descriptionTextComposite, Tooltip_Text_Style);
 		setColor(styledText, foreground, background);
+		styledText.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				// Do nothing				
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				IEditorPart activeEditor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+				GraphicalEditor gEditor = null;
+				if(activeEditor instanceof ModelEditor) {
+					ModelEditor editor = (ModelEditor)activeEditor;
+					gEditor = editor.getGraphicalEditor();
+				}					
+				if(activeEditor instanceof GraphicalEditor) {
+					gEditor = (GraphicalEditor)activeEditor;
+				}
+				if ( gEditor != null){	
+					StructuredSelection sel = new StructuredSelection(getTooltipModelElement());
+					gEditor.getGraphicalViewer().getSelectionManager().deselectAll();
+					gEditor.getGraphicalViewer().getSelectionManager().setSelection(sel);
+				}
+			}
+		});
 
 	}
 
