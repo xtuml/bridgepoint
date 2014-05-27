@@ -26,7 +26,6 @@ package com.mentor.nucleus.bp.ui.graphics.editor;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LightweightSystem;
@@ -67,7 +66,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 	private Timer mouseInCloseTimer;
 	private Timer mouseOutCloseTimer;
 	protected boolean showDetailedTooltip = false;
-	private static final int tooltipLocationIndent = 1;
+	private static final int tooltipLocationIndent = 5;
 	private static final int DetailedTipWidthIncrement = 100;
 	private static final int DetailedTipHeightIncrement = 50;
 	
@@ -79,8 +78,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 	
 	private Dimension tipSize;
 	
-	// Used to dispose SimpleToolTip shell when re display it again
-	private boolean refresh = false;
 	
 	public BPToolTipHelper(Control c) {
 		super(c);
@@ -91,7 +88,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 		if (tip != null && !isShowing()) {
 			if ( showDetailedTooltip && isShowing())
 				return;
-			getShell();
+			
 			setTooltipText(tip);
 			Point displayPoint = computeWindowLocation(tip, eventX, eventY);
 			setShellBounds(displayPoint.x, displayPoint.y, tipSize.width+30,
@@ -288,10 +285,7 @@ public class BPToolTipHelper extends ToolTipHelper {
 
 	@Override
 	protected Shell createShell() {
-		Shell simpleShell = new Shell(control.getShell(), TooltipStyle);
-		simpleShell.setBackground(ColorConstants.tooltipBackground);
-		simpleShell.setForeground(ColorConstants.tooltipForeground);
-		return simpleShell;
+		return new Shell(control.getShell(), TooltipStyle);
 	}
 	
 	@Override
@@ -309,12 +303,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 			if (BPSimpleTooltipShell == null || BPSimpleTooltipShell.isDisposed() ) {
 				BPSimpleTooltipShell = createShell();
 				hookSimpleShellListeners();
-			}else if (refresh){
-				refresh = false;
-				BPSimpleTooltipShell.dispose();
-				lws = null;
-				BPSimpleTooltipShell = createShell();
-				hookSimpleShellListeners();
 			}
 			return BPSimpleTooltipShell;
 		}
@@ -330,7 +318,6 @@ public class BPToolTipHelper extends ToolTipHelper {
 			detailedtooltip = null;
 		}else{
 			getShell().setVisible(false);
-			refresh = true;
 		}
 		tipDisplayed = false;
 		showDetailedTooltip = false;
