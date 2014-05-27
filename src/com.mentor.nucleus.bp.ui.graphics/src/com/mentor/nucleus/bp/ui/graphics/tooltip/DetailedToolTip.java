@@ -177,23 +177,20 @@ public class DetailedToolTip {
 
 
 	public void createImageCompartment(Shell detailedShell) {
-		// Add Composite and Label here for photos
-
+		/* 
+		 * Use this stub to add a image viewer section in the tooltip window. 
+		 * This section will be between the title section (if exsit) and the 
+		 * description text section. Create a composite on the top of the passed 
+		 * argument 'detailedShell' and other graphical elements as needed
+		*/
 	}
 
 	private void createTitleCompartment(Shell detailedShell) {
-//		Composite titleComposite = new Composite(detailedShell, SWT.NONE);
-//		titleComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
-//		FillLayout layout= new FillLayout();
-//		layout.marginHeight = 3;
-//		titleComposite.setLayout(layout);
-//		Label titleLabel = new Label(titleComposite,  SWT.CENTER);
-//		titleLabel.setText("ToolTip");
-//		Object modelElement = getTooltipModelElement();
-//		if (modelElement instanceof NonRootModelElement){
-//			titleLabel.setText( ((NonRootModelElement)modelElement).getName() + 
-//					" Description");
-//		}	
+		/*
+		 * Use this stub to add a title section for the tooltip window at the 
+		 * top. Create a composite on the top of the passed 
+		 * argument 'detailedShell' and other graphical elements as needed
+		 */
 	}
 	public void createDescriptionTextCompartment(Shell detailedShell) {
 		Display display  = detailedShell.getDisplay();
@@ -217,8 +214,7 @@ public class DetailedToolTip {
 			
 			@Override
 			public void focusLost(FocusEvent e) {
-				// TODO Auto-generated method stub
-				
+				// Do nothing				
 			}
 			
 			@Override
