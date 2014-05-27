@@ -120,6 +120,11 @@ public class ModelMergeTests extends BaseTest {
 						+ "test_repositories"
 						+ "/" + "204.zip",
 				test_repositories);
+		ZipUtil.unzipFileContents(
+				test_repository_location + "/"
+						+ "test_repositories"
+						+ "/" + "dts0101054289.zip",
+				test_repositories);
 	}
 
 	@Override
@@ -240,6 +245,28 @@ public class ModelMergeTests extends BaseTest {
 		TestUtil.deleteProject(getProjectHandle(projectName));
 	}
 
+	public void testGraphicalElementDifferencesOnlyCausesDirtyEditor() {
+		String projectName = "dts0101054289";
+		// import git repository from models repo
+		GitUtil.loadRepository(test_repositories
+				+ "/" + projectName);
+		// import test project
+		GitUtil.loadProject(projectName, projectName);
+		// merge the test branch
+		GitUtil.mergeBranch("slave", projectName);
+		// start the merge tool
+		GitUtil.startMergeTool(projectName);
+		while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+		// check that the merge tool is dirty
+		ModelContentMergeViewer viewer = ModelContentMergeViewer
+				.getInstance(null);
+		assertTrue("Graphical changes only did not dirty the editor on open.",
+				viewer.internalIsLeftDirty());
+		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+				.closeAllEditors(false);
+		TestUtil.deleteProject(getProjectHandle(projectName));
+	}
+	
 	public void testMergeWithStateMachineAddedInSeparateBranches()
 			throws Exception {
 		String projectName = "dts0101009925";
