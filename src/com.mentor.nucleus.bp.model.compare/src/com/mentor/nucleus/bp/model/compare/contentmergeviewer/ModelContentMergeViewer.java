@@ -143,6 +143,7 @@ import com.mentor.nucleus.bp.model.compare.providers.NonRootModelElementComparab
 import com.mentor.nucleus.bp.model.compare.structuremergeviewer.ModelStructureDiffViewer;
 import com.mentor.nucleus.bp.ui.canvas.CanvasPlugin;
 import com.mentor.nucleus.bp.ui.canvas.Connector_c;
+import com.mentor.nucleus.bp.ui.canvas.ElementSpecification_c;
 import com.mentor.nucleus.bp.ui.canvas.Graphconnector_c;
 import com.mentor.nucleus.bp.ui.canvas.Graphedge_c;
 import com.mentor.nucleus.bp.ui.canvas.GraphicalElement_c;
@@ -1516,14 +1517,39 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 								.getMatchingDifference().getElement()).getRealElement();
 						if(elementToBeRemoved instanceof GraphicalElement_c) {
 							GraphicalElement_c graphEleToRemove = (GraphicalElement_c) elementToBeRemoved;
-							if (graphEleToRemove.getRepresents() != null
-									&& graphEleToRemove.getRepresents() instanceof NonRootModelElement) {
-								NonRootModelElement semanticElement = (NonRootModelElement) graphEleToRemove.getRepresents();
-								if(!semanticElement.isOrphaned()) {
-									add = false;
-								} else {
-									addConnectionPoints(graphEleToRemove, left,
-											incomingGraphicalDifferences);
+							// if the graphical element represents value is null
+							// we need to
+							// look at the local file, in some cases the
+							// configuration
+							// management system may have pre-merged the
+							// semantical element
+							// in a different file
+							if (graphEleToRemove.getRepresents() == null) {
+								ElementSpecification_c spec = ElementSpecification_c
+										.getOneGD_ESOnR10(graphEleToRemove);
+								if (spec != null) {
+									NonRootModelElement elementGlobally = (NonRootModelElement) Ooaofooa
+											.getDefaultInstance()
+											.getInstanceList(
+													spec.getRepresents())
+											.getGlobal(
+													graphEleToRemove
+															.getOoa_id());
+									if (elementGlobally != null) {
+										add = false;
+									}
+								}
+							}
+							if(add) {
+								if (graphEleToRemove.getRepresents() != null
+										&& graphEleToRemove.getRepresents() instanceof NonRootModelElement) {
+									NonRootModelElement semanticElement = (NonRootModelElement) graphEleToRemove.getRepresents();
+									if(!semanticElement.isOrphaned()) {
+										add = false;
+									} else {
+										addConnectionPoints(graphEleToRemove, left,
+												incomingGraphicalDifferences);
+									}
 								}
 							}
 						} else {
@@ -1538,6 +1564,29 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 								.getElement()).getRealElement();
 						if(elementToBeAdded instanceof GraphicalElement_c) {
 							GraphicalElement_c graphEleToAdd = (GraphicalElement_c) elementToBeAdded;
+							// if the graphical element represents value is null we need to
+							// look at the local file, in some cases the configuration
+							// management system may have pre-merged the semantical element
+							// in a different file
+							if(graphEleToAdd.getRepresents() == null) {
+								ElementSpecification_c spec = ElementSpecification_c
+										.getOneGD_ESOnR10(graphEleToAdd);
+								if (spec != null) {
+									NonRootModelElement elementGlobally = (NonRootModelElement) Ooaofooa
+											.getDefaultInstance()
+											.getInstanceList(
+													spec.getRepresents())
+											.getGlobal(
+													graphEleToAdd.getOoa_id());
+									if (elementGlobally == null) {
+										add = false;
+									} else {
+										addConnectionPoints(graphEleToAdd,
+												left,
+												incomingGraphicalDifferences);
+									}
+								}
+							}
 							if (graphEleToAdd.getRepresents() != null
 									&& graphEleToAdd.getRepresents() instanceof NonRootModelElement) {
 								NonRootModelElement semanticElement = (NonRootModelElement) graphEleToAdd.getRepresents();
