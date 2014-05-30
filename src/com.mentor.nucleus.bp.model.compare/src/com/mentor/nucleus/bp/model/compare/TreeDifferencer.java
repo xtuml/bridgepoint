@@ -196,9 +196,15 @@ public class TreeDifferencer extends Differencer {
 		Object[] localChildren = contentProvider.getChildren(parent);
 		int difference = 0;
 		for(int i = thisLocation - 1; i != 0; i--) {
-			if (locateElementInOtherVersion(otherParent, localChildren[i],
-					contentProvider) == null) {
-				difference++;
+			// do not consider elements of different types, the tool
+			// only orders elements of the same type
+			if (((ComparableTreeObject) localChildren[i]).getRealElement()
+					.getClass() == ((ComparableTreeObject) element)
+					.getRealElement().getClass()) {
+				if (locateElementInOtherVersion(otherParent, localChildren[i],
+						contentProvider) == null) {
+					difference++;
+				}
 			}
 		}
 		thisLocation = thisLocation - difference;
