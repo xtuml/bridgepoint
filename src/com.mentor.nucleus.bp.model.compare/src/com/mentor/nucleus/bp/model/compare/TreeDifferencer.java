@@ -12,7 +12,10 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreePath;
 
+import com.mentor.nucleus.bp.core.InterfaceOperation_c;
+import com.mentor.nucleus.bp.core.InterfaceSignal_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
+import com.mentor.nucleus.bp.core.inspector.ObjectElement;
 import com.mentor.nucleus.bp.model.compare.contentmergeviewer.SynchronizedTreeViewer;
 import com.mentor.nucleus.bp.model.compare.providers.NonRootModelElementComparable;
 
@@ -180,35 +183,56 @@ public class TreeDifferencer extends Differencer {
 	}
 	
 	/**
-	 * Walk the opposite side, excluding any missing items until
-	 * the next common element.  This will produce the expected
-	 * location which is used when relocating or adding new 
-	 * elements
+	 * The location determined is the next location after any existing
+	 * elements of the same type.  If there are no other elements than
+	 * the location is the first spot in the element type's slot
 	 */
 	public static int getLocationOfElement(Object parent, Object element,
 			Object otherParent, ITreeDifferencerProvider contentProvider) {
-		int thisLocation = getLocationOfElement(parent, element, contentProvider);
-		if(thisLocation == 0) {
-			return thisLocation;
+		int location = 0;
+		if (locateElementInOtherVersion(otherParent, element,
+				contentProvider) != null) {
+			// in this case the element's position has changed
+			// just return the local element's location
+			return getLocationOfElement(otherParent, element, contentProvider);
 		}
-		// we need to adjust thisLocation to account for any
-		// other new elements above us
-		Object[] localChildren = contentProvider.getChildren(parent);
-		int difference = 0;
-		for(int i = thisLocation - 1; i != 0; i--) {
-			// do not consider elements of different types, the tool
-			// only orders elements of the same type
-			if (((ComparableTreeObject) localChildren[i]).getRealElement()
-					.getClass() == ((ComparableTreeObject) element)
-					.getRealElement().getClass()) {
-				if (locateElementInOtherVersion(otherParent, localChildren[i],
-						contentProvider) == null) {
-					difference++;
+		if (element instanceof ComparableTreeObject) {
+			element = ((ComparableTreeObject) element).getRealElement();
+		}
+		Object[] children = contentProvider.getChildren(otherParent);
+		int elementSlot = getSlot(element);
+		for (int i = 0; i <= elementSlot; i++) {
+			for (int j = 0; j < children.length; j++) {
+				Object child = children[j];
+				if (child instanceof ComparableTreeObject) {
+					child = ((ComparableTreeObject) child).getRealElement();
+				}
+				if (child.getClass() == getElementTypeAtSlot(i)) {
+					location++;
 				}
 			}
 		}
-		thisLocation = thisLocation - difference;
-		return thisLocation;
+		return location;
+	}
+	
+	public static Class<?> getElementTypeAtSlot(int slot) {
+		if(slot == 1) {
+			return InterfaceOperation_c.class;
+		}
+		if(slot == 2) {
+			return InterfaceSignal_c.class;
+		}
+		return ObjectElement.class;
+	}
+	
+	public static int getSlot(Object element) {
+		if(element instanceof InterfaceOperation_c) {
+			return 1;
+		}
+		if(element instanceof InterfaceSignal_c) {
+			return 2;
+		}
+		return 0;
 	}
 	
 	public static TreePath getPathForElement(Object object, ITreeContentProvider contentProvider) {
