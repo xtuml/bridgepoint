@@ -152,6 +152,7 @@ import java.util.Vector;
 import ${core_package_name}.*;
 import com.mentor.nucleus.bp.core.common.ModelElement;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
+import com.mentor.nucleus.bp.core.inspector.ObjectElement;
 
 public class ${manager_name} {
 	private Map sorterMap = new HashMap();
@@ -267,6 +268,41 @@ public class ${manager_name} {
   .end if
 .end for
 		return false;
+	}
+
+
+	public static Class<?> getOrderedElementTypeAtSlot(int slot) {
+.assign slot_count = 1;
+.select many tree_nodes from instances of T_TNS 
+.for each node in tree_nodes
+  .if(node.SortingRelationNumber >= 0)
+    .select any class from instances of O_OBJ where (selected.Key_Lett == node.Key_Lett)
+    .invoke cn = get_class_name(class)
+    .assign class_name = cn.body
+    	if ( slot == ${slot_count} ) {
+			return ${class_name}.class;
+		}
+	.assign slot_count = slot_count + 1;
+  .end if
+.end for
+		return ObjectElement.class;
+	}
+
+	public static int getOrderedSlot(Object element) {
+.assign slot_count = 1;
+.select many tree_nodes from instances of T_TNS 
+.for each node in tree_nodes
+  .if(node.SortingRelationNumber >= 0)
+    .select any class from instances of O_OBJ where (selected.Key_Lett == node.Key_Lett)
+    .invoke cn = get_class_name(class)
+    .assign class_name = cn.body
+    	if (element instanceof ${class_name}) {
+			return ${slot_count};
+		}
+	.assign slot_count = slot_count + 1;
+  .end if
+.end for
+		return 0;
 	}
 
 	public static ModelElement getPreviousElement(NonRootModelElement next) {

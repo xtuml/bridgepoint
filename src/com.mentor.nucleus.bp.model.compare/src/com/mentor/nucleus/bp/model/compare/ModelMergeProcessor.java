@@ -179,10 +179,10 @@ public class ModelMergeProcessor {
 		Object destinationParent = contentProvider.getParent(destinationElement);
 		Object localParent = contentProvider.getParent(comparable);
 		int location = TreeDifferencer.getLocationOfElement(localParent,
-				comparable, destinationParent,
+				comparable,
 				(ITreeDifferencerProvider) contentProvider);
 		int destinationLocation = TreeDifferencer.getLocationOfElement(
-				destinationParent, destinationElement, localParent,
+				destinationParent, destinationElement,
 				(ITreeDifferencerProvider) contentProvider);
 		if(location == destinationLocation) {
 			// another difference has already handled this
@@ -387,7 +387,6 @@ public class ModelMergeProcessor {
 		int newElementLocation = TreeDifferencer
 				.getLocationOfElement(contentProvider.getParent(diffElement),
 						diffElement,
-						parent,
 						(ITreeDifferencerProvider) contentProvider);
 		// create deltas for the creation of a new element
 		NonRootModelElement newObject = null;

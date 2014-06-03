@@ -25,6 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.compare.IStreamContentAccessor;
+import org.eclipse.compare.ITypedElement;
+import org.eclipse.compare.structuremergeviewer.DiffNode;
+import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
 import com.mentor.nucleus.bp.core.AttributeReferenceInClass_c;
@@ -38,7 +41,10 @@ import com.mentor.nucleus.bp.core.inspector.ObjectElement;
 import com.mentor.nucleus.bp.core.sorter.MetadataSortingManager;
 import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 import com.mentor.nucleus.bp.model.compare.ComparePlugin;
+import com.mentor.nucleus.bp.model.compare.EmptyElement;
+import com.mentor.nucleus.bp.model.compare.ModelCacheManager;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager.ModelLoadException;
+import com.mentor.nucleus.bp.model.compare.contentmergeviewer.ModelContentMergeViewer;
 import com.mentor.nucleus.bp.ui.canvas.GraphicalElement_c;
 import com.mentor.nucleus.bp.ui.canvas.Model_c;
 import com.mentor.nucleus.bp.ui.canvas.Ooaofgraphics;
@@ -51,6 +57,11 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 	private Ooaofooa modelRoot;
 	private Object cacheKey;
 	private Ooaofooa[] modelRoots;
+	private ModelContentMergeViewer mergeViewer;
+
+	public ModelCompareContentProvider(ModelContentMergeViewer mergeViewer) {
+		this.mergeViewer = mergeViewer;
+	}
 	
 	public Object getParent(Object element) {
 		if(element instanceof ComparableTreeObject) {
@@ -70,6 +81,9 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 		}
 		if(element instanceof ObjectElement) {
 			return getComparableTreeObject(((ObjectElement) element).getParent());
+		}
+		if(element instanceof EmptyElement) {
+			return ((EmptyElement) element).getParent();
 		}
 		return null;
 	}
@@ -159,6 +173,10 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 			for(Object object : all) {
 				comparables.add(getComparableTreeObject(object));
 			}
+			// insert empty elements
+			if(mergeViewer != null) {
+				insertEmptyElements(element, comparables);
+			}
 			return comparables.toArray();
 		}
 		if(element instanceof IStreamContentAccessor) {
@@ -179,6 +197,159 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 			}
 		}
 		return new Object[0];
+	}
+
+	private void insertEmptyElements(Object element,
+			List<ComparableTreeObject> comparables) {
+		if(element instanceof NonRootModelElement) {
+			Object leftKey = ModelCacheManager.getLeftKey(mergeViewer.getInput());
+			Object rightKey = ModelCacheManager.getRightKey(mergeViewer.getInput());
+			NonRootModelElement nrme = (NonRootModelElement) element;
+			// if we are the left side, then check the right side for
+			// missing elements
+			if(nrme.getModelRoot().getId().contains("LEFT")) {
+				// we must make sure that the right side is
+				// loaded
+				Object input = mergeViewer.getInput();
+				if(input instanceof DiffNode) {
+					DiffNode node = (DiffNode) input;
+					ITypedElement right = node.getRight();
+					ModelCompareContentProvider rightProvider = new ModelCompareContentProvider(null);
+					rightProvider.setCacheKey(rightKey);
+					Object[] rightChildren = rightProvider.getChildren(right);
+					Object matchingChild = getMatchingChild(element, rightChildren, rightProvider);
+					if(matchingChild != null) {
+						// look at the children for the right side
+						// for any that do not exist locally insert
+						// a blank element
+						// set the merger viewer to empty until we check the
+						// local children
+						ModelContentMergeViewer originalViewer = mergeViewer;
+						mergeViewer = null;
+						Object[] children = rightProvider.getChildren(matchingChild);
+						int location = 0;
+						for(Object child : children) {
+							Object[] leftChildren = getChildren(element);
+							Object leftMatching = null;
+							for(Object leftChild : leftChildren) {
+								if(leftChild.equals(child)) {
+									leftMatching = leftChild;
+									break;
+								}
+							}
+							if(leftMatching == null) {
+								EmptyElement empty = new EmptyElement(child, element);
+								comparables.add(location, empty);
+							}
+							location++;
+						}
+						mergeViewer = originalViewer;
+					}
+				}
+			}
+			// if we are the right side, then check the left side for
+			// missing elements
+			if(nrme.getModelRoot().getId().contains("RIGHT")) {
+				// we must make sure that the right side is
+				// loaded
+				Object input = mergeViewer.getInput();
+				if(input instanceof DiffNode) {
+					DiffNode node = (DiffNode) input;
+					ITypedElement left = node.getLeft();
+					ModelCompareContentProvider leftProvider = new ModelCompareContentProvider(null);
+					leftProvider.setCacheKey(leftKey);
+					Object[] leftChildren = leftProvider.getChildren(left);
+					Object matchingChild = getMatchingChild(element, leftChildren, leftProvider);
+					if(matchingChild != null) {
+						// look at the children for the right side
+						// for any that do not exist locally insert
+						// a blank element
+						// set the merger viewer to empty until we check the
+						// local children
+						ModelContentMergeViewer originalViewer = mergeViewer;
+						mergeViewer = null;
+						Object[] children = leftProvider.getChildren(matchingChild);
+						int location = 0;
+						for(Object child : children) {
+							Object[] rightChildren = getChildren(element);
+							Object rightMatching = null;
+							for(Object rightChild : rightChildren) {
+								if(rightChild.equals(child)) {
+									rightMatching = rightChild;
+									break;
+								}
+							}
+							if(rightMatching == null) {
+								EmptyElement empty = new EmptyElement(child, element);
+								comparables.add(location, empty);
+							}
+							location++;
+						}
+						mergeViewer = originalViewer;
+					}
+				}
+			}
+			// if we are the ancestor, then check the left side for
+			// missing elements
+			if(nrme.getModelRoot().getId().contains("ANCESTOR")) {
+				// we must make sure that the left side is
+				// loaded
+				Object input = mergeViewer.getInput();
+				if(input instanceof DiffNode) {
+					DiffNode node = (DiffNode) input;
+					ITypedElement left = node.getLeft();
+					ModelCompareContentProvider leftProvider = new ModelCompareContentProvider(null);
+					leftProvider.setCacheKey(leftKey);
+					Object[] leftChildren = leftProvider.getChildren(left);
+					Object matchingChild = getMatchingChild(element, leftChildren, leftProvider);
+					if(matchingChild != null) {
+						// look at the children for the left side
+						// for any that do not exist locally insert
+						// a blank element
+						// set the merger viewer to empty until we check the
+						// local children
+						ModelContentMergeViewer originalViewer = mergeViewer;
+						mergeViewer = null;
+						Object[] children = leftProvider.getChildren(matchingChild);
+						int location = 0;
+						for(Object child : children) {
+							Object[] ancestorChildren = getChildren(element);
+							Object ancestorMatching = null;
+							for(Object ancestorChild : ancestorChildren) {
+								if(ancestorChild.equals(child)) {
+									ancestorMatching = ancestorChild;
+									break;
+								}
+							}
+							if(ancestorMatching == null) {
+								EmptyElement empty = new EmptyElement(child, element);
+								comparables.add(location, empty);
+							}
+							location++;
+						}
+						mergeViewer = originalViewer;
+					}
+				}
+			}
+		}
+	}
+
+	private Object getMatchingChild(Object element, Object[] rootElements,
+			ITreeContentProvider provider) {
+		for(Object root : rootElements) {
+			ComparableTreeObject rootTreeObject = ComparableProvider.getComparableTreeObject(root);
+			if(rootTreeObject.equals(ComparableProvider.getComparableTreeObject(element))) {
+				return root;
+			} else {
+				// check the children
+				Object matching = getMatchingChild(element,
+						provider.getChildren(root), provider);
+				if(matching != null) {
+					return matching;
+				}
+			}
+		}
+		return null;
 	}
 
 	private ObjectElement[] getAttributefromInspector(Object object, IModelClassInspector modelInspector){

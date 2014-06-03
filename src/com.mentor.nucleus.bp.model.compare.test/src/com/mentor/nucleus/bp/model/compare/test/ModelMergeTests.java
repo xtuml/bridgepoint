@@ -618,7 +618,7 @@ public class ModelMergeTests extends BaseTest {
 		ModelContentMergeViewer viewer = ModelContentMergeViewer
 				.getInstance(null);
 		SynchronizedTreeViewer leftViewer = viewer.getLeftViewer();
-		ModelCompareContentProvider provider = new ModelCompareContentProvider();
+		ModelCompareContentProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildren(clazz);
 		TreeItem item = leftViewer.getMatchingItem(
 				((ITreeDifferencerProvider) leftViewer.getContentProvider())

@@ -27,6 +27,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
+import com.mentor.nucleus.bp.model.compare.EmptyElement;
 
 public class NonRootModelElementComparable extends ComparableTreeObject implements IAdaptable {
 
@@ -53,6 +54,12 @@ public class NonRootModelElementComparable extends ComparableTreeObject implemen
 					return true;
 				}
 			} else {
+				return true;
+			}
+		}
+		if(other instanceof EmptyElement) {
+			EmptyElement empty = (EmptyElement) other;
+			if(empty.getRealElement().equals(this)) {
 				return true;
 			}
 		}
@@ -109,7 +116,7 @@ public class NonRootModelElementComparable extends ComparableTreeObject implemen
 		if(other instanceof NonRootModelElementComparable) {
 			NonRootModelElementComparable otherComparable = (NonRootModelElementComparable) other;
 			// first check children size
-			ModelCompareContentProvider provider = new ModelCompareContentProvider();
+			ModelCompareContentProvider provider = new ModelCompareContentProvider(null);
 			Object[] thisChildren = provider.getChildren(this);
 			Object[] otherChildren = provider.getChildren(otherComparable);
 			if(thisChildren.length != otherChildren.length) {

@@ -96,7 +96,7 @@ public class ElementOrderingTests extends BaseTest {
 	
 	public void testFunctionParameterOrder() {
 		Function_c function = Function_c.FunctionInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(function, FunctionParameter_c.class);
 		FunctionParameter_c one = (FunctionParameter_c) children[0];
 		FunctionParameter_c two = (FunctionParameter_c) children[1];
@@ -111,7 +111,7 @@ public class ElementOrderingTests extends BaseTest {
 	
 	public void testOperationOrder() {
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(clazz, Operation_c.class);
 		Operation_c one = (Operation_c) children[0];
 		Operation_c two = (Operation_c) children[1];
@@ -126,7 +126,7 @@ public class ElementOrderingTests extends BaseTest {
 
 	public void testOperationParameterParameterOrder() {
 		Operation_c op = Operation_c.OperationInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(op, OperationParameter_c.class);
 		OperationParameter_c one = (OperationParameter_c) children[0];
 		OperationParameter_c two = (OperationParameter_c) children[1];
@@ -141,7 +141,7 @@ public class ElementOrderingTests extends BaseTest {
 	
 	public void testEventParameterOrder() {
 		StateMachineEvent_c evt = StateMachineEvent_c.StateMachineEventInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(evt, StateMachineEventDataItem_c.class);
 		StateMachineEventDataItem_c one = (StateMachineEventDataItem_c) children[0];
 		StateMachineEventDataItem_c two = (StateMachineEventDataItem_c) children[1];
@@ -156,7 +156,7 @@ public class ElementOrderingTests extends BaseTest {
 	
 	public void testAttributeOrder() {
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(clazz, Attribute_c.class);
 		Attribute_c one = (Attribute_c) children[0];
 		Attribute_c two = (Attribute_c) children[1];
@@ -171,7 +171,7 @@ public class ElementOrderingTests extends BaseTest {
 	
 	public void testEnumeratorOrder() {
 		EnumerationDataType_c edt = EnumerationDataType_c.EnumerationDataTypeInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(edt, Enumerator_c.class);
 		Enumerator_c one = (Enumerator_c) children[0];
 		Enumerator_c two = (Enumerator_c) children[1];
@@ -186,7 +186,7 @@ public class ElementOrderingTests extends BaseTest {
 	
 	public void testBridgeParameterOrder() {
 		Bridge_c brg = Bridge_c.BridgeInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(brg, BridgeParameter_c.class);
 		BridgeParameter_c one = (BridgeParameter_c) children[0];
 		BridgeParameter_c two = (BridgeParameter_c) children[1];
@@ -201,7 +201,7 @@ public class ElementOrderingTests extends BaseTest {
 
 	public void testSignalOrder() {
 		Interface_c iface = Interface_c.InterfaceInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(iface, InterfaceSignal_c.class);
 		InterfaceSignal_c one = (InterfaceSignal_c) children[0];
 		InterfaceSignal_c two = (InterfaceSignal_c) children[1];
@@ -216,7 +216,7 @@ public class ElementOrderingTests extends BaseTest {
 	
 	public void testInterfaceOperationOrder() {
 		Interface_c iface = Interface_c.InterfaceInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(iface, InterfaceOperation_c.class);
 		InterfaceOperation_c one = (InterfaceOperation_c) children[0];
 		InterfaceOperation_c two = (InterfaceOperation_c) children[1];
@@ -231,7 +231,7 @@ public class ElementOrderingTests extends BaseTest {
 	
 	public void testPropertyParameterOrder() {
 		InterfaceOperation_c op = InterfaceOperation_c.InterfaceOperationInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(op, PropertyParameter_c.class);
 		PropertyParameter_c one = (PropertyParameter_c) children[0];
 		PropertyParameter_c two = (PropertyParameter_c) children[1];
@@ -246,7 +246,7 @@ public class ElementOrderingTests extends BaseTest {
 	
 	public void testMemberOrder() {
 		StructuredDataType_c sdt = StructuredDataType_c.StructuredDataTypeInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(sdt, StructureMember_c.class);
 		StructureMember_c one = (StructureMember_c) children[0];
 		StructureMember_c two = (StructureMember_c) children[1];
@@ -432,7 +432,7 @@ public class ElementOrderingTests extends BaseTest {
 
 	public void testFunctionParameterMoveUpandDown() throws CoreException {
 		Function_c function = Function_c.FunctionInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(function, FunctionParameter_c.class);
 		FunctionParameter_c two = (FunctionParameter_c) children[1];
 		Transaction transaction = null;
@@ -501,7 +501,7 @@ public class ElementOrderingTests extends BaseTest {
 		UUID smId = Util_c.Getuniquestatemachineid(smClass.getObj_id(), "i");
 		ModelCacheManager.updateIdForStateMachine(smId, sm);
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(clazz, Operation_c.class);
 		Operation_c two = (Operation_c) children[1];
 		Transaction transaction = null;
@@ -558,7 +558,7 @@ public class ElementOrderingTests extends BaseTest {
 
 	public void testOperationParameterMoveUpAndDown() throws CoreException {
 		Operation_c op = Operation_c.OperationInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(op, OperationParameter_c.class);
 		OperationParameter_c two = (OperationParameter_c) children[1];
 		Transaction transaction = null;
@@ -615,7 +615,7 @@ public class ElementOrderingTests extends BaseTest {
 	
 	public void testEventParameterMoveUpAndDown() throws CoreException {
 		StateMachineEvent_c evt = StateMachineEvent_c.StateMachineEventInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(evt, StateMachineEventDataItem_c.class);
 		StateMachineEventDataItem_c two = (StateMachineEventDataItem_c) children[1];
 		Transaction transaction = null;
@@ -672,7 +672,7 @@ public class ElementOrderingTests extends BaseTest {
 	
 	public void testAttributeMoveUpAndDown() throws CoreException {
 		ModelClass_c clazz = ModelClass_c.ModelClassInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(clazz, Attribute_c.class);
 		Attribute_c two = (Attribute_c) children[1];
 		Transaction transaction = null;
@@ -729,7 +729,7 @@ public class ElementOrderingTests extends BaseTest {
 	
 	public void testEnumeratorMoveUpAndDown() throws CoreException {
 		EnumerationDataType_c edt = EnumerationDataType_c.EnumerationDataTypeInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(edt, Enumerator_c.class);
 		Enumerator_c two = (Enumerator_c) children[1];
 		Transaction transaction = null;
@@ -786,7 +786,7 @@ public class ElementOrderingTests extends BaseTest {
 	
 	public void testBridgeParameterMoveUpAndDown() throws CoreException {
 		Bridge_c brg = Bridge_c.BridgeInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(brg, BridgeParameter_c.class);
 		BridgeParameter_c two = (BridgeParameter_c) children[1];
 		Transaction transaction = null;
@@ -843,7 +843,7 @@ public class ElementOrderingTests extends BaseTest {
 
 	public void testSignalMoveUpAndDown() throws CoreException {
 		Interface_c iface = Interface_c.InterfaceInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(iface, InterfaceSignal_c.class);
 		InterfaceSignal_c two = (InterfaceSignal_c) children[1];
 		Transaction transaction = null;
@@ -900,7 +900,7 @@ public class ElementOrderingTests extends BaseTest {
 	
 	public void testInterfaceOperationMoveUpAndDown() throws CoreException {
 		Interface_c iface = Interface_c.InterfaceInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(iface, InterfaceOperation_c.class);
 		InterfaceOperation_c two = (InterfaceOperation_c) children[1];
 		Transaction transaction = null;
@@ -957,7 +957,7 @@ public class ElementOrderingTests extends BaseTest {
 	
 	public void testPropertyParameterMoveUpAndDown() throws CoreException {
 		InterfaceOperation_c iface = InterfaceOperation_c.InterfaceOperationInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(iface, PropertyParameter_c.class);
 		PropertyParameter_c two = (PropertyParameter_c) children[1];
 		Transaction transaction = null;
@@ -1014,7 +1014,7 @@ public class ElementOrderingTests extends BaseTest {
 	
 	public void testMemberMoveUpAndDown() throws CoreException {
 		StructuredDataType_c iface = StructuredDataType_c.StructuredDataTypeInstance(modelRoot);
-		ITreeDifferencerProvider provider = new ModelCompareContentProvider();
+		ITreeDifferencerProvider provider = new ModelCompareContentProvider(null);
 		Object[] children = provider.getChildrenOfType(iface, StructureMember_c.class);
 		StructureMember_c two = (StructureMember_c) children[1];
 		Transaction transaction = null;

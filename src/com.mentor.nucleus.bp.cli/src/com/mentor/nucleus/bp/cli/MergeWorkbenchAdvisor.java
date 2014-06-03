@@ -146,7 +146,7 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 			if (ancestorImporter != null) {
 				ancestorRoot = ancestorImporter.getRootModelElement();
 			}
-			ModelCompareContentProvider contentProvider = new ModelCompareContentProvider();
+			ModelCompareContentProvider contentProvider = new ModelCompareContentProvider(null);
 			contentProvider.setModelRoots(new Ooaofooa[] { leftCompareRoot,
 					rightCompareRoot, ancestorCompareRoot });
 			ModelCompareLabelProvider labelProvider = new ModelCompareLabelProvider();
