@@ -74,8 +74,6 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.core.CorePlugin;
-import com.mentor.nucleus.bp.core.Ooaofooa;
-import com.mentor.nucleus.bp.core.Operation_c;
 import com.mentor.nucleus.bp.core.StateMachineState_c;
 import com.mentor.nucleus.bp.core.Transition_c;
 import com.mentor.nucleus.bp.core.common.ITransactionListener;
@@ -102,7 +100,6 @@ import com.mentor.nucleus.bp.ui.canvas.Ooaofgraphics;
 import com.mentor.nucleus.bp.ui.explorer.ui.actions.ExplorerCopyAction;
 import com.mentor.nucleus.bp.ui.explorer.ui.actions.ExplorerCutAction;
 import com.mentor.nucleus.bp.ui.explorer.ui.actions.ExplorerPasteAction;
-import com.sun.org.apache.xpath.internal.operations.Operation;
 
 public class SynchronizedTreeViewer extends TreeViewer implements
 		ITransactionListener {
@@ -1009,7 +1006,7 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 		super.handleTreeExpand(event);
 	}
 
-	public TreeItem getMatchingItem(Object data, SynchronizedTreeViewer viewer) {
+	public static TreeItem getMatchingItem(Object data, SynchronizedTreeViewer viewer) {
 		if (data == null)
 			return null;
 		TreeItem item = (TreeItem) viewer.findItem(data);

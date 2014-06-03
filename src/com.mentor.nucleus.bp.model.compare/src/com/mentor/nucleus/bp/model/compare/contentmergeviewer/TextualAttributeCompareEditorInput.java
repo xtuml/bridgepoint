@@ -207,7 +207,7 @@ public class TextualAttributeCompareEditorInput extends CompareEditorInput {
 	}
 
 	protected String getPath(ObjectElement element) {
-		ModelCompareContentProvider contProvider = new ModelCompareContentProvider();
+		ModelCompareContentProvider contProvider = new ModelCompareContentProvider(viewer.getMergeViewer());
 		// start with the element's parent's parent
 		NonRootModelElementComparable parentComparable = (NonRootModelElementComparable) contProvider
 				.getParent(element.getParent());

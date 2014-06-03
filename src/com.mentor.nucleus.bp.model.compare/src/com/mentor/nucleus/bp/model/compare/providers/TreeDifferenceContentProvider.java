@@ -46,7 +46,7 @@ import com.mentor.nucleus.bp.model.compare.contentmergeviewer.SynchronizedTreeVi
 public class TreeDifferenceContentProvider implements ITreeContentProvider {
 
 	private TreeDifferencer differencer;
-	private ModelCompareContentProvider modelContentProvider = new ModelCompareContentProvider();
+	private ModelCompareContentProvider modelContentProvider = new ModelCompareContentProvider(null);
 	private TreeDifferenceLabelProvider labelProvider = null;
 	
 	public TreeDifferenceContentProvider(

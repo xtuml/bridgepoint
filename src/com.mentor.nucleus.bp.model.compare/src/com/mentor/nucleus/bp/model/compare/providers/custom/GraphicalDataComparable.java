@@ -36,7 +36,7 @@ public class GraphicalDataComparable extends NonRootModelElementComparable {
 	@Override
 	public boolean treeItemEquals(Object other) {
 		if(other instanceof GraphicalDataComparable) {
-			ModelCompareContentProvider provider = new ModelCompareContentProvider();
+			ModelCompareContentProvider provider = new ModelCompareContentProvider(null);
 			Object otherParent = provider.getParent(other);
 			Object thisParent = provider.getParent(this);
 			if(otherParent == null && thisParent == null) {

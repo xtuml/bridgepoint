@@ -972,7 +972,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		leftTreeViewer = new SynchronizedTreeViewer(leftPanel, SWT.H_SCROLL
 				| SWT.MULTI | SWT.FULL_SELECTION | SWT.DOUBLE_BUFFERED
 				| SWT.NO_BACKGROUND | SWT.BORDER, this, configuration.isLeftEditable(), false);
-		ModelCompareContentProvider leftContentProvider = new ModelCompareContentProvider();
+		ModelCompareContentProvider leftContentProvider = new ModelCompareContentProvider(this);
 		leftContentProvider.setIncludeNonTreeData(false);
 		leftTreeViewer.setContentProvider(leftContentProvider);
 		leftTreeViewer.setUseHashlookup(true);
@@ -1011,7 +1011,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		rightTreeViewer.addSynchronizationViewer(leftTreeViewer);
 		rightTreeViewer.setUseHashlookup(true);
 		leftTreeViewer.addSynchronizationViewer(rightTreeViewer);
-		ModelCompareContentProvider rightProvider = new ModelCompareContentProvider();
+		ModelCompareContentProvider rightProvider = new ModelCompareContentProvider(this);
 		rightProvider.setIncludeNonTreeData(false);
 		rightTreeViewer.setContentProvider(rightProvider);
 		rightTreeViewer.setLabelProvider(new ModelCompareLabelProvider());
@@ -1033,7 +1033,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				| SWT.DOUBLE_BUFFERED | SWT.NO_BACKGROUND | SWT.BORDER, this,
 				false, true);
 		ancestorTreeViewer.setUseHashlookup(true);
-		ModelCompareContentProvider ancestorProvider = new ModelCompareContentProvider();
+		ModelCompareContentProvider ancestorProvider = new ModelCompareContentProvider(this);
 		ancestorProvider.setIncludeNonTreeData(false);
 		ancestorTreeViewer.setContentProvider(ancestorProvider);
 		ancestorTreeViewer.setLabelProvider(new ModelCompareLabelProvider());
@@ -1421,7 +1421,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				}
 				differencer = TreeDifferencer.getInstance(getInput());
 				if(differencer == null) {
-					differencer = new TreeDifferencer(new ModelCompareContentProvider()
+					differencer = new TreeDifferencer(new ModelCompareContentProvider(this)
 							,
 							leftElements, rightElements, ancestorElements,
 							isThreeWay(), getInput());
