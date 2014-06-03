@@ -363,6 +363,16 @@ ${rel_nav.body}\
 		}
 		return CorePlugin.getImageFor("${tree_node.Icon}");
 	}
-    }       
+	
+	public int getNextSlot() {
+.assign num_of_attr = cardinality attrs
+.assign external_attr_count = cardinality external_attrs
+.assign num_of_attr = num_of_attr + external_attr_count
+ ObjectElement[] referentials = getReferentials(this);
+int numReferentials = referentials.length;
+ int numAttributes = ${num_of_attr};
+		return numReferentials+numAttributes;
+	}
+	}       
 .end function
 .//

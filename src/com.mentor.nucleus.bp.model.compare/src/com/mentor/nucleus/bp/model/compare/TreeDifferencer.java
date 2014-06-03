@@ -16,6 +16,7 @@ import com.mentor.nucleus.bp.core.InterfaceOperation_c;
 import com.mentor.nucleus.bp.core.InterfaceSignal_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.inspector.ObjectElement;
+import com.mentor.nucleus.bp.core.sorter.MetadataSortingManager;
 import com.mentor.nucleus.bp.model.compare.contentmergeviewer.SynchronizedTreeViewer;
 import com.mentor.nucleus.bp.model.compare.providers.NonRootModelElementComparable;
 
@@ -200,39 +201,19 @@ public class TreeDifferencer extends Differencer {
 			element = ((ComparableTreeObject) element).getRealElement();
 		}
 		Object[] children = contentProvider.getChildren(otherParent);
-		int elementSlot = getSlot(element);
+		int elementSlot = MetadataSortingManager.getOrderedSlot(element);
 		for (int i = 0; i <= elementSlot; i++) {
 			for (int j = 0; j < children.length; j++) {
 				Object child = children[j];
 				if (child instanceof ComparableTreeObject) {
 					child = ((ComparableTreeObject) child).getRealElement();
 				}
-				if (child.getClass() == getElementTypeAtSlot(i)) {
+				if (child.getClass() == MetadataSortingManager.getOrderedElementTypeAtSlot(i)) {
 					location++;
 				}
 			}
 		}
 		return location;
-	}
-	
-	public static Class<?> getElementTypeAtSlot(int slot) {
-		if(slot == 1) {
-			return InterfaceOperation_c.class;
-		}
-		if(slot == 2) {
-			return InterfaceSignal_c.class;
-		}
-		return ObjectElement.class;
-	}
-	
-	public static int getSlot(Object element) {
-		if(element instanceof InterfaceOperation_c) {
-			return 1;
-		}
-		if(element instanceof InterfaceSignal_c) {
-			return 2;
-		}
-		return 0;
 	}
 	
 	public static TreePath getPathForElement(Object object, ITreeContentProvider contentProvider) {
