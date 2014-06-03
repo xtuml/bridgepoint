@@ -178,7 +178,7 @@ public class TreeDifferencer extends Differencer {
 		}
 		return count;		
 	}
-		
+
 	public static TreePath getPathForElement(Object object, ITreeContentProvider contentProvider) {
 		List<Object> segments = new ArrayList<Object>();
 		Object parent = object;
