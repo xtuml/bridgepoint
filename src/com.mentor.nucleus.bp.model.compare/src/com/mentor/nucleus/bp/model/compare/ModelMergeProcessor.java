@@ -102,7 +102,7 @@ public class ModelMergeProcessor {
 			ITreeDifferencerProvider contentProvider, ITableLabelProvider labelProvider, Ooaofooa destinationModelRoot)
 			throws IOException {
 		// this is a removal
-		if (difference.getElement() == null
+		if (difference.getElement() instanceof EmptyElement
 				&& difference.getMatchingDifference().getElement() instanceof NonRootModelElementComparable) {
 			NonRootModelElementComparable localComparable = (NonRootModelElementComparable) difference
 					.getMatchingDifference().getElement();
@@ -126,7 +126,8 @@ public class ModelMergeProcessor {
 				&& difference.getElement() != null
 				&& difference.getMatchingDifference().getElement() != null
 				&& difference.getLocation() != difference
-						.getMatchingDifference().getLocation()) {
+						.getMatchingDifference().getLocation()
+				&& !(difference.getMatchingDifference().getElement() instanceof EmptyElement)) {
 			// this is a positional change
 			return handlePositionChange(difference, contentProvider);
 		}
@@ -376,18 +377,13 @@ public class ModelMergeProcessor {
 			Ooaofooa modelRoot, TreeDifferencer differencer, boolean rightToLeft) throws IOException {
 		Object matchingDiffElement = difference.getMatchingDifference()
 				.getElement();
-		NonRootModelElement parent = null;
-		if (matchingDiffElement != null) {
-			parent = (NonRootModelElement) ((NonRootModelElementComparable) contentProvider
-					.getParent(matchingDiffElement)).getRealElement();
-		} else {
-			parent = (NonRootModelElement) ((NonRootModelElementComparable) difference
-					.getMatchingDifference().getParent()).getRealElement();
+		if(!(matchingDiffElement instanceof EmptyElement)) {
+			// not supported
+			return false;
 		}
-		int newElementLocation = TreeDifferencer
-				.getLocationOfElement(contentProvider.getParent(diffElement),
-						diffElement,
-						(ITreeDifferencerProvider) contentProvider);
+		EmptyElement empty = (EmptyElement) matchingDiffElement;
+		NonRootModelElement parent = (NonRootModelElement) empty.getParent();
+		int newElementLocation = empty.getLocation();
 		// create deltas for the creation of a new element
 		NonRootModelElement newObject = null;
 		Object realElement = ((ComparableTreeObject) diffElement)
@@ -400,14 +396,17 @@ public class ModelMergeProcessor {
 		// we may need to adjust the ordering after the copy
 		Object existingElementAtNewLocation = null;
 		if(newElementLocation < existingChildren.length) {
-			existingElementAtNewLocation = ((ComparableTreeObject) existingChildren[newElementLocation]).getRealElement();
+			existingElementAtNewLocation = ((ComparableTreeObject) existingChildren[newElementLocation + 1])
+					.getRealElement();
 		}
 		Object nextToExisting = null;
 		String associationPhrase = MetadataSortingManager.getAssociationPhrase(realElement);
 		String association = MetadataSortingManager.getAssociationNumber(realElement);
 		if (MetadataSortingManager.isOrderedElement(realElement)
 				&& newElementLocation > 0
-				&& existingElementAtNewLocation != null) {
+				&& existingElementAtNewLocation != null
+				&& realElement.getClass().isInstance(
+						existingElementAtNewLocation)) {
 			// cache the next to existing so that we can re-relate
 			// batch relate breaks the association as it sets the
 			// existing element up with the new element
@@ -454,7 +453,8 @@ public class ModelMergeProcessor {
 			}
 			return false;
 		}
-		if(matchingDiffElement != null) {
+		if (matchingDiffElement != null
+				&& !(matchingDiffElement instanceof EmptyElement)) {
 			// this is a value difference, we need to dispose the current value
 			// first
 			disposeElement(matchingDiffElement);
@@ -548,8 +548,8 @@ public class ModelMergeProcessor {
 						+ association + "To" + associationPhrase,
 						newObject.getClass(),
 						new Class[] { newObject.getClass() });
-				invokeMethod(findMethod, existingElementAtNewLocation,
-						new Object[] { newObject });
+				invokeMethod(findMethod, newObject,
+						new Object[] { existingElementAtNewLocation });
 				if(nextToExisting != null) {
 					// need to first unrelate otherwise the relate
 					// will not work, here we are just trying to fix
