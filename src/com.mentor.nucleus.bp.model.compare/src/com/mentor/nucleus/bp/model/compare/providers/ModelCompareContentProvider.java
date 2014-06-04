@@ -329,6 +329,38 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 						}
 						mergeViewer = originalViewer;
 					}
+					// repeat to add empty elements for missing right elements
+					ModelCompareContentProvider rightProvider = new ModelCompareContentProvider(null);
+					rightProvider.setCacheKey(rightKey);
+					Object[] rightChildren = rightProvider.getChildren(left);
+					matchingChild = getMatchingChild(element, rightChildren, rightProvider);
+					if(matchingChild != null) {
+						// look at the children for the left side
+						// for any that do not exist locally insert
+						// a blank element
+						// set the merger viewer to empty until we check the
+						// local children
+						ModelContentMergeViewer originalViewer = mergeViewer;
+						mergeViewer = null;
+						Object[] children = rightProvider.getChildren(matchingChild);
+						int location = 0;
+						for(Object child : children) {
+							Object[] ancestorChildren = getChildren(element);
+							Object ancestorMatching = null;
+							for(Object ancestorChild : ancestorChildren) {
+								if(ancestorChild.equals(child)) {
+									ancestorMatching = ancestorChild;
+									break;
+								}
+							}
+							if(ancestorMatching == null) {
+								EmptyElement empty = new EmptyElement(child, element, location);
+								comparables.add(location, empty);
+							}
+							location++;
+						}
+						mergeViewer = originalViewer;
+					}
 				}
 			}
 		}
@@ -442,6 +474,10 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 			}
 		}
 		return children.toArray();
+	}
+
+	public void setMergeViewer(ModelContentMergeViewer mergeViewer) {
+		this.mergeViewer = mergeViewer;
 	}
 
 }

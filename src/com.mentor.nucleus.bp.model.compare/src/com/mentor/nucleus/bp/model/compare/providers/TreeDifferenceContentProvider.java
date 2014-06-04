@@ -41,6 +41,7 @@ import com.mentor.nucleus.bp.model.compare.ModelCacheManager;
 import com.mentor.nucleus.bp.model.compare.TreeDifference;
 import com.mentor.nucleus.bp.model.compare.TreeDifferencer;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager.ModelLoadException;
+import com.mentor.nucleus.bp.model.compare.contentmergeviewer.ModelContentMergeViewer;
 import com.mentor.nucleus.bp.model.compare.contentmergeviewer.SynchronizedTreeViewer;
 
 public class TreeDifferenceContentProvider implements ITreeContentProvider {
@@ -48,6 +49,7 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 	private TreeDifferencer differencer;
 	private ModelCompareContentProvider modelContentProvider = new ModelCompareContentProvider(null);
 	private TreeDifferenceLabelProvider labelProvider = null;
+	private ModelContentMergeViewer mergeViewer;
 	
 	public TreeDifferenceContentProvider(
 			TreeDifferenceLabelProvider labelProvider) {
@@ -57,6 +59,7 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 	@Override
 	public Object[] getChildren(Object parentElement) {
 		List<Object> differenceSet = new ArrayList<Object>();
+		modelContentProvider.setMergeViewer(mergeViewer);
 		Object[] children = modelContentProvider.getChildren(parentElement);
 		List<Object> orderedChildren = new ArrayList<Object>();
 		orderedChildren.addAll(Arrays.asList(children));
@@ -242,6 +245,10 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 	}
 
 	public void refresh() {
+	}
+
+	public void setMergeViewer(ModelContentMergeViewer mergeViewer) {
+		this.mergeViewer = mergeViewer;
 	}
 
 }

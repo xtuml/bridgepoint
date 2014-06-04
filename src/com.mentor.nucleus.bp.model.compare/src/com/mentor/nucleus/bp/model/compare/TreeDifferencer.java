@@ -142,8 +142,8 @@ public class TreeDifferencer extends Differencer {
 		int description= NO_CHANGE;
 		
 		if (threeWay) {
-			if (ancestor == null) {
-				if (left == null) {
+			if (ancestor == null || ancestor instanceof EmptyElement) {
+				if (left == null || left instanceof EmptyElement) {
 					if (right == null) {
 						Assert.isTrue(false);
 						// shouldn't happen
@@ -151,7 +151,7 @@ public class TreeDifferencer extends Differencer {
 						description= RIGHT | ADDITION;
 					}
 				} else {
-					if (right == null) {
+					if (right == null || right instanceof EmptyElement) {
 						description= LEFT | ADDITION;
 					} else {
 						description= CONFLICTING | ADDITION;
@@ -160,8 +160,8 @@ public class TreeDifferencer extends Differencer {
 					}
 				}
 			} else {
-				if (left == null) {
-					if (right == null) {
+				if (left == null || left instanceof EmptyElement) {
+					if (right == null || right instanceof EmptyElement) {
 						description= CONFLICTING | DELETION | PSEUDO_CONFLICT;
 					} else {
 						if (elementsEqualIncludingValues(ancestor, right, true, true))		
@@ -170,7 +170,7 @@ public class TreeDifferencer extends Differencer {
 							description= CONFLICTING | CHANGE;	
 					}
 				} else {
-					if (right == null) {
+					if (right == null || right instanceof EmptyElement) {
 						if (elementsEqualIncludingValues(ancestor, left, true, true))	
 							description= RIGHT | DELETION;
 						else
@@ -213,15 +213,15 @@ public class TreeDifferencer extends Differencer {
 				}
 			}
 		} else {	// two way compare ignores ancestor
-			if (left == null) {
-				if (right == null) {
+			if (left == null || left instanceof EmptyElement) {
+				if (right == null || right instanceof EmptyElement) {
 					Assert.isTrue(false);
 					// shouldn't happen
 				} else {
 					description= ADDITION;
 				}
 			} else {
-				if (right == null) {
+				if (right == null || right instanceof EmptyElement) {
 					description= DELETION;
 				} else {
 					if (! elementsEqualIncludingValues(left, right, false, false))
