@@ -10,6 +10,37 @@ MSD Weekly Meeting Minutes
 
 ---
 ---
+    Date:     4th June 2014
+
+    Start:    1200 EDT
+    End:      
+    Present:  Keith, Travis, Campbell, Cort, others...
+            Dean, Robert, others...
+
+### Agenda
+* Training materials progress
+* Progress on patch release (Travis)
+* Engineering involvement in sales opportunity at Yazaki (Dean)
+* Customer Support (Robert)
+
+### Engineering status
+**Training materials progress (Keith) -**
+Moving forward, reviewed and uploaded several movies to YouTube. Keith, Cort, and Travis are reviewing. Added status tracking for each segment into training document to better track current state of development. Will continue development as time is available during patch release work. We're seeing the light at the end of the tunnel!
+
+**Progress on patch release (Travis) -**
+ISM/CSM state IDs caused corruption in a version of the patch; Ericsson encountered this. Further issues with compare/merge element ordering have taken a lot of time to resolve. Travis is re-architecting and refactoring code for compare logic to make the code simpler. Good progress is now being made, possibly a patch in 3-4 more days.
+
+### Marketing
+**Engineering involvement in sales opportunity at Yazaki (Dean) -**
+Two large deals possible in the June/July timeframe. The larger of the two is at Ericsson, and is making good progress with Serge's involvement. Yazaki is a new potential customer, but there are technical and political concerns which have jeopardized BridgePoint's place in the deal. Status for BP inclusion in a services deal at Yazaki is currently positive, but by no means assured. An evaluation is just starting to ramp up a Datacom in Brazil (a wholly owned subsidiary of Embraer). They provide command and control products and services for the Brazilian military. They're interested in BridgePoint as related to the SAAB aircraft deal with the Brazilian government. SAAB is still investigating the effect that Model Compiler license linger will have on their MC usage as they migrate to 4.1.
+
+### Customer Support Status
+**Robert -**
+No customer issues to report. Not surprising as we are entering summer vacation time for most of Europe. CSD is going to designate an EU support engineer to help handle BridgePoint issues, so service level agreements can be better met. This engineer will likely be based in the UK or Israel and will be brought up to speed over the next few months.
+
+
+---
+---
     Date:     21th May 2014
 
     Start:    1200 EDT
