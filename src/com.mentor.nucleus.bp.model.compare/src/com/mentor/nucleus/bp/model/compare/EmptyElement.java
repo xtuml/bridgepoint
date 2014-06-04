@@ -77,7 +77,7 @@ public class EmptyElement extends ComparableTreeObject {
 	 */
 	@Override
 	public boolean treeItemValueEquals(Object other) {
-		return true;
+		return false;
 	}
 
 	/* (non-Javadoc)

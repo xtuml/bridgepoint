@@ -114,6 +114,9 @@ public class ModelStructureDiffViewer extends TreeViewer implements ICompareInpu
 			configuration.getContainer().removeCompareInputChangeListener((ICompareInput) oldInput, this);
 		}
 		if(input != null) {
+			// set the merge viewer for the content provider
+			((TreeDifferenceContentProvider) getContentProvider())
+					.setMergeViewer(ModelContentMergeViewer.getInstance(input));
 			configuration.getContainer().addCompareInputChangeListener((ICompareInput) input, this);
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				
