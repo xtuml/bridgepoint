@@ -23,16 +23,26 @@ package com.mentor.nucleus.bp.model.compare;
 
 public class EmptyElement extends ComparableTreeObject {
 	
-	private Object realElement;
 	private Object parent;
+	private Object represents;
+	private int location;
 
-	public EmptyElement(Object realElement, Object parent) {
-		this.realElement = realElement;
+	public EmptyElement(Object represents, Object parent, int location) {
 		this.parent = parent;
+		this.represents = represents;
+		this.location = location;
 	}
 
 	public Object getParent() {
 		return this.parent;
+	}
+	
+	public Object getRepresentedMissingElement() {
+		return this.represents;
+	}
+	
+	public int getLocation() {
+		return location;
 	}
 	
 	/* (non-Javadoc)
@@ -41,7 +51,7 @@ public class EmptyElement extends ComparableTreeObject {
 	@Override
 	public boolean treeItemEquals(Object other) {
 		if(other instanceof ComparableTreeObject) {
-			return realElement.equals(other);
+			return represents.equals(other);
 		}
 		return false;
 	}
@@ -51,7 +61,7 @@ public class EmptyElement extends ComparableTreeObject {
 	 */
 	@Override
 	public boolean treeItemTypeEquals(Object other) {
-		return false;
+		return true;
 	}
 
 	/* (non-Javadoc)
@@ -59,7 +69,7 @@ public class EmptyElement extends ComparableTreeObject {
 	 */
 	@Override
 	public boolean treeItemNameMatches(Object other) {
-		return false;
+		return true;
 	}
 
 	/* (non-Javadoc)
@@ -67,7 +77,7 @@ public class EmptyElement extends ComparableTreeObject {
 	 */
 	@Override
 	public boolean treeItemValueEquals(Object other) {
-		return false;
+		return true;
 	}
 
 	/* (non-Javadoc)
@@ -75,6 +85,14 @@ public class EmptyElement extends ComparableTreeObject {
 	 */
 	@Override
 	public boolean treeItemValueEqualsIncludingChildren(Object other) {
+		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.mentor.nucleus.bp.model.compare.ComparableTreeObject#ignoreOrdering()
+	 */
+	@Override
+	public boolean ignoreOrdering() {
 		return false;
 	}
 
@@ -83,6 +101,16 @@ public class EmptyElement extends ComparableTreeObject {
 	 */
 	@Override
 	public Object getRealElement() {
-		return realElement;
+		return this;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		return represents.hashCode();
+	}
+	
+	
 }

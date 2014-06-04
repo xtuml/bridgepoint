@@ -238,7 +238,7 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 								}
 							}
 							if(leftMatching == null) {
-								EmptyElement empty = new EmptyElement(child, element);
+								EmptyElement empty = new EmptyElement(child, element, location);
 								comparables.add(location, empty);
 							}
 							location++;
@@ -280,7 +280,7 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 								}
 							}
 							if(rightMatching == null) {
-								EmptyElement empty = new EmptyElement(child, element);
+								EmptyElement empty = new EmptyElement(child, element, location);
 								comparables.add(location, empty);
 							}
 							location++;
@@ -322,7 +322,7 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 								}
 							}
 							if(ancestorMatching == null) {
-								EmptyElement empty = new EmptyElement(child, element);
+								EmptyElement empty = new EmptyElement(child, element, location);
 								comparables.add(location, empty);
 							}
 							location++;
