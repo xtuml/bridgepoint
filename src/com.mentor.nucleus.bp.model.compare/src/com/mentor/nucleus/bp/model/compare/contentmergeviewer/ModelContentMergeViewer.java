@@ -1142,164 +1142,25 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			}
  			gc.setForeground(getColor(PlatformUI.getWorkbench().getDisplay(),
 					getStrokeColor(difference)));
-			if (leftTreeViewer.getTree().getItems().length == 0) {
-				// there are no left items, therefore there will
-				// be one large difference on the right
-				// draw a line from the left to the center of the
-				// right top element including children
-				TreeItem topItem = rightTreeViewer.getTree().getItems()[0];
-				Rectangle otherHighlightRect = rightTreeViewer
-						.buildHighlightRectangle(topItem, false, gc, true, true);
-				int[] points = getCenterCurvePoints(0, leftTreeViewer.getTree().getHeaderHeight() + 2,
-						canvas.getBounds().width, otherHighlightRect.y
-								+ (otherHighlightRect.height / 2));
-				for (int i = 1; i < points.length; i++)
-					gc.drawLine(i - 1, points[i - 1], i, points[i]);
-				continue;
-			}
 			TreeItem leftItem = leftTreeViewer.getItemForDifference(difference);
-			if ((leftItem == null || leftItem.isDisposed())
-					&& !(difference.getLocation() >= 0)) {
+			if (leftItem == null || leftItem.isDisposed()) {
 				continue;
 			}
-			TreeItem matchingItem = null;
-			if (leftItem == null) {
-				// use item at location in difference
-				leftItem = leftTreeViewer.getTree().getItem(difference.getLocation());
-				Rectangle leftBounds = leftTreeViewer.buildHighlightRectangle(
-						leftItem, leftItem.getExpanded(), gc, true, true);
-				matchingItem = rightTreeViewer.getItemForDifference(difference
-						.getMatchingDifference());
-				// can happen during load
-				if(matchingItem == null) {
-					continue;
-				}
-				Rectangle rightBounds = rightTreeViewer.buildHighlightRectangle(
-						matchingItem, false, gc, true, true);
-				// draw a line from the left edge to the right edge
-				int[] points = getCenterCurvePoints(0, leftBounds.y
-						+ leftBounds.height, canvas.getBounds().width,
-						rightBounds.y + (rightBounds.height / 2));
-				for (int i = 1; i < points.length; i++)
-					gc.drawLine(i - 1, points[i - 1], i, points[i]);
-				continue;
-			} else {
-				matchingItem = leftTreeViewer.getMatchingItem(leftItem.getData(),
+			TreeItem matchingItem = SynchronizedTreeViewer.getMatchingItem(leftItem.getData(),
 						rightTreeViewer);
-			}
-			if (getDifferencer().elementsEqual(leftItem.getData(),
-					difference.getElement())) {
-				// if not a container of the real difference element
-				// then find the matching difference element
-				matchingItem = leftTreeViewer.getMatchingItem(difference
-						.getMatchingDifference().getElement(), rightTreeViewer);
-			}
-			// draw any missing items on this side
-			if (difference.getParent() != null
-					&& leftItem.getData().equals(difference.getParent())
-					&& (leftItem.getItems().length == 0 || leftItem
-							.getExpanded())) {
-
-				TreeItem otherItem = leftTreeViewer.getMatchingItem(difference
-						.getMatchingDifference().getElement(), rightTreeViewer);
-				TreeItem prevItem = SynchronizedTreeViewer
-						.getPreviousItem(leftItem, difference);
-				if (prevItem == null || prevItem.getData() == null
-						|| otherItem == null || otherItem.getData() == null) {
-					continue;
-				}
-				Rectangle otherHighlightRect = rightTreeViewer
-						.buildHighlightRectangle(otherItem, false, gc, true, true);
-				Rectangle prevItemBounds = leftTreeViewer
-						.buildHighlightRectangle(prevItem, !prevItem.getData()
-								.equals(difference.getParent()), gc, true, true);
-				int[] points = getCenterCurvePoints(0, prevItemBounds.y
-						+ prevItemBounds.height, canvas.getBounds().width,
-						otherHighlightRect.y + (otherHighlightRect.height / 2));
-				for (int i = 1; i < points.length; i++)
-					gc.drawLine(i - 1, points[i - 1], i, points[i]);
+			if(matchingItem == null) {
 				continue;
 			}
 			Rectangle leftBounds = leftTreeViewer.buildHighlightRectangle(leftItem,
 					false, gc, true, true);
-			if (matchingItem == null) {
-				// if the right side is empty, draw a line at the top
-				if ((rightTreeViewer.getTree().getItems().length == 0 || (difference
-						.getMatchingDifference().getParent() == null
-						&& difference.getMatchingDifference().getElement() == null)
-						&& !(difference.getMatchingDifference().getLocation() >= 0))) {
-					// draw a line for each missing item
-					int[] points = getCenterCurvePoints(0, leftBounds.y
-							+ (leftBounds.height / 2),
-							canvas.getBounds().width, rightTreeViewer.getTree().getHeaderHeight() + 2);
-					for (int i = 1; i < points.length; i++)
-						gc.drawLine(i - 1, points[i - 1], i, points[i]);
-				} else {
-					// draw the line to where the missing element line
-					// would be drawn
-					TreeItem otherSideParent = null;
-					if (difference.getMatchingDifference().getParent() == null
-							&& difference.getMatchingDifference().getElement() == null) {
-						// this is for the root, use the item found at
-						// the location specified in the difference
-						otherSideParent = rightTreeViewer.getTree().getItem(
-								difference.getMatchingDifference()
-										.getLocation());
-						Rectangle prevItemBounds = leftTreeViewer
-								.buildHighlightRectangle(otherSideParent,
-										otherSideParent.getExpanded(), gc, true, true);
-						int[] points = getCenterCurvePoints(0, leftBounds.y
-								+ (leftBounds.height / 2),
-								canvas.getBounds().width, prevItemBounds.y
-										+ prevItemBounds.height);
-						for (int i = 1; i < points.length; i++)
-							gc.drawLine(i - 1, points[i - 1], i, points[i]);
-						continue;
-					} else {
-						otherSideParent = leftTreeViewer.getMatchingItem(leftItem
-								.getParentItem().getData(), rightTreeViewer);
-					}
-					if(otherSideParent == null) {
-						// we are currently expanding the tree
-						continue;
-					}
-					List<TreeDifference> diffs = differencer
-							.getRightDifferences();
-					for (TreeDifference diff : diffs) {
-						if (diff.getParent() != null
-								&& otherSideParent.getData().equals(
-										diff.getParent())
-								&& (otherSideParent.getItems().length == 0 || otherSideParent
-										.getExpanded())
-								&& getDifferencer().elementsEqual(
-										diff.getMatchingDifference()
-												.getElement(),
-										leftItem.getData())) {
-							// draw a line for each missing item
-							int location = diff.getLocation();
-							TreeItem prevItem = SynchronizedTreeViewer
-									.getPreviousItem(otherSideParent, diff);
-							Rectangle prevItemBounds = rightTreeViewer
-									.buildHighlightRectangle(prevItem,
-											location >= 0, gc, true, true);
-							int[] points = getCenterCurvePoints(0, leftBounds.y
-									+ (leftBounds.height / 2), canvas
-									.getBounds().width, prevItemBounds.y
-									+ prevItemBounds.height);
-							for (int i = 1; i < points.length; i++)
-								gc.drawLine(i - 1, points[i - 1], i, points[i]);
-						}
-					}
-				}
-			} else {
-				Rectangle rightBounds = rightTreeViewer.buildHighlightRectangle(
-						matchingItem, false, gc, true, true);
-				// draw a line from the left edge to the right edge
-				int[] points = getCenterCurvePoints(0, leftBounds.y
-						+ (leftBounds.height / 2), canvas.getBounds().width,
-						rightBounds.y + (rightBounds.height / 2));
-				for (int i = 1; i < points.length; i++)
-					gc.drawLine(i - 1, points[i - 1], i, points[i]);
+			Rectangle rightBounds = rightTreeViewer.buildHighlightRectangle(
+					matchingItem, false, gc, true, true);
+			// draw a line from the left edge to the right edge
+			int[] points = getCenterCurvePoints(0, leftBounds.y
+					+ (leftBounds.height / 2), canvas.getBounds().width,
+					rightBounds.y + (rightBounds.height / 2));
+			for (int i = 1; i < points.length; i++) {
+				gc.drawLine(i - 1, points[i - 1], i, points[i]);
 			}
 		}
 	}
