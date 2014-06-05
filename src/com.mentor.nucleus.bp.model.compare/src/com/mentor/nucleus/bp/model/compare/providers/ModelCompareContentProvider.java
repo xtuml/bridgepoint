@@ -25,9 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.compare.IStreamContentAccessor;
-import org.eclipse.compare.ITypedElement;
-import org.eclipse.compare.structuremergeviewer.DiffNode;
-import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
 import com.mentor.nucleus.bp.core.AttributeReferenceInClass_c;
@@ -42,9 +39,7 @@ import com.mentor.nucleus.bp.core.sorter.MetadataSortingManager;
 import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 import com.mentor.nucleus.bp.model.compare.ComparePlugin;
 import com.mentor.nucleus.bp.model.compare.EmptyElement;
-import com.mentor.nucleus.bp.model.compare.ModelCacheManager;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager.ModelLoadException;
-import com.mentor.nucleus.bp.model.compare.contentmergeviewer.ModelContentMergeViewer;
 import com.mentor.nucleus.bp.ui.canvas.GraphicalElement_c;
 import com.mentor.nucleus.bp.ui.canvas.Model_c;
 import com.mentor.nucleus.bp.ui.canvas.Ooaofgraphics;
@@ -57,12 +52,10 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 	private Ooaofooa modelRoot;
 	private Object cacheKey;
 	private Ooaofooa[] modelRoots;
-	private ModelContentMergeViewer mergeViewer;
+	private NonRootModelElement[] leftRoots = new NonRootModelElement[0];
+	private NonRootModelElement[] rightRoots = new NonRootModelElement[0];
+	private boolean includeMissingElements = true;
 
-	public ModelCompareContentProvider(ModelContentMergeViewer mergeViewer) {
-		this.mergeViewer = mergeViewer;
-	}
-	
 	public Object getParent(Object element) {
 		if(element instanceof ComparableTreeObject) {
 			element = ((ComparableTreeObject) element).getRealElement();
@@ -174,7 +167,8 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 				comparables.add(getComparableTreeObject(object));
 			}
 			// insert empty elements
-			if(mergeViewer != null) {
+			if ((leftRoots.length != 0 || rightRoots.length != 0)
+					&& includeMissingElements) {
 				insertEmptyElements(element, comparables);
 			}
 			return comparables.toArray();
@@ -201,173 +195,132 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 
 	private void insertEmptyElements(Object element,
 			List<ComparableTreeObject> comparables) {
-		if(element instanceof NonRootModelElement) {
-			Object leftKey = ModelCacheManager.getLeftKey(mergeViewer.getInput());
-			Object rightKey = ModelCacheManager.getRightKey(mergeViewer.getInput());
+		if (element instanceof NonRootModelElement) {
 			NonRootModelElement nrme = (NonRootModelElement) element;
 			// if we are the left side, then check the right side for
 			// missing elements
-			if(nrme.getModelRoot().getId().contains("LEFT")) {
-				// we must make sure that the right side is
-				// loaded
-				Object input = mergeViewer.getInput();
-				if(input instanceof DiffNode) {
-					DiffNode node = (DiffNode) input;
-					ITypedElement right = node.getRight();
-					ModelCompareContentProvider rightProvider = new ModelCompareContentProvider(null);
-					rightProvider.setCacheKey(rightKey);
-					Object[] rightChildren = rightProvider.getChildren(right);
-					Object matchingChild = getMatchingChild(element, rightChildren, rightProvider);
-					if(matchingChild != null) {
-						// look at the children for the right side
-						// for any that do not exist locally insert
-						// a blank element
-						// set the merger viewer to empty until we check the
-						// local children
-						ModelContentMergeViewer originalViewer = mergeViewer;
-						mergeViewer = null;
-						Object[] children = rightProvider.getChildren(matchingChild);
-						int location = 0;
-						for(Object child : children) {
-							Object[] leftChildren = getChildren(element);
-							Object leftMatching = null;
-							for(Object leftChild : leftChildren) {
-								if(leftChild.equals(child)) {
-									leftMatching = leftChild;
-									break;
-								}
+			if (nrme.getModelRoot().getId().contains("LEFT")) {
+				Object matchingChild = getMatchingChild(element, rightRoots);
+				if (matchingChild != null) {
+					// look at the children for the right side
+					// for any that do not exist locally insert
+					// a blank element
+					Object[] children = getChildrenWithoutMissingElements(matchingChild);
+					int location = 0;
+					for (Object child : children) {
+						Object[] leftChildren = getChildrenWithoutMissingElements(element);
+						Object leftMatching = null;
+						for (Object leftChild : leftChildren) {
+							if (leftChild.equals(child)) {
+								leftMatching = leftChild;
+								break;
 							}
-							if(leftMatching == null) {
-								EmptyElement empty = new EmptyElement(child, element, location);
-								comparables.add(location, empty);
-							}
-							location++;
 						}
-						mergeViewer = originalViewer;
+						if (leftMatching == null) {
+							EmptyElement empty = new EmptyElement(child,
+									element, location);
+							comparables.add(location, empty);
+						}
+						location++;
 					}
 				}
 			}
 			// if we are the right side, then check the left side for
 			// missing elements
-			if(nrme.getModelRoot().getId().contains("RIGHT")) {
-				// we must make sure that the right side is
-				// loaded
-				Object input = mergeViewer.getInput();
-				if(input instanceof DiffNode) {
-					DiffNode node = (DiffNode) input;
-					ITypedElement left = node.getLeft();
-					ModelCompareContentProvider leftProvider = new ModelCompareContentProvider(null);
-					leftProvider.setCacheKey(leftKey);
-					Object[] leftChildren = leftProvider.getChildren(left);
-					Object matchingChild = getMatchingChild(element, leftChildren, leftProvider);
-					if(matchingChild != null) {
-						// look at the children for the right side
-						// for any that do not exist locally insert
-						// a blank element
-						// set the merger viewer to empty until we check the
-						// local children
-						ModelContentMergeViewer originalViewer = mergeViewer;
-						mergeViewer = null;
-						Object[] children = leftProvider.getChildren(matchingChild);
-						int location = 0;
-						for(Object child : children) {
-							Object[] rightChildren = getChildren(element);
-							Object rightMatching = null;
-							for(Object rightChild : rightChildren) {
-								if(rightChild.equals(child)) {
-									rightMatching = rightChild;
-									break;
-								}
+			if (nrme.getModelRoot().getId().contains("RIGHT")) {
+				Object matchingChild = getMatchingChild(element, leftRoots);
+				if (matchingChild != null) {
+					// look at the children for the right side
+					// for any that do not exist locally insert
+					// a blank element
+					Object[] children = getChildrenWithoutMissingElements(matchingChild);
+					int location = 0;
+					for (Object child : children) {
+						Object[] rightChildren = getChildrenWithoutMissingElements(element);
+						Object rightMatching = null;
+						for (Object rightChild : rightChildren) {
+							if (rightChild.equals(child)) {
+								rightMatching = rightChild;
+								break;
 							}
-							if(rightMatching == null) {
-								EmptyElement empty = new EmptyElement(child, element, location);
-								comparables.add(location, empty);
-							}
-							location++;
 						}
-						mergeViewer = originalViewer;
+						if (rightMatching == null) {
+							EmptyElement empty = new EmptyElement(child,
+									element, location);
+							comparables.add(location, empty);
+						}
+						location++;
 					}
 				}
 			}
 			// if we are the ancestor, then check the left side for
 			// missing elements
-			if(nrme.getModelRoot().getId().contains("ANCESTOR")) {
-				// we must make sure that the left side is
-				// loaded
-				Object input = mergeViewer.getInput();
-				if(input instanceof DiffNode) {
-					DiffNode node = (DiffNode) input;
-					ITypedElement left = node.getLeft();
-					ModelCompareContentProvider leftProvider = new ModelCompareContentProvider(null);
-					leftProvider.setCacheKey(leftKey);
-					Object[] leftChildren = leftProvider.getChildren(left);
-					Object matchingChild = getMatchingChild(element, leftChildren, leftProvider);
-					if(matchingChild != null) {
-						// look at the children for the left side
-						// for any that do not exist locally insert
-						// a blank element
-						// set the merger viewer to empty until we check the
-						// local children
-						ModelContentMergeViewer originalViewer = mergeViewer;
-						mergeViewer = null;
-						Object[] children = leftProvider.getChildren(matchingChild);
-						int location = 0;
-						for(Object child : children) {
-							Object[] ancestorChildren = getChildren(element);
-							Object ancestorMatching = null;
-							for(Object ancestorChild : ancestorChildren) {
-								if(ancestorChild.equals(child)) {
-									ancestorMatching = ancestorChild;
-									break;
-								}
+			if (nrme.getModelRoot().getId().contains("ANCESTOR")) {
+				Object matchingChild = getMatchingChild(element, leftRoots);
+				if (matchingChild != null) {
+					// look at the children for the left side
+					// for any that do not exist locally insert
+					// a blank element
+					Object[] children = getChildrenWithoutMissingElements(matchingChild);
+					int location = 0;
+					for (Object child : children) {
+						Object[] ancestorChildren = getChildrenWithoutMissingElements(element);
+						Object ancestorMatching = null;
+						for (Object ancestorChild : ancestorChildren) {
+							if (ancestorChild.equals(child)) {
+								ancestorMatching = ancestorChild;
+								break;
 							}
-							if(ancestorMatching == null) {
-								EmptyElement empty = new EmptyElement(child, element, location);
-								comparables.add(location, empty);
-							}
-							location++;
 						}
-						mergeViewer = originalViewer;
+						if (ancestorMatching == null) {
+							EmptyElement empty = new EmptyElement(child,
+									element, location);
+							comparables.add(location, empty);
+						}
+						location++;
 					}
-					// repeat to add empty elements for missing right elements
-					ModelCompareContentProvider rightProvider = new ModelCompareContentProvider(null);
-					rightProvider.setCacheKey(rightKey);
-					Object[] rightChildren = rightProvider.getChildren(left);
-					matchingChild = getMatchingChild(element, rightChildren, rightProvider);
-					if(matchingChild != null) {
-						// look at the children for the left side
-						// for any that do not exist locally insert
-						// a blank element
-						// set the merger viewer to empty until we check the
-						// local children
-						ModelContentMergeViewer originalViewer = mergeViewer;
-						mergeViewer = null;
-						Object[] children = rightProvider.getChildren(matchingChild);
-						int location = 0;
-						for(Object child : children) {
-							Object[] ancestorChildren = getChildren(element);
-							Object ancestorMatching = null;
-							for(Object ancestorChild : ancestorChildren) {
-								if(ancestorChild.equals(child)) {
-									ancestorMatching = ancestorChild;
-									break;
-								}
+				}
+				// repeat to add empty elements for missing right elements
+				matchingChild = getMatchingChild(element, rightRoots);
+				if (matchingChild != null) {
+					// look at the children for the left side
+					// for any that do not exist locally insert
+					// a blank element
+					Object[] children = getChildrenWithoutMissingElements(matchingChild);
+					int location = 0;
+					for (Object child : children) {
+						Object[] ancestorChildren = getChildrenWithoutMissingElements(element);
+						Object ancestorMatching = null;
+						for (Object ancestorChild : ancestorChildren) {
+							if (ancestorChild.equals(child)) {
+								ancestorMatching = ancestorChild;
+								break;
 							}
-							if(ancestorMatching == null) {
-								EmptyElement empty = new EmptyElement(child, element, location);
-								comparables.add(location, empty);
-							}
-							location++;
 						}
-						mergeViewer = originalViewer;
+						if (ancestorMatching == null) {
+							EmptyElement empty = new EmptyElement(child,
+									element, location);
+							comparables.add(location, empty);
+						}
+						location++;
 					}
 				}
 			}
 		}
 	}
 
-	private Object getMatchingChild(Object element, Object[] rootElements,
-			ITreeContentProvider provider) {
+
+	private Object[] getChildrenWithoutMissingElements(Object element) {
+		try {
+			includeMissingElements = false;
+			Object[] children = getChildren(element);
+			return children;
+		} finally {
+			includeMissingElements = true;
+		}
+	}
+
+	private Object getMatchingChild(Object element, Object[] rootElements) {
 		for(Object root : rootElements) {
 			ComparableTreeObject rootTreeObject = ComparableProvider.getComparableTreeObject(root);
 			if(rootTreeObject.equals(ComparableProvider.getComparableTreeObject(element))) {
@@ -375,7 +328,7 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 			} else {
 				// check the children
 				Object matching = getMatchingChild(element,
-						provider.getChildren(root), provider);
+						getChildrenWithoutMissingElements(root));
 				if(matching != null) {
 					return matching;
 				}
@@ -476,8 +429,18 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 		return children.toArray();
 	}
 
-	public void setMergeViewer(ModelContentMergeViewer mergeViewer) {
-		this.mergeViewer = mergeViewer;
+	public void setRootElements(NonRootModelElement[] leftRoots,
+			NonRootModelElement[] rightRoots) {
+		if(leftRoots != null) {
+			this.leftRoots = leftRoots;
+		} else {
+			this.leftRoots = new NonRootModelElement[0];
+		}
+		if(rightRoots != null) {
+			this.rightRoots = rightRoots;	
+		} else {
+			this.rightRoots = new NonRootModelElement[0];
+		}
 	}
 
 }

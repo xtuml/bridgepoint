@@ -531,7 +531,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			NonRootModelElementComparable nrmec = (NonRootModelElementComparable) parent;
 			NonRootModelElement nrme = (NonRootModelElement) nrmec.getRealElement();
 			if(nrme.getModelRoot().getId().startsWith(ModelRoot.getRightCompareRootPrefix())) {
-				TreeItem matchingItem = leftTreeViewer.getMatchingItem(nrmec, leftTreeViewer);
+				TreeItem matchingItem = SynchronizedTreeViewer.getMatchingItem(nrmec, leftTreeViewer);
 				if(matchingItem != null) {
 					parent = matchingItem.getData();
 				}
@@ -722,7 +722,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		}
 		if(next.getElement() != null) {
 			leftTreeViewer.setSelection(new StructuredSelection(next.getElement()), true);
-			TreeItem matching = leftTreeViewer.getMatchingItem(next.getElement(),
+			TreeItem matching = SynchronizedTreeViewer.getMatchingItem(next.getElement(),
 					leftTreeViewer);
 			if(matching != null) {
 				leftTreeViewer.getTree().setTopItem(
@@ -731,14 +731,14 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			Object right = next.getMatchingDifference().getElement();
 			if(right != null) {
 				rightTreeViewer.setSelection(new StructuredSelection(right), true);
-				TreeItem rightItem = rightTreeViewer.getMatchingItem(right,
+				TreeItem rightItem = SynchronizedTreeViewer.getMatchingItem(right,
 						rightTreeViewer);
 				if(rightItem != null) {
 					rightTreeViewer.getTree()
 							.setTopItem(rightItem);
 				}
 			} else {
-				TreeItem rightParentItem = rightTreeViewer.getMatchingItem(next
+				TreeItem rightParentItem = SynchronizedTreeViewer.getMatchingItem(next
 						.getMatchingDifference().getParent(), rightTreeViewer);
 				if(rightParentItem != null) {
 					rightTreeViewer.reveal(rightParentItem.getData());
@@ -748,7 +748,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			}
 		} else {
 			if(next.getParent() != null) {
-				TreeItem leftParentItem = leftTreeViewer.getMatchingItem(next
+				TreeItem leftParentItem = SynchronizedTreeViewer.getMatchingItem(next
 						.getParent(), leftTreeViewer);
 				if(leftParentItem != null) {
 					//leftTreeViewer.reveal(leftParentItem.getData());
@@ -758,7 +758,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			rightTreeViewer.setSelection(new StructuredSelection(next
 					.getMatchingDifference().getElement()), true);
 			if(next.getMatchingDifference().getElement() != null) {
-				TreeItem matchingItem = rightTreeViewer.getMatchingItem(next.getMatchingDifference().getElement(), rightTreeViewer);
+				TreeItem matchingItem = SynchronizedTreeViewer.getMatchingItem(next.getMatchingDifference().getElement(), rightTreeViewer);
 				if(matchingItem != null) {
 					rightTreeViewer.getTree().setTopItem(matchingItem);
 				}
@@ -972,7 +972,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		leftTreeViewer = new SynchronizedTreeViewer(leftPanel, SWT.H_SCROLL
 				| SWT.MULTI | SWT.FULL_SELECTION | SWT.DOUBLE_BUFFERED
 				| SWT.NO_BACKGROUND | SWT.BORDER, this, configuration.isLeftEditable(), false);
-		ModelCompareContentProvider leftContentProvider = new ModelCompareContentProvider(this);
+		ModelCompareContentProvider leftContentProvider = new ModelCompareContentProvider();
 		leftContentProvider.setIncludeNonTreeData(false);
 		leftTreeViewer.setContentProvider(leftContentProvider);
 		leftTreeViewer.setUseHashlookup(true);
@@ -1011,7 +1011,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		rightTreeViewer.addSynchronizationViewer(leftTreeViewer);
 		rightTreeViewer.setUseHashlookup(true);
 		leftTreeViewer.addSynchronizationViewer(rightTreeViewer);
-		ModelCompareContentProvider rightProvider = new ModelCompareContentProvider(this);
+		ModelCompareContentProvider rightProvider = new ModelCompareContentProvider();
 		rightProvider.setIncludeNonTreeData(false);
 		rightTreeViewer.setContentProvider(rightProvider);
 		rightTreeViewer.setLabelProvider(new ModelCompareLabelProvider());
@@ -1033,7 +1033,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				| SWT.DOUBLE_BUFFERED | SWT.NO_BACKGROUND | SWT.BORDER, this,
 				false, true);
 		ancestorTreeViewer.setUseHashlookup(true);
-		ModelCompareContentProvider ancestorProvider = new ModelCompareContentProvider(this);
+		ModelCompareContentProvider ancestorProvider = new ModelCompareContentProvider();
 		ancestorProvider.setIncludeNonTreeData(false);
 		ancestorTreeViewer.setContentProvider(ancestorProvider);
 		ancestorTreeViewer.setLabelProvider(new ModelCompareLabelProvider());
@@ -1282,14 +1282,18 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				}
 				differencer = TreeDifferencer.getInstance(getInput());
 				if(differencer == null) {
-					differencer = new TreeDifferencer(new ModelCompareContentProvider(this)
+					ModelCompareContentProvider differencerProvider = new ModelCompareContentProvider();
+					differencerProvider.setRootElements(leftElements, rightElements);
+					differencer = new TreeDifferencer(differencerProvider
 							,
 							leftElements, rightElements, ancestorElements,
 							isThreeWay(), getInput());
 					TreeDifferencer.instances.put(getInput(), differencer);
+					updateRootElementsForTreeViewers(leftElements, rightElements);
 				} else {
 					differencer.setElements(leftElements, rightElements, ancestorElements);
 					differencer.setIsThreeWay(isThreeWay());
+					updateRootElementsForTreeViewers(leftElements, rightElements);
 				}
 				differencer.refresh();
 				nextDifference.getAction().setEnabled(false);
@@ -1351,6 +1355,24 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				}				
 			}
 		});
+	}
+
+	private void updateRootElementsForTreeViewers(
+			NonRootModelElement[] leftElements,
+			NonRootModelElement[] rightElements) {
+		// update the root elements for each tree viewer, this is
+		// to support empty elements
+		((ModelCompareContentProvider) leftTreeViewer
+				.getContentProvider()).setRootElements(
+				leftElements, rightElements);
+		((ModelCompareContentProvider) rightTreeViewer
+				.getContentProvider()).setRootElements(
+				leftElements, rightElements);
+		if(ancestorTreeViewer != null) {
+			((ModelCompareContentProvider) ancestorTreeViewer
+					.getContentProvider()).setRootElements(
+					leftElements, rightElements);
+		}
 	}
 
 	private List<TreeDifference> getIncomingGraphicalDifferences(boolean left) {
@@ -1874,21 +1896,21 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 
 	public void revealAndSelectItem(Object element) {
 		getLeftViewer().setSelection(new StructuredSelection(element), true);
-		TreeItem leftItem = getLeftViewer().getMatchingItem(element, getLeftViewer());
+		TreeItem leftItem = SynchronizedTreeViewer.getMatchingItem(element, getLeftViewer());
 		if(leftItem != null) {
 			getLeftViewer().getTree().setTopItem(leftItem);
 		} else {
 			
 		}
 		getRightViewer().setSelection(new StructuredSelection(element), true);
-		TreeItem rightItem = getRightViewer().getMatchingItem(element, getRightViewer());
+		TreeItem rightItem = SynchronizedTreeViewer.getMatchingItem(element, getRightViewer());
 		if(rightItem != null) {
 			getRightViewer().getTree().setTopItem(rightItem);
 		} else {
 			
 		}
 		if(getAncestorTree() != null) {
-			TreeItem ancestorItem = getAncestorTree().getMatchingItem(element, getAncestorTree());
+			TreeItem ancestorItem = SynchronizedTreeViewer.getMatchingItem(element, getAncestorTree());
 			if(ancestorItem != null) {
 				getAncestorTree().getTree().setTopItem(ancestorItem);
 			}
