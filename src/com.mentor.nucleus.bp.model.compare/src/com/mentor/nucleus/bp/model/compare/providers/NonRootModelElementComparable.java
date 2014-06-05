@@ -116,7 +116,7 @@ public class NonRootModelElementComparable extends ComparableTreeObject implemen
 		if(other instanceof NonRootModelElementComparable) {
 			NonRootModelElementComparable otherComparable = (NonRootModelElementComparable) other;
 			// first check children size
-			ModelCompareContentProvider provider = new ModelCompareContentProvider(null);
+			ModelCompareContentProvider provider = new ModelCompareContentProvider();
 			Object[] thisChildren = provider.getChildren(this);
 			Object[] otherChildren = provider.getChildren(otherComparable);
 			if(thisChildren.length != otherChildren.length) {
