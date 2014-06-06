@@ -207,14 +207,14 @@ public class ModelMergeProcessor {
 		}
 		boolean up = location < destinationLocation;
 		if(up) {
-			moveElementUp(location, difference, contentProvider);
+			insertElementAt(location, difference, contentProvider, true);
 		} else {
-			moveElementDown(location, difference, contentProvider);
+			insertElementAt(location, difference, contentProvider, false);
 		}
 		return true;
 	}
 	
-	private static void moveElementUp(int location, TreeDifference difference, ITreeContentProvider contentProvider) {
+	private static void insertElementAt(int location, TreeDifference difference, ITreeContentProvider contentProvider, boolean moveUp) {
 		NonRootModelElementComparable comparable = null;
 		if(difference.getMatchingDifference().getElement() instanceof EmptyElement) {
 			// find the newly copied over comparable
@@ -239,149 +239,120 @@ public class ModelMergeProcessor {
 				.getRealElement();
 		Object[] existingChildren = ((ITreeDifferencerProvider) contentProvider)
 				.getChildren(contentProvider.getParent(element));
-		Object existingElementAtNewLocation = existingChildren[location];
-		if(existingElementAtNewLocation != null) {
-			if(existingElementAtNewLocation instanceof EmptyElement) {
-				existingElementAtNewLocation = existingChildren[location - 1];
-			}
-			existingElementAtNewLocation = ((ComparableTreeObject) existingElementAtNewLocation).getRealElement();
-		}
-		String associationNumber = MetadataSortingManager
-				.getAssociationNumber(element);
-		String associationPhrase = MetadataSortingManager
-				.getAssociationPhrase(element);
-		NonRootModelElement previousElementToExisting = (NonRootModelElement) MetadataSortingManager
-				.getPreviousElement((NonRootModelElement) existingElementAtNewLocation);
-		if(previousElementToExisting != null) {
-			Method unrelate = findMethod("unrelateAcrossR" + associationNumber
-					+ "From" + associationPhrase, existingElementAtNewLocation.getClass(),
-					new Class[] { existingElementAtNewLocation.getClass() });
-			invokeMethod(unrelate, existingElementAtNewLocation,
-					new Object[] { previousElementToExisting });
-		}
-		NonRootModelElement previousToSelf = (NonRootModelElement) MetadataSortingManager
-				.getPreviousElement(element);
-		if(previousToSelf != null) {		
-			Method unrelate = findMethod("unrelateAcrossR" + associationNumber
-					+ "From" + associationPhrase, element.getClass(),
-					new Class[] { element.getClass() });
-			invokeMethod(unrelate, element,
-					new Object[] { previousToSelf });
-		}
-		NonRootModelElement nextToSelf = (NonRootModelElement) MetadataSortingManager
-				.getNextElement(element);
-		if(nextToSelf != null) {
-			Method unrelate = findMethod("unrelateAcrossR" + associationNumber
-					+ "From" + associationPhrase, nextToSelf.getClass(),
-					new Class[] { nextToSelf.getClass() });
-			invokeMethod(unrelate, nextToSelf,
-					new Object[] { element });
-		}
-		if(nextToSelf != null) {
-			Method relate = findMethod("relateAcrossR" + associationNumber
-					+ "To" + associationPhrase, nextToSelf.getClass(),
-					new Class[] { nextToSelf.getClass() });
-			invokeMethod(relate, nextToSelf,
-					new Object[] { previousToSelf });
-		}
-		Method relate = findMethod("relateAcrossR" + associationNumber
-				+ "To" + associationPhrase, existingElementAtNewLocation.getClass(),
-				new Class[] { existingElementAtNewLocation.getClass() });
-		invokeMethod(relate, existingElementAtNewLocation,
-				new Object[] { element });
-		if(previousElementToExisting != null) {
-			relate = findMethod("relateAcrossR" + associationNumber
-					+ "To" + associationPhrase, element.getClass(),
-					new Class[] { element.getClass() });
-			invokeMethod(relate, element,
-					new Object[] { previousElementToExisting });
-		}
-	}
-
-	private static void moveElementDown(int location, TreeDifference difference, ITreeContentProvider contentProvider) {
-		NonRootModelElementComparable comparable = null;
-		if(difference.getMatchingDifference().getElement() instanceof EmptyElement) {
-			// find the newly copied over comparable
-			NonRootModelElementComparable remoteComparable = (NonRootModelElementComparable) difference
-					.getElement();
-			NonRootModelElement remoteElement = (NonRootModelElement) remoteComparable
-					.getRealElement();
-			EmptyElement localEmptyElement = ((EmptyElement) difference
-					.getMatchingDifference().getElement());
-			NonRootModelElement parent = (NonRootModelElement) localEmptyElement
-					.getParent();
-			Object newElementInDestination = findObjectInDestination(
-					parent.getModelRoot(), remoteElement);
-			comparable = (NonRootModelElementComparable) ComparableProvider
-					.getComparableTreeObject(newElementInDestination);
-			
-		} else {
-			comparable = (NonRootModelElementComparable) difference
-					.getMatchingDifference().getElement();
-		}
-		NonRootModelElement element = (NonRootModelElement) comparable
-				.getRealElement();
-		Object[] existingChildren = ((ITreeDifferencerProvider) contentProvider)
-				.getChildren(contentProvider.getParent(element));
-		if(location >= existingChildren.length) {
+		if (!moveUp &&location >= existingChildren.length) {
 			location = existingChildren.length - 1;
 		}
 		Object existingElementAtNewLocation = existingChildren[location];
 		if(existingElementAtNewLocation != null) {
-			existingElementAtNewLocation = ((ComparableTreeObject) existingElementAtNewLocation).getRealElement();
+			if (moveUp) {
+				if(existingElementAtNewLocation instanceof EmptyElement) {
+					existingElementAtNewLocation = existingChildren[location - 1];
+				}
+				existingElementAtNewLocation = ((ComparableTreeObject) existingElementAtNewLocation).getRealElement();
+			}
 		}
 		String associationNumber = MetadataSortingManager
 				.getAssociationNumber(element);
 		String associationPhrase = MetadataSortingManager
 				.getAssociationPhrase(element);
-		NonRootModelElement nextElementToExisting = (NonRootModelElement) MetadataSortingManager
-				.getNextElement((NonRootModelElement) existingElementAtNewLocation);
-		if(nextElementToExisting != null) {
-			Method unrelate = findMethod("unrelateAcrossR" + associationNumber
-					+ "From" + associationPhrase, nextElementToExisting.getClass(),
-					new Class[] { nextElementToExisting.getClass() });
-			invokeMethod(unrelate, nextElementToExisting,
-					new Object[] { existingElementAtNewLocation });
-		}
-		NonRootModelElement nextToSelf = (NonRootModelElement) MetadataSortingManager
-				.getNextElement(element);
-		if(nextToSelf != null) {
-			Method unrelate = findMethod("unrelateAcrossR" + associationNumber
-					+ "From" + associationPhrase, nextToSelf.getClass(),
-					new Class[] { nextToSelf.getClass() });
-			invokeMethod(unrelate, nextToSelf,
-					new Object[] { element });
-		}
-		NonRootModelElement previousToSelf = (NonRootModelElement) MetadataSortingManager
-				.getPreviousElement(element);
-		if(previousToSelf != null) {
-			Method unrelate = findMethod("unrelateAcrossR" + associationNumber
-					+ "From" + associationPhrase, element.getClass(),
-					new Class[] { element.getClass() });
-			invokeMethod(unrelate, element,
-					new Object[] { previousToSelf });
-		}
-		if(nextToSelf != null && previousToSelf != null) {	
+		
+		if (moveUp) {
+			NonRootModelElement previousElementToExisting = (NonRootModelElement) MetadataSortingManager
+					.getPreviousElement((NonRootModelElement) existingElementAtNewLocation);
+			if(previousElementToExisting != null) {
+				Method unrelate = findMethod("unrelateAcrossR" + associationNumber
+						+ "From" + associationPhrase, existingElementAtNewLocation.getClass(),
+						new Class[] { existingElementAtNewLocation.getClass() });
+				invokeMethod(unrelate, existingElementAtNewLocation,
+						new Object[] { previousElementToExisting });
+			}
+			NonRootModelElement previousToSelf = (NonRootModelElement) MetadataSortingManager
+					.getPreviousElement(element);
+			if(previousToSelf != null) {		
+				Method unrelate = findMethod("unrelateAcrossR" + associationNumber
+						+ "From" + associationPhrase, element.getClass(),
+						new Class[] { element.getClass() });
+				invokeMethod(unrelate, element,
+						new Object[] { previousToSelf });
+			}
+			NonRootModelElement nextToSelf = (NonRootModelElement) MetadataSortingManager
+					.getNextElement(element);
+			if(nextToSelf != null) {
+				Method unrelate = findMethod("unrelateAcrossR" + associationNumber
+						+ "From" + associationPhrase, nextToSelf.getClass(),
+						new Class[] { nextToSelf.getClass() });
+				invokeMethod(unrelate, nextToSelf,
+						new Object[] { element });
+			}
+			if(nextToSelf != null) {
+				Method relate = findMethod("relateAcrossR" + associationNumber
+						+ "To" + associationPhrase, nextToSelf.getClass(),
+						new Class[] { nextToSelf.getClass() });
+				invokeMethod(relate, nextToSelf,
+						new Object[] { previousToSelf });
+			}
 			Method relate = findMethod("relateAcrossR" + associationNumber
-					+ "To" + associationPhrase, nextToSelf.getClass(),
-					new Class[] { nextToSelf.getClass() });
-			invokeMethod(relate, nextToSelf,
-					new Object[] { previousToSelf });
-		}
-		Method relate = findMethod("relateAcrossR" + associationNumber
-				+ "To" + associationPhrase, element.getClass(),
-				new Class[] { element.getClass() });
-		invokeMethod(relate, element,
-				new Object[] { existingElementAtNewLocation });
-		if(nextElementToExisting != null) {
-			relate = findMethod("relateAcrossR" + associationNumber
-					+ "To" + associationPhrase, nextElementToExisting.getClass(),
-					new Class[] { nextElementToExisting.getClass() });
-			invokeMethod(relate, nextElementToExisting,
+					+ "To" + associationPhrase, existingElementAtNewLocation.getClass(),
+					new Class[] { existingElementAtNewLocation.getClass() });
+			invokeMethod(relate, existingElementAtNewLocation,
 					new Object[] { element });
+			if(previousElementToExisting != null) {
+				relate = findMethod("relateAcrossR" + associationNumber
+						+ "To" + associationPhrase, element.getClass(),
+						new Class[] { element.getClass() });
+				invokeMethod(relate, element,
+						new Object[] { previousElementToExisting });
+			}
+		} else {
+			NonRootModelElement nextElementToExisting = (NonRootModelElement) MetadataSortingManager
+					.getNextElement((NonRootModelElement) existingElementAtNewLocation);
+			if(nextElementToExisting != null) {
+				Method unrelate = findMethod("unrelateAcrossR" + associationNumber
+						+ "From" + associationPhrase, nextElementToExisting.getClass(),
+						new Class[] { nextElementToExisting.getClass() });
+				invokeMethod(unrelate, nextElementToExisting,
+						new Object[] { existingElementAtNewLocation });
+			}
+			NonRootModelElement nextToSelf = (NonRootModelElement) MetadataSortingManager
+					.getNextElement(element);
+			if(nextToSelf != null) {
+				Method unrelate = findMethod("unrelateAcrossR" + associationNumber
+						+ "From" + associationPhrase, nextToSelf.getClass(),
+						new Class[] { nextToSelf.getClass() });
+				invokeMethod(unrelate, nextToSelf,
+						new Object[] { element });
+			}
+			NonRootModelElement previousToSelf = (NonRootModelElement) MetadataSortingManager
+					.getPreviousElement(element);
+			if(previousToSelf != null) {
+				Method unrelate = findMethod("unrelateAcrossR" + associationNumber
+						+ "From" + associationPhrase, element.getClass(),
+						new Class[] { element.getClass() });
+				invokeMethod(unrelate, element,
+						new Object[] { previousToSelf });
+			}
+			if(nextToSelf != null && previousToSelf != null) {	
+				Method relate = findMethod("relateAcrossR" + associationNumber
+						+ "To" + associationPhrase, nextToSelf.getClass(),
+						new Class[] { nextToSelf.getClass() });
+				invokeMethod(relate, nextToSelf,
+						new Object[] { previousToSelf });
+			}
+			Method relate = findMethod("relateAcrossR" + associationNumber
+					+ "To" + associationPhrase, element.getClass(),
+					new Class[] { element.getClass() });
+			invokeMethod(relate, element,
+					new Object[] { existingElementAtNewLocation });
+			if(nextElementToExisting != null) {
+				relate = findMethod("relateAcrossR" + associationNumber
+						+ "To" + associationPhrase, nextElementToExisting.getClass(),
+						new Class[] { nextElementToExisting.getClass() });
+				invokeMethod(relate, nextElementToExisting,
+						new Object[] { element });
+			}
 		}
 	}
-	
+
 	private static boolean handleAttributeChange(ObjectElement localElement, ObjectElement element) {
 		// skip graphical.represents()
 		if (element.getName().equals("represents")
@@ -590,13 +561,13 @@ public class ModelMergeProcessor {
 			// list, now call the moveUp and moveDown accordingly
 			if(currentLocation > newElementLocation) {
 				// move up
-				moveElementUp(newElementLocation, difference,
-						contentProvider);
+				insertElementAt(newElementLocation, difference,
+						contentProvider, true);
 			}
 			if(currentLocation < newElementLocation) {
 				// move down
-				moveElementDown(newElementLocation, difference,
-						contentProvider);
+				insertElementAt(newElementLocation, difference,
+						contentProvider, false);
 			}
 		}
 		handlePostCreation(newObject, (NonRootModelElement) realElement);
