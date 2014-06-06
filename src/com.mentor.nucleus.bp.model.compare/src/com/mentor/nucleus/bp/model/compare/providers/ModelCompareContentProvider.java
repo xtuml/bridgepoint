@@ -168,7 +168,7 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 			}
 			// insert empty elements
 			if ((leftRoots.length != 0 || rightRoots.length != 0)
-					&& includeMissingElements) {
+					&& includeMissingElements && !((NonRootModelElement) element).isProxy()) {
 				insertEmptyElements(element, comparables);
 			}
 			return comparables.toArray();
@@ -256,6 +256,11 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 			// if we are the ancestor, then check the left side for
 			// missing elements
 			if (nrme.getModelRoot().getId().contains("ANCESTOR")) {
+				// collect the created EmptyElements, if the same
+				// element exists in the left and right but is
+				// missing from the ancestor we only want one
+				// empty element
+				List<Object> created = new ArrayList<Object>();
 				Object matchingChild = getMatchingChild(element, leftRoots);
 				if (matchingChild != null) {
 					// look at the children for the left side
@@ -272,10 +277,11 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 								break;
 							}
 						}
-						if (ancestorMatching == null) {
+						if (ancestorMatching == null && !created.contains(child)) {
 							EmptyElement empty = new EmptyElement(child,
 									element, location);
 							comparables.add(location, empty);
+							created.add(child);
 						}
 						location++;
 					}
@@ -297,10 +303,11 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 								break;
 							}
 						}
-						if (ancestorMatching == null) {
+						if (ancestorMatching == null && !created.contains(child)) {
 							EmptyElement empty = new EmptyElement(child,
 									element, location);
 							comparables.add(location, empty);
+							created.add(child);
 						}
 						location++;
 					}

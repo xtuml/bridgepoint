@@ -1617,8 +1617,12 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 						.getInstanceList(element.getClass())
 						.getGlobal(element.getInstanceKey());
 				if (elementGlobally != null) {
+					// refresh the file to make sure its
+					// synced with what git wrote
 					InputStream actualContents = null;
 					try {
+						elementGlobally.getFile().refreshLocal(IFile.DEPTH_ONE,
+								new NullProgressMonitor());
 						actualContents = elementGlobally.getFile()
 								.getContents();
 					} catch (CoreException e) {
