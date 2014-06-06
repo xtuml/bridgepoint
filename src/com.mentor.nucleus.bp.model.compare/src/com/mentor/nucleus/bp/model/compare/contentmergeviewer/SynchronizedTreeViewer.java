@@ -344,7 +344,8 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 					false, true);
 			boolean itemMatchesDifference = difference.getElement().equals(
 						item.getData());
-			if (!itemMatchesDifference) {
+			if (!itemMatchesDifference
+					&& !(item.getData() instanceof EmptyElement)) {
 				gc.setLineDash(new int[] { 3 });
 				gc.setLineStyle(SWT.LINE_CUSTOM);
 			} else {
@@ -369,6 +370,10 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 
 	public static boolean differenceIsGraphical(TreeDifference difference) {
 		Object diffElement = difference.getElement();
+		if(diffElement instanceof EmptyElement) {
+			diffElement = ((EmptyElement) diffElement).getParent();
+			diffElement = ComparableProvider.getComparableTreeObject(diffElement);
+		}
 		if (diffElement == null) {
 			diffElement = difference.getMatchingDifference().getElement();
 		}
@@ -434,7 +439,7 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 			// element type of EmptyElement
 			if(item == null) {
 				if (difference.getMatchingDifference().getElement() instanceof EmptyElement) {
-					// if found then locate the item for the empty element
+					// if not found then locate the item for the empty element
 					item = (TreeItem) findItem(difference
 							.getMatchingDifference().getElement());
 				}

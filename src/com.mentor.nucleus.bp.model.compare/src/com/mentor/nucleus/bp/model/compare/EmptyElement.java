@@ -109,7 +109,7 @@ public class EmptyElement extends ComparableTreeObject {
 	 */
 	@Override
 	public int hashCode() {
-		return represents.hashCode() + "_EMPTY".hashCode();
+		return represents.hashCode();
 	}
 	
 	
