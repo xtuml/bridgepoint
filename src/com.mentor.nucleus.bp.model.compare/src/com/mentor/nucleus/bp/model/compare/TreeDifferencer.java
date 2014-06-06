@@ -248,6 +248,12 @@ public class TreeDifferencer extends Differencer {
 		ComparableTreeObject rightComparable = contentProvider
 				.getComparableTreeObject(right);
 		boolean result = leftComparable.treeItemValueEquals(rightComparable);
+		// make sure that this is not a false result, in the
+		// case of an EmptyElement we may need to reverse which
+		// comparable is called
+		if(result) {
+			result = rightComparable.treeItemValueEquals(leftComparable);
+		}
 		if (includeChildren && result) {
 			result = leftComparable
 					.treeItemValueEqualsIncludingChildren(rightComparable);
