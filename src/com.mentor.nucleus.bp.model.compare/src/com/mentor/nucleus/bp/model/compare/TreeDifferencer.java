@@ -82,8 +82,8 @@ public class TreeDifferencer extends Differencer {
 				addDifferenceToMap(right, rightDifference, false);
 			}
 			// recursively check the children, unless dealing
-			// with an empty element for right
-			if(right instanceof EmptyElement) {
+			// with an empty element for left or right
+			if(left instanceof EmptyElement || right instanceof EmptyElement) {
 				return;
 			}
 			Object[] children = contentProvider.getChildren(left);
