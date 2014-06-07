@@ -29,6 +29,8 @@ import org.eclipse.jface.viewers.Viewer;
 
 import com.mentor.nucleus.bp.core.AttributeReferenceInClass_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.InterfaceOperation_c;
+import com.mentor.nucleus.bp.core.InterfaceSignal_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
@@ -207,6 +209,7 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 					// a blank element
 					Object[] children = getChildrenWithoutMissingElements(matchingChild);
 					int location = 0;
+					Class<?> lastTypeAdjustedFor = Object.class;
 					for (Object child : children) {
 						Object[] leftChildren = getChildrenWithoutMissingElements(element);
 						Object leftMatching = null;
@@ -217,9 +220,22 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 							}
 						}
 						if (leftMatching == null) {
+							int adjustment = getLocationAdjustmentForSlot(
+									child, lastTypeAdjustedFor, leftChildren);
+							location += adjustment;
+							// only do this once for each slot type
+							lastTypeAdjustedFor = ((ComparableTreeObject) child).getRealElement()
+									.getClass(); 
 							EmptyElement empty = new EmptyElement(child,
 									element, location);
-							comparables.add(location, empty);
+							// if the location will be at the end, prevent
+							// index out of bounds exceptions by just adding
+							// the elemen to the end
+							if(location > comparables.size()) {
+								comparables.add(empty);
+							} else {
+								comparables.add(location, empty);
+							}
 						}
 						location++;
 					}
@@ -235,6 +251,7 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 					// a blank element
 					Object[] children = getChildrenWithoutMissingElements(matchingChild);
 					int location = 0;
+					Class<?> lastTypeAdjustedFor = Object.class;
 					for (Object child : children) {
 						Object[] rightChildren = getChildrenWithoutMissingElements(element);
 						Object rightMatching = null;
@@ -245,9 +262,22 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 							}
 						}
 						if (rightMatching == null) {
+							int adjustment = getLocationAdjustmentForSlot(
+									child, lastTypeAdjustedFor, rightChildren);
+							location += adjustment;
+							// only do this once for each slot type
+							lastTypeAdjustedFor = ((ComparableTreeObject) child).getRealElement()
+									.getClass(); 
 							EmptyElement empty = new EmptyElement(child,
 									element, location);
-							comparables.add(location, empty);
+							// if the location will be at the end, prevent
+							// index out of bounds exceptions by just adding
+							// the elemen to the end
+							if(location > comparables.size()) {
+								comparables.add(empty);
+							} else {
+								comparables.add(location, empty);
+							}
 						}
 						location++;
 					}
@@ -268,6 +298,7 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 					// a blank element
 					Object[] children = getChildrenWithoutMissingElements(matchingChild);
 					int location = 0;
+					Class<?> lastTypeAdjustedFor = Object.class;
 					for (Object child : children) {
 						Object[] ancestorChildren = getChildrenWithoutMissingElements(element);
 						Object ancestorMatching = null;
@@ -278,6 +309,12 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 							}
 						}
 						if (ancestorMatching == null && !created.contains(child)) {
+							int adjustment = getLocationAdjustmentForSlot(
+									child, lastTypeAdjustedFor, ancestorChildren);
+							location += adjustment;
+							// only do this once for each slot type
+							lastTypeAdjustedFor = ((ComparableTreeObject) child).getRealElement()
+									.getClass(); 
 							EmptyElement empty = new EmptyElement(child,
 									element, location);
 							comparables.add(location, empty);
@@ -294,6 +331,7 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 					// a blank element
 					Object[] children = getChildrenWithoutMissingElements(matchingChild);
 					int location = 0;
+					Class<?> lastTypeAdjustedFor = Object.class;
 					for (Object child : children) {
 						Object[] ancestorChildren = getChildrenWithoutMissingElements(element);
 						Object ancestorMatching = null;
@@ -304,6 +342,12 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 							}
 						}
 						if (ancestorMatching == null && !created.contains(child)) {
+							int adjustment = getLocationAdjustmentForSlot(
+									child, lastTypeAdjustedFor, ancestorChildren);
+							location += adjustment;
+							// only do this once for each slot type
+							lastTypeAdjustedFor = ((ComparableTreeObject) child).getRealElement()
+									.getClass(); 
 							EmptyElement empty = new EmptyElement(child,
 									element, location);
 							comparables.add(location, empty);
@@ -315,7 +359,39 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 			}
 		}
 	}
-
+	
+	private int getLocationAdjustmentForSlot(Object child, Class<?> lastTypeAdjustedFor, Object[] children) {
+		// adjust the location for existing slots
+		// that are not the same type
+		int adjustment = 0;
+		Object realElement = ((ComparableTreeObject) child).getRealElement();
+		if (realElement.getClass() != lastTypeAdjustedFor) {
+			// get the slot number for this class type
+			int slot = getSlot(realElement);
+			for (Object otherChild : children) {
+				Object otherRealElement = ((ComparableTreeObject) otherChild).getRealElement();
+				int childSlot = getSlot(otherRealElement);
+				// slot 0 is reserved for attribute values
+				// we are not interested in adjusting for that
+				if(slot > childSlot && childSlot != 0) {
+					adjustment++;
+				} else {
+					continue;
+				}
+			}
+		}
+		return adjustment;
+	}
+	
+	private int getSlot(Object element) {
+		if(element instanceof InterfaceOperation_c) {
+			return 1;
+		}
+		if(element instanceof InterfaceSignal_c) {
+			return 2;
+		}
+		return 0;
+	}
 
 	private Object[] getChildrenWithoutMissingElements(Object element) {
 		try {

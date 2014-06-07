@@ -239,15 +239,15 @@ public class ModelMergeProcessor {
 				.getRealElement();
 		Object[] existingChildren = ((ITreeDifferencerProvider) contentProvider)
 				.getChildren(contentProvider.getParent(element));
-		if (!moveUp &&location >= existingChildren.length) {
+		if (!moveUp && location >= existingChildren.length) {
 			location = existingChildren.length - 1;
 		}
 		Object existingElementAtNewLocation = existingChildren[location];
 		if(existingElementAtNewLocation != null) {
-			if (moveUp) {
-				if(existingElementAtNewLocation instanceof EmptyElement) {
-					existingElementAtNewLocation = existingChildren[location - 1];
-				}
+			if(existingElementAtNewLocation instanceof EmptyElement) {
+				existingElementAtNewLocation = existingChildren[location - 1];
+				existingElementAtNewLocation = ((ComparableTreeObject) existingElementAtNewLocation).getRealElement();
+			} else {
 				existingElementAtNewLocation = ((ComparableTreeObject) existingElementAtNewLocation).getRealElement();
 			}
 		}
@@ -257,8 +257,11 @@ public class ModelMergeProcessor {
 				.getAssociationPhrase(element);
 		
 		if (moveUp) {
-			NonRootModelElement previousElementToExisting = (NonRootModelElement) MetadataSortingManager
-					.getPreviousElement((NonRootModelElement) existingElementAtNewLocation);
+			NonRootModelElement previousElementToExisting = null;
+			if(existingElementAtNewLocation.getClass() == element.getClass()) {
+				previousElementToExisting = (NonRootModelElement) MetadataSortingManager
+						.getPreviousElement((NonRootModelElement) existingElementAtNewLocation);
+			}
 			if(previousElementToExisting != null) {
 				Method unrelate = findMethod("unrelateAcrossR" + associationNumber
 						+ "From" + associationPhrase, existingElementAtNewLocation.getClass(),
@@ -394,19 +397,27 @@ public class ModelMergeProcessor {
 		EmptyElement empty = (EmptyElement) matchingDiffElement;
 		NonRootModelElement parent = (NonRootModelElement) empty.getParent();
 		int newElementLocation = empty.getLocation();
-		// create deltas for the creation of a new element
-		NonRootModelElement newObject = null;
-		Object realElement = ((ComparableTreeObject) diffElement)
-				.getRealElement();
 		// grab the existing children, so that ordering can be
 		// fixed after the batch relate calls
 		Object[] existingChildren = ((ITreeDifferencerProvider) contentProvider)
 				.getChildren(parent);
+		// we need to adjust the new location by
+		// any empty elements above us
+		for(int i = newElementLocation - 1; i != 0; i--) {
+			if(existingChildren[i] instanceof EmptyElement) {
+				newElementLocation--;
+			}
+		}
+		// create deltas for the creation of a new element
+		NonRootModelElement newObject = null;
+		Object realElement = ((ComparableTreeObject) diffElement)
+				.getRealElement();
 		List<Object> orderList = new ArrayList<Object>();
 		if (MetadataSortingManager.isOrderedElement(realElement)) {
 			// create a list to capture the existing order
 			for(Object child : existingChildren) {
-				if(child.getClass() == diffElement.getClass()) {
+				if (((ComparableTreeObject) child).getRealElement().getClass() == ((ComparableTreeObject) diffElement)
+						.getRealElement().getClass()) {
 					orderList.add(child);
 				}
 			}
@@ -553,10 +564,7 @@ public class ModelMergeProcessor {
 						new Object[] { orderedElement });
 				count++;
 			}
-			int currentLocation = TreeDifferencer.getLocationOfElement(
-					ComparableProvider.getComparableTreeObject(parent),
-					ComparableProvider.getComparableTreeObject(newObject),
-					(ITreeDifferencerProvider) contentProvider);
+			int currentLocation = orderList.size();
 			// the element will be at the end of the destination
 			// list, now call the moveUp and moveDown accordingly
 			if(currentLocation > newElementLocation) {
