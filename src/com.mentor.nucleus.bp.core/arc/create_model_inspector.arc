@@ -209,9 +209,12 @@ public class ${inspector_name} implements ${inspector_interface_name}, IModelIns
 	
 	@Override
 	public int getOrderedSlot(Object element) {
-		if (element instanceof NonRootModelElement) {
-			return getInspector(element.getClass()).getOrderedSlot(element);
-		}
+        if (element instanceof NonRootModelElement) {
+            // use the parent to determine the slot
+            // location for the given child
+            Object parent = getInspector(element.getClass()).getParent(element);
+            return getInspector(parent.getClass()).getOrderedSlot(element);
+        }
 		return 0;
 	}	
 }
