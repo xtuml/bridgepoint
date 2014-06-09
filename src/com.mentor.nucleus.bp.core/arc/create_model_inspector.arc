@@ -113,6 +113,10 @@ public class ${inspector_name} implements ${inspector_interface_name}, IModelIns
 		return ((${inspector_interface_name})adaptersMap.get(modelClass.getName()));
 	}
 	
+	public MetadataSortingManager getSortingManager() {
+		return sortingManager;
+	}
+	
 	/*
 	*  This function is required to be called every before using the inspectors.
 	*  It adds an adapter object for each object in the meta model

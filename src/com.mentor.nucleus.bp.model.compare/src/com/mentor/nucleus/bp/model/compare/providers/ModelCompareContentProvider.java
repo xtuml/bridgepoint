@@ -365,12 +365,12 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 		// that are not the same type
 		int adjustment = 0;
 		Object realElement = ((ComparableTreeObject) child).getRealElement();
-		if (realElement.getClass() != lastTypeAdjustedFor) {
+		if (realElement.getClass() != lastTypeAdjustedFor && MetadataSortingManager.isOrderedElement(realElement)) {
 			// get the slot number for this class type
-			int slot = getSlot(realElement);
+			int slot = MetadataSortingManager.getOrderedSlot(realElement);
 			for (Object otherChild : children) {
 				Object otherRealElement = ((ComparableTreeObject) otherChild).getRealElement();
-				int childSlot = getSlot(otherRealElement);
+				int childSlot = MetadataSortingManager.getOrderedSlot(otherRealElement);
 				// slot 0 is reserved for attribute values
 				// we are not interested in adjusting for that
 				if(slot > childSlot && childSlot != 0) {
@@ -383,16 +383,6 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 		return adjustment;
 	}
 	
-	private int getSlot(Object element) {
-		if(element instanceof InterfaceOperation_c) {
-			return 1;
-		}
-		if(element instanceof InterfaceSignal_c) {
-			return 2;
-		}
-		return 0;
-	}
-
 	private Object[] getChildrenWithoutMissingElements(Object element) {
 		try {
 			includeMissingElements = false;
