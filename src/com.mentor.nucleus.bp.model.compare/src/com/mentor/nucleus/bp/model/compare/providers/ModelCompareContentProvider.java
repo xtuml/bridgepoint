@@ -29,8 +29,6 @@ import org.eclipse.jface.viewers.Viewer;
 
 import com.mentor.nucleus.bp.core.AttributeReferenceInClass_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
-import com.mentor.nucleus.bp.core.InterfaceOperation_c;
-import com.mentor.nucleus.bp.core.InterfaceSignal_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
