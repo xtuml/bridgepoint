@@ -196,90 +196,17 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 	private void insertEmptyElements(Object element,
 			List<ComparableTreeObject> comparables) {
 		if (element instanceof NonRootModelElement) {
+			List<Object> createdFor = new ArrayList<Object>();
 			NonRootModelElement nrme = (NonRootModelElement) element;
 			// if we are the left side, then check the right side for
 			// missing elements
 			if (nrme.getModelRoot().getId().contains("LEFT")) {
-				Object matchingChild = getMatchingChild(element, rightRoots);
-				if (matchingChild != null) {
-					// look at the children for the right side
-					// for any that do not exist locally insert
-					// a blank element
-					Object[] children = getChildrenWithoutMissingElements(matchingChild);
-					int location = 0;
-					Class<?> lastTypeAdjustedFor = Object.class;
-					for (Object child : children) {
-						Object[] leftChildren = getChildrenWithoutMissingElements(element);
-						Object leftMatching = null;
-						for (Object leftChild : leftChildren) {
-							if (leftChild.equals(child)) {
-								leftMatching = leftChild;
-								break;
-							}
-						}
-						if (leftMatching == null) {
-							int adjustment = getLocationAdjustmentForSlot(
-									child, lastTypeAdjustedFor, leftChildren);
-							location += adjustment;
-							// only do this once for each slot type
-							lastTypeAdjustedFor = ((ComparableTreeObject) child).getRealElement()
-									.getClass(); 
-							EmptyElement empty = new EmptyElement(child,
-									element, location);
-							// if the location will be at the end, prevent
-							// index out of bounds exceptions by just adding
-							// the elemen to the end
-							if(location > comparables.size()) {
-								comparables.add(empty);
-							} else {
-								comparables.add(location, empty);
-							}
-						}
-						location++;
-					}
-				}
+				insertEmptyElements(nrme, comparables, rightRoots, createdFor);
 			}
 			// if we are the right side, then check the left side for
 			// missing elements
 			if (nrme.getModelRoot().getId().contains("RIGHT")) {
-				Object matchingChild = getMatchingChild(element, leftRoots);
-				if (matchingChild != null) {
-					// look at the children for the right side
-					// for any that do not exist locally insert
-					// a blank element
-					Object[] children = getChildrenWithoutMissingElements(matchingChild);
-					int location = 0;
-					Class<?> lastTypeAdjustedFor = Object.class;
-					for (Object child : children) {
-						Object[] rightChildren = getChildrenWithoutMissingElements(element);
-						Object rightMatching = null;
-						for (Object rightChild : rightChildren) {
-							if (rightChild.equals(child)) {
-								rightMatching = rightChild;
-								break;
-							}
-						}
-						if (rightMatching == null) {
-							int adjustment = getLocationAdjustmentForSlot(
-									child, lastTypeAdjustedFor, rightChildren);
-							location += adjustment;
-							// only do this once for each slot type
-							lastTypeAdjustedFor = ((ComparableTreeObject) child).getRealElement()
-									.getClass(); 
-							EmptyElement empty = new EmptyElement(child,
-									element, location);
-							// if the location will be at the end, prevent
-							// index out of bounds exceptions by just adding
-							// the elemen to the end
-							if(location > comparables.size()) {
-								comparables.add(empty);
-							} else {
-								comparables.add(location, empty);
-							}
-						}
-						location++;
-					}
-				}
+				insertEmptyElements(nrme, comparables, leftRoots, createdFor);
 			}
 			// if we are the ancestor, then check the left side for
 			// missing elements
@@ -288,97 +215,108 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 				// element exists in the left and right but is
 				// missing from the ancestor we only want one
 				// empty element
-				List<Object> created = new ArrayList<Object>();
-				Object matchingChild = getMatchingChild(element, leftRoots);
-				if (matchingChild != null) {
-					// look at the children for the left side
-					// for any that do not exist locally insert
-					// a blank element
-					Object[] children = getChildrenWithoutMissingElements(matchingChild);
-					int location = 0;
-					Class<?> lastTypeAdjustedFor = Object.class;
-					for (Object child : children) {
-						Object[] ancestorChildren = getChildrenWithoutMissingElements(element);
-						Object ancestorMatching = null;
-						for (Object ancestorChild : ancestorChildren) {
-							if (ancestorChild.equals(child)) {
-								ancestorMatching = ancestorChild;
-								break;
-							}
-						}
-						if (ancestorMatching == null && !created.contains(child)) {
-							int adjustment = getLocationAdjustmentForSlot(
-									child, lastTypeAdjustedFor, ancestorChildren);
-							location += adjustment;
-							// only do this once for each slot type
-							lastTypeAdjustedFor = ((ComparableTreeObject) child).getRealElement()
-									.getClass(); 
-							EmptyElement empty = new EmptyElement(child,
-									element, location);
-							comparables.add(location, empty);
-							created.add(child);
-						}
-						location++;
-					}
-				}
+				insertEmptyElements(nrme, comparables, leftRoots, createdFor);
 				// repeat to add empty elements for missing right elements
-				matchingChild = getMatchingChild(element, rightRoots);
-				if (matchingChild != null) {
-					// look at the children for the left side
-					// for any that do not exist locally insert
-					// a blank element
-					Object[] children = getChildrenWithoutMissingElements(matchingChild);
-					int location = 0;
-					Class<?> lastTypeAdjustedFor = Object.class;
-					for (Object child : children) {
-						Object[] ancestorChildren = getChildrenWithoutMissingElements(element);
-						Object ancestorMatching = null;
-						for (Object ancestorChild : ancestorChildren) {
-							if (ancestorChild.equals(child)) {
-								ancestorMatching = ancestorChild;
-								break;
-							}
-						}
-						if (ancestorMatching == null && !created.contains(child)) {
-							int adjustment = getLocationAdjustmentForSlot(
-									child, lastTypeAdjustedFor, ancestorChildren);
-							location += adjustment;
-							// only do this once for each slot type
-							lastTypeAdjustedFor = ((ComparableTreeObject) child).getRealElement()
-									.getClass(); 
-							EmptyElement empty = new EmptyElement(child,
-									element, location);
-							comparables.add(location, empty);
-							created.add(child);
-						}
-						location++;
-					}
-				}
+				insertEmptyElements(nrme, comparables, rightRoots, createdFor);
 			}
 		}
 	}
-	
-	private int getLocationAdjustmentForSlot(Object child, Class<?> lastTypeAdjustedFor, Object[] children) {
+
+	private void insertEmptyElements(NonRootModelElement element,
+			List<ComparableTreeObject> comparables,
+			NonRootModelElement[] roots, List<Object> createdFor) {
+		Object matchingChild = getMatchingChild(element, roots);
+		if (matchingChild != null) {
+			// look at the children for the right side
+			// for any that do not exist locally insert
+			// a blank element
+			Object[] children = getChildrenWithoutMissingElements(matchingChild);
+			int location = 0;
+			for (Object child : children) {
+				Object[] otherChildren = getChildrenWithoutMissingElements(element);
+				Object otherMatching = null;
+				for (Object otherChild : otherChildren) {
+					if (otherChild.equals(child)) {
+						otherMatching = otherChild;
+						break;
+					}
+				}
+				if (otherMatching == null) {
+					if (createdFor.contains(child)) {
+						continue;
+					}
+					location = getAdjustedLocationForSlot(location, child,
+							children, otherChildren, createdFor);
+					EmptyElement empty = new EmptyElement(child, element,
+							location);
+					// if the location will be at the end, prevent
+					// index out of bounds exceptions by just adding
+					// the element to the end
+					if (location > comparables.size()) {
+						comparables.add(empty);
+					} else {
+						comparables.add(location, empty);
+						createdFor.add(child);
+					}
+				}
+				location++;
+			}
+		}
+	}
+
+	private int getAdjustedLocationForSlot(int location, Object remoteChild,
+			Object[] remoteChildren, Object[] localChildren,
+			List<Object> existingEmptyElements) {
 		// adjust the location for existing slots
 		// that are not the same type
-		int adjustment = 0;
-		Object realElement = ((ComparableTreeObject) child).getRealElement();
-		if (realElement.getClass() != lastTypeAdjustedFor && MetadataSortingManager.isOrderedElement(realElement)) {
-			// get the slot number for this class type
+		Object realElement = ((ComparableTreeObject) remoteChild)
+				.getRealElement();
+		if (MetadataSortingManager.isOrderedElement(realElement)) {
+			int remoteSlotLocation = 0;
+			// get the slot number for the remote element
 			int slot = inspector.getOrderedSlot(realElement);
-			for (Object otherChild : children) {
-				Object otherRealElement = ((ComparableTreeObject) otherChild).getRealElement();
-				int childSlot = inspector.getOrderedSlot(otherRealElement);
-				// slot 0 is reserved for attribute values
-				// we are not interested in adjusting for that
-				if(slot > childSlot && childSlot != 0) {
-					adjustment++;
+			for (Object otherChild : remoteChildren) {
+				Object otherRealElement = ((ComparableTreeObject) otherChild)
+						.getRealElement();
+				int childSlot = inspector
+						.getOrderedSlot(otherRealElement);
+				if (slot == childSlot) {
+					if (otherRealElement == realElement) {
+						break;
+					}
+					remoteSlotLocation++;
 				} else {
 					continue;
 				}
 			}
+			// now find the real location using the expected
+			// slot location
+			location = 0;
+			int localSlotLocation = 0;
+			for (Object localChild : localChildren) {
+				Object otherRealElement = ((ComparableTreeObject) localChild)
+						.getRealElement();
+				int childSlot = inspector
+						.getOrderedSlot(otherRealElement);
+				if (slot > childSlot) {
+					localSlotLocation++;
+				} else {
+					location = localSlotLocation + remoteSlotLocation;
+					break;
+				}
+			}
+			// we need to increase the location size by the number
+			// of empty elements created for the slots before us
+			for (Object existingEmptyElement : existingEmptyElements) {
+				int emptySlot = inspector
+						.getOrderedSlot(((ComparableTreeObject) existingEmptyElement)
+								.getRealElement());
+				if (slot > emptySlot) {
+					location++;
+				}
+			}
 		}
-		return adjustment;
+		return location;
 	}
 	
 	private Object[] getChildrenWithoutMissingElements(Object element) {
