@@ -366,26 +366,22 @@ ${rel_nav.body}\
 	
 	@Override
 	public int getOrderedSlot(Object element) {
-.// Look to see if there is a common parent among the other ordered
-.// element types, if there is, then create a "slot number" for each of the
-.// types that have a common parent.	
-.if (tree_node.SortingRelationNumber >= 0)
+.// We are generating the code that defines that slots in the model elements that have multiple
+.// children that are sorted (for example class Interface).
+.// Check to see if this node has children that are sorted, and
+.// if it does, generate code that defines unique slot numbers for each of them.
+.select many sorted_children related by tree_node->T_TPS[R1000]->T_TNS[R1001] where (selected.SortingRelationNumber >= 0)
+.assign num_sorted_children = cardinality sorted_children
+.if (num_sorted_children > 1)
   .assign slot_count = 1;
-  .select many parents related by tree_node->T_TPS[R1000]->T_TNS[R1001] 
-  .for each parent in parents	
-.print "Parent Key_Lett: ${parent.Key_Lett}\n"
-    .select many common_sorted_children related by parent->T_TPS[R1001]->T_TNS[R1000] where (selected.SortingRelationNumber >= 0)
-    .assign num_common_children = cardinality common_sorted_children
-    .for each common_sorted_child in common_sorted_children 		
-      .select any class from instances of O_OBJ where (selected.Key_Lett == common_sorted_child.Key_Lett)
-      .invoke cn = get_class_name(class)
-      .assign class_name = cn.body
-.print "Class: ${class_name}\n"
+  .for each sorted_child in sorted_children 		
+    .select any class from instances of O_OBJ where (selected.Key_Lett == sorted_child.Key_Lett)
+    .invoke cn = get_class_name(class)
+    .assign class_name = cn.body
     	if (element instanceof ${class_name}) {
 			return ${slot_count};
 		}
-	  .assign slot_count = slot_count + 1;
-    .end for
+    .assign slot_count = slot_count + 1;
   .end for
 .end if
 		return 0;
