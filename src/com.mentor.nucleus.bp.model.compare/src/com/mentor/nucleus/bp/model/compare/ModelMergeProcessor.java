@@ -244,12 +244,7 @@ public class ModelMergeProcessor {
 		}
 		Object existingElementAtNewLocation = existingChildren[location];
 		if(existingElementAtNewLocation != null) {
-			if(existingElementAtNewLocation instanceof EmptyElement) {
-				existingElementAtNewLocation = existingChildren[location - 1];
-				existingElementAtNewLocation = ((ComparableTreeObject) existingElementAtNewLocation).getRealElement();
-			} else {
-				existingElementAtNewLocation = ((ComparableTreeObject) existingElementAtNewLocation).getRealElement();
-			}
+			existingElementAtNewLocation = ((ComparableTreeObject) existingElementAtNewLocation).getRealElement();
 		}
 		String associationNumber = MetadataSortingManager
 				.getAssociationNumber(element);
@@ -257,11 +252,8 @@ public class ModelMergeProcessor {
 				.getAssociationPhrase(element);
 		
 		if (moveUp) {
-			NonRootModelElement previousElementToExisting = null;
-			if(existingElementAtNewLocation.getClass() == element.getClass()) {
-				previousElementToExisting = (NonRootModelElement) MetadataSortingManager
+			NonRootModelElement previousElementToExisting = (NonRootModelElement) MetadataSortingManager
 						.getPreviousElement((NonRootModelElement) existingElementAtNewLocation);
-			}
 			if(previousElementToExisting != null) {
 				Method unrelate = findMethod("unrelateAcrossR" + associationNumber
 						+ "From" + associationPhrase, existingElementAtNewLocation.getClass(),
@@ -286,8 +278,6 @@ public class ModelMergeProcessor {
 						new Class[] { nextToSelf.getClass() });
 				invokeMethod(unrelate, nextToSelf,
 						new Object[] { element });
-			}
-			if(nextToSelf != null) {
 				Method relate = findMethod("relateAcrossR" + associationNumber
 						+ "To" + associationPhrase, nextToSelf.getClass(),
 						new Class[] { nextToSelf.getClass() });
@@ -401,13 +391,6 @@ public class ModelMergeProcessor {
 		// fixed after the batch relate calls
 		Object[] existingChildren = ((ITreeDifferencerProvider) contentProvider)
 				.getChildren(parent);
-		// we need to adjust the new location by
-		// any empty elements above us
-		for(int i = newElementLocation - 1; i != 0; i--) {
-			if(existingChildren[i] instanceof EmptyElement) {
-				newElementLocation--;
-			}
-		}
 		// create deltas for the creation of a new element
 		NonRootModelElement newObject = null;
 		Object realElement = ((ComparableTreeObject) diffElement)
@@ -564,7 +547,8 @@ public class ModelMergeProcessor {
 						new Object[] { orderedElement });
 				count++;
 			}
-			int currentLocation = orderList.size();
+			int currentLocation = TreeDifferencer.getLocationOfElement(parent,
+					ComparableProvider.getComparableTreeObject(newObject), contentProvider);
 			// the element will be at the end of the destination
 			// list, now call the moveUp and moveDown accordingly
 			if(currentLocation > newElementLocation) {
