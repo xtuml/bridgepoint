@@ -364,34 +364,32 @@ ${rel_nav.body}\
 		return CorePlugin.getImageFor("${tree_node.Icon}");
 	}
 	
-	public int getNextSlot() {
-.assign num_of_attr = cardinality attrs
-.assign external_attr_count = cardinality external_attrs
-.assign num_of_attr = num_of_attr + external_attr_count
- ObjectElement[] referentials = getReferentials(this);
-int numReferentials = referentials.length;
- int numAttributes = ${num_of_attr};
-		return numReferentials+numAttributes;
-	}
-	
 	@Override
 	public int getOrderedSlot(Object element) {
-.assign slot_count = 1;
-.select many tree_nodes from instances of T_TNS 
-.for each node in tree_nodes
-  .if(node.SortingRelationNumber >= 0)
-    .select any class from instances of O_OBJ where (selected.Key_Lett == node.Key_Lett)
-    .invoke cn = get_class_name(class)
-    .assign class_name = cn.body
+.// Look to see if there is a common parent among the other ordered
+.// element types, if there is, then create a "slot number" for each of the
+.// types that have a common parent.	
+.if (tree_node.SortingRelationNumber >= 0)
+  .assign slot_count = 1;
+  .select many parents related by tree_node->T_TPS[R1000]->T_TNS[R1001] 
+  .for each parent in parents	
+.print "Parent Key_Lett: ${parent.Key_Lett}\n"
+    .select many common_sorted_children related by parent->T_TPS[R1001]->T_TNS[R1000] where (selected.SortingRelationNumber >= 0)
+    .assign num_common_children = cardinality common_sorted_children
+    .for each common_sorted_child in common_sorted_children 		
+      .select any class from instances of O_OBJ where (selected.Key_Lett == common_sorted_child.Key_Lett)
+      .invoke cn = get_class_name(class)
+      .assign class_name = cn.body
+.print "Class: ${class_name}\n"
     	if (element instanceof ${class_name}) {
 			return ${slot_count};
 		}
-	.assign slot_count = slot_count + 1;
-  .end if
-.end for
+	  .assign slot_count = slot_count + 1;
+    .end for
+  .end for
+.end if
 		return 0;
 	}
-
 	}       
 .end function
 .//

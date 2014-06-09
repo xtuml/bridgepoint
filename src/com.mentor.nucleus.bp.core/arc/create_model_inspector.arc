@@ -208,7 +208,7 @@ public class ${inspector_name} implements ${inspector_interface_name}, IModelIns
 	
 	@Override
 	public int getOrderedSlot(Object element) {
-		return 0;
+		return getInspector(element.getClass()).getOrderedSlot(element);
 	}	
 }
 .end function
