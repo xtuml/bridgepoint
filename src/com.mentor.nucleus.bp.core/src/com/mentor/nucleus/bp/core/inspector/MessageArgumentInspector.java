@@ -149,5 +149,10 @@ public class MessageArgumentInspector extends BaseModelClassInspector {
 		}
 		return CorePlugin.getImageFor("OperationParameter.gif");
 	}
+
+	@Override
+	public int getOrderedSlot(Object element) {
+		return 0;
+	}
     }       
 

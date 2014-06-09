@@ -373,6 +373,25 @@ int numReferentials = referentials.length;
  int numAttributes = ${num_of_attr};
 		return numReferentials+numAttributes;
 	}
+	
+	@Override
+	public int getOrderedSlot(Object element) {
+.assign slot_count = 1;
+.select many tree_nodes from instances of T_TNS 
+.for each node in tree_nodes
+  .if(node.SortingRelationNumber >= 0)
+    .select any class from instances of O_OBJ where (selected.Key_Lett == node.Key_Lett)
+    .invoke cn = get_class_name(class)
+    .assign class_name = cn.body
+    	if (element instanceof ${class_name}) {
+			return ${slot_count};
+		}
+	.assign slot_count = slot_count + 1;
+  .end if
+.end for
+		return 0;
+	}
+
 	}       
 .end function
 .//
