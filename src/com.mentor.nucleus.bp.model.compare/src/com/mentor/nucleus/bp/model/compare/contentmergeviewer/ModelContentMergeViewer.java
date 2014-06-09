@@ -127,6 +127,7 @@ import com.mentor.nucleus.bp.io.core.CoreExport;
 import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 import com.mentor.nucleus.bp.model.compare.ComparePlugin;
 import com.mentor.nucleus.bp.model.compare.CompareTransactionManager;
+import com.mentor.nucleus.bp.model.compare.EmptyElement;
 import com.mentor.nucleus.bp.model.compare.ITreeDifferencerProvider;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager.ModelLoadException;
@@ -1391,7 +1392,8 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 					|| diffKind == Differencer.CONFLICTING) {
 				if (SynchronizedTreeViewer.differenceIsGraphical(difference)) {
 					boolean add = true;
-					if (difference.getElement() == null
+					if ((difference.getElement() == null || difference
+							.getElement() instanceof EmptyElement)
 							&& difference.getMatchingDifference().getElement() instanceof NonRootModelElementComparable) {
 						// this is a removal, only remove if the
 						// semantic element represented is also
@@ -1439,7 +1441,8 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 							add = false;
 						}
 					}
-					if (difference.getMatchingDifference().getElement() == null
+					if ((difference.getMatchingDifference().getElement() == null || difference
+							.getMatchingDifference().getElement() instanceof EmptyElement)
 							&& difference.getElement() instanceof NonRootModelElementComparable) {
 						// this is an addition, only add the graphic if the
 						// semantic element was also copied
@@ -1473,9 +1476,9 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 							if (graphEleToAdd.getRepresents() != null
 									&& graphEleToAdd.getRepresents() instanceof NonRootModelElement) {
 								NonRootModelElement semanticElement = (NonRootModelElement) graphEleToAdd.getRepresents();
-								NonRootModelElementComparable nrmec = (NonRootModelElementComparable) difference
-										.getMatchingDifference().getParent();
-								NonRootModelElement parentElement = (NonRootModelElement) nrmec.getRealElement();
+								NonRootModelElement parentElement = (NonRootModelElement) ((EmptyElement) difference
+										.getMatchingDifference().getElement())
+										.getParent();
 								Object existingSemanticElement = Ooaofooa.getInstance(parentElement
 										.getModelRoot().getId())
 										.getInstanceList(
