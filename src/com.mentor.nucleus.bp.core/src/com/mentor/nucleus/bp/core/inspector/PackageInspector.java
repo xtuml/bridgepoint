@@ -1270,5 +1270,10 @@ PackageableElement_c.getManyPE_PEsOnR8000(
 		}
 		return CorePlugin.getImageFor("Package.gif");
 	}
+
+	@Override
+	public int getOrderedSlot(Object element) {
+		return 0;
+	}
     }       
 
