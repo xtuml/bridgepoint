@@ -371,7 +371,7 @@ ${rel_nav.body}\
 .// types that have a common parent.	
 .if (tree_node.SortingRelationNumber >= 0)
   .assign slot_count = 1;
-  .select many parents related by tree_node->T_TPS[R1000]->T_TNS[R1001]
+  .select many parents related by tree_node->T_TPS[R1000]->T_TNS[R1001] 
   .for each parent in parents	
 .print "Parent Key_Lett: ${parent.Key_Lett}\n"
     .select many common_sorted_children related by parent->T_TPS[R1001]->T_TNS[R1000] where (selected.SortingRelationNumber >= 0)
