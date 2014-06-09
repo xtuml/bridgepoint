@@ -88,6 +88,7 @@ import org.eclipse.swt.graphics.Image;
 import com.mentor.nucleus.bp.core.ClassStateMachine_c;
 import com.mentor.nucleus.bp.core.InstanceStateMachine_c;
 import com.mentor.nucleus.bp.core.StateMachine_c;
+import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.inspector.*;
 import com.mentor.nucleus.bp.core.sorter.MetadataSortingManager;
 
@@ -208,7 +209,10 @@ public class ${inspector_name} implements ${inspector_interface_name}, IModelIns
 	
 	@Override
 	public int getOrderedSlot(Object element) {
-		return getInspector(element.getClass()).getOrderedSlot(element);
+		if (element instanceof NonRootModelElement) {
+			return getInspector(element.getClass()).getOrderedSlot(element);
+		}
+		return 0;
 	}	
 }
 .end function
