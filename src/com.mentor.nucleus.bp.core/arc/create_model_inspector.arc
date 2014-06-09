@@ -205,6 +205,11 @@ public class ${inspector_name} implements ${inspector_interface_name}, IModelIns
 	public Image getImage(Object arg) {
 		return getInspector(arg.getClass()).getImage(arg);
 	}
+	
+	@Override
+	public int getOrderedSlot(Object element) {
+		return 0;
+	}	
 }
 .end function
 .if(inspector_package == "com.mentor.nucleus.bp.core.inspector")
@@ -233,6 +238,7 @@ public interface ${inspector_interface_name}{
 	${model_element_class_name}[] getAttributes(Object arg);
 	Object[] getReferentialDetails(Class<?> referentialClass, Object arg);
 	Image getImage(Object arg);
+	int getOrderedSlot(Object element);
 }
  .emit to file "${rel_path}/${inspector_dir}/${inspector_interface_name}.java"
  .//

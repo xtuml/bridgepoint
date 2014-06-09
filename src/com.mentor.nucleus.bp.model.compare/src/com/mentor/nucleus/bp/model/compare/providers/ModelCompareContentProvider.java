@@ -367,10 +367,10 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 		Object realElement = ((ComparableTreeObject) child).getRealElement();
 		if (realElement.getClass() != lastTypeAdjustedFor && MetadataSortingManager.isOrderedElement(realElement)) {
 			// get the slot number for this class type
-			int slot = MetadataSortingManager.getOrderedSlot(realElement);
+			int slot = inspector.getOrderedSlot(realElement);
 			for (Object otherChild : children) {
 				Object otherRealElement = ((ComparableTreeObject) otherChild).getRealElement();
-				int childSlot = MetadataSortingManager.getOrderedSlot(otherRealElement);
+				int childSlot = inspector.getOrderedSlot(otherRealElement);
 				// slot 0 is reserved for attribute values
 				// we are not interested in adjusting for that
 				if(slot > childSlot && childSlot != 0) {
