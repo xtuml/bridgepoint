@@ -274,11 +274,11 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 		if (MetadataSortingManager.isOrderedElement(realElement)) {
 			int remoteSlotLocation = 0;
 			// get the slot number for the remote element
-			int slot = MetadataSortingManager.getOrderedSlot(realElement);
+			int slot = inspector.getOrderedSlot(realElement);
 			for (Object otherChild : remoteChildren) {
 				Object otherRealElement = ((ComparableTreeObject) otherChild)
 						.getRealElement();
-				int childSlot = MetadataSortingManager
+				int childSlot = inspector
 						.getOrderedSlot(otherRealElement);
 				if (slot == childSlot) {
 					if (otherRealElement == realElement) {
@@ -296,7 +296,7 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 			for (Object localChild : localChildren) {
 				Object otherRealElement = ((ComparableTreeObject) localChild)
 						.getRealElement();
-				int childSlot = MetadataSortingManager
+				int childSlot = inspector
 						.getOrderedSlot(otherRealElement);
 				if (slot > childSlot) {
 					localSlotLocation++;
@@ -308,7 +308,7 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 			// we need to increase the location size by the number
 			// of empty elements created for the slots before us
 			for (Object existingEmptyElement : existingEmptyElements) {
-				int emptySlot = MetadataSortingManager
+				int emptySlot = inspector
 						.getOrderedSlot(((ComparableTreeObject) existingEmptyElement)
 								.getRealElement());
 				if (slot > emptySlot) {

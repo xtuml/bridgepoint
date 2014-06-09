@@ -62,4 +62,6 @@ public abstract class BaseModelClassInspector implements IModelClassInspector {
 		return null;
 	}
 
+	@Override
+	public abstract int getOrderedSlot(Object element);
 }
