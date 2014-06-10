@@ -551,9 +551,9 @@ public class ModelMergeProcessor {
 			newElementLocation = getPersistenceLocation(remoteParent,
 					difference.getElement(), contentProvider);
 			adjustPersistenceOrdering(newObject, newElementLocation);
+			batchRelateAll(newObject, modelRoot, contentProvider);
 		}
 		handlePostCreation(newObject, (NonRootModelElement) realElement);
-		batchRelateAll(newObject, modelRoot, contentProvider);
 		return true;
 	}
 
