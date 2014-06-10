@@ -63,5 +63,5 @@ public abstract class BaseModelClassInspector implements IModelClassInspector {
 	}
 
 	@Override
-	public abstract int getOrderedSlot(Object element);
+	public abstract int getTreeDifferenceSlot(Object element);
 }
