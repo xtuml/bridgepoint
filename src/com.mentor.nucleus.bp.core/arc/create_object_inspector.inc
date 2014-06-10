@@ -364,18 +364,23 @@ ${rel_nav.body}\
 		return CorePlugin.getImageFor("${tree_node.Icon}");
 	}
 	
+  /**
+  * Returns a "slot number" to be used when comparing and merging tree elements
+  * that contain multiple children.  All model element inspector's contain this 
+  * function, but it only returns a value for cases where it a parent element
+  * in a tree and the parent has multiple children.
+  * 
+  * @returns 0 if this is not a "parent" in the tree OR if the parent has less 
+  * than 2 children. 
+  */
 	@Override
-	public int getOrderedSlot(Object element) {
-.// We are generating the code that defines that slots in the model elements that have multiple
-.// children that are sorted (for example class Interface).
-.// Check to see if this node has children that are sorted, and
-.// if it does, generate code that defines unique slot numbers for each of them.
-.select many sorted_children related by tree_node->T_TPS[R1000]->T_TNS[R1001] where (selected.SortingRelationNumber >= 0)
-.assign num_sorted_children = cardinality sorted_children
-.if (num_sorted_children > 1)
+	public int getTreeDifferenceSlot(Object element) {
+.select many children related by tree_node->T_TPS[R1000]->T_TNS[R1001] 
+.assign num_children = cardinality children
+.if (num_children > 1)
   .assign slot_count = 1;
-  .for each sorted_child in sorted_children 		
-    .select any class from instances of O_OBJ where (selected.Key_Lett == sorted_child.Key_Lett)
+  .for each child in children 		
+    .select any class from instances of O_OBJ where (selected.Key_Lett == child.Key_Lett)
     .invoke cn = get_class_name(class)
     .assign class_name = cn.body
     	if (element instanceof ${class_name}) {

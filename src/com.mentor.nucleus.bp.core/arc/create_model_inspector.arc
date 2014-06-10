@@ -208,12 +208,12 @@ public class ${inspector_name} implements ${inspector_interface_name}, IModelIns
 	}
 	
 	@Override
-	public int getOrderedSlot(Object element) {
+	public int getTreeDifferenceSlot(Object element) {
         if (element instanceof NonRootModelElement) {
             // use the parent to determine the slot
             // location for the given child
             Object parent = getInspector(element.getClass()).getParent(element);
-            return getInspector(parent.getClass()).getOrderedSlot(element);
+            return getInspector(parent.getClass()).getTreeDifferenceSlot(element);
         }
 		return 0;
 	}	
@@ -245,7 +245,7 @@ public interface ${inspector_interface_name}{
 	${model_element_class_name}[] getAttributes(Object arg);
 	Object[] getReferentialDetails(Class<?> referentialClass, Object arg);
 	Image getImage(Object arg);
-	int getOrderedSlot(Object element);
+	int getTreeDifferenceSlot(Object element);
 }
  .emit to file "${rel_path}/${inspector_dir}/${inspector_interface_name}.java"
  .//
