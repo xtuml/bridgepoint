@@ -33,7 +33,8 @@ import java.util.*;
 public class MessageArgumentInspector extends BaseModelClassInspector {
 
   private String parentAssoc;
-  
+  MessageArgumentTreeDifferenceSlot slot_class = new MessageArgumentTreeDifferenceSlot();
+
   public MessageArgumentInspector(MetadataSortingManager sortingManager){
     super(sortingManager);
   }
@@ -161,25 +162,7 @@ public class MessageArgumentInspector extends BaseModelClassInspector {
      */
    	@Override
    	public int getTreeDifferenceSlot(Object element) {
-       	if (element instanceof BridgeParameter_c) {
-   			return 1;
-   		}
-       	if (element instanceof OperationParameter_c) {
-   			return 2;
-   		}
-       	if (element instanceof FunctionParameter_c) {
-   			return 3;
-   		}
-       	if (element instanceof StateMachineEventDataItem_c) {
-   			return 4;
-   		}
-       	if (element instanceof PropertyParameter_c) {
-   			return 5;
-   		}
-       	if (element instanceof InformalArgument_c) {
-   			return 6;
-   		}
-   		return 0;
+   		return slot_class.getTreeDifferenceSlot(element);
    	}
    	} 
 
