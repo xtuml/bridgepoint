@@ -271,49 +271,105 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 		// that are not the same type
 		Object realElement = ((ComparableTreeObject) remoteChild)
 				.getRealElement();
-		if (MetadataSortingManager.isOrderedElement(realElement)) {
-			int remoteSlotLocation = 0;
-			// get the slot number for the remote element
-			int slot = inspector.getTreeDifferenceSlot(realElement);
-			for (Object otherChild : remoteChildren) {
-				Object otherRealElement = ((ComparableTreeObject) otherChild)
-						.getRealElement();
-				int childSlot = inspector
-						.getTreeDifferenceSlot(otherRealElement);
-				if (slot == childSlot) {
-					if (otherRealElement == realElement) {
-						break;
+		int remoteSlotLocation = 0;
+		IModelClassInspector elementInspector = inspector;
+		if(realElement instanceof ObjectElement) {
+			ObjectElement objEle = (ObjectElement) realElement;
+			if(objEle.getParent() instanceof NonRootModelElement) {
+				NonRootModelElement objEleParent = (NonRootModelElement) objEle.getParent();
+				if(objEleParent.getModelRoot() instanceof Ooaofgraphics) {
+					elementInspector = new GraphicalModelInspector();
+				}
+			}			
+		} else {
+			if(((NonRootModelElement) realElement).getModelRoot() instanceof Ooaofgraphics) {
+				elementInspector = new GraphicalModelInspector();
+			}
+		}
+		// get the slot number for the remote element
+		int slot = elementInspector.getTreeDifferenceSlot(realElement);
+		for (Object otherChild : remoteChildren) {
+			Object otherRealElement = ((ComparableTreeObject) otherChild)
+					.getRealElement();
+			IModelClassInspector otherElementInspector = inspector;
+			if(otherRealElement instanceof ObjectElement) {
+				ObjectElement objEle = (ObjectElement) otherRealElement;
+				if(objEle.getParent() instanceof NonRootModelElement) {
+					NonRootModelElement objEleParent = (NonRootModelElement) objEle.getParent();
+					if(objEleParent.getModelRoot() instanceof Ooaofgraphics) {
+						otherElementInspector = new GraphicalModelInspector();
 					}
-					remoteSlotLocation++;
-				} else {
-					continue;
+				}
+			} else {
+				if(((NonRootModelElement) otherRealElement).getModelRoot() instanceof Ooaofgraphics) {
+					otherElementInspector = new GraphicalModelInspector();
 				}
 			}
-			// now find the real location using the expected
-			// slot location
-			location = 0;
-			int localSlotLocation = 0;
-			for (Object localChild : localChildren) {
-				Object otherRealElement = ((ComparableTreeObject) localChild)
-						.getRealElement();
-				int childSlot = inspector
-						.getTreeDifferenceSlot(otherRealElement);
-				if (slot > childSlot) {
-					localSlotLocation++;
-				} else {
-					location = localSlotLocation + remoteSlotLocation;
+			int childSlot = otherElementInspector
+					.getTreeDifferenceSlot(otherRealElement);
+			if (slot == childSlot) {
+				if (otherRealElement == realElement) {
 					break;
 				}
+				remoteSlotLocation++;
+			} else {
+				continue;
 			}
-			// we need to increase the location size by the number
-			// of empty elements created for the slots before us
-			for (Object existingEmptyElement : existingEmptyElements) {
-				int emptySlot = inspector
-						.getTreeDifferenceSlot(((ComparableTreeObject) existingEmptyElement)
-								.getRealElement());
-				if (slot > emptySlot) {
-					location++;
+		}
+		// now find the real location using the expected
+		// slot location
+		location = 0;
+		int localSlotLocation = 0;
+		for (Object localChild : localChildren) {
+			Object otherRealElement = ((ComparableTreeObject) localChild)
+					.getRealElement();
+			IModelClassInspector otherElementInspector = inspector;
+			if(otherRealElement instanceof ObjectElement) {
+				ObjectElement objEle = (ObjectElement) otherRealElement;
+				if(objEle.getParent() instanceof NonRootModelElement) {
+					NonRootModelElement objEleParent = (NonRootModelElement) objEle.getParent();
+					if(objEleParent.getModelRoot() instanceof Ooaofgraphics) {
+						otherElementInspector = new GraphicalModelInspector();
+					}
 				}
+			} else {
+				if(((NonRootModelElement) otherRealElement).getModelRoot() instanceof Ooaofgraphics) {
+					otherElementInspector = new GraphicalModelInspector();
+				}
+			}
+			int childSlot = otherElementInspector
+					.getTreeDifferenceSlot(otherRealElement);
+			if (slot > childSlot) {
+				localSlotLocation++;
+			} else {
+				break;
+			}
+		}
+		location = localSlotLocation + remoteSlotLocation;
+		// we need to increase the location size by the number
+		// of empty elements created for the slots before us
+		for (Object existingEmptyElement : existingEmptyElements) {
+			IModelClassInspector existingElementInspector = inspector;
+			ComparableTreeObject existingComparable = (ComparableTreeObject) existingEmptyElement;
+			if(existingComparable instanceof NonRootModelElementComparable) {
+				NonRootModelElement existingNrme = (NonRootModelElement) ((NonRootModelElementComparable) existingComparable).getRealElement();
+				if(existingNrme.getModelRoot() instanceof Ooaofgraphics) {
+					existingElementInspector = new GraphicalModelInspector();
+				}
+			} else if(existingComparable instanceof ObjectElementComparable) {
+				ObjectElement objEle = (ObjectElement) existingComparable.getRealElement();
+				if(objEle.getParent() instanceof NonRootModelElement) {
+					NonRootModelElement objEleParent = (NonRootModelElement) objEle.getParent();
+					if(objEleParent.getModelRoot() instanceof Ooaofgraphics) {
+						existingElementInspector = new GraphicalModelInspector();
+					}
+				}
+			}
+			int emptySlot = existingElementInspector
+					.getTreeDifferenceSlot(((ComparableTreeObject) existingEmptyElement)
+							.getRealElement());
+			if (slot > emptySlot) {
+				location++;
 			}
 		}
 		return location;

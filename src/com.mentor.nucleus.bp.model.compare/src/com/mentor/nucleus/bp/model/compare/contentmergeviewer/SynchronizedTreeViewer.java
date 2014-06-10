@@ -434,7 +434,8 @@ public class SynchronizedTreeViewer extends TreeViewer implements
 	TreeItem getItemForDifference(TreeDifference difference) {
 		for (int i = difference.getPath().getSegmentCount() - 1; i >= 0; i--) {
 			Object segment = difference.getPath().getSegment(i);
-			TreeItem item = (TreeItem) findItem(segment);
+			TreeItem item = (TreeItem) findItem(ComparableProvider
+					.getComparableTreeObject(segment));
 			// if item is null, check for a matching difference with
 			// element type of EmptyElement
 			if(item == null) {
