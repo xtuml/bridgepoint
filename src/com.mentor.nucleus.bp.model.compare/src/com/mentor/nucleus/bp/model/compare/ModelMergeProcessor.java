@@ -416,24 +416,8 @@ public class ModelMergeProcessor {
 		// location difference in the file
 		Object object = findObjectInDestination(modelRoot, newObject); 
 		if (object != null && !((NonRootModelElement) object).isProxy()) {
-			object = getLastSupertype((NonRootModelElement) object);
-			// assure that the persisted location is correct
-			IPersistableElementParentDetails parentDetails = PersistenceManager
-					.getHierarchyMetaData().getParentDetails(
-							(NonRootModelElement) object);
-			if (parentDetails.isMany()) {
-				Object[] localDetails = new Object[] {
-						parentDetails.getParent(), parentDetails.getChild(),
-						parentDetails.getAssociationNumber(),
-						parentDetails.getAssociationPhrase(),
-						parentDetails.getChildKeyLetters() };
-				int localLocation = getLocationForElementInSource(localDetails);
-				if(newElementLocation != localLocation) {
-					callSetOrderOperation(newElementLocation, localDetails);
-					return true;
-				}
-			}
-			return false;
+			newElementLocation = getPersistenceLocation(parent, newObject, contentProvider);
+			return adjustPersistenceOrdering(object, newElementLocation);
 		}
 		if (matchingDiffElement != null
 				&& !(matchingDiffElement instanceof EmptyElement)) {
@@ -561,9 +545,72 @@ public class ModelMergeProcessor {
 				insertElementAt(newElementLocation, difference,
 						contentProvider, false);
 			}
+		} else {
+			Object remoteParent = contentProvider.getParent(difference
+					.getElement());
+			newElementLocation = getPersistenceLocation(remoteParent,
+					difference.getElement(), contentProvider);
+			adjustPersistenceOrdering(newObject, newElementLocation);
 		}
 		handlePostCreation(newObject, (NonRootModelElement) realElement);
+		batchRelateAll(newObject, modelRoot, contentProvider);
 		return true;
+	}
+
+	private static void batchRelateAll(NonRootModelElement newObject, ModelRoot modelRoot, ITreeContentProvider provider) {
+		newObject.batchRelate(modelRoot, false, false);
+		Object[] children = provider.getChildren(newObject);
+		for(Object element : children) {
+			if(element instanceof NonRootModelElementComparable) {
+				NonRootModelElementComparable comparable = (NonRootModelElementComparable) element;
+				batchRelateAll((NonRootModelElement) comparable.getRealElement(), modelRoot, provider);
+			}
+		}
+	}
+	
+	private static int getPersistenceLocation(Object parent,
+			Object newObject, ITreeDifferencerProvider contentProvider) {
+		int location = 0;
+		Object[] children = contentProvider.getChildren(parent);
+		for(Object child : children) {
+			if(child.equals(newObject)) {
+				break;
+			}
+			Object realChild = child;
+			if(realChild instanceof ComparableTreeObject) {
+				realChild = ((ComparableTreeObject) realChild).getRealElement();
+			}
+			Object realNewObject = newObject;
+			if(newObject instanceof ComparableTreeObject) {
+				realNewObject = ((ComparableTreeObject) realNewObject).getRealElement();
+			}
+			if(realChild.getClass() == realNewObject.getClass()) {
+				location++;
+			}
+		}
+		return location;
+	}
+
+	private static boolean adjustPersistenceOrdering(Object object, int newElementLocation) {
+		object = getLastSupertype((NonRootModelElement) object);
+		// assure that the persisted location is correct
+		IPersistableElementParentDetails parentDetails = PersistenceManager
+				.getHierarchyMetaData().getParentDetails(
+						(NonRootModelElement) object);
+		if (parentDetails.isMany()) {
+			Object[] localDetails = new Object[] {
+					parentDetails.getParent(), parentDetails.getChild(),
+					parentDetails.getAssociationNumber(),
+					parentDetails.getAssociationPhrase(),
+					parentDetails.getChildKeyLetters() };
+			int localLocation = getLocationForElementInSource(localDetails);
+			if(newElementLocation != localLocation) {
+				callSetOrderOperation(newElementLocation, localDetails);
+				return true;
+			}
+		}
+		return false;
+
 	}
 
 	private static void handlePostCreation(NonRootModelElement newObject, NonRootModelElement originalObject) {
@@ -1194,11 +1241,22 @@ public class ModelMergeProcessor {
 					TreeDifferencer.getPathForElement(ComparableProvider
 							.getComparableTreeObject(element.getParent()),
 							contentProvider));
-			TreeDifference matchingDifference = new TreeDifference(null,
-					TreeDifference.LOCATION_DIFFERENCE, true, TreeDifferencer.RIGHT
-							| TreeDifferencer.ADDITION, TreeDifferencer
-							.getPathForElement(localOwner,
-									contentProvider));
+			// locate the new empty element's parent
+			Object otherElement = originalDifference.getMatchingDifference().getElement();
+			// the parent is this element's parent's parent
+			Object parent = contentProvider.getParent(contentProvider
+					.getParent(otherElement));
+			parent = ((ComparableTreeObject) parent).getRealElement();
+			TreeDifference matchingDifference = new TreeDifference(
+					new EmptyElement(element.getParent(), parent,
+							TreeDifferencer.getLocationOfElement(
+									contentProvider.getParent(element
+											.getParent()), element.getParent(),
+									contentProvider)),
+					TreeDifference.LOCATION_DIFFERENCE, true,
+					TreeDifferencer.RIGHT | TreeDifferencer.ADDITION,
+					TreeDifferencer.getPathForElement(localOwner,
+							contentProvider));
 			matchingDifference.setParent(localOwner);
 			difference.setMatchingDifference(matchingDifference);
 			matchingDifference.setMatchingDifference(difference);
