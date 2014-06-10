@@ -211,9 +211,11 @@ public class ${inspector_name} implements ${inspector_interface_name}, IModelIns
 	public int getTreeDifferenceSlot(Object element) {
         if (element instanceof NonRootModelElement) {
             // use the parent to determine the slot
-            // location for the given child
+            // location for the given child          
             Object parent = getInspector(element.getClass()).getParent(element);
-            return getInspector(parent.getClass()).getTreeDifferenceSlot(element);
+            if (parent != null) {
+	            return getInspector(parent.getClass()).getTreeDifferenceSlot(element);
+	        }
         }
 		return 0;
 	}	
