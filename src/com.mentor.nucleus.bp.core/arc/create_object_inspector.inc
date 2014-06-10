@@ -363,7 +363,13 @@ ${rel_nav.body}\
 		}
 		return CorePlugin.getImageFor("${tree_node.Icon}");
 	}
-	
+.end function
+.//
+.//
+.//
+.function create_slot_functions
+  .param inst_ref tree_node
+  .param boolean isOverride
   /**
   * Returns a "slot number" to be used when comparing and merging tree elements
   * that contain multiple children.  All model element inspector's contain this 
@@ -373,7 +379,9 @@ ${rel_nav.body}\
   * @returns 0 if this is not a "parent" in the tree OR if the parent has less 
   * than 2 children. 
   */
+.if (isOverride)
 	@Override
+.end if
 	public int getTreeDifferenceSlot(Object element) {
 .select many children related by tree_node->T_TPS[R1000]->T_TNS[R1001] 
 .assign num_children = cardinality children
@@ -391,6 +399,11 @@ ${rel_nav.body}\
 .end if
 		return 0;
 	}
+.end function
+.//
+.//
+.//
+.function create_object_inspector_end
 	}       
 .end function
 .//
