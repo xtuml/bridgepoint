@@ -229,7 +229,10 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 				.getModelCacheManager();
 		modelCacheManager.releaseAllFor(this);
 		modelContentProvider.dispose();
-		differencer.dipose();
+		// If getElements was nnever called then there will not be a differencer
+		if (differencer != null) {
+			differencer.dipose();
+		}
 	}
 
 	@Override
