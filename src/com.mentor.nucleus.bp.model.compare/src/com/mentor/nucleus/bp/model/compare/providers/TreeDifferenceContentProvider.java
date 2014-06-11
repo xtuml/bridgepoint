@@ -38,9 +38,9 @@ import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 import com.mentor.nucleus.bp.model.compare.ComparePlugin;
 import com.mentor.nucleus.bp.model.compare.ITreeDifferencerProvider;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager;
+import com.mentor.nucleus.bp.model.compare.ModelCacheManager.ModelLoadException;
 import com.mentor.nucleus.bp.model.compare.TreeDifference;
 import com.mentor.nucleus.bp.model.compare.TreeDifferencer;
-import com.mentor.nucleus.bp.model.compare.ModelCacheManager.ModelLoadException;
 import com.mentor.nucleus.bp.model.compare.contentmergeviewer.SynchronizedTreeViewer;
 
 public class TreeDifferenceContentProvider implements ITreeContentProvider {
@@ -149,24 +149,18 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 			} catch (ModelLoadException e) {
 				CorePlugin.logError("Unable to load model for comparison.", e);
 			}
-			if(differencer == null) {
-				differencer = new TreeDifferencer(
-						(ITreeDifferencerProvider) modelContentProvider,
-						leftRoots,
-						rightRoots,
-						ancestorRoots,
-						(((ICompareInput) inputElement).getKind() & Differencer.DIRECTION_MASK) != 0,
-						inputElement);
-				modelContentProvider.setRootElements(leftRoots, rightRoots);
-				labelProvider.setDifferencer(differencer);
-			} else {
-				differencer.setElements(leftRoots, rightRoots, ancestorRoots);
-				modelContentProvider.setRootElements(leftRoots, rightRoots);
-				boolean isThreeWay = (((ICompareInput) inputElement)
-						.getKind() & Differencer.DIRECTION_MASK) != 0;
-				differencer.setIsThreeWay(isThreeWay);
-				differencer.refresh();
+			if(differencer != null) {
+				differencer.dipose();
 			}
+			differencer = new TreeDifferencer(
+					(ITreeDifferencerProvider) modelContentProvider,
+					leftRoots,
+					rightRoots,
+					ancestorRoots,
+					(((ICompareInput) inputElement).getKind() & Differencer.DIRECTION_MASK) != 0,
+					inputElement);
+			modelContentProvider.setRootElements(leftRoots, rightRoots);
+			labelProvider.setDifferencer(differencer);
 			return uniqueSet(leftRoots, rightRoots, ancestorRoots);
 		}
 		return new Object[0];

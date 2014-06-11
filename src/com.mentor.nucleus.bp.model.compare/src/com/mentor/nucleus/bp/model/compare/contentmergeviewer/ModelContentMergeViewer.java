@@ -1281,22 +1281,17 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 							.getContentProvider())
 							.setModelRoot(getAncestorCompareRoot());
 				}
-				differencer = TreeDifferencer.getInstance(getInput());
-				if(differencer == null) {
-					ModelCompareContentProvider differencerProvider = new ModelCompareContentProvider();
-					differencerProvider.setRootElements(leftElements, rightElements);
-					differencer = new TreeDifferencer(differencerProvider
-							,
-							leftElements, rightElements, ancestorElements,
-							isThreeWay(), getInput());
-					TreeDifferencer.instances.put(getInput(), differencer);
-					updateRootElementsForTreeViewers(leftElements, rightElements);
-				} else {
-					differencer.setElements(leftElements, rightElements, ancestorElements);
-					differencer.setIsThreeWay(isThreeWay());
-					updateRootElementsForTreeViewers(leftElements, rightElements);
+				ModelCompareContentProvider differencerProvider = new ModelCompareContentProvider();
+				differencerProvider.setRootElements(leftElements, rightElements);
+				if(differencer != null) {
+					differencer.dipose();
 				}
-				differencer.refresh();
+				differencer = new TreeDifferencer(differencerProvider
+						,
+						leftElements, rightElements, ancestorElements,
+						isThreeWay(), getInput());
+				TreeDifferencer.instances.put(getInput(), differencer);
+				updateRootElementsForTreeViewers(leftElements, rightElements);
 				nextDifference.getAction().setEnabled(false);
 				nextDifference.getAction().setEnabled(nextDifference.getAction().isEnabled());
 				previousDifference.getAction().setEnabled(false);
