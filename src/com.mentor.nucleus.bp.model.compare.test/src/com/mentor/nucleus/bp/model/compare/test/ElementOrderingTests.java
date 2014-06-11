@@ -1088,6 +1088,7 @@ public class ElementOrderingTests extends BaseTest {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 					.getActiveEditor().doSave(new NullProgressMonitor());
 			BaseTest.dispatchEvents(0);
+			differencer.refresh();
 			assertTrue("Differences remained after copying positional change",
 					differencer.getLeftDifferences().isEmpty());		
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
