@@ -1644,17 +1644,20 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 											+ input.hashCode());
 							try {
 								ITypedElement left = input.getLeft();
-								modelManager.getRootElements(left, this, true,
-										compareRoot,
-										ModelCacheManager.getLeftKey(input));
-								elementGlobally
-										.getFile()
-										.setContents(
-												((IStreamContentAccessor) input
-														.getLeft())
-														.getContents(),
-												IResource.FORCE,
-												new NullProgressMonitor());
+								if(left instanceof IStreamContentAccessor) {
+									IStreamContentAccessor accesor = (IStreamContentAccessor) left;
+									InputStream contents = accesor.getContents();
+									String compareData = readData(contents);
+									ByteArrayInputStream bais = new ByteArrayInputStream(compareData.getBytes());
+									modelManager.getRootElements(left, this, true,
+											compareRoot,
+											ModelCacheManager.getLeftKey(input));
+									elementGlobally
+											.getFile()
+											.setContents(bais,
+													IResource.FORCE,
+													new NullProgressMonitor());
+								}
 							} catch (CoreException e) {
 								CorePlugin
 										.logError(
