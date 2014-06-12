@@ -53,9 +53,10 @@ public class ModelCompareTestSuite extends TestSuite {
 		CorePlugin.getDefault().getPreferenceStore().
         setValue(BridgePointPreferencesStore.
   		              USE_DEFAULT_NAME_FOR_CREATION, true);
-		addTest(new TestSuite(ModelMergeTests.class));
-		addTest(new TestSuite(ElementOrderingTests.class));
-		addTest(new TestSuite(ModelComparisonTests.class));
+//		addTest(new TestSuite(ModelMergeTests.class));
+		addTest(new TestSuite(ModelMergeTests2.class));
+//		addTest(new TestSuite(ElementOrderingTests.class));
+//		addTest(new TestSuite(ModelComparisonTests.class));
 	}
 
 }
