@@ -46,6 +46,9 @@ public class AttributeComparable extends NonRootModelElementComparable {
 			Attribute_c thisAttr = (Attribute_c) getRealElement();
 			ModelClass_c otherClass = ModelClass_c.getOneO_OBJOnR102(otherAttr);
 			ModelClass_c thisClass = ModelClass_c.getOneO_OBJOnR102(thisAttr);
+			if(otherClass == null || thisClass == null) {
+				return super.treeItemEquals(other);
+			}
 			if (otherClass.cachedIdentityEquals(thisClass)) {
 				DataType_c otherDt = DataType_c.getOneS_DTOnR114(otherAttr);
 				DataType_c thisDt = DataType_c.getOneS_DTOnR114(thisAttr);
