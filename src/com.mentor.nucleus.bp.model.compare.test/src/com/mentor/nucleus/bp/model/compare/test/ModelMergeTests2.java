@@ -63,11 +63,11 @@ public class ModelMergeTests2  extends BaseTest {
 		String projectName = "GPS Watch";
 		// import git repository from models repo
 		GitUtil.loadRepository(test_repositories
-				+ "/" + projectName, "slave1");
+				+ "/" + "sandbox", "slave1");
 		// import test project
-		GitUtil.loadProject(projectName, projectName, "slave1");
+		GitUtil.loadProject(projectName, "sandbox", "slave1");
 		// merge the test branch
-		GitUtil.mergeBranch("master1", projectName, "slave1");
+		GitUtil.mergeBranch("master1", "sandbox", "slave1");
 		// start the merge tool
 		GitUtil.startMergeTool(projectName);
 
@@ -83,7 +83,7 @@ public class ModelMergeTests2  extends BaseTest {
 
 		m_sys = getSystemModel(projectName);		
 		Interface_c iface = Interface_c.getOneC_IOnR8001(PackageableElement_c
-				.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1401(m_sys)),
+				.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)),
 				new ClassQueryInterface_c() {
 
 					@Override
@@ -95,7 +95,8 @@ public class ModelMergeTests2  extends BaseTest {
 		
 		String[] orderedElements = new String[] { "m_op1", "m_op2", "sameName",
 				"s_op1", "s_op2", "sameName", "m_sig1", "m_sig2", "sameName",
-				"s_sig1", "s_sig2" };
+				"s_sig1", "s_sig2", "sameName" };
+		
 		verifyOrder(orderedElements, iface);
 		
 		// There should be no error log entries (shutdown will verify this)
@@ -105,12 +106,11 @@ public class ModelMergeTests2  extends BaseTest {
 		// Merge Library::Location::GPS  (4 incoming changes in master, 4 outgoing changes from slave)
 		String projectName = "GPS Watch";
 		// import git repository from models repo
-		GitUtil.loadRepository(test_repositories
-				+ "/" + projectName, "slave2");
+		GitUtil.resetRepository("sandbox", "slave2");
 		// import test project
-		GitUtil.loadProject(projectName, projectName, "slave2");
+		GitUtil.loadProject(projectName, "sandbox", "slave2");
 		// merge the test branch
-		GitUtil.mergeBranch("master2", projectName, "slave2");
+		GitUtil.mergeBranch("master2", "sandbox", "slave2");
 		// start the merge tool
 		GitUtil.startMergeTool(projectName);
 
@@ -126,7 +126,7 @@ public class ModelMergeTests2  extends BaseTest {
 
 		m_sys = getSystemModel(projectName);		
 		ModelClass_c clazz = ModelClass_c.getOneO_OBJOnR8001(PackageableElement_c
-				.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1401(m_sys)),
+				.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)),
 				new ClassQueryInterface_c() {
 
 					@Override
@@ -137,7 +137,7 @@ public class ModelMergeTests2  extends BaseTest {
 				});
 		
 		String[] orderedElements = new String[] { "currentLocation", "timer",
-				"m_a1", "m_a2", "s_a1", "s_a2", "m_o1", "m_o2", "s_o1", "s_o2",
+				"m_a1", "m_a2", "s_a1", "a_a2", "m_o1", "m_o2", "s_o1", "s_o2",
 				"Class State Machine" };
 		verifyOrder(orderedElements, clazz);
 		
