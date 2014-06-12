@@ -195,18 +195,18 @@ for the local file.
 * Commit this to branches master and "slave" 
 * In the master branch, add operations (m_op1, m_op2, sameName), add signals
 (m_sig1, m_sig2, sameName) to the new interface, Pkg1
-* In the master branch, add the following attributes to Libraray::Location::GPS (m_a1, m_a2
-* In the master branch, add the following operations to Libraray::Location::GPS (m_o1, m_o2
+* In the master branch, add the following attributes to Libraray::Location::GPS (m_a1, m_a2)
+* In the master branch, add the following operations to Libraray::Location::GPS (m_o1, m_o2)
 * In the master branch create an operation, m_op1, in test1::iface1
 * Commit changes the master 
 * Switch to the slave branch
 * In the slave branch, add operations (s_op1, s_op2, sameName), add signals
 (s_sig1, s_sig2, sameName) to the new interface, Pkg1
-* In the slave branch, add the following attributes to Libraray::Location::GPS (s_a1, s_a2
-* In the slave branch, add the following operations to Libraray::Location::GPS (s_o1, s_o2
+* In the slave branch, add the following attributes to Libraray::Location::GPS (s_a1, s_a2)
+* In the slave branch, add the following operations to Libraray::Location::GPS (s_o1, s_o2)
 * In the slave branch create an operation, s_op1, in test1::iface1
 * Note: The model described above this point exists in the git models repositopry as 236.zip. 
-I is used be the unit test that performs the test described beloew this point.
+It is used in the unit test that performs the test described below this point.
 
 8.1.2 Test merge (using the model from 8.1.1)
 
