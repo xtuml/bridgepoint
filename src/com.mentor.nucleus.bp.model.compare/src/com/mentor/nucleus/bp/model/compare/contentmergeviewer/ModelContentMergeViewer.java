@@ -127,6 +127,7 @@ import com.mentor.nucleus.bp.io.core.CoreExport;
 import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 import com.mentor.nucleus.bp.model.compare.ComparePlugin;
 import com.mentor.nucleus.bp.model.compare.CompareTransactionManager;
+import com.mentor.nucleus.bp.model.compare.EmptyElement;
 import com.mentor.nucleus.bp.model.compare.ITreeDifferencerProvider;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager.ModelLoadException;
@@ -143,6 +144,7 @@ import com.mentor.nucleus.bp.model.compare.providers.NonRootModelElementComparab
 import com.mentor.nucleus.bp.model.compare.structuremergeviewer.ModelStructureDiffViewer;
 import com.mentor.nucleus.bp.ui.canvas.CanvasPlugin;
 import com.mentor.nucleus.bp.ui.canvas.Connector_c;
+import com.mentor.nucleus.bp.ui.canvas.ElementSpecification_c;
 import com.mentor.nucleus.bp.ui.canvas.Graphconnector_c;
 import com.mentor.nucleus.bp.ui.canvas.Graphedge_c;
 import com.mentor.nucleus.bp.ui.canvas.GraphicalElement_c;
@@ -530,7 +532,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			NonRootModelElementComparable nrmec = (NonRootModelElementComparable) parent;
 			NonRootModelElement nrme = (NonRootModelElement) nrmec.getRealElement();
 			if(nrme.getModelRoot().getId().startsWith(ModelRoot.getRightCompareRootPrefix())) {
-				TreeItem matchingItem = leftTreeViewer.getMatchingItem(nrmec, leftTreeViewer);
+				TreeItem matchingItem = SynchronizedTreeViewer.getMatchingItem(nrmec, leftTreeViewer);
 				if(matchingItem != null) {
 					parent = matchingItem.getData();
 				}
@@ -721,7 +723,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		}
 		if(next.getElement() != null) {
 			leftTreeViewer.setSelection(new StructuredSelection(next.getElement()), true);
-			TreeItem matching = leftTreeViewer.getMatchingItem(next.getElement(),
+			TreeItem matching = SynchronizedTreeViewer.getMatchingItem(next.getElement(),
 					leftTreeViewer);
 			if(matching != null) {
 				leftTreeViewer.getTree().setTopItem(
@@ -730,14 +732,14 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			Object right = next.getMatchingDifference().getElement();
 			if(right != null) {
 				rightTreeViewer.setSelection(new StructuredSelection(right), true);
-				TreeItem rightItem = rightTreeViewer.getMatchingItem(right,
+				TreeItem rightItem = SynchronizedTreeViewer.getMatchingItem(right,
 						rightTreeViewer);
 				if(rightItem != null) {
 					rightTreeViewer.getTree()
 							.setTopItem(rightItem);
 				}
 			} else {
-				TreeItem rightParentItem = rightTreeViewer.getMatchingItem(next
+				TreeItem rightParentItem = SynchronizedTreeViewer.getMatchingItem(next
 						.getMatchingDifference().getParent(), rightTreeViewer);
 				if(rightParentItem != null) {
 					rightTreeViewer.reveal(rightParentItem.getData());
@@ -747,7 +749,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			}
 		} else {
 			if(next.getParent() != null) {
-				TreeItem leftParentItem = leftTreeViewer.getMatchingItem(next
+				TreeItem leftParentItem = SynchronizedTreeViewer.getMatchingItem(next
 						.getParent(), leftTreeViewer);
 				if(leftParentItem != null) {
 					//leftTreeViewer.reveal(leftParentItem.getData());
@@ -757,7 +759,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			rightTreeViewer.setSelection(new StructuredSelection(next
 					.getMatchingDifference().getElement()), true);
 			if(next.getMatchingDifference().getElement() != null) {
-				TreeItem matchingItem = rightTreeViewer.getMatchingItem(next.getMatchingDifference().getElement(), rightTreeViewer);
+				TreeItem matchingItem = SynchronizedTreeViewer.getMatchingItem(next.getMatchingDifference().getElement(), rightTreeViewer);
 				if(matchingItem != null) {
 					rightTreeViewer.getTree().setTopItem(matchingItem);
 				}
@@ -1141,164 +1143,25 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			}
  			gc.setForeground(getColor(PlatformUI.getWorkbench().getDisplay(),
 					getStrokeColor(difference)));
-			if (leftTreeViewer.getTree().getItems().length == 0) {
-				// there are no left items, therefore there will
-				// be one large difference on the right
-				// draw a line from the left to the center of the
-				// right top element including children
-				TreeItem topItem = rightTreeViewer.getTree().getItems()[0];
-				Rectangle otherHighlightRect = rightTreeViewer
-						.buildHighlightRectangle(topItem, false, gc, true, true);
-				int[] points = getCenterCurvePoints(0, leftTreeViewer.getTree().getHeaderHeight() + 2,
-						canvas.getBounds().width, otherHighlightRect.y
-								+ (otherHighlightRect.height / 2));
-				for (int i = 1; i < points.length; i++)
-					gc.drawLine(i - 1, points[i - 1], i, points[i]);
-				continue;
-			}
 			TreeItem leftItem = leftTreeViewer.getItemForDifference(difference);
-			if ((leftItem == null || leftItem.isDisposed())
-					&& !(difference.getLocation() >= 0)) {
+			if (leftItem == null || leftItem.isDisposed()) {
 				continue;
 			}
-			TreeItem matchingItem = null;
-			if (leftItem == null) {
-				// use item at location in difference
-				leftItem = leftTreeViewer.getTree().getItem(difference.getLocation());
-				Rectangle leftBounds = leftTreeViewer.buildHighlightRectangle(
-						leftItem, leftItem.getExpanded(), gc, true, true);
-				matchingItem = rightTreeViewer.getItemForDifference(difference
-						.getMatchingDifference());
-				// can happen during load
-				if(matchingItem == null) {
-					continue;
-				}
-				Rectangle rightBounds = rightTreeViewer.buildHighlightRectangle(
-						matchingItem, false, gc, true, true);
-				// draw a line from the left edge to the right edge
-				int[] points = getCenterCurvePoints(0, leftBounds.y
-						+ leftBounds.height, canvas.getBounds().width,
-						rightBounds.y + (rightBounds.height / 2));
-				for (int i = 1; i < points.length; i++)
-					gc.drawLine(i - 1, points[i - 1], i, points[i]);
-				continue;
-			} else {
-				matchingItem = leftTreeViewer.getMatchingItem(leftItem.getData(),
+			TreeItem matchingItem = SynchronizedTreeViewer.getMatchingItem(leftItem.getData(),
 						rightTreeViewer);
-			}
-			if (getDifferencer().elementsEqual(leftItem.getData(),
-					difference.getElement())) {
-				// if not a container of the real difference element
-				// then find the matching difference element
-				matchingItem = leftTreeViewer.getMatchingItem(difference
-						.getMatchingDifference().getElement(), rightTreeViewer);
-			}
-			// draw any missing items on this side
-			if (difference.getParent() != null
-					&& leftItem.getData().equals(difference.getParent())
-					&& (leftItem.getItems().length == 0 || leftItem
-							.getExpanded())) {
-
-				TreeItem otherItem = leftTreeViewer.getMatchingItem(difference
-						.getMatchingDifference().getElement(), rightTreeViewer);
-				TreeItem prevItem = SynchronizedTreeViewer
-						.getPreviousItem(leftItem, difference);
-				if (prevItem == null || prevItem.getData() == null
-						|| otherItem == null || otherItem.getData() == null) {
-					continue;
-				}
-				Rectangle otherHighlightRect = rightTreeViewer
-						.buildHighlightRectangle(otherItem, false, gc, true, true);
-				Rectangle prevItemBounds = leftTreeViewer
-						.buildHighlightRectangle(prevItem, !prevItem.getData()
-								.equals(difference.getParent()), gc, true, true);
-				int[] points = getCenterCurvePoints(0, prevItemBounds.y
-						+ prevItemBounds.height, canvas.getBounds().width,
-						otherHighlightRect.y + (otherHighlightRect.height / 2));
-				for (int i = 1; i < points.length; i++)
-					gc.drawLine(i - 1, points[i - 1], i, points[i]);
+			if(matchingItem == null) {
 				continue;
 			}
 			Rectangle leftBounds = leftTreeViewer.buildHighlightRectangle(leftItem,
 					false, gc, true, true);
-			if (matchingItem == null) {
-				// if the right side is empty, draw a line at the top
-				if ((rightTreeViewer.getTree().getItems().length == 0 || (difference
-						.getMatchingDifference().getParent() == null
-						&& difference.getMatchingDifference().getElement() == null)
-						&& !(difference.getMatchingDifference().getLocation() >= 0))) {
-					// draw a line for each missing item
-					int[] points = getCenterCurvePoints(0, leftBounds.y
-							+ (leftBounds.height / 2),
-							canvas.getBounds().width, rightTreeViewer.getTree().getHeaderHeight() + 2);
-					for (int i = 1; i < points.length; i++)
-						gc.drawLine(i - 1, points[i - 1], i, points[i]);
-				} else {
-					// draw the line to where the missing element line
-					// would be drawn
-					TreeItem otherSideParent = null;
-					if (difference.getMatchingDifference().getParent() == null
-							&& difference.getMatchingDifference().getElement() == null) {
-						// this is for the root, use the item found at
-						// the location specified in the difference
-						otherSideParent = rightTreeViewer.getTree().getItem(
-								difference.getMatchingDifference()
-										.getLocation());
-						Rectangle prevItemBounds = leftTreeViewer
-								.buildHighlightRectangle(otherSideParent,
-										otherSideParent.getExpanded(), gc, true, true);
-						int[] points = getCenterCurvePoints(0, leftBounds.y
-								+ (leftBounds.height / 2),
-								canvas.getBounds().width, prevItemBounds.y
-										+ prevItemBounds.height);
-						for (int i = 1; i < points.length; i++)
-							gc.drawLine(i - 1, points[i - 1], i, points[i]);
-						continue;
-					} else {
-						otherSideParent = leftTreeViewer.getMatchingItem(leftItem
-								.getParentItem().getData(), rightTreeViewer);
-					}
-					if(otherSideParent == null) {
-						// we are currently expanding the tree
-						continue;
-					}
-					List<TreeDifference> diffs = differencer
-							.getRightDifferences();
-					for (TreeDifference diff : diffs) {
-						if (diff.getParent() != null
-								&& otherSideParent.getData().equals(
-										diff.getParent())
-								&& (otherSideParent.getItems().length == 0 || otherSideParent
-										.getExpanded())
-								&& getDifferencer().elementsEqual(
-										diff.getMatchingDifference()
-												.getElement(),
-										leftItem.getData())) {
-							// draw a line for each missing item
-							int location = diff.getLocation();
-							TreeItem prevItem = SynchronizedTreeViewer
-									.getPreviousItem(otherSideParent, diff);
-							Rectangle prevItemBounds = rightTreeViewer
-									.buildHighlightRectangle(prevItem,
-											location >= 0, gc, true, true);
-							int[] points = getCenterCurvePoints(0, leftBounds.y
-									+ (leftBounds.height / 2), canvas
-									.getBounds().width, prevItemBounds.y
-									+ prevItemBounds.height);
-							for (int i = 1; i < points.length; i++)
-								gc.drawLine(i - 1, points[i - 1], i, points[i]);
-						}
-					}
-				}
-			} else {
-				Rectangle rightBounds = rightTreeViewer.buildHighlightRectangle(
-						matchingItem, false, gc, true, true);
-				// draw a line from the left edge to the right edge
-				int[] points = getCenterCurvePoints(0, leftBounds.y
-						+ (leftBounds.height / 2), canvas.getBounds().width,
-						rightBounds.y + (rightBounds.height / 2));
-				for (int i = 1; i < points.length; i++)
-					gc.drawLine(i - 1, points[i - 1], i, points[i]);
+			Rectangle rightBounds = rightTreeViewer.buildHighlightRectangle(
+					matchingItem, false, gc, true, true);
+			// draw a line from the left edge to the right edge
+			int[] points = getCenterCurvePoints(0, leftBounds.y
+					+ (leftBounds.height / 2), canvas.getBounds().width,
+					rightBounds.y + (rightBounds.height / 2));
+			for (int i = 1; i < points.length; i++) {
+				gc.drawLine(i - 1, points[i - 1], i, points[i]);
 			}
 		}
 	}
@@ -1418,18 +1281,17 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 							.getContentProvider())
 							.setModelRoot(getAncestorCompareRoot());
 				}
-				differencer = TreeDifferencer.getInstance(getInput());
-				if(differencer == null) {
-					differencer = new TreeDifferencer(new ModelCompareContentProvider()
-							,
-							leftElements, rightElements, ancestorElements,
-							isThreeWay(), getInput());
-					TreeDifferencer.instances.put(getInput(), differencer);
-				} else {
-					differencer.setElements(leftElements, rightElements, ancestorElements);
-					differencer.setIsThreeWay(isThreeWay());
+				ModelCompareContentProvider differencerProvider = new ModelCompareContentProvider();
+				differencerProvider.setRootElements(leftElements, rightElements);
+				if(differencer != null) {
+					differencer.dipose();
 				}
-				differencer.refresh();
+				differencer = new TreeDifferencer(differencerProvider
+						,
+						leftElements, rightElements, ancestorElements,
+						isThreeWay(), getInput());
+				TreeDifferencer.instances.put(getInput(), differencer);
+				updateRootElementsForTreeViewers(leftElements, rightElements);
 				nextDifference.getAction().setEnabled(false);
 				nextDifference.getAction().setEnabled(nextDifference.getAction().isEnabled());
 				previousDifference.getAction().setEnabled(false);
@@ -1491,6 +1353,24 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		});
 	}
 
+	private void updateRootElementsForTreeViewers(
+			NonRootModelElement[] leftElements,
+			NonRootModelElement[] rightElements) {
+		// update the root elements for each tree viewer, this is
+		// to support empty elements
+		((ModelCompareContentProvider) leftTreeViewer
+				.getContentProvider()).setRootElements(
+				leftElements, rightElements);
+		((ModelCompareContentProvider) rightTreeViewer
+				.getContentProvider()).setRootElements(
+				leftElements, rightElements);
+		if(ancestorTreeViewer != null) {
+			((ModelCompareContentProvider) ancestorTreeViewer
+					.getContentProvider()).setRootElements(
+					leftElements, rightElements);
+		}
+	}
+
 	private List<TreeDifference> getIncomingGraphicalDifferences(boolean left) {
 		List<TreeDifference> incomingGraphicalDifferences = new ArrayList<TreeDifference>();
 		List<TreeDifference> differences = differencer.getRightDifferences();
@@ -1507,7 +1387,8 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 					|| diffKind == Differencer.CONFLICTING) {
 				if (SynchronizedTreeViewer.differenceIsGraphical(difference)) {
 					boolean add = true;
-					if (difference.getElement() == null
+					if ((difference.getElement() == null || difference
+							.getElement() instanceof EmptyElement)
 							&& difference.getMatchingDifference().getElement() instanceof NonRootModelElementComparable) {
 						// this is a removal, only remove if the
 						// semantic element represented is also
@@ -1516,21 +1397,47 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 								.getMatchingDifference().getElement()).getRealElement();
 						if(elementToBeRemoved instanceof GraphicalElement_c) {
 							GraphicalElement_c graphEleToRemove = (GraphicalElement_c) elementToBeRemoved;
-							if (graphEleToRemove.getRepresents() != null
-									&& graphEleToRemove.getRepresents() instanceof NonRootModelElement) {
-								NonRootModelElement semanticElement = (NonRootModelElement) graphEleToRemove.getRepresents();
-								if(!semanticElement.isOrphaned()) {
-									add = false;
-								} else {
-									addConnectionPoints(graphEleToRemove, left,
-											incomingGraphicalDifferences);
+							// if the graphical element represents value is null
+							// we need to
+							// look at the local file, in some cases the
+							// configuration
+							// management system may have pre-merged the
+							// semantical element
+							// in a different file
+							if (graphEleToRemove.getRepresents() == null) {
+								ElementSpecification_c spec = ElementSpecification_c
+										.getOneGD_ESOnR10(graphEleToRemove);
+								if (spec != null) {
+									NonRootModelElement elementGlobally = (NonRootModelElement) Ooaofooa
+											.getDefaultInstance()
+											.getInstanceList(
+													spec.getRepresents())
+											.getGlobal(
+													graphEleToRemove
+															.getOoa_id());
+									if (elementGlobally != null) {
+										add = false;
+									}
+								}
+							}
+							if(add) {
+								if (graphEleToRemove.getRepresents() != null
+										&& graphEleToRemove.getRepresents() instanceof NonRootModelElement) {
+									NonRootModelElement semanticElement = (NonRootModelElement) graphEleToRemove.getRepresents();
+									if(!semanticElement.isOrphaned()) {
+										add = false;
+									} else {
+										addConnectionPoints(graphEleToRemove, left,
+												incomingGraphicalDifferences);
+									}
 								}
 							}
 						} else {
 							add = false;
 						}
 					}
-					if (difference.getMatchingDifference().getElement() == null
+					if ((difference.getMatchingDifference().getElement() == null || difference
+							.getMatchingDifference().getElement() instanceof EmptyElement)
 							&& difference.getElement() instanceof NonRootModelElementComparable) {
 						// this is an addition, only add the graphic if the
 						// semantic element was also copied
@@ -1538,12 +1445,35 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 								.getElement()).getRealElement();
 						if(elementToBeAdded instanceof GraphicalElement_c) {
 							GraphicalElement_c graphEleToAdd = (GraphicalElement_c) elementToBeAdded;
+							// if the graphical element represents value is null we need to
+							// look at the local file, in some cases the configuration
+							// management system may have pre-merged the semantical element
+							// in a different file
+							if(graphEleToAdd.getRepresents() == null) {
+								ElementSpecification_c spec = ElementSpecification_c
+										.getOneGD_ESOnR10(graphEleToAdd);
+								if (spec != null) {
+									NonRootModelElement elementGlobally = (NonRootModelElement) Ooaofooa
+											.getDefaultInstance()
+											.getInstanceList(
+													spec.getRepresents())
+											.getGlobal(
+													graphEleToAdd.getOoa_id());
+									if (elementGlobally == null) {
+										add = false;
+									} else {
+										addConnectionPoints(graphEleToAdd,
+												left,
+												incomingGraphicalDifferences);
+									}
+								}
+							}
 							if (graphEleToAdd.getRepresents() != null
 									&& graphEleToAdd.getRepresents() instanceof NonRootModelElement) {
 								NonRootModelElement semanticElement = (NonRootModelElement) graphEleToAdd.getRepresents();
-								NonRootModelElementComparable nrmec = (NonRootModelElementComparable) difference
-										.getMatchingDifference().getParent();
-								NonRootModelElement parentElement = (NonRootModelElement) nrmec.getRealElement();
+								NonRootModelElement parentElement = (NonRootModelElement) ((EmptyElement) difference
+										.getMatchingDifference().getElement())
+										.getParent();
 								Object existingSemanticElement = Ooaofooa.getInstance(parentElement
 										.getModelRoot().getId())
 										.getInstanceList(
@@ -1685,8 +1615,12 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 						.getInstanceList(element.getClass())
 						.getGlobal(element.getInstanceKey());
 				if (elementGlobally != null) {
+					// refresh the file to make sure its
+					// synced with what git wrote
 					InputStream actualContents = null;
 					try {
+						elementGlobally.getFile().refreshLocal(IFile.DEPTH_ONE,
+								new NullProgressMonitor());
 						actualContents = elementGlobally.getFile()
 								.getContents();
 					} catch (CoreException e) {
@@ -1710,17 +1644,20 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 											+ input.hashCode());
 							try {
 								ITypedElement left = input.getLeft();
-								modelManager.getRootElements(left, this, true,
-										compareRoot,
-										ModelCacheManager.getLeftKey(input));
-								elementGlobally
-										.getFile()
-										.setContents(
-												((IStreamContentAccessor) input
-														.getLeft())
-														.getContents(),
-												IResource.FORCE,
-												new NullProgressMonitor());
+								if(left instanceof IStreamContentAccessor) {
+									IStreamContentAccessor accesor = (IStreamContentAccessor) left;
+									InputStream contents = accesor.getContents();
+									String compareData = readData(contents);
+									ByteArrayInputStream bais = new ByteArrayInputStream(compareData.getBytes());
+									modelManager.getRootElements(left, this, true,
+											compareRoot,
+											ModelCacheManager.getLeftKey(input));
+									elementGlobally
+											.getFile()
+											.setContents(bais,
+													IResource.FORCE,
+													new NullProgressMonitor());
+								}
 							} catch (CoreException e) {
 								CorePlugin
 										.logError(
@@ -1964,21 +1901,21 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 
 	public void revealAndSelectItem(Object element) {
 		getLeftViewer().setSelection(new StructuredSelection(element), true);
-		TreeItem leftItem = getLeftViewer().getMatchingItem(element, getLeftViewer());
+		TreeItem leftItem = SynchronizedTreeViewer.getMatchingItem(element, getLeftViewer());
 		if(leftItem != null) {
 			getLeftViewer().getTree().setTopItem(leftItem);
 		} else {
 			
 		}
 		getRightViewer().setSelection(new StructuredSelection(element), true);
-		TreeItem rightItem = getRightViewer().getMatchingItem(element, getRightViewer());
+		TreeItem rightItem = SynchronizedTreeViewer.getMatchingItem(element, getRightViewer());
 		if(rightItem != null) {
 			getRightViewer().getTree().setTopItem(rightItem);
 		} else {
 			
 		}
 		if(getAncestorTree() != null) {
-			TreeItem ancestorItem = getAncestorTree().getMatchingItem(element, getAncestorTree());
+			TreeItem ancestorItem = SynchronizedTreeViewer.getMatchingItem(element, getAncestorTree());
 			if(ancestorItem != null) {
 				getAncestorTree().getTree().setTopItem(ancestorItem);
 			}

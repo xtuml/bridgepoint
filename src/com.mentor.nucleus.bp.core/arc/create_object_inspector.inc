@@ -363,6 +363,47 @@ ${rel_nav.body}\
 		}
 		return CorePlugin.getImageFor("${tree_node.Icon}");
 	}
-    }       
+.end function
+.//
+.//
+.//
+.function create_slot_functions
+  .param inst_ref tree_node
+  .param boolean isOverride
+  /**
+  * Returns a "slot number" to be used when comparing and merging tree elements
+  * that contain multiple children.  All model element inspector's contain this 
+  * function, but it only returns a value for cases where it a parent element
+  * in a tree and the parent has multiple children.
+  * 
+  * @returns 0 if this is not a "parent" in the tree OR if the parent has less 
+  * than 2 children. 
+  */
+.if (isOverride)
+	@Override
+.end if
+	public int getTreeDifferenceSlot(Object element) {
+.select many children related by tree_node->T_TPS[R1000]->T_TNS[R1001] 
+.assign num_children = cardinality children
+.if (num_children > 1)
+  .assign slot_count = 1;
+  .for each child in children 		
+    .select any class from instances of O_OBJ where (selected.Key_Lett == child.Key_Lett)
+    .invoke cn = get_class_name(class)
+    .assign class_name = cn.body
+    	if (element instanceof ${class_name}) {
+			return ${slot_count};
+		}
+    .assign slot_count = slot_count + 1;
+  .end for
+.end if
+		return 0;
+	}
+.end function
+.//
+.//
+.//
+.function create_object_inspector_end
+	}       
 .end function
 .//
