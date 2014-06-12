@@ -71,6 +71,7 @@ If the semantic element exists, the graphical data shall also be merged.
 6. Design
 ---------
 6.1 Ordering issues
+
 6.1.1 Add support for empty elements
 
 A new class is added, EmptyElement.  This class represents a missing element
@@ -122,7 +123,24 @@ will work with a highlight box rather than needing to underline the element
 above the expected location.
 
 6.1.3 Add support for slot determination
- 
+
+In create_object_inspector a new function is genrator in the inspector classes:
+
+int getTreeDifferenceSlot(Object Element)
+
+This return the a slot number for all model elements that are parents in a tree, 
+and contain more than 1 child.  This "slot number" is used when comparing and merging tree
+elements that contain multiple children.  All model element inspector's
+contain this function, but it only returns a value for cases where it is
+a parent element in a tree and the parent has multiple children.  This
+function returns 0 if this is not a "parent" in the tree OR if the
+parent has less than 2 children.
+
+To further support this change to assure all necessary places contain this
+opertion, this operation was added to the IModelClassInspector interface that
+all inspector class implement.
+
+
 6.2 Automatically merge graphical data when local file contains semantic element
 
 The code in ModelContentMergeViewer.getIncomingGraphicalDifferences() is
