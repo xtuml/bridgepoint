@@ -1,5 +1,5 @@
 @echo off
-set BP_VERSION=4.1.11
+set BP_VERSION=4.1.12
 set WORKSPACE=%~d0\mgc\BridgePoint\workspace
 
 ::Check that a valid argument is specified

@@ -56,10 +56,10 @@ the License.
       <import plugin="org.eclipse.jdt.junit" version="3.5.2"/>
       <import plugin="org.eclipse.jdt.junit.runtime" version="3.4.100"/>
       <import plugin="com.mentor.nucleus.bp.debug.ui"/>
-      <import plugin="com.mentor.nucleus.bp.io.core" version="4.1.11"/>
-      <import plugin="com.mentor.nucleus.bp.io.mdl" version="4.1.11"/>
+      <import plugin="com.mentor.nucleus.bp.io.core" version="4.1.12"/>
+      <import plugin="com.mentor.nucleus.bp.io.mdl" version="4.1.12"/>
       <import plugin="com.mentor.nucleus.bp.utilities"/>
-      <import plugin="com.mentor.nucleus.bp.mc" version="4.1.11"/>
+      <import plugin="com.mentor.nucleus.bp.mc" version="4.1.12"/>
    </requires>
 
    <extension
