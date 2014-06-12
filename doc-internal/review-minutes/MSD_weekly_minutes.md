@@ -10,6 +10,61 @@ MSD Weekly Meeting Minutes
 
 ---
 ---
+
+    Date:     11th June 2014
+
+    Start:    1200 EDT
+    End:      12:30
+    Present:  Keith, Travis, Campbell, others...
+            Dean, Robert, others...
+
+### Engineering status
+**Keith - Training course update -**
+The Other Firm got WordPress Courseware installed on xtUML.org. Keith started using 
+this xtUML Developer WP Courseware development system.  The advantage of this over 
+Coursera and otehr MOOCs (Massive open online course) is that our users do not 
+have to leave xtUML.org to take the courses.  We have taken a step back from 
+our current approach to evaluate this, and we haev decided to move forward with 
+WP courseware.   This doesn't effect the team because we are still creating 
+the course content the same way that we have been.  
+
+We have ~60% of all needed videos done at this point.  Campbell have a bunch ~15 
+that is a big chunk that is coming soon.
+
+**Travis/Bob - compare/merge work for patch -**
+We will give a release to Ericsson to get the thumbs up.
+
+We have the crucial issues resolved now.  The issue are:
+2627124315	dts0101057785	Copying of incoming changes for a class operations does not work properly
+2627124343	dts0101057788	Copying of incoming changes for a interface signal does not work properly
+2627145381	dts0101057790	After merging interface formalizations of components graphics of the formalized interface is not shown
+Note that these problems came down to one root cause.  The issue was a problem with merging of elements that had been added or removed.  It manifested itself mostly easily in the case of sorted model elements.  However, we found that the problem was not unique to sorted model elements.   With this change, users will see empty “slots” (placeholders) on the right or left that represent the added/removed model element.  This visualization makes it very clear that an element is an incoming/outgoing addition or change, and it also makes the placement clear.  It was the target placement that was causing problems.   
+
+
+** Campbell -**
+Working on Realized code video. Hit some binding issues, creating GPS Watch VIEC component, now resolved. 
+Helped Martin Nilsson with a Verifier realized EE question. Awaiting outcome.
+
+** Heba -**
+Working on videos.  Looked at some Verifier issues involving the sender keyword, but it is not high priority.
+
+** Nehad -**
+Working on videos.
+
+### Marketing
+** (Dean) -**
+Ongoing meetings with Engineering involvement in several places for new business.  
+
+Agilent was a a point where we were to suspect support, but an agreement has now been 
+reached, so support can now continue.  
+
+
+### Customer Support Status
+**Robert -**  
+No items to discuss in this meeting.
+
+---
+---
     Date:     4th June 2014
 
     Start:    1200 EDT
