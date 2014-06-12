@@ -62,10 +62,7 @@ public class GitUtil {
 		return null;
 	}
 
-	/**
-	 * Loads a local repository into memory using the given repository path
-	 */
-	public static void loadRepository(String location) {
+	public static void loadRepository(String location, String branch) {
 		BaseTest.dispatchEvents(0);
 		IViewPart gitRepositoryView = showGitRepositoriesView();
 		CommonNavigator view = (CommonNavigator) gitRepositoryView;
@@ -80,7 +77,14 @@ public class GitUtil {
 		// state reset it here
 		String[] repositoryPath = location.split("/");
 		String repositoryName = repositoryPath[repositoryPath.length - 1];
-		resetRepository(repositoryName);
+		resetRepository(repositoryName, branch);
+	}
+	
+	/**
+	 * Loads a local repository into memory using the given repository path
+	 */
+	public static void loadRepository(String location) {
+		GitUtil.loadRepository(location, "master");
 	}
 
 	/**
@@ -88,15 +92,20 @@ public class GitUtil {
 	 * location.
 	 */
 	public static IProject loadProject(String projectName, String repositoryName) {
+		return GitUtil.loadProject(projectName, repositoryName, "master");
+	}
+
+	public static IProject loadProject(String projectName, String repositoryName, String branchName) {
 		IViewPart gitRepositoryView = showGitRepositoriesView();
 		CommonNavigator view = (CommonNavigator) gitRepositoryView;
 		Control control = view.getCommonViewer().getControl();
 		Tree gitRepositoryTree = (Tree) control;
+		String treeItem = repositoryName + " [" + branchName;
 		TreeItem item = UITestingUtilities.findItemInTree(gitRepositoryTree,
-				repositoryName + " [master");
+				treeItem);
 		Assert.assertNotNull(
 				"Could not locate repository in the git repository view ("
-						+ repositoryName + ").", item);
+						+ treeItem + ").", item);
 		view.getCommonViewer().setSelection(
 				new StructuredSelection(item.getData()));
 		// import projects from repository
@@ -110,16 +119,20 @@ public class GitUtil {
 				+ repositoryName, project.exists());
 		return project;
 	}
-
-	public static void mergeBranch(String branch, String repositoryName) {
+	
+	public static void mergeBranch(String remoteBranch, String repositoryName) {
+		GitUtil.mergeBranch(remoteBranch, repositoryName, "slave");
+	}
+	
+	public static void mergeBranch(String remoteBranch, String repositoryName, String localBranch) {
 		IViewPart gitRepositoryView = showGitRepositoriesView();
 		CommonNavigator view = (CommonNavigator) gitRepositoryView;
 		Control control = view.getCommonViewer().getControl();
 		Tree gitRepositoryTree = (Tree) control;
 		TreeItem item = UITestingUtilities.findItemInTree(gitRepositoryTree,
-				repositoryName + " [master");
+				repositoryName + " [" + localBranch);
 		view.getCommonViewer().setSelection(new StructuredSelection(item.getData()));
-		TestUtil.selectItemInTreeDialog(300, branch);
+		TestUtil.selectItemInTreeDialog(300, remoteBranch);
 		TestUtil.mergeToDialog(500);
 		TestUtil.okToDialog(700);
 		UITestingUtilities.activateMenuItem(gitRepositoryTree.getMenu(), "&Merge...");
@@ -135,7 +148,7 @@ public class GitUtil {
 		UITestingUtilities.activateMenuItem(treeViewer.getTree().getMenu(), "Team::Merge Tool");
 	}
 
-	public static void resetRepository(String repositoryName) {
+	public static void resetRepository(String repositoryName, String branch) {
 		// process any pending events
 		BaseTest.dispatchEvents(500);
 		IViewPart gitRepositoryView = showGitRepositoriesView();
@@ -143,7 +156,7 @@ public class GitUtil {
 		Control control = view.getCommonViewer().getControl();
 		Tree gitRepositoryTree = (Tree) control;
 		TreeItem item = UITestingUtilities.findItemInTree(gitRepositoryTree,
-				repositoryName + " [master");
+				repositoryName + " [" + branch);
 		view.getCommonViewer().setSelection(new StructuredSelection(item.getData()));
 		TestUtil.selectButtonInDialog(500, "&Hard (index and working directory updated)");
 		TestUtil.finishToDialog(700);
