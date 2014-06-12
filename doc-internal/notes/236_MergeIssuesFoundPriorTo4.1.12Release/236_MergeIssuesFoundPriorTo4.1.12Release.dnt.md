@@ -164,6 +164,60 @@ for the local file.
 8. Unit Test
 ------------
 
+8.1  Verify issues [2], [3], and [4] are resolved.
+
+8.1.1 Create a test model
+
+* Start with GPS Watch
+* Create a new package named 101057788 (named after the SR associated with [2]) under the system
+* Create an interface, Pkg1, in 101057788 
+* Create a new package named test1 under the system
+* Create an interface, iface1, in test1
+* Commit this to branches master and "slave" 
+* In the master branch, add operations (m_op1, m_op2, sameName), add signals
+(m_sig1, m_sig2, sameName) to the new interface, Pkg1
+* In the master branch, add the following attributes to Libraray::Location::GPS (m_a1, m_a2
+* In the master branch, add the following operations to Libraray::Location::GPS (m_o1, m_o2
+* In the master branch create an operation, m_op1, in test1::iface1
+* Commit changes the master 
+* Switch to the slave branch
+* In the slave branch, add operations (s_op1, s_op2, sameName), add signals
+(s_sig1, s_sig2, sameName) to the new interface, Pkg1
+* In the slave branch, add the following attributes to Libraray::Location::GPS (s_a1, s_a2
+* In the slave branch, add the following operations to Libraray::Location::GPS (s_o1, s_o2
+* In the slave branch create an operation, s_op1, in test1::iface1
+* Note: The model described above this point exists in the git models repositopry as 236.zip. 
+I is used be the unit test that performs the test described beloew this point.
+
+8.1.2 Test merge (using the model from 8.1.1)
+
+*  Checkout the slave branch
+*  Merge master into slave branch
+*  Result - conflicts will be reported in Pkg1, GPS, WorkoutTimer, and iface1
+*  Open the merge tool
+*  Result - Pkg1 (6 incoming changes in master, 5 outgoing changes from slave)
+*  Result - Library::Location::GPS  (4 incoming changes in master, 4 outgoing changes from slave)
+*  Result - Library::Tracking::WorkoutTimer (1 incoming change in master, 1 outgoing change from slave)
+*  Result - test1::iface1 (1 incoming change in master, 1 outgoing change from slave)
+*  Merge incoming changes from Pkg1 (merge from right to left)
+*  Result - all changes are successfully merge
+*  Merge incoming changes from Pkg1 (merge from right to left)
+*  Result - all changes are successfully merge
+*  Merge incoming changes from WorkoutTimer (merge from right to left)
+*  Result - all changes are successfully merge
+*  Merge incoming changes from iface1 (merge from right to left)
+*  Result - all changes are successfully merge
+
+8.1.2 Test compare (using the model from 8.1.1)
+
+* Checkout the slave branch
+* Compare With... master
+* Result - Pkg1 (6 incoming changes in master, 5 outgoing changes from slave)
+* Result - Library::Location::GPS  (4 incoming changes in master, 4 outgoing changes from slave)
+* Result - Library::Tracking::WorkoutTimer (1 incoming change in master, 1 outgoing change from slave)
+* Result - test1::iface1 (1 incoming change in master, 1 outgoing change from slave)
+* Result - no error are present in the error log
+
 End
 ---
 
