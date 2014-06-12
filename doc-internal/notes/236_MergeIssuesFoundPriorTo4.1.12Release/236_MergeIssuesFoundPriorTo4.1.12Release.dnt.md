@@ -4,13 +4,13 @@ Copyright 2014 Mentor Graphics Corp.  All Rights Reserved.
 
 ---
 
-# Address multiple issues found in the 4.1.12 release
+# Address multiple issues found in the 4.1.12 release candidate
 ### xtUML Project Design Note
 
 1. Abstract
 -----------
 This note describes the changes required to address issues found in the 4.1.12
-release.
+release candidate.
 
 2. Document References
 ----------------------
@@ -27,13 +27,13 @@ release.
                               
 3. Background
 -------------
-Customers have tested all of the merge issues addressed in the 4.1.12 release.
-One of the issues resolved in the release was [5], this work caused corruption
-in the customer repository.   This corruption issue triggered a patch release.
-The patch release was to only include addressing the possibility of corruption.
-However, once the original issues were verified they extended their testing.
-This extended testing revealed the issues that are resolved as part of this
-work.
+Customers have tested all of the merge issues addressed in the 4.1.12 release
+candidate. One of the issues resolved in the release was [5], this work caused 
+corruption in the customer repository.   This corruption issue triggered a patch 
+release. The patch release was to only include addressing the possibility of 
+corruption. However, once the original issues were verified they extended their 
+testing. This extended testing revealed the issues that are resolved as part of 
+this work.
 
 4. Requirements
 ---------------
@@ -51,6 +51,7 @@ Issues [2] and [3] are related to ordering. To be specific it is related to user
 controlled ordering.  The issue is that we order elements in children slots.
 For instance an interface operation is user ordered and so is an interface
 signal.  However, the ordering is dependent on the child slot location.
+A "slot" here is the location that a merged element is placed into.
 Interface operations, regardless of user defined order, are always before
 interface signals.  This was causing issues when trying to adjust user defined
 ordering among the slot elements.  During the initial analysis slot
@@ -84,7 +85,7 @@ for any elements that do not exist locally.  For each missing element an
 instance of the EmptyElement class is created and inserted into the children
 list.  For the ancestor version both the left and right sides are looked at for
 missing elements.  In the case that the left and right have the missing element
-only one missing element is created.
+only one element is created in the merge.
 
 In order to check the opposite side the ModelCompareContentProvider needs to
 have access to both the left and right root elements.  CLI and the regular UI
@@ -124,21 +125,21 @@ above the expected location.
 
 6.1.3 Add support for slot determination
 
-In create_object_inspector a new function is genrator in the inspector classes:
+In create_object_inspector a new function is generated in the inspector classes:
 
 int getTreeDifferenceSlot(Object Element)
 
 This returns the a slot number for all model elements that are parents in a tree, 
 and contain more than 1 child.  This "slot number" is used when comparing and merging tree
-elements that contain multiple children.  All model element inspector's
+elements that contain multiple children.  All model element inspectors
 contain this function, but it only returns a value for cases where it is
 a parent element in a tree and the parent has multiple children.  This
 function returns 0 if this is not a "parent" in the tree OR if the
 parent has less than 2 children.
 
 To further support this change to assure all necessary places contain this
-opertion, this new operation was added to the IModelClassInspector interface that
-all inspector class implement.
+operation, this new operation was added to the IModelClassInspector interface that
+all inspector classes implement.
 
 
 6.2 Automatically merge graphical data when local file contains semantic element
