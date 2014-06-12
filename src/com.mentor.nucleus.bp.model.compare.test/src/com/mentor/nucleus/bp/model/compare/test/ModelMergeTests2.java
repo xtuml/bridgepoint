@@ -103,7 +103,6 @@ public class ModelMergeTests2  extends BaseTest {
 	}
 
 	public void testMergeClassSortedElements() throws Exception {
-		// Merge Library::Location::GPS  (4 incoming changes in master, 4 outgoing changes from slave)
 		String projectName = "GPS Watch";
 		// import git repository from models repo
 		GitUtil.resetRepository("sandbox", "slave2");
@@ -114,7 +113,7 @@ public class ModelMergeTests2  extends BaseTest {
 		// start the merge tool
 		GitUtil.startMergeTool(projectName);
 
-		// Merge Pkg1 (6 incoming changes in master, 5 outgoing changes from slave)
+		// Merge Library::Location::GPS  (4 incoming changes in master, 4 outgoing changes from slave)
 		CompareTestUtilities.copyAllNonConflictingChangesFromRightToLeft();
 		// validate
 		assertTrue("Found conflicting changes remaining.", CompareTestUtilities
@@ -141,12 +140,89 @@ public class ModelMergeTests2  extends BaseTest {
 				"Class State Machine" };
 		verifyOrder(orderedElements, clazz);
 		
-		// TODO: Merge Library::Tracking::WorkoutTimer (1 incoming change in master, 1 outgoing change from slave)
-		// TODO: Merge test1::iface1 (1 incoming change in master, 1 outgoing change from slave)
-		// TODO: CompareWith... (just run compare with and open the editor for one of he changes, 
 		// There should be no error log entries (shutdown will verify this)
 	}
-	
+
+	public void testMergeWorkoutTimer() throws Exception {
+		String projectName = "GPS Watch";
+		// import git repository from models repo
+		GitUtil.resetRepository("sandbox", "slave3");
+		// import test project
+		GitUtil.loadProject(projectName, "sandbox", "slave3");
+		// merge the test branch
+		GitUtil.mergeBranch("master3", "sandbox", "slave3");
+		// start the merge tool
+		GitUtil.startMergeTool(projectName);
+		
+		// Merge Library::Tracking::WorkoutTimer (1 incoming change in master, 1 outgoing change from slave)
+		CompareTestUtilities.copyAllNonConflictingChangesFromRightToLeft();
+		// validate
+		assertTrue("Found conflicting changes remaining.", CompareTestUtilities
+				.getConflictingChanges().size() == 0);
+		assertTrue("Found incoming changes remaining.", CompareTestUtilities
+				.getIncomingChanges().size() == 0);
+		
+		CompareTestUtilities.flushMergeEditor();
+
+		m_sys = getSystemModel(projectName);		
+		ModelClass_c clazz = ModelClass_c.getOneO_OBJOnR8001(PackageableElement_c
+				.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)),
+				new ClassQueryInterface_c() {
+
+					@Override
+					public boolean evaluate(Object candidate) {
+						return ((ModelClass_c) candidate).getName().equals(
+								"WorkoutTimer");
+					}
+				});
+		
+		String[] orderedElements = new String[] { "current_state", "time",
+				"timer", "activate", "m_middle", "s_middle", "deactivate",
+				"Instance State Machine" };
+		verifyOrder(orderedElements, clazz);
+		
+		// There should be no error log entries (shutdown will verify this)
+	}
+
+	public void testMergeIface1() throws Exception {
+		String projectName = "GPS Watch";
+		// import git repository from models repo
+		GitUtil.resetRepository("sandbox", "slave4");
+		// import test project
+		GitUtil.loadProject(projectName, "sandbox", "slave4");
+		// merge the test branch
+		GitUtil.mergeBranch("master4", "sandbox", "slave4");
+		// start the merge tool
+		GitUtil.startMergeTool(projectName);
+		
+		// Merge test1::iface1 (1 incoming change in master, 1 outgoing change from slave)
+		CompareTestUtilities.copyAllNonConflictingChangesFromRightToLeft();
+		// validate
+		assertTrue("Found conflicting changes remaining.", CompareTestUtilities
+				.getConflictingChanges().size() == 0);
+		assertTrue("Found incoming changes remaining.", CompareTestUtilities
+				.getIncomingChanges().size() == 0);
+		
+		CompareTestUtilities.flushMergeEditor();
+
+		m_sys = getSystemModel(projectName);		
+		Interface_c iface = Interface_c.getOneC_IOnR8001(PackageableElement_c
+				.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)),
+				new ClassQueryInterface_c() {
+
+					@Override
+					public boolean evaluate(Object candidate) {
+						return ((Interface_c) candidate).getName().equals(
+								"iface1");
+					}
+				});
+		
+		String[] orderedElements = new String[] { "m_op1", "s_op1" };
+		verifyOrder(orderedElements, iface);
+		
+		// There should be no error log entries (shutdown will verify this) 
+	}
+
 	private void verifyOrder(String[] orderedElements, Object parent) {
 		ModelContentProvider provider = new ModelContentProvider();
 		ModelLabelProvider labelProvider = new ModelLabelProvider();
