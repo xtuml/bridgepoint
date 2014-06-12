@@ -281,7 +281,7 @@ Suite Release Notes</span></h1>
 4.1.12</span></p>
 
 <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Last
-revised May 2014</span></p>
+revised June 2014</span></p>
 
 <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
 
@@ -444,14 +444,9 @@ name="_General_Notes"></a>3.<span style='font-size:7.0pt;font-family:"Times New 
      font-family:"Arial","sans-serif"'>Whats New</span></a><span
      style='font-size:10.0pt;font-family:"Arial","sans-serif"'> page.</span></li>
  <li class=MsoNormal style='margin-bottom:12.0pt'><span style='font-size:10.0pt;
-     font-family:"Arial","sans-serif"'>This version of BridgePoint compare has
-     been modified to remove graphical differences from the comparison trees. The
-     graphical merging is now handled automatically based on the semantic
-     merge. In some situations only graphical changes may exist on a file. In
-     this case the BridgePoint compare editor will not show any differences in
-     the tree. To determine what has changed in the file the text comparison
-     must be used. This can be done by clicking the BridgePoint Structural
-     Compare pull down menu and choosing Text Compare.</span></li>
+     font-family:"Arial","sans-serif"'>This patch is being released to resolve
+     some issues with the compare/merge functionality.&nbsp; See the closed
+     issues list for more details.</span></li>
 </ul>
 
 <ul style='margin-top:0in' type=disc>
@@ -487,10 +482,10 @@ font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp; </span>Interoperabilit
 with Previous Releases</h2>
 
 <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>BridgePoint
-4.1.12 is fully data compatible with workspaces and projects created with
-BridgePoint 3.7.0 and xtUML.org’s xtUML Editor 3.7.2.&nbsp; BridgePoint 4.1.12
-can open model projects created with BridgePoint 3.5.x and 3.6.x, but requires
-the projects to be upgraded completely to generic packages just like the 3.7.x
+4.1.12 is fully data compatible with workspaces and projects created with BridgePoint
+3.7.0 and xtUML.org’s xtUML Editor 3.7.2.&nbsp; BridgePoint 4.1.12 can open
+model projects created with BridgePoint 3.5.x and 3.6.x, but requires the
+projects to be upgraded completely to generic packages just like the 3.7.x
 series of tools.</span></p>
 
 <p class=MsoNormal>&nbsp;</p>
@@ -680,18 +675,102 @@ color:black'>&nbsp;</span></b></p>
  <tr style='height:12.75pt'>
   <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
   none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Changes
+  made to a subtype in an ISM without changing the supertype cause dangling
+  references</span></p>
   </td>
   <td width=161 style='width:121.05pt;border-top:none;border-left:none;
   border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2625448777</span></p>
   </td>
  </tr>
  <tr style='height:12.75pt'>
   <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
   none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Graphical
+  data not merged unless a manual merge occurs</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2623340433</span></p>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2623450723</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Inconsistent
+  classification of differences in the structural and compare part of the merge
+  tool</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2625508396</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Switching
+  to a branch which doesn't have updated ISM polymorphic event identifiers
+  causes false dangling references errors</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB2625448896</span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+  color:black'>Copying of incoming changes for a class operations does not work
+  properly</span></span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+  color:black'>SB2627124315</span></span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+  color:black'>Copying of incoming changes for a interface signal does not work
+  properly</span></span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB<span
+  style='color:black'>2627124343</span></span></span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+  color:black'>After merging interface formalizations of components graphics of
+  the formalized interface is not shown</span></p>
+  </td>
+  <td width=161 style='width:121.05pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>SB<span
+  style='color:black'>2627145381</span></span></span></p>
+  </td>
+ </tr>
+ <tr style='height:12.75pt'>
+  <td width=791 style='width:593.55pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>ToolTip
+  multiple windows feature is broken</span></p>
   </td>
   <td width=161 style='width:121.05pt;border-top:none;border-left:none;
   border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
