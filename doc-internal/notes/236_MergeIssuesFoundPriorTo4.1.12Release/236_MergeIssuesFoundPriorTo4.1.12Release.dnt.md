@@ -16,14 +16,15 @@ release.
 ----------------------
 [1] Issues 236, https://github.com/xtuml/doc/issues/236  
 [2] CQ Issue, dts0101057785 - Copying of incoming changes for a class operations
-                              does not work properly
+                              does not work properly   
 [3] CQ Issue, dts0101057788 - Copying of incoming changes for a interface signal
-                              does not work properly
+                              does not work properly   
 [4] CQ Issue, dts0101057790 - After merging interface formalizations of
                               components graphics of the formalized interface is
-                              not shown
+                              not shown   
 [5] CQ Issue, dts0101009925 - Merging addition of state machine from two
-                              branches
+                              branches   
+                              
 3. Background
 -------------
 Customers have tested all of the merge issues addressed in the 4.1.12 release.
@@ -36,11 +37,11 @@ work.
 
 4. Requirements
 ---------------
-4.1 Support merging new elements regardless of slot location
+4.1 Support merging new elements regardless of slot location   
 4.2 Support empty elements that indicate where the missing element will be
-    merged to
+    merged to   
 4.3 Automatically merge graphics if the local file contains the represented
-    element
+    element   
 
 5. Analysis
 -----------
