@@ -128,7 +128,7 @@ In create_object_inspector a new function is genrator in the inspector classes:
 
 int getTreeDifferenceSlot(Object Element)
 
-This return the a slot number for all model elements that are parents in a tree, 
+This returns the a slot number for all model elements that are parents in a tree, 
 and contain more than 1 child.  This "slot number" is used when comparing and merging tree
 elements that contain multiple children.  All model element inspector's
 contain this function, but it only returns a value for cases where it is
@@ -137,7 +137,7 @@ function returns 0 if this is not a "parent" in the tree OR if the
 parent has less than 2 children.
 
 To further support this change to assure all necessary places contain this
-opertion, this operation was added to the IModelClassInspector interface that
+opertion, this new operation was added to the IModelClassInspector interface that
 all inspector class implement.
 
 
