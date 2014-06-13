@@ -193,11 +193,11 @@ public class ModelMergeTests2  extends BaseTest {
 		// Merge test1::iface1 (1 incoming change in master, 1 outgoing change from slave)
 		String projectName = "GPS Watch";
 		// import git repository from models repo
-		GitUtil.resetRepository("sandbox", "slave3");
+		GitUtil.resetRepository("sandbox", "slave4");
 		// import test project
-		GitUtil.loadProject(projectName, "sandbox", "slave3");
+		GitUtil.loadProject(projectName, "sandbox", "slave4");
 		// merge the test branch
-		GitUtil.mergeBranch("master3", "sandbox", "slave3");
+		GitUtil.mergeBranch("master4", "sandbox", "slave4");
 		// start the merge tool
 		GitUtil.startMergeTool(projectName);
 
