@@ -27,12 +27,10 @@ import junit.framework.Assert;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Tree;
@@ -146,15 +144,11 @@ public class GitUtil {
 	public static void compareWithBranch(String remoteBranch, String repositoryName, String localBranch) {
 		IViewPart gitRepositoryView = showGitRepositoriesView();
 		CommonNavigator view = (CommonNavigator) gitRepositoryView;
-		Control control = view.getCommonViewer().getControl();
-		Tree gitRepositoryTree = (Tree) control;
+		Tree gitRepositoryTree = view.getCommonViewer().getTree();
 		view.getCommonViewer().expandToLevel(4);
 
 		TreeItem repo = UITestingUtilities.findItemInTree(gitRepositoryTree,
 				localBranch);
-		
-		TreeItem branches = UITestingUtilities.findItemInTree(repo,
-				"Branches");		
 		
 		TreeItem local = UITestingUtilities.findItemInTree(repo,
 				"Local");		
@@ -172,8 +166,11 @@ public class GitUtil {
 		list.add(remoteItem.getData());
 		StructuredSelection sel = new StructuredSelection(list);
 		view.getCommonViewer().setSelection(sel);
+
+		TestUtil.noToDialog(500);
 		
 		UITestingUtilities.activateMenuItem(gitRepositoryTree.getMenu(), "&Synchronize with each other");
+		BaseTest.dispatchEvents(0);
 	}
 	
 	
