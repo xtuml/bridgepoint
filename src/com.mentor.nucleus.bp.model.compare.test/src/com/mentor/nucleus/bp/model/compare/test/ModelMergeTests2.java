@@ -68,11 +68,11 @@ public class ModelMergeTests2  extends BaseTest {
 		String projectName = "GPS Watch";
 		// import git repository from models repo
 		GitUtil.loadRepository(test_repositories
-				+ "/" + projectName, "slave1");
+				+ "/" + "sandbox", "slave1");
 		// import test project
-		GitUtil.loadProject(projectName, projectName, "slave1");
+		GitUtil.loadProject(projectName, "sandbox", "slave1");
 		// merge the test branch
-		GitUtil.mergeBranch("master1", projectName, "slave1");
+		GitUtil.mergeBranch("master1", "sandbox", "slave1");
 		// start the merge tool
 		GitUtil.startMergeTool(projectName);
 
@@ -88,7 +88,7 @@ public class ModelMergeTests2  extends BaseTest {
 
 		m_sys = getSystemModel(projectName);		
 		Interface_c iface = Interface_c.getOneC_IOnR8001(PackageableElement_c
-				.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1401(m_sys)),
+				.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)),
 				new ClassQueryInterface_c() {
 
 					@Override
@@ -100,7 +100,8 @@ public class ModelMergeTests2  extends BaseTest {
 		
 		String[] orderedElements = new String[] { "m_op1", "m_op2", "sameName",
 				"s_op1", "s_op2", "sameName", "m_sig1", "m_sig2", "sameName",
-				"s_sig1", "s_sig2" };
+				"s_sig1", "s_sig2", "sameName" };
+		
 		verifyOrder(orderedElements, iface);
 		
 		// There should be no error log entries (shutdown will verify this)
@@ -152,12 +153,11 @@ public class ModelMergeTests2  extends BaseTest {
 		// Merge Library::Tracking::WorkoutTimer (1 incoming change in master, 1 outgoing change from slave)
 		String projectName = "GPS Watch";
 		// import git repository from models repo
-		GitUtil.loadRepository(test_repositories
-				+ "/" + projectName, "slave3");
+		GitUtil.resetRepository("sandbox", "slave3");
 		// import test project
-		GitUtil.loadProject(projectName, projectName, "slave3");
+		GitUtil.loadProject(projectName, "sandbox", "slave3");
 		// merge the test branch
-		GitUtil.mergeBranch("master3", projectName, "slave3");
+		GitUtil.mergeBranch("master3", "sandbox", "slave3");
 		// start the merge tool
 		GitUtil.startMergeTool(projectName);
 
@@ -172,7 +172,7 @@ public class ModelMergeTests2  extends BaseTest {
 
 		m_sys = getSystemModel(projectName);		
 		ModelClass_c clazz = ModelClass_c.getOneO_OBJOnR8001(PackageableElement_c
-				.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1401(m_sys)),
+				.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)),
 				new ClassQueryInterface_c() {
 
 					@Override
@@ -183,7 +183,7 @@ public class ModelMergeTests2  extends BaseTest {
 				});
 		
 		String[] orderedElements = new String[] { "current_state", "time",
-				"timer", "activate", "m_middle", "desctivate", 
+				"timer", "activate", "m_middle", "s_middle", "deactivate",
 				"Instance State Machine" };
 		verifyOrder(orderedElements, clazz);
 	}
@@ -193,12 +193,11 @@ public class ModelMergeTests2  extends BaseTest {
 		// Merge test1::iface1 (1 incoming change in master, 1 outgoing change from slave)
 		String projectName = "GPS Watch";
 		// import git repository from models repo
-		GitUtil.loadRepository(test_repositories
-				+ "/" + projectName, "slave4");
+		GitUtil.resetRepository("sandbox", "slave3");
 		// import test project
-		GitUtil.loadProject(projectName, projectName, "slave4");
+		GitUtil.loadProject(projectName, "sandbox", "slave3");
 		// merge the test branch
-		GitUtil.mergeBranch("master4", projectName, "slave4");
+		GitUtil.mergeBranch("master3", "sandbox", "slave3");
 		// start the merge tool
 		GitUtil.startMergeTool(projectName);
 
@@ -213,7 +212,7 @@ public class ModelMergeTests2  extends BaseTest {
 
 		m_sys = getSystemModel(projectName);		
 		Interface_c iface = Interface_c.getOneC_IOnR8001(PackageableElement_c
-				.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1401(m_sys)),
+				.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)),
 				new ClassQueryInterface_c() {
 
 					@Override
@@ -223,7 +222,7 @@ public class ModelMergeTests2  extends BaseTest {
 					}
 				});
 		
-		String[] orderedElements = new String[] { "s_op1", "m_op1"};
+		String[] orderedElements = new String[] { "m_op1", "s_op1" };
 		verifyOrder(orderedElements, iface);
 		
 		// There should be no error log entries (shutdown will verify this)
