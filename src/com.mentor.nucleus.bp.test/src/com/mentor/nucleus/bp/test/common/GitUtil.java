@@ -28,6 +28,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Tree;
@@ -43,7 +44,7 @@ import com.mentor.nucleus.bp.test.TestUtil;
 
 public class GitUtil {
 	public static final java.lang.String VIEW_ID = "org.eclipse.egit.ui.RepositoriesView";
-
+	
 	/**
 	 * Utility method to open the git repositories view, will return the
 	 * <code>IViewPart<code> or <code>null<code> if an exception
@@ -121,7 +122,7 @@ public class GitUtil {
 	}
 	
 	public static void mergeBranch(String remoteBranch, String repositoryName) {
-		GitUtil.mergeBranch(remoteBranch, repositoryName, "slave");
+		GitUtil.mergeBranch(remoteBranch, repositoryName, "master");
 	}
 	
 	public static void mergeBranch(String remoteBranch, String repositoryName, String localBranch) {
@@ -138,6 +139,25 @@ public class GitUtil {
 		UITestingUtilities.activateMenuItem(gitRepositoryTree.getMenu(), "&Merge...");
 	}
 
+	public static void compareWithBranch(String remoteBranch, String repositoryName, String localBranch) {
+		IViewPart gitRepositoryView = showGitRepositoriesView();
+		CommonNavigator view = (CommonNavigator) gitRepositoryView;
+		Control control = view.getCommonViewer().getControl();
+		Tree gitRepositoryTree = (Tree) control;
+		TreeItem localItem = UITestingUtilities.findItemInTree(gitRepositoryTree,
+				repositoryName + " [" + localBranch);
+		TreeItem remoteItem = UITestingUtilities.findItemInTree(gitRepositoryTree,
+				repositoryName + " [" + remoteBranch);
+		view.getCommonViewer().setSelection(new StructuredSelection(localItem.getData()));
+		view.getCommonViewer().setSelection(new StructuredSelection(remoteItem.getData()));
+		
+		TestUtil.selectItemInTreeDialog(300, remoteBranch);
+		
+
+		UITestingUtilities.activateMenuItem(gitRepositoryTree.getMenu(), "&Synchronize with each other");
+	}
+	
+	
 	public static void startMergeTool(String projectName) {
 		// process any pending events
 		BaseTest.dispatchEvents(0);
