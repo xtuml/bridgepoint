@@ -232,11 +232,11 @@ public class ModelMergeTests2  extends BaseTest {
 		String projectName = "GPS Watch";
 		// import git repository from models repo
 		GitUtil.loadRepository(test_repositories
-				+ "/" + projectName, "slave1");
+				+ "/" + "sandbox", "slave1");
 		// import test project
-		GitUtil.loadProject(projectName, projectName, "slave1");
+		GitUtil.loadProject(projectName, "sandbox", "slave1");
 		
-		GitUtil.compareWithBranch("master1", projectName, "slave1");
+		GitUtil.compareWithBranch("master1", "sandbox", "slave1");
 
 		String[] actualResult = UITestingUtilities.getCompareViewStructuralDifferences("Pkg1");
 		String[] expectedResult = new String[] { "m_op1", "m_op2", "sameName",
