@@ -149,7 +149,6 @@ public class GitUtil {
 		Control control = view.getCommonViewer().getControl();
 		Tree gitRepositoryTree = (Tree) control;
 		view.getCommonViewer().expandToLevel(4);
-		BaseTest.dispatchEvents(0);
 
 		TreeItem repo = UITestingUtilities.findItemInTree(gitRepositoryTree,
 				localBranch);
@@ -157,13 +156,16 @@ public class GitUtil {
 		TreeItem branches = UITestingUtilities.findItemInTree(repo,
 				"Branches");		
 		
-		TreeItem localBranches = UITestingUtilities.findItemInTree(repo,
+		TreeItem local = UITestingUtilities.findItemInTree(repo,
 				"Local");		
 		
-		TreeItem remoteItem = UITestingUtilities.findItemInTree(localBranches,
+		TreeItem remoteItem = UITestingUtilities.findItemInTree(local,
 				remoteBranch);
-		TreeItem localItem = UITestingUtilities.findItemInTree(localBranches,
+		TreeItem localItem = UITestingUtilities.findItemInTree(local,
 				localBranch);
+		view.getCommonViewer().setSelection(new StructuredSelection(localItem.getData()));
+		view.getCommonViewer().setSelection(new StructuredSelection(remoteItem.getData()));		
+		
 
 		List<Object> list = new ArrayList<Object>();
 		list.add(localItem.getData());
