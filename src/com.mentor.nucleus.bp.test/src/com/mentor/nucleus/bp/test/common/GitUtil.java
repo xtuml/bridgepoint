@@ -20,10 +20,14 @@
 
 package com.mentor.nucleus.bp.test.common;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import junit.framework.Assert;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.dnd.TextTransfer;
@@ -144,16 +148,29 @@ public class GitUtil {
 		CommonNavigator view = (CommonNavigator) gitRepositoryView;
 		Control control = view.getCommonViewer().getControl();
 		Tree gitRepositoryTree = (Tree) control;
-		TreeItem localItem = UITestingUtilities.findItemInTree(gitRepositoryTree,
-				repositoryName + " [" + localBranch);
-		TreeItem remoteItem = UITestingUtilities.findItemInTree(gitRepositoryTree,
-				repositoryName + " [" + remoteBranch);
-		view.getCommonViewer().setSelection(new StructuredSelection(localItem.getData()));
-		view.getCommonViewer().setSelection(new StructuredSelection(remoteItem.getData()));
-		
-		TestUtil.selectItemInTreeDialog(300, remoteBranch);
-		
+		view.getCommonViewer().expandToLevel(4);
+		BaseTest.dispatchEvents(0);
 
+		TreeItem repo = UITestingUtilities.findItemInTree(gitRepositoryTree,
+				localBranch);
+		
+		TreeItem branches = UITestingUtilities.findItemInTree(repo,
+				"Branches");		
+		
+		TreeItem localBranches = UITestingUtilities.findItemInTree(repo,
+				"Local");		
+		
+		TreeItem remoteItem = UITestingUtilities.findItemInTree(localBranches,
+				remoteBranch);
+		TreeItem localItem = UITestingUtilities.findItemInTree(localBranches,
+				localBranch);
+
+		List<Object> list = new ArrayList<Object>();
+		list.add(localItem.getData());
+		list.add(remoteItem.getData());
+		StructuredSelection sel = new StructuredSelection(list);
+		view.getCommonViewer().setSelection(sel);
+		
 		UITestingUtilities.activateMenuItem(gitRepositoryTree.getMenu(), "&Synchronize with each other");
 	}
 	
