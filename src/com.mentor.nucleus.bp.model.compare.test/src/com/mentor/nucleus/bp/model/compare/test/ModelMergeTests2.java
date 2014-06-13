@@ -107,19 +107,17 @@ public class ModelMergeTests2  extends BaseTest {
 	}
 
 	public void testMergeClassSortedElements() throws Exception {
-		// Merge Library::Location::GPS  (4 incoming changes in master, 4 outgoing changes from slave)
 		String projectName = "GPS Watch";
 		// import git repository from models repo
-		GitUtil.loadRepository(test_repositories
-				+ "/" + projectName, "slave2");
+		GitUtil.resetRepository("sandbox", "slave2");
 		// import test project
-		GitUtil.loadProject(projectName, projectName, "slave2");
+		GitUtil.loadProject(projectName, "sandbox", "slave2");
 		// merge the test branch
-		GitUtil.mergeBranch("master2", projectName, "slave2");
+		GitUtil.mergeBranch("master2", "sandbox", "slave2");
 		// start the merge tool
 		GitUtil.startMergeTool(projectName);
 
-		// Merge Pkg1 (6 incoming changes in master, 5 outgoing changes from slave)
+		// Merge Library::Location::GPS  (4 incoming changes in master, 4 outgoing changes from slave)
 		CompareTestUtilities.copyAllNonConflictingChangesFromRightToLeft();
 		// validate
 		assertTrue("Found conflicting changes remaining.", CompareTestUtilities
@@ -131,7 +129,7 @@ public class ModelMergeTests2  extends BaseTest {
 
 		m_sys = getSystemModel(projectName);		
 		ModelClass_c clazz = ModelClass_c.getOneO_OBJOnR8001(PackageableElement_c
-				.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1401(m_sys)),
+				.getManyPE_PEsOnR8000(Package_c.getManyEP_PKGsOnR1405(m_sys)),
 				new ClassQueryInterface_c() {
 
 					@Override
@@ -142,9 +140,12 @@ public class ModelMergeTests2  extends BaseTest {
 				});
 		
 		String[] orderedElements = new String[] { "currentLocation", "timer",
-				"m_a1", "m_a2", "s_a1", "s_a2", "m_o1", "m_o2", "s_o1", "s_o2",
+				"m_a1", "m_a2", "s_a1", "a_a2", "m_o1", "m_o2", "s_o1", "s_o2",
 				"Class State Machine" };
 		verifyOrder(orderedElements, clazz);
+
+		
+		// There should be no error log entries (shutdown will verify this)
 	}
 
 	public void testMergeClassSortedElementsWithMiddleAddition() throws Exception {
