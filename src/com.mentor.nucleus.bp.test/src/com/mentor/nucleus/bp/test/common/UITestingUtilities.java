@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
+import java.util.Vector;
 
 import junit.framework.Assert;
 
@@ -41,6 +42,7 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -56,12 +58,16 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.views.properties.PropertySheet;
 
+import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.ModelRoot;
@@ -92,7 +98,9 @@ import com.mentor.nucleus.bp.utilities.ui.CanvasUtilities;
 
 public class UITestingUtilities {
 	private static Point fDownLocation;
-
+	public static final String SYNC_VIEW_ID = "org.eclipse.team.internal.ui.synchronize.SynchronizeView";
+	public static final String COMPARE_VIEW_ID = "org.eclipse.compare.internal.CompareEditor";
+	
 	public static void printControl(Composite parent, String intend) throws Exception {
 		System.out.print(intend);
 		printOject("Parent", parent); //$NON-NLS-1$
@@ -942,5 +950,66 @@ public class UITestingUtilities {
 				.update();
 		while (PlatformUI.getWorkbench().getDisplay().readAndDispatch());
 	}
+	
+	/**
+	 * Utility method to open the Team Synchronize view, will return the
+	 * <code>IViewPart<code> or <code>null<code> if an exception
+	 * occured.
+	 */
+	public static IViewPart showTeamSyncView() {
+		try {
+			IViewPart viewPart = PlatformUI.getWorkbench()
+					.getActiveWorkbenchWindow().getActivePage()
+					.showView(SYNC_VIEW_ID);
+			Assert.assertNotNull("", viewPart);
+			return viewPart;
+		} catch (PartInitException e) {
+			CorePlugin.logError("Unable to open git repositories view.", e);
+		}
+		return null;
+	}
+
+	/**
+	 * Utility method to open the Eclipse Compare EDitor view, will return the
+	 * <code>IViewPart<code> or <code>null<code> if an exception
+	 * occured.
+	 */
+	public static String[] getCompareViewStructuralDifferences(String elementName) {
+		try {
+			IViewPart viewPart = PlatformUI.getWorkbench()
+					.getActiveWorkbenchWindow().getActivePage()
+					.showView(COMPARE_VIEW_ID);
+			Assert.assertNotNull("", viewPart);
+			CommonNavigator view = (CommonNavigator) viewPart;
+			Control control = view.getCommonViewer().getControl();
+			Tree conpareTree = (Tree) control;
+			
+			TreeItem localItem = UITestingUtilities.findItemInTree(conpareTree,
+					elementName);
+			TreeItem[] children = localItem.getItems();
+			Vector<String> result = new Vector<String>();
+			for (int i = 0; i < children.length; i++) {
+				result.add(children[i].getText());
+			}
+
+			return (String[]) result.toArray();
+		} catch (PartInitException e) {
+			CorePlugin.logError("Unable to open git repositories view.", e);
+		}
+		return null;
+	}
+
+	public static void openElementInSyncronizeView(String elementName) {
+		IViewPart gitRepositoryView = showTeamSyncView();
+		CommonNavigator view = (CommonNavigator) gitRepositoryView;
+		Control control = view.getCommonViewer().getControl();
+		Tree syncTree = (Tree) control;
+		TreeItem localItem = UITestingUtilities.findItemInTree(syncTree,
+				elementName);
+		view.getCommonViewer().setSelection(new StructuredSelection(localItem.getData()));
+		UITestingUtilities.activateMenuItem(syncTree.getMenu(), "Open In Compare Editor");
+		// Note: Now, you can use showCompareEditorView() to see the result
+	}
+
 	
 }
