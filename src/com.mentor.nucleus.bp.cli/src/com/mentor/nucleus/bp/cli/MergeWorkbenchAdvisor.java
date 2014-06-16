@@ -149,6 +149,9 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 			ModelCompareContentProvider contentProvider = new ModelCompareContentProvider();
 			contentProvider.setModelRoots(new Ooaofooa[] { leftCompareRoot,
 					rightCompareRoot, ancestorCompareRoot });
+			contentProvider.setRootElements(
+					new NonRootModelElement[] { leftRoot },
+					new NonRootModelElement[] { rightRoot });
 			ModelCompareLabelProvider labelProvider = new ModelCompareLabelProvider();
 			TreeDifferencer differencer = new TreeDifferencer(contentProvider,
 					new Object[] { leftRoot }, new Object[] { rightRoot },
