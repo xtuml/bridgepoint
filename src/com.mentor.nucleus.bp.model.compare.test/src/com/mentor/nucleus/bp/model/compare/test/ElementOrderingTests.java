@@ -366,7 +366,7 @@ public class ElementOrderingTests extends BaseTest {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
 			SynchronizedTreeViewer leftViewer = viewer.getLeftViewer();
-			TreeItem item = leftViewer.getMatchingItem(
+			TreeItem item = SynchronizedTreeViewer.getMatchingItem(
 					((ITreeDifferencerProvider) leftViewer
 							.getContentProvider())
 							.getComparableTreeObject(op), leftViewer);
@@ -409,7 +409,7 @@ public class ElementOrderingTests extends BaseTest {
 					.getInstance(null);
 			SynchronizedTreeViewer rightViewer = viewer.getRightViewer();
 			rightViewer.getTree().setFocus();
-			TreeItem item = rightViewer.getMatchingItem(
+			TreeItem item = SynchronizedTreeViewer.getMatchingItem(
 					((ITreeDifferencerProvider) rightViewer
 							.getContentProvider())
 							.getComparableTreeObject(op), rightViewer);
@@ -453,7 +453,7 @@ public class ElementOrderingTests extends BaseTest {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
 			SynchronizedTreeViewer leftViewer = viewer.getLeftViewer();
-			TreeItem item = leftViewer.getMatchingItem(
+			TreeItem item = SynchronizedTreeViewer.getMatchingItem(
 					((ITreeDifferencerProvider) leftViewer
 							.getContentProvider())
 							.getComparableTreeObject(two), leftViewer);
@@ -465,7 +465,7 @@ public class ElementOrderingTests extends BaseTest {
 							.getTree().getMenu(), "Move Up", "", false));
 			UITestingUtilities.activateMenuItem(leftViewer.getTree().getMenu(), "Move Up");
 			while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
-			TreeItem funcItem = leftViewer.getMatchingItem(provider.getComparableTreeObject(function), leftViewer);
+			TreeItem funcItem = SynchronizedTreeViewer.getMatchingItem(provider.getComparableTreeObject(function), leftViewer);
 			function = (Function_c) ((NonRootModelElementComparable) funcItem.getData()).getRealElement();
 			children = provider.getChildrenOfType(function, FunctionParameter_c.class);
 			FunctionParameter_c new_two = (FunctionParameter_c) children[1];
@@ -522,7 +522,7 @@ public class ElementOrderingTests extends BaseTest {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
 			SynchronizedTreeViewer leftViewer = viewer.getLeftViewer();
-			TreeItem item = leftViewer.getMatchingItem(
+			TreeItem item = SynchronizedTreeViewer.getMatchingItem(
 					((ITreeDifferencerProvider) leftViewer
 							.getContentProvider())
 							.getComparableTreeObject(two), leftViewer);
@@ -534,7 +534,7 @@ public class ElementOrderingTests extends BaseTest {
 							.getTree().getMenu(), "Move Up", "", false));
 			UITestingUtilities.activateMenuItem(leftViewer.getTree().getMenu(), "Move Up");
 			while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
-			TreeItem classItem = leftViewer.getMatchingItem(provider.getComparableTreeObject(clazz), leftViewer);
+			TreeItem classItem = SynchronizedTreeViewer.getMatchingItem(provider.getComparableTreeObject(clazz), leftViewer);
 			clazz = (ModelClass_c) ((NonRootModelElementComparable) classItem.getData()).getRealElement();
 			children = provider.getChildrenOfType(clazz, Operation_c.class);
 			Operation_c new_two = (Operation_c) children[01];
@@ -579,7 +579,7 @@ public class ElementOrderingTests extends BaseTest {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
 			SynchronizedTreeViewer leftViewer = viewer.getLeftViewer();
-			TreeItem item = leftViewer.getMatchingItem(
+			TreeItem item = SynchronizedTreeViewer.getMatchingItem(
 					((ITreeDifferencerProvider) leftViewer
 							.getContentProvider())
 							.getComparableTreeObject(two), leftViewer);
@@ -591,7 +591,7 @@ public class ElementOrderingTests extends BaseTest {
 							.getTree().getMenu(), "Move Up", "", false));
 			UITestingUtilities.activateMenuItem(leftViewer.getTree().getMenu(), "Move Up");
 			while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
-			TreeItem classItem = leftViewer.getMatchingItem(provider.getComparableTreeObject(op), leftViewer);
+			TreeItem classItem = SynchronizedTreeViewer.getMatchingItem(provider.getComparableTreeObject(op), leftViewer);
 			op = (Operation_c) ((NonRootModelElementComparable) classItem.getData()).getRealElement();
 			children = provider.getChildrenOfType(op, OperationParameter_c.class);
 			OperationParameter_c new_two = (OperationParameter_c) children[1];
@@ -636,7 +636,7 @@ public class ElementOrderingTests extends BaseTest {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
 			SynchronizedTreeViewer leftViewer = viewer.getLeftViewer();
-			TreeItem item = leftViewer.getMatchingItem(
+			TreeItem item = SynchronizedTreeViewer.getMatchingItem(
 					((ITreeDifferencerProvider) leftViewer
 							.getContentProvider())
 							.getComparableTreeObject(two), leftViewer);
@@ -648,7 +648,7 @@ public class ElementOrderingTests extends BaseTest {
 							.getTree().getMenu(), "Move Up", "", false));
 			UITestingUtilities.activateMenuItem(leftViewer.getTree().getMenu(), "Move Up");
 			while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
-			TreeItem classItem = leftViewer.getMatchingItem(provider.getComparableTreeObject(evt), leftViewer);
+			TreeItem classItem = SynchronizedTreeViewer.getMatchingItem(provider.getComparableTreeObject(evt), leftViewer);
 			evt = (StateMachineEvent_c) ((NonRootModelElementComparable) classItem.getData()).getRealElement();
 			children = provider.getChildrenOfType(evt, StateMachineEventDataItem_c.class);
 			StateMachineEventDataItem_c new_two = (StateMachineEventDataItem_c) children[1];
@@ -693,7 +693,7 @@ public class ElementOrderingTests extends BaseTest {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
 			SynchronizedTreeViewer leftViewer = viewer.getLeftViewer();
-			TreeItem item = leftViewer.getMatchingItem(
+			TreeItem item = SynchronizedTreeViewer.getMatchingItem(
 					((ITreeDifferencerProvider) leftViewer
 							.getContentProvider())
 							.getComparableTreeObject(two), leftViewer);
@@ -705,7 +705,7 @@ public class ElementOrderingTests extends BaseTest {
 							.getTree().getMenu(), "Move Up", "", false));
 			UITestingUtilities.activateMenuItem(leftViewer.getTree().getMenu(), "Move Up");
 			while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
-			TreeItem classItem = leftViewer.getMatchingItem(provider.getComparableTreeObject(clazz), leftViewer);
+			TreeItem classItem = SynchronizedTreeViewer.getMatchingItem(provider.getComparableTreeObject(clazz), leftViewer);
 			clazz = (ModelClass_c) ((NonRootModelElementComparable) classItem.getData()).getRealElement();
 			children = provider.getChildrenOfType(clazz, Attribute_c.class);
 			Attribute_c new_two = (Attribute_c) children[1];
@@ -750,7 +750,7 @@ public class ElementOrderingTests extends BaseTest {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
 			SynchronizedTreeViewer leftViewer = viewer.getLeftViewer();
-			TreeItem item = leftViewer.getMatchingItem(
+			TreeItem item = SynchronizedTreeViewer.getMatchingItem(
 					((ITreeDifferencerProvider) leftViewer
 							.getContentProvider())
 							.getComparableTreeObject(two), leftViewer);
@@ -762,7 +762,7 @@ public class ElementOrderingTests extends BaseTest {
 							.getTree().getMenu(), "Move Up", "", false));
 			UITestingUtilities.activateMenuItem(leftViewer.getTree().getMenu(), "Move Up");
 			while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
-			TreeItem classItem = leftViewer.getMatchingItem(provider.getComparableTreeObject(edt), leftViewer);
+			TreeItem classItem = SynchronizedTreeViewer.getMatchingItem(provider.getComparableTreeObject(edt), leftViewer);
 			edt = (EnumerationDataType_c) ((NonRootModelElementComparable) classItem.getData()).getRealElement();
 			children = provider.getChildrenOfType(edt, Enumerator_c.class);
 			Enumerator_c new_two = (Enumerator_c) children[1];
@@ -807,7 +807,7 @@ public class ElementOrderingTests extends BaseTest {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
 			SynchronizedTreeViewer leftViewer = viewer.getLeftViewer();
-			TreeItem item = leftViewer.getMatchingItem(
+			TreeItem item = SynchronizedTreeViewer.getMatchingItem(
 					((ITreeDifferencerProvider) leftViewer
 							.getContentProvider())
 							.getComparableTreeObject(two), leftViewer);
@@ -819,7 +819,7 @@ public class ElementOrderingTests extends BaseTest {
 							.getTree().getMenu(), "Move Up", "", false));
 			UITestingUtilities.activateMenuItem(leftViewer.getTree().getMenu(), "Move Up");
 			while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
-			TreeItem classItem = leftViewer.getMatchingItem(provider.getComparableTreeObject(brg), leftViewer);
+			TreeItem classItem = SynchronizedTreeViewer.getMatchingItem(provider.getComparableTreeObject(brg), leftViewer);
 			brg = (Bridge_c) ((NonRootModelElementComparable) classItem.getData()).getRealElement();
 			children = provider.getChildrenOfType(brg, BridgeParameter_c.class);
 			BridgeParameter_c new_two = (BridgeParameter_c) children[1];
@@ -864,7 +864,7 @@ public class ElementOrderingTests extends BaseTest {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
 			SynchronizedTreeViewer leftViewer = viewer.getLeftViewer();
-			TreeItem item = leftViewer.getMatchingItem(
+			TreeItem item = SynchronizedTreeViewer.getMatchingItem(
 					((ITreeDifferencerProvider) leftViewer
 							.getContentProvider())
 							.getComparableTreeObject(two), leftViewer);
@@ -876,7 +876,7 @@ public class ElementOrderingTests extends BaseTest {
 							.getTree().getMenu(), "Move Up", "", false));
 			UITestingUtilities.activateMenuItem(leftViewer.getTree().getMenu(), "Move Up");
 			while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
-			TreeItem classItem = leftViewer.getMatchingItem(provider.getComparableTreeObject(iface), leftViewer);
+			TreeItem classItem = SynchronizedTreeViewer.getMatchingItem(provider.getComparableTreeObject(iface), leftViewer);
 			iface = (Interface_c) ((NonRootModelElementComparable) classItem.getData()).getRealElement();
 			children = provider.getChildrenOfType(iface, InterfaceSignal_c.class);
 			InterfaceSignal_c new_two = (InterfaceSignal_c) children[1];
@@ -921,7 +921,7 @@ public class ElementOrderingTests extends BaseTest {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
 			SynchronizedTreeViewer leftViewer = viewer.getLeftViewer();
-			TreeItem item = leftViewer.getMatchingItem(
+			TreeItem item = SynchronizedTreeViewer.getMatchingItem(
 					((ITreeDifferencerProvider) leftViewer
 							.getContentProvider())
 							.getComparableTreeObject(two), leftViewer);
@@ -933,7 +933,7 @@ public class ElementOrderingTests extends BaseTest {
 							.getTree().getMenu(), "Move Up", "", false));
 			UITestingUtilities.activateMenuItem(leftViewer.getTree().getMenu(), "Move Up");
 			while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
-			TreeItem classItem = leftViewer.getMatchingItem(provider.getComparableTreeObject(iface), leftViewer);
+			TreeItem classItem = SynchronizedTreeViewer.getMatchingItem(provider.getComparableTreeObject(iface), leftViewer);
 			iface = (Interface_c) ((NonRootModelElementComparable) classItem.getData()).getRealElement();
 			children = provider.getChildrenOfType(iface, InterfaceOperation_c.class);
 			InterfaceOperation_c new_two = (InterfaceOperation_c) children[1];
@@ -978,7 +978,7 @@ public class ElementOrderingTests extends BaseTest {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
 			SynchronizedTreeViewer leftViewer = viewer.getLeftViewer();
-			TreeItem item = leftViewer.getMatchingItem(
+			TreeItem item = SynchronizedTreeViewer.getMatchingItem(
 					((ITreeDifferencerProvider) leftViewer
 							.getContentProvider())
 							.getComparableTreeObject(two), leftViewer);
@@ -990,7 +990,7 @@ public class ElementOrderingTests extends BaseTest {
 							.getTree().getMenu(), "Move Up", "", false));
 			UITestingUtilities.activateMenuItem(leftViewer.getTree().getMenu(), "Move Up");
 			while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
-			TreeItem classItem = leftViewer.getMatchingItem(provider.getComparableTreeObject(iface), leftViewer);
+			TreeItem classItem = SynchronizedTreeViewer.getMatchingItem(provider.getComparableTreeObject(iface), leftViewer);
 			iface = (InterfaceOperation_c) ((NonRootModelElementComparable) classItem.getData()).getRealElement();
 			children = provider.getChildrenOfType(iface, PropertyParameter_c.class);
 			PropertyParameter_c new_two = (PropertyParameter_c) children[1];
@@ -1035,7 +1035,7 @@ public class ElementOrderingTests extends BaseTest {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer
 					.getInstance(null);
 			SynchronizedTreeViewer leftViewer = viewer.getLeftViewer();
-			TreeItem item = leftViewer.getMatchingItem(
+			TreeItem item = SynchronizedTreeViewer.getMatchingItem(
 					((ITreeDifferencerProvider) leftViewer
 							.getContentProvider())
 							.getComparableTreeObject(two), leftViewer);
@@ -1047,7 +1047,7 @@ public class ElementOrderingTests extends BaseTest {
 							.getTree().getMenu(), "Move Up", "", false));
 			UITestingUtilities.activateMenuItem(leftViewer.getTree().getMenu(), "Move Up");
 			while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
-			TreeItem classItem = leftViewer.getMatchingItem(provider.getComparableTreeObject(iface), leftViewer);
+			TreeItem classItem = SynchronizedTreeViewer.getMatchingItem(provider.getComparableTreeObject(iface), leftViewer);
 			iface = (StructuredDataType_c) ((NonRootModelElementComparable) classItem.getData()).getRealElement();
 			children = provider.getChildrenOfType(iface, StructureMember_c.class);
 			StructureMember_c new_two = (StructureMember_c) children[1];
@@ -1088,6 +1088,7 @@ public class ElementOrderingTests extends BaseTest {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 					.getActiveEditor().doSave(new NullProgressMonitor());
 			BaseTest.dispatchEvents(0);
+			differencer.refresh();
 			assertTrue("Differences remained after copying positional change",
 					differencer.getLeftDifferences().isEmpty());		
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()

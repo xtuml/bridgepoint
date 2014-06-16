@@ -45,6 +45,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
+import com.mentor.nucleus.bp.model.compare.EmptyElement;
 import com.mentor.nucleus.bp.model.compare.TreeDifference;
 import com.mentor.nucleus.bp.model.compare.contentmergeviewer.ModelContentMergeViewer;
 import com.mentor.nucleus.bp.model.compare.providers.TreeDifferenceContentProvider;
@@ -127,7 +128,7 @@ public class ModelStructureDiffViewer extends TreeViewer implements ICompareInpu
 					if(topItem.getItemCount() > 0) {
 						TreeDifference difference = ((TreeDifferenceContentProvider) getContentProvider())
 								.getDifferencer().getLeftDifferences().get(0);
-						if(difference.getElement() == null) {
+						if(difference.getElement() instanceof EmptyElement) {
 							difference = difference.getMatchingDifference();
 						}
 						// reveal and select first difference
