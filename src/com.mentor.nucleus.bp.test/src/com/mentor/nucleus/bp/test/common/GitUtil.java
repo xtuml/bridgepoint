@@ -167,7 +167,7 @@ public class GitUtil {
 		StructuredSelection sel = new StructuredSelection(list);
 		view.getCommonViewer().setSelection(sel);
 
-		TestUtil.noToDialog(500);
+		TestUtil.yesToDialog(500);
 		
 		UITestingUtilities.activateMenuItem(gitRepositoryTree.getMenu(), "&Synchronize with each other");
 		BaseTest.dispatchEvents(0);

@@ -1,5 +1,7 @@
 package com.mentor.nucleus.bp.model.compare.test;
 
+import java.util.List;
+
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.widgets.Control;
@@ -15,6 +17,7 @@ import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.PackageableElement_c;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
+import com.mentor.nucleus.bp.model.compare.TreeDifference;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.CompareTestUtilities;
 import com.mentor.nucleus.bp.test.common.GitUtil;
@@ -62,6 +65,7 @@ public class ModelMergeTests2  extends BaseTest {
 		super.tearDown();
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.closeAllEditors(false);
+		BaseTest.dispatchEvents(0);
 	}
 
 	public void testMergeInterfaceSortedElements() throws Exception {
@@ -238,7 +242,8 @@ public class ModelMergeTests2  extends BaseTest {
 		
 		GitUtil.compareWithBranch("master1", "sandbox", "slave1");
 
-		String[] actualResult = UITestingUtilities.getCompareViewStructuralDifferences("Pkg1");
+		CompareTestUtilities.openElementInSyncronizeView("Pkg1.xtuml");
+		List<TreeDifference> actualResult = CompareTestUtilities.getIncomingChanges();
 		String[] expectedResult = new String[] { "m_op1", "m_op2", "sameName",
 				"s_op1", "s_op2", "sameName", "m_sig1", "m_sig2", "sameName",
 				"s_sig1", "s_sig2" };
