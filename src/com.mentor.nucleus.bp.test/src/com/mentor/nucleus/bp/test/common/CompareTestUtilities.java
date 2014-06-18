@@ -572,17 +572,49 @@ public class CompareTestUtilities {
 	}
 
 	public static List<TreeDifference> getConflictingChanges() {
-		return getChanges(Differencer.CONFLICTING);
+		return getChangesFromLeft(Differencer.CONFLICTING, true);
 	}
 
-	private static List<TreeDifference> getChanges(int type) {
+	/**
+	 * 
+	 * @param type One the the constants defined in class com.ibm.icu.text.MessageFormat.Differencer
+	 * @return The list of specified differences
+	 */
+	public static List<TreeDifference> getChangesFromLeft(int type, boolean useDirectionMask) {
 		ModelContentMergeViewer viewer = ModelContentMergeViewer
 				.getInstance(null);
 		TreeDifferencer differencer = viewer.getDifferencer();
 		List<TreeDifference> leftDifferences = differencer.getLeftDifferences();
 		List<TreeDifference> differences = new ArrayList<TreeDifference>();
 		for (TreeDifference difference : leftDifferences) {
-			if ((difference.getKind() & Differencer.DIRECTION_MASK) == type) {
+			if (useDirectionMask) {
+				if ((difference.getKind() & Differencer.DIRECTION_MASK) == type) {
+					differences.add(difference);
+				} 
+			} else 	if (difference.getKind() == type || type == Differencer.NO_CHANGE) {
+				differences.add(difference);					
+			}
+		}
+		return differences;
+	}
+
+	/**
+	 * 
+	 * @param type One the the constants defined in class com.ibm.icu.text.MessageFormat.Differencer
+	 * @return The list of specified differences
+	 */
+	public static List<TreeDifference> getChangesFromRight(int type, boolean useDirectionMask) {
+		ModelContentMergeViewer viewer = ModelContentMergeViewer
+				.getInstance(null);
+		TreeDifferencer differencer = viewer.getDifferencer();
+		List<TreeDifference> rightDifferences = differencer.getLeftDifferences();
+		List<TreeDifference> differences = new ArrayList<TreeDifference>();
+		for (TreeDifference difference : rightDifferences) {
+			if (useDirectionMask) {
+				if ((difference.getKind() & Differencer.DIRECTION_MASK) == type) {
+					differences.add(difference);
+				} 
+			} else 	if (difference.getKind() == type || type == Differencer.NO_CHANGE) {
 				differences.add(difference);
 			}
 		}
@@ -590,7 +622,7 @@ public class CompareTestUtilities {
 	}
 
 	public static List<TreeDifference> getIncomingChanges() {
-		return getChanges(Differencer.ADDITION);
+		return getChangesFromLeft(Differencer.ADDITION, true);
 	}
 
 	public static void selectElementInTree(boolean left, NonRootModelElement element) {

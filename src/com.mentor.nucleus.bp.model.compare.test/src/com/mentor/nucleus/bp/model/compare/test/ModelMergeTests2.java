@@ -2,6 +2,7 @@ package com.mentor.nucleus.bp.model.compare.test;
 
 import java.util.List;
 
+import org.eclipse.compare.structuremergeviewer.Differencer;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.widgets.Control;
@@ -235,21 +236,44 @@ public class ModelMergeTests2  extends BaseTest {
 	public void testCompareWith() throws Exception {
 		String projectName = "GPS Watch";
 		// import git repository from models repo
-		GitUtil.loadRepository(test_repositories
-				+ "/" + "sandbox", "slave1");
+		GitUtil.resetRepository("sandbox", "slave1");
 		// import test project
 		GitUtil.loadProject(projectName, "sandbox", "slave1");
 		
 		GitUtil.compareWithBranch("master1", "sandbox", "slave1");
 
+		
 		CompareTestUtilities.openElementInSyncronizeView("Pkg1.xtuml");
-		List<TreeDifference> actualResult = CompareTestUtilities.getIncomingChanges();
-		String[] expectedResult = new String[] { "m_op1", "m_op2", "sameName",
-				"s_op1", "s_op2", "sameName", "m_sig1", "m_sig2", "sameName",
-				"s_sig1", "s_sig2" };
+
+		// Here are the changes:
+		// Additions from the slave branch:
+		//		"s_op1", "s_op2", "sameName", "sameName", "s_sig1", "s_sig2" };
+		// Additions from the master branch:
+		//		"m_op1", "m_op2", "sameName", "m_sig1", "m_sig2", 
 		
-		assertTrue("The comparision contains all expected elements", actualResult.equals(expectedResult));
 		
+		
+		List<TreeDifference> actualResult = CompareTestUtilities.getChangesFromLeft(Differencer.NO_CHANGE, false);
+		assertEquals("The correct totlal number of changes is present on the left", 12, actualResult.size());
+				
+		actualResult = CompareTestUtilities.getChangesFromRight(Differencer.NO_CHANGE, false);
+		assertEquals("The correct totlal number of changes is present on the right", 12, actualResult.size());
+
+		actualResult = CompareTestUtilities.getChangesFromLeft(Differencer.ADDITION, false);
+		assertEquals("The number of expected additions is present on the left (additions from the slave branch)", 6, actualResult.size());
+		
+		actualResult = CompareTestUtilities.getChangesFromLeft(Differencer.DELETION, false);
+		assertEquals("The number of expected additions is present on the left (additions from the master branch)", 6, actualResult.size());
+
+		actualResult = CompareTestUtilities.getChangesFromRight(Differencer.ADDITION, false);
+		assertEquals("The number of expected additions is present on the right (additions from the master branch)", 6, actualResult.size());
+		
+		actualResult = CompareTestUtilities.getChangesFromRight(Differencer.DELETION, false);
+		assertEquals("The number of expected additions is present on the right (additions from the slave branch)", 6, actualResult.size());
+		
+		actualResult = CompareTestUtilities.getConflictingChanges();
+		assertEquals("There are 0 conflicting changes", 0, actualResult.size());
+
 		// There should be no error log entries (shutdown will verify this)
 	}
 	

@@ -186,8 +186,9 @@ public class GitUtil {
 
 	public static void resetRepository(String repositoryName, String branch) {
 		// process any pending events
-		BaseTest.dispatchEvents(500);
+		BaseTest.dispatchEvents(0);
 		IViewPart gitRepositoryView = showGitRepositoriesView();
+		BaseTest.dispatchEvents(0);
 		CommonNavigator view = (CommonNavigator) gitRepositoryView;
 		Control control = view.getCommonViewer().getControl();
 		Tree gitRepositoryTree = (Tree) control;
