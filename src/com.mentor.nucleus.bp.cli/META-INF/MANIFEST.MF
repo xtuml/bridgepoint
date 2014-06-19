@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Command Line Interface
 Bundle-SymbolicName: com.mentor.nucleus.bp.cli;singleton:=true
-Bundle-Version: 4.1.12
+Bundle-Version: 4.1.17
 Bundle-Activator: com.mentor.nucleus.bp.cli.Activator
 Bundle-Vendor: Mentor Graphics, Inc.
 Require-Bundle: org.eclipse.core.runtime,

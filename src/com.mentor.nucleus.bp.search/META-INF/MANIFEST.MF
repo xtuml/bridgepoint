@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: BridgePoint Search
 Bundle-SymbolicName: com.mentor.nucleus.bp.search;singleton:=true
-Bundle-Version: 4.1.12
+Bundle-Version: 4.1.17
 Bundle-Activator: com.mentor.nucleus.bp.search.Activator
 Bundle-Vendor: Mentor Graphics
 Require-Bundle: org.eclipse.ui,
