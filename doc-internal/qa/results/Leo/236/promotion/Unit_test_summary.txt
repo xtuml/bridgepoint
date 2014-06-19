@@ -1,0 +1,11 @@
+This document captures the state of the BridgePoint unit tests:
+===============================================================
+Branch: master with branch for 236 merged in
+Hostname: 	ILS-KBROWN-LT
+OS Name:  	Windows 7
+	Version:	6.1
+	Architecture:	x86
+
+Test Suite                              Status			TestRuns	Time    Timestamp
+---------------------------------------------------------------------------------------------
+Model Compare Test						PASS			251			662.74s	20140619 11:14:36
