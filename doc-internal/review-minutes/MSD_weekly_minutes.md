@@ -11,6 +11,55 @@ MSD Weekly Meeting Minutes
 ---
 ---
 
+    Date:     18th June 2014
+
+    Start:    1200 EDT
+    End:      12:25
+    Present:  Keith, Bob, Campbell, Cort, others ...
+    Dean, Robert, others ...
+
+### Engineering status
+**Keith - Release of 4.1.12  -**
+The 4.1.12 Release is officially on SupportNet. The build number has been incremented in
+preparation for the creation of a demo version. Demo version to be based on this release
+and licensed to expire on 01/14/15.
+
+Currently waiting for promotion is Heba's SVX client and a couple SR fixes not related 
+to compare/merge. Promotion work to proceed as part of preparation for next release of 
+xtUML.org Editor.  Expecting to see work completed before end of month. 
+
+**Keith - Training course update -**
+There is still quite a bit of work left to do to create the training video content and 
+the pace is dragging. Quality of videos is quickly rising and few are needing to be reworked. 
+Keith sees this as encouraging and likely to speed up the remaining content creation activities. 
+Keith has also received interest from the SV team to learn more about our activities. It appears 
+they have also received customer requests for similar self-paced materials. 
+
+**Bob - compare/merge patch -**
+Primarily involved in completing the 4.1.12 patch and push it out. He received news today 
+from Saab that they will soon be testing 4.1.12 in an effort to qualify it for production 
+usage. Also, there is a trip planned to Ericsson (Montreal) to provide training/consulting on 
+compare/merge usage. The Ericsson team is encountering problems with their usage of configuration 
+management and issue tracking inside eclipse. These problems are being reported to management 
+as tool issues rather than methodology weaknesses and Bob's trip is to correct this misperception.
+
+**Cort - FXAT - Custom model compiler  -**
+FXAT has significantly extended the custom C model compiler and their models are too big for the conventional 
+model compiler flow. Consequently, we are assisting them to create a model-based custom MC. Cort is
+expecting to have the recent batch of changes completed by 06/27
+
+### Marketing
+**Dean - Yazaki Update -**
+The negotiation is nearing completion and the account team has several options to address 
+concerns raised by ESD. Final decision is expected before end of the month. 
+
+### Customer Support Status
+**Robert -**  
+No items to discuss in this meeting.
+
+---
+---
+
     Date:     11th June 2014
 
     Start:    1200 EDT
@@ -55,7 +104,7 @@ Working on videos.
 ** (Dean) -**
 Ongoing meetings with Engineering involvement in several places for new business.  
 
-Agilent was a a point where we were to suspect support, but an agreement has now been 
+Agilent was at a point where we were to suspect support, but an agreement has now been 
 reached, so support can now continue.  
 
 
