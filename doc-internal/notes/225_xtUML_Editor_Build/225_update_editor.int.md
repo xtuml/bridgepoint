@@ -31,6 +31,7 @@ parallel with BridgePoint.
 [7]	https://github.com/xtuml/internal/blob/master/doc-internal/process/HOWTO-upload-xtUML-editor-installer.md
 [8] https://github.com/xtuml/internal/blob/master/doc-internal/process/templates/checklists/promotion.chk  
 The BridgePoint team's promotion check list.  
+[9] HOWTO update the BridgePoint version, https://github.com/xtuml/internal/blob/master/doc-internal/process/HOWTO-update-the-BP-version-number.txt  
 
 3. Background
 -------------
@@ -378,7 +379,8 @@ xtuml_editor_builder branch is kept up to date with promtions into the
 BridgePoint internal/orgin/master repository.  Therfore, to release the 
 xtUML Editor does the following:
 
-* Merge changes from brnach xtuml_editor_builder into branch xtuml_editor
+* Bump the version in the xtuml_editor branch [9]
+* Merge changes from branch xtuml_editor_builder into branch xtuml_editor
 * Perform the steps described in section 5.3 to move the internal/xtuml_editor
 branch into a branch of editor/origin/master.
 * Test the editor/origin/master branch
@@ -418,11 +420,6 @@ the  editor/master branch.   This branch exists because there are a lot of
 plugins and source files that do not exist in the xtUML EDitor Source that 
 are necessary in order to build the binary editor.
 
-<pre>
-
-< Put the file list here >
-
-</pre>
 
 End
 ---
