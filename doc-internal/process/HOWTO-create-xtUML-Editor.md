@@ -14,22 +14,42 @@ publishing it on the interweb.
 3. Steps
 -------------
 1.  Decide what the new version number for xtUML Editor will be  
-2.  Create a tracking issue in CQ and git for the new xtUML Editor  
-3.  Branch master in the xtuml/internal git repository to ```<issue#>_xtumleditor_<new version>```, check out this branch  
-4.  Merge in the git branch origin/xtUMLeditor_changes  
+2.  Create a tracking issue in CQ and git for the new xtUML Editor 
+3. Assure that promotion process has been followed so that all changes
+are present in the xtuml/internal repoistory's xtuml_editor_builder branch
+4.  Update the Release Notes and What's New  
+5. Branch both the xtuml_editor builder and xtuml_editor branches to names 
+that append the version number to them.  These are the branch you should work 
+in while creating this release.
+xtuml/internal repository  
+6.  Bump the version in the xtuml_editor_builder branch of the 
+7. Build the xtuml_editor_builder_<version> branch on the build server.  This shall be the 
+binary release of the xtUML Editor.  
+8.  When the build is complete, test this release candidate on both Windows and 
+Linux but while waiting for the build, the remaining steps can be taken to 
+complete the xtUML Editor source release.
+9. Merge changes from xtuml/internal branch xtuml_editor_builder_<version> into the 
+xtuml/internal branch named xtuml_editor_<version> (this is the source code release for 
+the xtUML Editor)  
+10. Move the internal/xtuml_editor_<version> branch into the editor repository    
+	* branch the editor repository
+	* delete all src/* projects that will be updated. All projects are deleted
+	except for the following:  
+		* doc-editor
+		* org.xtuml.sql.upgrade
+		* org.xtuml.sql.upgrade.bin  
+11. Commit the deletion of files  
+12. Copy the new src/* from your local machines location for the  
+internal/xtuml_editor_<version> branch.
+	* commit the new source
+13. Build and test the xtuml/editor branch
+14. Once the binary and source release are both tested, promote the 
+xtuml/editor branch into editor/origin/master
 
-__NOTE: For the first xtUML Editor creation after BP 4.1.6... The xtUMLeditor changes branch will need to be 
-updated.  We will want to switch from leaving mc.c.binary to mc.none instead.__
 
-5.  Bump the version using the ant script [1] to the new xtUML Editor version  
-6.  Update the Release Notes and What's New  
-7.  Commit all the changes to the branch  
-8.  Build the branch on the build server  
-9.  Test the installers on Windows and Linux.  Have Dean, Robert, and Cort test as well.
-10. Rename the files from ```BridgePoint_<branch>*``` to ```xtUML_Editor_<new version>*```
-11. Upload the installers to Amazon S3 [2]  
-12. Update the xtUML.org website with the new Release Notes  
-13. Notify Jayne she can do a mailing indicating a new release of xtUML Editor is available  
-14. Post to the xtuml.org forum indicating the new release is available  
-15. Bump the BP development version past the xtUML Editor version  
-16. Done
+15. Upload the installers to Amazon S3 [2]  
+16. Update the xtUML.org website with the new Release Notes  
+17. Notify Jayne she can do a mailing indicating a new release of xtUML Editor is available  
+18. Post to the xtuml.org forum indicating the new release is available  
+19. Bump the BP development version past the xtUML Editor version  
+20. Done
