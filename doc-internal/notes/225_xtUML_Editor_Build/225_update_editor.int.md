@@ -20,16 +20,16 @@ parallel with BridgePoint.
 [1] Git internal, Issues 225, https://github.com/xtuml/internal/issues/225		
 	Update the xtUML Editor based on the 4.1.10 release  
 [2] Git Editor, Issues 21, https://github.com/xtuml/editor/issues/21
-	Update the OSS source for 4.1.10
+	Update the OSS source for 4.1.10  
 [3] Git Editor, Issues 18, https://github.com/xtuml/editor/issues/18
-	Can not delete objects from model when running editor built from source
+	Can not delete objects from model when running editor built from source  
 [4]	Clearquest dts0101036706 
-	Place more code into public repository
+	Place more code into public repository  
 [5]	Git internal, issues 162,  https://github.com/xtuml/internal/issues/162
-	Place more code into public repository
-[6] https://github.com/xtuml/internal/blob/master/doc-internal/process/HOWTO-create-xtUML-Editor.md
-[7]	https://github.com/xtuml/internal/blob/master/doc-internal/process/HOWTO-upload-xtUML-editor-installer.md
-[8] https://github.com/xtuml/internal/blob/master/doc-internal/process/templates/checklists/promotion.chk  
+	Place more code into public repository  
+[6] https://github.com/xtuml/internal/blob/master/doc-internal/process/HOWTO-create-xtUML-Editor.md  
+[7] https://github.com/xtuml/internal/blob/master/doc-internal/process/HOWTO-upload-xtUML-editor-installer.md  
+[8] https://github.com/xtuml/internal/blob/master/doc-internal/process/templates/checklists/promotion.chk 
 The BridgePoint team's promotion check list.  
 
 3. Background
