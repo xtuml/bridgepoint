@@ -375,21 +375,18 @@ tests one time.
 8. Code Changes
 ---------------
 
-> 8.1 Branch name: editor/21_Update_OSS_Source
---------------------------------------------
+> 8.1 Branch name: editor/21_Update_OSS_Source  
 EVERY files is changed. The process of migrating the code into the editor 
 repository from the internal repository is such that the old editor files are 
 deleted and the new ones are then copied into place.
 
 
-> 8.2 Branch name: internal/xtuml_editor_builder
-----------------------------------------------
+> 8.2 Branch name: internal/xtuml_editor_builder  
 This is binary editor branch.  This is where the xtUML Editor binary is 
 maintained.  When changes are promoted to either internal/master OR
 editor/master they shall also be promoted into this branch.
 
-> 8.3 Branch name: internal/xtuml_editor
---------------------------------------
+> 8.3 Branch name: internal/xtuml_editor  
 This is the xtUML Editor source branch.  This branch was created from 
 the xtuml_editor_builder branch.  This branch is a mirror of what is found in 
 the  editor/master branch.   This branch exists because there are a lot of
