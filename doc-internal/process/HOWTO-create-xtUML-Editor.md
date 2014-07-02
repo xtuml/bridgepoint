@@ -42,7 +42,7 @@ the xtUML Editor)
 		* org.xtuml.sql.upgrade.bin  
 11. Commit the deletion of files  
 12. Copy the new src/* from your local machines location for the  
-`internal/xtuml_editor_<version>` branch.
+`internal/xtuml_editor_<version>` branch into the editor branch created in step 10.
 	* commit the new source
 13. Build and test the xtuml/editor branch
 14. Once the binary and source release are both tested, promote the 
