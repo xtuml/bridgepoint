@@ -50,11 +50,12 @@ the public.
  
 4. Requirements
 ---------------
+
 > 4.1 The xtUML Editor shall not encounter errors when deleting objects during
-a session run from the xtUML Editor launch configuration [3].
-> 4.2. The xtUML Editor source and binary shall be maintained in parallel.
+a session run from the xtUML Editor launch configuration [3].  
+> 4.2. The xtUML Editor source and binary shall be maintained in parallel.  
 > 4.3. It shall be possible to have xtUML Editor releases independent of
-BridgePoint releases.
+BridgePoint releases.  
 > 4.4. Process shall allow BridgePoint and the xtUML Editor to main maintained
 in parallel with minimum effort while moving toward full code code 
 separation (separation of the EDitor source and BridgePoint licensed 
