@@ -22,7 +22,8 @@ are present in the xtuml/internal repoistory's xtuml_editor_builder branch
 that append the version number to them.  These are the branch you should work 
 in while creating this release.
 xtuml/internal repository  
-6.  Bump the version in the xtuml_editor_builder branch of the 
+6.  Bump the version in the xtuml_editor_builder branch [1] to the desired version
+for the new xtUML Editor.
 7. Build the xtuml_editor_builder_<version> branch on the build server.  This shall be the 
 binary release of the xtUML Editor.  
 8.  When the build is complete, test this release candidate on both Windows and 
