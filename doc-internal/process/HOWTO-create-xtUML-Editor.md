@@ -17,7 +17,8 @@ publishing it on the interweb.
 2.  Create a tracking issue in CQ and git for the new xtUML Editor 
 3. Assure that promotion process has been followed so that all changes
 are present in the xtuml/internal repoistory's xtuml_editor_builder branch
-4.  Update the Release Notes and What's New  
+4.  Update the Release Notes and What's New documents.  These are found under
+com.mentor.nucleus.bp.doc.
 5. Branch both the xtuml_editor builder and xtuml_editor branches to names 
 that append the version number to them.  These are the branch you should work 
 in while creating this release.
