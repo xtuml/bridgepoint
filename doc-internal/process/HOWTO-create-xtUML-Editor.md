@@ -19,10 +19,13 @@ publishing it on the interweb.
 are present in the xtuml/internal repoistory's xtuml_editor_builder branch
 4.  Update the Release Notes and What's New documents.  These are found under
 com.mentor.nucleus.bp.doc.
-5. Branch both the xtuml_editor builder and xtuml_editor branches to names 
-that append the version number to them.  These are the branch you should work 
-in while creating this release.
-xtuml/internal repository  
+5. Create a branch from these two branches from the xtuml/internal repository:
+
+   xtuml_editor_builder
+   xtuml_editor
+   
+to names that append the version number to them.  These are the branches you
+should work in while creating this release.  
 6.  Bump the version in the xtuml_editor_builder branch [1] to the desired version
 for the new xtUML Editor.
 7. Build the `xtuml_editor_builder_<version>` branch on the build server.  This shall be the 
