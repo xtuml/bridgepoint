@@ -25,15 +25,15 @@ in while creating this release.
 xtuml/internal repository  
 6.  Bump the version in the xtuml_editor_builder branch [1] to the desired version
 for the new xtUML Editor.
-7. Build the xtuml_editor_builder_<version> branch on the build server.  This shall be the 
+7. Build the `xtuml_editor_builder_<version>` branch on the build server.  This shall be the 
 binary release of the xtUML Editor.  
 8.  When the build is complete, test this release candidate on both Windows and 
 Linux but while waiting for the build, the remaining steps can be taken to 
 complete the xtUML Editor source release.
-9. Merge changes from xtuml/internal branch xtuml_editor_builder_<version> into the 
-xtuml/internal branch named xtuml_editor_<version> (this is the source code release for 
+9. Merge changes from xtuml/internal `branch xtuml_editor_builder_<version>` into the 
+xtuml/internal branch named `xtuml_editor_<version>` (this is the source code release for 
 the xtUML Editor)  
-10. Move the internal/xtuml_editor_<version> branch into the editor repository    
+10. Move the `internal/xtuml_editor_<version>` branch into the editor repository    
 	* branch the editor repository
 	* delete all src/* projects that will be updated. All projects are deleted
 	except for the following:  
@@ -42,7 +42,7 @@ the xtUML Editor)
 		* org.xtuml.sql.upgrade.bin  
 11. Commit the deletion of files  
 12. Copy the new src/* from your local machines location for the  
-internal/xtuml_editor_<version> branch.
+`internal/xtuml_editor_<version>` branch.
 	* commit the new source
 13. Build and test the xtuml/editor branch
 14. Once the binary and source release are both tested, promote the 
