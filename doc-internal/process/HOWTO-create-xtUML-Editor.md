@@ -32,7 +32,7 @@ Linux but while waiting for the build, the remaining steps can be taken to
 complete the xtUML Editor source release.
 9. Merge xtuml/internal `branch xtuml_editor_builder_<version>` into  
 xtuml/internal `xtuml_editor_<version>`.  This is merging the binary release branch
-changes into what will be he source code release.
+changes into what will be the source code release.
 10. Move the `internal/xtuml_editor_<version>` branch into the editor repository    
 	* branch the editor repository
 	* delete all src/* projects that will be updated. All projects are deleted
