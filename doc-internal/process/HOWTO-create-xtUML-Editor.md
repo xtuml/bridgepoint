@@ -19,11 +19,11 @@ publishing it on the interweb.
 are present in the xtuml/internal repoistory's xtuml_editor_builder branch
 4.  Update the Release Notes and What's New documents.  These are found under
 com.mentor.nucleus.bp.doc.
-5. Create a branch from these two branches from the xtuml/internal repository:
-  * xtuml_editor_builder
-  * xtuml_editor  
+5. Create a branch for each of the following two branches from the xtuml/internal repository.
 Use names that append the version number to the existing branch names.  These are the branches you
 should work in while creating this release.  
+  * xtuml_editor_builder
+  * xtuml_editor  
 6.  Bump the version in the xtuml_editor_builder branch [1] to the desired version
 for the new xtUML Editor.
 7. Build the `xtuml_editor_builder_<version>` branch on the build server.  This shall be the 
@@ -35,18 +35,17 @@ complete the xtUML Editor source release.
 xtuml/internal `xtuml_editor_<version>`.  This is merging the binary release branch
 changes into what will be the source code release.  
 10. Move the `internal/xtuml_editor_<version>` branch into the editor repository    
-* branch the editor repository
-* delete all `src/*` projects that will be updated. All projects are deleted
+  * branch the editor repository to create a working branch
+  * delete all `src/*` projects that will be updated. All projects are deleted
 except for the following:
-  * doc-editor
-  * org.xtuml.sql.upgrade
-  * org.xtuml.sql.upgrade.bin  
+      * doc-editor
+      * org.xtuml.sql.upgrade
+      * org.xtuml.sql.upgrade.bin  
 11. Commit the deletion of files  
 12. Copy the new src/* from your local machines location for the `internal/xtuml_editor_<version>` branch into the editor branch created in step 10.  
-* commit the new source  
+  * commit the new source  
 13. Build and test the xtuml/editor branch  
 14. Once the binary and source release are both tested, promote the xtuml/editor branch into editor/origin/master  
-
 15. Upload the installers to Amazon S3 [2]  
 16. Update the xtUML.org website with the new Release Notes  
 17. Notify Jayne she can do a mailing indicating a new release of xtUML Editor is available  
