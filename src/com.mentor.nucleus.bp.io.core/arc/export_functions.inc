@@ -119,7 +119,7 @@
       .else
   m_fh.print("\"");    //$$NON-NLS-1$$
         .if(col.isReferential)
-  m_fh.print( (inst.${a.body}().equals(IdAssigner.NULL_UUID) && outputCachedIDs && inst.isProxy()) ? inst.${a.body}CachedValue():inst.${a.body}());
+  m_fh.print( (inst.${a.body}().equals(IdAssigner.NULL_UUID) && outputCachedIDs) ? inst.${a.body}CachedValue():inst.${a.body}());
         .else
   m_fh.print(inst.${a.body}());
         .end if

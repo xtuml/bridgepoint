@@ -1090,8 +1090,14 @@ public class ModelMergeProcessor {
 				// this batch relate may have handled hook up
 				batchRelateSelfAndSupertypes((NonRootModelElement) referringLocal, modelRoot);
 				localReferentialData = insp.getReferentialDetails(clazz, localElement.getParent());
-				if(localReferentialData[0] != null) {
-					return;
+				if (localReferentialData[0] != null
+						&& localReferentialData[0] instanceof NonRootModelElement
+						&& referredRemote instanceof NonRootModelElement) {
+					NonRootModelElement newLocalRef = (NonRootModelElement) localReferentialData[0];
+					NonRootModelElement remoteRef = (NonRootModelElement) referredRemote;
+					if(newLocalRef.cachedIdentityEquals(remoteRef)) {
+						return;
+					}
 				}
 			}
 			if (object == null) {

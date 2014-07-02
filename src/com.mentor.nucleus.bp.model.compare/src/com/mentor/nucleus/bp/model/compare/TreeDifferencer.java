@@ -429,4 +429,8 @@ public class TreeDifferencer extends Differencer {
 		threeWay = isThreeWay;
 	}
 
+	public boolean isThreeWay() {
+		return threeWay;
+	}
+
 }

@@ -1382,9 +1382,11 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			// also exclude any additions or removals where the
 			// semantical model does not match
 			int diffKind = difference.getKind() & Differencer.DIRECTION_MASK;
-			if ((left && diffKind == Differencer.RIGHT)
-					|| (!left && diffKind == Differencer.LEFT)
-					|| diffKind == Differencer.CONFLICTING) {
+			if (((left && diffKind == Differencer.RIGHT)
+					|| (!left && diffKind == Differencer.LEFT) || diffKind == Differencer.CONFLICTING
+					&& differencer.isThreeWay())
+					|| ((left && difference.getKind() == Differencer.ADDITION) || (!left && difference
+							.getKind() == Differencer.DELETION))) {
 				if (SynchronizedTreeViewer.differenceIsGraphical(difference)) {
 					boolean add = true;
 					if ((difference.getElement() == null || difference
