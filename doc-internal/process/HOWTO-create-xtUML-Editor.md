@@ -13,22 +13,22 @@ publishing it on the interweb.
 
 3. Steps
 -------------
-1.  Decide what the new version number for xtUML Editor will be  
-2.  Create a tracking issue in CQ and git for the new xtUML Editor 
+1. Decide what the new version number for xtUML Editor will be  
+2. Create a tracking issue in git xtuml/editor issues for the new xtUML Editor 
 3. Assure that promotion process has been followed so that all changes
-are present in the xtuml/internal repoistory's xtuml_editor_builder branch
-4.  Update the Release Notes and What's New documents.  These are found under
+are present in the xtuml/internal repository's xtuml_editor_builder branch
+4. Update the Release Notes and What's New documents.  These are found under
 com.mentor.nucleus.bp.doc.
 5. Create a branch for each of the following two branches from the xtuml/internal repository.
 Use names that append the version number to the existing branch names.  These are the branches you
 should work in while creating this release.  
   * xtuml_editor_builder
   * xtuml_editor  
-6.  Bump the version in the xtuml_editor_builder branch [1] to the desired version
+6. Bump the version in the xtuml_editor_builder branch [1] to the desired version
 for the new xtUML Editor.
 7. Build the `xtuml_editor_builder_<version>` branch on the build server.  This shall be the 
 binary release of the xtUML Editor.  
-8.  When the build is complete, test this release candidate on both Windows and 
+8. When the build is complete, test this release candidate on both Windows and 
 Linux but while waiting for the build, the remaining steps can be taken to 
 complete the xtUML Editor source release.  
 9. Merge xtuml/internal `branch xtuml_editor_builder_<version>` into  
