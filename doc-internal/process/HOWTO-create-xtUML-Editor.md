@@ -47,7 +47,8 @@ except for the following:
 13. Build and test the xtuml/editor branch  
 14. Once the binary and source release are both tested, promote the xtuml/editor branch into editor/origin/master  
 15. Upload the installers to Amazon S3 [2]  
-16. Update the xtUML.org website with the new Release Notes  
+16. Update the xtUML.org website with the new Release Notes 
+  * To do this, send the document to admin@xtUML.org and they will post it to the site.
 17. Notify Jayne she can do a mailing indicating a new release of xtUML Editor is available  
 18. Post to the xtuml.org forum indicating the new release is available  
 19. Bump the BP development version past the xtUML Editor version  
