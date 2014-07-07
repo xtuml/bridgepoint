@@ -34,6 +34,8 @@
 	  .assign attr_result = true
     .elif(keylett == "C_IR")
 	  .assign attr_result = true
+	.elif(keylett == "C_PO")
+      .assign attr_result = true 
 	.end if
 .end function
 .// this function generates one method for each RTO -> RGO
