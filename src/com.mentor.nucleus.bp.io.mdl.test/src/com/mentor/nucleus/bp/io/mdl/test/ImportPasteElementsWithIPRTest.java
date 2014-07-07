@@ -89,7 +89,7 @@ public class ImportPasteElementsWithIPRTest extends BaseTest {
 		Package_c pkg = Package_c.getOneEP_PKGOnR1401(m_sys);
 		ComponentReference_c imported = ComponentReference_c.getOneCL_ICOnR8001(PackageableElement_c.getOnePE_PEOnR8000(pkg));
 		assertNotNull(imported);
-		assertFalse(imported.getAssignedcomp_id() == Gd_c.Null_unique_id());
+		assertFalse(imported.getAssignedcomp_element_id() == Gd_c.Null_unique_id());
 
 	}
 
@@ -109,7 +109,7 @@ public class ImportPasteElementsWithIPRTest extends BaseTest {
 			}
 		}
 		assertNotNull(cpElement);
-		assertFalse(cpElement.getAssignedcomp_id() == Gd_c.Null_unique_id());
+		assertFalse(cpElement.getAssignedcomp_element_id() == Gd_c.Null_unique_id());
 		
 		
 		// select source and destination packages
@@ -144,7 +144,7 @@ public class ImportPasteElementsWithIPRTest extends BaseTest {
 		// Verification
 		ComponentReference_c pasted = ComponentReference_c.getOneCL_ICOnR8001(PackageableElement_c.getOnePE_PEOnR8000(dest));
 		assertNotNull(pasted);
-		assertFalse(pasted.getAssignedcomp_id() == Gd_c.Null_unique_id());
+		assertFalse(pasted.getAssignedcomp_element_id() == Gd_c.Null_unique_id());
 			
 	}
 	

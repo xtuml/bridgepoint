@@ -798,6 +798,7 @@ public class ${class_name} extends CoreImport
 			loadedInstances.addAll(helper.upgradeNestedPackages(getRootModelElement()));
 			loadedInstances.addAll(helper.addLinkClassesForContainment(loadedInstances));
 			helper.removeSupertypePackageableElement(loadedInstances);
+			helper.addPortReferenceInstances(loadedInstances);
 			helper.upgradeEEsForIsRealized();
           }
           finally {
