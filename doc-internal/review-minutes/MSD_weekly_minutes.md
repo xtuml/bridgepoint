@@ -26,29 +26,29 @@ MSD Weekly Meeting Minutes
 - Everyone needs to create container pages and quizzes to go along with their finished video segments
 - We are close to being able to make the course public on xtuml.org, but we need to reach critical mass
 
-**Travis - **
+**Travis -**
 - Looking at merge issue that causes corruption when merging classes.  About done but found an issue related to undo/redo of the work.
 - Will go back to creating container pages and videos once the development is complete
 
-**Bob - **
+**Bob -**
 - Finally got done with process changes so xtUML Editor can stay in synch with master development. Released new xtUML Editor.
 - Now working on CLI video.  Recording done, editing in process.  Next will do some basic git videos targeted at training the 
 the Ericsson Montreal team.
 
-**Campbell - **
+**Campbell -**
 - Have some videos that are nearing completion, all on the subject of VIEC and realized code integration
 - Took a quick look at issue reported by SAAB
 
-**Nehad - **
+**Nehad -**
 - Redo-ing the video that was rejected
 - Also finishing UI enhancements issue.  There are lots of test failures because the UI changes, have to update test results.
 
-**Heba - **
+**Heba -**
 - Wrapping up two issues related to breakpoints.
 - Updating the branch for port references.
 - Re-recording the port video, making good progress.
 
-**Cort - **
+**Cort -**
 - Reviewing training videos
 - Working a lot on FXAT
 - Helped with Yazaki deal, they want some AUTOSAR functionality that we are investigating and planning the flow for
@@ -57,7 +57,7 @@ the Ericsson Montreal team.
 business with them this year.
 
 ### Marketing
-**Dean - **
+**Dean -**
 - Helping gather information and provide support for 
 - Yazaki is a very interesting opportunity.  The account team was very expressive that BridgePoint needed to be part of the deal.
 - We have seen several new BridgePoint accounts
@@ -66,7 +66,7 @@ visiting Ericsson later this month to talk about a new services deal for later t
 - Helping drive forward the Embriair evaluation
 
 ### Customer Support Status
-**Robert - **  
+**Robert -**  
 - SAAB - Filed a bug for Verifier breakpoint issue, working through another apparent bug in the C MC
 - SONY - Yagi-san is very unhappy that prebuilder can pull a license from any license that contains the appropriate atomic. He basically demands that we change it immediately.
 
