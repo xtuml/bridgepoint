@@ -20,7 +20,7 @@ MSD Weekly Meeting Minutes
     Dean, others ...
 
 ### Engineering status
-**Keith - **
+**Keith -**
 - Working on Class diagram data modeling video
 - Will work with Teri Sipes & The Other Firm to get the WP Courseware stuff migrated to the live xtuml.org
 - Everyone needs to create container pages and quizzes to go along with their finished video segments
