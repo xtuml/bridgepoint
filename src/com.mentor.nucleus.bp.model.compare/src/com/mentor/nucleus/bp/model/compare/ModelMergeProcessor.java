@@ -428,7 +428,7 @@ public class ModelMergeProcessor {
 		// some situations required other data to be created first
 		handleCopyNew(newObject, differencer, contentProvider, modelRoot, rightToLeft);
 		// export the element
-		String export = copyExternal(modelRoot, newObject, false, false);
+		String export = copyExternal(modelRoot, newObject, false);
 		newObject = importExternal(newObject, export, parent, modelRoot, newElementLocation);
 		// if this element is a graphical element we need to
 		// associate it with an element specification so the
@@ -570,6 +570,7 @@ public class ModelMergeProcessor {
 	
 	private static int getPersistenceLocation(Object parent,
 			Object newObject, ITreeDifferencerProvider contentProvider) {
+		newObject = ComparableProvider.getComparableTreeObject(newObject);
 		int location = 0;
 		Object[] children = contentProvider.getChildren(parent);
 		for(Object child : children) {
@@ -898,6 +899,21 @@ public class ModelMergeProcessor {
 						NonRootModelElementComparable remoteComp = (NonRootModelElementComparable) ComparableProvider
 								.getComparableTreeObject(value);
 						if(localComp != null && localComp.equals(remoteComp)) {
+							// some special case situations will have merged
+							// the real element over, in these cases we also
+							// must adjust the persistence location
+							if(localComp.getRealElement() instanceof NonRootModelElement) {
+								NonRootModelElement localNrme = (NonRootModelElement) localComp.getRealElement();
+								if(!localNrme.isProxy()) {
+									adjustPersistenceOrdering(
+											localNrme,
+											getPersistenceLocation(
+													contentProvider
+															.getParent(getMatchingElement(localNrme)),
+													getMatchingElement(localNrme),
+													contentProvider));
+								}
+							}
 							continue;
 						}
 						handleReferential(element, localElement,
@@ -1100,7 +1116,9 @@ public class ModelMergeProcessor {
 					}
 				}
 			}
-			if (object == null) {
+			if (object == null
+					|| (!((NonRootModelElement) referredRemote).isProxy())
+					&& ((NonRootModelElement) object).isProxy()) {
 				NonRootModelElementComparable comparable = (NonRootModelElementComparable) ComparableProvider.getComparableTreeObject(
 						getElement((NonRootModelElement) element.getValue()));
 				List<TreeDifference> differences = differencer.getDifferences(comparable,
@@ -1387,12 +1405,12 @@ public class ModelMergeProcessor {
 					StateEventMatrixEntry_c seme = StateEventMatrixEntry_c
 							.getOneSM_SEMEOnR504(NewStateTransition_c
 									.getOneSM_NSTXNOnR507((Transition_c) remoteTransition));
-					String remoteSEMEData = copyExternal(modelRoot, seme, false, false);
+					String remoteSEMEData = copyExternal(modelRoot, seme, false);
 					NonRootModelElement newSEME = importExternal(seme,
 							remoteSEMEData, state, modelRoot, -1);
 					newSEME.batchRelate(modelRoot, true, false);
 					String remoteTransitionData = copyExternal(modelRoot,
-							(Transition_c) remoteTransition, false, false);
+							(Transition_c) remoteTransition, false);
 					final NonRootModelElement newObject = importExternal(
 							(Transition_c) remoteTransition,
 							remoteTransitionData, state, modelRoot, -1);
@@ -1472,7 +1490,7 @@ public class ModelMergeProcessor {
 
 	private static Object handleNewProxy(NonRootModelElement referredRemote, ModelRoot modelRoot) {
 		Object newObject = null;
-		String export = copyExternal(null, referredRemote, true, true);
+		String export = copyExternal(null, referredRemote, true);
 		// now paste the external data
 		ModelStreamProcessor processor = new ModelStreamProcessor();
 		processor.setContents(export);
@@ -1638,7 +1656,7 @@ public class ModelMergeProcessor {
 		return element;
 	}
 	
-	private static String copyExternal(ModelRoot modelRoot, Object element, boolean writeAsProxy, boolean forceProxies) {
+	private static String copyExternal(ModelRoot modelRoot, Object element, boolean writeAsProxy) {
 		if (element instanceof NonRootModelElement) {
 			// there is a strange special case situation
 			// for Supertype/Subtype associations, it exists
@@ -1693,7 +1711,7 @@ public class ModelMergeProcessor {
 							specialElements.length);
 				}
 			}
-			CoreExport.forceProxyExport = forceProxies;
+			CoreExport.forceProxyExport = true;
 			CoreExport.ignoreAlternateChildren = true;
 			CoreExport.exportSupertypes = false;
 			CoreExport.ignoreMissingPMCErrors = true;
