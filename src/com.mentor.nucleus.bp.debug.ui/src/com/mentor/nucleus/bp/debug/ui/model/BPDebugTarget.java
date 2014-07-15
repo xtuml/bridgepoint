@@ -77,6 +77,7 @@ import com.mentor.nucleus.bp.core.Modeleventnotification_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.PackageableElement_c;
 import com.mentor.nucleus.bp.core.PendingEvent_c;
+import com.mentor.nucleus.bp.core.PortReference_c;
 import com.mentor.nucleus.bp.core.Port_c;
 import com.mentor.nucleus.bp.core.Provision_c;
 import com.mentor.nucleus.bp.core.Requirement_c;
@@ -1081,7 +1082,7 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
           .getOneCL_ICOnR2963(exEng);
       if (icomp != null) {
         ImportedReference_c[] iRefs = ImportedReference_c
-            .getManyCL_IIRsOnR4700(icomp);
+                .getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(icomp)); 
         for (int i = 0; i < iRefs.length; i++) {
           wireChannels(exEng, parentExEng, iRefs[i]);
         }
@@ -1251,7 +1252,7 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 		if (iref != null) {
 			ComponentInstance_c[] candidates = ComponentInstance_c
 					.getManyI_EXEsOnR2963(ComponentReference_c
-							.getOneCL_ICOnR4700(iref));
+							.getOneCL_ICOnR4707(PortReference_c.getOneCL_POROnR4708(iref)));
 			if (parent != null) {
 			  ComponentInstance_c[] children = ComponentInstance_c.
 					getManyI_EXEsOnR2975(ComponentInstanceContainer_c.getOneI_CINOnR2974(parent));
@@ -1312,7 +1313,7 @@ public class BPDebugTarget extends BPDebugElement implements IDebugTarget {
 		if (iref != null) {
 			ComponentInstance_c[] candidates = ComponentInstance_c
 					.getManyI_EXEsOnR2963(ComponentReference_c
-							.getOneCL_ICOnR4700(iref));
+							.getOneCL_ICOnR4707(PortReference_c.getOneCL_POROnR4708(iref)));
 			if (parent != null) {
 			  ComponentInstance_c[] children = ComponentInstance_c.
 					getManyI_EXEsOnR2975(ComponentInstanceContainer_c.getOneI_CINOnR2974(parent));

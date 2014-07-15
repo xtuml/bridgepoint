@@ -1459,7 +1459,7 @@ if(not_empty requirement)
       create object instance pe of PE_PE;
       relate satisfaction to pe across R8001;
       if(not_empty importedRef)
-        select one importedComp related by importedRef->CL_IC[R4700];
+        select one importedComp related by importedRef->CL_POR[R4708]->CL_IC[R4707];
         select one epPkg related by importedComp->PE_PE[R8001]->EP_PKG[R8000];
         select one comp related by importedComp->PE_PE[R8001]->C_C[R8003];
         if not_empty epPkg
@@ -1482,7 +1482,7 @@ if(not_empty requirement)
       if(not_empty importedRef)
         // relate this satisfaction to the diagram for which
         // the imported ref is on
-        select one parentComp related by importedRef->CL_IC[R4700]->C_C[R4205];
+       select one parentComp related by importedRef->CL_POR[R4708]->CL_IC[R4707]->C_C[R4205];
         if(not_empty parentComp)
           create object instance sic of PA_SIC;
           relate parentComp to satisfaction across R9000 using sic;
@@ -1490,7 +1490,7 @@ if(not_empty requirement)
           // Note that although we do go through CP_CP here we do not have to 
           // refactor this for removal of specialized packes because with
           // removal of specifialized packages the need for R9001 shall go away
-          select one parentPkg related by importedRef->CL_IC[R4700]
+          select one parentPkg related by importedRef->CL_POR[R4708]->CL_IC[R4707]
                                                                  ->CP_CP[R4605];
           if(not_empty parentPkg)
             create object instance sicp of PA_SICP;
@@ -1704,7 +1704,7 @@ if(not_empty provision)
       create object instance pe of PE_PE;
       relate satisfaction to pe across R8001;
       if(not_empty importedRef)
-        select one importedComp related by importedRef->CL_IC[R4700];
+        select one importedComp related by importedRef->CL_POR[R4708]->CL_IC[R4707];
         select one epPkg related by importedComp->PE_PE[R8001]->EP_PKG[R8000];
         select one comp related by importedComp->PE_PE[R8001]->C_C[R8003];
         if not_empty epPkg
@@ -1727,7 +1727,7 @@ if(not_empty provision)
       if(not_empty importedRef)
         // relate this satisfaction to the diagram for which
         // the imported ref is on
-        select one parentComp related by importedRef->CL_IC[R4700]->C_C[R4205];
+       select one parentComp related by importedRef->CL_POR[R4708]->CL_IC[R4707]->C_C[R4205];
         if(not_empty parentComp)
           create object instance sic of PA_SIC;
           relate parentComp to satisfaction across R9000 using sic;
@@ -1735,7 +1735,7 @@ if(not_empty provision)
           // Note that although we do go through CP_CP here we do not have to 
           // refactor this for removal of specialized packes because with
           // removal of specifialized packages the need for R9001 shall go away
-          select one parentPkg related by importedRef->CL_IC[R4700]
+         select one parentPkg related by importedRef->CL_POR[R4708]->CL_IC[R4707]
                                                                  ->CP_CP[R4605];
           if(not_empty parentPkg)
             create object instance sicp of PA_SICP;
@@ -4378,7 +4378,7 @@ INSERT INTO O_REF
 	'',
 	'Component in Component',
 	'Id',
-	'R4203');
+	'R4203.''is nested through''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("2786d973-1537-44a1-81d6-3ddbd2377865",
 	"6d035f63-8b3e-487a-a158-f6c33ea55dc8",
@@ -4479,7 +4479,7 @@ INSERT INTO O_REF
 	'',
 	'Component Package',
 	'Package_ID',
-	'R4604');
+	'R4604.''may exist in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("2786d973-1537-44a1-81d6-3ddbd2377865",
 	"47e5a3fe-c66c-452e-ad11-176493cde21c",
@@ -4530,7 +4530,7 @@ INSERT INTO O_REF
 	'',
 	'Component Package',
 	'Package_ID',
-	'R4608');
+	'R4608.''has root''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("2786d973-1537-44a1-81d6-3ddbd2377865",
 	"6e7728eb-5a17-4263-a596-60dbd567dad4",

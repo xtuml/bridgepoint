@@ -32,6 +32,7 @@ import com.mentor.nucleus.bp.core.Interface_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.PackageableElement_c;
+import com.mentor.nucleus.bp.core.PortReference_c;
 import com.mentor.nucleus.bp.core.Port_c;
 import com.mentor.nucleus.bp.core.Provision_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
@@ -152,7 +153,7 @@ public class ImportedComponentIFTests extends BaseTest {
 		pro.Formalize(interface1.getId(), false);
 		ic.Assigntocomp(comp.getId());
 		ImportedReference_c[] irefsBefore = ImportedReference_c
-				.getManyCL_IIRsOnR4700(ic);
+				.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(ic));
 		// create a new interface for formalization
 		Package_c ip = Package_c.getOneEP_PKGOnR8000(PackageableElement_c.getOnePE_PEOnR8001(interface1));
 		ip.Newinterface();
@@ -169,7 +170,7 @@ public class ImportedComponentIFTests extends BaseTest {
 		newInterface.setName("New Interface");
 		pro.Formalize(newInterface.getId(), false);
 		ImportedReference_c[] irefsAfter = ImportedReference_c
-				.getManyCL_IIRsOnR4700(ic);
+				.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(ic));
 		assertTrue(
 				"A duplicate imported reference was created during re-formalization.",
 				irefsBefore.length == irefsAfter.length);
