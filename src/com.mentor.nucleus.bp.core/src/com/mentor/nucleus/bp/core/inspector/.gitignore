@@ -101,6 +101,7 @@ PackageParticipantInspector.java
 PendingEventInspector.java
 PolymorphicEventInspector.java
 PortInspector.java
+PortReferenceInspector.java
 PropertyDependsOn.java
 PropertyParameterInspector.java
 ProvidedOperationInspector.java
