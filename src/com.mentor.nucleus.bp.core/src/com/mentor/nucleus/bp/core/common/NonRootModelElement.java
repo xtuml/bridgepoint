@@ -26,8 +26,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -262,7 +262,12 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 			IPersistenceHierarchyMetaData metaData = PersistenceManager
 					.getHierarchyMetaData();
 			boolean hasExternalRefs = metaData.hasExternalRGO(this);
-			if(hasExternalRefs) {
+			// Do not consider the compare root, in this case the 
+			// element was created as a proxy before the real copy
+			// was made.  There will never be a case where we need
+			// to leave a proxy element around, doing so would leave
+			// the model in a state with dangling references.
+			if(hasExternalRefs && !getModelRoot().isCompareRoot()) {
 				convertToProxy();
 			} else {
 				delete_unchecked();
