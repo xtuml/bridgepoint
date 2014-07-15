@@ -49,6 +49,7 @@ import com.mentor.nucleus.bp.core.DataType_c;
 import com.mentor.nucleus.bp.core.Elementtypeconstants_c;
 import com.mentor.nucleus.bp.core.EventIgnored_c;
 import com.mentor.nucleus.bp.core.Gd_c;
+import com.mentor.nucleus.bp.core.GlobalElementInSystem_c;
 import com.mentor.nucleus.bp.core.LinkedAssociation_c;
 import com.mentor.nucleus.bp.core.ModelClass_c;
 import com.mentor.nucleus.bp.core.Modeleventnotification_c;
@@ -905,6 +906,16 @@ public class ModelMergeProcessor {
 							if(localComp.getRealElement() instanceof NonRootModelElement) {
 								NonRootModelElement localNrme = (NonRootModelElement) localComp.getRealElement();
 								if(!localNrme.isProxy()) {
+									if(localNrme instanceof DataType_c) {
+										// if this is a global type do not adjust ordering
+										DataType_c type = (DataType_c) localNrme;
+										GlobalElementInSystem_c geis = GlobalElementInSystem_c
+												.getOneG_EISOnR9100(PackageableElement_c
+														.getManyPE_PEsOnR8001(type));
+										if(geis != null) {
+											continue;
+										}
+									}
 									adjustPersistenceOrdering(
 											localNrme,
 											getPersistenceLocation(
