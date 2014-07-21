@@ -281,6 +281,21 @@ public class ModelMergeTests extends BaseTest {
 		GitUtil.startMergeTool(projectName);
 		// perform test
 		CompareTestUtilities.copyAllNonConflictingChangesFromRightToLeft();
+		// test for github issue 244, undo then try the merge again
+		CompareTestUtilities.undoMerge();
+		// merge all changes again then validate the merge
+		CompareTestUtilities.copyAllNonConflictingChangesFromRightToLeft();
+		// (For github issue 224) Test that the slave event is before the
+		// master event
+		String[] orderedElements = new String[] { "SlaveStateA", "SlaveStateB", "MasterStateB",
+				"MasterStateA", "KEY_A1: slave", "KEY_A1: master" };
+		SystemModel_c system = getSystemModel(projectName);
+		Package_c pkg = Package_c.getOneEP_PKGOnR1401(system);
+		assertNotNull(pkg);
+		ClassStateMachine_c[] csms = ClassStateMachine_c
+				.getManySM_ASMsOnR519(ModelClass_c
+						.getManyO_OBJsOnR8001(PackageableElement_c
+								.getManyPE_PEsOnR8000(pkg)));
 		// validate
 		assertTrue("Found conflicting changes remaining.", CompareTestUtilities
 				.getConflictingChanges().size() == 0);
@@ -288,6 +303,7 @@ public class ModelMergeTests extends BaseTest {
 				.getIncomingChanges().size() == 0);
 		// save and close
 		CompareTestUtilities.flushMergeEditor(false);
+		ModelMergeTests2.verifyOrder(orderedElements, csms[0]);
 		// switch to next editor and copy all changes
 		GitUtil.switchToFile("InstanceStateMachine.xtuml");
 		CompareTestUtilities.copyAllNonConflictingChangesFromRightToLeft();
@@ -302,18 +318,14 @@ public class ModelMergeTests extends BaseTest {
 				.closeAllEditors(false);
 		// validate
 		BaseTest.dispatchEvents(0);
-		// Verify that four states exist in each state machine
-		SystemModel_c system = getSystemModel(projectName);
 		// just need to account for 8 states and 4 transitions
 		// and as an extra check make sure there are only one ISM
 		// and ASM in the test package
-		Package_c pkg = Package_c.getOneEP_PKGOnR1401(system);
-		assertNotNull(pkg);
 		InstanceStateMachine_c[] isms = InstanceStateMachine_c
 				.getManySM_ISMsOnR518(ModelClass_c
 						.getManyO_OBJsOnR8001(PackageableElement_c
 								.getManyPE_PEsOnR8000(pkg)));
-		ClassStateMachine_c[] csms = ClassStateMachine_c
+		csms = ClassStateMachine_c
 				.getManySM_ASMsOnR519(ModelClass_c
 						.getManyO_OBJsOnR8001(PackageableElement_c
 								.getManyPE_PEsOnR8000(pkg)));
@@ -969,7 +981,7 @@ public class ModelMergeTests extends BaseTest {
 		// and reset the repository
 		TestUtil.deleteProject(getProjectHandle(projectName));
 	}
-
+	
 	public void testAutocrlfOption() throws Exception {
 
 	}
