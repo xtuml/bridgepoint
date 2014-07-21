@@ -54,12 +54,7 @@ public class NonRootModelElementComparable extends ComparableTreeObject implemen
 					return true;
 				}
 			} else {
-				// check proxy status
-				if((realElement.isProxy() && !otherElement.isProxy()) || !realElement.isProxy() && otherElement.isProxy()) {
-					return false;
-				} else {
-					return true;
-				}
+				return true;
 			}
 		}
 		if(other instanceof EmptyElement) {

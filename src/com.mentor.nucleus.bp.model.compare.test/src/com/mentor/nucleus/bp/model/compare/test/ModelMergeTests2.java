@@ -3,26 +3,33 @@ package com.mentor.nucleus.bp.model.compare.test;
 import java.util.List;
 
 import org.eclipse.compare.structuremergeviewer.Differencer;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.PlatformUI;
 
+import com.mentor.nucleus.bp.core.Association_c;
+import com.mentor.nucleus.bp.core.AttributeReferenceInClass_c;
+import com.mentor.nucleus.bp.core.Attribute_c;
+import com.mentor.nucleus.bp.core.ClassIdentifierAttribute_c;
+import com.mentor.nucleus.bp.core.ClassIdentifier_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.Interface_c;
 import com.mentor.nucleus.bp.core.ModelClass_c;
 import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.PackageableElement_c;
+import com.mentor.nucleus.bp.core.ReferentialAttribute_c;
+import com.mentor.nucleus.bp.core.ReferredToClassInAssoc_c;
+import com.mentor.nucleus.bp.core.ReferredToIdentifierAttribute_c;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
+import com.mentor.nucleus.bp.core.ui.DeleteAction;
+import com.mentor.nucleus.bp.core.ui.NewAttributeOnO_OBJAction;
+import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.model.compare.TreeDifference;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.CompareTestUtilities;
 import com.mentor.nucleus.bp.test.common.GitUtil;
-import com.mentor.nucleus.bp.test.common.UITestingUtilities;
 import com.mentor.nucleus.bp.test.common.ZipUtil;
 import com.mentor.nucleus.bp.ui.explorer.ModelContentProvider;
 import com.mentor.nucleus.bp.ui.explorer.ModelLabelProvider;
@@ -277,7 +284,143 @@ public class ModelMergeTests2  extends BaseTest {
 		// There should be no error log entries (shutdown will verify this)
 	}
 	
-	private void verifyOrder(String[] orderedElements, Object parent) {
+	public void testFormalizedAssociationMerge() throws CoreException {
+		// load the MO project from getting started
+		loadProject("MicrowaveOven");
+		BaseTest.dispatchEvents(0);
+		m_sys = getSystemModel("MicrowaveOven");
+		assertNotNull(m_sys);
+		Package_c moPkg = Package_c.getOneEP_PKGOnR1405(m_sys,
+				new ClassQueryInterface_c() {
+
+					@Override
+					public boolean evaluate(Object candidate) {
+						return ((Package_c) candidate).getName().equals(
+								"Microwave Oven");
+					}
+				});
+		assertNotNull(moPkg);
+		Association_c association = Association_c.getOneR_RELOnR8001(
+				PackageableElement_c.getManyPE_PEsOnR8000(moPkg),
+				new ClassQueryInterface_c() {
+
+					@Override
+					public boolean evaluate(Object candidate) {
+						return ((Association_c) candidate).getNumb() == 4;
+					}
+				});
+		assertNotNull(association);
+		ModelClass_c oven = ModelClass_c.getOneO_OBJOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(moPkg), new ClassQueryInterface_c() {
+			
+			@Override
+			public boolean evaluate(Object candidate) {
+				return ((ModelClass_c) candidate).getName().equals("Oven");
+			}
+		});
+		ModelClass_c door = ModelClass_c.getOneO_OBJOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(moPkg), new ClassQueryInterface_c() {
+			
+			@Override
+			public boolean evaluate(Object candidate) {
+				return ((ModelClass_c) candidate).getName().equals("Door");
+			}
+		});
+		assertNotNull(oven);
+		// delete R4
+		Selection.getInstance().clear();
+		Selection.getInstance().addToSelection(association);
+		DeleteAction delete = new DeleteAction(null);
+		delete.run();
+		BaseTest.dispatchEvents(0);
+		// merge both the MO package and the Oven class
+		CompareTestUtilities.openCompareEditor(moPkg.getFile());
+		BaseTest.dispatchEvents(0);
+		CompareTestUtilities.copyAllNonConflictingChangesFromRightToLeft();
+		CompareTestUtilities.closeMergeEditor(true);
+		BaseTest.dispatchEvents(0);
+		CompareTestUtilities.openCompareEditor(oven.getFile());
+		BaseTest.dispatchEvents(0);
+		CompareTestUtilities.copyAllNonConflictingChangesFromRightToLeft();
+		CompareTestUtilities.closeMergeEditor(true);
+		BaseTest.dispatchEvents(0);
+		// assert that there are no O_REF instances that are pointing
+		// to null O_RTIDA instances
+		AttributeReferenceInClass_c[] orefs = AttributeReferenceInClass_c
+				.getManyO_REFsOnR108(ReferentialAttribute_c
+						.getManyO_RATTRsOnR106(Attribute_c
+								.getManyO_ATTRsOnR102(oven)));
+		for(AttributeReferenceInClass_c oref : orefs) {
+			ReferredToIdentifierAttribute_c rtida = ReferredToIdentifierAttribute_c
+					.getOneO_RTIDAOnR111(oref);
+			assertNotNull("Found corruption in the class merge.", rtida);
+		}
+		// assert that there are no O_RTIDA instances that are pointing
+		// to null O_OBJ instances
+		ReferredToIdentifierAttribute_c[] rtidas = ReferredToIdentifierAttribute_c
+				.getManyO_RTIDAsOnR110(ClassIdentifierAttribute_c
+						.getManyO_OIDAsOnR105(Attribute_c
+								.getManyO_ATTRsOnR102(door)));
+		for(ReferredToIdentifierAttribute_c rtida : rtidas) {
+			ModelClass_c clazz = ModelClass_c
+					.getOneO_OBJOnR104(ClassIdentifier_c
+							.getManyO_IDsOnR109(ReferredToClassInAssoc_c
+									.getManyR_RTOsOnR110(rtida)));
+			assertNotNull("Found corruption in the package merge.", clazz);
+		}
+	}
+	
+	public void testClassMergeWhenParticipatingInFormalizedAssociation() throws CoreException {
+		loadProject("MicrowaveOven");
+		BaseTest.dispatchEvents(0);
+		m_sys = getSystemModel("MicrowaveOven");
+		assertNotNull(m_sys);
+		Package_c moPkg = Package_c.getOneEP_PKGOnR1405(m_sys,
+				new ClassQueryInterface_c() {
+
+					@Override
+					public boolean evaluate(Object candidate) {
+						return ((Package_c) candidate).getName().equals(
+								"Microwave Oven");
+					}
+				});
+		assertNotNull(moPkg);
+		ModelClass_c oven = ModelClass_c.getOneO_OBJOnR8001(PackageableElement_c.getManyPE_PEsOnR8000(moPkg), new ClassQueryInterface_c() {
+			
+			@Override
+			public boolean evaluate(Object candidate) {
+				return ((ModelClass_c) candidate).getName().equals("Oven");
+			}
+		});
+		// add an attribute to a class that is participating in a
+		// formalized association
+		CorePlugin
+		.getDefault()
+		.getPreferenceStore()
+		.setValue(
+				BridgePointPreferencesStore.USE_DEFAULT_NAME_FOR_CREATION,
+				true);
+		Selection.getInstance().clear(); Selection.getInstance().addToSelection(oven);
+		NewAttributeOnO_OBJAction action = new NewAttributeOnO_OBJAction();
+		action.run(null);
+		BaseTest.dispatchEvents(0);
+		// Merge the removal of the new attribute
+		CompareTestUtilities.openCompareEditor(oven.getFile());
+		BaseTest.dispatchEvents(0);
+		CompareTestUtilities.copyAllNonConflictingChangesFromRightToLeft();
+		CompareTestUtilities.closeMergeEditor(true);
+		// assert that there are no O_REF instances that are pointing
+		// to null O_RTIDA instances
+		AttributeReferenceInClass_c[] orefs = AttributeReferenceInClass_c
+				.getManyO_REFsOnR108(ReferentialAttribute_c
+						.getManyO_RATTRsOnR106(Attribute_c
+								.getManyO_ATTRsOnR102(oven)));
+		for(AttributeReferenceInClass_c oref : orefs) {
+			ReferredToIdentifierAttribute_c rtida = ReferredToIdentifierAttribute_c
+					.getOneO_RTIDAOnR111(oref);
+			assertNotNull("Found corruption in the class merge.", rtida);
+		}
+	}
+	
+	static void verifyOrder(String[] orderedElements, Object parent) {
 		ModelContentProvider provider = new ModelContentProvider();
 		ModelLabelProvider labelProvider = new ModelLabelProvider();
 		Object[] children = provider.getChildren(parent);

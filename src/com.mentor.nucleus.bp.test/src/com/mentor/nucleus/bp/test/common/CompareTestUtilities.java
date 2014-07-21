@@ -571,6 +571,12 @@ public class CompareTestUtilities {
 		}
 	}
 
+	public static void undoMerge() {
+		ModelContentMergeViewer viewer = ModelContentMergeViewer.getInstance(null);
+		viewer.getUndoAction().run();
+		BaseTest.dispatchEvents(0);
+	}
+	
 	public static List<TreeDifference> getConflictingChanges() {
 		return getChangesFromLeft(Differencer.CONFLICTING, true);
 	}
