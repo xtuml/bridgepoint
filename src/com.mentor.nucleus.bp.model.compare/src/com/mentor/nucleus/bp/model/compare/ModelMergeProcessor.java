@@ -428,7 +428,7 @@ public class ModelMergeProcessor {
 		// some situations required other data to be created first
 		handleCopyNew(newObject, differencer, contentProvider, modelRoot, rightToLeft);
 		// export the element
-		String export = copyExternal(modelRoot, newObject, false, true);
+		String export = copyExternal(modelRoot, newObject, false, false);
 		newObject = importExternal(newObject, export, parent, modelRoot, newElementLocation);
 		// if this element is a graphical element we need to
 		// associate it with an element specification so the

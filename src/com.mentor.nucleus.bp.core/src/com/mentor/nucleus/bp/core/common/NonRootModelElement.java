@@ -267,7 +267,7 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 			// was made.  There will never be a case where we need
 			// to leave a proxy element around, doing so would leave
 			// the model in a state with dangling references.
-			if(hasExternalRefs && !getModelRoot().isCompareRoot()) {
+			if(hasExternalRefs) {
 				convertToProxy();
 			} else {
 				delete_unchecked();
