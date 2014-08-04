@@ -262,11 +262,6 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 			IPersistenceHierarchyMetaData metaData = PersistenceManager
 					.getHierarchyMetaData();
 			boolean hasExternalRefs = metaData.hasExternalRGO(this);
-			// Do not consider the compare root, in this case the 
-			// element was created as a proxy before the real copy
-			// was made.  There will never be a case where we need
-			// to leave a proxy element around, doing so would leave
-			// the model in a state with dangling references.
 			if(hasExternalRefs) {
 				convertToProxy();
 			} else {
