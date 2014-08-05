@@ -12,6 +12,25 @@ MSD Weekly Meeting Minutes
 ---
 ---
 
+    Date:     23 July 2014
+    Start:    12:00 EDT
+    End:      12:29
+    Present:  Keith, Bob, Campbell, Cort, Travis, others ...
+    Dean, others ...
+
+### Engineering status
+Bob presented a quick sketch of the content for the next release.  We have a list set up in CQ.  What is interesting about the higher priority items now is that they are significant features rather than bugs.  Big items include OAL editor changes and logical model support in the compare and merge capability.
+
+Bob is supplying access to the online training material to the Montreal team before he goes onsite.  There is material that directly addresses configuration management.  He will then go to Montreal in person to help with anything that will make them more efficient.
+
+Cort and Dean explained that Stephen Mellor and John Wolfe will be "beta-testing" two courses that they have been working on.  One is oriented toward analysis of requirements; the other is basic xtUML modeling.  The training classes will be held in Europe in August and September.  This includes improvements to the GPS Watch case study.  Dean commented that we are getting positive feedback from John as he uses the tool in earnest.
+
+Keith supplied a demo of our courseware.  He gave a brief tour of the front end that students will see.  He then showed us how the back end is managed within WP Courseware.  This was very informative.  We have a treasure trove of materials nicely organized.
+
+
+---
+---
+
     Date:     9th July 2014
 
     Start:    1200 EDT
