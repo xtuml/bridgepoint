@@ -2,8 +2,8 @@
 <!--
 
  File:      $RCSfile: generate.xml,v $
- Version:   $Revision: 1.38 $
- Modified:  $Date: 2013/01/10 23:21:17 $
+ Version:   $Revision: 1.38.24.1 $
+ Modified:  $Date: 2013/07/19 12:26:20 $
 
  Copyright 2004-2014 Mentor Graphics Corporation  All rights reserved.
 
@@ -129,43 +129,31 @@
     <delete><fileset dir="sql" includes="*.oal"/></delete>
   </target>
 
-  <property name="validate.arc.dep" value="validate_gen.arc,ooa_oal_pop_func.arc,get_names.inc" />
+  <property name="validate.arc.dep" value="validate_gen.arc,get_names.inc" />
   <property name="validate.mcj.dep" value="ooa_schema.sql,fragment.inc,do_type.inc,arch_utils.inc,value.inc,statement.inc,block.inc,translate_oal.inc" />
   <property name="validate.output" value="../com.mentor.nucleus.bp.als.oal/src/com/mentor/nucleus/bp/als/oal/Oal_validate.java" />
 
   <property name="ooaofooa.sql" value="sql/ooaofooa.sql" />
-  <property name="ooaofooa_input" value="../com.mentor.nucleus.bp.core/models/com.mentor.nucleus.bp.core/ooaofooa" />
-
-  <target name="validate_sql.depends" >
-    <uptodate property="validate_sql.buildNotNeeded" targetfile="${ooaofooa.sql}">
-      <srcfiles dir="${ooaofooa_input}" includes="**/*OAL*Validation*Functions.xtuml, **/*OAL*Validation*Utility*Functions.xtuml" />
-        <srcfiles dir="sql" includes="ooaofooa.sql" />
-      </uptodate>
-  </target>
-
-  <target name="validate_sql" depends="validate_sql.depends"
-          description="Generate the sql version of the OoaofOoa model for oal validation use"
-          unless="validate_sql.buildNotNeeded" >
-    <echo >Generating ${ooaofooa.sql} ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}\xtumlmc_build.exe" >
-    <arg line="xtumlmc_cleanse_for_BridgePoint ${ooaofooa_input} ${ooaofooa.sql} ${subsystems_to_remove}" />
-  </exec>
-  </target>
+  <property name="ooaofooa_input" value="sql/ooaofooa.sql" />
 
   <target name="validate.depends" >
     <uptodate property="validate.buildNotNeeded" targetfile="${validate.output}">
-       <srcfiles dir = "sql" includes = "ooaofooa.sql"/>
+       <srcfiles dir = "sql" includes = "${ooaofooa_input}"/>
        <srcfiles dir = "arc"        includes = "${validate.arc.dep}"/>
        <srcfiles dir = "${mcj_path}" includes = "${validate.mcj.dep}"/>
     </uptodate>
   </target>
 
   <target name="validate"
-          depends=" validate_sql, validate.depends"
+          depends="validate.depends"
           description="Generate the validation code"
           unless="validate.buildNotNeeded" >
     <echo >Generating ${validate.output} ...</echo>
 
+    <copy file="gen/code_generation/ooaofooa.sql" tofile="gen/code_generation/ooaofooa.xtuml"/>
+    <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}\xtumlmc_build.exe" >
+          <arg line="xtumlmc_cleanse_for_BridgePoint ${basedir}\gen\code_generation sql/ooaofooa.sql" />
+    </exec>
     <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
     <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
     <env key="ALS_NAME" value="oal" />
@@ -173,9 +161,7 @@
     <env key="CHECK_FUNCTIONS_ONLY" value="true" />
     <arg line="-nopersist
       -import ${mcj_path}/ooa_schema.sql
-      -import ${ooaofooa.sql}
-      -arch arc/ooa_oal_pop_func.arc
-      -import sql/oal_validate.bpi.sql
+      -import ${ooaofooa_input}
       -arch ${mcj_path}/verify_selects.arc
       -arch arc/validate_gen.arc"/>
   </exec>

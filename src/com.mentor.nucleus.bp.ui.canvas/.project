@@ -6,6 +6,15 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
+			<name>com.mentor.nucleus.bp.internal.tools.mc_java_export_builder</name>
+			<arguments>
+				<dictionary>
+					<key>RootPackageName</key>
+					<value>ooaofgraphics</value>
+				</dictionary>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
 			<name>org.antlr.eclipse.core.antlrbuilder</name>
 			<arguments>
 			</arguments>

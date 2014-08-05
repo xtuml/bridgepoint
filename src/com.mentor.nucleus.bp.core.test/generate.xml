@@ -392,7 +392,7 @@
   <property name="java.output" value="src/com/mentor/nucleus/bp/core/test/consistency/Consistency.java" />
   <property name="java.sql.dep" value="${sql.output}" />
   <property name="java.color.dep" value="Consistencytest_startspec.clr,Consistencytest_import_spec.clr,Consistencytest_package_spec.clr" />
-  <property name="java.tj.dep" value="ooa_schema.sql,${ooa_oal_pop.arc.depends},${java.arc.depends}" />
+  <property name="java.tj.dep" value="ooa_schema.sql,${java.arc.depends}" />
 
   <target name="sql.depends">
     <uptodate property="sql.buildNotNeeded" value="yes" srcfile="models/com.mentor.nucleus.bp.core.test/consistencyTest/${sql.input}" targetfile="sql/${sql.output}" />
@@ -440,6 +440,7 @@
       <property name="param2" value="ConsistencyTest" />
       <property name="param3" value="${mcj_path}" />
       <property name="mcc" value="true" />
+      <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
   </target>
 

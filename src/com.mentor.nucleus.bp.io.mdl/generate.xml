@@ -2,8 +2,8 @@
 <!--
 
  File:      $RCSfile: generate.xml,v $
- Version:   $Revision: 1.41 $
- Modified:  $Date: 2013/01/10 23:35:05 $
+ Version:   $Revision: 1.41.40.1 $
+ Modified:  $Date: 2013/07/19 12:26:31 $
 
  (c) Copyright 2004-2014 Mentor Graphics Corporation  All rights reserved.
 
@@ -31,7 +31,7 @@
   <property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
   <property name="schema" value="file_io_schema.sql" />
 
-  <property name="class2table.input" value="sql/ooaofooa.sql" />
+  <property name="class2table.input" value="sql/ooaofooa-1.sql" />
   <property name="class2table.output" value="ooa.pei.sql" />
 
   <property name="core_path" value="../com.mentor.nucleus.bp.core" />
@@ -66,7 +66,7 @@
   <touch file="sql/${class2table.output}" />
   </target>
 
-  <property name="sql.output" value="ooaofooa.sql" />
+  <property name="sql.output" value="ooaofooa-1.sql" />
   <property name="import.output" value="src/com/mentor/nucleus/bp/io/mdl/ImportModel.java" />
   <property name="import_component.output" value = "src/com/mentor/nucleus/bp/io/mdl/ImportModelComponent.java"/>
   <property name="import_stream.output" value = "src/com/mentor/nucleus/bp/io/mdl/ImportModelStream.java"/>

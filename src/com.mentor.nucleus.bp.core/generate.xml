@@ -110,9 +110,17 @@
         <property name="param2" value="${mcj_path}" />
         <property name="param3" value="FALSE" />
   </ant>
+  <!-- If necessary, freshen the schema used by MC-Java -->
   <!-- Need to move the output file since the archetype uses the domain
-       name as the base name of the output file -->
-  <move file="sql/ooaofooa_schema.sql" tofile="sql/${schema.output}" />
+         name as the base name of the output file -->
+  <move file="sql/ooaofooa_schema.sql" tofile="sql/ooa_schema.sql" />
+  <copy todir="${mcj_path}">
+  	<fileset dir="sql" includes="ooa_schema.sql">
+  		<different targetdir="${mcj_path}" ignoreFileTimes="true"/>
+  	</fileset>
+  </copy>
+  <!-- Finally rename the output file to the one expected by the installer -->
+  <move file="sql/ooa_schema.sql" tofile="sql/${schema.output}" />
   </target>
 
   <property name="cme_schema.output" value="context_menu_schema.sql" />
@@ -140,7 +148,7 @@
 
   <property name="java.sql.dep" value="${sql.output}" />
   <property name="java.color.dep" value="ooaofooa_startspec.clr,ooaofooa_import_spec.clr,ooaofooa_package_spec.clr" />
-  <property name="java.tj.dep" value="ooa_schema.sql,${ooa_oal_pop.arc.depends},${java.arc.depends}" />
+  <property name="java.tj.dep" value="ooa_schema.sql,${java.arc.depends}" />
 
   <property name="java.output" value="src/com/mentor/nucleus/bp/core/Ooaofooa.java" />
 
@@ -164,7 +172,10 @@
     <property name="param4" value="file_io_schema" />
     <property name="param5" value="" />
     <property name="param6" value="Event" />
+  	<property name="param7" value = "com.mentor.nucleus.bp.core"/>
+    <property name="param8" value = "1"/>
     <property name="verify_selects" value="false" />
+    <property name="mcjava.project.root" value="${basedir}"/>
   </ant>
     <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
       <property name="param1" value="ooaofooa" />
@@ -173,7 +184,10 @@
       <property name="param4" value="file_io_schema" />
       <property name="param5" value="Event" />
       <property name="param6" value="" />
+      <property name="param7" value = "com.mentor.nucleus.bp.core"/>
+      <property name="param8" value = "2"/>
       <property name="verify_selects" value="false" />
+      <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
@@ -235,9 +249,7 @@
         <env key="GEN_CONTEXT_MENU_WIZARD" value="TRUE"/>
     <arg line="-nopersist
       -import ${mcj_path}/ooa_schema.sql
-      -d 0 -import ${cme_sql.output}
-      -arch arc/cme_ooa_oal_pop.arc
-      -d 0 -import sql/Context_menu.bpi.sql
+      -d 0 -import sql/ooaofooa-2.sql
       -arch ${mcj_path}/verify_selects.arc
       -import sql/${cme_schema.output}
       -import sql/${cme_actions.input}
@@ -594,7 +606,9 @@
     <delete file="sql/${sql.output}" />
     <echo>Removing generated sql file: ${cme_sql.output} ...</echo>
     <delete file="${cme_sql.output}"/>
-
+        <delete failonerror="false">
+          <fileset dir="gen/code_generation" includes="ooaofooa*.sql"/>
+        </delete>
   </target>
 
   <target name="clean_cme"
@@ -658,9 +672,6 @@
         <fileset dir="src/com/mentor/nucleus/bp/core"
            excludes="${cvs_java_files}" />
     </delete>
-
-    <echo>Removing generated sql file: Ooaofooa.bpi.sql ...</echo>
-    <delete verbose="true" file="sql/Ooaofooa.bpi.sql" />
 
   </target>
 
