@@ -262,7 +262,11 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 			IPersistenceHierarchyMetaData metaData = PersistenceManager
 					.getHierarchyMetaData();
 			boolean hasExternalRefs = metaData.hasExternalRGO(this);
-			if(hasExternalRefs) {
+			// During merge we do not convert elements, they are moved
+			// as is from one side to the other.  During a merge undo we
+			// can hit a case where RTOs are removed before the RGO, causing
+			// the check for external references to be true.
+			if(hasExternalRefs && !getModelRoot().isCompareRoot()) {
 				convertToProxy();
 			} else {
 				delete_unchecked();
