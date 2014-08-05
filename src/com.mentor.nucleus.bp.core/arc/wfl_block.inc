@@ -1,8 +1,8 @@
 .//====================================================================
 .//
 .// File:      $RCSfile: wfl_block.inc,v $
-.// Version:   $Revision: 1.14 $
-.// Modified:  $Date: 2013/01/10 22:54:05 $
+.// Version:   $Revision: 1.14.90.1 $
+.// Modified:  $Date: 2013/07/19 12:25:14 $
 .//
 .// (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
 .//
@@ -66,7 +66,22 @@ INSERT INTO W_STEP VALUES ('${attr_id}', '${wfl.name}', '${blk.Block_Id}', \
   .param inst_ref blck
   .//
   .assign wfl = step.wfl
-  .select any statement related by blck->ACT_SMT[R602] where (selected.Previous_Statement_Id == "0")
+  .select many statements related by blck->ACT_SMT[R602]
+  .select many else_statements  related by blck->ACT_SMT[R602]->ACT_E[R603]->ACT_SMT[R603]
+  .select many elif_statements  related by blck->ACT_SMT[R602]->ACT_EL[R603]->ACT_SMT[R603]
+  .assign statements = statements - else_statements
+  .assign statements = statements - elif_statements
+  .for each last_statement in statements
+    .if (last_statement.Previous_Statement_Id == 0)
+      .break for
+    .end if
+  .end for
+  .assign statement = last_statement
+  .select one prev_stmt related by last_statement->ACT_SMT[R661.'succeeds']
+  .while (not_empty prev_stmt)
+    .assign statement = prev_stmt
+    .select one prev_stmt related by prev_stmt->ACT_SMT[R661.'succeeds']
+  .end while
   .assign prev_step_id = "0"
   .assign srw_stmt_num = 0
   .while (not_empty statement)
@@ -82,9 +97,13 @@ INSERT INTO W_STEP VALUES ('${attr_id}', '${wfl.name}', '${blk.Block_Id}', \
         .select one inst_ref related by fiw_stmt->V_VAR[R665]->V_INT[R814]
         .select one inst_set related by fiw_stmt->V_VAR[R665]->V_INS[R814]
         .if (not_empty inst_ref)
-INSERT INTO W_CTI VALUES ('${inst_ref.Variable_Name}', '${wfl.name}', '${statement.Statement_Id}', '${inst_ref.Key_Lett}', '${fiw_stmt.cardinality}');
+          .select one var related by inst_ref->V_VAR[R814]
+          .select one clazz related by inst_ref->O_OBJ[R818]
+INSERT INTO W_CTI VALUES ('${var.Name}', '${wfl.name}', '${statement.Statement_Id}', '${clazz.Key_Lett}', '${fiw_stmt.cardinality}');
         .elif (not_empty inst_set)
-INSERT INTO W_CTI VALUES ('${inst_set.Variable_Name}', '${wfl.name}', '${statement.Statement_Id}', '${inst_set.Key_Lett}', '${fiw_stmt.cardinality}');
+          .select one var related by inst_set->V_VAR[R814]
+          .select one clazz related by inst_set->O_OBJ[R819]
+INSERT INTO W_CTI VALUES ('${var.Name}', '${wfl.name}', '${statement.Statement_Id}', '${clazz.Key_Lett}', '${fiw_stmt.cardinality}');
         .else
           .print "ERROR: From instances where statement does not specify instance reference or set . . . . internal generation error"
         .end if
@@ -104,25 +123,20 @@ INSERT INTO W_CTI VALUES ('${inst_set.Variable_Name}', '${wfl.name}', '${stateme
           .// here we need to provide the existing associated element
           .// to the element selector
           .select one result related by srw_stmt->ACT_SEL[R664]->V_VAR[R638]
-          .select any last_link related by srw_stmt->ACT_SEL[R664]->ACT_LNK[R637] where (selected.Next_Link_Id == "0")
-          .select one next_link related by last_link->ACT_LNK[R604.'precedes']
-          .while (not_empty next_link)
-            .assign last_link = next_link
-            .select one next_link related by last_link->ACT_LNK[R604.'precedes']
-          .end while
-INSERT INTO W_CTI VALUES ('${result.Variable_Name}', '${wfl.name}', '${statement.Statement_Id}', '${last_link.Target_Obj_KL}', 'one');
+          .select one sel_stmt related by srw_stmt->ACT_SEL[R664]
+          .invoke llic = get_last_link_in_chain(sel_stmt)
+          .assign last_link = llic.last_link
+          .select one clazz related by last_link->O_OBJ[R678]
+INSERT INTO W_CTI VALUES ('${result.Name}', '${wfl.name}', '${statement.Statement_Id}', '${clazz.Key_Lett}', 'one');
         .else
           .assign srw_stmt_num = srw_stmt_num + 1
           .select one result related by srw_stmt->ACT_SEL[R664]->V_VAR[R638]
-          .select any last_link related by srw_stmt->ACT_SEL[R664]->ACT_LNK[R637] where (selected.Next_Link_Id == "0")
-          .select one next_link related by last_link->ACT_LNK[R604.'precedes']
-          .while (not_empty next_link)
-            .assign last_link = next_link
-            .select one next_link related by last_link->ACT_LNK[R604.'precedes']
-          .end while
           .select one sel_stmt related by srw_stmt->ACT_SEL[R664]
-INSERT INTO W_FLD VALUES ('USER_${result.Variable_Name}', '${result.Variable_Name}', \
-'${statement.Statement_Id}', '${last_link.Target_Obj_KL}', '${step.id}', \
+          .invoke llic = get_last_link_in_chain(sel_stmt)
+          .assign last_link = llic.last_link
+          .select one clazz related by last_link->O_OBJ[R678]
+INSERT INTO W_FLD VALUES ('USER_${result.Name}', '${result.Name}', \
+'${statement.Statement_Id}', '${clazz.Key_Lett}', '${step.id}', \
 '${sel_stmt.cardinality}', \
           .if (hubi.Method_Name == "selectOne")
 'Combo', '');
@@ -133,7 +147,7 @@ INSERT INTO W_FLD VALUES ('USER_${result.Variable_Name}', '${result.Variable_Nam
           .else
 '${hubi.Method_Name}', '');
           .end if
-          .select any function from instances of S_SYNC where ("${selected.Sync_ID}" == blck.Action_Id)
+          .select one function related by blck->ACT_ACT[R601]->ACT_FNB[R698]->S_SYNC[R695]
           .// only support two custom labels
           .assign label = ""
           .if ( srw_stmt_num == 1 )
@@ -142,16 +156,16 @@ INSERT INTO W_FLD VALUES ('USER_${result.Variable_Name}', '${result.Variable_Nam
             .assign label = "${function.Descrip:Label2}"
           .end if
           .if ( label != "" )
-INSERT INTO W_CFL VALUES ('USER_${result.Variable_Name}', '${step.id}', '${label}');
+INSERT INTO W_CFL VALUES ('USER_${result.Name}', '${step.id}', '${label}');
           .end if
         .end if
       .else
         .print "${statement.buffer}"
       .end if .// if hubi.result
     .end if
-    .select one at_stmt related by statement->ACT_AT[R603]
+    .select one at_stmt related by statement->ACT_AI[R603]
     .if ( not_empty at_stmt )
-      .select one at_val related by at_stmt->V_VAL[R635]
+      .select one at_val related by at_stmt->V_VAL[R609]
       .invoke hubi = has_user_bridge_invocation( at_val )
       .if (hubi.result)
         .// We DON'T want to emit standard architecture code for 'USER::bridge call'

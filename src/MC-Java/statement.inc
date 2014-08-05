@@ -1,8 +1,8 @@
 .//====================================================================
 .//
 .// File:      $RCSfile: statement.inc,v $
-.// Version:   $Revision: 1.44 $
-.// Modified:  $Date: 2013/01/10 23:16:40 $
+.// Version:   $Revision: 1.44.32.1 $
+.// Modified:  $Date: 2013/07/19 12:26:01 $
 .//
 .// (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
 .//
@@ -15,7 +15,7 @@
 .for each for_statement in for_statements
   .select one statement related by for_statement->ACT_SMT[R603]
   .assign statement.control = "TRUE"
-  .assign statement.controlled_block = "${for_statement.block_id}"
+  .assign statement.controlled_block = for_statement.block_id
   .invoke result = gen_for_statement(for_statement)
   .assign statement.buffer="${result.body}"
   .invoke result = gen_end_control_statement()
@@ -28,14 +28,16 @@
 .function gen_for_statement
   .param inst_ref statement
   .assign nestlevel = "${info.unique_num}"
-  .select any tgt_obj from instances of O_OBJ where (selected.Key_Lett == statement.Target_Obj_KL)
-  .if ( statement.is_implicit == "TRUE" )
+  .select one tgt_obj related by statement->O_OBJ[R670]
+  .select one set_var related by statement->V_VAR[R652]
+  .select one loop_var related by statement->V_VAR[R614]
+  .if ( statement.is_implicit == 1 )
     .invoke cn = get_class_name( tgt_obj )
-${cn.body}  v_${statement.Loop_Variable_Name} = null;
+${cn.body}  v_${loop_var.Name} = null;
   .end if
-for ( int i${nestlevel} = 0; i${nestlevel} < v_${statement.Set_Variable_Name}.length; i${nestlevel}++)
+for ( int i${nestlevel} = 0; i${nestlevel} < v_${set_var.Name}.length; i${nestlevel}++)
 {
-  v_${statement.Loop_Variable_Name} = v_${statement.Set_Variable_Name}[i${nestlevel}] ;
+  v_${loop_var.Name} = v_${set_var.Name}[i${nestlevel}] ;
 .end function
 .//
 .// ----------------------------------------------------------
@@ -46,7 +48,7 @@ for ( int i${nestlevel} = 0; i${nestlevel} < v_${statement.Set_Variable_Name}.le
 .for each if_statement in if_statements
   .select one statement related by if_statement->ACT_SMT[R603]
   .assign statement.control = "TRUE"
-  .assign statement.controlled_block = "${if_statement.block_id}"
+  .assign statement.controlled_block = if_statement.block_id
   .invoke result = gen_if_statement(if_statement)
   .assign statement.buffer="${result.body}"
   .invoke result = gen_end_control_statement()
@@ -70,7 +72,7 @@ if ( ${test.buffer} )
 .for each while_statement in while_statements
   .select one statement related by while_statement->ACT_SMT[R603]
   .assign statement.control = "TRUE"
-  .assign statement.controlled_block = "${while_statement.block_id}"
+  .assign statement.controlled_block = while_statement.block_id
   .invoke result = gen_while_statement(while_statement)
   .assign statement.buffer="${result.body}"
   .invoke result = gen_end_control_statement()
@@ -100,7 +102,7 @@ while ( ${test.buffer} )
 .for each else_statement in else_statements
   .select one statement related by else_statement->ACT_SMT[R603]
   .assign statement.control = "TRUE"
-  .assign statement.controlled_block = "${else_statement.block_id}"
+  .assign statement.controlled_block = else_statement.block_id
   .invoke result = gen_else_statement()
   .assign statement.buffer="${result.body}"
   .invoke result = gen_end_control_statement()
@@ -123,7 +125,7 @@ else
 .for each elif_statement in elif_statements
   .select one statement related by elif_statement->ACT_SMT[R603]
   .assign statement.control = "TRUE"
-  .assign statement.controlled_block = "${elif_statement.block_id}"
+  .assign statement.controlled_block = elif_statement.block_id
   .invoke result = gen_elif_statement(elif_statement)
   .assign statement.buffer="${result.body}"
   .invoke result = gen_end_control_statement()
@@ -143,11 +145,11 @@ else if ( ${test.buffer} )
 .// --------------------------------------------------------
 .// assignment to attribute statements
 .// --------------------------------------------------------
-.function gen_asgn_attr_statements
+.function gen_asgn_statements
 .select many assign_statements from instances of ACT_AI
 .for each assign_statement in assign_statements
   .select one statement related by assign_statement->ACT_SMT[R603]
-  .invoke result = gen_asgn_attr_statement(assign_statement)
+  .invoke result = gen_asgn_statement(assign_statement)
   .assign statement.buffer="${result.body}"
 .end for
 .end function
@@ -155,24 +157,32 @@ else if ( ${test.buffer} )
 .// --------------------------------------------------------
 .// gen_asgn_attr_statement
 .// --------------------------------------------------------
-.function gen_asgn_attr_statement
+.function gen_asgn_statement
   .param inst_ref statement
+    .// This supports only simple attribute assignments
+    .// We need to rename this function to gen_asgn_statement
+    .// and generalize it to work with more exotic assignments
 	.//
 	.// resolve the value's core data type
-	.select one value related by statement->V_VAL[R609]
-	.select any valueType from instances of S_DT where ("${selected.DT_ID}" == value.DT_ID)
+	.select one rvalue related by statement->V_VAL[R609]
+    .select one lvalue related by statement->V_VAL[R689]
+	.select any valueType related by rvalue->S_DT[R820]
 	.invoke result = getCoreDataType(valueType);
 	.assign valueType = result.coreType;
 	.//
     .// if the value is of the 'real' type
 	.assign intCast1 = ""
 	.assign intCast2 = ""
-	.if (valueType.Name == "real")
+    .select one irf related by lvalue->V_AVL[R801]->V_VAL[R807]->V_IRF[R801]
+    .select one tvr related by lvalue->V_TVL[R801]
+    .select one directirf related by lvalue->V_IRF[R801]
+    .if (not_empty irf)
+      .select one inst_var related by irf->V_VAR[R808]
+      .select one attr related by lvalue->V_AVL[R801]->O_ATTR[R806]
+	  .if (valueType.Name == "real")
 		.// resolve the assignee's core data type
-		.select one instance related by statement->V_VAR[R629]->V_INT[R814];
-		.select any class from instances of O_OBJ where (selected.Key_Lett == instance.Key_Lett)
-		.select any attr from instances of O_ATTR where (selected.Name == statement.Member_Variable_Name)
-	    .select any attrType from instances of S_DT where (selected.DT_ID == attr.DT_ID)
+		.select any class related by inst_var->V_INT[R814]->O_OBJ[R818]
+	    .select any attrType related by attr->S_DT[R114]
 		.invoke result = getCoreDataType(attrType);
 		.assign varType = result.coreType;
 	    .//
@@ -183,88 +193,78 @@ else if ( ${test.buffer} )
 			.assign intCast1 = "(int)("
 			.assign intCast2 = ")"
 		.end if
-	.end if 
-	.//
-  .if ("$l{statement.Instance_Variable_Name}" != "self")
-if (v_${statement.Instance_Variable_Name} != null) {
-  v_${statement.Instance_Variable_Name}.\
-  .end if
-set$cr{statement.Member_Variable_Name}( \
-  .select one value related by statement->V_VAL[R609]
-${intCast1}${value.buffer}${intCast2}) ;
-  .if ("$l{statement.Instance_Variable_Name}" != "self")
+	  .end if
+	  .select one dbattr related by attr->O_BATTR[R106]->O_DBATTR[R107]
+	  .if (not_empty dbattr)
+	    .// Derived attribute
+return ${intCast1}${rvalue.buffer}${intCast2};
+	  .else
+	    .//
+        .if ("$l{inst_var.Name}" != "self")
+if (v_${inst_var.Name} != null) {
+  v_${inst_var.Name}.\
+        .end if
+set$cr{attr.Name}( \
+${intCast1}${rvalue.buffer}${intCast2}) ;
+        .if ("$l{inst_var.Name}" != "self")
 }
 else {
   Throwable t = new Throwable();
   t.fillInStackTrace();
   CorePlugin.logError("Attribute write attempted on null instance.", t);
 }
-  .end if
-.end function
-.//
-.// --------------------------------------------------------
-.// assignment to transient statements
-.// --------------------------------------------------------
-.function gen_asgn_trans_statements
-.select many assign_trans_statements from instances of ACT_AT
-.for each assign_trans_statement in assign_trans_statements
-  .invoke result = gen_asgn_trans_statement(assign_trans_statement)
-  .select one statement related by assign_trans_statement->ACT_SMT[R603]
-  .assign statement.buffer="${result.body}"
-.end for
-.end function
-.//
-.// --------------------------------------------------------
-.// gen_asgn_trans_statement
-.// --------------------------------------------------------
-.function gen_asgn_trans_statement
-  .param inst_ref statement
-  .select one value related by statement->V_VAL[R635]
-  .select any valueType from instances of S_DT where ("${selected.DT_ID}" == value.DT_ID)
-  .if (statement.is_implicit == "TRUE")
-    .if ( valueType.Name == "inst_ref<Object>" )
-      .select one vint related by value->V_TVL[R801]->V_VAR[R805]->V_INT[R814]
-      .select any new_obj from instances of O_OBJ where (selected.Key_Lett == vint.Key_Lett)
-      .invoke cn = get_class_name( new_obj )
-${cn.body} \
-    .elif ( valueType.Name == "inst_ref_set<Object>" )
-      .select one vins related by value->V_TVL[R801]->V_VAR[R805]->V_INS[R814]
-      .select any new_obj from instances of O_OBJ where (selected.Key_Lett == vins.Key_Lett)
-      .invoke cn = get_class_name( new_obj )
-${cn.body} [] \
-    .else
-      .invoke result = do_type(valueType)
+        .end if
+      .end if
+    .elif (not_empty tvr)
+      .// Transient value reference
+      .if (lvalue.isImplicit == 1)
+        .select any uValueType related by rvalue->S_DT[R820]
+        .if (( uValueType.Name == "inst_ref<Object>" ) or ( uValueType.Name == "inst_ref_set<Object>" ))
+          .print "ERROR, didn't expect inst_ref or inst_ref set in transient value reference. (statement.inc: 216)"
+        .else
+          .invoke result = do_type(uValueType)
 ${result.body} \
+        .end if
+      .end if
+      .//
+      .// resolve the value's core data type
+      .select one valueCoreType related by valueType->S_UDT[R17]->S_DT[R18]
+      .if (not_empty valueCoreType) 
+        .assign valueType = valueCoreType;
+      .end if
+      .//
+      .// if the value is of the 'real' type
+      .assign intCast1 = ""
+      .assign intCast2 = ""
+      .if (valueType.Name == "real")
+        .// resolve the assignee's core data type
+        .select any var related by tvr->V_VAR[R805];
+        .select any varType related by var->S_DT[R848]
+        .invoke result = getCoreDataType(varType);
+        .assign varType = result.coreType;
+        .//
+        .// if the assignee is of the integer type
+        .if (varType.Name == "integer")
+            .// cast the value to an int, to avoid a "possible loss of precision"
+            .// syntax error in the generated code
+            .assign intCast1 = "(int)("
+            .assign intCast2 = ")"
+        .end if
+      .end if
+      .//
+${lvalue.buffer} = ${intCast1}${rvalue.buffer}${intCast2} ;
+    .elif (not_empty directirf)
+      .if (lvalue.isImplicit == 1)
+        .select any new_obj related by directirf->V_VAR[R808]->V_INT[R814]->O_OBJ[R818]
+        .invoke cn = get_class_name( new_obj )
+${cn.body} \
+      .end if
+${lvalue.buffer} = ${rvalue.buffer} ;
+    .else
+.print "ERROR: Unhandled value type ${lvalue.Value_ID}"
     .end if
-  .end if
-	.//
-	.// resolve the value's core data type
-    .select one valueCoreType related by valueType->S_UDT[R17]->S_CDT[R18]->S_DT[R17]
-    .if (not_empty valueCoreType) 
-    	.assign valueType = valueCoreType;
-    .end if
-    .//
-    .// if the value is of the 'real' type
-	.assign intCast1 = ""
-	.assign intCast2 = ""
-	.if (valueType.Name == "real")
-		.// resolve the assignee's core data type
-		.select any var related by statement->V_VAR[R636];
-	    .select any varType from instances of S_DT where ("${selected.DT_ID}" == var.DT_ID)
-		.invoke result = getCoreDataType(varType);
-		.assign varType = result.coreType;
-	    .//
-	    .// if the assignee is of the integer type
-		.if (varType.Name == "integer")
-			.// cast the value to an int, to avoid a "possible loss of precision"
-			.// syntax error in the generated code
-			.assign intCast1 = "(int)("
-			.assign intCast2 = ")"
-		.end if
-	.end if
-	.//
-v_${statement.Target_Variable_Name} = ${intCast1}${value.buffer}${intCast2} ;
 .end function
+.//
 .// --------------------------------------------------------
 .// create instance statements
 .// --------------------------------------------------------
@@ -287,18 +287,19 @@ v_${statement.Target_Variable_Name} = ${intCast1}${value.buffer}${intCast2} ;
   .param string main_class_name
   .param boolean output_change_messages
   .invoke package = get_package()
-  .select any new_obj from instances of O_OBJ where (selected.Key_Lett == statement.New_Obj_KL)
+  .select one new_obj related by statement->O_OBJ[R671]
   .invoke cn = get_class_name( new_obj )
-  .if (statement.is_implicit == "TRUE")
+  .if (statement.is_implicit == 1)
 ${cn.body} \
   .end if
-v_${statement.Variable_Name} = new ${cn.body}(modelRoot) ;
+  .select one var related by statement->V_VAR[R633]
+v_${var.Name} = new ${cn.body}(modelRoot) ;
     .select one action related by statement->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601]
     .if (not_empty action)
       .select one cr_statement related by statement->ACT_SMT[R603];
       .invoke prop_delta_obj = notifies_changes(new_obj, "O_OBJ")
       .if ( output_change_messages AND prop_delta_obj.result)
-${package.application_root_class}.getDefaultInstance().fireModelElementCreated(new BaseModelDelta(Modeleventnotification_c.DELTA_NEW, v_${statement.Variable_Name}));
+${package.application_root_class}.getDefaultInstance().fireModelElementCreated(new BaseModelDelta(Modeleventnotification_c.DELTA_NEW, v_${var.Name}));
       .end if
     .end if
 .end function
@@ -330,23 +331,24 @@ ${package.application_root_class}.getDefaultInstance().fireModelElementCreated(n
     .invoke package = get_package()
     .select one statement related by delete_statement->ACT_SMT[R603]
     .// MC-Java only creates V_INT instances
-    .select any del_var related by delete_statement->V_VAR[R634]->V_INT[R814]
+    .select one var related by delete_statement->V_VAR[R634]
+    .select any del_var related by var->V_INT[R814]
     .if ( empty del_var )
        .print "ERROR: delete statement doesn't have a related variable"
        .exit 100
     .end if
-    .select any del_obj from instances of O_OBJ where (selected.Key_Lett == del_var.Key_Lett)
+    .select one del_obj related by del_var->O_OBJ[R818]
     .invoke prop_delta_obj = notifies_changes(del_obj, "O_OBJ")
-    .if ("$l{delete_statement.Variable_Name}" != "self")
-if (v_${delete_statement.Variable_Name} != null) {
+    .if ("$l{var.Name}" != "self")
+if (v_${var.Name} != null) {
       .if ( output_change_messages AND prop_delta_obj.result)
 // get the location of this element in the instance list
 // before deleting
-if ( v_${delete_statement.Variable_Name}.delete() ) {
-    ${package.application_root_class}.getDefaultInstance().fireModelElementDeleted(new BaseModelDelta(Modeleventnotification_c.DELTA_DELETE, v_${delete_statement.Variable_Name}));
+if ( v_${var.Name}.delete() ) {
+    ${package.application_root_class}.getDefaultInstance().fireModelElementDeleted(new BaseModelDelta(Modeleventnotification_c.DELTA_DELETE, v_${var.Name}));
 }
       .else
-v_${delete_statement.Variable_Name}.delete() ;
+v_${var.Name}.delete() ;
       .end if
 }
 else {
@@ -386,7 +388,7 @@ delete() ;
   .if (empty object)
     .select one object related by new_evt->SM_SM[R502]->SM_ASM[R517]->O_OBJ[R519]
   .end if
-  .if (statement.is_implicit == "TRUE")
+  .if (statement.is_implicit == 1)
 EV_$u_{object.Name}_$u_{new_evt.Mning} \
   .end if
 v_${statement.Variable_Name} = new EV_$u_{object.Name}_$u_{new_evt.Mning}() ;
@@ -415,12 +417,14 @@ this ;
 .// --------------------------------------------------------
 .function gen_relate_statement
   .param inst_ref rel_statement
-  .assign one_var_name = "v_" + rel_statement.One_Side_Variable_Name
-  .assign oth_var_name = "v_" + rel_statement.Other_Side_Variable_Name
-  .if ("$l{rel_statement.One_Side_Variable_Name}" == "self")
+  .select one one_var related by rel_statement->V_VAR[R615]
+  .select one oth_var related by rel_statement->V_VAR[R616]
+  .assign one_var_name = "v_" + one_var.Name
+  .assign oth_var_name = "v_" + oth_var.Name
+  .if ("$l{one_var.Name}" == "self")
     .assign one_var_name = "this"
   .end if
-  .if ( "$l{rel_statement.Other_Side_Variable_Name}" == "self")
+  .if ("$l{oth_var.Name}" == "self")
     .assign oth_var_name = "this"
   .end if
   .//
@@ -430,11 +434,12 @@ this ;
   .if ( is_refl.result )
     .assign rel_phrase = "$cr{rel_statement.relationship_phrase}"
   .end if
-  .if ("$l{rel_statement.One_Side_Variable_Name}" != "self")
+  .if ("$l{one_var.Name}" != "self")
 if (${one_var_name} != null) {
   .end if
-  ${one_var_name}.relateAcrossR${rel_statement.Numb}To${rel_phrase}(${oth_var_name});
-  .if ("$l{rel_statement.One_Side_Variable_Name}" != "self")
+  .select one rel related by rel_statement->R_REL[R653]
+  ${one_var_name}.relateAcrossR${rel.Numb}To${rel_phrase}(${oth_var_name});
+  .if ("$l{one_var.Name}" != "self")
 }
 else {
   Throwable t = new Throwable();
@@ -488,28 +493,32 @@ else {
       .end if
     .end if
   .end if
-  .if ("$l{rel_using_stmt.Associative_Variable_Name}" != "self")
-if (v_${rel_using_stmt.Associative_Variable_Name} != null) {
-  v_${rel_using_stmt.Associative_Variable_Name}.\
-  .end if  
-relateAcrossR${rel_using_stmt.Numb}To${one_rel_phrase}( \
-  .if ("$l{rel_using_stmt.One_Side_Variable_Name}" != "self")
-v_${rel_using_stmt.One_Side_Variable_Name} \
+  .select one one_var related by rel_using_stmt->V_VAR[R617]
+  .select one oth_var related by rel_using_stmt->V_VAR[R618]
+  .select one use_var related by rel_using_stmt->V_VAR[R619]
+  .if ("$l{use_var.Name}" != "self")
+if (v_${use_var.Name} != null) {
+  v_${use_var.Name}.\
+  .end if
+  .select one rel related by rel_using_stmt->R_REL[R654]
+relateAcrossR${rel.Numb}To${one_rel_phrase}( \
+  .if ("$l{one_var.Name}" != "self")
+v_${one_var.Name} \
   .else
 this \
   .end if
 ) ; \
-  .if ("$l{rel_using_stmt.Associative_Variable_Name}" != "self")
-  v_${rel_using_stmt.Associative_Variable_Name}.\
+  .if ("$l{use_var.Name}" != "self")
+  v_${use_var.Name}.\
   .end if  
-relateAcrossR${rel_using_stmt.Numb}To${oth_rel_phrase}( \
-  .if ("$l{rel_using_stmt.Other_Side_Variable_Name}" != "self")
-v_${rel_using_stmt.Other_Side_Variable_Name} \
+relateAcrossR${rel.Numb}To${oth_rel_phrase}( \
+  .if ("$l{oth_var.Name}" != "self")
+v_${oth_var.Name} \
   .else
 this \
   .end if
 ) ;
-  .if ("$l{rel_using_stmt.Associative_Variable_Name}" != "self")
+  .if ("$l{use_var.Name}" != "self")
 }
 else {
   Throwable t = new Throwable();
@@ -536,12 +545,14 @@ else {
 .// --------------------------------------------------------
 .function gen_unrelate_statement
   .param inst_ref unrel_stmt
-  .assign one_var_name = "v_" + unrel_stmt.One_Side_Variable_Name
-  .assign oth_var_name = "v_" + unrel_stmt.Other_Side_Variable_Name
-  .if ("$l{unrel_stmt.One_Side_Variable_Name}" == "self")
+  .select one one_var related by unrel_stmt->V_VAR[R620]
+  .select one oth_var related by unrel_stmt->V_VAR[R621]
+  .assign one_var_name = "v_" + one_var.Name
+  .assign oth_var_name = "v_" + oth_var.Name
+  .if ("$l{one_var.Name}" == "self")
     .assign one_var_name = "this"
   .end if
-  .if ( "$l{unrel_stmt.Other_Side_Variable_Name}" == "self")
+  .if ( "$l{oth_var.Name}" == "self")
     .assign oth_var_name = "this"
   .end if
   .select one rel related by unrel_stmt->R_REL[R655]
@@ -550,11 +561,11 @@ else {
   .if ( is_refl.result )
     .assign rel_phrase = "$cr{unrel_stmt.relationship_phrase}"
   .end if
-  .if ("$l{unrel_stmt.One_Side_Variable_Name}" != "self")
+  .if ("$l{one_var.Name}" != "self")
 if (${one_var_name} != null) {
   .end if
-${one_var_name}.unrelateAcrossR${unrel_stmt.Numb}From${rel_phrase}(${oth_var_name});
-  .if ("$l{unrel_stmt.One_Side_Variable_Name}" != "self")
+${one_var_name}.unrelateAcrossR${rel.Numb}From${rel_phrase}(${oth_var_name});
+  .if ("$l{one_var.Name}" != "self")
 }
 else {
   Throwable t = new Throwable();
@@ -586,7 +597,7 @@ else {
   .if ( is_refl.result )
     .select one aone related by rel->R_ASSOC[R206]->R_AONE[R209]
     .select one aoth related by rel->R_ASSOC[R206]->R_AOTH[R210]
-    .select one one_obj related by unrel_using_stmt->V_VAR[R622]->V_INT[R814]->O_OBJ[R815]
+    .select one one_obj related by unrel_using_stmt->V_VAR[R622]->V_INT[R814]->O_OBJ[R818]
     .if ( one_obj.Obj_ID == aone.Obj_ID )
       .if ( aone.Txt_Phrs == unrel_using_stmt.relationship_phrase )
         .assign one_rel_phrase = "$cr{aone.Txt_Phrs}"
@@ -605,28 +616,32 @@ else {
       .end if
     .end if
   .end if
-  .if ("$l{unrel_using_stmt.Associative_Variable_Name}" != "self")
-if (v_${unrel_using_stmt.Associative_Variable_Name} != null) {
-v_${unrel_using_stmt.Associative_Variable_Name}.\
-  .end if  
-unrelateAcrossR${unrel_using_stmt.Numb}From${one_rel_phrase}( \
-  .if ("$l{unrel_using_stmt.One_Side_Variable_Name}" != "self")
-v_${unrel_using_stmt.One_Side_Variable_Name} \
+  .select one one_var related by unrel_using_stmt->V_VAR[R622]
+  .select one oth_var related by unrel_using_stmt->V_VAR[R623]
+  .select one use_var related by unrel_using_stmt->V_VAR[R624]
+  .if ("$l{use_var.Name}" != "self")
+if (v_${use_var.Name} != null) {
+v_${use_var.Name}.\
+  .end if
+  .select one rel related by unrel_using_stmt->R_REL[R656]
+unrelateAcrossR${rel.Numb}From${one_rel_phrase}( \
+  .if ("$l{one_var.Name}" != "self")
+v_${one_var.Name} \
   .else
 this \
   .end if
 ) ; \
-  .if ("$l{unrel_using_stmt.Associative_Variable_Name}" != "self")
-v_${unrel_using_stmt.Associative_Variable_Name}.\
+  .if ("$l{use_var.Name}" != "self")
+v_${use_var.Name}.\
   .end if
-unrelateAcrossR${unrel_using_stmt.Numb}From${oth_rel_phrase}( \
-  .if ("$l{unrel_using_stmt.Other_Side_Variable_Name}" != "self")
-v_${unrel_using_stmt.Other_Side_Variable_Name} \
+unrelateAcrossR${rel.Numb}From${oth_rel_phrase}( \
+  .if ("$l{oth_var.Name}" != "self")
+v_${oth_var.Name} \
   .else
 this \
   .end if
 ) ;
-  .if ("$l{unrel_using_stmt.Associative_Variable_Name}" != "self")
+  .if ("$l{use_var.Name}" != "self")
 }
 else {
   Throwable t = new Throwable();
@@ -643,17 +658,17 @@ else {
   .select many sel_insts from instances of ACT_FIO
   .for each sel_inst_stmt in sel_insts
     .select one statement related by sel_inst_stmt->ACT_SMT[R603]
-    .invoke result = gen_select_statement(sel_inst_stmt, "")
+    .invoke result = gen_select_fio_statement(sel_inst_stmt, "")
 	.assign statement.buffer = "${result.body}"
   .end for
 .end function
-.function gen_select_statement
+.function gen_select_fio_statement
   .param inst_ref sel_inst
   .param string where_clause_arg
   .// --------------------------------------------------------
   .// select instance statement
   .// --------------------------------------------------------
-    .select any tgt_obj from instances of O_OBJ where (selected.Key_Lett == sel_inst.Target_Obj_KL)
+    .select any tgt_obj related by sel_inst->O_OBJ[R677]
     .assign mr = "modelRoot"
     .if ( "$l{tgt_obj.Descrip:PEI}" == "true" )
       .invoke package = get_package()
@@ -662,17 +677,18 @@ else {
     .end if
     .invoke cn = get_class_name( tgt_obj )
     .select one statement related by sel_inst->ACT_SMT[R603]
-    .if (sel_inst.cardinality == "MANY")
-      .if (sel_inst.is_implicit == "TRUE")
+    .select one var related by sel_inst->V_VAR[R639]
+    .if (sel_inst.cardinality == "many")
+      .if (sel_inst.is_implicit == 1)
 ${cn.body} [] \
       .end if
-v_${sel_inst.Variable_Name} = ${cn.body}.$cr{tgt_obj.Name}Instances(${mr}${where_clause_arg}) ;
+v_${var.Name} = ${cn.body}.$cr{tgt_obj.Name}Instances(${mr}${where_clause_arg}) ;
     .else
       .// ANY case
-      .if (sel_inst.is_implicit == "TRUE")
+      .if (sel_inst.is_implicit == 1)
 ${cn.body} \
       .end if
-v_${sel_inst.Variable_Name} = ${cn.body}.$cr{tgt_obj.Name}Instance(${mr}${where_clause_arg}) ;
+v_${var.Name} = ${cn.body}.$cr{tgt_obj.Name}Instance(${mr}${where_clause_arg}) ;
     .end if
 .end function
 .//
@@ -727,49 +743,60 @@ v_${sel_inst.Variable_Name} = ${cn.body}.$cr{tgt_obj.Name}Instance(${mr}${where_
   .select one sel_inst_rel related by sel_inst_rel_subt->ACT_SEL[R664]
   .invoke gll = get_last_link_in_chain(sel_inst_rel)
   .assign last_link = gll.last_link
-  .select any tgt_obj from instances of O_OBJ where (selected.Key_Lett == last_link.Target_Obj_KL)
+  .select any tgt_obj related by last_link->O_OBJ[R678]
   .invoke cn = get_class_name( tgt_obj )
   .select one link_rel related by last_link->R_REL[R681]
   .invoke gfs = get_func_suffix(link_rel, tgt_obj, last_link.Rel_Phrase)
   .assign func_suffix = gfs.result
-  .if (sel_inst_rel.cardinality == "MANY")
-    .if (sel_inst_rel.is_implicit == "TRUE")
+  .select one var related by sel_inst_rel->V_VAR[R638]
+  .if (sel_inst_rel.cardinality == "many")
+    .if (sel_inst_rel.is_implicit == 1)
 ${cn.body} [] \
     .end if
-    .invoke nfn = get_nav_func_name( tgt_obj, last_link, "many" )
-v_${sel_inst_rel.Variable_Name} = ${cn.body}.${nfn.body}${func_suffix}(\
+    .invoke nfn = get_nav_func_name( tgt_obj, link_rel, "many" )
+v_${var.Name} = ${cn.body}.${nfn.body}${func_suffix}(\
   .else
-    .// cardinality == "ONE" or "ANY"
-    .if (sel_inst_rel.is_implicit == "TRUE")
+    .// cardinality == "one" or "any"
+    .if (sel_inst_rel.is_implicit == 1)
 ${cn.body} \
     .end if
-    .invoke nfn = get_nav_func_name( tgt_obj, last_link, "one" )
-v_${sel_inst_rel.Variable_Name} = ${cn.body}.${nfn.body}${func_suffix}(\
+    .invoke nfn = get_nav_func_name( tgt_obj, link_rel, "one" )
+v_${var.Name} = ${cn.body}.${nfn.body}${func_suffix}(\
   .end if
   .assign link_count = 1
-  .select one link related by last_link->ACT_LNK[R604.'succeeds']
+  .select one link related by last_link->ACT_LNK[R604.'precedes']
   .while (not_empty link)
-    .select any lnk_obj from instances of O_OBJ where (selected.Key_Lett == link.Target_Obj_KL)
+    .select any lnk_obj related by link->O_OBJ[R678]
     .invoke lcn = get_class_name( lnk_obj )
     .select one link_rel related by link->R_REL[R681]
       .invoke gfs = get_func_suffix(link_rel, tgt_obj, link.Rel_Phrase)
       .assign func_suffix = gfs.result
-    .if (sel_inst_rel.cardinality == "ONE")
-      .invoke nfn = get_nav_func_name( lnk_obj, link, "one" )
+    .if (sel_inst_rel.cardinality == "one")
+      .invoke nfn = get_nav_func_name( lnk_obj, link_rel, "one" )
 ${lcn.body}.${nfn.body}${func_suffix}(\
       .else
-      .// cardinality == "ANY" or "MANY"
-      .invoke nfn = get_nav_func_name( lnk_obj, link, "many" )
+      .// cardinality == "any" or "many"
+      .invoke nfn = get_nav_func_name( lnk_obj, link_rel, "many" )
 ${lcn.body}.${nfn.body}${func_suffix}(\
       .end if
     .assign link_count = link_count + 1
-    .select one next_link related by link->ACT_LNK[R604.'succeeds']
+    .select one next_link related by link->ACT_LNK[R604.'precedes']
     .assign link = next_link
   .end while
-  .if ("$l{sel_inst_rel.Start_Variable_Name}" == "self")
+  .assign start_var_name = ""
+  .select one start_var related by sel_inst_rel->V_VAL[R613]->V_IRF[R801]->V_VAR[R808]
+  .select one start_set related by sel_inst_rel->V_VAL[R613]->V_ISR[R801]->V_VAR[R809]
+  .if (not_empty start_var)
+    .assign start_var_name = start_var.Name
+  .elif (not_empty start_set)
+    .assign start_var_name = start_set.Name
+  .else
+    .print "No start variable found translating select related by."
+  .end if
+  .if ("$l{start_var_name}" == "self")
 this\
   .else
-v_${sel_inst_rel.Start_Variable_Name}\
+v_${start_var_name}\
   .end if
   .while (link_count > 0)
     .if ( link_count == 1 )
@@ -800,75 +827,62 @@ ${where_clause_arg}\
   .assign attr_member_decl = ""
   .assign attr_args = ""
   .//
-  .select one pex related by p_val->V_PEX[R801]
-  .if ( not_empty pex )
-    .select one in_pex related by pex->V_VAL[R824]
-    .invoke x = traverse_where_clause( in_pex )
+  .select one bin related by p_val->V_BIN[R801]
+  .if (not_empty bin)
+    .select one lhs related by bin->V_VAL[R802]
+    .invoke x = traverse_where_clause( lhs )
     .if ( x.param_decl != "" )
       .assign attr_param_decl = x.param_decl
       .assign attr_init_stmt  = x.init_stmt
       .assign attr_member_decl = x.member_decl
       .assign attr_args = x.args
     .end if
-    .invoke result = gen_paren_expr_value(p_val)
+    .select one rhs related by bin->V_VAL[R803]
+    .invoke y = traverse_where_clause( rhs )
+    .if ( y.param_decl != "" )
+      .if ( attr_param_decl == "" )
+        .assign attr_param_decl = y.param_decl
+        .assign attr_init_stmt  = y.init_stmt
+        .assign attr_member_decl = y.member_decl
+        .assign attr_args = y.args
+      .else
+        .assign attr_param_decl  = "${attr_param_decl}, ${y.param_decl}"
+        .assign attr_init_stmt   = "${attr_init_stmt}\n\t\t${y.init_stmt}"
+        .assign attr_member_decl = "${attr_member_decl}\n\t${y.member_decl}"
+        .assign attr_args        = "${attr_args}, ${y.args}"
+      .end if
+    .end if
+    .invoke result = gen_binary_op_value( p_val )
     .assign p_val.buffer = "${result.body}"
-  .else
-    .select one bin related by p_val->V_BIN[R801]
-    .if (not_empty bin)
-      .select one lhs related by bin->V_VAL[R802]
-      .invoke x = traverse_where_clause( lhs )
+  .else 
+    .select one unary related by p_val->V_UNY[R801]
+    .if (not_empty unary)
+      .select one operand related by unary->V_VAL[R804]
+      .invoke x = traverse_where_clause( operand )
       .if ( x.param_decl != "" )
         .assign attr_param_decl = x.param_decl
         .assign attr_init_stmt  = x.init_stmt
         .assign attr_member_decl = x.member_decl
         .assign attr_args = x.args
       .end if
-      .select one rhs related by bin->V_VAL[R803]
-      .invoke y = traverse_where_clause( rhs )
-      .if ( y.param_decl != "" )
-        .if ( attr_param_decl == "" )
-          .assign attr_param_decl = y.param_decl
-          .assign attr_init_stmt  = y.init_stmt
-          .assign attr_member_decl = y.member_decl
-          .assign attr_args = y.args
-        .else
-          .assign attr_param_decl  = "${attr_param_decl}, ${y.param_decl}"
-          .assign attr_init_stmt   = "${attr_init_stmt}\n\t\t${y.init_stmt}"
-          .assign attr_member_decl = "${attr_member_decl}\n\t${y.member_decl}"
-          .assign attr_args        = "${attr_args}, ${y.args}"
-        .end if
-      .end if
-      .invoke result = gen_binary_op_value( p_val )
+      .invoke result = gen_unary_op_value(p_val)
       .assign p_val.buffer = "${result.body}"
     .else 
-      .select one unary related by p_val->V_UNY[R801]
-      .if (not_empty unary)
-        .select one operand related by unary->V_VAL[R804]
-        .invoke x = traverse_where_clause( operand )
-        .if ( x.param_decl != "" )
-          .assign attr_param_decl = x.param_decl
-          .assign attr_init_stmt  = x.init_stmt
-          .assign attr_member_decl = x.member_decl
-          .assign attr_args = x.args
-        .end if
-        .invoke result = gen_unary_op_value(p_val)
-        .assign p_val.buffer = "${result.body}"
-      .else 
-        .select one transient_val related by p_val->V_TVL[R801]
-        .select one attribute_val related by p_val->V_AVL[R801]
-        .select one operation_val related by p_val->V_TRV[R801]
-        .if (((not_empty transient_val) or (not_empty attribute_val)) or (not_empty operation_val))
-          .assign temp_var = "p${info.unique_num}"
-          .select any type from instances of S_DT where ("${selected.DT_ID}" == p_val.DT_ID)
-          .invoke result = do_type(type)
-          .assign attr_param_decl  = "${result.body} ${temp_var}"
-          .assign attr_init_stmt   = "\t\tm_${temp_var} = ${temp_var};"
-          .assign attr_member_decl = "\tprivate ${result.body} m_${temp_var};"
-          .assign attr_args        = p_val.buffer
-          .assign p_val.buffer     = "m_${temp_var}"
-        .else 
-          .// do nothing
-        .end if
+      .select one transient_val related by p_val->V_TVL[R801]
+      .select one attribute_val related by p_val->V_AVL[R801]
+      .select one selected_ref related by attribute_val->V_VAL[R807]->V_SLR[R801]
+      .select one operation_val related by p_val->V_TRV[R801]
+      .if (((not_empty transient_val) or ((not_empty attribute_val) and (empty selected_ref))) or (not_empty operation_val))
+        .assign temp_var = "p${info.unique_num}"
+        .select any type from instances of S_DT where (selected.DT_ID == p_val.DT_ID)
+        .invoke result = do_type(type)
+        .assign attr_param_decl  = "${result.body} ${temp_var}"
+        .assign attr_init_stmt   = "\t\tm_${temp_var} = ${temp_var};"
+        .assign attr_member_decl = "\tprivate ${result.body} m_${temp_var};"
+        .assign attr_args        = p_val.buffer
+        .assign p_val.buffer     = "m_${temp_var}"
+      .else
+        .// Do nothing
       .end if
     .end if
   .end if
@@ -905,19 +919,15 @@ ${twc.member_decl}
 .// --------------------------------------------------------
   .// select instance where statement
   .// --------------------------------------------------------
-  .select any tgt_obj from instances of O_OBJ where (selected.Key_Lett == sel_inst_where.Target_Obj_KL)
+  .select any tgt_obj related by sel_inst_where->O_OBJ[R676]
   .select one owner_action related by sel_inst_where->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601]
-  .select any src_tfr from instances of O_TFR where ("${selected.Tfr_ID}" == owner_action.Action_Id)
-  .select one src_obj related by src_tfr->O_OBJ[R115]
   .select any where_clause related by sel_inst_where->V_VAL[R610]
+  .select any src_tfr related by where_clause->V_TRV[R801]->O_TFR[R829]
+  .select one src_obj related by src_tfr->O_OBJ[R115]
   .assign non_single_unique_id = true
   .// only generate specific selections on ids for binary
   .// operations
-  .select one pex related by where_clause->V_PEX[R801]
   .select one binary_op related by where_clause->V_BIN[R801]
-  .if(not_empty pex)
-    .select one binary_op related by pex->V_VAL[R824]->V_BIN[R801]
-  .end if
   .if(not_empty binary_op)
     .// support an or case but only one level for now
 	.select many binary_ops from instances of V_BIN where (false)
@@ -926,19 +936,7 @@ ${twc.member_decl}
 	  .select one rhs related by binary_op->V_VAL[R803]
 	  .select one lBinary related by lhs->V_BIN[R801]
 	  .select one rBinary related by rhs->V_BIN[R801]
-	  .if(empty lBinary)
-	    .select one pex related by lhs->V_PEX[R801]
-	    .if(not_empty pex)
-	      .select one lBinary related by pex->V_VAL[R824]->V_BIN[R801]
-	    .end if
-      .end if
-	  .if(empty rBinary)
-	    .select one pex related by rhs->V_PEX[R801]
-	    .if(not_empty pex)
-	      .select one rBinary related by pex->V_VAL[R824]->V_BIN[R801]
-	    .end if
-      .end if
-	  .if(not_empty lBinary and not_empty rBinary)
+	  .if((not_empty lBinary) and (not_empty rBinary))
 	    .assign binary_ops = binary_ops | lBinary;
 		.assign binary_ops = binary_ops | rBinary;
 	  .end if
@@ -949,12 +947,12 @@ ${twc.member_decl}
       .// also only for binary operations that have
       .// a left hand attribute value
       .select one lhs related by binary->V_VAL[R802]
-      .select one sel_val related by lhs->V_SLR[R801]
+      .select one sel_val related by lhs->V_AVL[R801]->V_VAL[R807]->V_SLR[R801]
       .if(not_empty sel_val)
         .// we also only generate this for those attribute
         .// values which are unique ids that are the only
         .// unique id for a class
-        .select any attribute related by tgt_obj->O_ATTR[R102] where (selected.Name == sel_val.Variable_Name)
+        .select one attribute related by lhs->V_AVL[R801]->O_ATTR[R806]
         .if(not_empty attribute)
           .invoke isui = is_single_unique_id(attribute)
           .if((isui.result) and (binary.Operator == "=="))
@@ -967,35 +965,36 @@ ${twc.member_decl}
             .if(twc.args != "")
 	           .assign value = twc.args
             .end if
-            .if (sel_inst_where.is_implicit == "TRUE")
+            .if (sel_inst_where.is_implicit == 1)
 			  .if(first binary_ops)
-			    .if((sel_inst_where.cardinality == "ANY") or (sel_inst_where.cardinality == "ONE"))
+			    .if((sel_inst_where.cardinality == "any") or (sel_inst_where.cardinality == "one"))
 ${cn.body} \
                 .end if
               .end if
             .end if
+            .select one var related by sel_inst_where->V_VAR[R665]
             .if(tgt_obj.Key_Lett == "S_SYS")
 			  .if(first binary_ops)
-			    .if((sel_inst_where.cardinality == "ANY") or (sel_inst_where.cardinality == "ONE"))
-v_${sel_inst_where.Variable_Name} = (${cn.body}) Ooaofooa.getDefaultInstance().getInstanceList(${cn.body}.class).get(${value});
+			    .if((sel_inst_where.cardinality == "any") or (sel_inst_where.cardinality == "one"))
+v_${var.Name} = (${cn.body}) Ooaofooa.getDefaultInstance().getInstanceList(${cn.body}.class).get(${value});
                 .else
-${cn.body} v_${sel_inst_where.Variable_Name}1 = (${cn.body}) Ooaofooa.getDefaultInstance().getInstanceList(${cn.body}.class).get(${value});
+${cn.body} v_${var.Name}1 = (${cn.body}) Ooaofooa.getDefaultInstance().getInstanceList(${cn.body}.class).get(${value});
 				.end if
               .else
-			    .if((sel_inst_where.cardinality == "ANY") or (sel_inst_where.cardinality == "ONE"))
-if(v_${sel_inst_where.Variable_Name} == null) {
-	v_${sel_inst_where.Variable_Name} = (${cn.body}) Ooaofooa.getDefaultInstance().getInstanceList(${cn.body}.class).get(${value});
+			    .if((sel_inst_where.cardinality == "any") or (sel_inst_where.cardinality == "one"))
+if(v_${var.Name} == null) {
+	v_${var.Name} = (${cn.body}) Ooaofooa.getDefaultInstance().getInstanceList(${cn.body}.class).get(${value});
 }
                 .else
-${cn.body} v_${sel_inst_where.Variable_Name}2 = (${cn.body}) Ooaofooa.getDefaultInstance().getInstanceList(${cn.body}.class).get(${value});
-List<${cn.body}> v_${sel_inst_where.Variable_Name}List = new ArrayList<${cn.body}>();
-if(v_${sel_inst_where.Variable_Name}1 != null) {
-	v_${sel_inst_where.Variable_Name}List.add(v_${sel_inst_where.Variable_Name}1);
+${cn.body} v_${var.Name}2 = (${cn.body}) Ooaofooa.getDefaultInstance().getInstanceList(${cn.body}.class).get(${value});
+List<${cn.body}> v_${var.Name}List = new ArrayList<${cn.body}>();
+if(v_${var.Name}1 != null) {
+	v_${var.Name}List.add(v_${var.Name}1);
 }
-if(v_${sel_inst_where.Variable_Name}2 != null) {
-	v_${sel_inst_where.Variable_Name}List.add(v_${sel_inst_where.Variable_Name}2);
+if(v_${var.Name}2 != null) {
+	v_${var.Name}List.add(v_${var.Name}2);
 }
-${cn.body}[] v_${sel_inst_where.Variable_Name} = v_${sel_inst_where.Variable_Name}List.toArray(new ${cn.body}[v_${sel_inst_where.Variable_Name}List.size()]);
+${cn.body}[] v_${var.Name} = v_${var.Name}List.toArray(new ${cn.body}[v_${var.Name}List.size()]);
 				.end if
 			  .end if
             .else
@@ -1006,27 +1005,27 @@ ${cn.body}[] v_${sel_inst_where.Variable_Name} = v_${sel_inst_where.Variable_Nam
 				 .end if
 			  .end if
 			  .if(first binary_ops)
-			    .if((sel_inst_where.cardinality == "ANY") or (sel_inst_where.cardinality == "ONE"))
-v_${sel_inst_where.Variable_Name} = (${cn.body}) modelRoot.getInstanceList(${cn.body}.class).getGlobal(${sysRef}${value});
+			    .if((sel_inst_where.cardinality == "any") or (sel_inst_where.cardinality == "one"))
+v_${var.Name} = (${cn.body}) modelRoot.getInstanceList(${cn.body}.class).getGlobal(${sysRef}${value});
                 .else
-${cn.body} v_${sel_inst_where.Variable_Name}1 = (${cn.body}) modelRoot.getInstanceList(${cn.body}.class).getGlobal(${sysRef}${value});
-List<${cn.body}> v_${sel_inst_where.Variable_Name}List = new ArrayList<${cn.body}>();
-if(v_${sel_inst_where.Variable_Name}1 != null) {
-	v_${sel_inst_where.Variable_Name}List.add(v_${sel_inst_where.Variable_Name}1);
+${cn.body} v_${var.Name}1 = (${cn.body}) modelRoot.getInstanceList(${cn.body}.class).getGlobal(${sysRef}${value});
+List<${cn.body}> v_${var.Name}List = new ArrayList<${cn.body}>();
+if(v_${var.Name}1 != null) {
+	v_${var.Name}List.add(v_${var.Name}1);
 }
-${cn.body}[] v_${sel_inst_where.Variable_Name} = v_${sel_inst_where.Variable_Name}List.toArray(new ${cn.body}[v_${sel_inst_where.Variable_Name}List.size()]);
+${cn.body}[] v_${var.Name} = v_${var.Name}List.toArray(new ${cn.body}[v_${var.Name}List.size()]);
 				.end if
               .else
-			    .if((sel_inst_where.cardinality == "ANY") or (sel_inst_where.cardinality == "ONE"))
-if(v_${sel_inst_where.Variable_Name} == null) {
-	v_${sel_inst_where.Variable_Name} = (${cn.body}) modelRoot.getInstanceList(${cn.body}.class).getGlobal(${sysRef}${value});
+			    .if((sel_inst_where.cardinality == "any") or (sel_inst_where.cardinality == "one"))
+if(v_${var.Name} == null) {
+	v_${var.Name} = (${cn.body}) modelRoot.getInstanceList(${cn.body}.class).getGlobal(${sysRef}${value});
 }
                 .else
-${cn.body} v_${sel_inst_where.Variable_Name}2 = (${cn.body}) modelRoot.getInstanceList(${cn.body}.class).getGlobal(${sysRef}${value});
-if(v_${sel_inst_where.Variable_Name}2 != null) {
-	v_${sel_inst_where.Variable_Name}List.add(v_${sel_inst_where.Variable_Name}2);
+${cn.body} v_${var.Name}2 = (${cn.body}) modelRoot.getInstanceList(${cn.body}.class).getGlobal(${sysRef}${value});
+if(v_${var.Name}2 != null) {
+	v_${var.Name}List.add(v_${var.Name}2);
 }
-v_${sel_inst_where.Variable_Name} = v_${sel_inst_where.Variable_Name}List.toArray(new ${cn.body}[v_${sel_inst_where.Variable_Name}List.size()]);
+v_${var.Name} = v_${var.Name}List.toArray(new ${cn.body}[v_${var.Name}List.size()]);
 				.end if
 			  .end if
             .end if
@@ -1038,9 +1037,38 @@ v_${sel_inst_where.Variable_Name} = v_${sel_inst_where.Variable_Name}List.toArra
   .if(non_single_unique_id == true)
     .invoke gcqd = get_class_query_decl( tgt_obj, where_clause )
 ${gcqd.body}\
-    .invoke gss = gen_select_statement(sel_inst_where, gcqd.query_new )
+    .invoke gss = gen_select_fiw_statement(sel_inst_where, gcqd.query_new )
 ${gss.body}\
   .end if
+.end function
+.function gen_select_fiw_statement
+  .param inst_ref sel_inst
+  .param string where_clause_arg
+  .// --------------------------------------------------------
+  .// select instance statement
+  .// --------------------------------------------------------
+    .select any tgt_obj related by sel_inst->O_OBJ[R676]
+    .assign mr = "modelRoot"
+    .if ( "$l{tgt_obj.Descrip:PEI}" == "true" )
+      .invoke package = get_package()
+      .assign application_root_class = package.application_root_class
+      .assign mr = "${application_root_class}.getDefaultInstance()"
+    .end if
+    .invoke cn = get_class_name( tgt_obj )
+    .select one statement related by sel_inst->ACT_SMT[R603]
+    .select one var related by sel_inst->V_VAR[R665]
+    .if (sel_inst.cardinality == "many")
+      .if (sel_inst.is_implicit == 1)
+${cn.body} [] \
+      .end if
+v_${var.Name} = ${cn.body}.$cr{tgt_obj.Name}Instances(${mr}${where_clause_arg}) ;
+    .else
+      .// ANY case
+      .if (sel_inst.is_implicit == 1)
+${cn.body} \
+      .end if
+v_${var.Name} = ${cn.body}.$cr{tgt_obj.Name}Instance(${mr}${where_clause_arg}) ;
+    .end if
 .end function
 .// --------------------------------------------------------
 .// select related by where statements
@@ -1065,7 +1093,7 @@ ${gss.body}\
   .// --------------------------------------------------------
   .invoke gll = get_last_link_in_chain( sel_rel_where )
   .assign last_link = gll.last_link
-  .select any tgt_obj from instances of O_OBJ where (selected.Key_Lett == last_link.Target_Obj_KL)
+  .select any tgt_obj related by last_link->O_OBJ[R678]
   .select any where_clause related by sel_rel_where_subt->V_VAL[R611]
   .assign emit_code = true
   .assign userBridgeName = ""
@@ -1088,18 +1116,19 @@ ${gss.body}\
       .// currently the selection dialog only supports
       .// a single selection, if multiple selection is
       .// desired then this must change
-      .assign sel_rel_where.cardinality = "ONE"
+      .assign sel_rel_where.cardinality = "one"
     .else
-      .assign sel_rel_where.cardinality = "MANY"
+      .assign sel_rel_where.cardinality = "many"
     .end if
-    .assign temp = sel_rel_where.Variable_Name
-    .assign sel_rel_where.Variable_Name = sel_rel_where.Variable_Name + "Instances"
+    .select one var related by sel_rel_where->V_VAR[R638]
+    .assign temp = var.Name
+    .assign var.Name = var.Name + "Instances"
     .if(userBridgeName == "selectExisting")
-      .assign sel_rel_where.Variable_Name = temp  
+      .assign var.Name = temp  
     .end if
     .invoke gss = gen_select_inst_rel_by_statement(sel_rel_where_subt, "" )
 ${gss.body}\
-    .assign sel_rel_where.Variable_Name = temp
+    .assign var.Name = temp
   .end if
 .end function
 .//
@@ -1109,7 +1138,7 @@ ${gss.body}\
 .function gen_event_gen_statements
   .select many event_gen_stmts from instances of E_GEN
   .for each event_gen_stmt in event_gen_stmts
-    .select one statement related by event_gen_stmt->ACT_SMT[R700]
+    .select one statement related by event_gen_stmt->E_GSME[R705]->E_GES[R703]->E_ESS[R701]->ACT_SMT[R603]
     .invoke result = gen_event_gen_statement(event_gen_stmt)
     .assign statement.buffer = "${result.body}"
   .end for
@@ -1117,21 +1146,22 @@ ${gss.body}\
 .//
 .function gen_event_gen_statement
   .param inst_ref evt_gen
-  .select any evt from instances of SM_EVT where (selected.Drv_Lbl == evt_gen.Event_Label)
-// Generate event ${evt_gen.Event_Label}:$cr{evt.Mning} to ${evt_gen.Variable_Name}
-  .if ("$l{evt_gen.Variable_Name}" != "self")
-if (v_${evt_gen.Variable_Name} != null) {
-  v_${evt_gen.Variable_Name}.$cr{evt.Mning}(false \
+  .select one evt related by evt_gen->E_GSME[R705]->SM_EVT[R707]
+  .select one var related by evt_gen->V_VAR[R712]
+// Generate event ${evt.Drv_Lbl}:$cr{evt.Mning} to ${var.Name}
+  .if ("$l{var.Name}" != "self")
+if (v_${var.Name} != null) {
+  v_${var.Name}.$cr{evt.Mning}(false \
   .else
 $cr{evt.Mning}(true \
   .end if
-  .select many parameters related by evt_gen->V_PAR[R701]
+  .select many parameters related by evt_gen->E_GSME[R705]->E_GES[R703]->E_ESS[R701]->V_PAR[R700]
   .if ( not_empty parameters )
     .invoke params = gen_parameter_list( parameters, false )
 , ${params.body} \
   .end if
 ) ;
-  .if ("$l{evt_gen.Variable_Name}" != "self")
+  .if ("$l{var.Name}" != "self")
 }
 else {
   Throwable t = new Throwable();
@@ -1191,18 +1221,19 @@ $cr{tgt_obj.Name}_assgner_c.$cr{evt.Mning}(true \
 .function gen_transform_statement
   .param inst_ref transform_call
   .assign root_arg_included = false
-  .select any targetObject from instances of O_OBJ where (selected.Key_Lett == transform_call.Object_KL)
-  .select any oper related by targetObject->O_TFR[R115] where (selected.Name == transform_call.Method_Name)
+  .select one oper related by transform_call->O_TFR[R673]
+  .select one targetObject related by oper->O_OBJ[R115]
+  .select one var related by transform_call->V_VAR[R667]
   .if (oper.Instance_Based != 1)
     .assign root_arg_included = true
     .invoke cn = get_class_name ( targetObject)
-${cn.body}.$cr{transform_call.Method_Name}(modelRoot\
+${cn.body}.$cr{oper.Name}(modelRoot\
   .else
-    .if ("$l{transform_call.Variable_Name}" != "self")
-if (v_${transform_call.Variable_Name} != null) {
-v_${transform_call.Variable_Name}.\
+    .if ("$l{var.Name}" != "self")
+if (v_${var.Name} != null) {
+v_${var.Name}.\
     .end if
-$cr{transform_call.Method_Name}(\
+$cr{oper.Name}(\
   .end if
   .select many parameters related by transform_call->V_PAR[R627]
   .if ( not_empty parameters )
@@ -1210,13 +1241,15 @@ $cr{transform_call.Method_Name}(\
 ${params.body} \
   .end if
 ) ;
-  .if (("$l{transform_call.Variable_Name}" != "self") and (oper.Instance_Based == 1))
+  .if ((oper.Instance_Based == 1) and (not_empty var))
+    .if ("$l{var.Name}" != "self")
 }
 else {
   Throwable t = new Throwable();
   t.fillInStackTrace();
   CorePlugin.logError("Attempted to call an operation on a null instance.", t);
 }
+    .end if
   .end if
 .end function
 .//
@@ -1239,7 +1272,9 @@ else {
 .function gen_bridge_statement
   .param inst_ref bridge_call
   .//
-$cr{bridge_call.External_Entity_KL}_c.$cr{bridge_call.Method_Name}(\
+  .select one bridge related by bridge_call->S_BRG[R674]
+  .select one ee related by bridge->S_EE[R19]
+$cr{ee.Key_Lett}_c.$cr{bridge.Name}(\
   .select many parameters related by bridge_call->V_PAR[R628]
   .if ( not_empty parameters )
     .invoke params = gen_parameter_list( parameters, false )
@@ -1265,9 +1300,13 @@ ${params.body} \
 .function gen_func_statement
   .param inst_ref func_call
   .//
-  .select any domain from instances of S_DOM
+  .select one domain related by func_call->S_SYNC[R675]->S_DOM[R23]
+  .if (empty domain)
+    .select one domain related by func_call->S_FIP[R31]->S_FPK[R31]->S_DOM[R29]
+  .end if
   .invoke result = get_domain_name( domain )
-${result.body}.$cr{func_call.Function_Name}(modelRoot \
+  .select one func related by func_call->S_SYNC[R675]
+${result.body}.$cr{func.Name}(modelRoot \
   .select many parameters related by func_call->V_PAR[R669]
   .if ( not_empty parameters )
     .invoke params = gen_parameter_list( parameters, true )
@@ -1298,7 +1337,7 @@ return \
   .if (not_empty value)
 		.//
 		.// resolve the value's core data type
-		.select any valueType from instances of S_DT where ("${selected.DT_ID}" == value.DT_ID)
+		.select any valueType related by value->S_DT[R820]
 		.invoke result = getCoreDataType(valueType);
 		.assign valueType = result.coreType;
 		.//
@@ -1321,7 +1360,7 @@ return \
 					.// syntax error in the generated code
 					.assign intCast1 = "(int)("
 					.assign intCast2 = ")"
-  .end if
+                .end if
 			.end if
 		.end if 
 		.//

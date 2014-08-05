@@ -2,8 +2,8 @@
 <!--
 
  File:      $RCSfile: build.xml,v $
- Version:   $Revision: 1.24 $
- Modified:  $Date: 2013/01/10 23:16:24 $
+ Version:   $Revision: 1.24.34.1 $
+ Modified:  $Date: 2013/07/19 12:26:00 $
 
  (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
 
@@ -12,56 +12,69 @@
 
   <property environment="env"/>
   <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\bin" />
-
+  <property name="mc_bin_dir" value="C:\MentorGraphics\VSx_Dev_9\eclipse_extensions\BridgePoint\eclipse\plugins\com.mentor.nucleus.bp.mc.c.source_3.6.5\mc3020\bin" />
+	
   <target name="do.nothing" />
 
   <target name="generate-with-file_io.java" description="Generate Java code for domain">
   	<!--  param1 = <domain name>
   	      param2 = $c{ <domain name> }
   	      param3 = MC-Java path
+  	      param4 = file_io_schema
+  	      param5 = start package
+  	      param6 = end package
+  	      param7 = prebuilder exported filename
+  	      param8 = pass count
   	-->
-		<exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+  	<echo>Building from: gen/code_generation/${param1}-${param8}.sql</echo>
+  	<copy file="gen/code_generation/${param1}-${param8}.sql" tofile="gen/code_generation/${param1}.xtuml"/>
+  	<exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}\xtumlmc_build.exe" >
+  	      <arg line="xtumlmc_cleanse_for_BridgePoint ${mcjava.project.root}\gen\code_generation sql/${param1}-${param8}.sql" />
+  	</exec>
+  	<exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
 		    <env key="PTC_MC_ARC_DIR" value="${param3}" />
 	    	<env key="PTC_MCC_SS_START" value="${param5}" />
 	    	<env key="PTC_MCC_SS_END" value="${param6}" />
 			<env key="VERIFY_SELECTS" value="${verify_selects}" />
+            <env key="PTC_MCC_ROOT" value="${param1}" />
 			<arg line="-nopersist
 				-import sql/${param4}.sql
 				-import ../com.mentor.nucleus.bp.io.mdl/sql/file_io.pei.sql
 				-import ${param3}/ooa_schema.sql
-				-import sql/${param1}.sql
-				-arch ${param3}/ooa_oal_pop.arc
-				-import sql/${param2}.bpi.sql
+				-d 0
+				-import sql/${param1}-${param8}.sql
 				-arch ${param3}/verify_selects.arc
 				-arch ${param3}/java.arc" />
 		</exec>
-    <delete file="____actn.arc" />
-    <delete file="____file.txt" />
-    <delete file="blck_id" />
+        <delete file="gen/code_generation/${param1}.xtuml" />
    </target>
 
    <target name="generate.java" description="Generate Java code for domain">
 <!--  param1 = <domain name>
       param2 = $c{ <domain name> }
       param3 = MC-Java path
+      param4 = file_io_schema
+      param5 = start package
+      param6 = end package
+      mcjava.project.root = the root of the project being built
 -->
+    <echo>Building from: gen/code_generation/${param1}.sql</echo>
+    <copy file="gen/code_generation/${param1}.sql" tofile="gen/code_generation/${param1}.xtuml"/>
+    <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}\xtumlmc_build.exe" >
+          <arg line="xtumlmc_cleanse_for_BridgePoint ${mcjava.project.root}\gen\code_generation sql/${param1}.sql" />
+    </exec>
     <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
 	    <env key="PTC_MC_ARC_DIR" value="${param3}" />
     	<env key="PTC_MCC_SS_START" value="" />
     	<env key="PTC_MCC_SS_END" value="" />
 		<env key="VERIFY_SELECTS" value="${verify_selects}" />
+        <env key="PTC_MCC_ROOT" value="${param1}" />
 		<arg line="-nopersist
 			-import ${param3}/ooa_schema.sql
 			-import sql/${param1}.sql
-			-arch ${param3}/ooa_oal_pop.arc
-			-import sql/${param2}.bpi.sql
 			-arch ${param3}/verify_selects.arc
 			-arch ${param3}/java.arc" />
 	</exec>
-
-    <delete file="____actn.arc" />
-    <delete file="____file.txt" />
-    <delete file="blck_id" />
   </target>
 
   <target name="generate.schema" description="Generate schema from sql file">

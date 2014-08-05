@@ -96,7 +96,7 @@
 	<property name="java_cond_test.sql.dep" value="${sql_cond_test.output}" />
 	<property name="java_cond_test.color.dep" value="verify_sel_cond_test_startspec.clr,verify_sel_cond_test_import_spec.clr,verify_sel_cond_test_package_spec.clr" />
 
-	<property name="java.tj.dep" value="ooa_schema.sql,${ooa_oal_pop.arc.depends},${java.arc.depends}" />
+	<property name="java.tj.dep" value="ooa_schema.sql,${java.arc.depends}" />
 
 	<property name="java.output" value="src/Verify_sel.java" />
 	<property name="java_cond_test.output" value="src/Verify_sel_cond_test.java" />

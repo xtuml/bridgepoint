@@ -1,8 +1,8 @@
 .//=====================================================================
 .//
 .// File:      $RCSfile: function_body.inc,v $
-.// Version:   $Revision: 1.45 $
-.// Modified:  $Date: 2013/01/17 03:38:58 $
+.// Version:   $Revision: 1.45.80.1 $
+.// Modified:  $Date: 2013/07/19 12:25:14 $
 .//
 .// (c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
 .//
@@ -48,7 +48,7 @@
       .assign iteration_req = false
       .select many context_items related by wfl->W_CTI[R2003]
       .for each context_item in context_items
-        .if (context_item.Type == "MANY")
+        .if (context_item.Type == "many")
           .assign iteration_req = true
           .// a set of values must be placed in a new array for processing
           .select one class related by context_item->O_OBJ[R2002]
@@ -87,7 +87,7 @@
             .assign firstContextItemName = context_item.Name
       ${cn.body} v_${context_item.Name} = (${cn.body})context;
           .elif(not_last context_items)
-            .select any statement related by context_item->ACT_SMT[R2004]
+            .select any statement from instances of ACT_SMT where ("${selected.Statement_Id}" == context_item.Statement_ID)
             .select any srw_stmt related by statement->ACT_SEL[R603]->ACT_SRW[R664]
             .select one srw_val related by srw_stmt->V_VAL[R611]
             .invoke hubi = has_user_bridge_invocation( srw_val )
@@ -225,7 +225,8 @@
     .// Singleton and set context variables now in place. Now translate
     .// the action language and emit the results.
     .//
-    .select any action from instances of ACT_ACT where (selected.Action_Id == "${wfl.Sync_Id}")
+    .select any function from instances of S_SYNC where (selected.Sync_Id == wfl.Sync_Id)
+    .select one action related by function->ACT_FNB[R695]->ACT_ACT[R698]
     .if (not_empty action)
       .select one outer_block related by action->ACT_BLK[R601] where (selected.Block_Id == action.Block_Id)
       .if (not_empty outer_block)
