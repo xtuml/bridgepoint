@@ -801,7 +801,7 @@ ${cfca.body}\
             .end for
             };
         source = (${class_name}) instances.get(key);
-        if (source != null) {
+        if (source != null  && !modelRoot.isCompareRoot()) {
            source.convertFromProxy();
            source.batchUnrelate();
             .invoke cfcb_source = create_full_constructor_body(attributes, false, "source.")
@@ -1718,22 +1718,6 @@ private static ${class_name} find$cr{object.Name}Instance(ModelRoot modelRoot, $
   }          
                 .end if
               .end if
-              .if ( not_empty referential )
-  public boolean ${aa.body}IsSatisfied()
-  {
-                .select many oref_set related by referential->O_REF[R108]
-                .for each oref in oref_set
-                  .invoke result = get_referential_var_name_of_rgo(oref)
-                  .assign ref_var_name = result.var_name
-                  .assign id_attr_accessor = result.id_attr_accessor
-    if ( ${ref_var_name} != null )
-    {
-      return true;
-    }
-                .end for
-    return false;
-  }
-              .end if
   public $r{typedecl.body} ${aa.body}()
   {
               .if ( empty dbattr )
@@ -1748,6 +1732,11 @@ private static ${class_name} find$cr{object.Name}Instance(ModelRoot modelRoot, $
                     .assign id_attr_accessor = result.id_attr_accessor
     if ( ${ref_var_name} != null )
     {
+      if(getModelRoot().isCompareRoot()) {
+          if(${ref_var_name}.isProxy()) {
+              return $r{aa.body}CachedValue();
+          }
+      }
       return ${ref_var_name}.${id_attr_accessor}();
     }
                   .end for
