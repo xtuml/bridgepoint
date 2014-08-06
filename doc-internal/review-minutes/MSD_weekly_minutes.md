@@ -8,7 +8,36 @@ MSD Weekly Meeting Minutes
     [Clearquest issue dts0100563933](http://dtsweb.wv.mentorg.com/cqweb/#/dtr01/dts01/RECORD/dts0100563933&noframes=true&format=HTML&recordType=Defect).
 * In January 2013 the document began being maintained here on github.  Issue #30 is the github tracking issue now.
 
+---
+---
 
+    Date:     06 August 2014
+    Start:    9:00 MST  
+    End:      9:49
+    Present:  Keith, Bob, Campbell, Cort, Travis, others ...
+    Dean, others ...
+
+### Engineering status
+
+**Roy Clement-**  Roy is a CAE from Newbury, working for support.  Knowledgeable with design systems.  Worked for Mentor for 10 years.  Will be helping with BridgePoint support in Europe.  Next 4-5 weeks will ramp up knowledge of BridgePoint.  Just a bit delayed, supporting HDL designer as well.  Has a good background with eclipse based graphical tools.     
+
+**Keith -** A notice has been sent out for the xtUML modeling course.  It is open to all registered users.  Hopefully it should generate some traffic.  We will continue to add to it, adding model based testing recently.  We still have sections to complete.  Bob started CLI videos and will finish it.  May move some modules to an advanced course.  Still need the quiz section for the OAL course.  We will put the analysis videos on the back burner.  Dean produced an introduction video that hopefully will incorporate community involvement.  We will move on from the CSM videos remaining.  Started an index which will have continuing development.  The classes have a grade book, allowing us to see traffic. 
+
+**Bob -** Feedback from Montreal was generally good.  The first few modules were trivial, but this was expected.  The team would like a video explaining the differences between merge and rebase.  No additional recommendations for the training material.  Visited Wednesday - Friday, most of the team was present.  First learned about their workflow and process, the process is good just not well defined.  Suggested some additions to their process, mostly they were not using task-based branching.  Also suggested they provide documentation for their tasks.  Used the BridgePoint team's process as a guide.  They had no code review step, the process now includes a promoter.  Tested the process defined and addressed issues found.  Trained them using git with compare/merge using the process.  They ran into an xtUML merge bug, which scared them off of compare/merge.  Focused on compare/merge for the last two days.  Also helped with their current sprint.  Helped with testing towards the end, had to help as the person did not know BridgePoint well.  Received the test model and figured out the bug in the test model.    
+
+Question (Dean): Was the SR to be raised a result of the trip?   
+Answer (Bob): Yes, and this problem would have been easily found if we address the SR.   
+
+**Travis -** An issue was found internally where merging can cause loss references to proxy elements.  Work was done to address this but video production was picked back up before completion.  The Ericsson Montreal team hit the same bug but in state machines using polymorphic events.  The work has been picked back up and redesigned to address both the class and state machine issues.  Further testing of all elements is under way so that we can deliver a more robust compare/merge.   
+   
+**Cort -**  We have some money remaining for The Other firm.  We want to spend that money so that we can transfer knowledge that allows us to manage the site.        
+   
+**Dean -**  John and Stephen are working on a new in-class training course.  This training course we be delivered to Ericsson and will complete the T1 hours.  The final version of the course material has been completed and sent to Budapest.  The class should be done next Wednesday.  The second part of the course will be delivered on December 8th.  The T1 hours remaining are 1 man week of hours for supporting Montreal.  We should run all of the hours out by the second week of September.  We may have two man days remaining.  Should see Japanese use of the training videos.  IT in Japan makes it harder to make use of the training videos.   
+   
+**Robert -** Sony has raised a System c model compiler issue.  It is a long running issue going on for about a year.
+
+**Cort -** There is another issue for hover text.  Received an SR for hover text and we have already solved it.  In the e-mail Umemoto-san is asking to us to file the ER quickly.      
+   
 ---
 ---
 
