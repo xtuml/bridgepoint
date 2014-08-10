@@ -22,7 +22,7 @@ x- 02  min   KB   6.2      Record what was done to address the problem
 
 229 code review
 1) In Transition.xtuml
-  _- 01  min    remove else condition (lines 15 & 16)
+  x- 01  min    remove else condition (lines 15 & 16)
 2) in EditorUtil.java
   x- 02  min    Check that we are only doing this for xtUML editor
   x- 03  min    raise eclipse bug, for the memento icon issue
