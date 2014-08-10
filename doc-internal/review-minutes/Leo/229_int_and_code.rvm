@@ -26,6 +26,8 @@ x- 02  min   KB   6.2      Record what was done to address the problem
 2) in EditorUtil.java
   x- 02  min    Check that we are only doing this for xtUML editor
   x- 03  min    raise eclipse bug, for the memento icon issue
+                a raised issue is already found, date March 2005
+                https://bugs.eclipse.org/bugs/show_bug.cgi?id=87874
 3) In create_modeladapter_java.arc:
   x- 04  min     add a comment in the exception around 256 and 281 to explain why we might hit this
   x- 05  min     Add a comment at lines 250 and 275 to be more clear about that is going on here
