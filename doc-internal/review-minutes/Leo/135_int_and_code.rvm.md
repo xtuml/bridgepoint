@@ -16,14 +16,14 @@ Present:  Keith, Nehad, Travis
 
 135 code review
 1) BPDebugModelPresentation.java
-  _- 01  min     remove lines 169 - 175
+  x- 01  min     remove lines 169 - 175
 2) BPValue.java
-  _- 02  min     Remove 312 - 316
-  _- 03  min     Remove the TODO on 317, is this an override?
-  _- 04  min     Reword the comment on 396 
-  _- 05  min     add curly braces for all if statements, especially around line 430 and on
+  x- 02  min     Remove 312 - 316
+  x- 03  min     Remove the TODO on 317, is this an override?
+  x- 04  min     Reword the comment on 396 
+  x- 05  min     add curly braces for all if statements, especially around line 430 and on
 3) General JUnit comment
-  _- 06  min    In the places where a "known failure" test was uncommented/re-enabled, change the comment from
+  x- 06  min    In the places where a "known failure" test was uncommented/re-enabled, change the comment from
 // Commenting out known failure tests.  See dts0100656068
 to
 // This area has been problematic in the past.  See this file's history and dts0100656068.
