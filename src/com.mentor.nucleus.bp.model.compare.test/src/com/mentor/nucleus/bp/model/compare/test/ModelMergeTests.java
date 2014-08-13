@@ -73,7 +73,7 @@ import com.mentor.nucleus.bp.model.compare.contentmergeviewer.SynchronizedTreeVi
 import com.mentor.nucleus.bp.model.compare.contentmergeviewer.TextualAttributeCompareElementType;
 import com.mentor.nucleus.bp.model.compare.providers.ModelCompareContentProvider;
 import com.mentor.nucleus.bp.model.compare.providers.ObjectElementComparable;
-import com.mentor.nucleus.bp.model.compare.providers.custom.AssociationComparable;
+import com.mentor.nucleus.bp.model.compare.providers.custom.AssociationSubtypeComparable;
 import com.mentor.nucleus.bp.test.TestUtil;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.CanvasTestUtils;
@@ -663,8 +663,8 @@ public class ModelMergeTests extends BaseTest {
 		ClassAsAssociatedOtherSide_c otherSide = ClassAsAssociatedOtherSide_c
 				.getOneR_AOTHOnR210(LinkedAssociation_c
 						.getManyR_ASSOCsOnR206(association));
-		AssociationComparable comparable1 = new AssociationComparable(oneSide);
-		AssociationComparable comparable2 = new AssociationComparable(otherSide);
+		AssociationSubtypeComparable comparable1 = new AssociationSubtypeComparable(oneSide);
+		AssociationSubtypeComparable comparable2 = new AssociationSubtypeComparable(otherSide);
 		assertTrue(
 				"A class as associated one side and a class as associated other side were considered identical.",
 				!comparable1.equals(comparable2));
