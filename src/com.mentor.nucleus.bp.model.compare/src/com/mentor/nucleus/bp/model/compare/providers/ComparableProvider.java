@@ -22,6 +22,7 @@ package com.mentor.nucleus.bp.model.compare.providers;
 //=====================================================================
 
 import com.mentor.nucleus.bp.core.Action_c;
+import com.mentor.nucleus.bp.core.Association_c;
 import com.mentor.nucleus.bp.core.Attribute_c;
 import com.mentor.nucleus.bp.core.BridgeMessage_c;
 import com.mentor.nucleus.bp.core.CantHappen_c;
@@ -49,6 +50,7 @@ import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 import com.mentor.nucleus.bp.model.compare.providers.custom.ActionComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.AssignedEventComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.AssociationComparable;
+import com.mentor.nucleus.bp.model.compare.providers.custom.AssociationSubtypeComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.AttributeComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.DerivedBaseAttributeComparable;
 import com.mentor.nucleus.bp.model.compare.providers.custom.EventMatrixComparable;
@@ -87,6 +89,9 @@ public class ComparableProvider {
 
 	private static ComparableTreeObject getNonRootModelElementComparable(
 			Object element) {
+		if (element instanceof Association_c) {
+			return new AssociationComparable((NonRootModelElement) element);
+		}
 		if (element instanceof Attribute_c) {
 			return new AttributeComparable((NonRootModelElement) element);
 		}
@@ -120,7 +125,7 @@ public class ComparableProvider {
 				|| element instanceof ClassAsSimpleFormalizer_c
 				|| element instanceof ClassAsAssociatedOneSide_c
 				|| element instanceof ClassAsAssociatedOtherSide_c) {
-			return new AssociationComparable((NonRootModelElement) element);
+			return new AssociationSubtypeComparable((NonRootModelElement) element);
 		}
 		if (element instanceof CantHappen_c
 				|| element instanceof EventIgnored_c) {

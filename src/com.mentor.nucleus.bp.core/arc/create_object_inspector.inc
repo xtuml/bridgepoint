@@ -312,7 +312,7 @@ ${rel_nav.body}\
                 .if("$l{attr.Descrip:readonly}" == "true")
                   .assign user_modifiable = "false"
                 .end if; 
-      attrSet[${original_attr_count}] = new ${model_element_class_name}("${name}", ${model_element_class_name}.ATTRIBUTE_ELEMENT,  invokeMethod(arg, "${attr_accessor.body}"), arg, "${attr_accessor.body}", $l{user_modifiable});
+      attrSet[${original_attr_count}] = new ${model_element_class_name}("${name}", ${model_element_class_name}.ATTRIBUTE_ELEMENT,  ((${class_name.body}) arg).${attr_accessor.body}(), arg, "${attr_accessor.body}", $l{user_modifiable});
                 .if(not_empty dbattr)
       attrSet[${original_attr_count}].setDerived();
                 .end if
@@ -339,7 +339,7 @@ ${rel_nav.body}\
       ${external_cn.body} ${external_attr.Attribute_Name}Owner = 
       ${rel_nav.body};
       if(${external_attr.Attribute_Name}Owner != null) {
-		   attrSet[${original_attr_count}] = new ObjectElement("${external_attr.Attribute_Name}", ObjectElement.ATTRIBUTE_ELEMENT, invokeMethod(${external_attr.Attribute_Name}Owner, "get${external_attr.Attribute_Name}"), arg, "get${external_attr.Attribute_Name}", $l{user_modifiable});
+		   attrSet[${original_attr_count}] = new ObjectElement("${external_attr.Attribute_Name}", ObjectElement.ATTRIBUTE_ELEMENT, ((${external_cn.body}) ${external_attr.Attribute_Name}Owner).get${external_attr.Attribute_Name}(), arg, "get${external_attr.Attribute_Name}", $l{user_modifiable});
 		   attrSet[${original_attr_count}].setAttributeOwner(${external_attr.Attribute_Name}Owner);
   	  }
     .assign original_attr_count = original_attr_count + 1

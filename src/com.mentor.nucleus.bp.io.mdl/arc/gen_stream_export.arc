@@ -237,7 +237,7 @@ ${result.body}
       if(element != null && !writtenInstances.contains(element)) {
         	Method method;
         	try {
-        	    if(!forceProxyExport) {
+        	    if(!element.getModelRoot().isCompareRoot()) {
 	        	    IPath rtoPath = new Path(element.getContent(m_path));
 	                String rtoSystem = getReferredToSystem(rtoPath);
 	                if (!rtoSystem.isEmpty()) {

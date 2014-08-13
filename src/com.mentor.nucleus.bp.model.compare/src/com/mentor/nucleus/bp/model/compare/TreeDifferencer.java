@@ -44,7 +44,7 @@ public class TreeDifferencer extends Differencer {
 	public void performDifferencing() {
 		if(left != null) {
 			for (Object l : left) {
-				collectDifferences(null, null, null, l);
+				collectDifferences(null, null, null, l, false);
 			}
 		}
 	}
@@ -55,7 +55,8 @@ public class TreeDifferencer extends Differencer {
 	 * 
 	 */
 	private void collectDifferences(Object leftParent, Object rightParent, Object ancestorParent,
-			Object l) {
+			Object l, boolean isContainedDifference) {
+		boolean contained = isContainedDifference;
 		ComparableTreeObject left = (ComparableTreeObject) contentProvider.getComparableTreeObject(l);
 		// first see if the element exists on both sides
 		Object right = locateElementInOtherVersion(rightParent, left, contentProvider, this.right);
@@ -67,19 +68,24 @@ public class TreeDifferencer extends Differencer {
 				TreeDifference leftDifference = new TreeDifference(left,
 						TreeDifference.VALUE_DIFFERENCE, true,
 						description,
-						getPathForElement(left, contentProvider));
+						getPathForElement(left, contentProvider), contained);
 				leftDifference.setLocation(getLocationOfElement(leftParent,
 						left, contentProvider));
 				TreeDifference rightDifference = new TreeDifference(right,
 						TreeDifference.VALUE_DIFFERENCE, true,
 						description,
-						getPathForElement(right, contentProvider));
+						getPathForElement(right, contentProvider), contained);
 				rightDifference.setLocation(getLocationOfElement(rightParent,
 						right, contentProvider));
 				leftDifference.setMatchingDifference(rightDifference);
 				rightDifference.setMatchingDifference(leftDifference);
 				addDifferenceToMap(left, leftDifference, true);
 				addDifferenceToMap(right, rightDifference, false);
+				// mark further differences as internal differences
+				// one case where this type of differencing is helpful
+				// is when the change is an unformalize, we mark the
+				// associations as different but need further detail
+				contained = true;
 			}
 			// recursively check the children, unless dealing
 			// with an empty element for left or right
@@ -88,7 +94,7 @@ public class TreeDifferencer extends Differencer {
 			}
 			Object[] children = contentProvider.getChildren(left);
 			for(Object child : children) {
-				collectDifferences(left, right, ancestor, child);
+				collectDifferences(left, right, ancestor, child, contained);
 			}
 		}
 	}
@@ -111,7 +117,7 @@ public class TreeDifferencer extends Differencer {
 		}
 		Object[] children = contentProvider.getChildren(parent);
 		for(Object child : children) {
-			if(child.equals(element)) {
+			if(child != null && child.equals(element)) {
 				return count;
 			}
 			count++;

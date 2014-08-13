@@ -123,7 +123,7 @@ import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.Transaction;
 import com.mentor.nucleus.bp.core.common.TransactionManager;
 import com.mentor.nucleus.bp.core.ui.AbstractModelExportFactory;
-import com.mentor.nucleus.bp.io.core.CoreExport;
+import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 import com.mentor.nucleus.bp.model.compare.ComparePlugin;
 import com.mentor.nucleus.bp.model.compare.CompareTransactionManager;
@@ -175,6 +175,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 	private static final String OUTGOING_COLOR = "OUTGOING_COLOR"; //$NON-NLS-1$
 	private static final String CONFLICTING_COLOR = "CONFLICTING_COLOR"; //$NON-NLS-1$
 	private static final String RESOLVED_COLOR = "RESOLVED_COLOR"; //$NON-NLS-1$
+	private static final String CONTAINED_COLOR = "CONTAINED_COLOR"; //$NON-NLS-1$
 	private RGB INCOMING_BASE;
 	private RGB INCOMING;
 	private RGB CONFLICT_BASE;
@@ -182,6 +183,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 	private RGB OUTGOING_BASE;
 	private RGB OUTGOING;
 	private RGB RESOLVED;
+	private RGB CONTAINED;
 	private HashMap<RGB, Color> colors;
 	private Action undo;
 	private Action redo;
@@ -340,9 +342,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 						.getModelExportFactory();
 				IRunnableWithProgress runnable = modelExportFactory.create(
 						root, baos, rootElement);
-				CoreExport.forceProxyExport = true;
 				runnable.run(new NullProgressMonitor());
-				CoreExport.forceProxyExport = false;
 				((IEditableContent) destination).setContent(baos.toByteArray());
 				if (destination instanceof LocalResourceTypedElement) {
 					((IFile) ((LocalResourceTypedElement) destination)
@@ -871,6 +871,14 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 					continue;
 				}
 				if((difference.getKind() & Differencer.DIRECTION_MASK) == Differencer.CONFLICTING && !copySelection) {
+					continue;
+				}
+				// if the difference is contained and the only difference
+				// display a dialog informing the user that they must copy
+				// the parent difference
+				if(differences.size() == 1 && difference.isContainedDifference()) {
+					UIUtil.displayWarning("The difference selected is a contained difference."
+							+ "  These differences are not mergeable alone, the parent difference should be selected.");
 					continue;
 				}
 				boolean changed = ModelMergeProcessor.merge(differencer,
@@ -1783,8 +1791,14 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		CONFLICT = interpolate(CONFLICT_BASE, bg, 0.6);
 
 		RESOLVED = registry.getRGB(RESOLVED_COLOR);
-		if (RESOLVED == null)
+		if (RESOLVED == null) {
 			RESOLVED = new RGB(0, 255, 0); // GREEN
+		}
+		
+		CONTAINED = registry.getRGB(CONTAINED_COLOR);
+		if (CONTAINED == null) {
+			CONTAINED = new RGB(50, 255, 25);
+		}
 	}
 
 	private RGB getBackground(Display display) {
@@ -1808,6 +1822,9 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		boolean ignoreAncestor = Utilities.getBoolean(
 				getCompareConfiguration(),
 				ICompareUIConstants.PROP_IGNORE_ANCESTOR, false);
+		if(difference.isContainedDifference()) {
+			return CONTAINED;
+		}
 		if (isThreeWay() && !ignoreAncestor) {
 			switch (difference.getKind() & Differencer.DIRECTION_MASK) {
 			case Differencer.RIGHT:

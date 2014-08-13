@@ -380,13 +380,22 @@ public class ModelMergeProcessor {
 			Ooaofooa modelRoot, TreeDifferencer differencer, boolean rightToLeft) throws IOException {
 		Object matchingDiffElement = difference.getMatchingDifference()
 				.getElement();
-		if(!(matchingDiffElement instanceof EmptyElement)) {
+		if(!(matchingDiffElement instanceof EmptyElement) && !matchingDiffElement.getClass().isInstance(diffElement)) {
 			// not supported
 			return false;
 		}
-		EmptyElement empty = (EmptyElement) matchingDiffElement;
-		NonRootModelElement parent = (NonRootModelElement) empty.getParent();
-		int newElementLocation = empty.getLocation();
+		int newElementLocation = difference.getLocation();
+		NonRootModelElement parent = null;
+		if(matchingDiffElement instanceof EmptyElement) {
+			EmptyElement empty = (EmptyElement) matchingDiffElement;
+			parent = (NonRootModelElement) empty.getParent();
+			newElementLocation = empty.getLocation();
+		} else {
+			ComparableTreeObject parentObject = (ComparableTreeObject) contentProvider
+					.getParent(matchingDiffElement);
+			parent = (NonRootModelElement) parentObject
+					.getRealElement();
+		}
 		// grab the existing children, so that ordering can be
 		// fixed after the batch relate calls
 		Object[] existingChildren = ((ITreeDifferencerProvider) contentProvider)
@@ -410,20 +419,20 @@ public class ModelMergeProcessor {
 		} else if(realElement instanceof ObjectElement) {
 			newObject = (NonRootModelElement) ((ObjectElement) realElement).getValue();
 		}
-		// look for the element locally, certain differences that
-		// were
-		// before this one may have created it, or it may be a
-		// location difference in the file
-		Object object = findObjectInDestination(modelRoot, newObject); 
-		if (object != null && !((NonRootModelElement) object).isProxy()) {
-			newElementLocation = getPersistenceLocation(parent, newObject, contentProvider);
-			return adjustPersistenceOrdering(object, newElementLocation);
-		}
 		if (matchingDiffElement != null
 				&& !(matchingDiffElement instanceof EmptyElement)) {
 			// this is a value difference, we need to dispose the current value
 			// first
 			disposeElement(matchingDiffElement);
+		}
+		// look for the element locally, certain differences that
+		// were
+		// before this one may have created it, or it may be a
+		// location difference in the file
+		Object object = findObjectInDestination(modelRoot, newObject);
+		if (object != null && !((NonRootModelElement) object).isProxy()) {
+			newElementLocation = getPersistenceLocation(parent, newObject, contentProvider);
+			return adjustPersistenceOrdering(object, newElementLocation, contentProvider);
 		}
 		// some situations required other data to be created first
 		handleCopyNew(newObject, differencer, contentProvider, modelRoot, rightToLeft);
@@ -550,7 +559,7 @@ public class ModelMergeProcessor {
 					.getElement());
 			newElementLocation = getPersistenceLocation(remoteParent,
 					difference.getElement(), contentProvider);
-			adjustPersistenceOrdering(newObject, newElementLocation);
+			adjustPersistenceOrdering(newObject, newElementLocation, contentProvider);
 			batchRelateAll(newObject, modelRoot, contentProvider);
 		}
 		handlePostCreation(newObject, (NonRootModelElement) realElement);
@@ -573,7 +582,7 @@ public class ModelMergeProcessor {
 		newObject = ComparableProvider.getComparableTreeObject(newObject);
 		int location = 0;
 		Object[] children = contentProvider.getChildren(parent);
-		for(Object child : children) {
+		for(Object child : children) { 
 			if(child.equals(newObject)) {
 				break;
 			}
@@ -592,12 +601,12 @@ public class ModelMergeProcessor {
 		return location;
 	}
 
-	private static boolean adjustPersistenceOrdering(Object object, int newElementLocation) {
-		object = getLastSupertype((NonRootModelElement) object);
+	private static boolean adjustPersistenceOrdering(Object object, int newElementLocation, ITreeDifferencerProvider provider) {
+		Object lastSupertype = getLastSupertype((NonRootModelElement) object);
 		// assure that the persisted location is correct
 		IPersistableElementParentDetails parentDetails = PersistenceManager
 				.getHierarchyMetaData().getParentDetails(
-						(NonRootModelElement) object);
+						(NonRootModelElement) lastSupertype);
 		if (parentDetails.isMany()) {
 			Object[] localDetails = new Object[] {
 					parentDetails.getParent(), parentDetails.getChild(),
@@ -605,6 +614,9 @@ public class ModelMergeProcessor {
 					parentDetails.getAssociationPhrase(),
 					parentDetails.getChildKeyLetters() };
 			int localLocation = getLocationForElementInSource(localDetails);
+			// the persistence location needs to be adjusted for missing
+			// elements as they are not considered in persistence ordering
+			//newElementLocation = adjustPersistenceLocationForMissingElements(object, newElementLocation, provider);
 			if(newElementLocation != localLocation) {
 				callSetOrderOperation(newElementLocation, localDetails);
 				return true;
@@ -612,6 +624,44 @@ public class ModelMergeProcessor {
 		}
 		return false;
 
+	}
+
+	private static int adjustPersistenceLocationForMissingElements(
+			Object localElement, int localLocation,
+			ITreeDifferencerProvider provider) {
+		// get the children of the local object's parent
+		Object parent = provider.getParent(localElement);
+		Object[] children = provider.getChildren(parent);
+		IModelClassInspector inspector = new ModelInspector();
+		if (localElement instanceof NonRootModelElement) {
+			NonRootModelElement localNrme = (NonRootModelElement) localElement;
+			if (localNrme.getModelRoot() instanceof Ooaofgraphics) {
+				inspector = new GraphicalModelInspector();
+			}
+		}
+		int expectedSlot = inspector.getTreeDifferenceSlot(localElement);
+		// for each of them if we find a missing element and its matching
+		// element on the other side has a matching slot location then
+		// decrease the expected location
+		for (int i = 0; i < children.length; i++) {
+			if (children[i] instanceof EmptyElement) {
+				Object missingElement = ((EmptyElement) children[i])
+						.getRepresentedMissingElement();
+				if (missingElement instanceof ComparableTreeObject) {
+					missingElement = ((ComparableTreeObject) missingElement)
+							.getRealElement();
+				}
+				if (inspector.getTreeDifferenceSlot(missingElement) == expectedSlot) {
+					localLocation--;
+				}
+			}
+			// break once we hit our element
+			if (children[i].equals(ComparableProvider
+					.getComparableTreeObject(localElement))) {
+				break;
+			}
+		}
+		return localLocation;
 	}
 
 	private static void handlePostCreation(NonRootModelElement newObject, NonRootModelElement originalObject) {
@@ -698,6 +748,12 @@ public class ModelMergeProcessor {
 			// here we need to create a new SEME entry
 			// or convert an existing one
 			Transition_c transition = (Transition_c) newObject;
+			// only do so if we are dealing with a transition with
+			// an assigned event
+			NoEventTransition_c net = NoEventTransition_c.getOneSM_NETXNOnR507(transition);
+			if(net != null) {
+				return;
+			}
 			StateEventMatrixEntry_c seme = StateEventMatrixEntry_c
 					.getOneSM_SEMEOnR504(NewStateTransition_c
 							.getOneSM_NSTXNOnR507((Transition_c) newObject));
@@ -1241,7 +1297,7 @@ public class ModelMergeProcessor {
 					TreeDifferencer.RIGHT | TreeDifferencer.ADDITION,
 					TreeDifferencer.getPathForElement(ComparableProvider
 							.getComparableTreeObject(element.getParent()),
-							contentProvider));
+							contentProvider), false);
 			// locate the new empty element's parent
 			Object otherElement = originalDifference.getMatchingDifference().getElement();
 			// the parent is this element's parent's parent
@@ -1257,7 +1313,7 @@ public class ModelMergeProcessor {
 					TreeDifference.LOCATION_DIFFERENCE, true,
 					TreeDifferencer.RIGHT | TreeDifferencer.ADDITION,
 					TreeDifferencer.getPathForElement(localOwner,
-							contentProvider));
+							contentProvider), false);
 			matchingDifference.setParent(localOwner);
 			difference.setMatchingDifference(matchingDifference);
 			matchingDifference.setMatchingDifference(difference);
@@ -1688,7 +1744,6 @@ public class ModelMergeProcessor {
 							specialElements.length);
 				}
 			}
-			CoreExport.forceProxyExport = forceProxies;
 			CoreExport.ignoreAlternateChildren = true;
 			CoreExport.exportSupertypes = false;
 			CoreExport.ignoreMissingPMCErrors = true;
@@ -1726,7 +1781,6 @@ public class ModelMergeProcessor {
 						Selection.getInstance().removeFromSelection(clazz);
 					}
 				}
-				CoreExport.forceProxyExport = false;
 				CoreExport.ignoreAlternateChildren = false;
 				CoreExport.exportSupertypes = true;
 				CoreExport.ignoreMissingPMCErrors = false;
