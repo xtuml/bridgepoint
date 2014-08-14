@@ -123,7 +123,6 @@ import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.Transaction;
 import com.mentor.nucleus.bp.core.common.TransactionManager;
 import com.mentor.nucleus.bp.core.ui.AbstractModelExportFactory;
-import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 import com.mentor.nucleus.bp.model.compare.ComparePlugin;
 import com.mentor.nucleus.bp.model.compare.CompareTransactionManager;
@@ -842,6 +841,20 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				}
 			}
 		}
+		List<TreeDifference> mergeDifferences = new ArrayList<TreeDifference>();
+		// remove any contained differences and if the
+		// container difference is not selected add it
+		for(TreeDifference difference : differences) {
+			if(difference.isContainedDifference()) {
+				TreeDifference container = difference.getContainerDifference();
+				if(container != null && !mergeDifferences.contains(container)) {
+					mergeDifferences.add(container);
+				} // if for some reason there is no container leave the
+				  // difference out of the merge
+			} else {
+				mergeDifferences.add(difference);
+			}
+		}
 		Transaction transaction = compareTransactionManager
 				.startCompareTransaction();
 		try {
@@ -854,7 +867,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			// when using the copy all action
 			List<TreeDifference> additionsOrRemovals = new ArrayList<TreeDifference>();
 			List<TreeDifference> remainder = new ArrayList<TreeDifference>();
-			for (TreeDifference difference : differences) {
+			for (TreeDifference difference : mergeDifferences) {
 				if (difference.getElement() != null
 						&& difference.getMatchingDifference().getElement() != null) {
 					remainder.add(difference);
@@ -862,23 +875,15 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 					additionsOrRemovals.add(difference);
 				}
 			}
-			differences.clear();
-			differences.addAll(additionsOrRemovals);
-			differences.addAll(remainder);
-			for (TreeDifference difference : differences) {
+			mergeDifferences.clear();
+			mergeDifferences.addAll(additionsOrRemovals);
+			mergeDifferences.addAll(remainder);
+			for (TreeDifference difference : mergeDifferences) {
 				// skip graphical data at this point
 				if(SynchronizedTreeViewer.differenceIsGraphical(difference)) {
 					continue;
 				}
 				if((difference.getKind() & Differencer.DIRECTION_MASK) == Differencer.CONFLICTING && !copySelection) {
-					continue;
-				}
-				// if the difference is contained and the only difference
-				// display a dialog informing the user that they must copy
-				// the parent difference
-				if(differences.size() == 1 && difference.isContainedDifference()) {
-					UIUtil.displayWarning("The difference selected is a contained difference."
-							+ "  These differences are not mergeable alone, the parent difference should be selected.");
 					continue;
 				}
 				boolean changed = ModelMergeProcessor.merge(differencer,
