@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
@@ -182,9 +182,10 @@ INSERT INTO O_TFR
 	'',
 	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
 	1,
-	'select one icomp related by self->CL_IC[R4700];
-if(not_empty icomp)
-  unrelate self from icomp across R4700;
+	'select one portRef related by self->CL_POR[R4708];
+if(not_empty portRef)
+   unrelate self from portRef across R4708;
+   portRef.dispose();  
 end if;
 select one ref related by self->C_IR[R4701];
 if(not_empty ref)
@@ -230,7 +231,7 @@ if(not_empty referenceProxy) and
   // code before the imported component has had a chance
   // to get resolved, its resolveComponent operation will
   // handle the resolution we require here
-  select one importedComp related by self->CL_IC[R4700];
+ select one importedComp related by self->CL_POR[R4708]->CL_IC[R4707];
   if(not_empty importedComp)
     importedComp.resolveComponent();
   end if;
@@ -250,7 +251,7 @@ INSERT INTO O_TFR
  */
 select one interfaceReference related by self->C_IR[R4701];
 select one port related by interfaceReference->C_PO[R4016];
-select one thisComp related by self->CL_IC[R4700]->C_C[R4201];
+select one thisComp related by self->CL_POR[R4708]->CL_IC[R4707]->C_C[R4201];
 select one refComp related by interfaceReference->C_PO[R4016]->C_C[R4010];
 if(empty interfaceReference or
                   Util::isProxy(element:interfaceReference.convertToInstance())
@@ -285,7 +286,7 @@ INSERT INTO O_TFR
 	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
 	1,
 	'select one component related by self->C_IR[R4701]->C_PO[R4016]->C_C[R4010];
-select one selfComponent related by self->CL_IC[R4700]->C_C[R4201];
+select one selfComponent related by self->CL_POR[R4708]->CL_IC[R4707]->C_C[R4201];
 if(component.Id == selfComponent.Id)
   return true;
 end if;
@@ -375,7 +376,7 @@ INSERT INTO O_REF
 	'',
 	'Interface Reference',
 	'Id',
-	'R4701');
+	'R4701.''imports''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
 	"da506614-285c-48f1-a956-e8de17ba530c",
@@ -420,57 +421,6 @@ INSERT INTO S_DT_PROXY
 	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
-	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	0,
-	"bb116e28-b106-49aa-b480-95c153ff8155",
-	"161a15c1-cd15-4b55-a47e-59ac7d33bd3c",
-	"6134e501-98e2-4576-8d92-4eafc822fbcb",
-	"8c186808-e5f9-4f44-899b-1d42e0d307af",
-	"2c78ff3f-40ab-4ba8-bb1b-7b419fa5f9ff",
-	"76a0b4dd-0fca-4d82-bc81-c35f8f7cc8c5",
-	"00000000-0000-0000-0000-000000000000",
-	0,
-	'',
-	'Component Reference',
-	'Id',
-	'R4700');
-INSERT INTO R_RGO_PROXY
-	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
-	"161a15c1-cd15-4b55-a47e-59ac7d33bd3c",
-	"6134e501-98e2-4576-8d92-4eafc822fbcb",
-	'../Component Library.xtuml');
-INSERT INTO O_RTIDA_PROXY
-	VALUES ("bb116e28-b106-49aa-b480-95c153ff8155",
-	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
-	0,
-	"161a15c1-cd15-4b55-a47e-59ac7d33bd3c",
-	"8c186808-e5f9-4f44-899b-1d42e0d307af",
-	'../Component Library.xtuml');
-INSERT INTO O_RATTR
-	VALUES ("2c78ff3f-40ab-4ba8-bb1b-7b419fa5f9ff",
-	"e695ccff-28f5-4931-89dd-59c6995c1a73",
-	"5776264f-c7e9-4abe-839f-24d0750e007c",
-	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
-	1,
-	'Element_ID');
-INSERT INTO O_BATTR_PROXY
-	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
-	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
-	'../../../Packageable Element/Packageable Element/Packageable Element.xtuml');
-INSERT INTO O_ATTR
-	VALUES ("2c78ff3f-40ab-4ba8-bb1b-7b419fa5f9ff",
-	"e695ccff-28f5-4931-89dd-59c6995c1a73",
-	"91b1ff86-dddd-4601-8d06-890cd160c39f",
-	'ImportedComp_Id',
-	'',
-	'ImportedComp_',
-	'Id',
-	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
-	'',
-	'');
-INSERT INTO O_REF
-	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
 	"2c33c814-df21-4342-8961-a520080e79c1",
 	0,
 	"09351ec1-a7de-4f77-8a99-75315271cd33",
@@ -484,7 +434,7 @@ INSERT INTO O_REF
 	'',
 	'Delegation',
 	'Id',
-	'R4704');
+	'R4704.''accepts communication through''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
 	"bd790862-d08a-4bee-8cfa-e8bb4b043d99",
@@ -504,13 +454,68 @@ INSERT INTO O_RATTR
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
 	1,
 	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../../Packageable Element/Packageable Element/Packageable Element.xtuml');
 INSERT INTO O_ATTR
 	VALUES ("5e68512f-9160-4adc-b23c-49b0c7855b47",
 	"e695ccff-28f5-4931-89dd-59c6995c1a73",
-	"2c78ff3f-40ab-4ba8-bb1b-7b419fa5f9ff",
+	"afff3199-252f-42d4-ba73-344e821c250e",
 	'Delegation_Id',
 	'',
 	'Delegation_',
+	'Id',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
+	"d0f2e04e-149e-489c-924c-a42769aa8547",
+	0,
+	"4357dcf1-5dbb-4204-a161-cbb722089299",
+	"3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
+	"dfc9cd57-bc66-4844-bd06-f6c2b8bf81b8",
+	"332eb6bd-9b16-4246-bbf5-4d8ca3d22c85",
+	"afff3199-252f-42d4-ba73-344e821c250e",
+	"1bfde98e-a006-413e-90d0-3371ccf5b5e0",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Port Reference',
+	'Id',
+	'R4708.''originates from''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("e695ccff-28f5-4931-89dd-59c6995c1a73",
+	"3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
+	"dfc9cd57-bc66-4844-bd06-f6c2b8bf81b8",
+	'../Component Library.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4357dcf1-5dbb-4204-a161-cbb722089299",
+	"d0f2e04e-149e-489c-924c-a42769aa8547",
+	0,
+	"3ceba4ae-e7a9-46e6-af91-906e2a8ab8e9",
+	"332eb6bd-9b16-4246-bbf5-4d8ca3d22c85",
+	'../Component Library.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("afff3199-252f-42d4-ba73-344e821c250e",
+	"e695ccff-28f5-4931-89dd-59c6995c1a73",
+	"4357dcf1-5dbb-4204-a161-cbb722089299",
+	"d0f2e04e-149e-489c-924c-a42769aa8547",
+	1,
+	'Id');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4357dcf1-5dbb-4204-a161-cbb722089299",
+	"d0f2e04e-149e-489c-924c-a42769aa8547",
+	'../Port Reference/Port Reference.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("afff3199-252f-42d4-ba73-344e821c250e",
+	"e695ccff-28f5-4931-89dd-59c6995c1a73",
+	"91b1ff86-dddd-4601-8d06-890cd160c39f",
+	'CL_POR_Id',
+	'',
+	'CL_POR_',
 	'Id',
 	1,
 	"df379511-9dda-46ee-a114-9d591239938d",

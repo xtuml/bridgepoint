@@ -40,6 +40,7 @@ import com.mentor.nucleus.bp.core.Interface_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.PackageableElement_c;
+import com.mentor.nucleus.bp.core.PortReference_c;
 import com.mentor.nucleus.bp.core.Port_c;
 import com.mentor.nucleus.bp.core.Provision_c;
 import com.mentor.nucleus.bp.core.Satisfaction_c;
@@ -125,10 +126,10 @@ public class CopyPasteComponentReferences extends BaseTest {
 					.Assigntocomp(sourceComponentTwo.getId());
 			ImportedProvision_c importedPro = ImportedProvision_c
 					.getOneCL_IPOnR4703(ImportedReference_c
-							.getManyCL_IIRsOnR4700(sourceComponentReferenceOne));
+							.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(sourceComponentReferenceOne)));
 			ImportedRequirement_c importedRequirement = ImportedRequirement_c
 					.getOneCL_IROnR4703(ImportedReference_c
-							.getManyCL_IIRsOnR4700(sourceComponentReferenceTwo));
+							.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(sourceComponentReferenceTwo)));
 			importedRequirement.Linkconnector(importedPro.getId());
 			TransactionManager.getSingleton().endTransaction(transaction);
 			BaseTest.dispatchEvents(0);
@@ -189,10 +190,10 @@ public class CopyPasteComponentReferences extends BaseTest {
 						.getManyPE_PEsOnR8000(sourcePkg));
 		ImportedProvision_c importedPro = ImportedProvision_c
 				.getOneCL_IPOnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(references));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(references)));
 		ImportedRequirement_c importedReq = ImportedRequirement_c
 				.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(references));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(references)));
 		Selection.getInstance().clear();
 		for(int i = 0; i < references.length; i++) {
 			Selection.getInstance().addToSelection(references[i]);
@@ -207,7 +208,7 @@ public class CopyPasteComponentReferences extends BaseTest {
 						.getManyPE_PEsOnR8000(destPkg));
 		importedPro = ImportedProvision_c
 				.getOneCL_IPOnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(references));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(references)));
 		Satisfaction_c sat = Satisfaction_c
 				.getOneC_SFOnR4705(ImportedProvisionInSatisfaction_c
 						.getManyCL_IPINSsOnR4705(importedPro));

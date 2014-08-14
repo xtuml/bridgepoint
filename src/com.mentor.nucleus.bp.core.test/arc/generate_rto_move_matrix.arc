@@ -173,6 +173,8 @@ ${matrix_row}
       .assign attr_result = true    
     .elif(key_lett == "CL_IIR")
       .assign attr_result = true
+    .elif(key_lett == "CL_POR")
+      .assign attr_result = true  
     .end if
 .end function
 .function is_rel_supported
@@ -188,6 +190,8 @@ ${matrix_row}
       .assign attr_result = false
     .elif(rel_numb == 1500)
       .assign attr_result = false
+    .elif(rel_numb == 4016)
+      .assign attr_result = false  
     .end if
 .end function
 #===========================================================================

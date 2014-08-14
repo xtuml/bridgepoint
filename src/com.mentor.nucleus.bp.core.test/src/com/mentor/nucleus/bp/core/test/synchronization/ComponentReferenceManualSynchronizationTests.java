@@ -34,6 +34,7 @@ import com.mentor.nucleus.bp.core.ImportedRequirement_c;
 import com.mentor.nucleus.bp.core.InterfacePackage_c;
 import com.mentor.nucleus.bp.core.Interface_c;
 import com.mentor.nucleus.bp.core.Package_c;
+import com.mentor.nucleus.bp.core.PortReference_c;
 import com.mentor.nucleus.bp.core.Provision_c;
 import com.mentor.nucleus.bp.core.Requirement_c;
 import com.mentor.nucleus.bp.core.SystemModel_c;
@@ -139,7 +140,7 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 				.createComponentReferenceAndAssignToComponent(refPkg, component);
 		ImportedProvision_c importedPro = ImportedProvision_c
 				.getOneCL_IPOnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef)));
 		provision.Dispose();
 		assertFalse(
 				"Imported provision was considered synchronized after reference delete.",
@@ -147,12 +148,12 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 		assertNotNull(
 				"Imported provision was removed as a result of the provision being deleted.",
 				ImportedProvision_c.getOneCL_IPOnR4703(ImportedReference_c
-						.getOneCL_IIROnR4700(compRef)));
+						.getOneCL_IIROnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		SynchronizationTestUtils
 				.synchronizeByPulling(new SystemModel_c[] { m_sys });
 		assertNull("Imported Provision was not removed after synchronization.",
 				ImportedProvision_c.getOneCL_IPOnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef)));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		assertTrue(
 				"Component reference remains unsynchronized after synchronization.",
 				compRef.Issynchronized());
@@ -178,7 +179,7 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 				.createComponentReferenceAndAssignToComponent(refPkg, component);
 		ImportedRequirement_c importedReq = ImportedRequirement_c
 				.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef)));
 		requirement.Dispose();
 		assertFalse(
 				"Imported Requirement was considered synchronized after reference delete.",
@@ -186,13 +187,13 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 		assertNotNull(
 				"Imported requirement was removed as a result of the requirement being deleted.",
 				ImportedRequirement_c.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef)));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		SynchronizationTestUtils
 				.synchronizeByPulling(new SystemModel_c[] { m_sys });
 		assertNull(
 				"Imported Requirement was not removed after synchronization.",
 				ImportedRequirement_c.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef)));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		assertTrue(
 				"Component reference remains unsynchronized after synchronization.",
 				compRef.Issynchronized());
@@ -219,7 +220,7 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 				.createComponentReferenceAndAssignToComponent(refPkg, component);
 		ImportedProvision_c importedPro = ImportedProvision_c
 				.getOneCL_IPOnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef)));
 		provision.Dispose();
 		assertFalse(
 				"Imported provision was considered synchronized after reference delete.",
@@ -227,12 +228,12 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 		assertNotNull(
 				"Imported provision was removed as a result of the provision being deleted.",
 				ImportedProvision_c.getOneCL_IPOnR4703(ImportedReference_c
-						.getOneCL_IIROnR4700(compRef)));
+						.getOneCL_IIROnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		SynchronizationTestUtils
 				.synchronizeByPulling(new SystemModel_c[] { m_sys });
 		assertNull("Imported Provision was not removed after synchronization.",
 				ImportedProvision_c.getOneCL_IPOnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef)));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		assertTrue(
 				"Component reference remains unsynchronized after synchronization.",
 				compRef.Issynchronized());
@@ -259,7 +260,7 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 				.createComponentReferenceAndAssignToComponent(refPkg, component);
 		ImportedRequirement_c importedReq = ImportedRequirement_c
 				.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef)));
 		requirement.Dispose();
 		assertFalse(
 				"Imported Requirement was considered synchronized after reference delete.",
@@ -267,13 +268,13 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 		assertNotNull(
 				"Imported requirement was removed as a result of the requirement being deleted.",
 				ImportedRequirement_c.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef)));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		SynchronizationTestUtils
 				.synchronizeByPulling(new SystemModel_c[] { m_sys });
 		assertNull(
 				"Imported Requirement was not removed after synchronization.",
 				ImportedRequirement_c.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef)));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		assertTrue(
 				"Component reference remains unsynchronized after synchronization.",
 				compRef.Issynchronized());
@@ -304,13 +305,13 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 		assertNull(
 				"Imported provision was created as a result of provision formalization.",
 				ImportedProvision_c.getOneCL_IPOnR4703(ImportedReference_c
-						.getOneCL_IIROnR4700(compRef)));
+						.getOneCL_IIROnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		SynchronizationTestUtils
 				.synchronizeByPulling(new SystemModel_c[] { m_sys });
 		assertNotNull(
 				"Imported Provision was not added after synchronization.",
 				ImportedProvision_c.getOneCL_IPOnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef)));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		assertTrue(
 				"Component reference remains unsynchronized after synchronization.",
 				compRef.Issynchronized());
@@ -341,13 +342,13 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 		assertNull(
 				"Imported requirement was created as a result of the requirement being formalized.",
 				ImportedRequirement_c.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef)));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		SynchronizationTestUtils
 				.synchronizeByPulling(new SystemModel_c[] { m_sys });
 		assertNotNull(
 				"Imported Requirement was not added after synchronization.",
 				ImportedRequirement_c.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef)));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		assertTrue(
 				"Component reference remains unsynchronized after synchronization.",
 				compRef.Issynchronized());
@@ -379,13 +380,13 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 		assertNull(
 				"Imported provision was created as a result of the provision being formalized.",
 				ImportedProvision_c.getOneCL_IPOnR4703(ImportedReference_c
-						.getOneCL_IIROnR4700(compRef)));
+						.getOneCL_IIROnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		SynchronizationTestUtils
 				.synchronizeByPulling(new SystemModel_c[] { m_sys });
 		assertNotNull(
 				"Imported Provision was not added after synchronization.",
 				ImportedProvision_c.getOneCL_IPOnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef)));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		assertTrue(
 				"Component reference remains unsynchronized after synchronization.",
 				compRef.Issynchronized());
@@ -417,13 +418,13 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 		assertNull(
 				"Imported requirement was created as a result of the requirement being formalized.",
 				ImportedRequirement_c.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef)));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		SynchronizationTestUtils
 				.synchronizeByPulling(new SystemModel_c[] { m_sys });
 		assertNotNull(
 				"Imported Requirement was not added after synchronization.",
 				ImportedRequirement_c.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef)));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		assertTrue(
 				"Component reference remains unsynchronized after synchronization.",
 				compRef.Issynchronized());
@@ -449,7 +450,7 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 				.createComponentReferenceAndAssignToComponent(refPkg, component);
 		ImportedProvision_c importedPro = ImportedProvision_c
 				.getOneCL_IPOnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef)));
 		provision.Unformalize(false);
 		assertFalse(
 				"Imported provision was considered synchronized after provision unformalization.",
@@ -457,12 +458,12 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 		assertNotNull(
 				"Imported provision was removed as a result of the provision being unformalized.",
 				ImportedProvision_c.getOneCL_IPOnR4703(ImportedReference_c
-						.getOneCL_IIROnR4700(compRef)));
+						.getOneCL_IIROnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		SynchronizationTestUtils
 				.synchronizeByPulling(new SystemModel_c[] { m_sys });
 		assertNull("Imported Provision was not removed after synchronization.",
 				ImportedProvision_c.getOneCL_IPOnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef)));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		assertTrue(
 				"Component reference remains unsynchronized after synchronization.",
 				compRef.Issynchronized());
@@ -488,7 +489,7 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 				.createComponentReferenceAndAssignToComponent(refPkg, component);
 		ImportedRequirement_c importedReq = ImportedRequirement_c
 				.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef)));
 		requirement.Unformalize(false);
 		assertFalse(
 				"Imported Requirement was considered synchronized after requirement unformalization.",
@@ -496,13 +497,13 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 		assertNotNull(
 				"Imported requirement was removed as a result of the requirement being unformalized.",
 				ImportedRequirement_c.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef)));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		SynchronizationTestUtils
 				.synchronizeByPulling(new SystemModel_c[] { m_sys });
 		assertNull(
 				"Imported Requirement was not removed after synchronization.",
 				ImportedRequirement_c.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef)));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		assertTrue(
 				"Component reference remains unsynchronized after synchronization.",
 				compRef.Issynchronized());
@@ -529,7 +530,7 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 				.createComponentReferenceAndAssignToComponent(refPkg, component);
 		ImportedProvision_c importedPro = ImportedProvision_c
 				.getOneCL_IPOnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef)));
 		provision.Unformalize(false);
 		assertFalse(
 				"Imported provision was considered synchronized after reference unformalization.",
@@ -537,12 +538,12 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 		assertNotNull(
 				"Imported provision was removed as a result of the provision being unformalized.",
 				ImportedProvision_c.getOneCL_IPOnR4703(ImportedReference_c
-						.getOneCL_IIROnR4700(compRef)));
+						.getOneCL_IIROnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		SynchronizationTestUtils
 				.synchronizeByPulling(new SystemModel_c[] { m_sys });
 		assertNull("Imported Provision was not removed after synchronization.",
 				ImportedProvision_c.getOneCL_IPOnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef)));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		assertTrue(
 				"Component reference remains unsynchronized after synchronization.",
 				compRef.Issynchronized());
@@ -569,7 +570,7 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 				.createComponentReferenceAndAssignToComponent(refPkg, component);
 		ImportedRequirement_c importedReq = ImportedRequirement_c
 				.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef)));
 		requirement.Unformalize(false);
 		assertFalse(
 				"Imported Requirement was considered synchronized after reference unformalization.",
@@ -577,13 +578,13 @@ public class ComponentReferenceManualSynchronizationTests extends BaseTest {
 		assertNotNull(
 				"Imported requirement was removed as a result of the requirement being unformalized.",
 				ImportedRequirement_c.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef)));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		SynchronizationTestUtils
 				.synchronizeByPulling(new SystemModel_c[] { m_sys });
 		assertNull(
 				"Imported Requirement was not removed after synchronization.",
 				ImportedRequirement_c.getOneCL_IROnR4703(ImportedReference_c
-						.getManyCL_IIRsOnR4700(compRef)));
+						.getManyCL_IIRsOnR4708(PortReference_c.getManyCL_PORsOnR4707(compRef))));
 		assertTrue(
 				"Component reference remains unsynchronized after synchronization.",
 				compRef.Issynchronized());

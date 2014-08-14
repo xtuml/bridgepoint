@@ -105,10 +105,11 @@ INSERT INTO EO VALUES ( '12.4.6',   '12.4.6.1', '12.4.7',     'Domain As Compone
 INSERT INTO EO VALUES ( '12.4.6.1', '1.1',      '',           'Domain',              4204, 'one', 'none', false );
 INSERT INTO EO VALUES ( '12.4.7',	'14.1.1', '12.4.8',     'Interface Package', 4206, 'many', 'none', true );
 INSERT INTO EO VALUES ( '12.4.8',       '12.4.8.1',    '12.4.9', 'Component Reference', 4205, 'many', 'first', false );
-INSERT INTO EO VALUES ( '12.4.8.1',       '12.4.8.1.1',    '', 'Imported Reference', 4700, 'many', 'first', false );
-INSERT INTO EO VALUES ( '12.4.8.1.1',       '12.4.8.1.1.1',    '12.4.8.1.2', 'Imported Provision', 4703, 'one', 'first', false );
-INSERT INTO EO VALUES ( '12.4.8.1.1.1',       '',    '', 'Imported Provision In Satisfaction', 4705, 'many', 'first', false );
-INSERT INTO EO VALUES ( '12.4.8.1.2',       '',    '', 'Imported Requirement', 4703, 'one', 'first', false );
+INSERT INTO EO VALUES ( '12.4.8.1',       '12.4.8.1.1',    '', 'Port Reference', 4707, 'many', 'first', false );
+INSERT INTO EO VALUES ( '12.4.8.1.1',       '12.4.8.1.1.1',    '', 'Imported Reference', 4708, 'many', 'first', false );
+INSERT INTO EO VALUES ( '12.4.8.1.1.1',       '12.4.8.1.1.1.1',    '12.4.8.1.1.2', 'Imported Provision', 4703, 'one', 'first', false );
+INSERT INTO EO VALUES ( '12.4.8.1.1.1.1',       '',    '', 'Imported Provision In Satisfaction', 4705, 'many', 'first', false );
+INSERT INTO EO VALUES ( '12.4.8.1.1.2',       '',    '', 'Imported Requirement', 4703, 'one', 'first', false );
 INSERT INTO EO VALUES ( '12.4.9',   '12.4.9.1', '12.4.10',     'Delegation In Component', 9002, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.9.1',   '12.4.9.1.1', '',     'Delegation', 9002, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.9.1.1',   '', '',     'Interface Reference In Delegation', 4013, 'many', 'first', false );
@@ -490,10 +491,10 @@ INSERT INTO EO VALUES ( '15.1.3.5',    '',           '',            'Dimensions'
 -- Define alternate children
 
 -- export the proxy for the imported references interface
-INSERT INTO AEP VALUES ( '12.4.8.1', '12.4.3.1',		'->C_IR[R4701]', 'one', true, true, true);
-INSERT INTO AEP VALUES ( '12.4.8.1', '14.1.3',		'->C_IR[R4701]->C_I[R4012]', 'one', true, true, true);
-INSERT INTO AEP VALUES ( '12.4.8.1', '12.4',		'->C_IR[R4701]->C_PO[R4016]->C_C[R4010]', 'one', false, true);
-INSERT INTO AEP VALUES ( '12.4.8.1', '24.10',		'->C_IR[R4701]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]', 'one', false, true);
+INSERT INTO AEP VALUES ( '12.4.8.1.1', '12.4.3.1',		'->C_IR[R4701]', 'one', true, true, true);
+INSERT INTO AEP VALUES ( '12.4.8.1.1', '14.1.3',		'->C_IR[R4701]->C_I[R4012]', 'one', true, true, true);
+INSERT INTO AEP VALUES ( '12.4.8.1.1', '12.4',		'->C_IR[R4701]->C_PO[R4016]->C_C[R4010]', 'one', false, true);
+INSERT INTO AEP VALUES ( '12.4.8.1.1', '24.10',		'->C_IR[R4701]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]', 'one', false, true);
 
 -- export parameters for interface operations and signals
 INSERT INTO AEP VALUES ( '14.1.3.1.1', '14.1.3.1.3',		'->C_EP[R4004]->C_PP[R4006]', 'many', true, false, false);
@@ -501,15 +502,15 @@ INSERT INTO AEP VALUES ( '14.1.3.1.2', '14.1.3.1.3',		'->C_EP[R4004]->C_PP[R4006
 
 -- export satisfaction proxy for provisions, requirements, imported provisions, imported requirements
 INSERT INTO AEP VALUES ( '12.4.3.1.2', '12.4.10.1',		'->C_SF[R4002]', 'many', false, false, false);
-INSERT INTO AEP VALUES ( '12.4.8.1.1', '12.4.10.1',		'->CL_IPINS[R4705]->C_SF[R4705]', 'many', false, false, false);
+INSERT INTO AEP VALUES ( '12.4.8.1.1.1', '12.4.10.1',		'->CL_IPINS[R4705]->C_SF[R4705]', 'many', false, false, false);
 INSERT INTO AEP VALUES ( '12.4.3.1.2', '24.10',		'->C_SF[R4002]->PE_PE[R8001]', 'one', false, false, false);
-INSERT INTO AEP VALUES ( '12.4.8.1.1', '24.10',		'->CL_IPINS[R4705]->C_SF[R4705]->PE_PE[R8001]', 'one', false, false, false);
+INSERT INTO AEP VALUES ( '12.4.8.1.1.1', '24.10',		'->CL_IPINS[R4705]->C_SF[R4705]->PE_PE[R8001]', 'one', false, false, false);
 -- additionally include the requirement at the other end of the satisfaction
 -- and the imported requirement
 INSERT INTO AEP VALUES ( '12.4.3.1.2', '12.4.3.1.1',		'->C_SF[R4002]->C_R[R4002]', 'many', false, false, false);
-INSERT INTO AEP VALUES ( '12.4.3.1.2', '12.4.8.1.2',		'->C_SF[R4002]->CL_IR[R4706]', 'many', false, false, false);
-INSERT INTO AEP VALUES ( '12.4.8.1.1', '12.4.3.1.1',		'->CL_IPINS[R4705]->C_SF[R4705]->C_R[R4002]', 'many', false, true, false);
-INSERT INTO AEP VALUES ( '12.4.8.1.1', '12.4.8.1.2',		'->CL_IPINS[R4705]->C_SF[R4705]->CL_IR[R4706]', 'many', false, true, false);
+INSERT INTO AEP VALUES ( '12.4.3.1.2', '12.4.8.1.1.2',		'->C_SF[R4002]->CL_IR[R4706]', 'many', false, false, false);
+INSERT INTO AEP VALUES ( '12.4.8.1.1.1', '12.4.3.1.1',		'->CL_IPINS[R4705]->C_SF[R4705]->C_R[R4002]', 'many', false, true, false);
+INSERT INTO AEP VALUES ( '12.4.8.1.1.1', '12.4.8.1.1.2',		'->CL_IPINS[R4705]->C_SF[R4705]->CL_IR[R4706]', 'many', false, true, false);
 
 -- export any event that is assigned to this transition and it's children
 INSERT INTO AEP VALUES ( '3.7.3', '3.5',		'->SM_LEVT[R509]->SM_SEVT[R526]->SM_EVT[R525]', 'one', true, false, false, true);
