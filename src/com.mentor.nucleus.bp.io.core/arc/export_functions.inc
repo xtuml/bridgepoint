@@ -520,6 +520,8 @@ ${attrs.body}\
 	  .assign attr_result = true	
 	.elif(object.Key_Lett == "CL_IIR")
 	  .assign attr_result = true	
+	.elif(object.Key_Lett == "CL_POR")
+	  .assign attr_result = true	  
 	.end if
 .end function
 .//
@@ -1000,6 +1002,8 @@ ${gpe.body}\
 	  .assign attr_supported = true
 	.elif(lett == "C_IR")
 	  .assign attr_supported = true
+     .elif(lett == "C_PO")
+	  .assign attr_supported = true  
 	.end if
 .end function
 .//

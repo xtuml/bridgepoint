@@ -49,6 +49,8 @@ import com.mentor.nucleus.bp.core.Interface_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.Package_c;
 import com.mentor.nucleus.bp.core.PackageableElement_c;
+import com.mentor.nucleus.bp.core.PortReference_c;
+import com.mentor.nucleus.bp.core.Port_c;
 import com.mentor.nucleus.bp.core.ProvidedExecutableProperty_c;
 import com.mentor.nucleus.bp.core.ProvidedOperation_c;
 import com.mentor.nucleus.bp.core.Provision_c;
@@ -186,6 +188,13 @@ public class RTOMoveTests extends CanvasTest {
 		if(elementType == ImportedReference_c.class) {
 			// name will match RTO
 			name = "InterfaceReference_c_RTO";
+		}
+		if(elementType == PortReference_c.class && rto instanceof Port_c) {
+			   name = "Port_c_RTO";
+		}
+		if(elementType == InterfaceReference_c.class && rto instanceof Port_c) {
+			// name will match RTO
+			name = "PortReference_c_RTO";
 		}
 		if(elementType == InterfaceReference_c.class && rto instanceof Interface_c) {
 			// name will match RTO
@@ -330,7 +339,23 @@ public class RTOMoveTests extends CanvasTest {
 			} else {
 				elements.add(req);
 			}
-		} else if(rto instanceof ExecutableProperty_c) {
+		} 
+		
+		if(rto instanceof Port_c) {
+			// need to include self and the parent component
+			elements.add(rto.getFirstParentComponent());
+			// and add the provision or requirement
+			Provision_c pro = Provision_c.getOneC_POnR4009(InterfaceReference_c.getOneC_IROnR4016((Port_c) rto));
+			Requirement_c req = Requirement_c.getOneC_ROnR4009(InterfaceReference_c.getOneC_IROnR4016((Port_c) rto));
+			if(pro != null) {
+				elements.add(pro);
+			} else {
+				elements.add(req);
+			}
+		}
+		
+		
+		else if(rto instanceof ExecutableProperty_c) {
 			// need to cut the interface
 			Interface_c iface = Interface_c.getOneC_IOnR4003((ExecutableProperty_c) rto);
 			elements.add(iface);
@@ -349,6 +374,10 @@ public class RTOMoveTests extends CanvasTest {
 
 	private NonRootModelElement getDestination(NonRootModelElement rto) {
 		if(rto instanceof InterfaceReference_c && getName().contains("C1")) {
+			// need the package for the parent component
+			return rto.getFirstParentComponent().getFirstParentPackage();
+		}
+		if(rto instanceof Port_c && getName().contains("C1")) {
 			// need the package for the parent component
 			return rto.getFirstParentComponent().getFirstParentPackage();
 		}
