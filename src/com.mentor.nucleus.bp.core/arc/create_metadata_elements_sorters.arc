@@ -189,6 +189,12 @@ public class ${manager_name} {
 			} catch (SorterFactoryException e) {
 				CorePlugin.logError("Could not create sorter", (Exception)e.getCause());	
 			}
+		} else {
+		     // all other situations use alpha sorting
+		     ISorter sorter = new AlphaSorter();
+		     if(sorter.canSort(elements)){
+		          sorter.sort(elements);
+		     }
 		}
 	}
 	

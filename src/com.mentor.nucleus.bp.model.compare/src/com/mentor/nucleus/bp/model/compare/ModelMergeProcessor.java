@@ -614,9 +614,6 @@ public class ModelMergeProcessor {
 					parentDetails.getAssociationPhrase(),
 					parentDetails.getChildKeyLetters() };
 			int localLocation = getLocationForElementInSource(localDetails);
-			// the persistence location needs to be adjusted for missing
-			// elements as they are not considered in persistence ordering
-			//newElementLocation = adjustPersistenceLocationForMissingElements(object, newElementLocation, provider);
 			if(newElementLocation != localLocation) {
 				callSetOrderOperation(newElementLocation, localDetails);
 				return true;
@@ -624,44 +621,6 @@ public class ModelMergeProcessor {
 		}
 		return false;
 
-	}
-
-	private static int adjustPersistenceLocationForMissingElements(
-			Object localElement, int localLocation,
-			ITreeDifferencerProvider provider) {
-		// get the children of the local object's parent
-		Object parent = provider.getParent(localElement);
-		Object[] children = provider.getChildren(parent);
-		IModelClassInspector inspector = new ModelInspector();
-		if (localElement instanceof NonRootModelElement) {
-			NonRootModelElement localNrme = (NonRootModelElement) localElement;
-			if (localNrme.getModelRoot() instanceof Ooaofgraphics) {
-				inspector = new GraphicalModelInspector();
-			}
-		}
-		int expectedSlot = inspector.getTreeDifferenceSlot(localElement);
-		// for each of them if we find a missing element and its matching
-		// element on the other side has a matching slot location then
-		// decrease the expected location
-		for (int i = 0; i < children.length; i++) {
-			if (children[i] instanceof EmptyElement) {
-				Object missingElement = ((EmptyElement) children[i])
-						.getRepresentedMissingElement();
-				if (missingElement instanceof ComparableTreeObject) {
-					missingElement = ((ComparableTreeObject) missingElement)
-							.getRealElement();
-				}
-				if (inspector.getTreeDifferenceSlot(missingElement) == expectedSlot) {
-					localLocation--;
-				}
-			}
-			// break once we hit our element
-			if (children[i].equals(ComparableProvider
-					.getComparableTreeObject(localElement))) {
-				break;
-			}
-		}
-		return localLocation;
 	}
 
 	private static void handlePostCreation(NonRootModelElement newObject, NonRootModelElement originalObject) {
@@ -1297,7 +1256,7 @@ public class ModelMergeProcessor {
 					TreeDifferencer.RIGHT | TreeDifferencer.ADDITION,
 					TreeDifferencer.getPathForElement(ComparableProvider
 							.getComparableTreeObject(element.getParent()),
-							contentProvider), false);
+							contentProvider), false, null);
 			// locate the new empty element's parent
 			Object otherElement = originalDifference.getMatchingDifference().getElement();
 			// the parent is this element's parent's parent
@@ -1313,7 +1272,7 @@ public class ModelMergeProcessor {
 					TreeDifference.LOCATION_DIFFERENCE, true,
 					TreeDifferencer.RIGHT | TreeDifferencer.ADDITION,
 					TreeDifferencer.getPathForElement(localOwner,
-							contentProvider), false);
+							contentProvider), false, null);
 			matchingDifference.setParent(localOwner);
 			difference.setMatchingDifference(matchingDifference);
 			matchingDifference.setMatchingDifference(difference);

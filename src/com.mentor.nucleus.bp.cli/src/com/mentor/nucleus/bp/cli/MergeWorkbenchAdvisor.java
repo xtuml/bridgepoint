@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.compare.structuremergeviewer.Differencer;
@@ -172,13 +173,21 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 					break;
 				}
 			}
+			// remove any contained differences, as the container difference
+			// will already exist which is the difference that is mergeable
+			List<TreeDifference> mergeDifferences = new ArrayList<TreeDifference>();
+			for (TreeDifference difference : differences) {
+				if (!difference.isContainedDifference()) {
+					mergeDifferences.add(difference);
+				}
+			}
 			if (foundConflict) {
 				System.out.println("Conflicting changes were found, aborting the merge.");
 				return 1;
 			} else {
 				CompareTransactionManager manager = new CompareTransactionManager();
 				Transaction transaction = manager.startCompareTransaction();
-				for (TreeDifference difference : differences) {
+				for (TreeDifference difference : mergeDifferences) {
 					if((difference.getKind() & Differencer.DIRECTION_MASK) == Differencer.RIGHT) {
 						ModelMergeProcessor.merge(differencer, difference, true,
 								contentProvider, labelProvider, leftCompareRoot);
