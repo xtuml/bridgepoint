@@ -23,8 +23,8 @@
   <property name="plugins-home" value="${ant.home}/../.."/>
 
   <property environment="env"/>
-  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\bin" />
-  <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\mc3020\bin" />
+  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
+  <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/mc3020/bin" />
 
   <property name="sql.input" value="models/com.mentor.nucleus.bp.als/grammar" />
   <property name="sql.output" value="grammar_model.sql" />
@@ -40,7 +40,7 @@
           description="Generate the sql version of the Grammar model"
           unless="sql.buildNotNeeded" >
     <echo >Generating ${sql.output} ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}\xtumlmc_build.exe" >
+  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
     <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
   </exec>
   </target>
@@ -112,7 +112,7 @@
           description="Generate the Enhanced Grammar file, and prototype functions"
           unless="grammar_enhancer.buildNotNeeded" >
     <echo >Generating ${ge.output} ...</echo>
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate">
+    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate">
     <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
     <env key="ALS_NAME" value="oal" />
     <arg line="-nopersist
@@ -151,10 +151,10 @@
     <echo >Generating ${validate.output} ...</echo>
 
     <copy file="gen/code_generation/ooaofooa.sql" tofile="gen/code_generation/ooaofooa.xtuml"/>
-    <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}\xtumlmc_build.exe" >
-          <arg line="xtumlmc_cleanse_for_BridgePoint ${basedir}\gen\code_generation sql/ooaofooa.sql" />
+    <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
+          <arg line="xtumlmc_cleanse_for_BridgePoint ${basedir}/gen/code_generation sql/ooaofooa.sql" />
     </exec>
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
     <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
     <env key="ALS_NAME" value="oal" />
     <env key="VERIFY_SELECTS" value="false" />
