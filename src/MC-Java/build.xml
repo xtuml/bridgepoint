@@ -11,8 +11,8 @@
 <project name="mc-java" default="do.nothing" basedir=".">
 
   <property environment="env"/>
-  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\bin" />
-  <property name="mc_bin_dir" value="C:\MentorGraphics\VSx_Dev_9\eclipse_extensions\BridgePoint\eclipse\plugins\com.mentor.nucleus.bp.mc.c.source_3.6.5\mc3020\bin" />
+  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
+  <property name="mc_bin_dir" value="C:/MentorGraphics/VSx_Dev_9/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.mc.c.source_3.6.5/mc3020/bin" />
 	
   <target name="do.nothing" />
 
@@ -28,10 +28,10 @@
   	-->
   	<echo>Building from: gen/code_generation/${param1}-${param8}.sql</echo>
   	<copy file="gen/code_generation/${param1}-${param8}.sql" tofile="gen/code_generation/${param1}.xtuml"/>
-  	<exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}\xtumlmc_build.exe" >
-  	      <arg line="xtumlmc_cleanse_for_BridgePoint ${mcjava.project.root}\gen\code_generation sql/${param1}-${param8}.sql" />
+  	<exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
+  	      <arg line="xtumlmc_cleanse_for_BridgePoint ${mcjava.project.root}/gen/code_generation sql/${param1}-${param8}.sql" />
   	</exec>
-  	<exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+  	<exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
 		    <env key="PTC_MC_ARC_DIR" value="${param3}" />
 	    	<env key="PTC_MCC_SS_START" value="${param5}" />
 	    	<env key="PTC_MCC_SS_END" value="${param6}" />
@@ -60,10 +60,10 @@
 -->
     <echo>Building from: gen/code_generation/${param1}.sql</echo>
     <copy file="gen/code_generation/${param1}.sql" tofile="gen/code_generation/${param1}.xtuml"/>
-    <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}\xtumlmc_build.exe" >
-          <arg line="xtumlmc_cleanse_for_BridgePoint ${mcjava.project.root}\gen\code_generation sql/${param1}.sql" />
+    <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
+          <arg line="xtumlmc_cleanse_for_BridgePoint ${mcjava.project.root}/gen/code_generation sql/${param1}.sql" />
     </exec>
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
 	    <env key="PTC_MC_ARC_DIR" value="${param3}" />
     	<env key="PTC_MCC_SS_START" value="" />
     	<env key="PTC_MCC_SS_END" value="" />
@@ -82,7 +82,7 @@
       param2 = MC-Java path
       param3 = TRANSLATE_FOR_EXTERNAL_USE environment variable value
 -->
-    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+    <exec dir="sql" vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
 		<env key="OS_CACHE_SIZE" value="64000000" />
 		<env key="TRANSLATE_FOR_EXTERNAL_USE" value="${param3}" />
 		<arg line="-nopersist
