@@ -12,7 +12,7 @@
 
   <property environment="env"/>
   <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
-  <property name="mc_bin_dir" value="C:/MentorGraphics/VSx_Dev_9/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.mc.c.source_3.6.5/mc3020/bin" />
+  <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/mc3020/bin" />
 	
   <target name="do.nothing" />
 
