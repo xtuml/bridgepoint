@@ -28,6 +28,8 @@
 
   <property name="sql.input" value="models/com.mentor.nucleus.bp.core/ooaofooa" />
   <property name="sql.output" value="ooaofooa.sql" />
+  <property name="sql-1.output" value="ooaofooa-1.sql" />
+  <property name="sql-2.output" value="ooaofooa-2.sql" />
 
   <property name="file_io_sql.input" value="../com.mentor.nucleus.bp.io.core/models/com.mentor.nucleus.bp.io.core/file_io" />
   <property name="file_io_sql.output" value="file_io.sql" />
@@ -112,7 +114,7 @@
   </ant>
   <!-- If necessary, freshen the schema used by MC-Java -->
   <!-- Need to move the output file since the archetype uses the domain
-         name as the base name of the output file -->
+       name as the base name of the output file -->
   <move file="sql/ooaofooa_schema.sql" tofile="sql/ooa_schema.sql" />
   <copy todir="${mcj_path}">
   	<fileset dir="sql" includes="ooa_schema.sql">
@@ -604,6 +606,10 @@
     description="Remove the generated file: ${sql.output}">
     <echo>Removing generated sql file: ${sql.output} ...</echo>
     <delete file="sql/${sql.output}" />
+    <echo>Removing generated sql file: ${sql-1.output} ...</echo>
+    <delete file="sql/${sql-1.output}" />
+    <echo>Removing generated sql file: ${sql-2.output} ...</echo>
+    <delete file="sql/${sql-2.output}" />
     <echo>Removing generated sql file: ${cme_sql.output} ...</echo>
     <delete file="${cme_sql.output}"/>
         <delete failonerror="false">
