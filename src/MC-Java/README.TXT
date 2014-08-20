@@ -72,14 +72,6 @@ model_element.inc:
 			This file generates code for different classes to be used of event 
 			handling for an eclipse plugin.
 			
-ooa_oal_pop.arc:
-			This file uses the functions in fragment.inc to generate the 
-			SQL INSERT INTO statements used to populate the database for 
-			generating the final call. This file referenced in build.xml
-			
-fragment.inc:
-			See description of ooa_oal_pop.arc
-			
 pg_schema_gen.arc:
 			This archetype extracts the schema for a user model from a .gen 
 			database, which is output as an SQL file suitable for use in a 
