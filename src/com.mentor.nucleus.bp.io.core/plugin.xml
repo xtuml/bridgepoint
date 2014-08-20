@@ -28,7 +28,7 @@
       <import plugin="org.antlr"/>
       <import plugin="com.mentor.nucleus.bp.ui.explorer"/>
       <import plugin="com.mentor.nucleus.bp.ui.graphics"/>
-      <import plugin="com.mentor.nucleus.bp.als.oal" version="4.1.7"/>
+      <import plugin="com.mentor.nucleus.bp.als.oal"/>
    </requires>
    <extension
          point="org.eclipse.help.contexts">
