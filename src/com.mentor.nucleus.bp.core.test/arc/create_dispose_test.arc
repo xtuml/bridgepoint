@@ -142,6 +142,10 @@
     .if(rel.Numb == 4201)
       .assign attr_result = true
     .end if
+   .elif ( obj.Key_Lett == "C_PO" )
+    .if(rel.Numb == 4709)
+      .assign attr_result = true
+    .end if    
   .end if
 .end function
 .function ignore_rel_null_check_generics
@@ -168,6 +172,10 @@
     .if(rel.Numb == 4201)
       .assign attr_result = true
     .end if
+  .elif ( obj.Key_Lett == "C_PO" )
+    .if(rel.Numb == 4709)
+      .assign attr_result = true
+    .end if      
   .end if
 .end function
 .//

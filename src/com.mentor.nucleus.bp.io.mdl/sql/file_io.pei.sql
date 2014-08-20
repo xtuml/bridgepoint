@@ -106,10 +106,11 @@ INSERT INTO EO VALUES ( '12.4.6',   '12.4.6.1', '12.4.7',     'Domain As Compone
 INSERT INTO EO VALUES ( '12.4.6.1', '1.1',      '',           'Domain',              4204, 'one', 'first', false );
 INSERT INTO EO VALUES ( '12.4.7',	'14.1.1', '12.4.8',     'Interface Package', 4206, 'many', 'none', true );
 INSERT INTO EO VALUES ( '12.4.8',       '12.4.8.1',    '12.4.9', 'Component Reference', 4205, 'many', 'first', false );
-INSERT INTO EO VALUES ( '12.4.8.1',       '12.4.8.1.1',    '12.4.8.2', 'Imported Reference', 4700, 'many', 'first', false );
-INSERT INTO EO VALUES ( '12.4.8.1.1',       '12.4.8.1.1.1',    '12.4.8.1.2', 'Imported Provision', 4703, 'one', 'first', false );
-INSERT INTO EO VALUES ( '12.4.8.1.1.1',       '',    '', 'Imported Provision In Satisfaction', 4705, 'many', 'first', false );
-INSERT INTO EO VALUES ( '12.4.8.1.2',       '',    '', 'Imported Requirement', 4703, 'one', 'first', false );
+INSERT INTO EO VALUES ( '12.4.8.1',       '12.4.8.1.1',    '12.4.8.2', 'Port Reference', 4707, 'many', 'first', false );
+INSERT INTO EO VALUES ( '12.4.8.1.1',      '12.4.8.1.1.1'  ,'', 'Imported Reference', 4708, 'many', 'first', false );
+INSERT INTO EO VALUES ( '12.4.8.1.1.1',     '12.4.8.1.1.1.1',    '12.4.8.1.1.2', 'Imported Provision', 4703, 'one', 'first', false );
+INSERT INTO EO VALUES ( '12.4.8.1.1.1.1',       '',    '', 'Imported Provision In Satisfaction', 4705, 'many', 'first', false );
+INSERT INTO EO VALUES ( '12.4.8.1.1.2',       '',    '', 'Imported Requirement', 4703, 'one', 'first', false );
 INSERT INTO EO VALUES ( '12.4.9',   '12.4.9.1', '12.4.10',     'Delegation In Component', 9002, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.9.1',   '12.4.9.1.1', '',     'Delegation', 9002, 'many', 'first', false );
 INSERT INTO EO VALUES ( '12.4.9.1.1',   '', '12.4.9.1.2',     'Interface Reference In Delegation', 4013, 'many', 'first', false );

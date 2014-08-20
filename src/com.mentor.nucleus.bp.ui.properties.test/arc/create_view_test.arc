@@ -227,6 +227,8 @@
     .assign attr_result = false
   .elif(kl == "SM_CRTXN")
     .assign attr_result = false
+   .elif(kl == "CL_POR")
+    .assign attr_result = false      
 .// START: dts0100656086  
   .elif(kl == "S_DOM")
     .assign attr_result = false
