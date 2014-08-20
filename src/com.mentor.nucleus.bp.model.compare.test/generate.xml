@@ -66,7 +66,8 @@ the License.
 		Activator.java,
 		ElementOrderingTests.java,
 		ModelCompareTestSuite.java,
-		ModelMergeTests.java" />
+		ModelMergeTests.java,
+		ModelMergeTests2.java" />
 
 	<target name="clean_all"
 	        description="Clean entire project"
