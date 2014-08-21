@@ -343,7 +343,7 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 			if (slot > childSlot) {
 				localSlotLocation++;
 			}
-			if (slot < childSlot) {
+			if (slot <= childSlot) {
 				break;
 			}
 			count++;

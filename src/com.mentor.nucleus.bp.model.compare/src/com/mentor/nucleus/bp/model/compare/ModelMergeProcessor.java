@@ -384,6 +384,8 @@ public class ModelMergeProcessor {
 			// not supported
 			return false;
 		}
+		Object remoteParent = contentProvider.getParent(difference
+				.getElement());
 		int newElementLocation = difference.getLocation();
 		NonRootModelElement parent = null;
 		if(matchingDiffElement instanceof EmptyElement) {
@@ -421,9 +423,25 @@ public class ModelMergeProcessor {
 		}
 		if (matchingDiffElement != null
 				&& !(matchingDiffElement instanceof EmptyElement)) {
+			Object existingDiffElement = ((ComparableTreeObject) matchingDiffElement).getRealElement();
+			// first adjust so that the ordering matches for undo
+			// this will place the element at the end position
+			// and allow a restored deletion to get placed at
+			// the proper location
+			int length = getPersistenceLocation(parent, existingDiffElement,
+					contentProvider, true);
+			adjustPersistenceOrdering(existingDiffElement, length - 1, contentProvider);
 			// this is a value difference, we need to dispose the current value
 			// first
-			disposeElement(matchingDiffElement);
+			// disable listeners as we do not want graphics deleted
+			// for this case, they will have their own differences if
+			// deletion is required
+			try {
+				Ooaofgraphics.disableChangeNotification();
+				disposeElement(matchingDiffElement);
+			} finally {
+				Ooaofgraphics.enableChangeNotification();
+			}
 		}
 		// look for the element locally, certain differences that
 		// were
@@ -431,14 +449,15 @@ public class ModelMergeProcessor {
 		// location difference in the file
 		Object object = findObjectInDestination(modelRoot, newObject);
 		if (object != null && !((NonRootModelElement) object).isProxy()) {
-			newElementLocation = getPersistenceLocation(parent, newObject, contentProvider);
+			newElementLocation = getPersistenceLocation(parent, newObject, contentProvider, false);
 			return adjustPersistenceOrdering(object, newElementLocation, contentProvider);
 		}
 		// some situations required other data to be created first
 		handleCopyNew(newObject, differencer, contentProvider, modelRoot, rightToLeft);
 		// export the element
 		String export = copyExternal(modelRoot, newObject, false, false);
-		newObject = importExternal(newObject, export, parent, modelRoot, newElementLocation);
+		newObject = importExternal(newObject, export, parent, modelRoot, getPersistenceLocation(remoteParent,
+				difference.getElement(), contentProvider, false));
 		// if this element is a graphical element we need to
 		// associate it with an element specification so the
 		// proper ooa_type is exported
@@ -555,10 +574,8 @@ public class ModelMergeProcessor {
 						contentProvider, false);
 			}
 		} else {
-			Object remoteParent = contentProvider.getParent(difference
-					.getElement());
 			newElementLocation = getPersistenceLocation(remoteParent,
-					difference.getElement(), contentProvider);
+					difference.getElement(), contentProvider, false);
 			adjustPersistenceOrdering(newObject, newElementLocation, contentProvider);
 			batchRelateAll(newObject, modelRoot, contentProvider);
 		}
@@ -578,12 +595,12 @@ public class ModelMergeProcessor {
 	}
 	
 	private static int getPersistenceLocation(Object parent,
-			Object newObject, ITreeDifferencerProvider contentProvider) {
+			Object newObject, ITreeDifferencerProvider contentProvider, boolean returnLength) {
 		newObject = ComparableProvider.getComparableTreeObject(newObject);
 		int location = 0;
 		Object[] children = contentProvider.getChildren(parent);
 		for(Object child : children) { 
-			if(child.equals(newObject)) {
+			if(child.equals(newObject) && !returnLength) {
 				break;
 			}
 			Object realChild = child;
@@ -793,15 +810,13 @@ public class ModelMergeProcessor {
 								parentDetails.getAssociationNumber(),
 								parentDetails.getAssociationPhrase(),
 								parentDetails.getChildKeyLetters() };
-						if(newElementLocation == -1) {
-							IPersistableElementParentDetails remoteParentDetails = PersistenceManager.getHierarchyMetaData().getParentDetails(getMatchingElement(elem));
-							Object[] remoteDetails = new Object[] { remoteParentDetails.getParent(),
-									remoteParentDetails.getChild(),
-									remoteParentDetails.getAssociationNumber(),
-									remoteParentDetails.getAssociationPhrase(),
-									remoteParentDetails.getChildKeyLetters() };
-							newElementLocation = getLocationForElementInSource(remoteDetails);
-						}
+						IPersistableElementParentDetails remoteParentDetails = PersistenceManager.getHierarchyMetaData().getParentDetails(getMatchingElement(elem));
+						Object[] remoteDetails = new Object[] { remoteParentDetails.getParent(),
+								remoteParentDetails.getChild(),
+								remoteParentDetails.getAssociationNumber(),
+								remoteParentDetails.getAssociationPhrase(),
+								remoteParentDetails.getChildKeyLetters() };
+						newElementLocation = getLocationForElementInSource(remoteDetails);
 						callSetOrderOperation(newElementLocation, localDetails);
 						NonRootModelElement matchingElement = getMatchingElement(elem);
 						if(matchingElement != null) {
@@ -1605,12 +1620,10 @@ public class ModelMergeProcessor {
 		if (method != null) {
 			invokeMethod(method, details[0], new Object[] { details[1],
 					position });
-		} else {
-			// log error as there must be such a method
-			ComparePlugin.writeToLog("Unable to locate " + methodName + " in "
-					+ details[0].getClass().getSimpleName(), null,
-					CorePlugin.class);
 		}
+		// do not log an error as not all
+		// elements support reordering (reflexives and
+		// linked associations)
 	}
 
 	private static NonRootModelElement getLastSupertype(NonRootModelElement element) {

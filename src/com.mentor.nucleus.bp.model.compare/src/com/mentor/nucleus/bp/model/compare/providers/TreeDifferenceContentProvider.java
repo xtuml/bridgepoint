@@ -152,6 +152,8 @@ public class TreeDifferenceContentProvider implements ITreeContentProvider {
 			if(differencer != null) {
 				differencer.dipose();
 			}
+			// set the left and right roots
+			modelContentProvider.setRootElements(leftRoots, rightRoots);
 			differencer = new TreeDifferencer(
 					(ITreeDifferencerProvider) modelContentProvider,
 					leftRoots,
