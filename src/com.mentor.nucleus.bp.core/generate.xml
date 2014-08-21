@@ -399,6 +399,9 @@
 	      	-import sql/ooaofooa.sql
 	      	-arch arc/generate_supertype_subtype_util.arc" />
 		</exec>	    	
+    <!-- touch the output file in case generator believes there
+         are no changes -->
+    <touch file="${gssu.output}"/>
 	</target>
 
 	<property name="grtou.output" value="src/com/mentor/nucleus/bp/core/util/RTOUtil.java" />
@@ -444,6 +447,9 @@
 	      	-import sql/ooaofooa.sql
 	      	-arch arc/action_language_description_util.arc" />
 		</exec>	    	
+    <!-- touch the output file in case generator believes there
+         are no changes -->
+    <touch file="${ald.output}"/>
 	</target>
 	    	
 	<property name="gu.output" value="src/com/mentor/nucleus/bp/core/util/GlobalsUtil.java" />

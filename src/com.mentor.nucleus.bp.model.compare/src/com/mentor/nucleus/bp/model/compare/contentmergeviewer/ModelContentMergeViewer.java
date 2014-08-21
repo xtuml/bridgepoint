@@ -196,6 +196,10 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 	private List<ModelMergeViewer> rightExtensions = new ArrayList<ModelMergeViewer>();
 	private Map<NonRootModelElement, ICompareInput> savedModels = new HashMap<NonRootModelElement, ICompareInput>();
 	private Map<NonRootModelElement, ICompareInput> visitedModels = new HashMap<NonRootModelElement, ICompareInput>();
+	// set this variable to true in order to show
+	// graphical data in the tree, this helps with
+	// debugging tree differences
+	public boolean debug = false;
 	
 	public ModelContentMergeViewer(Composite parent,
 			CompareConfiguration configuration) {
@@ -880,7 +884,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			mergeDifferences.addAll(remainder);
 			for (TreeDifference difference : mergeDifferences) {
 				// skip graphical data at this point
-				if(SynchronizedTreeViewer.differenceIsGraphical(difference)) {
+				if(SynchronizedTreeViewer.differenceIsGraphical(difference) && !debug) {
 					continue;
 				}
 				if((difference.getKind() & Differencer.DIRECTION_MASK) == Differencer.CONFLICTING && !copySelection) {
@@ -987,7 +991,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				| SWT.MULTI | SWT.FULL_SELECTION | SWT.DOUBLE_BUFFERED
 				| SWT.NO_BACKGROUND | SWT.BORDER, this, configuration.isLeftEditable(), false);
 		ModelCompareContentProvider leftContentProvider = new ModelCompareContentProvider();
-		leftContentProvider.setIncludeNonTreeData(false);
+		leftContentProvider.setIncludeNonTreeData(debug);
 		leftTreeViewer.setContentProvider(leftContentProvider);
 		leftTreeViewer.setUseHashlookup(true);
 		leftTreeViewer.setLabelProvider(new ModelCompareLabelProvider());
@@ -1026,7 +1030,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		rightTreeViewer.setUseHashlookup(true);
 		leftTreeViewer.addSynchronizationViewer(rightTreeViewer);
 		ModelCompareContentProvider rightProvider = new ModelCompareContentProvider();
-		rightProvider.setIncludeNonTreeData(false);
+		rightProvider.setIncludeNonTreeData(debug);
 		rightTreeViewer.setContentProvider(rightProvider);
 		rightTreeViewer.setLabelProvider(new ModelCompareLabelProvider());
 		rightItem.setControl(rightPanel);
@@ -1048,7 +1052,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				false, true);
 		ancestorTreeViewer.setUseHashlookup(true);
 		ModelCompareContentProvider ancestorProvider = new ModelCompareContentProvider();
-		ancestorProvider.setIncludeNonTreeData(false);
+		ancestorProvider.setIncludeNonTreeData(debug);
 		ancestorTreeViewer.setContentProvider(ancestorProvider);
 		ancestorTreeViewer.setLabelProvider(new ModelCompareLabelProvider());
 		leftTreeViewer.addSynchronizationViewer(ancestorTreeViewer);
@@ -1150,7 +1154,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		gc.setAntialias(SWT.ON);
 		List<TreeDifference> differences = differencer.getLeftDifferences();
 		for (TreeDifference difference : differences) {
-			if(SynchronizedTreeViewer.differenceIsGraphical(difference)) {
+			if(SynchronizedTreeViewer.differenceIsGraphical(difference) && !debug) {
 				// currently do not include graphical data
 				continue;
 			}
