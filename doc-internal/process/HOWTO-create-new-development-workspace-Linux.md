@@ -9,8 +9,8 @@ References
 
 Preparations
 ------------
-- __NOTE 1:__ Prior to using this checklist you should already have an account on github.  If you do not, then see [2]  
-- __NOTE 2:__ These instructions are specific to Linux.  For the Windows version of these instructions see [1]
+- NOTE 1: Prior to using this checklist you should already have an account on github.  If you do not, then see [2]  
+- NOTE 2: These instructions are specific to Linux.  For the Windows version of these instructions see [1]
 
 
 Steps
@@ -63,6 +63,7 @@ _- Configure the tool using the files cloned from the repositories above:
     _- Open ~/util/BridgePointDev-Linux/bin/xtumlmc_gen_erate in a text editor.  Update the home dir and version to match your installation.
   _- Copy <git repo>/internal/doc-internal/process/templates/checklists/development-workspace-setup/dropins/* into ~/MentorGraphics/BridgePoint/eclipse/dropins
   ##### TODO - I also had to update the internal.tools plugin to Campbell's latest with new java pre-builder
+  ##### and modify the plugin.xml to change the activator class???
   
 _- Update eclipse preferences to common and required settings:
   _- Open the Navigator view
