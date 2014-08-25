@@ -801,7 +801,7 @@ ${cfca.body}\
             .end for
             };
         source = (${class_name}) instances.get(key);
-        if (source != null  && !modelRoot.isCompareRoot()) {
+        if (source != null && !modelRoot.isCompareRoot()) {
            source.convertFromProxy();
            source.batchUnrelate();
             .invoke cfcb_source = create_full_constructor_body(attributes, false, "source.")

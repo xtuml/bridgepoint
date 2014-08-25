@@ -154,12 +154,5 @@ public class NonRootModelElementComparable extends ComparableTreeObject implemen
 		}
 		return null;
 	}
-	/* (non-Javadoc)
-	 * @see com.mentor.nucleus.bp.model.compare.ComparableTreeObject#ignoreOrdering()
-	 */
-	@Override
-	public boolean ignoreOrdering() {
-		return false;
-	}
 	
 }
