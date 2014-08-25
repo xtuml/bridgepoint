@@ -343,7 +343,7 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 			if (slot > childSlot) {
 				localSlotLocation++;
 			}
-			if (slot <= childSlot) {
+			if (slot < childSlot) {
 				break;
 			}
 			count++;
@@ -361,28 +361,6 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 				location++;
 			}
 		}
-		// // we must also must adjust the location by the number of
-		// // elements above us they do not exist on the other side
-		// // within the expected slot
-		// int count = 0;
-		// int locationAdditions = 0;
-		// for (Object child : localChildren) {
-		// Object realChild = ((ComparableTreeObject) child).getRealElement();
-		// elementInspector = getInspector(realChild);
-		// int emptySlot = elementInspector.getTreeDifferenceSlot(realChild);
-		// if (slot == emptySlot) {
-		// Object matchingChild = getMatchingChild(child, roots);
-		// if (matchingChild == null && count < location) {
-		// locationAdditions++;
-		// }
-		// count++;
-		// } else {
-		// if(slot < emptySlot) {
-		// break;
-		// }
-		// }
-		// }
-		// location += locationAdditions;
 		return location;
 	}
 	
