@@ -306,6 +306,11 @@
           parms.elementAt(${attr_col_num}) != null ? removeTics((String)parms.elementAt(${attr_col_num})) : ""\
           .assign special_case = true
         .end if
+      .elif(table.Key_lett == "O_OBJ")
+        .// NOTE: version 4.1.10 had two UUID attributes that are no longer
+        .// present, if a new attribute is added special upgrade code may need
+        .// to be added to check for this case.  See dts0101056206, and 
+        .// doc-internal/notes/227/227.dnt.md for details
       .elif(table.Key_lett == "S_EE")
         .if(col.Name == "Realized_Class_Path")
           parms.elementAt(${attr_col_num}) != null ? removeTics((String)parms.elementAt(${attr_col_num})) : ""\
@@ -793,6 +798,7 @@ public class ${class_name} extends CoreImport
 			loadedInstances.addAll(helper.upgradeNestedPackages(getRootModelElement()));
 			loadedInstances.addAll(helper.addLinkClassesForContainment(loadedInstances));
 			helper.removeSupertypePackageableElement(loadedInstances);
+			helper.addPortReferenceInstances(loadedInstances);
 			helper.upgradeEEsForIsRealized();
           }
           finally {

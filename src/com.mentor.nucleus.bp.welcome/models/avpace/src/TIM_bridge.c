@@ -29,12 +29,11 @@
  * asynchronously based upon the duration of the next most pending
  * timer.
  *
- * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
+ * your copyright statement can go here (from te_copyright.body)
  *-------------------------------------------------------------------*/
 
-#include "sys_types.h"
+#include "avpace_sys_types.h"
 #include "TIM_bridge.h"
-#include "sys_thread.h"
 #include <sys/timeb.h>
 #include <time.h>
 
@@ -58,7 +57,6 @@ struct ETimer_s {
   ETimer_time_t expiration;
   ETimer_time_t recurrence;
   Escher_xtUMLEvent_t * event;
-  u4_t accesskey;
 };
 
 #ifdef USED_TO_ALLOW_PAUSING
@@ -76,6 +74,7 @@ static void timer_fire( ETimer_t * const );
 static ETimer_t *timer_start( const ETimer_time_t, Escher_xtUMLEvent_t * const );
 static bool timer_cancel( ETimer_t * const );
 static bool timer_find_and_delete( ETimer_t * const );
+static bool timer_find_and_reinsert_sorted( ETimer_t * const );
 #endif   /* if ESCHER_SYS_MAX_XTUML_TIMERS > 0 */
 static ETimer_time_t ETimer_msec_time( void );
 
@@ -128,19 +127,19 @@ TIM_timer_remaining_time(
   const Escher_Timer_t * const ee_timer_inst_ref )
 {
   /* Insert implementation specific code here.  */
-  Escher_uSec_t t = 0UL;
-  if ( ee_timer_inst_ref != 0 ) {
-    t = ETimer_msec_time();
-    t = ( ((ETimer_t *) ee_timer_inst_ref)->expiration > t ) ?
-      USEC_CONVERT * ( ((ETimer_t *) ee_timer_inst_ref)->expiration - t ) :
-      0UL;
+  Escher_uSec_t rv = 0UL;
+  ETimer_t * t;
+  t = (ETimer_t *) ee_timer_inst_ref;
+  if ( 0 != t ) {
+    rv = ETimer_msec_time();
+    rv = ( t->expiration > rv ) ? USEC_CONVERT * ( t->expiration - rv ) : 0UL;
   }
-  return ( t );  
+  return ( rv );  
 }
 
 /*=====================================================================
  * BridgePoint Primitive:
- * <was_running_flag> = TIM_timer_reset_time(
+ * <was_running_flag> = TIM::timer_reset_time(
  *   microseconds:<integer_var>,
  *   timer_inst_ref:<timer_inst_ref_var> )
  * Try to change expiration of an existing timer.
@@ -152,18 +151,19 @@ TIM_timer_reset_time(
   Escher_Timer_t * const ee_timer_inst_ref )
 {
   /* Insert implementation specific code here.  */
-  ETimer_t * t = (ETimer_t *) ee_timer_inst_ref;
   bool rc = false;
-  if ( ( t != 0 ) && ( t->expiration > 0UL ) ) {
+  ETimer_t * t;
+  t = (ETimer_t *) ee_timer_inst_ref;
+  if ( ( 0 != t ) && ( t->expiration > 0UL ) ) {
     t->expiration = ETimer_msec_time() + ee_microseconds/USEC_CONVERT + 1UL;
-    rc = true;
+    rc = timer_find_and_reinsert_sorted( t );
   }
   return ( rc );
 }
 
 /*=====================================================================
  * BridgePoint Primitive:
- * <was_running_flag> = TIM_timer_add_time(
+ * <was_running_flag> = TIM::timer_add_time(
  *   microseconds:<integer_var>,
  *   timer_inst_ref:<timer_inst_ref_var> )
  * Try to add time to an existing timer.
@@ -175,11 +175,12 @@ TIM_timer_add_time(
   Escher_Timer_t * const ee_timer_inst_ref )
 {
   /* Insert implementation specific code here.  */
-  ETimer_t * t = (ETimer_t *) ee_timer_inst_ref;
   bool rc = false;
-  if ( ( t != 0 ) && ( t->expiration > 0UL ) ) {
+  ETimer_t * t;
+  t = (ETimer_t *) ee_timer_inst_ref;
+  if ( ( 0 != t ) && ( t->expiration > 0UL ) ) {
     t->expiration += ee_microseconds/USEC_CONVERT;
-    rc = true;
+    rc = timer_find_and_reinsert_sorted( t );
   }
   return ( rc );
 }
@@ -252,7 +253,7 @@ TIM_create_date(
  * BridgePoint Primitive:
  * <integer_var> = TIM::get_second(
  *   date:<integer_var> )
- * Return the year field of the date variable.
+ * Return the second field of the date variable.
  *===================================================================*/
 i_t
 TIM_get_second(
@@ -262,14 +263,14 @@ TIM_get_second(
   /* Insert implementation specific code here.  */
   struct tm * tp;
   tp = localtime( &ee_date );
-  return ( tp->tm_sec );
+  return ( tp ) ? tp->tm_sec : 0;
 }
 
 /*=====================================================================
  * BridgePoint Primitive:
  * <integer_var> = TIM::get_minute(
  *   date:<integer_var> )
- * Return the year field of the date variable.
+ * Return the minute field of the date variable.
  *===================================================================*/
 i_t
 TIM_get_minute(
@@ -279,14 +280,14 @@ TIM_get_minute(
   /* Insert implementation specific code here.  */
   struct tm * tp;
   tp = localtime( &ee_date );
-  return ( tp->tm_min );
+  return ( tp ) ? tp->tm_min : 0;
 }
 
 /*=====================================================================
  * BridgePoint Primitive:
  * <integer_var> = TIM::get_hour(
  *   date:<integer_var> )
- * Return the year field of the date variable.
+ * Return the hour field of the date variable.
  *===================================================================*/
 i_t
 TIM_get_hour(
@@ -296,14 +297,14 @@ TIM_get_hour(
   /* Insert implementation specific code here.  */
   struct tm * tp;
   tp = localtime( &ee_date );
-  return ( tp->tm_hour );
+  return ( tp ) ? tp->tm_hour : 0;
 }
 
 /*=====================================================================
  * BridgePoint Primitive:
  * <integer_var> = TIM::get_day(
  *   date:<integer_var> )
- * Return the year field of the date variable.
+ * Return the day field of the date variable.
  *===================================================================*/
 i_t
 TIM_get_day(
@@ -313,14 +314,14 @@ TIM_get_day(
   /* Insert implementation specific code here.  */
   struct tm * tp;
   tp = localtime( &ee_date );
-  return ( tp->tm_mday );
+  return ( tp ) ? tp->tm_mday : 0;
 }
 
 /*=====================================================================
  * BridgePoint Primitive:
  * <integer_var> = TIM::get_month(
  *   date:<integer_var> )
- * Return the year field of the date variable.
+ * Return the month field of the date variable.
  *===================================================================*/
 i_t
 TIM_get_month(
@@ -330,7 +331,7 @@ TIM_get_month(
   /* Insert implementation specific code here.  */
   struct tm * tp;
   tp = localtime( &ee_date );
-  return ( tp->tm_mon );
+  return ( tp ) ? tp->tm_mon : 0;
 }
 
 /*=====================================================================
@@ -347,7 +348,7 @@ TIM_get_year(
   /* Insert implementation specific code here.  */
   struct tm * tp;
   tp = localtime( &ee_date );
-  return ( tp->tm_year + 1900 );
+  return ( tp ) ? tp->tm_year + 1900 : 0;
 }
 
 /*=====================================================================
@@ -382,11 +383,8 @@ timer_start(
 )
 {
   ETimer_t * t;
-  #ifdef ESCHER_TASKING_SystemC
-  Escher_mutex_lock( SEMAPHORE_FLAVOR_TIMER );
-  #endif
   t = inanimate;
-  if ( t != 0 ) {
+  if ( 0 != t ) {
     inanimate = inanimate->next;
     t->event = event;
     /*---------------------------------------------------------------*/
@@ -396,11 +394,9 @@ timer_start(
     /*---------------------------------------------------------------*/
     t->expiration = ETimer_msec_time() + duration + 1UL;
     timer_insert_sorted( t );
+  } else {
+    /* no timers left */
   }
-  #ifdef ESCHER_TASKING_SystemC
-  Escher_mutex_unlock( SEMAPHORE_FLAVOR_TIMER );
-  Escher_nonbusy_wake( 0 ); /* Wake default task to service timers.  */
-  #endif
   return ( t );
 }
 
@@ -413,7 +409,7 @@ timer_insert_sorted(
   ETimer_t * t
 )
 {
-  if ( animate == 0 ) {                              /* empty list   */
+  if ( 0 == animate ) {                              /* empty list   */
     t->next = 0;
     animate = t;
   } else {
@@ -443,7 +439,7 @@ static bool
 timer_find_and_delete( ETimer_t * const t )
 {
   bool rc = false;
-  if ( ( t != 0 ) && ( animate != 0 ) ) {
+  if ( ( 0 != t ) && ( 0 != animate ) ) {
     /*---------------------------------------------------------------*/
     /* Check to see if the timer has already been reset.  This       */
     /* check is probabilistic; it could have a hole if multitasked.  */
@@ -459,7 +455,7 @@ timer_find_and_delete( ETimer_t * const t )
       ETimer_t * prev = animate;
       ETimer_t * cursor;
       while ( ( cursor = prev->next ) != t ) {           /* find */
-        if ( cursor == 0 ) {
+        if ( 0 == cursor ) {
           return ( false );
         }
         prev = cursor;
@@ -475,6 +471,37 @@ timer_find_and_delete( ETimer_t * const t )
 }
 
 /*---------------------------------------------------------------------
+ * Try to find a ticking timer and re-insert it in the ticking list.
+ *-------------------------------------------------------------------*/
+static bool
+timer_find_and_reinsert_sorted( ETimer_t * const t )
+{
+  bool rc = false;
+  if ( ( 0 != t ) && ( 0 != animate ) ) {
+    /*---------------------------------------------------------------*/
+    /* Try to find the timer in the list                             */
+    /* If found, remove it from the list, and insert it sorted       */
+    /*---------------------------------------------------------------*/
+    if ( t == animate ) {
+      animate = animate->next;
+    } else {
+      ETimer_t * prev = animate;
+      ETimer_t * cursor;
+      while ( ( cursor = prev->next ) != t ) {           /* find */
+        if ( 0 == cursor ) {
+          return ( false );
+        }
+        prev = cursor;
+      }
+      prev->next = t->next;                             /* unlink */
+    }
+    timer_insert_sorted( t );           /* re-insert item in list */
+    rc = true;
+  }
+  return rc;
+}
+
+/*---------------------------------------------------------------------
  * Cancel the given timer if possible.
  *-------------------------------------------------------------------*/
 static bool
@@ -482,19 +509,14 @@ timer_cancel(
   ETimer_t * const t
 )
 {
-  bool rc = false;
-  #ifdef ESCHER_TASKING_SystemC
-  Escher_mutex_lock( SEMAPHORE_FLAVOR_TIMER );
-  #endif
-  if ( timer_find_and_delete( t ) == true ) {
-    if ( t->event != 0 ) {
-      Escher_DeletextUMLEvent( t->event );
-      rc = true;
+  bool rc; Escher_xtUMLEvent_t * e;
+  rc = timer_find_and_delete( t );
+  e = t->event;
+  if ( true == rc ) {
+    if ( 0 != e ) {
+      Escher_DeletextUMLEvent( e );
     }
   }
-  #ifdef ESCHER_TASKING_SystemC
-  Escher_mutex_unlock( SEMAPHORE_FLAVOR_TIMER );
-  #endif
   return ( rc );
 }
 
@@ -508,7 +530,7 @@ timer_fire(
   ETimer_t * const t
 )
 {
-  t->expiration = ( t->recurrence == 0 ) ? 0 : t->expiration + t->recurrence;
+  t->expiration = ( 0 == t->recurrence ) ? 0 : t->expiration + t->recurrence;
   Escher_SendEvent( t->event );
   if ( 0 != t->recurrence ) {
     Escher_xtUMLEvent_t * e = Escher_AllocatextUMLEvent();
@@ -517,9 +539,9 @@ timer_fire(
     animate = animate->next;      /* Remove from front of list.    */
     timer_insert_sorted( t );
   } else {
-    animate = animate->next;      /* Remove from active list.      */
-    t->next = inanimate;          /* Connect to inactive list.     */
-    inanimate = t;
+  animate = animate->next;        /* Remove from active list.      */
+  t->next = inanimate;            /* Connect to inactive list.     */
+  inanimate = t;
   }
 }
 #endif   /* if ESCHER_SYS_MAX_XTUML_TIMERS > 0 */
@@ -576,17 +598,11 @@ TIM_tick( void )
   /*-----------------------------------------------------------------*/
   /* Check to see if there are timers in the ticking timers list.    */
   /*-----------------------------------------------------------------*/
-  #ifdef ESCHER_TASKING_SystemC
-  Escher_mutex_lock( SEMAPHORE_FLAVOR_TIMER );
-  #endif
-  if ( animate != 0 ) {
+  if ( 0 != animate ) {
     if ( animate->expiration <= ETimer_msec_time() ) {
       timer_fire( animate );
     }
   }
-  #ifdef ESCHER_TASKING_SystemC
-  Escher_mutex_unlock( SEMAPHORE_FLAVOR_TIMER );
-  #endif
 #endif   /* if ESCHER_SYS_MAX_XTUML_TIMERS > 0 */
 }
 
@@ -616,7 +632,7 @@ TIM_resume( void )
   ETimer_t * cursor = animate;
   ETimer_time_t t;      /* difference between now and start of pause */
   t = ETimer_msec_time() - start_of_pause;
-  while ( cursor != 0 ) {
+  while ( 0 != cursor ) {
     cursor->expiration += t;
     cursor = cursor->next;
   }

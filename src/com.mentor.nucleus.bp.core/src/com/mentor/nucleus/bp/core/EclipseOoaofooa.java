@@ -45,6 +45,7 @@ import com.mentor.nucleus.bp.core.common.ModelChangedEvent;
 import com.mentor.nucleus.bp.core.common.ModelRoot;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
+import com.mentor.nucleus.bp.core.util.CoreUtil;
 import com.mentor.nucleus.bp.core.util.OoaofgraphicsUtil;
 import com.mentor.nucleus.bp.core.util.PlaceHolderUtil;
 
@@ -89,7 +90,7 @@ public class EclipseOoaofooa extends OoaofooaBase {
     {
         super(aRootId);
 
-        if (isFileBasedID(aRootId)) {
+        if (!CoreUtil.IsRunningHeadless && isFileBasedID(aRootId)) {
             PlaceHolderUtil.initPlaceholderManager();
         }
     }
@@ -277,7 +278,7 @@ public class EclipseOoaofooa extends OoaofooaBase {
         try {
           IModelChangeListener listener = (IModelChangeListener)listeners[i];
           if ((isChangeNotificationEnabled() || !listener.isMaskable()) &&
-                                                     listener.isSynchronous()) {
+                  listener.isSynchronous()) {
             super.callFireMethodSynchronously(runnable, listener);
           }
         } catch (Throwable e) {
@@ -289,20 +290,20 @@ public class EclipseOoaofooa extends OoaofooaBase {
 			((ModelChangedEvent)((ListenerMethodInvoker)runnable).getEvent()).setStackTrace();
 		}
         Display d = Display.getCurrent();
-        if (d != null) {
+        if (d != null || CoreUtil.IsRunningHeadless) {
             // it's ok, we're in the UI thread
             runnable.run();
         } else {
             if (m_display != null && !m_display.isDisposed()) {
                 m_display.asyncExec(runnable);
             } else {
-                // fire the change on the default UI-thread (having one
-                // created, if none currently exists), when there's no
-                // other choice, such as when this model-root's
-                // resource-change-listener gets notified of a change
-                // made to the model's file in the filesystem (as such
-                // notification doesn't occur on the UI-thread)
-                Display.getDefault().asyncExec(runnable);
+	                // fire the change on the default UI-thread (having one
+	                // created, if none currently exists), when there's no
+	                // other choice, such as when this model-root's
+	                // resource-change-listener gets notified of a change
+	                // made to the model's file in the filesystem (as such
+	                // notification doesn't occur on the UI-thread)
+	                Display.getDefault().asyncExec(runnable);
             }
         }
       }

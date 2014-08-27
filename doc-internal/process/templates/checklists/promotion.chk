@@ -84,6 +84,10 @@ _R When tests pass the changes can be pushed.
 	  	   back the changes:
 	  	   		git reset ---hard origin/master
 	  	   		
+_- After pushing the changes into origin/master, merge origin/master into the 
+xtuml_editor_builder branch.
+	_- Build the branch
+	_R The branch builds successfully.
 	
 _- If the github issue is a mirror of a CQ issue, you must perform the following
    steps.  If not, skip to the next section.

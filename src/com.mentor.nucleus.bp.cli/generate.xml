@@ -39,6 +39,8 @@
        	<pathelement path="../com.mentor.nucleus.bp.io.mdl/bin" />
        	<pathelement path="../com.mentor.nucleus.bp.utilities/bin" />
        	<pathelement path="../com.mentor.nucleus.bp.ui.canvas/bin" />
+       	<pathelement path="../com.mentor.nucleus.bp.mc/bin" />
+       	<pathelement path="../com.mentor.nucleus.bp.mc.c.binary/bin" />
         <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
        	  <include name="**/org.eclipse.equinox.common_*.jar"/>
           <include name="**/org.eclipse.equinox.app_*.jar"/>

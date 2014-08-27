@@ -684,8 +684,8 @@ public class PersistableModelComponent implements Comparable {
         return;
      
         // do not allow load if there is no xtUML nature
-		if (!getFile().getProject().hasNature(XtUMLNature.ID)
-				|| !getFile().getProject().exists()
+		if (!getFile().getProject().isAccessible()
+				|| !getFile().getProject().hasNature(XtUMLNature.ID)
 				|| PersistenceManager.getRootComponent(getFile().getProject()) == null) {
         	return;
         }

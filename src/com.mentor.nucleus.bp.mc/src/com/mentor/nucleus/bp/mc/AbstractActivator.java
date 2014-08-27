@@ -31,25 +31,20 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IStartup;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.Bundle;
 
 import com.mentor.nucleus.bp.core.Ooaofooa;
-import com.mentor.nucleus.bp.core.ui.Selection;
-import com.mentor.nucleus.bp.core.util.UIUtil;
 
 /**
  * The plugin class for the Resource Programming Plugin. Instantiated by the
  * platform when the plug-in is started.
  */
-public abstract class AbstractActivator extends AbstractUIPlugin {
+public abstract class AbstractActivator extends Plugin {
 
 	public static final String GEN_FOLDER_NAME = "gen"; //$NON-NLS-1$
 	public static final String SRC_FOLDER_NAME = "src"; //$NON-NLS-1$

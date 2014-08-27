@@ -49,6 +49,7 @@ import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
+import com.mentor.nucleus.bp.core.util.CoreUtil;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.io.core.CoreExport;
 import com.mentor.nucleus.bp.io.mdl.ExportModelStream;
@@ -98,8 +99,9 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
         //progress monitor between the building thread and the saving thread.
         // hence we get to change that value to never so the build continues  
         // without the possibility of a halt due to user wanting dirty editors to be saved before launch
-        DebugUIPlugin.getDefault().getPreferenceStore().setValue(IInternalDebugUIConstants.PREF_SAVE_DIRTY_EDITORS_BEFORE_LAUNCH, "never");
-
+		if (!CoreUtil.IsRunningHeadless) {
+			DebugUIPlugin.getDefault().getPreferenceStore().setValue(IInternalDebugUIConstants.PREF_SAVE_DIRTY_EDITORS_BEFORE_LAUNCH, "never");
+		}
 	}
 
 	// The eclipse infrastructure calls this function in response to
@@ -111,9 +113,8 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 		boolean oalExportIsLicensed = false;
 		try {
 			// Check the license 
-			oalExportIsLicensed = BridgePointLicenseManager.getLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT, true);
+			oalExportIsLicensed = checkoutLicense();
 			if (!oalExportIsLicensed) {
-				UIUtil.showErrorDialog("License Request Failed", "Failed to get a Model Compiler prebuilder license.\n");
 				return null;
 			}
 			
@@ -137,7 +138,7 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 			// Must check in this license because as specified in checkout above 
 			// it is set to "linger", and the linger starts at checkin
 			if (oalExportIsLicensed) {
-				BridgePointLicenseManager.releaseLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
+				checkinLicense();
 			}
 		}
 		return null;
@@ -165,12 +166,39 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 		return (path.delete());
 	}
 
-	protected IPath getCodeGenFolderPath() {
-        String projPath = getProject().getLocation().toOSString();
+    private boolean checkoutLicense() {
+        boolean oalExportIsLicensed = false;
+        oalExportIsLicensed = BridgePointLicenseManager.getLicense(
+                BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT, true);
+        if (!oalExportIsLicensed) {
+            String msgTitle = "License Request Failed";
+            String msg = "Failed to get a Model Compiler prebuilder license.\n";
+            if (CoreUtil.IsRunningHeadless) {
+                CorePlugin.logError(msgTitle + ", " + msg, null);
+            } else {
+                UIUtil.showErrorDialog(msgTitle, msg);
+            }
+        }
+        return oalExportIsLicensed;
+    }
+
+    private void checkinLicense() {
+        BridgePointLicenseManager
+                .releaseLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
+    }
+
+	public IPath getCodeGenFolderPath(IProject proj) {		
+        String projPath = proj.getLocation().toOSString();
         IPath path = new Path(projPath + File.separator
                 + AbstractActivator.GEN_FOLDER_NAME + File.separator
                 + m_outputFolder + File.separator);
         return path;
+	}
+	
+	
+	protected IPath getCodeGenFolderPath() {
+		IProject proj = getProject();
+		return getCodeGenFolderPath(proj);
 	}
 	
     // Performs house-keeping at the start of the build
@@ -279,6 +307,28 @@ public abstract class AbstractExportBuilder extends IncrementalProjectBuilder {
 		  m_exportedSystems.add(system);
 		  exportSystem(system, destPath, monitor, false, "");
 	}
+
+    public List<SystemModel_c> exportSystemWithLicenseCheck(SystemModel_c system, String destDir,
+            final IProgressMonitor monitor) throws CoreException {
+        boolean oalExportIsLicensed = false;
+        try {
+            // Check the license 
+            oalExportIsLicensed = checkoutLicense();
+            if (!oalExportIsLicensed) {
+                return null;
+            }
+            
+            exportSystem(system, destDir, monitor, false, "");
+        } finally {
+            // Must check in this license because as specified in checkout above 
+            // it is set to "linger", and the linger starts at checkin
+            if (oalExportIsLicensed) {
+                checkinLicense();
+            }
+        }
+
+        return m_exportedSystems;
+    }
 
     public List<SystemModel_c> exportSystem(SystemModel_c system, String destDir,
             final IProgressMonitor monitor) throws CoreException {

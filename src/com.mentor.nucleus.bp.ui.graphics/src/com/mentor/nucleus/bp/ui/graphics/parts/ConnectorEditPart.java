@@ -103,6 +103,7 @@ import com.mentor.nucleus.bp.ui.graphics.decorations.TooltipDecoration;
 import com.mentor.nucleus.bp.ui.graphics.draw.PrecisionBendpoint;
 import com.mentor.nucleus.bp.ui.graphics.editor.GraphicalEditor;
 import com.mentor.nucleus.bp.ui.graphics.figures.DecoratedPolylineConnection;
+import com.mentor.nucleus.bp.ui.graphics.figures.SimpleTooltipFigure;
 import com.mentor.nucleus.bp.ui.graphics.layers.LayerUtils;
 import com.mentor.nucleus.bp.ui.graphics.layers.UserDefinedLayer;
 import com.mentor.nucleus.bp.ui.graphics.layout.FixedTextLocator;
@@ -167,9 +168,9 @@ public class ConnectorEditPart extends AbstractConnectionEditPart implements
 	protected IFigure createFigure() {
 		DecoratedPolylineConnection connection = new DecoratedPolylineConnection(this);
 		if (!getTextDescription().equals("")) {
-			Label tooltip = new Label(getTextDescription());
-			tooltip.setBorder(new MarginBorder(3, 3, 3, 3));
-			connection.setToolTip(tooltip);
+			SimpleTooltipFigure tooltipFigure = new SimpleTooltipFigure();
+			tooltipFigure.setMessage(getTextDescription());
+			connection.setToolTip(tooltipFigure);
 		}
 		connection.setLineStyle(getLineStyle());
 		connection.setLineWidth(getConfiguredLineWidth());
@@ -188,6 +189,11 @@ public class ConnectorEditPart extends AbstractConnectionEditPart implements
 		if (elem != null && elem.getRepresents() != null) {
 			Method findMethod = Cl_c.findMethod(elem.getRepresents(),
 					"getDescrip", new Class[0]);
+			if(findMethod == null) {
+				// try for an operation that returns the description
+				findMethod = Cl_c.findMethod(elem.getRepresents(),
+						"Getdescription", new Class[0]);
+			}
 			if (findMethod != null) {
 				String descrip = (String) Cl_c.doMethod(findMethod, elem
 						.getRepresents(), new Object[0]);
@@ -476,9 +482,9 @@ public class ConnectorEditPart extends AbstractConnectionEditPart implements
 		}
 
 		if (!getTextDescription().equals("")) {
-			Label tooltip = new Label(getTextDescription());
-			tooltip.setBorder(new MarginBorder(3, 3, 3, 3));
-			getFigure().setToolTip(tooltip);
+			SimpleTooltipFigure tooltipFigure = new SimpleTooltipFigure();
+			tooltipFigure.setMessage(getTextDescription());
+			getFigure().setToolTip(tooltipFigure);
 		} else {
 			if (getFigure().getToolTip() != null)
 				getFigure().setToolTip(null);

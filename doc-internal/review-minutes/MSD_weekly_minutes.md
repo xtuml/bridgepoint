@@ -8,6 +8,437 @@ MSD Weekly Meeting Minutes
     [Clearquest issue dts0100563933](http://dtsweb.wv.mentorg.com/cqweb/#/dtr01/dts01/RECORD/dts0100563933&noframes=true&format=HTML&recordType=Defect).
 * In January 2013 the document began being maintained here on github.  Issue #30 is the github tracking issue now.
 
+---
+---
+
+    Date:     27 August 2014
+    Start:    noon EDT
+    End:      noon:30 EDT
+    Present:  Keith, Bob, Campbell, Cort, Travis, Heba, Nehad, ...
+    Robert, Roy, others ...
+
+### Engineering status
+
+Heba and Nehad are addressing the observations from the last review meeting of the SVX connector.  They are addressing them one by one.  There are struggles to get the JNI wrapper working every time.  Nehad is validating the added GUI.  He has come up to speed quickly and is working together with Heba.
+
+Travis is finishing up the recent Compare and Merge issues.  He is building the unit tests, then we will have the code review.
+
+Bob is addressing a SAAB SR to add more double-click support.  We need consistent double-click behavior throughout the xtUML Editor.  Bob has updated the pending release queries.  Please review them.  Missing items may have been pushed to the M release.
+
+Campbell has greens on his workspace.  He will submit for promotion.  He is not happy with EGit.  :)
+
+Keith has been working on the build server.  He has the MC-Java prebuilder running as part of it.  He is trying to use the same build steps on the build server that are used in development.  He is also incorporating CLI to kick the build off.  Keith mentioned employing a gh-pages branch on xtuml/training.  Dean is involved in populating the branch.
+
+Cort has been working on the model compiler with tasks mostly focused on Yazaki.  A first demo release was provided last week to MGJ, no word yet on its reception.
+
+
+
+---
+
+    Date:     06 August 2014
+    Start:    9:00 MST  
+    End:      9:49
+    Present:  Keith, Bob, Campbell, Cort, Travis, others ...
+    Dean, others ...
+
+### Engineering status
+
+**Roy Clement-**  Roy is a CAE from Newbury, working for support.  Knowledgeable with design systems.  Worked for Mentor for 10 years.  Will be helping with BridgePoint support in Europe.  Next 4-5 weeks will ramp up knowledge of BridgePoint.  Just a bit delayed, supporting HDL designer as well.  Has a good background with eclipse based graphical tools.     
+
+**Keith -** A notice has been sent out for the xtUML modeling course.  It is open to all registered users.  Hopefully it should generate some traffic.  We will continue to add to it, adding model based testing recently.  We still have sections to complete.  Bob started CLI videos and will finish it.  May move some modules to an advanced course.  Still need the quiz section for the OAL course.  We will put the analysis videos on the back burner.  Dean produced an introduction video that hopefully will incorporate community involvement.  We will move on from the CSM videos remaining.  Started an index which will have continuing development.  The classes have a grade book, allowing us to see traffic. 
+
+**Bob -** Feedback from Montreal was generally good.  The first few modules were trivial, but this was expected.  The team would like a video explaining the differences between merge and rebase.  No additional recommendations for the training material.  Visited Wednesday - Friday, most of the team was present.  First learned about their workflow and process, the process is good just not well defined.  Suggested some additions to their process, mostly they were not using task-based branching.  Also suggested they provide documentation for their tasks.  Used the BridgePoint team's process as a guide.  They had no code review step, the process now includes a promoter.  Tested the process defined and addressed issues found.  Trained them using git with compare/merge using the process.  They ran into an xtUML merge bug, which scared them off of compare/merge.  Focused on compare/merge for the last two days.  Also helped with their current sprint.  Helped with testing towards the end, had to help as the person did not know BridgePoint well.  Received the test model and figured out the bug in the test model.    
+
+Question (Dean): Was the SR to be raised a result of the trip?   
+Answer (Bob): Yes, and this problem would have been easily found if we address the SR.   
+
+**Travis -** An issue was found internally where merging can cause loss references to proxy elements.  Work was done to address this but video production was picked back up before completion.  The Ericsson Montreal team hit the same bug but in state machines using polymorphic events.  The work has been picked back up and redesigned to address both the class and state machine issues.  Further testing of all elements is under way so that we can deliver a more robust compare/merge.   
+   
+**Cort -**  We have some money remaining for The Other firm.  We want to spend that money so that we can transfer knowledge that allows us to manage the site.        
+   
+**Dean -**  John and Stephen are working on a new in-class training course.  This training course we be delivered to Ericsson and will complete the T1 hours.  The final version of the course material has been completed and sent to Budapest.  The class should be done next Wednesday.  The second part of the course will be delivered on December 8th.  The T1 hours remaining are 1 man week of hours for supporting Montreal.  We should run all of the hours out by the second week of September.  We may have two man days remaining.  Should see Japanese use of the training videos.  IT in Japan makes it harder to make use of the training videos.   
+   
+**Robert -** Sony has raised a System c model compiler issue.  It is a long running issue going on for about a year.
+
+**Cort -** There is another issue for hover text.  Received an SR for hover text and we have already solved it.  In the e-mail Umemoto-san is asking to us to file the ER quickly.      
+   
+---
+---
+
+    Date:     23 July 2014
+    Start:    12:00 EDT
+    End:      12:29
+    Present:  Keith, Bob, Campbell, Cort, Travis, others ...
+    Dean, others ...
+
+### Engineering status
+Bob presented a quick sketch of the content for the next release.  We have a list set up in CQ.  What is interesting about the higher priority items now is that they are significant features rather than bugs.  Big items include OAL editor changes and logical model support in the compare and merge capability.
+
+Bob is supplying access to the online training material to the Montreal team before he goes onsite.  There is material that directly addresses configuration management.  He will then go to Montreal in person to help with anything that will make them more efficient.
+
+Cort and Dean explained that Stephen Mellor and John Wolfe will be "beta-testing" two courses that they have been working on.  One is oriented toward analysis of requirements; the other is basic xtUML modeling.  The training classes will be held in Europe in August and September.  This includes improvements to the GPS Watch case study.  Dean commented that we are getting positive feedback from John as he uses the tool in earnest.
+
+Keith supplied a demo of our courseware.  He gave a brief tour of the front end that students will see.  He then showed us how the back end is managed within WP Courseware.  This was very informative.  We have a treasure trove of materials nicely organized.
+
+
+---
+---
+
+    Date:     9th July 2014
+
+    Start:    1200 EDT
+    End:      12:29
+    Present:  Keith, Bob, Campbell, Cort, Travis, Heba, Nehad, others ...
+    Dean, others ...
+
+### Engineering status
+**Keith -**
+- Working on Class diagram data modeling video
+- Will work with Teri Sipes & The Other Firm to get the WP Courseware stuff migrated to the live xtuml.org
+- Everyone needs to create container pages and quizzes to go along with their finished video segments
+- We are close to being able to make the course public on xtuml.org, but we need to reach critical mass
+
+**Travis -**
+- Looking at merge issue that causes corruption when merging classes.  About done but found an issue related to undo/redo of the work.
+- Will go back to creating container pages and videos once the development is complete
+
+**Bob -**
+- Finally got done with process changes so xtUML Editor can stay in synch with master development. Released new xtUML Editor.
+- Now working on CLI video.  Recording done, editing in process.  Next will do some basic git videos targeted at training the 
+the Ericsson Montreal team.
+
+**Campbell -**
+- Have some videos that are nearing completion, all on the subject of VIEC and realized code integration
+- Took a quick look at issue reported by SAAB
+
+**Nehad -**
+- Redo-ing the video that was rejected
+- Also finishing UI enhancements issue.  There are lots of test failures because the UI changes, have to update test results.
+
+**Heba -**
+- Wrapping up two issues related to breakpoints.
+- Updating the branch for port references.
+- Re-recording the port video, making good progress.
+
+**Cort -**
+- Reviewing training videos
+- Working a lot on FXAT
+- Helped with Yazaki deal, they want some AUTOSAR functionality that we are investigating and planning the flow for
+- Planning with Subba and Serge
+- Ericsson deal came through at same level as last year.  We were hoping for more so we are looking for some additional 
+business with them this year.
+
+### Marketing
+**Dean -**
+- Helping gather information and provide support for 
+- Yazaki is a very interesting opportunity.  The account team was very expressive that BridgePoint needed to be part of the deal.
+- We have seen several new BridgePoint accounts
+- Ericsson did come in flat, mostly because we ran out of time to see impact from the services deal for new teams.  Serge will be 
+visiting Ericsson later this month to talk about a new services deal for later this year.
+- Helping drive forward the Embriair evaluation
+
+### Customer Support Status
+**Robert -**  
+- SAAB - Filed a bug for Verifier breakpoint issue, working through another apparent bug in the C MC
+- SONY - Yagi-san is very unhappy that prebuilder can pull a license from any license that contains the appropriate atomic. He basically demands that we change it immediately.
+
+
+---
+---
+
+    Date:     18th June 2014
+
+    Start:    1200 EDT
+    End:      12:25
+    Present:  Keith, Bob, Campbell, Cort, others ...
+    Dean, Robert, others ...
+
+### Engineering status
+**Keith - Release of 4.1.12  -**
+The 4.1.12 Release is officially on SupportNet. The build number has been incremented in
+preparation for the creation of a demo version. Demo version to be based on this release
+and licensed to expire on 01/14/15.
+
+Currently waiting for promotion is Heba's SVX client and a couple SR fixes not related 
+to compare/merge. Promotion work to proceed as part of preparation for next release of 
+xtUML.org Editor.  Expecting to see work completed before end of month. 
+
+**Keith - Training course update -**
+There is still quite a bit of work left to do to create the training video content and 
+the pace is dragging. Quality of videos is quickly rising and few are needing to be reworked. 
+Keith sees this as encouraging and likely to speed up the remaining content creation activities. 
+Keith has also received interest from the SV team to learn more about our activities. It appears 
+they have also received customer requests for similar self-paced materials. 
+
+**Bob - compare/merge patch -**
+Primarily involved in completing the 4.1.12 patch and push it out. He received news today 
+from Saab that they will soon be testing 4.1.12 in an effort to qualify it for production 
+usage. Also, there is a trip planned to Ericsson (Montreal) to provide training/consulting on 
+compare/merge usage. The Ericsson team is encountering problems with their usage of configuration 
+management and issue tracking inside eclipse. These problems are being reported to management 
+as tool issues rather than methodology weaknesses and Bob's trip is to correct this misperception.
+
+**Cort - FXAT - Custom model compiler  -**
+FXAT has significantly extended the custom C model compiler and their models are too big for the conventional 
+model compiler flow. Consequently, we are assisting them to create a model-based custom MC. Cort is
+expecting to have the recent batch of changes completed by 06/27
+
+### Marketing
+**Dean - Yazaki Update -**
+The negotiation is nearing completion and the account team has several options to address 
+concerns raised by ESD. Final decision is expected before end of the month. 
+
+### Customer Support Status
+**Robert -**  
+No items to discuss in this meeting.
+
+---
+---
+
+    Date:     11th June 2014
+
+    Start:    1200 EDT
+    End:      12:30
+    Present:  Keith, Travis, Campbell, others...
+            Dean, Robert, others...
+
+### Engineering status
+**Keith - Training course update -**
+The Other Firm got WordPress Courseware installed on xtUML.org. Keith started using 
+this xtUML Developer WP Courseware development system.  The advantage of this over 
+Coursera and otehr MOOCs (Massive open online course) is that our users do not 
+have to leave xtUML.org to take the courses.  We have taken a step back from 
+our current approach to evaluate this, and we haev decided to move forward with 
+WP courseware.   This doesn't effect the team because we are still creating 
+the course content the same way that we have been.  
+
+We have ~60% of all needed videos done at this point.  Campbell have a bunch ~15 
+that is a big chunk that is coming soon.
+
+**Travis/Bob - compare/merge work for patch -**
+We will give a release to Ericsson to get the thumbs up.
+
+We have the crucial issues resolved now.  The issue are:
+2627124315	dts0101057785	Copying of incoming changes for a class operations does not work properly
+2627124343	dts0101057788	Copying of incoming changes for a interface signal does not work properly
+2627145381	dts0101057790	After merging interface formalizations of components graphics of the formalized interface is not shown
+Note that these problems came down to one root cause.  The issue was a problem with merging of elements that had been added or removed.  It manifested itself mostly easily in the case of sorted model elements.  However, we found that the problem was not unique to sorted model elements.   With this change, users will see empty “slots” (placeholders) on the right or left that represent the added/removed model element.  This visualization makes it very clear that an element is an incoming/outgoing addition or change, and it also makes the placement clear.  It was the target placement that was causing problems.   
+
+
+** Campbell -**
+Working on Realized code video. Hit some binding issues, creating GPS Watch VIEC component, now resolved. 
+Helped Martin Nilsson with a Verifier realized EE question. Awaiting outcome.
+
+** Heba -**
+Working on videos.  Looked at some Verifier issues involving the sender keyword, but it is not high priority.
+
+** Nehad -**
+Working on videos.
+
+### Marketing
+** (Dean) -**
+Ongoing meetings with Engineering involvement in several places for new business.  
+
+Agilent was at a point where we were to suspect support, but an agreement has now been 
+reached, so support can now continue.  
+
+
+### Customer Support Status
+**Robert -**  
+No items to discuss in this meeting.
+
+---
+---
+    Date:     4th June 2014
+
+    Start:    1200 EDT
+    End:      
+    Present:  Keith, Travis, Campbell, Cort, others...
+            Dean, Robert, others...
+
+### Agenda
+* Training materials progress
+* Progress on patch release (Travis)
+* Engineering involvement in sales opportunity at Yazaki (Dean)
+* Customer Support (Robert)
+
+### Engineering status
+**Training materials progress (Keith) -**
+Moving forward, reviewed and uploaded several movies to YouTube. Keith, Cort, and Travis are reviewing. Added status tracking for each segment into training document to better track current state of development. Will continue development as time is available during patch release work. We're seeing the light at the end of the tunnel!
+
+**Progress on patch release (Travis) -**
+ISM/CSM state IDs caused corruption in a version of the patch; Ericsson encountered this. Further issues with compare/merge element ordering have taken a lot of time to resolve. Travis is re-architecting and refactoring code for compare logic to make the code simpler. Good progress is now being made, possibly a patch in 3-4 more days.
+
+### Marketing
+**Engineering involvement in sales opportunity at Yazaki (Dean) -**
+Two large deals possible in the June/July timeframe. The larger of the two is at Ericsson, and is making good progress with Serge's involvement. Yazaki is a new potential customer, but there are technical and political concerns which have jeopardized BridgePoint's place in the deal. Status for BP inclusion in a services deal at Yazaki is currently positive, but by no means assured. An evaluation is just starting to ramp up Atech in Brazil (a wholly owned subsidiary of Embraer). They provide command and control products and services for the Brazilian military. They're interested in BridgePoint as related to the SAAB aircraft deal with the Brazilian government. SAAB is still investigating the effect that Model Compiler license linger will have on their MC usage as they migrate to 4.1.
+
+### Customer Support Status
+**Robert -**
+No customer issues to report. Not surprising as we are entering summer vacation time for most of Europe. CSD is going to designate an EU support engineer to help handle BridgePoint issues, so service level agreements can be better met. This engineer will likely be based in the UK or Israel and will be brought up to speed over the next few months.
+
+
+---
+---
+    Date:     21th May 2014
+
+    Start:    1200 EDT
+    End:      
+    Present:  Bob, Keith, Travis, Campbell, Cort, others...
+            Dean, Robert, others...
+
+### Agenda
+* Compare and Merge (Travis)
+* Summary of Training last week (Keith)
+* C++ MC dispatch and binding issue (Cort)
+* Training Materials (Keith)
+* Update on timesheets for Ericsson T1 (Dean)
+* Saab licensing issues with linger (Dean/Bob).
+
+### Engineering Status
+
+**Compare and Merge (Travis)  -**
+The Ericsson EATF group raised 4 issue against 4.1.10.  One of them caused corruption and is critical.  It involved updating 2 different state machines in 2 different branches.  Travis found a way to change the upgrade to happen in memory and avoid the problems.  A test has been sent to EATF to test.
+
+Bob mentions that Saab really doesn't want us to force persistence so the resolution now proposed is very good news.
+
+**Summary of Ericsson Training last week (Keith)  -**
+Training went well overall.  Keith is capturing the things he presented live in video form so it can be used in the developer course online.  There were 14 attendees.  Keith thinks the difficulty level was abut right.   There was a "free programming day" where the attendees worked on their on projects.  2 teams worked on model import tasks *like xmi import).  Another user worked on drag/drop of attributes.  Others worked on draw code to display class based operations in a different way.  A couple university students were interested in formal verification, they worked on transforming the model into a form that can be input into their functional verification tool.   We are providing input to keep all these projects moving.   
+All these projects made the customers very anxious to get MC-Java into open source.
+KEith found they have not really made good progress on the model-based MC since Bob and Cort visited.  We captured info to try and help push them.   In a meeting with Gergo Seres, Keith found that they really want to get the tool to integrate with other tools and technologies.  Keith's full trip report is available.
+
+
+**Training Materials for full xtUML Editor Training (Keith)  -**
+We need to move this forward so we have at least a partial course.  The training materials need to take priority over new development.   Keith is going to take a more hands-on approach to moving this project forward to completion.  We will have both an editor training course as well as a developer training course.
+This has priority over new development.  It does not have priority over field issues.
+
+**C++ MC dispatch and binding issue (Cort)  -**
+The C++ model compiler has been deliver to Ikaria, there were a couple of problems, but we have now got to the bottom of them.
+
+
+### Marketing Status
+**Update on timesheets for Ericsson T1 (Dean)  -**
+Overall tier 1 we are at under 300 hours remaining.  We are over 70% consumed.  We have been charging mostly against task 1 (training), but that task is now complete, so we will no longer charge against Task 1.   We do not want to get into a situation where we do a cost overrun, so we now much be more careful about the tasks the items are submitted against.
+
+
+**Saab licensing issues with linger (Dean/Bob/Jayne).  -**
+Saab Aero is only migrating to 4.0 and beyond now.  They are concerned with
+the linger features because they are just now seeing it.  They think it 
+will lead to license denials in the way they use the tool.  They 
+have 38 users of verifier, but those users also use the MC.
+
+Jayne says they have 60 engineers trained but they need some issues resolved.  She said this came from Walter
+Sebia, (system vision simulation expert).   Bob reports that in our BP meeting with Saab aero today e discussed the issue list,
+there are no specific issues at this time according to them.  They are working on updating the issue list now we are not sure what these issues Walter spoke of are.  
+
+Vricon is taking 3 licenses from Saab Dynamics. Vricon is a wholly owned subsidiary of Saab.
+
+	
+
+
+### Customer Support Status
+**Robert -** 
+Robert is interested in the result of the linger option.
+
+Marijian has entered some enhancement requests, Robert is filing DRs as needed.  These are mostly the issues Travis discussed earlier in the meeting.  Bob mentioned that Ericsson is keeping their priority document up to date to let us know what they want us to be working on.
+
+---
+---
+    Date:     7th May 2014
+
+    Start:    6:00 GMT+@
+    End:      6:42 GMT+2
+    Elapsed:  42
+    Present:  Bob, Keith, Travis, Campbell, Cort, others...
+            Dean, Robert, others...
+
+### Agenda
+* KB heading to Budapest to provide developer training
+* Training material progress
+* Engineering status: Kari
+* Marketing
+* Support
+
+### Training Materials
+
+**Bob  -** 
+Did some work on outlines for CLI and Configuration and build topics, but stopped work to concentrate on
+bringing the xtUML Editor up to date with Jupiter changes. The source will be updated prior to KB leaving
+for Budapest. The xtUML Editor source workflow is currently very ugly, since parts of the model need to
+be manually removed.
+
+**Keith  -** 
+Heading to Budapest to provide developer training.
+Capturing the content as videos to additionally support the open source training materials.
+Started with a basic outline similar to the User training under issue #5. Working with Travis
+to create and edit videos to support the training. Keith may need some assistance from other
+team members to get his materials ready for next week.
+Currently we are clarifying the goals for the exercises. The high level goal is to be able to download and
+build the git source, make small modifications and debug them. These goals will be met with various hands on
+exercises. Ericsson requested an extra day of programming exercise to build on training. It would be good to
+select an item from Farenc Bozoki's list of suggestions, but they all seem rather large to achieve in one day.
+
+**Cort  -**
+Working on training materials for OAL. Going through the existing materials to understand what we have already.
+Looking to produce quiz assessments for every three to four videos.
+
+**Nehad  -**
+Writing materials for the BP UI and editors.
+
+**Heba  -**
+Resumed work on training materials, 4 scenarios and 2 videos. Tried making Voice-overs but progress was slow.
+
+**Campbell  -**
+Focused on scripting and video content as the home office was not sufficiently quiet for recording voice-
+overs. Hence just one video completed to test the full workflow. Voice overs will be viable going forward
+as the office is now quiet.
+
+**Travis  -**
+Worked with Keith to deliver training videos.
+
+### Engineering Status
+
+**Bob  -**
+Jupiter now wrapped up. We just squeezed it under an Ericsson deadline. In, fact something else was needed
+for the headless CLI support and this was rolled in after the deadline.
+We are now moving to work on the next release, Kari. The issues list is updated and ready to go although the
+current focus is on T1 materials development.
+
+**Nehad  -**
+Multiple tooltip work almost completed.
+
+### Marketing Status
+**Dean -**
+Concluded IESF tour of US. Good responses received, now following up on leads. Many good contacts forged including
+at Boeing (WA) and Rockwell Collins (TX).
+There has been a noticable focus shift in the EDA literature towards the Connected Cars arena. Mentor is well
+positioned in this area with its AUTOSAR products and BridgePoint has traditionally had good ties with these.
+BridgePoint has always had good contacts with Mentor Graphics Japan (MGJ) who often turn up unique usage models for
+BridgePoint. One such opportunity is at Yazaki. The engineers there were educated on the standard BridgePoint
+development flow, but subsequently focused on modeling an ECU application flow...
+
+**Cort  -**
+... Yazaki is looking for BridgePoint with AUTOSAR which will require us to re-instate the integration with VSI. This
+is expected to present challenges given the maturity of some of the cpomponents involved. The challenge for the team
+will be to keep a balance so that the work for Ericsson and the opportunity at Yasaki are both kept progressing.
+Fuji-Xerox are moving forward again after the holiday season. It is expected that they will complete upgrades to
+their own model compiler this week.
+
+**Dean  -**
+SAAB is planning to upgrade to the latest BridgePoint from 3.7. This has been prompted by the addition of a few long-
+awaited features; inter project constants, enhanced association handling in the Explorer tree and by increased Verifier
+performance. Per Johnsson is actively working on xtUML.org creating editor enhancements. He expects others to begin
+personal projects before long.
+
+### Customer Support Status
+**Robert -** 
+Not a great deal of activity to report. Fuji-Xerox had a build issue where a Unicode whitespace character was appended
+to the name of a variable such that it had a different name. A solution involving some filtering in a Perl script was
+provided, but this is recognized as incomplete. What is really needed is to provide a warning when such Unicode white-
+space is found.
+
+
+---
 
 ---
 

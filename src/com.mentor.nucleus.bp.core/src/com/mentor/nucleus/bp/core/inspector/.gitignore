@@ -101,6 +101,7 @@ PackageParticipantInspector.java
 PendingEventInspector.java
 PolymorphicEventInspector.java
 PortInspector.java
+PortReferenceInspector.java
 PropertyDependsOn.java
 PropertyParameterInspector.java
 ProvidedOperationInspector.java
@@ -137,4 +138,6 @@ UseCaseParticipantInspector.java
 UserDataTypeInspector.java
 ObjectElement.java
 PropertyDependsOn.java
+PackageTreeDifferenceSlot.java
+MessageArgumentTreeDifferenceSlot.java
 /CreationTransitionInspector.java

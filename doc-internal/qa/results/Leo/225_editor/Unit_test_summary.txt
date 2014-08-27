@@ -1,0 +1,31 @@
+This document captures the state of the BridgePoint unit tests:
+===============================================================
+Branch: internal/xtuml_editor_builder
+Hostname: 	CAS-RMULVEY-LT
+OS Name:  	Windows 7
+	Version:	6.1
+	Architecture:	x86
+
+Test Suite                              Status			TestRuns	Time    Timestamp
+---------------------------------------------------------------------------------------------
+Core Generic Upgrade Test				PASS			39			3.20s	20140619 12:36:59
+UI Canvas CCP Test						PASS			102			1125.95s20140619 14:21:59
+Core Test								FAIL (0e/75f)	1062		1150.45s20140619 12:56:27
+UI Explorer Test						FAIL (0e/2f)	18			88.72s	20140619 14:23:40
+Core Test - Workspace Setup				FAIL (0e/3f)	14			251.67s	20140619 12:36:29
+Parse All Test							FAIL (0e/812f)	4600		531.16s20140619 12:31:26
+IO MDL PkgCM Tests						FAIL (0e/1f)	108			1130.16s20140619 13:53:10
+Core Test 2								PASS			306			479.28s	20140619 13:03:49
+Core Test - System Level Tests			PASS			24			19.75s	20140619 13:04:31
+Core Test 2 - Consistency				FAIL (0e/17f)	17			0.11s	20140619 12:31:57
+IO MDL Tests							FAIL (73e/0f)	89			245.44s	20140619 13:29:41
+UI Properties Test						PASS			163			38.78s	20140619 14:24:41
+Core Test - Existing Projects			PASS			15			3.58s	20140619 12:36:44
+Model Compare Test						FAIL (0e/4f)	245			887.34s 20140619 13:25:23
+Welcome Test							FAIL (0e/2f)	13			23148.16s20140619 20:54:20
+UI Canvas Suite 1						PASS			84			147.40s	20140619 13:56:50
+Core Test - RTO Move					PASS			136			468.07s 20140619 12:31:38
+Search Test								PASS			10			28.44s	20140619 13:53:56
+UI Canvas Suite 2						PASS			270			330.61s	20140619 14:02:48
+IO MDL Tests 2							FAIL (3e/1f)	77			242.18s	20140619 13:33:56
+UI Text Test							PASS			163			202.40s	20140619 14:28:22

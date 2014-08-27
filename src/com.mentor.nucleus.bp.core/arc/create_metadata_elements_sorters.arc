@@ -152,6 +152,7 @@ import java.util.Vector;
 import ${core_package_name}.*;
 import com.mentor.nucleus.bp.core.common.ModelElement;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
+import com.mentor.nucleus.bp.core.inspector.ObjectElement;
 
 public class ${manager_name} {
 	private Map sorterMap = new HashMap();

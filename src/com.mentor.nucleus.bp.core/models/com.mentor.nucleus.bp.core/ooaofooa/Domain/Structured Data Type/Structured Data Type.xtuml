@@ -528,6 +528,18 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("08d480cd-e130-4cce-b18d-e7954ec58ceb",
+	"7df3083a-b3d9-4c10-9be4-db85fdd83e5e",
+	'getDescription',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one dt related by self->S_DT[R17];
+return dt.Descrip;',
+	1,
+	'',
+	"605fb4a0-4b21-4cae-85d1-50eee1b0e8cb");
 INSERT INTO O_REF
 	VALUES ("7df3083a-b3d9-4c10-9be4-db85fdd83e5e",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",

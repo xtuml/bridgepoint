@@ -27,7 +27,6 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.PlatformUI;
 
@@ -37,7 +36,6 @@ import com.mentor.nucleus.bp.core.ClassAsSubtype_c;
 import com.mentor.nucleus.bp.core.ClassInAssociation_c;
 import com.mentor.nucleus.bp.core.ClassStateMachine_c;
 import com.mentor.nucleus.bp.core.Component_c;
-import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.CreationTransition_c;
 import com.mentor.nucleus.bp.core.InstanceStateMachine_c;
 import com.mentor.nucleus.bp.core.ModelClass_c;
@@ -1075,10 +1073,6 @@ public class CanvasStateMachineCopyPasteTests extends CanvasTest {
 		elements.add(state);
 		elements.add(transition);
 		UITestingUtilities.copyElements(elements, graphicalEditor);
-		String string = (String) CorePlugin.getSystemClipboard().getContents(TextTransfer.getInstance());
-		assertNotNull(string);
-		assertFalse(string.equals(""));
-		System.out.print(string);
 		Ooaofooa destRoot = Ooaofooa.getInstance(Ooaofooa.createModelRootId(
 				testProjectDestination.getName(), "Components", true));
 		// get the source state and transition to copy

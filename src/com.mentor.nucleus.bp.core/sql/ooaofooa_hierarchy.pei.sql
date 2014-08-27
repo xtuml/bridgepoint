@@ -156,6 +156,7 @@ INSERT INTO T_TNS VALUES (316, 'Event.gif',                          'MSG_E',  '
 INSERT INTO T_TNS VALUES (317, 'InterfaceSignal.gif',            'MSG_SIG',  '', '','',                 'Formal Signal', 						-1, '');
 INSERT INTO T_TNS VALUES (318, 'Operation.gif',            'MSG_IA',  '', '','',                 'Informal Argument', 						-1, '');
 INSERT INTO T_TNS VALUES (319, 'Transition.gif',            'SM_CRTXN',  '', '','',                 'Creation Transitions', 						-1, '');
+INSERT INTO T_TNS VALUES (382, 'Port.gif',                  'CL_POR',  '', 'Name', '',                 'Port Reference',                        -1, '');
 
 INSERT INTO T_TPS VALUES (1, 1,  2,  '->S_DOM[R28]', '', false);
 INSERT INTO T_TPS VALUES (2, 2,  72, '->S_DPK[R40]', '', false);
@@ -376,10 +377,12 @@ INSERT INTO T_TPS VALUES (204, 124, 125, '->C_C[R4604]', '', false);
 INSERT INTO T_TPS VALUES (205, 124, 126, '->CL_IC[R4605]', '', false);
 INSERT INTO T_TPS VALUES (206, 124, 124, '->CP_CPINP[R4600]->CP_CP[R4601]', '', false);
 INSERT INTO T_TPS VALUES (207, 125, 291, '->C_PO[R4010]', '', false);
+INSERT INTO T_TPS VALUES (385 , 382, 291, '->C_PO[R4709]', 'Port Reference', false);
 INSERT INTO T_TPS VALUES (381, 125, 126, '->CL_IC[R4205]', 'Contained Component References', false, false, '', '', true);
 INSERT INTO T_TPS VALUES (365, 126, 125, '->C_C[R4201]', 'Referenced Component', false);
-INSERT INTO T_TPS VALUES (211, 126, 292, '->CL_IIR[R4700]->CL_IP[R4703]', '', false);
-INSERT INTO T_TPS VALUES (212, 126, 293, '->CL_IIR[R4700]->CL_IR[R4703]', '', false);
+INSERT INTO T_TPS VALUES (384, 126, 382, '->CL_POR[R4707]', '', false);
+INSERT INTO T_TPS VALUES (211, 382, 292, '->CL_IIR[R4708]->CL_IP[R4703]', '', false);
+INSERT INTO T_TPS VALUES (212, 382, 293, '->CL_IIR[R4708]->CL_IR[R4703]', '', false);
 INSERT INTO T_TPS VALUES (213, 127, 130, '->C_IR[R4009]->C_I[R4012]', 'Referenced Interface', false);
 INSERT INTO T_TPS VALUES (214, 128, 130, '->C_IR[R4009]->C_I[R4012]', 'Referenced Interface', false);
 INSERT INTO T_TPS VALUES (215, 1, 129, '->IP_IP[R4302]', '', false);

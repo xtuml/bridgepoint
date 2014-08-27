@@ -26,7 +26,7 @@ the License.
 <plugin
    id="com.mentor.nucleus.bp.internal.tools"
    name="BridgePoint Tools Plug-in"
-   version="1.0.3"
+   version="1.0.4"
    provider-name="Mentor Graphics"
    class="com.mentor.nucleus.bp.internal.tools.ToolsPlugin">
 
@@ -56,10 +56,10 @@ the License.
       <import plugin="org.eclipse.jdt.junit" version="3.5.2"/>
       <import plugin="org.eclipse.jdt.junit.runtime" version="3.4.100"/>
       <import plugin="com.mentor.nucleus.bp.debug.ui"/>
-      <import plugin="com.mentor.nucleus.bp.io.core" version="4.1.7"/>
-      <import plugin="com.mentor.nucleus.bp.io.mdl" version="4.1.7"/>
+      <import plugin="com.mentor.nucleus.bp.io.core" version="4.1.17"/>
+      <import plugin="com.mentor.nucleus.bp.io.mdl" version="4.1.17"/>
       <import plugin="com.mentor.nucleus.bp.utilities"/>
-      <import plugin="com.mentor.nucleus.bp.mc" version="4.1.7"/>
+      <import plugin="com.mentor.nucleus.bp.mc" version="4.1.17"/>
    </requires>
 
    <extension

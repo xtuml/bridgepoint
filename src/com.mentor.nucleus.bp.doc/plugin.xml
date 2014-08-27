@@ -26,7 +26,7 @@ the License.
 <plugin
    id="com.mentor.nucleus.bp.doc"
    name="BridgePoint Documentation Plug-in"
-   version="4.1.7"
+   version="4.1.17"
    provider-name="Mentor Graphics">
 
    <runtime>

@@ -84,7 +84,7 @@
 			param1="Launch Verifier" param2="avpace" param3="heart"/>
       </subitem>
       <subitem
-            label="Click this button to execute &quot;init&quot; funtcion">
+            label="Click this button to execute &quot;init&quot; function">
              <action pluginId="com.mentor.nucleus.bp.welcome"
              	class="com.mentor.nucleus.bp.welcome.cheatsheets.actions.CheatSheetAction"
 			param1="Execute Element"  param2="avpace" param3="function" param4="functions" param5="init"/>

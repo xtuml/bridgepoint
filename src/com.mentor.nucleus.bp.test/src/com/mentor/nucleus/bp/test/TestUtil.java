@@ -29,7 +29,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
+import java.lang.reflect.Method;
 
 import junit.framework.TestCase;
 
@@ -53,6 +53,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.progress.BlockedJobsDialog;
@@ -63,13 +65,20 @@ import com.mentor.nucleus.bp.core.DataType_c;
 import com.mentor.nucleus.bp.core.Domain_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.SystemModel_c;
+import com.mentor.nucleus.bp.core.common.ModelElement;
+import com.mentor.nucleus.bp.core.common.NonRootModelElement;
+import com.mentor.nucleus.bp.core.common.Transaction;
+import com.mentor.nucleus.bp.core.common.TransactionManager;
 import com.mentor.nucleus.bp.core.ui.NewDomainWizard;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.ui.WizardNewDomainCreationPage;
 import com.mentor.nucleus.bp.core.ui.dialogs.ElementSelectionDialog;
 import com.mentor.nucleus.bp.core.ui.dialogs.ElementSelectionFlatView;
+import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.FailableRunnable;
 import com.mentor.nucleus.bp.test.common.TestingUtilities;
+import com.mentor.nucleus.bp.test.common.UITestingUtilities;
+import com.mentor.nucleus.bp.ui.canvas.Ooaofgraphics;
 import com.mentor.nucleus.bp.utilities.ui.CanvasUtilities;
 
 /**
@@ -108,7 +117,7 @@ public class TestUtil
      */
     public static void noToDialog(final long inHowManyMillis)
     {
-        dismissDialog(inHowManyMillis, 0, false, "&No", true);
+        dismissDialog(inHowManyMillis, 0, false, "&No", null, true);
     }
 
     /**
@@ -116,7 +125,7 @@ public class TestUtil
      */
     public static void yesToDialog(final long inHowManyMillis)
     {
-        dismissDialog(inHowManyMillis, 0, false, "&Yes", true);
+        dismissDialog(inHowManyMillis, 0, false, "&Yes", null, true);
     }
     
     /**
@@ -124,19 +133,47 @@ public class TestUtil
      */
     public static void okToDialog(final long inHowManyMillis)
     {
-        dismissDialog(inHowManyMillis, 0, false, "OK", true);
+        dismissDialog(inHowManyMillis, 0, false, "OK", null, true);
     }
 
     public static void okToDialog(final long inHowManyMillis, boolean throwException)
     {
-        dismissDialog(inHowManyMillis, 0, false, "OK", throwException);
+        dismissDialog(inHowManyMillis, 0, false, "OK", null, throwException);
+    }
+
+    /**
+     * Selects the Next button in the active dialog.
+     */
+    public static void nextToDialog(final long inHowManyMillis) {
+    	dismissDialog(inHowManyMillis, 0, false, "&Next >", null, false);
+    }
+    
+    /**
+     * Selects the Finish button in the active dialog
+     */
+    public static void finishToDialog(final long inHowManyMillis) {
+    	dismissDialog(inHowManyMillis, 0, false, "&Finish", null, false);
+    }   
+    
+    /**
+     * Selects the Finish button in the active dialog
+     */
+    public static void mergeToDialog(final long inHowManyMillis) {
+    	dismissDialog(inHowManyMillis, 0, false, "&Merge", null, false);
+    }       
+    
+    /**
+     * Selects a tree item in a dialog containing a tree
+     */
+    public static void selectItemInTreeDialog(final long inHowManyMillis, String treeItem) {
+    	dismissDialog(inHowManyMillis, 0, false, null, treeItem, false);
     }
     
     /**
      * Presses Debug in the dialog
      */
     public static void debugToDialog(long inHowManyMillis) {
-        dismissDialog(inHowManyMillis, 0, false, "&Debug", false);
+        dismissDialog(inHowManyMillis, 0, false, "&Debug", null, false);
     }
 
     /**
@@ -144,7 +181,7 @@ public class TestUtil
      */
     public static void selectButtonInDialog(final long inHowManyMillis, String buttonName)
     {
-        dismissDialog(inHowManyMillis, 0, false, buttonName, true);
+        dismissDialog(inHowManyMillis, 0, false, buttonName, null, true);
     }
 
     /**
@@ -152,19 +189,19 @@ public class TestUtil
      */
     public static void selectButtonInDialog(final long inHowManyMillis, String buttonName, boolean throwException)
     {
-        dismissDialog(inHowManyMillis, 0, false, buttonName, throwException);
+        dismissDialog(inHowManyMillis, 0, false, buttonName, null, throwException);
     }
     
     private static void dismissDialog(final long inHowManyMillis, 
             final int currentRecursionDepth, final boolean shouldDismiss) {
-        dismissDialog(inHowManyMillis, currentRecursionDepth, shouldDismiss, null, true);
+        dismissDialog(inHowManyMillis, currentRecursionDepth, shouldDismiss, null, null, true);
     }
     
     /**
      * See shorter signature method.
      */
     public static void dismissDialog(final long inHowManyMillis, 
-            final int currentRecursionDepth, final boolean shouldDismiss, final String button, final boolean throwException)
+            final int currentRecursionDepth, final boolean shouldDismiss, final String button, final String treeItem, final boolean throwException)
     {
         // run this on a separate thread, so that the dialog invocation to be performed
         // by the caller may occur
@@ -178,7 +215,11 @@ public class TestUtil
                 sleep(inHowManyMillis);
                 dialogText = "";
                 
-                // if the currently active shell is a dialog 
+                // if the currently active shell is a dialog
+                if(PlatformUI.getWorkbench().getDisplay().isDisposed()) {
+                	return;
+                }
+                
                 PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
                 
                     @Override
@@ -204,13 +245,33 @@ public class TestUtil
                                 {
                                     Button foundButton = findButton(shell, button);
                                     if(foundButton != null) {
-                                    	foundButton.notifyListeners(SWT.Selection, null);
+	                                    foundButton.setSelection(true);
+	                                    foundButton.notifyListeners(SWT.Selection, null);
                                     }
-                                } else {
+                                }
+                                else if ( treeItem != null ) {
+									Tree tree = UITestingUtilities.findTree(shell);
+									if(tree != null) {
+										TreeItem item = UITestingUtilities
+												.findItemInTree(tree, treeItem);
+										if(item != null) {
+											tree.select(item);
+										} else {
+											CorePlugin.logError(
+													"Unable to locate tree item in tree: "
+															+ treeItem, null);
+										}
+									} else {
+										CorePlugin
+												.logError(
+														"Unable to locate a tree in the dialog.",
+														null);
+									}
+                            	} else {
                                    cancelDialog( (Dialog)shell.getData() );   
                                 }
                             } else {
-                                dismissDialog(inHowManyMillis, currentRecursionDepth + 1, shouldDismiss, button, throwException);
+                                dismissDialog(inHowManyMillis, currentRecursionDepth + 1, shouldDismiss, button, treeItem, throwException);
                             }
                             
                         }
@@ -229,7 +290,7 @@ public class TestUtil
                                     }
                                 }
                             }
-                            dismissDialog(inHowManyMillis, currentRecursionDepth + 1, shouldDismiss, button, throwException);
+                            dismissDialog(inHowManyMillis, currentRecursionDepth + 1, shouldDismiss, button, treeItem, throwException);
                         }
                         else {
                         	if(throwException) {
@@ -1031,37 +1092,51 @@ public class TestUtil
                         for(int i = 0; i < shells.length; i++) {
                             if(shells[i].getData() instanceof ElementSelectionDialog) {
                                 shell = shells[i];
+                                break;
+                            } else if(shells[i].getText().contains("Import Projects from Git Repository")) {
+                            	shell = shells[i];
+                            	break;
                             }
                         }
                         if (shell != null) {
-                            ElementSelectionDialog dialog = (ElementSelectionDialog) shell
+                            Dialog dialog = (Dialog) shell
                                     .getData();
-                            ElementSelectionFlatView view = dialog
-                                    .getFlatView();
-                            Control[] children = view.getChildren();
-                            for (int i = 0; i < children.length; i++) {
-                                if (children[i] instanceof Table) {
-                                    Table table = (Table) children[i];
-                                    TableItem[] items = table.getItems();
-                                    for (int j = 0; j < items.length; j++) {
-                                        if (items[j].getText().equals(item)) {
-                                            // do not select if locateOnly is
-                                            // true
-                                            if (!locateOnly) {
-                                                table.setSelection(items[j]);
-                                                Event event = new Event();
-                                                event.item = items[j];
-                                                table.notifyListeners(SWT.Selection, event);
-                                                while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
-                                            }
-                                            found = true;
-                                            break;
-                                        }
-                                    }
-                                    break;
-                                }
-                            }
-                        }
+                            Control[] children = dialog.getShell().getChildren();
+							for (int i = 0; i < children.length; i++) {
+								Table table = findTable(children);
+								if(table != null) {
+									// if a deselect all button is present
+									// press it before selecting the desired
+									// item
+									Button deselect = findButton(shell, "&Deselect All");
+									if(deselect != null) {
+										deselect.notifyListeners(SWT.Selection, new Event());
+										while(PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+									}
+									TableItem[] items = table.getItems();
+									for (int j = 0; j < items.length; j++) {
+										if (items[j].getText().equals(item)) {
+											// do not select if locateOnly is
+											// true
+											if (!locateOnly) {
+												table.setSelection(items[j]);
+												Event event = new Event();
+												event.item = items[j];
+												table.notifyListeners(
+														SWT.Selection, event);
+												while (PlatformUI.getWorkbench()
+														.getDisplay()
+														.readAndDispatch())
+													;
+											}
+											found = true;
+											break;
+										}
+									}
+									break;
+								}
+							}
+						}
                         if (testNonExistence) {
                             if(found) {
                                 setFailure("Found the unexpected item in the selection dialog ("
@@ -1075,6 +1150,21 @@ public class TestUtil
                         }                       
                         setComplete();
                     }
+
+					private Table findTable(Control[] children) {
+						for (Control child : children) {
+							if (child instanceof Table) {
+								return (Table) child;
+							} else if (child instanceof Composite) {
+								Table result = findTable(((Composite) child)
+										.getChildren());
+								if(result != null) {
+									return result;
+								}
+							}
+						}
+						return null;
+					}
                 };
                 // must be run in the UI thread
                 PlatformUI.getWorkbench().getDisplay().syncExec(innerRunnable);
@@ -1148,4 +1238,35 @@ public class TestUtil
         chooserThread.start();
         return runnable;
     }
+    
+	public static void executeInTransaction(NonRootModelElement element, String method, Object[] parameters) {
+		Class<?>[] paramClasses = new Class<?>[parameters.length];
+		for(int i = 0; i < parameters.length; i++) {
+			if(parameters[i] instanceof Integer) {
+				paramClasses[i] = Integer.TYPE;
+			} else if(parameters[i] instanceof Boolean) {
+				paramClasses[i] = Boolean.TYPE;
+			} else {
+				paramClasses[i] = parameters[i].getClass();
+			}
+		}
+		Transaction transaction = null;
+		TransactionManager manager = TransactionManager.getSingleton();
+		try {
+			transaction = manager.startTransaction("test transaction",
+					new ModelElement[] { Ooaofooa.getDefaultInstance(),
+							Ooaofgraphics.getDefaultInstance() });
+			Method m = element.getClass().getMethod(method, paramClasses);
+			m.invoke(element, parameters);
+			manager.endTransaction(transaction);
+		} catch (Exception e) {
+			if(transaction != null) {
+				manager.cancelTransaction(transaction, e);
+			}
+			CorePlugin.logError("Unable to complete transaction.", e);
+		}
+		BaseTest.dispatchEvents(0);
+	}
+
+	
 }

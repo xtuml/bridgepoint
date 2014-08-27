@@ -5,23 +5,14 @@
  * Function declarations for user supplied (non-translated) call out entry
  * points in the generated application.
  *
- * (C) Copyright 1998-2014 Mentor Graphics Corporation.  All rights reserved.
+ * your copyright statement can go here (from te_copyright.body)
  *--------------------------------------------------------------------------*/
 
 #ifndef SYS_USER_CO_H
 #define SYS_USER_CO_H
-#ifdef  __cplusplus
-extern "C" {
+#ifdef	__cplusplus
+extern	"C"	{
 #endif
-
-/*
- * This directive controls whether or not user-created inline blocks
- * in BridgePoint action language are executed in the target code.
- * Default setting is to use blocks, set to 0 to not use inline
- * blocks.
- *
- */
-#define XTUMLMC_INLINE 1
 
 /*
  * UserInitializationCallout
@@ -33,7 +24,7 @@ extern "C" {
  * things like memory initialization, early hardware duties, etc.
  *
  */
-extern void UserInitializationCalloutf( void );
+void UserInitializationCalloutf( void );
 /* The following empty definition renders the callout hook invisible.
    Delete or comment out the following define to activate the in line
    hook for this callout.
@@ -42,7 +33,7 @@ extern void UserInitializationCalloutf( void );
  */
 
 #ifndef UserInitializationCallout
-#define UserInitializationCallout() UserInitializationCalloutf();
+#define UserInitializationCallout() UserInitializationCalloutf()
 #endif
 
 /*
@@ -51,14 +42,14 @@ extern void UserInitializationCalloutf( void );
  * This function is invoked immediately prior to executing any xtUML
  * initialization functions.
  */
-extern void UserPreOoaInitializationCalloutf( void );
+void UserPreOoaInitializationCalloutf( void );
 /* The following empty definition renders the callout hook invisible.
    Delete or comment out the following define to activate the in line
    hook for this callout.  */
 #define UserPreOoaInitializationCallout()
 
 #ifndef UserPreOoaInitializationCallout
-#define UserPreOoaInitializationCallout() UserPreOoaInitializationCalloutf();
+#define UserPreOoaInitializationCallout() UserPreOoaInitializationCalloutf()
 #endif
 
 /*
@@ -69,14 +60,14 @@ extern void UserPreOoaInitializationCalloutf( void );
  * When this callout function returns, the system dispatcher will allow the
  * xtUML application analysis state models to start consuming events.
  */
-extern void UserPostOoaInitializationCalloutf( void );
+void UserPostOoaInitializationCalloutf( void );
 /* The following empty definition renders the callout hook invisible.
    Delete or comment out the following define to activate the in line
    hook for this callout.  */
 #define UserPostOoaInitializationCallout()
 
 #ifndef UserPostOoaInitializationCallout
-#define UserPostOoaInitializationCallout() UserPostOoaInitializationCalloutf();
+#define UserPostOoaInitializationCallout() UserPostOoaInitializationCalloutf()
 #endif
 
 /*
@@ -87,7 +78,7 @@ extern void UserPostOoaInitializationCalloutf( void );
  * It is invoked at the 'top' of the system dispatcher loop, immediately
  * prior to dispatching any xtUML application analysis events.
  */
-extern void UserBackgroundProcessingCalloutf( void );
+void UserBackgroundProcessingCalloutf( void );
 /* The following empty definition renders the callout hook invisible.
    Delete or comment out the following define to activate the in line
    hook for this callout.
@@ -96,7 +87,7 @@ extern void UserBackgroundProcessingCalloutf( void );
  */
 
 #ifndef UserBackgroundProcessingCallout
-#define UserBackgroundProcessingCallout() UserBackgroundProcessingCalloutf();
+#define UserBackgroundProcessingCallout() UserBackgroundProcessingCalloutf()
 #endif
 
 /*
@@ -105,14 +96,14 @@ extern void UserBackgroundProcessingCalloutf( void );
  * This function is invoked at termination of the system dispatcher, but
  * prior to performing any xtUML application analysis shutdown sequencing.
  */
-extern void UserPreShutdownCalloutf( void );
+void UserPreShutdownCalloutf( void );
 /* The following empty definition renders the callout hook invisible.
    Delete or comment out the following define to activate the in line
    hook for this callout.  */
 #define UserPreShutdownCallout()
 
 #ifndef UserPreShutdownCallout
-#define UserPreShutdownCallout() UserPreShutdownCalloutf();
+#define UserPreShutdownCallout() UserPreShutdownCalloutf()
 #endif
 
 /*
@@ -120,14 +111,14 @@ extern void UserPreShutdownCalloutf( void );
  *
  * This function is invoked immediately before application exit.
  */
-extern void UserPostShutdownCalloutf( void );
+void UserPostShutdownCalloutf( void );
 /* The following empty definition renders the callout hook invisible.
    Delete or comment out the following define to activate the in line
    hook for this callout.  */
 #define UserPostShutdownCallout()
 
 #ifndef UserPostShutdownCallout
-#define UserPostShutdownCallout() UserPostShutdownCalloutf();
+#define UserPostShutdownCallout() UserPostShutdownCalloutf()
 #endif
 
 /*
@@ -136,7 +127,7 @@ extern void UserPostShutdownCalloutf( void );
  * This function is invoked any time that an event is received that
  * results in a "cant happen" transition.
  */
-extern void UserEventCantHappenCalloutf( const Escher_StateNumber_t,
+void UserEventCantHappenCalloutf( const Escher_StateNumber_t,
                                          const Escher_StateNumber_t,
                                          const Escher_EventNumber_t );
 /* The following empty definition renders the callout hook invisible.
@@ -145,7 +136,7 @@ extern void UserEventCantHappenCalloutf( const Escher_StateNumber_t,
 #define UserEventCantHappenCallout( s1, s2, e )
 
 #ifndef UserEventCantHappenCallout
-#define UserEventCantHappenCallout( s1, s2, e ) UserEventCantHappenCalloutf( s1, s2, e );
+#define UserEventCantHappenCallout( s1, s2, e ) UserEventCantHappenCalloutf( s1, s2, e )
 #endif
 
 /*
@@ -156,14 +147,14 @@ extern void UserEventCantHappenCalloutf( const Escher_StateNumber_t,
  * when the instance was deleted while the event was in flight (analysis
  * error).
  */
-extern void UserEventNoInstanceCalloutf( const Escher_EventNumber_t );
+void UserEventNoInstanceCalloutf( const Escher_EventNumber_t );
 /* The following empty definition renders the callout hook invisible.
    Delete or comment out the following define to activate the in line
    hook for this callout.  */
 #define UserEventNoInstanceCallout( e )
 
 #ifndef UserEventNoInstanceCallout
-#define UserEventNoInstanceCallout( e ) UserEventNoInstanceCalloutf( e );
+#define UserEventNoInstanceCallout( e ) UserEventNoInstanceCalloutf( e )
 #endif
 
 /*
@@ -172,14 +163,14 @@ extern void UserEventNoInstanceCalloutf( const Escher_EventNumber_t );
  * This function is invoked when an attempt is made to allocate an
  * event, but there are no more left.
  */
-extern void UserEventFreeListEmptyCalloutf( void );
+void UserEventFreeListEmptyCalloutf( void );
 /* The following empty definition renders the callout hook invisible.
    Delete or comment out the following define to activate the in line
    hook for this callout.  */
 #define UserEventFreeListEmptyCallout()
 
 #ifndef UserEventFreeListEmptyCallout
-#define UserEventFreeListEmptyCallout() UserEventFreeListEmptyCalloutf();
+#define UserEventFreeListEmptyCallout() UserEventFreeListEmptyCalloutf()
 #endif
 
 /*
@@ -188,14 +179,14 @@ extern void UserEventFreeListEmptyCalloutf( void );
  * This function is invoked when an attempt is made to use an instance
  * reference variable (handle) that is null (empty).
  */
-extern void UserEmptyHandleDetectedCalloutf( c_t *, c_t * );
+void UserEmptyHandleDetectedCalloutf( c_t *, c_t * );
 /* The following empty definition renders the callout hook invisible.
    Delete or comment out the following define to activate the in line
    hook for this callout.  */
 #define UserEmptyHandleDetectedCallout( s1, s2 )
 
 #ifndef UserEmptyHandleDetectedCallout
-#define UserEmptyHandleDetectedCallout( s1, s2 ) UserEmptyHandleDetectedCalloutf( (c_t *) s1, (c_t *) s2 );
+#define UserEmptyHandleDetectedCallout( s1, s2 ) UserEmptyHandleDetectedCalloutf( (c_t *) s1, (c_t *) s2 )
 #endif
 
 /*
@@ -204,14 +195,16 @@ extern void UserEmptyHandleDetectedCalloutf( c_t *, c_t * );
  * This function is invoked when an attempt is made to create an
  * instance of an object, but there are no instances available.
  */
-extern void UserObjectPoolEmptyCalloutf( c_t *, c_t * );
+void UserObjectPoolEmptyCalloutf( const Escher_DomainNumber_t, const Escher_ClassNumber_t );
 /* The following empty definition renders the callout hook invisible.
    Delete or comment out the following define to activate the in line
-   hook for this callout.  */
+   hook for this callout.
+   (activated by default...  Uncomment to deactivate.)
 #define UserObjectPoolEmptyCallout( s1, s2 )
+ */
 
 #ifndef UserObjectPoolEmptyCallout
-#define UserObjectPoolEmptyCallout( s1, s2 ) UserObjectPoolEmptyCalloutf( s1, s2 );
+#define UserObjectPoolEmptyCallout( s1, s2 ) UserObjectPoolEmptyCalloutf( s1, s2 )
 #endif
 
 /*
@@ -220,14 +213,14 @@ extern void UserObjectPoolEmptyCalloutf( c_t *, c_t * );
  * This function is invoked when an attempt is made to allocate a
  * node, but there are no more left.
  */
-extern void UserNodeListEmptyCalloutf( void );
+void UserNodeListEmptyCalloutf( void );
 /* The following empty definition renders the callout hook invisible.
    Delete or comment out the following define to activate the in line
    hook for this callout.  */
 #define UserNodeListEmptyCallout()
 
 #ifndef UserNodeListEmptyCallout
-#define UserNodeListEmptyCallout() UserNodeListEmptyCalloutf();
+#define UserNodeListEmptyCallout() UserNodeListEmptyCalloutf()
 #endif
 
 /*
@@ -237,14 +230,14 @@ extern void UserNodeListEmptyCalloutf( void );
  * interleaved bridges.  The depth of this list is defined by
  * SYS_MAX_INTERLEAVED_BRIDGES (unless changed in the archetype).
  */
-extern void UserInterleavedBridgeOverflowCalloutf( void );
+void UserInterleavedBridgeOverflowCalloutf( void );
 /* The following empty definition renders the callout hook invisible.
    Delete or comment out the following define to activate the in line
    hook for this callout.  */
 #define UserInterleavedBridgeOverflowCallout()
 
 #ifndef UserInterleavedBridgeOverflowCallout
-#define UserInterleavedBridgeOverflowCallout() UserInterleavedBridgeOverflowCalloutf();
+#define UserInterleavedBridgeOverflowCallout() UserInterleavedBridgeOverflowCalloutf()
 #endif
 
 /*
@@ -253,14 +246,14 @@ extern void UserInterleavedBridgeOverflowCalloutf( void );
  * This function is invoked when the events to self queue is
  * interrogated and found to be empty.
  */
-extern void UserSelfEventQueueEmptyCalloutf( void );
+void UserSelfEventQueueEmptyCalloutf( void );
 /* The following empty definition renders the callout hook invisible.
    Delete or comment out the following define to activate the in line
    hook for this callout.  */
 #define UserSelfEventQueueEmptyCallout()
 
 #ifndef UserSelfEventQueueEmptyCallout
-#define UserSelfEventQueueEmptyCallout() UserSelfEventQueueEmptyCalloutf();
+#define UserSelfEventQueueEmptyCallout() UserSelfEventQueueEmptyCalloutf()
 #endif
 
 /*
@@ -269,14 +262,14 @@ extern void UserSelfEventQueueEmptyCalloutf( void );
  * This function is invoked when the events to instance queue is
  * interrogated and found to be empty.
  */
-extern void UserNonSelfEventQueueEmptyCalloutf( void );
+void UserNonSelfEventQueueEmptyCalloutf( void );
 /* The following empty definition renders the callout hook invisible.
    Delete or comment out the following define to activate the in line
    hook for this callout.  */
 #define UserNonSelfEventQueueEmptyCallout()
 
 #ifndef UserNonSelfEventQueueEmptyCallout
-#define UserNonSelfEventQueueEmptyCallout() UserNonSelfEventQueueEmptyCalloutf();
+#define UserNonSelfEventQueueEmptyCallout() UserNonSelfEventQueueEmptyCalloutf()
 #endif
 
 /*
@@ -285,17 +278,17 @@ extern void UserNonSelfEventQueueEmptyCalloutf( void );
  * This function is invoked when trouble is detected reading from
  * or writing to persistent storage.
  */
-extern void UserPersistenceErrorCalloutf( i_t );
+void UserPersistenceErrorCalloutf( i_t );
 /* The following empty definition renders the callout hook invisible.
    Delete or comment out the following define to activate the in line
    hook for this callout.  */
 #define UserPersistenceErrorCallout( i1 )
 
 #ifndef UserPersistenceErrorCallout
-#define UserPersistenceErrorCallout( i1 ) UserPersistenceErrorCalloutf( i1 );
+#define UserPersistenceErrorCallout( i1 ) UserPersistenceErrorCalloutf( i1 )
 #endif
 
-#ifdef    __cplusplus
+#ifdef	__cplusplus
 }
 #endif
 #endif  /* SYS_USER_CO_H */

@@ -32,6 +32,7 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
 
+import com.mentor.nucleus.bp.model.compare.EmptyElement;
 import com.mentor.nucleus.bp.model.compare.TreeDifference;
 import com.mentor.nucleus.bp.model.compare.TreeDifferencer;
 
@@ -69,6 +70,12 @@ public class TreeDifferenceLabelProvider implements ILabelProvider {
 			// and will be represented differently
 			return modelLabelProvider.getColumnImage(element, 0);
 		}
+		// if the difference's element is an EmptyElement
+		if(difference.getElement() instanceof EmptyElement) {
+			// set the element as the represented element
+			element = ((EmptyElement) difference.getElement())
+					.getRepresentedMissingElement();
+		}
 		int kind = difference.getKind();
 		if ((Boolean) configuration.getProperty("LEFT_IS_LOCAL")) {
 			switch (kind & Differencer.DIRECTION_MASK) {
@@ -81,10 +88,13 @@ public class TreeDifferenceLabelProvider implements ILabelProvider {
 			}
 		}
 		Image image = modelLabelProvider.getColumnImage(element, 0);
-		Image overlay = configuration.getImage(kind);
-		OverlayCompositeImageDescriptor descriptor = new OverlayCompositeImageDescriptor(
+		if(kind != Differencer.CHANGE) {
+			Image overlay = configuration.getImage(kind);
+			OverlayCompositeImageDescriptor descriptor = new OverlayCompositeImageDescriptor(
 				image.getImageData(), overlay.getImageData());
-		return getResourceManager().createImage(descriptor);
+			return getResourceManager().createImage(descriptor);
+		}
+		return image;
 	}
 
 	private ResourceManager getResourceManager() {
@@ -96,6 +106,10 @@ public class TreeDifferenceLabelProvider implements ILabelProvider {
 
 	@Override
 	public String getText(Object element) {
+		if(element instanceof EmptyElement) {
+			return modelLabelProvider.getColumnText(
+					((EmptyElement) element).getRepresentedMissingElement(), 0);
+		}
 		return modelLabelProvider.getColumnText(element, 0);
 	}
 

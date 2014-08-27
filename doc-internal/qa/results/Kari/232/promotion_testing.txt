@@ -1,0 +1,2 @@
+SKB: During promotion I ran the Model Compare JUnit tests and they passed.
+I also ran the manual test specified in the INT and it passed.

@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.ConnectionAnchor;
@@ -88,6 +87,7 @@ import com.mentor.nucleus.bp.ui.graphics.anchors.WSAnchor;
 import com.mentor.nucleus.bp.ui.graphics.editor.GraphicalEditor;
 import com.mentor.nucleus.bp.ui.graphics.figures.OffsetImageFigure;
 import com.mentor.nucleus.bp.ui.graphics.figures.ShapeImageFigure;
+import com.mentor.nucleus.bp.ui.graphics.figures.SimpleTooltipFigure;
 import com.mentor.nucleus.bp.ui.graphics.layout.ContainerXYLayout;
 import com.mentor.nucleus.bp.ui.graphics.layout.FloatingTextLocator;
 import com.mentor.nucleus.bp.ui.graphics.layout.XYDelegatingLayout;
@@ -127,9 +127,9 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements
 		} else
 			figure.setMinimumSize(new Dimension(8, 8));
 		if (!getTextDescription().equals("")) {
-			Label label = new Label(getTextDescription());
-			label.setBorder(new MarginBorder(3, 3, 3, 3));
-			figure.setToolTip(label);
+			SimpleTooltipFigure tooltipFigure = new SimpleTooltipFigure();
+			tooltipFigure.setMessage(getTextDescription());
+			figure.setToolTip(tooltipFigure);
 		}
 		return figure;
 	}
@@ -147,6 +147,11 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements
 		if (elem != null && elem.getRepresents() != null) {
 			Method findMethod = Cl_c.findMethod(elem.getRepresents(),
 					"getDescrip", new Class[0]);
+			if(findMethod == null) {
+				// try for an operation that returns the description
+				findMethod = Cl_c.findMethod(elem.getRepresents(),
+						"Getdescription", new Class[0]);
+			}
 			if (findMethod != null) {
 				String descrip = (String) Cl_c.doMethod(findMethod, elem
 						.getRepresents(), new Object[0]);
@@ -267,9 +272,9 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements
 			((EditPart) text).refresh();
 		}
 		if (!getTextDescription().equals("")) {
-			Label label = new Label(getTextDescription());
-			label.setBorder(new MarginBorder(3, 3, 3, 3));
-			getFigure().setToolTip(label);
+			SimpleTooltipFigure tooltipFigure = new SimpleTooltipFigure();
+			tooltipFigure.setMessage(getTextDescription());
+			getFigure().setToolTip(tooltipFigure);
 		} else {
 			if (getFigure().getToolTip() != null)
 				getFigure().setToolTip(null);

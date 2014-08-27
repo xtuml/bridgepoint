@@ -24,6 +24,8 @@ package com.mentor.nucleus.bp.model.compare.contentmergeviewer;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,8 +34,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.UUID;
 
 import org.eclipse.compare.CompareConfiguration;
 import org.eclipse.compare.CompareNavigator;
@@ -52,7 +56,6 @@ import org.eclipse.compare.internal.ICompareUIConstants;
 import org.eclipse.compare.internal.MergeViewerContentProvider;
 import org.eclipse.compare.internal.NavigationEndDialog;
 import org.eclipse.compare.internal.Utilities;
-import org.eclipse.compare.rangedifferencer.RangeDifference;
 import org.eclipse.compare.structuremergeviewer.Differencer;
 import org.eclipse.compare.structuremergeviewer.ICompareInput;
 import org.eclipse.core.resources.IFile;
@@ -110,16 +113,21 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.texteditor.IDocumentProvider;
 
+import com.mentor.nucleus.bp.core.ClassStateMachine_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.InstanceStateMachine_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
+import com.mentor.nucleus.bp.core.StateMachine_c;
 import com.mentor.nucleus.bp.core.common.ModelRoot;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.Transaction;
 import com.mentor.nucleus.bp.core.common.TransactionManager;
 import com.mentor.nucleus.bp.core.ui.AbstractModelExportFactory;
 import com.mentor.nucleus.bp.io.core.CoreExport;
+import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 import com.mentor.nucleus.bp.model.compare.ComparePlugin;
 import com.mentor.nucleus.bp.model.compare.CompareTransactionManager;
+import com.mentor.nucleus.bp.model.compare.EmptyElement;
 import com.mentor.nucleus.bp.model.compare.ITreeDifferencerProvider;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager;
 import com.mentor.nucleus.bp.model.compare.ModelCacheManager.ModelLoadException;
@@ -129,12 +137,17 @@ import com.mentor.nucleus.bp.model.compare.TreeDifferencer;
 import com.mentor.nucleus.bp.model.compare.actions.CopyDiffAction;
 import com.mentor.nucleus.bp.model.compare.actions.NavigateDownAction;
 import com.mentor.nucleus.bp.model.compare.actions.NavigateUpAction;
+import com.mentor.nucleus.bp.model.compare.providers.ComparableProvider;
 import com.mentor.nucleus.bp.model.compare.providers.ModelCompareContentProvider;
 import com.mentor.nucleus.bp.model.compare.providers.ModelCompareLabelProvider;
 import com.mentor.nucleus.bp.model.compare.providers.NonRootModelElementComparable;
-import com.mentor.nucleus.bp.model.compare.providers.TreeDifferenceContentProvider;
 import com.mentor.nucleus.bp.model.compare.structuremergeviewer.ModelStructureDiffViewer;
 import com.mentor.nucleus.bp.ui.canvas.CanvasPlugin;
+import com.mentor.nucleus.bp.ui.canvas.Connector_c;
+import com.mentor.nucleus.bp.ui.canvas.ElementSpecification_c;
+import com.mentor.nucleus.bp.ui.canvas.Graphconnector_c;
+import com.mentor.nucleus.bp.ui.canvas.Graphedge_c;
+import com.mentor.nucleus.bp.ui.canvas.GraphicalElement_c;
 
 public class ModelContentMergeViewer extends ContentMergeViewer implements IModelContentMergeViewer, IResourceChangeListener {
 
@@ -180,7 +193,9 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 	private CTabFolder rightFolder;
 	private List<ModelMergeViewer> leftExtensions = new ArrayList<ModelMergeViewer>();
 	private List<ModelMergeViewer> rightExtensions = new ArrayList<ModelMergeViewer>();
-
+	private Map<NonRootModelElement, ICompareInput> savedModels = new HashMap<NonRootModelElement, ICompareInput>();
+	private Map<NonRootModelElement, ICompareInput> visitedModels = new HashMap<NonRootModelElement, ICompareInput>();
+	
 	public ModelContentMergeViewer(Composite parent,
 			CompareConfiguration configuration) {
 		super(SWT.NONE, ResourceBundle.getBundle(BUNDLE_NAME), configuration);
@@ -199,140 +214,209 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 
 			@Override
 			public void saveLeftContent(Object element, byte[] bytes) {
-				try {
-					if(element instanceof ICompareInput) {
-						ICompareInput node = (ICompareInput) element;
-						ITypedElement left = node.getLeft();
-						final NonRootModelElement rootElement = modelManager.getRootElements(
-								left, this, false,
-								getLeftCompareRoot(),
-								ModelCacheManager
-										.getLeftKey(getInput() != null ? getInput() : oldInput))[0];
-						if (left instanceof IEditableContent) {
-							ByteArrayOutputStream baos = new ByteArrayOutputStream();
-							AbstractModelExportFactory modelExportFactory = CorePlugin.getModelExportFactory();
-							IRunnableWithProgress runnable = modelExportFactory
-									.create(getLeftCompareRoot(), baos, rootElement);
-							CoreExport.forceProxyExport = true;
-							runnable.run(new NullProgressMonitor());
-							CoreExport.forceProxyExport = false;
-							((IEditableContent)left).setContent(baos.toByteArray());
-							if(left instanceof LocalResourceTypedElement) {
-								((IFile) ((LocalResourceTypedElement) left)
-										.getResource()).setContents(new ByteArrayInputStream(baos.toByteArray()),
-										IFile.FORCE | IFile.KEEP_HISTORY, new NullProgressMonitor());
+				if (element instanceof ICompareInput) {
+					ICompareInput node = (ICompareInput) element;
+					updateSMIds(node, true);
+					writeData(node, true);
+					NonRootModelElement[] rootElements = new NonRootModelElement[0];
+					try {
+						rootElements = modelManager.getRootElements(element,
+								this, false, getLeftCompareRoot(),
+								ModelCacheManager.getLeftKey(element));
+						if (rootElements.length != 0) {
+							ICompareInput savedInput = savedModels.get(rootElements[0]);
+							if(savedInput == null) {
+								savedModels.put(rootElements[0], node);
 							}
-							WorkspaceJob job = new WorkspaceJob("Refresh workspace content") {
-								
-								@Override
-								public IStatus runInWorkspace(IProgressMonitor monitor)
-										throws CoreException {
-									NonRootModelElement elementGlobally = (NonRootModelElement) Ooaofooa
-											.getDefaultInstance()
-											.getInstanceList(
-													rootElement.getClass())
-											.getGlobal(
-													rootElement
-															.getInstanceKey());
-									if(elementGlobally != null) {
-										if(elementGlobally.getFile() != null) {
-											elementGlobally.getFile().refreshLocal(IFile.DEPTH_INFINITE, monitor);
-										}
-									}
-									return Status.OK_STATUS;
-								}
-							};
-							job.schedule(1500);
 						}
+					} catch (ModelLoadException e) {
+						CorePlugin
+								.logError(
+										"Unable to get root model elements from compare input.",
+										e);
+					} finally {
+						modelManager.releaseModel(element, this,
+								ModelCacheManager.getLeftKey(element));
 					}
-				} catch (FileNotFoundException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
-				} catch (ModelLoadException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
-				} catch (InvocationTargetException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
-				} catch (InterruptedException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
-				} catch (CoreException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
 				}
 			}
 
 			@Override
 			public void saveRightContent(Object element, byte[] bytes) {
-				try {
-					if(element instanceof ICompareInput) {
-						ICompareInput node = (ICompareInput) element;
-						ITypedElement right = node.getRight();
-						final NonRootModelElement rootElement = modelManager.getRootElements(
-								right, this, false,
-								getRightCompareRoot(),
-								ModelCacheManager
-										.getRightKey(getInput() != null ? getInput() : oldInput))[0];
-						if (right instanceof IEditableContent) {
-							ByteArrayOutputStream baos = new ByteArrayOutputStream();
-							AbstractModelExportFactory modelExportFactory = CorePlugin.getModelExportFactory();
-							IRunnableWithProgress runnable = modelExportFactory
-									.create(getRightCompareRoot(), baos, rootElement);
-							CoreExport.forceProxyExport = true;
-							runnable.run(new NullProgressMonitor());
-							CoreExport.forceProxyExport = false;
-							((IEditableContent)right).setContent(baos.toByteArray());
-							if(right instanceof LocalResourceTypedElement) {
-								((IFile) ((LocalResourceTypedElement) right)
-										.getResource()).setContents(new ByteArrayInputStream(baos.toByteArray()),
-										IFile.FORCE | IFile.KEEP_HISTORY, new NullProgressMonitor());
+				if (element instanceof ICompareInput) {
+					ICompareInput node = (ICompareInput) element;
+					updateSMIds(node, false);
+					writeData(node, false);
+					NonRootModelElement[] rootElements = new NonRootModelElement[0];
+					try {
+						rootElements = modelManager.getRootElements(element,
+								this, false, getRightCompareRoot(),
+								ModelCacheManager.getRightKey(element));
+						if (rootElements.length != 0) {
+							ICompareInput savedInput = savedModels.get(rootElements[0]);
+							if(savedInput == null) {
+								savedModels.put(rootElements[0], node);
 							}
-							WorkspaceJob job = new WorkspaceJob("Refresh workspace content") {
-								
-								@Override
-								public IStatus runInWorkspace(IProgressMonitor monitor)
-										throws CoreException {
-									NonRootModelElement elementGlobally = (NonRootModelElement) Ooaofooa
-											.getDefaultInstance()
-											.getInstanceList(
-													rootElement.getClass())
-											.getGlobal(
-													rootElement
-															.getInstanceKey());
-									if(elementGlobally != null) {
-										if(elementGlobally.getFile() != null) {
-											elementGlobally.getFile().refreshLocal(IFile.DEPTH_INFINITE, monitor);
-										}
-									}
-									return Status.OK_STATUS;
-								}
-							};
-							job.schedule(1500);
 						}
+					} catch (ModelLoadException e) {
+						CorePlugin
+								.logError(
+										"Unable to get root model elements from compare input.",
+										e);
+					} finally {
+						modelManager.releaseModel(element, this,
+								ModelCacheManager.getRightKey(element));
 					}
-				} catch (FileNotFoundException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
-				} catch (ModelLoadException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
-				} catch (InvocationTargetException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
-				} catch (InterruptedException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
-				} catch (CoreException e) {
-					ComparePlugin.writeToLog("Unable to save merge data.", e,
-							ModelContentMergeViewer.class);
 				}
+
 			}
 
 		});
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(this);
 	}
 	
+	protected void updateSMIds(ICompareInput node, boolean left) {
+		// reset any SM ids that were upgrade for compare/merge
+		Object key = ModelCacheManager.getLeftKey(node);
+		if(!left) {
+			key = ModelCacheManager.getRightKey(node);
+		}
+		Ooaofooa compareRoot = getLeftCompareRoot();
+		if(!left) {
+			compareRoot = getRightCompareRoot();
+		}
+		UUID originalSMId = modelManager
+				.getOriginalSMIdFromEntry(key);
+		if (originalSMId != null) {
+			NonRootModelElement[] rootElements;
+			try {
+				rootElements = modelManager.getRootElements(node, this, false,
+						compareRoot, key);
+				// only support case where there is only one root
+				StateMachine_c sm = null;
+				if (rootElements[0] instanceof InstanceStateMachine_c) {
+					sm = StateMachine_c
+							.getOneSM_SMOnR517((InstanceStateMachine_c) rootElements[0]);
+				}
+				if (rootElements[0] instanceof ClassStateMachine_c) {
+					sm = StateMachine_c
+							.getOneSM_SMOnR517((ClassStateMachine_c) rootElements[0]);
+				}
+				if (sm != null) {
+					ModelCacheManager.updateIdForStateMachine(
+							originalSMId, sm);
+				}
+			} catch (ModelLoadException e) {
+				CorePlugin.logError("Unable to load compare data.",
+						e);
+			}
+		}
+	}
+
+	protected void writeData(ICompareInput input, boolean toLeft) {
+		try {
+			ITypedElement destination = input.getLeft();
+			Ooaofooa root = Ooaofooa.getInstance(ModelRoot
+					.getLeftCompareRootPrefix() + input.hashCode());
+			if (!toLeft) {
+				destination = input.getRight();
+				root = Ooaofooa.getInstance(ModelRoot
+						.getRightCompareRootPrefix() + input.hashCode());
+			}
+			final NonRootModelElement rootElement = modelManager
+					.getRootElements(destination, null, false, root,
+							ModelCacheManager
+									.getLeftKey(input))[0];
+			if (destination instanceof IEditableContent) {
+				// before saving copy all graphical changes that are
+				// non-conflicting
+				List<TreeDifference> incomingGraphicalDifferences = getIncomingGraphicalDifferences(toLeft);
+				if (incomingGraphicalDifferences.size() > 0) {
+					mergeIncomingGraphicalChanges(incomingGraphicalDifferences,
+							toLeft, input);
+				}
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				AbstractModelExportFactory modelExportFactory = CorePlugin
+						.getModelExportFactory();
+				IRunnableWithProgress runnable = modelExportFactory.create(
+						root, baos, rootElement);
+				CoreExport.forceProxyExport = true;
+				runnable.run(new NullProgressMonitor());
+				CoreExport.forceProxyExport = false;
+				((IEditableContent) destination).setContent(baos.toByteArray());
+				if (destination instanceof LocalResourceTypedElement) {
+					((IFile) ((LocalResourceTypedElement) destination)
+							.getResource()).setContents(
+							new ByteArrayInputStream(baos.toByteArray()),
+							IFile.FORCE | IFile.KEEP_HISTORY,
+							new NullProgressMonitor());
+				}
+				WorkspaceJob job = new WorkspaceJob("Refresh workspace content") {
+
+					@Override
+					public IStatus runInWorkspace(IProgressMonitor monitor)
+							throws CoreException {
+						NonRootModelElement elementGlobally = (NonRootModelElement) Ooaofooa
+								.getDefaultInstance()
+								.getInstanceList(rootElement.getClass())
+								.getGlobal(rootElement.getInstanceKey());
+						if (elementGlobally != null) {
+							if (elementGlobally.getFile() != null) {
+								elementGlobally.getFile().refreshLocal(
+										IFile.DEPTH_INFINITE, monitor);
+							}
+						}
+						return Status.OK_STATUS;
+					}
+				};
+				job.schedule(1500);
+			}
+
+		} catch (FileNotFoundException e) {
+			ComparePlugin.writeToLog("Unable to save merge data.", e,
+					ModelContentMergeViewer.class);
+		} catch (ModelLoadException e) {
+			ComparePlugin.writeToLog("Unable to save merge data.", e,
+					ModelContentMergeViewer.class);
+		} catch (InvocationTargetException e) {
+			ComparePlugin.writeToLog("Unable to save merge data.", e,
+					ModelContentMergeViewer.class);
+		} catch (InterruptedException e) {
+			ComparePlugin.writeToLog("Unable to save merge data.", e,
+					ModelContentMergeViewer.class);
+		} catch (CoreException e) {
+			ComparePlugin.writeToLog("Unable to save merge data.", e,
+					ModelContentMergeViewer.class);
+		}
+	}
+
+	protected void mergeIncomingGraphicalChanges(
+			List<TreeDifference> incomingGraphicalDifferences, boolean left, ICompareInput input) {
+		ITreeDifferencerProvider provider = (ITreeDifferencerProvider) leftTreeViewer
+				.getContentProvider();
+		ITableLabelProvider labelProvider = (ITableLabelProvider) leftTreeViewer
+				.getLabelProvider();
+		Ooaofooa destinationRoot = Ooaofooa.getInstance(ModelRoot.getLeftCompareRootPrefix()
+					+ input.hashCode());
+		if (!left) {
+			provider = (ITreeDifferencerProvider) rightTreeViewer
+					.getContentProvider();
+			labelProvider = (ITableLabelProvider) rightTreeViewer
+					.getLabelProvider();
+			destinationRoot = Ooaofooa.getInstance(ModelRoot.getRightCompareRootPrefix()
+						+ input.hashCode());
+		}
+		for (TreeDifference difference : incomingGraphicalDifferences) {
+			try {
+				ModelMergeProcessor.merge(differencer, difference, left,
+						provider, labelProvider, destinationRoot);
+			} catch (IOException e) {
+				CorePlugin.logError(
+						"Unable to automatically merge graphical changes", e);
+			}
+		}
+	}
+
 	@Override
 	protected void createToolItems(ToolBarManager toolBarManager) {
 		CompareConfiguration cc = getCompareConfiguration();
@@ -448,7 +532,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			NonRootModelElementComparable nrmec = (NonRootModelElementComparable) parent;
 			NonRootModelElement nrme = (NonRootModelElement) nrmec.getRealElement();
 			if(nrme.getModelRoot().getId().startsWith(ModelRoot.getRightCompareRootPrefix())) {
-				TreeItem matchingItem = leftTreeViewer.getMatchingItem(nrmec, leftTreeViewer);
+				TreeItem matchingItem = SynchronizedTreeViewer.getMatchingItem(nrmec, leftTreeViewer);
 				if(matchingItem != null) {
 					parent = matchingItem.getData();
 				}
@@ -639,7 +723,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		}
 		if(next.getElement() != null) {
 			leftTreeViewer.setSelection(new StructuredSelection(next.getElement()), true);
-			TreeItem matching = leftTreeViewer.getMatchingItem(next.getElement(),
+			TreeItem matching = SynchronizedTreeViewer.getMatchingItem(next.getElement(),
 					leftTreeViewer);
 			if(matching != null) {
 				leftTreeViewer.getTree().setTopItem(
@@ -648,14 +732,14 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			Object right = next.getMatchingDifference().getElement();
 			if(right != null) {
 				rightTreeViewer.setSelection(new StructuredSelection(right), true);
-				TreeItem rightItem = rightTreeViewer.getMatchingItem(right,
+				TreeItem rightItem = SynchronizedTreeViewer.getMatchingItem(right,
 						rightTreeViewer);
 				if(rightItem != null) {
 					rightTreeViewer.getTree()
 							.setTopItem(rightItem);
 				}
 			} else {
-				TreeItem rightParentItem = rightTreeViewer.getMatchingItem(next
+				TreeItem rightParentItem = SynchronizedTreeViewer.getMatchingItem(next
 						.getMatchingDifference().getParent(), rightTreeViewer);
 				if(rightParentItem != null) {
 					rightTreeViewer.reveal(rightParentItem.getData());
@@ -665,7 +749,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			}
 		} else {
 			if(next.getParent() != null) {
-				TreeItem leftParentItem = leftTreeViewer.getMatchingItem(next
+				TreeItem leftParentItem = SynchronizedTreeViewer.getMatchingItem(next
 						.getParent(), leftTreeViewer);
 				if(leftParentItem != null) {
 					//leftTreeViewer.reveal(leftParentItem.getData());
@@ -675,7 +759,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			rightTreeViewer.setSelection(new StructuredSelection(next
 					.getMatchingDifference().getElement()), true);
 			if(next.getMatchingDifference().getElement() != null) {
-				TreeItem matchingItem = rightTreeViewer.getMatchingItem(next.getMatchingDifference().getElement(), rightTreeViewer);
+				TreeItem matchingItem = SynchronizedTreeViewer.getMatchingItem(next.getMatchingDifference().getElement(), rightTreeViewer);
 				if(matchingItem != null) {
 					rightTreeViewer.getTree().setTopItem(matchingItem);
 				}
@@ -782,6 +866,10 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			differences.addAll(additionsOrRemovals);
 			differences.addAll(remainder);
 			for (TreeDifference difference : differences) {
+				// skip graphical data at this point
+				if(SynchronizedTreeViewer.differenceIsGraphical(difference)) {
+					continue;
+				}
 				if((difference.getKind() & Differencer.DIRECTION_MASK) == Differencer.CONFLICTING && !copySelection) {
 					continue;
 				}
@@ -837,7 +925,8 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 					located = differencer.getDifferences(parent, left);
 					if (!located.isEmpty()) {
 						if (located.size() == 1) {
-							if (located.get(0).getIncludeChildren()) {
+							if (located.get(0).getIncludeChildren()
+									&& located.get(0).getElement() != null) {
 								differences.addAll(located);
 								break;
 							} else {
@@ -884,7 +973,9 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		leftTreeViewer = new SynchronizedTreeViewer(leftPanel, SWT.H_SCROLL
 				| SWT.MULTI | SWT.FULL_SELECTION | SWT.DOUBLE_BUFFERED
 				| SWT.NO_BACKGROUND | SWT.BORDER, this, configuration.isLeftEditable(), false);
-		leftTreeViewer.setContentProvider(new ModelCompareContentProvider());
+		ModelCompareContentProvider leftContentProvider = new ModelCompareContentProvider();
+		leftContentProvider.setIncludeNonTreeData(false);
+		leftTreeViewer.setContentProvider(leftContentProvider);
 		leftTreeViewer.setUseHashlookup(true);
 		leftTreeViewer.setLabelProvider(new ModelCompareLabelProvider());
 		leftItem.setControl(leftPanel);
@@ -921,8 +1012,9 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		rightTreeViewer.addSynchronizationViewer(leftTreeViewer);
 		rightTreeViewer.setUseHashlookup(true);
 		leftTreeViewer.addSynchronizationViewer(rightTreeViewer);
-		;
-		rightTreeViewer.setContentProvider(new ModelCompareContentProvider());
+		ModelCompareContentProvider rightProvider = new ModelCompareContentProvider();
+		rightProvider.setIncludeNonTreeData(false);
+		rightTreeViewer.setContentProvider(rightProvider);
 		rightTreeViewer.setLabelProvider(new ModelCompareLabelProvider());
 		rightItem.setControl(rightPanel);
 		rightItem.setText("Tree");
@@ -942,7 +1034,9 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				| SWT.DOUBLE_BUFFERED | SWT.NO_BACKGROUND | SWT.BORDER, this,
 				false, true);
 		ancestorTreeViewer.setUseHashlookup(true);
-		ancestorTreeViewer.setContentProvider(new ModelCompareContentProvider());
+		ModelCompareContentProvider ancestorProvider = new ModelCompareContentProvider();
+		ancestorProvider.setIncludeNonTreeData(false);
+		ancestorTreeViewer.setContentProvider(ancestorProvider);
 		ancestorTreeViewer.setLabelProvider(new ModelCompareLabelProvider());
 		leftTreeViewer.addSynchronizationViewer(ancestorTreeViewer);
 		rightTreeViewer.addSynchronizationViewer(ancestorTreeViewer);
@@ -1043,166 +1137,31 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		gc.setAntialias(SWT.ON);
 		List<TreeDifference> differences = differencer.getLeftDifferences();
 		for (TreeDifference difference : differences) {
-			gc.setForeground(getColor(PlatformUI.getWorkbench().getDisplay(),
+			if(SynchronizedTreeViewer.differenceIsGraphical(difference)) {
+				// currently do not include graphical data
+				continue;
+			}
+ 			gc.setForeground(getColor(PlatformUI.getWorkbench().getDisplay(),
 					getStrokeColor(difference)));
-			if (leftTreeViewer.getTree().getItems().length == 0) {
-				// there are no left items, therefore there will
-				// be one large difference on the right
-				// draw a line from the left to the center of the
-				// right top element including children
-				TreeItem topItem = rightTreeViewer.getTree().getItems()[0];
-				Rectangle otherHighlightRect = rightTreeViewer
-						.buildHighlightRectangle(topItem, false, gc, true, true);
-				int[] points = getCenterCurvePoints(0, leftTreeViewer.getTree().getHeaderHeight(),
-						canvas.getBounds().width, otherHighlightRect.y
-								+ (otherHighlightRect.height / 2));
-				for (int i = 1; i < points.length; i++)
-					gc.drawLine(i - 1, points[i - 1], i, points[i]);
-				continue;
-			}
 			TreeItem leftItem = leftTreeViewer.getItemForDifference(difference);
-			if ((leftItem == null || leftItem.isDisposed())
-					&& !(difference.getLocation() >= 0)) {
+			if (leftItem == null || leftItem.isDisposed()) {
 				continue;
 			}
-			TreeItem matchingItem = null;
-			if (leftItem == null) {
-				// use item at location in difference
-				leftItem = leftTreeViewer.getTree().getItem(difference.getLocation());
-				Rectangle leftBounds = leftTreeViewer.buildHighlightRectangle(
-						leftItem, leftItem.getExpanded(), gc, true, true);
-				matchingItem = rightTreeViewer.getItemForDifference(difference
-						.getMatchingDifference());
-				// can happen during load
-				if(matchingItem == null) {
-					continue;
-				}
-				Rectangle rightBounds = rightTreeViewer.buildHighlightRectangle(
-						matchingItem, false, gc, true, true);
-				// draw a line from the left edge to the right edge
-				int[] points = getCenterCurvePoints(0, leftBounds.y
-						+ leftBounds.height, canvas.getBounds().width,
-						rightBounds.y + (rightBounds.height / 2));
-				for (int i = 1; i < points.length; i++)
-					gc.drawLine(i - 1, points[i - 1], i, points[i]);
-				continue;
-			} else {
-				matchingItem = leftTreeViewer.getMatchingItem(leftItem.getData(),
+			TreeItem matchingItem = SynchronizedTreeViewer.getMatchingItem(leftItem.getData(),
 						rightTreeViewer);
-			}
-			if (getDifferencer().elementsEqual(leftItem.getData(),
-					difference.getElement())) {
-				// if not a container of the real difference element
-				// then find the matching difference element
-				matchingItem = leftTreeViewer.getMatchingItem(difference
-						.getMatchingDifference().getElement(), rightTreeViewer);
-			}
-			// draw any missing items on this side
-			if (difference.getParent() != null
-					&& leftItem.getData().equals(difference.getParent())
-					&& (leftItem.getItems().length == 0 || leftItem
-							.getExpanded())) {
-
-				TreeItem otherItem = leftTreeViewer.getMatchingItem(difference
-						.getMatchingDifference().getElement(), rightTreeViewer);
-				TreeItem prevItem = SynchronizedTreeViewer
-						.getPreviousItem(leftItem, difference);
-				if (prevItem == null || prevItem.getData() == null
-						|| otherItem == null || otherItem.getData() == null) {
-					continue;
-				}
-				Rectangle otherHighlightRect = rightTreeViewer
-						.buildHighlightRectangle(otherItem, false, gc, true, true);
-				Rectangle prevItemBounds = leftTreeViewer
-						.buildHighlightRectangle(prevItem, !prevItem.getData()
-								.equals(difference.getParent()), gc, true, true);
-				int[] points = getCenterCurvePoints(0, prevItemBounds.y
-						+ prevItemBounds.height, canvas.getBounds().width,
-						otherHighlightRect.y + (otherHighlightRect.height / 2));
-				for (int i = 1; i < points.length; i++)
-					gc.drawLine(i - 1, points[i - 1], i, points[i]);
+			if(matchingItem == null) {
 				continue;
 			}
 			Rectangle leftBounds = leftTreeViewer.buildHighlightRectangle(leftItem,
 					false, gc, true, true);
-			if (matchingItem == null) {
-				// if the right side is empty, draw a line at the top
-				if ((rightTreeViewer.getTree().getItems().length == 0 || difference
-						.getMatchingDifference().getParent() == null
-						&& difference.getMatchingDifference().getElement() == null)
-						&& !(difference.getMatchingDifference().getLocation() >= 0)) {
-					// draw a line for each missing item
-					int[] points = getCenterCurvePoints(0, leftBounds.y
-							+ (leftBounds.height / 2),
-							canvas.getBounds().width, rightTreeViewer.getTree().getHeaderHeight());
-					for (int i = 1; i < points.length; i++)
-						gc.drawLine(i - 1, points[i - 1], i, points[i]);
-				} else {
-					// draw the line to where the missing element line
-					// would be drawn
-					TreeItem otherSideParent = null;
-					if (difference.getMatchingDifference().getParent() == null
-							&& difference.getMatchingDifference().getElement() == null) {
-						// this is for the root, use the item found at
-						// the location specified in the difference
-						otherSideParent = rightTreeViewer.getTree().getItem(
-								difference.getMatchingDifference()
-										.getLocation());
-						Rectangle prevItemBounds = leftTreeViewer
-								.buildHighlightRectangle(otherSideParent,
-										otherSideParent.getExpanded(), gc, true, true);
-						int[] points = getCenterCurvePoints(0, leftBounds.y
-								+ (leftBounds.height / 2),
-								canvas.getBounds().width, prevItemBounds.y
-										+ prevItemBounds.height);
-						for (int i = 1; i < points.length; i++)
-							gc.drawLine(i - 1, points[i - 1], i, points[i]);
-						continue;
-					} else {
-						otherSideParent = leftTreeViewer.getMatchingItem(leftItem
-								.getParentItem().getData(), rightTreeViewer);
-					}
-					if(otherSideParent == null) {
-						// we are currently expanding the tree
-						continue;
-					}
-					List<TreeDifference> diffs = differencer
-							.getRightDifferences();
-					for (TreeDifference diff : diffs) {
-						if (diff.getParent() != null
-								&& otherSideParent.getData().equals(
-										diff.getParent())
-								&& (otherSideParent.getItems().length == 0 || otherSideParent
-										.getExpanded())
-								&& getDifferencer().elementsEqual(
-										diff.getMatchingDifference()
-												.getElement(),
-										leftItem.getData())) {
-							// draw a line for each missing item
-							int location = diff.getLocation();
-							TreeItem prevItem = SynchronizedTreeViewer
-									.getPreviousItem(otherSideParent, diff);
-							Rectangle prevItemBounds = rightTreeViewer
-									.buildHighlightRectangle(prevItem,
-											location >= 0, gc, true, true);
-							int[] points = getCenterCurvePoints(0, leftBounds.y
-									+ (leftBounds.height / 2), canvas
-									.getBounds().width, prevItemBounds.y
-									+ prevItemBounds.height);
-							for (int i = 1; i < points.length; i++)
-								gc.drawLine(i - 1, points[i - 1], i, points[i]);
-						}
-					}
-				}
-			} else {
-				Rectangle rightBounds = rightTreeViewer.buildHighlightRectangle(
-						matchingItem, false, gc, true, true);
-				// draw a line from the left edge to the right edge
-				int[] points = getCenterCurvePoints(0, leftBounds.y
-						+ (leftBounds.height / 2), canvas.getBounds().width,
-						rightBounds.y + (rightBounds.height / 2));
-				for (int i = 1; i < points.length; i++)
-					gc.drawLine(i - 1, points[i - 1], i, points[i]);
+			Rectangle rightBounds = rightTreeViewer.buildHighlightRectangle(
+					matchingItem, false, gc, true, true);
+			// draw a line from the left edge to the right edge
+			int[] points = getCenterCurvePoints(0, leftBounds.y
+					+ (leftBounds.height / 2), canvas.getBounds().width,
+					rightBounds.y + (rightBounds.height / 2));
+			for (int i = 1; i < points.length; i++) {
+				gc.drawLine(i - 1, points[i - 1], i, points[i]);
 			}
 		}
 	}
@@ -1249,9 +1208,13 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		boolean rightEditable = getCompareConfiguration().isRightEditable();
 		if(left instanceof IEditableContent) {
 			leftEditable = ((IEditableContent) left).isEditable();
+		} else {
+			leftEditable = false;
 		}
 		if(right instanceof IEditableContent) {
 			rightEditable = ((IEditableContent) right).isEditable();
+		} else {
+			rightEditable = false;
 		}
 		getLeftViewer().setEditable(leftEditable);
 		getRightViewer().setEditable(rightEditable);
@@ -1261,7 +1224,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		if (left == null && right == null) {
 			return;
 		}
-		if (((left instanceof IStreamContentAccessor && right instanceof IStreamContentAccessor) || ((left instanceof IStreamContentAccessor) && right == null))) {
+		if (((left instanceof IStreamContentAccessor || right instanceof IStreamContentAccessor) || ((left instanceof IStreamContentAccessor) && right == null))) {
 			try {
 				instanceMap.remove(oldInput);
 				Object leftKey = ModelCacheManager.getLeftKey(getInput());
@@ -1269,21 +1232,35 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				Object ancestorKey = ModelCacheManager.getAncestorKey(getInput());
 				ModelCacheManager modelCacheManager = ComparePlugin
 						.getDefault().getModelCacheManager();
-				modelCacheManager.releaseModel(left, this,
-						getLeftCompareRoot(), leftKey);
-				modelCacheManager.releaseModel(right, this,
-						getRightCompareRoot(), rightKey);
-				modelCacheManager.releaseModel(ancestor, this,
-						getAncestorCompareRoot(), ancestorKey);
-				NonRootModelElement[] leftElements = modelCacheManager
-						.getRootElements(left, this, true,
-								getLeftCompareRoot(), leftKey);
-				NonRootModelElement[] rightElements = modelCacheManager
-						.getRootElements(right, this, true,
-								getRightCompareRoot(), rightKey);
-				NonRootModelElement[] ancestorElements = modelCacheManager
-						.getRootElements(ancestor, this, true,
-								getAncestorCompareRoot(), ancestorKey);
+				NonRootModelElement[] leftElements = null;
+				NonRootModelElement[] rightElements = null;
+				NonRootModelElement[] ancestorElements = null;
+				if(left instanceof IStreamContentAccessor) {
+					leftElements = modelCacheManager
+							.getRootElements(left, this, false,
+									getLeftCompareRoot(), leftKey);
+				}
+				if(right instanceof IStreamContentAccessor) {
+					rightElements = modelCacheManager
+							.getRootElements(right, this, false,
+									getRightCompareRoot(), rightKey);
+				}
+				if(ancestor instanceof IStreamContentAccessor) {
+					ancestorElements = modelCacheManager
+							.getRootElements(ancestor, this, false,
+									getAncestorCompareRoot(), ancestorKey);
+				}
+				if(leftElements.length != 0) {
+					ICompareInput visited = visitedModels.get(leftElements[0]);
+					if(visited == null) {
+						visitedModels.put(leftElements[0], (ICompareInput) getInput());
+					}
+				} else if (rightElements.length != 0) {
+					ICompareInput visited = visitedModels.get(rightElements[0]);
+					if(visited == null) {
+						visitedModels.put(rightElements[0], (ICompareInput) getInput());
+					}
+				}
 				// configure cache key for left, right and ancestor label providers
 				((ModelCompareContentProvider) leftTreeViewer
 						.getContentProvider()).setCacheKey(leftKey);
@@ -1304,17 +1281,17 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 							.getContentProvider())
 							.setModelRoot(getAncestorCompareRoot());
 				}
-				differencer = TreeDifferencer.getInstance(getInput());
-				if(differencer == null) {
-					differencer = new TreeDifferencer(new ModelCompareContentProvider()
-							,
-							leftElements, rightElements, ancestorElements,
-							isThreeWay(), getInput());
-					TreeDifferencer.instances.put(getInput(), differencer);
-				} else {
-					differencer.setElements(leftElements, rightElements, ancestorElements);
+				ModelCompareContentProvider differencerProvider = new ModelCompareContentProvider();
+				differencerProvider.setRootElements(leftElements, rightElements);
+				if(differencer != null) {
+					differencer.dipose();
 				}
-				differencer.refresh();
+				differencer = new TreeDifferencer(differencerProvider
+						,
+						leftElements, rightElements, ancestorElements,
+						isThreeWay(), getInput());
+				TreeDifferencer.instances.put(getInput(), differencer);
+				updateRootElementsForTreeViewers(leftElements, rightElements);
 				nextDifference.getAction().setEnabled(false);
 				nextDifference.getAction().setEnabled(nextDifference.getAction().isEnabled());
 				previousDifference.getAction().setEnabled(false);
@@ -1330,6 +1307,30 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 					viewer.setCompareRoot(getRightCompareRoot());
 					viewer.setKey(rightKey);
 					viewer.setInput(getInput());
+				}
+				if(left instanceof IStreamContentAccessor && leftIsLocal()) {
+					// here we will automatically merge any incoming/conflicting
+					// graphics this will cover the case where only graphics
+					// are changed
+					List<TreeDifference> graphicalDifferences = getIncomingGraphicalDifferences(leftIsLocal());
+					if(!graphicalDifferences.isEmpty()) {
+						mergeIncomingGraphicalChanges(graphicalDifferences,
+								leftIsLocal(), (ICompareInput) getInput());
+						markLeftDirty(true);
+						differencer.refresh();
+					}
+				}
+				if(right instanceof IStreamContentAccessor && !leftIsLocal()) {
+					// here we will automatically merge any incoming/conflicting
+					// graphics this will cover the case where only graphics
+					// are changed
+					List<TreeDifference> graphicalDifferences = getIncomingGraphicalDifferences(!leftIsLocal());
+					if(!graphicalDifferences.isEmpty()) {
+						mergeIncomingGraphicalChanges(graphicalDifferences,
+								!leftIsLocal(), (ICompareInput) getInput());
+						markRightDirty(true);
+						differencer.refresh();
+					}
 				}
 			} catch (ModelLoadException e) {
 				CorePlugin.logError("Unable to load data for comparison.", e);
@@ -1350,6 +1351,186 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				}				
 			}
 		});
+	}
+
+	private void updateRootElementsForTreeViewers(
+			NonRootModelElement[] leftElements,
+			NonRootModelElement[] rightElements) {
+		// update the root elements for each tree viewer, this is
+		// to support empty elements
+		((ModelCompareContentProvider) leftTreeViewer
+				.getContentProvider()).setRootElements(
+				leftElements, rightElements);
+		((ModelCompareContentProvider) rightTreeViewer
+				.getContentProvider()).setRootElements(
+				leftElements, rightElements);
+		if(ancestorTreeViewer != null) {
+			((ModelCompareContentProvider) ancestorTreeViewer
+					.getContentProvider()).setRootElements(
+					leftElements, rightElements);
+		}
+	}
+
+	private List<TreeDifference> getIncomingGraphicalDifferences(boolean left) {
+		List<TreeDifference> incomingGraphicalDifferences = new ArrayList<TreeDifference>();
+		List<TreeDifference> differences = differencer.getRightDifferences();
+		if (!left) {
+			differences = differencer.getLeftDifferences();
+		}
+		for (TreeDifference difference : differences) {
+			// only copy those that are incoming or conflicting
+			// also exclude any additions or removals where the
+			// semantical model does not match
+			int diffKind = difference.getKind() & Differencer.DIRECTION_MASK;
+			if ((left && diffKind == Differencer.RIGHT)
+					|| (!left && diffKind == Differencer.LEFT)
+					|| diffKind == Differencer.CONFLICTING) {
+				if (SynchronizedTreeViewer.differenceIsGraphical(difference)) {
+					boolean add = true;
+					if ((difference.getElement() == null || difference
+							.getElement() instanceof EmptyElement)
+							&& difference.getMatchingDifference().getElement() instanceof NonRootModelElementComparable) {
+						// this is a removal, only remove if the
+						// semantic element represented is also
+						// removed
+						Object elementToBeRemoved = ((NonRootModelElementComparable) difference
+								.getMatchingDifference().getElement()).getRealElement();
+						if(elementToBeRemoved instanceof GraphicalElement_c) {
+							GraphicalElement_c graphEleToRemove = (GraphicalElement_c) elementToBeRemoved;
+							// if the graphical element represents value is null
+							// we need to
+							// look at the local file, in some cases the
+							// configuration
+							// management system may have pre-merged the
+							// semantical element
+							// in a different file
+							if (graphEleToRemove.getRepresents() == null) {
+								ElementSpecification_c spec = ElementSpecification_c
+										.getOneGD_ESOnR10(graphEleToRemove);
+								if (spec != null) {
+									NonRootModelElement elementGlobally = (NonRootModelElement) Ooaofooa
+											.getDefaultInstance()
+											.getInstanceList(
+													spec.getRepresents())
+											.getGlobal(
+													graphEleToRemove
+															.getOoa_id());
+									if (elementGlobally != null) {
+										add = false;
+									}
+								}
+							}
+							if(add) {
+								if (graphEleToRemove.getRepresents() != null
+										&& graphEleToRemove.getRepresents() instanceof NonRootModelElement) {
+									NonRootModelElement semanticElement = (NonRootModelElement) graphEleToRemove.getRepresents();
+									if(!semanticElement.isOrphaned()) {
+										add = false;
+									} else {
+										addConnectionPoints(graphEleToRemove, left,
+												incomingGraphicalDifferences);
+									}
+								}
+							}
+						} else {
+							add = false;
+						}
+					}
+					if ((difference.getMatchingDifference().getElement() == null || difference
+							.getMatchingDifference().getElement() instanceof EmptyElement)
+							&& difference.getElement() instanceof NonRootModelElementComparable) {
+						// this is an addition, only add the graphic if the
+						// semantic element was also copied
+						Object elementToBeAdded = ((NonRootModelElementComparable) difference
+								.getElement()).getRealElement();
+						if(elementToBeAdded instanceof GraphicalElement_c) {
+							GraphicalElement_c graphEleToAdd = (GraphicalElement_c) elementToBeAdded;
+							// if the graphical element represents value is null we need to
+							// look at the local file, in some cases the configuration
+							// management system may have pre-merged the semantical element
+							// in a different file
+							if(graphEleToAdd.getRepresents() == null) {
+								ElementSpecification_c spec = ElementSpecification_c
+										.getOneGD_ESOnR10(graphEleToAdd);
+								if (spec != null) {
+									NonRootModelElement elementGlobally = (NonRootModelElement) Ooaofooa
+											.getDefaultInstance()
+											.getInstanceList(
+													spec.getRepresents())
+											.getGlobal(
+													graphEleToAdd.getOoa_id());
+									if (elementGlobally == null) {
+										add = false;
+									} else {
+										addConnectionPoints(graphEleToAdd,
+												left,
+												incomingGraphicalDifferences);
+									}
+								}
+							}
+							if (graphEleToAdd.getRepresents() != null
+									&& graphEleToAdd.getRepresents() instanceof NonRootModelElement) {
+								NonRootModelElement semanticElement = (NonRootModelElement) graphEleToAdd.getRepresents();
+								NonRootModelElement parentElement = (NonRootModelElement) ((EmptyElement) difference
+										.getMatchingDifference().getElement())
+										.getParent();
+								Object existingSemanticElement = Ooaofooa.getInstance(parentElement
+										.getModelRoot().getId())
+										.getInstanceList(
+												semanticElement.getClass())
+										.get(semanticElement.getInstanceKey());
+								if(existingSemanticElement == null) {
+									add = false;
+								} else {
+									addConnectionPoints(graphEleToAdd, left,
+											incomingGraphicalDifferences);
+								}
+							}
+						} else {
+							add = false;
+						}
+					}
+					if(add) {
+						incomingGraphicalDifferences.add(difference);
+					}
+				}
+			}
+		}
+		return incomingGraphicalDifferences;
+	}
+
+	private void addConnectionPoints(GraphicalElement_c graphEleToAdd,
+			boolean left, List<TreeDifference> incomingGraphicalDifferences) {
+		// we need to include any DIM_CON additions (connections to existing shapes)
+		Connector_c connector = Connector_c.getOneGD_CONOnR2(graphEleToAdd);
+		if(connector != null) {
+			Graphconnector_c startCon = Graphconnector_c
+					.getOneDIM_CONOnR320(Graphedge_c
+							.getOneDIM_EDOnR20(connector));
+			Graphconnector_c endCon = Graphconnector_c
+					.getOneDIM_CONOnR321(Graphedge_c
+							.getManyDIM_EDsOnR20(connector));
+			if(startCon != null) {
+				ComparableTreeObject comparableTreeObject = ComparableProvider
+						.getComparableTreeObject(startCon);
+				List<TreeDifference> startConDiffs = differencer
+						.getDifferences(
+								comparableTreeObject,
+								!left);
+				incomingGraphicalDifferences
+						.addAll(startConDiffs);
+			}
+			if(endCon != null) {
+				ComparableTreeObject comparableTreeObject = ComparableProvider
+						.getComparableTreeObject(endCon);
+				List<TreeDifference> endConDiffs = differencer
+						.getDifferences(
+								comparableTreeObject,
+								!left);
+				incomingGraphicalDifferences
+						.addAll(endConDiffs);											
+			}
+		}
 	}
 
 	/**
@@ -1422,41 +1603,95 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 
 	@Override
 	protected void handleDispose(DisposeEvent event) {
+		// persist any non-saved left inputs
+		Set<NonRootModelElement> elements = visitedModels.keySet();
+		for (NonRootModelElement element : elements) {
+			ICompareInput saved = savedModels.get(element);
+			if (saved == null) {
+				// only do this for any that have the
+				// git annotations
+				NonRootModelElement elementGlobally = (NonRootModelElement) Ooaofooa
+						.getDefaultInstance()
+						.getInstanceList(element.getClass())
+						.getGlobal(element.getInstanceKey());
+				if (elementGlobally != null) {
+					// refresh the file to make sure its
+					// synced with what git wrote
+					InputStream actualContents = null;
+					try {
+						elementGlobally.getFile().refreshLocal(IFile.DEPTH_ONE,
+								new NullProgressMonitor());
+						actualContents = elementGlobally.getFile()
+								.getContents();
+					} catch (CoreException e) {
+						CorePlugin
+								.logError(
+										"Unable to load local file for conflict annotation removal.",
+										e);
+					}
+					if (actualContents != null) {
+						String data = readData(actualContents);
+						if (data.contains(">>>>>>>")
+								&& data.contains("<<<<<<<")
+								&& data.contains("=======")) {
+							// we need to reload the data from the input, incase
+							// a user has modified and the closed without saving
+							ICompareInput input = (ICompareInput) visitedModels
+									.get(element);
+							Ooaofooa compareRoot = Ooaofooa
+									.getInstance(ModelRoot
+											.getLeftCompareRootPrefix()
+											+ input.hashCode());
+							try {
+								ITypedElement left = input.getLeft();
+								if(left instanceof IStreamContentAccessor) {
+									IStreamContentAccessor accesor = (IStreamContentAccessor) left;
+									InputStream contents = accesor.getContents();
+									String compareData = readData(contents);
+									ByteArrayInputStream bais = new ByteArrayInputStream(compareData.getBytes());
+									modelManager.getRootElements(left, this, true,
+											compareRoot,
+											ModelCacheManager.getLeftKey(input));
+									elementGlobally
+											.getFile()
+											.setContents(bais,
+													IResource.FORCE,
+													new NullProgressMonitor());
+								}
+							} catch (CoreException e) {
+								CorePlugin
+										.logError(
+												"Unable to update local contents to remove conflict annotations.",
+												e);
+							} catch (ModelLoadException e) {
+								CorePlugin
+										.logError(
+												"Unable to load compare contents to remove conflict annotations.",
+												e);
+							}
+						}
+					}
+				}
+			}
+		}
+		for (NonRootModelElement element : elements) {
+			ICompareInput previous = visitedModels.get(element);
+			ITypedElement oldLeft = previous.getLeft();
+			ITypedElement oldRight = previous.getRight();
+			ITypedElement oldAncestor = previous.getAncestor();
+			ModelCacheManager modelCacheManager = ComparePlugin.getDefault()
+					.getModelCacheManager();
+			modelCacheManager.releaseModel(oldLeft, this,
+					ModelCacheManager.getLeftKey(previous));
+			modelCacheManager.releaseModel(oldRight, this,
+					ModelCacheManager.getRightKey(previous));
+			modelCacheManager.releaseModel(oldAncestor, this,
+					ModelCacheManager.getAncestorKey(previous));
+		}
+		visitedModels.clear();
+		savedModels.clear();
 		differencer.dipose();
 		instanceMap.remove(getInput());
-		if (leftTreeViewer != null) {
-			Object leftKey = null;
-			if (getInput() != null) {
-				leftKey = ModelCacheManager.getLeftKey(getInput());
-			} else {
-				leftKey = ModelCacheManager.getLeftKey(oldInput);
-			}
-			ComparePlugin.getDefault().getModelCacheManager().releaseModel(
-					leftTreeViewer.getInput(), this, getLeftCompareRoot(),
-					leftKey);
-		}
-		if (rightTreeViewer != null) {
-			Object rightKey = null;
-			if (getInput() != null) {
-				rightKey = ModelCacheManager.getRightKey(getInput());
-			} else {
-				rightKey = ModelCacheManager.getRightKey(oldInput);
-			}
-			ComparePlugin.getDefault().getModelCacheManager().releaseModel(
-					rightTreeViewer.getInput(), this, getRightCompareRoot(),
-					rightKey);
-		}
-		if (ancestorTreeViewer != null) {
-			Object ancestorKey = null;
-			if (getInput() != null) {
-				ancestorKey = ModelCacheManager.getAncestorKey(getInput());
-			} else {
-				ancestorKey = ModelCacheManager.getAncestorKey(oldInput);
-			}
-			ComparePlugin.getDefault().getModelCacheManager().releaseModel(
-					ancestorTreeViewer.getInput(), this,
-					getAncestorCompareRoot(), ancestorKey);
-		}
 		super.handleDispose(event);
 		if (canvas != null) {
 			canvas.dispose();
@@ -1483,6 +1718,26 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			colors.clear();
 		}
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
+	}
+
+	private String readData(InputStream contents) {
+		try {
+			byte[] resultBuff = new byte[0];
+			byte[] buff = new byte[1024];
+			int i = -1;
+			while ((i = contents.read(buff, 0, buff.length)) > -1) {
+				byte[] tbuff = new byte[resultBuff.length + i];
+				System.arraycopy(resultBuff, 0, tbuff, 0, resultBuff.length);
+				System.arraycopy(buff, 0, tbuff, resultBuff.length, i);
+				resultBuff = tbuff;
+			}
+			String result = new String(resultBuff);
+			contents.close();
+			return result;
+		} catch (IOException e) {
+			CorePlugin.logError("Unable to read compare contents.", e);
+		}
+		return "";
 	}
 
 	public CompareTransactionManager getCompareTransactionManager() {
@@ -1557,7 +1812,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				if (leftIsLocal())
 					return INCOMING;
 				return OUTGOING;
-			case RangeDifference.LEFT:
+			case Differencer.LEFT:
 				if (leftIsLocal())
 					return OUTGOING;
 				return INCOMING;
@@ -1646,21 +1901,21 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 
 	public void revealAndSelectItem(Object element) {
 		getLeftViewer().setSelection(new StructuredSelection(element), true);
-		TreeItem leftItem = getLeftViewer().getMatchingItem(element, getLeftViewer());
+		TreeItem leftItem = SynchronizedTreeViewer.getMatchingItem(element, getLeftViewer());
 		if(leftItem != null) {
 			getLeftViewer().getTree().setTopItem(leftItem);
 		} else {
 			
 		}
 		getRightViewer().setSelection(new StructuredSelection(element), true);
-		TreeItem rightItem = getRightViewer().getMatchingItem(element, getRightViewer());
+		TreeItem rightItem = SynchronizedTreeViewer.getMatchingItem(element, getRightViewer());
 		if(rightItem != null) {
 			getRightViewer().getTree().setTopItem(rightItem);
 		} else {
 			
 		}
 		if(getAncestorTree() != null) {
-			TreeItem ancestorItem = getAncestorTree().getMatchingItem(element, getAncestorTree());
+			TreeItem ancestorItem = SynchronizedTreeViewer.getMatchingItem(element, getAncestorTree());
 			if(ancestorItem != null) {
 				getAncestorTree().getTree().setTopItem(ancestorItem);
 			}

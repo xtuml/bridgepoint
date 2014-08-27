@@ -32,9 +32,14 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 
 import com.mentor.nucleus.bp.core.Component_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
@@ -53,6 +58,8 @@ public class ComponentTransactionListener implements ITransactionListener {
 	private HashSet<PersistableModelComponent> persisted = new HashSet<PersistableModelComponent>();
 
 	private Transaction transaction = null;
+
+	protected static Object INTEGRITY_ISSUE_JOB_FAMILY = "__intergrity_marker_job";
 
 	public ComponentTransactionListener() {
 
@@ -251,6 +258,34 @@ public class ComponentTransactionListener implements ITransactionListener {
 		for(int i = 0; i < instances.length; i++) {
 			instances[i].clearUnreferencedProxies();
 		}
+		// run this in a workspace job so that it does not
+		// interfere with our file writing
+		WorkspaceJob job = new WorkspaceJob("Create integrity issues") {
+			
+			/* (non-Javadoc)
+			 * @see org.eclipse.core.runtime.jobs.Job#belongsTo(java.lang.Object)
+			 */
+			@Override
+			public boolean belongsTo(Object family) {
+				return family.equals(INTEGRITY_ISSUE_JOB_FAMILY);
+			}
+
+			@Override
+			public IStatus runInWorkspace(IProgressMonitor monitor)
+					throws CoreException {
+				// for all persisted files run an integrity check
+				for(PersistableModelComponent component: persisted) {
+					// deletions will have a null root element
+					if(component.getRootModelElement() != null) {
+						IntegrityChecker.createIntegrityIssues(component.getRootModelElement());
+					}
+				}
+				return Status.OK_STATUS;
+			}
+		};
+		job.setPriority(Job.DECORATE);
+		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
+		job.schedule();
 	}
     private void handleComponentFormalization(Domain_c dom, Component_c comp) {
       final IWorkspaceRoot wsRoot = ResourcesPlugin.getWorkspace().getRoot();

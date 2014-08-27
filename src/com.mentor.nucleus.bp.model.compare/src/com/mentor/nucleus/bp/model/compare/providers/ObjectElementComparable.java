@@ -182,4 +182,13 @@ public class ObjectElementComparable extends ComparableTreeObject {
 		}
 		return false;
 	}
+
+	/* (non-Javadoc)
+	 * @see com.mentor.nucleus.bp.model.compare.ComparableTreeObject#treeItemValueEqualsIncludingChildren(java.lang.Object)
+	 */
+	@Override
+	public boolean treeItemValueEqualsIncludingChildren(Object other) {
+		// no children so do not worry about this check
+		return true;
+	}
 }

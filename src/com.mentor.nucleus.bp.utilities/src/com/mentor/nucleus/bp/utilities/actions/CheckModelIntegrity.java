@@ -25,20 +25,20 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IActionDelegate;
-import org.eclipse.ui.PlatformUI;
 
+import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.IntegrityIssue_c;
 import com.mentor.nucleus.bp.core.IntegrityManager_c;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.IntegrityChecker;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
-import com.mentor.nucleus.bp.core.util.UIUtil;
-import com.mentor.nucleus.bp.core.util.UIUtil.BPMessageTypes;
 
 public class CheckModelIntegrity implements IActionDelegate {
 
@@ -55,21 +55,6 @@ public class CheckModelIntegrity implements IActionDelegate {
 			NonRootModelElement element = (NonRootModelElement) iterator.next();
 			issues.addAll(Arrays.asList(IntegrityChecker
 					.runIntegrityCheck(element, manager)));
-		}
-		if (!issues.isEmpty()) {
-			UIUtil.openScrollableTextDialog(PlatformUI.getWorkbench()
-					.getDisplay().getActiveShell(), false,
-					"Model Integrity Issues",
-					IntegrityChecker.createReportForIssues(issues
-							.toArray(new IntegrityIssue_c[issues.size()])),
-					"The following integrity issues were found.", null, null,
-					false);
-		} else {
-			UIUtil.openMessageDialog(PlatformUI.getWorkbench().getDisplay()
-					.getActiveShell(), "Model Integrity Issues", null,
-					IntegrityChecker
-							.createReportForIssues(new IntegrityIssue_c[0]),
-					BPMessageTypes.INFORMATION, new String[] { "OK" }, 0);
 		}
 		SystemModel_c system = SystemModel_c.getOneS_SYSOnR1301(manager);
 		if(system != null) {

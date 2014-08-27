@@ -54,7 +54,7 @@ public class ResourceChangeListener implements IResourceChangeListener
             // we aren't interested in it
             return;
         }
-        WorkspaceUtil.logResourceActivity(delta);
+        CorePlugin.logResourceActivity(delta);
         try {
             // have the enclosed visitor visit the delta
             delta.accept(new IResourceDeltaVisitor() {
