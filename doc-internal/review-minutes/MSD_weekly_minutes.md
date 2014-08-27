@@ -11,6 +11,30 @@ MSD Weekly Meeting Minutes
 ---
 ---
 
+    Date:     27 August 2014
+    Start:    noon EDT
+    End:      noon:30 EDT
+    Present:  Keith, Bob, Campbell, Cort, Travis, Heba, Nehad, ...
+    Robert, Roy, others ...
+
+### Engineering status
+
+Heba and Nehad are addressing the observations from the last review meeting of the SVX connector.  They are addressing them one by one.  There are struggles to get the JNI wrapper working every time.  Nehad is validating the added GUI.  He has come up to speed quickly and is working together with Heba.
+
+Travis is finishing up the recent Compare and Merge issues.  He is building the unit tests, then we will have the code review.
+
+Bob is addressing a SAAB SR to add more double-click support.  We need consistent double-click behavior throughout the xtUML Editor.  Bob has updated the pending release queries.  Please review them.  Missing items may have been pushed to the M release.
+
+Campbell has greens on his workspace.  He will submit for promotion.  He is not happy with EGit.  :)
+
+Keith has been working on the build server.  He has the MC-Java prebuilder running as part of it.  He is trying to use the same build steps on the build server that are used in development.  He is also incorporating CLI to kick the build off.  Keith mentioned employing a gh-pages branch on xtuml/training.  Dean is involved in populating the branch.
+
+Cort has been working on the model compiler with tasks mostly focused on Yazaki.  A first demo release was provided last week to MGJ, no word yet on its reception.
+
+
+
+---
+
     Date:     06 August 2014
     Start:    9:00 MST  
     End:      9:49
