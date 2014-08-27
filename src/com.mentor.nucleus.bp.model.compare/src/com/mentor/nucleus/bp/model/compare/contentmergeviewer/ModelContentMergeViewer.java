@@ -196,9 +196,10 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 	private List<ModelMergeViewer> rightExtensions = new ArrayList<ModelMergeViewer>();
 	private Map<NonRootModelElement, ICompareInput> savedModels = new HashMap<NonRootModelElement, ICompareInput>();
 	private Map<NonRootModelElement, ICompareInput> visitedModels = new HashMap<NonRootModelElement, ICompareInput>();
-	// set this variable to true in order to show
-	// graphical data in the tree, this helps with
-	// debugging tree differences
+	// This field will enable graphical data, and in the future maybe other
+	// data, when set to true.  This is helpful currently when looking into
+	// graphical related changes as they are used during merge but not shown
+	// in the tree
 	public boolean debug = false;
 	
 	public ModelContentMergeViewer(Composite parent,
