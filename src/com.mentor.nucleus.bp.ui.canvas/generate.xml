@@ -23,8 +23,8 @@
   <property name="plugins-home" value="${ant.home}/../.."/>
 
   <property environment="env"/>
-  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\bin" />
-  <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\mc3020\bin" />
+  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
+  <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/mc3020/bin" />
 
   <property name="sql.input" value="models/com.mentor.nucleus.bp.ui.canvas/ooaofgraphics" />
   <property name="sql.output" value="ooaofgraphics.sql" />
@@ -41,7 +41,7 @@
           description="Generate the sql version of the OoaofOoa model"
           unless="sql.buildNotNeeded" >
     <echo >Generating ${sql.output} ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}\xtumlmc_build.exe" >
+  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
     <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
   </exec>
   </target>
@@ -125,7 +125,7 @@
           description="Generate the Canvas outline file"
           unless="Build_Outline.buildNotNeeded" >
     <echo >Generating ${outline.output} ...</echo>
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
     <arg line="-nopersist
       -import ${mcj_path}/ooa_schema.sql
@@ -155,7 +155,7 @@
 	          description="Generate the sql version of the Core Hierarchy/Tree model"
 	          unless="inspector.sql.buildNotNeeded" >
 	    <echo >Generating ${inspector.sql.output} ...</echo>
-	  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}\xtumlmc_build.exe" >
+	  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
 	    <arg line="xtumlmc_cleanse_for_BridgePoint ${inspector.sql.input} sql/${inspector.sql.output} ${subsystems_to_remove}" />
 	  </exec>
 	  </target>
@@ -203,7 +203,7 @@
 	          description="Generate the tree adapter files"
 	          unless="inspector.java.buildNotNeeded" >
 	    <echo >Generating ${inspector.java.output} ...</echo>
-	    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+	    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
 	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
 	        <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
 	    	<env key="LOCAL_ARC_DIR" value="../com.mentor.nucleus.bp.core/arc" />
@@ -240,7 +240,7 @@
 	
 	<target name="cell_modifiers" depends="cell_modifier.depends" unless="cell_modifier.buildNotNeeded">
 	    <echo >Generating ${cell_modifier.output} ...</echo>
-	    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+	    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
 	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
 	        <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
 	    	<env key="OUTPUT_PATH" value="com/mentor/nucleus/bp/ui/canvas/cells" />

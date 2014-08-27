@@ -37,7 +37,7 @@ the License.
   <property name="plugins-home" value="${ant.home}/../.."/>
   <property name="chain_util_path" value="../com.mentor.nucleus.bp.core"/>
   <property environment="env"/>
-  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\bin" />
+  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
   <property name="mcj_path" value="../MC-Java" />
   <property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
   <property name="schema.output_path" value="../com.mentor.nucleus.bp.ui.tree/sql" />
@@ -67,7 +67,7 @@ the License.
           description="Generate the tree explorer files"
           unless="java.buildNotNeeded" >
     <echo >Generating ${java.output} ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
     <arg line="-nopersist

@@ -11,7 +11,7 @@
 <project name="bp.welcome" default="all" basedir=".">
   <!-- The property ${eclipse-home} should be passed into this script -->
   <!-- Set a meaningful default value for when it is not. -->
-  <property name="eclipse-home" value="${basedir}\..\.."/>
+  <property name="eclipse-home" value="${basedir}/../.."/>
 
   <target name="all"
           description="Build entire project"
