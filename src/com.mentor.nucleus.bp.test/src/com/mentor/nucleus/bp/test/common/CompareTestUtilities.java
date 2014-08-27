@@ -557,6 +557,11 @@ public class CompareTestUtilities {
 	
 	public static void flushMergeEditor(boolean closeEditor) {
 		if(closeEditor) {
+			ModelContentMergeViewer viewer = ModelContentMergeViewer.getInstance(null);
+			viewer.getLeftViewer().refresh();
+			viewer.getRightViewer().refresh();
+			while (PlatformUI.getWorkbench().getDisplay().readAndDispatch())
+				;
 			TestUtil.yesToDialog(200);
 			PlatformUI
 					.getWorkbench()
@@ -569,6 +574,7 @@ public class CompareTestUtilities {
 			ModelContentMergeViewer viewer = ModelContentMergeViewer.getInstance(null);
 			viewer.flush(new NullProgressMonitor());
 		}
+		BaseTest.dispatchEvents(0);
 	}
 
 	public static void undoMerge() {
@@ -583,7 +589,7 @@ public class CompareTestUtilities {
 
 	/**
 	 * 
-	 * @param type One the the constants defined in class com.ibm.icu.text.MessageFormat.Differencer
+	 * @param type One of the constants defined in class org.eclipse.compare.structuremergeviewer.Differencer
 	 * @return The list of specified differences
 	 */
 	public static List<TreeDifference> getChangesFromLeft(int type, boolean useDirectionMask) {
