@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("14d6c781-a341-481a-b67d-09ec4e8b9ed3",
@@ -224,9 +224,13 @@ select one comp related by self->C_C[R4205];
 if (not_empty comp)
   unrelate self from comp across R4205;
 end if;
-select many importedRefs related by self->CL_IIR[R4700];
+select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708];
 for each importedRef in importedRefs
   importedRef.dispose();
+end for; 
+select many portRefs related by self->CL_POR[R4707];
+for each portRef in portRefs
+  portRef.dispose();
 end for;
 select one package related by self->CP_CP[R4605];
 if(not_empty package)
@@ -265,7 +269,7 @@ INSERT INTO O_TFR
 select any componentPackage from instances of CP_CP where
                                     selected.Package_ID == GD::NULL_UNIQUE_ID();
 select any comp from instances of C_C where selected.Id == GD::NULL_UNIQUE_ID();
-select one packageableElem related by self->PE_PE[R8001];
+select one packageableElem related by self->PE_PE[R8001]; 
 select one contPackage related by packageableElem->EP_PKG[R8000];
 select one contComponent related by packageableElem->C_C[R8003];
 isInGenericPackage = (not_empty contPackage or not_empty contComponent);
@@ -296,7 +300,7 @@ if(not_empty comp)
     unrelate self from existingComp across R4201;
     select many formalInterfaces related by comp->C_PO[R4010]->C_IR[R4016];
     for each formalInterface in formalInterfaces
-      select many existingImportRefs related by self->CL_IIR[R4700];
+      select many existingImportRefs related by self->CL_POR[R4707]->CL_IIR[R4708];
       for each existingImportRef in existingImportRefs
         select one existingRef related by existingImportRef->C_IR[R4701];
         // if this existing ref is dangling
@@ -316,7 +320,7 @@ if(not_empty comp)
           select one testComp related by existingRef->C_PO[R4016]->C_C[R4010];
           if(testComp != comp)
             // not from the same comp, go ahead and proceed
-            select any importedRef related by self->CL_IIR[R4700]
+            select any importedRef related by self->CL_POR[R4707]->CL_IIR[R4708]
                                       where (selected.Ref_Id == existingRef.Id);
             unrelate importedRef from existingRef across R4701;
             relate importedRef to formalInterface across R4701;
@@ -358,7 +362,7 @@ if(not_empty comp)
   select many formalInterfaces related by comp->C_PO[R4010]->C_IR[R4016];
   for each formalInterface in formalInterfaces
     if(formalInterface.isFormal())
-      select any existingImportRef related by self->CL_IIR[R4700]->C_IR[R4701]
+      select any existingImportRef related by self->CL_POR[R4707]->CL_IIR[R4708]->C_IR[R4701]
         							  where (selected.Id == formalInterface.Id);
       if(empty existingImportRef)
         select one provision related by formalInterface->C_P[R4009];
@@ -370,11 +374,15 @@ if(not_empty comp)
           create object instance importedReq of CL_IR;
           relate importedReq to newImportedRef across R4703;
         end if;
-        relate newImportedRef to self across R4700;
+        create object instance portRef of CL_POR;
+        select one existingPort related by formalInterface->C_PO[R4016];
+        relate existingPort to portRef across R4709;
+        relate portRef to self across R4707;
+        relate portRef to newImportedRef across R4708;
         relate newImportedRef to formalInterface across R4701;
       end if;
     end if;
-  end for;
+  end for; 
 end if;
 ',
 	1,
@@ -406,7 +414,7 @@ INSERT INTO O_TFR
 	'select one comp related by self->C_C[R4201];
 if(not_empty comp)
   unrelate self from comp across R4201;
-  select many importedRefs related by self->CL_IIR[R4700];
+  select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708];
   for each importedRef in importedRefs
     importedRef.dispose();
   end for;
@@ -862,7 +870,7 @@ INSERT INTO O_TFR
 	'',
 	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
 	1,
-	'select many importedReferences related by self->CL_IIR[R4700]->CL_IP[R4703];
+	'select many importedReferences related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
 return cardinality importedReferences;',
 	1,
 	'',
@@ -883,7 +891,7 @@ INSERT INTO O_TFR
 	'',
 	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
 	1,
-	'select many importedReferences related by self->CL_IIR[R4700]->CL_IR[R4703];
+	'select many importedReferences related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
 return cardinality importedReferences;',
 	1,
 	'',
@@ -905,7 +913,7 @@ INSERT INTO O_TFR
 	"a5f314e0-43b6-40bd-8aee-520de6952a24",
 	1,
 	'id = GD::NULL_UNIQUE_ID();
-select many importedRefs related by self->CL_IIR[R4700]->CL_IP[R4703];
+select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
@@ -944,7 +952,7 @@ INSERT INTO O_TFR
 	"a5f314e0-43b6-40bd-8aee-520de6952a24",
 	1,
 	'id = GD::NULL_UNIQUE_ID();
-select many importedRefs related by self->CL_IIR[R4700]->CL_IR[R4703];
+select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
@@ -982,7 +990,7 @@ INSERT INTO O_TFR
 	'',
 	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
 	1,
-	'select any importedReq related by self->CL_IIR[R4700]->CL_IR[R4703]
+	'select any importedReq related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703]
 	where (selected.Id == param.id);
 if(not_empty importedReq)
   if(param.considerDelegations)
@@ -1022,7 +1030,7 @@ INSERT INTO O_TFR
 	'',
 	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
 	1,
-	'select any importedPro related by self->CL_IIR[R4700]->CL_IP[R4703]
+	'select any importedPro related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703]
 	where (selected.Id == param.id);
 if(not_empty importedPro)
   if(param.considerDelegations)
@@ -1063,7 +1071,7 @@ INSERT INTO O_TFR
 	"a5f314e0-43b6-40bd-8aee-520de6952a24",
 	1,
 	'id = GD::NULL_UNIQUE_ID();
-select many importedRefs related by self->CL_IIR[R4700]->CL_IP[R4703];
+select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
@@ -1110,7 +1118,7 @@ INSERT INTO O_TFR
 	"a5f314e0-43b6-40bd-8aee-520de6952a24",
 	1,
 	'id = GD::NULL_UNIQUE_ID();
-select many importedRefs related by self->CL_IIR[R4700]->CL_IR[R4703];
+select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
 // We''re preincrementing the index
 count = -1;
 for each importedRef in importedRefs
@@ -1160,12 +1168,12 @@ INSERT INTO O_TFR
 // if this imported component is not assigned, or assigned
 // to a component with no imported refs then it''s allowed
 if(not self.isAssigned())
-  return true;
+  return true; 
 else
   // it is also allowed if assigned, but the currently
   // assigned component has no interface references that
   // are formal
-  select any importedRef related by self->CL_IIR[R4700];
+  select any importedRef related by self->CL_POR[R4707]->CL_IIR[R4708];
   if(empty importedRef)
     return true;
   end if;
@@ -1199,7 +1207,7 @@ if(not_empty compPackage or isInGenericPackage)
     select one component related by compPe->C_C[R8001];
   end if;
   if(not_empty component and not_empty system)
-    select many importedRefs related by self->CL_IIR[R4700]->C_IR[R4701];
+    select many importedRefs related by self->CL_POR[R4707]->CL_IIR[R4708]->C_IR[R4701];
     for each importedRef in importedRefs
       select one importedInterface related by importedRef->C_I[R4012];
       select many compInterfaces related by component->C_PO[R4010]->C_IR[R4016]
@@ -1464,7 +1472,7 @@ else
   select one resolvedComp related by resolvedCompPe->C_C[R8001];
 end if;
 if(not_empty resolvedComp)
-  select many importedReferences related by self->CL_IIR[R4700];
+  select many importedReferences related by self->CL_POR[R4707]->CL_IIR[R4708];
   for each importedReference in importedReferences
     select one reference related by importedReference->C_IR[R4701];
     select one proxyInterface related by reference->C_I[R4012];
@@ -1631,7 +1639,7 @@ end if;
 select many interfaceRefs related by component->C_PO[R4010]->C_IR[R4016];
 for each interfaceRef in interfaceRefs
   if(interfaceRef.isFormal())
-    select any localRef related by self->CL_IIR[R4700]->C_IR[R4701]
+    select any localRef related by self->CL_POR[R4707]->CL_IIR[R4708]->C_IR[R4701]
                                          where (selected.Id == interfaceRef.Id);
     if(empty localRef)
       // not synchronized
@@ -1666,7 +1674,7 @@ else
   // already handled
   select many interfaceRefs related by component->C_PO[R4010]->C_IR[R4016];
   for each interfaceRef in interfaceRefs
-    select any localRef related by self->CL_IIR[R4700]->C_IR[R4701]
+    select any localRef related by self->CL_POR[R4707]->CL_IIR[R4708]->C_IR[R4701]
                                          where (selected.Id == interfaceRef.Id);
     if(empty localRef and interfaceRef.isFormal())
       // create a local ref
@@ -1679,7 +1687,11 @@ else
         create object instance importedReq of CL_IR;
         relate importedReq to importedRef across R4703;        
       end if;
-      relate importedRef to self across R4700;
+      create object instance portRef of CL_POR;
+      select one existingPort related by localRef->C_PO[R4016];
+      relate existingPort to portRef across R4709;
+      relate portRef to self across R4707;
+      relate importedRef to portRef across R4708;
       relate importedRef to interfaceRef across R4701;
     end if;
   end for;
@@ -1700,7 +1712,7 @@ INSERT INTO O_TFR
 // for a component reference this will be is formalization state, satisfaction,
 // as well as its imported interface references
 if(not self.isSynchronized())
-  select one comp related by self->C_C[R4201];
+  select one comp related by self->C_C[R4201]; 
   select one pe related by comp->PE_PE[R8001];
   select one cp related by comp->CP_CP[R4604];
   select one compParent related by comp->CN_CIC[R4203];
@@ -1714,7 +1726,7 @@ if(not self.isSynchronized())
     select many interfaceRefs related by comp->C_PO[R4010]->C_IR[R4016];
     for each interfaceRef in interfaceRefs
       if(interfaceRef.isFormal())
-        select any localRef related by self->CL_IIR[R4700]->C_IR[R4701]
+        select any localRef related by self->CL_POR[R4707]->CL_IIR[R4708]->C_IR[R4701]
                                          where (selected.Id == interfaceRef.Id);
         if(empty localRef)
           Util::createElementChange(changeList:param.changeList, elementChanged:
@@ -1747,12 +1759,12 @@ INSERT INTO O_TFR
 	'/*
  *  Collect imported interface references (for push or pull)
  */
-select many importedProvisions related by self->CL_IIR[R4700]->CL_IP[R4703];
+select many importedProvisions related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
 for each importedPro in importedProvisions
   Util::addElementToList(elementList:param.referenceList,
                                        element:importedPro.convertToInstance());
 end for;
-select many importedRequirements related by self->CL_IIR[R4700]->CL_IR[R4703];
+select many importedRequirements related by self->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
 for each importedReq in importedRequirements
   Util::addElementToList(elementList:param.referenceList,
                                        element:importedReq.convertToInstance());    
@@ -1960,7 +1972,7 @@ INSERT INTO O_REF
 	'',
 	'Component Package',
 	'Package_ID',
-	'R4605');
+	'R4605.''exists in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("14d6c781-a341-481a-b67d-09ec4e8b9ed3",
 	"f93c98f7-fd2c-4599-aaed-02093547c244",
@@ -2018,7 +2030,7 @@ INSERT INTO O_REF
 	'',
 	'Component',
 	'Id',
-	'R4201');
+	'R4201.''represents''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("14d6c781-a341-481a-b67d-09ec4e8b9ed3",
 	"03806c19-6f9e-46d0-aefe-b6e821552986",
@@ -2069,7 +2081,7 @@ INSERT INTO O_REF
 	'',
 	'Component',
 	'Id',
-	'R4205');
+	'R4205.''nested in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("14d6c781-a341-481a-b67d-09ec4e8b9ed3",
 	"310fb389-ddd0-4b14-bc9f-7a065a967a7f",

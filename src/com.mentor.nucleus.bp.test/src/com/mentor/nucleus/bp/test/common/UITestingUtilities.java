@@ -31,15 +31,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
+import java.util.Vector;
 
 import junit.framework.Assert;
 
+import org.eclipse.compare.internal.CompareEditor;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -50,17 +55,31 @@ import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
+import org.eclipse.team.core.diff.IThreeWayDiff;
+import org.eclipse.team.internal.ui.mapping.CommonViewerAdvisor.NavigableCommonViewer;
+import org.eclipse.team.internal.ui.mapping.DiffTreeChangesSection;
+import org.eclipse.team.internal.ui.mapping.ModelSynchronizePage;
+import org.eclipse.team.internal.ui.synchronize.SynchronizeView;
+import org.eclipse.team.ui.synchronize.ISynchronizeView;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.navigator.CommonNavigator;
+import org.eclipse.ui.part.IPage;
 import org.eclipse.ui.views.properties.PropertySheet;
 
+import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
+import com.mentor.nucleus.bp.core.common.ModelRoot;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
 import com.mentor.nucleus.bp.core.ui.Selection;
@@ -88,7 +107,7 @@ import com.mentor.nucleus.bp.utilities.ui.CanvasUtilities;
 
 public class UITestingUtilities {
 	private static Point fDownLocation;
-
+	
 	public static void printControl(Composite parent, String intend) throws Exception {
 		System.out.print(intend);
 		printOject("Parent", parent); //$NON-NLS-1$
@@ -735,6 +754,30 @@ public class UITestingUtilities {
 	}
 
 	public static EditPart getEditorPartFor(Object element) {
+		final Object initialElement = element;
+		if(element instanceof NonRootModelElement) {
+			ModelRoot root = ((NonRootModelElement) element).getModelRoot();
+			if(root instanceof Ooaofooa) {
+				// locate the shape or connector that represents the
+				// given element
+				Ooaofgraphics graphicRoot = Ooaofgraphics.getInstance(root.getId());
+				GraphicalElement_c ge = GraphicalElement_c.GraphicalElementInstance(graphicRoot, new ClassQueryInterface_c() {
+					
+					@Override
+					public boolean evaluate(Object candidate) {
+						return ((GraphicalElement_c) candidate).getRepresents() == initialElement;
+					}
+				});
+				Shape_c shape = Shape_c.getOneGD_SHPOnR2(ge);
+				if(shape != null) {
+					element = shape;
+				}
+				Connector_c con = Connector_c.getOneGD_CONOnR2(ge);
+				if(con != null) {
+					element = con;
+				}
+			}
+		}
 		GraphicalEditor editor = (GraphicalEditor) getActiveEditor();
 		GraphicalViewer viewer = (GraphicalViewer) editor.getAdapter(GraphicalViewer.class);
 		return (GraphicalEditPart) viewer.getEditPartRegistry().get(element);
@@ -850,4 +893,69 @@ public class UITestingUtilities {
 		List<Text> texts = findTextInControl(dialog.getShell());
 		return texts.get(0);
 	}
+	
+	/**
+	 * This method returns a tree item in the given tree that contains
+	 * the given text.  It does not do an exact match.
+	 */
+	public static TreeItem findItemInTree(Tree tree, String name) {
+		TreeItem[] items = tree.getItems();
+		for(TreeItem item : items) {
+			TreeItem foundItem = findItemInTree(item, name);
+			if(foundItem != null) {
+				return foundItem;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * This method returns a tree item as a child of the given item
+	 * that contains the given text.  It does not do an exact match.
+	 */
+	public static TreeItem findItemInTree(TreeItem item, String name) {
+		if(item.getText().contains(name)) {
+			return item;
+		} else {
+			TreeItem[] children = item.getItems();
+			for(TreeItem child : children) {
+				TreeItem foundItem = findItemInTree(child, name);
+				if(foundItem != null) {
+					return foundItem;
+				}
+			}
+		}
+		return null;
+	}
+
+    public static Tree findTree(Composite parent) {
+        Control [] child_set = parent.getChildren();
+        for ( int i = 0; i < child_set.length; ++i )
+        {
+            if ( child_set[i] instanceof Tree )
+            {
+            	return (Tree) child_set[i];
+            }
+            else if ( child_set[i] instanceof Composite )
+            {
+                Tree result = findTree((Composite)child_set[i]);
+                if ( result != null )
+                {
+                   return result;   
+                }
+            }
+        }
+        return null;
+    }
+
+	public static void resizeMainWindow(int x, int y) {
+		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()
+				.setSize(x, y);
+		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()
+				.redraw();
+		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()
+				.update();
+		while (PlatformUI.getWorkbench().getDisplay().readAndDispatch());
+	}
+	
 }

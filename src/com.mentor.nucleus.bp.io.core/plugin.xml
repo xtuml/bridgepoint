@@ -3,7 +3,7 @@
 <plugin
    id="com.mentor.nucleus.bp.io.core"
    name="BridgePoint IO Core Plug-in"
-   version="4.1.7"
+   version="4.1.17"
    provider-name="Mentor Graphics"
    class="com.mentor.nucleus.bp.io.core.CorePlugin">
 
@@ -28,6 +28,7 @@
       <import plugin="org.antlr"/>
       <import plugin="com.mentor.nucleus.bp.ui.explorer"/>
       <import plugin="com.mentor.nucleus.bp.ui.graphics"/>
+      <import plugin="com.mentor.nucleus.bp.als.oal" version="4.1.7"/>
    </requires>
    <extension
          point="org.eclipse.help.contexts">

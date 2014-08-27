@@ -40,6 +40,7 @@ import com.mentor.nucleus.bp.core.common.ModelChangedEvent;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.util.AccumulatorInterface;
 import com.mentor.nucleus.bp.core.util.AccumulatorTimer;
+import com.mentor.nucleus.bp.core.util.CoreUtil;
 import com.mentor.nucleus.bp.ui.text.activity.AllActivityModifier;
 
 public class TextPlugin extends OALEditorPlugin
@@ -124,51 +125,59 @@ public class TextPlugin extends OALEditorPlugin
      */
     public void start(BundleContext context) throws Exception
     {
-        super.start(context);
-
-        // Register as an observer to the Accumulator
-        m_teamAccumulator.addObserver(new Observer() {
-            // This will get called by the Accumulator when the timer fires
-            public void update(Observable o, Object arg)
-            {
-                List eventList = (List) arg;
-                // All we want is the model root, but we need to look through
-                // the list and see if more then one model was affected by this
-                // change.
-                // When more then one model is affected we need to be prepared
-                // to
-                // parse each one if the user tells us to parse.
-                if (!eventList.isEmpty()) {
-                    Map<String, Ooaofooa> modelsToParse = new HashMap<String, Ooaofooa>();
-
-                    for (Iterator iter = eventList.iterator(); iter.hasNext();) {
-                        ModelChangedEvent event = (ModelChangedEvent) iter
-                            .next();
-                        NonRootModelElement element = (NonRootModelElement) event.getModelElement();
-                        if(element == null)
-                        	element = (NonRootModelElement) event.getModelDelta().getModelElement();
-                        Ooaofooa modelRoot = (Ooaofooa) element.getModelRoot();
-                        String id = modelRoot.getId();
-                        if (!modelsToParse.containsKey(id)) {
-                            modelsToParse.put(id, modelRoot);
-                        }
-                    }
-
-                    handleBatchedTeamOperation(modelsToParse);
-                }
-            }
-        });
-
-        // add the enclosed model-change-listener to all model-roots
-        Ooaofooa.getDefaultInstance().addModelChangeListener(new ModelChangeAdapter() {
-            public void modelElementReloaded(final ModelChangedEvent event)
-            {
-                // Add the event to the accumulator
-                m_teamAccumulator.addElement(event);
-            }
-        });
+    	if (!CoreUtil.IsRunningHeadless) {
+	        super.start(context);
+	
+	        // Register as an observer to the Accumulator
+	        m_teamAccumulator.addObserver(new Observer() {
+	            // This will get called by the Accumulator when the timer fires
+	            public void update(Observable o, Object arg)
+	            {
+	                List eventList = (List) arg;
+	                // All we want is the model root, but we need to look through
+	                // the list and see if more then one model was affected by this
+	                // change.
+	                // When more then one model is affected we need to be prepared
+	                // to
+	                // parse each one if the user tells us to parse.
+	                if (!eventList.isEmpty()) {
+	                    Map<String, Ooaofooa> modelsToParse = new HashMap<String, Ooaofooa>();
+	
+	                    for (Iterator iter = eventList.iterator(); iter.hasNext();) {
+	                        ModelChangedEvent event = (ModelChangedEvent) iter
+	                            .next();
+	                        NonRootModelElement element = (NonRootModelElement) event.getModelElement();
+	                        if(element == null)
+	                        	element = (NonRootModelElement) event.getModelDelta().getModelElement();
+	                        Ooaofooa modelRoot = (Ooaofooa) element.getModelRoot();
+	                        String id = modelRoot.getId();
+	                        if (!modelsToParse.containsKey(id)) {
+	                            modelsToParse.put(id, modelRoot);
+	                        }
+	                    }
+	
+	                    handleBatchedTeamOperation(modelsToParse);
+	                }
+	            }
+	            
+	        });
+	        // add the enclosed model-change-listener to all model-roots
+	        Ooaofooa.getDefaultInstance().addModelChangeListener(new ModelChangeAdapter() {
+	            public void modelElementReloaded(final ModelChangedEvent event)
+	            {
+	                // Add the event to the accumulator
+	                m_teamAccumulator.addElement(event);
+	            }
+	        });
+    	}
     }
 
+    public void stop(BundleContext context) throws Exception {
+    	if (!CoreUtil.IsRunningHeadless) {
+    		super.stop(context);
+    	}
+    }
+    
     /**
      * Since we are almost certainly on the resource-change-notification thread,
      * meaning that the resource tree is locked for modification, and we know

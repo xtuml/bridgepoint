@@ -1,0 +1,71 @@
+---
+
+Copyright 2014 Mentor Graphics Corp.  All Rights Reserved.
+
+---
+
+# Print out a simpler date format when using TIM::LogDate
+### xtUML Project Design Note
+
+ 
+
+1. Abstract
+-----------
+The GregorianCalendar object's toString() method produces HUGE amounts of 
+difficult-to-decipher information. 
+It should be changed, in the Java, to use the SimpleDateFormat class method.
+
+
+2. Document References
+----------------------
+[1] Issues 246, https://github.com/xtuml/internal/issues/246  
+[2] Defect:dts0101038829, "Print out a simpler date format when using TIM::LogDate"  
+
+3. Background
+-------------
+
+ 
+4. Requirements
+---------------
+4.1  Print out a simpler date format when using LOG::LogDate
+
+
+5. Analysis
+-----------
+5.1 The
+
+
+6. Design
+---------
+6.1 Modify the method LogDate() in the java class Log to use simple date formatter 
+    to format the gregorian calender instance 
+
+     The result of using Log Date will look as follows 
+     LogDate:  Tue Jul 22 2014 18:00:33 GMT+02:00 Message
+
+6.2 The java code after modifications 
+```java
+		public static void LogDate(Object ee_d, String ee_message) {
+		String objString = null;
+		if (ee_d != null) {
+			SimpleDateFormat format = new SimpleDateFormat(
+					"EEE MMM dd yyyy HH:mm:ss zzz");
+			Date date = ((GregorianCalendar) ee_d).getTime();
+			objString = format.format(date);
+		}
+		CorePlugin.out.println("LogDate:  " + objString + " " + ee_message);
+	}
+```
+
+7. Design Comments
+------------------
+
+
+8. Unit Test
+------------
+8.1 
+
+
+End
+---
+

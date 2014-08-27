@@ -24,11 +24,10 @@ package com.mentor.nucleus.bp.model.compare.providers;
 
 import org.eclipse.core.runtime.IAdaptable;
 
-import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 import com.mentor.nucleus.bp.core.Ooaofooa;
-import com.mentor.nucleus.bp.core.common.BPElementID;
-import com.mentor.nucleus.bp.core.common.InstanceList;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
+import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
+import com.mentor.nucleus.bp.model.compare.EmptyElement;
 
 public class NonRootModelElementComparable extends ComparableTreeObject implements IAdaptable {
 
@@ -55,6 +54,12 @@ public class NonRootModelElementComparable extends ComparableTreeObject implemen
 					return true;
 				}
 			} else {
+				return true;
+			}
+		}
+		if(other instanceof EmptyElement) {
+			EmptyElement empty = (EmptyElement) other;
+			if(empty.getRealElement().equals(this)) {
 				return true;
 			}
 		}
@@ -96,7 +101,40 @@ public class NonRootModelElementComparable extends ComparableTreeObject implemen
 
 	@Override
 	public boolean treeItemValueEquals(Object other) {
-		// no value comparison with NonRootModelElements
+		// for normal operations do not compare
+		// values as different comparables will
+		// be used for that
+		return true;
+	}
+	
+	@Override
+	public boolean treeItemValueEqualsIncludingChildren(Object other) {
+		// value comparison equals a recursive value check
+		if(other == this) {
+			return true;
+		}
+		if(other instanceof NonRootModelElementComparable) {
+			NonRootModelElementComparable otherComparable = (NonRootModelElementComparable) other;
+			// first check children size
+			ModelCompareContentProvider provider = new ModelCompareContentProvider();
+			Object[] thisChildren = provider.getChildren(this);
+			Object[] otherChildren = provider.getChildren(otherComparable);
+			if(thisChildren.length != otherChildren.length) {
+				return false;
+			}
+			// next check each child
+			for(int i = 0; i < thisChildren.length; i++) {
+				Object child = thisChildren[i];
+				if(!child.equals(otherChildren[i])) {
+					return false;
+				} else {
+					if (!((ComparableTreeObject) child)
+							.treeItemValueEquals(otherChildren[i])) {
+						return false;
+					}
+				}
+			}
+		}
 		return true;
 	}
 	
@@ -107,12 +145,7 @@ public class NonRootModelElementComparable extends ComparableTreeObject implemen
 	@Override
 	public int hashCode() {
 		NonRootModelElement real = (NonRootModelElement) getRealElement();
-		InstanceList instanceList = real.getModelRoot().getInstanceList(real.getClass());
-		BPElementID convertToUUID = instanceList.convertToUUID(real.getInstanceKey());
-		if(convertToUUID != null) {
-			return convertToUUID.hashCode();
-		}
-		return real.getClass().hashCode();
+		return real.getClass().getSimpleName().hashCode();
 	}
 	@Override
 	public Object getAdapter(Class adapter) {

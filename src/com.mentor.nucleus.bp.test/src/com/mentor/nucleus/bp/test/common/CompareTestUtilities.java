@@ -22,6 +22,7 @@
 //
 package com.mentor.nucleus.bp.test.common;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -44,17 +45,31 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.team.internal.ui.actions.CompareAction;
+import org.eclipse.team.internal.ui.mapping.DiffTreeChangesSection;
+import org.eclipse.team.internal.ui.mapping.ModelSynchronizePage;
+import org.eclipse.team.internal.ui.mapping.CommonViewerAdvisor.NavigableCommonViewer;
+import org.eclipse.team.internal.ui.synchronize.SynchronizeView;
+import org.eclipse.team.ui.synchronize.ISynchronizeView;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 import com.mentor.nucleus.bp.compare.ComparePlugin;
 import com.mentor.nucleus.bp.compare.ModelCacheManager;
 import com.mentor.nucleus.bp.compare.ModelCacheManager.ModelLoadException;
 import com.mentor.nucleus.bp.compare.structuremergeviewer.ModelCompareStructureCreator.CompareDocumentRangeNode;
+import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
+import com.mentor.nucleus.bp.model.compare.TreeDifference;
 import com.mentor.nucleus.bp.model.compare.TreeDifferencer;
+import com.mentor.nucleus.bp.model.compare.contentmergeviewer.ModelContentMergeViewer;
+import com.mentor.nucleus.bp.model.compare.contentmergeviewer.SynchronizedTreeViewer;
+import com.mentor.nucleus.bp.model.compare.providers.ComparableProvider;
+import com.mentor.nucleus.bp.test.TestUtil;
 
 public class CompareTestUtilities {
 	
@@ -503,5 +518,186 @@ public class CompareTestUtilities {
 				.compareElementWithLocalHistory(file, copy);
 		return copy;		
 	}
+	
+	public static void copyConflictingChangesFromRightToLeft() throws IOException {
+		ModelContentMergeViewer viewer = ModelContentMergeViewer
+				.getInstance(null);
+		TreeDifferencer differencer = viewer.getDifferencer();
+		List<TreeDifference> leftDifferences = differencer.getLeftDifferences();
+		List<TreeDifference> differencesToCopy = new ArrayList<TreeDifference>();
+		for (TreeDifference difference : leftDifferences) {
+			if ((difference.getKind() & Differencer.DIRECTION_MASK) == Differencer.CONFLICTING) {
+				differencesToCopy.add(difference);
+			}
+		}
+		List<Object> elementsToSelect = new ArrayList<Object>();
+		for(TreeDifference difference : differencesToCopy) {
+			Object differenceToSelect = difference.getElement();
+			if(differenceToSelect == null) {
+				differenceToSelect = difference.getMatchingDifference().getElement();
+			}
+			elementsToSelect.add(differenceToSelect);
+		}
+		viewer.getLeftViewer().setSelection(new StructuredSelection(elementsToSelect));
+		viewer.setCopySelection(true);
+		viewer.copy(false);
+		BaseTest.dispatchEvents(0);
+	}
+
+	public static void copyAllNonConflictingChangesFromRightToLeft() {
+		ModelContentMergeViewer viewer = ModelContentMergeViewer.getInstance(null);
+		viewer.setCopySelection(false);
+		viewer.copy(false);
+		BaseTest.dispatchEvents(0);
+	}
+	
+	public static void flushMergeEditor() {
+		flushMergeEditor(true);
+	}
+	
+	public static void flushMergeEditor(boolean closeEditor) {
+		if(closeEditor) {
+			TestUtil.yesToDialog(200);
+			PlatformUI
+					.getWorkbench()
+					.getActiveWorkbenchWindow()
+					.getActivePage()
+					.closeEditor(
+							PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+									.getActivePage().getActiveEditor(), true);
+		} else {
+			ModelContentMergeViewer viewer = ModelContentMergeViewer.getInstance(null);
+			viewer.flush(new NullProgressMonitor());
+		}
+	}
+
+	public static List<TreeDifference> getConflictingChanges() {
+		return getChangesFromLeft(Differencer.CONFLICTING, true);
+	}
+
+	/**
+	 * 
+	 * @param type One the the constants defined in class com.ibm.icu.text.MessageFormat.Differencer
+	 * @return The list of specified differences
+	 */
+	public static List<TreeDifference> getChangesFromLeft(int type, boolean useDirectionMask) {
+		ModelContentMergeViewer viewer = ModelContentMergeViewer
+				.getInstance(null);
+		TreeDifferencer differencer = viewer.getDifferencer();
+		List<TreeDifference> leftDifferences = differencer.getLeftDifferences();
+		List<TreeDifference> differences = new ArrayList<TreeDifference>();
+		for (TreeDifference difference : leftDifferences) {
+			if (useDirectionMask) {
+				if ((difference.getKind() & Differencer.DIRECTION_MASK) == type) {
+					differences.add(difference);
+				} 
+			} else 	if (difference.getKind() == type || type == Differencer.NO_CHANGE) {
+				differences.add(difference);					
+			}
+		}
+		return differences;
+	}
+
+	/**
+	 * 
+	 * @param type One the the constants defined in class com.ibm.icu.text.MessageFormat.Differencer
+	 * @return The list of specified differences
+	 */
+	public static List<TreeDifference> getChangesFromRight(int type, boolean useDirectionMask) {
+		ModelContentMergeViewer viewer = ModelContentMergeViewer
+				.getInstance(null);
+		TreeDifferencer differencer = viewer.getDifferencer();
+		List<TreeDifference> rightDifferences = differencer.getLeftDifferences();
+		List<TreeDifference> differences = new ArrayList<TreeDifference>();
+		for (TreeDifference difference : rightDifferences) {
+			if (useDirectionMask) {
+				if ((difference.getKind() & Differencer.DIRECTION_MASK) == type) {
+					differences.add(difference);
+				} 
+			} else 	if (difference.getKind() == type || type == Differencer.NO_CHANGE) {
+				differences.add(difference);
+			}
+		}
+		return differences;
+	}
+
+	public static List<TreeDifference> getIncomingChanges() {
+		return getChangesFromLeft(Differencer.ADDITION, true);
+	}
+
+	public static void selectElementInTree(boolean left, NonRootModelElement element) {
+		ModelContentMergeViewer viewer = ModelContentMergeViewer
+				.getInstance(null);
+		SynchronizedTreeViewer tree = viewer.getLeftViewer();
+		if (!left) {
+			tree = viewer.getRightViewer();
+		}
+		tree.setSelection(new StructuredSelection(ComparableProvider
+				.getComparableTreeObject(element)));
+		while (PlatformUI.getWorkbench().getDisplay().readAndDispatch())
+			;
+	}
+
+	public static void mergeSelection() {
+		ModelContentMergeViewer viewer = ModelContentMergeViewer
+				.getInstance(null);
+		viewer.setCopySelection(true);
+		viewer.copy(false);
+		BaseTest.dispatchEvents(0);
+	}
+
+	public static void closeMergeEditor(boolean save) {
+		TestUtil.noToDialog(200);
+		PlatformUI
+				.getWorkbench()
+				.getActiveWorkbenchWindow()
+				.getActivePage()
+				.closeEditor(
+						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+								.getActivePage().getActiveEditor(), save);
+	}
+
+	
+	/**
+	 * Utility method to open the Team Synchronize view, will return the
+	 * <code>IViewPart<code> or <code>null<code> if an exception
+	 * occured.
+	 */
+	public static IViewPart showTeamSyncView() {
+		try {
+			IViewPart viewPart = PlatformUI.getWorkbench()
+					.getActiveWorkbenchWindow().getActivePage()
+					.showView(ISynchronizeView.VIEW_ID);
+			Assert.assertNotNull("", viewPart);
+			return viewPart;
+		} catch (PartInitException e) {
+			CorePlugin.logError("Unable to open git repositories view.", e);
+		}
+		return null;
+	}
+
+	public static void openElementInSyncronizeView(String elementName) {
+		IViewPart gitRepositoryView = showTeamSyncView();
+		SynchronizeView view = (SynchronizeView) gitRepositoryView;
+		ModelSynchronizePage page = (ModelSynchronizePage) view.getPage(view.getParticipant());
+		
+		Control control = page.getControl();
+		Composite composite = (Composite) control;
+		DiffTreeChangesSection diffTree = (DiffTreeChangesSection) composite.getChildren()[0];
+		NavigableCommonViewer viewer = (NavigableCommonViewer) diffTree.getChangesViewer();
+		Tree tree = viewer.getTree();
+		viewer.expandAll();
+
+		TreeItem localItem = UITestingUtilities.findItemInTree(tree,
+				elementName);
+		viewer.setSelection(new StructuredSelection(localItem.getData()));
+		BaseTest.dispatchEvents(0);
+		
+		UITestingUtilities.activateMenuItem(tree.getMenu(), "Open In Compare &Editor");
+		BaseTest.dispatchEvents(0);
+		
+		// Note: Now you can use showCompareEditorView() to see the result
+	}
+
 	
 }

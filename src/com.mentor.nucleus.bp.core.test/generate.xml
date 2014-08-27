@@ -342,7 +342,9 @@
   	HierarchyTests.java,
   	LazyLoadingTests.java,
   	SystemLevelTestsSuiteGenerics.java,
-  	ModelIntegrityTests.java"
+  	ModelIntegrityTests.java,
+  	ClassKeyLetters.java,
+  	IntegrityIssueTests.java"
   	
     />
 	

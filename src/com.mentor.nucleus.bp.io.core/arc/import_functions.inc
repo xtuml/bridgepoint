@@ -195,6 +195,9 @@
       }
       parms.setSize(${no_of_cols});
     .end if
+    .if(table.Key_Lett == "O_OBJ")
+      parms.setSize(${no_of_cols});
+    .end if
     .//
     .// handle pre-7.1.3 models by creating the missing
     .// sequence number attributes
@@ -876,6 +879,7 @@ ${setSize.body}
                 		CorePlugin.getImportedElementKeyMap().put(loadedInstances.get(i), loadedInstances.get(i).getInstanceKey());
                 	}
                 }
+                helper.addPortReferenceInstances(loadedInstances);
                 if(createUniqueIds) {                
 	                // then for every loaded instance update
 	                // any unique id UUID value
@@ -1148,6 +1152,10 @@ ${setSize.body}
         .// set columns size for backward compatibility
     .end if
     .if (table.Key_Lett == "S_EE" )
+      parms.setSize(${no_of_cols});
+        .// set columns size for backward compatibility
+    .end if
+    .if (table.Key_Lett == "O_OBJ" )
       parms.setSize(${no_of_cols});
         .// set columns size for backward compatibility
     .end if

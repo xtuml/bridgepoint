@@ -20,7 +20,7 @@ public class ResourceActivityVisitor implements IResourceDeltaVisitor {
     return false;
   }
 
-  String getResult() {
+  public String getResult() {
     return paths;
   }
 

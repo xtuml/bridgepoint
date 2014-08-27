@@ -2337,6 +2337,38 @@ INSERT INTO S_BRG
 	'return "''";',
 	0,
 	'');
+INSERT INTO S_BRG
+	VALUES ("c69d4b56-7ec3-45a4-9ac2-bca5ab6ca915",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'getUniqueStateMachineId',
+	'Translate:native',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'		IdAssigner assigner = new IdAssigner();
+		int hashCode = p_Classid.hashCode() + p_Type.hashCode();
+		assigner.setSeed(hashCode);
+		UUID stateId = assigner.createUUID();
+		return stateId;',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES ("d4edd0a0-eb44-4195-9698-81dd3b2d47a8",
+	"c69d4b56-7ec3-45a4-9ac2-bca5ab6ca915",
+	'classId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("2aa97545-d33a-4e97-ae6d-9bac9334d8eb",
+	"c69d4b56-7ec3-45a4-9ac2-bca5ab6ca915",
+	'type',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"d4edd0a0-eb44-4195-9698-81dd3b2d47a8",
+	'');
 INSERT INTO S_EEIP
 	VALUES ("53bf3c8b-adde-4d47-8f16-aba92cc91cb2",
 	"ca7a7f08-4459-4ff5-bf0b-941446e8b3c5");

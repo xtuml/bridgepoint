@@ -36,15 +36,16 @@ import org.eclipse.ui.part.DrillDownAdapter;
 import org.eclipse.ui.part.ViewPart;
 
 import com.mentor.nucleus.bp.core.Body_c;
+import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.EclipseOoaofooa;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.common.InstanceList;
 import com.mentor.nucleus.bp.core.common.ModelRoot;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
+import com.mentor.nucleus.bp.core.util.CoreUtil;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.debug.ui.model.BPDebugTarget;
 import com.mentor.nucleus.bp.debug.ui.model.BPThread;
-import com.mentor.nucleus.bp.internal.tools.ToolsPlugin;
 
 /**
  * This sample class demonstrates how to plug-in a new workbench view. The view
@@ -477,8 +478,7 @@ public class BPInstancePopulationView extends ViewPart {
 		};
 		action1.setText("Update View");
 		action1.setToolTipText("Update population display");
-		action1.setImageDescriptor(ToolsPlugin
-				.getImageDescriptor("icons/refresh.gif"));
+		action1.setImageDescriptor(CorePlugin.getImageDescriptor("refresh.gif"));
 	}
 
 	private void hookDoubleClickAction() {

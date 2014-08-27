@@ -117,6 +117,7 @@
          <pathelement path="../com.mentor.nucleus.bp.ui.graphics/bin" />
          <pathelement path="../com.mentor.nucleus.bp.ui.text/bin" />
          <pathelement path="../com.mentor.nucleus.bp.ui.explorer/bin" />
+         <pathelement path="../com.mentor.nucleus.bp.als.oal/bin" />
          <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
            <include name="**/org.eclipse.osgi_*.jar" />
            <include name="**/org.eclipse.ui.ide_*.jar" />

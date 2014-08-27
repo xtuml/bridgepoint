@@ -72,17 +72,14 @@ import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.UserDataType_c;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
-import com.mentor.nucleus.bp.core.common.ModelElement;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.Transaction;
-import com.mentor.nucleus.bp.core.common.TransactionManager;
 import com.mentor.nucleus.bp.core.ui.NewSystemWizard;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectPreferences;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import com.mentor.nucleus.bp.core.util.WorkspaceUtil;
 import com.mentor.nucleus.bp.test.TestUtil;
-import com.mentor.nucleus.bp.test.common.BaseTest;
 import com.mentor.nucleus.bp.test.common.CanvasTestUtils;
 import com.mentor.nucleus.bp.test.common.UITestingUtilities;
 import com.mentor.nucleus.bp.ui.canvas.Cl_c;
@@ -235,20 +232,20 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		SystemModel_c referencingSystem = getSystemModel(projectOne.getName());
 		SystemModel_c referencedSystem = getSystemModel(projectTwo.getName());
 		// create a container package, and the formalize to element
-		executeInTransaction(referencedSystem, "Newpackage", new Object[0]);
+		TestUtil.executeInTransaction(referencedSystem, "Newpackage", new Object[0]);
 		Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1401(referencedSystem);
 		Package_c referencedPkg = pkgs[pkgs.length - 1];
-		executeInTransaction(referencedPkg, "Newpackage", new Object[0]);
+		TestUtil.executeInTransaction(referencedPkg, "Newpackage", new Object[0]);
 		Package_c referenced = Package_c
 				.getOneEP_PKGOnR8001(PackageableElement_c
 						.getOnePE_PEOnR8000(referencedPkg));
-		executeInTransaction(referenced, "setName", new Object[] {"referenced"});
+		TestUtil.executeInTransaction(referenced, "setName", new Object[] {"referenced"});
 		// create a container package, and the test element
-		executeInTransaction(referencingSystem, "Newpackage", new Object[0]);
+		TestUtil.executeInTransaction(referencingSystem, "Newpackage", new Object[0]);
 		pkgs = Package_c.getManyEP_PKGsOnR1401(referencingSystem);
 		Package_c containerPkg = pkgs[pkgs.length - 1];
-		executeInTransaction(containerPkg, "setName", new Object[] {"package_part_container"});
-		executeInTransaction(containerPkg, "Newpackageparticipant", new Object[0]);
+		TestUtil.executeInTransaction(containerPkg, "setName", new Object[] {"package_part_container"});
+		TestUtil.executeInTransaction(containerPkg, "Newpackageparticipant", new Object[0]);
 		PackageParticipant_c part = PackageParticipant_c
 				.getOneSQ_PPOnR930(InteractionParticipant_c
 						.getOneSQ_POnR8001(PackageableElement_c
@@ -286,29 +283,6 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		editor.zoomAll();
 	}
 
-	private void executeInTransaction(NonRootModelElement element, String method, Object[] parameters) {
-		Class<?>[] paramClasses = new Class<?>[parameters.length];
-		for(int i = 0; i < parameters.length; i++) {
-			paramClasses[i] = parameters[i].getClass();
-		}
-		Transaction transaction = null;
-		TransactionManager manager = TransactionManager.getSingleton();
-		try {
-			transaction = manager.startTransaction("test transaction",
-					new ModelElement[] { Ooaofooa.getDefaultInstance(),
-							Ooaofgraphics.getDefaultInstance() });
-			Method m = element.getClass().getMethod(method, paramClasses);
-			m.invoke(element, parameters);
-			manager.endTransaction(transaction);
-		} catch (Exception e) {
-			if(transaction != null) {
-				manager.cancelTransaction(transaction, e);
-			}
-			CorePlugin.logError("Unable to complete transaction.", e);
-		}
-		BaseTest.dispatchEvents(0);
-	}
-
 	/**
 	 * Test formalization to an element that is in a different system
 	 */
@@ -321,20 +295,20 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		SystemModel_c referencingSystem = getSystemModel(projectOne.getName());
 		SystemModel_c referencedSystem = getSystemModel(projectTwo.getName());
 		// create a container package, and the formalize to element
-		executeInTransaction(referencedSystem, "Newpackage", new Object[0]);
+		TestUtil.executeInTransaction(referencedSystem, "Newpackage", new Object[0]);
 		Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1401(referencedSystem);
 		Package_c referencedPkg = pkgs[pkgs.length - 1];
-		executeInTransaction(referencedPkg, "Newcomponent", new Object[0]);
+		TestUtil.executeInTransaction(referencedPkg, "Newcomponent", new Object[0]);
 		Component_c referenced = Component_c
 				.getOneC_COnR8001(PackageableElement_c
 						.getManyPE_PEsOnR8000(referencedPkg));
-		executeInTransaction(referenced, "setName", new Object[] {"referenced"});
+		TestUtil.executeInTransaction(referenced, "setName", new Object[] {"referenced"});
 		// create a container package, and the test element
-		executeInTransaction(referencingSystem, "Newpackage", new Object[0]);
+		TestUtil.executeInTransaction(referencingSystem, "Newpackage", new Object[0]);
 		pkgs = Package_c.getManyEP_PKGsOnR1401(referencingSystem);
 		Package_c containerPkg = pkgs[pkgs.length - 1];
-		executeInTransaction(containerPkg, "setName", new Object[] {"component_part_container"});
-		executeInTransaction(containerPkg, "Newcomponentparticipant", new Object[0]);
+		TestUtil.executeInTransaction(containerPkg, "setName", new Object[] {"component_part_container"});
+		TestUtil.executeInTransaction(containerPkg, "Newcomponentparticipant", new Object[0]);
 		ComponentParticipant_c part = ComponentParticipant_c
 				.getOneSQ_COPOnR930(InteractionParticipant_c
 						.getManySQ_PsOnR8001(PackageableElement_c
@@ -347,7 +321,7 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 						.getTreeViewer().getTree().getMenu(), "",
 						"Formalize..."));
 		// add a local possibility
-		executeInTransaction(containerPkg, "Newcomponent", new Object[0]);
+		TestUtil.executeInTransaction(containerPkg, "Newcomponent", new Object[0]);
 		Selection.getInstance().clear();
 		Selection.getInstance().addToSelection(part);
 		assertTrue(
@@ -363,7 +337,7 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		// delete local possibility
 		Component_c comp = Component_c.getOneC_COnR8001(
 				PackageableElement_c.getManyPE_PEsOnR8000(containerPkg));
-		executeInTransaction(comp, "Dispose", new Object[0]);
+		TestUtil.executeInTransaction(comp, "Dispose", new Object[0]);
 		// enable IPRs
 		projectNode.putBoolean(
 				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
@@ -400,20 +374,20 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		SystemModel_c referencingSystem = getSystemModel(projectOne.getName());
 		SystemModel_c referencedSystem = getSystemModel(projectTwo.getName());
 		// create a container package, and the formalize to element
-		executeInTransaction(referencedSystem, "Newpackage", new Object[0]);
+		TestUtil.executeInTransaction(referencedSystem, "Newpackage", new Object[0]);
 		Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1401(referencedSystem);
 		Package_c referencedPkg = pkgs[pkgs.length - 1];
-		executeInTransaction(referencedPkg, "Newexternalentity", new Object[0]);
+		TestUtil.executeInTransaction(referencedPkg, "Newexternalentity", new Object[0]);
 		ExternalEntity_c referenced = ExternalEntity_c
 				.getOneS_EEOnR8001(PackageableElement_c
 						.getOnePE_PEOnR8000(referencedPkg));
-		executeInTransaction(referenced, "setName", new Object[] {"referenced"});
+		TestUtil.executeInTransaction(referenced, "setName", new Object[] {"referenced"});
 		// create a container package, and the test element
-		executeInTransaction(referencingSystem, "Newpackage", new Object[0]);
+		TestUtil.executeInTransaction(referencingSystem, "Newpackage", new Object[0]);
 		pkgs = Package_c.getManyEP_PKGsOnR1401(referencingSystem);
 		Package_c containerPkg = pkgs[pkgs.length - 1];
-		executeInTransaction(containerPkg, "setName", new Object[] {"ee_part_container"});
-		executeInTransaction(containerPkg, "Newexternalentityparticipant", new Object[0]);
+		TestUtil.executeInTransaction(containerPkg, "setName", new Object[] {"ee_part_container"});
+		TestUtil.executeInTransaction(containerPkg, "Newexternalentityparticipant", new Object[0]);
 		ExternalEntityParticipant_c part = ExternalEntityParticipant_c
 				.getOneSQ_EEPOnR930(InteractionParticipant_c
 						.getManySQ_PsOnR8001(PackageableElement_c
@@ -440,7 +414,7 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		// delete local possibility
 		ExternalEntity_c ee = ExternalEntity_c.getOneS_EEOnR8001(
 				PackageableElement_c.getManyPE_PEsOnR8000(containerPkg));
-		executeInTransaction(ee, "Dispose", new Object[0]);
+		TestUtil.executeInTransaction(ee, "Dispose", new Object[0]);
 		// enable IPRs
 		projectNode.putBoolean(
 				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
@@ -477,20 +451,20 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		SystemModel_c referencingSystem = getSystemModel(projectOne.getName());
 		SystemModel_c referencedSystem = getSystemModel(projectTwo.getName());
 		// create a container package, and the formalize to element
-		executeInTransaction(referencedSystem, "Newpackage", new Object[0]);
+		TestUtil.executeInTransaction(referencedSystem, "Newpackage", new Object[0]);
 		Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1401(referencedSystem);
 		Package_c referencedPkg = pkgs[pkgs.length - 1];
-		executeInTransaction(referencedPkg, "Newclass", new Object[0]);
+		TestUtil.executeInTransaction(referencedPkg, "Newclass", new Object[0]);
 		ModelClass_c referenced = ModelClass_c
 				.getOneO_OBJOnR8001(PackageableElement_c
 						.getOnePE_PEOnR8000(referencedPkg));
-		executeInTransaction(referenced, "setName", new Object[] {"referenced1"} );
+		TestUtil.executeInTransaction(referenced, "setName", new Object[] {"referenced1"} );
 		// create a container package, and the test element
-		executeInTransaction(referencingSystem, "Newpackage", new Object[0]);
+		TestUtil.executeInTransaction(referencingSystem, "Newpackage", new Object[0]);
 		pkgs = Package_c.getManyEP_PKGsOnR1401(referencingSystem);
 		Package_c containerPkg = pkgs[pkgs.length - 1];
-		executeInTransaction(containerPkg, "setName", new Object[] {"class_part_container"} );
-		executeInTransaction(containerPkg, "Newclassparticipant", new Object[0]);
+		TestUtil.executeInTransaction(containerPkg, "setName", new Object[] {"class_part_container"} );
+		TestUtil.executeInTransaction(containerPkg, "Newclassparticipant", new Object[0]);
 		ClassParticipant_c part = ClassParticipant_c
 				.getOneSQ_CPOnR930(InteractionParticipant_c
 						.getManySQ_PsOnR8001(PackageableElement_c
@@ -503,7 +477,7 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 						.getTreeViewer().getTree().getMenu(), "",
 						"Formalize..."));
 		// add a local possibility
-		executeInTransaction(containerPkg, "Newclass", new Object[0]);
+		TestUtil.executeInTransaction(containerPkg, "Newclass", new Object[0]);
 		assertTrue(
 				"Formalize menu item was not present when accessible elements were.",
 				UITestingUtilities.menuItemExists(getExplorerView()
@@ -517,7 +491,7 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		// delete local possibility
 		ModelClass_c clazz = ModelClass_c.getOneO_OBJOnR8001(
 				PackageableElement_c.getManyPE_PEsOnR8000(containerPkg));
-		executeInTransaction(clazz, "Dispose", new Object[0]);
+		TestUtil.executeInTransaction(clazz, "Dispose", new Object[0]);
 		// enable IPRs
 		projectNode.putBoolean(
 				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
@@ -554,20 +528,20 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		SystemModel_c referencingSystem = getSystemModel(projectOne.getName());
 		SystemModel_c referencedSystem = getSystemModel(projectTwo.getName());
 		// create a container package, and the formalize to element
-		executeInTransaction(referencedSystem, "Newpackage", new Object[0]);
+		TestUtil.executeInTransaction(referencedSystem, "Newpackage", new Object[0]);
 		Package_c[] pkgs = Package_c.getManyEP_PKGsOnR1401(referencedSystem);
 		Package_c referencedPkg = pkgs[pkgs.length - 1];
-		executeInTransaction(referencedPkg, "Newclass", new Object[0]);
+		TestUtil.executeInTransaction(referencedPkg, "Newclass", new Object[0]);
 		ModelClass_c referenced = ModelClass_c
 				.getOneO_OBJOnR8001(PackageableElement_c
 						.getOnePE_PEOnR8000(referencedPkg));
-		executeInTransaction(referenced, "setName", new Object[] {"referenced2"});
+		TestUtil.executeInTransaction(referenced, "setName", new Object[] {"referenced2"});
 		// create a container package, and the test element
-		executeInTransaction(referencingSystem, "Newpackage", new Object[0]);
+		TestUtil.executeInTransaction(referencingSystem, "Newpackage", new Object[0]);
 		pkgs = Package_c.getManyEP_PKGsOnR1401(referencingSystem);
 		Package_c containerPkg = pkgs[pkgs.length - 1];
-		executeInTransaction(containerPkg, "setName", new Object[] {"classinst_part_container"});
-		executeInTransaction(containerPkg, "Newclassinstance", new Object[0]);
+		TestUtil.executeInTransaction(containerPkg, "setName", new Object[] {"classinst_part_container"});
+		TestUtil.executeInTransaction(containerPkg, "Newclassinstance", new Object[0]);
 		ClassInstanceParticipant_c part = ClassInstanceParticipant_c
 				.getOneSQ_CIPOnR930(InteractionParticipant_c
 						.getManySQ_PsOnR8001(PackageableElement_c
@@ -580,7 +554,7 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 						.getTreeViewer().getTree().getMenu(), "",
 						"Formalize..."));
 		// add a local possibility
-		executeInTransaction(containerPkg, "Newclass", new Object[0]);
+		TestUtil.executeInTransaction(containerPkg, "Newclass", new Object[0]);
 		assertTrue(
 				"Formalize menu item was not present when accessible elements were.",
 				UITestingUtilities.menuItemExists(getExplorerView()
@@ -594,7 +568,7 @@ public class TigerNatureWorkspaceSetupTestGenerics extends CanvasTest {
 		// delete local possibility
 		ModelClass_c clazz = ModelClass_c.getOneO_OBJOnR8001(
 				PackageableElement_c.getManyPE_PEsOnR8000(containerPkg));
-		executeInTransaction(clazz, "Dispose", new Object[0]);
+		TestUtil.executeInTransaction(clazz, "Dispose", new Object[0]);
 		// enable IPRs
 		projectNode.putBoolean(
 				BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);

@@ -940,7 +940,7 @@ ${gen_RGO_resolution.body}\
          return false;
      }
 	    // check that the model-roots are the same
-    	if (((NonRootModelElement)elem).getModelRoot() != getModelRoot()) {
+    	if (((NonRootModelElement)elem).getModelRoot() != getModelRoot() && !getModelRoot().isCompareRoot()) {
     		return false;
     	}
     	
@@ -975,7 +975,7 @@ ${gen_RGO_resolution.body}\
       // don't allow an empty id-value to produce a false positive result;
       // in this case, use whether the two instances are actually the same 
       // one in memory, instead
-      if ((IdAssigner.NULL_UUID.equals(${selfIdGetter}()) || IdAssigner.NULL_UUID.equals(${elemIdGetter}())) && this != elem) {
+      if (!getModelRoot().isCompareRoot() && ((IdAssigner.NULL_UUID.equals(${selfIdGetter}()) || IdAssigner.NULL_UUID.equals(${elemIdGetter}())) && this != elem)) {
       	return false;
       }
       if (!${selfIdGetter}().equals(${elemIdGetter}())) return false;

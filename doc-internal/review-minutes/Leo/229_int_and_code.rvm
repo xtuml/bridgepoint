@@ -1,0 +1,47 @@
+---
+
+Copyright 2014 Mentor Graphics Corp.  All Rights Reserved.
+
+---
+
+# BridgePoint Editor Navigation enhancements and fixes
+### xtUML Project Review Minutes
+
+Reviewed:  https://github.com/xtuml/internal/blob/229_dts0101055471_2/doc-internal/notes/229_dts0101055471/229_dts0101055471_int.md 5329e124635f76600ff91b6d5db4df7cc2abdfa5   
+Present:  Keith, Nehad, Travis
+
+<pre>
+
+-- Num Type  Who  Section  Comment
+
+229.int
+
+x- 01  min   TL   6.1.2    forcusGain() > focusGain()
+x- 02  min   KB   6.2      Record what was done to address the problem
+
+
+229 code review
+1) In Transition.xtuml
+  x- 01  min    remove else condition (lines 15 & 16)
+2) in EditorUtil.java
+  x- 02  min    Check that we are only doing this for xtUML editor
+  x- 03  min    raise eclipse bug, for the memento icon issue
+                a raised issue is already found, date March 2005
+                https://bugs.eclipse.org/bugs/show_bug.cgi?id=87874
+3) In create_modeladapter_java.arc:
+  x- 04  min     add a comment in the exception around 256 and 281 to explain why we might hit this
+  x- 05  min     Add a comment at lines 250 and 275 to be more clear about that is going on here
+4) ActivityEditorInput.java
+  x- 06  min     remove the //NON-NLS comment, it is no longer needed
+5) DescriptionEditor.java
+  x- 07  min     line 191, need to check if eclipse handles the image destruction.  If eclipse does not, we need to.
+6) DescriptionEditorInput.java
+  x- 08  min     remove the //NON-NLS comment, it is no longer needed
+
+
+</pre>
+   
+No major observations, a re-review is not required.
+ 
+End
+---

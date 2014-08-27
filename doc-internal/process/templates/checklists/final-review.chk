@@ -77,6 +77,8 @@ _- Create a Pull Request for the changes
      _- Resolve any conflicts as indicated.  If "Able to merge", then click 
         "Send pull request" button 
 
+_- Modify the associated ClearQuest Issue and change it's status to "Open"
+
 _- Add a comment in the BridgePoint chat saying the issue is ready for promotion
 
 
