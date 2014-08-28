@@ -29,24 +29,36 @@ x- 08  min   bob  8.4      This should call out that this has to start with 2 st
 
 Code Review on branch 244_class_merge_2 (Bob, Keith, Travis)
 -----------
-1) MergeWorkbenchAdvisor.java   Think about if perhaps this can/should be refactored and shared with the similar code in 
+x- MergeWorkbenchAdvisor.java   Think about if perhaps this can/should be refactored and shared with the similar code in 
                                 model.compare/ModelMErgeProcessor.java so there is not duplications.
                                 It is not completely duplicate, but it may be good to do something to show that 
                                 the 2 places are similar so when one is modified the other s not missed.
-2) ModelMergeProcessor.java::adjustPersistenceOrdering() - the new parameter that was added is not being used, 
+  TRL: Created a static method in ModelContentMergeViewer that is used by both locations.
+  
+x- ModelMergeProcessor.java::adjustPersistenceOrdering() - the new parameter that was added is not being used, 
                               remove it.                                
-3) ModelMergeProcessor.java::handlePostCreation() - Around line 727 where there 
+x- ModelMergeProcessor.java::handlePostCreation() - Around line 727 where there 
                               is a test for NoEventTransition, investigate to see if we need a similar test for
                               creation transition.
-4) ModelMergeProcessor.java::line 813 - Investigate this change and retest 
-5) ModelCompareContentProvider.java:getChildren()   - Stopped using getLoadedGraphicalModelsForElements, but not sure why.  Investigate.           
-6) ModelCompareContentProvider.java::getAdjustedLocationForSlot - This was modified to fix the
+  TRL: Same test is required for Creation Transitions, where there is no SEME data required.
+                              
+x- ModelMergeProcessor.java::line 813 - Investigate this change and retest
+  TRL: Change was removed, tests still pass.
+  
+x- ModelCompareContentProvider.java:getChildren()   - Stopped using getLoadedGraphicalModelsForElements, but not sure why.  Investigate.
+
+  TRL: This was an attempt at providing a performance increase.  There is no notable performance increase and the tests still pass.           
+x- ModelCompareContentProvider.java::getAdjustedLocationForSlot - This was modified to fix the
                              ordering issue that Bob saw while onsite in Montreal.  The
                              document is not currently describing this and needs to.
                              Code should also be commented better.
-7) ModelStructureDiffViewer.java::inputChanged() - After the refresh, investigate 
+  TRL: The document describes the change, but the code was updated to comment the function of the method.
+
+x- ModelStructureDiffViewer.java::inputChanged() - After the refresh, investigate 
                              to see if we should test again to see if the tree 
-                             was disposed.                               
+                             was disposed.
+
+  TRL: It is not believed that the tree could be disposed after the refresh, however a check was added to be safe.  This check has no effect on the behavior or performance.
 </pre>
    
 No major observations, a re-review is not required.
