@@ -1,5 +1,7 @@
 Pre-builder performance brainstorming session
 -------------------------------------------------
+Present: Keith, Bob, Campbell, Travis, Cort  
+
 1) Initial data  
 <pre>
 Local i7 Intel Xeon E5620 @ 2.4 GHz 12 GB RAM
