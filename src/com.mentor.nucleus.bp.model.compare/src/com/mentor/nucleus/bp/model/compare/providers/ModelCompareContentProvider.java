@@ -135,15 +135,7 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 			}
 			if(getIncludeNonTreeData()) {
 				// include graphical data if asked for
-				Model_c model = Model_c.ModelInstance(Ooaofgraphics
-						.getInstance(((NonRootModelElement) element)
-								.getModelRoot().getId()), new ClassQueryInterface_c() {
-									
-									@Override
-									public boolean evaluate(Object candidate) {
-										return ((Model_c) candidate).getRepresents() == finalElement;
-									}
-								});
+				Model_c model = ComparePlugin.getDefault().getModelCacheManager().getLoadedGraphicalModelsForElements(element);
 				if(model == null && modelRoots != null) {
 					for(Ooaofooa modelRoot : modelRoots) {
 						model = Model_c.ModelInstance(Ooaofgraphics.getInstance(modelRoot.getId()), new ClassQueryInterface_c() {
@@ -290,6 +282,19 @@ public class ModelCompareContentProvider extends AbstractTreeDifferenceProvider 
 		}
 		return elementInspector;
 	}
+	
+	/**
+	 * This method will do the following:
+	 * 
+	 * 1. Determine the location of the remote element.  It will exclude any
+	 *    elements that do not exist locally.  This is required to determine the
+	 *    appropriate slot location without any empty elements.
+	 * 2. Determine the local slot location excluding other elements that are
+	 *    not of the same type.
+	 * 3. Add the remote location and the local slot location.
+	 * 4. Increase this expected location by the number of empty elements created
+	 *    before this element.
+	 */
 	private int getAdjustedLocationForSlot(int location, Object remoteChild,
 			Object[] remoteChildren, Object[] localChildren,
 			List<Object> existingEmptyElements,

@@ -45,6 +45,7 @@ import com.mentor.nucleus.bp.core.ClassAsSimpleParticipant_c;
 import com.mentor.nucleus.bp.core.ClassAsSubtype_c;
 import com.mentor.nucleus.bp.core.ClassInAssociation_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.CreationTransition_c;
 import com.mentor.nucleus.bp.core.DataType_c;
 import com.mentor.nucleus.bp.core.Elementtypeconstants_c;
 import com.mentor.nucleus.bp.core.EventIgnored_c;
@@ -430,7 +431,7 @@ public class ModelMergeProcessor {
 			// the proper location
 			int length = getPersistenceLocation(parent, existingDiffElement,
 					contentProvider, true);
-			adjustPersistenceOrdering(existingDiffElement, length - 1, contentProvider);
+			adjustPersistenceOrdering(existingDiffElement, length - 1);
 			// this is a value difference, we need to dispose the current value
 			// first
 			// disable listeners as we do not want graphics deleted
@@ -450,7 +451,7 @@ public class ModelMergeProcessor {
 		Object object = findObjectInDestination(modelRoot, newObject);
 		if (object != null && !((NonRootModelElement) object).isProxy()) {
 			newElementLocation = getPersistenceLocation(parent, newObject, contentProvider, false);
-			return adjustPersistenceOrdering(object, newElementLocation, contentProvider);
+			return adjustPersistenceOrdering(object, newElementLocation);
 		}
 		// some situations required other data to be created first
 		handleCopyNew(newObject, differencer, contentProvider, modelRoot, rightToLeft);
@@ -576,7 +577,7 @@ public class ModelMergeProcessor {
 		} else {
 			newElementLocation = getPersistenceLocation(remoteParent,
 					difference.getElement(), contentProvider, false);
-			adjustPersistenceOrdering(newObject, newElementLocation, contentProvider);
+			adjustPersistenceOrdering(newObject, newElementLocation);
 			batchRelateAll(newObject, modelRoot, contentProvider);
 		}
 		handlePostCreation(newObject, (NonRootModelElement) realElement);
@@ -618,7 +619,7 @@ public class ModelMergeProcessor {
 		return location;
 	}
 
-	private static boolean adjustPersistenceOrdering(Object object, int newElementLocation, ITreeDifferencerProvider provider) {
+	private static boolean adjustPersistenceOrdering(Object object, int newElementLocation) {
 		Object lastSupertype = getLastSupertype((NonRootModelElement) object);
 		// assure that the persisted location is correct
 		IPersistableElementParentDetails parentDetails = PersistenceManager
@@ -730,6 +731,12 @@ public class ModelMergeProcessor {
 			if(net != null) {
 				return;
 			}
+			// this includes creation transitions as well even if an
+			// event is assigned
+			CreationTransition_c crt = CreationTransition_c.getOneSM_CRTXNOnR507(transition);
+			if(crt != null) {
+				return;
+			}
 			StateEventMatrixEntry_c seme = StateEventMatrixEntry_c
 					.getOneSM_SEMEOnR504(NewStateTransition_c
 							.getOneSM_NSTXNOnR507((Transition_c) newObject));
@@ -810,13 +817,15 @@ public class ModelMergeProcessor {
 								parentDetails.getAssociationNumber(),
 								parentDetails.getAssociationPhrase(),
 								parentDetails.getChildKeyLetters() };
-						IPersistableElementParentDetails remoteParentDetails = PersistenceManager.getHierarchyMetaData().getParentDetails(getMatchingElement(elem));
-						Object[] remoteDetails = new Object[] { remoteParentDetails.getParent(),
-								remoteParentDetails.getChild(),
-								remoteParentDetails.getAssociationNumber(),
-								remoteParentDetails.getAssociationPhrase(),
-								remoteParentDetails.getChildKeyLetters() };
-						newElementLocation = getLocationForElementInSource(remoteDetails);
+						if(newElementLocation == -1) {
+							IPersistableElementParentDetails remoteParentDetails = PersistenceManager.getHierarchyMetaData().getParentDetails(getMatchingElement(elem));
+							Object[] remoteDetails = new Object[] { remoteParentDetails.getParent(),
+									remoteParentDetails.getChild(),
+									remoteParentDetails.getAssociationNumber(),
+									remoteParentDetails.getAssociationPhrase(),
+									remoteParentDetails.getChildKeyLetters() };
+							newElementLocation = getLocationForElementInSource(remoteDetails);
+						}
 						callSetOrderOperation(newElementLocation, localDetails);
 						NonRootModelElement matchingElement = getMatchingElement(elem);
 						if(matchingElement != null) {
