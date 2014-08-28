@@ -27,6 +27,26 @@ X- 07  min   skb  8.3      Add an expected result after the "undo" step
 x- 08  min   bob  8.4      This should call out that this has to start with 2 states and a transition between the 2 states.
 
 
+Code Review on branch 244_class_merge_2 (Bob, Keith, Travis)
+-----------
+1) MergeWorkbenchAdvisor.java   Think about if perhaps this can/should be refactored and shared with the similar code in 
+                                model.compare/ModelMErgeProcessor.java so there is not duplications.
+                                It is not completely duplicate, but it may be good to do something to show that 
+                                the 2 places are similar so when one is modified the other s not missed.
+2) ModelMergeProcessor.java::adjustPersistenceOrdering() - the new parameter that was added is not being used, 
+                              remove it.                                
+3) ModelMergeProcessor.java::handlePostCreation() - Around line 727 where there 
+                              is a test for NoEventTransition, investigate to see if we need a similar test for
+                              creation transition.
+4) ModelMergeProcessor.java::line 813 - Investigate this change and retest 
+5) ModelCompareContentProvider.java:getChildren()   - Stopped using getLoadedGraphicalModelsForElements, but not sure why.  Investigate.           
+6) ModelCompareContentProvider.java::getAdjustedLocationForSlot - This was modified to fix the
+                             ordering issue that Bob saw while onsite in Montreal.  The
+                             document is not currently describing this and needs to.
+                             Code should also be commented better.
+7) ModelStructureDiffViewer.java::inputChanged() - After the refresh, investigate 
+                             to see if we should test again to see if the tree 
+                             was disposed.                               
 </pre>
    
 No major observations, a re-review is not required.
