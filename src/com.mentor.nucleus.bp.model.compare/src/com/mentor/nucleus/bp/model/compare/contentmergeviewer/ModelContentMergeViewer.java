@@ -849,17 +849,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		List<TreeDifference> mergeDifferences = new ArrayList<TreeDifference>();
 		// remove any contained differences and if the
 		// container difference is not selected add it
-		for(TreeDifference difference : differences) {
-			if(difference.isContainedDifference()) {
-				TreeDifference container = difference.getContainerDifference();
-				if(container != null && !mergeDifferences.contains(container)) {
-					mergeDifferences.add(container);
-				} // if for some reason there is no container leave the
-				  // difference out of the merge
-			} else {
-				mergeDifferences.add(difference);
-			}
-		}
+		removeContainerDifferences(differences, mergeDifferences);
 		Transaction transaction = compareTransactionManager
 				.startCompareTransaction();
 		try {
@@ -2081,5 +2071,21 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			}
 		}
 		return resources.toArray(new IResource[resources.size()]);
+	}
+
+	public static void removeContainerDifferences(
+			List<TreeDifference> differences,
+			List<TreeDifference> mergeDifferences) {
+		for(TreeDifference difference : differences) {
+			if(difference.isContainedDifference()) {
+				TreeDifference container = difference.getContainerDifference();
+				if(container != null && !mergeDifferences.contains(container)) {
+					mergeDifferences.add(container);
+				} // if for some reason there is no container leave the
+				  // difference out of the merge
+			} else {
+				mergeDifferences.add(difference);
+			}
+		}
 	}
 }

@@ -35,6 +35,7 @@ import com.mentor.nucleus.bp.model.compare.CompareTransactionManager;
 import com.mentor.nucleus.bp.model.compare.ModelMergeProcessor;
 import com.mentor.nucleus.bp.model.compare.TreeDifference;
 import com.mentor.nucleus.bp.model.compare.TreeDifferencer;
+import com.mentor.nucleus.bp.model.compare.contentmergeviewer.ModelContentMergeViewer;
 import com.mentor.nucleus.bp.model.compare.providers.ModelCompareContentProvider;
 import com.mentor.nucleus.bp.model.compare.providers.ModelCompareLabelProvider;
 import com.mentor.nucleus.bp.ui.canvas.CanvasModelListener;
@@ -173,14 +174,9 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 					break;
 				}
 			}
-			// remove any contained differences, as the container difference
-			// will already exist which is the difference that is mergeable
 			List<TreeDifference> mergeDifferences = new ArrayList<TreeDifference>();
-			for (TreeDifference difference : differences) {
-				if (!difference.isContainedDifference()) {
-					mergeDifferences.add(difference);
-				}
-			}
+			ModelContentMergeViewer
+					.removeContainerDifferences(differences, mergeDifferences);
 			if (foundConflict) {
 				System.out.println("Conflicting changes were found, aborting the merge.");
 				return 1;
