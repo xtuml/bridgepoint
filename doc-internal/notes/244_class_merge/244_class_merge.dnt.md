@@ -15,7 +15,7 @@ This note describes changes that address some proxy related issues.
 2. Document References
 ----------------------
 [1] Issues 244, https://github.com/xtuml/doc/issues/244  
-[2] CQ Issue dts010106368 - Class merging causes broken models   
+[2] CQ Issue dts0101063683 - Class merging causes broken models   
 
 3. Background
 -------------
@@ -26,8 +26,8 @@ the same problem could occur with polymorphic events.
 
 4. Requirements
 ---------------
-4.1 Proxy merging shall not produce corruption.
-4.2 Ordering shall not cause unexpected conflicts.
+4.1 Proxy merging shall not produce corruption.   
+4.2 Ordering shall not cause unexpected conflicts.   
 
 5. Analysis
 -----------
@@ -133,7 +133,8 @@ Testing showed issues with undo where an RTO was removed before the RGOs and
 caused proxies to be created.  When merging we do not want to modify proxy
 related data.  If an element was a proxy it remains as such and if it was not it
 should not be converted to a proxy.  In NonRootModelElement.delete() we ignore
-converting to a proxy if the RTO has external references.
+converting to a proxy if the RTO has external references.  This is only done
+when in a compare situation, normal proxy conversion behaves as it used to.
 
 7.3 Ant dependency issues in core
 
@@ -146,8 +147,8 @@ was not different.
 7.4 Delete confirmation dialog
 
 During merge, dispose is called for elements to be removed.  We do not want this
-dialog during merge.  In fact the checking can be incorrect as not elements are
-local and will always be missing.  When we have logical model support we can
+dialog during merge.  In fact the checking can be incorrect as not all elements
+are local and may be missing.  When we have logical model support we can
 re-enable this, but for now the dialog is disabled in CompareTransactionManager.
 
 7.5 Debug code
@@ -169,7 +170,8 @@ are additions or deletions.
 ------------
 8.1 Merging proxies (class references)
 
-_- Modify a class file and compare with local history   
+_- Modify a class file that is an RGO in an association and compare with local
+   history   
 _- Merge the differences and save   
 _R The O_REF entries are not corrupted   
 
@@ -189,6 +191,8 @@ _R The association difference has contained differences
 _- Select one of the contained differences and merge the change   
 _R The entire association is copied over   
 _- Undo the change   
+_R The association differences are restored
+_R The association is not formalized
 _- Redo the merge by using the copy from right to left button   
 _R The merge is successful   
 _- Save the changes   
@@ -198,11 +202,14 @@ _R The association is properly formalized
 
 8.4 Ordering issues
 
+NOTE: The starting state machine must have two states with a transition between
+them   
+
 _- In branch one add a new state  
 _- In branch two delete a state   
 _- In branch two add a state   
 _- Merge branch one into branch two     
-_R There are no conflicts   
+_R There are no conflicts in the xtUML compare editor   
  
 
 8.5 Two way merging
