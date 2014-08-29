@@ -3,7 +3,7 @@
 <project name="testsuite" default="run" basedir=".">
   <!-- The property ${eclipse-home} should be passed into this script -->
   <!-- Set a meaningful default value for when it is not. -->
-  <property name="eclipse-home" value="${basedir}\..\.."/>
+  <property name="eclipse-home" value="${basedir}/../.."/>
 
   <!-- sets the properties eclipse-home, and library-file -->
   <property name="plugin-name" value="com.mentor.nucleus.bp.ui.text.test"/>

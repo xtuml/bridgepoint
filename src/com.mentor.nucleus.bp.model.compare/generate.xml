@@ -20,7 +20,7 @@
   </target>
 
   <property environment="env"/>
-  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\bin" />
+  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
   <property name="mcj_path" value="../MC-Java" />
 
   <property name="eclipse-home" value="${basedir}/../.."/>
@@ -47,7 +47,7 @@
           unless="java.buildNotNeeded" >
     <echo >Generating Compare Properties File ...</echo>
     <delete file="CompareTree.gen" />
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
     <arg line="-nopersist
       -import ${mcj_path}/ooa_schema.sql

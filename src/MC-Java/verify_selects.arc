@@ -1,8 +1,8 @@
 .//====================================================================
 .//
 .// File:      $RCSfile: verify_selects.arc,v $
-.// Version:   $Revision: 1.9 $
-.// Modified:  $Date: 2013/01/10 23:16:33 $
+.// Version:   $Revision: 1.9.32.1 $
+.// Modified:  $Date: 2013/07/19 12:26:00 $
 .//
 .// (c) Copyright 2005-2014 by Mentor Graphics Corp.  All rights reserved.
 .//
@@ -32,6 +32,10 @@
   .print "\nERROR: Environment variable PTC_MC_ARC_DIR not set."
   .exit 100
 .end if
+.//
+.invoke mc_root_pkg_name = GET_ENV_VAR("PTC_MCC_ROOT")
+.assign mc_root_pkg = mc_root_pkg_name.result
+.//
 .//
 .include "${mc_archetypes}/arch_utils.inc"
 .//
@@ -66,7 +70,10 @@
   .select many functions from instances of S_SYNC
   .for each function in functions
     .// relate the domain to the functions being processed
-    .select any dom from instances of S_DOM
+  .select one dom related by function->S_DOM[R23]
+  .if (empty dom)
+    .select one dom related by function->S_FIP[R31]->S_FPK[R31]->S_DOM[R29]
+  .end if
     .if(not_empty dom)
       .assign function.Dom_ID = dom.Dom_ID
     .end if
@@ -229,103 +236,103 @@
   .assign error_msg = ""
   .select any op_inv_stmt related by variable->ACT_TFM[R667]->ACT_SMT[R603] where (selected.Block_ID == block.Block_ID)
   .if(not_empty op_inv_stmt)
-    .assign error_msg = "Warning: Found dangerous access to ${variable.Variable_Name} in an operation invocation contained in block: ${block.Block_ID}\n"
+    .assign error_msg = "Warning: Found dangerous access to ${variable.Name} in an operation invocation contained in block: ${block.Block_ID}\n"
     .assign attr_dangerous_output = attr_dangerous_output + error_msg 
     .assign attr_dangerous_access = true
   .end if
   .select any del_stmt related by variable->ACT_DEL[R634]->ACT_SMT[R603] where (selected.Block_ID == block.Block_ID)
   .if(not_empty del_stmt)
-    .assign error_msg = "Warning: Found dangerous access to ${variable.Variable_Name} in a delete contained in block: ${block.Block_ID}\n"
+    .assign error_msg = "Warning: Found dangerous access to ${variable.Name} in a delete contained in block: ${block.Block_ID}\n"
     .assign attr_dangerous_output = attr_dangerous_output + error_msg
     .assign attr_dangerous_access = true
   .end if
   .select any ata_stmt related by variable->ACT_AI[R629]->ACT_SMT[R603] where (selected.Block_ID == block.Block_ID)
   .if(not_empty ata_stmt)
-    .assign error_msg = "Warning: Found dangerous access to ${variable.Variable_Name} in an Assign to Attribute contained in block: ${block.Block_ID}\n"
+    .assign error_msg = "Warning: Found dangerous access to ${variable.Name} in an Assign to Attribute contained in block: ${block.Block_ID}\n"
     .assign attr_dangerous_output = attr_dangerous_output + error_msg
     .assign attr_dangerous_access = true
   .end if
   .select any sel_stmt related by variable->ACT_SEL[R613]->ACT_SMT[R603] where (selected.Block_ID == block.Block_ID)
   .if(not_empty sel_stmt)
-    .assign error_msg = "Warning: Found dangerous access to ${variable.Variable_Name} in a select contained in block: ${block.Block_ID}\n"
+    .assign error_msg = "Warning: Found dangerous access to ${variable.Name} in a select contained in block: ${block.Block_ID}\n"
     .assign attr_dangerous_output = attr_dangerous_output + error_msg
     .assign attr_dangerous_access = true
   .end if
   .select any cei_stmt related by variable->E_CEI[R725]->ACT_SMT[R700] where (selected.Block_ID == block.Block_ID)
   .if(not_empty cei_stmt)
-    .assign error_msg = "Warning: Found dangerous access to ${variable.Variable_Name} in a create event instance contained in block: ${block.Block_ID}\n"
+    .assign error_msg = "Warning: Found dangerous access to ${variable.Name} in a create event instance contained in block: ${block.Block_ID}\n"
     .assign attr_dangerous_output = attr_dangerous_output + error_msg
     .assign attr_dangerous_access = true
   .end if
   .select any gpr_stmt related by variable->E_GPR[R709]->ACT_SMT[R700] where (selected.Block_ID == block.Block_ID)
   .if(not_empty gpr_stmt)
-    .assign error_msg = "Warning: Found dangerous access to ${variable.Variable_Name} in a generate pre-existing event contained in block: ${block.Block_ID}\n"
+    .assign error_msg = "Warning: Found dangerous access to ${variable.Name} in a generate pre-existing event contained in block: ${block.Block_ID}\n"
     .assign attr_dangerous_output = attr_dangerous_output + error_msg
     .assign attr_dangerous_access = true
   .end if
   .select any gen_stmt related by variable->E_GEN[R711]->ACT_SMT[R700] where (selected.Block_ID == block.Block_ID)
   .if(not_empty gen_stmt)
-    .assign error_msg = "Warning: Found dangerous access to ${variable.Variable_Name} in a generate event contained in block: ${block.Block_ID}\n"
+    .assign error_msg = "Warning: Found dangerous access to ${variable.Name} in a generate event contained in block: ${block.Block_ID}\n"
     .assign attr_dangerous_output = attr_dangerous_output + error_msg
     .assign attr_dangerous_access = true
   .end if
   .select any rel_stmt related by variable->ACT_REL[R615]->ACT_SMT[R603] where (selected.Block_ID == block.Block_ID)
   .select any rel_oth_stmt related by variable->ACT_REL[R616]->ACT_SMT[R603] where (selected.Block_ID == block.Block_ID)
   .if(not_empty rel_stmt)
-    .assign error_msg = "Warning: Found dangerous access to ${variable.Variable_Name} in a relate contained in block: ${block.Block_ID}\n"
+    .assign error_msg = "Warning: Found dangerous access to ${variable.Name} in a relate contained in block: ${block.Block_ID}\n"
     .assign attr_dangerous_output = attr_dangerous_output + error_msg
     .assign attr_dangerous_access = true
   .end if
   .if(not_empty rel_oth_stmt)
-    .assign error_msg = "Warning: Found dangerous access to ${variable.Variable_Name} in a relate contained in block: ${block.Block_ID}\n"
+    .assign error_msg = "Warning: Found dangerous access to ${variable.Name} in a relate contained in block: ${block.Block_ID}\n"
     .assign attr_dangerous_output = attr_dangerous_output + error_msg
     .assign attr_dangerous_access = true
   .end if
   .select any rel_using_one_stmt related by variable->ACT_RU[R617]->ACT_SMT[R603] where (selected.Block_ID == block.Block_ID)
   .select any rel_using_oth_stmt related by variable->ACT_RU[R618]->ACT_SMT[R603] where (selected.Block_ID == block.Block_ID)
   .if(not_empty rel_using_one_stmt)
-    .assign error_msg = "Warning: Found dangerous access to ${variable.Variable_Name} in a relate using contained in block: ${block.Block_ID}\n"
+    .assign error_msg = "Warning: Found dangerous access to ${variable.Name} in a relate using contained in block: ${block.Block_ID}\n"
     .assign attr_dangerous_output = attr_dangerous_output + error_msg
     .assign attr_dangerous_access = true
   .end if
   .if(not_empty rel_using_oth_stmt)
-    .assign error_msg = "Warning: Found dangerous access to ${variable.Variable_Name} in a relate using contained in block: ${block.Block_ID}\n"
+    .assign error_msg = "Warning: Found dangerous access to ${variable.Name} in a relate using contained in block: ${block.Block_ID}\n"
     .assign attr_dangerous_output = attr_dangerous_output + error_msg
     .assign attr_dangerous_access = true
   .end if
   .select any rel_using_stmt related by variable->ACT_RU[R619]->ACT_SMT[R603] where (selected.Block_ID == block.Block_ID)
   .if(not_empty rel_using_stmt)
-    .assign error_msg = "Warning: Found dangerous access to ${variable.Variable_Name} in a relate using as link contained in block: ${block.Block_ID}\n"
+    .assign error_msg = "Warning: Found dangerous access to ${variable.Name} in a relate using as link contained in block: ${block.Block_ID}\n"
     .assign attr_dangerous_output = attr_dangerous_output + error_msg
     .assign attr_dangerous_access = true
   .end if
   .select any unrel_one_stmt related by variable->ACT_UNR[R620]->ACT_SMT[R603] where (selected.Block_ID == block.Block_ID)
   .select any unrel_oth_stmt related by variable->ACT_UNR[R621]->ACT_SMT[R603] where (selected.Block_ID == block.Block_ID)
   .if(not_empty unrel_one_stmt)
-    .assign error_msg = "Warning: Found dangerous access to ${variable.Variable_Name} in an unrelate contained in block: ${block.Block_ID}\n"
+    .assign error_msg = "Warning: Found dangerous access to ${variable.Name} in an unrelate contained in block: ${block.Block_ID}\n"
     .assign attr_dangerous_output = attr_dangerous_output + error_msg
     .assign attr_dangerous_access = true
   .end if
   .if(not_empty unrel_oth_stmt)
-    .assign error_msg = "Warning: Found dangerous access to ${variable.Variable_Name} in an unrelate contained in block: ${block.Block_ID}\n"
+    .assign error_msg = "Warning: Found dangerous access to ${variable.Name} in an unrelate contained in block: ${block.Block_ID}\n"
     .assign attr_dangerous_output = attr_dangerous_output + error_msg
     .assign attr_dangerous_access = true
   .end if
   .select any unrel_using_one_stmt related by variable->ACT_URU[R622]->ACT_SMT[R603] where (selected.Block_ID == block.Block_ID)
   .select any unrel_using_oth_stmt related by variable->ACT_URU[R623]->ACT_SMT[R603] where (selected.Block_ID == block.Block_ID) 
   .if(not_empty unrel_using_one_stmt)
-    .assign error_msg = "Warning: Found dangerous access to ${variable.Variable_Name} in an unrelate using contained in block: ${block.Block_ID}\n"
+    .assign error_msg = "Warning: Found dangerous access to ${variable.Name} in an unrelate using contained in block: ${block.Block_ID}\n"
     .assign attr_dangerous_output = attr_dangerous_output + error_msg
     .assign attr_dangerous_access = true
   .end if
   .if(not_empty unrel_using_oth_stmt)
-    .assign error_msg = "Warning: Found dangerous access to ${variable.Variable_Name} in an unrelate using contained in block: ${block.Block_ID}\n"
+    .assign error_msg = "Warning: Found dangerous access to ${variable.Name} in an unrelate using contained in block: ${block.Block_ID}\n"
     .assign attr_dangerous_output = attr_dangerous_output + error_msg
     .assign attr_dangerous_access = true
   .end if
   .select any unrel_using_stmt related by variable->ACT_URU[R624]->ACT_SMT[R603] where (selected.Block_ID == block.Block_ID)
   .if(not_empty unrel_using_stmt)
-    .assign error_msg = "Warning: Found dangerous access to ${variable.Variable_Name} in an unrelate using as link contained in block: ${block.Block_ID}\n"
+    .assign error_msg = "Warning: Found dangerous access to ${variable.Name} in an unrelate using as link contained in block: ${block.Block_ID}\n"
     .assign attr_dangerous_output = attr_dangerous_output + error_msg
     .assign attr_dangerous_access = true
   .end if
@@ -604,7 +611,7 @@
     .end if
   .end if
   .assign original_log_output = attr_log_output
-  .assign attr_log_output = attr_log_output + "\nProcessed block with the following data for dangerous access to variable: ${var.Variable_Name}\n\n"
+  .assign attr_log_output = attr_log_output + "\nProcessed block with the following data for dangerous access to variable: ${var.Name}\n\n"
   .assign attr_log_output = attr_log_output + "  Block: ${block.Block_ID}\n"
   .assign attr_log_output = attr_log_output + "  Owner: ${container}\n"
   .assign attr_log_output = attr_log_output + "  Type: ${action_type}\n"
@@ -617,7 +624,7 @@
   .for each value in values
 	.select one uop related by value->V_UNY[R804]
     .if(empty uop)
-      .assign warning_msg = "Warning: unsafe usage of variable ${var.Variable_Name} as L-Value in block: ${block.Block_ID}\n"
+      .assign warning_msg = "Warning: unsafe usage of variable ${var.Name} as L-Value in block: ${block.Block_ID}\n"
       .assign dangerous_access = true
       .assign attr_log_output = attr_log_output + warning_msg
       .print "${warning_msg}"
@@ -626,7 +633,7 @@
   .invoke cfvalv = check_for_variable_as_rvalue ( var, block )
   .if(cfvalv.dangerous_access == true)
     .assign attr_log_output = attr_log_output + cfvalv.dangerous_output
-    .print "Warning: unsafe usage of variable ${var.Variable_Name} as R-Value in block: ${block.Block_ID}\n"
+    .print "Warning: unsafe usage of variable ${var.Name} as R-Value in block: ${block.Block_ID}\n"
   .elif(cfvalv.dangerous_access == false)
     .if(dangerous_access == false)
       .assign attr_log_output = original_log_output
@@ -693,11 +700,11 @@
 .assign log_output_prev = ""
 .assign output_file = ""
 .// get model name for output file
-.select any domain from instances of S_DOM
-.invoke gdn_result = get_domain_name( domain )
 .invoke check_env = GET_ENV_VAR( "VERIFY_SELECTS" )
 .invoke func_env = GET_ENV_VAR( "CHECK_FUNCTIONS_ONLY" )
 .if(check_env.result == "true")
+  .select any domain from instances of S_DOM where (selected.Name == mc_root_pkg)
+  .invoke gdn_result = get_domain_name( domain )
   .// Pre-processing to setup association between if statement and elif/else statements
   .select many else_stmts from instances of ACT_E
   .for each else_stmt in else_stmts

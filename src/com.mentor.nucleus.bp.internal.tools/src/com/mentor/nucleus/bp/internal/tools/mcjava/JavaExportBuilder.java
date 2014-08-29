@@ -12,10 +12,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
@@ -192,6 +194,16 @@ public class JavaExportBuilder extends AbstractExportBuilder {
 						postFix = "-1.sql";
 					}
 					// Pass1
+				    // Make sure the code generation folder exists
+					IProject proj = (IProject)system.getAdapter(org.eclipse.core.resources.IProject.class);
+					IFolder genFolder = proj.getFolder(AbstractActivator.GEN_FOLDER_NAME);
+					if (!genFolder.exists()) {
+					  genFolder.create(true, true, new NullProgressMonitor());
+					}
+					IFolder codeFolder = genFolder.getFolder(getCodeGenFolderPath().lastSegment());
+					if(!codeFolder.exists()) {
+						codeFolder.create(true,  true, new NullProgressMonitor());
+					}
 					m_outputFile = new File(destDir + domName + postFix);
 					if (m_outputFile.exists() && !append) {
 						m_outputFile.delete();

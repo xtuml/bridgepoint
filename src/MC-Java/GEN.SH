@@ -28,7 +28,6 @@ domain=$1
 db=${domain}.gen
 schema="ooa_schema.gen"
 sql=${domain}.sql
-obp=ooa_oal_pop.arc
 arc=Java.arc
 
 rm -rf $db
@@ -39,14 +38,6 @@ cp $schema $db
 
 echo "importing the OOA schema"
 $gi $db $sql
-
-echo "generating the INSERT statements .."
-echo "start time: `date`"
-$gf $db $obp
-echo "end time  : `date`"
-
-echo "import the INSERT statements"
-$gi $db ${domain}.bpi.sql
 
 ofd=generated
 rm -rf $ofd
