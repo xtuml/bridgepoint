@@ -63,7 +63,8 @@
   .param inst_ref step
   .//
   .select many steps related by wfl->W_STEP[R2005]
-  .select any action from instances of ACT_ACT where (selected.Action_Id == "${wfl.Sync_ID}")
+  .select any function from instances of S_SYNC where (selected.Sync_Id == wfl.Sync_Id)
+  .select one action related by function->ACT_FNB[R695]->ACT_ACT[R698]
   .invoke gwcn = get_wizard_class_name(wfl)
   .assign wizard_class_name = gwcn.body
   .invoke gpcn = get_page_class_name(wfl, step)
@@ -204,25 +205,26 @@ public class ${page_class_name} extends PtWizardPage implements Listener
       .assign field.buffer = "  //$cr{field.Instance_Handle}Text.setText(((${wizard_class_name})getWizard()).v_${field.Instance_Handle});"
     .end if
     .if ((field.Type == "Combo") OR (field.Type == "List"))
-      .select any statement from instances of ACT_SMT where (selected.Statement_Id == "${field.Statement_Id}")
+      .select any statement from instances of ACT_SMT where ("${selected.Statement_Id}" == "${field.Statement_Id}")
       .select one sel_rel related by statement->ACT_SEL[R603]
+      .select one var related by sel_rel->V_VAR[R638]
       .assign load_ui = ""
-      .if (sel_rel.is_implicit == "TRUE")
-        .assign load_ui = "$cr{class.Name}_c         v_${sel_rel.Variable_Name}  = null ;\n"
+      .if (sel_rel.is_implicit == 1)
+        .assign load_ui = "$cr{class.Name}_c         v_${var.Name}  = null ;\n"
       .end if
-      .assign load_ui = load_ui + "int ${sel_rel.Variable_Name}InstCount;\n"
-      .assign load_ui = load_ui + "int ${sel_rel.Variable_Name}ResultCount = 0;\n"
-      .assign load_ui = load_ui + "for (${sel_rel.Variable_Name}InstCount = 0; ${sel_rel.Variable_Name}InstCount < v_${sel_rel.Variable_Name}Instances.length; ${sel_rel.Variable_Name}InstCount++) {\n"
-      .assign load_ui = load_ui + "  $cr{class.Name}_c selected = v_${sel_rel.Variable_Name}Instances[${sel_rel.Variable_Name}InstCount] ;\n"
+      .assign load_ui = load_ui + "int ${var.Name}InstCount;\n"
+      .assign load_ui = load_ui + "int ${var.Name}ResultCount = 0;\n"
+      .assign load_ui = load_ui + "for (${var.Name}InstCount = 0; ${var.Name}InstCount < v_${var.Name}Instances.length; ${var.Name}InstCount++) {\n"
+      .assign load_ui = load_ui + "  $cr{class.Name}_c selected = v_${var.Name}Instances[${var.Name}InstCount] ;\n"
       .select one sel_rel_where related by sel_rel->ACT_SRW[R664]
       .select one where_clause related by sel_rel_where->V_VAL[R611]
       .assign load_ui = load_ui + "  if (${where_clause.buffer})  {    ${field.Instance_Handle}ResultCount++;  }\n"
       .assign load_ui = load_ui + "}\n"
       .assign load_ui = load_ui + "this.$cr{field.Instance_Handle}Instances = new $cr{class.Name}_c[${field.Instance_Handle}ResultCount];\n"
       .assign load_ui = load_ui + "${field.Instance_Handle}ResultCount = 0;\n"
-      .assign load_ui = load_ui + "for (${sel_rel.Variable_Name}InstCount = 0; ${sel_rel.Variable_Name}InstCount < v_${sel_rel.Variable_Name}Instances.length; ${sel_rel.Variable_Name}InstCount++)\n"
+      .assign load_ui = load_ui + "for (${var.Name}InstCount = 0; ${var.Name}InstCount < v_${var.Name}Instances.length; ${var.Name}InstCount++)\n"
       .assign load_ui = load_ui + "{\n"
-      .assign load_ui = load_ui + "  $cr{class.Name}_c selected = v_${sel_rel.Variable_Name}Instances[${sel_rel.Variable_Name}InstCount] ;\n"
+      .assign load_ui = load_ui + "  $cr{class.Name}_c selected = v_${var.Name}Instances[${var.Name}InstCount] ;\n"
       .assign load_ui = load_ui + "  if (${where_clause.buffer})  {\n"
       .assign load_ui = load_ui + "    this.$cr{field.Instance_Handle}Instances[${field.Instance_Handle}ResultCount] = selected;\n"
       .assign load_ui = load_ui + "    ${field.Instance_Handle}ResultCount++;\n"

@@ -55,7 +55,7 @@ INSERT INTO T VALUES ( '${obj.Name}', '${obj.Key_Lett}', '${obj.Name}', '${domai
         .select one udt related by dt->S_UDT[R17]
         .if ( not_empty udt )
           .// represent user defined types as their core type
-          .select one dt related by udt->S_CDT[R18]->S_DT[R17]
+          .select one dt related by udt->S_DT[R18]
         .end if
         .select one next_attr related by attr->O_ATTR[R103.'succeeds']
         .invoke na_ip = attr_is_persistent(next_attr)

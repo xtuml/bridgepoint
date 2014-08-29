@@ -19,9 +19,9 @@
   <property name="plugins-home" value="${ant.home}/../.."/>
 
   <property environment="env" />
-  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\bin" />
+  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
   <property name="mcj_path" value="../MC-Java" />
-  <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\mc3020\bin" />
+  <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/mc3020/bin" />
 
   <property name="dispose_test.output" value="src/com/mentor/nucleus/bp/core/test/DisposeTestGenerics.java" />
 
@@ -35,7 +35,7 @@
 
   <target name="dispose_test" depends="dispose_test.depends" description="Generate the dispose test code" unless="dispose_test.buildNotNeeded">
     <echo>Generating ${dispose_test.output} ...</echo>
-      <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+      <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
       <arg line="-nopersist
         -import ${mcj_path}/ooa_schema.sql
@@ -64,7 +64,7 @@
   <target name="action_test" depends="action_test.depends" description="Generate the Context Menu Entry action function bodies" unless="action_test.buildNotNeeded">
     <echo>Generating ${action_test.output} ...</echo>
 
-      <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+      <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
       <arg line="-nopersist
         -import ${mcj_path}/ooa_schema.sql
@@ -92,11 +92,11 @@
   </target>
 
   <target name="delete_test" depends="delete_test.depends" description="Generate the delete test code" unless="delete_test.buildNotNeeded">
-    <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}\xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
       <arg line="xtumlmc_cleanse_for_BridgePoint models/com.mentor.nucleus.bp.core.test/DeleteTestModel sql/DeleteTestModel.sql ${subsystems_to_remove}" />
     </exec>
     <echo>Generating ${delete_test.output} ...</echo>
-      <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+      <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
       <arg line="-nopersist
         -import ${mcj_path}/ooa_schema.sql
@@ -120,11 +120,11 @@
   </target>
 
   <target name="formalize_test" depends="formalize_test.depends" description="Generate the Formalize test code" unless="formalize_test.buildNotNeeded">
-    <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}\xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
       <arg line="xtumlmc_cleanse_for_BridgePoint models/com.mentor.nucleus.bp.core.test/FormalizeUnformalizeTests sql/FormalizeUnformalizeTests.sql ${subsystems_to_remove}" />
     </exec>
     <echo>Generating ${formalize_test.output} ...</echo>
-      <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+      <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
       <arg line="-nopersist
         -import ${mcj_path}/ooa_schema.sql
@@ -164,7 +164,7 @@
           description="Generate the test matrix for copy paste"
           unless="copy_paste_tests.buildNotNeeded" >
     <echo >Generating ${copy_paste_tests.output} ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+  <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
       	<env key="GEN_FULL_TESTS" value=""/>
@@ -175,7 +175,7 @@
         -import ../com.mentor.nucleus.bp.ui.explorer/sql/UITree.pei.sql
         -arch arc/generate_test_matrix_for_copy_paste.arc" />
     </exec>
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
           <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
           <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
     	  <env key="GEN_FULL_TESTS" value="true"/>
@@ -215,7 +215,7 @@
 
   <property name="rto_move_test_location" value="src/com/mentor/nucleus/bp/core/test/rtomove" />
   <target name="rto_move_tests" depends="rto_move_tests.depends" unless="rto_move_tests.buildNotNeeded">
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
           <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
           <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
         	<env key="GEN_FULL_TESTS" value=""/>
@@ -242,7 +242,7 @@
 
   <target name="context_menu_tests" depends="context_menu_tests.depends" unless="context_menu_tests.buildNotNeeded">
     <delete file="____file.txt" />
-      <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+      <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
       <env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
       <arg line="-nopersist
         -import ${mcj_path}/ooa_schema.sql
@@ -392,7 +392,7 @@
   <property name="java.output" value="src/com/mentor/nucleus/bp/core/test/consistency/Consistency.java" />
   <property name="java.sql.dep" value="${sql.output}" />
   <property name="java.color.dep" value="Consistencytest_startspec.clr,Consistencytest_import_spec.clr,Consistencytest_package_spec.clr" />
-  <property name="java.tj.dep" value="ooa_schema.sql,${ooa_oal_pop.arc.depends},${java.arc.depends}" />
+  <property name="java.tj.dep" value="ooa_schema.sql,${java.arc.depends}" />
 
   <target name="sql.depends">
     <uptodate property="sql.buildNotNeeded" value="yes" srcfile="models/com.mentor.nucleus.bp.core.test/consistencyTest/${sql.input}" targetfile="sql/${sql.output}" />
@@ -400,7 +400,7 @@
 
   <target name="sql" depends="sql.depends" description="Generate the sql version of the Consistency test model" unless="sql.buildNotNeeded">
     <echo>Generating ${sql.output} ...</echo>
-    <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}\xtumlmc_build.exe" >
+    <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
       <arg line="xtumlmc_cleanse_for_BridgePoint models/com.mentor.nucleus.bp.core.test/${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
     </exec>
   </target>
@@ -440,6 +440,7 @@
       <property name="param2" value="ConsistencyTest" />
       <property name="param3" value="${mcj_path}" />
       <property name="mcc" value="true" />
+      <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
   </target>
 

@@ -5,6 +5,23 @@
 	<projects>
 	</projects>
 	<buildSpec>
+        <buildCommand>
+            <name>com.mentor.nucleus.bp.internal.tools.mc_java_export_builder</name>
+            <arguments>
+                <dictionary>
+                    <key>SourceProject</key>
+                    <value>com.mentor.nucleus.bp.core</value>
+                </dictionary>
+                <dictionary>
+                    <key>RootPackageName</key>
+                    <value>ooaofooa</value>
+                </dictionary>
+                <dictionary>
+                    <key>ParseOnly</key>
+                    <value>Functions</value>
+                </dictionary>
+            </arguments>
+        </buildCommand>
 		<buildCommand>
 			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
 			<arguments>

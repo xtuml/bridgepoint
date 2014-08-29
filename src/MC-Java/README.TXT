@@ -16,11 +16,14 @@ primarily to support plugin development for eclipse, how ever it also generates
 generic java code. The configuration can be done by setting different coloring 
 information.
 
-MC-Java does two pass parsing to translate a model into code. See section 
-�Translating model using MC-Java� for further details. 
-The first pass is to scan the action language, the result of this scan are than 
-loaded back into the generation database, the second pass then generates the 
-code from this database.
+Until completion of issue #35, MC-Java did a two pass parse to translate a model
+into code. This process relied on the action language parser built into the
+generator executable. This tool is implemented in C++ and maintenance is limited
+to critical defects only. For this reason, MC-Java now uses the fully supported
+BridgePoint Pre-Builder infrastructure which uses a single parse step before
+export.  See section �Translating model using MC-Java� for further details. The
+original second step parse archetypes are modified to use the output of the Pre-
+Builder directly to generate the action code.
 
 MC-Java Components
 ------------------
@@ -69,27 +72,20 @@ model_element.inc:
 			This file generates code for different classes to be used of event 
 			handling for an eclipse plugin.
 			
-ooa_oal_pop.arc:
-			This file uses the functions in fragment.inc to generate the 
-			SQL INSERT INTO statements used to populate the database for 
-			generating the final call. This file referenced in build.xml
-			
-fragment.inc:
-			See description of ooa_oal_pop.arc
-			
 pg_schema_gen.arc:
 			This archetype extracts the schema for a user model from a .gen 
 			database, which is output as an SQL file suitable for use in a 
 			subsequent gen_import for building an instance database.
 			
 schema_gen.arc:
-			Same as pg_schema.arc
+			This archetype transforms a user model into a SQL file suitable for
+            use in a subsequent gen_import for building an instance database.
 			
-reffering.inc:
+referring.inc:
 			This file generates code for association references made from a 
 			class (whose code is being generated) to the other.
 			
-reffered_to.inc:
+referred_to.inc:
 			This file generates code for association referring to the class 
 			(whose code is being generated) to the other.
 

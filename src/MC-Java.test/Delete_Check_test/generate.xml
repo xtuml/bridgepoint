@@ -63,7 +63,7 @@
 	<property name="java.sql.dep" value="${sql.output}" />
 	<property name="java.color.dep" value="deletecheck_startspec.clr,deletecheck_import_spec.clr,deletecheck_package_spec.clr" />
 
-	<property name="java.tj.dep" value="ooa_schema.sql,${ooa_oal_pop.arc.depends},${java.arc.depends}" />
+	<property name="java.tj.dep" value="ooa_schema.sql,${java.arc.depends}" />
 
 	<property name="java.output" value="src/deletecheck/DeleteCheck_c.java" />
 

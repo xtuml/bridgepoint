@@ -1,8 +1,8 @@
 .//====================================================================
 .//
 .// File:      $RCSfile: referring.inc,v $
-.// Version:   $Revision: 1.41 $
-.// Modified:  $Date: 2013/01/17 03:27:51 $
+.// Version:   $Revision: 1.41.26.1 $
+.// Modified:  $Date: 2013/07/19 12:26:00 $
 .//
 .// (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
 .//
@@ -153,7 +153,7 @@ public void relateAcrossR${gen_rel.Numb}To${func_suffix}(${tocn.body} target, bo
 .end if
 .invoke prop_delta_domain = notifies_changes(loc_obj, "O_OBJ")
 .invoke assocNotifiesChanges = notifies_changes(gen_rel, "R_REL")
-.if ( (package.is_eclipse_plugin and prop_delta_domain.result) and assocNotifiesChanges.result)
+.if ( ((package.is_eclipse_plugin) and (prop_delta_domain.result)) and (assocNotifiesChanges.result))
       .if ((persistent) and (crossComp))
         UmlProblem.handleDanglingReference(this, target);
       .end if 
@@ -227,7 +227,7 @@ public void unrelateAcrossR${gen_rel.Numb}From${func_suffix}(${tocn.body} target
 .end if
 .invoke prop_delta_domain = notifies_changes(loc_obj, "O_OBJ")
 .invoke assocNotifiesChanges = notifies_changes(gen_rel, "R_REL")
-.if ((package.is_eclipse_plugin AND prop_delta_domain.result) and assocNotifiesChanges.result)
+.if (((package.is_eclipse_plugin) AND (prop_delta_domain.result)) and (assocNotifiesChanges.result))
 	  .if ((persistent) and (crossComp))
         UmlProblem.removeXtUMLProblem(this, target);
       .end if
