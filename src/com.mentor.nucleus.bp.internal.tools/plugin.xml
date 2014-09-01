@@ -26,9 +26,9 @@ the License.
 <plugin
    id="com.mentor.nucleus.bp.internal.tools"
    name="BridgePoint Tools Plug-in"
-   version="1.0.5"
+   version="1.0.6"
    provider-name="Mentor Graphics"
-   class="com.mentor.nucleus.bp.internal.tools.ToolsPlugin">
+   class="com.mentor.nucleus.bp.internal.tools.mcjava.Activator">
 
    <runtime>
       <library name="tools.jar">
