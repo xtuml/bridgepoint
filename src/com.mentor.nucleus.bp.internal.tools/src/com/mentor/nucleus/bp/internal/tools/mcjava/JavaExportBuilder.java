@@ -31,6 +31,7 @@ import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
+import com.mentor.nucleus.bp.internal.tools.ToolsPlugin;
 import com.mentor.nucleus.bp.io.core.CoreExport;
 import com.mentor.nucleus.bp.io.mdl.ExportModelStream;
 import com.mentor.nucleus.bp.mc.AbstractActivator;
@@ -45,10 +46,10 @@ public class JavaExportBuilder extends AbstractExportBuilder {
 	private ByteArrayOutputStream m_outStream;
 	private List<NonRootModelElement> m_elements;
 	private List<SystemModel_c> m_exportedSystems;
-	private Map m_args;
+	private Map<String, String> m_args;
 
 	public JavaExportBuilder() {
-		super(Activator.getDefault(), null);
+		super(Activator.getDefault(), MCJavaNature.getDefault());
 		m_elements = new ArrayList<NonRootModelElement>();
 		m_exportedSystems = new ArrayList<SystemModel_c>();
 	}
@@ -78,7 +79,7 @@ public class JavaExportBuilder extends AbstractExportBuilder {
 		Exception exception = null;
 		String domName = "";
         if (m_args.containsKey("SourceProject")) {
-    		final String projName = (String)m_args.get("SourceProject");
+    		final String projName = m_args.get("SourceProject");
     		system = SystemModel_c.SystemModelInstance(Ooaofooa
     				.getDefaultInstance(), new ClassQueryInterface_c() {
     			public boolean evaluate(Object candidate) {
@@ -88,10 +89,10 @@ public class JavaExportBuilder extends AbstractExportBuilder {
 
         }
 		if (m_args.containsKey("RootPackageName")) {
-			domName = (String) m_args.get("RootPackageName");
-			String splitPoint = "";
+			domName = m_args.get("RootPackageName");
+			String[] splitPoints = new String[0];
 			if (m_args.containsKey("SplitAtPackage")) {
-				splitPoint = (String) m_args.get("SplitAtPackage");
+				splitPoints = m_args.get("SplitAtPackage").split(",");
 			}
 			List<String> exclude = new ArrayList<String>();
 			if (m_args.containsKey("ExcludePackages")) {
@@ -146,31 +147,35 @@ public class JavaExportBuilder extends AbstractExportBuilder {
 							.getElementsToParse(m_elements
 									.toArray(new NonRootModelElement[0]));
 					List<NonRootModelElement> etpsPass1 = new ArrayList<NonRootModelElement>();
-					List<NonRootModelElement> etpsPass2 = new ArrayList<NonRootModelElement>();
+					List<ArrayList<NonRootModelElement>> etpsSubsequentPasses = new ArrayList<ArrayList<NonRootModelElement>>();
 					for (NonRootModelElement etp : etps) {
 						if (etp instanceof Domain_c) {
 							if (((Domain_c) etp).getName().equals(domName)) {
-								boolean splitPointFound = false;
+								int splitPointsFound = 0;
 								Subsystem_c[] subsystems = Subsystem_c
 										.getManyS_SSsOnR1((Domain_c) etp);
 								for (Subsystem_c subsystem : subsystems) {
-									// Split point is effective even if packages are excluded 
-									if (subsystem.getName().equals(splitPoint)) {
-										splitPointFound = true;
+									// Split point is effective even if packages are excluded
+									for (String splitPoint: splitPoints) {
+									  if (subsystem.getName().equals(splitPoint)) {
+										splitPointsFound++;
+										etpsSubsequentPasses.add(new ArrayList<NonRootModelElement>());
+									  }
 									}
 									if (includeOnly.isEmpty() || includeOnly.contains(subsystem.getName())) {
 									  if (!exclude.contains(subsystem.getName())) {
-									    if (!splitPointFound) {
+									    if (splitPointsFound == 0) {
 										  etpsPass1.add(subsystem);
 									    } else {
-										  etpsPass2.add(subsystem);
+										  etpsSubsequentPasses.get(splitPointsFound-1).add(subsystem);
 									    }
 									  }
 									}
 								}
 								List<NonRootModelElement> funcDest = etpsPass1;
-								if (splitPointFound) {
-									funcDest = etpsPass2;
+								if (splitPointsFound != 0) {
+									// Functions are always found in the last pass
+									funcDest = etpsSubsequentPasses.get(splitPointsFound-1);
 								}
 								FunctionPackage_c[] fpks = FunctionPackage_c
 										.getManyS_FPKsOnR29((Domain_c) etp);
@@ -190,10 +195,11 @@ public class JavaExportBuilder extends AbstractExportBuilder {
 						}
 					}
 					String postFix = ".sql";
-					if (!etpsPass2.isEmpty()) {
+					if (!etpsSubsequentPasses.isEmpty()) {
 						postFix = "-1.sql";
 					}
 					// Pass1
+					int passNumber = 1;
 				    // Make sure the code generation folder exists
 					IProject proj = (IProject)system.getAdapter(org.eclipse.core.resources.IProject.class);
 					IFolder genFolder = proj.getFolder(AbstractActivator.GEN_FOLDER_NAME);
@@ -217,8 +223,9 @@ public class JavaExportBuilder extends AbstractExportBuilder {
 					fos = new FileOutputStream(m_outputFile, append);
 					fos.write(m_outStream.toByteArray());
 					fos.close();
-					// Pass2
-					if (!etpsPass2.isEmpty()) {
+					// Subsequent passes
+					for (ArrayList<NonRootModelElement>etpsSubsequentPass: etpsSubsequentPasses) {
+						passNumber++;
 						m_outStream = new ByteArrayOutputStream();
 						m_exporter = com.mentor.nucleus.bp.core.CorePlugin
 								.getStreamExportFactory()
@@ -233,14 +240,13 @@ public class JavaExportBuilder extends AbstractExportBuilder {
 							exporter.setExportOAL(CoreExport.YES);
 							exporter.setExportGraphics(CoreExport.NO);
 						}
-						m_outputFile = new File(destDir + domName + "-2.sql");
+						m_outputFile = new File(destDir + domName + "-" + passNumber + ".sql");
 						if (m_outputFile.exists() && !append) {
 							m_outputFile.delete();
 						}
-						exporter.parseAllForExport(etpsPass2
-								.toArray(new NonRootModelElement[etpsPass2
+						exporter.parseAllForExport(etpsSubsequentPass
+								.toArray(new NonRootModelElement[etpsSubsequentPass
 										.size()]), monitor);
-
 						m_exporter.run(monitor);
 						m_outputFile.createNewFile();
 						fos = new FileOutputStream(m_outputFile, append);
