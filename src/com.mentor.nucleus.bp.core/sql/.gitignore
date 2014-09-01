@@ -17,6 +17,5 @@ cme_menus.gen
 file_io_schema.sql
 file_io.sql
 ooaofooa_for_cme.sql
-ooaofooa-1.sql
-ooaofooa-2.sql
+ooaofooa-*.sql
 ooa_schema.sql

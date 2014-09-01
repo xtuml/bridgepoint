@@ -173,7 +173,7 @@
     <property name="param3" value="${mcj_path}" />
     <property name="param4" value="file_io_schema" />
     <property name="param5" value="" />
-    <property name="param6" value="Event" />
+    <property name="param6" value="Component" />
   	<property name="param7" value = "com.mentor.nucleus.bp.core"/>
     <property name="param8" value = "1"/>
     <property name="verify_selects" value="false" />
@@ -184,10 +184,34 @@
       <property name="param2" value="Ooaofooa" />
       <property name="param3" value="${mcj_path}" />
       <property name="param4" value="file_io_schema" />
-      <property name="param5" value="Event" />
-      <property name="param6" value="" />
+      <property name="param5" value="Component" />
+      <property name="param6" value="Event" />
       <property name="param7" value = "com.mentor.nucleus.bp.core"/>
       <property name="param8" value = "2"/>
+      <property name="verify_selects" value="false" />
+      <property name="mcjava.project.root" value="${basedir}"/>
+    </ant>
+    <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
+      <property name="param1" value="ooaofooa" />
+      <property name="param2" value="Ooaofooa" />
+      <property name="param3" value="${mcj_path}" />
+      <property name="param4" value="file_io_schema" />
+      <property name="param5" value="Event" />
+      <property name="param6" value="Subsystem" />
+      <property name="param7" value = "com.mentor.nucleus.bp.core"/>
+      <property name="param8" value = "3"/>
+      <property name="verify_selects" value="false" />
+      <property name="mcjava.project.root" value="${basedir}"/>
+    </ant>
+    <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
+      <property name="param1" value="ooaofooa" />
+      <property name="param2" value="Ooaofooa" />
+      <property name="param3" value="${mcj_path}" />
+      <property name="param4" value="file_io_schema" />
+      <property name="param5" value="Subsystem" />
+      <property name="param6" value="" />
+      <property name="param7" value = "com.mentor.nucleus.bp.core"/>
+      <property name="param8" value = "4"/>
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
@@ -251,7 +275,7 @@
         <env key="GEN_CONTEXT_MENU_WIZARD" value="TRUE"/>
     <arg line="-nopersist
       -import ${mcj_path}/ooa_schema.sql
-      -d 0 -import sql/ooaofooa-2.sql
+      -d 0 -import sql/ooaofooa-4.sql
       -arch ${mcj_path}/verify_selects.arc
       -import sql/${cme_schema.output}
       -import sql/${cme_actions.input}
