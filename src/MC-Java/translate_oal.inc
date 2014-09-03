@@ -95,7 +95,7 @@
   .invoke gen_create_instance_statements(main_class_name, output_change_messages)
   .print "************** generate deletes                     *****************"
   .invoke gen_delete_instance_statements(main_class_name, output_change_messages)
-  .print "************* generate event creates               *****************"
+  .print "************** generate event creates               *****************"
   .invoke gen_create_event_instance_statements()
   .print "************* generate relates                     *****************"
   .invoke gen_relate_statements()
