@@ -630,15 +630,15 @@
     description="Remove the generated file: ${sql.output}">
     <echo>Removing generated sql file: ${sql.output} ...</echo>
     <delete file="sql/${sql.output}" />
-    <echo>Removing generated sql file: ${sql-1.output} ...</echo>
-    <delete file="sql/${sql-1.output}" />
-    <echo>Removing generated sql file: ${sql-2.output} ...</echo>
-    <delete file="sql/${sql-2.output}" />
+    <echo>Removing generated sql files: ooaofooa-1.sql (et al.) ...</echo>
+    <delete failonerror="false">
+       <fileset dir="sql" includes="ooaofooa-*.sql"/>
+    </delete>
     <echo>Removing generated sql file: ${cme_sql.output} ...</echo>
     <delete file="${cme_sql.output}"/>
-        <delete failonerror="false">
-          <fileset dir="gen/code_generation" includes="ooaofooa*.sql"/>
-        </delete>
+    <delete failonerror="false">
+       <fileset dir="gen/code_generation" includes="ooaofooa*.sql"/>
+    </delete>
   </target>
 
   <target name="clean_cme"
