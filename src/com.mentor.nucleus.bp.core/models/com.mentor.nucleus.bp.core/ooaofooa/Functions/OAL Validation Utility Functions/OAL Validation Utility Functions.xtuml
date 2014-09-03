@@ -4204,7 +4204,7 @@ select one ges related by ess->E_GES[R701];
       if ( ess.PEIndicated )
         // non-polymorphic event with *
         stmt.dispose();
-        ERR::reportParseError( msg: "Event is not a polymorphic event. Event label must not contain ''*''",
+        ERR::reportParseError( msg: "Event is not a polymorphic event. Event label must not contain ''*''.",
                token: param.a3_rule_token );
       else
         edi_ok = ::is_valid_sm_event_data( a1_stmt_id: param.a1_stmt_id, a2_sm_id: evt_sm.SM_ID,
@@ -4303,7 +4303,7 @@ select one ges related by ess->E_GES[R701];
           if ( ess.PEIndicated )
             // non-polymorphic event with *
             stmt.dispose();
-            ERR::reportParseError( msg: "Event is not a polymorphic event. Event label must not contain ''*''",
+            ERR::reportParseError( msg: "Event is not a polymorphic event. Event label must not contain ''*''.",
                token: param.a3_rule_token );
           else
             edi_ok = ::is_valid_sm_event_data( a1_stmt_id: param.a1_stmt_id, a2_sm_id: evt_sm.SM_ID,
@@ -4430,7 +4430,7 @@ else
       if ( empty pevt )
         // non-polymorphic event with *
         stmt.dispose();
-        ERR::reportParseError( msg: "Event is not a polymorphic event. Event label must not contain ''*''",
+        ERR::reportParseError( msg: "Event is not a polymorphic event. Event label must not contain ''*''.",
              token: param.a3_rule_token );
       end if;
     end if;
@@ -4533,7 +4533,7 @@ select one ges related by ess->E_GES[R701];
         if ( ess.PEIndicated )
           // non-polymorphic event with *
           stmt.dispose();
-          ERR::reportParseError( msg: "Event is not a polymorphic event. Event label must not contain ''*''",
+          ERR::reportParseError( msg: "Event is not a polymorphic event. Event label must not contain ''*''.",
                token: param.a3_rule_token );
        else
          edi_ok = ::is_valid_ee_event_data( a1_stmt_id: param.a1_stmt_id, a2_ee_id: ee.EE_ID,
