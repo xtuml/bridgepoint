@@ -173,7 +173,7 @@
     <property name="param3" value="${mcj_path}" />
     <property name="param4" value="file_io_schema" />
     <property name="param5" value="" />
-    <property name="param6" value="Component" />
+    <property name="param6" value="Constants" />
   	<property name="param7" value = "com.mentor.nucleus.bp.core"/>
     <property name="param8" value = "1"/>
     <property name="verify_selects" value="false" />
@@ -184,8 +184,8 @@
       <property name="param2" value="Ooaofooa" />
       <property name="param3" value="${mcj_path}" />
       <property name="param4" value="file_io_schema" />
-      <property name="param5" value="Component" />
-      <property name="param6" value="Event" />
+      <property name="param5" value="Constants" />
+      <property name="param6" value="Invocation" />
       <property name="param7" value = "com.mentor.nucleus.bp.core"/>
       <property name="param8" value = "2"/>
       <property name="verify_selects" value="false" />
@@ -196,8 +196,8 @@
       <property name="param2" value="Ooaofooa" />
       <property name="param3" value="${mcj_path}" />
       <property name="param4" value="file_io_schema" />
-      <property name="param5" value="Event" />
-      <property name="param6" value="Subsystem" />
+      <property name="param5" value="Invocation" />
+      <property name="param6" value="Use Case" />
       <property name="param7" value = "com.mentor.nucleus.bp.core"/>
       <property name="param8" value = "3"/>
       <property name="verify_selects" value="false" />
@@ -208,7 +208,7 @@
       <property name="param2" value="Ooaofooa" />
       <property name="param3" value="${mcj_path}" />
       <property name="param4" value="file_io_schema" />
-      <property name="param5" value="Subsystem" />
+      <property name="param5" value="Use Case" />
       <property name="param6" value="" />
       <property name="param7" value = "com.mentor.nucleus.bp.core"/>
       <property name="param8" value = "4"/>
