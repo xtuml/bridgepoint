@@ -14,7 +14,7 @@
 				</dictionary>
 				<dictionary>
 					<key>SplitAtPackage</key>
-					<value>Component,Event,Subsystem</value>
+					<value>Constants,Invocation,Use Case</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>
