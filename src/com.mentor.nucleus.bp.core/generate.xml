@@ -167,7 +167,6 @@
           depends="java.depends"
           unless="java.buildNotNeeded" >
     <echo >Generating java files ...</echo>
-  	<parallel>
   <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
     <property name="param1" value="ooaofooa" />
     <property name="param2" value="Ooaofooa" />
@@ -192,8 +191,6 @@
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
-  	</parallel>
-  	<parallel>
     <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
       <property name="param1" value="ooaofooa" />
       <property name="param2" value="Ooaofooa" />
@@ -218,7 +215,6 @@
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
-  	</parallel>
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
   <touch file="${java.output}" />
