@@ -485,8 +485,7 @@ INSERT INTO EO VALUES ( '15.1.3.1',    '',           '15.1.3.2',    'Instance Ha
 INSERT INTO EO VALUES ( '15.1.3.2',    '',           '15.1.3.3',    'Instance Set', 814, 'one', 'first', false, false, '', false, true );
 INSERT INTO EO VALUES ( '15.1.3.3',    '15.1.3.3.1', '15.1.3.4',    'Transient Var', 814, 'one', 'first', false, false, '', false, true );
 INSERT INTO EO VALUES ( '15.1.3.3.1',  '',           '',            'Dimensions', 844, 'many', 'first');
-INSERT INTO EO VALUES ( '15.1.3.4',    '',           '15.1.3.5',    'Variable Location', 835, 'many', 'first', false, false, '', false, true );
-INSERT INTO EO VALUES ( '15.1.3.5',    '',           '',            'Dimensions', 849, 'many', 'first');
+INSERT INTO EO VALUES ( '15.1.3.4',    '',           '',            'Dimensions', 849, 'many', 'first');
 
 -- Define alternate children
 
