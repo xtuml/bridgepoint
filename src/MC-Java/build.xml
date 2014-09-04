@@ -27,9 +27,9 @@
   	      param8 = pass count
   	-->
   	<echo>Building from: gen/code_generation/${param1}-${param8}.sql</echo>
-  	<copy file="gen/code_generation/${param1}-${param8}.sql" tofile="gen/code_generation/${param1}.xtuml"/>
+  	<copy file="gen/code_generation/${param1}-${param8}.sql" tofile="gen/code_generation/${param1}-${param8}.xtuml"/>
   	<exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
-  	      <arg line="xtumlmc_cleanse_for_BridgePoint ${mcjava.project.root}/gen/code_generation sql/${param1}-${param8}.sql" />
+  	      <arg line="xtumlmc_cleanse_for_BridgePoint ${mcjava.project.root}/gen/code_generation/${param1}-${param8}.xtuml sql/${param1}-${param8}.sql" />
   	</exec>
   	<exec vmlauncher="false" failonerror="true" executable="perl" >
 		    <env key="PTC_MC_ARC_DIR" value="../../../${param3}" />
@@ -47,7 +47,7 @@
 				-arch ../../../${param3}/verify_selects.arc
 				-arch ../../../${param3}/java.arc" />
 		</exec>
-        <delete file="gen/code_generation/${param1}.xtuml" />
+        <delete file="gen/code_generation/${param1}-${param8}.xtuml" />
    </target>
 
    <target name="generate.java" description="Generate Java code for domain">
