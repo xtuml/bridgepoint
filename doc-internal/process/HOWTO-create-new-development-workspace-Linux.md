@@ -31,7 +31,7 @@ _- Select the option to clone and add to view:
   _- Select Next
   _- Select all the branches
   _- Select Next
-  _- For the Local Destination select your github/repos folder (e.g. ~/git).
+  _- For the Local Destination select your github/repos folder (e.g. ~/git, which these instructions will use).
      NOTE: DO NOT SELECT YOUR WORKSPACE!  This is the local repository location.
   _- Select Finish.
 
@@ -59,17 +59,15 @@ _- Using the procedure from above, also clone these repositories:
      into your workspace or not.  You are not required to do so.
 	 
 _- Configure the tool using the files cloned from the repositories above:
-  _- Copy <git repo>/internal/doc-internal/process/templates/checklists/development-workspace-setup/BridgePointDev-Linux into ~/util
+  _- Copy ~/git/internal/doc-internal/process/templates/checklists/development-workspace-setup/BridgePointDev-Linux into ~/util
     _- Open ~/util/BridgePointDev-Linux/bin/xtumlmc_gen_erate in a text editor.  Update the home dir and version to match your installation.
-  _- Copy <git repo>/internal/doc-internal/process/templates/checklists/development-workspace-setup/dropins/* into ~/MentorGraphics/BridgePoint/eclipse/dropins
-  ##### TODO - I also had to update the internal.tools plugin to Campbell's latest with new java pre-builder
-  ##### and modify the plugin.xml to change the activator class???
+  _- Copy ~/git/internal/doc-internal/process/templates/checklists/development-workspace-setup/dropins/* into ~/MentorGraphics/BridgePoint/eclipse/dropins
   
 _- Update eclipse preferences to common and required settings:
   _- Open the Navigator view
     _- Right-click in white space
     _- Import... > General > Preferences
-    _- Select <git repo>/internal/doc-internal/process/templates/checklists/development-workspace-setup/EclipsePreferences.epf
+    _- Select ~/git/internal/doc-internal/process/templates/checklists/development-workspace-setup/EclipsePreferences.epf
     _- Assure that "Import all" is selected
     _- Select Finish
 	
@@ -77,7 +75,7 @@ _- Install required add-ons:
   _- Open the Navigator view
   _- Right-click in white space
   _- Import... > Install > Install Software Items from File
-  _- Select <git>/internal/doc-internal/process/templates/checklists/development-workspace-setup/xtUML_dev_eclipse_addons.p2f
+  _- Select ~/git/internal/doc-internal/process/templates/checklists/development-workspace-setup/xtUML_dev_eclipse_addons.p2f
   _- Select Finish
   _R Files are installed and you are prompted to restart. Do NOT restart
     
@@ -93,9 +91,9 @@ _- Modify Launcher.sh with required development settings:
       export PT_HOME=/home/<your username>/util/BridgePointDev-Linux
       export PT_HOME_DRIVE=
       export XTUMLMC_HOME=$BPHOMEDIR/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.mc.c.binary_$BP_VERSION/
-      export XTUML_TEST_MODEL_REPOSITORY=<git repo>/models/test/
-      export XTUML_PRIVATE_MODEL_REPOSITORY=<git repo>/modelsmg/test/
-      export XTUML_DEVELOPMENT_REPOSITORY=<git repo>/internal
+      export XTUML_TEST_MODEL_REPOSITORY=~/git/models/test/
+      export XTUML_PRIVATE_MODEL_REPOSITORY=~/git/modelsmg/test/
+      export XTUML_DEVELOPMENT_REPOSITORY=~/git/internal
 
 _- Start BridgePoint
 	  
@@ -109,11 +107,11 @@ _R The build is successful
 _- Setup development environment to run MC3020 under a launch configuration
   _- Open a file explorer and navigate to the BridgePoint plug-in 
      installation folder.  The default is:
-     ~/MentorGraphics/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.mc.c.binary_< ver >/mc3020
+     ~/MentorGraphics/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.mc.c.binary_"ver"/mc3020
   _- Select all files and folders in the above folder
   _- Select Copy
   _- Open the Model Explorer view in Eclipse and navigate to:
-       < workspace >/com.mentor.nucleus.bp.mc.c.binary/mc3020
+       ~/git/xtuml/internal/src/com.mentor.nucleus.bp.mc.c.binary/mc3020
   _- Paste the previous selection into this folder
 
 _- Set the unit test history to assure the test summary tool capture all results
