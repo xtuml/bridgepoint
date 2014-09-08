@@ -421,6 +421,8 @@
 	<target name="generate_supertype_subtype_util.depends" depends="sql" >
 	    <uptodate property="supertype_subtype_util.buildNotNeeded" targetfile="${gssu.output}">
 	       <srcfiles dir = "arc" includes = "generate_supertype_subtype_util.arc" />
+	    	 <srcfiles dir = "sql" includes = "ooaofooa.sql" />
+         <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql" />
 	    </uptodate>
 	</target>
 
@@ -433,6 +435,9 @@
 	      	-import sql/ooaofooa.sql
 	      	-arch arc/generate_supertype_subtype_util.arc" />
 		</exec>	    	
+    <!-- touch the output file in case generator believes there
+         are no changes -->
+    <touch file="${gssu.output}"/>
 	</target>
 
 	<property name="grtou.output" value="src/com/mentor/nucleus/bp/core/util/RTOUtil.java" />
@@ -440,6 +445,8 @@
 	<target name="generate_rto_util.depends" >
 	    <uptodate property="rto_util.buildNotNeeded" targetfile="${grtou.output}">
 	       <srcfiles dir = "arc" includes = "generate_rto_util.arc" />
+	    	 <srcfiles dir = "sql" includes = "ooaofooa.sql" />
+	       <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql" />
 	    </uptodate>
 	</target>
 
@@ -462,6 +469,8 @@
 	<target name="action_language_description_util.depends" depends="sql" >
 	    <uptodate property="action_language_description_util.buildNotNeeded" targetfile="${ald.output}">
 	       <srcfiles dir = "arc" includes = "action_language_description_util.arc" />
+	    	 <srcfiles dir = "sql" includes = "ooaofooa.sql" />
+	    	 <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql" />
 	    </uptodate>
 	</target>
 
@@ -474,6 +483,9 @@
 	      	-import sql/ooaofooa.sql
 	      	-arch arc/action_language_description_util.arc" />
 		</exec>	    	
+    <!-- touch the output file in case generator believes there
+         are no changes -->
+    <touch file="${ald.output}"/>
 	</target>
 	    	
 	<property name="gu.output" value="src/com/mentor/nucleus/bp/core/util/GlobalsUtil.java" />

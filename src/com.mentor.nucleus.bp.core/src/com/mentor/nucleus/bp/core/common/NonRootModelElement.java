@@ -26,8 +26,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -262,7 +262,11 @@ public abstract class NonRootModelElement extends ModelElement implements IAdapt
 			IPersistenceHierarchyMetaData metaData = PersistenceManager
 					.getHierarchyMetaData();
 			boolean hasExternalRefs = metaData.hasExternalRGO(this);
-			if(hasExternalRefs) {
+			// During merge we do not convert elements, they are moved
+			// as is from one side to the other.  During a merge undo we
+			// can hit a case where RTOs are removed before the RGO, causing
+			// the check for external references to be true.
+			if(hasExternalRefs && !getModelRoot().isCompareRoot()) {
 				convertToProxy();
 			} else {
 				delete_unchecked();

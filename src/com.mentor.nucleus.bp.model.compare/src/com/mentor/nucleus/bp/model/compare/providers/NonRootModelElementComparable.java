@@ -154,4 +154,5 @@ public class NonRootModelElementComparable extends ComparableTreeObject implemen
 		}
 		return null;
 	}
+	
 }

@@ -21,6 +21,7 @@ public class CompareTransactionManager implements ITransactionListener {
 		// cause a dead lock
 		manager.getUndoAction();
 		manager.getRedoAction();
+		manager.disableDialog = true; // we do not want confirmation for merge
 		TransactionManager.getSingleton().addTransactionListener(this);
 	}
 	

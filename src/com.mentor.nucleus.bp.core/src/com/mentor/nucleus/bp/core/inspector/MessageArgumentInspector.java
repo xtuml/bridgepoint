@@ -129,10 +129,10 @@ public class MessageArgumentInspector extends BaseModelClassInspector {
   */
   public ObjectElement[] getAttributes(Object arg) {
     ObjectElement attrSet[] = new ObjectElement[8];
-      attrSet[0] = new ObjectElement("Value", ObjectElement.ATTRIBUTE_ELEMENT,  invokeMethod(arg, "getValue"), arg, "getValue", true);
-      attrSet[1] = new ObjectElement("InformalName", ObjectElement.ATTRIBUTE_ELEMENT,  invokeMethod(arg, "getInformalname"), arg, "getInformalname", true);
-      attrSet[2] = new ObjectElement("Descrip", ObjectElement.ATTRIBUTE_ELEMENT,  invokeMethod(arg, "getDescrip"), arg, "getDescrip", true);
-      attrSet[3] = new ObjectElement("isFormal", ObjectElement.ATTRIBUTE_ELEMENT,  invokeMethod(arg, "getIsformal"), arg, "getIsformal", false);
+      attrSet[0] = new ObjectElement("Value", ObjectElement.ATTRIBUTE_ELEMENT,  ((MessageArgument_c) arg).getValue(), arg, "getValue", true);
+      attrSet[1] = new ObjectElement("InformalName", ObjectElement.ATTRIBUTE_ELEMENT,  ((MessageArgument_c) arg).getInformalname(), arg, "getInformalname", true);
+      attrSet[2] = new ObjectElement("Descrip", ObjectElement.ATTRIBUTE_ELEMENT,  ((MessageArgument_c) arg).getDescrip(), arg, "getDescrip", true);
+      attrSet[3] = new ObjectElement("isFormal", ObjectElement.ATTRIBUTE_ELEMENT,  ((MessageArgument_c) arg).getIsformal(), arg, "getIsformal", false);
     ObjectElement compAttrSet[] = new ObjectElement[4];    
     for (int i = 0; i < 4 ; i++) {
         compAttrSet[i] = attrSet[i];

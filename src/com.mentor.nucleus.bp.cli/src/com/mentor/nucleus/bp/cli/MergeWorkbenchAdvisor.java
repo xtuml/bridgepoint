@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.compare.structuremergeviewer.Differencer;
@@ -34,6 +35,7 @@ import com.mentor.nucleus.bp.model.compare.CompareTransactionManager;
 import com.mentor.nucleus.bp.model.compare.ModelMergeProcessor;
 import com.mentor.nucleus.bp.model.compare.TreeDifference;
 import com.mentor.nucleus.bp.model.compare.TreeDifferencer;
+import com.mentor.nucleus.bp.model.compare.contentmergeviewer.ModelContentMergeViewer;
 import com.mentor.nucleus.bp.model.compare.providers.ModelCompareContentProvider;
 import com.mentor.nucleus.bp.model.compare.providers.ModelCompareLabelProvider;
 import com.mentor.nucleus.bp.ui.canvas.CanvasModelListener;
@@ -172,20 +174,22 @@ public class MergeWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 					break;
 				}
 			}
+			List<TreeDifference> mergeDifferences = new ArrayList<TreeDifference>();
+			ModelContentMergeViewer
+					.removeContainerDifferences(differences, mergeDifferences);
 			if (foundConflict) {
 				System.out.println("Conflicting changes were found, aborting the merge.");
 				return 1;
 			} else {
 				CompareTransactionManager manager = new CompareTransactionManager();
 				Transaction transaction = manager.startCompareTransaction();
-				for (TreeDifference difference : differences) {
+				for (TreeDifference difference : mergeDifferences) {
 					if((difference.getKind() & Differencer.DIRECTION_MASK) == Differencer.RIGHT) {
 						ModelMergeProcessor.merge(differencer, difference, true,
 								contentProvider, labelProvider, leftCompareRoot);
 					}
 				}
 				manager.endTransaction(transaction);
-				CoreExport.forceProxyExport = true;
 				CoreExport.ignoreMissingPMCErrors = true;
 				IRunnableWithProgress exporter = CorePlugin.getModelExportFactory().create(outputFile, leftRoot);
 				exporter.run(new NullProgressMonitor());
