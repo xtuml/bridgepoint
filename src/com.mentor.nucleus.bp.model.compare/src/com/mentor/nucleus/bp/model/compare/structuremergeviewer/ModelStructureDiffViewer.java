@@ -120,8 +120,11 @@ public class ModelStructureDiffViewer extends TreeViewer implements ICompareInpu
 				
 				@Override
 				public void run() {
+					if(getTree().isDisposed()) {
+						return;
+					}
 					refresh();
-					if(getTree().getItems().length == 0) {
+					if(getTree().isDisposed() || getTree().getItems().length == 0) {
 						return;
 					}
 					TreeItem topItem = getTree().getItem(0);

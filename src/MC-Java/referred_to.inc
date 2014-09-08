@@ -50,25 +50,34 @@ ${tocn.body} ${backPointerName};
   .else
 ArrayList<${tocn.body}> ${backPointerName} = new ArrayList<${tocn.body}>();
   .end if
-
-.if(gen_rel.Numb != 2968)
+.assign generateOrderingMethod = gen_rel.Numb != 2698
+.assign generateOrderingMethod = (generateOrderingMethod and (not target_is_one))
+.assign generateOrderingMethod = (generateOrderingMethod and (not is_refl.result))
+.assign generateOrderingMethod = (generateOrderingMethod and (empty assoc_rel))
+.if(generateOrderingMethod)
 public void set$Cr{tar_obj.Name}OrderInChildListR${gen_rel.Numb}(${tocn.body} target, int index) {
-	unrelateAcrossR${gen_rel.Numb}From${tar_phrase}(target);
 	${tocn.body}[] elements = ${tocn.body}.getMany${tar_obj.Key_Lett}sOnR${gen_rel.Numb}${tar_phrase}(this);
-	int count = 0;
-	for(int i = 0; i < elements.length; i++) {
-		if(count >= index) {
-			unrelateAcrossR${gen_rel.Numb}From${tar_phrase}((${tocn.body}) elements[i]); 
-		}
-		count++;
+	// unrelate backwards to support undo/redo
+	for(int i = elements.length - 1; i >= 0; i--) {
+	   unrelateAcrossR${gen_rel.Numb}From${tar_phrase}((${tocn.body}) elements[i]); 
 	}
-	relateAcrossR${gen_rel.Numb}To${tar_phrase}(target);
-	count = 0;
 	for(int i = 0; i < elements.length; i++) {
-		if(count >= index) {
-			relateAcrossR${gen_rel.Numb}To${tar_phrase}((${tocn.body}) elements[i]);
+	   ${tocn.body} element = (${tocn.body}) elements[i];
+	   // for all cases if the index matches and we
+	   // are not at the end of the list, relate the
+	   // element to be moved
+	   if(i == index && elements.length - 1 != index) {
+	       relateAcrossR${gen_rel.Numb}To${tar_phrase}(target);
+	   }
+		if(element != target) {
+			relateAcrossR${gen_rel.Numb}To${tar_phrase}(element);
 		}
-		count++;
+		// for the end case we need to have the last element in
+		// the list at the same location as us associated before
+		// us, after that we can relate the element to be moved
+		if(i == index && elements.length - 1 == index) {
+		    relateAcrossR${gen_rel.Numb}To${tar_phrase}(target);
+		}
 	}
 }
 .end if

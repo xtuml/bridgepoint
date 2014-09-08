@@ -1740,6 +1740,11 @@ private static ${class_name} find$cr{object.Name}Instance(ModelRoot modelRoot, $
                     .assign id_attr_accessor = result.id_attr_accessor
     if ( ${ref_var_name} != null )
     {
+      if(getModelRoot().isCompareRoot()) {
+          if(${ref_var_name}.isProxy()) {
+              return $r{aa.body}CachedValue();
+          }
+      }
       return ${ref_var_name}.${id_attr_accessor}();
     }
                   .end for

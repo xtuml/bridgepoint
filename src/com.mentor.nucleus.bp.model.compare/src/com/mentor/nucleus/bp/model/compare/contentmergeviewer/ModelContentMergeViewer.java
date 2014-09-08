@@ -123,7 +123,6 @@ import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.Transaction;
 import com.mentor.nucleus.bp.core.common.TransactionManager;
 import com.mentor.nucleus.bp.core.ui.AbstractModelExportFactory;
-import com.mentor.nucleus.bp.io.core.CoreExport;
 import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 import com.mentor.nucleus.bp.model.compare.ComparePlugin;
 import com.mentor.nucleus.bp.model.compare.CompareTransactionManager;
@@ -175,6 +174,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 	private static final String OUTGOING_COLOR = "OUTGOING_COLOR"; //$NON-NLS-1$
 	private static final String CONFLICTING_COLOR = "CONFLICTING_COLOR"; //$NON-NLS-1$
 	private static final String RESOLVED_COLOR = "RESOLVED_COLOR"; //$NON-NLS-1$
+	private static final String CONTAINED_COLOR = "CONTAINED_COLOR"; //$NON-NLS-1$
 	private RGB INCOMING_BASE;
 	private RGB INCOMING;
 	private RGB CONFLICT_BASE;
@@ -182,6 +182,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 	private RGB OUTGOING_BASE;
 	private RGB OUTGOING;
 	private RGB RESOLVED;
+	private RGB CONTAINED;
 	private HashMap<RGB, Color> colors;
 	private Action undo;
 	private Action redo;
@@ -195,6 +196,11 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 	private List<ModelMergeViewer> rightExtensions = new ArrayList<ModelMergeViewer>();
 	private Map<NonRootModelElement, ICompareInput> savedModels = new HashMap<NonRootModelElement, ICompareInput>();
 	private Map<NonRootModelElement, ICompareInput> visitedModels = new HashMap<NonRootModelElement, ICompareInput>();
+	// This field will enable graphical data, and in the future maybe other
+	// data, when set to true.  This is helpful currently when looking into
+	// graphical related changes as they are used during merge but not shown
+	// in the tree
+	public boolean debug = false;
 	
 	public ModelContentMergeViewer(Composite parent,
 			CompareConfiguration configuration) {
@@ -340,9 +346,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 						.getModelExportFactory();
 				IRunnableWithProgress runnable = modelExportFactory.create(
 						root, baos, rootElement);
-				CoreExport.forceProxyExport = true;
 				runnable.run(new NullProgressMonitor());
-				CoreExport.forceProxyExport = false;
 				((IEditableContent) destination).setContent(baos.toByteArray());
 				if (destination instanceof LocalResourceTypedElement) {
 					((IFile) ((LocalResourceTypedElement) destination)
@@ -842,6 +846,10 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				}
 			}
 		}
+		List<TreeDifference> mergeDifferences = new ArrayList<TreeDifference>();
+		// remove any contained differences and if the
+		// container difference is not selected add it
+		removeContainerDifferences(differences, mergeDifferences);
 		Transaction transaction = compareTransactionManager
 				.startCompareTransaction();
 		try {
@@ -854,7 +862,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			// when using the copy all action
 			List<TreeDifference> additionsOrRemovals = new ArrayList<TreeDifference>();
 			List<TreeDifference> remainder = new ArrayList<TreeDifference>();
-			for (TreeDifference difference : differences) {
+			for (TreeDifference difference : mergeDifferences) {
 				if (difference.getElement() != null
 						&& difference.getMatchingDifference().getElement() != null) {
 					remainder.add(difference);
@@ -862,12 +870,12 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 					additionsOrRemovals.add(difference);
 				}
 			}
-			differences.clear();
-			differences.addAll(additionsOrRemovals);
-			differences.addAll(remainder);
-			for (TreeDifference difference : differences) {
+			mergeDifferences.clear();
+			mergeDifferences.addAll(additionsOrRemovals);
+			mergeDifferences.addAll(remainder);
+			for (TreeDifference difference : mergeDifferences) {
 				// skip graphical data at this point
-				if(SynchronizedTreeViewer.differenceIsGraphical(difference)) {
+				if(SynchronizedTreeViewer.differenceIsGraphical(difference) && !debug) {
 					continue;
 				}
 				if((difference.getKind() & Differencer.DIRECTION_MASK) == Differencer.CONFLICTING && !copySelection) {
@@ -974,7 +982,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				| SWT.MULTI | SWT.FULL_SELECTION | SWT.DOUBLE_BUFFERED
 				| SWT.NO_BACKGROUND | SWT.BORDER, this, configuration.isLeftEditable(), false);
 		ModelCompareContentProvider leftContentProvider = new ModelCompareContentProvider();
-		leftContentProvider.setIncludeNonTreeData(false);
+		leftContentProvider.setIncludeNonTreeData(debug);
 		leftTreeViewer.setContentProvider(leftContentProvider);
 		leftTreeViewer.setUseHashlookup(true);
 		leftTreeViewer.setLabelProvider(new ModelCompareLabelProvider());
@@ -1013,7 +1021,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		rightTreeViewer.setUseHashlookup(true);
 		leftTreeViewer.addSynchronizationViewer(rightTreeViewer);
 		ModelCompareContentProvider rightProvider = new ModelCompareContentProvider();
-		rightProvider.setIncludeNonTreeData(false);
+		rightProvider.setIncludeNonTreeData(debug);
 		rightTreeViewer.setContentProvider(rightProvider);
 		rightTreeViewer.setLabelProvider(new ModelCompareLabelProvider());
 		rightItem.setControl(rightPanel);
@@ -1035,7 +1043,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 				false, true);
 		ancestorTreeViewer.setUseHashlookup(true);
 		ModelCompareContentProvider ancestorProvider = new ModelCompareContentProvider();
-		ancestorProvider.setIncludeNonTreeData(false);
+		ancestorProvider.setIncludeNonTreeData(debug);
 		ancestorTreeViewer.setContentProvider(ancestorProvider);
 		ancestorTreeViewer.setLabelProvider(new ModelCompareLabelProvider());
 		leftTreeViewer.addSynchronizationViewer(ancestorTreeViewer);
@@ -1137,7 +1145,7 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		gc.setAntialias(SWT.ON);
 		List<TreeDifference> differences = differencer.getLeftDifferences();
 		for (TreeDifference difference : differences) {
-			if(SynchronizedTreeViewer.differenceIsGraphical(difference)) {
+			if(SynchronizedTreeViewer.differenceIsGraphical(difference) && !debug) {
 				// currently do not include graphical data
 				continue;
 			}
@@ -1382,9 +1390,11 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			// also exclude any additions or removals where the
 			// semantical model does not match
 			int diffKind = difference.getKind() & Differencer.DIRECTION_MASK;
-			if ((left && diffKind == Differencer.RIGHT)
-					|| (!left && diffKind == Differencer.LEFT)
-					|| diffKind == Differencer.CONFLICTING) {
+			if (((left && diffKind == Differencer.RIGHT)
+					|| (!left && diffKind == Differencer.LEFT) || diffKind == Differencer.CONFLICTING
+					&& differencer.isThreeWay())
+					|| ((difference.getKind() == Differencer.ADDITION) || (difference
+							.getKind() == Differencer.DELETION))) {
 				if (SynchronizedTreeViewer.differenceIsGraphical(difference)) {
 					boolean add = true;
 					if ((difference.getElement() == null || difference
@@ -1781,8 +1791,14 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		CONFLICT = interpolate(CONFLICT_BASE, bg, 0.6);
 
 		RESOLVED = registry.getRGB(RESOLVED_COLOR);
-		if (RESOLVED == null)
+		if (RESOLVED == null) {
 			RESOLVED = new RGB(0, 255, 0); // GREEN
+		}
+		
+		CONTAINED = registry.getRGB(CONTAINED_COLOR);
+		if (CONTAINED == null) {
+			CONTAINED = new RGB(50, 255, 25);
+		}
 	}
 
 	private RGB getBackground(Display display) {
@@ -1806,6 +1822,9 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 		boolean ignoreAncestor = Utilities.getBoolean(
 				getCompareConfiguration(),
 				ICompareUIConstants.PROP_IGNORE_ANCESTOR, false);
+		if(difference.isContainedDifference()) {
+			return CONTAINED;
+		}
 		if (isThreeWay() && !ignoreAncestor) {
 			switch (difference.getKind() & Differencer.DIRECTION_MASK) {
 			case Differencer.RIGHT:
@@ -2052,5 +2071,21 @@ public class ModelContentMergeViewer extends ContentMergeViewer implements IMode
 			}
 		}
 		return resources.toArray(new IResource[resources.size()]);
+	}
+
+	public static void removeContainerDifferences(
+			List<TreeDifference> differences,
+			List<TreeDifference> mergeDifferences) {
+		for(TreeDifference difference : differences) {
+			if(difference.isContainedDifference()) {
+				TreeDifference container = difference.getContainerDifference();
+				if(container != null && !mergeDifferences.contains(container)) {
+					mergeDifferences.add(container);
+				} // if for some reason there is no container leave the
+				  // difference out of the merge
+			} else {
+				mergeDifferences.add(difference);
+			}
+		}
 	}
 }
