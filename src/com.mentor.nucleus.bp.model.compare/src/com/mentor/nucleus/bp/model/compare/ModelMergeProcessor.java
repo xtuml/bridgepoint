@@ -45,6 +45,7 @@ import com.mentor.nucleus.bp.core.ClassAsSimpleParticipant_c;
 import com.mentor.nucleus.bp.core.ClassAsSubtype_c;
 import com.mentor.nucleus.bp.core.ClassInAssociation_c;
 import com.mentor.nucleus.bp.core.CorePlugin;
+import com.mentor.nucleus.bp.core.CreationTransition_c;
 import com.mentor.nucleus.bp.core.DataType_c;
 import com.mentor.nucleus.bp.core.Elementtypeconstants_c;
 import com.mentor.nucleus.bp.core.EventIgnored_c;
@@ -380,13 +381,24 @@ public class ModelMergeProcessor {
 			Ooaofooa modelRoot, TreeDifferencer differencer, boolean rightToLeft) throws IOException {
 		Object matchingDiffElement = difference.getMatchingDifference()
 				.getElement();
-		if(!(matchingDiffElement instanceof EmptyElement)) {
+		if(!(matchingDiffElement instanceof EmptyElement) && !matchingDiffElement.getClass().isInstance(diffElement)) {
 			// not supported
 			return false;
 		}
-		EmptyElement empty = (EmptyElement) matchingDiffElement;
-		NonRootModelElement parent = (NonRootModelElement) empty.getParent();
-		int newElementLocation = empty.getLocation();
+		Object remoteParent = contentProvider.getParent(difference
+				.getElement());
+		int newElementLocation = difference.getLocation();
+		NonRootModelElement parent = null;
+		if(matchingDiffElement instanceof EmptyElement) {
+			EmptyElement empty = (EmptyElement) matchingDiffElement;
+			parent = (NonRootModelElement) empty.getParent();
+			newElementLocation = empty.getLocation();
+		} else {
+			ComparableTreeObject parentObject = (ComparableTreeObject) contentProvider
+					.getParent(matchingDiffElement);
+			parent = (NonRootModelElement) parentObject
+					.getRealElement();
+		}
 		// grab the existing children, so that ordering can be
 		// fixed after the batch relate calls
 		Object[] existingChildren = ((ITreeDifferencerProvider) contentProvider)
@@ -410,26 +422,43 @@ public class ModelMergeProcessor {
 		} else if(realElement instanceof ObjectElement) {
 			newObject = (NonRootModelElement) ((ObjectElement) realElement).getValue();
 		}
+		if (matchingDiffElement != null
+				&& !(matchingDiffElement instanceof EmptyElement)) {
+			Object existingDiffElement = ((ComparableTreeObject) matchingDiffElement).getRealElement();
+			// first adjust so that the ordering matches for undo
+			// this will place the element at the end position
+			// and allow a restored deletion to get placed at
+			// the proper location
+			int length = getPersistenceLocation(parent, existingDiffElement,
+					contentProvider, true);
+			adjustPersistenceOrdering(existingDiffElement, length - 1);
+			// this is a value difference, we need to dispose the current value
+			// first
+			// disable listeners as we do not want graphics deleted
+			// for this case, they will have their own differences if
+			// deletion is required
+			try {
+				Ooaofgraphics.disableChangeNotification();
+				disposeElement(matchingDiffElement);
+			} finally {
+				Ooaofgraphics.enableChangeNotification();
+			}
+		}
 		// look for the element locally, certain differences that
 		// were
 		// before this one may have created it, or it may be a
 		// location difference in the file
-		Object object = findObjectInDestination(modelRoot, newObject); 
+		Object object = findObjectInDestination(modelRoot, newObject);
 		if (object != null && !((NonRootModelElement) object).isProxy()) {
-			newElementLocation = getPersistenceLocation(parent, newObject, contentProvider);
+			newElementLocation = getPersistenceLocation(parent, newObject, contentProvider, false);
 			return adjustPersistenceOrdering(object, newElementLocation);
-		}
-		if (matchingDiffElement != null
-				&& !(matchingDiffElement instanceof EmptyElement)) {
-			// this is a value difference, we need to dispose the current value
-			// first
-			disposeElement(matchingDiffElement);
 		}
 		// some situations required other data to be created first
 		handleCopyNew(newObject, differencer, contentProvider, modelRoot, rightToLeft);
 		// export the element
 		String export = copyExternal(modelRoot, newObject, false, false);
-		newObject = importExternal(newObject, export, parent, modelRoot, newElementLocation);
+		newObject = importExternal(newObject, export, parent, modelRoot, getPersistenceLocation(remoteParent,
+				difference.getElement(), contentProvider, false));
 		// if this element is a graphical element we need to
 		// associate it with an element specification so the
 		// proper ooa_type is exported
@@ -546,10 +575,8 @@ public class ModelMergeProcessor {
 						contentProvider, false);
 			}
 		} else {
-			Object remoteParent = contentProvider.getParent(difference
-					.getElement());
 			newElementLocation = getPersistenceLocation(remoteParent,
-					difference.getElement(), contentProvider);
+					difference.getElement(), contentProvider, false);
 			adjustPersistenceOrdering(newObject, newElementLocation);
 			batchRelateAll(newObject, modelRoot, contentProvider);
 		}
@@ -569,11 +596,12 @@ public class ModelMergeProcessor {
 	}
 	
 	private static int getPersistenceLocation(Object parent,
-			Object newObject, ITreeDifferencerProvider contentProvider) {
+			Object newObject, ITreeDifferencerProvider contentProvider, boolean returnLength) {
+		newObject = ComparableProvider.getComparableTreeObject(newObject);
 		int location = 0;
 		Object[] children = contentProvider.getChildren(parent);
-		for(Object child : children) {
-			if(child.equals(newObject)) {
+		for(Object child : children) { 
+			if(child.equals(newObject) && !returnLength) {
 				break;
 			}
 			Object realChild = child;
@@ -592,11 +620,11 @@ public class ModelMergeProcessor {
 	}
 
 	private static boolean adjustPersistenceOrdering(Object object, int newElementLocation) {
-		object = getLastSupertype((NonRootModelElement) object);
+		Object lastSupertype = getLastSupertype((NonRootModelElement) object);
 		// assure that the persisted location is correct
 		IPersistableElementParentDetails parentDetails = PersistenceManager
 				.getHierarchyMetaData().getParentDetails(
-						(NonRootModelElement) object);
+						(NonRootModelElement) lastSupertype);
 		if (parentDetails.isMany()) {
 			Object[] localDetails = new Object[] {
 					parentDetails.getParent(), parentDetails.getChild(),
@@ -697,6 +725,18 @@ public class ModelMergeProcessor {
 			// here we need to create a new SEME entry
 			// or convert an existing one
 			Transition_c transition = (Transition_c) newObject;
+			// only do so if we are dealing with a transition with
+			// an assigned event
+			NoEventTransition_c net = NoEventTransition_c.getOneSM_NETXNOnR507(transition);
+			if(net != null) {
+				return;
+			}
+			// this includes creation transitions as well even if an
+			// event is assigned
+			CreationTransition_c crt = CreationTransition_c.getOneSM_CRTXNOnR507(transition);
+			if(crt != null) {
+				return;
+			}
 			StateEventMatrixEntry_c seme = StateEventMatrixEntry_c
 					.getOneSM_SEMEOnR504(NewStateTransition_c
 							.getOneSM_NSTXNOnR507((Transition_c) newObject));
@@ -1240,7 +1280,7 @@ public class ModelMergeProcessor {
 					TreeDifferencer.RIGHT | TreeDifferencer.ADDITION,
 					TreeDifferencer.getPathForElement(ComparableProvider
 							.getComparableTreeObject(element.getParent()),
-							contentProvider));
+							contentProvider), false, null);
 			// locate the new empty element's parent
 			Object otherElement = originalDifference.getMatchingDifference().getElement();
 			// the parent is this element's parent's parent
@@ -1256,7 +1296,7 @@ public class ModelMergeProcessor {
 					TreeDifference.LOCATION_DIFFERENCE, true,
 					TreeDifferencer.RIGHT | TreeDifferencer.ADDITION,
 					TreeDifferencer.getPathForElement(localOwner,
-							contentProvider));
+							contentProvider), false, null);
 			matchingDifference.setParent(localOwner);
 			difference.setMatchingDifference(matchingDifference);
 			matchingDifference.setMatchingDifference(difference);
@@ -1589,12 +1629,10 @@ public class ModelMergeProcessor {
 		if (method != null) {
 			invokeMethod(method, details[0], new Object[] { details[1],
 					position });
-		} else {
-			// log error as there must be such a method
-			ComparePlugin.writeToLog("Unable to locate " + methodName + " in "
-					+ details[0].getClass().getSimpleName(), null,
-					CorePlugin.class);
 		}
+		// do not log an error as not all
+		// elements support reordering (reflexives and
+		// linked associations)
 	}
 
 	private static NonRootModelElement getLastSupertype(NonRootModelElement element) {
@@ -1687,7 +1725,6 @@ public class ModelMergeProcessor {
 							specialElements.length);
 				}
 			}
-			CoreExport.forceProxyExport = forceProxies;
 			CoreExport.ignoreAlternateChildren = true;
 			CoreExport.exportSupertypes = false;
 			CoreExport.ignoreMissingPMCErrors = true;
@@ -1725,7 +1762,6 @@ public class ModelMergeProcessor {
 						Selection.getInstance().removeFromSelection(clazz);
 					}
 				}
-				CoreExport.forceProxyExport = false;
 				CoreExport.ignoreAlternateChildren = false;
 				CoreExport.exportSupertypes = true;
 				CoreExport.ignoreMissingPMCErrors = false;

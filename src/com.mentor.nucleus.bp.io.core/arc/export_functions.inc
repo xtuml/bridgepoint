@@ -309,7 +309,7 @@ throws IOException
     m_fh.print( "INSERT INTO ${table.Key_Lett}_PROXY\n\tVALUES (" ); //$$NON-NLS-1$$
     write_${r.body}_attr_sql(inst);
     m_fh.print(",\n\t"); //$$NON-NLS-1$$
-    m_fh.print("'" + (!forceProxyExport ? inst.getContent(m_inst.getPersistableComponent().getFullPath()):inst.getContent()) + "'");
+    m_fh.print("'" + (!inst.getModelRoot().isCompareRoot() ? inst.getContent(m_inst.getPersistableComponent().getFullPath()):inst.getContent()) + "'");
     m_fh.print(");\n"); //$$NON-NLS-1$$
   }
 }
@@ -357,30 +357,16 @@ ${attrs.body}\
 		  if (geis != null) {
 		  	isGlobal = true;
 		  }
-	  .select one dom related by obj->S_SS[R2]->S_DOM[R1];
-	  .if(dom.Name == "ooaofooa")
-		  if(!isGlobal && ${temp_var} != null && forceProxyExport) {
-		        ProxyPath proxyPath = new ProxyPath(${temp_var}, m_inst);
-                collectedProxies.add(proxyPath);
-		  }
-      .end if
 		  // Global elements are not persisted, so do not throw an exception in this case
-		  if(!isGlobal && ${temp_var} != null && !forceProxyExport) {
+		  if(!isGlobal && ${temp_var} != null) {
 	.else
-	  .select one dom related by obj->S_SS[R2]->S_DOM[R1];
-	  .if(dom.Name == "ooaofooa")
-	      if(forceProxyExport && ${temp_var} != null) {
-		       	ProxyPath proxyPath = new ProxyPath(${temp_var}, m_inst);
-                collectedProxies.add(proxyPath);
-          }	      
-     .end if
-		  if(${temp_var} != null && !forceProxyExport) {
+		  if(${temp_var} != null) {
 	.end if
                 PersistableModelComponent inst_pmc = m_inst.getPersistableComponent();
                 PersistableModelComponent ${temp_var}_pmc = ${temp_var}.getPersistableComponent();
-                if (( inst_pmc != null ) && ( ${temp_var}_pmc != null ))
+                if ((( inst_pmc != null ) && ( ${temp_var}_pmc != null )) || (m_inst.getModelRoot().isCompareRoot() && ${temp_var}.isProxy()))
                 {
-                    if(!m_inst.getPersistableComponent().getFullPath().isPrefixOf(
+                    if((m_inst.getModelRoot().isCompareRoot() && ${temp_var}.isProxy()) || !m_inst.getPersistableComponent().getFullPath().isPrefixOf(
                                   ${temp_var}.getPersistableComponent().getFullPath()))
                   {
   .else
@@ -445,7 +431,7 @@ ${attrs.body}\
                   .// in the stream export mechanism but not in the model
                   .// file.  This test is only valid for type that we expect
                   .// should have a PMC.
-                  if (isPersistable && !forceProxyExport && !ignoreMissingPMCErrors) {
+                  if (isPersistable && !ignoreMissingPMCErrors) {
                       if ( ${temp_var}.getPersistableComponent() == null ) {
                             Throwable e = new Throwable("Unable to locate PMC: " + ${temp_var}.getContent());
                             e.fillInStackTrace();

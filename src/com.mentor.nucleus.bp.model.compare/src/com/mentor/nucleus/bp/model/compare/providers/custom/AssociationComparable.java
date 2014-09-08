@@ -21,69 +21,15 @@ package com.mentor.nucleus.bp.model.compare.providers.custom;
 // the License.
 //=====================================================================
 
-import java.util.UUID;
-
-import com.mentor.nucleus.bp.core.ClassAsAssociatedOneSide_c;
-import com.mentor.nucleus.bp.core.ClassAsAssociatedOtherSide_c;
-import com.mentor.nucleus.bp.core.ClassAsSimpleFormalizer_c;
-import com.mentor.nucleus.bp.core.ClassAsSimpleParticipant_c;
-import com.mentor.nucleus.bp.core.Gd_c;
+import com.mentor.nucleus.bp.core.Association_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
+import com.mentor.nucleus.bp.model.compare.ComparableTreeObject;
 import com.mentor.nucleus.bp.model.compare.providers.NonRootModelElementComparable;
 
 public class AssociationComparable extends NonRootModelElementComparable {
 
 	public AssociationComparable(NonRootModelElement realElement) {
 		super(realElement);
-	}
-
-	@Override
-	public boolean treeItemEquals(Object other) {
-		if (!super.treeItemEquals(other)) {
-			if (other instanceof AssociationComparable) {
-				AssociationComparable assocComp = (AssociationComparable) other;
-				NonRootModelElement otherAssociation = (NonRootModelElement) assocComp
-						.getRealElement();
-				NonRootModelElement thisAssociation = (NonRootModelElement) getRealElement();
-				UUID thisMsgId = getAssociationId(thisAssociation);
-				UUID otherMsgId = getAssociationId(otherAssociation);
-				UUID thisOirId = getObjectInAssociationId(thisAssociation);
-				UUID otherOirId = getObjectInAssociationId(otherAssociation);
-				return thisMsgId.equals(otherMsgId) && thisOirId.equals(otherOirId);
-			} else {
-				return false;
-			}
-		} else {
-			return true;
-		}
-	}
-
-	private UUID getObjectInAssociationId(NonRootModelElement association) {
-		UUID id = Gd_c.Null_unique_id();
-		if (association instanceof ClassAsSimpleParticipant_c) {
-			return ((ClassAsSimpleParticipant_c) association).getOir_id();
-		} else if (association instanceof ClassAsSimpleFormalizer_c) {
-			return ((ClassAsSimpleFormalizer_c) association).getOir_id();
-		} else if (association instanceof ClassAsAssociatedOneSide_c) {
-			return ((ClassAsAssociatedOneSide_c) association).getOir_id();
-		} else if (association instanceof ClassAsAssociatedOtherSide_c) {
-			return ((ClassAsAssociatedOtherSide_c) association).getOir_id();
-		}
-		return id;
-	}
-
-	private UUID getAssociationId(NonRootModelElement association) {
-		UUID id = Gd_c.Null_unique_id();
-		if (association instanceof ClassAsSimpleParticipant_c) {
-			return ((ClassAsSimpleParticipant_c) association).getRel_id();
-		} else if (association instanceof ClassAsSimpleFormalizer_c) {
-			return ((ClassAsSimpleFormalizer_c) association).getRel_id();
-		} else if (association instanceof ClassAsAssociatedOneSide_c) {
-			return ((ClassAsAssociatedOneSide_c) association).getRel_id();
-		} else if (association instanceof ClassAsAssociatedOtherSide_c) {
-			return ((ClassAsAssociatedOtherSide_c) association).getRel_id();
-		}
-		return id;
 	}
 
 	@Override
@@ -98,12 +44,13 @@ public class AssociationComparable extends NonRootModelElementComparable {
 
 	@Override
 	public boolean treeItemValueEquals(Object other) {
-		if (treeItemEquals(other)) {
-			AssociationComparable otherComp = (AssociationComparable) other;
-			if (!otherComp.getRealElement().getClass().isInstance(
-					getRealElement())) {
-				return false;
-			}
+		// if the formalization state does not match do not
+		// return true
+		Association_c thisAssoc = (Association_c) getRealElement();
+		Association_c otherAssoc = (Association_c) ((ComparableTreeObject) other).getRealElement();
+		if (thisAssoc.Isformalized() && !otherAssoc.Isformalized()
+				|| !thisAssoc.Isformalized() && otherAssoc.Isformalized()) {
+			return false;
 		}
 		return true;
 	}

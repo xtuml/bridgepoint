@@ -1242,16 +1242,16 @@ PackageableElement_c.getManyPE_PEsOnR8000(
   */
   public ObjectElement[] getAttributes(Object arg) {
     ObjectElement attrSet[] = new ObjectElement[7];
-      attrSet[0] = new ObjectElement("Name", ObjectElement.ATTRIBUTE_ELEMENT,  invokeMethod(arg, "getName"), arg, "getName", true);
-      attrSet[1] = new ObjectElement("Descrip", ObjectElement.ATTRIBUTE_ELEMENT,  invokeMethod(arg, "getDescrip"), arg, "getDescrip", true);
-      attrSet[2] = new ObjectElement("Num_Rng", ObjectElement.ATTRIBUTE_ELEMENT,  invokeMethod(arg, "getNum_rng"), arg, "getNum_rng", true);
+      attrSet[0] = new ObjectElement("Name", ObjectElement.ATTRIBUTE_ELEMENT,  ((Package_c) arg).getName(), arg, "getName", true);
+      attrSet[1] = new ObjectElement("Descrip", ObjectElement.ATTRIBUTE_ELEMENT,  ((Package_c) arg).getDescrip(), arg, "getDescrip", true);
+      attrSet[2] = new ObjectElement("Num_Rng", ObjectElement.ATTRIBUTE_ELEMENT,  ((Package_c) arg).getNum_rng(), arg, "getNum_rng", true);
       PackageableElement_c VisibilityOwner = 
       PackageableElement_c.getOnePE_PEOnR8001(
 (Package_c) arg)
 
 ;
       if(VisibilityOwner != null) {
-		   attrSet[3] = new ObjectElement("Visibility", ObjectElement.ATTRIBUTE_ELEMENT, invokeMethod(VisibilityOwner, "getVisibility"), arg, "getVisibility", true);
+		   attrSet[3] = new ObjectElement("Visibility", ObjectElement.ATTRIBUTE_ELEMENT, VisibilityOwner.getVisibility(), arg, "getVisibility", true);
 		   attrSet[3].setAttributeOwner(VisibilityOwner);
   	  }
     ObjectElement compAttrSet[] = new ObjectElement[4];    

@@ -45,7 +45,6 @@ import com.mentor.nucleus.bp.core.common.ModelRoot;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
 import com.mentor.nucleus.bp.core.util.CoreUtil;
-import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.ui.canvas.Ooaofgraphics;
 import com.mentor.nucleus.bp.ui.text.activity.AllActivityModifier;
 
@@ -54,7 +53,6 @@ public abstract class CoreExport implements IRunnableWithProgress {
     private boolean m_exportOAL = false;
     private boolean m_exportGraphics = true;
 	private boolean errorLoggedDuringParse = false;
-	public static boolean forceProxyExport = false;
 	public boolean outputCachedIDs = false;
 	public static boolean forceWriteAsProxy = false;
 	public static boolean ignoreMissingPMCErrors = false;
