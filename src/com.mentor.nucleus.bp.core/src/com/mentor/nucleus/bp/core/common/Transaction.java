@@ -335,9 +335,20 @@ public class Transaction {
 				// transaction
 				if (deltas[j].getKind() == Modeleventnotification_c.DELTA_NEW) {
 					if (nrme.delete()) {
-						modelRoots[i]
-								.fireModelElementDeleted(new BaseModelDelta(
-										Modeleventnotification_c.DELTA_DELETE, nrme));
+						// we do not need listeners enabled here, the original
+						// transaction will contain all deltas to fully restore
+						// the model (there is a specific case in merge that shows
+						// a graphic being disposed when we do not want)  This
+						// is shown when merging an unformalize and then undoing
+						// and re-merging it
+						try {
+							ModelRoot.disableChangeNotification();
+							modelRoots[i]
+									.fireModelElementDeleted(new BaseModelDelta(
+											Modeleventnotification_c.DELTA_DELETE, nrme));
+						} finally {
+							ModelRoot.enableChangeNotification();
+						}
 					}
 					// remove the PMC if it exists and we are reverting
 					// in memory, otherwise it will be removed by the

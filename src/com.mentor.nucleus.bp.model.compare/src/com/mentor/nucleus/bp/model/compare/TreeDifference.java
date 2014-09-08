@@ -17,14 +17,18 @@ public class TreeDifference {
 	private int location;
 	private int kind;
 	private TreePath path;
+	private boolean isContained;
+	private TreeDifference container;
 	
 	public TreeDifference(Object element, String type, boolean includeChildren,
-			int kind, TreePath path) {
+			int kind, TreePath path, boolean isContained, TreeDifference container) {
 		this.element = element;
 		this.type = type;
 		this.includeChildren = includeChildren;
 		this.kind = kind;
 		this.path = path;
+		this.isContained = isContained;
+		this.container = container;
 	}
 
 	public Object getElement() {
@@ -69,5 +73,13 @@ public class TreeDifference {
 	
 	public TreePath getPath() {
 		return path;
+	}
+	
+	public boolean isContainedDifference() {
+		return isContained;
+	}
+
+	public TreeDifference getContainerDifference() {
+		return container;
 	}
 }

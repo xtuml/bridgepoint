@@ -44,7 +44,7 @@ public class TreeDifferencer extends Differencer {
 	public void performDifferencing() {
 		if(left != null) {
 			for (Object l : left) {
-				collectDifferences(null, null, null, l);
+				collectDifferences(null, null, null, l, false, null);
 			}
 		}
 	}
@@ -55,7 +55,8 @@ public class TreeDifferencer extends Differencer {
 	 * 
 	 */
 	private void collectDifferences(Object leftParent, Object rightParent, Object ancestorParent,
-			Object l) {
+			Object l, boolean isContainedDifference, TreeDifference leftContainer) {
+		boolean contained = isContainedDifference;
 		ComparableTreeObject left = (ComparableTreeObject) contentProvider.getComparableTreeObject(l);
 		// first see if the element exists on both sides
 		Object right = locateElementInOtherVersion(rightParent, left, contentProvider, this.right);
@@ -65,21 +66,37 @@ public class TreeDifferencer extends Differencer {
 			if(!elementsEqualIncludingValues(left, right, false, false) && !left.isDerived()) {
 				int description = getDifferenceType(left, right, ancestor, threeWay);
 				TreeDifference leftDifference = new TreeDifference(left,
-						TreeDifference.VALUE_DIFFERENCE, true,
-						description,
-						getPathForElement(left, contentProvider));
+						TreeDifference.VALUE_DIFFERENCE, true, description,
+						getPathForElement(left, contentProvider), contained,
+						leftContainer);
 				leftDifference.setLocation(getLocationOfElement(leftParent,
 						left, contentProvider));
+				TreeDifference rightContainer = null;
+				if(leftContainer != null) {
+					rightContainer = leftContainer.getMatchingDifference();
+				}
 				TreeDifference rightDifference = new TreeDifference(right,
-						TreeDifference.VALUE_DIFFERENCE, true,
-						description,
-						getPathForElement(right, contentProvider));
+						TreeDifference.VALUE_DIFFERENCE, true, description,
+						getPathForElement(right, contentProvider), contained,
+						rightContainer);
 				rightDifference.setLocation(getLocationOfElement(rightParent,
 						right, contentProvider));
 				leftDifference.setMatchingDifference(rightDifference);
 				rightDifference.setMatchingDifference(leftDifference);
 				addDifferenceToMap(left, leftDifference, true);
 				addDifferenceToMap(right, rightDifference, false);
+				// mark further differences as internal differences
+				// one case where this type of differencing is helpful
+				// is when the change is an unformalize, we mark the
+				// associations as different but need further detail
+				contained = true;
+				// if the container has already been set
+				// do not overwrite the original value
+				// all differences under this will have the
+				// same container
+				if(leftContainer == null) {
+					leftContainer = leftDifference;
+				}
 			}
 			// recursively check the children, unless dealing
 			// with an empty element for left or right
@@ -88,7 +105,7 @@ public class TreeDifferencer extends Differencer {
 			}
 			Object[] children = contentProvider.getChildren(left);
 			for(Object child : children) {
-				collectDifferences(left, right, ancestor, child);
+				collectDifferences(left, right, ancestor, child, contained, leftContainer);
 			}
 		}
 	}
@@ -111,7 +128,7 @@ public class TreeDifferencer extends Differencer {
 		}
 		Object[] children = contentProvider.getChildren(parent);
 		for(Object child : children) {
-			if(child.equals(element)) {
+			if(child != null && child.equals(element)) {
 				return count;
 			}
 			count++;
@@ -427,6 +444,10 @@ public class TreeDifferencer extends Differencer {
 
 	public void setIsThreeWay(boolean isThreeWay) {
 		threeWay = isThreeWay;
+	}
+
+	public boolean isThreeWay() {
+		return threeWay;
 	}
 
 }
