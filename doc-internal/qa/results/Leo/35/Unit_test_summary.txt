@@ -1,0 +1,37 @@
+This document captures the state of the BridgePoint unit tests:
+===============================================================
+Branch: 35_919690-3
+Hostname: 	cmccaus-vm-w7-1
+OS Name:  	Windows 7
+Version:	6.1
+Architecture:	x86
+
+Test Suite                              Status			TestRuns	Time    Timestamp
+---------------------------------------------------------------------------------------------
+Core Generic Upgrade Test				PASS			39			3.43s	20140908 03:20:59
+UI Canvas CCP Test						PASS			102			1423.98s20140908 05:56:28
+Core Test								PASS			1098		3002.18s20140908 04:11:20
+UI Explorer Test						PASS			18			91.39s	20140908 05:58:16
+Core Test - Workspace Setup				PASS			14			66.61s	20140908 03:20:19
+Parse All Test							PASS			4600		586.79s	20140908 07:15:52
+IO MDL PkgCM Tests						PASS			108			980.13s	20140908 05:21:26
+Core Test 2								PASS            306			440.32s	20140908 04:18:59
+Debug - Verifier Test					FAIL (0e/1f)	100			1018.57s20140908 04:37:32 [1]
+Core Test - System Level Tests			PASS			24			16.13s	20140908 04:19:34
+Core Test 2 - Consistency				PASS			17			1.47s	20140908 03:18:56
+IO MDL Tests							PASS			89			279.80s	20140908 05:01:01
+UI Properties Test						PASS			163			20.72s	20140908 05:58:53
+Core Test - Existing Projects			PASS			15			5.56s	20140908 03:20:41
+Model Compare Test						PASS            257			877.89s	20140908 04:56:05
+Welcome Test							PASS			13			1646.66s20140908 06:33:17
+UI Canvas Suite 1						PASS			84			108.05s	20140908 05:24:23
+Core Test - RTO Move					PASS			144			314.48s	20140908 03:18:40
+Search Test								PASS            10			14.21s	20140908 05:22:21
+UI Canvas Suite 2						PASS			270			466.02s	20140908 05:32:28
+IO MDL Tests 2							PASS			77			214.85s	20140908 05:04:52
+IO SQL Test								PASS			8			1.34s	20140908 05:21:43
+Debug - Verifier Test 2					PASS			10			195.50s	20140908 04:41:07
+UI Text Test							PASS			163			115.33s	20140908 06:01:04
+
+[1] One failure with an unexpected return value, due to be fixed with Job #135. Other failures
+    disappear when re-run.
