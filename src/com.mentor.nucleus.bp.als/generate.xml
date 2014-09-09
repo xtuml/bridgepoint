@@ -280,7 +280,8 @@
    <echo>Removing generated sql file: ${sql.output} ...</echo>
    <delete file="sql/${sql.output}" />
    <echo>Removing generated sql file: ${ooaofooa.sql} ...</echo>
-  <delete file="${ooaofooa.sql}" />
+   <delete file="${ooaofooa.sql}" />
+   <delete file="gen/code_generation/${ooaofooa.sql}" />
 
   </target>
 
