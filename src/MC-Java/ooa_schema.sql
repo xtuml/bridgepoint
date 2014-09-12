@@ -1480,6 +1480,11 @@ CREATE TABLE CN_DC (
 CREATE TABLE CN_CIC (
 	     Id	UNIQUE_ID,
 	     Parent_Id	UNIQUE_ID );
+CREATE TABLE CL_POR (
+	     CL_IC_Id	UNIQUE_ID,
+	     C_PO_Id	UNIQUE_ID,
+	     Name	STRING,
+	     Id	UNIQUE_ID );
 CREATE TABLE CL_IR (
 	     Id	UNIQUE_ID,
 	     Satisfaction_Element_Id	UNIQUE_ID,
@@ -1488,7 +1493,7 @@ CREATE TABLE CL_IR (
 CREATE TABLE CL_IIR (
 	     Id	UNIQUE_ID,
 	     Ref_Id	UNIQUE_ID,
-	     ImportedComp_Id	UNIQUE_ID,
+	     CL_POR_Id	UNIQUE_ID,
 	     Delegation_Id	UNIQUE_ID,
 	     Name	STRING,
 	     Descrip	STRING );
@@ -3090,8 +3095,6 @@ CREATE ROP REF_ID R4201 FROM MC 	CL_IC 	( AssignedComp_Id )
 		         TO 1C  C_C 	( Id );
 CREATE ROP REF_ID R4205 FROM MC 	CL_IC 	( ParentComp_Id )
 		         TO 1C  C_C 	( Id );
-CREATE ROP REF_ID R4700 FROM MC 	CL_IIR 	( ImportedComp_Id )
-		         TO 1  	CL_IC 	( Id );
 CREATE ROP REF_ID R4701 FROM MC 	CL_IIR 	( Ref_Id )
 		         TO 1C  C_IR 	( Id );
 CREATE ROP REF_ID R4703 FROM 1C 	CL_IP 	( Id )
@@ -3106,6 +3109,12 @@ CREATE ROP REF_ID R4705 FROM MC 	CL_IPINS 	( ImportedProvision_Id )
 		         TO 1  	CL_IP 	( Id );
 CREATE ROP REF_ID R4706 FROM 1C 	CL_IR 	( Satisfaction_Element_Id )
 		         TO 1C  C_SF 	( Id );
+CREATE ROP REF_ID R4707 FROM MC 	CL_POR 	( CL_IC_Id )
+		         TO 1  	CL_IC 	( Id );
+CREATE ROP REF_ID R4708 FROM MC 	CL_IIR 	( CL_POR_Id )
+		         TO 1  	CL_POR 	( Id );
+CREATE ROP REF_ID R4709 FROM MC 	CL_POR 	( C_PO_Id )
+		         TO 1C  C_PO 	( Id );
 CREATE ROP REF_ID R401 FROM 1C 	CA_EESMC 	( CPath_ID )
 		     TO 1  	CA_COMM 	( CPath_ID );
 CREATE ROP REF_ID R401 FROM 1C 	CA_SMEEC 	( CPath_ID )
