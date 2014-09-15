@@ -10,8 +10,8 @@
 -->
 <project name="bp.ui.canvas.test" default="all" basedir=".">
 	<property environment="env"/>
-	<property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\bin" />
-	<property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\mc3020\bin" />
+	<property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
+	<property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/mc3020/bin" />
 	<property name="mcj_path" value="../MC-Java" />
 	<property name="eclipse-home" value="${basedir}/../.."/>
 	<property name="plugins-home" value="${ant.home}/../.."/>
@@ -38,7 +38,7 @@
 	<target name="test_gen"
           description="Create the test specs">
 		<delete file="sql/____file.txt" />
-		<exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+		<exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
 			<arg line="-nopersist
       -import ../${mcj_path}/ooa_schema.sql
       -import ../../com.mentor.nucleus.bp.ui.canvas/sql/ooaofgraphics.sql
@@ -50,7 +50,7 @@
 	<target name="skel_gen"
           description="Create the test skeleton">
 		<delete file="sql/____file.txt" />
-		<exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+		<exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
 			<arg line="-nopersist
       -import ../${mcj_path}/ooa_schema.sql
       -import ../../com.mentor.nucleus.bp.ui.canvas/sql/ooaofgraphics.sql
@@ -71,7 +71,7 @@
 
 	<target name="sql" depends="sql.depends" description="Generate the sql version of the OoaofGraphics model" unless="sql.buildNotNeeded">
 		<echo>Generating ${sql.output} ...</echo>
-		<exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}\xtumlmc_build.exe" >
+		<exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
 			<arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
 		</exec>
 	</target>
@@ -82,7 +82,7 @@
 	</target>
 
 	<target name="gen_testClass" depends="gen_testClass.depends" description="Create class for testing Ooaofooa.clearDatabase" unless="testClass.buildNotNeeded">
-		<exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+		<exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
 			<env key="PTC_MC_ARC_DIR" value="${mcj_path}" />
 			<arg line="-nopersist
         -import ${mcj_path}/ooa_schema.sql
