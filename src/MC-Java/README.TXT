@@ -25,6 +25,11 @@ export.  See section �Translating model using MC-Java� for further details. 
 original second step parse archetypes are modified to use the output of the Pre-
 Builder directly to generate the action code.
 
+Note that the BridgePoint internal parser emits association traversal cardinality
+data in lower case, whereas the previous fragment based model compiler emitted
+upper case values. This should be bourne in mind when porting other utilities to
+the pre-builder infrastructure.
+
 MC-Java Components
 ------------------
 Following are different files that constitutes the MC-Java, along with general 
