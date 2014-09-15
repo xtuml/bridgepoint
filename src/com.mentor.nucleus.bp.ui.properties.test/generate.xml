@@ -15,8 +15,8 @@
   </target>
 
   <property environment="env"/>
-  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\bin" />
-  <property name="mc3020_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\mc3020\bin" />
+  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
+  <property name="mc3020_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/mc3020/bin" />
   <property name="mcj_path" value="../MC-Java" />
 
   <property name="eclipse-home" value="${basedir}/../.."/>
@@ -90,7 +90,7 @@
           description="Generate the Properties Test files"
           unless="java.buildNotNeeded" >
     <echo >Generating Properties Test class ...</echo>
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
     <arg line="-nopersist
       -import sql/${ooaofooa_schema.output}
@@ -124,7 +124,7 @@
             description="Generate the Properties Read Only Test files"
             unless="readonly.buildNotNeeded" >
       <echo >Generating Properties Read Only Test class ...</echo>
-      <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+      <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
           <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
       <arg line="-nopersist
         -import sql/${ooaofooa_schema.output}
@@ -159,10 +159,10 @@
     <copy todir="models/com.mentor.nucleus.bp.ui.properties.test/Datatypes/">
     	<fileset dir="../com.mentor.nucleus.bp.pkg/globals"><filename name="Globals.xtuml"/></fileset>   	
     </copy>
-    <exec vmlauncher="false" failonerror="true" executable="${mc3020_bin_dir}\xtumlmc_build" >
+    <exec vmlauncher="false" failonerror="true" executable="${mc3020_bin_dir}/xtumlmc_build" >
       <arg line="xtumlmc_cleanse_for_BridgePoint
             ${sql.input.dir}
-      ${basedir}\sql\${sql.output}
+      ${basedir}/sql/${sql.output}
       ${subsystems_to_remove}"/>
     </exec>
     </target>
@@ -180,7 +180,7 @@
           description="Generate the Properties Test Data file"
           unless="test_data.buildNotNeeded" >
     <echo >Generating Test Data files ...</echo>
-    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate" >
+    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
         <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
     <arg line="-nopersist

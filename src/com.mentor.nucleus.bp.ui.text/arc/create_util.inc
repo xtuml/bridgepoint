@@ -73,7 +73,7 @@ query$cr{obj.name}_c\
   .select one dt related by ult_attr->S_DT[R114]
   .select one cdt related by dt->S_CDT[R17]
   .if (empty cdt)
-    .select one cdt related by dt->S_UDT[R17]->S_CDT[R18]
+    .select one cdt related by dt->S_UDT[R17]->S_DT[R18]->S_CDT[R17]
   .end if
   .assign attr_cdt = cdt
 .end function

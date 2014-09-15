@@ -1,8 +1,8 @@
 .//====================================================================
 .//
 .// File:      $RCSfile: referred_to.inc,v $
-.// Version:   $Revision: 1.34 $
-.// Modified:  $Date: 2013/01/17 03:27:51 $
+.// Version:   $Revision: 1.34.26.1 $
+.// Modified:  $Date: 2013/07/19 12:26:01 $
 .//
 .// (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
 .//
@@ -31,7 +31,7 @@
   
   .invoke l = is_persistent(loc_obj)
   .invoke t = is_persistent(tar_obj)
-  .assign persistent = (l.result and t.result)
+  .assign persistent = ((l.result) and (t.result))
   
   .assign crossComp=false
   .if(persistent)

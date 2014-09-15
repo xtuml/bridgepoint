@@ -453,7 +453,7 @@ ${attrs.body}\
     .// udts may fully be resolved
     .if((rel.Numb == 18) and (obj.Name == "Core Data Type"))
                 if(m_inst instanceof UserDataType_c) {
-                  CoreDataType_c coreType = CoreDataType_c.getOneS_CDTOnR18(inst, false);
+                  CoreDataType_c coreType = CoreDataType_c.getOneS_CDTOnR17(DataType_c.getOneS_DTOnR18(inst, false));
                   ProxyPath proxyPath = new ProxyPath(coreType, m_inst);
                   collectedProxies.add(proxyPath);
                   DataType_c dt = DataType_c.getOneS_DTOnR17(coreType);
