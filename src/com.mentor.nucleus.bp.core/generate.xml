@@ -165,6 +165,7 @@
           depends="java.depends"
           unless="java.buildNotNeeded" >
     <echo >Generating java files ...</echo>
+  	<parallel>
   <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
     <property name="param1" value="ooaofooa" />
     <property name="param2" value="Ooaofooa" />
@@ -177,7 +178,7 @@
     <property name="verify_selects" value="false" />
     <property name="mcjava.project.root" value="${basedir}"/>
   </ant>
-    <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
+     <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
       <property name="param1" value="ooaofooa" />
       <property name="param2" value="Ooaofooa" />
       <property name="param3" value="${mcj_path}" />
@@ -213,6 +214,9 @@
       <property name="verify_selects" value="false" />
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
+  	</parallel>
+  	<!-- The CME, Inspector, etc builds rely on ooaofooa.sql.  Here we put the right one of our broken out files into place. -->
+  	<copy file="sql/ooaofooa-4.sql" tofile="sql/ooaofooa.sql"/>
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
   <touch file="${java.output}" />
@@ -270,7 +274,7 @@
         <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
     <env key="VERIFY_SELECTS" value="false" />
     <env key="CHECK_FUNCTIONS_ONLY" value="true" />
-        <env key="GEN_CONTEXT_MENU_WIZARD" value="TRUE"/>
+    <env key="GEN_CONTEXT_MENU_WIZARD" value="TRUE"/>
     <arg line="-nopersist
       -import ${mcj_path}/ooa_schema.sql
       -d 0 -import sql/ooaofooa-4.sql
@@ -504,7 +508,8 @@
 	      	-import ${mcj_path}/ooa_schema.sql
 	      	-import sql/ooaofooa.sql
 	      	-arch arc/generate_globals_util.arc" />
-		</exec>	    	
+		</exec>
+	    <delete file="____file.txt" />
 	</target>
 	
   <!-- ********************************************************************* -->
