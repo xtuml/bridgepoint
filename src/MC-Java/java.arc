@@ -14,6 +14,12 @@
   .print "\nERROR: Environment variable PTC_MC_ARC_DIR not set."
   .exit 100
 .end if
+.invoke project_env = GET_ENV_VAR( "PROJECT_ROOT" )
+.assign project_root = project_env.result
+.if ( project_root == "" )
+  .print "\nERROR: Environment variable PROJECT_ROOT not set."
+  .exit 100
+.end if
 .//
 .//
 .invoke mc_ss_start_check = GET_ENV_VAR( "PTC_MCC_SS_START")
@@ -484,7 +490,7 @@ p_${an.body}\
 .//
 .select any domain from instances of S_DOM where (selected.Name == mc_root_pkg)
 .invoke gdn_result = get_domain_name( domain )
-.include "color/${gdn_result.body}_package_spec.clr"
+.include "${project_root}/color/${gdn_result.body}_package_spec.clr"
 .invoke package = get_package()
 .assign application_root_class = package.application_root_class
 .if(application_root_class == "Ooaofooa")
@@ -513,7 +519,7 @@ p_${an.body}\
 .end if
 .//
 .if (translate_enabled == true)
-  .invoke gen_enum_classes( package.name, package.location )
+  .invoke gen_enum_classes( package.name, package.location, project_root )
   .//
   .//
   .// Generate a class for each External Entity (except TIM)
@@ -586,13 +592,13 @@ ${blck.body}
     .end for
   } // End ${eecn.body}
 
-    .emit to file "${package.location}/${eecn.body}.java"
+    .emit to file "${project_root}/${package.location}/${eecn.body}.java"
   .end for
   .//   
   .// End External Entities
   .//
 .end if 
-.include "color/${gdn_result.body}_import_spec.clr"
+.include "${project_root}/color/${gdn_result.body}_import_spec.clr"
 .// Generate a class for each object
 .//
 .select many subsystems from instances of S_SS
@@ -2128,7 +2134,7 @@ ${gsm.body}\
           .end if
         .end if   .// eclipse plugin
 } // end ${object.Name}
-        .emit to file "${package.location}/${class_name}.java"
+        .emit to file "${project_root}/${package.location}/${class_name}.java"
         .//
         .if ( package.is_eclipse_plugin and (not_empty filterOp) )
 package ${package.name} ;
@@ -2159,7 +2165,7 @@ public class ${gafcn.body} implements IActionFilter
 	}
 
 }
-          .emit to file "${package.location}/${gafcn.body}.java"
+          .emit to file "${project_root}/${package.location}/${gafcn.body}.java"
         .end if
         .//
         .select one asm related by object->SM_ASM[R519]
@@ -2202,7 +2208,7 @@ ${gsm.body}\
 
 } // end ${object.Name}_assigner
 
-          .emit to file "${package.location}/$cr{object.Name}_assgner_c.java"
+          .emit to file "${project_root}/${package.location}/$cr{object.Name}_assgner_c.java"
         .end if
       .end for
     .end if
@@ -2483,7 +2489,7 @@ ${blck.body}
         m_myMasterTimer.start() ;
     }
 
-  .include "color/${gdn_result.body}_startspec.clr"
+  .include "${project_root}/color/${gdn_result.body}_startspec.clr"
   .invoke result = define_startspec()
   .if (result.init_class != "")
     .assign init_class_name = "${result.init_class}_c"
@@ -2521,5 +2527,5 @@ ${blck.body}
 
 }
 
-  .emit to file "${package.location}/${application_root_class}.java"
+  .emit to file "${project_root}/${package.location}/${application_root_class}.java"
 .end if

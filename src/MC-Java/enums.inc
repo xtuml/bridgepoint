@@ -71,6 +71,7 @@ public class ${class_name} {
 .function gen_enum_classes
   .param string package_name
   .param string package_path
+  .param string project_root
   .//
   .select many enum_dt_set from instances of S_EDT
   .for each enum_dt in enum_dt_set
@@ -78,7 +79,7 @@ public class ${class_name} {
     .if ("${dt.Descrip:Translate}" != "false")
       .invoke edt_name = get_enumeration_class_name ( dt )
       .invoke e = gen_enum_class( package_name, edt_name.body, enum_dt )
-      .invoke FILE_WRITE( "${package_path}/${edt_name.body}.java", "${e.body}" )
+      .invoke FILE_WRITE( "${project_root}/${package_path}/${edt_name.body}.java", "${e.body}" )
       .print "File '${package_path}/${edt_name.body}.java'  WRITTEN."
     .end if
   .end for
