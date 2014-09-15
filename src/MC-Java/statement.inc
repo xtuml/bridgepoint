@@ -220,7 +220,7 @@ else {
       .if (lvalue.isImplicit == 1)
         .select any uValueType related by rvalue->S_DT[R820]
         .if (( uValueType.Name == "inst_ref<Object>" ) or ( uValueType.Name == "inst_ref_set<Object>" ))
-          .print "ERROR, didn't expect inst_ref or inst_ref set in transient value reference. (statement.inc: 216)"
+          .print "ERROR, didn't expect inst_ref or inst_ref set in transient value reference. (${info.arch_file_name}: ${info.arch_file_line})"
         .else
           .invoke result = do_type(uValueType)
 ${result.body} \
@@ -1045,7 +1045,7 @@ ${gss.body}\
   .param inst_ref sel_inst
   .param string where_clause_arg
   .// --------------------------------------------------------
-  .// select instance statement
+  .// select from instances - where statement
   .// --------------------------------------------------------
     .select any tgt_obj related by sel_inst->O_OBJ[R676]
     .assign mr = "modelRoot"
