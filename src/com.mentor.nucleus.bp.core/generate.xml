@@ -95,6 +95,15 @@
     </uptodate>
   </target>
 
+  <target name="schema.copy" unless="schemaIsUpToDate">
+    <echo>The ${mcj_path}/ooa_schema.sql file is out of date.  Updating it.</echo>
+    <copy todir="${mcj_path}">
+      <fileset dir="sql" includes="ooa_schema.sql">
+          <different targetdir="${mcj_path}" ignoreFileTimes="true"/>
+      </fileset>
+    </copy>
+  </target>
+	
   <target name="schema"
           depends="schema.depends"
           description="Generate the Ooa of ooa database schema file"
@@ -114,11 +123,10 @@
   <!-- Need to move the output file since the archetype uses the domain
        name as the base name of the output file -->
   <move file="sql/ooaofooa_schema.sql" tofile="sql/ooa_schema.sql" />
-  <copy todir="${mcj_path}">
-  	<fileset dir="sql" includes="ooa_schema.sql">
-  		<different targetdir="${mcj_path}" ignoreFileTimes="true"/>
-  	</fileset>
-  </copy>
+  <condition property="schemaIsUpToDate">
+    <filesmatch file1="sql/ooa_schema.sql" file2="${mcj_path}/ooa_schema.sql" textfile="true"/>
+  </condition>
+  <antcall target="schema.copy"/>
   <!-- Finally rename the output file to the one expected by the installer -->
   <move file="sql/ooa_schema.sql" tofile="sql/${schema.output}" />
   </target>
