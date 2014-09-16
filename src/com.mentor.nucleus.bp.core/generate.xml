@@ -215,8 +215,6 @@
       <property name="mcjava.project.root" value="${basedir}"/>
     </ant>
   	</parallel>
-  	<!-- The CME, Inspector, etc builds rely on ooaofooa.sql.  Here we put the right one of our broken out files into place. -->
-  	<copy file="sql/ooaofooa-4.sql" tofile="sql/ooaofooa.sql"/>
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
   <touch file="${java.output}" />
