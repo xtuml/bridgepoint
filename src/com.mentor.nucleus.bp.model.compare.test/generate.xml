@@ -25,8 +25,8 @@ the License.
 
 <project name="model.compare.test" default="all" basedir=".">
 	<property environment="env" />
-	<property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\bin" />
-	<property name="bp_gen_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\gen_dir" />
+	<property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
+	<property name="bp_gen_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/gen_dir" />
 	<property name="mc_java" value="../MC-Java" />
 	<property name="chain_util_path" value="../com.mentor.nucleus.bp.core" />
 	<property name="sql.output" value="ooaofooa_hierarchy.sql" />
@@ -46,7 +46,7 @@ the License.
 
 	<target name="create_compare_tests" description="Generate tests for comparison" depends="create_compare_tests.depends" unless="create_compare_tests.buildNotRequired">
 
-		<exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}\xtumlmc_gen_erate">
+		<exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate">
 			<env key="OS_CACHE_SIZE" value="64000000" />
 			<env key="PTC_MC_ARC_DIR" value="${mc_java}" />
 			<env key="CHAIN_UTIL_DIR" value="${chain_util_path}" />

@@ -9,7 +9,7 @@
 <project name="com.mentor.nucleus.bp.mc.none" default="all" basedir=".">
   <!-- The property ${eclipse-home} should be passed into this script -->
   <!-- Set a meaningful default value for when it is not. -->
-  <property name="eclipse-home" value="${ant.home}\..\.."/>
+  <property name="eclipse-home" value="${ant.home}/../.."/>
 
   <target name="all"
           description="Build entire project"

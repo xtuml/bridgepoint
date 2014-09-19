@@ -1,8 +1,8 @@
 .//=====================================================================
 .//
 .// File:      $RCSfile: wfl_pop.arc,v $
-.// Version:   $Revision: 1.13 $
-.// Modified:  $Date: 2013/01/10 22:54:05 $
+.// Version:   $Revision: 1.13.90.1 $
+.// Modified:  $Date: 2013/07/19 12:25:14 $
 .//
 .// (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
 .//
@@ -38,7 +38,7 @@
     .else
       .invoke wkfl = create_wfl("${fn.body}", "${function.Sync_Id}", cme);
 ${wkfl.body}
-      .select any action from instances of ACT_ACT where (selected.Action_Id == "${function.Sync_ID}")
+      .select one action related by function->ACT_FNB[R695]->ACT_ACT[R698]
       .if (not_empty action)
         .select any outer_blk related by action->ACT_BLK[R601] where (selected.Block_Id == action.Block_Id)
         .if (not_empty outer_blk)
