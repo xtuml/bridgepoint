@@ -798,7 +798,7 @@ public class TestEvent extends TestCase {
 			String act = "select any t from instances of D_TST; generate D_TST1* to t;"; //$NON-NLS-1$
 			String[] err =
 				{
-					":1:59-59: Event is not a polymorphic event. Event label must not contain '*'",//$NON-NLS-1$
+					":1:59-59: Event is not a polymorphic event. Event label must not contain '*'.",//$NON-NLS-1$
 					"line 1:61: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 1, 0);
 		}
@@ -807,7 +807,7 @@ public class TestEvent extends TestCase {
 			String act = "generate D_TST1* to D_TST creator;"; //$NON-NLS-1$
 			String[] err =
 				{
-					":1:27-33: Event is not a polymorphic event. Event label must not contain '*'",//$NON-NLS-1$
+					":1:27-33: Event is not a polymorphic event. Event label must not contain '*'.",//$NON-NLS-1$
 					"line 1:35: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 0, 0);
 		}
@@ -816,7 +816,7 @@ public class TestEvent extends TestCase {
 			String act = "generate D_TST_A1* to D_TST class;"; //$NON-NLS-1$
 			String[] err =
 				{
-					":1:29-33: Event is not a polymorphic event. Event label must not contain '*'",//$NON-NLS-1$
+					":1:29-33: Event is not a polymorphic event. Event label must not contain '*'.",//$NON-NLS-1$
 					"line 1:35: expecting Semicolon, found 'null'" };//$NON-NLS-1$
 			validateBadGenEvent(act, err, 0, 0);
 		}

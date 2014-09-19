@@ -8,8 +8,6 @@
 #
 #==========================================================================
 
-ooa_oal_pop.arc.depends : ooa_oal_pop.arc,fragment.inc
-
 java.arc.depends : java.arc,do_type.inc,arch_utils.inc, \
                    enums.inc,model_element.inc,value.inc,statement.inc, \
                    block.inc,referring.inc,referred_to.inc,translate_oal.inc, \

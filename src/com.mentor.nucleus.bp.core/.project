@@ -6,6 +6,19 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
+			<name>com.mentor.nucleus.bp.internal.tools.mc_java_export_builder</name>
+			<arguments>
+				<dictionary>
+					<key>RootPackageName</key>
+					<value>ooaofooa</value>
+				</dictionary>
+				<dictionary>
+					<key>SplitAtPackage</key>
+					<value>Constants,Invocation,Use Case</value>
+				</dictionary>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
 			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
 			<arguments>
 				<dictionary>
