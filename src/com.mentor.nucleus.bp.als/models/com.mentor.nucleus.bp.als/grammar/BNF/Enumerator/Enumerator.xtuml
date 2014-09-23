@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("042787f4-e01e-4e7c-ad64-f3514f419749",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	15,
 	'S_ENUM',
 	'An enumeration is a data type represented by a set of constants called enumerators.  For example, an enumeration called Colors might have three enumerators Red, Blue, and Green.',
-	"5edea08f-a6e1-4146-8e1c-0cade7a477c7");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
 	VALUES ("5be826b8-34e5-426c-b518-f3e3524b721f",
 	"042787f4-e01e-4e7c-ad64-f3514f419749");
@@ -22,16 +22,9 @@ INSERT INTO O_ATTR
 	'',
 	'Enum_ID',
 	0,
-	"0dd326a8-132b-40ba-821c-d4a3d3b8c88d",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("0dd326a8-132b-40ba-821c-d4a3d3b8c88d",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("b064aa0b-0fa7-4e18-8aba-695974b5a94c",
 	"042787f4-e01e-4e7c-ad64-f3514f419749");
@@ -47,16 +40,9 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8bc628ed-3494-4e74-bb6a-ec37622127df",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("cedaa9d4-6188-4e36-85ce-cec13fe07436",
 	"042787f4-e01e-4e7c-ad64-f3514f419749");
@@ -72,7 +58,7 @@ INSERT INTO O_ATTR
 	'',
 	'Descrip',
 	0,
-	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -123,16 +109,9 @@ INSERT INTO O_ATTR
 	'',
 	'EDT_ID',
 	0,
-	"73db19ab-e535-4718-ab07-668918299d9a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("73db19ab-e535-4718-ab07-668918299d9a",
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"042787f4-e01e-4e7c-ad64-f3514f419749");
@@ -147,12 +126,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"042787f4-e01e-4e7c-ad64-f3514f419749");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("042787f4-e01e-4e7c-ad64-f3514f419749",
+	1,
+	"5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	"00000000-0000-0000-0000-000000000000",
+	"c76dedc6-4b25-435f-9310-4f344030485a",
 	'BNF',
 	'',
-	'',
 	1,
-	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	"00000000-0000-0000-0000-000000100002",
 	'../BNF.xtuml');
