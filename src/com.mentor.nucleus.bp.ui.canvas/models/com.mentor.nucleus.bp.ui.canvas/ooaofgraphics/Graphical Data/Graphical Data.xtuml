@@ -1,2174 +1,20 @@
--- BP 7.1 content: Subsystem syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_SS
+INSERT INTO EP_PKG
 	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Graphical Data',
 	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
 -------------------------------------------------------
 Import:org.eclipse.swt.graphics.Color
 Notify_Changes:true',
-	'GD',
-	1,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000001900032");
-INSERT INTO S_SID
-	VALUES ("3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO S_DOM_PROXY
-	VALUES ("3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'ooaofgraphics',
-	'========================================================================
-
-File:          $RCSfile$
-Version:   $Revision$
-Modified:  $Date$
-
-(c) Copyright 2004-2014 Mentor Graphics Corporation All rights reserved.
-
-========================================================================
-Licensed under the Apache License, Version 2.0 (the "License"); you may not
-use this file except in compliance with the License.  You may obtain a copy
-of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
-License for the specific language governing permissions and limitations under
-the License.
-========================================================================
-
-This is the graphics domain for the Tiger project.
-
-The processing in this model describes the activities
-required for model diagram display and editing.
-
-Import:com.mentor.nucleus.bp.core.*
--------------------------------------------------------------------------------------------------------------
-',
-	0,
-	"00000000-0000-0000-0000-000000000001",
-	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
-	'../ooaofgraphics.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("340e3522-0e3d-442e-88e9-575f5c9c40bc",
-	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
-	0,
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'Diagram',
-	'DIM_DIA');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("18112b9b-f650-403f-be5c-27e3bda6b9dd",
-	'Diagram',
-	5,
-	'DIM_DIA',
-	'',
-	"490299c9-e7aa-468e-82d7-0731c80e4069",
-	'../UML 2.0 Diagram Interchange/Diagram/Diagram.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("8f8e762a-6115-48ad-b2c7-ed50ecaab188",
-	"04bcd415-c1a2-437e-9b8f-2cd45a955c31",
-	0,
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'GraphNode',
-	'DIM_ND');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("04bcd415-c1a2-437e-9b8f-2cd45a955c31",
-	'GraphNode',
-	3,
-	'DIM_ND',
-	'',
-	"490299c9-e7aa-468e-82d7-0731c80e4069",
-	'../UML 2.0 Diagram Interchange/GraphNode/GraphNode.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("0054339c-c42f-43f4-b372-a5f661dda6b1",
-	"0580af92-433a-4442-8b1c-a330fd6a0b16",
-	0,
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'GraphEdge',
-	'DIM_ED');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("0580af92-433a-4442-8b1c-a330fd6a0b16",
-	'GraphEdge',
-	28,
-	'DIM_ED',
-	'',
-	"490299c9-e7aa-468e-82d7-0731c80e4069",
-	'../UML 2.0 Diagram Interchange/GraphEdge/GraphEdge.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("b6d071fb-9da6-4afc-a455-226c65aa9c8a",
-	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
-	0,
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'Waypoint',
-	'DIM_WAY');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
-	'Waypoint',
-	29,
-	'DIM_WAY',
-	'',
-	"490299c9-e7aa-468e-82d7-0731c80e4069",
-	'../UML 2.0 Diagram Interchange/Waypoint/Waypoint.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("7e350f9e-92f0-45ad-a7f9-8a43b6c4a006",
-	"2d1f6d38-7e9e-4999-ada8-a67731acf6c2",
-	0,
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'GraphElement',
-	'DIM_GE');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("2d1f6d38-7e9e-4999-ada8-a67731acf6c2",
-	'GraphElement',
-	1,
-	'DIM_GE',
-	'',
-	"490299c9-e7aa-468e-82d7-0731c80e4069",
-	'../UML 2.0 Diagram Interchange/GraphElement/GraphElement.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("9c50ad41-0cb4-43f1-8257-e5d3f5560d81",
-	"a2f9b584-b553-4037-acb2-0227d0fd18ea",
-	0,
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'GraphConnector',
-	'DIM_CON');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("a2f9b584-b553-4037-acb2-0227d0fd18ea",
-	'GraphConnector',
-	6,
-	'DIM_CON',
-	'',
-	"490299c9-e7aa-468e-82d7-0731c80e4069",
-	'../UML 2.0 Diagram Interchange/GraphConnector/GraphConnector.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("327146e2-7673-4515-97f3-c34af8c671c5");
-INSERT INTO R_REL
-	VALUES ("327146e2-7673-4515-97f3-c34af8c671c5",
-	1,
-	'A model contains zero or more (it may be empty) graphical elements.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_PART
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"327146e2-7673-4515-97f3-c34af8c671c5",
-	"38059324-2b5e-45f9-b1ca-f80876e19fc3",
-	0,
-	1,
-	'is part of');
-INSERT INTO O_RTIDA
-	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
-	"09423687-e999-4aba-876d-35e0d3331311",
-	0,
-	"327146e2-7673-4515-97f3-c34af8c671c5",
-	"38059324-2b5e-45f9-b1ca-f80876e19fc3");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
-	"09423687-e999-4aba-876d-35e0d3331311",
-	0,
-	'diagramId',
-	'./Model/Model.xtuml');
-INSERT INTO R_RTO
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"327146e2-7673-4515-97f3-c34af8c671c5",
-	"38059324-2b5e-45f9-b1ca-f80876e19fc3",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"09423687-e999-4aba-876d-35e0d3331311",
-	'./Model/Model.xtuml');
-INSERT INTO R_OIR
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"327146e2-7673-4515-97f3-c34af8c671c5",
-	"38059324-2b5e-45f9-b1ca-f80876e19fc3",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	'Model',
-	1,
-	'GD_MD',
-	'A model is a drawing for one particular view of the analysis. There is an instance of model for each glyph on the index window, and each entry in the model element list on the index window. For example, every domain will have four models (DPD, PDD(R), PDD(A), PDD(S)).  Every subsystem will have three models (CD, OCD(A), OCD(S)).  Every state chart has one model (SC).  The STT is not a graphical model.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./Model/Model.xtuml');
-INSERT INTO R_FORM
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"327146e2-7673-4515-97f3-c34af8c671c5",
-	"06947059-7da9-4759-b912-90dd18cc836a",
-	1,
-	1,
-	'contains');
-INSERT INTO R_RGO
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"327146e2-7673-4515-97f3-c34af8c671c5",
-	"06947059-7da9-4759-b912-90dd18cc836a");
-INSERT INTO R_OIR
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"327146e2-7673-4515-97f3-c34af8c671c5",
-	"06947059-7da9-4759-b912-90dd18cc836a",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	'Graphical Element',
-	2,
-	'GD_GE',
-	'Graphical element abstracts the different shapes and lines that make up the graphical representation of a model on the canvas.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./Graphical Element/Graphical Element.xtuml');
-INSERT INTO R_SUBSUP
-	VALUES ("b6240df2-203b-4a4b-88ed-82db847a152e");
-INSERT INTO R_REL
-	VALUES ("b6240df2-203b-4a4b-88ed-82db847a152e",
-	2,
-	'A graphical element can be a shape, connector, or line segment. A connector has no graphical representation, it acts as a collection of line segments that make up the connector.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_SUPER
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"b6240df2-203b-4a4b-88ed-82db847a152e",
-	"937aaa35-965d-445e-b537-14b84a964929");
-INSERT INTO O_RTIDA
-	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	0,
-	"b6240df2-203b-4a4b-88ed-82db847a152e",
-	"937aaa35-965d-445e-b537-14b84a964929");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	0,
-	'elementId',
-	'./Graphical Element/Graphical Element.xtuml');
-INSERT INTO R_RTO
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"b6240df2-203b-4a4b-88ed-82db847a152e",
-	"937aaa35-965d-445e-b537-14b84a964929",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	'./Graphical Element/Graphical Element.xtuml');
-INSERT INTO R_OIR
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"b6240df2-203b-4a4b-88ed-82db847a152e",
-	"937aaa35-965d-445e-b537-14b84a964929",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUB
-	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
-	"b6240df2-203b-4a4b-88ed-82db847a152e",
-	"3a4f503a-85fe-46cd-a48d-2c8cfee5fd1c");
-INSERT INTO R_RGO
-	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
-	"b6240df2-203b-4a4b-88ed-82db847a152e",
-	"3a4f503a-85fe-46cd-a48d-2c8cfee5fd1c");
-INSERT INTO R_OIR
-	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
-	"b6240df2-203b-4a4b-88ed-82db847a152e",
-	"3a4f503a-85fe-46cd-a48d-2c8cfee5fd1c",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
-	'Shape',
-	3,
-	'GD_SHP',
-	'This represents the rectangular space taken by a shape on the model.  The actual shape drawn may be an oval, partitioned rectangle, etc.  Note: sometimes BridgePoint reverses the NW and SE coordinates of the shape when populating the graphical subsystem model.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./Shape/Shape.xtuml');
-INSERT INTO R_SUB
-	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	"b6240df2-203b-4a4b-88ed-82db847a152e",
-	"d2f9f4ef-aac2-4179-ab02-35c11ad5669f");
-INSERT INTO R_RGO
-	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	"b6240df2-203b-4a4b-88ed-82db847a152e",
-	"d2f9f4ef-aac2-4179-ab02-35c11ad5669f");
-INSERT INTO R_OIR
-	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	"b6240df2-203b-4a4b-88ed-82db847a152e",
-	"d2f9f4ef-aac2-4179-ab02-35c11ad5669f",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	'Connector',
-	4,
-	'GD_CON',
-	'A connector represents a connection between two graphical elements.  The connection is represented by a set of lines.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./Connector/Connector.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("23f2e100-2235-4c17-ba37-70aa22fa0b0c");
-INSERT INTO R_REL
-	VALUES ("23f2e100-2235-4c17-ba37-70aa22fa0b0c",
-	5,
-	'When a connector has another connector ending on it, this association captures which line segment in the connector the other connector''s line ends at. The associative connector is not the one at the ''is the destination of connector ending at'' end of this association but is found by navigating from that connector to its supertype and across R4.''is ending point for''.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_PART
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"23f2e100-2235-4c17-ba37-70aa22fa0b0c",
-	"84c22acb-2bdb-42c9-904c-a7f9d01cdfc9",
-	0,
-	1,
-	'has connector which ends at');
-INSERT INTO O_RTIDA
-	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
-	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	0,
-	"23f2e100-2235-4c17-ba37-70aa22fa0b0c",
-	"84c22acb-2bdb-42c9-904c-a7f9d01cdfc9");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
-	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	0,
-	'elementId',
-	'./Line Segment/Line Segment.xtuml');
-INSERT INTO R_RTO
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"23f2e100-2235-4c17-ba37-70aa22fa0b0c",
-	"84c22acb-2bdb-42c9-904c-a7f9d01cdfc9",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	'./Line Segment/Line Segment.xtuml');
-INSERT INTO R_OIR
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"23f2e100-2235-4c17-ba37-70aa22fa0b0c",
-	"84c22acb-2bdb-42c9-904c-a7f9d01cdfc9",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	'Line Segment',
-	5,
-	'GD_LS',
-	'The line segment is a single line drawn on the model. If the line segment is the first or last line segment, there may be adornments (cardinality, multiplicity) drawn near where the line segment attaches to the GE it starts/ends at.  Note: BridgePoint is very arbitrary about how it populates line segments in terms of begins and ends.  Line segments do not always run from start element to end element - sometimes they are reversed. ',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./Line Segment/Line Segment.xtuml');
-INSERT INTO R_FORM
-	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	"23f2e100-2235-4c17-ba37-70aa22fa0b0c",
-	"869a5e4d-1ed2-4a88-8136-60d95bc6447e",
-	0,
-	1,
-	'is the destination of connector ending at');
-INSERT INTO R_RGO
-	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	"23f2e100-2235-4c17-ba37-70aa22fa0b0c",
-	"869a5e4d-1ed2-4a88-8136-60d95bc6447e");
-INSERT INTO R_OIR
-	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	"23f2e100-2235-4c17-ba37-70aa22fa0b0c",
-	"869a5e4d-1ed2-4a88-8136-60d95bc6447e",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("fac14233-37ae-42cd-a8b8-ceffc02b4a95");
-INSERT INTO R_REL
-	VALUES ("fac14233-37ae-42cd-a8b8-ceffc02b4a95",
-	7,
-	'Line segments are ordered from first to last for each connector.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_FORM
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"fac14233-37ae-42cd-a8b8-ceffc02b4a95",
-	"4ded3c81-372a-44aa-9d90-eedb28e47ce4",
-	0,
-	1,
-	'precedes');
-INSERT INTO R_RGO
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"fac14233-37ae-42cd-a8b8-ceffc02b4a95",
-	"4ded3c81-372a-44aa-9d90-eedb28e47ce4");
-INSERT INTO R_OIR
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"fac14233-37ae-42cd-a8b8-ceffc02b4a95",
-	"4ded3c81-372a-44aa-9d90-eedb28e47ce4",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"fac14233-37ae-42cd-a8b8-ceffc02b4a95",
-	"ad7ebf6e-7a1c-467a-8831-6cf11aed5412",
-	0,
-	1,
-	'follows');
-INSERT INTO O_RTIDA
-	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
-	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	0,
-	"fac14233-37ae-42cd-a8b8-ceffc02b4a95",
-	"ad7ebf6e-7a1c-467a-8831-6cf11aed5412");
-INSERT INTO R_RTO
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"fac14233-37ae-42cd-a8b8-ceffc02b4a95",
-	"ad7ebf6e-7a1c-467a-8831-6cf11aed5412",
-	0);
-INSERT INTO R_OIR
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"fac14233-37ae-42cd-a8b8-ceffc02b4a95",
-	"ad7ebf6e-7a1c-467a-8831-6cf11aed5412",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("10bbc508-5ab6-4f8d-9c6f-4dacad3822f3");
-INSERT INTO R_REL
-	VALUES ("10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
-	9,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_PART
-	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
-	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
-	"db8e80b8-4914-49fc-b73a-c8a5848b6b3a",
-	0,
-	0,
-	'is instance of');
-INSERT INTO O_RTIDA
-	VALUES ("af61b674-5c60-451f-8e71-4938504496fc",
-	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
-	0,
-	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
-	"db8e80b8-4914-49fc-b73a-c8a5848b6b3a");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("af61b674-5c60-451f-8e71-4938504496fc",
-	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
-	0,
-	'OOA_Type',
-	'./Model Specification/Model Specification.xtuml');
-INSERT INTO O_RTIDA
-	VALUES ("ce107490-0989-42ef-8800-aeb9ee9f7644",
-	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
-	0,
-	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
-	"db8e80b8-4914-49fc-b73a-c8a5848b6b3a");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("ce107490-0989-42ef-8800-aeb9ee9f7644",
-	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
-	0,
-	'Model_Type',
-	'./Model Specification/Model Specification.xtuml');
-INSERT INTO R_RTO
-	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
-	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
-	"db8e80b8-4914-49fc-b73a-c8a5848b6b3a",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
-	'./Model Specification/Model Specification.xtuml');
-INSERT INTO R_OIR
-	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
-	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
-	"db8e80b8-4914-49fc-b73a-c8a5848b6b3a",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
-	'Model Specification',
-	7,
-	'GD_MS',
-	'A model specification instance defines a type of canvas.
-We use the OOA_Type and the Model_Type as identifiers
-because the OOA_Type defines the OOA of OOA element
-type that the canvas type represents, but there can be 
-more than one canvas type per OOA of OOA element type.
-
-Instances of this class are instantiated at startup from a
-pre-existing instance specification.
----------------------------------------------------------------------------
-
-PEI:true
-Persistent:false
-TRANSLATE_FOR_EXTERNAL_USE:FALSE
-',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./Model Specification/Model Specification.xtuml');
-INSERT INTO R_FORM
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
-	"e9b2d848-6cad-4566-adb2-64548fba8b49",
-	1,
-	1,
-	'has instance');
-INSERT INTO R_RGO
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
-	"e9b2d848-6cad-4566-adb2-64548fba8b49");
-INSERT INTO R_OIR
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
-	"e9b2d848-6cad-4566-adb2-64548fba8b49",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("0d9f18ad-f165-4e48-9d88-393d0f109ccf");
-INSERT INTO R_REL
-	VALUES ("0d9f18ad-f165-4e48-9d88-393d0f109ccf",
-	10,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_PART
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"0d9f18ad-f165-4e48-9d88-393d0f109ccf",
-	"1949aedb-f7ce-466c-b645-d9825b9d1820",
-	0,
-	0,
-	'is instance of');
-INSERT INTO O_RTIDA
-	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
-	"76253415-b575-4583-9248-5d403cee7647",
-	0,
-	"0d9f18ad-f165-4e48-9d88-393d0f109ccf",
-	"1949aedb-f7ce-466c-b645-d9825b9d1820");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
-	"76253415-b575-4583-9248-5d403cee7647",
-	0,
-	'OOA_Type',
-	'./Element Specification/Element Specification.xtuml');
-INSERT INTO R_RTO
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"0d9f18ad-f165-4e48-9d88-393d0f109ccf",
-	"1949aedb-f7ce-466c-b645-d9825b9d1820",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"76253415-b575-4583-9248-5d403cee7647",
-	'./Element Specification/Element Specification.xtuml');
-INSERT INTO R_OIR
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"0d9f18ad-f165-4e48-9d88-393d0f109ccf",
-	"1949aedb-f7ce-466c-b645-d9825b9d1820",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	'Element Specification',
-	8,
-	'GD_ES',
-	'An element specification instance defines a type of symbol.
-The OOA_Type defines the OOA of OOA element represented
-by this symbol.
-
-Instances of this class are instantiated at startup from a
-pre-existing instance specification.
----------------------------------------------------------------------------
-
-PEI:true
-Persistent:false
-TRANSLATE_FOR_EXTERNAL_USE:FALSE
-
-',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./Element Specification/Element Specification.xtuml');
-INSERT INTO R_FORM
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"0d9f18ad-f165-4e48-9d88-393d0f109ccf",
-	"3f4b8b91-44a6-463c-8588-95a40f043f53",
-	1,
-	1,
-	'has instance');
-INSERT INTO R_RGO
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"0d9f18ad-f165-4e48-9d88-393d0f109ccf",
-	"3f4b8b91-44a6-463c-8588-95a40f043f53");
-INSERT INTO R_OIR
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"0d9f18ad-f165-4e48-9d88-393d0f109ccf",
-	"3f4b8b91-44a6-463c-8588-95a40f043f53",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_ASSOC
-	VALUES ("e0072d1e-1138-4b87-a744-8e3a4241a9ae");
-INSERT INTO R_REL
-	VALUES ("e0072d1e-1138-4b87-a744-8e3a4241a9ae",
-	11,
-	'This relationship determines which symbols may appear on which
-diagrams.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_AONE
-	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
-	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
-	"3d394975-3d60-4dc8-b577-9f5768d97655",
-	1,
-	1,
-	'can appear on');
-INSERT INTO O_RTIDA
-	VALUES ("af61b674-5c60-451f-8e71-4938504496fc",
-	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
-	0,
-	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
-	"3d394975-3d60-4dc8-b577-9f5768d97655");
-INSERT INTO O_RTIDA
-	VALUES ("ce107490-0989-42ef-8800-aeb9ee9f7644",
-	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
-	0,
-	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
-	"3d394975-3d60-4dc8-b577-9f5768d97655");
-INSERT INTO R_RTO
-	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
-	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
-	"3d394975-3d60-4dc8-b577-9f5768d97655",
-	0);
-INSERT INTO R_OIR
-	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
-	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
-	"3d394975-3d60-4dc8-b577-9f5768d97655",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_AOTH
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
-	"27cc0e76-8493-47fb-a21f-4a99df88dbb1",
-	1,
-	1,
-	'can show');
-INSERT INTO O_RTIDA
-	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
-	"76253415-b575-4583-9248-5d403cee7647",
-	0,
-	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
-	"27cc0e76-8493-47fb-a21f-4a99df88dbb1");
-INSERT INTO R_RTO
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
-	"27cc0e76-8493-47fb-a21f-4a99df88dbb1",
-	0);
-INSERT INTO R_OIR
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
-	"27cc0e76-8493-47fb-a21f-4a99df88dbb1",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_ASSR
-	VALUES ("5f9e2df6-cdf7-4187-adc6-d0b0f83aad5a",
-	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
-	"6d7247ae-ef47-44d5-a14a-f6e8aef7e7ab",
-	0);
-INSERT INTO R_RGO
-	VALUES ("5f9e2df6-cdf7-4187-adc6-d0b0f83aad5a",
-	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
-	"6d7247ae-ef47-44d5-a14a-f6e8aef7e7ab");
-INSERT INTO R_OIR
-	VALUES ("5f9e2df6-cdf7-4187-adc6-d0b0f83aad5a",
-	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
-	"6d7247ae-ef47-44d5-a14a-f6e8aef7e7ab",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("5f9e2df6-cdf7-4187-adc6-d0b0f83aad5a",
-	'Element in Model Specification',
-	9,
-	'GD_EMS',
-	'An instance of this associative class exists for each time a symbol
-type (represented by an Element_Specification) appears on a
-canvas type (represented by a Model_Specification).
-
-Instances of this class are instantiated at startup from a
-pre-existing instance specification.
----------------------------------------------------------------------------------
-
-PEI:true
-Persistent:false
-TRANSLATE_FOR_EXTERNAL_USE:FALSE
-',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./Element in Model Specification/Element in Model Specification.xtuml');
-INSERT INTO R_ASSOC
-	VALUES ("2f40ad37-f831-47cd-8202-d9de8077243d");
-INSERT INTO R_REL
-	VALUES ("2f40ad37-f831-47cd-8202-d9de8077243d",
-	12,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_AOTH
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"2f40ad37-f831-47cd-8202-d9de8077243d",
-	"cf7be58c-439d-48b5-9315-e7da6a32c18d",
-	0,
-	1,
-	'is resized in');
-INSERT INTO O_RTIDA
-	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
-	"09423687-e999-4aba-876d-35e0d3331311",
-	0,
-	"2f40ad37-f831-47cd-8202-d9de8077243d",
-	"cf7be58c-439d-48b5-9315-e7da6a32c18d");
-INSERT INTO R_RTO
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"2f40ad37-f831-47cd-8202-d9de8077243d",
-	"cf7be58c-439d-48b5-9315-e7da6a32c18d",
-	0);
-INSERT INTO R_OIR
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"2f40ad37-f831-47cd-8202-d9de8077243d",
-	"cf7be58c-439d-48b5-9315-e7da6a32c18d",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_AONE
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"2f40ad37-f831-47cd-8202-d9de8077243d",
-	"dbe6afd3-270b-4ede-a9d3-b8ed81fe8775",
-	0,
-	1,
-	'is resizing');
-INSERT INTO O_RTIDA
-	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	0,
-	"2f40ad37-f831-47cd-8202-d9de8077243d",
-	"dbe6afd3-270b-4ede-a9d3-b8ed81fe8775");
-INSERT INTO R_RTO
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"2f40ad37-f831-47cd-8202-d9de8077243d",
-	"dbe6afd3-270b-4ede-a9d3-b8ed81fe8775",
-	0);
-INSERT INTO R_OIR
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"2f40ad37-f831-47cd-8202-d9de8077243d",
-	"dbe6afd3-270b-4ede-a9d3-b8ed81fe8775",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_ASSR
-	VALUES ("558681b3-16a8-4412-a2a2-59b606dea487",
-	"2f40ad37-f831-47cd-8202-d9de8077243d",
-	"10990c61-8b5c-43b4-a550-26e7af6ce282",
-	0);
-INSERT INTO R_RGO
-	VALUES ("558681b3-16a8-4412-a2a2-59b606dea487",
-	"2f40ad37-f831-47cd-8202-d9de8077243d",
-	"10990c61-8b5c-43b4-a550-26e7af6ce282");
-INSERT INTO R_OIR
-	VALUES ("558681b3-16a8-4412-a2a2-59b606dea487",
-	"2f40ad37-f831-47cd-8202-d9de8077243d",
-	"10990c61-8b5c-43b4-a550-26e7af6ce282",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("558681b3-16a8-4412-a2a2-59b606dea487",
-	'Element In Resize',
-	10,
-	'GD_EIR',
-	'One instance of this class exists during the time a graphical element
-is being resized. Both Shapes and connectors can be resized. In the
-case of a connector, resizing can occur on any of the text blocks
-associated with it.
-
----------------------------------------------------------------------------------
-Persistent:false
-TRANSLATE_FOR_EXTERNAL_USE:FALSE
-',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./Element In Resize/Element In Resize.xtuml');
-INSERT INTO R_ASSOC
-	VALUES ("aedc6ea2-257c-42f4-812e-58b8497eb3dd");
-INSERT INTO R_REL
-	VALUES ("aedc6ea2-257c-42f4-812e-58b8497eb3dd",
-	14,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_AONE
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
-	"ad074bf9-8856-45e4-84f9-541f949fbc5e",
-	0,
-	1,
-	'');
-INSERT INTO O_RTIDA
-	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
-	"09423687-e999-4aba-876d-35e0d3331311",
-	0,
-	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
-	"ad074bf9-8856-45e4-84f9-541f949fbc5e");
-INSERT INTO R_RTO
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
-	"ad074bf9-8856-45e4-84f9-541f949fbc5e",
-	0);
-INSERT INTO R_OIR
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
-	"ad074bf9-8856-45e4-84f9-541f949fbc5e",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_AOTH
-	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
-	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
-	"1513df8a-2068-40b2-b0d9-586f95849117",
-	0,
-	1,
-	'');
-INSERT INTO O_RTIDA
-	VALUES ("70ce96fd-d49f-4b77-a54a-884e47ec3bb1",
-	"36263303-f694-42bf-8e61-b117b1a89014",
-	0,
-	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
-	"1513df8a-2068-40b2-b0d9-586f95849117");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("70ce96fd-d49f-4b77-a54a-884e47ec3bb1",
-	"36263303-f694-42bf-8e61-b117b1a89014",
-	0,
-	'elementId',
-	'./Floating Text/Floating Text.xtuml');
-INSERT INTO R_RTO
-	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
-	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
-	"1513df8a-2068-40b2-b0d9-586f95849117",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"36263303-f694-42bf-8e61-b117b1a89014",
-	'./Floating Text/Floating Text.xtuml');
-INSERT INTO R_OIR
-	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
-	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
-	"1513df8a-2068-40b2-b0d9-586f95849117",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
-	'Floating Text',
-	6,
-	'GD_CTXT',
-	'This class contains the positions for the text at the start, middle and end of the connector.  The positions have a upper left and lower right coordinate, which specifies the size of the box containing the text. The delta coordinate specifies how much to move the box from the default position.  Note: For non supertype/subtype relationships, Start and End are the two relationship phrases and Middle is the relationship number.  For supertype/subtype relationships, Start is the hard-coded phrase, End is the relationship number, and Middle is nothing.  Also note: sometimes BridgePoint reverses the NW and SE coordinates for the connector text when populating the graphical subsystem model.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./Floating Text/Floating Text.xtuml');
-INSERT INTO R_ASSR
-	VALUES ("94171104-6099-4245-a9b0-0a7eb254af1b",
-	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
-	"1b3ba3ce-7eff-448e-bd68-bee500a60524",
-	0);
-INSERT INTO R_RGO
-	VALUES ("94171104-6099-4245-a9b0-0a7eb254af1b",
-	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
-	"1b3ba3ce-7eff-448e-bd68-bee500a60524");
-INSERT INTO R_OIR
-	VALUES ("94171104-6099-4245-a9b0-0a7eb254af1b",
-	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
-	"1b3ba3ce-7eff-448e-bd68-bee500a60524",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("94171104-6099-4245-a9b0-0a7eb254af1b",
-	'Text In Move',
-	12,
-	'GD_TIM',
-	'One instance of this class exists when a text block is being 
-moved. As documented by the 1:1 by conditional relationship,
-only one text block can be moved at a time. Text blocks cannot
-be selected individually, they form part of the connector to
-which they are attached. It therefore follows they cannot be
-grouped and moved together.
-
----------------------------------------------------------------------------------
-Persistent:false
-TRANSLATE_FOR_EXTERNAL_USE:FALSE
-
-',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./Text In Move/Text In Move.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("610836b6-8b80-49f4-ba30-5fc1553915d0");
-INSERT INTO R_REL
-	VALUES ("610836b6-8b80-49f4-ba30-5fc1553915d0",
-	16,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_FORM
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"610836b6-8b80-49f4-ba30-5fc1553915d0",
-	"f704d28a-f3e6-470a-91ad-75d819c49d4c",
-	0,
-	1,
-	'is being created by');
-INSERT INTO R_RGO
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"610836b6-8b80-49f4-ba30-5fc1553915d0",
-	"f704d28a-f3e6-470a-91ad-75d819c49d4c");
-INSERT INTO R_OIR
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"610836b6-8b80-49f4-ba30-5fc1553915d0",
-	"f704d28a-f3e6-470a-91ad-75d819c49d4c",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"610836b6-8b80-49f4-ba30-5fc1553915d0",
-	"83e01f16-7f5d-4494-83f5-3e27dbf25b94",
-	0,
-	1,
-	'is creating');
-INSERT INTO O_RTIDA
-	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	0,
-	"610836b6-8b80-49f4-ba30-5fc1553915d0",
-	"83e01f16-7f5d-4494-83f5-3e27dbf25b94");
-INSERT INTO R_RTO
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"610836b6-8b80-49f4-ba30-5fc1553915d0",
-	"83e01f16-7f5d-4494-83f5-3e27dbf25b94",
-	0);
-INSERT INTO R_OIR
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"610836b6-8b80-49f4-ba30-5fc1553915d0",
-	"83e01f16-7f5d-4494-83f5-3e27dbf25b94",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4");
-INSERT INTO R_REL
-	VALUES ("ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4",
-	17,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_PART
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4",
-	"48fc44ad-0772-4976-a160-73d6a2368a54",
-	0,
-	0,
-	'is for');
-INSERT INTO O_RTIDA
-	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
-	"76253415-b575-4583-9248-5d403cee7647",
-	0,
-	"ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4",
-	"48fc44ad-0772-4976-a160-73d6a2368a54");
-INSERT INTO R_RTO
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4",
-	"48fc44ad-0772-4976-a160-73d6a2368a54",
-	0);
-INSERT INTO R_OIR
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4",
-	"48fc44ad-0772-4976-a160-73d6a2368a54",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("95c699ea-9180-4081-ba6f-0cc9437b7a32",
-	"ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4",
-	"e529e44b-03f6-400f-b691-416f20e68cf0",
-	1,
-	1,
-	'has');
-INSERT INTO R_RGO
-	VALUES ("95c699ea-9180-4081-ba6f-0cc9437b7a32",
-	"ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4",
-	"e529e44b-03f6-400f-b691-416f20e68cf0");
-INSERT INTO R_OIR
-	VALUES ("95c699ea-9180-4081-ba6f-0cc9437b7a32",
-	"ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4",
-	"e529e44b-03f6-400f-b691-416f20e68cf0",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("95c699ea-9180-4081-ba6f-0cc9437b7a32",
-	'Client Class Dependency',
-	13,
-	'GD_CCD',
-	'This class captures a dependency between an Element Specification
-and a client class.  This information is useful for when a client class changes,
-and we need to know if the element needs to be redrawn.
-
-Persistent:false
-PEI:true
-TRANSLATE_FOR_EXTERNAL_USE:FALSE
-',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./Client Class Dependency/Client Class Dependency.xtuml');
-INSERT INTO R_SUBSUP
-	VALUES ("e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f");
-INSERT INTO R_REL
-	VALUES ("e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
-	18,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_SUPER
-	VALUES ("18112b9b-f650-403f-be5c-27e3bda6b9dd",
-	"e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
-	"8638bbbd-9397-4e8c-b28e-358a10a6fe20");
-INSERT INTO O_RTIDA
-	VALUES ("57f2fb06-0e5a-471e-bab1-02b88f324eb4",
-	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
-	0,
-	"e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
-	"8638bbbd-9397-4e8c-b28e-358a10a6fe20");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("57f2fb06-0e5a-471e-bab1-02b88f324eb4",
-	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
-	0,
-	'diagramId',
-	'../UML 2.0 Diagram Interchange/Diagram/Diagram.xtuml');
-INSERT INTO R_RTO
-	VALUES ("18112b9b-f650-403f-be5c-27e3bda6b9dd",
-	"e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
-	"8638bbbd-9397-4e8c-b28e-358a10a6fe20",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
-	'../UML 2.0 Diagram Interchange/Diagram/Diagram.xtuml');
-INSERT INTO R_OIR
-	VALUES ("18112b9b-f650-403f-be5c-27e3bda6b9dd",
-	"e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
-	"8638bbbd-9397-4e8c-b28e-358a10a6fe20",
-	"340e3522-0e3d-442e-88e9-575f5c9c40bc");
-INSERT INTO R_SUB
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
-	"1a0dd092-9bbc-451a-bcad-60cac028fe8b");
-INSERT INTO R_RGO
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
-	"1a0dd092-9bbc-451a-bcad-60cac028fe8b");
-INSERT INTO R_OIR
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
-	"1a0dd092-9bbc-451a-bcad-60cac028fe8b",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUBSUP
-	VALUES ("ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c");
-INSERT INTO R_REL
-	VALUES ("ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
-	20,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_SUPER
-	VALUES ("0580af92-433a-4442-8b1c-a330fd6a0b16",
-	"ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
-	"df3ee96a-de4b-433c-b97d-01969e4df983");
-INSERT INTO O_RTIDA
-	VALUES ("3e87f726-fa2e-4976-a124-f22b97f8062d",
-	"0580af92-433a-4442-8b1c-a330fd6a0b16",
-	0,
-	"ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
-	"df3ee96a-de4b-433c-b97d-01969e4df983");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("3e87f726-fa2e-4976-a124-f22b97f8062d",
-	"0580af92-433a-4442-8b1c-a330fd6a0b16",
-	0,
-	'elementId',
-	'../UML 2.0 Diagram Interchange/GraphEdge/GraphEdge.xtuml');
-INSERT INTO R_RTO
-	VALUES ("0580af92-433a-4442-8b1c-a330fd6a0b16",
-	"ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
-	"df3ee96a-de4b-433c-b97d-01969e4df983",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"0580af92-433a-4442-8b1c-a330fd6a0b16",
-	'../UML 2.0 Diagram Interchange/GraphEdge/GraphEdge.xtuml');
-INSERT INTO R_OIR
-	VALUES ("0580af92-433a-4442-8b1c-a330fd6a0b16",
-	"ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
-	"df3ee96a-de4b-433c-b97d-01969e4df983",
-	"0054339c-c42f-43f4-b372-a5f661dda6b1");
-INSERT INTO R_SUB
-	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	"ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
-	"b212d297-f6ec-4835-bc1d-b9f01a6d8594");
-INSERT INTO R_RGO
-	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	"ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
-	"b212d297-f6ec-4835-bc1d-b9f01a6d8594");
-INSERT INTO R_OIR
-	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	"ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
-	"b212d297-f6ec-4835-bc1d-b9f01a6d8594",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("3999d950-5376-4791-b35b-b19f8830ae2d");
-INSERT INTO R_REL
-	VALUES ("3999d950-5376-4791-b35b-b19f8830ae2d",
-	21,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_FORM
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"3999d950-5376-4791-b35b-b19f8830ae2d",
-	"cfd0b077-82c0-4b31-b59a-d9b034d1b6d6",
-	0,
-	1,
-	'');
-INSERT INTO R_RGO
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"3999d950-5376-4791-b35b-b19f8830ae2d",
-	"cfd0b077-82c0-4b31-b59a-d9b034d1b6d6");
-INSERT INTO R_OIR
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"3999d950-5376-4791-b35b-b19f8830ae2d",
-	"cfd0b077-82c0-4b31-b59a-d9b034d1b6d6",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
-	"3999d950-5376-4791-b35b-b19f8830ae2d",
-	"e2da1eab-b2f1-4387-877c-83d82f097436",
-	0,
-	0,
-	'starting endpoint');
-INSERT INTO O_RTIDA
-	VALUES ("fdf1eeb1-04c2-458a-8bbd-ffbfe87b7c4a",
-	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
-	0,
-	"3999d950-5376-4791-b35b-b19f8830ae2d",
-	"e2da1eab-b2f1-4387-877c-83d82f097436");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("fdf1eeb1-04c2-458a-8bbd-ffbfe87b7c4a",
-	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
-	0,
-	'Way_ID',
-	'../UML 2.0 Diagram Interchange/Waypoint/Waypoint.xtuml');
-INSERT INTO R_RTO
-	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
-	"3999d950-5376-4791-b35b-b19f8830ae2d",
-	"e2da1eab-b2f1-4387-877c-83d82f097436",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
-	'../UML 2.0 Diagram Interchange/Waypoint/Waypoint.xtuml');
-INSERT INTO R_OIR
-	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
-	"3999d950-5376-4791-b35b-b19f8830ae2d",
-	"e2da1eab-b2f1-4387-877c-83d82f097436",
-	"b6d071fb-9da6-4afc-a455-226c65aa9c8a");
-INSERT INTO R_SIMP
-	VALUES ("d9a1db74-779b-494a-bba3-11a50a626313");
-INSERT INTO R_REL
-	VALUES ("d9a1db74-779b-494a-bba3-11a50a626313",
-	22,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_FORM
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"d9a1db74-779b-494a-bba3-11a50a626313",
-	"74fa5a6b-41d3-4da9-babc-b379e312e314",
-	0,
-	1,
-	'');
-INSERT INTO R_RGO
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"d9a1db74-779b-494a-bba3-11a50a626313",
-	"74fa5a6b-41d3-4da9-babc-b379e312e314");
-INSERT INTO R_OIR
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"d9a1db74-779b-494a-bba3-11a50a626313",
-	"74fa5a6b-41d3-4da9-babc-b379e312e314",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
-	"d9a1db74-779b-494a-bba3-11a50a626313",
-	"613865a4-ddcd-4dea-a8b6-439a919d519c",
-	0,
-	0,
-	'ending endpoint');
-INSERT INTO O_RTIDA
-	VALUES ("fdf1eeb1-04c2-458a-8bbd-ffbfe87b7c4a",
-	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
-	0,
-	"d9a1db74-779b-494a-bba3-11a50a626313",
-	"613865a4-ddcd-4dea-a8b6-439a919d519c");
-INSERT INTO R_RTO
-	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
-	"d9a1db74-779b-494a-bba3-11a50a626313",
-	"613865a4-ddcd-4dea-a8b6-439a919d519c",
-	0);
-INSERT INTO R_OIR
-	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
-	"d9a1db74-779b-494a-bba3-11a50a626313",
-	"613865a4-ddcd-4dea-a8b6-439a919d519c",
-	"b6d071fb-9da6-4afc-a455-226c65aa9c8a");
-INSERT INTO R_ASSOC
-	VALUES ("bc558972-04b0-4d93-8cf2-f4a80825d496");
-INSERT INTO R_REL
-	VALUES ("bc558972-04b0-4d93-8cf2-f4a80825d496",
-	24,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_AONE
-	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
-	"bc558972-04b0-4d93-8cf2-f4a80825d496",
-	"bbbbe39c-402a-4aa5-9a95-31e0fb56e5f8",
-	1,
-	1,
-	'is moving');
-INSERT INTO O_RTIDA
-	VALUES ("fdf1eeb1-04c2-458a-8bbd-ffbfe87b7c4a",
-	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
-	0,
-	"bc558972-04b0-4d93-8cf2-f4a80825d496",
-	"bbbbe39c-402a-4aa5-9a95-31e0fb56e5f8");
-INSERT INTO R_RTO
-	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
-	"bc558972-04b0-4d93-8cf2-f4a80825d496",
-	"bbbbe39c-402a-4aa5-9a95-31e0fb56e5f8",
-	0);
-INSERT INTO R_OIR
-	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
-	"bc558972-04b0-4d93-8cf2-f4a80825d496",
-	"bbbbe39c-402a-4aa5-9a95-31e0fb56e5f8",
-	"b6d071fb-9da6-4afc-a455-226c65aa9c8a");
-INSERT INTO R_AOTH
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"bc558972-04b0-4d93-8cf2-f4a80825d496",
-	"6b4308b3-39de-4f3f-a23a-d553f6168f62",
-	0,
-	1,
-	'is moved by');
-INSERT INTO O_RTIDA
-	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
-	"09423687-e999-4aba-876d-35e0d3331311",
-	0,
-	"bc558972-04b0-4d93-8cf2-f4a80825d496",
-	"6b4308b3-39de-4f3f-a23a-d553f6168f62");
-INSERT INTO R_RTO
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"bc558972-04b0-4d93-8cf2-f4a80825d496",
-	"6b4308b3-39de-4f3f-a23a-d553f6168f62",
-	0);
-INSERT INTO R_OIR
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"bc558972-04b0-4d93-8cf2-f4a80825d496",
-	"6b4308b3-39de-4f3f-a23a-d553f6168f62",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_ASSR
-	VALUES ("0ac5a7ee-e799-478f-ae62-a1be52fa199b",
-	"bc558972-04b0-4d93-8cf2-f4a80825d496",
-	"27364f42-b52f-4047-8330-f4613bdb9030",
-	0);
-INSERT INTO R_RGO
-	VALUES ("0ac5a7ee-e799-478f-ae62-a1be52fa199b",
-	"bc558972-04b0-4d93-8cf2-f4a80825d496",
-	"27364f42-b52f-4047-8330-f4613bdb9030");
-INSERT INTO R_OIR
-	VALUES ("0ac5a7ee-e799-478f-ae62-a1be52fa199b",
-	"bc558972-04b0-4d93-8cf2-f4a80825d496",
-	"27364f42-b52f-4047-8330-f4613bdb9030",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("0ac5a7ee-e799-478f-ae62-a1be52fa199b",
-	'Waypoint In Move',
-	14,
-	'GD_WIM',
-	'One instance of this class exists while a waypoint is being manipulated on the
-diagram.  Its existence is temporary, so it is not persistent.
-
----------------------------------------------------------------------------------
-Persistent:false
-TRANSLATE_FOR_EXTERNAL_USE:FALSE
-
-',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./Waypoint In Move/Waypoint In Move.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("54db153f-89af-4721-81e2-d0cc1682fd0c");
-INSERT INTO R_REL
-	VALUES ("54db153f-89af-4721-81e2-d0cc1682fd0c",
-	23,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_PART
-	VALUES ("2d1f6d38-7e9e-4999-ada8-a67731acf6c2",
-	"54db153f-89af-4721-81e2-d0cc1682fd0c",
-	"61a50705-3abc-4399-a715-23220ce33fbb",
-	0,
-	0,
-	'is DIM analog of');
-INSERT INTO O_RTIDA
-	VALUES ("f2ba444e-0017-43b5-a77b-cecfd3a2baf1",
-	"2d1f6d38-7e9e-4999-ada8-a67731acf6c2",
-	0,
-	"54db153f-89af-4721-81e2-d0cc1682fd0c",
-	"61a50705-3abc-4399-a715-23220ce33fbb");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("f2ba444e-0017-43b5-a77b-cecfd3a2baf1",
-	"2d1f6d38-7e9e-4999-ada8-a67731acf6c2",
-	0,
-	'elementId',
-	'../UML 2.0 Diagram Interchange/GraphElement/GraphElement.xtuml');
-INSERT INTO R_RTO
-	VALUES ("2d1f6d38-7e9e-4999-ada8-a67731acf6c2",
-	"54db153f-89af-4721-81e2-d0cc1682fd0c",
-	"61a50705-3abc-4399-a715-23220ce33fbb",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"2d1f6d38-7e9e-4999-ada8-a67731acf6c2",
-	'../UML 2.0 Diagram Interchange/GraphElement/GraphElement.xtuml');
-INSERT INTO R_OIR
-	VALUES ("2d1f6d38-7e9e-4999-ada8-a67731acf6c2",
-	"54db153f-89af-4721-81e2-d0cc1682fd0c",
-	"61a50705-3abc-4399-a715-23220ce33fbb",
-	"7e350f9e-92f0-45ad-a7f9-8a43b6c4a006");
-INSERT INTO R_FORM
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"54db153f-89af-4721-81e2-d0cc1682fd0c",
-	"abd798cf-8e86-48e1-9417-83c510336338",
-	0,
-	1,
-	'is Graphical Data analog of');
-INSERT INTO R_RGO
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"54db153f-89af-4721-81e2-d0cc1682fd0c",
-	"abd798cf-8e86-48e1-9417-83c510336338");
-INSERT INTO R_OIR
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"54db153f-89af-4721-81e2-d0cc1682fd0c",
-	"abd798cf-8e86-48e1-9417-83c510336338",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("f90784e6-0c5c-41d9-8d84-f4f4184bcfc6");
-INSERT INTO R_REL
-	VALUES ("f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
-	8,
-	'Each connector has text associated with it.  The text is placed at the beginning, middle and end of the connector. ',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_PART
-	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	"f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
-	"47fc4dd4-ccf7-4c52-bfac-8fd5d48de0ff",
-	0,
-	1,
-	'is text for');
-INSERT INTO O_RTIDA
-	VALUES ("2206f786-33e3-4543-a1b5-ceea6be31825",
-	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	0,
-	"f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
-	"47fc4dd4-ccf7-4c52-bfac-8fd5d48de0ff");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("2206f786-33e3-4543-a1b5-ceea6be31825",
-	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	0,
-	'elementId',
-	'./Connector/Connector.xtuml');
-INSERT INTO R_RTO
-	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	"f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
-	"47fc4dd4-ccf7-4c52-bfac-8fd5d48de0ff",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	'./Connector/Connector.xtuml');
-INSERT INTO R_OIR
-	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	"f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
-	"47fc4dd4-ccf7-4c52-bfac-8fd5d48de0ff",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
-	"f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
-	"d7f70f72-9813-4b36-9214-ff5226275d74",
-	1,
-	0,
-	'has as a text');
-INSERT INTO R_RGO
-	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
-	"f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
-	"d7f70f72-9813-4b36-9214-ff5226275d74");
-INSERT INTO R_OIR
-	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
-	"f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
-	"d7f70f72-9813-4b36-9214-ff5226275d74",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("2f08e3ae-ee2b-42a9-909d-86a62a3be8e6");
-INSERT INTO R_REL
-	VALUES ("2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
-	6,
-	'A connector has one or more line segments.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_PART
-	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	"2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
-	"355f8034-adca-4e22-8283-67a046a29438",
-	0,
-	0,
-	'is part of');
-INSERT INTO O_RTIDA
-	VALUES ("2206f786-33e3-4543-a1b5-ceea6be31825",
-	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	0,
-	"2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
-	"355f8034-adca-4e22-8283-67a046a29438");
-INSERT INTO R_RTO
-	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	"2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
-	"355f8034-adca-4e22-8283-67a046a29438",
-	0);
-INSERT INTO R_OIR
-	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
-	"2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
-	"355f8034-adca-4e22-8283-67a046a29438",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
-	"4dfdfbc3-6c75-4927-ab3f-2fea335e990c",
-	1,
-	0,
-	'has');
-INSERT INTO R_RGO
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
-	"4dfdfbc3-6c75-4927-ab3f-2fea335e990c");
-INSERT INTO R_OIR
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
-	"4dfdfbc3-6c75-4927-ab3f-2fea335e990c",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_ASSOC
-	VALUES ("75534c55-b016-4f50-bd1e-bf09d1d27f2d");
-INSERT INTO R_REL
-	VALUES ("75534c55-b016-4f50-bd1e-bf09d1d27f2d",
-	25,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_AONE
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
-	"8a688ac6-5648-49ba-8479-9883d6dee2c0",
-	1,
-	1,
-	'is moving');
-INSERT INTO O_RTIDA
-	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	0,
-	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
-	"8a688ac6-5648-49ba-8479-9883d6dee2c0");
-INSERT INTO R_RTO
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
-	"8a688ac6-5648-49ba-8479-9883d6dee2c0",
-	0);
-INSERT INTO R_OIR
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
-	"8a688ac6-5648-49ba-8479-9883d6dee2c0",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_AOTH
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
-	"fa490581-8771-4a61-a66f-6726fdf5055e",
-	0,
-	1,
-	'is moving in');
-INSERT INTO O_RTIDA
-	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
-	"09423687-e999-4aba-876d-35e0d3331311",
-	0,
-	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
-	"fa490581-8771-4a61-a66f-6726fdf5055e");
-INSERT INTO R_RTO
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
-	"fa490581-8771-4a61-a66f-6726fdf5055e",
-	0);
-INSERT INTO R_OIR
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
-	"fa490581-8771-4a61-a66f-6726fdf5055e",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_ASSR
-	VALUES ("37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
-	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
-	"bbc6151c-db41-4cf1-a9c9-157f1b0ea485",
-	0);
-INSERT INTO R_RGO
-	VALUES ("37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
-	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
-	"bbc6151c-db41-4cf1-a9c9-157f1b0ea485");
-INSERT INTO R_OIR
-	VALUES ("37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
-	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
-	"bbc6151c-db41-4cf1-a9c9-157f1b0ea485",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
-	'Element In Move',
-	15,
-	'GD_EIM',
-	'An instance of this class is created for each drag of a symbol on a canvas.  
-The instance holds data we''d like to remember across the duration of the drag.
-
----------------------------------------------------------------------------------
-Persistent:false
-TRANSLATE_FOR_EXTERNAL_USE:FALSE
-',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./Element In Move/Element In Move.xtuml');
-INSERT INTO R_ASSOC
-	VALUES ("50b8031a-f20c-450f-9fad-673c751fd49d");
-INSERT INTO R_REL
-	VALUES ("50b8031a-f20c-450f-9fad-673c751fd49d",
-	26,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_AONE
-	VALUES ("a2f9b584-b553-4037-acb2-0227d0fd18ea",
-	"50b8031a-f20c-450f-9fad-673c751fd49d",
-	"afa890ff-980b-4672-8c82-bad43b10a8e4",
-	1,
-	1,
-	'is anchor on segment');
-INSERT INTO O_RTIDA
-	VALUES ("1a8d87dc-5803-48c4-a0c8-cf4f500ad9d4",
-	"a2f9b584-b553-4037-acb2-0227d0fd18ea",
-	0,
-	"50b8031a-f20c-450f-9fad-673c751fd49d",
-	"afa890ff-980b-4672-8c82-bad43b10a8e4");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("1a8d87dc-5803-48c4-a0c8-cf4f500ad9d4",
-	"a2f9b584-b553-4037-acb2-0227d0fd18ea",
-	0,
-	'conId',
-	'../UML 2.0 Diagram Interchange/GraphConnector/GraphConnector.xtuml');
-INSERT INTO R_RTO
-	VALUES ("a2f9b584-b553-4037-acb2-0227d0fd18ea",
-	"50b8031a-f20c-450f-9fad-673c751fd49d",
-	"afa890ff-980b-4672-8c82-bad43b10a8e4",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"a2f9b584-b553-4037-acb2-0227d0fd18ea",
-	'../UML 2.0 Diagram Interchange/GraphConnector/GraphConnector.xtuml');
-INSERT INTO R_OIR
-	VALUES ("a2f9b584-b553-4037-acb2-0227d0fd18ea",
-	"50b8031a-f20c-450f-9fad-673c751fd49d",
-	"afa890ff-980b-4672-8c82-bad43b10a8e4",
-	"9c50ad41-0cb4-43f1-8257-e5d3f5560d81");
-INSERT INTO R_AOTH
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"50b8031a-f20c-450f-9fad-673c751fd49d",
-	"69926ed5-d304-4b01-bd9c-10ddb927f8e1",
-	0,
-	1,
-	'has anchor point');
-INSERT INTO O_RTIDA
-	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
-	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	0,
-	"50b8031a-f20c-450f-9fad-673c751fd49d",
-	"69926ed5-d304-4b01-bd9c-10ddb927f8e1");
-INSERT INTO R_RTO
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"50b8031a-f20c-450f-9fad-673c751fd49d",
-	"69926ed5-d304-4b01-bd9c-10ddb927f8e1",
-	0);
-INSERT INTO R_OIR
-	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
-	"50b8031a-f20c-450f-9fad-673c751fd49d",
-	"69926ed5-d304-4b01-bd9c-10ddb927f8e1",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_ASSR
-	VALUES ("669043e4-6347-4355-ae4b-b1e2d1c1355c",
-	"50b8031a-f20c-450f-9fad-673c751fd49d",
-	"6f7d7856-5387-4b40-bea3-c5c05f24892a",
-	0);
-INSERT INTO R_RGO
-	VALUES ("669043e4-6347-4355-ae4b-b1e2d1c1355c",
-	"50b8031a-f20c-450f-9fad-673c751fd49d",
-	"6f7d7856-5387-4b40-bea3-c5c05f24892a");
-INSERT INTO R_OIR
-	VALUES ("669043e4-6347-4355-ae4b-b1e2d1c1355c",
-	"50b8031a-f20c-450f-9fad-673c751fd49d",
-	"6f7d7856-5387-4b40-bea3-c5c05f24892a",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("669043e4-6347-4355-ae4b-b1e2d1c1355c",
-	'Anchor On Segment',
-	16,
-	'GD_AOS',
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./Anchor On Segment/Anchor On Segment.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("24137010-9cb0-423b-9eb8-f1056ee5aa16");
-INSERT INTO R_REL
-	VALUES ("24137010-9cb0-423b-9eb8-f1056ee5aa16",
-	27,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_PART
-	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
-	"24137010-9cb0-423b-9eb8-f1056ee5aa16",
-	"9b566db5-05be-4c47-8da0-00484f738041",
-	0,
-	1,
-	'is text for');
-INSERT INTO O_RTIDA
-	VALUES ("89373e61-1ced-470c-8595-0caf35d1b56c",
-	"0dbd2431-e353-4456-9834-6923205e88d7",
-	0,
-	"24137010-9cb0-423b-9eb8-f1056ee5aa16",
-	"9b566db5-05be-4c47-8da0-00484f738041");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("89373e61-1ced-470c-8595-0caf35d1b56c",
-	"0dbd2431-e353-4456-9834-6923205e88d7",
-	0,
-	'elementId',
-	'./Shape/Shape.xtuml');
-INSERT INTO R_RTO
-	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
-	"24137010-9cb0-423b-9eb8-f1056ee5aa16",
-	"9b566db5-05be-4c47-8da0-00484f738041",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"0dbd2431-e353-4456-9834-6923205e88d7",
-	'./Shape/Shape.xtuml');
-INSERT INTO R_OIR
-	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
-	"24137010-9cb0-423b-9eb8-f1056ee5aa16",
-	"9b566db5-05be-4c47-8da0-00484f738041",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
-	"24137010-9cb0-423b-9eb8-f1056ee5aa16",
-	"eea16246-b8bf-46eb-84d4-3be7fdc12d1f",
-	0,
-	1,
-	'has text');
-INSERT INTO R_RGO
-	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
-	"24137010-9cb0-423b-9eb8-f1056ee5aa16",
-	"eea16246-b8bf-46eb-84d4-3be7fdc12d1f");
-INSERT INTO R_OIR
-	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
-	"24137010-9cb0-423b-9eb8-f1056ee5aa16",
-	"eea16246-b8bf-46eb-84d4-3be7fdc12d1f",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUBSUP
-	VALUES ("1336cbb2-f091-4c2c-879c-c54921246e97");
-INSERT INTO R_REL
-	VALUES ("1336cbb2-f091-4c2c-879c-c54921246e97",
-	19,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_SUPER
-	VALUES ("04bcd415-c1a2-437e-9b8f-2cd45a955c31",
-	"1336cbb2-f091-4c2c-879c-c54921246e97",
-	"fc262e0a-d529-4e0a-8926-6187325986fc");
-INSERT INTO O_RTIDA
-	VALUES ("13d4e68c-4a5d-44d1-91bb-9dea6f090842",
-	"04bcd415-c1a2-437e-9b8f-2cd45a955c31",
-	0,
-	"1336cbb2-f091-4c2c-879c-c54921246e97",
-	"fc262e0a-d529-4e0a-8926-6187325986fc");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("13d4e68c-4a5d-44d1-91bb-9dea6f090842",
-	"04bcd415-c1a2-437e-9b8f-2cd45a955c31",
-	0,
-	'elementId',
-	'../UML 2.0 Diagram Interchange/GraphNode/GraphNode.xtuml');
-INSERT INTO R_RTO
-	VALUES ("04bcd415-c1a2-437e-9b8f-2cd45a955c31",
-	"1336cbb2-f091-4c2c-879c-c54921246e97",
-	"fc262e0a-d529-4e0a-8926-6187325986fc",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"04bcd415-c1a2-437e-9b8f-2cd45a955c31",
-	'../UML 2.0 Diagram Interchange/GraphNode/GraphNode.xtuml');
-INSERT INTO R_OIR
-	VALUES ("04bcd415-c1a2-437e-9b8f-2cd45a955c31",
-	"1336cbb2-f091-4c2c-879c-c54921246e97",
-	"fc262e0a-d529-4e0a-8926-6187325986fc",
-	"8f8e762a-6115-48ad-b2c7-ed50ecaab188");
-INSERT INTO R_SUB
-	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
-	"1336cbb2-f091-4c2c-879c-c54921246e97",
-	"9cbba969-9149-4861-9d36-37c4585e3cdb");
-INSERT INTO R_RGO
-	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
-	"1336cbb2-f091-4c2c-879c-c54921246e97",
-	"9cbba969-9149-4861-9d36-37c4585e3cdb");
-INSERT INTO R_OIR
-	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
-	"1336cbb2-f091-4c2c-879c-c54921246e97",
-	"9cbba969-9149-4861-9d36-37c4585e3cdb",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUB
-	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
-	"1336cbb2-f091-4c2c-879c-c54921246e97",
-	"940bc08e-4493-41c1-8a60-16573c0d04a7");
-INSERT INTO R_RGO
-	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
-	"1336cbb2-f091-4c2c-879c-c54921246e97",
-	"940bc08e-4493-41c1-8a60-16573c0d04a7");
-INSERT INTO R_OIR
-	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
-	"1336cbb2-f091-4c2c-879c-c54921246e97",
-	"940bc08e-4493-41c1-8a60-16573c0d04a7",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUBSUP
-	VALUES ("4bc0993a-c366-4e44-adb0-c1770c0d6972");
-INSERT INTO R_REL
-	VALUES ("4bc0993a-c366-4e44-adb0-c1770c0d6972",
-	28,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_SUPER
-	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
-	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
-	"b0fced35-d71e-46a4-9598-c08ad29ab5ae");
-INSERT INTO O_RTIDA
-	VALUES ("89373e61-1ced-470c-8595-0caf35d1b56c",
-	"0dbd2431-e353-4456-9834-6923205e88d7",
-	0,
-	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
-	"b0fced35-d71e-46a4-9598-c08ad29ab5ae");
-INSERT INTO R_RTO
-	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
-	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
-	"b0fced35-d71e-46a4-9598-c08ad29ab5ae",
-	0);
-INSERT INTO R_OIR
-	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
-	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
-	"b0fced35-d71e-46a4-9598-c08ad29ab5ae",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUB
-	VALUES ("414e6fd7-a538-4eb3-8506-a574c2bf20dc",
-	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
-	"8a5dc55f-f509-4a33-ab49-d8e435773f49");
-INSERT INTO R_RGO
-	VALUES ("414e6fd7-a538-4eb3-8506-a574c2bf20dc",
-	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
-	"8a5dc55f-f509-4a33-ab49-d8e435773f49");
-INSERT INTO R_OIR
-	VALUES ("414e6fd7-a538-4eb3-8506-a574c2bf20dc",
-	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
-	"8a5dc55f-f509-4a33-ab49-d8e435773f49",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("414e6fd7-a538-4eb3-8506-a574c2bf20dc",
-	'NonContaining Shape',
-	17,
-	'GD_NCS',
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./NonContaining Shape/NonContaining Shape.xtuml');
-INSERT INTO R_SUB
-	VALUES ("ef991d82-439b-4b64-9873-de73edc9fcd6",
-	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
-	"4977866b-de80-4a98-96b3-81e2f872dc40");
-INSERT INTO R_RGO
-	VALUES ("ef991d82-439b-4b64-9873-de73edc9fcd6",
-	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
-	"4977866b-de80-4a98-96b3-81e2f872dc40");
-INSERT INTO R_OIR
-	VALUES ("ef991d82-439b-4b64-9873-de73edc9fcd6",
-	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
-	"4977866b-de80-4a98-96b3-81e2f872dc40",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("ef991d82-439b-4b64-9873-de73edc9fcd6",
-	'Containing Shape',
-	18,
-	'GD_CTR',
-	'This is a shape that serves as a container for other elements.',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./Containing Shape/Containing Shape.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("e0546353-cd04-4daa-9198-96a6c96ea5b0");
-INSERT INTO R_REL
-	VALUES ("e0546353-cd04-4daa-9198-96a6c96ea5b0",
-	29,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_PART
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"e0546353-cd04-4daa-9198-96a6c96ea5b0",
-	"83b67341-3fc3-4966-a866-aaf92319425b",
-	0,
-	1,
-	'reconciles instance population associated with');
-INSERT INTO O_RTIDA
-	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
-	"76253415-b575-4583-9248-5d403cee7647",
-	0,
-	"e0546353-cd04-4daa-9198-96a6c96ea5b0",
-	"83b67341-3fc3-4966-a866-aaf92319425b");
-INSERT INTO R_RTO
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"e0546353-cd04-4daa-9198-96a6c96ea5b0",
-	"83b67341-3fc3-4966-a866-aaf92319425b",
-	0);
-INSERT INTO R_OIR
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"e0546353-cd04-4daa-9198-96a6c96ea5b0",
-	"83b67341-3fc3-4966-a866-aaf92319425b",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
-	"e0546353-cd04-4daa-9198-96a6c96ea5b0",
-	"bb396cc9-ae37-4d4f-8c44-01e70b1cedb3",
-	1,
-	1,
-	'associated population reconciled by');
-INSERT INTO R_RGO
-	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
-	"e0546353-cd04-4daa-9198-96a6c96ea5b0",
-	"bb396cc9-ae37-4d4f-8c44-01e70b1cedb3");
-INSERT INTO R_OIR
-	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
-	"e0546353-cd04-4daa-9198-96a6c96ea5b0",
-	"bb396cc9-ae37-4d4f-8c44-01e70b1cedb3",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
-	'Auto Reconciliation Specification',
-	19,
-	'GD_ARS',
-	'PEI:true
-Persistent:false
-TRANSLATE_FOR_EXTERNAL_USE:FALSE',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./Auto Reconciliation Specification/Auto Reconciliation Specification.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("93193641-db8b-4f52-b5f4-67c898b2dbf1");
-INSERT INTO R_REL
-	VALUES ("93193641-db8b-4f52-b5f4-67c898b2dbf1",
-	30,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_FORM
-	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
-	"93193641-db8b-4f52-b5f4-67c898b2dbf1",
-	"bf014913-71f0-4c7f-89f1-1309a00aebe7",
-	1,
-	1,
-	'population used for reconciliation by');
-INSERT INTO R_RGO
-	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
-	"93193641-db8b-4f52-b5f4-67c898b2dbf1",
-	"bf014913-71f0-4c7f-89f1-1309a00aebe7");
-INSERT INTO R_OIR
-	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
-	"93193641-db8b-4f52-b5f4-67c898b2dbf1",
-	"bf014913-71f0-4c7f-89f1-1309a00aebe7",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"93193641-db8b-4f52-b5f4-67c898b2dbf1",
-	"be906854-f4b6-4241-9d38-f1c320c5fa0f",
-	0,
-	0,
-	'reconciles against instances of');
-INSERT INTO O_RTIDA
-	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
-	"76253415-b575-4583-9248-5d403cee7647",
-	0,
-	"93193641-db8b-4f52-b5f4-67c898b2dbf1",
-	"be906854-f4b6-4241-9d38-f1c320c5fa0f");
-INSERT INTO R_RTO
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"93193641-db8b-4f52-b5f4-67c898b2dbf1",
-	"be906854-f4b6-4241-9d38-f1c320c5fa0f",
-	0);
-INSERT INTO R_OIR
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"93193641-db8b-4f52-b5f4-67c898b2dbf1",
-	"be906854-f4b6-4241-9d38-f1c320c5fa0f",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("49109c60-6e67-416e-9029-17b9838a13bf");
-INSERT INTO R_REL
-	VALUES ("49109c60-6e67-416e-9029-17b9838a13bf",
-	31,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_FORM
-	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
-	"49109c60-6e67-416e-9029-17b9838a13bf",
-	"788ecc3e-8624-496c-9cde-89b6edaa1d10",
-	1,
-	1,
-	'reconciled by');
-INSERT INTO R_RGO
-	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
-	"49109c60-6e67-416e-9029-17b9838a13bf",
-	"788ecc3e-8624-496c-9cde-89b6edaa1d10");
-INSERT INTO R_OIR
-	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
-	"49109c60-6e67-416e-9029-17b9838a13bf",
-	"788ecc3e-8624-496c-9cde-89b6edaa1d10",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"49109c60-6e67-416e-9029-17b9838a13bf",
-	"a5d307ad-efc7-4d12-8bc6-dedba3c04cba",
-	0,
-	0,
-	'reconciles');
-INSERT INTO O_RTIDA
-	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
-	"76253415-b575-4583-9248-5d403cee7647",
-	0,
-	"49109c60-6e67-416e-9029-17b9838a13bf",
-	"a5d307ad-efc7-4d12-8bc6-dedba3c04cba");
-INSERT INTO R_RTO
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"49109c60-6e67-416e-9029-17b9838a13bf",
-	"a5d307ad-efc7-4d12-8bc6-dedba3c04cba",
-	0);
-INSERT INTO R_OIR
-	VALUES ("76253415-b575-4583-9248-5d403cee7647",
-	"49109c60-6e67-416e-9029-17b9838a13bf",
-	"a5d307ad-efc7-4d12-8bc6-dedba3c04cba",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_ASSOC
-	VALUES ("2547fcf5-ff86-4a03-9f7a-ffc563e60632");
-INSERT INTO R_REL
-	VALUES ("2547fcf5-ff86-4a03-9f7a-ffc563e60632",
-	32,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_AONE
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
-	"8efd3cef-7ae0-4ff3-a9d9-319d21f2fdbd",
-	0,
-	1,
-	'');
-INSERT INTO O_RTIDA
-	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
-	"09423687-e999-4aba-876d-35e0d3331311",
-	0,
-	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
-	"8efd3cef-7ae0-4ff3-a9d9-319d21f2fdbd");
-INSERT INTO R_RTO
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
-	"8efd3cef-7ae0-4ff3-a9d9-319d21f2fdbd",
-	0);
-INSERT INTO R_OIR
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
-	"8efd3cef-7ae0-4ff3-a9d9-319d21f2fdbd",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_AOTH
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
-	"81f85656-7960-43f1-9e94-a323e89c8639",
-	1,
-	1,
-	'');
-INSERT INTO O_RTIDA
-	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	0,
-	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
-	"81f85656-7960-43f1-9e94-a323e89c8639");
-INSERT INTO R_RTO
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
-	"81f85656-7960-43f1-9e94-a323e89c8639",
-	0);
-INSERT INTO R_OIR
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
-	"81f85656-7960-43f1-9e94-a323e89c8639",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_ASSR
-	VALUES ("2b703699-b3a8-4e56-9055-218e95e69f05",
-	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
-	"be46da2a-8ecd-4a3d-aeb5-9283d9d980c3",
-	0);
-INSERT INTO R_RGO
-	VALUES ("2b703699-b3a8-4e56-9055-218e95e69f05",
-	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
-	"be46da2a-8ecd-4a3d-aeb5-9283d9d980c3");
-INSERT INTO R_OIR
-	VALUES ("2b703699-b3a8-4e56-9055-218e95e69f05",
-	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
-	"be46da2a-8ecd-4a3d-aeb5-9283d9d980c3",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("2b703699-b3a8-4e56-9055-218e95e69f05",
-	'Element In Suppression',
-	20,
-	'GD_EIS',
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./Element In Suppression/Element In Suppression.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("e524f7e2-81e0-40fa-a788-37e7a47fe940");
-INSERT INTO R_REL
-	VALUES ("e524f7e2-81e0-40fa-a788-37e7a47fe940",
-	33,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_FORM
-	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
-	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
-	"8486f7c0-5485-43c4-bc52-77b4b366ab19",
-	1,
-	1,
-	'');
-INSERT INTO R_RGO
-	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
-	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
-	"8486f7c0-5485-43c4-bc52-77b4b366ab19");
-INSERT INTO R_OIR
-	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
-	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
-	"8486f7c0-5485-43c4-bc52-77b4b366ab19",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
-	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
-	"57e397eb-3e61-4dd4-ae5e-0e954a7e545b",
-	0,
-	1,
-	'');
-INSERT INTO O_RTIDA
-	VALUES ("af61b674-5c60-451f-8e71-4938504496fc",
-	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
-	0,
-	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
-	"57e397eb-3e61-4dd4-ae5e-0e954a7e545b");
-INSERT INTO O_RTIDA
-	VALUES ("ce107490-0989-42ef-8800-aeb9ee9f7644",
-	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
-	0,
-	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
-	"57e397eb-3e61-4dd4-ae5e-0e954a7e545b");
-INSERT INTO R_RTO
-	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
-	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
-	"57e397eb-3e61-4dd4-ae5e-0e954a7e545b",
-	0);
-INSERT INTO R_OIR
-	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
-	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
-	"57e397eb-3e61-4dd4-ae5e-0e954a7e545b",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("8ec49a30-c35c-455e-84d4-07e7a3fc53ea");
-INSERT INTO R_REL
-	VALUES ("8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
-	34,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_PART
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
-	"b121433a-5589-4e41-8610-b6500c0b0411",
-	0,
-	0,
-	'contains elements of');
-INSERT INTO O_RTIDA
-	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
-	"09423687-e999-4aba-876d-35e0d3331311",
-	0,
-	"8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
-	"b121433a-5589-4e41-8610-b6500c0b0411");
-INSERT INTO R_RTO
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
-	"b121433a-5589-4e41-8610-b6500c0b0411",
-	0);
-INSERT INTO R_OIR
-	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
-	"8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
-	"b121433a-5589-4e41-8610-b6500c0b0411",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
-	"8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
-	"ae3320e4-6221-42d6-871b-3a5aec92c800",
-	1,
-	1,
-	'contents displayed in');
-INSERT INTO R_RGO
-	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
-	"8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
-	"ae3320e4-6221-42d6-871b-3a5aec92c800");
-INSERT INTO R_OIR
-	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
-	"8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
-	"ae3320e4-6221-42d6-871b-3a5aec92c800",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
-	'Layer',
-	21,
-	'GD_LAY',
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./Layer/Layer.xtuml');
-INSERT INTO R_ASSOC
-	VALUES ("b806e9cd-b8a1-4fa0-9676-5b3923cfca34");
-INSERT INTO R_REL
-	VALUES ("b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
-	35,
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
-INSERT INTO R_AONE
-	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
-	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
-	"e64aed74-b68a-4a46-ba92-7fea3f90f0fc",
-	1,
-	0,
-	'contained in');
-INSERT INTO O_RTIDA
-	VALUES ("a246b659-140d-4ce4-91c3-7aea62cdf070",
-	"5cf6c181-af37-4eac-8fe2-ea007fd9220d",
-	0,
-	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
-	"e64aed74-b68a-4a46-ba92-7fea3f90f0fc");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("a246b659-140d-4ce4-91c3-7aea62cdf070",
-	"5cf6c181-af37-4eac-8fe2-ea007fd9220d",
-	0,
-	'Layer_Name',
-	'./Layer/Layer.xtuml');
-INSERT INTO R_RTO
-	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
-	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
-	"e64aed74-b68a-4a46-ba92-7fea3f90f0fc",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"5cf6c181-af37-4eac-8fe2-ea007fd9220d",
-	'./Layer/Layer.xtuml');
-INSERT INTO R_OIR
-	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
-	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
-	"e64aed74-b68a-4a46-ba92-7fea3f90f0fc",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_AOTH
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
-	"d6b4a48e-ee98-46fd-8f9d-b46321e8781b",
-	1,
-	1,
-	'contains');
-INSERT INTO O_RTIDA
-	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
-	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	0,
-	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
-	"d6b4a48e-ee98-46fd-8f9d-b46321e8781b");
-INSERT INTO R_RTO
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
-	"d6b4a48e-ee98-46fd-8f9d-b46321e8781b",
-	0);
-INSERT INTO R_OIR
-	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
-	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
-	"d6b4a48e-ee98-46fd-8f9d-b46321e8781b",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_ASSR
-	VALUES ("a19b153c-008b-4a52-a8d4-2e5a7292f29b",
-	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
-	"064ff661-682a-4f62-80eb-5752e0f83138",
-	0);
-INSERT INTO R_RGO
-	VALUES ("a19b153c-008b-4a52-a8d4-2e5a7292f29b",
-	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
-	"064ff661-682a-4f62-80eb-5752e0f83138");
-INSERT INTO R_OIR
-	VALUES ("a19b153c-008b-4a52-a8d4-2e5a7292f29b",
-	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
-	"064ff661-682a-4f62-80eb-5752e0f83138",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("a19b153c-008b-4a52-a8d4-2e5a7292f29b",
-	'GraphicalElementInLayer',
-	22,
-	'GD_GLAY',
-	'',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	'./GraphicalElementInLayer/GraphicalElementInLayer.xtuml');
+	1);
 INSERT INTO GD_MD
 	VALUES ("2c05cc2b-ad1f-4c71-9e1f-1a67bcb39409",
-	5,
+	112,
 	"b5695748-80fc-47fb-b5c7-801b5f28b907",
-	11,
+	108,
 	0,
 	0,
 	1,
@@ -8386,3 +6232,2386 @@ INSERT INTO DIM_DIA
 	787.000000,
 	620.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SIMP
+	VALUES ("327146e2-7673-4515-97f3-c34af8c671c5");
+INSERT INTO R_REL
+	VALUES ("327146e2-7673-4515-97f3-c34af8c671c5",
+	1,
+	'A model contains zero or more (it may be empty) graphical elements.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"327146e2-7673-4515-97f3-c34af8c671c5",
+	"38059324-2b5e-45f9-b1ca-f80876e19fc3",
+	0,
+	1,
+	'is part of');
+INSERT INTO O_RTIDA
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"327146e2-7673-4515-97f3-c34af8c671c5",
+	"38059324-2b5e-45f9-b1ca-f80876e19fc3");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	'diagramId',
+	'./Model/Model.xtuml');
+INSERT INTO R_RTO
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"327146e2-7673-4515-97f3-c34af8c671c5",
+	"38059324-2b5e-45f9-b1ca-f80876e19fc3",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"09423687-e999-4aba-876d-35e0d3331311",
+	'./Model/Model.xtuml');
+INSERT INTO R_OIR
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"327146e2-7673-4515-97f3-c34af8c671c5",
+	"38059324-2b5e-45f9-b1ca-f80876e19fc3",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	'Model',
+	1,
+	'GD_MD',
+	'A model is a drawing for one particular view of the analysis. There is an instance of model for each glyph on the index window, and each entry in the model element list on the index window. For example, every domain will have four models (DPD, PDD(R), PDD(A), PDD(S)).  Every subsystem will have three models (CD, OCD(A), OCD(S)).  Every state chart has one model (SC).  The STT is not a graphical model.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Model/Model.xtuml');
+INSERT INTO R_FORM
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"327146e2-7673-4515-97f3-c34af8c671c5",
+	"06947059-7da9-4759-b912-90dd18cc836a",
+	1,
+	1,
+	'contains');
+INSERT INTO R_RGO
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"327146e2-7673-4515-97f3-c34af8c671c5",
+	"06947059-7da9-4759-b912-90dd18cc836a");
+INSERT INTO R_OIR
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"327146e2-7673-4515-97f3-c34af8c671c5",
+	"06947059-7da9-4759-b912-90dd18cc836a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	'Graphical Element',
+	2,
+	'GD_GE',
+	'Graphical element abstracts the different shapes and lines that make up the graphical representation of a model on the canvas.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Graphical Element/Graphical Element.xtuml');
+INSERT INTO PE_PE
+	VALUES ("327146e2-7673-4515-97f3-c34af8c671c5",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SUBSUP
+	VALUES ("b6240df2-203b-4a4b-88ed-82db847a152e");
+INSERT INTO R_REL
+	VALUES ("b6240df2-203b-4a4b-88ed-82db847a152e",
+	2,
+	'A graphical element can be a shape, connector, or line segment. A connector has no graphical representation, it acts as a collection of line segments that make up the connector.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"b6240df2-203b-4a4b-88ed-82db847a152e",
+	"937aaa35-965d-445e-b537-14b84a964929");
+INSERT INTO O_RTIDA
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"b6240df2-203b-4a4b-88ed-82db847a152e",
+	"937aaa35-965d-445e-b537-14b84a964929");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	'elementId',
+	'./Graphical Element/Graphical Element.xtuml');
+INSERT INTO R_RTO
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"b6240df2-203b-4a4b-88ed-82db847a152e",
+	"937aaa35-965d-445e-b537-14b84a964929",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	'./Graphical Element/Graphical Element.xtuml');
+INSERT INTO R_OIR
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"b6240df2-203b-4a4b-88ed-82db847a152e",
+	"937aaa35-965d-445e-b537-14b84a964929",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUB
+	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
+	"b6240df2-203b-4a4b-88ed-82db847a152e",
+	"3a4f503a-85fe-46cd-a48d-2c8cfee5fd1c");
+INSERT INTO R_RGO
+	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
+	"b6240df2-203b-4a4b-88ed-82db847a152e",
+	"3a4f503a-85fe-46cd-a48d-2c8cfee5fd1c");
+INSERT INTO R_OIR
+	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
+	"b6240df2-203b-4a4b-88ed-82db847a152e",
+	"3a4f503a-85fe-46cd-a48d-2c8cfee5fd1c",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
+	'Shape',
+	3,
+	'GD_SHP',
+	'This represents the rectangular space taken by a shape on the model.  The actual shape drawn may be an oval, partitioned rectangle, etc.  Note: sometimes BridgePoint reverses the NW and SE coordinates of the shape when populating the graphical subsystem model.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Shape/Shape.xtuml');
+INSERT INTO R_SUB
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"b6240df2-203b-4a4b-88ed-82db847a152e",
+	"d2f9f4ef-aac2-4179-ab02-35c11ad5669f");
+INSERT INTO R_RGO
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"b6240df2-203b-4a4b-88ed-82db847a152e",
+	"d2f9f4ef-aac2-4179-ab02-35c11ad5669f");
+INSERT INTO R_OIR
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"b6240df2-203b-4a4b-88ed-82db847a152e",
+	"d2f9f4ef-aac2-4179-ab02-35c11ad5669f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'Connector',
+	4,
+	'GD_CON',
+	'A connector represents a connection between two graphical elements.  The connection is represented by a set of lines.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Connector/Connector.xtuml');
+INSERT INTO PE_PE
+	VALUES ("b6240df2-203b-4a4b-88ed-82db847a152e",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("23f2e100-2235-4c17-ba37-70aa22fa0b0c");
+INSERT INTO R_REL
+	VALUES ("23f2e100-2235-4c17-ba37-70aa22fa0b0c",
+	5,
+	'When a connector has another connector ending on it, this association captures which line segment in the connector the other connector''s line ends at. The associative connector is not the one at the ''is the destination of connector ending at'' end of this association but is found by navigating from that connector to its supertype and across R4.''is ending point for''.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"23f2e100-2235-4c17-ba37-70aa22fa0b0c",
+	"84c22acb-2bdb-42c9-904c-a7f9d01cdfc9",
+	0,
+	1,
+	'has connector which ends at');
+INSERT INTO O_RTIDA
+	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	0,
+	"23f2e100-2235-4c17-ba37-70aa22fa0b0c",
+	"84c22acb-2bdb-42c9-904c-a7f9d01cdfc9");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	0,
+	'elementId',
+	'./Line Segment/Line Segment.xtuml');
+INSERT INTO R_RTO
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"23f2e100-2235-4c17-ba37-70aa22fa0b0c",
+	"84c22acb-2bdb-42c9-904c-a7f9d01cdfc9",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'./Line Segment/Line Segment.xtuml');
+INSERT INTO R_OIR
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"23f2e100-2235-4c17-ba37-70aa22fa0b0c",
+	"84c22acb-2bdb-42c9-904c-a7f9d01cdfc9",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'Line Segment',
+	5,
+	'GD_LS',
+	'The line segment is a single line drawn on the model. If the line segment is the first or last line segment, there may be adornments (cardinality, multiplicity) drawn near where the line segment attaches to the GE it starts/ends at.  Note: BridgePoint is very arbitrary about how it populates line segments in terms of begins and ends.  Line segments do not always run from start element to end element - sometimes they are reversed. ',
+	"00000000-0000-0000-0000-000000000000",
+	'./Line Segment/Line Segment.xtuml');
+INSERT INTO R_FORM
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"23f2e100-2235-4c17-ba37-70aa22fa0b0c",
+	"869a5e4d-1ed2-4a88-8136-60d95bc6447e",
+	0,
+	1,
+	'is the destination of connector ending at');
+INSERT INTO R_RGO
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"23f2e100-2235-4c17-ba37-70aa22fa0b0c",
+	"869a5e4d-1ed2-4a88-8136-60d95bc6447e");
+INSERT INTO R_OIR
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"23f2e100-2235-4c17-ba37-70aa22fa0b0c",
+	"869a5e4d-1ed2-4a88-8136-60d95bc6447e",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("23f2e100-2235-4c17-ba37-70aa22fa0b0c",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("fac14233-37ae-42cd-a8b8-ceffc02b4a95");
+INSERT INTO R_REL
+	VALUES ("fac14233-37ae-42cd-a8b8-ceffc02b4a95",
+	7,
+	'Line segments are ordered from first to last for each connector.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"fac14233-37ae-42cd-a8b8-ceffc02b4a95",
+	"4ded3c81-372a-44aa-9d90-eedb28e47ce4",
+	0,
+	1,
+	'precedes');
+INSERT INTO R_RGO
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"fac14233-37ae-42cd-a8b8-ceffc02b4a95",
+	"4ded3c81-372a-44aa-9d90-eedb28e47ce4");
+INSERT INTO R_OIR
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"fac14233-37ae-42cd-a8b8-ceffc02b4a95",
+	"4ded3c81-372a-44aa-9d90-eedb28e47ce4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"fac14233-37ae-42cd-a8b8-ceffc02b4a95",
+	"ad7ebf6e-7a1c-467a-8831-6cf11aed5412",
+	0,
+	1,
+	'follows');
+INSERT INTO O_RTIDA
+	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	0,
+	"fac14233-37ae-42cd-a8b8-ceffc02b4a95",
+	"ad7ebf6e-7a1c-467a-8831-6cf11aed5412");
+INSERT INTO R_RTO
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"fac14233-37ae-42cd-a8b8-ceffc02b4a95",
+	"ad7ebf6e-7a1c-467a-8831-6cf11aed5412",
+	0);
+INSERT INTO R_OIR
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"fac14233-37ae-42cd-a8b8-ceffc02b4a95",
+	"ad7ebf6e-7a1c-467a-8831-6cf11aed5412",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("fac14233-37ae-42cd-a8b8-ceffc02b4a95",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("10bbc508-5ab6-4f8d-9c6f-4dacad3822f3");
+INSERT INTO R_REL
+	VALUES ("10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
+	9,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
+	"db8e80b8-4914-49fc-b73a-c8a5848b6b3a",
+	0,
+	0,
+	'is instance of');
+INSERT INTO O_RTIDA
+	VALUES ("af61b674-5c60-451f-8e71-4938504496fc",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	0,
+	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
+	"db8e80b8-4914-49fc-b73a-c8a5848b6b3a");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("af61b674-5c60-451f-8e71-4938504496fc",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	0,
+	'OOA_Type',
+	'./Model Specification/Model Specification.xtuml');
+INSERT INTO O_RTIDA
+	VALUES ("ce107490-0989-42ef-8800-aeb9ee9f7644",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	0,
+	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
+	"db8e80b8-4914-49fc-b73a-c8a5848b6b3a");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("ce107490-0989-42ef-8800-aeb9ee9f7644",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	0,
+	'Model_Type',
+	'./Model Specification/Model Specification.xtuml');
+INSERT INTO R_RTO
+	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
+	"db8e80b8-4914-49fc-b73a-c8a5848b6b3a",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	'./Model Specification/Model Specification.xtuml');
+INSERT INTO R_OIR
+	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
+	"db8e80b8-4914-49fc-b73a-c8a5848b6b3a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	'Model Specification',
+	7,
+	'GD_MS',
+	'A model specification instance defines a type of canvas.
+We use the OOA_Type and the Model_Type as identifiers
+because the OOA_Type defines the OOA of OOA element
+type that the canvas type represents, but there can be 
+more than one canvas type per OOA of OOA element type.
+
+Instances of this class are instantiated at startup from a
+pre-existing instance specification.
+---------------------------------------------------------------------------
+
+PEI:true
+Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	"00000000-0000-0000-0000-000000000000",
+	'./Model Specification/Model Specification.xtuml');
+INSERT INTO R_FORM
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
+	"e9b2d848-6cad-4566-adb2-64548fba8b49",
+	1,
+	1,
+	'has instance');
+INSERT INTO R_RGO
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
+	"e9b2d848-6cad-4566-adb2-64548fba8b49");
+INSERT INTO R_OIR
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
+	"e9b2d848-6cad-4566-adb2-64548fba8b49",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("10bbc508-5ab6-4f8d-9c6f-4dacad3822f3",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("0d9f18ad-f165-4e48-9d88-393d0f109ccf");
+INSERT INTO R_REL
+	VALUES ("0d9f18ad-f165-4e48-9d88-393d0f109ccf",
+	10,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"0d9f18ad-f165-4e48-9d88-393d0f109ccf",
+	"1949aedb-f7ce-466c-b645-d9825b9d1820",
+	0,
+	0,
+	'is instance of');
+INSERT INTO O_RTIDA
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	"0d9f18ad-f165-4e48-9d88-393d0f109ccf",
+	"1949aedb-f7ce-466c-b645-d9825b9d1820");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	'OOA_Type',
+	'./Element Specification/Element Specification.xtuml');
+INSERT INTO R_RTO
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"0d9f18ad-f165-4e48-9d88-393d0f109ccf",
+	"1949aedb-f7ce-466c-b645-d9825b9d1820",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"76253415-b575-4583-9248-5d403cee7647",
+	'./Element Specification/Element Specification.xtuml');
+INSERT INTO R_OIR
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"0d9f18ad-f165-4e48-9d88-393d0f109ccf",
+	"1949aedb-f7ce-466c-b645-d9825b9d1820",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	'Element Specification',
+	8,
+	'GD_ES',
+	'An element specification instance defines a type of symbol.
+The OOA_Type defines the OOA of OOA element represented
+by this symbol.
+
+Instances of this class are instantiated at startup from a
+pre-existing instance specification.
+---------------------------------------------------------------------------
+
+PEI:true
+Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+
+',
+	"00000000-0000-0000-0000-000000000000",
+	'./Element Specification/Element Specification.xtuml');
+INSERT INTO R_FORM
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"0d9f18ad-f165-4e48-9d88-393d0f109ccf",
+	"3f4b8b91-44a6-463c-8588-95a40f043f53",
+	1,
+	1,
+	'has instance');
+INSERT INTO R_RGO
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"0d9f18ad-f165-4e48-9d88-393d0f109ccf",
+	"3f4b8b91-44a6-463c-8588-95a40f043f53");
+INSERT INTO R_OIR
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"0d9f18ad-f165-4e48-9d88-393d0f109ccf",
+	"3f4b8b91-44a6-463c-8588-95a40f043f53",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("0d9f18ad-f165-4e48-9d88-393d0f109ccf",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_ASSOC
+	VALUES ("e0072d1e-1138-4b87-a744-8e3a4241a9ae");
+INSERT INTO R_REL
+	VALUES ("e0072d1e-1138-4b87-a744-8e3a4241a9ae",
+	11,
+	'This relationship determines which symbols may appear on which
+diagrams.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AONE
+	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
+	"3d394975-3d60-4dc8-b577-9f5768d97655",
+	1,
+	1,
+	'can appear on');
+INSERT INTO O_RTIDA
+	VALUES ("af61b674-5c60-451f-8e71-4938504496fc",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	0,
+	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
+	"3d394975-3d60-4dc8-b577-9f5768d97655");
+INSERT INTO O_RTIDA
+	VALUES ("ce107490-0989-42ef-8800-aeb9ee9f7644",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	0,
+	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
+	"3d394975-3d60-4dc8-b577-9f5768d97655");
+INSERT INTO R_RTO
+	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
+	"3d394975-3d60-4dc8-b577-9f5768d97655",
+	0);
+INSERT INTO R_OIR
+	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
+	"3d394975-3d60-4dc8-b577-9f5768d97655",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AOTH
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
+	"27cc0e76-8493-47fb-a21f-4a99df88dbb1",
+	1,
+	1,
+	'can show');
+INSERT INTO O_RTIDA
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
+	"27cc0e76-8493-47fb-a21f-4a99df88dbb1");
+INSERT INTO R_RTO
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
+	"27cc0e76-8493-47fb-a21f-4a99df88dbb1",
+	0);
+INSERT INTO R_OIR
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
+	"27cc0e76-8493-47fb-a21f-4a99df88dbb1",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_ASSR
+	VALUES ("5f9e2df6-cdf7-4187-adc6-d0b0f83aad5a",
+	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
+	"6d7247ae-ef47-44d5-a14a-f6e8aef7e7ab",
+	0);
+INSERT INTO R_RGO
+	VALUES ("5f9e2df6-cdf7-4187-adc6-d0b0f83aad5a",
+	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
+	"6d7247ae-ef47-44d5-a14a-f6e8aef7e7ab");
+INSERT INTO R_OIR
+	VALUES ("5f9e2df6-cdf7-4187-adc6-d0b0f83aad5a",
+	"e0072d1e-1138-4b87-a744-8e3a4241a9ae",
+	"6d7247ae-ef47-44d5-a14a-f6e8aef7e7ab",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("5f9e2df6-cdf7-4187-adc6-d0b0f83aad5a",
+	'Element in Model Specification',
+	9,
+	'GD_EMS',
+	'An instance of this associative class exists for each time a symbol
+type (represented by an Element_Specification) appears on a
+canvas type (represented by a Model_Specification).
+
+Instances of this class are instantiated at startup from a
+pre-existing instance specification.
+---------------------------------------------------------------------------------
+
+PEI:true
+Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	"00000000-0000-0000-0000-000000000000",
+	'./Element in Model Specification/Element in Model Specification.xtuml');
+INSERT INTO PE_PE
+	VALUES ("e0072d1e-1138-4b87-a744-8e3a4241a9ae",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_ASSOC
+	VALUES ("2f40ad37-f831-47cd-8202-d9de8077243d");
+INSERT INTO R_REL
+	VALUES ("2f40ad37-f831-47cd-8202-d9de8077243d",
+	12,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AOTH
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"2f40ad37-f831-47cd-8202-d9de8077243d",
+	"cf7be58c-439d-48b5-9315-e7da6a32c18d",
+	0,
+	1,
+	'is resized in');
+INSERT INTO O_RTIDA
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"2f40ad37-f831-47cd-8202-d9de8077243d",
+	"cf7be58c-439d-48b5-9315-e7da6a32c18d");
+INSERT INTO R_RTO
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"2f40ad37-f831-47cd-8202-d9de8077243d",
+	"cf7be58c-439d-48b5-9315-e7da6a32c18d",
+	0);
+INSERT INTO R_OIR
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"2f40ad37-f831-47cd-8202-d9de8077243d",
+	"cf7be58c-439d-48b5-9315-e7da6a32c18d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AONE
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"2f40ad37-f831-47cd-8202-d9de8077243d",
+	"dbe6afd3-270b-4ede-a9d3-b8ed81fe8775",
+	0,
+	1,
+	'is resizing');
+INSERT INTO O_RTIDA
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"2f40ad37-f831-47cd-8202-d9de8077243d",
+	"dbe6afd3-270b-4ede-a9d3-b8ed81fe8775");
+INSERT INTO R_RTO
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"2f40ad37-f831-47cd-8202-d9de8077243d",
+	"dbe6afd3-270b-4ede-a9d3-b8ed81fe8775",
+	0);
+INSERT INTO R_OIR
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"2f40ad37-f831-47cd-8202-d9de8077243d",
+	"dbe6afd3-270b-4ede-a9d3-b8ed81fe8775",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_ASSR
+	VALUES ("558681b3-16a8-4412-a2a2-59b606dea487",
+	"2f40ad37-f831-47cd-8202-d9de8077243d",
+	"10990c61-8b5c-43b4-a550-26e7af6ce282",
+	0);
+INSERT INTO R_RGO
+	VALUES ("558681b3-16a8-4412-a2a2-59b606dea487",
+	"2f40ad37-f831-47cd-8202-d9de8077243d",
+	"10990c61-8b5c-43b4-a550-26e7af6ce282");
+INSERT INTO R_OIR
+	VALUES ("558681b3-16a8-4412-a2a2-59b606dea487",
+	"2f40ad37-f831-47cd-8202-d9de8077243d",
+	"10990c61-8b5c-43b4-a550-26e7af6ce282",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("558681b3-16a8-4412-a2a2-59b606dea487",
+	'Element In Resize',
+	10,
+	'GD_EIR',
+	'One instance of this class exists during the time a graphical element
+is being resized. Both Shapes and connectors can be resized. In the
+case of a connector, resizing can occur on any of the text blocks
+associated with it.
+
+---------------------------------------------------------------------------------
+Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	"00000000-0000-0000-0000-000000000000",
+	'./Element In Resize/Element In Resize.xtuml');
+INSERT INTO PE_PE
+	VALUES ("2f40ad37-f831-47cd-8202-d9de8077243d",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_ASSOC
+	VALUES ("aedc6ea2-257c-42f4-812e-58b8497eb3dd");
+INSERT INTO R_REL
+	VALUES ("aedc6ea2-257c-42f4-812e-58b8497eb3dd",
+	14,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AONE
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
+	"ad074bf9-8856-45e4-84f9-541f949fbc5e",
+	0,
+	1,
+	'');
+INSERT INTO O_RTIDA
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
+	"ad074bf9-8856-45e4-84f9-541f949fbc5e");
+INSERT INTO R_RTO
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
+	"ad074bf9-8856-45e4-84f9-541f949fbc5e",
+	0);
+INSERT INTO R_OIR
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
+	"ad074bf9-8856-45e4-84f9-541f949fbc5e",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AOTH
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
+	"1513df8a-2068-40b2-b0d9-586f95849117",
+	0,
+	1,
+	'');
+INSERT INTO O_RTIDA
+	VALUES ("70ce96fd-d49f-4b77-a54a-884e47ec3bb1",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	0,
+	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
+	"1513df8a-2068-40b2-b0d9-586f95849117");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("70ce96fd-d49f-4b77-a54a-884e47ec3bb1",
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	0,
+	'elementId',
+	'./Floating Text/Floating Text.xtuml');
+INSERT INTO R_RTO
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
+	"1513df8a-2068-40b2-b0d9-586f95849117",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"36263303-f694-42bf-8e61-b117b1a89014",
+	'./Floating Text/Floating Text.xtuml');
+INSERT INTO R_OIR
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
+	"1513df8a-2068-40b2-b0d9-586f95849117",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	'Floating Text',
+	6,
+	'GD_CTXT',
+	'This class contains the positions for the text at the start, middle and end of the connector.  The positions have a upper left and lower right coordinate, which specifies the size of the box containing the text. The delta coordinate specifies how much to move the box from the default position.  Note: For non supertype/subtype relationships, Start and End are the two relationship phrases and Middle is the relationship number.  For supertype/subtype relationships, Start is the hard-coded phrase, End is the relationship number, and Middle is nothing.  Also note: sometimes BridgePoint reverses the NW and SE coordinates for the connector text when populating the graphical subsystem model.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Floating Text/Floating Text.xtuml');
+INSERT INTO R_ASSR
+	VALUES ("94171104-6099-4245-a9b0-0a7eb254af1b",
+	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
+	"1b3ba3ce-7eff-448e-bd68-bee500a60524",
+	0);
+INSERT INTO R_RGO
+	VALUES ("94171104-6099-4245-a9b0-0a7eb254af1b",
+	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
+	"1b3ba3ce-7eff-448e-bd68-bee500a60524");
+INSERT INTO R_OIR
+	VALUES ("94171104-6099-4245-a9b0-0a7eb254af1b",
+	"aedc6ea2-257c-42f4-812e-58b8497eb3dd",
+	"1b3ba3ce-7eff-448e-bd68-bee500a60524",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("94171104-6099-4245-a9b0-0a7eb254af1b",
+	'Text In Move',
+	12,
+	'GD_TIM',
+	'One instance of this class exists when a text block is being 
+moved. As documented by the 1:1 by conditional relationship,
+only one text block can be moved at a time. Text blocks cannot
+be selected individually, they form part of the connector to
+which they are attached. It therefore follows they cannot be
+grouped and moved together.
+
+---------------------------------------------------------------------------------
+Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+
+',
+	"00000000-0000-0000-0000-000000000000",
+	'./Text In Move/Text In Move.xtuml');
+INSERT INTO PE_PE
+	VALUES ("aedc6ea2-257c-42f4-812e-58b8497eb3dd",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("610836b6-8b80-49f4-ba30-5fc1553915d0");
+INSERT INTO R_REL
+	VALUES ("610836b6-8b80-49f4-ba30-5fc1553915d0",
+	16,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"610836b6-8b80-49f4-ba30-5fc1553915d0",
+	"f704d28a-f3e6-470a-91ad-75d819c49d4c",
+	0,
+	1,
+	'is being created by');
+INSERT INTO R_RGO
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"610836b6-8b80-49f4-ba30-5fc1553915d0",
+	"f704d28a-f3e6-470a-91ad-75d819c49d4c");
+INSERT INTO R_OIR
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"610836b6-8b80-49f4-ba30-5fc1553915d0",
+	"f704d28a-f3e6-470a-91ad-75d819c49d4c",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"610836b6-8b80-49f4-ba30-5fc1553915d0",
+	"83e01f16-7f5d-4494-83f5-3e27dbf25b94",
+	0,
+	1,
+	'is creating');
+INSERT INTO O_RTIDA
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"610836b6-8b80-49f4-ba30-5fc1553915d0",
+	"83e01f16-7f5d-4494-83f5-3e27dbf25b94");
+INSERT INTO R_RTO
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"610836b6-8b80-49f4-ba30-5fc1553915d0",
+	"83e01f16-7f5d-4494-83f5-3e27dbf25b94",
+	0);
+INSERT INTO R_OIR
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"610836b6-8b80-49f4-ba30-5fc1553915d0",
+	"83e01f16-7f5d-4494-83f5-3e27dbf25b94",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("610836b6-8b80-49f4-ba30-5fc1553915d0",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4");
+INSERT INTO R_REL
+	VALUES ("ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4",
+	17,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4",
+	"48fc44ad-0772-4976-a160-73d6a2368a54",
+	0,
+	0,
+	'is for');
+INSERT INTO O_RTIDA
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	"ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4",
+	"48fc44ad-0772-4976-a160-73d6a2368a54");
+INSERT INTO R_RTO
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4",
+	"48fc44ad-0772-4976-a160-73d6a2368a54",
+	0);
+INSERT INTO R_OIR
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4",
+	"48fc44ad-0772-4976-a160-73d6a2368a54",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("95c699ea-9180-4081-ba6f-0cc9437b7a32",
+	"ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4",
+	"e529e44b-03f6-400f-b691-416f20e68cf0",
+	1,
+	1,
+	'has');
+INSERT INTO R_RGO
+	VALUES ("95c699ea-9180-4081-ba6f-0cc9437b7a32",
+	"ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4",
+	"e529e44b-03f6-400f-b691-416f20e68cf0");
+INSERT INTO R_OIR
+	VALUES ("95c699ea-9180-4081-ba6f-0cc9437b7a32",
+	"ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4",
+	"e529e44b-03f6-400f-b691-416f20e68cf0",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("95c699ea-9180-4081-ba6f-0cc9437b7a32",
+	'Client Class Dependency',
+	13,
+	'GD_CCD',
+	'This class captures a dependency between an Element Specification
+and a client class.  This information is useful for when a client class changes,
+and we need to know if the element needs to be redrawn.
+
+Persistent:false
+PEI:true
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	"00000000-0000-0000-0000-000000000000",
+	'./Client Class Dependency/Client Class Dependency.xtuml');
+INSERT INTO PE_PE
+	VALUES ("ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SUBSUP
+	VALUES ("e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f");
+INSERT INTO R_REL
+	VALUES ("e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
+	18,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	"e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
+	"8638bbbd-9397-4e8c-b28e-358a10a6fe20");
+INSERT INTO O_RTIDA
+	VALUES ("57f2fb06-0e5a-471e-bab1-02b88f324eb4",
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	0,
+	"e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
+	"8638bbbd-9397-4e8c-b28e-358a10a6fe20");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("57f2fb06-0e5a-471e-bab1-02b88f324eb4",
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	0,
+	'diagramId',
+	'../UML 2.0 Diagram Interchange/Diagram/Diagram.xtuml');
+INSERT INTO R_RTO
+	VALUES ("18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	"e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
+	"8638bbbd-9397-4e8c-b28e-358a10a6fe20",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	'../UML 2.0 Diagram Interchange/Diagram/Diagram.xtuml');
+INSERT INTO R_OIR
+	VALUES ("18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	"e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
+	"8638bbbd-9397-4e8c-b28e-358a10a6fe20",
+	"340e3522-0e3d-442e-88e9-575f5c9c40bc");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	'Diagram',
+	5,
+	'DIM_DIA',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'../UML 2.0 Diagram Interchange/Diagram/Diagram.xtuml');
+INSERT INTO R_SUB
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
+	"1a0dd092-9bbc-451a-bcad-60cac028fe8b");
+INSERT INTO R_RGO
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
+	"1a0dd092-9bbc-451a-bcad-60cac028fe8b");
+INSERT INTO R_OIR
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
+	"1a0dd092-9bbc-451a-bcad-60cac028fe8b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("e7a8791c-cfa6-4f1b-b551-c3ac42d3d97f",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SUBSUP
+	VALUES ("ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c");
+INSERT INTO R_REL
+	VALUES ("ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
+	20,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("0580af92-433a-4442-8b1c-a330fd6a0b16",
+	"ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
+	"df3ee96a-de4b-433c-b97d-01969e4df983");
+INSERT INTO O_RTIDA
+	VALUES ("3e87f726-fa2e-4976-a124-f22b97f8062d",
+	"0580af92-433a-4442-8b1c-a330fd6a0b16",
+	0,
+	"ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
+	"df3ee96a-de4b-433c-b97d-01969e4df983");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("3e87f726-fa2e-4976-a124-f22b97f8062d",
+	"0580af92-433a-4442-8b1c-a330fd6a0b16",
+	0,
+	'elementId',
+	'../UML 2.0 Diagram Interchange/GraphEdge/GraphEdge.xtuml');
+INSERT INTO R_RTO
+	VALUES ("0580af92-433a-4442-8b1c-a330fd6a0b16",
+	"ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
+	"df3ee96a-de4b-433c-b97d-01969e4df983",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"0580af92-433a-4442-8b1c-a330fd6a0b16",
+	'../UML 2.0 Diagram Interchange/GraphEdge/GraphEdge.xtuml');
+INSERT INTO R_OIR
+	VALUES ("0580af92-433a-4442-8b1c-a330fd6a0b16",
+	"ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
+	"df3ee96a-de4b-433c-b97d-01969e4df983",
+	"0054339c-c42f-43f4-b372-a5f661dda6b1");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("0580af92-433a-4442-8b1c-a330fd6a0b16",
+	'GraphEdge',
+	28,
+	'DIM_ED',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'../UML 2.0 Diagram Interchange/GraphEdge/GraphEdge.xtuml');
+INSERT INTO R_SUB
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
+	"b212d297-f6ec-4835-bc1d-b9f01a6d8594");
+INSERT INTO R_RGO
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
+	"b212d297-f6ec-4835-bc1d-b9f01a6d8594");
+INSERT INTO R_OIR
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
+	"b212d297-f6ec-4835-bc1d-b9f01a6d8594",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("ed5590d9-fd43-44d3-9b0f-f4da5aaf6b4c",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("3999d950-5376-4791-b35b-b19f8830ae2d");
+INSERT INTO R_REL
+	VALUES ("3999d950-5376-4791-b35b-b19f8830ae2d",
+	21,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"3999d950-5376-4791-b35b-b19f8830ae2d",
+	"cfd0b077-82c0-4b31-b59a-d9b034d1b6d6",
+	0,
+	1,
+	'');
+INSERT INTO R_RGO
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"3999d950-5376-4791-b35b-b19f8830ae2d",
+	"cfd0b077-82c0-4b31-b59a-d9b034d1b6d6");
+INSERT INTO R_OIR
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"3999d950-5376-4791-b35b-b19f8830ae2d",
+	"cfd0b077-82c0-4b31-b59a-d9b034d1b6d6",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	"3999d950-5376-4791-b35b-b19f8830ae2d",
+	"e2da1eab-b2f1-4387-877c-83d82f097436",
+	0,
+	0,
+	'starting endpoint');
+INSERT INTO O_RTIDA
+	VALUES ("fdf1eeb1-04c2-458a-8bbd-ffbfe87b7c4a",
+	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	0,
+	"3999d950-5376-4791-b35b-b19f8830ae2d",
+	"e2da1eab-b2f1-4387-877c-83d82f097436");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("fdf1eeb1-04c2-458a-8bbd-ffbfe87b7c4a",
+	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	0,
+	'Way_ID',
+	'../UML 2.0 Diagram Interchange/Waypoint/Waypoint.xtuml');
+INSERT INTO R_RTO
+	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	"3999d950-5376-4791-b35b-b19f8830ae2d",
+	"e2da1eab-b2f1-4387-877c-83d82f097436",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	'../UML 2.0 Diagram Interchange/Waypoint/Waypoint.xtuml');
+INSERT INTO R_OIR
+	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	"3999d950-5376-4791-b35b-b19f8830ae2d",
+	"e2da1eab-b2f1-4387-877c-83d82f097436",
+	"b6d071fb-9da6-4afc-a455-226c65aa9c8a");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	'Waypoint',
+	29,
+	'DIM_WAY',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'../UML 2.0 Diagram Interchange/Waypoint/Waypoint.xtuml');
+INSERT INTO PE_PE
+	VALUES ("3999d950-5376-4791-b35b-b19f8830ae2d",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("d9a1db74-779b-494a-bba3-11a50a626313");
+INSERT INTO R_REL
+	VALUES ("d9a1db74-779b-494a-bba3-11a50a626313",
+	22,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"d9a1db74-779b-494a-bba3-11a50a626313",
+	"74fa5a6b-41d3-4da9-babc-b379e312e314",
+	0,
+	1,
+	'');
+INSERT INTO R_RGO
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"d9a1db74-779b-494a-bba3-11a50a626313",
+	"74fa5a6b-41d3-4da9-babc-b379e312e314");
+INSERT INTO R_OIR
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"d9a1db74-779b-494a-bba3-11a50a626313",
+	"74fa5a6b-41d3-4da9-babc-b379e312e314",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	"d9a1db74-779b-494a-bba3-11a50a626313",
+	"613865a4-ddcd-4dea-a8b6-439a919d519c",
+	0,
+	0,
+	'ending endpoint');
+INSERT INTO O_RTIDA
+	VALUES ("fdf1eeb1-04c2-458a-8bbd-ffbfe87b7c4a",
+	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	0,
+	"d9a1db74-779b-494a-bba3-11a50a626313",
+	"613865a4-ddcd-4dea-a8b6-439a919d519c");
+INSERT INTO R_RTO
+	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	"d9a1db74-779b-494a-bba3-11a50a626313",
+	"613865a4-ddcd-4dea-a8b6-439a919d519c",
+	0);
+INSERT INTO R_OIR
+	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	"d9a1db74-779b-494a-bba3-11a50a626313",
+	"613865a4-ddcd-4dea-a8b6-439a919d519c",
+	"b6d071fb-9da6-4afc-a455-226c65aa9c8a");
+INSERT INTO PE_PE
+	VALUES ("d9a1db74-779b-494a-bba3-11a50a626313",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_ASSOC
+	VALUES ("bc558972-04b0-4d93-8cf2-f4a80825d496");
+INSERT INTO R_REL
+	VALUES ("bc558972-04b0-4d93-8cf2-f4a80825d496",
+	24,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AONE
+	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	"bc558972-04b0-4d93-8cf2-f4a80825d496",
+	"bbbbe39c-402a-4aa5-9a95-31e0fb56e5f8",
+	1,
+	1,
+	'is moving');
+INSERT INTO O_RTIDA
+	VALUES ("fdf1eeb1-04c2-458a-8bbd-ffbfe87b7c4a",
+	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	0,
+	"bc558972-04b0-4d93-8cf2-f4a80825d496",
+	"bbbbe39c-402a-4aa5-9a95-31e0fb56e5f8");
+INSERT INTO R_RTO
+	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	"bc558972-04b0-4d93-8cf2-f4a80825d496",
+	"bbbbe39c-402a-4aa5-9a95-31e0fb56e5f8",
+	0);
+INSERT INTO R_OIR
+	VALUES ("7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	"bc558972-04b0-4d93-8cf2-f4a80825d496",
+	"bbbbe39c-402a-4aa5-9a95-31e0fb56e5f8",
+	"b6d071fb-9da6-4afc-a455-226c65aa9c8a");
+INSERT INTO R_AOTH
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"bc558972-04b0-4d93-8cf2-f4a80825d496",
+	"6b4308b3-39de-4f3f-a23a-d553f6168f62",
+	0,
+	1,
+	'is moved by');
+INSERT INTO O_RTIDA
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"bc558972-04b0-4d93-8cf2-f4a80825d496",
+	"6b4308b3-39de-4f3f-a23a-d553f6168f62");
+INSERT INTO R_RTO
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"bc558972-04b0-4d93-8cf2-f4a80825d496",
+	"6b4308b3-39de-4f3f-a23a-d553f6168f62",
+	0);
+INSERT INTO R_OIR
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"bc558972-04b0-4d93-8cf2-f4a80825d496",
+	"6b4308b3-39de-4f3f-a23a-d553f6168f62",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_ASSR
+	VALUES ("0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	"bc558972-04b0-4d93-8cf2-f4a80825d496",
+	"27364f42-b52f-4047-8330-f4613bdb9030",
+	0);
+INSERT INTO R_RGO
+	VALUES ("0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	"bc558972-04b0-4d93-8cf2-f4a80825d496",
+	"27364f42-b52f-4047-8330-f4613bdb9030");
+INSERT INTO R_OIR
+	VALUES ("0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	"bc558972-04b0-4d93-8cf2-f4a80825d496",
+	"27364f42-b52f-4047-8330-f4613bdb9030",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	'Waypoint In Move',
+	14,
+	'GD_WIM',
+	'One instance of this class exists while a waypoint is being manipulated on the
+diagram.  Its existence is temporary, so it is not persistent.
+
+---------------------------------------------------------------------------------
+Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+
+',
+	"00000000-0000-0000-0000-000000000000",
+	'./Waypoint In Move/Waypoint In Move.xtuml');
+INSERT INTO PE_PE
+	VALUES ("bc558972-04b0-4d93-8cf2-f4a80825d496",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("54db153f-89af-4721-81e2-d0cc1682fd0c");
+INSERT INTO R_REL
+	VALUES ("54db153f-89af-4721-81e2-d0cc1682fd0c",
+	23,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("2d1f6d38-7e9e-4999-ada8-a67731acf6c2",
+	"54db153f-89af-4721-81e2-d0cc1682fd0c",
+	"61a50705-3abc-4399-a715-23220ce33fbb",
+	0,
+	0,
+	'is DIM analog of');
+INSERT INTO O_RTIDA
+	VALUES ("f2ba444e-0017-43b5-a77b-cecfd3a2baf1",
+	"2d1f6d38-7e9e-4999-ada8-a67731acf6c2",
+	0,
+	"54db153f-89af-4721-81e2-d0cc1682fd0c",
+	"61a50705-3abc-4399-a715-23220ce33fbb");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("f2ba444e-0017-43b5-a77b-cecfd3a2baf1",
+	"2d1f6d38-7e9e-4999-ada8-a67731acf6c2",
+	0,
+	'elementId',
+	'../UML 2.0 Diagram Interchange/GraphElement/GraphElement.xtuml');
+INSERT INTO R_RTO
+	VALUES ("2d1f6d38-7e9e-4999-ada8-a67731acf6c2",
+	"54db153f-89af-4721-81e2-d0cc1682fd0c",
+	"61a50705-3abc-4399-a715-23220ce33fbb",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"2d1f6d38-7e9e-4999-ada8-a67731acf6c2",
+	'../UML 2.0 Diagram Interchange/GraphElement/GraphElement.xtuml');
+INSERT INTO R_OIR
+	VALUES ("2d1f6d38-7e9e-4999-ada8-a67731acf6c2",
+	"54db153f-89af-4721-81e2-d0cc1682fd0c",
+	"61a50705-3abc-4399-a715-23220ce33fbb",
+	"7e350f9e-92f0-45ad-a7f9-8a43b6c4a006");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("2d1f6d38-7e9e-4999-ada8-a67731acf6c2",
+	'GraphElement',
+	1,
+	'DIM_GE',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'../UML 2.0 Diagram Interchange/GraphElement/GraphElement.xtuml');
+INSERT INTO R_FORM
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"54db153f-89af-4721-81e2-d0cc1682fd0c",
+	"abd798cf-8e86-48e1-9417-83c510336338",
+	0,
+	1,
+	'is Graphical Data analog of');
+INSERT INTO R_RGO
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"54db153f-89af-4721-81e2-d0cc1682fd0c",
+	"abd798cf-8e86-48e1-9417-83c510336338");
+INSERT INTO R_OIR
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"54db153f-89af-4721-81e2-d0cc1682fd0c",
+	"abd798cf-8e86-48e1-9417-83c510336338",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("54db153f-89af-4721-81e2-d0cc1682fd0c",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("f90784e6-0c5c-41d9-8d84-f4f4184bcfc6");
+INSERT INTO R_REL
+	VALUES ("f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
+	8,
+	'Each connector has text associated with it.  The text is placed at the beginning, middle and end of the connector. ',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
+	"47fc4dd4-ccf7-4c52-bfac-8fd5d48de0ff",
+	0,
+	1,
+	'is text for');
+INSERT INTO O_RTIDA
+	VALUES ("2206f786-33e3-4543-a1b5-ceea6be31825",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	0,
+	"f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
+	"47fc4dd4-ccf7-4c52-bfac-8fd5d48de0ff");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("2206f786-33e3-4543-a1b5-ceea6be31825",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	0,
+	'elementId',
+	'./Connector/Connector.xtuml');
+INSERT INTO R_RTO
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
+	"47fc4dd4-ccf7-4c52-bfac-8fd5d48de0ff",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	'./Connector/Connector.xtuml');
+INSERT INTO R_OIR
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
+	"47fc4dd4-ccf7-4c52-bfac-8fd5d48de0ff",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	"f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
+	"d7f70f72-9813-4b36-9214-ff5226275d74",
+	1,
+	0,
+	'has as a text');
+INSERT INTO R_RGO
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	"f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
+	"d7f70f72-9813-4b36-9214-ff5226275d74");
+INSERT INTO R_OIR
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	"f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
+	"d7f70f72-9813-4b36-9214-ff5226275d74",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("f90784e6-0c5c-41d9-8d84-f4f4184bcfc6",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("2f08e3ae-ee2b-42a9-909d-86a62a3be8e6");
+INSERT INTO R_REL
+	VALUES ("2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
+	6,
+	'A connector has one or more line segments.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
+	"355f8034-adca-4e22-8283-67a046a29438",
+	0,
+	0,
+	'is part of');
+INSERT INTO O_RTIDA
+	VALUES ("2206f786-33e3-4543-a1b5-ceea6be31825",
+	"ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	0,
+	"2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
+	"355f8034-adca-4e22-8283-67a046a29438");
+INSERT INTO R_RTO
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
+	"355f8034-adca-4e22-8283-67a046a29438",
+	0);
+INSERT INTO R_OIR
+	VALUES ("ab69f0d0-314a-4911-947c-2aaf3ed89428",
+	"2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
+	"355f8034-adca-4e22-8283-67a046a29438",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
+	"4dfdfbc3-6c75-4927-ab3f-2fea335e990c",
+	1,
+	0,
+	'has');
+INSERT INTO R_RGO
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
+	"4dfdfbc3-6c75-4927-ab3f-2fea335e990c");
+INSERT INTO R_OIR
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
+	"4dfdfbc3-6c75-4927-ab3f-2fea335e990c",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("2f08e3ae-ee2b-42a9-909d-86a62a3be8e6",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_ASSOC
+	VALUES ("75534c55-b016-4f50-bd1e-bf09d1d27f2d");
+INSERT INTO R_REL
+	VALUES ("75534c55-b016-4f50-bd1e-bf09d1d27f2d",
+	25,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AONE
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
+	"8a688ac6-5648-49ba-8479-9883d6dee2c0",
+	1,
+	1,
+	'is moving');
+INSERT INTO O_RTIDA
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
+	"8a688ac6-5648-49ba-8479-9883d6dee2c0");
+INSERT INTO R_RTO
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
+	"8a688ac6-5648-49ba-8479-9883d6dee2c0",
+	0);
+INSERT INTO R_OIR
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
+	"8a688ac6-5648-49ba-8479-9883d6dee2c0",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AOTH
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
+	"fa490581-8771-4a61-a66f-6726fdf5055e",
+	0,
+	1,
+	'is moving in');
+INSERT INTO O_RTIDA
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
+	"fa490581-8771-4a61-a66f-6726fdf5055e");
+INSERT INTO R_RTO
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
+	"fa490581-8771-4a61-a66f-6726fdf5055e",
+	0);
+INSERT INTO R_OIR
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
+	"fa490581-8771-4a61-a66f-6726fdf5055e",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_ASSR
+	VALUES ("37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
+	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
+	"bbc6151c-db41-4cf1-a9c9-157f1b0ea485",
+	0);
+INSERT INTO R_RGO
+	VALUES ("37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
+	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
+	"bbc6151c-db41-4cf1-a9c9-157f1b0ea485");
+INSERT INTO R_OIR
+	VALUES ("37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
+	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
+	"bbc6151c-db41-4cf1-a9c9-157f1b0ea485",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
+	'Element In Move',
+	15,
+	'GD_EIM',
+	'An instance of this class is created for each drag of a symbol on a canvas.  
+The instance holds data we''d like to remember across the duration of the drag.
+
+---------------------------------------------------------------------------------
+Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	"00000000-0000-0000-0000-000000000000",
+	'./Element In Move/Element In Move.xtuml');
+INSERT INTO PE_PE
+	VALUES ("75534c55-b016-4f50-bd1e-bf09d1d27f2d",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_ASSOC
+	VALUES ("50b8031a-f20c-450f-9fad-673c751fd49d");
+INSERT INTO R_REL
+	VALUES ("50b8031a-f20c-450f-9fad-673c751fd49d",
+	26,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AONE
+	VALUES ("a2f9b584-b553-4037-acb2-0227d0fd18ea",
+	"50b8031a-f20c-450f-9fad-673c751fd49d",
+	"afa890ff-980b-4672-8c82-bad43b10a8e4",
+	1,
+	1,
+	'is anchor on segment');
+INSERT INTO O_RTIDA
+	VALUES ("1a8d87dc-5803-48c4-a0c8-cf4f500ad9d4",
+	"a2f9b584-b553-4037-acb2-0227d0fd18ea",
+	0,
+	"50b8031a-f20c-450f-9fad-673c751fd49d",
+	"afa890ff-980b-4672-8c82-bad43b10a8e4");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("1a8d87dc-5803-48c4-a0c8-cf4f500ad9d4",
+	"a2f9b584-b553-4037-acb2-0227d0fd18ea",
+	0,
+	'conId',
+	'../UML 2.0 Diagram Interchange/GraphConnector/GraphConnector.xtuml');
+INSERT INTO R_RTO
+	VALUES ("a2f9b584-b553-4037-acb2-0227d0fd18ea",
+	"50b8031a-f20c-450f-9fad-673c751fd49d",
+	"afa890ff-980b-4672-8c82-bad43b10a8e4",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"a2f9b584-b553-4037-acb2-0227d0fd18ea",
+	'../UML 2.0 Diagram Interchange/GraphConnector/GraphConnector.xtuml');
+INSERT INTO R_OIR
+	VALUES ("a2f9b584-b553-4037-acb2-0227d0fd18ea",
+	"50b8031a-f20c-450f-9fad-673c751fd49d",
+	"afa890ff-980b-4672-8c82-bad43b10a8e4",
+	"9c50ad41-0cb4-43f1-8257-e5d3f5560d81");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("a2f9b584-b553-4037-acb2-0227d0fd18ea",
+	'GraphConnector',
+	6,
+	'DIM_CON',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'../UML 2.0 Diagram Interchange/GraphConnector/GraphConnector.xtuml');
+INSERT INTO R_AOTH
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"50b8031a-f20c-450f-9fad-673c751fd49d",
+	"69926ed5-d304-4b01-bd9c-10ddb927f8e1",
+	0,
+	1,
+	'has anchor point');
+INSERT INTO O_RTIDA
+	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	0,
+	"50b8031a-f20c-450f-9fad-673c751fd49d",
+	"69926ed5-d304-4b01-bd9c-10ddb927f8e1");
+INSERT INTO R_RTO
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"50b8031a-f20c-450f-9fad-673c751fd49d",
+	"69926ed5-d304-4b01-bd9c-10ddb927f8e1",
+	0);
+INSERT INTO R_OIR
+	VALUES ("77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	"50b8031a-f20c-450f-9fad-673c751fd49d",
+	"69926ed5-d304-4b01-bd9c-10ddb927f8e1",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_ASSR
+	VALUES ("669043e4-6347-4355-ae4b-b1e2d1c1355c",
+	"50b8031a-f20c-450f-9fad-673c751fd49d",
+	"6f7d7856-5387-4b40-bea3-c5c05f24892a",
+	0);
+INSERT INTO R_RGO
+	VALUES ("669043e4-6347-4355-ae4b-b1e2d1c1355c",
+	"50b8031a-f20c-450f-9fad-673c751fd49d",
+	"6f7d7856-5387-4b40-bea3-c5c05f24892a");
+INSERT INTO R_OIR
+	VALUES ("669043e4-6347-4355-ae4b-b1e2d1c1355c",
+	"50b8031a-f20c-450f-9fad-673c751fd49d",
+	"6f7d7856-5387-4b40-bea3-c5c05f24892a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("669043e4-6347-4355-ae4b-b1e2d1c1355c",
+	'Anchor On Segment',
+	16,
+	'GD_AOS',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./Anchor On Segment/Anchor On Segment.xtuml');
+INSERT INTO PE_PE
+	VALUES ("50b8031a-f20c-450f-9fad-673c751fd49d",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("24137010-9cb0-423b-9eb8-f1056ee5aa16");
+INSERT INTO R_REL
+	VALUES ("24137010-9cb0-423b-9eb8-f1056ee5aa16",
+	27,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
+	"24137010-9cb0-423b-9eb8-f1056ee5aa16",
+	"9b566db5-05be-4c47-8da0-00484f738041",
+	0,
+	1,
+	'is text for');
+INSERT INTO O_RTIDA
+	VALUES ("89373e61-1ced-470c-8595-0caf35d1b56c",
+	"0dbd2431-e353-4456-9834-6923205e88d7",
+	0,
+	"24137010-9cb0-423b-9eb8-f1056ee5aa16",
+	"9b566db5-05be-4c47-8da0-00484f738041");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("89373e61-1ced-470c-8595-0caf35d1b56c",
+	"0dbd2431-e353-4456-9834-6923205e88d7",
+	0,
+	'elementId',
+	'./Shape/Shape.xtuml');
+INSERT INTO R_RTO
+	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
+	"24137010-9cb0-423b-9eb8-f1056ee5aa16",
+	"9b566db5-05be-4c47-8da0-00484f738041",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"0dbd2431-e353-4456-9834-6923205e88d7",
+	'./Shape/Shape.xtuml');
+INSERT INTO R_OIR
+	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
+	"24137010-9cb0-423b-9eb8-f1056ee5aa16",
+	"9b566db5-05be-4c47-8da0-00484f738041",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	"24137010-9cb0-423b-9eb8-f1056ee5aa16",
+	"eea16246-b8bf-46eb-84d4-3be7fdc12d1f",
+	0,
+	1,
+	'has text');
+INSERT INTO R_RGO
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	"24137010-9cb0-423b-9eb8-f1056ee5aa16",
+	"eea16246-b8bf-46eb-84d4-3be7fdc12d1f");
+INSERT INTO R_OIR
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	"24137010-9cb0-423b-9eb8-f1056ee5aa16",
+	"eea16246-b8bf-46eb-84d4-3be7fdc12d1f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("24137010-9cb0-423b-9eb8-f1056ee5aa16",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SUBSUP
+	VALUES ("1336cbb2-f091-4c2c-879c-c54921246e97");
+INSERT INTO R_REL
+	VALUES ("1336cbb2-f091-4c2c-879c-c54921246e97",
+	19,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("04bcd415-c1a2-437e-9b8f-2cd45a955c31",
+	"1336cbb2-f091-4c2c-879c-c54921246e97",
+	"fc262e0a-d529-4e0a-8926-6187325986fc");
+INSERT INTO O_RTIDA
+	VALUES ("13d4e68c-4a5d-44d1-91bb-9dea6f090842",
+	"04bcd415-c1a2-437e-9b8f-2cd45a955c31",
+	0,
+	"1336cbb2-f091-4c2c-879c-c54921246e97",
+	"fc262e0a-d529-4e0a-8926-6187325986fc");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("13d4e68c-4a5d-44d1-91bb-9dea6f090842",
+	"04bcd415-c1a2-437e-9b8f-2cd45a955c31",
+	0,
+	'elementId',
+	'../UML 2.0 Diagram Interchange/GraphNode/GraphNode.xtuml');
+INSERT INTO R_RTO
+	VALUES ("04bcd415-c1a2-437e-9b8f-2cd45a955c31",
+	"1336cbb2-f091-4c2c-879c-c54921246e97",
+	"fc262e0a-d529-4e0a-8926-6187325986fc",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"04bcd415-c1a2-437e-9b8f-2cd45a955c31",
+	'../UML 2.0 Diagram Interchange/GraphNode/GraphNode.xtuml');
+INSERT INTO R_OIR
+	VALUES ("04bcd415-c1a2-437e-9b8f-2cd45a955c31",
+	"1336cbb2-f091-4c2c-879c-c54921246e97",
+	"fc262e0a-d529-4e0a-8926-6187325986fc",
+	"8f8e762a-6115-48ad-b2c7-ed50ecaab188");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("04bcd415-c1a2-437e-9b8f-2cd45a955c31",
+	'GraphNode',
+	3,
+	'DIM_ND',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'../UML 2.0 Diagram Interchange/GraphNode/GraphNode.xtuml');
+INSERT INTO R_SUB
+	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
+	"1336cbb2-f091-4c2c-879c-c54921246e97",
+	"9cbba969-9149-4861-9d36-37c4585e3cdb");
+INSERT INTO R_RGO
+	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
+	"1336cbb2-f091-4c2c-879c-c54921246e97",
+	"9cbba969-9149-4861-9d36-37c4585e3cdb");
+INSERT INTO R_OIR
+	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
+	"1336cbb2-f091-4c2c-879c-c54921246e97",
+	"9cbba969-9149-4861-9d36-37c4585e3cdb",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUB
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	"1336cbb2-f091-4c2c-879c-c54921246e97",
+	"940bc08e-4493-41c1-8a60-16573c0d04a7");
+INSERT INTO R_RGO
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	"1336cbb2-f091-4c2c-879c-c54921246e97",
+	"940bc08e-4493-41c1-8a60-16573c0d04a7");
+INSERT INTO R_OIR
+	VALUES ("36263303-f694-42bf-8e61-b117b1a89014",
+	"1336cbb2-f091-4c2c-879c-c54921246e97",
+	"940bc08e-4493-41c1-8a60-16573c0d04a7",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("1336cbb2-f091-4c2c-879c-c54921246e97",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SUBSUP
+	VALUES ("4bc0993a-c366-4e44-adb0-c1770c0d6972");
+INSERT INTO R_REL
+	VALUES ("4bc0993a-c366-4e44-adb0-c1770c0d6972",
+	28,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
+	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
+	"b0fced35-d71e-46a4-9598-c08ad29ab5ae");
+INSERT INTO O_RTIDA
+	VALUES ("89373e61-1ced-470c-8595-0caf35d1b56c",
+	"0dbd2431-e353-4456-9834-6923205e88d7",
+	0,
+	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
+	"b0fced35-d71e-46a4-9598-c08ad29ab5ae");
+INSERT INTO R_RTO
+	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
+	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
+	"b0fced35-d71e-46a4-9598-c08ad29ab5ae",
+	0);
+INSERT INTO R_OIR
+	VALUES ("0dbd2431-e353-4456-9834-6923205e88d7",
+	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
+	"b0fced35-d71e-46a4-9598-c08ad29ab5ae",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUB
+	VALUES ("414e6fd7-a538-4eb3-8506-a574c2bf20dc",
+	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
+	"8a5dc55f-f509-4a33-ab49-d8e435773f49");
+INSERT INTO R_RGO
+	VALUES ("414e6fd7-a538-4eb3-8506-a574c2bf20dc",
+	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
+	"8a5dc55f-f509-4a33-ab49-d8e435773f49");
+INSERT INTO R_OIR
+	VALUES ("414e6fd7-a538-4eb3-8506-a574c2bf20dc",
+	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
+	"8a5dc55f-f509-4a33-ab49-d8e435773f49",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("414e6fd7-a538-4eb3-8506-a574c2bf20dc",
+	'NonContaining Shape',
+	17,
+	'GD_NCS',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./NonContaining Shape/NonContaining Shape.xtuml');
+INSERT INTO R_SUB
+	VALUES ("ef991d82-439b-4b64-9873-de73edc9fcd6",
+	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
+	"4977866b-de80-4a98-96b3-81e2f872dc40");
+INSERT INTO R_RGO
+	VALUES ("ef991d82-439b-4b64-9873-de73edc9fcd6",
+	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
+	"4977866b-de80-4a98-96b3-81e2f872dc40");
+INSERT INTO R_OIR
+	VALUES ("ef991d82-439b-4b64-9873-de73edc9fcd6",
+	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
+	"4977866b-de80-4a98-96b3-81e2f872dc40",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("ef991d82-439b-4b64-9873-de73edc9fcd6",
+	'Containing Shape',
+	18,
+	'GD_CTR',
+	'This is a shape that serves as a container for other elements.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Containing Shape/Containing Shape.xtuml');
+INSERT INTO PE_PE
+	VALUES ("4bc0993a-c366-4e44-adb0-c1770c0d6972",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("e0546353-cd04-4daa-9198-96a6c96ea5b0");
+INSERT INTO R_REL
+	VALUES ("e0546353-cd04-4daa-9198-96a6c96ea5b0",
+	29,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"e0546353-cd04-4daa-9198-96a6c96ea5b0",
+	"83b67341-3fc3-4966-a866-aaf92319425b",
+	0,
+	1,
+	'reconciles instance population associated with');
+INSERT INTO O_RTIDA
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	"e0546353-cd04-4daa-9198-96a6c96ea5b0",
+	"83b67341-3fc3-4966-a866-aaf92319425b");
+INSERT INTO R_RTO
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"e0546353-cd04-4daa-9198-96a6c96ea5b0",
+	"83b67341-3fc3-4966-a866-aaf92319425b",
+	0);
+INSERT INTO R_OIR
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"e0546353-cd04-4daa-9198-96a6c96ea5b0",
+	"83b67341-3fc3-4966-a866-aaf92319425b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"e0546353-cd04-4daa-9198-96a6c96ea5b0",
+	"bb396cc9-ae37-4d4f-8c44-01e70b1cedb3",
+	1,
+	1,
+	'associated population reconciled by');
+INSERT INTO R_RGO
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"e0546353-cd04-4daa-9198-96a6c96ea5b0",
+	"bb396cc9-ae37-4d4f-8c44-01e70b1cedb3");
+INSERT INTO R_OIR
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"e0546353-cd04-4daa-9198-96a6c96ea5b0",
+	"bb396cc9-ae37-4d4f-8c44-01e70b1cedb3",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	'Auto Reconciliation Specification',
+	19,
+	'GD_ARS',
+	'PEI:true
+Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	"00000000-0000-0000-0000-000000000000",
+	'./Auto Reconciliation Specification/Auto Reconciliation Specification.xtuml');
+INSERT INTO PE_PE
+	VALUES ("e0546353-cd04-4daa-9198-96a6c96ea5b0",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("93193641-db8b-4f52-b5f4-67c898b2dbf1");
+INSERT INTO R_REL
+	VALUES ("93193641-db8b-4f52-b5f4-67c898b2dbf1",
+	30,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"93193641-db8b-4f52-b5f4-67c898b2dbf1",
+	"bf014913-71f0-4c7f-89f1-1309a00aebe7",
+	1,
+	1,
+	'population used for reconciliation by');
+INSERT INTO R_RGO
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"93193641-db8b-4f52-b5f4-67c898b2dbf1",
+	"bf014913-71f0-4c7f-89f1-1309a00aebe7");
+INSERT INTO R_OIR
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"93193641-db8b-4f52-b5f4-67c898b2dbf1",
+	"bf014913-71f0-4c7f-89f1-1309a00aebe7",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"93193641-db8b-4f52-b5f4-67c898b2dbf1",
+	"be906854-f4b6-4241-9d38-f1c320c5fa0f",
+	0,
+	0,
+	'reconciles against instances of');
+INSERT INTO O_RTIDA
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	"93193641-db8b-4f52-b5f4-67c898b2dbf1",
+	"be906854-f4b6-4241-9d38-f1c320c5fa0f");
+INSERT INTO R_RTO
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"93193641-db8b-4f52-b5f4-67c898b2dbf1",
+	"be906854-f4b6-4241-9d38-f1c320c5fa0f",
+	0);
+INSERT INTO R_OIR
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"93193641-db8b-4f52-b5f4-67c898b2dbf1",
+	"be906854-f4b6-4241-9d38-f1c320c5fa0f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("93193641-db8b-4f52-b5f4-67c898b2dbf1",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("49109c60-6e67-416e-9029-17b9838a13bf");
+INSERT INTO R_REL
+	VALUES ("49109c60-6e67-416e-9029-17b9838a13bf",
+	31,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"49109c60-6e67-416e-9029-17b9838a13bf",
+	"788ecc3e-8624-496c-9cde-89b6edaa1d10",
+	1,
+	1,
+	'reconciled by');
+INSERT INTO R_RGO
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"49109c60-6e67-416e-9029-17b9838a13bf",
+	"788ecc3e-8624-496c-9cde-89b6edaa1d10");
+INSERT INTO R_OIR
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"49109c60-6e67-416e-9029-17b9838a13bf",
+	"788ecc3e-8624-496c-9cde-89b6edaa1d10",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"49109c60-6e67-416e-9029-17b9838a13bf",
+	"a5d307ad-efc7-4d12-8bc6-dedba3c04cba",
+	0,
+	0,
+	'reconciles');
+INSERT INTO O_RTIDA
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	"49109c60-6e67-416e-9029-17b9838a13bf",
+	"a5d307ad-efc7-4d12-8bc6-dedba3c04cba");
+INSERT INTO R_RTO
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"49109c60-6e67-416e-9029-17b9838a13bf",
+	"a5d307ad-efc7-4d12-8bc6-dedba3c04cba",
+	0);
+INSERT INTO R_OIR
+	VALUES ("76253415-b575-4583-9248-5d403cee7647",
+	"49109c60-6e67-416e-9029-17b9838a13bf",
+	"a5d307ad-efc7-4d12-8bc6-dedba3c04cba",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("49109c60-6e67-416e-9029-17b9838a13bf",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_ASSOC
+	VALUES ("2547fcf5-ff86-4a03-9f7a-ffc563e60632");
+INSERT INTO R_REL
+	VALUES ("2547fcf5-ff86-4a03-9f7a-ffc563e60632",
+	32,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AONE
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
+	"8efd3cef-7ae0-4ff3-a9d9-319d21f2fdbd",
+	0,
+	1,
+	'');
+INSERT INTO O_RTIDA
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
+	"8efd3cef-7ae0-4ff3-a9d9-319d21f2fdbd");
+INSERT INTO R_RTO
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
+	"8efd3cef-7ae0-4ff3-a9d9-319d21f2fdbd",
+	0);
+INSERT INTO R_OIR
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
+	"8efd3cef-7ae0-4ff3-a9d9-319d21f2fdbd",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AOTH
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
+	"81f85656-7960-43f1-9e94-a323e89c8639",
+	1,
+	1,
+	'');
+INSERT INTO O_RTIDA
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
+	"81f85656-7960-43f1-9e94-a323e89c8639");
+INSERT INTO R_RTO
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
+	"81f85656-7960-43f1-9e94-a323e89c8639",
+	0);
+INSERT INTO R_OIR
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
+	"81f85656-7960-43f1-9e94-a323e89c8639",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_ASSR
+	VALUES ("2b703699-b3a8-4e56-9055-218e95e69f05",
+	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
+	"be46da2a-8ecd-4a3d-aeb5-9283d9d980c3",
+	0);
+INSERT INTO R_RGO
+	VALUES ("2b703699-b3a8-4e56-9055-218e95e69f05",
+	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
+	"be46da2a-8ecd-4a3d-aeb5-9283d9d980c3");
+INSERT INTO R_OIR
+	VALUES ("2b703699-b3a8-4e56-9055-218e95e69f05",
+	"2547fcf5-ff86-4a03-9f7a-ffc563e60632",
+	"be46da2a-8ecd-4a3d-aeb5-9283d9d980c3",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("2b703699-b3a8-4e56-9055-218e95e69f05",
+	'Element In Suppression',
+	20,
+	'GD_EIS',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./Element In Suppression/Element In Suppression.xtuml');
+INSERT INTO PE_PE
+	VALUES ("2547fcf5-ff86-4a03-9f7a-ffc563e60632",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("e524f7e2-81e0-40fa-a788-37e7a47fe940");
+INSERT INTO R_REL
+	VALUES ("e524f7e2-81e0-40fa-a788-37e7a47fe940",
+	33,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
+	"8486f7c0-5485-43c4-bc52-77b4b366ab19",
+	1,
+	1,
+	'');
+INSERT INTO R_RGO
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
+	"8486f7c0-5485-43c4-bc52-77b4b366ab19");
+INSERT INTO R_OIR
+	VALUES ("0849862c-76a0-4d0f-bb84-cf5aef617874",
+	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
+	"8486f7c0-5485-43c4-bc52-77b4b366ab19",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
+	"57e397eb-3e61-4dd4-ae5e-0e954a7e545b",
+	0,
+	1,
+	'');
+INSERT INTO O_RTIDA
+	VALUES ("af61b674-5c60-451f-8e71-4938504496fc",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	0,
+	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
+	"57e397eb-3e61-4dd4-ae5e-0e954a7e545b");
+INSERT INTO O_RTIDA
+	VALUES ("ce107490-0989-42ef-8800-aeb9ee9f7644",
+	"0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	0,
+	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
+	"57e397eb-3e61-4dd4-ae5e-0e954a7e545b");
+INSERT INTO R_RTO
+	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
+	"57e397eb-3e61-4dd4-ae5e-0e954a7e545b",
+	0);
+INSERT INTO R_OIR
+	VALUES ("0cd14c97-c661-47b7-a063-cf7c345d1bdc",
+	"e524f7e2-81e0-40fa-a788-37e7a47fe940",
+	"57e397eb-3e61-4dd4-ae5e-0e954a7e545b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("e524f7e2-81e0-40fa-a788-37e7a47fe940",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("8ec49a30-c35c-455e-84d4-07e7a3fc53ea");
+INSERT INTO R_REL
+	VALUES ("8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
+	34,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
+	"b121433a-5589-4e41-8610-b6500c0b0411",
+	0,
+	0,
+	'contains elements of');
+INSERT INTO O_RTIDA
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
+	"b121433a-5589-4e41-8610-b6500c0b0411");
+INSERT INTO R_RTO
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
+	"b121433a-5589-4e41-8610-b6500c0b0411",
+	0);
+INSERT INTO R_OIR
+	VALUES ("09423687-e999-4aba-876d-35e0d3331311",
+	"8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
+	"b121433a-5589-4e41-8610-b6500c0b0411",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	"8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
+	"ae3320e4-6221-42d6-871b-3a5aec92c800",
+	1,
+	1,
+	'contents displayed in');
+INSERT INTO R_RGO
+	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	"8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
+	"ae3320e4-6221-42d6-871b-3a5aec92c800");
+INSERT INTO R_OIR
+	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	"8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
+	"ae3320e4-6221-42d6-871b-3a5aec92c800",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	'Layer',
+	21,
+	'GD_LAY',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./Layer/Layer.xtuml');
+INSERT INTO PE_PE
+	VALUES ("8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_ASSOC
+	VALUES ("b806e9cd-b8a1-4fa0-9676-5b3923cfca34");
+INSERT INTO R_REL
+	VALUES ("b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
+	35,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AONE
+	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
+	"e64aed74-b68a-4a46-ba92-7fea3f90f0fc",
+	1,
+	0,
+	'contained in');
+INSERT INTO O_RTIDA
+	VALUES ("a246b659-140d-4ce4-91c3-7aea62cdf070",
+	"5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	0,
+	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
+	"e64aed74-b68a-4a46-ba92-7fea3f90f0fc");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("a246b659-140d-4ce4-91c3-7aea62cdf070",
+	"5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	0,
+	'Layer_Name',
+	'./Layer/Layer.xtuml');
+INSERT INTO R_RTO
+	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
+	"e64aed74-b68a-4a46-ba92-7fea3f90f0fc",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	'./Layer/Layer.xtuml');
+INSERT INTO R_OIR
+	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
+	"e64aed74-b68a-4a46-ba92-7fea3f90f0fc",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AOTH
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
+	"d6b4a48e-ee98-46fd-8f9d-b46321e8781b",
+	1,
+	1,
+	'contains');
+INSERT INTO O_RTIDA
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
+	"d6b4a48e-ee98-46fd-8f9d-b46321e8781b");
+INSERT INTO R_RTO
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
+	"d6b4a48e-ee98-46fd-8f9d-b46321e8781b",
+	0);
+INSERT INTO R_OIR
+	VALUES ("9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
+	"d6b4a48e-ee98-46fd-8f9d-b46321e8781b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_ASSR
+	VALUES ("a19b153c-008b-4a52-a8d4-2e5a7292f29b",
+	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
+	"064ff661-682a-4f62-80eb-5752e0f83138",
+	0);
+INSERT INTO R_RGO
+	VALUES ("a19b153c-008b-4a52-a8d4-2e5a7292f29b",
+	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
+	"064ff661-682a-4f62-80eb-5752e0f83138");
+INSERT INTO R_OIR
+	VALUES ("a19b153c-008b-4a52-a8d4-2e5a7292f29b",
+	"b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
+	"064ff661-682a-4f62-80eb-5752e0f83138",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("a19b153c-008b-4a52-a8d4-2e5a7292f29b",
+	'GraphicalElementInLayer',
+	22,
+	'GD_GLAY',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./GraphicalElementInLayer/GraphicalElementInLayer.xtuml');
+INSERT INTO PE_PE
+	VALUES ("b806e9cd-b8a1-4fa0-9676-5b3923cfca34",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO O_IOBJ
+	VALUES ("340e3522-0e3d-442e-88e9-575f5c9c40bc",
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'Diagram',
+	'DIM_DIA');
+INSERT INTO PE_PE
+	VALUES ("340e3522-0e3d-442e-88e9-575f5c9c40bc",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("8f8e762a-6115-48ad-b2c7-ed50ecaab188",
+	"04bcd415-c1a2-437e-9b8f-2cd45a955c31",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'GraphNode',
+	'DIM_ND');
+INSERT INTO PE_PE
+	VALUES ("8f8e762a-6115-48ad-b2c7-ed50ecaab188",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("0054339c-c42f-43f4-b372-a5f661dda6b1",
+	"0580af92-433a-4442-8b1c-a330fd6a0b16",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'GraphEdge',
+	'DIM_ED');
+INSERT INTO PE_PE
+	VALUES ("0054339c-c42f-43f4-b372-a5f661dda6b1",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("b6d071fb-9da6-4afc-a455-226c65aa9c8a",
+	"7e1e895a-1165-4c2f-b740-6ef7bea4058a",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'Waypoint',
+	'DIM_WAY');
+INSERT INTO PE_PE
+	VALUES ("b6d071fb-9da6-4afc-a455-226c65aa9c8a",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("7e350f9e-92f0-45ad-a7f9-8a43b6c4a006",
+	"2d1f6d38-7e9e-4999-ada8-a67731acf6c2",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'GraphElement',
+	'DIM_GE');
+INSERT INTO PE_PE
+	VALUES ("7e350f9e-92f0-45ad-a7f9-8a43b6c4a006",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("9c50ad41-0cb4-43f1-8257-e5d3f5560d81",
+	"a2f9b584-b553-4037-acb2-0227d0fd18ea",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'GraphConnector',
+	'DIM_CON');
+INSERT INTO PE_PE
+	VALUES ("9c50ad41-0cb4-43f1-8257-e5d3f5560d81",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO PE_PE
+	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	1,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
+	'ooaofgraphics',
+	'========================================================================
+
+File:          $RCSfile$
+Version:   $Revision$
+Modified:  $Date$
+
+(c) Copyright 2004-2014 Mentor Graphics Corporation All rights reserved.
+
+========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+========================================================================
+
+This is the graphics domain for the Tiger project.
+
+The processing in this model describes the activities
+required for model diagram display and editing.
+
+Import:com.mentor.nucleus.bp.core.*
+-------------------------------------------------------------------------------------------------------------
+',
+	0,
+	'../ooaofgraphics.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
+	'com.mentor.nucleus.bp.ui.canvas',
+	1,
+	'../../com.mentor.nucleus.bp.ui.canvas.xtuml');

@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("cbb053ee-6bf3-4720-af62-224208d869ee",
@@ -14,13 +14,13 @@ pre-existing instance specification.
 
 PEI:true
 Persistent:false',
-	"3aa01b07-08b4-4f56-a64c-5db1a460535b");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("59718433-5b56-4fde-bb04-4939d35fe0d7",
 	"cbb053ee-6bf3-4720-af62-224208d869ee",
 	'criteriaMet',
 	'',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one model related by self->TS_TSP[R201]->GD_MD[R207];
 if (not_empty model)
@@ -48,34 +48,20 @@ INSERT INTO O_TPARM
 	VALUES ("e78a37d4-7c27-4d11-9d9c-8e420e6a4ff3",
 	"59718433-5b56-4fde-bb04-4939d35fe0d7",
 	'x',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("bec76bce-5863-4b1b-805f-839866213c33",
 	"59718433-5b56-4fde-bb04-4939d35fe0d7",
 	'y',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"e78a37d4-7c27-4d11-9d9c-8e420e6a4ff3",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("cbb053ee-6bf3-4720-af62-224208d869ee",
 	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
@@ -124,16 +110,9 @@ INSERT INTO O_ATTR
 	'',
 	'Term_Spec_ID',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"cbb053ee-6bf3-4720-af62-224208d869ee");
@@ -148,8 +127,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"cbb053ee-6bf3-4720-af62-224208d869ee");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("cbb053ee-6bf3-4720-af62-224208d869ee",
+	1,
+	"3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Terminal Specifications',
 	'The TS (Terminal Specification) subsystem models specification classes that
 define the legal ending points for BridgePoint connector symbols.
@@ -159,8 +146,5 @@ TRANSLATE_FOR_EXTERNAL_USE:FALSE
 Notify_Changes:false
 
 ',
-	'TS',
 	200,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000001d8003b",
 	'../Terminal Specifications.xtuml');
