@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("95c699ea-9180-4081-ba6f-0cc9437b7a32",
@@ -13,7 +13,7 @@ Persistent:false
 PEI:true
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("95c699ea-9180-4081-ba6f-0cc9437b7a32",
 	"76253415-b575-4583-9248-5d403cee7647",
@@ -29,7 +29,7 @@ INSERT INTO O_REF
 	'',
 	'Element Specification',
 	'OOA_Type',
-	'R17');
+	'R17.''is for''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("95c699ea-9180-4081-ba6f-0cc9437b7a32",
 	"ec5ebc2a-f504-41aa-a3e5-e7a14e6b9fa4",
@@ -62,16 +62,9 @@ INSERT INTO O_ATTR
 	'',
 	'OOA_Type',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("f673afa7-8a20-4b17-9db4-ec7c242fd312",
 	"95c699ea-9180-4081-ba6f-0cc9437b7a32");
@@ -92,7 +85,7 @@ INSERT INTO O_ATTR
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("8d28e864-6cdc-4005-8d8f-a59eb8d6be84",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
 	'class',
 	'',
 	'',
@@ -116,15 +109,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"95c699ea-9180-4081-ba6f-0cc9437b7a32");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("95c699ea-9180-4081-ba6f-0cc9437b7a32",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Graphical Data',
 	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
 -------------------------------------------------------
 Import:org.eclipse.swt.graphics.Color
 Notify_Changes:true',
-	'GD',
 	1,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000001900032",
 	'../Graphical Data.xtuml');

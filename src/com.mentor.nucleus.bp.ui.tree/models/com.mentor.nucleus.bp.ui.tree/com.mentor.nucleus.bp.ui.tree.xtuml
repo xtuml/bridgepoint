@@ -1,9 +1,9 @@
--- BP 7.1 content: SystemModel syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: SystemModel syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO S_SYS
 	VALUES ("01011a0a-7be9-46ee-a8f8-2ba4cac25a9d",
 	'com.mentor.nucleus.bp.ui.tree',
-	0);
+	1);
 INSERT INTO GD_MD
 	VALUES ("92d83186-4363-4241-a013-f06cbffbcdbc",
 	108,
@@ -24,27 +24,27 @@ INSERT INTO GD_MD
 	'',
 	'com.mentor.nucleus.bp.ui.tree');
 INSERT INTO GD_GE
-	VALUES ("321fc047-b44d-4c5f-98bc-ba2fd9d1660f",
+	VALUES ("06203bc4-915c-48ba-ae67-72c2c11e91e1",
 	"92d83186-4363-4241-a013-f06cbffbcdbc",
-	"c4778cab-3f2c-45dc-b18d-b54fd68de8bb",
-	99,
+	"355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
+	108,
 	0,
-	'');
+	'com.mentor.nucleus.bp.ui.tree::UITree');
 INSERT INTO GD_SHP
-	VALUES ("321fc047-b44d-4c5f-98bc-ba2fd9d1660f");
+	VALUES ("06203bc4-915c-48ba-ae67-72c2c11e91e1");
 INSERT INTO GD_NCS
-	VALUES ("321fc047-b44d-4c5f-98bc-ba2fd9d1660f");
+	VALUES ("06203bc4-915c-48ba-ae67-72c2c11e91e1");
 INSERT INTO DIM_ND
 	VALUES (200.000000,
 	150.000000,
-	"321fc047-b44d-4c5f-98bc-ba2fd9d1660f");
+	"06203bc4-915c-48ba-ae67-72c2c11e91e1");
 INSERT INTO DIM_GE
-	VALUES (4008.000000,
-	3012.000000,
-	"321fc047-b44d-4c5f-98bc-ba2fd9d1660f",
+	VALUES (4010.000000,
+	0.000000,
+	"06203bc4-915c-48ba-ae67-72c2c11e91e1",
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_ELE
-	VALUES ("321fc047-b44d-4c5f-98bc-ba2fd9d1660f",
+	VALUES ("06203bc4-915c-48ba-ae67-72c2c11e91e1",
 	0,
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO DIM_DIA

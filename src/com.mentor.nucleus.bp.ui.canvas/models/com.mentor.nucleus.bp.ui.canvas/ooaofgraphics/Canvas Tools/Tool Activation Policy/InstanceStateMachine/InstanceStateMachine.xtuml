@@ -1,4 +1,4 @@
--- BP 7.1 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO SM_ISM
 	VALUES ("4537e9b1-a431-42e4-a2a3-cb31b8adff40",
@@ -14,23 +14,16 @@ INSERT INTO SM_EVTDI
 	"4537e9b1-a431-42e4-a2a3-cb31b8adff40",
 	'toolID',
 	'',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	"79ef8467-41ca-4a25-a3d8-275d2876f06b",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'unique_id',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO SM_EVTDI
 	VALUES ("d5b112b8-d8ff-4cce-8c57-84095d5086d5",
 	"4537e9b1-a431-42e4-a2a3-cb31b8adff40",
 	'toolID',
 	'',
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	"8481f2f7-f0e7-4aa0-97b2-86902857d4c3",
 	"00000000-0000-0000-0000-000000000000");
@@ -515,7 +508,7 @@ INSERT INTO GD_GE
 	"8b5a0ece-81a6-44f2-ad0f-bd6efd2d6185",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Tool Activation Policy::Instance State Machine::CT_ACT1: Activation Permission Requested');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Tool Activation Policy::Instance State Machine::Idle::CT_ACT1: Activation Permission Requested');
 INSERT INTO GD_CON
 	VALUES ("fee55e18-4f8b-4638-a0ce-cab30996a087",
 	"00000000-0000-0000-0000-000000000000");
@@ -615,7 +608,7 @@ INSERT INTO GD_GE
 	"736e260b-2a5c-4a25-b8a5-cb428bf381d9",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Tool Activation Policy::Instance State Machine::CT_ACT2: Done');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Tool Activation Policy::Instance State Machine::Evaluating Activation Request::CT_ACT2: Done');
 INSERT INTO GD_CON
 	VALUES ("0da5e3d0-1cd3-4c85-85c1-01855baaeaa1",
 	"00000000-0000-0000-0000-000000000000");
@@ -728,7 +721,7 @@ INSERT INTO GD_GE
 	"9daccd41-cada-46c6-a1c1-1f8fedb7c028",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Tool Activation Policy::Instance State Machine::CT_ACT3: Tool Deactivated');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Tool Activation Policy::Instance State Machine::Idle::CT_ACT3: Tool Deactivated');
 INSERT INTO GD_CON
 	VALUES ("6d700ab0-7da3-48d6-99a7-2ff4615c0edf",
 	"00000000-0000-0000-0000-000000000000");
@@ -841,7 +834,7 @@ INSERT INTO GD_GE
 	"c21cadb7-10f8-4587-a769-e48bb38820cc",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Tool Activation Policy::Instance State Machine::CT_ACT2: Done');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Tool Activation Policy::Instance State Machine::Reconciling Tool Deactivation::CT_ACT2: Done');
 INSERT INTO GD_CON
 	VALUES ("56befbb8-6b6e-4285-b0ab-b8129396ca55",
 	"00000000-0000-0000-0000-000000000000");
@@ -951,5 +944,5 @@ INSERT INTO O_OBJ_PROXY
 ------------
 Persistent:false
 ',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
 	'../Tool Activation Policy.xtuml');
