@@ -36,6 +36,7 @@
 .//============================================================================
 .//
 .function translate_values
+  .param string root_pkg_name
   .print "************** generate literal booleans            *****************"
   .invoke gen_literal_boolean_values()
   .print "************** generate literal integers            *****************"
@@ -61,15 +62,15 @@
   .print "************** generate parameter values            *****************"
   .invoke gen_parameter_values()
   .print "************** generate binary operation values     *****************"
-  .invoke gen_binary_op_values()
+  .invoke gen_binary_op_values(root_pkg_name)
   .print "************** generate unary operation values      *****************"
-  .invoke gen_unary_op_values()
+  .invoke gen_unary_op_values(root_pkg_name)
   .print "************** generate bridge return values        *****************"
-  .invoke gen_bridge_values()
+  .invoke gen_bridge_values(root_pkg_name)
   .print "************** generate operation return values     *****************"
-  .invoke gen_transform_values()
+  .invoke gen_transform_values(root_pkg_name)
   .print "************** generate function return values      *****************"
-  .invoke gen_synch_service_values()
+  .invoke gen_synch_service_values(root_pkg_name)
 .end function
 .//
 .//
@@ -87,6 +88,7 @@
 .end function
 .//
 .function translate_other_statements
+  .param string root_pkg_name
   .param string main_class_name
   .param boolean output_change_messages
   .print "************** generate assignments                 *****************"
@@ -95,7 +97,7 @@
   .invoke gen_create_instance_statements(main_class_name, output_change_messages)
   .print "************** generate deletes                     *****************"
   .invoke gen_delete_instance_statements(main_class_name, output_change_messages)
-  .print "************** generate event creates               *****************"
+  .print "************* generate event creates               *****************"
   .invoke gen_create_event_instance_statements()
   .print "************* generate relates                     *****************"
   .invoke gen_relate_statements()
@@ -104,25 +106,25 @@
   .print "************* generate select from instances       *****************"
   .invoke gen_select_statements()
   .print "************* generate select from instances where *****************"
-  .invoke gen_select_inst_where_statements()
+  .invoke gen_select_inst_where_statements(root_pkg_name)
   .print "************* generate select rel                  *****************"
   .invoke gen_select_inst_rel_by_statements()
   .print "************* generate select rel where            *****************"
-  .invoke gen_select_rel_where_statements()
+  .invoke gen_select_rel_where_statements(root_pkg_name)
   .print "************* generate relate using                *****************"
   .invoke gen_relate_using_statements()
   .print "************* generate unrelate using              *****************"
   .invoke gen_unrelate_using_statements()
   .print "************* generate ism events                  *****************"
-  .invoke gen_event_gen_statements()
+  .invoke gen_event_gen_statements(root_pkg_name)
   .print "************* generate csm events                  *****************"
-  .invoke gen_event_gen_ass_statements()
+  .invoke gen_event_gen_ass_statements(root_pkg_name)
   .print "************* generate operations                  *****************"
-  .invoke gen_transform_statements()
+  .invoke gen_transform_statements(root_pkg_name)
   .print "************* generate bridges                     *****************"
-  .invoke gen_bridge_statements()
+  .invoke gen_bridge_statements(root_pkg_name)
   .print "************* generate functions                   *****************"
-  .invoke gen_function_statements()
+  .invoke gen_function_statements(root_pkg_name)
   .print "************* generate returns                     *****************"
   .invoke gen_return_statements()
   .print "************* generate arch controls               *****************"
@@ -135,11 +137,12 @@
 .//
 .//
 .function translate_all_oal
+  .param string root_pkg_name
   .param string main_class_name
   .param boolean output_change_messages
   .//
-  .invoke translate_values()
+  .invoke translate_values(root_pkg_name)
   .invoke translate_control_statements()
-  .invoke translate_other_statements(main_class_name, output_change_messages)
+  .invoke translate_other_statements(root_pkg_name, main_class_name, output_change_messages)
 .end function
 .//

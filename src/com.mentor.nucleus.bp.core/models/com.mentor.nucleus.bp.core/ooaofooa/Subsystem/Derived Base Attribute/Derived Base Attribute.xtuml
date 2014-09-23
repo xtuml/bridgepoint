@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("217ade74-f54e-4fda-8497-0513abeb05fc",
@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	107,
 	'O_DBATTR',
 	'A Derived Attribute is the result of an algorithm used to derive the value. A derived based attribute is said to be mathematically-dependent since is value is derived from other data in the model.  The action for the derived base attribute is used to set the value of the attribute by using the self keyword.',
-	"67eb58de-1d2b-4163-8373-ae8e65e99f84");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("bbf2faf3-9078-4669-80ea-e1a29871c1b8",
 	"217ade74-f54e-4fda-8497-0513abeb05fc",
 	'dispose',
 	'Dispose this Derived Base Attribute.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one battr related by self->O_BATTR[R107];
 unrelate self from battr across R107;
@@ -29,19 +29,12 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("8c6e0672-e93f-43ec-be61-977d475a2d37",
 	"217ade74-f54e-4fda-8497-0513abeb05fc",
 	'get_name',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one attr related by self->O_BATTR[R107]->O_ATTR[R106];
 if (empty attr)
@@ -52,13 +45,6 @@ end if;',
 	1,
 	'',
 	"bbf2faf3-9078-4669-80ea-e1a29871c1b8");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("8165af3c-0cb2-4f7d-b2fc-2facb7e7f9ec",
 	"217ade74-f54e-4fda-8497-0513abeb05fc",
@@ -78,7 +64,7 @@ return this;
 	"8c6e0672-e93f-43ec-be61-977d475a2d37");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -131,16 +117,9 @@ INSERT INTO O_ATTR
 	'',
 	'Attr_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_DBATTR
 	VALUES ("d248b6c2-83f5-43d1-8c58-45299a874a3f",
 	"217ade74-f54e-4fda-8497-0513abeb05fc",
@@ -161,7 +140,7 @@ Persistent:false',
 	'',
 	'Action_Semantics',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -187,7 +166,7 @@ Data Domain: 0=not parsed, 1 = parse successful, 2 = parse unsuccessful, 3 = par
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("33245ab4-49c2-4c3a-8a59-a08f07153c47",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'ParseStatus',
 	'Indicates the status of the parse for an action specification in the attribute Action_Semantics',
 	'',
@@ -207,7 +186,7 @@ INSERT INTO O_ATTR
 	'',
 	'Action_Semantics_internal',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -253,7 +232,7 @@ INSERT INTO O_ATTR
 	'',
 	'Obj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -275,12 +254,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"217ade74-f54e-4fda-8497-0513abeb05fc");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("217ade74-f54e-4fda-8497-0513abeb05fc",
+	1,
+	"67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Subsystem',
 	'A class (O_OBJ)  is an abstraction of a real world thing that has specific attributes (O_ATTR) and, if active, has a lifecycle model as a state machine (SM_SM).  All instances of the class must have the same characteristics and follow the same state behavior.  Classes fall into many categories, some of which are: tangible things, roles, interactions and specifications. ',
-	'O',
 	101,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000300006",
 	'../Subsystem.xtuml');

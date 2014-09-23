@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("dd50ce3c-2f09-48bb-8e2d-70f9880240b3",
@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	527,
 	'SM_LEVT',
 	'A local event is one that is defined in the state machine.  Contrast this to a non-local event which is defined in a different state machine (that of the super-type) than the one in which it is used.',
-	"efdb28f6-a485-4b25-9cbf-3e7227398b6a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("20cf524e-96e1-48bb-ac83-07d78796845b",
 	"dd50ce3c-2f09-48bb-8e2d-70f9880240b3",
 	'dispose',
 	'Dispose this SM_LEVT.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one sevt related by self->SM_SEVT[R526];
 unrelate self from sevt across R526;
@@ -26,19 +26,12 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("2517c2c6-db6b-4a0b-8391-c1115645c502",
 	"dd50ce3c-2f09-48bb-8e2d-70f9880240b3",
 	'get_name',
 	'Return the meaning of this local event.',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one evt related by self->SM_SEVT[R526]->SM_EVT[R525];
 if (empty evt)
@@ -50,13 +43,6 @@ end if;
 	1,
 	'',
 	"20cf524e-96e1-48bb-ac83-07d78796845b");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("dd50ce3c-2f09-48bb-8e2d-70f9880240b3",
 	"173a203b-677e-4e60-8aeb-678f4fd25f4b",
@@ -105,16 +91,9 @@ INSERT INTO O_ATTR
 	'',
 	'SMevt_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("dd50ce3c-2f09-48bb-8e2d-70f9880240b3",
 	"173a203b-677e-4e60-8aeb-678f4fd25f4b",
@@ -158,7 +137,7 @@ INSERT INTO O_ATTR
 	'',
 	'SM_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -204,7 +183,7 @@ INSERT INTO O_ATTR
 	'',
 	'SMspd_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -226,12 +205,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"dd50ce3c-2f09-48bb-8e2d-70f9880240b3");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("dd50ce3c-2f09-48bb-8e2d-70f9880240b3",
+	1,
+	"efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'State Machine',
 	'Classes (O_OBJ) that have interesting behavior are given lifecycles. These lifecycles are described using state machines (SM_SM). A state machine consists of states, events, transitions and state actions. The state machine exists for each instance of the class for which it has been modeled (SM_ISM). A state machine can also be an assigner state machine (SM_ASM) of which only one can exists for all class instances. The purpose of the assigner state machine is to act as a single point of control through which competing requests are serialized.',
-	'SM',
 	501,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000280005",
 	'../State Machine.xtuml');

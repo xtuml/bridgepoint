@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("ce45ee87-d94a-478c-81fb-254b7cc76e33",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	1,
 	'CME',
 	'An entry that must be shown in a menu.',
-	"22fe2ec1-5660-4a88-9691-da2fe55e94db");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
 	VALUES ("a02aa5cd-1a6e-4de9-a631-daa947fb041a",
 	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
@@ -29,16 +29,9 @@ the model.',
 	'',
 	'Specialism',
 	0,
-	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("ff27026a-9d91-4d3d-9c92-888e9483a31c",
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("0063aff7-3a9e-4a07-be3b-f027d9e256f1",
 	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
@@ -54,7 +47,7 @@ INSERT INTO O_ATTR
 	'',
 	'Label',
 	0,
-	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -72,7 +65,7 @@ INSERT INTO O_REF
 	'',
 	'Client Class',
 	'Key_Lett',
-	'R2000');
+	'R2000.''shows against instances of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("ce45ee87-d94a-478c-81fb-254b7cc76e33",
 	"96c0655e-1770-44a9-86c5-402a792aa0d5",
@@ -105,16 +98,9 @@ INSERT INTO O_ATTR
 	'',
 	'Key_Lett',
 	0,
-	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("e9939872-4e30-45f7-852c-a44e7f299f8a",
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("86e8a9f3-2ade-4824-a8fb-8b3737322261",
 	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
@@ -131,7 +117,7 @@ entry. The empty string represents no icon present.',
 	'',
 	'Resultant_Class',
 	0,
-	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -154,16 +140,9 @@ appear in the global context.',
 	'',
 	'Global',
 	0,
-	"46994b98-f184-48fa-80ff-87b12695efd3",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("46994b98-f184-48fa-80ff-87b12695efd3",
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("f69f6c70-e37f-4e15-96b7-d5a766eefa2f",
 	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
@@ -181,7 +160,7 @@ wizards so this can be the empty string.
 	'',
 	'WizardDescription',
 	0,
-	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -199,7 +178,7 @@ INSERT INTO O_ATTR
 	'',
 	'requiredSelectionCount',
 	0,
-	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -218,7 +197,7 @@ types before it is enabled.',
 	'',
 	'requiresHeterogeneousSelection',
 	0,
-	"46994b98-f184-48fa-80ff-87b12695efd3",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -236,7 +215,7 @@ INSERT INTO O_ATTR
 	'',
 	'extraEntryText',
 	0,
-	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -254,7 +233,7 @@ INSERT INTO O_ATTR
 	'',
 	'UsesSelectionDialog',
 	0,
-	"46994b98-f184-48fa-80ff-87b12695efd3",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -272,7 +251,7 @@ INSERT INTO O_ATTR
 	'',
 	'EnableVisibilityFiltering',
 	0,
-	"46994b98-f184-48fa-80ff-87b12695efd3",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -290,7 +269,7 @@ INSERT INTO O_ATTR
 	'',
 	'TypeToChoose',
 	0,
-	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -308,7 +287,7 @@ INSERT INTO O_ATTR
 	'',
 	'Resultant_Class_RelChain',
 	0,
-	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -335,12 +314,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"ce45ee87-d94a-478c-81fb-254b7cc76e33");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("ce45ee87-d94a-478c-81fb-254b7cc76e33",
+	1,
+	"22fe2ec1-5660-4a88-9691-da2fe55e94db",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("22fe2ec1-5660-4a88-9691-da2fe55e94db",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Context Menu',
 	'',
-	'CM_',
 	1,
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	"00000000-0000-0000-0000-000000100002",
 	'../Context Menu.xtuml');

@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	36,
 	'S_DIM',
 	'',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
 	VALUES ("6b0bac92-095b-46ff-b9a3-e379b90a818f",
 	"a7f780df-4372-4b70-9a50-96986c96c2dd");
@@ -23,16 +23,9 @@ User_Visible:false',
 	'',
 	'elementCount',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
 	"f9359d0e-84e9-4ba4-b84c-ee6efc50e841",
@@ -48,7 +41,7 @@ INSERT INTO O_REF
 	'',
 	'Function Parameter',
 	'SParm_ID',
-	'R52');
+	'R52.''specifies occurrences of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
 	"4b3f977d-45c1-4ab4-98bc-78a64f07b5ed",
@@ -81,16 +74,9 @@ INSERT INTO O_ATTR
 	'',
 	'SParm_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
 	"b6e08131-fb43-412a-8d6c-4c30a1664b17",
@@ -106,7 +92,7 @@ INSERT INTO O_REF
 	'',
 	'Bridge Parameter',
 	'BParm_ID',
-	'R49');
+	'R49.''specifies occurrences of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
 	"48acb760-49eb-4ce1-b5c9-353d6c367695",
@@ -139,7 +125,7 @@ INSERT INTO O_ATTR
 	'',
 	'BParm_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -157,7 +143,7 @@ INSERT INTO O_REF
 	'',
 	'Bridge',
 	'Brg_ID',
-	'R50');
+	'R50.''defines return value dimensions for''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
 	"b1549f1a-5f16-4b7e-a1fe-ae049acb08a0",
@@ -190,7 +176,7 @@ INSERT INTO O_ATTR
 	'',
 	'Brg_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -208,7 +194,7 @@ INSERT INTO O_REF
 	'',
 	'Interface Operation',
 	'Id',
-	'R4018');
+	'R4018.''defines return value dimensions for ''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
 	"718ca8f4-8945-476a-8cf2-a2cfaf62488d",
@@ -241,7 +227,7 @@ INSERT INTO O_ATTR
 	'',
 	'Id',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -259,7 +245,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Attr_ID',
-	'R120');
+	'R120.''specifies occurrences of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
 	"370df9ec-7b51-43cb-8f8f-13defcfd6203",
@@ -292,7 +278,7 @@ INSERT INTO O_ATTR
 	'',
 	'Attr_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -310,7 +296,7 @@ INSERT INTO O_REF
 	'',
 	'Operation Parameter',
 	'TParm_ID',
-	'R121');
+	'R121.''specifies occurrences of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
 	"eddd2629-6a1f-472a-91eb-34d36dc3c2ad",
@@ -343,7 +329,7 @@ INSERT INTO O_ATTR
 	'',
 	'TParm_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -361,7 +347,7 @@ INSERT INTO O_REF
 	'',
 	'Operation',
 	'Tfr_ID',
-	'R122');
+	'R122.''defines return value dimensions for''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
 	"4485349d-170a-445a-b772-ec259f959cbb",
@@ -394,7 +380,7 @@ INSERT INTO O_ATTR
 	'',
 	'Tfr_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -412,7 +398,7 @@ INSERT INTO O_REF
 	'',
 	'Structure Member',
 	'Member_ID',
-	'R53');
+	'R53.''specifies occurrences of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
 	"28452a55-e8df-4bac-9346-91c0616cc172",
@@ -445,7 +431,7 @@ INSERT INTO O_ATTR
 	'',
 	'Member_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -463,7 +449,7 @@ INSERT INTO O_REF
 	'',
 	'Property Parameter',
 	'PP_Id',
-	'R4017');
+	'R4017.''specifies occurrences of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
 	"e070c640-48e0-4522-bb92-8a24a7495b55",
@@ -496,7 +482,7 @@ INSERT INTO O_ATTR
 	'',
 	'PP_Id',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -514,7 +500,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event Data Item',
 	'SM_ID',
-	'R531');
+	'R531.''specifies occurrences of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
 	"27875be5-c865-4c81-9e77-4e507edb7458",
@@ -547,7 +533,7 @@ INSERT INTO O_ATTR
 	'',
 	'SM_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -565,7 +551,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event Data Item',
 	'SMedi_ID',
-	'R531');
+	'R531.''specifies occurrences of''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("df11d8f5-0e94-4daf-b893-3075ae8258a4",
 	"2ae439ff-559b-458d-88ab-b3bb161e565f",
@@ -593,7 +579,7 @@ INSERT INTO O_ATTR
 	'',
 	'SMedi_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -612,7 +598,7 @@ User_Visible:false',
 	'',
 	'dimensionCount',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -630,16 +616,9 @@ INSERT INTO O_ATTR
 	'',
 	'DIM_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
@@ -655,7 +634,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R849');
+	'R849.''specifies occurrences of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
 	"bea6d48a-5fc9-4548-ae58-75fac0737ddd",
@@ -683,7 +662,7 @@ INSERT INTO O_REF
 	'',
 	'Transient Var',
 	'Var_ID',
-	'R844');
+	'R844.''specifies occurrences of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
 	"f7e331d5-7006-41a5-9f25-20c6b180b39b",
@@ -716,7 +695,7 @@ INSERT INTO O_ATTR
 	'',
 	'Var_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -734,7 +713,7 @@ INSERT INTO O_REF
 	'',
 	'Structure Member',
 	'Parent_DT_DT_ID',
-	'R53');
+	'R53.''specifies occurrences of''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("524c655b-3191-4d27-9d7a-0b1b7ea52229",
 	"10bbec7e-549f-48a0-bf2e-2c442db77b30",
@@ -762,7 +741,7 @@ INSERT INTO O_ATTR
 	'',
 	'Parent_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -780,7 +759,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute',
 	'Obj_ID',
-	'R120');
+	'R120.''specifies occurrences of''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("6b246834-4863-4867-827c-9484e9cedcbf",
 	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
@@ -804,7 +783,7 @@ INSERT INTO O_ATTR
 	'',
 	'Obj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -822,7 +801,7 @@ INSERT INTO O_REF
 	'',
 	'Function',
 	'Sync_ID',
-	'R51');
+	'R51.''defines return value dimensions for''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
 	"2cff5591-abf3-4246-8957-5a3d68ee17bc",
@@ -851,7 +830,7 @@ INSERT INTO O_ATTR
 	'',
 	'Sync_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -868,12 +847,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"a7f780df-4372-4b70-9a50-96986c96c2dd");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("a7f780df-4372-4b70-9a50-96986c96c2dd",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Domain',
 	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
-	'S',
 	1,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000100002",
 	'../Domain.xtuml');

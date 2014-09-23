@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	4013,
 	'C_PO',
 	'',
-	"01aecea1-07ec-46e6-a719-cece731803c9");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("0884ed2a-3991-4e85-80ed-8658b8df8303",
 	"2205f09b-595f-431e-98d5-73d007d124b6",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select many irs related by self->C_IR[R4016];
 for each ir in irs
@@ -27,19 +27,12 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("15a1715d-8e77-4335-90da-923b1f50028b",
 	"2205f09b-595f-431e-98d5-73d007d124b6",
 	'initialize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'self.DoNotShowPortOnCanvas = false;
 select many ports related by self->C_C[R4010]->C_PO[R4010];
@@ -62,7 +55,7 @@ INSERT INTO O_TFR
 	"2205f09b-595f-431e-98d5-73d007d124b6",
 	'getPortText',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'// Always return an empty string for this bridge operation.  When the port
 // name is displayed on the canvas, it makes looked cluttered.  However, we
@@ -73,56 +66,35 @@ return portName;',
 	1,
 	'',
 	"99a33348-59e6-4a9b-b659-01b6d8d8447a");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("0f13c9e0-36dc-4846-a50a-a4ec417f5db0",
 	"2205f09b-595f-431e-98d5-73d007d124b6",
 	'manyMultAllowed',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'return true;',
 	1,
 	'',
 	"15a1715d-8e77-4335-90da-923b1f50028b");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("99a33348-59e6-4a9b-b659-01b6d8d8447a",
 	"2205f09b-595f-431e-98d5-73d007d124b6",
 	'getComponentId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'select one component related by self->C_C[R4010];
 return component.Id;',
 	1,
 	'',
 	"0884ed2a-3991-4e85-80ed-8658b8df8303");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("1abf55fa-bcb3-4dd6-be9e-8c1dd2b1fa10",
 	"2205f09b-595f-431e-98d5-73d007d124b6",
 	'collectReferencesForSynchronization',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'/**
  *  Collect all children required for synchronization, this will be interface
@@ -150,7 +122,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -166,7 +138,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("f4e80333-d340-4a40-8bc6-49b5e3561daf",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'SynchronizationType',
 	'',
 	'',
@@ -176,7 +148,7 @@ INSERT INTO O_TFR
 	"2205f09b-595f-431e-98d5-73d007d124b6",
 	'checkIntegrity',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'/**
  *  Create an integrity issue if there are any other ports on this compoenent
@@ -236,7 +208,7 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -255,7 +227,7 @@ Full Name: Hide Port Graphic',
 	'',
 	'DoNotShowPortOnCanvas',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -277,16 +249,9 @@ enum1: Many',
 	'',
 	'Mult',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("06df9730-51f8-4b64-9960-55a27e6576be",
 	"2205f09b-595f-431e-98d5-73d007d124b6");
@@ -302,7 +267,7 @@ INSERT INTO O_ATTR
 	'',
 	'Id',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_REF
@@ -320,7 +285,7 @@ INSERT INTO O_REF
 	'',
 	'Component',
 	'Id',
-	'R4010');
+	'R4010.''appears in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("2205f09b-595f-431e-98d5-73d007d124b6",
 	"a4db6cf8-9fcb-4373-8f42-e5006723a074",
@@ -353,16 +318,9 @@ INSERT INTO O_ATTR
 	'Component_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"2205f09b-595f-431e-98d5-73d007d124b6");
@@ -377,16 +335,21 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"2205f09b-595f-431e-98d5-73d007d124b6");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("2205f09b-595f-431e-98d5-73d007d124b6",
+	1,
+	"01aecea1-07ec-46e6-a719-cece731803c9",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("01aecea1-07ec-46e6-a719-cece731803c9",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Component',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 
 The component subsystem contains the classes necessary to capture the data
 required for modeling components.',
-	'C',
 	4000,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Component.xtuml');

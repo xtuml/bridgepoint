@@ -1,7 +1,9 @@
--- BP 7.1.6 content: Domain syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_DOM
+INSERT INTO EP_PKG
 	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'ooaofooa',
 	'========================================================================
 
@@ -33,14 +35,12 @@ for model capture.
 
 
 ',
-	1,
-	"00000000-0000-0000-0000-000000000001",
-	"d9bc5487-4193-4817-be1c-6c3f3339aebf");
+	0);
 INSERT INTO GD_MD
 	VALUES ("1c0267f3-3299-449d-824f-fa7db420d58f",
-	1,
+	112,
 	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	1,
+	108,
 	1,
 	0,
 	1,
@@ -59,7 +59,7 @@ INSERT INTO GD_GE
 	VALUES ("8c36e607-f03e-4668-9123-4e23d6b31aeb",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Domain');
 INSERT INTO GD_SHP
@@ -83,7 +83,7 @@ INSERT INTO GD_GE
 	VALUES ("6a08274d-3940-43ad-9fa7-fff8c03feecf",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"c8d78fd5-1314-444a-bad0-6af79f6e1296",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Association');
 INSERT INTO GD_SHP
@@ -107,7 +107,7 @@ INSERT INTO GD_GE
 	VALUES ("fc5d02ae-e58a-4f3f-84a6-3b878e3ada82",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"309f0e1c-e3bd-46e3-ad66-49d186565a6b",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Communication And Access');
 INSERT INTO GD_SHP
@@ -131,7 +131,7 @@ INSERT INTO GD_GE
 	VALUES ("110ad8eb-d74e-47dd-9ee6-88cc1d4aac5d",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"efdb28f6-a485-4b25-9cbf-3e7227398b6a",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::State Machine');
 INSERT INTO GD_SHP
@@ -155,7 +155,7 @@ INSERT INTO GD_GE
 	VALUES ("2a4c5e76-776d-4b15-aa97-6405a17d763b",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"67eb58de-1d2b-4163-8373-ae8e65e99f84",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Subsystem');
 INSERT INTO GD_SHP
@@ -179,7 +179,7 @@ INSERT INTO GD_GE
 	VALUES ("e5133b41-11ba-4d27-a0c7-e197c6dd870c",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"76583c73-7a99-4c81-b260-8109e6cef5ca",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Body');
 INSERT INTO GD_SHP
@@ -203,7 +203,7 @@ INSERT INTO GD_GE
 	VALUES ("c6f1f63c-abdb-41a5-8cac-2aac087a14cd",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"e060f94c-3f82-463e-9d98-d20315b7c196",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Value');
 INSERT INTO GD_SHP
@@ -227,7 +227,7 @@ INSERT INTO GD_GE
 	VALUES ("be312ba1-09fb-45b1-a147-e2c119486df4",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"a5aec8ee-6e5a-457e-bc25-cc65635048bb",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Instance Access');
 INSERT INTO GD_SHP
@@ -251,7 +251,7 @@ INSERT INTO GD_GE
 	VALUES ("6d5993df-7f07-4491-afb4-183f2358a0d0",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"4495cfdc-a8ff-4f91-a2e9-51eae8b1316f",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Relate And Unrelate');
 INSERT INTO GD_SHP
@@ -275,7 +275,7 @@ INSERT INTO GD_GE
 	VALUES ("71cf913e-2bef-4744-8116-7b1302338e27",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"4baa0857-ca29-4e4a-b1cb-873757c0f936",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Selection');
 INSERT INTO GD_SHP
@@ -299,7 +299,7 @@ INSERT INTO GD_GE
 	VALUES ("c59b968c-98e9-47dd-b68a-88fb126e320c",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"b1a6258a-4548-4a81-bc3c-a6bab0f22f55",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Invocation');
 INSERT INTO GD_SHP
@@ -323,7 +323,7 @@ INSERT INTO GD_GE
 	VALUES ("ac2ec1e8-3b8f-4e4a-9d8f-3d19e637b3d3",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"606f68be-000c-4a29-9fb9-dc0284d01f2a",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Event');
 INSERT INTO GD_SHP
@@ -347,7 +347,7 @@ INSERT INTO GD_GE
 	VALUES ("5746c6b7-20c0-4ba3-9510-32772b4a2698",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"f769227a-8cff-4d99-ad78-9777a890baff",
-	53,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Datatypes');
 INSERT INTO GD_SHP
@@ -371,7 +371,7 @@ INSERT INTO GD_GE
 	VALUES ("31bac559-5853-4f63-be34-73020cb784b0",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
-	54,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Functions');
 INSERT INTO GD_SHP
@@ -395,7 +395,7 @@ INSERT INTO GD_GE
 	VALUES ("62bcfb9c-6f5b-4c4d-9847-1ea95987c3c4",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"53bf3c8b-adde-4d47-8f16-aba92cc91cb2",
-	55,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::External Entities');
 INSERT INTO GD_SHP
@@ -419,7 +419,7 @@ INSERT INTO GD_GE
 	VALUES ("0687e6ab-9f06-4c82-b921-cedcebcb205e",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"90afcd0d-03fa-49d5-ac2c-0fd20beede15",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Interaction');
 INSERT INTO GD_SHP
@@ -443,7 +443,7 @@ INSERT INTO GD_GE
 	VALUES ("937175ec-854b-470a-b965-2be116a9aece",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"5b26fa8b-77b9-4af0-807d-28be1c9e1735",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Message');
 INSERT INTO GD_SHP
@@ -467,7 +467,7 @@ INSERT INTO GD_GE
 	VALUES ("50696823-179d-4936-a860-593ee56f5e71",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"80f3247a-4c81-49db-84c9-95a20af2ffaf",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Communication');
 INSERT INTO GD_SHP
@@ -491,7 +491,7 @@ INSERT INTO GD_GE
 	VALUES ("448234d7-70a6-4aa9-a185-d4b40084c0de",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"879e1557-8556-43dd-8cfd-1e141091172d",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Sequence');
 INSERT INTO GD_SHP
@@ -515,7 +515,7 @@ INSERT INTO GD_GE
 	VALUES ("67b68649-8635-41b3-a411-f1f445de7dd7",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"2597fe35-f53f-4878-817d-73f2d7a1fa0f",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Use Case');
 INSERT INTO GD_SHP
@@ -539,7 +539,7 @@ INSERT INTO GD_GE
 	VALUES ("e000d701-4a8e-4a62-892b-4dd22813067c",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"ff5a86d7-6bb8-4818-93a7-db0ed269ab54",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Activity');
 INSERT INTO GD_SHP
@@ -563,7 +563,7 @@ INSERT INTO GD_GE
 	VALUES ("ae9a5450-28d6-4f16-8a16-49af9e2f70d4",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"01aecea1-07ec-46e6-a719-cece731803c9",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Component');
 INSERT INTO GD_SHP
@@ -587,7 +587,7 @@ INSERT INTO GD_GE
 	VALUES ("8b4fde7e-58eb-44c2-b14d-2cd14326e808",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"eb74db19-81fd-4e68-afdd-ec658964f576",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Interface Package');
 INSERT INTO GD_SHP
@@ -611,7 +611,7 @@ INSERT INTO GD_GE
 	VALUES ("b0f28574-72ce-4701-a1a2-bc3d601215bb",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"05616c28-ec11-47f4-9145-bc6ea42e4638",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::System Level Datatypes');
 INSERT INTO GD_SHP
@@ -635,7 +635,7 @@ INSERT INTO GD_GE
 	VALUES ("279b5717-3e27-45b1-9221-59b3405c5d4b",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"14c1a6c0-288e-4a86-a138-700394d86dcb",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Wiring');
 INSERT INTO GD_SHP
@@ -659,7 +659,7 @@ INSERT INTO GD_GE
 	VALUES ("3f698bdd-d34b-4dcd-852c-336e68788787",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"9c0607c7-7a31-4f1a-885e-70c85a2396e0",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Local');
 INSERT INTO GD_SHP
@@ -683,7 +683,7 @@ INSERT INTO GD_GE
 	VALUES ("bca871e4-f9c3-4a6f-a156-633648d785c9",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"97c1ace4-0148-4235-83cb-1fd8e2d2514d",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Instance');
 INSERT INTO GD_SHP
@@ -707,7 +707,7 @@ INSERT INTO GD_GE
 	VALUES ("ff032479-3f66-4886-b490-aff2d137209e",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"786a01f9-5d46-40df-88ec-1a835f72d9e1",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Breakpoint');
 INSERT INTO GD_SHP
@@ -731,7 +731,7 @@ INSERT INTO GD_GE
 	VALUES ("298892ce-0012-4d24-8020-226d0f747698",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"7532d38c-8a9a-4a7d-81a0-61f814f64f06",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Runtime Value');
 INSERT INTO GD_SHP
@@ -755,7 +755,7 @@ INSERT INTO GD_GE
 	VALUES ("3ff355eb-d033-4ef8-b2fa-7942ade4e8d4",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"efe99441-df3d-4a6a-a82b-f20f78de4afa",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Persistence Associations');
 INSERT INTO GD_SHP
@@ -779,7 +779,7 @@ INSERT INTO GD_GE
 	VALUES ("c527a449-0b68-40d3-8014-5c9201d37a62",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"5f91aa5d-e683-4f22-940b-575b4f24b2d1",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Element Packaging');
 INSERT INTO GD_SHP
@@ -803,7 +803,7 @@ INSERT INTO GD_GE
 	VALUES ("a659d8af-dd87-4320-9b1d-d99ba20ebc58",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"64811fd3-cc5f-4963-9036-8a9110e89dda",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Constants');
 INSERT INTO GD_SHP
@@ -827,7 +827,7 @@ INSERT INTO GD_GE
 	VALUES ("9cfd2009-c73e-4f50-b494-b00a67012216",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"61c0aa15-d896-4feb-9c48-5e3f1af4e670",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Packageable Element');
 INSERT INTO GD_SHP
@@ -851,7 +851,7 @@ INSERT INTO GD_GE
 	VALUES ("541c8b2b-4279-40d7-9ad6-71c800c3d07d",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"e567eb17-d640-401b-93dd-93993df9ad3f",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Search');
 INSERT INTO GD_SHP
@@ -875,7 +875,7 @@ INSERT INTO GD_GE
 	VALUES ("51f892a4-9688-4e0d-bc69-88f9914bdace",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"f5d1e1b0-a900-4d86-a529-4413f5e281e4",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Globals');
 INSERT INTO GD_SHP
@@ -899,7 +899,7 @@ INSERT INTO GD_GE
 	VALUES ("08f87c20-9576-46e2-83d6-4585d105ab47",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"1958f769-4f92-4439-870a-76f07b38281c",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Model Integrity');
 INSERT INTO GD_SHP
@@ -923,7 +923,7 @@ INSERT INTO GD_GE
 	VALUES ("65047100-5633-49bb-9b1a-76b47dce57ec",
 	"1c0267f3-3299-449d-824f-fa7db420d58f",
 	"ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.core::ooaofooa::Engine');
 INSERT INTO GD_SHP
@@ -950,8 +950,14 @@ INSERT INTO DIM_DIA
 	1678.000000,
 	886.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	7);
 INSERT INTO S_SYS_PROXY
 	VALUES ("d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'com.mentor.nucleus.bp.core',
-	0,
+	1,
 	'../com.mentor.nucleus.bp.core.xtuml');

@@ -1,15 +1,17 @@
--- BP 7.1 content: FunctionPackage syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_FPK
+INSERT INTO EP_PKG
 	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Functions',
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000");
+	'',
+	0);
 INSERT INTO GD_MD
 	VALUES ("47a98ef6-0a18-4583-a794-84f33de26575",
-	101,
+	112,
 	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
-	54,
+	108,
 	0,
 	0,
 	1,
@@ -23,14 +25,14 @@ INSERT INTO GD_MD
 	0,
 	0,
 	'',
-	'Functions');
+	'com.mentor.nucleus.bp.core::ooaofooa::Functions');
 INSERT INTO GD_GE
 	VALUES ("b84e2b6d-c600-4709-a921-6124b4b5296f",
 	"47a98ef6-0a18-4583-a794-84f33de26575",
 	"42d5848f-dabe-43e1-9ac4-b840f2789360",
-	54,
+	108,
 	0,
-	'Context Menu Entry Functions');
+	'com.mentor.nucleus.bp.core::ooaofooa::Functions::Context Menu Entry Functions');
 INSERT INTO GD_SHP
 	VALUES ("b84e2b6d-c600-4709-a921-6124b4b5296f");
 INSERT INTO GD_NCS
@@ -52,9 +54,9 @@ INSERT INTO GD_GE
 	VALUES ("03a950bf-175e-4739-a8d9-96e09725df57",
 	"47a98ef6-0a18-4583-a794-84f33de26575",
 	"f18cde06-9699-400c-bdf6-a0b8d296b7f0",
-	54,
+	108,
 	0,
-	'OAL Validation Functions');
+	'com.mentor.nucleus.bp.core::ooaofooa::Functions::OAL Validation Functions');
 INSERT INTO GD_SHP
 	VALUES ("03a950bf-175e-4739-a8d9-96e09725df57");
 INSERT INTO GD_NCS
@@ -76,9 +78,9 @@ INSERT INTO GD_GE
 	VALUES ("c1e8b3f7-87b3-424c-8919-15b612e634c5",
 	"47a98ef6-0a18-4583-a794-84f33de26575",
 	"9092f98e-34df-42d0-be42-dc91951c8a73",
-	54,
+	108,
 	0,
-	'OAL Validation Utility Functions');
+	'com.mentor.nucleus.bp.core::ooaofooa::Functions::OAL Validation Utility Functions');
 INSERT INTO GD_SHP
 	VALUES ("c1e8b3f7-87b3-424c-8919-15b612e634c5");
 INSERT INTO GD_NCS
@@ -103,54 +105,9 @@ INSERT INTO DIM_DIA
 	3938.000000,
 	2945.000000,
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_FPIP
-	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c");
-INSERT INTO PL_FPID
-	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43");
-INSERT INTO S_DOM_PROXY
-	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'ooaofooa',
-	'========================================================================
-
-File:          $RCSfile$
-Version:   $Revision$
-Modified:  $Date$
-
-(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-
-========================================================================
-Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-use this file except in compliance with the License.  You may obtain a copy 
-of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software 
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
-License for the specific language governing permissions and limitations under
-the License.
-========================================================================
-
-This is the application domain for the Tiger project.
-
-The processing in this model describes the activities
-for model capture.
-
-
-
-',
-	1,
-	"00000000-0000-0000-0000-000000000001",
-	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
-	'../ooaofooa.xtuml');
-INSERT INTO S_FIP
-	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
-	"7839aa8d-4ec4-41e5-8cfc-81768856fdbb");
 INSERT INTO S_SYNC
 	VALUES ("7839aa8d-4ec4-41e5-8cfc-81768856fdbb",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'enableModelChangeListenersFor',
 	'Set the value of the model change listener enable mask to the value passed in.
 The function returns the previous value logically ORed of both the masks.
@@ -180,7 +137,7 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("8672d1f0-ac73-4097-a597-505333093f53",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'ModelEventNotification',
 	'This enumeration defines all possible changes that can occur to a model.  
 The ALL_EVENTS enumerator is the sum of all values. 
@@ -196,45 +153,47 @@ INSERT INTO S_SPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_FIP
-	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
-	"d3c7ce68-3967-43be-b14d-acf4f42386df");
+INSERT INTO PE_PE
+	VALUES ("7839aa8d-4ec4-41e5-8cfc-81768856fdbb",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("d3c7ce68-3967-43be-b14d-acf4f42386df",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'getOrphanedElementName',
 	'',
 	'return "Orphaned";
 ',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../Datatypes/Datatypes.xtuml');
-INSERT INTO S_FIP
-	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
-	"b8ec6180-685e-4f0e-97d4-cf438b2a4ef5");
+INSERT INTO PE_PE
+	VALUES ("d3c7ce68-3967-43be-b14d-acf4f42386df",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("b8ec6180-685e-4f0e-97d4-cf438b2a4ef5",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'getOrphanedElementKL',
 	'',
 	'return "ORPH";
 ',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'');
-INSERT INTO S_FIP
-	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
-	"ffe11c50-ac91-4ce5-ab06-81723d989643");
+INSERT INTO PE_PE
+	VALUES ("b8ec6180-685e-4f0e-97d4-cf438b2a4ef5",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("ffe11c50-ac91-4ce5-ab06-81723d989643",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'canStateIgnoreOrSayEventCantHappen',
 	'',
 	'/* ::canStateIgnoreOrSayEventCantHappen()
@@ -251,30 +210,23 @@ return state.canIgnoreOrSayEventCantHappen(
 	eventId:param.eventId, eventStateMachineId:param.eventStateMachineId, 
 	considerCantHappen:param.considerCantHappen);
 	',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'');
 INSERT INTO S_SPARM
 	VALUES ("47fc2ee3-f2a5-4e88-948d-bf065b4b2e15",
 	"ffe11c50-ac91-4ce5-ab06-81723d989643",
 	'eventId',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"15a8ae84-35b0-432a-b8f7-71aa128c382d",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../Datatypes/Datatypes.xtuml');
 INSERT INTO S_SPARM
 	VALUES ("f674a6f2-c4c6-46e3-affb-5a61f1558c71",
 	"ffe11c50-ac91-4ce5-ab06-81723d989643",
 	'eventStateMachineId',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"47fc2ee3-f2a5-4e88-948d-bf065b4b2e15",
@@ -283,7 +235,7 @@ INSERT INTO S_SPARM
 	VALUES ("638fa2ac-8b2d-4251-a5da-46e9da5ca397",
 	"ffe11c50-ac91-4ce5-ab06-81723d989643",
 	'stateId',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"f674a6f2-c4c6-46e3-affb-5a61f1558c71",
@@ -292,7 +244,7 @@ INSERT INTO S_SPARM
 	VALUES ("7a120c9d-ccb8-40a2-bca5-c66f941059d5",
 	"ffe11c50-ac91-4ce5-ab06-81723d989643",
 	'stateStateMachineId',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"638fa2ac-8b2d-4251-a5da-46e9da5ca397",
@@ -301,51 +253,50 @@ INSERT INTO S_SPARM
 	VALUES ("15a8ae84-35b0-432a-b8f7-71aa128c382d",
 	"ffe11c50-ac91-4ce5-ab06-81723d989643",
 	'considerCantHappen',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../Datatypes/Datatypes.xtuml');
-INSERT INTO S_FIP
-	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
-	"f82cea67-364f-41e5-87da-f21c8beda6ef");
+INSERT INTO PE_PE
+	VALUES ("ffe11c50-ac91-4ce5-ab06-81723d989643",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("f82cea67-364f-41e5-87da-f21c8beda6ef",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'convertRelocatableTags',
 	'Translate: native',
 	'return com.mentor.nucleus.bp.core.relocatables.RelocatableTagConversionUtil.convertRelocatableTags(modelRoot, p_In);
 ',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'');
 INSERT INTO S_SPARM
 	VALUES ("2cd48ddb-d5cd-4175-a6bd-10c54d0c466e",
 	"f82cea67-364f-41e5-87da-f21c8beda6ef",
 	'in',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_FIP
-	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
-	"7b6e3d0e-69b5-47fe-b27c-bef17ad99f63");
+INSERT INTO PE_PE
+	VALUES ("f82cea67-364f-41e5-87da-f21c8beda6ef",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("7b6e3d0e-69b5-47fe-b27c-bef17ad99f63",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'getUniqueInitialName',
 	'Translate: native',
 	'return PersistenceManager.getDefaultInstance().getUniqueNameForComponent(
 	(NonRootModelElement)p_Instance, p_Candidatename);',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'');
 INSERT INTO S_SPARM
@@ -359,7 +310,7 @@ INSERT INTO S_SPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -368,41 +319,47 @@ INSERT INTO S_SPARM
 	VALUES ("c1d24318-2eca-4e0a-afeb-20d68a563fd1",
 	"7b6e3d0e-69b5-47fe-b27c-bef17ad99f63",
 	'candidateName',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_FIP
-	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
-	"d8007d84-7609-4132-8698-04a8c69bba88");
+INSERT INTO PE_PE
+	VALUES ("7b6e3d0e-69b5-47fe-b27c-bef17ad99f63",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("d8007d84-7609-4132-8698-04a8c69bba88",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'getCoreDatatypesPackageName',
 	'',
 	'return "Datatypes";',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'');
-INSERT INTO S_FIP
-	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
-	"b95ec7d5-1a3a-4e2b-bfa5-96fe1fa76539");
+INSERT INTO PE_PE
+	VALUES ("d8007d84-7609-4132-8698-04a8c69bba88",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("b95ec7d5-1a3a-4e2b-bfa5-96fe1fa76539",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'getUniqueInitialNameInParent',
 	'Translate: native',
 	'return PersistenceManager.getDefaultInstance().getUniqueNameForComponent(
 	(NonRootModelElement)p_Instance, (NonRootModelElement) p_Parent, p_Name);',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'');
 INSERT INTO S_SPARM
 	VALUES ("b6af181a-0c9d-46d4-9ad9-a0a4f3c8b213",
 	"b95ec7d5-1a3a-4e2b-bfa5-96fe1fa76539",
 	'name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"843111dd-6356-4989-bc7b-895d06591675",
@@ -425,12 +382,15 @@ INSERT INTO S_SPARM
 	'',
 	"b6af181a-0c9d-46d4-9ad9-a0a4f3c8b213",
 	'');
-INSERT INTO S_FIP
-	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
-	"5cc4dd50-34da-4202-9b81-f549fc423318");
+INSERT INTO PE_PE
+	VALUES ("b95ec7d5-1a3a-4e2b-bfa5-96fe1fa76539",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("5cc4dd50-34da-4202-9b81-f549fc423318",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'getMissingInheritedEventMessage',
 	'',
 	'if(not param.missingInheritedEvent)
@@ -438,24 +398,27 @@ INSERT INTO S_SYNC
 else
   return "Pasted state models rely on inherited events that are not included on the clipboard.  Resulting state models will be incomplete.";
 end if;',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'');
 INSERT INTO S_SPARM
 	VALUES ("8dbde6ea-1c12-497d-a409-f07092e2d31a",
 	"5cc4dd50-34da-4202-9b81-f549fc423318",
 	'missingInheritedEvent',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_FIP
-	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
-	"c1ab2cf1-4e4d-4911-8cc6-70ae167d34bc");
+INSERT INTO PE_PE
+	VALUES ("5cc4dd50-34da-4202-9b81-f549fc423318",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("c1ab2cf1-4e4d-4911-8cc6-70ae167d34bc",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'removeInconsistentNonLocalEvents',
 	'',
 	'select many nlevts from instances of SM_NLEVT;
@@ -507,56 +470,55 @@ select many clazzes from instances of O_OBJ;
 for each clazz in clazzes
   clazz.removeInconsistentSubtypeIgnores();
 end for;',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../Datatypes/Datatypes.xtuml');
-INSERT INTO S_FIP
-	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
-	"a53a52fd-5479-42d1-b38a-c03f2f56cabd");
+INSERT INTO PE_PE
+	VALUES ("c1ab2cf1-4e4d-4911-8cc6-70ae167d34bc",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("a53a52fd-5479-42d1-b38a-c03f2f56cabd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'changeNotificationEnablement',
 	'Translate: native
 ',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	0,
 	'');
 INSERT INTO S_SPARM
 	VALUES ("2e7d6127-9d90-4546-83c7-e2e486feffb6",
 	"a53a52fd-5479-42d1-b38a-c03f2f56cabd",
 	'enabled',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_FIP
-	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
-	"f8ab1bfc-f9e9-46de-b7f3-72de13e38559");
+INSERT INTO PE_PE
+	VALUES ("a53a52fd-5479-42d1-b38a-c03f2f56cabd",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("f8ab1bfc-f9e9-46de-b7f3-72de13e38559",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'getNewElementName',
 	'Translate: native',
 	'  return p_Name;
 ',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'');
 INSERT INTO S_SPARM
 	VALUES ("406de874-1a4c-45b5-81a5-99c3cdd5c5e3",
 	"f8ab1bfc-f9e9-46de-b7f3-72de13e38559",
 	'name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -574,20 +536,77 @@ INSERT INTO S_SPARM
 	VALUES ("4563cb69-0d13-4c7b-a764-1e5e9831bad9",
 	"f8ab1bfc-f9e9-46de-b7f3-72de13e38559",
 	'validateName',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"e3bad2fb-1b1b-4e9a-b798-6adc43338976",
 	'');
-INSERT INTO S_FIP
-	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
-	"4ad9745c-5f47-48c8-9bd6-a08ed39d7e5a");
+INSERT INTO PE_PE
+	VALUES ("f8ab1bfc-f9e9-46de-b7f3-72de13e38559",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO S_SYNC
 	VALUES ("4ad9745c-5f47-48c8-9bd6-a08ed39d7e5a",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'getMissingClassMessage',
 	'',
 	'return "Pasted imported classes could not have their classes resolved.";',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'');
+INSERT INTO PE_PE
+	VALUES ("4ad9745c-5f47-48c8-9bd6-a08ed39d7e5a",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO PE_PE
+	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	1,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'ooaofooa',
+	'========================================================================
+
+File:          $RCSfile: ooaofooa.xtuml,v $
+Version:   $Revision: 1.127 $
+Modified:  $Date: 2006/09/26 15:10:20 $
+
+(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+========================================================================
+
+This is the application domain for the Tiger project.
+
+The processing in this model describes the activities
+for model capture.
+
+
+
+',
+	0,
+	'../ooaofooa.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'com.mentor.nucleus.bp.core',
+	1,
+	'../../com.mentor.nucleus.bp.core.xtuml');

@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("05b26853-8bf3-4323-8266-03812d16d2ac",
@@ -7,13 +7,13 @@ INSERT INTO O_OBJ
 	'SQ_CP',
 	'This class represents a class which is participating in a sequence.  The
 participating class is always static and never has a life span.',
-	"90afcd0d-03fa-49d5-ac2c-0fd20beede15");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("8fba0f34-4da9-48e2-96ea-ca4efd927da5",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one participant related by self->SQ_P[R930];
 if(not_empty participant)
@@ -33,13 +33,6 @@ end if;',
 	1,
 	'',
 	"c50ce073-c339-435c-8987-f3b859c3e413");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("d77587bf-2de3-4695-8a5b-8b0c628e2b50",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
@@ -53,7 +46,7 @@ INSERT INTO O_TFR
 	"dab1d33f-da15-4016-b9ef-a85973b45980");
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Style',
 	'The Style data type specifies the precise form a graphical element will take when drawn.
 --------------------------------------------------------------------------
@@ -65,7 +58,7 @@ INSERT INTO O_TFR
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'get_entries',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select one mclass related by self->O_OBJ[R939];
 if(not_empty mclass)
@@ -93,24 +86,17 @@ INSERT INTO O_TPARM
 	VALUES ("e67a04e9-96db-4ef0-a780-0c8c679ab658",
 	"86ecddb0-6381-4585-8fe9-76e12ab01888",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("700f37a2-37cf-4aa4-84ea-ff3a54d94505",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'get_compartments',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'return 3;',
 	1,
@@ -138,7 +124,7 @@ INSERT INTO O_TPARM
 	VALUES ("3cdf3b15-e5a7-4b81-823c-88bda782bed6",
 	"edd79dfe-1c4f-4d7b-a2b3-a760e16fb28a",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"534baea8-39b9-41a0-aef7-f527d9bebfd9",
@@ -147,7 +133,7 @@ INSERT INTO O_TPARM
 	VALUES ("1da53f78-960d-4a92-912b-ab7c494cd598",
 	"edd79dfe-1c4f-4d7b-a2b3-a760e16fb28a",
 	'ent_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"3cdf3b15-e5a7-4b81-823c-88bda782bed6",
@@ -163,7 +149,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Justification',
 	'The Justification data type is used to specify text at a given location in a compartment.
 ------------------------------------------------------------------------------
@@ -175,25 +161,18 @@ INSERT INTO O_TFR
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'get_ooa_id',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'return self.Part_ID;',
 	1,
 	'',
 	"6d82c445-fecf-4ff3-ace4-cc0cb616c9d3");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("0c047862-4994-43ae-9cfb-fba4b979725a",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'get_compartment_text',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one participant related by self->SQ_P[R930];
 select one mclass related by self->O_OBJ[R939];
@@ -255,7 +234,7 @@ INSERT INTO O_TPARM
 	VALUES ("03199600-23ce-4045-968d-2a50c07af44c",
 	"0c047862-4994-43ae-9cfb-fba4b979725a",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"b553f30f-e02f-422c-82f0-f8eeef309ecb",
@@ -264,7 +243,7 @@ INSERT INTO O_TPARM
 	VALUES ("b469ad44-25d1-48db-90c0-9964171ea230",
 	"0c047862-4994-43ae-9cfb-fba4b979725a",
 	'ent_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"03199600-23ce-4045-968d-2a50c07af44c",
@@ -278,19 +257,12 @@ INSERT INTO O_TPARM
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("cf251d34-bdf6-4891-bd42-1811ed06d93f",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'initialize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'name = "Informal Class";
 success = ::getNewElementName(name:name,instance: self.convertToInstance(),validateName:false);     
@@ -307,7 +279,7 @@ INSERT INTO O_TFR
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'newAttribute',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'create object instance attr of SQ_CPA;
 relate attr to self across R935;
@@ -322,7 +294,7 @@ INSERT INTO O_TFR
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'actionFilter',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'if(param.name == "can")
   // if the current action is one which requires
@@ -408,7 +380,7 @@ INSERT INTO O_TPARM
 	VALUES ("d77e0f16-79ee-4e99-bf64-73db76e13ede",
 	"95f7738d-e950-47d0-b45f-6ea5ae39977a",
 	'name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -417,24 +389,17 @@ INSERT INTO O_TPARM
 	VALUES ("efb8d06c-9587-4419-86c7-fa800f46d72a",
 	"95f7738d-e950-47d0-b45f-6ea5ae39977a",
 	'value',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"d77e0f16-79ee-4e99-bf64-73db76e13ede",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("57f4f6b0-5681-4292-81a1-877faf35d38c",
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'unformalize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one mclass related by self->O_OBJ[R939];
 if(not_empty mclass)
@@ -469,7 +434,7 @@ INSERT INTO O_TFR
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'get_name',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'return self.Label;',
 	1,
@@ -480,7 +445,7 @@ INSERT INTO O_TFR
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'canRename',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'return not self.isFormal;',
 	1,
@@ -491,7 +456,7 @@ INSERT INTO O_TFR
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'formalize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any mclass from instances of O_OBJ
                                 where (selected.Obj_ID == GD::NULL_UNIQUE_ID());
@@ -530,7 +495,7 @@ INSERT INTO O_TPARM
 	VALUES ("f8f424e5-b8cd-4a78-bd9c-2ec9efadd7e3",
 	"4cbb2b72-2ddf-40c9-a8b0-56ba16f296f7",
 	'classId',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -541,7 +506,7 @@ INSERT INTO O_TFR
 	'formalClassHasCBOperations',
 	'This operation returns true if the class which this class participant represents
 contains at least one class based operation.',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one mclass related by self->O_OBJ[R939];
 if(not_empty mclass)
@@ -558,7 +523,7 @@ INSERT INTO O_TFR
 	'formalClassHasCBEvents',
 	'This operation returns true if the class which this participant represents
 contains a class based state machine with at least one event.',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one mclass related by self->O_OBJ[R939];
 if(not_empty mclass)
@@ -596,7 +561,7 @@ INSERT INTO O_TFR
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'definedAtSystemLevel',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one part related by self->SQ_P[R930];
 return part.definedAtSystemLevel();',
@@ -608,7 +573,7 @@ INSERT INTO O_TFR
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'getClassOperationCount',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'if(self.isFormal)
   select many operations related by self->O_OBJ[R939]->O_TFR[R115]
@@ -624,7 +589,7 @@ INSERT INTO O_TFR
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'getClassEventCount',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select one mclass related by self->O_OBJ[R939];
 if(not_empty mclass)
@@ -665,7 +630,7 @@ Translate: native',
 	"6a38c4b3-4543-4f08-9773-39c5c3161ade");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -675,7 +640,7 @@ INSERT INTO O_TFR
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'pasteClassParticipantAttribute',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any attribute from instances of SQ_CPA
                                              where (selected.Ia_ID == param.id);
@@ -693,7 +658,7 @@ INSERT INTO O_TPARM
 	VALUES ("cfe3014b-0672-415b-ab87-6d1d0127367f",
 	"d4de4516-a011-4041-97ca-0370460089d8",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -703,7 +668,7 @@ INSERT INTO O_TFR
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'canCopyClassParticipantAttribute',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select any attribute from instances of SQ_CPA
                                              where (selected.Ia_ID == param.id);
@@ -723,7 +688,7 @@ INSERT INTO O_TPARM
 	VALUES ("f6280ec1-9e50-442e-a71d-405c60d59dd0",
 	"11a8d63f-9ccb-4d1e-9a7b-cf544e2a1775",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -733,7 +698,7 @@ INSERT INTO O_TFR
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'canPasteClassParticipantAttribute',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'return not self.isFormal;',
 	1,
@@ -744,7 +709,7 @@ INSERT INTO O_TFR
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'resolveModelClass',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one proxyClass related by self->O_OBJ[R939];
@@ -850,7 +815,7 @@ INSERT INTO O_TFR
 	"05b26853-8bf3-4323-8266-03812d16d2ac",
 	'resolveMessageFormalizations',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// first resolve those messages drawn directly to
 // self
@@ -986,7 +951,7 @@ INSERT INTO O_ATTR
 	'',
 	'Label',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1004,7 +969,7 @@ INSERT INTO O_ATTR
 	'',
 	'InformalName',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1023,7 +988,7 @@ Description: A textual description of this class.',
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -1048,7 +1013,7 @@ INSERT INTO O_ATTR
 	'',
 	'isFormal',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1099,16 +1064,9 @@ INSERT INTO O_ATTR
 	'',
 	'Part_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("05b26853-8bf3-4323-8266-03812d16d2ac",
 	"b7630071-9e2a-4183-9986-779dca14c275",
@@ -1124,7 +1082,7 @@ INSERT INTO O_REF
 	'',
 	'Model Class',
 	'Obj_ID',
-	'R939');
+	'R939.''represents''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("05b26853-8bf3-4323-8266-03812d16d2ac",
 	"d8a847a8-9bbc-4de6-937e-93b8c9c72552",
@@ -1153,7 +1111,7 @@ INSERT INTO O_ATTR
 	'',
 	'Obj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -1170,13 +1128,18 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"05b26853-8bf3-4323-8266-03812d16d2ac");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("05b26853-8bf3-4323-8266-03812d16d2ac",
+	1,
+	"90afcd0d-03fa-49d5-ac2c-0fd20beede15",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("90afcd0d-03fa-49d5-ac2c-0fd20beede15",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Interaction',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE',
-	'IA',
 	930,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Interaction.xtuml');

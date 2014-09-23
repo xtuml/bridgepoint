@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
@@ -10,7 +10,7 @@ classes to a BridgePoint SQL file suitable for
 importing by Model Builder.  The sequence is
 essentially a call graph.  Each instance represents
 the export of a specific item. ',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
 	VALUES ("5bf8fae0-9619-4705-aa98-c6d256181d20",
 	"10d6122a-7c29-46cd-b5d1-386e15537749");
@@ -28,16 +28,9 @@ INSERT INTO O_ATTR
 	'',
 	'Id',
 	0,
-	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("5e30bc10-6b4e-49f6-a053-8d190acef663",
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
 	"10d6122a-7c29-46cd-b5d1-386e15537749",
@@ -53,7 +46,7 @@ INSERT INTO O_REF
 	'',
 	'Export Ordering',
 	'Id',
-	'R1');
+	'R1.''is parent of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
 	"3be2fcf7-7505-4c0e-9425-d69e20f23bad",
@@ -85,16 +78,9 @@ first child of this instance.  It may be null.
 	'firstChild',
 	'Id',
 	1,
-	"cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("cf07a926-26a1-4462-bd6f-45a3b930e4b7",
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
 	"10d6122a-7c29-46cd-b5d1-386e15537749",
@@ -110,7 +96,7 @@ INSERT INTO O_REF
 	'',
 	'Export Ordering',
 	'Id',
-	'R2');
+	'R2.''follows''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
 	"ec97adb2-be8b-4639-b24d-7b63555d6e55",
@@ -142,7 +128,7 @@ It may be null if there is no EO after this one.
 	'next',
 	'Id',
 	1,
-	"cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -160,7 +146,7 @@ INSERT INTO O_REF
 	'',
 	'Export Item',
 	'Name',
-	'R3');
+	'R3.''is for''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
 	"66f401c3-8a36-4215-98c9-0b9f455dfb82",
@@ -195,7 +181,7 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -222,16 +208,9 @@ generating  routines in MC-Java.
 	'',
 	'Numb',
 	0,
-	"6bbff869-b832-4434-be0b-49573f7cec86",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("6bbff869-b832-4434-be0b-49573f7cec86",
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("44c8da85-bad1-40d0-9470-0cba1b222826",
 	"10d6122a-7c29-46cd-b5d1-386e15537749");
@@ -256,7 +235,7 @@ generating  routines in MC-Java.
 	'',
 	'Card',
 	0,
-	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -281,7 +260,7 @@ something else:  The name of the child that the output goes after.
 	'',
 	'writePosition',
 	0,
-	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -299,16 +278,9 @@ INSERT INTO O_ATTR
 	'',
 	'componentRoot',
 	0,
-	"d3964502-1097-4d82-9200-171d288e3409",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("d3964502-1097-4d82-9200-171d288e3409",
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("01451f3b-1f16-44ab-8734-c819f97efeaa",
 	"10d6122a-7c29-46cd-b5d1-386e15537749");
@@ -324,7 +296,7 @@ INSERT INTO O_ATTR
 	'',
 	'ignoreParent',
 	0,
-	"d3964502-1097-4d82-9200-171d288e3409",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -342,7 +314,7 @@ INSERT INTO O_ATTR
 	'',
 	'rel_phrase',
 	0,
-	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -361,7 +333,7 @@ choose to exclude this data when exporting.',
 	'',
 	'isGraphical',
 	0,
-	"d3964502-1097-4d82-9200-171d288e3409",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -380,7 +352,7 @@ data, but users may want to include it in export.',
 	'',
 	'isOAL',
 	0,
-	"d3964502-1097-4d82-9200-171d288e3409",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -398,7 +370,7 @@ INSERT INTO O_ATTR
 	'',
 	'rel_chain',
 	0,
-	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -415,12 +387,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"10d6122a-7c29-46cd-b5d1-386e15537749");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	1,
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	"4dacadbd-0ef3-4f12-9693-fcbfe81a2955",
 	'File IO',
 	'',
-	'',
 	1,
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	"00000000-0000-0000-0000-000000100002",
 	'../File IO.xtuml');
