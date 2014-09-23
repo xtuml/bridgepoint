@@ -1,7 +1,9 @@
--- BP 7.1 content: Domain syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_DOM
+INSERT INTO EP_PKG
 	VALUES ("c7485938-5b68-46c4-bc59-f0bb9c943851",
+	"c76dedc6-4b25-435f-9310-4f344030485a",
+	"c76dedc6-4b25-435f-9310-4f344030485a",
 	'grammar',
 	'File:      $RCSfile$
 Version:   $Revision$
@@ -20,14 +22,12 @@ captured in tree form, with each node in the tree representing
 a item in the grammar.
 
 ',
-	1,
-	"00000000-0000-0000-0000-000000000001",
-	"c76dedc6-4b25-435f-9310-4f344030485a");
+	0);
 INSERT INTO GD_MD
 	VALUES ("f73cd5db-e771-41a9-b25f-bad54b555d38",
-	1,
+	112,
 	"c7485938-5b68-46c4-bc59-f0bb9c943851",
-	1,
+	108,
 	1,
 	0,
 	1,
@@ -46,7 +46,7 @@ INSERT INTO GD_GE
 	VALUES ("4c2b5c45-c294-48ce-ab0d-ca491c7c89ab",
 	"f73cd5db-e771-41a9-b25f-bad54b555d38",
 	"5edea08f-a6e1-4146-8e1c-0cade7a477c7",
-	11,
+	108,
 	0,
 	'com.mentor.nucleus.bp.als::grammar::BNF');
 INSERT INTO GD_SHP
@@ -70,7 +70,7 @@ INSERT INTO GD_GE
 	VALUES ("26a0b0e1-fc11-48a9-98a7-0fb3d23f6265",
 	"f73cd5db-e771-41a9-b25f-bad54b555d38",
 	"f04f4a6e-af3b-4b91-b438-76be4554ae2a",
-	53,
+	108,
 	0,
 	'com.mentor.nucleus.bp.als::grammar::Datatypes');
 INSERT INTO GD_SHP
@@ -97,8 +97,14 @@ INSERT INTO DIM_DIA
 	1600.000000,
 	1179.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("c7485938-5b68-46c4-bc59-f0bb9c943851",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	7);
 INSERT INTO S_SYS_PROXY
 	VALUES ("c76dedc6-4b25-435f-9310-4f344030485a",
 	'com.mentor.nucleus.bp.als',
-	0,
+	1,
 	'../com.mentor.nucleus.bp.als.xtuml');
