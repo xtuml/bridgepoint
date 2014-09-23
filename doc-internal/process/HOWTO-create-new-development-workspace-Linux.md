@@ -113,6 +113,7 @@ _- Setup development environment to run MC3020 under a launch configuration
   _- Open the Model Explorer view in Eclipse and navigate to:
        ~/git/xtuml/internal/src/com.mentor.nucleus.bp.mc.c.binary/mc3020
   _- Paste the previous selection into this folder
+  _- Assure that the pasted files have execution permission
 
 _- Set the unit test history to assure the test summary tool capture all results
    _- Open the JUnit view
