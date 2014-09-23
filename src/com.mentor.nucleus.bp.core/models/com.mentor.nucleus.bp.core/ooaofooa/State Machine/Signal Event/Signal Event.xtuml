@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("514d0f8c-2a86-4ba3-932c-bd4364d14b4d",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	528,
 	'SM_SGEVT',
 	'',
-	"efdb28f6-a485-4b25-9cbf-3e7227398b6a");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("54fc75f0-bcc1-40a9-bfca-f663040f8783",
 	"514d0f8c-2a86-4ba3-932c-bd4364d14b4d",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Signal Event.dispose()
 select one provSig related by self->SPR_PS[R528];
@@ -31,19 +31,12 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("ad5adefc-e1fe-4abd-a3c6-3cd5fa1ec2a6",
 	"514d0f8c-2a86-4ba3-932c-bd4364d14b4d",
 	'get_event_text',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one provSig related by self->SPR_PS[R528];
 select one reqSig related by self->SPR_RS[R529];
@@ -78,19 +71,12 @@ end if;',
 	1,
 	'',
 	"54fc75f0-bcc1-40a9-bfca-f663040f8783");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("bedeaf4e-e4f1-49ec-8ce3-87c6c8398086",
 	"514d0f8c-2a86-4ba3-932c-bd4364d14b4d",
 	'get_name',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'//Signal Event.get_name()
 return self.signal_name;',
@@ -102,7 +88,7 @@ INSERT INTO O_TFR
 	"514d0f8c-2a86-4ba3-932c-bd4364d14b4d",
 	'getCachedSignalName',
 	'Translate:native',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'	return m_signal_name;',
 	0,
@@ -113,7 +99,7 @@ INSERT INTO O_TFR
 	"514d0f8c-2a86-4ba3-932c-bd4364d14b4d",
 	'setCachedSignalName',
 	'Translate:native',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'	m_signal_name = p_Value;',
 	0,
@@ -123,7 +109,7 @@ INSERT INTO O_TPARM
 	VALUES ("6367005a-a703-4ad8-9e02-1b1cd1b259e7",
 	"8ca85019-13e3-4945-84d6-7aafc1eafc51",
 	'value',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -176,16 +162,9 @@ INSERT INTO O_ATTR
 	'',
 	'SMevt_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("514d0f8c-2a86-4ba3-932c-bd4364d14b4d",
 	"173a203b-677e-4e60-8aeb-678f4fd25f4b",
@@ -229,7 +208,7 @@ INSERT INTO O_ATTR
 	'',
 	'SM_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -275,7 +254,7 @@ INSERT INTO O_ATTR
 	'',
 	'SMspd_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -326,7 +305,7 @@ INSERT INTO O_ATTR
 	'Provided_Signal_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -377,7 +356,7 @@ INSERT INTO O_ATTR
 	'Required_Signal_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -436,7 +415,7 @@ INSERT INTO O_ATTR
 	'',
 	'signal_name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -463,12 +442,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"514d0f8c-2a86-4ba3-932c-bd4364d14b4d");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("514d0f8c-2a86-4ba3-932c-bd4364d14b4d",
+	1,
+	"efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'State Machine',
 	'Classes (O_OBJ) that have interesting behavior are given lifecycles. These lifecycles are described using state machines (SM_SM). A state machine consists of states, events, transitions and state actions. The state machine exists for each instance of the class for which it has been modeled (SM_ISM). A state machine can also be an assigner state machine (SM_ASM) of which only one can exists for all class instances. The purpose of the assigner state machine is to act as a single point of control through which competing requests are serialized.',
-	'SM',
 	501,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000280005",
 	'../State Machine.xtuml');

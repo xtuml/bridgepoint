@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	15,
 	'S_ENUM',
 	'Enumerators are constants that have meaning to the analyst.  An enumeration data type (S_EDT) defines zero or more enumerators.  For example, Red, Blue, and Green are enumerators of the enumeration Color.',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("322dd4f6-22b6-437e-a113-e53fade25e5d",
 	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
 	'dispose',
 	'The dispose operation for this class.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Domain Subsystem
 select one edt related by self->S_EDT[R27];
@@ -41,19 +41,12 @@ delete object instance self;',
 	1,
 	'',
 	"c34bb06e-6bb2-4df9-8056-30c4f7ea7a36");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("a5dbb786-0427-41b6-8871-f047a4226ecb",
 	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
 	'initialize',
 	'The initialization operation for this class.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one edt related by self->S_EDT[R27];
 edt.addEnumeratorToOrder(id:self.Enum_ID);
@@ -86,7 +79,7 @@ return this;',
 	"6a4f43b7-5028-4f3a-a62e-aa4d6c61b8cd");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -96,7 +89,7 @@ INSERT INTO O_TFR
 	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
 	'moveUp',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'::changeNotificationEnablement(enabled:false);
 select one prev_attr related by self->S_ENUM[R56.''succeeds''];
@@ -132,7 +125,7 @@ INSERT INTO O_TFR
 	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
 	'moveDown',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'::changeNotificationEnablement(enabled:false);
 select one next_attr related by self->S_ENUM[R56.''precedes''];
@@ -169,7 +162,7 @@ INSERT INTO O_TFR
 	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
 	'actionFilter',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'if (param.name == "can" )
   if ( param.value == "move up" )
@@ -189,40 +182,26 @@ INSERT INTO O_TPARM
 	VALUES ("88cf80c7-87c2-4e08-a24e-b39917be2943",
 	"6a4f43b7-5028-4f3a-a62e-aa4d6c61b8cd",
 	'name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("e11a16eb-0c50-46fb-8bbc-e52910b6a33a",
 	"6a4f43b7-5028-4f3a-a62e-aa4d6c61b8cd",
 	'value',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"88cf80c7-87c2-4e08-a24e-b39917be2943",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("af5d732f-5117-4d21-93da-64c40c68780f",
 	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
 	'checkIntegrity',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// create an integrity issue if there are any other enumerators
 // with the same name
@@ -269,16 +248,9 @@ INSERT INTO O_ATTR
 	'',
 	'Enum_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("40201aae-a053-4603-99c1-7858347a8667",
 	"59ee55e3-b1e8-42e4-ba36-9b119a01a214");
@@ -294,7 +266,7 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -312,7 +284,7 @@ INSERT INTO O_ATTR
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -330,7 +302,7 @@ INSERT INTO O_REF
 	'',
 	'Enumerator',
 	'Enum_ID',
-	'R56');
+	'R56.''succeeds''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("59ee55e3-b1e8-42e4-ba36-9b119a01a214",
 	"862835f3-736c-4df1-9d2d-a4b12299560c",
@@ -359,16 +331,9 @@ INSERT INTO O_ATTR
 	'Previous_',
 	'Enum_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("59ee55e3-b1e8-42e4-ba36-9b119a01a214",
 	"942a736a-d379-4a82-9b01-d8e56ae947be",
@@ -384,7 +349,7 @@ INSERT INTO O_REF
 	'',
 	'Enumeration Data Type',
 	'DT_ID',
-	'R27');
+	'R27.''is defined by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("59ee55e3-b1e8-42e4-ba36-9b119a01a214",
 	"dcec37d4-614c-4e58-9807-a244d4c45fb1",
@@ -417,7 +382,7 @@ INSERT INTO O_ATTR
 	'EDT_',
 	'Element_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -434,12 +399,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"59ee55e3-b1e8-42e4-ba36-9b119a01a214");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Domain',
 	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
-	'S',
 	1,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000100002",
 	'../Domain.xtuml');

@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("abe004cb-e784-4b7d-953e-dd49bcce0c1d",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	823,
 	'V_LEN',
 	'This class represents a literal enumerated value.',
-	"e060f94c-3f82-463e-9d98-d20315b7c196");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("bc28a52d-b328-44ec-84e6-c997e3c8ac53",
 	"abe004cb-e784-4b7d-953e-dd49bcce0c1d",
@@ -23,7 +23,7 @@ return GD::string_to_instance(value:edt.Name + "::" + enum.Name);',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -78,16 +78,9 @@ INSERT INTO O_ATTR
 	'',
 	'Value_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("abe004cb-e784-4b7d-953e-dd49bcce0c1d",
 	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
@@ -103,7 +96,7 @@ INSERT INTO O_REF
 	'',
 	'Enumerator',
 	'Enum_ID',
-	'R824');
+	'R824.''has value''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("abe004cb-e784-4b7d-953e-dd49bcce0c1d",
 	"0cfa46e6-9ac6-43e7-9a52-efa3d59b55cd",
@@ -138,7 +131,7 @@ INSERT INTO O_ATTR
 	'',
 	'Enum_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -156,16 +149,9 @@ INSERT INTO O_ATTR
 	'',
 	'dataTypeNameLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("d7d307ba-8011-4a91-9885-c722446b5ec6",
 	"abe004cb-e784-4b7d-953e-dd49bcce0c1d");
@@ -181,7 +167,7 @@ INSERT INTO O_ATTR
 	'',
 	'dataTypeNameColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_ID
@@ -198,8 +184,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"abe004cb-e784-4b7d-953e-dd49bcce0c1d");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("abe004cb-e784-4b7d-953e-dd49bcce0c1d",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Value',
 	'This subsystem formalizes the concepts of values (r-values) and variables 
 (l-values). It also captures the concept of an actual parameter.
@@ -208,8 +202,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'V',
 	800,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000400008",
 	'../Value.xtuml');

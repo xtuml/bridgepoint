@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("21a145f3-797e-4f17-810e-6dcf3d435da9",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	24,
 	'S_EEPIP',
 	'EE Package in Package represents External Entity Packages nested within other External Entity Packages.',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("21a145f3-797e-4f17-810e-6dcf3d435da9",
 	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
@@ -22,7 +22,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity Package',
 	'EEPack_ID',
-	'R34');
+	'R34.''contains children of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("21a145f3-797e-4f17-810e-6dcf3d435da9",
 	"4b57867b-4d4c-4c40-8dd1-4bf2dbaa8830",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'EEPack_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"21a145f3-797e-4f17-810e-6dcf3d435da9");
@@ -79,12 +72,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"21a145f3-797e-4f17-810e-6dcf3d435da9");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("21a145f3-797e-4f17-810e-6dcf3d435da9",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Domain',
 	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
-	'S',
 	1,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000100002",
 	'../Domain.xtuml');

@@ -342,42 +342,42 @@ public class ModelComparisonTests extends BaseTest {
 .function is_excluded
   .param inst_ref class
     .assign attr_result = false;
-    .select one ss related by class->S_SS[R2];
-    .if(ss.Prefix == "ACT")
+    .select one pkg related by class->PE_PE[R8001]->EP_PKG[R8000]
+    .if(pkg.Name == "Body")
       .assign attr_result = true
-    .elif(ss.Prefix == "BP")
+    .elif(pkg.Name == "Breakpoint")
       .assign attr_result = true
-    .elif(ss.Prefix == "CA")
+    .elif(pkg.Name == "Communication and Access")
       .assign attr_result = true
-    .elif(ss.Prefix == "E")
+    .elif(pkg.Name == "Event")
       .assign attr_result = true
-    .elif(ss.Prefix == "G")
+    .elif(pkg.Name == "Globals")
       .assign attr_result = true
-    .elif(ss.Prefix == "I")
+    .elif(pkg.Name == "Engine")
       .assign attr_result = true
-    .elif(ss.Prefix == "L")
+    .elif(pkg.Name == "Local")
       .assign attr_result = true
-    .elif(ss.Prefix == "")
+    .elif(pkg.Name == "")
       .assign attr_result = true
-    .elif(ss.Prefix == "RV")
+    .elif(pkg.Name == "Runtime Value")
       .assign attr_result = true
-    .elif(ss.Prefix == "SE")
+    .elif(pkg.Name == "Search")
       .assign attr_result = true
-    .elif(ss.Prefix == "V")
+    .elif(pkg.Name == "Value")
       .assign attr_result = true
-    .elif(ss.Prefix == "W")
+    .elif(pkg.Name == "Wiring")
       .assign attr_result = true
-    .elif(ss.Prefix == "SP")
+    .elif(pkg.Name == "Participation")
       .assign attr_result = true
-    .elif(ss.Prefix == "SR")
+    .elif(pkg.Name == "Result")
       .assign attr_result = true
-    .elif(ss.Prefix == "SQU")
+    .elif(pkg.Name == "Query")
       .assign attr_result = true
-    .elif(ss.Prefix == "SEN")
+    .elif(pkg.Name == "Engine")
       .assign attr_result = true
-    .elif(ss.Prefix == "TS")
+    .elif(pkg.Name == "Terminal Specifications")
       .assign attr_result = true
-    .elif(ss.Prefix == "CT")
+    .elif(pkg.Name == "CT")
       .assign attr_result = true
     .elif(class.Key_Lett == "S_DOM")
       .assign attr_result = true    
@@ -435,7 +435,7 @@ public class ModelComparisonTests extends BaseTest {
       .assign attr_result = true
     .elif(class.Key_Lett == "SQ_SIS")
       .assign attr_result = true
-    .elif(ss.Prefix == "SLD")
+    .elif(pkg.Name == "System Level Datatypes")
       .assign attr_result = true
     .elif(class.Key_Lett == "UC_PIUC")
       .assign attr_result = true

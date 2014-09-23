@@ -8,7 +8,7 @@ INSERT INTO O_OBJ
 	'A value (r-value) may be assigned to a variable, attribute or parameter
 (l-values). There are many different kinds of value in a model. This class
 captures this observation in a supertype.',
-	"e060f94c-3f82-463e-9d98-d20315b7c196");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("a7bdcd64-e592-4b09-82ec-95f387cc5308",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
@@ -16,7 +16,7 @@ INSERT INTO O_TFR
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Value.dispose()
 select one val_blk related by self->ACT_BLK[R826];
@@ -303,19 +303,12 @@ delete object instance self;
 	1,
 	'',
 	"df9ce6b2-5184-4e5d-8151-315b8b499a28");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("ec4d1100-850c-44d8-b972-d2c6ee312baf",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
 	'setEndPosition',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one body related by self->ACT_BLK[R826]->ACT_ACT[R601];
 if ( self.StartPosition == -1 )
@@ -544,7 +537,7 @@ INSERT INTO O_TFR
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
 	'computeValue',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Value:Value.computeValue()
 select one body related by self->ACT_BLK[R826]->ACT_ACT[R601];
@@ -873,25 +866,18 @@ INSERT INTO O_TPARM
 	VALUES ("5bcd254f-e77b-464b-b955-2ceafd311741",
 	"f7c11726-17e8-4828-88dd-cffc7e15f3c5",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("13c225bd-4e16-4628-b991-73ee6bfb4575",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
 	'setValue',
 	'Note: Setting values is only supported for assigning values of invocation
 parameters passed by reference.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Value:Value.setValue()
 select one body related by self->ACT_BLK[R826]->ACT_ACT[R601];
@@ -969,7 +955,7 @@ INSERT INTO O_TPARM
 	VALUES ("f85126c3-f9eb-44f5-8186-9820b7970505",
 	"13c225bd-4e16-4628-b991-73ee6bfb4575",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -985,7 +971,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -994,7 +980,7 @@ INSERT INTO O_TPARM
 	VALUES ("a0371c19-8c4c-4385-95d7-eb4273e6fe35",
 	"13c225bd-4e16-4628-b991-73ee6bfb4575",
 	'member_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"d68e591c-a6a5-4f3d-9bb6-dece891ada65",
@@ -1064,7 +1050,7 @@ INSERT INTO O_TPARM
 	VALUES ("47f92123-aecc-46d0-9ec0-3fc36cd6a889",
 	"a039735e-8d4e-4c56-89e2-75f4eb86bdf7",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1074,7 +1060,7 @@ INSERT INTO O_TFR
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
 	'hasSubtype',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one lin related by self->V_LIN[R801];
 if ( not_empty lin )
@@ -1152,19 +1138,12 @@ return false;',
 	1,
 	'',
 	"a039735e-8d4e-4c56-89e2-75f4eb86bdf7");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("bafee802-9f45-45fd-b986-aed781a8ad94",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
 	'getRuntimeValue',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// Value.getRuntimeValue()
 select one body related by self->ACT_BLK[R826]->ACT_ACT[R601];
@@ -1210,7 +1189,7 @@ INSERT INTO O_TPARM
 	VALUES ("6405ceba-5c39-4e5c-b3bf-d2b03932fe0f",
 	"bafee802-9f45-45fd-b986-aed781a8ad94",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1220,7 +1199,7 @@ INSERT INTO O_TFR
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
 	'isLeaf',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// Value.isLeaf()
 select one mvlRef related by self->V_MVL[R837];
@@ -1234,7 +1213,7 @@ INSERT INTO O_TFR
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
 	'setRank',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// Value.setRank
 select one tvl related by self->V_TVL[R801];
@@ -1294,23 +1273,16 @@ INSERT INTO O_TPARM
 	VALUES ("2dcf028d-0f71-426a-b4cb-5ec4ac93e59f",
 	"bfc94d15-e1a4-4705-9c6b-714c51bf0842",
 	'dimension',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("b9186899-5066-44a2-9113-9e6da9f45c17",
 	"bfc94d15-e1a4-4705-9c6b-714c51bf0842",
 	'rval_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"2dcf028d-0f71-426a-b4cb-5ec4ac93e59f",
@@ -1320,7 +1292,7 @@ INSERT INTO O_TFR
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
 	'getDimensions',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'// Value.getDimensions()
 select one memberRef related by self->V_MVL[R801];
@@ -1423,7 +1395,7 @@ INSERT INTO O_TFR
 0 indicates that the array is dynamically sized.  A return value of -1 
 indicates that the specfied dimension is invalid.   The specified dimension 
 parameter is 0-based.',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'// Value.getArrayLength()
 select one memberRef related by self->V_MVL[R801];
@@ -1498,7 +1470,7 @@ INSERT INTO O_TPARM
 	VALUES ("c1836616-8e1d-445e-8e3a-e26a22faf956",
 	"ce84d822-f34c-4d47-a09c-e5dc65e043f2",
 	'dimension',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1520,7 +1492,7 @@ is the kind of problem this operation checks for.  This operation returns true
 if the element count is valid and false if it is not.
 
              ',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'isValid = true;
 
@@ -1568,7 +1540,7 @@ INSERT INTO O_TFR
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
 	'isReferringToDefaultDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one dt related by self->S_DT[R820];
 elementType = Util::getSimpleClassName(element:self.convertToInstance());
@@ -1595,7 +1567,7 @@ INSERT INTO O_TFR
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
 	'canReferToDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one body related by self->ACT_BLK[R826]->ACT_ACT[R601];
@@ -1689,7 +1661,7 @@ In the above example, the assignment of foobar to foo should not be allowed
 because the dimension element counts are not compatible.  Each dimension''s 
 element count must match.
    ',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// Note that this value (self) is the lval and the paramater pased-in is the
 // rval (see the operation description for more information)
@@ -1746,7 +1718,7 @@ INSERT INTO O_TPARM
 	VALUES ("fd48ac86-6e12-4ed4-bba0-31f3756f05fa",
 	"0eba4f9a-91fa-40e5-977c-fb6ae6f838b5",
 	'rVal',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1766,7 +1738,7 @@ INSERT INTO O_ATTR
 	'',
 	'Value_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_REF
@@ -1819,16 +1791,9 @@ INSERT INTO O_ATTR
 	'',
 	'Block_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("0bbe7f40-843f-46a9-bac6-2e8ab48f938c",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
@@ -1847,7 +1812,7 @@ Not_participating_value: -1',
 	'',
 	'LineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1869,7 +1834,7 @@ Not_participating_value: -1
 	'',
 	'StartPosition',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1890,7 +1855,7 @@ Not_participating_value: -1',
 	'',
 	'EndPosition',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1910,7 +1875,7 @@ parameter labels that are part of the composition of this value.
 	'',
 	'firstParameterLabelLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1928,7 +1893,7 @@ INSERT INTO O_ATTR
 	'',
 	'firstParameterLabelColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1946,7 +1911,7 @@ INSERT INTO O_ATTR
 	'',
 	'currentLaterParameterLabelLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1964,7 +1929,7 @@ INSERT INTO O_ATTR
 	'',
 	'currentLaterParameterLabelColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1982,7 +1947,7 @@ INSERT INTO O_ATTR
 	'',
 	'isLValue',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -2000,7 +1965,7 @@ INSERT INTO O_ATTR
 	'',
 	'isImplicit',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -2018,16 +1983,9 @@ INSERT INTO O_ATTR
 	'',
 	'Text',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
@@ -2076,7 +2034,7 @@ INSERT INTO O_ATTR
 	'',
 	'Element_ID',
 	2,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -2093,8 +2051,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Value',
 	'This subsystem formalizes the concepts of values (r-values) and variables 
 (l-values). It also captures the concept of an actual parameter.
@@ -2103,8 +2069,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'V',
 	800,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000400008",
 	'../Value.xtuml');

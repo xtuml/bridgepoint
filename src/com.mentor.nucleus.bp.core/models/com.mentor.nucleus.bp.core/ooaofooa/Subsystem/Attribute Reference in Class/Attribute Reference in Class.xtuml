@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	110,
 	'O_REF',
 	'The class represents an association number (R#) which follows a referential attribute.',
-	"67eb58de-1d2b-4163-8373-ae8e65e99f84");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("ac303aa7-cf31-48e1-834a-84d73f5710e7",
 	"fdfd5407-5392-47ec-9fc2-e1957a3b7852",
 	'get_name',
 	'Creates a string containing a descriptive name for the instance.',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one rel related by self->R_RGO[R111]->R_OIR[R203]->R_REL[R201];
 if empty rel 
@@ -40,20 +40,13 @@ end if;',
 	1,
 	'',
 	"e58649f8-7fe2-4d20-844b-093337b404ab");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("e58649f8-7fe2-4d20-844b-093337b404ab",
 	"fdfd5407-5392-47ec-9fc2-e1957a3b7852",
 	'dispose',
 	'Dispose this O_REF.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one next_ref related by self->O_REF[R112.''precedes''];
 select one prior_ref related by self->O_REF[R112.''succeeds''];
@@ -83,19 +76,12 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("3e02f1a5-a5f0-4bce-bb4e-056157e7d216",
 	"fdfd5407-5392-47ec-9fc2-e1957a3b7852",
 	'get_text',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'result = "R???";
 select one rel related by self->R_RGO[R111]->R_OIR[R203]->R_REL[R201];
@@ -124,24 +110,17 @@ INSERT INTO O_TPARM
 	VALUES ("ca0a0ba3-24db-4240-b481-a95a7f0a219f",
 	"3e02f1a5-a5f0-4bce-bb4e-056157e7d216",
 	'includeTextPhrase',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("19ab6875-1685-4b64-947b-ca7ecd2957e3",
 	"fdfd5407-5392-47ec-9fc2-e1957a3b7852",
 	'migrateRefAttrOrDispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select many siblings related by self->O_RATTR[R108]->O_REF[R108];
 if (cardinality siblings == 1)
@@ -176,7 +155,7 @@ INSERT INTO O_TFR
 	"fdfd5407-5392-47ec-9fc2-e1957a3b7852",
 	'get_referential_phrase',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one rto related by self->O_RTIDA[R111]->R_RTO[R110];
 select one cone related by rto->R_AONE[R204];
@@ -211,7 +190,7 @@ INSERT INTO O_REF
 	'',
 	'Referred To Identifier Attribute',
 	'Oid_ID',
-	'R111');
+	'R111.''refers across association via''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("fdfd5407-5392-47ec-9fc2-e1957a3b7852",
 	"47d36bab-a1f6-4645-8bed-a7abb04fbd54",
@@ -244,16 +223,9 @@ INSERT INTO O_ATTR
 	'R',
 	'Oid_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("fdfd5407-5392-47ec-9fc2-e1957a3b7852",
 	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
@@ -269,7 +241,7 @@ INSERT INTO O_REF
 	'',
 	'Referred To Identifier Attribute',
 	'Attr_ID',
-	'R111');
+	'R111.''refers across association via''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("f776081b-1cba-4586-b37f-6d95a7553258",
 	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
@@ -297,7 +269,7 @@ INSERT INTO O_ATTR
 	'R',
 	'Attr_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -315,7 +287,7 @@ INSERT INTO O_REF
 	'',
 	'Referring Class In Assoc',
 	'OIR_ID',
-	'R111');
+	'R111.''is used to refer class by''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("a997a75d-58fb-4d48-a422-efa9351c88d7",
 	"5f12a98d-bc4a-40f7-8642-7a2819fd4159",
@@ -343,7 +315,7 @@ INSERT INTO O_ATTR
 	'',
 	'OIR_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -361,7 +333,7 @@ INSERT INTO O_REF
 	'',
 	'Referred To Identifier Attribute',
 	'OIR_ID',
-	'R111');
+	'R111.''refers across association via''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("b8a7bd33-7b2f-41e3-a00d-6e58be18278e",
 	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
@@ -385,7 +357,7 @@ INSERT INTO O_ATTR
 	'R',
 	'OIR_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -403,7 +375,7 @@ INSERT INTO O_REF
 	'',
 	'Referential Attribute',
 	'Attr_ID',
-	'R108');
+	'R108.''is resolved by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("fdfd5407-5392-47ec-9fc2-e1957a3b7852",
 	"adc6230b-4487-4729-8c8c-25920d6c42da",
@@ -432,7 +404,7 @@ INSERT INTO O_ATTR
 	'',
 	'Attr_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -452,16 +424,9 @@ Description: Secondary Identifier
 	'',
 	'ARef_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("fdfd5407-5392-47ec-9fc2-e1957a3b7852",
 	"fdfd5407-5392-47ec-9fc2-e1957a3b7852",
@@ -477,7 +442,7 @@ INSERT INTO O_REF
 	'',
 	'Attribute Reference in Class',
 	'ARef_ID',
-	'R112');
+	'R112.''succeeds''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("fdfd5407-5392-47ec-9fc2-e1957a3b7852",
 	"f1abaee6-eb00-492a-b59b-70f4670e47d6",
@@ -506,7 +471,7 @@ INSERT INTO O_ATTR
 	'P',
 	'ARef_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -526,7 +491,7 @@ Data Domain: 0 = not  constrained, 1 = constrained',
 	'',
 	'Is_Cstrd',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -545,7 +510,7 @@ Description: Description of the attribute reference.',
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -582,7 +547,7 @@ In Properties: false',
 	'',
 	'RObj_Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -617,7 +582,7 @@ In Properties: false',
 	'',
 	'RAttr_Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -659,7 +624,7 @@ In Properties: false',
 	'',
 	'Rel_Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -677,7 +642,7 @@ INSERT INTO O_REF
 	'',
 	'Referred To Identifier Attribute',
 	'Obj_ID',
-	'R111');
+	'R111.''refers across association via''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("673087bc-75cc-4a0c-8d63-49c2d129b549",
 	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
@@ -705,7 +670,7 @@ INSERT INTO O_ATTR
 	'R',
 	'Obj_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -723,7 +688,7 @@ INSERT INTO O_REF
 	'',
 	'Referential Attribute',
 	'Obj_ID',
-	'R108');
+	'R108.''is resolved by''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("6d83e8a5-95c3-49b4-a87f-15546dbd4ddb",
 	"30c0ac88-8e1e-4d56-a78d-5df87501c11c",
@@ -746,7 +711,7 @@ INSERT INTO O_REF
 	'',
 	'Referring Class In Assoc',
 	'Obj_ID',
-	'R111');
+	'R111.''is used to refer class by''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("10a05acb-4aea-4c61-be96-a4dc92835b0b",
 	"5f12a98d-bc4a-40f7-8642-7a2819fd4159",
@@ -770,7 +735,7 @@ INSERT INTO O_ATTR
 	'',
 	'Obj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -788,7 +753,7 @@ INSERT INTO O_REF
 	'',
 	'Referring Class In Assoc',
 	'Rel_ID',
-	'R111');
+	'R111.''is used to refer class by''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("0bcddf72-4ecb-454c-bf91-8dbb202daf4c",
 	"5f12a98d-bc4a-40f7-8642-7a2819fd4159",
@@ -811,7 +776,7 @@ INSERT INTO O_REF
 	'',
 	'Referred To Identifier Attribute',
 	'Rel_ID',
-	'R111');
+	'R111.''refers across association via''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("9526283b-4f3b-494a-ae91-1c2aae2c15cf",
 	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
@@ -835,7 +800,7 @@ INSERT INTO O_ATTR
 	'',
 	'Rel_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -887,12 +852,17 @@ INSERT INTO O_OIDA
 INSERT INTO O_ID
 	VALUES (2,
 	"fdfd5407-5392-47ec-9fc2-e1957a3b7852");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("fdfd5407-5392-47ec-9fc2-e1957a3b7852",
+	1,
+	"67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Subsystem',
 	'A class (O_OBJ)  is an abstraction of a real world thing that has specific attributes (O_ATTR) and, if active, has a lifecycle model as a state machine (SM_SM).  All instances of the class must have the same characteristics and follow the same state behavior.  Classes fall into many categories, some of which are: tangible things, roles, interactions and specifications. ',
-	'O',
 	101,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000300006",
 	'../Subsystem.xtuml');

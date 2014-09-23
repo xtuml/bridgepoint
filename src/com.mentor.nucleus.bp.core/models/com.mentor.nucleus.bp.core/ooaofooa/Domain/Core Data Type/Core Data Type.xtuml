@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("af9b2e82-f3b4-4227-943d-0d5781594f36",
@@ -6,31 +6,24 @@ INSERT INTO O_OBJ
 	10,
 	'S_CDT',
 	'Core Data Types are those data types which are fundamental, or core, to all data types.  The core data types are built-in to the tool and cannot be changed.',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("3b286844-05f1-417a-9dbd-a9f029c9a007",
 	"af9b2e82-f3b4-4227-943d-0d5781594f36",
 	'get_ooa_id',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'return self.DT_ID;',
 	1,
 	'',
 	"9a71e2ab-9c17-4680-9a2f-c9d190f11ddf");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("5dda6960-2700-4ba2-9382-a08e2cfacce9",
 	"af9b2e82-f3b4-4227-943d-0d5781594f36",
 	'get_compartment_text',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'result = "";
 if (param.at == Justification::Center_in_X)
@@ -55,23 +48,16 @@ INSERT INTO O_TPARM
 	VALUES ("05b3eda9-b060-44df-ac5a-283af122efcf",
 	"5dda6960-2700-4ba2-9382-a08e2cfacce9",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"c736f6e2-b585-4262-9879-807786ad497b",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("2787aa45-10b2-48d0-b79e-5a27946bfa25",
 	"5dda6960-2700-4ba2-9382-a08e2cfacce9",
 	'ent_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"05b3eda9-b060-44df-ac5a-283af122efcf",
@@ -87,18 +73,11 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Justification',
 	'The Justification data type is used to specify text at a given location in a compartment.
 ------------------------------------------------------------------------------
 Bridge:GD',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
@@ -106,7 +85,7 @@ INSERT INTO O_TFR
 	"af9b2e82-f3b4-4227-943d-0d5781594f36",
 	'get_compartments',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'return 1;',
 	1,
@@ -117,7 +96,7 @@ INSERT INTO O_TFR
 	"af9b2e82-f3b4-4227-943d-0d5781594f36",
 	'get_entries',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'return 1;',
 	1,
@@ -127,7 +106,7 @@ INSERT INTO O_TPARM
 	VALUES ("d3956043-e122-4f8c-b993-cc9bd9592001",
 	"5e2368e3-ebd9-413e-aae2-71f15b8e79d2",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -147,7 +126,7 @@ INSERT INTO O_TPARM
 	VALUES ("3cf033c3-8911-4158-bd53-e40566e1cd41",
 	"218f3f92-96b9-4f06-99b4-498512530c65",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"0007b940-66da-4c3c-bc8f-65e971a504bb",
@@ -156,7 +135,7 @@ INSERT INTO O_TPARM
 	VALUES ("672f8d6f-7638-4bd7-8265-e7b4ceb4937d",
 	"218f3f92-96b9-4f06-99b4-498512530c65",
 	'ent_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"3cf033c3-8911-4158-bd53-e40566e1cd41",
@@ -172,7 +151,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Style',
 	'The Style data type specifies the precise form a graphical element will take when drawn.
 --------------------------------------------------------------------------
@@ -195,7 +174,7 @@ INSERT INTO O_TFR
 	"af9b2e82-f3b4-4227-943d-0d5781594f36",
 	'get_name',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one dt related by self->S_DT[R17];
 if ( empty dt )
@@ -212,7 +191,7 @@ INSERT INTO O_TFR
 	"af9b2e82-f3b4-4227-943d-0d5781594f36",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one dt related by self->S_DT[R17];
 unrelate self from dt across R17;
@@ -220,13 +199,6 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("089252bf-3ad0-4646-b8a8-061ddb75599a",
 	"af9b2e82-f3b4-4227-943d-0d5781594f36",
@@ -240,7 +212,7 @@ INSERT INTO O_TFR
 	"218f3f92-96b9-4f06-99b4-498512530c65");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -279,7 +251,7 @@ readonly: true',
 	'',
 	'Core_Typ',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_REF
@@ -330,16 +302,9 @@ INSERT INTO O_ATTR
 	'',
 	'Element_ID',
 	2,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"af9b2e82-f3b4-4227-943d-0d5781594f36");
@@ -354,12 +319,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"af9b2e82-f3b4-4227-943d-0d5781594f36");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("af9b2e82-f3b4-4227-943d-0d5781594f36",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Domain',
 	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
-	'S',
 	1,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000100002",
 	'../Domain.xtuml');

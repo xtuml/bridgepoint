@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("0290b06f-0a07-484e-af02-e32b5fb48434",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	1,
 	'PL_EEPID',
 	'',
-	"72fa6244-a6e7-4d68-a86a-d54b054d2ecc");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("0290b06f-0a07-484e-af02-e32b5fb48434",
 	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
@@ -22,7 +22,7 @@ INSERT INTO O_REF
 	'',
 	'Domain',
 	'Dom_ID',
-	'R300');
+	'R300.''is container''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("0290b06f-0a07-484e-af02-e32b5fb48434",
 	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'Dom_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("0290b06f-0a07-484e-af02-e32b5fb48434",
 	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
@@ -80,7 +73,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity Package',
 	'EEPack_ID',
-	'R300');
+	'R300.''contains''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("dc0f2565-e2c7-4017-a7fd-191ac6e8a752",
 	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
@@ -108,7 +101,7 @@ INSERT INTO O_ATTR
 	'',
 	'EEPack_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -130,13 +123,18 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"0290b06f-0a07-484e-af02-e32b5fb48434");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("0290b06f-0a07-484e-af02-e32b5fb48434",
+	1,
+	"72fa6244-a6e7-4d68-a86a-d54b054d2ecc",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("72fa6244-a6e7-4d68-a86a-d54b054d2ecc",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Package Linking',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE',
-	'PL',
 	300,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Package Linking.xtuml');

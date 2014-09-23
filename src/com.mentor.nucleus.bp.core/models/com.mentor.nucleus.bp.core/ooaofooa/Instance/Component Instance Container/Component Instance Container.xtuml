@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("cb73f634-668b-453e-8995-99c334b06aa1",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	2921,
 	'I_CIN',
 	'',
-	"97c1ace4-0148-4235-83cb-1fd8e2d2514d");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("cb73f634-668b-453e-8995-99c334b06aa1",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'Container_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"cb73f634-668b-453e-8995-99c334b06aa1");
@@ -79,15 +72,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"cb73f634-668b-453e-8995-99c334b06aa1");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("cb73f634-668b-453e-8995-99c334b06aa1",
+	1,
+	"97c1ace4-0148-4235-83cb-1fd8e2d2514d",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("97c1ace4-0148-4235-83cb-1fd8e2d2514d",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Instance',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 Persistent:false
 Import: java.util.concurrent.locks.ReentrantLock',
-	'I',
 	900,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Instance.xtuml');

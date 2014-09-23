@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("5fb0b7f3-34b9-455d-850a-39054012aeb6",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	403,
 	'CA_SMSMC',
 	'An SM to SM communication path represents a path on the Communication Diagram that originates at State Machine and terminates at a State Machine.  ',
-	"309f0e1c-e3bd-46e3-ad66-49d186565a6b");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("2e9f70e9-a0e7-465a-97b3-6e07e6152ea8",
 	"5fb0b7f3-34b9-455d-850a-39054012aeb6",
 	'dispose',
 	'Dispose this CA_SMSMC.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select many smsmes related by self->CA_SMSME[R408];
 for each smsme in smsmes
@@ -39,13 +39,6 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("5fb0b7f3-34b9-455d-850a-39054012aeb6",
 	"2ec510d1-5b04-4d69-a388-844bfa103cc6",
@@ -98,16 +91,9 @@ INSERT INTO O_ATTR
 	'',
 	'CPath_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("5fb0b7f3-34b9-455d-850a-39054012aeb6",
 	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
@@ -123,7 +109,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine',
 	'SM_ID',
-	'R406');
+	'R406.''originates from''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("5fb0b7f3-34b9-455d-850a-39054012aeb6",
 	"4ad790e1-114e-4452-b79b-ccde9913b075",
@@ -156,7 +142,7 @@ INSERT INTO O_ATTR
 	'O',
 	'SM_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -174,7 +160,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine',
 	'SM_ID',
-	'R407');
+	'R407.''shows event communication to''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("5fb0b7f3-34b9-455d-850a-39054012aeb6",
 	"d735ccab-a518-4c27-bac4-da650c306880",
@@ -203,7 +189,7 @@ INSERT INTO O_ATTR
 	'D',
 	'SM_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -221,7 +207,7 @@ INSERT INTO O_REF
 	'',
 	'Imported Class',
 	'IObj_ID',
-	'R414');
+	'R414.''destination SM can be represented by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("5fb0b7f3-34b9-455d-850a-39054012aeb6",
 	"88d0957c-1541-4045-8a57-120142cce444",
@@ -254,7 +240,7 @@ INSERT INTO O_ATTR
 	'D',
 	'IObj_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -272,7 +258,7 @@ INSERT INTO O_REF
 	'',
 	'Imported Class',
 	'IObj_ID',
-	'R424');
+	'R424.''origination SM can be represented by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("5fb0b7f3-34b9-455d-850a-39054012aeb6",
 	"d3a0bd47-2cc5-4cd0-97e5-6d5e0d379ae2",
@@ -301,7 +287,7 @@ INSERT INTO O_ATTR
 	'O',
 	'IObj_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -328,12 +314,17 @@ INSERT INTO O_OIDA
 INSERT INTO O_ID
 	VALUES (2,
 	"5fb0b7f3-34b9-455d-850a-39054012aeb6");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("5fb0b7f3-34b9-455d-850a-39054012aeb6",
+	1,
+	"309f0e1c-e3bd-46e3-ad66-49d186565a6b",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("309f0e1c-e3bd-46e3-ad66-49d186565a6b",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Communication And Access',
 	'Interactions between classes (O_OBJ) are modeled by communication (CA_COMM) and access (CA_ACC) paths. Communication paths show the asynchronous (event) and synchronous (data access) communication in the system between two classes and class/external entity (S_EE) pairs.  ',
-	'CA',
 	401,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000200004",
 	'../Communication And Access.xtuml');

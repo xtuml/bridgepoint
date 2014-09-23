@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("6e1f9b12-bc84-48ed-af2d-02831c049629",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	4501,
 	'SPR_PEP',
 	'',
-	"6a43182c-b832-4648-b478-ab0441b8613c");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("c147583e-8011-46fa-817c-f3f183ce6b62",
 	"6e1f9b12-bc84-48ed-af2d-02831c049629",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one pro_signal related by self->SPR_PS[R4503];
 select one pro_operation related by self->SPR_PO[R4503];
@@ -37,38 +37,24 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("55bd8075-a144-49b7-8359-d7959dda39b9",
 	"6e1f9b12-bc84-48ed-af2d-02831c049629",
 	'getComponentId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'select one provision related by self->C_P[R4501];
 return provision.getComponentId();',
 	1,
 	'',
 	"c147583e-8011-46fa-817c-f3f183ce6b62");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("0e1da90e-0339-4e49-9a3f-b3cd926d4d06",
 	"6e1f9b12-bc84-48ed-af2d-02831c049629",
 	'isSynchronized',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'/**
  * A Provided Executable Property is synchronized if the associated Executable
@@ -88,19 +74,12 @@ return true;',
 	1,
 	'',
 	"55bd8075-a144-49b7-8359-d7959dda39b9");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("9d6deb39-314a-4570-a746-5dea72d26b0d",
 	"6e1f9b12-bc84-48ed-af2d-02831c049629",
 	'migrateExecutableProperty',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// we can migrate an executable property if the name matches and the subtypes
 // are the same.
@@ -140,7 +119,7 @@ INSERT INTO O_TFR
 	"6e1f9b12-bc84-48ed-af2d-02831c049629",
 	'isReferringToDefaultExecutableProperty',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one ep related by self->C_EP[R4501];
 if(empty ep or Util::isProxy(element:ep.convertToInstance()))
@@ -155,7 +134,7 @@ INSERT INTO O_TFR
 	"6e1f9b12-bc84-48ed-af2d-02831c049629",
 	'canReferToExecutableProperty',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one interface related by self->C_EP[R4501]->C_I[R4003];
 select one reference related by self->C_P[R4501]->C_IR[R4009];
@@ -196,7 +175,7 @@ Translate: native',
 	"96271228-aa3a-4c47-87a9-b3ec22019349");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -216,7 +195,7 @@ INSERT INTO O_REF
 	'',
 	'Executable Property',
 	'Id',
-	'R4501');
+	'R4501.''implements''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("6e1f9b12-bc84-48ed-af2d-02831c049629",
 	"b524e642-a1fa-4d42-be11-06872de28544",
@@ -249,16 +228,9 @@ INSERT INTO O_ATTR
 	'ExecutableProperty_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("67a67b41-0ad5-4731-9748-c98aad60eb92",
 	"6e1f9b12-bc84-48ed-af2d-02831c049629");
@@ -274,7 +246,7 @@ INSERT INTO O_ATTR
 	'',
 	'Id',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_REF
@@ -292,7 +264,7 @@ INSERT INTO O_REF
 	'',
 	'Provision',
 	'Provision_Id',
-	'R4501');
+	'R4501.''is implemented by''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("3159b65f-6b8d-4aa9-b0bd-8b8b37f4c9be",
 	"8969f73f-606a-4e4e-a698-aafd54115472",
@@ -320,7 +292,7 @@ INSERT INTO O_ATTR
 	'',
 	'Provision_Id',
 	2,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -337,16 +309,21 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"6e1f9b12-bc84-48ed-af2d-02831c049629");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("6e1f9b12-bc84-48ed-af2d-02831c049629",
+	1,
+	"6a43182c-b832-4648-b478-ab0441b8613c",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("6a43182c-b832-4648-b478-ab0441b8613c",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Signal Provisions and Requirements',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 
 The Signal Provisions and Requirements subsystem captures data which will be
 used to define the implementation of provided and required interfaces.',
-	'SPR',
 	4500,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Signal Provisions and Requirements.xtuml');

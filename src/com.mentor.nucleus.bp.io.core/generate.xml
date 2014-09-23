@@ -29,8 +29,6 @@
   <property name="sql.input" value="models/com.mentor.nucleus.bp.io.core/file_io" />
   <property name="sql.output" value="file_io.sql" />
 
-  <property name="subsystems_to_remove" value="ACT_ V_ E_ GD_ CT_ TS_ DIM_ STY_" />
-
   <target name="sql.depends" >
     <uptodate property="sql.buildNotNeeded"  targetfile="sql/${sql.output}">
       <srcfiles dir= "${sql.input}" includes="**/*.xtuml" />
@@ -41,9 +39,11 @@
           description="Generate the sql version of the File IO model"
           unless="sql.buildNotNeeded" >
     <echo >Generating ${sql.output} ...</echo>
-  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
-    <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
-  </exec>
+  	<copy file="gen/code_generation/file_io.sql" tofile="gen/code_generation/file_io.xtuml"/>
+  	<exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
+      <arg line="xtumlmc_cleanse_for_BridgePoint ${basedir}/gen/code_generation sql/${sql.output}" />
+  	</exec>
+  	<delete file="gen/code_generation/file_io.xtuml" />
   </target>
 
   <property name="mcj_path" value="../MC-Java" />
@@ -65,6 +65,7 @@
   <ant antfile="${mcj_path}/build.xml" target="generate.schema" >
     <property name="param1" value="${sql.output}" />
     <property name="param2" value="${mcj_path}" />
+  	<property name="param4" value="file_io" />
   </ant>
   <!-- Need to touch the output file for the case where the input data
        changed, but the output didn't -->
