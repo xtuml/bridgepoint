@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("0ac5a7ee-e799-478f-ae62-a1be52fa199b",
@@ -13,13 +13,13 @@ Persistent:false
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 
 ',
-	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("eb493384-4d82-4c8c-bf84-b257f8a7cecb",
 	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
 	'initialize',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'//
 // Cache the end being moved in case the user puts
@@ -125,19 +125,12 @@ end if;
 	1,
 	'',
 	"1dd3025c-5378-4eef-a50a-a068d3dbd15e");
-INSERT INTO S_DT_PROXY
-	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("cee3b332-041b-4881-bc2b-89f2a23bc0ef",
 	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
 	'finalize',
 	'',
-	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'//
 // The start and end of connectors require special processing after a resize
@@ -247,7 +240,7 @@ INSERT INTO O_TFR
 	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
 	'finalizeOnShape',
 	'',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'appropriate_point = false;
 select one waypoint related by self->DIM_WAY[R24];
@@ -335,19 +328,12 @@ return appropriate_point;
 	1,
 	'',
 	"f4142706-5965-4b2d-997b-29045e0c4bf4");
-INSERT INTO S_DT_PROXY
-	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("f4142706-5965-4b2d-997b-29045e0c4bf4",
 	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
 	'finalizeEndOnConnector',
 	'',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'appropriate_point = false;
 select one segment related by self->DIM_WAY[R24]->GD_LS[R22];
@@ -400,7 +386,7 @@ INSERT INTO O_TFR
 	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
 	'finalizeOnWhitespace',
 	'',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'appropriate_point = true;
 select one waypoint related by self->DIM_WAY[R24];
@@ -422,7 +408,7 @@ INSERT INTO O_TFR
 	"0ac5a7ee-e799-478f-ae62-a1be52fa199b",
 	'finalizeStartOnConnector',
 	'',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'appropriate_point = false;
 select one segment related by self->DIM_WAY[R24]->GD_LS[R21];
@@ -487,16 +473,9 @@ the waypoint is not over an appropriate point.',
 	'',
 	'originX',
 	0,
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("f762403c-f8bd-4c52-96c4-99d384a1bd4f",
 	"0ac5a7ee-e799-478f-ae62-a1be52fa199b");
@@ -512,7 +491,7 @@ INSERT INTO O_ATTR
 	'',
 	'originY',
 	0,
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_REF
@@ -530,7 +509,7 @@ INSERT INTO O_REF
 	'',
 	'Waypoint',
 	'Way_ID',
-	'R24');
+	'R24.''is moving''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("0ac5a7ee-e799-478f-ae62-a1be52fa199b",
 	"bc558972-04b0-4d93-8cf2-f4a80825d496",
@@ -563,16 +542,9 @@ INSERT INTO O_ATTR
 	'',
 	'Way_ID',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("0ac5a7ee-e799-478f-ae62-a1be52fa199b",
 	"09423687-e999-4aba-876d-35e0d3331311",
@@ -588,7 +560,7 @@ INSERT INTO O_REF
 	'',
 	'Model',
 	'diagramId',
-	'R24');
+	'R24.''is moved by''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
 	"09423687-e999-4aba-876d-35e0d3331311",
@@ -616,7 +588,7 @@ INSERT INTO O_ATTR
 	'',
 	'diagramId',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -638,15 +610,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"0ac5a7ee-e799-478f-ae62-a1be52fa199b");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("0ac5a7ee-e799-478f-ae62-a1be52fa199b",
+	1,
+	"b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Graphical Data',
 	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
 -------------------------------------------------------
 Import:org.eclipse.swt.graphics.Color
 Notify_Changes:true',
-	'GD',
 	1,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000001900032",
 	'../Graphical Data.xtuml');
