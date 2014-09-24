@@ -563,11 +563,11 @@ ${attrs.body}\
       .assign addExportRGOProxyCall = false
       .if(not_empty parent_table)
         .select any class from instances of O_OBJ where (selected.Key_Lett == parent_table.Key_Lett)
-        .select one domain related by class->S_SS[R2]->S_DOM[R1]
+        .select one root_pkg related by class->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8001]->EP_PKG[R8000]
         .// no need to export RGO proxies for ooaofgraphics
         .// currently only data types are supported
 		.invoke rgoResolution = rgo_resolution_supported(parent_table.Key_Lett)
-        .if(((checkParentForComponentContainment) and (not_empty domain)) and (rgoResolution.supported))
+        .if(((checkParentForComponentContainment) and (not_empty root_pkg)) and (rgoResolution.supported))
           .assign proxy_index = 0
           .// for every rto associated with the class, export an RGO
           .// proxy

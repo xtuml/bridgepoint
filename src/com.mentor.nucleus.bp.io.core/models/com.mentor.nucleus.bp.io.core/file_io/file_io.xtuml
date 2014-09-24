@@ -14,7 +14,7 @@ Modified:  $Date$
 (c) Copyright 2003-2014 Mentor Graphics Corporation All rights reserved.
 
 ========================================================================
-Licensed under the Apache License, Version 2.0 (the "License"); you may not
+Licensed under the Apache License, Version 2.0 (the "License"). You may not
 use this file except in compliance with the License.  You may obtain a copy
 of the License at
 
@@ -50,7 +50,7 @@ INSERT INTO GD_MD
 	0,
 	0,
 	0,
-	'',
+	'4.1.17',
 	'com.mentor.nucleus.bp.io.core::file_io');
 INSERT INTO GD_GE
 	VALUES ("efc012ee-590c-4458-abc9-2588c931543a",
