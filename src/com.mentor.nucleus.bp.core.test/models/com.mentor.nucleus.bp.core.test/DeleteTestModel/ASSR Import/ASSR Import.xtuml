@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("4eaf2329-ad77-4c02-a278-9fbe085e7d10",
@@ -25,14 +25,14 @@ INSERT INTO GD_MD
 	0,
 	0,
 	'',
-	'DeleteTestModel::ASSR Import');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::ASSR Import');
 INSERT INTO GD_GE
 	VALUES ("50f0be86-7e4b-492c-805a-9c1bc6d8e26f",
 	"39285cb9-808d-4d82-bbfa-53594ce35dff",
 	"4e868087-d08c-4404-a8ac-f3dbb012784f",
 	21,
 	0,
-	'DeleteTestModel::ASSR Import::ASSR_IOBJ_REL 1');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::ASSR Import::ASSR_IOBJ_REL 1');
 INSERT INTO GD_SHP
 	VALUES ("50f0be86-7e4b-492c-805a-9c1bc6d8e26f");
 INSERT INTO GD_NCS
@@ -56,7 +56,7 @@ INSERT INTO GD_GE
 	"23f05f29-67bc-4a8e-8ead-7d3c326cdf05",
 	21,
 	0,
-	'DeleteTestModel::ASSR Import::ASSR_IOBJ_REL 2');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::ASSR Import::ASSR_IOBJ_REL 2');
 INSERT INTO GD_SHP
 	VALUES ("d4e51bf8-5bba-41c5-925c-0c4ce16e2e72");
 INSERT INTO GD_NCS
@@ -80,7 +80,7 @@ INSERT INTO GD_GE
 	"16a8740d-7d21-485d-9a69-f2733caafa9c",
 	21,
 	0,
-	'DeleteTestModel::ASSR Import::ASSR_IOBJ_REL_Reflex 1');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::ASSR Import::ASSR_IOBJ_REL_Reflex 1');
 INSERT INTO GD_SHP
 	VALUES ("6a0b23ba-16ce-4eb8-87b1-7c12e41a1da0");
 INSERT INTO GD_NCS
@@ -104,7 +104,7 @@ INSERT INTO GD_GE
 	"b52aff45-adbe-4686-a749-e375026b3f91",
 	21,
 	0,
-	'DeleteTestModel::ASSR Import::ASSR_IOBJ_REL_Reflex 2');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::ASSR Import::ASSR_IOBJ_REL_Reflex 2');
 INSERT INTO GD_SHP
 	VALUES ("8bd9fa99-7e54-4c35-8bcb-551a939b299f");
 INSERT INTO GD_NCS
