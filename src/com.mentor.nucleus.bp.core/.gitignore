@@ -1,11 +1,7 @@
 bin
 scrapbook
 blck_id
-____file.txt
-____actn.arc
 timer.log
-ooa_ooa.gen
-core_ui.gen
 plugin.xml
 build.xml
 temp.folder

@@ -63,7 +63,6 @@ import com.mentor.nucleus.bp.core.StateMachine_c;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.util.DomainUtil;
-import com.mentor.nucleus.bp.io.sql.ImportBPSql;
 import com.mentor.nucleus.bp.test.common.BaseTest;
 
 public class ParseAllInDomain extends BaseTest {
