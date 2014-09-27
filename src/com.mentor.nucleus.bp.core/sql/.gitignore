@@ -1,5 +1,3 @@
-____file.txt
-pg_sg.gen
 Ooaofooa.bpi.sql
 metamodel_schema.sql
 ooaofooa.sql
@@ -12,7 +10,6 @@ cme_functions.pei.sql
 cme_import.sql
 ooaofooa_hierarchy_schema.sql
 ooaofooa_hierarchy.sql
-cme_menus.gen
 .cme_actions_last_build
 file_io_schema.sql
 file_io.sql
