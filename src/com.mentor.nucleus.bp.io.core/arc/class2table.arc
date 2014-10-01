@@ -27,17 +27,21 @@
 .select many obj_set from instances of O_OBJ
 .for each obj in obj_set
   .if ( "$l{obj.Descrip:Persistent}" != "false" )
-    .select one root_pkg related by obj->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8001]->EP_PKG[R8000]
-    .select one parent_pkg related by root_pkg->PE_PE[R8001]->EP_PKG[R8000]
-    .while (not_empty parent_pkg)
-      .assign root_pkg = parent_pkg
-      .select one parent_pkg related by root_pkg->PE_PE[R8001]->EP_PKG[R8000]
-    .end while
     .assign domain_name = ""
-    .if (not_empty root_pkg)
-      .assign domain_name = "${root_pkg.Name}"
+    .select one domain related by obj->S_SS[R2]->S_DOM[R1]
+    .if (not_empty domain)
+      .assign domain_name = domain.Name
+    .else
+      .select one root_pkg related by obj->PE_PE[R8001]->EP_PKG[R8000]->PE_PE[R8001]->EP_PKG[R8000]
+      .select one parent_pkg related by root_pkg->PE_PE[R8001]->EP_PKG[R8000]
+      .while (not_empty parent_pkg)
+        .assign root_pkg = parent_pkg
+        .select one parent_pkg related by root_pkg->PE_PE[R8001]->EP_PKG[R8000]
+      .end while
+      .if (not_empty root_pkg)
+        .assign domain_name = "${root_pkg.Name}"
+      .end if
     .end if
-
 INSERT INTO EI VALUES ( '${obj.Name}' );
 INSERT INTO T VALUES ( '${obj.Name}', '${obj.Key_Lett}', '${obj.Name}', '${domain_name}' );
     .select many attr_set related by obj->O_ATTR[R102]
