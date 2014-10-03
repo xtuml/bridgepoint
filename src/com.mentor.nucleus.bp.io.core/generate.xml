@@ -28,6 +28,7 @@
 
   <property name="sql.input" value="models/com.mentor.nucleus.bp.io.core/file_io" />
   <property name="sql.output" value="file_io.sql" />
+  <property name="subsystems_to_remove" value="ACT_ V_ E_ GD_ CT_ TS_ DIM_ STY_" />
 
   <target name="sql.depends" >
     <uptodate property="sql.buildNotNeeded"  targetfile="sql/${sql.output}">
@@ -39,18 +40,18 @@
           description="Generate the sql version of the File IO model"
           unless="sql.buildNotNeeded" >
     <echo >Generating ${sql.output} ...</echo>
-  	<copy file="gen/code_generation/file_io.sql" tofile="gen/code_generation/file_io.xtuml"/>
+  	<copy file="../com.mentor.nucleus.bp.pkg/globals/Globals.xtuml" tofile="${sql.input}/Globals.xtuml" />
   	<exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
-      <arg line="xtumlmc_cleanse_for_BridgePoint ${basedir}/gen/code_generation sql/${sql.output}" />
+      <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}"/>
   	</exec>
-  	<delete file="gen/code_generation/file_io.xtuml" />
+    <delete file="${sql.input}/Globals.xtuml" />
   </target>
 
   <property name="mcj_path" value="../MC-Java" />
   <property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
   <property name="schema.output" value="file_io_schema.sql" />
 
-  <target name="schema.depends" >
+  <target name="schema.depends" depends="sql">
     <uptodate property="schema.buildNotNeeded" targetfile="sql/${schema.output}">
        <srcfiles dir = "sql"        includes = "${sql.output}"/>
        <srcfiles dir = "${mcj_path}" includes = "${sg.dep}"/>
@@ -62,7 +63,7 @@
           description="Generate the File IO schema file"
           unless="schema.buildNotNeeded" >
     <echo >Generating ${schema.output} ...</echo>
-  <ant antfile="${mcj_path}/build.xml" target="generate.schema" >
+  <ant antfile="${mcj_path}/build.xml" target="generate.schema" useNativeBasedir="false">
     <property name="param1" value="${sql.output}" />
     <property name="param2" value="${mcj_path}" />
   	<property name="param4" value="file_io" />
