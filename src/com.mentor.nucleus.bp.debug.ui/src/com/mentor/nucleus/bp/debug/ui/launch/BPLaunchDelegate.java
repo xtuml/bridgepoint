@@ -21,18 +21,6 @@ package com.mentor.nucleus.bp.debug.ui.launch;
 // License for the specific language governing permissions and limitations under
 // the License.
 //======================================================================== 
-import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-
-
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -43,18 +31,13 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.ILaunchConfigurationDelegate;
-
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
-import com.mentor.nucleus.bp.core.common.NonRootModelElement;
-import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.debug.ui.BPDebugUIPlugin;
 import com.mentor.nucleus.bp.debug.ui.model.BPDebugTarget;
 import com.mentor.nucleus.bp.ui.session.views.SessionExplorerView;
-import com.mentor.nucleus.bp.io.core.CoreExport;
 public class BPLaunchDelegate implements ILaunchConfigurationDelegate {
 	private boolean launching = false;
 
@@ -82,10 +65,8 @@ public class BPLaunchDelegate implements ILaunchConfigurationDelegate {
 				launching = true;
 			}
 
-            boolean isLicensed = BridgePointLicenseManager.isExecutionLicensed();
-
 			// if in debug mode, create a debug target
-			if (mode.equals(ILaunchManager.DEBUG_MODE) && isLicensed) {
+			if (mode.equals(ILaunchManager.DEBUG_MODE)) {
 				monitor.subTask("Verify launching attributes...");
 
 				String[] projects = BPDebugUtils
