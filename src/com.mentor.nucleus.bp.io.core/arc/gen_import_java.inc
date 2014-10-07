@@ -418,7 +418,6 @@ import com.mentor.nucleus.bp.core.common.*;
 import com.mentor.nucleus.bp.core.ui.Selection;
 import com.mentor.nucleus.bp.core.ui.marker.UmlProblem;
 import com.mentor.nucleus.bp.core.ui.preferences.BridgePointProjectPreferences;
-import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
 import com.mentor.nucleus.bp.core.util.PersistenceUtil;
 import com.mentor.nucleus.bp.io.core.CoreImport;
 .if (callingProject == "NBP")

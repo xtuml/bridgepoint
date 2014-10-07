@@ -43,9 +43,7 @@ import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesStore;
 import com.mentor.nucleus.bp.core.common.ModelRoot;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
-import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
 import com.mentor.nucleus.bp.core.util.CoreUtil;
-import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.ui.canvas.Ooaofgraphics;
 import com.mentor.nucleus.bp.ui.text.activity.AllActivityModifier;
 
@@ -106,14 +104,7 @@ public abstract class CoreExport implements IRunnableWithProgress {
 			IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
 	        String option = store.getString(BridgePointPreferencesStore.EXPORT_OAL);
 	        if (option.equals(MessageDialogWithToggle.ALWAYS)) {
-	        	boolean isLicensed = BridgePointLicenseManager.licenseExists(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
-	        	
-				if (!isLicensed) {
-					CorePlugin.logError(ExportLicenseError, null);
-					m_exportOAL = false;
-				} else {
-					m_exportOAL = true;
-				}
+				m_exportOAL = true;
 	        } else {
 	        	m_exportOAL = false;
 	        }

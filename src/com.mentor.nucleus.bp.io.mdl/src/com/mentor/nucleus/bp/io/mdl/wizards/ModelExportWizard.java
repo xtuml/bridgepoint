@@ -22,7 +22,6 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.dialogs.IDialogSettings;
-
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -35,7 +34,6 @@ import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
 import com.mentor.nucleus.bp.core.common.NonRootModelElement;
 import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.ui.Selection;
-import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.io.core.CoreExport;
 import com.mentor.nucleus.bp.io.core.CorePlugin;
@@ -153,8 +151,6 @@ public class ModelExportWizard extends Wizard implements IImportWizard {
 		boolean successfulExport = false;
 		String errorMsg = "Unable to export to destination file.";  
 		FileOutputStream fos;
-		boolean userSelectedToExportOALInstances = false;
-		boolean oalExportIsLicensed = false;
 		try {
 			m_outputFile = new File(fExportPage.getDestinationFilePath());
 			if (!m_outputFile.exists()) {
@@ -177,21 +173,7 @@ public class ModelExportWizard extends Wizard implements IImportWizard {
 					}
 				}
 			}
-
-			// Note that we test for license availability during this call. If 
-			// The user request OAL Export and they don't have a license we 
-			// log the error.
-			userSelectedToExportOALInstances = createExportProcessor();
-			oalExportIsLicensed = false;
-			if (userSelectedToExportOALInstances) {
-				// If the user is exporting executable OAL instances then check
-				// out the license
-				oalExportIsLicensed = BridgePointLicenseManager
-						.getLicense(
-								BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT,
-								true);
-			}
-
+			createExportProcessor();
 			boolean exportOALIsSelected = false;
 			NonRootModelElement[] selectedElements = null;
 			if (exporter instanceof CoreExport) {
@@ -229,15 +211,7 @@ public class ModelExportWizard extends Wizard implements IImportWizard {
 			CorePlugin.logError(errorMsg, e);
 		} catch (InterruptedException e) {
 			CorePlugin.logError(errorMsg, e);
-		} finally {
-			// Must check in this license because as specified in
-			// checkout above it is set to "linger", and the linger starts at check-in.
-			if (userSelectedToExportOALInstances && oalExportIsLicensed) {
-				BridgePointLicenseManager
-						.releaseLicense(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
-			}			
-		}
-		
+		}		
 		if (!successfulExport) {
 			Shell parent= getShell();
 			if (getContainer() != null) {
