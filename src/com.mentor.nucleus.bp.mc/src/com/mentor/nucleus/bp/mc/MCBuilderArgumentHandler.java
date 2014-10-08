@@ -67,7 +67,6 @@ public class MCBuilderArgumentHandler {
 		String cmdLine = 
 					mc_plugin_dir                                   // Location of the model compiler plugin
 			        + getBuilderDependantArguments() 			    // -i (XMI build) and/or -c (no builder specified)
-					+  getLicenseString(builderIDSelected)          // -l license string
 					+ " " + eclipseSpecificArg						// -e  to tell the xtumlmc_build this is eclipse
 					+ " -d " + codeGenFolder 						// -d code generation folder
 					+ " -O ../../" + srcDestFolder + "/"   			// -O destination for generated source
@@ -158,31 +157,4 @@ public class MCBuilderArgumentHandler {
 		return builderDepdantArgs;
 	}
 	
-	/**
-	 * The license string is determined based on the MC used.  If it is not
-	 * one of ours, then we assume it must be a custom MC
-	 *
-	 */
-    public static String getLicenseString(String builderIDSelected ) {
-    	String licenseString = "";
-
-    	if (builderIDSelected.startsWith(AbstractNature.C_SOURCE_MC_ID)) {
-    		licenseString = " -l3s ";
-    	} else if (builderIDSelected.startsWith(AbstractNature.C_BINARY_MC_ID)) {
-    		licenseString = " -l3b ";
-    	} else if (builderIDSelected.startsWith(AbstractNature.SYSTEMC_SOURCE_MC_ID)) {
-    		licenseString = " -lSCs ";
-    	} else if (builderIDSelected.startsWith(AbstractNature.CPP_SOURCE_MC_ID)) {
-    		licenseString = " -l2s ";    		
-    	} else if (builderIDSelected.startsWith(AbstractNature.VHDL_SOURCE_MC_ID)) {
-    		licenseString = " -lVHs ";    		
-    	} else {
-        	// If it was not one of our MCs selected, then there it must be a 
-        	// custom MC.  In this case, we do not pass any -l option to the 
-        	// builder.  The builder will require a DAP license in this situation.
-    		licenseString = "";
-    	}
-
-        return licenseString;
-    }
 }
