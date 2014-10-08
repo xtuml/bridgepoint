@@ -42,11 +42,7 @@ public class MCNewProjectWizard extends AbstractNewProjectWizard {
 	 *         as available in the New Project Wizard.
 	 */
 	public static IWorkbenchWizard getWizard(Object arguments) {
-		
-		MCNewProjectWizard npw = null;
-		if (MCBuilderArgumentHandler.isLicensed(Activator.PLUGIN_ID)) {
-				npw = new MCNewProjectWizard();
-		}
+		MCNewProjectWizard npw = new MCNewProjectWizard();
 		return npw;
 	}
 
