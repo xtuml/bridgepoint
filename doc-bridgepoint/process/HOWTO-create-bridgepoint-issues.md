@@ -32,26 +32,33 @@ If you need help following these instructions, please contact support@onefact.ne
 
 4. Create a Bug Report or Feature Request
 -------------
-1. Enter your username and password and click "Login >>"
+1.  Navigate to the support system here http://54.172.113.156/redmine/projects
+
+2.  Click the "Sign in" link.
+<table><tr><td>
+<img src="images/register_sign_in.png">
+</td></tr></table>
+
+3. Enter your username and password and click "Login >>"
 <table><tr><td>
 <img src="images/login.png">
 </td></tr></table>
 
-2. Upon successful login, you are taken to the Projects page.
+4. Upon successful login, you are taken to the Projects page.
 <table><tr><td>
 <img src="images/projects_page.png">
 </td></tr></table>
 
-3. From here, select either the top-level BridgePoint project or one of the tool-specific subprojects.  For this example, select BridgePoint.
+5. From here, select either the top-level BridgePoint project or one of the tool-specific subprojects.  For this example, select BridgePoint.
 <table><tr><td>
 <img src="images/BridgePoint_project.png">
 </td></tr></table>
 
-4. Now use the tab header links "Overview", "Activity", etc... to see information about this project.
+6. Now use the tab header links "Overview", "Activity", etc... to see information about this project.
 
-5. The "Issues" tab shows all issues for the current project and its subprojects.
+7. The "Issues" tab shows all issues for the current project and its subprojects.
 
-6. The "New issue" tab provides a form to submit a feature request or provide a description and reproduction steps for a bug.
+8. The "New issue" tab provides a form to submit a feature request or provide a description and reproduction steps for a bug.
 <table><tr><td>
 <img src="images/new_issue.png">
 </td></tr></table>
@@ -59,7 +66,7 @@ If you need help following these instructions, please contact support@onefact.ne
   - A feature request should clearly define the desired requirement(s) for the new functionality.
   - A bug report should include as much information as possible about the failure, including steps for developers to reproduce the issue.
 
-7. The "My page" link in the header shows you a personalized page that lists all the issues you have reported as well as any issues assigned to you as a contributor to the BridgePoint open source project.
+9. The "My page" link in the header shows you a personalized page that lists all the issues you have reported as well as any issues assigned to you as a contributor to the BridgePoint open source project.
 <table><tr><td>
 <img src="images/my_page.png">
 </td></tr></table>
