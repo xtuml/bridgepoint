@@ -54,3 +54,8 @@ If you need help following these instructions, please contact support@onefact.ne
 <img src="images/new_issue.png">
 </td></tr></table>
   - __NOTE:__ One Fact customers may choose to make their issue "Private" by checking the box on the New Issue form.  Private issues are only viewable by the reporter and One Fact employees.
+
+11. The "My page" link in the header shows you a personalized page that lists all the issues you have reported as well as any issues assigned to you as a contributor to the BridgePoint open source project.
+<table><tr><td>
+<img src="images/my_page.png">
+</td></tr></table>
