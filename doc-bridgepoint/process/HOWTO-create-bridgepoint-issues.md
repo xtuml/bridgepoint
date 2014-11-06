@@ -49,7 +49,7 @@ If you need help following these instructions, please contact support@onefact.ne
 <img src="images/projects_page.png">
 </td></tr></table>
 
-5. You are shown a the specific page for the chosen project.
+5. You are shown a the Overview page for the chosen project.
 <table><tr><td>
 <img src="images/BridgePoint_project.png">
 </td></tr></table>
