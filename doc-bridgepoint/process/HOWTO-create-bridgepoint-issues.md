@@ -9,7 +9,7 @@ uses Redmine for project management and issue tracking.  The xtUML community and
 ----------------------
 None
 
-3. Steps
+3. Create a Redmine Account
 -------------
 If you need help following these instructions, please contact support@onefact.net.
 
@@ -30,32 +30,36 @@ If you need help following these instructions, please contact support@onefact.ne
 <img src="images/approved_activation.png">
 </td></tr></table>
 
-5. Enter your username and password and click "Login >>"
+4. Create a Bug Report or Feature Request
+-------------
+1. Enter your username and password and click "Login >>"
 <table><tr><td>
 <img src="images/login.png">
 </td></tr></table>
 
-6. You will be taken to the Projects page.
+2. Upon successful login, you are taken to the Projects page.
 <table><tr><td>
 <img src="images/projects_page.png">
 </td></tr></table>
 
-7. From here, select either the top-level BridgePoint project or one of the tool-specific subprojects.  For this example, select BridgePoint.
+3. From here, select either the top-level BridgePoint project or one of the tool-specific subprojects.  For this example, select BridgePoint.
 <table><tr><td>
 <img src="images/BridgePoint_project.png">
 </td></tr></table>
 
-8. Now use the tab headers "Overview", "Activity", etc to see information about this project.
+4. Now use the tab header links "Overview", "Activity", etc... to see information about this project.
 
-9. The "Issues" tab shows all issues for the current project and its subprojects.
+5. The "Issues" tab shows all issues for the current project and its subprojects.
 
-10. The "New issue" tab provides a form to submit a feature request or provide a description and reproduction steps for a bug.
+6. The "New issue" tab provides a form to submit a feature request or provide a description and reproduction steps for a bug.
 <table><tr><td>
 <img src="images/new_issue.png">
 </td></tr></table>
   - __NOTE:__ One Fact customers may choose to make their issue "Private" by checking the box on the New Issue form.  Private issues are only viewable by the reporter and One Fact employees.
+  - A feature request should clearly define the desired requirement(s) for the new functionality.
+  - A bug report should include as much information as possible about the failure, including steps for developers to reproduce the issue.
 
-11. The "My page" link in the header shows you a personalized page that lists all the issues you have reported as well as any issues assigned to you as a contributor to the BridgePoint open source project.
+7. The "My page" link in the header shows you a personalized page that lists all the issues you have reported as well as any issues assigned to you as a contributor to the BridgePoint open source project.
 <table><tr><td>
 <img src="images/my_page.png">
 </td></tr></table>
