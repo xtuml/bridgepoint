@@ -44,12 +44,12 @@ If you need help following these instructions, please contact support@onefact.ne
 <img src="images/login.png">
 </td></tr></table>
 
-4. Upon successful login, you are taken to the Projects page.
+4. Upon successful login, you are taken to the Projects page. From here, select either the top-level BridgePoint project or one of the tool-specific subprojects.  For this example, select BridgePoint.
 <table><tr><td>
 <img src="images/projects_page.png">
 </td></tr></table>
 
-5. From here, select either the top-level BridgePoint project or one of the tool-specific subprojects.  For this example, select BridgePoint.
+5. You are shown a the specific page for the chosen project.
 <table><tr><td>
 <img src="images/BridgePoint_project.png">
 </td></tr></table>
