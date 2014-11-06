@@ -47,9 +47,9 @@ If you need help following these instructions, please contact support@onefact.ne
 
 8. Now use the tab headers "Overview", "Activity", etc to see information about this project.
 
-9. The "Issues" link will show all issues for the current project and its subprojects.
+9. The "Issues" tab shows all issues for the current project and its subprojects.
 
-10. The "New issue" link will open a form that allows to submit a feature request or provide a description and reproduction steps for a bug.
+10. The "New issue" tab provides a form to submit a feature request or provide a description and reproduction steps for a bug.
 <table><tr><td>
 <img src="images/new_issue.png">
 </td></tr></table>
