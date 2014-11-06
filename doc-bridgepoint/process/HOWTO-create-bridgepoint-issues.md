@@ -13,7 +13,7 @@ None
 -------------
 1.  Navigate to the support system here http://54.172.113.156/redmine/projects
 2.  Click the Register link to create an account.
-[image Register_sign_in.png]
+![Image of Register link](images/register_sign_in.png)
 3.  Complete the registration form.  All fields are required. Click Submit.
 [image Registration_form.png]
 4. Your registration will be submitted for approval.  Once approved, you will receive an e-mail notification from issues@onefact.net with a login link. Click the link to continue logging in.
