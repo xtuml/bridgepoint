@@ -2,7 +2,7 @@
 
 1. Abstract
 -----------
-This note describes how to submit a bug report or feature request for BridgePoint using the OneFact support system.  One Fact
+This note describes how to submit a bug report or feature request for BridgePoint using the One Fact support system.  One Fact
 uses Redmine for project management and issue tracking.  The xtUML community and One Fact customers use this system.
 
 2. Document References
