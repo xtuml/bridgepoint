@@ -2,7 +2,7 @@
 <?eclipse version="3.0"?>
 <plugin id="com.mentor.nucleus.bp.ui.session"
      name="BridgePoint Session UI Plug-in"
-     version="4.1.12"
+     version="4.2.0"
      provider-name="Mentor Graphics"
      class="com.mentor.nucleus.bp.ui.session.SessionExplorerPlugin">
 
