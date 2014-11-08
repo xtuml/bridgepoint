@@ -3,7 +3,7 @@
 <plugin
    id="com.mentor.nucleus.bp.bld.pkg"
    name="BridgePoint Builder"
-   version="4.1.12"
+   version="4.2.0"
    provider-name="Mentor Graphics"
    class="com.mentor.nucleus.bp.bld.pkg.Unreferenced">
 
