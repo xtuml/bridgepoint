@@ -64,8 +64,7 @@ feature_pkg_modules="com.mentor.nucleus.bp.dap.pkg
 feature_modules="com.mentor.nucleus.bp.dap.pkg-feature
                  com.mentor.nucleus.bp.pkg-feature
                  com.mentor.nucleus.bp.verifier.pkg-feature"
-plugin_fragments="com.mentor.nucleus.bp.core.win32.x86
-                  com.mentor.nucleus.bp.core.linux.x86"
+plugin_fragments=""
 all_feature_modules="$feature_pkg_modules $feature_modules"
 model_compiler_modules="MC-Java"
 
