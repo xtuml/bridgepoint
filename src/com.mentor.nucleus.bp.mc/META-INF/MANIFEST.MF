@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Model Compiler Interface
 Bundle-SymbolicName: com.mentor.nucleus.bp.mc;singleton:=true
 Bundle-Version: 4.2.0
-Bundle-Vendor: Mentor Graphics
+Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.core.variables,

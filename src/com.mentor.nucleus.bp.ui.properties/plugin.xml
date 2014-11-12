@@ -13,7 +13,7 @@
    id="com.mentor.nucleus.bp.ui.properties"
    name="BridgePoint Properties Plug-in"
    version="4.2.0"
-   provider-name="Mentor Graphics">
+   provider-name="xtUML.org">
 
    <runtime>
       <library name="properties.jar">

@@ -29,7 +29,7 @@ plugin.
    id="com.mentor.nucleus.bp.ui.explorer"
    name="BridgePoint Explorer Plug-in"
    version="4.2.0"
-   provider-name="Mentor Graphics"
+   provider-name="xtUML.org"
    class="com.mentor.nucleus.bp.ui.explorer.ExplorerPlugin">
 
    <runtime>

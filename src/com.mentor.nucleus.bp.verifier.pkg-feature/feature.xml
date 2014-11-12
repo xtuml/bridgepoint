@@ -3,7 +3,7 @@
       id="com.mentor.nucleus.bp.verifier.pkg"
       label="BridgePoint Verifier"
       version="4.2.0"
-      provider-name="Mentor Graphics">
+      provider-name="xtUML.org">
 
    <copyright>
       Copyright © 1999-2014 Mentor Graphics Corporation.  All rights reserved.
