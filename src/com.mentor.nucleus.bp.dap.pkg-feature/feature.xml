@@ -3,7 +3,7 @@
       id="com.mentor.nucleus.bp.dap.pkg"
       label="BridgePoint Data Access Package"
       version="4.2.0"
-      provider-name="Mentor Graphics"
+      provider-name="xtUML.org"
       plugin="com.mentor.nucleus.bp.dap.pkg">
 
    <copyright>

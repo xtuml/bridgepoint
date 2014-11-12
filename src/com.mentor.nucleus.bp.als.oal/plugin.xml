@@ -4,7 +4,7 @@
    id="com.mentor.nucleus.bp.als.oal"
    name="BridgePoint Oal Plug-in"
    version="4.2.0"
-   provider-name="Mentor Graphics"
+   provider-name="xtUML.org"
    class="com.mentor.nucleus.bp.als.oal.OalPlugin">
 
    <runtime>

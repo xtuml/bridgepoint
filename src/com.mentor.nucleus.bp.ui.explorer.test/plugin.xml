@@ -4,7 +4,7 @@
    id="com.mentor.nucleus.bp.ui.explorer.test"
    name="Nucleus BridgePoint Explorer Test Plug-in"
    version="1.0.0"
-   provider-name="Mentor Graphics"
+   provider-name="xtUML.org"
    class="com.mentor.nucleus.bp.ui.explorer.test.TestPlugin">
 
    <runtime>

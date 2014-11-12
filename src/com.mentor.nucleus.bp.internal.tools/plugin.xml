@@ -27,7 +27,7 @@ the License.
    id="com.mentor.nucleus.bp.internal.tools"
    name="BridgePoint Tools Plug-in"
    version="1.0.4"
-   provider-name="Mentor Graphics"
+   provider-name="xtUML.org"
    class="com.mentor.nucleus.bp.internal.tools.ToolsPlugin">
 
    <runtime>

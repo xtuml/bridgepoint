@@ -4,7 +4,7 @@
    id="com.mentor.nucleus.bp.docgen"
    name="BridgePoint Documentation Generator Plug-in"
    version="4.2.0"
-   provider-name="Mentor Graphics"
+   provider-name="xtUML.org"
    class="com.mentor.nucleus.bp.docgen.DocGenPlugin">
 
    <runtime>

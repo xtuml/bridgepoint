@@ -4,7 +4,7 @@ Bundle-Name: Welcome Test Plug-in
 Bundle-SymbolicName: com.mentor.nucleus.bp.welcome.test
 Bundle-Version: 1.0.0
 Bundle-Activator: com.mentor.nucleus.bp.welcome.test.TestPlugin
-Bundle-Vendor: Mentor Graphics Corp
+Bundle-Vendor: xtUML.org
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

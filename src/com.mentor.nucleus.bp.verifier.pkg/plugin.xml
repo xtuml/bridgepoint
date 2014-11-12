@@ -4,7 +4,7 @@
    id="com.mentor.nucleus.bp.verifier.pkg"
    name="BridgePoint Verifier"
    version="4.2.0"
-   provider-name="Mentor Graphics"
+   provider-name="xtUML.org"
    class="com.mentor.nucleus.bp.verfier.pkg.Unreferenced">
 
    <runtime>
