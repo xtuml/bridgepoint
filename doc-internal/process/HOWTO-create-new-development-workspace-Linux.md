@@ -122,6 +122,9 @@ _- Select Project > Build Automatically
 
 _R The build is successful
 
+_- Install the g++ compiler package
+  sudo apt-get install g++
+
 # NOTE: For now we have no special configuration to set up the graphics to run 
 # unit tests.  These just don't work on Linux at this time.
 
