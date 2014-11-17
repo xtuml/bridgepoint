@@ -24,8 +24,13 @@ _- Download the latest released version of the tool.  You will find all the rele
      sudo apt-get install libxtst6:i386
   _- Run the installer.  You can install wherever you like, but these instructions 
      assume the default:  ~/MentorGraphics/BridgePoint
-_- If installing under Ubuntu, install required runtime library for GTK
+_- If installing under Ubuntu, install required runtime libraries for GTK
    sudo apt-get install libgtk2.0-0:i386
+   sudo apt-get install gtk2-engines:i386
+   sudo apt-get install gtk2-engines-*:i386
+   sudo apt-get install --reinstall unity-gtk2-module:i386
+   sudo apt-get install libgtkmm-2.4-1c2:i386
+   sudo apt-get install libcanberra-gtk-module:i386
 _- Launch the tool open a new eclipse workspace that will become your development workspace.
       Example:  ~/workspace/current
 
