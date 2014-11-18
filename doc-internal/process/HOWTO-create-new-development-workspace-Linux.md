@@ -16,10 +16,21 @@ Preparations
 Steps
 ------------
 <pre>
-_- Download the latest released version of the tool.  You will find all the releases at [3]
+_- Download the latest released version of the tool.  You will find all the releases at [3].
+   Linux installers have an ixl file extension.
+  _- Add execute permissions to the downloaded installer file
+     (chmod a+x BridgePoint_vX.X.XX_XXXX.ixl)
+  _- If installing under Ubuntu install required libraries:
+     sudo apt-get install libxtst6:i386
   _- Run the installer.  You can install wherever you like, but these instructions 
      assume the default:  ~/MentorGraphics/BridgePoint
-   
+_- If installing under Ubuntu, install required runtime libraries for GTK
+   sudo apt-get install libgtk2.0-0:i386
+   sudo apt-get install gtk2-engines:i386
+   sudo apt-get install gtk2-engines-*:i386
+   sudo apt-get install --reinstall unity-gtk2-module:i386
+   sudo apt-get install libgtkmm-2.4-1c2:i386
+   sudo apt-get install libcanberra-gtk-module:i386
 _- Launch the tool open a new eclipse workspace that will become your development workspace.
       Example:  ~/workspace/current
 
@@ -70,6 +81,7 @@ _- Update eclipse preferences to common and required settings:
     _- Select ~/git/internal/doc-internal/process/templates/checklists/development-workspace-setup/EclipsePreferences.epf
     _- Assure that "Import all" is selected
     _- Select Finish
+    _- This triggers SVN connector discovery select the most recent SVN Kit connector
 	
 _- Install required add-ons:
   _- Open the Navigator view
@@ -95,11 +107,23 @@ _- Modify Launcher.sh with required development settings:
       export XTUML_PRIVATE_MODEL_REPOSITORY=~/git/modelsmg/test/
       export XTUML_DEVELOPMENT_REPOSITORY=~/git/internal
 
+_- Add execute permission to the generator utility scripts
+   _- chmod a+x ~/util/BridgePointDev-Linux/mc3020/bin/xtumlmc_build.exe
+   _- chmod a+x ~/util/BridgePointDev-Linux/bin/xtumlmc_gen_erate
+_- Remove unwanted carriage returns in one of the generator utility scripts
+   _- cd ~/MentorGraphics/BridgePoint4200/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.mc.c.binary_4.2.0/mc3020/bin
+   _- cp xtumlmc_build xtumlmc_build.copy
+   _- tr -d "\r" < xtumlmc_build.copy > xtumlmc_build
+_- Install wine if necessary (sudo apt-get install wine1.4)
+
 _- Start BridgePoint
 	  
 _- Select Project > Build Automatically
 
 _R The build is successful
+
+_- Install the g++ compiler package
+  sudo apt-get install g++
 
 # NOTE: For now we have no special configuration to set up the graphics to run 
 # unit tests.  These just don't work on Linux at this time.
