@@ -16,7 +16,11 @@ Preparations
 Steps
 ------------
 <pre>
-The BridgePoint installer generally will not run out of the box on Linux.  Some system configuration is typically required.  Here are some additional packages we suggest be installed and prepatory configuration before running the installer.  We've segmented the advice based on the most popular distributions:
+The BridgePoint installer generally will not run out of the box on Linux.  Some system configuration is 
+typically required.  Here are some additional packages we suggest be installed and prepatory 
+configuration before running the installer.  We've segmented the advice based on the most popular 
+distributions:
+
   Ubuntu 14.04LTS:
     $ sudo apt-get install libxtst6:i386
     $ sudo apt-get install libgtk2.0-0:i386
@@ -28,6 +32,7 @@ The BridgePoint installer generally will not run out of the box on Linux.  Some 
     $ sudo apt-get install tofrodos 
     $ sudo apt-get install wine 
     $ sudo apt-get install libstdc++5
+    $ sudo apt-get install g++
     $ cd /usr/bin 
     $ sudo ln -s  fromdos dos2unix 
     $ sudo ln -s todos unix2dos  
@@ -63,7 +68,8 @@ _- Select the option to clone and add to view:
   _- Select Next
   _- Select all the branches
   _- Select Next
-  _- For the Local Destination select your github/repos folder (e.g. ~/git, which these instructions will use).
+  _- For the Local Destination select your github/repos folder (e.g. ~/git, which these 
+     instructions will use).
      NOTE: DO NOT SELECT YOUR WORKSPACE!  This is the local repository location.
   _- Select Finish.
 
@@ -116,7 +122,7 @@ _- Exit BridgePoint
 
 _- Modify Launcher.sh with required development settings:
   _- Open ~/MentorGraphics/BridgePoint/eclipse/Launcher.sh in a text editor
-  _- Update the "set MGLS_LICENSE_FILE..." line to :
+  _- (Skip for BridgePoint 4.2.0 and on) Update the "set MGLS_LICENSE_FILE..." line to :
       export MGLS_LICENSE_FILE=~/MentorGraphics/license.dat   
       For VMs (or even locally at your discretion) add:
       export MGLS_LICENSE_FILE=1717@wv-lic-01.wv.mentorg.com;1717@wv-lic-02.wv.mentorg.com;1717@svr-azt-eng-01  
@@ -135,16 +141,12 @@ _- Remove unwanted carriage returns in one of the generator utility scripts
    _- cd ~/MentorGraphics/BridgePoint4200/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.mc.c.binary_4.2.0/mc3020/bin
    _- cp xtumlmc_build xtumlmc_build.copy
    _- tr -d "\r" < xtumlmc_build.copy > xtumlmc_build
-_- Install wine if necessary (sudo apt-get install wine1.4)
 
 _- Start BridgePoint
 	  
 _- Select Project > Build Automatically
 
 _R The build is successful
-
-_- Install the g++ compiler package
-  sudo apt-get install g++
 
 # NOTE: For now we have no special configuration to set up the graphics to run 
 # unit tests.  These just don't work on Linux at this time.
