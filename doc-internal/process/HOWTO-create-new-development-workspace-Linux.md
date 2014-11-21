@@ -16,21 +16,42 @@ Preparations
 Steps
 ------------
 <pre>
+The BridgePoint installer generally will not run out of the box on Linux.  Some system configuration is typically required.  Here are some additional packages we suggest be installed and prepatory configuration before running the installer.  We've segmented the advice based on the most popular distributions:
+  Ubuntu 14.04LTS:
+    $ sudo apt-get install libxtst6:i386
+    $ sudo apt-get install libgtk2.0-0:i386
+    $ sudo apt-get install gtk2-engines:i386
+    $ sudo apt-get install gtk2-engines-*:i386
+    $ sudo apt-get install --reinstall unity-gtk2-module:i386
+    $ sudo apt-get install libgtkmm-2.4-1c2:i386
+    $ sudo apt-get install libcanberra-gtk-module:i386
+    $ sudo apt-get install tofrodos 
+    $ sudo apt-get install wine 
+    $ sudo apt-get install libstdc++5
+    $ cd /usr/bin 
+    $ sudo ln -s  fromdos dos2unix 
+    $ sudo ln -s todos unix2dos  
+    
+  Fedora 19:
+    $ sudo yum install wine 
+    $ sudo yum install gcc-c++
+    $ sudo yum install dos2unix
+    $ sudo yum install compat-libstdc++-33 
+    $ sudo yum install gtk2.i686
+    
+  Debian Wheezy:
+    $ sudo apt-get install ia32-libs 
+    $ sudo apt-get install ia32-libs-gtk 
+    $ sudo apt-get install libgtk2.0-0 
+    $ sudo apt-get install lib32ncurses5
+  
 _- Download the latest released version of the tool.  You will find all the releases at [3].
    Linux installers have an ixl file extension.
   _- Add execute permissions to the downloaded installer file
      (chmod a+x BridgePoint_vX.X.XX_XXXX.ixl)
-  _- If installing under Ubuntu install required libraries:
-     sudo apt-get install libxtst6:i386
+  _- Make sure you have write permissions on the target install folder
   _- Run the installer.  You can install wherever you like, but these instructions 
      assume the default:  ~/MentorGraphics/BridgePoint
-_- If installing under Ubuntu, install required runtime libraries for GTK
-   sudo apt-get install libgtk2.0-0:i386
-   sudo apt-get install gtk2-engines:i386
-   sudo apt-get install gtk2-engines-*:i386
-   sudo apt-get install --reinstall unity-gtk2-module:i386
-   sudo apt-get install libgtkmm-2.4-1c2:i386
-   sudo apt-get install libcanberra-gtk-module:i386
 _- Launch the tool open a new eclipse workspace that will become your development workspace.
       Example:  ~/workspace/current
 
