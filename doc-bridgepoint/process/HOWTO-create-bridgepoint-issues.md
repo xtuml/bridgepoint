@@ -13,7 +13,7 @@ None
 -------------
 If you need help following these instructions, please contact support@onefact.net.
 
-1.  Navigate to the support system here http://54.172.113.156/redmine/projects
+1.  Navigate to the support system here http://support.onefact.net/redmine/projects
 
 2.  Click the Register link to create an account.
 <table><tr><td>
@@ -32,7 +32,7 @@ If you need help following these instructions, please contact support@onefact.ne
 
 4. Create a Bug Report or Feature Request
 -------------
-1.  Navigate to the support system here http://54.172.113.156/redmine/projects
+1.  Navigate to the support system here http://support.onefact.net/redmine/projects
 
 2.  Click the "Sign in" link.
 <table><tr><td>
