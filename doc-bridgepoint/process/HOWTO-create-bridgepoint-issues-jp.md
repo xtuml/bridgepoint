@@ -12,7 +12,7 @@
 -------------
 下記の操作方法にご質問があれば、support@onefact.netまでご連絡ください。
 
-1.  http://54.172.113.156/redmine/projectsからサポートシステムにアクセスしてください。
+1.  http://support.onefact.net/redmine/projectsからサポートシステムにアクセスしてください。
 
 2.  登録リンクをクリックしてアカウントを作成してください。
 <table><tr><td>
@@ -31,7 +31,7 @@
 
 4. バグ報告または機能リクエストの作成
 -------------
-1.  http://54.172.113.156/redmine/projectsからサポートシステムにアクセスしてください。
+1.  http://support.onefact.net/redmine/projectsからサポートシステムにアクセスしてください。
 
 2.  「サインイン」リンクをクリックします。
 <table><tr><td>
