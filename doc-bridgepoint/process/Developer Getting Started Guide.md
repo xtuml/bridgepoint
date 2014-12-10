@@ -1,11 +1,17 @@
 Developer Getting Started Guide
 ----------------------------------------
 
+Abstract
+------------
+With the release of the BridgePoint code as Open Source Software in November 2014, many users have become interested in also becoming BridgePoint developers.
+
+This document is intended to provide an interested xtUML & Java developer the information needed to create a fully functional development environment capable of building and testing BridgePoint plug-ins.  This will allow the developer to modify and extend the existing plug-ins as well as create new plug-ins that integrate into BridgePoint.
+
 References
 ------------
 [1]  https://github.com/xtuml/internal/blob/master/doc-internal/process/HOWTO-create-new-development-workspace-Linux.md  
 [2]  https://github.com/xtuml/internal/blob/master/doc-internal/process/templates/checklists/new-start.chk  
-[3]  http://tucson.wv.mentorg.com/tiger_releases/
+[3]  http://xtuml.org/download/
 
 Preparations
 ------------
