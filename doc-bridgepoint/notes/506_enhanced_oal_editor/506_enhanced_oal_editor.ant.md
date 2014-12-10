@@ -14,7 +14,7 @@ This note describes the analysis of moving the BridgePoint OAL editor forward.
 2. Document References
 ----------------------
 [1] Issues 506, Standards based OAL text Editor
-[2] BridgePoint UML Suite Help > Reference > OAL Reference > Keywords
+[2] BridgePoint UML Suite Help > Reference > OAL Reference > Keywords   
 [3] BridgePoint UML Suite Help > Reference > OAL Reference > Control Statements
 
 3. Background
@@ -69,28 +69,28 @@ comparison.
 ----------------
 6.1 Xtext
 
-6.1.1 Create Xtext grammar based on bnf
-6.1.2 Create new editor project
-6.1.2.1 Create a Xtext project
+6.1.1 Create Xtext grammar based on bnf   
+6.1.2 Create new editor project   
+6.1.2.1 Create a Xtext project   
 6.1.2.2 Using the Xtext grammar created use the Modeling Workflow Engine to
-        generate the necessary editor plug-ins
+        generate the necessary editor plug-ins   
 
 6.2 Current infrastructure
 
-6.2.1 Use the eclipse content assist support
+6.2.1 Use the eclipse content assist support   
 6.2.1.1 For each supported auto-completion in [2] and [3] add a context helper
-        which is associated with a content processor.
+        which is associated with a content processor.   
 6.2.1.2 Override the SourceViewerConfiguration.getContentAssistant() method
-        calling the necessary processors.
+        calling the necessary processors.   
 6.2.1.3 Override current editor to add Content Assist Action in the text editor
         createActions method
 
 7. Acceptance Test
 ------------------
-7.1 Xtext
-7.1.1 The editor shall support auto-completion at a syntax level
-7.2 Current infrastructure
-7.2.1 The editor shall support auto-completion at a syntax level
+7.1 Xtext   
+7.1.1 The editor shall support auto-completion at a syntax level   
+7.2 Current infrastructure   
+7.2.1 The editor shall support auto-completion at a syntax level   
 
 End
 ---
