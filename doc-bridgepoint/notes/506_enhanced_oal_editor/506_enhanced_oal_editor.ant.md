@@ -1,6 +1,6 @@
 ---
 
-Creative Commons 1.0.  Use this any way you please.
+This work is licensed under the Creative Commons CC0 License
 
 ---
 
