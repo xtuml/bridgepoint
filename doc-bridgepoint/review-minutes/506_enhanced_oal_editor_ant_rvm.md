@@ -7,8 +7,8 @@ This work is licensed under the Creative Commons CC0 License
 # Enhance OAL Editor
 ### xtUML Project Review Minutes
 
-Reviewed:  https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/506_enhanced_oal_editor/506_enhanced_oal_editor.ant.md  970c74b
-Present:  
+Reviewed:  https://github.com/xtuml/bridgepoint/blob/master/doc-bridgepoint/notes/506_enhanced_oal_editor/506_enhanced_oal_editor.ant.md  970c74b   
+Present:  Cort, Campbell, Bob, Travis, Keith
 
 <pre>
 
