@@ -25,9 +25,49 @@ _- Prior to starting this checklist you should read the following on xtUML.org:
    you are installing.
    
 _- Download the latest released version of the tool.  You will find all the releases at [3]
+
+The BridgePoint installer generally will not run out of the box on Linux.  Some system configuration is 
+typically required.  Here are some additional packages we suggest be installed and prepatory 
+configuration before running the installer.  We've segmented the advice based on the most popular 
+distributions:
+
+  Ubuntu 14.04LTS:
+    $ sudo apt-get install libxtst6:i386
+    $ sudo apt-get install libgtk2.0-0:i386
+    $ sudo apt-get install gtk2-engines:i386
+    $ sudo apt-get install gtk2-engines-*:i386
+    $ sudo apt-get install --reinstall unity-gtk2-module:i386
+    $ sudo apt-get install libgtkmm-2.4-1c2:i386
+    $ sudo apt-get install libcanberra-gtk-module:i386
+    $ sudo apt-get install tofrodos 
+    $ sudo apt-get install wine 
+    $ sudo apt-get install libstdc++5
+    $ sudo apt-get install g++
+    $ cd /usr/bin 
+    $ sudo ln -s  fromdos dos2unix 
+    $ sudo ln -s todos unix2dos  
+    
+  Fedora 19:
+    $ sudo yum install wine 
+    $ sudo yum install gcc-c++
+    $ sudo yum install dos2unix
+    $ sudo yum install compat-libstdc++-33 
+    $ sudo yum install gtk2.i686
+    
+  Debian Wheezy:
+    $ sudo apt-get install ia32-libs 
+    $ sudo apt-get install ia32-libs-gtk 
+    $ sudo apt-get install libgtk2.0-0 
+    $ sudo apt-get install lib32ncurses5
+  
+_- Download the latest released version of the tool.  You will find all the releases at [3].
+   Linux installers have an ixl file extension.
+  _- Add execute permissions to the downloaded installer file
+     (chmod a+x BridgePoint_vX.X.XX_XXXX.ixl)
+  _- Make sure you have write permissions on the target install folder
+
   _- Run the installer.  You can install wherever you like, but these instructions 
      assume the default:  ~/MentorGraphics/BridgePoint
-   
 _- Launch the tool open a new eclipse workspace that will become your development workspace.
       Example:  ~/workspace/current
 
@@ -39,7 +79,8 @@ _- Select the option to clone and add to view:
   _- Select Next
   _- Select all the branches
   _- Select Next
-  _- For the Local Destination select your github/repos folder (e.g. ~/git, which these instructions will use).
+  _- For the Local Destination select your github/repos folder (e.g. ~/git, which these 
+     instructions will use).
      NOTE: DO NOT SELECT YOUR WORKSPACE!  This is the local repository location.
   _- Select Finish.
 
@@ -79,6 +120,7 @@ _- Update eclipse preferences to common and required settings:
     _- Select ~/git/internal/doc-internal/process/templates/checklists/development-workspace-setup/EclipsePreferences.epf
     _- Assure that "Import all" is selected
     _- Select Finish
+    _R This triggers SVN connector discovery select the most recent SVN Kit connector
 	
 _- Install required add-ons:
   _- Open the Navigator view
@@ -92,7 +134,7 @@ _- Exit BridgePoint
 
 _- Modify Launcher.sh with required development settings:
   _- Open ~/MentorGraphics/BridgePoint/eclipse/Launcher.sh in a text editor
-  _- Update the "set MGLS_LICENSE_FILE..." line to :
+  _- (Skip for BridgePoint 4.2.0 and on) Update the "set MGLS_LICENSE_FILE..." line to :
       export MGLS_LICENSE_FILE=~/MentorGraphics/license.dat   
       For VMs (or even locally at your discretion) add:
       export MGLS_LICENSE_FILE=1717@wv-lic-01.wv.mentorg.com;1717@wv-lic-02.wv.mentorg.com;1717@svr-azt-eng-01  
@@ -103,6 +145,14 @@ _- Modify Launcher.sh with required development settings:
       export XTUML_TEST_MODEL_REPOSITORY=~/git/models/test/
       export XTUML_PRIVATE_MODEL_REPOSITORY=~/git/modelsmg/test/
       export XTUML_DEVELOPMENT_REPOSITORY=~/git/internal
+
+_- Add execute permission to the generator utility scripts
+   _- chmod a+x ~/util/BridgePointDev-Linux/mc3020/bin/xtumlmc_build.exe
+   _- chmod a+x ~/util/BridgePointDev-Linux/bin/xtumlmc_gen_erate
+_- Remove unwanted carriage returns in one of the generator utility scripts
+   _- cd ~/MentorGraphics/BridgePoint4200/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.mc.c.binary_4.2.0/mc3020/bin
+   _- cp xtumlmc_build xtumlmc_build.copy
+   _- tr -d "\r" < xtumlmc_build.copy > xtumlmc_build
 
 _- Start BridgePoint
 	  
