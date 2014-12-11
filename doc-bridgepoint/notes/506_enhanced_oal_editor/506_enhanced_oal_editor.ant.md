@@ -13,9 +13,9 @@ This note describes the analysis of moving the BridgePoint OAL editor forward.
 
 2. Document References
 ----------------------
-[1] Issues 506, Standards based OAL text Editor
+[1] Issues 506, Stage 1 - OAL editor with syntax aware auto-completion   
 [2] BridgePoint UML Suite Help > Reference > OAL Reference > Keywords   
-[3] BridgePoint UML Suite Help > Reference > OAL Reference > Control Statements
+[3] Issues 42, standards-based OAL text editor
 
 3. Background
 -------------
@@ -47,7 +47,7 @@ comes with some default features.  However, Xtext works best with EMF based
 metamodels.  It may be best to implement an Xtext editor if and when the
 ooaofooa metamodel is designed in EMF.
 
-5.1.1.1 
+5.1.1.1 Xtext syntax aware editor
 
 In the Xtext approach we shall implement a basic syntax only aware editor.  This
 support will come from the Xtext framework by default.  To build such an editor
@@ -57,8 +57,6 @@ we shall use our current OAL BNF as a basis.
 
 With the current infrastructure we shall define contexts, which are defined by
 a document range.  The contexts shall include all keywords listed in [2].
-Additionally, contexts should be added for control statements as described in
-[3].
  
 5.2 Decision on approach
 
@@ -72,13 +70,14 @@ comparison.
 6.1.1 Create Xtext grammar based on bnf   
 6.1.2 Create new editor project   
 6.1.2.1 Create a Xtext project   
-6.1.2.2 Using the Xtext grammar created use the Modeling Workflow Engine to
+6.1.2.2 Use .xoal file extension for initial prototype
+6.1.2.3 Using the Xtext grammar created use the Modeling Workflow Engine to
         generate the necessary editor plug-ins   
 
 6.2 Current infrastructure
 
 6.2.1 Use the eclipse content assist support   
-6.2.1.1 For each supported auto-completion in [2] and [3] add a context helper
+6.2.1.1 For each supported auto-completion in [2] add a context helper
         which is associated with a content processor.   
 6.2.1.2 Override the SourceViewerConfiguration.getContentAssistant() method
         calling the necessary processors.   
@@ -88,9 +87,12 @@ comparison.
 7. Acceptance Test
 ------------------
 7.1 Xtext   
-7.1.1 The editor shall support auto-completion at a syntax level   
+7.1.1 The editor shall support auto-completion at a syntax level, this includes
+at a minimal the keywords specified in [2].  It shall also filter the list
+depending on at a minimal the previous word from the current cursor point.   
 7.2 Current infrastructure   
-7.2.1 The editor shall support auto-completion at a syntax level   
+7.2.1 The editor shall support auto-completion in the same way as specified for
+7.1.1.   
 
 End
 ---
