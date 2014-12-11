@@ -1,6 +1,8 @@
 Developer Getting Started Guide
 ----------------------------------------
 
+__THIS DOCUMENT IS STILL A DRAFT.  IT IS A WORK IN PROGRESS.  IT IS NOT YET READY FOR USE.__
+
 Abstract
 ------------
 With the release of the BridgePoint code as Open Source Software in November 2014, many users have become interested in also becoming BridgePoint developers.
