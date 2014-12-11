@@ -16,6 +16,14 @@ Preparations
 Steps
 ------------
 <pre>
+_- Prior to starting this checklist you should read the following on xtUML.org:
+   -https://www.xtuml.org/community/topic/tips-for-installing-on-linux-mint-15/
+   or
+   -https://www.xtuml.org/community/topic/tips-for-installing-on-linux-fedora-19/
+   
+   The one that is relevant to you will be dependent on the linux version
+   you are installing.
+   
 _- Download the latest released version of the tool.  You will find all the releases at [3]
   _- Run the installer.  You can install wherever you like, but these instructions 
      assume the default:  ~/MentorGraphics/BridgePoint
@@ -62,6 +70,7 @@ _- Configure the tool using the files cloned from the repositories above:
   _- Copy ~/git/internal/doc-internal/process/templates/checklists/development-workspace-setup/BridgePointDev-Linux into ~/util
     _- Open ~/util/BridgePointDev-Linux/bin/xtumlmc_gen_erate in a text editor.  Update the home dir and version to match your installation.
   _- Copy ~/git/internal/doc-internal/process/templates/checklists/development-workspace-setup/dropins/* into ~/MentorGraphics/BridgePoint/eclipse/dropins
+  _- Assure that the pasted files have execution permission
   
 _- Update eclipse preferences to common and required settings:
   _- Open the Navigator view
