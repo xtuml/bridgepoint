@@ -7,62 +7,66 @@ Abstract
 ------------
 With the release of the BridgePoint code as Open Source Software in November 2014, many users have become interested in also becoming BridgePoint developers.
 
-This document is intended to provide an interested xtUML & Java developer the information needed to create a fully functional development environment capable of building and testing BridgePoint plug-ins.  This will allow the developer to modify and extend the existing plug-ins as well as create new plug-ins that integrate into BridgePoint.
+This document is intended to provide an interested xtUML & Java developer the information needed to create a fully functional development environment capable of building and testing BridgePoint eclipse plug-ins.  This will allow the developer to modify and extend the existing plug-ins as well as create new plug-ins that integrate into BridgePoint.
 
 References
 ------------
-[1]  https://github.com/xtuml/internal/blob/master/doc-internal/process/HOWTO-create-new-development-workspace-Linux.md  
-[2]  https://github.com/xtuml/internal/blob/master/doc-internal/process/templates/checklists/new-start.chk  
-[3]  http://xtuml.org/download/
+[1]  http://xtuml.org/download/
+
 
 Preparations
 ------------
-- NOTE 1: Prior to using this checklist you should already have an account on github.  If you do not, then see [2]  
-- NOTE 2: These instructions are specific to Windows.  For the Linux version of these instructions see [1]
+### GitHub
+The BridgePoint source code repositories are housed on Github.com.  If you do not already have a Github account, create one now.
+
+### OS-Specific Instructions
+For your conveniences, there are two sets of instructions in this guide, one for Windows and one for Linux.  Please proceed to the appropriate section to continue with the setup.
 
 
-Steps
+Windows Steps
 ------------
-<pre>
-_- Download the latest released version of the tool.  You will find all the releases at [3]
-  _- Run the installer.  You can install wherever you like, but these instructions 
-     assume the default:  c:/MentorGraphics/BridgePoint
-   
-_- Launch the tool open a new eclipse workspace that will become your development workspace.
-      Example:  c:/workspace/current
+### Install BridgePoint
+  - Download the latest released version of the tool.  You will find all the releases at [1].
 
-_- Open the Git Repository Exploring perspective
+  - Run the installer.  You many install wherever you like, but these instructions 
+     assume the default:  ```c:/MentorGraphics/BridgePoint```
 
-_- Select the option to clone and add to view:
-   URI: https://github.com/xtuml/internal.git
-  _- Enter your user name and password
-  _- Select Next
-  _- Select all the branches
-  _- Select Next
-  _- For the Local Destination select your github/repos folder (e.g. c:/git, which these instructions will use).
-     NOTE: DO NOT SELECT YOUR WORKSPACE!  This is the local repository location.
-  _- Select Finish.
+### Clone the Primary Github Repository
+  - Launch BridgePoint.  During startup, enter the name of a new eclipse workspace that will become your development workspace. ```Example:  c:/workspace/current```
 
-_- Import the projects into your workspace
-  _- In the Git Repository Exploring perspective select "internal"
-  _- Right Click > Import Projects...
-  _- Select "Import Projects Into Existing Workspace" and then "Next"
-  _- Select all projects (do not select any other options)
-  _- Ensure "Search for nested projects" is UNchecked.
-  _- Select Finish
+  - Open the Git Repository Exploring perspective
 
-_- Switch to the Java perspective
+  - In the left hand view, select the option to clone and add to view.  This will pop up the "Clone Git Repository" dialog.
+    - Enter the URI: ```https://github.com/xtuml/bposs.git```
+    - Enter your user name and password for your github.com account
+    - Select Next
+    - Select all the branches
+    - Select Next
+    - For the Local Destination enter a folder where you want to store your local git repositories. __DO NOT SELECT YOUR WORKSPACE FOLDER!__ ```Example: c:/git  (These instructions assume this is the folder used)```
+    - Select Finish.
 
-_- Close these projects:
+### Set up the Source Code Projects for Eclipse Development
+  - Import the projects into your workspace
+    - In the Git Repository Exploring perspective select "internal"
+    - Right Click > Import Projects...
+    - Select "Import Projects Into Existing Workspace" and then Next
+    - Select all projects (do not select any other options)
+    - Ensure "Search for nested projects" is UNchecked.
+    - Select Finish
+
+  - Switch to the Java perspective: Using menu ```Window > Open Perspective > Other... > Java"
+
+  - Close these projects (Right click on the project, select Close Project):
+```
    libTrans
    MC-Java.test
    pt_antlr
+```
 
+<pre>
 _- Using the procedure from above, also clone these repositories:
-   https://github.com/xtuml/editor.git
    https://github.com/xtuml/mc.git
    https://github.com/xtuml/models.git
-   https://github.com/xtuml/modelsmg.git
   _- You can choose to import the contained projects from these repositories 
      into your workspace or not.  You are not required to do so.
 
@@ -163,3 +167,6 @@ _R Your environment is now built and ready for unit testing.
 
 </pre>
  
+Appendix A - Linux Specifics
+------------
+TODO
