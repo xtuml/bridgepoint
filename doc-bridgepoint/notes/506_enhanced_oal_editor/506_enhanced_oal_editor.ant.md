@@ -4,12 +4,12 @@ This work is licensed under the Creative Commons CC0 License
 
 ---
 
-# Enhance OAL Editor
+# Stage 1 - Enhance OAL Editor
 ### xtUML Project Analysis Note
 
 1. Abstract
 -----------
-This note describes the analysis of moving the BridgePoint OAL editor forward.
+This note describes the analysis of the first step of moving the BridgePoint OAL editor forward.
 
 2. Document References
 ----------------------
