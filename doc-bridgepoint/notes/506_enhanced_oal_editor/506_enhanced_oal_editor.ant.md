@@ -90,7 +90,17 @@ before running Verifier or the model compilers.
 
 With the current infrastructure we shall define contexts, which are defined by
 a document range.  The contexts shall include all keywords listed in [2].
- 
+
+5.1.2.1 Current infrastructure
+
+5.1.2.1.1 Use the eclipse content assist support   
+5.1.2.1.2 For each supported auto-completion in [2] add a context helper
+          which is associated with a content processor.   
+5.1.2.1.3 Override the SourceViewerConfiguration.getContentAssistant() method
+          calling the necessary processors.   
+5.1.2.1.4 Override current editor to add Content Assist Action in the text editor
+          createActions method
+
 5.2 Decision on approach
 
 Using the current infrastructure we would have to perform additional work that
