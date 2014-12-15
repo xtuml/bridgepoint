@@ -121,10 +121,7 @@ cases we would have to scan the current text and determine what should be
 available in the auto-complete list.  It gets harder when you consider comments,
 we would have to ignore keywords in comments.
 
-Considering the above, we shall go with Xtext.  This prevents us from
-maintaining unnecessary code and brings in more features to the editor.
-
-We shall take the Xtext approach using the current persistence infrastructure.
+We shall take the Xtext approach using the current persistence infrastructure.  
 
 6. Work Required
 ----------------
