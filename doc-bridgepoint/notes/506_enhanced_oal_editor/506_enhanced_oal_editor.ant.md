@@ -125,20 +125,17 @@ We shall take the Xtext approach using the current persistence infrastructure.
 
 6. Work Required
 ----------------
-6.1 Xtext
-
-6.1.1 Create Xtext grammar based on bnf   
-6.1.2 Create an Xtext project   
-6.1.2.1 Using the Xtext grammar created use the Modeling Workflow Engine to
+6.1 Create Xtext grammar based on bnf   
+6.1.1 Create an Xtext project   
+6.1.1.1 Using the Xtext grammar created use the Modeling Workflow Engine to
         generate the necessary editor plug-ins   
-6.1.2.2 Modify the Xtext code to persist into the xtUML model   
+6.1.1.1 Modify the Xtext code to persist into the xtUML model   
 
 7. Acceptance Test
 ------------------
-7.1 Xtext   
-7.1.1 The editor shall support auto-completion at a syntax level, this includes
+7.1 The editor shall support auto-completion at a syntax level, this includes
 at a minimal the keywords specified in [2].  It shall also filter the list
-depending on at a minimal the previous word from the current cursor point.   
+depending on the previous keyword from the current cursor point.   
 
 End
 ---
