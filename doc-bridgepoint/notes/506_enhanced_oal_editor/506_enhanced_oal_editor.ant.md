@@ -127,25 +127,12 @@ We shall take the Xtext approach using the current persistence infrastructure.
         generate the necessary editor plug-ins   
 6.1.2.3 Modify the Xtext code to persist into the model
 
-6.2 Current infrastructure
-
-6.2.1 Use the eclipse content assist support   
-6.2.1.1 For each supported auto-completion in [2] add a context helper
-        which is associated with a content processor.   
-6.2.1.2 Override the SourceViewerConfiguration.getContentAssistant() method
-        calling the necessary processors.   
-6.2.1.3 Override current editor to add Content Assist Action in the text editor
-        createActions method
-
 7. Acceptance Test
 ------------------
 7.1 Xtext   
 7.1.1 The editor shall support auto-completion at a syntax level, this includes
 at a minimal the keywords specified in [2].  It shall also filter the list
 depending on at a minimal the previous word from the current cursor point.   
-7.2 Current infrastructure   
-7.2.1 The editor shall support auto-completion in the same way as specified for
-7.1.1.   
 
 End
 ---
