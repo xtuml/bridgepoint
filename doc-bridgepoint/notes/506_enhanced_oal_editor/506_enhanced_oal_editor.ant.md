@@ -53,6 +53,39 @@ In the Xtext approach we shall implement a basic syntax only aware editor.  This
 support will come from the Xtext framework by default.  To build such an editor
 we shall use our current OAL BNF as a basis.
 
+5.1.1.2 Persistence
+
+The Xtext framework generates an editor that works on a single file.  It expects
+this file to contain the language text.  The BridgePoint tool stores all model
+data in a SQL file.  This includes the action language defined by the user.
+
+In order to have a good working solution we can modify the Xtext generated
+source to persist in the same way we do for the current editor.  This would mean
+that a save against the Xtext editor would trigger our current infrastructure's
+persistence behavior.  Alternatively we could persist OAL into a new file, with
+the .xoal extension.
+
+5.1.1.2.1 SQL persistence
+
+Persisting in the same way we do today has some benefits.  These include most
+importantly that the infrastructure is already set up for this type of
+persistence.  The downfall for this approach is that we need to maintain code
+that will allow loading and saving data into the SQL model.
+
+5.1.1.2.2 Single file persistence
+
+Using the default approach provided by Xtext is beneficial in that we do not
+need to modify any of the default Xtext behavior.
+
+However, this leads to other problems.  The problems are mostly dealing with
+synchronization between the SQL model and the new text file.  When saving OAL
+from the Xtext editor we would have to assure that the Action_Semantics
+attribute was updated.  Otherwise, Verifier and the model compilers would not
+have the required data.  We could consider modifying Verifier and the model
+compilers to make use of the ecore model data.  This could include bringing the
+ecore to xtuml exporter back.  In this case the ecore data would get exported
+before running Verifier or the model compilers.  
+
 5.1.2 Current infrastructure
 
 With the current infrastructure we shall define contexts, which are defined by
@@ -60,8 +93,28 @@ a document range.  The contexts shall include all keywords listed in [2].
  
 5.2 Decision on approach
 
-We shall design both with syntax auto-completion to allow side by side
-comparison.
+Using the current infrastructure we would have to perform additional work that
+Xtext already handles.  The current infrastructure could be extended to handle
+code completion, however the amount of work does not out way the additional
+features provided by Xtext.  In our current infrastructure we would have to
+design libraries that parse the text of the document in order to filter the list
+of auto-completions.  An example is the elif, else and end if cases.  In these
+cases we would have to scan the current text and determine what should be
+available in the auto-complete list.  It gets harder when you consider comments,
+we would have to ignore keywords in comments.
+
+Considering the above, we shall go with Xtext.  This prevents us from
+maintaining unnecessary code and brings in more features to the editor.
+
+Feature examples:
+
+- Syntax auto-completion   
+- Auto insert of braces (could extend this to support auto insert of control
+  statements)   
+- Code formatting   
+- Code folding   
+
+We shall take the Xtext approach using the current persistence infrastructure.
 
 6. Work Required
 ----------------
@@ -70,9 +123,9 @@ comparison.
 6.1.1 Create Xtext grammar based on bnf   
 6.1.2 Create new editor project   
 6.1.2.1 Create a Xtext project   
-6.1.2.2 Use .xoal file extension for initial prototype
-6.1.2.3 Using the Xtext grammar created use the Modeling Workflow Engine to
+6.1.2.2 Using the Xtext grammar created use the Modeling Workflow Engine to
         generate the necessary editor plug-ins   
+6.1.2.3 Modify the Xtext code to persist into the model
 
 6.2 Current infrastructure
 
