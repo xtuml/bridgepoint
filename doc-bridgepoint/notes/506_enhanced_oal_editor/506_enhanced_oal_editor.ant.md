@@ -9,7 +9,7 @@ This work is licensed under the Creative Commons CC0 License
 
 1. Abstract
 -----------
-This note describes the analysis of the first step of moving the BridgePoint OAL editor forward.
+This note describes the analysis of the first step of moving the BridgePoint OAL editor forward.  In this step we will implement a new editor which focuses on syntax aware auto-completion.
 
 2. Document References
 ----------------------
@@ -57,7 +57,7 @@ we shall use our current OAL BNF as a basis.
 
 The Xtext framework generates an editor that works on a single file.  It expects
 this file to contain the language text.  The BridgePoint tool stores all model
-data in a SQL file.  This includes the action language defined by the user.
+data in an xtUML file.  This includes the action language defined by the user.
 
 In order to have a good working solution we can modify the Xtext generated
 source to persist in the same way we do for the current editor.  This would mean
@@ -65,12 +65,12 @@ that a save against the Xtext editor would trigger our current infrastructure's
 persistence behavior.  Alternatively we could persist OAL into a new file, with
 the .xoal extension.
 
-5.1.1.2.1 SQL persistence
+5.1.1.2.1 xtUML persistence
 
 Persisting in the same way we do today has some benefits.  These include most
 importantly that the infrastructure is already set up for this type of
 persistence.  The downfall for this approach is that we need to maintain code
-that will allow loading and saving data into the SQL model.
+that will allow loading and saving data into the xtUML model.
 
 5.1.1.2.2 Single file persistence
 
@@ -78,7 +78,7 @@ Using the default approach provided by Xtext is beneficial in that we do not
 need to modify any of the default Xtext behavior.
 
 However, this leads to other problems.  The problems are mostly dealing with
-synchronization between the SQL model and the new text file.  When saving OAL
+synchronization between the xtUML model and the new text file.  When saving OAL
 from the Xtext editor we would have to assure that the Action_Semantics
 attribute was updated.  Otherwise, Verifier and the model compilers would not
 have the required data.  We could consider modifying Verifier and the model
