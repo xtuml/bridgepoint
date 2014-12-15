@@ -104,15 +104,7 @@ a document range.  The contexts shall include all keywords listed in [2].
 Using the current infrastructure we would have to perform additional work that
 Xtext already handles.  The current infrastructure could be extended to handle
 code completion, however the amount of work does not out way the additional
-features provided by Xtext.  In our current infrastructure we would have to
-design libraries that parse the text of the document in order to filter the list
-of auto-completions.  An example is the elif, else and end if cases.  In these
-cases we would have to scan the current text and determine what should be
-available in the auto-complete list.  It gets harder when you consider comments,
-we would have to ignore keywords in comments.
-
-Considering the above, we shall go with Xtext.  This prevents us from
-maintaining unnecessary code and brings in more features to the editor.
+features provided by Xtext.
 
 Feature examples:
 
@@ -121,6 +113,16 @@ Feature examples:
   statements)   
 - Code formatting   
 - Code folding   
+
+In our current infrastructure we would have to
+design libraries that parse the text of the document in order to filter the list
+of auto-completions.  An example is the elif, else and end if cases.  In these
+cases we would have to scan the current text and determine what should be
+available in the auto-complete list.  It gets harder when you consider comments,
+we would have to ignore keywords in comments.
+
+Considering the above, we shall go with Xtext.  This prevents us from
+maintaining unnecessary code and brings in more features to the editor.
 
 We shall take the Xtext approach using the current persistence infrastructure.
 
