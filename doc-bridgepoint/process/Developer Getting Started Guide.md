@@ -64,61 +64,67 @@ Windows Steps
 ```
 
 ### Clone Additional Repositories
-- Switch to the Git Repository Exploring perspective
-- In the following steps you will clone more git repositories, for these repositories you are not required to make a specific selection in the "Import projects into workspace" checkbox.  You may do as you wish.
-- In the Git Repositories view, select the "Clone a Git Repository and add the clone to this view" button
-- Using the same procedure as earlier, clone the https://github.com/xtuml/mc.git repository
-- Using this same procedure, clone the https://github.com/xtuml/models.git repository
+  - Switch to the Git Repository Exploring perspective
+  
+  - In the following steps you will clone more git repositories, for these repositories you are not required to make a specific selection in the "Import projects into workspace" checkbox.  You may do as you wish.
+  
+  - In the Git Repositories view, select the "Clone a Git Repository and add the clone to this view" button
+  
+  - Using the same procedure as earlier, clone the ```https://github.com/xtuml/mc.git``` repository
+ 
+  - Using this same procedure, clone the ```https://github.com/xtuml/models.git``` repository
+  
+  - Using this same procedure, clone the ```https://github.com/xtuml/bridgepoint.git``` repository
 
-<pre>
-_- Configure the tool using the files cloned from the repositories above:
-  _- Copy c:/git/internal/doc-internal/process/templates/checklists/development-workspace-setup/BridgePointDev into c:/work
-  _- Copy c:/git/internal/doc-internal/process/templates/checklists/development-workspace-setup/dropins/* into c:/MentorGraphics/BridgePoint/eclipse/dropins
+### Configure System for Development
+  - Copy ```c:/git/bridgepoint/doc-bridgepoint/process/development-workspace-setup/BridgePointDev``` into ```c:/work```
 
+  - Copy ```c:/git/bridgepoint/doc-bridgepoint/process/development-workspace-setup/dropins/*``` into ```c:/MentorGraphics/BridgePoint/eclipse/dropins```
 
-_- Update eclipse preferences to common and required settings:
-  _- Open the Navigator view
-    _- Right-click in white space
-    _- Import... > General > Preferences
-    _- Select c:/git/internal/doc-internal/process/templates/checklists/development-workspace-setup/EclipsePreferences.epf
-    _- Assure that "Import all" is selected
-    _- Select Finish
-	
-_- Install required add-ons:
-  _- Open the Navigator view
-  _- Right-click in white space
-  _- Import... > Install > Install Software Items from File
-  _- Select c:/git/internal/doc-internal/process/templates/checklists/development-workspace-setup/xtUML_dev_eclipse_addons.p2f
-  _- Select Finish
-  _R Files are installed and you are prompted to restart. Do NOT restart
+### Update Eclipse Preferences to Common and Required Settings
+  - Open the Navigator view
+    - Right-click in white space
+    - Select Import... > General > Preferences
+    - Select ```c:/git/bridgepoint/doc-bridgepoint/process/development-workspace-setup/EclipsePreferences.epf```
+    - Assure that "Import all" is selected
+    - Select Finish
+
+### Install Required Add-ons
+  - Open the Navigator view
+    - Right-click in white space
+    - Select Import... > Install > Install Software Items from File
+    - Select ```c:/git/bridgepoint/doc-bridgepoint/process/development-workspace-setup/xtUML_dev_eclipse_addons.p2f```
+    - Select Finish.  The files are installed and you are prompted to restart. Do NOT restart.
     
-_- Exit BridgePoint
+  - Exit BridgePoint
 
-_- Modify Launcher.bat with required development settings:
-  _- Open C:\MentorGraphics\BridgePoint\eclipse\Launcher.bat in a text editor
-  _- Update the "set MGLS_LICENSE_FILE..." line to :
-      set MGLS_LICENSE_FILE=c:\MentorGraphics\license.dat   
-      For VMs (or even locally at your discretion) add:
-      set MGLS_LICENSE_FILE=1717@wv-lic-01.wv.mentorg.com;1717@wv-lic-02.wv.mentorg.com;1717@svr-azt-eng-01  
-  _- Directly after "set BP_JVM=..." add the following:
+### Modify Launcher.bat with Required Development Settings
+  - Open ```c:\MentorGraphics\BridgePoint\eclipse\Launcher.bat``` in a text editor
+
+  - Directly after "set BP_JVM=..." add the following:
+```      
       set PT_HOME=/work/BridgePointDev/
       set PT_HOME_DRIVE=c:
       set XTUMLGEN_HOME=%MGC_EMBEDDED_HOME%\eclipse_extensions\BridgePoint\eclipse\plugins\com.mentor.nucleus.bp.dap.pkg_%BP_VERSION%\bridgepoint
-      set XTUML_TEST_MODEL_REPOSITORY=C:/git/repos/models/test/
-      set XTUML_PRIVATE_MODEL_REPOSITORY=C:/git/repos/modelsmg/test/
-      set XTUML_DEVELOPMENT_REPOSITORY=C:/git/repos/internal
+      set XTUML_DEVELOPMENT_REPOSITORY=C:/git/bposs
+      set XTUML_TEST_MODEL_REPOSITORY=C:/git/models/test/
+      set XTUML_PRIVATE_MODEL_REPOSITORY=C:/git/modelsmg/test/
+```
 
-_- Install perl
-  _- Install perl, any perl installation will work.  For a free version you can
-     always download cygwin, installing the perl package.
-  _- Once installed be sure to add the perl location to your PATH variable.
+### Install Perl
+  - Install perl, any perl installation will work.  For a free version you can use Strawberry Perl or download cygwin and install the perl package.
+  
+  - Once installed be sure to add the perl location to your PATH variable.
 
+### Build BridgePoint
+  - Start BridgePoint
    
-_- Start BridgePoint
-   
-_- Select Project > Build Automatically
+  - Select Project > Build Automatically
 
-_R The build is successful
+  - The build will take a while and should finish successfully
+
+<pre>
+
 
 _- Prepare to run unit tests:
   _- Exit BridgePoint
@@ -168,6 +174,3 @@ _R Your environment is now built and ready for unit testing.
 
 </pre>
  
-Appendix A - Linux Specifics
-------------
-TODO
