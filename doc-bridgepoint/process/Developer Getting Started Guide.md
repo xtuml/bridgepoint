@@ -153,7 +153,9 @@ Windows Steps
 
 ### Setup Development Environment to Run MC3020 Under a Launch Configuration
   - Open Windows explorer and navigate to the BridgePoint plug-in installation folder.  The default is:
-```c:/MentorGraphics/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.mc.c.binary_version/mc3020```
+```
+c:/MentorGraphics/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.mc.c.binary_version/mc3020
+```
   
   - Select all files and folders in the above folder
   
