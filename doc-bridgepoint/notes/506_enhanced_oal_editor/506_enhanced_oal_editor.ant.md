@@ -103,7 +103,7 @@ a document range.  The contexts shall include all keywords listed in [2].
 
 Using the current infrastructure we would have to perform additional work that
 Xtext already handles.  The current infrastructure could be extended to handle
-code completion, however the amount of work does not out way the additional
+code completion, however the amount of work does not outweigh the additional
 features provided by Xtext.
 
 Feature examples:
@@ -134,7 +134,7 @@ We shall take the Xtext approach using the current persistence infrastructure.
 7. Acceptance Test
 ------------------
 7.1 The editor shall support auto-completion at a syntax level, this includes
-at a minimal the keywords specified in [2].  It shall also filter the list
+at a minimum the keywords specified in [2].  It shall also filter the list
 depending on the previous keyword from the current cursor point.   
 
 End
