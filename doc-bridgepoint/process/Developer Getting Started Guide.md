@@ -63,13 +63,14 @@ Windows Steps
    pt_antlr
 ```
 
-<pre>
-_- Using the procedure from above, also clone these repositories:
-   https://github.com/xtuml/mc.git
-   https://github.com/xtuml/models.git
-  _- You can choose to import the contained projects from these repositories 
-     into your workspace or not.  You are not required to do so.
+### Clone Additional Repositories
+- Switch to the Git Repository Exploring perspective
+- In the following steps you will clone more git repositories, for these repositories you are not required to make a specific selection in the "Import projects into workspace" checkbox.  You may do as you wish.
+- In the Git Repositories view, select the "Clone a Git Repository and add the clone to this view" button
+- Using the same procedure as earlier, clone the https://github.com/xtuml/mc.git repository
+- Using this same procedure, clone the https://github.com/xtuml/models.git repository
 
+<pre>
 _- Configure the tool using the files cloned from the repositories above:
   _- Copy c:/git/internal/doc-internal/process/templates/checklists/development-workspace-setup/BridgePointDev into c:/work
   _- Copy c:/git/internal/doc-internal/process/templates/checklists/development-workspace-setup/dropins/* into c:/MentorGraphics/BridgePoint/eclipse/dropins
