@@ -1,7 +1,6 @@
 Developer Getting Started Guide
 ----------------------------------------
 
-__THIS DOCUMENT IS STILL A DRAFT.  IT IS A WORK IN PROGRESS.  IT IS NOT YET READY FOR USE.__
 
 Abstract
 ------------
@@ -57,11 +56,9 @@ Windows Steps
   - Switch to the Java perspective: Using menu ```Window > Open Perspective > Other... > Java"
 
   - Close these projects (Right click on the project, select Close Project):
-```
-   libTrans
-   MC-Java.test
-   pt_antlr
-```
+    - libTrans
+    - MC-Java.test
+    - pt_antlr
 
 ### Clone Additional Repositories
   - Switch to the Git Repository Exploring perspective
