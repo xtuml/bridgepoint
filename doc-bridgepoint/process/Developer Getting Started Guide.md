@@ -105,7 +105,7 @@ Windows Steps
 ```      
       set PT_HOME=/work/BridgePointDev/
       set PT_HOME_DRIVE=c:
-      set XTUMLGEN_HOME=%MGC_EMBEDDED_HOME%\eclipse_extensions\BridgePoint\eclipse\plugins\com.mentor.nucleus.bp.dap.pkg_%BP_VERSION%\bridgepoint
+      set XTUMLGEN_HOME=%MGC_EMBEDDED_HOME%/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.dap.pkg_%BP_VERSION%/bridgepoint
       set XTUML_DEVELOPMENT_REPOSITORY=C:/git/bposs
       set XTUML_TEST_MODEL_REPOSITORY=C:/git/models/test/
       set XTUML_PRIVATE_MODEL_REPOSITORY=C:/git/modelsmg/test/
@@ -123,12 +123,9 @@ Windows Steps
 
   - The build will take a while and should finish successfully
 
-<pre>
-
-
-_- Prepare to run unit tests:
-  _- Exit BridgePoint
-    _- Configure Windows Vista or Windows 7 for unit test running
+### Prepare to Run Unit Tests
+  - Exit BridgePoint
+    - Configure Windows Vista or Windows 7 for unit test running
       - Bring up the Windows Color and Appearance settings
         - Right click on the desktop background and select Personalize
         - In Vista select the Windows Color and Appearance hyperlink
@@ -151,26 +148,30 @@ _- Prepare to run unit tests:
               Personalize > Display > "Make it easier to read what is on your machine"
               That setting must be set to "smaller" 100%
               It is is adjusted your graphical compare restuls will not match,
-  _- Launch BridgePoint
+  
+- Launch BridgePoint
 
-_- Setup development environment to run MC3020 under a launch configuration
-  _- Open Windows explorer and navigate to the BridgePoint plug-in 
-     installation folder.  The default is:
-     C:/MentorGraphics/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.mc.c.binary_"ver"/mc3020
-  _- Select all files and folders in the above folder
-  _- Select Copy
-  _- Open the Model Explorer view in Eclipse and navigate to:
-       c:/git/xtuml/internal/src/com.mentor.nucleus.bp.mc.c.binary/mc3020
-  _- Paste the previous selection into this folder
+### Setup Development Environment to Run MC3020 Under a Launch Configuration
+  - Open Windows explorer and navigate to the BridgePoint plug-in installation folder.  The default is:
+     ```c:/MentorGraphics/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.mc.c.binary_<ver>/mc3020```
+  
+  - Select all files and folders in the above folder
+  
+  - Select Copy
+  
+  - Open the Model Explorer view in Eclipse and navigate to: ```c:/git/xtuml/internal/src/com.mentor.nucleus.bp.mc.c.binary_<ver>/mc3020``
+  
+  - Paste the previous selection into this folder
 
-_- Set the unit test history to assure the test summary tool capture all results
-   _- Open the JUnit view
-   _- Select the drop-down arrow in the upper-right of the view
-   _- Select the History... option
-   _- Set "Maximum count of remembered test runs" to 30 
+### Set the Unit Test History to Assure the Test Summary Tool Capture all Results
+  - Open the JUnit view
+   
+  - Select the drop-down arrow in the upper-right of the view
+  
+  - Select the History... option
+  
+  - Set "Maximum count of remembered test runs" to 30 
 	
-_R Your environment is now built and ready for unit testing.
 
+Congratulations!  Your environment is now built and ready for unit testing.
 
-</pre>
- 
