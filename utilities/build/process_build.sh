@@ -22,7 +22,7 @@ if [ $# -lt 3 ]; then
   exit 1
 fi
 
-BUILD_ADMIN="pt_development@mentor.com"
+BUILD_ADMIN="build@onefact.net"
 MAIL_CMD="/usr/sbin/ssmtp"
 MAIL_TEMP="mailtemp"
 base_dir=`pwd`
