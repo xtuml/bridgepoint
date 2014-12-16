@@ -47,7 +47,7 @@ Windows Steps
 
 ### Set up the Source Code Projects for Eclipse Development
   - Import the projects into your workspace
-    - In the Git Repository Exploring perspective select "internal"
+    - In the Git Repository Exploring perspective select "bposs"
     - Right Click > Import Projects...
     - Select "Import Projects Into Existing Workspace" and then Next
     - Select all projects (do not select any other options)
@@ -153,13 +153,13 @@ Windows Steps
 
 ### Setup Development Environment to Run MC3020 Under a Launch Configuration
   - Open Windows explorer and navigate to the BridgePoint plug-in installation folder.  The default is:
-     ```c:/MentorGraphics/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.mc.c.binary_<ver>/mc3020```
+```c:/MentorGraphics/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.mc.c.binary_version/mc3020```
   
   - Select all files and folders in the above folder
   
   - Select Copy
   
-  - Open the Model Explorer view in Eclipse and navigate to: ```c:/git/xtuml/internal/src/com.mentor.nucleus.bp.mc.c.binary_<ver>/mc3020```
+  - Open the Model Explorer view in Eclipse and navigate to: ```c:/git/bposs/src/com.mentor.nucleus.bp.mc.c.binary_version/mc3020```
   
   - Paste the previous selection into this folder
 
@@ -173,5 +173,5 @@ Windows Steps
   - Set "Maximum count of remembered test runs" to 30 
 	
 
-Congratulations!  Your environment is now built and ready for unit testing.
+## Congratulations!  Your environment is now built and ready for unit testing.
 
