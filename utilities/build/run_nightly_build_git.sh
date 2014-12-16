@@ -1,4 +1,4 @@
-# #!/bin/bash
+#!/bin/bash
 
 # set +v 
 
@@ -9,17 +9,17 @@
 #  place for the build server to run.
 # 
 
-
-export BUILD_ROOT="~/build/builds"
+export BUILD_MOUNT="/build"
+export BUILD_ROOT="${BUILD_MOUNT}/builds"
+export GIT_REPO_ROOT="${BUILD_MOUNT}/git/xtuml"
+export BUILD_TOOLS="${BUILD_MOUNT}/utilities/bp_build_tools"
 export BRANCH="master"
-export GIT_REPO_ROOT="~/build/git/xtuml"
-export BUILD_TOOLS="~/build/utilities/bp_build_tools"
 export PT_HOME="${BUILD_TOOLS}/bridgepoint"
 export PT_HOME_DRIVE=
 export XTUMLGEN_HOME="${BUILD_TOOLS}/bridgepoint"
-mkdir "${BUILD_TOOLS}"
-mkdir "${GIT_REPO_ROOT}"
-mkdir "${BUILD_ROOT}"
+mkdir -p "${BUILD_TOOLS}"
+mkdir -p "${GIT_REPO_ROOT}"
+mkdir -p "${BUILD_ROOT}"
 echo -e "BUILD_ROOT=${BUILD_ROOT}
 echo -e "BRANCH=${BRANCH}
 echo -e "GIT_REPO_ROOT=${GIT_REPO_ROOT}
