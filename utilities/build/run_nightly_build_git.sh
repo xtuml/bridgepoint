@@ -35,12 +35,6 @@ dos2unix -q init_git_repositories.sh
 bash init_git_repositories.sh "${BRANCH}" "${GIT_REPO_ROOT}" "yes" > cfg_output.log
 echo -e "Done."
 
-echo -e "Initializing the eclipse bases and build tools from SVN..."
-cp -f ${GIT_REPO_ROOT}/internal/utilities/build/init_svn_tools.sh .
-dos2unix -q init_svn_tools.sh
-bash init_svn_tools.sh "${BRANCH}" "nonrelease" >> cfg_output.log
-echo -e "Done."
-
 echo -e "Setting permissions on tool directories..."
 chmod -R a+rw ${BUILD_TOOLS} 
 echo -e "Done."
