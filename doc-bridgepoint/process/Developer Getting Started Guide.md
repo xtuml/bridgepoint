@@ -99,7 +99,7 @@ Windows Steps
   - Exit BridgePoint
 
 ### Modify Launcher.bat with Required Development Settings
-  - Open ```c:\MentorGraphics\BridgePoint\eclipse\Launcher.bat``` in a text editor
+  - Open ```c:/MentorGraphics/BridgePoint/eclipse/Launcher.bat``` in a text editor
 
   - Directly after "set BP_JVM=..." add the following:
 ```      
@@ -125,7 +125,7 @@ Windows Steps
 
 ### Prepare to Run Unit Tests
   - Exit BridgePoint
-    - Configure Windows Vista or Windows 7 for unit test running
+    - Configure Windows Vista or 7 for unit test running.   Skip this step for other OSes.
       - Bring up the Windows Color and Appearance settings
         - Right click on the desktop background and select Personalize
         - In Vista select the Windows Color and Appearance hyperlink
@@ -159,7 +159,7 @@ Windows Steps
   
   - Select Copy
   
-  - Open the Model Explorer view in Eclipse and navigate to: ```c:/git/xtuml/internal/src/com.mentor.nucleus.bp.mc.c.binary_<ver>/mc3020``
+  - Open the Model Explorer view in Eclipse and navigate to: ```c:/git/xtuml/internal/src/com.mentor.nucleus.bp.mc.c.binary_<ver>/mc3020```
   
   - Paste the previous selection into this folder
 
