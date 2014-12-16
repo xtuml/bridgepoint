@@ -114,6 +114,7 @@ fi
 init_repository internal
 init_repository editor
 init_repository mc
+init_repository packaging
 
 echo -e "Repositories are now initialized."
 exit 0
