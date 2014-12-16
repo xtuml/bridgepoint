@@ -53,7 +53,7 @@ Windows Steps
     - Ensure "Search for nested projects" is UNchecked.
     - Select Finish
 
-  - Switch to the Java perspective: Using menu ```Window > Open Perspective > Other... > Java"
+  - Switch to the Java perspective: Using menu Window > Open Perspective > Other... > Java
 
   - Close these projects (Right click on the project, select Close Project):
     - libTrans
