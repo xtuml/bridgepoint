@@ -50,6 +50,8 @@ function configure_build_files {
 
 function configure_installer_files {
     cd ${git_internal}/src/${install_project}
+    mkdir -p "${bp_deliverables}/extras"
+    mkdir -p "${bp_deliverables}/tools"
     cp -f Launcher.bat ${bp_deliverables}/extras/Launcher.bat 2>>${error_file}
     cp -f CLI.bat ${bp_deliverables}/extras/CLI.bat 2>>${error_file}
     cp -f build_installer_bp.sh ${build_dir}/build_installer_bp.sh 2>>${error_file}
@@ -67,6 +69,7 @@ function configure_installer_files {
     unix2dos -q ${extra_deliverables}/post_install_script.bat
     unix2dos -q ${extra_deliverables}/pre_uninstall_script.bat
     
+    mkdir -p "${bp_deliverables_linux}/extras"
     cp -f Launcher.sh ${bp_deliverables_linux}/extras/Launcher.sh 2>>${error_file}
     cp -f CLI.sh ${bp_deliverables_linux}/extras/CLI.sh 2>>${error_file}
     cp -f build_installer_bp_linux.sh ${build_dir}/build_installer_bp_linux.sh 2>>${error_file}
@@ -86,6 +89,7 @@ function configure_installer_files {
     dos2unix -q ${build_dir}/build_installer_bp.sh
 
     cd ${git_internal}/${utilities_project}/fontchecker/Release
+    mkdir -p "${bp_deliverables}/tools/fontchecker"
     cp -f font_list.txt ${bp_deliverables}/tools/fontchecker/font_list.txt 2>>${error_file}
     cp -f fontchecker.exe ${bp_deliverables}/tools/fontchecker/fontchecker.exe 2>>${error_file}
 
@@ -115,6 +119,7 @@ utilities_project="utilities"
 staging_area="${BUILD_MOUNT}/staging"
 eclipse_ver="3.7"
 
+echo "configure_build_process branch=${branch} git_repo_root=${git_repo_root} build_type=${build_type}"
 #
 # The follow folders are used to stage the files required by the installer
 #
