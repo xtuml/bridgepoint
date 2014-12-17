@@ -52,6 +52,7 @@ function configure_installer_files {
     cd ${git_internal}/src/${install_project}
     mkdir -p "${bp_deliverables}/extras"
     mkdir -p "${bp_deliverables}/tools"
+    mkdir -p "${bp_deliverables}/EclipseDeliverables"
     cp -f Launcher.bat ${bp_deliverables}/extras/Launcher.bat 2>>${error_file}
     cp -f CLI.bat ${bp_deliverables}/extras/CLI.bat 2>>${error_file}
     cp -f build_installer_bp.sh ${build_dir}/build_installer_bp.sh 2>>${error_file}
@@ -87,6 +88,10 @@ function configure_installer_files {
 
     dos2unix -q ${build_dir}/build_installer_bp_linux.sh
     dos2unix -q ${build_dir}/build_installer_bp.sh
+
+    # copy the entire packing repository to the staging area for the installer to work with
+    cd ${git_repo_root}
+    cp -rf packaging ${staging_area} 2>>${error_file}
 
     cd ${git_internal}/${utilities_project}/fontchecker/Release
     mkdir -p "${bp_deliverables}/tools/fontchecker"
