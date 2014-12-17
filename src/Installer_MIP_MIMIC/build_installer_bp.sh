@@ -1,21 +1,23 @@
 #!/bin/bash
 #=====================================================================
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+# use this file except in compliance with the License.  You may obtain a copy 
+# of the License at
 #
-# File:      build_installer_bp.sh
+#       http://www.apache.org/licenses/LICENSE-2.0
 #
-# Copyright 2006-2014 Mentor Graphics Corporation. All rights reserved.
-#
-#=====================================================================
-# This document contains information proprietary and confidential to
-# Mentor Graphics Corp. and is not for external distribution.
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+# License for the specific language governing permissions and limitations under
+# the License.
 #=====================================================================
 #
 #
 # Script to create BridgePoint Installer
-#   This script should live in c:\nightly_build on the build server and must
-#   run locally.  It does not go through the steps of creating a new workspace
+#   This script does not go through the steps of creating a new workspace
 #   for each installer.  Instead it simply loads a pre-configured workspace
-#   (C:/BridgePoint), modifies the BP extension, and builds the installer up
+#   /build/staging, modifies the BP extension, and builds the installer up
 #   from there.
 #
 
@@ -30,8 +32,9 @@ fi
 
 PRODUCT_NAME="BridgePoint"
 ECLIPSE_VER="3.7"
-BP_BASE_DIR="C:/BridgePoint_e${ECLIPSE_VER}"
-TEMP_DIR="C:/temp"
+BP_BASE_DIR="/build/staging/BridgePoint_e${ECLIPSE_VER}"
+TEMP_DIR="/build/temp"
+mkdir -p "${TEMP_DIR}"
 LINUX_FRAGMENT="com.mentor.nucleus.bp.core.linux.x86"
 MCMC_EXE="com.mentor.nucleus.bp.mc.c.binary_4.1.17/mc3020/bin/mcmc.exe"
 SEQUENCE_CREATOR="com.mentor.nucleus.bp.sequencecapture_4.1.17.jar"

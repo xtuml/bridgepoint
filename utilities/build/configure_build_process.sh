@@ -54,7 +54,7 @@ function configure_installer_files {
     cp -f CLI.bat ${bp_deliverables}/extras/CLI.bat 2>>${error_file}
     cp -f build_installer_bp.sh ${build_dir}/build_installer_bp.sh 2>>${error_file}
     cp -f create_shortcut.vbs ${bp_deliverables}/tools/create_shortcut.vbs 2>>${error_file}
-    cp -f MSI_Director.java ${mimic_files}/MSI_Director.java 2>>${error_file}
+    cp -f MSI_Director.java ${installer_files}/MSI_Director.java 2>>${error_file}
     cp -f post_install_script.bat ${extra_deliverables}/post_install_script.bat 2>>${error_file}
     cp -f pre_uninstall_script.bat ${extra_deliverables}/pre_uninstall_script.bat 2>>${error_file}
     cp -f splash.bmp ${bp_deliverables}/splash.bmp 2>>${error_file}
@@ -63,14 +63,14 @@ function configure_installer_files {
     unix2dos -q ${bp_deliverables}/extras/Launcher.bat
     unix2dos -q ${bp_deliverables}/extras/CLI.bat
     unix2dos -q ${bp_deliverables}/tools/create_shortcut.vbs
-    unix2dos -q ${mimic_files}/MSI_Director.java
+    unix2dos -q ${installer_files}/MSI_Director.java
     unix2dos -q ${extra_deliverables}/post_install_script.bat
     unix2dos -q ${extra_deliverables}/pre_uninstall_script.bat
     
     cp -f Launcher.sh ${bp_deliverables_linux}/extras/Launcher.sh 2>>${error_file}
     cp -f CLI.sh ${bp_deliverables_linux}/extras/CLI.sh 2>>${error_file}
     cp -f build_installer_bp_linux.sh ${build_dir}/build_installer_bp_linux.sh 2>>${error_file}
-    cp -f MSI_DirectorLinux.java ${mimic_files_linux}/MSI_Director.java 2>>${error_file}
+    cp -f MSI_DirectorLinux.java ${installer_files_linux}/MSI_Director.java 2>>${error_file}
     cp -f post_install_script.sh ${extra_deliverables_linux}/post_install_script.sh 2>>${error_file}
     cp -f pre_uninstall_script.sh ${extra_deliverables_linux}/pre_uninstall_script.sh 2>>${error_file}    
     cp -f splash.bmp ${bp_deliverables_linux}/splash.bmp 2>>${error_file}
@@ -78,7 +78,7 @@ function configure_installer_files {
 
     dos2unix -q ${bp_deliverables_linux}/extras/Launcher.sh
     dos2unix -q ${bp_deliverables_linux}/extras/CLI.sh
-    dos2unix -q ${mimic_files_linux}/MSI_Director.java
+    dos2unix -q ${installer_files_linux}/MSI_Director.java
     dos2unix -q ${extra_deliverables_linux}/post_install_script.sh
     dos2unix -q ${extra_deliverables_linux}/pre_uninstall_script.sh    
 
@@ -110,16 +110,26 @@ error_file="${log_dir}/.errors"
 timestamp=`date +%Y%m%d%H%M`
 
 git_internal="${git_repo_root}/internal"
-install_project="Installer_MIP_MIMIC"
+install_project="Installer"
 utilities_project="utilities"
 staging_area="${BUILD_ROOT}/staging"
 eclipse_ver="3.7"
+
+#
+# The follow folders are used to stage the files required by the installer
+#
 bp_deliverables="${staging_area}/BridgePoint_e${eclipse_ver}/BridgePointDeliverables"
 extra_deliverables="${staging_area}/BridgePoint_e${eclipse_ver}/vcredist_x86"
-mimic_files="${staging_area}/MIMIC/rlstools/TK_Director/BridgePoint_e${eclipse_ver}/src"
+installer_files="${staging_area}/MSI/BridgePoint_e${eclipse_ver}/src"
 bp_deliverables_linux="${staging_area}/BridgePoint_for_Linux_e${eclipse_ver}/BridgePointDeliverables"
 extra_deliverables_linux="${staging_area}/BridgePoint_for_Linux_e${eclipse_ver}/install_tools"
-mimic_files_linux="${staging_area}/MIMIC/rlstools/TK_Director/BridgePoint_Linux_e${eclipse_ver}/src"
+installer_files_linux="${staging_area}/MSI/BridgePoint_Linux_e${eclipse_ver}/src"
+mkdir -p "${bp_deliverables}"
+mkdir -p "${extra_deliverables}"
+mkdir -p "${installer_files}"
+mkdir -p "${bp_deliverables_linux}"
+mkdir -p "${extra_deliverables_linux}"
+mkdir -p "${installer_files_linux}"
 
 echo "Configuring the build process in ${build_dir}"
 
