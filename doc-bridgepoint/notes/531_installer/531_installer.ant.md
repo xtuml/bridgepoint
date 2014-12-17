@@ -25,16 +25,16 @@ the tool.
 
 4. Requirements
 ---------------
-4.1. Installer shall run on Windows, Mac, Ubuntu and RedHat.
-4.2. The installer shall install everything required to run BridgePoint. This includes items that were placed in the eclipse droppins folder by the prior installer.
-4.3. The installer must consider, and account for, the tasks performed by the previous installer's pre and post install scripts.
-4.4. The technology used shall be scriptable. It shall run on the linux build server
-4.5. Installer needs to have a command line (non-interactive) mode.  (e.g.  install -target_direct /usr/local/xtuml )
-4.6. Installer must support (minimal) branding.
-4.7. Show the readme at the end of installation
-4.8. Create desktop and start menu shortcuts on Windows
-4.9. Installer cannot be based upon proprietary technology.
-4.10. An eclipse update site option shall be investigated
+4.1.  Installer shall run on Windows, Mac, Ubuntu and RedHat.  
+4.2.  The installer shall install everything required to run BridgePoint. This includes items that were placed in the eclipse droppins folder by the prior installer.  
+4.3.  The installer must consider, and account for, the tasks performed by the previous installer's pre and post install scripts.  
+4.4.  The technology used shall be scriptable. It shall run on the linux build server  
+4.5.  Installer needs to have a command line (non-interactive) mode.  (e.g.  install -target_direct /usr/local/xtuml )  
+4.6.  Installer must support (minimal) branding.  
+4.7.  Show the readme at the end of installation  
+4.8.  Create desktop and start menu shortcuts on Windows  
+4.9.  Installer cannot be based upon proprietary technology.  
+4.10.  An eclipse update site option shall be investigated  
 
 5. Analysis
 -----------
