@@ -25,39 +25,36 @@ fi
 BUILD_ADMIN="build@onefact.net"
 MAIL_CMD="/usr/sbin/ssmtp"
 MAIL_TEMP="mailtemp"
-base_dir=`pwd`
+base_dir="${BUILD_ROOT}"
 build_dir="${base_dir}/${branch}"
 ROOTDIR=`cygpath -m ${build_dir}`
 timestamp=`date +%Y%m%d`
 build_tgt="${product_version}-${timestamp}"
-release_base="/arch1/products/tiger/releases"
+release_base="/build/bridgepoint/builds"
 release_drop="${release_base}/${product_version}"
 release_drop_dt="${release_base}/${build_tgt}"
-download_url="http://tucson.wv.mentorg.com/tiger_releases/${product_version}"
+mkdir -p "${release_drop_dt}"
+download_url=" https://www.xtuml.org/download/"
 log_dir="${build_dir}/log"
 error_file="${log_dir}/errors.log"
 diff_file="${log_dir}/diff.log"
-server="tucson.wv.mentorg.com"
-rsh="ssh"
+server=""
+rsh=""
 nb_tag=""
 
 version_length=${#product_version}
 
-if [ ${version_length} -lt 21 ]; then
-  ./create_bp_release.sh ${product_version} ${git_repo_root} ${release_type}
+./create_bp_release.sh ${product_version} ${git_repo_root} ${release_type}
 
-  if [ "$?" = "0" ]; then
-    ${rsh} ${server} "(cd '${release_base}'; if [ ! -x '${release_drop_dt}' ]; then mkdir '${release_drop_dt}'; fi; cp -f '${release_drop}'/BridgePoint_extension_'${product_version}'.zip '${release_drop_dt}'/BridgePoint_extension_'${product_version}'.zip ; chown -R build:staff '${release_drop_dt}')"
-	echo -e "Creating dated backup of the build"
-  else
-    echo -e "create_bp_release.sh returned with a non-zero value ($?)"
-  fi
-  
-  # Prune similar releases that are five days old.
-  ${rsh} ${server} "(cd '${release_base}'; find -name '${product_version}-*' -mtime 5 -exec rm -rf {} \; ;)"
+if [ "$?" = "0" ]; then
+  ${rsh} ${server} "(cd '${release_base}'; if [ ! -x '${release_drop_dt}' ]; then mkdir '${release_drop_dt}'; fi; cp -f '${release_drop}'/BridgePoint_extension_'${product_version}'.zip '${release_drop_dt}'/BridgePoint_extension_'${product_version}'.zip ; chown -R build:staff '${release_drop_dt}')"
+  echo -e "Creating dated backup of the build"
 else
-  echo -e "The version name ${product_version} is too long for the build server to handle." > ${error_file}
+  echo -e "create_bp_release.sh returned with a non-zero value ($?)"
 fi
+  
+# Prune similar releases that are five days old.
+${rsh} ${server} "(cd '${release_base}'; find -name '${product_version}-*' -mtime 5 -exec rm -rf {} \; ;)"
 
 # Build email report
 
