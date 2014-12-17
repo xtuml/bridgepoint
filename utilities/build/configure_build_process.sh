@@ -106,13 +106,13 @@ git_repo_root="$2"
 build_type="$3"
 build_dir="${BUILD_ROOT}/${branch}"
 log_dir="${build_dir}/log"
-error_file="${log_dir}/.errors"
+error_file="${log_dir}/errors.log"
 timestamp=`date +%Y%m%d%H%M`
 
 git_internal="${git_repo_root}/internal"
 install_project="Installer"
 utilities_project="utilities"
-staging_area="${BUILD_ROOT}/staging"
+staging_area="${BUILD_MOUNT}/staging"
 eclipse_ver="3.7"
 
 #
