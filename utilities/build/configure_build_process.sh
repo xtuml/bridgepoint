@@ -50,6 +50,8 @@ function configure_build_files {
 
 function configure_installer_files {
     cd ${git_internal}/src/${install_project}
+    mkdir -p "${bp_deliverables}/extras"
+    mkdir -p "${bp_deliverables}/tools"
     cp -f Launcher.bat ${bp_deliverables}/extras/Launcher.bat 2>>${error_file}
     cp -f CLI.bat ${bp_deliverables}/extras/CLI.bat 2>>${error_file}
     cp -f build_installer_bp.sh ${build_dir}/build_installer_bp.sh 2>>${error_file}
@@ -67,6 +69,7 @@ function configure_installer_files {
     unix2dos -q ${extra_deliverables}/post_install_script.bat
     unix2dos -q ${extra_deliverables}/pre_uninstall_script.bat
     
+    mkdir -p "${bp_deliverables_linux}/extras"
     cp -f Launcher.sh ${bp_deliverables_linux}/extras/Launcher.sh 2>>${error_file}
     cp -f CLI.sh ${bp_deliverables_linux}/extras/CLI.sh 2>>${error_file}
     cp -f build_installer_bp_linux.sh ${build_dir}/build_installer_bp_linux.sh 2>>${error_file}
@@ -106,15 +109,16 @@ git_repo_root="$2"
 build_type="$3"
 build_dir="${BUILD_ROOT}/${branch}"
 log_dir="${build_dir}/log"
-error_file="${log_dir}/.errors"
+error_file="${log_dir}/errors.log"
 timestamp=`date +%Y%m%d%H%M`
 
 git_internal="${git_repo_root}/internal"
 install_project="Installer"
 utilities_project="utilities"
-staging_area="${BUILD_ROOT}/staging"
+staging_area="${BUILD_MOUNT}/staging"
 eclipse_ver="3.7"
 
+echo "configure_build_process branch=${branch} git_repo_root=${git_repo_root} build_type=${build_type}"
 #
 # The follow folders are used to stage the files required by the installer
 #
