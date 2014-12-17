@@ -104,8 +104,7 @@ fi
 branch="$1"
 git_repo_root="$2"
 build_type="$3"
-base_dir=`pwd`
-build_dir="${base_dir}/${branch}"
+build_dir="${BUILD_ROOT}/${branch}"
 log_dir="${build_dir}/log"
 error_file="${log_dir}/.errors"
 timestamp=`date +%Y%m%d%H%M`
@@ -113,14 +112,14 @@ timestamp=`date +%Y%m%d%H%M`
 git_internal="${git_repo_root}/internal"
 install_project="Installer_MIP_MIMIC"
 utilities_project="utilities"
+staging_area="${BUILD_ROOT}/staging"
 eclipse_ver="3.7"
-bp_deliverables="C:/BridgePoint_e${eclipse_ver}/BridgePointDeliverables"
-extra_deliverables="C:/BridgePoint_e${eclipse_ver}/vcredist_x86"
-mimic_files="C:/MIMIC/rlstools/TK_Director/BridgePoint_e${eclipse_ver}/src"
-bp_deliverables_linux="C:/BridgePoint_for_Linux_e${eclipse_ver}/BridgePointDeliverables"
-extra_deliverables_linux="C:/BridgePoint_for_Linux_e${eclipse_ver}/install_tools"
-mimic_files_linux="C:/MIMIC/rlstools/TK_Director/BridgePoint_Linux_e${eclipse_ver}/src"
-
+bp_deliverables="${staging_area}/BridgePoint_e${eclipse_ver}/BridgePointDeliverables"
+extra_deliverables="${staging_area}/BridgePoint_e${eclipse_ver}/vcredist_x86"
+mimic_files="${staging_area}/MIMIC/rlstools/TK_Director/BridgePoint_e${eclipse_ver}/src"
+bp_deliverables_linux="${staging_area}/BridgePoint_for_Linux_e${eclipse_ver}/BridgePointDeliverables"
+extra_deliverables_linux="${staging_area}/BridgePoint_for_Linux_e${eclipse_ver}/install_tools"
+mimic_files_linux="${staging_area}/MIMIC/rlstools/TK_Director/BridgePoint_Linux_e${eclipse_ver}/src"
 
 echo "Configuring the build process in ${build_dir}"
 
@@ -132,11 +131,11 @@ fi
 
 if [ ! -x ${build_dir} ]; then
     echo -e "Creating build directory: ${build_dir}"
-    cd ${base_dir}; mkdir ${branch}
+    cd ${BUILD_ROOT}; mkdir ${branch}
 else
     mv ${build_dir} ${build_dir}_${timestamp}
     echo -e "Release build directory ${build_dir} already exists.  Moving to ${build_dir}_${timestamp}"
-    cd ${base_dir}; mkdir ${branch}
+    cd ${BUILD_ROOT}; mkdir ${branch}
 fi
 
 if [ ! -x $log_dir ]; then
@@ -150,7 +149,7 @@ configure_installer_files
 
 echo -e "\nBuild and installer files configured."
 
-cd ${base_dir}
+cd ${BUILD_ROOT}
 exit 0
 
 
