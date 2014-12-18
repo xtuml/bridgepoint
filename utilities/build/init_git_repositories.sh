@@ -1,15 +1,4 @@
 #!/bin/bash
-#=====================================================================
-#
-# File:      init_git_repositories.sh
-#
-#(c) Copyright 2013 by Mentor Graphics Corp. All rights reserved.
-#
-#=====================================================================
-# This document contains information proprietary and confidential to
-# Mentor Graphics Corp. and is not for external distribution.
-#=====================================================================
-#
 #
 #  init_git_repositories.sh takes the following arguments
 #

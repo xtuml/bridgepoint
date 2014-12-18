@@ -1,35 +1,24 @@
 #!/bin/bash -u
-#=====================================================================
-#
-# File:      create_release_functions.sh
-#
-#(c) Copyright 2013 by Mentor Graphics Corp. All rights reserved.
-#
-#=====================================================================
-# This document contains information proprietary and confidential to
-# Mentor Graphics Corp. and is not for external distribution.
-#=====================================================================
-#
 #
 #    create_release_functions.sh - Contains all functions necessary for 
 #     building a release
 #
 #    The following variables must be defined in any calling script
 #
-#    git_repo_root - the directory that is the parent folder of the git repositories
-#    build_dir - the directory for which to build the release
-#    log_dir - the directory where logs will be kept.
-#    branch - the branch/tag representing the release version
-#    release_pkg - the tiger release package
+#    GIT_REPO_ROOT - the directory that is the parent folder of the git repositories
+#    BUILD_DIR - the directory for which to build the release
+#    LOG_DIR - the directory where logs will be kept.
+#    BRANCH - the branch/tag representing the release version
+#    RELEASE_PKG - the eclipse feature package
 #
 #
 eclipse_home="c:/MentorGraphics/BridgePoint4.1.6/eclipse"
 ant_cmd="${eclipse_home}/ant/apache-ant-1.6.1/bin/ant"
 ant_opts="-Declipse-home=${eclipse_home}"
 cli_cmd="${eclipse_home}/CLI.bat"
-cli_opts"-os win32 -ws win32 -arch x86 -nl en_US -consoleLog -pluginCustomization ${build_dir}/com.mentor.nucleus.bp.pkg/plugin_customization.ini -prebuildOnly"
+cli_opts"-os win32 -ws win32 -arch x86 -nl en_US -consoleLog -pluginCustomization ${BUILD_DIR}/com.mentor.nucleus.bp.pkg/plugin_customization.ini -prebuildOnly"
 antlr_tool="pt_antlr"
-git_internal="${git_repo_root}/internal"
+git_internal="${GIT_REPO_ROOT}/internal"
 internal_modules="com.mentor.nucleus.bp.als
                   com.mentor.nucleus.bp.internal.tools
                   com.mentor.nucleus.bp.test
@@ -71,8 +60,8 @@ plugin_fragments="com.mentor.nucleus.bp.core.win32.x86
 all_feature_modules="$feature_pkg_modules $feature_modules"
 model_compiler_modules="MC-Java"
 
-build_log_dir="${log_dir}/build_logs"
-compile_log_dir="${log_dir}/compile_logs"
+build_log_dir="${LOG_DIR}/build_logs"
+compile_log_dir="${LOG_DIR}/compile_logs"
 
 if [ ! -d ${build_log_dir} ]; then
     mkdir -p $build_log_dir
@@ -86,18 +75,18 @@ function verify_checkout {
     dir_count=`ls ${module} | wc -l`
 
     if [ ${dir_count} -le 1 ]; then
-        echo -e "Error checking out ${module} with tag: ${branch}"
+        echo -e "Error checking out ${module} with tag: ${BRANCH}"
         return 1
     fi
 }
 
 function get_required_modules {
-    cp -rf ${git_internal}/src/${release_pkg} .
-    chown -R ${USERNAME} ${release_pkg}
+    cp -rf ${git_internal}/src/${RELEASE_PKG} .
+    chown -R ${USERNAME} ${RELEASE_PKG}
 
-    if [ -e ${release_pkg}/feature.xml ]; then
-        plugin_modules=`grep "<plugin id=" $build_dir/$release_pkg/feature.xml | awk -F"=" '{printf("%s\n", $2)}' | sed s/\"// | sed s/\"//`
-        release_version=`awk -F"\"" '{if (/[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${build_dir}/${release_pkg}/feature.xml`
+    if [ -e ${RELEASE_PKG}/feature.xml ]; then
+        plugin_modules=`grep "<plugin id=" $BUILD_DIR/$RELEASE_PKG/feature.xml | awk -F"=" '{printf("%s\n", $2)}' | sed s/\"// | sed s/\"//`
+        release_version=`awk -F"\"" '{if (/[0-9]\.[0-9]\.[0-9]/) {print $2; exit;}}' ${BUILD_DIR}/${RELEASE_PKG}/feature.xml`
         plugin_modules="${plugin_modules} ${independent_modules}"
         echo "release version: ${release_version}"
     fi
@@ -113,7 +102,7 @@ function extract_release_files {
     modules=`echo ${modules} | sed s/com.mentor.nucleus.bp.core// | sed s/^/"com.mentor.nucleus.bp.core "/`
 
     for module in ${modules} ${all_feature_modules} ${model_compiler_modules} ${plugin_fragments}; do
-        echo "Checking out ${module} for release: ${branch}"
+        echo "Checking out ${module} for release: ${BRANCH}"
         cp -rf ${git_internal}/src/${module} .
         chown -R ${USERNAME} ${module}
     done
@@ -121,7 +110,7 @@ function extract_release_files {
 
 function extract_unit_test_modules {
     for module in ${unit_test_modules}; do
-        echo "Checking out ${module} for release: ${branch}"
+        echo "Checking out ${module} for release: ${BRANCH}"
 		cp -rf ${git_internal}/src/${module} .
         chown -R ${USERNAME} ${module}
     done
@@ -131,15 +120,15 @@ function build_modules {
     # remove a number of plugins from the list of modules to build and compile
     modules=`echo ${modules} | sed s/com.mentor.nucleus.bp.bld.pkg// | sed s/com.mentor.nucleus.bp.doc// | sed s/com.mentor.nucleus.bp.welcome// | sed s/com.mentor.nucleus.bp.test// | sed s/com.mentor.nucleus.help.bp.mc//`
 
-    cd ${build_dir}
+    cd ${BUILD_DIR}
 
     for module in ${modules}; do
         if [ -e ${module}/generate.xml ]; then
-            echo -e "Building version ${branch} of ${module}"
+            echo -e "Building version ${BRANCH} of ${module}"
             ${cli_cmd} ${cli_opts} -project ${module}
             ${ant_cmd} ${ant_opts} -f ${module}/generate.xml nb_all > ${build_log_dir}/${module}_build.log 2>&1
         elif [ -e ${module}/build.xml ] && [ ! -e ${module}/generate.xml ]; then
-            echo -e "Building version ${branch} of ${module}"
+            echo -e "Building version ${BRANCH} of ${module}"
             ${ant_cmd} ${ant_opts} -f ${module}/build.xml nb_all > ${build_log_dir}/${module}_build.log 2>&1
         fi
     done
@@ -172,24 +161,24 @@ function compile_modules {
     modules=`echo ${modules} | sed 's/com.mentor.nucleus.bp.mc /com.mentor.nucleus.bp.utilities com.mentor.nucleus.bp.mc /'`
     modules_to_compile_later="com.mentor.nucleus.bp.docgen com.mentor.nucleus.bp.cdt com.mentor.nucleus.bp.welcome com.mentor.nucleus.bp.cli"
     
-    cd ${build_dir}
+    cd ${BUILD_DIR}
 
     for module in ${modules}; do
         if [ -e ${module}/generate.xml ]; then
-            echo -e "Compiling version ${branch} of ${module}"
+            echo -e "Compiling version ${BRANCH} of ${module}"
             ${ant_cmd} ${ant_opts} -f ${module}/generate.xml compile > ${compile_log_dir}/${module}_compile.log 2>&1
         elif [ -e ${module}/build.xml  ] && [ ! -e ${module}/generate.xml ]; then
-            echo -e "Compiling version ${branch} of ${module}"
+            echo -e "Compiling version ${BRANCH} of ${module}"
             ${ant_cmd} ${ant_opts} -f ${module}/build.xml compile > ${compile_log_dir}/${module}_compile.log 2>&1
         fi
     done
 
     for module in ${modules_to_compile_later}; do
         if [ -e ${module}/generate.xml ]; then
-            echo -e "Compiling version ${branch} of ${module}"
+            echo -e "Compiling version ${BRANCH} of ${module}"
              ${ant_cmd} ${ant_opts} -f ${module}/generate.xml compile > ${compile_log_dir}/${module}_compile.log 2>&1
         elif [ -e ${module}/build.xml  ] && [ ! -e ${module}/generate.xml ]; then
-            echo -e "Compiling version ${branch} of ${module}"
+            echo -e "Compiling version ${BRANCH} of ${module}"
             ${ant_cmd} ${ant_opts} -f ${module}/build.xml compile > ${compile_log_dir}/${module}_compile.log 2>&1
         fi
     done
