@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.xtuml.bp.ui.text/src-gen"
+    editDirectory="/org.xtuml.bp.ui.text.edit/src" editorDirectory="/org.xtuml.bp.ui.text.editor/src"
+    modelPluginID="org.xtuml.bp.ui.text" forceOverwrite="true" modelName="OAL" updateClasspath="false"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" complianceLevel="5.0"
+    copyrightFields="false" editPluginID="org.xtuml.bp.ui.text.edit" editorPluginID="org.xtuml.bp.ui.text.editor">
+  <genPackages prefix="OAL" basePackage="org.argouml.xtuml" disposableProviderFactory="true"
+      ecorePackage="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#/">
+    <genClasses ecoreClass="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//Code">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//Code/statements"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//statement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//statement/st1"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//statement/st2"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//statement/st3"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//TypeObjectStatement"/>
+    <genClasses ecoreClass="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//select_statement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//select_statement/var"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//assignment">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//assignment/e"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//TypeStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//TypeStatement/substatements"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//expression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//expression/ne"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//expression/ls"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//expression/rs"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//expr2">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//expr2/n"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//expr2/s"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//sum">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//sum/lt"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//sum/rt"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//product">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//product/lf"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//product/rf"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//TypeValue"/>
+    <genClasses ecoreClass="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//TypeCreate"/>
+    <genClasses ecoreClass="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//TypeRelate"/>
+    <genClasses ecoreClass="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//TypeDelete"/>
+    <genClasses ecoreClass="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//TypeStatementIf">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//TypeStatementIf/expr"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//TypeStatementIf/elifexpr"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//TypeStatementFor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//TypeStatementFor/list"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//TypeStatementWhile">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//TypeStatementWhile/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//TypeValueVariable"/>
+    <genClasses ecoreClass="platform:/resource/org.xtuml.bp.ui.text/src-gen/org/argouml/xtuml/OAL.ecore#//TypeConstant"/>
+  </genPackages>
+</genmodel:GenModel>
