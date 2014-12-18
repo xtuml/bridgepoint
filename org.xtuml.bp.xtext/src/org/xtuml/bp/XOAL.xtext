@@ -56,7 +56,7 @@ break_statement
 bridge_statement
   :
     "bridge"
-    (
+//  (
 //    (
 //      ( member_access
 //      | param_data_access
@@ -66,13 +66,13 @@ bridge_statement
 //    )
 //|
 //    bridge_invocation
-    )
+//  )
 
   ;
 send_statement
   :
     "send"
-    (
+//  (
 //    (
 //      ( member_access
 //      | param_data_access
@@ -82,7 +82,7 @@ send_statement
 //    )
 //|
 //    message_invocation
-    )
+//  )
 
   ;
 control_statement
@@ -222,7 +222,7 @@ select_statement
 transform_statement
   :
     "transform"
-    (
+//  (
 //    (
 //      ( member_access
 //      | param_data_access
@@ -232,7 +232,7 @@ transform_statement
 //    )
 //|
 //    transform_invocation
-    )
+//  )
 
   ;
 function_statement
@@ -607,11 +607,11 @@ object_keyletters
   ;
 phrase
   :
-  (
-    TICKED_PHRASE
-  |
-    svc_general_name
-  )
+  "phrase" // (
+//  TICKED_PHRASE
+//|
+//  svc_general_name
+//)
   ;
 relationship
   :
@@ -636,10 +636,10 @@ expr
 sub_expr
   :
     conjunction
-    (
-      "or"
-      conjunction
-    )*
+//  (
+//  "or"
+//    a2+=conjunction
+//  )*
   ;
 conjunction
   :
@@ -670,10 +670,10 @@ multiplication
 //  ( boolean_negation )=>
 //  boolean_negation
 //|
-    a1=sign_expr
+    sign_expr
 //  (
-      mult_op
-      a2=sign_expr
+//    mult_op
+//    a2=sign_expr
 //  )*
   ;
 sign_expr
@@ -756,7 +756,7 @@ array_refs
   :
   (
     TOK_LSQBR
-    expr
+    a1+=expr
     TOK_RSQBR
   )+
   ;
@@ -803,7 +803,7 @@ constant_value
   ;
 comparison_operator
   :
-    TOK_DOUBLEEQUAL
+    "=="
   |
     TOK_NOTEQUAL
   |
