@@ -9,16 +9,16 @@ Code
 block
   :
     (
-      statement
+      statements+=statement
     )*
   ;
 statement
   :
   (
-    (implicit_ib_transform_statement )=>
+//    (implicit_ib_transform_statement )=>
     implicit_ib_transform_statement
   |
-    (function_statement )=>
+//    (function_statement )=>
     function_statement
   | implicit_assignment_statement
   | implicit_invocation_statement
@@ -41,9 +41,9 @@ statement
   | while_statement
   | unrelate_statement
   | debug_statement
-  | empty_statement
+//  | empty_statement
   )
-    Semicolon
+    ';'
   ;
 assignment_statement
   :
@@ -120,7 +120,6 @@ debug_statement
      "_debug"  
      (
        ( debug_operand )+
-     |
      )
   ;
 delete_statement
@@ -130,9 +129,9 @@ delete_statement
     "instance"
     inst_ref_var
   ;
-empty_statement
-  :
-  ;
+//empty_statement
+//  :
+//  ;
 for_statement
   :
     "for"   
@@ -153,17 +152,17 @@ if_statement
   :
     "if"
     expr
-      block
+      b=block
     (
       (
         "elif"
-        expr
-      block
+        e=expr
+      c=block
       )+
     )?
     (
       "else"
-      block
+      d=block
     )?
     "end" "if"
   ;
@@ -261,21 +260,21 @@ unrelate_statement
 while_statement
   :
     "while"    
-      expr
-      block
+      b=expr
+      c=block
     "end" "while"
   ;
 assignment_expr
   :
   (
-    member_access
+    "eee" //member_access
     TOK_EQUAL
-    expr
+    "aaa" //e1=expr
   |
     ( "param" TOK_DOT )=>
-    param_data_access
+    "jjj" //param_data_access
     TOK_EQUAL
-    expr
+    "bbb" //e2=expr
   )
   ;
 bridge_invocation
