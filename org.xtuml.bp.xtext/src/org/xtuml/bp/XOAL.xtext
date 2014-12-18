@@ -1,0 +1,9 @@
+grammar org.xtuml.bp.XOAL with org.eclipse.xtext.common.Terminals
+
+generate xOAL "http://www.xtuml.org/bp/XOAL"
+
+Model:
+	greetings+=Greeting*;
+	
+Greeting:
+	'Hello' name=ID '!';
