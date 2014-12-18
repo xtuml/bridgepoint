@@ -13,10 +13,34 @@ export BUILD_MOUNT="/build"
 export BUILD_ROOT="${BUILD_MOUNT}/builds"
 export GIT_REPO_ROOT="${BUILD_MOUNT}/git/xtuml"
 export BUILD_TOOLS="${BUILD_MOUNT}/utilities/bp_build_tools"
-export BRANCH="master"
 export PT_HOME="${BUILD_TOOLS}/bridgepoint"
 export PT_HOME_DRIVE=
 export XTUMLGEN_HOME="${BUILD_TOOLS}/bridgepoint"
+# if no arguments are present default to master
+export BRANCH="master"
+if [ $# -lt 1 ]; then
+  export BRANCH="$1"
+fi
+export BUILD_DIR="${BUILD_ROOT}/${BRANCH}"
+export LOG_DIR="${build_dir}/log"
+export ERROR_FILE="${log_dir}/errors.log"
+export DIFF_FILE="${log_dir}/diff.log"
+export BUILD_ADMIN="build@onefact.net"
+export MAIL_CMD="/usr/sbin/ssmtp"
+export MAIL_TEMP="mailtemp"
+export RELEASE_PKG="com.mentor.nucleus.bp.bld.pkg-feature"
+
+
+export RELEASE_BASE="/build/releases"
+export RELEASE_DROP="${RELEASE_BASE}/${product_version}"
+mkdir -p "${RELEASE_DROP}"
+export DOWNLOAD_URL="http://xtuml.github.io/bridgepoint/"
+export DISTRIBUTION_SERVER=""
+export RSH=""
+
+
+
+
 mkdir -p "${BUILD_TOOLS}"
 mkdir -p "${GIT_REPO_ROOT}"
 mkdir -p "${BUILD_ROOT}"

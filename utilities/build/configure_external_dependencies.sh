@@ -1,15 +1,4 @@
 #!/bin/bash
-#=============================================================================
-#
-# File:      configure_external_dependencies.sh
-#
-#(c) Copyright 2013 by Mentor Graphics Corp. All rights reserved.
-#
-#=====================================================================
-# This document contains information proprietary and confidential to
-# Mentor Graphics Corp. and is not for external distribution.
-#=====================================================================
-#
 #
 #-------------------------------------------------------------------------------
 # Functions
@@ -88,7 +77,7 @@ get_user_supplied_binaries ()
 configure_dap()
 {
     echo ""
-    echo "Configuring the Data Access Pacakge for build."
+    echo "Configuring the Data Access Package for build."
 
     cd $DAP/bridgepoint
     mkdir log_dir

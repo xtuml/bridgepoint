@@ -1,14 +1,4 @@
 #!/bin/bash
-#=====================================================================
-#
-# File:      configure_build_process.sh
-#
-#(c) Copyright 2013 by Mentor Graphics Corp. All rights reserved.
-#
-#=====================================================================
-# This document contains information proprietary and confidential to
-# Mentor Graphics Corp. and is not for external distribution.
-#=====================================================================
 #
 #	configure_build_process.sh takes the following arguments
 #
