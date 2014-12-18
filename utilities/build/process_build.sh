@@ -21,7 +21,7 @@ nb_tag=""
 ./create_bp_release.sh ${product_version} ${git_repo_root} ${release_type}
 
 if [ "$?" = "0" ]; then
-  ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; if [ ! -x '${release_drop_dt}' ]; then mkdir '${release_drop_dt}'; fi; cp -f '${RELEASE_DROP}'/BridgePoint_extension_'${product_version}'.zip '${release_drop_dt}'/BridgePoint_extension_'${product_version}'.zip ; chown -R build:staff '${release_drop_dt}')"
+  ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; if [ ! -x '${release_drop_dt}' ]; then mkdir '${release_drop_dt}'; fi; cp -f '${RELEASE_DROP}'/BridgePoint_extension_'${product_version}'.zip '${release_drop_dt}'/BridgePoint_extension_'${product_version}'.zip ; )"
   echo -e "Creating dated backup of the build"
 else
   echo -e "create_bp_release.sh returned with a non-zero value ($?)"

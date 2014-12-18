@@ -155,14 +155,6 @@ function create_build {
         zip_distribution
     fi
 
-    # If this build is being run on the official build server, copy plugins to release drop location.
-    host=`hostname`
-    if [ "${host}" = "svr-orw-sle-10" ]; then
-      cd ${BUILD_DIR}
-      ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; if [ ! -x '${RELEASE_DROP}' ]; then mkdir '${RELEASE_DROP}'; fi)"
-      scp BridgePoint_extension_${branch}.zip build@${DISTRIBUTION_SERVER}:${RELEASE_DROP}
-      ${RSH} ${DISTRIBUTION_SERVER} "(touch '${RELEASE_DROP}'; chown -R build:staff '${RELEASE_DROP}')"
-    fi
 }
 
 function create_feature {
@@ -255,7 +247,7 @@ pkg_module="com.mentor.nucleus.bp.bld.pkg"
 
 timestamp=`date +%Y%m%d%H%M`
 extension_dir="${RELEASE_BASE}/BridgePoint_${branch}"
-mkdir -p "${extension_dir}
+mkdir -p "${extension_dir}"
 
 if [ ! -x $pkg_log_dir ]; then
 	echo -e "Creating package log directory: $pkg_log_dir"
