@@ -6,7 +6,6 @@ Bundle-Version: 1.0.0
 Bundle-SymbolicName: org.xtuml.bp.xtext.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.xtuml.bp.xtext,
- org.xtuml.bp.xtext.ui,
  org.eclipse.core.runtime,
  org.eclipse.xtext,
  org.eclipse.xtext.junit4,

@@ -22,12 +22,4 @@ Import-Package: org.apache.log4j,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtext.xtend2.lib
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: org.xtuml.bp,
- org.xtuml.bp.services,
- org.xtuml.bp.xOAL,
- org.xtuml.bp.xOAL.impl,
- org.xtuml.bp.xOAL.util,
- org.xtuml.bp.parseTreeConstruction,
- org.xtuml.bp.parser.antlr,
- org.xtuml.bp.parser.antlr.internal,
- org.xtuml.bp.validation
+Export-Package: org.xtuml.bp
