@@ -559,9 +559,9 @@ svc_general_name
   ;
 limited_name
   :
-    TOK_ID
-  |
-    TOK_RELID
+    ID
+//  |
+//   TOK_RELID
   ;
 inst_ref_set_var
   :
@@ -615,7 +615,7 @@ phrase
   ;
 relationship
   :
-    TOK_RELID
+    ID
   ;
 supp_data_item
   :
@@ -838,9 +838,9 @@ terminal TOK_DOT: '.';
 terminal TOK_EQUAL: '=';
 //terminal TOK_FRACTION: ('0'..'9')+'/';
 terminal TOK_GE: '>=';
-terminal TOK_GENERAL_NAME: ID;
+TOK_GENERAL_NAME: ID;
 terminal TOK_GT: '>';
-         TOK_ID: ID;
+//         TOK_ID: ID;
 terminal TOK_LE: '<=';
 terminal TOK_LESSTHAN: '<';
 terminal TOK_LPAREN: '(';
@@ -848,10 +848,10 @@ terminal TOK_LSQBR: '[';
 terminal TOK_MINUS: '-';
 //terminal TOK_MOD: '\';
 terminal TOK_NOTEQUAL: '!=';
-terminal TOK_NUMBER: ('0'..'9')+;
+TOK_NUMBER: INT;
 terminal TOK_PLUS: '+';
 terminal TOK_QMARK: '"';
-terminal TOK_RELID: 'R'('0'..'9')+;
+//terminal TOK_RELID: 'R' INT;
 terminal TOK_RPAREN: ')';
 terminal TOK_RSQBR: ']';
 terminal TOK_STRING: '"' ('a'..'z')* '"';
