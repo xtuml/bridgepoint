@@ -1,6 +1,6 @@
-grammar org.xtuml.bp.XOAL with org.eclipse.xtext.common.Terminals
+grammar org.xtuml.bp.xtext.XOAL with org.eclipse.xtext.common.Terminals
 
-generate xOAL "http://www.xtuml.org/bp/XOAL"
+generate xOAL "http://www.xtuml.org/bp/xtext/XOAL"
 
 Code
   :

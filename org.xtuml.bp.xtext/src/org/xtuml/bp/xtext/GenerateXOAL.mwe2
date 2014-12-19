@@ -1,4 +1,4 @@
-module org.xtuml.bp.GenerateXOAL
+module org.xtuml.bp.xtext.GenerateXOAL
 
 import org.eclipse.emf.mwe.utils.*
 import org.eclipse.xtext.generator.*

@@ -19,4 +19,4 @@ Import-Package: org.apache.log4j,
  org.apache.commons.logging
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: 
-Bundle-Activator: org.xtuml.bp.ui.internal.XOALActivator
+Bundle-Activator: org.xtuml.bp.xtext.ui.internal.XOALActivator
