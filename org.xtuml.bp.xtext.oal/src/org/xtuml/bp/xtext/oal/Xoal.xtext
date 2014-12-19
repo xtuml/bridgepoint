@@ -48,14 +48,14 @@ statement
 assignment_statement
   :
     "assign"
-    assignment_expr
+    a1=assignment_expr
   ;
 break_statement
-  : "break"  
+  : a1="break"  
   ;
 bridge_statement
   :
-    "bridge"
+    a1="bridge"
 //  (
 //    (
 //      ( member_access
@@ -71,7 +71,7 @@ bridge_statement
   ;
 send_statement
   :
-    "send"
+    a1="send"
 //  (
 //    (
 //      ( member_access
@@ -99,9 +99,9 @@ create_event_statement
     "create"  
     "event"
     "instance"
-    local_variable
+    a1=local_variable
     "of"
-    event_spec
+    a2=event_spec
   ;
 create_object_statement
   :
@@ -406,8 +406,8 @@ inst_ref_var_or_ee_keyletters
   :
     (
       local_variable
-    |
-      TOK_GENERAL_NAME
+//  |
+//    TOK_GENERAL_NAME
     )
   ;
 interface_or_port_name
@@ -545,16 +545,16 @@ general_name
   :
   (
     limited_name
-  |
-    TOK_GENERAL_NAME
+//|
+//  TOK_GENERAL_NAME
   )
   ;
 svc_general_name
   :
   (
     limited_name
-  |
-    TOK_GENERAL_NAME
+//|
+//  TOK_GENERAL_NAME
   )
   ;
 limited_name
