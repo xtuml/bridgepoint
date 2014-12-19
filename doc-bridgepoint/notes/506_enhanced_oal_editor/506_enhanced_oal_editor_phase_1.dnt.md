@@ -99,6 +99,12 @@ this it seems this may not be our best choice.  At this point the editor will be
 left to edit .xoal files only.  Transferring data shall occur through copying
 and pasting from the xoal editor to the original oal editor.
 
+6.5 Next phase
+
+The first phase of this work was to provide a prototype.  In the next phase [3],
+we shall complete the persistence work described in 6.4 and on.  Furthermore,
+we shall look into semantic parsing as well as semantic auto-completion.
+
 7. Design Comments
 ------------------
 
