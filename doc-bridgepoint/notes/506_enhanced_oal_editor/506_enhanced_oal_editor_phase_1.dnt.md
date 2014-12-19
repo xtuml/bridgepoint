@@ -114,24 +114,24 @@ we shall look into semantic parsing as well as semantic auto-completion.
 
 8.1.1 Code completion
 
-_- Type Ctrl + Space
-_R A list of data is given
-_- Choose an item from the list
-_R The item is automatically entered into the document
+_- Type Ctrl + Space   
+_R A list of data is given   
+_- Choose an item from the list   
+_R The item is automatically entered into the document   
 
 8.1.1.2 Filtered code completion
 
-_- Enter some OAL, for instance 'select'
-_- Type Ctrl + Space
-_R A list is given including only one, any or many
-_- Choose an item from the list
-_R The item is automatically entered into the document
+_- Enter some OAL, for instance 'select'   
+_- Type Ctrl + Space   
+_R A list is given including only one, any or many   
+_- Choose an item from the list   
+_R The item is automatically entered into the document   
 
 8.2 Parsing
 
-_- Type the following into an xoal document:
-   'select a related by c;'
-_R The parser shall generate an error
+_- Type the following into an xoal document:   
+   'select a related by c;'   
+_R The parser shall generate an error   
 
 
 End
