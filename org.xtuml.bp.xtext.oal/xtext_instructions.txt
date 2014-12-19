@@ -1,0 +1,24 @@
+This document describes how to install Xtext as well as the newly developed oal
+Xtext editors.  In addition to installation it describes how these new plug-ins
+are used.
+
+1.  Xtext installation
+	 1.1 To use the xtext editors provided you must install Xtext.  The
+	     instructions below will guide you through that process.
+	 1.2 In your BridgePoint installation select Help > Install New Software...
+	 1.3 In the Work with field choose Indigo
+	 1.4 In the filter field type xtext (note there may be a slight delay at
+	     this point)
+	 1.5 Choose the Xtext found under the modeling category
+	 1.6 Click Next
+	 1.7 Accept the license and click Finish
+	 1.8 Restart the tool when asked
+2.  Xtext usage
+	 2.1 Create a new file with the .xoal extension
+	 2.2 Begin typing the OAL language
+	 2.3 Use Ctrl + Space to bring up auto-completion
+	 2.4 When done editing you can save the contents and then copy and paste the
+	     OAL into an older version of the BridgePoint OAL editor
+	 2.5 At this point the OAL will be ready for use (in Verifier as well as the
+	     model compilers)
+
