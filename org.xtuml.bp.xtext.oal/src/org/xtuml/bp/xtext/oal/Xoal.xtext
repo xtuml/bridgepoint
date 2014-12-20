@@ -109,7 +109,7 @@ create_object_statement
     "object"
     "instance"
   (
-    ( local_variable "of" )=>
+//  ( local_variable "of" )=>
     a1=local_variable
   )?
     "of"
@@ -271,7 +271,7 @@ assignment_expr
     TOK_EQUAL
     a2=expr
   |
-    ( "param" TOK_DOT )=>
+//  ( "param" TOK_DOT )=>
     a3=param_data_access
     TOK_EQUAL
     a4=expr
@@ -372,8 +372,8 @@ event_spec
     "to"
     (
       (
-        ( a4=object_keyletters (
-          "assigner" | "class" ) )=>
+//      ( a4=object_keyletters (
+//        "assigner" | "class" ) )=>
         a5=object_keyletters
         (
           "assigner"
@@ -610,7 +610,7 @@ phrase
   (
 //  TICKED_PHRASE
 //|
-    "'" a1=svc_general_name "'"
+    STRING
   )
   ;
 relationship
@@ -690,11 +690,14 @@ boolean_negation
   ;
 term
   :
-    (cardinality_op) => a1=cardinality_op
+//  (cardinality_op) =>
+    a1=cardinality_op
   |
-    (empty_op) => a2=empty_op
+//  (empty_op) =>
+    a2=empty_op
   |
-    (not_empty_op) => a3=not_empty_op
+//  (not_empty_op) =>
+    a3=not_empty_op
   |
     a4=rval
   |
@@ -779,12 +782,12 @@ rval
   |
     a6=constant_value
   |
-    ("rcvd_evt" TOK_DOT) =>
+//  ("rcvd_evt" TOK_DOT) =>
     a7=event_data_access
   |
     a8=bridge_expr
   |
-    ("param" TOK_DOT) =>
+//  ("param" TOK_DOT) =>
     a9=param_data_access
 //|
 //  TOK_QMARK
