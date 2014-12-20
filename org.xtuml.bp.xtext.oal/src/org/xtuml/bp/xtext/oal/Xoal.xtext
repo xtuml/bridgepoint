@@ -17,7 +17,7 @@ statement
   (
 //  (implicit_ib_transform_statement )=>
     implicit_ib_transform_statement
-//|
+  |
 //  (function_statement )=>
     function_statement
   | implicit_assignment_statement
@@ -56,33 +56,33 @@ break_statement
 bridge_statement
   :
     a1="bridge"
-//  (
-//    (
-//      ( member_access
-//      | param_data_access
-//      )
-//      TOK_EQUAL
-//      bridge_invocation
-//    )
-//|
-//    bridge_invocation
-//  )
+    (
+      (
+        ( a2=member_access
+        | a3=param_data_access
+        )
+        TOK_EQUAL
+        a4=bridge_invocation
+      )
+  |
+      a5=bridge_invocation
+    )
 
   ;
 send_statement
   :
     a1="send"
-//  (
-//    (
-//      ( member_access
-//      | param_data_access
-//      )
-//      TOK_EQUAL
-//      message_invocation
-//    )
-//|
-//    message_invocation
-//  )
+    (
+      (
+        ( a2=member_access
+        | a3=param_data_access
+        )
+        TOK_EQUAL
+        a4=message_invocation
+      )
+  |
+      a5=message_invocation
+    )
 
   ;
 control_statement
@@ -108,10 +108,10 @@ create_object_statement
     "create"
     "object"
     "instance"
-//(
-//  (  local_variable "of" )=>
+  (
+    ( local_variable "of" )=>
     a1=local_variable
-//)?
+  )?
     "of"
     a2=object_keyletters
   ;
@@ -119,7 +119,7 @@ debug_statement
    :
      "_debug"
      (
-       ( debug_operand )+
+       ( a1+=debug_operand )+
      )
   ;
 delete_statement
@@ -144,8 +144,8 @@ generate_statement
   "generate"
   (
     a1=event_spec
-//|
-//  member_access
+  |
+    a2=member_access
   )
   ;
 if_statement
@@ -168,15 +168,15 @@ if_statement
   ;
 implicit_assignment_statement
   :
-    "implicit_assignment_statement" //assignment_expr
+    a1=assignment_expr
   ;
 implicit_invocation_statement
   :
-  "implicit_invocation_statement" //invocation
+  a1=invocation
   ;
 implicit_ib_transform_statement
   :
-    "implicit_ib_transform_statement" //transform_ib_invocation
+  a1=transform_ib_invocation
   ;
 relate_statement
   :
@@ -186,14 +186,14 @@ relate_statement
     a2=inst_ref_var
     "across"
     a3=relationship
-//  (
-//    TOK_DOT
-//    phrase
-//  )?
-//  (
-//    "using"
-//    assoc_obj_inst_ref_var
-//  )?
+    (
+      TOK_DOT
+      a4=phrase
+    )?
+    (
+      "using"
+      a5=assoc_obj_inst_ref_var
+    )?
     ;
 return_statement
   :
@@ -207,38 +207,38 @@ select_statement
     "select"
     (
       "one"
-      local_variable
-      a1=object_spec
-    |
-      "any"
-      local_variable
+      a1=local_variable
       a2=object_spec
     |
+      "any"
+      a3=local_variable
+      a4=object_spec
+    |
       "many"
-      local_variable
-      a3=object_spec
+      a5=local_variable
+      a6=object_spec
     )
     ;
 transform_statement
   :
     "transform"
-//  (
-//    (
-//      ( member_access
-//      | param_data_access
-//      )
-//      TOK_EQUAL
-//      transform_invocation
-//    )
-//|
-//    transform_invocation
-//  )
+    (
+      (
+        ( a1=member_access
+        | a2=param_data_access
+        )
+        TOK_EQUAL
+        a3=transform_invocation
+      )
+  |
+      a4=transform_invocation
+    )
 
   ;
 function_statement
   :
-//TOK_DOUBLECOLON
-  "function_statement" //function_invocation
+  TOK_DOUBLECOLON
+  a1=function_invocation
   ;
 unrelate_statement
   :
@@ -248,73 +248,73 @@ unrelate_statement
     a2=inst_ref_var
     "across"
     a3=relationship
-//  (
-//    TOK_DOT
-//    phrase
-//  )?
-//  (
-//    "using"
-//    assoc_obj_inst_ref_var
-//  )?
+    (
+      TOK_DOT
+      a4=phrase
+    )?
+    (
+      "using"
+      a5=assoc_obj_inst_ref_var
+    )?
   ;
 while_statement
   :
     "while"
-      a1=expr
-      a2=block
+    a1=expr
+    a2=block
     "end" "while"
   ;
 assignment_expr
   :
   (
-    ID //member_access
+    a1=member_access
     TOK_EQUAL
-    a1=expr
-//|
-//  ( "param" TOK_DOT )=>
-//  param_data_access
-//  TOK_EQUAL
-//  expr
+    a2=expr
+  |
+    ( "param" TOK_DOT )=>
+    a3=param_data_access
+    TOK_EQUAL
+    a4=expr
   )
   ;
 bridge_invocation
   :
     a1=ee_keyletters
     TOK_DOUBLECOLON
-//  bridge_function
+    a2=bridge_function
     TOK_LPAREN
-//  (
-//    invocation_parameters
-//  )?
+    (
+      a3=invocation_parameters
+    )?
     TOK_RPAREN
   ;
 message_invocation
   :
-//  interface_or_port_name
+    a1=interface_or_port_name
     TOK_DOUBLECOLON
-//  message_name
+    a2=message_name
     TOK_LPAREN
-//  (
-//    invocation_parameters
-//  )?
+    (
+      a3=invocation_parameters
+    )?
     TOK_RPAREN
-//  (
-//    "to"
-//    (
-//      rval
-//    )
-//  )?
+    (
+      "to"
+      (
+        a4=rval
+      )
+    )?
   ;
 invocation
   :
-    "invocation rule" //identifier
-//  TOK_DOUBLECOLON
-//  invocation_function
-//  TOK_LPAREN
-//  (
-//    invocation_parameters
-//  )?
-//  TOK_RPAREN
+    a1=identifier
+    TOK_DOUBLECOLON
+    a2=invocation_function
+    TOK_LPAREN
+    (
+      a3=invocation_parameters
+    )?
+    TOK_RPAREN
   ;
 bridge_expr
   :
@@ -323,13 +323,13 @@ bridge_expr
   ;
 invocation_expr
   :
-    invocation
+    a1=invocation
   ;
 enumerator_access
    :
-    "enumerator_access" //enum_data_type
-//  TOK_DOUBLECOLON
-//  enumerator
+    a1=enum_data_type
+    TOK_DOUBLECOLON
+    a2=enumerator
   ;
 debug_operand
   :
@@ -354,53 +354,53 @@ debug_operand
   ;
 event_spec
   :
-    event_label
-//  (
-//    TOK_TIMES
-//  )?
-//  (
-//    TOK_COLON
-//    event_meaning
-//  )?
-//  (
-//    TOK_LPAREN
-//    (
-//      supp_data
-//    )?
-//    TOK_RPAREN
-//  )?
+    a1=event_label
+    (
+      TOK_TIMES
+    )?
+    (
+      TOK_COLON
+      a2=event_meaning
+    )?
+    (
+      TOK_LPAREN
+      (
+        a3=supp_data
+      )?
+      TOK_RPAREN
+    )?
     "to"
-//  (
-//    (
-//      ( object_keyletters (
-//        "assigner" | "class" ) )=>
-//      object_keyletters
-//      (
-//        "assigner"
-//      |
-//        "class"
-//      )
-//    |
-//      object_keyletters
-//      "creator"
-//    )
-//  |
-//    (
-        inst_ref_var_or_ee_keyletters
-//    )
-//  )
+    (
+      (
+        ( a4=object_keyletters (
+          "assigner" | "class" ) )=>
+        a5=object_keyletters
+        (
+          "assigner"
+        |
+          "class"
+        )
+      |
+        a6=object_keyletters
+        "creator"
+      )
+    |
+      (
+        a7=inst_ref_var_or_ee_keyletters
+      )
+    )
   ;
 invocation_parameters
   :
     data_item
     TOK_COLON
-//  expr
-//  (
-//    TOK_COMMA
-//    data_item
-//    TOK_COLON
-//    expr
-//  )*
+    a1=expr
+    (
+      TOK_COMMA
+      a2+=data_item
+      TOK_COLON
+      a3+=expr
+    )*
   ;
 inst_ref_var_or_ee_keyletters
   :
@@ -420,84 +420,84 @@ message_name
   ;
 instance_chain
   :
-    "instance_chain" //( TOK_ARROW
-//    object_keyletters
-//    TOK_LSQBR
-//    relationship
-//    (
-//      TOK_DOT
-//      phrase
-//    )?
-//    TOK_RSQBR
-//  )+
+    ( TOK_ARROW
+      a1+=object_keyletters
+      TOK_LSQBR
+      a2+=relationship
+      (
+        TOK_DOT
+        a3+=phrase
+      )?
+      TOK_RSQBR
+    )+
   ;
 object_spec
   :
   (
     "related"
     "by"
-    local_variable
-    instance_chain
-//  ( where_spec )?
+    a1=local_variable
+    a2=instance_chain
+    ( a3=where_spec )?
   |
     "from"
     ( "instances"
       "of"
     )?
-    object_keyletters
-//  ( where_spec )?
+    a4=object_keyletters
+    ( a5=where_spec )?
   )
   ;
 supp_data
   :
-    supp_data_item
+    a1=supp_data_item
     TOK_COLON
-//  expr
-//  (
-//    TOK_COMMA
-//    supp_data_item
-//    TOK_COLON
-//    expr
-//  )*
+    a2=expr
+    (
+      TOK_COMMA
+      a3+=supp_data_item
+      TOK_COLON
+      a4+=expr
+    )*
   ;
 function_invocation
   :
-    "function_invocation" //function_function
-//  TOK_LPAREN
-//  (
-//    invocation_parameters
-//  )?
-//  TOK_RPAREN
+    a1=function_function
+    TOK_LPAREN
+    (
+      a2=invocation_parameters
+    )?
+    TOK_RPAREN
   ;
 transform_ib_invocation
   :
-    "transform_ib_invocation" //inst_ref_var
-//  TOK_DOT
-//  transformer_function
-//  TOK_LPAREN
-//  (
-//    invocation_parameters
-//  )?
-//  TOK_RPAREN
+    a1=inst_ref_var
+    TOK_DOT
+    a2=transformer_function
+    TOK_LPAREN
+    (
+      a3=invocation_parameters
+    )?
+    TOK_RPAREN
   ;
 transform_invocation
   :
-    "transform_invocation" //object_keyletters
-//  TOK_DOUBLECOLON
-//  transformer_function
-//  TOK_LPAREN
-//  (
-//    invocation_parameters
-//  )?
-//  TOK_RPAREN
+    a1=object_keyletters
+    TOK_DOUBLECOLON
+    a2=transformer_function
+    TOK_LPAREN
+    (
+      a3=invocation_parameters
+    )?
+    TOK_RPAREN
   ;
 where_spec
   :
-  "where" //expr
+  a1=expr
   ;
 assoc_obj_inst_ref_var
   :
-    inst_ref_var
+    a1=inst_ref_var
   ;
 bridge_function
   :
@@ -607,11 +607,11 @@ object_keyletters
   ;
 phrase
   :
-  "phrase" // (
+  (
 //  TICKED_PHRASE
 //|
-//  svc_general_name
-//)
+    "'" a1=svc_general_name "'"
+  )
   ;
 relationship
   :
@@ -678,25 +678,25 @@ multiplication
   ;
 sign_expr
   :
-//  (
-//    plus_or_minus
-//  )?
-    term
+    (
+      a1=plus_or_minus
+    )?
+    a2=term
   ;
 boolean_negation
   :
     "not"
-    term
+    a1=term
   ;
 term
   :
-//  (cardinality_op) => cardinality_op
-//|
-//  (empty_op) => empty_op
-//|
-//  (not_empty_op) => not_empty_op
-//|
-    a1=rval
+    (cardinality_op) => a1=cardinality_op
+  |
+    (empty_op) => a2=empty_op
+  |
+    (not_empty_op) => a3=not_empty_op
+  |
+    a4=rval
   |
     TOK_LPAREN
 //  (
@@ -709,26 +709,26 @@ term
   ;
 cardinality_op
   :
-      "cardinality" local_variable
+      "cardinality" //a1=local_variable
   ;
 empty_op
   :
-      "empty" local_variable
+      "empty" a1=local_variable
   ;
 not_empty_op
   :
-      "not_empty" local_variable
+      "not_empty" a1=local_variable
   ;
 instance_start_segment
   :
-    root_element_label
+    a1=root_element_label
     (
-      array_refs
+      a2=array_refs
     )?
   ;
 instance_access_segment
   :
-    element_label
+    a1=element_label
 //  (
 //    array_refs
 //  )?
@@ -830,6 +830,7 @@ mult_op
 //    TOK_MOD
   ;
 
+terminal TOK_ARROW: '->';
 terminal TOK_COLON: ':';
 terminal TOK_DOUBLECOLON: '::';
 terminal TOK_COMMA: ',';
