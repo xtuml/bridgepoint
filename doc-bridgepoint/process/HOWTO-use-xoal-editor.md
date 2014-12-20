@@ -30,3 +30,36 @@ None
     OAL into an older version of the BridgePoint OAL editor   
 4.5 At this point the OAL will be ready for use (in Verifier as well as the
     model compilers)   
+
+5. Building the xoal editor
+---------------------------
+
+5.1 Configure your eGit repository by adding this location:   
+
+https://github.com/xtuml/bridgepoint.git   
+
+This is done in the Git Repositories view by right clicking and choosing Paste
+Repository Path or URI, after copying the above location   
+
+5.2 Click Next on the following two pages, then click Finish.   
+5.3 Right click on the bridgepoint repository and choose
+    Switch To > New Branch...   
+5.4 In the Source ref field click the pull down menu and choose this branch:
+    506_stage1_enhanced_oal_editor_2   
+5.5 Right click on the bridgepoint repository and choose
+    Import Projects...   
+5.6 In the dialog that opens choose Next, then click finish.   
+5.7 At this point you will have four new projects added to your workspace   
+    doc-bridgepoint   
+    org.xtuml.bp.xtext.oal   
+    org.xtuml.bp.xtext.oal.tests   
+    org.xtuml.bp.xtext.oal.ui   
+5.8 Enable Build Automatically by right clicking the Project menu and enabling
+    the check on Build Automatically   
+5.8 Expand org.xtuml.bp.xtext.oal/src/org/xtuml/bp/xtext/oal/   
+5.9 Right click on GenerateXoal.mwe2 and choose Run As > MWE2 Workflow   
+5.10 You will get a message asking to install Antlr 3.0, type y in the Console
+     view and hit enter   
+5.11 At this point the plugins will have been built   
+
+ 
