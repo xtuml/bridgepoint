@@ -619,15 +619,15 @@ relationship
   ;
 supp_data_item
   :
-    data_item_name
+    a1=data_item_name
   ;
 function_function
   :
-    svc_function_name
+    a1=svc_function_name
   ;
 transformer_function
   :
-    function_name
+    a1=function_name
   ;
 expr
   :
@@ -729,28 +729,28 @@ instance_start_segment
 instance_access_segment
   :
     a1=element_label
-//  (
-//    array_refs
-//  )?
+    (
+      a2=array_refs
+    )?
   ;
 member_access
   :
-  instance_start_segment
-//(TOK_DOT
-// instance_access_segment
-//)*
+  a1=instance_start_segment
+  (TOK_DOT
+   a2+=instance_access_segment
+  )*
   ;
 param_data_access
   :
   "param"
   TOK_DOT
-//member_access
+  a1=member_access
   ;
 event_data_access
   :
   "rcvd_evt"
   TOK_DOT
-//member_access
+  a1=member_access
   ;
 array_refs
   :
@@ -763,29 +763,29 @@ array_refs
 rval
   :
 //  ( TOK_DOUBLECOLON )=>
-//  TOK_DOUBLECOLON
-//  function_invocation
+//  b0=TOK_DOUBLECOLON
+//  b1=function_invocation
 //|
 //  ( transform_ib_invocation )=>
-//  transform_ib_invocation
+//  b2=transform_ib_invocation
 //|
 //  ( invocation_expr )=>
-//  invocation_expr
+//  a3=invocation_expr
 //|
 //  ( enumerator_access )=>
-//  enumerator_access
-//|
-//  member_access
-//|
-    constant_value
-//|
-//  ("rcvd_evt" TOK_DOT) =>
-//  event_data_access
-//|
-//  bridge_expr
-//|
-//  ("param" TOK_DOT) =>
-//  param_data_access
+    a4=enumerator_access
+  |
+    a5=member_access
+  |
+    a6=constant_value
+  |
+    ("rcvd_evt" TOK_DOT) =>
+    a7=event_data_access
+  |
+    a8=bridge_expr
+  |
+    ("param" TOK_DOT) =>
+    a9=param_data_access
 //|
 //  TOK_QMARK
   ;
