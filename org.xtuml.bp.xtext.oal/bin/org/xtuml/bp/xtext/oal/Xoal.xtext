@@ -1,0 +1,858 @@
+grammar org.xtuml.bp.xtext.oal.Xoal with org.eclipse.xtext.common.Terminals
+
+generate xoal "http://www.xtuml.org/bp/xtext/oal/Xoal"
+
+Code
+  :
+    block
+  ;
+block
+  :
+    (
+      statements+=statement
+    )*
+  ;
+statement
+  :
+  (
+//  (implicit_ib_transform_statement )=>
+    implicit_ib_transform_statement
+//|
+//  (function_statement )=>
+    function_statement
+  | implicit_assignment_statement
+  | implicit_invocation_statement
+  | assignment_statement
+  | control_statement
+  | break_statement
+  | bridge_statement
+  | send_statement
+  | continue_statement
+  | create_object_statement
+  | create_event_statement
+  | delete_statement
+  | for_statement
+  | generate_statement
+  | if_statement
+  | relate_statement
+  | return_statement
+  | select_statement
+  | transform_statement
+  | while_statement
+  | unrelate_statement
+  | debug_statement
+//| empty_statement
+  )
+    ';'
+  ;
+assignment_statement
+  :
+    "assign"
+    a1=assignment_expr
+  ;
+break_statement
+  : a1="break"
+  ;
+bridge_statement
+  :
+    a1="bridge"
+//  (
+//    (
+//      ( member_access
+//      | param_data_access
+//      )
+//      TOK_EQUAL
+//      bridge_invocation
+//    )
+//|
+//    bridge_invocation
+//  )
+
+  ;
+send_statement
+  :
+    a1="send"
+//  (
+//    (
+//      ( member_access
+//      | param_data_access
+//      )
+//      TOK_EQUAL
+//      message_invocation
+//    )
+//|
+//    message_invocation
+//  )
+
+  ;
+control_statement
+  :
+    a1="control"
+    "stop"
+  ;
+continue_statement
+  :
+    a1="continue"
+  ;
+create_event_statement
+  :
+    "create"
+    "event"
+    "instance"
+    a1=local_variable
+    "of"
+    a2=event_spec
+  ;
+create_object_statement
+  :
+    "create"
+    "object"
+    "instance"
+//(
+//  (  local_variable "of" )=>
+    a1=local_variable
+//)?
+    "of"
+    a2=object_keyletters
+  ;
+debug_statement
+   :
+     "_debug"
+     (
+       ( debug_operand )+
+     )
+  ;
+delete_statement
+  :
+    "delete"
+    "object"
+    "instance"
+    a1=inst_ref_var
+  ;
+//empty_statement
+//  :
+//  ;
+for_statement
+  :
+    "for"
+    "each" a1=local_variable "in" a2=inst_ref_set_var
+    a3=block
+    "end"  "for"
+  ;
+generate_statement
+  :
+  "generate"
+  (
+    a1=event_spec
+//|
+//  member_access
+  )
+  ;
+if_statement
+  :
+    "if"
+    a1=expr
+      a2=block
+    (
+      (
+        "elif"
+        a3+=expr
+      a4+=block
+      )+
+    )?
+    (
+      "else"
+      a5=block
+    )?
+    "end" "if"
+  ;
+implicit_assignment_statement
+  :
+    "implicit_assignment_statement" //assignment_expr
+  ;
+implicit_invocation_statement
+  :
+  "implicit_invocation_statement" //invocation
+  ;
+implicit_ib_transform_statement
+  :
+    "implicit_ib_transform_statement" //transform_ib_invocation
+  ;
+relate_statement
+  :
+    "relate"
+    a1=inst_ref_var
+    "to"
+    a2=inst_ref_var
+    "across"
+    a3=relationship
+//  (
+//    TOK_DOT
+//    phrase
+//  )?
+//  (
+//    "using"
+//    assoc_obj_inst_ref_var
+//  )?
+    ;
+return_statement
+  :
+    a1="return"
+  (
+    a2=expr
+  )?
+  ;
+select_statement
+  :
+    "select"
+    (
+      "one"
+      local_variable
+      a1=object_spec
+    |
+      "any"
+      local_variable
+      a2=object_spec
+    |
+      "many"
+      local_variable
+      a3=object_spec
+    )
+    ;
+transform_statement
+  :
+    "transform"
+//  (
+//    (
+//      ( member_access
+//      | param_data_access
+//      )
+//      TOK_EQUAL
+//      transform_invocation
+//    )
+//|
+//    transform_invocation
+//  )
+
+  ;
+function_statement
+  :
+//TOK_DOUBLECOLON
+  "function_statement" //function_invocation
+  ;
+unrelate_statement
+  :
+    "unrelate"
+    a1=inst_ref_var
+    "from"
+    a2=inst_ref_var
+    "across"
+    a3=relationship
+//  (
+//    TOK_DOT
+//    phrase
+//  )?
+//  (
+//    "using"
+//    assoc_obj_inst_ref_var
+//  )?
+  ;
+while_statement
+  :
+    "while"
+      a1=expr
+      a2=block
+    "end" "while"
+  ;
+assignment_expr
+  :
+  (
+    ID //member_access
+    TOK_EQUAL
+    a1=expr
+//|
+//  ( "param" TOK_DOT )=>
+//  param_data_access
+//  TOK_EQUAL
+//  expr
+  )
+  ;
+bridge_invocation
+  :
+    a1=ee_keyletters
+    TOK_DOUBLECOLON
+//  bridge_function
+    TOK_LPAREN
+//  (
+//    invocation_parameters
+//  )?
+    TOK_RPAREN
+  ;
+message_invocation
+  :
+//  interface_or_port_name
+    TOK_DOUBLECOLON
+//  message_name
+    TOK_LPAREN
+//  (
+//    invocation_parameters
+//  )?
+    TOK_RPAREN
+//  (
+//    "to"
+//    (
+//      rval
+//    )
+//  )?
+  ;
+invocation
+  :
+    "invocation rule" //identifier
+//  TOK_DOUBLECOLON
+//  invocation_function
+//  TOK_LPAREN
+//  (
+//    invocation_parameters
+//  )?
+//  TOK_RPAREN
+  ;
+bridge_expr
+  :
+  "bridge"
+  a1=bridge_invocation
+  ;
+invocation_expr
+  :
+    invocation
+  ;
+enumerator_access
+   :
+    "enumerator_access" //enum_data_type
+//  TOK_DOUBLECOLON
+//  enumerator
+  ;
+debug_operand
+  :
+    ( "_trace"
+      (  "_off"
+      |  "_on"
+      )
+    )
+  | ( "_dump"
+      (  "_off"
+      |  "_on"
+      )
+    )
+  | ( "_sor"
+      (  "_off"
+      |  "_on"
+      )
+    )
+  | "_on"
+  | "_off"
+  | "_stat"
+  ;
+event_spec
+  :
+    event_label
+//  (
+//    TOK_TIMES
+//  )?
+//  (
+//    TOK_COLON
+//    event_meaning
+//  )?
+//  (
+//    TOK_LPAREN
+//    (
+//      supp_data
+//    )?
+//    TOK_RPAREN
+//  )?
+    "to"
+//  (
+//    (
+//      ( object_keyletters (
+//        "assigner" | "class" ) )=>
+//      object_keyletters
+//      (
+//        "assigner"
+//      |
+//        "class"
+//      )
+//    |
+//      object_keyletters
+//      "creator"
+//    )
+//  |
+//    (
+        inst_ref_var_or_ee_keyletters
+//    )
+//  )
+  ;
+invocation_parameters
+  :
+    data_item
+    TOK_COLON
+//  expr
+//  (
+//    TOK_COMMA
+//    data_item
+//    TOK_COLON
+//    expr
+//  )*
+  ;
+inst_ref_var_or_ee_keyletters
+  :
+    (
+      local_variable
+//  |
+//    TOK_GENERAL_NAME
+    )
+  ;
+interface_or_port_name
+  :
+    general_name
+  ;
+message_name
+  :
+    general_name
+  ;
+instance_chain
+  :
+    "instance_chain" //( TOK_ARROW
+//    object_keyletters
+//    TOK_LSQBR
+//    relationship
+//    (
+//      TOK_DOT
+//      phrase
+//    )?
+//    TOK_RSQBR
+//  )+
+  ;
+object_spec
+  :
+  (
+    "related"
+    "by"
+    local_variable
+    instance_chain
+//  ( where_spec )?
+  |
+    "from"
+    ( "instances"
+      "of"
+    )?
+    object_keyletters
+//  ( where_spec )?
+  )
+  ;
+supp_data
+  :
+    supp_data_item
+    TOK_COLON
+//  expr
+//  (
+//    TOK_COMMA
+//    supp_data_item
+//    TOK_COLON
+//    expr
+//  )*
+  ;
+function_invocation
+  :
+    "function_invocation" //function_function
+//  TOK_LPAREN
+//  (
+//    invocation_parameters
+//  )?
+//  TOK_RPAREN
+  ;
+transform_ib_invocation
+  :
+    "transform_ib_invocation" //inst_ref_var
+//  TOK_DOT
+//  transformer_function
+//  TOK_LPAREN
+//  (
+//    invocation_parameters
+//  )?
+//  TOK_RPAREN
+  ;
+transform_invocation
+  :
+    "transform_invocation" //object_keyletters
+//  TOK_DOUBLECOLON
+//  transformer_function
+//  TOK_LPAREN
+//  (
+//    invocation_parameters
+//  )?
+//  TOK_RPAREN
+  ;
+where_spec
+  :
+  "where" //expr
+  ;
+assoc_obj_inst_ref_var
+  :
+    inst_ref_var
+  ;
+bridge_function
+  :
+    function_name
+  ;
+invocation_function
+  :
+    function_name
+  ;
+data_item
+  :
+    data_item_name
+  ;
+data_item_name
+  :
+    general_name
+  ;
+enum_data_type
+  :
+    general_name
+  ;
+enumerator
+  :
+    general_name
+  ;
+keyletters
+  :
+    general_name
+  ;
+ee_keyletters
+  :
+    keyletters
+  ;
+event_label
+  :
+    general_name
+  ;
+event_meaning
+  :
+  (
+    phrase
+  )
+  ;
+general_name
+  :
+  (
+    limited_name
+//|
+//  TOK_GENERAL_NAME
+  )
+  ;
+svc_general_name
+  :
+  (
+    limited_name
+//|
+//  TOK_GENERAL_NAME
+  )
+  ;
+limited_name
+  :
+    ID
+//  |
+//   TOK_RELID
+  ;
+inst_ref_set_var
+  :
+  a1=local_variable
+  ;
+inst_ref_var
+  :
+  a1=local_variable
+  ;
+local_variable
+  :
+  root_element_label
+  ;
+root_element_label
+  :
+  (
+    "selected"
+  |
+    "self"
+  |
+    limited_name
+  )
+  ;
+element_label
+  :
+  general_name
+  ;
+function_name
+  :
+    general_name
+  ;
+svc_function_name
+  :
+    svc_general_name
+  ;
+identifier
+  :
+    general_name
+  ;
+object_keyletters
+  :
+    keyletters
+  ;
+phrase
+  :
+  "phrase" // (
+//  TICKED_PHRASE
+//|
+//  svc_general_name
+//)
+  ;
+relationship
+  :
+    ID
+  ;
+supp_data_item
+  :
+    data_item_name
+  ;
+function_function
+  :
+    svc_function_name
+  ;
+transformer_function
+  :
+    function_name
+  ;
+expr
+  :
+  a1=sub_expr
+  ;
+sub_expr
+  :
+    a1=conjunction
+    (
+    "or"
+      a2+=conjunction
+    )*
+  ;
+conjunction
+  :
+    a1=relational_expr
+    (
+      "and"
+      a2+=relational_expr
+    )*
+  ;
+relational_expr
+  :
+    a1=addition
+  (
+    comparison_operator
+    a2=addition
+  )?
+  ;
+addition
+  :
+    a1=multiplication
+    (
+      plus_or_minus
+      a2+=multiplication
+    )*
+  ;
+multiplication
+  :
+//  ( boolean_negation )=>
+//  boolean_negation
+//|
+    a1=sign_expr
+    (
+      mult_op
+      a2+=sign_expr
+    )*
+  ;
+sign_expr
+  :
+//  (
+//    plus_or_minus
+//  )?
+    term
+  ;
+boolean_negation
+  :
+    "not"
+    term
+  ;
+term
+  :
+//  (cardinality_op) => cardinality_op
+//|
+//  (empty_op) => empty_op
+//|
+//  (not_empty_op) => not_empty_op
+//|
+    a1=rval
+  |
+    TOK_LPAREN
+//  (
+//    ( assignment_expr )=>
+//    assignment_expr
+//  |
+      a2=expr
+//  )
+    TOK_RPAREN
+  ;
+cardinality_op
+  :
+      "cardinality" local_variable
+  ;
+empty_op
+  :
+      "empty" local_variable
+  ;
+not_empty_op
+  :
+      "not_empty" local_variable
+  ;
+instance_start_segment
+  :
+    root_element_label
+    (
+      array_refs
+    )?
+  ;
+instance_access_segment
+  :
+    element_label
+//  (
+//    array_refs
+//  )?
+  ;
+member_access
+  :
+  instance_start_segment
+//(TOK_DOT
+// instance_access_segment
+//)*
+  ;
+param_data_access
+  :
+  "param"
+  TOK_DOT
+//member_access
+  ;
+event_data_access
+  :
+  "rcvd_evt"
+  TOK_DOT
+//member_access
+  ;
+array_refs
+  :
+  (
+    TOK_LSQBR
+    a1+=expr
+    TOK_RSQBR
+  )+
+  ;
+rval
+  :
+//  ( TOK_DOUBLECOLON )=>
+//  TOK_DOUBLECOLON
+//  function_invocation
+//|
+//  ( transform_ib_invocation )=>
+//  transform_ib_invocation
+//|
+//  ( invocation_expr )=>
+//  invocation_expr
+//|
+//  ( enumerator_access )=>
+//  enumerator_access
+//|
+//  member_access
+//|
+    constant_value
+//|
+//  ("rcvd_evt" TOK_DOT) =>
+//  event_data_access
+//|
+//  bridge_expr
+//|
+//  ("param" TOK_DOT) =>
+//  param_data_access
+//|
+//  TOK_QMARK
+  ;
+constant_value
+  :
+//    TOK_FRACTION
+//  |
+    TOK_NUMBER
+  |
+    TOK_STRING
+  |
+    "true"
+  |
+    "false"
+  ;
+comparison_operator
+  :
+    "=="
+  |
+    TOK_NOTEQUAL
+  |
+    TOK_LESSTHAN
+  |
+    TOK_LE
+  |
+    TOK_GT
+  |
+    TOK_GE
+  ;
+plus_or_minus
+  :
+    TOK_PLUS
+  |
+    TOK_MINUS
+  ;
+mult_op
+  :
+    TOK_TIMES
+  |
+    TOK_DIV
+//  |
+//    TOK_MOD
+  ;
+
+terminal TOK_COLON: ':';
+terminal TOK_DOUBLECOLON: '::';
+terminal TOK_COMMA: ',';
+terminal TOK_DIV: '/';
+terminal TOK_DOT: '.';
+terminal TOK_EQUAL: '=';
+//terminal TOK_FRACTION: ('0'..'9')+'/';
+terminal TOK_GE: '>=';
+TOK_GENERAL_NAME: ID;
+terminal TOK_GT: '>';
+//         TOK_ID: ID;
+terminal TOK_LE: '<=';
+terminal TOK_LESSTHAN: '<';
+terminal TOK_LPAREN: '(';
+terminal TOK_LSQBR: '[';
+terminal TOK_MINUS: '-';
+//terminal TOK_MOD: '\';
+terminal TOK_NOTEQUAL: '!=';
+TOK_NUMBER: INT;
+terminal TOK_PLUS: '+';
+terminal TOK_QMARK: '"';
+//terminal TOK_RELID: 'R' INT;
+terminal TOK_RPAREN: ')';
+terminal TOK_RSQBR: ']';
+terminal TOK_STRING: '"' ('a'..'z')* '"';
+terminal TOK_TIMES: '*';
