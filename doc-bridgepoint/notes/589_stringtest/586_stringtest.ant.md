@@ -17,9 +17,8 @@ calling and called contexts can access it.
 
 2. Document References
 ----------------------
-[1] Issues 589, test model for string reentrancy
-    https://support.onefact.net/redmine/issues/589  
-[2] Test Model:  https://github.com/xtuml/models/tree/master/VandMC_testing/mctest/string_return_test/
+[1] [Issues 589, test model for string reentrancy](https://support.onefact.net/redmine/issues/589)  
+[2] [Test Model](https://github.com/xtuml/models/tree/master/VandMC_testing/mctest/string_return_test/)
 
 3. Background
 -------------
@@ -42,30 +41,32 @@ For clarity, an example is provided.  Consider the following OAL:
 ```
 ASSIGN c = buffer::twist( s1:jstr1, s2:ss2 );
 ```
-The class _buffer_ has operation _twist_ with returns a string.  The OAL
+The class _buffer_ has operation _twist_ which returns a string.  The OAL
 is translated by MC-3020 into the following ANSI C code:
 ```
 Escher_strcpy( c, stringtest_buffer_op_twist( jstr1, ss2 ) );
 ```
 The C function `stringtest_buffer_op_twist` returns a pointer to an array
-of characters.  the `Escher_strcpy` routine is immediately invoked to copy
-the character contents of the string into the variable `c`.  In the
+of characters.  The `Escher_strcpy` routine is immediately invoked to copy
+the character contents of the string into the variable `c`.  It is possible
+that `stringtest_buffer_op_twist` is creating or manipulating the string to
+be returned using local (automatic) variables (on the stack).  In the
 context of this call and in the context of `Escher_strcpy`, the buffer
 carrying the return string is located in deallocated stack space.
 
 
 4. Requirements
 ---------------
-4.1 Provide a safe mechanism to return strings from called bodies.
+### 4.1 Provide a safe mechanism to return strings from called bodies.
 
-4.2 Provide a test model to exercise return strings in the face of multiple
+### 4.2 Provide a test model to exercise return strings in the face of multiple
 threads.
 
 5. Analysis
 -----------
-5.1 Options for Returning Strings from C Functions
+### 5.1 Options for Returning Strings from C Functions
 
-5.1.1 Stack Return (present implementation)
+#### 5.1.1 Stack Return (present implementation)
 
 5.1.1.1 The current implementation returns (on the stack) a pointer to an
 array of characters.  The array of characters may exist as an attribute
@@ -95,7 +96,7 @@ that virtually all popular threading implementations provide private
 stacks to each thread.  After some effort, no test scenario has been
 created that is able to overwrite the stack data.
 
-5.1.2 Return Pointer to Static Buffer
+#### 5.1.2 Return Pointer to Static Buffer
 
 5.1.2.1 The method in 5.1.1 could be modified to provide a `static` memory
 variable to avoid leaving live data on the deallocated stack.  At return
@@ -108,7 +109,7 @@ strings to be non-reentrant.  Even though the compiler may like this
 method better, the practical multi-threading runtime environment will
 overwrite the static space erratically but predictably.
 
-5.1.3 Return Pointer to Rotating Buffer
+#### 5.1.3 Return Pointer to Rotating Buffer
 
 5.1.3.1 The method from 5.1.1 as modified in 5.1.2 could be modified
 further.  Instead of allocating a local `static` variable to contain the
@@ -126,17 +127,17 @@ remains small.  If the number of buffers grows and the usage of the
 buffers is not strictly temporary, this method will fail with buffer
 overwrites.  The addition of mutexing increases exposure to deadlock.
 
-5.1.4 Return Pointer to Allocated Buffer
+#### 5.1.4 Return Pointer to Allocated Buffer
 
 5.1.4.1 The method from 5.1.3 could be modified to use a buffer that is
-dynamically allocated (with malloc) and deallocated (with free).
+dynamically allocated on the heap (with malloc) and deallocated (with free).
 
 5.1.4.2 **Risks:**  The nature of the buffer management is transitory
 between two different contexts.  It would be difficult and messy to
 allocate the buffer in one context (the called context) and free it in
 another (calling context).
 
-5.1.5 Stack Return with String Struct
+#### 5.1.5 Stack Return with String Struct
 
 5.1.5.1 ANSI C passes arrays by pointer and returns arrays by pointer.
 However, ANSI C passes structures (`struct`) by value.  Consider the
@@ -144,15 +145,15 @@ following type declaration:
 ```
 typedef struct { char s[ MAX_STRING_LEN ]; } xtuml_string;
 ```
-This code defines a structured type named `string` which is an array of
-characters like traditional strings.  This construct uses the same amount
-of memory as a traditional approach to store character data.  However,
-when passed or returned to called functions, C will pass by value and
-return by value using the stack.  The management of the stack will be
-controlled by the C compiler for the target of choice.  Thus, assumptions
-need not be made about what is safe usage of the stack.
+This code defines a structured type named `xtuml_string` which contains an
+array of characters like traditional strings.  This construct uses the same
+amount of memory as a traditional approach to store character data.  However,
+when passed or returned to called functions, C will pass by value and return by
+value using the stack.  The management of the stack will be controlled by the C
+compiler for the target of choice.  Thus, assumptions need not be made about
+what is safe usage of the stack.
 
-5.1.5.2 **Risks:**  This method suffers some performance degredation due
+5.1.5.2 **Risks:**  This method suffers some performance degradation due
 to strings being copied multiple times from buffer to buffer.
 Specifically, when returning a string, the called context will copy the
 string into the return variable space on the stack.  In the calling
@@ -188,7 +189,7 @@ int main ( void )
 Output is:  
 `xtUML`  
 
-5.1.6 Architectural By-Ref Parameter
+#### 5.1.6 Architectural By-Ref Parameter
 
 5.1.6.1 There is more than one way to return data from a called function.
 By-ref parameters provide a means of passing a reference (pointer) to a
@@ -196,33 +197,38 @@ variable into a called function.  In the called context, the function can
 populate the data area of the by-ref variable indirectly through the
 pointer.
 
-5.1.6.2 The model compiler could be translate to convert xtUML body
-return strings to architectural by-ref parameters.  When functions are
-called in xtUML OAL, a pointer to the assign target string could be passed
-as a parameter.  The translated OAL inside of the called body would need
-to populate the buffer behind the passed by-ref parameter instead of (or
-in addition to) returning the string.
+5.1.6.2 The model compiler could translate xtUML body return strings to
+architectural by-ref parameters.  When functions are called in xtUML OAL, a
+pointer to the assignment target string could be passed as a parameter.  The
+translated OAL inside of the called body would need to populate the buffer
+behind the passed by-ref parameter instead of (or in addition to) returning the
+string.
 
 5.1.6.3 **Risks:** This method is attractive in many ways but does have
 its challenges.  It is attractive, because it can be good for performance.
-Buffer copying can be more easily avoided.  This method successfully
+Some buffer copying may be avoided.  This method successfully
 avoids "dubious" stack manipulation.  It would seem to be robust in the
 face of multi-threaded architectures.  More analysis will need to be done
 regarding returning a value when no explicit assignment is being
 performed.  Consider the following OAL:
 ```
-if ( "Atlas Shrugged" == BOOK::name() )
-  generate BOOK1:read() to self;
+if ( "Atlas Shrugged" == book::name() )
+  generate book1:read() to self;
 end if;
 ```
-Also, the mapping of parameters in OAL to parameters in generated code is
-mostly direct and results in code that is mostly easy to read.  Coercing
-return values into by-ref parameters adds a bit of churn to the code,
-especially if only some types (strings) use the architectural parameter
-method.  One additional disadvantage is the amount of effort for
-implementation.  This approach would likely cost the most to implement.
+`book::name` does not get assigned but is simply compared in the calling
+context.  An architectural by-ref parameter would need to be allocated,
+passed and populated to to/from the generated operation body.
 
-5.2 String Length Issues
+Also, the mapping of parameters in OAL to parameters in generated code is
+direct and results in code that is relatively easy to relate to the source
+action language constructs.  Coercing return values into by-ref parameters
+adds a bit of churn to the code, especially if only some types (strings)
+use the architectural parameter method.  One additional disadvantage is
+the amount of effort for implementation.  This approach would likely cost
+the most to implement.
+
+### 5.2 String Length Issues
 
 5.2.1 While analyzing this issue, it became clear that string handling
 issues (still) exist in MC-3020 with regard to string length.  It is
@@ -238,12 +244,15 @@ this category.
 
 6. Work Required
 ----------------
-6.1 
-6.1.1 
+6.1 Select an Alternative
+
+6.2 Design and Implement the Selected Alternative
 
 7. Acceptance Test
 ------------------
 7.1 Test Model [2] shall run without failure.
+
+7.2 C compilers and static syntax checkers shall not complain about stack abuse.
 
 End
 ---
