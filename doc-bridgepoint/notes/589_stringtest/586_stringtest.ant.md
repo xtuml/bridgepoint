@@ -18,14 +18,14 @@ calling and called contexts can access it.
 2. Document References
 ----------------------
 [1] Issues 589, test model for string reentrancy
-    https://support.onefact.net/redmine/issues/589
+    https://support.onefact.net/redmine/issues/589  
 [2] Test Model:  https://github.com/xtuml/models/tree/master/VandMC_testing/mctest/string_return_test/
 
 3. Background
 -------------
 C does not have a native string type; zero-delimited character arrays are
 employed to store lists of characters.  MC-3020 follows this common
-convention.  This approach has proven mostly adequate for the embedded
+convention.  The approach has proven mostly adequate for the embedded
 applications targeted by the model compiler through the years.
 
 However, a clean mechanism for returning strings has proven elusive.  C is
@@ -38,11 +38,27 @@ and static checkers identify this as dubious (even erroneous) practice.
 An explicit design choice to tolerate this practice has been made in the
 past based on the cost/benefit of alternatives.
 
+For clarity, an example is provided.  Consider the following OAL:
+```
+ASSIGN c = buffer::twist( s1:jstr1, s2:ss2 );
+```
+The class _buffer_ has operation _twist_ with returns a string.  The OAL
+is translated by MC-3020 into the following ANSI C code:
+```
+Escher_strcpy( c, stringtest_buffer_op_twist( jstr1, ss2 ) );
+```
+The C function `stringtest_buffer_op_twist` returns a pointer to an array
+of characters.  the `Escher_strcpy` routine is immediately invoked to copy
+the character contents of the string into the variable `c`.  In the
+context of this call and in the context of `Escher_strcpy`, the buffer
+carrying the return string is located in deallocated stack space.
+
+
 4. Requirements
 ---------------
 4.1 Provide a safe mechanism to return strings from called bodies.
 
-4.2 Provide a test model to exercise return strings in the face of muliple
+4.2 Provide a test model to exercise return strings in the face of multiple
 threads.
 
 5. Analysis
@@ -108,7 +124,7 @@ recently has been augmented (in a patch) to mutex its index.
 intended to be used sparingly such that the number of buffers required
 remains small.  If the number of buffers grows and the usage of the
 buffers is not strictly temporary, this method will fail with buffer
-overwrites.
+overwrites.  The addition of mutexing increases exposure to deadlock.
 
 5.1.4 Return Pointer to Allocated Buffer
 
@@ -126,7 +142,7 @@ another (calling context).
 However, ANSI C passes structures (`struct`) by value.  Consider the
 following type declaration:
 ```
-typedef struct { char s[ MAX_STRING_LEN ]; } string;
+typedef struct { char s[ MAX_STRING_LEN ]; } xtuml_string;
 ```
 This code defines a structured type named `string` which is an array of
 characters like traditional strings.  This construct uses the same amount
@@ -142,6 +158,35 @@ Specifically, when returning a string, the called context will copy the
 string into the return variable space on the stack.  In the calling
 context this variable will be copied again into the return assignment
 target.
+
+5.1.5.3 Example
+```
+#include <stdio.h>
+#include <string.h>
+
+typedef struct { char s[ 80 ]; } xtuml_string;
+
+/* Return type is xtuml_string.
+   Parameters are conventional strings.  */
+static xtuml_string sfun( char * );
+static xtuml_string sfun( char * a )
+{
+  xtuml_string returnstring;
+  char c[ 80 ];
+  strcpy( c, a );
+  strcpy( returnstring.s, c );
+  return returnstring;
+}
+
+int main ( void )
+{
+  char name[ 80 ];
+  printf( "xt%s\n", strcpy( name, sfun( "UML" ).s ) );
+  return 0;
+}
+```
+Output is:  
+`xtUML`  
 
 5.1.6 Architectural By-Ref Parameter
 
