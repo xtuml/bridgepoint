@@ -17,22 +17,23 @@ calling and called contexts can access it.
 
 2. Document References
 ----------------------
-[1] [Issues 589, test model for string reentrancy](https://support.onefact.net/redmine/issues/589)  
+[1] [1F Redmine issue 589, test model for return string reentrancy](https://support.onefact.net/redmine/issues/589)  
 [2] [Test Model](https://github.com/xtuml/models/tree/master/VandMC_testing/mctest/string_return_test/)
 
 3. Background
 -------------
-C does not have a native string type; zero-delimited character arrays are
+C does not have a native string type.  Zero-delimited character arrays are
 employed to store lists of characters.  MC-3020 follows this common
 convention.  The approach has proven mostly adequate for the embedded
 applications targeted by the model compiler through the years.
 
-However, a clean mechanism for returning strings has proven elusive.  C is
-able to return the pointer on the stack.  However, the string contents
-must then be copied from the called context into the calling context.  If
-a string is "manufactured" in the called context, it may be out of scope
-(on the stack) once control returns to the calling context.  C compilers
-and static checkers identify this as dubious (even erroneous) practice.
+A completely clean, compiler-warning free and thread safe mechanism for
+returning strings has proven elusive.  C is able to return the pointer on the
+stack.  However, the string contents must then be copied from the called
+context into the calling context.  If a string is "manufactured" in the called
+context, it may be out of scope (on the stack) once control returns to the
+calling context.  C compilers and static checkers identify this as dubious
+(even erroneous) practice.
 
 An explicit design choice to tolerate this practice has been made in the
 past based on the cost/benefit of alternatives.
@@ -57,9 +58,9 @@ carrying the return string is located in deallocated stack space.
 
 4. Requirements
 ---------------
-### 4.1 Provide a safe mechanism to return strings from called bodies.
+4.1 Provide a safe mechanism to return strings from called bodies.
 
-### 4.2 Provide a test model to exercise return strings in the face of multiple
+4.2 Provide a test model to exercise return strings in the face of multiple
 threads.
 
 5. Analysis
@@ -216,9 +217,9 @@ if ( "Atlas Shrugged" == book::name() )
   generate book1:read() to self;
 end if;
 ```
-`book::name` does not get assigned but is simply compared in the calling
+`book::name()` does not get assigned but is simply compared in the calling
 context.  An architectural by-ref parameter would need to be allocated,
-passed and populated to to/from the generated operation body.
+passed and populated to/from the generated operation body.
 
 Also, the mapping of parameters in OAL to parameters in generated code is
 direct and results in code that is relatively easy to relate to the source
