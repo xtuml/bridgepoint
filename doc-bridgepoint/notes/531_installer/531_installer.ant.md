@@ -44,22 +44,50 @@ the tool.
 
 5. Analysis
 -----------
-This section is only required if there is no preceding analysis note. If present
-it sets out a brief analysis of the problem to be resolved by this design note.
+5.1 IzPack  
 
-* Item 1
-* Item 2
-* Item 3
+This analysis shall investigate IzPack as a free and open source installer solution.  
+
+5.1.1 Compatibility  
+
+IzPack packages an installer as an executalbe .jar file and is therefore compatible with any system that has the Java runtime environment installed. It has been tested and proven to work on Windows (8.1 tested), Linux (Ubuntu 14.04 tested), and Mac (OS X Yosemite tested).  
+
+5.1.2 Post-install and pre-uninstall scripts  
+
+IzPack supports executing a file on post-install and pre-uninstall. The current post-install and pre-uninstall jobs can be handled by this feature.  
+
+5.1.3 Build scripting  
+
+The IzPack compiler is itself a Java program. It has an acceptable commandline interface and can be scripted to build installers for each platform to be included in the nightly build.  
+
+5.1.4 Installer user experience and branding  
+
+IzPack creates installers with both a GUI and a commandline interface.  
+
+5.1.4.1 GUI  
+
+A compiled IzPack installer provides a "wizard"-like GUI installer experience. Preferences for look and feel are moderately customizable, however IzPack branding is prevalent. Support for adding custom images, logos, and other brands is provided.  
+
+5.1.4.2 CLI  
+
+A compiled IzPack installer also provides a commandline interface option. IzPack provides support for naming authors and a homepage in the commandline version of the installer.  
+
+5.1.5 Readme  
+
+A readme can be displayed within the installer window  
+
+5.2 Eclipse update site
 
 6. Work Required
 ----------------
-In this section, break out the consequential work (as a numbered list) needed
-to meet the requirements specified in the Requirements section.
+6.1 Create Windows and Linux IzPack install descriptions (XML) for compilation to their respective installers.  
+6.2 Create installer messages and branding to be used in the GUI version of the installers.  
+6.3 Create scripts to build the installers as part of the nightly build.  
+6.4 Test installers on each target platform.  
 
 7. Acceptance Test
 ------------------
-In this section, list the tests that need to be performed in order to
-verify that all the requirements are satisfied.
+7.1 The installer shall run on Windows and Linux fully installing Bridgpoint and satisfying all requirements in section 4.
 
 End
 ---
