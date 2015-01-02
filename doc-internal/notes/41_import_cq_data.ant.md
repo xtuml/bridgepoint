@@ -8,34 +8,38 @@ Copyright 2014 One Fact Inc.  All Rights Reserved.
 ### xtUML Project Analysis Note
 
 
-Note: Each section has a description that states the purpose of that section.
-Delete these section descriptions before checking in your note.  Delete this
-note as well.
-
 1. Abstract
 -----------
-In this section, give a summary of the design that this note aims to
-describe.
+Issues created during the time at Mentor Graphics need to be imported into
+the One Fact Redmine issue tracker.
 
 2. Document References
 ----------------------
-In this section, list all the documents that the reader may need to refer to.
-Give the full path to reference a file.
-[1] Issues 1, https://github.com/xtuml/doc/issues/1  
-[2] Issues 2, https://github.com/xtuml/doc/issues/2  
+[1] Issues 41, https://support.onefact.net/redmine/issues/41 
+[2] CQ and SR Data, notes when the CSV files were created, https://drive.google.com/open?id=19T0vfYDAMa8ArpiiN7iujqkBy9X2yOynxIKF0_qSn0E&authuser=0
+[3] DefectDBMainDump.csv is the CQ database, https://drive.google.com/open?id=0Bw01o4iXr5Fuc1h4S2hPeEF4VWM&authuser=0
+[4] DefectDBNotes.csv notes related to CQ issues, https://drive.google.com/open?id=0Bw01o4iXr5FuQTFjZWctWE1yNlU&authuser=0
+[5] DefectDBRelatedTo.csv is the CQ to CQ mapping, https://drive.google.com/open?id=0Bw01o4iXr5FuWmZyeUpFbzQtVFE&authuser=0
+[6] SRDBMainDump.csv is the SR to CQ mapping, https://drive.google.com/open?id=1n_2oEhaf7QrIML9gxeCfVPTObq2QuJVyJapvwrWVGvQ&authuser=0
 
 3. Background
 -------------
-In this section, outline the important points relating to this issue/bug that
-the reader would need to know in order to understand the rest of this
-document.
+The One Fact team is using Redmine for issue tracking.  CSV dumps of issues
+created during the time at Mentor Graphics are available and need to be
+imported into Redmine.  As can be seen in section 2 the data to import is
+contained in more than one CSV file.
 
 4. Requirements
 ---------------
-This section is only required if there is no preceding analysis note. 
-If present it describes the requirements that need to be satisfied.  If there 
-is an SRS, this section may simply refer to it.  Each requirement should be as 
-short and simple as possible and must be clearly defined.
+* Analyze the data in the CSV dumps to get a sense of the data and how the 
+different CSV dumps relate.
+* Investigate existing Redmine import plug-ins to see if one will work.
+* Map data fields from the CSV dumps to the appropriate Redmine fields and 
+create new custom fields in Redmine where necessary.
+* May need to create dummy user accounts for users not yet in Redmine for a
+successful import.
+* Import to the staging server.
+* Import to the live server.
 
 5. Analysis
 -----------
