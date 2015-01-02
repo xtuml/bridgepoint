@@ -21,8 +21,8 @@ describe.
 ----------------------
 In this section, list all the documents that the reader may need to refer to.
 Give the full path to reference a file.
-[1] BridgePoint DEI #1, https://support.onefact.net/redmine/issues/1  
-[2] BridgePoint DEI #2, https://support.onefact.net/redmine/issues/2  
+[1] [BridgePoint DEI #1](https://support.onefact.net/redmine/issues/1)  
+[2] [BridgePoint DEI #2](https://support.onefact.net/redmine/issues/2) 
 
 3. Background
 -------------
