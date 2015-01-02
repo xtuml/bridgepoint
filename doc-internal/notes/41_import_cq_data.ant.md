@@ -15,11 +15,16 @@ the One Fact Redmine issue tracker.
 
 2. Document References
 ----------------------
-[1] Issues 41, https://support.onefact.net/redmine/issues/41 
+[1] Issues 41, https://support.onefact.net/redmine/issues/41
+
 [2] CQ and SR Data, notes when the CSV files were created, https://drive.google.com/open?id=19T0vfYDAMa8ArpiiN7iujqkBy9X2yOynxIKF0_qSn0E&authuser=0
+
 [3] DefectDBMainDump.csv is the CQ database, https://drive.google.com/open?id=0Bw01o4iXr5Fuc1h4S2hPeEF4VWM&authuser=0
+
 [4] DefectDBNotes.csv notes related to CQ issues, https://drive.google.com/open?id=0Bw01o4iXr5FuQTFjZWctWE1yNlU&authuser=0
+
 [5] DefectDBRelatedTo.csv is the CQ to CQ mapping, https://drive.google.com/open?id=0Bw01o4iXr5FuWmZyeUpFbzQtVFE&authuser=0
+
 [6] SRDBMainDump.csv is the SR to CQ mapping, https://drive.google.com/open?id=1n_2oEhaf7QrIML9gxeCfVPTObq2QuJVyJapvwrWVGvQ&authuser=0
 
 3. Background
