@@ -49,9 +49,55 @@ Once created the projects shall be committed with no generation artifacts.
 6.2 Define Xtext grammar
 
 A new grammar is created based off of the previously used BNF data.  This
-grammar shall support the entire OAL language.
+grammar shall support the entire OAL language.  The grammar file is committed
+and should be one of the only source artifacts.
 
-The grammar file is committed and should be one of the only source artifacts.
+6.2.1 "Same Grammar"
+
+It is important that BridgePoint maintain only one parser for each action
+language supported.  Thus, there shall be one grammar used to recognize
+and parse OAL.  BridgePoint already uses antlr for parsing.  Xtext is a
+layer above antlr.  Xtext and antlr require "dialect differences", but the
+foundational BNF (actually EBNF, Extended Backus-Naur Form) shall be the
+shared.
+
+6.2.2 Predicates
+
+Xtext and antlr differ in their use of syntactic and semantic predicates.
+Syntactic predicates are used to distinguish input streams that differ by
+a token that requires look-ahead.  Semantic predicates are used to distinguish
+syntactically identical forms that have different meaning.
+
+6.2.2.1 Example Syntactic Difference
+
+```
+if ( cond1 )
+  body1;
+if ( cond2 )
+  body2;
+else
+  body3;
+end if;
+end if;
+```
+
+6.2.2.2 Example Semantic Difference
+
+Given class _DOG_ with class-based operation _bark_ and port _DOG_ with
+message _scratch_.  The below action language requires semantic lookup
+to decide whether "DOG" is a class or a port.  At syntax highlighting
+time, it is not needed.  At parse time, when creating the OAL instance
+population for execution or translation, it is required.
+
+```
+DOG::bark();
+DOG::scratch();
+```
+
+6.2.2.3 Deriviation
+
+The Xtext and antlr grammars will be derived from the same base EBNF.
+Predicates will not be used in the Xtext derivation.
 
 6.3 Configure build process
 
