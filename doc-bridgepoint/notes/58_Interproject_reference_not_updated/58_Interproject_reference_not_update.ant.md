@@ -66,48 +66,48 @@ would get fairly large.
 
 6. Work Required
 ----------------
-6.1 Support locating referred to element
+6.1 Support locating referred to element   
 
-6.1.1 Support a quick fix for reported dangling reference problems
+6.1.1 Support a quick fix for reported dangling reference problems   
 
-6.1.1.1 Define an xtUML problem type
-6.1.1.2 Register a quick fix action against the new problem type
-6.1.1.2.1 Design action to display element chooser dialog
-6.1.1.2.2 Associate chosen element to expected referred to type
+6.1.1.1 Define an xtUML problem type   
+6.1.1.2 Register a quick fix action against the new problem type   
+6.1.1.2.1 Design action to display element chooser dialog   
+6.1.1.2.2 Associate chosen element to expected referred to type   
 
-6.2 Warning during rename
+6.2 Warning during rename   
 
-6.2.1 Introduce referring system model proxies in system model file
-6.2.2 During rename check for any system that is referring to the system 
+6.2.1 Introduce referring system model proxies in system model file   
+6.2.2 During rename check for any system that is referring to the system    
 containing the renamed element
 6.2.2.1 If a referring system model proxy exists and the system model is not 
-present add it to a list in a warning dialog
+present add it to a list in a warning dialog    
 
 7. Acceptance Test
 ------------------
-7.1 Support locating referred to element
+7.1 Support locating referred to element   
 
-_- Setup two projects with inter-project referencing on
-_- In one add a data type and refer to it in the other project
-_- Close the referring project and rename the data type
-_- Open the referring project
-_R A dangling reference problem is added
-_- Hit CTRL + 1 while selecting the problem in the problems view
+_- Setup two projects with inter-project referencing on   
+_- In one add a data type and refer to it in the other project   
+_- Close the referring project and rename the data type   
+_- Open the referring project   
+_R A dangling reference problem is added   
+_- Hit CTRL + 1 while selecting the problem in the problems view   
 _R A dialog is opened that allows you to choose the appropriate referred to 
-element
-_- Choose the element and click OK
+element   
+_- Choose the element and click OK   
 _R The referring element is hooked up with the expected referred to element
-_- Restart the tool
+_- Restart the tool   
 _R The referring element is still hooked up with the expected referred to 
-element
+element   
 
-7.2 Warning during rename
+7.2 Warning during rename   
 
-_- Setup two projecs with inter-project referencing on
-_- In one add a data type and refer to it in the other project
-_- Close the referring project and rename the data type
+_- Setup two projecs with inter-project referencing on   
+_- In one add a data type and refer to it in the other project   
+_- Close the referring project and rename the data type   
 _R A warning dialog is opened that mentions another project is referring to an 
-element in this project and may become out of sync
+element in this project and may become out of sync   
 
 End
 ---
