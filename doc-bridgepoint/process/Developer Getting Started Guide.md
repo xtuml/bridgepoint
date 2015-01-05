@@ -22,8 +22,7 @@ Preparations
     - https://github.com/xtuml/bposs
     - https://github.com/xtuml/bridgepoint
     - https://github.com/xtuml/models
-    - https://github.com/xtuml/mc
- 
+
   - Once the process is complete, you will have a fork of each of the repositories under your own Github account.  For the remainder of this document, we will refer to the repositories using the formula ```https://github.com/"username"/"repository".git``` where "username" is your personal Github user name. (For example: ```https://github.com/keithbrown/bposs.git```)
 
 ### OS-Specific Instructions
@@ -75,8 +74,6 @@ Windows Steps
   
   - In the Git Repositories view, select the "Clone a Git Repository and add the clone to this view" button
   
-  - Using the same procedure as earlier, clone the ```https://github.com/"username"/mc.git``` repository
- 
   - Using this same procedure, clone the ```https://github.com/"username"/models.git``` repository
   
   - Using this same procedure, clone the ```https://github.com/"username"/bridgepoint.git``` repository
