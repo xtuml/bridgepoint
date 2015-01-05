@@ -79,7 +79,7 @@ would get fairly large.
 
 6.2.1 Introduce referring system model proxies in system model file   
 6.2.2 During rename check for any system that is referring to the system    
-containing the renamed element
+containing the renamed element   
 6.2.2.1 If a referring system model proxy exists and the system model is not 
 present add it to a list in a warning dialog    
 
