@@ -22,7 +22,7 @@ if [ $# -lt 1 ]; then
   export BRANCH="$1"
 fi
 export BUILD_DIR="${BUILD_ROOT}/${BRANCH}"
-export LOG_DIR="${build_dir}/log"
+export LOG_DIR="${BUILD_DIR}/log"
 export ERROR_FILE="${log_dir}/errors.log"
 export DIFF_FILE="${log_dir}/diff.log"
 export BUILD_ADMIN="build@onefact.net"
@@ -40,7 +40,7 @@ export RSH=""
 
 
 
-
+mkdir -p "${LOG_DIR}"
 mkdir -p "${BUILD_TOOLS}"
 mkdir -p "${GIT_REPO_ROOT}"
 mkdir -p "${BUILD_ROOT}"
