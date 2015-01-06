@@ -14,19 +14,19 @@ Present:  Keith, Bob, Travis
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01  min   skb  n/a      Rename file to match issue name
-_- 02  min   skb  header   update copyright
+x- 01  min   skb  n/a      Rename file to match issue name
+x- 02  min   skb  header   update copyright
                            
                            
-_- 03  min   rwm  5.1.1      "quick fix" -> "eclipse quick fix"
-_- 04  min   trl  5.2      "when renaming" -> "when modifying"
-_- 05  min   all  5.2      Reword this item to make it clear this was consider, but we do
+x- 03  min   rwm  5.1.1      "quick fix" -> "eclipse quick fix"
+x- 04  min   trl  5.2      "when renaming" -> "when modifying"
+x- 05  min   all  5.2      Reword this item to make it clear this was consider, but we do
                         not believe it is a good thing to do.  Describe why and leave it at 
                         that, no follow on issue shall be created
            
-_- 06  min   rwm  6.2      Strike this, it shall not be done
-_- 07  min   rwm  7.2       Strike this, it shall not be done
-_- 08  min   rwm  7.1      formatting issue:  _- Restart the tool
+x- 06  min   rwm  6.2      Strike this, it shall not be done
+x- 07  min   rwm  7.2       Strike this, it shall not be done
+x- 08  min   rwm  7.1      formatting issue:  _- Restart the tool
 
 </pre>
    
