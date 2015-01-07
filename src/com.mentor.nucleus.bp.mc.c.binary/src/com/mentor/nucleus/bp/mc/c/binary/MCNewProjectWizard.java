@@ -17,7 +17,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.ui.IWorkbenchWizard;
 
 import com.mentor.nucleus.bp.mc.AbstractNewProjectWizard;
-import com.mentor.nucleus.bp.mc.MCBuilderArgumentHandler;
 
 /**
  * This is the class that implements the com.mentor.bp.core.model-compilers
@@ -42,12 +41,7 @@ public class MCNewProjectWizard extends AbstractNewProjectWizard {
 	 *         as available in the New Project Wizard.
 	 */
 	public static IWorkbenchWizard getWizard(Object arguments) {
-		
-		MCNewProjectWizard npw = null;
-		if (MCBuilderArgumentHandler.isLicensed(Activator.PLUGIN_ID)) {
-				npw = new MCNewProjectWizard();
-		}
-		return npw;
+		return new MCNewProjectWizard();
 	}
 
 	/**

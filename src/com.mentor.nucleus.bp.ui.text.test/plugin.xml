@@ -29,7 +29,7 @@ plugin.
    id="com.mentor.nucleus.bp.ui.text.test"
    name="Nucleus BridgePoint Text Test Plug-in"
    version="1.0.0"
-   provider-name="Mentor Graphics"
+   provider-name="xtUML.org"
    class="com.mentor.nucleus.bp.ui.text.test.TextTestPlugin">
 
    <runtime>
