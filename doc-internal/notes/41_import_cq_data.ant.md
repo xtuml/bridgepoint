@@ -7,83 +7,115 @@ Copyright 2014 One Fact Inc.  All Rights Reserved.
 # Import Mentor CQ data into Redmine
 ### xtUML Project Analysis Note
 
-
 1. Abstract
 -----------
-Issues created during the time at Mentor Graphics need to be imported into
-the One Fact Redmine issue tracker.
+ClearQuest (CQ) issues created during the time at Mentor Graphics need to be
+imported into the One Fact Redmine issue tracker.
+
 
 2. Document References
 ----------------------
-[1] Issues 41, https://support.onefact.net/redmine/issues/41
+[2.1] [1F Redmine issue 41, Import ClearQuest data][ref1]  
+[2.2] [1F Redmine issue 593, Import ClearQuest data for the SMA QA BridgePoint product.][ref2]  
+[2.3] [1F Redmine issue 594, Import SR data][ref3]  
+[2.4] [DefectDBMainDump.csv][ref4]  
+[2.5] [DefectDBNotes.csv][ref5]  
+[2.6] [DefectDBRelatedTo.csv][ref6]
 
-[2] CQ and SR Data, notes when the CSV files were created,
- https://drive.google.com/open?id=19T0vfYDAMa8ArpiiN7iujqkBy9X2yOynxIKF0_qSn0E&authuser=0
+[ref1]: https://support.onefact.net/redmine/issues/41
+[ref2]: https://support.onefact.net/redmine/issues/593
+[ref3]: https://support.onefact.net/redmine/issues/594
+[ref4]: https://drive.google.com/open?id=0Bw01o4iXr5Fuc1h4S2hPeEF4VWM&authuser=0
+[ref5]: https://drive.google.com/open?id=0Bw01o4iXr5FuQTFjZWctWE1yNlU&authuser=0
+[ref6]: https://drive.google.com/open?id=0Bw01o4iXr5FuWmZyeUpFbzQtVFE&authuser=0
 
-[3] DefectDBMainDump.csv is the CQ database,
- https://drive.google.com/open?id=0Bw01o4iXr5Fuc1h4S2hPeEF4VWM&authuser=0
-
-[4] DefectDBNotes.csv notes related to CQ issues,
- https://drive.google.com/open?id=0Bw01o4iXr5FuQTFjZWctWE1yNlU&authuser=0
-
-[5] DefectDBRelatedTo.csv is the CQ to CQ mapping,
- https://drive.google.com/open?id=0Bw01o4iXr5FuWmZyeUpFbzQtVFE&authuser=0
-
-[6] SRDBMainDump.csv is the SR to CQ mapping,
- https://drive.google.com/open?id=1n_2oEhaf7QrIML9gxeCfVPTObq2QuJVyJapvwrWVGvQ&authuser=0
 
 3. Background
 -------------
-The One Fact team is using Redmine for issue tracking.  CSV dumps of issues
-created during the time at Mentor Graphics are available and need to be
-imported into Redmine.  As can be seen in section 2 the data to import is
-contained in more than one CSV file.
+The One Fact team is using Redmine for issue tracking.  There were two types
+of issues created at Mentor Graphics, CQ and SR.  This note only covers the
+CQ data.
+
+There are three CSV files that contain the CQ data:
+  * [DefectDBMainDump.csv [2.4]][ref4] is the CQ data export.  
+  * [DefectDBNotes.csv [2.5]][ref5] contains all follow-up data associated with
+     the CQ records found in [[2.4]][ref4].  
+  * [DefectDBRelatedTo.csv [2.6]][ref6] links CQ records that are related.  
+
 
 4. Requirements
 ---------------
-4.1  No data from the CQ export shall be lost in the import.
+4.1  Data Integrity
 
-4.2  CQ identifiers will be imported, but they will not be the primary key.
+  4.1.1  Current Redmine data shall not be compromised in any way by the import.  
 
-4.2.1  Redmine IDs shall be the primary key.
+  4.1.2  No data from the CQ export shall be lost in the import.
 
-4.3  Current Redmine data shall not be compromised in any way by the import.
+  4.1.3  CQ notes from [DefectDBNotes.csv [2.5]][ref5] shall be imported into
+    the proper newly created Redmine issues.
 
+  4.1.4  "Related To" mappings in [DefectDBRelatedTo.csv [2.6]][ref6] shall be
+     maintained.
+
+4.2  Only the BridgePoint product items shall be imported into Redmine.
+
+  4.2.1  A separate issue shall be raised to handle the CQ product named
+  SMA QA BridgePoint.  [1F Redmine issue 593 [2.2]][ref2]
+    
+  4.2.2  A separate issue shall be raised to handle import of SR data.
+  [1F Redmine issue 594 [2.3]][ref3]
+
+4.3  CQ identifiers will be imported, but they will not be the primary key.  
+
+  4.3.1  Redmine IDs shall be the primary key.
+  
 4.4  A document shall be produced that shows the mapping from CQ attributes to
- Redmine attributes.
+  Redmine attributes.
+  
+4.5  User accounts shall be created in Redmine for CQ users that do not yet
+  exist.
+ 
+  4.5.1  Accounts created for CQ users that are not active users in Redmine
+  shall be flagged as inactive in Redmine.
 
-4.5  User accounts shall be created in Redmine for CQ users that do not yet exist.
-
-4.5.1  Accounts created for CQ users that are not active users in Redmine shall
- be flagged as inactive in Redmine.
-
-4.6  Only the BridgePoint product items shall be imported into Redmine.
-
-4.6.1  A separate issue shall be raised to handle the CQ product named SMA QA BridgePoint.
- https://support.onefact.net/redmine/issues/593
-
-4.6.2 A separate issue shall be raised to handle import of SR data.  
- https://support.onefact.net/redmine/issues/594
 
 5. Analysis
 -----------
-This section is only required if there is no preceding analysis note. If present
-it sets out a brief analysis of the problem to be resolved by this design note.
+#### 5.1  Redmine import plug-ins
 
-* Item 1
-* Item 2
-* Item 3
+##### 5.1.1  redmine_importer
+Put details here.
+
+##### 5.1.2  RedmineIssueImporter
+Put details here.
+
+#### 5.2  MySQLWorkbench
+Put details here.
+
 
 6. Work Required
 ----------------
-In this section, break out the consequential work (as a numbered list) needed
-to meet the requirements specified in the Requirements section.
+6.1  Filter out the SMA QA BridgePoint items from the CQ records in
+  [DefectDBMainDump.csv [2.4]][ref4].  
+
+6.2  Analyze data to be imported and create a document mapping CQ to Redmine
+  fields.
+
+6.3  Create custom fields in Redmine for CQ fields that cannot be mapped.
+
+6.3  Test Redmine import plug-ins discussed in 5.1 and select a method of
+  import.
+
+6.3  Perform the import on the Redmine staging server.
+
 
 7. Acceptance Test
 ------------------
-In this section, list the tests that need to be performed in order to
-verify that all the requirements are satisfied.
+7.1  Verify the number of issues created is equal to the number imported.
+
+7.2  Verify CQ notes are imported into the correct Redmine issue. 
+
+7.3  
 
 End
 ---
-
