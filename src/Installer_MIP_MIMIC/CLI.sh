@@ -1,6 +1,6 @@
 #!/bin/bash
 BPHOMEDIR="C:/mgc/BridgePoint"
-BP_VERSION="4.1.17"
+BP_VERSION="4.2.0"
 WORKSPACE="$HOME/workspace"
 
 function die() {
@@ -41,35 +41,12 @@ if [ "$1" != "Build" ]; then
   fi
 fi
 
-if [ "${MGLS_LICENSE_FILE}" == "" ]; then
-  if [ "${LM_LICENSE_FILE}" == "" ]; then
-    #
-    # Since the license path is not already set, use the standard location.  Users may
-    # choose to set the value in the environment, or modify the following line to point to the correct
-    # location (either local or remote).
-    #
-    # example configuration for a remote license server
-    #    export MGLS_LICENSE_FILE=1717@svr-taz-eng-05
-    #
-    MGLS_LICENSE_FILE="$BPHOMEDIR/license/license.dat"
-  else
-    MGLS_LICENSE_FILE=$LM_LICENSE_FILE
-  fi
-fi
-export MGLS_LICENSE_FILE
-
-[ $MGLS_LICENSE_FILE ] || die "No license is setup (missing \$LM_LICENSE_FILE)"
-
 #
 # DO NOT MODIFY ANY OF THE FOLLOWING LINES.
 #
 export ORIGINAL_PATH=$PATH
 export PATH=$PATH:$BPHOMEDIR/tools/docgen/docbook
 export MGC_EMBEDDED_HOME=$BPHOMEDIR
-export MGLS_DLL=
-#export MGLS_PKGINFO_FILE=
-export MGC_HOME=
-export MGLS_HOME=$BPHOMEDIR/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.core.linux.x86_$BP_VERSION/os/linux/x86
 LAUNCHER="$BPHOMEDIR/eclipse/plugins/org.eclipse.equinox.launcher_1.2.0.v20110502.jar"
 APPLICATION="com.mentor.nucleus.bp.cli.$1"
 
