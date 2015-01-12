@@ -1,27 +1,14 @@
 #!/bin/bash
 #
-#	configure_build_process.sh takes the following arguments
+#	configure_build_process.sh requires the following environment variables
 #
-#   $1 - product version, actually this is any branch/tag found in git
-#   $2 - git repository root
-#   $3 - build type (release/nonrelease)
+#   ${BRANCH} - product version, actually this is any branch/tag found in git
+#   ${GIT_REPO_ROOT} - git repository root
+#   ${BUILD_TYPE} - build type (release/nonrelease)
 #
 #-------------------------------------------------------------------------------
 # Functions
 #-------------------------------------------------------------------------------
-function usage {
-  echo -e "\nThis script setups of the build by copying files out of the repository"
-  echo -e "into the proper locations.\n"
-  echo -e "\nUsage: $0 <branch/tag> <git repo root> <release/nonrelease>\n"
-  echo -e "branch/tag  = the release version to be created"
-  echo -e "git repo root = the parent directory of the git repositories"
-  echo -e "build type = either release or nonrelease"
-  echo -e ""
-  echo -e "e.g: $0 master /git/xtuml nonrelease"
-  echo -e "     $0 R4.0.0 /git/xtuml release"
-  exit 1
-}
-
 function configure_build_files {
     cd ${git_internal}/${utilities_project}/build
     cp -f configure_external_dependencies.sh ${build_dir}/configure_external_dependencies.sh 2>>${error_file}
@@ -96,13 +83,9 @@ function configure_installer_files {
 #-------------------------------------------------------------------------------
 date
 
-if [ $# -ne 3 ]; then
-    usage
-fi
-
-branch="$1"
-git_repo_root="$2"
-build_type="$3"
+branch=${BRANCH}
+git_repo_root=${GIT_REPO_ROOT}
+build_type=${BUILD_TYPE}
 build_dir="${BUILD_ROOT}/${branch}"
 log_dir="${build_dir}/log"
 error_file="${log_dir}/errors.log"

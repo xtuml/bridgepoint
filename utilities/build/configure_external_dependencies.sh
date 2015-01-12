@@ -213,22 +213,12 @@ configure_vhdl_src()
 #-------------------------------------------------------------------------------
 # Main
 #-------------------------------------------------------------------------------
-ARGNO=4
-
-if [ $# -lt "$ARGNO" ]; then
-  echo ""
-  echo "Usage: $0 <Branch/Tag> <Git Repository Root> <Build Directory> <Build Type>"
-  echo ""
-  echo "  Example: $0 master /git/xtuml /cygwin/c/builds/master nonrelease"
-  echo ""
-  error "Exiting."
-fi
 
 start_dir=`pwd`
-branch="$1"
-git_repo_root="$2"
-build_dir="$3"
-build_type="$4"
+branch=${BRANCH}
+git_repo_root=${GIT_REPO_ROOT}
+build_dir=${BUILD_DIR}
+build_type=${BUILD_TYPE}
 
 echo "Configuring external dependencies."
 
