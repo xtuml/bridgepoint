@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-#  init_git_repositories.sh takes the following arguments
+#  init_git_repositories.sh requires the following environment variables
 #
-#   $1 - product version, actually this is any branch/tag found in git
-#   $2 - git repository root 
-#   $3 - allow fallback to master is specified branch does not 
+#   $BRANCH - product version, actually this is any branch/tag found in git
+#   $GIT_REPO_ROOT - git repository root 
+#   $ALLOW_FALLBACK - allow fallback to master is specified branch does not 
 #            exist (yes or no)
 #
 #  Since this starting point for pulling the rest of the data from revision
@@ -14,17 +14,6 @@
 #-------------------------------------------------------------------------------
 # Functions
 #-------------------------------------------------------------------------------
-usage () {
-  echo -e "\nThis script creates or updates local copies of the git repositories.\n"
-  echo -e "\nUsage: $0 <branch/tag> <git repo root> [fallback]\n"
-  echo -e "branch/tag  = the release version to be created"
-  echo -e "git repo root = the parent directory of the git repositories"
-  echo -e "fallback = allow fallback to master if branch/tag does not exist"
-  echo -e ""
-  echo -e "e.g: $0 master /git/xtuml"
-  echo -e "     $0 my_branch /git/xtuml yes"
-  exit 1
-}
 
 init_repository () 
 {
@@ -78,20 +67,12 @@ init_repository ()
 #-------------------------------------------------------------------------------
 # Main
 #-------------------------------------------------------------------------------
-# Check args
-if [ $# -lt 2 ]; then
-  usage
-fi
 
-branch="$1"
-git_repo_root="$2"
-allow_fallback="yes"
+branch=${BRANCH}
+git_repo_root=${GIT_REPO_ROOT}
+allow_fallback=${ALLOW_FALLBACK}
 base_dir=`pwd`
 diff_file="${base_dir}/diff.log"
-
-if [ "$3" != "" ] && [ "$3" != "yes" ]; then
-  allow_fallback="no"
-fi
 
 # Create git repo parent
 if [ ! -x ${git_repo_root} ]; then

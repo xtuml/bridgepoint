@@ -1,25 +1,14 @@
 #!/bin/bash
 #
-#	create_bp_release.sh takes the following arguments
+#	create_bp_release.sh requires the following environment variables
 #
-#   $1 - product version, actually this is any branch/tag found in git
-#   $2 - git repository root
-#   $3 - build type (release/nonrelease)
+#   ${BRANCH} - product version, actually this is any branch/tag found in git
+#   ${GIT_REPO_ROOT} - git repository root
+#   ${BUILD_TYPE} - build type (release/nonrelease)
 #
 #-------------------------------------------------------------------------------
 # Functions
 #-------------------------------------------------------------------------------
-function usage {
-  echo -e "\nThis script builds BridgePoint.\n"
-  echo -e "\nUsage: $0 <branch/tag> <git repo root> <release/nonrelease>\n"
-  echo -e "branch/tag  = the release version to be created"
-  echo -e "git repo root = the parent directory of the git repositories"
-  echo -e "build type = either release or nonrelease"
-  echo -e ""
-  echo -e "e.g: $0 master /git/xtuml nonrelease"
-  echo -e "     $0 R4.0.0 /git/xtuml release"
-  exit 1
-}
 
 # The jar_distribution function creates a jar file for every package that 
 # will be delivered
@@ -140,7 +129,7 @@ function create_build {
     get_required_modules
     extract_release_files
     
-    ./configure_external_dependencies.sh ${branch} ${git_repo_root} ${BUILD_DIR} ${build_type} > ${LOG_DIR}/configure_externals.log 2>&1
+    ./configure_external_dependencies.sh > ${LOG_DIR}/configure_externals.log 2>&1
     
     # Generate list of modules needing verification
     all_modules="${internal_modules} ${plugin_modules} ${RELEASE_PKG} ${all_feature_modules} ${model_compiler_modules}"
@@ -232,13 +221,9 @@ function create_all_features {
 #-------------------------------------------------------------------------------
 date
 
-if [ $# -ne 3 ]; then
-	usage
-fi
-
-branch="$1"
-git_repo_root="$2"
-build_type="$3"
+branch=${BRANCH}
+git_repo_root=${GIT_REPO_ROOT}
+build_type=${BUILD_TYPE}
 pkg_log_dir="${LOG_DIR}/pkg_logs"
 
 doc_module="com.mentor.nucleus.bp.doc"

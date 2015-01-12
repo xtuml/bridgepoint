@@ -2,14 +2,9 @@
 #
 # Variables
 
-product_version="$1"
-git_repo_root="$2"
-release_type="$3"
-
-if [ $# -lt 3 ]; then
-  echo "Usage: $0 branch git_repository_root release_type"
-  exit 1
-fi
+product_version=${BRANCH} 
+git_repo_root=${GIT_REPO_ROOT} 
+release_type=${BUILD_TYPE}
 
 timestamp=`date +%Y%m%d`
 build_tgt="${product_version}-${timestamp}"
@@ -18,7 +13,7 @@ mkdir -p "${release_drop_dt}"
 version_length=${#product_version}
 nb_tag=""
 
-./create_bp_release.sh ${product_version} ${git_repo_root} ${release_type}
+./create_bp_release.sh 
 
 if [ "$?" = "0" ]; then
   ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; if [ ! -x '${release_drop_dt}' ]; then mkdir '${release_drop_dt}'; fi; cp -f '${RELEASE_DROP}'/BridgePoint_extension_'${product_version}'.zip '${release_drop_dt}'/BridgePoint_extension_'${product_version}'.zip ; )"

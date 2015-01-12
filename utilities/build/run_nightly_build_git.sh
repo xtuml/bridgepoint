@@ -21,6 +21,18 @@ export BRANCH="master"
 if [ $# -lt 1 ]; then
   export BRANCH="$1"
 fi
+
+# this flag is constant and could potentially be removed, but it is 
+# being left in case we do want to have the build be different then other 
+# releases.
+export BUILD_TYPE="nonrelease"
+
+# This variable is used to decided if we want to look in head for files not
+# found in the specified branch.  Currently it is always set  to yes.  It
+# is being left in the script to allow this to be modified in the future if
+# desired
+export ALLOW_FALLBACK="yes"
+
 export BUILD_DIR="${BUILD_ROOT}/${BRANCH}"
 export LOG_DIR="${BUILD_DIR}/log"
 export ERROR_FILE="${log_dir}/errors.log"
@@ -56,7 +68,7 @@ pushd .
 
 echo -e "Initializing git repositories..."
 dos2unix -q init_git_repositories.sh
-bash init_git_repositories.sh "${BRANCH}" "${GIT_REPO_ROOT}" "yes" > cfg_output.log
+bash init_git_repositories.sh > cfg_output.log
 echo -e "Done."
 
 echo -e "Setting permissions on tool directories..."
@@ -66,12 +78,12 @@ echo -e "Done."
 echo -e "Configuring build process..."
 cp -f ${GIT_REPO_ROOT}/internal/utilities/build/configure_build_process.sh .
 dos2unix -q configure_build_process.sh
-bash configure_build_process.sh ${BRANCH} ${GIT_REPO_ROOT} nonrelease >> cfg_output.log
+bash configure_build_process.sh >> cfg_output.log
 echo -e "Done."
 
 echo -e "Processing the build..."
 cd  "${BRANCH}"
-bash process_build.sh ${BRANCH} ${GIT_REPO_ROOT} nonrelease > build_output.log 
+bash process_build.sh > build_output.log 
 echo -e "Done."
 
 # Clean up build files
