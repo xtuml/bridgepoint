@@ -49,19 +49,20 @@ x- Update the test_results/Unit_test_summary.txt with the branch name check it i
 	
 
 x- Create a Pull Request for the changes
-     _- Go to the repository on github.com
-     _- Go to the Pull Requests page
-     _- Click the "New pull request" button
-     _- Select the desired branch
-     _- Review the changeset
-     _- Select "Click to create a pull request for this comparison" link at 
+     x- Go to the repository on github.com
+     x- Go to the Pull Requests page
+     x- Click the "New pull request" button
+     x- Select the desired branch
+     x- Review the changeset
+     x- Select "Click to create a pull request for this comparison" link at 
         the top of the page.
-     _- Resolve any conflicts as indicated.  If "Able to merge", then click 
+     x- Resolve any conflicts as indicated.  If "Able to merge", then click 
         "Send pull request" button 
 
-_- Modify the associated ClearQuest Issue and change it's status to "Open"
+x- Modify the associated ClearQuest Issue and change it's status to "Resolved"
 
-_- Add a comment in the BridgePoint chat saying the issue is ready for promotion
+x- Add a comment in the One Fact Inc chat saying the issue is ready for
+   promotion   
 
 
 End
