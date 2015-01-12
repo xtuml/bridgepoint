@@ -48,15 +48,13 @@ working branch.
 
 7. Unit Test
 ------------
-_- Run all existing unit tests
+_- Run all existing unit tests   
 _R All tests pass
 
 8. Code Changes
 ---------------
 Branch name: 33_poor_performance_for_graphics_persistence
-
 <pre>
-    
 com.mentor.nucleus.bp.als.oal/about.html
 com.mentor.nucleus.bp.als.oal/plugin.xml
 com.mentor.nucleus.bp.als.oal.test/plugin.xml
@@ -281,9 +279,7 @@ Installer_MIP_MIMIC/
 
 utilities/build/
     create_release_functions.sh
-
 </pre>
-
 End
 ---
 
