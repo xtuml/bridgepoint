@@ -43,7 +43,7 @@ the check to see if the file has already been loaded.
 --------------------------
 6.1 Merge licensing changes
 
-In order to run the tests changes from the v4.2.0 branch were merged into this
+In order to run unit tests, changes from the v4.2.0 branch were merged into this
 working branch.   
 
 7. Unit Test
