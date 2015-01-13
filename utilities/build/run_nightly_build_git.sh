@@ -18,7 +18,7 @@ export PT_HOME_DRIVE=
 export XTUMLGEN_HOME="${BUILD_TOOLS}/bridgepoint"
 # if no arguments are present default to master
 export BRANCH="master"
-if [ $# -lt 1 ]; then
+if [ $# -eq 1 ]; then
   export BRANCH="$1"
 fi
 
