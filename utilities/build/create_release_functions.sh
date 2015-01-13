@@ -16,8 +16,8 @@ eclipse_home="/build/BridgePoint4.2.0/eclipse"
 # Note: ant should be installed on the build server
 ant_cmd="ant"
 ant_opts="-Declipse-home=${eclipse_home}"
-cli_cmd="${eclipse_home}/CLI.bat"
-cli_opts"-os win32 -ws win32 -arch x86 -nl en_US -consoleLog -pluginCustomization ${BUILD_DIR}/com.mentor.nucleus.bp.pkg/plugin_customization.ini -prebuildOnly"
+cli_cmd="${eclipse_home}/CLI.sh"
+cli_opts"-nl en_US -consoleLog -pluginCustomization ${BUILD_DIR}/com.mentor.nucleus.bp.pkg/plugin_customization.ini -prebuildOnly"
 antlr_tool="pt_antlr"
 git_internal="${GIT_REPO_ROOT}/internal"
 internal_modules="com.mentor.nucleus.bp.als
