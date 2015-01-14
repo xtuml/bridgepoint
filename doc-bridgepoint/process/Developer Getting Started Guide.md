@@ -16,10 +16,17 @@ References
 Preparations
 ------------
 ### GitHub
-The BridgePoint source code repositories are housed on Github.com.  If you do not already have a Github account, create one now.
+  - The BridgePoint source code repositories are housed on Github.com in several repositories under the xtUML organization.  If you do not already have a Github.com account, create one now.
+
+  - In order to manage your edits to the source, you need to fork the source code.  For each of the repositories, you must navigate to the source home on Github and click the "Fork" button in the upper right corner:
+    - https://github.com/xtuml/bposs
+    - https://github.com/xtuml/bridgepoint
+    - https://github.com/xtuml/models
+
+  - Once the process is complete, you will have a fork of each of the repositories under your own Github account.  For the remainder of this document, we will refer to the repositories using the formula ```https://github.com/"username"/"repository".git``` where "username" is your personal Github user name. (For example: ```https://github.com/keithbrown/bposs.git```)
 
 ### OS-Specific Instructions
-For your conveniences, there are two sets of instructions in this guide, one for Windows and one for Linux.  Please proceed to the appropriate section to continue with the setup.
+The instructions for Windows and Linux development environments are very similar.  However, the instructions provided here are currently focused on a Windows environment.  Linux-specific instructions are forthcoming.
 
 
 Windows Steps
@@ -36,7 +43,7 @@ Windows Steps
   - Open the Git Repository Exploring perspective
 
   - In the left hand view, select the option to clone and add to view.  This will pop up the "Clone Git Repository" dialog.
-    - Enter the URI: ```https://github.com/xtuml/bposs.git```
+    - Enter the URI: ```https://github.com/"username"/bposs.git```
     - Enter your user name and password for your github.com account
     - Select Next
     - Select all the branches
@@ -67,11 +74,9 @@ Windows Steps
   
   - In the Git Repositories view, select the "Clone a Git Repository and add the clone to this view" button
   
-  - Using the same procedure as earlier, clone the ```https://github.com/xtuml/mc.git``` repository
- 
-  - Using this same procedure, clone the ```https://github.com/xtuml/models.git``` repository
+  - Using this same procedure, clone the ```https://github.com/"username"/models.git``` repository
   
-  - Using this same procedure, clone the ```https://github.com/xtuml/bridgepoint.git``` repository
+  - Using this same procedure, clone the ```https://github.com/"username"/bridgepoint.git``` repository
 
 ### Configure System for Development
   - Copy ```c:/git/bridgepoint/doc-bridgepoint/process/development-workspace-setup/BridgePointDev``` into ```c:/work```
