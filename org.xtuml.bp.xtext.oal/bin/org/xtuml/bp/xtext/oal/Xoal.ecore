@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="xoal"
+    nsURI="http://www.xtuml.org/bp/xtext/oal/Xoal" nsPrefix="xoal">
+  <eClassifiers xsi:type="ecore:EClass" name="Code"/>
+  <eClassifiers xsi:type="ecore:EClass" name="block" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//Code">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//statement"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="statement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="assignment_statement" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//assignment_expr"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="break_statement" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//statement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="bridge_statement" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//statement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="send_statement" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//statement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="control_statement" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//statement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="continue_statement" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//statement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="create_event_statement" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//statement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="create_object_statement" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//statement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="delete_statement" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//inst_ref_var"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="for_statement" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//statement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a2" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//inst_ref_set_var"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a3" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//block"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="generate_statement" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//statement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="if_statement" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//expr"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a2" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//block"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a3" upperBound="-1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//expr"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a4" upperBound="-1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//block"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a5" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//block"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="relate_statement" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//inst_ref_var"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a2" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//inst_ref_var"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a3" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="return_statement" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//statement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a2" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//expr"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="select_statement" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//statement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a3" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="unrelate_statement" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//inst_ref_var"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a2" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//inst_ref_var"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a3" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="while_statement" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//expr"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a2" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//block"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="assignment_expr">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//expr"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="bridge_invocation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="bridge_expr">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//bridge_invocation"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="assoc_obj_inst_ref_var"/>
+  <eClassifiers xsi:type="ecore:EClass" name="inst_ref_set_var">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="inst_ref_var" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//assoc_obj_inst_ref_var">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="expr">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//sub_expr"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="sub_expr">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//conjunction"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a2" upperBound="-1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//conjunction"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="conjunction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//relational_expr"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a2" upperBound="-1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//relational_expr"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="relational_expr">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//addition"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a2" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//addition"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="addition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//multiplication"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a2" upperBound="-1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//multiplication"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="multiplication">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//sign_expr"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a2" upperBound="-1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//sign_expr"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="sign_expr"/>
+  <eClassifiers xsi:type="ecore:EClass" name="boolean_negation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="term" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//sign_expr platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//boolean_negation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a2" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//expr"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="instance_start_segment" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//member_access"/>
+  <eClassifiers xsi:type="ecore:EClass" name="member_access"/>
+  <eClassifiers xsi:type="ecore:EClass" name="array_refs" eSuperTypes="platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//instance_start_segment">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a1" upperBound="-1" eType="ecore:EClass platform:/resource/org.xtuml.bp.xtext.oal/src-gen/org/xtuml/bp/xtext/oal/Xoal.ecore#//expr"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

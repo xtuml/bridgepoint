@@ -1,0 +1,10 @@
+<?p2f version='1.0.0'?>
+<p2f version="1.0.0">
+<ius size="1">
+<iu id="org.eclipse.sdk.examples.feature.group" name="Eclipse SDK Examples" version="3.5.0.r37x_v20111117-817nFcfFE_dkPZrZfNRFqhh">
+<repositories size="1">
+<repository location="http://download.eclipse.org/eclipse/updates/3.7"/>
+</repositories>
+</iu>
+</ius>
+</p2f>
