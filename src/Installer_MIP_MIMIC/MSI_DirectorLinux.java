@@ -18,7 +18,7 @@ public class MSI_Director {
     private String eclipseLocation = "";
 
     private String eclipseVersion = "3.7.2";
-    private String productVersion = "4.1.17";
+    private String productVersion = "4.2.0";
     private String productName = "BridgePoint";
 
     public MSI_Director(String pathToSelf) {
@@ -60,7 +60,7 @@ public class MSI_Director {
         DirectorHelper.clearProperties();
         DirectorHelper.setProperties(new HashMap() {
             {
-                put(DirectorHelper.PROPERTY_TITLE, "Mentor Graphics Install");
+                put(DirectorHelper.PROPERTY_TITLE, "BridgePoint Install");
             }
         });
 
@@ -141,13 +141,14 @@ public class MSI_Director {
     }
 
     private int showEULA() {
-        int val = DirectorHelper.showDialog("basic_templates/EULADialog.html",
+        /*int val = DirectorHelper.showDialog("basic_templates/EULADialog.html",
                 new HashMap() {
                     {
                         //put(DirectorHelper.PROPERTY_HEADER, "Mentor Graphics");
                     }
                 });
-        return val;
+        return val;*/
+        return DirectorHelper.BTN_AGREE;
     }
 
     private int showProducts() {

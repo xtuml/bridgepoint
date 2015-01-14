@@ -604,18 +604,9 @@ public class UIUtil
     
     public static String getTechSupportMessage() {
     	String msg =
-          "Please contact BridgePoint Technical Support:\n\n"
-        + "Mentor Graphics Corporation\n"
-        + "8005 SW Boeckman Drive\n"
-        + "Wilsonville, OR 97070\n\n"
-        + "\t800-592-2210\n"
-        + "\t503-685-7000\n"
-        + "\t251-208-3603 (fax)\n"
-        + "\tsupport@mentor.com\n"
-        + "\thttp://www.mentor.com\n\n"
-        + "Or take advantage of SupportNet for a searchable knowledgebase of technical issues,"
-        + "the ability to open a service request online, and many other useful tools for customers:\n\n"
-        + "\thttp://www.mentor.com/supportnet\n";
+          "Please visit the xtUML Forum for a searchable knowledgebase of technical issues,"
+        + "the ability to open a service request online, and many other useful tools:\n\n"
+        + "\thttps://www.xtuml.org/community/forum/xtuml-forum/\n";
     	return msg;
 	}
     
