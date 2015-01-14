@@ -23,8 +23,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
-import com.mentor.nucleus.bp.core.CorePlugin;
-import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
 import com.mentor.nucleus.bp.core.util.UIUtil;
 import com.mentor.nucleus.bp.mc.xmiexport.XMIExportBuilder;
 import com.mentor.nucleus.bp.utilities.build.BuilderManagement;
@@ -93,8 +91,7 @@ public class MCBuilderArgumentHandler {
 		String projPath = m_project.getLocation().toOSString();
         IPath outputPath = new Path(projPath + File.separator
                 + AbstractActivator.GEN_FOLDER_NAME + File.separator
-                + codeGenFolder + File.separator);
-		BridgePointLicenseManager.writeXTUMLDisplayFile(outputPath);		
+                + codeGenFolder + File.separator);		
 		
 	    //refresh directory to pick up new files
         try {
@@ -189,40 +186,4 @@ public class MCBuilderArgumentHandler {
         return licenseString;
     }
 
-	public static boolean isLicensed(String builderIDString) {
-		boolean isLicensed = false;
-
-		if (builderIDString.startsWith(AbstractNature.C_SOURCE_MC_ID)) {
-			isLicensed = BridgePointLicenseManager
-					.licenseExists(BridgePointLicenseManager.LicenseAtomic.MC3020SOURCE_MC_LICENSE_CODE);
-		} else if (builderIDString.startsWith(AbstractNature.C_BINARY_MC_ID)) {
-			isLicensed = true;
-		} else if (builderIDString
-				.startsWith(AbstractNature.SYSTEMC_SOURCE_MC_ID)) {
-			isLicensed = BridgePointLicenseManager
-			.licenseExists(BridgePointLicenseManager.LicenseAtomic.SYSTEMC_SOURCE_MC_LICENSE_CODE);			
-		} else if (builderIDString.startsWith(AbstractNature.CPP_SOURCE_MC_ID)) {
-			isLicensed = BridgePointLicenseManager
-					.licenseExists(BridgePointLicenseManager.LicenseAtomic.MC2020SOURCE_MC_LICENSE_CODE);
-		} else if (builderIDString.startsWith(AbstractNature.VHDL_SOURCE_MC_ID)) {
-			isLicensed = BridgePointLicenseManager
-			.licenseExists(BridgePointLicenseManager.LicenseAtomic.VHDL_SOURCE_MC_LICENSE_CODE);
-		} else {
-			// In this case we are looking at a custom MC.  We require either 
-			// a DAP or mc3020 source license in this situation.
-			isLicensed = BridgePointLicenseManager
-					.licenseExists(BridgePointLicenseManager.LicenseAtomic.DAP_MC_LICENSE_CODE);
-			if (!isLicensed) {
-				isLicensed = BridgePointLicenseManager
-				.licenseExists(BridgePointLicenseManager.LicenseAtomic.MC3020SOURCE_MC_LICENSE_CODE);
-			}
-		}
-
-		if (!isLicensed) {
-			CorePlugin.logError("The Model Compiler named \"" +
-					builderIDString + "\" does NOT have an available license. ", null);
-		}
-		
-		return isLicensed;
-	}    
 }

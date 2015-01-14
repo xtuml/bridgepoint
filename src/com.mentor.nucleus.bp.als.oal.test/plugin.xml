@@ -4,7 +4,7 @@
    id="com.mentor.nucleus.bp.als.oal.test"
    name="Nucleus BridgePoint OAL Test Plug-in"
    version="1.0.0"
-   provider-name="Mentor Graphics"
+   provider-name="xtUML.org"
    class="com.mentor.nucleus.bp.als.oal.test.TestPlugin">
 
    <runtime>
