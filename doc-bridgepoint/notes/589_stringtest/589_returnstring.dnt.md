@@ -16,8 +16,8 @@ A new design for returning strings from action bodies is offered.
 2. Document References
 ----------------------
 [1] [BridgePoint DEI #589](https://support.onefact.net/redmine/issues/1)  test model for string reentrancy  
-[2] [Test Model](https://github.com/xtuml/models/tree/master/VandMC_testing/mctest/string_return_test/)  
-[3] [Analysis Note](https://github.com/xtuml/bridgepoint/tree/master/doc-bridgepoint/notes/589_stringtest/589_returnstring.ant.md)  
+[2] [Test Model](https://github.com/xtuml/models/tree/master/VandMC_testing/mctest/string_return_test/) VandMC_testing/mctest/string_return_test  
+[3] [Analysis Note](https://github.com/xtuml/bridgepoint/tree/master/doc-bridgepoint/notes/589_stringtest/589_returnstring.ant.md) doc-bridgepoint/notes/589_stringtest/  
 
 3. Background
 -------------
@@ -106,9 +106,10 @@ couple of loop indexes in `strcpy` and `stradd`.
 
 7. Design Comments
 ------------------
-7.1 When _InstanceLoading_ is being used (for the model-based model compiler),
-the string approach may need a few tweaks.  The model compiler processes string
-data heavily.  This will be tested as part of preparing the next release.
+7.1 When the _InstanceLoading_ mark is being used (for the model-based model
+compiler), the string approach may need a few tweaks.  The model compiler
+processes string data heavily.  This will be tested as part of preparing
+the next release.
 
 8. Unit Test
 ------------
