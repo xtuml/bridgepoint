@@ -80,20 +80,43 @@ compiler) in this case.
 
 6.1 Design of Return String Struct
 
-6.1.1 A new data type _xtuml_string_ is declared as such:
+6.1.1 A new data type `xtuml_string` is declared as such:
 ```
 typedef struct { char s[ ESCHER_SYS_MAX_STRINGLEN ]; } xtuml_string;
 ```
 
 6.1.2 `xtuml_string` will be used only for return values, not for all strings.
 
+6.1.3 Link TE_BLK to TE_ABA across R2011 to allow easy access to the
+implementation return data type.  This is easy for S_SYNC, O_TFR, O_DBATTR,
+S_BRG and SM_ACT (both states and transitions).  However, there are four types of
+messages that are translated before the TE_BLK instances are created.  For these,
+queries are added later in the sys.populate processing to link them up.
+
+The linking of these instances earlier in the processing allows removal of
+these traversals later in the ABA rollup routine.
+
+6.1.4 Clean up and remove the previous "scope transfer" variables that are now
+no longer needed.
+
 6.2 Updates for Size of String
+
+6.2.1 Instead of using `s2_t` which is `short`, use `Escher_size_t` for a
+couple of loop indexes in `strcpy` and `stradd`.
 
 7. Design Comments
 ------------------
+7.1 When _InstanceLoading_ is being used (for the model-based model compiler),
+the string approach may need a few tweaks.  The model compiler processes string
+data heavily.  This will be tested as part of preparing the next release.
 
 8. Unit Test
 ------------
+8.1 Run [2].  It is expected to compile and run continuously.
+
+8.2 Build and run GPS Watch on Windows.
+
+8.3 Build and run the Microwave oven on both Windows and Unix.
 
 End
 ---
