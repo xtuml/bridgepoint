@@ -52,6 +52,7 @@ Branch name:  xtuml/mc/589_returnstring
 
 <pre>
 
+xtuml/mc
 arc/c/t.sys_types.h
 arc/q.oal.action.arc
 arc/q.smt.generate.arc
@@ -62,6 +63,12 @@ arc/sysc/t.sys_types.h
 arc/t.smt.return.c
 arc/t.sys_sets.c
 
+xtuml/bridgepoint
+doc-bridgepoint/notes/589_stringtest/*
+doc-bridgepoint/process/templates/*
+
+xtuml/models
+VandMC_testing/mctest/string_return_test/*
 
 </pre>
 
