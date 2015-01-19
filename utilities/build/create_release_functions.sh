@@ -83,7 +83,7 @@ function verify_checkout {
 
 function get_required_modules {
     cp -rf ${git_internal}/src/${RELEASE_PKG} .
-    chown -R ${USERNAME} ${RELEASE_PKG}
+    chown -R ${SHELLUSER} ${RELEASE_PKG}
 
     if [ -e ${RELEASE_PKG}/feature.xml ]; then
         plugin_modules=`grep "<plugin id=" $BUILD_DIR/$RELEASE_PKG/feature.xml | awk -F"=" '{printf("%s\n", $2)}' | sed s/\"// | sed s/\"//`
@@ -93,7 +93,7 @@ function get_required_modules {
     fi
     
     cp -rf ${git_internal}/src/${antlr_tool} .
-    chown -R ${USERNAME} ${antlr_tool}    
+    chown -R ${SHELLUSER} ${antlr_tool}    
 }
 
 function extract_release_files {
@@ -105,7 +105,7 @@ function extract_release_files {
     for module in ${modules} ${all_feature_modules} ${model_compiler_modules} ${plugin_fragments}; do
         echo "Checking out ${module} for release: ${BRANCH}"
         cp -rf ${git_internal}/src/${module} .
-        chown -R ${USERNAME} ${module}
+        chown -R ${SHELLUSER} ${module}
     done
 }
 
@@ -113,7 +113,7 @@ function extract_unit_test_modules {
     for module in ${unit_test_modules}; do
         echo "Checking out ${module} for release: ${BRANCH}"
 		cp -rf ${git_internal}/src/${module} .
-        chown -R ${USERNAME} ${module}
+        chown -R ${SHELLUSER} ${module}
     done
 }
 
