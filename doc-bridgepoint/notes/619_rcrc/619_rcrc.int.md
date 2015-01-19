@@ -43,11 +43,12 @@ condition.  This nicely makes a place for future error recovery.
 
 6. Implementation Comments
 --------------------------
+6.1  Reduced the scope of i in `strcpy` (based on report from cppcheck).  
 
 7. Unit Test
 ------------
 7.1  Build and run [4].  
-7.1.1  Run cppcheck on sys_thread.c.  See no reported redundant assignments.  
+7.1.1  Run cppcheck --enable=all sys_thread.c.  See no reported redundant assignments.  
 7.1.2  gcc -c -Wall sys_thread.c.  See no warnings or errors.  
 7.1.3  Compile project cleanly.  
 7.1.4  Run project cleanly.  
@@ -63,6 +64,7 @@ doc-bridgepoint/notes/619_rcrc/*
 
 xtuml/mc
 arc/t.sys_threadposix.c
+arc/t.sys_sets.c
 
 </pre>
 
