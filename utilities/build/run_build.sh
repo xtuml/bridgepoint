@@ -41,7 +41,7 @@ export BUILD_ADMIN="build@onefact.net"
 export MAIL_CMD="/usr/sbin/ssmtp"
 export MAIL_TEMP="mailtemp"
 export RELEASE_PKG="com.mentor.nucleus.bp.bld.pkg-feature"
-
+export SHELLUSER="ubuntu"
 
 export RELEASE_BASE="/build/releases"
 export RELEASE_DROP="${RELEASE_BASE}/${product_version}"
