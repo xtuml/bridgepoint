@@ -12,12 +12,11 @@
 #    RELEASE_PKG - the eclipse feature package
 #
 #
-eclipse_home="/build/BridgePoint4.2.0/eclipse"
 # Note: ant should be installed on the build server
 ant_cmd="ant"
-ant_opts="-Declipse-home=${eclipse_home}"
-cli_cmd="${eclipse_home}/CLI.sh"
-cli_opts"-nl en_US -consoleLog -pluginCustomization ${BUILD_DIR}/com.mentor.nucleus.bp.pkg/plugin_customization.ini -prebuildOnly"
+ant_opts="-Declipse-home=${ECLIPSE_HOME}"
+cli_cmd="${ECLIPSE_HOME}/CLI.sh"
+cli_opts="-nl en_US -consoleLog -pluginCustomization ${BUILD_DIR}/com.mentor.nucleus.bp.pkg/plugin_customization.ini -prebuildOnly"
 antlr_tool="pt_antlr"
 git_internal="${GIT_REPO_ROOT}/internal"
 internal_modules="com.mentor.nucleus.bp.als

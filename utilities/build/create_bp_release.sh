@@ -79,7 +79,7 @@ function zip_distribution {
         if [ -e ${module}/about.mappings ]; then
             internal_version=`echo ${branch} | cut -d"_" -f 4-`
 
-            echo -e "0=${module_release_version} ${internal_version}\n1=${timestamp}\n" > ${module}/about.mappings
+            echo -e "0=${module_release_version} ${internal_version}\n1=${TIMESTAMP}\n" > ${module}/about.mappings
         fi
 
         mkdir plugins/${module}_${module_release_version}
@@ -94,22 +94,22 @@ function zip_distribution {
     create_all_features
 
     cd ${BUILD_DIR}
-    mkdir ${extension_dir}
-    mkdir ${extension_dir}/eclipse
-    touch ${extension_dir}/eclipse/.eclipseextension
-    cp -Rd features ${extension_dir}/eclipse
-    cp -Rd plugins ${extension_dir}/eclipse
+    mkdir ${EXTENSION_DIR}
+    mkdir ${EXTENSION_DIR}/eclipse
+    touch ${EXTENSION_DIR}/eclipse/.eclipseextension
+    cp -Rd features ${EXTENSION_DIR}/eclipse
+    cp -Rd plugins ${EXTENSION_DIR}/eclipse
 
     jar_specific_plugins
 
     # Include org.antlr packages in zipped distribuition
-    cp -Rd ${git_repo_root}/internal/src/org.antlr_2.7.2 ${extension_dir}/eclipse/plugins
+    cp -Rd ${git_repo_root}/internal/src/org.antlr_2.7.2 ${EXTENSION_DIR}/eclipse/plugins
 
-    zip -r BridgePoint_extension_${branch}.zip ${extension_dir} > ${pkg_log_dir}/BridgePoint_extension_${branch}_zip.log 2>&1
+    zip -r BridgePoint_extension_${branch}.zip ${EXTENSION_DIR} > ${pkg_log_dir}/BridgePoint_extension_${branch}_zip.log 2>&1
 }
 
 function jar_specific_plugins {
-    cd ${extension_dir}/eclipse/plugins
+    cd ${EXTENSION_DIR}/eclipse/plugins
     for jarplugin in ${plugins_to_jar}; do
       jar_plugin_fullname="${jarplugin}_${release_version}"
       echo -e "Converting ${jar_plugin_fullname} to a jar file."
@@ -208,7 +208,7 @@ function create_all_features {
       if [ -e ${feature_less}/about.mappings ]; then
         ib=`cat ${feature_less}/about.mappings | grep -c "Internal Build"`
         if [ $ib -gt 0 ]; then
-          cat ${feature_less}/about.mappings | sed s/"1=Internal Build"/1=${timestamp}/ > ${feature_less}/about.mappings.tmp
+          cat ${feature_less}/about.mappings | sed s/"1=Internal Build"/1=${TIMESTAMP}/ > ${feature_less}/about.mappings.tmp
           mv ${feature_less}/about.mappings.tmp ${feature_less}/about.mappings
         fi
       fi
@@ -229,10 +229,6 @@ pkg_log_dir="${LOG_DIR}/pkg_logs"
 doc_module="com.mentor.nucleus.bp.doc"
 doc_module_mc3020="com.mentor.nucleus.help.bp.mc"
 pkg_module="com.mentor.nucleus.bp.bld.pkg"
-
-timestamp=`date +%Y%m%d%H%M`
-extension_dir="${RELEASE_BASE}/BridgePoint_${branch}"
-mkdir -p "${extension_dir}"
 
 if [ ! -x $pkg_log_dir ]; then
 	echo -e "Creating package log directory: $pkg_log_dir"
