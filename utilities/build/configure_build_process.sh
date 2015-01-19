@@ -17,6 +17,21 @@ function configure_build_files {
     cp -f process_build.sh ${build_dir}/process_build.sh 2>>${error_file}
     # TODO: cp -f tag_bp.sh ${build_dir}/tag_bp.sh 2>>${error_file}
     # TODO: cp -f tag_bp_nb.sh ${build_dir}/tag_bp_nb.sh 2>>${error_file}
+
+	#
+	# files needed to build the tool  
+	#	
+  	cd ${git_workspace_setup}/BridgePointDev-Linux
+	cp -f * ${PT_HOME}
+
+   chmod a+x ./mc3020/bin/xtumlmc_build.exe
+   chmod a+x ./bin/xtumlmc_gen_erate
+   
+    #
+    # required things from dropins
+    #
+    cd ${git_workspace_setup}/dropins
+    cp -f * ${ECLIPSE_HOME}/dropins
     
     cd ${build_dir}
     dos2unix -q configure_external_dependencies.sh
@@ -89,9 +104,9 @@ build_type=${BUILD_TYPE}
 build_dir="${BUILD_ROOT}/${branch}"
 log_dir="${build_dir}/log"
 error_file="${log_dir}/errors.log"
-timestamp=`date +%Y%m%d%H%M`
 
 git_internal="${git_repo_root}/internal"
+git_workspace_setup="${git_internal}/doc-internal/process/templates/checklists/development-workspace-setup"
 install_project="Installer"
 utilities_project="utilities"
 staging_area="${BUILD_MOUNT}/staging"
@@ -122,12 +137,17 @@ if [ "${branch}" = "master" ] || [ "${build_type}" = "nonrelease" ]; then
     rm -rf ${build_dir}
 fi
 
+#
+# if the given build_dir exists then move the existing dir to 
+# a dir with the same name and the current timestamp to assure this
+# is a clean build
+#
 if [ ! -x ${build_dir} ]; then
     echo -e "Creating build directory: ${build_dir}"
     cd ${BUILD_ROOT}; mkdir ${branch}
 else
-    mv ${build_dir} ${build_dir}_${timestamp}
-    echo -e "Release build directory ${build_dir} already exists.  Moving to ${build_dir}_${timestamp}"
+    mv ${build_dir} ${build_dir}_${TIMESTAMP}
+    echo -e "Release build directory ${build_dir} already exists.  Moving to ${build_dir}_${TIMESTAMP}"
     cd ${BUILD_ROOT}; mkdir ${branch}
 fi
 

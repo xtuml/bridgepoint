@@ -5,12 +5,24 @@
 #
 #  This script runs the nightly build.
 #
-#  Since it is the starting point for the build chain, it must be manually put into 
-#  place for the build server to run.
+#  Since it is the starting point for the build chain, it must be manually put 
+#  into place for the build server to run. The variable BUILD_MOUNT holds the 
+#  build server location that is the root for the build.  
+#  
+#  Build Server Requirements:
+#  1) run_build.sh must be present in ${BUILD_ROOT}
+#  2) BridgePoint must be installed to the folder pointed to by the 
+#     ${ECLIPSE_HOME} variable defined below
+#  3) git must be installed on the build server
+# 
+#  The build is performed under ${BUILD_ROOT}.  The result of the build:
+#  1) plugins
+#     The resulting plugins are found under ${BUILD_ROOT}
 # 
 
 export BUILD_MOUNT="/build"
-export BUILD_ROOT="${BUILD_MOUNT}/builds"
+export ECLIPSE_HOME="${BUILD_MOUNT}/BridgePoint4.2.0/eclipse"
+export BUILD_ROOT="${BUILD_MOUNT}/work"
 export GIT_REPO_ROOT="${BUILD_MOUNT}/git/xtuml"
 export BUILD_TOOLS="${BUILD_MOUNT}/utilities/bp_build_tools"
 export PT_HOME="${BUILD_TOOLS}/bridgepoint"
@@ -43,19 +55,32 @@ export MAIL_TEMP="mailtemp"
 export RELEASE_PKG="com.mentor.nucleus.bp.bld.pkg-feature"
 export SHELLUSER="ubuntu"
 
+
 export RELEASE_BASE="/build/releases"
-export RELEASE_DROP="${RELEASE_BASE}/${product_version}"
+export EXTENSION_DIR="${RELEASE_BASE}/BridgePoint_${BRANCH}"
+mkdir -p "${EXTENSION_DIR}"
+
+# 
+# Note that items in the following section will eventually need to be github 
+# pages (I think) for now the release is not being moved off of the build server.
+#
+export RELEASE_DROP="${RELEASE_BASE}/${BRANCH}"
 mkdir -p "${RELEASE_DROP}"
 export DOWNLOAD_URL="http://xtuml.github.io/bridgepoint/"
 export DISTRIBUTION_SERVER=""
 export RSH=""
 
+export TIMESTAMP=`date +%Y%m%d%H%M`
 
+export BUILD_TARGET="${BRANCH}-${TIMESTAMP}"
+export BUILD_RESULT_FOLDER="${RELEASE_BASE}/${BUILD_TARGET}"
+mkdir -p "${BUILD_RESULT_FOLDER}"
 
 mkdir -p "${LOG_DIR}"
 mkdir -p "${BUILD_TOOLS}"
 mkdir -p "${GIT_REPO_ROOT}"
 mkdir -p "${BUILD_ROOT}"
+mkdir -p "${PT_HOME}"
 echo -e "BUILD_ROOT=${BUILD_ROOT}
 echo -e "BRANCH=${BRANCH}
 echo -e "GIT_REPO_ROOT=${GIT_REPO_ROOT}
