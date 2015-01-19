@@ -94,4 +94,4 @@ mv ${BRANCH}\build_output.log ${BRANCH}\log
 
 cd ${BUILD_ROOT}
 
-echo -e "End of run_nightly_build_git.bat"
+echo -e "End of run_build.bat"
