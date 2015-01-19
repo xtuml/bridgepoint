@@ -18,6 +18,7 @@ A new design for returning strings from action bodies is offered.
 [1] [BridgePoint DEI #589](https://support.onefact.net/redmine/issues/1)  test model for string reentrancy  
 [2] [Test Model](https://github.com/xtuml/models/tree/master/VandMC_testing/mctest/string_return_test/) VandMC_testing/mctest/string_return_test  
 [3] [Analysis Note](https://github.com/xtuml/bridgepoint/tree/master/doc-bridgepoint/notes/589_stringtest/589_returnstring.ant.md) doc-bridgepoint/notes/589_stringtest/  
+[4] [revealing Stack Overflow comment on returning structures](http://stackoverflow.com/questions/18412094/a-legal-array-assignment-is-it-possible)  
 
 3. Background
 -------------
