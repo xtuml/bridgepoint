@@ -46,35 +46,12 @@ See [3].
 
 #### 5.1.6 Architectural By-Ref Parameter ...2nd CHOICE
 
-5.1.6.1 Reasons for not choosing this option.
+5.1.6.1 Reasons for not liking this option.
 
-In C code, passing a parameter by-ref allows a form of return data.
-This option can be made to work, but it suffers a serious complication
-when the string-typed called function is used in an expression other
-than a direct assignment.  It requires that temporary storage be
-created in the calling context to hold data just long enough to get
-it from the calling context into the called context and transfer
-it into the second called context.
-
-```
-::f( s:g() );
-```
-In the above OAL, `f` is a function taking a string parameter, and `g`
-is a function returning a string.  Trying to use a by-ref parameter
-would require the following (abbreviated for clarity) C code.
-```
-char tempstring[MAX];
-f( (g( tempstring ),tempstring) );
-```
-Note also that there may need to be several manufactured transient `tempstring`
+Note that there need to be several manufactured transient `tempstring`
 variables in contexts where multiple string functions are called within
 expressions.  This adds the requirement to manufacture unique names for each
 of these temporary variables.
-
-Finally, by returning a struct, some C and C++ compilers have the option
-of silently optimizing to something similar to by-ref passing.  The compiler
-likely does a better job of optimizing than does the programmer (or model
-compiler) in this case.
 
 6. Design
 ---------
@@ -107,10 +84,47 @@ couple of loop indexes in `strcpy` and `stradd`.
 
 7. Design Comments
 ------------------
-7.1 When the _InstanceLoading_ mark is being used (for the model-based model
+### 7.1 Return String Struct... FAILED!  
+The return string struct failed.  There are inconsistencies in the ANSI C
+standard, and there are bugs in gcc!  In the ANSI 2011 standard, the return
+string struct design is technically good.  However, there are inconsistencies
+in ANSI C 1990 and 1999, and the various implementations in C compilers are
+not trustworthy.  Read [4].
+
+I discovered the problem after running on a newer version of gcc and then
+running on an older gcc.  The design can be reconsidered later, although
+it will not likely be worth changing back to this design.
+
+### 7.2 New Design for Architectural By-Ref Parameter
+
+#### 7.1.1 Create Prototype String TE_PARM  
+Early in the system population query, create an instance of TE_PARM that
+is linked to a string TE_DT.  This will be useful to make copies for the
+architectural string parameter.
+
+#### 7.1.2 Duplicate Prototype String TE_PARM  
+During the manufacture of TE_ABAs for bodies returning a string, duplicate
+the above string TE_PARM and link it into the front of the parameter list.
+
+#### 7.1.3 Link as First Parm  
+Link the architectural by-ref parameter at the head of the list of parameters
+or alone in bodies not taking arguments.  The name of the parameter will be
+something that alphabetizes to the front of the list.  "A0xtumlsret" is chosen.
+
+#### 6.1.4 Prepend Architectural String Parm to Invocation Parms  
+In the expression value generation, add functionality to V_TRV, V_FNV,
+V_BRV and V_MSV to prepend a uniquely named local transient to the
+invocation list.
+
+#### 7.1.5 Change Return Statement to Use VarParm  
+In the return statement, strcpy the return value into the "A0xtumlsret"
+parameter and return (a pointer) it.
+
+7.2 When the _InstanceLoading_ mark is being used (for the model-based model
 compiler), the string approach may need a few tweaks.  The model compiler
 processes string data heavily.  This will be tested as part of preparing
 the next release.
+
 
 8. Unit Test
 ------------
