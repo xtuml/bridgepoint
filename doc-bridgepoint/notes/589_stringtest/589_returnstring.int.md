@@ -22,8 +22,7 @@ A new design for returning strings from action bodies is offered.
 
 3. Background
 -------------
-Several design options were explored in [3].  Here we implement the one chosen.
-
+Several design options were explored in [3].  Here we implement the second choice after the first choice failed.
 
 4. Requirements
 ---------------
@@ -46,22 +45,23 @@ See [4].
 
 8. Code Changes
 ---------------
-Branch name:  xtuml/mc/589_returnstring  
+Branch name:  xtuml/mc/589_returnstring2  
               xtuml/bridgepoint/589_returnstring  
               xtuml/models/589_stringtest  
 
 <pre>
 
 xtuml/mc
-arc/c/t.sys_types.h
-arc/q.oal.action.arc
-arc/q.smt.generate.arc
-arc/q.sys.populate.arc
-arc/q.utils.arc
-arc/q.val.translate.arc
-arc/sysc/t.sys_types.h
-arc/t.smt.return.c
-arc/t.sys_sets.c
+arc/c/t.sys_types.h     |  4 ++--
+arc/q.class.arc         |  2 +-
+arc/q.oal.action.arc    | 45 ++-------------------------------------------
+arc/q.parameters.arc    |  2 +-
+arc/q.smt.generate.arc  | 39 +++++++++++++++++----------------------
+arc/q.sys.populate.arc  | 92 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-------
+arc/q.utils.arc         | 48 ++++++------------------------------------------
+arc/q.val.translate.arc | 67 +++++++++++++++++++++++++++++++++++++++++++++++++++++--------------
+arc/t.smt.return.c      | 26 ++++++++++----------------
+arc/t.sys_sets.c        |  4 ++--
 
 xtuml/bridgepoint
 doc-bridgepoint/notes/589_stringtest/*
