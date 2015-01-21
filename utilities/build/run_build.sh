@@ -85,6 +85,8 @@ export RSH=""
 
 #
 # distribute the build and notify watchers that a build is complete
+# if there are no errors that we also call the installer build script to 
+# allow the installers to be built
 #
 function distribute_and_notify {
 	if [ "$?" = "0" ]; then
@@ -99,11 +101,11 @@ function distribute_and_notify {
 	
 	# Build email report
 	
-	echo -e "From: Nightly Build System <build@projtech.com>" > ${MAIL_TEMP}
+	echo -e "From: Nightly Build System <issues@onefact.net>" > ${MAIL_TEMP}
 	if [ -s ${ERROR_FILE} ]; then
-	  echo -e "Subject: ERROR - Nightly build report for ${BUILD_TARGET}"  >> ${MAIL_TEMP}
+	  echo -e "Subject: ERROR - Nightly build report for ${BUILD_TARGET} [#654]"  >> ${MAIL_TEMP}
 	else
-	  echo -e "Subject: Nightly build report for ${BUILD_TARGET}"  >> ${MAIL_TEMP}
+	  echo -e "Subject: Nightly build report for ${BUILD_TARGET} [#654]"  >> ${MAIL_TEMP}
 	fi
 	echo -e "To: ${BUILD_ADMIN}" >> ${MAIL_TEMP}
 	echo -e "Nightly build report for: ${BUILD_TARGET}" >> ${MAIL_TEMP}
@@ -118,11 +120,6 @@ function distribute_and_notify {
 	else
 	  echo -e "The release can be downloaded at: ${DOWNLOAD_URL}" >> ${MAIL_TEMP}
 	  
-	  if [ -s ${DIFF_FILE} ] && [ "${BRANCH}" = "HEAD" ]; then
-	    nb_tag="`date +N%F`"
-	    echo -e "The code base is tagged with ${nb_tag}" >> ${MAIL_TEMP}
-	  fi
-	
 	  echo -e "\nCHANGELOG:" >> ${MAIL_TEMP}
 	  echo -e "---------------" >> ${MAIL_TEMP}
 	  cat ${DIFF_FILE} >> ${MAIL_TEMP}
