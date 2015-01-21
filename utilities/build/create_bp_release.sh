@@ -94,22 +94,22 @@ function zip_distribution {
     create_all_features
 
     cd ${BUILD_DIR}
-    mkdir ${EXTENSION_DIR}
-    mkdir ${EXTENSION_DIR}/eclipse
-    touch ${EXTENSION_DIR}/eclipse/.eclipseextension
-    cp -Rd features ${EXTENSION_DIR}/eclipse
-    cp -Rd plugins ${EXTENSION_DIR}/eclipse
+    mkdir ${RESULT_FOLDER_EXTENSION}
+    mkdir ${RESULT_FOLDER_EXTENSION}/eclipse
+    touch ${RESULT_FOLDER_EXTENSION}/eclipse/.eclipseextension
+    cp -Rd features ${RESULT_FOLDER_EXTENSION}/eclipse
+    cp -Rd plugins ${RESULT_FOLDER_EXTENSION}/eclipse
 
     jar_specific_plugins
 
     # Include org.antlr packages in zipped distribuition
-    cp -Rd ${git_repo_root}/internal/src/org.antlr_2.7.2 ${EXTENSION_DIR}/eclipse/plugins
+    cp -Rd ${git_repo_root}/internal/src/org.antlr_2.7.2 ${RESULT_FOLDER_EXTENSION}/eclipse/plugins
 
-    zip -r BridgePoint_extension_${branch}.zip ${EXTENSION_DIR} > ${pkg_log_dir}/BridgePoint_extension_${branch}_zip.log 2>&1
+    zip -r BridgePoint_extension_${branch}.zip ${RESULT_FOLDER_EXTENSION} > ${pkg_log_dir}/BridgePoint_extension_${branch}_zip.log 2>&1
 }
 
 function jar_specific_plugins {
-    cd ${EXTENSION_DIR}/eclipse/plugins
+    cd ${RESULT_FOLDER_EXTENSION}/eclipse/plugins
     for jarplugin in ${plugins_to_jar}; do
       jar_plugin_fullname="${jarplugin}_${release_version}"
       echo -e "Converting ${jar_plugin_fullname} to a jar file."
