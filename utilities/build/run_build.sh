@@ -7,7 +7,8 @@
 #
 #  Since it is the starting point for the build chain, it must be manually put 
 #  into place for the build server to run. The variable BUILD_MOUNT holds the 
-#  build server location that is the root for the build.  
+#  build server location that is the root for the build.  git and ant must
+#  be installed on the build server
 #  
 #  Build Server Requirements:
 #  1) run_build.sh, and init_git_repositories.sh must be present in ${BUILD_ROOT}
@@ -81,7 +82,6 @@ export RELEASE_DROP="${RELEASE_BASE}/${BRANCH}"
 mkdir -p "${RELEASE_DROP}"
 export DOWNLOAD_URL="http://xtuml.github.io/bridgepoint/"
 export DISTRIBUTION_SERVER=""
-export RSH=""
 
 #
 # distribute the build and notify watchers that a build is complete
@@ -89,15 +89,18 @@ export RSH=""
 # allow the installers to be built
 #
 function distribute_and_notify {
-	if [ "$?" = "0" ]; then
-	  ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; if [ ! -x '${RESULT_FOLDER}' ]; then mkdir '${RESULT_FOLDER}'; fi; cp -f '${RELEASE_DROP}'/BridgePoint_extension_'${BRANCH}'.zip '${BUILD_RESULT_FOLDER}'/BridgePoint_extension_'${BRANCH}'.zip ; )"
+	echo -e "Entering run_build.sh::distribute_and_notify"
+	if [ "$1" = "0" ]; then
+	  # TODO: This was the prior implementation.  It needs to be reworked (RSH)
+	  # ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; if [ ! -x '${RESULT_FOLDER}' ]; then mkdir '${RESULT_FOLDER}'; fi; cp -f '${RELEASE_DROP}'/BridgePoint_extension_'${BRANCH}'.zip '${BUILD_RESULT_FOLDER}'/BridgePoint_extension_'${BRANCH}'.zip ; )"
 	  echo -e "Creating dated backup of the build"
 	else
 	  echo -e "create_bp_release.sh returned with a non-zero value ($?)"
 	fi
 	  
 	# Prune similar releases that are five days old.
-	${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; find -name '${BRANCH}-*' -mtime 5 -exec rm -rf {} \; ;)"
+	# TODO: This was the prior implementation.  It needs to be reworked
+	# ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; find -name '${BRANCH}-*' -mtime 5 -exec rm -rf {} \; ;)"
 	
 	# Build email report
 	
@@ -130,6 +133,7 @@ function distribute_and_notify {
 	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
 	
 	rm -rf ${MAIL_TEMP}
+	echo -e "Exiting run_build.sh::distribute_and_notify"
 }
 
 
@@ -152,29 +156,21 @@ echo -e "XTUMLGEN_HOME=${XTUMLGEN_HOME}
 cd "${BUILD_ROOT}"
 pushd .
 
-echo -e "Initializing git repositories..."
 dos2unix -q init_git_repositories.sh
 bash init_git_repositories.sh > cfg_output.log
-echo -e "Done."
 
 echo -e "Setting permissions on tool directories..."
 chmod -R a+rw ${BUILD_TOOLS} 
 echo -e "Done."
 
-echo -e "Configuring build process..."
 cp -f ${GIT_REPO_ROOT}/internal/utilities/build/configure_build_process.sh .
 dos2unix -q configure_build_process.sh
 bash configure_build_process.sh >> cfg_output.log
-echo -e "Done."
 
-echo -e "Processing the build..."
 cd  "${BRANCH}"
 bash create_bp_release.sh  > build_output.log
-echo -e "Done processing the build."
 
-echo -e "Distribute the build..."
-distribute_and_notify >> build_output.log
-echo -e "Done distributing the build."
+distribute_and_notify $? >> build_output.log
 
 # Clean up build files
 popd

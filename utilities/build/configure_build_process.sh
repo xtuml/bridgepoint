@@ -10,6 +10,8 @@
 # Functions
 #-------------------------------------------------------------------------------
 function configure_build_files {
+	echo -e "Entering configure_build_process.sh::configure_build_files"
+	
     cd ${git_internal}/${utilities_project}/build
     cp -f configure_external_dependencies.sh ${build_dir}/configure_external_dependencies.sh 2>>${error_file}
     cp -f create_bp_release.sh ${build_dir}/create_bp_release.sh 2>>${error_file}
@@ -38,9 +40,11 @@ function configure_build_files {
     dos2unix -q create_bp_release.sh
     dos2unix -q create_release_functions.sh
     dos2unix -q process_build.sh
+	echo -e "Exiting configure_build_process.sh::configure_build_files"
 }
 
 function configure_installer_files {
+	echo -e "Entering configure_build_process.sh::configure_installer_files"
     cd ${git_internal}/src/${install_project}
     mkdir -p "${bp_deliverables}/extras"
     mkdir -p "${bp_deliverables}/tools"
@@ -87,6 +91,7 @@ function configure_installer_files {
     cp -f fontchecker.exe ${bp_deliverables}/tools/fontchecker/fontchecker.exe 2>>${error_file}
 
     unix2dos -q ${bp_deliverables}/tools/fontchecker/font_list.txt
+	echo -e "Exiting configure_build_process.sh::configure_build_files"
 }
 
 #-------------------------------------------------------------------------------
@@ -108,7 +113,7 @@ utilities_project="utilities"
 staging_area="${BUILD_MOUNT}/staging"
 eclipse_ver="3.7"
 
-echo "configure_build_process branch=${branch} git_repo_root=${git_repo_root} build_type=${build_type}"
+echo -e "Entering configure_build_process.sh   build_dir=${build_dir} branch=${branch} git_repo_root=${git_repo_root} build_type=${build_type}"
 #
 # The follow folders are used to stage the files required by the installer
 #
@@ -125,7 +130,6 @@ mkdir -p "${bp_deliverables_linux}"
 mkdir -p "${extra_deliverables_linux}"
 mkdir -p "${installer_files_linux}"
 
-echo "Configuring the build process in ${build_dir}"
 
 if [ "${branch}" = "master" ] || [ "${build_type}" = "nonrelease" ]; then
     echo -e "Removing old build directory: ${build_dir}"
@@ -156,9 +160,10 @@ cd ${build_dir}
 configure_build_files
 configure_installer_files
 
-echo -e "\nBuild and installer files configured."
-
 cd ${BUILD_ROOT}
+
+echo -e "Exiting configure_build_process.sh
+
 exit 0
 
 

@@ -13,6 +13,8 @@
 #
 #
 # Note: ant should be installed on the build server
+#
+echo -e "Entering create_release_functions.sh"
 ant_cmd="ant"
 ant_opts="-Declipse-home=${ECLIPSE_HOME}"
 cli_cmd="${ECLIPSE_HOME}/CLI.sh"
@@ -70,6 +72,8 @@ fi
 if [ ! -d ${compile_log_dir} ]; then
     mkdir -p ${compile_log_dir}
 fi
+echo -e "Exiting create_release_functions.sh"
+
 
 function verify_checkout {
     dir_count=`ls ${module} | wc -l`
@@ -96,6 +100,8 @@ function get_required_modules {
 }
 
 function extract_release_files {
+	echo -e "Entering create_release_functions.sh::extract_release_files"
+	
     modules="${internal_modules} ${plugin_modules}"
 
     # Rearrange modules so that core is built first
@@ -106,17 +112,22 @@ function extract_release_files {
         cp -rf ${git_internal}/src/${module} .
         chown -R ${SHELLUSER} ${module}
     done
+	echo -e "Exiting create_release_functions.sh::extract_release_files"
 }
 
 function extract_unit_test_modules {
+	echo -e "Entering create_release_functions.sh::extract_unit_test_modules"
     for module in ${unit_test_modules}; do
         echo "Checking out ${module} for release: ${BRANCH}"
 		cp -rf ${git_internal}/src/${module} .
         chown -R ${SHELLUSER} ${module}
     done
+	echo -e "Exiting create_release_functions.sh::extract_unit_test_modules"
 }
 
 function build_modules {
+	echo -e "Entering create_release_functions.sh::build_modules"
+
     # remove a number of plugins from the list of modules to build and compile
     modules=`echo ${modules} | sed s/com.mentor.nucleus.bp.bld.pkg// | sed s/com.mentor.nucleus.bp.doc// | sed s/com.mentor.nucleus.bp.welcome// | sed s/com.mentor.nucleus.bp.test// | sed s/com.mentor.nucleus.help.bp.mc//`
 
@@ -150,9 +161,12 @@ function build_modules {
     done
 
     modules="${modules} com.mentor.nucleus.bp.welcome"
+	echo -e "Exiting create_release_functions.sh::build_modules"
 }
 
 function compile_modules {
+	echo -e "Entering create_release_functions.sh::compile_modules"
+
     build_modules
 
     # Have to make sure the plugin compilation is ordered properly.
@@ -200,6 +214,7 @@ function compile_modules {
             fi
         fi
     done
+	echo -e "Exiting create_release_functions.sh::compile_modules"
 }
 
 
