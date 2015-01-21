@@ -14,6 +14,8 @@ error()
 #
 get_user_supplied_binaries ()
 {
+    echo -e "Entering configure_external_dependencies.sh::get_user_supplied_binaries"
+    
     cd ${build_dir}
     export_trunk="false"
     if [ "${branch}" = "master" ]; then
@@ -72,6 +74,7 @@ get_user_supplied_binaries ()
         error "Missing ./mcmc.exe"
     fi
     
+    echo -e "Exiting configure_external_dependencies.sh::get_user_supplied_binaries"
 }
 
 configure_dap()
@@ -220,7 +223,7 @@ git_repo_root=${GIT_REPO_ROOT}
 build_dir=${BUILD_DIR}
 build_type=${BUILD_TYPE}
 
-echo "Configuring external dependencies."
+echo -e "Entering configure_external_dependencies.sh"
 
 # Define Locations for Components
 USER_SUPPLIED_FILES=${build_dir}/extra_files_for_build
@@ -244,6 +247,8 @@ configure_vhdl_src
 configure_dap
 
 cd ${start_dir}
+
+echo -e "Exiting configure_external_dependencies.sh"
 
 exit 0
 

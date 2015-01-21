@@ -13,6 +13,7 @@
 # The jar_distribution function creates a jar file for every package that 
 # will be delivered
 function jar_distribution {
+	echo -e "Entering create_bp_release.sh::jar_distribution"    
     compile_modules
 
     cd $BUILD_DIR
@@ -49,11 +50,13 @@ function jar_distribution {
             cd $BUILD_DIR
         fi
     done
+	echo -e "Exiting create_bp_release.sh::jar_distribution"    
 }
 
 # The zip_distribution function creates a zip file that can later be 
 # unzipped into the plugin directory of an eclipse installation
 function zip_distribution {
+	echo -e "Entering create_bp_release.sh::zip_distribution"    
     jar_distribution
 
     cd $BUILD_DIR
@@ -106,9 +109,11 @@ function zip_distribution {
     cp -Rd ${git_repo_root}/internal/src/org.antlr_2.7.2 ${RESULT_FOLDER_EXTENSION}/eclipse/plugins
 
     zip -r BridgePoint_extension_${branch}.zip ${RESULT_FOLDER_EXTENSION} > ${pkg_log_dir}/BridgePoint_extension_${branch}_zip.log 2>&1
+	echo -e "Exiting create_bp_release.sh::zip_distribution"    
 }
 
 function jar_specific_plugins {
+	echo -e "Entering create_bp_release.sh::jar_specific_plugins"    
     cd ${RESULT_FOLDER_EXTENSION}/eclipse/plugins
     for jarplugin in ${plugins_to_jar}; do
       jar_plugin_fullname="${jarplugin}_${release_version}"
@@ -121,9 +126,12 @@ function jar_specific_plugins {
       rm -rf "${jar_plugin_fullname}"      
     done
     cd ${BUILD_DIR}
+	echo -e "Exiting create_bp_release.sh::jar_specific_plugins"    
 }
 
 function create_build {
+	echo -e "Entering create_bp_release.sh::create_build"
+	
     cd $BUILD_DIR
 
     get_required_modules
@@ -143,7 +151,7 @@ function create_build {
     if [ "$verify_rval" != "1" ]; then
         zip_distribution
     fi
-
+	echo -e "Exiting create_bp_release.sh::create_build"
 }
 
 function create_feature {
@@ -152,6 +160,8 @@ function create_feature {
 }
 
 function copy_included_files {
+	echo -e "Entering create_bp_release.sh::copy_included_files"
+	
     # This function copies all files listed in a plugins
     # bin.includes variable from its build.properties file
     #
@@ -189,9 +199,12 @@ function copy_included_files {
       done
 
     fi
+	echo -e "Exiting create_bp_release.sh::copy_included_files"
 }
 
 function create_all_features {
+	echo -e "Entering create_bp_release.sh::create_all_features"
+	
     create_feature
 
     cd $BUILD_DIR
@@ -214,11 +227,15 @@ function create_all_features {
       fi
       copy_included_files ${feature_less} plugins ${feature_less}_${feature_version}
     done
+	echo -e "Exiting create_bp_release.sh::create_all_features"
 }
 
 #-------------------------------------------------------------------------------
 # Main
 #-------------------------------------------------------------------------------
+
+echo -e "Entering create_bp_release.sh"
+
 date
 
 branch=${BRANCH}
@@ -244,8 +261,6 @@ if [ ! -x ${BUILD_DIR}/features ]; then
 	echo -e "Creating feature directory: ${BUILD_DIR}/features"
 	mkdir ${BUILD_DIR}/features
 fi
-
-echo "Starting the build process in ${BUILD_DIR}"
 
 # Move the log files created by earlier scripts into the new log dir
 mv ${BUILD_ROOT}/cfg_output.log ${LOG_DIR}
@@ -279,6 +294,9 @@ if [ -f $ERROR_FILE ]; then
 fi
 
 date
+
+echo -e "Exiting create_bp_release.sh"
+
 exit 0
 
 

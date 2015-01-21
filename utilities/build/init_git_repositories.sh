@@ -17,7 +17,9 @@
 
 init_repository () 
 {
+
   repo_name="$1"
+  echo -e "Entering init_git_repositories.sh::init_repository  repo_name=${repo_name}"
   
   if [ ! -x "${git_repo_root}/${repo_name}" ]; then
     cd ${git_repo_root}
@@ -61,12 +63,14 @@ init_repository ()
     git merge origin/${branch} --no-commit --no-ff
     git diff --name-status HEAD@{yesterday} >> ${diff_file}
   fi
+  echo -e "Exiting init_git_repositories.sh::init_repository"
 }
 
 
 #-------------------------------------------------------------------------------
 # Main
 #-------------------------------------------------------------------------------
+echo -e "Entering init_git_repositories.sh"
 
 branch=${BRANCH}
 git_repo_root=${GIT_REPO_ROOT}
@@ -86,5 +90,6 @@ init_repository editor
 init_repository mc
 init_repository packaging
 
-echo -e "Repositories are now initialized."
+echo -e "Exiting init_git_repositories.sh"
+
 exit 0
