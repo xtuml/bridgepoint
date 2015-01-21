@@ -137,8 +137,8 @@ All unit tests shall run and pass.
 
 7.2 DefaultClassLoader removal
 
-- Manual tests shall be performed regarding realized implementations in
-  verifier.  The automated tests may not include full coverage.
+Manual tests shall be performed regarding realized implementations in verifier.
+The automated tests may not include full coverage.   
 
 End
 ---
