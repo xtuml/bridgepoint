@@ -83,6 +83,60 @@ mkdir -p "${RELEASE_DROP}"
 export DOWNLOAD_URL="http://xtuml.github.io/bridgepoint/"
 export DISTRIBUTION_SERVER=""
 
+# We do not currently use this, but when we were using cvs we tagged nightly 
+# builds, and this was the format of the tag
+export BUILD_TAG="`date +N%F`"
+
+# assure that we are starting with a clean build folder.
+rm -rf ${BUILD_DIR}
+
+mkdir -p "${BUILD_DIR}"
+mkdir -p "${LOG_DIR}"
+mkdir -p "${BUILD_TOOLS}"
+mkdir -p "${GIT_REPO_ROOT}"
+mkdir -p "${BUILD_ROOT}"
+mkdir -p "${PT_HOME}"
+echo -e "BUILD_ROOT=${BUILD_ROOT}
+echo -e "BRANCH=${BRANCH}
+echo -e "GIT_REPO_ROOT=${GIT_REPO_ROOT}
+echo -e "PT_HOME=${PT_HOME}
+echo -e "PT_HOME_DRIVE=${PT_HOME_DRIVE}
+echo -e "XTUMLGEN_HOME=${XTUMLGEN_HOME}
+
+cd "${BUILD_ROOT}"
+pushd .
+
+# We will perform all work in the build's branch folder. 
+cd  "${BUILD_DIR}"
+
+dos2unix -q "${BUILD_ROOT}/init_git_repositories.sh"
+bash "${BUILD_ROOT}/init_git_repositories.sh" > cfg_output.log
+
+echo -e "Setting permissions on tool directories..."
+chmod -R a+rw ${BUILD_TOOLS} 
+echo -e "Done."
+
+cp -f ${GIT_REPO_ROOT}/internal/utilities/build/configure_build_process.sh .
+dos2unix -q configure_build_process.sh
+
+bash configure_build_process.sh >> cfg_output.log
+
+bash create_bp_release.sh  > build_output.log
+
+distribute_and_notify $? >> build_output.log
+
+# Clean up build files
+popd
+mv configure_build_process.sh ${BRANCH}
+mv init_svn_tools.sh ${BRANCH}
+mv ${BRANCH}\build_output.log ${BRANCH}\log
+
+cd ${BUILD_ROOT}
+
+echo -e "End of run_build.sh"
+
+exit 0
+
 #
 # distribute the build and notify watchers that a build is complete
 # if there are no errors that we also call the installer build script to 
@@ -135,50 +189,3 @@ function distribute_and_notify {
 	rm -rf ${MAIL_TEMP}
 	echo -e "Exiting run_build.sh::distribute_and_notify"
 }
-
-
-# We do not current use this, but when we were using cvs we tagged nightly 
-# builds, and this was the format of the tag
-export BUILD_TAG="`date +N%F`"
-
-mkdir -p "${LOG_DIR}"
-mkdir -p "${BUILD_TOOLS}"
-mkdir -p "${GIT_REPO_ROOT}"
-mkdir -p "${BUILD_ROOT}"
-mkdir -p "${PT_HOME}"
-echo -e "BUILD_ROOT=${BUILD_ROOT}
-echo -e "BRANCH=${BRANCH}
-echo -e "GIT_REPO_ROOT=${GIT_REPO_ROOT}
-echo -e "PT_HOME=${PT_HOME}
-echo -e "PT_HOME_DRIVE=${PT_HOME_DRIVE}
-echo -e "XTUMLGEN_HOME=${XTUMLGEN_HOME}
-
-cd "${BUILD_ROOT}"
-pushd .
-
-dos2unix -q init_git_repositories.sh
-bash init_git_repositories.sh > cfg_output.log
-
-echo -e "Setting permissions on tool directories..."
-chmod -R a+rw ${BUILD_TOOLS} 
-echo -e "Done."
-
-cd  "${BRANCH}"
-cp -f ${GIT_REPO_ROOT}/internal/utilities/build/configure_build_process.sh .
-dos2unix -q configure_build_process.sh
-
-bash configure_build_process.sh >> cfg_output.log
-
-bash create_bp_release.sh  > build_output.log
-
-distribute_and_notify $? >> build_output.log
-
-# Clean up build files
-popd
-mv configure_build_process.sh ${BRANCH}
-mv init_svn_tools.sh ${BRANCH}
-mv ${BRANCH}\build_output.log ${BRANCH}\log
-
-cd ${BUILD_ROOT}
-
-echo -e "End of run_build.sh"
