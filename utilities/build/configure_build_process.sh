@@ -17,8 +17,6 @@ function configure_build_files {
     cp -f create_bp_release.sh ${build_dir}/create_bp_release.sh 2>>${error_file}
     cp -f create_release_functions.sh ${build_dir}/create_release_functions.sh 2>>${error_file}
     cp -f process_build.sh ${build_dir}/process_build.sh 2>>${error_file}
-    # TODO: cp -f tag_bp.sh ${build_dir}/tag_bp.sh 2>>${error_file}
-    # TODO: cp -f tag_bp_nb.sh ${build_dir}/tag_bp_nb.sh 2>>${error_file}
 
 	#
 	# files needed to build the tool  
@@ -162,7 +160,7 @@ configure_installer_files
 
 cd ${BUILD_ROOT}
 
-echo -e "Exiting configure_build_process.sh
+echo -e "Exiting configure_build_process.sh"
 
 exit 0
 
