@@ -128,14 +128,11 @@ distribute_and_notify $? >> build_output.log
 # Clean up build files
 popd
 mv configure_build_process.sh ${BRANCH}
-mv init_svn_tools.sh ${BRANCH}
 mv ${BRANCH}\build_output.log ${BRANCH}\log
 
 cd ${BUILD_ROOT}
 
 echo -e "End of run_build.sh"
-
-exit 0
 
 #
 # distribute the build and notify watchers that a build is complete
