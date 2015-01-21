@@ -16,32 +16,12 @@ get_user_supplied_binaries ()
 {
     echo -e "Entering configure_external_dependencies.sh::get_user_supplied_binaries"
     
-    cd ${BUILD_DIR}
-    export_trunk="false"
-    if [ "${BRANCH}" = "master" ]; then
-        export_trunk="true"
-    else
-        # check out the branch
-        svn export http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml/branches/${BRANCH}/extra_files_for_build --username sle_build --password qkfJkv2=
-        
-        # if export failed and build type != nonrelease, then error
-        if [ ! -x $USER_SUPPLIED_FILES ] && [ "${BUILD_TYPE}" != "nonrelease" ]; then
-            echo -e "SVN branch ${BRANCH} does not exist and is required for this build. Exiting.\n"
-            exit 1
-        fi
-        
-        # if export failed and build type = nonrelease, then checkout master
-        if [ ! -x $USER_SUPPLIED_FILES ] && [ "${BUILD_TYPE}" = "nonrelease" ]; then
-            export_trunk="true"
-        fi
-        
-    fi
+    mkdir $user_supplied_files
     
-    if [ "${export_trunk}" = "true" ]; then
-        svn export http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml/trunk/extra_files_for_build --username sle_build --password qkfJkv2=
-    fi
+    # Get the need files from the revision control folder
+    cp ${GIT_REPO_ROOT}/packaging/* $user_supplied_files
     
-    cd $USER_SUPPLIED_FILES
+    cd $user_supplied_files
     if [ ! -e ./xtumlmc_build.exe ]; then
         error "Missing ./xtumlmc_build.exe"
     fi
@@ -82,7 +62,7 @@ configure_dap()
     echo ""
     echo "Configuring the Data Access Package for build."
 
-    cd $DAP/bridgepoint
+    cd $dap/bridgepoint
     mkdir log_dir
     mkdir samples
     mkdir samples/translate
@@ -93,22 +73,22 @@ configure_dap()
 
     cp -r ${GIT_REPO_ROOT}/mc/etc/generator/bin ./bin
 
-    cd $DAP/bridgepoint/samples
+    cd $dap/bridgepoint/samples
     cp -f ${GIT_REPO_ROOT}/mc/libTRANS/libTRANS.def ./translate/libTRANS.def
     cp -f ${GIT_REPO_ROOT}/mc/libTRANS/libTRANS.mk  ./translate/libTRANS.mk
     cp -f ${GIT_REPO_ROOT}/mc/libTRANS/pt_trans.c   ./translate/pt_trans.c
     cp -f ${GIT_REPO_ROOT}/mc/libTRANS/pt_trans.h   ./translate/pt_trans.h
 
-    cd $DAP/bridgepoint
-    cp -f $USER_SUPPLIED_FILES/gen_erate.exe   ./win32/client/bin/gen_erate.exe
-    cp -f $USER_SUPPLIED_FILES/gen_erate.exe   ./win32/client/bin/gen_import.exe
-    cp -f $USER_SUPPLIED_FILES/gen_erate.exe   ./win32/client/bin/gen_file.exe
-    cp -f $USER_SUPPLIED_FILES/vgalaxy8.vr     ./win32/client/bin
-    cp -f $USER_SUPPLIED_FILES/msvcrt.dll      ./win32/client/bin
-    cp -f $USER_SUPPLIED_FILES/vgal8c.dll      ./win32/client/lib
+    cd $dap/bridgepoint
+    cp -f $user_supplied_files/gen_erate.exe   ./win32/client/bin/gen_erate.exe
+    cp -f $user_supplied_files/gen_erate.exe   ./win32/client/bin/gen_import.exe
+    cp -f $user_supplied_files/gen_erate.exe   ./win32/client/bin/gen_file.exe
+    cp -f $user_supplied_files/vgalaxy8.vr     ./win32/client/bin
+    cp -f $user_supplied_files/msvcrt.dll      ./win32/client/bin
+    cp -f $user_supplied_files/vgal8c.dll      ./win32/client/lib
     cp -f $MC3020/mc3020/schema/sql/xtumlmc_schema.sql ./xtumlmc_schema.sql
     
-    cd $DAP/bridgepoint/win32/client
+    cd $dap/bridgepoint/win32/client
     cp -f ${GIT_REPO_ROOT}/mc/libTRANS/libTRANS.dll ./lib/libTRANS.dll
 
     cd ${BUILD_DIR}
@@ -119,7 +99,7 @@ configure_mcc_src()
     echo ""
     echo "Configuring mcc_src for build."
 
-    cd $MCC_SRC
+    cd $mcc_src
     rm -rf mc3020
     mkdir mc3020
     cd mc3020
@@ -127,23 +107,23 @@ configure_mcc_src()
     cp -r ${GIT_REPO_ROOT}/mc/schema ./schema
     mv ./schema/default-manifest.xml ./
 
-    cd $MCC_SRC/mc3020
+    cd $mcc_src/mc3020
     cp -f ${GIT_REPO_ROOT}/mc/libTRANS/libTRANS.dll ./bin
     
-    cp -f $USER_SUPPLIED_FILES/xtumlmc_build.exe ./bin
-    cp -f $USER_SUPPLIED_FILES/gen_erate.exe     ./bin
-    cp -f $USER_SUPPLIED_FILES/mcmc              ./bin
-    cp -f $USER_SUPPLIED_FILES/mcmc.exe          ./bin
-    cp -f $USER_SUPPLIED_FILES/msvcrt.dll        ./bin
-    cp -f $USER_SUPPLIED_FILES/vgal8c.dll        ./bin
-    cp -f $USER_SUPPLIED_FILES/vgalaxy8.vr       ./bin
+    cp -f $user_supplied_files/xtumlmc_build.exe ./bin
+    cp -f $user_supplied_files/gen_erate.exe     ./bin
+    cp -f $user_supplied_files/mcmc              ./bin
+    cp -f $user_supplied_files/mcmc.exe          ./bin
+    cp -f $user_supplied_files/msvcrt.dll        ./bin
+    cp -f $user_supplied_files/vgal8c.dll        ./bin
+    cp -f $user_supplied_files/vgalaxy8.vr       ./bin
 
     cd ${BUILD_DIR}
-    cp -f $USER_SUPPLIED_FILES/mc3020_doc.zip $MC3020_HELP/doc.zip
-    rm -f $MC3020_HELP/techpub.css
-    rm -f $MC3020_HELP/toc.xml    
-    cp -r ${GIT_REPO_ROOT}/mc/doc/ug/xml/techpub.css $MC3020_HELP
-    cp -r ${GIT_REPO_ROOT}/mc/doc/ug/xml/toc.xml $MC3020_HELP
+    cp -f $user_supplied_files/mc3020_doc.zip $mc3020_help/doc.zip
+    rm -f $mc3020_help/techpub.css
+    rm -f $mc3020_help/toc.xml    
+    cp -r ${GIT_REPO_ROOT}/mc/doc/ug/xml/techpub.css $mc3020_help
+    cp -r ${GIT_REPO_ROOT}/mc/doc/ug/xml/toc.xml $mc3020_help
     
     cd ${BUILD_DIR}
 }
@@ -154,9 +134,9 @@ configure_mcc_bin()
     echo "Configuring mcc_bin for build."
 
     # Copy in the "bp.mc.c.source/mc3020/" dir
-    cd $MCC_BIN
+    cd $mcc_bin
     rm -rf mc3020
-    cp -rf $MCC_SRC/mc3020 .
+    cp -rf $mcc_src/mc3020 .
     
     cd ${BUILD_DIR}
 }
@@ -167,9 +147,9 @@ configure_mcsystemc_src()
     echo "Configuring mcsystemc_src for build."
 
     # Copy in the "bp.mc.c.source/mc3020/" dir
-    cd $MCSYSTEMC_SRC
+    cd $mcsystemc_src
     rm -rf mc3020
-    cp -rf $MCC_SRC/mc3020 .
+    cp -rf $mcc_src/mc3020 .
 
     # We don't want the model-based MC for this version, so remove it
     rm -f ./mc3020/bin/mcmc
@@ -184,9 +164,9 @@ configure_mccpp_src()
     echo "Configuring mccpp_src for build."
 
     # Copy in the "bp.mc.c.source/mc3020/" dir
-    cd $MCCPP_SRC
+    cd $mccpp_src
     rm -rf mc3020
-    cp -rf $MCC_SRC/mc3020 .
+    cp -rf $mcc_src/mc3020 .
 
     # We don't want the model-based MC for this version, so remove it
     rm -f ./mc3020/bin/mcmc
@@ -201,9 +181,9 @@ configure_vhdl_src()
     echo "Configuring mcvhdl_src for build."
 
     # Copy in the "bp.mc.c.source/mc3020/" dir
-    cd $MCVHDL_SRC
+    cd $mcvhdl_src
     rm -rf mc3020
-    cp -rf $MCC_SRC/mc3020 .
+    cp -rf $mcc_src/mc3020 .
     
     # We don't want the model-based MC for this version, so remove it
     rm -f ./mc3020/bin/mcmc
@@ -220,15 +200,15 @@ configure_vhdl_src()
 echo -e "Entering configure_external_dependencies.sh"
 
 # Define Locations for Components
-USER_SUPPLIED_FILES=${BUILD_DIR}/extra_files_for_build
-BP_PKG=${BUILD_DIR}/com.mentor.nucleus.bp.pkg
-DAP=${BUILD_DIR}/com.mentor.nucleus.bp.dap.pkg
-MCC_SRC=${BUILD_DIR}/com.mentor.nucleus.bp.mc.c.source
-MCC_BIN=${BUILD_DIR}/com.mentor.nucleus.bp.mc.c.binary
-MCSYSTEMC_SRC=${BUILD_DIR}/com.mentor.nucleus.bp.mc.systemc.source
-MCCPP_SRC=${BUILD_DIR}/com.mentor.nucleus.bp.mc.cpp.source
-MCVHDL_SRC=${BUILD_DIR}/com.mentor.nucleus.bp.mc.vhdl.source
-MC3020_HELP=${BUILD_DIR}/com.mentor.nucleus.help.bp.mc
+user_supplied_files=${BUILD_DIR}/extra_files_for_build
+bp_pkg=${BUILD_DIR}/com.mentor.nucleus.bp.pkg
+dap=${BUILD_DIR}/com.mentor.nucleus.bp.dap.pkg
+mcc_src=${BUILD_DIR}/com.mentor.nucleus.bp.mc.c.source
+mcc_bin=${BUILD_DIR}/com.mentor.nucleus.bp.mc.c.binary
+mcsystemc_src=${BUILD_DIR}/com.mentor.nucleus.bp.mc.systemc.source
+mccpp_src=${BUILD_DIR}/com.mentor.nucleus.bp.mc.cpp.source
+mcvhdl_src=${BUILD_DIR}/com.mentor.nucleus.bp.mc.vhdl.source
+mc3020_help=${BUILD_DIR}/com.mentor.nucleus.help.bp.mc
 
 get_user_supplied_binaries
 
