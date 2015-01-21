@@ -163,11 +163,12 @@ echo -e "Setting permissions on tool directories..."
 chmod -R a+rw ${BUILD_TOOLS} 
 echo -e "Done."
 
+cd  "${BRANCH}"
 cp -f ${GIT_REPO_ROOT}/internal/utilities/build/configure_build_process.sh .
 dos2unix -q configure_build_process.sh
+
 bash configure_build_process.sh >> cfg_output.log
 
-cd  "${BRANCH}"
 bash create_bp_release.sh  > build_output.log
 
 distribute_and_notify $? >> build_output.log
@@ -180,4 +181,4 @@ mv ${BRANCH}\build_output.log ${BRANCH}\log
 
 cd ${BUILD_ROOT}
 
-echo -e "End of run_build.bat"
+echo -e "End of run_build.sh"
