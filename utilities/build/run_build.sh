@@ -55,12 +55,25 @@ export MAIL_TEMP="mailtemp"
 export RELEASE_PKG="com.mentor.nucleus.bp.bld.pkg-feature"
 export SHELLUSER="ubuntu"
 
+export TIMESTAMP=`date +%Y%m%d%H%M`
 
+#
+# This is the location, on the build server, where this build is found
+#
 export RELEASE_BASE="/build/releases"
-export EXTENSION_DIR="${RELEASE_BASE}/BridgePoint_${BRANCH}"
-mkdir -p "${EXTENSION_DIR}"
+export BUILD_TARGET="${BRANCH}-${TIMESTAMP}"
+export RESULT_FOLDER="${RELEASE_BASE}/${BUILD_TARGET}"
+mkdir -p "${RESULT_FOLDER}"
+
+#
+# This is where the extension result goes
+#
+export RESULT_FOLDER_EXTENSION="${RELEASE_BASE}/${BUILD_TARGET}-extension"
+mkdir -p "${RESULT_FOLDER_EXTENSION}"
 
 # 
+# This section defines the external location for the build (the place where
+# customers go to get this release). 
 # Note that items in the following section will eventually need to be github 
 # pages (I think) for now the release is not being moved off of the build server.
 #
@@ -69,12 +82,6 @@ mkdir -p "${RELEASE_DROP}"
 export DOWNLOAD_URL="http://xtuml.github.io/bridgepoint/"
 export DISTRIBUTION_SERVER=""
 export RSH=""
-
-export TIMESTAMP=`date +%Y%m%d%H%M`
-
-export BUILD_TARGET="${BRANCH}-${TIMESTAMP}"
-export BUILD_RESULT_FOLDER="${RELEASE_BASE}/${BUILD_TARGET}"
-mkdir -p "${BUILD_RESULT_FOLDER}"
 
 mkdir -p "${LOG_DIR}"
 mkdir -p "${BUILD_TOOLS}"

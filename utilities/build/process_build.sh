@@ -11,7 +11,7 @@ nb_tag=""
 ./create_bp_release.sh 
 
 if [ "$?" = "0" ]; then
-  ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; if [ ! -x '${BUILD_RESULT_FOLDER}' ]; then mkdir '${BUILD_RESULT_FOLDER}'; fi; cp -f '${RELEASE_DROP}'/BridgePoint_extension_'${BRANCH}'.zip '${BUILD_RESULT_FOLDER}'/BridgePoint_extension_'${BRANCH}'.zip ; )"
+  ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; if [ ! -x '${RESULT_FOLDER}' ]; then mkdir '${RESULT_FOLDER}'; fi; cp -f '${RELEASE_DROP}'/BridgePoint_extension_'${BRANCH}'.zip '${BUILD_RESULT_FOLDER}'/BridgePoint_extension_'${BRANCH}'.zip ; )"
   echo -e "Creating dated backup of the build"
 else
   echo -e "create_bp_release.sh returned with a non-zero value ($?)"
