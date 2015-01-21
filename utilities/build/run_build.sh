@@ -83,6 +83,63 @@ export DOWNLOAD_URL="http://xtuml.github.io/bridgepoint/"
 export DISTRIBUTION_SERVER=""
 export RSH=""
 
+#
+# distribute the build and notify watchers that a build is complete
+#
+function distribute_and_notify {
+	if [ "$?" = "0" ]; then
+	  ${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; if [ ! -x '${RESULT_FOLDER}' ]; then mkdir '${RESULT_FOLDER}'; fi; cp -f '${RELEASE_DROP}'/BridgePoint_extension_'${BRANCH}'.zip '${BUILD_RESULT_FOLDER}'/BridgePoint_extension_'${BRANCH}'.zip ; )"
+	  echo -e "Creating dated backup of the build"
+	else
+	  echo -e "create_bp_release.sh returned with a non-zero value ($?)"
+	fi
+	  
+	# Prune similar releases that are five days old.
+	${RSH} ${DISTRIBUTION_SERVER} "(cd '${RELEASE_BASE}'; find -name '${BRANCH}-*' -mtime 5 -exec rm -rf {} \; ;)"
+	
+	# Build email report
+	
+	echo -e "From: Nightly Build System <build@projtech.com>" > ${MAIL_TEMP}
+	if [ -s ${ERROR_FILE} ]; then
+	  echo -e "Subject: ERROR - Nightly build report for ${BUILD_TARGET}"  >> ${MAIL_TEMP}
+	else
+	  echo -e "Subject: Nightly build report for ${BUILD_TARGET}"  >> ${MAIL_TEMP}
+	fi
+	echo -e "To: ${BUILD_ADMIN}" >> ${MAIL_TEMP}
+	echo -e "Nightly build report for: ${BUILD_TARGET}" >> ${MAIL_TEMP}
+	echo -e "The files that were used for the nightly build, and the logs of each build are located at: ${BUILD_DIR} on `hostname`" >> ${MAIL_TEMP}
+	
+	# Search for errors in the logs
+	if [ -s ${ERROR_FILE} ]; then
+	  echo -e "The following was written to the error log:" >> ${MAIL_TEMP}
+	  echo -e "---------------" >> ${MAIL_TEMP}
+	  cat ${ERROR_FILE} >> ${MAIL_TEMP}
+	  echo -e "---------------\n" >> ${MAIL_TEMP}
+	else
+	  echo -e "The release can be downloaded at: ${DOWNLOAD_URL}" >> ${MAIL_TEMP}
+	  
+	  if [ -s ${DIFF_FILE} ] && [ "${BRANCH}" = "HEAD" ]; then
+	    nb_tag="`date +N%F`"
+	    echo -e "The code base is tagged with ${nb_tag}" >> ${MAIL_TEMP}
+	  fi
+	
+	  echo -e "\nCHANGELOG:" >> ${MAIL_TEMP}
+	  echo -e "---------------" >> ${MAIL_TEMP}
+	  cat ${DIFF_FILE} >> ${MAIL_TEMP}
+	  
+	  ./build_installer_bp.sh ${BRANCH}
+	  ./build_installer_bp_linux.sh ${BRANCH}
+	fi
+	cat ${MAIL_TEMP} | ${MAIL_CMD} ${BUILD_ADMIN}
+	
+	rm -rf ${MAIL_TEMP}
+}
+
+
+# We do not current use this, but when we were using cvs we tagged nightly 
+# builds, and this was the format of the tag
+export BUILD_TAG="`date +N%F`"
+
 mkdir -p "${LOG_DIR}"
 mkdir -p "${BUILD_TOOLS}"
 mkdir -p "${GIT_REPO_ROOT}"
@@ -115,8 +172,12 @@ echo -e "Done."
 
 echo -e "Processing the build..."
 cd  "${BRANCH}"
-bash process_build.sh > build_output.log 
-echo -e "Done."
+bash create_bp_release.sh  > build_output.log
+echo -e "Done processing the build."
+
+echo -e "Distribute the build..."
+distribute_and_notify >> build_output.log
+echo -e "Done distributing the build."
 
 # Clean up build files
 popd
