@@ -49,7 +49,6 @@ function configure_installer_files {
     cp -f CLI.bat ${bp_deliverables}/extras/CLI.bat 2>>${error_file}
     cp -f build_installer_bp.sh ${build_dir}/build_installer_bp.sh 2>>${error_file}
     cp -f create_shortcut.vbs ${bp_deliverables}/tools/create_shortcut.vbs 2>>${error_file}
-    cp -f MSI_Director.java ${installer_files}/MSI_Director.java 2>>${error_file}
     cp -f post_install_script.bat ${extra_deliverables}/post_install_script.bat 2>>${error_file}
     cp -f pre_uninstall_script.bat ${extra_deliverables}/pre_uninstall_script.bat 2>>${error_file}
     cp -f splash.bmp ${bp_deliverables}/splash.bmp 2>>${error_file}
@@ -58,7 +57,6 @@ function configure_installer_files {
     unix2dos -q ${bp_deliverables}/extras/Launcher.bat
     unix2dos -q ${bp_deliverables}/extras/CLI.bat
     unix2dos -q ${bp_deliverables}/tools/create_shortcut.vbs
-    unix2dos -q ${installer_files}/MSI_Director.java
     unix2dos -q ${extra_deliverables}/post_install_script.bat
     unix2dos -q ${extra_deliverables}/pre_uninstall_script.bat
     
@@ -66,7 +64,6 @@ function configure_installer_files {
     cp -f Launcher.sh ${bp_deliverables_linux}/extras/Launcher.sh 2>>${error_file}
     cp -f CLI.sh ${bp_deliverables_linux}/extras/CLI.sh 2>>${error_file}
     cp -f build_installer_bp_linux.sh ${build_dir}/build_installer_bp_linux.sh 2>>${error_file}
-    cp -f MSI_DirectorLinux.java ${installer_files_linux}/MSI_Director.java 2>>${error_file}
     cp -f post_install_script.sh ${extra_deliverables_linux}/post_install_script.sh 2>>${error_file}
     cp -f pre_uninstall_script.sh ${extra_deliverables_linux}/pre_uninstall_script.sh 2>>${error_file}    
     cp -f splash.bmp ${bp_deliverables_linux}/splash.bmp 2>>${error_file}
@@ -74,7 +71,6 @@ function configure_installer_files {
 
     dos2unix -q ${bp_deliverables_linux}/extras/Launcher.sh
     dos2unix -q ${bp_deliverables_linux}/extras/CLI.sh
-    dos2unix -q ${installer_files_linux}/MSI_Director.java
     dos2unix -q ${extra_deliverables_linux}/post_install_script.sh
     dos2unix -q ${extra_deliverables_linux}/pre_uninstall_script.sh    
 
@@ -118,10 +114,10 @@ echo "configure_build_process branch=${branch} git_repo_root=${git_repo_root} bu
 #
 bp_deliverables="${staging_area}/BridgePoint_e${eclipse_ver}/BridgePointDeliverables"
 extra_deliverables="${staging_area}/BridgePoint_e${eclipse_ver}/vcredist_x86"
-installer_files="${staging_area}/MSI/BridgePoint_e${eclipse_ver}/src"
 bp_deliverables_linux="${staging_area}/BridgePoint_for_Linux_e${eclipse_ver}/BridgePointDeliverables"
 extra_deliverables_linux="${staging_area}/BridgePoint_for_Linux_e${eclipse_ver}/install_tools"
-installer_files_linux="${staging_area}/MSI/BridgePoint_Linux_e${eclipse_ver}/src"
+installer_files="${staging_area}/installer/BridgePoint_e${eclipse_ver}/src"
+installer_files_linux="${staging_area}/installer/BridgePoint_Linux_e${eclipse_ver}/src"
 mkdir -p "${bp_deliverables}"
 mkdir -p "${extra_deliverables}"
 mkdir -p "${installer_files}"

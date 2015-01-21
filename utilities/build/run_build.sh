@@ -10,7 +10,7 @@
 #  build server location that is the root for the build.  
 #  
 #  Build Server Requirements:
-#  1) run_build.sh must be present in ${BUILD_ROOT}
+#  1) run_build.sh, and init_git_repositories.sh must be present in ${BUILD_ROOT}
 #  2) BridgePoint must be installed to the folder pointed to by the 
 #     ${ECLIPSE_HOME} variable defined below
 #  3) git must be installed on the build server
