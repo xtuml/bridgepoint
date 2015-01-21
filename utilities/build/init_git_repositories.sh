@@ -75,8 +75,7 @@ echo -e "Entering init_git_repositories.sh"
 branch=${BRANCH}
 git_repo_root=${GIT_REPO_ROOT}
 allow_fallback=${ALLOW_FALLBACK}
-base_dir=`pwd`
-diff_file="${base_dir}/diff.log"
+diff_file="${BUILD_DIR}/diff.log"
 
 # Create git repo parent
 if [ ! -x ${git_repo_root} ]; then

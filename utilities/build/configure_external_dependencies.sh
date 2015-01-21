@@ -16,22 +16,22 @@ get_user_supplied_binaries ()
 {
     echo -e "Entering configure_external_dependencies.sh::get_user_supplied_binaries"
     
-    cd ${build_dir}
+    cd ${BUILD_DIR}
     export_trunk="false"
-    if [ "${branch}" = "master" ]; then
+    if [ "${BRANCH}" = "master" ]; then
         export_trunk="true"
     else
         # check out the branch
-        svn export http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml/branches/${branch}/extra_files_for_build --username sle_build --password qkfJkv2=
+        svn export http://wv-svn-01.wv.mentorg.com/svn/sle/xtuml/branches/${BRANCH}/extra_files_for_build --username sle_build --password qkfJkv2=
         
         # if export failed and build type != nonrelease, then error
-        if [ ! -x $USER_SUPPLIED_FILES ] && [ "${build_type}" != "nonrelease" ]; then
-            echo -e "SVN branch ${branch} does not exist and is required for this build. Exiting.\n"
+        if [ ! -x $USER_SUPPLIED_FILES ] && [ "${BUILD_TYPE}" != "nonrelease" ]; then
+            echo -e "SVN branch ${BRANCH} does not exist and is required for this build. Exiting.\n"
             exit 1
         fi
         
         # if export failed and build type = nonrelease, then checkout master
-        if [ ! -x $USER_SUPPLIED_FILES ] && [ "${build_type}" = "nonrelease" ]; then
+        if [ ! -x $USER_SUPPLIED_FILES ] && [ "${BUILD_TYPE}" = "nonrelease" ]; then
             export_trunk="true"
         fi
         
@@ -91,13 +91,13 @@ configure_dap()
     mkdir win32/client/bin
     mkdir win32/client/lib
 
-    cp -r ${git_repo_root}/mc/etc/generator/bin ./bin
+    cp -r ${GIT_REPO_ROOT}/mc/etc/generator/bin ./bin
 
     cd $DAP/bridgepoint/samples
-    cp -f ${git_repo_root}/mc/libTRANS/libTRANS.def ./translate/libTRANS.def
-    cp -f ${git_repo_root}/mc/libTRANS/libTRANS.mk  ./translate/libTRANS.mk
-    cp -f ${git_repo_root}/mc/libTRANS/pt_trans.c   ./translate/pt_trans.c
-    cp -f ${git_repo_root}/mc/libTRANS/pt_trans.h   ./translate/pt_trans.h
+    cp -f ${GIT_REPO_ROOT}/mc/libTRANS/libTRANS.def ./translate/libTRANS.def
+    cp -f ${GIT_REPO_ROOT}/mc/libTRANS/libTRANS.mk  ./translate/libTRANS.mk
+    cp -f ${GIT_REPO_ROOT}/mc/libTRANS/pt_trans.c   ./translate/pt_trans.c
+    cp -f ${GIT_REPO_ROOT}/mc/libTRANS/pt_trans.h   ./translate/pt_trans.h
 
     cd $DAP/bridgepoint
     cp -f $USER_SUPPLIED_FILES/gen_erate.exe   ./win32/client/bin/gen_erate.exe
@@ -109,9 +109,9 @@ configure_dap()
     cp -f $MC3020/mc3020/schema/sql/xtumlmc_schema.sql ./xtumlmc_schema.sql
     
     cd $DAP/bridgepoint/win32/client
-    cp -f ${git_repo_root}/mc/libTRANS/libTRANS.dll ./lib/libTRANS.dll
+    cp -f ${GIT_REPO_ROOT}/mc/libTRANS/libTRANS.dll ./lib/libTRANS.dll
 
-    cd ${build_dir}
+    cd ${BUILD_DIR}
 }
 
 configure_mcc_src()
@@ -123,12 +123,12 @@ configure_mcc_src()
     rm -rf mc3020
     mkdir mc3020
     cd mc3020
-    cp -r ${git_repo_root}/mc/bin ./bin
-    cp -r ${git_repo_root}/mc/schema ./schema
+    cp -r ${GIT_REPO_ROOT}/mc/bin ./bin
+    cp -r ${GIT_REPO_ROOT}/mc/schema ./schema
     mv ./schema/default-manifest.xml ./
 
     cd $MCC_SRC/mc3020
-    cp -f ${git_repo_root}/mc/libTRANS/libTRANS.dll ./bin
+    cp -f ${GIT_REPO_ROOT}/mc/libTRANS/libTRANS.dll ./bin
     
     cp -f $USER_SUPPLIED_FILES/xtumlmc_build.exe ./bin
     cp -f $USER_SUPPLIED_FILES/gen_erate.exe     ./bin
@@ -138,14 +138,14 @@ configure_mcc_src()
     cp -f $USER_SUPPLIED_FILES/vgal8c.dll        ./bin
     cp -f $USER_SUPPLIED_FILES/vgalaxy8.vr       ./bin
 
-    cd ${build_dir}
+    cd ${BUILD_DIR}
     cp -f $USER_SUPPLIED_FILES/mc3020_doc.zip $MC3020_HELP/doc.zip
     rm -f $MC3020_HELP/techpub.css
     rm -f $MC3020_HELP/toc.xml    
-    cp -r ${git_repo_root}/mc/doc/ug/xml/techpub.css $MC3020_HELP
-    cp -r ${git_repo_root}/mc/doc/ug/xml/toc.xml $MC3020_HELP
+    cp -r ${GIT_REPO_ROOT}/mc/doc/ug/xml/techpub.css $MC3020_HELP
+    cp -r ${GIT_REPO_ROOT}/mc/doc/ug/xml/toc.xml $MC3020_HELP
     
-    cd ${build_dir}
+    cd ${BUILD_DIR}
 }
 
 configure_mcc_bin()
@@ -158,7 +158,7 @@ configure_mcc_bin()
     rm -rf mc3020
     cp -rf $MCC_SRC/mc3020 .
     
-    cd ${build_dir}
+    cd ${BUILD_DIR}
 }
 
 configure_mcsystemc_src()
@@ -175,7 +175,7 @@ configure_mcsystemc_src()
     rm -f ./mc3020/bin/mcmc
     rm -f ./mc3020/bin/mcmc.exe
      
-    cd ${build_dir}
+    cd ${BUILD_DIR}
 }
 
 configure_mccpp_src()
@@ -192,7 +192,7 @@ configure_mccpp_src()
     rm -f ./mc3020/bin/mcmc
     rm -f ./mc3020/bin/mcmc.exe
      
-    cd ${build_dir}
+    cd ${BUILD_DIR}
 }
 
 configure_vhdl_src()
@@ -209,7 +209,7 @@ configure_vhdl_src()
     rm -f ./mc3020/bin/mcmc
     rm -f ./mc3020/bin/mcmc.exe
      
-    cd ${build_dir}
+    cd ${BUILD_DIR}
 }
 
 
@@ -217,24 +217,18 @@ configure_vhdl_src()
 # Main
 #-------------------------------------------------------------------------------
 
-start_dir=`pwd`
-branch=${BRANCH}
-git_repo_root=${GIT_REPO_ROOT}
-build_dir=${BUILD_DIR}
-build_type=${BUILD_TYPE}
-
 echo -e "Entering configure_external_dependencies.sh"
 
 # Define Locations for Components
-USER_SUPPLIED_FILES=${build_dir}/extra_files_for_build
-BP_PKG=${build_dir}/com.mentor.nucleus.bp.pkg
-DAP=${build_dir}/com.mentor.nucleus.bp.dap.pkg
-MCC_SRC=${build_dir}/com.mentor.nucleus.bp.mc.c.source
-MCC_BIN=${build_dir}/com.mentor.nucleus.bp.mc.c.binary
-MCSYSTEMC_SRC=${build_dir}/com.mentor.nucleus.bp.mc.systemc.source
-MCCPP_SRC=${build_dir}/com.mentor.nucleus.bp.mc.cpp.source
-MCVHDL_SRC=${build_dir}/com.mentor.nucleus.bp.mc.vhdl.source
-MC3020_HELP=${build_dir}/com.mentor.nucleus.help.bp.mc
+USER_SUPPLIED_FILES=${BUILD_DIR}/extra_files_for_build
+BP_PKG=${BUILD_DIR}/com.mentor.nucleus.bp.pkg
+DAP=${BUILD_DIR}/com.mentor.nucleus.bp.dap.pkg
+MCC_SRC=${BUILD_DIR}/com.mentor.nucleus.bp.mc.c.source
+MCC_BIN=${BUILD_DIR}/com.mentor.nucleus.bp.mc.c.binary
+MCSYSTEMC_SRC=${BUILD_DIR}/com.mentor.nucleus.bp.mc.systemc.source
+MCCPP_SRC=${BUILD_DIR}/com.mentor.nucleus.bp.mc.cpp.source
+MCVHDL_SRC=${BUILD_DIR}/com.mentor.nucleus.bp.mc.vhdl.source
+MC3020_HELP=${BUILD_DIR}/com.mentor.nucleus.help.bp.mc
 
 get_user_supplied_binaries
 
@@ -246,7 +240,7 @@ configure_vhdl_src
 
 configure_dap
 
-cd ${start_dir}
+cd ${BUILD_DIR}
 
 echo -e "Exiting configure_external_dependencies.sh"
 
