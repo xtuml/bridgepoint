@@ -18,7 +18,7 @@ A new design for returning strings from action bodies is offered.
 [1] [BridgePoint DEI #589](https://support.onefact.net/redmine/issues/589)  test model for string reentrancy  
 [2] [Test Model](https://github.com/xtuml/models/tree/master/VandMC_testing/mctest/string_return_test/) VandMC_testing/mctest/string_return_test  
 [3] [Analysis Note](https://github.com/xtuml/bridgepoint/tree/master/doc-bridgepoint/notes/589_stringtest/589_returnstring.ant.md) doc-bridgepoint/notes/589_stringtest/  
-[4] [revealing Stack Overflow comment on returning structures](http://stackoverflow.com/questions/18412094/a-legal-array-assignment-is-it-possible)  
+[4] [revealing Stack Overflow comment on returning structures](http://stackoverflow.com/questions/18412094/a-legal-array-assignment-is-it-possible) whole thread  
 
 3. Background
 -------------
@@ -84,7 +84,7 @@ couple of loop indexes in `strcpy` and `stradd`.
 
 7. Design Comments
 ------------------
-### 7.1 Return String Struct... FAILED!  
+### 7.1 Return String Struct (5.1.5) ... FAILED!  
 The return string struct failed.  There are inconsistencies in the ANSI C
 standard, and there are bugs in gcc!  In the ANSI 2011 standard, the return
 string struct design is technically good.  However, there are inconsistencies
@@ -118,9 +118,10 @@ invocation list.
 
 #### 7.2.5 Change Return Statement to Use VarParm  
 In the return statement, strcpy the return value into the "A0xtumlsret"
-parameter and return (a pointer) it.
+parameter and return (a pointer) to it.
 
-7.3 When the _InstanceLoading_ mark is being used (for the model-based model
+### 7.3 Instance Loading  
+When the _InstanceLoading_ mark is being used (for the model-based model
 compiler), the string approach may need a few tweaks.  The model compiler
 processes string data heavily.  This will be tested as part of preparing
 the next release.
@@ -133,6 +134,11 @@ the next release.
 8.2 Build and run GPS Watch on Windows.
 
 8.3 Build and run the Microwave oven on both Windows and Unix.
+
+8.4 Run cppcheck --enable=all *.c.  See no reported stack violations.
+
+8.5 gcc -c -Wall *.c.  See no warnings or errors regarding stack violations.
+
 
 End
 ---
