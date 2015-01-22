@@ -71,6 +71,7 @@ are reported.
 Branch name:  xtuml/mc/34_590_casting_S_SS,
               xtuml/bridgepoint/34_590_casting_S_SS,
               xtuml/models/34_590_casting_S_SS
+Fork name:  cortlandstarrett (copy of mc, fork of others)
 
 xtuml/bridgepoint
 doc-bridgepoint/notes/34_590_casting_S_SS/*

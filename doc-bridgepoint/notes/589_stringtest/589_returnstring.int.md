@@ -49,6 +49,8 @@ Branch name:  xtuml/mc/589_returnstring2
               xtuml/bridgepoint/589_returnstring  
               xtuml/models/589_stringtest  
 
+Fork name:  cortlandstarrett (bridgepoint and models)  public repo (copy) of mc
+
 <pre>
 
 xtuml/mc
