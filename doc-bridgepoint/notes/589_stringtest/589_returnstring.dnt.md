@@ -15,7 +15,7 @@ A new design for returning strings from action bodies is offered.
 
 2. Document References
 ----------------------
-[1] [BridgePoint DEI #589](https://support.onefact.net/redmine/issues/1)  test model for string reentrancy  
+[1] [BridgePoint DEI #589](https://support.onefact.net/redmine/issues/589)  test model for string reentrancy  
 [2] [Test Model](https://github.com/xtuml/models/tree/master/VandMC_testing/mctest/string_return_test/) VandMC_testing/mctest/string_return_test  
 [3] [Analysis Note](https://github.com/xtuml/bridgepoint/tree/master/doc-bridgepoint/notes/589_stringtest/589_returnstring.ant.md) doc-bridgepoint/notes/589_stringtest/  
 [4] [revealing Stack Overflow comment on returning structures](http://stackoverflow.com/questions/18412094/a-legal-array-assignment-is-it-possible)  
@@ -97,30 +97,30 @@ it will not likely be worth changing back to this design.
 
 ### 7.2 New Design for Architectural By-Ref Parameter
 
-#### 7.1.1 Create Prototype String TE_PARM  
+#### 7.2.1 Create Prototype String TE_PARM  
 Early in the system population query, create an instance of TE_PARM that
 is linked to a string TE_DT.  This will be useful to make copies for the
 architectural string parameter.
 
-#### 7.1.2 Duplicate Prototype String TE_PARM  
+#### 7.2.2 Duplicate Prototype String TE_PARM  
 During the manufacture of TE_ABAs for bodies returning a string, duplicate
 the above string TE_PARM and link it into the front of the parameter list.
 
-#### 7.1.3 Link as First Parm  
+#### 7.2.3 Link as First Parm  
 Link the architectural by-ref parameter at the head of the list of parameters
 or alone in bodies not taking arguments.  The name of the parameter will be
 something that alphabetizes to the front of the list.  "A0xtumlsret" is chosen.
 
-#### 6.1.4 Prepend Architectural String Parm to Invocation Parms  
+#### 7.2.4 Prepend Architectural String Parm to Invocation Parms  
 In the expression value generation, add functionality to V_TRV, V_FNV,
 V_BRV and V_MSV to prepend a uniquely named local transient to the
 invocation list.
 
-#### 7.1.5 Change Return Statement to Use VarParm  
+#### 7.2.5 Change Return Statement to Use VarParm  
 In the return statement, strcpy the return value into the "A0xtumlsret"
 parameter and return (a pointer) it.
 
-7.2 When the _InstanceLoading_ mark is being used (for the model-based model
+7.3 When the _InstanceLoading_ mark is being used (for the model-based model
 compiler), the string approach may need a few tweaks.  The model compiler
 processes string data heavily.  This will be tested as part of preparing
 the next release.
