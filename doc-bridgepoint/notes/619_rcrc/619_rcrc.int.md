@@ -23,14 +23,19 @@ library but does so in a way that flags warnings to cppcheck.
 
 3. Background
 -------------
-3.1  cppcheck is a static analysis syntax checker for C anc C++.  See [2].  
+3.1  cppcheck is a static analysis syntax checker for C anc C++.  See [2].
+Users are running this tool on generated code.  It identifies a redundant
+assignment of `rc = rc`.  
 3.2  POSIX threading routines return an integer.  A non-zero value usually
 indicates an error.  See [3] and related pages.  
+3.3  `rc` was declared and assigned to the return of the threading routines
+to avoid a syntax warning of "unused return value".  Then, rc was unused, 
+so we assigned it to itself.  Now cppcheck dislikes that.  
 
 4. Requirements
 ---------------
 
-4.1  cppcheck shall report no redundant assignents in the threading routines.
+4.1  cppcheck shall report no redundant assignents in the threading routines.  
 4.2  cppcheck shall report no unused variables in the threading routines.  
 4.3  gcc -Wall shall be clean when compiling sys_thread.c for POSIX.  
 
@@ -43,7 +48,7 @@ condition.  This nicely makes a place for future error recovery.
 
 6. Implementation Comments
 --------------------------
-6.1  Reduced the scope of i in `strcpy` (based on report from cppcheck).  
+6.1  Reduced the scope of i in `Escher_strcpy` (based on report from cppcheck).  
 
 7. Unit Test
 ------------
@@ -56,6 +61,7 @@ condition.  This nicely makes a place for future error recovery.
 8. Code Changes
 ---------------
 Branch name:  xtuml/mc/619_rcrc, xtuml/bridgepoint/619_rcrc
+Fork name:  cortlandstarrett (copy of mc, fork of bridgepoint)
 
 <pre>
 
