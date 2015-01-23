@@ -4,7 +4,7 @@ Bundle-Name: BridgePoint Search Tests
 Bundle-SymbolicName: com.mentor.nucleus.bp.search.test
 Bundle-Version: 1.0.0
 Bundle-Activator: com.mentor.nucleus.bp.search.test.Activator
-Bundle-Vendor: Mentor Graphics
+Bundle-Vendor: xtUML.org
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  com.mentor.nucleus.bp.search,

@@ -27,8 +27,8 @@ the License.
 <plugin
    id="com.mentor.nucleus.bp.debug.ui"
      name="BridgePoint Debug UI Plug-in"
-     version="4.1.17"
-     provider-name="Mentor Graphics"
+     version="4.2.0"
+     provider-name="xtUML.org"
      class="com.mentor.nucleus.bp.debug.ui.BPDebugUIPlugin">
 
      <runtime>

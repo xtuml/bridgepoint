@@ -27,7 +27,7 @@ the License.
    id="com.mentor.nucleus.bp.io.sql.test"
    name="Nucleus BridgePoint IO Sql Test Plug-in"
    version="1.0.0"
-   provider-name="Mentor Graphics"
+   provider-name="xtUML.org"
    class="com.mentor.nucleus.bp.io.sql.test.IOSqlTestPlugin">
 
    <runtime>

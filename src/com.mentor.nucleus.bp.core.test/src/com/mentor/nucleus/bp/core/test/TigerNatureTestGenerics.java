@@ -458,66 +458,6 @@ public class TigerNatureTestGenerics extends CanvasTest {
 		return false;
 	}
 
-	public void testConfigurationManagementChangesAllEditorsClose()
-			throws Exception {
-		Ooaofooa.setPersistEnabled(true);
-		// make sure the user isn't prompted to do a parse all
-		CorePlugin.enableParseAllOnResourceChange();
-		String projectName = "CVS Test Project Generics";
-		CVSUtils.checkoutProject(projectName);
-		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(
-				projectName);
-
-		PersistableModelComponent sysComponent = PersistenceManager
-				.getRootComponent(project);
-
-		IPath path = sysComponent.getContainingDirectoryPath()
-				.append(
-						"testPackage" + "/" + "testPackage" + "."
-								+ Ooaofooa.MODELS_EXT);
-
-		PersistableModelComponent packageComponent = PersistableModelComponent
-				.findOrCreateInstance(path);
-		packageComponent.loadComponentAndChildren(new NullProgressMonitor());
-
-		Ooaofooa packageModelRoot = (Ooaofooa) packageComponent
-				.getRootModelElement().getModelRoot();
-		Package_c dom = Package_c.PackageInstance(packageModelRoot);
-		// Open new domain
-		CanvasTestUtils.openCanvasEditor(dom);
-		// Create Subsystem in domain
-		AbstractTool tool = UITestingUtilities.getTool("Package");
-		UITestingUtilities.activateTool(tool);
-		CanvasTestUtils.createMouseEvent(100, 100, "MouseDown");
-		CanvasTestUtils.createMouseEvent(200, 200, "MouseMove");
-		CanvasTestUtils.createMouseEvent(200, 200, "MouseUp");
-		UITestingUtilities.deactivateTool(tool);
-		m_bp_tree.expandAll();
-		m_bp_tree.getTree().selectAll();
-		waitForDecorator();
-		while (PlatformUI.getWorkbench().getDisplay().readAndDispatch());
-
-		TreeItem[] items = m_bp_tree.getTree().getSelection();
-		int x = 0;
-		for (int i = 0; i < items.length; i++) {
-			if (items[i].getData() == sysComponent.getRootModelElement()) {
-				x = i;
-				break;
-			}
-		}
-		long startTime = System.currentTimeMillis();
-		long loopTime = 0;
-		while (items[x].getText().indexOf(">") == -1) {
-			loopTime = System.currentTimeMillis() - startTime;
-			if (loopTime > 4000) {
-				break;
-			}
-			while (Display.getCurrent().readAndDispatch());
-		}
-		assertTrue("Dirty flag not present after modification",
-				checkForDirtyFlag(dom.getName()));
-	}
-
 	public void testNewProjectDefaultPath() throws Exception {
 		IProject testProject = createXtUMLProject("Test Project Defaults");
 		// wait on any previous events to process

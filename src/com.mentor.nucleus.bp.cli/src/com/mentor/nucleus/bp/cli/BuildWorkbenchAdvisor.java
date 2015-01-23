@@ -1,23 +1,18 @@
 package com.mentor.nucleus.bp.cli;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import org.eclipse.cdt.managedbuilder.core.IConfiguration;
 import org.eclipse.cdt.managedbuilder.core.IManagedBuildInfo;
 import org.eclipse.cdt.managedbuilder.core.ManagedBuildManager;
 import org.eclipse.cdt.ui.CUIPlugin;
-import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.text.IDocument;
@@ -27,7 +22,6 @@ import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.Ooaofooa;
 import com.mentor.nucleus.bp.core.SystemModel_c;
 import com.mentor.nucleus.bp.core.common.ClassQueryInterface_c;
-import com.mentor.nucleus.bp.core.common.PersistableModelComponent;
 import com.mentor.nucleus.bp.core.common.PersistenceManager;
 import com.mentor.nucleus.bp.mc.c.binary.ExportBuilder;
 
@@ -299,6 +293,6 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
          if (!destPath.toFile().exists()) {
         	 destPath.toFile().mkdir();
          }
-         eb.exportSystemWithLicenseCheck(sys, destPath.toOSString(), new NullProgressMonitor());
+         eb.exportSystem(sys, destPath.toOSString(), new NullProgressMonitor());
 	}
 }
