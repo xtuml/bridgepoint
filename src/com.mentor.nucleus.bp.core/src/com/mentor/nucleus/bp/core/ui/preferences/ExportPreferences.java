@@ -37,7 +37,6 @@ import org.eclipse.ui.PlatformUI;
 import com.mentor.nucleus.bp.core.CorePlugin;
 import com.mentor.nucleus.bp.core.common.BridgePointPreferencesModel;
 import com.mentor.nucleus.bp.core.ui.ICoreHelpContextIds;
-import com.mentor.nucleus.bp.core.util.BridgePointLicenseManager;
 import com.mentor.nucleus.bp.ui.preference.IPreferenceModel;
 
 public class ExportPreferences extends PreferencePage implements
@@ -165,9 +164,8 @@ public class ExportPreferences extends PreferencePage implements
         // here would overwrite the population of the default model data in
         // performDefaults().
 
-        boolean oalExportIsLicensed = BridgePointLicenseManager.licenseExists(BridgePointLicenseManager.LicenseAtomic.XTUMLMCEXPORT);
         
-        if (bpPrefs.exportOAL.equals(MessageDialogWithToggle.ALWAYS) && oalExportIsLicensed) {
+        if (bpPrefs.exportOAL.equals(MessageDialogWithToggle.ALWAYS)) {
             exportOALYesRadio.setSelection(true);
             exportOALNoRadio.setSelection(false);
         } else if (bpPrefs.exportOAL.equals(MessageDialogWithToggle.NEVER)) {
@@ -177,10 +175,6 @@ public class ExportPreferences extends PreferencePage implements
             exportOALYesRadio.setSelection(false);
             exportOALNoRadio.setSelection(true);
         }
-        if (!oalExportIsLicensed) {
-            exportOALYesRadio.setEnabled(false);
-        }
-
         if (bpPrefs.exportGraphics.equals(MessageDialogWithToggle.ALWAYS)) {
             exportGraphicsYesRadio.setSelection(true);
             exportGraphicsNoRadio.setSelection(false);

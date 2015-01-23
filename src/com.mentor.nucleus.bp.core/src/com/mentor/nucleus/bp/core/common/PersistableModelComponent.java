@@ -674,15 +674,10 @@ public class PersistableModelComponent implements Comparable {
     
     public synchronized void load(Ooaofooa modelRoot, IProgressMonitor monitor,
             boolean parseOal,boolean reload) throws CoreException {
-    
-    	// do not load if the persistence version is not acceptable
-    	if(!PersistenceManager.isPersistenceVersionAcceptable(this)) {
-    		return;
-    	}
     	
         if(!reload && isLoaded())
         return;
-     
+    	
         // do not allow load if there is no xtUML nature
 		if (!getFile().getProject().isAccessible()
 				|| !getFile().getProject().hasNature(XtUMLNature.ID)
@@ -690,6 +685,11 @@ public class PersistableModelComponent implements Comparable {
         	return;
         }
         
+    	// do not load if the persistence version is not acceptable
+    	if(!PersistenceManager.isPersistenceVersionAcceptable(this)) {
+    		return;
+    	}
+    	
         int oldStatus = status;
       try {
             status = STATUS_LOADING;    

@@ -72,7 +72,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
 <plugin
    id="com.mentor.nucleus.bp.ui.text"
    name="BridgePoint Text Plug-in"
-   version="4.1.17"
+   version="4.2.0"
    provider-name="Mentor Graphics"
    class="com.mentor.nucleus.bp.ui.text.TextPlugin">
 
