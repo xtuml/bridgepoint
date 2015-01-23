@@ -16,7 +16,7 @@
 
   <property environment="env"/>
   <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
-  <property name="mc3020_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/mc3020/bin" />
+  <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/mc3020/bin" />
   <property name="mcj_path" value="../MC-Java" />
 
   <property name="eclipse-home" value="${basedir}/../.."/>
@@ -159,7 +159,7 @@
     <copy todir="models/com.mentor.nucleus.bp.ui.properties.test/Datatypes/">
     	<fileset dir="../com.mentor.nucleus.bp.pkg/globals"><filename name="Globals.xtuml"/></fileset>   	
     </copy>
-    <exec vmlauncher="false" failonerror="true" executable="${mc3020_bin_dir}/xtumlmc_build" >
+    <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
       <arg line="xtumlmc_cleanse_for_BridgePoint
             ${sql.input.dir}
       ${basedir}/sql/${sql.output}
