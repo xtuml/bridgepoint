@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile: update_BP_version.xml,v $
+ Version:   $Revision: 1.23 $
+ Modified:  $Date: 2013/06/24 14:49:24 $
+
+ (c) Copyright 2011-2014 by Mentor Graphics Corp.  All rights reserved.
+
+-->
+<project name="bp.internal.tools" default="updateVersion" basedir="./..">
+
+    <property name="currentVersion" value="org.xtuml" />
+    <property name="newVersion" value="org.xtuml" />
+
+    <target name="updateVersion" description="Update the version of BridgePoint">
+        <echo>Starting version update from ${currentVersion} to ${newVersion}</echo>
+        <echo>Processing "${basedir}"</echo>
+        <echo>This will take about minute or two...</echo>
+        <replace dir="${basedir}" token="${currentVersion}" value="${newVersion}" defaultexcludes="yes" summary="yes">
+            <exclude name="**/*.htm*"/>
+            <exclude name="**/*.ant"/>
+            <exclude name="**/*.dnt"/>
+            <exclude name="**/*.int"/>
+            <exclude name="**/*.tnt"/>
+            <exclude name="**/*.rvm"/>
+            <exclude name="**/*.chk"/>
+            <exclude name="**/*.xtuml"/>
+            <exclude name="**/*.txt"/>
+            <exclude name="**/*.ppnt"/>
+        	<exclude name="**/*.doc*"/>
+        	<exclude name="**/*.jpg"/>
+        	<exclude name="**/*.gif"/>
+            <exclude name="**/*.png"/>
+        	<exclude name="**/*.bmp"/>
+            <exclude name="/.metadata/**"/>
+            <exclude name="/*.test/**"/>
+            <exclude name="**/org.xtuml.bp.internal.tools/update_BP_version.xml"/>
+            <exclude name="**/org.xtuml.bp.io.mdl/sql/file_io.pei.sql"/>
+            <exclude name="**/org.xtuml.bp.io.mdl/sql/stream.pei.sql"/>
+            <exclude name="**/org.xtuml.bp.io.sql/sql/file_io.pei.sql"/>
+        </replace>
+        <echo>Done updating version.  Please make the hand edits required under bp.doc now.</echo>
+    </target>
+
+</project>

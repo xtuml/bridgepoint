@@ -1,0 +1,54 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("a8f9ba22-5f15-4324-8e5c-81b0c42c97ad",
+	'TestClassOtherSide1',
+	5,
+	'DC_TCLG4',
+	'',
+	"21a3a8b5-f73c-4d96-98ed-c54c53f9395b");
+INSERT INTO O_NBATTR
+	VALUES ("a52c4f71-1e8f-4de3-8dcf-3c55164ad1e2",
+	"a8f9ba22-5f15-4324-8e5c-81b0c42c97ad");
+INSERT INTO O_BATTR
+	VALUES ("a52c4f71-1e8f-4de3-8dcf-3c55164ad1e2",
+	"a8f9ba22-5f15-4324-8e5c-81b0c42c97ad");
+INSERT INTO O_ATTR
+	VALUES ("a52c4f71-1e8f-4de3-8dcf-3c55164ad1e2",
+	"a8f9ba22-5f15-4324-8e5c-81b0c42c97ad",
+	"00000000-0000-0000-0000-000000000000",
+	'testAttr',
+	'',
+	'',
+	'testAttr',
+	0,
+	"3b85853b-a26f-431f-a4ac-fe4a6a879629",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("3b85853b-a26f-431f-a4ac-fe4a6a879629",
+	"37245a7a-b236-4955-873c-ea0ecaac7d3c",
+	'integer',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"a8f9ba22-5f15-4324-8e5c-81b0c42c97ad");
+INSERT INTO O_OIDA
+	VALUES ("a52c4f71-1e8f-4de3-8dcf-3c55164ad1e2",
+	"a8f9ba22-5f15-4324-8e5c-81b0c42c97ad",
+	0);
+INSERT INTO O_ID
+	VALUES (1,
+	"a8f9ba22-5f15-4324-8e5c-81b0c42c97ad");
+INSERT INTO O_ID
+	VALUES (2,
+	"a8f9ba22-5f15-4324-8e5c-81b0c42c97ad");
+INSERT INTO S_SS_PROXY
+	VALUES ("21a3a8b5-f73c-4d96-98ed-c54c53f9395b",
+	'Delete Check Good SS',
+	'Persistent:false',
+	'',
+	0,
+	"37245a7a-b236-4955-873c-ea0ecaac7d3c",
+	"00000000-0000-0000-0000-000000000000",
+	'../Delete Check Good SS.xtuml');

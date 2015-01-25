@@ -1,0 +1,8 @@
+drawRectangle(137, 148, 527, 560)
+drawText("Unnamed Component", 195, 403, true)
+drawRectangle(552, 192, 68, 54)
+drawRectangle(535, 197, 32, 16)
+drawRectangle(535, 219, 32, 16)
+drawline(664, 296, 1071, 296)
+drawText("InterfaceAssignmentSetup-1", 774, 162, true)
+drawRectangle(642, 274, 43, 43)

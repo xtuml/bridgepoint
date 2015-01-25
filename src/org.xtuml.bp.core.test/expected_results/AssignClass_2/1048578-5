@@ -1,0 +1,6 @@
+drawRectangle(5560, 4077, 738, 527)
+drawText("...med Subsystem::Test Class", 5583, 4089, true)
+drawText("{1,KEY}", 6097, 4152, true)
+drawline(5560, 4230, 6298, 4230)
+drawText("TestAttr 1:integer", 5574, 4242, true)
+drawline(5560, 4319, 6298, 4319)

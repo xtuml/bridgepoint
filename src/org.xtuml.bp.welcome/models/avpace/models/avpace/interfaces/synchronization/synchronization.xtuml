@@ -1,0 +1,101 @@
+-- BP 7.1.6 content: Interface syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO C_I
+	VALUES ("0bd9915b-76d2-4a1e-897b-8e05cbe04e89",
+	"00000000-0000-0000-0000-000000000000",
+	'synchronization',
+	'');
+INSERT INTO C_EP
+	VALUES ("0f2056aa-552d-47ee-863f-1112ca801894",
+	"0bd9915b-76d2-4a1e-897b-8e05cbe04e89",
+	-1,
+	'systolic_pulse',
+	'');
+INSERT INTO C_AS
+	VALUES ("0f2056aa-552d-47ee-863f-1112ca801894",
+	'systolic_pulse',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO C_EP
+	VALUES ("538342c3-6d25-4d02-8645-befa35b9427f",
+	"0bd9915b-76d2-4a1e-897b-8e05cbe04e89",
+	-1,
+	'diastolic_pulse',
+	'');
+INSERT INTO C_AS
+	VALUES ("538342c3-6d25-4d02-8645-befa35b9427f",
+	'diastolic_pulse',
+	'',
+	0,
+	"0f2056aa-552d-47ee-863f-1112ca801894");
+INSERT INTO C_EP
+	VALUES ("2a89dc7f-4e1b-4de6-82a1-88786929e624",
+	"0bd9915b-76d2-4a1e-897b-8e05cbe04e89",
+	-1,
+	'systolic_pace',
+	'');
+INSERT INTO C_AS
+	VALUES ("2a89dc7f-4e1b-4de6-82a1-88786929e624",
+	'systolic_pace',
+	'',
+	1,
+	"538342c3-6d25-4d02-8645-befa35b9427f");
+INSERT INTO C_EP
+	VALUES ("cae54907-3b8e-4378-8caf-9fcb1c8016a0",
+	"0bd9915b-76d2-4a1e-897b-8e05cbe04e89",
+	-1,
+	'diastolic_pace',
+	'');
+INSERT INTO C_AS
+	VALUES ("cae54907-3b8e-4378-8caf-9fcb1c8016a0",
+	'diastolic_pace',
+	'',
+	1,
+	"2a89dc7f-4e1b-4de6-82a1-88786929e624");
+INSERT INTO C_EP
+	VALUES ("66dc1146-68a1-41cb-81e5-82b26ee7682f",
+	"0bd9915b-76d2-4a1e-897b-8e05cbe04e89",
+	-1,
+	'init',
+	'');
+INSERT INTO C_IO
+	VALUES ("66dc1146-68a1-41cb-81e5-82b26ee7682f",
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'init',
+	'',
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO C_PP
+	VALUES ("af336be4-ae31-4a5d-86bc-6ebaf5109d31",
+	"66dc1146-68a1-41cb-81e5-82b26ee7682f",
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'systolic_period',
+	'The systolic period is the duration of time between diastolic and systolic pulses.',
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO C_PP
+	VALUES ("eda96872-7aa7-4e43-b03c-97a23f43406e",
+	"66dc1146-68a1-41cb-81e5-82b26ee7682f",
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'diastolic_period',
+	'The diastolic period is the duration of time between systolic and diastolic pulses.',
+	0,
+	'',
+	"af336be4-ae31-4a5d-86bc-6ebaf5109d31");
+INSERT INTO PE_PE
+	VALUES ("0bd9915b-76d2-4a1e-897b-8e05cbe04e89",
+	1,
+	"ec31a90f-95df-4b5c-af74-f5199f89b092",
+	"00000000-0000-0000-0000-000000000000",
+	6);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("ec31a90f-95df-4b5c-af74-f5199f89b092",
+	"15b2a15d-7110-4efa-b644-89bd96e12c0e",
+	"15b2a15d-7110-4efa-b644-89bd96e12c0e",
+	'interfaces',
+	'',
+	0,
+	'../interfaces.xtuml');

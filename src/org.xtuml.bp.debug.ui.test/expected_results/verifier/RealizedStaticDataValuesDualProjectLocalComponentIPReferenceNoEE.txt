@@ -1,0 +1,4 @@
+User invoked function: run
+LogInfo:  EERealizedStaticDataTestNoLocalRealizedEE::Components::App::From(): In modeled bridge: EERealizedStaticDataTestNoLocalRealizedEE::Components::App::ExternalEntities::CMP::GetData.
+LogInfo:  In EERealizedStaticDataTestLocalRealizedEE::LocalComponentIPReferenceNoEE::Tester::To(): MODIFIED System Project System Project
+

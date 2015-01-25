@@ -1,0 +1,507 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>Subsystem Package</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"MS Mincho";
+	panose-1:2 2 6 9 4 2 5 8 3 4;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Webdings;
+	panose-1:5 3 1 2 1 5 9 6 7 3;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"\@MS Mincho";
+	panose-1:2 2 6 9 4 2 5 8 3 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-right:0in;
+	margin-left:0in;
+	font-size:18.0pt;
+	font-family:"Arial","sans-serif";
+	color:black;
+	font-weight:normal;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-right:0in;
+	margin-left:0in;
+	line-height:15.6pt;
+	font-size:12.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h4
+	{mso-style-link:"Heading 4 Char";
+	margin-top:7.5pt;
+	margin-right:7.5pt;
+	margin-bottom:2.4pt;
+	margin-left:7.5pt;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:#0176B9;
+	font-weight:bold;}
+p.MsoNormalIndent, li.MsoNormalIndent, div.MsoNormalIndent
+	{margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoCaption, li.MsoCaption, div.MsoCaption
+	{margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:0in;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+span.MsoEndnoteReference
+	{vertical-align:super;}
+a:link, span.MsoHyperlink
+	{font-family:"Arial","sans-serif";
+	color:black;
+	text-decoration:none none;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#0176B9;
+	text-decoration:underline;}
+p
+	{margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading4Char
+	{mso-style-name:"Heading 4 Char";
+	mso-style-link:"Heading 4";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+p.preformatted-tpcode, li.preformatted-tpcode, div.preformatted-tpcode
+	{mso-style-name:preformatted-tp_code;
+	margin-top:15.0pt;
+	margin-right:0in;
+	margin-bottom:15.0pt;
+	margin-left:0in;
+	background:silver;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.normalnotoc, li.normalnotoc, div.normalnotoc
+	{mso-style-name:normalnotoc;
+	margin:7.5pt;
+	font-size:11.0pt;
+	font-family:"Times New Roman","serif";}
+span.codeChar
+	{mso-style-name:"code Char";
+	mso-style-link:code;
+	font-family:"Courier New";}
+p.code, li.code, div.code
+	{mso-style-name:code;
+	mso-style-link:"code Char";
+	margin:7.5pt;
+	font-size:11.0pt;
+	font-family:"Courier New";}
+p.tpcode, li.tpcode, div.tpcode
+	{mso-style-name:tp_code;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.tpinput, li.tpinput, div.tpinput
+	{mso-style-name:tp_input;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+p.tpui, li.tpui, div.tpui
+	{mso-style-name:tp_ui;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	color:navy;}
+p.tpvar, li.tpvar, div.tpvar
+	{mso-style-name:tp_var;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-style:italic;}
+p.tpfooter, li.tpfooter, div.tpfooter
+	{mso-style-name:tp_footer;
+	margin:7.5pt;
+	text-align:center;
+	background:white;
+	font-size:9.0pt;
+	font-family:"Times New Roman","serif";}
+p.sub, li.sub, div.sub
+	{mso-style-name:sub;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+p.sublstbody, li.sublstbody, div.sublstbody
+	{mso-style-name:sublstbody;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+span.tpfile
+	{mso-style-name:tp_file;
+	color:#990000;
+	letter-spacing:1.2pt;}
+span.tpnote
+	{mso-style-name:tp_note;
+	font-weight:bold;}
+span.tpmenuarrow
+	{mso-style-name:tp_menuarrow;
+	font-family:Webdings;
+	color:navy;}
+span.hypertext
+	{mso-style-name:hypertext;}
+.MsoChpDefault
+	{font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<body bgcolor=white lang=EN-US link=black vlink="#0176B9">
+
+<div class=WordSection1>
+
+<h2>Class Diagram</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+Subsystem Package is used to document classes and associations.  It may contain
+these elements: class, imported class, association, associative link,
+supertype, and subtype.  It may also contain nested subsystem packages or any
+of these diagram packages; <a href="Activity.htm">activity</a>, <a
+href="Communication.htm">communication</a>, <a href="Sequence.htm">sequence</a>,
+<a href="UseCase.htm">use</a><span class=MsoHyperlink> case</span></span></p>
+
+<h3 style='line-height:150%'><a href="UseCase.htm"><span style='line-height:
+150%;color:navy'>Class</span></a></h3>
+
+<p class=MsoNormal style='line-height:150%'><span style='line-height:150%'>   </span><a
+href="UseCase.htm"><span style='font-size:10.0pt;line-height:150%;font-family:
+"Arial","sans-serif";color:windowtext'>A class abstracts the common
+characteristics of a set of instances that share the same attributes,
+operations, associations and behavior. </span></a></p>
+
+<h4><a href="UseCase.htm"><span style='font-size:10.0pt;color:#0176B9'>Graphical
+Notation</span></a></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>A class is represented by a
+rectangle with three compartments.  </span></a></span></p>
+
+<h4><a href="UseCase.htm"><span style='font-size:10.0pt;color:#0176B9'>Name
+Compartment</span></a></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>The name compartment (top)
+shows the name of the class centered in bold.   Two properties of the class,
+class number and class key letter (in that order), are shown in the bottom
+right-hand corner of the name compartment surrounded by curly braces.  Every
+class has a name, a number, and a key letter.</span></a></span></p>
+
+<h4><a href="UseCase.htm"><span style='font-size:10.0pt;color:#0176B9'>Attribute
+Compartment</span></a></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>The attribute compartment
+shows an enumerated list of the attributes of the class.  Attributes are shown
+as </span><span class=codeChar><span style='font-size:11.0pt;color:windowtext'>&lt;derived&gt;
+&lt;name&gt; : &lt;type&gt; {&lt;property-string&gt;}</span></span><span
+style='color:windowtext'> where </span><span class=codeChar><span
+style='font-size:11.0pt;color:windowtext'>&lt;derived&gt;</span></span><span
+style='color:windowtext'> is “</span><span class=codeChar><span
+style='font-size:11.0pt;color:windowtext'>/</span></span><span
+style='color:windowtext'>” if the attribute is derived (not shown otherwise), </span><span
+class=codeChar><span style='font-size:11.0pt;color:windowtext'>&lt;name&gt; </span></span><span
+style='color:windowtext'>is the name of the attribute, and </span><span
+class=codeChar><span style='font-size:11.0pt;color:windowtext'>&lt;type&gt; </span></span><span
+style='color:windowtext'>is its type.  </span></a></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>Identifying attributes are
+indicated using a right justified </span><span class=codeChar><span
+style='font-size:11.0pt;color:windowtext'>&lt;property-string&gt; </span></span><span
+style='color:windowtext'>which carries the text </span><span class=codeChar><span
+style='font-size:11.0pt;color:windowtext'>I</span></span><span
+style='color:windowtext'>, </span><span class=codeChar><span style='font-size:
+11.0pt;color:windowtext'>I2</span></span><span style='color:windowtext'>, or </span><span
+class=codeChar><span style='font-size:11.0pt;color:windowtext'>I3</span></span><span
+style='color:windowtext'> for primary, secondary, and ternary identifiers
+respectively.  Attributes created by the formalization of an association, are
+shown by a </span><span class=codeChar><span style='font-size:11.0pt;
+color:windowtext'>&lt;property-string&gt;</span></span><span style='color:windowtext'>
+with the text “</span><span class=codeChar><span style='font-size:11.0pt;
+color:windowtext'>R&lt;relationship number&gt;</span></span><span
+style='color:windowtext'>”, e.g., </span><span class=codeChar><span
+style='font-size:11.0pt;color:windowtext'>{R4}</span></span><span
+style='color:windowtext'>.   Combined formalizations are shown in sequence,
+e.g., </span><span class=codeChar><span style='font-size:11.0pt;color:windowtext'>{R1,R3}</span></span><span
+style='color:windowtext'>.  Constrained referential attributes are shown with a
+“</span><span class=codeChar><span style='font-size:11.0pt;color:windowtext'>c</span></span><span
+style='color:windowtext'>” following the </span><span class=codeChar><span
+style='font-size:11.0pt;color:windowtext'>&lt;property-string&gt;</span></span><span
+style='color:windowtext'>, e.g., {R4c}.</span></a></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>Multiple properties are comma
+delimited, identifiers followed by relationship numbers.  The property strings
+are enclosed in curly braces.</span></a></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>All parts that comprise the
+attribute name may be suppressed from the diagram except </span><span
+class=codeChar><span style='font-size:11.0pt;color:windowtext'>&lt;name&gt;</span></span><span
+style='color:windowtext'>.  </span></a></span></p>
+
+<h4><a href="UseCase.htm"><span style='font-size:10.0pt;color:#0176B9'>Operation
+Compartment</span></a></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>Operations are shown in the
+bottom compartment preceded by a stereotype indicating </span><span
+class=codeChar><span style='font-size:11.0pt;color:windowtext'>&lt;&lt;operation&gt;&gt;</span></span><span
+style='color:windowtext'>.</span></a></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>Operations are shown as </span><span
+class=codeChar><span style='font-size:11.0pt;color:windowtext'>&lt;name&gt;
+(&lt;parameter-list&gt;) : &lt;type&gt;</span></span><span style='color:windowtext'>,
+where </span><span class=codeChar><span style='font-size:11.0pt;color:windowtext'>&lt;name&gt;
+</span></span><span style='color:windowtext'>is the name of the operation
+(underlined if class-based), and </span><span class=codeChar><span
+style='font-size:11.0pt;color:windowtext'>&lt;type&gt;</span></span><span
+style='color:windowtext'> is the return type.  </span></a></span></p>
+
+<p style='line-height:15.6pt'><span class=codeChar><span style='font-size:11.0pt'><a
+href="UseCase.htm"><span style='color:windowtext'>&lt;parameter_list&gt;</span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";color:windowtext'> is
+a comma separated list of parameters specified as </span><span
+style='color:windowtext'>&lt;name&gt; : &lt;type&gt;</span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";color:windowtext'>,
+where </span><span style='color:windowtext'>&lt;name&gt;</span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";color:windowtext'> is
+the name of the parameter, and </span><span style='color:windowtext'>&lt;type&gt;</span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";color:windowtext'> is
+its type.</span></a></span></span></p>
+
+<h3><a href="UseCase.htm"><span style='color:navy'>Imported Class</span></a></h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>An imported class represents
+a class defined in another Subsystem Package (on another Class Diagram).  This
+is useful in representing associations that span subsystem packages.</span></a></span></p>
+
+<h4><a href="UseCase.htm"><span style='font-size:10.0pt;color:#0176B9'>Graphical
+Notation</span></a></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>An imported class is shown as
+a grey-colored class with the stereotype &lt;&lt;Imported&gt;&gt; shown in the
+top compartment.  The rest of the graphical representation is the same as for
+class.</span></a></span></p>
+
+<h3><a href="UseCase.htm"><span style='color:navy'>Association  </span></a></h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>An association abstracts a
+binary relationship between two classes. </span></a></span></p>
+
+<h4><a href="UseCase.htm"><span style='font-size:10.0pt;color:#0176B9'>Graphical
+Notation</span></a></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>An association is shown as a
+solid line from one class to itself (reflexive association) or to another
+class.  The association name is comprised of the literal “R” followed by the
+relationship number, e.g., R3, and is shown in the middle and above the line. 
+A slash (“/”) is shown in front of the relationship number if the association
+is derived (i.e., compositional) with the relationship numbers that compose the
+association shown in curly braces, separated by commas, e.g.,  /R3 {R1,R2}.</span></a></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>The following are shown at
+each association end, in the given order, starting at the class at the
+association end:</span></a></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+class=MsoHyperlink><span style='font-family:Symbol;color:windowtext'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>Multiplicity consisting of
+exactly one of the following: </span></a></span></p>
+
+<p style='margin-left:79.5pt;text-indent:-.25in;line-height:15.6pt'><span
+class=MsoHyperlink><span style='font-family:"Courier New";color:windowtext'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><span
+style='font-family:"Arial","sans-serif"'><a href="UseCase.htm"><span
+style='color:windowtext'>1 (exactly one)</span></a></span></p>
+
+<p style='margin-left:79.5pt;text-indent:-.25in;line-height:15.6pt'><span
+class=MsoHyperlink><span style='font-family:"Courier New";color:windowtext'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><span
+style='font-family:"Arial","sans-serif"'><a href="UseCase.htm"><span
+style='color:windowtext'>0..1 (zero or one)</span></a></span></p>
+
+<p style='margin-left:79.5pt;text-indent:-.25in;line-height:15.6pt'><span
+class=MsoHyperlink><span style='font-family:"Courier New";color:windowtext'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><span
+style='font-family:"Arial","sans-serif"'><a href="UseCase.htm"><span
+style='color:windowtext'>1..* (one or more)</span></a></span></p>
+
+<p style='margin-left:79.5pt;text-indent:-.25in;line-height:15.6pt'><span
+class=MsoHyperlink><span style='font-family:"Courier New";color:windowtext'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><span
+style='font-family:"Arial","sans-serif"'><a href="UseCase.htm"><span
+style='color:windowtext'>(zero or more)</span></a></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+class=MsoHyperlink><span style='font-family:Symbol;color:windowtext'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>Verb phrases or role names
+consisting of free-form text.</span></a></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>The relationship number and
+the verb phrases are moveable as desired by the user.  Multiplicity is fixed
+close to the association end and above the line.</span></a></span></p>
+
+<h3><a href="UseCase.htm"><span style='color:navy'>Associative Link</span></a></h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>An associative link
+represents the formalization of an association between two classes, in a class
+called an associative class.  </span></a></span></p>
+
+<h4><a href="UseCase.htm"><span style='font-size:10.0pt;color:#0176B9'>Graphical
+Notation</span></a></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>An associative link is a
+dashed line that starts at an associative class and ends at an association line
+of a binary association.  Associative classes look just like classes (i.e., the
+symbology is the same) and have the features and properties of classe s
+(attributes, operations, class number, class key letter, etc.), and can have
+associations with other classes.</span></a></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>When an association is
+formalized in an associative class, the association can have a multiplicity of
+one or many:  one in the case where only one instance of the association can
+exist between instances of the two associated classes, many when more than one
+instance of the association can exist.  This multiplicity is shown as a
+property string enclosed in curly braces near the intersection of the
+association line and the associative link, {1} for one (the default), and {*}
+for many.</span></a></span></p>
+
+<h3><a href="UseCase.htm"><span style='color:navy'>Supertype/Subtype</span></a></h3>
+
+<h4><a href="UseCase.htm"><span style='font-size:10.0pt;color:#0176B9'>Graphical
+Notation</span></a></h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>A supertype/subtype
+association is shown as a solid line from the supertype class to the subtype
+class.  The hollow triangle is shown at the supertype end of the association. </span></a></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>The association is drawn by
+selecting the supertype button and drawing from the source to a position
+(waypoint) on the diagram.  </span></a></span></p>
+
+<p style='line-height:15.6pt'><a href="UseCase.htm"><span style='font-family:
+"Arial","sans-serif";color:windowtext'><img border=0 width=219 height=262
+id="Picture 1" src="ClassDiagram_files/image001.jpg"></span></a></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>The user then selects the
+subtype button and finishes the association from the destination class to the
+waypoint.</span></a></span></p>
+
+<p style='line-height:15.6pt'><img width=297 height=328
+src="ClassDiagram_files/image002.jpg" align=left hspace=12><a href="UseCase.htm"><span
+style='font-family:"Arial","sans-serif";color:windowtext'><br clear=all>
+</span></a></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>The following adornments are
+shown:</span></a></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+class=MsoHyperlink><span style='font-family:Symbol;color:windowtext'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>The relationship number,
+e.g., R12, is placed near the hollow triangle.</span></a></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+class=MsoHyperlink><span style='font-family:Symbol;color:windowtext'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span style='font-family:"Arial","sans-serif"'><a
+href="UseCase.htm"><span style='color:windowtext'>The property string
+{disjoint, complete} is shown near the hollow triangle to indicate that
+supertype/subtype associations are mutually exclusive.</span></a></span></p>
+
+</div>
+
+</body>
+
+</html>

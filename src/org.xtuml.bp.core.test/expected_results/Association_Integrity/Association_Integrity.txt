@@ -1,0 +1,12 @@
+ERROR: Found another association in the same package with a matching number.
+
+Element Name: R1
+Element Path: ModelIntegrityTests::Association Tests::R1
+
+
+ERROR: Found another association in the same package with a matching number.
+
+Element Name: R1
+Element Path: ModelIntegrityTests::Association Tests::R1
+
+

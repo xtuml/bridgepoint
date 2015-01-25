@@ -1,0 +1,445 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	'Enumerator',
+	15,
+	'S_ENUM',
+	'Enumerators are constants that have meaning to the analyst.  An enumeration data type (S_EDT) defines zero or more enumerators.  For example, Red, Blue, and Green are enumerators of the enumeration Color.',
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+INSERT INTO O_TFR
+	VALUES ("322dd4f6-22b6-437e-a113-e53fade25e5d",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	'dispose',
+	'The dispose operation for this class.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Domain Subsystem
+select one edt related by self->S_EDT[R27];
+unrelate self from edt across R27;
+//
+select one successor related by self->S_ENUM[R56.''precedes''];
+select one predecessor related by self->S_ENUM[R56.''succeeds''];
+if (not empty successor)
+  unrelate self from successor across R56.''precedes'';
+end if;
+if (not empty predecessor)
+  unrelate self from predecessor across R56.''succeeds'';
+end if;
+if (not_empty successor and not_empty predecessor)
+  relate successor to predecessor across R56.''succeeds'';
+end if;
+//
+// Value Subsystem
+select many litEnums related by self->V_LEN[R824];
+for each litEnum in litEnums
+  unrelate self from litEnum across R824;
+end for;
+//
+// Finally, delete self
+delete object instance self;',
+	1,
+	'',
+	"c34bb06e-6bb2-4df9-8056-30c4f7ea7a36");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("a5dbb786-0427-41b6-8871-f047a4226ecb",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	'initialize',
+	'The initialization operation for this class.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one edt related by self->S_EDT[R27];
+edt.addEnumeratorToOrder(id:self.Enum_ID);
+name = ::getUniqueInitialName( 
+    instance: self.convertToInstance(), 
+    candidateName: "Unnamed Enumerator");
+success = ::getNewElementName(name:name,instance: self.convertToInstance(),validateName:true);    
+if ( success!="") 
+ self.Name=success;
+else 
+ self.dispose();
+end if;     ',
+	1,
+	'',
+	"322dd4f6-22b6-437e-a113-e53fade25e5d");
+INSERT INTO O_TFR
+	VALUES ("c34bb06e-6bb2-4df9-8056-30c4f7ea7a36",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;',
+	0,
+	'',
+	"6a4f43b7-5028-4f3a-a62e-aa4d6c61b8cd");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("e0e55429-fa90-4401-8ae9-fb2d7631ad7f",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	'moveUp',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'::changeNotificationEnablement(enabled:false);
+select one prev_attr related by self->S_ENUM[R56.''succeeds''];
+select one prev_prev_attr related by prev_attr->S_ENUM[R56.''succeeds''];
+select one next_attr related by self->S_ENUM[R56.''precedes''];
+
+if ( not_empty prev_prev_attr )
+  unrelate prev_attr from prev_prev_attr across R56.''succeeds'';
+end if;
+if ( not_empty next_attr )
+  unrelate next_attr from self across R56.''succeeds'';
+end if;
+unrelate self from prev_attr across R56.''succeeds'';
+
+if ( not_empty prev_prev_attr )
+  relate self to prev_prev_attr across R56.''succeeds'';
+end if;
+// want to enable listeners at the last possible moment
+if ( empty next_attr )
+  ::changeNotificationEnablement(enabled:true);
+end if;
+relate prev_attr to self across R56.''succeeds'';
+if ( not_empty next_attr )
+  ::changeNotificationEnablement(enabled:true);
+  relate next_attr to prev_attr across R56.''succeeds'';
+end if;
+',
+	1,
+	'',
+	"4a721b57-ea36-43b5-8fd1-6908031e9d50");
+INSERT INTO O_TFR
+	VALUES ("4a721b57-ea36-43b5-8fd1-6908031e9d50",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	'moveDown',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'::changeNotificationEnablement(enabled:false);
+select one next_attr related by self->S_ENUM[R56.''precedes''];
+select one prev_attr related by self->S_ENUM[R56.''succeeds''];
+select one next_next_attr related by next_attr->S_ENUM[R56.''precedes''];
+
+if ( not_empty next_next_attr )
+  unrelate next_next_attr from next_attr across R56.''succeeds'';
+end if;
+if ( not_empty prev_attr )
+  unrelate self from prev_attr across R56.''succeeds'';
+end if;
+unrelate next_attr from self across R56.''succeeds'';
+
+if ( not_empty prev_attr )
+  relate next_attr to prev_attr across R56.''succeeds'';
+end if;
+   
+// want to enable listeners at the last possible moment
+if ( empty next_next_attr )
+  ::changeNotificationEnablement(enabled:true);
+end if;
+relate self to next_attr across R56.''succeeds'';
+if ( not_empty next_next_attr )
+  ::changeNotificationEnablement(enabled:true);
+  relate next_next_attr to self across R56.''succeeds'';
+end if;
+',
+	1,
+	'',
+	"a5dbb786-0427-41b6-8871-f047a4226ecb");
+INSERT INTO O_TFR
+	VALUES ("6a4f43b7-5028-4f3a-a62e-aa4d6c61b8cd",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	'actionFilter',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'if (param.name == "can" )
+  if ( param.value == "move up" )
+    select one prev_attr related by self->S_ENUM[R56.''succeeds''];
+    return not_empty prev_attr;
+  elif ( param.value == "move down" )
+    select one next_attr related by self->S_ENUM[R56.''precedes''];
+    return not_empty next_attr;
+  end if;
+end if;
+return false;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("88cf80c7-87c2-4e08-a24e-b39917be2943",
+	"6a4f43b7-5028-4f3a-a62e-aa4d6c61b8cd",
+	'name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("e11a16eb-0c50-46fb-8bbc-e52910b6a33a",
+	"6a4f43b7-5028-4f3a-a62e-aa4d6c61b8cd",
+	'value',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"88cf80c7-87c2-4e08-a24e-b39917be2943",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("af5d732f-5117-4d21-93da-64c40c68780f",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// create an integrity issue if there are any other enumerators
+// with the same name
+select one edt related by self->S_EDT[R27];
+select one dt related by edt->S_DT[R17];
+select one package related by dt->PE_PE[R8001]->EP_PKG[R8000];
+select one component related by dt->PE_PE[R8001]->C_C[R8003];
+if(not empty component)
+  pkgId = component.getPackageId();
+  select any package from instances of EP_PKG
+                                           where (selected.Package_ID == pkgId);
+end if;
+select one system related by package->S_SYS[R1405];
+sys_id = GD::NULL_UNIQUE_ID();
+if(not_empty system)
+  sys_id = system.Sys_ID;
+end if;
+select many enumerators related by edt->S_ENUM[R27];
+for each enumerator in enumerators
+  if(enumerator != self and enumerator.Name == self.Name)
+    MI_IM::createIssue(sys_id:sys_id, description:
+       "Found another enumerator under the same enumeration data type with a" +
+                                                          " matching name.",
+                                       severity:Severity::Error, name:self.Name,
+                  path:dt.getPath(path:"", includeSelf:true) + "::" + self.Name,
+                             id:self.Enum_ID, element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"e0e55429-fa90-4401-8ae9-fb2d7631ad7f");
+INSERT INTO O_NBATTR
+	VALUES ("49e759ce-2df6-485d-8bf2-d0b21acceb95",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214");
+INSERT INTO O_BATTR
+	VALUES ("49e759ce-2df6-485d-8bf2-d0b21acceb95",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214");
+INSERT INTO O_ATTR
+	VALUES ("49e759ce-2df6-485d-8bf2-d0b21acceb95",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	"00000000-0000-0000-0000-000000000000",
+	'Enum_ID',
+	'Full Name: Enumerator Identifier',
+	'',
+	'Enum_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("40201aae-a053-4603-99c1-7858347a8667",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214");
+INSERT INTO O_BATTR
+	VALUES ("40201aae-a053-4603-99c1-7858347a8667",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214");
+INSERT INTO O_ATTR
+	VALUES ("40201aae-a053-4603-99c1-7858347a8667",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	"49e759ce-2df6-485d-8bf2-d0b21acceb95",
+	'Name',
+	'Full Name: Enumerator Name',
+	'',
+	'Name',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("101098c9-059a-4d46-9f42-a0acf73c0b0c",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214");
+INSERT INTO O_BATTR
+	VALUES ("101098c9-059a-4d46-9f42-a0acf73c0b0c",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214");
+INSERT INTO O_ATTR
+	VALUES ("101098c9-059a-4d46-9f42-a0acf73c0b0c",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	"40201aae-a053-4603-99c1-7858347a8667",
+	'Descrip',
+	'Full Name: Enumerator Description',
+	'',
+	'Descrip',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	0,
+	"49e759ce-2df6-485d-8bf2-d0b21acceb95",
+	"862835f3-736c-4df1-9d2d-a4b12299560c",
+	"6bb8f3df-4470-486d-bb45-60edf38c04c2",
+	"cd59a51c-b661-471a-86dd-488ee45c4f3f",
+	"7395e403-a894-441e-ae92-74c60dd8a553",
+	"7bafc849-3b38-408c-a7c4-c416371013c5",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Enumerator',
+	'Enum_ID',
+	'R56');
+INSERT INTO R_RGO_PROXY
+	VALUES ("59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	"862835f3-736c-4df1-9d2d-a4b12299560c",
+	"6bb8f3df-4470-486d-bb45-60edf38c04c2",
+	'../Domain.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("49e759ce-2df6-485d-8bf2-d0b21acceb95",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	0,
+	"862835f3-736c-4df1-9d2d-a4b12299560c",
+	"cd59a51c-b661-471a-86dd-488ee45c4f3f",
+	'../Domain.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("7395e403-a894-441e-ae92-74c60dd8a553",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	"49e759ce-2df6-485d-8bf2-d0b21acceb95",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	1,
+	'Enum_ID');
+INSERT INTO O_ATTR
+	VALUES ("7395e403-a894-441e-ae92-74c60dd8a553",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	"3d4ae0fa-45b5-40fa-93c9-a00dd8d6273e",
+	'Previous_Enum_ID',
+	'',
+	'Previous_',
+	'Enum_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	0,
+	"c79e8129-c851-441a-af09-700a25e9c2b8",
+	"dcec37d4-614c-4e58-9807-a244d4c45fb1",
+	"d2718895-33d4-43d4-9d71-b8e9668aa633",
+	"b4aa5003-7637-4e14-af2e-f38e813298ae",
+	"3d4ae0fa-45b5-40fa-93c9-a00dd8d6273e",
+	"23f5e50e-62be-4a83-aa2d-893e379260a5",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Enumeration Data Type',
+	'DT_ID',
+	'R27');
+INSERT INTO R_RGO_PROXY
+	VALUES ("59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	"dcec37d4-614c-4e58-9807-a244d4c45fb1",
+	"d2718895-33d4-43d4-9d71-b8e9668aa633",
+	'../Domain.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("c79e8129-c851-441a-af09-700a25e9c2b8",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	0,
+	"dcec37d4-614c-4e58-9807-a244d4c45fb1",
+	"b4aa5003-7637-4e14-af2e-f38e813298ae",
+	'../Domain.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("3d4ae0fa-45b5-40fa-93c9-a00dd8d6273e",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("3d4ae0fa-45b5-40fa-93c9-a00dd8d6273e",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	"101098c9-059a-4d46-9f42-a0acf73c0b0c",
+	'EDT_DT_ID',
+	'',
+	'EDT_',
+	'Element_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214");
+INSERT INTO O_OIDA
+	VALUES ("49e759ce-2df6-485d-8bf2-d0b21acceb95",
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214",
+	0,
+	'Enum_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214");
+INSERT INTO O_ID
+	VALUES (2,
+	"59ee55e3-b1e8-42e4-ba36-9b119a01a214");
+INSERT INTO S_SS_PROXY
+	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	'Domain',
+	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
+	'S',
+	1,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000100002",
+	'../Domain.xtuml');

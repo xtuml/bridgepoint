@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="org.xtuml.bp.io.image"
+   name="BridgePoint Image Generator Plug-in"
+   version="4.2.0"
+   provider-name="xtUML.org"
+   class="org.xtuml.bp.io.image.Activator">
+
+   <runtime>
+      <library name="imggen.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.xtuml.bp.core"/>
+      <import plugin="org.xtuml.bp.ui.canvas"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.core.variables"/>
+      <import plugin="org.apache.ant"/>
+      <import plugin="org.eclipse.ant.core"/>
+      <import plugin="org.xtuml.bp.ui.graphics"/>
+      <import plugin="org.eclipse.gef"/>
+   </requires>
+  <extension point="org.eclipse.ant.core.antTasks">
+    <antTask
+          class="org.xtuml.bp.io.image.ant.tasks.ImageGenTask"
+          eclipseRuntime="true"
+          headless="true"
+          library="imggen.jar"
+          name="image.Emitter"/>
+  </extension>
+</plugin>

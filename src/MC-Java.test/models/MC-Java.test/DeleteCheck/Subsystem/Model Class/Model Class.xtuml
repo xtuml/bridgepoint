@@ -1,0 +1,55 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("ddc64b7e-3fc8-44b9-b8dc-5b43a7afad01",
+	'Model Class',
+	101,
+	'O_OBJ',
+	'A model class represents an abstraction of a real world thing.  All instances of a class have the same characteristics and conform to the same set of rules.  The characteristics of a class are captured as attributes.  Each class within a domain are assigned a unique name, number, and keyletter.',
+	"6c3c6da0-a60a-4ea8-bc3a-2ed90a7fc35e");
+INSERT INTO O_NBATTR
+	VALUES ("c349d46d-ffdb-4dba-b57c-ccf8cdca4a6e",
+	"ddc64b7e-3fc8-44b9-b8dc-5b43a7afad01");
+INSERT INTO O_BATTR
+	VALUES ("c349d46d-ffdb-4dba-b57c-ccf8cdca4a6e",
+	"ddc64b7e-3fc8-44b9-b8dc-5b43a7afad01");
+INSERT INTO O_ATTR
+	VALUES ("c349d46d-ffdb-4dba-b57c-ccf8cdca4a6e",
+	"ddc64b7e-3fc8-44b9-b8dc-5b43a7afad01",
+	"00000000-0000-0000-0000-000000000000",
+	'Obj_ID',
+	'Full Name: Class Identifier
+Description: Uniquely identifies the class within the domain.',
+	'',
+	'Obj_ID',
+	0,
+	"92829560-2ceb-4a8a-9fe2-a23f3dc574ca",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("92829560-2ceb-4a8a-9fe2-a23f3dc574ca",
+	"37245a7a-b236-4955-873c-ea0ecaac7d3c",
+	'unique_id',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"ddc64b7e-3fc8-44b9-b8dc-5b43a7afad01");
+INSERT INTO O_OIDA
+	VALUES ("c349d46d-ffdb-4dba-b57c-ccf8cdca4a6e",
+	"ddc64b7e-3fc8-44b9-b8dc-5b43a7afad01",
+	0);
+INSERT INTO O_ID
+	VALUES (1,
+	"ddc64b7e-3fc8-44b9-b8dc-5b43a7afad01");
+INSERT INTO O_ID
+	VALUES (2,
+	"ddc64b7e-3fc8-44b9-b8dc-5b43a7afad01");
+INSERT INTO S_SS_PROXY
+	VALUES ("6c3c6da0-a60a-4ea8-bc3a-2ed90a7fc35e",
+	'Subsystem',
+	'',
+	'O',
+	101,
+	"37245a7a-b236-4955-873c-ea0ecaac7d3c",
+	"00000000-0000-0000-0000-000000000000",
+	'../Subsystem.xtuml');

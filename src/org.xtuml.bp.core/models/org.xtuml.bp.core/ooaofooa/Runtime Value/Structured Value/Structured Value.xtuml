@@ -1,0 +1,187 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("4a50cb4c-0279-4fc5-8de2-4b36a0452634",
+	'Structured Value',
+	3301,
+	'RV_SVL',
+	'',
+	"7532d38c-8a9a-4a7d-81a0-61f814f64f06");
+INSERT INTO O_TFR
+	VALUES ("20bfbc4d-ea07-4185-aa36-7cee851e7b45",
+	"4a50cb4c-0279-4fc5-8de2-4b36a0452634",
+	'memberWiseCopy',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// StructuredValue.memberWiseCopy()
+select any strctRuntimeValue from instances of RV_RVL where
+                                  selected.RuntimeValue_ID == param.destination;
+select one targetVal related by strctRuntimeValue->RV_SVL[R3300];
+// We''re going to overwrite this value, dispose all existing values.
+select many values related by targetVal->RV_VIS[R3301]->RV_RVL[R3301];
+for each value in values
+  select one vis related by value->RV_VIS[R3301];
+  unrelate targetVal from value across R3301 using vis;
+  value.dispose();
+end for;
+// Now begin the copy . . . 
+select many values related by self->RV_VIS[R3301]->RV_RVL[R3301];
+for each value in values
+  select one vis related by value->RV_VIS[R3301];
+  create object instance newVal of RV_RVL;
+  create object instance newVis of RV_VIS;
+  relate targetVal to newVal across R3301 using newVis;
+  newVis.Name = vis.Name;
+  select one dt related by value->S_DT[R3307];
+  relate newVal to dt across R3307;
+  select one simplVal related by value->RV_SMV[R3300];
+  select one strctVal related by value->RV_SVL[R3300];
+  select one arrayVal related by value->RV_AVL[R3300];
+  if (not_empty simplVal)
+    newVal.createSimpleValue();
+    select one newSmpl related by newVal->RV_SMV[R3300];
+    newSmpl.setValue(value:simplVal.getValue());
+  elif (not_empty strctVal)
+    create object instance newStrctVal of RV_SVL;
+    relate newStrctVal to newVal across R3300;
+    // Recursively call this method to achieve a full tree of copied values.
+    strctVal.memberWiseCopy(destination:newStrctVal.RuntimeValue_ID);
+  elif (not_empty arrayVal)
+    create object instance newArrayVal of RV_AVL;
+    relate newArrayVal to newVal across R3300;
+    // Call this method to achieve a full tree of copied values.
+    arrayVal.arrayCopy(destination:newArrayVal.RuntimeValue_ID);
+  end if;
+end for;
+// Done . . . ',
+	1,
+	'',
+	"aeb8f953-4fc7-405c-a6b9-2d8872044f85");
+INSERT INTO O_TPARM
+	VALUES ("73c72121-a35f-428d-8f9f-9b8d28febba7",
+	"20bfbc4d-ea07-4185-aa36-7cee851e7b45",
+	'destination',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("aeb8f953-4fc7-405c-a6b9-2d8872044f85",
+	"4a50cb4c-0279-4fc5-8de2-4b36a0452634",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Structured Value.dispose()
+select many values related by self->RV_VIS[R3301]->RV_RVL[R3301];
+for each value in values
+  select one vis related by value->RV_VIS[R3301];
+  unrelate self from value across R3301 using vis;
+  delete object instance vis;
+  value.dispose();
+end for;
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("4a50cb4c-0279-4fc5-8de2-4b36a0452634",
+	"013bfc9e-d3c0-4807-8613-deccd09763b5",
+	0,
+	"79b643e8-6840-46d6-aafa-e1d9f8af1f60",
+	"1f890a60-61f8-46e5-813a-1db8f5234d11",
+	"fead7be6-fda4-41a9-abf6-11c91a36978a",
+	"1112b44f-b2d6-4f53-9334-be1d5dfea203",
+	"b47a65ba-57eb-4bf3-a375-ca345bc30754",
+	"c1fa0080-8f0b-41fd-b636-582914d3e713",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Runtime Value',
+	'RuntimeValue_ID',
+	'R3300');
+INSERT INTO R_RGO_PROXY
+	VALUES ("4a50cb4c-0279-4fc5-8de2-4b36a0452634",
+	"1f890a60-61f8-46e5-813a-1db8f5234d11",
+	"fead7be6-fda4-41a9-abf6-11c91a36978a",
+	'../Runtime Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("79b643e8-6840-46d6-aafa-e1d9f8af1f60",
+	"013bfc9e-d3c0-4807-8613-deccd09763b5",
+	0,
+	"1f890a60-61f8-46e5-813a-1db8f5234d11",
+	"1112b44f-b2d6-4f53-9334-be1d5dfea203",
+	'../Runtime Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b47a65ba-57eb-4bf3-a375-ca345bc30754",
+	"4a50cb4c-0279-4fc5-8de2-4b36a0452634",
+	"79b643e8-6840-46d6-aafa-e1d9f8af1f60",
+	"013bfc9e-d3c0-4807-8613-deccd09763b5",
+	1,
+	'RuntimeValue_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("79b643e8-6840-46d6-aafa-e1d9f8af1f60",
+	"013bfc9e-d3c0-4807-8613-deccd09763b5",
+	'../Runtime Value/Runtime Value.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("b47a65ba-57eb-4bf3-a375-ca345bc30754",
+	"4a50cb4c-0279-4fc5-8de2-4b36a0452634",
+	"00000000-0000-0000-0000-000000000000",
+	'RuntimeValue_ID',
+	'',
+	'Struct',
+	'RuntimeValue_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"4a50cb4c-0279-4fc5-8de2-4b36a0452634");
+INSERT INTO O_OIDA
+	VALUES ("b47a65ba-57eb-4bf3-a375-ca345bc30754",
+	"4a50cb4c-0279-4fc5-8de2-4b36a0452634",
+	0,
+	'RuntimeValue_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"4a50cb4c-0279-4fc5-8de2-4b36a0452634");
+INSERT INTO O_ID
+	VALUES (2,
+	"4a50cb4c-0279-4fc5-8de2-4b36a0452634");
+INSERT INTO S_SS_PROXY
+	VALUES ("7532d38c-8a9a-4a7d-81a0-61f814f64f06",
+	'Runtime Value',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+Persistent:false
+',
+	'RV',
+	3300,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Runtime Value.xtuml');

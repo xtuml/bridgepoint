@@ -1,0 +1,290 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>Sequence Diagram</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-right:0in;
+	margin-left:0in;
+	line-height:15.6pt;
+	font-size:12.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h4
+	{mso-style-link:"Heading 4 Char";
+	margin-top:7.5pt;
+	margin-right:7.5pt;
+	margin-bottom:2.4pt;
+	margin-left:7.5pt;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:#0176B9;
+	font-weight:bold;}
+p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
+	{mso-style-link:"Plain Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p
+	{margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading4Char
+	{mso-style-name:"Heading 4 Char";
+	mso-style-link:"Heading 4";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+span.PlainTextChar
+	{mso-style-name:"Plain Text Char";
+	mso-style-link:"Plain Text";
+	font-family:"Consolas","serif";}
+.MsoChpDefault
+	{font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US>
+
+<div class=WordSection1>
+
+<h2>Activity Diagram</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Many
+of the following definitions of were derived in part from descriptions and
+definitions in <i>The Unified Modeling Language Reference Manual,</i> Second
+Edition; and <i>UML Distilled</i>, Third Edition.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Activity
+diagrams describe procedural logic flow between activities; where an activity
+is defined as a specification of executable behavior.  Activity diagrams are
+informal in the sense that they do not impose behavior on formal diagrams, such
+as the instance or class state machine diagrams.  Activity diagrams may be
+placed in domain and subsystem packages or nested inside other activity
+diagrams.</span></p>
+
+<h3>Partition</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Activity
+partitions may be used to specify which actions a class instance or
+organization unit carries out.  Historically only vertical partitions were used
+on activity diagrams.  The BridgePoint activity diagram editor allows
+partitions to be oriented in any direction.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+activity partition is represented by a solid thin line.  If the partition is
+named, a floating text box on the diagram adorns the partition.</span></p>
+
+<h3>Edge</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+edge is an abstraction of the procedural connection between activities.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+activity edge is represented by a thin solid line.  It is terminated with an open
+arrow head at the destination end of the connection. If the edge is named, a
+floating text box on the diagram adorns the edge. </span></p>
+
+<h3>Action</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+action abstracts an activity whose execution results in a change in the state
+of the system or the return of a value.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+action is represented by a rectangle with rounded corners.  The name of the
+action is displayed in the center of the rectangle.</span></p>
+
+<h3>Object Node</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+object node abstracts the existence of an object produced by one action and
+used by others.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+object node is represented by a rectangle.  The name of the node is displayed
+in the center of the rectangle. </span></p>
+
+<h3>Accept Event Action</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+accept event action abstracts an action whose execution blocks until a
+specified message is recognized.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+accept event action is represented by a polygon where the left side is concave
+and the other three sides are rectangular.  The name of the accept event action
+is displayed in the center of the polygon.</span></p>
+
+<h3>Send Signal Action</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+send signal action abstracts an action that sends a message.     </span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+send signal action is represented by a polygon where the right side is convex
+and the other three sides are rectangular.  The name of the send signal event
+is displayed in the center of the polygon.</span></p>
+
+<h3>Accept Time Event</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+accept time event abstracts the creation of a message that occurs as a result
+of the passage of time.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+accept time event is represented as two triangular shapes joined, one inverted
+over the other, to resemble an hour glass.  The name of the accept time event
+adorns the joined shapes as a free floating text box.</span></p>
+
+<h3>Fork/Join Node</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+fork/join node, as the name implies, may be used to abstract either or both
+forks and joins.  A fork is an activity that copies a single input onto
+multiple concurrent outputs.  A join is an activity that synchronizes multiple
+inputs.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+fork/join node is represented by a thick solid line.  A representation of a
+fork node may be created by terminating an activity edge into one side of the
+thick solid line and sourcing two or more activity edges from the other side. 
+A representation of a join node may be created by terminating two or more
+activity edges into one side of the thick solid line and sourcing one edge from
+the other.  If a value is specified for the guard condition of the node, the
+condition adorns the node as a free floating text box.  </span></p>
+
+<h3>Decision/Merge Node</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+decision/merge node, as the name implies, may be used to abstract either or
+both decisions and merges.  A decision is an activity that passes control and
+data to one of several outputs.  A merge is an activity where two or more
+alternate control paths come together.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+decision/merge node is represented by a diamond shape.  A representation of a
+decision node may be created by terminating an activity edge into a vertex of
+the diamond and sourcing two or more activity edges from sides of the diamond
+opposite that vertex.  A representation of a merge node may be created by
+terminating two or more activity edges into two adjacent sides of the diamond
+and sourcing one edge from the vertex opposite the adjacent sides.  If a value
+is specified for the name of the node, the name adorns the node as a free
+floating text box</span></p>
+
+<h3>Initial Node</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+initial node abstracts the place where execution begins when the activity is
+invoked.  </span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+initial node is represented as a large solid black dot.  A single activity edge
+may be sourced from the initial node.  No edges may be terminated on the
+initial node.  </span></p>
+
+<h3>Flow Final Node</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+flow final node abstracts the termination of a particular flow of execution in
+the activity diagram.  It has no effect on other concurrent execution flows.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+flow final node is represented by a thin solid line ‘X’ shape contained inside
+a thin solid line circle.</span></p>
+
+<h3>Activity Final Node</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+activity final node abstracts the termination of all activity on the activity
+diagram.</span></p>
+
+<h4>Graphical Notation</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>An
+activity final node is represented as a large solid black dot contained in the
+center of a slightly larger diameter thin solid line circle.</span></p>
+
+<p class=MsoPlainText>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

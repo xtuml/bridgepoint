@@ -1,0 +1,8 @@
+drawRectangle(6933, 5210, 102, 37)
+drawRectangle(6933, 5245, 345, 223)
+drawText("«data type»", 7035, 5252, true)
+drawText("Datatypes", 7048, 5342, true)
+drawRectangle(7266, 5541, 102, 36)
+drawRectangle(7266, 5575, 352, 320)
+drawText("«communication»", 7333, 5582, true)
+drawText("Unnamed Communication", 7283, 5721, true)

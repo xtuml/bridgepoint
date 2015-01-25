@@ -1,0 +1,73 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("74c2f04f-6ead-48bc-9388-7dce6c130237",
+	'Internal Light',
+	3,
+	'MO_IL',
+	'The internal oven light, illuminated only when the oven tube is powered on. ',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("85927332-434b-406d-a4a2-b5139bd76164",
+	"74c2f04f-6ead-48bc-9388-7dce6c130237");
+INSERT INTO O_BATTR
+	VALUES ("85927332-434b-406d-a4a2-b5139bd76164",
+	"74c2f04f-6ead-48bc-9388-7dce6c130237");
+INSERT INTO O_ATTR
+	VALUES ("85927332-434b-406d-a4a2-b5139bd76164",
+	"74c2f04f-6ead-48bc-9388-7dce6c130237",
+	"00000000-0000-0000-0000-000000000000",
+	'LightID',
+	'The uniquely-specified light identifier.',
+	'',
+	'LightID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("c63d726f-25a6-4ee2-8007-b5af0bb92db3",
+	"74c2f04f-6ead-48bc-9388-7dce6c130237");
+INSERT INTO O_BATTR
+	VALUES ("c63d726f-25a6-4ee2-8007-b5af0bb92db3",
+	"74c2f04f-6ead-48bc-9388-7dce6c130237");
+INSERT INTO O_ATTR
+	VALUES ("c63d726f-25a6-4ee2-8007-b5af0bb92db3",
+	"74c2f04f-6ead-48bc-9388-7dce6c130237",
+	"85927332-434b-406d-a4a2-b5139bd76164",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"74c2f04f-6ead-48bc-9388-7dce6c130237");
+INSERT INTO O_OIDA
+	VALUES ("85927332-434b-406d-a4a2-b5139bd76164",
+	"74c2f04f-6ead-48bc-9388-7dce6c130237",
+	0,
+	'LightID');
+INSERT INTO O_ID
+	VALUES (1,
+	"74c2f04f-6ead-48bc-9388-7dce6c130237");
+INSERT INTO O_ID
+	VALUES (2,
+	"74c2f04f-6ead-48bc-9388-7dce6c130237");
+INSERT INTO PE_PE
+	VALUES ("74c2f04f-6ead-48bc-9388-7dce6c130237",
+	1,
+	"235fff0c-3d20-4fa1-8536-1c30278a65d1",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("235fff0c-3d20-4fa1-8536-1c30278a65d1",
+	"00000000-0000-0000-0000-000000000000",
+	"9cd2cdcf-1f2b-42ce-bc35-718a90a05cab",
+	'Microwave Oven',
+	'The microwave oven subsystem models the microwave oven application',
+	1,
+	'../Microwave Oven.xtuml');

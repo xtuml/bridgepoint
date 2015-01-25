@@ -1,0 +1,315 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1",
+	'Delete',
+	614,
+	'ACT_DEL',
+	'This class represents a statement that deletes an instance.',
+	"a5aec8ee-6e5a-457e-bc25-cc65635048bb");
+INSERT INTO O_TFR
+	VALUES ("c4ab4766-0402-4320-8a8e-992e2e4d33ea",
+	"0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1",
+	'dispose',
+	'This operation disconnects an instance, and all instances it is 
+responsible for, from the model.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one var related by self->V_VAR[R634];
+if ( not_empty var )
+  unrelate self from var across R634;
+end if;
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("8039a94e-6722-4516-b50b-17d1380bae2a",
+	"0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1",
+	'execute',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Instance Access: Delete.execute()
+select one body related by self ->V_VAR[R634]->ACT_BLK[R823]->ACT_ACT[R601];
+select one instHandle related by self->V_VAR[R634]->V_INT[R814];
+if (not empty instHandle)
+  //  Get the instance
+  
+  select any loc related by instHandle->L_LCR[R3004]->L_LCL[R3001] where (selected.Stack_Frame_ID == param.stack_frame_id);
+  select one loc_ref related by loc->L_LCR[R3001];
+  
+  if (not_empty loc_ref)
+    select any inst related by loc_ref->L_LCL[R3001]->RV_RVL[R3306]->
+                       RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
+    if (empty inst)
+      select one var related by self->V_VAR[R634];
+      pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Referenced instance, " + var.Name +
+                                                        " is already deleted.",path:pathMsg);
+      loc_ref.dispose();
+      return;
+    else // Instance exists
+      populationError = false;
+      if (PREF::getBoolean(name:"bridgepoint_prefs_enable_verifier_audit")
+                                                                        == true)
+        auditSev = PREF::getInteger(name:
+                                       "bridgepoint_prefs_enable_delete_audit"); 
+        if auditSev != 0  // 0 == Ignore
+          severity = "Warning";
+          if auditSev == 2 // 2 == FATAL
+            severity = "FATAL";
+          end if;
+          select many origLinks related by inst->I_LIP[R2958]->I_LNK[R2901];
+          if not_empty origLinks
+            select many linkParticipations related by origLinks->I_LIP[R2901];
+            for each linkPart in linkParticipations
+              message = severity + " Delete: Instance still related on " +
+                                                "association " + linkPart.Label;
+              if auditSev != 2
+                select one statement related by self->ACT_SMT[R603];
+                message = message + " at: " + statement.Label;
+              end if;
+              populationError = true;
+              USER::logError(msg:message,path:body.getPath());
+            end for;
+          end if;
+          select many destLinks related by inst->I_LIP[R2958]->I_LNK[R2902];
+          if not_empty destLinks
+            select many linkParticipations related by destLinks->I_LIP[R2902];
+            for each linkPart in linkParticipations
+              message = severity + " Delete: Instance still related on " +
+                                                "association " + linkPart.Label;
+              if auditSev != 2
+                select one statement related by self->ACT_SMT[R603];
+                message = message + " at: " + statement.Label;
+              end if;
+              populationError = true;
+              USER::logError(msg:message,path:body.getPath());
+            end for;
+          end if;
+          select many assocLinks related by inst->I_LIP[R2958]->I_LNK[R2903];
+          if not_empty assocLinks
+            select many linkParticipations related by assocLinks->I_LIP[R2903];
+            for each linkPart in linkParticipations
+              message = severity + " Delete: Instance still related on " +
+                                                "association " + linkPart.Label;
+              if auditSev != 2
+                select one statement related by self->ACT_SMT[R603];
+                message = message + " at: " + statement.Label;
+              end if;
+              populationError = true;
+              USER::logError(msg:message,path:body.getPath());
+            end for;
+          end if;
+          if populationError == true and auditSev == 2 // 2 == FATAL
+            select any stack_frame from instances of I_STF where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+            select one stack related by stack_frame->I_STACK[R2929];
+            if stack.runState == RunStateType::Running
+              // Only suspend execution if running, i.e. allow stepping over
+              stack.suspendReason = "Halted on deletion of still related " +
+                                                                    "instance.";
+              stack.runState = RunStateType::Suspended;
+              pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Execution Halted. (Problem detected at previous statement)",path:pathMsg);
+            end if;
+          end if;
+        end if; // audit is do not ignore
+      end if; // audit enabled
+      if not populationError
+        // Delete the instance
+        inst.dispose();
+      end if;
+    end if;
+  else // empty loc_ref
+    pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Delete statement: Cannot locate instance during deletion",path:pathMsg);  
+  end if;
+else
+  // Log an error that we were instructed to delete something that doesn''t exist
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Instance Access: Delete.execute error: Told to delete an instance handle that does not exist",path:pathMsg);
+end if;
+',
+	1,
+	'',
+	"c4ab4766-0402-4320-8a8e-992e2e4d33ea");
+INSERT INTO O_TPARM
+	VALUES ("575fdde5-5e7b-4237-8bfc-0fd3bde6dfe4",
+	"8039a94e-6722-4516-b50b-17d1380bae2a",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"0045832f-e2d5-4bdf-bbf2-92e301794ed0",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	"d2b23e9f-eadc-4548-bb79-b1f1374fc4b2",
+	"4fdecdb8-def8-4866-90c3-76c5a4b8dfe0",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Statement',
+	'Statement_ID',
+	'R603');
+INSERT INTO R_RGO_PROXY
+	VALUES ("0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"0045832f-e2d5-4bdf-bbf2-92e301794ed0",
+	'../../Body/Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	'../../Body/Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("d2b23e9f-eadc-4548-bb79-b1f1374fc4b2",
+	"0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1",
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	'Statement_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'../../Body/Statement/Statement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("d2b23e9f-eadc-4548-bb79-b1f1374fc4b2",
+	"0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1",
+	"00000000-0000-0000-0000-000000000000",
+	'Statement_ID',
+	'
+
+',
+	'',
+	'Statement_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"3cf34728-d137-48fe-8b74-3c542b48ff37",
+	"3da073fc-d2c7-4a5d-a417-a0eb3d6c28d6",
+	"58b33066-d1ce-407c-a2a5-582edee7f97d",
+	"af7030a7-e0b0-46ac-a60b-e4b14b5ad610",
+	"578725ae-b482-4edd-807d-37a194296770",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Variable',
+	'Var_ID',
+	'R634.''destroys''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1",
+	"3cf34728-d137-48fe-8b74-3c542b48ff37",
+	"3da073fc-d2c7-4a5d-a417-a0eb3d6c28d6",
+	'../Instance Access.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"3cf34728-d137-48fe-8b74-3c542b48ff37",
+	"58b33066-d1ce-407c-a2a5-582edee7f97d",
+	'../Instance Access.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("af7030a7-e0b0-46ac-a60b-e4b14b5ad610",
+	"0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1",
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	1,
+	'Var_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	'../../Value/Variable/Variable.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("af7030a7-e0b0-46ac-a60b-e4b14b5ad610",
+	"0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1",
+	"d2b23e9f-eadc-4548-bb79-b1f1374fc4b2",
+	'Var_ID',
+	'
+
+',
+	'',
+	'Var_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1");
+INSERT INTO O_OIDA
+	VALUES ("d2b23e9f-eadc-4548-bb79-b1f1374fc4b2",
+	"0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1",
+	0,
+	'Statement_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1");
+INSERT INTO O_ID
+	VALUES (2,
+	"0bd7e773-bce3-4d9d-b4dd-52b6c78afaa1");
+INSERT INTO S_SS_PROXY
+	VALUES ("a5aec8ee-6e5a-457e-bc25-cc65635048bb",
+	'Instance Access',
+	'Abstracts the concepts of creation, deletion and assignment to
+instances. Also includes assignment to transient local variables.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'ACT',
+	600,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000480009",
+	'../Instance Access.xtuml');

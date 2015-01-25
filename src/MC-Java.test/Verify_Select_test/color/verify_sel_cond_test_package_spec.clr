@@ -1,0 +1,29 @@
+.//====================================================================
+.//
+.// File:      $RCSfile: verify_sel_cond_test_package_spec.clr,v $
+.// Version:   $Revision: 1.7 $
+.// Modified:  $Date: 2011/05/30 20:20:21 $
+.//
+.// (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
+.//
+.//====================================================================
+.//
+.function get_package
+  .assign attr_location = "src"
+  .assign attr_name = "verify_sel_cond"
+  .assign attr_application_root_class = "Verify_sel_cond"
+  .assign attr_threading_model = "one_shot"
+  .assign attr_is_persistent = false
+  .assign attr_is_eclipse_plugin = true
+  .assign attr_db_driver = "org.postgresql.Driver"
+  .assign attr_db_name = "jdbc:postgresql:ooa2"
+  .assign attr_db_user = "greg"
+  .assign attr_db_password = ""
+  .assign attr_ui_root_class_name = "SystemModel_c"
+  .assign attr_ui_root_class_accessor = "SystemModelInstance"
+  .assign attr_is_root = true
+  .assign attr_plugin_classname = "CorePlugin"
+  .assign attr_root_class = "Ooaofooa"
+  .assign attr_logger = "system"
+  .assign attr_search_all_model_roots = true
+.end function

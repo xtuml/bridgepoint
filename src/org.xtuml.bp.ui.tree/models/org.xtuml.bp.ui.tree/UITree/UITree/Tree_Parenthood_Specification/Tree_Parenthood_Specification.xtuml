@@ -1,0 +1,220 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	'Tree_Parenthood_Specification',
+	2,
+	'T_TPS',
+	'This class specifies the hierarchy of the tree. Instances of this class define
+which client model entities ''contain'' which other entities from the perspective
+of the displayed tree.
+
+Apart from the referential attributes that formalize the parent-child relationship,
+the attribute, ''ParentChildRelChain'' specifies how to find children given a
+parent and a parent given a child.',
+	"3357a459-a1e1-4bc3-a4b8-f31d53662ce0");
+INSERT INTO O_REF
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	0,
+	"b75e4192-95f9-424b-b1ff-ce881a2be980",
+	"9cd67d70-e20d-4006-bf91-6df72779c691",
+	"d7ab1de0-2868-48ca-af7c-1f5645507af6",
+	"b6179daa-f46c-47ea-9ff7-4cca937743c4",
+	"33c1e401-4042-4d0a-8104-9ffa3df036b6",
+	"7736eb44-9905-4a5b-9f48-6dc3dcb17fd2",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Tree_Node_Specification',
+	'Tree_Node_Spec_ID',
+	'R1000');
+INSERT INTO R_RGO_PROXY
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"9cd67d70-e20d-4006-bf91-6df72779c691",
+	"d7ab1de0-2868-48ca-af7c-1f5645507af6",
+	'../UITree.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("b75e4192-95f9-424b-b1ff-ce881a2be980",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	0,
+	"9cd67d70-e20d-4006-bf91-6df72779c691",
+	"b6179daa-f46c-47ea-9ff7-4cca937743c4",
+	'../UITree.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("33c1e401-4042-4d0a-8104-9ffa3df036b6",
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"b75e4192-95f9-424b-b1ff-ce881a2be980",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	1,
+	'Tree_Node_Spec_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("b75e4192-95f9-424b-b1ff-ce881a2be980",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	'../Tree_Node_Specification/Tree_Node_Specification.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("33c1e401-4042-4d0a-8104-9ffa3df036b6",
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"00000000-0000-0000-0000-000000000000",
+	'Parent_Tree_Node_Spec_ID',
+	'',
+	'Parent_',
+	'Tree_Node_Spec_ID',
+	1,
+	"35df0209-3024-4f5b-9f16-019cfef6617c",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("35df0209-3024-4f5b-9f16-019cfef6617c",
+	"355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	0,
+	"b75e4192-95f9-424b-b1ff-ce881a2be980",
+	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	"c00db8df-c570-4158-946a-c951c23bc625",
+	"e166cda4-8823-4824-9cc6-24783c32888d",
+	"9d55d96e-4e8c-442f-a30b-c5ddeb07b6cd",
+	"cac49471-0c5a-436d-890e-b8b4282c0f8f",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Tree_Node_Specification',
+	'Tree_Node_Spec_ID',
+	'R1001');
+INSERT INTO R_RGO_PROXY
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	"c00db8df-c570-4158-946a-c951c23bc625",
+	'../UITree.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("b75e4192-95f9-424b-b1ff-ce881a2be980",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	0,
+	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	"e166cda4-8823-4824-9cc6-24783c32888d",
+	'../UITree.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("9d55d96e-4e8c-442f-a30b-c5ddeb07b6cd",
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"b75e4192-95f9-424b-b1ff-ce881a2be980",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	1,
+	'Tree_Node_Spec_ID');
+INSERT INTO O_ATTR
+	VALUES ("9d55d96e-4e8c-442f-a30b-c5ddeb07b6cd",
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"33c1e401-4042-4d0a-8104-9ffa3df036b6",
+	'Child_Tree_Node_Spec_ID',
+	'',
+	'Child_',
+	'Tree_Node_Spec_ID',
+	1,
+	"35df0209-3024-4f5b-9f16-019cfef6617c",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("5a5e5628-7dc1-4f54-ab83-4aedf4d0ef5f",
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af");
+INSERT INTO O_BATTR
+	VALUES ("5a5e5628-7dc1-4f54-ab83-4aedf4d0ef5f",
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af");
+INSERT INTO O_ATTR
+	VALUES ("5a5e5628-7dc1-4f54-ab83-4aedf4d0ef5f",
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"9d55d96e-4e8c-442f-a30b-c5ddeb07b6cd",
+	'ParentChildRelChain',
+	'Specifies how to find children given a parent and a parent given any child.
+The traversal is specified in the sense parent -> child, but note that the
+relationship chain is traversed in both directions. 
+
+A valid traversal may yield an instance or set in the parent -> child direction
+but must always yield an instance when traversed in the opposite (child ->
+parent) direction.
+
+Examples: ->SM_SM[R517]->SM_STATE[R501] (specifies the states of an
+instance or class based state chart), ->S_DT[R14]->S_UDT[R17] (specifies
+the user defined datatypes of a domain)',
+	'',
+	'ParentChildRelChain',
+	0,
+	"0b1791d1-b108-4b42-a201-d891aa80f243",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("0b1791d1-b108-4b42-a201-d891aa80f243",
+	"355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("ba613013-5e4d-4ac9-ac52-af00ecaa5119",
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af");
+INSERT INTO O_BATTR
+	VALUES ("ba613013-5e4d-4ac9-ac52-af00ecaa5119",
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af");
+INSERT INTO O_ATTR
+	VALUES ("ba613013-5e4d-4ac9-ac52-af00ecaa5119",
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"5a5e5628-7dc1-4f54-ab83-4aedf4d0ef5f",
+	'ParentOrder',
+	'',
+	'',
+	'ParentOrder',
+	0,
+	"0b1791d1-b108-4b42-a201-d891aa80f243",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("34cda9b4-ee60-4279-bdc7-02b8a00eba58",
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af");
+INSERT INTO O_BATTR
+	VALUES ("34cda9b4-ee60-4279-bdc7-02b8a00eba58",
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af");
+INSERT INTO O_ATTR
+	VALUES ("34cda9b4-ee60-4279-bdc7-02b8a00eba58",
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"ba613013-5e4d-4ac9-ac52-af00ecaa5119",
+	'WhereClause',
+	'This attribute is string representation of a where clause that will be used when
+selecting a child.',
+	'',
+	'WhereClause',
+	0,
+	"0b1791d1-b108-4b42-a201-d891aa80f243",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af");
+INSERT INTO O_OIDA
+	VALUES ("9d55d96e-4e8c-442f-a30b-c5ddeb07b6cd",
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	0,
+	'Child_Tree_Node_Spec_ID');
+INSERT INTO O_OIDA
+	VALUES ("33c1e401-4042-4d0a-8104-9ffa3df036b6",
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	0,
+	'Parent_Tree_Node_Spec_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af");
+INSERT INTO O_ID
+	VALUES (2,
+	"cfd4ccd0-fe89-40fa-9990-54ac3e4034af");
+INSERT INTO S_SS_PROXY
+	VALUES ("3357a459-a1e1-4bc3-a4b8-f31d53662ce0",
+	'UITree',
+	'',
+	'T',
+	1,
+	"355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
+	"00000000-0000-0000-0000-00000070000e",
+	'../UITree.xtuml');

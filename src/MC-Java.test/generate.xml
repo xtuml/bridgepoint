@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile: generate.xml,v $
+ Version:   $Revision: 1.6 $
+ Modified:  $Date: 2011/05/30 20:20:20 $
+
+ (c) Copyright 2005-2014 by Mentor Graphics Corp.  All rights reserved.
+
+-->
+<project name="mc-java.test" default="all" basedir=".">
+	<target name="all" description="Run all MC-Java tests" depends="deletecheck, verifyselect, compare_results" />
+    <target name="deletecheck" >
+	  <ant antfile="generate.xml" dir="Delete_Check_test" target="all" />
+	</target>
+	<target name="verifyselect" >
+    	<ant antfile="generate.xml" dir="Verify_Select_test" target="all" />
+	</target>
+	<target name="compare_results" >
+		<ant antfile="generate.xml" dir="Delete_Check_test" target="compare_deletecheck_results" />
+		<ant antfile="generate.xml" dir="Verify_Select_test" target="compare_verifyselect_results" />
+		<ant antfile="generate.xml" dir="Verify_Select_test" target="compare_verifyselectcond_results" />
+	</target>
+	<target name="clean_all" >
+		<ant antfile="generate.xml" dir="Delete_Check_test" target="clean_all" />
+		<ant antfile="generate.xml" dir="Verify_Select_test" target="clean_all" />		
+	</target>
+</project>

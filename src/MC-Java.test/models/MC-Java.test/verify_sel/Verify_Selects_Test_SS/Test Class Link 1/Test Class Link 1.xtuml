@@ -1,0 +1,136 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("e82bfef7-a5ed-4dd4-bf0d-590df9686220",
+	'Test Class Link 1',
+	4,
+	'VS_TCLSLNK1',
+	'',
+	"840b57d3-dd79-4159-ab0d-421ee07cdd76");
+INSERT INTO O_REF
+	VALUES ("e82bfef7-a5ed-4dd4-bf0d-590df9686220",
+	"a61e75b9-721b-46d5-8909-3a2a56388307",
+	0,
+	"d2398bfa-7182-4cda-920a-d56add9d6626",
+	"d40c2f19-9b32-47ff-a805-616f5b4270b1",
+	"c5f2c90b-9f46-4f6d-9d84-62fe662a7404",
+	"96b93cd2-95c0-4e04-bf5d-c334b1c37a98",
+	"75b3e571-ff24-45fc-b7bf-9725b8d6cfa0",
+	"33a58341-7480-4b3d-bd8a-4ed064525b92",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Verify_Selects_Test_Class_1',
+	'Verify_Selects_Test_Attr_1',
+	'R3');
+INSERT INTO R_RGO_PROXY
+	VALUES ("e82bfef7-a5ed-4dd4-bf0d-590df9686220",
+	"d40c2f19-9b32-47ff-a805-616f5b4270b1",
+	"c5f2c90b-9f46-4f6d-9d84-62fe662a7404",
+	'../Verify_Selects_Test_SS.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("d2398bfa-7182-4cda-920a-d56add9d6626",
+	"a61e75b9-721b-46d5-8909-3a2a56388307",
+	0,
+	"d40c2f19-9b32-47ff-a805-616f5b4270b1",
+	"96b93cd2-95c0-4e04-bf5d-c334b1c37a98",
+	'../Verify_Selects_Test_SS.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("75b3e571-ff24-45fc-b7bf-9725b8d6cfa0",
+	"e82bfef7-a5ed-4dd4-bf0d-590df9686220",
+	"d2398bfa-7182-4cda-920a-d56add9d6626",
+	"a61e75b9-721b-46d5-8909-3a2a56388307",
+	1,
+	'Verify_Selects_Test_Attr_1');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("d2398bfa-7182-4cda-920a-d56add9d6626",
+	"a61e75b9-721b-46d5-8909-3a2a56388307",
+	'../Verify_Selects_Test_Class_1/Verify_Selects_Test_Class_1.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("75b3e571-ff24-45fc-b7bf-9725b8d6cfa0",
+	"e82bfef7-a5ed-4dd4-bf0d-590df9686220",
+	"00000000-0000-0000-0000-000000000000",
+	'Verify_Selects_Test_Attr_1',
+	'',
+	'',
+	'Verify_Selects_Test_Attr_1',
+	0,
+	"1c8b3bfb-b823-4248-b11e-92fd4d232e4f",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("1c8b3bfb-b823-4248-b11e-92fd4d232e4f",
+	"9a662eb5-6f9e-4a55-9a99-709b735261c1",
+	'same_as<Base_Attribute>',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("e82bfef7-a5ed-4dd4-bf0d-590df9686220",
+	"c87505c1-7934-4628-b136-11c58094b1a8",
+	0,
+	"bd618f32-5878-41de-9d01-42bf9a56c49c",
+	"d40c2f19-9b32-47ff-a805-616f5b4270b1",
+	"c5f2c90b-9f46-4f6d-9d84-62fe662a7404",
+	"9ae0ff33-67b0-43c6-94b4-68ea150afaf6",
+	"6a8259cd-dbac-46d3-99a6-ed9673c35749",
+	"0625e8f1-ba1e-4896-a01e-3c77f4d4f2eb",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Test Class 2',
+	'Verify_Selects_Test_Attr_1',
+	'R3');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("bd618f32-5878-41de-9d01-42bf9a56c49c",
+	"c87505c1-7934-4628-b136-11c58094b1a8",
+	0,
+	"d40c2f19-9b32-47ff-a805-616f5b4270b1",
+	"9ae0ff33-67b0-43c6-94b4-68ea150afaf6",
+	'../Verify_Selects_Test_SS.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("6a8259cd-dbac-46d3-99a6-ed9673c35749",
+	"e82bfef7-a5ed-4dd4-bf0d-590df9686220",
+	"bd618f32-5878-41de-9d01-42bf9a56c49c",
+	"c87505c1-7934-4628-b136-11c58094b1a8",
+	1,
+	'Verify_Selects_Test_Attr_1');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("bd618f32-5878-41de-9d01-42bf9a56c49c",
+	"c87505c1-7934-4628-b136-11c58094b1a8",
+	'../Test Class 2/Test Class 2.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("6a8259cd-dbac-46d3-99a6-ed9673c35749",
+	"e82bfef7-a5ed-4dd4-bf0d-590df9686220",
+	"75b3e571-ff24-45fc-b7bf-9725b8d6cfa0",
+	'Verify_Selects_Test_Attr_1',
+	'',
+	'',
+	'x',
+	0,
+	"1c8b3bfb-b823-4248-b11e-92fd4d232e4f",
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"e82bfef7-a5ed-4dd4-bf0d-590df9686220");
+INSERT INTO O_OIDA
+	VALUES ("75b3e571-ff24-45fc-b7bf-9725b8d6cfa0",
+	"e82bfef7-a5ed-4dd4-bf0d-590df9686220",
+	0);
+INSERT INTO O_OIDA
+	VALUES ("6a8259cd-dbac-46d3-99a6-ed9673c35749",
+	"e82bfef7-a5ed-4dd4-bf0d-590df9686220",
+	0);
+INSERT INTO O_ID
+	VALUES (1,
+	"e82bfef7-a5ed-4dd4-bf0d-590df9686220");
+INSERT INTO O_ID
+	VALUES (2,
+	"e82bfef7-a5ed-4dd4-bf0d-590df9686220");
+INSERT INTO S_SS_PROXY
+	VALUES ("840b57d3-dd79-4159-ab0d-421ee07cdd76",
+	'Verify_Selects_Test_SS',
+	'',
+	'',
+	0,
+	"9a662eb5-6f9e-4a55-9a99-709b735261c1",
+	"00000000-0000-0000-0000-000000000000",
+	'../Verify_Selects_Test_SS.xtuml');

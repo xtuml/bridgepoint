@@ -1,0 +1,22 @@
+Simulation started.
+User invoked function: test
+LogInfo:  Test Library::Test Provider::executeOpTest() entered
+LogInfo:  Declared Root to Referenced Root Operation Test: pingRequirer entered
+LogInfo:  Declared Root to Referenced Root Operation Test: pingProvider entered
+LogInfo:  Declared Root to Referenced Root Operation Test: pingRequirerS entered
+LogInfo:  Declared Root to Referenced Root Operation Test: pingProviderS entered
+LogInfo:  Test Library::Test Provider::replyToProvider() entered from pingRequirerS
+LogInfo:  Test Requirer::replyToRequirer() entered from pingProviderS
+LogInfo:  Test Library::Test Provider::replyToProvider() entered from pingRequirer
+LogInfo:  Declared Root to Referenced Root Operation Test: Passed.
+LogInfo:  Test Library::Test Provider::executeSignalTest() entered
+LogInfo:  Test Requirer::replyToRequirer() entered from pingProvider
+LogInfo:  Test Requirer::replyToRequirer() entered from execute
+LogInfo:  Declared Root to Referenced Root Signal Test: pingRequirerSig entered
+LogInfo:  Declared Root to Referenced Root Signal Test: pingProviderSig entered
+LogInfo:  Test Requirer::replyToRequirer() entered from execute
+LogInfo:  Declared Root to Referenced Root Signal Test: pingRequirerSigS entered
+LogInfo:  Declared Root to Referenced Root Signal Test: pingProviderSigS entered
+LogInfo:  Test Requirer::replyToRequirer() entered from pingProviderSig
+LogInfo:  Declared Root to Referenced Root Signal Test: Passed.
+

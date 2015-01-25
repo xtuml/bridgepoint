@@ -1,0 +1,591 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("a61e75b9-721b-46d5-8909-3a2a56388307",
+	'Verify_Selects_Test_Class_1',
+	1,
+	'VS_TC1',
+	'',
+	"840b57d3-dd79-4159-ab0d-421ee07cdd76");
+INSERT INTO O_TFR
+	VALUES ("b42b142a-19f2-4c99-9982-772bbc87f417",
+	"a61e75b9-721b-46d5-8909-3a2a56388307",
+	'testClassOperation IB',
+	'',
+	"b4a41353-2c57-443d-8429-17d802fa655b",
+	1,
+	'create object instance test_class_inst of VS_TC1;
+select one test_class related by test_class_inst->VS_TCLS1[R1];
+select any test_class_as_link related by test_class_inst->VS_TCLSLNK1[R3];
+select any test_class_2 related by test_class_inst->VS_TCLS2[R3];
+select any test_from_inst_class from instances of VS_TC1;
+select any test_from_inst_class2 from instances of VS_TC1 where (selected.x == 2);
+select one test_class_where related by test_class_inst->VS_TCLS1[R1] where (selected.Tcls_Id == 2);
+// test unary op
+if not_empty test_class
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_1 related by test_class->VS_TC1[R1];
+end if;
+// test unary op in binary op with not and empty
+if not empty test_class
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_2 related by test_class->VS_TC1[R1];
+end if;
+// test unary op in pex
+if(not_empty test_class)
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_3 related by test_class->VS_TC1[R1];
+end if;
+// Test unary op in embedded pex
+if ((not_empty test_class))
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_4 related by test_class->VS_TC1[R1];
+end if;
+// Test unary op in binary op with pexs
+if (not_empty test_class AND test_class_inst.x == 1)
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_5 related by test_class->VS_TC1[R1];
+end if;
+// Test unary operation in a binary operation left side
+if not_empty test_class AND test_class_inst.x == 1
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_6 related by test_class->VS_TC1[R1];
+end if;
+// Test unary operation in a binary operation right side
+if test_class_inst.x == 1 AND not_empty test_class
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_7 related by test_class->VS_TC1[R1];
+end if;
+// Test unary operation in a binary operation in a pex
+if (not_empty test_class) AND (test_class_inst.x == 1)
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_8 related by test_class->VS_TC1[R1];
+end if;
+// Test unary operation in a nested binary operation
+if test_class_inst.x == 1 AND (not_empty test_class AND test_class_inst.x > 0)
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_9 related by test_class->VS_TC1[R1];
+end if;
+// Test unary operation in an elif
+if(empty test_class_inst)
+  assign test_class_inst.x = 3;
+elif(not_empty test_class)
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_10 related by test_class->VS_TC1[R1];
+end if;
+// Test safe else in empty variable test
+if(empty test_class)
+  assign test_class_inst.x = 3;
+else
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_11 related by test_class->VS_TC1[R1];
+end if;
+// Test unary operation in a while statement
+while(not_empty test_class)
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_12 related by test_class->VS_TC1[R1];
+end while;
+// Test unsafe if block 
+if(test_class_inst.x == 3)
+  // This should be processed
+  // test variable as a Select
+  select one test_class_inst_13 related by test_class->VS_TC1[R1];
+elif(not_empty test_class_inst)
+// test unsafe elif block
+  // This should be processed
+  // test variable as a Select
+  select one test_class_inst_14 related by test_class->VS_TC1[R1];
+else
+// test unsafe else block
+  // This should be processed
+  // test variable as a Select
+  select one test_class_inst_15 related by test_class->VS_TC1[R1];
+end if;
+// test dangerous for statement
+select many classes from instances of VS_TCLS2;
+for each class in classes
+  // This should be processed
+  // test variable as a Select
+  select one test_class_inst_16 related by test_class->VS_TC1[R1];
+end for;
+// test dangerous while statement
+while(test_class_inst.x > 2)
+  // This should be processed
+  // test variable as a Select
+  select one test_class_inst_17 related by test_class->VS_TC1[R1];
+end while;
+// test outer block
+// test variable in operation invocation
+test_class.invokedOperation();
+// test variable as Assign to Attribute
+assign x = test_class;
+// test variable as Operation Value R-Val
+assign x2 = test_class.returningOperation(); 
+// test variable as a Select
+select one test_class_inst_18 related by test_class->VS_TC1[R1];
+// test variable as relate one side
+relate test_class to test_class_inst across R1;
+// test variable as relate other side
+relate test_class_inst to test_class across R1;
+// create object instance to avoid checks on from instances
+create object instance test_class_oth_2 of VS_TC1;
+create object instance test_class_oth_3 of VS_TCLS2;
+create object instance test_class_as_link_inst of VS_TCLSLNK1;
+// test variable as relate using one side
+relate test_class_2 to test_class_oth_2 across R3 using test_class_as_link_inst;
+// test variable as relate using other side 
+relate test_class_oth_2 to test_class_2 across R3 using test_class_as_link_inst;
+// test variable as relate using as link
+relate test_class_oth_3 to test_class_oth_2 across R3 using test_class_as_link;
+// test variable as unrelate one side
+unrelate test_class from test_class_inst across R1;
+// test variable as unrelate oth side
+unrelate test_class_inst from test_class across R1;
+// test variable as unrelate using one side
+unrelate test_class_2 from test_class_inst across R3 using test_class_as_link_inst;
+// test variable as unrelate using oth side
+unrelate test_class_inst from test_class_2 across R3 using test_class_as_link_inst;
+// test variable as unrelate using as link
+unrelate test_class_oth_3 from test_class_oth_2 across R3 using test_class_as_link;
+// test variable in create event instance
+create event instance test_event of VS_TCLS11 to test_class;
+// test variable in generate event
+generate VS_TCLS11 to test_class;
+// test variable in generate pre-existing event
+// Not currently supported by MC-Java
+// generate test_event;
+// test generate with class attr
+// Not currently supported by MC-Java
+// generate test_class.test_event;
+// test variable in a delete
+delete object instance test_class;',
+	1,
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("b4a41353-2c57-443d-8429-17d802fa655b",
+	"9a662eb5-6f9e-4a55-9a99-709b735261c1",
+	'void',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("c921e05b-5f60-46fd-8318-06e59d2cbdff",
+	"a61e75b9-721b-46d5-8909-3a2a56388307",
+	'testClassOperation CB',
+	'',
+	"b4a41353-2c57-443d-8429-17d802fa655b",
+	0,
+	'create object instance test_class_inst of VS_TC1;
+select one test_class related by test_class_inst->VS_TCLS1[R1];
+select any test_class_as_link related by test_class_inst->VS_TCLSLNK1[R3];
+select any test_class_2 related by test_class_inst->VS_TCLS2[R3];
+select any test_from_inst_class from instances of VS_TC1;
+select any test_from_inst_class2 from instances of VS_TC1 where (selected.x == 2);
+select one test_class_where related by test_class_inst->VS_TCLS1[R1] where (selected.Tcls_Id == 2);
+// test unary op
+if not_empty test_class
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_1 related by test_class->VS_TC1[R1];
+end if;
+// test unary op in binary op with not and empty
+if not empty test_class
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_2 related by test_class->VS_TC1[R1];
+end if;
+// test unary op in pex
+if(not_empty test_class)
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_3 related by test_class->VS_TC1[R1];
+end if;
+// Test unary op in embedded pex
+if ((not_empty test_class))
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_4 related by test_class->VS_TC1[R1];
+end if;
+// Test unary op in binary op with pexs
+if (not_empty test_class AND test_class_inst.x == 1)
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_5 related by test_class->VS_TC1[R1];
+end if;
+// Test unary operation in a binary operation left side
+if not_empty test_class AND test_class_inst.x == 1
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_6 related by test_class->VS_TC1[R1];
+end if;
+// Test unary operation in a binary operation right side
+if test_class_inst.x == 1 AND not_empty test_class
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_7 related by test_class->VS_TC1[R1];
+end if;
+// Test unary operation in a binary operation in a pex
+if (not_empty test_class) AND (test_class_inst.x == 1)
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_8 related by test_class->VS_TC1[R1];
+end if;
+// Test unary operation in a nested binary operation
+if test_class_inst.x == 1 AND (not_empty test_class AND test_class_inst.x > 0)
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_9 related by test_class->VS_TC1[R1];
+end if;
+// Test unary operation in an elif
+if(empty test_class_inst)
+  assign test_class_inst.x = 3;
+elif(not_empty test_class)
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_10 related by test_class->VS_TC1[R1];
+end if;
+// Test safe else in empty variable test
+if(empty test_class)
+  assign test_class_inst.x = 3;
+else
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_11 related by test_class->VS_TC1[R1];
+end if;
+// Test unary operation in a while statement
+while(not_empty test_class)
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_12 related by test_class->VS_TC1[R1];
+end while;
+// Test unsafe if block 
+if(test_class_inst.x == 3)
+  // This should be processed
+  // test variable as a Select
+  select one test_class_inst_13 related by test_class->VS_TC1[R1];
+elif(not_empty test_class_inst)
+// test unsafe elif block
+  // This should be processed
+  // test variable as a Select
+  select one test_class_inst_14 related by test_class->VS_TC1[R1];
+else
+// test unsafe else block
+  // This should be processed
+  // test variable as a Select
+  select one test_class_inst_15 related by test_class->VS_TC1[R1];
+end if;
+// test dangerous for statement
+select many classes from instances of VS_TCLS2;
+for each class in classes
+  // This should be processed
+  // test variable as a Select
+  select one test_class_inst_16 related by test_class->VS_TC1[R1];
+end for;
+// test dangerous while statement
+while(test_class_inst.x > 2)
+  // This should be processed
+  // test variable as a Select
+  select one test_class_inst_17 related by test_class->VS_TC1[R1];
+end while;
+// test outer block
+// test variable in operation invocation
+test_class.invokedOperation();
+// test variable as Assign to Attribute
+assign x = test_class;
+// test variable as Operation Value R-Val
+assign x2 = test_class.returningOperation(); 
+// test variable as a Select
+select one test_class_inst_18 related by test_class->VS_TC1[R1];
+// test variable as relate one side
+relate test_class to test_class_inst across R1;
+// test variable as relate other side
+relate test_class_inst to test_class across R1;
+// create object instance to avoid checks on from instances
+create object instance test_class_oth_2 of VS_TC1;
+create object instance test_class_oth_3 of VS_TCLS2;
+create object instance test_class_as_link_inst of VS_TCLSLNK1;
+// test variable as relate using one side
+relate test_class_2 to test_class_oth_2 across R3 using test_class_as_link_inst;
+// test variable as relate using other side 
+relate test_class_oth_2 to test_class_2 across R3 using test_class_as_link_inst;
+// test variable as relate using as link
+relate test_class_oth_3 to test_class_oth_2 across R3 using test_class_as_link;
+// test variable as unrelate one side
+unrelate test_class from test_class_inst across R1;
+// test variable as unrelate oth side
+unrelate test_class_inst from test_class across R1;
+// test variable as unrelate using one side
+unrelate test_class_2 from test_class_inst across R3 using test_class_as_link_inst;
+// test variable as unrelate using oth side
+unrelate test_class_inst from test_class_2 across R3 using test_class_as_link_inst;
+// test variable as unrelate using as link
+unrelate test_class_oth_3 from test_class_oth_2 across R3 using test_class_as_link;
+// test variable in create event instance
+create event instance test_event of VS_TCLS11 to test_class;
+// test variable in generate event
+generate VS_TCLS11 to test_class;
+// test variable in generate pre-existing event
+// Not currently supported by MC-Java
+// generate test_event;
+// test generate with class attr
+// Not currently supported by MC-Java
+// generate test_class.test_event;
+// test variable in a delete
+delete object instance test_class;',
+	1,
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("d2398bfa-7182-4cda-920a-d56add9d6626",
+	"a61e75b9-721b-46d5-8909-3a2a56388307",
+	'assign self.Verify_Selects_Test_Attr_1 = 2;
+create object instance test_class_inst of VS_TC1;
+select one test_class related by test_class_inst->VS_TCLS1[R1];
+select any test_class_as_link related by test_class_inst->VS_TCLSLNK1[R3];
+select any test_class_2 related by test_class_inst->VS_TCLS2[R3];
+select any test_from_inst_class from instances of VS_TC1;
+select any test_from_inst_class2 from instances of VS_TC1 where (selected.x == 2);
+select one test_class_where related by test_class_inst->VS_TCLS1[R1] where (selected.Tcls_Id == 2);
+// test unary op
+if not_empty test_class
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_1 related by test_class->VS_TC1[R1];
+end if;
+// test unary op in binary op with not and empty
+if not empty test_class
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_2 related by test_class->VS_TC1[R1];
+end if;
+// test unary op in pex
+if(not_empty test_class)
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_3 related by test_class->VS_TC1[R1];
+end if;
+// Test unary op in embedded pex
+if ((not_empty test_class))
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_4 related by test_class->VS_TC1[R1];
+end if;
+// Test unary op in binary op with pexs
+if (not_empty test_class AND test_class_inst.x == 1)
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_5 related by test_class->VS_TC1[R1];
+end if;
+// Test unary operation in a binary operation left side
+if not_empty test_class AND test_class_inst.x == 1
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_6 related by test_class->VS_TC1[R1];
+end if;
+// Test unary operation in a binary operation right side
+if test_class_inst.x == 1 AND not_empty test_class
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_7 related by test_class->VS_TC1[R1];
+end if;
+// Test unary operation in a binary operation in a pex
+if (not_empty test_class) AND (test_class_inst.x == 1)
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_8 related by test_class->VS_TC1[R1];
+end if;
+// Test unary operation in a nested binary operation
+if test_class_inst.x == 1 AND (not_empty test_class AND test_class_inst.x > 0)
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_9 related by test_class->VS_TC1[R1];
+end if;
+// Test unary operation in an elif
+if(empty test_class_inst)
+  assign test_class_inst.x = 3;
+elif(not_empty test_class)
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_10 related by test_class->VS_TC1[R1];
+end if;
+// Test safe else in empty variable test
+if(empty test_class)
+  assign test_class_inst.x = 3;
+else
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_11 related by test_class->VS_TC1[R1];
+end if;
+// Test unary operation in a while statement
+while(not_empty test_class)
+  // This should not be processed
+  // test variable as a Select
+  select one test_class_inst_12 related by test_class->VS_TC1[R1];
+end while;
+// Test unsafe if block 
+if(test_class_inst.x == 3)
+  // This should be processed
+  // test variable as a Select
+  select one test_class_inst_13 related by test_class->VS_TC1[R1];
+elif(not_empty test_class_inst)
+// test unsafe elif block
+  // This should be processed
+  // test variable as a Select
+  select one test_class_inst_14 related by test_class->VS_TC1[R1];
+else
+// test unsafe else block
+  // This should be processed
+  // test variable as a Select
+  select one test_class_inst_15 related by test_class->VS_TC1[R1];
+end if;
+// test dangerous for statement
+select many classes from instances of VS_TCLS2;
+for each class in classes
+  // This should be processed
+  // test variable as a Select
+  select one test_class_inst_16 related by test_class->VS_TC1[R1];
+end for;
+// test dangerous while statement
+while(test_class_inst.x > 2)
+  // This should be processed
+  // test variable as a Select
+  select one test_class_inst_17 related by test_class->VS_TC1[R1];
+end while;
+// test outer block
+// test variable in operation invocation
+test_class.invokedOperation();
+// test variable as Assign to Attribute
+assign x = test_class;
+// test variable as Operation Value R-Val
+assign x2 = test_class.returningOperation(); 
+// test variable as a Select
+select one test_class_inst_18 related by test_class->VS_TC1[R1];
+// test variable as relate one side
+relate test_class to test_class_inst across R1;
+// test variable as relate other side
+relate test_class_inst to test_class across R1;
+// create object instance to avoid checks on from instances
+create object instance test_class_oth_2 of VS_TC1;
+create object instance test_class_oth_3 of VS_TCLS2;
+create object instance test_class_as_link_inst of VS_TCLSLNK1;
+// test variable as relate using one side
+relate test_class_2 to test_class_oth_2 across R3 using test_class_as_link_inst;
+// test variable as relate using other side 
+relate test_class_oth_2 to test_class_2 across R3 using test_class_as_link_inst;
+// test variable as relate using as link
+relate test_class_oth_3 to test_class_oth_2 across R3 using test_class_as_link;
+// test variable as unrelate one side
+unrelate test_class from test_class_inst across R1;
+// test variable as unrelate oth side
+unrelate test_class_inst from test_class across R1;
+// test variable as unrelate using one side
+unrelate test_class_2 from test_class_inst across R3 using test_class_as_link_inst;
+// test variable as unrelate using oth side
+unrelate test_class_inst from test_class_2 across R3 using test_class_as_link_inst;
+// test variable as unrelate using as link
+unrelate test_class_oth_3 from test_class_oth_2 across R3 using test_class_as_link;
+// test variable in create event instance
+create event instance test_event of VS_TCLS11 to test_class;
+// test variable in generate event
+generate VS_TCLS11 to test_class;
+// test variable in generate pre-existing event
+// Not currently supported by MC-Java
+// generate test_event;
+// test generate with class attr
+// Not currently supported by MC-Java
+// generate test_class.test_event;
+// test variable in a delete
+delete object instance test_class;',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("d2398bfa-7182-4cda-920a-d56add9d6626",
+	"a61e75b9-721b-46d5-8909-3a2a56388307");
+INSERT INTO O_ATTR
+	VALUES ("d2398bfa-7182-4cda-920a-d56add9d6626",
+	"a61e75b9-721b-46d5-8909-3a2a56388307",
+	"00000000-0000-0000-0000-000000000000",
+	'Verify_Selects_Test_Attr_1',
+	'',
+	'',
+	'Verify_Selects_Test_Attr_1',
+	0,
+	"03d9aa43-6666-4265-a5c5-f907269acc79",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("03d9aa43-6666-4265-a5c5-f907269acc79",
+	"9a662eb5-6f9e-4a55-9a99-709b735261c1",
+	'integer',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("0c7c9e2a-fe0d-415f-841d-cbdcc272f892",
+	"a61e75b9-721b-46d5-8909-3a2a56388307");
+INSERT INTO O_BATTR
+	VALUES ("0c7c9e2a-fe0d-415f-841d-cbdcc272f892",
+	"a61e75b9-721b-46d5-8909-3a2a56388307");
+INSERT INTO O_ATTR
+	VALUES ("0c7c9e2a-fe0d-415f-841d-cbdcc272f892",
+	"a61e75b9-721b-46d5-8909-3a2a56388307",
+	"d2398bfa-7182-4cda-920a-d56add9d6626",
+	'x',
+	'',
+	'',
+	'x',
+	0,
+	"03d9aa43-6666-4265-a5c5-f907269acc79",
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("e8c77415-2ca2-4cd6-9024-9e4695c3562f",
+	"a61e75b9-721b-46d5-8909-3a2a56388307");
+INSERT INTO O_BATTR
+	VALUES ("e8c77415-2ca2-4cd6-9024-9e4695c3562f",
+	"a61e75b9-721b-46d5-8909-3a2a56388307");
+INSERT INTO O_ATTR
+	VALUES ("e8c77415-2ca2-4cd6-9024-9e4695c3562f",
+	"a61e75b9-721b-46d5-8909-3a2a56388307",
+	"0c7c9e2a-fe0d-415f-841d-cbdcc272f892",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"6162c2bb-02aa-4b0c-afaf-83bb653bc1c2",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6162c2bb-02aa-4b0c-afaf-83bb653bc1c2",
+	"9a662eb5-6f9e-4a55-9a99-709b735261c1",
+	'state<State_Model>',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"a61e75b9-721b-46d5-8909-3a2a56388307");
+INSERT INTO O_OIDA
+	VALUES ("d2398bfa-7182-4cda-920a-d56add9d6626",
+	"a61e75b9-721b-46d5-8909-3a2a56388307",
+	0);
+INSERT INTO O_ID
+	VALUES (1,
+	"a61e75b9-721b-46d5-8909-3a2a56388307");
+INSERT INTO O_ID
+	VALUES (2,
+	"a61e75b9-721b-46d5-8909-3a2a56388307");
+INSERT INTO S_SS_PROXY
+	VALUES ("840b57d3-dd79-4159-ab0d-421ee07cdd76",
+	'Verify_Selects_Test_SS',
+	'',
+	'',
+	0,
+	"9a662eb5-6f9e-4a55-9a99-709b735261c1",
+	"00000000-0000-0000-0000-000000000000",
+	'../Verify_Selects_Test_SS.xtuml');

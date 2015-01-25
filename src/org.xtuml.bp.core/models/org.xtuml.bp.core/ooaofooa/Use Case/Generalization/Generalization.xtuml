@@ -1,0 +1,266 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("c08a1bc3-a6e2-4b92-9c4f-84958c62da99",
+	'Generalization',
+	1207,
+	'UC_G',
+	'',
+	"2597fe35-f53f-4878-817d-73f2d7a1fa0f");
+INSERT INTO O_TFR
+	VALUES ("4781b76d-4f6d-492d-b31a-14235244420a",
+	"c08a1bc3-a6e2-4b92-9c4f-84958c62da99",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one uca related by self->UC_UCA[R1210];
+if(not_empty uca)
+  uca.dispose();
+end if;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("16266da5-5957-4950-a7b7-fe14044f920e",
+	"c08a1bc3-a6e2-4b92-9c4f-84958c62da99",
+	'get_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'if(param.at == End::End)
+  return Style::Triangle;
+elif(param.at == End::Middle)
+  return Style::Solid;
+else
+  return Style::None;
+end if;',
+	1,
+	'',
+	"63ec4d3f-b58a-4e0e-b6d3-b5f641ede302");
+INSERT INTO O_TPARM
+	VALUES ("613219db-2734-4578-b7a5-1875bef0f21b",
+	"16266da5-5957-4950-a7b7-fe14044f920e",
+	'at',
+	"ae85eca6-6fe4-4125-95e6-95272f0fd7de",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ae85eca6-6fe4-4125-95e6-95272f0fd7de",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'End',
+	'Text is positioned at a user adjustable offset from the Start, Middle and End of a connector. Start_Fixed and End_Fixed specify fixed position text found at the start and end of some connectors.
+-------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Style',
+	'The Style data type specifies the precise form a graphical element will take when drawn.
+--------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("263d7af5-b0cc-47ba-b4aa-90fbefed0f61",
+	"c08a1bc3-a6e2-4b92-9c4f-84958c62da99",
+	'get_connector_text',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'return "";',
+	1,
+	'',
+	"4781b76d-4f6d-492d-b31a-14235244420a");
+INSERT INTO O_TPARM
+	VALUES ("8ea0cc0a-c251-4851-a89f-078dab235f58",
+	"263d7af5-b0cc-47ba-b4aa-90fbefed0f61",
+	'Obj_ID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("53d2366e-f4a0-4097-8ec6-76ca7c59a679",
+	"263d7af5-b0cc-47ba-b4aa-90fbefed0f61",
+	'Obj_TypeIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"8ea0cc0a-c251-4851-a89f-078dab235f58",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("82ad86a6-3749-437c-8fb4-c233efc68b9d",
+	"263d7af5-b0cc-47ba-b4aa-90fbefed0f61",
+	'at',
+	"ae85eca6-6fe4-4125-95e6-95272f0fd7de",
+	0,
+	'',
+	"53d2366e-f4a0-4097-8ec6-76ca7c59a679",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("741aca6b-2046-43b0-97ea-123b6349ee3b",
+	"263d7af5-b0cc-47ba-b4aa-90fbefed0f61",
+	'parent_ID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"82ad86a6-3749-437c-8fb4-c233efc68b9d",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("63ec4d3f-b58a-4e0e-b6d3-b5f641ede302",
+	"c08a1bc3-a6e2-4b92-9c4f-84958c62da99",
+	'get_ooa_id',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'return self.Assoc_ID;',
+	1,
+	'',
+	"f9ea7f2b-63bc-4ca1-9ab0-4e7b475926b1");
+INSERT INTO O_TFR
+	VALUES ("f9ea7f2b-63bc-4ca1-9ab0-4e7b475926b1",
+	"c08a1bc3-a6e2-4b92-9c4f-84958c62da99",
+	'get_name',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'return "";',
+	1,
+	'',
+	"263d7af5-b0cc-47ba-b4aa-90fbefed0f61");
+INSERT INTO O_NBATTR
+	VALUES ("77326959-2d58-40d8-953e-d25361e551eb",
+	"c08a1bc3-a6e2-4b92-9c4f-84958c62da99");
+INSERT INTO O_BATTR
+	VALUES ("77326959-2d58-40d8-953e-d25361e551eb",
+	"c08a1bc3-a6e2-4b92-9c4f-84958c62da99");
+INSERT INTO O_ATTR
+	VALUES ("77326959-2d58-40d8-953e-d25361e551eb",
+	"c08a1bc3-a6e2-4b92-9c4f-84958c62da99",
+	"a9c7d7d3-7069-449c-980d-d7df87b2ae79",
+	'Descrip',
+	'Full Name: Generalization Description
+Description: A textual description of this generalization.',
+	'',
+	'Descrip',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("c08a1bc3-a6e2-4b92-9c4f-84958c62da99",
+	"0fd3603a-e543-4a86-9042-2f16f4b80852",
+	0,
+	"0797f9e8-e79a-4d97-81e0-89f2e2aa8490",
+	"81363fda-e743-4d3d-aa4f-4cf0f0dd5817",
+	"8f13a470-f3eb-485e-aefb-05ef0a4178ce",
+	"a0e49463-1c0b-4c72-b827-a226c02ae9ce",
+	"a9c7d7d3-7069-449c-980d-d7df87b2ae79",
+	"b2acd859-f523-481f-9401-a85852075fa8",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Use Case Association',
+	'Assoc_ID',
+	'R1210');
+INSERT INTO R_RGO_PROXY
+	VALUES ("c08a1bc3-a6e2-4b92-9c4f-84958c62da99",
+	"81363fda-e743-4d3d-aa4f-4cf0f0dd5817",
+	"8f13a470-f3eb-485e-aefb-05ef0a4178ce",
+	'../Use Case.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0797f9e8-e79a-4d97-81e0-89f2e2aa8490",
+	"0fd3603a-e543-4a86-9042-2f16f4b80852",
+	0,
+	"81363fda-e743-4d3d-aa4f-4cf0f0dd5817",
+	"a0e49463-1c0b-4c72-b827-a226c02ae9ce",
+	'../Use Case.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("a9c7d7d3-7069-449c-980d-d7df87b2ae79",
+	"c08a1bc3-a6e2-4b92-9c4f-84958c62da99",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("a9c7d7d3-7069-449c-980d-d7df87b2ae79",
+	"c08a1bc3-a6e2-4b92-9c4f-84958c62da99",
+	"00000000-0000-0000-0000-000000000000",
+	'Assoc_ID',
+	'',
+	'',
+	'Element_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"c08a1bc3-a6e2-4b92-9c4f-84958c62da99");
+INSERT INTO O_OIDA
+	VALUES ("a9c7d7d3-7069-449c-980d-d7df87b2ae79",
+	"c08a1bc3-a6e2-4b92-9c4f-84958c62da99",
+	0,
+	'Assoc_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"c08a1bc3-a6e2-4b92-9c4f-84958c62da99");
+INSERT INTO O_ID
+	VALUES (2,
+	"c08a1bc3-a6e2-4b92-9c4f-84958c62da99");
+INSERT INTO S_SS_PROXY
+	VALUES ("2597fe35-f53f-4878-817d-73f2d7a1fa0f",
+	'Use Case',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	'UC',
+	1200,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Use Case.xtuml');

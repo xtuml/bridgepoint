@@ -1,0 +1,18 @@
+.//====================================================================
+.//
+.// File:      $RCSfile: verify_sel_cond_test_startspec.clr,v $
+.// Version:   $Revision: 1.6 $
+.// Modified:  $Date: 2011/05/30 20:20:21 $
+.//
+.// (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
+.//
+.//====================================================================
+.//
+.function define_startspec
+  .assign attr_init_type  = ""
+  .assign attr_init_var_name = ""
+  .assign attr_init_class = ""
+  .assign attr_init_stim  = ""
+  .assign attr_parameter1 = ""
+  .assign attr_parameter2 = ""
+.end function

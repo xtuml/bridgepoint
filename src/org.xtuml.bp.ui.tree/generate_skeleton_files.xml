@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile$
+ Version:   $Revision$
+ Modified:  $Date$
+
+(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
+
+  ========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+use this file except in compliance with the License.  You may obtain a copy 
+of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+License for the specific language governing permissions and limitations under
+the License.
+  ========================================================================
+
+-->
+<project name="bp.ui.tree" default="all" basedir=".">
+  <description>
+  	 The generate_skeleton.xml ANT project is responsible for creating basic,
+  	 starting point, stub files (or skeleton files) that are required
+  	 to generate a tree view.  These files should only be generated once,
+  	 and then the files should be checked into version control and maintained
+  	 independently. 
+  </description>
+	
+<!--  The following property files must be provided as arguments when calling
+      this ant script.  All values should be changed to match your project.
+-Dproject=org.xtuml.bp.ui.tree
+-Dproject_with_slash=org/xtuml/bp/ui/tree
+-Dprefix=InstanceExplorer
+-->
+	
+     <!-- If you place your views in a views folder like the Eclipse new
+          plugin project will creates, then override the following folders:
+          dot_views should be replaced by ".views" 
+          slash_views should be replaced by "/views"
+          In the same way override the adapters and actions properties
+     -->
+	<property name="dot_views"          value=""				              />
+	<property name="slash_views"        value=""				              />
+	<property name="dot_adapters"       value=""		                      />
+	<property name="slash_adapters"     value=""		              		  />
+	<property name="dot_actions"        value=""				              />
+	<property name="slash_actions"      value=""				              />
+
+<!--  The following property files are typically derived from the user-defined
+      properties, but can also be overridden.                                -->
+	<property name="rel_path"           value="../"                           />
+	<property name="rel_project_path"   value="${rel_path}${project}"         />
+	<property name="treeviewer_prefix"  value="${prefix}"                     />
+	<property name="helpcontextids_prefix"  value="${prefix}"                 />
+	<property name="label_provider_prefix" value="${prefix}"                  />
+	<property name="builder_name"       value="${prefix}_builder"             />
+	<property name="plugin_package"     value="${project}"                    />
+	<property name="plugin_name"        value="${prefix}Plugin"               />
+	<property name="view_name"          value="${prefix}View"                 />
+	<property name="view_filename"      value="${prefix}_view"                 />
+	<property name="view_package"       value="${project}${dot_views}"        />
+	<property name="view_path"
+		     value="${project}/src/${project_with_slash}${slash_views}"       />
+	<property name="rel_view_path"      value="${rel_path}${view_path}"       />
+	<property name="actions_package"    value="${project}${dot_actions}"      />
+	<property name="actions_path"
+		     value="${project}/src/${project_with_slash}${slash_actions}"     />
+	<property name="rel_actions_path"   value="${rel_path}${actions_path}"    />
+	<property name="adapters_package"   value="${project}${dot_adapters}"     />
+	<property name="adapters_path"
+             value="${project}/src/${project_with_slash}${slash_adapters}"    />
+	<property name="rel_adapters_path"  value="${rel_path}${adapters_path}"   />
+
+
+	<!--  The following property files are fixed and should not be changed.  -->
+	<property name="ui_tree_path" 
+		      value="${rel_path}org.xtuml.bp.ui.tree"                />
+
+
+  <target name="all" 
+          description="Generate all skeleton files for ${project}" 
+          depends="verify_parameters_were_sent,
+  	               if_needed.display_instructions"
+  	      unless ="do_not_build_all">
+  	<antcall target="all_no_verify"></antcall>
+  </target>
+
+  <target name="all_no_verify"
+  	      depends=	"create_any_needed_folders,
+  	                 create_cvsignore_for_adapters,
+				     copy_uitree.pei.sql,
+				     generate_buildtree.arc,
+				     generate_create_view.inc,
+				     generate_filter_selection_action,
+				     generate_help_context_ids,
+				     generate_tree_viewer,
+				     generate_adapters,
+				     add_plugin_dependencies,
+				  	 generate_xml,
+			         generate_builder_launch,
+				     add_launch_to_project,
+				  	 display_final_message">
+  </target>
+
+  <target name="verify_parameters_were_sent"
+	      description="This script requires a few parameters to execute
+correctly.  This target ensures they were sent.">
+	<condition property="do_not_build_all">
+		<not>
+			<and>
+		  		<isset property="prefix"/>
+		  		<isset property="project"/>
+		  		<isset property="project_with_slash"/>
+			</and>
+		</not>
+	</condition>
+  </target>
+
+  <target name="if_needed.display_instructions"
+  	      if  ="do_not_build_all">
+	<echo level="error">
+	  In order to generate skeleton files for a tree, certain arguments are
+	  required to be set.  
+	  
+		These are the required arguments along with any provided values:
+
+		"prefix"             = ${prefix}
+		"project"            = ${project}
+		"project_with_slash" = ${project_with_slash}
+
+		"dot_views"          = ${dot_views} 
+		"slash_views"        = ${slash_views}
+		"view_path"          = ${view_path}
+		
+		"dot_adapters"       = ${dot_adapters}
+		"slash_adapters"     = ${slash_adapters}
+		"adapters_path"      = ${adapters_path}
+		
+		"dot_actions"        = ${dot_actions}
+		"slash_actions"      = ${slash_actions}
+		"actions_path"       = ${actions_path}
+
+
+
+	  The following document explains what parameters are required:
+
+	</echo>
+	<loadfile property="instructions" 
+	          srcfile="${ui_tree_path}/How to add a generated tree to a project.txt"></loadfile>
+	<echo>${instructions}
+	</echo>
+  	
+  	<echo level="error">
+
+           ***********************
+You are receiving the above document due to an error.
+       Scroll up for more information
+           ***********************
+
+  	</echo>
+  </target>
+
+  <target name="create_any_needed_folders"
+  	      description="While most ANT tags will automatically create a folder
+  	                   if it is needed.  Other files such as archetype files
+  	                   will require the folder to exist first.  So go ahead and
+  	                   create any folders that will be required">
+  	<echo level="debug"> creating ${rel_actions_path} if it does not exist</echo>
+  	<mkdir dir="${rel_actions_path}"/>
+  	<echo level="debug"> creating ${rel_adapters_path} if it does not exist</echo>
+  	<mkdir dir="${rel_adapters_path}"/>
+  	<echo level="debug"> creating ${rel_view_path} if it does not exist</echo>
+  	<mkdir dir="${rel_view_path}"/>
+  </target>
+
+  <target name="does_adapters.cvsignore_exist">
+    <condition property="adapters.cvsignore_file_exists">
+		<available file="${rel_adapters_path}/.cvsignore"/>
+	</condition>
+    <condition property="adapters_folder_exists">
+		<not>
+		    <equals arg1="${slash_adapters}" arg2=""/>
+		</not>
+	</condition>
+  </target>
+
+  <target name ="create_cvsignore_for_adapters.depends"
+  	      depends="does_adapters.cvsignore_exist">
+  	<!-- If adapters are placed in their own folder and
+  	     a .cvsignore file does not already exist, 
+  	     then create one -->
+	  <condition property="should_create_cvsignore_for_adapters">
+	  	<and>
+  	  	  <isset property="adapters_folder_exists"/>
+	  	  <not>
+	        <isset property="adapters.cvsignore_file_exists"/>
+	  	  </not>
+	  	</and>
+	  </condition>
+    <echo level="debug">should_create_cvsignore_for_adapters = ${should_create_cvsignore_for_adapters}</echo>
+  </target>
+
+  <property name="adapter_files_cvs_should_ignore" value="*.java"></property>
+  <target name ="create_cvsignore_for_adapters"
+  	      depends="create_cvsignore_for_adapters.depends"
+  	      if="should_create_cvsignore_for_adapters">
+  	<echo>Creating ${adapters_path}/.cvsignore ...</echo>
+  	<concat destfile="${rel_adapters_path}/.cvsignore">${adapter_files_cvs_should_ignore}</concat>
+  </target>
+
+  <target name="generate_xml.depends" >
+	  <condition property="generate_xml.buildNotNeeded">
+	      <available file="${rel_project_path}/generate.xml"/>
+	  </condition>
+  </target>
+
+  <target name="generate_xml" 
+          depends="generate_xml.depends" 
+          description="Generate the generate.xml file" 
+          unless="generate_xml.buildNotNeeded" >
+    <echo>Generating ${project}/generate.xml ...</echo>
+  	<copy file="${ui_tree_path}/templates/generate.xml" todir="${rel_project_path}"/>
+  	
+  	<!-- Customize the builder launch file for this project -->
+  	<antcall target="customize_file">
+  		<param name="file_to_be_customized" value ="${rel_project_path}/generate.xml"/>
+  	</antcall>
+  </target>
+
+
+  <target name="generate_builder_launch.depends" >
+	  <condition property="generate_builder_launch.buildNotNeeded">
+	      <available file="${rel_project_path}/.externalToolBuilders/${builder_name}.launch"/>
+	  </condition>
+  </target>
+  
+  <target name="generate_builder_launch" 
+          depends="generate_builder_launch.depends" 
+          description="Generate the launch file that will build generate.xml"
+          unless="generate_builder_launch.buildNotNeeded" >
+    <echo>Generating ${project}/.externalToolBuilders/${builder_name}.launch ...</echo>
+  	<copy file="${ui_tree_path}/templates/builder.launch" todir="${rel_project_path}/.externalToolBuilders"/>
+  	<!-- Rename the template builder to a project specific builder name -->
+  	<move   file="${rel_project_path}/.externalToolBuilders/builder.launch" 
+  		  tofile="${rel_project_path}/.externalToolBuilders/${builder_name}.launch"/>
+  	<!-- Customize the builder launch file for this project -->
+  	<antcall target="customize_file">
+  		<param name="file_to_be_customized"
+  			   value ="${rel_project_path}/.externalToolBuilders/${builder_name}.launch"/>
+  	</antcall>
+  </target>
+
+
+  <target name="add_launch_to_project.depends" >
+	<loadfile property=".project_file" srcFile="${rel_project_path}/.project"/>
+
+	<!-- See if the project specific launch filename is in the .project file -->
+	<condition property="add_launch_to_project.buildNotNeeded">
+   	  <contains string="${.project_file}" substring="${builder_name}.launch"/>
+	</condition>
+  </target>
+	  
+  <target name="add_launch_to_project" 
+        depends="add_launch_to_project.depends" 
+        description="Add the generated launch builder to the .project file" 
+		unless="add_launch_to_project.buildNotNeeded">
+
+    <echo>Adding ${builder_name}.launch to ${project}/.project</echo>
+
+	<!-- Load the XML template block required to add a builder to a project -->
+    <loadfile property="build_command"
+      srcFile="${ui_tree_path}/templates/build_command.txt"/>
+
+	<!-- ANT will not allow you to use the < character in a token, so... -->
+	<!-- Rename the closing buildspec tag so 'buildspec' only occurs once -->
+  	<replace file = "${rel_project_path}/.project" token="/buildSpec>" value="**END_BUILD_SPEC**"/>
+  	
+	<!-- Add the XML template block to the top of the buildspec list -->
+	<replace file = "${rel_project_path}/.project" token="buildSpec>" value="${build_command}"/>
+  	
+  	<!-- Rename the closing buildspec tag back to its original name -->
+  	<replace file = "${rel_project_path}/.project" token="**END_BUILD_SPEC**" value="/buildSpec>"/>
+
+  	<!-- Customize the project file for this ANT project -->
+  	<antcall target="customize_file">
+  		<param name="file_to_be_customized" value ="${rel_project_path}/.project"/>
+ 	</antcall>
+  </target>
+
+
+  <target name="copy_uitree.pei.sql.depends" >
+	  <condition property="copy_uitree.pei.sql.buildNotNeeded">
+  	      <available file="${rel_project_path}/sql/UITree.pei.sql"/>
+  	  </condition>
+  </target>
+
+  <target name="copy_uitree.pei.sql" 
+          depends="copy_uitree.pei.sql.depends" 
+          description="Copy the UITree.pei.sql file to the target project" 
+          unless="copy_uitree.pei.sql.buildNotNeeded" >
+    <echo>Creating ${rel_project_path}/sql/UItree.pei.sql ...</echo>
+  	<copy file="${ui_tree_path}/templates/UITree.pei.sql" todir="${rel_project_path}/sql"/>
+  </target>
+
+
+  <target name="generate_buildtree.arc.depends" >
+	  <condition property="generate_buildtree.arc.buildNotNeeded">
+	      <available file="${rel_project_path}/arc/BuildTree.arc"/>
+	  </condition>
+  </target>
+
+  <target name="generate_buildtree.arc" 
+          depends="generate_buildtree.arc.depends" 
+          description="Generate the arc/BuildTree.arc file" 
+          unless="generate_buildtree.arc.buildNotNeeded" >
+    <echo>Generating ${project}/arc/BuildTree.arc ...</echo>
+  	<copy file="${ui_tree_path}/templates/BuildTree.arc" todir="${rel_project_path}/arc"/>
+  	
+  	<!-- Customize the builder launch file for this project -->
+  	<antcall target="customize_file">
+  		<param name="file_to_be_customized"
+  			   value ="${rel_project_path}/arc/BuildTree.arc"/>
+  	</antcall>
+  </target>
+
+  <target name="generate_create_view.inc.depends" >
+	  <condition property="generate_create_view.inc.buildNotNeeded">
+	      <available file="${rel_project_path}/arc/create_${view_filename}.inc"/>
+	  </condition>
+  </target>
+  
+  <target name="generate_create_view.inc" 
+          depends="generate_create_view.inc.depends" 
+          description="Generate the archetype that will generate the view"
+          unless="generate_create_view.inc.buildNotNeeded">
+    <echo>Generating ${project}/arc/${view_package}.java ...</echo>
+  	<copy file="${ui_tree_path}/templates/create_view.inc"
+  		  todir="${rel_project_path}/arc"/>
+  	<!-- Rename the template file to a project specific filename -->
+  	<move   file="${rel_project_path}/arc/create_view.inc" 
+  		  tofile="${rel_project_path}/arc/create_${view_filename}.inc"/>
+  	<!-- Customize the file for this project -->
+  	<antcall target="customize_file">
+  		<param name="file_to_be_customized"
+  			   value ="${rel_project_path}/arc/create_${view_filename}.inc"/>
+  	</antcall>
+  </target>
+
+
+  <target name="generate_filter_selection_action.depends" >
+	  <condition property="generate_filter_selection_action.buildNotNeeded">
+	      <available file="${rel_actions_path}/FilterSelectionAction.java"/>
+	  </condition>
+  </target>
+  
+  <target name="generate_filter_selection_action" 
+          depends="generate_filter_selection_action.depends" 
+          description="Generate the launch file that will build generate.xml"
+          unless="generate_filter_selection_action.buildNotNeeded" >
+    <echo>Generating ${actions_path}/FilterSelectionAction.java ...</echo>
+  	<copy file="${ui_tree_path}/templates/FilterSelectionAction.java"
+  		  todir="${rel_actions_path}"/>
+  	<!-- Customize the builder launch file for this project -->
+  	<antcall target="customize_file">
+  		<param name="file_to_be_customized"
+  			   value ="${rel_actions_path}/FilterSelectionAction.java"/>
+  	</antcall>
+  </target>
+
+
+  <target name="generate_help_context_ids.depends" >
+	  <condition property="generate_help_context_ids.buildNotNeeded">
+	      <available file="${rel_project_path}/src/${project_with_slash}/I${helpcontextids_prefix}HelpContextIds.java"/>
+	  </condition>
+  </target>
+  
+  <target name="generate_help_context_ids" 
+          depends="generate_help_context_ids.depends" 
+          description="Generate the launch file that will build generate.xml"
+          unless="generate_help_context_ids.buildNotNeeded" >
+    <echo>Generating ${project}/src/${project_with_slash}/I${helpcontextids_prefix}HelpContextIds.java ...</echo>
+  	<copy file="${ui_tree_path}/templates/IModelExplorerHelpContextIds.java"
+  		  todir="${rel_project_path}/src/${project_with_slash}"/>
+  	<!-- Rename the template builder to a project specific builder name -->
+  	<move   file="${rel_project_path}/src/${project_with_slash}/IModelExplorerHelpContextIds.java" 
+  		  tofile="${rel_project_path}/src/${project_with_slash}/I${helpcontextids_prefix}HelpContextIds.java"/>
+  	<!-- Customize the builder launch file for this project -->
+  	<antcall target="customize_file">
+  		<param name="file_to_be_customized"
+  			   value ="${rel_project_path}/src/${project_with_slash}/I${helpcontextids_prefix}HelpContextIds.java"/>
+  	</antcall>
+  </target>
+
+
+  <target name="generate_tree_viewer.depends" >
+	  <condition property="generate_tree_viewer.buildNotNeeded">
+	      <available file="${rel_project_path}/src/${project_with_slash}/${treeviewer_prefix}TreeViewer.java"/>
+	  </condition>
+  </target>
+
+  <target name="generate_tree_viewer" 
+          depends="generate_tree_viewer.depends" 
+          description="Generate the TreeViewer.java file file"
+          unless="generate_tree_viewer.buildNotNeeded" >
+    <echo>Generating ${project}/src/${project_with_slash}/${treeviewer_prefix}TreeViewer.java ...</echo>
+  	<copy file ="${ui_tree_path}/templates/ExplorerTreeViewer.java"
+  		  todir="${rel_project_path}/src/${project_with_slash}"/>
+  	<!-- Rename the template builder to a project specific builder name -->
+  	<move   file="${rel_project_path}/src/${project_with_slash}/ExplorerTreeViewer.java" 
+  		  tofile="${rel_project_path}/src/${project_with_slash}/${treeviewer_prefix}TreeViewer.java"/>
+  	<!-- Customize the builder launch file for this project -->
+  	<antcall target="customize_file">
+  		<param name="file_to_be_customized"
+  			   value ="${rel_project_path}/src/${project_with_slash}/${treeviewer_prefix}TreeViewer.java"/>
+  	</antcall>
+  </target>
+
+
+  <target name="generate_adapters" 
+          depends="generate_root_adapter" 
+          description="Generate the adapters from the template files">
+  </target>
+
+  <target name="generate_root_adapter.depends" >
+	  <condition property="generate_root_adapter.buildNotNeeded">
+	      <available file="${rel_adapters_path}/RootAdapter.java"/>
+	  </condition>
+  </target>
+
+  <target name="generate_root_adapter" 
+          depends="generate_root_adapter.depends" 
+          description="Generate the RootAdapter.java file" 
+          unless="generate_root_adapter.buildNotNeeded" >
+
+    <echo>Generating ${adapters_path}/RootAdapter.java ...</echo>
+  	<copy file ="${ui_tree_path}/templates/adapters/RootAdapter.java" 
+  		  todir="${rel_adapters_path}"/>
+  	
+  	<!-- Customize the builder launch file for this project -->
+  	<antcall target="customize_file">
+  		<param name ="file_to_be_customized" 
+  			   value="${rel_adapters_path}/RootAdapter.java"/>
+  	</antcall>
+  </target>
+
+  <target name="add_plugin_dependencies"
+  	      description="Add all necessary dependencies to either the plugin.xml
+  	                   or the manifest.mf file based on whether the manifest
+  	                   file exists and what dependencies already exist.">
+	<ant antfile="${ui_tree_path}/add_plugin_dependencies.xml" 
+		 target="add_plugin_dependencies"
+		 dir="${rel_project_path}">
+	</ant>
+  </target>
+
+    <!-- ================================= 
+          target: customize_file              
+         ================================= -->
+    <target name="customize_file">
+    	<description>  All of the targets that customize a file for a given
+    		project call this target to handle the common customizations
+    	</description>
+        <echo>Customizing ${file_to_be_customized} ...</echo>
+        <replace file = "${file_to_be_customized}"
+                 token = "**PROJECT**" value ="${project}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**PROJECT_WITH_SLASH**"
+        	     value ="${project_with_slash}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**PREFIX**" value ="${prefix}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**TREEVIEWER_PREFIX**" value ="${treeviewer_prefix}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**HELPCONTEXTIDS_PREFIX**" 
+        	     value ="${helpcontextids_prefix}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**LABEL_PROVIDER_PREFIX**" 
+        	     value ="${label_provider_prefix}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**BUILDER_NAME**" value ="${builder_name}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**PLUGIN_PACKAGE**" value ="${plugin_package}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**PLUGIN_NAME**" value ="${plugin_name}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**VIEW_NAME**" value ="${view_name}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**VIEW_FILENAME**" value ="${view_filename}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**VIEW_PACKAGE**" value ="${view_package}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**ACTIONS_PACKAGE**" value ="${actions_package}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**ADAPTERS_PACKAGE**" value ="${adapters_package}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**VIEW_PATH**" value ="${view_path}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**ADAPTERS_PATH**" value ="${adapters_path}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**ACTIONS_PATH**" value ="${actions_path}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**.VIEWS**" value ="${dot_views}}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**/VIEWS**" value ="${slash_views}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**.ACTIONS**" value ="${dot_actions}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**/ACTIONS**" value ="${slash_actions}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**.ADAPTERS**" value ="${dot_adapters}"/>
+        <replace file = "${file_to_be_customized}"
+                 token = "**/ADAPTERS**" value ="${slash_adapters}"/>
+
+    	<!-- Need to touch the output file for the case where the input data
+    	     changed, but the output didn't -->
+    	<touch file="${file_to_be_customized}" />
+    </target>
+
+
+
+	  <!-- CLEAN TARGETS -->
+
+  <target name="clean_all"
+  		  description="Clean entire project"
+  		  depends="clean_generate_xml,
+  	               clean_generate_builder_launch,
+  	               clean_uitree.pei.sql,
+  	               clean_buildtree.arc,
+				   clean_create_view.inc,
+                   clean_filter_selection_action.java,
+                   clean_help_context_ids,
+  	               clean_tree_viewer,
+  	               clean_generated_domain_proxy_adapter,
+  	               clean_generated_root_adapter,
+   	               remove_launch_from_project,
+				   remove_cvsignore_for_adapters,
+				   remove_empty_directories" >
+  	    
+    <echo>Done cleaning for ${ant.project.name}</echo>
+     
+  </target>
+  
+  <target name="clean_generate_xml"
+  		  description="Remove the skeleton generate.xml file" >
+  	<echo>Removing generated skeleton file ${rel_project_path}/generate.xml...</echo>
+    <delete file="${rel_project_path}/generate.xml" />
+  </target>
+
+  <target name="clean_generate_builder_launch"
+  		  description="Remove the generated launch file" >
+  	<echo>Removing generated skeleton file ${rel_project_path}/.externalToolBuilders/${builder_name}.launch...</echo>
+    <delete file="${rel_project_path}/.externalToolBuilders/${builder_name}.launch" />
+  </target>
+
+  <target name="clean_uitree.pei.sql"
+  		  description="Remove the copied sql/UITree.pei.sql file" >
+  	<echo>Removing generated skeleton file ${rel_project_path}/sql/UITree.pei.sql...</echo>
+    <delete file="${rel_project_path}/sql/UITree.pei.sql" />
+  </target>
+
+  <target name="clean_buildtree.arc"
+  		  description="Remove the copied arc/BuildTree.arc file" >
+  	<echo>Removing generated skeleton file ${rel_project_path}/arc/BuildTree.arc...</echo>
+    <delete file="${rel_project_path}/arc/BuildTree.arc" />
+  </target>
+
+  <target name="clean_create_view.inc"
+  		  description="Remove the generated arc/create_${view_filename}.inc file" >
+  	<echo>Removing generated skeleton file ${rel_project_path}/arc/create_${view_filename}.inc ...</echo>
+    <delete file="${rel_project_path}/arc/create_${view_filename}.inc" />
+  </target>
+
+  <target name="clean_filter_selection_action.java"
+  		  description="Remove the copied FilterSelectionAction.java file" >
+  	<echo>Removing generated skeleton file ${actions_path}/FilterSelectionAction.java...</echo>
+    <delete file="${rel_actions_path}/FilterSelectionAction.java" />
+  </target>
+
+  <target name="clean_help_context_ids"
+		  description="Remove the generated src/com/.../I${helpcontextids_prefix}HelpContextIds file" >
+	  	<echo>Removing generated skeleton file ${rel_project_path}/src/${project_with_slash}/I${helpcontextids_prefix}HelpContextIds.java ...</echo>
+	    <delete file="${rel_project_path}/src/${project_with_slash}/I${helpcontextids_prefix}HelpContextIds.java" />
+  </target>
+
+  <target name="clean_tree_viewer"
+		  description="Remove the generated src/com/.../${treeviewer_prefix}TreeViewer.java file" >
+	  	<echo>Removing generated skeleton file ${rel_project_path}/src/${project_with_slash}/${treeviewer_prefix}TreeViewer.java ...</echo>
+	    <delete file="${rel_project_path}/src/${project_with_slash}/${treeviewer_prefix}TreeViewer.java" />
+  </target>
+
+  <target name="clean_generated_domain_proxy_adapter"
+		  description="Remove the generated domain proxy adapter from src/com/.../adapters" >
+	  	<echo>Removing generated skeleton adapter file ${adapters_path}/DomainProxyAdapter.java ...</echo>
+	    <delete file="${rel_adapters_path}/DomainProxyAdapter.java" />
+  </target>
+
+  <target name="clean_generated_root_adapter"
+		  description="Remove the generated root adapter from src/com/.../adapters" >
+	  	<echo>Removing generated skeleton adapter file ${adapters_path}/RootAdapter.java ...</echo>
+	    <delete file="${rel_adapters_path}/RootAdapter.java" />
+  </target>
+
+  <target name="remove_launch_from_project"
+		  description="Remove the generated launch file for generate.xml from the project" >
+	  	<echo>Removing generated launch file for generate.xml from ${project}/.project...</echo>
+  	<!-- Load the template into a string property and populate the template -->
+  	<loadfile property="build_command"
+  		      srcfile="${ui_tree_path}/templates/build_command.txt">
+  		<filterchain>
+	  		<tokenfilter>
+	  			<replacestring from="**BUILDER_NAME**" to="${builder_name}"/>
+	 		</tokenfilter>
+		</filterchain>
+  	</loadfile>
+
+	<echo level="debug">The BuildCommand to be removed from .project = </echo>
+	<echo level="debug">${plugin.xml_file}</echo>
+
+  	<!-- Rewrite the .project file, but filter out the build command -->
+  	<copy file="${rel_project_path}/.project"
+ 		tofile="${rel_project_path}/.project_filtered"
+  		overwrite="true">
+  		<filterchain>
+	  		<tokenfilter>
+	  			<filetokenizer/>
+	  			<replacestring from="${build_command}" to="buildSpec>"/>
+	 		</tokenfilter>
+		</filterchain>
+  	</copy>
+  	
+  	<!-- For some reason, ANT would not successfully overwrite the .project file
+  	     so do some move and deletes to handle the correct file naming -->
+  	<move file  ="${rel_project_path}/.project"
+  		  tofile="${rel_project_path}/.project_old"/>
+  	<move file  ="${rel_project_path}/.project_filtered"
+  		  tofile="${rel_project_path}/.project"/>
+  	<delete file  ="${rel_project_path}/.project_old"/>
+  </target>
+
+
+  <target name="remove_cvsignore_for_adapters.depends"
+  	      depends="does_adapters.cvsignore_exist"
+  	      if="adapters.cvsignore_file_exists">
+  	<!-- If the file exists in the adapters folder and it only contains the
+  	     string used to create the file originally, then it should be removed-->
+  	  <loadfile property="adapters.cvsignore" 
+  	  	        srcfile="${rel_adapters_path}/.cvsignore"/>
+  	  
+	  <condition property="should_remove_cvsignore_for_adapters">
+	  	<and>
+		  	<isset property="adapters_folder_exists"/>
+	  	  	<equals arg1="${adapter_files_cvs_should_ignore}"
+	  	  	  	    arg2="${adapters.cvsignore}"/>
+	  	</and>
+	  </condition>
+
+  	  <echo level="debug">
+should_remove_cvsignore_for_adapters = ${should_remove_cvsignore_for_adapters}
+  	  </echo>
+  </target>
+
+  <target name="remove_cvsignore_for_adapters"
+  	      depends="remove_cvsignore_for_adapters.depends"
+  	      if="should_remove_cvsignore_for_adapters">
+  	<delete file="${rel_adapters_path}/.cvsignore"></delete>
+  </target>
+
+  <target name="remove_empty_directories"
+		  description="Remove empty directories that may have been created in this build" >
+	<antcall target="remove_empty_directory">
+		<param name="directory_to_delete" value="${rel_actions_path}"/>
+	</antcall>
+	<antcall target="remove_empty_directory">
+		<param name="directory_to_delete" value="${rel_adapters_path}"/>
+	</antcall>
+	<antcall target="remove_empty_directory">
+		<param name="directory_to_delete" value="${rel_view_path}"/>
+	</antcall>
+  </target>
+
+  <target name="is_directory_empty">
+	<condition property="directory_is_empty">
+		<!-- Only check if directory is empty if it exists -->
+		<and>
+			<!-- Does the directory exist -->
+			<available property="directory_empty_boolean"
+				file="${directory_to_delete}" type="dir"/>
+			<!-- If so, see if files exist -->
+			<length length="0" when="equal">
+			  <fileset dir="${directory_to_delete}">
+			    <include name="*"/>
+			  </fileset>
+			</length>
+		</and>
+	</condition>
+  	
+  	<echo level="debug">${directory_to_delete} _is_empty = ${directory_is_empty}</echo>
+  </target>
+
+  <target name="remove_empty_directory"
+  	      depends="is_directory_empty"
+  	      if="directory_is_empty">
+    <delete dir="${directory_to_delete}" />
+  </target>
+
+    <!-- ================================= 
+          target: display_final_message              
+         ================================= -->
+  <target name="display_final_message" description="The message to show after the script is done."
+   	      unless="generate_builder_launch.buildNotNeeded">
+		<echo>          *----------------------------------------------*
+
+Skeleton files for ${view_name} have been generated.
+The files that have been generated should be added to a version control system
+like CVS.  These files will not be regenerated.  You will see some compiler
+errors because some of these files depend on files that will be generated later.
+Along with the generated files, a new builder has been added to your project
+that will run a generate.xml script. Additional Plug-in dependencies may have
+also been added to your project.
+
+** Important**
+If you have any hand-written files in your project, you should also update the
+cvs_java_files property in ${project}/generate.xml file.  Otherwise, when you
+next clean this project, your files will be deleted.
+
+Once you have added these files to version control, simply build the project
+again, without a clean, to run the new builder and generate the remaining files.
+
+After that, you can run verifier and open your new view to see an instance
+explorer.  Use this view as a starting point to build whatever tree view you
+require.
+			
+</echo>
+		<echo>          *----------------------------------------------*</echo>
+  </target>
+
+</project>

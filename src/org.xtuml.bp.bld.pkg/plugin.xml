@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="org.xtuml.bp.bld.pkg"
+   name="BridgePoint Builder"
+   version="4.2.0"
+   provider-name="xtUML.org"
+   class="org.xtuml.bp.bld.pkg.Unreferenced">
+
+   <runtime>
+      <library name="pkg.jar"/>
+   </runtime>
+   <requires>
+   </requires>
+</plugin>

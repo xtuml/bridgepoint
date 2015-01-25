@@ -1,0 +1,83 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("990039f3-4145-4bbd-87ee-b732d487641e",
+	'Test Class 5',
+	5,
+	'CT_TCLS5',
+	'',
+	"a5d992b7-203c-476d-8291-b130a964625b");
+INSERT INTO O_REF
+	VALUES ("990039f3-4145-4bbd-87ee-b732d487641e",
+	"070f0a1d-08d0-4057-8e51-e5bb14cb5e79",
+	0,
+	"d605790e-5738-4767-ab6c-2375cf93ef57",
+	"7db1aa53-1523-4514-9562-9729e5bcba6b",
+	"385675b7-0bf0-4a9f-927f-8e08f46aae6d",
+	"15281faa-b32f-41ab-9b51-1be3b1e6adb2",
+	"99e3c21b-3ebb-4c4b-a1c1-acc4725643c1",
+	"a9c9184c-39dc-406b-b9b0-05d7cb217820",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Test Class 1',
+	'Test_Id',
+	'R13');
+INSERT INTO R_RGO_PROXY
+	VALUES ("990039f3-4145-4bbd-87ee-b732d487641e",
+	"7db1aa53-1523-4514-9562-9729e5bcba6b",
+	"385675b7-0bf0-4a9f-927f-8e08f46aae6d",
+	'../Verify_Selects_Test_Conditionality.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("d605790e-5738-4767-ab6c-2375cf93ef57",
+	"070f0a1d-08d0-4057-8e51-e5bb14cb5e79",
+	0,
+	"7db1aa53-1523-4514-9562-9729e5bcba6b",
+	"15281faa-b32f-41ab-9b51-1be3b1e6adb2",
+	'../Verify_Selects_Test_Conditionality.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("99e3c21b-3ebb-4c4b-a1c1-acc4725643c1",
+	"990039f3-4145-4bbd-87ee-b732d487641e",
+	"d605790e-5738-4767-ab6c-2375cf93ef57",
+	"070f0a1d-08d0-4057-8e51-e5bb14cb5e79",
+	1,
+	'Test_Id');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("d605790e-5738-4767-ab6c-2375cf93ef57",
+	"070f0a1d-08d0-4057-8e51-e5bb14cb5e79",
+	'../Test Class 1/Test Class 1.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("99e3c21b-3ebb-4c4b-a1c1-acc4725643c1",
+	"990039f3-4145-4bbd-87ee-b732d487641e",
+	"00000000-0000-0000-0000-000000000000",
+	'Test_Id',
+	'',
+	'',
+	'Test_Id',
+	0,
+	"25d6aae5-15f3-402d-9ff4-92e66c47bfde",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("25d6aae5-15f3-402d-9ff4-92e66c47bfde",
+	"2e999309-c8ad-41f3-9b7c-4d07e50358eb",
+	'same_as<Base_Attribute>',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"990039f3-4145-4bbd-87ee-b732d487641e");
+INSERT INTO O_ID
+	VALUES (1,
+	"990039f3-4145-4bbd-87ee-b732d487641e");
+INSERT INTO O_ID
+	VALUES (2,
+	"990039f3-4145-4bbd-87ee-b732d487641e");
+INSERT INTO S_SS_PROXY
+	VALUES ("a5d992b7-203c-476d-8291-b130a964625b",
+	'Verify_Selects_Test_Conditionality',
+	'',
+	'',
+	0,
+	"2e999309-c8ad-41f3-9b7c-4d07e50358eb",
+	"00000000-0000-0000-0000-000000000000",
+	'../Verify_Selects_Test_Conditionality.xtuml');

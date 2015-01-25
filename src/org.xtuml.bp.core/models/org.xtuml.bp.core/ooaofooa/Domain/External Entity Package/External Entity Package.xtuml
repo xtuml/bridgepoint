@@ -1,0 +1,737 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'External Entity Package',
+	22,
+	'S_EEPK',
+	'External Entity Package represents a package of external entities.',
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+INSERT INTO O_TFR
+	VALUES ("d81d71ae-097e-40e6-935b-0e7a734a8a13",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'initialize',
+	'The initialization operation for this class.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'self.Name = ::getUniqueInitialName( 
+	instance: self.convertToInstance(), 
+    candidateName: "Unnamed External Entity Package");',
+	1,
+	'',
+	"5090544c-296d-47d0-a352-c55cb3987724");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("54ee0aae-3e97-4971-a7d2-25f046da23ce",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'dispose',
+	'The dispose operation for this class.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one dom related by self->S_DOM[R36];
+if (not_empty dom)
+  unrelate dom from self across R36;
+end if;
+select many ees related by self->S_EE[R33];
+for each ee in ees
+  ee.dispose();
+end for;
+select one epip related by self->S_EEPIP[R34];
+if not_empty epip
+  select many pkgs related by epip->S_EEPK[R35];
+  for each pkg in pkgs
+  unrelate epip from pkg across R35;
+    pkg.dispose();
+  end for;
+  unrelate self from epip across R34;
+  delete object instance epip;
+end if;
+if(empty dom)
+  select one dom related by self->PL_EEPID[R300]->S_DOM[R300];
+end if;
+select one eepid related by self->PL_EEPID[R300];
+if(not_empty eepid)
+  unrelate self from dom across R300 using eepid;
+  delete object instance eepid;
+end if;
+delete object instance self;',
+	1,
+	'',
+	"794b04d0-5beb-4f50-b50f-2c95bedd7cd1");
+INSERT INTO O_TFR
+	VALUES ("ef9dd4a9-896b-4b66-a11c-5eb6beff815b",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'newExternalEntity',
+	'Create a new External Entity in this External Entity Package.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one dom related by self->S_DOM[R36];
+if (empty dom)
+  select one rootPkg related by self->S_EEPIP[R35]->S_EEPK[R34];
+  while (empty dom)
+    select one dom related by rootPkg->S_DOM[R36];
+    select one rootPkg related by rootPkg->S_EEPIP[R35]->S_EEPK[R34];;
+  end while;
+end if;
+create object instance ee of S_EE;
+relate ee to dom across R8;
+create object instance eip of S_EEIP;
+relate self to ee across R33 using eip;
+ee.initialize();',
+	1,
+	'',
+	"d81d71ae-097e-40e6-935b-0e7a734a8a13");
+INSERT INTO O_TFR
+	VALUES ("be6bd9e3-65e4-4a00-9005-fcc20f3bc891",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'newExternalEntityPackage',
+	'Create a new EE Package in this EE Package.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one helper related by self->S_EEPIP[R34];
+if (empty helper)
+  create object instance helper of S_EEPIP;
+  relate self to helper across R34;
+end if;
+create object instance newEpkg of S_EEPK;
+relate helper to newEpkg across R35;
+create object instance ePkgInDomain of PL_EEPID;
+select one domain related by self->PL_EEPID[R300]->S_DOM[R300];
+relate domain to newEpkg across R300 using ePkgInDomain;
+newEpkg.initialize();
+',
+	1,
+	'',
+	"ef9dd4a9-896b-4b66-a11c-5eb6beff815b");
+INSERT INTO O_TFR
+	VALUES ("ff75d9df-38b5-48e9-848b-b2ae847a3771",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'get_ooa_id',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'return self.EEPack_ID;',
+	1,
+	'',
+	"c002d33b-8e4c-46b2-8999-2a5039164388");
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("9da26f8e-5775-43b2-a662-334047cd74a5",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'get_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::Folder;',
+	1,
+	'',
+	"ff75d9df-38b5-48e9-848b-b2ae847a3771");
+INSERT INTO S_DT_PROXY
+	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Style',
+	'The Style data type specifies the precise form a graphical element will take when drawn.
+--------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("5090544c-296d-47d0-a352-c55cb3987724",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'get_text_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::None;',
+	1,
+	'',
+	"9da26f8e-5775-43b2-a662-334047cd74a5");
+INSERT INTO O_TPARM
+	VALUES ("6b05512f-82e5-48ca-a80d-aeece188976c",
+	"5090544c-296d-47d0-a352-c55cb3987724",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"9d2b17b7-b4e9-4824-9a98-d91ec5b5a8f3",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("b632217f-7de8-4b7b-bc8a-ce25dc8126b9",
+	"5090544c-296d-47d0-a352-c55cb3987724",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"6b05512f-82e5-48ca-a80d-aeece188976c",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("9d2b17b7-b4e9-4824-9a98-d91ec5b5a8f3",
+	"5090544c-296d-47d0-a352-c55cb3987724",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Justification',
+	'The Justification data type is used to specify text at a given location in a compartment.
+------------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("bd204da2-cc4a-41dc-8d06-610b6f924be9",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'get_compartments',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'return 1;',
+	1,
+	'',
+	"4ca161ed-e131-46d6-a484-5fc86a8696ca");
+INSERT INTO O_TFR
+	VALUES ("c002d33b-8e4c-46b2-8999-2a5039164388",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'get_entries',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'return 1;',
+	1,
+	'',
+	"bd204da2-cc4a-41dc-8d06-610b6f924be9");
+INSERT INTO O_TPARM
+	VALUES ("7332443a-0186-4a3e-ade3-ffd04104b8b8",
+	"c002d33b-8e4c-46b2-8999-2a5039164388",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("4ca161ed-e131-46d6-a484-5fc86a8696ca",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'get_compartment_text',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'result = "";
+if (param.at == Justification::Center_in_X)
+  result = "«external entity»";
+elif (param.at == Justification::Center)
+  result = self.Name;
+end if;
+return result;',
+	1,
+	'',
+	"54ee0aae-3e97-4971-a7d2-25f046da23ce");
+INSERT INTO O_TPARM
+	VALUES ("224ac04b-37cc-49ef-a884-14ea6926c15d",
+	"4ca161ed-e131-46d6-a484-5fc86a8696ca",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"34378581-d52d-44f5-8353-b233be1eb9af",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("b43bb976-5717-4b0a-918e-30cef72090d1",
+	"4ca161ed-e131-46d6-a484-5fc86a8696ca",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"224ac04b-37cc-49ef-a884-14ea6926c15d",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("34378581-d52d-44f5-8353-b233be1eb9af",
+	"4ca161ed-e131-46d6-a484-5fc86a8696ca",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("794b04d0-5beb-4f50-b50f-2c95bedd7cd1",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;',
+	0,
+	'',
+	"3dbf0cec-fcf8-40ae-8dca-c5f836c465b3");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("71d091b6-63a5-4391-9952-4212693ad80c",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'pasteExternalEntity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select any ee from instances of S_EE where (selected.EE_ID == param.id);
+if(not_empty ee)
+  select one domain related by self->PL_EEPID[R300]->S_DOM[R300];
+  select one previousDomain related by ee->S_DOM[R8];
+  if(not_empty previousDomain)
+    unrelate ee from previousDomain across R8;
+  end if;
+  // guarantee a unique name for the pasted package
+  ee.Name = ::getUniqueInitialNameInParent(instance:ee.convertToInstance(),
+  						name:ee.Name, parent:self.convertToInstance());
+  relate ee to domain across R8;
+  create object instance eeip of S_EEIP;
+  relate ee to self across R33 using eeip;
+end if;',
+	1,
+	'',
+	"be6bd9e3-65e4-4a00-9005-fcc20f3bc891");
+INSERT INTO O_TPARM
+	VALUES ("f8b5b5ce-f36e-4ba5-856a-df51e147376a",
+	"71d091b6-63a5-4391-9952-4212693ad80c",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("a4c4c5a9-dcce-4cb4-9194-dccf69ffe13c",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'pasteExternalEntityPackage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select any eepkg from instances of S_EEPK where (selected.EEPack_ID == param.id);
+if(not_empty eepkg)
+  // guarantee a unique name for the pasted package
+  eepkg.Name = ::getUniqueInitialNameInParent(instance:eepkg.convertToInstance(),
+  						name:eepkg.Name, parent:self.convertToInstance());
+  select one prevDomain related by eepkg->S_DOM[R36];
+  if(not_empty prevDomain)
+    unrelate eepkg from prevDomain across R36;
+  end if;
+
+  // create the nesting packages
+  // if necessary
+  select one eepkInpk related by eepkg->S_EEPIP[R35];
+  select one destEepkInpk related by self->S_EEPIP[R34];
+
+  if(not_empty eepkInpk)
+    unrelate eepkg from eepkInpk across R35;
+  end if;
+
+  if(empty destEepkInpk)
+    // otherwise create a new instance
+    create object instance destEepkInpk of S_EEPIP;
+    relate destEepkInpk to self across R34;
+  end if;
+  relate eepkg to destEepkInpk across R35;
+
+  select one domain related by self->PL_EEPID[R300]->S_DOM[R300];
+  
+  // associate child packages with new domain
+  eepkg.associateChildPackagesToDomain(dom_id:domain.Dom_ID);
+  
+  // now setup the links to the domain
+  select one eepid related by eepkg->PL_EEPID[R300];
+  if(not_empty eepid)
+    select one prevDomain related by eepid->S_DOM[R300];
+    unrelate eepkg from prevDomain across R300 using eepid;
+    relate eepkg to domain across R300 using eepid;
+  else
+    create object instance eepid of PL_EEPID;
+    relate eepkg to domain across R300 using eepid;
+  end if;
+  
+  // finally associate each ee under the copied
+  // package with the domain pasted into
+  select many childPkgs related by eepkg->S_EEPIP[R34]->S_EEPK[R35];
+  for each childPkg in childPkgs
+    select many ees related by childPkg->S_EEIP[R33]->S_EE[R33];
+    for each ee in ees
+      select one prevDom related by ee->S_DOM[R8];
+      if(not_empty prevDom)
+        unrelate ee from prevDom across R8;
+      end if;
+      relate ee to domain across R8;
+    end for;
+  end for;
+  select many ees related by eepkg->S_EEIP[R33]->S_EE[R33];
+  for each ee in ees
+    select one prevDom related by ee->S_DOM[R8];
+    if(not_empty prevDom)
+      unrelate ee from prevDom across R8;
+    end if;
+    relate ee to domain across R8;
+  end for;
+end if;',
+	1,
+	'',
+	"71d091b6-63a5-4391-9952-4212693ad80c");
+INSERT INTO O_TPARM
+	VALUES ("50508f4c-71bf-4c17-bb8e-2697705284b3",
+	"a4c4c5a9-dcce-4cb4-9194-dccf69ffe13c",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("3dbf0cec-fcf8-40ae-8dca-c5f836c465b3",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'associateChildPackagesToDomain',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+/*
+ *  For every child package, associate it to the given domain
+ */
+select any domain from instances of S_DOM where (selected.Dom_ID == param.dom_id);
+if(not_empty domain)
+  select many childPKGs related by self->S_EEPIP[R34]->S_EEPK[R35];
+  for each child in childPKGs
+    select one existingEPID related by child->PL_EEPID[R300];
+    select one existingDom related by existingEPID->S_DOM[R300];
+    unrelate child from existingDom across R300 using existingEPID;
+    relate child to domain across R300 using existingEPID;
+    child.associateChildPackagesToDomain(dom_id:param.dom_id);
+  end for;
+end if;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("d2154b3a-9ed0-4876-974c-6e74f90ca17d",
+	"3dbf0cec-fcf8-40ae-8dca-c5f836c465b3",
+	'dom_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("151db5a3-620c-44a6-91cc-5054fa2895d5",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'getExternalEntityCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many externalEntities related by self->S_EE[R33];
+return cardinality externalEntities;',
+	1,
+	'',
+	"a4c4c5a9-dcce-4cb4-9194-dccf69ffe13c");
+INSERT INTO O_TFR
+	VALUES ("952f92d3-72d2-49b7-81d1-5a73b5cd9189",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'getExternalEntityId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many externalEntities related by self->S_EE[R33];
+// We''re preincrementing the index
+count = -1;
+for each externalEntity in externalEntities
+  if (not_empty externalEntity)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return externalEntity.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"151db5a3-620c-44a6-91cc-5054fa2895d5");
+INSERT INTO O_TPARM
+	VALUES ("66cef981-5e31-493f-a4e6-058f4ca84acd",
+	"952f92d3-72d2-49b7-81d1-5a73b5cd9189",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("23fdf1db-c87b-4dfa-9be0-dae81c175757",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'getExternalEntityPckgCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many externalEntitiyPckgs related by self->S_EEPIP[R34]->S_EEPK[R35];
+return cardinality externalEntitiyPckgs;',
+	1,
+	'',
+	"952f92d3-72d2-49b7-81d1-5a73b5cd9189");
+INSERT INTO O_TFR
+	VALUES ("5c7ba084-f7dc-4f8a-a434-44879822841d",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'getExternalEntityPckgId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+id = GD::NULL_UNIQUE_ID();
+select many externalEntitiyPckgs related by self->S_EEPIP[R34]->S_EEPK[R35];
+// We''re preincrementing the index
+count = -1;
+for each externalEntitiyPckg in externalEntitiyPckgs
+  if (not_empty externalEntitiyPckg)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return externalEntitiyPckg.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"23fdf1db-c87b-4dfa-9be0-dae81c175757");
+INSERT INTO O_TPARM
+	VALUES ("46d9917e-f314-4b3b-8089-866a37fc1723",
+	"5c7ba084-f7dc-4f8a-a434-44879822841d",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("e6a2a0dc-ab71-4c66-be3f-8360558ffbc2",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'getPath',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one domain related by self->PL_EEPID[R300]->S_DOM[R300];
+result = self.Name;
+select one epip related by self->S_EEPIP[R35]->S_EEPK[R34];
+while(not_empty epip)
+  result = epip.Name + "::" + result;
+  select one epip related by epip->S_EEPIP[R35]->S_EEPK[R34];
+end while;
+return domain.Name + "::" + result;',
+	1,
+	'',
+	"5c7ba084-f7dc-4f8a-a434-44879822841d");
+INSERT INTO O_NBATTR
+	VALUES ("dc0f2565-e2c7-4017-a7fd-191ac6e8a752",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5");
+INSERT INTO O_BATTR
+	VALUES ("dc0f2565-e2c7-4017-a7fd-191ac6e8a752",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5");
+INSERT INTO O_ATTR
+	VALUES ("dc0f2565-e2c7-4017-a7fd-191ac6e8a752",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	"00000000-0000-0000-0000-000000000000",
+	'EEPack_ID',
+	'Full Name: External Entity Package Identifier
+Description: An identifier for a package of external entities.',
+	'',
+	'EEPack_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("1fd65e51-6dfd-4559-aac8-f50b3e2c9c8b",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5");
+INSERT INTO O_BATTR
+	VALUES ("1fd65e51-6dfd-4559-aac8-f50b3e2c9c8b",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5");
+INSERT INTO O_ATTR
+	VALUES ("1fd65e51-6dfd-4559-aac8-f50b3e2c9c8b",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	"dc0f2565-e2c7-4017-a7fd-191ac6e8a752",
+	'Name',
+	'Full Name: External Entity Package Name
+Description: A name for a package of external entities.',
+	'',
+	'Name',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"7130308b-91d6-4722-bb0e-a16e32da0b09",
+	"64c06211-3ba3-4737-8dc0-c55b61682f53",
+	"b6b3bfe7-d483-4afa-a337-9563785cd46b",
+	"c7f166f6-b169-4d91-a445-5876b233c134",
+	"3ec72be7-ff61-4884-bff6-58102d9ad6a7",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Domain',
+	'Dom_ID',
+	'R36');
+INSERT INTO R_RGO_PROXY
+	VALUES ("30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	"7130308b-91d6-4722-bb0e-a16e32da0b09",
+	"64c06211-3ba3-4737-8dc0-c55b61682f53",
+	'../Domain.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	"7130308b-91d6-4722-bb0e-a16e32da0b09",
+	"b6b3bfe7-d483-4afa-a337-9563785cd46b",
+	'../Domain.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("c7f166f6-b169-4d91-a445-5876b233c134",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	1,
+	'Dom_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	'../Domain/Domain.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("c7f166f6-b169-4d91-a445-5876b233c134",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	"1fd65e51-6dfd-4559-aac8-f50b3e2c9c8b",
+	'Dom_ID',
+	'',
+	'',
+	'Dom_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	"21a145f3-797e-4f17-810e-6dcf3d435da9",
+	0,
+	"12d80798-2759-41a1-baf4-20f3a12644b5",
+	"f4010ccc-b914-44d0-9920-a44ecc8c950c",
+	"61c4a9cc-e930-46d5-9391-dda10ee3954f",
+	"e8dd7a36-e9e1-43bb-a68f-0db1f9060477",
+	"df00cf5b-bc3c-4e8e-abd0-66759801b1f8",
+	"dbf80455-3f6f-4cff-9c44-46e7b5f09dff",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'EE Package in Package',
+	'EEPack_ID',
+	'R35');
+INSERT INTO R_RGO_PROXY
+	VALUES ("30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	"f4010ccc-b914-44d0-9920-a44ecc8c950c",
+	"61c4a9cc-e930-46d5-9391-dda10ee3954f",
+	'../Domain.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("12d80798-2759-41a1-baf4-20f3a12644b5",
+	"21a145f3-797e-4f17-810e-6dcf3d435da9",
+	0,
+	"f4010ccc-b914-44d0-9920-a44ecc8c950c",
+	"e8dd7a36-e9e1-43bb-a68f-0db1f9060477",
+	'../Domain.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("df00cf5b-bc3c-4e8e-abd0-66759801b1f8",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	"dc0f2565-e2c7-4017-a7fd-191ac6e8a752",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	1,
+	'EEPack_ID');
+INSERT INTO O_ATTR
+	VALUES ("df00cf5b-bc3c-4e8e-abd0-66759801b1f8",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	"c7f166f6-b169-4d91-a445-5876b233c134",
+	'Parent_EEPack_ID',
+	'',
+	'Parent_',
+	'EEPack_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5");
+INSERT INTO O_OIDA
+	VALUES ("dc0f2565-e2c7-4017-a7fd-191ac6e8a752",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	0,
+	'EEPack_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5");
+INSERT INTO O_ID
+	VALUES (2,
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5");
+INSERT INTO S_SS_PROXY
+	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	'Domain',
+	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
+	'S',
+	1,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000100002",
+	'../Domain.xtuml');

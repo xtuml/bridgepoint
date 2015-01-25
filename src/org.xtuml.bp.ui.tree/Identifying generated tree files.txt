@@ -1,0 +1,149 @@
+==========================================================================
+
+File:      $RCSfile$
+Version:   $Revision$
+Modified:  $Date$
+
+(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
+
+==========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+use this file except in compliance with the License.  You may obtain a copy 
+of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+License for the specific language governing permissions and limitations under
+the License.
+==========================================================================
+
+Identifying generated tree files
+----------------------------------------
+
+Introduction
+------------
+The tree generation infrastructure is quite flexible.  When reading this
+document, whenever you see a word enclosed in <> symbols, that is an argument
+name that can be passed to the generate_skeleton_files.xml builder for your
+project.  For example, assume that you have passed the following arguments to
+the builder:
+-Dproject=org.xtuml.bp.ui.explorer
+-Dproject_with_slash=org/xtuml/bp/ui/explorer
+-Dprefix=InstanceExplorer
+
+whenever you see the word <project> in this document, it would be replaced by
+org.xtuml.bp.ui.explorer.  So the following path:
+   <project>/src/<project_with_slash>
+translates into 
+   org.xtuml.bp.ui.explorer/src/org/xtuml/bp/ui/explorer
+
+Please look at the top section of ....bp.ui.tree/generate_skeleton_files.xml
+in order to find a complete set of properties that can be passed as argumenrts.
+
+
+Assumed Existing Files
+----------------------------------
+	<project>/.project
+	  This file among other things defines the builders that will be launched
+	  when a user attempts to build or clean this project.  In addition to
+	  generating skeleton java files, the generate_skeleton_file.xml script
+	  also creates a new builder launch file and adds a reference to it in
+	  the .project file.
+
+	<project>/plugin.xml
+	<project>/META-INF/MANIFEST.MF (optional)
+	  The script assumes that a plug-in project already exists, but does not
+	  assume that the project uses an OSGI Manifest.  If the manifest file
+	  exists, then plug-in dependencies may be added to it.  If the manifest
+	  does not exist, then the plug-in dependencies will be added to the
+	  plugin.xml file.
+	
+	<project>/src/<project_with_slash>/<plugin_name>Plugin.java
+	  Since the script assumes that a plugin project already exists, a plugin
+	  file is neither generated nor modified.  Instead of modifying the plugin
+	  to match the generated files, the arguments used to generate the files
+	  should be changed to match the values for the plug-in.
+
+Generated Skeleton Files
+----------------------------------
+The following files should be checked into version control after being
+generated.  These are the files that you should modify to tweak your new
+view to do whatever you require.
+
+	<project>/.externalToolBuilders
+	----------------------------------
+	<builder_name>.launch         - Referred to in the .project file, this
+	                                custom launch file will automatically be
+	                                added to your project in order to execute
+	                                the new generate.xml script whenever this
+	                                project is built or cleaned.
+
+	<project>/src/<project_with_slash>
+	----------------------------------
+	I<helpcontextids_prefix>HelpContextIds.java
+	                              - Project specific constants
+	<treeviewer_prefix>TreeViewer.java
+	                              - Constitutes most of the view's screen
+	                                real estate
+	
+	<project>/src/<project_with_slash><slash_actions>
+	----------------------------------
+	FilterSelectionAction.java    - Opens the filters dialog
+	
+	<project>/src/<project_with_slash><slash_adapters>
+	----------------------------------
+	DomainProxyAdapter.java
+	RootAdapter.java
+	
+	<project>/arc
+	----------------------------------
+	BuildTree.arc                 - Called by generate.xml, this archetype is
+	                                responsible for generating the following:
+	                                  - The view file
+	                                  - The remaining adapters
+	                                  - The label provider
+	                                  - The content provider
+	                                  - The filters content provider
+	                                If you do not want to generate one of these
+	                                files, then comment out the section of code
+	                                that invokes the function and emits the
+	                                results to the file.
+	create_<view_name>.inc        - Called by BuildTree.arc, this template is
+	                                used to create a custom view java file for
+	                                your project.  If you want to change view
+	                                functionality, this is the place.
+	
+	<project>/sql
+	----------------------------------
+	UITree.pei.sql                - Determines the content of your tree
+	                                Each class and parameter in this file
+	                                maps directly to a class and attribute in
+	                                the UITree.xtuml model stored in the
+	                                bp.ui.tree/models folder.  By modifying this
+	                                file, you can change just about everything
+	                                regarding the content of your tree.  For
+	                                more information, read the Adding a new node
+	                                to a generated tree.txt file in the same
+	                                directory as this document.
+	
+	<project>
+	----------------------------------
+	generate.xml                  - The .project file includes a builder that
+	                                will launch this new script.  This script
+	                                is responsible for cleaning and building
+	                                the remaining generated files that should
+	                                not be kept in version control.  It will
+	                                also ensure that the schema for the tree
+	                                (stored in ....bp.ui.tree/sql) has been
+	                                generated.  The generated java files will
+	                                also be run through a format utility to
+	                                make the code comply with coding standards.
+	                                Then the generated code will be compiled.
+
+
+End
+---
+

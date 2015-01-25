@@ -1,0 +1,57 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("c66296cb-55ee-4c43-9a0b-97893552c80e",
+	'Client Function',
+	100,
+	'S_SYNC',
+	'',
+	"833c07d3-6635-4c6b-a0ba-8bde6bd0f680");
+INSERT INTO O_NBATTR
+	VALUES ("2b5ed22c-eaae-459b-8a49-3df66dafdbb6",
+	"c66296cb-55ee-4c43-9a0b-97893552c80e");
+INSERT INTO O_BATTR
+	VALUES ("2b5ed22c-eaae-459b-8a49-3df66dafdbb6",
+	"c66296cb-55ee-4c43-9a0b-97893552c80e");
+INSERT INTO O_ATTR
+	VALUES ("2b5ed22c-eaae-459b-8a49-3df66dafdbb6",
+	"c66296cb-55ee-4c43-9a0b-97893552c80e",
+	"00000000-0000-0000-0000-000000000000",
+	'Sync_ID',
+	'',
+	'',
+	'Sync_ID',
+	0,
+	"dd18a2e9-79f5-48c8-bc8b-961755226df3",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("dd18a2e9-79f5-48c8-bc8b-961755226df3",
+	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"c66296cb-55ee-4c43-9a0b-97893552c80e");
+INSERT INTO O_OIDA
+	VALUES ("2b5ed22c-eaae-459b-8a49-3df66dafdbb6",
+	"c66296cb-55ee-4c43-9a0b-97893552c80e",
+	0,
+	'Sync_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"c66296cb-55ee-4c43-9a0b-97893552c80e");
+INSERT INTO O_ID
+	VALUES (2,
+	"c66296cb-55ee-4c43-9a0b-97893552c80e");
+INSERT INTO S_SS_PROXY
+	VALUES ("833c07d3-6635-4c6b-a0ba-8bde6bd0f680",
+	'OOA',
+	'TRANSLATE: FALSE',
+	'',
+	100,
+	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
+	"00000000-0000-0000-0000-000000180003",
+	'../OOA.xtuml');

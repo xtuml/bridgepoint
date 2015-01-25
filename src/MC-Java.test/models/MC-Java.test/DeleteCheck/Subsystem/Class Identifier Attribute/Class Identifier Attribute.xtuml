@@ -1,0 +1,208 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("f6369324-6656-4bbe-8005-6e6671dee6de",
+	'Class Identifier Attribute',
+	105,
+	'O_OIDA',
+	'An attribute that is part of a class identifier is a class identifier attribute.',
+	"6c3c6da0-a60a-4ea8-bc3a-2ed90a7fc35e");
+INSERT INTO O_REF
+	VALUES ("f6369324-6656-4bbe-8005-6e6671dee6de",
+	"451ac84d-17e9-4366-8175-d11f72fb07cb",
+	0,
+	"71680880-50f0-4eda-920a-5568e0408f19",
+	"8176d614-da92-403e-a078-5fba003cca31",
+	"b16bc102-68e7-4ff9-b47e-6df21bd9f57a",
+	"439e2ee1-786e-42f5-8980-b64be2ab37f6",
+	"a0042615-1d16-47fe-9ab7-8a164e56548c",
+	"82b7af6e-01f6-42b9-aa43-96ba76be0ddd",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Class Identifier',
+	'Oid_ID',
+	'R105');
+INSERT INTO R_RGO_PROXY
+	VALUES ("f6369324-6656-4bbe-8005-6e6671dee6de",
+	"8176d614-da92-403e-a078-5fba003cca31",
+	"b16bc102-68e7-4ff9-b47e-6df21bd9f57a",
+	'../Subsystem.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("71680880-50f0-4eda-920a-5568e0408f19",
+	"451ac84d-17e9-4366-8175-d11f72fb07cb",
+	0,
+	"8176d614-da92-403e-a078-5fba003cca31",
+	"439e2ee1-786e-42f5-8980-b64be2ab37f6",
+	'../Subsystem.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("a0042615-1d16-47fe-9ab7-8a164e56548c",
+	"f6369324-6656-4bbe-8005-6e6671dee6de",
+	"71680880-50f0-4eda-920a-5568e0408f19",
+	"451ac84d-17e9-4366-8175-d11f72fb07cb",
+	1,
+	'Oid_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("71680880-50f0-4eda-920a-5568e0408f19",
+	"451ac84d-17e9-4366-8175-d11f72fb07cb",
+	'../Class Identifier/Class Identifier.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("a0042615-1d16-47fe-9ab7-8a164e56548c",
+	"f6369324-6656-4bbe-8005-6e6671dee6de",
+	"c15da517-b3a1-45fb-b2ad-3ca4bb69fc97",
+	'Oid_ID',
+	'',
+	'',
+	'Oid_ID',
+	0,
+	"3d682281-83c2-44dd-9353-1fc0d6921a89",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("3d682281-83c2-44dd-9353-1fc0d6921a89",
+	"37245a7a-b236-4955-873c-ea0ecaac7d3c",
+	'same_as<Base_Attribute>',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("f6369324-6656-4bbe-8005-6e6671dee6de",
+	"451ac84d-17e9-4366-8175-d11f72fb07cb",
+	0,
+	"cdf2b083-4eae-476a-8c6e-83529bd278f6",
+	"8176d614-da92-403e-a078-5fba003cca31",
+	"b16bc102-68e7-4ff9-b47e-6df21bd9f57a",
+	"439e2ee1-786e-42f5-8980-b64be2ab37f6",
+	"c15da517-b3a1-45fb-b2ad-3ca4bb69fc97",
+	"b9de6acf-3e65-4f13-af6d-a60b8ed8a3f9",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Class Identifier',
+	'Obj_ID',
+	'R105');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("cdf2b083-4eae-476a-8c6e-83529bd278f6",
+	"451ac84d-17e9-4366-8175-d11f72fb07cb",
+	0,
+	"8176d614-da92-403e-a078-5fba003cca31",
+	"439e2ee1-786e-42f5-8980-b64be2ab37f6",
+	'../Subsystem.xtuml');
+INSERT INTO O_REF
+	VALUES ("f6369324-6656-4bbe-8005-6e6671dee6de",
+	"a71e36f2-27fc-4501-afbc-7231de7a3a17",
+	0,
+	"e1e3d558-629d-4f11-b428-d77c28de9327",
+	"8176d614-da92-403e-a078-5fba003cca31",
+	"b16bc102-68e7-4ff9-b47e-6df21bd9f57a",
+	"382847d2-1944-43d0-b25e-48cacc38ce6b",
+	"c15da517-b3a1-45fb-b2ad-3ca4bb69fc97",
+	"7447bb1a-45d6-46d1-9eb0-6d97083b0b45",
+	"b9de6acf-3e65-4f13-af6d-a60b8ed8a3f9",
+	0,
+	'',
+	'Attribute',
+	'Obj_ID',
+	'R105');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("e1e3d558-629d-4f11-b428-d77c28de9327",
+	"a71e36f2-27fc-4501-afbc-7231de7a3a17",
+	0,
+	"8176d614-da92-403e-a078-5fba003cca31",
+	"382847d2-1944-43d0-b25e-48cacc38ce6b",
+	'../Subsystem.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("c15da517-b3a1-45fb-b2ad-3ca4bb69fc97",
+	"f6369324-6656-4bbe-8005-6e6671dee6de",
+	"c349d46d-ffdb-4dba-b57c-ccf8cdca4a6e",
+	"ddc64b7e-3fc8-44b9-b8dc-5b43a7afad01",
+	1,
+	'Obj_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("c349d46d-ffdb-4dba-b57c-ccf8cdca4a6e",
+	"ddc64b7e-3fc8-44b9-b8dc-5b43a7afad01",
+	'../Model Class/Model Class.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("c15da517-b3a1-45fb-b2ad-3ca4bb69fc97",
+	"f6369324-6656-4bbe-8005-6e6671dee6de",
+	"528abfc4-79fd-4abe-a831-a2464d7de4b2",
+	'Obj_ID',
+	'',
+	'',
+	'Obj_ID',
+	0,
+	"3d682281-83c2-44dd-9353-1fc0d6921a89",
+	'');
+INSERT INTO O_REF
+	VALUES ("f6369324-6656-4bbe-8005-6e6671dee6de",
+	"a71e36f2-27fc-4501-afbc-7231de7a3a17",
+	0,
+	"e9a936d3-a85b-4b49-b3a3-4e79884ac2dd",
+	"8176d614-da92-403e-a078-5fba003cca31",
+	"b16bc102-68e7-4ff9-b47e-6df21bd9f57a",
+	"382847d2-1944-43d0-b25e-48cacc38ce6b",
+	"528abfc4-79fd-4abe-a831-a2464d7de4b2",
+	"848d4e7d-5776-4b34-8327-f15dd28b13ca",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Attribute',
+	'Attr_ID',
+	'R105');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("e9a936d3-a85b-4b49-b3a3-4e79884ac2dd",
+	"a71e36f2-27fc-4501-afbc-7231de7a3a17",
+	0,
+	"8176d614-da92-403e-a078-5fba003cca31",
+	"382847d2-1944-43d0-b25e-48cacc38ce6b",
+	'../Subsystem.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("528abfc4-79fd-4abe-a831-a2464d7de4b2",
+	"f6369324-6656-4bbe-8005-6e6671dee6de",
+	"e9a936d3-a85b-4b49-b3a3-4e79884ac2dd",
+	"a71e36f2-27fc-4501-afbc-7231de7a3a17",
+	1,
+	'Attr_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("e9a936d3-a85b-4b49-b3a3-4e79884ac2dd",
+	"a71e36f2-27fc-4501-afbc-7231de7a3a17",
+	'../Attribute/Attribute.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("528abfc4-79fd-4abe-a831-a2464d7de4b2",
+	"f6369324-6656-4bbe-8005-6e6671dee6de",
+	"00000000-0000-0000-0000-000000000000",
+	'Attr_ID',
+	'',
+	'',
+	'Attr_ID',
+	0,
+	"3d682281-83c2-44dd-9353-1fc0d6921a89",
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"f6369324-6656-4bbe-8005-6e6671dee6de");
+INSERT INTO O_OIDA
+	VALUES ("a0042615-1d16-47fe-9ab7-8a164e56548c",
+	"f6369324-6656-4bbe-8005-6e6671dee6de",
+	0);
+INSERT INTO O_OIDA
+	VALUES ("c15da517-b3a1-45fb-b2ad-3ca4bb69fc97",
+	"f6369324-6656-4bbe-8005-6e6671dee6de",
+	0);
+INSERT INTO O_OIDA
+	VALUES ("528abfc4-79fd-4abe-a831-a2464d7de4b2",
+	"f6369324-6656-4bbe-8005-6e6671dee6de",
+	0);
+INSERT INTO O_ID
+	VALUES (1,
+	"f6369324-6656-4bbe-8005-6e6671dee6de");
+INSERT INTO O_ID
+	VALUES (2,
+	"f6369324-6656-4bbe-8005-6e6671dee6de");
+INSERT INTO S_SS_PROXY
+	VALUES ("6c3c6da0-a60a-4ea8-bc3a-2ed90a7fc35e",
+	'Subsystem',
+	'',
+	'O',
+	101,
+	"37245a7a-b236-4955-873c-ea0ecaac7d3c",
+	"00000000-0000-0000-0000-000000000000",
+	'../Subsystem.xtuml');

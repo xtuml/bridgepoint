@@ -1,0 +1,142 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("07a15dab-88b5-4dff-bc95-f1fba78f0aa0",
+	'Function Package in Domain',
+	300,
+	'PL_FPID',
+	'',
+	"72fa6244-a6e7-4d68-a86a-d54b054d2ecc");
+INSERT INTO O_REF
+	VALUES ("07a15dab-88b5-4dff-bc95-f1fba78f0aa0",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	0,
+	"0dbd6a1a-f57b-4432-8623-931a2704d33d",
+	"624b463b-416c-420b-9892-2f2c7ed93547",
+	"d13f8e2a-7427-4121-96b5-176819270da4",
+	"00d8d2e4-ead6-4e2e-ac7b-96c04c694115",
+	"ed77da97-8a6e-4417-b10e-a7f604c670fb",
+	"7105340c-7f31-4bc1-9bd3-9b0187be4e6b",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Function Package',
+	'FunPack_ID',
+	'R301');
+INSERT INTO R_RGO_PROXY
+	VALUES ("07a15dab-88b5-4dff-bc95-f1fba78f0aa0",
+	"624b463b-416c-420b-9892-2f2c7ed93547",
+	"d13f8e2a-7427-4121-96b5-176819270da4",
+	'../Package Linking.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0dbd6a1a-f57b-4432-8623-931a2704d33d",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	0,
+	"624b463b-416c-420b-9892-2f2c7ed93547",
+	"00d8d2e4-ead6-4e2e-ac7b-96c04c694115",
+	'../Package Linking.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("ed77da97-8a6e-4417-b10e-a7f604c670fb",
+	"07a15dab-88b5-4dff-bc95-f1fba78f0aa0",
+	"0dbd6a1a-f57b-4432-8623-931a2704d33d",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	1,
+	'FunPack_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("0dbd6a1a-f57b-4432-8623-931a2704d33d",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'../../Function Package/Function Package.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("ed77da97-8a6e-4417-b10e-a7f604c670fb",
+	"07a15dab-88b5-4dff-bc95-f1fba78f0aa0",
+	"00000000-0000-0000-0000-000000000000",
+	'FunPack_ID',
+	'',
+	'',
+	'FunPack_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("07a15dab-88b5-4dff-bc95-f1fba78f0aa0",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"624b463b-416c-420b-9892-2f2c7ed93547",
+	"d13f8e2a-7427-4121-96b5-176819270da4",
+	"e7f1bd37-ef82-4208-bbe0-94cf416692fc",
+	"186035fa-5f9d-4463-baa8-36fc3ab42388",
+	"7d02f099-49d1-474d-81d6-724535fbf04d",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Domain',
+	'Dom_ID',
+	'R301');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	"624b463b-416c-420b-9892-2f2c7ed93547",
+	"e7f1bd37-ef82-4208-bbe0-94cf416692fc",
+	'../Package Linking.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("186035fa-5f9d-4463-baa8-36fc3ab42388",
+	"07a15dab-88b5-4dff-bc95-f1fba78f0aa0",
+	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	1,
+	'Dom_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	'../../Domain/Domain.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("186035fa-5f9d-4463-baa8-36fc3ab42388",
+	"07a15dab-88b5-4dff-bc95-f1fba78f0aa0",
+	"ed77da97-8a6e-4417-b10e-a7f604c670fb",
+	'Dom_ID',
+	'',
+	'',
+	'Dom_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"07a15dab-88b5-4dff-bc95-f1fba78f0aa0");
+INSERT INTO O_OIDA
+	VALUES ("ed77da97-8a6e-4417-b10e-a7f604c670fb",
+	"07a15dab-88b5-4dff-bc95-f1fba78f0aa0",
+	0,
+	'FunPack_ID');
+INSERT INTO O_OIDA
+	VALUES ("186035fa-5f9d-4463-baa8-36fc3ab42388",
+	"07a15dab-88b5-4dff-bc95-f1fba78f0aa0",
+	0,
+	'Dom_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"07a15dab-88b5-4dff-bc95-f1fba78f0aa0");
+INSERT INTO O_ID
+	VALUES (2,
+	"07a15dab-88b5-4dff-bc95-f1fba78f0aa0");
+INSERT INTO S_SS_PROXY
+	VALUES ("72fa6244-a6e7-4d68-a86a-d54b054d2ecc",
+	'Package Linking',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	'PL',
+	300,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Package Linking.xtuml');

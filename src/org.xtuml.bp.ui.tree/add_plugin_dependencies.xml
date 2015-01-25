@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile$
+ Version:   $Revision$
+ Modified:  $Date$
+
+ (c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
+
+  ========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+use this file except in compliance with the License.  You may obtain a copy 
+of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+License for the specific language governing permissions and limitations under
+the License.
+  ========================================================================
+
+-->
+<project name="org.xtuml.bp.ui.tree" 
+	     default="add_plugin_dependencies" basedir=".">
+
+<!--  The following property files should be overwritten by defines when
+      calling this ant script.                                               -->
+	<property name="project"       value="${basedir}" />
+	
+<!--  The following property files are typically derived from the user-defined
+      properties, but can also be overridden.                                -->
+	<property name="rel_path"           value="../"                           />
+	<property name="rel_project_path"   value="${rel_path}${project}"         />
+
+<!--  The following property files are fixed and should not be changed.      -->
+	<property name="ui_tree_path" 
+		      value="${rel_path}org.xtuml.bp.ui.tree"                />
+
+  <!-- ================================= 
+        target: add_plugin_dependencies              
+       ================================= -->
+  <target name="add_plugin_dependencies" 
+	      depends="add_to_manifest,add_to_plugin.xml">
+  	<description>Adds required plug-in dependencies to either the manifest
+		file or the plugin.xml file
+	</description>
+  </target>
+
+  <target name="add_to_manifest.depends" 
+  	      description="Checks if dependencies should be added to manifest file">
+    <!-- Only add to the manifest file if it exists -->
+  	  <condition property="should_add_to_manifest">
+	      <available file="${rel_project_path}/META-INF/MANIFEST.MF"/>
+	  </condition>
+  </target>
+
+
+  <target name="add_to_manifest" 
+	      depends="add_to_manifest.depends"
+  	      description="Adds required plug-in dependencies to the manifest file"
+  	      if="should_add_to_manifest">
+    <loadfile property="manifest_file" srcFile="${rel_project_path}/META-INF/MANIFEST.MF"/>
+
+  	<!-- If this manifest file currently contains no dependencies, add one -->
+  	<antcall target="add_require_bundle_to_manifest"/>
+  	
+  	
+  	<echo>Adding plugin dependencies to ${project}/META-INF/MANIFEST.MF ...</echo>
+    <!-- Did not use <manifest> tag because it destroys existing dependencies -->
+
+    <!-- WARNING: ANY NEW DEPENDENCIES ADDED TO THIS LIST SHOULD ALSO BE
+                   ADDED TO THE DEPENDENCY LIST FOR PLUGIN.XML IN THIS FILE -->
+   	<antcall target="add_dependency_to_manifest" inheritAll="false">
+  		<param name="dependency_to_check" value="org.xtuml.bp.ui.properties"/>
+  		<param name="manifest_file" value="${manifest_file}"/>
+  	</antcall>
+  	<antcall target="add_dependency_to_manifest" inheritAll="false">
+  	  		<param name="dependency_to_check" value="org.eclipse.ui.editors"/>
+  	  		<param name="manifest_file" value="${manifest_file}"/>
+ 	</antcall>
+  	<antcall target="add_dependency_to_manifest" inheritAll="false">
+  	  		<param name="dependency_to_check" value="org.eclipse.ui.workbench.texteditor"/>
+  	  		<param name="manifest_file" value="${manifest_file}"/>
+ 	</antcall>
+  	<antcall target="add_dependency_to_manifest" inheritAll="false">
+  	  		<param name="dependency_to_check" value="org.eclipse.jface.text"/>
+  	  		<param name="manifest_file" value="${manifest_file}"/>
+ 	</antcall>
+  	<antcall target="add_dependency_to_manifest" inheritAll="false">
+  	  		<param name="dependency_to_check" value="org.eclipse.jface"/>
+  	  		<param name="manifest_file" value="${manifest_file}"/>
+ 	</antcall>
+  	<antcall target="add_dependency_to_manifest" inheritAll="false">
+  	  		<param name="dependency_to_check" value="org.eclipse.ui.ide"/>
+  	  		<param name="manifest_file" value="${manifest_file}"/>
+ 	</antcall>
+  	<antcall target="add_dependency_to_manifest" inheritAll="false">
+  	  		<param name="dependency_to_check" value="org.eclipse.ui.views"/>
+  	  		<param name="manifest_file" value="${manifest_file}"/>
+ 	</antcall>
+  	<antcall target="add_dependency_to_manifest" inheritAll="false">
+  	  		<param name="dependency_to_check" value="org.eclipse.core.resources"/>
+  	  		<param name="manifest_file" value="${manifest_file}"/>
+ 	</antcall>
+  	<antcall target="add_dependency_to_manifest" inheritAll="false">
+  	  		<param name="dependency_to_check" value="org.xtuml.bp.core"/>
+  	  		<param name="manifest_file" value="${manifest_file}"/>
+ 	</antcall>
+  	<antcall target="add_dependency_to_manifest" inheritAll="false">
+  	  		<param name="dependency_to_check" value="org.eclipse.core.runtime"/>
+  	  		<param name="manifest_file" value="${manifest_file}"/>
+ 	</antcall>
+  	<antcall target="add_dependency_to_manifest" inheritAll="false">
+  	  		<param name="dependency_to_check" value="org.eclipse.ui"/>
+  	  		<param name="manifest_file" value="${manifest_file}"/>
+ 	</antcall>
+    <!-- WARNING: ANY NEW DEPENDENCIES ADDED TO THIS LIST SHOULD ALSO BE
+                  ADDED TO THE DEPENDENCY LIST FOR PLUGIN.XML IN THIS FILE -->
+  </target>
+
+  <target name="add_require_bundle_to_manifest.depends">
+  	<condition property="need_to_add_require_bundle">
+  	  <!-- Add the Require-Bundle attribute to the the manifest file if it 
+  	       does not exist-->
+  	  <not>
+  		<contains string="${manifest_file}" substring="Require-Bundle:"/>
+  	  </not>
+  	</condition>
+  </target>
+
+  <target name="add_require_bundle_to_manifest"
+  	      depends="add_require_bundle_to_manifest.depends"
+  	      if="need_to_add_require_bundle">
+  	<echo>No dependencies exist in the manifest file.</echo>
+    <echo>Creating initial "Require-Bundle:" entry...</echo>
+  	<!-- Add one dependency that will be at the bottom of the list with no
+  	     trailing comma -->
+  	<manifest file="${rel_project_path}/META-INF/MANIFEST.MF" mode="update">
+  		<attribute name="Require-Bundle" value="org.xtuml.bp.core"/>
+  	</manifest>
+  </target>
+
+  <target name="see_if_dependency_is_in_manifest">
+  	<condition property="dependency_is_needed">
+    <!-- The dependency is needed if it does not exist in the plugin.xml file-->
+  	  <not>
+  		<contains string="${manifest_file}" substring="${dependency_to_check}"/>
+  	  </not>
+  	</condition>
+  </target>
+
+  <target name="add_dependency_to_manifest" depends="see_if_dependency_is_in_manifest"
+  	      if="dependency_is_needed">
+  	<echo>Adding ${dependency_to_check} to manifest file </echo>
+    <!-- Since <replacevalue> does not handle substitutions and
+         <replace value=""/> does not handle carriage returns, use both -->
+  	<replace file = "${rel_project_path}/META-INF/MANIFEST.MF"
+             token = "Require-Bundle:"
+  		value="Require-Bundle: ${dependency_to_check},**INSERT_CARRIAGE_RETURN**"/>
+  	<replace file = "${rel_project_path}/META-INF/MANIFEST.MF"
+             token = "**INSERT_CARRIAGE_RETURN**">
+  		<replacevalue>
+</replacevalue>
+  	</replace>
+  </target>
+
+
+  <target name="add_to_plugin.xml.depends" 
+      description="Checks if dependencies should be added to plugin.xml file">
+    <!-- Only add to the plugin file if it exists and the manifest file does not -->
+  	 <condition property="should_add_to_plugin.xml">
+	  	<and>
+	      <available file="${rel_project_path}/plugin.xml"/>
+	  	  <not>
+		  	<available file="${rel_project_path}/META-INF/MANIFEST.MF"/>
+	  	  </not>
+	  	</and>
+	  </condition>
+  </target>
+
+  <target name="add_to_plugin.xml" 
+	      depends="add_to_plugin.xml.depends"
+  	      description="Adds required plug-in dependencies to the plugin.xml file"
+  	      if="should_add_to_plugin.xml">
+  	<echo>Adding plugin dependencies to ${project}/plugin.xml ...</echo>
+  	<loadfile property="additional_dependency_template"
+  		      srcfile="${ui_tree_path}/templates/additional_dependency_for_plugin.xml.txt"/>
+  	<!-- If this plugin file currently contains no dependencies, add one -->
+  	<antcall target="add_requires_tag_to_plugin.xml"/>
+  	
+    <!-- Add the dependencies in reverse order than they could be added to
+         the manifest file because it adds to the top and dependencies are
+         added to the bottom of the requires list in plugin.xml -->
+
+    <!-- WARNING: ANY NEW DEPENDENCIES ADDED TO THIS LIST SHOULD ALSO BE
+                  ADDED TO THE DEPENDENCY LIST FOR MANIFEST.MF IN THIS FILE -->
+
+  	<antcall target="add_dependency_to_plugin.xml" inheritAll="false">
+  	  		<param name ="dependency_to_check" value="org.eclipse.ui"/>
+  	  		<param name ="additional_dependency_template" 
+  	  			   value="${additional_dependency_template}"/>
+ 	</antcall>
+  	<antcall target="add_dependency_to_plugin.xml" inheritAll="false">
+  	  		<param name ="dependency_to_check" 
+  	  			   value="org.eclipse.core.runtime"/>
+  	  		<param name ="additional_dependency_template" 
+  	  			   value="${additional_dependency_template}"/>
+  	</antcall>
+  	<antcall target="add_dependency_to_plugin.xml" inheritAll="false">
+  	  		<param name ="dependency_to_check" 
+  	  			   value="org.xtuml.bp.core"/>
+  	  		<param name ="additional_dependency_template" 
+  	  			   value="${additional_dependency_template}"/>
+  	</antcall>
+  	<antcall target="add_dependency_to_plugin.xml" inheritAll="false">
+  	  		<param name ="dependency_to_check"
+  	  			   value="org.eclipse.core.resources"/>
+  	  		<param name ="additional_dependency_template" 
+  	  			   value="${additional_dependency_template}"/>
+  	</antcall>
+  	<antcall target="add_dependency_to_plugin.xml" inheritAll="false">
+  	  		<param name ="dependency_to_check" value="org.eclipse.ui.views"/>
+  	  		<param name ="additional_dependency_template"
+  	  			   value="${additional_dependency_template}"/>
+  	</antcall>
+  	<antcall target="add_dependency_to_plugin.xml" inheritAll="false">
+  	  		<param name ="dependency_to_check" value="org.eclipse.ui.ide"/>
+  	  		<param name ="additional_dependency_template"
+  	  			   value="${additional_dependency_template}"/>
+  	</antcall>
+  	<antcall target="add_dependency_to_plugin.xml" inheritAll="false">
+  	  		<param name ="dependency_to_check" value="org.eclipse.jface"/>
+  	  		<param name ="additional_dependency_template" 
+  	  			   value="${additional_dependency_template}"/>
+  	</antcall>
+  	<antcall target="add_dependency_to_plugin.xml" inheritAll="false">
+  	  		<param name ="dependency_to_check" value="org.eclipse.jface.text"/>
+  	  		<param name ="additional_dependency_template"
+  	  			   value="${additional_dependency_template}"/>
+  	</antcall>
+  	<antcall target="add_dependency_to_plugin.xml" inheritAll="false">
+  	  		<param name ="dependency_to_check"
+  	  			   value="org.eclipse.ui.workbench.texteditor"/>
+  	  		<param name ="additional_dependency_template"
+  	  			   value="${additional_dependency_template}"/>
+  	</antcall>
+  	<antcall target="add_dependency_to_plugin.xml" inheritAll="false">
+  	  		<param name ="dependency_to_check" value="org.eclipse.ui.editors"/>
+  	  		<param name ="additional_dependency_template" 
+  	  			   value="${additional_dependency_template}"/>
+ 	</antcall>
+  	<antcall target="add_dependency_to_plugin.xml" inheritAll="false">
+  		<param name ="dependency_to_check"
+  			   value="org.xtuml.bp.ui.properties"/>
+  		<param name ="additional_dependency_template"
+  			   value="${additional_dependency_template}"/>
+  	</antcall>
+    <!-- WARNING: ANY NEW DEPENDENCIES ADDED TO THIS LIST SHOULD ALSO BE
+                  ADDED TO THE DEPENDENCY LIST FOR MANIFEST.MF IN THIS FILE -->
+
+  </target>
+
+  <target name="add_requires_tag_to_plugin.xml.depends">
+  	<loadfile property="plugin.xml_file"
+  		      srcfile="${rel_project_path}/plugin.xml"/>
+  	<condition property="need_to_add_requires_tag">
+  	  <!-- Add the <requires> tag to the the plugin.xml file if it 
+  	       does not exist-->
+  	  <not>
+  		<contains string="${plugin.xml_file}" substring="/requires>"/>
+  	  </not>
+  	</condition>
+  </target>
+
+  <target name="add_requires_tag_to_plugin.xml"
+  	      depends="add_requires_tag_to_plugin.xml.depends"
+  	      if="need_to_add_requires_tag">
+  	<echo>No dependencies exist in the plugin.xml file.</echo>
+    <echo>Creating initial 'requires' tag entry...</echo>
+  	<!-- Add one dependency to the plugin.xml file -->
+  	<loadfile property="initial_requires_tag_value"
+  		      srcfile= "${ui_tree_path}/templates/initial_requires_tag_for_plugin.xml.txt"/>
+  	<replace file = "${rel_project_path}/plugin.xml"
+             token = "/plugin>" value="${initial_requires_tag_value}"/>
+  </target>
+
+  <target name="see_if_dependency_is_in_plugin.xml">
+  	<!-- Read the plugin.xml file into an ANT property that only contains
+  	     lines with the given dependency -->
+  	<loadfile property="plugin.xml_file"
+  		      srcfile="${rel_project_path}/plugin.xml">
+  		<filterchain>
+	  		<tokenfilter>
+	  	  		    <containsstring contains="${dependency_to_check}"/>
+	 		</tokenfilter>
+		</filterchain>
+  	</loadfile>
+	<echo level="debug">Filtered plugin.xml file = ${plugin.xml_file}</echo>
+  	
+  	<condition property="dependency_is_needed_in_plugin.xml">
+    <!-- The dependency is needed if it does not exist in the plugin.xml file
+         or if only exists on lines that do not contain the "import plugin"
+         command. -->
+  		<not>
+	  		<contains string="${plugin.xml_file}"
+		  			  substring="import plugin"
+	  		          casesensitive="false">
+	  		</contains>
+  		</not>
+  	</condition>
+  </target>
+
+  <target name="add_dependency_to_plugin.xml" depends="see_if_dependency_is_in_plugin.xml"
+  	      if="dependency_is_needed_in_plugin.xml">
+  	<echo>Adding ${dependency_to_check} to plugin.xml file </echo>
+  	<replace file = "${rel_project_path}/plugin.xml"
+             token = "/requires>" value="${additional_dependency_template}"/>
+  	<replace file = "${rel_project_path}/plugin.xml"
+             token = "**ADDITIONAL_PLUGIN_DEPENDENCY**"
+  		     value = "${dependency_to_check}"/>
+  </target>
+</project>

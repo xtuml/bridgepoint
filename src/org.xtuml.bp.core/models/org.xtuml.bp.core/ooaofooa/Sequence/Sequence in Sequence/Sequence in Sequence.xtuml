@@ -1,0 +1,91 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("90e625be-eb94-478b-84b1-59fe801c253a",
+	'Sequence in Sequence',
+	906,
+	'SQ_SIS',
+	'',
+	"879e1557-8556-43dd-8cfd-1e141091172d");
+INSERT INTO O_REF
+	VALUES ("90e625be-eb94-478b-84b1-59fe801c253a",
+	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
+	0,
+	"2c2f7672-4c97-4574-8c41-ffcfc117177f",
+	"5ddca01b-026e-4ebb-8705-100d85263131",
+	"8b7fee48-51e2-419a-8885-f83162992437",
+	"4a0874c7-b134-4045-a083-aef9663a7e6f",
+	"2c0a9065-60b2-4439-89b1-4f2e732a311d",
+	"2a8ebdc6-565c-492a-8597-15ee0b09e721",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Sequence',
+	'Package_ID',
+	'R911');
+INSERT INTO R_RGO_PROXY
+	VALUES ("90e625be-eb94-478b-84b1-59fe801c253a",
+	"5ddca01b-026e-4ebb-8705-100d85263131",
+	"8b7fee48-51e2-419a-8885-f83162992437",
+	'../Sequence.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("2c2f7672-4c97-4574-8c41-ffcfc117177f",
+	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
+	0,
+	"5ddca01b-026e-4ebb-8705-100d85263131",
+	"4a0874c7-b134-4045-a083-aef9663a7e6f",
+	'../Sequence.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("2c0a9065-60b2-4439-89b1-4f2e732a311d",
+	"90e625be-eb94-478b-84b1-59fe801c253a",
+	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	1,
+	'Package_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	'../../Element Packaging/Specification Package/Specification Package.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("2c0a9065-60b2-4439-89b1-4f2e732a311d",
+	"90e625be-eb94-478b-84b1-59fe801c253a",
+	"00000000-0000-0000-0000-000000000000",
+	'Package_ID',
+	'',
+	'',
+	'SpecificationPackage_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"90e625be-eb94-478b-84b1-59fe801c253a");
+INSERT INTO O_OIDA
+	VALUES ("2c0a9065-60b2-4439-89b1-4f2e732a311d",
+	"90e625be-eb94-478b-84b1-59fe801c253a",
+	0,
+	'Package_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"90e625be-eb94-478b-84b1-59fe801c253a");
+INSERT INTO O_ID
+	VALUES (2,
+	"90e625be-eb94-478b-84b1-59fe801c253a");
+INSERT INTO S_SS_PROXY
+	VALUES ("879e1557-8556-43dd-8cfd-1e141091172d",
+	'Sequence',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	'SQ',
+	900,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Sequence.xtuml');

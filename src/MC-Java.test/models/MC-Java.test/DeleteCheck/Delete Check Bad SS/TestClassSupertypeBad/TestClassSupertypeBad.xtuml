@@ -1,0 +1,87 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("798682d3-a3ab-4c81-9a79-458355764b21",
+	'TestClassSupertypeBad',
+	3,
+	'DC_TCLB2',
+	'',
+	"ecae074c-88bb-4195-98a8-8ab1751dd0c1");
+INSERT INTO O_REF
+	VALUES ("798682d3-a3ab-4c81-9a79-458355764b21",
+	"6f4bf5ab-57f4-4ea1-a2c7-016f25568f6a",
+	0,
+	"49dc632f-26a6-466d-b884-3a2134cd8a4c",
+	"8faad24e-08b9-4c0d-9ef9-a81cfead19ba",
+	"66ba0b26-2760-4fb4-9a90-67425a8a2138",
+	"32381304-377d-47be-911e-83866040d4ac",
+	"61abfc60-26aa-45b9-a336-8169254a0b23",
+	"bc54a11f-8711-45e7-bd10-32be42bc5f31",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'DeleteCheckBadClass',
+	'testAttr',
+	'R9');
+INSERT INTO R_RGO_PROXY
+	VALUES ("798682d3-a3ab-4c81-9a79-458355764b21",
+	"8faad24e-08b9-4c0d-9ef9-a81cfead19ba",
+	"66ba0b26-2760-4fb4-9a90-67425a8a2138",
+	'../Delete Check Bad SS.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("49dc632f-26a6-466d-b884-3a2134cd8a4c",
+	"6f4bf5ab-57f4-4ea1-a2c7-016f25568f6a",
+	0,
+	"8faad24e-08b9-4c0d-9ef9-a81cfead19ba",
+	"32381304-377d-47be-911e-83866040d4ac",
+	'../Delete Check Bad SS.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("61abfc60-26aa-45b9-a336-8169254a0b23",
+	"798682d3-a3ab-4c81-9a79-458355764b21",
+	"49dc632f-26a6-466d-b884-3a2134cd8a4c",
+	"6f4bf5ab-57f4-4ea1-a2c7-016f25568f6a",
+	1,
+	'testAttr');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("49dc632f-26a6-466d-b884-3a2134cd8a4c",
+	"6f4bf5ab-57f4-4ea1-a2c7-016f25568f6a",
+	'../DeleteCheckBadClass/DeleteCheckBadClass.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("61abfc60-26aa-45b9-a336-8169254a0b23",
+	"798682d3-a3ab-4c81-9a79-458355764b21",
+	"00000000-0000-0000-0000-000000000000",
+	'testAttr',
+	'',
+	'',
+	'testAttr',
+	0,
+	"3d682281-83c2-44dd-9353-1fc0d6921a89",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("3d682281-83c2-44dd-9353-1fc0d6921a89",
+	"37245a7a-b236-4955-873c-ea0ecaac7d3c",
+	'same_as<Base_Attribute>',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"798682d3-a3ab-4c81-9a79-458355764b21");
+INSERT INTO O_OIDA
+	VALUES ("61abfc60-26aa-45b9-a336-8169254a0b23",
+	"798682d3-a3ab-4c81-9a79-458355764b21",
+	0);
+INSERT INTO O_ID
+	VALUES (1,
+	"798682d3-a3ab-4c81-9a79-458355764b21");
+INSERT INTO O_ID
+	VALUES (2,
+	"798682d3-a3ab-4c81-9a79-458355764b21");
+INSERT INTO S_SS_PROXY
+	VALUES ("ecae074c-88bb-4195-98a8-8ab1751dd0c1",
+	'Delete Check Bad SS',
+	'Persistent:false',
+	'',
+	0,
+	"37245a7a-b236-4955-873c-ea0ecaac7d3c",
+	"00000000-0000-0000-0000-000000000000",
+	'../Delete Check Bad SS.xtuml');

@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="archetypes.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+File Control Statements
+</TITLE>
+
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<H1 CLASS="Heading2">
+<A NAME="0_pgfId-519293"></A>File Control Statements</H1>
+<P CLASS="Body">
+<A NAME="0_pgfId-519294"></A>File control statements are used to produce files based on the text accumulated in the buffer when the statement is reached.</P>
+<H3 CLASS="Heading3">
+<A NAME="0_pgfId-519296"></A>Emitting Text</H3>
+<P CLASS="Body">
+<A NAME="0_pgfId-519297"></A>All literal text is buffered as it is encountered in the rules. To output the contents of the buffer to a file, use: </P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517420"></A><EM CLASS="Code">
+.emit to file &quot;&lt;file_name&gt;&quot;</EM>
+<A NAME="0_marker-517419"></A></P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517422"></A>The<EM CLASS="Courier-Bold">
+ </EM>
+<EM CLASS="Code">
+.emit</EM>
+<EM CLASS="Courier-Bold">
+ </EM>
+statement also clears the buffer's contents. For example:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517424"></A><EM CLASS="Code">
+.emit to file &quot;/source_code/$_{ss_inst.name}/$_{class_inst.name}.cpp&quot;</EM>
+</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517426"></A>results in a file being emitted in a directory based on the subsystem name with a filename based on the class name.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517427"></A>If an emitted file already exists, then the contents of the new file are compared to the existing file. If the files are the same, then the existing file is left undisturbed, so that modification times are left in-tact. If the files are different, then the existing file is replaced with the newly generated file. </P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517429"></A>To clear the contents of the buffer without emitting the contents to a file, use the following statement:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517432"></A><EM CLASS="Code">
+.clear</EM>
+<A NAME="0_marker-517431"></A></P>
+<H3 CLASS="Heading3">
+<A NAME="0_pgfId-517435"></A>Comments</H3>
+<P CLASS="Body">
+<A NAME="0_pgfId-517436"></A>To add a comment in a rule file, use the following statement:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517439"></A><EM CLASS="Code">.comment &lt;user_comment&gt;</EM>
+<A NAME="0_marker-517438"></A></PRE>
+<P CLASS="Body-Tight">
+<A NAME="0_pgfId-517440"></A>or</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517442"></A><EM CLASS="Code">
+.// &lt;user_comment&gt;</EM>
+<A NAME="0_marker-517441"></A></P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517444"></A>At least one white space character must follow the <EM CLASS="Code">
+.comment</EM>
+ keyword.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517445"></A>A white space character does not need to follow the <EM CLASS="Code">
+.//</EM>
+ keyword.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517446"></A>All text from the comment keyword to the end of the line is ignored.</P>
+<H3 CLASS="Heading3">
+<A NAME="0_pgfId-517448"></A><A NAME="0_marker-517447"></A>Include</H3>
+<P CLASS="Body">
+<A NAME="0_pgfId-517449"></A>To include another rule file, use the following statement:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517451"></A><EM CLASS="Code">
+.include &quot;&lt;file_name&gt;&quot;</EM>
+</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517453"></A>When a file is included, a marker is placed on the stack and the interpreter begins interpretation on the first line of the included file. When all lines in the included file have been processed, all variables pushed on the stack since the include marker was pushed are considered out of scope (and therefore popped from the stack). The interpreter then resumes interpretation on the line following the<EM CLASS="Courier-Bold">
+ </EM>
+<EM CLASS="Code">
+.include</EM>
+<EM CLASS="Courier-Bold">
+ </EM>
+statement.</P>
+<H3 CLASS="Heading3">
+<A NAME="0_pgfId-517455"></A><A NAME="0_marker-517454"></A>Handling Errors and Printing Information</H3>
+<P CLASS="Body">
+<A NAME="0_pgfId-517457"></A>To print a message to <EM CLASS="Code">
+stderr</EM>
+ from a rule, use the following statement:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517459"></A><EM CLASS="Code">
+.print &quot;&lt;error_message&gt;&quot;</EM>
+<A NAME="0_marker-517458"></A></P>
+<P CLASS="Body">
+<A NAME="0_pgfId-519350"></A>To stop the interpreter with integer value <EM CLASS="Code">
+&lt;exit_status&gt;</EM>
+, use the following:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517464"></A><EM CLASS="Code">
+.exit &lt;exit_status&gt;</EM>
+<A NAME="0_marker-517463"></A></P>
+</BODY>
+</HTML>

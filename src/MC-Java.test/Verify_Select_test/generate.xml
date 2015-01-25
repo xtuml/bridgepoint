@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile: generate.xml,v $
+ Version:   $Revision: 1.10 $
+ Modified:  $Date: 2011/05/30 20:20:45 $
+
+ (c) Copyright 2005-2014 by Mentor Graphics Corp.  All rights reserved.
+
+-->
+<project name="mc-java.test" default="all" basedir=".">
+	<target name="all" description="Run verify select test" depends="sql,java,sql_cond_test,java_cond_test">
+	</target>
+
+	<property name="eclipse-home" value="${basedir}/../.." />
+
+	<property environment="env" />
+	<property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\bin" />
+    <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\mc3020\bin" />
+
+	<property name="sql.input" value="../models/MC-Java.test/verify_sel" />
+	<property name="sql.output" value="verify_sel.sql" />
+
+	<property name="subsystems_to_remove" value="ACT_ V_ E_" />
+	
+	<target name="sql.depends">
+		<uptodate property="sql.buildNotNeeded" value="yes" targetfile="sql/${sql.output}">
+	 	     <srcfiles dir= "${sql.input}" includes="**/*.xtuml" />
+		  </uptodate>
+	</target>
+
+	<target name="sql" depends="sql.depends" description="Generate the sql version of verify select model" unless="sql.buildNotNeeded">
+		<echo>Generating ${sql.output} ...</echo>
+		<exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}\xtumlmc_build.exe" >
+				<arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
+		</exec>
+	</target>
+
+	<property name="sql_cond_test.input" value="verify_sel_cond_test.xtuml" />
+	<property name="sql_cond_test.output" value="verify_sel_cond_test.sql" />
+
+	<target name="sql_cond_test.depends">
+		<uptodate property="sql_cond_test.buildNotNeeded" value="yes" srcfile="../models/${sql_cond_test.input}" targetfile="sql/${sql_cond_test.output}" />
+	</target>
+
+	<target name="sql_cond_test" depends="sql_cond_test.depends" description="Generate the sql version of verify select conditionality test model" unless="sql_cond_test.buildNotNeeded">
+		<echo>Generating ${sql_cond_test.output} ...</echo>
+		<copy file="../models/${sql_cond_test.input}" tofile="sql/${sql_cond_test.output}" />
+	</target>
+
+	<property name="mcj_path" value="../../MC-Java" />
+	<property file="${mcj_path}/mc_java.depends" />
+
+	<property name="sg_tj.dep" value="ooa_schema.sql,${pg_schema_gen.arc.depends}" />
+	<property name="schema.output" value="verify_sel_pg_schema.sql" />
+	<property name="schema_cond_test.output" value="verify_sel_cond_test_pg_schema.sql" />
+
+	<target name="schema.depends">
+		<uptodate property="schema.buildNotNeeded" targetfile="sql/${schema.output}">
+			<srcfiles dir="sql" includes="${sql.output}" />
+			<srcfiles dir="${mcj_path}" includes="${sg_tj.dep}" />
+		</uptodate>
+	</target>
+
+	<target name="schema" depends="schema.depends" description="Generate the verify select test database schema file" unless="schema.buildNotNeeded">
+		<echo>Generating ${schema.output} ...</echo>
+		<ant antfile="${mcj_path}/build.xml" target="generate.db.schema">
+			<property name="param1" value="${sql.output}" />
+			<property name="param2" value="${mcj_path}" />
+		</ant>
+		<!-- Need to touch the output file for the case where the input data
+	     changed, but the output didn't -->
+		<touch file="sql/${schema.output}" />
+	</target>
+
+	<target name="schema_cond_test.depends">
+		<uptodate property="schema_cond_test.buildNotNeeded" targetfile="sql/${schema_cond_test.output}">
+			<srcfiles dir="sql" includes="${sql.output}" />
+			<srcfiles dir="${mcj_path}" includes="${sg_tj.dep}" />
+		</uptodate>
+	</target>
+
+	<target name="schema_cond_test" depends="schema_cond_test.depends" description="Generate the verify select conditionality test database schema file" unless="schema_cond_test.buildNotNeeded">
+		<echo>Generating ${schema_cond_test.output} ...</echo>
+		<ant antfile="${mcj_path}/build.xml" target="generate.db.schema">
+			<property name="param1" value="${sql.output}" />
+			<property name="param2" value="${mcj_path}" />
+		</ant>
+		<!-- Need to touch the output file for the case where the input data
+	     changed, but the output didn't -->
+		<touch file="sql/${schema_cond_test.output}" />
+	</target>
+
+	<property name="java.sql.dep" value="${sql.output}" />
+	<property name="java.color.dep" value="verify_sel_startspec.clr,verify_sel_import_spec.clr,verify_sel_package_spec.clr" />
+	<property name="java_cond_test.sql.dep" value="${sql_cond_test.output}" />
+	<property name="java_cond_test.color.dep" value="verify_sel_cond_test_startspec.clr,verify_sel_cond_test_import_spec.clr,verify_sel_cond_test_package_spec.clr" />
+
+	<property name="java.tj.dep" value="ooa_schema.sql,${java.arc.depends}" />
+
+	<property name="java.output" value="src/Verify_sel.java" />
+	<property name="java_cond_test.output" value="src/Verify_sel_cond_test.java" />
+
+	<target name="java.depends">
+		<uptodate property="java.buildNotNeeded" targetfile="${java.output}">
+			<srcfiles dir="sql" includes="${java.sql.dep}" />
+			<srcfiles dir="color" includes="${java.color.dep}" />
+			<srcfiles dir="${mcj_path}" includes="${java.tj.dep}" />
+		</uptodate>
+	</target>
+
+	<target name="java_cond_test.depends">
+		<uptodate property="java_cond_test.buildNotNeeded" targetfile="${java_cond_test.output}">
+			<srcfiles dir="sql" includes="${java_cond_test.sql.dep}" />
+			<srcfiles dir="color" includes="${java_cond_test.color.dep}" />
+			<srcfiles dir="${mcj_path}" includes="${java.tj.dep}" />
+		</uptodate>
+	</target>
+
+	<target name="java" description="Generate java code for this project" depends="java.depends" unless="java.buildNotNeeded">
+		<echo>Generating java files ...</echo>
+		<ant antfile="${mcj_path}/build.xml" target="generate.java">
+			<property name="param1" value="verify_sel" />
+			<property name="param2" value="Verify_sel" />
+			<property name="param3" value="${mcj_path}" />
+			<property name="verify_selects" value="true" />
+		</ant>
+		<!-- Need to touch the output file for the case where the input data
+	     changed, but the output didn't -->
+		<touch file="${java.output}" />
+	</target>
+
+	<target name="java_cond_test" description="Generate java code for this project" depends="java_cond_test.depends" unless="java_cond_test.buildNotNeeded">
+		<echo>Generating java files ...</echo>
+		<ant antfile="${mcj_path}/build.xml" target="generate.java">
+			<property name="param1" value="verify_sel_cond_test" />
+			<property name="param2" value="Verify_sel_cond_test" />
+			<property name="param3" value="${mcj_path}" />
+			<property name="verify_selects" value="true" />
+			<property name="persist" value="-nopersist" />
+		</ant>
+		<!-- Need to touch the output file for the case where the input data
+	     changed, but the output didn't -->
+		<touch file="${java_cond_test.output}" />
+	</target>
+
+	<taskdef name="Compare" classname="CompareTask" classpath="../tools" />
+
+	<target name="compare_verifyselect_results" description="Compare verify selects output to expected results">
+
+		<Compare firstfile="expected_results/verify_sel_verify_selects_output.txt" secondfile="verify_sel_verify_selects_output.txt" />
+	</target>
+
+	<target name="compare_verifyselectcond_results" description="Compare verify selects output to expected results">
+
+		<Compare firstfile="expected_results/verify_sel_cond_test_verify_selects_output.txt" secondfile="verify_sel_cond_test_verify_selects_output.txt" />
+	</target>
+
+
+	<!-- Clean Targets -->
+
+	<target name="clean_all" description="Remove all generated output" depends="clean_output, clean_sql">
+		<echo>Cleaning entire project</echo>
+	</target>
+
+	<target name="clean_output" description="Remove all generated output">
+		<echo>Removing all generated output ...</echo>
+		<delete>
+			<fileset dir="src" includes="*" />
+			<fileset dir="." includes="Verify_sel_verify_selects_output.txt, Verify_sel_cond_test_verify_selects_output.txt" />
+		</delete>
+	</target>
+
+	<target name="clean_sql" description="Remove all generated sql output">
+		<echo>Removing all generated sql output ...</echo>
+		<delete>
+			<fileset dir="sql" includes="*.sql" />
+		</delete>
+	</target>
+
+</project>

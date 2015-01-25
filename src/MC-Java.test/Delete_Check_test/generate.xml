@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile: generate.xml,v $
+ Version:   $Revision: 1.12 $
+ Modified:  $Date: 2011/05/30 20:20:34 $
+
+ (c) Copyright 2005-2014 by Mentor Graphics Corp.  All rights reserved.
+
+-->
+<project name="mc-java.test.deletecheck" default="all" basedir=".">
+	<target name="all" description="Run delete check test" depends="sql,java,Compile Test,Run Test">
+	</target>
+
+	<property name="eclipse-home" value="${basedir}/../.." />
+
+	<property environment="env" />
+	<property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\bin" />
+    <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}\mc3020\bin" />
+
+	<property name="sql.input" value="../models/MC-Java.test/DeleteCheck" />
+	<property name="sql.output" value="DeleteCheck.sql" />
+
+	<property name="subsystems_to_remove" value="ACT_ V_ E_" />
+	
+	<target name="sql.depends">
+		<uptodate property="sql.buildNotNeeded" value="yes" targetfile="sql/${sql.output}">
+	 	     <srcfiles dir= "${sql.input}" includes="**/*.xtuml" />
+		  </uptodate>
+	</target>
+
+	<target name="sql" depends="sql.depends" description="Generate the sql version of delete check test model" unless="sql.buildNotNeeded">
+		<echo>Generating ${sql.output} ...</echo>
+		<exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}\xtumlmc_build.exe" >
+				<arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
+		</exec>
+	</target>
+
+	<property name="mcj_path" value="../../MC-Java" />
+	<property file="${mcj_path}/mc_java.depends" />
+
+	<property name="sg_tj.dep" value="ooa_schema.sql,${pg_schema_gen.arc.depends}" />
+	<property name="schema.output" value="DeleteCheck_pg_schema.sql" />
+
+	<target name="schema.depends">
+		<uptodate property="schema.buildNotNeeded" targetfile="sql/${schema.output}">
+			<srcfiles dir="sql" includes="${sql.output}" />
+			<srcfiles dir="${mcj_path}" includes="${sg_tj.dep}" />
+		</uptodate>
+	</target>
+
+	<target name="schema" depends="schema.depends" description="Generate the delete check test database schema file" unless="schema.buildNotNeeded">
+		<echo>Generating ${schema.output} ...</echo>
+		<ant antfile="${mcj_path}/build.xml" target="generate.db.schema">
+			<property name="param1" value="${sql.output}" />
+			<property name="param2" value="${mcj_path}" />
+		</ant>
+		<!-- Need to touch the output file for the case where the input data
+	     changed, but the output didn't -->
+		<touch file="sql/${schema.output}" />
+	</target>
+
+	<property name="java.sql.dep" value="${sql.output}" />
+	<property name="java.color.dep" value="deletecheck_startspec.clr,deletecheck_import_spec.clr,deletecheck_package_spec.clr" />
+
+	<property name="java.tj.dep" value="ooa_schema.sql,${java.arc.depends}" />
+
+	<property name="java.output" value="src/deletecheck/DeleteCheck_c.java" />
+
+	<target name="java.depends">
+		<uptodate property="java.buildNotNeeded" targetfile="${java.output}">
+			<srcfiles dir="sql" includes="${java.sql.dep}" />
+			<srcfiles dir="color" includes="${java.color.dep}" />
+			<srcfiles dir="${mcj_path}" includes="${java.tj.dep}" />
+		</uptodate>
+	</target>
+
+	<target name="java" description="Generate java code for this project" depends="java.depends" unless="java.buildNotNeeded">
+		<echo>Generating java files ...</echo>
+		<ant antfile="${mcj_path}/build.xml" target="generate.java">
+			<property name="param1" value="deletecheck" />
+			<property name="param2" value="DeleteCheck" />
+			<property name="param3" value="${mcj_path}" />
+		</ant>
+		<!-- Need to touch the output file for the case where the input data
+	     changed, but the output didn't -->
+		<touch file="${java.output}" />
+	</target>
+
+    <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+
+	<target name="Compile Test" >
+	  <mkdir dir="bin" />
+	  <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.5" description="Compile source for test" destdir="bin" srcdir="src" />
+	</target>
+
+	<target name="Run Test" description="Run generated test class" depends="java" unless="java.buildNotNeeded" >
+	   <java classname="deletecheck.DeleteCheck_c" output="DeleteCheckResults.txt" classpath="bin" />
+	</target>
+
+	<taskdef name="Compare" classname="CompareTask" classpath="../tools" />
+
+	<target name="compare_deletecheck_results" description="Compare Delete Check output to expected results">
+
+		<Compare firstfile="expected_results/DeleteCheckResults.txt" secondfile="DeleteCheckResults.txt" />
+	</target>
+
+
+	<!-- Clean Targets -->
+
+	<target name="clean_all" description="Remove all generated output" depends="clean_output, clean_sql">
+		<echo>Cleaning entire project</echo>
+	</target>
+
+	<target name="clean_output" description="Remove all generated java output">
+		<echo>Removing all generated output ...</echo>
+		<delete>
+			<fileset dir="src" includes="deletecheck/*" />
+			<fileset dir="." includes="DeleteCheckOutput.txt" />
+		</delete>
+	</target>
+
+	<target name="clean_sql" description="Remove all generated sql output">
+		<echo>Removing all generated sql output ...</echo>
+		<delete>
+			<fileset dir="sql" includes="*.sql" />
+		</delete>
+	</target>
+
+</project>

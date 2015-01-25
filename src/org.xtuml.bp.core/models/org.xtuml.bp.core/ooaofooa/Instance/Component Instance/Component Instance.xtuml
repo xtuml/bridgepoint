@@ -1,0 +1,1777 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'Component Instance',
+	2906,
+	'I_EXE',
+	'',
+	"97c1ace4-0148-4235-83cb-1fd8e2d2514d");
+INSERT INTO O_TFR
+	VALUES ("b8590eb2-2e59-4d2e-902f-f1ed17287c60",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'step',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Instance:Execution Engine.step()
+
+// Run stacks that are not halted
+select one stack related by self->I_STACK[R2930] where (selected.runState == RunStateType::Running);
+if(not_empty stack)
+  //stack.step(step_in:false);
+end if;',
+	1,
+	'',
+	"891f3115-cdef-4798-bf2b-46e560344b88");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("8ac2fe50-86fb-4e6e-80ae-49b7492df666",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'InitializeArchitecture',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'//Instance:Execution Engine.InitializeArchitecture
+
+// TODO: This operation opens the door to supporting pluggable execution engines
+
+// Create one stack and relate it to this execution engine
+create object instance stack of I_STACK;
+stack.runState = RunStateType::Running; 
+relate stack to self across R2930;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("98e3902f-8710-4673-846b-02298947645f",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'getNextUnique_ID',
+	'
+
+',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'//  Instance:Execution Engine.getNextUnique_ID()
+self.Next_Unique_ID = self.Next_Unique_ID + 1;
+return self.Next_Unique_ID;',
+	1,
+	'',
+	"5b7cb9e2-6d77-4c6c-8004-4ef3904f3e88");
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("891f3115-cdef-4798-bf2b-46e560344b88",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'start',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Execution Engine.start()
+
+select one stack related by self->I_STACK[R2930];
+if(not_empty stack)
+  stack.runState = RunStateType::Running;
+end if;',
+	1,
+	'',
+	"515919c8-d356-4644-b3f3-ed464623126c");
+INSERT INTO O_TFR
+	VALUES ("e9557967-0146-4c9f-af73-6ac883c37119",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'stop',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// Execution Engine.stop()
+
+//Halt execution on all stacks
+select one stack related by self->I_STACK[R2930];
+if(not_empty stack)
+  stack.runState = RunStateType::Terminated;
+  unrelate self from stack across R2930;
+  stack.dispose();
+end if;  
+
+select one domain related by self->S_DOM[R2948];
+if (not_empty domain)
+  unrelate self from domain across R2948;
+end if;
+
+select one pkg related by self->EP_PKG[R2970];
+if (not_empty pkg)
+  unrelate self from pkg across R2970;
+end if;
+
+select one component related by self->C_C[R2955];
+if(not_empty component)
+  unrelate self from component across R2955;
+end if;
+                             
+select one icomponent related by self->CL_IC[R2963];
+if(not_empty icomponent)
+  unrelate self from icomponent across R2963;
+end if;
+
+select many mons related by self->I_MON[R2949];
+for each mon in mons
+  mon.dispose();
+end for;
+
+select many clMons related by self->CSME_CLM[R2950];
+for each clMon in clMons
+  clMon.dispose();
+end for;
+
+// dispose the static classes, which will in turn
+// dispose all instances
+select many cies related by self->CSME_CIE[R2960];
+for each cie in cies
+  unrelate self from cie across R2960;
+  cie.dispose();
+end for;
+
+// dispose all events
+self.lockQueue(queue_name:"I_SQE");
+select many evts related by self->I_SQE[R2946]->I_EVI[R2946];
+for each evt in evts
+  evt.dispose();
+end for;
+self.unlockQueue(queue_name:"I_SQE");
+
+self.lockQueue(queue_name:"I_EQE");
+select many evts related by self->I_EQE[R2944]->I_EVI[R2944];
+for each evt in evts
+  evt.dispose();
+end for;
+self.unlockQueue(queue_name:"I_EQE");
+
+// dispose all pending events that are not queued
+// but waiting on a timer, the disposal of the
+// instances will take care of most of the events
+// but some will be associated only through a sending
+// class
+if(empty domain)
+  select one domain related by component->CN_DC[R4204]->S_DOM[R4204];
+end if;
+if(not_empty domain)
+  select many pendingEvents related by domain->S_SS[R1]->O_OBJ[R2]->SM_ISM[R518]
+         ->SM_SM[R517]->SM_EVT[R502]->I_EVI[R2906];
+  for each pendingEvent in pendingEvents
+    pendingEvent.dispose();
+  end for;
+  select many pendingEvents related by domain->S_SS[R1]->O_OBJ[R2]->SM_ASM[R519]
+         ->SM_SM[R517]->SM_EVT[R502]->I_EVI[R2906];
+  for each pendingEvent in pendingEvents
+    pendingEvent.dispose();
+  end for;
+  // dispose all class in state instances
+  select many ciss related by domain->S_SS[R1]->O_OBJ[R2]->SM_ASM[R519]
+         ->SM_SM[R517]->SM_TXN[R505]->CSME_CIS[R2952];
+  for each cis in ciss
+    cis.dispose();
+  end for;
+  select many ciss related by domain->S_SS[R1]->O_OBJ[R2]->SM_ISM[R518]
+         ->SM_SM[R517]->SM_TXN[R505]->CSME_CIS[R2952];
+  for each cis in ciss
+    cis.dispose();
+  end for;
+end if;
+
+if(not_empty pkg)
+  select many pendingEvents related by pkg->PE_PE[R8000]->O_OBJ[R8001]->SM_ISM[R518]
+         ->SM_SM[R517]->SM_EVT[R502]->I_EVI[R2906];
+  for each pendingEvent in pendingEvents
+    pendingEvent.dispose();
+  end for;
+  select many pendingEvents related by pkg->PE_PE[R8000]->O_OBJ[R8001]->SM_ASM[R519]
+         ->SM_SM[R517]->SM_EVT[R502]->I_EVI[R2906];
+  for each pendingEvent in pendingEvents
+    pendingEvent.dispose();
+  end for;
+  // dispose all class in state instances
+  select many ciss related by pkg->PE_PE[R8000]->O_OBJ[R8001]->SM_ASM[R519]
+         ->SM_SM[R517]->SM_TXN[R505]->CSME_CIS[R2952];
+  for each cis in ciss
+    cis.dispose();
+  end for;
+  select many ciss related by pkg->PE_PE[R8000]->O_OBJ[R8001]->SM_ISM[R518]
+         ->SM_SM[R517]->SM_TXN[R505]->CSME_CIS[R2952];
+  for each cis in ciss
+    cis.dispose();
+  end for;
+end if;
+
+self.Running = false;',
+	1,
+	'',
+	"b8590eb2-2e59-4d2e-902f-f1ed17287c60");
+INSERT INTO O_TFR
+	VALUES ("5b7cb9e2-6d77-4c6c-8004-4ef3904f3e88",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'getNextInstance_ID',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'//  Instance:Execution Engine.getNextInstance_ID()
+self.Next_Instance_ID = self.Next_Instance_ID + 1;
+return GD::int_to_string(value:self.Next_Instance_ID);',
+	1,
+	'',
+	"8d230335-b01b-4405-95c4-c60c39919633");
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("515919c8-d356-4644-b3f3-ed464623126c",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'reset',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// Execution Engine.reset
+select one domain related by self->S_DOM[R2948];
+select one pkg related by self->EP_PKG[R2970];
+select one component related by self->C_C[R2955];
+select one icomponent related by self->CL_IC[R2963];
+
+domainLevel = true;
+if(empty domain)
+  domainLevel = false;
+end if;
+                             
+pkgLevel = true;
+if(empty pkg)
+  pkgLevel = false;
+end if;
+
+if(not_empty icomponent)
+  select one component related by icomponent->C_C[R4201];
+end if;
+
+// Dispose of all instances
+select many insts related by self->I_INS[R2957];
+for each inst in insts
+  inst.dispose();
+end for;
+
+self.lockQueue(queue_name:"I_EQE");
+select many evts related by self->I_EQE[R2944]->I_EVI[R2944];
+select many timers related by self->I_EQE[R2944]->I_EVI[R2944]->I_TIM[R2940];
+for each evt in evts
+  evt.dispose();
+end for;
+for each timer in timers
+  discard = timer.dispose();
+end for;
+self.unlockQueue(queue_name:"I_EQE");
+
+self.lockQueue(queue_name:"I_SQE");
+select many evts related by self->I_SQE[R2946]->I_EVI[R2946];
+for each evt in evts
+  evt.dispose();
+end for;
+self.unlockQueue(queue_name:"I_SQE");
+
+// Remove any cached automatic wiring
+select many functions related by domain->S_SYNC[R23];
+for each function in functions
+  select many wirings related by function->S_AW[R3201];
+  for each wiring in wirings
+    unrelate function from wiring across R3201;
+    // Don''t dispose the wiring, it will revert to unwired in the client domain
+  end for;
+end for;
+
+select many brgs related by domain->S_EE[R8]->S_BRG[R19];
+for each brg in brgs
+  select one wiring related by brg->S_AW[R3200];
+  if (not_empty wiring)
+    wiring.dispose();
+  end if;
+end for;
+
+select many cies related by self->CSME_CIE[R2960];
+for each cie in cies
+  cie.reset();    
+end for;
+                             
+select many monitors related by self->I_MON[R2949];
+for each monitor in monitors
+  monitor.dispose();
+end for;
+
+select many classMonitors related by self->CSME_CLM[R2950];
+for each classMonitor in classMonitors
+  classMonitor.dispose();
+end for;
+
+if(domainLevel or pkgLevel)
+  select many breakpoints from instances of BP_BP;
+  for each breakpoint in breakpoints
+    breakpoint.dispose();
+  end for;
+else
+  // we cannot use a from instances selection here
+  // as multiple components may exist under the
+  // same model-root
+  
+  select one packageableElem related by component->PE_PE[R8001];
+  select one package related by packageableElem->EP_PKG[R8000];
+  rootComponent = component;
+  if (not_empty component)
+    rootCompIdInPkg = component.getRootComponentId();
+    select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
+  end if;  
+  isInGenericPackage = not_empty package or not_empty rootComponent;
+  
+  select many oalBreakpoints related by component->ACT_BIC[R694]->ACT_ACT[R694]
+                    ->ACT_BLK[R666]->ACT_SMT[R602]->BP_OAL[R3101]->BP_BP[R3102];
+  for each breakpoint in oalBreakpoints
+    breakpoint.dispose();
+  end for;
+  select many eventBreakpoints related by component->CN_DC[R4204]->S_DOM[R4204]
+                  ->S_SS[R1]->O_OBJ[R2]->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502]
+                      ->BP_EV[R3103]->BP_BP[R3102];
+  if (isInGenericPackage)
+    if (empty package)
+      select many eventBreakpoints related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]
+                      ->PE_PE[R8000]->O_OBJ[R8001]
+                      ->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502]
+                      ->BP_EV[R3103]->BP_BP[R3102];  
+    else
+      select many eventBreakpoints related by package->PE_PE[R8000]->O_OBJ[R8001]
+                      ->SM_ISM[R518]->SM_SM[R517]->SM_EVT[R502]
+                      ->BP_EV[R3103]->BP_BP[R3102];  
+    end if;
+  end if;
+  for each breakpoint in eventBreakpoints
+    breakpoint.dispose();
+  end for;
+  select many eventBreakpoints related by component->CN_DC[R4204]->S_DOM[R4204]
+                  ->S_SS[R1]->O_OBJ[R2]->SM_ASM[R519]->SM_SM[R517]->SM_EVT[R502]
+                      ->BP_EV[R3103]->BP_BP[R3102];
+  if (isInGenericPackage)
+    if (empty package)
+      select many eventBreakpoints related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]
+                      ->PE_PE[R8000]->O_OBJ[R8001]
+                      ->SM_ASM[R519]->SM_SM[R517]->SM_EVT[R502]
+                      ->BP_EV[R3103]->BP_BP[R3102];  
+    else
+      select many eventBreakpoints related by package->PE_PE[R8000]->O_OBJ[R8001]
+                      ->SM_ASM[R519]->SM_SM[R517]->SM_EVT[R502]
+                      ->BP_EV[R3103]->BP_BP[R3102];  
+    end if;
+  end if;
+  for each breakpoint in eventBreakpoints
+    breakpoint.dispose();
+  end for;
+  select many stateBreakpoints related by component->CN_DC[R4204]->S_DOM[R4204]
+                ->S_SS[R1]->O_OBJ[R2]->SM_ISM[R518]->SM_SM[R517]->SM_STATE[R501]
+                      ->BP_ST[R3104]->BP_BP[R3102];
+  if (isInGenericPackage)
+    if (empty package)
+      select many stateBreakpoints related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]
+                      ->PE_PE[R8000]->O_OBJ[R8001]
+                      ->SM_ISM[R518]->SM_SM[R517]->SM_STATE[R501]
+                      ->BP_ST[R3104]->BP_BP[R3102];  
+    else
+      select many stateBreakpoints related by package->PE_PE[R8000]->O_OBJ[R8001]
+                      ->SM_ISM[R518]->SM_SM[R517]->SM_STATE[R501]
+                      ->BP_ST[R3104]->BP_BP[R3102];  
+    end if;
+  end if;
+  for each breakpoint in stateBreakpoints
+    breakpoint.dispose();
+  end for;
+  select many stateBreakpoints related by component->CN_DC[R4204]->S_DOM[R4204]
+                ->S_SS[R1]->O_OBJ[R2]->SM_ASM[R519]->SM_SM[R517]->SM_STATE[R501]
+                      ->BP_ST[R3104]->BP_BP[R3102];
+  if (isInGenericPackage)
+    if (empty package)
+      select many stateBreakpoints related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]
+                      ->PE_PE[R8000]->O_OBJ[R8001]
+                      ->SM_ASM[R519]->SM_SM[R517]->SM_STATE[R501]
+                      ->BP_ST[R3104]->BP_BP[R3102];  
+    else
+      select many stateBreakpoints related by package->PE_PE[R8000]->O_OBJ[R8001]
+                      ->SM_ASM[R519]->SM_SM[R517]->SM_STATE[R501]
+                      ->BP_ST[R3104]->BP_BP[R3102];  
+    end if;
+  end if;
+  for each breakpoint in stateBreakpoints
+    breakpoint.dispose();
+  end for;
+end if;
+
+select one stack related by self->I_STACK[R2930];
+if(not_empty stack)
+  stack.dispose();
+end if;
+
+// dispose all pending events that are not queued
+// but waiting on a timer, the disposal of the
+// instances will take care of most of the events
+// but some will be associated only through a sending
+// class
+if(not_empty domain)
+  select many pendingEvents related by domain->S_SS[R1]->O_OBJ[R2]->SM_ISM[R518]
+         ->SM_SM[R517]->SM_EVT[R502]->I_EVI[R2906];
+  for each pendingEvent in pendingEvents
+    pendingEvent.dispose();
+  end for;
+  select many pendingEvents related by domain->S_SS[R1]->O_OBJ[R2]->SM_ASM[R519]
+         ->SM_SM[R517]->SM_EVT[R502]->I_EVI[R2906];
+  for each pendingEvent in pendingEvents
+    pendingEvent.dispose();
+  end for;
+end if;
+
+if(not_empty pkg)
+  select many pendingEvents related by pkg->PE_PE[R8000]->O_OBJ[R8001]->SM_ISM[R518]
+         ->SM_SM[R517]->SM_EVT[R502]->I_EVI[R2906];
+  for each pendingEvent in pendingEvents
+    pendingEvent.dispose();
+  end for;
+  select many pendingEvents related by pkg->PE_PE[R8000]->O_OBJ[R8001]->SM_ASM[R519]
+         ->SM_SM[R517]->SM_EVT[R502]->I_EVI[R2906];
+  for each pendingEvent in pendingEvents
+    pendingEvent.dispose();
+  end for;
+end if;
+
+// Initialize the architecture
+self.InitializeArchitecture();',
+	1,
+	'',
+	"98e3902f-8710-4673-846b-02298947645f");
+INSERT INTO O_TFR
+	VALUES ("6331aaf9-11c3-4f2f-b3cf-523dc906d56a",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// Execution Engine.dispose()
+select many cies related by self->CSME_CIE[R2960];
+for each cie in cies
+  unrelate self from cie across R2960;
+  cie.dispose();
+end for;
+select many monitors related by self->I_MON[R2949];
+for each monitor in monitors
+  monitor.dispose();
+end for;
+select many classMonitors related by self->CSME_CLM[R2950];
+for each classMonitor in classMonitors
+  classMonitor.dispose();
+end for;
+select one stack related by self->I_STACK[R2930];
+if(not_empty stack)
+  stack.dispose();
+end if;
+select many pendingEvts related by self->I_EVI[R2964];
+for each pendingEvt in pendingEvts
+  unrelate pendingEvt from self across R2964;
+end for;
+
+self.lockQueue(queue_name:"I_EQE");
+select many evQEntries related by self->I_EQE[R2944];
+for each evQEntry in evQEntries
+  evQEntry.dispose();
+end for;
+self.unlockQueue(queue_name:"I_EQE");
+
+self.lockQueue(queue_name:"I_SQE");
+select many selfEvQEntries related by self->I_SQE[R2946];
+for each selfEvQEntry in selfEvQEntries
+  selfEvQEntry.dispose();
+end for;
+self.unlockQueue(queue_name:"I_SQE");
+
+select one dom related by self->S_DOM[R2948];
+if not_empty dom
+  unrelate self from dom across R2948;
+end if;
+select one comp related by self->C_C[R2955];
+if(not_empty comp)
+  unrelate self from comp across R2955;
+end if;
+select one icomponent related by self->CL_IC[R2963];
+if(not_empty icomponent)
+  unrelate self from icomponent across R2963;
+end if;
+
+// dispose all pending events that are not queued
+// but waiting on a timer, the disposal of the
+// instances will take care of most of the events
+// but some will be associated only through a sending
+// class
+if(empty comp)
+  select one comp related by icomponent->C_C[R4201];
+end if;
+if(empty dom)
+  select one dom related by comp->CN_DC[R4204]->S_DOM[R4204];
+end if;
+if(not_empty dom)
+  select many pendingEvents related by dom->S_SS[R1]->O_OBJ[R2]->SM_ISM[R518]
+         ->SM_SM[R517]->SM_EVT[R502]->I_EVI[R2906];
+  for each pendingEvent in pendingEvents
+    pendingEvent.dispose();
+  end for;
+  select many pendingEvents related by dom->S_SS[R1]->O_OBJ[R2]->SM_ASM[R519]
+         ->SM_SM[R517]->SM_EVT[R502]->I_EVI[R2906];
+  for each pendingEvent in pendingEvents
+    pendingEvent.dispose();
+  end for;
+  // dispose all class in state instances
+  select many ciss related by dom->S_SS[R1]->O_OBJ[R2]->SM_ASM[R519]
+         ->SM_SM[R517]->SM_TXN[R505]->CSME_CIS[R2952];
+  for each cis in ciss
+    cis.dispose();
+  end for;
+  select many ciss related by dom->S_SS[R1]->O_OBJ[R2]->SM_ISM[R518]
+         ->SM_SM[R517]->SM_TXN[R505]->CSME_CIS[R2952];
+  for each cis in ciss
+    cis.dispose();
+  end for;
+end if;
+select many insts related by self->I_INS[R2957];
+for each inst in insts
+  inst.dispose();
+end for;
+select many crvs related by self->RV_CRV[R3309];
+for each crv in crvs
+	unrelate self from crv across R3309;
+end for;
+
+// Dispose all intercomponent message instances
+select many pendingEvts related by self->I_EVI[R2976];
+for each pendingEvt in pendingEvts
+  unrelate self from pendingEvt across R2976;
+  pendingEvt.dispose();
+end for;
+select many intercomponentQueueEntries related by self->I_ICQE[R2977];
+for each intercomponentQueueEntry in intercomponentQueueEntries
+  select one icqeStackFrame related by intercomponentQueueEntry->I_STF[R2966];
+  select one icqeStack related by intercomponentQueueEntry->I_STACK[R2966];
+  if not_empty icqeStackFrame and not_empty icqeStack
+    unrelate icqeStackFrame from icqeStack across R2966 using
+                                                       intercomponentQueueEntry; 
+  end if;
+  unrelate self from intercomponentQueueEntry across R2977;
+  delete object instance intercomponentQueueEntry;
+end for;
+
+select many channels related by self->I_RCH[R2968.''is interface provider to''];
+for each channel in channels
+  channel.dispose();
+end for;
+select many channels related by self->I_RCH[R2968.''is interface requirer of''];
+for each channel in channels
+  channel.dispose();
+end for;
+select one package related by self->EP_PKG[R2970];
+if not_empty package
+  unrelate self from package across R2970;
+end if;
+if(not_empty package)
+  select many pendingEvents related by package->PE_PE[R8000]->O_OBJ[R8001]->SM_ISM[R518]
+         ->SM_SM[R517]->SM_EVT[R502]->I_EVI[R2906];
+  for each pendingEvent in pendingEvents
+    pendingEvent.dispose();
+  end for;
+  select many pendingEvents related by package->PE_PE[R8000]->O_OBJ[R8001]->SM_ASM[R519]
+         ->SM_SM[R517]->SM_EVT[R502]->I_EVI[R2906];
+  for each pendingEvent in pendingEvents
+    pendingEvent.dispose();
+  end for;
+  // dispose all class in state instances
+  select many ciss related by package->PE_PE[R8000]->O_OBJ[R8001]->SM_ASM[R519]
+         ->SM_SM[R517]->SM_TXN[R505]->CSME_CIS[R2952];
+  for each cis in ciss
+    cis.dispose();
+  end for;
+  select many ciss related by package->PE_PE[R8000]->O_OBJ[R8001]->SM_ISM[R518]
+         ->SM_SM[R517]->SM_TXN[R505]->CSME_CIS[R2952];
+  for each cis in ciss
+    cis.dispose();
+  end for;
+end if;
+select one container related by self ->I_CIN[R2974];
+if not_empty container
+  select many containedComponents related by container->I_EXE[R2975];
+  for each containedComponent in containedComponents
+    unrelate container from containedComponent across R2975;
+    containedComponent.dispose();
+  end for;
+  unrelate self from container across R2974;
+  delete object instance container;
+end if;
+select one container related by self ->I_CIN[R2975];
+if not empty container
+  unrelate self from container across R2975;
+end if;
+delete object instance self;',
+	1,
+	'',
+	"8ac2fe50-86fb-4e6e-80ae-49b7492df666");
+INSERT INTO O_TFR
+	VALUES ("8d230335-b01b-4405-95c4-c60c39919633",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'getEngineNumber',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select one component related by self->C_C[R2955];
+if(not_empty component)
+  count = 0;
+  select many engines related by component->I_EXE[R2955];
+  for each engine in engines
+    count = count + 1;
+    if(engine == self)
+      return count;
+    end if;
+  end for;
+else
+  select one icomponent related by self->CL_IC[R2963];
+  if(not_empty icomponent)
+    count = 0;
+    select many engines related by icomponent->I_EXE[R2963];
+      for each engine in engines
+        count = count + 1;
+        if(engine == self)
+          return count;
+        end if;
+      end for;
+    end if;  
+end if;
+return 1;',
+	1,
+	'',
+	"6331aaf9-11c3-4f2f-b3cf-523dc906d56a");
+INSERT INTO O_TFR
+	VALUES ("9cf93079-6161-4b95-893e-b8bf5e20ed1d",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'initializeClasses',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one domain related by self->S_DOM[R2948];
+if(empty domain)
+  select one component related by self->C_C[R2955];
+  if(not_empty component)
+    select one domain related by component->CN_DC[R4204]->S_DOM[R4204];
+  else
+    select one icomponent related by self->CL_IC[R2963];
+    if(not_empty icomponent)
+      select one domain related by icomponent->C_C[R4201]->CN_DC[R4204]
+                                                                 ->S_DOM[R4204];
+    end if;
+  end if;
+end if;
+isInGenericPackage = empty domain;
+if(isInGenericPackage)
+  select one package related by self->EP_PKG[R2970];
+  if not_empty package
+    package.initializeClasses(compInstID:self.Execution_Engine_ID);
+  else
+    select one compRef related by self->CL_IC[R2963];
+    if not_empty compRef
+      select one component related by compRef->C_C[R4201];
+      if not_empty component
+        component.initializeClasses(componentInstanceID:
+                                                      self.Execution_Engine_ID);
+      end if;
+    else
+      select one component related by self->C_C[R2955];
+      if not_empty component
+        component.initializeClasses(componentInstanceID:
+                                                      self.Execution_Engine_ID);
+      end if;
+    end if;
+  end if;
+else
+  // create a class in engine for every class in
+  // the domain
+  select many subsystems related by domain->S_SS[R1];
+  for each subsystem in subsystems
+    select many classes related by subsystem->O_OBJ[R2];
+    for each clazz in classes
+      create object instance cie of CSME_CIE;
+      relate cie to self across R2960;
+      relate cie to clazz across R2961;
+    end for;
+  end for;
+end if;
+',
+	1,
+	'',
+	"e9557967-0146-4c9f-af73-6ac883c37119");
+INSERT INTO O_TFR
+	VALUES ("55e52e78-33ed-43a7-9c33-60e8f505c061",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+                            
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;',
+	0,
+	'',
+	"9cf93079-6161-4b95-893e-b8bf5e20ed1d");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("4b7db2eb-8a6e-44e1-80bf-7acd24059d60",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'notify',
+	'Translate:native',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'if (lib.TIM.isSIM_TIME()) {
+  lib.TIM.busyNotification(this);
+}
+
+synchronized(this) {
+  this.notify();
+}',
+	0,
+	'',
+	"55e52e78-33ed-43a7-9c33-60e8f505c061");
+INSERT INTO O_TFR
+	VALUES ("b114be7a-dd7f-49a3-9fa7-630e4ade47ef",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'lockQueue',
+	'Translate:native',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'if (p_Queue_name.compareTo("I_EQE")==0) {
+	m_eqe_lock.lock();
+} else if (p_Queue_name.compareTo("I_SQE")==0) {
+	m_sqe_lock.lock();
+} else {
+	Exception e = new Exception();
+	e.fillInStackTrace();
+	CorePlugin.logError(
+			"Invalid queue name specified: " + p_Queue_name,
+			e);
+}
+',
+	0,
+	'',
+	"4b7db2eb-8a6e-44e1-80bf-7acd24059d60");
+INSERT INTO O_TPARM
+	VALUES ("214d24db-a6e8-4978-9bc5-5e00ce0e9ee5",
+	"b114be7a-dd7f-49a3-9fa7-630e4ade47ef",
+	'queue_name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("e3bc1f84-f9bc-4411-8326-625e7de35207",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'unlockQueue',
+	'Translate:native',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'if (p_Queue_name.compareTo("I_EQE")==0) {
+	m_eqe_lock.unlock();
+} else if (p_Queue_name.compareTo("I_SQE")==0) {
+	m_sqe_lock.unlock();
+} else {
+	Exception e = new Exception();
+	e.fillInStackTrace();
+	CorePlugin.logError(
+			"Invalid queue name specified: " + p_Queue_name,
+			e);
+}
+',
+	0,
+	'',
+	"b114be7a-dd7f-49a3-9fa7-630e4ade47ef");
+INSERT INTO O_TPARM
+	VALUES ("0980a3bf-2487-4ba2-98fb-a2961d64528b",
+	"e3bc1f84-f9bc-4411-8326-625e7de35207",
+	'queue_name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("7fc7042f-3019-4ae7-a2be-7689c7e86765",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'getName',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'// Execution Engine.getName()
+result = "";
+select one component related by self->C_C[R2955];
+if not_empty component
+  result = component.Name + GD::int_to_string(value:self.getEngineNumber());
+end if;
+return result;',
+	1,
+	'',
+	"e3bc1f84-f9bc-4411-8326-625e7de35207");
+INSERT INTO O_TFR
+	VALUES ("4d8b9e7d-df6a-49fa-9ed2-3bcfddfb97f6",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'resolveTargetChannel',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'// Interface Operation Invocation.resolveTargetComponentInstance()
+// If an engine is specified, we check for it while resolving the target engine
+// The actual target engine may not be the specified engine if, for example
+// the specified engine delegates to a contained component.
+select any specifiedComponent from instances of I_EXE where
+               selected.Execution_Engine_ID == param.specifiedComponentInstance;
+select any localComponent from instances of I_EXE where
+                   selected.Execution_Engine_ID == param.localComponentInstance;
+select any targetEngine from instances of I_EXE where
+                           selected.Execution_Engine_ID == GD::NULL_UNIQUE_ID();
+engineIsResolvable = empty specifiedComponent;
+select any channel from instances of I_RCH where
+                                    selected.Channel_Id == GD::NULL_UNIQUE_ID();
+select any interfaceReference from instances of C_IR where
+                                        selected.Id == param.interfaceReference;
+if param.isRequired
+  select many satisfactions related by interfaceReference->
+                                                        C_R[R4009]->C_SF[R4002];
+  select many channels related by satisfactions->I_RCH[R2969];
+  for each channel in channels
+    select one reqEngine related by channel->
+                                        I_EXE[R2968.''is interface requirer of''];
+    if reqEngine == localComponent
+      // Traverse to far end of channel
+      select one nextChannel related by channel->I_RCH[R2973.''requirer''];
+      while not_empty nextChannel
+        channel = nextChannel;
+        if not engineIsResolvable
+          select one candidateEngine related by channel->
+                                        I_EXE[R2968.''is interface provider to''];
+          if candidateEngine == specifiedComponent
+            engineIsResolvable = true;
+          end if;
+        end if;
+        select one nextChannel related by channel->I_RCH[R2973.''requirer''];
+      end while;
+      select one targetEngine related by channel->
+                                        I_EXE[R2968.''is interface provider to''];
+      if not engineIsResolvable
+        if targetEngine == specifiedComponent
+          engineIsResolvable = true;
+        end if;
+      end if;
+      if not_empty targetEngine and engineIsResolvable
+        break;
+      end if;
+    end if;
+  end for;
+  if empty targetEngine or not engineIsResolvable
+    select one delegation related by interfaceReference->C_DG[R4014];
+    if not_empty delegation
+      select many channels related by delegation->I_RCH[R2972];
+      for each channel in channels
+        select one reqEngine related by channel->
+                                        I_EXE[R2968.''is interface provider to''];
+        if reqEngine == localComponent
+          // Traverse to far end of channel
+          select one nextChannel related by channel->I_RCH[R2973.''requirer''];
+          while not_empty nextChannel
+            channel = nextChannel;
+            if not engineIsResolvable
+              select one candidateEngine related by channel->
+                                        I_EXE[R2968.''is interface requirer of''];
+              if candidateEngine == specifiedComponent
+                engineIsResolvable = true;
+              end if;
+            end if;        
+            select one nextChannel related by channel->I_RCH[R2973.''requirer''];
+          end while;
+          select one targetEngine related by channel->
+                                        I_EXE[R2968.''is interface requirer of''];
+          if not engineIsResolvable
+            if targetEngine == specifiedComponent
+              engineIsResolvable = true;
+            end if;
+          end if;
+          if not_empty targetEngine and engineIsResolvable
+            break;
+          end if;
+        end if;
+      end for;
+    end if;
+    if empty targetEngine or not engineIsResolvable
+      select many channels related by interfaceReference->
+                                       CL_IIR[R4701]->C_DG[R4704]->I_RCH[R2972];
+      for each channel in channels
+        select one reqEngine related by channel->
+                                        I_EXE[R2968.''is interface requirer of''];
+        if reqEngine == localComponent
+          // Traverse to far end of channel
+          select one nextChannel related by channel->I_RCH[R2973.''requirer''];
+          while not_empty nextChannel
+            channel = nextChannel;
+            if not engineIsResolvable
+              select one candidateEngine related by channel->
+                                        I_EXE[R2968.''is interface provider to''];
+              if candidateEngine == specifiedComponent
+                engineIsResolvable = true;
+              end if;
+            end if;   
+            select one nextChannel related by channel->I_RCH[R2973.''requirer''];
+          end while;
+          select one targetEngine related by channel->
+                                        I_EXE[R2968.''is interface provider to''];
+          if not engineIsResolvable
+            if targetEngine == specifiedComponent
+              engineIsResolvable = true;
+            end if;
+          end if;
+          if not_empty targetEngine and engineIsResolvable
+            break;
+          end if;
+        end if;
+      end for;
+    end if;
+  end if;
+else // is provided
+  select many satisfactions related by interfaceReference->
+                                                        C_P[R4009]->C_SF[R4002];
+  select many channels related by satisfactions->I_RCH[R2969];
+  for each channel in channels
+    select one provEngine related by channel->
+                                        I_EXE[R2968.''is interface provider to''];
+    if provEngine == localComponent
+      // Traverse to far end of channel
+      select one nextChannel related by channel->I_RCH[R2973.''provider''];
+      while not_empty nextChannel
+        channel = nextChannel;
+        if not engineIsResolvable
+          select one candidateEngine related by channel->
+                                        I_EXE[R2968.''is interface requirer of''];
+          if candidateEngine == specifiedComponent
+            engineIsResolvable = true;
+          end if;
+        end if;      
+        select one nextChannel related by channel->I_RCH[R2973.''provider''];
+      end while;
+      select one targetEngine related by channel->
+                                        I_EXE[R2968.''is interface requirer of''];
+      if not engineIsResolvable
+        if targetEngine == specifiedComponent
+          engineIsResolvable = true;
+        end if;
+      end if;
+      if not_empty targetEngine and engineIsResolvable
+        break;
+      end if;
+    end if;
+  end for;
+  if empty targetEngine or not engineIsResolvable
+    select one delegation related by interfaceReference->C_DG[R4014];
+    if not_empty delegation
+      select many channels related by delegation->I_RCH[R2972];
+      for each channel in channels
+        select one provEngine related by channel->
+                                        I_EXE[R2968.''is interface requirer of''];
+        if provEngine == localComponent
+          // Traverse to far end of channel
+          select one nextChannel related by channel->I_RCH[R2973.''provider''];
+          while not_empty nextChannel
+            channel = nextChannel;
+            if not engineIsResolvable
+              select one candidateEngine related by channel->
+                                        I_EXE[R2968.''is interface provider to''];
+              if candidateEngine == specifiedComponent
+                engineIsResolvable = true;
+              end if;
+            end if;                                
+            select one nextChannel related by channel->I_RCH[R2973.''provider''];
+          end while;
+          select one targetEngine related by channel->
+                                        I_EXE[R2968.''is interface provider to''];
+          if not engineIsResolvable
+            if targetEngine == specifiedComponent
+              engineIsResolvable = true;
+            end if;
+          end if;
+          if not_empty targetEngine and engineIsResolvable
+            break;
+          end if;
+        end if;
+      end for;
+    end if;
+    if empty targetEngine or not engineIsResolvable
+      select many channels related by interfaceReference->
+                                       CL_IIR[R4701]->C_DG[R4704]->I_RCH[R2972];
+      for each channel in channels
+        select one provEngine related by channel->
+                                        I_EXE[R2968.''is interface provider to''];
+        if provEngine == localComponent
+          // Traverse to far end of channel
+          select one nextChannel related by channel->I_RCH[R2973.''provider''];
+          while not_empty nextChannel
+            channel = nextChannel;
+            if not engineIsResolvable
+              select one candidateEngine related by channel->
+                                        I_EXE[R2968.''is interface requirer of''];
+              if candidateEngine == specifiedComponent
+                engineIsResolvable = true;
+              end if;
+            end if;   
+            
+            select one nextChannel related by channel->I_RCH[R2973.''provider''];
+          end while;
+          select one targetEngine related by channel->
+                                        I_EXE[R2968.''is interface requirer of''];
+          if not engineIsResolvable
+            if targetEngine == specifiedComponent
+              engineIsResolvable = true;
+            end if;
+          end if;
+          if not_empty targetEngine and engineIsResolvable
+            break;
+          end if;
+        end if;
+      end for;
+    end if;
+  end if;
+end if;
+if not_empty channel and engineIsResolvable
+  return channel.Channel_Id;
+else
+  return GD::NULL_UNIQUE_ID();
+end if;
+',
+	1,
+	'',
+	"7fc7042f-3019-4ae7-a2be-7689c7e86765");
+INSERT INTO O_TPARM
+	VALUES ("ae129118-8175-49d4-8da9-c4dc6d7d2094",
+	"4d8b9e7d-df6a-49fa-9ed2-3bcfddfb97f6",
+	'specifiedComponentInstance',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("41f68096-e905-43e8-9b79-2e03be99cec6",
+	"4d8b9e7d-df6a-49fa-9ed2-3bcfddfb97f6",
+	'isRequired',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"ae129118-8175-49d4-8da9-c4dc6d7d2094",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("d33fa4e5-627b-4699-92fa-22910b6b0949",
+	"4d8b9e7d-df6a-49fa-9ed2-3bcfddfb97f6",
+	'localComponentInstance',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"41f68096-e905-43e8-9b79-2e03be99cec6",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("b6e2c243-d66d-4bb5-aa4a-9430bb50d2dc",
+	"4d8b9e7d-df6a-49fa-9ed2-3bcfddfb97f6",
+	'interfaceReference',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"d33fa4e5-627b-4699-92fa-22910b6b0949",
+	'');
+INSERT INTO O_TFR
+	VALUES ("86425309-1fd4-4c69-b961-a8553df6592d",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'resolveTargetBody',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'// Interface Operation Invocation.resolveTargetComponentInstance()
+select any channel from instances of I_RCH where
+                                           selected.Channel_Id == param.channel;
+  select one interfaceReference related by channel->C_SF[R2969]->C_R[R4002]
+                                                                  ->C_IR[R4009];
+  if param.isRequired
+    select one interfaceReference related by channel->C_SF[R2969]->C_P[R4002]
+                                                                  ->C_IR[R4009];
+  end if;
+  if empty interfaceReference
+    select one interfaceReference related by channel->C_DG[R2972]->
+                                                     CL_IIR[R4704]->C_IR[R4701];
+    if empty interfaceReference
+      select many interfaceRefs related by channel->C_DG[R2972]->C_IR[R4014];
+      if cardinality interfaceRefs == 1
+        select any interfaceReference related by channel->
+                                                       C_DG[R2972]->C_IR[R4014];
+      elif cardinality interfaceRefs == 0
+        USER::logError(msg:"Internal error in Operation Invocation." +
+            "execute: No interface reference found.", path: param.invokingPath);
+      else
+        USER::logError(msg:
+               "Internal error in Interface Operation Invocation.execute: " +
+                     "Ambiguous interface reference.", path:param.invokingPath);
+      end if;
+    end if;
+  end if;
+if param.isRequired 
+  select any providedOp related by interfaceReference->C_P[R4009]->
+         SPR_PEP[R4501]->SPR_PO[R4503] where selected.Name == param.messageName;
+  // select the body for the destination component
+  select one body related by providedOp->ACT_POB[R687]->ACT_ACT[R698];
+  if empty providedOp
+    select any providedSig related by interfaceReference->C_P[R4009]->
+         SPR_PEP[R4501]->SPR_PS[R4503] where selected.Name == param.messageName;
+    select one body related by providedSig->ACT_PSB[R686]->ACT_ACT[R698];
+  end if;
+  if not_empty body
+    return body.Action_ID;
+  end if;
+else
+  select any requiredOp related by interfaceReference->C_R[R4009]->
+         SPR_REP[R4500]->SPR_RO[R4502] where selected.Name == param.messageName;
+  // select the body for the destination component
+  select one body related by requiredOp->ACT_ROB[R685]->ACT_ACT[R698];
+  if empty requiredOp
+    select any requiredSig related by interfaceReference->C_R[R4009]->
+         SPR_REP[R4500]->SPR_RS[R4502] where selected.Name == param.messageName;
+    // select the body for the destination component
+    select one body related by requiredSig->ACT_RSB[R684]->ACT_ACT[R698];
+  end if;
+  if not_empty body
+    return body.Action_ID;
+  end if;
+end if;
+return GD::NULL_UNIQUE_ID();',
+	1,
+	'',
+	"4d8b9e7d-df6a-49fa-9ed2-3bcfddfb97f6");
+INSERT INTO O_TPARM
+	VALUES ("1827d7ba-a31a-4917-bf52-02fb8f32c3c5",
+	"86425309-1fd4-4c69-b961-a8553df6592d",
+	'isRequired',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("36e8d249-1890-4747-ada6-1ddf1b06968c",
+	"86425309-1fd4-4c69-b961-a8553df6592d",
+	'channel',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"1827d7ba-a31a-4917-bf52-02fb8f32c3c5",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("1b2d502d-f9b9-4086-abae-fc050c2c311d",
+	"86425309-1fd4-4c69-b961-a8553df6592d",
+	'invokingPath',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"36e8d249-1890-4747-ada6-1ddf1b06968c",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("71d8011a-89b8-4afd-82b7-336c1935a520",
+	"86425309-1fd4-4c69-b961-a8553df6592d",
+	'messageName',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"1b2d502d-f9b9-4086-abae-fc050c2c311d",
+	'');
+INSERT INTO O_TFR
+	VALUES ("76dc389e-0fa5-47d1-ba58-2d72b6bf0ef1",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'transferValueToTarget',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	0,
+	'select any ep from instances of C_EP where selected.Id == param.message;
+select any body from instances of ACT_ACT where selected.Action_ID == param.body;
+select any arg from instances of V_PAR where selected.Value_ID == param.arg;
+select any localStackFrame from instances of I_STF where
+                          selected.Stack_Frame_ID == param.local_stack_frame_id;
+select any prop_param related by ep->C_PP[R4006] where
+                                                      selected.Name == arg.Name;
+select one outer_block related by body->ACT_BLK[R666];
+// Create a new local value in the new stack frame for each argument
+loc_id = outer_block.newLocalValue(stack_frame_id: param.stack_frame_id);
+    
+// Find the new local value in the new stack frame
+select any local related by outer_block->I_BSF[R2923]->
+                                 L_LCL[R3000] where selected.Local_ID == loc_id;
+select one local_val related by local->L_LVL[R3001];
+select one act_val related by arg->V_VAL[R800];
+if not_empty prop_param and prop_param.By_Ref == 0
+  select any result related by localStackFrame->I_VSF[R2951] where
+                                          selected.Value_ID == act_val.Value_ID;
+  select one rtVal related by result->RV_RVL[R3305];
+  create object instance lrtVal of RV_RVL;
+  relate lrtVal to local across R3306;
+  select one dt related by prop_param->S_DT[R4007];
+  relate lrtVal to dt across R3307;
+  lrtVal.copyValue(from:rtVal.RuntimeValue_ID);
+else  // assuming by ref
+  relate local_val to act_val across R3010;
+end if;
+// Relate the new local value to the property parameter so that
+// it can be found when the parameter value is referenced. 
+relate prop_param to local_val across R3017;
+localStackFrame.popValue(value_id:arg.Value_ID);
+',
+	1,
+	'',
+	"86425309-1fd4-4c69-b961-a8553df6592d");
+INSERT INTO O_TPARM
+	VALUES ("1989dfbc-2c27-40b5-82e2-d17c402890aa",
+	"76dc389e-0fa5-47d1-ba58-2d72b6bf0ef1",
+	'message',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("df0e9592-a440-412d-b7c4-7147c8f15c47",
+	"76dc389e-0fa5-47d1-ba58-2d72b6bf0ef1",
+	'body',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"1989dfbc-2c27-40b5-82e2-d17c402890aa",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("8d64fd35-8793-4615-b040-d38db0b67a92",
+	"76dc389e-0fa5-47d1-ba58-2d72b6bf0ef1",
+	'arg',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"df0e9592-a440-412d-b7c4-7147c8f15c47",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("2b322a70-68b3-4269-a127-4909a9e104ef",
+	"76dc389e-0fa5-47d1-ba58-2d72b6bf0ef1",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"8d64fd35-8793-4615-b040-d38db0b67a92",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("6a9a09d5-96a5-4aef-a966-e0b52f63b322",
+	"76dc389e-0fa5-47d1-ba58-2d72b6bf0ef1",
+	'local_stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"2b322a70-68b3-4269-a127-4909a9e104ef",
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("28aa4283-2190-4d46-b247-2cf82958ad34",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824");
+INSERT INTO O_BATTR
+	VALUES ("28aa4283-2190-4d46-b247-2cf82958ad34",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824");
+INSERT INTO O_ATTR
+	VALUES ("28aa4283-2190-4d46-b247-2cf82958ad34",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"68c8e9d0-3999-4d2a-ac62-650a9c326d23",
+	'Execution_Engine_ID',
+	'',
+	'',
+	'Execution_Engine_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("68c8e9d0-3999-4d2a-ac62-650a9c326d23",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824");
+INSERT INTO O_BATTR
+	VALUES ("68c8e9d0-3999-4d2a-ac62-650a9c326d23",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824");
+INSERT INTO O_ATTR
+	VALUES ("68c8e9d0-3999-4d2a-ac62-650a9c326d23",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"00000000-0000-0000-0000-000000000000",
+	'Running',
+	'',
+	'',
+	'Running',
+	0,
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("9834e205-11b2-4f3d-b4a3-c26138f3a355",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824");
+INSERT INTO O_BATTR
+	VALUES ("9834e205-11b2-4f3d-b4a3-c26138f3a355",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824");
+INSERT INTO O_ATTR
+	VALUES ("9834e205-11b2-4f3d-b4a3-c26138f3a355",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"8d5a3a61-46f6-4c5a-8e8c-f94d695badb7",
+	'Next_Unique_ID',
+	'',
+	'',
+	'Next_Unique_ID',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("ca7ea94e-b338-498d-8ca8-35cf63b66128",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824");
+INSERT INTO O_BATTR
+	VALUES ("ca7ea94e-b338-498d-8ca8-35cf63b66128",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824");
+INSERT INTO O_ATTR
+	VALUES ("ca7ea94e-b338-498d-8ca8-35cf63b66128",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"9834e205-11b2-4f3d-b4a3-c26138f3a355",
+	'Next_Instance_ID',
+	'',
+	'',
+	'Next_Instance_ID',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"7337aad7-121f-4ed7-b1a6-b434cbd56bb8",
+	"f82e9431-377d-48e6-9a50-30291ccedb30",
+	"fcdc2811-11f4-4512-bb41-3665fd3df0f2",
+	"3b09bd31-3d84-40c4-aa98-84be9fd5d689",
+	"70ec2f54-9c57-4af9-8823-3c9801515ac2",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Domain',
+	'Dom_ID',
+	'R2948');
+INSERT INTO R_RGO_PROXY
+	VALUES ("e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"7337aad7-121f-4ed7-b1a6-b434cbd56bb8",
+	"f82e9431-377d-48e6-9a50-30291ccedb30",
+	'../Instance.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	"7337aad7-121f-4ed7-b1a6-b434cbd56bb8",
+	"fcdc2811-11f4-4512-bb41-3665fd3df0f2",
+	'../Instance.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("3b09bd31-3d84-40c4-aa98-84be9fd5d689",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	1,
+	'Dom_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	'../../Domain/Domain/Domain.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("3b09bd31-3d84-40c4-aa98-84be9fd5d689",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"28aa4283-2190-4d46-b247-2cf82958ad34",
+	'Dom_ID',
+	'',
+	'',
+	'Dom_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_DBATTR
+	VALUES ("75ac1102-1a9c-4122-bd1f-05a955b9044e",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'result = "";
+select one component related by self->C_C[R2955];
+if(not_empty component)
+  result = component.Label;
+  select many engines related by component->I_EXE[R2955];
+  number = self.getEngineNumber();
+  if(cardinality engines > 1)
+    result = result + " - " + GD::int_to_string(value:number);
+  end if;
+end if;
+select one icomponent related by self->CL_IC[R2963];
+if(not_empty icomponent)
+  result = icomponent.Name;
+  select many engines related by icomponent->I_EXE[R2963];
+  number = self.getEngineNumber();
+  if(cardinality engines > 1)
+    result = result + " - " + GD::int_to_string(value:number);
+  end if;
+end if;
+select one domain related by self->S_DOM[R2948];
+if(not_empty domain)
+  result = domain.Name;
+end if;
+if not Util::isNull(element:self.RealizedBy)
+  result = result + " (Realized)";
+end if;
+self.Label = result;',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("75ac1102-1a9c-4122-bd1f-05a955b9044e",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824");
+INSERT INTO O_ATTR
+	VALUES ("75ac1102-1a9c-4122-bd1f-05a955b9044e",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"b859c2a8-026d-4397-ad11-5db94131407c",
+	'Label',
+	'',
+	'',
+	'Label',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("ef20602b-4c9f-4556-a2a5-40114bb82cf6",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824");
+INSERT INTO O_BATTR
+	VALUES ("ef20602b-4c9f-4556-a2a5-40114bb82cf6",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824");
+INSERT INTO O_ATTR
+	VALUES ("ef20602b-4c9f-4556-a2a5-40114bb82cf6",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"75ac1102-1a9c-4122-bd1f-05a955b9044e",
+	'EQE_Lock',
+	'User_Visible:false',
+	'',
+	'EQE_Lock',
+	0,
+	"98b7d0e0-7965-4ad9-9bcd-f2cd81ff5531",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("98b7d0e0-7965-4ad9-9bcd-f2cd81ff5531",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'ReentrantLock',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("82712481-30a7-4a1c-b2ae-9d524bd91d65",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824");
+INSERT INTO O_BATTR
+	VALUES ("82712481-30a7-4a1c-b2ae-9d524bd91d65",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824");
+INSERT INTO O_ATTR
+	VALUES ("82712481-30a7-4a1c-b2ae-9d524bd91d65",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"ef20602b-4c9f-4556-a2a5-40114bb82cf6",
+	'SQE_Lock',
+	'User_Visible:false',
+	'',
+	'SQE_Lock',
+	0,
+	"98b7d0e0-7965-4ad9-9bcd-f2cd81ff5531",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	0,
+	"7b9804b1-294c-4909-b563-aae43167f8d6",
+	"65532792-c647-4cf1-8a1f-17324f41050a",
+	"36b97213-8fce-4d78-addf-7db18107f82c",
+	"d18eeda1-0f8f-49da-934e-b5ecee258acf",
+	"d0572464-6528-4e24-bbd2-ccc52dfcd0e7",
+	"45ed6c38-fcca-43f6-9ff2-27b4f44acfb9",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Component',
+	'Id',
+	'R2955');
+INSERT INTO R_RGO_PROXY
+	VALUES ("e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"65532792-c647-4cf1-8a1f-17324f41050a",
+	"36b97213-8fce-4d78-addf-7db18107f82c",
+	'../Instance.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("7b9804b1-294c-4909-b563-aae43167f8d6",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	0,
+	"65532792-c647-4cf1-8a1f-17324f41050a",
+	"d18eeda1-0f8f-49da-934e-b5ecee258acf",
+	'../Instance.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("d0572464-6528-4e24-bbd2-ccc52dfcd0e7",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("d0572464-6528-4e24-bbd2-ccc52dfcd0e7",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"3b09bd31-3d84-40c4-aa98-84be9fd5d689",
+	'Component_Id',
+	'',
+	'Component_',
+	'Id',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	0,
+	"bb116e28-b106-49aa-b480-95c153ff8155",
+	"c55e9b54-f768-4b0a-b78a-3fd742802df8",
+	"24262498-7b64-47ef-ba02-5ba2896a5b4a",
+	"98eed371-47fb-44a3-a599-e6f0d5dcbc76",
+	"b859c2a8-026d-4397-ad11-5db94131407c",
+	"2c41e519-20a7-4702-8efe-e33fa1d762da",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Component Reference',
+	'Id',
+	'R2963');
+INSERT INTO R_RGO_PROXY
+	VALUES ("e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"c55e9b54-f768-4b0a-b78a-3fd742802df8",
+	"24262498-7b64-47ef-ba02-5ba2896a5b4a",
+	'../Instance.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("bb116e28-b106-49aa-b480-95c153ff8155",
+	"14d6c781-a341-481a-b67d-09ec4e8b9ed3",
+	0,
+	"c55e9b54-f768-4b0a-b78a-3fd742802df8",
+	"98eed371-47fb-44a3-a599-e6f0d5dcbc76",
+	'../Instance.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b859c2a8-026d-4397-ad11-5db94131407c",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_ATTR
+	VALUES ("b859c2a8-026d-4397-ad11-5db94131407c",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"ca7ea94e-b338-498d-8ca8-35cf63b66128",
+	'ImportedComponent_Id',
+	'',
+	'ImportedComponent_',
+	'Id',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	0,
+	"79df1b10-74db-4df8-a815-0cf62a4752c9",
+	"04053389-bace-41de-b367-3b603d97b2d4",
+	"83055a15-78f6-4ca9-8663-30f93d7b6998",
+	"922052d3-d925-48fd-8a9c-46a04d7fd44a",
+	"8d5a3a61-46f6-4c5a-8e8c-f94d695badb7",
+	"4dda98f0-64aa-45c5-973b-273f151d4a5a",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Package',
+	'Package_ID',
+	'R2970');
+INSERT INTO R_RGO_PROXY
+	VALUES ("e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"04053389-bace-41de-b367-3b603d97b2d4",
+	"83055a15-78f6-4ca9-8663-30f93d7b6998",
+	'../Instance.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("79df1b10-74db-4df8-a815-0cf62a4752c9",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	0,
+	"04053389-bace-41de-b367-3b603d97b2d4",
+	"922052d3-d925-48fd-8a9c-46a04d7fd44a",
+	'../Instance.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("8d5a3a61-46f6-4c5a-8e8c-f94d695badb7",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_ATTR
+	VALUES ("8d5a3a61-46f6-4c5a-8e8c-f94d695badb7",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"d0572464-6528-4e24-bbd2-ccc52dfcd0e7",
+	'Package_ID',
+	'',
+	'',
+	'Package_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"cb73f634-668b-453e-8995-99c334b06aa1",
+	0,
+	"ea621396-0bef-40c3-915b-4fcfc3dd715d",
+	"eac4cc46-a821-4c7a-82d3-ee63f197b965",
+	"cde6f088-603c-46f2-80d0-47a36925e98b",
+	"1abad4a7-87ad-43a8-9767-258f788d6db7",
+	"731d6047-3c54-4266-8b8f-6c6f25ed7161",
+	"ca5404de-ca90-4ef7-8354-1a025b3d7efb",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Component Instance Container',
+	'Container_ID',
+	'R2975');
+INSERT INTO R_RGO_PROXY
+	VALUES ("e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"eac4cc46-a821-4c7a-82d3-ee63f197b965",
+	"cde6f088-603c-46f2-80d0-47a36925e98b",
+	'../Instance.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("ea621396-0bef-40c3-915b-4fcfc3dd715d",
+	"cb73f634-668b-453e-8995-99c334b06aa1",
+	0,
+	"eac4cc46-a821-4c7a-82d3-ee63f197b965",
+	"1abad4a7-87ad-43a8-9767-258f788d6db7",
+	'../Instance.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("731d6047-3c54-4266-8b8f-6c6f25ed7161",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"28aa4283-2190-4d46-b247-2cf82958ad34",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	1,
+	'Execution_Engine_ID');
+INSERT INTO O_ATTR
+	VALUES ("731d6047-3c54-4266-8b8f-6c6f25ed7161",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"82712481-30a7-4a1c-b2ae-9d524bd91d65",
+	'Container_ID',
+	'',
+	'',
+	'Container_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("4ef03d6d-c8f6-46c3-90df-4cc73de1de70",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824");
+INSERT INTO O_BATTR
+	VALUES ("4ef03d6d-c8f6-46c3-90df-4cc73de1de70",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824");
+INSERT INTO O_ATTR
+	VALUES ("4ef03d6d-c8f6-46c3-90df-4cc73de1de70",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	"731d6047-3c54-4266-8b8f-6c6f25ed7161",
+	'RealizedBy',
+	'User_Visible:false',
+	'',
+	'RealizedBy',
+	0,
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824");
+INSERT INTO O_OIDA
+	VALUES ("28aa4283-2190-4d46-b247-2cf82958ad34",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	0,
+	'Execution_Engine_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824");
+INSERT INTO O_ID
+	VALUES (2,
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824");
+INSERT INTO S_SS_PROXY
+	VALUES ("97c1ace4-0148-4235-83cb-1fd8e2d2514d",
+	'Instance',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+Persistent:false
+Import: java.util.concurrent.locks.ReentrantLock',
+	'I',
+	900,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Instance.xtuml');

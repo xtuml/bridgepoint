@@ -1,0 +1,236 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="bpalref.book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ Timers
+</TITLE>
+
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<H1 CLASS="Chapter-Name">
+<A NAME="50536516_pgfId-518591"></A><A NAME="50536516_21731"></A>Timers</H1>
+<H2 CLASS="Heading1">
+<A NAME="50536516_pgfId-516710"></A>Starting a Timer</H2>
+<H3 CLASS="Heading2">
+<A NAME="50536516_pgfId-516712"></A>Syntax</H3>
+<P CLASS="Indent">
+<A NAME="50536516_pgfId-516713"></A><EM CLASS="Code">
+[bridge] &lt;timer handle&gt; = TIM::timer_start (microseconds:&lt;arithmetic expression&gt;, event_inst:&lt;event instance&gt;);</EM>
+</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518849"></A><EM CLASS="Code">
+&lt;timer handle&gt;</EM>
+ is a handle to a timer instance.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518844"></A><EM CLASS="Code">
+&lt;arithmetic expression&gt;</EM>
+ is an expression that evalues to an integer value.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518856"></A><EM CLASS="Code">
+&lt;event instance&gt;</EM>
+ is a handle to an event instance.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-516715"></A>This bridge operation starts a timer set to expire in <EM CLASS="Code">
+&lt;arithmetic</EM>
+ <EM CLASS="Code">
+expression&gt;</EM>
+ microseconds, generating the event <EM CLASS="Code">
+&lt;event</EM>
+ <EM CLASS="Code">
+instance&gt;</EM>
+ upon expiration.  Returns the instance handle of the timer.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518893"></A>The <EM CLASS="Code">
+bridge</EM>
+ keyword is optional.</P>
+<P CLASS="Indent">
+<A NAME="50536516_pgfId-516787"></A><EM CLASS="Code">
+[bridge] &lt;timer handle&gt; = TIM::timer_start_recurring (microseconds:&lt;arithmetic expression&gt;, event_inst:&lt;event instance&gt;);</EM>
+</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518868"></A><EM CLASS="Code">
+&lt;timer handle&gt;</EM>
+ is a handle to a timer instance.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518869"></A><EM CLASS="Code">
+&lt;arithmetic expression&gt;</EM>
+ is an expression that evalues to an integer value.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518870"></A><EM CLASS="Code">
+&lt;event instance&gt;</EM>
+ is a handle to an event instance.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518254"></A>This bridge operation starts a timer set to expire in <EM CLASS="Code">
+&lt;arithmetic</EM>
+ <EM CLASS="Code">
+expression&gt;</EM>
+ microseconds, generating the event <EM CLASS="Code">
+&lt;event</EM>
+ <EM CLASS="Code">
+instance&gt;</EM>
+ upon expiration. Upon expiration, the timer will be restarted and fire again in <EM CLASS="Code">
+&lt;arithmetic</EM>
+ <EM CLASS="Code">
+expression&gt;</EM>
+ microseconds generating the event <EM CLASS="Code">
+&lt;event</EM>
+ <EM CLASS="Code">
+instance&gt;</EM>
+. This bridge operation returns the instance handle of the timer.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518902"></A>The <EM CLASS="Code">
+bridge</EM>
+ keyword is optional.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536516_pgfId-518258"></A>Example</H3>
+<PRE CLASS="Indent-Tight"><A NAME="50536516_pgfId-518263"></A><EM CLASS="Code">// State 3. &quot;Down&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536516_pgfId-518265"></A><EM CLASS="Code">select one row related by self-&gt;ROW[R2];</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536516_pgfId-518266"></A><EM CLASS="Code">st = row.sampling_time;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536516_pgfId-518267"></A><EM CLASS="Code">create event instance move_on of SP1:finished_sampling() to self;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="50536516_pgfId-518268"></A><EM CLASS="Code">mo_timer = TIM::timer_start(microseconds:st, event_inst:move_on);</EM>
+</PRE>
+<H2 CLASS="Heading1">
+<A NAME="50536516_pgfId-516722"></A>Querying a Timer</H2>
+<H3 CLASS="Heading2">
+<A NAME="50536516_pgfId-516724"></A>Syntax</H3>
+<P CLASS="Indent">
+<A NAME="50536516_pgfId-516725"></A><EM CLASS="Code">
+[bridge] &lt;integer variable&gt; = TIM::timer_remaining_time (timer_inst_ref:&lt;timer handle&gt;);</EM>
+</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518815"></A><EM CLASS="Code">
+&lt;integer variable&gt;</EM>
+ is a local variable or a class attribute of type <EM CLASS="Code">
+integer</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518822"></A><EM CLASS="Code">
+&lt;timer handle&gt;</EM>
+ is a handle to a timer instance.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518650"></A>Returns the time remaining (in microseconds) for the timer specified by <EM CLASS="Code">
+&lt;timer handle&gt;</EM>
+. If the timer has expired, a zero value is returned.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518831"></A>The <EM CLASS="Code">
+bridge</EM>
+ keyword is optional.</P>
+<H2 CLASS="Heading1">
+<A NAME="50536516_pgfId-516730"></A>Manipulating a Timer</H2>
+<H3 CLASS="Heading2">
+<A NAME="50536516_pgfId-516732"></A>Syntax</H3>
+<P CLASS="Indent">
+<A NAME="50536516_pgfId-516733"></A><EM CLASS="Code">
+[bridge] &lt;boolean variable&gt; = TIM::timer_reset_time (timer_inst_ref:&lt;timer handle&gt;, 	microseconds:&lt;arithmetic expression&gt;);</EM>
+</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518915"></A><EM CLASS="Code">
+&lt;boolean variable&gt;</EM>
+ is a local variable or a class attribute of type <EM CLASS="Code">
+boolean</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518909"></A><EM CLASS="Code">
+&lt;timer handle&gt;</EM>
+ is a handle to a timer instance.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518910"></A><EM CLASS="Code">
+&lt;arithmetic expression&gt;</EM>
+ is an expression that evalues to an integer value.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-516735"></A>This bridge operation attempts to set an existing timer <EM CLASS="Code">
+&lt;timer</EM>
+ <EM CLASS="Code">
+handle&gt;</EM>
+ to expire in <EM CLASS="Code">
+&lt;arithmetic</EM>
+ <EM CLASS="Code">
+expression&gt;</EM>
+ microseconds. If the timer exists (that is, it has not expired), a <EM CLASS="Code">
+TRUE</EM>
+ value is returned. If the timer no longer exists, a <EM CLASS="Code">
+FALSE</EM>
+ value is returned.</P>
+<P CLASS="Indent">
+<A NAME="50536516_pgfId-516738"></A><EM CLASS="Code">
+[bridge] &lt;boolean variable&gt; = TIM::timer_add_time (timer_inst_ref:&lt;timer handle&gt;, 	microseconds:&lt;arithmetic expression&gt;);</EM>
+</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518935"></A><EM CLASS="Code">
+&lt;boolean variable&gt;</EM>
+ is a local variable or a class attribute of type <EM CLASS="Code">
+boolean</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518936"></A><EM CLASS="Code">
+&lt;timer handle&gt;</EM>
+ is a handle to a timer instance.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518937"></A><EM CLASS="Code">
+&lt;arithmetic expression&gt;</EM>
+ is an expression that evalues to an integer value.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518953"></A>This bridge operation attempts to add <EM CLASS="Code">
+&lt;arithmetic</EM>
+ <EM CLASS="Code">
+expression&gt;</EM>
+ microseconds to an existing timer <EM CLASS="Code">
+&lt;timer</EM>
+ <EM CLASS="Code">
+handle&gt;</EM>
+.  If the timer exists (that is, it has not expired), a <EM CLASS="Code">
+TRUE</EM>
+ value is returned.  If the timer no longer exists, a <EM CLASS="Code">
+FALSE</EM>
+ value is returned.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518959"></A>The <EM CLASS="Code">
+bridge</EM>
+ keyword is optional.</P>
+<H2 CLASS="Heading1">
+<A NAME="50536516_pgfId-518955"></A>Canceling a Timer</H2>
+<H3 CLASS="Heading2">
+<A NAME="50536516_pgfId-516744"></A>Syntax</H3>
+<P CLASS="Indent">
+<A NAME="50536516_pgfId-516745"></A><EM CLASS="Code">
+[bridge] &lt;boolean variable&gt; = TIM::timer_cancel (timer_inst_ref:&lt;timer handle&gt;);</EM>
+</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518966"></A><EM CLASS="Code">
+&lt;boolean variable&gt;</EM>
+ is a local variable or a class attribute of type <EM CLASS="Code">
+boolean</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518967"></A><EM CLASS="Code">
+&lt;timer handle&gt;</EM>
+ is a handle to a timer instance.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-516747"></A>This bridge operation cancels and deletes the timer specified by <EM CLASS="Code">
+&lt;timer handle&gt;</EM>
+.  If the timer exists (that is, it had not expired), a <EM CLASS="Code">
+TRUE</EM>
+ value is returned.  If the timer no longer exists, a <EM CLASS="Code">
+FALSE</EM>
+ value is returned.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-518974"></A>The <EM CLASS="Code">
+bridge</EM>
+ keyword is optional.</P>
+<H3 CLASS="Heading2">
+<A NAME="50536516_pgfId-516749"></A>Notes</H3>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-516750"></A>When a timer fires, it is deleted unless it was created using the <EM CLASS="Code">
+timer_start_recurring</EM>
+ bridge operation.</P>
+<P CLASS="Body">
+<A NAME="50536516_pgfId-516751"></A>In many architectures there may be a delay between the expiration of a timer and the delivery of the associated event to the receiving state machine.</P>
+</BODY>
+</HTML>

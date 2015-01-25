@@ -1,0 +1,612 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	'Interface Operation Invocation',
+	626,
+	'ACT_IOP',
+	'',
+	"b1a6258a-4548-4a81-bc3c-a6bab0f22f55");
+INSERT INTO O_TFR
+	VALUES ("a15dd167-94ea-416f-b761-ff446226ac51",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Interface Operation Invocation.dispose()
+select one rop related by self->SPR_RO[R657];
+if not_empty rop
+  unrelate self from rop across R657;
+end if;
+select one pop related by self->SPR_PO[R680];
+if(not_empty pop)
+  unrelate self from pop across R680;
+end if;
+select many parm_set related by self->V_PAR[R679];
+for each parm in parm_set 
+  unrelate self from parm across R679;
+  parm.dispose();
+end for;
+select one targetVal related by self->V_VAL[R629];
+if not_empty targetVal
+  unrelate self from targetVal across R629;
+  targetVal.dispose();
+end if;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("e3d9610c-bd14-4226-b29e-80867d9c470f",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	'execute',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'//Invocation:Interface Operation Invocation.execute()
+/* The following conditions apply when executing an interface operation body:
+*
+*  If there is no component at the other end of this interface, then execute the
+*  body of this component''s operation.
+*
+*  If there is a component yet it is not being executed, then execute the body
+*  of this component''s operation.
+*
+*  If there is a component and it is being verified then execute the body of the
+*  operation belonging to the component at the other end.
+*
+*/
+
+select any localComponentInstance from instances of I_EXE where
+                           selected.Execution_Engine_ID == GD::NULL_UNIQUE_ID();
+select any localStackFrame from instances of I_STF where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+if not_empty localStackFrame
+  select one localStack related by localStackFrame->I_STACK[R2929];
+  if not_empty localStack
+    select one localComponentInstance related by localStack->I_EXE[R2930];
+  end if;
+end if;
+
+isRequired = false;
+
+select one requiredOp related by self->SPR_RO[R657];
+select one providedOp related by self->SPR_PO[R680];
+select one interfaceReference related by providedOp->
+                                        SPR_PEP[R4503]->C_P[R4501]->C_IR[R4009];
+if not_empty requiredOp
+  isRequired = true;
+  select one interfaceReference related by requiredOp->
+                                        SPR_REP[R4502]->C_R[R4500]->C_IR[R4009];
+end if;
+
+
+componentID = GD::NULL_UNIQUE_ID();
+select one targetValue related by self->V_VAL[R629];
+if not_empty targetValue
+  targetRuntimeValueId = targetValue.getRuntimeValue(stack_frame_id:
+                                                          param.stack_frame_id);
+  select any rv from instances of RV_RVL where
+                               selected.RuntimeValue_ID == targetRuntimeValueId;
+  select one componentRef related by rv->RV_SMV[R3300]->RV_CRV[R3308];
+  if not_empty componentRef
+    select one specifiedEngine related by componentRef->I_EXE[R3309];
+    component_ID = specifiedEngine.Execution_Engine_ID;
+  else
+    // TODO Log error the parser shouldn''t let this happen
+  end if;
+end if;
+channelID = I_EXE::resolveTargetChannel(
+              specifiedComponentInstance: componentID,
+              isRequired: isRequired,
+              localComponentInstance:localComponentInstance.Execution_Engine_ID,
+              interfaceReference: interfaceReference.Id);
+if channelID != GD::NULL_UNIQUE_ID()
+  select any channel from instances of I_RCH where
+                                               selected.Channel_Id == channelID;
+  select one targetEngine related by channel->
+                                        I_EXE[R2968.''is interface requirer of''];
+  operationName = "";
+  if isRequired
+    operationName = requiredOp.Name;
+    select one targetEngine related by channel->
+                                        I_EXE[R2968.''is interface provider to''];
+  else
+    operationName = providedOp.Name;
+  end if;
+
+  invokingFrame = localStackFrame;
+  // Grab the stack as well
+  select one stack related by localStackFrame->I_STACK[R2929];
+  if not_empty targetEngine
+    // select the interrupt stack if available
+    select one stack related by targetEngine->I_STACK[R2930];
+  end if;
+
+  select one invokingBody related by self ->ACT_SMT[R603]->
+                                                   ACT_BLK[R602]->ACT_ACT[R601];
+  pathForErrorMessage = "Unknown";
+  if not_empty invokingBody
+    pathForErrorMessage = invokingBody.getPath();
+  end if;
+  targetActivityID = I_EXE::resolveTargetBody(
+                                              isRequired: isRequired,
+                                              channel: channelID,
+                                              invokingPath: pathForErrorMessage,
+                                              messageName: operationName);
+
+  select any body from instances of ACT_ACT where
+                                         selected.Action_ID == targetActivityID;
+  if(not_empty body)
+    // Setup the parameter values within the newly created stack frame
+    // on the local stack
+    complete = self.setupParameterValues(stack_frame_id:param.stack_frame_id);
+    if(complete)
+      // All parameters now computed, now set up stack frame for remote call
+      // Create new stack frame on target component''s stack
+      sf = body.createStackFrame(stack_id:stack.Stack_ID,
+                          enqueue: not_empty targetEngine,
+             invoking_stack_frame_or_component_id:invokingFrame.Stack_Frame_ID);
+      select one ep related by self->SPR_RO[R657]->SPR_REP[R4502]->C_EP[R4500];
+      if(empty ep)
+        select one ep related by self->SPR_PO[R680]->SPR_PEP[R4503]->
+                                                                    C_EP[R4501];
+      end if;
+      select many args related by self->V_PAR[R679];
+      // If we get here, all computation of arguments was completed,
+      // prepare for execution of the operation
+      for each arg in args
+        I_EXE::transferValueToTarget(
+                          message: ep.Id,
+                          body: body.Action_ID,
+                          arg: arg.Value_ID,
+                          stack_frame_id: sf,
+                          local_stack_frame_id: localStackFrame.Stack_Frame_ID);
+      end for;
+      if(not_empty targetEngine)
+        // associate new stack frame with the invocation stack, to allow
+        // wake up of this thread upon execution completion
+        select any newStackFrame related by stack->I_ICQE[R2966]->I_STF[R2966]
+                                          where (selected.Stack_Frame_ID == sf);
+        relate invokingFrame to newStackFrame across R2965.''blocked by'';
+        body.startStackFrameForMessage(stackframe_id:
+                                                  newStackFrame.Stack_Frame_ID);
+      end if;
+    end if;
+  end if;
+else  // specified engine was not resolved
+  select one body related by self ->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601];
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error sending message, specified component reference " +
+              " wiring not found. Message not delivered.",path:pathMsg);
+end if;',
+	1,
+	'',
+	"a15dd167-94ea-416f-b761-ff446226ac51");
+INSERT INTO O_TPARM
+	VALUES ("8fc5daf1-6626-4fdd-b540-4b3fd5b6ce77",
+	"e3d9610c-bd14-4226-b29e-80867d9c470f",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("b6baa021-a272-4168-957f-e1ea70f2c53a",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	'setupParameterValues',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// Invocation:Interface Operation Invocation.setupParameterValues
+select one body related by self ->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601];
+select one ep related by self->SPR_RO[R657]->SPR_REP[R4502]->C_EP[R4500];
+if(empty ep)
+  select one ep related by self->SPR_PO[R680]->SPR_PEP[R4503]->C_EP[R4501];
+end if;
+select many args related by self->V_PAR[R679];
+// Grab the stack frame(should be the new top stack frame)
+select any stack_frame from instances of I_STF where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+if empty stack_frame
+  //Invalid stack frame ID!
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Interface Operation Invocation.setupParameterValues: " +
+                                       "Invalid stack frame id used. Halting.",path:pathMsg);
+  select any engine from instances of I_EXE;
+  engine.stop();
+  return false;
+end if;
+pathForErrorMessage = body.getPath();
+for each arg in args
+  // Search for a property parameter with the same name as the actual parameter
+  select any prop_param related by ep->C_PP[R4006] where
+                                                      selected.Name == arg.Name;
+  if (empty prop_param)
+    USER::logError(msg:"Interface Operation Invocation.setupParameterValues: " +
+                  "Did not find a corresponding interface parameter. halting.",
+                                                      path:pathForErrorMessage);
+    select any engine from instances of I_EXE;
+    engine.stop();
+    return false;
+  else    
+    // We have found the matching property parameter and actual parameter
+    // Now set the value of the parameter value related to the property
+    // parameter to the actual parameter''s value
+    if (prop_param.By_Ref == 0)  // by value
+      select one act_val related by arg->V_VAL[R800];
+      act_val.computeValue(stack_frame_id: param.stack_frame_id);
+      select any stack_frame from instances of I_STF where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+      select any result related by stack_frame->I_VSF[R2951] where
+                                          selected.Value_ID == act_val.Value_ID;
+      select one rtVal related by result->RV_RVL[R3305];
+      if (empty rtVal)
+        // result requires computation.
+        return false;
+      end if;
+    end if;
+  end if;
+end for;
+return true;',
+	1,
+	'',
+	"e3d9610c-bd14-4226-b29e-80867d9c470f");
+INSERT INTO O_TPARM
+	VALUES ("8e3cf20a-6e2c-40df-a391-e127909e37df",
+	"b6baa021-a272-4168-957f-e1ea70f2c53a",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"922c8192-13c3-4d2c-b758-dd76f7720422",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	"1ca410d8-75dc-4966-ac74-14f06cb2814a",
+	"7c52531b-d984-411a-9ae2-722acb02664d",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Statement',
+	'Statement_ID',
+	'R603');
+INSERT INTO R_RGO_PROXY
+	VALUES ("22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"922c8192-13c3-4d2c-b758-dd76f7720422",
+	'../../Body/Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	'../../Body/Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("1ca410d8-75dc-4966-ac74-14f06cb2814a",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	'Statement_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'../../Body/Statement/Statement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("1ca410d8-75dc-4966-ac74-14f06cb2814a",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"00000000-0000-0000-0000-000000000000",
+	'Statement_ID',
+	'',
+	'',
+	'Statement_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("de7ef575-ef38-4e89-9ae1-36f9554416dc",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b");
+INSERT INTO O_BATTR
+	VALUES ("de7ef575-ef38-4e89-9ae1-36f9554416dc",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b");
+INSERT INTO O_ATTR
+	VALUES ("de7ef575-ef38-4e89-9ae1-36f9554416dc",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"1ca410d8-75dc-4966-ac74-14f06cb2814a",
+	'opNameLineNumber',
+	'',
+	'',
+	'opNameLineNumber',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("7e9e9587-7c15-44d7-8b73-81d76ed8ed32",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b");
+INSERT INTO O_BATTR
+	VALUES ("7e9e9587-7c15-44d7-8b73-81d76ed8ed32",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b");
+INSERT INTO O_ATTR
+	VALUES ("7e9e9587-7c15-44d7-8b73-81d76ed8ed32",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"de7ef575-ef38-4e89-9ae1-36f9554416dc",
+	'opNameColumn',
+	'',
+	'',
+	'opNameColumn',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("f0c146cc-eaa8-433b-9056-2f82e3bac3ad",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b");
+INSERT INTO O_BATTR
+	VALUES ("f0c146cc-eaa8-433b-9056-2f82e3bac3ad",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b");
+INSERT INTO O_ATTR
+	VALUES ("f0c146cc-eaa8-433b-9056-2f82e3bac3ad",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"7e9e9587-7c15-44d7-8b73-81d76ed8ed32",
+	'ownerNameLineNumber',
+	'',
+	'',
+	'ownerNameLineNumber',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("c37bbfdb-6098-4f0a-a00b-55f65b5e0f34",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b");
+INSERT INTO O_BATTR
+	VALUES ("c37bbfdb-6098-4f0a-a00b-55f65b5e0f34",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b");
+INSERT INTO O_ATTR
+	VALUES ("c37bbfdb-6098-4f0a-a00b-55f65b5e0f34",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"f0c146cc-eaa8-433b-9056-2f82e3bac3ad",
+	'ownerNameColumn',
+	'',
+	'',
+	'ownerNameColumn',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
+	0,
+	"1b172683-ee39-4102-8b28-d81ad44e6aec",
+	"63958118-e00e-4c58-888e-6f100c2fda53",
+	"40cbabe7-c99f-4dbb-8cf9-42175729fb38",
+	"4242cc85-310a-40ed-893e-82dae5f86e3d",
+	"f449ec7a-4326-4426-975b-8591ec9147b1",
+	"f0f14cef-dfb6-4dfd-9987-c2b16402ccdf",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Provided Operation',
+	'Id',
+	'R680');
+INSERT INTO R_RGO_PROXY
+	VALUES ("22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"63958118-e00e-4c58-888e-6f100c2fda53",
+	"40cbabe7-c99f-4dbb-8cf9-42175729fb38",
+	'../Invocation.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("1b172683-ee39-4102-8b28-d81ad44e6aec",
+	"d113e0d5-c2e8-4091-a78c-e09abec06ed0",
+	0,
+	"63958118-e00e-4c58-888e-6f100c2fda53",
+	"4242cc85-310a-40ed-893e-82dae5f86e3d",
+	'../Invocation.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("f449ec7a-4326-4426-975b-8591ec9147b1",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"67a67b41-0ad5-4731-9748-c98aad60eb92",
+	"6e1f9b12-bc84-48ed-af2d-02831c049629",
+	1,
+	'Id');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("67a67b41-0ad5-4731-9748-c98aad60eb92",
+	"6e1f9b12-bc84-48ed-af2d-02831c049629",
+	'../../Component/Signal Provisions and Requirements/Provided Executable Property/Provided Executable Property.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("f449ec7a-4326-4426-975b-8591ec9147b1",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"c37bbfdb-6098-4f0a-a00b-55f65b5e0f34",
+	'ProvidedOp_Id',
+	'',
+	'ProvidedOp_',
+	'Id',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3",
+	0,
+	"fbfa676a-ed86-441f-984a-6a9089b5cace",
+	"2e985ea0-2a92-4e1e-8338-6dcb24d951ed",
+	"b940bea3-2124-4ac2-910e-fbb8b59456ac",
+	"6fa331f9-473a-47fc-bb63-e3cec9f7c8f2",
+	"ba3ad818-29fc-4409-8c9b-64ff586226bf",
+	"3cea0f2c-d73e-4f8d-b48d-95f6d6397738",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Required Operation',
+	'Id',
+	'R657');
+INSERT INTO R_RGO_PROXY
+	VALUES ("22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"2e985ea0-2a92-4e1e-8338-6dcb24d951ed",
+	"b940bea3-2124-4ac2-910e-fbb8b59456ac",
+	'../Invocation.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("fbfa676a-ed86-441f-984a-6a9089b5cace",
+	"5d57cf7a-744e-4b5b-bc6e-e839d04a8fd3",
+	0,
+	"2e985ea0-2a92-4e1e-8338-6dcb24d951ed",
+	"6fa331f9-473a-47fc-bb63-e3cec9f7c8f2",
+	'../Invocation.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("ba3ad818-29fc-4409-8c9b-64ff586226bf",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"f3c5cf7d-bc51-475b-8b99-1fdd96a3f7fb",
+	"176a81f6-744e-4552-b596-de734b09da8a",
+	1,
+	'Id');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("f3c5cf7d-bc51-475b-8b99-1fdd96a3f7fb",
+	"176a81f6-744e-4552-b596-de734b09da8a",
+	'../../Component/Signal Provisions and Requirements/Required Executable Property/Required Executable Property.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("ba3ad818-29fc-4409-8c9b-64ff586226bf",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"f449ec7a-4326-4426-975b-8591ec9147b1",
+	'RequiredOp_Id',
+	'',
+	'RequiredOp_',
+	'Id',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"a6cc7524-8b66-4a36-9fe5-a945ed517206",
+	"c0603124-e561-4f5e-926e-b346973deaa5",
+	"6d8c20ff-5b96-4ffd-a398-d63cfacc1cc8",
+	"bfe01994-1111-4832-b8ac-291ad20f2ac9",
+	"024a3340-bfd2-46e2-9a52-9741010a48c5",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Value',
+	'Value_ID',
+	'R629');
+INSERT INTO R_RGO_PROXY
+	VALUES ("22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"a6cc7524-8b66-4a36-9fe5-a945ed517206",
+	"c0603124-e561-4f5e-926e-b346973deaa5",
+	'../Invocation.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"a6cc7524-8b66-4a36-9fe5-a945ed517206",
+	"6d8c20ff-5b96-4ffd-a398-d63cfacc1cc8",
+	'../Invocation.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("bfe01994-1111-4832-b8ac-291ad20f2ac9",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	1,
+	'Value_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'../../Value/Value/Value.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("bfe01994-1111-4832-b8ac-291ad20f2ac9",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	"ba3ad818-29fc-4409-8c9b-64ff586226bf",
+	'Value_ID',
+	'',
+	'',
+	'Value_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b");
+INSERT INTO O_OIDA
+	VALUES ("1ca410d8-75dc-4966-ac74-14f06cb2814a",
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b",
+	0,
+	'Statement_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b");
+INSERT INTO O_ID
+	VALUES (2,
+	"22c5c5d4-325c-4cdb-8566-d82bb85e797b");
+INSERT INTO S_SS_PROXY
+	VALUES ("b1a6258a-4548-4a81-bc3c-a6bab0f22f55",
+	'Invocation',
+	'This subsystem captures the concepts of call and return. It covers
+calls to operations, bridges and functions and includes the return
+statement.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'ACT',
+	600,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-00000060000c",
+	'../Invocation.xtuml');

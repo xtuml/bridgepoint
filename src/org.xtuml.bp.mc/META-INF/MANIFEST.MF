@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Model Compiler Interface
+Bundle-SymbolicName: org.xtuml.bp.mc;singleton:=true
+Bundle-Version: 4.2.0
+Bundle-Vendor: xtUML.org
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.core.variables,
+ org.eclipse.ui,
+ org.xtuml.bp.core,
+ org.xtuml.bp.mc.xmiexport,
+ org.eclipse.debug.ui,
+ org.xtuml.bp.io.core,
+ org.xtuml.bp.io.mdl,
+ org.xtuml.bp.utilities,
+ org.eclipse.ui,
+ org.eclipse.ui.ide,
+ org.eclipse.cdt.core,
+ org.eclipse.cdt.ui,
+ org.eclipse.cdt.managedbuilder.ui,
+ org.eclipse.ui.externaltools
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Import-Package: org.eclipse.core.resources
+Export-Package: org.xtuml.bp.mc
+Bundle-ClassPath: mc.jar

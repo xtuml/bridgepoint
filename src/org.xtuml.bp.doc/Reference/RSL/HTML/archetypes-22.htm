@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="archetypes.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+Fragment Translation Rule File
+</TITLE>
+
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<H1 CLASS="Heading2">
+<A NAME="0_pgfId-520246"></A><A NAME="0_marker-520245"></A>Fragment Translation Rule File</H1>
+<P CLASS="Body">
+<A NAME="0_pgfId-528009"></A>When an action is translated with the <A NAME="0_marker-528008"></A><EM CLASS="Code">
+.al_xlate</EM>
+ command, an intermediate file, called a fragment translation rule file, is created. The name of the fragment translation rule file is <EM CLASS="Code">
+____actn.arc</EM>
+ and the file is emitted in the directory in which translation occurs. This file consists of a sequence of <EM CLASS="Code">
+.invoke</EM>
+ statements used to produce the code for the action. Let's look at an example of OAL and the fragment translation rule file that is created.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-528010"></A>In the following action, OAL assigns the value <EM CLASS="Code">
+12</EM>
+ to a variable named <EM CLASS="Code">
+x</EM>
+:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-528011"></A><EM CLASS="Code">
+assign x = 12;</EM>
+</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-525487"></A>This OAL statement consists of three main components: a literal integer, a variable declaration, and an assignment. The <EM CLASS="Code">
+.al_xlate</EM>
+ command takes this statement and produces the following within the fragment translation rules:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525499"></A><EM CLASS="Code">.// some leading .invoke statements cut from example</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525604"></A><EM CLASS="Code">.invoke r001 = rval_literal_integer (&quot;12&quot;)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525500"></A><EM CLASS="Code">.invoke v002 = var_declare (&quot;x&quot;)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525501"></A><EM CLASS="Code">.invoke s001 = stmt_assign_transient_var (v002, TRUE, r001)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525603"></A>.// some trailing .invoke statements cut from example</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525602"></A>&nbsp;</PRE>
+<P CLASS="Body">
+<A NAME="0_pgfId-525529"></A>The <EM CLASS="Code">
+rval_literal_integer</EM>
+ function is always called when a literal integer is found within the OAL. The fragment translation function definition for <EM CLASS="Code">
+rval_literal_integer</EM>
+ (provided by the model compiler) must supply a definition for this function in order to provide data, in the resulting fragment <EM CLASS="Code">
+r001</EM>
+, to each of the functions to which the fragment is passed. In this case the fragment is only passed to the fragment translation function called <EM CLASS="Code">
+stmt_assign_transient_var</EM>
+.<EM CLASS="Code">
+</EM>
+</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-525543"></A>The second line calls the translation function <EM CLASS="Code">
+var_declare</EM>
+. Any time a variable is declared within the OAL this function is called. The only parameter to this function is the name of the variable. Again, the model compiler supplies a definition for this function that builds up a fragment that is subsequently passed to <EM CLASS="Code">
+stmt_assign_transient_var</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-525570"></A>The third line builds the whole statement from the data passed in: <EM CLASS="Code">
+v002</EM>
+, the fragment used to build the variable declaration, <EM CLASS="Code">
+TRUE</EM>
+, which says that the variable <EM CLASS="Code">
+x</EM>
+ is being implicitly declared, and <EM CLASS="Code">
+r001</EM>
+, the fragment created for the literal declaration of the integer <EM CLASS="Code">
+12</EM>
+. When this function has finished, the fragment <EM CLASS="Code">
+s001</EM>
+ contains the translated code for <EM CLASS="Code">
+assign x = 12;</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-525528"></A>Any literal text specified in a fragment translation function is available through the fragments's <EM CLASS="Code">
+body</EM>
+ attribute and any variables defined within the fragment translation function that begin with <EM CLASS="Code">
+attr_</EM>
+ are available through the name following the <EM CLASS="Code">
+attr_</EM>
+. In the example above, let's say that the definition for the <EM CLASS="Code">
+rval_literal_integer</EM>
+ fragment translation function is as follows (the signature for the function is defined below in <A HREF="archetypes-23.htm#0_17743" CLASS="XRef">Rvalue Translation Functions</A>):</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525556"></A><EM CLASS="Code">.function rval_literal_integer</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525566"></A>.param string p_integer_value</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525568"></A>.assign attr_rval_type = &quot;int&quot;</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525569"></A>.assign attr_rval_value = p_integer_value</PRE>
+<P CLASS="Indent">
+<A NAME="0_pgfId-593399"></A>.end function</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-593402"></A>and that the definition for <EM CLASS="Code">
+var_declare</EM>
+, looking in <A HREF="archetypes-23.htm#0_66863" CLASS="XRef">Variable Translation Functions</A> for the signature, is:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-593404"></A><EM CLASS="Code">.function var_declare</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525582"></A>.param string p_var_name</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525583"></A>.assign attr_var_name = p_var_name</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525584"></A>.end function</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525586"></A>&nbsp;</PRE>
+<P CLASS="Body">
+<A NAME="0_pgfId-525587"></A>The definition of <EM CLASS="Code">
+stmt_assign_transient_var</EM>
+ may then make use of the data (fragment attributes) provided by the fragments built up in the previous two functions:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525588"></A><EM CLASS="Code">.function stmt_assign_transient_var</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525592"></A>.param frag_ref p_transient_var</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525597"></A>.param boolean p_implicit_declare</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525598"></A>.param frag_ref p_rval </PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525600"></A>.//</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525601"></A>.// declare the variable if necessary</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525609"></A>.if (p_implicit_declare)</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525610"></A>${p_rval.rval_type} ${p_transient_var.var_name};</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525611"></A>.end if</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525616"></A>.//</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525617"></A>.// make the assignment</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525618"></A>${p_transient_var.var_name} = ${p_rval.rval_value};</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525623"></A>.//</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525599"></A>.end function</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525564"></A>&nbsp;</PRE>
+<P CLASS="Body">
+<A NAME="0_pgfId-525628"></A>The strategy behind fragment translation is to begin with the innermost statement components and translate them. Then, move to combining small fragments into larger fragments until a complete statement is formed. Statements are then combined into blocks and blocks into the action.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-525554"></A>The complete fragment translation rule file for the action above illustrates this:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525657"></A><EM CLASS="Code">.invoke a001 = actn_begin (action)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525658"></A><EM CLASS="Code">.invoke b001 = blck_begin ()</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525659"></A><EM CLASS="Code">.invoke v001 = var_declare_self_obj_inst_ref (action)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525660"></A><EM CLASS="Code">.invoke r001 = rval_literal_integer (&quot;12&quot;)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525661"></A><EM CLASS="Code">.invoke v002 = var_declare (&quot;x&quot;)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525662"></A><EM CLASS="Code">.invoke s001 = stmt_assign_transient_var (v002, TRUE, r001)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525663"></A><EM CLASS="Code">.invoke b002 = blck_append_stmt (b001, s001)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525664"></A><EM CLASS="Code">.invoke b003 = blck_var_out_of_scope (b002, v002)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525665"></A><EM CLASS="Code">.invoke b004 = blck_var_out_of_scope (b003, v001)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525666"></A><EM CLASS="Code">.invoke b005 = blck_var_out_of_scope (b004, v001)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525667"></A><EM CLASS="Code">.invoke b006 = blck_var_out_of_scope (b005, v001)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525668"></A><EM CLASS="Code">.invoke b007 = blck_end (b006)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525669"></A><EM CLASS="Code">.invoke a002 = actn_append_blck (a001, b007)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525670"></A><EM CLASS="Code">.invoke a003 = actn_end (a002)</EM>
+</PRE>
+<P CLASS="Indent">
+<A NAME="0_pgfId-525671"></A><EM CLASS="Code">
+${a003.body}</EM>
+</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-525608"></A>Notice that the line <EM CLASS="Code">
+${a003.body}</EM>
+ is what places the translated action in the callers body, making it available for writing to a file with the <EM CLASS="Code">
+.emit to file</EM>
+ statement.</P>
+</BODY>
+</HTML>

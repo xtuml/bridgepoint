@@ -1,0 +1,2110 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'Value',
+	800,
+	'V_VAL',
+	'A value (r-value) may be assigned to a variable, attribute or parameter
+(l-values). There are many different kinds of value in a model. This class
+captures this observation in a supertype.',
+	"e060f94c-3f82-463e-9d98-d20315b7c196");
+INSERT INTO O_TFR
+	VALUES ("a7bdcd64-e592-4b09-82ec-95f387cc5308",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'dispose',
+	'This operation disconnects an instance, and all instances it is 
+responsible for, from the model.
+',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Value.dispose()
+select one val_blk related by self->ACT_BLK[R826];
+if ( not_empty val_blk )
+  unrelate self from val_blk across R826;
+end if;
+
+select one val_dt related by self->S_DT[R820];
+if ( not_empty val_dt )
+  unrelate self from val_dt across R820;
+end if;
+
+select one lin related by self->V_LIN[R801];
+if ( not_empty lin )
+  unrelate lin from self across R801;
+  delete object instance lin;
+end if;
+
+select one lbo related by self->V_LBO[R801];
+if ( not_empty lbo )
+  unrelate lbo from self across R801;
+  delete object instance lbo;
+end if;
+
+select one lst related by self->V_LST[R801];
+if ( not_empty lst )
+  unrelate lst from self across R801;
+  delete object instance lst;
+end if;
+
+select one lrl related by self->V_LRL[R801];
+if ( not_empty lrl )
+  unrelate lrl from self across R801;
+  delete object instance lrl;
+end if;
+
+select one tvl related by self->V_TVL[R801];
+if ( not_empty tvl )
+  select one tvar related by tvl->V_VAR[R805];
+  if ( not_empty tvar )
+    unrelate tvl from tvar across R805;
+  end if;
+  unrelate tvl from self across R801;
+  delete object instance tvl;
+end if;
+
+select one bin related by self->V_BIN[R801];
+if ( not_empty bin )
+  unrelate bin from self across R801;
+  bin.dispose();
+end if;
+
+select one unary related by self->V_UNY[R801];
+if ( not_empty unary )
+  unrelate unary from self across R801;
+  unary.dispose();
+end if;
+
+select one attr_val related by self->V_AVL[R801];
+if ( not_empty attr_val )
+  unrelate attr_val from self across R801;
+  attr_val.dispose();
+end if;
+
+select one len related by self->V_LEN[R801];
+if ( not_empty len )
+  select one enum related by len->S_ENUM[R824];
+  if ( not_empty enum )
+    unrelate len from enum across R824;
+  end if;
+  unrelate len from self across R801;
+  delete object instance len;
+end if;
+
+select one slr related by self->V_SLR[R801];
+if ( not_empty slr )
+  unrelate slr from self across R801;
+  slr.dispose() ;
+end if;
+
+select one irf related by self->V_IRF[R801];
+if ( not_empty irf )
+  select one tvar related by irf->V_VAR[R808];
+  if ( not_empty tvar )
+    unrelate irf from tvar across R808;
+  end if;
+  unrelate irf from self across R801;
+  delete object instance irf;
+end if;
+
+select one isr related by self->V_ISR[R801];
+if ( not_empty isr )
+  select one tvar related by isr->V_VAR[R809];
+  if ( not_empty tvar )
+    unrelate isr from tvar across R809;
+  end if;
+  unrelate isr from self across R801;
+  delete object instance isr;
+end if;
+
+select one fnc related by self->V_FNV[R801];
+if ( not_empty fnc )
+  unrelate fnc from self across R801;
+  fnc.dispose() ;
+end if;
+
+select one brv related by self->V_BRV[R801];
+if ( not_empty brv )
+  unrelate brv from self across R801;
+  brv.dispose() ;
+end if;
+
+select one trv related by self->V_TRV[R801];
+if ( not_empty trv )
+  unrelate trv from self across R801;
+  trv.dispose() ;
+end if;
+
+select one pvl related by self->V_PVL[R801];
+if ( not_empty pvl )
+  unrelate pvl from self across R801;
+  pvl.dispose() ;
+end if;
+
+select one edv related by self->V_EDV[R801];
+if ( not_empty edv )
+  unrelate edv from self across R801;
+  edv.dispose() ;
+end if;
+
+select one mvl related by self->V_MVL[R801];
+if (not_empty mvl)
+  unrelate mvl from self across R801;
+  mvl.dispose();
+end if;
+
+select one aer related by self->V_AER[R801];
+if (not_empty aer)
+  unrelate self from aer across R801;
+  aer.dispose();
+end if;
+
+select one alv related by self->V_ALV[R801];
+if (not_empty alv)
+  unrelate self from alv across R801;
+  alv.dispose();
+end if;
+
+select one msv related by self->V_MSV[R801];
+if not_empty msv
+  unrelate self from msv across R801;
+  msv.dispose();
+end if;
+                             
+select one scv related by self->V_SCV[R801];
+if not_empty scv
+  unrelate self from scv across R801;
+  scv.dispose();
+end if;
+// clean up any leftover references
+select one atm related by self->ACT_AI[R689];
+if (not_empty atm)
+  unrelate self from atm across R689;
+end if;
+
+select one alv related by self->V_ALV[R840];
+if (not_empty alv)
+  unrelate self from alv across R840;
+end if;
+
+select one aer related by self->V_AER[R838];
+if (not_empty aer)
+  unrelate self from aer across R838;
+end if;
+
+select one aer related by self->V_AER[R839];
+if (not_empty aer)
+  unrelate self from aer across R839;
+end if;
+
+select one mvl related by self->V_MVL[R837];
+if not_empty mvl
+  unrelate self from mvl across R837;
+end if;
+
+select one parm related by self->V_PAR[R800];
+if ( not_empty parm )
+  unrelate parm from self across R800;
+end if;
+
+select one bin related by self->V_BIN[R802];
+if ( not_empty bin )
+  unrelate bin from self across R802;
+end if;
+
+select one bin related by self->V_BIN[R803];
+if ( not_empty bin )
+  unrelate bin from self across R803;
+end if;
+
+select one unary related by self->V_UNY[R804];
+if ( not_empty unary )
+  unrelate unary from self across R804;
+end if;
+
+select one childAV related by self->V_AVL[R807];
+if (not_empty childAV)
+  unrelate self from childAV across R807;
+end if;
+
+// Selection subsystem
+select one fiw related by self->ACT_FIW[R610];
+if ( not_empty fiw )
+  unrelate self from fiw across R610;
+end if;
+select one srw related by self->ACT_SRW[R611];
+if ( not_empty srw )
+  unrelate self from srw across R611;
+end if;
+select one sel related by self->ACT_SEL[R613];
+if ( not_empty sel )
+  unrelate self from sel across R613;
+end if;
+
+// Body subsystem
+select one if_var related by self->ACT_IF[R625];
+if ( not_empty if_var )
+  unrelate self from if_var across R625;
+end if;
+select one whl_var related by self->ACT_WHL[R626];
+if ( not_empty whl_var )
+  unrelate self from whl_var across R626;
+end if;
+select one elif_var related by self->ACT_EL[R659];
+if ( not_empty elif_var )
+  unrelate self from elif_var across R659;
+end if;
+
+// Invocation subsystem
+select one ret_stmt related by self->ACT_RET[R668];
+if ( not_empty ret_stmt )
+  unrelate self from ret_stmt across R668;
+end if;
+
+// Instance Access subsystem
+select one ai_var related by self->ACT_AI[R609];
+if ( not_empty ai_var )
+  unrelate self from ai_var across R609;
+end if;
+// Local Subsystem
+select one loc_val related by self->L_LVL[R3010];
+if (not_empty loc_val)
+  unrelate self from loc_val across R3010;
+end if;
+
+// Instance
+select many visfs related by self->I_VSF[R2978];
+for each visf in visfs
+  visf.dispose();
+end for;
+
+// Event subsystem
+select one gpr related by self->E_GPR[R714];
+if ( not_empty gpr )
+  unrelate self from gpr across R714;
+end if;
+
+// Invocation subsystem
+select many iops related by self->ACT_IOP[R629];
+for each iop in iops
+  unrelate self from iop across R629;
+end for;
+select many sinvs related by self->ACT_SGN[R630];
+for each sinv in sinvs
+  unrelate self from sinv across R630;
+end for;
+select many msvs related by self->V_MSV[R851];
+for each msv in msvs
+  unrelate self from msv across R851;
+end for;
+
+delete object instance self;
+',
+	1,
+	'',
+	"df9ce6b2-5184-4e5d-8151-315b8b499a28");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("ec4d1100-850c-44d8-b972-d2c6ee312baf",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'setEndPosition',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one body related by self->ACT_BLK[R826]->ACT_ACT[R601];
+if ( self.StartPosition == -1 )
+  self.EndPosition = -1;
+else
+  select one lin related by self->V_LIN[R801];
+  if ( not_empty lin )
+    self.EndPosition = self.StartPosition + GD::strlen(s: lin.Value) - 1;
+    return;
+  end if;
+
+  select one lbo related by self->V_LBO[R801];
+  if ( not_empty lbo )
+    self.EndPosition = self.StartPosition + GD::strlen(s: lbo.Value) - 1;
+    return;
+  end if;
+
+  select one lst related by self->V_LST[R801];
+  if ( not_empty lst )
+    self.EndPosition = self.StartPosition + GD::strlen(s: lst.Value); // + 1 - 1
+    return;
+  end if;
+
+  select one lrl related by self->V_LRL[R801];
+  if ( not_empty lrl )
+    self.EndPosition = self.StartPosition + GD::strlen(s: lrl.Value) - 1;
+    return;
+  end if;
+
+  select one bin related by self->V_BIN[R801];
+  if ( not_empty bin )
+    select one lop related by bin->V_VAL[R802];
+    select one rop related by bin->V_VAL[R803];
+    self.StartPosition = lop.StartPosition;
+    self.EndPosition = rop.EndPosition;
+    return;
+  end if;
+
+  select one unary related by self->V_UNY[R801];
+  if ( not_empty unary )
+    select one op related by unary->V_VAL[R804];
+    self.EndPosition = op.EndPosition;
+    return;
+  end if;
+
+  select one len related by self->V_LEN[R801];
+  if ( not_empty len )
+    select one enum related by len->S_ENUM[R824];
+    self.EndPosition = self.StartPosition + GD::strlen(s: enum.Name) - 1;
+    return;
+  end if;
+
+  select one scv related by self->V_SCV[R801];
+  if ( not_empty scv )
+    self.EndPosition = self.StartPosition + GD::strlen(s: self.Text) - 1;
+    return;
+  end if;
+                             
+  select one irf related by self->V_IRF[R801];
+  if ( not_empty irf )
+    select one var related by irf->V_VAR[R808];
+    self.EndPosition = self.StartPosition + GD::strlen(s: var.Name) - 1;
+    return;
+  end if;
+
+  select one isr related by self->V_ISR[R801];
+  if ( not_empty isr )
+    select one var related by isr->V_VAR[R809];
+    self.EndPosition = self.StartPosition + GD::strlen(s: var.Name) - 1;
+    return;
+  end if;
+
+  select one slr related by self->V_SLR[R801];
+  if ( not_empty slr )
+    // selected references are ignored
+    return;
+  end if;
+
+  select one fnc related by self->V_FNV[R801];
+  if ( not_empty fnc )
+    // Function Values are not represented by any text in the OAL, therefore
+    // they are ignored here.
+    return;
+  end if;
+
+  select one brv related by self->V_BRV[R801];
+  if ( not_empty brv )
+    // Bridge Values are not represented by any text in the OAL, therefore
+    // they are ignored here.
+    return;
+  end if;
+
+  select one trv related by self->V_TRV[R801];
+  if ( not_empty trv )
+    // Operation Values are not represented by any text in the OAL, therefore
+    // they are ignored here.
+    return;
+  end if;
+
+  select one var related by self->V_TVL[R801]->V_VAR[R805];
+  if ( not_empty var )
+    self.EndPosition = self.StartPosition + GD::strlen(s: var.Name) - 1;
+    return;
+  end if;
+
+  // Since all referenced parameters will have
+  // the same name, just pick the first one.
+  select any evtParmRef related by self->V_EDV[R801]->V_EPR[R834];
+  if not_empty evtParmRef
+    select one edi related by evtParmRef->SM_EVTDI[R846];
+    if ( not_empty edi )
+      self.EndPosition = self.StartPosition + GD::strlen(s: edi.Name) - 1;
+      return;
+    else
+      select one propParm related by evtParmRef->C_PP[R847];
+      if not_empty propParm
+        self.EndPosition = self.StartPosition +
+                                               GD::strlen(s: propParm.Name) - 1;
+        return;
+      end if;
+    end if;
+  end if;
+  select one attr related by self->V_AVL[R801]->O_ATTR[R806];
+  if ( not_empty attr )
+    self.EndPosition = self.StartPosition + GD::strlen(s: attr.Name) - 1;
+    return;
+  end if;
+
+  select one parm related by self->V_PVL[R801];
+  if ( not_empty parm )
+    select one bparm related by parm->S_BPARM[R831];
+    if ( not_empty bparm )
+      self.EndPosition = self.StartPosition + GD::strlen(s: bparm.Name) - 1;
+      return;
+    end if;
+    select one sparm related by parm->S_SPARM[R832];
+    if ( not_empty sparm )
+      self.EndPosition = self.StartPosition + GD::strlen(s: sparm.Name) - 1;
+      return;
+    end if;
+    select one tparm related by parm->O_TPARM[R833];
+    if ( not_empty tparm )
+      self.EndPosition = self.StartPosition + GD::strlen(s: tparm.Name) - 1;
+      return;
+    end if;
+    select one pparm related by parm->C_PP[R843];
+    if ( not_empty pparm )
+      self.EndPosition = self.StartPosition + GD::strlen(s: pparm.Name) - 1;
+      return;
+    end if;
+    // unknown parameter type
+    self.StartPosition = -1;
+    self.EndPosition = -1;
+    pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg: "Unknown parameter subtype",path:pathMsg);
+    return;
+  end if;
+  select one memberVal related by self->V_MVL[R801];
+  if (not_empty memberVal)
+    select one member related by memberVal->S_MBR[R836];
+    self.EndPosition = self.StartPosition + GD::strlen(s: member.Name) - 1;
+    return;
+  end if;
+  select one aer related by self->V_AER[R801];
+  if ( not_empty aer )
+    // TODO
+    return;
+  end if;
+  select one alv related by self->V_ALV[R801];
+  if ( not_empty alv )
+    self.EndPosition = self.StartPosition + 5; // strlen("length") - 1
+    return;
+  end if;
+  select one msv related by self->V_MSV[R801];
+  if not_empty msv
+    select one message related by msv->SPR_PEP[R841]->C_EP[R4501];
+    if(empty message)
+      select one message related by msv->SPR_REP[R845]->C_EP[R4500];
+    end if;
+    if empty message
+      pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg: "setEndPosition: No message found",path:pathMsg);
+    else
+      select one sig related by message->C_AS[R4004];
+      if not_empty sig
+        self.EndPosition = self.StartPosition + GD::strlen(s: sig.Name);
+        return;
+      else
+        select one op related by message->C_IO[R4004];
+        if not_empty op
+          self.EndPosition = self.StartPosition + GD::strlen(s: op.Name);
+          return;
+        else
+          pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg: "setEndPosition: Unknown message subtype",path:pathMsg);
+        end if;
+      end if;
+    end if;
+    self.StartPosition = -1;
+    self.EndPosition = -1;
+    return;
+  end if;
+  // unknown subtype of V_VAL
+  self.StartPosition = -1;
+  self.EndPosition = -1;
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg: "Unknown value subtype",path:pathMsg);
+end if;',
+	1,
+	'',
+	"7f5ae1b4-7505-496f-9857-629ecd01cfc9");
+INSERT INTO O_TFR
+	VALUES ("f7c11726-17e8-4828-88dd-cffc7e15f3c5",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'computeValue',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Value:Value.computeValue()
+select one body related by self->ACT_BLK[R826]->ACT_ACT[R601];
+// Attempt to get the stack from the stack frame passed in.
+select any stack_frame from instances of I_STF where
+                              (selected.Stack_Frame_ID == param.stack_frame_id);
+if (empty stack_frame)
+	//Invalid stack frame ID!
+	pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Value.computeValue: Invalid stack frame id " +
+	                                             "used. Suspending execution.",path:pathMsg);
+	select any stack from instances of I_STACK;
+	if (not_empty stack)
+	  stack.runState = RunStateType::Suspended;
+	end if;
+end if;
+
+select one stack related by stack_frame->I_STACK[R2943];
+if (empty stack)
+  //Could not get stack!
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Value.computeValue: Could not get stack. " +
+                                                       "Suspending Execution.",path:pathMsg);
+  select any stack from instances of I_STACK;
+  if (not_empty stack)
+    stack.runState = RunStateType::Suspended;
+  end if;
+end if;
+
+select any resultUnderComputation related by self->I_VSF[R2978] where
+                          selected.Stack_Frame_ID == stack_frame.Stack_Frame_ID;
+if (empty resultUnderComputation)
+  stack_frame.pushValue(value_id:self.Value_ID);
+  select any resultUnderComputation related by self->I_VSF[R2978] where
+                          selected.Stack_Frame_ID == stack_frame.Stack_Frame_ID;
+else
+  select one rtVal related by resultUnderComputation->RV_RVL[R3305];
+  if (not_empty rtVal)
+    // Value is already computed
+    return;
+  end if;
+end if;
+
+select one lbool related by self->V_LBO[R801];
+select one lin related by self->V_LIN[R801];
+select one lstring related by self->V_LST[R801];
+select one lreal related by self->V_LRL[R801];
+select one unaryOperation related by self->V_UNY[R801];
+select one binaryOperation related by self->V_BIN[R801];
+select one attributeValueReference related by self->V_AVL[R801];
+select one transientValueReference related by self->V_TVL[R801];
+select one memberValueReference related by self->V_MVL[R801];
+select one arrayElementReference related by self->V_AER[R801];
+select one arrayLengthValue related by self->V_ALV[R801];
+select one parameterValue related by self->V_PVL[R801];
+select one functionValue related by self->V_FNV[R801];
+select one operationValue related by self->V_TRV[R801];
+select one bridgeValue related by self->V_BRV[R801];
+select one selectedReference related by self->V_SLR[R801];
+select one evtDataValue related by self->V_EDV[R801];
+select one enumDataValue related by self->V_LEN[R801];
+select one instRef related by self->V_IRF[R801];
+select one instSetRef related by self->V_ISR[R801];
+select one symbolicConstVal related by self->V_SCV[R801];
+select one messageValue related by self->V_MSV[R801];
+
+select one dt related by self->S_DT[R820];
+
+// Definitely don''t produce a value
+if (not_empty functionValue)
+  functionValue.getValue(stack_frame_id: param.stack_frame_id);
+elif (not_empty operationValue)
+  operationValue.getValue(stack_frame_id: param.stack_frame_id);
+elif (not_empty bridgeValue)
+  bridgeValue.getValue(stack_frame_id: param.stack_frame_id);
+elif(not_empty messageValue)
+  messageValue.getValue(stack_frame_id: param.stack_frame_id);
+elif (not_empty unaryOperation or not_empty binaryOperation or
+                             not_empty attributeValueReference or
+                                  not_empty arrayElementReference or
+                                            not_empty arrayLengthValue or
+                                              not_empty memberValueReference)
+  // May produce a value or not
+  if (not_empty unaryOperation)
+    select one operand related by unaryOperation->V_VAL[R804];
+    operand.computeValue(stack_frame_id:param.stack_frame_id);
+    select any resultValue related by operand->I_VSF[R2978] where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+    select one rtVal related by resultValue->RV_RVL[R3305];
+    if (not_empty rtVal)
+      create object instance rucRtVal of RV_RVL;
+      relate rucRtVal to resultUnderComputation across R3305;
+      relate rucRtVal to dt across R3307;
+      rucRtVal.setValue(value:
+                 unaryOperation.getValue(stack_frame_id: param.stack_frame_id));
+      rtVal.disposeIfOrphaned();
+    end if;
+  elif (not_empty binaryOperation)
+    select one leftOperand related by binaryOperation->V_VAL[R802];
+    leftOperand.computeValue(stack_frame_id:param.stack_frame_id);
+    select any leftResultValue related by leftOperand->I_VSF[R2978] where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+    select one leftRtVal related by leftResultValue->RV_RVL[R3305];
+    // Only compute the right hand value once the left is fully evaluated
+    if (not_empty leftRtVal)
+      select one rightOperand related by binaryOperation->V_VAL[R803];
+      rightOperand.computeValue(stack_frame_id:param.stack_frame_id);
+      select any rightResultValue related by rightOperand->I_VSF[R2978] where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+      select one rightRtVal related by rightResultValue->RV_RVL[R3305];
+      if (not_empty rightRtVal)
+        create object instance rucRtVal of RV_RVL;
+        relate rucRtVal to resultUnderComputation across R3305;
+        relate rucRtVal to dt across R3307;
+        rucRtVal.setValue(value:
+                binaryOperation.getValue(stack_frame_id: param.stack_frame_id));
+        leftRtVal.disposeIfOrphaned();
+        rightRtVal.disposeIfOrphaned();
+      end if;
+    end if;
+  elif (not_empty attributeValueReference)
+    rtVal_ID = attributeValueReference.getRuntimeValue(stack_frame_id:
+                                                          param.stack_frame_id);
+    if rtVal_ID != GD::NULL_UNIQUE_ID()
+      create object instance rucRtVal of RV_RVL;
+      relate rucRtVal to resultUnderComputation across R3305;
+      relate rucRtVal to dt across R3307;
+      select any rtVal from instances of RV_RVL where
+                                           selected.RuntimeValue_ID == rtVal_ID;
+      rucRtVal.copyValue(from:rtVal_ID);
+      if not_empty rtVal
+        rtVal.disposeIfOrphaned();
+      end if;
+      select one dba related by attributeValueReference->O_ATTR[R806]->
+                                                  O_BATTR[R106]->O_DBATTR[R107];
+      if not_empty dba
+        // Remove the derived result to force recomputation when in an iteration
+        select any value related by rtVal->I_AVL[R3312] where
+                                                selected.Attr_ID == dba.Attr_ID;
+        if not_empty value
+          unrelate value from rtVal across R3312;
+        end if;
+      end if;
+    end if;
+  elif not_empty arrayElementReference
+    select one rootVal related by arrayElementReference->V_VAL[R838];
+    rtVal_ID = rootVal.getRuntimeValue(stack_frame_id:param.stack_frame_id);
+    if rtVal_ID != GD::NULL_UNIQUE_ID()
+      select any rootRtVal from instances of RV_RVL where
+                                           selected.RuntimeValue_ID == rtVal_ID;
+      if not_empty rootRtVal
+        // Once the root value is obtained, compute the index value
+        select one indexVal related by arrayElementReference->V_VAL[R839];
+        indexVal.computeValue(stack_frame_id:param.stack_frame_id);
+        select any indexResultValue related by indexVal->I_VSF[R2978] where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+        select one indexRtVal related by indexResultValue->RV_RVL[R3305];
+        if not_empty indexRtVal
+          // Once the array index is computed, use it to identify
+          // the required runtime value array element.
+          select one smplIndexVal related by indexRtVal->RV_SMV[R3300];
+          index = GD::instance_to_int(value:smplIndexVal.getValue());
+          select any valInArray related by rootRtVal->RV_AVL[R3300]->
+                                                      RV_VIA[R3302] where
+                                                        selected.Index == index;
+          create object instance rucRtVal of RV_RVL;
+          relate rucRtVal to resultUnderComputation across R3305;
+          relate rucRtVal to dt across R3307;
+          if not_empty valInArray
+            select one elemVal related by valInArray->RV_RVL[R3302];
+            select one smplRtVal related by elemVal->RV_SMV[R3300];
+            select one strRtVal related by elemVal->RV_SVL[R3300];
+            if not_empty smplRtVal or not_empty strRtVal
+              // The value found is not an array,
+              //we have reached our target value
+              rucRtVal.copyValue(from:elemVal.RuntimeValue_ID);
+            end if;
+          else
+            pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Warning: access made to " +
+                                "unwritten array element. Using default value",path:pathMsg);
+            rucRtVal.setDefault(dimensions:self.getDimensions());
+          end if;
+          stack_frame.popValue(value_id:indexVal.Value_ID);
+          indexRtVal.disposeIfOrphaned();
+          stack_frame.popValue(value_id:rootVal.Value_ID);
+          rootRtVal.disposeIfOrphaned();
+        end if;
+      end if;
+    end if;
+  elif not_empty arrayLengthValue
+    select one rootVal related by arrayLengthValue->V_VAL[R840];
+    fixedSize = rootVal.getArrayLength(dimension:rootVal.getDimensions() - 1);
+    if (fixedSize == 0)
+      rtVal_ID = rootVal.getRuntimeValue(stack_frame_id:param.stack_frame_id);
+      if rtVal_ID != GD::NULL_UNIQUE_ID()
+        select any rootRtVal from instances of RV_RVL where
+                                           selected.RuntimeValue_ID == rtVal_ID;
+        select many valsInArray related by rootRtVal->
+                                                   RV_AVL[R3300]->RV_VIA[R3302];
+        // Verifier uses sparse array population, so we traverse
+        // the array looking for the highest index.
+        highestIndex = -1;
+        for each val in valsInArray
+          if val.Index > highestIndex
+            highestIndex = val.Index;
+          end if;
+        end for;
+        length = 0;
+        // If the array has been initialized then we must add 1 to 
+        // get the length because the index is 0-based
+        if (highestIndex >= 0) 
+          length = highestIndex + 1;
+        end if;
+        create object instance rucRtVal of RV_RVL;
+        relate rucRtVal to resultUnderComputation across R3305;
+        relate rucRtVal to dt across R3307;
+        rucRtVal.setValue(value:GD::int_to_instance(value:length));
+      end if;
+    else
+      create object instance rucRtVal of RV_RVL;
+      relate rucRtVal to resultUnderComputation across R3305;
+      relate rucRtVal to dt across R3307;
+      rucRtVal.setValue(value:GD::int_to_instance(value:fixedSize));
+    end if;
+  elif (not_empty memberValueReference)
+    rtVal_ID = memberValueReference.getRuntimeValue(stack_frame_id:
+                                                          param.stack_frame_id);
+    if rtVal_ID != GD::NULL_UNIQUE_ID()
+      create object instance rucRtVal of RV_RVL;
+      relate rucRtVal to resultUnderComputation across R3305;
+      relate rucRtVal to dt across R3307;
+      rucRtVal.copyValue(from:rtVal_ID);
+      select any rtVal from instances of RV_RVL where
+                                           selected.RuntimeValue_ID == rtVal_ID;
+      if not_empty rtVal
+        rtVal.disposeIfOrphaned();
+      end if;
+    end if;
+  end if;
+else
+  // Definitely all produce a value
+  create object instance rucRtVal of RV_RVL;
+  relate rucRtVal to resultUnderComputation across R3305;
+  relate rucRtVal to dt across R3307;
+  if (not_empty lbool)
+    rucRtVal.setValue(value:GD::boolean_to_instance(value:lbool.getBoolean()));
+  elif (not_empty lin)
+    rucRtVal.setValue(value:GD::int_to_instance( value:lin.getInteger()));
+  elif (not_empty lstring)
+    rucRtVal.setValue(value:GD::string_to_instance(value:lstring.getString()));
+  elif (not_empty lreal)
+    rucRtVal.setValue(value:GD::real_to_instance(value:lreal.getReal()));
+  elif (not_empty symbolicConstVal)
+  	select one symbolicConst related by symbolicConstVal->CNST_SYC[R850];
+  	select one leafSymbolicConst related by symbolicConst->CNST_LFSC[R1502];
+  	select one literalSymbolicConst related by leafSymbolicConst->CNST_LSC[R1503];
+  	rucRtVal.setValue(value:GD::string_to_instance(value:literalSymbolicConst.Value));  
+  elif (not_empty transientValueReference)
+    rtVal_ID = transientValueReference.getRuntimeValue(stack_frame_id:
+                                                          param.stack_frame_id);
+    select any rtVal from instances of RV_RVL where
+                                           selected.RuntimeValue_ID == rtVal_ID;
+    rucRtVal.copyValue(from:rtVal_ID);
+    rtVal.disposeIfOrphaned();
+  elif (not_empty parameterValue)
+    rtVal_ID = parameterValue.getRuntimeValue(stack_frame_id:
+                                                          param.stack_frame_id);
+    select any rtVal from instances of RV_RVL where
+                                           selected.RuntimeValue_ID == rtVal_ID;
+    rucRtVal.copyValue(from:rtVal_ID);
+    rtVal.disposeIfOrphaned();
+  elif (not_empty selectedReference)
+    // TODO, this needs to handle runtime values
+    rucRtVal.setValue(value:selectedReference.getValue(
+                                         stack_frame_id: param.stack_frame_id));
+  elif (not_empty evtDataValue)
+    rtVal_ID = evtDataValue.getRuntimeValue(
+                                           stack_frame_id:param.stack_frame_id);
+    select any rtVal from instances of RV_RVL where
+                                           selected.RuntimeValue_ID == rtVal_ID;
+    rucRtVal.copyValue(from:rtVal_ID);
+    rtVal.disposeIfOrphaned();
+  elif (not_empty enumDataValue)
+    rucRtVal.setValue(value:enumDataValue.getValue());
+  elif (not_empty instRef)
+    rtVal_ID = instRef.getRuntimeValue(stack_frame_id:param.stack_frame_id);
+    select any rtVal from instances of RV_RVL where
+                                           selected.RuntimeValue_ID == rtVal_ID;
+    rucRtVal.copyValue(from:rtVal_ID);
+    rtVal.disposeIfOrphaned();
+  elif (not_empty instSetRef)
+    rtVal_ID = instSetRef.getRuntimeValue(stack_frame_id:param.stack_frame_id);
+    select any rtVal from instances of RV_RVL where
+                                           selected.RuntimeValue_ID == rtVal_ID;
+    rucRtVal.copyValue(from:rtVal_ID);
+    rtVal.disposeIfOrphaned();
+  end if;
+  select one strVal related by rucRtVal->RV_SVL[R3300];
+  select one arrayVal related by rucRtVal->RV_AVL[R3300];
+  select one instRefVal related by rucRtVal->RV_SMV[R3300]->RV_IRV[R3308];
+  if empty strVal and empty arrayVal and empty instRefVal and
+                                      rucRtVal.getValue() == GD::NULL_INSTANCE()
+    pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Value:Value.computeValue() Error: Result not computed. " +
+                                                       "Suspending Execution.",path:pathMsg);
+    stack.runState = RunStateType::Suspended;
+  end if;
+end if;',
+	1,
+	'',
+	"3cd1fa26-5324-45dd-bae2-d0682cdc018c");
+INSERT INTO O_TPARM
+	VALUES ("5bcd254f-e77b-464b-b955-2ceafd311741",
+	"f7c11726-17e8-4828-88dd-cffc7e15f3c5",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("13c225bd-4e16-4628-b991-73ee6bfb4575",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'setValue',
+	'Note: Setting values is only supported for assigning values of invocation
+parameters passed by reference.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Value:Value.setValue()
+select one body related by self->ACT_BLK[R826]->ACT_ACT[R601];
+
+// Attempt to get the stack from the stack frame passed in.
+select any stack_frame from instances of I_STF where (selected.Stack_Frame_ID == param.stack_frame_id);
+if (empty stack_frame)
+	//Invalid stack frame ID!
+	pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Value.setValue: Invalid stack frame id used. Using random top stack frame.",path:pathMsg);
+	select any stack from instances of I_STACK;
+	select one stack_frame related by stack->I_STF[R2929];
+end if;
+select one stack related by stack_frame->I_STACK[R2943];
+if (empty stack)
+  //Could not get stack!
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Value.setValue: Could not get stack. Using random stack.",path:pathMsg);
+  select any stack from instances of I_STACK;
+end if;
+
+// Supported values defined by parser support for writable values. This can 
+// be found in the function_import.sql file, function is_readonly_value. 
+select one attributeValueReference related by self->V_AVL[R801];
+select one transientValueReference related by self->V_TVL[R801];
+select one parameterValue related by self->V_PVL[R801];
+select one memberValueReference related by self->V_MVL[R801];
+select one arrayElemReference related by self->V_AER[R801];
+select one instReference related by self->V_IRF[R801];
+// Note that instance reference(V_IRF) and instance set reference(V_ISR) need
+// to be supported here when they are supported in Value.getValue(). 
+
+if (not_empty attributeValueReference)
+  attributeValueReference.setValue(stack_frame_id: param.stack_frame_id,
+                                 value: param.value, member_id:param.member_id);
+  return;
+elif (not_empty transientValueReference)
+  transientValueReference.setValue(stack_frame_id: param.stack_frame_id,
+                                 value: param.value, member_id:param.member_id);
+  return;
+elif (not_empty memberValueReference)
+  memberValueReference.setValue(stack_frame_id: param.stack_frame_id,
+                                 value: param.value, member_id:param.member_id);
+  return;
+elif (not_empty parameterValue)
+  parameterValue.setValue(stack_frame_id: param.stack_frame_id,
+                                  value:param.value, member_id:param.member_id);
+  return;
+elif not_empty arrayElemReference
+  arrayElemReference.setValue(stack_frame_id: param.stack_frame_id,
+                                  value:param.value, member_id:param.member_id);
+  return;
+elif not_empty instReference
+  instReference.setValue(stack_frame_id: param.stack_frame_id, value:param.value, member_id:param.member_id);
+  return;
+end if;
+
+// Did not find a supported value data type.
+pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Value:Value.setValue() error, data type not supported.",path:pathMsg);
+',
+	1,
+	'',
+	"bfc94d15-e1a4-4705-9c6b-714c51bf0842");
+INSERT INTO O_TPARM
+	VALUES ("f85126c3-f9eb-44f5-8186-9820b7970505",
+	"13c225bd-4e16-4628-b991-73ee6bfb4575",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("d68e591c-a6a5-4f3d-9bb6-dece891ada65",
+	"13c225bd-4e16-4628-b991-73ee6bfb4575",
+	'value',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"f85126c3-f9eb-44f5-8186-9820b7970505",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("a0371c19-8c4c-4385-95d7-eb4273e6fe35",
+	"13c225bd-4e16-4628-b991-73ee6bfb4575",
+	'member_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"d68e591c-a6a5-4f3d-9bb6-dece891ada65",
+	'');
+INSERT INTO O_TFR
+	VALUES ("a039735e-8d4e-4c56-89e2-75f4eb86bdf7",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'getValue',
+	'',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// Value.getValue
+// Important! Only valid for values that can be passed by reference
+// Attempt to get the stack from the stack frame passed in.
+select one body related by self->ACT_BLK[R826]->ACT_ACT[R601];
+select any stack_frame from instances of I_STF where
+                              (selected.Stack_Frame_ID == param.stack_frame_id);
+if (empty stack_frame)
+	//Invalid stack frame ID!
+	pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Value.getValue: Invalid stack frame id used. Using random top stack frame.",path:pathMsg);
+	select any stack from instances of I_STACK;
+	select one stack_frame related by stack->I_STF[R2929];
+end if;
+select one stack related by stack_frame->I_STACK[R2943];
+if (empty stack)
+  //Could not get stack!
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Value.getValue: Could not get stack. Using random stack.",path:pathMsg);
+  select any stack from instances of I_STACK;
+end if;
+
+// Supported values defined by parser support for writable values. This can 
+// be found in the function_import.sql file, function is_readonly_value. 
+select one attributeValueReference related by self->V_AVL[R801];
+select one transientValueReference related by self->V_TVL[R801];
+select one parameterValue related by self->V_PVL[R801];
+
+// Note that instance reference(V_IRF) and instance set reference(V_ISR) need
+// to be supported here when they are supported in Value.getValue(). 
+
+if (not_empty attributeValueReference)
+  return attributeValueReference.getValue(stack_frame_id: param.stack_frame_id);
+elif (not_empty transientValueReference)
+  return transientValueReference.getValue(stack_frame_id: param.stack_frame_id);
+elif (not_empty parameterValue)
+  return parameterValue.getValue(stack_frame_id: param.stack_frame_id);
+end if;
+
+// Did not find a supported value data type.
+pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Value:Value.getValue() error, data type not supported.",path:pathMsg);
+return GD::NULL_INSTANCE();',
+	1,
+	'',
+	"bafee802-9f45-45fd-b986-aed781a8ad94");
+INSERT INTO O_TPARM
+	VALUES ("47f92123-aecc-46d0-9ec0-3fc36cd6a889",
+	"a039735e-8d4e-4c56-89e2-75f4eb86bdf7",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("409bf33f-2fb3-4984-855b-03c6cff9d2f6",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'hasSubtype',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select one lin related by self->V_LIN[R801];
+if ( not_empty lin )
+  return true;
+end if;
+select one lbo related by self->V_LBO[R801];
+if ( not_empty lbo )
+  return true;
+end if;
+select one lst related by self->V_LST[R801];
+if ( not_empty lst )
+  return true;
+end if;
+select one lrl related by self->V_LRL[R801];
+if ( not_empty lrl )
+  return true;
+end if;
+select one bin related by self->V_BIN[R801];
+if ( not_empty bin )
+  return true;
+end if;
+select one unary related by self->V_UNY[R801];
+if ( not_empty unary )
+  return true;
+end if;
+select one len related by self->V_LEN[R801];
+if ( not_empty len )
+  return true;
+end if;
+select one irf related by self->V_IRF[R801];
+if ( not_empty irf )
+  return true;
+end if;
+select one isr related by self->V_ISR[R801];
+if ( not_empty isr )
+  return true;
+end if;
+select one slr related by self->V_SLR[R801];
+if ( not_empty slr )
+  return true;
+end if;
+select one fnc related by self->V_FNV[R801];
+if ( not_empty fnc )
+  return true;
+end if;
+select one brv related by self->V_BRV[R801];
+if ( not_empty brv )
+  return true;
+end if;
+select one trv related by self->V_TRV[R801];
+if ( not_empty trv )
+  return true;
+end if;
+select one tvl related by self->V_TVL[R801];
+if ( not_empty tvl )
+  return true;
+end if;
+select one edv related by self->V_EDV[R801];
+if ( not_empty edv )
+  return true;
+end if;
+select one avl related by self->V_AVL[R801];
+if ( not_empty avl )
+  return true;
+end if;
+select one parm related by self->V_PVL[R801];
+if ( not_empty parm )
+  return true;
+end if;
+select one memberVal related by self->V_MVL[R801];
+if (not_empty memberVal)
+  return true;
+end if;
+return false;',
+	1,
+	'',
+	"a039735e-8d4e-4c56-89e2-75f4eb86bdf7");
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("bafee802-9f45-45fd-b986-aed781a8ad94",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'getRuntimeValue',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// Value.getRuntimeValue()
+select one body related by self->ACT_BLK[R826]->ACT_ACT[R601];
+select one attrVal related by self->V_AVL[R801];
+select one tranVal related by self->V_TVL[R801];
+select one membVal related by self->V_MVL[R801];
+select one parmVal related by self->V_PVL[R801];
+select one evtVal related by self->V_EDV[R801];
+select one arrVal related by self->V_AER[R801];
+select one instRef related by self->V_IRF[R801];
+select one instSetRef related by self->V_ISR[R801];
+runtimeVal = GD::NULL_UNIQUE_ID();
+if (not_empty attrVal)
+  runtimeVal = attrVal.getRuntimeValue(stack_frame_id:param.stack_frame_id);
+elif not_empty tranVal
+  runtimeVal = tranVal.getRuntimeValue(stack_frame_id:param.stack_frame_id);
+elif not_empty membVal
+  runtimeVal = membVal.getRuntimeValue(stack_frame_id:param.stack_frame_id);
+elif not_empty parmVal
+  runtimeVal = parmVal.getRuntimeValue(stack_frame_id:param.stack_frame_id);
+elif not_empty evtVal
+  runtimeVal = evtVal.getRuntimeValue(stack_frame_id:param.stack_frame_id);
+elif not_empty arrVal
+  runtimeVal = arrVal.getRuntimeValue(stack_frame_id:param.stack_frame_id);
+elif not_empty instRef
+  runtimeVal = instRef.getRuntimeValue(stack_frame_id:param.stack_frame_id);
+elif not_empty instSetRef
+  runtimeVal = instSetRef.getRuntimeValue(stack_frame_id:param.stack_frame_id);
+else
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Internal Error in Value.getRuntimeValue(), " +
+                                                   "value type not supported.",path:pathMsg);
+end if;
+
+return runtimeVal;',
+	1,
+	'',
+	"cc92274a-3094-47ec-b09b-0b2509ea7a23");
+INSERT INTO O_TPARM
+	VALUES ("6405ceba-5c39-4e5c-b3bf-d2b03932fe0f",
+	"bafee802-9f45-45fd-b986-aed781a8ad94",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("a0673e69-c41e-4da2-85d9-6bdd5ea0b2e8",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'isLeaf',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// Value.isLeaf()
+select one mvlRef related by self->V_MVL[R837];
+select one arrayRef related by self->V_AER[R838];
+return empty mvlRef and empty arrayRef;',
+	1,
+	'',
+	"409bf33f-2fb3-4984-855b-03c6cff9d2f6");
+INSERT INTO O_TFR
+	VALUES ("bfc94d15-e1a4-4705-9c6b-714c51bf0842",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'setRank',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// Value.setRank
+select one tvl related by self->V_TVL[R801];
+select one aer related by self->V_AER[R801];
+varID = GD::NULL_UNIQUE_ID();
+if not_empty tvl
+  select one vvar related by tvl->V_VAR[R805];
+  if not_empty vvar
+    varID = vvar.Var_ID;
+
+    select any rval from instances of V_VAL where param.rval_id == selected.Value_ID;
+    rvalNumDimensions = rval.getDimensions();
+    totalLvarDims = rvalNumDimensions + param.dimension;
+    while ( rvalNumDimensions > 0 )
+      // Resize each dimension
+      elementCount = rval.getArrayLength(dimension:rvalNumDimensions-1);
+      create object instance dim of S_DIM;
+      // We may be deep into recursion.  As we unwind the aer dimensions will
+      // be added.  Therefore, this dimension is "rvalNumDimensions + param.dimension".
+      // If we are not in recursion then param.dimension will be 0;
+      dim.dimensionCount = (rvalNumDimensions + param.dimension) - 1; // subtract 1 to make it 0 based
+      dim.elementCount = elementCount;
+      relate vvar to dim across R849;
+      rvalNumDimensions = rvalNumDimensions - 1;
+    end while;
+  end if;
+elif not_empty aer
+  select one rootVal related by aer->V_VAL[R838];
+  varID = rootVal.setRank(dimension:param.dimension+1, rval_id:param.rval_id);
+  select any vvar from instances of V_VAR where selected.Var_ID == varID;
+  if (not_empty vvar)
+    //TODO: When we support values other then literals this will
+    //      need to be parsed.  Until then, we use dynamic sizing (indicated
+    //      with a value of 0) when a literal integer is not specified.
+    elementCount = 0;
+
+    select one lin related by aer->V_VAL[R839]->V_LIN[R801];
+    if (not_empty lin)
+      // Add 1 to the value because in this case, this was specified as an
+      // array index.
+      elementCount = lin.getInteger() + 1;
+    end if;
+
+    create object instance dim of S_DIM;
+     select many numberOfDims related by vvar->S_DIM[R849]; 
+    dim.dimensionCount = cardinality numberOfDims;
+    dim.elementCount = elementCount;
+    relate vvar to dim across R849;
+  end if;
+end if;
+return varID;
+',
+	1,
+	'',
+	"ec4d1100-850c-44d8-b972-d2c6ee312baf");
+INSERT INTO O_TPARM
+	VALUES ("2dcf028d-0f71-426a-b4cb-5ec4ac93e59f",
+	"bfc94d15-e1a4-4705-9c6b-714c51bf0842",
+	'dimension',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("b9186899-5066-44a2-9113-9e6da9f45c17",
+	"bfc94d15-e1a4-4705-9c6b-714c51bf0842",
+	'rval_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"2dcf028d-0f71-426a-b4cb-5ec4ac93e59f",
+	'');
+INSERT INTO O_TFR
+	VALUES ("cc92274a-3094-47ec-b09b-0b2509ea7a23",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'getDimensions',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// Value.getDimensions()
+select one memberRef related by self->V_MVL[R801];
+select one attrValRef related by self->V_AVL[R801];
+select one tranValRef related by self->V_TVL[R801];
+select one arrayElemRef related by self->V_AER[R801];
+select one funcReturnVal related by self->V_FNV[R801];
+select one opReturnVal related by self->V_TRV[R801];
+select one brReturnVal related by self->V_BRV[R801];
+select one parmVal related by self->V_PVL[R801];
+select one evtDatVal related by self->V_EDV[R801];
+select one msgVal related by self->V_MSV[R801];
+select one instRef related by self->V_IRF[R801];
+if not_empty memberRef
+  select one member related by memberRef->S_MBR[R836];
+  return member.getDimensionsCnt();
+elif not_empty instRef
+	select one var related by instRef->V_VAR[R808];
+	return var.getDimensionsCnt();
+elif not_empty attrValRef
+  select one attr related by attrValRef->O_ATTR[R806];
+  return attr.getDimensionsCnt();
+elif not_empty tranValRef
+  select one tran related by tranValRef->V_VAR[R805];
+  return tran.getDimensionsCnt();
+elif not_empty arrayElemRef
+  select one rootVal related by arrayElemRef->V_VAL[R838];
+  cnt = rootVal.getDimensions() - 1;
+  if cnt < 0
+    // No action here, but note that this may indicate too many
+    // array indices were specified.  We return the negative value
+    // here for the caller to handle.  This rountine is most-often
+    // called by the parser, and when this is a parse error we want
+    // it reported as such.
+    // Additionally, note that this behavior is critcal in
+    // allowing the parser to determine our position in a multidimensional
+    // array.  Through the recursion above, we find the root of the chain and
+    // the stack unwinds back to the current position giving us the correct
+    // position in a multidimensional array.
+  end if;
+  return cnt;
+elif not_empty funcReturnVal
+  select one func related by funcReturnVal->S_SYNC[R827];
+  return func.getReturnDimensionsCnt();
+elif not_empty opReturnVal
+  select one op related by opReturnVal->O_TFR[R829];
+  return op.getReturnDimensionsCnt();
+elif not_empty brReturnVal
+  select one br related by brReturnVal->S_BRG[R828];
+  return br.getReturnDimensionsCnt();
+elif not_empty parmVal
+  select one fnParm related by parmVal->S_SPARM[R832];
+  select one opParm related by parmVal->O_TPARM[R833];
+  select one brParm related by parmVal->S_BPARM[R831];
+  select one ppParm related by parmVal->C_PP[R843];
+  if not_empty fnParm
+    return fnParm.getDimensionsCnt();
+  elif not_empty opParm
+    return opParm.getDimensionsCnt();
+  elif not_empty brParm
+    return brParm.getDimensionsCnt();
+  elif(not_empty ppParm)
+    return ppParm.getDimensionsCnt();
+  else
+    // Cannot happen - required to satisfy parser
+    return 0;
+  end if;
+elif not_empty evtDatVal
+  // Since all referenced parameters will have
+  // the same name, just pick the first one.
+  select any evtParmRef related by evtDatVal->V_EPR[R834];
+  select one evtdi related by evtParmRef->SM_EVTDI[R846];
+  if not_empty evtdi
+    return evtdi.getDimensionsCnt();
+  else
+    select one propParm related by evtParmRef->C_PP[R847];
+    return propParm.getDimensionsCnt();
+  end if;
+elif not_empty msgVal
+  select one io related by msgVal->SPR_REP[R845]->C_EP[R4500]->C_IO[R4004];
+  if(empty io)
+    select one io related by msgVal->SPR_PEP[R841]->C_EP[R4501]->C_IO[R4004];
+  end if;
+  if not_empty io
+    return io.getReturnDimensionsCnt();
+  else
+    return 0;
+  end if;
+else
+  return 0;
+end if;',
+	1,
+	'',
+	"ce84d822-f34c-4d47-a09c-e5dc65e043f2");
+INSERT INTO O_TFR
+	VALUES ("ce84d822-f34c-4d47-a09c-e5dc65e043f2",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'getArrayLength',
+	'Return the number of elements allowed in the specified dimension.  A value of
+0 indicates that the array is dynamically sized.  A return value of -1 
+indicates that the specfied dimension is invalid.   The specified dimension 
+parameter is 0-based.',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// Value.getArrayLength()
+select one memberRef related by self->V_MVL[R801];
+select one attrValRef related by self->V_AVL[R801];
+select one tranValRef related by self->V_TVL[R801];
+select one arrayElemRef related by self->V_AER[R801];
+select one funcReturnVal related by self->V_FNV[R801];
+select one opReturnVal related by self->V_TRV[R801];
+select one brReturnVal related by self->V_BRV[R801];
+select one parmVal related by self->V_PVL[R801];
+select one evtDatVal related by self->V_EDV[R801];
+select one msgVal related by self->V_MSV[R801];
+select one instRef related by self->V_IRF[R801];
+select any dim from instances of S_DIM where selected.DIM_ID==GD::NULL_UNIQUE_ID();
+dimensionSize = -1;
+
+if not_empty memberRef
+  select any dim related by memberRef->S_MBR[R836]->S_DIM[R53] where (selected.dimensionCount == param.dimension);
+elif not_empty instRef
+  select any dim related by instRef->V_VAR[R808]->S_DIM[R849] where (selected.dimensionCount == param.dimension);
+elif not_empty attrValRef
+  select any dim related by attrValRef->O_ATTR[R806]->S_DIM[R120] where (selected.dimensionCount == param.dimension);
+elif not_empty tranValRef
+  select any dim related by tranValRef->V_VAR[R805]->S_DIM[R849] where (selected.dimensionCount == param.dimension);
+elif not_empty arrayElemRef
+  select one rootVal related by arrayElemRef->V_VAL[R838];
+  return rootVal.getArrayLength(dimension:param.dimension);
+elif not_empty funcReturnVal
+  select any dim related by funcReturnVal->S_SYNC[R827]->S_DIM[R51] where (selected.dimensionCount == param.dimension);
+elif not_empty opReturnVal
+  select any dim related by opReturnVal->O_TFR[R829]->S_DIM[R122] where (selected.dimensionCount == param.dimension);
+elif not_empty brReturnVal
+  select any dim related by brReturnVal->S_BRG[R828]->S_DIM[R50] where (selected.dimensionCount == param.dimension);
+elif not_empty parmVal
+  select one fnParm related by parmVal->S_SPARM[R832];
+  select one opParm related by parmVal->O_TPARM[R833];
+  select one brParm related by parmVal->S_BPARM[R831];
+  select one prParm related by parmVal->C_PP[R843];
+  if not_empty fnParm
+    select any dim related by fnParm->S_DIM[R52] where (selected.dimensionCount == param.dimension);
+  elif not_empty opParm
+    select any dim related by opParm->S_DIM[R121] where (selected.dimensionCount == param.dimension);
+  elif not_empty brParm
+    select any dim related by brParm->S_DIM[R49] where (selected.dimensionCount == param.dimension);
+  elif not_empty prParm
+    select any dim related by prParm->S_DIM[R4017] where (selected.dimensionCount == param.dimension);
+  else
+    // Cannot happen - required to satisfy parser
+  end if;
+elif not_empty evtDatVal
+  select any dim related by evtDatVal->V_EPR[R834]->SM_EVTDI[R846]->S_DIM[R531] where (selected.dimensionCount == param.dimension);
+  if empty dim
+    // it could be a signal event
+    select any dim related by evtDatVal->V_EPR[R834]->C_PP[R847]->S_DIM[R4017]
+                             where (selected.dimensionCount == param.dimension);
+  end if;
+elif not_empty msgVal
+  select any dim related by msgVal->SPR_REP[R845]->C_EP[R4500]->C_IO[R4004]->S_DIM[R4018] where (selected.dimensionCount == param.dimension);
+  if(empty dim)
+    select any dim related by msgVal->SPR_PEP[R841]->C_EP[R4501]->C_IO[R4004]->S_DIM[R4018] where (selected.dimensionCount == param.dimension);
+  end if;
+end if;
+
+if (not_empty dim)
+  dimensionSize = dim.elementCount;
+end if;
+return dimensionSize;',
+	1,
+	'',
+	"a7bdcd64-e592-4b09-82ec-95f387cc5308");
+INSERT INTO O_TPARM
+	VALUES ("c1836616-8e1d-445e-8e3a-e26a22faf956",
+	"ce84d822-f34c-4d47-a09c-e5dc65e043f2",
+	'dimension',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("b2e2f063-482d-4986-85bc-1e19996d4a17",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'isElementCountValid',
+	'This operation checks to see if the dimension value specified is withing bounds
+of the actual declaration of the value.  For example:
+foo[10] = "";  
+foo[15] = "";
+In the above example, the first line is a declaration statement (because it is
+the first time this variable is used).  The element count of dimension 1 of 
+this array is declared to be 11 elements (because it is an assignment and the
+array is 0-based).  On the second line, an attempt is made to assign something 
+to element 16 in the array.  This is an error (Array out of bounds), and it 
+is the kind of problem this operation checks for.  This operation returns true
+if the element count is valid and false if it is not.
+
+             ',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'isValid = true;
+
+// Work up the array chain and find the root
+select one aer related by self->V_AER[R801];
+tempAER = aer;
+while not_empty tempAER
+  select one tempAER related by aer->V_VAL[R838]->V_AER[R801]; 
+  if (not_empty tempAER)
+    aer = tempAER;
+  end if;
+end while;
+
+// We are now at the root of the array, so spin down through the chain and 
+// check each dimension size.
+dimension = 0;
+
+while (isValid and not_empty aer)
+  specifiedDimension = -1;
+  // At some point BridgePoint will allow constants and even expressions as
+  // an index, but right now we only allow integers.
+  select one lin related by aer->V_VAL[R839]->V_LIN[R801];
+  if (not_empty lin)
+    specifiedDimension = lin.getInteger();
+  end if;
+  
+  actualSize = self.getArrayLength(dimension:dimension);
+  actualSizeIsDynamic = true;
+  if (actualSize > 0)
+    actualSizeIsDynamic = false;
+  end if;
+  if ( (not actualSizeIsDynamic) and (specifiedDimension >= actualSize) ) 
+    isValid = false;
+  end if;
+  select one aer related by aer->V_VAL[R801]->V_AER[R838]; 
+  dimension = dimension + 1;
+end while;
+
+return isValid;',
+	1,
+	'',
+	"13c225bd-4e16-4628-b991-73ee6bfb4575");
+INSERT INTO O_TFR
+	VALUES ("7f5ae1b4-7505-496f-9857-629ecd01cfc9",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'isReferringToDefaultDataType',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select one dt related by self->S_DT[R820];
+elementType = Util::getSimpleClassName(element:self.convertToInstance());
+if(dt.Name == S_DT::getDefaultDataTypeName(elementType:elementType))
+  return true;
+end if;
+return false;',
+	1,
+	'',
+	"a0673e69-c41e-4da2-85d9-6bdd5ea0b2e8");
+INSERT INTO O_TFR
+	VALUES ("df9ce6b2-5184-4e5d-8151-315b8b499a28",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'convertToInstance',
+	'Translate:native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'return this;',
+	0,
+	'',
+	"f7c11726-17e8-4828-88dd-cffc7e15f3c5");
+INSERT INTO O_TFR
+	VALUES ("3cd1fa26-5324-45dd-bae2-d0682cdc018c",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'canReferToDataType',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one body related by self->ACT_BLK[R826]->ACT_ACT[R601];
+isInGenericPackage = body.associateWithContainer();
+if isInGenericPackage
+  select one dt related by self->S_DT[R820];
+  if(not_empty dt)
+    select one containingElem related by body->ACT_BIE[R640]->PE_PE[R640];
+    return containingElem.canReferToDataType(dtID:dt.DT_ID, dtName:dt.Name);
+  end if;
+  return false;
+else
+  select one dt related by self->S_DT[R820];
+  if(not_empty dt)
+    select one dtPkg related by dt->S_DIP[R39]->S_DPK[R39];
+    body.associateWithOwningComponent();
+    select one component related by body->ACT_BIC[R694]->C_C[R694];
+    if(not_empty component)
+      select one reqSig related by body->ACT_RSB[R698];
+      select one reqOp related by body->ACT_ROB[R698];
+      select one proSig related by body->ACT_PSB[R698];
+      select one proOp related by body->ACT_POB[R698];
+      // if any of the following is not empty
+      // then the dt must live at the system level
+      if(not_empty reqSig)
+        if(dtPkg.isDomainLevel())
+          return false;
+        else
+          return true;
+        end if;  
+      elif(not_empty reqOp)
+        select one dtPkg related by dt->S_DIP[R39]->S_DPK[R39];
+        if(dtPkg.isDomainLevel())
+          return false;
+        else
+          return true;
+        end if;    
+      elif(not_empty proSig)
+        select one dtPkg related by dt->S_DIP[R39]->S_DPK[R39];
+        if(dtPkg.isDomainLevel())
+          return false;
+        else
+          return true;
+        end if;  
+      elif(not_empty proOp)
+        select one dtPkg related by dt->S_DIP[R39]->S_DPK[R39];
+        if(dtPkg.isDomainLevel())
+          return false;
+        else
+          return true;
+        end if;
+      else
+        select any domain from instances of S_DOM;
+        if(not dtPkg.isDomainLevel())
+          return true;
+        else
+          select one dtDomain related by dt->S_DOM[R14];
+          if(dtDomain == domain)
+            return true;
+          end if;
+        end if;
+      end if;
+    else
+      select any domain from instances of S_DOM;
+      if(dtPkg.isDomainLevel())
+        select one dtDomain related by dt->S_DOM[R14];
+        if(domain == dtDomain)
+          return true;
+        end if;
+      else
+        return true;
+      end if;
+    end if;
+  end if;
+  return false;
+end if;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("0eba4f9a-91fa-40e5-977c-fb6ae6f838b5",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'isElementCountCompatible',
+	'This operation checks to see if each dimension''s actual element count value 
+is withing bounds of the element count of the variable being assigned.
+For example:
+foo[10] = "";  
+foobar[15] = "";
+foo = foobar;
+In the above example, the assignment of foobar to foo should not be allowed
+because the dimension element counts are not compatible.  Each dimension''s 
+element count must match.
+   ',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// Note that this value (self) is the lval and the paramater pased-in is the
+// rval (see the operation description for more information)
+//
+ 
+isValid = true;
+select any rval from instances of V_VAL where (selected.Value_ID == param.rVal);
+if (empty rval)
+  return false;
+end if;
+
+// Work up the array chain and find the root
+select one l_aer related by self->V_AER[R801];
+select one r_aer related by rval->V_AER[R801];
+l_tempAER = l_aer;
+r_tempAER = r_aer;
+while ((not_empty l_tempAER and not_empty r_tempAER) and isValid)
+  select one l_tempAER related by l_aer->V_VAL[R838]->V_AER[R801]; 
+  select one r_tempAER related by r_aer->V_VAL[R838]->V_AER[R801]; 
+  if (not_empty l_tempAER)
+    l_aer = l_tempAER;
+    if (not_empty r_tempAER)
+	  l_aer = l_tempAER;
+    else
+      isValid = false;
+    end if;
+  else
+    if (not_empty r_tempAER)
+      isValid = false;
+    end if;
+  end if;
+end while;
+
+// We are now at the root of the array, so spin down through the chain and 
+// check each dimension size.
+dimension = 0;
+while ((not_empty l_aer and not_empty r_aer) and isValid)
+  l_actualSize = self.getArrayLength(dimension:dimension);
+  r_actualSize = rval.getArrayLength(dimension:dimension);
+  if ( l_actualSize != r_actualSize ) 
+    isValid = false;
+    break;
+  end if;
+  select one l_aer related by l_aer->V_VAL[R801]->V_AER[R838]; 
+  select one r_aer related by r_aer->V_VAL[R801]->V_AER[R838]; 
+  dimension = dimension + 1;
+end while;
+
+return isValid;',
+	1,
+	'',
+	"b2e2f063-482d-4986-85bc-1e19996d4a17");
+INSERT INTO O_TPARM
+	VALUES ("fd48ac86-6e12-4ed4-bba0-31f3756f05fa",
+	"0eba4f9a-91fa-40e5-977c-fb6ae6f838b5",
+	'rVal',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_BATTR
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_ATTR
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"00000000-0000-0000-0000-000000000000",
+	'Value_ID',
+	'',
+	'',
+	'Value_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	0,
+	"1a0afb36-7d42-46cd-b87c-7a52b8ec2857",
+	"4c6ee172-2e1c-4f48-9f91-3948fded3603",
+	"4ab46f23-37f0-4d7f-ab88-48a7eea472de",
+	"53fed34a-1210-4d0b-bc2d-927d2290da2b",
+	"9ebfb382-5fe6-4e64-9ac1-685d7271ba87",
+	"ce786d22-a9ac-44a1-ae6e-a0580fde7322",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Block',
+	'Block_ID',
+	'R826.''has scope''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"4c6ee172-2e1c-4f48-9f91-3948fded3603",
+	"4ab46f23-37f0-4d7f-ab88-48a7eea472de",
+	'../Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("1a0afb36-7d42-46cd-b87c-7a52b8ec2857",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	0,
+	"4c6ee172-2e1c-4f48-9f91-3948fded3603",
+	"53fed34a-1210-4d0b-bc2d-927d2290da2b",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("9ebfb382-5fe6-4e64-9ac1-685d7271ba87",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"1a0afb36-7d42-46cd-b87c-7a52b8ec2857",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	1,
+	'Block_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("1a0afb36-7d42-46cd-b87c-7a52b8ec2857",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	'../../Body/Block/Block.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("9ebfb382-5fe6-4e64-9ac1-685d7271ba87",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"cc0d47c1-0714-4e3f-9e22-2e28257f1547",
+	'Block_ID',
+	'
+
+',
+	'',
+	'Block_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("0bbe7f40-843f-46a9-bac6-2e8ab48f938c",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_BATTR
+	VALUES ("0bbe7f40-843f-46a9-bac6-2e8ab48f938c",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_ATTR
+	VALUES ("0bbe7f40-843f-46a9-bac6-2e8ab48f938c",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"fbabcce3-f978-4be4-a47f-a3fe245e9d8c",
+	'LineNumber',
+	'The line in the activity at which this value resides. It has a default 
+value of -1, indicating that the location is not known.
+                        
+Not_participating_value: -1',
+	'',
+	'LineNumber',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("5b7b3aba-8c94-4608-b69a-11e24e7e1969",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_BATTR
+	VALUES ("5b7b3aba-8c94-4608-b69a-11e24e7e1969",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_ATTR
+	VALUES ("5b7b3aba-8c94-4608-b69a-11e24e7e1969",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"0bbe7f40-843f-46a9-bac6-2e8ab48f938c",
+	'StartPosition',
+	'The column in the activity at which this value starts. It has a default 
+value of -1, indicating that the location is not known.
+                        
+Not_participating_value: -1
+',
+	'',
+	'StartPosition',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("fbc882c8-4112-407f-98fe-30e5458f577e",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_BATTR
+	VALUES ("fbc882c8-4112-407f-98fe-30e5458f577e",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_ATTR
+	VALUES ("fbc882c8-4112-407f-98fe-30e5458f577e",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"5b7b3aba-8c94-4608-b69a-11e24e7e1969",
+	'EndPosition',
+	'The column in the activity at which this value ends. It has
+a default value of -1, indicating that the location is not known.
+                        
+Not_participating_value: -1',
+	'',
+	'EndPosition',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("9e8e02ea-5cf3-42b9-ba9b-23ea0ebc48e4",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_BATTR
+	VALUES ("9e8e02ea-5cf3-42b9-ba9b-23ea0ebc48e4",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_ATTR
+	VALUES ("9e8e02ea-5cf3-42b9-ba9b-23ea0ebc48e4",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"fbc882c8-4112-407f-98fe-30e5458f577e",
+	'firstParameterLabelLineNumber',
+	'A scratchpad value employed while determining the textual position of any
+parameter labels that are part of the composition of this value.
+',
+	'',
+	'firstParameterLabelLineNumber',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("577ac11b-b20b-4dc4-b3eb-ca5dd43d7e60",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_BATTR
+	VALUES ("577ac11b-b20b-4dc4-b3eb-ca5dd43d7e60",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_ATTR
+	VALUES ("577ac11b-b20b-4dc4-b3eb-ca5dd43d7e60",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"9e8e02ea-5cf3-42b9-ba9b-23ea0ebc48e4",
+	'firstParameterLabelColumn',
+	'See currentLabelLine.',
+	'',
+	'firstParameterLabelColumn',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("151e96e7-99ee-48f5-b96d-4568b50b2b0f",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_BATTR
+	VALUES ("151e96e7-99ee-48f5-b96d-4568b50b2b0f",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_ATTR
+	VALUES ("151e96e7-99ee-48f5-b96d-4568b50b2b0f",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"577ac11b-b20b-4dc4-b3eb-ca5dd43d7e60",
+	'currentLaterParameterLabelLineNumber',
+	'',
+	'',
+	'currentLaterParameterLabelLineNumber',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("51f44c49-8f7d-48bf-9536-89504d6cb2d8",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_BATTR
+	VALUES ("51f44c49-8f7d-48bf-9536-89504d6cb2d8",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_ATTR
+	VALUES ("51f44c49-8f7d-48bf-9536-89504d6cb2d8",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"151e96e7-99ee-48f5-b96d-4568b50b2b0f",
+	'currentLaterParameterLabelColumn',
+	'',
+	'',
+	'currentLaterParameterLabelColumn',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("cd259882-652c-4ea9-8fbb-4d79591b68d2",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_BATTR
+	VALUES ("cd259882-652c-4ea9-8fbb-4d79591b68d2",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_ATTR
+	VALUES ("cd259882-652c-4ea9-8fbb-4d79591b68d2",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	'isLValue',
+	'',
+	'',
+	'isLValue',
+	0,
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("fbabcce3-f978-4be4-a47f-a3fe245e9d8c",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_BATTR
+	VALUES ("fbabcce3-f978-4be4-a47f-a3fe245e9d8c",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_ATTR
+	VALUES ("fbabcce3-f978-4be4-a47f-a3fe245e9d8c",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"cd259882-652c-4ea9-8fbb-4d79591b68d2",
+	'isImplicit',
+	'',
+	'',
+	'isImplicit',
+	0,
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("cdb02216-33fe-45ee-956c-61db47c0d977",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_BATTR
+	VALUES ("cdb02216-33fe-45ee-956c-61db47c0d977",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_ATTR
+	VALUES ("cdb02216-33fe-45ee-956c-61db47c0d977",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"9ebfb382-5fe6-4e64-9ac1-685d7271ba87",
+	'Text',
+	'Persistent:false',
+	'',
+	'Text',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	0,
+	"0e78201f-a7cd-497b-a6b4-e224ab7915c2",
+	"1c96094f-8722-4f35-99fa-8fbe12460e74",
+	"cfedd96c-3315-43ee-9222-ffdb6b488178",
+	"124e1141-1027-4a00-9d01-1b14813b8814",
+	"cc0d47c1-0714-4e3f-9e22-2e28257f1547",
+	"1c0c3bb6-dd46-40cf-96b9-14b49502c0f5",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Data Type',
+	'DT_ID',
+	'R820.''has type''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"1c96094f-8722-4f35-99fa-8fbe12460e74",
+	"cfedd96c-3315-43ee-9222-ffdb6b488178",
+	'../Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0e78201f-a7cd-497b-a6b4-e224ab7915c2",
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	0,
+	"1c96094f-8722-4f35-99fa-8fbe12460e74",
+	"124e1141-1027-4a00-9d01-1b14813b8814",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("cc0d47c1-0714-4e3f-9e22-2e28257f1547",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("cc0d47c1-0714-4e3f-9e22-2e28257f1547",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	"51f44c49-8f7d-48bf-9536-89504d6cb2d8",
+	'DT_ID',
+	'',
+	'',
+	'Element_ID',
+	2,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_OIDA
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	'Value_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_ID
+	VALUES (2,
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO S_SS_PROXY
+	VALUES ("e060f94c-3f82-463e-9d98-d20315b7c196",
+	'Value',
+	'This subsystem formalizes the concepts of values (r-values) and variables 
+(l-values). It also captures the concept of an actual parameter.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'V',
+	800,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000400008",
+	'../Value.xtuml');

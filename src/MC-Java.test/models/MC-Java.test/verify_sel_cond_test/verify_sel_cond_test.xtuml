@@ -1,0 +1,118 @@
+-- BP 7.1 content: Domain syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO S_DOM
+	VALUES ("2e999309-c8ad-41f3-9b7c-4d07e50358eb",
+	'verify_sel_cond_test',
+	'========================================================================
+
+File:      $RCSfile: verify_sel_cond_test.xtuml,v $
+Version:   $Revision: 1.8 $
+Modified:  $Date: 2011/05/30 20:20:22 $
+
+(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp. and is not for external distribution.
+========================================================================
+',
+	0,
+	"00000000-0000-0000-0000-000000000001",
+	"de5f2a3b-5a7a-486d-9721-f5512732e228");
+INSERT INTO GD_MD
+	VALUES ("220f9219-c3c3-4463-b3e1-21f9e48be04c",
+	1,
+	"2e999309-c8ad-41f3-9b7c-4d07e50358eb",
+	1,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_GE
+	VALUES ("4b33dded-0334-444e-a0e7-dd8b5547e489",
+	"220f9219-c3c3-4463-b3e1-21f9e48be04c",
+	"45b5f2bc-5383-4be8-9542-365f7300a6c6",
+	53,
+	0);
+INSERT INTO GD_SHP
+	VALUES ("4b33dded-0334-444e-a0e7-dd8b5547e489");
+INSERT INTO GD_NCS
+	VALUES ("4b33dded-0334-444e-a0e7-dd8b5547e489");
+INSERT INTO DIM_ND
+	VALUES (208.000000,
+	144.000000,
+	"4b33dded-0334-444e-a0e7-dd8b5547e489");
+INSERT INTO DIM_GE
+	VALUES (2324.000000,
+	1312.000000,
+	"4b33dded-0334-444e-a0e7-dd8b5547e489",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("4b33dded-0334-444e-a0e7-dd8b5547e489",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("1452dfe4-82d3-4d8a-b501-a5b0d05e7772",
+	"220f9219-c3c3-4463-b3e1-21f9e48be04c",
+	"a5d992b7-203c-476d-8291-b130a964625b",
+	11,
+	0);
+INSERT INTO GD_SHP
+	VALUES ("1452dfe4-82d3-4d8a-b501-a5b0d05e7772");
+INSERT INTO GD_NCS
+	VALUES ("1452dfe4-82d3-4d8a-b501-a5b0d05e7772");
+INSERT INTO DIM_ND
+	VALUES (199.000000,
+	171.000000,
+	"1452dfe4-82d3-4d8a-b501-a5b0d05e7772");
+INSERT INTO DIM_GE
+	VALUES (2104.000000,
+	1249.000000,
+	"1452dfe4-82d3-4d8a-b501-a5b0d05e7772",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("1452dfe4-82d3-4d8a-b501-a5b0d05e7772",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("4721925a-62c2-44e9-a1f3-15aebbcb37c3",
+	"220f9219-c3c3-4463-b3e1-21f9e48be04c",
+	"d719bf61-49d5-4208-a714-c65d9c935332",
+	11,
+	0);
+INSERT INTO GD_SHP
+	VALUES ("4721925a-62c2-44e9-a1f3-15aebbcb37c3");
+INSERT INTO GD_NCS
+	VALUES ("4721925a-62c2-44e9-a1f3-15aebbcb37c3");
+INSERT INTO DIM_ND
+	VALUES (250.000000,
+	214.000000,
+	"4721925a-62c2-44e9-a1f3-15aebbcb37c3");
+INSERT INTO DIM_GE
+	VALUES (1832.000000,
+	1377.000000,
+	"4721925a-62c2-44e9-a1f3-15aebbcb37c3",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("4721925a-62c2-44e9-a1f3-15aebbcb37c3",
+	1,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_DIA
+	VALUES ("220f9219-c3c3-4463-b3e1-21f9e48be04c",
+	'',
+	1.000000,
+	1600.000000,
+	1180.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_SYS_PROXY
+	VALUES ("de5f2a3b-5a7a-486d-9721-f5512732e228",
+	'MC-Java.test',
+	'../MC-Java.test.xtuml');

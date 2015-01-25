@@ -1,0 +1,1030 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>BridgePoint� xtUML Generated Documentation</title><link rel="stylesheet" href="techpub.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.1" /></head><body><div class="article" title="BridgePoint� xtUML Generated Documentation"><div class="titlepage"><div><div><h2 class="title"><a id=""></a>
+  <span class="trademark">BridgePoint</span>�
+  xtUML Generated Documentation
+</h2></div><div><div class="author"><h3 class="author"><span class="firstname"></span> <span class="surname"></span></h3></div></div></div><hr /></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#">1. GPSWatch_System</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1. System-Level Packages</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.1. Use Cases</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.1.1. Use Cases Packages</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.1.1.1. Record Info</a></span></dt></dl></dd></dl></dd><dt><span class="section"><a href="#">1.1.2. System</a></span></dt><dt><span class="section"><a href="#">1.1.3. Sequences</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.3.1. Sequences Packages</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.3.1.1. Stopwatch</a></span></dt><dt><span class="section"><a href="#">1.1.3.1.2. Start Stop Reset Formalized</a></span></dt><dt><span class="section"><a href="#">1.1.3.1.3. Backlight</a></span></dt></dl></dd></dl></dd><dt><span class="section"><a href="#">1.1.4. Analysis</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.4.1. Analysis Packages</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.4.1.1. Start Stop Reset</a></span></dt></dl></dd></dl></dd><dt><span class="section"><a href="#">1.1.5. Activities</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.5.1. Activities Packages</a></span></dt><dd><dl><dt><span class="section"><a href="#">1.1.5.1.1. Exercise</a></span></dt></dl></dd></dl></dd></dl></dd></dl></dd><dt><span class="section"><a href="#">2. GPSWatch_LibraryUI</a></span></dt><dd><dl><dt><span class="section"><a href="#">2.1. System-Level Packages</a></span></dt><dd><dl><dt><span class="section"><a href="#">2.1.1. UIInterfaces</a></span></dt><dd><dl><dt><span class="section"><a href="#">2.1.1.1. UI</a></span></dt></dl></dd><dt><span class="section"><a href="#">2.1.2. UIDataTypes</a></span></dt><dt><span class="section"><a href="#">2.1.3. Shared EEs</a></span></dt><dd><dl><dt><span class="section"><a href="#">2.1.3.1. Shared EEs External Entities</a></span></dt><dd><dl><dt><span class="section"><a href="#">2.1.3.1.1. External Entity Activities</a></span></dt></dl></dd></dl></dd><dt><span class="section"><a href="#">2.1.4. Library</a></span></dt><dd><dl><dt><span class="section"><a href="#">2.1.4.1. UI</a></span></dt><dd><dl><dt><span class="section"><a href="#">2.1.4.1.1. Interface Activities</a></span></dt><dt><span class="section"><a href="#">2.1.4.1.2. UI Packages</a></span></dt></dl></dd></dl></dd></dl></dd></dl></dd><dt><span class="section"><a href="#">3. GPSWatch_LibraryHW</a></span></dt><dd><dl><dt><span class="section"><a href="#">3.1. System-Level Packages</a></span></dt><dd><dl><dt><span class="section"><a href="#">3.1.1. Shared EEs</a></span></dt><dd><dl><dt><span class="section"><a href="#">3.1.1.1. Shared EEs External Entities</a></span></dt><dd><dl><dt><span class="section"><a href="#">3.1.1.1.1. External Entity Activities</a></span></dt></dl></dd></dl></dd><dt><span class="section"><a href="#">3.1.2. LocationInterfaces</a></span></dt><dd><dl><dt><span class="section"><a href="#">3.1.2.1. LocationUtil</a></span></dt><dt><span class="section"><a href="#">3.1.2.2. LocationProvider</a></span></dt></dl></dd><dt><span class="section"><a href="#">3.1.3. LocationDataTypes</a></span></dt><dt><span class="section"><a href="#">3.1.4. Library</a></span></dt><dd><dl><dt><span class="section"><a href="#">3.1.4.1. Tracking</a></span></dt><dd><dl><dt><span class="section"><a href="#">3.1.4.1.1. Interface Activities</a></span></dt><dt><span class="section"><a href="#">3.1.4.1.2. Tracking Packages</a></span></dt></dl></dd><dt><span class="section"><a href="#">3.1.4.2. Location</a></span></dt><dd><dl><dt><span class="section"><a href="#">3.1.4.2.1. Interface Activities</a></span></dt><dt><span class="section"><a href="#">3.1.4.2.2. Location Packages</a></span></dt></dl></dd><dt><span class="section"><a href="#">3.1.4.3. HeartRateMonitor</a></span></dt><dd><dl><dt><span class="section"><a href="#">3.1.4.3.1. Interface Activities</a></span></dt><dt><span class="section"><a href="#">3.1.4.3.2. HeartRateMonitor Packages</a></span></dt></dl></dd></dl></dd><dt><span class="section"><a href="#">3.1.5. HeartRateMonitorInterfaces</a></span></dt><dd><dl><dt><span class="section"><a href="#">3.1.5.1. HeartRateProvider</a></span></dt></dl></dd></dl></dd></dl></dd></dl></div><div class="list-of-figures"><p><b>List of Figures</b></p><dl><dt>1. <a href="#GPSWatch_System-UseCases-PackageDiagram-figure">Use Cases Package Diagram</a></dt><dt>2. <a href="#GPSWatch_System-UseCases-RecordInfo-PackageDiagram-figure">Record Info Package Diagram</a></dt><dt>3. <a href="#GPSWatch_System-System-PackageDiagram-figure">System Package Diagram</a></dt><dt>4. <a href="#GPSWatch_System-Sequences-PackageDiagram-figure">Sequences Package Diagram</a></dt><dt>5. <a href="#GPSWatch_System-Sequences-Stopwatch-PackageDiagram-figure">Stopwatch Package Diagram</a></dt><dt>6. <a href="#GPSWatch_System-Sequences-StartStopResetFormalized-PackageDiagram-figure">Start Stop Reset Formalized Package Diagram</a></dt><dt>7. <a href="#GPSWatch_System-Sequences-Backlight-PackageDiagram-figure">Backlight Package Diagram</a></dt><dt>8. <a href="#GPSWatch_System-Analysis-PackageDiagram-figure">Analysis Package Diagram</a></dt><dt>9. <a href="#GPSWatch_System-Analysis-StartStopReset-PackageDiagram-figure">Start Stop Reset Package Diagram</a></dt><dt>10. <a href="#GPSWatch_System-Activities-PackageDiagram-figure">Activities Package Diagram</a></dt><dt>11. <a href="#GPSWatch_System-Activities-Exercise-PackageDiagram-figure">Exercise Package Diagram</a></dt><dt>12. <a href="#GPSWatch_LibraryUI-UIInterfaces-PackageDiagram-figure">UIInterfaces Package Diagram</a></dt><dt>13. <a href="#GPSWatch_LibraryUI-UIDataTypes-PackageDiagram-figure">UIDataTypes Package Diagram</a></dt><dt>14. <a href="#GPSWatch_LibraryUI-SharedEEs-PackageDiagram-figure">Shared EEs Package Diagram</a></dt><dt>15. <a href="#GPSWatch_LibraryUI-Library-PackageDiagram-figure">Library Package Diagram</a></dt><dt>16. <a href="#GPSWatch_LibraryUI-Library-UI-ComponentDiagram-figure">UI Component Diagram</a></dt><dt>17. <a href="#GPSWatch_LibraryUI-Library-UI-UI-PackageDiagram-figure">UI Package Diagram</a></dt><dt>18. <a href="#GPSWatch_LibraryUI-Library-UI-UI-UI-ClassStateMachine-figure">UI UI Class State Machine</a></dt><dt>19. <a href="#GPSWatch_LibraryUI-Library-UI-UI-TestCase-InstanceStateMachine-figure">UI TestCase Instance State Machine</a></dt><dt>20. <a href="#GPSWatch_LibraryUI-Library-UI-TestCases-PackageDiagram-figure">TestCases Package Diagram</a></dt><dt>21. <a href="#GPSWatch_LibraryUI-Library-UI-ExternalEntities-PackageDiagram-figure">External Entities Package Diagram</a></dt><dt>22. <a href="#GPSWatch_LibraryHW-SharedEEs-PackageDiagram-figure">Shared EEs Package Diagram</a></dt><dt>23. <a href="#GPSWatch_LibraryHW-LocationInterfaces-PackageDiagram-figure">LocationInterfaces Package Diagram</a></dt><dt>24. <a href="#GPSWatch_LibraryHW-LocationDataTypes-PackageDiagram-figure">LocationDataTypes Package Diagram</a></dt><dt>25. <a href="#GPSWatch_LibraryHW-Library-PackageDiagram-figure">Library Package Diagram</a></dt><dt>26. <a href="#GPSWatch_LibraryHW-Library-Tracking-ComponentDiagram-figure">Tracking Component Diagram</a></dt><dt>27. <a href="#GPSWatch_LibraryHW-Library-Tracking-Tracking-PackageDiagram-figure">Tracking Package Diagram</a></dt><dt>28. <a href="#GPSWatch_LibraryHW-Library-Tracking-Tracking-WorkoutTimer-InstanceStateMachine-figure">Tracking WorkoutTimer Instance State Machine</a></dt><dt>29. <a href="#GPSWatch_LibraryHW-Library-Tracking-Tracking-Display-ClassStateMachine-figure">Tracking Display Class State Machine</a></dt><dt>30. <a href="#GPSWatch_LibraryHW-Library-Location-ComponentDiagram-figure">Location Component Diagram</a></dt><dt>31. <a href="#GPSWatch_LibraryHW-Library-Location-Location-PackageDiagram-figure">Location Package Diagram</a></dt><dt>32. <a href="#GPSWatch_LibraryHW-Library-Location-Location-GPS-ClassStateMachine-figure">Location GPS Class State Machine</a></dt><dt>33. <a href="#GPSWatch_LibraryHW-Library-HeartRateMonitor-ComponentDiagram-figure">HeartRateMonitor Component Diagram</a></dt><dt>34. <a href="#GPSWatch_LibraryHW-Library-HeartRateMonitor-HeartRateMonitor-PackageDiagram-figure">HeartRateMonitor Package Diagram</a></dt><dt>35. <a href="#GPSWatch_LibraryHW-Library-HeartRateMonitor-HeartRateMonitor-HeartRateMonitor-ClassStateMachine-figure">HeartRateMonitor HeartRateMonitor Class State Machine</a></dt><dt>36. <a href="#GPSWatch_LibraryHW-HeartRateMonitorInterfaces-PackageDiagram-figure">HeartRateMonitorInterfaces Package Diagram</a></dt></dl></div><div class="list-of-tables"><p><b>List of Tables</b></p><dl><dt>1. <a href="#">UI Messages</a></dt><dt>2. <a href="#">Shared EEs</a></dt><dt>3. <a href="#">UI Ports</a></dt><dt>4. <a href="#">UI</a></dt><dt>5. <a href="#">TestCases</a></dt><dt>6. <a href="#">External Entities</a></dt><dt>7. <a href="#">Shared EEs</a></dt><dt>8. <a href="#">LocationUtil Messages</a></dt><dt>9. <a href="#">LocationProvider Messages</a></dt><dt>10. <a href="#">Tracking Ports</a></dt><dt>11. <a href="#">Tracking</a></dt><dt>12. <a href="#">Location Ports</a></dt><dt>13. <a href="#">Location</a></dt><dt>14. <a href="#">HeartRateMonitor Ports</a></dt><dt>15. <a href="#">HeartRateMonitor</a></dt><dt>16. <a href="#">HeartRateProvider Messages</a></dt></dl></div><div class="section" title="1.�GPSWatch_System"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id=""></a>1.�GPSWatch_System</h2></div><div><h3 class="subtitle">Generated Documentation</h3></div></div></div><p>Please find below generated documentation for the system named GPSWatch_System.</p><p></p><div class="section" title="1.1.�System-Level Packages"><div class="titlepage"><div><div><h3 class="title"><a id=""></a>1.1.�System-Level Packages</h3></div><div><h4 class="subtitle"></h4></div></div></div><div class="section" title="1.1.1.�Use Cases"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.1.1.�Use Cases</h4></div><div><h5 class="subtitle">Package</h5></div></div></div><div class="figure"><a id="GPSWatch_System-UseCases-PackageDiagram-figure"></a><p class="title"><b>Figure�1.�Use Cases Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_System-Use Cases-Package Diagram.png" width="100%" alt="Use Cases Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.1.1.1.�Use Cases Packages"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.1.1.1.�Use Cases Packages</h5></div><div><h6 class="subtitle"></h6></div></div></div><p>Rendered here are the contained package diagrams.</p><div class="section" title="1.1.1.1.1.�Record Info"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.1.1.1.�Record Info</h6></div><div><h6 class="subtitle">Package</h6></div></div></div><div class="figure"><a id="GPSWatch_System-UseCases-RecordInfo-PackageDiagram-figure"></a><p class="title"><b>Figure�2.�Record Info Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_System-Use Cases-Record Info-Package Diagram.png" width="100%" alt="Record Info Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p></div></div></div><div class="section" title="1.1.2.�System"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.1.2.�System</h4></div><div><h5 class="subtitle">Package</h5></div></div></div><div class="figure"><a id="GPSWatch_System-System-PackageDiagram-figure"></a><p class="title"><b>Figure�3.�System Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_System-System-Package Diagram.png" width="100%" alt="System Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p></div><div class="section" title="1.1.3.�Sequences"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.1.3.�Sequences</h4></div><div><h5 class="subtitle">Package</h5></div></div></div><div class="figure"><a id="GPSWatch_System-Sequences-PackageDiagram-figure"></a><p class="title"><b>Figure�4.�Sequences Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_System-Sequences-Package Diagram.png" width="100%" alt="Sequences Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.1.3.1.�Sequences Packages"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.1.3.1.�Sequences Packages</h5></div><div><h6 class="subtitle"></h6></div></div></div><p>Rendered here are the contained package diagrams.</p><div class="section" title="1.1.3.1.1.�Stopwatch"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.3.1.1.�Stopwatch</h6></div><div><h6 class="subtitle">Package</h6></div></div></div><div class="figure"><a id="GPSWatch_System-Sequences-Stopwatch-PackageDiagram-figure"></a><p class="title"><b>Figure�5.�Stopwatch Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_System-Sequences-Stopwatch-Package Diagram.png" width="100%" alt="Stopwatch Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p></div><div class="section" title="1.1.3.1.2.�Start Stop Reset Formalized"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.3.1.2.�Start Stop Reset Formalized</h6></div><div><h6 class="subtitle">Package</h6></div></div></div><div class="figure"><a id="GPSWatch_System-Sequences-StartStopResetFormalized-PackageDiagram-figure"></a><p class="title"><b>Figure�6.�Start Stop Reset Formalized Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_System-Sequences-Start Stop Reset Formalized-Package Diagram.png" width="100%" alt="Start Stop Reset Formalized Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p></div><div class="section" title="1.1.3.1.3.�Backlight"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.3.1.3.�Backlight</h6></div><div><h6 class="subtitle">Package</h6></div></div></div><div class="figure"><a id="GPSWatch_System-Sequences-Backlight-PackageDiagram-figure"></a><p class="title"><b>Figure�7.�Backlight Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_System-Sequences-Backlight-Package Diagram.png" width="100%" alt="Backlight Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p></div></div></div><div class="section" title="1.1.4.�Analysis"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.1.4.�Analysis</h4></div><div><h5 class="subtitle">Package</h5></div></div></div><div class="figure"><a id="GPSWatch_System-Analysis-PackageDiagram-figure"></a><p class="title"><b>Figure�8.�Analysis Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_System-Analysis-Package Diagram.png" width="100%" alt="Analysis Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.1.4.1.�Analysis Packages"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.1.4.1.�Analysis Packages</h5></div><div><h6 class="subtitle"></h6></div></div></div><p>Rendered here are the contained package diagrams.</p><div class="section" title="1.1.4.1.1.�Start Stop Reset"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.4.1.1.�Start Stop Reset</h6></div><div><h6 class="subtitle">Package</h6></div></div></div><div class="figure"><a id="GPSWatch_System-Analysis-StartStopReset-PackageDiagram-figure"></a><p class="title"><b>Figure�9.�Start Stop Reset Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_System-Analysis-Start Stop Reset-Package Diagram.png" width="100%" alt="Start Stop Reset Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p></div></div></div><div class="section" title="1.1.5.�Activities"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>1.1.5.�Activities</h4></div><div><h5 class="subtitle">Package</h5></div></div></div><div class="figure"><a id="GPSWatch_System-Activities-PackageDiagram-figure"></a><p class="title"><b>Figure�10.�Activities Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_System-Activities-Package Diagram.png" width="100%" alt="Activities Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="1.1.5.1.�Activities Packages"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>1.1.5.1.�Activities Packages</h5></div><div><h6 class="subtitle"></h6></div></div></div><p>Rendered here are the contained package diagrams.</p><div class="section" title="1.1.5.1.1.�Exercise"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>1.1.5.1.1.�Exercise</h6></div><div><h6 class="subtitle">Package</h6></div></div></div><p>This activity expands on the generic use case: Perform exercise routine.</p><div class="figure"><a id="GPSWatch_System-Activities-Exercise-PackageDiagram-figure"></a><p class="title"><b>Figure�11.�Exercise Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_System-Activities-Exercise-Package Diagram.png" width="100%" alt="Exercise Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p></div></div></div></div></div><div class="section" title="2.�GPSWatch_LibraryUI"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id=""></a>2.�GPSWatch_LibraryUI</h2></div><div><h3 class="subtitle">Generated Documentation</h3></div></div></div><p>Please find below generated documentation for the system named GPSWatch_LibraryUI.</p><p></p><div class="section" title="2.1.�System-Level Packages"><div class="titlepage"><div><div><h3 class="title"><a id=""></a>2.1.�System-Level Packages</h3></div><div><h4 class="subtitle"></h4></div></div></div><div class="section" title="2.1.1.�UIInterfaces"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>2.1.1.�UIInterfaces</h4></div><div><h5 class="subtitle">Package</h5></div></div></div><div class="figure"><a id="GPSWatch_LibraryUI-UIInterfaces-PackageDiagram-figure"></a><p class="title"><b>Figure�12.�UIInterfaces Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryUI-UIInterfaces-Package Diagram.png" width="100%" alt="UIInterfaces Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="2.1.1.1.�UI"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>2.1.1.1.�UI</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�1.�UI Messages</b></p><div class="table-contents"><table summary="UI Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/SendSignal.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>setTargetPressed</p>
+</td><td align="left">
+<p>Server to Client (Provider to Requirer)</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/SendSignal.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>modePressed</p>
+</td><td align="left">
+<p>Server to Client (Provider to Requirer)</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/SendSignal.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>lightPressed</p>
+</td><td align="left">
+<p>Server to Client (Provider to Requirer)</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/SendSignal.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>startStopPressed</p>
+</td><td align="left">
+<p>Server to Client (Provider to Requirer)</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/SendSignal.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>lapResetPressed</p>
+</td><td align="left">
+<p>Server to Client (Provider to Requirer)</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Operation.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>setData</p>
+</td><td align="left">
+<p>Client to Server (Requirer to Provider)</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Operation.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>setTime</p>
+</td><td align="left">
+<p>Client to Server (Requirer to Provider)</p>
+</td><td align="left">
+<p></p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p></div></div><div class="section" title="2.1.2.�UIDataTypes"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>2.1.2.�UIDataTypes</h4></div><div><h5 class="subtitle">Package</h5></div></div></div><div class="figure"><a id="GPSWatch_LibraryUI-UIDataTypes-PackageDiagram-figure"></a><p class="title"><b>Figure�13.�UIDataTypes Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryUI-UIDataTypes-Package Diagram.png" width="100%" alt="UIDataTypes Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p></div><div class="section" title="2.1.3.�Shared EEs"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>2.1.3.�Shared EEs</h4></div><div><h5 class="subtitle">Package</h5></div></div></div><div class="figure"><a id="GPSWatch_LibraryUI-SharedEEs-PackageDiagram-figure"></a><p class="title"><b>Figure�14.�Shared EEs Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryUI-Shared EEs-Package Diagram.png" width="100%" alt="Shared EEs Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="2.1.3.1.�Shared EEs External Entities"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>2.1.3.1.�Shared EEs External Entities</h5></div><div><h6 class="subtitle">External Entity Package</h6></div></div></div><div class="table"><a id=""></a><p class="title"><b>Table�2.�Shared EEs</b></p><div class="table-contents"><table summary="Shared EEs" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Description</p>
+</th><th align="left">
+<p>Bridges</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Time</p>
+</td><td align="left">
+<p>The Time external entity provides date, timestamp, and timer related operations.</p>
+</td><td align="left">
+<p>timer_cancel, timer_add_time, timer_reset_time, timer_remaining_time, timer_start_recurring, timer_start, current_clock, get_year, get_month, get_day, get_hour, get_minute, get_second, create_date, current_date</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Logging</p>
+</td><td align="left">
+<p></p>
+</td><td align="left">
+<p>LogInteger, LogReal, LogTime, LogDate, LogInfo, LogFailure, LogSuccess</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Architecture</p>
+</td><td align="left">
+<p></p>
+</td><td align="left">
+<p>shutdown</p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="section" title="2.1.3.1.1.�External Entity Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.3.1.1.�External Entity Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="2.1.3.1.1.1.�Time Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.3.1.1.1.�Time Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="2.1.3.1.1.1.1.�timer_cancel"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.3.1.1.1.1.�timer_cancel</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation cancels and deletes the passed timer instance. If the 
+timer exists (that is, it had not expired), a TRUE value is returned. If the
+timer no longer exists, a FALSE value is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="2.1.3.1.1.1.2.�timer_add_time"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.3.1.1.1.2.�timer_add_time</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation attempts to add the specified number of microseconds to a
+passed existing timer. If the timer exists (that is, it has not expired), a TRUE
+value is returned. If the timer no longer exists, a FALSE value is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="2.1.3.1.1.1.3.�timer_reset_time"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.3.1.1.1.3.�timer_reset_time</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation attempts to set the passed existing timer to expire in
+the specified number of microseconds. If the timer exists (that is, it has not
+expired), a TRUE value is returned. If the timer no longer exists, a FALSE value
+is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="2.1.3.1.1.1.4.�timer_remaining_time"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.3.1.1.1.4.�timer_remaining_time</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Returns the time remaining (in microseconds) for the passed timer instance. If
+the timer has expired, a zero value is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="2.1.3.1.1.1.5.�timer_start_recurring"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.3.1.1.1.5.�timer_start_recurring</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Upon expiration, the
+timer will be restarted and fire again in the specified number of microseconds
+generating the passed event. This bridge operation returns the instance handle
+of the timer.</p><pre class="programlisting">
+</pre></div><div class="section" title="2.1.3.1.1.1.6.�timer_start"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.3.1.1.1.6.�timer_start</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Returns the instance
+handle of the timer.</p><pre class="programlisting">
+</pre></div></div><div class="section" title="2.1.3.1.1.2.�Logging Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.3.1.1.2.�Logging Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="2.1.3.1.1.3.�Architecture Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.3.1.1.3.�Architecture Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="2.1.3.1.1.3.1.�shutdown"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.3.1.1.3.1.�shutdown</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">control stop;
+</pre></div></div></div></div></div><div class="section" title="2.1.4.�Library"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>2.1.4.�Library</h4></div><div><h5 class="subtitle">Package</h5></div></div></div><p>// ########## START OAL_1 ##########
+// always initialize data
+self.currentLocation.longitude = 0.0;
+self.currentLocation.latitude  = 0.0;
+self.currentLocation.speed     = 0.0;
+self.interval                  = 2000000;
+
+LOG::LogInfo(message: "Location listener registered.");
+
+ // start timer based on requested interval
+create event instance timeout of GPS3:timeout() to self;
+self.timer = TIM::timer_start_recurring(event_inst: timeout, microseconds: self.interval);
+// ########### END OAL_1 ###########
+
+
+
+//</p><div class="figure"><a id="GPSWatch_LibraryUI-Library-PackageDiagram-figure"></a><p class="title"><b>Figure�15.�Library Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryUI-Library-Package Diagram.png" width="100%" alt="Library Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="2.1.4.1.�UI"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>2.1.4.1.�UI</h5></div><div><h6 class="subtitle">Component</h6></div></div></div><p>Simulates the user interface and has the ability to connect an external GUI.
+
+It is using the BridgePoint Java API to connect to the GUI in Verifier mode.
+There are also handwritten C code that implments parts of this component to 
+allow generated code to connect to the exact same GUI.</p><div class="figure"><a id="GPSWatch_LibraryUI-Library-UI-ComponentDiagram-figure"></a><p class="title"><b>Figure�16.�UI Component Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryUI-Library-UI-Component Diagram.png" width="100%" alt="UI Component Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�3.�UI Ports</b></p><div class="table-contents"><table summary="UI Ports" border="1"><colgroup><col /><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Port.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Interface</p>
+</th><th align="left">
+<p>Type</p>
+</th><th align="left">
+<p>Multiplicity</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>UI</p>
+</td><td align="left">
+<p>UI</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="section" title="2.1.4.1.1.�Interface Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.1.�Interface Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="2.1.4.1.1.1.�Port: UI, Interface: UI"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.1.1.�Port: UI, Interface: UI</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="2.1.4.1.1.1.1.�setData"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.1.1.1.�setData</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryUI &gt; Library (Package) &gt; UI (Component) &gt; 
+//   UI (Port) &gt; setData (operation)
+if (param.unit == Unit::km)
+  GuiBridge::setData(value: param.value, unit: 0);
+elif (param.unit == Unit::meters)
+  GuiBridge::setData(value: param.value, unit: 1);
+elif (param.unit == Unit::minPerKm)
+  GuiBridge::setData(value: param.value, unit: 2);
+elif (param.unit == Unit::kmPerHour)
+  GuiBridge::setData(value: param.value, unit: 3);
+elif (param.unit == Unit::miles)
+  GuiBridge::setData(value: param.value, unit: 4);
+elif (param.unit == Unit::yards)
+  GuiBridge::setData(value: param.value, unit: 5);
+elif (param.unit == Unit::feet)
+  GuiBridge::setData(value: param.value, unit: 6);
+elif (param.unit == Unit::minPerMile)
+  GuiBridge::setData(value: param.value, unit: 7);
+elif (param.unit == Unit::mph)
+  GuiBridge::setData(value: param.value, unit: 8);
+elif (param.unit == Unit::bpm)
+  GuiBridge::setData(value: param.value, unit: 9);
+elif (param.unit == Unit::laps)
+  GuiBridge::setData(value: param.value, unit: 10);
+end if;
+
+
+</pre></div><div class="section" title="2.1.4.1.1.1.2.�setTime"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.1.1.2.�setTime</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryUI &gt; Library (Package) &gt; UI (Component) &gt; 
+//   UI (Port) &gt; setTime (operation)
+GuiBridge::setTime(time: param.time);
+</pre></div><div class="section" title="2.1.4.1.1.1.3.�setTargetPressed"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.1.1.3.�setTargetPressed</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryUI &gt; Library (Package) &gt; UI (Component) &gt; 
+//   UI (Port) &gt; setTargetPressed (signal)
+
+</pre></div><div class="section" title="2.1.4.1.1.1.4.�modePressed"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.1.1.4.�modePressed</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryUI &gt; Library (Package) &gt; UI (Component) &gt; 
+//   UI (Port) &gt; modePressed (signal)
+
+</pre></div><div class="section" title="2.1.4.1.1.1.5.�lightPressed"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.1.1.5.�lightPressed</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryUI &gt; Library (Package) &gt; UI (Component) &gt; 
+//   UI (Port) &gt; lightPressed (signal)
+
+</pre></div><div class="section" title="2.1.4.1.1.1.6.�startStopPressed"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.1.1.6.�startStopPressed</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryUI &gt; Library (Package) &gt; UI (Component) &gt; 
+//   UI (Port) &gt; startStopPressed (signal)
+
+</pre></div><div class="section" title="2.1.4.1.1.1.7.�lapResetPressed"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.1.1.7.�lapResetPressed</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryUI &gt; Library (Package) &gt; UI (Component) &gt; 
+//   UI (Port) &gt; lapResetPressed (signal)
+
+</pre></div></div></div><div class="section" title="2.1.4.1.2.�UI Packages"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.�UI Packages</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Rendered here are the contained package diagrams.</p><div class="section" title="2.1.4.1.2.1.�UI"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.1.�UI</h6></div><div><h6 class="subtitle">Package</h6></div></div></div><div class="figure"><a id="GPSWatch_LibraryUI-Library-UI-UI-PackageDiagram-figure"></a><p class="title"><b>Figure�17.�UI Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryUI-Library-UI-UI-Package Diagram.png" width="100%" alt="UI Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�4.�UI</b></p><div class="table-contents"><table summary="UI" border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>UI</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>TestCase</p>
+</td><td align="left">
+<p></p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="figure"><a id="GPSWatch_LibraryUI-Library-UI-UI-UI-ClassStateMachine-figure"></a><p class="title"><b>Figure�18.�UI UI Class State Machine</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryUI-Library-UI-UI-UI-Class State Machine.png" width="100%" alt="UI UI Class State Machine" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="figure"><a id="GPSWatch_LibraryUI-Library-UI-UI-TestCase-InstanceStateMachine-figure"></a><p class="title"><b>Figure�19.�UI TestCase Instance State Machine</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryUI-Library-UI-UI-TestCase-Instance State Machine.png" width="100%" alt="UI TestCase Instance State Machine" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="2.1.4.1.2.1.1.�UI Classes"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.1.1.�UI Classes</h6></div><div><h6 class="subtitle">Class Package</h6></div></div></div><div class="section" title="2.1.4.1.2.1.1.1.�Class Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.1.1.1.�Class Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Here are listings of all of the activies in the class and its state machine(s).</p><div class="section" title="2.1.4.1.2.1.1.1.1.�Class State Machine Actions"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.1.1.1.1.�Class State Machine Actions</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="2.1.4.1.2.1.1.1.1.1.�UI State Transition:"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.1.1.1.1.1.�UI State Transition: </h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">create event instance evt of UI_A7:modePressed() to UI class;
+GuiBridge::feedModePressedEvent(evt: evt);
+GuiBridge::sendModePressed();
+</pre></div><div class="section" title="2.1.4.1.2.1.1.1.1.2.�UI State Transition:"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.1.1.1.1.2.�UI State Transition: </h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">create event instance evt of UI_A6:lightPressed() to UI class;
+GuiBridge::feedLightPressedEvent(evt: evt);
+GuiBridge::sendLightPressed();
+</pre></div><div class="section" title="2.1.4.1.2.1.1.1.1.3.�UI State Transition:"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.1.1.1.1.3.�UI State Transition: </h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">create event instance evt of UI_A5:lapResetPressed() to UI class;
+GuiBridge::feedLapResetPressedEvent(evt: evt);
+GuiBridge::sendLapResetPressed();
+</pre></div><div class="section" title="2.1.4.1.2.1.1.1.1.4.�UI State Transition:"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.1.1.1.1.4.�UI State Transition: </h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">create event instance evt of UI_A4:startStopPressed() to UI class;
+GuiBridge::feedStartStopPressedEvent(evt: evt);
+GuiBridge::sendStartStopPressed();
+</pre></div><div class="section" title="2.1.4.1.2.1.1.1.1.5.�UI State Transition:"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.1.1.1.1.5.�UI State Transition: </h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">create event instance evt of UI_A3:setTargetPressed() to UI class;
+GuiBridge::feedSetTargetPressedEvent(evt: evt);
+GuiBridge::sendTargetPressed();
+</pre></div></div><div class="section" title="2.1.4.1.2.1.1.1.2.�Class Operations"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.1.1.1.2.�Class Operations</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="2.1.4.1.2.1.1.1.2.1.�UI:UI: connect"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.1.1.1.2.1.�UI:UI:  connect</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">GuiBridge::connect();
+
+create event instance evt of UI_A3:setTargetPressed() to UI class;
+GuiBridge::feedSetTargetPressedEvent(evt: evt);
+
+create event instance evt of UI_A4:startStopPressed() to UI class;
+GuiBridge::feedStartStopPressedEvent(evt: evt);
+
+create event instance evt of UI_A5:lapResetPressed() to UI class;
+GuiBridge::feedLapResetPressedEvent(evt: evt);
+
+create event instance evt of UI_A6:lightPressed() to UI class;
+GuiBridge::feedLightPressedEvent(evt: evt);
+
+create event instance evt of UI_A7:modePressed() to UI class;
+GuiBridge::feedModePressedEvent(evt: evt);
+</pre></div></div></div><div class="section" title="2.1.4.1.2.1.1.2.�Class Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.1.1.2.�Class Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Here are listings of all of the activies in the class and its state machine(s).</p><div class="section" title="2.1.4.1.2.1.1.2.1.�Instance State Machine Actions"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.1.1.2.1.�Instance State Machine Actions</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="2.1.4.1.2.1.1.2.1.1.�TestCase State Transition:"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.1.1.2.1.1.�TestCase State Transition: </h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">LOG::LogInfo(message: "Start of test case"); 
+self.iterations = rcvd_evt.iterations * 2;
+</pre></div><div class="section" title="2.1.4.1.2.1.1.2.1.2.�TestCase State[3]:testCaseFinished"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.1.1.2.1.2.�TestCase State[3]:testCaseFinished</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">LOG::LogInfo(message: "End of test case"); 
+</pre></div><div class="section" title="2.1.4.1.2.1.1.2.1.3.�TestCase State[2]:pressStartStop"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.1.1.2.1.3.�TestCase State[2]:pressStartStop</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">if (self.iterations &gt; 0)
+  self.iterations = self.iterations - 1;
+  create event instance evt of TestCase1 to self;
+  handle = TIM::timer_start(event_inst: evt, microseconds: 4000000);
+  send UI::startStopPressed();
+else
+  generate TestCase3:finish to self;
+  send UI::lapResetPressed();
+end if;
+</pre></div></div><div class="section" title="2.1.4.1.2.1.1.2.2.�Class Operations"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.1.1.2.2.�Class Operations</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="2.1.4.1.2.1.1.2.2.1.�UI:TestCase: execute"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.1.1.2.2.1.�UI:TestCase:  execute</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">generate TestCase2:start(iterations: 2) to TestCase creator;
+</pre></div></div></div></div></div><div class="section" title="2.1.4.1.2.2.�TestCases"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.2.�TestCases</h6></div><div><h6 class="subtitle">Package</h6></div></div></div><div class="figure"><a id="GPSWatch_LibraryUI-Library-UI-TestCases-PackageDiagram-figure"></a><p class="title"><b>Figure�20.�TestCases Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryUI-Library-UI-TestCases-Package Diagram.png" width="100%" alt="TestCases Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="2.1.4.1.2.2.1.�TestCases Functions"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.2.1.�TestCases Functions</h6></div><div><h6 class="subtitle">Function Package</h6></div></div></div><div class="table"><a id=""></a><p class="title"><b>Table�5.�TestCases</b></p><div class="table-contents"><table summary="TestCases" border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Function.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Function.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>init()</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Function.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>RunTestCase()</p>
+</td><td align="left">
+<p></p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="section" title="2.1.4.1.2.2.1.1.�Domain Function Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.2.1.1.�Domain Function Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="2.1.4.1.2.2.1.1.1.�init"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.2.1.1.1.�init</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">GuiBridge::connect();
+</pre></div><div class="section" title="2.1.4.1.2.2.1.1.2.�RunTestCase"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.2.1.1.2.�RunTestCase</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">TestCase::execute();
+</pre></div></div></div></div><div class="section" title="2.1.4.1.2.3.�External Entities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.3.�External Entities</h6></div><div><h6 class="subtitle">Package</h6></div></div></div><div class="figure"><a id="GPSWatch_LibraryUI-Library-UI-ExternalEntities-PackageDiagram-figure"></a><p class="title"><b>Figure�21.�External Entities Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryUI-Library-UI-External Entities-Package Diagram.png" width="100%" alt="External Entities Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="2.1.4.1.2.3.1.�External Entities External Entities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.3.1.�External Entities External Entities</h6></div><div><h6 class="subtitle">External Entity Package</h6></div></div></div><div class="table"><a id=""></a><p class="title"><b>Table�6.�External Entities</b></p><div class="table-contents"><table summary="External Entities" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Description</p>
+</th><th align="left">
+<p>Bridges</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Graphical User Interface</p>
+</td><td align="left">
+<p></p>
+</td><td align="left">
+<p>sendTargetPressed, sendStartStopPressed, sendLapResetPressed, sendLightPressed, sendModePressed, connect, setTime, setData, feedStartStopPressedEvent, feedLapResetPressedEvent, feedLightPressedEvent, feedModePressedEvent, feedSetTargetPressedEvent</p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="section" title="2.1.4.1.2.3.1.1.�External Entity Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.3.1.1.�External Entity Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="2.1.4.1.2.3.1.1.1.�Graphical User Interface Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.3.1.1.1.�Graphical User Interface Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="2.1.4.1.2.3.1.1.1.1.�sendTargetPressed"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.3.1.1.1.1.�sendTargetPressed</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">send UI::setTargetPressed();
+</pre></div><div class="section" title="2.1.4.1.2.3.1.1.1.2.�sendStartStopPressed"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.3.1.1.1.2.�sendStartStopPressed</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">send UI::startStopPressed();
+</pre></div><div class="section" title="2.1.4.1.2.3.1.1.1.3.�sendLapResetPressed"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.3.1.1.1.3.�sendLapResetPressed</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">send UI::lapResetPressed();
+</pre></div><div class="section" title="2.1.4.1.2.3.1.1.1.4.�sendLightPressed"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.3.1.1.1.4.�sendLightPressed</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">send UI::lightPressed();
+</pre></div><div class="section" title="2.1.4.1.2.3.1.1.1.5.�sendModePressed"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>2.1.4.1.2.3.1.1.1.5.�sendModePressed</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">send UI::modePressed();
+</pre></div></div></div></div></div></div></div></div></div></div><div class="section" title="3.�GPSWatch_LibraryHW"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id=""></a>3.�GPSWatch_LibraryHW</h2></div><div><h3 class="subtitle">Generated Documentation</h3></div></div></div><p>Please find below generated documentation for the system named GPSWatch_LibraryHW.</p><p></p><div class="section" title="3.1.�System-Level Packages"><div class="titlepage"><div><div><h3 class="title"><a id=""></a>3.1.�System-Level Packages</h3></div><div><h4 class="subtitle"></h4></div></div></div><div class="section" title="3.1.1.�Shared EEs"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>3.1.1.�Shared EEs</h4></div><div><h5 class="subtitle">Package</h5></div></div></div><div class="figure"><a id="GPSWatch_LibraryHW-SharedEEs-PackageDiagram-figure"></a><p class="title"><b>Figure�22.�Shared EEs Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryHW-Shared EEs-Package Diagram.png" width="100%" alt="Shared EEs Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="3.1.1.1.�Shared EEs External Entities"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>3.1.1.1.�Shared EEs External Entities</h5></div><div><h6 class="subtitle">External Entity Package</h6></div></div></div><div class="table"><a id=""></a><p class="title"><b>Table�7.�Shared EEs</b></p><div class="table-contents"><table summary="Shared EEs" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Description</p>
+</th><th align="left">
+<p>Bridges</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Time</p>
+</td><td align="left">
+<p>The Time external entity provides date, timestamp, and timer related operations.</p>
+</td><td align="left">
+<p>timer_cancel, timer_add_time, timer_reset_time, timer_remaining_time, timer_start_recurring, timer_start, current_clock, get_year, get_month, get_day, get_hour, get_minute, get_second, create_date, current_date</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Logging</p>
+</td><td align="left">
+<p></p>
+</td><td align="left">
+<p>LogInteger, LogReal, LogTime, LogDate, LogInfo, LogFailure, LogSuccess</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/ExternalEntity.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Architecture</p>
+</td><td align="left">
+<p></p>
+</td><td align="left">
+<p>shutdown</p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="section" title="3.1.1.1.1.�External Entity Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.1.1.1.�External Entity Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.1.1.1.1.�Time Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.1.1.1.1.�Time Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.1.1.1.1.1.�timer_cancel"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.1.1.1.1.1.�timer_cancel</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation cancels and deletes the passed timer instance. If the 
+timer exists (that is, it had not expired), a TRUE value is returned. If the
+timer no longer exists, a FALSE value is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="3.1.1.1.1.1.2.�timer_add_time"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.1.1.1.1.2.�timer_add_time</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation attempts to add the specified number of microseconds to a
+passed existing timer. If the timer exists (that is, it has not expired), a TRUE
+value is returned. If the timer no longer exists, a FALSE value is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="3.1.1.1.1.1.3.�timer_reset_time"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.1.1.1.1.3.�timer_reset_time</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation attempts to set the passed existing timer to expire in
+the specified number of microseconds. If the timer exists (that is, it has not
+expired), a TRUE value is returned. If the timer no longer exists, a FALSE value
+is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="3.1.1.1.1.1.4.�timer_remaining_time"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.1.1.1.1.4.�timer_remaining_time</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Returns the time remaining (in microseconds) for the passed timer instance. If
+the timer has expired, a zero value is returned.</p><pre class="programlisting">
+</pre></div><div class="section" title="3.1.1.1.1.1.5.�timer_start_recurring"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.1.1.1.1.5.�timer_start_recurring</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Upon expiration, the
+timer will be restarted and fire again in the specified number of microseconds
+generating the passed event. This bridge operation returns the instance handle
+of the timer.</p><pre class="programlisting">
+</pre></div><div class="section" title="3.1.1.1.1.1.6.�timer_start"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.1.1.1.1.6.�timer_start</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Returns the instance
+handle of the timer.</p><pre class="programlisting">
+</pre></div></div><div class="section" title="3.1.1.1.1.2.�Logging Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.1.1.1.2.�Logging Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div></div><div class="section" title="3.1.1.1.1.3.�Architecture Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.1.1.1.3.�Architecture Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.1.1.1.3.1.�shutdown"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.1.1.1.3.1.�shutdown</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">control stop;
+</pre></div></div></div></div></div><div class="section" title="3.1.2.�LocationInterfaces"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>3.1.2.�LocationInterfaces</h4></div><div><h5 class="subtitle">Package</h5></div></div></div><div class="figure"><a id="GPSWatch_LibraryHW-LocationInterfaces-PackageDiagram-figure"></a><p class="title"><b>Figure�23.�LocationInterfaces Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryHW-LocationInterfaces-Package Diagram.png" width="100%" alt="LocationInterfaces Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="3.1.2.1.�LocationUtil"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>3.1.2.1.�LocationUtil</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�8.�LocationUtil Messages</b></p><div class="table-contents"><table summary="LocationUtil Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Operation.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>getDistance</p>
+</td><td align="left">
+<p>Client to Server (Requirer to Provider)</p>
+</td><td align="left">
+<p></p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p></div><div class="section" title="3.1.2.2.�LocationProvider"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>3.1.2.2.�LocationProvider</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�9.�LocationProvider Messages</b></p><div class="table-contents"><table summary="LocationProvider Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/SendSignal.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>unregisterListener</p>
+</td><td align="left">
+<p>Client to Server (Requirer to Provider)</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/SendSignal.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>registerListener</p>
+</td><td align="left">
+<p>Client to Server (Requirer to Provider)</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/SendSignal.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>locationUpdate</p>
+</td><td align="left">
+<p>Server to Client (Provider to Requirer)</p>
+</td><td align="left">
+<p></p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p></div></div><div class="section" title="3.1.3.�LocationDataTypes"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>3.1.3.�LocationDataTypes</h4></div><div><h5 class="subtitle">Package</h5></div></div></div><div class="figure"><a id="GPSWatch_LibraryHW-LocationDataTypes-PackageDiagram-figure"></a><p class="title"><b>Figure�24.�LocationDataTypes Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryHW-LocationDataTypes-Package Diagram.png" width="100%" alt="LocationDataTypes Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p></div><div class="section" title="3.1.4.�Library"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>3.1.4.�Library</h4></div><div><h5 class="subtitle">Package</h5></div></div></div><p>// ########## START OAL_1 ##########
+// always initialize data
+self.currentLocation.longitude = 0.0;
+self.currentLocation.latitude  = 0.0;
+self.currentLocation.speed     = 0.0;
+self.interval                  = 2000000;
+
+LOG::LogInfo(message: "Location listener registered.");
+
+ // start timer based on requested interval
+create event instance timeout of GPS3:timeout() to self;
+self.timer = TIM::timer_start_recurring(event_inst: timeout, microseconds: self.interval);
+// ########### END OAL_1 ###########
+
+
+
+//</p><div class="figure"><a id="GPSWatch_LibraryHW-Library-PackageDiagram-figure"></a><p class="title"><b>Figure�25.�Library Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryHW-Library-Package Diagram.png" width="100%" alt="Library Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="3.1.4.1.�Tracking"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>3.1.4.1.�Tracking</h5></div><div><h6 class="subtitle">Component</h6></div></div></div><p>The Tracking component encapsulates the entire application software. This is the 
+only component in the system from which code will be generated for the final 
+product.</p><div class="figure"><a id="GPSWatch_LibraryHW-Library-Tracking-ComponentDiagram-figure"></a><p class="title"><b>Figure�26.�Tracking Component Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryHW-Library-Tracking-Component Diagram.png" width="100%" alt="Tracking Component Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�10.�Tracking Ports</b></p><div class="table-contents"><table summary="Tracking Ports" border="1"><colgroup><col /><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Port.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Interface</p>
+</th><th align="left">
+<p>Type</p>
+</th><th align="left">
+<p>Multiplicity</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>UTIL</p>
+</td><td align="left">
+<p>LocationUtil</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>HR</p>
+</td><td align="left">
+<p>HeartRateProvider</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>UI</p>
+</td><td align="left">
+<p>UI</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Requirement.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>LOC</p>
+</td><td align="left">
+<p>LocationProvider</p>
+</td><td align="left">
+<p>requirement</p>
+</td><td align="left">
+<p>0</p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="section" title="3.1.4.1.1.�Interface Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.1.�Interface Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.4.1.1.1.�Port: UTIL, Interface: LocationUtil"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.1.1.�Port: UTIL, Interface: LocationUtil</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.4.1.1.1.1.�getDistance"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.1.1.1.�getDistance</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   UTIL (Port) &gt; getDistance (signal)
+return 1;
+</pre></div></div><div class="section" title="3.1.4.1.1.2.�Port: HR, Interface: HeartRateProvider"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.1.2.�Port: HR, Interface: HeartRateProvider</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.4.1.1.2.1.�unregisterListener"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.1.2.1.�unregisterListener</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   HR (Port) &gt; unregisterListener (signal)
+
+</pre></div><div class="section" title="3.1.4.1.1.2.2.�registerListener"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.1.2.2.�registerListener</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   HR (Port) &gt; registerListener (signal)
+
+</pre></div><div class="section" title="3.1.4.1.1.2.3.�heartRateChanged"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.1.2.3.�heartRateChanged</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   HR (Port) &gt; heartRateChanged (signal)
+select any trackLog from instances of TrackLog;
+if (not empty trackLog)
+  trackLog.addHeartRateSample(heartRate: param.heartRate);
+end if;
+</pre></div></div><div class="section" title="3.1.4.1.1.3.�Port: UI, Interface: UI"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.1.3.�Port: UI, Interface: UI</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.4.1.1.3.1.�setData"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.1.3.1.�setData</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   UI (Port) &gt; setData (operation)
+
+</pre></div><div class="section" title="3.1.4.1.1.3.2.�setTime"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.1.3.2.�setTime</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   UI (Port) &gt; setTime (operation)
+
+</pre></div><div class="section" title="3.1.4.1.1.3.3.�setTargetPressed"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.1.3.3.�setTargetPressed</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   UI (Port) &gt; setTargetPressed (signal)
+
+</pre></div><div class="section" title="3.1.4.1.1.3.4.�modePressed"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.1.3.4.�modePressed</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   UI (Port) &gt; modePressed (signal)
+
+</pre></div><div class="section" title="3.1.4.1.1.3.5.�lightPressed"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.1.3.5.�lightPressed</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   UI (Port) &gt; lightPressed (signal)
+
+</pre></div><div class="section" title="3.1.4.1.1.3.6.�startStopPressed"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.1.3.6.�startStopPressed</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   UI (Port) &gt; startStopPressed (signal)
+
+</pre></div><div class="section" title="3.1.4.1.1.3.7.�lapResetPressed"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.1.3.7.�lapResetPressed</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   UI (Port) &gt; lapResetPressed (signal)
+
+</pre></div></div><div class="section" title="3.1.4.1.1.4.�Port: LOC, Interface: LocationProvider"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.1.4.�Port: LOC, Interface: LocationProvider</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.4.1.1.4.1.�unregisterListener"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.1.4.1.�unregisterListener</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   LOC (Port) &gt; unregisterListener (signal)
+
+</pre></div><div class="section" title="3.1.4.1.1.4.2.�registerListener"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.1.4.2.�registerListener</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   LOC (Port) &gt; registerListener (signal)
+
+</pre></div><div class="section" title="3.1.4.1.1.4.3.�locationUpdate"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.1.4.3.�locationUpdate</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; Tracking (Component) &gt; 
+//   LOC (Port) &gt; locationUpdate (signal)
+// print the new location to the console
+LOG::LogInfo(message: "location updated: ");
+LOG::LogReal(message: "longitude", r: param.location.longitude);
+LOG::LogReal(message: "latitude",  r: param.location.latitude );
+LOG::LogReal(message: "speed",     r: param.location.speed    );
+
+select any trackLog from instances of TrackLog;
+if (not empty trackLog)
+  trackLog.addTrackPoint(location: param.location);
+end if;
+</pre></div></div></div><div class="section" title="3.1.4.1.2.�Tracking Packages"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.�Tracking Packages</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Rendered here are the contained package diagrams.</p><div class="section" title="3.1.4.1.2.1.�Tracking"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.�Tracking</h6></div><div><h6 class="subtitle">Package</h6></div></div></div><div class="figure"><a id="GPSWatch_LibraryHW-Library-Tracking-Tracking-PackageDiagram-figure"></a><p class="title"><b>Figure�27.�Tracking Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryHW-Library-Tracking-Tracking-Package Diagram.png" width="100%" alt="Tracking Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�11.�Tracking</b></p><div class="table-contents"><table summary="Tracking" border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>WorkoutTimer</p>
+</td><td align="left">
+<p>The WorkoutTimer controls the lifecycle of workouts. There should
+never be more than one instance of this class at any time.
+
+The WorkoutTimer has the responsibility to start and stop the GPS
+upon activation/deactivation of the timer.
+
+While being active, the WorkoutTimer should keep track of elapsed
+time. Time can only be reset while being inactive.  </p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>TrackPoint</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>TrackLog</p>
+</td><td align="left">
+<p>A TrackLog is a record of events that take place during a workout.
+An event can be a location updates from the GPS, a heart rate sample
+from the pulse monitor or a lap marker.
+
+During workout the TrackLog keeps track of certain measurements derived
+from the sequence of events that has occurred.</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>LapMarker</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>HeartRateSample</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>Display</p>
+</td><td align="left">
+<p>Controls the currently displayed measurement.</p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="figure"><a id="GPSWatch_LibraryHW-Library-Tracking-Tracking-WorkoutTimer-InstanceStateMachine-figure"></a><p class="title"><b>Figure�28.�Tracking WorkoutTimer Instance State Machine</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryHW-Library-Tracking-Tracking-WorkoutTimer-Instance State Machine.png" width="100%" alt="Tracking WorkoutTimer Instance State Machine" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="figure"><a id="GPSWatch_LibraryHW-Library-Tracking-Tracking-Display-ClassStateMachine-figure"></a><p class="title"><b>Figure�29.�Tracking Display Class State Machine</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryHW-Library-Tracking-Tracking-Display-Class State Machine.png" width="100%" alt="Tracking Display Class State Machine" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="3.1.4.1.2.1.1.�Tracking Classes"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.�Tracking Classes</h6></div><div><h6 class="subtitle">Class Package</h6></div></div></div><div class="section" title="3.1.4.1.2.1.1.1.�Class Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.1.�Class Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Here are listings of all of the activies in the class and its state machine(s).</p><div class="section" title="3.1.4.1.2.1.1.1.1.�Instance State Machine Actions"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.1.1.�Instance State Machine Actions</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.4.1.2.1.1.1.1.1.�WorkoutTimer State Transition:"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.1.1.1.�WorkoutTimer State Transition: </h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">//create event instance evt of WorkoutTimer3:tick() to self;
+//self.timer = TIM::timer_start(event_inst: evt, microseconds: 1000000);
+self.time = self.time + 1;
+
+// refresh the user interface
+send UI::setTime(time: self.time);
+</pre></div><div class="section" title="3.1.4.1.2.1.1.1.1.2.�WorkoutTimer State Transition:"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.1.1.2.�WorkoutTimer State Transition: </h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">self.deactivate();
+</pre></div><div class="section" title="3.1.4.1.2.1.1.1.1.3.�WorkoutTimer State Transition:"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.1.1.3.�WorkoutTimer State Transition: </h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">self.activate();
+</pre></div><div class="section" title="3.1.4.1.2.1.1.1.1.4.�WorkoutTimer State Transition:"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.1.1.4.�WorkoutTimer State Transition: </h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">select any trackLog from instances of TrackLog;
+if (not empty trackLog)
+  trackLog.addLapMarker();
+end if;
+</pre></div><div class="section" title="3.1.4.1.2.1.1.1.1.5.�WorkoutTimer State Transition:"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.1.1.5.�WorkoutTimer State Transition: </h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">create object instance trackLog of TrackLog;
+relate self to trackLog across R4;
+trackLog.init();
+
+self.activate();
+</pre></div><div class="section" title="3.1.4.1.2.1.1.1.1.6.�WorkoutTimer State[1]:stopped"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.1.1.6.�WorkoutTimer State[1]:stopped</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">// reset
+self.time = 0;
+send UI::setTime(time: self.time);
+
+select one trackLog related by self-&gt;TrackLog[R4];
+trackLog.clearTrackPoints();
+trackLog.clearLapMarkers();
+trackLog.clearHeartRateSamples();
+
+// notify the UI of this change
+generate Display_A2:refresh() to Display class;
+
+unrelate self from trackLog across R4; 
+delete object instance trackLog;
+</pre></div></div><div class="section" title="3.1.4.1.2.1.1.1.2.�Class Operations"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.1.2.�Class Operations</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.4.1.2.1.1.1.2.1.�Tracking:WorkoutTimer: deactivate"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.1.2.1.�Tracking:WorkoutTimer:  deactivate</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">res = TIM::timer_cancel(timer_inst_ref: self.timer);
+send LocationProvider::unregisterListener();
+send HeartRateProvider::unregisterListener();
+</pre></div><div class="section" title="3.1.4.1.2.1.1.1.2.2.�Tracking:WorkoutTimer: activate"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.1.2.2.�Tracking:WorkoutTimer:  activate</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">create event instance evt of WorkoutTimer3:tick() to self;
+self.timer = TIM::timer_start_recurring(event_inst: evt, microseconds: 1000000);
+
+send LocationProvider::registerListener();
+send HeartRateProvider::registerListener();
+</pre></div></div></div><div class="section" title="3.1.4.1.2.1.1.2.�Class Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.2.�Class Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Here are listings of all of the activies in the class and its state machine(s).</p></div><div class="section" title="3.1.4.1.2.1.1.3.�Class Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.3.�Class Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Here are listings of all of the activies in the class and its state machine(s).</p><div class="section" title="3.1.4.1.2.1.1.3.1.�Class Operations"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.3.1.�Class Operations</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.4.1.2.1.1.3.1.1.�Tracking:TrackLog: init"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.3.1.1.�Tracking:TrackLog:  init</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">self.startTime        = TIM::current_clock();
+self.distance         = 0.0;
+self.currentHeartRate = 0.0;
+self.currentSpeed     = 0.0;
+self.hasLocation      = false;
+</pre></div><div class="section" title="3.1.4.1.2.1.1.3.1.2.�Tracking:TrackLog: clearHeartRateSamples"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.3.1.2.�Tracking:TrackLog:  clearHeartRateSamples</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">select many samples related by self-&gt;HeartRateSample[R6];
+for each sample in samples
+  unrelate self from sample across R6;
+  delete object instance sample;
+end for;
+</pre></div><div class="section" title="3.1.4.1.2.1.1.3.1.3.�Tracking:TrackLog: addHeartRateSample"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.3.1.3.�Tracking:TrackLog:  addHeartRateSample</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">create object instance sample of HeartRateSample;
+sample.heartRate = param.heartRate; 
+relate self to sample across R6;
+
+// notify UI of the new value
+self.currentHeartRate = param.heartRate;
+generate Display_A2:refresh() to Display class;
+</pre></div><div class="section" title="3.1.4.1.2.1.1.3.1.4.�Tracking:TrackLog: clearLapMarkers"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.3.1.4.�Tracking:TrackLog:  clearLapMarkers</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">select many lapMarkers related by self-&gt;LapMarker[R5];
+for each lapMarker in lapMarkers
+  unrelate self from lapMarker across R5;
+  delete object instance lapMarker;
+end for;
+</pre></div><div class="section" title="3.1.4.1.2.1.1.3.1.5.�Tracking:TrackLog: addLapMarker"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.3.1.5.�Tracking:TrackLog:  addLapMarker</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">select one timer related by self-&gt;WorkoutTimer[R4];
+create object instance lapMarker of LapMarker;
+lapMarker.lapTime = timer.time; 
+relate self to lapMarker across R5;
+
+// notify UI of the new value
+generate Display_A2:refresh() to Display class;
+</pre></div><div class="section" title="3.1.4.1.2.1.1.3.1.6.�Tracking:TrackLog: clearTrackPoints"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.3.1.6.�Tracking:TrackLog:  clearTrackPoints</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">select one nextPoint related by self-&gt;TrackPoint[R1];
+select one lastPoint related by self-&gt;TrackPoint[R3];
+
+if (not empty lastPoint)
+  unrelate self from lastPoint across R3;
+end if;
+
+if (not empty nextPoint)
+  unrelate self from nextPoint across R1;
+end if;
+
+while (not empty nextPoint)
+  prevPoint = nextPoint;
+  select one nextPoint related by nextPoint-&gt;TrackPoint[R2.''follows''];
+  if ( not_empty nextPoint )
+    unrelate prevPoint from nextPoint across R2.''follows'';
+  end if;
+  delete object instance prevPoint;
+end while;
+
+</pre></div><div class="section" title="3.1.4.1.2.1.1.3.1.7.�Tracking:TrackLog: addTrackPoint"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.3.1.7.�Tracking:TrackLog:  addTrackPoint</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">select one workoutTimer related by self-&gt;WorkoutTimer[R4];
+
+// create the new trackPoint
+create object instance trackPoint of TrackPoint;
+trackPoint.time      = workoutTimer.time;
+trackPoint.longitude = param.location.longitude;
+trackPoint.latitude  = param.location.latitude;
+trackPoint.speed     = param.location.speed;
+
+select one firstPoint related by self-&gt;TrackPoint[R1];
+select one lastPoint related by self-&gt;TrackPoint[R3];
+
+if (empty firstPoint)
+  // this is the first trackPoint in the log
+  relate self to trackPoint across R1.''has first'';
+  relate self to trackPoint across R3.''has last'';
+else 
+  unrelate self from lastPoint across R3.''has last'';
+  relate self to trackPoint across R3.''has last'';
+  relate lastPoint to trackPoint across R2.''follows'';
+end if;
+
+// calculate distance etc
+distance = 0.0;
+if (self.hasLocation)
+  send distance = UTIL::getDistance(fromLocation: self.lastKnownLocation, toLocation: param.location);
+end if;
+// TODO: move these to the caller
+self.hasLocation = true;
+self.lastKnownLocation = param.location;
+
+self.distance = self.distance + distance;
+self.currentSpeed = param.location.speed;
+
+// notify UI of the new value
+generate Display_A2:refresh() to Display class;
+</pre></div></div><div class="section" title="3.1.4.1.2.1.1.3.2.�Derived (Mathematically Dependent) Attributes"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.3.2.�Derived (Mathematically Dependent) Attributes</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.4.1.2.1.1.3.2.1.�Tracking:TrackLog: currentPace"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.3.2.1.�Tracking:TrackLog:  currentPace</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>The pace is essentially the inverse of the current speed. It is expressed in minutes/meter.</p><pre class="programlisting">if (self.currentSpeed != 0)
+  self.currentPace = 60.0 / self.currentSpeed;
+else
+  self.currentPace = 0.0;
+end if;
+</pre></div></div></div><div class="section" title="3.1.4.1.2.1.1.4.�Class Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.4.�Class Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Here are listings of all of the activies in the class and its state machine(s).</p></div><div class="section" title="3.1.4.1.2.1.1.5.�Class Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.5.�Class Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Here are listings of all of the activies in the class and its state machine(s).</p></div><div class="section" title="3.1.4.1.2.1.1.6.�Class Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.6.�Class Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Here are listings of all of the activies in the class and its state machine(s).</p><div class="section" title="3.1.4.1.2.1.1.6.1.�Class State Machine Actions"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.6.1.�Class State Machine Actions</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.4.1.2.1.1.6.1.1.�Display State[5]:displayLapCount"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.6.1.1.�Display State[5]:displayLapCount</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">select many lapMarkers from instances of LapMarker;
+send UI::setData(value: cardinality lapMarkers, unit: Unit::laps);
+
+</pre></div><div class="section" title="3.1.4.1.2.1.1.6.1.2.�Display State[4]:displayHeartRate"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.6.1.2.�Display State[4]:displayHeartRate</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">heartRate = 0.0;
+select any trackLog from instances of TrackLog;
+if (not empty trackLog)
+    heartRate = trackLog.currentHeartRate;
+end if;
+
+send UI::setData(value: heartRate, unit: Unit::bpm);
+</pre></div><div class="section" title="3.1.4.1.2.1.1.6.1.3.�Display State[3]:displayPace"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.6.1.3.�Display State[3]:displayPace</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">pace = 0.0;
+select any trackLog from instances of TrackLog;
+if (not empty trackLog)
+  pace = trackLog.currentPace;
+end if;
+
+send UI::setData(value: pace, unit: Unit::minPerKm);
+</pre></div><div class="section" title="3.1.4.1.2.1.1.6.1.4.�Display State[2]:displaySpeed"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.6.1.4.�Display State[2]:displaySpeed</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">speed = 0.0;
+select any trackLog from instances of TrackLog;
+if (not empty trackLog)
+  speed = trackLog.currentSpeed;
+end if;
+send UI::setData(value: speed, unit: Unit::kmPerHour);
+</pre></div><div class="section" title="3.1.4.1.2.1.1.6.1.5.�Display State[1]:displayDistance"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.1.2.1.1.6.1.5.�Display State[1]:displayDistance</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">distance = 0.0;
+select any trackLog from instances of TrackLog;
+if (not empty trackLog)
+    distance = trackLog.distance;
+end if;
+
+if (distance &gt; 1000.0)
+  send UI::setData(value: distance / 1000.0, unit: Unit::km);
+else 
+  send UI::setData(value: distance, unit: Unit::meters);
+end if;
+</pre></div></div></div></div></div></div></div><div class="section" title="3.1.4.2.�Location"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>3.1.4.2.�Location</h5></div><div><h6 class="subtitle">Component</h6></div></div></div><p>Simulates a the GPS hardware/firmware. This component is only behavioral and included for testing purposes.</p><div class="figure"><a id="GPSWatch_LibraryHW-Library-Location-ComponentDiagram-figure"></a><p class="title"><b>Figure�30.�Location Component Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryHW-Library-Location-Component Diagram.png" width="100%" alt="Location Component Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�12.�Location Ports</b></p><div class="table-contents"><table summary="Location Ports" border="1"><colgroup><col /><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Port.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Interface</p>
+</th><th align="left">
+<p>Type</p>
+</th><th align="left">
+<p>Multiplicity</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>UTIL</p>
+</td><td align="left">
+<p>LocationUtil</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>LOC</p>
+</td><td align="left">
+<p>LocationProvider</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="section" title="3.1.4.2.1.�Interface Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.2.1.�Interface Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.4.2.1.1.�Port: UTIL, Interface: LocationUtil"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.2.1.1.�Port: UTIL, Interface: LocationUtil</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.4.2.1.1.1.�getDistance"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.2.1.1.1.�getDistance</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; Location (Component) &gt; 
+//   UTIL (Port) &gt; getDistance (operation)
+return param.fromLocation.longitude + param.toLocation.latitude;
+</pre></div></div><div class="section" title="3.1.4.2.1.2.�Port: LOC, Interface: LocationProvider"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.2.1.2.�Port: LOC, Interface: LocationProvider</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.4.2.1.2.1.�unregisterListener"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.2.1.2.1.�unregisterListener</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; Location (Component) &gt; 
+//   LOC (Port) &gt; unregisterListener (signal)
+</pre></div><div class="section" title="3.1.4.2.1.2.2.�registerListener"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.2.1.2.2.�registerListener</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; Location (Component) &gt; 
+//   LOC (Port) &gt; registerListener (signal)
+</pre></div><div class="section" title="3.1.4.2.1.2.3.�locationUpdate"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.2.1.2.3.�locationUpdate</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; Location (Component) &gt; 
+//   LOC (Port) &gt; locationUpdate (signal)
+</pre></div></div></div><div class="section" title="3.1.4.2.2.�Location Packages"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.2.2.�Location Packages</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Rendered here are the contained package diagrams.</p><div class="section" title="3.1.4.2.2.1.�Location"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.2.2.1.�Location</h6></div><div><h6 class="subtitle">Package</h6></div></div></div><div class="figure"><a id="GPSWatch_LibraryHW-Library-Location-Location-PackageDiagram-figure"></a><p class="title"><b>Figure�31.�Location Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryHW-Library-Location-Location-Package Diagram.png" width="100%" alt="Location Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�13.�Location</b></p><div class="table-contents"><table summary="Location" border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>GPS</p>
+</td><td align="left">
+<p></p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="figure"><a id="GPSWatch_LibraryHW-Library-Location-Location-GPS-ClassStateMachine-figure"></a><p class="title"><b>Figure�32.�Location GPS Class State Machine</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryHW-Library-Location-Location-GPS-Class State Machine.png" width="100%" alt="Location GPS Class State Machine" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="3.1.4.2.2.1.1.�Location Classes"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.2.2.1.1.�Location Classes</h6></div><div><h6 class="subtitle">Class Package</h6></div></div></div><div class="section" title="3.1.4.2.2.1.1.1.�Class Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.2.2.1.1.1.�Class Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Here are listings of all of the activies in the class and its state machine(s).</p><div class="section" title="3.1.4.2.2.1.1.1.1.�Class State Machine Actions"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.2.2.1.1.1.1.�Class State Machine Actions</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.4.2.2.1.1.1.1.1.�GPS State Transition:"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.2.2.1.1.1.1.1.�GPS State Transition: </h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">// the GPS is a singleton, create if it doesn''t exist
+select any gps from instances of GPS;
+if (empty gps)
+  create object instance gps of GPS;
+end if;
+
+// reset currentLocation
+gps.currentLocation.longitude = 0.0;
+gps.currentLocation.latitude  = 0.0;
+gps.currentLocation.speed     = 0.0;
+
+LOG::LogInfo(message: "Location listener registered.");
+
+create event instance timeout of GPS_A1:timeout() to GPS class;
+gps.timer = TIM::timer_start_recurring(event_inst: timeout,
+                                       microseconds: 2000000);
+</pre></div><div class="section" title="3.1.4.2.2.1.1.1.1.2.�GPS State[2]:locating"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.2.2.1.1.1.1.2.�GPS State[2]:locating</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">// prepare signal data with some dummy values that change over time
+select any gps from instances of GPS;
+gps.currentLocation.longitude =  gps.currentLocation.longitude + 2.0;
+gps.currentLocation.latitude  =  gps.currentLocation.latitude  + 3.0;
+gps.currentLocation.speed     = (gps.currentLocation.latitude - 
+                                 gps.currentLocation.longitude) / 5.0;
+
+// pass the new location to client component
+send LocationProvider::locationUpdate(location: gps.currentLocation);
+
+</pre></div><div class="section" title="3.1.4.2.2.1.1.1.1.3.�GPS State[1]:idle"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.2.2.1.1.1.1.3.�GPS State[1]:idle</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">select any gps from instances of GPS;
+res = TIM::timer_cancel(timer_inst_ref: gps.timer);
+
+LOG::LogInfo(message: "Location listener unregistered.");
+
+
+</pre></div></div></div></div></div></div></div><div class="section" title="3.1.4.3.�HeartRateMonitor"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>3.1.4.3.�HeartRateMonitor</h5></div><div><h6 class="subtitle">Component</h6></div></div></div><p>Simulates a pulse monitor hardware/firmware. This component is only behavioral and included for testing purposes.</p><div class="figure"><a id="GPSWatch_LibraryHW-Library-HeartRateMonitor-ComponentDiagram-figure"></a><p class="title"><b>Figure�33.�HeartRateMonitor Component Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryHW-Library-HeartRateMonitor-Component Diagram.png" width="100%" alt="HeartRateMonitor Component Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�14.�HeartRateMonitor Ports</b></p><div class="table-contents"><table summary="HeartRateMonitor Ports" border="1"><colgroup><col /><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Port.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Interface</p>
+</th><th align="left">
+<p>Type</p>
+</th><th align="left">
+<p>Multiplicity</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Provision.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>HR</p>
+</td><td align="left">
+<p>HeartRateProvider</p>
+</td><td align="left">
+<p>provision</p>
+</td><td align="left">
+<p>0</p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="section" title="3.1.4.3.1.�Interface Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.3.1.�Interface Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.4.3.1.1.�Port: HR, Interface: HeartRateProvider"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.3.1.1.�Port: HR, Interface: HeartRateProvider</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.4.3.1.1.1.�unregisterListener"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.3.1.1.1.�unregisterListener</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; HeartRateMonitor (Component) &gt; 
+//   HR (Port) &gt; unregisterListener (signal)
+</pre></div><div class="section" title="3.1.4.3.1.1.2.�registerListener"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.3.1.1.2.�registerListener</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; HeartRateMonitor (Component) &gt; 
+//   HR (Port) &gt; registerListener (signal)
+</pre></div><div class="section" title="3.1.4.3.1.1.3.�heartRateChanged"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.3.1.1.3.�heartRateChanged</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><pre class="programlisting">// GPSWatch_LibraryHW &gt; Library (Package) &gt; HeartRateMonitor (Component) &gt; 
+//   HR (Port) &gt; heartRateChanged (signal)
+</pre></div></div></div><div class="section" title="3.1.4.3.2.�HeartRateMonitor Packages"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.3.2.�HeartRateMonitor Packages</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Rendered here are the contained package diagrams.</p><div class="section" title="3.1.4.3.2.1.�HeartRateMonitor"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.3.2.1.�HeartRateMonitor</h6></div><div><h6 class="subtitle">Package</h6></div></div></div><div class="figure"><a id="GPSWatch_LibraryHW-Library-HeartRateMonitor-HeartRateMonitor-PackageDiagram-figure"></a><p class="title"><b>Figure�34.�HeartRateMonitor Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryHW-Library-HeartRateMonitor-HeartRateMonitor-Package Diagram.png" width="100%" alt="HeartRateMonitor Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="table"><a id=""></a><p class="title"><b>Table�15.�HeartRateMonitor</b></p><div class="table-contents"><table summary="HeartRateMonitor" border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Class.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>HeartRateMonitor</p>
+</td><td align="left">
+<p></p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p><div class="figure"><a id="GPSWatch_LibraryHW-Library-HeartRateMonitor-HeartRateMonitor-HeartRateMonitor-ClassStateMachine-figure"></a><p class="title"><b>Figure�35.�HeartRateMonitor HeartRateMonitor Class State Machine</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryHW-Library-HeartRateMonitor-HeartRateMonitor-HeartRateMonitor-Class State Machine.png" width="100%" alt="HeartRateMonitor HeartRateMonitor Class State Machine" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="3.1.4.3.2.1.1.�HeartRateMonitor Classes"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.3.2.1.1.�HeartRateMonitor Classes</h6></div><div><h6 class="subtitle">Class Package</h6></div></div></div><div class="section" title="3.1.4.3.2.1.1.1.�Class Activities"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.3.2.1.1.1.�Class Activities</h6></div><div><h6 class="subtitle"></h6></div></div></div><p>Here are listings of all of the activies in the class and its state machine(s).</p><div class="section" title="3.1.4.3.2.1.1.1.1.�Class State Machine Actions"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.3.2.1.1.1.1.�Class State Machine Actions</h6></div><div><h6 class="subtitle"></h6></div></div></div><div class="section" title="3.1.4.3.2.1.1.1.1.1.�HeartRateMonitor State Transition:"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.3.2.1.1.1.1.1.�HeartRateMonitor State Transition: </h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">select any monitor from instances of HeartRateMonitor;
+res = TIM::timer_cancel(timer_inst_ref: monitor.timer);
+</pre></div><div class="section" title="3.1.4.3.2.1.1.1.1.2.�HeartRateMonitor State Transition:"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.3.2.1.1.1.1.2.�HeartRateMonitor State Transition: </h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">
+select any monitor from instances of HeartRateMonitor;
+if (empty monitor)
+  create object instance monitor of HeartRateMonitor;
+end if;
+monitor.recentHeartRate = 50.0;
+
+LOG::LogInfo(message: "listener registered with interval: 3 sec");
+
+// start timer
+create event instance timeout of HeartRateMonitor_A3:timeout() to HeartRateMonitor class;
+monitor.timer = TIM::timer_start_recurring(event_inst: timeout, microseconds: 3000000); 
+</pre></div><div class="section" title="3.1.4.3.2.1.1.1.1.3.�HeartRateMonitor State[2]:monitoring"><div class="titlepage"><div><div><h6 class="title"><a id=""></a>3.1.4.3.2.1.1.1.1.3.�HeartRateMonitor State[2]:monitoring</h6></div><div><h6 class="subtitle"></h6></div></div></div><p></p><p></p><pre class="programlisting">select any monitor from instances of HeartRateMonitor;
+send HeartRateProvider::heartRateChanged(heartRate: monitor.recentHeartRate);
+monitor.recentHeartRate = monitor.recentHeartRate + 1.0;
+</pre></div></div></div></div></div></div></div></div><div class="section" title="3.1.5.�HeartRateMonitorInterfaces"><div class="titlepage"><div><div><h4 class="title"><a id=""></a>3.1.5.�HeartRateMonitorInterfaces</h4></div><div><h5 class="subtitle">Package</h5></div></div></div><div class="figure"><a id="GPSWatch_LibraryHW-HeartRateMonitorInterfaces-PackageDiagram-figure"></a><p class="title"><b>Figure�36.�HeartRateMonitorInterfaces Package Diagram</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/GPSWatch_LibraryHW-HeartRateMonitorInterfaces-Package Diagram.png" width="100%" alt="HeartRateMonitorInterfaces Package Diagram" /></td></tr></table></div></div></div><p><br class="figure-break" />
+</p><div class="section" title="3.1.5.1.�HeartRateProvider"><div class="titlepage"><div><div><h5 class="title"><a id=""></a>3.1.5.1.�HeartRateProvider</h5></div><div><h6 class="subtitle">Interface</h6></div></div></div><p></p><div class="table"><a id=""></a><p class="title"><b>Table�16.�HeartRateProvider Messages</b></p><div class="table-contents"><table summary="HeartRateProvider Messages" border="1"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/Message.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</th><th align="left">
+<p>Name</p>
+</th><th align="left">
+<p>Direction</p>
+</th><th align="left">
+<p>Description</p>
+</th></tr></thead><tbody><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/SendSignal.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>unregisterListener</p>
+</td><td align="left">
+<p>Client to Server (Requirer to Provider)</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/SendSignal.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>registerListener</p>
+</td><td align="left">
+<p>Client to Server (Requirer to Provider)</p>
+</td><td align="left">
+<p></p>
+</td></tr><tr><td align="left">
+<div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="100%"><tr><td><img src="images/SendSignal.gif" width="100%" /></td></tr></table></div><p>
+</p>
+</td><td align="left">
+<p>heartRateChanged</p>
+</td><td align="left">
+<p>Server to Client (Provider to Requirer)</p>
+</td><td align="left">
+<p></p>
+</td></tr></tbody></table></div></div><p><br class="table-break" />
+</p></div></div></div></div></div></body></html>

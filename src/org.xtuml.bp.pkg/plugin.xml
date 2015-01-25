@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="org.xtuml.bp.pkg"
+   name="%pluginName"
+   version="4.2.0"
+   provider-name="%providerName"
+   class="org.xtuml.bp.pkg.Unreferenced">
+
+   <runtime>
+      <library name="pkg.jar"/>
+   </runtime>
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+   </requires>
+
+   <extension id="BridgePoint" point="org.eclipse.core.runtime.products">
+      <product application="org.eclipse.ui.ide.workbench"
+         name="%productName" description="%productBlurb">
+          <property name="windowImages" value="icons/green-bp.gif,icons/green-bp-dbl.gif"/>
+          <property name="aboutImage" value="icons/bpAbout-sml.gif"/>
+          <property name="aboutText" value="%productBlurb"/>
+          <property name="appName" value="BridgePoint"/>
+          <property name="preferenceCustomization" value="plugin_customization.ini"/>
+          <property name="startupForegroundColor" value="C8D5EA"/>
+          <property name="startupMessageRect" value="7,345,500,20"/>
+          <property name="startupProgressRect" value="0,365,510,15"/>
+      </product>
+   </extension>
+
+</plugin>

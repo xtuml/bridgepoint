@@ -1,0 +1,1016 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("dca77339-6b78-446e-93bc-99d33a2b9a61",
+	'Signal Invocation',
+	627,
+	'ACT_SGN',
+	'',
+	"b1a6258a-4548-4a81-bc3c-a6bab0f22f55");
+INSERT INTO O_TFR
+	VALUES ("a8cb64cd-c2af-4ce9-99e7-a47156090f21",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Signal Invocation.dispose()
+select one reqSig related by self->SPR_RS[R660];
+if not_empty reqSig
+  unrelate self from reqSig across R660;
+end if;
+select one proSig related by self->SPR_PS[R663];
+if(not_empty proSig)
+  unrelate self from proSig across R663;
+end if;
+select many parm_set related by self->V_PAR[R662];
+for each parm in parm_set 
+  unrelate self from parm across R662;
+  parm.dispose();
+end for;
+select one targetVal related by self->V_VAL[R630];
+if not_empty targetVal
+  unrelate self from targetVal across R630;
+  targetVal.dispose();
+end if;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("c555b8e1-c2a0-4f2d-8bda-c576912a34df",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61",
+	'execute',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'//Invocation:Signal Invocation.execute()
+// Execute the Signal
+select one body related by self ->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601];  
+select any localEngine from instances of I_EXE where
+                           selected.Execution_Engine_ID == GD::NULL_UNIQUE_ID();
+select any localStackFrame from instances of I_STF where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+if not_empty localStackFrame
+  select one localStack related by localStackFrame->I_STACK[R2929];
+  if not_empty localStack
+    select one localEngine related by localStack->I_EXE[R2930];
+  end if;
+end if;
+
+isRequired = false;
+
+select one requiredSignal related by self->SPR_RS[R660];
+select one providedSignal related by self->SPR_PS[R663];
+if not_empty requiredSignal
+  isRequired = true;
+end if;
+
+select any targetEngine from instances of I_EXE where
+                           selected.Execution_Engine_ID == GD::NULL_UNIQUE_ID();
+select any specifiedEngine from instances of I_EXE where
+                           selected.Execution_Engine_ID == GD::NULL_UNIQUE_ID();
+select one targetValue related by self->V_VAL[R630];
+if not_empty targetValue
+  targetRuntimeValueId = targetValue.getRuntimeValue(stack_frame_id:
+                                                          param.stack_frame_id);
+  select any rv from instances of RV_RVL where
+                               selected.RuntimeValue_ID == targetRuntimeValueId;
+  select one componentRef related by rv->RV_SMV[R3300]->RV_CRV[R3308];
+  if not_empty componentRef
+    select one specifiedEngine related by componentRef->I_EXE[R3309];
+  else
+    // TODO Log error the parser shouldn''t let this happen
+  end if;
+end if;
+// If an engine is specified, we check for it while resolving the target engine
+// The actual target engine may not be the specified engine if, for example
+// the specified engine delegates to a contained component.
+engineIsResolvable = empty specifiedEngine;
+select any interfaceReference from instances of C_IR where
+                                            selected.Id == GD::NULL_UNIQUE_ID();
+select any channel from instances of I_RCH where
+                                    selected.Channel_Id == GD::NULL_UNIQUE_ID();
+if isRequired
+  select one interfaceReference related by requiredSignal->
+                                        SPR_REP[R4502]->C_R[R4500]->C_IR[R4009];
+  select many satisfactions related by interfaceReference->
+                                                        C_R[R4009]->C_SF[R4002];
+  select many channels related by satisfactions->I_RCH[R2969];
+  for each channel in channels
+    select one reqEngine related by channel->
+                                        I_EXE[R2968.''is interface requirer of''];
+    if reqEngine == localEngine
+      select one nextChannel related by channel->I_RCH[R2973.''requirer''];
+      while not_empty nextChannel
+        channel = nextChannel;
+        if not engineIsResolvable
+          select one candidateEngine related by channel->
+                                        I_EXE[R2968.''is interface provider to''];
+          if candidateEngine == specifiedEngine
+            engineIsResolvable = true;
+          end if;
+        end if;                                
+        select one nextChannel related by channel->I_RCH[R2973.''requirer''];
+      end while;
+      select one targetEngine related by channel->
+                                        I_EXE[R2968.''is interface provider to''];
+      if not engineIsResolvable
+        if targetEngine == specifiedEngine
+          engineIsResolvable = true;
+        end if;
+      end if;
+      if not_empty targetEngine and engineIsResolvable
+        break;
+      end if;
+    end if;
+  end for;
+  if empty targetEngine or not engineIsResolvable
+    select one delegation related by interfaceReference->C_DG[R4014];
+    if not_empty delegation
+      select many channels related by delegation->I_RCH[R2972];
+      for each channel in channels
+        select one reqEngine related by channel->
+                                        I_EXE[R2968.''is interface provider to''];
+        if reqEngine == localEngine
+          select one nextChannel related by channel->I_RCH[R2973.''requirer''];
+          while not_empty nextChannel
+            channel = nextChannel;
+            if not engineIsResolvable
+              select one candidateEngine related by channel->
+                                        I_EXE[R2968.''is interface requirer of''];
+              if candidateEngine == specifiedEngine
+                engineIsResolvable = true;
+              end if;
+            end if;                                
+            select one nextChannel related by channel->I_RCH[R2973.''requirer''];
+          end while;
+          select one targetEngine related by channel->
+                                        I_EXE[R2968.''is interface requirer of''];
+          if not engineIsResolvable
+            if targetEngine == specifiedEngine
+              engineIsResolvable = true;
+            end if;
+          end if;
+          if not_empty targetEngine and engineIsResolvable
+            break;
+          end if;
+        end if;
+      end for;
+    end if;
+    if empty targetEngine or not engineIsResolvable
+      select many channels related by interfaceReference->
+                                       CL_IIR[R4701]->C_DG[R4704]->I_RCH[R2972];
+      for each channel in channels
+        select one reqEngine related by channel->
+                                        I_EXE[R2968.''is interface requirer of''];
+        if reqEngine == localEngine
+          select one nextChannel related by channel->I_RCH[R2973.''requirer''];
+          while not_empty nextChannel
+            channel = nextChannel;
+            if not engineIsResolvable 
+              select one candidateEngine related by channel->
+                                        I_EXE[R2968.''is interface provider to''];
+              if candidateEngine == specifiedEngine
+                engineIsResolvable = true;
+              end if;
+            end if;                                
+            select one nextChannel related by channel->I_RCH[R2973.''requirer''];
+          end while;
+          select one targetEngine related by channel->
+                                        I_EXE[R2968.''is interface provider to''];
+          if not engineIsResolvable
+            if targetEngine == specifiedEngine
+              engineIsResolvable = true;
+            end if;
+          end if;
+          if not_empty targetEngine and engineIsResolvable
+            break;
+          end if;
+        end if;
+      end for;
+    end if;
+  end if;
+else // is provided
+  select one interfaceReference related by providedSignal->
+                                        SPR_PEP[R4503]->C_P[R4501]->C_IR[R4009];
+  select many satisfactions related by interfaceReference->
+                                                        C_P[R4009]->C_SF[R4002];
+  select many channels related by satisfactions->I_RCH[R2969];
+  for each channel in channels
+    select one provEngine related by channel->
+                                        I_EXE[R2968.''is interface provider to''];
+    if provEngine == localEngine
+      select one nextChannel related by channel->I_RCH[R2973.''provider''];
+      while not_empty nextChannel
+        channel = nextChannel;
+        if not engineIsResolvable
+          select one candidateEngine related by channel->
+                                        I_EXE[R2968.''is interface requirer of''];
+          if candidateEngine == specifiedEngine
+            engineIsResolvable = true;
+          end if;
+        end if;                                
+        select one nextChannel related by channel->I_RCH[R2973.''provider''];
+      end while;
+      select one targetEngine related by channel->
+                                        I_EXE[R2968.''is interface requirer of''];
+      if not engineIsResolvable
+        if targetEngine == specifiedEngine
+          engineIsResolvable = true;
+        end if;
+      end if;
+      if not_empty targetEngine and engineIsResolvable
+        break;
+      end if;
+    end if;
+  end for;
+  if empty targetEngine or not engineIsResolvable
+    select one delegation related by interfaceReference->C_DG[R4014];
+    if not_empty delegation
+      select many channels related by delegation->I_RCH[R2972];
+      for each channel in channels
+        select one reqEngine related by channel->
+                                        I_EXE[R2968.''is interface requirer of''];
+        if reqEngine == localEngine
+          select one nextChannel related by channel->I_RCH[R2973.''provider''];
+          while not_empty nextChannel
+            channel = nextChannel;
+            if not engineIsResolvable
+              select one candidateEngine related by channel->
+                                        I_EXE[R2968.''is interface provider to''];
+              if candidateEngine == specifiedEngine
+                engineIsResolvable = true;
+              end if;
+            end if;                                
+            select one nextChannel related by channel->I_RCH[R2973.''provider''];
+          end while;
+          select one targetEngine related by channel->
+                                        I_EXE[R2968.''is interface provider to''];
+          if not engineIsResolvable
+            if targetEngine == specifiedEngine
+              engineIsResolvable = true;
+            end if;
+          end if;
+          if not_empty targetEngine and engineIsResolvable
+            break;
+          end if;
+        end if;
+      end for;
+    end if;
+    if empty targetEngine or not engineIsResolvable
+      select many channels related by interfaceReference->
+                                       CL_IIR[R4701]->C_DG[R4704]->I_RCH[R2972];
+      for each channel in channels
+        select one reqEngine related by channel->
+                                        I_EXE[R2968.''is interface provider to''];
+        if reqEngine == localEngine
+          select one nextChannel related by channel->I_RCH[R2973.''provider''];
+          while not_empty nextChannel
+            channel = nextChannel;
+            if not engineIsResolvable
+              select one candidateEngine related by channel->
+                                        I_EXE[R2968.''is interface requirer of''];
+              if candidateEngine == specifiedEngine
+                engineIsResolvable = true;
+              end if;
+            end if;                                
+            select one nextChannel related by channel->I_RCH[R2973.''provider''];
+          end while;
+          select one targetEngine related by channel->
+                                        I_EXE[R2968.''is interface requirer of''];
+          if not engineIsResolvable
+            if targetEngine == specifiedEngine
+              engineIsResolvable = true;
+            end if;
+          end if;
+          if not_empty targetEngine and engineIsResolvable
+            break;
+          end if;
+        end if;
+      end for;
+    end if;
+  end if;
+end if;
+if engineIsResolvable
+  select one body related by requiredSignal->ACT_RSB[R684]->ACT_ACT[R698];
+  if not isRequired
+    select one body related by providedSignal->ACT_PSB[R686]->ACT_ACT[R698];
+  end if;
+
+  engine = localEngine;
+  remoteExecution = false;
+  if not_empty targetEngine
+    if isRequired
+      select one interfaceRef related by channel->C_SF[R2969]->
+                                                        C_P[R4002]->C_IR[R4009];
+      if empty interfaceRef
+        select one interfaceRef related by channel->C_DG[R2972]->
+                                                     CL_IIR[R4704]->C_IR[R4701];
+        if empty interfaceRef
+          select many interfaceRefs related by channel->C_DG[R2972]->C_IR[R4014];
+          if cardinality interfaceRefs == 1
+            select any interfaceRef related by channel->C_DG[R2972]->C_IR[R4014];
+          else
+            pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Internal error in Signal Invocation.execute: " +
+                                              "Ambiguous interface reference.",path:pathMsg);
+          end if;
+        end if;
+      end if;
+      select any providedSignal related by interfaceRef->C_P[R4009]
+                                                 ->SPR_PEP[R4501]->SPR_PS[R4503]
+                                   where (selected.Name == requiredSignal.Name);
+      select one body related by providedSignal->ACT_PSB[R686]->ACT_ACT[R698];
+      select one signalEvt related by providedSignal->SM_SGEVT[R528];
+    else  //is provided
+      select one interfaceRef related by channel->C_SF[R2969]->C_R[R4002]
+                                                                  ->C_IR[R4009];
+      if empty interfaceRef
+        select one interfaceRef related by channel->C_DG[R2972]->
+                                                     CL_IIR[R4704]->C_IR[R4701];
+        if empty interfaceRef
+          select many interfaceRefs related by channel->C_DG[R2972]->C_IR[R4014];
+          if cardinality interfaceRefs == 1
+            select any interfaceRef related by channel->C_DG[R2972]->C_IR[R4014];
+          else
+            pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Internal error in Signal Invocation.execute: " +
+                                              "Ambiguous interface reference.",path:pathMsg);
+          end if;
+        end if;
+      end if;
+      select any requiredSignal related by interfaceRef->C_R[R4009]
+                                                 ->SPR_REP[R4500]->SPR_RS[R4502]
+                                   where (selected.Name == providedSignal.Name);
+      select one body related by requiredSignal->ACT_RSB[R684]->ACT_ACT[R698];
+      select one signalEvt related by requiredSignal->SM_SGEVT[R529];
+    end if;
+    engine = targetEngine;
+    remoteExecution = true;
+  end if;
+  // Setup the parameter values and create the new stack frame
+  channel_id = GD::NULL_UNIQUE_ID();
+  if not_empty channel
+    channel_id = channel.Channel_Id;
+  end if;
+  discard = self.setupParameterValues(event_inst_id: GD::NULL_UNIQUE_ID(),
+                                      stack_frame_id: param.stack_frame_id,
+                                            ee_id: engine.Execution_Engine_ID,
+                                              executeRemotely: remoteExecution,
+                                                         channel_id:channel_id);
+else  // specified engine was not resolved
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error sending message, specified component reference " +
+                                   " wiring not found. Message not delivered.",path:pathMsg);
+end if;',
+	1,
+	'',
+	"a8cb64cd-c2af-4ce9-99e7-a47156090f21");
+INSERT INTO O_TPARM
+	VALUES ("1eb1849a-8da4-4037-a884-768d89e19b37",
+	"c555b8e1-c2a0-4f2d-8bda-c576912a34df",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("21343775-ea5e-4a3c-b333-1c4bae9554ac",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61",
+	'setupParameterValues',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// Invocation:Signal Invocation.setupParameterValues
+select one body related by self ->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601];  
+select one ep related by self->SPR_RS[R660]->SPR_REP[R4502]->C_EP[R4500];
+if(empty ep)
+  select one ep related by self->SPR_PS[R663]->SPR_PEP[R4503]->C_EP[R4501];
+end if;
+select many args related by self->V_PAR[R662];
+// Grab the stack frame(should be the new top stack frame)
+select any stack_frame from instances of I_STF where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+if empty stack_frame
+  //Invalid stack frame ID!
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Signal Invocation.setupParameterValues: " +
+                                       "Invalid stack frame id used. Halting.",path:pathMsg);
+  select any engine from instances of I_EXE;
+  engine.stop();
+  return false;
+end if;
+// Grab the pending event that will send
+// the signal
+select any pendingEvt from instances of I_EVI
+                               where (selected.Event_ID == param.event_inst_id);
+select any interfaceRef from instances of C_IR
+                                    where (selected.Id == GD::NULL_UNIQUE_ID());
+signalName = "";
+isRequired = true;
+select one body related by self->SPR_RS[R660]->ACT_RSB[R684]->ACT_ACT[R698];
+if(empty body)
+  isRequired = false;
+  select one body related by self->SPR_PS[R663]->ACT_PSB[R686]->ACT_ACT[R698];
+  select one interfaceRef related by self->SPR_PS[R663]->SPR_PEP[R4503]
+                                                      ->C_P[R4501]->C_IR[R4009];
+  select one providedSig related by self->SPR_PS[R663];
+  signalName = providedSig.Name;
+else
+  select one interfaceRef related by self->SPR_RS[R660]->SPR_REP[R4502]
+                                                      ->C_R[R4500]->C_IR[R4009];
+  select one requiredSig related by self->SPR_RS[R660];
+  signalName = requiredSig.Name;
+end if;
+select any engine from instances of I_EXE
+                            where (selected.Execution_Engine_ID == param.ee_id);
+if param.executeRemotely
+  select any channel related by engine->
+                           I_RCH[R2968.''is interface provider to''] where
+                                        selected.Channel_Id == param.channel_id;
+  if empty channel
+    select any channel related by engine->
+                           I_RCH[R2968.''is interface requirer of''] where
+                                        selected.Channel_Id == param.channel_id;
+  end if;
+  if not isRequired
+    select one interfaceRef related by channel->
+                                           C_SF[R2969]->C_R[R4002]->C_IR[R4009];
+    if empty interfaceRef
+      select one delegation related by channel->C_DG[R2972];
+      select one interfaceRef related by delegation->CL_IIR[R4704]->C_IR[R4701];
+      if empty interfaceRef
+        select many interfaceRefs related by delegation->C_IR[R4014];
+        if cardinality interfaceRefs == 1
+          select any interfaceRef related by delegation->C_IR[R4014];
+        elif cardinality interfaceRefs == 0
+          pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Internal error in Signal Invocation." +
+                        "setupParameterValues: No interface reference found.",path:pathMsg);
+        else
+          pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Internal error in Signal Invocation." +
+                        "setupParameterValues: Ambiguous interface reference.",path:pathMsg);
+        end if;
+      end if;
+    end if;
+    select any requiredSignal related by interfaceRef->C_R[R4009]->
+                SPR_REP[R4500]->SPR_RS[R4502] where selected.Name == signalName;
+    select one body related by requiredSignal->ACT_RSB[R684]->ACT_ACT[R698];
+  else // is required
+    select one interfaceRef related by channel->
+                                           C_SF[R2969]->C_P[R4002]->C_IR[R4009];
+    if empty interfaceRef
+      select one delegation related by channel->C_DG[R2972];
+      select one interfaceRef related by delegation->CL_IIR[R4704]->C_IR[R4701];
+      if empty interfaceRef
+        select many interfaceRefs related by delegation->C_IR[R4014];
+        if cardinality interfaceRefs == 1
+          select any interfaceRef related by delegation->C_IR[R4014];
+        elif cardinality interfaceRefs == 0
+          pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Internal error in Signal Invocation." +
+                        "setupParameterValues: No interface reference found.",path:pathMsg);
+        else
+          pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Internal error in Signal Invocation." +
+                        "setupParameterValues: Ambiguous interface reference.",path:pathMsg);
+        end if;
+      end if;
+    end if;
+    select any providedSignal related by interfaceRef->C_P[R4009]->
+                SPR_PEP[R4501]->SPR_PS[R4503] where selected.Name == signalName;
+    select one body related by providedSignal->ACT_PSB[R686]->ACT_ACT[R698];
+  end if;
+end if;
+
+if(not_empty pendingEvt)
+  for each arg in args
+    select any prop_param related by ep->C_PP[R4006]
+                                              where (selected.Name == arg.Name);
+    if(empty prop_param)
+      pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Interface Signal Invocation.setupParameterValues: " +
+                            "did not find a corresponding interface parameter",path:pathMsg);
+    else
+      create object instance propVal of I_DIV;
+      relate propVal to pendingEvt across R2933;
+      relate propVal to prop_param across R2956;
+      select one rvalue related by arg->V_VAL[R800];
+      rvalue.computeValue(stack_frame_id: param.stack_frame_id);
+      select any result related by rvalue->I_VSF[R2978]
+                        where (selected.Stack_Frame_ID == param.stack_frame_id);
+      select one rtVal related by result->RV_RVL[R3305];
+      if(empty rtVal)
+        // result requires computation. Return and let
+        // the new stack frame execute
+        return false;
+      else
+        stack_frame.popValue(value_id:rvalue.Value_ID);
+        create object instance propRtVal of RV_RVL;
+        relate propVal to propRtVal across R3303;
+        select one dt related by prop_param->S_DT[R4007];
+        relate propRtVal to dt across R3307;
+        propRtVal.copyValue(from:rtVal.RuntimeValue_ID);
+      end if;      
+    end if;
+  end for;
+else
+  select one outer_block related by body->ACT_BLK[R666];
+  if not_empty outer_block
+    for each arg in args
+      // Seach for a property parameter with the same name as the actual parameter
+      select any prop_param related by ep->C_PP[R4006] where
+                                                      selected.Name == arg.Name;
+      if (empty prop_param)
+        pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Interface Signal Invocation.setupParameterValues: " +
+                             "did not find a corresponding interface parameter",path:pathMsg);
+        select any engine from instances of I_EXE;
+        engine.stop();
+        return false;
+      else    
+        // We have found the matching property parameter and actual parameter
+        // Now set the value of the parameter value related to the property
+        // parameter to the actual parameter''s value
+        if (prop_param.By_Ref == 0)  // by value
+          select one act_val related by arg->V_VAL[R800];
+          act_val.computeValue(stack_frame_id: stack_frame.Stack_Frame_ID);
+          select any result related by stack_frame->I_VSF[R2951] where
+                                          selected.Value_ID == act_val.Value_ID;
+          select one rtVal related by result->RV_RVL[R3305];
+          if (empty rtVal)
+            // result requires computation.
+            return false;
+          end if;
+        end if;
+      end if;
+    end for;
+    // If we get here, all computation of arguments was completed,
+    //  prepare for execution of the operation, all computation
+    // will be on the "queue''s" stack frame
+    select one stack related by engine->I_STACK[R2930];
+    // create a new stack frame on the interrupt queue
+    new_id = body.createStackFrame(stack_id:stack.Stack_ID,
+      invoking_stack_frame_or_component_id: param.stack_frame_id, enqueue:true);
+ 
+    for each arg in args
+      select any prop_param related by ep->C_PP[R4006] where
+                                                      selected.Name == arg.Name;
+      // Create a new local value in the new stack frame for each argument
+      loc_id = outer_block.newLocalValue(stack_frame_id:new_id);
+    
+      // Find the new local value in the new stack frame
+      select any local related by outer_block->I_BSF[R2923]->
+                                 L_LCL[R3000] where selected.Local_ID == loc_id;
+      select one local_val related by local->L_LVL[R3001];
+      select one act_val related by arg->V_VAL[R800];
+      if not_empty prop_param and prop_param.By_Ref == 0
+        select any result related by stack_frame->I_VSF[R2951] where
+                                          selected.Value_ID == act_val.Value_ID;
+        select one rtVal related by result->RV_RVL[R3305];
+        create object instance lrtVal of RV_RVL;
+        relate lrtVal to local across R3306;
+        select one dt related by prop_param->S_DT[R4007];
+        relate lrtVal to dt across R3307;
+        lrtVal.copyValue(from:rtVal.RuntimeValue_ID);
+      else  // assuming by ref
+        relate local_val to act_val across R3010;
+      end if;
+      // Relate the new local value to the property parameter so that
+      // it can be found when the parameter value is referenced. 
+      relate prop_param to local_val across R3017;
+      stack_frame.popValue(value_id:arg.Value_ID);
+    end for;
+    body.startStackFrameForMessage(stackframe_id:new_id);
+  else
+    pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Interface Signal Invocation.setupParameterValues: " +
+                                        "did not find an outer function block",path:pathMsg);
+  end if;
+end if;
+return true;',
+	1,
+	'',
+	"c555b8e1-c2a0-4f2d-8bda-c576912a34df");
+INSERT INTO O_TPARM
+	VALUES ("ee078ca7-f16e-4b0c-bcf9-5698c5b8060a",
+	"21343775-ea5e-4a3c-b333-1c4bae9554ac",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"4c6d58cc-fb2e-4d83-801b-8d06b922a92e",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("95013b6a-7ef2-494c-9dd9-37f4c391a6c7",
+	"21343775-ea5e-4a3c-b333-1c4bae9554ac",
+	'ee_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("4c6d58cc-fb2e-4d83-801b-8d06b922a92e",
+	"21343775-ea5e-4a3c-b333-1c4bae9554ac",
+	'event_inst_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"95013b6a-7ef2-494c-9dd9-37f4c391a6c7",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("f52901d7-c077-46bd-a77d-e67a5df00f52",
+	"21343775-ea5e-4a3c-b333-1c4bae9554ac",
+	'executeRemotely',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"ee078ca7-f16e-4b0c-bcf9-5698c5b8060a",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("4a6c55eb-3d7e-4ead-aae7-8a53a9812e9c",
+	"21343775-ea5e-4a3c-b333-1c4bae9554ac",
+	'channel_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"f52901d7-c077-46bd-a77d-e67a5df00f52",
+	'');
+INSERT INTO O_REF
+	VALUES ("dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"171ca78d-4028-4266-bd22-be3153909d4b",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	"af3bf04c-3286-4759-90e3-a0185bedeae9",
+	"528e0893-338d-46b4-8f17-e58cb7c8f32b",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Statement',
+	'Statement_ID',
+	'R603');
+INSERT INTO R_RGO_PROXY
+	VALUES ("dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"171ca78d-4028-4266-bd22-be3153909d4b",
+	'../../Body/Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	'../../Body/Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("af3bf04c-3286-4759-90e3-a0185bedeae9",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	'Statement_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'../../Body/Statement/Statement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("af3bf04c-3286-4759-90e3-a0185bedeae9",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"00000000-0000-0000-0000-000000000000",
+	'Statement_ID',
+	'',
+	'',
+	'Statement_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("4a43ef48-144f-436a-8d6a-ce5ea006cc0d",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61");
+INSERT INTO O_BATTR
+	VALUES ("4a43ef48-144f-436a-8d6a-ce5ea006cc0d",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61");
+INSERT INTO O_ATTR
+	VALUES ("4a43ef48-144f-436a-8d6a-ce5ea006cc0d",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"af3bf04c-3286-4759-90e3-a0185bedeae9",
+	'sigNameLineNumber',
+	'',
+	'',
+	'sigNameLineNumber',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("c29edc31-1628-43ea-b514-2c6bd62a49b1",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61");
+INSERT INTO O_BATTR
+	VALUES ("c29edc31-1628-43ea-b514-2c6bd62a49b1",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61");
+INSERT INTO O_ATTR
+	VALUES ("c29edc31-1628-43ea-b514-2c6bd62a49b1",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"4a43ef48-144f-436a-8d6a-ce5ea006cc0d",
+	'sigNameColumn',
+	'',
+	'',
+	'sigNameColumn',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("2bc94f5a-03dc-49d8-ba2e-99acb6669080",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61");
+INSERT INTO O_BATTR
+	VALUES ("2bc94f5a-03dc-49d8-ba2e-99acb6669080",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61");
+INSERT INTO O_ATTR
+	VALUES ("2bc94f5a-03dc-49d8-ba2e-99acb6669080",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"c29edc31-1628-43ea-b514-2c6bd62a49b1",
+	'ownerNameLineNumber',
+	'',
+	'',
+	'ownerNameLineNumber',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("45014a6b-5121-468d-b5d6-cf6e4e58684d",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61");
+INSERT INTO O_BATTR
+	VALUES ("45014a6b-5121-468d-b5d6-cf6e4e58684d",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61");
+INSERT INTO O_ATTR
+	VALUES ("45014a6b-5121-468d-b5d6-cf6e4e58684d",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"2bc94f5a-03dc-49d8-ba2e-99acb6669080",
+	'ownerNameColumn',
+	'',
+	'',
+	'ownerNameColumn',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"e85528c7-bdd7-46da-8137-12e7490df0d0",
+	0,
+	"4df93c11-7ebe-45c7-a93f-38ed56e7bf48",
+	"163fc901-276a-44ce-88cf-5138bca3bf0e",
+	"7d5f8f5c-1cc4-40bb-bf99-3a47c7d937be",
+	"6e5f76a2-f0ea-483a-a620-b371c5ebf0e7",
+	"0918002b-0c59-400e-8ac2-87200685a30f",
+	"88fd3368-e818-43a3-8c04-213d74a0759c",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Provided Signal',
+	'Id',
+	'R663');
+INSERT INTO R_RGO_PROXY
+	VALUES ("dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"163fc901-276a-44ce-88cf-5138bca3bf0e",
+	"7d5f8f5c-1cc4-40bb-bf99-3a47c7d937be",
+	'../Invocation.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4df93c11-7ebe-45c7-a93f-38ed56e7bf48",
+	"e85528c7-bdd7-46da-8137-12e7490df0d0",
+	0,
+	"163fc901-276a-44ce-88cf-5138bca3bf0e",
+	"6e5f76a2-f0ea-483a-a620-b371c5ebf0e7",
+	'../Invocation.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("0918002b-0c59-400e-8ac2-87200685a30f",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"67a67b41-0ad5-4731-9748-c98aad60eb92",
+	"6e1f9b12-bc84-48ed-af2d-02831c049629",
+	1,
+	'Id');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("67a67b41-0ad5-4731-9748-c98aad60eb92",
+	"6e1f9b12-bc84-48ed-af2d-02831c049629",
+	'../../Component/Signal Provisions and Requirements/Provided Executable Property/Provided Executable Property.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("0918002b-0c59-400e-8ac2-87200685a30f",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"45014a6b-5121-468d-b5d6-cf6e4e58684d",
+	'ProvidedSig_Id',
+	'',
+	'ProvidedSig_',
+	'Id',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	0,
+	"4bea6f7d-9c73-44d4-a580-27f9e703b412",
+	"c6e3c5c7-cb46-440d-b805-420d7be05a54",
+	"b5bfb6fe-15ba-4081-8e81-bc0ddf795f8b",
+	"0960b14b-8acc-456b-88d4-27696e6800eb",
+	"5393e75c-e609-4cca-a40a-7744adb10bc4",
+	"b68eeb0b-0e6f-4f55-9d2b-d03e0c463b5b",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Required Signal',
+	'Id',
+	'R660');
+INSERT INTO R_RGO_PROXY
+	VALUES ("dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"c6e3c5c7-cb46-440d-b805-420d7be05a54",
+	"b5bfb6fe-15ba-4081-8e81-bc0ddf795f8b",
+	'../Invocation.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4bea6f7d-9c73-44d4-a580-27f9e703b412",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	0,
+	"c6e3c5c7-cb46-440d-b805-420d7be05a54",
+	"0960b14b-8acc-456b-88d4-27696e6800eb",
+	'../Invocation.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("5393e75c-e609-4cca-a40a-7744adb10bc4",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"f3c5cf7d-bc51-475b-8b99-1fdd96a3f7fb",
+	"176a81f6-744e-4552-b596-de734b09da8a",
+	1,
+	'Id');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("f3c5cf7d-bc51-475b-8b99-1fdd96a3f7fb",
+	"176a81f6-744e-4552-b596-de734b09da8a",
+	'../../Component/Signal Provisions and Requirements/Required Executable Property/Required Executable Property.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("5393e75c-e609-4cca-a40a-7744adb10bc4",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"0918002b-0c59-400e-8ac2-87200685a30f",
+	'RequiredSig_Id',
+	'',
+	'RequiredSig_',
+	'Id',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"2eed9fe7-12aa-4e54-b9ea-82fc6ff8a745",
+	"95234936-603d-41c2-8d9e-0bd8d61bbb7d",
+	"3f40d696-da4b-4be9-8545-8852daeb659b",
+	"c6cca4b6-ed65-4773-88d0-67de5cfa3a44",
+	"3dbbdacd-0fb9-449f-bab7-516fa3078353",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Value',
+	'Value_ID',
+	'R630');
+INSERT INTO R_RGO_PROXY
+	VALUES ("dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"2eed9fe7-12aa-4e54-b9ea-82fc6ff8a745",
+	"95234936-603d-41c2-8d9e-0bd8d61bbb7d",
+	'../Invocation.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"2eed9fe7-12aa-4e54-b9ea-82fc6ff8a745",
+	"3f40d696-da4b-4be9-8545-8852daeb659b",
+	'../Invocation.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("c6cca4b6-ed65-4773-88d0-67de5cfa3a44",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	1,
+	'Value_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'../../Value/Value/Value.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("c6cca4b6-ed65-4773-88d0-67de5cfa3a44",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61",
+	"5393e75c-e609-4cca-a40a-7744adb10bc4",
+	'Value_ID',
+	'',
+	'',
+	'Value_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"dca77339-6b78-446e-93bc-99d33a2b9a61");
+INSERT INTO O_OIDA
+	VALUES ("af3bf04c-3286-4759-90e3-a0185bedeae9",
+	"dca77339-6b78-446e-93bc-99d33a2b9a61",
+	0,
+	'Statement_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"dca77339-6b78-446e-93bc-99d33a2b9a61");
+INSERT INTO O_ID
+	VALUES (2,
+	"dca77339-6b78-446e-93bc-99d33a2b9a61");
+INSERT INTO S_SS_PROXY
+	VALUES ("b1a6258a-4548-4a81-bc3c-a6bab0f22f55",
+	'Invocation',
+	'This subsystem captures the concepts of call and return. It covers
+calls to operations, bridges and functions and includes the return
+statement.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'ACT',
+	600,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-00000060000c",
+	'../Invocation.xtuml');

@@ -1,0 +1,141 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("60d698e3-8bff-44a6-9bff-2bb19db2d014",
+	'CoreSemanticModelBridge',
+	13,
+	'DIM_CSMB',
+	'TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	"490299c9-e7aa-468e-82d7-0731c80e4069");
+INSERT INTO O_REF
+	VALUES ("60d698e3-8bff-44a6-9bff-2bb19db2d014",
+	"e746057a-1f67-4aee-ab29-2dc4e64c4b31",
+	0,
+	"47e1711d-5fcf-4606-972e-ba7c6b7a7fc1",
+	"001c1203-db6d-4c45-9b87-9782cfaeb76b",
+	"4b064f81-34bf-42b4-8dd8-b7d5719ab432",
+	"0f788327-bca0-4f86-adb2-cafa2122c28f",
+	"039e24d8-4248-42d9-b255-d0577e1d73cf",
+	"a82f5c4e-819b-463c-8169-5b34b6e1f108",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'SemanticModelBridge',
+	'Smb_ID',
+	'R313');
+INSERT INTO R_RGO_PROXY
+	VALUES ("60d698e3-8bff-44a6-9bff-2bb19db2d014",
+	"001c1203-db6d-4c45-9b87-9782cfaeb76b",
+	"4b064f81-34bf-42b4-8dd8-b7d5719ab432",
+	'../UML 2.0 Diagram Interchange.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("47e1711d-5fcf-4606-972e-ba7c6b7a7fc1",
+	"e746057a-1f67-4aee-ab29-2dc4e64c4b31",
+	0,
+	"001c1203-db6d-4c45-9b87-9782cfaeb76b",
+	"0f788327-bca0-4f86-adb2-cafa2122c28f",
+	'../UML 2.0 Diagram Interchange.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("039e24d8-4248-42d9-b255-d0577e1d73cf",
+	"60d698e3-8bff-44a6-9bff-2bb19db2d014",
+	"47e1711d-5fcf-4606-972e-ba7c6b7a7fc1",
+	"e746057a-1f67-4aee-ab29-2dc4e64c4b31",
+	1,
+	'Smb_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("47e1711d-5fcf-4606-972e-ba7c6b7a7fc1",
+	"e746057a-1f67-4aee-ab29-2dc4e64c4b31",
+	'../SemanticModelBridge/SemanticModelBridge.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("039e24d8-4248-42d9-b255-d0577e1d73cf",
+	"60d698e3-8bff-44a6-9bff-2bb19db2d014",
+	"00000000-0000-0000-0000-000000000000",
+	'Smb_ID',
+	'',
+	'',
+	'Smb_ID',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("60d698e3-8bff-44a6-9bff-2bb19db2d014",
+	"416327bc-a6f0-4f4f-bc4b-21b915f4f9ec",
+	0,
+	"3ad3afac-fd52-4599-9a94-8b7add8774c3",
+	"b9299439-7fae-4e4d-a4b7-8eb014ef3d7b",
+	"4c093904-a130-45a0-baee-a56998c5b358",
+	"c48d9362-6e42-411a-be3d-191398ed686d",
+	"1e61af3a-60e1-48ee-b89b-05e9c22405de",
+	"6f1b52f7-4a35-468f-96ad-90bc53050444",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Element',
+	'represents',
+	'R315');
+INSERT INTO R_RGO_PROXY
+	VALUES ("60d698e3-8bff-44a6-9bff-2bb19db2d014",
+	"b9299439-7fae-4e4d-a4b7-8eb014ef3d7b",
+	"4c093904-a130-45a0-baee-a56998c5b358",
+	'../UML 2.0 Diagram Interchange.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("3ad3afac-fd52-4599-9a94-8b7add8774c3",
+	"416327bc-a6f0-4f4f-bc4b-21b915f4f9ec",
+	0,
+	"b9299439-7fae-4e4d-a4b7-8eb014ef3d7b",
+	"c48d9362-6e42-411a-be3d-191398ed686d",
+	'../UML 2.0 Diagram Interchange.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("1e61af3a-60e1-48ee-b89b-05e9c22405de",
+	"60d698e3-8bff-44a6-9bff-2bb19db2d014",
+	"3ad3afac-fd52-4599-9a94-8b7add8774c3",
+	"416327bc-a6f0-4f4f-bc4b-21b915f4f9ec",
+	1,
+	'represents');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("3ad3afac-fd52-4599-9a94-8b7add8774c3",
+	"416327bc-a6f0-4f4f-bc4b-21b915f4f9ec",
+	'../Element/Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("1e61af3a-60e1-48ee-b89b-05e9c22405de",
+	"60d698e3-8bff-44a6-9bff-2bb19db2d014",
+	"039e24d8-4248-42d9-b255-d0577e1d73cf",
+	'represents',
+	'Not_participating_value: null',
+	'',
+	'represents',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"60d698e3-8bff-44a6-9bff-2bb19db2d014");
+INSERT INTO O_OIDA
+	VALUES ("039e24d8-4248-42d9-b255-d0577e1d73cf",
+	"60d698e3-8bff-44a6-9bff-2bb19db2d014",
+	0,
+	'Smb_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"60d698e3-8bff-44a6-9bff-2bb19db2d014");
+INSERT INTO O_ID
+	VALUES (2,
+	"60d698e3-8bff-44a6-9bff-2bb19db2d014");
+INSERT INTO S_SS_PROXY
+	VALUES ("490299c9-e7aa-468e-82d7-0731c80e4069",
+	'UML 2.0 Diagram Interchange',
+	'Notify_Changes:true',
+	'DIM',
+	0,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000000000000",
+	'../UML 2.0 Diagram Interchange.xtuml');
