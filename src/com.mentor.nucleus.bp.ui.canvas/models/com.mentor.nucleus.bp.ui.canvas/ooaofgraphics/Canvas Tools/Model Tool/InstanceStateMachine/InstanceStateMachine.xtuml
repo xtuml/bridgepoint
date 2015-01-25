@@ -1,4 +1,4 @@
--- BP 7.1 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: InstanceStateMachine syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO SM_ISM
 	VALUES ("313780c2-d010-42d8-b211-5c868569834e",
@@ -14,23 +14,16 @@ INSERT INTO SM_EVTDI
 	"313780c2-d010-42d8-b211-5c868569834e",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"e06633a9-7a83-4b5c-a44c-35c7ff334ff6",
 	"98e14d30-704f-4d32-8814-0d05bc6747c3");
-INSERT INTO S_DT_PROXY
-	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'integer',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO SM_EVTDI
 	VALUES ("98e14d30-704f-4d32-8814-0d05bc6747c3",
 	"313780c2-d010-42d8-b211-5c868569834e",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"e06633a9-7a83-4b5c-a44c-35c7ff334ff6",
 	"00000000-0000-0000-0000-000000000000");
@@ -39,23 +32,16 @@ INSERT INTO SM_EVTDI
 	"313780c2-d010-42d8-b211-5c868569834e",
 	'retainSelection',
 	'',
-	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	"e06633a9-7a83-4b5c-a44c-35c7ff334ff6",
 	"58ce5387-2d62-4c0c-85f3-d721abe27c34");
-INSERT INTO S_DT_PROXY
-	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'boolean',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO SM_EVTDI
 	VALUES ("b0519699-4d7f-489c-a9e2-8c3c53212578",
 	"313780c2-d010-42d8-b211-5c868569834e",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"6a8de516-72df-48c2-a5f1-e965a0a4b972",
 	"f739ab7b-3717-499b-a2fa-f65ec44d23f4");
@@ -64,7 +50,7 @@ INSERT INTO SM_EVTDI
 	"313780c2-d010-42d8-b211-5c868569834e",
 	'Y',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"119b8637-5f7e-4ea8-b18f-f991c24803f1",
 	"0f5e0bc5-8cec-42d8-be40-e488aff287ba");
@@ -73,7 +59,7 @@ INSERT INTO SM_EVTDI
 	"313780c2-d010-42d8-b211-5c868569834e",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"6a8de516-72df-48c2-a5f1-e965a0a4b972",
 	"00000000-0000-0000-0000-000000000000");
@@ -82,7 +68,7 @@ INSERT INTO SM_EVTDI
 	"313780c2-d010-42d8-b211-5c868569834e",
 	'X',
 	'',
-	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	"119b8637-5f7e-4ea8-b18f-f991c24803f1",
 	"00000000-0000-0000-0000-000000000000");
@@ -1585,7 +1571,7 @@ INSERT INTO GD_GE
 	"a0f82118-fd47-47ec-8bd3-c3573a2d740b",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::CT_MTL2: Done');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::Activating::CT_MTL2: Done');
 INSERT INTO GD_CON
 	VALUES ("99b36208-ce0b-404c-ae0a-f7ca491b838f",
 	"00000000-0000-0000-0000-000000000000");
@@ -1698,7 +1684,7 @@ INSERT INTO GD_GE
 	"34faa074-5008-4fb8-8e62-81954551b50f",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::CT_MTL4: Mouse Moved');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::Active::CT_MTL4: Mouse Moved');
 INSERT INTO GD_CON
 	VALUES ("5896f982-e38e-4ee9-93cc-5c531a275427",
 	"00000000-0000-0000-0000-000000000000");
@@ -1811,7 +1797,7 @@ INSERT INTO GD_GE
 	"b5af9fa6-8646-4aa4-8042-98482c18052e",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::CT_MTL2: Done');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::Mouse Moving::CT_MTL2: Done');
 INSERT INTO GD_CON
 	VALUES ("edfabc90-bfd1-446f-94b4-a2a787da3cb6",
 	"00000000-0000-0000-0000-000000000000");
@@ -1924,7 +1910,7 @@ INSERT INTO GD_GE
 	"5f4ff655-3eef-4970-8419-a9e1c378b7ee",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::CT_MTL1: Mouse Pressed');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::Active::CT_MTL1: Mouse Pressed');
 INSERT INTO GD_CON
 	VALUES ("a496f8dd-0d55-456c-9cb2-ec69bd41c604",
 	"00000000-0000-0000-0000-000000000000");
@@ -2037,7 +2023,7 @@ INSERT INTO GD_GE
 	"3cdf761e-3289-41aa-b000-e38922b9c212",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::CT_MTL2: Done');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::Mouse Down::CT_MTL2: Done');
 INSERT INTO GD_CON
 	VALUES ("e7da97c8-adf8-42fe-8a72-6813c8c405cd",
 	"00000000-0000-0000-0000-000000000000");
@@ -2150,7 +2136,7 @@ INSERT INTO GD_GE
 	"4b4cae3b-8255-495b-89bb-66f5d58632b7",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::CT_MTL3: Mouse Released');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::Active::CT_MTL3: Mouse Released');
 INSERT INTO GD_CON
 	VALUES ("51f84e5b-4bc1-4f39-8f4d-58205879583a",
 	"00000000-0000-0000-0000-000000000000");
@@ -2263,7 +2249,7 @@ INSERT INTO GD_GE
 	"7399125c-b265-4ae2-a2c9-24bda66e0923",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::CT_MTL2: Done');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::Mouse Up::CT_MTL2: Done');
 INSERT INTO GD_CON
 	VALUES ("7c155771-2fd1-445f-91be-7ea2393757c9",
 	"00000000-0000-0000-0000-000000000000");
@@ -2376,7 +2362,7 @@ INSERT INTO GD_GE
 	"8edec397-ddb5-4797-b6d8-db0cbeb05b37",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::CT_MTL6: Deactivate');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::Active::CT_MTL6: Deactivate');
 INSERT INTO GD_CON
 	VALUES ("f27e9b53-0ccb-4d26-a043-380bc9a0481c",
 	"00000000-0000-0000-0000-000000000000");
@@ -2476,7 +2462,7 @@ INSERT INTO GD_GE
 	"34adb2e3-b14b-4198-9007-ea0375ae817e",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::CT_MTL5: Activate');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::Idle::CT_MTL5: Activate');
 INSERT INTO GD_CON
 	VALUES ("bd8968f9-d0c6-4dbb-9854-f7ce53a13810",
 	"00000000-0000-0000-0000-000000000000");
@@ -2576,7 +2562,7 @@ INSERT INTO GD_GE
 	"de61adb8-2bc5-4560-a847-63d938e90f7d",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::CT_MTL8: Activation Denied');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::Requesting Permission to Activate::CT_MTL8: Activation Denied');
 INSERT INTO GD_CON
 	VALUES ("ddbbda90-5787-4eff-90b1-a78f3c2c9918",
 	"00000000-0000-0000-0000-000000000000");
@@ -2689,7 +2675,7 @@ INSERT INTO GD_GE
 	"dad05da7-3b7d-4a5b-9030-8829ddd8d9b7",
 	42,
 	0,
-	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::CT_MTL7: Activation Permitted');
+	'com.mentor.nucleus.bp.ui.canvas::ooaofgraphics::Canvas Tools::Model Tool::Instance State Machine::Requesting Permission to Activate::CT_MTL7: Activation Permitted');
 INSERT INTO GD_CON
 	VALUES ("9c80b727-5077-4b00-83e3-b4b852488e76",
 	"00000000-0000-0000-0000-000000000000");
@@ -2804,5 +2790,5 @@ created for each canvas.
 
 ---------------------------------------------------------------------------
 Persistent:false',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
 	'../Model Tool.xtuml');

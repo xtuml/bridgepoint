@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
@@ -9,7 +9,7 @@ INSERT INTO O_OBJ
 ------------
 Persistent:false
 ',
-	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
 	VALUES ("7e4982ac-05cb-416e-9890-4635f851abde",
 	"a50fbf03-c97f-4aa0-a1b5-73685fbc5d00");
@@ -25,16 +25,9 @@ INSERT INTO O_ATTR
 	'',
 	'toolActivationPolicyID',
 	0,
-	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("1deee72a-6abc-43fc-9d24-76a182f4ff25",
 	"a50fbf03-c97f-4aa0-a1b5-73685fbc5d00");
@@ -50,16 +43,9 @@ INSERT INTO O_ATTR
 	'',
 	'current_state',
 	0,
-	"aae0ffdc-3a05-4c94-9878-331bc82097dd",
+	"ba5eda7a-def5-0000-0000-000000000006",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("aae0ffdc-3a05-4c94-9878-331bc82097dd",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'state<State_Model>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
 	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
@@ -75,7 +61,7 @@ INSERT INTO O_REF
 	'',
 	'Model Tool',
 	'Tool_ID',
-	'R109');
+	'R109.''knows as previously active tool''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
 	"e1b55ce8-7e38-4229-98c6-6d45edaa6745",
@@ -108,16 +94,9 @@ INSERT INTO O_ATTR
 	'',
 	'Tool_ID',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
 	"09423687-e999-4aba-876d-35e0d3331311",
@@ -133,7 +112,7 @@ INSERT INTO O_REF
 	'',
 	'Model',
 	'diagramId',
-	'R108');
+	'R108.''governs tool activation for''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
 	"0e432084-bfb3-42d9-b1d2-db7db29c94fd",
@@ -166,7 +145,7 @@ INSERT INTO O_ATTR
 	'',
 	'diagramId',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -183,15 +162,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"a50fbf03-c97f-4aa0-a1b5-73685fbc5d00");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("a50fbf03-c97f-4aa0-a1b5-73685fbc5d00",
+	1,
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Canvas Tools',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
   TRANSLATE_FOR_EXTERNAL_USE:FALSE
   Notify_Changes:false
 ',
-	'CT',
 	100,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000001a00034",
 	'../Canvas Tools.xtuml');

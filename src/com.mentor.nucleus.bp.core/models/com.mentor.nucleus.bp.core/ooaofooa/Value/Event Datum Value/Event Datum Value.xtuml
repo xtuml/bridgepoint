@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("55b23123-bae5-45e9-af5d-cc11e627f826",
@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	806,
 	'V_EDV',
 	'This class represents the value of an event datum.',
-	"e060f94c-3f82-463e-9d98-d20315b7c196");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("a383f6fb-bed9-4707-ad92-bd1e5d7fa531",
 	"55b23123-bae5-45e9-af5d-cc11e627f826",
 	'dispose',
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Event Datum Value.dipose()
 select many eprs related by self->V_EPR[R834];
@@ -25,13 +25,6 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("ecfcf92c-0f41-4101-8bbe-b6cb2118282f",
 	"55b23123-bae5-45e9-af5d-cc11e627f826",
@@ -61,7 +54,7 @@ return GD::string_to_instance(value:"Error");',
 	"4d25ba1e-25e5-40c3-8c28-b0d8aed88765");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -71,7 +64,7 @@ INSERT INTO O_TFR
 	"55b23123-bae5-45e9-af5d-cc11e627f826",
 	'getRuntimeValue',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// Value: Event Datum Value.getRuntimeValue()
 
@@ -110,18 +103,11 @@ INSERT INTO O_TPARM
 	VALUES ("26202239-7a21-4318-9ada-5d7079e97136",
 	"4d25ba1e-25e5-40c3-8c28-b0d8aed88765",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("55b23123-bae5-45e9-af5d-cc11e627f826",
 	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
@@ -170,16 +156,9 @@ INSERT INTO O_ATTR
 	'',
 	'Value_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"55b23123-bae5-45e9-af5d-cc11e627f826");
@@ -194,8 +173,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"55b23123-bae5-45e9-af5d-cc11e627f826");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("55b23123-bae5-45e9-af5d-cc11e627f826",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Value',
 	'This subsystem formalizes the concepts of values (r-values) and variables 
 (l-values). It also captures the concept of an actual parameter.
@@ -204,8 +191,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'V',
 	800,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000400008",
 	'../Value.xtuml');

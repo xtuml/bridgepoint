@@ -1,330 +1,17 @@
--- BP 7.1 content: Subsystem syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_SS
+INSERT INTO EP_PKG
 	VALUES ("a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Engine',
 	'',
-	'SEN',
-	9500,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_IOBJ
-	VALUES ("94ff7652-5442-4bc1-b992-10dc471404a3",
-	"525a6deb-951f-4843-80a5-6ec89e5ff969",
-	0,
-	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
-	'Query',
-	'SQU_Q');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("525a6deb-951f-4843-80a5-6ec89e5ff969",
-	'Query',
-	9600,
-	'SQU_Q',
-	'',
-	"d46290b6-2b26-4d26-bd15-91ac9670f74e",
-	'../Query/Query/Query.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("814919de-4c7f-4834-82f3-2cbc63c3f6af",
-	"fa6af3d4-7158-42ce-a887-e54782dc21af",
-	0,
-	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
-	'Search Participant',
-	'SP_SP');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("fa6af3d4-7158-42ce-a887-e54782dc21af",
-	'Search Participant',
-	9700,
-	'SP_SP',
-	'',
-	"332560eb-7338-43a5-a3a7-70d093e0846d",
-	'../Participation/Search Participant/Search Participant.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("27dde3e8-b192-47fc-8776-d9aa28177f8d",
-	"45ae8ba5-81b9-4b93-83d1-004649f58d0b",
-	0,
-	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
-	'Search Result',
-	'SR_SR');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("45ae8ba5-81b9-4b93-83d1-004649f58d0b",
-	'Search Result',
-	9800,
-	'SR_SR',
-	'',
-	"9eb20661-6f4c-4bd7-a6ee-f75c75a80ce9",
-	'../Result/Search Result/Search Result.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("b7f28b85-d791-461d-bdb8-7e7fb4510241");
-INSERT INTO R_REL
-	VALUES ("b7f28b85-d791-461d-bdb8-7e7fb4510241",
-	9500,
-	'',
-	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0");
-INSERT INTO R_PART
-	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
-	"b7f28b85-d791-461d-bdb8-7e7fb4510241",
-	"b3a541f3-2199-4187-982f-40ee955c8423",
-	0,
-	1,
-	'processed by');
-INSERT INTO O_RTIDA
-	VALUES ("5650c244-7ad2-4cf5-891d-ad575051d877",
-	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
-	0,
-	"b7f28b85-d791-461d-bdb8-7e7fb4510241",
-	"b3a541f3-2199-4187-982f-40ee955c8423");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("5650c244-7ad2-4cf5-891d-ad575051d877",
-	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
-	0,
-	'Id',
-	'./Search Engine/Search Engine.xtuml');
-INSERT INTO R_RTO
-	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
-	"b7f28b85-d791-461d-bdb8-7e7fb4510241",
-	"b3a541f3-2199-4187-982f-40ee955c8423",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
-	'./Search Engine/Search Engine.xtuml');
-INSERT INTO R_OIR
-	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
-	"b7f28b85-d791-461d-bdb8-7e7fb4510241",
-	"b3a541f3-2199-4187-982f-40ee955c8423",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
-	'Search Engine',
-	9500,
-	'SEN_E',
-	'',
-	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
-	'./Search Engine/Search Engine.xtuml');
-INSERT INTO R_FORM
-	VALUES ("525a6deb-951f-4843-80a5-6ec89e5ff969",
-	"b7f28b85-d791-461d-bdb8-7e7fb4510241",
-	"ec682981-31b9-4b28-9636-a341cdb9e05a",
-	0,
-	0,
-	'processes');
-INSERT INTO R_RGO
-	VALUES ("525a6deb-951f-4843-80a5-6ec89e5ff969",
-	"b7f28b85-d791-461d-bdb8-7e7fb4510241",
-	"ec682981-31b9-4b28-9636-a341cdb9e05a");
-INSERT INTO R_OIR
-	VALUES ("525a6deb-951f-4843-80a5-6ec89e5ff969",
-	"b7f28b85-d791-461d-bdb8-7e7fb4510241",
-	"ec682981-31b9-4b28-9636-a341cdb9e05a",
-	"94ff7652-5442-4bc1-b992-10dc471404a3");
-INSERT INTO R_SUBSUP
-	VALUES ("e467799a-d5e0-4e43-bbd5-e268e143de0f");
-INSERT INTO R_REL
-	VALUES ("e467799a-d5e0-4e43-bbd5-e268e143de0f",
-	9501,
-	'',
-	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0");
-INSERT INTO R_SUPER
-	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
-	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
-	"fb21cb8c-474a-424c-b5a3-748e1aab0170");
-INSERT INTO O_RTIDA
-	VALUES ("5650c244-7ad2-4cf5-891d-ad575051d877",
-	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
-	0,
-	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
-	"fb21cb8c-474a-424c-b5a3-748e1aab0170");
-INSERT INTO R_RTO
-	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
-	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
-	"fb21cb8c-474a-424c-b5a3-748e1aab0170",
-	0);
-INSERT INTO R_OIR
-	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
-	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
-	"fb21cb8c-474a-424c-b5a3-748e1aab0170",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUB
-	VALUES ("7856c485-a2cd-4f64-8f2e-629ee869c0e1",
-	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
-	"b6bb3ebe-0c73-4caf-a03e-ba0ec5a67308");
-INSERT INTO R_RGO
-	VALUES ("7856c485-a2cd-4f64-8f2e-629ee869c0e1",
-	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
-	"b6bb3ebe-0c73-4caf-a03e-ba0ec5a67308");
-INSERT INTO R_OIR
-	VALUES ("7856c485-a2cd-4f64-8f2e-629ee869c0e1",
-	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
-	"b6bb3ebe-0c73-4caf-a03e-ba0ec5a67308",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("7856c485-a2cd-4f64-8f2e-629ee869c0e1",
-	'Action Language Engine',
-	9501,
-	'SEN_ALE',
-	'',
-	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
-	'./Action Language Engine/Action Language Engine.xtuml');
-INSERT INTO R_SUB
-	VALUES ("0aadfb18-60ac-4945-856c-232e582fb150",
-	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
-	"08547491-4901-457a-8dbb-2192a526fba3");
-INSERT INTO R_RGO
-	VALUES ("0aadfb18-60ac-4945-856c-232e582fb150",
-	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
-	"08547491-4901-457a-8dbb-2192a526fba3");
-INSERT INTO R_OIR
-	VALUES ("0aadfb18-60ac-4945-856c-232e582fb150",
-	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
-	"08547491-4901-457a-8dbb-2192a526fba3",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("0aadfb18-60ac-4945-856c-232e582fb150",
-	'Description Engine',
-	9502,
-	'SEN_DE',
-	'',
-	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
-	'./Description Engine/Description Engine.xtuml');
-INSERT INTO R_SUB
-	VALUES ("ef40c6d4-e7a8-4c57-ad05-0e64787b0c26",
-	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
-	"9edcad83-1cfe-4d9c-9698-f7eb3a60faa4");
-INSERT INTO R_RGO
-	VALUES ("ef40c6d4-e7a8-4c57-ad05-0e64787b0c26",
-	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
-	"9edcad83-1cfe-4d9c-9698-f7eb3a60faa4");
-INSERT INTO R_OIR
-	VALUES ("ef40c6d4-e7a8-4c57-ad05-0e64787b0c26",
-	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
-	"9edcad83-1cfe-4d9c-9698-f7eb3a60faa4",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("ef40c6d4-e7a8-4c57-ad05-0e64787b0c26",
-	'Declarations Engine',
-	9503,
-	'SEN_DCE',
-	'',
-	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
-	'./Declarations Engine/Declarations Engine.xtuml');
-INSERT INTO R_SUB
-	VALUES ("7d96388d-3eee-40c4-89ed-2218f1691294",
-	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
-	"59538c4a-82c7-44f0-a8d3-73b94f3bcb7b");
-INSERT INTO R_RGO
-	VALUES ("7d96388d-3eee-40c4-89ed-2218f1691294",
-	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
-	"59538c4a-82c7-44f0-a8d3-73b94f3bcb7b");
-INSERT INTO R_OIR
-	VALUES ("7d96388d-3eee-40c4-89ed-2218f1691294",
-	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
-	"59538c4a-82c7-44f0-a8d3-73b94f3bcb7b",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("7d96388d-3eee-40c4-89ed-2218f1691294",
-	'References Engine',
-	9504,
-	'SEN_RE',
-	'',
-	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
-	'./References Engine/References Engine.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("16b88fe6-eebf-452a-bce4-b0dde8dc9bd0");
-INSERT INTO R_REL
-	VALUES ("16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
-	9502,
-	'',
-	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0");
-INSERT INTO R_FORM
-	VALUES ("fa6af3d4-7158-42ce-a887-e54782dc21af",
-	"16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
-	"fcba6f7c-2b75-4866-878e-b26ccb90bf91",
-	1,
-	1,
-	'searches against');
-INSERT INTO R_RGO
-	VALUES ("fa6af3d4-7158-42ce-a887-e54782dc21af",
-	"16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
-	"fcba6f7c-2b75-4866-878e-b26ccb90bf91");
-INSERT INTO R_OIR
-	VALUES ("fa6af3d4-7158-42ce-a887-e54782dc21af",
-	"16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
-	"fcba6f7c-2b75-4866-878e-b26ccb90bf91",
-	"814919de-4c7f-4834-82f3-2cbc63c3f6af");
-INSERT INTO R_PART
-	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
-	"16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
-	"c4c93faa-8a15-4a97-8c03-7fdc4aefbc5f",
-	0,
-	0,
-	'searched for by');
-INSERT INTO O_RTIDA
-	VALUES ("5650c244-7ad2-4cf5-891d-ad575051d877",
-	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
-	0,
-	"16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
-	"c4c93faa-8a15-4a97-8c03-7fdc4aefbc5f");
-INSERT INTO R_RTO
-	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
-	"16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
-	"c4c93faa-8a15-4a97-8c03-7fdc4aefbc5f",
-	0);
-INSERT INTO R_OIR
-	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
-	"16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
-	"c4c93faa-8a15-4a97-8c03-7fdc4aefbc5f",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("7ec8d26c-1859-4684-a9a6-f5ee414da2c5");
-INSERT INTO R_REL
-	VALUES ("7ec8d26c-1859-4684-a9a6-f5ee414da2c5",
-	9503,
-	'',
-	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0");
-INSERT INTO R_FORM
-	VALUES ("45ae8ba5-81b9-4b93-83d1-004649f58d0b",
-	"7ec8d26c-1859-4684-a9a6-f5ee414da2c5",
-	"4af89a2c-89bc-4525-aca5-c85bdbf6d9a3",
-	1,
-	1,
-	'determines');
-INSERT INTO R_RGO
-	VALUES ("45ae8ba5-81b9-4b93-83d1-004649f58d0b",
-	"7ec8d26c-1859-4684-a9a6-f5ee414da2c5",
-	"4af89a2c-89bc-4525-aca5-c85bdbf6d9a3");
-INSERT INTO R_OIR
-	VALUES ("45ae8ba5-81b9-4b93-83d1-004649f58d0b",
-	"7ec8d26c-1859-4684-a9a6-f5ee414da2c5",
-	"4af89a2c-89bc-4525-aca5-c85bdbf6d9a3",
-	"27dde3e8-b192-47fc-8776-d9aa28177f8d");
-INSERT INTO R_PART
-	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
-	"7ec8d26c-1859-4684-a9a6-f5ee414da2c5",
-	"51ada30d-c983-48c7-91ab-0fc6bb982f9f",
-	0,
-	0,
-	'is determined by');
-INSERT INTO O_RTIDA
-	VALUES ("5650c244-7ad2-4cf5-891d-ad575051d877",
-	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
-	0,
-	"7ec8d26c-1859-4684-a9a6-f5ee414da2c5",
-	"51ada30d-c983-48c7-91ab-0fc6bb982f9f");
-INSERT INTO R_RTO
-	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
-	"7ec8d26c-1859-4684-a9a6-f5ee414da2c5",
-	"51ada30d-c983-48c7-91ab-0fc6bb982f9f",
-	0);
-INSERT INTO R_OIR
-	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
-	"7ec8d26c-1859-4684-a9a6-f5ee414da2c5",
-	"51ada30d-c983-48c7-91ab-0fc6bb982f9f",
-	"00000000-0000-0000-0000-000000000000");
+	9500);
 INSERT INTO GD_MD
 	VALUES ("665fc3a4-f5f1-4a6b-b5d6-2175037853c7",
-	5,
+	112,
 	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
-	11,
+	108,
 	0,
 	0,
 	1,
@@ -338,14 +25,14 @@ INSERT INTO GD_MD
 	0,
 	0,
 	'3.2.5',
-	'com.mentor.nucleus.bp.core::ooaofooa::Engine');
+	'com.mentor.nucleus.bp.core::ooaofooa::Search::Engine');
 INSERT INTO GD_GE
 	VALUES ("9847ec0a-dbd3-45cf-87b8-dff064cf6c07",
 	"665fc3a4-f5f1-4a6b-b5d6-2175037853c7",
 	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
 	21,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Engine::Search Engine');
+	'com.mentor.nucleus.bp.core::ooaofooa::Search::Engine::Search Engine');
 INSERT INTO GD_SHP
 	VALUES ("9847ec0a-dbd3-45cf-87b8-dff064cf6c07");
 INSERT INTO GD_NCS
@@ -389,7 +76,7 @@ INSERT INTO GD_GE
 	"94ff7652-5442-4bc1-b992-10dc471404a3",
 	23,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Engine::Query');
+	'com.mentor.nucleus.bp.core::ooaofooa::Search::Engine::Query');
 INSERT INTO GD_SHP
 	VALUES ("f80ddcca-1145-41a1-8061-90d077a60233");
 INSERT INTO GD_NCS
@@ -418,7 +105,7 @@ INSERT INTO GD_GE
 	"b7f28b85-d791-461d-bdb8-7e7fb4510241",
 	24,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Engine::R9500');
+	'com.mentor.nucleus.bp.core::ooaofooa::Search::Engine::R9500');
 INSERT INTO GD_CON
 	VALUES ("5aad801d-ccf0-47c0-8fac-62fd540fc56a",
 	"00000000-0000-0000-0000-000000000000");
@@ -518,7 +205,7 @@ INSERT INTO GD_GE
 	"7856c485-a2cd-4f64-8f2e-629ee869c0e1",
 	21,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Engine::Action Language Engine');
+	'com.mentor.nucleus.bp.core::ooaofooa::Search::Engine::Action Language Engine');
 INSERT INTO GD_SHP
 	VALUES ("5105b8cd-d45f-4b0f-87fd-9cb20f6435c7");
 INSERT INTO GD_NCS
@@ -547,7 +234,7 @@ INSERT INTO GD_GE
 	"0aadfb18-60ac-4945-856c-232e582fb150",
 	21,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Engine::Description Engine');
+	'com.mentor.nucleus.bp.core::ooaofooa::Search::Engine::Description Engine');
 INSERT INTO GD_SHP
 	VALUES ("ae415370-9698-4e02-b178-40315354646e");
 INSERT INTO GD_NCS
@@ -576,7 +263,7 @@ INSERT INTO GD_GE
 	"ef40c6d4-e7a8-4c57-ad05-0e64787b0c26",
 	21,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Engine::Declarations Engine');
+	'com.mentor.nucleus.bp.core::ooaofooa::Search::Engine::Declarations Engine');
 INSERT INTO GD_SHP
 	VALUES ("557f7e2d-fd24-4265-be11-fc1b92b7b2eb");
 INSERT INTO GD_NCS
@@ -605,7 +292,7 @@ INSERT INTO GD_GE
 	"7d96388d-3eee-40c4-89ed-2218f1691294",
 	21,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Engine::References Engine');
+	'com.mentor.nucleus.bp.core::ooaofooa::Search::Engine::References Engine');
 INSERT INTO GD_SHP
 	VALUES ("853419d7-7ba9-4b39-a610-e800fb59f035");
 INSERT INTO GD_NCS
@@ -634,7 +321,7 @@ INSERT INTO GD_GE
 	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
 	36,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Engine::R9501');
+	'com.mentor.nucleus.bp.core::ooaofooa::Search::Engine::R9501');
 INSERT INTO GD_CON
 	VALUES ("b9057640-c4f5-45ad-a789-f053df541f24",
 	"00000000-0000-0000-0000-000000000000");
@@ -766,7 +453,7 @@ INSERT INTO GD_GE
 	"b6bb3ebe-0c73-4caf-a03e-ba0ec5a67308",
 	35,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Engine::R9501::Action Language Engine');
+	'com.mentor.nucleus.bp.core::ooaofooa::Search::Engine::R9501::Action Language Engine');
 INSERT INTO GD_CON
 	VALUES ("afb8ea0d-8680-41af-9e74-01417662d82d",
 	"00000000-0000-0000-0000-000000000000");
@@ -879,7 +566,7 @@ INSERT INTO GD_GE
 	"08547491-4901-457a-8dbb-2192a526fba3",
 	35,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Engine::R9501::Description Engine');
+	'com.mentor.nucleus.bp.core::ooaofooa::Search::Engine::R9501::Description Engine');
 INSERT INTO GD_CON
 	VALUES ("a1d64d22-3ced-4a2b-ba04-2848efb6d42e",
 	"00000000-0000-0000-0000-000000000000");
@@ -992,7 +679,7 @@ INSERT INTO GD_GE
 	"9edcad83-1cfe-4d9c-9698-f7eb3a60faa4",
 	35,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Engine::R9501::Declarations Engine');
+	'com.mentor.nucleus.bp.core::ooaofooa::Search::Engine::R9501::Declarations Engine');
 INSERT INTO GD_CON
 	VALUES ("7e3b2b32-0b9c-4a75-a91e-00bd1399b220",
 	"00000000-0000-0000-0000-000000000000");
@@ -1105,7 +792,7 @@ INSERT INTO GD_GE
 	"59538c4a-82c7-44f0-a8d3-73b94f3bcb7b",
 	35,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Engine::R9501::References Engine');
+	'com.mentor.nucleus.bp.core::ooaofooa::Search::Engine::R9501::References Engine');
 INSERT INTO GD_CON
 	VALUES ("d608cd16-8e0f-4f42-8337-e6c17d511570",
 	"00000000-0000-0000-0000-000000000000");
@@ -1218,7 +905,7 @@ INSERT INTO GD_GE
 	"814919de-4c7f-4834-82f3-2cbc63c3f6af",
 	23,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Engine::Search Participant');
+	'com.mentor.nucleus.bp.core::ooaofooa::Search::Engine::Search Participant');
 INSERT INTO GD_SHP
 	VALUES ("df73f688-0ddf-4912-ab7f-60d52903d429");
 INSERT INTO GD_NCS
@@ -1247,7 +934,7 @@ INSERT INTO GD_GE
 	"16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
 	24,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Engine::R9502');
+	'com.mentor.nucleus.bp.core::ooaofooa::Search::Engine::R9502');
 INSERT INTO GD_CON
 	VALUES ("dc3604d9-e0e6-417c-97c5-bb32d0b4d64b",
 	"00000000-0000-0000-0000-000000000000");
@@ -1347,7 +1034,7 @@ INSERT INTO GD_GE
 	"27dde3e8-b192-47fc-8776-d9aa28177f8d",
 	23,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Engine::Search Result');
+	'com.mentor.nucleus.bp.core::ooaofooa::Search::Engine::Search Result');
 INSERT INTO GD_SHP
 	VALUES ("bd04e737-cc11-454d-b7f3-579acbd2a02b");
 INSERT INTO GD_NCS
@@ -1376,7 +1063,7 @@ INSERT INTO GD_GE
 	"7ec8d26c-1859-4684-a9a6-f5ee414da2c5",
 	24,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Engine::R9503');
+	'com.mentor.nucleus.bp.core::ooaofooa::Search::Engine::R9503');
 INSERT INTO GD_CON
 	VALUES ("bf77e899-7a74-4c63-8e7c-3313cae47182",
 	"00000000-0000-0000-0000-000000000000");
@@ -1477,52 +1164,376 @@ INSERT INTO DIM_DIA
 	4000.000000,
 	3000.000000,
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_SIS
+INSERT INTO R_SIMP
+	VALUES ("b7f28b85-d791-461d-bdb8-7e7fb4510241");
+INSERT INTO R_REL
+	VALUES ("b7f28b85-d791-461d-bdb8-7e7fb4510241",
+	9500,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	"b7f28b85-d791-461d-bdb8-7e7fb4510241",
+	"b3a541f3-2199-4187-982f-40ee955c8423",
+	0,
+	1,
+	'processed by');
+INSERT INTO O_RTIDA
+	VALUES ("5650c244-7ad2-4cf5-891d-ad575051d877",
+	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	0,
+	"b7f28b85-d791-461d-bdb8-7e7fb4510241",
+	"b3a541f3-2199-4187-982f-40ee955c8423");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("5650c244-7ad2-4cf5-891d-ad575051d877",
+	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	0,
+	'Id',
+	'./Search Engine/Search Engine.xtuml');
+INSERT INTO R_RTO
+	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	"b7f28b85-d791-461d-bdb8-7e7fb4510241",
+	"b3a541f3-2199-4187-982f-40ee955c8423",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	'./Search Engine/Search Engine.xtuml');
+INSERT INTO R_OIR
+	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	"b7f28b85-d791-461d-bdb8-7e7fb4510241",
+	"b3a541f3-2199-4187-982f-40ee955c8423",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	'Search Engine',
+	9500,
+	'SEN_E',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./Search Engine/Search Engine.xtuml');
+INSERT INTO R_FORM
+	VALUES ("525a6deb-951f-4843-80a5-6ec89e5ff969",
+	"b7f28b85-d791-461d-bdb8-7e7fb4510241",
+	"ec682981-31b9-4b28-9636-a341cdb9e05a",
+	0,
+	0,
+	'processes');
+INSERT INTO R_RGO
+	VALUES ("525a6deb-951f-4843-80a5-6ec89e5ff969",
+	"b7f28b85-d791-461d-bdb8-7e7fb4510241",
+	"ec682981-31b9-4b28-9636-a341cdb9e05a");
+INSERT INTO R_OIR
+	VALUES ("525a6deb-951f-4843-80a5-6ec89e5ff969",
+	"b7f28b85-d791-461d-bdb8-7e7fb4510241",
+	"ec682981-31b9-4b28-9636-a341cdb9e05a",
+	"94ff7652-5442-4bc1-b992-10dc471404a3");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("525a6deb-951f-4843-80a5-6ec89e5ff969",
+	'Query',
+	9600,
+	'SQU_Q',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'../Query/Query/Query.xtuml');
+INSERT INTO PE_PE
+	VALUES ("b7f28b85-d791-461d-bdb8-7e7fb4510241",
+	1,
+	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SUBSUP
+	VALUES ("e467799a-d5e0-4e43-bbd5-e268e143de0f");
+INSERT INTO R_REL
+	VALUES ("e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	9501,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	"fb21cb8c-474a-424c-b5a3-748e1aab0170");
+INSERT INTO O_RTIDA
+	VALUES ("5650c244-7ad2-4cf5-891d-ad575051d877",
+	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	0,
+	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	"fb21cb8c-474a-424c-b5a3-748e1aab0170");
+INSERT INTO R_RTO
+	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	"fb21cb8c-474a-424c-b5a3-748e1aab0170",
+	0);
+INSERT INTO R_OIR
+	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	"fb21cb8c-474a-424c-b5a3-748e1aab0170",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUB
+	VALUES ("7856c485-a2cd-4f64-8f2e-629ee869c0e1",
+	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	"b6bb3ebe-0c73-4caf-a03e-ba0ec5a67308");
+INSERT INTO R_RGO
+	VALUES ("7856c485-a2cd-4f64-8f2e-629ee869c0e1",
+	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	"b6bb3ebe-0c73-4caf-a03e-ba0ec5a67308");
+INSERT INTO R_OIR
+	VALUES ("7856c485-a2cd-4f64-8f2e-629ee869c0e1",
+	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	"b6bb3ebe-0c73-4caf-a03e-ba0ec5a67308",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("7856c485-a2cd-4f64-8f2e-629ee869c0e1",
+	'Action Language Engine',
+	9501,
+	'SEN_ALE',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./Action Language Engine/Action Language Engine.xtuml');
+INSERT INTO R_SUB
+	VALUES ("0aadfb18-60ac-4945-856c-232e582fb150",
+	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	"08547491-4901-457a-8dbb-2192a526fba3");
+INSERT INTO R_RGO
+	VALUES ("0aadfb18-60ac-4945-856c-232e582fb150",
+	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	"08547491-4901-457a-8dbb-2192a526fba3");
+INSERT INTO R_OIR
+	VALUES ("0aadfb18-60ac-4945-856c-232e582fb150",
+	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	"08547491-4901-457a-8dbb-2192a526fba3",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("0aadfb18-60ac-4945-856c-232e582fb150",
+	'Description Engine',
+	9502,
+	'SEN_DE',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./Description Engine/Description Engine.xtuml');
+INSERT INTO R_SUB
+	VALUES ("ef40c6d4-e7a8-4c57-ad05-0e64787b0c26",
+	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	"9edcad83-1cfe-4d9c-9698-f7eb3a60faa4");
+INSERT INTO R_RGO
+	VALUES ("ef40c6d4-e7a8-4c57-ad05-0e64787b0c26",
+	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	"9edcad83-1cfe-4d9c-9698-f7eb3a60faa4");
+INSERT INTO R_OIR
+	VALUES ("ef40c6d4-e7a8-4c57-ad05-0e64787b0c26",
+	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	"9edcad83-1cfe-4d9c-9698-f7eb3a60faa4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("ef40c6d4-e7a8-4c57-ad05-0e64787b0c26",
+	'Declarations Engine',
+	9503,
+	'SEN_DCE',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./Declarations Engine/Declarations Engine.xtuml');
+INSERT INTO R_SUB
+	VALUES ("7d96388d-3eee-40c4-89ed-2218f1691294",
+	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	"59538c4a-82c7-44f0-a8d3-73b94f3bcb7b");
+INSERT INTO R_RGO
+	VALUES ("7d96388d-3eee-40c4-89ed-2218f1691294",
+	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	"59538c4a-82c7-44f0-a8d3-73b94f3bcb7b");
+INSERT INTO R_OIR
+	VALUES ("7d96388d-3eee-40c4-89ed-2218f1691294",
+	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	"59538c4a-82c7-44f0-a8d3-73b94f3bcb7b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("7d96388d-3eee-40c4-89ed-2218f1691294",
+	'References Engine',
+	9504,
+	'SEN_RE',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./References Engine/References Engine.xtuml');
+INSERT INTO PE_PE
+	VALUES ("e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	1,
+	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("16b88fe6-eebf-452a-bce4-b0dde8dc9bd0");
+INSERT INTO R_REL
+	VALUES ("16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
+	9502,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("fa6af3d4-7158-42ce-a887-e54782dc21af",
+	"16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
+	"fcba6f7c-2b75-4866-878e-b26ccb90bf91",
+	1,
+	1,
+	'searches against');
+INSERT INTO R_RGO
+	VALUES ("fa6af3d4-7158-42ce-a887-e54782dc21af",
+	"16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
+	"fcba6f7c-2b75-4866-878e-b26ccb90bf91");
+INSERT INTO R_OIR
+	VALUES ("fa6af3d4-7158-42ce-a887-e54782dc21af",
+	"16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
+	"fcba6f7c-2b75-4866-878e-b26ccb90bf91",
+	"814919de-4c7f-4834-82f3-2cbc63c3f6af");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("fa6af3d4-7158-42ce-a887-e54782dc21af",
+	'Search Participant',
+	9700,
+	'SP_SP',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'../Participation/Search Participant/Search Participant.xtuml');
+INSERT INTO R_PART
+	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	"16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
+	"c4c93faa-8a15-4a97-8c03-7fdc4aefbc5f",
+	0,
+	0,
+	'searched for by');
+INSERT INTO O_RTIDA
+	VALUES ("5650c244-7ad2-4cf5-891d-ad575051d877",
+	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	0,
+	"16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
+	"c4c93faa-8a15-4a97-8c03-7fdc4aefbc5f");
+INSERT INTO R_RTO
+	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	"16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
+	"c4c93faa-8a15-4a97-8c03-7fdc4aefbc5f",
+	0);
+INSERT INTO R_OIR
+	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	"16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
+	"c4c93faa-8a15-4a97-8c03-7fdc4aefbc5f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
+	1,
+	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("7ec8d26c-1859-4684-a9a6-f5ee414da2c5");
+INSERT INTO R_REL
+	VALUES ("7ec8d26c-1859-4684-a9a6-f5ee414da2c5",
+	9503,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("45ae8ba5-81b9-4b93-83d1-004649f58d0b",
+	"7ec8d26c-1859-4684-a9a6-f5ee414da2c5",
+	"4af89a2c-89bc-4525-aca5-c85bdbf6d9a3",
+	1,
+	1,
+	'determines');
+INSERT INTO R_RGO
+	VALUES ("45ae8ba5-81b9-4b93-83d1-004649f58d0b",
+	"7ec8d26c-1859-4684-a9a6-f5ee414da2c5",
+	"4af89a2c-89bc-4525-aca5-c85bdbf6d9a3");
+INSERT INTO R_OIR
+	VALUES ("45ae8ba5-81b9-4b93-83d1-004649f58d0b",
+	"7ec8d26c-1859-4684-a9a6-f5ee414da2c5",
+	"4af89a2c-89bc-4525-aca5-c85bdbf6d9a3",
+	"27dde3e8-b192-47fc-8776-d9aa28177f8d");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("45ae8ba5-81b9-4b93-83d1-004649f58d0b",
+	'Search Result',
+	9800,
+	'SR_SR',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'../Result/Search Result/Search Result.xtuml');
+INSERT INTO R_PART
+	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	"7ec8d26c-1859-4684-a9a6-f5ee414da2c5",
+	"51ada30d-c983-48c7-91ab-0fc6bb982f9f",
+	0,
+	0,
+	'is determined by');
+INSERT INTO O_RTIDA
+	VALUES ("5650c244-7ad2-4cf5-891d-ad575051d877",
+	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	0,
+	"7ec8d26c-1859-4684-a9a6-f5ee414da2c5",
+	"51ada30d-c983-48c7-91ab-0fc6bb982f9f");
+INSERT INTO R_RTO
+	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	"7ec8d26c-1859-4684-a9a6-f5ee414da2c5",
+	"51ada30d-c983-48c7-91ab-0fc6bb982f9f",
+	0);
+INSERT INTO R_OIR
+	VALUES ("43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	"7ec8d26c-1859-4684-a9a6-f5ee414da2c5",
+	"51ada30d-c983-48c7-91ab-0fc6bb982f9f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("7ec8d26c-1859-4684-a9a6-f5ee414da2c5",
+	1,
+	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO O_IOBJ
+	VALUES ("94ff7652-5442-4bc1-b992-10dc471404a3",
+	"525a6deb-951f-4843-80a5-6ec89e5ff969",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'Query',
+	'SQU_Q');
+INSERT INTO PE_PE
+	VALUES ("94ff7652-5442-4bc1-b992-10dc471404a3",
+	1,
+	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("814919de-4c7f-4834-82f3-2cbc63c3f6af",
+	"fa6af3d4-7158-42ce-a887-e54782dc21af",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'Search Participant',
+	'SP_SP');
+INSERT INTO PE_PE
+	VALUES ("814919de-4c7f-4834-82f3-2cbc63c3f6af",
+	1,
+	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("27dde3e8-b192-47fc-8776-d9aa28177f8d",
+	"45ae8ba5-81b9-4b93-83d1-004649f58d0b",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'Search Result',
+	'SR_SR');
+INSERT INTO PE_PE
+	VALUES ("27dde3e8-b192-47fc-8776-d9aa28177f8d",
+	1,
+	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO PE_PE
+	VALUES ("a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
+	1,
+	"e567eb17-d640-401b-93dd-93993df9ad3f",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("e567eb17-d640-401b-93dd-93993df9ad3f",
-	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0");
-INSERT INTO S_SS_PROXY
-	VALUES ("e567eb17-d640-401b-93dd-93993df9ad3f",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Search',
 	'',
-	'SE',
 	0,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Search.xtuml');
-INSERT INTO S_DOM_PROXY
-	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'ooaofooa',
-	'========================================================================
-
-File:          $RCSfile: ooaofooa.xtuml,v $
-Version:   $Revision: 1.127 $
-Modified:  $Date: 2006/09/26 15:10:20 $
-
-(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-
-========================================================================
-Licensed under the Apache License, Version 2.0 (the "License"); you may not
-use this file except in compliance with the License.  You may obtain a copy
-of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
-License for the specific language governing permissions and limitations under
-the License.
-========================================================================
-
-This is the application domain for the Tiger project.
-
-The processing in this model describes the activities
-for model capture.
-
-
-
-',
+INSERT INTO S_SYS_PROXY
+	VALUES ("d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'com.mentor.nucleus.bp.core',
 	1,
-	"00000000-0000-0000-0000-000000000001",
-	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
-	'../../ooaofooa.xtuml');
+	'../../../com.mentor.nucleus.bp.core.xtuml');

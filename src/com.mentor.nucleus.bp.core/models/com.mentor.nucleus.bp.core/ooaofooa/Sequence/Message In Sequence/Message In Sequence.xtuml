@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("13488365-5d31-4642-b95d-6368722ca365",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	907,
 	'SQ_MIS',
 	'',
-	"879e1557-8556-43dd-8cfd-1e141091172d");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("13488365-5d31-4642-b95d-6368722ca365",
 	"77d1cb23-9b16-462c-99a7-0df500aade81",
@@ -22,7 +22,7 @@ INSERT INTO O_REF
 	'',
 	'Message',
 	'Msg_ID',
-	'R954');
+	'R954.''provides containment''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("13488365-5d31-4642-b95d-6368722ca365",
 	"4bd35100-d710-4600-9561-dcf0291e5bbc",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'Msg_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("13488365-5d31-4642-b95d-6368722ca365",
 	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
@@ -80,7 +73,7 @@ INSERT INTO O_REF
 	'',
 	'Sequence',
 	'Package_ID',
-	'R953');
+	'R953.''contained in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("13488365-5d31-4642-b95d-6368722ca365",
 	"6a3900e0-69d9-4ad3-bfa0-f3aa8c16b396",
@@ -113,7 +106,7 @@ INSERT INTO O_ATTR
 	'',
 	'Package_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -135,13 +128,18 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"13488365-5d31-4642-b95d-6368722ca365");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("13488365-5d31-4642-b95d-6368722ca365",
+	1,
+	"879e1557-8556-43dd-8cfd-1e141091172d",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("879e1557-8556-43dd-8cfd-1e141091172d",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Sequence',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE',
-	'SQ',
 	900,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Sequence.xtuml');

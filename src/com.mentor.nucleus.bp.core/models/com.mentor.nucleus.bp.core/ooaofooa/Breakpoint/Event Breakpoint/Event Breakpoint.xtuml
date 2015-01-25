@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("6ee14a7f-3df9-41ac-b90b-37b299c1b0ea",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	3102,
 	'BP_EV',
 	'',
-	"786a01f9-5d46-40df-88ec-1a835f72d9e1");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("1bcb4a16-6a3a-4c80-af05-7c04d8d41dbc",
 	"6ee14a7f-3df9-41ac-b90b-37b299c1b0ea",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Delete breakpoint supertype
 select one breakpoint related by self->BP_BP[R3102]; 
@@ -29,13 +29,6 @@ delete object instance self; ',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("6ee14a7f-3df9-41ac-b90b-37b299c1b0ea",
 	"b6f482cf-cac6-44d1-8171-6f362d3e1a29",
@@ -84,16 +77,9 @@ INSERT INTO O_ATTR
 	'',
 	'Breakpoint_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("18a35d01-88ea-4bee-9942-c6985e0bfdb0",
 	"6ee14a7f-3df9-41ac-b90b-37b299c1b0ea");
@@ -109,16 +95,9 @@ INSERT INTO O_ATTR
 	'',
 	'onEnqueue',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("5c9efd49-de7d-4427-8f8c-655e0823db48",
 	"6ee14a7f-3df9-41ac-b90b-37b299c1b0ea");
@@ -134,7 +113,7 @@ INSERT INTO O_ATTR
 	'',
 	'onDequeue',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -152,7 +131,7 @@ INSERT INTO O_ATTR
 	'',
 	'onEventIgnored',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -170,7 +149,7 @@ INSERT INTO O_ATTR
 	'',
 	'onCantHappen',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_REF
@@ -188,7 +167,7 @@ INSERT INTO O_REF
 	'',
 	'State Machine Event',
 	'SMevt_ID',
-	'R3103');
+	'R3103.''is set on''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("6ee14a7f-3df9-41ac-b90b-37b299c1b0ea",
 	"85014929-6455-459e-8db7-1d1655ace565",
@@ -221,7 +200,7 @@ INSERT INTO O_ATTR
 	'',
 	'SMevt_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -238,16 +217,21 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"6ee14a7f-3df9-41ac-b90b-37b299c1b0ea");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("6ee14a7f-3df9-41ac-b90b-37b299c1b0ea",
+	1,
+	"786a01f9-5d46-40df-88ec-1a835f72d9e1",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("786a01f9-5d46-40df-88ec-1a835f72d9e1",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Breakpoint',
 	'This subsystem provides breakpoints that can be used in Model Verifier and Model Debugger.
 // This is used by schema_gen to ignore this subsystem (for publication)
 Persistent:false
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'BP',
 	1100,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Breakpoint.xtuml');

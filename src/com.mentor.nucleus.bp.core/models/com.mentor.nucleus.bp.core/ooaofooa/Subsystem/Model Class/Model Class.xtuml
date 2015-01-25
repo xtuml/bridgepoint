@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	101,
 	'O_OBJ',
 	'A model class represents an abstraction of a real world thing.  All instances of a class have the same characteristics and conform to the same set of rules.  The characteristics of a class are captured as attributes.  Each class within a domain are assigned a unique name, number, and keyletter.',
-	"67eb58de-1d2b-4163-8373-ae8e65e99f84");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("80fe25aa-2484-46e3-b128-875f9858d96a",
 	"b7630071-9e2a-4183-9986-779dca14c275",
@@ -15,19 +15,12 @@ INSERT INTO O_TFR
 operations.
 -----------------------------------------------------------------------------------
 Bridge:GD',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'return 3;',
 	1,
 	'',
 	"3e0b1a9d-e53d-4f5e-8afc-84fdc6c60eb9");
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("bbef529d-ab65-45e7-9306-f6f5f5c8d50c",
 	"b7630071-9e2a-4183-9986-779dca14c275",
@@ -35,7 +28,7 @@ INSERT INTO O_TFR
 	'This operation returns the number of entries in each compartment.
 -----------------------------------------------------------------------------------
 Bridge:GD',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'if (param.comp_num == 1)
  return 2;
@@ -56,7 +49,7 @@ INSERT INTO O_TPARM
 	VALUES ("c7eae4b9-03cd-4825-a323-a3496c9bdadc",
 	"bbef529d-ab65-45e7-9306-f6f5f5c8d50c",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -76,7 +69,7 @@ Bridge:GD',
 	"5ff4bf72-abe3-4286-8652-269c23530add");
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Style',
 	'The Style data type specifies the precise form a graphical element will take when drawn.
 --------------------------------------------------------------------------
@@ -90,7 +83,7 @@ INSERT INTO O_TFR
 	'This class returns text from a given compartment and location.
 -----------------------------------------------------------------------------------
 Bridge:GD',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'result = "";
 //
@@ -236,7 +229,7 @@ INSERT INTO O_TPARM
 	VALUES ("413ecede-9061-4e3d-9eaa-80f93f032d23",
 	"3e0b1a9d-e53d-4f5e-8afc-84fdc6c60eb9",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"7d63f19b-7b14-49b5-8bdf-898743dd7077",
@@ -245,7 +238,7 @@ INSERT INTO O_TPARM
 	VALUES ("3b7faa15-ca8d-4915-83e4-70ce747396bf",
 	"3e0b1a9d-e53d-4f5e-8afc-84fdc6c60eb9",
 	'ent_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"413ecede-9061-4e3d-9eaa-80f93f032d23",
@@ -261,18 +254,11 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Justification',
 	'The Justification data type is used to specify text at a given location in a compartment.
 ------------------------------------------------------------------------------
 Bridge:GD',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
@@ -312,7 +298,7 @@ INSERT INTO O_TPARM
 	VALUES ("ab4f14e5-de52-4781-ba76-08d79159e3b0",
 	"0fbc7afe-0620-4884-a3a4-fbb33e6e740c",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"274cfd09-57c2-443a-aa54-ca379ded4f37",
@@ -321,7 +307,7 @@ INSERT INTO O_TPARM
 	VALUES ("7f541c17-b77b-4f41-ab58-70633cb80956",
 	"0fbc7afe-0620-4884-a3a4-fbb33e6e740c",
 	'ent_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"ab4f14e5-de52-4781-ba76-08d79159e3b0",
@@ -342,25 +328,18 @@ INSERT INTO O_TFR
 	'The ooa_id of a Class is it''s Obj_ID
 -----------------------------------------------------------------------------------
 Bridge:GD',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'return self.Obj_ID;',
 	1,
 	'',
 	"bbef529d-ab65-45e7-9306-f6f5f5c8d50c");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("646f5bea-6ae6-4321-ac6c-1f736dad109a",
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'initialize',
 	'Initialize a new Class instance.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 name = ::getUniqueInitialName(
@@ -441,19 +420,12 @@ self.addIdentifiers();
 	1,
 	'',
 	"0fbc7afe-0620-4884-a3a4-fbb33e6e740c");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("47f021f8-65f0-464c-8a67-76a5bd1aedc5",
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'dispose',
 	'The Model Class dispose function.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Association Subsystem
@@ -598,7 +570,7 @@ INSERT INTO O_TFR
 	'Create a related ISM or ASM depending on the value of the sm_type parameter.
 Check if a sm of that type already exists.  If so, return false.
 If not, create the ism or asm and return true.',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 if (param.sm_type == "ISM")
@@ -672,24 +644,17 @@ INSERT INTO O_TPARM
 	VALUES ("5ea8ca2a-fb68-4513-bac5-1c8ca94e68da",
 	"4903dbd1-5941-4141-8bb4-53184113cb72",
 	'sm_type',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("05bac3ab-7903-46ca-8b04-c13f65ed4de4",
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'newAttribute',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'//
 // Find the last attribute currently in the list
@@ -719,7 +684,7 @@ INSERT INTO O_TFR
 	'newOperation',
 	'Create a new operation for this class.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'create object instance operation of O_TFR;
 relate self to operation across R115;
@@ -734,7 +699,7 @@ INSERT INTO O_TFR
 	'isEssentialToAssoc',
 	'Finding and clearing associative associations first is essential to cleanly disposing of a Model
 Class. ',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'retval = true;
 select many oir_set related by self->R_OIR[R201] where ( selected.Rel_ID == param.id ); 
@@ -760,7 +725,7 @@ INSERT INTO O_TPARM
 	VALUES ("d9a09b90-aae7-4620-bdc9-0cf7695fc05e",
 	"143866b4-398a-45a0-8073-35794d2ac885",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -771,7 +736,7 @@ INSERT INTO O_TFR
 	'addIdentifiers',
 	'This operation ensures that there are three identifiers defined for the class.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any oid1 related by self->O_ID[R104] where ( selected.Oid_ID == 0 );
 if ( empty oid1 )
@@ -803,7 +768,7 @@ INSERT INTO O_TFR
 	'Find an identifier for the class that is not in use.  I.e., there are no attributes related
 to it.   Return either the Oid_ID if one is found, or -1 if all are in use.
 ',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select many oid_set related by self->O_ID[R104];
 for each oid in oid_set
@@ -822,7 +787,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'newReferentialAttribute',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 
@@ -869,7 +834,7 @@ INSERT INTO O_TPARM
 	VALUES ("070a6276-9e3e-49a1-a640-a22920825077",
 	"f466c6c0-a6d8-482e-a927-6fd11c5bce88",
 	'ref_obj_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"31942ba8-d9b3-402c-9a27-dced4e0d7fe8",
@@ -878,7 +843,7 @@ INSERT INTO O_TPARM
 	VALUES ("334a2064-39e6-4627-aaa2-8d3b4cc047cc",
 	"f466c6c0-a6d8-482e-a927-6fd11c5bce88",
 	'ref_oid_id',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"070a6276-9e3e-49a1-a640-a22920825077",
@@ -887,7 +852,7 @@ INSERT INTO O_TPARM
 	VALUES ("31942ba8-d9b3-402c-9a27-dced4e0d7fe8",
 	"f466c6c0-a6d8-482e-a927-6fd11c5bce88",
 	'ref_attr_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"b948efda-d082-4b57-b4d7-27e1343ad727",
@@ -896,7 +861,7 @@ INSERT INTO O_TPARM
 	VALUES ("b948efda-d082-4b57-b4d7-27e1343ad727",
 	"f466c6c0-a6d8-482e-a927-6fd11c5bce88",
 	'id',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -906,7 +871,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'actionFilter',
 	'Bridge: UI',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'if (param.name == "can")
   if (param.value == "instanceStateChart")
@@ -958,7 +923,7 @@ INSERT INTO O_TPARM
 	VALUES ("4d6fafb8-8042-4194-bc5c-de34c1ee6900",
 	"b7bae982-68c0-47ca-8c94-d57b35f10e0a",
 	'name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -967,7 +932,7 @@ INSERT INTO O_TPARM
 	VALUES ("624ec5f0-0f33-4420-ae07-735e4f713159",
 	"b7bae982-68c0-47ca-8c94-d57b35f10e0a",
 	'value',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"4d6fafb8-8042-4194-bc5c-de34c1ee6900",
@@ -977,7 +942,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'isSupertypeOf',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'/*
 Returns whether this class is a supertype of the one whose ID is given.
@@ -1006,7 +971,7 @@ INSERT INTO O_TPARM
 	VALUES ("5335435d-3d92-443b-8926-c814100614a9",
 	"c7f9d33c-cafb-4fdc-aec2-461e57283a7e",
 	'classId',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1016,7 +981,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'getPath',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 path = "";
@@ -1051,7 +1016,7 @@ INSERT INTO O_TPARM
 	VALUES ("780da7d0-cbf6-4b91-84f5-47376ce9aae6",
 	"d8a03549-afe3-46d4-92ac-f142507988a0",
 	'path',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1060,7 +1025,7 @@ INSERT INTO O_TPARM
 	VALUES ("cb238e72-978d-48bf-b1dc-e4bdabc2bfe3",
 	"d8a03549-afe3-46d4-92ac-f142507988a0",
 	'includeSelf',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"780da7d0-cbf6-4b91-84f5-47376ce9aae6",
@@ -1070,7 +1035,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'eventIsClassBased',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'/*
 This operation only exists because of a bug in MC-Java where an operation may 
@@ -1089,7 +1054,7 @@ INSERT INTO O_TPARM
 	VALUES ("8b4678e6-9ac4-4a90-9a00-d1cec0a90e8d",
 	"57624076-7a8c-47e1-b0f6-22fc16dd5b6c",
 	'eventId',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"cf53fec2-a8ae-426b-9573-ece705a0db7e",
@@ -1098,7 +1063,7 @@ INSERT INTO O_TPARM
 	VALUES ("43093fed-4d39-4e51-8a7d-9ecf78eddb64",
 	"57624076-7a8c-47e1-b0f6-22fc16dd5b6c",
 	'instanceStateMachineId',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"8b4678e6-9ac4-4a90-9a00-d1cec0a90e8d",
@@ -1107,7 +1072,7 @@ INSERT INTO O_TPARM
 	VALUES ("cf53fec2-a8ae-426b-9573-ece705a0db7e",
 	"57624076-7a8c-47e1-b0f6-22fc16dd5b6c",
 	'classStateMachineId',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1117,7 +1082,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'getNumCompartmentIconSlots',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'/*
 Returns how many icon slots there are within the given compartment of a 
@@ -1137,7 +1102,7 @@ INSERT INTO O_TPARM
 	VALUES ("8818555b-c759-45b8-8d1a-221376ca66c0",
 	"7ee457bb-eb30-4d3f-a557-8493d2acca34",
 	'compartmentNum',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1147,7 +1112,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'shouldCompartmentIconBeDrawn',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'/*
 Returns whether the icon of the given slot within the given compartment of
@@ -1177,7 +1142,7 @@ INSERT INTO O_TPARM
 	VALUES ("8f07fdd5-3e76-4e1b-a165-83d3c34b2367",
 	"ee35d676-c9f2-4e41-97aa-619077137341",
 	'compartmentNum',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1186,7 +1151,7 @@ INSERT INTO O_TPARM
 	VALUES ("53ec5e51-b193-4855-9c4b-f8ec476adbb9",
 	"ee35d676-c9f2-4e41-97aa-619077137341",
 	'slotNum',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"8f07fdd5-3e76-4e1b-a165-83d3c34b2367",
@@ -1208,7 +1173,7 @@ return this;',
 	"34abd200-544d-420a-87bb-3348021f750e");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -1218,7 +1183,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'pasteAttribute',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any attribute from instances of O_ATTR
                                            where (selected.Attr_ID == param.id);
@@ -1247,7 +1212,7 @@ INSERT INTO O_TPARM
 	VALUES ("a85e8ca6-d9a7-4e33-bacb-362f26201c62",
 	"e95fb2f3-bc8f-4304-bb59-11abd9b0392e",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1257,7 +1222,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'removeIncompleteNonLocalEvents',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// for each state machine remove all non-local events
 // if the inherited event was not copied as well, or if
@@ -1279,7 +1244,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'findImportedSupertypeClass',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'/*
 Find the imported class that actually provides the supertype association
@@ -1322,7 +1287,7 @@ INSERT INTO O_TPARM
 	VALUES ("c675f8e5-c833-4165-b4a9-f827db1e438a",
 	"3657d717-36e5-4cac-887b-98b6358d8428",
 	'supertypeClassId',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1332,7 +1297,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'disposeLowerNonLocalEvents',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any originalClass from instances of O_OBJ where (selected.Obj_ID == param.originalId);
 if(not_empty originalClass)
@@ -1390,7 +1355,7 @@ INSERT INTO O_TPARM
 	VALUES ("812647ba-2e3d-492b-b303-1955e1c0aec7",
 	"183115b9-64f7-4bb1-a1f2-f797be9888e6",
 	'originalId',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"cc158173-f9a4-4a8f-8e2c-0f22153559e0",
@@ -1399,7 +1364,7 @@ INSERT INTO O_TPARM
 	VALUES ("3c9b4816-880a-45d1-a3a0-54e701760ba9",
 	"183115b9-64f7-4bb1-a1f2-f797be9888e6",
 	'polyId',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"6e6f79f2-41e2-4b50-97e4-136751dd22b8",
@@ -1408,7 +1373,7 @@ INSERT INTO O_TPARM
 	VALUES ("cc158173-f9a4-4a8f-8e2c-0f22153559e0",
 	"183115b9-64f7-4bb1-a1f2-f797be9888e6",
 	'disposeSelfEvents',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1417,7 +1382,7 @@ INSERT INTO O_TPARM
 	VALUES ("6e6f79f2-41e2-4b50-97e4-136751dd22b8",
 	"183115b9-64f7-4bb1-a1f2-f797be9888e6",
 	'originalSupertypeId',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"812647ba-2e3d-492b-b303-1955e1c0aec7",
@@ -1427,7 +1392,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'removeInconsistentSubtypeIgnores',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'/*
 Traverse down the supertype/subtype hierarchy until we find
@@ -1464,7 +1429,7 @@ INSERT INTO O_TFR
 	'rename',
 	'Rename the class and the instance reference and instance reference set datatypes
 associated with this class.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'if(OS::remove_spaces(s:self.Name) == self.Key_Lett)
   self.Key_Lett = OS::remove_spaces(s:param.new_name);
@@ -1487,7 +1452,7 @@ INSERT INTO O_TPARM
 	VALUES ("3b7c8e9e-0908-40e8-8944-7cb8768d5a9b",
 	"51590c11-5346-4d16-824d-52423bd3244a",
 	'new_name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1499,7 +1464,7 @@ INSERT INTO O_TFR
 	'This function creates two new S_IRDT datatypes.  These are instance reference
 datatypes that are associated with a model class.  One is inst_ref<classname>,
 the other is inst_ref_set<classname>.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Model Class::newInstanceReferenceDataType()
@@ -1597,7 +1562,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'initializeOrder',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Alpha-sort the O_TFR elements if they have not yet been ordered
 select many peers related by self->O_TFR[R115];
@@ -1668,7 +1633,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'getContainingComponentId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // Model Class.getContainingComponentId()
@@ -1704,7 +1669,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'getContainerId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// Model Class.getContainerId()
 select one component related by self->PE_PE[R8001]->C_C[R8003];
@@ -1725,7 +1690,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'pasteOperation',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any operation from instances of O_TFR
                                             where (selected.Tfr_ID == param.id);
@@ -1746,7 +1711,7 @@ INSERT INTO O_TPARM
 	VALUES ("8e1e12ac-d5f3-4388-8b15-6c200cafa465",
 	"70bde855-57d7-4922-b9aa-016e1d1e9bf4",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1756,7 +1721,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'addAttributeToOrdering',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any newAttr from instances of O_ATTR
                                            where (selected.Attr_ID == param.id);
@@ -1784,7 +1749,7 @@ INSERT INTO O_TPARM
 	VALUES ("39b5bd04-374c-4ec4-950a-bb3db7d73469",
 	"c7ccf463-f129-41c4-a258-ea8c6aeba259",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1794,7 +1759,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'removeIncompleteReferential',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select any attribute from instances of O_ATTR
                                            where (selected.Attr_ID == param.id);
@@ -1818,7 +1783,7 @@ INSERT INTO O_TPARM
 	VALUES ("641eb977-3a29-498c-b735-2501a6515cff",
 	"926a9fd0-ebc6-45da-996a-02367c64fe9f",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1828,7 +1793,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'addOperationToOrdering',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any operation from instances of O_TFR
                                             where (selected.Tfr_ID == param.id);
@@ -1852,7 +1817,7 @@ INSERT INTO O_TPARM
 	VALUES ("c3546b06-c98c-4820-a872-69961ea59cbc",
 	"7b252149-1fc0-43ab-b749-e8722bedfa2f",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1862,7 +1827,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'canCopyAttribute',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select any attribute related by self->O_ATTR[R102]
                                            where (selected.Attr_ID == param.id);
@@ -1882,7 +1847,7 @@ INSERT INTO O_TPARM
 	VALUES ("c7e09a7e-3d79-4238-91a0-25b0f50f0792",
 	"3ff28a4d-c69f-4723-8132-f6269e558bb0",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -1892,7 +1857,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'removeIncompleteSignalEvents',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// for each state machine remove all non-local events
 // if the inherited event was not copied as well, or if
@@ -1914,7 +1879,7 @@ INSERT INTO O_TFR
 	"b7630071-9e2a-4183-9986-779dca14c275",
 	'checkIntegrity',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// check for any classes with the same key letters that are
 // also in scope
@@ -1966,7 +1931,7 @@ Description: Name of the class as entered in the model.',
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -1988,7 +1953,7 @@ max_value: 9999
 	'',
 	'Numb',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -2007,7 +1972,7 @@ Description: Key letters of the class as they appear in the model.',
 	'',
 	'Key_Lett',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -2026,7 +1991,7 @@ Description: This is a description of the class as entered by the user.',
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -2077,16 +2042,9 @@ INSERT INTO O_ATTR
 	'',
 	'SS_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("b7630071-9e2a-4183-9986-779dca14c275",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
@@ -2135,7 +2093,7 @@ INSERT INTO O_ATTR
 	'',
 	'Obj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -2152,12 +2110,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"b7630071-9e2a-4183-9986-779dca14c275");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("b7630071-9e2a-4183-9986-779dca14c275",
+	1,
+	"67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Subsystem',
 	'A class (O_OBJ)  is an abstraction of a real world thing that has specific attributes (O_ATTR) and, if active, has a lifecycle model as a state machine (SM_SM).  All instances of the class must have the same characteristics and follow the same state behavior.  Classes fall into many categories, some of which are: tangible things, roles, interactions and specifications. ',
-	'O',
 	101,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000300006",
 	'../Subsystem.xtuml');

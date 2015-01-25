@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("1687eb25-c317-4a07-a89a-25154698dc25",
@@ -8,7 +8,7 @@ INSERT INTO O_OBJ
 	'This class specifies a condition when the menu
 entry is valid.  Menu entries without any filters are always available.
 ',
-	"22fe2ec1-5660-4a88-9691-da2fe55e94db");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("1687eb25-c317-4a07-a89a-25154698dc25",
 	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
@@ -24,7 +24,7 @@ INSERT INTO O_REF
 	'',
 	'Context Menu Entry',
 	'Specialism',
-	'R2013');
+	'R2013.''enables entry on condition''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("1687eb25-c317-4a07-a89a-25154698dc25",
 	"6b7efff4-4bd3-4355-bec7-c7c812ca706f",
@@ -57,16 +57,9 @@ INSERT INTO O_ATTR
 	'',
 	'Specialism',
 	0,
-	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("e9939872-4e30-45f7-852c-a44e7f299f8a",
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("1687eb25-c317-4a07-a89a-25154698dc25",
 	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
@@ -82,7 +75,7 @@ INSERT INTO O_REF
 	'',
 	'Context Menu Entry',
 	'Label',
-	'R2013');
+	'R2013.''enables entry on condition''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("0063aff7-3a9e-4a07-be3b-f027d9e256f1",
 	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
@@ -110,7 +103,7 @@ INSERT INTO O_ATTR
 	'',
 	'Label',
 	0,
-	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -128,7 +121,7 @@ INSERT INTO O_REF
 	'',
 	'Context Menu Entry',
 	'Key_Lett',
-	'R2013');
+	'R2013.''enables entry on condition''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("8182c59d-4612-4f15-8d63-580185203a9b",
 	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
@@ -156,7 +149,7 @@ INSERT INTO O_ATTR
 	'',
 	'Key_Lett',
 	0,
-	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -174,16 +167,9 @@ INSERT INTO O_ATTR
 	'',
 	'name',
 	0,
-	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("ff27026a-9d91-4d3d-9c92-888e9483a31c",
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("8c6d7350-3aad-4ce1-a9cb-05148de7a230",
 	"1687eb25-c317-4a07-a89a-25154698dc25");
@@ -199,7 +185,7 @@ INSERT INTO O_ATTR
 	'',
 	'value',
 	0,
-	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_ID
@@ -236,12 +222,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"1687eb25-c317-4a07-a89a-25154698dc25");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("1687eb25-c317-4a07-a89a-25154698dc25",
+	1,
+	"22fe2ec1-5660-4a88-9691-da2fe55e94db",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("22fe2ec1-5660-4a88-9691-da2fe55e94db",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Context Menu',
 	'',
-	'CM_',
 	1,
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	"00000000-0000-0000-0000-000000100002",
 	'../Context Menu.xtuml');

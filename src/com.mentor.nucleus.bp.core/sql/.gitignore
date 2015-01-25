@@ -11,8 +11,6 @@ cme_import.sql
 ooaofooa_hierarchy_schema.sql
 ooaofooa_hierarchy.sql
 .cme_actions_last_build
-file_io_schema.sql
-file_io.sql
 ooaofooa_for_cme.sql
 ooaofooa-*.sql
 ooa_schema.sql

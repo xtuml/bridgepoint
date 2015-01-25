@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	205,
 	'R_SIMP',
 	'A simple association (R_SIMP) is an association between two classs which are formalized with referential attributes in one of the classes.  The class that holds the referential attributes for  the association is know as the referring class in the association (R_RGO) and is the formalizer of the association (R_FORM).  The class that participates in the association and carries the identifying attributes used to formalize the association is the referred to class  (R_RTO) and is a participant in the association (R_PART).',
-	"c8d78fd5-1314-444a-bad0-6af79f6e1296");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("2429bee2-78db-4411-b6ee-a300fb083edb",
 	"12813ef2-4f83-46ab-a431-a727324be44d",
@@ -19,7 +19,7 @@ instances.
 -----------------------------------------------------------------------------------
 Bridge:GD
 ',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'result = "";
 select one rel related by self->R_REL[R206];
@@ -84,18 +84,11 @@ INSERT INTO O_TPARM
 	VALUES ("9b965e97-81c1-4d07-bfec-92625354516b",
 	"2429bee2-78db-4411-b6ee-a300fb083edb",
 	'Obj_ID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("7d71d2d2-28bf-4737-b697-162f358c4def",
 	"2429bee2-78db-4411-b6ee-a300fb083edb",
@@ -107,18 +100,11 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("ae85eca6-6fe4-4125-95e6-95272f0fd7de",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'End',
 	'Text is positioned at a user adjustable offset from the Start, Middle and End of a connector. Start_Fixed and End_Fixed specify fixed position text found at the start and end of some connectors.
 -------------------------------------------------------------
 Bridge:GD',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
@@ -126,7 +112,7 @@ INSERT INTO O_TFR
 	"12813ef2-4f83-46ab-a431-a727324be44d",
 	'dispose',
 	'The dispose operation for the R_SIMP class.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one assoc related by self->R_REL[R206];
 unrelate self from assoc across R206;
@@ -142,19 +128,12 @@ delete object instance self;',
 	1,
 	'',
 	"d307bb1d-0933-46cc-9cd0-82532dff50e8");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("20dd5607-d958-4f5a-a12e-bf7de8724de8",
 	"12813ef2-4f83-46ab-a431-a727324be44d",
 	'migrateToLinked',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // create the class as link
@@ -268,7 +247,7 @@ INSERT INTO O_TPARM
 	VALUES ("2e07f806-057c-420b-a31d-1a53bb2df5ad",
 	"20dd5607-d958-4f5a-a12e-bf7de8724de8",
 	'using',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"8aeca9e6-5e90-45de-9892-8b0668b71544",
@@ -277,7 +256,7 @@ INSERT INTO O_TPARM
 	VALUES ("8aeca9e6-5e90-45de-9892-8b0668b71544",
 	"20dd5607-d958-4f5a-a12e-bf7de8724de8",
 	'imported_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -287,7 +266,7 @@ INSERT INTO O_TFR
 	"12813ef2-4f83-46ab-a431-a727324be44d",
 	'isFormalized',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one form related by self->R_FORM[R208];
 if ( not_empty form )
@@ -305,19 +284,12 @@ return false;
 	1,
 	'',
 	"2429bee2-78db-4411-b6ee-a300fb083edb");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("5211e040-9664-4a90-bfe5-b7657a940ec0",
 	"12813ef2-4f83-46ab-a431-a727324be44d",
 	'formalize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'if ( self.isFormalized() )
   self.unformalize();
@@ -356,7 +328,7 @@ INSERT INTO O_TPARM
 	VALUES ("92020e45-ed15-49d8-989b-504cf4c70dda",
 	"5211e040-9664-4a90-bfe5-b7657a940ec0",
 	'part_oir_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"2943a74f-023d-44a7-89a3-dd36f2d2423f",
@@ -365,24 +337,17 @@ INSERT INTO O_TPARM
 	VALUES ("2943a74f-023d-44a7-89a3-dd36f2d2423f",
 	"5211e040-9664-4a90-bfe5-b7657a940ec0",
 	'id_id',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("28539e74-6bbf-4203-8256-f42e9da2eb55",
 	"12813ef2-4f83-46ab-a431-a727324be44d",
 	'unformalize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any part_rto related by self->R_PART[R207]->R_RTO[R204];  // there is only one
 
@@ -402,7 +367,7 @@ INSERT INTO O_TFR
 	"12813ef2-4f83-46ab-a431-a727324be44d",
 	'canParticipate',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select any part related by self->R_PART[R207]
     where selected.Obj_ID == param.id;
@@ -419,7 +384,7 @@ INSERT INTO O_TPARM
 	VALUES ("859bc81f-3673-43e0-9a18-da0dae2d95d9",
 	"d307bb1d-0933-46cc-9cd0-82532dff50e8",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -472,16 +437,9 @@ INSERT INTO O_ATTR
 	'',
 	'Rel_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"12813ef2-4f83-46ab-a431-a727324be44d");
@@ -496,12 +454,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"12813ef2-4f83-46ab-a431-a727324be44d");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("12813ef2-4f83-46ab-a431-a727324be44d",
+	1,
+	"c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("c8d78fd5-1314-444a-bad0-6af79f6e1296",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Association',
 	'A association (R_REL) captures an association between things in the real world. A association is stated in terms of the formal classs (O_OBJ) that model the real world entities participating in the association. There can be any number of associations between the same two classs and any class can participate in any number of associations with other classs.',
-	'R',
 	201,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000180003",
 	'../Association.xtuml');

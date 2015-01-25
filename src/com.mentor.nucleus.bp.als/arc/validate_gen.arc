@@ -15,6 +15,9 @@
   .exit 100
 .end if
 .//
+.invoke mc_root_pkg_name = GET_ENV_VAR("PTC_MCC_ROOT")
+.assign mc_root_pkg = mc_root_pkg_name.result
+.//
 .include "arc/get_names.inc"
 .//
 .//===============================================
@@ -24,8 +27,8 @@
 .// before including the MC-Java files so that
 .// the function invocations get the correct variable name.
 .//
-.select any dom from instances of S_DOM
-.assign dom.Name = "Self" 
+.select any root_pkg from instances of EP_PKG where (selected.Name == mc_root_pkg)
+.assign root_pkg.Name = "Self" 
 .//
 .//
 .include "${mc_archetypes}/do_type.inc"
@@ -38,7 +41,10 @@
 .include "${mc_archetypes}/translate_oal.inc"
 .include "..\com.mentor.nucleus.bp.core\color\ooaofooa_package_spec.clr"
 .//
-.invoke translate_all_oal( "Ooaofooa", true );
+.// The root package is renamed when generating the parser so that
+.// generated code can be run against a containing specialized
+.// parser class. Hence, we pass 'Self' rather than 'ooaofooa' here.
+.invoke translate_all_oal("Self", "Ooaofooa", true );
 .//
 .clear
 

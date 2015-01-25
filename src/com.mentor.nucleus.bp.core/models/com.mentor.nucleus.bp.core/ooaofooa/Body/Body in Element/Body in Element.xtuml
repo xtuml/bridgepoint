@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("98a4e144-af7c-4613-a7b9-10ab1a9735de",
@@ -8,7 +8,7 @@ INSERT INTO O_OBJ
 	'Convenience class to allow a Body instance to quickly locate its container.
 ------------------------
 Persistent:false',
-	"76583c73-7a99-4c81-b260-8109e6cef5ca");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("98a4e144-af7c-4613-a7b9-10ab1a9735de",
 	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
@@ -24,7 +24,7 @@ INSERT INTO O_REF
 	'',
 	'Body',
 	'Action_ID',
-	'R640');
+	'R640.''has declared''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("98a4e144-af7c-4613-a7b9-10ab1a9735de",
 	"c24964a1-46ef-4f3e-a5f5-e33b2d8bdd08",
@@ -57,16 +57,9 @@ INSERT INTO O_ATTR
 	'',
 	'Action_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("98a4e144-af7c-4613-a7b9-10ab1a9735de",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
@@ -82,7 +75,7 @@ INSERT INTO O_REF
 	'',
 	'Packageable Element',
 	'Element_ID',
-	'R640');
+	'R640.''is declared in''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
@@ -110,7 +103,7 @@ INSERT INTO O_ATTR
 	'',
 	'Element_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -132,8 +125,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"98a4e144-af7c-4613-a7b9-10ab1a9735de");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("98a4e144-af7c-4613-a7b9-10ab1a9735de",
+	1,
+	"76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Body',
 	'This subsystem abstracts the action itself, the blocks and statements
 it contains together with the flow of control statements such as ''while'',
@@ -143,8 +144,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000380007",
 	'../Body.xtuml');

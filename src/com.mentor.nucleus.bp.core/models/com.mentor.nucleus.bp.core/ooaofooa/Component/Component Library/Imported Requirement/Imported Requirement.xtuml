@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("7f4be496-f22b-4efc-af0d-8a4fdb873e98",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	4702,
 	'CL_IR',
 	'',
-	"7244f94a-6a20-46c8-8487-5090fedbedbf");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("e9a26a67-5d85-49ea-9160-0e58da3c5b77",
 	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",
 	'get_connector_text',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one satisfaction related by self->C_SF[R4706];
 if(not_empty satisfaction and not param.connected_disabled)
@@ -40,34 +40,20 @@ INSERT INTO O_TPARM
 	VALUES ("7e33944a-616b-4978-a18b-072142342803",
 	"e9a26a67-5d85-49ea-9160-0e58da3c5b77",
 	'Obj_ID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("c8a988a5-5719-45a8-962b-a441b88c61e4",
 	"e9a26a67-5d85-49ea-9160-0e58da3c5b77",
 	'Obj_TypeIsImported',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"7e33944a-616b-4978-a18b-072142342803",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TPARM
 	VALUES ("bb946a4e-3e64-433b-95eb-2d3880f83a72",
 	"e9a26a67-5d85-49ea-9160-0e58da3c5b77",
@@ -79,7 +65,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("ae85eca6-6fe4-4125-95e6-95272f0fd7de",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'End',
 	'Text is positioned at a user adjustable offset from the Start, Middle and End of a connector. Start_Fixed and End_Fixed specify fixed position text found at the start and end of some connectors.
 -------------------------------------------------------------
@@ -90,7 +76,7 @@ INSERT INTO O_TPARM
 	VALUES ("8e854014-0207-402d-8eb0-a6af7d403ed3",
 	"e9a26a67-5d85-49ea-9160-0e58da3c5b77",
 	'parent_ID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"bb946a4e-3e64-433b-95eb-2d3880f83a72",
@@ -99,24 +85,17 @@ INSERT INTO O_TPARM
 	VALUES ("56b32184-770e-405b-a602-eae10b0a00fb",
 	"e9a26a67-5d85-49ea-9160-0e58da3c5b77",
 	'connected_disabled',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"8e854014-0207-402d-8eb0-a6af7d403ed3",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("6111a246-cff9-4eee-8b0a-bcb834eb5aed",
 	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",
 	'get_ooa_id',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'return self.Id;',
 	1,
@@ -148,7 +127,7 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Style',
 	'The Style data type specifies the precise form a graphical element will take when drawn.
 --------------------------------------------------------------------------
@@ -171,7 +150,7 @@ Translate: native',
 	"faf2ea38-557a-41df-9b32-994b6f42a7ba");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -181,7 +160,7 @@ INSERT INTO O_TFR
 	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'self.dissatisfy();
 select one importedRef related by self->CL_IIR[R4703];
@@ -193,19 +172,12 @@ delete object instance self;',
 	1,
 	'',
 	"7c0f6ddf-9da1-4175-b3bf-ca6463371065");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("84960161-c365-434d-8ee5-a9ed44722519",
 	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",
 	'linkConnector',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'if(self.canLinkConnector(to:param.to))
   isLinked = false;
@@ -233,7 +205,7 @@ INSERT INTO O_TPARM
 	VALUES ("9ea0eefe-8c21-4ee7-81a5-729189752333",
 	"84960161-c365-434d-8ee5-a9ed44722519",
 	'to',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -243,7 +215,7 @@ INSERT INTO O_TFR
 	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",
 	'dissatisfy',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one satisfaction related by self->C_SF[R4706];
 if(not_empty satisfaction)
@@ -258,7 +230,7 @@ INSERT INTO O_TFR
 	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",
 	'actionFilter',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'if param.name == "can"
   if param.value == "dissatisfy"
@@ -276,7 +248,7 @@ INSERT INTO O_TPARM
 	VALUES ("6d971315-23e6-4997-91f3-47404c2881d4",
 	"faf2ea38-557a-41df-9b32-994b6f42a7ba",
 	'name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -285,7 +257,7 @@ INSERT INTO O_TPARM
 	VALUES ("9181bd8a-2ccc-429d-b0ef-d36f3dabf901",
 	"faf2ea38-557a-41df-9b32-994b6f42a7ba",
 	'value',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"6d971315-23e6-4997-91f3-47404c2881d4",
@@ -295,7 +267,7 @@ INSERT INTO O_TFR
 	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",
 	'getSatisfactionCount',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select one satisfaction related by self->C_SF[R4706];
 if not_empty satisfaction
@@ -310,24 +282,17 @@ INSERT INTO O_TPARM
 	VALUES ("d904d0c5-3f70-4351-bc25-c806b1b49821",
 	"27344f5e-a437-46d8-80b4-9c3149d78361",
 	'filterDelegations',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("7f587a18-2e54-48aa-a881-c400cf18ece8",
 	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",
 	'canLinkConnector',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'isLinked = false;
 select one selfImportedRef related by self->CL_IIR[R4703];
@@ -352,7 +317,7 @@ INSERT INTO O_TPARM
 	VALUES ("d8823dc5-7196-426b-9020-73161b683549",
 	"7f587a18-2e54-48aa-a881-c400cf18ece8",
 	'to',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -362,7 +327,7 @@ INSERT INTO O_TFR
 	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",
 	'get_connector_tooltip',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one req related by self->CL_IIR[R4703]->C_IR[R4701]->C_R[R4009];
 if(not_empty req)
@@ -402,7 +367,7 @@ INSERT INTO O_TFR
 	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",
 	'isSynchronized',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// ask the supertype
 select one importedRef related by self->CL_IIR[R4703];
@@ -418,7 +383,7 @@ INSERT INTO O_TFR
 	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",
 	'getCachedName',
 	'Translate:native',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'	return m_name;',
 	0,
@@ -429,7 +394,7 @@ INSERT INTO O_TFR
 	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",
 	'setCachedName',
 	'Translate:native',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'	m_name = p_Name;',
 	0,
@@ -439,7 +404,7 @@ INSERT INTO O_TPARM
 	VALUES ("2f549161-e5b0-4ccf-a53e-79bafc091194",
 	"800a4c24-a76f-41e2-95f8-cb2224f1c2c2",
 	'name',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -449,7 +414,7 @@ INSERT INTO O_TFR
 	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",
 	'collectChanges',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'/**
  *  Collect changes that will occur once this imported reference is synchronized
@@ -477,7 +442,7 @@ INSERT INTO O_TFR
 	"7f4be496-f22b-4efc-af0d-8a4fdb873e98",
 	'synchronize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'/*
  *  Synchronize by removing the local ref
@@ -511,7 +476,7 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -530,7 +495,7 @@ Description: A textual description of this imported interface.',
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -581,16 +546,9 @@ INSERT INTO O_ATTR
 	'',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("7f4be496-f22b-4efc-af0d-8a4fdb873e98",
 	"31d55c78-4c8e-4706-afeb-da88c819c621",
@@ -606,7 +564,7 @@ INSERT INTO O_REF
 	'',
 	'Satisfaction',
 	'Id',
-	'R4706');
+	'R4706.''provides satisfaction through''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("7f4be496-f22b-4efc-af0d-8a4fdb873e98",
 	"c201aaed-ab0a-4659-93f7-80ea84c19991",
@@ -639,7 +597,7 @@ INSERT INTO O_ATTR
 	'Satisfaction_Element_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -656,12 +614,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"7f4be496-f22b-4efc-af0d-8a4fdb873e98");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("7f4be496-f22b-4efc-af0d-8a4fdb873e98",
+	1,
+	"7244f94a-6a20-46c8-8487-5090fedbedbf",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("7244f94a-6a20-46c8-8487-5090fedbedbf",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Component Library',
 	'',
-	'CL',
 	4700,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Component Library.xtuml');

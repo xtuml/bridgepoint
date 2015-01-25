@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("4c28f593-5ff0-4dbb-bf9d-d1bd1bcf8eb4",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	623,
 	'ACT_SR',
 	'This class represents a statement that selects a set of instances related across one or more associations.',
-	"4baa0857-ca29-4e4a-b1cb-873757c0f936");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("4c28f593-5ff0-4dbb-bf9d-d1bd1bcf8eb4",
 	"6bbeced4-473b-4c7e-82bd-84ca0b59b273",
@@ -57,16 +57,9 @@ INSERT INTO O_ATTR
 	'',
 	'Statement_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"4c28f593-5ff0-4dbb-bf9d-d1bd1bcf8eb4");
@@ -81,8 +74,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"4c28f593-5ff0-4dbb-bf9d-d1bd1bcf8eb4");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("4c28f593-5ff0-4dbb-bf9d-d1bd1bcf8eb4",
+	1,
+	"4baa0857-ca29-4e4a-b1cb-873757c0f936",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("4baa0857-ca29-4e4a-b1cb-873757c0f936",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Selection',
 	'This subsystem captures concepts related to selections of instances across associations. Association chain, where and instance extent selections are also covered.
 Notify_Changes:false
@@ -90,8 +91,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-00000058000b",
 	'../Selection.xtuml');

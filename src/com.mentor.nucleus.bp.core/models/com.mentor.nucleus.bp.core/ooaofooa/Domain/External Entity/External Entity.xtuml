@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	3,
 	'S_EE',
 	'An external entity (S_EE) represents something outside of the domain (S_DOM) being modeled that interacts with classes (O_OBJ) within the domain. The interactions are shown by event communication paths on the Communication Diagrams and data access paths on the Synchronous Communication Diagrams. Each external entity is given a unique name and keyletters within a domain.',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("11fbbd9d-cfa9-48da-b85c-2f81a943df32",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
@@ -14,19 +14,12 @@ INSERT INTO O_TFR
 	'An External Entity is shown as a package that has only one compartment.
 -----------------------------------------------------------------------------------
 Bridge:GD',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'return 3;',
 	1,
 	'',
 	"aa5f57f9-4d45-42dd-8108-588f212c1226");
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("051a8ae5-d474-4e10-925f-daa19ec88254",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
@@ -43,7 +36,7 @@ Bridge:GD',
 	"64b117b8-bb50-4b4a-8653-a6f9645f158c");
 INSERT INTO S_DT_PROXY
 	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Style',
 	'The Style data type specifies the precise form a graphical element will take when drawn.
 --------------------------------------------------------------------------
@@ -57,7 +50,7 @@ INSERT INTO O_TFR
 	'An External Entity shows only it''s name.
 -----------------------------------------------------------------------------------
 Bridge:GD',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'result = "";
 if (param.comp_num == 1)
@@ -142,7 +135,7 @@ INSERT INTO O_TPARM
 	VALUES ("f358dea6-8a65-4aa3-a329-d50098bdb805",
 	"aa5f57f9-4d45-42dd-8108-588f212c1226",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"563a2a0e-cc1d-4991-a6be-d89e90e0be35",
@@ -151,7 +144,7 @@ INSERT INTO O_TPARM
 	VALUES ("5cd382a5-342d-4f4a-ac9f-75d07f2d00c0",
 	"aa5f57f9-4d45-42dd-8108-588f212c1226",
 	'ent_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"f358dea6-8a65-4aa3-a329-d50098bdb805",
@@ -167,18 +160,11 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'Justification',
 	'The Justification data type is used to specify text at a given location in a compartment.
 ------------------------------------------------------------------------------
 Bridge:GD',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
@@ -188,7 +174,7 @@ INSERT INTO O_TFR
 	'An External Entity has only one entry, its name.
 -----------------------------------------------------------------------------------
 Bridge:GD',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'if (param.comp_num == 1)
   return 1;
@@ -208,7 +194,7 @@ INSERT INTO O_TPARM
 	VALUES ("85f75223-c956-4ebd-82dd-62edc46cfeea",
 	"456c447e-08b7-4c37-92cf-949e7b12173f",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -230,7 +216,7 @@ INSERT INTO O_TPARM
 	VALUES ("d0e37499-e63f-43b8-a2a2-5d5fc6bf12fc",
 	"3bb8b8cb-581e-4676-99d9-29a0408f7f18",
 	'comp_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"0a4ed38c-0c95-4875-9493-76d850d27f70",
@@ -239,7 +225,7 @@ INSERT INTO O_TPARM
 	VALUES ("5321513a-4abe-46e6-93e9-6d3efb320d50",
 	"3bb8b8cb-581e-4676-99d9-29a0408f7f18",
 	'ent_num',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"d0e37499-e63f-43b8-a2a2-5d5fc6bf12fc",
@@ -258,7 +244,7 @@ INSERT INTO O_TFR
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
 	'initialize',
 	'Initialize a new External Entity instance.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'name = ::getUniqueInitialName( 
     instance: self.convertToInstance(), 
@@ -273,19 +259,12 @@ end if;        ',
 	1,
 	'',
 	"3bb8b8cb-581e-4676-99d9-29a0408f7f18");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("7ab78ccd-467f-4207-8ce6-479cc648f5d8",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
 	'dispose',
 	'The dispose operation for this class.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one pe related by self->PE_PE[R8001];
@@ -344,7 +323,7 @@ INSERT INTO O_TFR
 	'newBridgeOperation',
 	'Create a new bridge for this external entity.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'create object instance brg of S_BRG;
 relate self to brg across R19;
@@ -359,25 +338,18 @@ INSERT INTO O_TFR
 	'The ooa_id of an External Entity is its EE_ID
 -----------------------------------------------------------
 Bridge:GD',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'return self.EE_ID;',
 	1,
 	'',
 	"456c447e-08b7-4c37-92cf-949e7b12173f");
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("47b4912e-6356-420d-882b-4bc83d06ac61",
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
 	'getPath',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one packageableElem related by self->PE_PE[R8001];
@@ -423,7 +395,7 @@ return this;',
 	"00000000-0000-0000-0000-000000000000");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -433,7 +405,7 @@ INSERT INTO O_TFR
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
 	'getContainingComponentId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 // External Entity.getContainingComponentId()
@@ -460,7 +432,7 @@ INSERT INTO O_TFR
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
 	'getContainerId',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'// External Entity.getContainerId()
 select one component related by self->PE_PE[R8001]->C_C[R8003];
@@ -482,7 +454,7 @@ INSERT INTO O_TFR
 	"a361b553-b2e3-46ea-a8f4-8b8633921011",
 	'pasteBridge',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select any operation from instances of S_BRG
                                             where (selected.Brg_ID == param.id);
@@ -503,7 +475,7 @@ INSERT INTO O_TPARM
 	VALUES ("f6a596c6-c76f-4808-9cb9-e3f29c6e6e67",
 	"5b99f4e3-05b2-4f5c-9671-aeff98f8aba3",
 	'id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -524,7 +496,7 @@ Description: Provides a name for the external entity.',
 	'',
 	'Name',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -543,7 +515,7 @@ Description: A textual description of the external entity which appears in a dom
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -562,7 +534,7 @@ The key letters assigned to an external entity on a domains SPM.',
 	'',
 	'Key_Lett',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_REF
@@ -613,16 +585,9 @@ INSERT INTO O_ATTR
 	'',
 	'Dom_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("a361b553-b2e3-46ea-a8f4-8b8633921011",
 	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
@@ -672,7 +637,7 @@ Description: Uniquely identifies the external entity in the domain.',
 	'',
 	'EE_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -690,7 +655,7 @@ INSERT INTO O_ATTR
 	'',
 	'Realized_Class_Path',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -717,7 +682,7 @@ INSERT INTO O_ATTR
 	'',
 	'Label',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -736,16 +701,9 @@ Description: If true, Verifier will bind to an externally supplied implementatio
 	'',
 	'isRealized',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"a361b553-b2e3-46ea-a8f4-8b8633921011");
@@ -760,12 +718,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"a361b553-b2e3-46ea-a8f4-8b8633921011");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("a361b553-b2e3-46ea-a8f4-8b8633921011",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Domain',
 	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
-	'S',
 	1,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000100002",
 	'../Domain.xtuml');

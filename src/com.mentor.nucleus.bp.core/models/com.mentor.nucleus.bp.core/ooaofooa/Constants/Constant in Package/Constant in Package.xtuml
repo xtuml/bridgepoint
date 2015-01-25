@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("5786560e-25d0-407b-aa4f-12ca3c37d82d",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	1504,
 	'CNST_CIP',
 	'Constant in Package represents the constants contained within a particular package.',
-	"64811fd3-cc5f-4963-9036-8a9110e89dda");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("5786560e-25d0-407b-aa4f-12ca3c37d82d",
 	"110e3323-6929-4be9-b265-ce681dd25ec3",
@@ -22,7 +22,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type Package',
 	'Package_ID',
-	'R1506');
+	'R1506.''is contained in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("5786560e-25d0-407b-aa4f-12ca3c37d82d",
 	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'Package_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("5786560e-25d0-407b-aa4f-12ca3c37d82d",
 	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
@@ -80,7 +73,7 @@ INSERT INTO O_REF
 	'',
 	'Constant Specification',
 	'Constant_Spec_ID',
-	'R1506');
+	'R1506.''contains''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("c4b177b9-e327-4190-b6cd-46be85d54c74",
 	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
@@ -108,7 +101,7 @@ INSERT INTO O_ATTR
 	'',
 	'Constant_Spec_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -130,14 +123,19 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"5786560e-25d0-407b-aa4f-12ca3c37d82d");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("5786560e-25d0-407b-aa4f-12ca3c37d82d",
+	1,
+	"64811fd3-cc5f-4963-9036-8a9110e89dda",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("64811fd3-cc5f-4963-9036-8a9110e89dda",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Constants',
 	'This subsystem contains the metamodel support for constants.  Individual
 constants are contained inside a constant specification on the datatypes
 diagram.',
-	'CNST',
 	1500,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Constants.xtuml');

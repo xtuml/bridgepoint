@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("de6c5be0-92d9-4dcb-8979-2119f3083840",
@@ -10,13 +10,13 @@ It has visibility equal to the scope of the block. Once
 execution has passed out of the block in which the
 transient is first assigned a value, the variable no longer
 exists.',
-	"e060f94c-3f82-463e-9d98-d20315b7c196");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("224b20cc-2ebc-4a05-ac21-e7ae28a5997d",
 	"de6c5be0-92d9-4dcb-8979-2119f3083840",
 	'getDimensionsCnt',
 	'',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	1,
 	'select many dims related by self->S_DIM[R844];
 dimensions = cardinality dims;
@@ -25,19 +25,12 @@ return dimensions;
 	1,
 	'',
 	"563d3692-31d2-4ecf-ab74-36e59f55d6d1");
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("c404b709-b935-49d0-9b18-534d46a83016",
 	"de6c5be0-92d9-4dcb-8979-2119f3083840",
 	'resizeDimensions',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// If the number of dimensions has increased then add dimensions
 while (param.numDimensions > self.getDimensionsCnt())
@@ -69,7 +62,7 @@ INSERT INTO O_TPARM
 	VALUES ("93a4b1af-6938-4951-87d7-591c064e4816",
 	"c404b709-b935-49d0-9b18-534d46a83016",
 	'numDimensions',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"380561b2-8d12-49f0-858e-4122e3ba1cd1",
@@ -78,7 +71,7 @@ INSERT INTO O_TPARM
 	VALUES ("56dce8ac-11f8-4e38-82c1-67910e692791",
 	"c404b709-b935-49d0-9b18-534d46a83016",
 	'dimension',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -87,24 +80,17 @@ INSERT INTO O_TPARM
 	VALUES ("380561b2-8d12-49f0-858e-4122e3ba1cd1",
 	"c404b709-b935-49d0-9b18-534d46a83016",
 	'elementCount',
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	0,
 	'',
 	"56dce8ac-11f8-4e38-82c1-67910e692791",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("a9c3d950-de62-4a51-88f3-42806fde9923",
 	"de6c5be0-92d9-4dcb-8979-2119f3083840",
 	'isReferringToDefaultDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'select one dt related by self->S_DT[R821];
 elementType = Util::getSimpleClassName(element:self.convertToInstance());
@@ -115,13 +101,6 @@ return false;',
 	1,
 	'',
 	"224b20cc-2ebc-4a05-ac21-e7ae28a5997d");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("563d3692-31d2-4ecf-ab74-36e59f55d6d1",
 	"de6c5be0-92d9-4dcb-8979-2119f3083840",
@@ -135,7 +114,7 @@ INSERT INTO O_TFR
 	"8d1bbab0-0d53-44d1-a1ae-62833ed8cf10");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -145,7 +124,7 @@ INSERT INTO O_TFR
 	"de6c5be0-92d9-4dcb-8979-2119f3083840",
 	'canReferToDataType',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
 select one body related by self->V_VAR[R814]->ACT_BLK[R823]->ACT_ACT[R601];
@@ -275,16 +254,9 @@ INSERT INTO O_ATTR
 	'',
 	'Var_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("98ac313f-7994-4817-b4e6-294355f7bd31",
 	"de6c5be0-92d9-4dcb-8979-2119f3083840");
@@ -307,16 +279,9 @@ gets its dimensions based on the rvalue that it is assigned from.',
 	'',
 	'Dimensions',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("de6c5be0-92d9-4dcb-8979-2119f3083840",
 	"ead52fac-9782-434b-a35c-c07452c3b26d",
@@ -332,7 +297,7 @@ INSERT INTO O_REF
 	'',
 	'Data Type',
 	'DT_ID',
-	'R821');
+	'R821.''has''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("de6c5be0-92d9-4dcb-8979-2119f3083840",
 	"030f5928-b569-4e06-828a-46ff364ce1bb",
@@ -365,7 +330,7 @@ INSERT INTO O_ATTR
 	'',
 	'Element_ID',
 	2,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -382,8 +347,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"de6c5be0-92d9-4dcb-8979-2119f3083840");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("de6c5be0-92d9-4dcb-8979-2119f3083840",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Value',
 	'This subsystem formalizes the concepts of values (r-values) and variables 
 (l-values). It also captures the concept of an actual parameter.
@@ -392,8 +365,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'V',
 	800,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000400008",
 	'../Value.xtuml');

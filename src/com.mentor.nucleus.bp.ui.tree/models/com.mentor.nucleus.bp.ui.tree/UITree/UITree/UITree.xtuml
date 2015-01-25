@@ -1,199 +1,17 @@
--- BP 7.1 content: Subsystem syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_SS
+INSERT INTO EP_PKG
 	VALUES ("3357a459-a1e1-4bc3-a4b8-f31d53662ce0",
+	"00000000-0000-0000-0000-000000000000",
+	"01011a0a-7be9-46ee-a8f8-2ba4cac25a9d",
 	'UITree',
 	'',
-	'T',
-	1,
-	"355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
-	"00000000-0000-0000-0000-00000070000e");
-INSERT INTO S_SID
-	VALUES ("355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
-	"3357a459-a1e1-4bc3-a4b8-f31d53662ce0");
-INSERT INTO S_DOM_PROXY
-	VALUES ("355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
-	'UITree',
-	'========================================================================
-
-File:          $RCSfile$
-Version:   $Revision$
-Modified:  $Date$
-
-(c) Copyright 2003-2014 Mentor Graphics Corporation All rights reserved.
-
-========================================================================
-Licensed under the Apache License, Version 2.0 (the "License"); you may not
-use this file except in compliance with the License.  You may obtain a copy
-of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
-License for the specific language governing permissions and limitations under
-the License.
-========================================================================
-
-This domain captures the mapping of a client model onto a tree structure. It contains
-additional attributes to facilitate the generation of code for displaying the tree in
-a User Interface tree widget.',
-	0,
-	"00000000-0000-0000-0000-000000000001",
-	"01011a0a-7be9-46ee-a8f8-2ba4cac25a9d",
-	'../UITree.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("9cd67d70-e20d-4006-bf91-6df72779c691");
-INSERT INTO R_REL
-	VALUES ("9cd67d70-e20d-4006-bf91-6df72779c691",
-	1000,
-	'Captures the tree structure itself.
-
-This domain is capturing the tree structure of the client model (which is
-itself a network, not a tree), a parent can have many children of the same
-or different types:
-
-A Tree_Node_Specification is parent of zero or more Tree_Node_specifications
-',
-	"3357a459-a1e1-4bc3-a4b8-f31d53662ce0");
-INSERT INTO R_PART
-	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
-	"9cd67d70-e20d-4006-bf91-6df72779c691",
-	"b6179daa-f46c-47ea-9ff7-4cca937743c4",
-	0,
-	0,
-	'specifies parenthood of');
-INSERT INTO O_RTIDA
-	VALUES ("b75e4192-95f9-424b-b1ff-ce881a2be980",
-	"d4ebf854-cf98-4429-900e-e4b213092712",
-	0,
-	"9cd67d70-e20d-4006-bf91-6df72779c691",
-	"b6179daa-f46c-47ea-9ff7-4cca937743c4");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("b75e4192-95f9-424b-b1ff-ce881a2be980",
-	"d4ebf854-cf98-4429-900e-e4b213092712",
-	0,
-	'Tree_Node_Spec_ID',
-	'./Tree_Node_Specification/Tree_Node_Specification.xtuml');
-INSERT INTO R_RTO
-	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
-	"9cd67d70-e20d-4006-bf91-6df72779c691",
-	"b6179daa-f46c-47ea-9ff7-4cca937743c4",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"d4ebf854-cf98-4429-900e-e4b213092712",
-	'./Tree_Node_Specification/Tree_Node_Specification.xtuml');
-INSERT INTO R_OIR
-	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
-	"9cd67d70-e20d-4006-bf91-6df72779c691",
-	"b6179daa-f46c-47ea-9ff7-4cca937743c4",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
-	'Tree_Node_Specification',
-	1,
-	'T_TNS',
-	'This class specifies what entries are to appear in a display tree. 
-It represents an underlying client model that contains structure
-and data of interest to the user. 
-
-Not all the data in the client model is to be presented in the tree.
-Iinstances of this class specify which data items are to be shown.
-
-Attributes of this class determine which client model entry is to be
-shown and what the tree entry will look like.',
-	"3357a459-a1e1-4bc3-a4b8-f31d53662ce0",
-	'./Tree_Node_Specification/Tree_Node_Specification.xtuml');
-INSERT INTO R_FORM
-	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
-	"9cd67d70-e20d-4006-bf91-6df72779c691",
-	"d7ab1de0-2868-48ca-af7c-1f5645507af6",
-	1,
-	1,
-	'is specified as parent through');
-INSERT INTO R_RGO
-	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
-	"9cd67d70-e20d-4006-bf91-6df72779c691",
-	"d7ab1de0-2868-48ca-af7c-1f5645507af6");
-INSERT INTO R_OIR
-	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
-	"9cd67d70-e20d-4006-bf91-6df72779c691",
-	"d7ab1de0-2868-48ca-af7c-1f5645507af6",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
-	'Tree_Parenthood_Specification',
-	2,
-	'T_TPS',
-	'This class specifies the hierarchy of the tree. Instances of this class define
-which client model entities ''contain'' which other entities from the perspective
-of the displayed tree.
-
-Apart from the referential attributes that formalize the parent-child relationship,
-the attribute, ''ParentChildRelChain'' specifies how to find children given a
-parent and a parent given a child.',
-	"3357a459-a1e1-4bc3-a4b8-f31d53662ce0",
-	'./Tree_Parenthood_Specification/Tree_Parenthood_Specification.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3");
-INSERT INTO R_REL
-	VALUES ("1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
-	1001,
-	'Captures the tree structure itself.
-
-No node may appear in more than one branch of the tree,
-even if the apparently same entries appear in more than
-one part fo the tree, they are considered to be of a different
-type:
-
-A Tree_Node_Specification is child of zero or one Tree_Node_specification',
-	"3357a459-a1e1-4bc3-a4b8-f31d53662ce0");
-INSERT INTO R_PART
-	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
-	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
-	"e166cda4-8823-4824-9cc6-24783c32888d",
-	0,
-	0,
-	'specifies childhood of');
-INSERT INTO O_RTIDA
-	VALUES ("b75e4192-95f9-424b-b1ff-ce881a2be980",
-	"d4ebf854-cf98-4429-900e-e4b213092712",
-	0,
-	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
-	"e166cda4-8823-4824-9cc6-24783c32888d");
-INSERT INTO R_RTO
-	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
-	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
-	"e166cda4-8823-4824-9cc6-24783c32888d",
-	0);
-INSERT INTO R_OIR
-	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
-	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
-	"e166cda4-8823-4824-9cc6-24783c32888d",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
-	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
-	"c00db8df-c570-4158-946a-c951c23bc625",
-	1,
-	1,
-	'is specified as child through');
-INSERT INTO R_RGO
-	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
-	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
-	"c00db8df-c570-4158-946a-c951c23bc625");
-INSERT INTO R_OIR
-	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
-	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
-	"c00db8df-c570-4158-946a-c951c23bc625",
-	"00000000-0000-0000-0000-000000000000");
+	1);
 INSERT INTO GD_MD
 	VALUES ("b8f7ac11-c2f7-420a-b8e3-8011a59f733a",
-	5,
+	112,
 	"3357a459-a1e1-4bc3-a4b8-f31d53662ce0",
-	11,
+	108,
 	1,
 	0,
 	1,
@@ -535,3 +353,204 @@ INSERT INTO DIM_DIA
 	1633.000000,
 	1157.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SIMP
+	VALUES ("9cd67d70-e20d-4006-bf91-6df72779c691");
+INSERT INTO R_REL
+	VALUES ("9cd67d70-e20d-4006-bf91-6df72779c691",
+	1000,
+	'Captures the tree structure itself.
+
+This domain is capturing the tree structure of the client model (which is
+itself a network, not a tree), a parent can have many children of the same
+or different types:
+
+A Tree_Node_Specification is parent of zero or more Tree_Node_specifications
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
+	"9cd67d70-e20d-4006-bf91-6df72779c691",
+	"b6179daa-f46c-47ea-9ff7-4cca937743c4",
+	0,
+	0,
+	'specifies parenthood of');
+INSERT INTO O_RTIDA
+	VALUES ("b75e4192-95f9-424b-b1ff-ce881a2be980",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	0,
+	"9cd67d70-e20d-4006-bf91-6df72779c691",
+	"b6179daa-f46c-47ea-9ff7-4cca937743c4");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("b75e4192-95f9-424b-b1ff-ce881a2be980",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	0,
+	'Tree_Node_Spec_ID',
+	'./Tree_Node_Specification/Tree_Node_Specification.xtuml');
+INSERT INTO R_RTO
+	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
+	"9cd67d70-e20d-4006-bf91-6df72779c691",
+	"b6179daa-f46c-47ea-9ff7-4cca937743c4",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	'./Tree_Node_Specification/Tree_Node_Specification.xtuml');
+INSERT INTO R_OIR
+	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
+	"9cd67d70-e20d-4006-bf91-6df72779c691",
+	"b6179daa-f46c-47ea-9ff7-4cca937743c4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
+	'Tree_Node_Specification',
+	1,
+	'T_TNS',
+	'This class specifies what entries are to appear in a display tree. 
+It represents an underlying client model that contains structure
+and data of interest to the user. 
+
+Not all the data in the client model is to be presented in the tree.
+Iinstances of this class specify which data items are to be shown.
+
+Attributes of this class determine which client model entry is to be
+shown and what the tree entry will look like.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Tree_Node_Specification/Tree_Node_Specification.xtuml');
+INSERT INTO R_FORM
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"9cd67d70-e20d-4006-bf91-6df72779c691",
+	"d7ab1de0-2868-48ca-af7c-1f5645507af6",
+	1,
+	1,
+	'is specified as parent through');
+INSERT INTO R_RGO
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"9cd67d70-e20d-4006-bf91-6df72779c691",
+	"d7ab1de0-2868-48ca-af7c-1f5645507af6");
+INSERT INTO R_OIR
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"9cd67d70-e20d-4006-bf91-6df72779c691",
+	"d7ab1de0-2868-48ca-af7c-1f5645507af6",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	'Tree_Parenthood_Specification',
+	2,
+	'T_TPS',
+	'This class specifies the hierarchy of the tree. Instances of this class define
+which client model entities ''contain'' which other entities from the perspective
+of the displayed tree.
+
+Apart from the referential attributes that formalize the parent-child relationship,
+the attribute, ''ParentChildRelChain'' specifies how to find children given a
+parent and a parent given a child.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Tree_Parenthood_Specification/Tree_Parenthood_Specification.xtuml');
+INSERT INTO PE_PE
+	VALUES ("9cd67d70-e20d-4006-bf91-6df72779c691",
+	1,
+	"3357a459-a1e1-4bc3-a4b8-f31d53662ce0",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3");
+INSERT INTO R_REL
+	VALUES ("1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	1001,
+	'Captures the tree structure itself.
+
+No node may appear in more than one branch of the tree,
+even if the apparently same entries appear in more than
+one part fo the tree, they are considered to be of a different
+type:
+
+A Tree_Node_Specification is child of zero or one Tree_Node_specification',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
+	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	"e166cda4-8823-4824-9cc6-24783c32888d",
+	0,
+	0,
+	'specifies childhood of');
+INSERT INTO O_RTIDA
+	VALUES ("b75e4192-95f9-424b-b1ff-ce881a2be980",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	0,
+	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	"e166cda4-8823-4824-9cc6-24783c32888d");
+INSERT INTO R_RTO
+	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
+	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	"e166cda4-8823-4824-9cc6-24783c32888d",
+	0);
+INSERT INTO R_OIR
+	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
+	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	"e166cda4-8823-4824-9cc6-24783c32888d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	"c00db8df-c570-4158-946a-c951c23bc625",
+	1,
+	1,
+	'is specified as child through');
+INSERT INTO R_RGO
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	"c00db8df-c570-4158-946a-c951c23bc625");
+INSERT INTO R_OIR
+	VALUES ("cfd4ccd0-fe89-40fa-9990-54ac3e4034af",
+	"1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	"c00db8df-c570-4158-946a-c951c23bc625",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("1f5bbcc9-35a1-443f-89fa-3dd779d6e9b3",
+	1,
+	"3357a459-a1e1-4bc3-a4b8-f31d53662ce0",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO PE_PE
+	VALUES ("3357a459-a1e1-4bc3-a4b8-f31d53662ce0",
+	1,
+	"355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
+	"01011a0a-7be9-46ee-a8f8-2ba4cac25a9d",
+	"01011a0a-7be9-46ee-a8f8-2ba4cac25a9d",
+	'UITree',
+	'========================================================================
+
+File:          $RCSfile$
+Version:   $Revision$
+Modified:  $Date$
+
+(c) Copyright 2003-2014 Mentor Graphics Corporation All rights reserved.
+
+========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+========================================================================
+
+This domain captures the mapping of a client model onto a tree structure. It contains
+additional attributes to facilitate the generation of code for displaying the tree in
+a User Interface tree widget.',
+	0,
+	'../UITree.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("01011a0a-7be9-46ee-a8f8-2ba4cac25a9d",
+	'com.mentor.nucleus.bp.ui.tree',
+	1,
+	'../../com.mentor.nucleus.bp.ui.tree.xtuml');
