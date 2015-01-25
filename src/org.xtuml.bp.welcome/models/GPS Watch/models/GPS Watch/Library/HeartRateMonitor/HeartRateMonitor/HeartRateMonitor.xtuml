@@ -1,0 +1,81 @@
+-- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("c38d4bd2-2db9-4e6d-b481-f3366af37794",
+	"00000000-0000-0000-0000-000000000000",
+	"36a41cf7-d411-488d-99fc-74866d4fea39",
+	'HeartRateMonitor',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("cbf62cfa-626e-4564-a41f-1616b1d01b36",
+	112,
+	"c38d4bd2-2db9-4e6d-b481-f3366af37794",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'GPS Watch::Library::HeartRateMonitor::HeartRateMonitor');
+INSERT INTO GD_GE
+	VALUES ("559ae2ae-c567-4841-b7d0-47e72a42933b",
+	"cbf62cfa-626e-4564-a41f-1616b1d01b36",
+	"43ffa2f7-7cc5-400e-b5f5-59b26ed3c7b5",
+	21,
+	0,
+	'GPS Watch::Library::HeartRateMonitor::HeartRateMonitor::HeartRateMonitor');
+INSERT INTO GD_SHP
+	VALUES ("559ae2ae-c567-4841-b7d0-47e72a42933b");
+INSERT INTO GD_NCS
+	VALUES ("559ae2ae-c567-4841-b7d0-47e72a42933b");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"559ae2ae-c567-4841-b7d0-47e72a42933b");
+INSERT INTO DIM_GE
+	VALUES (4332.000000,
+	3120.000000,
+	"559ae2ae-c567-4841-b7d0-47e72a42933b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("559ae2ae-c567-4841-b7d0-47e72a42933b",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_DIA
+	VALUES ("cbf62cfa-626e-4564-a41f-1616b1d01b36",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("c38d4bd2-2db9-4e6d-b481-f3366af37794",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"fff30510-d90f-4286-962f-f99732ae7c5a",
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("fff30510-d90f-4286-962f-f99732ae7c5a",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'HeartRateMonitor',
+	'Simulates a pulse monitor hardware/firmware. This component is only behavioral and included for testing purposes.',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'../HeartRateMonitor.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("36a41cf7-d411-488d-99fc-74866d4fea39",
+	'GPS Watch',
+	1,
+	'../../../GPS Watch.xtuml');

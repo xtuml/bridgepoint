@@ -1,0 +1,17 @@
+operation invocation
+delete 
+assign to attribute
+select
+create event instance
+generate event
+generate pre-existing event
+relate one
+relate other
+relate using one
+relate using other
+relate using as link
+unrelate one
+unrelate other
+unrelate using one
+unrelate using other
+unrelate using as link

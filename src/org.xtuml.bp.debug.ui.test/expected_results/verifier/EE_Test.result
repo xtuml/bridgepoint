@@ -1,0 +1,22 @@
+LogInfo:  Testing built in External Entity from a function
+LogInteger:  1
+LogInteger:  2
+LogReal:  3.0 Real ->
+LogReal:  4.0 Real ->
+LogFailure:  Success, we logged a failure.
+LogSuccess:  Success, we logged a success.
+LogInfo:  Testing built in External Entity from an operation
+LogInteger:  5
+LogInteger:  6
+LogReal:  7.0 Real ->
+LogReal:  8.0 Real ->
+LogFailure:  Success, we logged a failure.
+LogSuccess:  Success, we logged a success.
+LogInfo:  Testing built in External Entity from a state action
+LogInteger:  9
+LogInteger:  10
+LogReal:  11.0 Real ->
+LogReal:  12.0 Real ->
+LogFailure:  Success, we logged a failure.
+LogSuccess:  Success, we logged a success.
+LogInfo:  Test complete. Shutting down.

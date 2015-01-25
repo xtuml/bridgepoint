@@ -1,0 +1,18 @@
+.//====================================================================
+.//
+.// File:      $RCSfile: ooaofooa_startspec.clr,v $
+.// Version:   $Revision: 1.10 $
+.// Modified:  $Date: 2013/01/10 22:53:57 $
+.//
+.// (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
+.//
+.//====================================================================
+.//
+.function define_startspec
+  .assign attr_init_type  = ""
+  .assign attr_init_var_name = ""
+  .assign attr_init_class = ""
+  .assign attr_init_stim  = ""
+  .assign attr_parameter1 = ""
+  .assign attr_parameter2 = ""
+.end function

@@ -1,0 +1,246 @@
+AUDIT RESULTS FOR DOMAIN imx
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+imx
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging 
+External Entity Time
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class imx::init
+Class imx::Object with Int Id Attr L Side
+Class imx::Object with Int Id Attr R Side
+Class imx::Object with String Id Attr L Side
+Class imx::Object with String Id Attr R Side
+Class imx::Object with Bool Id Attr L Side
+Class imx::Object with Bool Id Attr R Side
+Class imx::Object with Date Id Attr L Side
+Class imx::Object with Date Id Attr R Side
+Class imx::Object with Time Id Attr L Side
+Class imx::Object with Time Id Attr R Side
+Class imx::Object with Enum Id Attr L Side
+Class imx::Object with Enum Id Attr R Side
+Class imx::Object with User Id Attr L Side
+Class imx::Object with User Id Attr R Side
+Class imx::imx driver
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute init::current_state
+Attribute init::id
+Attribute Object with Int Id Attr L Side::id
+Attribute Object with Int Id Attr L Side::id1
+Attribute Object with Int Id Attr L Side::current_state
+Attribute Object with Int Id Attr L Side::i
+Attribute Object with Int Id Attr R Side::r_id
+Attribute Object with Int Id Attr R Side::current_state
+Attribute Object with Int Id Attr R Side::id
+Attribute Object with Int Id Attr R Side::i
+Attribute Object with Int Id Attr R Side::id1
+Attribute Object with String Id Attr L Side::id
+Attribute Object with String Id Attr L Side::current_state
+Attribute Object with String Id Attr L Side::i
+Attribute Object with String Id Attr R Side::r_id
+Attribute Object with String Id Attr R Side::current_state
+Attribute Object with String Id Attr R Side::id
+Attribute Object with String Id Attr R Side::i
+Attribute Object with Bool Id Attr L Side::id
+Attribute Object with Bool Id Attr L Side::i
+Attribute Object with Bool Id Attr L Side::current_state
+Attribute Object with Bool Id Attr R Side::r_id
+Attribute Object with Bool Id Attr R Side::current_state
+Attribute Object with Bool Id Attr R Side::id
+Attribute Object with Bool Id Attr R Side::i
+Attribute Object with Date Id Attr L Side::id
+Attribute Object with Date Id Attr L Side::current_state
+Attribute Object with Date Id Attr L Side::i
+Attribute Object with Date Id Attr R Side::r_id
+Attribute Object with Date Id Attr R Side::current_state
+Attribute Object with Date Id Attr R Side::id
+Attribute Object with Date Id Attr R Side::i
+Attribute Object with Time Id Attr L Side::id
+Attribute Object with Time Id Attr L Side::current_state
+Attribute Object with Time Id Attr L Side::i
+Attribute Object with Time Id Attr R Side::r_id
+Attribute Object with Time Id Attr R Side::current_state
+Attribute Object with Time Id Attr R Side::id
+Attribute Object with Time Id Attr R Side::i
+Attribute Object with Enum Id Attr L Side::id
+Attribute Object with Enum Id Attr L Side::current_state
+Attribute Object with Enum Id Attr L Side::i
+Attribute Object with Enum Id Attr R Side::r_id
+Attribute Object with Enum Id Attr R Side::current_state
+Attribute Object with Enum Id Attr R Side::id
+Attribute Object with Enum Id Attr R Side::i
+Attribute Object with User Id Attr L Side::id
+Attribute Object with User Id Attr L Side::current_state
+Attribute Object with User Id Attr L Side::i
+Attribute Object with User Id Attr R Side::r_id
+Attribute Object with User Id Attr R Side::current_state
+Attribute Object with User Id Attr R Side::id
+Attribute Object with User Id Attr R Side::i
+Attribute imx driver::id
+Attribute imx driver::current_state
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute Object with Int Id Attr R Side::id
+Referential Attribute Object with Int Id Attr R Side::id1
+Referential Attribute Object with String Id Attr R Side::id
+Referential Attribute Object with Bool Id Attr R Side::id
+Referential Attribute Object with Date Id Attr R Side::id
+Referential Attribute Object with Time Id Attr R Side::id
+Referential Attribute Object with Enum Id Attr R Side::id
+Referential Attribute Object with User Id Attr R Side::id
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation Object with Time Id Attr R Side::waitOneSec
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+imx::R2
+imx::R3
+imx::R4
+imx::R5
+imx::R6
+imx::R7
+imx::R8
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model init
+State Model Object with Int Id Attr L Side
+State Model Object with Int Id Attr R Side
+State Model Object with String Id Attr L Side
+State Model Object with String Id Attr R Side
+State Model Object with Bool Id Attr L Side
+State Model Object with Bool Id Attr R Side
+State Model Object with Date Id Attr L Side
+State Model Object with Date Id Attr R Side
+State Model Object with Time Id Attr L Side
+State Model Object with Time Id Attr R Side
+State Model Object with Enum Id Attr L Side
+State Model Object with Enum Id Attr R Side
+State Model Object with User Id Attr L Side
+State Model Object with User Id Attr R Side
+State Model imx driver
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event OL_INT1
+Event OL_INT2
+Event OL_INT3
+Event OR_INT1
+Event OR_INT2
+Event OR_INT3
+Event OL_STR1
+Event OL_STR2
+Event OL_STR3
+Event OR_STR1
+Event OR_STR2
+Event OR_STR3
+Event OL_BOOL1
+Event OL_BOOL2
+Event OL_BOOL3
+Event OR_BOOL1
+Event OR_BOOL2
+Event OR_BOOL3
+Event OL_DATE1
+Event OL_DATE2
+Event OL_DATE3
+Event OR_DATE1
+Event OR_DATE2
+Event OR_DATE3
+Event OL_TIME1
+Event OL_TIME2
+Event OL_TIME3
+Event OR_TIME1
+Event OR_TIME2
+Event OR_TIME3
+Event OL_ENUM1
+Event OL_ENUM2
+Event OL_ENUM3
+Event OR_ENUM1
+Event OR_ENUM2
+Event OR_ENUM3
+Event OL_USER1
+Event OL_USER2
+Event OL_USER3
+Event OR_USER1
+Event OR_USER2
+Event OR_USER3
+Event IMX_DRV1
+Event IMX_DRV3
+Event IMX_DRV4
+Event IMX_DRV5
+Event IMX_DRV6
+Event IMX_DRV7
+Event IMX_DRV8
+Event IMX_DRV9
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Object with Int Id Attr L Side::id
+Event Data Object with Int Id Attr R Side::id
+Event Data Object with String Id Attr L Side::id
+Event Data Object with String Id Attr R Side::id
+Event Data Object with Bool Id Attr L Side::id
+Event Data Object with Bool Id Attr R Side::id
+Event Data Object with Date Id Attr L Side::id
+Event Data Object with Date Id Attr R Side::id
+Event Data Object with Time Id Attr L Side::id
+Event Data Object with Time Id Attr R Side::id
+Event Data Object with Enum Id Attr L Side::id
+Event Data Object with Enum Id Attr R Side::id
+Event Data Object with User Id Attr L Side::id
+Event Data Object with User Id Attr R Side::id
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+init::IMX Init
+Object with Int Id Attr L Side::Starting IX2 Test
+Object with Int Id Attr L Side::Verifying Rel with Instance
+Object with Int Id Attr L Side::Finishing IX2 Test
+Object with Int Id Attr R Side::Starting IX2 Test
+Object with Int Id Attr R Side::Verifying Rel with Instance
+Object with Int Id Attr R Side::Finishing IX2 Test
+Object with String Id Attr L Side::Starting IX2 Test
+Object with String Id Attr L Side::Verifying Rel with Instance
+Object with String Id Attr L Side::Finishing IX2 Test
+Object with String Id Attr R Side::Starting IX2 Test
+Object with String Id Attr R Side::Verifying Rel with Instance
+Object with String Id Attr R Side::Finishing IX2 Test
+Object with Bool Id Attr L Side::Starting IX2 Test
+Object with Bool Id Attr L Side::Verifying Rel with Instance
+Object with Bool Id Attr L Side::Finishing IX2 Test
+Object with Bool Id Attr R Side::Starting IX2 Test
+Object with Bool Id Attr R Side::Verifying Rel with Instance
+Object with Bool Id Attr R Side::Finishing IX2 Test
+Object with Date Id Attr L Side::Starting IX2 Test
+Object with Date Id Attr L Side::Verifying Rel with Instance
+Object with Date Id Attr L Side::Finishing IX2 Test
+Object with Date Id Attr R Side::Starting IX2 Test
+Object with Date Id Attr R Side::Verifying Rel with Instance
+Object with Date Id Attr R Side::Finishing IX2 Test
+Object with Time Id Attr L Side::Starting IX2 Test
+Object with Time Id Attr L Side::Verifying Rel with Instance
+Object with Time Id Attr L Side::Finishing IX2 Test
+Object with Time Id Attr R Side::Starting IX2 Test
+Object with Time Id Attr R Side::Verifying Rel with Instance
+Object with Time Id Attr R Side::Finishing IX2 Test
+Object with Enum Id Attr L Side::Starting IX2 Test
+Object with Enum Id Attr L Side::Verifying Rel with Instance
+Object with Enum Id Attr L Side::Finishing IX2 Test
+Object with Enum Id Attr R Side::Starting IX2 Test
+Object with Enum Id Attr R Side::Verifying Rel with Instance
+Object with Enum Id Attr R Side::Finishing IX2 Test
+Object with User Id Attr L Side::Starting IX2 Test
+Object with User Id Attr L Side::Verifying Rel with Instance
+Object with User Id Attr L Side::Finishing IX2 Test
+Object with User Id Attr R Side::Starting IX2 Test
+Object with User Id Attr R Side::Verifying Rel with Instance
+Object with User Id Attr R Side::Finishing IX2 Test
+imx driver::Initializing Timers for all Runs
+imx driver::Shutting Down

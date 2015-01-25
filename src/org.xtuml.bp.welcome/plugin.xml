@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="org.xtuml.bp.welcome"
+   name="BridgePoint UML Welcome Plug-in"
+   version="4.2.0"
+   provider-name="xtUML.org"
+   class="org.xtuml.bp.welcome.WelcomePlugin">
+
+   <runtime>
+      <library name="welcome.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.xtuml.bp.core"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.help"/>
+      <import plugin="org.xtuml.bp.io.core"/>
+      <import plugin="org.xtuml.bp.utilities"/>
+      <import plugin="org.eclipse.ui.intro"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="org.eclipse.ui.cheatsheets"/>
+      <import plugin="org.xtuml.bp.cdt"/>
+      <import plugin="org.xtuml.bp.ui.canvas"/>
+      <import plugin="org.xtuml.bp.ui.graphics"/>
+      <import plugin="org.eclipse.gef"/>
+      <import plugin="org.xtuml.bp.ui.explorer"/>
+      <import plugin="org.xtuml.bp.ui.text"/>
+      <import plugin="org.xtuml.bp.debug.ui"/>
+      <import plugin="org.xtuml.bp.ui.session"/>
+      <import plugin="org.eclipse.debug.core"/>
+   </requires>
+   <extension
+         point="org.eclipse.ui.intro">
+      <intro
+            class="org.eclipse.ui.intro.config.CustomizableIntroPart"
+            icon="icons/bp16.gif"
+            id="org.xtuml.bp.welcome.intro"/>
+      <introProductBinding
+            introId="org.xtuml.bp.welcome.intro"
+            productId="org.xtuml.bp.pkg.BridgePoint"/>
+   </extension>
+   <extension
+         id="intro"
+         point="org.eclipse.ui.intro.config">
+      <config
+            content="$nl$/introContent.xml"
+            id="org.xtuml.bp.welcome.config"
+            introId="org.xtuml.bp.welcome.intro">
+         <presentation
+               home-page-id="root"
+               standby-page-id="stand-by">
+            <implementation
+                  kind="html"
+                  style="css/shared.css"/>
+         </presentation>
+      </config>
+   </extension>
+   <extension
+         point="org.eclipse.ui.cheatsheets.cheatSheetContent">
+      <category
+            id="org.xtuml.bp.cheatsheets"
+            name="BridgePoint">
+      </category>
+      <cheatsheet
+            category="org.xtuml.bp.cheatsheets"
+            composite="true"
+            contentFile="cheatsheets/SimpleSystem.xml"
+            id="org.xtuml.bp.welcome.SimpleSystem"
+            name="Modelling A Simple System">
+      </cheatsheet>
+      <cheatsheet
+            category="org.xtuml.bp.cheatsheets"
+            composite="false"
+            contentFile="cheatsheets/HeartPacerCaseStudy.xml"
+            id="org.xtuml.bp.welcome.HeartPacerCaseStudy"
+            name="Heart Pacer Case Study">
+      </cheatsheet>
+   </extension>
+
+    <!---
+        We're using $nl$ in the context to provide support for localization
+        based on the national language of the target platform, which is selected
+        as a parameter for the JVM. For this to work a folder named nl must be
+        created at the plugin root folder and then folders for all the languages
+        should be created with the translated content files in them. For example
+        if a welcome page in japanese is created, its path should be
+        plugin root/nl/ja/JP and the name should be the same (introContent.xml).
+        Eclipse searches for this file in the following order: first it will
+        look in the country folder: plugin root/nl/ja/JP. If the file is not
+        found in there it will look in the language folder: plugin root/nl/ja.
+        If no file is found then it will search for the file in plugin root/.
+        This way we make sure that at least we show the english version if
+        nothing else is available.
+      -->
+
+</plugin>

@@ -1,0 +1,4 @@
+drawRectangle(0, 0, 202, 72)
+drawRectangle(0, 68, 684, 444)
+drawText("«function»", 216, 80, true)
+drawText("test_project_referenced:...", 24, 259, true)

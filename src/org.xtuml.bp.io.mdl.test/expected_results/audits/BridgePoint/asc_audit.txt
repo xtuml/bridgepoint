@@ -1,0 +1,64 @@
+AUDIT RESULTS FOR DOMAIN asc
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+Association
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+External Entity Architecture
+External Entity Logger
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Architecture::shutdown
+External Entity Bridge Logger::LogInfo
+External Entity Bridge Logger::LogSuccess
+External Entity Bridge Logger::LogFailure
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class Association::Buyer
+Class Association::Store
+Class Association::GetThings
+Class Association::Association init
+Class Association::Driver
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Buyer::Company
+Attribute Buyer::BuyerName
+Attribute Store::StoreName
+Attribute Store::StoreNo
+Attribute GetThings::Company
+Attribute GetThings::BuyerName
+Attribute GetThings::StoreName
+Attribute GetThings::StoreNo
+Attribute GetThings::Code
+Attribute GetThings::Description
+Attribute GetThings::Price
+Attribute Association init::ID
+Attribute Association init::current_state
+Attribute Driver::driver_id
+Attribute Driver::current_state
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute GetThings::Company
+Referential Attribute GetThings::BuyerName
+Referential Attribute GetThings::StoreName
+Referential Attribute GetThings::StoreNo
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+Association::R1
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Association init
+State Model Driver
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event DR1
+Event DR2
+Event DR3
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Association init::Initialization
+Driver::One Side
+Driver::Select Where
+Driver::Many Side

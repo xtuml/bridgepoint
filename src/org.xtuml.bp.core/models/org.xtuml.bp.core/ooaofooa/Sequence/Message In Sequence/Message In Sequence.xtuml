@@ -1,0 +1,147 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("13488365-5d31-4642-b95d-6368722ca365",
+	'Message In Sequence',
+	907,
+	'SQ_MIS',
+	'',
+	"879e1557-8556-43dd-8cfd-1e141091172d");
+INSERT INTO O_REF
+	VALUES ("13488365-5d31-4642-b95d-6368722ca365",
+	"77d1cb23-9b16-462c-99a7-0df500aade81",
+	0,
+	"38f49fd7-1298-4072-add6-12f98b1f966d",
+	"4bd35100-d710-4600-9561-dcf0291e5bbc",
+	"f75485c1-1a72-4884-ad2d-4501ba5ff57b",
+	"8b71fe96-a666-44bc-9e8b-1fbaa8dea9be",
+	"9f08ac0f-4b67-4ead-b212-f6fefc0ece5f",
+	"86a76ae3-a55c-4b93-8980-4f373d77c7d5",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Message',
+	'Msg_ID',
+	'R954');
+INSERT INTO R_RGO_PROXY
+	VALUES ("13488365-5d31-4642-b95d-6368722ca365",
+	"4bd35100-d710-4600-9561-dcf0291e5bbc",
+	"f75485c1-1a72-4884-ad2d-4501ba5ff57b",
+	'../Sequence.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("38f49fd7-1298-4072-add6-12f98b1f966d",
+	"77d1cb23-9b16-462c-99a7-0df500aade81",
+	0,
+	"4bd35100-d710-4600-9561-dcf0291e5bbc",
+	"8b71fe96-a666-44bc-9e8b-1fbaa8dea9be",
+	'../Sequence.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("9f08ac0f-4b67-4ead-b212-f6fefc0ece5f",
+	"13488365-5d31-4642-b95d-6368722ca365",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("9f08ac0f-4b67-4ead-b212-f6fefc0ece5f",
+	"13488365-5d31-4642-b95d-6368722ca365",
+	"00000000-0000-0000-0000-000000000000",
+	'Msg_ID',
+	'',
+	'',
+	'Msg_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("13488365-5d31-4642-b95d-6368722ca365",
+	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
+	0,
+	"2c2f7672-4c97-4574-8c41-ffcfc117177f",
+	"6a3900e0-69d9-4ad3-bfa0-f3aa8c16b396",
+	"a08ef445-3f14-4f1d-92ba-9d1ea8b90cec",
+	"05757750-65ea-4726-8c70-db9f111d667f",
+	"3b1175d7-1a5b-4721-a9fd-461463732e73",
+	"4c7ef387-5b82-4b4b-ace3-4be718ec89b0",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Sequence',
+	'Package_ID',
+	'R953');
+INSERT INTO R_RGO_PROXY
+	VALUES ("13488365-5d31-4642-b95d-6368722ca365",
+	"6a3900e0-69d9-4ad3-bfa0-f3aa8c16b396",
+	"a08ef445-3f14-4f1d-92ba-9d1ea8b90cec",
+	'../Sequence.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("2c2f7672-4c97-4574-8c41-ffcfc117177f",
+	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
+	0,
+	"6a3900e0-69d9-4ad3-bfa0-f3aa8c16b396",
+	"05757750-65ea-4726-8c70-db9f111d667f",
+	'../Sequence.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("3b1175d7-1a5b-4721-a9fd-461463732e73",
+	"13488365-5d31-4642-b95d-6368722ca365",
+	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	1,
+	'Package_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	'../../Element Packaging/Specification Package/Specification Package.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("3b1175d7-1a5b-4721-a9fd-461463732e73",
+	"13488365-5d31-4642-b95d-6368722ca365",
+	"9f08ac0f-4b67-4ead-b212-f6fefc0ece5f",
+	'Package_ID',
+	'',
+	'',
+	'Package_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"13488365-5d31-4642-b95d-6368722ca365");
+INSERT INTO O_OIDA
+	VALUES ("9f08ac0f-4b67-4ead-b212-f6fefc0ece5f",
+	"13488365-5d31-4642-b95d-6368722ca365",
+	0,
+	'Msg_ID');
+INSERT INTO O_OIDA
+	VALUES ("3b1175d7-1a5b-4721-a9fd-461463732e73",
+	"13488365-5d31-4642-b95d-6368722ca365",
+	0,
+	'Package_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"13488365-5d31-4642-b95d-6368722ca365");
+INSERT INTO O_ID
+	VALUES (2,
+	"13488365-5d31-4642-b95d-6368722ca365");
+INSERT INTO S_SS_PROXY
+	VALUES ("879e1557-8556-43dd-8cfd-1e141091172d",
+	'Sequence',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	'SQ',
+	900,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Sequence.xtuml');

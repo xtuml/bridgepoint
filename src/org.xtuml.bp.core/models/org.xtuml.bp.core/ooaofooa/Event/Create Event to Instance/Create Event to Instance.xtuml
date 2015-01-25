@@ -1,0 +1,272 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("56212cde-ea40-4896-b0c6-87c1c9f62042",
+	'Create Event to Instance',
+	700,
+	'E_CEI',
+	'This class represents the precreation of an event to an instance for later delivery. Uses the same concepts as Generate but does not actually generate the event. It instead yields an event instance that can be generated later using Generate Preexisting Event.',
+	"606f68be-000c-4a29-9fb9-dc0284d01f2a");
+INSERT INTO O_TFR
+	VALUES ("82ca52f7-ca47-4e76-ac76-06fd9e47206e",
+	"56212cde-ea40-4896-b0c6-87c1c9f62042",
+	'dispose',
+	'This operation disconnects an instance, and all instances it is 
+responsible for, from the model.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one var related by self->V_VAR[R711];
+if ( not empty var )
+  unrelate self from var across R711;
+end if;
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("471cf03f-68cc-4d8c-b7a5-cfbe95ad1a3e",
+	"56212cde-ea40-4896-b0c6-87c1c9f62042",
+	'execute',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	' //Event: Create Event to Instance.execute()
+
+// Create a pending event for this event and relate it to the recipient instance
+select one evt related by self->E_CSME[R704]->SM_EVT[R706];
+select one body related by self->V_VAR[R711]->ACT_BLK[R823]->ACT_ACT[R601];
+// Grab the stack frame
+select any stack_frame from instances of I_STF where (selected.Stack_Frame_ID == param.stack_frame_id);
+if (empty stack_frame)
+  //Invalid stack frame ID!
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Create Event to Instance.execute: Invalid stack frame handle used. Using random top stack frame.",path:pathMsg);
+  select any stack from instances of I_STACK;
+  select one stack_frame related by stack->I_STF[R2929];
+end if;
+
+// Get all of the block in stack frames that exist for the top stack frame
+select many block_in_stack_frames related by stack_frame->I_BSF[R2923];
+
+// Find the local references in the top stack frame
+select many top_stack_local_refs related by block_in_stack_frames->L_LCL[R3000]
+                                     ->L_LCR[R3001];
+
+// Find the recipient instance for the top stack frame
+select one recipient_var related by self->V_VAR[R711];
+select any recipient_local_ref related by block_in_stack_frames->L_LCL[R3000]
+                   ->L_LCR[R3001] where selected.Var_ID == recipient_var.Var_ID;
+
+// Since the same instance handle can point to multiple instances across
+// different stack frames, make sure go through the currently executing 
+// instance handle to get the correct instance.
+
+select any inst related by recipient_local_ref->L_LCL[R3001]->RV_RVL[R3306]->
+                       RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
+
+if (not_empty inst)
+  create object instance evtInst of I_EVI;
+  relate evt to evtInst across R2906;
+
+  // Relate this pending event to its instance
+  relate evtInst to inst across R2935;
+
+  // Hook up event data
+  select one evt_spec_stmt related by self->E_CSME[R704]->
+                                                       E_CES[R702]->E_ESS[R701];
+  valueComputationComplete =
+                      evt_spec_stmt.hookUpEventData(evtInst_ID:evtInst.Event_ID,
+                                          stack_frame_id: param.stack_frame_id);
+  if (valueComputationComplete)
+    // Hook up the event instance to the result instance handle
+    select one createEvtStmt related by self->E_CSME[R704]->E_CES[R702];
+    createEvtStmt.hookUpEvtInstToHandle(evtInst_ID:evtInst.Event_ID,
+                                          stack_frame_id: param.stack_frame_id);
+
+    // Find the originating instance for this event and relate this event to it
+    evt_spec_stmt.relateToOriginatingInst(evtInst_ID:evtInst.Event_ID,
+                                          stack_frame_id: param.stack_frame_id);
+  end if;
+else
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Event: Create Event to Instance.execute: Could not find instance through the instance handle for event ",path:pathMsg);
+end if;
+',
+	1,
+	'',
+	"82ca52f7-ca47-4e76-ac76-06fd9e47206e");
+INSERT INTO O_TPARM
+	VALUES ("81f8f593-39ba-4786-ae29-2fe30b1b53bf",
+	"471cf03f-68cc-4d8c-b7a5-cfbe95ad1a3e",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("56212cde-ea40-4896-b0c6-87c1c9f62042",
+	"474836ad-558f-45eb-8c7b-a3740b2b73b4",
+	0,
+	"50eb9a91-f356-48f7-b53a-8f9cab18d73b",
+	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	"ae78905a-e3b2-403a-ae58-84741394ea0d",
+	"4a5449f9-28d0-4ba8-af74-ec734a49698a",
+	"13dc8719-7866-477b-9e58-89fc6eb9bc08",
+	"1fc2729f-6f58-4dd5-b4ae-07fe97972d8e",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Create SM Event Statement',
+	'Statement_ID',
+	'R704');
+INSERT INTO R_RGO_PROXY
+	VALUES ("56212cde-ea40-4896-b0c6-87c1c9f62042",
+	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	"ae78905a-e3b2-403a-ae58-84741394ea0d",
+	'../Event.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("50eb9a91-f356-48f7-b53a-8f9cab18d73b",
+	"474836ad-558f-45eb-8c7b-a3740b2b73b4",
+	0,
+	"d6ced505-cdfb-4d98-81e2-506f2754d01d",
+	"4a5449f9-28d0-4ba8-af74-ec734a49698a",
+	'../Event.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("13dc8719-7866-477b-9e58-89fc6eb9bc08",
+	"56212cde-ea40-4896-b0c6-87c1c9f62042",
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	'Statement_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'../../Body/Statement/Statement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("13dc8719-7866-477b-9e58-89fc6eb9bc08",
+	"56212cde-ea40-4896-b0c6-87c1c9f62042",
+	"00000000-0000-0000-0000-000000000000",
+	'Statement_ID',
+	'
+
+',
+	'',
+	'Statement_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("56212cde-ea40-4896-b0c6-87c1c9f62042",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
+	"2814e82e-469b-47d6-9fc9-0a4ccfe89bcf",
+	"a0824eec-806c-4106-9058-561fcad84499",
+	"972c559e-1a54-4fdc-9439-bdbb700b7e47",
+	"95012367-3f71-4181-9422-db62c61e150d",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Variable',
+	'Var_ID',
+	'R711');
+INSERT INTO R_RGO_PROXY
+	VALUES ("56212cde-ea40-4896-b0c6-87c1c9f62042",
+	"7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
+	"2814e82e-469b-47d6-9fc9-0a4ccfe89bcf",
+	'../Event.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"7f54e1f3-09bc-4abc-848a-5dbb72a07bb1",
+	"a0824eec-806c-4106-9058-561fcad84499",
+	'../Event.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("972c559e-1a54-4fdc-9439-bdbb700b7e47",
+	"56212cde-ea40-4896-b0c6-87c1c9f62042",
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	1,
+	'Var_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	'../../Value/Variable/Variable.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("972c559e-1a54-4fdc-9439-bdbb700b7e47",
+	"56212cde-ea40-4896-b0c6-87c1c9f62042",
+	"13dc8719-7866-477b-9e58-89fc6eb9bc08",
+	'Var_ID',
+	'
+
+',
+	'',
+	'Var_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"56212cde-ea40-4896-b0c6-87c1c9f62042");
+INSERT INTO O_OIDA
+	VALUES ("13dc8719-7866-477b-9e58-89fc6eb9bc08",
+	"56212cde-ea40-4896-b0c6-87c1c9f62042",
+	0,
+	'Statement_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"56212cde-ea40-4896-b0c6-87c1c9f62042");
+INSERT INTO O_ID
+	VALUES (2,
+	"56212cde-ea40-4896-b0c6-87c1c9f62042");
+INSERT INTO S_SS_PROXY
+	VALUES ("606f68be-000c-4a29-9fb9-dc0284d01f2a",
+	'Event',
+	'This subsystem focuses on the creation and generation
+of events. Events to instances, class, creators and
+external entities are covered, as well as the creation of
+event instances of those types. Finally the generation
+of pre-existing event instances are also covered.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'E',
+	700,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-00000068000d",
+	'../Event.xtuml');

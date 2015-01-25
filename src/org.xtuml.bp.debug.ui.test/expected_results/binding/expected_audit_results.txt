@@ -1,0 +1,70 @@
+Beginning binding check on package External Code Binding Test
+
+Checking component realizations:
+Checking component Realized
+Component check on Realized complete.
+
+Component check complete.
+
+
+Checking interface realizations:
+Checking interface ExceptionTestInterface Requirer to Provider
+No matching realized message: BadArgumentList.
+Realized message must accept the following arguments:
+ComponentInstance_c, int, float, String, boolean, externalcodebindingtest.library.TestStructuredDataType
+Realized message return type of BadReturnInteger (float) is not compatible with the expected return type (int).
+Realized message return type of BadReturnString (boolean) is not compatible with the expected return type (java.lang.String).
+Realized message return type of BadReturnReal (java.lang.String) is not compatible with the expected return type (float).
+Realized message return type of BadReturnBoolean (int) is not compatible with the expected return type (boolean).
+No matching realized message: UnexpectedInteger.
+Realized message must accept the following arguments:
+ComponentInstance_c, boolean
+No matching realized message: UnexpectedString.
+Realized message must accept the following arguments:
+ComponentInstance_c, int
+No matching realized message: UnexpectedBoolean.
+Realized message must accept the following arguments:
+ComponentInstance_c, int
+No matching realized message: UnexpectedReal.
+Realized message must accept the following arguments:
+ComponentInstance_c, int
+No matching realized message: UnexpectedBPInteger.
+Realized message must accept the following arguments:
+ComponentInstance_c, float
+No matching realized message: UnexpectedBPString.
+Realized message must accept the following arguments:
+ComponentInstance_c, int
+No matching realized message: UnexpectedBPBoolean.
+Realized message must accept the following arguments:
+ComponentInstance_c, int
+No matching realized message: UnexpectedBPReal.
+Realized message must accept the following arguments:
+ComponentInstance_c, int
+No matching realized message: MissingEnumeration.
+Realized message must accept the following arguments:
+ComponentInstance_c, externalcodebindingtest.library.MissingTestEnumeration
+Interface check on ExceptionTestInterface Requirer to Provider complete.
+
+Checking interface ExceptionTestInterface Provider to Requirer
+Interface check on ExceptionTestInterface Provider to Requirer complete.
+
+Interface check complete.
+
+
+Checking data type realizations:
+Checking data type MissingTestEnumeration
+Enumerated type externalcodebindingtest.library.MissingTestEnumeration not found.
+Checking data type Test Structured Data Type
+Member Test Structured Data Type::Integer is public. Recommend providing read and write accessors.
+Member Test Structured Data Type::Real is public. Recommend providing read and write accessors.
+No matching member found for: Test Structured Data Type::String.
+Member Test Structured Data Type::Boolean must be public or preferably, get and set accessors provided.
+Data type check on Test Structured Data Type complete.
+
+Checking data type TestEnumeration
+Enumerated type externalcodebindingtest.library.TestEnumeration does not define Thursday.
+Realized enumeration Torsdag does not have a modeled mapping.
+Data type check complete.
+Binding check on External Code Binding Test complete.
+
+

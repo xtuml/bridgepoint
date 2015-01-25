@@ -1,0 +1,1566 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
+	'State Machine Event',
+	503,
+	'SM_EVT',
+	'Represents an event for this state machine.  Events can be either State Event Matrix events (SM_SEVT) or polymorphic events (SM_PEVT).',
+	"efdb28f6-a485-4b25-9cbf-3e7227398b6a");
+INSERT INTO O_TFR
+	VALUES ("df1c2a3b-dbef-468b-b5e6-2d10c1396074",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'get_event_text',
+	'Gets the text for the Event. It obtains the full formatted text of the
+message in the form <KL><EVT_NUM>:<Meaning>( Datum List ).
+-----------------------------------------------------------------------------------
+Bridge:GD
+',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'// Event.get_event_text
+result = self.get_name();
+select any parameter related by self->SM_EVTDI[R532] 
+                     where (selected.Previous_SMedi_ID == GD::NULL_UNIQUE_ID());
+select one nl related by self->SM_SEVT[R525]->SM_NLEVT[R526];
+// if this event is non-local find the data in the supertype event
+if not_empty nl
+  select many parameters related by nl->SM_PEVT[R527]->
+                                                   SM_EVT[R525]->SM_EVTDI[R532]
+                         where (selected.Previous_SMedi_ID == GD::NULL_UNIQUE_ID());
+end if;
+if PREF::getBoolean(name:"bridgepoint_prefs_show_event_parameters")
+  if not_empty parameter
+    result = result + "(";
+    sep = "";
+    while (not_empty parameter)
+      result = result + sep + parameter.Name;
+      sep = ", ";
+      select one parameter related by parameter->SM_EVTDI[R533.''precedes''];
+    end while;
+    result = result + ")";
+  end if;
+else
+  if not_empty parameter
+    result = result + "(...)";
+  end if;
+end if;
+return result;',
+	1,
+	'',
+	"eb80a3b5-df3a-493e-ab28-504c26c892f1");
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("292cae89-a8bd-49a9-b632-d8341af8dd17",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'get_name',
+	'Creates a string containing a descriptive name for the instance.',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one nlevt related by self->SM_SEVT[R525]->SM_NLEVT[R526];
+if(not_empty nlevt)
+  select one poly related by nlevt->SM_PEVT[R527];
+  if(not_empty poly)
+    return self.Mning + "::" + poly.localClassName;
+  else
+    return self.Mning + "::" + ::getOrphanedElementName();
+  end if;
+else
+  select one signalEvt related by self->SM_SEVT[R525]->SM_SGEVT[R526];
+  if(not_empty signalEvt)
+    return self.Drv_Lbl;
+  else
+    return self.Drv_Lbl + ": " + self.Mning;
+  end if;
+end if;',
+	1,
+	'',
+	"df1c2a3b-dbef-468b-b5e6-2d10c1396074");
+INSERT INTO O_TFR
+	VALUES ("0d6fcc24-125a-42ee-b558-df40e7d8e7f5",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'dispose',
+	'Dispose this State Machine Event.
+',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// State Machine Event.dispose()
+select one sm related by self->SM_SM[R502];
+unrelate self from sm across R502;
+select one sevt related by self->SM_SEVT[R525];
+if (not_empty sevt)
+  sevt.dispose();
+end if;
+select one pevt related by self->SM_PEVT[R525];
+if (not_empty pevt)
+  pevt.dispose();
+end if;
+select many dis related by self->SM_EVTDI[R532];
+for each di in dis
+  di.dispose();
+end for;
+// Communication and Access Subsystem
+select many smsmes related by self->CA_SMSME[R409];
+for each smsme in smsmes
+  smsme.dispose();
+end for;
+select many eesmes related by self->CA_EESME[R405];
+for each eesme in eesmes
+  eesme.dispose();
+end for;
+//Event subsystem
+select many csmes related by self->E_CSME[R706];
+for each csme in csmes
+  unrelate self from csme across R706;
+end for;
+select many gsmes related by self->E_GSME[R707];
+for each gsme in gsmes
+  unrelate self from gsme across R707;
+end for;
+// for each message that this event
+// is associated with
+select many ems related by self->MSG_E[R1009];
+for each em in ems
+  select one message related by em->MSG_AM[R1019];
+  message.unformalize();
+end for;
+//
+// Instance Subsystem
+select many pend_evts related by self->I_EVI[R2906];
+for each pend_evt in pend_evts
+  unrelate self from pend_evt across R2906;
+  pend_evt.dispose();
+end for;
+//
+// Breakpoint Subsystem
+select one evt_bp related by self->BP_EV[R3103];
+if ( not_empty evt_bp )
+  unrelate self from evt_bp across R3103;
+  evt_bp.dispose();
+end if;
+//
+// Finally, delete self
+delete object instance self;',
+	1,
+	'',
+	"4898adfb-0c2c-44ab-9806-384d9c7e6b5a");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("0b3653d7-c1c8-4e8d-b842-c77cbccd9f88",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'initialize',
+	'Initialize this State Machine Event.
+',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'name = ::getUniqueInitialName( 
+    instance: self.convertToInstance(), 
+    candidateName: "Unnamed Event");
+success = ::getNewElementName(name:name,instance: self.convertToInstance(),validateName:true);    
+if ( success!="") 
+ self.Mning=success;
+else 
+ self.dispose();
+end if;    
+// set this event''s number to a default value
+self.Numb = 1;
+
+// give this event a unique number
+self.setUniqueNumber(checkForDuplicate:false);
+
+select one sm related by self->SM_SM[R502];                                   
+create object instance semEvt of SM_SEVT;
+relate self to semEvt across R525;
+create object instance locEvt of SM_LEVT;
+relate semEvt to locEvt across R526;
+//
+semEvt.createDefaultMatrixEntries();
+',
+	1,
+	'',
+	"671594aa-d328-4b18-810b-6153bfa4dcd8");
+INSERT INTO O_TFR
+	VALUES ("6997a327-062f-42b9-a3ee-da49ef802187",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'actionFilter',
+	'Bridge: UI
+',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'if (param.name == "subtype" )
+  if (param.value =="SM_SEVT" )
+    select one sevt related by self->SM_SEVT[R525];
+    return not_empty sevt;
+  elif (param.value == "SM_PEVT" )
+    select one pevt related by self->SM_PEVT[R525];
+    return not_empty pevt;
+  end if;
+elif (param.name == "can" )
+
+  if ((param.value =="ch generic pkg" or param.value =="ignore spec pkg") or
+      (param.value =="ch spec pkg" or param.value =="ignore generic pkg"))
+    
+    select one cls related by self->SM_SM[R502]->SM_ASM[R517]->O_OBJ[R519];
+    if (empty cls)
+      select one cls related by self->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518];
+    end if;
+    select one packageableElem related by cls->PE_PE[R8001];
+    select one package related by packageableElem->EP_PKG[R8000];
+    select one cc related by packageableElem->C_C[R8003];
+    isInGenericPackage = not_empty package or not_empty cc;
+    
+    if (((param.value == "ch spec pkg") or (param.value == "ignore spec pkg")) and (isInGenericPackage))
+      return false;
+    end if;
+    if (((param.value == "ch generic pkg") or (param.value == "ignore generic pkg")) and (not isInGenericPackage))
+      return false;
+    end if;
+    
+	select any state from instances of SM_STATE
+		where ::canStateIgnoreOrSayEventCantHappen(
+			eventId:self.SMevt_ID, eventStateMachineId:self.SM_ID,
+    		stateId:selected.SMstt_ID, stateStateMachineId:selected.SM_ID,
+    		considerCantHappen:((param.value == "ch spec pkg") or (param.value == "ch generic pkg")));
+    return not_empty state;
+  end if;
+end if;
+return false;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("2b8e5f53-33f3-43a7-ad8c-72a66c6554ac",
+	"6997a327-062f-42b9-a3ee-da49ef802187",
+	'name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("7187d4a6-618e-4de1-8058-86a4d4cdf2cd",
+	"6997a327-062f-42b9-a3ee-da49ef802187",
+	'value',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"2b8e5f53-33f3-43a7-ad8c-72a66c6554ac",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("b41e6c6f-07c5-425e-a755-9a72798a885a",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'hasDataItem',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any item related by self->SM_EVTDI[R532] where
+                                                  selected.SMedi_ID == param.id;
+return not_empty item;
+',
+	1,
+	'',
+	"a4b45c77-6717-48dd-9dc0-c13ac1e49d01");
+INSERT INTO O_TPARM
+	VALUES ("3aacae36-2038-4a65-815f-f40f55503153",
+	"b41e6c6f-07c5-425e-a755-9a72798a885a",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("4d8bbd8c-676e-4af9-87b5-cf00ab8bdadc",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'isAssignableToStateMachine',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'/*
+Returns whether this event is assignable to the state machine of the given ID,
+taking into account Bridepoint''s strange rule regarding event polymorphism
+where an event may not be assigned at more than one level in a generalization
+hierarchy.
+
+param isCreationTransition 	whether the assignment would be to a creation 
+							transition
+*/
+// if this event belongs to a class state machine
+select one classStateMachine related by self->SM_SM[R502]->SM_ASM[R517];
+if (not_empty classStateMachine)
+  // First exclude all signal events from consideration
+  select one sigEvt related by self->SM_SEVT[R525]->SM_SGEVT[R526];
+  if not_empty sigEvt
+    return false;
+  end if;
+  // else, assignability rests solely on whether the given state machine is
+  // the one to which this event belongs
+  return param.assignToMachineId == self.SM_ID;
+end if;
+	
+// if this event''s state machine is not the given state machine,
+// and this event''s owning class is not a supertype of the given state 
+// machine''s class
+select one selfClass related by self->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518];
+select any assignToMachine from instances of SM_SM
+	where selected.SM_ID == param.assignToMachineId;
+select one assignToMachineClass related by 
+	assignToMachine->SM_ISM[R517]->O_OBJ[R518];
+isSupertype = selfClass.isSupertypeOf(classId:assignToMachineClass.Obj_ID);
+if ((param.assignToMachineId != self.SM_ID and not isSupertype) or
+		(param.assignToMachineId != self.SM_ID and param.isCreationTransition))
+	// this event is not applicable to the given state machine
+	return false;
+end if;
+
+// if this event is polymorphic
+select one polymorphic related by self->SM_PEVT[R525];
+if (not empty polymorphic)
+	// if any of the given state machine''s subtype state
+	// machines have this event assigned to a transition
+	if (self.isAssignedInSubtypeStateMachine(
+		supertypeId:assignToMachineClass.Obj_ID))
+		// this event may not be assigned to the given state machine
+		return false;
+	end if;
+end if;
+
+// if this event is a non-local alias
+select one nonLocal related by self->SM_SEVT[R525]->SM_NLEVT[R526];
+if (not empty nonLocal)
+	// the associated polymorphic event will be the one that is possibly
+	// assignable, not this one (to prevent duplicates in the list that is
+	// presented to the user)
+	return false;
+end if;
+	
+// if this event''s state machine is a supertype machine of the one given,
+// and any of the given state machine''s supertype state
+// machines have this event assigned to a transition
+if (isSupertype and self.isAssignedInSupertypeStateMachine(
+	subtypeId:assignToMachineClass.Obj_ID))
+	// this event may not be assigned to the given state machine
+	return false;
+end if;
+
+// this event may be assigned to the given state machine
+return true;
+	
+	
+	
+
+
+',
+	1,
+	'',
+	"ab2847ac-b7b6-4eb5-bb56-997523f0992a");
+INSERT INTO O_TPARM
+	VALUES ("0fa464e0-0d1e-4534-a1ba-77fbfee6518c",
+	"4d8bbd8c-676e-4af9-87b5-cf00ab8bdadc",
+	'assignToMachineId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("64959c27-750a-4a0d-bee3-13f3a7339aca",
+	"4d8bbd8c-676e-4af9-87b5-cf00ab8bdadc",
+	'isCreationTransition',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"0fa464e0-0d1e-4534-a1ba-77fbfee6518c",
+	'');
+INSERT INTO O_TFR
+	VALUES ("6f2656eb-ab21-4857-9ce2-bfaa87e30ef7",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'isAssignedInSubtypeStateMachine',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'/*
+Recursively traverses the subtree of subtypes rooted at the supertype 
+of the given ID, returning whether this event is assigned 
+(or ignored) in at least one of those subtypes'' state machines.
+*/
+ 
+// for each subtype of the given supertype 
+select any supertype from instances of O_OBJ
+	where selected.Obj_ID == param.supertypeId;
+select many subtypes related by supertype->R_OIR[R201]->R_RTO[R203]->R_SUPER[R204]
+	->R_SUBSUP[R212]->R_SUB[R213]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+for each subtype in subtypes
+	// if this subtype has an instance state machine
+	select one subtypeMachine related by subtype->SM_ISM[R518]->SM_SM[R517];
+	if (not_empty subtypeMachine)
+		// if this event is consumed in this subtype''s state machine, as
+		// signalled by its being aliased by a non-local event 
+		select any aliasedEvent related by subtypeMachine->SM_EVT[R502]
+			->SM_SEVT[R525]->SM_NLEVT[R526]->SM_PEVT[R527]->SM_EVT[R525]
+			where selected.SMevt_ID == self.SMevt_ID and selected.SM_ID == self.SM_ID;
+		if (not empty aliasedEvent)
+			// we have a positive result
+			return true;
+		end if;
+	end if;
+	
+	// recurse to the next level of subtype state machines
+	if (self.isAssignedInSubtypeStateMachine(supertypeId:subtype.Obj_ID))
+		return true;
+	end if;
+end for;		
+
+return false;	
+',
+	1,
+	'',
+	"4d8bbd8c-676e-4af9-87b5-cf00ab8bdadc");
+INSERT INTO O_TPARM
+	VALUES ("5cbb5ff0-8fe8-4685-b495-354cdcc164cc",
+	"6f2656eb-ab21-4857-9ce2-bfaa87e30ef7",
+	'supertypeId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("a76c363c-3119-4a1d-89fc-9a6aa6674c7f",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'isAssignedInSupertypeStateMachine',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'/*
+Recursively traverses the upwards subtree of supertypes rooted at the 
+subtype of the given ID, returning whether this event is assigned 
+(or ignored) in at least one of those supertypes'' state machines.
+*/
+ 
+// for each supertype of given subtype 
+select any subtype from instances of O_OBJ 
+	where selected.Obj_ID == param.subtypeId;
+select many supertypes related by subtype->R_OIR[R201]->R_RGO[R203]->R_SUB[R205]
+	->R_SUBSUP[R213]->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+for each supertype in supertypes
+	// if this supertype has an instance state machine
+	select one supertypeMachine related by supertype->SM_ISM[R518]->SM_SM[R517];
+	if (not_empty supertypeMachine) 
+		// if this event belongs to this supertype''s state machine
+		select any event related by supertypeMachine->SM_EVT[R502]
+			where selected.SMevt_ID == self.SMevt_ID and selected.SM_ID == self.SM_ID;
+		if (not_empty event)
+			// if this event is assigned to a transition in this supertype''s state machine 
+			select any transition related by event->SM_SEVT[R525]->SM_SEME[R503]
+				->SM_NSTXN[R504];
+			if (not_empty transition)
+				// we have a positive result
+				return true;
+			end if;
+	
+			// if this event is ignored by any state in this supertype''s state machine 
+			select any ignored related by event->SM_SEVT[R525]->SM_SEME[R503]
+				->SM_EIGN[R504];
+			if (not_empty ignored)
+				// we have a positive result
+				return true;
+			end if;
+		end if;
+		
+		// if this event is consumed in this supertype''s state machine, as
+		// signalled by its being aliased by a non-local event 
+		select any aliasedEvent related by supertypeMachine->SM_EVT[R502]
+			->SM_SEVT[R525]->SM_NLEVT[R526]->SM_PEVT[R527]->SM_EVT[R525]
+			where selected.SMevt_ID == self.SMevt_ID 
+				and selected.SM_ID == self.SM_ID;
+		if (not_empty aliasedEvent)
+			// we have a positive result
+			return true;
+		end if;
+	end if;
+	
+	// recurse to the next level of supertype state machines
+	if (self.isAssignedInSupertypeStateMachine(
+		subtypeId:supertype.Obj_ID))
+		return true;
+	end if;
+end for;		
+
+return false;	
+',
+	1,
+	'',
+	"6f2656eb-ab21-4857-9ce2-bfaa87e30ef7");
+INSERT INTO O_TPARM
+	VALUES ("a644c6c7-bc3d-4968-9197-7e9277f91cb5",
+	"a76c363c-3119-4a1d-89fc-9a6aa6674c7f",
+	'subtypeId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("cb77e0de-4c05-40e3-8bc4-b033255fcd57",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'canStateIgnoreOrSayCantHappen',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'/*
+This is merely a pass-through operation, meant as a workaround to an MC-Java 
+bug where method calls made on the ''selected'' instance in the ''where'' clause of a 
+select statement are not generated correctly.  If a handle to an event instance
+is available, a call to this operation may be made in some cases to access 
+the desired operation on the given state indirectly.
+*/
+select any state from instances of SM_STATE
+	where selected.SMstt_ID == param.stateId 
+		and selected.SM_ID == param.stateStateMachineId;
+return state.canIgnoreOrSayEventCantHappen(eventId:self.SMevt_ID,
+	eventStateMachineId:self.SM_ID, considerCantHappen:param.considerCantHappen);
+	',
+	1,
+	'',
+	"f6328893-6203-4cb9-a7da-c37b92d4dd9f");
+INSERT INTO O_TPARM
+	VALUES ("95f35a51-e693-42f8-a4d3-e0a929a4592f",
+	"cb77e0de-4c05-40e3-8bc4-b033255fcd57",
+	'stateId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"50091255-416f-4c0b-9353-526b9a4f1332",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("748635b5-cf14-4239-a0c1-386658d469bf",
+	"cb77e0de-4c05-40e3-8bc4-b033255fcd57",
+	'stateStateMachineId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"95f35a51-e693-42f8-a4d3-e0a929a4592f",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("50091255-416f-4c0b-9353-526b9a4f1332",
+	"cb77e0de-4c05-40e3-8bc4-b033255fcd57",
+	'considerCantHappen',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("671594aa-d328-4b18-810b-6153bfa4dcd8",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'ignoreOnState',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/*
+Has this event (or its relevant subtype alias event) change its matrix entry 
+for the given state from a can''t happen to an ignore.  This operation presumes 
+that the matrix entry is a can''t happen.
+*/
+ 
+// find the event corresponding to the one given that is associated with 
+// the given state''s state-machine, which may in fact be this event, or an alias
+// (if this event is polymorphic)
+select any state from instances of SM_STATE 
+	where selected.SMstt_ID == param.stateId 
+		and selected.SM_ID == param.stateStateMachineId;
+eventId = self.getAssociatedEventForStateMachine(stateMachineId:state.SM_ID);		
+select any event from instances of SM_EVT where selected.SMevt_ID == eventId;
+		
+// change the matrix entry for the event found above from a can''t happen
+// to an ignore
+select any seme related by event->SM_SEVT[R525]->SM_SEME[R503] 
+	where (selected.SMstt_ID == state.SMstt_ID);
+seme.migrateChToEi();
+',
+	1,
+	'',
+	"b41e6c6f-07c5-425e-a755-9a72798a885a");
+INSERT INTO O_TPARM
+	VALUES ("c5734ba5-be89-43cc-ad36-ce4734ec2f57",
+	"671594aa-d328-4b18-810b-6153bfa4dcd8",
+	'stateId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("b8b1caaf-50a3-4735-b740-301dae72fa7d",
+	"671594aa-d328-4b18-810b-6153bfa4dcd8",
+	'stateStateMachineId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"c5734ba5-be89-43cc-ad36-ce4734ec2f57",
+	'');
+INSERT INTO O_TFR
+	VALUES ("eb80a3b5-df3a-493e-ab28-504c26c892f1",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'getAssociatedEventForStateMachine',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'/*
+Returns an event related to this one that applies to the given state
+machine.  If the given state machine is the one to which this event belongs,
+then this event is returned.  Else, if this event is polymorphic, 
+the alias associated with the given state machine is returned (with one being
+created if it doesn''t already exist).  Otherwise, this event is made 
+polymorphic, and an alias for the given state machine is created and 
+returned.
+*/
+
+// if this event is directly associated with the given state machine
+if (self.SM_ID == param.stateMachineId)
+	// return this event
+	return self.SMevt_ID;
+end if;
+
+// if this event is polymorphic
+select any machine from instances of SM_STATE
+	where selected.SM_ID == param.stateMachineId;
+select one polyEvent related by self->SM_PEVT[R525];
+if (not_empty polyEvent)
+	// if there is an aliasing non-local event associated
+	// with the given state machine
+	select any nonLocalEvent related by polyEvent->SM_NLEVT[R527]
+		where selected.SM_ID == machine.SM_ID; 		
+	if (not_empty nonLocalEvent)
+		// return that event
+		return nonLocalEvent.SMevt_ID;
+
+ 	// otherwise
+	else
+		// create an aliasing non-local event, and return it
+		return polyEvent.createNonLocalEventForStateMachine(stateMachineId:machine.SM_ID);
+	end if;
+		
+// otherwise
+else
+	// dispose this event''s associated local and event-matrix event instances
+	select one matrixEvent related by self->SM_SEVT[R525];
+	matrixEvent.dispose();
+
+	// make the event polymorphic
+	create object instance polyEvent of SM_PEVT;
+	relate polyEvent to self across R525;
+ 		
+	// create a non-local event to alias the above polymorphic event, and return it
+	return polyEvent.createNonLocalEventForStateMachine(stateMachineId:machine.SM_ID);
+end if;
+
+',
+	1,
+	'',
+	"0d6fcc24-125a-42ee-b558-df40e7d8e7f5");
+INSERT INTO O_TPARM
+	VALUES ("b48c2187-398b-4b6b-8a52-078eea6f503b",
+	"eb80a3b5-df3a-493e-ab28-504c26c892f1",
+	'stateMachineId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("bce643f3-bd03-43d1-aa57-e50f3fe5fda4",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'sayCantHappenOnState',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/*
+Has this event change its matrix entry for the given state from an ignore
+to a can''t happen.  This operation presumes that the matrix entry is an ignore.
+*/
+ 
+// find the event corresponding to the one given that is associated with 
+// the given state''s state-machine, which may in fact be this event, or an alias
+// (if this event is polymorphic)
+select any state from instances of SM_STATE 
+	where selected.SMstt_ID == param.stateId 
+		and selected.SM_ID == param.stateStateMachineId;
+eventId = self.getAssociatedEventForStateMachine(stateMachineId:state.SM_ID);		
+select any event from instances of SM_EVT where selected.SMevt_ID == eventId;
+		
+// change the matrix entry for the event found above from an
+// ignore to a can''t happen
+select any seme related by event->SM_SEVT[R525]->SM_SEME[R503] 
+	where (selected.SMstt_ID == state.SMstt_ID);
+seme.migrateEiToCh();
+',
+	1,
+	'',
+	"16eb2204-feee-4583-91eb-45976c0330d3");
+INSERT INTO O_TPARM
+	VALUES ("a4c961e4-fc48-4d36-bd73-8df4a2fd6076",
+	"bce643f3-bd03-43d1-aa57-e50f3fe5fda4",
+	'stateId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("b82f7580-f97c-4e16-a893-d5e34bff8bd6",
+	"bce643f3-bd03-43d1-aa57-e50f3fe5fda4",
+	'stateStateMachineId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"a4c961e4-fc48-4d36-bd73-8df4a2fd6076",
+	'');
+INSERT INTO O_TFR
+	VALUES ("ab28e0f8-85b5-4a79-8e86-e50c8e7edf8b",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'isClassBased',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'result = false;
+select one asm related by self->SM_SM[R502]->SM_ASM[R517];
+select one creationTransition related by self->SM_SEVT[R525]->SM_LEVT[R526]->SM_CRTXN[R509];
+if(not_empty asm) or (not_empty creationTransition)
+  result = true;
+end if;
+return result;',
+	1,
+	'',
+	"a76c363c-3119-4a1d-89fc-9a6aa6674c7f");
+INSERT INTO O_TFR
+	VALUES ("4898adfb-0c2c-44ab-9806-384d9c7e6b5a",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;',
+	0,
+	'',
+	"a0cd8bdd-c64a-41fb-a62f-92376a3fd0ff");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("a4b45c77-6717-48dd-9dc0-c13ac1e49d01",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'get_ooa_id',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'return self.SMevt_ID;',
+	1,
+	'',
+	"292cae89-a8bd-49a9-b632-d8341af8dd17");
+INSERT INTO O_TFR
+	VALUES ("a0cd8bdd-c64a-41fb-a62f-92376a3fd0ff",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'checkBreakpoint',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// State Machine Event.checkBreakpoint()
+select one evt_breakpoint related by self->BP_EV[R3103];
+result = false;
+if (not_empty evt_breakpoint)
+  select one breakpoint related by evt_breakpoint->BP_BP[R3102];
+  if (breakpoint.enabled)
+    armed = false;
+    if (param.processType == EventProcessType::Enqueued and evt_breakpoint.onEnqueue)
+      armed = true;
+    elif (param.processType == EventProcessType::Dequeued and evt_breakpoint.onDequeue)
+      armed = true;
+    elif (param.processType == EventProcessType::Ignored and evt_breakpoint.onEventIgnored)
+      armed = true;
+    elif (param.processType == EventProcessType::CantHappen and evt_breakpoint.onCantHappen)
+      armed = true;
+    end if;
+    if (armed)
+      result = breakpoint.incrementAndTestHitCount();
+    end if;
+  end if;
+end if;
+return result;',
+	1,
+	'',
+	"cb77e0de-4c05-40e3-8bc4-b033255fcd57");
+INSERT INTO O_TPARM
+	VALUES ("ad74b4f8-fba0-427d-83b3-9c934ea5f487",
+	"a0cd8bdd-c64a-41fb-a62f-92376a3fd0ff",
+	'processType',
+	"a15ae2f9-0f45-4d5b-9b57-dc731afe8250",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a15ae2f9-0f45-4d5b-9b57-dc731afe8250",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'EventProcessType',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("6670b484-fcaa-48e2-a907-7d8474d12d75",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'setUniqueNumber',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// for each event associated with this event''s state machine
+select one sm related by self->SM_SM[R502];
+select many events related by sm->SM_EVT[R502];
+foundDuplicate = false;
+originalNumb = self.Numb;
+for each event in events
+  // if this event is self, skip it
+  if (event.SMevt_ID == self.SMevt_ID)  continue;  end if;
+
+  if(event.Numb == self.Numb)
+    foundDuplicate = true;
+  end if;
+
+  // if this other event''s number is greater than this event''s number
+  if (event.Numb >= self.Numb)
+    // have this event''s number be just greater than that of 
+    // this other event
+    self.Numb = event.Numb + 1;
+  end if;
+end for;
+if(not foundDuplicate and param.checkForDuplicate)
+  self.Numb = originalNumb;
+end if;',
+	1,
+	'',
+	"bce643f3-bd03-43d1-aa57-e50f3fe5fda4");
+INSERT INTO O_TPARM
+	VALUES ("e212767f-d0b4-4aea-be2f-4bdf7d30bbb4",
+	"6670b484-fcaa-48e2-a907-7d8474d12d75",
+	'checkForDuplicate',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("f6328893-6203-4cb9-a7da-c37b92d4dd9f",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'canRename',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// we do not allow renaming of non-local events
+select one nlevt related by self->SM_SEVT[R525]->SM_NLEVT[R526];
+return empty nlevt;',
+	1,
+	'',
+	"6997a327-062f-42b9-a3ee-da49ef802187");
+INSERT INTO O_TFR
+	VALUES ("16eb2204-feee-4583-91eb-45976c0330d3",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'newParameter',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// State Machine Event.newDataItem()
+create object instance newEvtdi of SM_EVTDI;
+relate self to newEvtdi across R532;
+select one sm related by self->SM_SM[R502];
+relate newEvtdi to sm across R516;
+newEvtdi.initialize();
+self.createMessageArgumentsForParameter(id:newEvtdi.SMedi_ID);',
+	1,
+	'',
+	"ab28e0f8-85b5-4a79-8e86-e50c8e7edf8b");
+INSERT INTO O_TFR
+	VALUES ("ab2847ac-b7b6-4eb5-bb56-997523f0992a",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'initializeOrder',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Alpha-sort the SM_EVTDI elements if they have not yet been ordered
+select many peers related by self->SM_EVTDI[R532];
+if (cardinality peers > 1)
+    initialOrderingCheckPerformed = false;
+	select any head related by self->SM_EVTDI[R532] where (selected.SMedi_ID == GD::NULL_UNIQUE_ID());
+	endOfList = head;
+	loopCnt = 0;
+	for each peer in peers
+	  if ( not initialOrderingCheckPerformed)
+	    select one predecessor related by peer->SM_EVTDI[R533.''precedes''];
+	    select one successor related by peer->SM_EVTDI[R533.''succeeds''];
+	    initialOrderingCheckPerformed = true;
+	    if (not_empty  predecessor or not_empty  successor)
+	      // Already ordered
+	      break;
+	    end if;
+	    head = peer;
+	    endOfList = peer;
+	  end if;
+	  
+      if (loopCnt == 1)
+        if (peer.Name < head.Name)
+          relate peer to head across R533.''precedes'';
+          endOfList = peer;
+        else
+          relate head to peer across R533.''precedes'';
+          head = peer;
+        end if;
+      elif (loopCnt > 1)
+        insertPoint = head;
+        select one next related by head->SM_EVTDI[R533.''succeeds''];
+        while (not_empty next)
+          if (next.Name < peer.Name)
+            break;
+          else
+            insertPoint = next;          
+            select one next related by next->SM_EVTDI[R533.''succeeds''];
+          end if;
+        end while;
+        
+        if (empty next)
+          // New end of list
+          relate peer to endOfList across R533.''precedes'';   
+          endOfList = peer;       
+        else
+          if ((insertPoint == head) and (peer.Name > head.Name))
+            // New head
+            relate head to peer across R533.''precedes'';
+            head = peer;
+          else
+            unrelate next from insertPoint across R533.''precedes'';
+            relate peer to insertPoint across R533.''precedes'';
+            relate next to peer across R533.''precedes'';
+          end if;          
+        end if;
+      end if;
+      
+      loopCnt = loopCnt + 1;
+	end for;
+end if;',
+	1,
+	'',
+	"0b3653d7-c1c8-4e8d-b842-c77cbccd9f88");
+INSERT INTO O_TFR
+	VALUES ("76bd93a6-4fbe-4c1d-8048-0f7916459402",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'pasteStateMachineEventDataItem',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any item from instances of SM_EVTDI
+                                          where (selected.SMedi_ID == param.id);
+if(not_empty item)
+  select one existingSm related by item->SM_SM[R516];
+  if(not_empty existingSm)
+    unrelate existingSm from item across R516;
+  end if;
+  select one existingEvt related by item->SM_EVT[R532];
+  if(not_empty existingEvt)
+    unrelate existingEvt from item across R532;
+  end if;
+  relate item to self across R532;
+  select one machine related by self->SM_SM[R502];
+  relate item to machine across R516;
+  self.addDataItemToOrder(id:item.SMedi_ID);
+  item.Name = ::getUniqueInitialNameInParent( 
+      instance: item.convertToInstance(), 
+      name: item.Name, parent:self.convertToInstance());
+  self.createMessageArgumentsForParameter(id:item.SMedi_ID);
+end if;',
+	1,
+	'',
+	"6670b484-fcaa-48e2-a907-7d8474d12d75");
+INSERT INTO O_TPARM
+	VALUES ("b758306f-b6cc-45eb-861f-d7344da5dabe",
+	"76bd93a6-4fbe-4c1d-8048-0f7916459402",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("d0c198a0-ac92-44cf-b6c7-bfb6dc96b784",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'addDataItemToOrder',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any item from instances of SM_EVTDI
+                                          where (selected.SMedi_ID == param.id);
+if(not_empty item)
+  ::changeNotificationEnablement(enabled:false);
+  select many peers related by self->SM_EVTDI[R532];
+  for each peer in peers
+    if (peer != item)
+      select one predecessor related by peer->SM_EVTDI[R533.''precedes''];
+      if (empty predecessor)
+        relate item to peer across R533.''succeeds'';
+      end if;
+    end if;
+  end for;
+  ::changeNotificationEnablement(enabled:true);
+end if;',
+	1,
+	'',
+	"76bd93a6-4fbe-4c1d-8048-0f7916459402");
+INSERT INTO O_TPARM
+	VALUES ("32b2330b-f640-4fc6-9354-0853b64edeeb",
+	"d0c198a0-ac92-44cf-b6c7-bfb6dc96b784",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("137490a0-66bd-4078-b51e-32272119cd54",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'createMessageArgumentsForParameter',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any parameter from instances of SM_EVTDI
+                                          where (selected.SMedi_ID == param.id);
+if(not_empty parameter)
+  // for each message associated with this
+  // event, create a message argument.
+  select many messages related by self->MSG_E[R1009]->MSG_AM[R1019]
+                                                                 ->MSG_M[R1018];
+  for each message in messages
+    create object instance arg of MSG_A;
+    create object instance ea of MSG_EA;
+    relate ea to parameter across R1017;
+    relate ea to arg across R1013;
+    relate message to arg across R1001;
+  end for;
+end if;
+',
+	1,
+	'',
+	"d0c198a0-ac92-44cf-b6c7-bfb6dc96b784");
+INSERT INTO O_TPARM
+	VALUES ("0557b161-216d-4223-90f2-69a87cd0b0b9",
+	"137490a0-66bd-4078-b51e-32272119cd54",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("348d4e2e-0a92-4b29-a8eb-2777f74326f3",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'getPath',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'result= self.Drv_Lbl;
+select one sm related by self ->SM_SM[R502];
+select one classSM related by sm->SM_ASM[R517];
+select one instSM related by sm->SM_ISM[R517];
+if (not_empty classSM)
+    select one modelClass related by classSM->O_OBJ[R519];
+    result =result+"::Class Based Satate Machine::"+modelClass.getPath(path:modelClass.Name,includeSelf:true);
+elif (not_empty instSM)
+    select one modelClass related by instSM->O_OBJ[R518];
+    result =result+"::Instance Based Satate Machine::"+modelClass.getPath(path:modelClass.Name,includeSelf:true);
+end if; 
+
+return result;
+
+
+
+
+',
+	1,
+	'',
+	"137490a0-66bd-4078-b51e-32272119cd54");
+INSERT INTO O_TFR
+	VALUES ("c2c86766-95cd-46dc-9d8d-49049892174c",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'getCachedDrv_Lbl',
+	'Translate: native',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'	return m_drv_lbl;',
+	0,
+	'',
+	"348d4e2e-0a92-4b29-a8eb-2777f74326f3");
+INSERT INTO O_TFR
+	VALUES ("8cc8f452-6a5b-42c2-850a-e3cbfd1e3e18",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  Create integrity issues if there are any other events with a
+ *  matching signature or events sharing the same event number
+ */
+select one machine related by self->SM_SM[R502];
+select one clazz related by machine->SM_ISM[R517]->O_OBJ[R518];
+if(empty clazz)
+  select one clazz related by machine->SM_ASM[R517]->O_OBJ[R519];
+end if;
+select one package related by clazz->PE_PE[R8001]->EP_PKG[R8000];
+select one system related by package->S_SYS[R1405];
+sys_id = GD::NULL_UNIQUE_ID();
+if(not_empty system)
+  sys_id = system.Sys_ID;
+end if;
+select many events related by machine->SM_EVT[R502];
+for each evt in events
+  if(evt != self and evt.getSignature() == self.getSignature())
+    MI_IM::createIssue(sys_id:sys_id, description:
+               "Found another event under the same state machine with a " +
+                                                          "matching signature."
+          + GD::newline() + GD::newline() + "Signature: " + self.getSignature(),
+                                      severity:Severity::Error, name:self.Mning,
+                           path:self.getPath(),
+                            id:self.SMevt_ID, element:self.convertToInstance());
+  end if;
+  if(evt != self and evt.Numb == self.Numb)
+    MI_IM::createIssue(sys_id:sys_id, description:
+               "Found another event under the same state machine with a " +
+                                                          "matching number.",
+                                      severity:Severity::Error, name:self.Mning,
+                           path:self.getPath(),
+                            id:self.SMevt_ID, element:self.convertToInstance());    
+  end if;
+end for;',
+	1,
+	'',
+	"c2c86766-95cd-46dc-9d8d-49049892174c");
+INSERT INTO O_TFR
+	VALUES ("388f5142-ef39-449b-8bc0-c24e6b6fdf9f",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'getSignature',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'/**
+ *  Return a string representation of this events signature
+ */
+signature = self.Mning;
+count = 0;
+select many parameters related by self->SM_EVTDI[R532];
+paramLength = cardinality parameters;
+if(paramLength > 0)
+  signature = signature + "(";
+end if;
+for each parameter in parameters
+  select one type related by parameter->S_DT[R524];
+  if(count > 0 and count != paramLength - 1)
+    signature = signature + ", ";
+  end if;
+  signature = signature + type.Name;
+  count = count + 1;
+end for;
+if(paramLength > 0)
+  signature = signature + ")";
+end if;
+return signature;',
+	1,
+	'',
+	"8cc8f452-6a5b-42c2-850a-e3cbfd1e3e18");
+INSERT INTO O_NBATTR
+	VALUES ("230b2bab-457c-4eae-bfe1-b824ac2f5324",
+	"31832e28-c7f1-4e83-9c56-28614980fb33");
+INSERT INTO O_BATTR
+	VALUES ("230b2bab-457c-4eae-bfe1-b824ac2f5324",
+	"31832e28-c7f1-4e83-9c56-28614980fb33");
+INSERT INTO O_ATTR
+	VALUES ("230b2bab-457c-4eae-bfe1-b824ac2f5324",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	"00000000-0000-0000-0000-000000000000",
+	'SMevt_ID',
+	'Full Name: State Machine Event Identifier',
+	'',
+	'SMevt_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
+	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
+	0,
+	"a791a1ed-e1c8-4d68-9963-2e6d2379b544",
+	"1942bcc4-2dba-492d-9663-d1e123f5797a",
+	"0c2aabfa-e28f-42d1-95e5-24882b8cb023",
+	"c75416b2-b19a-4948-af76-6f943686ea05",
+	"fde92bb9-ee0c-444a-ae21-51013f76f7d9",
+	"23dae73c-d9c9-407d-ba4d-c56d413e8663",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'State Machine',
+	'SM_ID',
+	'R502');
+INSERT INTO R_RGO_PROXY
+	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
+	"1942bcc4-2dba-492d-9663-d1e123f5797a",
+	"0c2aabfa-e28f-42d1-95e5-24882b8cb023",
+	'../State Machine.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("a791a1ed-e1c8-4d68-9963-2e6d2379b544",
+	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
+	0,
+	"1942bcc4-2dba-492d-9663-d1e123f5797a",
+	"c75416b2-b19a-4948-af76-6f943686ea05",
+	'../State Machine.xtuml');
+INSERT INTO O_REF
+	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
+	"a4e6c94c-670a-4e7f-b085-6727308a33db",
+	0,
+	"6e71c95a-6059-455d-80e2-51a4be494c27",
+	"361bed43-006b-48b8-96f2-63e859fb825d",
+	"72dcc583-3998-4c23-862d-d9c592fae8c8",
+	"5b74ffea-4147-4c54-8cfd-cbe8a961fb9e",
+	"fde92bb9-ee0c-444a-ae21-51013f76f7d9",
+	"568a7ce8-9e4c-4054-97db-22ca63b81f30",
+	"23dae73c-d9c9-407d-ba4d-c56d413e8663",
+	0,
+	'',
+	'Event Supplemental Data',
+	'SM_ID',
+	'R520');
+INSERT INTO R_RGO_PROXY
+	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
+	"361bed43-006b-48b8-96f2-63e859fb825d",
+	"72dcc583-3998-4c23-862d-d9c592fae8c8",
+	'../State Machine.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("6e71c95a-6059-455d-80e2-51a4be494c27",
+	"a4e6c94c-670a-4e7f-b085-6727308a33db",
+	0,
+	"361bed43-006b-48b8-96f2-63e859fb825d",
+	"5b74ffea-4147-4c54-8cfd-cbe8a961fb9e",
+	'../State Machine.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("fde92bb9-ee0c-444a-ae21-51013f76f7d9",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	"a791a1ed-e1c8-4d68-9963-2e6d2379b544",
+	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
+	1,
+	'SM_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a791a1ed-e1c8-4d68-9963-2e6d2379b544",
+	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
+	'../State Machine/State Machine.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("fde92bb9-ee0c-444a-ae21-51013f76f7d9",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	"230b2bab-457c-4eae-bfe1-b824ac2f5324",
+	'SM_ID',
+	'',
+	'',
+	'SM_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("31832e28-c7f1-4e83-9c56-28614980fb33",
+	"a4e6c94c-670a-4e7f-b085-6727308a33db",
+	0,
+	"6a29b768-e433-4a27-9b47-12b1d34fd0ae",
+	"361bed43-006b-48b8-96f2-63e859fb825d",
+	"72dcc583-3998-4c23-862d-d9c592fae8c8",
+	"5b74ffea-4147-4c54-8cfd-cbe8a961fb9e",
+	"558730ad-11ec-43b9-b632-2424ae76ed20",
+	"71515fe2-685a-42bb-853e-b3f7acd251b2",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Event Supplemental Data',
+	'SMspd_ID',
+	'R520');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("6a29b768-e433-4a27-9b47-12b1d34fd0ae",
+	"a4e6c94c-670a-4e7f-b085-6727308a33db",
+	0,
+	"361bed43-006b-48b8-96f2-63e859fb825d",
+	"5b74ffea-4147-4c54-8cfd-cbe8a961fb9e",
+	'../State Machine.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("558730ad-11ec-43b9-b632-2424ae76ed20",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	"6a29b768-e433-4a27-9b47-12b1d34fd0ae",
+	"a4e6c94c-670a-4e7f-b085-6727308a33db",
+	1,
+	'SMspd_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("6a29b768-e433-4a27-9b47-12b1d34fd0ae",
+	"a4e6c94c-670a-4e7f-b085-6727308a33db",
+	'../Event Supplemental Data/Event Supplemental Data.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("558730ad-11ec-43b9-b632-2424ae76ed20",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	"fde92bb9-ee0c-444a-ae21-51013f76f7d9",
+	'SMspd_ID',
+	'',
+	'',
+	'SMspd_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("f11c219e-be38-4558-b1a6-eab7c572fedd",
+	"31832e28-c7f1-4e83-9c56-28614980fb33");
+INSERT INTO O_BATTR
+	VALUES ("f11c219e-be38-4558-b1a6-eab7c572fedd",
+	"31832e28-c7f1-4e83-9c56-28614980fb33");
+INSERT INTO O_ATTR
+	VALUES ("f11c219e-be38-4558-b1a6-eab7c572fedd",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	"558730ad-11ec-43b9-b632-2424ae76ed20",
+	'Numb',
+	'Full Name: Event Number
+min_value: 0
+max_value: 9999
+',
+	'',
+	'Numb',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("b49a7d73-ad3e-4823-aadb-d80fa9c0627a",
+	"31832e28-c7f1-4e83-9c56-28614980fb33");
+INSERT INTO O_BATTR
+	VALUES ("b49a7d73-ad3e-4823-aadb-d80fa9c0627a",
+	"31832e28-c7f1-4e83-9c56-28614980fb33");
+INSERT INTO O_ATTR
+	VALUES ("b49a7d73-ad3e-4823-aadb-d80fa9c0627a",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	"f11c219e-be38-4558-b1a6-eab7c572fedd",
+	'Mning',
+	'Full Name: Event Meaning',
+	'',
+	'Mning',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("727f31da-9d05-4f58-9c6f-fad0e020956f",
+	"31832e28-c7f1-4e83-9c56-28614980fb33");
+INSERT INTO O_BATTR
+	VALUES ("727f31da-9d05-4f58-9c6f-fad0e020956f",
+	"31832e28-c7f1-4e83-9c56-28614980fb33");
+INSERT INTO O_ATTR
+	VALUES ("727f31da-9d05-4f58-9c6f-fad0e020956f",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	"b49a7d73-ad3e-4823-aadb-d80fa9c0627a",
+	'Is_Lbl_U',
+	'Full Name: State Machine Event Label Unique Indicator
+Description: This is a flag that indicates whether custom label keyletters are used for the event.
+Data Domain: 0 = class keyletters are used, 1 = custom label keyletters are used
+enum0: Class Keyletters
+enum1: Custom Keyletters
+',
+	'',
+	'Is_Lbl_U',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("d18bd51e-29c4-42d8-9485-41f4ab2a9948",
+	"31832e28-c7f1-4e83-9c56-28614980fb33");
+INSERT INTO O_BATTR
+	VALUES ("d18bd51e-29c4-42d8-9485-41f4ab2a9948",
+	"31832e28-c7f1-4e83-9c56-28614980fb33");
+INSERT INTO O_ATTR
+	VALUES ("d18bd51e-29c4-42d8-9485-41f4ab2a9948",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	"727f31da-9d05-4f58-9c6f-fad0e020956f",
+	'Unq_Lbl',
+	'''Full Name: State Machine Event Unique Label
+Description: Custom keyletters for the state machine event',
+	'',
+	'Unq_Lbl',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("0905cdc5-bf50-4c29-9d2d-6f9e1524fd30",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'If ( self. Is_Lbl_U == 0 )
+  select one nlevt related by self->SM_SEVT[R525]->SM_NLEVT[R526];
+  if ( not_empty nlevt )
+    select one poly related by nlevt->SM_PEVT[R527];
+    select one pevt related by poly->SM_EVT[R525];
+    if ( not_empty pevt )
+      self.Drv_Lbl = pevt.Drv_Lbl + "*";
+    else
+      if(not_empty poly)
+        self.Drv_Lbl = poly.localClassKL + GD::int_to_string(value:self.Numb) + "*";
+      else
+        self.Drv_Lbl = ::getOrphanedElementKL() +  GD::int_to_string(value:self.Numb) + "*";
+      end if;
+    end if;
+  else
+    select one cl related by self->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518];
+    if ( empty cl )
+      select one cl related by self->SM_SM[R502]->SM_ASM[R517]->O_OBJ[R519];
+      if ( not_empty cl )
+        select one signalEvt related by self->SM_SEVT[R525]->SM_SGEVT[R526];
+        if(not_empty signalEvt)
+          self.Drv_Lbl = signalEvt.get_name();
+        else
+          self.Drv_Lbl = cl.Key_Lett + "_A" +  GD::int_to_string(value:self.Numb);
+        end if;
+      else
+       // may be orphaned during dispose operation
+        self.Drv_Lbl = self.getCachedDrv_Lbl() +  GD::int_to_string(value:self.Numb);
+      end if;
+    else
+      select one signalEvt related by self->SM_SEVT[R525]->SM_SGEVT[R526];
+      if(not_empty signalEvt)
+        self.Drv_Lbl = signalEvt.get_name();
+      else
+        self.Drv_Lbl = cl.Key_Lett +  GD::int_to_string(value:self.Numb);
+      end if;
+    end if;
+  end if;
+else
+  self.Drv_Lbl = self.Unq_Lbl +  GD::int_to_string(value:self.Numb);
+end if;',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("0905cdc5-bf50-4c29-9d2d-6f9e1524fd30",
+	"31832e28-c7f1-4e83-9c56-28614980fb33");
+INSERT INTO O_ATTR
+	VALUES ("0905cdc5-bf50-4c29-9d2d-6f9e1524fd30",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	"d18bd51e-29c4-42d8-9485-41f4ab2a9948",
+	'Drv_Lbl',
+	'Full Name: State Machine Event Derived Label
+Description: contains  the event label derived by concatenating the keyletters and the event number.
+Data Domain: 0 = derived label created by concatenating class keyletters + event number, 1 = derived label created by concatenating Unq_Lbl with event number',
+	'',
+	'Drv_Lbl',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("b87abfe7-f844-4d58-a9d5-9f8ea08d5a76",
+	"31832e28-c7f1-4e83-9c56-28614980fb33");
+INSERT INTO O_BATTR
+	VALUES ("b87abfe7-f844-4d58-a9d5-9f8ea08d5a76",
+	"31832e28-c7f1-4e83-9c56-28614980fb33");
+INSERT INTO O_ATTR
+	VALUES ("b87abfe7-f844-4d58-a9d5-9f8ea08d5a76",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	"0905cdc5-bf50-4c29-9d2d-6f9e1524fd30",
+	'Descrip',
+	'Full Name: Description',
+	'',
+	'Descrip',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"31832e28-c7f1-4e83-9c56-28614980fb33");
+INSERT INTO O_OIDA
+	VALUES ("230b2bab-457c-4eae-bfe1-b824ac2f5324",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	0,
+	'SMevt_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"31832e28-c7f1-4e83-9c56-28614980fb33");
+INSERT INTO O_OIDA
+	VALUES ("fde92bb9-ee0c-444a-ae21-51013f76f7d9",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	1,
+	'SM_ID');
+INSERT INTO O_OIDA
+	VALUES ("230b2bab-457c-4eae-bfe1-b824ac2f5324",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	1,
+	'SMevt_ID');
+INSERT INTO O_OIDA
+	VALUES ("558730ad-11ec-43b9-b632-2424ae76ed20",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	1,
+	'SMspd_ID');
+INSERT INTO O_ID
+	VALUES (2,
+	"31832e28-c7f1-4e83-9c56-28614980fb33");
+INSERT INTO S_SS_PROXY
+	VALUES ("efdb28f6-a485-4b25-9cbf-3e7227398b6a",
+	'State Machine',
+	'Classes (O_OBJ) that have interesting behavior are given lifecycles. These lifecycles are described using state machines (SM_SM). A state machine consists of states, events, transitions and state actions. The state machine exists for each instance of the class for which it has been modeled (SM_ISM). A state machine can also be an assigner state machine (SM_ASM) of which only one can exists for all class instances. The purpose of the assigner state machine is to act as a single point of control through which competing requests are serialized.',
+	'SM',
+	501,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000280005",
+	'../State Machine.xtuml');

@@ -1,0 +1,4 @@
+User invoked function: run
+LogInfo:  In EERealizedStaticDataTestLocalRealizedEE::DualLocalComponents::App::From(): MODIFIED System Project System Project
+LogInfo:  In EERealizedStaticDataTestLocalRealizedEE::DualLocalComponents::Tester::To(): MODIFIED System Project System Project
+

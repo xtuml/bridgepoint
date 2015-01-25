@@ -1,0 +1,4 @@
+drawRectangle(11028, 8280, 163, 57)
+drawRectangle(11028, 8335, 564, 508)
+drawText("«use case»", 11205, 8344, true)
+drawText("Unnamed Use Case Diagr...", 11042, 8562, true)

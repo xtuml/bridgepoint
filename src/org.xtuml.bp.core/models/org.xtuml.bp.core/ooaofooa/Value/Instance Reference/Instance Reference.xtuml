@@ -1,0 +1,355 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("51404733-908d-49c1-99d2-4c71db0693c7",
+	'Instance Reference',
+	813,
+	'V_IRF',
+	'This class represents an instance reference, the result of a select one or select any statement.',
+	"e060f94c-3f82-463e-9d98-d20315b7c196");
+INSERT INTO O_TFR
+	VALUES ("76d67435-48ba-4a37-a936-c2102de8441c",
+	"51404733-908d-49c1-99d2-4c71db0693c7",
+	'getRuntimeValue',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// Instance Reference.getRuntimeValue()
+select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
+//Grab the stack
+select any stack_frame from instances of I_STF where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+if (empty stack_frame)
+  //Invalid stack frame ID!
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Value.getValue: Invalid stack frame id used. Suspending.",path:pathMsg);
+  select any stack from instances of I_STACK;
+  stack.runState = RunStateType::Suspended;
+  select one stack_frame related by stack->I_STF[R2929];
+end if;
+
+// Get all of the block in stack frames that exist for the stack frame
+select many block_in_stack_frames related by stack_frame->I_BSF[R2923];
+for each block_in_stack_frame in block_in_stack_frames
+
+  // Find the one local value that matches the block in stack frame where
+  // we are executing for the transient variable we want to assign
+  select any instRef related by block_in_stack_frame->L_LCL[R3000]->
+                              L_LCR[R3001] where selected.Var_ID == self.Var_ID;
+  if (not_empty instRef)
+    // We found the 1 local reference in this stack frame for this instance
+    // handle id.  So stop looking.
+    // All of this was necessary in order to support nested blocks that
+    // reference variables that were created in outer blocks in this stack frame
+    
+    // WARNING: This implementation is based on the Object Action Language
+    // definition that existed in November of 2005. If the language is changed
+    // to become a strongly typed language where a user can define a variable
+    // in an inner block with the same name as something that exists in the
+    // outer block, then this implementation will not work because it does not
+    // walk out of the current block.
+    return instRef.getRuntimeValue(stack_frame_id:param.stack_frame_id);
+  end if;
+end for;
+// If we get here, the reference was never set up before, set it up now
+select one block related by self->V_VAL[R801]->ACT_BLK[R826];
+localRefID = block.newLocalReference(stack_frame_id:param.stack_frame_id);
+select any localRef related by stack_frame->I_BSF[R2923]->
+               L_LCL[R3000]->L_LCR[R3001] where selected.Local_ID == localRefID;
+select one irHandle related by self->V_VAR[R808]->V_INT[R814];
+relate irHandle to localRef across R3004;
+return localRef.getRuntimeValue(stack_frame_id:param.stack_frame_id);',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("f8425967-2f3e-4cf0-8f91-67d49e6460ad",
+	"76d67435-48ba-4a37-a936-c2102de8441c",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("0d927073-7821-470f-ba02-32433d894c3d",
+	"51404733-908d-49c1-99d2-4c71db0693c7",
+	'setValue',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Instance Reference.setValue()
+select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
+select one instHandle related by self->V_VAR[R808]->V_INT[R814];
+// Grab the stack frame
+select any stack_frame from instances of I_STF where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+if (empty stack_frame)
+    //Invalid stack frame ID!
+    pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Select Related Where.execute:" +
+             " Invalid stack frame handle used. Using random top stack frame.",path:pathMsg);
+    select any stack from instances of I_STACK;
+    select one stack_frame related by stack->I_STF[R2929];
+end if;
+// Locate the rValue instance
+select many block_in_stack_frames related by stack_frame->I_BSF[R2923];
+select any instRef related by block_in_stack_frames->L_LCL[R3000]->
+                        L_LCR[R3001] where selected.Var_ID == instHandle.Var_ID;
+// Set an empty error message string that will hold any reported errors
+error_message = "";
+// Get the model class which this instenece renference represents
+select one modelclass related by instHandle->O_OBJ[R818];
+// get the attribute instance 
+select any target related by modelclass->O_ATTR[R102] where
+                                            selected.Attr_ID == param.member_id;
+select one dt related by target->S_DT[R114];
+if (not_empty instRef)
+  // Get the values related to the rValue instance
+  select many values related by instRef->L_LCL[R3001]->RV_RVL[R3306]->
+                                RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311]->
+                                                     I_INS[R3013]->I_AVL[R2909];
+  select any existing_attribute related by values->O_ATTR[R2910] where
+                                             selected.Attr_ID == target.Attr_ID;
+  if (empty existing_attribute)
+    // No attribute related to this instance matches our target
+    // attribute because the attribute has not been set.
+    select any inst related by instRef->L_LCL[R3001]->RV_RVL[R3306]->
+                       RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
+    if (not_empty inst)
+      create object instance value of I_AVL;
+      relate value to inst across R2909;
+      relate value to target across R2910;
+      create object instance rtVal of RV_RVL;
+      relate value to rtVal across R3304;
+      relate rtVal to dt across R3307;
+      rtVal.createSimpleValue();
+      select one smplVal related by rtVal->RV_SMV[R3300];
+      smplVal.setValue(value:param.value);
+      return;   
+    else
+      error_message = ": Attempted to write a value when instance handle" +
+                                         " is not associated with any instance";
+    end if;
+  else
+    // The attribute value exists for this instance, set its value.
+    for each value in values
+      select one attr related by value->O_ATTR[R2910];
+      if (attr == target)
+        select one rtVal related by value->RV_RVL[R3304];
+        if empty rtVal
+          create object instance rtVal of RV_RVL;
+          rtVal.createSimpleValue();
+          relate value to rtVal across R3304;
+          relate rtVal to dt across R3307;
+        end if;
+        select one smplVal related by rtVal->RV_SMV[R3300];
+        smplVal.setValue(value:param.value);
+        return;
+      end if;
+    end for;
+  end if;
+end if;
+// Did not find a supported value data type.
+pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Instance Reference.setValue error" + error_message + ".",path:pathMsg);',
+	1,
+	'',
+	"76d67435-48ba-4a37-a936-c2102de8441c");
+INSERT INTO O_TPARM
+	VALUES ("35dee87d-1c9e-4527-8a0a-4c058a9c8192",
+	"0d927073-7821-470f-ba02-32433d894c3d",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("9b013ed3-065c-47d4-a4f5-7e996abdacd2",
+	"0d927073-7821-470f-ba02-32433d894c3d",
+	'value',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"35dee87d-1c9e-4527-8a0a-4c058a9c8192",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("4bb4e06c-f5ab-4e7d-bb1a-90a44c4e47bd",
+	"0d927073-7821-470f-ba02-32433d894c3d",
+	'member_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"9b013ed3-065c-47d4-a4f5-7e996abdacd2",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("51404733-908d-49c1-99d2-4c71db0693c7",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"f45cba3b-f381-475e-b8a9-3b355142054d",
+	"26814e3d-8d4b-48be-9880-12da53fa6e17",
+	"0a07b8be-4053-4dc6-a060-df5a70cbbed5",
+	"e082a57d-3ff0-46ba-8b0f-9f2bedb60ee3",
+	"8e767c9f-706d-4b5a-b72c-3e0a8eef9ba6",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Value',
+	'Value_ID',
+	'R801');
+INSERT INTO R_RGO_PROXY
+	VALUES ("51404733-908d-49c1-99d2-4c71db0693c7",
+	"f45cba3b-f381-475e-b8a9-3b355142054d",
+	"26814e3d-8d4b-48be-9880-12da53fa6e17",
+	'../Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"f45cba3b-f381-475e-b8a9-3b355142054d",
+	"0a07b8be-4053-4dc6-a060-df5a70cbbed5",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("e082a57d-3ff0-46ba-8b0f-9f2bedb60ee3",
+	"51404733-908d-49c1-99d2-4c71db0693c7",
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	1,
+	'Value_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'../Value/Value.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("e082a57d-3ff0-46ba-8b0f-9f2bedb60ee3",
+	"51404733-908d-49c1-99d2-4c71db0693c7",
+	"00000000-0000-0000-0000-000000000000",
+	'Value_ID',
+	'',
+	'',
+	'Value_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("51404733-908d-49c1-99d2-4c71db0693c7",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"9d6a9097-6d3b-42b9-9552-7e793c671fc5",
+	"ac679333-4337-4568-b0dd-b8373d78b8bf",
+	"40cb76ea-d62f-404d-b742-5de67af077cb",
+	"637d93ba-9948-4182-a74a-c340f5529407",
+	"0402929f-37be-4968-b17c-c186c0ef201b",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Variable',
+	'Var_ID',
+	'R808');
+INSERT INTO R_RGO_PROXY
+	VALUES ("51404733-908d-49c1-99d2-4c71db0693c7",
+	"9d6a9097-6d3b-42b9-9552-7e793c671fc5",
+	"ac679333-4337-4568-b0dd-b8373d78b8bf",
+	'../Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"9d6a9097-6d3b-42b9-9552-7e793c671fc5",
+	"40cb76ea-d62f-404d-b742-5de67af077cb",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("637d93ba-9948-4182-a74a-c340f5529407",
+	"51404733-908d-49c1-99d2-4c71db0693c7",
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	1,
+	'Var_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	'../Variable/Variable.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("637d93ba-9948-4182-a74a-c340f5529407",
+	"51404733-908d-49c1-99d2-4c71db0693c7",
+	"e082a57d-3ff0-46ba-8b0f-9f2bedb60ee3",
+	'Var_ID',
+	'
+
+',
+	'',
+	'Var_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"51404733-908d-49c1-99d2-4c71db0693c7");
+INSERT INTO O_OIDA
+	VALUES ("e082a57d-3ff0-46ba-8b0f-9f2bedb60ee3",
+	"51404733-908d-49c1-99d2-4c71db0693c7",
+	0,
+	'Value_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"51404733-908d-49c1-99d2-4c71db0693c7");
+INSERT INTO O_ID
+	VALUES (2,
+	"51404733-908d-49c1-99d2-4c71db0693c7");
+INSERT INTO S_SS_PROXY
+	VALUES ("e060f94c-3f82-463e-9d98-d20315b7c196",
+	'Value',
+	'This subsystem formalizes the concepts of values (r-values) and variables 
+(l-values). It also captures the concept of an actual parameter.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'V',
+	800,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000400008",
+	'../Value.xtuml');

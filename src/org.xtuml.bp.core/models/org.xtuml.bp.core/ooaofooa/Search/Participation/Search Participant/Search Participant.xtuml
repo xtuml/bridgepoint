@@ -1,0 +1,146 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("fa6af3d4-7158-42ce-a887-e54782dc21af",
+	'Search Participant',
+	9700,
+	'SP_SP',
+	'',
+	"332560eb-7338-43a5-a3a7-70d093e0846d");
+INSERT INTO O_TFR
+	VALUES ("8b4f04a1-52a6-4d9a-9872-fe875abb1f34",
+	"fa6af3d4-7158-42ce-a887-e54782dc21af",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one searchableElement related by self->SP_SE[R9700];
+if(not_empty searchableElement)
+  unrelate self from searchableElement across R9700;
+  searchableElement.dispose();
+end if;
+select one engine related by self->SEN_E[R9502];
+if(not_empty engine)
+  unrelate self from engine across R9502;
+end if;
+select one searchResult related by self->SR_SR[R9802];
+if(not_empty searchResult)
+  unrelate self from searchResult across R9802;
+end if;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("4e0f6db2-0151-4d4c-902a-068d5b3fc4b2",
+	"fa6af3d4-7158-42ce-a887-e54782dc21af");
+INSERT INTO O_BATTR
+	VALUES ("4e0f6db2-0151-4d4c-902a-068d5b3fc4b2",
+	"fa6af3d4-7158-42ce-a887-e54782dc21af");
+INSERT INTO O_ATTR
+	VALUES ("4e0f6db2-0151-4d4c-902a-068d5b3fc4b2",
+	"fa6af3d4-7158-42ce-a887-e54782dc21af",
+	"00000000-0000-0000-0000-000000000000",
+	'Id',
+	'',
+	'',
+	'Id',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("fa6af3d4-7158-42ce-a887-e54782dc21af",
+	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	0,
+	"5650c244-7ad2-4cf5-891d-ad575051d877",
+	"16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
+	"fcba6f7c-2b75-4866-878e-b26ccb90bf91",
+	"c4c93faa-8a15-4a97-8c03-7fdc4aefbc5f",
+	"591991a3-cf55-4603-95d0-fa2c96d3544b",
+	"80d16bcb-200a-411c-a411-4ede3ed45e58",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Search Engine',
+	'Id',
+	'R9502');
+INSERT INTO R_RGO_PROXY
+	VALUES ("fa6af3d4-7158-42ce-a887-e54782dc21af",
+	"16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
+	"fcba6f7c-2b75-4866-878e-b26ccb90bf91",
+	'../../Engine/Engine.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("5650c244-7ad2-4cf5-891d-ad575051d877",
+	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	0,
+	"16b88fe6-eebf-452a-bce4-b0dde8dc9bd0",
+	"c4c93faa-8a15-4a97-8c03-7fdc4aefbc5f",
+	'../../Engine/Engine.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("591991a3-cf55-4603-95d0-fa2c96d3544b",
+	"fa6af3d4-7158-42ce-a887-e54782dc21af",
+	"5650c244-7ad2-4cf5-891d-ad575051d877",
+	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	1,
+	'Id');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5650c244-7ad2-4cf5-891d-ad575051d877",
+	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	'../../Engine/Search Engine/Search Engine.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("591991a3-cf55-4603-95d0-fa2c96d3544b",
+	"fa6af3d4-7158-42ce-a887-e54782dc21af",
+	"4e0f6db2-0151-4d4c-902a-068d5b3fc4b2",
+	'Engine_Id',
+	'',
+	'Engine_',
+	'Id',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"fa6af3d4-7158-42ce-a887-e54782dc21af");
+INSERT INTO O_OIDA
+	VALUES ("4e0f6db2-0151-4d4c-902a-068d5b3fc4b2",
+	"fa6af3d4-7158-42ce-a887-e54782dc21af",
+	0,
+	'Id');
+INSERT INTO O_ID
+	VALUES (1,
+	"fa6af3d4-7158-42ce-a887-e54782dc21af");
+INSERT INTO O_ID
+	VALUES (2,
+	"fa6af3d4-7158-42ce-a887-e54782dc21af");
+INSERT INTO S_SS_PROXY
+	VALUES ("332560eb-7338-43a5-a3a7-70d093e0846d",
+	'Participation',
+	'',
+	'SP',
+	9700,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Participation.xtuml');

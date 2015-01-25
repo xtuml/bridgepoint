@@ -1,0 +1,172 @@
+-- BP 7.1 content: Subsystem syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO S_SS
+	VALUES ("e567eb17-d640-401b-93dd-93993df9ad3f",
+	'Search',
+	'',
+	'SE',
+	0,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_SID
+	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"e567eb17-d640-401b-93dd-93993df9ad3f");
+INSERT INTO S_DOM_PROXY
+	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'ooaofooa',
+	'========================================================================
+
+File:          $RCSfile: ooaofooa.xtuml,v $
+Version:   $Revision: 1.127 $
+Modified:  $Date: 2006/09/26 15:10:20 $
+
+(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+========================================================================
+
+This is the application domain for the Tiger project.
+
+The processing in this model describes the activities
+for model capture.
+
+
+
+',
+	1,
+	"00000000-0000-0000-0000-000000000001",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'../ooaofooa.xtuml');
+INSERT INTO GD_MD
+	VALUES ("dd4dce09-2a19-41af-a258-f9b78f966b3a",
+	5,
+	"e567eb17-d640-401b-93dd-93993df9ad3f",
+	11,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'3.2.5',
+	'org.xtuml.bp.core::ooaofooa::Search');
+INSERT INTO GD_GE
+	VALUES ("6495225a-850d-42c4-bef6-247615bdd4e6",
+	"dd4dce09-2a19-41af-a258-f9b78f966b3a",
+	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
+	11,
+	0,
+	'org.xtuml.bp.core::ooaofooa::Engine');
+INSERT INTO GD_SHP
+	VALUES ("6495225a-850d-42c4-bef6-247615bdd4e6");
+INSERT INTO GD_NCS
+	VALUES ("6495225a-850d-42c4-bef6-247615bdd4e6");
+INSERT INTO DIM_ND
+	VALUES (217.000000,
+	97.000000,
+	"6495225a-850d-42c4-bef6-247615bdd4e6");
+INSERT INTO DIM_GE
+	VALUES (4176.000000,
+	3180.000000,
+	"6495225a-850d-42c4-bef6-247615bdd4e6",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("6495225a-850d-42c4-bef6-247615bdd4e6",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("eb8c961a-c1e7-408a-a19c-4f17c322ed08",
+	"dd4dce09-2a19-41af-a258-f9b78f966b3a",
+	"d46290b6-2b26-4d26-bd15-91ac9670f74e",
+	11,
+	0,
+	'org.xtuml.bp.core::ooaofooa::Query');
+INSERT INTO GD_SHP
+	VALUES ("eb8c961a-c1e7-408a-a19c-4f17c322ed08");
+INSERT INTO GD_NCS
+	VALUES ("eb8c961a-c1e7-408a-a19c-4f17c322ed08");
+INSERT INTO DIM_ND
+	VALUES (217.000000,
+	97.000000,
+	"eb8c961a-c1e7-408a-a19c-4f17c322ed08");
+INSERT INTO DIM_GE
+	VALUES (4464.000000,
+	3180.000000,
+	"eb8c961a-c1e7-408a-a19c-4f17c322ed08",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("eb8c961a-c1e7-408a-a19c-4f17c322ed08",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("232d7335-96c5-455f-8111-6be104259769",
+	"dd4dce09-2a19-41af-a258-f9b78f966b3a",
+	"332560eb-7338-43a5-a3a7-70d093e0846d",
+	11,
+	0,
+	'org.xtuml.bp.core::ooaofooa::Participation');
+INSERT INTO GD_SHP
+	VALUES ("232d7335-96c5-455f-8111-6be104259769");
+INSERT INTO GD_NCS
+	VALUES ("232d7335-96c5-455f-8111-6be104259769");
+INSERT INTO DIM_ND
+	VALUES (217.000000,
+	97.000000,
+	"232d7335-96c5-455f-8111-6be104259769");
+INSERT INTO DIM_GE
+	VALUES (4752.000000,
+	3180.000000,
+	"232d7335-96c5-455f-8111-6be104259769",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("232d7335-96c5-455f-8111-6be104259769",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("6b93e3ad-f1d4-45f0-bee9-1e8c88b9b7f5",
+	"dd4dce09-2a19-41af-a258-f9b78f966b3a",
+	"9eb20661-6f4c-4bd7-a6ee-f75c75a80ce9",
+	11,
+	0,
+	'org.xtuml.bp.core::ooaofooa::Result');
+INSERT INTO GD_SHP
+	VALUES ("6b93e3ad-f1d4-45f0-bee9-1e8c88b9b7f5");
+INSERT INTO GD_NCS
+	VALUES ("6b93e3ad-f1d4-45f0-bee9-1e8c88b9b7f5");
+INSERT INTO DIM_ND
+	VALUES (217.000000,
+	97.000000,
+	"6b93e3ad-f1d4-45f0-bee9-1e8c88b9b7f5");
+INSERT INTO DIM_GE
+	VALUES (4464.000000,
+	3336.000000,
+	"6b93e3ad-f1d4-45f0-bee9-1e8c88b9b7f5",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("6b93e3ad-f1d4-45f0-bee9-1e8c88b9b7f5",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_DIA
+	VALUES ("dd4dce09-2a19-41af-a258-f9b78f966b3a",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");

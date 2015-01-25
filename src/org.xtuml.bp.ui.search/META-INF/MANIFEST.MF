@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BridgePoint Search UI
+Bundle-SymbolicName: org.xtuml.bp.ui.search;singleton:=true
+Bundle-Version: 4.2.0
+Bundle-Activator: org.xtuml.bp.ui.search.Activator
+Bundle-Vendor: xtUML.org
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.search,
+ org.eclipse.jface.text,
+ org.eclipse.ui.editors,
+ org.xtuml.bp.core,
+ org.xtuml.bp.search,
+ org.eclipse.core.resources,
+ org.xtuml.bp.ui.explorer,
+ org.xtuml.bp.ui.text
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Export-Package: org.xtuml.bp.ui.search,
+ org.xtuml.bp.ui.search.pages,
+ org.xtuml.bp.ui.search.providers

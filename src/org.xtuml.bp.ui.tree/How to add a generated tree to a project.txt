@@ -1,0 +1,154 @@
+==========================================================================
+
+File:      $RCSfile$
+Version:   $Revision$
+Modified:  $Date$
+
+(c) Copyright 2006-2014 by Mentor Graphics Corp. All rights reserved.
+
+==========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+use this file except in compliance with the License.  You may obtain a copy 
+of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
+License for the specific language governing permissions and limitations under
+the License.
+==========================================================================
+
+How to add a generated tree to a project in 10 minutes or less
+----------------------------------------
+
+1) If you do not already have a working project,
+   Use the Eclipse new plug-in project wizard to create a new project
+
+2) Add an ANT builder to your project
+  a) Right-click on your project and choose properties
+  b) Click "Builders"
+  c) Click "New" on the right hand side to create a new builder
+  d) Select Ant Build and click OK
+
+3) Configure the Main tab
+   a) Name your builder anything, such as "Generate Skeleton tree files"
+   b) For the BuildFile, paste the following:  
+     ${workspace_loc:/org.xtuml.bp.ui.tree/generate_skeleton_files.xml}
+   c) For the Base Directory, click the Browse Workspace button and select your
+      project
+   d) For Arguments (Note, you may need to resize your window to see the 
+      arguments pane), customize the following and paste them into the pane:
+
+      Required arguments:
+      project             - The package name of your project
+      project_with_slash  - The path underneath the src directory where the 
+                            generated files should be placed.  Typically, this
+                            is identical to the project argument, but with / 
+                            instead of .
+      prefix              - The project specific prefix that should be placed in
+                            front of the filenames of many generated files.
+                            For example, a prefix of InstanceExplorer will 
+                            generate InstanceExplorerContentProvider.java
+
+      The following lines can be copied and pasted into your arguments textbox
+      and must be modified to match your project:
+-Dproject=org.xtuml.bp.ui.tree.test
+-Dproject_with_slash=org/xtuml/bp/ui/tree/test
+-Dprefix=TreeTest
+
+
+      Optional arguments:
+      Many properties are set in 
+      org.xtuml.bp.ui.tree/generate_skeleton_files.xml in order to make
+      the generation more flexible.  For a comprehensive list of available 
+      properties to set, please open that file and examine the properties at the
+      top of the file.  Any property defined in that file can be overridden by
+      passing a new value as an argument.
+      The following properties while not required are also commonly used:
+      plugin_package      - The package name where the plugin is located
+      plugin_name         - The name of the plugin's java file
+      dot_views           - If this project places view files into a separate
+                            views folder and package, then set this define to 
+                            that folder's name with a . in front of it.
+      slash_views         - If this project places view files into a separate 
+                            views folder and package, then set this define to 
+                            that folder's name with a / in front of it.
+      dot_actions         - If this project places action files into a separate
+                            actions folder and package, then set this define to
+                            that folder's name with a . in front of it.
+      slash_actions       - If this project places action files into a separate
+                            actions folder and package, then set this define to
+                            that folder's name with a / in front of it.
+      dot_adapters        - If this project places adapter files into a separate
+                            adapters folder and package, then set this define to
+                            that folder's name with a . in front of it.
+      slash_adapters      - If this project places adapter files into a separate
+                            adapters folder and package, then set this define to
+                            that folder's name with a / in front of it.
+
+-Dplugin_package=org.xtuml.bp.ui.tree.test
+-Dplugin_name=TreeTestPlugin
+-Ddot_views=.views
+-Dslash_views=/views
+-Ddot_actions=
+-Dslash_actions=
+-Ddot_adapters=.adapters
+-Dslash_adapters=/adapters
+
+
+4) Configure the Refresh tab
+  a) Click the Refresh tab
+  b) Place a check in the "Refresh resources upon completion" box.
+     "The entire workspace" should already be selected
+
+5) Configure the Targets tab
+  a) Click the Targets tab
+  -) Both After a clean and Manual Build should already have the default target
+     selected.
+  -) Since generating these skeleton files is rare, you can also leave no target
+     selected in the Auto Build.
+  b) Click the Set Targets... button to the right of During a Clean.
+  c) Uncheck the "all" target
+  d) Check the clean_all target, and click OK
+
+6) Click OK to finish configuring your builder
+
+7) Make your new builder execute before any other builders for your project
+  a) Click the name of your new Ant builder once to select it
+  b) Click the "Up" button until your new Ant builder is at the top of the list
+
+8) Click OK to exit the properties window
+
+9) Build your project to generate the customizable files
+  a) Right-click on your project, and choose "Build Project"
+
+
+10) Follow the directions that appear in the console window
+At the time of this writing, the following message will be displayed, but
+the console message takes priority over the following text:
+
+Skeleton files for <Your View Name> have been generated.
+The files that have been generated should be added to a version control system
+like CVS.  These files will not be regenerated.  You will see some compiler
+errors because some of these files depend on files that will be generated later.
+Along with the generated files, a new builder has been added to your project
+that will run a generate.xml script. Additional Plug-in dependencies may have
+also been added to your project.
+
+** Important**
+If you have any hand-written files in your project, you should also update the
+cvs_java_files property in org.xtuml.bp.ui.session/generate.xml file.
+Otherwise, when you next clean this project, your files will be deleted.
+
+Once you have added these files to version control, simply build the project
+again, without a clean, to run the new builder and generate the remaining files.
+
+After that, you can run verifier and open your new view to see an instance
+explorer.  Use this view as a starting point to build whatever tree view you
+require.
+
+End
+---
+

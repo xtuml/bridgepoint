@@ -1,0 +1,482 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	'If Stmt',
+	617,
+	'ACT_IF',
+	'The class represents an if statement in a block of action language.',
+	"76583c73-7a99-4c81-b260-8109e6cef5ca");
+INSERT INTO O_TFR
+	VALUES ("5a68c3d1-1f06-45d0-a767-7c1fa493029e",
+	"abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	'dispose',
+	'This operation disconnects an instance, and all instances it is 
+responsible for, from the model.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one blk related by self->ACT_BLK[R607];
+if ( not_empty blk )
+  unrelate self from blk across R607;
+  blk.dispose();
+end if;
+select one els related by self->ACT_E[R683];
+if (not_empty els)
+  unrelate self from els across R683;
+end if;
+select one stmt related by self->ACT_SMT[R603];
+if (not_empty stmt)
+  unrelate self from stmt across R603;
+end if;
+select many elfs related by self->ACT_EL[R682];
+for each elf in elfs
+  unrelate self from elf across R682;
+end for;
+select one val related by self->V_VAL[R625];
+if ( not_empty val )
+  unrelate self from val across R625;
+  val.dispose();
+end if;
+
+select one exec_elif_stmt related by self->ACT_EL[R690];
+if(not_empty exec_elif_stmt)
+  unrelate self from exec_elif_stmt across R690; 
+end if;  
+      
+select one exec_else_stmt related by self->ACT_E[R692];
+if(not_empty exec_else_stmt)
+  unrelate self from exec_else_stmt across R692; 
+end if;  
+   
+delete object instance self;
+
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("a3220eab-50ef-4886-806d-6f45cc123378",
+	"abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	'execute',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// If Stmt.execute()
+ select one body related by self->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601];                             
+// First check for a valid stack frame id and grab the stack frame
+select any stack_frame from instances of I_STF where 
+                              (selected.Stack_Frame_ID == param.stack_frame_id);
+if (empty stack_frame)
+  //Invalid stack frame ID!
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Block.execute: Invalid stack frame id. Terminating execution.",path:pathMsg);
+  select any stack from instances of I_STACK;
+  stack.runState = RunStateType::Suspended; 
+else
+  select one value related by self->V_VAL[R625];
+  if (not_empty value)
+    // Execute if statement block
+    value.computeValue(stack_frame_id: param.stack_frame_id);
+    select any result related by stack_frame->I_VSF[R2951] where
+                                            selected.Value_ID == value.Value_ID;
+    select one rtVal related by result->RV_RVL[R3305];
+    if (empty rtVal)
+      // result requires computation. Return and let the new stack frame execute
+      return;      
+    else
+      stack_frame.popValue(value_id:value.Value_ID);
+      if (GD::instance_to_boolean(value:rtVal.getValue()) == true)
+        select one child_block related by self->ACT_BLK[R607];
+        select any statement related by child_block->ACT_SMT[R602];
+        if not_empty statement
+          // disable execution in parent block
+          select any bisf related by stack_frame->I_BSF[R2923] where
+                                                           selected.isExecuting;
+          bisf.isExecuting = false;
+          // Set up child block for execution
+          create object instance bisf of I_BSF;
+          relate stack_frame to child_block across R2923 using bisf;
+          relate statement to bisf across R2941;
+          bisf.isExecuting = true;
+          child_block.initialize();
+        end if;
+      else
+        select many elif_substmts related by self->ACT_EL[R682];
+        // Check for else if sub-statements, and if a test passes then
+        // execute and return and do not execute any other else if block.
+        for each elif_substmt in elif_substmts
+          select one value related by elif_substmt->V_VAL[R659];
+      
+          if (not_empty value)
+            value.computeValue(stack_frame_id: param.stack_frame_id);
+            select any result related by stack_frame->I_VSF[R2951] where
+                                            selected.Value_ID == value.Value_ID;
+            select one rtVal related by result->RV_RVL[R3305];
+            if (empty rtVal)
+              // result requires computation.
+              // Return and let the new stack frame execute
+              return;      
+            else
+              if (GD::instance_to_boolean(value:rtVal.getValue()) == true)
+                select one child_block related by elif_substmt->ACT_BLK[R658];
+                select any statement related by child_block->ACT_SMT[R602];
+                if not_empty statement
+                  // disable execution in parent block
+                  select any bisf related by stack_frame->I_BSF[R2923] where selected.isExecuting;
+                  bisf.isExecuting = false;
+                  // Set child block for execution
+                  create object instance bisf of I_BSF;
+                  relate stack_frame to child_block across R2923 using bisf;
+                  relate statement to bisf across R2941;
+                  bisf.isExecuting = true;
+                  child_block.initialize();
+                end if;
+                for each elif_substmt_to_clean in elif_substmts
+                  stack_frame.popValue(value_id:elif_substmt_to_clean.Value_ID);
+                end for;
+                return;
+              end if;
+            end if;
+          end if;
+        end for;    
+        for each elif_substmt_to_clean in elif_substmts
+          stack_frame.popValue(value_id:elif_substmt_to_clean.Value_ID);
+        end for;
+        // Check for an else block and if it exists then execute it.
+        select one else_substmt related by self->ACT_E[R683]; 
+        if (not_empty else_substmt)
+          select one child_block related by else_substmt->ACT_BLK[R606];
+          select any statement related by child_block->ACT_SMT[R602];
+          if not_empty statement
+            // disable execution in parent block
+            select any bisf related by stack_frame->I_BSF[R2923] where selected.isExecuting;
+            bisf.isExecuting = false;
+            // Set child block for execution
+            create object instance bisf of I_BSF;
+            relate stack_frame to child_block across R2923 using bisf;
+            relate statement to bisf across R2941;
+            bisf.isExecuting = true;
+            child_block.initialize();
+          end if;
+        end if;
+      end if;
+    end if;
+  end if;
+end if;',
+	1,
+	'',
+	"5a68c3d1-1f06-45d0-a767-7c1fa493029e");
+INSERT INTO O_TPARM
+	VALUES ("521a83fa-f513-43d5-b2e1-7e6e760870d6",
+	"a3220eab-50ef-4886-806d-6f45cc123378",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"4dc5b919-900a-4bb2-a3f1-c33f34146d30",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	"72f57488-4cad-4d93-82ca-3ea815f7c6ed",
+	"3fc149f2-366f-4513-8a3c-b2bf7156682b",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Statement',
+	'Statement_ID',
+	'R603');
+INSERT INTO R_RGO_PROXY
+	VALUES ("abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"4dc5b919-900a-4bb2-a3f1-c33f34146d30",
+	'../Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	'../Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("72f57488-4cad-4d93-82ca-3ea815f7c6ed",
+	"abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	'Statement_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'../Statement/Statement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("72f57488-4cad-4d93-82ca-3ea815f7c6ed",
+	"abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"00000000-0000-0000-0000-000000000000",
+	'Statement_ID',
+	'
+
+',
+	'',
+	'Statement_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	0,
+	"1a0afb36-7d42-46cd-b87c-7a52b8ec2857",
+	"069b43b0-db51-4396-b900-30b353ee9350",
+	"e94d2c1c-7109-47b0-b845-f01e24656d7b",
+	"114f6f9f-43a4-490c-bcb7-d77a608daaa1",
+	"d8d5ed3a-6b8d-4776-96eb-0175bef3047d",
+	"d7680068-fa37-4ca5-88df-5b7cfd4ebe95",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Block',
+	'Block_ID',
+	'R607');
+INSERT INTO R_RGO_PROXY
+	VALUES ("abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"069b43b0-db51-4396-b900-30b353ee9350",
+	"e94d2c1c-7109-47b0-b845-f01e24656d7b",
+	'../Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("1a0afb36-7d42-46cd-b87c-7a52b8ec2857",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	0,
+	"069b43b0-db51-4396-b900-30b353ee9350",
+	"114f6f9f-43a4-490c-bcb7-d77a608daaa1",
+	'../Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("d8d5ed3a-6b8d-4776-96eb-0175bef3047d",
+	"abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"1a0afb36-7d42-46cd-b87c-7a52b8ec2857",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	1,
+	'Block_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("1a0afb36-7d42-46cd-b87c-7a52b8ec2857",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	'../Block/Block.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("d8d5ed3a-6b8d-4776-96eb-0175bef3047d",
+	"abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"72f57488-4cad-4d93-82ca-3ea815f7c6ed",
+	'Block_ID',
+	'',
+	'',
+	'Block_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"114271d1-e6b7-495a-b2c5-e5b23df444e3",
+	"c40f92c1-e9e7-4494-8c69-3ed63995ca8e",
+	"5b19d51c-5f28-4fea-a568-710634eee35a",
+	"91df46e3-998b-4dac-ab71-4f91e2820e7b",
+	"f2dc0ed4-ce2c-4605-b37d-c00f23f2194c",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Value',
+	'Value_ID',
+	'R625');
+INSERT INTO R_RGO_PROXY
+	VALUES ("abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"114271d1-e6b7-495a-b2c5-e5b23df444e3",
+	"c40f92c1-e9e7-4494-8c69-3ed63995ca8e",
+	'../Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"114271d1-e6b7-495a-b2c5-e5b23df444e3",
+	"5b19d51c-5f28-4fea-a568-710634eee35a",
+	'../Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("91df46e3-998b-4dac-ab71-4f91e2820e7b",
+	"abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	1,
+	'Value_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'../../Value/Value/Value.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("91df46e3-998b-4dac-ab71-4f91e2820e7b",
+	"abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"d8d5ed3a-6b8d-4776-96eb-0175bef3047d",
+	'Value_ID',
+	'
+
+',
+	'',
+	'Value_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"eb0f3f19-e550-46dd-a93d-5a9d080ec721",
+	0,
+	"7d0e4f2e-0b20-49be-ba85-165073f21cd1",
+	"6d01aae5-45b6-4c5a-80a2-a55070cd9de8",
+	"ce19d89f-3e22-4018-883a-5401d0e49adb",
+	"5d3ced78-5749-4fa6-8a6a-df5b408862bb",
+	"2a9341cd-dbe2-4446-9dc1-7cfde9bae5af",
+	"9dac8f9f-2388-4348-bc48-193366474e81",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'ElseIf Stmt',
+	'Statement_ID',
+	'R690');
+INSERT INTO R_RGO_PROXY
+	VALUES ("abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"6d01aae5-45b6-4c5a-80a2-a55070cd9de8",
+	"ce19d89f-3e22-4018-883a-5401d0e49adb",
+	'../Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("7d0e4f2e-0b20-49be-ba85-165073f21cd1",
+	"eb0f3f19-e550-46dd-a93d-5a9d080ec721",
+	0,
+	"6d01aae5-45b6-4c5a-80a2-a55070cd9de8",
+	"5d3ced78-5749-4fa6-8a6a-df5b408862bb",
+	'../Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("2a9341cd-dbe2-4446-9dc1-7cfde9bae5af",
+	"abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	'Statement_ID');
+INSERT INTO O_ATTR
+	VALUES ("2a9341cd-dbe2-4446-9dc1-7cfde9bae5af",
+	"abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"91df46e3-998b-4dac-ab71-4f91e2820e7b",
+	'Elif_Statement_ID',
+	'',
+	'Elif_',
+	'Statement_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"42f29787-8028-4860-99be-7a0c7d66a5a2",
+	0,
+	"a2201eac-2629-43f3-906e-1982dfcaff67",
+	"7164b6d5-4cac-4911-95f2-3f6d5550f165",
+	"5454c20f-3084-42ed-a6a5-cbbb7c26cb60",
+	"61b8f8f5-f665-455d-adf0-3cde83ab7ae4",
+	"d42e69e2-73a3-4e26-9308-da23dddd75ee",
+	"e7dd46c0-0c35-4878-936d-aa01e63a41a3",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Else Stmt',
+	'Statement_ID',
+	'R692');
+INSERT INTO R_RGO_PROXY
+	VALUES ("abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"7164b6d5-4cac-4911-95f2-3f6d5550f165",
+	"5454c20f-3084-42ed-a6a5-cbbb7c26cb60",
+	'../Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("a2201eac-2629-43f3-906e-1982dfcaff67",
+	"42f29787-8028-4860-99be-7a0c7d66a5a2",
+	0,
+	"7164b6d5-4cac-4911-95f2-3f6d5550f165",
+	"61b8f8f5-f665-455d-adf0-3cde83ab7ae4",
+	'../Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("d42e69e2-73a3-4e26-9308-da23dddd75ee",
+	"abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	'Statement_ID');
+INSERT INTO O_ATTR
+	VALUES ("d42e69e2-73a3-4e26-9308-da23dddd75ee",
+	"abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	"2a9341cd-dbe2-4446-9dc1-7cfde9bae5af",
+	'Else_Statement_ID',
+	'',
+	'Else_',
+	'Statement_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"abe539cf-17c1-4c77-8bc1-b87eca463b3e");
+INSERT INTO O_OIDA
+	VALUES ("72f57488-4cad-4d93-82ca-3ea815f7c6ed",
+	"abe539cf-17c1-4c77-8bc1-b87eca463b3e",
+	0,
+	'Statement_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"abe539cf-17c1-4c77-8bc1-b87eca463b3e");
+INSERT INTO O_ID
+	VALUES (2,
+	"abe539cf-17c1-4c77-8bc1-b87eca463b3e");
+INSERT INTO S_SS_PROXY
+	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	'Body',
+	'This subsystem abstracts the action itself, the blocks and statements
+it contains together with the flow of control statements such as ''while'',
+''for each'' and ''if''.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'ACT',
+	600,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000380007",
+	'../Body.xtuml');

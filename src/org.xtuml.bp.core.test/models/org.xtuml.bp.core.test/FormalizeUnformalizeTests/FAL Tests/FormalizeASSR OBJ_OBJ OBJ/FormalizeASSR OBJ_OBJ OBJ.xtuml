@@ -1,0 +1,32 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("54da3cd6-eba9-4af9-b53e-6bbec1b63620",
+	'FormalizeASSR OBJ_OBJ OBJ',
+	300,
+	'T_FORM',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_ID
+	VALUES (0,
+	"54da3cd6-eba9-4af9-b53e-6bbec1b63620");
+INSERT INTO O_ID
+	VALUES (1,
+	"54da3cd6-eba9-4af9-b53e-6bbec1b63620");
+INSERT INTO O_ID
+	VALUES (2,
+	"54da3cd6-eba9-4af9-b53e-6bbec1b63620");
+INSERT INTO PE_PE
+	VALUES ("54da3cd6-eba9-4af9-b53e-6bbec1b63620",
+	1,
+	"575ceb59-24b8-4869-a75c-de69d0c8437a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("575ceb59-24b8-4869-a75c-de69d0c8437a",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'FAL Tests',
+	'',
+	0,
+	'../FAL Tests.xtuml');

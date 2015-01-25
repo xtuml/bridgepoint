@@ -1,0 +1,68 @@
+AUDIT RESULTS FOR DOMAIN dogs
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+dogs
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity ARCH
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge ARCH::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class dogs::Dog
+Class dogs::Cat
+Class dogs::dogs init
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Dog::name
+Attribute Dog::number_slashes
+Attribute Dog::cat_under_pursuit
+Attribute Dog::current_state
+Attribute Cat::name
+Attribute Cat::number_legs
+Attribute Cat::viewing_dog
+Attribute Cat::has_been_chased
+Attribute Cat::current_state
+Attribute dogs init::id
+Attribute dogs init::current_state
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute Dog::cat_under_pursuit
+Referential Attribute Cat::viewing_dog
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+dogs::R1
+dogs::R2
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Dog
+State Model Cat
+State Model dogs init
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event D1
+Event D2
+Event D3
+Event D4
+Event D5
+Event D6
+Event C1
+Event C2
+Event C3
+Event INIT1
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Dog::cat_name
+Event Data Cat::dog_name
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Dog::looking_for_cats
+Dog::selecting_cat
+Dog::chasing_cat
+Dog::licking_wounds
+Dog::no_interest_in_cats
+Cat::acting_cool
+Cat::running_for_life
+Cat::slashing_nose
+dogs init::Initialization

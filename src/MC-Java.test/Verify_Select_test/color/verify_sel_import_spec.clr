@@ -1,0 +1,13 @@
+.//====================================================================
+.//
+.// File:      $RCSfile: verify_sel_import_spec.clr,v $
+.// Version:   $Revision: 1.6 $
+.// Modified:  $Date: 2011/05/30 20:20:21 $
+.//
+.// (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
+.//
+.//====================================================================
+.//
+.function get_imports
+  .assign attr_import = "// No special imports"
+.end function

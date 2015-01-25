@@ -1,0 +1,262 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("a8749155-bcca-4a5b-9b3d-2709618aa717",
+	'External Entity Event Data',
+	8,
+	'S_EEEDT',
+	'When an instance of event data item (S_EEEDI) is used in an event (S_EEEVT), an instance of S_EEEDT is created to represent the event as data in an event.  The supplemental data for an external entity event are instances of this class.',
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+INSERT INTO O_TFR
+	VALUES ("b81947d6-ed96-4423-8b34-c2435cfc9e8b",
+	"a8749155-bcca-4a5b-9b3d-2709618aa717",
+	'dispose',
+	'The dispose operation for this class.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one eeevt related by self->S_EEEVT[R13];
+select one eeedi related by self->S_EEEDI[R13];
+unrelate eeevt from eeedi across R13 using self;
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("7ac799b2-1456-4f55-b93b-2dc7c38321d3",
+	"a8749155-bcca-4a5b-9b3d-2709618aa717",
+	'get_name',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one eed_item related by self->S_EEEDI[R13];
+if (not_empty eed_item)
+  return eed_item.Name;
+else
+  return "";
+end if;
+
+',
+	1,
+	'',
+	"b81947d6-ed96-4423-8b34-c2435cfc9e8b");
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("a8749155-bcca-4a5b-9b3d-2709618aa717",
+	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	0,
+	"65df4a64-820f-444e-8188-d4d6f2d4cb86",
+	"932ad19e-16db-441a-84f2-925a02741da1",
+	"911aca25-8a59-440f-b8bf-31ce345b58bc",
+	"234135d5-600a-4537-80ef-a544f4cfafc6",
+	"647bf4e2-1425-44f3-8e86-d8dc4354e1e7",
+	"1873da13-4b70-4706-b5ac-1d87b3fba467",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'External Entity Event',
+	'EEevt_ID',
+	'R13');
+INSERT INTO R_RGO_PROXY
+	VALUES ("a8749155-bcca-4a5b-9b3d-2709618aa717",
+	"932ad19e-16db-441a-84f2-925a02741da1",
+	"911aca25-8a59-440f-b8bf-31ce345b58bc",
+	'../Domain.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("65df4a64-820f-444e-8188-d4d6f2d4cb86",
+	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	0,
+	"932ad19e-16db-441a-84f2-925a02741da1",
+	"234135d5-600a-4537-80ef-a544f4cfafc6",
+	'../Domain.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("647bf4e2-1425-44f3-8e86-d8dc4354e1e7",
+	"a8749155-bcca-4a5b-9b3d-2709618aa717",
+	"65df4a64-820f-444e-8188-d4d6f2d4cb86",
+	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	1,
+	'EEevt_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("65df4a64-820f-444e-8188-d4d6f2d4cb86",
+	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	'../External Entity Event/External Entity Event.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("647bf4e2-1425-44f3-8e86-d8dc4354e1e7",
+	"a8749155-bcca-4a5b-9b3d-2709618aa717",
+	"cc373f34-7504-414d-9c73-a0cba5202a9d",
+	'EEevt_ID',
+	'',
+	'',
+	'EEevt_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("a8749155-bcca-4a5b-9b3d-2709618aa717",
+	"52851cb7-3b3b-43f8-a631-e850ba13a4b8",
+	0,
+	"49b657ac-2a2e-4dd0-a706-55f0f7c3beca",
+	"932ad19e-16db-441a-84f2-925a02741da1",
+	"911aca25-8a59-440f-b8bf-31ce345b58bc",
+	"0ab4fc22-e2ef-44dd-be06-6d1f2aa68617",
+	"ca89e16a-c047-420f-92e6-03fbc900ece9",
+	"4fc2e3fd-31e1-4f40-8e49-20a329f98067",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'External Entity Event Data Item',
+	'EEedi_ID',
+	'R13');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("49b657ac-2a2e-4dd0-a706-55f0f7c3beca",
+	"52851cb7-3b3b-43f8-a631-e850ba13a4b8",
+	0,
+	"932ad19e-16db-441a-84f2-925a02741da1",
+	"0ab4fc22-e2ef-44dd-be06-6d1f2aa68617",
+	'../Domain.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("ca89e16a-c047-420f-92e6-03fbc900ece9",
+	"a8749155-bcca-4a5b-9b3d-2709618aa717",
+	"49b657ac-2a2e-4dd0-a706-55f0f7c3beca",
+	"52851cb7-3b3b-43f8-a631-e850ba13a4b8",
+	1,
+	'EEedi_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("49b657ac-2a2e-4dd0-a706-55f0f7c3beca",
+	"52851cb7-3b3b-43f8-a631-e850ba13a4b8",
+	'../External Entity Event Data Item/External Entity Event Data Item.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("ca89e16a-c047-420f-92e6-03fbc900ece9",
+	"a8749155-bcca-4a5b-9b3d-2709618aa717",
+	"647bf4e2-1425-44f3-8e86-d8dc4354e1e7",
+	'EEedi_ID',
+	'',
+	'',
+	'EEedi_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("a8749155-bcca-4a5b-9b3d-2709618aa717",
+	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	0,
+	"e060c3d3-399d-444e-b65e-e7be44c3ed7f",
+	"932ad19e-16db-441a-84f2-925a02741da1",
+	"911aca25-8a59-440f-b8bf-31ce345b58bc",
+	"234135d5-600a-4537-80ef-a544f4cfafc6",
+	"cc373f34-7504-414d-9c73-a0cba5202a9d",
+	"6bd04bc8-7a7a-441b-b67b-1e6774895b2c",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'External Entity Event',
+	'EE_ID',
+	'R13');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("e060c3d3-399d-444e-b65e-e7be44c3ed7f",
+	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
+	0,
+	"932ad19e-16db-441a-84f2-925a02741da1",
+	"234135d5-600a-4537-80ef-a544f4cfafc6",
+	'../Domain.xtuml');
+INSERT INTO O_REF
+	VALUES ("a8749155-bcca-4a5b-9b3d-2709618aa717",
+	"52851cb7-3b3b-43f8-a631-e850ba13a4b8",
+	0,
+	"5b7d776e-b126-4932-bc93-430c43825ce4",
+	"932ad19e-16db-441a-84f2-925a02741da1",
+	"911aca25-8a59-440f-b8bf-31ce345b58bc",
+	"0ab4fc22-e2ef-44dd-be06-6d1f2aa68617",
+	"cc373f34-7504-414d-9c73-a0cba5202a9d",
+	"f29f66c7-2e49-4dc0-91a7-3a2a1edce2be",
+	"6bd04bc8-7a7a-441b-b67b-1e6774895b2c",
+	0,
+	'',
+	'External Entity Event Data Item',
+	'EE_ID',
+	'R13');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("5b7d776e-b126-4932-bc93-430c43825ce4",
+	"52851cb7-3b3b-43f8-a631-e850ba13a4b8",
+	0,
+	"932ad19e-16db-441a-84f2-925a02741da1",
+	"0ab4fc22-e2ef-44dd-be06-6d1f2aa68617",
+	'../Domain.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("cc373f34-7504-414d-9c73-a0cba5202a9d",
+	"a8749155-bcca-4a5b-9b3d-2709618aa717",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("cc373f34-7504-414d-9c73-a0cba5202a9d",
+	"a8749155-bcca-4a5b-9b3d-2709618aa717",
+	"00000000-0000-0000-0000-000000000000",
+	'EE_ID',
+	'',
+	'',
+	'EE_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"a8749155-bcca-4a5b-9b3d-2709618aa717");
+INSERT INTO O_OIDA
+	VALUES ("ca89e16a-c047-420f-92e6-03fbc900ece9",
+	"a8749155-bcca-4a5b-9b3d-2709618aa717",
+	0,
+	'EEedi_ID');
+INSERT INTO O_OIDA
+	VALUES ("647bf4e2-1425-44f3-8e86-d8dc4354e1e7",
+	"a8749155-bcca-4a5b-9b3d-2709618aa717",
+	0,
+	'EEevt_ID');
+INSERT INTO O_OIDA
+	VALUES ("cc373f34-7504-414d-9c73-a0cba5202a9d",
+	"a8749155-bcca-4a5b-9b3d-2709618aa717",
+	0,
+	'EE_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"a8749155-bcca-4a5b-9b3d-2709618aa717");
+INSERT INTO O_ID
+	VALUES (2,
+	"a8749155-bcca-4a5b-9b3d-2709618aa717");
+INSERT INTO S_SS_PROXY
+	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	'Domain',
+	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
+	'S',
+	1,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000100002",
+	'../Domain.xtuml');

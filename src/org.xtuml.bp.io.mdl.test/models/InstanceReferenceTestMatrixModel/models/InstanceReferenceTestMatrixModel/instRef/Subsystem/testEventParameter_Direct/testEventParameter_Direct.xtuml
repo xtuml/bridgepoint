@@ -1,0 +1,52 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO O_OBJ
+	VALUES ("f91337d5-f80b-4c5c-a08c-615a28c35c43",
+	'testEventParameter_Direct',
+	17,
+	'EVTDI',
+	'',
+	"b8c699da-971a-421b-be92-50dd3d41b58b");
+INSERT INTO O_NBATTR
+	VALUES ("f4be0cf8-28c5-4490-8218-19892aad9333",
+	"f91337d5-f80b-4c5c-a08c-615a28c35c43");
+INSERT INTO O_BATTR
+	VALUES ("f4be0cf8-28c5-4490-8218-19892aad9333",
+	"f91337d5-f80b-4c5c-a08c-615a28c35c43");
+INSERT INTO O_ATTR
+	VALUES ("f4be0cf8-28c5-4490-8218-19892aad9333",
+	"f91337d5-f80b-4c5c-a08c-615a28c35c43",
+	"00000000-0000-0000-0000-000000000000",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"eb30c3af-2143-4549-b9d4-89dc4d581a2e",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("eb30c3af-2143-4549-b9d4-89dc4d581a2e",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'state<State_Model>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"f91337d5-f80b-4c5c-a08c-615a28c35c43");
+INSERT INTO O_ID
+	VALUES (1,
+	"f91337d5-f80b-4c5c-a08c-615a28c35c43");
+INSERT INTO O_ID
+	VALUES (2,
+	"f91337d5-f80b-4c5c-a08c-615a28c35c43");
+INSERT INTO S_SS_PROXY
+	VALUES ("b8c699da-971a-421b-be92-50dd3d41b58b",
+	'Subsystem',
+	'',
+	'',
+	0,
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	"00000000-0000-0000-0000-000000000000",
+	'../Subsystem.xtuml');

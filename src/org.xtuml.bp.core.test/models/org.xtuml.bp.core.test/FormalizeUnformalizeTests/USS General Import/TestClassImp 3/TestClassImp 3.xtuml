@@ -1,0 +1,88 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("cdcdc11a-46e6-4cea-8f9e-c8faeb52349f",
+	'TestClassImp 3',
+	1702,
+	'KEY',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("cdcdc11a-46e6-4cea-8f9e-c8faeb52349f",
+	"2b674311-75ff-4f1e-aeb0-54c358583974",
+	0,
+	"453cb1b4-b5b3-41b9-8e84-2366ddba75ce",
+	"445ccc8b-880e-4bf9-9f45-d4bc1f60a2c4",
+	"7ea00ea4-d5f4-4893-9d24-e241c52f5f9c",
+	"16369bb4-5570-4823-835a-d96d925c7d9d",
+	"ccd812af-7068-4e7b-b034-90db504f11a4",
+	"63c9d9c9-b6b2-44b9-bc5b-b8c199a442aa",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'UnformalizeSUBSUPUsedRef OBJ_IOBJ IOBJ',
+	'testAttrFormalizer',
+	'R1504');
+INSERT INTO R_RGO_PROXY
+	VALUES ("cdcdc11a-46e6-4cea-8f9e-c8faeb52349f",
+	"445ccc8b-880e-4bf9-9f45-d4bc1f60a2c4",
+	"7ea00ea4-d5f4-4893-9d24-e241c52f5f9c",
+	'../../USS Tests/USS Tests.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("453cb1b4-b5b3-41b9-8e84-2366ddba75ce",
+	"2b674311-75ff-4f1e-aeb0-54c358583974",
+	0,
+	"445ccc8b-880e-4bf9-9f45-d4bc1f60a2c4",
+	"16369bb4-5570-4823-835a-d96d925c7d9d",
+	'../../USS Tests/USS Tests.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("ccd812af-7068-4e7b-b034-90db504f11a4",
+	"cdcdc11a-46e6-4cea-8f9e-c8faeb52349f",
+	"453cb1b4-b5b3-41b9-8e84-2366ddba75ce",
+	"2b674311-75ff-4f1e-aeb0-54c358583974",
+	1,
+	'testAttrFormalizer');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("453cb1b4-b5b3-41b9-8e84-2366ddba75ce",
+	"2b674311-75ff-4f1e-aeb0-54c358583974",
+	'../../USS Tests/UnformalizeSUBSUPUsedRef OBJ_IOBJ IOBJ/UnformalizeSUBSUPUsedRef OBJ_IOBJ IOBJ.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("ccd812af-7068-4e7b-b034-90db504f11a4",
+	"cdcdc11a-46e6-4cea-8f9e-c8faeb52349f",
+	"00000000-0000-0000-0000-000000000000",
+	'testAttrFormalizer',
+	'',
+	'',
+	'testAttrFormalizer',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"cdcdc11a-46e6-4cea-8f9e-c8faeb52349f");
+INSERT INTO O_OIDA
+	VALUES ("ccd812af-7068-4e7b-b034-90db504f11a4",
+	"cdcdc11a-46e6-4cea-8f9e-c8faeb52349f",
+	0,
+	'testAttrFormalizer');
+INSERT INTO O_ID
+	VALUES (1,
+	"cdcdc11a-46e6-4cea-8f9e-c8faeb52349f");
+INSERT INTO O_ID
+	VALUES (2,
+	"cdcdc11a-46e6-4cea-8f9e-c8faeb52349f");
+INSERT INTO PE_PE
+	VALUES ("cdcdc11a-46e6-4cea-8f9e-c8faeb52349f",
+	1,
+	"17a29ce8-9086-4ae6-882c-d06e97dd58b6",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("17a29ce8-9086-4ae6-882c-d06e97dd58b6",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'USS General Import',
+	'',
+	0,
+	'../USS General Import.xtuml');

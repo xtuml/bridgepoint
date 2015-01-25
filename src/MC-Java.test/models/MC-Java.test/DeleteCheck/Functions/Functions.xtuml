@@ -1,0 +1,115 @@
+-- BP 7.1 content: FunctionPackage syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO S_FPK
+	VALUES ("a761437d-a380-4129-92f8-30a013dd3e30",
+	'Functions',
+	"37245a7a-b236-4955-873c-ea0ecaac7d3c",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_MD
+	VALUES ("7414a1b1-1fcc-4c11-a882-326859f26a64",
+	101,
+	"a761437d-a380-4129-92f8-30a013dd3e30",
+	54,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO DIM_DIA
+	VALUES ("7414a1b1-1fcc-4c11-a882-326859f26a64",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PL_FPID
+	VALUES ("a761437d-a380-4129-92f8-30a013dd3e30",
+	"37245a7a-b236-4955-873c-ea0ecaac7d3c");
+INSERT INTO S_DOM_PROXY
+	VALUES ("37245a7a-b236-4955-873c-ea0ecaac7d3c",
+	'DeleteCheck',
+	'========================================================================
+
+File:      $RCSfile: Functions.xtuml,v $
+Version:   $Revision: 1.8 $
+Modified:  $Date: 2011/05/30 20:20:26 $
+
+(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp. and is not for external distribution.
+========================================================================
+',
+	0,
+	"00000000-0000-0000-0000-000000000001",
+	"de5f2a3b-5a7a-486d-9721-f5512732e228",
+	'../DeleteCheck.xtuml');
+INSERT INTO S_FIP
+	VALUES ("a761437d-a380-4129-92f8-30a013dd3e30",
+	"14066e12-91f6-4663-97d7-e55c867f671e");
+INSERT INTO S_SYNC
+	VALUES ("14066e12-91f6-4663-97d7-e55c867f671e",
+	"37245a7a-b236-4955-873c-ea0ecaac7d3c",
+	'createInstancesAndRunTest',
+	'',
+	'// Create good instances
+create object instance testclass_1 of DC_TCLG1;
+create object instance testclass_2 of DC_TCLG2;
+create object instance testclass_3 of DC_TCLG3;
+create object instance testclass_4 of DC_TCLG4;
+create object instance testclass_5 of DC_TCLG5;
+create object instance testclass_6 of DC_TCLG6;
+create object instance testclass_7 of DC_TCLG7;
+create object instance testclass_8 of DC_TCLG8;
+create object instance testclass_main of DC_TCLGMain;
+create object instance testclass_main2 of DC_TCLGMain;
+relate testclass_main to testclass_1 across R1;
+relate testclass_main to testclass_2 across R2;
+relate testclass_main to testclass_3 across R3;
+relate testclass_main to testclass_4 across R4 using testclass_5;
+relate testclass_6 to testclass_7 across R6 using testclass_main;
+relate testclass_main to testclass_main2 across R5.''precedes'';
+relate testclass_main to testclass_main2 across R7.''precedes'' using testclass_8;
+// Create bad instances
+create object instance testclassb_1 of DC_TCLB1;
+create object instance testclassb_2 of DC_TCLB2;
+create object instance testclassb_3 of DC_TCLB3;
+create object instance testclassb_4 of DC_TCLB4;
+create object instance testclassb_5 of DC_TCLB6;
+create object instance testclassb_6 of DC_TCLB5;
+create object instance testclassb_7 of DC_TCLB7;
+create object instance testclassb_8 of DC_TCLB8;
+create object instance testclassb_main of DC_TCLBMain;
+create object instance testclassb_main2 of DC_TCLBMain;
+relate testclassb_main to testclassb_1 across R8;
+relate testclassb_main to testclassb_2 across R9;
+relate testclassb_main to testclassb_3 across R10;
+relate testclassb_main to testclassb_4 across R11 using testclassb_5;
+relate testclassb_6 to testclassb_7 across R14 using testclassb_main;
+relate testclassb_main to testclassb_main2 across R12.''precedes'';
+relate testclassb_main to testclassb_main2 across R13.''precedes'' using testclassb_8;
+select any test_main_good from instances of DC_TCLGMain;
+if(not_empty test_main_good)
+  test_main_good.delete();
+end if;
+select any test_main_bad from instances of DC_TCLBMain;
+if(not_empty test_main_bad)
+  test_main_bad.delete();
+end if;',
+	"4698a134-93e3-4464-93b0-0eb5a6065590",
+	1,
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("4698a134-93e3-4464-93b0-0eb5a6065590",
+	"37245a7a-b236-4955-873c-ea0ecaac7d3c",
+	'void',
+	'',
+	'../Datatypes/Datatypes.xtuml');

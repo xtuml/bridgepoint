@@ -1,0 +1,731 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'Function Package',
+	19,
+	'S_FPK',
+	'Function Package represents a collection of domain functions.',
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+INSERT INTO O_TFR
+	VALUES ("9b826227-36e9-431f-ae34-f39a763e0ff3",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'initialize',
+	'The initialization operation for this class.  ',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'self.Name = ::getUniqueInitialName( 
+    instance: self.convertToInstance(), 
+    candidateName: "Unnamed Function Package");',
+	1,
+	'',
+	"29e971ec-8cb2-4980-aeb2-db41abfe3a61");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("26c3fd40-eae5-48fd-94f3-0896974a168f",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'dispose',
+	'The dispose operation for this class.  It also disposes the associated Function Package in Package.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one dom related by self->S_DOM[R29];
+if (not_empty dom)
+  unrelate dom from self across R29;
+end if;
+select many fns related by self->S_SYNC[R31];
+for each fn in fns
+  fn.dispose();
+end for;
+select one fpip related by self->S_FPIP[R30];
+if (not_empty fpip)
+  select many pkgs related by fpip->S_FPK[R32];
+  for each pkg in pkgs
+   unrelate fpip from pkg across R32;
+    pkg.dispose();
+  end for;
+  unrelate self from fpip across R30;
+  delete object instance fpip;
+end if;
+// for each sequence participant that this function
+// package is associated with
+select many fpps related by self->SQ_FPP[R932];
+for each fpp in fpps
+  fpp.unformalize();
+end for;
+if(empty dom)
+  select one dom related by self->PL_FPID[R301]->S_DOM[R301];
+end if;
+select one fpid related by self->PL_FPID[R301];
+if(not_empty fpid)
+  unrelate self from dom across R301 using fpid;
+  delete object instance fpid;
+end if;
+delete object instance self;',
+	1,
+	'',
+	"8b58206d-566d-47a0-88d0-ae57cd893df1");
+INSERT INTO O_TFR
+	VALUES ("0db37bfe-8987-4d80-b422-a609ed2f3cb1",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'newFunction',
+	'Create a new Function in this Function Package.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one dom related by self->S_DOM[R29];
+if (empty dom)
+  select one rootPkg related by self->S_FPIP[R32]->S_FPK[R30];
+  while (empty dom)
+    select one dom related by rootPkg->S_DOM[R29];
+    select one rootPkg related by rootPkg->S_FPIP[R32]->S_FPK[R30];
+  end while;
+end if;
+create object instance fn of S_SYNC;
+relate fn to dom across R23;
+create object instance fip of S_FIP;
+relate self to fn across R31 using fip;
+fn.initialize();',
+	1,
+	'',
+	"9b826227-36e9-431f-ae34-f39a763e0ff3");
+INSERT INTO O_TFR
+	VALUES ("d8168d84-9b01-4921-88f0-e839969057e1",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'newFunctionPackage',
+	'Create a new Function Package inside this Function Package.
+',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one helper related by self->S_FPIP[R30];
+if (empty helper)
+  create object instance helper of S_FPIP;
+  relate self to helper across R30;
+end if;
+create object instance newFPkg of S_FPK;
+relate helper to newFPkg across R32;
+create object instance fPkgInDomain of PL_FPID;
+select one domain related by self->PL_FPID[R301]->S_DOM[R301];
+relate domain to newFPkg across R301 using fPkgInDomain;
+newFPkg.initialize();',
+	1,
+	'',
+	"0db37bfe-8987-4d80-b422-a609ed2f3cb1");
+INSERT INTO O_TFR
+	VALUES ("2c59cebf-8fb1-4b5e-a5b8-be3751a39266",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'get_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::Folder;',
+	1,
+	'',
+	"accead5d-c9d8-4dfe-8cc8-fc6ee27139bf");
+INSERT INTO S_DT_PROXY
+	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Style',
+	'The Style data type specifies the precise form a graphical element will take when drawn.
+--------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("29e971ec-8cb2-4980-aeb2-db41abfe3a61",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'get_text_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::None;',
+	1,
+	'',
+	"2c59cebf-8fb1-4b5e-a5b8-be3751a39266");
+INSERT INTO O_TPARM
+	VALUES ("cd0317b9-769f-418a-92b6-767623d3baf8",
+	"29e971ec-8cb2-4980-aeb2-db41abfe3a61",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"9a109758-48ed-4478-927f-5a2cea4425b8",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("a8baf35f-bd99-4706-90d2-3736454805ea",
+	"29e971ec-8cb2-4980-aeb2-db41abfe3a61",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"cd0317b9-769f-418a-92b6-767623d3baf8",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("9a109758-48ed-4478-927f-5a2cea4425b8",
+	"29e971ec-8cb2-4980-aeb2-db41abfe3a61",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Justification',
+	'The Justification data type is used to specify text at a given location in a compartment.
+------------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("ad5ab57f-ad46-4529-8402-403849895cc7",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'get_compartments',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'return 1;',
+	1,
+	'',
+	"d4cecd83-6721-4e7f-a5f6-0bdff24088a1");
+INSERT INTO O_TFR
+	VALUES ("324181c4-9a1c-4980-b591-e1a9354cd672",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'get_entries',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'return 1;',
+	1,
+	'',
+	"ad5ab57f-ad46-4529-8402-403849895cc7");
+INSERT INTO O_TPARM
+	VALUES ("c3db1a53-1ba8-4913-a70b-1bec6e4ada40",
+	"324181c4-9a1c-4980-b591-e1a9354cd672",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("d4cecd83-6721-4e7f-a5f6-0bdff24088a1",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'get_compartment_text',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'result = "";
+if (param.at == Justification::Center_in_X)
+  result = "«function»";
+elif (param.at == Justification::Center)
+  result = self.Name;
+end if;
+return result;',
+	1,
+	'',
+	"c4756c22-d581-4aee-bfcd-76cb9d8b5e4b");
+INSERT INTO O_TPARM
+	VALUES ("91bb8c80-e88c-4471-abc3-ccdcba7a94c0",
+	"d4cecd83-6721-4e7f-a5f6-0bdff24088a1",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"18cd12da-6d78-4989-9601-714cd21532a8",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("789ed13a-5db2-4c48-bde5-cca798b05ad2",
+	"d4cecd83-6721-4e7f-a5f6-0bdff24088a1",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"91bb8c80-e88c-4471-abc3-ccdcba7a94c0",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("18cd12da-6d78-4989-9601-714cd21532a8",
+	"d4cecd83-6721-4e7f-a5f6-0bdff24088a1",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("accead5d-c9d8-4dfe-8cc8-fc6ee27139bf",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'get_ooa_id',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'return self.FunPack_ID;',
+	1,
+	'',
+	"324181c4-9a1c-4980-b591-e1a9354cd672");
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("c4756c22-d581-4aee-bfcd-76cb9d8b5e4b",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'getPath',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one domain related by self->PL_FPID[R301]->S_DOM[R301];
+result = self.Name;
+select one fpip related by self->S_FPIP[R32]->S_FPK[R30];
+while(not_empty fpip)
+  result = fpip.Name + "::" + result;
+  select one fpip related by fpip->S_FPIP[R32]->S_FPK[R30];
+end while;
+return domain.Name + "::" + result;',
+	1,
+	'',
+	"26c3fd40-eae5-48fd-94f3-0896974a168f");
+INSERT INTO O_TFR
+	VALUES ("8b58206d-566d-47a0-88d0-ae57cd893df1",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;',
+	0,
+	'',
+	"77a9a44a-3298-40f6-b6e9-aa5bf97b6626");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("6fa2af8d-12a9-4bea-8c93-37f1cf114712",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'pasteFunctionPackage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select any pkg from instances of S_FPK where (selected.FunPack_ID == param.id);
+if(not_empty pkg)
+  // guarantee a unique name for the pasted package
+  pkg.Name = ::getUniqueInitialNameInParent(instance:pkg.convertToInstance(),
+  						name:pkg.Name, parent:self.convertToInstance());
+  // unrelate from previous domain if any
+  select one dom related by pkg->S_DOM[R29];
+  if(not_empty dom)
+    unrelate pkg from dom across R29;
+  end if;
+  
+  // create the nesting classes
+  select one funpkInpk related by pkg->S_FPIP[R32];
+  if(not_empty funpkInpk)
+    unrelate pkg from funpkInpk across R32;
+  end if;
+  
+  select one destFunpkInpk related by self->S_FPIP[R30];
+  if(empty destFunpkInpk)
+    create object instance destFunpkInpk of S_FPIP;
+    relate self to destFunpkInpk across R30;  
+  end if;
+  
+  relate destFunpkInpk to pkg across R32;
+
+  select one domain related by self->PL_FPID[R301]->S_DOM[R301];
+  // now setup the links to the domain
+  select one fpid related by pkg->PL_FPID[R301];
+  if(not_empty fpid)
+    select one prevDomain related by fpid->S_DOM[R301];
+    unrelate pkg from prevDomain across R301 using fpid;
+    relate pkg to domain across R301 using fpid;
+  else
+    create object instance fpid of PL_FPID;
+    relate pkg to domain across R301 using fpid;
+  end if;
+  
+  // do the same for any child packages
+  pkg.associateChildPackagesToDomain(dom_id:domain.Dom_ID);
+  
+  // setup R23
+  select many functions related by pkg->S_SYNC[R31];
+  for each function in functions
+    select one prevDomain related by function->S_DOM[R23];
+    if(not_empty prevDomain)
+      unrelate function from prevDomain across R23;
+    end if;
+    relate function to domain across R23;
+  end for;
+  pkg.associateChildPackageFunctionsToDomain(dom_id:domain.Dom_ID);
+end if;',
+	1,
+	'',
+	"d8168d84-9b01-4921-88f0-e839969057e1");
+INSERT INTO O_TPARM
+	VALUES ("027dd995-bc25-4b3e-931b-a3769dc2e1ac",
+	"6fa2af8d-12a9-4bea-8c93-37f1cf114712",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("77a9a44a-3298-40f6-b6e9-aa5bf97b6626",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'associateChildPackagesToDomain',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+/*
+ *  For every child package, associate it to the given domain
+ */
+select any domain from instances of S_DOM where (selected.Dom_ID == param.dom_id);
+if(not_empty domain)
+  select many childPKGs related by self->S_FPIP[R30]->S_FPK[R32];
+  for each child in childPKGs
+    select one existingFPID related by child->PL_FPID[R301];
+    select one existingDom related by existingFPID->S_DOM[R301];
+    unrelate child from existingDom across R301 using existingFPID;
+    relate child to domain across R301 using existingFPID;
+    child.associateChildPackagesToDomain(dom_id:param.dom_id);
+  end for;
+end if;',
+	1,
+	'',
+	"5513aa14-4489-4b1c-b59f-19a1c7cbb467");
+INSERT INTO O_TPARM
+	VALUES ("0c7378d8-5f51-4537-88a2-9d3b3373b1ed",
+	"77a9a44a-3298-40f6-b6e9-aa5bf97b6626",
+	'dom_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("5513aa14-4489-4b1c-b59f-19a1c7cbb467",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'associateChildPackageFunctionsToDomain',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+/*
+ * Associate all child package''s functions with the given domain.
+ */
+select any domain from instances of S_DOM where (selected.Dom_ID == param.dom_id);
+if(not_empty domain)
+  select many childPkgs related by self->S_FPIP[R30]->S_FPK[R32];
+  for each child in childPkgs
+    select many functions related by child->S_FIP[R31]->S_SYNC[R31];
+    for each function in functions
+      select one prevDomain related by function->S_DOM[R23];
+      unrelate function from prevDomain across R23;
+      relate function to domain across R23;
+    end for;
+    child.associateChildPackageFunctionsToDomain(dom_id:param.dom_id);
+  end for;
+end if;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("3ab280ec-dc8e-47aa-958c-3761c9dd741d",
+	"5513aa14-4489-4b1c-b59f-19a1c7cbb467",
+	'dom_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("0bc4c8d6-54ed-41b6-950a-ed639ed40671",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'getFunctionPckgCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many functionPckgs related by self->S_FPIP[R30]->S_FPK[R32];
+return cardinality functionPckgs;',
+	1,
+	'',
+	"6fa2af8d-12a9-4bea-8c93-37f1cf114712");
+INSERT INTO O_TFR
+	VALUES ("489988f5-076f-4430-a7ab-3c318dc85345",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'getFunctionPckgId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+id = GD::NULL_UNIQUE_ID();
+select many functionPckgs related by self->S_FPIP[R30]->S_FPK[R32];
+// We''re preincrementing the index
+count = -1;
+for each functionPckg in functionPckgs
+  if (not_empty functionPckg)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return functionPckg.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"0bc4c8d6-54ed-41b6-950a-ed639ed40671");
+INSERT INTO O_TPARM
+	VALUES ("82bf909a-02d7-498a-a8f1-2b2cf07700f3",
+	"489988f5-076f-4430-a7ab-3c318dc85345",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("c75a896e-0014-449a-b436-de77a6db9eb7",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'pasteFunction',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any function from instances of S_SYNC
+                                           where (selected.Sync_ID == param.id);
+if(not_empty function)
+  select one existing related by function->S_FIP[R31]->S_FPK[R31];
+  if(not_empty existing)
+    select one fip related by function->S_FIP[R31];
+    if(not_empty fip)
+      unrelate function from existing across R31 using fip;
+    end if;
+  end if;
+select one dom related by self->S_DOM[R29];
+if (empty dom)
+  select one rootPkg related by self->S_FPIP[R32]->S_FPK[R30];
+  while (empty dom)
+    select one dom related by rootPkg->S_DOM[R29];
+    select one rootPkg related by rootPkg->S_FPIP[R32]->S_FPK[R30];
+  end while;
+end if;
+  create object instance fip of S_FIP;
+  relate function to self across R31 using fip;
+  relate function to dom across R23;  
+  function.Name = ::getUniqueInitialNameInParent(instance:function.convertToInstance(),
+  						name:function.Name, parent:self.convertToInstance());
+end if;',
+	1,
+	'',
+	"489988f5-076f-4430-a7ab-3c318dc85345");
+INSERT INTO O_TPARM
+	VALUES ("cd7528ed-5868-425e-b0d7-d6f7f10dd8bc",
+	"c75a896e-0014-449a-b436-de77a6db9eb7",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("0dbd6a1a-f57b-4432-8623-931a2704d33d",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7");
+INSERT INTO O_BATTR
+	VALUES ("0dbd6a1a-f57b-4432-8623-931a2704d33d",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7");
+INSERT INTO O_ATTR
+	VALUES ("0dbd6a1a-f57b-4432-8623-931a2704d33d",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	"00000000-0000-0000-0000-000000000000",
+	'FunPack_ID',
+	'Full Name: Function Package identifier',
+	'',
+	'FunPack_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("aa7fb7e1-ab5b-438f-a0cd-aebe4f931145",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7");
+INSERT INTO O_BATTR
+	VALUES ("aa7fb7e1-ab5b-438f-a0cd-aebe4f931145",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7");
+INSERT INTO O_ATTR
+	VALUES ("aa7fb7e1-ab5b-438f-a0cd-aebe4f931145",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	"0dbd6a1a-f57b-4432-8623-931a2704d33d",
+	'Name',
+	'Full Name: Function Package Name
+Description: A name  that represents a package of functions.',
+	'',
+	'Name',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"1629d604-6867-4adb-af6a-84a5ef0e1421",
+	"985b2e63-5216-4f6c-bf8f-a74d4a048fa2",
+	"9be2eef9-8977-4b73-b4d4-8fd794217d3f",
+	"d1738ed2-9686-4733-bff7-726189a38474",
+	"c6d7fee4-fa5d-4bb7-b461-d26e06c8a428",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Domain',
+	'Dom_ID',
+	'R29');
+INSERT INTO R_RGO_PROXY
+	VALUES ("d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	"1629d604-6867-4adb-af6a-84a5ef0e1421",
+	"985b2e63-5216-4f6c-bf8f-a74d4a048fa2",
+	'../Domain.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	"1629d604-6867-4adb-af6a-84a5ef0e1421",
+	"9be2eef9-8977-4b73-b4d4-8fd794217d3f",
+	'../Domain.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("d1738ed2-9686-4733-bff7-726189a38474",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	1,
+	'Dom_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	'../Domain/Domain.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("d1738ed2-9686-4733-bff7-726189a38474",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	"aa7fb7e1-ab5b-438f-a0cd-aebe4f931145",
+	'Dom_ID',
+	'',
+	'',
+	'Dom_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	"434b4f06-d6a1-4e0d-b884-f1f87cdaca3a",
+	0,
+	"b41e4af5-1a0f-4e1d-86d0-9b9030aab4eb",
+	"1f1ce653-f3bf-4d4c-aa8e-6c65ff6496c6",
+	"285ac497-bf09-4ad7-85fb-c6633ae8478c",
+	"7b858e0e-de00-4267-89ec-cac45e370b7e",
+	"80dbda1a-6109-4f65-adac-727b8e493602",
+	"58640278-a48a-4599-998b-b4845a12b5df",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Function Package in Package',
+	'FunPack_ID',
+	'R32');
+INSERT INTO R_RGO_PROXY
+	VALUES ("d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	"1f1ce653-f3bf-4d4c-aa8e-6c65ff6496c6",
+	"285ac497-bf09-4ad7-85fb-c6633ae8478c",
+	'../Domain.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("b41e4af5-1a0f-4e1d-86d0-9b9030aab4eb",
+	"434b4f06-d6a1-4e0d-b884-f1f87cdaca3a",
+	0,
+	"1f1ce653-f3bf-4d4c-aa8e-6c65ff6496c6",
+	"7b858e0e-de00-4267-89ec-cac45e370b7e",
+	'../Domain.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("80dbda1a-6109-4f65-adac-727b8e493602",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	"0dbd6a1a-f57b-4432-8623-931a2704d33d",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	1,
+	'FunPack_ID');
+INSERT INTO O_ATTR
+	VALUES ("80dbda1a-6109-4f65-adac-727b8e493602",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	"d1738ed2-9686-4733-bff7-726189a38474",
+	'Parent_FunPack_ID',
+	'',
+	'Parent_',
+	'FunPack_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7");
+INSERT INTO O_OIDA
+	VALUES ("0dbd6a1a-f57b-4432-8623-931a2704d33d",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	0,
+	'FunPack_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7");
+INSERT INTO O_ID
+	VALUES (2,
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7");
+INSERT INTO S_SS_PROXY
+	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	'Domain',
+	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
+	'S',
+	1,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000100002",
+	'../Domain.xtuml');

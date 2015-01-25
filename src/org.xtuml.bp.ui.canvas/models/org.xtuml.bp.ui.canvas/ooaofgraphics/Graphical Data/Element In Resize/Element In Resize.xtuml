@@ -1,0 +1,254 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("558681b3-16a8-4412-a2a2-59b606dea487",
+	'Element In Resize',
+	10,
+	'GD_EIR',
+	'One instance of this class exists during the time a graphical element
+is being resized. Both Shapes and connectors can be resized. In the
+case of a connector, resizing can occur on any of the text blocks
+associated with it.
+
+---------------------------------------------------------------------------------
+Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+INSERT INTO O_TFR
+	VALUES ("e71a626c-d52b-40cd-9feb-eac13255b15f",
+	"558681b3-16a8-4412-a2a2-59b606dea487",
+	'initialize',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one symbol related by self->GD_GE[R12];
+self.Vertex = symbol.getVertexUnder(x:GR::getAbsoluteXPosition(),
+                                                                  y:GR::getAbsoluteYPosition());
+self.End = symbol.getEndUnder(x:GR::getAbsoluteXPosition(),
+                                                        y:GR::getAbsoluteYPosition());
+',
+	1,
+	'',
+	"72abd2d3-9e70-40a8-afcf-20b194194b89");
+INSERT INTO S_DT_PROXY
+	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("72abd2d3-9e70-40a8-afcf-20b194194b89",
+	"558681b3-16a8-4412-a2a2-59b606dea487",
+	'finish',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'// removed to as the support for resizing text is moved to GEF',
+	1,
+	'',
+	"7c981677-836b-42f5-960f-7fc403c17887");
+INSERT INTO O_TFR
+	VALUES ("7c981677-836b-42f5-960f-7fc403c17887",
+	"558681b3-16a8-4412-a2a2-59b606dea487",
+	'dispose',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one model related by self->GD_MD[R12];
+select one ge related by self->GD_GE[R12];
+unrelate ge from model across R12 using self;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("0e212976-e6ba-474d-ba18-38d2843cb219",
+	"558681b3-16a8-4412-a2a2-59b606dea487");
+INSERT INTO O_BATTR
+	VALUES ("0e212976-e6ba-474d-ba18-38d2843cb219",
+	"558681b3-16a8-4412-a2a2-59b606dea487");
+INSERT INTO O_ATTR
+	VALUES ("0e212976-e6ba-474d-ba18-38d2843cb219",
+	"558681b3-16a8-4412-a2a2-59b606dea487",
+	"a1b24076-81e4-46a0-baf5-9f43fda6ce8d",
+	'Vertex',
+	'This attribute captures which of the four possible corners of
+an element is being moved by the user; North East, North West,
+South East or South West.',
+	'',
+	'Vertex',
+	0,
+	"000786ec-697f-4d36-931b-d64a58cee282",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("000786ec-697f-4d36-931b-d64a58cee282",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'Vertex',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("83b3215c-43e3-4a52-ae29-fc132cd6e66d",
+	"558681b3-16a8-4412-a2a2-59b606dea487");
+INSERT INTO O_BATTR
+	VALUES ("83b3215c-43e3-4a52-ae29-fc132cd6e66d",
+	"558681b3-16a8-4412-a2a2-59b606dea487");
+INSERT INTO O_ATTR
+	VALUES ("83b3215c-43e3-4a52-ae29-fc132cd6e66d",
+	"558681b3-16a8-4412-a2a2-59b606dea487",
+	"0e212976-e6ba-474d-ba18-38d2843cb219",
+	'End',
+	'This attribute captures which of the text blocks of a connector is
+being resized; Start, Middle or End. In the case where a Shape is
+being resized, this attribute value is "None".',
+	'',
+	'End',
+	0,
+	"ae246926-3437-45e4-9232-bcc0952dbcee",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ae246926-3437-45e4-9232-bcc0952dbcee",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'End',
+	'Translate:false',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("558681b3-16a8-4412-a2a2-59b606dea487",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"ee285046-698d-47d4-8d30-506164f3e21f",
+	"2f40ad37-f831-47cd-8202-d9de8077243d",
+	"10990c61-8b5c-43b4-a550-26e7af6ce282",
+	"dbe6afd3-270b-4ede-a9d3-b8ed81fe8775",
+	"6d25a311-2552-41d8-9903-1c71249f92d8",
+	"a8b9bbe2-f55b-4244-866a-0b34a94ef297",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Graphical Element',
+	'elementId',
+	'R12');
+INSERT INTO R_RGO_PROXY
+	VALUES ("558681b3-16a8-4412-a2a2-59b606dea487",
+	"2f40ad37-f831-47cd-8202-d9de8077243d",
+	"10990c61-8b5c-43b4-a550-26e7af6ce282",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"2f40ad37-f831-47cd-8202-d9de8077243d",
+	"dbe6afd3-270b-4ede-a9d3-b8ed81fe8775",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("6d25a311-2552-41d8-9903-1c71249f92d8",
+	"558681b3-16a8-4412-a2a2-59b606dea487",
+	"53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	1,
+	'elementId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	'../../UML 2.0 Diagram Interchange/DiagramElement/DiagramElement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("6d25a311-2552-41d8-9903-1c71249f92d8",
+	"558681b3-16a8-4412-a2a2-59b606dea487",
+	"83b3215c-43e3-4a52-ae29-fc132cd6e66d",
+	'elementId',
+	'',
+	'',
+	'elementId',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("558681b3-16a8-4412-a2a2-59b606dea487",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"2f40ad37-f831-47cd-8202-d9de8077243d",
+	"10990c61-8b5c-43b4-a550-26e7af6ce282",
+	"cf7be58c-439d-48b5-9315-e7da6a32c18d",
+	"a1b24076-81e4-46a0-baf5-9f43fda6ce8d",
+	"50937b37-6011-47c5-81d1-d66d7b60874c",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Model',
+	'diagramId',
+	'R12');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"2f40ad37-f831-47cd-8202-d9de8077243d",
+	"cf7be58c-439d-48b5-9315-e7da6a32c18d",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("a1b24076-81e4-46a0-baf5-9f43fda6ce8d",
+	"558681b3-16a8-4412-a2a2-59b606dea487",
+	"57f2fb06-0e5a-471e-bab1-02b88f324eb4",
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	1,
+	'diagramId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57f2fb06-0e5a-471e-bab1-02b88f324eb4",
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	'../../UML 2.0 Diagram Interchange/Diagram/Diagram.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("a1b24076-81e4-46a0-baf5-9f43fda6ce8d",
+	"558681b3-16a8-4412-a2a2-59b606dea487",
+	"00000000-0000-0000-0000-000000000000",
+	'diagramId',
+	'',
+	'',
+	'diagramId',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"558681b3-16a8-4412-a2a2-59b606dea487");
+INSERT INTO O_OIDA
+	VALUES ("6d25a311-2552-41d8-9903-1c71249f92d8",
+	"558681b3-16a8-4412-a2a2-59b606dea487",
+	0,
+	'elementId');
+INSERT INTO O_OIDA
+	VALUES ("a1b24076-81e4-46a0-baf5-9f43fda6ce8d",
+	"558681b3-16a8-4412-a2a2-59b606dea487",
+	0,
+	'diagramId');
+INSERT INTO O_ID
+	VALUES (1,
+	"558681b3-16a8-4412-a2a2-59b606dea487");
+INSERT INTO O_ID
+	VALUES (2,
+	"558681b3-16a8-4412-a2a2-59b606dea487");
+INSERT INTO S_SS_PROXY
+	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	'Graphical Data',
+	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
+-------------------------------------------------------
+Import:org.eclipse.swt.graphics.Color
+Notify_Changes:true',
+	'GD',
+	1,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001900032",
+	'../Graphical Data.xtuml');

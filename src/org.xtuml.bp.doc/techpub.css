@@ -1,0 +1,241 @@
+/*=(===============================================================)*/
+
+/*=(===============================================================)*/
+/*=(Created with RoboEditor.)=======================================*/
+/*=(===============================================================)*/
+
+/*Below are the styles for Headings*/
+/**************************************************/
+h1 /* Heading 1 */
+          {
+	color: #000000;
+	font-size: 18pt;
+	line-height: 1.3em;
+	font-weight: normal;
+	font-style: normal;
+	font-family: Arial;
+}
+
+/*=(Generated Code)=================================================*/
+/*=(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)===================*/
+/*begin!kadov{{=====================================================*/ 
+/*Below are the styles for Headings*/
+/**************************************************/
+LI.kadov-h1 /* Heading 1 */
+          {
+	color: #000000;
+	font-size: 18pt;
+	line-height: 1.3em;
+	font-weight: normal;
+	font-style: normal;
+	font-family: Arial;
+}
+/*}}end!kadov=======================================================*/ 
+
+
+
+h2 /*Heading 2*/ 
+          {
+	color: #000080;
+	line-height: 1.3em;
+	font-size: 12pt;
+	font-weight: bold;
+	font-style: normal;
+	font-family: Arial;
+}
+
+/*=(Generated Code)=================================================*/
+/*=(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)===================*/
+/*begin!kadov{{=====================================================*/ 
+LI.kadov-h2 /*Heading 2*/ 
+          {
+	color: #000080;
+	line-height: 1.3em;
+	font-size: 12pt;
+	font-weight: bold;
+	font-style: normal;
+	font-family: Arial;
+}
+/*}}end!kadov=======================================================*/ 
+
+
+
+h3 /*Heading 3*/
+          {
+	color: #800000;
+	line-height: 1.3em;
+	font-family: Arial;
+	margin-bottom: 0.2em;
+	font-size: 11pt;
+}
+
+/*=(Generated Code)=================================================*/
+/*=(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)===================*/
+/*begin!kadov{{=====================================================*/ 
+LI.kadov-h3 /*Heading 3*/
+          {
+	color: #800000;
+	line-height: 1.3em;
+	font-family: Arial;
+	font-size: 11pt;
+}
+/*}}end!kadov=======================================================*/ 
+
+
+
+H4 {
+	color: #0176b9;
+	font-family: Arial;
+	font-size: 11pt;
+	margin-left: 0px;
+	font-weight: bold;
+	font-style: normal;
+	line-height: 1.3em;
+	margin-bottom: 6pt;
+}
+
+/*=(Generated Code)=================================================*/
+/*=(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)===================*/
+/*begin!kadov{{=====================================================*/ 
+LI.kadov-H4 {
+	color: #0176b9;
+	font-family: Arial;
+	font-size: 11pt;
+	font-weight: bold;
+	font-style: normal;
+	line-height: 1.3em;
+}
+/*}}end!kadov=======================================================*/ 
+
+
+
+h5 /*Heading 5*/
+          {
+	font-family: Arial;
+	font-size: 9pt;
+	color: #000000;
+	font-weight: bold;
+}
+
+/*=(Generated Code)=================================================*/
+/*=(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)===================*/
+/*begin!kadov{{=====================================================*/ 
+LI.kadov-h5 /*Heading 5*/
+          {
+	font-family: Arial;
+	font-size: 9pt;
+	color: #000000;
+	font-weight: bold;
+}
+/*}}end!kadov=======================================================*/ 
+
+
+
+H6 /* Style for Functions */
+
+    {
+	font-size: 12pt;
+	font-family: "Courier New", monospace;
+	color: #0000ff;
+}
+
+/*=(Generated Code)=================================================*/
+/*=(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)===================*/
+/*begin!kadov{{=====================================================*/ 
+LI.kadov-H6 /* Style for Functions */
+
+    {
+	font-size: 12pt;
+	font-family: "Courier New", monospace;
+	color: #0000ff;
+}
+/*}}end!kadov=======================================================*/ 
+
+
+
+P /* Normal text style */ 
+       {
+	font-family: Arial;
+	font-size: 10pt;
+	font-weight: normal;
+}
+
+/*=(Generated Code)=================================================*/
+/*=(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)===================*/
+/*begin!kadov{{=====================================================*/ 
+LI.kadov-P /* Normal text style */ 
+       {
+	font-family: Arial;
+	font-size: 10pt;
+	font-weight: normal;
+}
+/*}}end!kadov=======================================================*/ 
+
+
+
+span.tp\005fcode /* Style for code */
+
+       {
+	font-family: "Courier New";
+	font-size: 10pt;
+}
+
+/*Styles for hyperlinks */
+
+a {
+	x-text-underline: normal;
+	x-text-underline: normal;
+	/*begin!kadov{{*/ text-decoration: underline underline; /*}}end!kadov*/ 
+}
+
+a:link {
+	color: #000080;
+}
+
+a:active {
+	color: #cc0000;
+}
+
+a:visited {
+	color: #0176b9;
+}
+
+a:hover {
+	color: #cc0000;
+}
+
+/* Styles for lists */
+li {
+	margin-bottom: .25em;
+	font-size: 10pt;
+	font-family: Arial, sans-serif;
+}
+
+ul {
+	list-style-type: square;
+	font-size: 10pt;
+	font-family: Arial, sans-serif;
+}
+
+OL,
+UL {
+	font-size: 10pt;
+	font-family: Arial, sans-serif;
+}
+
+P.tpcode {
+	font-family: "Courier New", monospace;
+}
+
+/*=(Generated Code)=================================================*/
+/*=(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)===================*/
+/*begin!kadov{{=====================================================*/ 
+LI.kadov-P-Ctpcode {
+	font-family: "Courier New", monospace;
+}
+/*}}end!kadov=======================================================*/ 
+
+
+
+
+/*=(===============================================================)*/

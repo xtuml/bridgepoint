@@ -1,0 +1,87 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("32c05b81-5ab9-4afd-b5dc-420d24a533ec",
+	'TestClassSupertypeGood',
+	3,
+	'DC_TCLG2',
+	'',
+	"21a3a8b5-f73c-4d96-98ed-c54c53f9395b");
+INSERT INTO O_REF
+	VALUES ("32c05b81-5ab9-4afd-b5dc-420d24a533ec",
+	"3fc4f7c8-22ee-4020-a499-96a2afe00bad",
+	0,
+	"75d3929c-3803-40ba-973e-6b061a8e96fe",
+	"927ba9a3-448e-492f-82e0-a785101f7902",
+	"61fbe901-f258-46a0-86bb-1e6464c57ef7",
+	"7c2c3e7f-0b89-47f9-aa5e-e995e8615017",
+	"41a7e377-1122-4d93-9e9d-213fd9933c60",
+	"64566345-8b8d-43d3-9f35-469dfbc6dfd2",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'DeleteCheckGoodClass',
+	'testAttr',
+	'R2');
+INSERT INTO R_RGO_PROXY
+	VALUES ("32c05b81-5ab9-4afd-b5dc-420d24a533ec",
+	"927ba9a3-448e-492f-82e0-a785101f7902",
+	"61fbe901-f258-46a0-86bb-1e6464c57ef7",
+	'../Delete Check Good SS.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("75d3929c-3803-40ba-973e-6b061a8e96fe",
+	"3fc4f7c8-22ee-4020-a499-96a2afe00bad",
+	0,
+	"927ba9a3-448e-492f-82e0-a785101f7902",
+	"7c2c3e7f-0b89-47f9-aa5e-e995e8615017",
+	'../Delete Check Good SS.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("41a7e377-1122-4d93-9e9d-213fd9933c60",
+	"32c05b81-5ab9-4afd-b5dc-420d24a533ec",
+	"75d3929c-3803-40ba-973e-6b061a8e96fe",
+	"3fc4f7c8-22ee-4020-a499-96a2afe00bad",
+	1,
+	'testAttr');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("75d3929c-3803-40ba-973e-6b061a8e96fe",
+	"3fc4f7c8-22ee-4020-a499-96a2afe00bad",
+	'../DeleteCheckGoodClass/DeleteCheckGoodClass.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("41a7e377-1122-4d93-9e9d-213fd9933c60",
+	"32c05b81-5ab9-4afd-b5dc-420d24a533ec",
+	"00000000-0000-0000-0000-000000000000",
+	'testAttr',
+	'',
+	'',
+	'testAttr',
+	0,
+	"3d682281-83c2-44dd-9353-1fc0d6921a89",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("3d682281-83c2-44dd-9353-1fc0d6921a89",
+	"37245a7a-b236-4955-873c-ea0ecaac7d3c",
+	'same_as<Base_Attribute>',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"32c05b81-5ab9-4afd-b5dc-420d24a533ec");
+INSERT INTO O_OIDA
+	VALUES ("41a7e377-1122-4d93-9e9d-213fd9933c60",
+	"32c05b81-5ab9-4afd-b5dc-420d24a533ec",
+	0);
+INSERT INTO O_ID
+	VALUES (1,
+	"32c05b81-5ab9-4afd-b5dc-420d24a533ec");
+INSERT INTO O_ID
+	VALUES (2,
+	"32c05b81-5ab9-4afd-b5dc-420d24a533ec");
+INSERT INTO S_SS_PROXY
+	VALUES ("21a3a8b5-f73c-4d96-98ed-c54c53f9395b",
+	'Delete Check Good SS',
+	'Persistent:false',
+	'',
+	0,
+	"37245a7a-b236-4955-873c-ea0ecaac7d3c",
+	"00000000-0000-0000-0000-000000000000",
+	'../Delete Check Good SS.xtuml');

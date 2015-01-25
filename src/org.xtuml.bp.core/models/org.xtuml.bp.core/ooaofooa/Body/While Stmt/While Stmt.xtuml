@@ -1,0 +1,318 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("797141e5-601e-41fb-ab57-54c68931d590",
+	'While Stmt',
+	619,
+	'ACT_WHL',
+	'This class represents a while statement in a block of action language.',
+	"76583c73-7a99-4c81-b260-8109e6cef5ca");
+INSERT INTO O_TFR
+	VALUES ("46c89112-6f98-4015-8f53-255a5dfcd14b",
+	"797141e5-601e-41fb-ab57-54c68931d590",
+	'dispose',
+	'This operation disconnects an instance, and all instances it is 
+responsible for, from the model.
+',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one blk related by self->ACT_BLK[R608];
+if ( not_empty blk )
+  unrelate self from blk across R608;
+  blk.dispose();
+end if;
+
+select one val related by self->V_VAL[R626];
+if ( not_empty val )
+  unrelate self from val across R626;
+  val.dispose();
+end if;
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("7e4868d1-fc1d-4986-89da-265520ce2f81",
+	"797141e5-601e-41fb-ab57-54c68931d590",
+	'execute',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// While Stmt.execute()
+ select one body related by self->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601];   
+// First check for a valid stack frame id and grab the stack frame
+select any stack_frame from instances of I_STF where 
+                              (selected.Stack_Frame_ID == param.stack_frame_id);
+if (empty stack_frame)
+  //Invalid stack frame ID!
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in While Stmt.execute: Invalid stack frame id. Terminating execution.",path:pathMsg);
+  select any stack from instances of I_STACK;
+  stack.runState = RunStateType::Terminated;
+else
+  select one stack related by stack_frame->I_STACK[R2943];
+  if (empty stack)
+    //Could not get stack!
+    pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in While Stmt.execute: Could not get stack. Using random stack.",path:pathMsg);
+    select any stack from instances of I_STACK;
+    stack.runState = RunStateType::Terminated;
+  else
+    select one value related by self->V_VAL[R626];
+    value.computeValue(stack_frame_id: param.stack_frame_id);
+    select any result related by stack_frame->I_VSF[R2951] where
+                                            selected.Value_ID == value.Value_ID;
+    select one rtVal related by result->RV_RVL[R3305];
+    if (empty rtVal)
+      // result requires computation. Return and let the new stack frame execute
+      return;      
+    else
+      stack_frame.popValue(value_id:value.Value_ID);
+      if (GD::instance_to_boolean(value:rtVal.getValue()) == true)
+        select one child_block related by self->ACT_BLK[R608];
+        select any statement related by child_block->ACT_SMT[R602];
+        if not_empty statement
+          // we''re going into a deeper block, so
+          // disable execution on the current one
+          select any bisf related by stack_frame->I_BSF[R2923] where
+                                                           selected.isExecuting;
+          bisf.isExecuting = false;
+          // Set up block for execution
+          create object instance bisf of I_BSF;
+          relate child_block to stack_frame across R2923 using bisf;
+          relate statement to bisf across R2941;
+          bisf.isExecuting = true;
+          child_block.initialize();
+        end if;
+      end if;
+    end if;
+  end if; 
+end if;
+',
+	1,
+	'',
+	"46c89112-6f98-4015-8f53-255a5dfcd14b");
+INSERT INTO O_TPARM
+	VALUES ("082ed20a-4377-438a-ae6f-7e5acd853be3",
+	"7e4868d1-fc1d-4986-89da-265520ce2f81",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("797141e5-601e-41fb-ab57-54c68931d590",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"10ffb9a7-a093-4e90-9453-cbc88fcf22d3",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	"34fe5cf8-2277-4cd1-8268-657695ba873d",
+	"8d3e0395-54a0-42f6-855e-dd9ce66edb0c",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Statement',
+	'Statement_ID',
+	'R603');
+INSERT INTO R_RGO_PROXY
+	VALUES ("797141e5-601e-41fb-ab57-54c68931d590",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"10ffb9a7-a093-4e90-9453-cbc88fcf22d3",
+	'../Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	'../Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("34fe5cf8-2277-4cd1-8268-657695ba873d",
+	"797141e5-601e-41fb-ab57-54c68931d590",
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	'Statement_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'../Statement/Statement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("34fe5cf8-2277-4cd1-8268-657695ba873d",
+	"797141e5-601e-41fb-ab57-54c68931d590",
+	"00000000-0000-0000-0000-000000000000",
+	'Statement_ID',
+	'
+
+',
+	'',
+	'Statement_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("797141e5-601e-41fb-ab57-54c68931d590",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"79f826f2-c3c2-414a-bfb6-3ec643655a2c",
+	"831990e6-f7c0-48bc-8f57-fce870ba59c8",
+	"347a2e2c-1e56-4e4d-bf69-828254dc7bff",
+	"5e76c305-3adf-4534-96d9-d9bddd1d50a5",
+	"e68a664e-1b61-45b4-9dc2-3f05d873e9c1",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Value',
+	'Value_ID',
+	'R626');
+INSERT INTO R_RGO_PROXY
+	VALUES ("797141e5-601e-41fb-ab57-54c68931d590",
+	"79f826f2-c3c2-414a-bfb6-3ec643655a2c",
+	"831990e6-f7c0-48bc-8f57-fce870ba59c8",
+	'../Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"79f826f2-c3c2-414a-bfb6-3ec643655a2c",
+	"347a2e2c-1e56-4e4d-bf69-828254dc7bff",
+	'../Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("5e76c305-3adf-4534-96d9-d9bddd1d50a5",
+	"797141e5-601e-41fb-ab57-54c68931d590",
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	1,
+	'Value_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'../../Value/Value/Value.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("5e76c305-3adf-4534-96d9-d9bddd1d50a5",
+	"797141e5-601e-41fb-ab57-54c68931d590",
+	"34fe5cf8-2277-4cd1-8268-657695ba873d",
+	'Value_ID',
+	'
+
+',
+	'',
+	'Value_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("797141e5-601e-41fb-ab57-54c68931d590",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	0,
+	"1a0afb36-7d42-46cd-b87c-7a52b8ec2857",
+	"6a27577c-127a-448a-b911-ec078d141dd5",
+	"ca5c75c5-9fb0-46a3-a2ea-eab5e1deeb4f",
+	"be2f1dca-5705-4b08-b36d-998fadcbae89",
+	"2d51e554-6693-47a8-9487-8e79b3642fb5",
+	"e6da90d9-b246-4b8a-9ec4-f35ba846d216",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Block',
+	'Block_ID',
+	'R608');
+INSERT INTO R_RGO_PROXY
+	VALUES ("797141e5-601e-41fb-ab57-54c68931d590",
+	"6a27577c-127a-448a-b911-ec078d141dd5",
+	"ca5c75c5-9fb0-46a3-a2ea-eab5e1deeb4f",
+	'../Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("1a0afb36-7d42-46cd-b87c-7a52b8ec2857",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	0,
+	"6a27577c-127a-448a-b911-ec078d141dd5",
+	"be2f1dca-5705-4b08-b36d-998fadcbae89",
+	'../Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("2d51e554-6693-47a8-9487-8e79b3642fb5",
+	"797141e5-601e-41fb-ab57-54c68931d590",
+	"1a0afb36-7d42-46cd-b87c-7a52b8ec2857",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	1,
+	'Block_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("1a0afb36-7d42-46cd-b87c-7a52b8ec2857",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	'../Block/Block.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("2d51e554-6693-47a8-9487-8e79b3642fb5",
+	"797141e5-601e-41fb-ab57-54c68931d590",
+	"5e76c305-3adf-4534-96d9-d9bddd1d50a5",
+	'Block_ID',
+	'',
+	'',
+	'Block_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"797141e5-601e-41fb-ab57-54c68931d590");
+INSERT INTO O_OIDA
+	VALUES ("34fe5cf8-2277-4cd1-8268-657695ba873d",
+	"797141e5-601e-41fb-ab57-54c68931d590",
+	0,
+	'Statement_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"797141e5-601e-41fb-ab57-54c68931d590");
+INSERT INTO O_ID
+	VALUES (2,
+	"797141e5-601e-41fb-ab57-54c68931d590");
+INSERT INTO S_SS_PROXY
+	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	'Body',
+	'This subsystem abstracts the action itself, the blocks and statements
+it contains together with the flow of control statements such as ''while'',
+''for each'' and ''if''.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'ACT',
+	600,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000380007",
+	'../Body.xtuml');

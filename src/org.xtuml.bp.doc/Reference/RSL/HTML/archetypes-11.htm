@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="archetypes.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+Fragment Attributes
+</TITLE>
+
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<H1 CLASS="Heading2">
+<A NAME="0_pgfId-517373"></A><A NAME="0_marker-517372"></A>Fragment Attributes</H1>
+<P CLASS="Body">
+<A NAME="0_pgfId-517374"></A>Attributes may be defined for a fragment when the fragment is formed inside the function. The attribute <EM CLASS="Code">
+body</EM>
+ is always defined. After the invocation of a function, the <EM CLASS="Code">
+body</EM>
+ attribute contains the literal text lines within the function. </P>
+<P CLASS="Body">
+<A NAME="0_pgfId-525900"></A>Additional attributes are defined by declaring transient variables inside the function of the form:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517376"></A><EM CLASS="Code">
+	attr_&lt;attribute_name&gt;</EM>
+<A NAME="0_marker-527028"></A></P>
+<P CLASS="Body">
+<A NAME="0_pgfId-519235"></A>where:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-519236"></A><EM CLASS="Code">
+&lt;attribute_name&gt;</EM>
+ is the name of the attribute. The name of the attribute should be selected to convey meaning to the caller of the function.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517377"></A>For example:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517378"></A><EM CLASS="Code">.function GetAttributeData</EM>
+<A NAME="0_marker-527029"></A></PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517379"></A><EM CLASS="Code">.param inst_ref p_attr</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519239"></A><EM CLASS="Code">	.assign attr_used = TRUE</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519245"></A><EM CLASS="Code">	.assign attr_type = &quot;&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519238"></A><EM CLASS="Code">	.if ( not p_attr.Used )</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519240"></A><EM CLASS="Code">		.assign attr_used = FALSE )	</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519244"></A><EM CLASS="Code">	.else</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517380"></A><EM CLASS="Code">		.assign attr_type = &quot;${p_attr.CppImplementationType}&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519250"></A><EM CLASS="Code">// $(p_attr.Name}</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519325"></A><EM CLASS="Code">	.end if</EM>
+</PRE>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517381"></A><EM CLASS="Code">
+.end function</EM>
+</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517382"></A>specifies a function, that when called, results in the variables <EM CLASS="Code">
+type</EM>
+, <EM CLASS="Code">
+used</EM>
+, and <EM CLASS="Code">
+body</EM>
+ being available to the caller through <EM CLASS="Code">
+&lt;frag_reg_var&gt;.&lt;attribute_name&gt;</EM>
+:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519263"></A><EM CLASS="Code">.select many attrs from instances of O_ATTR</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519264"></A><EM CLASS="Code">.for each attr in attrs</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519265"></A><EM CLASS="Code">	.invoke attribute_data = GetAttributeData(attr)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519266"></A><EM CLASS="Code">	.if (attribute_data.used)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519267"></A><EM CLASS="Code">${attribute_data.body}</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519268"></A><EM CLASS="Code">${attribute_data.type} ${attr.Name};</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519271"></A><EM CLASS="Code"></EM>
+&nbsp;</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519269"></A><EM CLASS="Code">	.end if</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519270"></A><EM CLASS="Code">.end for</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519276"></A>&nbsp;</PRE>
+<P CLASS="Body">
+<A NAME="0_pgfId-517389"></A>Be careful to make sure the <EM CLASS="Code">
+attr_&lt;attribute_name&gt;</EM>
+ variables are in scope when the <EM CLASS="Code">
+.end function</EM>
+ statement is reached. For example:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517391"></A><EM CLASS="Code">.function GetNewValueForValue</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517392"></A><EM CLASS="Code">.param integer p_value</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517393"></A><EM CLASS="Code">.if (p_value &lt; 100)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517394"></A><EM CLASS="Code">	.assign attr_new_value = 22</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517395"></A><EM CLASS="Code">.else</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517396"></A><EM CLASS="Code">	.assign attr_new_value = 2000</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517397"></A><EM CLASS="Code">.end if</EM>
+</PRE>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517398"></A><EM CLASS="Code">
+.end function</EM>
+</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517400"></A>results in the transient variable <EM CLASS="Code">
+attr_new_value</EM>
+ NOT becoming a fragment attribute since it falls out of scope with the <EM CLASS="Code">
+.if</EM>
+ statement and is therefore not on the stack when the <EM CLASS="Code">
+.end function</EM>
+ statement is encountered. A correct solution is:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517402"></A><EM CLASS="Code">.function GetNewValueForValue</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517403"></A><EM CLASS="Code">.param integer p_value</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517404"></A><EM CLASS="Code">.assign attr_new_value = 0</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517405"></A><EM CLASS="Code">.if (p_value &lt; 100)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517406"></A><EM CLASS="Code">	.assign attr_new_value = 22</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517407"></A><EM CLASS="Code">.else</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517408"></A><EM CLASS="Code">	.assign attr_new_value = 2000</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517409"></A><EM CLASS="Code">.end if</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517410"></A><EM CLASS="Code">.end function</EM>
+</PRE>
+</BODY>
+</HTML>

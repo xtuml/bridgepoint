@@ -1,0 +1,139 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("9194dbb1-1280-4acb-99d6-30ea772ca0ea",
+	'UnformalizeASSR OBJ_OBJ IOBJ UsedRef',
+	1205,
+	'T_UNFORM',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("9194dbb1-1280-4acb-99d6-30ea772ca0ea",
+	"36490d7e-649b-4532-b204-3ee9273ce494",
+	0,
+	"46e63360-c734-4896-9292-176339d73569",
+	"5e513ba1-99ac-4a06-9ba9-37e828039e9e",
+	"1308538f-6978-4a69-9d71-4c417ef6a673",
+	"a5fc98ce-35f5-4ea8-8f27-85a07df3aacb",
+	"7de9bd1b-d492-4abb-a33e-b8eb6762afad",
+	"b84fb9c2-efe4-46fe-b6b9-4cda2d4b7c09",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'TestClassOtherSide 3',
+	'testAttrFormalizer',
+	'R1202');
+INSERT INTO R_RGO_PROXY
+	VALUES ("9194dbb1-1280-4acb-99d6-30ea772ca0ea",
+	"5e513ba1-99ac-4a06-9ba9-37e828039e9e",
+	"1308538f-6978-4a69-9d71-4c417ef6a673",
+	'../UAL Tests.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("46e63360-c734-4896-9292-176339d73569",
+	"36490d7e-649b-4532-b204-3ee9273ce494",
+	0,
+	"5e513ba1-99ac-4a06-9ba9-37e828039e9e",
+	"a5fc98ce-35f5-4ea8-8f27-85a07df3aacb",
+	'../UAL Tests.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("7de9bd1b-d492-4abb-a33e-b8eb6762afad",
+	"9194dbb1-1280-4acb-99d6-30ea772ca0ea",
+	"46e63360-c734-4896-9292-176339d73569",
+	"36490d7e-649b-4532-b204-3ee9273ce494",
+	1,
+	'testAttrFormalizer');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("46e63360-c734-4896-9292-176339d73569",
+	"36490d7e-649b-4532-b204-3ee9273ce494",
+	'../TestClassOtherSide 3/TestClassOtherSide 3.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("7de9bd1b-d492-4abb-a33e-b8eb6762afad",
+	"9194dbb1-1280-4acb-99d6-30ea772ca0ea",
+	"00000000-0000-0000-0000-000000000000",
+	'testAttrFormalizer',
+	'',
+	'',
+	'testAttrFormalizer',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("9194dbb1-1280-4acb-99d6-30ea772ca0ea",
+	"a62aec8e-f8e5-47ec-809f-376d00871c0b",
+	0,
+	"12c74917-c3e1-48a3-b9c0-c2a783fc8778",
+	"5e513ba1-99ac-4a06-9ba9-37e828039e9e",
+	"1308538f-6978-4a69-9d71-4c417ef6a673",
+	"c519883d-e2a8-419d-9642-f382caa1eab3",
+	"8bc98477-50c1-4dd6-8244-12abc2358b45",
+	"bd5e784a-38dd-4111-bbdc-a138dfc4f130",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'TestClassImp 1',
+	'testAttrFormalizer',
+	'R1202');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("12c74917-c3e1-48a3-b9c0-c2a783fc8778",
+	"a62aec8e-f8e5-47ec-809f-376d00871c0b",
+	0,
+	"5e513ba1-99ac-4a06-9ba9-37e828039e9e",
+	"c519883d-e2a8-419d-9642-f382caa1eab3",
+	'../UAL Tests.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("8bc98477-50c1-4dd6-8244-12abc2358b45",
+	"9194dbb1-1280-4acb-99d6-30ea772ca0ea",
+	"12c74917-c3e1-48a3-b9c0-c2a783fc8778",
+	"a62aec8e-f8e5-47ec-809f-376d00871c0b",
+	1,
+	'testAttrFormalizer');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("12c74917-c3e1-48a3-b9c0-c2a783fc8778",
+	"a62aec8e-f8e5-47ec-809f-376d00871c0b",
+	'../../UAL General Import/TestClassImp 1/TestClassImp 1.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("8bc98477-50c1-4dd6-8244-12abc2358b45",
+	"9194dbb1-1280-4acb-99d6-30ea772ca0ea",
+	"7de9bd1b-d492-4abb-a33e-b8eb6762afad",
+	'testAttrFormalizer',
+	'',
+	'',
+	'testAttrFormalizer',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"9194dbb1-1280-4acb-99d6-30ea772ca0ea");
+INSERT INTO O_OIDA
+	VALUES ("8bc98477-50c1-4dd6-8244-12abc2358b45",
+	"9194dbb1-1280-4acb-99d6-30ea772ca0ea",
+	0,
+	'testAttrFormalizer');
+INSERT INTO O_OIDA
+	VALUES ("7de9bd1b-d492-4abb-a33e-b8eb6762afad",
+	"9194dbb1-1280-4acb-99d6-30ea772ca0ea",
+	0,
+	'testAttrFormalizer');
+INSERT INTO O_ID
+	VALUES (1,
+	"9194dbb1-1280-4acb-99d6-30ea772ca0ea");
+INSERT INTO O_ID
+	VALUES (2,
+	"9194dbb1-1280-4acb-99d6-30ea772ca0ea");
+INSERT INTO PE_PE
+	VALUES ("9194dbb1-1280-4acb-99d6-30ea772ca0ea",
+	1,
+	"4f126451-d370-4f85-ae79-a0230e597c7c",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("4f126451-d370-4f85-ae79-a0230e597c7c",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'UAL Tests',
+	'',
+	0,
+	'../UAL Tests.xtuml');

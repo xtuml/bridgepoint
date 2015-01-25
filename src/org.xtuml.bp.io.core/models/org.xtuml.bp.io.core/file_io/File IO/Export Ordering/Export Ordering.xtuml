@@ -1,0 +1,426 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	'Export Ordering',
+	1,
+	'EO',
+	'This class captures the sequence for exporting
+classes to a BridgePoint SQL file suitable for 
+importing by Model Builder.  The sequence is
+essentially a call graph.  Each instance represents
+the export of a specific item. ',
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
+INSERT INTO O_NBATTR
+	VALUES ("5bf8fae0-9619-4705-aa98-c6d256181d20",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_BATTR
+	VALUES ("5bf8fae0-9619-4705-aa98-c6d256181d20",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_ATTR
+	VALUES ("5bf8fae0-9619-4705-aa98-c6d256181d20",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	"00000000-0000-0000-0000-000000000000",
+	'Id',
+	'This is an arbitrary identifier for this class.
+
+',
+	'',
+	'Id',
+	0,
+	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("5e30bc10-6b4e-49f6-a053-8d190acef663",
+	"695dce7b-262a-4226-9cbb-c9f897b44c67",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	0,
+	"5bf8fae0-9619-4705-aa98-c6d256181d20",
+	"3be2fcf7-7505-4c0e-9425-d69e20f23bad",
+	"b1f2b5b7-f656-4ab0-a394-806e86a818b0",
+	"d5c9d6fc-1172-404e-b969-42aa1bd3f6a5",
+	"996168d9-1db8-4a8b-8872-935fe5f4a0c5",
+	"debb3389-ecaa-4cf2-9ade-081f1033e048",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Export Ordering',
+	'Id',
+	'R1');
+INSERT INTO R_RGO_PROXY
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"3be2fcf7-7505-4c0e-9425-d69e20f23bad",
+	"b1f2b5b7-f656-4ab0-a394-806e86a818b0",
+	'../File IO.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("5bf8fae0-9619-4705-aa98-c6d256181d20",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	0,
+	"3be2fcf7-7505-4c0e-9425-d69e20f23bad",
+	"d5c9d6fc-1172-404e-b969-42aa1bd3f6a5",
+	'../File IO.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("996168d9-1db8-4a8b-8872-935fe5f4a0c5",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	"5bf8fae0-9619-4705-aa98-c6d256181d20",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	1,
+	'Id');
+INSERT INTO O_ATTR
+	VALUES ("996168d9-1db8-4a8b-8872-935fe5f4a0c5",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	"5bf8fae0-9619-4705-aa98-c6d256181d20",
+	'firstChildId',
+	'This is the identifier of the instance of EO that is the
+first child of this instance.  It may be null.
+
+',
+	'firstChild',
+	'Id',
+	1,
+	"cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	"695dce7b-262a-4226-9cbb-c9f897b44c67",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	0,
+	"5bf8fae0-9619-4705-aa98-c6d256181d20",
+	"ec97adb2-be8b-4639-b24d-7b63555d6e55",
+	"c25cd15e-7494-4f50-ba4f-fb6efc246073",
+	"b44c0cd4-b411-477c-b845-199b2f64c9c3",
+	"a0ebc39c-da99-44ff-94fd-dc678cc11adc",
+	"8ef17f9f-fa7f-4c1e-9b76-56b6fa1f6872",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Export Ordering',
+	'Id',
+	'R2');
+INSERT INTO R_RGO_PROXY
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"ec97adb2-be8b-4639-b24d-7b63555d6e55",
+	"c25cd15e-7494-4f50-ba4f-fb6efc246073",
+	'../File IO.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("5bf8fae0-9619-4705-aa98-c6d256181d20",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	0,
+	"ec97adb2-be8b-4639-b24d-7b63555d6e55",
+	"b44c0cd4-b411-477c-b845-199b2f64c9c3",
+	'../File IO.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("a0ebc39c-da99-44ff-94fd-dc678cc11adc",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	"5bf8fae0-9619-4705-aa98-c6d256181d20",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	1,
+	'Id');
+INSERT INTO O_ATTR
+	VALUES ("a0ebc39c-da99-44ff-94fd-dc678cc11adc",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	"996168d9-1db8-4a8b-8872-935fe5f4a0c5",
+	'nextId',
+	'This is the identifier of the EO instance that follows this instance.
+It may be null if there is no EO after this one.
+
+',
+	'next',
+	'Id',
+	1,
+	"cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	0,
+	"fb78b1f6-8c41-4ee7-9138-026cad67415f",
+	"66f401c3-8a36-4215-98c9-0b9f455dfb82",
+	"f75bd486-93c1-403d-a379-b0e7a4866656",
+	"1ad283ea-321d-4fec-9c10-74c9131fd1bc",
+	"0756f345-07e6-43ca-bb66-c00f3e652709",
+	"25e2e849-33aa-4fc3-8acb-6666aea94b6d",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Export Item',
+	'Name',
+	'R3');
+INSERT INTO R_RGO_PROXY
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"66f401c3-8a36-4215-98c9-0b9f455dfb82",
+	"f75bd486-93c1-403d-a379-b0e7a4866656",
+	'../File IO.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("fb78b1f6-8c41-4ee7-9138-026cad67415f",
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	0,
+	"66f401c3-8a36-4215-98c9-0b9f455dfb82",
+	"1ad283ea-321d-4fec-9c10-74c9131fd1bc",
+	'../File IO.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("0756f345-07e6-43ca-bb66-c00f3e652709",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	"fb78b1f6-8c41-4ee7-9138-026cad67415f",
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	1,
+	'Name');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("fb78b1f6-8c41-4ee7-9138-026cad67415f",
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	'../Export Item/Export Item.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("0756f345-07e6-43ca-bb66-c00f3e652709",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	"a0ebc39c-da99-44ff-94fd-dc678cc11adc",
+	'Name',
+	'This is the name of the Export Item that is exported by this instance.
+
+',
+	'',
+	'Name',
+	0,
+	"cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("4173b42e-37f5-4659-8baa-a307a20cf897",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_BATTR
+	VALUES ("4173b42e-37f5-4659-8baa-a307a20cf897",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_ATTR
+	VALUES ("4173b42e-37f5-4659-8baa-a307a20cf897",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	"0756f345-07e6-43ca-bb66-c00f3e652709",
+	'Numb',
+	'This is the number of the relationship in the Tiger/BP application
+model that is followed to get from the parent class 
+of this EO to this EO in the export ordering tree. 
+
+For example, if this EO was ''Data Type'', Numb''s value would be 14, 
+which is the relationship from ''Domain'' (the parent of ''Data Type'') to ''Data Type''.
+
+This attribute has this specific name to take advantage of the name 
+generating  routines in MC-Java.
+',
+	'',
+	'Numb',
+	0,
+	"6bbff869-b832-4434-be0b-49573f7cec86",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6bbff869-b832-4434-be0b-49573f7cec86",
+	"695dce7b-262a-4226-9cbb-c9f897b44c67",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("44c8da85-bad1-40d0-9470-0cba1b222826",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_BATTR
+	VALUES ("44c8da85-bad1-40d0-9470-0cba1b222826",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_ATTR
+	VALUES ("44c8da85-bad1-40d0-9470-0cba1b222826",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	"4173b42e-37f5-4659-8baa-a307a20cf897",
+	'Card',
+	'This is the cardinality of the relationship in the Tiger/BP application
+model that is followed to get from the parent class 
+of this EO to this EO in the export ordering tree. 
+
+Values: "one", "many"
+
+This attribute has this specific name to take advantage of the name 
+generating  routines in MC-Java.
+
+',
+	'',
+	'Card',
+	0,
+	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("1c047362-674b-4f61-b1a6-40000cc4fb73",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_BATTR
+	VALUES ("1c047362-674b-4f61-b1a6-40000cc4fb73",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_ATTR
+	VALUES ("1c047362-674b-4f61-b1a6-40000cc4fb73",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	"44c8da85-bad1-40d0-9470-0cba1b222826",
+	'writePosition',
+	'This attribute describes when the generated code should output the sql for this item.
+
+Values:
+''first'': The write SQL call is placed before exporting the children.
+''last'': The write SQL call is placed after exporting the children.
+something else:  The name of the child that the output goes after.
+
+',
+	'',
+	'writePosition',
+	0,
+	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("8427769b-f40c-4a2d-a8d0-5033ac96d4b9",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_BATTR
+	VALUES ("8427769b-f40c-4a2d-a8d0-5033ac96d4b9",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_ATTR
+	VALUES ("8427769b-f40c-4a2d-a8d0-5033ac96d4b9",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	"1c047362-674b-4f61-b1a6-40000cc4fb73",
+	'componentRoot',
+	'',
+	'',
+	'componentRoot',
+	0,
+	"d3964502-1097-4d82-9200-171d288e3409",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("d3964502-1097-4d82-9200-171d288e3409",
+	"695dce7b-262a-4226-9cbb-c9f897b44c67",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("01451f3b-1f16-44ab-8734-c819f97efeaa",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_BATTR
+	VALUES ("01451f3b-1f16-44ab-8734-c819f97efeaa",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_ATTR
+	VALUES ("01451f3b-1f16-44ab-8734-c819f97efeaa",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	"8427769b-f40c-4a2d-a8d0-5033ac96d4b9",
+	'ignoreParent',
+	'',
+	'',
+	'ignoreParent',
+	0,
+	"d3964502-1097-4d82-9200-171d288e3409",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("0f1b3586-d5ba-46fb-b514-c937fe9dcb4a",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_BATTR
+	VALUES ("0f1b3586-d5ba-46fb-b514-c937fe9dcb4a",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_ATTR
+	VALUES ("0f1b3586-d5ba-46fb-b514-c937fe9dcb4a",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	"01451f3b-1f16-44ab-8734-c819f97efeaa",
+	'rel_phrase',
+	'',
+	'',
+	'rel_phrase',
+	0,
+	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("3618bb78-7a1f-40ad-a77d-a3923214d407",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_BATTR
+	VALUES ("3618bb78-7a1f-40ad-a77d-a3923214d407",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_ATTR
+	VALUES ("3618bb78-7a1f-40ad-a77d-a3923214d407",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	"0f1b3586-d5ba-46fb-b514-c937fe9dcb4a",
+	'isGraphical',
+	'This flag is used to mark data that is considered graphical.  The user may 
+choose to exclude this data when exporting.',
+	'',
+	'isGraphical',
+	0,
+	"d3964502-1097-4d82-9200-171d288e3409",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("f06a4236-5c77-41a2-9382-f4406a908bfb",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_BATTR
+	VALUES ("f06a4236-5c77-41a2-9382-f4406a908bfb",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_ATTR
+	VALUES ("f06a4236-5c77-41a2-9382-f4406a908bfb",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	"3618bb78-7a1f-40ad-a77d-a3923214d407",
+	'isOAL',
+	'This is a flag to mark OAL data.  Copy paste operations will not include OAL 
+data, but users may want to include it in export.',
+	'',
+	'isOAL',
+	0,
+	"d3964502-1097-4d82-9200-171d288e3409",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("ff96f6e5-711e-48ca-ab42-e330a7f046a6",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_BATTR
+	VALUES ("ff96f6e5-711e-48ca-ab42-e330a7f046a6",
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_ATTR
+	VALUES ("ff96f6e5-711e-48ca-ab42-e330a7f046a6",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	"f06a4236-5c77-41a2-9382-f4406a908bfb",
+	'rel_chain',
+	'',
+	'',
+	'rel_chain',
+	0,
+	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_OIDA
+	VALUES ("5bf8fae0-9619-4705-aa98-c6d256181d20",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	0,
+	'Id');
+INSERT INTO O_ID
+	VALUES (1,
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO O_ID
+	VALUES (2,
+	"10d6122a-7c29-46cd-b5d1-386e15537749");
+INSERT INTO S_SS_PROXY
+	VALUES ("f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	'File IO',
+	'',
+	'',
+	1,
+	"695dce7b-262a-4226-9cbb-c9f897b44c67",
+	"00000000-0000-0000-0000-000000100002",
+	'../File IO.xtuml');

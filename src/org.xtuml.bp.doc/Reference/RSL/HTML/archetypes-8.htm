@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="archetypes.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+Assignment Control Statements
+</TITLE>
+
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<H1 CLASS="Heading2">
+<A NAME="0_pgfId-517120"></A>Assignment Control Statements</H1>
+<H3 CLASS="Heading3">
+<A NAME="0_pgfId-517123"></A><A NAME="0_marker-517122"></A>Assign Statement</H3>
+<P CLASS="Body">
+<A NAME="0_pgfId-517126"></A>The <EM CLASS="Code">
+.assign </EM>
+statement makes use of expressions. <A HREF="archetypes-14.htm#0_Expressions Section" CLASS="XRef">Expressions</A> for complete details on valid expressions.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517128"></A>The <EM CLASS="Code">
+.assign</EM>
+ statement has the following syntax:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517131"></A><EM CLASS="Code">
+.assign &lt;variable&gt; = &lt;expression&gt;</EM>
+<A NAME="0_marker-517130"></A></P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517133"></A>where:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517134"></A><EM CLASS="Courier">
+&lt;</EM>
+<EM CLASS="Palatino-9pt">
+variable</EM>
+<EM CLASS="Courier">
+&gt;</EM>
+ is a data item, i.e., a class attribute, fragment attribute, or transient variable.</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517135"></A><EM CLASS="Courier">
+&lt;</EM>
+<EM CLASS="Palatino-9pt">
+expression</EM>
+<EM CLASS="Courier">
+&gt;	</EM>
+ is an expression, usually a calculation using class attribute access and literal values.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517137"></A>When <EM CLASS="Code">
+&lt;variable&gt;</EM>
+ is a class attribute, the data type of <EM CLASS="Code">
+&lt;expression&gt; </EM>
+must be compatible with the data type of <EM CLASS="Code">
+&lt;variable&gt;</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517141"></A>If <EM CLASS="Code">
+&lt;variable&gt;</EM>
+ is a transient variable, then the transient variable follows the implicit declaration rule. When a transient variable is being implicitly declared (assigned for the first time), the data type of the transient variable is set to be the same as the data type of <EM CLASS="Code">
+&lt;expression&gt;</EM>
+. When a transient variable is being re-assigned, the data type of <EM CLASS="Code">
+&lt;expression&gt;</EM>
+ must be compatible with the data type of <EM CLASS="Code">
+&lt;variable&gt;</EM>
+. </P>
+<TABLE BORDER="1">
+<CAPTION>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517154"></A>&lt;variable&gt; Data Type</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517156"></A>&lt;expression&gt; Data Type</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517158"></A>Note</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517161"></A><A NAME="0_marker-517160"></A>boolean</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517163"></A>boolean</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517165"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517168"></A><A NAME="0_marker-517167"></A>integer</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517170"></A>integer</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517172"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517175"></A><A NAME="0_marker-517174"></A>real</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517177"></A>real</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517179"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517182"></A><A NAME="0_marker-517181"></A>integer</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517184"></A>real</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517186"></A>Truncates all digits after the decimal point.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517189"></A><A NAME="0_marker-517188"></A>real</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517191"></A>integer</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517193"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517196"></A><A NAME="0_marker-517195"></A>string</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517198"></A>string</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517200"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517203"></A><A NAME="0_marker-517202"></A>inst_ref&lt;Object&gt;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517205"></A>inst_ref&lt;Object&gt;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517207"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517210"></A><A NAME="0_marker-517209"></A>inst_ref_set&lt;Object&gt;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517212"></A>inst_ref_set&lt;Object&gt;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517214"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517217"></A><A NAME="0_marker-517216"></A>frag_ref</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517219"></A>frag_ref</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517221"></A>&nbsp;</P>
+</TD>
+</TR>
+</TABLE>
+<DIV>
+<H2 CLASS="Body-8pt">
+<A NAME="0_pgfId-517222"></A>&nbsp;</H2>
+<P CLASS="Body">
+<A NAME="0_pgfId-517223"></A>If <EM CLASS="Code">
+&lt;variable&gt;</EM>
+ is of data type <EM CLASS="Code">
+inst_ref&lt;Object&gt;</EM>
+, <EM CLASS="Code">
+inst_ref_set&lt;Object&gt;</EM>
+, or <EM CLASS="Code">
+frag_ref&lt;Object&gt;</EM>
+, then <EM CLASS="Code">
+&lt;expression&gt;</EM>
+ may be one of the following:</P>
+<OL>
+<LI CLASS="Bulleted-Tight">
+<A NAME="0_pgfId-517224"></A>Transient Variable</LI>
+<LI CLASS="Bulleted">
+<A NAME="0_pgfId-517225"></A>Fragment Attribute</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="0_pgfId-517226"></A>Here are some examples:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517228"></A><EM CLASS="Code">.assign obj_inst = prev_obj_inst</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517229"></A><EM CLASS="Code">.assign obj_set = next_obj_set</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517230"></A><EM CLASS="Code">.assign attr_inst = base_attr_frag.base_attr_inst</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517231"></A><EM CLASS="Code">.assign data_type_frag = attr_data_type_frag</EM>
+</PRE>
+</DIV>
+</BODY>
+</HTML>

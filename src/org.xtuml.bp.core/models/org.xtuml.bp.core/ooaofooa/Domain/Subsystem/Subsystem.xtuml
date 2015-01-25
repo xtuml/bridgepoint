@@ -1,0 +1,1796 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'Subsystem',
+	2,
+	'S_SS',
+	'A subsystem (S_SS) is based on the partitioning of an entire domain (S_DOM). The number of subsystems in a domain is dependent upon the domain subject matter and complexity. A subsystem is composed of classes which tend to cluster, i.e., classes which have many  associations with one another but few associations with classes in different clusters. Inter-subsystem associations, asynchronous communications, and synchronous accesses are captured in the Subsystem Relationship Model, Subsystem Communication Model and Subsystem Access Model, respectively.',
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+INSERT INTO O_TFR
+	VALUES ("04a469d4-45f8-47da-89c9-26f25285cfe3",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'get_compartment_text',
+	'A Subsystem shows its name, it''s prefix letters and the Class numbers
+it contains.
+-----------------------------------------------------------------------------------
+Bridge:GD',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'result = "";
+if (param.at == Justification::Center_in_X)
+  result = "«subsystem»";
+elif (param.at == Justification::Center)
+  result = self.Name;
+  select many objs related by self->O_OBJ[R2];
+  if (self.Prefix != "" OR not_empty objs)
+    result = result + GD::newline() +"{"; 
+  end if;
+  if (self.Prefix != "")
+    result = result + self.Prefix;
+  end if;
+  max = 0;
+  min = GD::max_number();
+  for each obj in objs
+    if (obj.Numb > max)
+      max = obj.Numb;
+    end if;
+    if (obj.Numb < min)
+      min = obj.Numb;
+    end if;
+  end for;
+  if (max != 0)
+    if (self.Prefix != "")
+      result = result + ", ";
+    end if;
+    if (max == min)
+      result = result + GD::int_to_string(value:max);
+    else
+      result = result + GD::int_to_string(value:min) + " - " + GD::int_to_string(value:max);
+    end if;
+  end if;
+  if (self.Prefix != "" OR not_empty objs)
+    result = result + "}";
+  end if;
+end if;
+return result;',
+	1,
+	'',
+	"8e4ed72b-24e8-4afa-a548-204a0a5389ec");
+INSERT INTO O_TPARM
+	VALUES ("1b69cfbd-1b06-44e9-9328-a551d50dc4ed",
+	"04a469d4-45f8-47da-89c9-26f25285cfe3",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"c4a9549f-3c11-49fd-acf2-9cc2d0e0bbcd",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("3e749546-caab-40de-86dc-ea49e889ba61",
+	"04a469d4-45f8-47da-89c9-26f25285cfe3",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"1b69cfbd-1b06-44e9-9328-a551d50dc4ed",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("c4a9549f-3c11-49fd-acf2-9cc2d0e0bbcd",
+	"04a469d4-45f8-47da-89c9-26f25285cfe3",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Justification',
+	'The Justification data type is used to specify text at a given location in a compartment.
+------------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("ca60e5ff-79b5-42d1-85e2-fa086a33ce89",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'get_compartments',
+	'A Subsystem has just one compartment.
+-----------------------------------------------------------------------------------
+Bridge:GD',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'return 1;',
+	1,
+	'',
+	"04a469d4-45f8-47da-89c9-26f25285cfe3");
+INSERT INTO O_TFR
+	VALUES ("aaf8d314-e8d0-491e-8449-4f34c9c7de77",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'get_style',
+	'A Subsystem is shown as a package symbol (called a Folder by the
+Graphics Domain).
+-----------------------------------------------------------------------------------
+Bridge:GD',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::Folder;',
+	1,
+	'',
+	"98017086-dfe0-4775-b70d-7b770243f67c");
+INSERT INTO S_DT_PROXY
+	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Style',
+	'The Style data type specifies the precise form a graphical element will take when drawn.
+--------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("9e71c593-2ca7-4719-93cb-6365da39ff1e",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'get_entries',
+	'A Subsystem always just has one entry, the name and keyletters.
+-----------------------------------------------------------------------------------
+Bridge:GD',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'return 1;',
+	1,
+	'',
+	"ca60e5ff-79b5-42d1-85e2-fa086a33ce89");
+INSERT INTO O_TPARM
+	VALUES ("81824ab0-ce86-44a7-8d23-04eaee7b159e",
+	"9e71c593-2ca7-4719-93cb-6365da39ff1e",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("3b06ae38-5b6e-4079-bc55-6009a173d246",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'get_text_style',
+	'A Subsystem has no special style.
+-----------------------------------------------------------------------------------
+Bridge:GD',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::None;',
+	1,
+	'',
+	"aaf8d314-e8d0-491e-8449-4f34c9c7de77");
+INSERT INTO O_TPARM
+	VALUES ("9f654d2e-4070-4bf1-b831-f2bdabb8cecf",
+	"3b06ae38-5b6e-4079-bc55-6009a173d246",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"7a80fd54-b1f6-4fe3-90fe-d05bb09af41f",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("6fa692bf-8d77-490d-9614-1c6d15c685bc",
+	"3b06ae38-5b6e-4079-bc55-6009a173d246",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"9f654d2e-4070-4bf1-b831-f2bdabb8cecf",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("7a80fd54-b1f6-4fe3-90fe-d05bb09af41f",
+	"3b06ae38-5b6e-4079-bc55-6009a173d246",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("8b0b2eb8-83e2-4a30-b617-97e66fe3871c",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'newClass',
+	'Create a new Class in this Subsystem',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance cl of O_OBJ;
+relate self to cl across R2;
+
+cl.initialize();
+',
+	1,
+	'',
+	"8d52ad8a-f6e2-4cb7-9475-d7769d0cca20");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("d2eca685-3469-45f9-bf42-62dc68956744",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'newIClass',
+	'Create a new Imported Class in this Subsystem.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance icl of O_IOBJ;
+relate self to icl across R3;
+//
+// Note that no class is assigned to this imported
+// class at creation time. This is achieved by a separate
+// Context Menu action.',
+	1,
+	'',
+	"4141bbb8-c93b-43f9-816b-0ed2a9f31fcf");
+INSERT INTO O_TFR
+	VALUES ("98017086-dfe0-4775-b70d-7b770243f67c",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'get_ooa_id',
+	'The ooa_id of a Subsystem is it''s SS_ID.
+-----------------------------------------------------------------------------------
+Bridge:GD',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'return self.SS_ID;',
+	1,
+	'',
+	"9e71c593-2ca7-4719-93cb-6365da39ff1e");
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("7f73eede-f4fe-4ef5-bc53-88f209a43af3",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'initialize',
+	'Initialize a new subsystem instance.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'self.Name = ::getUniqueInitialName( 
+    instance: self.convertToInstance(), 
+    candidateName: "Unnamed Subsystem" );',
+	1,
+	'',
+	"3b06ae38-5b6e-4079-bc55-6009a173d246");
+INSERT INTO O_TFR
+	VALUES ("3ebfdab4-c7ac-485f-b193-19140609ee12",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'dispose',
+	'The dispose operation for Subsytem.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one dom related by self->S_DOM[R1];
+if (not_empty dom)
+  unrelate self from dom across R1;
+end if;
+select one sid related by self->S_SID[R43];
+if not_empty sid
+  select one tdom related by sid->S_DOM[R43];
+  if not_empty tdom
+  unrelate self from tdom across R43 using sid;
+  end if;
+  delete object instance sid;
+end if;
+select many csss related by self->S_SIS[R41]->S_SS[R42];
+for each css in csss
+  css.dispose();
+end for;
+// First get rid of the associations, since they involve model classes
+// and may be spanning subsystems
+select many rels related by self->R_REL[R4];
+for each rel in rels
+  rel.dispose();
+end for;
+select many iobjs related by self->O_IOBJ[R3];
+for each iobj in iobjs
+  iobj.dispose();
+end for;
+select many cps related by self->CA_COMM[R5];
+for each cp in cps
+  cp.dispose();
+end for;
+select many aps related by self->CA_ACC[R6];
+for each ap in aps
+  ap.dispose();
+end for;
+select many eems related by self->S_EEM[R7];
+for each eem in eems
+  eem.dispose();
+end for;
+// and delete classes last
+select many objs related by self->O_OBJ[R2];
+for each obj in objs
+  obj.dispose();
+end for;
+select one sis related by self->S_SIS[R42];
+if (not_empty sis)
+   sis.dispose();
+end if;
+// dispose any sequences related to this subsystem
+select many sequences related by self->SQ_S[R914];
+for each sequence in sequences
+  sequence.dispose();
+end for;
+// dispose any communications related to this ss
+select many comms related by self->COMM_COMM[R1131];
+for each comm in comms
+  comm.dispose();
+end for;
+// dispose any use cases
+select many uccs related by self->UC_UCC[R1202];
+for each ucc in uccs
+  ucc.dispose();
+end for;
+// dispose all activites related to this subsystem
+select many acts related by self->A_A[R1108];
+for each act in acts
+  act.dispose();
+end for;
+// Finally delete self
+delete object instance self;',
+	1,
+	'',
+	"90423854-0903-4aca-8311-fa6e1f52f307");
+INSERT INTO O_TFR
+	VALUES ("5e575da7-3002-4c30-8d85-9b0a1d76bb78",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'newSubsystem',
+	'Create a child subsystem package inside this subsystem.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+create object instance sis of S_SIS;
+create object instance child of S_SS;
+relate sis to child across R42;
+relate self to sis across R41;
+select one dom related by self->S_DOM[R1];
+relate dom to child across R1;
+child.initialize();',
+	1,
+	'',
+	"ead4dedc-5a81-44af-8ec3-c5315377e4fd");
+INSERT INTO O_TFR
+	VALUES ("fe20ef0b-0f91-4840-ae65-cdf780d9ddb3",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'newAssociation',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any fromClass related by self->O_OBJ[R2] where (selected.Obj_ID == param.from);
+select any fromIClass related by self->O_IOBJ[R3] where (selected.IObj_ID == param.from);
+if (param.fromIsImportedClass)
+  if (not_empty fromIClass)
+    select one fromClass related by fromIClass->O_OBJ[R101];
+  end if;
+end if;
+select any toClass related by self->O_OBJ[R2] where (selected.Obj_ID == param.to);
+select any toIClass related by self->O_IOBJ[R3] where (selected.IObj_ID == param.to);
+if (param.toIsImportedClass)
+  if (not_empty toIClass)
+    select one toClass related by toIClass->O_OBJ[R101];
+  end if;
+end if;
+//
+if (not_empty fromClass and not_empty toClass)
+  create object instance assoc of R_REL;
+  relate self to assoc across R4;
+  assoc.initialize();
+  create object instance simp of R_SIMP;
+  relate simp to assoc across R206;
+  //
+  create object instance fromOIR of R_OIR;
+  relate fromClass to assoc across R201 using fromOIR;
+  create object instance fromRTO of R_RTO;
+  relate fromOIR to fromRTO across R203;
+  create object instance fromPART of R_PART;
+  relate fromPART to fromRTO across R204;
+  relate fromPART to simp across R207;
+  if (param.fromIsImportedClass)
+    if (not_empty fromIClass)
+      relate fromOIR to fromIClass across R202;
+    end if;
+  end if;
+  //
+  create object instance toOIR of R_OIR;
+  relate toClass to assoc across R201 using toOIR;
+  create object instance toRTO of R_RTO;
+  relate toOIR to toRTO across R203;
+  create object instance toPART of R_PART;
+  relate toPART to toRTO across R204;
+  relate toPART to simp across R207;
+  if (param.toIsImportedClass)
+    if (not_empty toIClass)
+      relate toOIR to toIClass across R202;
+    end if;
+  end if;
+  return true;
+end if;
+// One of the elements was not found
+return false;',
+	1,
+	'',
+	"afc40341-85df-48d3-8047-dc47c86ccb82");
+INSERT INTO O_TPARM
+	VALUES ("3424be08-3505-49c8-89db-5a91c2c0b045",
+	"fe20ef0b-0f91-4840-ae65-cdf780d9ddb3",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("424ba442-122c-447b-a95a-75a8b749a5ab",
+	"fe20ef0b-0f91-4840-ae65-cdf780d9ddb3",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"1cecae74-29f9-4e12-8759-6aa2304a3e89",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("1cecae74-29f9-4e12-8759-6aa2304a3e89",
+	"fe20ef0b-0f91-4840-ae65-cdf780d9ddb3",
+	'fromIsImportedClass',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"3424be08-3505-49c8-89db-5a91c2c0b045",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("32bc6df6-e320-4016-a3da-e554bcd249cf",
+	"fe20ef0b-0f91-4840-ae65-cdf780d9ddb3",
+	'toIsImportedClass',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"424ba442-122c-447b-a95a-75a8b749a5ab",
+	'');
+INSERT INTO O_TFR
+	VALUES ("8d52ad8a-f6e2-4cb7-9475-d7769d0cca20",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'newAssociative',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any fromClass related by self->O_OBJ[R2] where (selected.Obj_ID == param.from);
+if (param.fromIsImportedClass)
+  select any fromIClass related by self->O_IOBJ[R3] where (selected.IObj_ID == param.from);
+  if (not_empty fromIClass)
+    select one fromClass related by fromIClass->O_OBJ[R101];
+  end if;
+end if;
+select any toAssoc related by self->R_REL[R4] where (selected.Rel_ID == param.to);
+// get the already related class in relationship instances
+select many classes related by toAssoc->R_OIR[R201]->O_OBJ[R201];
+for each clazz in classes
+  if (clazz == fromClass)
+    // A class cannot be it''s own link class
+    return false;
+  end if;
+end for;
+if (empty fromClass or empty toAssoc)
+  // One of the elements was not found
+  return false;
+end if;
+select one simp related by toAssoc->R_SIMP[R206];
+if (empty simp)
+  // Only simple associations can have link classes attached. 
+  return false;
+else
+  if (param.fromIsImportedClass)
+    simp.migrateToLinked(using: fromClass.Obj_ID, imported_id: param.from);
+  else
+    simp.migrateToLinked(using: fromClass.Obj_ID, imported_id: GD::NULL_UNIQUE_ID());
+  end if;
+  return true;
+end if;',
+	1,
+	'',
+	"fe20ef0b-0f91-4840-ae65-cdf780d9ddb3");
+INSERT INTO O_TPARM
+	VALUES ("7536aba9-84c9-4981-a20c-d014d38c79e8",
+	"8d52ad8a-f6e2-4cb7-9475-d7769d0cca20",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("5707546f-0bcd-45cc-878d-8e350187d6df",
+	"8d52ad8a-f6e2-4cb7-9475-d7769d0cca20",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"7053af24-eac2-4cf6-aa20-1224797a5a0a",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("7053af24-eac2-4cf6-aa20-1224797a5a0a",
+	"8d52ad8a-f6e2-4cb7-9475-d7769d0cca20",
+	'fromIsImportedClass',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"7536aba9-84c9-4981-a20c-d014d38c79e8",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("49f6634e-bc68-4a9b-b619-cec1618e356f",
+	"8d52ad8a-f6e2-4cb7-9475-d7769d0cca20",
+	'toIsImportedClass',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"5707546f-0bcd-45cc-878d-8e350187d6df",
+	'');
+INSERT INTO O_TFR
+	VALUES ("298efb08-5ea3-4af6-a74e-57ebde542242",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'newSubtype',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any fromClass related by self->O_OBJ[R2] where (selected.Obj_ID == param.from);
+if (param.fromIsImportedClass)
+  select any fromIClass related by self->O_IOBJ[R3] where (selected.IObj_ID == param.from);
+  if (not_empty fromIClass)
+    select one fromClass related by fromIClass->O_OBJ[R101];
+  end if;
+end if;
+if (not_empty fromClass)
+  select any toAssoc related by self->R_REL[R4] where (selected.Rel_ID == param.to);
+  if (not_empty toAssoc)
+    select one subsup related by toAssoc->R_SUBSUP[R206];
+    if (not_empty subsup)
+      select one superClass related by subsup->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+      if (fromClass != superClass) // A class cannot be its own supertype . . . . .
+        isAlreadySubClass = false;
+        select many subClasses related by subsup->R_SUB[R213]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+        for each subClass in subClasses
+          if (fromClass == subClass)
+            isAlreadySubClass = true;
+            break;
+          end if;
+        end for;
+        if (not isAlreadySubClass) // A class cannot be a subtype more than once . . . . . 
+          create object instance cir of R_OIR;
+          relate fromClass to toAssoc across R201 using cir;
+          if (param.fromIsImportedClass)
+            select any fromIClass related by self->O_IOBJ[R3] where
+                                       (selected.IObj_ID == param.from);
+            relate cir to fromIClass across R202;
+          end if;
+          create object instance rgo of R_RGO;
+          relate cir to rgo across R203;
+          create object instance subtype of R_SUB;
+          relate rgo to subtype across R205;
+          relate subtype to subsup across R213;
+          if ( toAssoc.isFormalized() )
+            // add referential attributes
+            unused_oid = fromClass.findUnusedIdentifier();
+            select one sup_rto related by subsup->R_SUPER[R212]->R_RTO[R204];
+            select many oida_set related by sup_rto->O_ID[R109]->O_OIDA[R105];
+            for each oida in oida_set
+              newAttr_id = oida.addReference(rel_id: toAssoc.Rel_ID,
+                  rto_obj_id: sup_rto.Obj_ID, rto_oir_id: sup_rto.OIR_ID, 
+                  rgo_obj_id: rgo.Obj_ID, rgo_oir_id: rgo.OIR_ID,
+                  id: unused_oid);
+            end for;
+          end if;
+          return true;
+        end if; // already sub class
+      end if; // not own supertype
+    end if; // association is supertype / subtype
+  end if;  // association found
+end if;  // class found
+return false;',
+	1,
+	'',
+	"5e575da7-3002-4c30-8d85-9b0a1d76bb78");
+INSERT INTO O_TPARM
+	VALUES ("7419b6e2-eb66-4299-98b7-a79412db08a1",
+	"298efb08-5ea3-4af6-a74e-57ebde542242",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("d2b774c7-2592-4c44-bce8-188d1fba7358",
+	"298efb08-5ea3-4af6-a74e-57ebde542242",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"ce5cae68-3043-4a30-86b4-aad17dcc55e4",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("ce5cae68-3043-4a30-86b4-aad17dcc55e4",
+	"298efb08-5ea3-4af6-a74e-57ebde542242",
+	'fromIsImportedClass',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"7419b6e2-eb66-4299-98b7-a79412db08a1",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("26f1b74d-b024-4cf9-ad2f-3501e5b55e00",
+	"298efb08-5ea3-4af6-a74e-57ebde542242",
+	'toIsImportedClass',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"d2b774c7-2592-4c44-bce8-188d1fba7358",
+	'');
+INSERT INTO O_TFR
+	VALUES ("19b6ae99-5670-49ea-af01-cb0e1e3f6816",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'newSuperType',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select any fromClass related by self->O_OBJ[R2] where (selected.Obj_ID == param.from);
+select any fromIClass related by self->O_IOBJ[R3] where (selected.IObj_ID == param.from);
+if (param.fromIsImportedClass)
+  if (not_empty fromIClass)
+    select one fromClass related by fromIClass->O_OBJ[R101];
+  end if;
+end if;
+if (not_empty fromClass)
+  create object instance assoc of R_REL;
+  relate self to assoc across R4;
+  assoc.initialize();
+  create object instance oir of R_OIR;
+  relate assoc to fromClass across R201 using oir;
+  create object instance rto of R_RTO;
+  relate oir to rto across R203;
+  create object instance subsup of R_SUBSUP;
+  relate subsup to assoc across R206;
+  create object instance supertype of R_SUPER;
+  relate supertype to subsup across R212;
+  relate supertype to rto across R204;
+  if (param.fromIsImportedClass)
+    if (not_empty fromIClass)
+      relate oir to fromIClass across R202;
+    end if;
+  end if;
+  return true;
+end if;
+return false;',
+	1,
+	'',
+	"298efb08-5ea3-4af6-a74e-57ebde542242");
+INSERT INTO O_TPARM
+	VALUES ("24562efa-669c-4cc4-852e-36f0ee6d87cc",
+	"19b6ae99-5670-49ea-af01-cb0e1e3f6816",
+	'from',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("7379b4e4-84ae-4145-b12c-aea5d464b190",
+	"19b6ae99-5670-49ea-af01-cb0e1e3f6816",
+	'to',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"a99188a6-1157-4c80-9243-bce3d0c13adc",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("a99188a6-1157-4c80-9243-bce3d0c13adc",
+	"19b6ae99-5670-49ea-af01-cb0e1e3f6816",
+	'fromIsImportedClass',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"24562efa-669c-4cc4-852e-36f0ee6d87cc",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("2e74e2b6-0166-485f-9833-52a388e0c450",
+	"19b6ae99-5670-49ea-af01-cb0e1e3f6816",
+	'toIsImportedClass',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"7379b4e4-84ae-4145-b12c-aea5d464b190",
+	'');
+INSERT INTO O_TFR
+	VALUES ("ead4dedc-5a81-44af-8ec3-c5315377e4fd",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'newSequence',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+create object instance sequence of SQ_S;
+create object instance sp of EP_SPKG;
+relate sequence to sp across R1402;
+relate self to sequence across R914;
+sequence.initialize();',
+	1,
+	'',
+	"d2eca685-3469-45f9-bf42-62dc68956744");
+INSERT INTO O_TFR
+	VALUES ("8e4ed72b-24e8-4afa-a548-204a0a5389ec",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'getPath',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+path = self.Name;
+if(param.path != "")
+  path = path + "::" + param.path;
+end if;
+select one domain related by self->S_SID[R43]->S_DOM[R43];
+if(not_empty domain)
+  return domain.getPath(path:path);
+else
+  select one spkg related by self->S_SIS[R42]->S_SS[R41];
+  if(not_empty spkg)
+    return spkg.getPath(path:path);
+  end if;
+end if;
+return path;',
+	1,
+	'',
+	"3ebfdab4-c7ac-485f-b193-19140609ee12");
+INSERT INTO O_TPARM
+	VALUES ("a5a41314-fed8-4e4c-9fb6-beb02a381b3b",
+	"8e4ed72b-24e8-4afa-a548-204a0a5389ec",
+	'path',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("4141bbb8-c93b-43f9-816b-0ed2a9f31fcf",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'newCommunication',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+create object instance communication of COMM_COMM;
+create object instance sp of EP_SPKG;
+relate communication to sp across R1402;
+relate self to communication across R1131;
+communication.initialize();',
+	1,
+	'',
+	"8b0b2eb8-83e2-4a30-b617-97e66fe3871c");
+INSERT INTO O_TFR
+	VALUES ("a4afcdeb-f7fb-4de0-8192-151a58bae902",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'newUseCasePackage',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+create object instance ucc of UC_UCC;
+create object instance sp of EP_SPKG;
+relate ucc to sp across R1402;
+relate self to ucc across R1202;
+ucc.initialize();',
+	1,
+	'',
+	"19b6ae99-5670-49ea-af01-cb0e1e3f6816");
+INSERT INTO O_TFR
+	VALUES ("afc40341-85df-48d3-8047-dc47c86ccb82",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'newActivity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+create object instance a of A_A;
+create object instance sp of EP_SPKG;
+relate a to sp across R1402;
+relate self to a across R1108;
+a.initialize();',
+	1,
+	'',
+	"7f73eede-f4fe-4ef5-bc53-88f209a43af3");
+INSERT INTO O_TFR
+	VALUES ("90423854-0903-4aca-8311-fa6e1f52f307",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;',
+	0,
+	'',
+	"c14df37a-9637-478b-ab26-a952016d0208");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("b9269092-8aae-4730-9924-abc2c1f4aeef",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'pasteModelClass',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select any clazz from instances of O_OBJ where (selected.Obj_ID == param.id);
+if(not_empty clazz)
+  select one existingSS related by clazz->S_SS[R2];
+  if(not_empty existingSS)
+    unrelate clazz from existingSS across R2;
+  end if;
+  relate clazz to self across R2;
+  select many attributes related by clazz->O_ATTR[R102];
+  // handle pasting of attributes
+  for each attribute in attributes
+    result = clazz.removeIncompleteReferential(id:attribute.Attr_ID);
+  end for;
+  clazz.rename(new_name: ::getUniqueInitialNameInParent(instance:clazz.convertToInstance(),
+  						name:clazz.Name, parent:self.convertToInstance()));
+  clazz.removeIncompleteNonLocalEvents();
+end if;',
+	1,
+	'',
+	"79f86cd2-99f3-4b25-bdc1-cfeaaf049cf5");
+INSERT INTO O_TPARM
+	VALUES ("5eea970c-63ef-4dcd-89b9-809fb709f7b9",
+	"b9269092-8aae-4730-9924-abc2c1f4aeef",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("7c5081ff-5217-4750-ba12-da94c0919db4",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'pasteAssociation',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select any association from instances of R_REL where (selected.Rel_ID == param.id);
+if(not_empty association)
+  relateToSS = true;
+  select one subsystem related by association->S_SS[R4];
+  if(not_empty subsystem)
+    if(subsystem != self)
+      unrelate association from subsystem across R4;
+    else
+      relateToSS = false;
+    end if;
+  end if;
+  if(relateToSS)
+    select any existingAssoc related by self->R_REL[R4] where (selected.Numb == association.Numb);
+    if(not_empty existingAssoc)
+      // for each assocation associated with this subsystem
+      select many assocs related by self->R_REL[R4];
+      for each assoc in assocs
+        // if this other association''s number is 
+        // greater than this association''s number
+        if (assoc.Numb >= association.Numb)
+          // have this association''s number be just greater 
+          // than this other association''s number
+          association.Numb = assoc.Numb + 1;
+        end if;
+      end for;      
+    end if;
+    relate self to association across R4;
+  end if;
+end if;',
+	1,
+	'',
+	"4fd204e4-ed48-4f52-8ced-5cb9ecf59803");
+INSERT INTO O_TPARM
+	VALUES ("86b5a558-84e0-43fc-a1d1-26f8a02d104c",
+	"7c5081ff-5217-4750-ba12-da94c0919db4",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("bdfbe373-7328-46be-921f-e4abb533fc0a",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'pasteClassAsLink',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'self.pasteAssociation(id:param.id);',
+	1,
+	'',
+	"7c5081ff-5217-4750-ba12-da94c0919db4");
+INSERT INTO O_TPARM
+	VALUES ("0623ab82-c502-4332-8b8d-336ff90702b3",
+	"bdfbe373-7328-46be-921f-e4abb533fc0a",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("10aa8efa-3f30-4cb1-b6d0-9a292afaf158",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'pasteClassAsSubtype',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any subtype from instances of R_SUB where (selected.OIR_ID == param.id);
+if(not_empty subtype)
+  select one assoc related by subtype->R_SUBSUP[R213]->R_REL[R206];
+  self.pasteAssociation(id:assoc.Rel_ID);
+end if;',
+	1,
+	'',
+	"bdfbe373-7328-46be-921f-e4abb533fc0a");
+INSERT INTO O_TPARM
+	VALUES ("a5995686-e7f0-4b58-8145-2b84ec83cac5",
+	"10aa8efa-3f30-4cb1-b6d0-9a292afaf158",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("79f86cd2-99f3-4b25-bdc1-cfeaaf049cf5",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'pasteImportedClass',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select any iobj from instances of O_IOBJ where (selected.IObj_ID == param.id);
+if(not_empty iobj)
+  select one existingSS related by iobj->S_SS[R3];
+  if(not_empty existingSS)
+    unrelate iobj from existingSS across R3;
+  end if;
+  relate self to iobj across R3;
+end if;',
+	1,
+	'',
+	"90356533-c54c-4cee-9f4a-faf6366eb24e");
+INSERT INTO O_TPARM
+	VALUES ("c8cb8a5b-1460-44d9-9a91-1aed45d5acec",
+	"79f86cd2-99f3-4b25-bdc1-cfeaaf049cf5",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("ed5b1cf2-c1c5-45b1-9358-8193c925765f",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'pasteSubsystem',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select any subsystem from instances of S_SS where (selected.SS_ID == param.id);
+if(not_empty subsystem)
+  select one existingDOM related by subsystem->S_DOM[R1];
+  if(not_empty existingDOM)
+    unrelate subsystem from existingDOM across R1;
+  end if;
+  select one existingSIS related by subsystem->S_SIS[R42];
+  if(not_empty existingSIS)
+    select one existingSS related by existingSIS->S_SS[R41];
+    if(not_empty existingSS)
+      unrelate existingSIS from existingSS across R41;
+    end if;
+  end if;
+  subsystem.Name = ::getUniqueInitialNameInParent(instance:subsystem.convertToInstance(),
+  						name:subsystem.Name, parent:self.convertToInstance());
+  select one domain related by self->S_DOM[R1];
+  subsystem.associateChildSubsystemsToDomain(dom_id:domain.Dom_ID);
+  if(empty existingSIS)
+    // this was not a nested subsystem originally
+    // create the necessary S_SIS and dispose
+    // of the S_SID
+    create object instance existingSIS of S_SIS;
+    select one sid related by subsystem->S_SID[R43];
+    if(not_empty sid)
+      select one existingDOM related by sid->S_DOM[R43];
+      unrelate subsystem from existingDOM across R43 using sid;
+      delete object instance sid;
+    end if;
+  end if;
+  relate self to existingSIS across R41;
+  relate subsystem to existingSIS across R42;
+  relate subsystem to domain across R1;
+  subsystem.removeIncompleteNonLocalEvents();
+end if;',
+	1,
+	'',
+	"c056fae3-abb3-4e5a-9eb1-83352615fd16");
+INSERT INTO O_TPARM
+	VALUES ("a94ad631-c461-4241-9f1c-d5129333a6e3",
+	"ed5b1cf2-c1c5-45b1-9358-8193c925765f",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("c14df37a-9637-478b-ab26-a952016d0208",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'associateChildSubsystemsToDomain',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+/*
+ *  For every child subsystem we update R1 to the domain with the given id.
+ */
+select any domain from instances of S_DOM where (selected.Dom_ID == param.dom_id);
+if(not_empty domain)
+  select many childSSs related by self->S_SIS[R41]->S_SS[R42];
+  for each childSS in childSSs
+    select one existingDom related by childSS->S_DOM[R1];
+    unrelate childSS from existingDom across R1;
+    relate childSS to domain across R1;
+    childSS.associateChildSubsystemsToDomain(dom_id:param.dom_id);
+  end for;
+end if;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("08275550-53e8-456f-a662-020e1bdbac01",
+	"c14df37a-9637-478b-ab26-a952016d0208",
+	'dom_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("e68f71d6-6ddf-4cca-abc8-f398006fd2f5",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'removeIncompleteNonLocalEvents',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// for every state machine remove any non-local events
+// if necessary
+select many clazzes related by self->O_OBJ[R2];
+for each clazz in clazzes
+  clazz.removeIncompleteNonLocalEvents();
+end for;
+// for all nested subsystems do the same
+select many subsystems related by self->S_SIS[R41]->S_SS[R42];
+for each subsystem in subsystems
+  subsystem.removeIncompleteNonLocalEvents();
+end for;',
+	1,
+	'',
+	"3d722cfb-e981-4d2b-9a8b-e0124c24eace");
+INSERT INTO O_TFR
+	VALUES ("4fd204e4-ed48-4f52-8ced-5cb9ecf59803",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'pasteActivity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select any activity from instances of A_A
+                                        where (selected.Package_ID == param.id);
+if(not_empty activity)
+  // guarantee a unique name for the pasted element
+  activity.Name = ::getUniqueInitialNameInParent
+                                         (instance:activity.convertToInstance(),
+     					   name:activity.Name, parent:self.convertToInstance());
+  activity.associateWithSubsystem(ssID:self.SS_ID);
+end if;',
+	1,
+	'',
+	"a4afcdeb-f7fb-4de0-8192-151a58bae902");
+INSERT INTO O_TPARM
+	VALUES ("386ebfc6-d1cb-4149-905e-123152c69592",
+	"4fd204e4-ed48-4f52-8ced-5cb9ecf59803",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("90356533-c54c-4cee-9f4a-faf6366eb24e",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'pasteCommunication',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select any comm from instances of COMM_COMM
+                                        where (selected.Package_ID == param.id);
+if(not_empty comm)
+  // guarantee a unique name for the pasted element
+  comm.Name = ::getUniqueInitialNameInParent (instance:comm.convertToInstance(),
+     					   name:comm.Name, parent:self.convertToInstance());
+  comm.associateWithSubsystem(ssID:self.SS_ID);
+end if;',
+	1,
+	'',
+	"10aa8efa-3f30-4cb1-b6d0-9a292afaf158");
+INSERT INTO O_TPARM
+	VALUES ("882386fd-51be-4e48-8f6f-656eaaedea18",
+	"90356533-c54c-4cee-9f4a-faf6366eb24e",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("c056fae3-abb3-4e5a-9eb1-83352615fd16",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'pasteSequence',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select any seq from instances of SQ_S where (selected.Package_ID == param.id);
+if(not_empty seq)
+  // guarantee a unique name for the pasted element
+  seq.Name = ::getUniqueInitialNameInParent (instance:seq.convertToInstance(),
+         					    name:seq.Name, parent:self.convertToInstance());
+  seq.associateWithSubsystem(ssID:self.SS_ID);
+end if;',
+	1,
+	'',
+	"b9269092-8aae-4730-9924-abc2c1f4aeef");
+INSERT INTO O_TPARM
+	VALUES ("ef44704c-06a1-444f-8a41-c0dfc6d1297a",
+	"c056fae3-abb3-4e5a-9eb1-83352615fd16",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("3d722cfb-e981-4d2b-9a8b-e0124c24eace",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'pasteUseCaseDiagram',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select any ucd from instances of UC_UCC where (selected.Package_ID == param.id);
+if(not_empty ucd)
+  // guarantee a unique name for the pasted element
+  ucd.Name = ::getUniqueInitialNameInParent (instance:ucd.convertToInstance(),
+         					    name:ucd.Name, parent:self.convertToInstance());
+  ucd.associateWithSubsystem(ssID:self.SS_ID);
+end if;',
+	1,
+	'',
+	"ed5b1cf2-c1c5-45b1-9358-8193c925765f");
+INSERT INTO O_TPARM
+	VALUES ("46cb4a89-d3a6-4871-be8b-d23a33ee4c05",
+	"3d722cfb-e981-4d2b-9a8b-e0124c24eace",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("6d149fe1-b118-4aa6-9530-c19e4c0c557c",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'getContainingComponentId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one domain related by self->S_DOM[R1];
+return domain.getContainingComponentId();',
+	1,
+	'',
+	"e68f71d6-6ddf-4cca-abc8-f398006fd2f5");
+INSERT INTO O_TFR
+	VALUES ("180927d5-059d-440b-b30a-79f66fc59440",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'getClassCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many classes related by self->O_OBJ[R2];
+return cardinality classes;',
+	1,
+	'',
+	"6d149fe1-b118-4aa6-9530-c19e4c0c557c");
+INSERT INTO O_TFR
+	VALUES ("b708e8bf-0f8c-4e0e-8558-ffde2f804ef1",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'getClassId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many classes related by self->O_OBJ[R2];
+// We''re preincrementing the index
+count = -1;
+for each modelClass in classes
+  if (not_empty modelClass)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return modelClass.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"180927d5-059d-440b-b30a-79f66fc59440");
+INSERT INTO O_TPARM
+	VALUES ("fa643fdd-4385-4534-87c2-272534a73b48",
+	"b708e8bf-0f8c-4e0e-8558-ffde2f804ef1",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("102dfeb4-2b13-4dfa-a146-c6b9926cf9e3",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'getImportedClassCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select many importedClasses related by self->O_IOBJ[R3];
+return cardinality importedClasses;',
+	1,
+	'',
+	"b708e8bf-0f8c-4e0e-8558-ffde2f804ef1");
+INSERT INTO O_TFR
+	VALUES ("27185226-0195-4891-8a0c-46fa1e326046",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'getImportedClassId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'id = GD::NULL_UNIQUE_ID();
+select many importedClasses related by self->O_IOBJ[R3];
+// We''re preincrementing the index
+count = -1;
+for each importedClass in importedClasses
+  if (not_empty importedClass)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return importedClass.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"102dfeb4-2b13-4dfa-a146-c6b9926cf9e3");
+INSERT INTO O_TPARM
+	VALUES ("968bcb76-7c43-4653-a960-036a91a9f27d",
+	"27185226-0195-4891-8a0c-46fa1e326046",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("3385027f-9217-4e02-ba5a-d5af8608745c",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'getSubsystemCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many subsystems related by self->S_SIS[R41]->S_SS[R42];
+return cardinality subsystems;',
+	1,
+	'',
+	"27185226-0195-4891-8a0c-46fa1e326046");
+INSERT INTO O_TFR
+	VALUES ("06626843-126a-4791-86da-50deb2550c45",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'getSubsystemId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+id = GD::NULL_UNIQUE_ID();
+select many subsystems related by self->S_SIS[R41]->S_SS[R42];
+// We''re preincrementing the index
+count = -1;
+for each subsystem in subsystems
+  if (not_empty subsystem)
+      count = count+1;
+  end if;
+  
+  if (count == param.index)
+      return subsystem.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"3385027f-9217-4e02-ba5a-d5af8608745c");
+INSERT INTO O_TPARM
+	VALUES ("c6d9af1d-8869-4961-a37e-1220e8158b73",
+	"06626843-126a-4791-86da-50deb2550c45",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("026c0ebd-bfda-44fb-b5aa-78e805bf6b75",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'getSequenceCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many sequences related by self->SQ_S[R914];
+return cardinality sequences;',
+	1,
+	'',
+	"06626843-126a-4791-86da-50deb2550c45");
+INSERT INTO O_TFR
+	VALUES ("d7efcf37-789a-462b-b197-e5ac60d128ae",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'getSequenceId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+id = GD::NULL_UNIQUE_ID();
+select many sequences related by self->SQ_S[R914];
+// We''re preincrementing the index
+count = -1;
+for each sequence in sequences
+  if (not_empty sequence)
+      count = count+1;
+  end if;
+  
+  if (count == param.index)
+      return sequence.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"026c0ebd-bfda-44fb-b5aa-78e805bf6b75");
+INSERT INTO O_TPARM
+	VALUES ("b05e1b6a-e262-496b-86da-ed34e082e01c",
+	"d7efcf37-789a-462b-b197-e5ac60d128ae",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("6bf2ef94-4630-45fc-a10c-59f248e8b93b",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'getCommunicationCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many communications related by self->COMM_COMM[R1131];
+return cardinality communications;',
+	1,
+	'',
+	"d7efcf37-789a-462b-b197-e5ac60d128ae");
+INSERT INTO O_TFR
+	VALUES ("ad52912d-db99-4927-8ef3-4eec7fb6814f",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'getCommunicationId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+id = GD::NULL_UNIQUE_ID();
+select many communications related by self->COMM_COMM[R1131];
+// We''re preincrementing the index
+count = -1;
+for each communication in communications
+  if (not_empty communication)
+      count = count+1;
+  end if;
+  
+  if (count == param.index)
+      return communication.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"6bf2ef94-4630-45fc-a10c-59f248e8b93b");
+INSERT INTO O_TPARM
+	VALUES ("15e66f2c-612d-42f2-8463-6648f0a3b2ae",
+	"ad52912d-db99-4927-8ef3-4eec7fb6814f",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("671c42b6-8d9b-4332-9d5a-cafa62aed6bf",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'getUseCaseCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many useCases related by self->UC_UCC[R1202];
+return cardinality useCases;',
+	1,
+	'',
+	"ad52912d-db99-4927-8ef3-4eec7fb6814f");
+INSERT INTO O_TFR
+	VALUES ("6b2469fa-d982-48b1-9425-f1eeba3a590b",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'getUseCaseId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+id = GD::NULL_UNIQUE_ID();
+select many usecases related by self->UC_UCC[R1202];
+// We''re preincrementing the index
+count = -1;
+for each usecase in usecases
+  if (not_empty usecase)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return usecase.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"671c42b6-8d9b-4332-9d5a-cafa62aed6bf");
+INSERT INTO O_TPARM
+	VALUES ("4cf78b22-a155-4eb8-93f6-c60e8a22ea41",
+	"6b2469fa-d982-48b1-9425-f1eeba3a590b",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("84b5dfec-70ae-47b3-897d-e73010210e5d",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'getActivityCount',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select many activities related by self->A_A[R1108];
+return cardinality activities;',
+	1,
+	'',
+	"6b2469fa-d982-48b1-9425-f1eeba3a590b");
+INSERT INTO O_TFR
+	VALUES ("1a530689-e22c-49db-af2e-1fd29b1897b2",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'getActivityId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+id = GD::NULL_UNIQUE_ID();
+select many activities related by self->A_A[R1108];
+// We''re preincrementing the index
+count = -1;
+for each activity in activities
+  if (not_empty activity)
+      count = count+1;
+  end if;
+  if (count == param.index)
+      return activity.get_ooa_id();  
+  end if;
+end for;
+return id;',
+	1,
+	'',
+	"84b5dfec-70ae-47b3-897d-e73010210e5d");
+INSERT INTO O_TPARM
+	VALUES ("7c3ca52e-a6db-4d33-be8b-cce235bbd200",
+	"1a530689-e22c-49db-af2e-1fd29b1897b2",
+	'index',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("200a65f6-c72c-4ad4-886b-939da5106fae",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'getSystemId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// Domain.getSystemId()
+select one domain related by self->S_DOM[R1];
+if not_empty domain
+  return domain.getSystemId();
+end if;
+USER::logError(msg:"Subsystem.getSystemId()::No domain found.",path:self.getPath(path:self.Name));
+return GD::NULL_UNIQUE_ID();',
+	1,
+	'',
+	"1a530689-e22c-49db-af2e-1fd29b1897b2");
+INSERT INTO O_TFR
+	VALUES ("27a0d074-e794-442e-91cd-8c9890194b54",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'removeIncompleteSignalEvents',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// for every state machine remove any signal events
+// if necessary
+select many clazzes related by self->O_OBJ[R2];
+for each clazz in clazzes
+  clazz.removeIncompleteSignalEvents();
+end for;
+// for all nested subsystems do the same
+select many subsystems related by self->S_SIS[R41]->S_SS[R42];
+for each subsystem in subsystems
+  subsystem.removeIncompleteSignalEvents();
+end for;',
+	1,
+	'',
+	"200a65f6-c72c-4ad4-886b-939da5106fae");
+INSERT INTO O_NBATTR
+	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43");
+INSERT INTO O_BATTR
+	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43");
+INSERT INTO O_ATTR
+	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	"00000000-0000-0000-0000-000000000000",
+	'SS_ID',
+	'Full Name: Subsystem Identifier
+Description: Unique identifier for the subsystem within the domain',
+	'',
+	'SS_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("71d0c271-8a5d-49cc-8a36-0201680b59a8",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43");
+INSERT INTO O_BATTR
+	VALUES ("71d0c271-8a5d-49cc-8a36-0201680b59a8",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43");
+INSERT INTO O_ATTR
+	VALUES ("71d0c271-8a5d-49cc-8a36-0201680b59a8",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	"c7b05f2f-7685-4110-b916-e67cfa3caa1d",
+	'Name',
+	'Full Name: Subsystem Name',
+	'',
+	'Name',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("8888c449-66a9-430b-93e6-f451e276372e",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43");
+INSERT INTO O_BATTR
+	VALUES ("8888c449-66a9-430b-93e6-f451e276372e",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43");
+INSERT INTO O_ATTR
+	VALUES ("8888c449-66a9-430b-93e6-f451e276372e",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	"71d0c271-8a5d-49cc-8a36-0201680b59a8",
+	'Descrip',
+	'Full Name: Subsystem Description',
+	'',
+	'Descrip',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("f2956d79-dc4b-4757-8e6d-f36fee61c8fd",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43");
+INSERT INTO O_BATTR
+	VALUES ("f2956d79-dc4b-4757-8e6d-f36fee61c8fd",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43");
+INSERT INTO O_ATTR
+	VALUES ("f2956d79-dc4b-4757-8e6d-f36fee61c8fd",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	"8888c449-66a9-430b-93e6-f451e276372e",
+	'Prefix',
+	'Full Name: Subsystem Prefix
+Description: The subsystem keyletter prefix is used when classes are created in the subsystem.  The subsystem keyletter prefix is used as the default prefix in the class keyletters.
+',
+	'',
+	'Prefix',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("11923149-9e73-4f53-8291-ab8701ace1a4",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43");
+INSERT INTO O_BATTR
+	VALUES ("11923149-9e73-4f53-8291-ab8701ace1a4",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43");
+INSERT INTO O_ATTR
+	VALUES ("11923149-9e73-4f53-8291-ab8701ace1a4",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	"f2956d79-dc4b-4757-8e6d-f36fee61c8fd",
+	'Num_Rng',
+	'Full Name: Number Range
+Description:  The subsystem number range start is used when classes and associations are created in the subsystem.  The subsystem number range start is used as the default auto-numbering start value in for the newly created class number and newly created association number. 
+min_value: 0
+max_value: 9999
+',
+	'',
+	'Num_Rng',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"da413166-5343-4eb9-b628-16d1c6a5c104",
+	"d09a38b5-76b1-4745-a8a8-8408fa595c55",
+	"82f3976f-81fc-4e31-ad05-41c7094504f0",
+	"0b032f85-2d13-43fb-a502-b5177caee7c4",
+	"07b0088f-7627-47a2-a8c6-4464800be1fd",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Domain',
+	'Dom_ID',
+	'R1');
+INSERT INTO R_RGO_PROXY
+	VALUES ("7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	"da413166-5343-4eb9-b628-16d1c6a5c104",
+	"d09a38b5-76b1-4745-a8a8-8408fa595c55",
+	'../Domain.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	"da413166-5343-4eb9-b628-16d1c6a5c104",
+	"82f3976f-81fc-4e31-ad05-41c7094504f0",
+	'../Domain.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("0b032f85-2d13-43fb-a502-b5177caee7c4",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	"4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	1,
+	'Dom_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	'../Domain/Domain.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("0b032f85-2d13-43fb-a502-b5177caee7c4",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	"11923149-9e73-4f53-8291-ab8701ace1a4",
+	'Dom_ID',
+	'',
+	'',
+	'Dom_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("71af4e86-30d0-4983-b145-8d43dd3bc62c",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43");
+INSERT INTO O_BATTR
+	VALUES ("71af4e86-30d0-4983-b145-8d43dd3bc62c",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43");
+INSERT INTO O_ATTR
+	VALUES ("71af4e86-30d0-4983-b145-8d43dd3bc62c",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	"0b032f85-2d13-43fb-a502-b5177caee7c4",
+	'Config_ID',
+	'Full Name: Configuration Identifier',
+	'',
+	'Config_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43");
+INSERT INTO O_OIDA
+	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	0,
+	'SS_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43");
+INSERT INTO O_ID
+	VALUES (2,
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43");
+INSERT INTO S_SS_PROXY
+	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	'Domain',
+	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
+	'S',
+	1,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000100002",
+	'../Domain.xtuml');

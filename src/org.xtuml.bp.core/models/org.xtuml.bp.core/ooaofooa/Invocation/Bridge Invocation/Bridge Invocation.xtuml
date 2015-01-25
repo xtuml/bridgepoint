@@ -1,0 +1,630 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("5c555031-8a96-48b8-b278-74709d129fa3",
+	'Bridge Invocation',
+	620,
+	'ACT_BRG',
+	'This class represents the invocation of an External Entity Bridge.',
+	"b1a6258a-4548-4a81-bc3c-a6bab0f22f55");
+INSERT INTO O_TFR
+	VALUES ("730927e7-9e9c-450f-84f7-821fb603831c",
+	"5c555031-8a96-48b8-b278-74709d129fa3",
+	'dispose',
+	'This operation disconnects an instance, and all instances it is 
+responsible for, from the model.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one brg related by self->S_BRG[R674];
+if ( not empty brg )
+  unrelate self from brg across R674;
+end if;
+
+select many parm_set related by self->V_PAR[R628];
+for each parm in parm_set 
+  unrelate self from parm across R628;
+  parm.dispose();
+end for;
+
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("d124d99d-eaca-4c48-92c7-64fee4aad3e3",
+	"5c555031-8a96-48b8-b278-74709d129fa3",
+	'execute',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// Invocation:Bridge Invocation.execute()
+select one body related by self ->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601];   
+
+select one brg related by self->S_BRG[R674];
+select one ee related by brg->S_EE[R19];
+
+// Get the top stack frame
+select any stack_frame from instances of I_STF where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+if empty stack_frame
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Bridge Invocation.execute: " +
+                      "Could not get stack frame to retrieve parameter value.",path:pathMsg);  
+end if;
+
+// Execute the bridge
+select one body related by brg->ACT_BRB[R697]->ACT_ACT[R698];
+select any statement related by body->ACT_BLK[R601]->ACT_SMT[R602];
+if (not_empty statement and not ee.isRealized)
+  // Setup the parameter values within the newly created stack frame
+  // We discard the result because it just tells us if we''re going yet deeper
+  // in the call tree. This can happen if a parameter is itself a call, but
+  // we do not need to do anything different in that case.
+  discard = self.setupParameterValues(stack_frame_id: param.stack_frame_id,
+                                   target_stack_frame_id: GD::NULL_UNIQUE_ID());
+else
+  // Select the parameter and arguments for this bridge invocation
+  select many parms related by brg->S_BPARM[R21];
+  select many args related by self->V_PAR[R628];
+  // do not attempt any realized execution unless the user has the EE
+  // configured as realized
+  if(not ee.isRealized)
+    // log an error so that the user knows that nothing
+    // will be done
+	pathMsg = "<No Path Available - Empty instance>";
+	if (not_empty body)
+	  pathMsg = body.getPath();
+	end if;
+	USER::logError(msg:"External Entity: " + ee.Name
+						    + " is modeled and the bridge: "
+            + brg.Name + " has no OAL to execute.  Skipping bridge invocation.",
+						path:pathMsg);
+    for each arg in args
+      stack_frame.popValue(value_id:arg.Value_ID);
+    end for;
+    return;
+  end if;
+  for each parm in parms
+    for each arg in args
+      if (parm.Name == arg.Name)
+        select one act_val related by arg->V_VAL[R800];
+        act_val.computeValue(stack_frame_id: stack_frame.Stack_Frame_ID);
+        select any result related by stack_frame->I_VSF[R2951] where
+                                          selected.Value_ID == act_val.Value_ID;
+        select one rtVal related by result->RV_RVL[R3305];
+        if (empty rtVal)
+          // Result requires computation.
+          // Return and let the new stack frame execute
+          return;    
+        end if;
+      end if;
+    end for;
+  end for;
+  // We could not find OAL to execute, try to execute an automatically wired
+  // bridge instead.
+  // Check for wiring
+  select one function related by brg->S_AW[R3200]->S_SYNC[R3201];   
+  if (not_empty function)
+    // Found a matching function name in the domain, now we need to 
+    // setup the stack frame and parameters and execute it.
+    select one func_body related by function->ACT_FNB[R695]->ACT_ACT[R698];
+
+    sf_id = func_body.createStackFrameForBridge(stack_frame_id_caller:
+                                                    stack_frame.Stack_Frame_ID);
+
+    if(sf_id != GD::NULL_UNIQUE_ID())
+
+      success = self.setupParameterValues(target_stack_frame_id: sf_id,
+                                    stack_frame_id: stack_frame.Stack_Frame_ID);
+      if(not success)
+        select any targetFrame from instances of I_STF
+                                       where (selected.Stack_Frame_ID == sf_id);
+        if(not_empty targetFrame)
+          select one targetStack related by targetFrame->I_STACK[R2929];
+          if(empty targetStack)
+            // there is no action currently executing in the
+            // target engine, pop the created target frame to
+            // allow execution
+            select one targetStack related by targetFrame->I_STACK[R2943];
+            targetStack.pop(disposeFrame:true);
+            // recompute the parameter values
+            discard = self.setupParameterValues(target_stack_frame_id: sf_id,
+                                    stack_frame_id: stack_frame.Stack_Frame_ID);
+          end if;
+        end if;
+      end if;
+    end if; 
+    return; 
+  end if;
+  // We could not find OAL or a wired domain function to execute, try to execute  
+  // realized code instead.  
+  
+  // Set up the bridge arguments 
+  
+  VM::resetValues();
+  select one sys related by ee->S_DOM[R8]->S_SYS[R28];
+  if(empty sys)
+    // if a system was not found the domain must be
+    // under a component
+    select one sys related by ee->S_DOM[R8]->CN_DC[R4204]->C_C[R4204]
+                                                   ->CP_CP[R4608]->S_SYS[R4606];
+  end if;
+  if(empty sys)
+    // if a system was not found via the component,
+    //  must be in a generic package 
+    select one sys related by ee->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+    if (empty sys)
+      select one sys related by ee->PE_PE[R8001]->C_C[R8003]->PE_PE[R8001]->EP_PKG[R8000]->S_SYS[R1405];
+    end if;
+  end if;
+  // Find the first parameter in the ordered relationship.  Use the ordered
+  // relationship so the user can can the parameter order in the model to macth
+  // the order in the realized code.
+  select any parm related by brg->S_BPARM[R21];
+  firstParm = parm; 
+  while (not_empty firstParm)
+	    select one firstParm related by parm->S_BPARM[R55.''succeeds''];
+	    if (not_empty firstParm)
+	      parm = firstParm;
+	    end if;
+  end while;
+  
+  
+  while (not_empty parm)
+    for each arg in args
+      if (parm.Name == arg.Name)
+        select one cval related by arg->V_VAL[R800];
+        select one ctype related by parm->S_DT[R22];
+        select any result related by stack_frame->I_VSF[R2951] where
+                                             selected.Value_ID == cval.Value_ID;
+        select one rtVal related by result->RV_RVL[R3305];
+        isByRef = false;
+        if (parm.By_Ref == 1)
+          isByRef = true;
+          newValue = GD::convertToBPDataType(type: ctype.Name,
+                                                       value: rtVal.getValue());
+          rtVal.setValue(value:newValue);
+          cval.setValue(stack_frame_id: stack_frame.Stack_Frame_ID,
+                               value: newValue, member_id:GD::NULL_UNIQUE_ID());
+        end if;
+
+        VM::addArgumentValue(value:rtVal.getValue(), type:ctype.Name,
+                                                                byRef: isByRef);
+      end if;
+    end for;
+    select one parm related by parm->S_BPARM[R55.''precedes''];
+  end while;
+  // Look for a user''s class that matches the EE name
+  if(ee.Realized_Class_Path != "")
+    VM::addUserClassPath(System_ID:sys.Sys_ID, path:ee.Realized_Class_Path);
+  else
+    VM::setUserClassPath(System_ID:sys.Sys_ID);
+  end if;
+  success = VM::loadClass(system_id: sys.Sys_ID, name:ee.Key_Lett);
+  if (success)
+    // Execute a method matching the bridge
+    success = VM::execute(stack_frame_id:param.stack_frame_id, name: brg.Name);
+    if (success)    
+      // Now convert any by ref parameters back to the original data type
+      for each parm in parms
+        for each arg in args
+          if (parm.By_Ref == 1 and parm.Name == arg.Name)
+            select one cval related by arg->V_VAL[R800];
+            select one ctype related by parm->S_DT[R22];
+            select any result related by stack_frame->I_VSF[R2951] where
+                                             selected.Value_ID == cval.Value_ID;
+            select one rtVal related by result->RV_RVL[R3305];
+            select one udt related by ctype->S_UDT[R17]; // is it core?
+            if (not_empty udt)// if not, check user data type
+              id = udt.getCoreType();
+              select any dt_pe from instances of PE_PE where (selected.Element_ID == id);
+              select one ctype related by dt_pe->S_DT[R8001];
+            end if;
+            newValue = GD::convertFromBPDataType(type: ctype.Name, value:
+                                                              rtVal.getValue());
+            cval.setValue(stack_frame_id: stack_frame.Stack_Frame_ID,
+                               value: newValue, member_id:GD::NULL_UNIQUE_ID());
+          end if;
+        end for;
+      end for;
+    end if;
+  end if;
+  for each arg in args
+    stack_frame.popValue(value_id:arg.Value_ID);
+  end for;
+end if;                                   
+
+',
+	1,
+	'',
+	"730927e7-9e9c-450f-84f7-821fb603831c");
+INSERT INTO O_TPARM
+	VALUES ("163b0786-09af-48f0-85e7-9019e74e4400",
+	"d124d99d-eaca-4c48-92c7-64fee4aad3e3",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("c2d83609-25e3-420a-b296-1a7ea27950f3",
+	"5c555031-8a96-48b8-b278-74709d129fa3",
+	'setupParameterValues',
+	'Initializes the parameters passing to a bridge invocation.',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// Invocation:Bridge Invocation.setupParameterValues
+select one body related by self ->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601];   
+select one brg related by self->S_BRG[R674];
+select many args related by self->V_PAR[R628];
+// Grab the stack frame(should be the new top stack frame)
+select any stack_frame from instances of I_STF where
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+if (empty stack_frame)
+  //Invalid stack frame ID!
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Bridge Invocation.setupParameterValues: " +
+                  "Invalid stack frame id used. Using random top stack frame.",path:pathMsg);
+  select any stack from instances of I_STACK;
+  select one new_stack_frame related by stack->I_STF[R2929];
+end if;
+// Grab the stack as well
+select one stack related by stack_frame->I_STACK[R2929];
+if (empty stack)  
+  //Invalid stack frame ID!
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Bridge Invocation.setupParameterValues: " +
+                               "Failure to retieve stack. Using random stack.",path:pathMsg);
+  select any stack from instances of I_STACK;
+  select one new_stack_frame related by stack->I_STF[R2929];
+end if;
+
+select one outer_block related by brg->ACT_BRB[R697]->
+                                                   ACT_ACT[R698]->ACT_BLK[R666];
+if (not_empty outer_block)
+  for each arg in args
+    // Seach for a bridge parameter with the same name as the actual parameter
+    select any bridge_param related by brg->S_BPARM[R21] where
+                                                      selected.Name == arg.Name;  
+    if (empty bridge_param)
+      pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Bridge Invocation.setupParameterValues: " +
+                               "did not find a corresponding bridge parameter",path:pathMsg);
+    else
+      // We have found the matching bridge parameter and actual parameter
+      // Now set the value of the parameter value related to the bridge
+      // parameter to the actual parameter''s value
+      if (bridge_param.By_Ref == 0)  // by value
+        select one act_val related by arg->V_VAL[R800];
+        act_val.computeValue(stack_frame_id: stack_frame.Stack_Frame_ID);
+        select any result related by stack_frame->I_VSF[R2951] where
+                                          selected.Value_ID == act_val.Value_ID;
+        select one rtVal related by result->RV_RVL[R3305];
+        if (empty rtVal)
+          // result requires computation. Let the new stack frame execute
+          return false;    
+        end if;
+      end if;
+    end if;
+  end for;
+  // If we get here, all computation of arguments was completed,
+  //  prepare for execution of the bridge
+  select one body related by brg->ACT_BRB[R697]->ACT_ACT[R698];
+  sf = body.createStackFrame(stack_id:stack.Stack_ID,
+                 invoking_stack_frame_or_component_id: GD::NULL_UNIQUE_ID(),
+                                                                enqueue: false);
+  for each arg in args
+    // Create a new local value for each argument
+    loc_id = outer_block.newLocalValue(stack_frame_id: sf);
+    select any local related by outer_block->I_BSF[R2923]->
+                                 L_LCL[R3000] where selected.Local_ID == loc_id;
+    select one local_val related by local->L_LVL[R3001];
+    select any bridge_param related by brg->S_BPARM[R21] where
+                                                      selected.Name == arg.Name;
+    select one act_val related by arg->V_VAL[R800];
+    if (not_empty bridge_param and bridge_param.By_Ref == 0)  // by value
+      // Find the local value and set it with the actual parameter value
+      select any result related by stack_frame->I_VSF[R2951] where
+                                          selected.Value_ID == act_val.Value_ID;
+      select one rtVal related by result->RV_RVL[R3305];
+      create object instance lrtVal of RV_RVL;
+      relate lrtVal to local across R3306;
+      select one dt related by bridge_param->S_DT[R22];
+      relate lrtVal to dt across R3307;
+      lrtVal.copyValue(from:rtVal.RuntimeValue_ID);
+    else  // assuming by ref
+      relate local_val to act_val across R3010;
+    end if;
+    // Relate the new local value to the bridge parameter so that
+    // it can be found when the parameter value is referenced.
+    relate bridge_param to local across R3009;
+    stack_frame.popValue(value_id:arg.Value_ID);
+  end for;
+else
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Bridge Invocation.setupParameterValues: " +
+                                          "did not find an outer bridge block",path:pathMsg);
+end if;
+return true;',
+	1,
+	'',
+	"d124d99d-eaca-4c48-92c7-64fee4aad3e3");
+INSERT INTO O_TPARM
+	VALUES ("ddd8bde2-7d87-41bb-9048-713ada684c79",
+	"c2d83609-25e3-420a-b296-1a7ea27950f3",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("e2eebfe7-7130-41c6-bab7-6507c9e7dbfc",
+	"c2d83609-25e3-420a-b296-1a7ea27950f3",
+	'target_stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"ddd8bde2-7d87-41bb-9048-713ada684c79",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("5c555031-8a96-48b8-b278-74709d129fa3",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"dcef18a6-9f4b-4573-98d3-e2f8941890d7",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	"0eaf313a-b04e-4864-83c0-abeef3656cd4",
+	"e0474adc-7f31-49c5-8e00-73a3815f8cb8",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Statement',
+	'Statement_ID',
+	'R603');
+INSERT INTO R_RGO_PROXY
+	VALUES ("5c555031-8a96-48b8-b278-74709d129fa3",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"dcef18a6-9f4b-4573-98d3-e2f8941890d7",
+	'../../Body/Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	'../../Body/Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("0eaf313a-b04e-4864-83c0-abeef3656cd4",
+	"5c555031-8a96-48b8-b278-74709d129fa3",
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	'Statement_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'../../Body/Statement/Statement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("0eaf313a-b04e-4864-83c0-abeef3656cd4",
+	"5c555031-8a96-48b8-b278-74709d129fa3",
+	"00000000-0000-0000-0000-000000000000",
+	'Statement_ID',
+	'
+
+',
+	'',
+	'Statement_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("5c555031-8a96-48b8-b278-74709d129fa3",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	0,
+	"eab964fb-80ce-4810-ba03-8a871dfc6923",
+	"74618ee9-2255-48fe-bbb1-7807963d49cd",
+	"9abb8d97-3f19-43d4-b673-b7fc9bf75a03",
+	"98fa9b02-7abd-41f8-b63e-efb70c4812e2",
+	"900f763c-475d-453d-92d7-6d42e093e92f",
+	"be1bfeec-5be0-48c7-8107-2642ffaefcbd",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Bridge',
+	'Brg_ID',
+	'R674.''is an invocation of''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("5c555031-8a96-48b8-b278-74709d129fa3",
+	"74618ee9-2255-48fe-bbb1-7807963d49cd",
+	"9abb8d97-3f19-43d4-b673-b7fc9bf75a03",
+	'../Invocation.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("eab964fb-80ce-4810-ba03-8a871dfc6923",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	0,
+	"74618ee9-2255-48fe-bbb1-7807963d49cd",
+	"98fa9b02-7abd-41f8-b63e-efb70c4812e2",
+	'../Invocation.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("900f763c-475d-453d-92d7-6d42e093e92f",
+	"5c555031-8a96-48b8-b278-74709d129fa3",
+	"eab964fb-80ce-4810-ba03-8a871dfc6923",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	1,
+	'Brg_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("eab964fb-80ce-4810-ba03-8a871dfc6923",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'../../Domain/Bridge/Bridge.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("900f763c-475d-453d-92d7-6d42e093e92f",
+	"5c555031-8a96-48b8-b278-74709d129fa3",
+	"0eaf313a-b04e-4864-83c0-abeef3656cd4",
+	'Brg_ID',
+	'
+
+',
+	'',
+	'Brg_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("d4b10482-61e6-4855-8830-9c8b6210b1c2",
+	"5c555031-8a96-48b8-b278-74709d129fa3");
+INSERT INTO O_BATTR
+	VALUES ("d4b10482-61e6-4855-8830-9c8b6210b1c2",
+	"5c555031-8a96-48b8-b278-74709d129fa3");
+INSERT INTO O_ATTR
+	VALUES ("d4b10482-61e6-4855-8830-9c8b6210b1c2",
+	"5c555031-8a96-48b8-b278-74709d129fa3",
+	"900f763c-475d-453d-92d7-6d42e093e92f",
+	'bridgeNameLineNumber',
+	'',
+	'',
+	'bridgeNameLineNumber',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("56ae30f9-e1e2-4a4d-a246-8dc11d89319c",
+	"5c555031-8a96-48b8-b278-74709d129fa3");
+INSERT INTO O_BATTR
+	VALUES ("56ae30f9-e1e2-4a4d-a246-8dc11d89319c",
+	"5c555031-8a96-48b8-b278-74709d129fa3");
+INSERT INTO O_ATTR
+	VALUES ("56ae30f9-e1e2-4a4d-a246-8dc11d89319c",
+	"5c555031-8a96-48b8-b278-74709d129fa3",
+	"d4b10482-61e6-4855-8830-9c8b6210b1c2",
+	'bridgeNameColumn',
+	'',
+	'',
+	'bridgeNameColumn',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("8b81311d-ad54-448d-a914-818c43ddbe78",
+	"5c555031-8a96-48b8-b278-74709d129fa3");
+INSERT INTO O_BATTR
+	VALUES ("8b81311d-ad54-448d-a914-818c43ddbe78",
+	"5c555031-8a96-48b8-b278-74709d129fa3");
+INSERT INTO O_ATTR
+	VALUES ("8b81311d-ad54-448d-a914-818c43ddbe78",
+	"5c555031-8a96-48b8-b278-74709d129fa3",
+	"56ae30f9-e1e2-4a4d-a246-8dc11d89319c",
+	'externalEntityKeyLettersLineNumber',
+	'',
+	'',
+	'externalEntityKeyLettersLineNumber',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("39d164af-30e1-4c93-9ee4-5e48637357a7",
+	"5c555031-8a96-48b8-b278-74709d129fa3");
+INSERT INTO O_BATTR
+	VALUES ("39d164af-30e1-4c93-9ee4-5e48637357a7",
+	"5c555031-8a96-48b8-b278-74709d129fa3");
+INSERT INTO O_ATTR
+	VALUES ("39d164af-30e1-4c93-9ee4-5e48637357a7",
+	"5c555031-8a96-48b8-b278-74709d129fa3",
+	"8b81311d-ad54-448d-a914-818c43ddbe78",
+	'externalEntityKeyLettersColumn',
+	'',
+	'',
+	'externalEntityKeyLettersColumn',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"5c555031-8a96-48b8-b278-74709d129fa3");
+INSERT INTO O_OIDA
+	VALUES ("0eaf313a-b04e-4864-83c0-abeef3656cd4",
+	"5c555031-8a96-48b8-b278-74709d129fa3",
+	0,
+	'Statement_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"5c555031-8a96-48b8-b278-74709d129fa3");
+INSERT INTO O_ID
+	VALUES (2,
+	"5c555031-8a96-48b8-b278-74709d129fa3");
+INSERT INTO S_SS_PROXY
+	VALUES ("b1a6258a-4548-4a81-bc3c-a6bab0f22f55",
+	'Invocation',
+	'This subsystem captures the concepts of call and return. It covers
+calls to operations, bridges and functions and includes the return
+statement.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'ACT',
+	600,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-00000060000c",
+	'../Invocation.xtuml');

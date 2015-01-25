@@ -1,0 +1,1292 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 11">
+<meta name=Originator content="Microsoft Word 11">
+<link rel=File-List href="bpalref.book-10_files/filelist.xml">
+<title> Operations, Bridges, and Functions </title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>kwilliam</o:Author>
+  <o:LastAuthor>MGC</o:LastAuthor>
+  <o:Revision>3</o:Revision>
+  <o:TotalTime>6</o:TotalTime>
+  <o:Created>2006-03-10T20:21:00Z</o:Created>
+  <o:LastSaved>2007-08-09T21:45:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>1577</o:Words>
+  <o:Characters>8991</o:Characters>
+  <o:Company>Mentor Graphics</o:Company>
+  <o:Lines>74</o:Lines>
+  <o:Paragraphs>21</o:Paragraphs>
+  <o:CharactersWithSpaces>10547</o:CharactersWithSpaces>
+  <o:Version>11.8132</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:Compatibility>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" LatentStyleCount="156">
+ </w:LatentStyles>
+</xml><![endif]-->
+<link rel=Stylesheet type="text/css" media=all href=bpalref.book.css>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:2;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+@font-face
+	{font-family:"MS Mincho";
+	panose-1:2 2 6 9 4 2 5 8 3 4;
+	mso-font-alt:"\FF2D\FF33 \660E\671D";
+	mso-font-charset:128;
+	mso-generic-font-family:roman;
+	mso-font-format:other;
+	mso-font-pitch:fixed;
+	mso-font-signature:1 134676480 16 0 131072 0;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:"Arial Unicode MS";
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:0 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+@font-face
+	{font-family:"\@MS Mincho";
+	panose-1:0 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:128;
+	mso-generic-font-family:roman;
+	mso-font-format:other;
+	mso-font-pitch:fixed;
+	mso-font-signature:1 134676480 16 0 131072 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;}
+h2
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	line-height:15.6pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:12.0pt;
+	mso-fareast-font-family:"MS Mincho";
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:navy;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#0176B9;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-fareast-font-family:SimSun;}
+pre
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:SimSun;}
+p.body-tight, li.body-tight, div.body-tight
+	{mso-style-name:body-tight;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:23.75pt;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	mso-fareast-font-family:SimSun;}
+p.indent, li.indent, div.indent
+	{mso-style-name:indent;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:13.0pt;
+	margin-left:47.5pt;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	mso-fareast-font-family:SimSun;}
+p.body, li.body, div.body
+	{mso-style-name:body;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-fareast-font-family:SimSun;}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:381565867;
+	mso-list-template-ids:-1530778714;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Wingdings;}
+@list l0:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1
+	{mso-list-id:384138097;
+	mso-list-template-ids:-149278234;}
+@list l1:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Wingdings;}
+@list l1:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2
+	{mso-list-id:771706792;
+	mso-list-template-ids:1678011444;}
+@list l2:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Wingdings;}
+@list l2:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3
+	{mso-list-id:838813725;
+	mso-list-template-ids:-1978751400;}
+@list l3:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Wingdings;}
+@list l3:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4
+	{mso-list-id:1609200114;
+	mso-list-template-ids:474506354;}
+@list l4:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Wingdings;}
+@list l4:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5
+	{mso-list-id:2006474684;
+	mso-list-template-ids:-537253712;}
+@list l5:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Wingdings;}
+@list l5:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6
+	{mso-list-id:2110080878;
+	mso-list-template-ids:373294088;}
+@list l6:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Wingdings;}
+@list l6:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+</style>
+<![endif]-->
+<meta http-equiv=Content-Style-Type content="text/css">
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="3074"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9" style='tab-interval:
+.5in'>
+
+<div class=Section1>
+
+<h1><a name="50536514_pgfId-519032"></a>Operations, Bridges, and Functions</h1>
+
+<h2><a name="50536514_pgfId-511389"></a>Operation Invocation</h2>
+
+<p class=body><a name="50536514_pgfId-516705"></a>The analyst may define
+class-based and instance-based operations as desired using the Operation Data
+Editor for a class under the Class Diagram. An operation invocation can be used
+as a stand-alone statement or it can be used in an expression.</p>
+
+<h3><a name="50536514_pgfId-516789"></a>Syntax</h3>
+
+<p class=body><a name="50536514_pgfId-516709"></a>As an operation expression:</p>
+
+<p class=indent><a name="50536514_pgfId-519452"></a><em><span style='font-family:
+"Courier New"'>&lt;<span class=SpellE>keyletter</span>&gt;::&lt;class-based
+operation name&gt; (&lt;data item&gt;:&lt;expression&gt;, ...)</span></em> <a
+name="50536514_marker-519451"></a></p>
+
+<p class=indent><a name="50536514_pgfId-519136"></a><em><span style='font-family:
+"Courier New"'>&lt;instance handle&gt;.&lt;instance-based operation name&gt;
+(&lt;data item&gt;:&lt;expression&gt;, ...)</span></em> <a
+name="50536514_marker-519135"></a></p>
+
+<p class=body><a name="50536514_pgfId-516713"></a>As a stand-alone operation
+assignment statement:</p>
+
+<p class=indent><a name="50536514_pgfId-516714"></a><em><span style='font-family:
+"Courier New"'>&lt;variable&gt; = &lt;<span class=SpellE>keyletter</span>&gt;::&lt;class-based
+operation name&gt; (&lt;data item&gt;:&lt;expression&gt;, ...);</span></em> </p>
+
+<p class=indent><a name="50536514_pgfId-519148"></a><em><span style='font-family:
+"Courier New"'>&lt;variable&gt; = &lt;instance handle&gt;.&lt;instance-based
+operation name&gt; (&lt;data item&gt;:&lt;expression&gt;, ...);</span></em> </p>
+
+<p class=body><a name="50536514_pgfId-516718"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;<span class=SpellE>keyletter</span>&gt;</span></em>
+is the <span class=SpellE>keyletter</span> of a class.</p>
+
+<p class=body><a name="50536514_pgfId-519158"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;instance</span></em> <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>handle&gt;</span></em>
+is a handle to an instance of a class.</p>
+
+<p class=body><a name="50536514_pgfId-519159"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;class-based</span></em> <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>operation&gt;</span></em>
+and <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;instance-based</span></em>
+<em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>operation&gt;</span></em>
+are the name of the operation.</p>
+
+<p class=body><a name="50536514_pgfId-516723"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;data item&gt;</span></em> is
+the name of a data item defined as input for <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>&lt;class-based operation name&gt;</span></em>
+or <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;instance-based
+operation name&gt;</span></em> .</p>
+
+<p class=body><a name="50536514_pgfId-516725"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;expression&gt;</span></em> is
+a string, arithmetic, <span class=SpellE>boolean</span>, simple, or compound
+expression. The data type of the expression must match the data type defined
+for the given data item.</p>
+
+<p class=body><a name="50536514_pgfId-516727"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;variable&gt;</span></em> is a
+class attribute or a local variable.</p>
+
+<h3><a name="50536514_pgfId-516729"></a>Notes</h3>
+
+<p class=body><a name="50536514_pgfId-516731"></a>An operation expression may
+be used anywhere an expression is valid (e.g., assignment statement read values<a
+name="50536514_marker-519764"></a>, control logic expressions, etc.).</p>
+
+<p class=body><a name="50536514_pgfId-516732"></a>The stand-alone operation
+must always be a stand-alone statement and cannot be used as an expression
+within another statement.</p>
+
+<p class=body><a name="50536514_pgfId-516733"></a>Since an operation expression
+may be used anywhere an expression may be used, stand-alone operation
+assignment statements are not necessary. The user may simply use an operation
+expression as a read value and use an <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>assign</span></em> statement to assign
+the return value to <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;variable&gt;</span></em><em><span style='font-family:Arial;
+font-style:normal'> .</span></em></p>
+
+<p class=body><a name="50536514_pgfId-516734"></a>Parentheses are required even
+if there are no data items.</p>
+
+<p class=body><a name="50536514_pgfId-516735"></a>If <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;variable&gt;</span></em>
+is a local variable that is being assigned for the first time, it will be of
+the same data type as the return value of <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>&lt;operation name&gt;</span></em><em><span
+style='font-family:Arial;font-style:normal'> .</span></em></p>
+
+<p class=body><a name="50536514_pgfId-516736"></a>If the type of <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;variable&gt;</span></em>
+has already been established (that is, if it is the attribute of a class or a
+local variable that has been previously assigned), then either:</p>
+
+<ul type=square>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;margin-bottom:3.0pt;
+     mso-list:l2 level1 lfo1;tab-stops:list .5in'><a
+     name="50536514_pgfId-516794"></a><em><span style='font-size:11.0pt;
+     font-family:"Courier New";color:black'>&lt;variable&gt;</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> must be of the same data type
+     as the output value of the operation,<o:p></o:p></span></li>
+</ul>
+
+<p class=indent><a name="50536514_pgfId-519685"></a>or</p>
+
+<ul type=square>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;margin-bottom:3.0pt;
+     mso-list:l3 level1 lfo2;tab-stops:list .5in'><a
+     name="50536514_pgfId-516738"></a><span style='font-size:10.0pt;font-family:
+     Arial'>the output value of the operation is of type </span><em><span
+     style='font-size:11.0pt;font-family:"Courier New";color:black'>integer</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> or </span><em><span
+     style='font-size:11.0pt;font-family:"Courier New";color:black'>real</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> and </span><em><span
+     style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;variable&gt;</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> is of type </span><em><span
+     style='font-size:11.0pt;font-family:"Courier New";color:black'>integer</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> or </span><em><span
+     style='font-size:11.0pt;font-family:"Courier New";color:black'>real</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> .<o:p></o:p></span></li>
+</ul>
+
+<h3><a name="50536514_pgfId-516741"></a>Example</h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516742"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// operation expressions without assigning the return value</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516743"></a><span class=SpellE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>DD::open</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>(wait:20);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-519168"></a><span class=SpellE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>window.update</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>(<span
+class=SpellE>title:&quot;Dialog</span>&quot;);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516744"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516745"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// operation expression as an assignment statement read value</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_marker-519767"></a><a name="50536514_pgfId-516746"></a><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>volume = <span
+class=SpellE>DD::get_volume</span>();</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516747"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516748"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// operation expression within a while loop</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516749"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>while (<span class=SpellE>MOD::status</span>() != 1)<span
+style='mso-tab-count:1'> </span></span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516750"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-spacerun:yes'>  </span><span
+style='mso-tab-count:1'>     </span>value = <span class=SpellE>this_mod.poll</span>();</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516751"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>end while;</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516752"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516753"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// stand-alone operation assignment statement</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-518484"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>branch = <span class=SpellE>TR::get_next_branch</span>();</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<h2><a name="50536514_pgfId-516887"></a>Bridge Invocation</h2>
+
+<h3><a name="50536514_pgfId-516894"></a>Syntax</h3>
+
+<p class=body><a name="50536514_pgfId-516810"></a>As a bridge expression:</p>
+
+<p class=indent><a name="50536514_pgfId-516812"></a><em><span style='font-family:
+"Courier New"'>&lt;<span class=SpellE>eekeyletter</span>&gt;::&lt;bridge
+name&gt; (data item&gt;:&lt;expression&gt;, ...)</span></em> <a
+name="50536514_marker-516811"></a></p>
+
+<p class=body><a name="50536514_pgfId-516814"></a>As a stand-alone bridge
+assignment statement:</p>
+
+<p class=indent><a name="50536514_pgfId-516815"></a><em><span style='font-family:
+"Courier New"'>&lt;variable&gt; = &lt;<span class=SpellE>eekeyletter</span>&gt;::&lt;bridge
+name&gt; (&lt;data item&gt;:&lt;expression&gt;, ...);</span></em> </p>
+
+<p class=body><a name="50536514_pgfId-516820"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;<span class=SpellE>eekeyletter</span>&gt;</span></em>
+are the <span class=SpellE>keyletters</span> of an external entity<a
+name="50536514_marker-516819"></a>.</p>
+
+<p class=body><a name="50536514_pgfId-516822"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;bridge name&gt;</span></em>
+is the name of a bridge assigned to the external entity.</p>
+
+<p class=body><a name="50536514_pgfId-516824"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;data item&gt;</span></em> is
+the name of a data item input to <em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>&lt;bridge name&gt;</span></em> .</p>
+
+<p class=body><a name="50536514_pgfId-516862"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;expression&gt;</span></em> is
+a string, arithmetic, <span class=SpellE>boolean</span>, simple or compound
+expression. The data type of the expression must match the data type defined
+for the given data item.</p>
+
+<p class=body><a name="50536514_pgfId-516864"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;variable&gt;</span></em> is a
+class attribute or a local variable.</p>
+
+<h3><a name="50536514_pgfId-516830"></a>Notes</h3>
+
+<p class=body><a name="50536514_pgfId-516833"></a>It is strongly recommended
+that BridgePoint UML Suite's external entities<a name="50536514_marker-516831"></a>
+be used only to represent domains<a name="50536514_marker-516832"></a>.</p>
+
+<p class=body><a name="50536514_pgfId-516835"></a>A bridge expression may be
+used anywhere an expression is valid (e.g., assignment statement read values,
+control logic expressions, etc.).</p>
+
+<p class=body><a name="50536514_pgfId-516836"></a>The stand-alone bridge
+assignment statement must always be a stand-alone statement and cannot be used
+as an expression within another statement.</p>
+
+<p class=body><a name="50536514_pgfId-516837"></a>Since a bridge expression may
+be used anywhere an expression may be used, stand-alone bridge assignment
+statements are not necessary. The user may simply use a bridge expression as a
+read value and use an <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>assign</span></em> statement to assign the return value to <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;variable&gt;</span></em><em><span
+style='font-family:Arial;font-style:normal'> .</span></em></p>
+
+<p class=body><a name="50536514_pgfId-516838"></a>Parentheses are required even
+if there are no data items.</p>
+
+<p class=body><a name="50536514_pgfId-516839"></a>If <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;variable&gt;</span></em>
+is a local variable that is being assigned for the first time, it will be of
+the same data type as the output value of <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>&lt;bridge name&gt;</span></em><em><span
+style='font-family:Arial;font-style:normal'> .</span></em></p>
+
+<p class=body><a name="50536514_pgfId-519693"></a>If the type of <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;variable&gt;</span></em>
+has already been established (that is, if it is the attribute of a class or a
+local variable that has previously been assigned), then either:</p>
+
+<ul type=square>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;margin-bottom:3.0pt;
+     mso-list:l0 level1 lfo3;tab-stops:list .5in'><a
+     name="50536514_pgfId-519699"></a><em><span style='font-size:11.0pt;
+     font-family:"Courier New";color:black'>&lt;variable&gt;</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> must be of the same data type
+     as the output value of the bridge,<o:p></o:p></span></li>
+</ul>
+
+<p class=indent><a name="50536514_pgfId-519700"></a>or</p>
+
+<ul type=square>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;margin-bottom:3.0pt;
+     mso-list:l6 level1 lfo4;tab-stops:list .5in'><a
+     name="50536514_pgfId-519697"></a><span style='font-size:10.0pt;font-family:
+     Arial'>the output value of the bridge is of type </span><em><span
+     style='font-size:11.0pt;font-family:"Courier New";color:black'>integer</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> or </span><em><span
+     style='font-size:11.0pt;font-family:"Courier New";color:black'>real</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> and </span><em><span
+     style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;variable&gt;</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> is of type </span><em><span
+     style='font-size:11.0pt;font-family:"Courier New";color:black'>integer</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> or </span><em><span
+     style='font-size:11.0pt;font-family:"Courier New";color:black'>real</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> .<o:p></o:p></span></li>
+</ul>
+
+<h3><a name="50536514_pgfId-516844"></a>Example</h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516845"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// bridge expression without assigning the return value</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516846"></a><span class=SpellE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>OT::start</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>();</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516847"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516848"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// bridge expression as an assignment statement read value</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516849"></a><span class=SpellE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>cur_time</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> = bridge <span
+class=SpellE>TIM::current_time</span>();</span></em><span style='font-size:
+11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516850"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516851"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// bridge expression within the test part of an if statement</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516852"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>if (<span class=SpellE>TIM::timer_add_time</span>(<span
+class=SpellE>timer_inst_ref:my_timer</span>, microseconds:500))</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516853"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-spacerun:yes'>  </span><span
+style='mso-tab-count:1'>     </span>wait = wait + 500;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516854"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>end if;</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516855"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516856"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// stand-alone bridge assignment statement</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516857"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>bridge <span class=SpellE>my_timer</span> = <span
+class=SpellE>TIM::timer_start</span>(microseconds:500, <span class=SpellE>event_inst:my_evt</span>);</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-518476"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-518483"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// State 4. &quot;Raising&quot;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-518477"></a><span class=SpellE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>needle_position</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> = <span
+class=SpellE>SPPIO::raise_needle</span> (</span></em><span style='font-size:
+11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-518478"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-tab-count:1'>       </span><span style='mso-spacerun:yes'>  </span><span
+class=SpellE>radial_position:self.radial_position</span>,</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-518479"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-tab-count:1'>       </span><span style='mso-spacerun:yes'>  </span><span
+class=SpellE>theta_offset:self.theta_offset</span>,</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-518480"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-tab-count:1'>       </span><span style='mso-spacerun:yes'>  </span><span
+class=SpellE>probe_id:self.probe_ID</span> );</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<h3><a name="50536514_pgfId-516975"></a>Avoiding Ambiguity in Invocations</h3>
+
+<p class=body><a name="50536514_pgfId-518646"></a>Ambiguity among class and
+bridge operations can arise if the following conditions are present within a
+single domain:</p>
+
+<ul type=square>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;margin-bottom:3.0pt;
+     mso-list:l5 level1 lfo5;tab-stops:list .5in'><a
+     name="50536514_pgfId-518647"></a><span style='font-size:10.0pt;font-family:
+     Arial'>An external entity (EE) and a class share the same <span
+     class=SpellE>keyletters</span>.<o:p></o:p></span></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;margin-bottom:3.0pt;
+     mso-list:l5 level1 lfo5;tab-stops:list .5in'><a
+     name="50536514_pgfId-518652"></a><span style='font-size:10.0pt;font-family:
+     Arial'>The EE has a bridge operation with the same name as a class operation
+     associated with the class.<o:p></o:p></span></li>
+</ul>
+
+<p class=body><a name="50536514_pgfId-519181"></a><span class=GramE>When set,
+the Class <span class=SpellE>Keyletters</span> check-box under <em><span
+style='font-family:Arial'>Preferences | User | Audits</span></em> will report
+any EE's and Classes that share the same key letters.</span> The key letter
+ambiguity should be removed by changing the key letter of either the EE or the
+class.</p>
+
+<h2><a name="50536514_pgfId-519197"></a>Function Invocation</h2>
+
+<p class=body><a name="50536514_pgfId-519263"></a>A function is an operation
+that is global to the domain being modeled. Unlike class operations and bridge
+operations, a function's scope is at the domain level.</p>
+
+<h3><a name="50536514_pgfId-519198"></a>Syntax</h3>
+
+<p class=body><a name="50536514_pgfId-519199"></a>As a function expression:</p>
+
+<p class=indent><a name="50536514_pgfId-519201"></a><em><span style='font-family:
+"Courier New"'>::&lt;function name&gt; (data item&gt;:&lt;expression&gt;, ...)</span></em>
+<a name="50536514_marker-519200"></a></p>
+
+<p class=body><a name="50536514_pgfId-519203"></a>As a stand-alone <span
+class=GramE>function</span> assignment statement:</p>
+
+<p class=indent><a name="50536514_pgfId-519204"></a><em><span style='font-family:
+"Courier New"'>&lt;variable&gt; = ::&lt;function name&gt; (&lt;data
+item&gt;:&lt;expression&gt;, ...);</span></em> </p>
+
+<p class=body><a name="50536514_pgfId-519209"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;function name&gt;</span></em>
+is the name of a function.</p>
+
+<p class=body><a name="50536514_pgfId-519210"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;data item&gt;</span></em> is
+the name of a data item input to <em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>&lt;<span class=GramE>function</span> name&gt;</span></em>
+.</p>
+
+<p class=body><a name="50536514_pgfId-519211"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;expression&gt;</span></em> is
+a string, arithmetic, <span class=SpellE>boolean</span>, simple or compound
+expression. The data type of the expression must match the data type defined
+for the given data item.</p>
+
+<p class=body><a name="50536514_pgfId-519212"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;variable&gt;</span></em> is a
+class attribute or a local variable.</p>
+
+<h3><a name="50536514_pgfId-519213"></a>Notes</h3>
+
+<p class=body><a name="50536514_pgfId-519218"></a>It is strongly recommended that
+functions be named according to some convention that conveys their meaning
+throughout the domain.</p>
+
+<p class=body><a name="50536514_pgfId-519220"></a>A function expression may be
+used anywhere an expression is valid (e.g., assignment statement read values,
+control logic expressions, etc.).</p>
+
+<p class=body><a name="50536514_pgfId-519221"></a>The stand-alone function
+assignment statement must always be a stand-alone statement and cannot be used
+as an expression within another statement.</p>
+
+<p class=body><a name="50536514_pgfId-519222"></a>Since a function expression
+may be used anywhere an expression may be used, stand-alone function assignment
+statements are not necessary. The user may simply use a function expression as
+a read value and use an <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>assign</span></em> statement to assign the return value to <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;variable&gt;</span></em><em><span
+style='font-family:Arial;font-style:normal'> .</span></em></p>
+
+<p class=body><a name="50536514_pgfId-519223"></a>Parentheses are required even
+if there are no data items.</p>
+
+<p class=body><a name="50536514_pgfId-519224"></a>If <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;variable&gt;</span></em>
+is a local variable that is being assigned for the first time, it will be of
+the same data type as the output value of <em><span style='font-size:11.0pt;
+font-family:"Courier New";color:black'>&lt;function name&gt;</span></em><em><span
+style='font-family:Arial;font-style:normal'> .</span></em></p>
+
+<p class=body><a name="50536514_pgfId-519226"></a>If the type of <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;variable&gt;</span></em>
+has already been established (that is, if it is the attribute of a class or a
+local variable that has previously been assigned), then either:</p>
+
+<ul type=square>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;margin-bottom:3.0pt;
+     mso-list:l1 level1 lfo6;tab-stops:list .5in'><a
+     name="50536514_pgfId-519227"></a><em><span style='font-size:11.0pt;
+     font-family:"Courier New";color:black'>&lt;variable&gt;</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> must be of the same data type
+     as the output value of </span><em><span style='font-size:11.0pt;
+     font-family:"Courier New";color:black'>&lt;function name&gt;</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> <o:p></o:p></span></li>
+</ul>
+
+<p class=indent><a name="50536514_pgfId-519741"></a>or</p>
+
+<ul type=square>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;margin-bottom:3.0pt;
+     mso-list:l4 level1 lfo7;tab-stops:list .5in'><a
+     name="50536514_pgfId-519228"></a><span style='font-size:10.0pt;font-family:
+     Arial'>the output value of </span><em><span style='font-size:11.0pt;
+     font-family:"Courier New";color:black'>&lt;function name&gt;</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> is of type integer or real and
+     </span><em><span style='font-size:11.0pt;font-family:"Courier New";
+     color:black'>&lt;variable&gt;</span></em><span style='font-size:10.0pt;
+     font-family:Arial'> is of type </span><em><span style='font-size:11.0pt;
+     font-family:"Courier New";color:black'>integer</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> or </span><em><span
+     style='font-size:11.0pt;font-family:"Courier New";color:black'>real</span></em><span
+     style='font-size:10.0pt;font-family:Arial'> .<o:p></o:p></span></li>
+</ul>
+
+<h3><a name="50536514_pgfId-519229"></a>Example</h3>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-519230"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// function expression without assigning the return value</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-519231"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>::start();</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-519232"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-519233"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// function expression as an assignment statement read value</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-519234"></a><span class=SpellE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>cur_ext_time</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> = ::<span
+class=SpellE>current_external_time</span>();</span></em><span style='font-size:
+11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-519235"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-519236"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// function expression within the test part of an if statement</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-519237"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>if ( ::shutdown() )</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-519238"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-spacerun:yes'>  </span><span
+style='mso-tab-count:2'>           </span>generate S1:'Shutdown'() to S Creator;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-519239"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>end if;</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-519240"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-519241"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// stand-alone function assignment statement</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-519242"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>status = ::shutdown();</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<h2><a name="50536514_pgfId-518645"></a>Object Action Language for Invocations</h2>
+
+<p class=body><a name="50536514_pgfId-519335"></a>OAL can be specified for class
+and instance-based operations, bridge operations, and functions. The syntax
+rules applied to actions for these differ slightly from those applied to state
+actions. These differences are described in detail below.</p>
+
+<h3><a name="50536514_pgfId-516918"></a><a name="50536514_marker-518611"></a>Return
+Statement</h3>
+
+<p class=body><a name="50536514_pgfId-516920"></a>Since class operations,
+bridge operations, and functions can return a value, the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>return</span></em>
+statement is accepted within their actions.</p>
+
+<h4><a name="50536514_pgfId-516921"></a>Syntax</h4>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516922"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>return &lt;expression&gt;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<p class=indent><a name="50536514_pgfId-516923"></a><em><span style='font-family:
+"Courier New"'>return;</span></em> </p>
+
+<p class=body><a name="50536514_pgfId-516927"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;expression&gt;</span></em> is
+a string, arithmetic, <span class=SpellE>boolean</span>, simple or compound
+expression. The data type of the expression must match the data type defined
+for the return value of the class operation, bridge operation, or function.</p>
+
+<h4><a name="50536514_pgfId-516928"></a>Notes</h4>
+
+<p class=body><a name="50536514_pgfId-516929"></a>When executed, the <em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>return</span></em>
+statement causes control to be returned to the caller.</p>
+
+<p class=body><a name="50536514_pgfId-516930"></a>The value returned to the
+caller is <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>&lt;expression&gt;</span></em><em><span style='font-family:Arial;
+font-style:normal'> .</span></em></p>
+
+<p class=body><a name="50536514_pgfId-516931"></a><span class=GramE>If the
+return value of the class operation, bridge operation, or function is void,
+then <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;expression&gt;</span></em>
+must be omitted.</span></p>
+
+<h4><a name="50536514_pgfId-516932"></a>Example</h4>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516934"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>select any dog from instances of DOG;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516935"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>return <span class=SpellE>dog.weight</span>;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-518487"></a><span style='font-size:11.0pt;font-family:
+"Times New Roman";color:black'><o:p>&nbsp;</o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'>&nbsp;<o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-518513"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// SSPIO:<span style='mso-spacerun:yes'>  </span>Bridge &quot;Lower needle&quot;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-518492"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>select any probe from instances of SP</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-518493"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'><span style='mso-tab-count:1'>       </span><span style='mso-spacerun:yes'>  </span>where <span
+class=SpellE>selected.probe_ID</span> == <span class=SpellE>param.probe_id</span>;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-518494"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>generate SP3:probe_in_position to probe;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-518495"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>return &quot;down&quot;;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<h3><a name="50536514_pgfId-516937"></a>Parameters</h3>
+
+<p class=body><a name="50536514_pgfId-516939"></a>Class and instance-based
+operations, bridge operations, and functions can accept parameters. These
+parameters can be accessed as read values by using the <span class=SpellE><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>param</span></em></span>
+<a name="50536514_marker-518602"></a>keyword within the action. They can be
+modified if they are by-reference parameters.</p>
+
+<h4><a name="50536514_pgfId-516940"></a>Syntax</h4>
+
+<p class=indent><a name="50536514_pgfId-516941"></a><span class=SpellE><em><span
+style='font-family:"Courier New"'>param</span></em></span><em><span
+style='font-family:"Courier New"'>.&lt;parameter&gt;</span></em> </p>
+
+<p class=body><a name="50536514_pgfId-516945"></a><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>&lt;parameter&gt;</span></em> is
+the name of a parameter.</p>
+
+<h4><a name="50536514_pgfId-516947"></a>Note</h4>
+
+<p class=body><a name="50536514_pgfId-516948"></a><span class=SpellE><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>param</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'>.&lt;parameter&gt;</span></em>
+is an <em><span style='font-size:11.0pt;font-family:"Courier New";color:black'>&lt;expression&gt;</span></em>
+and so can be used in any OAL construct specifying an expression.</p>
+
+<h4><a name="50536514_pgfId-516950"></a>Example</h4>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-518785"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// For an invocation like MATH::SQR(x:3)</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516953"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// Return x**2</span></em><span style='font-size:
+11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-516954"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>return <span class=SpellE>param.x</span> * <span
+class=SpellE>param.x</span>;</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<h3><a name="50536514_pgfId-519385"></a>Use of self keyword</h3>
+
+<p class=body><a name="50536514_pgfId-519386"></a>Instance-based operations can
+use the keyword <em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>self</span></em> to reference the instance to which the operation
+is currently being applied. The <em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>self</span></em> keyword can be used anywhere that
+is valid.</p>
+
+<h4><a name="50536514_pgfId-519418"></a>Note</h4>
+
+<p class=body><a name="50536514_pgfId-519419"></a>Class-based operations,
+bridge operations, and functions can not use the <em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>self</span></em> keyword since
+they are not related to a specific instance.</p>
+
+<h4><a name="50536514_pgfId-519395"></a>Example</h4>
+
+<pre style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-519397"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// attribute access</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-519398"></a><span class=SpellE><em><span style='font-size:
+11.0pt;font-family:"Courier New";color:black'>self.a</span></em></span><em><span
+style='font-size:11.0pt;font-family:"Courier New";color:black'> = <span
+class=SpellE>self.b</span>;</span></em><span style='font-size:11.0pt;
+font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-519416"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>// event generation</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre><pre
+style='margin-left:47.5pt;vertical-align:baseline'><a
+name="50536514_pgfId-519417"></a><em><span style='font-size:11.0pt;font-family:
+"Courier New";color:black'>generate E1:'one'() to self;</span></em><span
+style='font-size:11.0pt;font-family:"Times New Roman";color:black'><o:p></o:p></span></pre>
+
+<h3><a name="50536514_pgfId-516957"></a>Other Differences</h3>
+
+<p class=body><a name="50536514_pgfId-516959"></a>Class and instance-based
+operations, bridge operations, and functions may not refer to the <span
+class=SpellE><em><span style='font-size:11.0pt;font-family:"Courier New";
+color:black'>rcvd_evt</span></em></span> <a name="50536514_marker-519780"></a>keyword.
+This keyword is only allowed within a state action since these are the only
+actions that can receive events.</p>
+
+</div>
+
+</body>
+
+</html>

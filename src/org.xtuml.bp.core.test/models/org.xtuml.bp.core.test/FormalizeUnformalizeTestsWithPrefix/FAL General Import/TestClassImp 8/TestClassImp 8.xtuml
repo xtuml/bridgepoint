@@ -1,0 +1,32 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("3eb7628b-5aad-40b3-a592-c10a7bdd691f",
+	'TestClassImp 8',
+	507,
+	'KEY',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_ID
+	VALUES (0,
+	"3eb7628b-5aad-40b3-a592-c10a7bdd691f");
+INSERT INTO O_ID
+	VALUES (1,
+	"3eb7628b-5aad-40b3-a592-c10a7bdd691f");
+INSERT INTO O_ID
+	VALUES (2,
+	"3eb7628b-5aad-40b3-a592-c10a7bdd691f");
+INSERT INTO PE_PE
+	VALUES ("3eb7628b-5aad-40b3-a592-c10a7bdd691f",
+	1,
+	"e439f783-57f0-4f90-9fda-ceec282ae384",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("e439f783-57f0-4f90-9fda-ceec282ae384",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'FAL General Import',
+	'',
+	0,
+	'../FAL General Import.xtuml');

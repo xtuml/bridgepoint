@@ -1,0 +1,54 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("2920eaeb-5034-48e7-8ddb-2b6fdf9ac7ac",
+	'Test Class 7',
+	7,
+	'CT_TCLS7',
+	'',
+	"a5d992b7-203c-476d-8291-b130a964625b");
+INSERT INTO O_NBATTR
+	VALUES ("21a6ae0c-35d2-46f5-9475-c262173e63bd",
+	"2920eaeb-5034-48e7-8ddb-2b6fdf9ac7ac");
+INSERT INTO O_BATTR
+	VALUES ("21a6ae0c-35d2-46f5-9475-c262173e63bd",
+	"2920eaeb-5034-48e7-8ddb-2b6fdf9ac7ac");
+INSERT INTO O_ATTR
+	VALUES ("21a6ae0c-35d2-46f5-9475-c262173e63bd",
+	"2920eaeb-5034-48e7-8ddb-2b6fdf9ac7ac",
+	"00000000-0000-0000-0000-000000000000",
+	'testAttr',
+	'',
+	'',
+	'testAttr',
+	0,
+	"09bdfd72-1b91-4336-9bf9-8143f5488c50",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("09bdfd72-1b91-4336-9bf9-8143f5488c50",
+	"2e999309-c8ad-41f3-9b7c-4d07e50358eb",
+	'integer',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"2920eaeb-5034-48e7-8ddb-2b6fdf9ac7ac");
+INSERT INTO O_OIDA
+	VALUES ("21a6ae0c-35d2-46f5-9475-c262173e63bd",
+	"2920eaeb-5034-48e7-8ddb-2b6fdf9ac7ac",
+	0);
+INSERT INTO O_ID
+	VALUES (1,
+	"2920eaeb-5034-48e7-8ddb-2b6fdf9ac7ac");
+INSERT INTO O_ID
+	VALUES (2,
+	"2920eaeb-5034-48e7-8ddb-2b6fdf9ac7ac");
+INSERT INTO S_SS_PROXY
+	VALUES ("a5d992b7-203c-476d-8291-b130a964625b",
+	'Verify_Selects_Test_Conditionality',
+	'',
+	'',
+	0,
+	"2e999309-c8ad-41f3-9b7c-4d07e50358eb",
+	"00000000-0000-0000-0000-000000000000",
+	'../Verify_Selects_Test_Conditionality.xtuml');

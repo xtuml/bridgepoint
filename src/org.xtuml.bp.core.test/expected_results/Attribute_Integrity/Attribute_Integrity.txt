@@ -1,0 +1,12 @@
+ERROR: Found another attribute under the same class with the same name.
+
+Element Name: attribute
+Element Path: ModelIntegrityTests::Attribute Tests::Class::attribute
+
+
+ERROR: Found another attribute under the same class with the same name.
+
+Element Name: attribute
+Element Path: ModelIntegrityTests::Attribute Tests::Class::attribute
+
+

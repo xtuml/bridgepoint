@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="Sequence Capture"
+            icon="../org.xtuml.bp.core/icons/green-bp.gif"
+            category="org.xtuml.bp.core.ui.viewcats.bp"
+            class="org.xtuml.bp.sequencecapture.views.SequenceCapture"
+            id="org.xtuml.bp.sequencecapture.views.SequenceCapture">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+
+</plugin>

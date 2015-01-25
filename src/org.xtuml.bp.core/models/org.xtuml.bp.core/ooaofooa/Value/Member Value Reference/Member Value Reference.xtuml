@@ -1,0 +1,486 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	'Member Value Reference',
+	825,
+	'V_MVL',
+	'',
+	"e060f94c-3f82-463e-9d98-d20315b7c196");
+INSERT INTO O_TFR
+	VALUES ("462f42a8-93d6-454b-ac51-86878f87d519",
+	"31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one member related by self->S_MBR[R836];
+if (not_empty member)
+  unrelate self from member across R836;
+end if;
+
+select one value related by self->V_VAL[R837];
+if (not_empty value)
+  unrelate self from value across R837;
+end if;
+
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("db108d8b-c427-46d5-a91f-2175d0c2135a",
+	"31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	'getValue',
+	'',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// Member Value.getValue()
+select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
+select one member related by self->S_MBR[R836];
+select one dt related by member->S_DT[R45];
+select one sdt related by dt->S_SDT[R17];
+if (not_empty sdt)
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Internal Error in Member Value.getValue: " +
+                                       "Attempted to access structured value.",path:pathMsg);
+else
+  // This member is a simple data type, we need to get the runtime value of the
+  // static value it is based on, and traverse from it to the simple value it
+  // should contain.
+  select one rootVal related by self->V_VAL[R837];
+  rtVal_ID = rootVal.getRuntimeValue(stack_frame_id:param.stack_frame_id);
+  select any strctRuntimeValue from instances of RV_RVL where
+                                           selected.RuntimeValue_ID == rtVal_ID;
+  select one strctValue related by strctRuntimeValue->RV_SVL[R3300];
+  select any vis related by strctValue->RV_VIS[R3301] where
+                                                   selected.Name == member.Name;
+  if (empty vis)
+    // getValue() is only called on the rValue, so this is always an error.
+    pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Attempted to access structured value " +
+                                                          "before it was set.",path:pathMsg);
+  else
+    select one simpleValue related by vis->RV_RVL[R3301]->RV_SMV[R3300];
+    return simpleValue.getValue();
+  end if;
+end if;
+return GD::NULL_INSTANCE();',
+	1,
+	'',
+	"34b0f206-2316-49af-918b-a420deb12de9");
+INSERT INTO O_TPARM
+	VALUES ("596efc91-bf66-40b3-ae3f-a2749cf962c0",
+	"db108d8b-c427-46d5-a91f-2175d0c2135a",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("ed881f36-79ec-4ca2-986d-de93be0f5662",
+	"31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	'setValue',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Member Value.setValue()
+select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
+select one member related by self->S_MBR[R836];
+select one dt related by member->S_DT[R45];
+select one sdt related by dt->S_SDT[R17];
+if (not_empty sdt)
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Internal Error in Member Value.getValue: " +
+                                     "Attempted to modify a structured value.",path:pathMsg);
+else
+  // This member is a simple data type, we need to get the runtime value of the
+  // static value it is based on, and traverse from it to the simple value it
+  // should contain.
+  select one rootVal related by self->V_VAL[R837];
+  rtVal_ID = rootVal.getRuntimeValue(stack_frame_id:param.stack_frame_id);
+  select any strctRuntimeValue from instances of RV_RVL where
+                                           selected.RuntimeValue_ID == rtVal_ID;
+  select one strctValue related by strctRuntimeValue->RV_SVL[R3300];
+  select any vis related by strctValue->RV_VIS[R3301] where
+                                                   selected.Name == member.Name;
+  if not_empty vis
+    select one simpleValue related by vis->RV_RVL[R3301]->RV_SMV[R3300];
+    simpleValue.setValue(value:param.value);
+  else
+    // This is the first time it was written, create the value.
+    
+    create object instance val of RV_RVL;
+    val.createSimpleValue();
+    select one simpleValue related by val->RV_SMV[R3300];
+    create object instance vis of RV_VIS;
+    relate strctValue to val across R3301 using vis;
+    vis.Name = member.Name;
+    relate val to dt across R3307;
+    simpleValue.setValue(value:param.value);
+  end if;
+end if;',
+	1,
+	'',
+	"db108d8b-c427-46d5-a91f-2175d0c2135a");
+INSERT INTO O_TPARM
+	VALUES ("749c6da9-5ad7-4a9e-acf1-2be152318b33",
+	"ed881f36-79ec-4ca2-986d-de93be0f5662",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("8aca35f5-b3ba-4c63-b768-4201a17b3614",
+	"ed881f36-79ec-4ca2-986d-de93be0f5662",
+	'value',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"749c6da9-5ad7-4a9e-acf1-2be152318b33",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("45fc225e-97dc-42b6-be28-23332d53b93a",
+	"ed881f36-79ec-4ca2-986d-de93be0f5662",
+	'member_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"8aca35f5-b3ba-4c63-b768-4201a17b3614",
+	'');
+INSERT INTO O_TFR
+	VALUES ("34b0f206-2316-49af-918b-a420deb12de9",
+	"31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	'getRuntimeValue',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// Member Value.getRuntimeValue()
+select one body related by self->V_VAL[R801]->ACT_BLK[R826]->ACT_ACT[R601];
+select one member related by self->S_MBR[R836];
+select one rootVal related by self->V_VAL[R837];
+rtVal_ID = rootVal.getRuntimeValue(stack_frame_id:param.stack_frame_id);
+if rtVal_ID != GD::NULL_UNIQUE_ID()
+  select any strctRuntimeValue from instances of RV_RVL where
+                                           selected.RuntimeValue_ID == rtVal_ID;
+  select one strctValue related by strctRuntimeValue->RV_SVL[R3300];
+  select any vis related by strctValue->RV_VIS[R3301] where
+                                                   selected.Name == member.Name;
+  if (empty vis)
+    create object instance vis of RV_VIS;
+    create object instance rvl of RV_RVL;
+    select one superVal related by self->V_VAL[R801];
+    vis.Name = member.Name;
+    select one dt related by member->S_DT[R45];
+    relate rvl to dt across R3307;
+    relate strctValue to rvl across R3301 using vis;
+    if superVal.isLeaf()
+      // getRuntimeValue() is only called on the rValue, so this is an error.
+      	pathMsg = "<No Path Available - Empty instance>";
+	if (not_empty body)
+	  pathMsg = body.getPath();
+	end if;
+	USER::logError(msg:"Warning: " +
+                   "Attempted to access structured value ->" + member.Name +
+                                   "<- before it was set. Using default value",path:pathMsg);
+      rvl.createSimpleValue();
+      select one smplVal related by rvl->RV_SMV[R3300];
+      select one dt related by member->S_DT[R45];
+      smplVal.setValue(value:dt.getDefaultValue());
+    else
+      if member.getDimensionsCnt() != 0
+        create object instance avl of RV_AVL;
+        relate rvl to avl across R3300;
+      else
+        select one dt related by member->S_DT[R45];
+        select one sdt related by dt->S_SDT[R17];
+        if not_empty sdt
+          create object instance svl of RV_SVL;
+          relate svl to rvl across R3300;
+        else
+          rvl.createSimpleValue();
+        end if;
+      end if;
+    end if;
+    return vis.ContainedRuntimeValue_ID;
+  else
+    return vis.ContainedRuntimeValue_ID;
+  end if;
+end if;
+return rtVal_ID; // Always null if we get here',
+	1,
+	'',
+	"462f42a8-93d6-454b-ac51-86878f87d519");
+INSERT INTO O_TPARM
+	VALUES ("7c907ad2-8871-471b-ab08-0e52903b68f0",
+	"34b0f206-2316-49af-918b-a420deb12de9",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_REF
+	VALUES ("31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"f45cba3b-f381-475e-b8a9-3b355142054d",
+	"9b77a7e2-85de-43fe-923f-8f7ad4553908",
+	"0a07b8be-4053-4dc6-a060-df5a70cbbed5",
+	"77d1faf1-5a41-47c6-83ac-131ce4584ed2",
+	"2db6bb7e-94de-4671-b878-d14a3b7d92ff",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Value',
+	'Value_ID',
+	'R801');
+INSERT INTO R_RGO_PROXY
+	VALUES ("31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	"f45cba3b-f381-475e-b8a9-3b355142054d",
+	"9b77a7e2-85de-43fe-923f-8f7ad4553908",
+	'../Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"f45cba3b-f381-475e-b8a9-3b355142054d",
+	"0a07b8be-4053-4dc6-a060-df5a70cbbed5",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("77d1faf1-5a41-47c6-83ac-131ce4584ed2",
+	"31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	1,
+	'Value_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'../Value/Value.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("77d1faf1-5a41-47c6-83ac-131ce4584ed2",
+	"31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	"00000000-0000-0000-0000-000000000000",
+	'Value_ID',
+	'',
+	'',
+	'Value_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"0b907ddb-2300-46ff-b3a4-f068bdf134c2",
+	"df81c403-1947-4d63-a7c1-0dd512b654a8",
+	"9c324e06-2fea-4b0b-bec9-f4dc8c77ca0c",
+	"b23f25ed-8ed9-4e82-8200-86e96e0e2be1",
+	"de9e9122-1686-4bb3-874f-11bc4014ae96",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Value',
+	'Value_ID',
+	'R837');
+INSERT INTO R_RGO_PROXY
+	VALUES ("31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	"0b907ddb-2300-46ff-b3a4-f068bdf134c2",
+	"df81c403-1947-4d63-a7c1-0dd512b654a8",
+	'../Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"0b907ddb-2300-46ff-b3a4-f068bdf134c2",
+	"9c324e06-2fea-4b0b-bec9-f4dc8c77ca0c",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b23f25ed-8ed9-4e82-8200-86e96e0e2be1",
+	"31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	1,
+	'Value_ID');
+INSERT INTO O_ATTR
+	VALUES ("b23f25ed-8ed9-4e82-8200-86e96e0e2be1",
+	"31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	"77d1faf1-5a41-47c6-83ac-131ce4584ed2",
+	'Root_Value_ID',
+	'',
+	'Root_',
+	'Value_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	"10bbec7e-549f-48a0-bf2e-2c442db77b30",
+	0,
+	"5cf7d568-dc12-4dc4-8d90-c6c6404a66ef",
+	"8d005bb4-b9cb-40e4-8edc-d77fc5f423f1",
+	"0d008f51-1fc4-4744-a58f-bde513a2fe1a",
+	"85b1f078-467e-4345-b9ae-f023431c9b00",
+	"c0f0b8ce-5f70-4515-a5bd-c531523a06ba",
+	"c9a4f7c4-d63c-4ac8-b4e4-a6626eec8130",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Structure Member',
+	'Member_ID',
+	'R836');
+INSERT INTO R_RGO_PROXY
+	VALUES ("31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	"8d005bb4-b9cb-40e4-8edc-d77fc5f423f1",
+	"0d008f51-1fc4-4744-a58f-bde513a2fe1a",
+	'../Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("5cf7d568-dc12-4dc4-8d90-c6c6404a66ef",
+	"10bbec7e-549f-48a0-bf2e-2c442db77b30",
+	0,
+	"8d005bb4-b9cb-40e4-8edc-d77fc5f423f1",
+	"85b1f078-467e-4345-b9ae-f023431c9b00",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("c0f0b8ce-5f70-4515-a5bd-c531523a06ba",
+	"31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	"5cf7d568-dc12-4dc4-8d90-c6c6404a66ef",
+	"10bbec7e-549f-48a0-bf2e-2c442db77b30",
+	1,
+	'Member_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5cf7d568-dc12-4dc4-8d90-c6c6404a66ef",
+	"10bbec7e-549f-48a0-bf2e-2c442db77b30",
+	'../../Domain/Structure Member/Structure Member.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("c0f0b8ce-5f70-4515-a5bd-c531523a06ba",
+	"31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	"b23f25ed-8ed9-4e82-8200-86e96e0e2be1",
+	'Member_ID',
+	'',
+	'',
+	'Member_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	"10bbec7e-549f-48a0-bf2e-2c442db77b30",
+	0,
+	"524c655b-3191-4d27-9d7a-0b1b7ea52229",
+	"8d005bb4-b9cb-40e4-8edc-d77fc5f423f1",
+	"0d008f51-1fc4-4744-a58f-bde513a2fe1a",
+	"85b1f078-467e-4345-b9ae-f023431c9b00",
+	"6bd67fb4-a216-496f-bf67-b04b4d2436d0",
+	"9de4f2a3-2e12-4b9f-9e2c-33588e5a4ad4",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Structure Member',
+	'Parent_DT_DT_ID',
+	'R836');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("524c655b-3191-4d27-9d7a-0b1b7ea52229",
+	"10bbec7e-549f-48a0-bf2e-2c442db77b30",
+	0,
+	"8d005bb4-b9cb-40e4-8edc-d77fc5f423f1",
+	"85b1f078-467e-4345-b9ae-f023431c9b00",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("6bd67fb4-a216-496f-bf67-b04b4d2436d0",
+	"31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("6bd67fb4-a216-496f-bf67-b04b4d2436d0",
+	"31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	"c0f0b8ce-5f70-4515-a5bd-c531523a06ba",
+	'DT_DT_ID',
+	'',
+	'DT_',
+	'Parent_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"31c49eec-8fad-46b1-8fc7-37bf34bef9ac");
+INSERT INTO O_OIDA
+	VALUES ("77d1faf1-5a41-47c6-83ac-131ce4584ed2",
+	"31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
+	0,
+	'Value_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"31c49eec-8fad-46b1-8fc7-37bf34bef9ac");
+INSERT INTO O_ID
+	VALUES (2,
+	"31c49eec-8fad-46b1-8fc7-37bf34bef9ac");
+INSERT INTO S_SS_PROXY
+	VALUES ("e060f94c-3f82-463e-9d98-d20315b7c196",
+	'Value',
+	'This subsystem formalizes the concepts of values (r-values) and variables 
+(l-values). It also captures the concept of an actual parameter.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'V',
+	800,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000400008",
+	'../Value.xtuml');
