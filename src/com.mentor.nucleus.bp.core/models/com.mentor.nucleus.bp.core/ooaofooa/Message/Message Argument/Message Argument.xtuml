@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("47e060be-45f5-4197-9592-1f6599becfb5",
@@ -12,13 +12,13 @@ S_BPARM
 O_TPARM
 S_SPARM
 SM_EVTDI',
-	"5b26fa8b-77b9-4af0-807d-28be1c9e1735");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("1af9aa22-153b-476d-94fe-ac6d1a7f60ce",
 	"47e060be-45f5-4197-9592-1f6599becfb5",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// dispose all formal arguments
 select one ba related by self->MSG_BA[R1013];
@@ -63,19 +63,12 @@ delete object instance self;',
 	1,
 	'',
 	"950b6eb3-c420-4e12-aa67-d06b2673ca68");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("f0c4f50f-3959-4f44-b589-beb863ffe1d0",
 	"47e060be-45f5-4197-9592-1f6599becfb5",
 	'initialize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'name = "Informal Argument";
 success = ::getNewElementName(name:name,instance: self.convertToInstance(),validateName:false);    
@@ -92,43 +85,29 @@ INSERT INTO O_TFR
 	"47e060be-45f5-4197-9592-1f6599becfb5",
 	'get_name',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'return self.Label;',
 	1,
 	'',
 	"1af9aa22-153b-476d-94fe-ac6d1a7f60ce");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("950b6eb3-c420-4e12-aa67-d06b2673ca68",
 	"47e060be-45f5-4197-9592-1f6599becfb5",
 	'canRename',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'return not self.isFormal;',
 	1,
 	'',
 	"a3a6fc88-a143-4070-8754-ba603ac321c9");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("a3a6fc88-a143-4070-8754-ba603ac321c9",
 	"47e060be-45f5-4197-9592-1f6599becfb5",
 	'canDelete',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'return not self.isFormal;',
 	1,
@@ -150,7 +129,7 @@ Translate: native
 	"f0c4f50f-3959-4f44-b589-beb863ffe1d0");
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
 	'',
 	'',
@@ -170,16 +149,9 @@ INSERT INTO O_ATTR
 	'',
 	'Arg_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_DBATTR
 	VALUES ("ffdcd426-5a03-4a5a-85b1-319a62906e8a",
 	"47e060be-45f5-4197-9592-1f6599becfb5",
@@ -225,7 +197,7 @@ INSERT INTO O_ATTR
 	'',
 	'Label',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -243,7 +215,7 @@ INSERT INTO O_ATTR
 	'',
 	'Value',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -261,7 +233,7 @@ INSERT INTO O_ATTR
 	'',
 	'InformalName',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -280,7 +252,7 @@ Description: A textual description of this argument.',
 	'',
 	'Descrip',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_DBATTR
@@ -301,7 +273,7 @@ INSERT INTO O_ATTR
 	'',
 	'isFormal',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_REF
@@ -319,7 +291,7 @@ INSERT INTO O_REF
 	'',
 	'Message',
 	'Msg_ID',
-	'R1000');
+	'R1000.''belongs to informal''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("47e060be-45f5-4197-9592-1f6599becfb5",
 	"2942f31d-afb4-4e63-a20f-f76ff3803625",
@@ -352,16 +324,9 @@ INSERT INTO O_ATTR
 	'Informal_',
 	'MSG_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("47e060be-45f5-4197-9592-1f6599becfb5",
 	"77d1cb23-9b16-462c-99a7-0df500aade81",
@@ -377,7 +342,7 @@ INSERT INTO O_REF
 	'',
 	'Message',
 	'Msg_ID',
-	'R1001');
+	'R1001.''belongs to formal''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("47e060be-45f5-4197-9592-1f6599becfb5",
 	"4bf92eb3-3655-4b16-a46b-18f3cfe0f749",
@@ -406,7 +371,7 @@ INSERT INTO O_ATTR
 	'Formal_',
 	'MSG_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -423,13 +388,18 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"47e060be-45f5-4197-9592-1f6599becfb5");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("47e060be-45f5-4197-9592-1f6599becfb5",
+	1,
+	"5b26fa8b-77b9-4af0-807d-28be1c9e1735",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("5b26fa8b-77b9-4af0-807d-28be1c9e1735",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Message',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE',
-	'MSG',
 	1000,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Message.xtuml');

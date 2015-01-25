@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("a8749155-bcca-4a5b-9b3d-2709618aa717",
@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	8,
 	'S_EEEDT',
 	'When an instance of event data item (S_EEEDI) is used in an event (S_EEEVT), an instance of S_EEEDT is created to represent the event as data in an event.  The supplemental data for an external entity event are instances of this class.',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("b81947d6-ed96-4423-8b34-c2435cfc9e8b",
 	"a8749155-bcca-4a5b-9b3d-2709618aa717",
 	'dispose',
 	'The dispose operation for this class.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one eeevt related by self->S_EEEVT[R13];
 select one eeedi related by self->S_EEEDI[R13];
@@ -22,19 +22,12 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("7ac799b2-1456-4f55-b93b-2dc7c38321d3",
 	"a8749155-bcca-4a5b-9b3d-2709618aa717",
 	'get_name',
 	'',
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	1,
 	'select one eed_item related by self->S_EEEDI[R13];
 if (not_empty eed_item)
@@ -47,13 +40,6 @@ end if;
 	1,
 	'',
 	"b81947d6-ed96-4423-8b34-c2435cfc9e8b");
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("a8749155-bcca-4a5b-9b3d-2709618aa717",
 	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
@@ -69,7 +55,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity Event',
 	'EEevt_ID',
-	'R13');
+	'R13.''is carried via''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("a8749155-bcca-4a5b-9b3d-2709618aa717",
 	"932ad19e-16db-441a-84f2-925a02741da1",
@@ -102,16 +88,9 @@ INSERT INTO O_ATTR
 	'',
 	'EEevt_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("a8749155-bcca-4a5b-9b3d-2709618aa717",
 	"52851cb7-3b3b-43f8-a631-e850ba13a4b8",
@@ -127,7 +106,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity Event Data Item',
 	'EEedi_ID',
-	'R13');
+	'R13.''may carry''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("49b657ac-2a2e-4dd0-a706-55f0f7c3beca",
 	"52851cb7-3b3b-43f8-a631-e850ba13a4b8",
@@ -155,7 +134,7 @@ INSERT INTO O_ATTR
 	'',
 	'EEedi_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -173,7 +152,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity Event',
 	'EE_ID',
-	'R13');
+	'R13.''is carried via''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("e060c3d3-399d-444e-b65e-e7be44c3ed7f",
 	"5adc63b1-9773-4ea9-97ef-67828018b3a6",
@@ -196,7 +175,7 @@ INSERT INTO O_REF
 	'',
 	'External Entity Event Data Item',
 	'EE_ID',
-	'R13');
+	'R13.''may carry''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("5b7d776e-b126-4932-bc93-430c43825ce4",
 	"52851cb7-3b3b-43f8-a631-e850ba13a4b8",
@@ -224,7 +203,7 @@ INSERT INTO O_ATTR
 	'',
 	'EE_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -251,12 +230,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"a8749155-bcca-4a5b-9b3d-2709618aa717");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("a8749155-bcca-4a5b-9b3d-2709618aa717",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Domain',
 	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
-	'S',
 	1,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000100002",
 	'../Domain.xtuml');

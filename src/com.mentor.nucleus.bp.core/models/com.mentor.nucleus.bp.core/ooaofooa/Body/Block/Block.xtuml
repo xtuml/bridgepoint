@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
@@ -8,7 +8,7 @@ INSERT INTO O_OBJ
 	'This class represents a block of action language within an action. Each block contains a number of statements.
 
 ',
-	"76583c73-7a99-4c81-b260-8109e6cef5ca");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("9a02c640-bc67-43d0-b82e-e55823be3101",
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
@@ -20,7 +20,7 @@ This operation is used for resetting the block data after the parser has an
 unrecoverable token error.
 ---------------------------------------------------------------------
 Bridge:ALS',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	0,
 	'select any act from instances of ACT_ACT where ( selected.Action_ID == param.currentContext);
 if(not_empty act)
@@ -37,25 +37,11 @@ INSERT INTO O_TPARM
 	VALUES ("dfbc0f5d-0744-46d3-8467-9ff55ea90209",
 	"9a02c640-bc67-43d0-b82e-e55823be3101",
 	'currentContext',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("4c1621a0-0dca-4de2-bdb9-41d700025737",
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
@@ -63,7 +49,7 @@ INSERT INTO O_TFR
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select many statement_set related by self->ACT_SMT[R602];
 for each statement in statement_set
@@ -144,7 +130,7 @@ INSERT INTO O_TFR
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
 	'newLocalReference',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'create object instance local_ref of L_LCR;
 create object instance local of L_LCL;
@@ -175,7 +161,7 @@ INSERT INTO O_TPARM
 	VALUES ("64c01671-0bbc-4593-9a90-36041f29f7eb",
 	"2c6fa559-cae7-45ed-80aa-d72500f547fc",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -185,7 +171,7 @@ INSERT INTO O_TFR
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
 	'newLocalValue',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'create object instance local_val of L_LVL;
 create object instance local of L_LCL;
@@ -214,7 +200,7 @@ INSERT INTO O_TPARM
 	VALUES ("4b2b1e17-4cd6-4afb-9d22-35fcbc225e75",
 	"50b1d8d6-3b39-440c-a311-76d41b100ccf",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -224,7 +210,7 @@ INSERT INTO O_TFR
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
 	'newLocalSelectedReference',
 	'',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'create object instance local_selected_ref of L_LSR;
 create object instance local of L_LCL;
@@ -254,7 +240,7 @@ INSERT INTO O_TPARM
 	VALUES ("75af7524-e54f-40be-9134-3a280c23b983",
 	"2328d5bc-16fb-40ca-8031-a4798a29be74",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -264,7 +250,7 @@ INSERT INTO O_TFR
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
 	'isOuter',
 	'',
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	1,
 	'// Block.isOuter
 select one body related by self->ACT_ACT[R666];
@@ -272,19 +258,12 @@ return not_empty body;',
 	1,
 	'',
 	"26fcc2ca-8a3b-4ba1-ab3d-9c1993735480");
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("26fcc2ca-8a3b-4ba1-ab3d-9c1993735480",
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
 	'initialize',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Block.initialize()
 select many statements related by self->ACT_SMT[R602];
@@ -307,7 +286,7 @@ INSERT INTO O_TFR
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
 	'popUpBlock',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Block.popUpBlock
 select any currentBisf related by self->I_BSF[R2923] where
@@ -421,7 +400,7 @@ INSERT INTO O_TPARM
 	VALUES ("8cfede93-754d-466a-83c2-408d1a7f3a00",
 	"89f09e06-8006-40f4-ba45-233816bdc2f1",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -431,7 +410,7 @@ INSERT INTO O_TFR
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
 	'exitAsynchronousActivity',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	' 
 //select  any stateActionBody from instances of ACT_SAB where 
@@ -495,7 +474,7 @@ INSERT INTO O_TPARM
 	VALUES ("29ca50c1-a7a4-4eb9-b1e4-f33c9a2c82a0",
 	"941315c9-3b82-4a3e-bc3d-ef8d4747fc9d",
 	'stack_ID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
@@ -504,7 +483,7 @@ INSERT INTO O_TPARM
 	VALUES ("07490816-6adb-491c-ba3d-c999e7b2fe9f",
 	"941315c9-3b82-4a3e-bc3d-ef8d4747fc9d",
 	'body_ID',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"29ca50c1-a7a4-4eb9-b1e4-f33c9a2c82a0",
@@ -524,7 +503,7 @@ INSERT INTO O_ATTR
 	'',
 	'Block_ID',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
 INSERT INTO O_REF
@@ -542,7 +521,7 @@ INSERT INTO O_REF
 	'',
 	'Body',
 	'Action_ID',
-	'R601');
+	'R601.''is committed from''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
 	"269794a3-aace-4c3e-8dae-c0a56ef0cc2a",
@@ -575,16 +554,9 @@ INSERT INTO O_ATTR
 	'',
 	'Action_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("5c3c14d4-ab4d-44cf-be84-cb2014b12454",
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e");
@@ -602,7 +574,7 @@ Bridge:ALS',
 	'',
 	'WhereSpecOK',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -622,7 +594,7 @@ Bridge:ALS',
 	'',
 	'InWhereSpec',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -642,7 +614,7 @@ Bridge:ALS',
 	'',
 	'SelectedFound',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -666,16 +638,9 @@ Bridge:ALS
 	'',
 	'TempBuffer',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("447d68bb-641d-4c67-8fc1-e36bca83cfae",
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e");
@@ -697,7 +662,7 @@ Bridge:ALS
 	'',
 	'SupData1',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -719,7 +684,7 @@ Bridge:ALS
 	'',
 	'SupData2',
 	0,
-	"528ced7e-5308-4195-8093-ca0c55401f58",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -738,16 +703,9 @@ currently being parsed.',
 	'',
 	'CurrentLine',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("10cd7d5a-5062-40e8-be6b-e056f7c27841",
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e");
@@ -764,7 +722,7 @@ currently being parsed.',
 	'',
 	'CurrentCol',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -784,7 +742,7 @@ key-letters token parsed in this block.
 	'',
 	'currentKeyLettersLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -804,7 +762,7 @@ key-letters token parsed in this block.
 	'',
 	'currentKeyLettersColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -822,7 +780,7 @@ INSERT INTO O_ATTR
 	'',
 	'currentParameterAssignmentNameLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -840,7 +798,7 @@ INSERT INTO O_ATTR
 	'',
 	'currentParameterAssignmentNameColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -858,7 +816,7 @@ INSERT INTO O_ATTR
 	'',
 	'currentAssociationNumberLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -876,7 +834,7 @@ INSERT INTO O_ATTR
 	'',
 	'currentAssociationNumberColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -894,7 +852,7 @@ INSERT INTO O_ATTR
 	'',
 	'currentAssociationPhraseLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -912,7 +870,7 @@ INSERT INTO O_ATTR
 	'',
 	'currentAssociationPhraseColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -930,7 +888,7 @@ INSERT INTO O_ATTR
 	'',
 	'currentDataTypeNameLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -948,7 +906,7 @@ INSERT INTO O_ATTR
 	'',
 	'currentDataTypeNameColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -966,7 +924,7 @@ INSERT INTO O_ATTR
 	'',
 	'blockInStackFrameCreated',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
 INSERT INTO O_REF
@@ -984,7 +942,7 @@ INSERT INTO O_REF
 	'',
 	'Body',
 	'Action_ID',
-	'R612');
+	'R612.''is parsed from''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
 	"30d59440-62c4-4d60-ba13-5a4ad3627894",
@@ -1013,7 +971,7 @@ INSERT INTO O_ATTR
 	'Parsed_',
 	'Action_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -1030,8 +988,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	1,
+	"76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Body',
 	'This subsystem abstracts the action itself, the blocks and statements
 it contains together with the flow of control statements such as ''while'',
@@ -1041,8 +1007,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000380007",
 	'../Body.xtuml');

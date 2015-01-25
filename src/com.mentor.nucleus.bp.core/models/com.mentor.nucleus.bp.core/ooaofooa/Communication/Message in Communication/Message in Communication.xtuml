@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("c4064bc4-8161-488d-9b1f-b13efdd14cfb",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	1128,
 	'COMM_MIC',
 	'',
-	"80f3247a-4c81-49db-84c9-95a20af2ffaf");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("c4064bc4-8161-488d-9b1f-b13efdd14cfb",
 	"ebbaac7e-9a48-4ea6-bb48-c27b0d4b08c7",
@@ -22,7 +22,7 @@ INSERT INTO O_REF
 	'',
 	'Communication',
 	'Package_ID',
-	'R1135');
+	'R1135.''can be displayed in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("c4064bc4-8161-488d-9b1f-b13efdd14cfb",
 	"e3322963-41d2-49e4-9384-fcc8f4f18729",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'Package_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("c4064bc4-8161-488d-9b1f-b13efdd14cfb",
 	"77d1cb23-9b16-462c-99a7-0df500aade81",
@@ -80,7 +73,7 @@ INSERT INTO O_REF
 	'',
 	'Message',
 	'Msg_ID',
-	'R1135');
+	'R1135.''may display''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("38f49fd7-1298-4072-add6-12f98b1f966d",
 	"77d1cb23-9b16-462c-99a7-0df500aade81",
@@ -108,7 +101,7 @@ INSERT INTO O_ATTR
 	'',
 	'Msg_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -130,13 +123,18 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"c4064bc4-8161-488d-9b1f-b13efdd14cfb");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("c4064bc4-8161-488d-9b1f-b13efdd14cfb",
+	1,
+	"80f3247a-4c81-49db-84c9-95a20af2ffaf",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("80f3247a-4c81-49db-84c9-95a20af2ffaf",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Communication',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE',
-	'COMM',
 	1125,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Communication.xtuml');

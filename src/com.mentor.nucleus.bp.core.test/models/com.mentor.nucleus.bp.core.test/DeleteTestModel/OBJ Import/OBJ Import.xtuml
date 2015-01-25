@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("cb35b5ae-6152-4463-9c2c-bbed0dd7f7df",
@@ -25,14 +25,14 @@ INSERT INTO GD_MD
 	0,
 	0,
 	'',
-	'DeleteTestModel::OBJ Import');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::OBJ Import');
 INSERT INTO GD_GE
 	VALUES ("1083adf0-c63a-49f4-89fa-e3ea773dca30",
 	"d0285236-2afb-4bad-9215-9d13140994cf",
 	"f124282f-3ada-4b23-9a1d-23c32a755d71",
 	21,
 	0,
-	'DeleteTestModel::OBJ Import::Test Class OtherSide1');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::OBJ Import::Test Class OtherSide1');
 INSERT INTO GD_SHP
 	VALUES ("1083adf0-c63a-49f4-89fa-e3ea773dca30");
 INSERT INTO GD_NCS
@@ -56,7 +56,7 @@ INSERT INTO GD_GE
 	"5440afc3-c20f-4546-a783-c8057ccf4454",
 	21,
 	0,
-	'DeleteTestModel::OBJ Import::Test Class OtherSide2');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::OBJ Import::Test Class OtherSide2');
 INSERT INTO GD_SHP
 	VALUES ("f4f5b100-a2af-4981-8468-9fb51f6a1038");
 INSERT INTO GD_NCS
@@ -80,7 +80,7 @@ INSERT INTO GD_GE
 	"ed4d534f-dba5-415c-975c-695db313a791",
 	21,
 	0,
-	'DeleteTestModel::OBJ Import::Test Class OtherSide3');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::OBJ Import::Test Class OtherSide3');
 INSERT INTO GD_SHP
 	VALUES ("12a6a1ea-30d4-4d66-9b73-6e48d6cfffc1");
 INSERT INTO GD_NCS
@@ -104,7 +104,7 @@ INSERT INTO GD_GE
 	"0a574f74-73db-4570-9011-34aa40658f65",
 	21,
 	0,
-	'DeleteTestModel::OBJ Import::Test Class OtherSide4');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::OBJ Import::Test Class OtherSide4');
 INSERT INTO GD_SHP
 	VALUES ("ef41f191-c545-401e-ad16-84470a354c64");
 INSERT INTO GD_NCS
@@ -128,7 +128,7 @@ INSERT INTO GD_GE
 	"bc1fd843-f37c-412e-8a18-7ca5adbf9c2a",
 	21,
 	0,
-	'DeleteTestModel::OBJ Import::Test Class OtherSide5');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::OBJ Import::Test Class OtherSide5');
 INSERT INTO GD_SHP
 	VALUES ("bcab41c6-f763-4cd9-ad8f-48a77ca67fe5");
 INSERT INTO GD_NCS
@@ -152,7 +152,7 @@ INSERT INTO GD_GE
 	"25380469-9b63-4b54-8dcb-2e654010c0c8",
 	21,
 	0,
-	'DeleteTestModel::OBJ Import::Test Class OtherSide6');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::OBJ Import::Test Class OtherSide6');
 INSERT INTO GD_SHP
 	VALUES ("de8c4008-2a88-41e3-820d-278a070718d2");
 INSERT INTO GD_NCS

@@ -1,4 +1,4 @@
--- BP 7.1 content: Package syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO EP_PKG
 	VALUES ("b65b97e4-ed08-44c8-a9fe-7f72e3973ac6",
@@ -25,14 +25,14 @@ INSERT INTO GD_MD
 	0,
 	0,
 	'',
-	'DeleteTestModel::Import Subsystem');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::Import Subsystem');
 INSERT INTO GD_GE
 	VALUES ("5228bc03-8249-4c72-8997-312585558039",
 	"07aa029a-5c05-4b67-a923-e08d1cf95b48",
 	"6a696a6c-dec1-4302-a29f-86d61b0a3315",
 	21,
 	0,
-	'DeleteTestModel::Import Subsystem::Test Import Class');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::Import Subsystem::Test Import Class');
 INSERT INTO GD_SHP
 	VALUES ("5228bc03-8249-4c72-8997-312585558039");
 INSERT INTO GD_NCS
@@ -56,7 +56,7 @@ INSERT INTO GD_GE
 	"d5a6482a-023f-407f-9ccd-4e7f48b9fcfd",
 	21,
 	0,
-	'DeleteTestModel::Import Subsystem::Test Import Class OtherSide');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::Import Subsystem::Test Import Class OtherSide');
 INSERT INTO GD_SHP
 	VALUES ("a29923e7-1f56-4bd7-b0fd-66949d386a99");
 INSERT INTO GD_NCS
@@ -80,7 +80,7 @@ INSERT INTO GD_GE
 	"53b3fbf1-645c-4500-84c8-ffc569339046",
 	21,
 	0,
-	'DeleteTestModel::Import Subsystem::Test Class Formalized 1');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::Import Subsystem::Test Class Formalized 1');
 INSERT INTO GD_SHP
 	VALUES ("9d8f8045-3723-4a2a-9fc6-3ee3be72901b");
 INSERT INTO GD_NCS
@@ -104,7 +104,7 @@ INSERT INTO GD_GE
 	"90fa3487-2bc8-48b6-be08-eb110a388598",
 	21,
 	0,
-	'DeleteTestModel::Import Subsystem::Test Import Class Formalized 2');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::Import Subsystem::Test Import Class Formalized 2');
 INSERT INTO GD_SHP
 	VALUES ("e1248486-6758-4fd0-8fa1-a577ec8dd3e7");
 INSERT INTO GD_NCS
@@ -128,7 +128,7 @@ INSERT INTO GD_GE
 	"4676a02a-ed82-4938-961e-6fb73b05d717",
 	21,
 	0,
-	'DeleteTestModel::Import Subsystem::Test Import Class Formalized 3');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::Import Subsystem::Test Import Class Formalized 3');
 INSERT INTO GD_SHP
 	VALUES ("552a8f1a-85c7-4c7f-8f68-e8f125df964c");
 INSERT INTO GD_NCS
@@ -152,7 +152,7 @@ INSERT INTO GD_GE
 	"b14dfe76-464b-4278-8ff2-8712527f98be",
 	21,
 	0,
-	'DeleteTestModel::Import Subsystem::Test Import Class Formalized 4');
+	'com.mentor.nucleus.bp.core.test::DeleteTestModel::Import Subsystem::Test Import Class Formalized 4');
 INSERT INTO GD_SHP
 	VALUES ("d190431a-3345-4b73-b7bf-c0fa8dc054e3");
 INSERT INTO GD_NCS

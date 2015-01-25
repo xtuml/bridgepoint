@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("990531c7-7c93-4af4-9e98-687d2f30474e",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	3307,
 	'RV_CRV',
 	'',
-	"7532d38c-8a9a-4a7d-81a0-61f814f64f06");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("f478964e-3a35-4b4f-8c9a-7e24dc8001db",
 	"990531c7-7c93-4af4-9e98-687d2f30474e",
@@ -15,7 +15,7 @@ INSERT INTO O_TFR
 
 Translate: native
 ',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'ComponentInstance_c v_exe = (ComponentInstance_c) p_Value;
 if (v_exe != null) {
@@ -35,15 +35,8 @@ INSERT INTO O_TPARM
 	'');
 INSERT INTO S_DT_PROXY
 	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
 	'instance',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
@@ -95,16 +88,9 @@ INSERT INTO O_ATTR
 	'',
 	'RuntimeValue_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("990531c7-7c93-4af4-9e98-687d2f30474e",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
@@ -153,7 +139,7 @@ INSERT INTO O_ATTR
 	'',
 	'Execution_Engine_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -170,15 +156,20 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"990531c7-7c93-4af4-9e98-687d2f30474e");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("990531c7-7c93-4af4-9e98-687d2f30474e",
+	1,
+	"7532d38c-8a9a-4a7d-81a0-61f814f64f06",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("7532d38c-8a9a-4a7d-81a0-61f814f64f06",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Runtime Value',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 Persistent:false
 ',
-	'RV',
 	3300,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Runtime Value.xtuml');

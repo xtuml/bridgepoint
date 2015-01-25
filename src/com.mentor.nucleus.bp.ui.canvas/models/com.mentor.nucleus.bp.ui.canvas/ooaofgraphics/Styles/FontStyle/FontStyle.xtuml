@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("a0290409-7fed-4393-a001-cd9c346ce6e6",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	400,
 	'STY_FS',
 	'',
-	"9daa01e9-3e90-41ba-bff0-f9213b487f5c");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("a0290409-7fed-4393-a001-cd9c346ce6e6",
 	"548f667c-4311-4aa2-9d52-7aed81972a0f",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'Style_ID',
 	0,
-	"66164f00-293e-4c17-ab30-7972c7c57152",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("970689cd-e091-49f8-8eab-bc1bffe8f8e7",
 	"a0290409-7fed-4393-a001-cd9c346ce6e6");
@@ -80,16 +73,9 @@ INSERT INTO O_ATTR
 	'',
 	'font_identifier',
 	0,
-	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_ID
 	VALUES (0,
 	"a0290409-7fed-4393-a001-cd9c346ce6e6");
@@ -104,12 +90,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"a0290409-7fed-4393-a001-cd9c346ce6e6");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("a0290409-7fed-4393-a001-cd9c346ce6e6",
+	1,
+	"9daa01e9-3e90-41ba-bff0-f9213b487f5c",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("9daa01e9-3e90-41ba-bff0-f9213b487f5c",
+	"00000000-0000-0000-0000-000000000000",
+	"8f801c9a-cf2d-4ef4-b11a-51b8697e3ca8",
 	'Styles',
 	'',
-	'STY',
 	400,
-	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
-	"00000000-0000-0000-0000-000000000000",
 	'../Styles.xtuml');

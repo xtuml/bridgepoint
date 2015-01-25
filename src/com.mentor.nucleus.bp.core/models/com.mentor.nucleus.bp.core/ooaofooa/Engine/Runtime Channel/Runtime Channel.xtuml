@@ -6,13 +6,13 @@ INSERT INTO O_OBJ
 	2920,
 	'I_RCH',
 	'',
-	"ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("839e1a87-2f36-4395-93fc-f69baa4312f5",
 	"16cbdbda-fb38-48cf-83a9-c98dcd2053fc",
 	'dispose',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Channel.dispose()
 select one satisfaction related by self->C_SF[R2969];
@@ -54,13 +54,6 @@ delete object instance self;',
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("33f9f584-888f-48c5-a37a-26b4838dc031",
 	"16cbdbda-fb38-48cf-83a9-c98dcd2053fc");
@@ -76,16 +69,9 @@ INSERT INTO O_ATTR
 	'',
 	'Channel_Id',
 	0,
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("16cbdbda-fb38-48cf-83a9-c98dcd2053fc",
 	"16cbdbda-fb38-48cf-83a9-c98dcd2053fc",
@@ -130,16 +116,9 @@ INSERT INTO O_ATTR
 	'Next_provider_',
 	'Channel_Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("16cbdbda-fb38-48cf-83a9-c98dcd2053fc",
 	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
@@ -188,7 +167,7 @@ INSERT INTO O_ATTR
 	'',
 	'Execution_Engine_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -230,7 +209,7 @@ INSERT INTO O_ATTR
 	'other_',
 	'Execution_Engine_ID',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -281,7 +260,7 @@ INSERT INTO O_ATTR
 	'Satisfaction_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -328,7 +307,7 @@ INSERT INTO O_ATTR
 	'Delegation_',
 	'Id',
 	1,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -360,15 +339,20 @@ INSERT INTO O_OIDA
 INSERT INTO O_ID
 	VALUES (2,
 	"16cbdbda-fb38-48cf-83a9-c98dcd2053fc");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("16cbdbda-fb38-48cf-83a9-c98dcd2053fc",
+	1,
+	"ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("ce2c2e5b-d701-4d5f-9b67-5db53fc8ca56",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Engine',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 Persistent:false
 Import: java.util.concurrent.locks.ReentrantLock',
-	'I',
 	900,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Engine.xtuml');

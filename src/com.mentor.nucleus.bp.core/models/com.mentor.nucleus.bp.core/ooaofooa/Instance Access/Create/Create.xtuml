@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("5d38192c-4cdd-43f7-9143-438f744adfce",
@@ -6,14 +6,14 @@ INSERT INTO O_OBJ
 	613,
 	'ACT_CR',
 	'This class represents a statement that creates a new instance of some class.',
-	"a5aec8ee-6e5a-457e-bc25-cc65635048bb");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_TFR
 	VALUES ("dab36edb-a9d7-4c9a-9bb2-f707008c40f1",
 	"5d38192c-4cdd-43f7-9143-438f744adfce",
 	'dispose',
 	'This operation disconnects an instance, and all instances it is 
 responsible for, from the model.',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'select one obj related by self->O_OBJ[R671];
 if ( not_empty obj )
@@ -31,19 +31,12 @@ delete object instance self;
 	1,
 	'',
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_DT_PROXY
-	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'void',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_TFR
 	VALUES ("ef69a331-bf9f-4a95-8657-c93e2166d953",
 	"5d38192c-4cdd-43f7-9143-438f744adfce",
 	'execute',
 	'',
-	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
 	'// Instance Access:Create.execute()
 select one body related by self ->V_VAR[R633]->ACT_BLK[R823]->ACT_ACT[R601];
@@ -130,18 +123,11 @@ INSERT INTO O_TPARM
 	VALUES ("b203620e-24b3-436a-9b7d-054ce91aa259",
 	"ef69a331-bf9f-4a95-8657-c93e2166d953",
 	'stack_frame_id',
-	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"ba5eda7a-def5-0000-0000-000000000005",
 	0,
 	'',
 	"00000000-0000-0000-0000-000000000000",
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'unique_id',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("5d38192c-4cdd-43f7-9143-438f744adfce",
 	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
@@ -192,16 +178,9 @@ INSERT INTO O_ATTR
 	'',
 	'Statement_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("5d38192c-4cdd-43f7-9143-438f744adfce",
 	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
@@ -217,7 +196,7 @@ INSERT INTO O_REF
 	'',
 	'Variable',
 	'Var_ID',
-	'R633');
+	'R633.''result''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("5d38192c-4cdd-43f7-9143-438f744adfce",
 	"2a6b55db-4e2b-448f-98e7-a341814c37fb",
@@ -252,7 +231,7 @@ INSERT INTO O_ATTR
 	'',
 	'Var_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_NBATTR
@@ -271,16 +250,9 @@ Specifies whether the instance handle found is being used for the first time in 
 	'',
 	'is_implicit',
 	0,
-	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"ba5eda7a-def5-0000-0000-000000000001",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'boolean',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("0c88a21b-d209-4e02-9189-c2e67159b6e6",
 	"5d38192c-4cdd-43f7-9143-438f744adfce");
@@ -296,16 +268,9 @@ INSERT INTO O_ATTR
 	'',
 	'modelClassKeyLettersLineNumber',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'integer',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_NBATTR
 	VALUES ("749d273e-c229-4c54-bd92-62892cff1724",
 	"5d38192c-4cdd-43f7-9143-438f744adfce");
@@ -321,7 +286,7 @@ INSERT INTO O_ATTR
 	'',
 	'modelClassKeyLettersColumn',
 	0,
-	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_REF
@@ -339,7 +304,7 @@ INSERT INTO O_REF
 	'',
 	'Model Class',
 	'Obj_ID',
-	'R671');
+	'R671.''instance of''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("5d38192c-4cdd-43f7-9143-438f744adfce",
 	"950b4089-8147-466f-a778-aafe3f74e9ce",
@@ -372,7 +337,7 @@ INSERT INTO O_ATTR
 	'',
 	'Obj_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -389,8 +354,16 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"5d38192c-4cdd-43f7-9143-438f744adfce");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("5d38192c-4cdd-43f7-9143-438f744adfce",
+	1,
+	"a5aec8ee-6e5a-457e-bc25-cc65635048bb",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("a5aec8ee-6e5a-457e-bc25-cc65635048bb",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Instance Access',
 	'Abstracts the concepts of creation, deletion and assignment to
 instances. Also includes assignment to transient local variables.
@@ -399,8 +372,5 @@ Persistent:false
 // This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE
 ',
-	'ACT',
 	600,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000480009",
 	'../Instance Access.xtuml');

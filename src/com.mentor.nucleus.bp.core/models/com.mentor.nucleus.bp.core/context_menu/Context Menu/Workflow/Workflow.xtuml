@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("c78c298a-3afe-43eb-b805-4d43d35bbe6e",
@@ -8,7 +8,7 @@ INSERT INTO O_OBJ
 	'A workflow is a series of actions that the user must go through
 to achieve a specific result. Workflows have context which 
 specifies which instance in the client model to operate on.',
-	"22fe2ec1-5660-4a88-9691-da2fe55e94db");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_NBATTR
 	VALUES ("c937d065-d9b2-43c3-9b90-ad06ce098610",
 	"c78c298a-3afe-43eb-b805-4d43d35bbe6e");
@@ -24,16 +24,9 @@ INSERT INTO O_ATTR
 	'',
 	'Name',
 	0,
-	"ff27026a-9d91-4d3d-9c92-888e9483a31c",
+	"ba5eda7a-def5-0000-0000-000000000004",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("ff27026a-9d91-4d3d-9c92-888e9483a31c",
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	'string',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("c78c298a-3afe-43eb-b805-4d43d35bbe6e",
 	"c66296cb-55ee-4c43-9a0b-97893552c80e",
@@ -49,7 +42,7 @@ INSERT INTO O_REF
 	'',
 	'Client Function',
 	'Sync_ID',
-	'R2001');
+	'R2001.''specified by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("c78c298a-3afe-43eb-b805-4d43d35bbe6e",
 	"a40f59ef-0105-4a21-a988-7edbc20071cf",
@@ -84,16 +77,9 @@ workflow was created. ',
 	'',
 	'Sync_ID',
 	0,
-	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("e9939872-4e30-45f7-852c-a44e7f299f8a",
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("c78c298a-3afe-43eb-b805-4d43d35bbe6e",
 	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
@@ -109,7 +95,7 @@ INSERT INTO O_REF
 	'',
 	'Context Menu Entry',
 	'Key_Lett',
-	'R2012');
+	'R2012.''initiated by''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("c78c298a-3afe-43eb-b805-4d43d35bbe6e",
 	"72372228-9dad-4fff-83c0-0ef28f66d5d2",
@@ -142,7 +128,7 @@ INSERT INTO O_ATTR
 	'',
 	'Key_Lett',
 	0,
-	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -160,7 +146,7 @@ INSERT INTO O_REF
 	'',
 	'Context Menu Entry',
 	'Specialism',
-	'R2012');
+	'R2012.''initiated by''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("a02aa5cd-1a6e-4de9-a631-daa947fb041a",
 	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
@@ -188,7 +174,7 @@ INSERT INTO O_ATTR
 	'',
 	'Specialism',
 	0,
-	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_REF
@@ -206,7 +192,7 @@ INSERT INTO O_REF
 	'',
 	'Context Menu Entry',
 	'Label',
-	'R2012');
+	'R2012.''initiated by''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("0063aff7-3a9e-4a07-be3b-f027d9e256f1",
 	"ce45ee87-d94a-478c-81fb-254b7cc76e33",
@@ -234,7 +220,7 @@ INSERT INTO O_ATTR
 	'',
 	'Label',
 	0,
-	"e9939872-4e30-45f7-852c-a44e7f299f8a",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -251,12 +237,17 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"c78c298a-3afe-43eb-b805-4d43d35bbe6e");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("c78c298a-3afe-43eb-b805-4d43d35bbe6e",
+	1,
+	"22fe2ec1-5660-4a88-9691-da2fe55e94db",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("22fe2ec1-5660-4a88-9691-da2fe55e94db",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Context Menu',
 	'',
-	'CM_',
 	1,
-	"1078c098-0f8e-425b-9cfb-5e5d9fbff920",
-	"00000000-0000-0000-0000-000000100002",
 	'../Context Menu.xtuml');

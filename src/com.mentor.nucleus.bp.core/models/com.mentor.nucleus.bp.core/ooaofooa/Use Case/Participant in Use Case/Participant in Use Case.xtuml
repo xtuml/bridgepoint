@@ -1,4 +1,4 @@
--- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
 
 INSERT INTO O_OBJ
 	VALUES ("0ed65336-9bd1-4bdf-838a-207b8d98bb34",
@@ -6,7 +6,7 @@ INSERT INTO O_OBJ
 	1203,
 	'UC_PIUC',
 	'',
-	"2597fe35-f53f-4878-817d-73f2d7a1fa0f");
+	"00000000-0000-0000-0000-000000000000");
 INSERT INTO O_REF
 	VALUES ("0ed65336-9bd1-4bdf-838a-207b8d98bb34",
 	"2d912ded-d79b-40ea-8be6-d2ceaee9721d",
@@ -22,7 +22,7 @@ INSERT INTO O_REF
 	'',
 	'Use Case Diagram',
 	'Package_ID',
-	'R1203');
+	'R1203.''is displayed in''');
 INSERT INTO R_RGO_PROXY
 	VALUES ("0ed65336-9bd1-4bdf-838a-207b8d98bb34",
 	"4485af89-6b90-4445-9627-5b664d9a2feb",
@@ -55,16 +55,9 @@ INSERT INTO O_ATTR
 	'',
 	'Package_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
-INSERT INTO S_DT_PROXY
-	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'same_as<Base_Attribute>',
-	'',
-	'',
-	'../../Datatypes/Datatypes.xtuml');
 INSERT INTO O_REF
 	VALUES ("0ed65336-9bd1-4bdf-838a-207b8d98bb34",
 	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
@@ -80,7 +73,7 @@ INSERT INTO O_REF
 	'',
 	'Interaction Participant',
 	'Part_ID',
-	'R1203');
+	'R1203.''can display''');
 INSERT INTO O_RTIDA_PROXY
 	VALUES ("415afdba-0e71-45f2-b02e-9cab014f028c",
 	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
@@ -108,7 +101,7 @@ INSERT INTO O_ATTR
 	'',
 	'Part_ID',
 	0,
-	"df379511-9dda-46ee-a114-9d591239938d",
+	"ba5eda7a-def5-0000-0000-000000000007",
 	'',
 	'');
 INSERT INTO O_ID
@@ -130,13 +123,18 @@ INSERT INTO O_ID
 INSERT INTO O_ID
 	VALUES (2,
 	"0ed65336-9bd1-4bdf-838a-207b8d98bb34");
-INSERT INTO S_SS_PROXY
+INSERT INTO PE_PE
+	VALUES ("0ed65336-9bd1-4bdf-838a-207b8d98bb34",
+	1,
+	"2597fe35-f53f-4878-817d-73f2d7a1fa0f",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("2597fe35-f53f-4878-817d-73f2d7a1fa0f",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Use Case',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE',
-	'UC',
 	1200,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000",
 	'../Use Case.xtuml');

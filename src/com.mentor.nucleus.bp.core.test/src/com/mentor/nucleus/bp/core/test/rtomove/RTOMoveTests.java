@@ -306,7 +306,7 @@ public class RTOMoveTests extends CanvasTest {
 		}
 		NonRootModelElement destination = getDestination(getSelectableElement(rto));
 		// cut the source
-		if(getName().contains("A1")) {
+		if(getName().contains("A6")) {
 			TestUtil.okToDialog(500, false);
 		}
 		UITestingUtilities.cutElementsInExplorer(getCuttableElements(rto), getExplorerView());

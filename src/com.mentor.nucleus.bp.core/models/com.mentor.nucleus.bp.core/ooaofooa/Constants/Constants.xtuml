@@ -1,501 +1,19 @@
--- BP 7.1 content: Subsystem syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_SS
+INSERT INTO EP_PKG
 	VALUES ("64811fd3-cc5f-4963-9036-8a9110e89dda",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Constants',
 	'This subsystem contains the metamodel support for constants.  Individual
 constants are contained inside a constant specification on the datatypes
 diagram.',
-	'CNST',
-	1500,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_SID
-	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"64811fd3-cc5f-4963-9036-8a9110e89dda");
-INSERT INTO S_DOM_PROXY
-	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'ooaofooa',
-	'========================================================================
-
-File:          $RCSfile: Constants.xtuml,v $
-Version:   $Revision: 1.11 $
-Modified:  $Date: 2013/05/10 13:26:40 $
-
-(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-
-========================================================================
-Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-use this file except in compliance with the License.  You may obtain a copy 
-of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software 
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
-License for the specific language governing permissions and limitations under
-the License.
-========================================================================
-
-This is the application domain for the Tiger project.
-
-The processing in this model describes the activities
-for model capture.
-
-
-
-',
-	1,
-	"00000000-0000-0000-0000-000000000001",
-	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
-	'../ooaofooa.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("88b8c0c4-b643-4073-bb8f-ac395f21bd49",
-	"110e3323-6929-4be9-b265-ce681dd25ec3",
-	0,
-	"64811fd3-cc5f-4963-9036-8a9110e89dda",
-	'Data Type Package',
-	'S_DPK');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
-	'Data Type Package',
-	25,
-	'S_DPK',
-	'Data Type Package represents a package of data types.',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
-	'../Domain/Data Type Package/Data Type Package.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("7168e54f-735c-4b6b-98c9-c35697680397",
-	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	0,
-	"64811fd3-cc5f-4963-9036-8a9110e89dda",
-	'Data Type',
-	'S_DT');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("ead52fac-9782-434b-a35c-c07452c3b26d",
-	'Data Type',
-	9,
-	'S_DT',
-	'An analyst can assign a data type to the various data items in the models, i.e., class attribute, state machine event data item, operation and bridge parameters and return values.  This data type does not capture the representation of the data items, but rather, the characteristics of the data items including:  1) Value Definition, i.e., whole numbers, 2) Value Range, i.e., values between 0 and 10, 3) Operations, i.e., +, -, *, /',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
-	'../Domain/Data Type/Data Type.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("38d89904-4aed-4378-b8a0-f9d6c8af4da2");
-INSERT INTO R_REL
-	VALUES ("38d89904-4aed-4378-b8a0-f9d6c8af4da2",
-	1500,
-	'CrossComponent:true',
-	"64811fd3-cc5f-4963-9036-8a9110e89dda");
-INSERT INTO R_FORM
-	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
-	"38d89904-4aed-4378-b8a0-f9d6c8af4da2",
-	"f27b0c4d-8be1-4f38-bfaf-09177f015659",
-	1,
-	1,
-	'defines the type of');
-INSERT INTO R_RGO
-	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
-	"38d89904-4aed-4378-b8a0-f9d6c8af4da2",
-	"f27b0c4d-8be1-4f38-bfaf-09177f015659");
-INSERT INTO R_OIR
-	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
-	"38d89904-4aed-4378-b8a0-f9d6c8af4da2",
-	"f27b0c4d-8be1-4f38-bfaf-09177f015659",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
-	'Symbolic Constant',
-	1501,
-	'CNST_SYC',
-	'A constant with a name as opposed to a literal constant that has a value only.',
-	"64811fd3-cc5f-4963-9036-8a9110e89dda",
-	'./Symbolic Constant/Symbolic Constant.xtuml');
-INSERT INTO R_PART
-	VALUES ("ead52fac-9782-434b-a35c-c07452c3b26d",
-	"38d89904-4aed-4378-b8a0-f9d6c8af4da2",
-	"2ed1f532-c438-4e7b-9bb5-7f3be714a837",
-	0,
-	0,
-	'is defined by');
-INSERT INTO O_RTIDA
-	VALUES ("0e78201f-a7cd-497b-a6b4-e224ab7915c2",
-	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	0,
-	"38d89904-4aed-4378-b8a0-f9d6c8af4da2",
-	"2ed1f532-c438-4e7b-9bb5-7f3be714a837");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("0e78201f-a7cd-497b-a6b4-e224ab7915c2",
-	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	0,
-	'DT_ID',
-	'../Domain/Data Type/Data Type.xtuml');
-INSERT INTO R_RTO
-	VALUES ("ead52fac-9782-434b-a35c-c07452c3b26d",
-	"38d89904-4aed-4378-b8a0-f9d6c8af4da2",
-	"2ed1f532-c438-4e7b-9bb5-7f3be714a837",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"ead52fac-9782-434b-a35c-c07452c3b26d",
-	'../Domain/Data Type/Data Type.xtuml');
-INSERT INTO R_OIR
-	VALUES ("ead52fac-9782-434b-a35c-c07452c3b26d",
-	"38d89904-4aed-4378-b8a0-f9d6c8af4da2",
-	"2ed1f532-c438-4e7b-9bb5-7f3be714a837",
-	"7168e54f-735c-4b6b-98c9-c35697680397");
-INSERT INTO R_SUBSUP
-	VALUES ("84b75685-dd32-4d74-bb0e-f3d470c5b964");
-INSERT INTO R_REL
-	VALUES ("84b75685-dd32-4d74-bb0e-f3d470c5b964",
-	1502,
-	'',
-	"64811fd3-cc5f-4963-9036-8a9110e89dda");
-INSERT INTO R_SUPER
-	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
-	"84b75685-dd32-4d74-bb0e-f3d470c5b964",
-	"7b2f51ed-cc8e-460e-95d8-ca63789c034a");
-INSERT INTO O_RTIDA
-	VALUES ("2e6beca5-0d3b-4f5d-b2cd-b71a070d3ec8",
-	"d4956257-25ce-4df9-a48f-3600e0983412",
-	0,
-	"84b75685-dd32-4d74-bb0e-f3d470c5b964",
-	"7b2f51ed-cc8e-460e-95d8-ca63789c034a");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("2e6beca5-0d3b-4f5d-b2cd-b71a070d3ec8",
-	"d4956257-25ce-4df9-a48f-3600e0983412",
-	0,
-	'Const_ID',
-	'./Symbolic Constant/Symbolic Constant.xtuml');
-INSERT INTO O_RTIDA
-	VALUES ("b2df6829-6115-4bbb-8630-286da95d1591",
-	"d4956257-25ce-4df9-a48f-3600e0983412",
-	0,
-	"84b75685-dd32-4d74-bb0e-f3d470c5b964",
-	"7b2f51ed-cc8e-460e-95d8-ca63789c034a");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("b2df6829-6115-4bbb-8630-286da95d1591",
-	"d4956257-25ce-4df9-a48f-3600e0983412",
-	0,
-	'DT_ID',
-	'./Symbolic Constant/Symbolic Constant.xtuml');
-INSERT INTO R_RTO
-	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
-	"84b75685-dd32-4d74-bb0e-f3d470c5b964",
-	"7b2f51ed-cc8e-460e-95d8-ca63789c034a",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"d4956257-25ce-4df9-a48f-3600e0983412",
-	'./Symbolic Constant/Symbolic Constant.xtuml');
-INSERT INTO R_OIR
-	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
-	"84b75685-dd32-4d74-bb0e-f3d470c5b964",
-	"7b2f51ed-cc8e-460e-95d8-ca63789c034a",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUB
-	VALUES ("7c2f224d-1929-42ab-8be2-19a6e03dd14e",
-	"84b75685-dd32-4d74-bb0e-f3d470c5b964",
-	"1e22d99f-5254-49cb-a52d-1c3f22938812");
-INSERT INTO R_RGO
-	VALUES ("7c2f224d-1929-42ab-8be2-19a6e03dd14e",
-	"84b75685-dd32-4d74-bb0e-f3d470c5b964",
-	"1e22d99f-5254-49cb-a52d-1c3f22938812");
-INSERT INTO R_OIR
-	VALUES ("7c2f224d-1929-42ab-8be2-19a6e03dd14e",
-	"84b75685-dd32-4d74-bb0e-f3d470c5b964",
-	"1e22d99f-5254-49cb-a52d-1c3f22938812",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("7c2f224d-1929-42ab-8be2-19a6e03dd14e",
-	'Leaf Symbolic Constant',
-	1502,
-	'CNST_LFSC',
-	'A constant that requires no further definition by the analyst. This is a
-supertype for other constant classes that represent various types of fully
-defined constants (e.g. Literal Symbolic, Enum, Predefined).',
-	"64811fd3-cc5f-4963-9036-8a9110e89dda",
-	'./Leaf Symbolic Constant/Leaf Symbolic Constant.xtuml');
-INSERT INTO R_SUBSUP
-	VALUES ("865998a8-933b-451d-8c24-65dd6baa3780");
-INSERT INTO R_REL
-	VALUES ("865998a8-933b-451d-8c24-65dd6baa3780",
-	1503,
-	'',
-	"64811fd3-cc5f-4963-9036-8a9110e89dda");
-INSERT INTO R_SUPER
-	VALUES ("7c2f224d-1929-42ab-8be2-19a6e03dd14e",
-	"865998a8-933b-451d-8c24-65dd6baa3780",
-	"42101313-ce89-4af5-9a35-11a1eb00dacb");
-INSERT INTO O_RTIDA
-	VALUES ("bf800f6b-d6ab-4330-ac5f-0530ef2cba4a",
-	"7c2f224d-1929-42ab-8be2-19a6e03dd14e",
-	0,
-	"865998a8-933b-451d-8c24-65dd6baa3780",
-	"42101313-ce89-4af5-9a35-11a1eb00dacb");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("bf800f6b-d6ab-4330-ac5f-0530ef2cba4a",
-	"7c2f224d-1929-42ab-8be2-19a6e03dd14e",
-	0,
-	'Const_ID',
-	'./Leaf Symbolic Constant/Leaf Symbolic Constant.xtuml');
-INSERT INTO O_RTIDA
-	VALUES ("350c6294-a44f-496f-aef0-46aca789fde9",
-	"7c2f224d-1929-42ab-8be2-19a6e03dd14e",
-	0,
-	"865998a8-933b-451d-8c24-65dd6baa3780",
-	"42101313-ce89-4af5-9a35-11a1eb00dacb");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("350c6294-a44f-496f-aef0-46aca789fde9",
-	"7c2f224d-1929-42ab-8be2-19a6e03dd14e",
-	0,
-	'DT_ID',
-	'./Leaf Symbolic Constant/Leaf Symbolic Constant.xtuml');
-INSERT INTO R_RTO
-	VALUES ("7c2f224d-1929-42ab-8be2-19a6e03dd14e",
-	"865998a8-933b-451d-8c24-65dd6baa3780",
-	"42101313-ce89-4af5-9a35-11a1eb00dacb",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"7c2f224d-1929-42ab-8be2-19a6e03dd14e",
-	'./Leaf Symbolic Constant/Leaf Symbolic Constant.xtuml');
-INSERT INTO R_OIR
-	VALUES ("7c2f224d-1929-42ab-8be2-19a6e03dd14e",
-	"865998a8-933b-451d-8c24-65dd6baa3780",
-	"42101313-ce89-4af5-9a35-11a1eb00dacb",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUB
-	VALUES ("5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
-	"865998a8-933b-451d-8c24-65dd6baa3780",
-	"516c1601-cbcb-4eb7-a7c8-56950a95a12a");
-INSERT INTO R_RGO
-	VALUES ("5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
-	"865998a8-933b-451d-8c24-65dd6baa3780",
-	"516c1601-cbcb-4eb7-a7c8-56950a95a12a");
-INSERT INTO R_OIR
-	VALUES ("5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
-	"865998a8-933b-451d-8c24-65dd6baa3780",
-	"516c1601-cbcb-4eb7-a7c8-56950a95a12a",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
-	'Literal Symbolic Constant',
-	1503,
-	'CNST_LSC',
-	'A symbolic constant containing a single value. Unlike a simple literal constant,
-this represents a tuple; name _and_ value. A simple literal constant represents
-only a value and is not captured in this subsystem (see the Value subsystem,
-Literal * classes for these).',
-	"64811fd3-cc5f-4963-9036-8a9110e89dda",
-	'./Literal Symbolic Constant/Literal Symbolic Constant.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("c2885aa4-8ac4-4cc7-adc5-09b42f273105");
-INSERT INTO R_REL
-	VALUES ("c2885aa4-8ac4-4cc7-adc5-09b42f273105",
-	1504,
-	'',
-	"64811fd3-cc5f-4963-9036-8a9110e89dda");
-INSERT INTO R_PART
-	VALUES ("12e6f27b-b831-4008-9d22-f432b1a57ffe",
-	"c2885aa4-8ac4-4cc7-adc5-09b42f273105",
-	"b54cab9e-24a8-4b06-9366-abd09d3d79f2",
-	0,
-	0,
-	'is contained by');
-INSERT INTO O_RTIDA
-	VALUES ("c4b177b9-e327-4190-b6cd-46be85d54c74",
-	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
-	0,
-	"c2885aa4-8ac4-4cc7-adc5-09b42f273105",
-	"b54cab9e-24a8-4b06-9366-abd09d3d79f2");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("c4b177b9-e327-4190-b6cd-46be85d54c74",
-	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
-	0,
-	'Constant_Spec_ID',
-	'./Constant Specification/Constant Specification.xtuml');
-INSERT INTO R_RTO
-	VALUES ("12e6f27b-b831-4008-9d22-f432b1a57ffe",
-	"c2885aa4-8ac4-4cc7-adc5-09b42f273105",
-	"b54cab9e-24a8-4b06-9366-abd09d3d79f2",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
-	'./Constant Specification/Constant Specification.xtuml');
-INSERT INTO R_OIR
-	VALUES ("12e6f27b-b831-4008-9d22-f432b1a57ffe",
-	"c2885aa4-8ac4-4cc7-adc5-09b42f273105",
-	"b54cab9e-24a8-4b06-9366-abd09d3d79f2",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("12e6f27b-b831-4008-9d22-f432b1a57ffe",
-	'Constant Specification',
-	1500,
-	'CNST_CSP',
-	'A grouping of constants. The name is informal and does not imply any scoping.
-It is used by the parser to locate the constant.',
-	"64811fd3-cc5f-4963-9036-8a9110e89dda",
-	'./Constant Specification/Constant Specification.xtuml');
-INSERT INTO R_FORM
-	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
-	"c2885aa4-8ac4-4cc7-adc5-09b42f273105",
-	"3ed7e86c-75b9-4248-a92b-252ee82ec1e6",
-	1,
-	1,
-	'contains');
-INSERT INTO R_RGO
-	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
-	"c2885aa4-8ac4-4cc7-adc5-09b42f273105",
-	"3ed7e86c-75b9-4248-a92b-252ee82ec1e6");
-INSERT INTO R_OIR
-	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
-	"c2885aa4-8ac4-4cc7-adc5-09b42f273105",
-	"3ed7e86c-75b9-4248-a92b-252ee82ec1e6",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("2084a456-5f70-4231-8f2c-9f3c8cd18df2");
-INSERT INTO R_REL
-	VALUES ("2084a456-5f70-4231-8f2c-9f3c8cd18df2",
-	1505,
-	'',
-	"64811fd3-cc5f-4963-9036-8a9110e89dda");
-INSERT INTO R_PART
-	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
-	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
-	"8c3b4cea-73e7-4d63-9f2a-0ee02f1a6084",
-	0,
-	1,
-	'succeeds');
-INSERT INTO O_RTIDA
-	VALUES ("2e6beca5-0d3b-4f5d-b2cd-b71a070d3ec8",
-	"d4956257-25ce-4df9-a48f-3600e0983412",
-	0,
-	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
-	"8c3b4cea-73e7-4d63-9f2a-0ee02f1a6084");
-INSERT INTO O_RTIDA
-	VALUES ("b2df6829-6115-4bbb-8630-286da95d1591",
-	"d4956257-25ce-4df9-a48f-3600e0983412",
-	0,
-	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
-	"8c3b4cea-73e7-4d63-9f2a-0ee02f1a6084");
-INSERT INTO R_RTO
-	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
-	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
-	"8c3b4cea-73e7-4d63-9f2a-0ee02f1a6084",
-	0);
-INSERT INTO R_OIR
-	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
-	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
-	"8c3b4cea-73e7-4d63-9f2a-0ee02f1a6084",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
-	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
-	"f6b4e5cf-ba2f-408e-864a-54b82d914b2c",
-	0,
-	1,
-	'precedes');
-INSERT INTO R_RGO
-	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
-	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
-	"f6b4e5cf-ba2f-408e-864a-54b82d914b2c");
-INSERT INTO R_OIR
-	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
-	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
-	"f6b4e5cf-ba2f-408e-864a-54b82d914b2c",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_ASSOC
-	VALUES ("9aed3fad-7eb7-4f29-9bb9-1d0145eb046b");
-INSERT INTO R_REL
-	VALUES ("9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
-	1506,
-	'',
-	"64811fd3-cc5f-4963-9036-8a9110e89dda");
-INSERT INTO R_AONE
-	VALUES ("12e6f27b-b831-4008-9d22-f432b1a57ffe",
-	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
-	"d9c5bbf8-f8bb-4ccb-8db5-93e04a5e86d5",
-	1,
-	1,
-	'contains');
-INSERT INTO O_RTIDA
-	VALUES ("c4b177b9-e327-4190-b6cd-46be85d54c74",
-	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
-	0,
-	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
-	"d9c5bbf8-f8bb-4ccb-8db5-93e04a5e86d5");
-INSERT INTO R_RTO
-	VALUES ("12e6f27b-b831-4008-9d22-f432b1a57ffe",
-	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
-	"d9c5bbf8-f8bb-4ccb-8db5-93e04a5e86d5",
-	0);
-INSERT INTO R_OIR
-	VALUES ("12e6f27b-b831-4008-9d22-f432b1a57ffe",
-	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
-	"d9c5bbf8-f8bb-4ccb-8db5-93e04a5e86d5",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_AOTH
-	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
-	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
-	"088a957d-735d-4268-9721-361c69033896",
-	0,
-	0,
-	'is contained in');
-INSERT INTO O_RTIDA
-	VALUES ("da0b3348-02b1-4bc9-911a-0b5af63bf05a",
-	"110e3323-6929-4be9-b265-ce681dd25ec3",
-	0,
-	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
-	"088a957d-735d-4268-9721-361c69033896");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("da0b3348-02b1-4bc9-911a-0b5af63bf05a",
-	"110e3323-6929-4be9-b265-ce681dd25ec3",
-	0,
-	'Package_ID',
-	'../Domain/Data Type Package/Data Type Package.xtuml');
-INSERT INTO R_RTO
-	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
-	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
-	"088a957d-735d-4268-9721-361c69033896",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"110e3323-6929-4be9-b265-ce681dd25ec3",
-	'../Domain/Data Type Package/Data Type Package.xtuml');
-INSERT INTO R_OIR
-	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
-	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
-	"088a957d-735d-4268-9721-361c69033896",
-	"88b8c0c4-b643-4073-bb8f-ac395f21bd49");
-INSERT INTO R_ASSR
-	VALUES ("5786560e-25d0-407b-aa4f-12ca3c37d82d",
-	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
-	"12f60f38-d2f4-42c3-bd68-c64d0c678d84",
-	0);
-INSERT INTO R_RGO
-	VALUES ("5786560e-25d0-407b-aa4f-12ca3c37d82d",
-	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
-	"12f60f38-d2f4-42c3-bd68-c64d0c678d84");
-INSERT INTO R_OIR
-	VALUES ("5786560e-25d0-407b-aa4f-12ca3c37d82d",
-	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
-	"12f60f38-d2f4-42c3-bd68-c64d0c678d84",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("5786560e-25d0-407b-aa4f-12ca3c37d82d",
-	'Constant in Package',
-	1504,
-	'CNST_CIP',
-	'Constant in Package represents the constants contained within a particular package.',
-	"64811fd3-cc5f-4963-9036-8a9110e89dda",
-	'./Constant in Package/Constant in Package.xtuml');
+	1500);
 INSERT INTO GD_MD
 	VALUES ("89d18715-3e44-41bc-ae9a-a73961c11b7b",
-	5,
+	112,
 	"64811fd3-cc5f-4963-9036-8a9110e89dda",
-	11,
+	108,
 	0,
 	0,
 	1,
@@ -1723,3 +1241,540 @@ INSERT INTO DIM_DIA
 	4004.000000,
 	2866.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SIMP
+	VALUES ("38d89904-4aed-4378-b8a0-f9d6c8af4da2");
+INSERT INTO R_REL
+	VALUES ("38d89904-4aed-4378-b8a0-f9d6c8af4da2",
+	1500,
+	'CrossComponent:true',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
+	"38d89904-4aed-4378-b8a0-f9d6c8af4da2",
+	"f27b0c4d-8be1-4f38-bfaf-09177f015659",
+	1,
+	1,
+	'defines the type of');
+INSERT INTO R_RGO
+	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
+	"38d89904-4aed-4378-b8a0-f9d6c8af4da2",
+	"f27b0c4d-8be1-4f38-bfaf-09177f015659");
+INSERT INTO R_OIR
+	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
+	"38d89904-4aed-4378-b8a0-f9d6c8af4da2",
+	"f27b0c4d-8be1-4f38-bfaf-09177f015659",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
+	'Symbolic Constant',
+	1501,
+	'CNST_SYC',
+	'A constant with a name as opposed to a literal constant that has a value only.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Symbolic Constant/Symbolic Constant.xtuml');
+INSERT INTO R_PART
+	VALUES ("ead52fac-9782-434b-a35c-c07452c3b26d",
+	"38d89904-4aed-4378-b8a0-f9d6c8af4da2",
+	"2ed1f532-c438-4e7b-9bb5-7f3be714a837",
+	0,
+	0,
+	'is defined by');
+INSERT INTO O_RTIDA
+	VALUES ("0e78201f-a7cd-497b-a6b4-e224ab7915c2",
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	0,
+	"38d89904-4aed-4378-b8a0-f9d6c8af4da2",
+	"2ed1f532-c438-4e7b-9bb5-7f3be714a837");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("0e78201f-a7cd-497b-a6b4-e224ab7915c2",
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	0,
+	'DT_ID',
+	'../Domain/Data Type/Data Type.xtuml');
+INSERT INTO R_RTO
+	VALUES ("ead52fac-9782-434b-a35c-c07452c3b26d",
+	"38d89904-4aed-4378-b8a0-f9d6c8af4da2",
+	"2ed1f532-c438-4e7b-9bb5-7f3be714a837",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	'../Domain/Data Type/Data Type.xtuml');
+INSERT INTO R_OIR
+	VALUES ("ead52fac-9782-434b-a35c-c07452c3b26d",
+	"38d89904-4aed-4378-b8a0-f9d6c8af4da2",
+	"2ed1f532-c438-4e7b-9bb5-7f3be714a837",
+	"7168e54f-735c-4b6b-98c9-c35697680397");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("ead52fac-9782-434b-a35c-c07452c3b26d",
+	'Data Type',
+	9,
+	'S_DT',
+	'An analyst can assign a data type to the various data items in the models, i.e., class attribute, state machine event data item, operation and bridge parameters and return values.  This data type does not capture the representation of the data items, but rather, the characteristics of the data items including:  1) Value Definition, i.e., whole numbers, 2) Value Range, i.e., values between 0 and 10, 3) Operations, i.e., +, -, *, /',
+	"00000000-0000-0000-0000-000000000000",
+	'../Domain/Data Type/Data Type.xtuml');
+INSERT INTO PE_PE
+	VALUES ("38d89904-4aed-4378-b8a0-f9d6c8af4da2",
+	1,
+	"64811fd3-cc5f-4963-9036-8a9110e89dda",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SUBSUP
+	VALUES ("84b75685-dd32-4d74-bb0e-f3d470c5b964");
+INSERT INTO R_REL
+	VALUES ("84b75685-dd32-4d74-bb0e-f3d470c5b964",
+	1502,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
+	"84b75685-dd32-4d74-bb0e-f3d470c5b964",
+	"7b2f51ed-cc8e-460e-95d8-ca63789c034a");
+INSERT INTO O_RTIDA
+	VALUES ("2e6beca5-0d3b-4f5d-b2cd-b71a070d3ec8",
+	"d4956257-25ce-4df9-a48f-3600e0983412",
+	0,
+	"84b75685-dd32-4d74-bb0e-f3d470c5b964",
+	"7b2f51ed-cc8e-460e-95d8-ca63789c034a");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("2e6beca5-0d3b-4f5d-b2cd-b71a070d3ec8",
+	"d4956257-25ce-4df9-a48f-3600e0983412",
+	0,
+	'Const_ID',
+	'./Symbolic Constant/Symbolic Constant.xtuml');
+INSERT INTO O_RTIDA
+	VALUES ("b2df6829-6115-4bbb-8630-286da95d1591",
+	"d4956257-25ce-4df9-a48f-3600e0983412",
+	0,
+	"84b75685-dd32-4d74-bb0e-f3d470c5b964",
+	"7b2f51ed-cc8e-460e-95d8-ca63789c034a");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("b2df6829-6115-4bbb-8630-286da95d1591",
+	"d4956257-25ce-4df9-a48f-3600e0983412",
+	0,
+	'DT_ID',
+	'./Symbolic Constant/Symbolic Constant.xtuml');
+INSERT INTO R_RTO
+	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
+	"84b75685-dd32-4d74-bb0e-f3d470c5b964",
+	"7b2f51ed-cc8e-460e-95d8-ca63789c034a",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"d4956257-25ce-4df9-a48f-3600e0983412",
+	'./Symbolic Constant/Symbolic Constant.xtuml');
+INSERT INTO R_OIR
+	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
+	"84b75685-dd32-4d74-bb0e-f3d470c5b964",
+	"7b2f51ed-cc8e-460e-95d8-ca63789c034a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUB
+	VALUES ("7c2f224d-1929-42ab-8be2-19a6e03dd14e",
+	"84b75685-dd32-4d74-bb0e-f3d470c5b964",
+	"1e22d99f-5254-49cb-a52d-1c3f22938812");
+INSERT INTO R_RGO
+	VALUES ("7c2f224d-1929-42ab-8be2-19a6e03dd14e",
+	"84b75685-dd32-4d74-bb0e-f3d470c5b964",
+	"1e22d99f-5254-49cb-a52d-1c3f22938812");
+INSERT INTO R_OIR
+	VALUES ("7c2f224d-1929-42ab-8be2-19a6e03dd14e",
+	"84b75685-dd32-4d74-bb0e-f3d470c5b964",
+	"1e22d99f-5254-49cb-a52d-1c3f22938812",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("7c2f224d-1929-42ab-8be2-19a6e03dd14e",
+	'Leaf Symbolic Constant',
+	1502,
+	'CNST_LFSC',
+	'A constant that requires no further definition by the analyst. This is a
+supertype for other constant classes that represent various types of fully
+defined constants (e.g. Literal Symbolic, Enum, Predefined).',
+	"00000000-0000-0000-0000-000000000000",
+	'./Leaf Symbolic Constant/Leaf Symbolic Constant.xtuml');
+INSERT INTO PE_PE
+	VALUES ("84b75685-dd32-4d74-bb0e-f3d470c5b964",
+	1,
+	"64811fd3-cc5f-4963-9036-8a9110e89dda",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SUBSUP
+	VALUES ("865998a8-933b-451d-8c24-65dd6baa3780");
+INSERT INTO R_REL
+	VALUES ("865998a8-933b-451d-8c24-65dd6baa3780",
+	1503,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("7c2f224d-1929-42ab-8be2-19a6e03dd14e",
+	"865998a8-933b-451d-8c24-65dd6baa3780",
+	"42101313-ce89-4af5-9a35-11a1eb00dacb");
+INSERT INTO O_RTIDA
+	VALUES ("bf800f6b-d6ab-4330-ac5f-0530ef2cba4a",
+	"7c2f224d-1929-42ab-8be2-19a6e03dd14e",
+	0,
+	"865998a8-933b-451d-8c24-65dd6baa3780",
+	"42101313-ce89-4af5-9a35-11a1eb00dacb");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("bf800f6b-d6ab-4330-ac5f-0530ef2cba4a",
+	"7c2f224d-1929-42ab-8be2-19a6e03dd14e",
+	0,
+	'Const_ID',
+	'./Leaf Symbolic Constant/Leaf Symbolic Constant.xtuml');
+INSERT INTO O_RTIDA
+	VALUES ("350c6294-a44f-496f-aef0-46aca789fde9",
+	"7c2f224d-1929-42ab-8be2-19a6e03dd14e",
+	0,
+	"865998a8-933b-451d-8c24-65dd6baa3780",
+	"42101313-ce89-4af5-9a35-11a1eb00dacb");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("350c6294-a44f-496f-aef0-46aca789fde9",
+	"7c2f224d-1929-42ab-8be2-19a6e03dd14e",
+	0,
+	'DT_ID',
+	'./Leaf Symbolic Constant/Leaf Symbolic Constant.xtuml');
+INSERT INTO R_RTO
+	VALUES ("7c2f224d-1929-42ab-8be2-19a6e03dd14e",
+	"865998a8-933b-451d-8c24-65dd6baa3780",
+	"42101313-ce89-4af5-9a35-11a1eb00dacb",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"7c2f224d-1929-42ab-8be2-19a6e03dd14e",
+	'./Leaf Symbolic Constant/Leaf Symbolic Constant.xtuml');
+INSERT INTO R_OIR
+	VALUES ("7c2f224d-1929-42ab-8be2-19a6e03dd14e",
+	"865998a8-933b-451d-8c24-65dd6baa3780",
+	"42101313-ce89-4af5-9a35-11a1eb00dacb",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUB
+	VALUES ("5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
+	"865998a8-933b-451d-8c24-65dd6baa3780",
+	"516c1601-cbcb-4eb7-a7c8-56950a95a12a");
+INSERT INTO R_RGO
+	VALUES ("5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
+	"865998a8-933b-451d-8c24-65dd6baa3780",
+	"516c1601-cbcb-4eb7-a7c8-56950a95a12a");
+INSERT INTO R_OIR
+	VALUES ("5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
+	"865998a8-933b-451d-8c24-65dd6baa3780",
+	"516c1601-cbcb-4eb7-a7c8-56950a95a12a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("5abf1386-4a94-4a45-a9e4-cd8f42a1a63a",
+	'Literal Symbolic Constant',
+	1503,
+	'CNST_LSC',
+	'A symbolic constant containing a single value. Unlike a simple literal constant,
+this represents a tuple; name _and_ value. A simple literal constant represents
+only a value and is not captured in this subsystem (see the Value subsystem,
+Literal * classes for these).',
+	"00000000-0000-0000-0000-000000000000",
+	'./Literal Symbolic Constant/Literal Symbolic Constant.xtuml');
+INSERT INTO PE_PE
+	VALUES ("865998a8-933b-451d-8c24-65dd6baa3780",
+	1,
+	"64811fd3-cc5f-4963-9036-8a9110e89dda",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("c2885aa4-8ac4-4cc7-adc5-09b42f273105");
+INSERT INTO R_REL
+	VALUES ("c2885aa4-8ac4-4cc7-adc5-09b42f273105",
+	1504,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("12e6f27b-b831-4008-9d22-f432b1a57ffe",
+	"c2885aa4-8ac4-4cc7-adc5-09b42f273105",
+	"b54cab9e-24a8-4b06-9366-abd09d3d79f2",
+	0,
+	0,
+	'is contained by');
+INSERT INTO O_RTIDA
+	VALUES ("c4b177b9-e327-4190-b6cd-46be85d54c74",
+	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
+	0,
+	"c2885aa4-8ac4-4cc7-adc5-09b42f273105",
+	"b54cab9e-24a8-4b06-9366-abd09d3d79f2");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("c4b177b9-e327-4190-b6cd-46be85d54c74",
+	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
+	0,
+	'Constant_Spec_ID',
+	'./Constant Specification/Constant Specification.xtuml');
+INSERT INTO R_RTO
+	VALUES ("12e6f27b-b831-4008-9d22-f432b1a57ffe",
+	"c2885aa4-8ac4-4cc7-adc5-09b42f273105",
+	"b54cab9e-24a8-4b06-9366-abd09d3d79f2",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
+	'./Constant Specification/Constant Specification.xtuml');
+INSERT INTO R_OIR
+	VALUES ("12e6f27b-b831-4008-9d22-f432b1a57ffe",
+	"c2885aa4-8ac4-4cc7-adc5-09b42f273105",
+	"b54cab9e-24a8-4b06-9366-abd09d3d79f2",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("12e6f27b-b831-4008-9d22-f432b1a57ffe",
+	'Constant Specification',
+	1500,
+	'CNST_CSP',
+	'A grouping of constants. The name is informal and does not imply any scoping.
+It is used by the parser to locate the constant.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Constant Specification/Constant Specification.xtuml');
+INSERT INTO R_FORM
+	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
+	"c2885aa4-8ac4-4cc7-adc5-09b42f273105",
+	"3ed7e86c-75b9-4248-a92b-252ee82ec1e6",
+	1,
+	1,
+	'contains');
+INSERT INTO R_RGO
+	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
+	"c2885aa4-8ac4-4cc7-adc5-09b42f273105",
+	"3ed7e86c-75b9-4248-a92b-252ee82ec1e6");
+INSERT INTO R_OIR
+	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
+	"c2885aa4-8ac4-4cc7-adc5-09b42f273105",
+	"3ed7e86c-75b9-4248-a92b-252ee82ec1e6",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("c2885aa4-8ac4-4cc7-adc5-09b42f273105",
+	1,
+	"64811fd3-cc5f-4963-9036-8a9110e89dda",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("2084a456-5f70-4231-8f2c-9f3c8cd18df2");
+INSERT INTO R_REL
+	VALUES ("2084a456-5f70-4231-8f2c-9f3c8cd18df2",
+	1505,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
+	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
+	"8c3b4cea-73e7-4d63-9f2a-0ee02f1a6084",
+	0,
+	1,
+	'succeeds');
+INSERT INTO O_RTIDA
+	VALUES ("2e6beca5-0d3b-4f5d-b2cd-b71a070d3ec8",
+	"d4956257-25ce-4df9-a48f-3600e0983412",
+	0,
+	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
+	"8c3b4cea-73e7-4d63-9f2a-0ee02f1a6084");
+INSERT INTO O_RTIDA
+	VALUES ("b2df6829-6115-4bbb-8630-286da95d1591",
+	"d4956257-25ce-4df9-a48f-3600e0983412",
+	0,
+	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
+	"8c3b4cea-73e7-4d63-9f2a-0ee02f1a6084");
+INSERT INTO R_RTO
+	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
+	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
+	"8c3b4cea-73e7-4d63-9f2a-0ee02f1a6084",
+	0);
+INSERT INTO R_OIR
+	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
+	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
+	"8c3b4cea-73e7-4d63-9f2a-0ee02f1a6084",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
+	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
+	"f6b4e5cf-ba2f-408e-864a-54b82d914b2c",
+	0,
+	1,
+	'precedes');
+INSERT INTO R_RGO
+	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
+	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
+	"f6b4e5cf-ba2f-408e-864a-54b82d914b2c");
+INSERT INTO R_OIR
+	VALUES ("d4956257-25ce-4df9-a48f-3600e0983412",
+	"2084a456-5f70-4231-8f2c-9f3c8cd18df2",
+	"f6b4e5cf-ba2f-408e-864a-54b82d914b2c",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("2084a456-5f70-4231-8f2c-9f3c8cd18df2",
+	1,
+	"64811fd3-cc5f-4963-9036-8a9110e89dda",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_ASSOC
+	VALUES ("9aed3fad-7eb7-4f29-9bb9-1d0145eb046b");
+INSERT INTO R_REL
+	VALUES ("9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
+	1506,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AONE
+	VALUES ("12e6f27b-b831-4008-9d22-f432b1a57ffe",
+	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
+	"d9c5bbf8-f8bb-4ccb-8db5-93e04a5e86d5",
+	1,
+	1,
+	'contains');
+INSERT INTO O_RTIDA
+	VALUES ("c4b177b9-e327-4190-b6cd-46be85d54c74",
+	"12e6f27b-b831-4008-9d22-f432b1a57ffe",
+	0,
+	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
+	"d9c5bbf8-f8bb-4ccb-8db5-93e04a5e86d5");
+INSERT INTO R_RTO
+	VALUES ("12e6f27b-b831-4008-9d22-f432b1a57ffe",
+	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
+	"d9c5bbf8-f8bb-4ccb-8db5-93e04a5e86d5",
+	0);
+INSERT INTO R_OIR
+	VALUES ("12e6f27b-b831-4008-9d22-f432b1a57ffe",
+	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
+	"d9c5bbf8-f8bb-4ccb-8db5-93e04a5e86d5",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AOTH
+	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
+	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
+	"088a957d-735d-4268-9721-361c69033896",
+	0,
+	0,
+	'is contained in');
+INSERT INTO O_RTIDA
+	VALUES ("da0b3348-02b1-4bc9-911a-0b5af63bf05a",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	0,
+	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
+	"088a957d-735d-4268-9721-361c69033896");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("da0b3348-02b1-4bc9-911a-0b5af63bf05a",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	0,
+	'Package_ID',
+	'../Domain/Data Type Package/Data Type Package.xtuml');
+INSERT INTO R_RTO
+	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
+	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
+	"088a957d-735d-4268-9721-361c69033896",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	'../Domain/Data Type Package/Data Type Package.xtuml');
+INSERT INTO R_OIR
+	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
+	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
+	"088a957d-735d-4268-9721-361c69033896",
+	"88b8c0c4-b643-4073-bb8f-ac395f21bd49");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("110e3323-6929-4be9-b265-ce681dd25ec3",
+	'Data Type Package',
+	25,
+	'S_DPK',
+	'Data Type Package represents a package of data types.',
+	"00000000-0000-0000-0000-000000000000",
+	'../Domain/Data Type Package/Data Type Package.xtuml');
+INSERT INTO R_ASSR
+	VALUES ("5786560e-25d0-407b-aa4f-12ca3c37d82d",
+	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
+	"12f60f38-d2f4-42c3-bd68-c64d0c678d84",
+	0);
+INSERT INTO R_RGO
+	VALUES ("5786560e-25d0-407b-aa4f-12ca3c37d82d",
+	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
+	"12f60f38-d2f4-42c3-bd68-c64d0c678d84");
+INSERT INTO R_OIR
+	VALUES ("5786560e-25d0-407b-aa4f-12ca3c37d82d",
+	"9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
+	"12f60f38-d2f4-42c3-bd68-c64d0c678d84",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("5786560e-25d0-407b-aa4f-12ca3c37d82d",
+	'Constant in Package',
+	1504,
+	'CNST_CIP',
+	'Constant in Package represents the constants contained within a particular package.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Constant in Package/Constant in Package.xtuml');
+INSERT INTO PE_PE
+	VALUES ("9aed3fad-7eb7-4f29-9bb9-1d0145eb046b",
+	1,
+	"64811fd3-cc5f-4963-9036-8a9110e89dda",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO O_IOBJ
+	VALUES ("88b8c0c4-b643-4073-bb8f-ac395f21bd49",
+	"110e3323-6929-4be9-b265-ce681dd25ec3",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'Data Type Package',
+	'S_DPK');
+INSERT INTO PE_PE
+	VALUES ("88b8c0c4-b643-4073-bb8f-ac395f21bd49",
+	1,
+	"64811fd3-cc5f-4963-9036-8a9110e89dda",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("7168e54f-735c-4b6b-98c9-c35697680397",
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'Data Type',
+	'S_DT');
+INSERT INTO PE_PE
+	VALUES ("7168e54f-735c-4b6b-98c9-c35697680397",
+	1,
+	"64811fd3-cc5f-4963-9036-8a9110e89dda",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO PE_PE
+	VALUES ("64811fd3-cc5f-4963-9036-8a9110e89dda",
+	1,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'ooaofooa',
+	'========================================================================
+
+File:          $RCSfile: ooaofooa.xtuml,v $
+Version:   $Revision: 1.127 $
+Modified:  $Date: 2006/09/26 15:10:20 $
+
+(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+========================================================================
+
+This is the application domain for the Tiger project.
+
+The processing in this model describes the activities
+for model capture.
+
+
+
+',
+	0,
+	'../ooaofooa.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'com.mentor.nucleus.bp.core',
+	1,
+	'../../com.mentor.nucleus.bp.core.xtuml');

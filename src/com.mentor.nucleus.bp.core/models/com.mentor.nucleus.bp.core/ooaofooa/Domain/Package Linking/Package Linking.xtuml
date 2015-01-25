@@ -1,244 +1,18 @@
--- BP 7.1 content: Subsystem syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_SS
+INSERT INTO EP_PKG
 	VALUES ("72fa6244-a6e7-4d68-a86a-d54b054d2ecc",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Package Linking',
 	'// This is used by schema_gen to ignore this subsystem (for publication)
 TRANSLATE_FOR_EXTERNAL_USE:FALSE',
-	'PL',
-	300,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_IOBJ
-	VALUES ("57062140-1f22-433f-9a90-a0d6c6c829fa",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	0,
-	"72fa6244-a6e7-4d68-a86a-d54b054d2ecc",
-	'Domain',
-	'S_DOM');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	'Domain',
-	1,
-	'S_DOM',
-	'A typical software system generally consists of distinct and independent subject matters. A Shlaer-Mellor analysis partition is based within each of these subject matters and  each subject matter is called a domain (S_DOM). A domain is inhabited by its  own conceptual entities (called classes). A domain may be partitioned into subsystems depending upon its complexity. Each domain is given a mission statement which provides a charter for the construction of the OOA models.',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
-	'../Domain/Domain.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("8fa87bd3-ede9-4bdb-904e-91b3bc00d61e",
-	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
-	0,
-	"72fa6244-a6e7-4d68-a86a-d54b054d2ecc",
-	'External Entity Package',
-	'S_EEPK');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
-	'External Entity Package',
-	22,
-	'S_EEPK',
-	'External Entity Package represents a package of external entities.',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
-	'../External Entity Package/External Entity Package.xtuml');
-INSERT INTO O_IOBJ
-	VALUES ("80940a09-983b-4f4b-a2b6-90d38da2dc6a",
-	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
-	0,
-	"72fa6244-a6e7-4d68-a86a-d54b054d2ecc",
-	'Function Package',
-	'S_FPK');
-INSERT INTO O_OBJ_PROXY
-	VALUES ("d824ae3e-c53c-448b-a2d3-5f986c7705f7",
-	'Function Package',
-	19,
-	'S_FPK',
-	'Function Package represents a collection of domain functions.',
-	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
-	'../Function Package/Function Package.xtuml');
-INSERT INTO R_ASSOC
-	VALUES ("0fd61b3d-8c45-4aa3-9b83-80cecd44f208");
-INSERT INTO R_REL
-	VALUES ("0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
-	300,
-	'CrossComponent:true',
-	"72fa6244-a6e7-4d68-a86a-d54b054d2ecc");
-INSERT INTO R_AONE
-	VALUES ("07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
-	"fb2e5572-fb03-467e-bdac-c0ccbd06cc9c",
-	0,
-	0,
-	'is container');
-INSERT INTO O_RTIDA
-	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	0,
-	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
-	"fb2e5572-fb03-467e-bdac-c0ccbd06cc9c");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	0,
-	'Dom_ID',
-	'../Domain/Domain.xtuml');
-INSERT INTO R_RTO
-	VALUES ("07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
-	"fb2e5572-fb03-467e-bdac-c0ccbd06cc9c",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	'../Domain/Domain.xtuml');
-INSERT INTO R_OIR
-	VALUES ("07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
-	"fb2e5572-fb03-467e-bdac-c0ccbd06cc9c",
-	"57062140-1f22-433f-9a90-a0d6c6c829fa");
-INSERT INTO R_AOTH
-	VALUES ("30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
-	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
-	"0e2f6591-3034-4f8e-8c8c-2593ebc39b57",
-	1,
-	1,
-	'contains');
-INSERT INTO O_RTIDA
-	VALUES ("dc0f2565-e2c7-4017-a7fd-191ac6e8a752",
-	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
-	0,
-	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
-	"0e2f6591-3034-4f8e-8c8c-2593ebc39b57");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("dc0f2565-e2c7-4017-a7fd-191ac6e8a752",
-	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
-	0,
-	'EEPack_ID',
-	'../External Entity Package/External Entity Package.xtuml');
-INSERT INTO R_RTO
-	VALUES ("30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
-	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
-	"0e2f6591-3034-4f8e-8c8c-2593ebc39b57",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
-	'../External Entity Package/External Entity Package.xtuml');
-INSERT INTO R_OIR
-	VALUES ("30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
-	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
-	"0e2f6591-3034-4f8e-8c8c-2593ebc39b57",
-	"8fa87bd3-ede9-4bdb-904e-91b3bc00d61e");
-INSERT INTO R_ASSR
-	VALUES ("0290b06f-0a07-484e-af02-e32b5fb48434",
-	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
-	"5956be3f-1c31-442f-be79-77799dc2a729",
-	0);
-INSERT INTO R_RGO
-	VALUES ("0290b06f-0a07-484e-af02-e32b5fb48434",
-	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
-	"5956be3f-1c31-442f-be79-77799dc2a729");
-INSERT INTO R_OIR
-	VALUES ("0290b06f-0a07-484e-af02-e32b5fb48434",
-	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
-	"5956be3f-1c31-442f-be79-77799dc2a729",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("0290b06f-0a07-484e-af02-e32b5fb48434",
-	'External Entity Package in Domain',
-	1,
-	'PL_EEPID',
-	'',
-	"72fa6244-a6e7-4d68-a86a-d54b054d2ecc",
-	'./External Entity Package in Domain/External Entity Package in Domain.xtuml');
-INSERT INTO R_ASSOC
-	VALUES ("624b463b-416c-420b-9892-2f2c7ed93547");
-INSERT INTO R_REL
-	VALUES ("624b463b-416c-420b-9892-2f2c7ed93547",
-	301,
-	'CrossComponent:true',
-	"72fa6244-a6e7-4d68-a86a-d54b054d2ecc");
-INSERT INTO R_AONE
-	VALUES ("d824ae3e-c53c-448b-a2d3-5f986c7705f7",
-	"624b463b-416c-420b-9892-2f2c7ed93547",
-	"00d8d2e4-ead6-4e2e-ac7b-96c04c694115",
-	1,
-	1,
-	'contains');
-INSERT INTO O_RTIDA
-	VALUES ("0dbd6a1a-f57b-4432-8623-931a2704d33d",
-	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
-	0,
-	"624b463b-416c-420b-9892-2f2c7ed93547",
-	"00d8d2e4-ead6-4e2e-ac7b-96c04c694115");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("0dbd6a1a-f57b-4432-8623-931a2704d33d",
-	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
-	0,
-	'FunPack_ID',
-	'../Function Package/Function Package.xtuml');
-INSERT INTO R_RTO
-	VALUES ("d824ae3e-c53c-448b-a2d3-5f986c7705f7",
-	"624b463b-416c-420b-9892-2f2c7ed93547",
-	"00d8d2e4-ead6-4e2e-ac7b-96c04c694115",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
-	'../Function Package/Function Package.xtuml');
-INSERT INTO R_OIR
-	VALUES ("d824ae3e-c53c-448b-a2d3-5f986c7705f7",
-	"624b463b-416c-420b-9892-2f2c7ed93547",
-	"00d8d2e4-ead6-4e2e-ac7b-96c04c694115",
-	"80940a09-983b-4f4b-a2b6-90d38da2dc6a");
-INSERT INTO R_AOTH
-	VALUES ("07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	"624b463b-416c-420b-9892-2f2c7ed93547",
-	"e7f1bd37-ef82-4208-bbe0-94cf416692fc",
-	0,
-	0,
-	'is container');
-INSERT INTO O_RTIDA
-	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
-	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	0,
-	"624b463b-416c-420b-9892-2f2c7ed93547",
-	"e7f1bd37-ef82-4208-bbe0-94cf416692fc");
-INSERT INTO R_RTO
-	VALUES ("07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	"624b463b-416c-420b-9892-2f2c7ed93547",
-	"e7f1bd37-ef82-4208-bbe0-94cf416692fc",
-	0);
-INSERT INTO R_OIR
-	VALUES ("07cf2195-f012-4bf5-83c7-f89dd30a8839",
-	"624b463b-416c-420b-9892-2f2c7ed93547",
-	"e7f1bd37-ef82-4208-bbe0-94cf416692fc",
-	"57062140-1f22-433f-9a90-a0d6c6c829fa");
-INSERT INTO R_ASSR
-	VALUES ("07a15dab-88b5-4dff-bc95-f1fba78f0aa0",
-	"624b463b-416c-420b-9892-2f2c7ed93547",
-	"d13f8e2a-7427-4121-96b5-176819270da4",
-	0);
-INSERT INTO R_RGO
-	VALUES ("07a15dab-88b5-4dff-bc95-f1fba78f0aa0",
-	"624b463b-416c-420b-9892-2f2c7ed93547",
-	"d13f8e2a-7427-4121-96b5-176819270da4");
-INSERT INTO R_OIR
-	VALUES ("07a15dab-88b5-4dff-bc95-f1fba78f0aa0",
-	"624b463b-416c-420b-9892-2f2c7ed93547",
-	"d13f8e2a-7427-4121-96b5-176819270da4",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("07a15dab-88b5-4dff-bc95-f1fba78f0aa0",
-	'Function Package in Domain',
-	300,
-	'PL_FPID',
-	'',
-	"72fa6244-a6e7-4d68-a86a-d54b054d2ecc",
-	'./Function Package in Domain/Function Package in Domain.xtuml');
+	300);
 INSERT INTO GD_MD
 	VALUES ("fd8a801a-00d0-417e-958e-9cc12afc1275",
-	5,
+	112,
 	"72fa6244-a6e7-4d68-a86a-d54b054d2ecc",
-	11,
+	108,
 	0,
 	0,
 	1,
@@ -252,14 +26,14 @@ INSERT INTO GD_MD
 	0,
 	0,
 	'',
-	'com.mentor.nucleus.bp.core::ooaofooa::Package Linking');
+	'com.mentor.nucleus.bp.core::ooaofooa::Domain::Package Linking');
 INSERT INTO GD_GE
 	VALUES ("f20b7333-bc71-4544-bbaf-5e1fdc6bc5f8",
 	"fd8a801a-00d0-417e-958e-9cc12afc1275",
 	"57062140-1f22-433f-9a90-a0d6c6c829fa",
 	23,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Package Linking::Domain');
+	'com.mentor.nucleus.bp.core::ooaofooa::Domain::Package Linking::Domain');
 INSERT INTO GD_SHP
 	VALUES ("f20b7333-bc71-4544-bbaf-5e1fdc6bc5f8");
 INSERT INTO GD_NCS
@@ -293,7 +67,7 @@ INSERT INTO GD_GE
 	"8fa87bd3-ede9-4bdb-904e-91b3bc00d61e",
 	23,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Package Linking::External Entity Package');
+	'com.mentor.nucleus.bp.core::ooaofooa::Domain::Package Linking::External Entity Package');
 INSERT INTO GD_SHP
 	VALUES ("3121df1f-c83f-4d32-a2ce-2365b2724649");
 INSERT INTO GD_NCS
@@ -322,7 +96,7 @@ INSERT INTO GD_GE
 	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
 	24,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Package Linking::R300');
+	'com.mentor.nucleus.bp.core::ooaofooa::Domain::Package Linking::R300');
 INSERT INTO GD_CON
 	VALUES ("e1a446c6-0ac9-4a78-b3e1-31f212c93e53",
 	"829df808-7ee3-4eea-b82f-85c07481fdb6");
@@ -430,7 +204,7 @@ INSERT INTO GD_GE
 	"0290b06f-0a07-484e-af02-e32b5fb48434",
 	21,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Package Linking::External Entity Package in Domain');
+	'com.mentor.nucleus.bp.core::ooaofooa::Domain::Package Linking::External Entity Package in Domain');
 INSERT INTO GD_SHP
 	VALUES ("df46ce07-9577-4e05-b60d-a4ef7a18076c");
 INSERT INTO GD_NCS
@@ -459,7 +233,7 @@ INSERT INTO GD_GE
 	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
 	34,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Package Linking::R300::External Entity Package in Domain');
+	'com.mentor.nucleus.bp.core::ooaofooa::Domain::Package Linking::R300::External Entity Package in Domain');
 INSERT INTO GD_CON
 	VALUES ("8715480f-01b2-46f1-9ae1-24b66363ba0e",
 	"00000000-0000-0000-0000-000000000000");
@@ -559,7 +333,7 @@ INSERT INTO GD_GE
 	"80940a09-983b-4f4b-a2b6-90d38da2dc6a",
 	23,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Package Linking::Function Package');
+	'com.mentor.nucleus.bp.core::ooaofooa::Domain::Package Linking::Function Package');
 INSERT INTO GD_SHP
 	VALUES ("747136bd-4252-4985-a347-c88ace53e93f");
 INSERT INTO GD_NCS
@@ -588,7 +362,7 @@ INSERT INTO GD_GE
 	"624b463b-416c-420b-9892-2f2c7ed93547",
 	24,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Package Linking::R301');
+	'com.mentor.nucleus.bp.core::ooaofooa::Domain::Package Linking::R301');
 INSERT INTO GD_CON
 	VALUES ("9c2c7348-7478-45c8-b81b-61b90c38e254",
 	"285bc8df-1ae1-4376-90f5-3efa1f06f181");
@@ -696,7 +470,7 @@ INSERT INTO GD_GE
 	"07a15dab-88b5-4dff-bc95-f1fba78f0aa0",
 	21,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Package Linking::Function Package in Domain');
+	'com.mentor.nucleus.bp.core::ooaofooa::Domain::Package Linking::Function Package in Domain');
 INSERT INTO GD_SHP
 	VALUES ("c02a397e-15a6-4018-b9a1-fa99d3a7a971");
 INSERT INTO GD_NCS
@@ -725,7 +499,7 @@ INSERT INTO GD_GE
 	"624b463b-416c-420b-9892-2f2c7ed93547",
 	34,
 	0,
-	'com.mentor.nucleus.bp.core::ooaofooa::Package Linking::R301::Function Package in Domain');
+	'com.mentor.nucleus.bp.core::ooaofooa::Domain::Package Linking::R301::Function Package in Domain');
 INSERT INTO GD_CON
 	VALUES ("f4425ec1-879c-4840-91d0-91cec8ef28e1",
 	"00000000-0000-0000-0000-000000000000");
@@ -826,52 +600,277 @@ INSERT INTO DIM_DIA
 	3814.000000,
 	2890.000000,
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO S_SIS
+INSERT INTO R_ASSOC
+	VALUES ("0fd61b3d-8c45-4aa3-9b83-80cecd44f208");
+INSERT INTO R_REL
+	VALUES ("0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
+	300,
+	'CrossComponent:true',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AONE
+	VALUES ("07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
+	"fb2e5572-fb03-467e-bdac-c0ccbd06cc9c",
+	0,
+	0,
+	'is container');
+INSERT INTO O_RTIDA
+	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
+	"fb2e5572-fb03-467e-bdac-c0ccbd06cc9c");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	'Dom_ID',
+	'../Domain/Domain.xtuml');
+INSERT INTO R_RTO
+	VALUES ("07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
+	"fb2e5572-fb03-467e-bdac-c0ccbd06cc9c",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	'../Domain/Domain.xtuml');
+INSERT INTO R_OIR
+	VALUES ("07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
+	"fb2e5572-fb03-467e-bdac-c0ccbd06cc9c",
+	"57062140-1f22-433f-9a90-a0d6c6c829fa");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	'Domain',
+	1,
+	'S_DOM',
+	'A typical software system generally consists of distinct and independent subject matters. A Shlaer-Mellor analysis partition is based within each of these subject matters and  each subject matter is called a domain (S_DOM). A domain is inhabited by its  own conceptual entities (called classes). A domain may be partitioned into subsystems depending upon its complexity. Each domain is given a mission statement which provides a charter for the construction of the OOA models.',
+	"00000000-0000-0000-0000-000000000000",
+	'../Domain/Domain.xtuml');
+INSERT INTO R_AOTH
+	VALUES ("30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
+	"0e2f6591-3034-4f8e-8c8c-2593ebc39b57",
+	1,
+	1,
+	'contains');
+INSERT INTO O_RTIDA
+	VALUES ("dc0f2565-e2c7-4017-a7fd-191ac6e8a752",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	0,
+	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
+	"0e2f6591-3034-4f8e-8c8c-2593ebc39b57");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("dc0f2565-e2c7-4017-a7fd-191ac6e8a752",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	0,
+	'EEPack_ID',
+	'../External Entity Package/External Entity Package.xtuml');
+INSERT INTO R_RTO
+	VALUES ("30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
+	"0e2f6591-3034-4f8e-8c8c-2593ebc39b57",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'../External Entity Package/External Entity Package.xtuml');
+INSERT INTO R_OIR
+	VALUES ("30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
+	"0e2f6591-3034-4f8e-8c8c-2593ebc39b57",
+	"8fa87bd3-ede9-4bdb-904e-91b3bc00d61e");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	'External Entity Package',
+	22,
+	'S_EEPK',
+	'External Entity Package represents a package of external entities.',
+	"00000000-0000-0000-0000-000000000000",
+	'../External Entity Package/External Entity Package.xtuml');
+INSERT INTO R_ASSR
+	VALUES ("0290b06f-0a07-484e-af02-e32b5fb48434",
+	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
+	"5956be3f-1c31-442f-be79-77799dc2a729",
+	0);
+INSERT INTO R_RGO
+	VALUES ("0290b06f-0a07-484e-af02-e32b5fb48434",
+	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
+	"5956be3f-1c31-442f-be79-77799dc2a729");
+INSERT INTO R_OIR
+	VALUES ("0290b06f-0a07-484e-af02-e32b5fb48434",
+	"0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
+	"5956be3f-1c31-442f-be79-77799dc2a729",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("0290b06f-0a07-484e-af02-e32b5fb48434",
+	'External Entity Package in Domain',
+	1,
+	'PL_EEPID',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./External Entity Package in Domain/External Entity Package in Domain.xtuml');
+INSERT INTO PE_PE
+	VALUES ("0fd61b3d-8c45-4aa3-9b83-80cecd44f208",
+	1,
+	"72fa6244-a6e7-4d68-a86a-d54b054d2ecc",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_ASSOC
+	VALUES ("624b463b-416c-420b-9892-2f2c7ed93547");
+INSERT INTO R_REL
+	VALUES ("624b463b-416c-420b-9892-2f2c7ed93547",
+	301,
+	'CrossComponent:true',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_AONE
+	VALUES ("d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	"624b463b-416c-420b-9892-2f2c7ed93547",
+	"00d8d2e4-ead6-4e2e-ac7b-96c04c694115",
+	1,
+	1,
+	'contains');
+INSERT INTO O_RTIDA
+	VALUES ("0dbd6a1a-f57b-4432-8623-931a2704d33d",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	0,
+	"624b463b-416c-420b-9892-2f2c7ed93547",
+	"00d8d2e4-ead6-4e2e-ac7b-96c04c694115");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("0dbd6a1a-f57b-4432-8623-931a2704d33d",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	0,
+	'FunPack_ID',
+	'../Function Package/Function Package.xtuml');
+INSERT INTO R_RTO
+	VALUES ("d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	"624b463b-416c-420b-9892-2f2c7ed93547",
+	"00d8d2e4-ead6-4e2e-ac7b-96c04c694115",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'../Function Package/Function Package.xtuml');
+INSERT INTO R_OIR
+	VALUES ("d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	"624b463b-416c-420b-9892-2f2c7ed93547",
+	"00d8d2e4-ead6-4e2e-ac7b-96c04c694115",
+	"80940a09-983b-4f4b-a2b6-90d38da2dc6a");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	'Function Package',
+	19,
+	'S_FPK',
+	'Function Package represents a collection of domain functions.',
+	"00000000-0000-0000-0000-000000000000",
+	'../Function Package/Function Package.xtuml');
+INSERT INTO R_AOTH
+	VALUES ("07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	"624b463b-416c-420b-9892-2f2c7ed93547",
+	"e7f1bd37-ef82-4208-bbe0-94cf416692fc",
+	0,
+	0,
+	'is container');
+INSERT INTO O_RTIDA
+	VALUES ("4c399c05-3fb3-4c71-9ce8-04c9ec0b59f5",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	"624b463b-416c-420b-9892-2f2c7ed93547",
+	"e7f1bd37-ef82-4208-bbe0-94cf416692fc");
+INSERT INTO R_RTO
+	VALUES ("07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	"624b463b-416c-420b-9892-2f2c7ed93547",
+	"e7f1bd37-ef82-4208-bbe0-94cf416692fc",
+	0);
+INSERT INTO R_OIR
+	VALUES ("07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	"624b463b-416c-420b-9892-2f2c7ed93547",
+	"e7f1bd37-ef82-4208-bbe0-94cf416692fc",
+	"57062140-1f22-433f-9a90-a0d6c6c829fa");
+INSERT INTO R_ASSR
+	VALUES ("07a15dab-88b5-4dff-bc95-f1fba78f0aa0",
+	"624b463b-416c-420b-9892-2f2c7ed93547",
+	"d13f8e2a-7427-4121-96b5-176819270da4",
+	0);
+INSERT INTO R_RGO
+	VALUES ("07a15dab-88b5-4dff-bc95-f1fba78f0aa0",
+	"624b463b-416c-420b-9892-2f2c7ed93547",
+	"d13f8e2a-7427-4121-96b5-176819270da4");
+INSERT INTO R_OIR
+	VALUES ("07a15dab-88b5-4dff-bc95-f1fba78f0aa0",
+	"624b463b-416c-420b-9892-2f2c7ed93547",
+	"d13f8e2a-7427-4121-96b5-176819270da4",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("07a15dab-88b5-4dff-bc95-f1fba78f0aa0",
+	'Function Package in Domain',
+	300,
+	'PL_FPID',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./Function Package in Domain/Function Package in Domain.xtuml');
+INSERT INTO PE_PE
+	VALUES ("624b463b-416c-420b-9892-2f2c7ed93547",
+	1,
+	"72fa6244-a6e7-4d68-a86a-d54b054d2ecc",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO O_IOBJ
+	VALUES ("57062140-1f22-433f-9a90-a0d6c6c829fa",
+	"07cf2195-f012-4bf5-83c7-f89dd30a8839",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'Domain',
+	'S_DOM');
+INSERT INTO PE_PE
+	VALUES ("57062140-1f22-433f-9a90-a0d6c6c829fa",
+	1,
+	"72fa6244-a6e7-4d68-a86a-d54b054d2ecc",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("8fa87bd3-ede9-4bdb-904e-91b3bc00d61e",
+	"30cec712-73cf-4c12-84bb-4b29fbfa4fd5",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'External Entity Package',
+	'S_EEPK');
+INSERT INTO PE_PE
+	VALUES ("8fa87bd3-ede9-4bdb-904e-91b3bc00d61e",
+	1,
+	"72fa6244-a6e7-4d68-a86a-d54b054d2ecc",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO O_IOBJ
+	VALUES ("80940a09-983b-4f4b-a2b6-90d38da2dc6a",
+	"d824ae3e-c53c-448b-a2d3-5f986c7705f7",
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	'Function Package',
+	'S_FPK');
+INSERT INTO PE_PE
+	VALUES ("80940a09-983b-4f4b-a2b6-90d38da2dc6a",
+	1,
+	"72fa6244-a6e7-4d68-a86a-d54b054d2ecc",
+	"00000000-0000-0000-0000-000000000000",
+	19);
+INSERT INTO PE_PE
+	VALUES ("72fa6244-a6e7-4d68-a86a-d54b054d2ecc",
+	1,
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
 	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
-	"72fa6244-a6e7-4d68-a86a-d54b054d2ecc");
-INSERT INTO S_SS_PROXY
-	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	"00000000-0000-0000-0000-000000000000",
+	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
 	'Domain',
 	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
-	'S',
 	1,
-	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	"00000000-0000-0000-0000-000000100002",
 	'../Domain.xtuml');
-INSERT INTO S_DOM_PROXY
-	VALUES ("d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
-	'ooaofooa',
-	'========================================================================
-
-File:          $RCSfile$
-Version:   $Revision$
-Modified:  $Date$
-
-(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
-
-========================================================================
-Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-use this file except in compliance with the License.  You may obtain a copy 
-of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software 
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT 
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the 
-License for the specific language governing permissions and limitations under
-the License.
-========================================================================
-
-This is the application domain for the Tiger project.
-
-The processing in this model describes the activities
-for model capture.
-
-
-
-',
+INSERT INTO S_SYS_PROXY
+	VALUES ("d9bc5487-4193-4817-be1c-6c3f3339aebf",
+	'com.mentor.nucleus.bp.core',
 	1,
-	"00000000-0000-0000-0000-000000000001",
-	"d9bc5487-4193-4817-be1c-6c3f3339aebf",
-	'../../ooaofooa.xtuml');
+	'../../../com.mentor.nucleus.bp.core.xtuml');

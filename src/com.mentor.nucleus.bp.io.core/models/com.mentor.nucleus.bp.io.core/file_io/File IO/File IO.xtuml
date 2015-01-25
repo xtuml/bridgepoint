@@ -1,707 +1,17 @@
--- BP 7.1 content: Subsystem syschar: 3 persistence-version: 7.1.6
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
 
-INSERT INTO S_SS
+INSERT INTO EP_PKG
 	VALUES ("f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	"4dacadbd-0ef3-4f12-9693-fcbfe81a2955",
 	'File IO',
 	'',
-	'',
-	1,
-	"695dce7b-262a-4226-9cbb-c9f897b44c67",
-	"00000000-0000-0000-0000-000000100002");
-INSERT INTO S_SID
-	VALUES ("695dce7b-262a-4226-9cbb-c9f897b44c67",
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
-INSERT INTO S_DOM_PROXY
-	VALUES ("695dce7b-262a-4226-9cbb-c9f897b44c67",
-	'file_io',
-	'========================================================================
-
-File:          $RCSfile$
-Version:   $Revision$
-Modified:  $Date$
-
-(c) Copyright 2003-2014 Mentor Graphics Corporation All rights reserved.
-
-========================================================================
-Licensed under the Apache License, Version 2.0 (the "License"); you may not
-use this file except in compliance with the License.  You may obtain a copy
-of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
-License for the specific language governing permissions and limitations under
-the License.
-========================================================================
-
-This domain captures the information needed to generate code that
-exports SQL from the Tiger application to a BridgePoint 6.1 compatible
-sql data file.   The data is also used to import a BridgePoint 6.1 SQL file
-into the Tiger application.
-',
-	0,
-	"00000000-0000-0000-0000-000000000001",
-	"4dacadbd-0ef3-4f12-9693-fcbfe81a2955",
-	'../file_io.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("ec97adb2-be8b-4639-b24d-7b63555d6e55");
-INSERT INTO R_REL
-	VALUES ("ec97adb2-be8b-4639-b24d-7b63555d6e55",
-	2,
-	'Each instance of Export Ordering is a node in a tree.
-This relationship captures which node is the next node to this node that
-has the same parent.',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
-INSERT INTO R_PART
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"ec97adb2-be8b-4639-b24d-7b63555d6e55",
-	"b44c0cd4-b411-477c-b845-199b2f64c9c3",
-	0,
-	1,
-	'follows');
-INSERT INTO O_RTIDA
-	VALUES ("5bf8fae0-9619-4705-aa98-c6d256181d20",
-	"10d6122a-7c29-46cd-b5d1-386e15537749",
-	0,
-	"ec97adb2-be8b-4639-b24d-7b63555d6e55",
-	"b44c0cd4-b411-477c-b845-199b2f64c9c3");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("5bf8fae0-9619-4705-aa98-c6d256181d20",
-	"10d6122a-7c29-46cd-b5d1-386e15537749",
-	0,
-	'Id',
-	'./Export Ordering/Export Ordering.xtuml');
-INSERT INTO R_RTO
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"ec97adb2-be8b-4639-b24d-7b63555d6e55",
-	"b44c0cd4-b411-477c-b845-199b2f64c9c3",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"10d6122a-7c29-46cd-b5d1-386e15537749",
-	'./Export Ordering/Export Ordering.xtuml');
-INSERT INTO R_OIR
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"ec97adb2-be8b-4639-b24d-7b63555d6e55",
-	"b44c0cd4-b411-477c-b845-199b2f64c9c3",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	'Export Ordering',
-	1,
-	'EO',
-	'This class captures the sequence for exporting
-classes to a BridgePoint SQL file suitable for 
-importing by Model Builder.  The sequence is
-essentially a call graph.  Each instance represents
-the export of a specific item. ',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
-	'./Export Ordering/Export Ordering.xtuml');
-INSERT INTO R_FORM
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"ec97adb2-be8b-4639-b24d-7b63555d6e55",
-	"c25cd15e-7494-4f50-ba4f-fb6efc246073",
-	0,
-	1,
-	'precedes');
-INSERT INTO R_RGO
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"ec97adb2-be8b-4639-b24d-7b63555d6e55",
-	"c25cd15e-7494-4f50-ba4f-fb6efc246073");
-INSERT INTO R_OIR
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"ec97adb2-be8b-4639-b24d-7b63555d6e55",
-	"c25cd15e-7494-4f50-ba4f-fb6efc246073",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("3be2fcf7-7505-4c0e-9425-d69e20f23bad");
-INSERT INTO R_REL
-	VALUES ("3be2fcf7-7505-4c0e-9425-d69e20f23bad",
-	1,
-	'Each instance of Export Ordering is a node in a tree.
-This relationship captures which node is the first child of a node.
-',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
-INSERT INTO R_PART
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"3be2fcf7-7505-4c0e-9425-d69e20f23bad",
-	"d5c9d6fc-1172-404e-b969-42aa1bd3f6a5",
-	0,
-	1,
-	'is parent of');
-INSERT INTO O_RTIDA
-	VALUES ("5bf8fae0-9619-4705-aa98-c6d256181d20",
-	"10d6122a-7c29-46cd-b5d1-386e15537749",
-	0,
-	"3be2fcf7-7505-4c0e-9425-d69e20f23bad",
-	"d5c9d6fc-1172-404e-b969-42aa1bd3f6a5");
-INSERT INTO R_RTO
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"3be2fcf7-7505-4c0e-9425-d69e20f23bad",
-	"d5c9d6fc-1172-404e-b969-42aa1bd3f6a5",
-	0);
-INSERT INTO R_OIR
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"3be2fcf7-7505-4c0e-9425-d69e20f23bad",
-	"d5c9d6fc-1172-404e-b969-42aa1bd3f6a5",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"3be2fcf7-7505-4c0e-9425-d69e20f23bad",
-	"b1f2b5b7-f656-4ab0-a394-806e86a818b0",
-	1,
-	1,
-	'is first child of');
-INSERT INTO R_RGO
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"3be2fcf7-7505-4c0e-9425-d69e20f23bad",
-	"b1f2b5b7-f656-4ab0-a394-806e86a818b0");
-INSERT INTO R_OIR
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"3be2fcf7-7505-4c0e-9425-d69e20f23bad",
-	"b1f2b5b7-f656-4ab0-a394-806e86a818b0",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("b1b25473-902c-4e24-b5e1-ff572d04f8ad");
-INSERT INTO R_REL
-	VALUES ("b1b25473-902c-4e24-b5e1-ff572d04f8ad",
-	7,
-	'A table has one or more graphical representations of its data.',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
-INSERT INTO R_PART
-	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
-	"b1b25473-902c-4e24-b5e1-ff572d04f8ad",
-	"e98b021a-b9f1-4183-b17c-81ef6ecced8c",
-	0,
-	0,
-	'is for');
-INSERT INTO O_RTIDA
-	VALUES ("81fc25f0-8697-436e-9db9-31d3ed2c0950",
-	"d62bdfae-7686-4844-b0c7-e71e7829446e",
-	0,
-	"b1b25473-902c-4e24-b5e1-ff572d04f8ad",
-	"e98b021a-b9f1-4183-b17c-81ef6ecced8c");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("81fc25f0-8697-436e-9db9-31d3ed2c0950",
-	"d62bdfae-7686-4844-b0c7-e71e7829446e",
-	0,
-	'bpName',
-	'./SQL Table/SQL Table.xtuml');
-INSERT INTO R_RTO
-	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
-	"b1b25473-902c-4e24-b5e1-ff572d04f8ad",
-	"e98b021a-b9f1-4183-b17c-81ef6ecced8c",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"d62bdfae-7686-4844-b0c7-e71e7829446e",
-	'./SQL Table/SQL Table.xtuml');
-INSERT INTO R_OIR
-	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
-	"b1b25473-902c-4e24-b5e1-ff572d04f8ad",
-	"e98b021a-b9f1-4183-b17c-81ef6ecced8c",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
-	'SQL Table',
-	3,
-	'T',
-	'This class is the information needed to output data for a table in the 
-BP SQL file.',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
-	'./SQL Table/SQL Table.xtuml');
-INSERT INTO R_FORM
-	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
-	"b1b25473-902c-4e24-b5e1-ff572d04f8ad",
-	"b2c80d33-5841-4940-90d3-caee477987ad",
-	1,
-	1,
-	'has');
-INSERT INTO R_RGO
-	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
-	"b1b25473-902c-4e24-b5e1-ff572d04f8ad",
-	"b2c80d33-5841-4940-90d3-caee477987ad");
-INSERT INTO R_OIR
-	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
-	"b1b25473-902c-4e24-b5e1-ff572d04f8ad",
-	"b2c80d33-5841-4940-90d3-caee477987ad",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
-	'Graphical Data',
-	4,
-	'GD',
-	'The graphical data is the graphics portion of a model that is stored in the SQL file.
-BridgePoint keeps the model data and graphical data separated, so we need to 
-capture that separation.',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
-	'./Graphical Data/Graphical Data.xtuml');
-INSERT INTO R_SUBSUP
-	VALUES ("00c0c081-cb09-4068-a209-0851ce500492");
-INSERT INTO R_REL
-	VALUES ("00c0c081-cb09-4068-a209-0851ce500492",
-	4,
-	'An export item is either the model data (tables) or graphical information.',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
-INSERT INTO R_SUPER
-	VALUES ("69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
-	"00c0c081-cb09-4068-a209-0851ce500492",
-	"82c02e08-123d-4f6d-9be8-05e3bc550654");
-INSERT INTO O_RTIDA
-	VALUES ("fb78b1f6-8c41-4ee7-9138-026cad67415f",
-	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
-	0,
-	"00c0c081-cb09-4068-a209-0851ce500492",
-	"82c02e08-123d-4f6d-9be8-05e3bc550654");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("fb78b1f6-8c41-4ee7-9138-026cad67415f",
-	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
-	0,
-	'Name',
-	'./Export Item/Export Item.xtuml');
-INSERT INTO R_RTO
-	VALUES ("69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
-	"00c0c081-cb09-4068-a209-0851ce500492",
-	"82c02e08-123d-4f6d-9be8-05e3bc550654",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
-	'./Export Item/Export Item.xtuml');
-INSERT INTO R_OIR
-	VALUES ("69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
-	"00c0c081-cb09-4068-a209-0851ce500492",
-	"82c02e08-123d-4f6d-9be8-05e3bc550654",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
-	'Export Item',
-	2,
-	'EI',
-	'This class is an abstraction of what is exported from the Tiger application.
-It abstracts two things: model data, and graphical models.',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
-	'./Export Item/Export Item.xtuml');
-INSERT INTO R_SUB
-	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
-	"00c0c081-cb09-4068-a209-0851ce500492",
-	"d33e6149-71e4-422f-bc02-f8432f2fd70b");
-INSERT INTO R_RGO
-	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
-	"00c0c081-cb09-4068-a209-0851ce500492",
-	"d33e6149-71e4-422f-bc02-f8432f2fd70b");
-INSERT INTO R_OIR
-	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
-	"00c0c081-cb09-4068-a209-0851ce500492",
-	"d33e6149-71e4-422f-bc02-f8432f2fd70b",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SUB
-	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
-	"00c0c081-cb09-4068-a209-0851ce500492",
-	"c815436a-4fa4-4d70-8f59-42a38f5205e6");
-INSERT INTO R_RGO
-	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
-	"00c0c081-cb09-4068-a209-0851ce500492",
-	"c815436a-4fa4-4d70-8f59-42a38f5205e6");
-INSERT INTO R_OIR
-	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
-	"00c0c081-cb09-4068-a209-0851ce500492",
-	"c815436a-4fa4-4d70-8f59-42a38f5205e6",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("db85b500-395b-43c7-a51c-87e4ae6e79e7");
-INSERT INTO R_REL
-	VALUES ("db85b500-395b-43c7-a51c-87e4ae6e79e7",
-	5,
-	'A table has one or more columns.',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
-INSERT INTO R_PART
-	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
-	"db85b500-395b-43c7-a51c-87e4ae6e79e7",
-	"c0b76de8-d78a-4f24-a52f-3cc998b918d1",
-	0,
-	0,
-	'is part of');
-INSERT INTO O_RTIDA
-	VALUES ("81fc25f0-8697-436e-9db9-31d3ed2c0950",
-	"d62bdfae-7686-4844-b0c7-e71e7829446e",
-	0,
-	"db85b500-395b-43c7-a51c-87e4ae6e79e7",
-	"c0b76de8-d78a-4f24-a52f-3cc998b918d1");
-INSERT INTO R_RTO
-	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
-	"db85b500-395b-43c7-a51c-87e4ae6e79e7",
-	"c0b76de8-d78a-4f24-a52f-3cc998b918d1",
-	0);
-INSERT INTO R_OIR
-	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
-	"db85b500-395b-43c7-a51c-87e4ae6e79e7",
-	"c0b76de8-d78a-4f24-a52f-3cc998b918d1",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
-	"db85b500-395b-43c7-a51c-87e4ae6e79e7",
-	"7fb1a478-b18f-4edf-9225-060f360aefae",
-	1,
-	0,
-	'has');
-INSERT INTO R_RGO
-	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
-	"db85b500-395b-43c7-a51c-87e4ae6e79e7",
-	"7fb1a478-b18f-4edf-9225-060f360aefae");
-INSERT INTO R_OIR
-	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
-	"db85b500-395b-43c7-a51c-87e4ae6e79e7",
-	"7fb1a478-b18f-4edf-9225-060f360aefae",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
-	'Column',
-	5,
-	'C',
-	'This is a column in a table.',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
-	'./Column/Column.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("66f401c3-8a36-4215-98c9-0b9f455dfb82");
-INSERT INTO R_REL
-	VALUES ("66f401c3-8a36-4215-98c9-0b9f455dfb82",
-	3,
-	'Each instance of Export Ordering will have code generated to
-export something.  The Export Item is that something.',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
-INSERT INTO R_FORM
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"66f401c3-8a36-4215-98c9-0b9f455dfb82",
-	"f75bd486-93c1-403d-a379-b0e7a4866656",
-	0,
-	0,
-	'exported by');
-INSERT INTO R_RGO
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"66f401c3-8a36-4215-98c9-0b9f455dfb82",
-	"f75bd486-93c1-403d-a379-b0e7a4866656");
-INSERT INTO R_OIR
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"66f401c3-8a36-4215-98c9-0b9f455dfb82",
-	"f75bd486-93c1-403d-a379-b0e7a4866656",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
-	"66f401c3-8a36-4215-98c9-0b9f455dfb82",
-	"1ad283ea-321d-4fec-9c10-74c9131fd1bc",
-	0,
-	0,
-	'is for');
-INSERT INTO O_RTIDA
-	VALUES ("fb78b1f6-8c41-4ee7-9138-026cad67415f",
-	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
-	0,
-	"66f401c3-8a36-4215-98c9-0b9f455dfb82",
-	"1ad283ea-321d-4fec-9c10-74c9131fd1bc");
-INSERT INTO R_RTO
-	VALUES ("69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
-	"66f401c3-8a36-4215-98c9-0b9f455dfb82",
-	"1ad283ea-321d-4fec-9c10-74c9131fd1bc",
-	0);
-INSERT INTO R_OIR
-	VALUES ("69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
-	"66f401c3-8a36-4215-98c9-0b9f455dfb82",
-	"1ad283ea-321d-4fec-9c10-74c9131fd1bc",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("2820fe0d-f895-4c82-95c5-3ebbf23a02f5");
-INSERT INTO R_REL
-	VALUES ("2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
-	6,
-	'This relationship orders the columns in a table.
-',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
-INSERT INTO R_PART
-	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
-	"2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
-	"47c7402c-b480-4621-b0cb-9587ab33f70c",
-	0,
-	1,
-	'follows');
-INSERT INTO O_RTIDA
-	VALUES ("dcd43274-3bc1-41b5-bbaa-c07555218694",
-	"68363a50-a0e1-414d-8939-1409ebc1f822",
-	0,
-	"2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
-	"47c7402c-b480-4621-b0cb-9587ab33f70c");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("dcd43274-3bc1-41b5-bbaa-c07555218694",
-	"68363a50-a0e1-414d-8939-1409ebc1f822",
-	0,
-	'tableName',
-	'./Column/Column.xtuml');
-INSERT INTO O_RTIDA
-	VALUES ("6bd06a87-cf2b-45d0-a95b-fcfaa57d29ca",
-	"68363a50-a0e1-414d-8939-1409ebc1f822",
-	0,
-	"2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
-	"47c7402c-b480-4621-b0cb-9587ab33f70c");
-INSERT INTO O_OIDA_PROXY
-	VALUES ("6bd06a87-cf2b-45d0-a95b-fcfaa57d29ca",
-	"68363a50-a0e1-414d-8939-1409ebc1f822",
-	0,
-	'Name',
-	'./Column/Column.xtuml');
-INSERT INTO R_RTO
-	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
-	"2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
-	"47c7402c-b480-4621-b0cb-9587ab33f70c",
-	0);
-INSERT INTO O_ID_PROXY
-	VALUES (0,
-	"68363a50-a0e1-414d-8939-1409ebc1f822",
-	'./Column/Column.xtuml');
-INSERT INTO R_OIR
-	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
-	"2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
-	"47c7402c-b480-4621-b0cb-9587ab33f70c",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
-	"2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
-	"e0cff53a-e5a7-4fb0-b01b-ef00b373a2e6",
-	0,
-	1,
-	'precedes');
-INSERT INTO R_RGO
-	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
-	"2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
-	"e0cff53a-e5a7-4fb0-b01b-ef00b373a2e6");
-INSERT INTO R_OIR
-	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
-	"2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
-	"e0cff53a-e5a7-4fb0-b01b-ef00b373a2e6",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("d3f6ca94-62be-4e84-b7ae-aa3b30097bf5");
-INSERT INTO R_REL
-	VALUES ("d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
-	8,
-	'This relationship captures which column in a table is the 
-identifier for that table.',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
-INSERT INTO R_PART
-	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
-	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
-	"3a17831a-3e1b-47b2-851b-47ea1a9c5dea",
-	0,
-	0,
-	'has model id');
-INSERT INTO O_RTIDA
-	VALUES ("dcd43274-3bc1-41b5-bbaa-c07555218694",
-	"68363a50-a0e1-414d-8939-1409ebc1f822",
-	0,
-	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
-	"3a17831a-3e1b-47b2-851b-47ea1a9c5dea");
-INSERT INTO O_RTIDA
-	VALUES ("6bd06a87-cf2b-45d0-a95b-fcfaa57d29ca",
-	"68363a50-a0e1-414d-8939-1409ebc1f822",
-	0,
-	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
-	"3a17831a-3e1b-47b2-851b-47ea1a9c5dea");
-INSERT INTO R_RTO
-	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
-	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
-	"3a17831a-3e1b-47b2-851b-47ea1a9c5dea",
-	0);
-INSERT INTO R_OIR
-	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
-	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
-	"3a17831a-3e1b-47b2-851b-47ea1a9c5dea",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
-	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
-	"4e1c4f5e-e02f-4d04-bc3a-7bf68a1c5dde",
-	0,
-	1,
-	'identifies model data');
-INSERT INTO R_RGO
-	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
-	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
-	"4e1c4f5e-e02f-4d04-bc3a-7bf68a1c5dde");
-INSERT INTO R_OIR
-	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
-	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
-	"4e1c4f5e-e02f-4d04-bc3a-7bf68a1c5dde",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_SIMP
-	VALUES ("5b059329-0d99-437d-8021-d3f85a17d494");
-INSERT INTO R_REL
-	VALUES ("5b059329-0d99-437d-8021-d3f85a17d494",
-	9,
-	'A column may be followed by one or more columns that are enhancements
-to the BridgePoint 6.1 schema.   If there is more than one column, the order
-of the columns is determined by their creation (order in the .pei file).',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
-INSERT INTO R_PART
-	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
-	"5b059329-0d99-437d-8021-d3f85a17d494",
-	"dbade202-3957-44e9-b733-be2d003ba415",
-	0,
-	0,
-	'follows');
-INSERT INTO O_RTIDA
-	VALUES ("dcd43274-3bc1-41b5-bbaa-c07555218694",
-	"68363a50-a0e1-414d-8939-1409ebc1f822",
-	0,
-	"5b059329-0d99-437d-8021-d3f85a17d494",
-	"dbade202-3957-44e9-b733-be2d003ba415");
-INSERT INTO O_RTIDA
-	VALUES ("6bd06a87-cf2b-45d0-a95b-fcfaa57d29ca",
-	"68363a50-a0e1-414d-8939-1409ebc1f822",
-	0,
-	"5b059329-0d99-437d-8021-d3f85a17d494",
-	"dbade202-3957-44e9-b733-be2d003ba415");
-INSERT INTO R_RTO
-	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
-	"5b059329-0d99-437d-8021-d3f85a17d494",
-	"dbade202-3957-44e9-b733-be2d003ba415",
-	0);
-INSERT INTO R_OIR
-	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
-	"5b059329-0d99-437d-8021-d3f85a17d494",
-	"dbade202-3957-44e9-b733-be2d003ba415",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("7dfb0d5c-a717-444a-b40b-65edc2e7965e",
-	"5b059329-0d99-437d-8021-d3f85a17d494",
-	"7d332f92-d57c-45d7-bd68-c2ec853e8ca6",
-	1,
-	1,
-	'is followed by ');
-INSERT INTO R_RGO
-	VALUES ("7dfb0d5c-a717-444a-b40b-65edc2e7965e",
-	"5b059329-0d99-437d-8021-d3f85a17d494",
-	"7d332f92-d57c-45d7-bd68-c2ec853e8ca6");
-INSERT INTO R_OIR
-	VALUES ("7dfb0d5c-a717-444a-b40b-65edc2e7965e",
-	"5b059329-0d99-437d-8021-d3f85a17d494",
-	"7d332f92-d57c-45d7-bd68-c2ec853e8ca6",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("7dfb0d5c-a717-444a-b40b-65edc2e7965e",
-	'Enhancement Column',
-	6,
-	'EC',
-	'This is a column that has been added to the Tiger schema that
-is not in the BP 6.1 schema.  The column is placed after an existing
-BP 6.1 column.',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
-	'./Enhancement Column/Enhancement Column.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("ff90a98f-72e2-449b-8e64-7e4eee27fbf3");
-INSERT INTO R_REL
-	VALUES ("ff90a98f-72e2-449b-8e64-7e4eee27fbf3",
-	10,
-	'',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
-INSERT INTO R_PART
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"ff90a98f-72e2-449b-8e64-7e4eee27fbf3",
-	"4c9b8029-d898-40a7-ae79-74d36f641685",
-	0,
-	0,
-	'is link to alternate children');
-INSERT INTO O_RTIDA
-	VALUES ("5bf8fae0-9619-4705-aa98-c6d256181d20",
-	"10d6122a-7c29-46cd-b5d1-386e15537749",
-	0,
-	"ff90a98f-72e2-449b-8e64-7e4eee27fbf3",
-	"4c9b8029-d898-40a7-ae79-74d36f641685");
-INSERT INTO R_RTO
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"ff90a98f-72e2-449b-8e64-7e4eee27fbf3",
-	"4c9b8029-d898-40a7-ae79-74d36f641685",
-	0);
-INSERT INTO R_OIR
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"ff90a98f-72e2-449b-8e64-7e4eee27fbf3",
-	"4c9b8029-d898-40a7-ae79-74d36f641685",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_FORM
-	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
-	"ff90a98f-72e2-449b-8e64-7e4eee27fbf3",
-	"c757b4f2-5553-4718-ac13-f92a76bd04e3",
-	1,
-	1,
-	'has alternate children through');
-INSERT INTO R_RGO
-	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
-	"ff90a98f-72e2-449b-8e64-7e4eee27fbf3",
-	"c757b4f2-5553-4718-ac13-f92a76bd04e3");
-INSERT INTO R_OIR
-	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
-	"ff90a98f-72e2-449b-8e64-7e4eee27fbf3",
-	"c757b4f2-5553-4718-ac13-f92a76bd04e3",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
-	'Alternate Export Child Link',
-	7,
-	'AEP',
-	'',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
-	'./Alternate Export Child Link/Alternate Export Child Link.xtuml');
-INSERT INTO R_SIMP
-	VALUES ("abc1c420-c4a0-4491-91f1-4c8c2e726831");
-INSERT INTO R_REL
-	VALUES ("abc1c420-c4a0-4491-91f1-4c8c2e726831",
-	11,
-	'',
-	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
-INSERT INTO R_FORM
-	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
-	"abc1c420-c4a0-4491-91f1-4c8c2e726831",
-	"d3ed5232-9ced-4c93-9380-795f54b1d38d",
-	1,
-	1,
-	'is linked to alternate parent through');
-INSERT INTO R_RGO
-	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
-	"abc1c420-c4a0-4491-91f1-4c8c2e726831",
-	"d3ed5232-9ced-4c93-9380-795f54b1d38d");
-INSERT INTO R_OIR
-	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
-	"abc1c420-c4a0-4491-91f1-4c8c2e726831",
-	"d3ed5232-9ced-4c93-9380-795f54b1d38d",
-	"00000000-0000-0000-0000-000000000000");
-INSERT INTO R_PART
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"abc1c420-c4a0-4491-91f1-4c8c2e726831",
-	"e08ba01c-f689-433c-b9a4-139f9566b497",
-	0,
-	0,
-	'links to alternate parent');
-INSERT INTO O_RTIDA
-	VALUES ("5bf8fae0-9619-4705-aa98-c6d256181d20",
-	"10d6122a-7c29-46cd-b5d1-386e15537749",
-	0,
-	"abc1c420-c4a0-4491-91f1-4c8c2e726831",
-	"e08ba01c-f689-433c-b9a4-139f9566b497");
-INSERT INTO R_RTO
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"abc1c420-c4a0-4491-91f1-4c8c2e726831",
-	"e08ba01c-f689-433c-b9a4-139f9566b497",
-	0);
-INSERT INTO R_OIR
-	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
-	"abc1c420-c4a0-4491-91f1-4c8c2e726831",
-	"e08ba01c-f689-433c-b9a4-139f9566b497",
-	"00000000-0000-0000-0000-000000000000");
+	1);
 INSERT INTO GD_MD
 	VALUES ("7abf1d0c-42d1-4433-a038-d5dbc9fdc907",
-	5,
+	112,
 	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
-	11,
+	108,
 	1,
 	0,
 	1,
@@ -2426,3 +1736,766 @@ INSERT INTO DIM_DIA
 	1490.000000,
 	500.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SIMP
+	VALUES ("ec97adb2-be8b-4639-b24d-7b63555d6e55");
+INSERT INTO R_REL
+	VALUES ("ec97adb2-be8b-4639-b24d-7b63555d6e55",
+	2,
+	'Each instance of Export Ordering is a node in a tree.
+This relationship captures which node is the next node to this node that
+has the same parent.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"ec97adb2-be8b-4639-b24d-7b63555d6e55",
+	"b44c0cd4-b411-477c-b845-199b2f64c9c3",
+	0,
+	1,
+	'follows');
+INSERT INTO O_RTIDA
+	VALUES ("5bf8fae0-9619-4705-aa98-c6d256181d20",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	0,
+	"ec97adb2-be8b-4639-b24d-7b63555d6e55",
+	"b44c0cd4-b411-477c-b845-199b2f64c9c3");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("5bf8fae0-9619-4705-aa98-c6d256181d20",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	0,
+	'Id',
+	'./Export Ordering/Export Ordering.xtuml');
+INSERT INTO R_RTO
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"ec97adb2-be8b-4639-b24d-7b63555d6e55",
+	"b44c0cd4-b411-477c-b845-199b2f64c9c3",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	'./Export Ordering/Export Ordering.xtuml');
+INSERT INTO R_OIR
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"ec97adb2-be8b-4639-b24d-7b63555d6e55",
+	"b44c0cd4-b411-477c-b845-199b2f64c9c3",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	'Export Ordering',
+	1,
+	'EO',
+	'This class captures the sequence for exporting
+classes to a BridgePoint SQL file suitable for 
+importing by Model Builder.  The sequence is
+essentially a call graph.  Each instance represents
+the export of a specific item. ',
+	"00000000-0000-0000-0000-000000000000",
+	'./Export Ordering/Export Ordering.xtuml');
+INSERT INTO R_FORM
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"ec97adb2-be8b-4639-b24d-7b63555d6e55",
+	"c25cd15e-7494-4f50-ba4f-fb6efc246073",
+	0,
+	1,
+	'precedes');
+INSERT INTO R_RGO
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"ec97adb2-be8b-4639-b24d-7b63555d6e55",
+	"c25cd15e-7494-4f50-ba4f-fb6efc246073");
+INSERT INTO R_OIR
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"ec97adb2-be8b-4639-b24d-7b63555d6e55",
+	"c25cd15e-7494-4f50-ba4f-fb6efc246073",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("ec97adb2-be8b-4639-b24d-7b63555d6e55",
+	1,
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("3be2fcf7-7505-4c0e-9425-d69e20f23bad");
+INSERT INTO R_REL
+	VALUES ("3be2fcf7-7505-4c0e-9425-d69e20f23bad",
+	1,
+	'Each instance of Export Ordering is a node in a tree.
+This relationship captures which node is the first child of a node.
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"3be2fcf7-7505-4c0e-9425-d69e20f23bad",
+	"d5c9d6fc-1172-404e-b969-42aa1bd3f6a5",
+	0,
+	1,
+	'is parent of');
+INSERT INTO O_RTIDA
+	VALUES ("5bf8fae0-9619-4705-aa98-c6d256181d20",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	0,
+	"3be2fcf7-7505-4c0e-9425-d69e20f23bad",
+	"d5c9d6fc-1172-404e-b969-42aa1bd3f6a5");
+INSERT INTO R_RTO
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"3be2fcf7-7505-4c0e-9425-d69e20f23bad",
+	"d5c9d6fc-1172-404e-b969-42aa1bd3f6a5",
+	0);
+INSERT INTO R_OIR
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"3be2fcf7-7505-4c0e-9425-d69e20f23bad",
+	"d5c9d6fc-1172-404e-b969-42aa1bd3f6a5",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"3be2fcf7-7505-4c0e-9425-d69e20f23bad",
+	"b1f2b5b7-f656-4ab0-a394-806e86a818b0",
+	1,
+	1,
+	'is first child of');
+INSERT INTO R_RGO
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"3be2fcf7-7505-4c0e-9425-d69e20f23bad",
+	"b1f2b5b7-f656-4ab0-a394-806e86a818b0");
+INSERT INTO R_OIR
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"3be2fcf7-7505-4c0e-9425-d69e20f23bad",
+	"b1f2b5b7-f656-4ab0-a394-806e86a818b0",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("3be2fcf7-7505-4c0e-9425-d69e20f23bad",
+	1,
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("b1b25473-902c-4e24-b5e1-ff572d04f8ad");
+INSERT INTO R_REL
+	VALUES ("b1b25473-902c-4e24-b5e1-ff572d04f8ad",
+	7,
+	'A table has one or more graphical representations of its data.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
+	"b1b25473-902c-4e24-b5e1-ff572d04f8ad",
+	"e98b021a-b9f1-4183-b17c-81ef6ecced8c",
+	0,
+	0,
+	'is for');
+INSERT INTO O_RTIDA
+	VALUES ("81fc25f0-8697-436e-9db9-31d3ed2c0950",
+	"d62bdfae-7686-4844-b0c7-e71e7829446e",
+	0,
+	"b1b25473-902c-4e24-b5e1-ff572d04f8ad",
+	"e98b021a-b9f1-4183-b17c-81ef6ecced8c");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("81fc25f0-8697-436e-9db9-31d3ed2c0950",
+	"d62bdfae-7686-4844-b0c7-e71e7829446e",
+	0,
+	'bpName',
+	'./SQL Table/SQL Table.xtuml');
+INSERT INTO R_RTO
+	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
+	"b1b25473-902c-4e24-b5e1-ff572d04f8ad",
+	"e98b021a-b9f1-4183-b17c-81ef6ecced8c",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"d62bdfae-7686-4844-b0c7-e71e7829446e",
+	'./SQL Table/SQL Table.xtuml');
+INSERT INTO R_OIR
+	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
+	"b1b25473-902c-4e24-b5e1-ff572d04f8ad",
+	"e98b021a-b9f1-4183-b17c-81ef6ecced8c",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
+	'SQL Table',
+	3,
+	'T',
+	'This class is the information needed to output data for a table in the 
+BP SQL file.',
+	"00000000-0000-0000-0000-000000000000",
+	'./SQL Table/SQL Table.xtuml');
+INSERT INTO R_FORM
+	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"b1b25473-902c-4e24-b5e1-ff572d04f8ad",
+	"b2c80d33-5841-4940-90d3-caee477987ad",
+	1,
+	1,
+	'has');
+INSERT INTO R_RGO
+	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"b1b25473-902c-4e24-b5e1-ff572d04f8ad",
+	"b2c80d33-5841-4940-90d3-caee477987ad");
+INSERT INTO R_OIR
+	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"b1b25473-902c-4e24-b5e1-ff572d04f8ad",
+	"b2c80d33-5841-4940-90d3-caee477987ad",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
+	'Graphical Data',
+	4,
+	'GD',
+	'The graphical data is the graphics portion of a model that is stored in the SQL file.
+BridgePoint keeps the model data and graphical data separated, so we need to 
+capture that separation.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Graphical Data/Graphical Data.xtuml');
+INSERT INTO PE_PE
+	VALUES ("b1b25473-902c-4e24-b5e1-ff572d04f8ad",
+	1,
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SUBSUP
+	VALUES ("00c0c081-cb09-4068-a209-0851ce500492");
+INSERT INTO R_REL
+	VALUES ("00c0c081-cb09-4068-a209-0851ce500492",
+	4,
+	'An export item is either the model data (tables) or graphical information.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUPER
+	VALUES ("69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	"00c0c081-cb09-4068-a209-0851ce500492",
+	"82c02e08-123d-4f6d-9be8-05e3bc550654");
+INSERT INTO O_RTIDA
+	VALUES ("fb78b1f6-8c41-4ee7-9138-026cad67415f",
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	0,
+	"00c0c081-cb09-4068-a209-0851ce500492",
+	"82c02e08-123d-4f6d-9be8-05e3bc550654");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("fb78b1f6-8c41-4ee7-9138-026cad67415f",
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	0,
+	'Name',
+	'./Export Item/Export Item.xtuml');
+INSERT INTO R_RTO
+	VALUES ("69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	"00c0c081-cb09-4068-a209-0851ce500492",
+	"82c02e08-123d-4f6d-9be8-05e3bc550654",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	'./Export Item/Export Item.xtuml');
+INSERT INTO R_OIR
+	VALUES ("69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	"00c0c081-cb09-4068-a209-0851ce500492",
+	"82c02e08-123d-4f6d-9be8-05e3bc550654",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	'Export Item',
+	2,
+	'EI',
+	'This class is an abstraction of what is exported from the Tiger application.
+It abstracts two things: model data, and graphical models.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Export Item/Export Item.xtuml');
+INSERT INTO R_SUB
+	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
+	"00c0c081-cb09-4068-a209-0851ce500492",
+	"d33e6149-71e4-422f-bc02-f8432f2fd70b");
+INSERT INTO R_RGO
+	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
+	"00c0c081-cb09-4068-a209-0851ce500492",
+	"d33e6149-71e4-422f-bc02-f8432f2fd70b");
+INSERT INTO R_OIR
+	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
+	"00c0c081-cb09-4068-a209-0851ce500492",
+	"d33e6149-71e4-422f-bc02-f8432f2fd70b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_SUB
+	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"00c0c081-cb09-4068-a209-0851ce500492",
+	"c815436a-4fa4-4d70-8f59-42a38f5205e6");
+INSERT INTO R_RGO
+	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"00c0c081-cb09-4068-a209-0851ce500492",
+	"c815436a-4fa4-4d70-8f59-42a38f5205e6");
+INSERT INTO R_OIR
+	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"00c0c081-cb09-4068-a209-0851ce500492",
+	"c815436a-4fa4-4d70-8f59-42a38f5205e6",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("00c0c081-cb09-4068-a209-0851ce500492",
+	1,
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("db85b500-395b-43c7-a51c-87e4ae6e79e7");
+INSERT INTO R_REL
+	VALUES ("db85b500-395b-43c7-a51c-87e4ae6e79e7",
+	5,
+	'A table has one or more columns.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
+	"db85b500-395b-43c7-a51c-87e4ae6e79e7",
+	"c0b76de8-d78a-4f24-a52f-3cc998b918d1",
+	0,
+	0,
+	'is part of');
+INSERT INTO O_RTIDA
+	VALUES ("81fc25f0-8697-436e-9db9-31d3ed2c0950",
+	"d62bdfae-7686-4844-b0c7-e71e7829446e",
+	0,
+	"db85b500-395b-43c7-a51c-87e4ae6e79e7",
+	"c0b76de8-d78a-4f24-a52f-3cc998b918d1");
+INSERT INTO R_RTO
+	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
+	"db85b500-395b-43c7-a51c-87e4ae6e79e7",
+	"c0b76de8-d78a-4f24-a52f-3cc998b918d1",
+	0);
+INSERT INTO R_OIR
+	VALUES ("d62bdfae-7686-4844-b0c7-e71e7829446e",
+	"db85b500-395b-43c7-a51c-87e4ae6e79e7",
+	"c0b76de8-d78a-4f24-a52f-3cc998b918d1",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
+	"db85b500-395b-43c7-a51c-87e4ae6e79e7",
+	"7fb1a478-b18f-4edf-9225-060f360aefae",
+	1,
+	0,
+	'has');
+INSERT INTO R_RGO
+	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
+	"db85b500-395b-43c7-a51c-87e4ae6e79e7",
+	"7fb1a478-b18f-4edf-9225-060f360aefae");
+INSERT INTO R_OIR
+	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
+	"db85b500-395b-43c7-a51c-87e4ae6e79e7",
+	"7fb1a478-b18f-4edf-9225-060f360aefae",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
+	'Column',
+	5,
+	'C',
+	'This is a column in a table.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Column/Column.xtuml');
+INSERT INTO PE_PE
+	VALUES ("db85b500-395b-43c7-a51c-87e4ae6e79e7",
+	1,
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("66f401c3-8a36-4215-98c9-0b9f455dfb82");
+INSERT INTO R_REL
+	VALUES ("66f401c3-8a36-4215-98c9-0b9f455dfb82",
+	3,
+	'Each instance of Export Ordering will have code generated to
+export something.  The Export Item is that something.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"66f401c3-8a36-4215-98c9-0b9f455dfb82",
+	"f75bd486-93c1-403d-a379-b0e7a4866656",
+	0,
+	0,
+	'exported by');
+INSERT INTO R_RGO
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"66f401c3-8a36-4215-98c9-0b9f455dfb82",
+	"f75bd486-93c1-403d-a379-b0e7a4866656");
+INSERT INTO R_OIR
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"66f401c3-8a36-4215-98c9-0b9f455dfb82",
+	"f75bd486-93c1-403d-a379-b0e7a4866656",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	"66f401c3-8a36-4215-98c9-0b9f455dfb82",
+	"1ad283ea-321d-4fec-9c10-74c9131fd1bc",
+	0,
+	0,
+	'is for');
+INSERT INTO O_RTIDA
+	VALUES ("fb78b1f6-8c41-4ee7-9138-026cad67415f",
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	0,
+	"66f401c3-8a36-4215-98c9-0b9f455dfb82",
+	"1ad283ea-321d-4fec-9c10-74c9131fd1bc");
+INSERT INTO R_RTO
+	VALUES ("69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	"66f401c3-8a36-4215-98c9-0b9f455dfb82",
+	"1ad283ea-321d-4fec-9c10-74c9131fd1bc",
+	0);
+INSERT INTO R_OIR
+	VALUES ("69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	"66f401c3-8a36-4215-98c9-0b9f455dfb82",
+	"1ad283ea-321d-4fec-9c10-74c9131fd1bc",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("66f401c3-8a36-4215-98c9-0b9f455dfb82",
+	1,
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("2820fe0d-f895-4c82-95c5-3ebbf23a02f5");
+INSERT INTO R_REL
+	VALUES ("2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
+	6,
+	'This relationship orders the columns in a table.
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
+	"2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
+	"47c7402c-b480-4621-b0cb-9587ab33f70c",
+	0,
+	1,
+	'follows');
+INSERT INTO O_RTIDA
+	VALUES ("dcd43274-3bc1-41b5-bbaa-c07555218694",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	0,
+	"2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
+	"47c7402c-b480-4621-b0cb-9587ab33f70c");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("dcd43274-3bc1-41b5-bbaa-c07555218694",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	0,
+	'tableName',
+	'./Column/Column.xtuml');
+INSERT INTO O_RTIDA
+	VALUES ("6bd06a87-cf2b-45d0-a95b-fcfaa57d29ca",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	0,
+	"2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
+	"47c7402c-b480-4621-b0cb-9587ab33f70c");
+INSERT INTO O_OIDA_PROXY
+	VALUES ("6bd06a87-cf2b-45d0-a95b-fcfaa57d29ca",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	0,
+	'Name',
+	'./Column/Column.xtuml');
+INSERT INTO R_RTO
+	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
+	"2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
+	"47c7402c-b480-4621-b0cb-9587ab33f70c",
+	0);
+INSERT INTO O_ID_PROXY
+	VALUES (0,
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	'./Column/Column.xtuml');
+INSERT INTO R_OIR
+	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
+	"2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
+	"47c7402c-b480-4621-b0cb-9587ab33f70c",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
+	"2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
+	"e0cff53a-e5a7-4fb0-b01b-ef00b373a2e6",
+	0,
+	1,
+	'precedes');
+INSERT INTO R_RGO
+	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
+	"2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
+	"e0cff53a-e5a7-4fb0-b01b-ef00b373a2e6");
+INSERT INTO R_OIR
+	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
+	"2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
+	"e0cff53a-e5a7-4fb0-b01b-ef00b373a2e6",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("2820fe0d-f895-4c82-95c5-3ebbf23a02f5",
+	1,
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("d3f6ca94-62be-4e84-b7ae-aa3b30097bf5");
+INSERT INTO R_REL
+	VALUES ("d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
+	8,
+	'This relationship captures which column in a table is the 
+identifier for that table.',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
+	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
+	"3a17831a-3e1b-47b2-851b-47ea1a9c5dea",
+	0,
+	0,
+	'has model id');
+INSERT INTO O_RTIDA
+	VALUES ("dcd43274-3bc1-41b5-bbaa-c07555218694",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	0,
+	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
+	"3a17831a-3e1b-47b2-851b-47ea1a9c5dea");
+INSERT INTO O_RTIDA
+	VALUES ("6bd06a87-cf2b-45d0-a95b-fcfaa57d29ca",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	0,
+	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
+	"3a17831a-3e1b-47b2-851b-47ea1a9c5dea");
+INSERT INTO R_RTO
+	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
+	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
+	"3a17831a-3e1b-47b2-851b-47ea1a9c5dea",
+	0);
+INSERT INTO R_OIR
+	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
+	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
+	"3a17831a-3e1b-47b2-851b-47ea1a9c5dea",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
+	"4e1c4f5e-e02f-4d04-bc3a-7bf68a1c5dde",
+	0,
+	1,
+	'identifies model data');
+INSERT INTO R_RGO
+	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
+	"4e1c4f5e-e02f-4d04-bc3a-7bf68a1c5dde");
+INSERT INTO R_OIR
+	VALUES ("1fc1c651-fd65-464b-ae5c-73487161c50a",
+	"d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
+	"4e1c4f5e-e02f-4d04-bc3a-7bf68a1c5dde",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("d3f6ca94-62be-4e84-b7ae-aa3b30097bf5",
+	1,
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("5b059329-0d99-437d-8021-d3f85a17d494");
+INSERT INTO R_REL
+	VALUES ("5b059329-0d99-437d-8021-d3f85a17d494",
+	9,
+	'A column may be followed by one or more columns that are enhancements
+to the BridgePoint 6.1 schema.   If there is more than one column, the order
+of the columns is determined by their creation (order in the .pei file).',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
+	"5b059329-0d99-437d-8021-d3f85a17d494",
+	"dbade202-3957-44e9-b733-be2d003ba415",
+	0,
+	0,
+	'follows');
+INSERT INTO O_RTIDA
+	VALUES ("dcd43274-3bc1-41b5-bbaa-c07555218694",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	0,
+	"5b059329-0d99-437d-8021-d3f85a17d494",
+	"dbade202-3957-44e9-b733-be2d003ba415");
+INSERT INTO O_RTIDA
+	VALUES ("6bd06a87-cf2b-45d0-a95b-fcfaa57d29ca",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	0,
+	"5b059329-0d99-437d-8021-d3f85a17d494",
+	"dbade202-3957-44e9-b733-be2d003ba415");
+INSERT INTO R_RTO
+	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
+	"5b059329-0d99-437d-8021-d3f85a17d494",
+	"dbade202-3957-44e9-b733-be2d003ba415",
+	0);
+INSERT INTO R_OIR
+	VALUES ("68363a50-a0e1-414d-8939-1409ebc1f822",
+	"5b059329-0d99-437d-8021-d3f85a17d494",
+	"dbade202-3957-44e9-b733-be2d003ba415",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("7dfb0d5c-a717-444a-b40b-65edc2e7965e",
+	"5b059329-0d99-437d-8021-d3f85a17d494",
+	"7d332f92-d57c-45d7-bd68-c2ec853e8ca6",
+	1,
+	1,
+	'is followed by ');
+INSERT INTO R_RGO
+	VALUES ("7dfb0d5c-a717-444a-b40b-65edc2e7965e",
+	"5b059329-0d99-437d-8021-d3f85a17d494",
+	"7d332f92-d57c-45d7-bd68-c2ec853e8ca6");
+INSERT INTO R_OIR
+	VALUES ("7dfb0d5c-a717-444a-b40b-65edc2e7965e",
+	"5b059329-0d99-437d-8021-d3f85a17d494",
+	"7d332f92-d57c-45d7-bd68-c2ec853e8ca6",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("7dfb0d5c-a717-444a-b40b-65edc2e7965e",
+	'Enhancement Column',
+	6,
+	'EC',
+	'This is a column that has been added to the Tiger schema that
+is not in the BP 6.1 schema.  The column is placed after an existing
+BP 6.1 column.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Enhancement Column/Enhancement Column.xtuml');
+INSERT INTO PE_PE
+	VALUES ("5b059329-0d99-437d-8021-d3f85a17d494",
+	1,
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("ff90a98f-72e2-449b-8e64-7e4eee27fbf3");
+INSERT INTO R_REL
+	VALUES ("ff90a98f-72e2-449b-8e64-7e4eee27fbf3",
+	10,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"ff90a98f-72e2-449b-8e64-7e4eee27fbf3",
+	"4c9b8029-d898-40a7-ae79-74d36f641685",
+	0,
+	0,
+	'is link to alternate children');
+INSERT INTO O_RTIDA
+	VALUES ("5bf8fae0-9619-4705-aa98-c6d256181d20",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	0,
+	"ff90a98f-72e2-449b-8e64-7e4eee27fbf3",
+	"4c9b8029-d898-40a7-ae79-74d36f641685");
+INSERT INTO R_RTO
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"ff90a98f-72e2-449b-8e64-7e4eee27fbf3",
+	"4c9b8029-d898-40a7-ae79-74d36f641685",
+	0);
+INSERT INTO R_OIR
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"ff90a98f-72e2-449b-8e64-7e4eee27fbf3",
+	"4c9b8029-d898-40a7-ae79-74d36f641685",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
+	"ff90a98f-72e2-449b-8e64-7e4eee27fbf3",
+	"c757b4f2-5553-4718-ac13-f92a76bd04e3",
+	1,
+	1,
+	'has alternate children through');
+INSERT INTO R_RGO
+	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
+	"ff90a98f-72e2-449b-8e64-7e4eee27fbf3",
+	"c757b4f2-5553-4718-ac13-f92a76bd04e3");
+INSERT INTO R_OIR
+	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
+	"ff90a98f-72e2-449b-8e64-7e4eee27fbf3",
+	"c757b4f2-5553-4718-ac13-f92a76bd04e3",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
+	'Alternate Export Child Link',
+	7,
+	'AEP',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./Alternate Export Child Link/Alternate Export Child Link.xtuml');
+INSERT INTO PE_PE
+	VALUES ("ff90a98f-72e2-449b-8e64-7e4eee27fbf3",
+	1,
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO R_SIMP
+	VALUES ("abc1c420-c4a0-4491-91f1-4c8c2e726831");
+INSERT INTO R_REL
+	VALUES ("abc1c420-c4a0-4491-91f1-4c8c2e726831",
+	11,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_FORM
+	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
+	"abc1c420-c4a0-4491-91f1-4c8c2e726831",
+	"d3ed5232-9ced-4c93-9380-795f54b1d38d",
+	1,
+	1,
+	'is linked to alternate parent through');
+INSERT INTO R_RGO
+	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
+	"abc1c420-c4a0-4491-91f1-4c8c2e726831",
+	"d3ed5232-9ced-4c93-9380-795f54b1d38d");
+INSERT INTO R_OIR
+	VALUES ("1ea5ab3e-9740-4a8a-bab7-2a1425701e89",
+	"abc1c420-c4a0-4491-91f1-4c8c2e726831",
+	"d3ed5232-9ced-4c93-9380-795f54b1d38d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO R_PART
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"abc1c420-c4a0-4491-91f1-4c8c2e726831",
+	"e08ba01c-f689-433c-b9a4-139f9566b497",
+	0,
+	0,
+	'links to alternate parent');
+INSERT INTO O_RTIDA
+	VALUES ("5bf8fae0-9619-4705-aa98-c6d256181d20",
+	"10d6122a-7c29-46cd-b5d1-386e15537749",
+	0,
+	"abc1c420-c4a0-4491-91f1-4c8c2e726831",
+	"e08ba01c-f689-433c-b9a4-139f9566b497");
+INSERT INTO R_RTO
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"abc1c420-c4a0-4491-91f1-4c8c2e726831",
+	"e08ba01c-f689-433c-b9a4-139f9566b497",
+	0);
+INSERT INTO R_OIR
+	VALUES ("10d6122a-7c29-46cd-b5d1-386e15537749",
+	"abc1c420-c4a0-4491-91f1-4c8c2e726831",
+	"e08ba01c-f689-433c-b9a4-139f9566b497",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("abc1c420-c4a0-4491-91f1-4c8c2e726831",
+	1,
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	"00000000-0000-0000-0000-000000000000",
+	9);
+INSERT INTO PE_PE
+	VALUES ("f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	1,
+	"695dce7b-262a-4226-9cbb-c9f897b44c67",
+	"00000000-0000-0000-0000-000000000000",
+	7);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("695dce7b-262a-4226-9cbb-c9f897b44c67",
+	"4dacadbd-0ef3-4f12-9693-fcbfe81a2955",
+	"4dacadbd-0ef3-4f12-9693-fcbfe81a2955",
+	'file_io',
+	'========================================================================
+
+File:          $RCSfile$
+Version:   $Revision$
+Modified:  $Date$
+
+(c) Copyright 2003-2014 Mentor Graphics Corporation All rights reserved.
+
+========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+========================================================================
+
+This domain captures the information needed to generate code that
+exports SQL from the Tiger application to a BridgePoint 6.1 compatible
+sql data file.   The data is also used to import a BridgePoint 6.1 SQL file
+into the Tiger application.
+',
+	0,
+	'../file_io.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("4dacadbd-0ef3-4f12-9693-fcbfe81a2955",
+	'com.mentor.nucleus.bp.io.core',
+	1,
+	'../../com.mentor.nucleus.bp.io.core.xtuml');
