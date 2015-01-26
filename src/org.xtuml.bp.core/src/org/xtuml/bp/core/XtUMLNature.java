@@ -1,10 +1,6 @@
 //========================================================================
 //
-//File:      $RCSfile: XtUMLNature.java,v $
-//Version:   $Revision: 1.11 $
-//Modified:  $Date: 2013/01/10 22:54:14 $
-//
-//(c) Copyright 2004-2014 by Mentor Graphics Corp. All rights reserved.
+//File:      XtUMLNature.java
 //
 //========================================================================
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not 
@@ -35,7 +31,8 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 
 public class XtUMLNature implements IProjectNature {
-	public static final String ID = "org.xtuml.bp.core.xtumlnature";
+	private static final String ID = "org.xtuml.bp.core.xtumlnature";
+	private static final String oldID = "com.mentor.nucleus.bp.core.xtumlnature";
 
 	private IProject m_project;
 
@@ -71,15 +68,20 @@ public class XtUMLNature implements IProjectNature {
 		m_project = project;
 	}
 
+	static public String getNatureId() {
+		return ID;
+	}
+
 	static public boolean hasNature(IProject project) {
 		boolean ret_val = false;
 		try {
-			ret_val = project.isOpen() && project.hasNature(ID);
+			ret_val = project.isOpen() && ( project.hasNature(ID) || project.hasNature(oldID));
 		} catch (Exception e) {
-			CorePlugin.logError("Error checking xtUml nature for project " + project.getName(), e);
+			CorePlugin.logError("Error checking xtUML nature for project " + project.getName(), e);
 		}
 		return ret_val;
 	}
+	
 	static public void addNature(IProject project) {
 		try {
 			if (!project.hasNature(ID)) {
@@ -98,20 +100,23 @@ public class XtUMLNature implements IProjectNature {
 				addNatureResources(project);
 			}
 		} catch (CoreException e) {
-			CorePlugin.logError("Error adding xtUml nature", e);
+			CorePlugin.logError("Error adding xtUML nature", e);
 		}
-
 	}
+	
 	static public void removeNature(final IProject project){
 		try{
-			if (project.hasNature(ID)){
+			if (project.hasNature(ID) || project.hasNature(oldID)){
 				final IProjectDescription desc = project.getDescription();
 				String[] oldNatures = desc.getNatureIds();
 				final String[] newNatures =  new String[oldNatures.length-1];
 				int j = 0;
 				for ( int i = 0; i < oldNatures.length;i++){
-					if ( oldNatures[i].equalsIgnoreCase(ID) )
-							continue;
+					if ( oldNatures[i].equalsIgnoreCase(ID) ) {
+						continue;
+					} else if ( oldNatures[i].equalsIgnoreCase(oldID) ) {
+						continue;
+					}
 					newNatures[j++] = oldNatures[i];
 				}
 				WorkspaceJob job = new WorkspaceJob("Remove xtuml nature"){
@@ -128,7 +133,7 @@ public class XtUMLNature implements IProjectNature {
 		    	job.schedule();
 			}
 		}catch (CoreException e) {
-			CorePlugin.logError("Error removing xtUml nature", e);
+			CorePlugin.logError("Error removing xtUML nature", e);
 		}
 	}
 

@@ -68,7 +68,7 @@ public abstract class AbstractNewProjectWizard extends DelegatingWizard {
 		// we are switching MCs on a project that already has the nature, this does 
 		// nothing.
         try {
-            if (!newProject.hasNature(XtUMLNature.ID)) {
+            if (!newProject.hasNature(XtUMLNature.getNatureId())) {
                 XtUMLNature.addNature(newProject);
                 NewSystemWizard.createSystemModel(newProject, newProject.getName());
             }
