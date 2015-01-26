@@ -40,7 +40,7 @@ public class UpgradeWorkspaceProjects implements IWorkbenchWindowActionDelegate 
 		for (IProject project : projects) {
 			try {
 				if(project.exists() && project.isOpen()) {
-					if (project.hasNature(XtUMLNature.ID)) {
+					if (XtUMLNature.hasNature(project)) {
 						PersistableModelComponent rootComponent = PersistenceManager
 								.getRootComponent(project);
 						if(rootComponent == null) {

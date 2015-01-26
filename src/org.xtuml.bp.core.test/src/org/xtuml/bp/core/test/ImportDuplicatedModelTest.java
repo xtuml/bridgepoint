@@ -76,7 +76,7 @@ public class ImportDuplicatedModelTest extends BaseTest {
              
              IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject("Looper");
              assertNotNull(project);
-             assertFalse(project.hasNature(XtUMLNature.ID));
+             assertFalse(XtUMLNature.hasNature(project));
              project = null;
              project = ResourcesPlugin.getWorkspace().getRoot().getProject("Looperz");
              assertNotNull(project);
@@ -130,7 +130,7 @@ public class ImportDuplicatedModelTest extends BaseTest {
         IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(
                 "MicrowaveOven");
         assertNotNull(project);
-        assertFalse(project.hasNature(XtUMLNature.ID));
+        assertFalse(XtUMLNature.hasNature(project));
         project = null;
         project = ResourcesPlugin.getWorkspace().getRoot().getProject(
                 "MicrowaveOvenz");

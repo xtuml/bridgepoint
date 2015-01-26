@@ -71,6 +71,7 @@ import org.xtuml.bp.core.Package_c;
 import org.xtuml.bp.core.PackageableElement_c;
 import org.xtuml.bp.core.Subsystem_c;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.XtUMLNature;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.PersistableModelComponent;
@@ -211,7 +212,7 @@ public class TigerNatureTestGenerics extends CanvasTest {
 	}
 
 	private boolean checkForTigerNatureEntry(IProject project) throws Exception {
-		return project.hasNature("org.xtuml.bp.core.xtumlnature");
+		return project.hasNature(XtUMLNature.getNatureId());
 	}
 
 	private boolean checkResourceNavForxtUMLProject(String string)

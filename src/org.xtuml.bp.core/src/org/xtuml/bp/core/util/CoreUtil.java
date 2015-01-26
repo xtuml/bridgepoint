@@ -368,7 +368,7 @@ public class CoreUtil {
 			.getProjects();
 		for (int i = 0; i < projects.length; i++) {
 			if (projects[i].isOpen() && projects[i].exists()
-					&& projects[i].hasNature(XtUMLNature.ID)) {
+					&& XtUMLNature.hasNature(projects[i]) ) {
 				projectList.add(projects[i]);
 			}
 		}
@@ -379,7 +379,7 @@ public class CoreUtil {
 		int count = 0;
 		for(int i = 0; i < projects.length; i++) {
 			if (projects[i].isOpen() && projects[i].exists()
-					&& projects[i].hasNature(XtUMLNature.ID)) {
+					&& XtUMLNature.hasNature(projects[i]) ) {
 				// get the models folder, and count the files under it
 				// that end in the model extension
 				IFolder models = projects[i].getFolder(Ooaofooa.MODELS_DIRNAME);

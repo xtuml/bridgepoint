@@ -562,7 +562,7 @@ public class ModelSearchPage extends DialogPage implements ISearchPage {
 			IProject project = file.getProject();
 			try {
 				if (project.exists() && project.isOpen()
-						&& project.hasNature(XtUMLNature.ID)) {
+						&& XtUMLNature.hasNature(project) ) {
 					// if already added above ignore
 					SystemModel_c system = getSystemFromProject(project);
 					if (selection.contains(system)) {

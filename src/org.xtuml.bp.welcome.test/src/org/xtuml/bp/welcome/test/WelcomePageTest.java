@@ -86,13 +86,8 @@ public class WelcomePageTest extends TestCase {
 	}
 
 	public void isxtUMLProject(IProject project) {
-		try {
-			assertTrue("Project: " + project.getName()
-					+ " is not an xtUML project.", project
-					.hasNature(XtUMLNature.ID));
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
+		assertTrue("Project: " + project.getName()
+				+ " is not an xtUML project.", XtUMLNature.hasNature(project));
 	}
 
 	public void containsProjectMembers() {
