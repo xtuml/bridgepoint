@@ -1,0 +1,96 @@
+<pre>
+========================================================================
+
+This work is licensed under the Creative Commons CC0 License
+
+========================================================================
+
+xtUML Project Checklist
+Promoting an Issue
+
+Abstract
+--------
+This procedure is used when promoting an issue.
+Promoting an issue is defined as moving the work associated with an issue
+from a local machine or branch into the main/master RCS branch. 
+
+
+Checklist
+---------
+x- Go to the repository on github.  Select the pull request(s).  Note that 
+   there may be multiple requests if the issue spans multiple git repositories.  
+   Record the pull request(s) URL here:
+            Pull Request Issue URL: https://github.com/xtuml/internal/pull/273
+
+x- Verify that all required process documentation exists for this issue.  That
+   is: analysis note, design note, implementation note, review minutes, and
+   checklists.  Remember that, depending on the complexity of the issue, some
+   notes are not required.
+   This documentation will be found in the issues branch.
+   Open the issues implementation notes to help guide you through the branch 
+   names used.
+
+x- Verify and merge the change:
+	_- Option 1
+	   If the issue does not involve model file changes, and is small it can 
+	   be merged using the github web interface:  
+		_- Locate the pull request on git hub 
+		   (https://github.com/xtuml/internal/pulls)
+		_- Select the pull request
+		_- Select the "Files Changed" and review the changes too assure the files
+		   changed match the implementation note.
+	    _- Select the "Merge  Pull Request" option
+	    
+		
+	_- Option 2
+	   If the issue does involve model files and/or it is not small then the 
+	   change must be merged, built and tested on the local workspace: 
+		
+	  	_- Check out master
+		_- Update your local repository with the latest files from github using 
+	       git pull  
+	  	_- Merge the remote branch(s) into master.  
+			_- Open the Git Repository Exploring perspective
+			_- Select the repository
+			_- Right-click > Merge... > Remote Tracking
+			_- Select the branch name
+			_- Assure the option to commit the result is selected
+			_- Select Merge
+			_R Merge is completed into the local repository
+	  	_- Build
+	  	
+*** NOTE: THIS IS A TEMPORARY STEP UNTIL WE GET ALL THE JUNITS RUNNING ***
+***   NIGHTLY ON THE SERVER.  AFTER WE DO THAT WE WILL SIMPLY RUN THE
+***   TESTS on the build server after promotion.                       ***
+_- Execute the specific unit tests agreed upon with the code reviewers and 
+      verify that the tests pass.
+      x- Run Unit Tests in 34_590_casting_S_SS.int.md
+      x- Run Unit Tests in 589_returnstring.int.md
+      x- Run Unit Tests in 619_rcrc.int.md
+o- Update the test_results/Unit_test_summary.txt with the branch name check it in here:
+	  github.com/xtuml/<repository>/doc-<repository>/qa/<release_id>/<issue num>/promotion/Unit_test_summary.txt
+
+xR When tests pass the changes can be pushed.
+  	  	   NOTE:  
+	  	   If testing does not pass work with the engineer to resolve the 
+	  	   problem.   If it is a small issue you can commit it directly to the 
+	  	   local repository and retest. 
+	  	   If it is not a small problem you can ask the engineer to close the 
+	  	   pull request (this option is found at the bottom of the pull 
+	  	   request page).  In this case, you will roll-back the changes in
+	  	   your local repository why the engineer fixes the problem.  To roll 
+	  	   back the changes:
+	  	   		git reset ---hard origin/master
+	  	   		
+x- Navigate to the issue(s) in the One Fact Issues tracker.
+  _- Verify that the upcoming milestone is set for the issue. Apply it if not 
+     yet set.
+  _- Close the issue 
+
+x- Check in this file under
+   github.com/xtuml/<repository>/doc-<repository>/checklists/<release_id>/<issue num>-promotion.chk
+
+End
+---
+
+</pre>
