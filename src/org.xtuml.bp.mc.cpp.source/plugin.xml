@@ -14,6 +14,9 @@
       <builder
             id="org.xtuml.bp.mc.cpp.source.export_builder">
       </builder>
+      <builder
+            id="com.mentor.nucleus.bp.mc.cpp.source.export_builder">
+      </builder>
    </extension>
    <extension
          point="org.eclipse.ui.ide.projectNatureImages">
@@ -25,6 +28,14 @@
    </extension>
    <extension
          id="export_builder"
+         name="Model Compiler Pre-Build"
+         point="org.eclipse.core.resources.builders">
+      <builder>
+        <run class="org.xtuml.bp.mc.cpp.source.ExportBuilder" />
+      </builder>
+   </extension>
+   <extension
+         id="com.mentor.nucleus.bp.mc.cpp.source.export_builder"
          name="Model Compiler Pre-Build"
          point="org.eclipse.core.resources.builders">
       <builder>

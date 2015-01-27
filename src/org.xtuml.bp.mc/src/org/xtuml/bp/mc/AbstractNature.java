@@ -63,7 +63,13 @@ public abstract class AbstractNature implements IProjectNature {
 	public static final String SYSTEMC_SOURCE_MC_ID = "org.xtuml.bp.mc.systemc.source";
 	public static final String CPP_SOURCE_MC_ID = "org.xtuml.bp.mc.cpp.source";
 	public static final String VHDL_SOURCE_MC_ID = "org.xtuml.bp.mc.vhdl.source";
-	
+
+	public static final String C_SOURCE_MC_ID_OLD = "com.mentor.nucleus.bp.mc.c.source";
+	public static final String C_BINARY_MC_ID_OLD = "com.mentor.nucleus.bp.mc.c.binary";
+	public static final String SYSTEMC_SOURCE_MC_ID_OLD = "com.mentor.nucleus.bp.mc.systemc.source";
+	public static final String CPP_SOURCE_MC_ID_OLD = "com.mentor.nucleus.bp.mc.cpp.source";
+	public static final String VHDL_SOURCE_MC_ID_OLD = "com.mentor.nucleus.bp.mc.vhdl.source";
+
 	public static final String MC_LAUNCH_ID = "Model Compiler.launch"; //$NON-NLS-1$
 
 	public static final String EXTERNALTOOLBUILDER_FOLDER = ".externalToolBuilders"; //$NON-NLS-1$

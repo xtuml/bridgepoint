@@ -24,6 +24,7 @@ public class MCNature extends AbstractNature {
 	 * identifier of this nature in plugin.xml - (concatenate pluginid.natureid)
 	 */
 	public static final String MC_NATURE_ID = "org.xtuml.bp.mc.mcpaas.MCNature"; //NON-NLS-1
+	public static final String MC_NATURE_ID_OLD = "com.mentor.nucleus.bp.mc.mcpaas.MCNature"; //NON-NLS-1
 
 	/**
 	 * identifier of this nature in plugin.xml - (concatenate
@@ -50,7 +51,7 @@ public class MCNature extends AbstractNature {
 
 	@Override
 	public boolean hasNature(IProject project) {
-		return hasNature(project, MC_NATURE_ID);
+		return hasNature(project, MC_NATURE_ID) || hasNature(project, MC_NATURE_ID_OLD);
 	}
 
 	@Override

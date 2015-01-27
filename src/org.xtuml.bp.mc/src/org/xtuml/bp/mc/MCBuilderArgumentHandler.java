@@ -166,15 +166,15 @@ public class MCBuilderArgumentHandler {
     public static String getLicenseString(String builderIDSelected ) {
     	String licenseString = "";
 
-    	if (builderIDSelected.startsWith(AbstractNature.C_SOURCE_MC_ID)) {
+    	if (builderIDSelected.startsWith(AbstractNature.C_SOURCE_MC_ID) || builderIDSelected.startsWith(AbstractNature.C_SOURCE_MC_ID_OLD)) {
     		licenseString = " -l3s ";
-    	} else if (builderIDSelected.startsWith(AbstractNature.C_BINARY_MC_ID)) {
+    	} else if (builderIDSelected.startsWith(AbstractNature.C_BINARY_MC_ID) || builderIDSelected.startsWith(AbstractNature.C_BINARY_MC_ID_OLD)) {
     		licenseString = " -l3b ";
-    	} else if (builderIDSelected.startsWith(AbstractNature.SYSTEMC_SOURCE_MC_ID)) {
+    	} else if (builderIDSelected.startsWith(AbstractNature.SYSTEMC_SOURCE_MC_ID) || builderIDSelected.startsWith(AbstractNature.SYSTEMC_SOURCE_MC_ID_OLD)) {
     		licenseString = " -lSCs ";
-    	} else if (builderIDSelected.startsWith(AbstractNature.CPP_SOURCE_MC_ID)) {
+    	} else if (builderIDSelected.startsWith(AbstractNature.CPP_SOURCE_MC_ID) || builderIDSelected.startsWith(AbstractNature.CPP_SOURCE_MC_ID_OLD)) {
     		licenseString = " -l2s ";    		
-    	} else if (builderIDSelected.startsWith(AbstractNature.VHDL_SOURCE_MC_ID)) {
+    	} else if (builderIDSelected.startsWith(AbstractNature.VHDL_SOURCE_MC_ID) || builderIDSelected.startsWith(AbstractNature.VHDL_SOURCE_MC_ID_OLD)) {
     		licenseString = " -lVHs ";    		
     	} else {
         	// If it was not one of our MCs selected, then there it must be a 

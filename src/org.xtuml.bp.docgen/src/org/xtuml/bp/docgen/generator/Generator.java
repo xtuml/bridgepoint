@@ -124,23 +124,23 @@ public class Generator extends Task {
                 // we can invoke xtumlmc_build properly.
                 AbstractNature nature = null;
                 AbstractActivator activator = null;
-                if ( project.hasNature(org.xtuml.bp.mc.c.binary.MCNature.MC_NATURE_ID) ) {
+                if ( project.hasNature(org.xtuml.bp.mc.c.binary.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.c.binary.MCNature.MC_NATURE_ID_OLD) ) {
                     nature = org.xtuml.bp.mc.c.binary.MCNature.getDefault();
                     activator = org.xtuml.bp.mc.c.binary.Activator.getDefault();
                 }
-                else if ( project.hasNature(org.xtuml.bp.mc.c.source.MCNature.MC_NATURE_ID) ) {
+                else if ( project.hasNature(org.xtuml.bp.mc.c.source.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.c.source.MCNature.MC_NATURE_ID_OLD) ) {
                     nature = org.xtuml.bp.mc.c.source.MCNature.getDefault();
                     activator = org.xtuml.bp.mc.c.source.Activator.getDefault();
                 }
-                else if ( project.hasNature(org.xtuml.bp.mc.cpp.source.MCNature.MC_NATURE_ID) ) {
+                else if ( project.hasNature(org.xtuml.bp.mc.cpp.source.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.cpp.source.MCNature.MC_NATURE_ID_OLD) ) {
                     nature = org.xtuml.bp.mc.cpp.source.MCNature.getDefault();
                     activator = org.xtuml.bp.mc.cpp.source.Activator.getDefault();
                 }
-                else if ( project.hasNature(org.xtuml.bp.mc.systemc.source.MCNature.MC_NATURE_ID) ) {
+                else if ( project.hasNature(org.xtuml.bp.mc.systemc.source.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.systemc.source.MCNature.MC_NATURE_ID_OLD) ) {
                     nature = org.xtuml.bp.mc.systemc.source.MCNature.getDefault();
                     activator = org.xtuml.bp.mc.systemc.source.Activator.getDefault();
                 }
-                else if ( project.hasNature(org.xtuml.bp.mc.vhdl.source.MCNature.MC_NATURE_ID) ) {
+                else if ( project.hasNature(org.xtuml.bp.mc.vhdl.source.MCNature.MC_NATURE_ID) || project.hasNature(org.xtuml.bp.mc.vhdl.source.MCNature.MC_NATURE_ID_OLD) ) {
                     nature = org.xtuml.bp.mc.vhdl.source.MCNature.getDefault();
                     activator = org.xtuml.bp.mc.vhdl.source.Activator.getDefault();
                 }
