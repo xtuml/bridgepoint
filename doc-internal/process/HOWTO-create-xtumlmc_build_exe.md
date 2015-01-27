@@ -26,3 +26,13 @@ build process.
 8.  Copy the newly created xtumlmc_build.exe from disk into this project inside BridgePoint, overwriting the existing EXE
 9.  Commit the new EXE to SVN
 10. Done
+
+
+4. Troubleshooting
+-----------------------
+1. If the ```pp``` command gives a "command not found" error, you must install the pp module.
+```
+- Open the Strawberry Perl console
+C:\> cpan
+cpan> install pp
+```
