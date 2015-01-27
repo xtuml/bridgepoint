@@ -40,6 +40,7 @@ import org.xtuml.bp.core.util.UIUtil;
 public class XMIExportNature implements IProjectNature {
 	/** identifier of nature in plugin.xml - (concatenate pluginid.natureid) */
 	public static final String XMIEXPORT_NATURE_ID = "org.xtuml.bp.mc.xmiexport.XMIExportNature"; //$NON-NLS-1$
+	public static final String XMIEXPORT_NATURE_ID_OLD = "com.mentor.nucleus.bp.mc.xmiexport.XMIExportNature"; //$NON-NLS-1$
 	public static final String EXTERNALTOOLBUILDER_FOLDER = ".externalToolBuilders"; //$NON-NLS-1$
 	public static final String EXTERNAL_TOOL_PLUGIN_ID = "org.eclipse.ui.externaltools"; //$NON-NLS-1$	
 	public static final String ATTR_DISABLED_BUILDER = EXTERNAL_TOOL_PLUGIN_ID + ".ATTR_DISABLED_BUILDER"; //$NON-NLS-1$
@@ -57,7 +58,7 @@ public class XMIExportNature implements IProjectNature {
 	static public boolean hasNature(IProject project) {
 		boolean ret_val = false;
 		try {
-			ret_val = project.isOpen() && project.hasNature(XMIEXPORT_NATURE_ID);
+			ret_val = project.isOpen() && (project.hasNature(XMIEXPORT_NATURE_ID) || project.hasNature(XMIEXPORT_NATURE_ID_OLD));
 		} catch (Exception e) {
 			XMIExport.logError("Error checking XMI Export nature for project "
 					+ project.getName(), e);

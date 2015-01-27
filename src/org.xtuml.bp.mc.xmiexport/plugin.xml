@@ -35,9 +35,20 @@
       <builder
             id="org.xtuml.bp.mc.xmiexport.XMIExportBuilder">
       </builder>
+      <builder
+            id="com.mentor.nucleus.bp.mc.xmiexport.XMIExportBuilder">
+      </builder>
    </extension>
 
    <extension id="XMIExportBuilder" name="XMI 2.1 Export" point="org.eclipse.core.resources.builders">
+  <builder
+       hasNature="true"
+       isConfigurable="true" >
+    <run class="org.xtuml.bp.mc.xmiexport.XMIExportBuilder"></run>
+  </builder>
+   </extension>
+
+   <extension id="com.mentor.nucleus.bp.mc.xmiexport.XMIExportBuilder" name="XMI 2.1 Export" point="org.eclipse.core.resources.builders">
   <builder
        hasNature="true"
        isConfigurable="true" >
