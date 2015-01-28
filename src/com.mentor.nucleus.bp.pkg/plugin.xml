@@ -3,7 +3,7 @@
 <plugin
    id="com.mentor.nucleus.bp.pkg"
    name="%pluginName"
-   version="4.2.0"
+   version="4.2.1"
    provider-name="%providerName"
    class="com.mentor.nucleus.bp.pkg.Unreferenced">
 
