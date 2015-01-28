@@ -1,0 +1,96 @@
+========================================================================
+
+File:      HOWTO-update-the-BP-version-number.txt
+
+Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.
+
+========================================================================
+This document contains information proprietary and confidential to
+Mentor Graphics Corp. and is not for external distribution.
+========================================================================
+
+BridgePoint Technical Note
+HOWTO Update the BridgePoint Version Number
+
+
+Abstract
+--------
+This note describes the steps to be performed in order to update or "bump"
+the version number of BridgePoint.
+
+History
+-------
+None.
+
+Document References
+-------------------
+[1] Issue 3203. http://phoenix.projtech.com/bugzilla/show_bug.cgi?id=3203
+
+Background
+----------
+It is the policy of the BridgePoint development team to update the version
+number of BridgePoint with each external delivery of the code.  This mostly
+involves updating the plug-in version numbers.
+
+Intended Audience
+-----------------
+This document is intended for the BridgePoint development team.
+
+Steps
+-----
+x- Turn off Build Automatically if it is turned on
+x- Update your development workspace with the latest version from github master
+   of all plug-in and support projects (e.g. Installer_MIP_MIMIC and utilities)
+x- Create an issue in github for the version bump.
+x- Branch the xtuml/internal repository.
+x- Edit bp.internal.tools/update_BP_version.xml to contain the new version and
+   commit this to the issue used for the version bump.
+x- Right-click update_BP_version.xml, select "Run As > Ant Build"
+x- Go to the bp.doc plug-in and search under that plug-in for the old version 
+   number(example: 1.5.1)
+xR Several html files are found
+   Note: The locationss are:
+		com.mentor.nucleus.bp.doc
+			license
+				oss.htm
+					229: directory&gt;\eclipse_extensions\BridgePoint\eclipse\plugins\com.mentor.nucleus.bp.doc_4.2.0</span><span  
+		ReleaseNotes
+			HTML
+				ReleaseNotes.htm (5 matches)
+					281: 4.2.0</span></p>  
+					430: style='font-size:10.0pt;font-family:"Arial","sans-serif"'> BridgePoint 4.2.0  
+					450: 4.2.0 is fully data compatible with workspaces and projects created with  
+					451: BridgePoint 3.7.0 and xtUML.org�s xtUML Editor 3.7.2.&nbsp; BridgePoint 4.2.0  
+					631: color:black'>BridgePoint 4.2.0</span></b></p>  
+		WhatsNew
+			HTML
+				WhatsNew.htm
+					200: BridgePoint 4.2.0</span></p>  
+O- Copy the new version (ex 1.5.2)  to the Windows Clipboard
+O- Work through the Search view in Eclipse and for each match found open the 
+   file in MS Word and update the version using MS Word.
+   
+       IMPORTANT: 
+         1) Do not update any HTML file versions inside eclipse.  Navigate
+            to the file on disk and edit the file with MS Word.
+         2) The Release Notes and What's New files should be written with 
+            MS Word "Save As..." as type "Web Page, Filtered"
+Note: The above 2 steps were not performed because we will move away from MS 
+      Word for the next release.  For now these docs will simply continue to
+      refer to 4.2.0
+                        
+x- Select all projects in the workspace, refresh them to pick up the changes
+xR Version update is now complete, all files that must be modified are now
+   "dirty" in your workspace.   
+x- Use "Team > Synchronize Workspace" to compare the locally changed projects 
+   with the root of the branch.  Use the code change scraper to get the list of 
+   changed files.  
+x- Commit and push the files changed with this work.  Record the changed files
+   list in the commit message.  As always, commit against the issue for this
+   task.
+x- Create a pull request for the branch.
+x- Merge the pull request.
+
+End
+---
+
