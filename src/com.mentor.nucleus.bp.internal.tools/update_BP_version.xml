@@ -10,8 +10,8 @@
 -->
 <project name="bp.internal.tools" default="updateVersion" basedir="./..">
 
-    <property name="currentVersion" value="4.1.12" />
-    <property name="newVersion" value="4.2.0" />
+    <property name="currentVersion" value="4.1.17" />
+    <property name="newVersion" value="4.2.1" />
 
     <target name="updateVersion" description="Update the version of BridgePoint">
         <echo>Starting version update from ${currentVersion} to ${newVersion}</echo>
