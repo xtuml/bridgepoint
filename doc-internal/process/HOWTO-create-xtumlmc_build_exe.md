@@ -30,9 +30,13 @@ build process.
 
 4. Troubleshooting
 -----------------------
-1. If the ```pp``` command gives a "command not found" error, you must install the pp module.
+1. If the ```pp``` command gives a "command not found" error, you must install the pp module:
 ```
 - Open the Strawberry Perl console
 C:\> cpan
 cpan> install pp
+```
+If the above fails you can try:
+```
+C:\> cpanm -n PAR::Packer --force
 ```
