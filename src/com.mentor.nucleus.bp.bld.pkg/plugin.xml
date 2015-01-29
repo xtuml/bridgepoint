@@ -3,7 +3,7 @@
 <plugin
    id="com.mentor.nucleus.bp.bld.pkg"
    name="BridgePoint Builder"
-   version="4.2.0"
+   version="4.2.1"
    provider-name="xtUML.org"
    class="com.mentor.nucleus.bp.bld.pkg.Unreferenced">
 
