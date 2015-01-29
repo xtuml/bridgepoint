@@ -15,7 +15,7 @@
 <booleanAttribute key="default" value="false"/>
 <booleanAttribute key="includeOptional" value="true"/>
 <stringAttribute key="location" value="${eclipse_home}/bp_test/test_workspace"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os ${target.os} -ws ${target.ws} -arch ${target.arch} -nl ${target.nl} -consoleLog -pluginCustomization ${workspace_loc}/org.xtuml.bp.pkg/plugin_customization.ini  ${workspace_loc}/com.mentor.nucleus.bp.pkg/plugin_customization.ini -leftFile copy1 -rightFile copy2 -ancestorFile copy2 -outputFile copy1"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os ${target.os} -ws ${target.ws} -arch ${target.arch} -nl ${target.nl} -consoleLog -pluginCustomization ${workspace_loc}/org.xtuml.bp.pkg/plugin_customization.ini  ${workspace_loc}/org.xtuml.bp.pkg/plugin_customization.ini -leftFile copy1 -rightFile copy2 -ancestorFile copy2 -outputFile copy1"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dosgi.requiredJavaVersion=1.5 -Xms512m -Xmx1024m -XX:MaxPermSize=512m -Dfile.encoding=UTF-8  -Declipse.product=org.xtuml.bp.pkg.BridgePoint"/>
 <stringAttribute key="pde.version" value="3.3"/>
