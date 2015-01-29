@@ -2,7 +2,7 @@
 <feature
       id="org.xtuml.bp.dap.pkg"
       label="BridgePoint Data Access Package"
-      version="4.2.0"
+      version="4.2.1"
       provider-name="xtUML.org"
       plugin="org.xtuml.bp.dap.pkg">
 
@@ -28,12 +28,12 @@ the License.
          id="org.xtuml.bp.dap.pkg"
          download-size="0"
          install-size="0"
-         version="4.2.0"/>
+         version="4.2.1"/>
 
    <plugin
          id="org.xtuml.bp.mc.xmiexport"
          download-size="0"
          install-size="0"
-         version="4.2.0"/>
+         version="4.2.1"/>
 
 </feature>

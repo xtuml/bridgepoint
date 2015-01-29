@@ -3,7 +3,7 @@
 <plugin
    id="org.xtuml.bp.io.sql"
    name="BridgePoint Sql Plug-in"
-   version="4.2.0"
+   version="4.2.1"
    provider-name="xtUML.org"
    class="org.xtuml.bp.io.sql.SqlPlugin">
 

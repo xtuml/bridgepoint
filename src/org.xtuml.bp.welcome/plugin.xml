@@ -3,7 +3,7 @@
 <plugin
    id="org.xtuml.bp.welcome"
    name="BridgePoint UML Welcome Plug-in"
-   version="4.2.0"
+   version="4.2.1"
    provider-name="xtUML.org"
    class="org.xtuml.bp.welcome.WelcomePlugin">
 

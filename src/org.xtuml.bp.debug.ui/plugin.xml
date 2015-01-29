@@ -27,7 +27,7 @@ the License.
 <plugin
    id="org.xtuml.bp.debug.ui"
      name="BridgePoint Debug UI Plug-in"
-     version="4.2.0"
+     version="4.2.1"
      provider-name="xtUML.org"
      class="org.xtuml.bp.debug.ui.BPDebugUIPlugin">
 
