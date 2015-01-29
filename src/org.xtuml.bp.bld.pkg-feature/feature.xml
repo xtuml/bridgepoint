@@ -2,7 +2,7 @@
 <feature
       id="org.xtuml.bp.bld.pkg"
       label="BridgePoint Builder"
-      version="4.2.0"
+      version="4.2.1"
       provider-name="xtUML.org">
 
    <copyright>

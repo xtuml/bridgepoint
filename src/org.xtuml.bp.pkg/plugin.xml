@@ -3,7 +3,7 @@
 <plugin
    id="org.xtuml.bp.pkg"
    name="%pluginName"
-   version="4.2.0"
+   version="4.2.1"
    provider-name="%providerName"
    class="org.xtuml.bp.pkg.Unreferenced">
 

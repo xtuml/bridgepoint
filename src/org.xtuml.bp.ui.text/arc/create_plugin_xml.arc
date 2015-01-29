@@ -72,7 +72,7 @@ This file is the plugin manifest for the BridgePoint core plugin.
 <plugin
    id="org.xtuml.bp.ui.text"
    name="BridgePoint Text Plug-in"
-   version="4.2.0"
+   version="4.2.1"
    provider-name="Mentor Graphics"
    class="org.xtuml.bp.ui.text.TextPlugin">
 

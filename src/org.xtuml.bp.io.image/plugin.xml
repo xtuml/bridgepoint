@@ -3,7 +3,7 @@
 <plugin
    id="org.xtuml.bp.io.image"
    name="BridgePoint Image Generator Plug-in"
-   version="4.2.0"
+   version="4.2.1"
    provider-name="xtUML.org"
    class="org.xtuml.bp.io.image.Activator">
 
