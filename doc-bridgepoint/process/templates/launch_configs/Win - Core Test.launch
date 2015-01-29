@@ -643,10 +643,11 @@
 <mapEntry key="org.eclipse.update.core/debug/type" value="false"/>
 <mapEntry key="org.eclipse.update.core/debug/warning" value="false"/>
 <mapEntry key="org.eclipse.update.core/debug/web" value="false"/>
-<mapEntry key="org.xtuml.bp.core/debug" value="false"/>
+<mapEntry key="org.eclipse.xtend.emftools/trace" value="false"/>
+<mapEntry key="org.xtuml.bp.core/debug" value="true"/>
 <mapEntry key="org.xtuml.bp.core/debug/bridges" value="false"/>
 <mapEntry key="org.xtuml.bp.core/debug/bridges/filter" value="*"/>
-<mapEntry key="org.xtuml.bp.core/debug/consistency" value="false"/>
+<mapEntry key="org.xtuml.bp.core/debug/consistency" value="true"/>
 <mapEntry key="org.xtuml.bp.core/debug/consistency/filter" value="*"/>
 <mapEntry key="org.xtuml.bp.core/debug/delete" value="false"/>
 <mapEntry key="org.xtuml.bp.core/debug/delete/filter" value="*"/>
