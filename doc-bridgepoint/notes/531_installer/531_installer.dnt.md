@@ -127,7 +127,7 @@ and installer technology, but it doesn't sacrifice performance.
 
 8. Unit Test
 ------------
-[Not completed yet]
+See [5]
 
 End
 ---
