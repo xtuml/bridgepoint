@@ -24,7 +24,7 @@ _- 08  min   BM   6.2      Call out the fact that we're basically repeating the 
 _- 09  min   BM   6.3      Add the info about the data massage being done here
 _- 10  min   KB   7.1      Expand it a bit more with note that the data can be accessed with MySQLWorkbench query.  Show a screenshot how this is done.
 _- 11  min   JR   8        Note that the data can be checked by looking at the number of rows.  Note any checks done, even if small that were done
-_- 12  min   JR   general  The related issues section is not properly showing the related items after import.  Needs to be fixed.
+_- 12  min   JR   general  The related issues section in the redmine issue is not properly showing the related items after import.  Needs to be fixed.
 _- 13  min   BM   7.1      Add a note about how some fields are concatenated when put into the redmine note field
 _- 14  min   BM   general  Note that the related-to item timestamps are made up and "time of import" was used
 _- 15  min   JR   general  Note that the dts # was concatenated with the description on the original description field
