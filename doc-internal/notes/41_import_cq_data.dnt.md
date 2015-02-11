@@ -130,8 +130,131 @@ UPDATE `onefact_redmine`.`cq_data`
 ```
 
 6.2  Import the CQ notes data.
+Uploading the notes to a temporary table and then inserting into the proper
+Redmine table was the best way to handle the long quoted description fields.
+
+6.2.1  Prepare the notes file for import using the csvkit.
+```
+  Convert the CSV dump to UTF-8 format using the XLS dump file.
+    $  in2csv DefectDBNotes.xls > notesDump.csv
+
+  Add line numbers to each row.
+    $  csvcut -l notesDump.csv > notesDump-ready-to-import.csv 
+```
+
+6.2.2  Create a temporary table and import the data using MySQL Workbench.
+```SQL
+-- -----------------------------------------------------
+-- Table `onefact.redmine`.`cq_notes_temp`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `onefact_redmine`.`cq_notes_temp` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `cq_id` VARCHAR(13) NOT NULL,
+  `note_id` VARCHAR(22) NOT NULL,
+  `note_type` VARCHAR(20) NOT NULL,
+  `note_date` VARCHAR(20) NOT NULL,
+  `description` TEXT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+```
+
+6.2.3  Remove redundant data.  The rows with the `note_type` of "Original Description"
+were already imported in section 6.1 and can safely be deleted.
+```SQL
+DELETE FROM `onefact_redmine`.`cq_notes_temp` WHERE `note_type`="Original Description";
+```
+
+6.2.4  Insert the notes to their corresponding Redmine issues with the following:
+```SQL
+INSERT INTO `onefact_redmine`.`journals` ( 
+  journalized_id, 
+  journalized_type, 
+  notes,
+  created_on
+) 
+SELECT
+  cq_data.RedmineIssueID,
+  'Issue',
+  CONCAT_WS( ":\n", cq_notes_temp.note_type, cq_notes_temp.description ),
+  STR_TO_DATE( cq_notes_temp.note_date, '%c/%e/%y %h:%i %p' )
+FROM onefact_redmine.cq_notes_temp
+LEFT JOIN onefact_redmine.cq_data
+ON cq_notes_temp.cq_id=cq_data.cq_id ;
+```
+
+6.2.5  The temporary table can be dropped.
+```SQL
+DROP TABLE `onefact_redmine`.`cq_notes_temp`;
+```
+
 
 6.3  Import the CQ related-to data.
+
+6.3.1  Create a temporary table and import the data.
+```SQL
+-- ---------------------------------------------------------------------------
+-- Table `onefact.redmine`.`cq_relatedTo_temp`
+-- ---------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `onefact_redmine`.`cq_relatedTo_temp` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `cq_id` VARCHAR(13) NOT NULL,
+  `related_to_id` VARCHAR(13) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+```
+
+6.3.2  First pass.  Create entries in the journals table, this is the first
+half of the related-to mapping.
+```SQL
+-- ---------------------------------------------------------------------------
+-- Add a column to store the journal IDs created by the next step.
+-- ---------------------------------------------------------------------------
+ALTER TABLE onefact_redmine.cq_relatedTo_temp
+  ADD journalID INT(11) AFTER cq_id;
+
+-- ---------------------------------------------------------------------------
+-- Insert rows into the journals table using the join to map dts# to redmine#
+-- ---------------------------------------------------------------------------
+INSERT INTO `onefact_redmine`.`journals` ( 
+  journalized_id, 
+  journalized_type,
+  created_on
+) 
+SELECT
+  cq_data.RedmineIssueID,
+  'Issue',
+  now()
+FROM onefact_redmine.cq_relatedTo_temp
+LEFT JOIN onefact_redmine.cq_data
+ON cq_relatedTo_temp.cq_id=cq_data.cq_id ;
+
+-- ----------------------------------------------------------------------------
+-- Update the journalID field with the IDs just created in journals table.
+-- ----------------------------------------------------------------------------
+UPDATE `onefact_redmine`.`cq_relatedTo_temp`
+  SET `journalID`=id - 1 + LAST_INSERT_ID();
+```
+
+6.3.3  Second pass.  Create the entry in the journal_details table, this is the
+second half of the the related-to mapping.
+```SQL
+INSERT INTO `onefact_redmine`.`journal_details` ( 
+  journal_id, 
+  property,
+  prop_key,
+  value 
+) 
+SELECT
+  cq_relatedTo_temp.journalID,
+  'relation',
+  'label_relates_to',
+  cq_data.RedmineIssueID
+FROM onefact_redmine.cq_relatedTo_temp
+LEFT JOIN onefact_redmine.cq_data
+ON cq_relatedTo_temp.related_to_id=cq_data.cq_id ;
+```
 
 
 7. Design Comments
