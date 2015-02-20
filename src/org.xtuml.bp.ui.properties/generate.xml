@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile: generate.xml,v $
+ Version:   $Revision: 1.36.6.1 $
+ Modified:  $Date: 2013/07/31 21:17:38 $
+
+ (c) Copyright 2004-2014 by Mentor Graphics Corp.  All rights reserved.
+
+-->
+<project name="bp.ui.properties" default="all" basedir=".">
+  <target name="all"
+          description="Generate UI Properties classes"
+          depends="java,format_java">
+  </target>
+
+  <target name="nb_all"  description="Nightly build target" depends="java" />
+
+  <property environment="env"/>
+  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
+  <property name="mcj_path" value="../MC-Java" />
+
+  <property name="eclipse-home" value="${basedir}/../.."/>
+  <property name="plugins-home" value="${ant.home}/../.."/>
+
+  <property environment="env"/>
+
+  <property name="core_sql_dir" value="../org.xtuml.bp.core/sql" />
+
+  <target name="java.depends" >
+    <uptodate property="java.buildNotNeeded" targetfile="src/org/xtuml/bp/ui/properties/ClassO_OBJPropertySource.java">
+       <srcfiles dir = "${core_sql_dir}" includes = "ooaofooa.sql,ooaofooa_hierarchy_schema.sql,ooaofooa_hierarchy.pei.sql" />
+       <srcfiles dir = "arc"        includes = "BuildPropertySource.arc" />
+       <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql,arch_names.inc"/>
+    </uptodate>
+  </target>
+
+  <property name="chain_util_path" value="../org.xtuml.bp.core"/>
+  <property name="core_color_path" value="../org.xtuml.bp.core/color"/>
+
+  <target name="java"
+          depends="java.depends"
+          description="Generate the tree Properties file and util class"
+          unless="java.buildNotNeeded" >
+    <echo >Generating PropertySource files ...</echo>
+    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+        <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
+       <env key="CORE_COLOR_DIR" value="${core_color_path}"/>
+    <arg line="-nopersist
+      -import ${mcj_path}/ooa_schema.sql
+      -import ${core_sql_dir}/ooaofooa_hierarchy_schema.sql
+      -import ${core_sql_dir}/ooaofooa.sql
+      -import ${core_sql_dir}/ooaofooa_hierarchy.pei.sql
+      -arch arc/BuildPropertySource.arc" />
+  </exec>
+    <delete file="____file.txt" />
+    <delete file="key_lett.txt" />
+    <delete file="rel_chain.txt" />
+    <delete file="rel_num.txt" />
+    <delete file="remainder.txt" />
+  </target>
+
+  <property name="cvs_java_files" value="ActivityPropertyDescriptor.java,BooleanPropertyDescriptor.java,
+              DescriptionPropertyDescriptor.java,EnumPropertyDescriptor.java,IntegerPropertyDescriptor.java,
+  	          ChooserPropertyDescriptor.java,ConstantValuePropertyDescriptor.java,
+  	          BridgepointPropertySheetPage.java, BridgepointPropertySheetSorter.java,
+              ModelElementNameValidator.java,DimensionsPropertyDescriptor.java,
+              DimensionsValidator.java" />
+
+  <target name="format_java"
+        description="Format the generated java source" >
+    <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask" >
+        <classpath>
+            <pathelement path="../org.xtuml.bp.core/tools/" />
+            <fileset dir="${plugins-home}/plugins" casesensitive="yes">
+                <include name="**/org.eclipse.text_*.jar" />
+                <include name="**/org.eclipse.ui_*.jar" />
+                <include name="**/org.eclipse.jdt.core_*.jar" />
+                <include name="**/org.eclipse.core.runtime_*.jar" />
+                <include name="**/org.eclipse.osgi_*.jar" />
+                <include name="**/org.eclipse.core.resources_*.jar" />
+                <include name="**/org.eclipse.equinox.common_*.jar" />
+            </fileset>
+        </classpath>
+    </taskdef>
+          <PTCodeFormat>
+          <fileset dir="src/org/xtuml/bp/ui/properties" includes="*PropertySource.java" />
+        </PTCodeFormat>
+  </target>
+
+  <!-- COMPILE TARGETS -->
+
+  <!-- This target is not used in the eclipse environment.  The eclipse Java
+       builder handles the java compilation when building BridgePoint under
+       eclipse.  This target is used only when building BridgePoint from the
+       command line on the build server. -->
+  <target name="compile"
+                  description="Compile project" >
+
+    <echo>Compiling ${ant.project.name}</echo>
+
+    <mkdir dir="../org.xtuml.bp.ui.properties/bin" />
+
+    <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6"
+        fork="yes" destdir="../org.xtuml.bp.ui.properties/bin"
+        debug="true" debuglevel="lines,vars,source" encoding="UTF-8">
+       <src path="../org.xtuml.bp.ui.properties/src/org/xtuml/bp/ui/properties" />
+       <classpath>
+         <pathelement path="../org.xtuml.bp.core/bin" />
+         <pathelement path="../org.xtuml.bp.ui.text/bin" />
+         <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
+           <include name="**/org.eclipse.osgi_*.jar" />
+           <include name="**/org.eclipse.text_*.jar" />
+           <include name="**/org.eclipse.ui.workbench.texteditor_*.jar" />
+           <include name="**/org.eclipse.ui.editors_*.jar" />
+           <include name="**/org.eclipse.ui.views_*.jar" />
+           <include name="**/org.eclipse.ui_*.jar" />
+           <include name="**/org.eclipse.jface_*.jar" />
+           <include name="**/org.eclipse.core.runtime_*.jar" />
+           <include name="**/org.eclipse.core.resources_*.jar" />
+           <include name="**/org.eclipse.ui.workbench_*.jar" />
+           <include name="**/org.eclipse.ui.win32_*.jar" />
+           <include name="**/org.eclipse.swt.win32.win32.x86_*.jar" />
+           <include name="**/org.eclipse.ui.ide_*.jar" />
+           <include name="**/org.eclipse.equinox.common_*.jar"/>
+           <include name="**/org.eclipse.equinox.registry_*.jar"/>
+           <include name="**/org.eclipse.core.commands_*.jar"/>
+         </fileset>
+       </classpath>
+    </javac>
+
+  </target>
+
+
+  <!-- CLEAN TARGETS -->
+
+  <target name="clean_all"
+        description="Clean entire project"
+        depends="clean_classes, clean_source" >
+
+    <echo>Done cleaning for ${ant.project.name}</echo>
+
+  </target>
+
+  <target name="clean_source"
+        description="Remove the java source files" >
+
+    <echo>Removing generated java files...</echo>
+    <delete verbose="true" dir="src/org/xtuml/bp/ui/properties" excludes="${cvs_java_files}"/>
+
+  </target>
+
+  <target name="clean_classes"
+          description="Remove all compiled class files." >
+
+  <echo>Removing all compiled class files ...</echo>
+  <delete verbose="true" dir="bin" />
+
+  </target>
+</project>

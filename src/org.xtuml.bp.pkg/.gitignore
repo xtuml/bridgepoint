@@ -1,0 +1,4 @@
+*.jar
+build.xml
+timer.log
+temp.folder

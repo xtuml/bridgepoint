@@ -1,0 +1,148 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("e6a42b42-6fdb-4f2f-aa9f-b7c161e0b519",
+	'Slot_Disk Assignment',
+	5,
+	'D_SDA',
+	'Object Description:
+
+Object Role:
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("e6a42b42-6fdb-4f2f-aa9f-b7c161e0b519",
+	"0ed9f976-c6fb-417c-a449-47f76ba30ed2",
+	0,
+	"d14edd60-ae8b-49f6-aab3-16a25314b174",
+	"d70e11a9-aa0e-4240-b250-10c0deb95979",
+	"d3709bfa-bf1a-431d-9a79-03484a773375",
+	"c8f47d67-30dc-4a94-834e-b542f34806c9",
+	"f634a3db-c828-4b35-9477-c7d20f7eac2c",
+	"a5ee379d-78f9-4330-ba9f-23115abe3c23",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'Reference Domain:
+',
+	'Online Disk',
+	'Disk_ID',
+	'R6');
+INSERT INTO R_RGO_PROXY
+	VALUES ("e6a42b42-6fdb-4f2f-aa9f-b7c161e0b519",
+	"d70e11a9-aa0e-4240-b250-10c0deb95979",
+	"d3709bfa-bf1a-431d-9a79-03484a773375",
+	'../Odms.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("d14edd60-ae8b-49f6-aab3-16a25314b174",
+	"0ed9f976-c6fb-417c-a449-47f76ba30ed2",
+	0,
+	"d70e11a9-aa0e-4240-b250-10c0deb95979",
+	"c8f47d67-30dc-4a94-834e-b542f34806c9",
+	'../Odms.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("f634a3db-c828-4b35-9477-c7d20f7eac2c",
+	"e6a42b42-6fdb-4f2f-aa9f-b7c161e0b519",
+	"1d6b6d86-0ec8-4579-8f54-b77d3d970382",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace",
+	1,
+	'Disk_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("1d6b6d86-0ec8-4579-8f54-b77d3d970382",
+	"ed000af8-f8c9-4601-8ab2-22765e71aace",
+	'../Disk/Disk.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("f634a3db-c828-4b35-9477-c7d20f7eac2c",
+	"e6a42b42-6fdb-4f2f-aa9f-b7c161e0b519",
+	"00000000-0000-0000-0000-000000000000",
+	'Disk_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Disk_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("e6a42b42-6fdb-4f2f-aa9f-b7c161e0b519",
+	"3b1edb98-1dc8-4158-b1c2-38c43712858d",
+	0,
+	"367991e7-437a-4cee-8597-ed6b7e48202c",
+	"d70e11a9-aa0e-4240-b250-10c0deb95979",
+	"d3709bfa-bf1a-431d-9a79-03484a773375",
+	"28a47156-9d8a-4ded-bab1-83529d93caca",
+	"f8546688-a768-4628-aa13-980400930897",
+	"56a182a4-b080-4a04-9599-27e55ffb9809",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'Reference Domain:
+',
+	'Slot',
+	'Slot_ID',
+	'R6');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("367991e7-437a-4cee-8597-ed6b7e48202c",
+	"3b1edb98-1dc8-4158-b1c2-38c43712858d",
+	0,
+	"d70e11a9-aa0e-4240-b250-10c0deb95979",
+	"28a47156-9d8a-4ded-bab1-83529d93caca",
+	'../Odms.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("f8546688-a768-4628-aa13-980400930897",
+	"e6a42b42-6fdb-4f2f-aa9f-b7c161e0b519",
+	"a272836d-bb19-46d8-a2d3-ded8784c1b18",
+	"43e63f35-40a3-4885-b614-059774a229a4",
+	1,
+	'Online_Location_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a272836d-bb19-46d8-a2d3-ded8784c1b18",
+	"43e63f35-40a3-4885-b614-059774a229a4",
+	'../Online Location/Online Location.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("f8546688-a768-4628-aa13-980400930897",
+	"e6a42b42-6fdb-4f2f-aa9f-b7c161e0b519",
+	"f634a3db-c828-4b35-9477-c7d20f7eac2c",
+	'Slot_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Slot_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"e6a42b42-6fdb-4f2f-aa9f-b7c161e0b519");
+INSERT INTO O_OIDA
+	VALUES ("f634a3db-c828-4b35-9477-c7d20f7eac2c",
+	"e6a42b42-6fdb-4f2f-aa9f-b7c161e0b519",
+	0,
+	'Disk_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"e6a42b42-6fdb-4f2f-aa9f-b7c161e0b519");
+INSERT INTO O_ID
+	VALUES (2,
+	"e6a42b42-6fdb-4f2f-aa9f-b7c161e0b519");
+INSERT INTO PE_PE
+	VALUES ("e6a42b42-6fdb-4f2f-aa9f-b7c161e0b519",
+	1,
+	"eaaadfae-a8a2-41c6-b417-100ae646942e",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("eaaadfae-a8a2-41c6-b417-100ae646942e",
+	"00000000-0000-0000-0000-000000000000",
+	"32def5f7-ad70-424b-8b01-6d644bf7c337",
+	'Odms',
+	'Subsystem Description:
+
+Relationship with other Subsystems:
+',
+	1,
+	'../Odms.xtuml');

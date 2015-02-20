@@ -1,0 +1,5 @@
+Simulation started.
+User invoked interface message: sendServerClientOAL
+cls dequeueing. Event: Port1::serverclientsig
+cls transition. New State: State 2 Previous State: State 1
+

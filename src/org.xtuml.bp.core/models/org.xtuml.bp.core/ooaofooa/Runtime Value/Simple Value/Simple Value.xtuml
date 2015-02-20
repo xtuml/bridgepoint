@@ -1,0 +1,275 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("d8e71bfe-32a2-40ba-9c13-1cba01322a80",
+	'Simple Value',
+	3302,
+	'RV_SMV',
+	'',
+	"7532d38c-8a9a-4a7d-81a0-61f814f64f06");
+INSERT INTO O_TFR
+	VALUES ("44d4df6b-6b7b-42b9-a744-789f7bfe5e05",
+	"d8e71bfe-32a2-40ba-9c13-1cba01322a80",
+	'getValue',
+	'',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'select one scv related by self->RV_SCV[R3308];
+select one crv related by self->RV_CRV[R3308];
+select one irv related by self->RV_IRV[R3308];
+value = GD::NULL_INSTANCE();
+if (not_empty scv)
+	value = scv.Value;
+elif (not_empty crv)
+  select one exeEngine related by self->RV_CRV[R3308]->I_EXE[R3309];  
+  if (not_empty exeEngine) 
+    // the engine is the instance we are looking for
+    value = exeEngine.convertToInstance();
+    // Removed else clause that raises error, the component instance
+    // can be null if a message is invoked directly by the user.
+  end if;
+elif (not_empty irv)
+  select one rv related by self->RV_RVL[R3300];
+  value = GD::unique_id_to_instance(value:rv.RuntimeValue_ID);
+else
+USER::logError(msg:"The Simple Value instance does not have an associated subtype",path:"");
+end if;
+return value;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("88660877-f9d5-488b-b5c6-a9cb4b577634",
+	"d8e71bfe-32a2-40ba-9c13-1cba01322a80",
+	'setValue',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Simple Value.setValue()
+select one dt related by self->RV_RVL[R3300]->S_DT[R3307];
+select one irdt related by dt->S_IRDT[R17];
+if not_empty dt and dt.Name == "component_ref"
+  select one crv related by self->RV_CRV[R3308];
+  if empty crv
+    create object instance crv of RV_CRV;
+    relate crv to self across R3308;
+  end if;
+  crv.setValue(value:param.value);
+elif not_empty irdt
+  // Remove the old value if exist 
+  select one irv related by self->RV_IRV[R3308];
+  if not_empty irv
+  	// delete all instance references
+  	select many iirs related by irv->L_IIR[R3311];
+  	for each iir in iirs
+  	  delete object instance iir;
+  	end for;
+  else 
+    // no Instance Reference Value is found
+    create object instance irv of RV_IRV;
+    relate irv to self across R3308;    
+  end if;
+  // Get the referenced instances by the source RuntimeValue
+  runtimeValueID = GD::instance_to_unique_id(value:param.value);
+  select any src_rv from instances of RV_RVL where selected.RuntimeValue_ID == runtimeValueID;
+  select one src_sm related by src_rv->RV_SMV[R3300];
+  select one src_irv related by src_sm->RV_IRV[R3308];
+  select many src_iirs related by src_irv->L_IIR[R3311];
+  select many src_insts related by src_iirs->I_INS[R3013];
+  if not_empty src_insts
+    for each src_inst in src_insts
+    	// create a instance reference for each instance and relate them
+    	create object instance iir of L_IIR;
+    	relate iir to irv across R3311;
+    	relate iir to src_inst across R3013;
+    end for; 
+  end if;
+else
+  select one scv related by self->RV_SCV[R3308];
+  if empty scv
+    create object instance scv of RV_SCV;
+    relate scv to self across R3308;
+  end if;
+  scv.Value = param.value;
+end if;',
+	1,
+	'',
+	"44d4df6b-6b7b-42b9-a744-789f7bfe5e05");
+INSERT INTO O_TPARM
+	VALUES ("78f1ff9b-4ed0-4ea0-8368-0856e0298161",
+	"88660877-f9d5-488b-b5c6-a9cb4b577634",
+	'value',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("85e3f8c1-5d08-4f1a-8e20-6c2b3612afa0",
+	"d8e71bfe-32a2-40ba-9c13-1cba01322a80",
+	'initialize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Simple Value.initialize()
+select one dt related by self->RV_RVL[R3300]->S_DT[R3307];
+select one irdt related by dt->S_IRDT[R17];
+if not_empty dt and dt.Name == "component_ref"
+  create object instance crv of RV_CRV;
+  relate crv to self across R3308;
+elif not_empty irdt
+	create object instance irv of RV_IRV;
+	relate irv to self across R3308;	
+else
+  create object instance scv of RV_SCV;
+  relate scv to self across R3308;
+end if;
+',
+	1,
+	'',
+	"88660877-f9d5-488b-b5c6-a9cb4b577634");
+INSERT INTO O_TFR
+	VALUES ("851a4aef-d10f-44ea-82c6-61b24dbe260d",
+	"d8e71bfe-32a2-40ba-9c13-1cba01322a80",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'self.disposeSubtype();
+select one rtVal related by self->RV_RVL[R3300];
+if not_empty rtVal
+  unrelate self from rtVal across R3300;
+end if;
+delete object instance self;',
+	1,
+	'',
+	"85e3f8c1-5d08-4f1a-8e20-6c2b3612afa0");
+INSERT INTO O_TFR
+	VALUES ("49a320bd-c52f-4ecb-a057-516f404e4c55",
+	"d8e71bfe-32a2-40ba-9c13-1cba01322a80",
+	'disposeSubtype',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one scv related by self->RV_SCV[R3308];
+select one crv related by self->RV_CRV[R3308];
+select one irv related by self->RV_IRV[R3308];
+
+if (not_empty scv) 
+  unrelate scv from self across R3308;
+  delete object instance scv;
+end if;
+
+if (not_empty crv)
+  select one exe related by crv->I_EXE[R3309]; 
+  unrelate crv from exe across R3309;
+  unrelate crv from self across R3308;
+  delete object instance crv;
+end if;
+
+if not_empty irv
+  unrelate self from irv across R3308;
+  irv.dispose(); 
+end if;',
+	1,
+	'',
+	"851a4aef-d10f-44ea-82c6-61b24dbe260d");
+INSERT INTO O_REF
+	VALUES ("d8e71bfe-32a2-40ba-9c13-1cba01322a80",
+	"013bfc9e-d3c0-4807-8613-deccd09763b5",
+	0,
+	"79b643e8-6840-46d6-aafa-e1d9f8af1f60",
+	"1f890a60-61f8-46e5-813a-1db8f5234d11",
+	"00e3aa36-a2ff-4211-b5a5-d21ce97260c5",
+	"1112b44f-b2d6-4f53-9334-be1d5dfea203",
+	"59d4c4b8-5c6f-43f7-95a9-b4459c4ee971",
+	"90670244-e441-4fbc-bb4e-b51fb4633347",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Runtime Value',
+	'RuntimeValue_ID',
+	'R3300');
+INSERT INTO R_RGO_PROXY
+	VALUES ("d8e71bfe-32a2-40ba-9c13-1cba01322a80",
+	"1f890a60-61f8-46e5-813a-1db8f5234d11",
+	"00e3aa36-a2ff-4211-b5a5-d21ce97260c5",
+	'../Runtime Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("79b643e8-6840-46d6-aafa-e1d9f8af1f60",
+	"013bfc9e-d3c0-4807-8613-deccd09763b5",
+	0,
+	"1f890a60-61f8-46e5-813a-1db8f5234d11",
+	"1112b44f-b2d6-4f53-9334-be1d5dfea203",
+	'../Runtime Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("59d4c4b8-5c6f-43f7-95a9-b4459c4ee971",
+	"d8e71bfe-32a2-40ba-9c13-1cba01322a80",
+	"79b643e8-6840-46d6-aafa-e1d9f8af1f60",
+	"013bfc9e-d3c0-4807-8613-deccd09763b5",
+	1,
+	'RuntimeValue_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("79b643e8-6840-46d6-aafa-e1d9f8af1f60",
+	"013bfc9e-d3c0-4807-8613-deccd09763b5",
+	'../Runtime Value/Runtime Value.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("59d4c4b8-5c6f-43f7-95a9-b4459c4ee971",
+	"d8e71bfe-32a2-40ba-9c13-1cba01322a80",
+	"00000000-0000-0000-0000-000000000000",
+	'RuntimeValue_ID',
+	'',
+	'',
+	'RuntimeValue_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"d8e71bfe-32a2-40ba-9c13-1cba01322a80");
+INSERT INTO O_OIDA
+	VALUES ("59d4c4b8-5c6f-43f7-95a9-b4459c4ee971",
+	"d8e71bfe-32a2-40ba-9c13-1cba01322a80",
+	0,
+	'RuntimeValue_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"d8e71bfe-32a2-40ba-9c13-1cba01322a80");
+INSERT INTO O_ID
+	VALUES (2,
+	"d8e71bfe-32a2-40ba-9c13-1cba01322a80");
+INSERT INTO S_SS_PROXY
+	VALUES ("7532d38c-8a9a-4a7d-81a0-61f814f64f06",
+	'Runtime Value',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+Persistent:false
+',
+	'RV',
+	3300,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Runtime Value.xtuml');

@@ -1,0 +1,595 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	'Connector Tool',
+	104,
+	'CT_CTL',
+	'The Connector Tool owns the state machine that takes the
+user from enabling the tool, through choosing the start location
+and either dragging or clicking the connector waypoints to
+recognizing the end location and finally displaying the
+connector.
+--------------------------------------------------------------------------
+Persistent:false                            ',
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
+INSERT INTO O_TFR
+	VALUES ("6e5ee5a2-46fc-4baa-8680-c94d0b8dce46",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824",
+	'finalize',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one mdlTool related by self->CT_MTL[R102];
+mdlTool.finalizeConnector(startElement:OS::NULL_UNIQUE_ID(), endElement:OS::NULL_UNIQUE_ID());',
+	1,
+	'',
+	"ee4b331f-8c4e-4b54-b555-576ba8cee14c");
+INSERT INTO S_DT_PROXY
+	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("2c0df8db-7719-4466-9f54-4a4a4039dae1",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824",
+	'determineMouseUpValidity',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'criteriaMet = false;
+select one canvas related by self->CT_MTL[R102]->GD_MD[R100];
+select one seg related by self->GD_LS[R106];
+select one con related by seg->GD_CON[R6];
+seg.updateEnd(x:param.x, y:param.y);
+select one csp related by self->CT_MTL[R102]->GD_ES[R103]->TS_CSP[R200];
+select many startTerms related by csp->TS_TSP[R202];
+select one segmentStart related by seg->DIM_WAY[R21];
+select one segmentEnd related by seg->DIM_WAY[R22];
+completed = false;
+if (not csp.startCriteriaMet())
+  for each startTerm in startTerms
+    if (startTerm.criteriaMet(x1:segmentEnd.positionX, y1:segmentEnd.positionY, 
+    	x2:segmentStart.positionX, y2:segmentStart.positionY))
+      criteriaMet = true;
+      select one startElem related by startTerm->GD_GE[R206];
+      select one endElem related by self->GD_GE[R105];
+      // if either end is whitespace this is not
+      // a connector that starts and ends on whitespace
+      // see if this is a suitable location
+      if(not_empty startElem or not_empty endElem)
+        if  (not param.allowSameShape and startElem == endElem) // Start and end symbols are the same
+          generate CT_CTL4:''Unsuitable Location'' to self;
+          completed = true;
+        else
+          reverseSense = true;
+          // ajust any connector drawn to a container symbol
+          // or an element outside of a container symbol
+          // so that the container side is the end
+          select one containerElem related by seg->GD_CON[R6]->GD_GE[R2]
+          		->DIM_GE[R23]->DIM_ELE[R302]->DIM_GE[R307];
+          if(not_empty containerElem and not_empty startElem)
+            // if the element being created is within a container
+            // and the start element is outside of that container
+            select one endContainer related by startElem->DIM_GE[R23]
+            	 ->DIM_ELE[R302]->DIM_GE[R307];
+            if(empty endContainer)
+              // then make the start the end of this connector
+              con.reverseSense();
+              unrelate self from startElem across R104;
+              unrelate self from endElem across R105;
+              relate self to endElem across R104;
+              relate self to startElem across R105;
+              reverseSense = false;
+            end if;
+          end if;
+          if(reverseSense)
+            con.reverseSense();  // The user started with the end point, so reverse the direction
+            if (not_empty startElem)
+              relate self to startElem across R104;
+            end if;
+          end if;
+          generate CT_CTL8:Complete to self;
+          completed = true;
+        end if;
+      end if;
+      break;
+    end if;
+  end for;
+end if;
+if (not criteriaMet and not csp.endCriteriaMet())
+  select many endTerms related by csp->TS_TSP[R203];
+  for each endTerm in endTerms
+    if (endTerm.criteriaMet(x1:segmentEnd.positionX, y1:segmentEnd.positionY, 
+    	x2:segmentStart.positionX, y2:segmentStart.positionY))
+      criteriaMet = true;
+      select one startElem related by self->GD_GE[R104];
+      select one endElem related by endTerm->GD_GE[R206];
+      // if either end is whitespace this is not
+      // a connector that starts and ends on whitespace
+      // see if this is a suitable location
+      if(not_empty startElem or not_empty endElem)
+        if (not param.allowSameShape and startElem == endElem and 
+        		(not_empty startElem and not_empty endElem)) // Start and end symbols are the same
+          generate CT_CTL4:''Unsuitable Location'' to self;
+          completed = true;
+        else
+          if (not_empty endElem)
+            relate self to endElem across R105;
+          end if;
+          // ajust any connector drawn to a container symbol
+          // or an element outside of a container symbol
+          // so that the container side is the end
+          select one containerElem related by seg->GD_CON[R6]->GD_GE[R2]
+          		->DIM_GE[R23]->DIM_ELE[R302]->DIM_GE[R307];
+          if(not_empty containerElem)
+            // if the element being created is within a container
+            // and the start element is outside of that container
+            select one startContainer related by startElem->DIM_GE[R23]
+            	 ->DIM_ELE[R302]->DIM_GE[R307];
+            if(empty startContainer)
+              // then make the start the end of this connector
+              con.reverseSense();
+              unrelate self from startElem across R104;
+              unrelate self from endElem across R105;
+              relate self to endElem across R104;
+              relate self to startElem across R105;
+            end if;
+          end if;
+          generate CT_CTL8:Complete to self;
+          completed = true;
+        end if;
+      end if;
+      break;
+    end if;
+  end for;
+end if;
+if (not criteriaMet and (csp.startCriteriaMet() or csp.endCriteriaMet()))
+  // Waypoints are allowed, hence whitespace is OK
+  overWhitespace = true;
+  select one conElem related by seg->GD_CON[R6]->GD_GE[R2];
+  select many elems related by self->CT_MTL[R102]->GD_MD[R100]->GD_GE[R1];
+  for each elem in elems
+    if (elem != conElem and elem.isOver(x:param.x, y:param.y))
+      overWhitespace = false;
+    end if;
+  end for;
+  if (overWhitespace)
+    generate CT_CTL5:''Suitable Location''(X:param.x, Y:param.y) to self;
+  else
+    generate CT_CTL4:''Unsuitable Location'' to self;
+  end if;
+// if the criteria has been met and the start
+// connector specification has been satisfied
+// and the connector has not yet been completed
+// this connector is being created as one which
+// starts and ends on whitespace
+else
+  if(not completed)
+    generate CT_CTL8:Complete to self;
+  end if;
+end if;',
+	1,
+	'',
+	"4f57df3d-475e-4306-91ab-c8256c21a40b");
+INSERT INTO O_TPARM
+	VALUES ("bad8455c-a338-4a0a-9f19-80c28ca64696",
+	"2c0df8db-7719-4466-9f54-4a4a4039dae1",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"9e6cd668-e3a7-4136-a665-4937594ac78b",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("9b975241-8d8b-4125-bacc-fbc712854256",
+	"2c0df8db-7719-4466-9f54-4a4a4039dae1",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"bad8455c-a338-4a0a-9f19-80c28ca64696",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("9e6cd668-e3a7-4136-a665-4937594ac78b",
+	"2c0df8db-7719-4466-9f54-4a4a4039dae1",
+	'allowSameShape',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("2f43134c-d1dc-45db-b96c-e172c1950249",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824",
+	'trackMouseWithSegmentEnd',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one canvas related by self->CT_MTL[R102]->GD_MD[R100];
+select one diagram related by canvas->DIM_DIA[R18];
+select one segment related by self->GD_LS[R106];
+select one segmentEnd related by segment->DIM_WAY[R22];
+segmentEnd.positionX = ::roundToGridSnapPoint(
+	ordinate:(GR::scale(value:GR::getAbsoluteXPosition()) + diagram.viewportX), isConnector:true);
+segmentEnd.positionY = ::roundToGridSnapPoint(
+	ordinate:(GR::scale(value:GR::getAbsoluteYPosition()) + diagram.viewportY), isConnector:true);
+select one container related by segment->GD_CON[R6]->DIM_ED[R20]->DIM_GE[R301]
+	->DIM_ELE[R302]->DIM_GE[R307];
+if(not_empty container)
+  select one containerShape related by container->GD_GE[R23]->GD_SHP[R2]
+  		->GD_CTR[R28];
+  if(not_empty containerShape)
+    select one elemSpec related by self->CT_MTL[R102]->GD_ES[R103];
+    containerShape.autoResize();
+  end if;
+end if;
+',
+	1,
+	'',
+	"6e5ee5a2-46fc-4baa-8680-c94d0b8dce46");
+INSERT INTO O_TPARM
+	VALUES ("2654c4e2-ea92-4f0c-99ca-ec75bfc39e6d",
+	"2f43134c-d1dc-45db-b96c-e172c1950249",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("95e4a273-e34a-4a0c-8ef1-283dd0050137",
+	"2f43134c-d1dc-45db-b96c-e172c1950249",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"2654c4e2-ea92-4f0c-99ca-ec75bfc39e6d",
+	'');
+INSERT INTO O_TFR
+	VALUES ("ee4b331f-8c4e-4b54-b555-576ba8cee14c",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824",
+	'dispose',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one mtl related by self->CT_MTL[R102];
+if ( not_empty mtl )
+  unrelate self from mtl across R102;
+end if;
+select one ls related by self->GD_LS[R106];
+if (not_empty ls)
+  unrelate self from ls across R106;
+end if;
+select one ge related by self->GD_GE[R104];
+if (not_empty ge)
+  unrelate self from ge across R104;
+end if;
+select one ge related by self->GD_GE[R105];
+if (not_empty ge)
+  unrelate self from ge across R105;
+end if;',
+	1,
+	'',
+	"2c0df8db-7719-4466-9f54-4a4a4039dae1");
+INSERT INTO O_TFR
+	VALUES ("4f57df3d-475e-4306-91ab-c8256c21a40b",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824",
+	'clearPartialConnector',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one startElement related by self->GD_GE[R105];
+if(not_empty startElement)
+  unrelate self from startElement across R105;
+end if;
+select one endElement related by self->GD_GE[R104];
+if(not_empty endElement)
+  unrelate self from endElement across R104;
+end if;
+select one element related by self->CT_MTL[R102]->GD_ES[R103]->GD_GE[R16];
+if (not_empty element)
+  element.dispose();
+end if;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	0,
+	"0304c426-4444-443b-a662-e29749249eb1",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"9dbcddfd-488f-4e6b-9937-0a56dd5b7ec7",
+	"10982f14-d77d-457b-9902-02f4d23a5ac0",
+	"d262c38e-ff61-4d8d-abba-9807b40703ff",
+	"02ed20f5-049b-4351-8fdf-09442dc253e1",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Model Tool',
+	'Tool_ID',
+	'R102');
+INSERT INTO R_RGO_PROXY
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"9dbcddfd-488f-4e6b-9937-0a56dd5b7ec7",
+	'../Canvas Tools.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	0,
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"10982f14-d77d-457b-9902-02f4d23a5ac0",
+	'../Canvas Tools.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("d262c38e-ff61-4d8d-abba-9807b40703ff",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	1,
+	'Tool_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	'../Model Tool/Model Tool.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("d262c38e-ff61-4d8d-abba-9807b40703ff",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"00000000-0000-0000-0000-000000000000",
+	'Tool_ID',
+	'',
+	'',
+	'Tool_ID',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	0,
+	"09b28e51-261a-4f6c-8408-01a31af506b9",
+	"203ee94b-0d40-476a-bd77-198579f48e79",
+	"ca60055a-e5a2-46e5-a6ff-7a5d8c8bb696",
+	"10f16a0b-76f2-4fcb-b8d4-1acd5cffb422",
+	"bf8bd19f-fe00-433e-af4d-41e0ad7f0225",
+	"ad98f478-8a26-47ef-aa0d-f5be78bae77d",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Line Segment',
+	'elementId',
+	'R106');
+INSERT INTO R_RGO_PROXY
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"203ee94b-0d40-476a-bd77-198579f48e79",
+	"ca60055a-e5a2-46e5-a6ff-7a5d8c8bb696",
+	'../Canvas Tools.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	0,
+	"203ee94b-0d40-476a-bd77-198579f48e79",
+	"10f16a0b-76f2-4fcb-b8d4-1acd5cffb422",
+	'../Canvas Tools.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("bf8bd19f-fe00-433e-af4d-41e0ad7f0225",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	1,
+	'elementId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("09b28e51-261a-4f6c-8408-01a31af506b9",
+	"77c5fcd0-0f54-42c1-ab6e-4476ff4e6931",
+	'../../Graphical Data/Line Segment/Line Segment.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("bf8bd19f-fe00-433e-af4d-41e0ad7f0225",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"d262c38e-ff61-4d8d-abba-9807b40703ff",
+	'Current_Seg_elementId',
+	'',
+	'Current_Seg_',
+	'GE_ID',
+	1,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("64d50256-2f9d-4213-bed9-afa292733576",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824");
+INSERT INTO O_BATTR
+	VALUES ("64d50256-2f9d-4213-bed9-afa292733576",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824");
+INSERT INTO O_ATTR
+	VALUES ("64d50256-2f9d-4213-bed9-afa292733576",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"bf8bd19f-fe00-433e-af4d-41e0ad7f0225",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"aae0ffdc-3a05-4c94-9878-331bc82097dd",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("aae0ffdc-3a05-4c94-9878-331bc82097dd",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'state<State_Model>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"ee285046-698d-47d4-8d30-506164f3e21f",
+	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	"6fefbb0c-b6d8-4984-9dd1-2446ffe28ed6",
+	"6c4d9c60-99ee-4611-ad2b-8fe59fede195",
+	"740d36b2-3f2e-46b2-baee-52090a18e5ea",
+	"808b70f9-5f97-43f2-bae6-fb9bf43afd2e",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Graphical Element',
+	'elementId',
+	'R104');
+INSERT INTO R_RGO_PROXY
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	"6fefbb0c-b6d8-4984-9dd1-2446ffe28ed6",
+	'../Canvas Tools.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"ddde13f4-2335-49b4-a469-e78f3af8d12b",
+	"6c4d9c60-99ee-4611-ad2b-8fe59fede195",
+	'../Canvas Tools.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("740d36b2-3f2e-46b2-baee-52090a18e5ea",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	1,
+	'elementId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	'../../UML 2.0 Diagram Interchange/DiagramElement/DiagramElement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("740d36b2-3f2e-46b2-baee-52090a18e5ea",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"64d50256-2f9d-4213-bed9-afa292733576",
+	'start_elementId',
+	'',
+	'start_',
+	'elementId',
+	1,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"ee285046-698d-47d4-8d30-506164f3e21f",
+	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	"b1c992f0-0bce-4e3b-a84c-dbbcc6ff6a7b",
+	"451656e0-6907-47f2-b32c-fc0395a064ac",
+	"a782e273-849c-400e-9d20-549386f7a568",
+	"4020176f-6183-4ac1-88f9-b5b93f25b48c",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Graphical Element',
+	'elementId',
+	'R105');
+INSERT INTO R_RGO_PROXY
+	VALUES ("52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	"b1c992f0-0bce-4e3b-a84c-dbbcc6ff6a7b",
+	'../Canvas Tools.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"18728ecc-7a19-4107-9222-e3db43f4e0e0",
+	"451656e0-6907-47f2-b32c-fc0395a064ac",
+	'../Canvas Tools.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("a782e273-849c-400e-9d20-549386f7a568",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	1,
+	'elementId');
+INSERT INTO O_ATTR
+	VALUES ("a782e273-849c-400e-9d20-549386f7a568",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"740d36b2-3f2e-46b2-baee-52090a18e5ea",
+	'end_elementId',
+	'',
+	'end_',
+	'elementId',
+	1,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("73d2b9da-ed4a-45d5-a973-adcdc65a7268",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824");
+INSERT INTO O_BATTR
+	VALUES ("73d2b9da-ed4a-45d5-a973-adcdc65a7268",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824");
+INSERT INTO O_ATTR
+	VALUES ("73d2b9da-ed4a-45d5-a973-adcdc65a7268",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824",
+	"a782e273-849c-400e-9d20-549386f7a568",
+	'currentTransaction',
+	'',
+	'',
+	'currentTransaction',
+	0,
+	"a172f187-f843-4aeb-af5b-873deb036646",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a172f187-f843-4aeb-af5b-873deb036646",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'Transaction',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"52036122-c8b9-41ef-aab0-5b87e07a7824");
+INSERT INTO O_OIDA
+	VALUES ("d262c38e-ff61-4d8d-abba-9807b40703ff",
+	"52036122-c8b9-41ef-aab0-5b87e07a7824",
+	0,
+	'Tool_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"52036122-c8b9-41ef-aab0-5b87e07a7824");
+INSERT INTO O_ID
+	VALUES (2,
+	"52036122-c8b9-41ef-aab0-5b87e07a7824");
+INSERT INTO S_SS_PROXY
+	VALUES ("afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	'Canvas Tools',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+  TRANSLATE_FOR_EXTERNAL_USE:FALSE
+  Notify_Changes:false
+',
+	'CT',
+	100,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001a00034",
+	'../Canvas Tools.xtuml');

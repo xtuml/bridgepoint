@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<compositeCheatsheet name="HelloWorld">
+   <taskGroup kind="set" name="Composite cheat sheet example" skip="false">
+      <intro>
+         This is an example of a <b>composite cheat sheet</b> built from existing cheat sheets.
+                 <br/><br/>You can select a task to work on either by following the hyperlinks or by
+                 selecting a task in the tree.
+      </intro>
+      <onCompletion>
+         Congratulations you have completed all the tasks.
+      </onCompletion>
+      <task kind="cheatsheet" name="Branching and merging using CVS" skip="true">
+         <intro>
+            This cheat sheet is intended for CVS users. If you are not using CVS or do
+              not intend to branch and merge you may skip this task.
+         </intro>
+         <onCompletion>
+            Congratulations you now know how to branch and merge.
+         </onCompletion>
+         <param name="id" value="org.eclipse.platform.cvs_1">
+         </param>
+         <param name="path" value="HelloWorldModel.xml">
+         </param>
+      </task>
+      <taskGroup kind="sequence" name="Create Java Projects" skip="false">
+         <intro>
+            First you will learn how to create a simple java project, then you will create 
+             an java project which uses SWT. 
+             <br/><br/>This task group is a sequence which means that
+             if you click on the subtask &quot;Standalone SWT Application&quot; it will not let that task be started 
+             until &quot;Create a java project&quot; has been completed.
+         </intro>
+         <onCompletion>
+            Congratulations you have built both Java applications.
+         </onCompletion>
+         <task id="createJavaProject" kind="cheatsheet" name="Create a java project" skip="false">
+            <intro>
+               This cheat sheet walks through the process of creating a simple hello world application. 
+                        The cheat sheet can launch wizards to create a new project and a new class.
+            </intro>
+            <onCompletion>
+               Congratulations you have succeeded in creating a hello world application
+            </onCompletion>
+            <param name="id" value="org.eclipse.jdt.helloworld">
+            </param>
+            <param name="showIntro" value="false">
+            </param>
+         </task>
+         <task kind="cheatsheet" name="Standalone SWT Application" skip="false">
+            <intro>
+               Eclipse plugins which contribute to the user interface use The Standard Widget Toolkit (SWT). 
+                    This task guide can be used to learn more about SWT.
+            </intro>
+            <onCompletion>
+               Congratulations you have succeeded in creating an SWT application.
+            </onCompletion>
+            <param name="id" value="org.eclipse.jdt.helloworld.swt">
+            </param>
+         </task>
+         <taskGroup kind="set" name="Another Group" skip="false">
+            <intro>
+               <b>Introduction</b>
+            </intro>
+            <onCompletion>
+               <b>Conclusion</b>
+            </onCompletion>
+            <task kind="cheatsheet" name="The only Task I have" skip="false">
+               <intro>
+                  <b>Introduction</b>
+               </intro>
+               <onCompletion>
+                  <b>Conclusion</b>
+               </onCompletion>
+            </task>
+         </taskGroup>
+      </taskGroup>
+   </taskGroup>
+</compositeCheatsheet>

@@ -1,0 +1,58 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("2b57062c-49ef-4a81-a220-cf67b7fb920e",
+	'Domain',
+	101,
+	'S_DOM',
+	'This class is a place holder for reproducing the data for the
+synchronous service and data type classes.  ',
+	"5edea08f-a6e1-4146-8e1c-0cade7a477c7");
+INSERT INTO O_NBATTR
+	VALUES ("48b541d8-cb2e-4382-85b2-61e8a9754078",
+	"2b57062c-49ef-4a81-a220-cf67b7fb920e");
+INSERT INTO O_BATTR
+	VALUES ("48b541d8-cb2e-4382-85b2-61e8a9754078",
+	"2b57062c-49ef-4a81-a220-cf67b7fb920e");
+INSERT INTO O_ATTR
+	VALUES ("48b541d8-cb2e-4382-85b2-61e8a9754078",
+	"2b57062c-49ef-4a81-a220-cf67b7fb920e",
+	"00000000-0000-0000-0000-000000000000",
+	'Dom_ID',
+	'',
+	'',
+	'Dom_ID',
+	0,
+	"0dd326a8-132b-40ba-821c-d4a3d3b8c88d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("0dd326a8-132b-40ba-821c-d4a3d3b8c88d",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"2b57062c-49ef-4a81-a220-cf67b7fb920e");
+INSERT INTO O_OIDA
+	VALUES ("48b541d8-cb2e-4382-85b2-61e8a9754078",
+	"2b57062c-49ef-4a81-a220-cf67b7fb920e",
+	0,
+	'Dom_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"2b57062c-49ef-4a81-a220-cf67b7fb920e");
+INSERT INTO O_ID
+	VALUES (2,
+	"2b57062c-49ef-4a81-a220-cf67b7fb920e");
+INSERT INTO S_SS_PROXY
+	VALUES ("5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	'BNF',
+	'',
+	'',
+	1,
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	"00000000-0000-0000-0000-000000100002",
+	'../BNF.xtuml');

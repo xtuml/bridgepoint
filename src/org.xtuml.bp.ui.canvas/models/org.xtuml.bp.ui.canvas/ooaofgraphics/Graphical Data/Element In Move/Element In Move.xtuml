@@ -1,0 +1,220 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
+	'Element In Move',
+	15,
+	'GD_EIM',
+	'An instance of this class is created for each drag of a symbol on a canvas.  
+The instance holds data we''d like to remember across the duration of the drag.
+
+---------------------------------------------------------------------------------
+Persistent:false
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+INSERT INTO O_TFR
+	VALUES ("29493195-0306-4fcd-8509-da8f80d24c4e",
+	"37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
+	'dispose',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one elem related by self->GD_GE[R25];
+select one model related by self->GD_MD[R25];
+unrelate model from elem across R25 using self;
+
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"ee285046-698d-47d4-8d30-506164f3e21f",
+	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
+	"bbc6151c-db41-4cf1-a9c9-157f1b0ea485",
+	"8a688ac6-5648-49ba-8479-9883d6dee2c0",
+	"9be36033-8884-467c-92bc-f64342b118e1",
+	"07125356-11c7-4e2f-8117-ddc721a44d99",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Graphical Element',
+	'elementId',
+	'R25');
+INSERT INTO R_RGO_PROXY
+	VALUES ("37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
+	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
+	"bbc6151c-db41-4cf1-a9c9-157f1b0ea485",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("ee285046-698d-47d4-8d30-506164f3e21f",
+	"9d561ba9-b78b-4769-9ab2-c793c6b1b46c",
+	0,
+	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
+	"8a688ac6-5648-49ba-8479-9883d6dee2c0",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("9be36033-8884-467c-92bc-f64342b118e1",
+	"37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
+	"53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	1,
+	'elementId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	'../../UML 2.0 Diagram Interchange/DiagramElement/DiagramElement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("9be36033-8884-467c-92bc-f64342b118e1",
+	"37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
+	"00000000-0000-0000-0000-000000000000",
+	'elementId',
+	'',
+	'',
+	'elementId',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
+	"bbc6151c-db41-4cf1-a9c9-157f1b0ea485",
+	"fa490581-8771-4a61-a66f-6726fdf5055e",
+	"49101aa8-e75f-49e9-b6a9-e01fc1d96775",
+	"237028b8-7beb-46f4-a1e5-03904a957eec",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Model',
+	'diagramId',
+	'R25');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"75534c55-b016-4f50-bd1e-bf09d1d27f2d",
+	"fa490581-8771-4a61-a66f-6726fdf5055e",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("49101aa8-e75f-49e9-b6a9-e01fc1d96775",
+	"37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
+	"57f2fb06-0e5a-471e-bab1-02b88f324eb4",
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	1,
+	'diagramId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57f2fb06-0e5a-471e-bab1-02b88f324eb4",
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	'../../UML 2.0 Diagram Interchange/Diagram/Diagram.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("49101aa8-e75f-49e9-b6a9-e01fc1d96775",
+	"37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
+	"9be36033-8884-467c-92bc-f64342b118e1",
+	'diagramId',
+	'',
+	'',
+	'diagramId',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("d2529fa8-4b4e-491d-b698-39538713ffe4",
+	"37ce39d4-f4ad-4ace-84bf-0d8906ae81d6");
+INSERT INTO O_BATTR
+	VALUES ("d2529fa8-4b4e-491d-b698-39538713ffe4",
+	"37ce39d4-f4ad-4ace-84bf-0d8906ae81d6");
+INSERT INTO O_ATTR
+	VALUES ("d2529fa8-4b4e-491d-b698-39538713ffe4",
+	"37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
+	"49101aa8-e75f-49e9-b6a9-e01fc1d96775",
+	'startingX',
+	'The starting logical x-position of the symbol being dragged.  
+We need to know this at each step of the drag to help determine where to move the symbol. 
+This is because the snap-grid also affects each step, meaning that we can''t just use 
+mouse deltas to directly determine a step''s drag displacement, but instead must
+look at the total drag so far.
+',
+	'',
+	'startingX',
+	0,
+	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'real',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("a8fec529-e407-4ebd-8be3-a5d221cb60ce",
+	"37ce39d4-f4ad-4ace-84bf-0d8906ae81d6");
+INSERT INTO O_BATTR
+	VALUES ("a8fec529-e407-4ebd-8be3-a5d221cb60ce",
+	"37ce39d4-f4ad-4ace-84bf-0d8906ae81d6");
+INSERT INTO O_ATTR
+	VALUES ("a8fec529-e407-4ebd-8be3-a5d221cb60ce",
+	"37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
+	"d2529fa8-4b4e-491d-b698-39538713ffe4",
+	'startingY',
+	'See partner attribute.',
+	'',
+	'startingY',
+	0,
+	"daa2cf40-15b6-4a53-a5a3-55b15c1951ed",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"37ce39d4-f4ad-4ace-84bf-0d8906ae81d6");
+INSERT INTO O_OIDA
+	VALUES ("9be36033-8884-467c-92bc-f64342b118e1",
+	"37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
+	0,
+	'elementId');
+INSERT INTO O_OIDA
+	VALUES ("49101aa8-e75f-49e9-b6a9-e01fc1d96775",
+	"37ce39d4-f4ad-4ace-84bf-0d8906ae81d6",
+	0,
+	'diagramId');
+INSERT INTO O_ID
+	VALUES (1,
+	"37ce39d4-f4ad-4ace-84bf-0d8906ae81d6");
+INSERT INTO O_ID
+	VALUES (2,
+	"37ce39d4-f4ad-4ace-84bf-0d8906ae81d6");
+INSERT INTO S_SS_PROXY
+	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	'Graphical Data',
+	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
+-------------------------------------------------------
+Import:org.eclipse.swt.graphics.Color
+Notify_Changes:true',
+	'GD',
+	1,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001900032",
+	'../Graphical Data.xtuml');

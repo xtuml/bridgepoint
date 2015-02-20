@@ -1,0 +1,75 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("0679851b-cc52-42de-bb1e-f7d26a404f38",
+	'GPS',
+	1,
+	'GPS',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("b8a35c1f-5da4-4e0e-82ac-885099b524f6",
+	"0679851b-cc52-42de-bb1e-f7d26a404f38");
+INSERT INTO O_BATTR
+	VALUES ("b8a35c1f-5da4-4e0e-82ac-885099b524f6",
+	"0679851b-cc52-42de-bb1e-f7d26a404f38");
+INSERT INTO O_ATTR
+	VALUES ("b8a35c1f-5da4-4e0e-82ac-885099b524f6",
+	"0679851b-cc52-42de-bb1e-f7d26a404f38",
+	"00000000-0000-0000-0000-000000000000",
+	'currentLocation',
+	'',
+	'',
+	'currentLocation',
+	0,
+	"cb835491-fba0-4f96-9ad3-ef020d954fa4",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("cb835491-fba0-4f96-9ad3-ef020d954fa4",
+	"00000000-0000-0000-0000-000000000000",
+	'Location',
+	'',
+	'',
+	'../../../../LocationDataTypes/LocationDataTypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("a7624bef-089d-40e2-9e32-c7762a24111c",
+	"0679851b-cc52-42de-bb1e-f7d26a404f38");
+INSERT INTO O_BATTR
+	VALUES ("a7624bef-089d-40e2-9e32-c7762a24111c",
+	"0679851b-cc52-42de-bb1e-f7d26a404f38");
+INSERT INTO O_ATTR
+	VALUES ("a7624bef-089d-40e2-9e32-c7762a24111c",
+	"0679851b-cc52-42de-bb1e-f7d26a404f38",
+	"b8a35c1f-5da4-4e0e-82ac-885099b524f6",
+	'timer',
+	'',
+	'',
+	'timer',
+	0,
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"0679851b-cc52-42de-bb1e-f7d26a404f38");
+INSERT INTO O_ID
+	VALUES (1,
+	"0679851b-cc52-42de-bb1e-f7d26a404f38");
+INSERT INTO O_ID
+	VALUES (2,
+	"0679851b-cc52-42de-bb1e-f7d26a404f38");
+INSERT INTO PE_PE
+	VALUES ("0679851b-cc52-42de-bb1e-f7d26a404f38",
+	1,
+	"7501c561-d515-4ee0-9d06-282c52269a7f",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("7501c561-d515-4ee0-9d06-282c52269a7f",
+	"00000000-0000-0000-0000-000000000000",
+	"36a41cf7-d411-488d-99fc-74866d4fea39",
+	'Location',
+	'',
+	0,
+	'../Location.xtuml');

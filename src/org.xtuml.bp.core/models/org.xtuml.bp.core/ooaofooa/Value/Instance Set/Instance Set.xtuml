@@ -1,0 +1,331 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("7d3f482b-bd30-4b8b-8729-72434cf8eb22",
+	'Instance Set',
+	817,
+	'V_INS',
+	'This class represents a set of instances.',
+	"e060f94c-3f82-463e-9d98-d20315b7c196");
+INSERT INTO O_TFR
+	VALUES ("f0b82949-d19e-4853-91ed-805974163ee0",
+	"7d3f482b-bd30-4b8b-8729-72434cf8eb22",
+	'isEmpty',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// Value:Instance Set.isEmpty()
+select one body related by self->V_VAR[R814]->ACT_BLK[R823]->ACT_ACT[R601];
+//Since there can be many local values associated with this instance handle, get find the right one for this stack frame. 
+    
+//Grab the stack
+select any stack_frame from instances of I_STF where (selected.Stack_Frame_ID == param.stack_frame_id);
+if (empty stack_frame)
+	//Invalid stack frame ID!
+	pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Value.getValue: Invalid stack frame id used. Using random top stack frame.",path:pathMsg);
+	select any stack from instances of I_STACK;
+	select one stack_frame related by stack->I_STF[R2929];
+end if;
+
+// Set value to this block with the right type so we can use it later.  The value here is useless.
+select any local_ref from instances of L_LCR;
+
+// Get all of the block in stack frames that exist for the stack frame
+select many block_in_stack_frames related by stack_frame->I_BSF[R2923];
+for each block_in_stack_frame in block_in_stack_frames
+
+  // Find the one local value that matches the block in stack frame where we are executing for the transient variable we want to assign
+  select any local_ref related by block_in_stack_frame->L_LCL[R3000]->L_LCR[R3001] where selected.Var_ID == self.Var_ID;
+  if (not_empty local_ref)
+    // We found the 1 local reference in this stack frame for this instance handle id.  So stop looking.
+    // All of this was necessary in order to support nested blocks that reference variables that were created in outer blocks in this stack frame
+
+    // WARNING: This implementation is based on the Object Action Language definition that existed in November of 2005.
+    //          If the language is changed to become a strongly typed language where a user can define a variable in an inner block with the same
+    //          name as something that exists in the outer block, then this implementation will not work because it does not walk out of the current
+    //          block.
+    break;
+  end if;
+end for;
+
+if (not_empty local_ref)
+  select any inst related by local_ref->L_LCL[R3001]->RV_RVL[R3306]->
+                       RV_SMV[R3300]->RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];  
+  return empty inst;	
+end if;
+
+// Default case, returning true indicating that the set is empty
+return true;',
+	1,
+	'',
+	"b769114d-52a8-457a-a670-1f1eea999692");
+INSERT INTO O_TPARM
+	VALUES ("615e6f82-3537-48ac-860d-7a6ebeaf28d1",
+	"f0b82949-d19e-4853-91ed-805974163ee0",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("b769114d-52a8-457a-a670-1f1eea999692",
+	"7d3f482b-bd30-4b8b-8729-72434cf8eb22",
+	'getCardinality',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'// Instance Set.getCardinality()
+select one body related by self->V_VAR[R814]->ACT_BLK[R823]->ACT_ACT[R601];
+//Grab the stack
+select any stack_frame from instances of I_STF where
+                              (selected.Stack_Frame_ID == param.stack_frame_id);
+if (empty stack_frame)
+	//Invalid stack frame ID!
+	pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Instance Set.getCardinality: Invalid stack frame id used. Using random top stack frame.",path:pathMsg);
+	select any stack from instances of I_STACK;
+	select one stack_frame related by stack->I_STF[R2929];
+end if;
+
+// Get all of the block in stack frames that exist for the stack frame
+select many block_in_stack_frames related by stack_frame->I_BSF[R2923];
+for each block_in_stack_frame in block_in_stack_frames
+
+  // Find the one local value that matches the block in stack frame where
+  // we are executing for the transient variable we want to assign
+  select any instRef related by block_in_stack_frame->L_LCL[R3000]->
+                              L_LCR[R3001] where selected.Var_ID == self.Var_ID;
+  if (not_empty instRef)
+    // We found the 1 local reference in this stack frame for this instance
+    // handle id.  So stop looking.
+    // All of this was necessary in order to support nested blocks that
+    // reference variables that were created in outer blocks in this stack frame
+    
+    // WARNING: This implementation is based on the Object Action Language
+    // definition that existed in November of 2005. If the language is changed
+    // to become a strongly typed language where a user can define a variable
+    // in an inner block with the same name as something that exists in the
+    // outer block, then this implementation will not work because it does not
+    // walk out of the current block.
+    select many insts related by instRef->
+                  L_LCL[R3001]->RV_RVL[R3306]->RV_SMV[R3300]->
+                                      RV_IRV[R3308]->L_IIR[R3311]->I_INS[R3013];
+    return cardinality insts;
+  end if;
+end for;
+// Error should never get here
+pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Instance Set.getCardinality: No instance set reference found for cardinality operator, returning empty",path:pathMsg);
+return 0;
+',
+	1,
+	'',
+	"5389dc25-45b8-480e-8380-3443638dc421");
+INSERT INTO O_TPARM
+	VALUES ("42052d0c-e1da-4a3d-be67-3d485c41c3b3",
+	"b769114d-52a8-457a-a670-1f1eea999692",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("5389dc25-45b8-480e-8380-3443638dc421",
+	"7d3f482b-bd30-4b8b-8729-72434cf8eb22",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one clazz related by self->O_OBJ[R819];
+if (not_empty clazz)
+  unrelate self from clazz across R819;
+end if;
+select many locRefs related by self->L_LCR[R3003];
+for each locRef in locRefs
+  unrelate self from locRef across R3003;
+  locRef.dispose();
+end for;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("7d3f482b-bd30-4b8b-8729-72434cf8eb22",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"beefba5b-63ae-4c27-863c-bda06a675a06",
+	"c80bee31-a25a-4425-aa05-42998108149c",
+	"715e1203-441f-47ce-b78f-e985ae241c44",
+	"55d49e8e-807e-45a4-85d3-ced22844db7e",
+	"b5611da0-0b8a-44f6-ba2a-5b258c279c82",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Variable',
+	'Var_ID',
+	'R814');
+INSERT INTO R_RGO_PROXY
+	VALUES ("7d3f482b-bd30-4b8b-8729-72434cf8eb22",
+	"beefba5b-63ae-4c27-863c-bda06a675a06",
+	"c80bee31-a25a-4425-aa05-42998108149c",
+	'../Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"beefba5b-63ae-4c27-863c-bda06a675a06",
+	"715e1203-441f-47ce-b78f-e985ae241c44",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("55d49e8e-807e-45a4-85d3-ced22844db7e",
+	"7d3f482b-bd30-4b8b-8729-72434cf8eb22",
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	1,
+	'Var_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	'../Variable/Variable.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("55d49e8e-807e-45a4-85d3-ced22844db7e",
+	"7d3f482b-bd30-4b8b-8729-72434cf8eb22",
+	"00000000-0000-0000-0000-000000000000",
+	'Var_ID',
+	'
+
+',
+	'',
+	'Var_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("7d3f482b-bd30-4b8b-8729-72434cf8eb22",
+	"b7630071-9e2a-4183-9986-779dca14c275",
+	0,
+	"e55a865c-b4e5-4e3f-9b84-2e5672cc7e6c",
+	"3f1d87b4-1a5d-4266-ba57-d48457791a6a",
+	"72010ef5-a26a-459e-a88b-a28188e7397f",
+	"dbcbf5c5-1f26-4da7-ab59-23ebadb432f1",
+	"80c098af-00ee-43d9-bf2f-0b294cf8e27c",
+	"83db04a3-2e1a-46da-8a96-c110c0e3541f",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Model Class',
+	'Obj_ID',
+	'R819');
+INSERT INTO R_RGO_PROXY
+	VALUES ("7d3f482b-bd30-4b8b-8729-72434cf8eb22",
+	"3f1d87b4-1a5d-4266-ba57-d48457791a6a",
+	"72010ef5-a26a-459e-a88b-a28188e7397f",
+	'../Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("e55a865c-b4e5-4e3f-9b84-2e5672cc7e6c",
+	"b7630071-9e2a-4183-9986-779dca14c275",
+	0,
+	"3f1d87b4-1a5d-4266-ba57-d48457791a6a",
+	"dbcbf5c5-1f26-4da7-ab59-23ebadb432f1",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("80c098af-00ee-43d9-bf2f-0b294cf8e27c",
+	"7d3f482b-bd30-4b8b-8729-72434cf8eb22",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("80c098af-00ee-43d9-bf2f-0b294cf8e27c",
+	"7d3f482b-bd30-4b8b-8729-72434cf8eb22",
+	"55d49e8e-807e-45a4-85d3-ced22844db7e",
+	'Obj_ID',
+	'',
+	'',
+	'Obj_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"7d3f482b-bd30-4b8b-8729-72434cf8eb22");
+INSERT INTO O_OIDA
+	VALUES ("55d49e8e-807e-45a4-85d3-ced22844db7e",
+	"7d3f482b-bd30-4b8b-8729-72434cf8eb22",
+	0,
+	'Var_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"7d3f482b-bd30-4b8b-8729-72434cf8eb22");
+INSERT INTO O_ID
+	VALUES (2,
+	"7d3f482b-bd30-4b8b-8729-72434cf8eb22");
+INSERT INTO S_SS_PROXY
+	VALUES ("e060f94c-3f82-463e-9d98-d20315b7c196",
+	'Value',
+	'This subsystem formalizes the concepts of values (r-values) and variables 
+(l-values). It also captures the concept of an actual parameter.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'V',
+	800,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000400008",
+	'../Value.xtuml');

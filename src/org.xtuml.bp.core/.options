@@ -1,0 +1,13 @@
+org.xtuml.bp.core/debug = false
+org.xtuml.bp.core/debug/functions = false
+org.xtuml.bp.core/debug/functions/filter = *
+org.xtuml.bp.core/debug/bridges = false
+org.xtuml.bp.core/debug/bridges/filter = *
+org.xtuml.bp.core/debug/operations = false
+org.xtuml.bp.core/debug/operations/filter = *
+org.xtuml.bp.core/debug/states = false
+org.xtuml.bp.core/debug/states/filter = *
+org.xtuml.bp.core/debug/delete = false
+org.xtuml.bp.core/debug/delete/filter = *
+org.xtuml.bp.core/debug/consistency = false
+org.xtuml.bp.core/debug/consistency/filter = *

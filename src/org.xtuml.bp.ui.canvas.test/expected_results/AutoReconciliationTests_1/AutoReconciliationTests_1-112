@@ -1,0 +1,7 @@
+drawRectangle(14867, 10721, 876, 415)
+drawText("+motor", 15212, 10733, true)
+drawText("{1,MOT}", 15509, 10799, true)
+drawline(14867, 10881, 15743, 10881)
+drawText("Unnamed Attribute:Orphaned", 14881, 10894, true)
+drawline(14867, 10976, 15743, 10976)
+drawText("simulate(start:Orphaned):Orpha...", 14881, 10988, true)

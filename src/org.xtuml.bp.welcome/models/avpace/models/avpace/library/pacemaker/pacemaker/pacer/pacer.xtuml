@@ -1,0 +1,158 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("37df0e10-44eb-42cf-a2b2-562eaeaa8b91",
+	'pacer',
+	1,
+	'PACER',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("1f8fb69b-ff69-4d22-a435-be104c488376",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
+INSERT INTO O_BATTR
+	VALUES ("1f8fb69b-ff69-4d22-a435-be104c488376",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
+INSERT INTO O_ATTR
+	VALUES ("1f8fb69b-ff69-4d22-a435-be104c488376",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91",
+	"00000000-0000-0000-0000-000000000000",
+	'systolic_tolerance',
+	'',
+	'',
+	'systolic_tolerance',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("243b5417-e7e1-4d36-94fa-03e3b6159880",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
+INSERT INTO O_BATTR
+	VALUES ("243b5417-e7e1-4d36-94fa-03e3b6159880",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
+INSERT INTO O_ATTR
+	VALUES ("243b5417-e7e1-4d36-94fa-03e3b6159880",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91",
+	"1f8fb69b-ff69-4d22-a435-be104c488376",
+	'diastolic_tolerance',
+	'',
+	'',
+	'diastolic_tolerance',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("f4962745-a2d2-499c-8574-3f3c18e95ff1",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
+INSERT INTO O_BATTR
+	VALUES ("f4962745-a2d2-499c-8574-3f3c18e95ff1",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
+INSERT INTO O_ATTR
+	VALUES ("f4962745-a2d2-499c-8574-3f3c18e95ff1",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91",
+	"30acaacb-b85a-4399-bdda-a483e946d98e",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("30acaacb-b85a-4399-bdda-a483e946d98e",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
+INSERT INTO O_BATTR
+	VALUES ("30acaacb-b85a-4399-bdda-a483e946d98e",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
+INSERT INTO O_ATTR
+	VALUES ("30acaacb-b85a-4399-bdda-a483e946d98e",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91",
+	"243b5417-e7e1-4d36-94fa-03e3b6159880",
+	'cycle_count',
+	'',
+	'',
+	'cycle_count',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("40761c35-6334-4d6b-b757-b55282ee4019",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
+INSERT INTO O_BATTR
+	VALUES ("40761c35-6334-4d6b-b757-b55282ee4019",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
+INSERT INTO O_ATTR
+	VALUES ("40761c35-6334-4d6b-b757-b55282ee4019",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91",
+	"f4962745-a2d2-499c-8574-3f3c18e95ff1",
+	'timeout_timer',
+	'',
+	'',
+	'timeout_timer',
+	0,
+	"ba5eda7a-def5-0000-0000-00000000000f",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("de3bd1ca-a337-4d2b-bf0e-cd900d7cf312",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
+INSERT INTO O_BATTR
+	VALUES ("de3bd1ca-a337-4d2b-bf0e-cd900d7cf312",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
+INSERT INTO O_ATTR
+	VALUES ("de3bd1ca-a337-4d2b-bf0e-cd900d7cf312",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91",
+	"40761c35-6334-4d6b-b757-b55282ee4019",
+	'systolic_timeout',
+	'Duration of wait time before we decide that the expected systolic pulse has been missed.',
+	'',
+	'systolic_timeout',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("012e9d7d-a08d-4a55-94c5-e3a1e9c6ea02",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
+INSERT INTO O_BATTR
+	VALUES ("012e9d7d-a08d-4a55-94c5-e3a1e9c6ea02",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
+INSERT INTO O_ATTR
+	VALUES ("012e9d7d-a08d-4a55-94c5-e3a1e9c6ea02",
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91",
+	"de3bd1ca-a337-4d2b-bf0e-cd900d7cf312",
+	'diastolic_timeout',
+	'Duration of wait time before we decide that the expected diastolic pulse has been missed.',
+	'',
+	'diastolic_timeout',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
+INSERT INTO O_ID
+	VALUES (1,
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
+INSERT INTO O_ID
+	VALUES (2,
+	"37df0e10-44eb-42cf-a2b2-562eaeaa8b91");
+INSERT INTO PE_PE
+	VALUES ("37df0e10-44eb-42cf-a2b2-562eaeaa8b91",
+	1,
+	"79417bd8-4d07-4b9f-aa0f-c64f877051b2",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("79417bd8-4d07-4b9f-aa0f-c64f877051b2",
+	"00000000-0000-0000-0000-000000000000",
+	"15b2a15d-7110-4efa-b644-89bd96e12c0e",
+	'pacemaker',
+	'',
+	0,
+	'../pacemaker.xtuml');

@@ -1,0 +1,51 @@
+#===========================================================================
+#
+# Description:
+# This test matrix is used to test graphical anchors
+#
+#
+# Version:      $Revision: 1.4 $
+#
+# Notice:
+# (C) Copyright 2007-2014 Mentor Graphics Corporation
+#     All rights reserved.
+#===========================================================================
+#
+# 
+Degrees of Freedom:
+
+Symbol(A)
+1. Shape
+2. Connector Middle
+3. Connector Start
+4. Connector End
+5. Diagram
+
+Drop Location(B)
+1. Edge
+2. Within bounds
+3. Whitespace
+
+During(C)
+1. Creation
+2. End update
+3. Segment move
+
+Results:
+1. dropPointUnchanged      "The location set by the user was not used."
+2. dropPointCroppedToEdge  "The location set by the user was not properly cropped."
+3. closestPointUsed        "The anchor did not use proper closest point when no intersection present."
+4. dropPointMovedToConnectorStart "The location set by the user was not adjusted to the start of the target."
+5. dropPointMovedToConnectorEnd "The location set by the user was not adjusted to the end of the target."
+
+Matrix:
+         A1    A2    A3    A4    A5  
+B1C1     R1    R1    R4    R5    X
+B2C1     R2    R2    R4    R5    X
+B3C1     X     X     X     X     R1
+B1C2     R1    R1    R4    R5    X
+B2C2     R2    R2    R4    R5    X
+B3C2     X     X     X     X     R1
+B1C3     R1    R1    R4    R5    X
+B2C3     R2    R2    R4    R5    X
+B3C3     R3    R3    R4    R5    R1

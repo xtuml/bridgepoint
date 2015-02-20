@@ -1,0 +1,126 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("5932b791-3330-44a4-8552-9f4b950e4599",
+	'Ebnf',
+	4,
+	'EBNF',
+	'An EBNF node captures a grouping and perhaps repetition of other nodes.
+In the ASCII representation, it is the left and right parentheses that enclose
+other rule references and  tokens.  The closing parenthesis may be followed
+by a character (the ''decoration'') that indicates if the group is to be repeated,
+or replaced by another rule.
+',
+	"5edea08f-a6e1-4146-8e1c-0cade7a477c7");
+INSERT INTO O_REF
+	VALUES ("5932b791-3330-44a4-8552-9f4b950e4599",
+	"20b4194f-f64d-47b7-896d-542dccf5f8c7",
+	0,
+	"0023f589-56a9-4097-8ca8-34e9cb0f6ec1",
+	"a7351e73-e4c0-4f4b-8ffe-6e634fdd3eaf",
+	"7c36e473-09e7-41dc-8fb4-01965313d749",
+	"160f2a43-f135-4d8d-875b-3c4e663b22ed",
+	"be440f23-e574-4176-ba63-2cfaf9e1c5f3",
+	"c4f58246-d2ca-4253-a0b2-b361c76a4f9a",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Non Leaf Node',
+	'nodeId',
+	'R2');
+INSERT INTO R_RGO_PROXY
+	VALUES ("5932b791-3330-44a4-8552-9f4b950e4599",
+	"a7351e73-e4c0-4f4b-8ffe-6e634fdd3eaf",
+	"7c36e473-09e7-41dc-8fb4-01965313d749",
+	'../BNF.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0023f589-56a9-4097-8ca8-34e9cb0f6ec1",
+	"20b4194f-f64d-47b7-896d-542dccf5f8c7",
+	0,
+	"a7351e73-e4c0-4f4b-8ffe-6e634fdd3eaf",
+	"160f2a43-f135-4d8d-875b-3c4e663b22ed",
+	'../BNF.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("be440f23-e574-4176-ba63-2cfaf9e1c5f3",
+	"5932b791-3330-44a4-8552-9f4b950e4599",
+	"b9e2878f-bc2d-454f-ab46-c30f6f787fda",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	1,
+	'nodeId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("b9e2878f-bc2d-454f-ab46-c30f6f787fda",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	'../Node/Node.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("be440f23-e574-4176-ba63-2cfaf9e1c5f3",
+	"5932b791-3330-44a4-8552-9f4b950e4599",
+	"00000000-0000-0000-0000-000000000000",
+	'nodeId',
+	'',
+	'',
+	'nodeId',
+	0,
+	"73db19ab-e535-4718-ab07-668918299d9a",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("73db19ab-e535-4718-ab07-668918299d9a",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("d48d7a05-8422-4456-96a6-8d6380d71669",
+	"5932b791-3330-44a4-8552-9f4b950e4599");
+INSERT INTO O_BATTR
+	VALUES ("d48d7a05-8422-4456-96a6-8d6380d71669",
+	"5932b791-3330-44a4-8552-9f4b950e4599");
+INSERT INTO O_ATTR
+	VALUES ("d48d7a05-8422-4456-96a6-8d6380d71669",
+	"5932b791-3330-44a4-8552-9f4b950e4599",
+	"be440f23-e574-4176-ba63-2cfaf9e1c5f3",
+	'decoration',
+	'This describes how the EBNF can be processed
+
+'''' - must appear one time
+''?''  - may appear zero or one time
+''+'' - must appear one or more times
+''*'' - may appear zero or more times
+''=>'' - is replaced by the rule following the decoration ( Syntactic predicate )',
+	'',
+	'decoration',
+	0,
+	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"5932b791-3330-44a4-8552-9f4b950e4599");
+INSERT INTO O_OIDA
+	VALUES ("be440f23-e574-4176-ba63-2cfaf9e1c5f3",
+	"5932b791-3330-44a4-8552-9f4b950e4599",
+	0,
+	'nodeId');
+INSERT INTO O_ID
+	VALUES (1,
+	"5932b791-3330-44a4-8552-9f4b950e4599");
+INSERT INTO O_ID
+	VALUES (2,
+	"5932b791-3330-44a4-8552-9f4b950e4599");
+INSERT INTO S_SS_PROXY
+	VALUES ("5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	'BNF',
+	'',
+	'',
+	1,
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	"00000000-0000-0000-0000-000000100002",
+	'../BNF.xtuml');

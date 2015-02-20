@@ -1,0 +1,1109 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>Generic Package Migration Guide</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"MS Mincho";
+	panose-1:2 2 6 9 4 2 5 8 3 4;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:"\@MS Mincho";
+	panose-1:2 2 6 9 4 2 5 8 3 4;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Webdings;
+	panose-1:5 3 1 2 1 5 9 6 7 3;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-right:0in;
+	margin-left:0in;
+	font-size:18.0pt;
+	font-family:"Arial","sans-serif";
+	color:black;
+	font-weight:normal;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-right:0in;
+	margin-left:.25in;
+	text-indent:-.25in;
+	line-height:15.6pt;
+	font-size:12.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h4
+	{mso-style-link:"Heading 4 Char";
+	margin-top:7.5pt;
+	margin-right:7.5pt;
+	margin-bottom:2.4pt;
+	margin-left:7.5pt;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:#0176B9;
+	font-weight:bold;}
+h5
+	{mso-style-link:"Heading 5 Char";
+	margin-top:10.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	page-break-after:avoid;
+	font-size:12.0pt;
+	font-family:"Cambria","serif";
+	color:#243F60;
+	font-weight:normal;}
+h6
+	{mso-style-link:"Heading 6 Char";
+	margin-top:10.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	page-break-after:avoid;
+	font-size:12.0pt;
+	font-family:"Cambria","serif";
+	color:#243F60;
+	font-weight:normal;
+	font-style:italic;}
+p.MsoHeading7, li.MsoHeading7, div.MsoHeading7
+	{mso-style-link:"Heading 7 Char";
+	margin-top:10.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	page-break-after:avoid;
+	font-size:12.0pt;
+	font-family:"Cambria","serif";
+	color:#404040;
+	font-style:italic;}
+p.MsoHeading8, li.MsoHeading8, div.MsoHeading8
+	{mso-style-link:"Heading 8 Char";
+	margin-top:10.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	page-break-after:avoid;
+	font-size:10.0pt;
+	font-family:"Cambria","serif";
+	color:#404040;}
+p.MsoHeading9, li.MsoHeading9, div.MsoHeading9
+	{mso-style-link:"Heading 9 Char";
+	margin-top:10.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	page-break-after:avoid;
+	font-size:10.0pt;
+	font-family:"Cambria","serif";
+	color:#404040;
+	font-style:italic;}
+p.MsoToc1, li.MsoToc1, div.MsoToc1
+	{margin-top:.25in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Cambria","serif";
+	text-transform:uppercase;
+	font-weight:bold;}
+p.MsoToc2, li.MsoToc2, div.MsoToc2
+	{margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Calibri","sans-serif";
+	font-weight:bold;}
+p.MsoToc3, li.MsoToc3, div.MsoToc3
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:12.0pt;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoToc4, li.MsoToc4, div.MsoToc4
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:24.0pt;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoToc5, li.MsoToc5, div.MsoToc5
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoToc6, li.MsoToc6, div.MsoToc6
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:48.0pt;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoToc7, li.MsoToc7, div.MsoToc7
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:60.0pt;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoToc8, li.MsoToc8, div.MsoToc8
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:1.0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoToc9, li.MsoToc9, div.MsoToc9
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:84.0pt;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{color:navy;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#0176B9;
+	text-decoration:underline;}
+p
+	{margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+pre
+	{mso-style-link:"HTML Preformatted Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoTocHeading, li.MsoTocHeading, div.MsoTocHeading
+	{margin-top:24.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading4Char
+	{mso-style-name:"Heading 4 Char";
+	mso-style-link:"Heading 4";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+span.Heading5Char
+	{mso-style-name:"Heading 5 Char";
+	mso-style-link:"Heading 5";
+	font-family:"Cambria","serif";
+	color:#243F60;}
+span.Heading6Char
+	{mso-style-name:"Heading 6 Char";
+	mso-style-link:"Heading 6";
+	font-family:"Cambria","serif";
+	color:#243F60;
+	font-style:italic;}
+span.HTMLPreformattedChar
+	{mso-style-name:"HTML Preformatted Char";
+	mso-style-link:"HTML Preformatted";
+	font-family:Consolas;}
+span.Heading7Char
+	{mso-style-name:"Heading 7 Char";
+	mso-style-link:"Heading 7";
+	font-family:"Cambria","serif";
+	color:#404040;
+	font-style:italic;}
+span.Heading8Char
+	{mso-style-name:"Heading 8 Char";
+	mso-style-link:"Heading 8";
+	font-family:"Cambria","serif";
+	color:#404040;}
+span.Heading9Char
+	{mso-style-name:"Heading 9 Char";
+	mso-style-link:"Heading 9";
+	font-family:"Cambria","serif";
+	color:#404040;
+	font-style:italic;}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-link:"Balloon Text";
+	font-family:"Tahoma","sans-serif";}
+p.msolistparagraph0, li.msolistparagraph0, div.msolistparagraph0
+	{mso-style-name:msolistparagraph;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.msolistparagraph0CxSpFirst, li.msolistparagraph0CxSpFirst, div.msolistparagraph0CxSpFirst
+	{mso-style-name:msolistparagraphCxSpFirst;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.msolistparagraph0CxSpMiddle, li.msolistparagraph0CxSpMiddle, div.msolistparagraph0CxSpMiddle
+	{mso-style-name:msolistparagraphCxSpMiddle;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.msolistparagraph0CxSpLast, li.msolistparagraph0CxSpLast, div.msolistparagraph0CxSpLast
+	{mso-style-name:msolistparagraphCxSpLast;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.preformatted-tpcode, li.preformatted-tpcode, div.preformatted-tpcode
+	{mso-style-name:preformatted-tp_code;
+	margin-top:15.0pt;
+	margin-right:0in;
+	margin-bottom:15.0pt;
+	margin-left:0in;
+	background:silver;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.normalnotoc, li.normalnotoc, div.normalnotoc
+	{mso-style-name:normalnotoc;
+	margin:7.5pt;
+	font-size:11.0pt;
+	font-family:"Times New Roman","serif";}
+p.code, li.code, div.code
+	{mso-style-name:code;
+	margin:7.5pt;
+	font-size:11.0pt;
+	font-family:"Courier New";}
+p.tpcode, li.tpcode, div.tpcode
+	{mso-style-name:tp_code;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.tpinput, li.tpinput, div.tpinput
+	{mso-style-name:tp_input;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+p.tpui, li.tpui, div.tpui
+	{mso-style-name:tp_ui;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	color:navy;}
+p.tpvar, li.tpvar, div.tpvar
+	{mso-style-name:tp_var;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-style:italic;}
+p.tpfooter, li.tpfooter, div.tpfooter
+	{mso-style-name:tp_footer;
+	margin:7.5pt;
+	text-align:center;
+	background:white;
+	font-size:9.0pt;
+	font-family:"Times New Roman","serif";}
+p.sub, li.sub, div.sub
+	{mso-style-name:sub;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+p.sublstbody, li.sublstbody, div.sublstbody
+	{mso-style-name:sublstbody;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+span.tpfile
+	{mso-style-name:tp_file;
+	color:#990000;
+	letter-spacing:1.2pt;}
+span.tpnote
+	{mso-style-name:tp_note;
+	font-weight:bold;}
+span.tpmenuarrow
+	{mso-style-name:tp_menuarrow;
+	font-family:Webdings;
+	color:navy;}
+span.hypertext
+	{mso-style-name:hypertext;}
+span.apple-tab-span
+	{mso-style-name:apple-tab-span;}
+.MsoChpDefault
+	{font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9">
+
+<div class=WordSection1>
+
+<h1><a name="_Toc284425316"></a><a name="_Toc284425231"></a><a
+name="_Toc284425161"><span style='font-size:20.0pt'>Generic Packages Migration
+Guide</span></a></h1>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<ol style='margin-top:0in' start=1 type=1>
+ <li class=MsoNormal style='color:blue'><u><span style='font-size:10.0pt;
+     font-family:"Arial","sans-serif"'><a href="#_Introduction">Introduction</a></span></u></li>
+ <li class=MsoNormal style='color:blue'><u><span style='font-size:10.0pt;
+     font-family:"Arial","sans-serif"'><a href="#_Model_Builder">xtUML Modeling</a></span></u></li>
+ <li class=MsoNormal style='color:blue'><u><span style='font-size:10.0pt;
+     font-family:"Arial","sans-serif"'><a href="#_System_Requirements">Model
+     Verifier</a></span></u></li>
+ <li class=MsoNormal style='color:blue'><u><span style='font-size:10.0pt;
+     font-family:"Arial","sans-serif"'><a href="#_Model_Compilers">Model
+     Compilers</a></span></u></li>
+ <li class=MsoNormal style='color:blue'><u><span style='font-size:10.0pt;
+     font-family:"Arial","sans-serif"'><a href="#_Element_Visibility">Element
+     Visibility</a></span></u></li>
+</ol>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<h2><a name="_Toc284425420"></a><a name="_Toc284425317"></a><a
+name="_Toc284425232"></a><a name="_Toc284425162"></a><a
+name="_Legal_Information"></a><a name="_Introduction"></a>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span>Introduction</h2>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>The
+BridgePoint meta-model previously used the strict system organization specified
+by the Shlaer-Mellor method the tool was originally designed to support. This
+strict organization works very well, but is at variance with the much less
+prescriptive approach provided by UML 2 which BridgePoint now supports.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>As
+of version 3.3, BridgePoint xtUML supports “generic” packages.  These generic
+packages may contain any combination of many types of model elements.  The
+former “specialized” packages (e.g. Subsystem, Functions, Sequence Diagram,
+etc…) that were restricted to contain only applicable model elements are being
+deprecated.  </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>This
+document is intended to help application modelers as well as model compiler
+writers make the transition from specialized packages to generic packages.  A
+future release of BridgePoint will disable the creation of specialized packages
+in the user interface.  A release to follow that will remove specialized packages
+from the BridgePoint meta-model.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<h2><a name="_Model_Builder"></a>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span>xtUML Modeling</h2>
+
+<h3>User Interface Changes</h3>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>The
+UML editor has changed and been enhanced in a number of ways to support the
+generic package feature.  </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>To
+add a new generic package to a model, use the Package tool in the Palette
+(Figure 1).</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'><img
+border=0 width=647 height=438 id="Picture 4"
+src="GPMigrationGuide_files/image001.jpg" alt="Description: new_pkg_sm.PNG"></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Figure
+1</span></b></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Since
+generic packages can contain various types of model elements, the palette has
+been expanded to provide organized drawers for the various model elements.
+Figure 2 shows a package that contains components, a class, an interface, and a
+use case.  Along the right-hand side is the Palette view and the various
+drawers it contains.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'><img
+border=0 width=644 height=439 id="Picture 2"
+src="GPMigrationGuide_files/image002.jpg" alt="Description: pkg_palette.PNG"></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Figure
+2</span></b></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Users
+will notice that the Model Explorer view now contains undecorated package icons
+that do not have initials indicating the type of the package (Figure 3).  Since
+packages are no longer constrained to a single group of model elements, the
+icon matches the generic nature of the package contents.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'><img
+border=0 width=251 height=355 id="Picture 3"
+src="GPMigrationGuide_files/image003.jpg" alt="Description: me_gp.PNG"></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Figure
+3</span></b></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Figure
+3 also shows how packages can be nested inside each other as well as inside
+components.</span></p>
+
+<h3>Upgrading existing models</h3>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>In
+order to ease the transition to generic packages, BridgePoint includes a tool
+to upgrade existing models.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>The
+BridgePoint Model Import action can now be used to convert “.xtuml” format
+model files to generic packages (Figure 4). During the import process, the
+model is scanned for specialized packages.  Corresponding generic packages are
+created and the contained elements are migrated to the appropriate generic
+packages.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'><img
+border=0 width=406 height=518 id="Picture 5"
+src="GPMigrationGuide_files/image004.jpg" alt="Description: import.PNG"></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Figure
+4</span></b></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>To
+use this method to upgrade an existing model, follow these steps:</span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>a)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>In the Model Explorer
+view, right click on the project and select <b>Export…</b></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>b)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Navigate the tree to <b>BridgePoint
+&gt; BridgePoint Model</b>, select <b>Next &gt;</b></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>c)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>There should be a
+checkmark next to the selected project, now enter a <b>Destination File Name</b>,
+select <b>Finish</b></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>d)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>In the Model Explorer
+view, right click and select <b>New &gt; xtUML Project</b></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>e)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Enter a <b>Project
+name</b>, select <b>Finish</b></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>f)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Right click on the
+new project, select <b>Import…</b></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>g)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Navigate the tree to <b>BridgePoint
+&gt; BridgePoint Model</b>, select <b>Next &gt;</b></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>h)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>There should be a
+checkmark next to the selected project, now use <b>Browse…</b> to locate the
+previously exported file</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>i)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Check <b>Convert to
+generic packages</b>, select <b>Finish</b></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>j)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>The new project now
+contains the converted model</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>k)<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Copy marking and
+hand-craft source files from the old project’s </span><span style='font-size:
+10.0pt;font-family:"Courier New"'>gen/</span><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'> folder to the new project’s </span><span
+style='font-size:10.0pt;font-family:"Courier New"'>gen/</span><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'> folder</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<h2><a name="_Toc284425421"></a><a name="_Toc284425318"></a><a
+name="_Toc284425233"></a><a name="_Toc284425163"></a><a
+name="_System_Requirements"></a><a name="_Model_Verifier"></a>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span>Model Verifier</h2>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>The
+process of debugging xtUML applications with Model Verifier is unchanged by the
+move to generic packages.   The Verifier can handle models that are entirely
+composed of generic packages or that contain a mixture of generic and
+specialized packages.  In addition, models that are entirely composed of
+specialized packages are still supported.  Packages themselves are not
+executable, but components inside generic packages are executable.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Of
+course, the Session Explorer view will look slightly different when using
+generic packages.  The icon next to the package name will be the generic
+package icon instead of one of the various specialized package icons.  </span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;border:none'>
+ <tr>
+  <td width=378 valign=top style='width:283.5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'><img
+  border=0 width=262 height=452 id="Picture 0"
+  src="GPMigrationGuide_files/image005.jpg" alt="Description: MO_sp.PNG"></span></p>
+  <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Figure
+  5.</span></b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+  Session Explorer with specialized packages.</span></p>
+  </td>
+  <td width=353 valign=top style='width:265.1pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'><img
+  border=0 width=259 height=477 id="Picture 10"
+  src="GPMigrationGuide_files/image006.jpg" alt="Description: se_gp.PNG"></span></p>
+  <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Figure
+  6.</span></b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+  Session Explorer with generic packages.</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>In
+the above example from the MicrowaveOven sample model, the additional levels of
+packaging in the generic package version show the actual nesting of package
+elements inside the model.</span></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<h2><a name="_Toc284425164"></a><a name="_Toc284425234"></a><a
+name="_Toc284425319"></a><a name="_Toc284425422"></a><a name="_Model_Compilers"></a>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span>Model Compilers</h2>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>The
+BridgePoint model compilers do not yet support generic package model.  This
+support will come soon.  Sites that use in-house model compilers must enhance
+their tools to support the new meta-model classes and associations for generic
+packages.  There are two packages in the xtUML meta-model that define generic
+packages: Element Packaging and Packageable Element.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Element
+Packaging (Figure 7) contains the Package class (EP_PKG) as well as classes to
+model package nesting and legacy support for specialized packages.  Please note
+that relationships R1403 and R1404 are no longer used, but are still available
+for backwards compatibility.  Package nesting is handled via the R8000/R8001
+and R8003 relationships.</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>The
+primary addition to the meta-model for generic packages is the Packageable
+Element (PE_PE) hierarchy (Figure 8). Packageable Element is a supertype class
+that may be related to zero or one Package across R8000.  The PE_PE
+relationship R8001 connects the supertype to all the possible elements that may
+live in generic package.  Of course, PE_PE and EP_PKG are related</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'><img
+border=0 width=1933 height=1451 id="Picture 11"
+src="GPMigrationGuide_files/image007.jpg"
+alt="Description: element_packaging.PNG"></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Figure
+7</span></b></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'><img
+border=0 width=2405 height=657 id="Picture 12"
+src="GPMigrationGuide_files/image008.jpg"
+alt="Description: packageable_element.PNG"></span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>Figure
+8</span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></b></p>
+
+<h2><a name="_Element_Visibility"></a>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span>Element Visibility</h2>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'>Enhanced ability to control element
+visibility is now available.  BridgePoint already included some visibility
+support, which is now clarified and simplified.  Visibility rules apply to Data
+Types, to Model Classes, to Packages, and to Components.  On the UI canvases,
+elements whose access is controllable shall be prefixed with + (public), -
+(private) and # (protected).</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'>The visibility rules currently state that
+package visibility affects the visibility of elements declared inside it. This
+is incorrect and leads to various unexpected consequences, such as elements
+being visible when it would be expected that they are not. The visibility rules
+are simplified by this work to be easier to understand by being more regular
+throughout the hierarchy.</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'>Generic packages now support the UML standard
+'protected' visibility type.  The UML standard 'private' semantic restricts
+access to private elements from child packages whereas the existing BridgePoint
+'private' semantic is that child package elements <u>can</u> access elements
+declared as private when ascending the package hierarchy. </span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'>Name-spacing is supported and managed
+entirely by means of visibility. That is, two elements with the same name are
+permitted provided that they are not simultaneously public in any action
+language scope. More than one type found during parsing shall be indicated by a
+parse error.</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'>&nbsp;</span></p>
+
+<h3>Visibility matrix</h3>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'>&nbsp;</span></p>
+
+<table class=MsoTableMediumGrid2Accent3 border=1 cellspacing=0 cellpadding=0
+ style='margin-left:-.4pt;border-collapse:collapse;border:none'>
+ <tr>
+  <td width=148 rowspan=2 valign=top style='width:110.7pt;border:none;
+  background:white;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><b><span style='font-size:
+  10.0pt;font-family:"Courier New";color:black'>Referred to Element is</span></b></p>
+  </td>
+  <td width=443 colspan=3 valign=top style='width:332.1pt;border:solid #9BBB59 1.0pt;
+  background:#F5F8EE;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>Referred to
+  Element is</span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=148 valign=top style='width:110.7pt;border:solid #9BBB59 1.0pt;
+  border-top:none;background:#CDDDAC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>Public</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border:solid #9BBB59 1.0pt;
+  border-left:none;background:#CDDDAC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>protected</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border:solid #9BBB59 1.0pt;
+  border-left:none;background:#CDDDAC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>private</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=148 valign=top style='width:110.7pt;border:none;border-top:solid #9BBB59 1.0pt;
+  background:white;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>Above in same package</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border:solid #9BBB59 1.0pt;
+  border-top:none;background:#E6EED5;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>V</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border-top:none;border-left:
+  none;border-bottom:solid #9BBB59 1.0pt;border-right:solid #9BBB59 1.0pt;
+  background:#E6EED5;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>V</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border-top:none;border-left:
+  none;border-bottom:solid #9BBB59 1.0pt;border-right:solid #9BBB59 1.0pt;
+  background:#E6EED5;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>I (4)</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=148 valign=top style='width:110.7pt;border:none;border-top:solid #9BBB59 1.0pt;
+  background:white;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>Below in package (1)</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border:solid #9BBB59 1.0pt;
+  border-top:none;background:#CDDDAC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>V</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border-top:none;border-left:
+  none;border-bottom:solid #9BBB59 1.0pt;border-right:solid #9BBB59 1.0pt;
+  background:#CDDDAC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>I</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border-top:none;border-left:
+  none;border-bottom:solid #9BBB59 1.0pt;border-right:solid #9BBB59 1.0pt;
+  background:#CDDDAC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>I (5)</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=148 valign=top style='width:110.7pt;border:none;border-top:solid #9BBB59 1.0pt;
+  background:white;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>Peer</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>&nbsp;</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border:solid #9BBB59 1.0pt;
+  border-top:none;background:#E6EED5;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>V</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border-top:none;border-left:
+  none;border-bottom:solid #9BBB59 1.0pt;border-right:solid #9BBB59 1.0pt;
+  background:#E6EED5;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>V</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border-top:none;border-left:
+  none;border-bottom:solid #9BBB59 1.0pt;border-right:solid #9BBB59 1.0pt;
+  background:#E6EED5;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>V</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=148 valign=top style='width:110.7pt;border:none;border-top:solid #9BBB59 1.0pt;
+  background:white;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>Above in sibling package (1)</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border:solid #9BBB59 1.0pt;
+  border-top:none;background:#CDDDAC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>V</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border-top:none;border-left:
+  none;border-bottom:solid #9BBB59 1.0pt;border-right:solid #9BBB59 1.0pt;
+  background:#CDDDAC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>I</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border-top:none;border-left:
+  none;border-bottom:solid #9BBB59 1.0pt;border-right:solid #9BBB59 1.0pt;
+  background:#CDDDAC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>I (5)</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=148 valign=top style='width:110.7pt;border:none;border-top:solid #9BBB59 1.0pt;
+  background:white;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>Above in same Component</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border:solid #9BBB59 1.0pt;
+  border-top:none;background:#E6EED5;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>V</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border-top:none;border-left:
+  none;border-bottom:solid #9BBB59 1.0pt;border-right:solid #9BBB59 1.0pt;
+  background:#E6EED5;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>V (3)</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border-top:none;border-left:
+  none;border-bottom:solid #9BBB59 1.0pt;border-right:solid #9BBB59 1.0pt;
+  background:#E6EED5;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>I (2)</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=148 valign=top style='width:110.7pt;border:none;border-top:solid #9BBB59 1.0pt;
+  background:white;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>System Level</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>&nbsp;</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border:solid #9BBB59 1.0pt;
+  border-top:none;background:#CDDDAC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>V</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border-top:none;border-left:
+  none;border-bottom:solid #9BBB59 1.0pt;border-right:solid #9BBB59 1.0pt;
+  background:#CDDDAC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>V (3)</span></p>
+  </td>
+  <td width=148 valign=top style='width:110.7pt;border-top:none;border-left:
+  none;border-bottom:solid #9BBB59 1.0pt;border-right:solid #9BBB59 1.0pt;
+  background:#CDDDAC;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center;text-autospace:none'><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>I (2)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'>Legend: V = Visible, I = Invisible</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'>Notes:</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'>(1) Assumes parent package is visible
+according to the same rules.</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'>(2) A private element immediately under the
+system or component has very limited visibility, limited only to peer elements
+at the declared level.</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'>(3) Marking an element as protected in a
+system or component level context is meaningless since the semantics are no
+different from the public semantic.</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'>(4) Changed from original definition to
+comply with UML standard.</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'>(5) Changed from original definition to
+remove dependency on owning container visibility and simplify the visibility
+rules.</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'>Note that since Components are black boxes,
+there is by definition no visibility of anything declared in them (notes 2 and
+3 in the same Component row allude to this).</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></b></p>
+
+<p class=MsoNormal><b>&nbsp;</b></p>
+
+</div>
+
+</body>
+
+</html>

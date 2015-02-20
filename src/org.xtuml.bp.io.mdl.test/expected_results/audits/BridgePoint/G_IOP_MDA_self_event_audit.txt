@@ -1,0 +1,118 @@
+AUDIT RESULTS FOR DOMAIN G_IOP_MDA_self_event
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class G_IOP_MDA_self_event::Instance Based Operation
+Class G_IOP_MDA_self_event::MDA
+Class G_IOP_MDA_self_event::Supertype
+Class G_IOP_MDA_self_event::Subtype One
+Class G_IOP_MDA_self_event::Subtype Two
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Initialization::Init_ID
+Attribute Initialization::current_state
+Attribute Driver::timer
+Attribute Driver::Driver_ID
+Attribute Driver::current_state
+Attribute Instance Based Operation::ibo_ID
+Attribute Instance Based Operation::sup_ID
+Attribute Instance Based Operation::state
+Attribute Instance Based Operation::current_state
+Attribute MDA::mda
+Attribute MDA::mda_ID
+Attribute MDA::sup_ID
+Attribute MDA::state
+Attribute MDA::current_state
+Attribute Supertype::sup_ID
+Attribute Supertype::current_state
+Attribute Subtype One::current_state
+Attribute Subtype One::sone_ID
+Attribute Subtype One::ibo_ID
+Attribute Subtype Two::stwo_ID
+Attribute Subtype Two::current_state
+Attribute Subtype Two::mda_ID
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute Instance Based Operation::sup_ID
+Referential Attribute MDA::sup_ID
+Referential Attribute Subtype One::ibo_ID
+Referential Attribute Subtype Two::mda_ID
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation Instance Based Operation::ibo
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+G_IOP_MDA_self_event::R1
+G_IOP_MDA_self_event::R2
+G_IOP_MDA_self_event::R3
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Initialization
+State Model Driver
+State Model Instance Based Operation
+State Model MDA
+State Model Supertype
+State Model Subtype One
+State Model Subtype Two
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event DRV1
+Event DRV2
+Event DRV3
+Event IBO1
+Event IBO0
+Event IBO2
+Event IBO3
+Event MDA3
+Event MDA2
+Event MDA1
+Event MDA0
+Event SUP1
+Event SUP2
+Event SUP3
+Event SUP4
+Event SONE0
+Event SONE1
+Event STWO0
+Event STWO1
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Initialization::Initialize
+Driver::Begin Test
+Driver::End Test
+Driver::Instance Based Operation
+Driver::Mathematically Dependant Attribute
+Instance Based Operation::Third Success
+Instance Based Operation::State One
+Instance Based Operation::First Success
+Instance Based Operation::Failure
+Instance Based Operation::Second Success
+Instance Based Operation::PE Success
+Instance Based Operation::Generate PE to self
+Instance Based Operation::PE Success 2
+Instance Based Operation::End
+MDA::Third Success
+MDA::State One
+MDA::First Success
+MDA::Failure
+MDA::Second Success
+MDA::PE Success
+MDA::Generate PE to self
+MDA::PE Success 2
+MDA::End
+Supertype::State One
+Subtype One::State One
+Subtype One::State Two
+Subtype One::State Three
+Subtype One::Failure
+Subtype One::Waiting state
+Subtype One::End
+Subtype Two::State One
+Subtype Two::State Two
+Subtype Two::State Three
+Subtype Two::Failure
+Subtype Two::Waiting state
+Subtype Two::End

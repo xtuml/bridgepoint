@@ -1,0 +1,186 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("8fdb421d-27dc-4cba-8c71-9bea07ea8c00",
+	'Variable Location',
+	824,
+	'V_LOC',
+	'A location in the activity where the variable appears.  VariableLocations
+can be either l-values or r-values.  The variable which this location
+applies to is either an instance of the Variable class (R835), or a by 
+reference parameter acting as an l-value (R688).  Parameters acting as
+r-values are captured by R835.',
+	"e060f94c-3f82-463e-9d98-d20315b7c196");
+INSERT INTO O_NBATTR
+	VALUES ("a04ef212-f1bd-44e6-9438-41ca1bfc9637",
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00");
+INSERT INTO O_BATTR
+	VALUES ("a04ef212-f1bd-44e6-9438-41ca1bfc9637",
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00");
+INSERT INTO O_ATTR
+	VALUES ("a04ef212-f1bd-44e6-9438-41ca1bfc9637",
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00",
+	"00000000-0000-0000-0000-000000000000",
+	'Id',
+	'',
+	'',
+	'Id',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("f7869536-5ae5-478c-866e-fb9036a3378c",
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00");
+INSERT INTO O_BATTR
+	VALUES ("f7869536-5ae5-478c-866e-fb9036a3378c",
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00");
+INSERT INTO O_ATTR
+	VALUES ("f7869536-5ae5-478c-866e-fb9036a3378c",
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00",
+	"a04ef212-f1bd-44e6-9438-41ca1bfc9637",
+	'LineNumber',
+	'The line in the activity for this variable location.',
+	'',
+	'LineNumber',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("44fc033c-5626-47c5-9da8-64e80bc0e323",
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00");
+INSERT INTO O_BATTR
+	VALUES ("44fc033c-5626-47c5-9da8-64e80bc0e323",
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00");
+INSERT INTO O_ATTR
+	VALUES ("44fc033c-5626-47c5-9da8-64e80bc0e323",
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00",
+	"f7869536-5ae5-478c-866e-fb9036a3378c",
+	'StartPosition',
+	'The column in the activity at which this variable location starts.',
+	'',
+	'StartPosition',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("1290dc74-1b16-4053-b620-faebbfaae1eb",
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00");
+INSERT INTO O_BATTR
+	VALUES ("1290dc74-1b16-4053-b620-faebbfaae1eb",
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00");
+INSERT INTO O_ATTR
+	VALUES ("1290dc74-1b16-4053-b620-faebbfaae1eb",
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00",
+	"44fc033c-5626-47c5-9da8-64e80bc0e323",
+	'EndPosition',
+	'The column in the activity at which this variable location ends.',
+	'',
+	'EndPosition',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("8fdb421d-27dc-4cba-8c71-9bea07ea8c00",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"54a9c5b3-c825-46b3-b168-7175ec6ed7f8",
+	"4e8c5905-a004-4b7a-82d8-062223c07a81",
+	"47c25db2-06d7-4471-a70d-d01084cd233e",
+	"4aaf1d8a-e99f-4f05-853a-52e57a43d77d",
+	"08c066fa-1938-43ad-9e58-53a45087328d",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Variable',
+	'Var_ID',
+	'R835');
+INSERT INTO R_RGO_PROXY
+	VALUES ("8fdb421d-27dc-4cba-8c71-9bea07ea8c00",
+	"54a9c5b3-c825-46b3-b168-7175ec6ed7f8",
+	"4e8c5905-a004-4b7a-82d8-062223c07a81",
+	'../Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	0,
+	"54a9c5b3-c825-46b3-b168-7175ec6ed7f8",
+	"47c25db2-06d7-4471-a70d-d01084cd233e",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("4aaf1d8a-e99f-4f05-853a-52e57a43d77d",
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00",
+	"aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	1,
+	'Var_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("aa0af814-2950-42d7-b263-1e32565f47ac",
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	'../Variable/Variable.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("4aaf1d8a-e99f-4f05-853a-52e57a43d77d",
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00",
+	"1290dc74-1b16-4053-b620-faebbfaae1eb",
+	'Var_ID',
+	'',
+	'',
+	'Var_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00");
+INSERT INTO O_OIDA
+	VALUES ("a04ef212-f1bd-44e6-9438-41ca1bfc9637",
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00",
+	0,
+	'Id');
+INSERT INTO O_ID
+	VALUES (1,
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00");
+INSERT INTO O_ID
+	VALUES (2,
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00");
+INSERT INTO S_SS_PROXY
+	VALUES ("e060f94c-3f82-463e-9d98-d20315b7c196",
+	'Value',
+	'This subsystem formalizes the concepts of values (r-values) and variables 
+(l-values). It also captures the concept of an actual parameter.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'V',
+	800,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000400008",
+	'../Value.xtuml');

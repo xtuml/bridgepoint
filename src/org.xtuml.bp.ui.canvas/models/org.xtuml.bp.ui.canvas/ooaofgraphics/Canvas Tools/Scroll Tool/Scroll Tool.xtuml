@@ -1,0 +1,143 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("be1b57d8-161e-4f96-924a-f25b2576174b",
+	'Scroll Tool',
+	105,
+	'CT_SCR',
+	'This tool lets the user "grab" the canvas and scroll its contents within its current container.  This tool should be available while any other tool is selected, but for drawing tools, only up to the point where a draw is first performed after that tool''s selection.
+
+---------------------------------------------------------------------------
+Persistent:false',
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
+INSERT INTO O_TFR
+	VALUES ("b793797d-9510-4615-b0c6-d213cc8874af",
+	"be1b57d8-161e-4f96-924a-f25b2576174b",
+	'dispose',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one mtl related by self->CT_MTL[R102];
+if ( not_empty mtl )
+  unrelate self from mtl across R102;
+end if;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("be1b57d8-161e-4f96-924a-f25b2576174b",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	0,
+	"0304c426-4444-443b-a662-e29749249eb1",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"e5d67d72-4fb6-4ad2-a0d3-1d292307b9c5",
+	"10982f14-d77d-457b-9902-02f4d23a5ac0",
+	"5c27197e-c9cd-47ac-86e6-023f8afc5ef5",
+	"0a767683-61de-4000-90c3-a8aa19a6ef10",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Model Tool',
+	'Tool_ID',
+	'R102');
+INSERT INTO R_RGO_PROXY
+	VALUES ("be1b57d8-161e-4f96-924a-f25b2576174b",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"e5d67d72-4fb6-4ad2-a0d3-1d292307b9c5",
+	'../Canvas Tools.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	0,
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"10982f14-d77d-457b-9902-02f4d23a5ac0",
+	'../Canvas Tools.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("5c27197e-c9cd-47ac-86e6-023f8afc5ef5",
+	"be1b57d8-161e-4f96-924a-f25b2576174b",
+	"0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	1,
+	'Tool_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	'../Model Tool/Model Tool.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("5c27197e-c9cd-47ac-86e6-023f8afc5ef5",
+	"be1b57d8-161e-4f96-924a-f25b2576174b",
+	"00000000-0000-0000-0000-000000000000",
+	'Tool_ID',
+	'',
+	'',
+	'Tool_ID',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("b62a1de9-c77a-4051-8a9c-4a25cb548bf5",
+	"be1b57d8-161e-4f96-924a-f25b2576174b");
+INSERT INTO O_BATTR
+	VALUES ("b62a1de9-c77a-4051-8a9c-4a25cb548bf5",
+	"be1b57d8-161e-4f96-924a-f25b2576174b");
+INSERT INTO O_ATTR
+	VALUES ("b62a1de9-c77a-4051-8a9c-4a25cb548bf5",
+	"be1b57d8-161e-4f96-924a-f25b2576174b",
+	"5c27197e-c9cd-47ac-86e6-023f8afc5ef5",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"aae0ffdc-3a05-4c94-9878-331bc82097dd",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("aae0ffdc-3a05-4c94-9878-331bc82097dd",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'state<State_Model>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"be1b57d8-161e-4f96-924a-f25b2576174b");
+INSERT INTO O_OIDA
+	VALUES ("5c27197e-c9cd-47ac-86e6-023f8afc5ef5",
+	"be1b57d8-161e-4f96-924a-f25b2576174b",
+	0,
+	'Tool_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"be1b57d8-161e-4f96-924a-f25b2576174b");
+INSERT INTO O_ID
+	VALUES (2,
+	"be1b57d8-161e-4f96-924a-f25b2576174b");
+INSERT INTO S_SS_PROXY
+	VALUES ("afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	'Canvas Tools',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+  TRANSLATE_FOR_EXTERNAL_USE:FALSE
+  Notify_Changes:false
+',
+	'CT',
+	100,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001a00034",
+	'../Canvas Tools.xtuml');

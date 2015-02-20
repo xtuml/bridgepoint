@@ -1,0 +1,1447 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>Extending an Application Model with Java</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Arial Unicode MS";
+	panose-1:2 11 6 4 2 2 2 2 2 4;}
+@font-face
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:Webdings;
+	panose-1:5 3 1 2 1 5 9 6 7 3;}
+@font-face
+	{font-family:"\@Arial Unicode MS";
+	panose-1:2 11 6 4 2 2 2 2 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Arial","sans-serif";}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-right:0in;
+	margin-left:0in;
+	font-size:18.0pt;
+	font-family:"Arial","sans-serif";
+	color:black;
+	font-weight:normal;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-right:0in;
+	margin-left:0in;
+	line-height:15.6pt;
+	font-size:10.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:maroon;
+	font-weight:bold;}
+h4
+	{mso-style-link:"Heading 4 Char";
+	margin-top:7.5pt;
+	margin-right:7.5pt;
+	margin-bottom:2.4pt;
+	margin-left:7.5pt;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:#0176B9;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:navy;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#0176B9;
+	text-decoration:underline;}
+p
+	{margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Arial","sans-serif";}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Arial","sans-serif";}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading4Char
+	{mso-style-name:"Heading 4 Char";
+	mso-style-link:"Heading 4";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-link:"Balloon Text";
+	font-family:"Tahoma","sans-serif";}
+p.msolistparagraphcxspfirst, li.msolistparagraphcxspfirst, div.msolistparagraphcxspfirst
+	{mso-style-name:msolistparagraphcxspfirst;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Arial","sans-serif";}
+p.msolistparagraphcxspmiddle, li.msolistparagraphcxspmiddle, div.msolistparagraphcxspmiddle
+	{mso-style-name:msolistparagraphcxspmiddle;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Arial","sans-serif";}
+p.msolistparagraphcxsplast, li.msolistparagraphcxsplast, div.msolistparagraphcxsplast
+	{mso-style-name:msolistparagraphcxsplast;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Arial","sans-serif";}
+p.preformatted-tpcode, li.preformatted-tpcode, div.preformatted-tpcode
+	{mso-style-name:preformatted-tp_code;
+	margin-top:15.0pt;
+	margin-right:0in;
+	margin-bottom:15.0pt;
+	margin-left:0in;
+	background:silver;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.normalnotoc, li.normalnotoc, div.normalnotoc
+	{mso-style-name:normalnotoc;
+	margin:7.5pt;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";}
+span.codeChar
+	{mso-style-name:"code Char";
+	mso-style-link:code;
+	font-family:"Courier New";}
+p.code, li.code, div.code
+	{mso-style-name:code;
+	mso-style-link:"code Char";
+	margin:7.5pt;
+	font-size:11.0pt;
+	font-family:"Courier New";}
+span.tpcodeChar
+	{mso-style-name:"tp_code Char";
+	mso-style-link:tp_code;
+	font-family:"Courier New";}
+p.tpcode, li.tpcode, div.tpcode
+	{mso-style-name:tp_code;
+	mso-style-link:"tp_code Char";
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.tpinput, li.tpinput, div.tpinput
+	{mso-style-name:tp_input;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Arial","sans-serif";
+	font-weight:bold;}
+p.tpui, li.tpui, div.tpui
+	{mso-style-name:tp_ui;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;}
+p.tpvar, li.tpvar, div.tpvar
+	{mso-style-name:tp_var;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Arial","sans-serif";
+	font-style:italic;}
+p.tpfooter, li.tpfooter, div.tpfooter
+	{mso-style-name:tp_footer;
+	margin:7.5pt;
+	text-align:center;
+	background:white;
+	font-size:9.0pt;
+	font-family:"Arial","sans-serif";}
+p.sub, li.sub, div.sub
+	{mso-style-name:sub;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Arial","sans-serif";}
+p.sublstbody, li.sublstbody, div.sublstbody
+	{mso-style-name:sublstbody;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Arial","sans-serif";}
+p.msochpdefault, li.msochpdefault, div.msochpdefault
+	{mso-style-name:msochpdefault;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Arial","sans-serif";}
+span.tpfile
+	{mso-style-name:tp_file;
+	color:#990000;
+	letter-spacing:1.2pt;}
+span.tpnote
+	{mso-style-name:tp_note;
+	font-weight:bold;}
+span.tpmenuarrow
+	{mso-style-name:tp_menuarrow;
+	font-family:Webdings;
+	color:navy;}
+span.hypertext
+	{mso-style-name:hypertext;}
+.MsoChpDefault
+	{font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+<script language="JavaScript"  src="../../../org.eclipse.help/livehelp.js">
+</script>
+</head>
+
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9">
+
+<div class=WordSection1>
+
+<h1><a name="_Ref100717464">Extending an Application Model with Java</a></h1>
+
+<p class=MsoNormal>Mentor Graphics BridgePoint UML Suite is a very flexible
+development tool.&nbsp; Here we explain how to extend an application model by
+interfacing the xtUML model to native Java code through either Java-based External
+Entities or the more general purpose Java Interface to Realized Components.
+These features provide application developers with endless possibilities, and
+in this note the details regarding the configuration and implementation of each
+approach are presented.&nbsp; Note that the use of either approach should be
+performed by experienced BridgePoint users who are also comfortable with Java.</p>
+
+<p>&nbsp;</p>
+
+<h1>Extending xtUML models with the Java Interface to Realized Components</h1>
+
+<p class=MsoNormal>The Java Interface to Realized Components is a flexible
+interface mechanism supporting both synchronous and asynchronous communication
+between xtUML and Realized Components. </p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>The steps to configure an xtUML project and then construct
+an application model that is a mixture of xtUML components and Java realized
+components are presented in this section. Prior to executing the system model
+containing a mixture of xtUML and Realized Components, it is recommended that a
+simplified xtUML model of the Realized Component be constructed so that all
+communication and protocols across the shared interfaces can be tested. This
+proxy for the Java Realized Component has proven to be extremely helpful in
+resolving issues when interface mismatches are suspected. </p>
+
+<h2>Task 1: Enable the Project to Use the Java Builder</h2>
+
+<p style='margin-left:.25in;text-indent:-.25in'><span style='font-family:"Arial Unicode MS","sans-serif"'>1)</span><span
+style='font-size:7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Locate and open the <span style='font-family:"Courier New"'>.project</span>
+file.&nbsp; This file is located in the root of the BridgePoint project.&nbsp;
+Open the C/C++ perspective (<b>Window &gt; Open Perspective &gt; Other� &gt;
+C/C++</b>). If the file is not visible in the project root, then it is
+currently filtered.&nbsp; To turn off file filtering, select the downward
+pointing white triangle in the top right corner of the<b> Project Explorer</b>
+view, select<b> Customize View...</b> and uncheck the �.* <span
+style='font-family:"Arial Unicode MS","sans-serif"'>resources� box.&nbsp;
+Select <b>OK</b>.</span></p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>2)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Now add
+the following XML in the &lt;buildSpec&gt; element:</p>
+
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;buildCommand&gt;</span></p>
+
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;name&gt;org.eclipse.jdt.core.javabuilder&lt;/name&gt;</span></p>
+
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;arguments&gt;</span></p>
+
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/arguments&gt;</span></p>
+
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/buildCommand&gt;</span></p>
+
+<p>Note: There may already be other <span style='font-family:"Courier New"'>&lt;buildCommand&gt;</span>
+elements for the model compilers, do not alter these.&nbsp; Also, ensure that
+the added element goes in as a sibling element and not inside another <span
+style='font-family:"Courier New"'>&lt;buildCommand&gt;</span> element.</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>3)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Now add
+the following XML in the <span style='font-family:"Courier New"'>&lt;natures&gt;</span>&nbsp;
+element:</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='font-family:"Arial Unicode MS","sans-serif"'>&lt;nature&gt;org.eclipse.jdt.core.javanature&lt;/nature&gt;</span></p>
+
+<p>Note: There should already be an <span style='font-family:"Courier New"'>xtumlnature</span>
+nature. If not, then the wrong project is being extended.</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>4)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Save and
+close the <span style='font-family:"Courier New"'>.project </span>file</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>5)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Add a <span
+style='font-family:"Courier New"'>.classpath</span> file</p>
+
+<p>Select the project.&nbsp; Select <b>File &gt; New &gt; Other &gt; Simple
+&gt; File</b>, name the file <span style='font-family:"Courier New"'>.classpath</span>
+(note the leading period). Paste in the following XML:</p>
+
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>&lt;?xml
+version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></p>
+
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>&lt;classpath&gt;</span></p>
+
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>&lt;classpathentry
+kind=&quot;src&quot; path=&quot;javasrc&quot;/&gt;</span></p>
+
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;classpathentry kind=&quot;con&quot;
+path=&quot;org.eclipse.jdt.launching.JRE_CONTAINER&quot;/&gt;</span></p>
+
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;classpathentry kind=&quot;output&quot; path=&quot;bin&quot;/&gt;</span></p>
+
+<p><span style='font-family:"Arial Unicode MS","sans-serif"'>&lt;/classpath&gt;</span></p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>6)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Save and
+close the <span style='font-family:"Courier New"'>.classpath</span> file.</p>
+
+<h2>Task 2: Create a Java Interface for the Common Interfaces</h2>
+
+<p style='margin-left:.25in;text-indent:-.25in'>1.<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>In the
+./javasrc folder, for each interface into the Realized Component, create a pair
+of files using the naming convention</p>
+
+<p style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>I&lt;interface
+Name&gt;ToProvider.java</span></b></p>
+
+<p style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>I&lt;interface
+Name&gt;FromProvider.java</span></b></p>
+
+<p style='margin-left:.25in'>Inside the <b>I&lt;interface Name&gt;ToProvider</b>
+will be java declarations for all operations and signals with direction towards
+the Provider component. Similarly, inside the <b>I&lt;Interface
+Name&gt;FromProvider</b> are all operations and signals with direction from the
+Provider component towards the Requires component.</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>2.<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>At the
+top of each file add the package statement</p>
+
+<h2 style='margin-left:.5in'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>package &lt;model path to interface &gt;;</span></h2>
+
+<h2 style='margin-left:.25in'><span style='color:black;font-weight:normal'>where
+&lt;model path to interface&gt; equals a �.� delimited path from the root to
+the package containing the interface in the xtUML model hierarchy. This path
+can be identified using the BridgePoint Model Explorer</span></h2>
+
+<h2 style='margin-left:.25in;text-indent:-.25in'><span style='color:black'>3.</span><span
+style='font-size:7.0pt;font-family:"Times New Roman","serif";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style='color:black;font-weight:normal'>Next, import the package
+containing Verifier IRC </span></h2>
+
+<h2 style='margin-left:.5in'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>import org.xtuml.bp.core.ComponentInstance_c</span></h2>
+
+<h2 style='margin-left:.25in;text-indent:-.25in'><span style='color:black;
+font-weight:normal'>4.</span><span style='font-size:7.0pt;font-family:"Times New Roman","serif";
+color:black;font-weight:normal'>&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:black;font-weight:normal'>Now define the Java interface using</span></h2>
+
+<h2 style='margin-left:.5in'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>public interface IActionsAndDataFromProvider</span><span
+style='font-family:"Arial Unicode MS","sans-serif";color:black;font-weight:
+normal'> {<br>
+�.<br>
+}</span></h2>
+
+<h2 style='margin-left:.25in;text-indent:-.25in'><span style='color:black;
+font-weight:normal'>5.</span><span style='font-size:7.0pt;font-family:"Times New Roman","serif";
+color:black;font-weight:normal'>&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:black;font-weight:normal'>Inside this Java interface, define the
+java prototype for each operation or signal contained in the &lt;Interface
+Name&gt; and is in the associated direction. The message definitions are of the
+form <br>
+<br>
+</span><span style='font-family:"Arial Unicode MS","sans-serif";color:black'>&nbsp;&nbsp;
+&lt;ReturnType&gt; &lt;BPMessageName&gt;(ComponentInstance_c
+senderReceiver,&nbsp; list of &lt;BPArgument&gt;s);</span></h2>
+
+<h2 style='margin-left:.25in'><span style='color:black;font-weight:normal'>Note
+that the parameter list of the message prototype contains the list of
+parameters from the xtUML model prepended by a component reference to the
+message source. Here is an example using the ActionsAndData interface of the
+GPS Watch </span></h2>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //
+&quot;From Provider&quot; message definitions of form:</span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+//&nbsp;&nbsp; &lt;ReturnType&gt; &lt;BPMessageName&gt;(ComponentInstance_c
+senderReceiver,&nbsp; list of &lt;BPArgument&gt;s);</span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void
+lapResetPressed(ComponentInstance_c senderReceiver);</span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void
+lightPressed(ComponentInstance_c senderReceiver);</span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void
+modePressed(ComponentInstance_c senderReceiver);</span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void
+startStopPressed(ComponentInstance_c senderReceiver);</span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void
+targetPressed(ComponentInstance_c senderReceiver);</span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;</span></b></p>
+
+<p class=MsoListParagraph style='margin-left:.25in;text-indent:-.25in'><span
+style='font-family:"Arial Unicode MS","sans-serif";color:black'>6.</span><span
+style='font-size:7.0pt;font-family:"Times New Roman","serif";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style='font-family:"Arial Unicode MS","sans-serif";color:black'>Repeat
+steps 4 and 5 for each interface contained in the Realized Component.</span></p>
+
+<h2>Task 3: Create a Java Realized Component</h2>
+
+<p style='margin-left:.25in;text-indent:-.25in'>1.<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>In the
+sub-folder whose directory path from /javasrc folder matches xtUML hierarchical
+path shown in BridgePoint Model Explorer, create a file named <b>&lt;xtUML
+component name&gt;.java</b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 align=left>
+ <tr>
+  <td width=174 style='width:130.5pt;padding:0in 0in 0in 0in'></td>
+ </tr>
+ <tr>
+  <td style='padding:0in 0in 0in 0in'></td>
+  <td style='padding:0in 0in 0in 0in'>
+  <p class=MsoNormal><span style='font-size:12.0pt;font-family:"Times New Roman","serif"'><img
+  width=783 height=382 src="ModelVerifierJavaInterface_files/image001.jpg"
+  alt="Description: Description: Description: Description: C:\Users\dmcarthu\Desktop\tmp.jpg"></span></p>
+  </td>
+ </tr>
+</table>
+
+<p style='margin-left:0in'><br clear=all>
+</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>2.<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>To this
+file add the package statement</p>
+
+<h2 style='margin-left:.5in'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>package &lt;model path to interface &gt;;</span></h2>
+
+<h2 style='margin-left:.25in'><span style='color:black;font-weight:normal'>where
+&lt;model path to interface&gt; equals a �.� delimited path from the root to the
+package containing the xtUML component model in the model hierarchy. This path
+can be identified using the BridgePoint Model Explorer</span></h2>
+
+<p style='margin-left:.25in;text-indent:-.25in'>3.<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Next,
+add statements to import the *ToProvider and *FromProvider interfaces as well
+as the package containing Verifier IRC. Here, is an example using the UI
+component from the GPS Watch design which implements the
+IActionsAndDataToProvider interface and requires the
+IActionsAndDataFromProvider interface. </p>
+
+<p style='margin-top:7.5pt;margin-right:7.5pt;margin-bottom:12.0pt;margin-left:
+.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>import
+uiinterfaces.IActionsAndDataFromProvider;<br>
+import uiinterfaces.IActionsAndDataToProvider;<br>
+import org.xtuml.bp.core.ComponentInstance_c;</span></b></p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>4.<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Create a
+java class to implement the &lt;Interface Name&gt;ToProvider interface. This
+java class will contain a data member to be assigned a reference to an instance
+of the &lt;Instance Name&gt;FromProvider interface, java code to construct all
+instances of the FromProvider interfaces, and java realizations of each
+operation and signal prototype contained in the interface definition. Here is
+the class declaration based on the UI component from the GPS Watch design and
+will be fully populated over the next three steps.</p>
+
+<p style='margin-left:.25in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>public
+class UI implements IActionsAndDataToProvider</span></b></p>
+
+<p style='margin-top:0in;margin-right:.1in;margin-bottom:0in;margin-left:.25in;
+margin-bottom:.0001pt'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>{</span></b></p>
+
+<p style='margin-top:0in;margin-right:.1in;margin-bottom:0in;margin-left:10.5pt;
+margin-bottom:.0001pt'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+�</span></b></p>
+
+<p style='margin-top:0in;margin-right:.1in;margin-bottom:0in;margin-left:.25in;
+margin-bottom:.0001pt'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>}</span></b></p>
+
+<p style='margin-left:0in'>&nbsp;</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>5.<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Next add
+data members to store a reference to an instance of each *FromProvider interface.
+In the UI component this static data member refers to an instance of the
+IActionsAndDataToProvider interface. </p>
+
+<h2><span style='color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style='font-family:"Arial Unicode MS","sans-serif";color:black'>public
+static IActionsAndDataFromProvider uiComm;</span></h2>
+
+<h2 style='margin-left:.25in;text-indent:-.25in'><span style='color:black;
+font-weight:normal'>6.</span><span style='font-size:7.0pt;font-family:"Times New Roman","serif";
+color:black;font-weight:normal'>&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:black;font-weight:normal'>Create a constructor for the java class.
+As part of the construction, instances of the *FromProvider interfaces are
+created and assigned to the associated data member. For the UI component, this
+constructor can be as simple as </span></h2>
+
+<p class=MsoListParagraph><b><span style='color:black'>&nbsp;</span></b></p>
+
+<h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.5in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>public UI(IActionsAndDataFromProvider UIComm) {</span></h2>
+
+<h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.5in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+uiComm = UIComm;</span></h2>
+
+<h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.5in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+CorePlugin.out.println(&quot;Initializing realized UI component.&quot;);</span></h2>
+
+<h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.5in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if ( uiComm != null ) {</span></h2>
+
+<h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.5in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+CorePlugin.out.println(&quot;The UIComm port value is now set.&quot;);</span></h2>
+
+<h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.5in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</span></h2>
+
+<h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.5in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp; }</span></h2>
+
+<h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:12.0pt;margin-left:
+.25in;text-indent:-.25in'><span style='color:black;font-weight:normal'>7.</span><span
+style='font-size:7.0pt;font-family:"Times New Roman","serif";color:black;
+font-weight:normal'>&nbsp;&nbsp;&nbsp;&nbsp; </span><span style='color:black;
+font-weight:normal'>Define an implementation for each *ToProvider operation or
+signal. These implementations will complete the connection to the Java code
+describing the functionality of the Realized Component. When making this
+connection, care is required to ensure proper marshaling of the parameter data.
+Compatible parameter data types include core data types, user-defined data
+types, enumerated data types and structured data types. Rules for accessing
+parameter data values are summarized in the following table</span></h2>
+
+<div align=center>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse'>
+ <tr>
+  <td width=173 style='width:130.1pt;border:solid windowtext 1.0pt;padding:
+  0in 5.4pt 0in 5.4pt'>
+  <h2 align=center style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+  margin-left:0in;margin-bottom:.0001pt;text-align:center'><span
+  style='color:black;font-weight:normal'>Data type</span></h2>
+  </td>
+  <td width=504 valign=top style='width:5.25in;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+  <h2 align=center style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+  margin-left:0in;margin-bottom:.0001pt;text-align:center'><span
+  style='color:black;font-weight:normal'>Rule to access Attribute Value </span></h2>
+  </td>
+ </tr>
+ <tr>
+  <td width=173 style='width:130.1pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt'>
+  <h2 align=center style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+  margin-left:0in;margin-bottom:.0001pt;text-align:center'><span
+  style='color:black;font-weight:normal'>Core</span></h2>
+  </td>
+  <td width=504 valign=top style='width:5.25in;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <h2><span style='color:black;font-weight:normal'>Core types are directly
+  converted to/from appropriate java types and the value can be accessed via
+  the variable name</span></h2>
+  </td>
+ </tr>
+ <tr>
+  <td width=173 style='width:130.1pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt'>
+  <h2 align=center style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+  margin-left:0in;margin-bottom:.0001pt;text-align:center'><span
+  style='color:black;font-weight:normal'>User Defined</span></h2>
+  </td>
+  <td width=504 valign=top style='width:5.25in;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <h2><span style='color:black;font-weight:normal'>For User Defined types, the access
+  rule depends on the base type to which the user data type resolves.&nbsp; If
+  it resolves to a core data type then xtUML models will access the value
+  through a user supplied getValue() accessor, or through a public field named
+  'value'. If neither accessor nor public field is found, a runtime error is
+  raised.&nbsp; Also, if the User Defined Type resolves to a Structured Data
+  Type or an Enumerated Data Type, the rules for those are followed.</span></h2>
+  </td>
+ </tr>
+ <tr>
+  <td width=173 style='width:130.1pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt'>
+  <h2 align=center style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+  margin-left:0in;margin-bottom:.0001pt;text-align:center'><span
+  style='color:black;font-weight:normal'>Enumerated</span></h2>
+  </td>
+  <td width=504 valign=top style='width:5.25in;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <h2><span style='color:black;font-weight:normal'>Enumerated data types
+  require that the Realized Component contain a matching java enumeration. If
+  one is found, then usage access to the supplied user enumerators will be by
+  name. If no user supplied java enumeration is found, a runtime error will be
+  raised</span></h2>
+  </td>
+ </tr>
+ <tr>
+  <td width=173 style='width:130.1pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt'>
+  <h2 align=center style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+  margin-left:0in;margin-bottom:.0001pt;text-align:center'><span
+  style='color:black;font-weight:normal'>Structured</span></h2>
+  </td>
+  <td width=504 valign=top style='width:5.25in;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <h2><span style='color:black;font-weight:normal'>The preferred approach to Access
+  to access member of a structured data type is through a user supplied
+  get&lt;MemberName&gt;() accessor. If an accessor is not provided, then the
+  realized field must be public and will be accessed directly by the executing
+  model.</span></h2>
+  </td>
+ </tr>
+</table>
+
+</div>
+
+<h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+0in;margin-bottom:.0001pt;text-indent:22.5pt'><span style='color:black;
+font-weight:normal'>&nbsp;</span></h2>
+
+<h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+0in;margin-bottom:.0001pt'><span style='color:black;font-weight:normal'>&nbsp;</span></h2>
+
+<h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.25in;margin-bottom:.0001pt'><span style='color:black;font-weight:normal'>As an
+example, in the case of the realized UI component, the setTime and setData
+signals can be expressed as</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='color:black;font-weight:normal'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style='font-family:"Arial Unicode MS","sans-serif";color:black'>/**</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;*/</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Override</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void
+setTime(ComponentInstance_c senderReceiver, int time) {</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if (requester != null) {</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+requester.sendMessage(new SetTime(time)); // call to Java request handler</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+} else {</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+CorePlugin.out.println(&quot;requester is null.&nbsp; You need to execute
+initialization.&quot;);</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /**</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;*/</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Override</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void
+setData(ComponentInstance_c senderReceiver, float value, int unit) {</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (requester != null) {</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+requester.sendMessage(new SetData(value, unit)); // call to Java request
+handler</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+} else {</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+CorePlugin.out.println(&quot;requester is null.&nbsp; You need to execute
+initialization.&quot;);</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</span></h2>
+
+<h2 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></h2>
+
+<h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.25in;margin-bottom:.0001pt;text-indent:-.25in'><span style='color:black;
+font-weight:normal'>8.</span><span style='font-size:7.0pt;font-family:"Times New Roman","serif";
+color:black;font-weight:normal'>&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:black;font-weight:normal'>Within the Realized Component,
+operations and signals provided by the &lt;Interface Name&gt;FromProvider path
+can be called through either</span></h2>
+
+<h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.5in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>returnValue = &lt;interface reference&gt;.&lt;Operation name&gt; (
+ComponentInstance, &lt;bpParameter list&gt;)<br>
+&lt;interface reference&gt;.&lt;Signal name&gt; ( ComponentInstance,
+&lt;bpParameter list&gt;)</span></h2>
+
+<h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.25in;margin-bottom:.0001pt;text-indent:-.25in'><span style='color:black;
+font-weight:normal'>&nbsp;&nbsp;&nbsp;&nbsp; or if the &lt;bpParameter list&gt;
+is empty then the short form notation</span></h2>
+
+<h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.5in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>returnValue = &lt;interface reference&gt;.&lt;Operation name&gt; (
+null)<br>
+&lt;interface reference&gt;.&lt;Signal name&gt; ( null)</span></h2>
+
+<h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.25in;margin-bottom:.0001pt'><span style='color:black;font-weight:normal'>is
+also accepted. </span></h2>
+
+<h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.25in;margin-bottom:.0001pt'><span style='color:black;font-weight:normal'>&nbsp;</span></h2>
+
+<h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.25in;margin-bottom:.0001pt'><span style='color:black;font-weight:normal'>As an
+example, in the case of the realized UI component, a press of the start-stop
+button is communicated to the xtUML model across the realized </span><span
+style='color:black'>uiinterface</span><span style='color:black;font-weight:
+normal'> as follows:</span></h2>
+
+<h2 style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+0in;margin-bottom:.0001pt'><span style='font-family:"Arial Unicode MS","sans-serif";
+color:black'>&nbsp;</span></h2>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>case
+SignalData.SIGNAL_NO_START_STOP_PRESSED:</span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if ( uiComm == null ) {</span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+CorePlugin.out.println(&quot;Communication port is empty&quot;);</span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+} else {</span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style='color:red'>uiComm.startStopPressed(null); //Signal to xtUML model
+to respond to startstop button press</span></span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+CorePlugin.out.println(&quot;UI: sending startStopPressed message out UIComm
+port&quot;);</span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Arial Unicode MS","sans-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+break</span></b>;</p>
+
+<h2>Task 4: Enable Simulation with the Java Realized Component </h2>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>1)<span style='font-size:
+7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>If
+simulation in Verifier is to use the Realized Component, then the components
+property Realized Component must be set to <b>true</b> as shown below.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 align=left>
+ <tr>
+  <td width=77 style='width:57.75pt;padding:0in 0in 0in 0in'></td>
+ </tr>
+ <tr>
+  <td style='padding:0in 0in 0in 0in'></td>
+  <td style='padding:0in 0in 0in 0in'>
+  <p class=MsoNormal><span style='font-size:12.0pt;font-family:"Times New Roman","serif"'><img
+  width=423 height=217 src="ModelVerifierJavaInterface_files/image002.jpg"
+  alt="Description: C:\git2\xtuml\internal\src\org.xtuml.bp.doc\Reference\UserInterface\ModelVerifierJavaInterface\ModelVerifierJavaInterface_files\image002.jpg"></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><br clear=all>
+</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>2)<span style='font-size:
+7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>If
+the Java Realized Component imports packages from outside the project, then the
+path to each of the associated .jar files must be added to the Realized
+Component Path. A semicolon separated list of paths is accepted when more than
+one package is resolved this way.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>3)<span style='font-size:
+7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:.5in'>
+ <tr>
+  <td width=32 style='width:24.0pt;padding:0in 0in 0in 0in'></td>
+ </tr>
+ <tr>
+  <td style='padding:0in 0in 0in 0in'></td>
+  <td style='padding:0in 0in 0in 0in'>
+  <p class=MsoNormal><span style='font-size:12.0pt;font-family:"Times New Roman","serif"'><img
+  width=541 height=181 src="ModelVerifierJavaInterface_files/image003.jpg"
+  alt="Description: C:\git2\xtuml\internal\src\org.xtuml.bp.doc\Reference\UserInterface\ModelVerifierJavaInterface\ModelVerifierJavaInterface_files\image003.jpg"></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><br clear=all>
+Upon completion of steps 1 and 2 of this task, the application model is ready
+for simulation in BridgePoint Verifier</p>
+
+<p class=MsoListParagraph>&nbsp;</p>
+
+<h2>Task 5: Verify the Realized Implementation is Complete </h2>
+
+<p class=MsoNormal style='margin-left:.25in'>Use the �Audit Realized Bindings�
+action in the context menu to check that all the necessary Java artifacts for
+the realized component, interfaces, and data types are in place.&nbsp; In the
+xtUML Modeling perspective, this action is available on the context menu via <b>Right-click
+&gt; Audit Realized Bindings </b>for realized components and for packages that
+contain realized components.&nbsp; Invoking this action will perform a series
+of audits on the model and the realized java and report the results in a pop up
+dialog.&nbsp; Once the results in the dialog are clear of errors (as in the
+dialog below), proceed to the next step.</p>
+
+<p class=MsoNormal style='margin-left:.25in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.25in'><img width=379 height=335
+src="ModelVerifierJavaInterface_files/image004.jpg"
+alt="Description: Description: audit_complete.png"></p>
+
+<h2>Task 6: Confirming the Interface Connection </h2>
+
+<p class=MsoNormal style='margin-left:.25in'>To confirm the successful
+implementation of a Java Interface to a Realized Component, perform a <b>Project
+&gt; Build Project</b> and when completed successfully launch BridgePoint
+Verifier using a debug configuration containing the Realized Component. Once
+Verifier completes its initialization, the Debug pane will show the associated
+component as �Realized, Running� which confirms that the xtUML component is now
+replaced by the Java Realized Component in this run.</p>
+
+<p class=MsoNormal style='margin-left:.25in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.25in'><img width=400 height=151
+src="ModelVerifierJavaInterface_files/image005.jpg"
+alt="Description: C:\git2\xtuml\internal\src\org.xtuml.bp.doc\Reference\UserInterface\ModelVerifierJavaInterface\ModelVerifierJavaInterface_files\image005.jpg"></p>
+
+<p class=MsoNormal style='margin-left:.25in'>&nbsp;</p>
+
+<h2>Task 7: Replacing a Realized Component with an xtUML Component</h2>
+
+<p><span style='color:black'>If at any time, the realized component must be replaced
+by the xtUML modeled component, this action can be achieved by selecting the
+component in the Model Explorer and changing the <b>Realized Component</b>
+property value to <b>false</b>.</span> On the next invocation of Verifier with
+a system that includes this realized component, the post-initialization status
+will be �Running�. In this way, switching between xtUML modeled and Java
+realized components can be easily performed at any stage of development or
+validation.</p>
+
+<p class=MsoListParagraph>&nbsp;</p>
+
+<p class=MsoListParagraph>&nbsp;</p>
+
+<h1>Extending xtUML models with Java External Entities</h1>
+
+<p class=MsoNormal>The Java External Entity is a convenient mechanism for
+attaching xtUML models to server entities that are realized in Java and rely
+solely on synchronous communication. The steps to configure an xtUML project
+and then construct a Java External Entity are presented in this section.</p>
+
+<h2>Task 1: Enable the Project to Use the Java Builder</h2>
+
+<p style='margin-left:.25in;text-indent:-.25in'>1)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Locate
+and open the <span style='font-family:"Courier New"'>.project</span>
+file.&nbsp; This file is located in the root of the BridgePoint project.&nbsp;
+Open the C/C++ perspective (<b>Window &gt; Open Perspective &gt; Other� &gt;
+C/C++</b>). If the file is not visible in the project root, then it is
+currently filtered.&nbsp; To turn off file filtering, select the downward
+pointing white triangle in the top right corner of the<b> Project Explorer</b>
+view, select<b> Customize View...</b> and uncheck the �.* resources� box.&nbsp;
+Select <b>OK</b>.</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>2)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Now add
+the following XML in the <span style='font-family:"Courier New"'>&lt;buildSpec&gt;</span>
+element:</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;buildCommand&gt;</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;name&gt;org.eclipse.jdt.core.javabuilder&lt;/name&gt;</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;arguments&gt;</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/arguments&gt;</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/buildCommand&gt;</p>
+
+<p>Note: There may already be other <span style='font-family:"Courier New"'>&lt;buildCommand&gt;</span>
+elements for the model compilers, do not alter these.&nbsp; Also, ensure that
+the added element goes in as a sibling element and not inside another <span
+style='font-family:"Courier New"'>&lt;buildCommand&gt;</span> element.</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>3)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Now add
+the following XML in the <span style='font-family:"Courier New"'>&lt;natures&gt;</span>&nbsp;
+element:</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;nature&gt;org.eclipse.jdt.core.javanature&lt;/nature&gt;</p>
+
+<p>Note: There should already be an <span style='font-family:"Courier New"'>xtumlnature</span>
+nature. If not, then the wrong project is being extended.</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>4)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Save and
+close the <span style='font-family:"Courier New"'>.project </span>file</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>5)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Add a <span
+style='font-family:"Courier New"'>.classpath</span> file</p>
+
+<p>Select the project.&nbsp; Select <b>File &gt; New &gt; Other &gt; Simple
+&gt; File</b>, name the file <span style='font-family:"Courier New"'>.classpath</span>
+(note the leading period). Paste in the following XML:</p>
+
+<p>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</p>
+
+<p>&lt;classpath&gt;</p>
+
+<p>&lt;classpathentry kind=&quot;src&quot; path=&quot;javasrc&quot;/&gt;</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;classpathentry
+kind=&quot;con&quot;
+path=&quot;org.eclipse.jdt.launching.JRE_CONTAINER&quot;/&gt;</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;classpathentry
+kind=&quot;output&quot; path=&quot;bin&quot;/&gt;</p>
+
+<p>&lt;/classpath&gt;</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>6)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Save and
+close the <span style='font-family:"Courier New"'>.classpath</span> file.</p>
+
+<h2>&nbsp;</h2>
+
+<h2><a name="_Task_3:_Add"></a>Task 2: Add External Java Code</h2>
+
+<p style='margin-left:.25in;text-indent:-.25in'>1)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Add a
+folder for the Java code.&nbsp;&nbsp; </p>
+
+<p style='margin-left:1.0in;text-indent:-.25in'><span style='font-family:Symbol'>�</span><span
+style='font-size:7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Select the <span style='font-family:"Courier New"'>javasrc</span> folder
+in the root of the project.&nbsp; If it does not exist select <b>File &gt; New
+&gt; Folder</b> to create it.</p>
+
+<p style='margin-left:1.0in;text-indent:-.25in'><span style='font-family:Symbol'>�</span><span
+style='font-size:7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Create folder <span style='font-family:"Courier New"'>lib</span> in the <span
+style='font-family:"Courier New"'>javasrc</span> folder </p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>2)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Create a
+new file in the <span style='font-family:"Courier New"'>lib</span> folder
+called <span style='font-family:"Courier New"'>TEST.java</span>.&nbsp; Paste
+the following test code into this file:</p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='margin-left:7.5pt;border-collapse:collapse;border:none'>
+ <tr>
+  <td width=769 valign=top style='width:577.1pt;border:solid windowtext 1.0pt;
+  background:#F2F2F2;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:0in'><span style='font-family:"Courier New"'>//========================================================================</span></p>
+  <p style='margin-left:0in'><span style='font-family:"Courier New"'>//
+  Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.</span></p>
+  <p style='margin-left:0in'><span style='font-family:"Courier New"'>//========================================================================</span></p>
+  <p style='margin-left:0in'><span style='font-family:"Courier New"'>package
+  lib;</span></p>
+  <p style='margin-left:0in'><span style='font-family:"Courier New"'>&nbsp;</span></p>
+  <p style='margin-left:0in'><span style='font-family:"Courier New"'>public
+  class TEST {</span></p>
+  <p style='margin-left:0in'><span style='font-family:"Courier New"'>&nbsp;</span></p>
+  <p style='margin-left:0in'><span style='font-family:"Courier New"'>�� �public
+  static String hello_world() {</span></p>
+  <p style='margin-left:0in'><span style='font-family:"Courier New"'>��� ����return
+  &quot;Hello world&quot;;</span></p>
+  <p style='margin-left:0in'><span style='font-family:"Courier New"'>��� }</span></p>
+  <p><span style='font-family:"Courier New"'>&nbsp;</span></p>
+  <p style='margin-left:0in'><span style='font-family:"Courier New"'>��� public
+  static String int_to_string(int value) {</span></p>
+  <p><span style='font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;��� return
+  Integer.toString(value);</span></p>
+  <p style='margin-left:0in'><span style='font-family:"Courier New"'>��� }</span></p>
+  <p><span style='font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span></p>
+  <p><span style='font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;public static
+  String real_to_string(double value) {</span></p>
+  <p><span style='font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;��� return
+  Double.toString(value);</span></p>
+  <p><span style='font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;}</span></p>
+  <p style='margin-left:0in'><span style='font-family:"Courier New"'>}</span></p>
+  </td>
+ </tr>
+</table>
+
+<p style='margin-left:.25in;text-indent:-.25in'>&nbsp;</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>3)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Save the
+file TEST.java</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>4)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Select<b>
+Project &gt; Build Project</b> if it is enabled.&nbsp; If, instead, <b>Build
+Automatically</b> is enabled, the IDE should immediately see the saved file and
+compile and build the java without additional action.</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>5)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Under
+the root of the project, confirm that <span style='font-family:"Courier New"'>bin/lib/TEST.class</span>
+exists.&nbsp; </p>
+
+<p style='margin-left:1.0in;text-indent:-.25in'><span style='font-family:Symbol'>�</span><span
+style='font-size:7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>If this file is not present, or not present in the expected place, Model
+Verifier will not find it.&nbsp; See the <a href="#_Troubleshooting">Troubleshooting</a>
+section. </p>
+
+<p>&nbsp;</p>
+
+<h2>Task 3: Test the Java Interface</h2>
+
+<p style='margin-left:.25in;text-indent:-.25in'>1)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Locate a
+new or existing External Entity Package in the model.&nbsp; Create an External
+Entity named <span style='font-family:"Courier New"'>Test Interface</span>, and
+give it the key letters <span style='font-family:"Courier New"'>TEST</span>.</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>2)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Add a
+Bridge Operation to the <span style='font-family:"Courier New"'>Test Interface</span>
+EE named <span style='font-family:"Courier New"'>hello_world</span>.&nbsp; In
+the Properties view set the return type to <span style='font-family:"Courier New"'>string</span>.&nbsp;
+Bridges operations are not required for each function in the Java class, so we
+will leave the others (<span style='font-family:"Courier New"'>int_to_string</span>
+and <span style='font-family:"Courier New"'>real_to_string</span>) out until
+there is confirmation that BridgePoint is communicating with test class.</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>3)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Locate a
+new or existing Function Package.&nbsp; Create a function named <span
+style='font-family:"Courier New"'>hello_test</span>.&nbsp; Open the new
+function and add the OAL line:</p>
+
+<p>LOG::LogInfo(message:TEST::hello_world());</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>4)<span style='font-size:7.0pt;
+font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Launch
+the model in Model Verifier, and then execute <span style='font-family:"Courier New"'>hello_test</span>
+from Model Explorer view.&nbsp; If the interface is working properly, the
+message:</p>
+
+<p>LogInfo:&nbsp; Hello world</p>
+
+<p>will display in the Console view.</p>
+
+<h2>&nbsp;</h2>
+
+<h2>Task 4: Add Your Own Extensions</h2>
+
+<p>Congratulations!&nbsp; You now have the capability to interface Model
+Verifier to the outside world.&nbsp; Using Java, you can read data from a file
+or the internet, perform a computation, interface to hardware, or probe the
+depths of deep space.&nbsp; You can even, for instance, use JNI to invoke C and
+C++ program functions.&nbsp; Explore the possibilities by writing your own
+Java-based external entities.</p>
+
+<h2>&nbsp;</h2>
+
+<h2><a name="_Troubleshooting"></a>Troubleshooting</h2>
+
+<p style='margin-left:.25in;text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>The Java interface to realized components allows you to extend the model
+with shared libraries loaded by JNI code in a Realized Component.� When running
+your application in Verifier, �Terminate and Re-launch� may give you an error
+stating that the library is already loaded.</p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in'><span style='font-family:Symbol'>�<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>After terminating the session, the session window shows
+terminated sessions. &nbsp;The option to &quot;Clear Terminated Sessions&quot;
+(the X icon) must be run to clear these sessions. &nbsp;The terminated sessions
+hold resources that prevent the DLL from unloading. &nbsp;Once those terminated
+sessions are cleared, the DLL is unloaded.</p>
+
+<p style='margin-left:.25in;text-indent:-.25in'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>This section lists a few ideas that may help if you encounter problems
+while configuring your project to interface with external Java.</p>
+
+<p style='margin-left:45.75pt;text-indent:-.25in'><span style='font-family:
+Symbol'>�</span><span style='font-size:7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Due to the way eclipse loads java class files into the debugger, you may
+need to BridgePoint any time you change the contents (API or implementation
+internals) of your java EE. If your changes are not being used during
+subsequent debugging sessions, a restart of the application is required.</p>
+
+<p style='margin-left:45.75pt;text-indent:-.25in'><span style='font-family:
+Symbol'>�</span><span style='font-size:7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Recheck all the settings in the <span style='font-family:"Courier New"'>.classpath
+</span>file, especially directory names.</p>
+
+<p style='margin-left:45.75pt;text-indent:-.25in'><span style='font-family:
+Symbol'>�</span><span style='font-size:7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Verify your Eclipse configuration supports Java compilation using a
+standalone Java project:</p>
+
+<p style='margin-left:81.75pt;text-indent:-.25in'><span style='font-family:
+"Courier New"'>o</span><span style='font-size:7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;
+</span>Open the<b> Java </b>or<b> C/C++</b> perspective</p>
+
+<p style='margin-left:81.75pt;text-indent:-.25in'><span style='font-family:
+"Courier New"'>o</span><span style='font-size:7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;
+</span>Select File &gt; New &gt; Project�</p>
+
+<p style='margin-left:81.75pt;text-indent:-.25in'><span style='font-family:
+"Courier New"'>o</span><span style='font-size:7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;
+</span>Choose Java &gt; Java Project </p>
+
+<p style='margin-left:81.75pt;text-indent:-.25in'><span style='font-family:
+"Courier New"'>o</span><span style='font-size:7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;
+</span>Select <b>Next &gt;</b></p>
+
+<p style='margin-left:81.75pt;text-indent:-.25in'><span style='font-family:
+"Courier New"'>o</span><span style='font-size:7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;
+</span>Enter the project name <span style='font-family:"Courier New"'>JavaTest</span>.&nbsp;
+In the <b>Project layout</b> section, select <b>Create separate source and
+output folders</b></p>
+
+<p style='margin-left:81.75pt;text-indent:-.25in'><span style='font-family:
+"Courier New"'>o</span><span style='font-size:7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;
+</span>Select <b>Finish</b></p>
+
+<p style='margin-left:81.75pt;text-indent:-.25in'><span style='font-family:
+"Courier New"'>o</span><span style='font-size:7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;
+</span>Select No on the Open Associated Perspective? dialog</p>
+
+<p style='margin-left:81.75pt;text-indent:-.25in'><span style='font-family:
+"Courier New"'>o</span><span style='font-size:7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;
+</span>Perform <a href="#_Task_3:_Add">Task 2: Add External Java Code</a></p>
+
+<p style='margin-left:81.75pt;text-indent:-.25in'><span style='font-family:
+"Courier New"'>o</span><span style='font-size:7.0pt;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;
+</span>Successful completion of this test is confirmed by existence of the <span
+style='font-family:"Courier New"'>TEST.class</span> file</p>
+
+<p>&nbsp;</p>
+
+<h2>APIs for Built-in External Entities</h2>
+
+<p>New BridgePoint models are pre-populated with several native EEs: <span
+style='font-family:"Courier New"'>Architecture (ARCH)</span>, <span
+style='font-family:"Courier New"'>Logging (LOG)</span>, and <span
+style='font-family:"Courier New"'>Time (TIM)</span>.&nbsp; Model Verifier has
+built-in implementations of these external entities that perform the
+appropriate bridge operations to enable their functionality in Verifier.</p>
+
+<p>Verifier contains built-in implementations for several other EEs that are sometimes
+found in application models.&nbsp; The APIs for these external entities is
+provided here.&nbsp; Note however, that the external entities must be modeled
+in the application before they are accessible in Verifier or the generated
+application.</p>
+
+<p>&nbsp;</p>
+
+<p>Non-volatile Storage (NVS)</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; integer format()</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Performs no actions when executed by Verifier.&nbsp; Returns 0.</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; integer
+version(integer first, integer second) </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Performs no actions when executed by Verifier.&nbsp; Returns 0.</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; integer
+checksum(integer first, integer second)</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Performs no actions when executed by Verifier.&nbsp; Returns 0.</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>Persistence (PERSIST)</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; integer commit()</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Performs no actions when executed by Verifier.&nbsp; Returns 0.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<h2>Another Example</h2>
+
+<p>BridgePoint OAL and Verifier do not provide native support for advancing or
+differencing variables of type timestamp.&nbsp; The example EE here exposes two
+bridges to provide this functionality and also demonstrates passing Java object
+instances for types that don�t have native counterparts between xtUML and
+Java.&nbsp; There are two parts, the modeled EE, and the <span
+style='font-family:"Courier New"'>lib/TIMMATH.java</span>. To use the EE in
+your generated application on your target, you will also need to provide a
+header and implementation of <span style='font-family:"Courier New"'>TIMMATH_bridge.&lt;extension&gt;</span>
+in the <span style='font-family:"Courier New"'>gen/</span> folder.&nbsp; You
+can use the <span style='font-family:"Courier New"'>LOG_bridge.*</span> and <span
+style='font-family:"Courier New"'>TIM_bridge.*</span> generated files as a
+guide.</p>
+
+<p>&nbsp;</p>
+
+<p>Modeled External Entity</p>
+
+<p>Time Math (TIMMATH)</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; timestamp
+advance(timestamp t, integer delta)</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Advances a timestamp by the given value.&nbsp; Returns a new timestamp that is
+the result.</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; timestamp
+diff(timestamp t1, timestamp t2) </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Returns a timestamp value that represents the difference of t1 subtracted from
+t2.</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>Java source code for Verifier use.&nbsp; Put in <span style='font-family:
+"Courier New"'>lib/TIMMATH.java:</span></p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='margin-left:7.5pt;border-collapse:collapse;border:none'>
+ <tr>
+  <td width=769 valign=top style='width:577.1pt;border:solid windowtext 1.0pt;
+  background:#F2F2F2;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin-left:0in'><span style='font-family:"Courier New"'>//========================================================================</span></p>
+  <p style='margin-left:0in'><span style='font-family:"Courier New"'>//
+  Copyright 2007-2014 by Mentor Graphics Corp. All rights reserved.</span></p>
+  <p style='margin-left:0in'><span style='font-family:"Courier New"'>//========================================================================</span></p>
+  <p style='margin-left:0in'><span style='font-family:"Courier New"'>package
+  lib;<br>
+  <br>
+  public class TIMMATH {<br>
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;public static Object advance(Object t, int delta) {<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; long result =
+  Long.valueOf(t.toString());<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result += delta;<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return new Long(result); // type
+  timestamp<br>
+  &nbsp;&nbsp;&nbsp; }<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;public static Object diff(Object t1, Object t2) {<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;long time1 =
+  Long.valueOf(t1.toString());<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;long time2 =
+  Long.valueOf(t2.toString());<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;long diff = time2 - time1;<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return new Long(diff); //
+  type timestamp<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+  <br>
+  }</span></p>
+  </td>
+ </tr>
+</table>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,503 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	'Model Tool',
+	101,
+	'CT_MTL',
+	'Each time a new Model instance is created, a set of Tool
+instances are created for it. There is one Tool instance
+created for each Element Specification associated with
+the Model Specification of which the newly created Model
+is an instance. In additon one Selection Tool instance is
+created for each canvas.
+
+---------------------------------------------------------------------------
+Persistent:false',
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
+INSERT INTO O_TFR
+	VALUES ("6276b7af-0d7f-4beb-b166-91be84b47352",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	'dispose',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one es related by self->GD_ES[R103];
+if (not_empty es)
+  unrelate self from es across R103;
+end if;
+select one mdl related by self->GD_MD[R100];
+if (not_empty mdl)
+  unrelate self from mdl across R100;
+end if;
+select one act related by self->CT_ACT[R109];
+if (not_empty act)
+  unrelate self from act across R109;
+end if;
+select one stl related by self->CT_STL[R102];
+select one ctl related by self->CT_CTL[R102];
+select one sel related by self->CT_SEL[R102];
+select one scr related by self->CT_SCR[R102];
+if (not_empty stl)
+  unrelate self from stl across R102;
+  stl.dispose();
+elif (not_empty ctl)
+  unrelate self from ctl across R102;
+  ctl.dispose();
+elif (not_empty sel)
+  unrelate self from sel across R102;
+  sel.dispose();
+elif (not_empty scr)
+  unrelate self from scr across R102;
+  scr.dispose();
+end if;
+
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("c390427a-1e60-4f9f-aba9-0370066d1838",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	'initialize',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'drawing = false;',
+	1,
+	'',
+	"35bbc4d2-967c-4a8c-9c06-895cf6b16620");
+INSERT INTO O_TFR
+	VALUES ("35bbc4d2-967c-4a8c-9c06-895cf6b16620",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	'finalizeConnector',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'//
+// If this is invoked from the Connector tool then we can use 
+// R104/R105 to get the starting and ending elements
+select one startElement related by self->CT_CTL[R102]->GD_GE[R104];
+select one endElement related by self->CT_CTL[R102]->GD_GE[R105];
+select one conTool related by self->CT_CTL[R102];
+//
+// If this is invoked from the places other then the connector tool,
+// the start and end elements must be passed-in.
+select one selTool related by self->CT_SEL[R102];
+if (not_empty selTool)
+  select any startElement related by self->GD_MD[R100]->GD_GE[R1] where (selected.elementId == param.startElement);
+  select any endElement related by self->GD_MD[R100]->GD_GE[R1] where (selected.elementId == param.endElement);
+end if;
+//
+// This variable is here for clarity. We are taking advantage of the fact that
+// that no paramaters are passed-in when this operation is called from a 
+// place where a new connector was created and paramaters are passed-in
+// when existing connectors are being linked.
+newConnectorwasCreated = true;
+if ((param.startElement != OS::NULL_UNIQUE_ID()) and (param.endElement != OS::NULL_UNIQUE_ID()))
+  newConnectorwasCreated = false;
+end if;
+select one canvas related by self->GD_MD[R100];
+select one diagram related by canvas->DIM_DIA[R18];
+conElem = startElement;
+if (newConnectorwasCreated)
+  select one elemSpec related by self->GD_ES[R103];
+  select one conElem related by elemSpec->GD_GE[R16];
+end if;
+select one connector related by conElem->GD_CON[R2];
+select one segment related by self->CT_CTL[R102]->GD_LS[R106];
+//
+select many segments related by connector->GD_LS[R6];
+//
+if ((newConnectorwasCreated) and (not_empty startElement))
+  for each seg in segments // Find the first segment in this connector
+    if (seg.Previous_elementId == OS::NULL_UNIQUE_ID())
+      segment = seg;
+    end if;
+  end for;
+
+  // create an anchor on the starting element
+  create object instance anchor of DIM_CON;
+  // initialize the anchors position
+  select one segmentStart related by segment->DIM_WAY[R21];
+  select one segmentEnd related by segment->DIM_WAY[R22];
+  anchor.positionX = segmentStart.positionX;
+  anchor.positionY = segmentStart.positionY;
+  select one graphElement related by startElement->DIM_GE[R23];
+  relate anchor to graphElement across R311;
+
+  // make the anchor the one at which the connector starts
+  select one edge related by connector->DIM_ED[R20];
+  relate edge to anchor across R320;
+
+  if (not_empty conTool)
+    unrelate conTool from startElement across R104;
+  end if;
+  select one shp related by startElement->GD_SHP[R2];
+  select one con related by startElement->GD_CON[R2];
+  if (not_empty shp)
+  	// find the intersection point between the segment and the shape
+	intersectX = shp.getXIntersect(considerLine:true, x1:segmentStart.positionX, y1:segmentStart.positionY, 
+		x2:segmentEnd.positionX, y2:segmentEnd.positionY);
+	intersectY = shp.getYIntersect(considerLine:true, x1:segmentStart.positionX, y1:segmentStart.positionY, 
+		x2:segmentEnd.positionX, y2:segmentEnd.positionY);
+		
+	// [1] move the segment''s start to the grid snap-point nearest to 
+	// the intersection point along the shape''s edge (note that the 
+	// point will only be a snap-point in one axis if the shape''s edge 
+	// is not itself snapped to the grid)
+	snapPointId = shp.getNearestGridSnapPointOnEdge(x:intersectX, y:intersectY);
+	select any snapPoint from instances of DIM_PNT where selected.pointId == snapPointId;
+	segment.moveStart(xDelta:snapPoint.x - segmentStart.positionX, 
+		yDelta:snapPoint.y - segmentStart.positionY, snapToGrid:false);
+	delete object instance snapPoint;
+  elif(not_empty con)
+    select any cnt related by startElement->TS_TSP[R206]->TS_CNT[R201];
+    // crop the segment to the connector
+    if (cnt.terminatesAt == End::Middle)
+      // crop the segment to the connector
+	  con.cropTo(attachingSegmentId:segment.elementId, createdAnchorId:anchor.conId, end:End::Start);
+    elif (cnt.terminatesAt == End::Start)
+      create object instance aos of GD_AOS;
+      startSegId = con.getStartingSegmentId();
+      select any startSeg related by con->GD_LS[R6] where (selected.elementId == startSegId);
+      relate anchor to startSeg across R26 using aos;
+      select one segmentStart related by segment->DIM_WAY[R21];
+      select one segmentEnd related by segment->DIM_WAY[R22];
+      segment.moveStart(xDelta:con.getStartX() - segmentStart.positionX, 
+        	yDelta:con.getStartY() - segmentStart.positionY, snapToGrid:false);
+    elif (cnt.terminatesAt == End::End)
+      create object instance aos of GD_AOS;
+      endSegId = con.getEndingSegmentId();
+      select any endSeg related by con->GD_LS[R6] where (selected.elementId == endSegId);
+      relate anchor to endSeg across R26 using aos;
+      select one segmentStart related by segment->DIM_WAY[R21];
+      select one segmentEnd related by segment->DIM_WAY[R22];
+      segment.moveStart(xDelta:con.getEndX() - segmentEnd.positionX, 
+        	yDelta:con.getEndY() - segmentEnd.positionY, snapToGrid:false);
+    end if; // terminates at
+  end if;
+end if;
+if (not_empty endElement)
+  for each seg in segments // Find the last segment in this connector
+    select one nextSeg related by seg->GD_LS[R7.''precedes''];
+    if (empty nextSeg)
+      segment = seg;
+    end if;
+  end for;
+
+  // create an anchor on the ending element
+  create object instance anchor of DIM_CON;
+  // initialize the anchors location
+  select one segmentStart related by segment->DIM_WAY[R21];
+  select one segmentEnd related by segment->DIM_WAY[R22];
+  anchor.positionX = segmentEnd.positionX;
+  anchor.positionY = segmentEnd.positionY;
+  select one graphElement related by endElement->DIM_GE[R23];
+  relate anchor to graphElement across R311;
+
+  // make the anchor the one at which the connector ends
+  select one edge related by connector->DIM_ED[R20];
+  relate edge to anchor across R321;
+
+  if (not_empty conTool)
+    unrelate conTool from endElement across R105;
+  end if;
+  select one shp related by endElement->GD_SHP[R2];
+  select one con related by endElement->GD_CON[R2];
+  if (not_empty shp) // Crop the last segment to the boundary of the shape
+    // find the intersection point between the segment and the shape
+    intersectX = shp.getXIntersect(considerLine:true, x1:segmentStart.positionX, y1:segmentStart.positionY, 
+    	x2:segmentEnd.positionX, y2:segmentEnd.positionY);
+    intersectY = shp.getYIntersect(considerLine:true, x1:segmentStart.positionX, y1:segmentStart.positionY, 
+    	x2:segmentEnd.positionX, y2:segmentEnd.positionY);
+
+	// see [1], above
+   	snapPointId = shp.getNearestGridSnapPointOnEdge(x:intersectX, y:intersectY);
+   	select any snapPoint from instances of DIM_PNT where selected.pointId == snapPointId;
+    segment.moveEnd(xDelta:snapPoint.x - segmentEnd.positionX, 
+    	yDelta:snapPoint.y - segmentEnd.positionY, snapToGrid:false);
+   	delete object instance snapPoint;
+
+  elif (not_empty con) // Find the segment on the target connector that intersects the last segment being drawn
+    select any cnt related by endElement->TS_TSP[R206]->TS_CNT[R201];
+    if (cnt.terminatesAt == End::Middle)
+      // crop the segment to the connector
+	  con.cropTo(attachingSegmentId:segment.elementId, createdAnchorId:anchor.conId, end:End::End);
+    elif (cnt.terminatesAt == End::Start)
+      create object instance aos of GD_AOS;
+      startSegId = con.getStartingSegmentId();
+      select any startSeg related by con->GD_LS[R6] where (selected.elementId == startSegId);
+      relate anchor to startSeg across R26 using aos;
+      select one segmentStart related by segment->DIM_WAY[R21];
+      select one segmentEnd related by segment->DIM_WAY[R22];
+      segment.moveEnd(xDelta:con.getStartX() - segmentEnd.positionX, 
+        	yDelta:con.getStartY() - segmentEnd.positionY, snapToGrid:false);
+    elif (cnt.terminatesAt == End::End)
+      create object instance aos of GD_AOS;
+      endSegId = con.getEndingSegmentId();
+      select any endSeg related by con->GD_LS[R6] where (selected.elementId == endSegId);
+      relate anchor to endSeg across R26 using aos;
+      select one segmentStart related by segment->DIM_WAY[R21];
+      select one segmentEnd related by segment->DIM_WAY[R22];
+      segment.moveEnd(xDelta:con.getEndX() - segmentEnd.positionX, 
+        	yDelta:con.getEndY() - segmentEnd.positionY, snapToGrid:false);
+    end if; // terminates at
+  end if;   
+end if;',
+	1,
+	'',
+	"6276b7af-0d7f-4beb-b166-91be84b47352");
+INSERT INTO O_TPARM
+	VALUES ("c0731eae-1871-43c6-a1d1-abfc74fa2886",
+	"35bbc4d2-967c-4a8c-9c06-895cf6b16620",
+	'startElement',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"2adab55a-682a-4ae1-a9dc-35180e83211b",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("2adab55a-682a-4ae1-a9dc-35180e83211b",
+	"35bbc4d2-967c-4a8c-9c06-895cf6b16620",
+	'endElement',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e");
+INSERT INTO O_BATTR
+	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e");
+INSERT INTO O_ATTR
+	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"00000000-0000-0000-0000-000000000000",
+	'Tool_ID',
+	'',
+	'',
+	'Tool_ID',
+	0,
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("233ae7d6-fa6b-4989-9f35-2dca955c21d8",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e");
+INSERT INTO O_BATTR
+	VALUES ("233ae7d6-fa6b-4989-9f35-2dca955c21d8",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e");
+INSERT INTO O_ATTR
+	VALUES ("233ae7d6-fa6b-4989-9f35-2dca955c21d8",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"0304c426-4444-443b-a662-e29749249eb1",
+	'active',
+	'This attribute is true when the tool in question is enabled.',
+	'',
+	'active',
+	0,
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	"6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	"746b4906-475b-4747-b6b6-17e6304e6960",
+	"d281d8b2-cf22-47f7-9119-0a71aa00df56",
+	"644785b2-95ad-4538-8161-253d4c9049de",
+	"e8df85fb-7fa9-4faf-8bd3-2c568532b650",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Element Specification',
+	'OOA_Type',
+	'R103');
+INSERT INTO R_RGO_PROXY
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	"746b4906-475b-4747-b6b6-17e6304e6960",
+	'../Canvas Tools.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	0,
+	"9644fc6a-9e3f-4bea-90d2-c8ed2a0d0b48",
+	"d281d8b2-cf22-47f7-9119-0a71aa00df56",
+	'../Canvas Tools.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("644785b2-95ad-4538-8161-253d4c9049de",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	1,
+	'OOA_Type');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	'../../Graphical Data/Element Specification/Element Specification.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("644785b2-95ad-4538-8161-253d4c9049de",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"233ae7d6-fa6b-4989-9f35-2dca955c21d8",
+	'OOA_Type',
+	'',
+	'',
+	'OOA_Type',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("9ad2cf63-d696-4dc8-9069-e34c21ca0276",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e");
+INSERT INTO O_BATTR
+	VALUES ("9ad2cf63-d696-4dc8-9069-e34c21ca0276",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e");
+INSERT INTO O_ATTR
+	VALUES ("9ad2cf63-d696-4dc8-9069-e34c21ca0276",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"644785b2-95ad-4538-8161-253d4c9049de",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"aae0ffdc-3a05-4c94-9878-331bc82097dd",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("aae0ffdc-3a05-4c94-9878-331bc82097dd",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'state<State_Model>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("2cd56e50-ea43-4b59-8608-3caffd696e91",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e");
+INSERT INTO O_BATTR
+	VALUES ("2cd56e50-ea43-4b59-8608-3caffd696e91",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e");
+INSERT INTO O_ATTR
+	VALUES ("2cd56e50-ea43-4b59-8608-3caffd696e91",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"9ad2cf63-d696-4dc8-9069-e34c21ca0276",
+	'drawing',
+	'',
+	'',
+	'drawing',
+	0,
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	"144a6b5e-e8e3-4154-b552-a372fac543d7",
+	"38ca7d9a-4ce6-4cba-b296-378a3e08b578",
+	"18601aae-e156-4df2-9ff6-66c6160d044f",
+	"c2c72fb8-ae8f-4fe5-80f0-cc35263168e8",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Model',
+	'diagramId',
+	'R100');
+INSERT INTO R_RGO_PROXY
+	VALUES ("43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	"144a6b5e-e8e3-4154-b552-a372fac543d7",
+	'../Canvas Tools.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"20f384f0-6e59-43a8-9bc4-d9343da69a1d",
+	"38ca7d9a-4ce6-4cba-b296-378a3e08b578",
+	'../Canvas Tools.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("18601aae-e156-4df2-9ff6-66c6160d044f",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"57f2fb06-0e5a-471e-bab1-02b88f324eb4",
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	1,
+	'diagramId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57f2fb06-0e5a-471e-bab1-02b88f324eb4",
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	'../../UML 2.0 Diagram Interchange/Diagram/Diagram.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("18601aae-e156-4df2-9ff6-66c6160d044f",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	"2cd56e50-ea43-4b59-8608-3caffd696e91",
+	'diagramId',
+	'',
+	'',
+	'diagramId',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e");
+INSERT INTO O_OIDA
+	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	0,
+	'Tool_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e");
+INSERT INTO O_ID
+	VALUES (2,
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e");
+INSERT INTO S_SS_PROXY
+	VALUES ("afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	'Canvas Tools',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+  TRANSLATE_FOR_EXTERNAL_USE:FALSE
+  Notify_Changes:false
+',
+	'CT',
+	100,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001a00034",
+	'../Canvas Tools.xtuml');

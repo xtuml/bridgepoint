@@ -1,0 +1,197 @@
+AUDIT RESULTS FOR DOMAIN G_STE_G_EVT_PE_to_creation
+
+STATES WITH IDENTICAL NAMES:
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+Driver::Idle and Driver::Idle
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+G_STE_G_EVT_PE_to creation
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class G_STE_G_EVT_PE_to creation::Root
+Class G_STE_G_EVT_PE_to creation::Intermediate One
+Class G_STE_G_EVT_PE_to creation::Leaf One
+Class G_STE_G_EVT_PE_to creation::Intermediate Two
+Class G_STE_G_EVT_PE_to creation::Leaf Two
+Class G_STE_G_EVT_PE_to creation::Data Class
+Class G_STE_G_EVT_PE_to creation::Driver
+Class G_STE_G_EVT_PE_to creation::Double Root
+Class G_STE_G_EVT_PE_to creation::Leaf Three
+Class G_STE_G_EVT_PE_to creation::Initialization
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Root::Root_ID
+Attribute Root::count
+Attribute Root::current_state
+Attribute Intermediate One::Root_ID
+Attribute Intermediate One::count
+Attribute Intermediate One::current_state
+Attribute Leaf One::Root_ID
+Attribute Leaf One::count
+Attribute Leaf One::current_state
+Attribute Intermediate Two::Root_ID
+Attribute Intermediate Two::d_root_ID
+Attribute Intermediate Two::count
+Attribute Intermediate Two::current_state
+Attribute Leaf Two::Root_ID
+Attribute Leaf Two::count
+Attribute Leaf Two::current_state
+Attribute Data Class::DC_ID
+Attribute Data Class::Root_ID_count
+Attribute Data Class::d_root_ID_count
+Attribute Driver::driver_ID
+Attribute Driver::current_state
+Attribute Double Root::d_root_ID
+Attribute Double Root::count
+Attribute Double Root::current_state
+Attribute Leaf Three::Root_ID
+Attribute Leaf Three::count
+Attribute Leaf Three::current_state
+Attribute Initialization::init_ID
+Attribute Initialization::current_state
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute Intermediate One::Root_ID
+Referential Attribute Leaf One::Root_ID
+Referential Attribute Intermediate Two::Root_ID
+Referential Attribute Intermediate Two::d_root_ID
+Referential Attribute Leaf Two::Root_ID
+Referential Attribute Leaf Three::Root_ID
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+G_STE_G_EVT_PE_to creation::R1
+G_STE_G_EVT_PE_to creation::R2
+G_STE_G_EVT_PE_to creation::R3
+G_STE_G_EVT_PE_to creation::R4
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Root
+State Model Intermediate One
+State Model Leaf One
+State Model Intermediate Two
+State Model Leaf Two
+State Model Driver
+State Model Double Root
+State Model Leaf Three
+State Model Initialization
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event ROOT1
+Event ROOT2
+Event ROOT3
+Event ROOT4
+Event ROOT5
+Event ROOT6
+Event ROOT7
+Event I_O1
+Event I_O2
+Event I_O3
+Event I_O4
+Event I_O5
+Event I_O6
+Event L_O1
+Event L_O2
+Event L_O3
+Event I_T1
+Event I_T2
+Event I_T3
+Event I_T4
+Event L_T1
+Event L_T2
+Event L_T3
+Event DRV1
+Event DRV2
+Event DRV3
+Event D_ROOT1
+Event D_ROOT2
+Event D_ROOT3
+Event L_TH1
+Event L_TH2
+Event L_TH3
+Event INIT1
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Root::num
+Event Data Root::str
+Event Data Intermediate One::num
+Event Data Intermediate One::str
+Event Data Leaf One::num
+Event Data Leaf One::str
+Event Data Intermediate Two::num
+Event Data Intermediate Two::str
+Event Data Leaf Two::num
+Event Data Leaf Two::str
+Event Data Double Root::num
+Event Data Double Root::str
+Event Data Leaf Three::num
+Event Data Leaf Three::str
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Root::One
+Root::Three
+Intermediate One::One
+Intermediate One::Three
+Leaf One::One
+Leaf One::Three
+Intermediate Two::One
+Intermediate Two::Three
+Leaf Two::One
+Leaf Two::Three
+Driver::Start
+Driver::End
+Driver::Root
+Driver::Leaf One
+Driver::Intermediate One
+Driver::Leaf Two
+Driver::Intermediate Two
+Driver::Leaf Three
+Driver::Idle
+Driver::Idle
+Driver::Idle
+Driver::Idle
+Driver::Idle
+Driver::Idle
+Driver::Idle
+Driver::Idle
+Driver::Idle
+Double Root::One
+Leaf Three::One
+Leaf Three::Three
+Initialization::Initialization

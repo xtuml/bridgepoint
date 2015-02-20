@@ -1,0 +1,762 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile: generate.xml,v $
+ Version:   $Revision: 1.116.10.1 $
+ Modified:  $Date: 2013/07/31 20:58:54 $
+
+ (c) Copyright 2005-2014 Mentor Graphics Corporation  All rights reserved.
+
+-->
+<project name="bp.core" default="all" basedir=".">
+  <target name="all"
+          description="Generate all code for this project"
+          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util, generate_globals_util, format_java">
+  </target>
+
+  <target name="nb_all"
+          description="Generate all code for this project"
+          depends="sql,schema,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_globals_util, generate_rto_util">
+  </target>
+
+  <property name="eclipse-home" value="${basedir}/../.."/>
+  <property name="plugins-home" value="${ant.home}/../.."/>
+
+  <property environment="env"/>
+  <property name="bp_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/bin" />
+  <property name="mc_bin_dir" value="${env.PT_HOME_DRIVE}${env.PT_HOME}/mc3020/bin" />
+
+  <property name="sql.input" value="models/org.xtuml.bp.core/ooaofooa" />
+  <property name="sql.output" value="ooaofooa.sql" />
+
+  <property name="file_io_sql.input" value="../org.xtuml.bp.io.core/models/org.xtuml.bp.io.core/file_io" />
+  <property name="file_io_sql.output" value="file_io.sql" />
+  <property name="subsystems_to_remove" value="ACT_ V_ E_ GD_ CT_ TS_ DIM_ STY_" />
+
+  <property name="context_menu_input"
+      value="**/Context*Menu*Entry*Functions.xtuml" />
+  <property name="oal_validation_input"
+      value="**/OAL*Validation*Functions.xtuml" />
+  <property name="oal_utility_input"
+      value="**/OAL*Validation*Utility*Functions.xtuml" />
+
+  <property name="model_excludes" value="${context_menu_input}, ${oal_validation_input}, ${oal_utility_input}" />
+
+  <target name="sql.depends" >
+    <echo >Eclipse home: ${eclipse-home}</echo>
+    <echo >Plugins home: ${plugins-home}</echo>
+
+    <uptodate property="sql.buildNotNeeded" targetfile="sql/${sql.output}">
+      <srcfiles dir="${sql.input}" excludes="${model_excludes}" includes="**/*.xtuml" />
+      <srcfiles dir="sql" includes="${file_io_sql.output}" />
+    </uptodate>
+  </target>
+
+  <target name="sql" depends="sql.depends"
+          description="Generate the sql version of the OoaofOoa model"
+          unless="sql.buildNotNeeded" >
+    <echo >Generating ${sql.output} ...</echo>
+  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
+      <arg line="xtumlmc_cleanse_for_BridgePoint ${file_io_sql.input} sql/${file_io_sql.output} ${subsystems_to_remove}" />
+  </exec>
+  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
+      <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} sql/${sql.output} ${subsystems_to_remove}" />
+  </exec>
+  </target>
+
+  <property name="cme.input" value="models/org.xtuml.bp.core/context_menu" />
+  <property name="cme.output" value="context_menu.sql" />
+
+  <target name="cme.depends" >
+    <uptodate property="cme.buildNotNeeded" value="yes" targetfile="sql/${cme.output}">
+        <srcfiles dir= "${cme.input}" includes="**/*.xtuml" />
+     </uptodate>
+  </target>
+
+  <target name="cme" depends="cme.depends"
+          description="Generate the sql version of the Context Menu Entry model"
+          unless="cme.buildNotNeeded" >
+    <echo >Generating ${cme.output} ...</echo>
+  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
+    <arg line="xtumlmc_cleanse_for_BridgePoint ${cme.input} sql/${cme.output} ${subsystems_to_remove}" />
+  </exec>
+  </target>
+
+  <property name="mcj_path" value="../MC-Java" />
+  <property file="${mcj_path}/mc_java.depends" />
+
+  <property name="sg.dep" value="ooa_schema.sql,schema_gen.arc" />
+  <property name="schema.output" value="metamodel_schema.sql" />
+
+  <target name="schema.depends" >
+    <uptodate property="schema.buildNotNeeded" targetfile="sql/${schema.output}">
+       <srcfiles dir = "sql"        includes = "${sql.output},${file_io_sql.output}"/>
+       <srcfiles dir = "${mcj_path}" includes = "${sg.dep}"/>
+    </uptodate>
+  </target>
+
+  <target name="schema.copy" unless="schemaIsUpToDate">
+    <echo>The ${mcj_path}/ooa_schema.sql file is out of date.  Updating it.</echo>
+    <copy todir="${mcj_path}">
+      <fileset dir="sql" includes="ooa_schema.sql">
+          <different targetdir="${mcj_path}" ignoreFileTimes="true"/>
+      </fileset>
+    </copy>
+  </target>
+	
+  <target name="schema"
+          depends="schema.depends"
+          description="Generate the Ooa of ooa database schema file"
+          unless="schema.buildNotNeeded" >
+    <echo >Generating ${schema.output} ...</echo>
+  <ant antfile="${mcj_path}/build.xml" target="generate.schema" >
+    <property name="param1" value="${sql.output}" />
+    <property name="param2" value="${mcj_path}" />
+    <property name="param3" value="TRUE" />
+  </ant>
+    <ant antfile="${mcj_path}/build.xml" target="generate.schema" >
+        <property name="param1" value="${file_io_sql.output}" />
+        <property name="param2" value="${mcj_path}" />
+        <property name="param3" value="FALSE" />
+  </ant>
+  <!-- If necessary, freshen the schema used by MC-Java -->
+  <!-- Need to move the output file since the archetype uses the domain
+       name as the base name of the output file -->
+  <move file="sql/ooaofooa_schema.sql" tofile="sql/ooa_schema.sql" />
+  <condition property="schemaIsUpToDate">
+    <filesmatch file1="sql/ooa_schema.sql" file2="${mcj_path}/ooa_schema.sql" textfile="true"/>
+  </condition>
+  <antcall target="schema.copy"/>
+  <!-- Finally rename the output file to the one expected by the installer -->
+  <move file="sql/ooa_schema.sql" tofile="sql/${schema.output}" />
+  </target>
+
+  <property name="cme_schema.output" value="context_menu_schema.sql" />
+
+  <target name="cme_schema.depends" >
+    <uptodate property="cme_schema.buildNotNeeded" targetfile="sql/${cme_schema.output}">
+        <srcfiles dir = "sql"        includes = "${cme.output}"/>
+        <srcfiles dir = "${mcj_path}" includes = "schema_gen.arc"/>
+    </uptodate>
+  </target>
+
+  <target name="cme_schema"
+          depends="cme_schema.depends"
+          description="Generate the Context Menu Entry schema file"
+          unless="cme_schema.buildNotNeeded" >
+    <echo >Generating ${cme_schema.output} ...</echo>
+  <ant antfile="${mcj_path}/build.xml" target="generate.schema" >
+    <property name="param1" value="${cme.output}" />
+    <property name="param2" value="${mcj_path}" />
+  </ant>
+  <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+  <touch file="sql/${cme_schema.output}" />
+  </target>
+
+  <property name="java.sql.dep" value="${sql.output}" />
+  <property name="java.color.dep" value="ooaofooa_startspec.clr,ooaofooa_import_spec.clr,ooaofooa_package_spec.clr" />
+  <property name="java.tj.dep" value="ooa_schema.sql,${java.arc.depends}" />
+
+  <property name="java.output" value="src/org/xtuml/bp/core/Ooaofooa.java" />
+
+  <target name="java.depends" >
+    <uptodate property="java.buildNotNeeded" targetfile="${java.output}">
+       <srcfiles dir = "sql"        includes = "${java.sql.dep}" />
+       <srcfiles dir = "color"      includes = "${java.color.dep}" />
+       <srcfiles dir = "${mcj_path}" includes = "${java.tj.dep}" />
+       <srcfiles dir = "arc" includes = "generate_RGO_resolution_methods.inc" />
+    </uptodate>
+  </target>
+
+  <target name="java" description="Generate java code for this project"
+          depends="java.depends"
+          unless="java.buildNotNeeded" >
+    <echo >Generating java files ...</echo>
+  	<parallel>
+  <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
+    <property name="param1" value="ooaofooa" />
+    <property name="param2" value="Ooaofooa" />
+    <property name="param3" value="${mcj_path}" />
+    <property name="param4" value="file_io_schema" />
+    <property name="param5" value="" />
+    <property name="param6" value="Constants" />
+  	<property name="param7" value = "org.xtuml.bp.core"/>
+    <property name="param8" value = "1"/>
+    <property name="verify_selects" value="false" />
+    <property name="mcjava.project.root" value="${basedir}"/>
+  </ant>
+     <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
+      <property name="param1" value="ooaofooa" />
+      <property name="param2" value="Ooaofooa" />
+      <property name="param3" value="${mcj_path}" />
+      <property name="param4" value="file_io_schema" />
+      <property name="param5" value="Constants" />
+      <property name="param6" value="Invocation" />
+      <property name="param7" value = "org.xtuml.bp.core"/>
+      <property name="param8" value = "2"/>
+      <property name="verify_selects" value="false" />
+      <property name="mcjava.project.root" value="${basedir}"/>
+    </ant>
+    <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
+      <property name="param1" value="ooaofooa" />
+      <property name="param2" value="Ooaofooa" />
+      <property name="param3" value="${mcj_path}" />
+      <property name="param4" value="file_io_schema" />
+      <property name="param5" value="Invocation" />
+      <property name="param6" value="Use Case" />
+      <property name="param7" value = "org.xtuml.bp.core"/>
+      <property name="param8" value = "3"/>
+      <property name="verify_selects" value="false" />
+      <property name="mcjava.project.root" value="${basedir}"/>
+    </ant>
+    <ant antfile="${mcj_path}/build.xml" target="generate-with-file_io.java" >
+      <property name="param1" value="ooaofooa" />
+      <property name="param2" value="Ooaofooa" />
+      <property name="param3" value="${mcj_path}" />
+      <property name="param4" value="file_io_schema" />
+      <property name="param5" value="Use Case" />
+      <property name="param6" value="" />
+      <property name="param7" value = "org.xtuml.bp.core"/>
+      <property name="param8" value = "4"/>
+      <property name="verify_selects" value="false" />
+      <property name="mcjava.project.root" value="${basedir}"/>
+    </ant>
+  	</parallel>
+  <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+  <touch file="${java.output}" />
+  </target>
+
+  <property name="cme_actions.input" value="context_menu.pei.sql" />
+  <property name="cme_menus.output" value="src/org/xtuml/bp/core/ui/RenameAction.java" />
+  <property name="cme_sql.output" value="sql/ooaofooa_for_cme.sql" />
+
+  <target name="cme_sql.depends" >
+    <uptodate property="cme_sql.buildNotNeeded" targetfile="${cme_sql.output}">
+      <srcfiles dir="${sql.input}" includes="${context_menu_input}" />
+        <srcfiles dir="sql" includes="ooaofooa.sql" />
+    </uptodate>
+  </target>
+
+  <target name="cme_sql" depends="cme_sql.depends"
+          description="Generate the sql version of the OoaofOoa model for cme use"
+          unless="cme_sql.buildNotNeeded" >
+    <echo >Generating ${sql.output} ...</echo>
+    <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
+      <arg line="xtumlmc_cleanse_for_BridgePoint ${sql.input} ${cme_sql.output} ${subsystems_to_remove}" />
+    </exec>
+    <touch file="${cme_sql.output}" />
+  </target>
+
+  <target name="cme_menus.depends" >
+    <uptodate property="cme_menus.buildNotNeeded" targetfile="${cme_menus.output}">
+        <srcfiles dir = "sql" includes = "${cme_schema.output}"/>
+        <srcfiles dir = "sql" includes = "${cme_actions.input}"/>
+        <srcfiles dir = "sql" includes = "ooaofooa_hierarchy_schema.sql,ooaofooa_hierarchy.pei.sql" />
+        <srcfiles dir = "sql" includes = "ooaofooa_for_cme.sql" />
+        <srcfiles dir = "arc" includes = "cme_names.inc"/>
+        <srcfiles dir = "arc" includes = "create_context_menus.arc"/>
+        <srcfiles dir = "arc" includes = "create_core_plugin.inc"/>
+        <srcfiles dir = "arc" includes = "create_global_action.inc"/>
+        <srcfiles dir = "arc" includes = "create_object_action.inc"/>
+        <srcfiles dir = "arc" includes = "create_rename_action.inc"/>
+        <srcfiles dir = "arc" includes = "function_body.inc"/>
+        <srcfiles dir = "arc" includes = "chooser_elements_provider.inc"/>
+        <srcfiles dir = "arc" includes = "ui_processing.inc"/>
+        <srcfiles dir = "arc" includes = "wfl_pop.arc"/>
+        <srcfiles dir = "arc" includes = "wfl_block.inc"/>
+        <srcfiles dir = "arc" includes = "wizard.arc, ui_ident.inc, page.inc, wizard.inc"/>
+        <srcfiles dir = "arc" includes = "create_core_plugin.arc"/>
+    </uptodate>
+  </target>
+
+  <target name="cme_menus"
+          depends="inspector.schema,cme_sql,cme_menus.depends"
+          description="Generate the Context Menu Entry action classes"
+          unless="cme_menus.buildNotNeeded" >
+    <echo >Generating Action Classes ...</echo>
+    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+    <env key="VERIFY_SELECTS" value="false" />
+    <env key="CHECK_FUNCTIONS_ONLY" value="true" />
+    <env key="GEN_CONTEXT_MENU_WIZARD" value="TRUE"/>
+    <arg line="-nopersist
+      -import ${mcj_path}/ooa_schema.sql
+      -d 0 -import sql/ooaofooa-4.sql
+      -arch ${mcj_path}/verify_selects.arc
+      -import sql/${cme_schema.output}
+      -import sql/${cme_actions.input}
+      -arch arc/wfl_pop.arc
+      -d 0 -import sql/wfl.pei.sql
+      -import sql/ooaofooa_hierarchy_schema.sql
+      -import sql/ooaofooa_hierarchy.pei.sql
+      -arch arc/create_context_menus.arc
+      -arch arc/wizard.arc" />
+  </exec>
+  <delete file="sql/____file.txt" />
+  <delete file="sql/____actn.arc" />
+  <delete file="sql/blck_id" />
+  <delete file="____actn.arc" />
+  <delete file="____file.txt" />
+  <delete file="blck_id" />
+  <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+  <touch file="${cme_menus.output}" />
+  </target>
+
+  <!-- ********************************************************************* -->
+  <!-- ************************* INSPECTOR SECTION ************************* -->
+  <property name="inspector.sql.input" value="models/org.xtuml.bp.core/ooaofooa_hierarchy" />
+  <property name="inspector.sql.output" value="ooaofooa_hierarchy.sql" />
+
+  <target name="inspector.sql.depends" >
+    <uptodate property="inspector.sql.buildNotNeeded" targetfile="sql/${inspector.sql.output}">
+         <srcfiles dir= "${inspector.sql.input}" includes="**/*.xtuml" />
+      </uptodate>
+  </target>
+
+  <target name="inspector.sql" depends="inspector.sql.depends"
+          description="Generate the sql version of the Core Hierarchy/Tree model"
+          unless="inspector.sql.buildNotNeeded" >
+    <echo >Generating ${inspector.sql.output} ...</echo>
+  <exec vmlauncher="false" failonerror="true" executable="${mc_bin_dir}/xtumlmc_build.exe" >
+    <arg line="xtumlmc_cleanse_for_BridgePoint ${inspector.sql.input} sql/${inspector.sql.output} ${subsystems_to_remove}" />
+  </exec>
+  </target>
+
+  <property name="inspector.schema.dep" value="ooa_schema.sql,schema_gen.arc" />
+  <property name="inspector.schema.output" value="ooaofooa_hierarchy_schema.sql" />
+
+  <target name="inspector.schema.depends" >
+    <uptodate property="inspector.schema.buildNotNeeded" targetfile="sql/${inspector.schema.output}">
+       <srcfiles dir = "sql"        includes = "${inspector.sql.output}"/>
+       <srcfiles dir = "${mcj_path}" includes = "${inspector.schema.dep}"/>
+    </uptodate>
+  </target>
+
+  <target name="inspector.schema"
+          depends="inspector.sql,inspector.schema.depends"
+          description="Generate the Core Tree/Hierarchy schema file"
+          unless="inspector.schema.buildNotNeeded" >
+    <echo >Generating ${inspector.schema.output} ...</echo>
+  <ant antfile="${mcj_path}/build.xml" target="generate.schema" >
+    <property name="param1" value="${inspector.sql.output}" />
+    <property name="param2" value="${mcj_path}" />
+  </ant>
+  <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+  <touch file="sql/${inspector.schema.output}" />
+  </target>
+
+  <property name="chain_util_path" value="../org.xtuml.bp.core"/>
+
+  <property name="inspector.java.output" value="src/org/xtuml/bp/core/inspector/SystemInspector.java" />
+
+  <target name="inspector.java.depends" >
+    <uptodate property="inspector.java.buildNotNeeded" targetfile="${inspector.java.output}">
+       <srcfiles dir = "sql" includes = "ooaofooa_hierarchy_schema.sql,ooaofooa_hierarchy.pei.sql" />
+       <srcfiles dir = "sql" includes = "ooaofooa.sql" />
+       <srcfiles dir = "arc"        includes = "parse_chain.inc,create_model_inspector.arc,create_object_inspector.inc,create_type_sorter.inc,create_core_plugin_class.arc,create_dependson.arc,create_metadata_elements_sorters.arc" />
+       <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql,arch_utils.inc"/>
+    </uptodate>
+  </target>
+
+  <target name="inspector.java"
+          depends="sql,inspector.sql,inspector.schema,inspector.java.depends"
+          description="Generate the tree adapter files"
+          unless="inspector.java.buildNotNeeded" >
+    <echo >Generating ${inspector.java.output} ...</echo>
+    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+        <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
+    <arg line="-nopersist
+      -import ${mcj_path}/ooa_schema.sql
+      -import sql/ooaofooa_hierarchy_schema.sql
+      -import sql/ooaofooa.sql
+      -import sql/ooaofooa_hierarchy.pei.sql
+      -arch arc/create_core_plugin_class.arc
+      -arch arc/create_model_inspector.arc
+      -arch arc/create_metadata_elements_sorters.arc
+      -arch arc/create_dependson.arc" />
+  </exec>
+
+    <delete file="____file.txt" />
+    <delete file="key_lett.txt" />
+    <delete file="rel_chain.txt" />
+    <delete file="rel_num.txt" />
+    <delete file="remainder.txt" />
+  <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+  <touch file="${inspector.java.output}" />
+  </target>
+
+	<property name="cell_modifier.output" value="src/org/xtuml/bp/core/ui/cells/CellModifierProvider.java" />
+	
+	<target name="cell_modifier.depends" >
+		<uptodate property="cell_modifier.buildNotNeeded" targetfile="${cell_modifier.output}">
+			<srcfiles dir = "arc"        includes = "generate_cell_modifiers.arc" />
+			<srcfiles dir = "sql" includes = "ooaofooa_hierarchy_schema.sql,ooaofooa_hierarchy.pei.sql" />
+			<srcfiles dir = "sql" includes = "ooaofooa.sql" />
+			<srcfiles dir = "arc"        includes = "parse_chain.inc,create_model_inspector.arc,create_object_inspector.inc,create_type_sorter.inc,create_core_plugin_class.arc,create_dependson.arc,create_metadata_elements_sorters.arc" />
+			<srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql,arch_utils.inc"/>
+		</uptodate>
+	</target>
+	
+	<target name="cell_modifiers" depends="cell_modifier.depends" unless="cell_modifier.buildNotNeeded">
+	    <echo >Generating ${cell_modifier.output} ...</echo>
+	    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+	        <env key="CHAIN_UTIL_DIR" value="${chain_util_path}"/>
+	    <arg line="-nopersist
+	      -import ${mcj_path}/ooa_schema.sql
+	      -import sql/ooaofooa_hierarchy_schema.sql
+	      -import sql/ooaofooa.sql
+	      -import sql/ooaofooa_hierarchy.pei.sql
+	      -arch arc/generate_cell_modifiers.arc" />
+	  </exec>
+
+	    <delete file="____file.txt" />
+	    <delete file="key_lett.txt" />
+	    <delete file="rel_chain.txt" />
+	    <delete file="rel_num.txt" />
+	    <delete file="remainder.txt" />
+	  <!-- Need to touch the output file for the case where the input data
+	       changed, but the output didn't -->
+	  <touch file="${cell_modifier.output}" />
+	</target>
+	
+	<property name="gssu.output" value="src/org/xtuml/bp/core/util/SupertypeSubtypeUtil.java" />
+
+	<target name="generate_supertype_subtype_util.depends" depends="sql" >
+	    <uptodate property="supertype_subtype_util.buildNotNeeded" targetfile="${gssu.output}">
+	       <srcfiles dir = "arc" includes = "generate_supertype_subtype_util.arc" />
+	    	 <srcfiles dir = "sql" includes = "ooaofooa.sql" />
+         <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql" />
+	    </uptodate>
+	</target>
+
+	<target name="generate_supertype_subtype_util" unless="supertype_subtype_util.buildNotNeeded" depends="generate_supertype_subtype_util.depends" >
+	    <echo >Generating ${gssu.output} ...</echo>
+	    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+	    	<arg line="-nopersist
+	      	-import ${mcj_path}/ooa_schema.sql
+	      	-import sql/ooaofooa.sql
+	      	-arch arc/generate_supertype_subtype_util.arc" />
+		</exec>	    	
+    <!-- touch the output file in case generator believes there
+         are no changes -->
+    <touch file="${gssu.output}"/>
+	</target>
+
+	<property name="grtou.output" value="src/org/xtuml/bp/core/util/RTOUtil.java" />
+
+	<target name="generate_rto_util.depends" >
+	    <uptodate property="rto_util.buildNotNeeded" targetfile="${grtou.output}">
+	       <srcfiles dir = "arc" includes = "generate_rto_util.arc" />
+	    	 <srcfiles dir = "sql" includes = "ooaofooa.sql" />
+	       <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql" />
+	    </uptodate>
+	</target>
+
+	<target name="generate_rto_util" unless="rto_util.buildNotNeeded" depends="generate_rto_util.depends" >
+	    <echo >Generating ${grtou.output} ...</echo>
+	    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+	    	<arg line="-nopersist
+	      	-import ${mcj_path}/ooa_schema.sql
+	      	-import sql/ooaofooa.sql
+	      	-arch arc/generate_rto_util.arc" />
+		</exec>	    	
+		<!-- touch the output file in case generator believes there
+		     are no changes -->
+		<touch file="${grtou.output}"/>
+	</target>
+	
+	<property name="ald.output" value="src/org/xtuml/bp/core/util/ActionLanguageDescriptionUtil.java" />
+	
+	<target name="action_language_description_util.depends" depends="sql" >
+	    <uptodate property="action_language_description_util.buildNotNeeded" targetfile="${ald.output}">
+	       <srcfiles dir = "arc" includes = "action_language_description_util.arc" />
+	    	 <srcfiles dir = "sql" includes = "ooaofooa.sql" />
+	    	 <srcfiles dir = "${mcj_path}" includes = "ooa_schema.sql" />
+	    </uptodate>
+	</target>
+
+	<target name="action_language_description_util" unless="action_language_description_util.buildNotNeeded" depends="action_language_description_util.depends" >
+	    <echo >Generating ${ald.output} ...</echo>
+	    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+	    	<arg line="-nopersist
+	      	-import ${mcj_path}/ooa_schema.sql
+	      	-import sql/ooaofooa.sql
+	      	-arch arc/action_language_description_util.arc" />
+		</exec>	    	
+    <!-- touch the output file in case generator believes there
+         are no changes -->
+    <touch file="${ald.output}"/>
+	</target>
+	    	
+	<property name="gu.output" value="src/org/xtuml/bp/core/util/GlobalsUtil.java" />
+
+	<target name="generate_globals_util.depends" depends="sql" >
+	    <uptodate property="globals_util.buildNotNeeded" targetfile="${gu.output}">
+	       <srcfiles dir = "arc" includes = "generate_globals_util.arc" />
+	    </uptodate>
+	</target>
+
+	<target name="generate_globals_util" unless="globals_util.buildNotNeeded" depends="generate_globals_util.depends" >
+	    <echo >Generating ${gu.output} ...</echo>
+	    <exec vmlauncher="false" failonerror="true" executable="${bp_bin_dir}/xtumlmc_gen_erate" >
+	        <env key="PTC_MC_ARC_DIR" value="${mcj_path}"/>
+	    	<arg line="-nopersist
+	      	-import ${mcj_path}/ooa_schema.sql
+	      	-import sql/ooaofooa.sql
+	      	-arch arc/generate_globals_util.arc" />
+		</exec>
+	    <delete file="____file.txt" />
+	</target>
+	
+  <!-- ********************************************************************* -->
+  <property name="cvs_java_files" value="DomainProxy.java,PropertyViewListener.java,
+    ModelRoot.java, OoaofooaBase.java, EclipseOoaofooa.java, Err_c.java, Vm_c.java,
+    XtUMLNature.java, ResourceChangeListener.java, ResourceUpdaterModelChangeListener.java,
+      common/*.java,
+      ui/PtWizardPage.java,ui/Selection.java,ui/IModelImport.java,ui/AbstractModelImportFactory.java,
+    ui/AbstractModelExportFactory.java, ui/NewDomainWizard.java, ui/BinaryFormalizeOnR_RELWizard.java, ui/BinaryFormalizeOnR_RELWizardPage1.java, ui/BinaryFormalizeOnR_RELWizardPage2.java,
+    ui/NewSystemWizard.java, ui/ToggleNatureAction.java, ui/CopyCutAction.java, ui/PasteAction.java,
+    ui/WizardNewDomainCreationPage.java, ui/WizardNewSystemCreationPage.java, ui/CutAction.java, ui/CopyAction.java, ui/SetBPProjectPreferencesAction.java,
+    ui/perspective/BridgePointPerspective.java,ui/preferences/BridgePointPreferences.java, ui/preferences/BuildTranslationPreferences.java,
+    ui/preferences/ExportPreferences.java,ui/preferences/MessageDirectionPreferences.java,ui/preferences/VerifierPreferences.java,
+    ui/preferences/ActionLanguagePreferences.java, ui/preferences/BridgePointProjectPreferences.java,
+  	ui/preferences/BridgePointProjectReferencesPreferenceNode.java, ui/preferences/BridgePointProjectReferencesPreferences.java,
+  	ui/preferences/BridgePointProjectActionLanguagePreferenceNode.java,	ui/preferences/BridgePointProjectActionLanguagePreferences.java,
+  	ui/preferences/EmptySynchronousMessageParsePreferenceButtons.java,
+  	sorter/AlphaSorter.java,sorter/BaseTypeSpecificSorter.java, ui/GenericPackageAssignEventOnSM_TXNWizardPage1.java,
+    inspector/IModelInspectorRegistry.java,inspector/BaseModelClassInspector.java,
+    util/*.java, ui/ICoreHelpContextIds.java, ui/WizardDelegate.java, ui/DelegatingWizard.java,
+    ui/WizardDelegateChooserPage.java, ui/ConvertModel2UUIDAction.java,
+      ui/ExecuteAction.java, ui/MonitorAction.java, ui/MonitorOffAction.java,
+    ui/AbstractStreamExportFactory.java, ui/AbstractStreamImportFactory.java,
+      relocatables/*.java, lib/*.java,
+      common/OALPersistenceUtil.java, ui/marker/*.java, ui/ConvertToMultifile*.java,
+      ui/tree/*.java, ui/dialogs/*.java, ui/SetValueOnConstantAction.java, ui/ConstantValueInputValidator.java,
+  	ui/UpgradeToGlobalsAction.java, ui/DefaultValueInputValidator.java, Search_c.java, search/DocumentCharSequence.java,
+  	ui/actions/PublishSynchronizationChanges.java, ui/actions/PullSynchronizationChanges.java, ui/actions/ElementChange.java, ui/actions/CreateBuiltInExternalEntitiesAction.java,
+  	ui/cells/ICellProvider.java, ui/cells/editors/*.java, inspector/MessageArgumentInspector.java, inspector/PackageInspector.java" />
+
+  <target name="format_java.depends" >
+    <uptodate property="format_java.buildNotNeeded" targetfile="${java.output}">
+         <srcfiles dir = "src/org/xtuml/bp/core/" includes="*.java" excludes="${cvs_java_files}" />
+         <srcfiles dir = "src/org/xtuml/bp/core/ui" includes="*.java"  excludes="
+         PtWizardPage.java,Selection.java,IModelImport.java,AbstractModelImportFactory.java, BinaryFormalizeOnR_RELWizardPage2.java, BinaryFormalizeOnR_RELWizardPage1.java, BinaryFormalizeOnR_RELWizard.java,
+     AbstractModelExportFactory.java, ConvertModel2UUIDAction.java, NewDomainWizard.java, WizardNewSystemCreationPage.java,
+     NewSystemWizard.java, ToggleNatureAction.java, WizardNewDomainCreationPage.java, common/OALPersistenceUtil.java,
+     preferences/ExportPreferences.java,
+     perspective/BridgePointPerspective.java,preferences/BridgePointPreferences.java, preferences/ActionLanguagePreferences.java, ICoreContextIds.java, cells/ICellProvider.java, cells/editors/*.java"/>
+         <srcfiles dir = "src/org/xtuml/bp/core/sorter" includes="*.java" excludes="AlphaSorter.java,BaseTypeSpecificSorter.java" />
+         <srcfiles dir = "src/org/xtuml/bp/core/inspector" includes="*.java" excludes="IModelInspectorRegistry.java,BaseModelClassInspector.java" />
+    </uptodate>
+  </target>
+
+  <target name="format_java"
+          depends="format_java.depends"
+      unless="format_java.buildNotNeeded"
+        description="Format the generated java source" >
+
+    <taskdef name="PTCodeFormat" classname="PTCodeFormatterTask" >
+        <classpath>
+            <pathelement path="../org.xtuml.bp.core/tools/" />
+            <fileset dir="${plugins-home}/plugins" casesensitive="yes">
+                <include name="**/org.eclipse.text_*.jar" />
+                <include name="**/org.eclipse.ui_*.jar" />
+                <include name="**/org.eclipse.jdt.core_*.jar" />
+                <include name="**/org.eclipse.core.runtime_*.jar" />
+                <include name="**/org.eclipse.osgi_*.jar" />
+                <include name="**/org.eclipse.core.resources_*.jar" />
+                <include name="**/org.eclipse.equinox.common_*.jar" />
+            </fileset>
+        </classpath>
+    </taskdef>
+        <PTCodeFormat>
+          <fileset dir="../org.xtuml.bp.core/src/org/xtuml/bp/core/" excludes="${cvs_java_files}"
+            includes="inspector/*.java,sorter/*.java,ui/*.java,*.java, ui/actions/*.java, util/SupertypeSubtypeUtil.java, util/ActionLanguageDescriptionUtil.java, util/RTOUtil.java" />
+        </PTCodeFormat>
+  <!-- Need to touch the output file for the case where the input data
+       changed, but the output didn't -->
+  <touch file="${java.output}" />
+  </target>
+
+  <!-- COMPILE TARGETS -->
+
+  <!-- This target is not used in the eclipse environment.  The eclipse Java
+       builder handles the java compilation when building BridgePoint under
+       eclipse.  This target is used only when building BridgePoint from the
+       command line on the build server. -->
+  <target name="compile"
+                  description="Compile project" >
+
+    <echo>Compiling ${ant.project.name}</echo>
+    <mkdir dir="bin" />
+    <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6"
+        fork="yes" destdir="bin" debug="true" debuglevel="lines,vars,source" encoding="UTF-8">
+       <src path="src/org/xtuml/bp" />
+       <src path="src/lib" />
+       <classpath>
+         <pathelement path="jlc_2013_2.jar" />
+         <pathelement path="bin/org/xtuml/bp/core" />
+         <pathelement path="bin/lib" />
+       	 <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
+           <include name="**/org.eclipse.osgi_*.jar" />
+           <include name="**/org.eclipse.ui.ide_*.jar" />
+           <include name="**/org.eclipse.jface_*.jar" />
+           <include name="**/org.eclipse.ui.views_*.jar" />
+           <include name="**/org.eclipse.jface.text_*.jar" />
+           <include name="**/org.eclipse.core.runtime_*.jar" />
+           <include name="**/org.eclipse.core.resources_*.jar" />
+           <include name="**/org.eclipse.ui.workbench_*.jar" />
+           <include name="**/org.eclipse.swt.win32.win32.x86_*.jar" />
+           <include name="**/org.eclipse.ui_*.jar" />
+           <include name="**/org.eclipse.core.boot_*.jar" />
+           <include name="**/org.eclipse.ui.workbench.texteditor_*.jar" />
+           <include name="**/org.eclipse.ui.editors_*.jar" />
+           <include name="**/org.eclipse.equinox.common_*.jar"/>
+           <include name="**/org.eclipse.core.jobs_*.jar"/>
+           <include name="**/org.eclipse.equinox.registry_*.jar"/>
+           <include name="**/org.eclipse.core.commands_*.jar"/>
+           <include name="**/org.eclipse.core.variables_*.jar"/>
+       	   <include name="**/org.eclipse.core.variables.source_*.jar"/>
+       	   <include name="**/org.eclipse.text_*.jar" />
+       	   <include name="**/org.eclipse.equinox.preferences_*.jar" />       	   
+       	 </fileset>
+       </classpath>
+    </javac>
+
+  </target>
+
+  <!-- CLEAN TARGETS -->
+
+  <target name="clean_all"
+        description="Clean entire project"
+        depends="clean_classes,clean_java,clean_cme_menus,clean_cme,
+        clean_cme_schema,clean_schema,clean_sql,clean_create_pei,clean_cme_actions,clean_inspector,clean_file_io_sql" >
+
+    <echo>Done cleaning for ${ant.project.name}</echo>
+
+  </target>
+
+  <target name="clean_sql"
+
+    description="Remove the generated file: ${sql.output}">
+    <echo>Removing generated sql file: ${sql.output} ...</echo>
+    <delete file="sql/${sql.output}" />
+    <echo>Removing generated sql files: ooaofooa-1.sql (et al.) ...</echo>
+    <delete failonerror="false">
+       <fileset dir="sql" includes="ooaofooa-*.sql"/>
+    </delete>
+    <echo>Removing generated sql file: ${cme_sql.output} ...</echo>
+    <delete file="${cme_sql.output}"/>
+    <delete failonerror="false">
+       <fileset dir="gen/code_generation" includes="ooaofooa*.sql"/>
+    </delete>
+  </target>
+
+  <target name="clean_cme"
+     description="Remove generated sql version of the Context Menu Entry model">
+
+    <echo>Removing generated sql file: ${cme.output} ...</echo>
+     <delete file="sql/${cme.output}"/>
+
+  </target>
+
+  <target name="clean_cme_menus" description="Remove the Context Menu Entry action sources" >
+
+    <echo>Removing generated plugin file: plugin.xml ...</echo>
+    <delete verbose="true" file="plugin.xml" />
+
+    <echo>Removing generated sql files ...</echo>
+    <delete verbose="true">
+      <fileset dir="sql" includes="Context_menu.bpi.sql, wfl.pei.sql" />
+    </delete>
+
+  </target>
+
+  <target name="clean_schema" description="Remove the Ooa of ooa database schema file" >
+
+    <echo>Removing the generated schema file: ${schema.output} ...</echo>
+    <delete file="sql/${schema.output}" />
+
+  </target>
+
+  <target name="clean_cme_schema" description="Remove the Context Menu Entry schema file">
+
+    <echo>Removing the generated schema file: ${cme_schema.output} ...</echo>
+    <delete file="sql/${cme_schema.output}" />
+
+  </target>
+
+  <target name="clean_create_pei"
+    description="Remove generated pei file" >
+
+      <echo>Removing generated sql file: ${pei_file} ...</echo>
+      <delete file="${pei_file}" />
+
+  </target>
+   <target name="clean_file_io_sql"
+      description="Remove generated clean_file_io_sql files" >
+
+        <echo>Removing generated clean_file_io_sql files:</echo>
+         <delete file="sql/${file_io_sql.output}" />
+         <delete file="sql/file_io_schema.sql" />
+  </target>
+
+  <target name="clean_java"
+     description="Remove generated java source files." >
+
+    <echo>Removing generated java source files ...</echo>
+    <delete verbose="true" >
+    	<fileset dir="src/org/xtuml/bp/core/util" includes="ActionLanguageDescriptionUtil.java" />
+    	<fileset dir="src/org/xtuml/bp/core/util" includes="GlobalsUtil.java" />
+    	<fileset dir="src/org/xtuml/bp/core/util" includes="SupertypeSubtypeUtil.java" />
+    	<fileset dir="src/org/xtuml/bp/core/util" includes="RTOUtil.java" />
+        <fileset dir="src/org/xtuml/bp/core"
+           excludes="${cvs_java_files}" />
+    </delete>
+
+  </target>
+
+  <target name="clean_cme_actions"
+    description="Remove the Context Menu Entry action function bodies" >
+
+    <echo>Removing generated sql file: ${cme_actions.output} ...</echo>
+    <delete file="sql/${cme_actions.output}" />
+    <echo>Removing generated sql file: cme_import.sql ...</echo>
+    <delete file="sql/cme_import.sql"/>
+    <echo>Removing build touch file: ${cme_actions.touch} ...</echo>
+    <delete file="sql/${cme_actions.touch}" />
+
+
+  </target>
+
+  <target name="clean_classes" description="Remove all compiled class files." >
+
+    <echo>Removing compiled class files ...</echo>
+    <delete verbose="true" dir="bin" />
+
+  </target>
+
+  <target name="clean_inspector" description="Remove all compiled class files." >
+
+    <echo>[Inspector]Removing compiled class files ...</echo>
+    <delete verbose="true" dir="bin" />
+    <echo>[Inspector]Removing generated java source files ...</echo>
+    <echo>[Inspector]Removing sql and schema file ...</echo>
+    <delete verbose="true" >
+        <fileset dir="sql"
+           includes="ooaofooa_hierarchy.sql,ooaofooa_hierarchy_schema.sql" />
+    </delete>
+
+  </target>
+
+</project>

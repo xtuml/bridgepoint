@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      *RCSfile*
+ Version:   *Revision*
+ Modified:  *Date*
+
+ (c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
+
+ ========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+ ======================================================================== 
+
+-->
+<contexts>
+ 	<!-- context entries to include BP topics in main import/export wizard pages -->
+	<context id="export_wizard_selection_wizard_page_context">
+		<topic href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/NucleusBridgePointModelExport.htm"
+			label="Exporting a BridgePoint Model File"/>
+		<topic href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/BP61Export.htm"
+			label="Exporting a BridgePoint 6.1 SQL File"/>
+	</context>
+	<context id="export_wizard_context">
+		<topic href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/NucleusBridgePointModelExport.htm"
+			label="Exporting a BridgePoint Model File"/>
+		<topic href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/BP61Export.htm"
+			label="Exporting a BridgePoint 6.1 SQL File"/>
+	</context>
+	<!-- context entry for Model Export -->
+	<context id="modelExportDialogId" >
+		<description>This wizard helps you export a BridgePoint Model </description>
+		<topic href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/NucleusBridgePointModelExport.htm"
+			label="Exporting a BridgePoint Model File"/>
+	</context>	
+	<!-- context entry for Sql Export -->
+	<context id="sqlExportDialogId" >
+		<description>This wizard helps you export a BridgePoint 6.1 SQL file.</description>
+		<topic href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Wizards/HTML/BP61Export.htm"
+			label="Exporting a BridgePoint 6.1 SQL File"/>
+	</context>
+</contexts>

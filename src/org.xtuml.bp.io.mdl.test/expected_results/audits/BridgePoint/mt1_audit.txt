@@ -1,0 +1,134 @@
+AUDIT RESULTS FOR DOMAIN mt1
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+mt1
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+External Entity Logging
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging::LogInfo
+External Entity Bridge Logging::LogSuccess
+External Entity Bridge Logging::LogFailure
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class mt1::A
+Class mt1::B
+Class mt1::C
+Class mt1::AC
+Class mt1::BC
+Class mt1::CC
+Class mt1::D
+Class mt1::DC
+Class mt1::Driver
+Class mt1::Init
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute A::a_id
+Attribute A::current_state
+Attribute B::b_id
+Attribute B::current_state
+Attribute C::c_id
+Attribute C::current_state
+Attribute AC::ac_id
+Attribute AC::current_state
+Attribute BC::bc_id
+Attribute BC::current_state
+Attribute CC::cc_id
+Attribute CC::current_state
+Attribute D::d_id
+Attribute D::current_state
+Attribute DC::dc_id
+Attribute DC::current_state
+Attribute Driver::id
+Attribute Driver::num_acks
+Attribute Driver::current_state
+Attribute Init::id
+Attribute Init::current_state
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model A
+State Model A
+State Model B
+State Model B
+State Model C
+State Model C
+State Model AC
+State Model BC
+State Model CC
+State Model D
+State Model D
+State Model DC
+State Model Driver
+State Model Init
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event A1
+Event A2
+Event A3
+Event A_A1
+Event A_A2
+Event B1
+Event B2
+Event B3
+Event B_A1
+Event B_A2
+Event C1
+Event C2
+Event C3
+Event C_A1
+Event C_A2
+Event AC1
+Event AC2
+Event BC1
+Event BC2
+Event CC1
+Event CC2
+Event D1
+Event D2
+Event D3
+Event D_A1
+Event D_A2
+Event DC1
+Event DC2
+Event DR1
+Event DR2
+Event DR3
+Event INIT1
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+A::one
+A::two
+A::three
+A::one (Class Based)
+A::two (Class Based)
+B::one
+B::two
+B::three
+B::one (Class Based)
+B::two (Class Based)
+C::one
+C::two
+C::three
+C::one (Class Based)
+C::two (Class Based)
+AC::one
+AC::two
+BC::one
+BC::two
+CC::one
+CC::two
+D::one
+D::two
+D::three
+D::one (Class Based)
+D::two (Class Based)
+DC::one
+DC::two
+Driver::starting up OOA threads
+Driver::receiving acks from OOA threads
+Driver::done
+Init::init

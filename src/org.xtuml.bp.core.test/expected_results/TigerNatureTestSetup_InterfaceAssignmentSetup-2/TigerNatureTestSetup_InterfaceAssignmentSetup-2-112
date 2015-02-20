@@ -1,0 +1,7 @@
+drawRectangle(8659, 6532, 405, 431)
+drawText("+Unnamed Component", 8686, 6728, true)
+drawRectangle(8980, 6566, 50, 40)
+drawRectangle(8967, 6570, 23, 11)
+drawRectangle(8967, 6587, 23, 10)
+drawPolyline("8969, 6532, 8760, 6427, 9170, 6427, 9170, 6633, 9376, 6633)
+drawText("Unnamed Interface", 0, 1, true)

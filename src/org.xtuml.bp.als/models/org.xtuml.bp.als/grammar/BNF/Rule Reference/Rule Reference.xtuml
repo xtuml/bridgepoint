@@ -1,0 +1,187 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("6049f0e6-0b7c-4903-a456-e5b0629a5bd5",
+	'Rule Reference',
+	7,
+	'RR',
+	'This represents the use of a rule in another rule.',
+	"5edea08f-a6e1-4146-8e1c-0cade7a477c7");
+INSERT INTO O_REF
+	VALUES ("6049f0e6-0b7c-4903-a456-e5b0629a5bd5",
+	"d9a46cab-aa5b-44e6-aecf-7d894780ea88",
+	0,
+	"afad8a72-33b5-4161-a577-7f8fce8f45f0",
+	"3140ee1d-d2f1-4614-969a-0baca90f2eaa",
+	"05863f07-adc3-4deb-9404-f6a91b1199ce",
+	"8e20a84b-5c30-44ba-ae3f-4e8331c75219",
+	"2a42c10b-cee5-4f3d-9aaa-d005e16f326f",
+	"f616312f-58fa-469b-8711-e5c4cfb32467",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Leaf Node',
+	'nodeId',
+	'R3');
+INSERT INTO R_RGO_PROXY
+	VALUES ("6049f0e6-0b7c-4903-a456-e5b0629a5bd5",
+	"3140ee1d-d2f1-4614-969a-0baca90f2eaa",
+	"05863f07-adc3-4deb-9404-f6a91b1199ce",
+	'../BNF.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("afad8a72-33b5-4161-a577-7f8fce8f45f0",
+	"d9a46cab-aa5b-44e6-aecf-7d894780ea88",
+	0,
+	"3140ee1d-d2f1-4614-969a-0baca90f2eaa",
+	"8e20a84b-5c30-44ba-ae3f-4e8331c75219",
+	'../BNF.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("2a42c10b-cee5-4f3d-9aaa-d005e16f326f",
+	"6049f0e6-0b7c-4903-a456-e5b0629a5bd5",
+	"b9e2878f-bc2d-454f-ab46-c30f6f787fda",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	1,
+	'nodeId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("b9e2878f-bc2d-454f-ab46-c30f6f787fda",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	'../Node/Node.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("2a42c10b-cee5-4f3d-9aaa-d005e16f326f",
+	"6049f0e6-0b7c-4903-a456-e5b0629a5bd5",
+	"00000000-0000-0000-0000-000000000000",
+	'nodeId',
+	'',
+	'',
+	'nodeId',
+	0,
+	"73db19ab-e535-4718-ab07-668918299d9a",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("73db19ab-e535-4718-ab07-668918299d9a",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("6049f0e6-0b7c-4903-a456-e5b0629a5bd5",
+	"50596432-249d-4b43-b1db-deea1f96bd06",
+	1,
+	"ec0e39e1-c5ef-4371-9f8d-e9d89a7b15b8",
+	"2aeef1c7-91cc-4b47-892f-12a00546c8ff",
+	"b74e7cc6-0434-463a-ac4c-54dbacdbe371",
+	"b0f48f2a-3dc5-4434-9022-0d3fd6f10be4",
+	"2e34ad8f-b25b-459c-8829-a94a879beeb1",
+	"47cd1d2e-6546-4ba5-9cbf-1aae36dd3ed1",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Rule',
+	'rule_name',
+	'R4');
+INSERT INTO R_RGO_PROXY
+	VALUES ("6049f0e6-0b7c-4903-a456-e5b0629a5bd5",
+	"2aeef1c7-91cc-4b47-892f-12a00546c8ff",
+	"b74e7cc6-0434-463a-ac4c-54dbacdbe371",
+	'../BNF.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("ec0e39e1-c5ef-4371-9f8d-e9d89a7b15b8",
+	"50596432-249d-4b43-b1db-deea1f96bd06",
+	1,
+	"2aeef1c7-91cc-4b47-892f-12a00546c8ff",
+	"b0f48f2a-3dc5-4434-9022-0d3fd6f10be4",
+	'../BNF.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("2e34ad8f-b25b-459c-8829-a94a879beeb1",
+	"6049f0e6-0b7c-4903-a456-e5b0629a5bd5",
+	"ec0e39e1-c5ef-4371-9f8d-e9d89a7b15b8",
+	"50596432-249d-4b43-b1db-deea1f96bd06",
+	1,
+	'rule_name');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("ec0e39e1-c5ef-4371-9f8d-e9d89a7b15b8",
+	"50596432-249d-4b43-b1db-deea1f96bd06",
+	'../Rule/Rule.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("2e34ad8f-b25b-459c-8829-a94a879beeb1",
+	"6049f0e6-0b7c-4903-a456-e5b0629a5bd5",
+	"2a42c10b-cee5-4f3d-9aaa-d005e16f326f",
+	'rule_name',
+	'',
+	'',
+	'rule_name',
+	0,
+	"73db19ab-e535-4718-ab07-668918299d9a",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("54326ad9-62e7-471e-b1f4-e500ffe61e22",
+	"6049f0e6-0b7c-4903-a456-e5b0629a5bd5");
+INSERT INTO O_BATTR
+	VALUES ("54326ad9-62e7-471e-b1f4-e500ffe61e22",
+	"6049f0e6-0b7c-4903-a456-e5b0629a5bd5");
+INSERT INTO O_ATTR
+	VALUES ("54326ad9-62e7-471e-b1f4-e500ffe61e22",
+	"6049f0e6-0b7c-4903-a456-e5b0629a5bd5",
+	"2e34ad8f-b25b-459c-8829-a94a879beeb1",
+	'param_val',
+	'This is the list of arguments being passed  to the rule.
+',
+	'',
+	'param_val',
+	0,
+	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("d2a692a8-7356-4387-adaa-1e91df64ee9b",
+	"6049f0e6-0b7c-4903-a456-e5b0629a5bd5");
+INSERT INTO O_BATTR
+	VALUES ("d2a692a8-7356-4387-adaa-1e91df64ee9b",
+	"6049f0e6-0b7c-4903-a456-e5b0629a5bd5");
+INSERT INTO O_ATTR
+	VALUES ("d2a692a8-7356-4387-adaa-1e91df64ee9b",
+	"6049f0e6-0b7c-4903-a456-e5b0629a5bd5",
+	"54326ad9-62e7-471e-b1f4-e500ffe61e22",
+	'var_name',
+	'This is the name of the variable the result of the rule
+evaluation is saved in.  It is initialized at generation time.
+',
+	'',
+	'var_name',
+	0,
+	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"6049f0e6-0b7c-4903-a456-e5b0629a5bd5");
+INSERT INTO O_OIDA
+	VALUES ("2a42c10b-cee5-4f3d-9aaa-d005e16f326f",
+	"6049f0e6-0b7c-4903-a456-e5b0629a5bd5",
+	0,
+	'nodeId');
+INSERT INTO O_ID
+	VALUES (1,
+	"6049f0e6-0b7c-4903-a456-e5b0629a5bd5");
+INSERT INTO O_ID
+	VALUES (2,
+	"6049f0e6-0b7c-4903-a456-e5b0629a5bd5");
+INSERT INTO S_SS_PROXY
+	VALUES ("5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	'BNF',
+	'',
+	'',
+	1,
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	"00000000-0000-0000-0000-000000100002",
+	'../BNF.xtuml');

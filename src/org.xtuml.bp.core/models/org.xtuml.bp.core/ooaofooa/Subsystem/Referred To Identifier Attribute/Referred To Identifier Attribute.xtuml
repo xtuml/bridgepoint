@@ -1,0 +1,385 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	'Referred To Identifier Attribute',
+	111,
+	'O_RTIDA',
+	'This class serves a linkage between R# (Attribute Reference in Class ) and the referred to class identifier attribute.',
+	"67eb58de-1d2b-4163-8373-ae8e65e99f84");
+INSERT INTO O_TFR
+	VALUES ("e01dd6ac-1975-44b3-989b-57de25d3375e",
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	'dispose',
+	'Dispose this O_RTIDA.
+',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select many refs related by self->O_REF[R111];
+for each ref in refs
+  ref.migrateRefAttrOrDispose();
+end for;
+select one oida related by self->O_OIDA[R110];
+select one rto related by self->R_RTO[R110];
+unrelate oida from rto across R110 using self;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("9770e4b4-87b1-419b-b3d7-632f0f0963b8",
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	'get_name',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one cia related by self->O_OIDA[R110];
+select one assoc related by self->R_RTO[R110]->R_OIR[R203]->R_REL[R201];
+result = cia.localAttributeName + " {R"; 
+result = result + GD::int_to_string(value: assoc.Numb);
+result = result + "}";
+return result;',
+	1,
+	'',
+	"e01dd6ac-1975-44b3-989b-57de25d3375e");
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	"9b35aece-af3e-4a8c-b571-557cffcd828f",
+	0,
+	"5dedb10a-de41-4c20-9d9f-ad28a5d276b7",
+	"2303575c-1f8d-4e9f-8fe9-f4a6617e0027",
+	"e215c94f-f654-4db5-94eb-f6f5409c3407",
+	"c5a7c1bb-3126-4cef-9e40-def4e08c2051",
+	"f776081b-1cba-4586-b37f-6d95a7553258",
+	"fc16b83a-43d3-4449-86a4-9b1c9a8c7b9f",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Class Identifier Attribute',
+	'Attr_ID',
+	'R110');
+INSERT INTO R_RGO_PROXY
+	VALUES ("858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	"2303575c-1f8d-4e9f-8fe9-f4a6617e0027",
+	"e215c94f-f654-4db5-94eb-f6f5409c3407",
+	'../Subsystem.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("5dedb10a-de41-4c20-9d9f-ad28a5d276b7",
+	"9b35aece-af3e-4a8c-b571-557cffcd828f",
+	0,
+	"2303575c-1f8d-4e9f-8fe9-f4a6617e0027",
+	"c5a7c1bb-3126-4cef-9e40-def4e08c2051",
+	'../Subsystem.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("f776081b-1cba-4586-b37f-6d95a7553258",
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	"fcdcb857-f08e-413d-bf60-637f228f1941",
+	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
+	1,
+	'Attr_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("fcdcb857-f08e-413d-bf60-637f228f1941",
+	"d931d595-21f3-4ce8-bad1-6661a0e261b8",
+	'../Attribute/Attribute.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("f776081b-1cba-4586-b37f-6d95a7553258",
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	"00000000-0000-0000-0000-000000000000",
+	'Attr_ID',
+	'',
+	'',
+	'Attr_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	"9935b740-f46f-477e-9f9b-70972448e4a7",
+	1,
+	"90f45569-9ad1-43a4-8b58-d348cb57c7cc",
+	"2303575c-1f8d-4e9f-8fe9-f4a6617e0027",
+	"e215c94f-f654-4db5-94eb-f6f5409c3407",
+	"2b23318e-8e81-4f29-82fc-726742e75227",
+	"c73521e8-3172-4d07-9d74-65b5ebce7190",
+	"d7efa676-9aff-49d1-8165-94cda1a26574",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Referred To Class in Assoc',
+	'Oid_ID',
+	'R110');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("90f45569-9ad1-43a4-8b58-d348cb57c7cc",
+	"9935b740-f46f-477e-9f9b-70972448e4a7",
+	1,
+	"2303575c-1f8d-4e9f-8fe9-f4a6617e0027",
+	"2b23318e-8e81-4f29-82fc-726742e75227",
+	'../Subsystem.xtuml');
+INSERT INTO O_REF
+	VALUES ("858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	"9b35aece-af3e-4a8c-b571-557cffcd828f",
+	0,
+	"7ebf9557-66ba-4247-bd66-badd643c6eb4",
+	"2303575c-1f8d-4e9f-8fe9-f4a6617e0027",
+	"e215c94f-f654-4db5-94eb-f6f5409c3407",
+	"c5a7c1bb-3126-4cef-9e40-def4e08c2051",
+	"c73521e8-3172-4d07-9d74-65b5ebce7190",
+	"bef9ef2e-174c-4e2b-80a6-631ba40ff4fb",
+	"d7efa676-9aff-49d1-8165-94cda1a26574",
+	0,
+	'',
+	'Class Identifier Attribute',
+	'Oid_ID',
+	'R110');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("7ebf9557-66ba-4247-bd66-badd643c6eb4",
+	"9b35aece-af3e-4a8c-b571-557cffcd828f",
+	0,
+	"2303575c-1f8d-4e9f-8fe9-f4a6617e0027",
+	"c5a7c1bb-3126-4cef-9e40-def4e08c2051",
+	'../Subsystem.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("c73521e8-3172-4d07-9d74-65b5ebce7190",
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	"52aea452-91d7-494e-a9d3-02a087f8fa97",
+	"e9a8dc7f-1edd-4949-94f3-2bec374f55ea",
+	1,
+	'Oid_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("52aea452-91d7-494e-a9d3-02a087f8fa97",
+	"e9a8dc7f-1edd-4949-94f3-2bec374f55ea",
+	'../Class Identifier/Class Identifier.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("c73521e8-3172-4d07-9d74-65b5ebce7190",
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	"673087bc-75cc-4a0c-8d63-49c2d129b549",
+	'Oid_ID',
+	'',
+	'',
+	'Oid_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	"9935b740-f46f-477e-9f9b-70972448e4a7",
+	1,
+	"3266fb64-1331-4a23-8cd6-c2fc354528da",
+	"2303575c-1f8d-4e9f-8fe9-f4a6617e0027",
+	"e215c94f-f654-4db5-94eb-f6f5409c3407",
+	"2b23318e-8e81-4f29-82fc-726742e75227",
+	"b8a7bd33-7b2f-41e3-a00d-6e58be18278e",
+	"3601cb34-9ac1-42d7-bce5-9aea76a77877",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Referred To Class in Assoc',
+	'OIR_ID',
+	'R110');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("3266fb64-1331-4a23-8cd6-c2fc354528da",
+	"9935b740-f46f-477e-9f9b-70972448e4a7",
+	1,
+	"2303575c-1f8d-4e9f-8fe9-f4a6617e0027",
+	"2b23318e-8e81-4f29-82fc-726742e75227",
+	'../Subsystem.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("b8a7bd33-7b2f-41e3-a00d-6e58be18278e",
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	"cec47d4c-9e06-4c8c-b68e-89c4a69f3c1f",
+	"2a83ce0a-3939-4ef4-9a99-70471ff57de9",
+	1,
+	'OIR_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("cec47d4c-9e06-4c8c-b68e-89c4a69f3c1f",
+	"2a83ce0a-3939-4ef4-9a99-70471ff57de9",
+	'../../Association/Class In Association/Class In Association.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("b8a7bd33-7b2f-41e3-a00d-6e58be18278e",
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	"9526283b-4f3b-494a-ae91-1c2aae2c15cf",
+	'OIR_ID',
+	'',
+	'',
+	'OIR_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	"9b35aece-af3e-4a8c-b571-557cffcd828f",
+	0,
+	"f73d9f7c-4136-4231-a068-988b8dd6be3a",
+	"2303575c-1f8d-4e9f-8fe9-f4a6617e0027",
+	"e215c94f-f654-4db5-94eb-f6f5409c3407",
+	"c5a7c1bb-3126-4cef-9e40-def4e08c2051",
+	"673087bc-75cc-4a0c-8d63-49c2d129b549",
+	"0d9ca061-364c-4e60-b6e5-e0c9e2ae1d08",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Class Identifier Attribute',
+	'Obj_ID',
+	'R110');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("f73d9f7c-4136-4231-a068-988b8dd6be3a",
+	"9b35aece-af3e-4a8c-b571-557cffcd828f",
+	0,
+	"2303575c-1f8d-4e9f-8fe9-f4a6617e0027",
+	"c5a7c1bb-3126-4cef-9e40-def4e08c2051",
+	'../Subsystem.xtuml');
+INSERT INTO O_REF
+	VALUES ("858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	"9935b740-f46f-477e-9f9b-70972448e4a7",
+	1,
+	"a802e5ba-c0e2-481a-a9be-6539f0330d72",
+	"2303575c-1f8d-4e9f-8fe9-f4a6617e0027",
+	"e215c94f-f654-4db5-94eb-f6f5409c3407",
+	"2b23318e-8e81-4f29-82fc-726742e75227",
+	"673087bc-75cc-4a0c-8d63-49c2d129b549",
+	"d9eb6dc5-27ae-4dff-8443-299cd7c65324",
+	"0d9ca061-364c-4e60-b6e5-e0c9e2ae1d08",
+	0,
+	'',
+	'Referred To Class in Assoc',
+	'Obj_ID',
+	'R110');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("a802e5ba-c0e2-481a-a9be-6539f0330d72",
+	"9935b740-f46f-477e-9f9b-70972448e4a7",
+	1,
+	"2303575c-1f8d-4e9f-8fe9-f4a6617e0027",
+	"2b23318e-8e81-4f29-82fc-726742e75227",
+	'../Subsystem.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("673087bc-75cc-4a0c-8d63-49c2d129b549",
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("673087bc-75cc-4a0c-8d63-49c2d129b549",
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	"f776081b-1cba-4586-b37f-6d95a7553258",
+	'Obj_ID',
+	'',
+	'',
+	'Obj_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	"9935b740-f46f-477e-9f9b-70972448e4a7",
+	1,
+	"4130f29a-4ba7-4863-9ae3-df40d0fae549",
+	"2303575c-1f8d-4e9f-8fe9-f4a6617e0027",
+	"e215c94f-f654-4db5-94eb-f6f5409c3407",
+	"2b23318e-8e81-4f29-82fc-726742e75227",
+	"9526283b-4f3b-494a-ae91-1c2aae2c15cf",
+	"6ffbfdf1-2d5e-4343-8809-25a8b8de3522",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Referred To Class in Assoc',
+	'Rel_ID',
+	'R110');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4130f29a-4ba7-4863-9ae3-df40d0fae549",
+	"9935b740-f46f-477e-9f9b-70972448e4a7",
+	1,
+	"2303575c-1f8d-4e9f-8fe9-f4a6617e0027",
+	"2b23318e-8e81-4f29-82fc-726742e75227",
+	'../Subsystem.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("9526283b-4f3b-494a-ae91-1c2aae2c15cf",
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_ATTR
+	VALUES ("9526283b-4f3b-494a-ae91-1c2aae2c15cf",
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	"c73521e8-3172-4d07-9d74-65b5ebce7190",
+	'Rel_ID',
+	'',
+	'',
+	'Rel_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca");
+INSERT INTO O_OIDA
+	VALUES ("f776081b-1cba-4586-b37f-6d95a7553258",
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	0,
+	'Attr_ID');
+INSERT INTO O_OIDA
+	VALUES ("b8a7bd33-7b2f-41e3-a00d-6e58be18278e",
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	0,
+	'OIR_ID');
+INSERT INTO O_OIDA
+	VALUES ("c73521e8-3172-4d07-9d74-65b5ebce7190",
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	0,
+	'Oid_ID');
+INSERT INTO O_OIDA
+	VALUES ("673087bc-75cc-4a0c-8d63-49c2d129b549",
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	0,
+	'Obj_ID');
+INSERT INTO O_OIDA
+	VALUES ("9526283b-4f3b-494a-ae91-1c2aae2c15cf",
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca",
+	0,
+	'Rel_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca");
+INSERT INTO O_ID
+	VALUES (2,
+	"858066a7-431d-40c6-9e0f-ab4ec2e813ca");
+INSERT INTO S_SS_PROXY
+	VALUES ("67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	'Subsystem',
+	'A class (O_OBJ)  is an abstraction of a real world thing that has specific attributes (O_ATTR) and, if active, has a lifecycle model as a state machine (SM_SM).  All instances of the class must have the same characteristics and follow the same state behavior.  Classes fall into many categories, some of which are: tangible things, roles, interactions and specifications. ',
+	'O',
+	101,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000300006",
+	'../Subsystem.xtuml');

@@ -1,0 +1,166 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("82fc24e2-9354-449a-832b-038b1f70dd23",
+	'Class Monitor',
+	2917,
+	'CSME_CLM',
+	'Persistent:false',
+	"3eefe69a-fc9d-43fe-98f9-521c1cb870ac");
+INSERT INTO O_TFR
+	VALUES ("f0320ddc-eff8-4696-b179-2886994378f6",
+	"82fc24e2-9354-449a-832b-038b1f70dd23",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Class Monitor.dispose
+select one cie related by self->CSME_CIE[R2950];
+select one exe related by self->I_EXE[R2950];
+unrelate exe from cie across R2950 using self;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("82fc24e2-9354-449a-832b-038b1f70dd23",
+	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
+	0,
+	"ab96f30b-1d4f-46d4-b23c-215ddd08a110",
+	"a5a0067f-f663-4703-99aa-9522b0dd4736",
+	"9af5a840-f03c-4882-bddf-19e31ec4d479",
+	"e654d5ce-9339-4eff-8a4c-84c4f1ea4219",
+	"4d9a63cf-9f2e-43dc-9536-b9ca4596b673",
+	"ba695238-289f-4113-acb7-73a2608a07c6",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Class In Engine',
+	'CIE_ID',
+	'R2950.''monitors''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("82fc24e2-9354-449a-832b-038b1f70dd23",
+	"a5a0067f-f663-4703-99aa-9522b0dd4736",
+	"9af5a840-f03c-4882-bddf-19e31ec4d479",
+	'../Class State Machine Execution.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("ab96f30b-1d4f-46d4-b23c-215ddd08a110",
+	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
+	0,
+	"a5a0067f-f663-4703-99aa-9522b0dd4736",
+	"e654d5ce-9339-4eff-8a4c-84c4f1ea4219",
+	'../Class State Machine Execution.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("4d9a63cf-9f2e-43dc-9536-b9ca4596b673",
+	"82fc24e2-9354-449a-832b-038b1f70dd23",
+	"ab96f30b-1d4f-46d4-b23c-215ddd08a110",
+	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
+	1,
+	'CIE_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("ab96f30b-1d4f-46d4-b23c-215ddd08a110",
+	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
+	'../Class In Engine/Class In Engine.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("4d9a63cf-9f2e-43dc-9536-b9ca4596b673",
+	"82fc24e2-9354-449a-832b-038b1f70dd23",
+	"30bd734e-9495-49cb-957b-bb5aa4083bfc",
+	'CIE_ID',
+	'',
+	'',
+	'CIE_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("82fc24e2-9354-449a-832b-038b1f70dd23",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	0,
+	"28aa4283-2190-4d46-b247-2cf82958ad34",
+	"a5a0067f-f663-4703-99aa-9522b0dd4736",
+	"9af5a840-f03c-4882-bddf-19e31ec4d479",
+	"aaa4bb98-1e4d-4e80-95d9-87c568cde433",
+	"30bd734e-9495-49cb-957b-bb5aa4083bfc",
+	"dc193c71-42b9-4541-9167-3b6727e0bb77",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Component Instance',
+	'Execution_Engine_ID',
+	'R2950.''monitored by''');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("28aa4283-2190-4d46-b247-2cf82958ad34",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	0,
+	"a5a0067f-f663-4703-99aa-9522b0dd4736",
+	"aaa4bb98-1e4d-4e80-95d9-87c568cde433",
+	'../Class State Machine Execution.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("30bd734e-9495-49cb-957b-bb5aa4083bfc",
+	"82fc24e2-9354-449a-832b-038b1f70dd23",
+	"28aa4283-2190-4d46-b247-2cf82958ad34",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	1,
+	'Execution_Engine_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("28aa4283-2190-4d46-b247-2cf82958ad34",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'../../../Instance/Component Instance/Component Instance.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("30bd734e-9495-49cb-957b-bb5aa4083bfc",
+	"82fc24e2-9354-449a-832b-038b1f70dd23",
+	"00000000-0000-0000-0000-000000000000",
+	'Execution_Engine_ID',
+	'',
+	'',
+	'Execution_Engine_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"82fc24e2-9354-449a-832b-038b1f70dd23");
+INSERT INTO O_OIDA
+	VALUES ("4d9a63cf-9f2e-43dc-9536-b9ca4596b673",
+	"82fc24e2-9354-449a-832b-038b1f70dd23",
+	0,
+	'CIE_ID');
+INSERT INTO O_OIDA
+	VALUES ("30bd734e-9495-49cb-957b-bb5aa4083bfc",
+	"82fc24e2-9354-449a-832b-038b1f70dd23",
+	0,
+	'Execution_Engine_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"82fc24e2-9354-449a-832b-038b1f70dd23");
+INSERT INTO O_ID
+	VALUES (2,
+	"82fc24e2-9354-449a-832b-038b1f70dd23");
+INSERT INTO S_SS_PROXY
+	VALUES ("3eefe69a-fc9d-43fe-98f9-521c1cb870ac",
+	'Class State Machine Execution',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+Persistent:false
+Import: java.util.concurrent.locks.ReentrantLock',
+	'',
+	2960,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Class State Machine Execution.xtuml');

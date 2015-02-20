@@ -1,0 +1,204 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("50695bda-823e-45d0-84b9-4e67435ffe23",
+	'Shape Tool',
+	102,
+	'CT_STL',
+	'The Shape Tool owns the state machine that takes the user
+from enabling the tool, through choosing the location and
+size of the symbol before completing and displaying the
+shape.
+
+---------------------------------------------------------------------------
+Persistent:false',
+	"afc7af9b-6e70-4780-9ad0-b9f3ec7560c9");
+INSERT INTO O_TFR
+	VALUES ("2f5728c3-0a36-41d7-867f-c9b2a9151e23",
+	"50695bda-823e-45d0-84b9-4e67435ffe23",
+	'dispose',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one mtl related by self->CT_MTL[R102];
+if ( not_empty mtl )
+  unrelate self from mtl across R102;
+end if;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("067ac877-8d07-4d2c-b247-f9f4ead5009c",
+	"50695bda-823e-45d0-84b9-4e67435ffe23",
+	'exceedsMinimumSize',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'select one canvas related by self->CT_MTL[R102]->GD_MD[R100];
+width = canvas.SelRectW;
+if (width < 0)
+  width = -width;
+end if;
+height = canvas.SelRectH;
+if (height < 0)
+  height = -height;
+end if;
+if (width > (2 * GR::getHotspotSize()) and
+      height > (2 * GR::getHotspotSize()))
+  return true;
+else
+  return false;
+end if;
+',
+	1,
+	'',
+	"2f5728c3-0a36-41d7-867f-c9b2a9151e23");
+INSERT INTO S_DT_PROXY
+	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("50695bda-823e-45d0-84b9-4e67435ffe23",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	0,
+	"0304c426-4444-443b-a662-e29749249eb1",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"104e9e69-a0a6-4a25-9dcd-768ba5d39c00",
+	"10982f14-d77d-457b-9902-02f4d23a5ac0",
+	"e84a39a9-952d-46a1-a68e-7d199c9e2f9c",
+	"54ee605f-2007-4e17-a0e1-eee9822662f8",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Model Tool',
+	'Tool_ID',
+	'R102');
+INSERT INTO R_RGO_PROXY
+	VALUES ("50695bda-823e-45d0-84b9-4e67435ffe23",
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"104e9e69-a0a6-4a25-9dcd-768ba5d39c00",
+	'../Canvas Tools.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	0,
+	"79e74e54-a1b2-4be8-bd1d-af9cec9cb358",
+	"10982f14-d77d-457b-9902-02f4d23a5ac0",
+	'../Canvas Tools.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("e84a39a9-952d-46a1-a68e-7d199c9e2f9c",
+	"50695bda-823e-45d0-84b9-4e67435ffe23",
+	"0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	1,
+	'Tool_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("0304c426-4444-443b-a662-e29749249eb1",
+	"43aa371a-c94c-48a9-acb6-21b733e4a55e",
+	'../Model Tool/Model Tool.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("e84a39a9-952d-46a1-a68e-7d199c9e2f9c",
+	"50695bda-823e-45d0-84b9-4e67435ffe23",
+	"00000000-0000-0000-0000-000000000000",
+	'Tool_ID',
+	'',
+	'',
+	'Tool_ID',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("a740fdae-d3c7-4b29-8084-8dd25d0fd964",
+	"50695bda-823e-45d0-84b9-4e67435ffe23");
+INSERT INTO O_BATTR
+	VALUES ("a740fdae-d3c7-4b29-8084-8dd25d0fd964",
+	"50695bda-823e-45d0-84b9-4e67435ffe23");
+INSERT INTO O_ATTR
+	VALUES ("a740fdae-d3c7-4b29-8084-8dd25d0fd964",
+	"50695bda-823e-45d0-84b9-4e67435ffe23",
+	"dee858a3-99b6-4862-a649-c99363b1fc80",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"aae0ffdc-3a05-4c94-9878-331bc82097dd",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("aae0ffdc-3a05-4c94-9878-331bc82097dd",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'state<State_Model>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("dee858a3-99b6-4862-a649-c99363b1fc80",
+	"50695bda-823e-45d0-84b9-4e67435ffe23");
+INSERT INTO O_BATTR
+	VALUES ("dee858a3-99b6-4862-a649-c99363b1fc80",
+	"50695bda-823e-45d0-84b9-4e67435ffe23");
+INSERT INTO O_ATTR
+	VALUES ("dee858a3-99b6-4862-a649-c99363b1fc80",
+	"50695bda-823e-45d0-84b9-4e67435ffe23",
+	"e84a39a9-952d-46a1-a68e-7d199c9e2f9c",
+	'current_transaction',
+	'',
+	'',
+	'current_transaction',
+	0,
+	"a172f187-f843-4aeb-af5b-873deb036646",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a172f187-f843-4aeb-af5b-873deb036646",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'Transaction',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"50695bda-823e-45d0-84b9-4e67435ffe23");
+INSERT INTO O_OIDA
+	VALUES ("e84a39a9-952d-46a1-a68e-7d199c9e2f9c",
+	"50695bda-823e-45d0-84b9-4e67435ffe23",
+	0,
+	'Tool_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"50695bda-823e-45d0-84b9-4e67435ffe23");
+INSERT INTO O_ID
+	VALUES (2,
+	"50695bda-823e-45d0-84b9-4e67435ffe23");
+INSERT INTO S_SS_PROXY
+	VALUES ("afc7af9b-6e70-4780-9ad0-b9f3ec7560c9",
+	'Canvas Tools',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+  TRANSLATE_FOR_EXTERNAL_USE:FALSE
+  Notify_Changes:false
+',
+	'CT',
+	100,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001a00034",
+	'../Canvas Tools.xtuml');

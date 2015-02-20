@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="archetypes.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+Function Control Statements
+</TITLE>
+
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<H1 CLASS="Heading2">
+<A NAME="0_pgfId-525837"></A><A NAME="0_marker-525836"></A>Function Control Statements</H1>
+<P CLASS="Body">
+<A NAME="0_pgfId-517295"></A>Functions are supported in the rule language to allow reuse of blocks of rule language statements. Functions always return a <EM CLASS="Emphasis">
+fragment</EM>
+. A fragment can be thought of as a pseudo-instance that has at least one, and possibly more attributes containing data specified by the function. The intent of functions is to use them to build fragments which can be organized into larger fragments and eventually used to build a whole generated file.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517296"></A>To define a function, use the <EM CLASS="Code">
+.function</EM>
+ statement:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517299"></A><EM CLASS="Code">.function &lt;function_name&gt;</EM>
+<A NAME="0_marker-517298"></A></PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517301"></A><EM CLASS="Code">	[.param &lt;param_type&gt; &lt;param_name&gt;</EM>
+<A NAME="0_marker-517300"></A></PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517302"></A><EM CLASS="Code">	 .param &lt;param_type&gt; &lt;param_name&gt;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517303"></A><EM CLASS="Code">	 ...]</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517304"></A><EM CLASS="Code">	[&lt;stmt_blck&gt;]</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517306"></A><EM CLASS="Code">.end function</EM>
+<A NAME="0_marker-517305"></A></PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519200"></A>&nbsp;</PRE>
+<P CLASS="Body">
+<A NAME="0_pgfId-517308"></A>where:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517309"></A><EM CLASS="Code">&lt;function_name&gt;</EM>
+ is the name of the function. The name of the function should be unique within the rule file, or any included rule files.</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519203"></A>&nbsp;</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517310"></A><EM CLASS="Code">&lt;param_type&gt;</EM>
+ is the type of the parameter. Allowed types are:</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517311"></A><EM CLASS="Code">	boolean</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517312"></A><EM CLASS="Code">	integer</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517313"></A><EM CLASS="Code">	real</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517314"></A><EM CLASS="Code">	string</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517315"></A><EM CLASS="Code">	inst_ref</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517316"></A><EM CLASS="Code">	inst_ref_set</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517317"></A><EM CLASS="Code">	frag_ref</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519208"></A>&nbsp;</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517318"></A><EM CLASS="Code">&lt;param_name&gt;</EM>
+ is the name of the parameter.</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519221"></A>&nbsp;</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517319"></A><EM CLASS="Code">&lt;stmt_blck&gt;</EM>
+ is a block of rule language statements including literal text, control statements, and substitution variables.</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517320"></A>&nbsp;</PRE>
+<P CLASS="Body">
+<A NAME="0_pgfId-517321"></A>To invoke a function, use the <EM CLASS="Code">
+.invoke</EM>
+ statement:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517324"></A><EM CLASS="Code">
+.invoke [ &lt;frag_ref_var&gt; =] &lt;function_name&gt; (&lt;actual_param&gt;, &lt;actual_param&gt;...)</EM>
+<A NAME="0_marker-517323"></A></P>
+<P CLASS="Body">
+<A NAME="0_pgfId-517327"></A>where:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517328"></A><EM CLASS="Code">
+&lt;frag_ref_var&gt;</EM>
+ is a transient variable which holds a reference to the fragment.</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517329"></A><EM CLASS="Code">
+&lt;function_name&gt;</EM>
+ is the name of the function being invoked.</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517371"></A><EM CLASS="Code">
+&lt;actual_param&gt;</EM>
+<EM CLASS="Courier">
+	</EM>
+ is an actual parameter.</P>
+<TABLE BORDER="1">
+<CAPTION>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="0_pgfId-517337"></A>Parameter Type</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="0_pgfId-517339"></A>Actual Parameter Forms Allowed</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517341"></A><EM CLASS="Courier-Bold">
+boolean</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517343"></A>Rvalue of type <EM CLASS="Courier-Bold">
+boolean</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517345"></A><EM CLASS="Courier-Bold">
+integer</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517347"></A>Rvalue of type <EM CLASS="Courier-Bold">
+integer</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517349"></A><EM CLASS="Courier-Bold">
+real</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517351"></A>Rvalue of type <EM CLASS="Courier-Bold">
+real</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517353"></A><EM CLASS="Courier-Bold">
+string</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517355"></A>Rvalue of type <EM CLASS="Courier-Bold">
+string</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517357"></A><EM CLASS="Courier-Bold">
+inst_ref</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517359"></A>&lt;<EM CLASS="Palatino-9pt">
+transient_var</EM>
+&gt; of type <EM CLASS="Courier-Bold">
+inst_ref</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517361"></A><EM CLASS="Courier-Bold">
+inst_ref_set</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517363"></A>&lt;<EM CLASS="Palatino-9pt">
+transient_var</EM>
+&gt; of type <EM CLASS="Courier-Bold">
+inst_set_ref</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517365"></A><EM CLASS="Courier-Bold">
+frag_ref</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-517367"></A>&lt;<EM CLASS="Palatino-9pt">
+transient_var</EM>
+&gt; of type <EM CLASS="Courier-Bold">
+frag_ref</EM>
+</P>
+</TD>
+</TR>
+</TABLE>
+</BODY>
+</HTML>

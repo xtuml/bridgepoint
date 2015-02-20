@@ -1,0 +1,110 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("6b417279-4f30-407d-bf83-970845af482e",
+	'External Attribute',
+	6,
+	'T_EA',
+	'',
+	"9a4ff466-14a5-4e47-b07f-84de195f210a");
+INSERT INTO O_REF
+	VALUES ("6b417279-4f30-407d-bf83-970845af482e",
+	"9e081a27-cea1-48f6-837a-262c4e888713",
+	0,
+	"446795cc-4809-44ab-9f7d-37309ae42d16",
+	"1ffd2087-6f06-4432-8fbe-8cc7db212251",
+	"cdf4de74-53a7-49d3-8426-7fc5f829750f",
+	"58947f01-738f-4699-8b34-fda8ccdfd9e8",
+	"1e36361e-6157-4e57-8af1-aa9a72ade844",
+	"4e1fafaa-2681-440c-b4dd-0de11be5eb1e",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'External Data Link',
+	'EDL_ID',
+	'R1006');
+INSERT INTO R_RGO_PROXY
+	VALUES ("6b417279-4f30-407d-bf83-970845af482e",
+	"1ffd2087-6f06-4432-8fbe-8cc7db212251",
+	"cdf4de74-53a7-49d3-8426-7fc5f829750f",
+	'../CompTree.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("446795cc-4809-44ab-9f7d-37309ae42d16",
+	"9e081a27-cea1-48f6-837a-262c4e888713",
+	0,
+	"1ffd2087-6f06-4432-8fbe-8cc7db212251",
+	"58947f01-738f-4699-8b34-fda8ccdfd9e8",
+	'../CompTree.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("1e36361e-6157-4e57-8af1-aa9a72ade844",
+	"6b417279-4f30-407d-bf83-970845af482e",
+	"446795cc-4809-44ab-9f7d-37309ae42d16",
+	"9e081a27-cea1-48f6-837a-262c4e888713",
+	1,
+	'EDL_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("446795cc-4809-44ab-9f7d-37309ae42d16",
+	"9e081a27-cea1-48f6-837a-262c4e888713",
+	'../External Data Link/External Data Link.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("1e36361e-6157-4e57-8af1-aa9a72ade844",
+	"6b417279-4f30-407d-bf83-970845af482e",
+	"00000000-0000-0000-0000-000000000000",
+	'EDL_ID',
+	'',
+	'',
+	'EDL_ID',
+	0,
+	"2308f829-cd27-4cf2-93bd-6c9ae5f576b7",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("2308f829-cd27-4cf2-93bd-6c9ae5f576b7",
+	"138f69c7-a700-4109-8c2b-e9232b291756",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("0cbc8758-974f-460f-80a4-b456ff1b5820",
+	"6b417279-4f30-407d-bf83-970845af482e");
+INSERT INTO O_BATTR
+	VALUES ("0cbc8758-974f-460f-80a4-b456ff1b5820",
+	"6b417279-4f30-407d-bf83-970845af482e");
+INSERT INTO O_ATTR
+	VALUES ("0cbc8758-974f-460f-80a4-b456ff1b5820",
+	"6b417279-4f30-407d-bf83-970845af482e",
+	"1e36361e-6157-4e57-8af1-aa9a72ade844",
+	'Attribute_Name',
+	'',
+	'',
+	'Attribute_Name',
+	0,
+	"03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("03c1b47c-e0b1-4463-ab1e-0820044ee2f4",
+	"138f69c7-a700-4109-8c2b-e9232b291756",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"6b417279-4f30-407d-bf83-970845af482e");
+INSERT INTO O_ID
+	VALUES (1,
+	"6b417279-4f30-407d-bf83-970845af482e");
+INSERT INTO O_ID
+	VALUES (2,
+	"6b417279-4f30-407d-bf83-970845af482e");
+INSERT INTO S_SS_PROXY
+	VALUES ("9a4ff466-14a5-4e47-b07f-84de195f210a",
+	'CompTree',
+	'',
+	'T',
+	1,
+	"138f69c7-a700-4109-8c2b-e9232b291756",
+	"00000000-0000-0000-0000-000000100002",
+	'../CompTree.xtuml');

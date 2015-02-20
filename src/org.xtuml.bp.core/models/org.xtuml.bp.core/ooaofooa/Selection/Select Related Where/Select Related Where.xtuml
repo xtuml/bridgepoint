@@ -1,0 +1,280 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("acb57cf2-3bfe-46c2-8fba-8e6d8227cbf9",
+	'Select Related Where',
+	604,
+	'ACT_SRW',
+	'This class represents a statement that selects a set of instances related across one or more associations with the support of a where clause.  The where clause consists of a boolean expression containing the special instance handle ''selected''. If the expression evaluates to true, the instance represented by ''selected '' is added to the result set of the statement.
+',
+	"4baa0857-ca29-4e4a-b1cb-873757c0f936");
+INSERT INTO O_TFR
+	VALUES ("9de3f1ec-f200-4eab-ac6b-7fe2c1b3e13a",
+	"acb57cf2-3bfe-46c2-8fba-8e6d8227cbf9",
+	'execute',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Select Related Where.execute()
+select one body related by self->ACT_SEL[R664]->ACT_SMT[R603]->ACT_BLK[R602]->ACT_ACT[R601];
+select any stack_frame from instances of I_STF where 
+                                selected.Stack_Frame_ID == param.stack_frame_id;
+if (empty stack_frame)
+	//Invalid stack frame ID!
+	pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty body)
+      pathMsg = body.getPath();
+    end if;
+	USER::logError(msg:"Error in Select Related Where.execute: Invalid stack frame id used. Using random top stack frame.",path:pathMsg);
+	select any stack from instances of I_STACK;
+	select one stack_frame related by stack->I_STF[R2929];
+end if;
+select one seln related by self->ACT_SEL[R664];
+select any sel_ref related by stack_frame->I_BSF[R2923]->
+                                                     L_LCL[R3000]->L_LSR[R3001];
+if (empty sel_ref)
+  // If there isn''t one, create it and link it to the outer block
+  select one outer_block related by self->ACT_SEL[R664]->ACT_SMT[R603]->
+                                    ACT_BLK[R602]->ACT_ACT[R601]->ACT_BLK[R666];
+  ref_ID = outer_block.newLocalSelectedReference(stack_frame_id:
+                                                    stack_frame.Stack_Frame_ID);
+  select any sel_ref related by stack_frame->I_BSF[R2923]->L_LCL[R3000]->
+                               L_LSR[R3001] where (selected.Local_ID == ref_ID);
+end if;
+select any selection_local_reference related by seln->V_VAR[R638]->V_INT[R814]->L_LCR[R3004];
+// If this is a many call, then selection_local_reference will be empty, and we should overwrite it with the correct value
+if(seln.cardinality == "many")
+  select any selection_local_reference related by seln->V_VAR[R638]->V_INS[R814]->L_LCR[R3003];
+end if;
+select one selection_rv related by selection_local_reference->
+                      L_LCL[R3001]->RV_RVL[R3306]->RV_SMV[R3300]->RV_IRV[R3308];
+select one inst_ref related by sel_ref->L_IWC[R3006];
+if (empty inst_ref)
+  // Set up the instance set for iteration
+  sel_ref_initialized = false;
+  select many insts related by selection_rv->L_IIR[R3311]->I_INS[R3013];
+  select any prev_inst_in_where from instances of L_IWC;
+  for each inst in insts
+    create object instance inst_in_where of L_IWC;
+    relate inst to inst_in_where across R3014;
+    if (sel_ref_initialized == false)
+      // The old selection reference is no longer valid, dispose it
+      select one old_inst_ref related by sel_ref->L_IWC[R3006];
+      if (not_empty old_inst_ref)
+        old_inst_ref.dispose();
+      end if;
+      // Point the selection reference to the first instance
+      relate inst_in_where to sel_ref across R3006;
+      inst_ref = inst_in_where;
+      sel_ref_initialized = true;
+    else
+      // Chain the instances together
+      relate inst_in_where to prev_inst_in_where across R3016.''is after'';
+    end if;
+    prev_inst_in_where = inst_in_where;
+  end for;
+end if;
+select one where_clause related by self->V_VAL[R611];
+where_clause.computeValue(stack_frame_id: stack_frame.Stack_Frame_ID);
+select any result related by stack_frame->I_VSF[R2951] where
+                                     selected.Value_ID == where_clause.Value_ID;
+select one rtVal related by result->RV_RVL[R3305];
+if (empty rtVal)
+  // result requires computation. Return and let the new stack frame execute
+  return;      
+end if;
+stack_frame.popValue(value_id:where_clause.Value_ID);
+select one inst_in_where related by sel_ref->L_IWC[R3006];
+if (not_empty inst_in_where)
+  selectionPassed = GD::instance_to_boolean(value:rtVal.getValue());
+  if (not selectionPassed)
+    // The filter was false, remove the candidate instance from the result
+    select any inst_in_ref related by inst_in_where->
+                                           I_INS[R3014]->L_IIR[R3013] where
+                       selected.RuntimeValue_ID == selection_rv.RuntimeValue_ID;
+    inst_in_ref.dispose();
+  end if;
+  select one next_inst_in_where related by inst_in_where->
+                                                       L_IWC[R3016.''is before''];
+  unrelate inst_in_where from sel_ref across R3006;
+  // We''ve visited this instance, dispose the reference
+  inst_in_where.dispose();
+  if (seln.cardinality == "many" or not selectionPassed)
+    if (not_empty next_inst_in_where)
+      relate next_inst_in_where to sel_ref across R3006;
+    end if;
+  else
+    // We got our result and we''re done, dispose all remaining references
+    while (not_empty next_inst_in_where)
+      select one next_next_inst_in_where related by inst_in_where->
+                                                       L_IWC[R3016.''is before''];
+      next_inst_in_where.dispose();
+      next_inst_in_where = next_next_inst_in_where;
+    end while;
+  end if;
+end if;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("5635cc16-1c5a-4db9-917f-a25a50421938",
+	"9de3f1ec-f200-4eab-ac6b-7fe2c1b3e13a",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("acb57cf2-3bfe-46c2-8fba-8e6d8227cbf9",
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	0,
+	"cd206a69-cb68-48e2-8760-9ec6ca229ae8",
+	"4d796803-9348-409a-9e3a-4e7f48d82a45",
+	"c07f0f86-6676-414c-aa16-4b48bd9c6641",
+	"564742c6-9a68-4fea-977a-e7a7f1cbc6eb",
+	"5c15d2bd-8f89-4153-9a85-f7b7c1e34f82",
+	"b906228d-c617-409e-9e7d-b05167cbdb83",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Select',
+	'Statement_ID',
+	'R664');
+INSERT INTO R_RGO_PROXY
+	VALUES ("acb57cf2-3bfe-46c2-8fba-8e6d8227cbf9",
+	"4d796803-9348-409a-9e3a-4e7f48d82a45",
+	"c07f0f86-6676-414c-aa16-4b48bd9c6641",
+	'../Selection.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("cd206a69-cb68-48e2-8760-9ec6ca229ae8",
+	"6bbeced4-473b-4c7e-82bd-84ca0b59b273",
+	0,
+	"4d796803-9348-409a-9e3a-4e7f48d82a45",
+	"564742c6-9a68-4fea-977a-e7a7f1cbc6eb",
+	'../Selection.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("5c15d2bd-8f89-4153-9a85-f7b7c1e34f82",
+	"acb57cf2-3bfe-46c2-8fba-8e6d8227cbf9",
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	'Statement_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'../../Body/Statement/Statement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("5c15d2bd-8f89-4153-9a85-f7b7c1e34f82",
+	"acb57cf2-3bfe-46c2-8fba-8e6d8227cbf9",
+	"00000000-0000-0000-0000-000000000000",
+	'Statement_ID',
+	'
+
+',
+	'',
+	'Statement_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("acb57cf2-3bfe-46c2-8fba-8e6d8227cbf9",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"9395eeca-9f73-4e75-9a28-6179e2baaab9",
+	"8fef478f-35a8-4ad4-8ebb-45721decf249",
+	"65df3fbd-657d-43c0-b6db-1fc3e786eb1c",
+	"0db2804e-8c90-4459-929e-adee4df924bf",
+	"65008b72-8d03-477d-b9f3-8b9bf0d646f6",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Value',
+	'Value_ID',
+	'R611');
+INSERT INTO R_RGO_PROXY
+	VALUES ("acb57cf2-3bfe-46c2-8fba-8e6d8227cbf9",
+	"9395eeca-9f73-4e75-9a28-6179e2baaab9",
+	"8fef478f-35a8-4ad4-8ebb-45721decf249",
+	'../Selection.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"9395eeca-9f73-4e75-9a28-6179e2baaab9",
+	"65df3fbd-657d-43c0-b6db-1fc3e786eb1c",
+	'../Selection.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("0db2804e-8c90-4459-929e-adee4df924bf",
+	"acb57cf2-3bfe-46c2-8fba-8e6d8227cbf9",
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	1,
+	'Value_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'../../Value/Value/Value.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("0db2804e-8c90-4459-929e-adee4df924bf",
+	"acb57cf2-3bfe-46c2-8fba-8e6d8227cbf9",
+	"5c15d2bd-8f89-4153-9a85-f7b7c1e34f82",
+	'Where_Clause_Value_ID',
+	'',
+	'Where_Clause_',
+	'Value_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"acb57cf2-3bfe-46c2-8fba-8e6d8227cbf9");
+INSERT INTO O_OIDA
+	VALUES ("5c15d2bd-8f89-4153-9a85-f7b7c1e34f82",
+	"acb57cf2-3bfe-46c2-8fba-8e6d8227cbf9",
+	0,
+	'Statement_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"acb57cf2-3bfe-46c2-8fba-8e6d8227cbf9");
+INSERT INTO O_ID
+	VALUES (2,
+	"acb57cf2-3bfe-46c2-8fba-8e6d8227cbf9");
+INSERT INTO S_SS_PROXY
+	VALUES ("4baa0857-ca29-4e4a-b1cb-873757c0f936",
+	'Selection',
+	'This subsystem captures concepts related to selections of instances across associations. Association chain, where and instance extent selections are also covered.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'ACT',
+	600,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-00000058000b",
+	'../Selection.xtuml');

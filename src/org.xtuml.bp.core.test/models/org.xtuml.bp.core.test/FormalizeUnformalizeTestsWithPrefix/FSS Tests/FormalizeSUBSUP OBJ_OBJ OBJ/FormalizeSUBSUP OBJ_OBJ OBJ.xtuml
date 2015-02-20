@@ -1,0 +1,78 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("bbabf9d6-2b43-4cf3-b7bd-a71672e8df28",
+	'FormalizeSUBSUP OBJ_OBJ OBJ',
+	600,
+	'T_FORM',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("6e9e96cc-678a-4b4c-884f-be1f04924e93",
+	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28");
+INSERT INTO O_BATTR
+	VALUES ("6e9e96cc-678a-4b4c-884f-be1f04924e93",
+	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28");
+INSERT INTO O_ATTR
+	VALUES ("6e9e96cc-678a-4b4c-884f-be1f04924e93",
+	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28",
+	"00000000-0000-0000-0000-000000000000",
+	'testAttrFormalizer',
+	'',
+	'',
+	'testAttrFormalizer',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("46ad9b43-8271-4ed5-b7e6-b636fd7eb47b",
+	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28");
+INSERT INTO O_BATTR
+	VALUES ("46ad9b43-8271-4ed5-b7e6-b636fd7eb47b",
+	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28");
+INSERT INTO O_ATTR
+	VALUES ("46ad9b43-8271-4ed5-b7e6-b636fd7eb47b",
+	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28",
+	"6e9e96cc-678a-4b4c-884f-be1f04924e93",
+	'testAttrFormalizer2',
+	'',
+	'',
+	'testAttrFormalizer2',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28");
+INSERT INTO O_OIDA
+	VALUES ("6e9e96cc-678a-4b4c-884f-be1f04924e93",
+	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28",
+	0,
+	'testAttrFormalizer');
+INSERT INTO O_OIDA
+	VALUES ("46ad9b43-8271-4ed5-b7e6-b636fd7eb47b",
+	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28",
+	0,
+	'testAttrFormalizer2');
+INSERT INTO O_ID
+	VALUES (1,
+	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28");
+INSERT INTO O_ID
+	VALUES (2,
+	"bbabf9d6-2b43-4cf3-b7bd-a71672e8df28");
+INSERT INTO PE_PE
+	VALUES ("bbabf9d6-2b43-4cf3-b7bd-a71672e8df28",
+	1,
+	"8da366d7-108a-4630-b11b-4d6cef0e5d45",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("8da366d7-108a-4630-b11b-4d6cef0e5d45",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'FSS Tests',
+	'',
+	0,
+	'../FSS Tests.xtuml');

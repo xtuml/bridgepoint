@@ -1,0 +1,307 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("f5f6d22d-f17b-4748-96dd-f551c64d3055",
+	'Integrity Issue',
+	1301,
+	'MI_II',
+	'Persistent:false',
+	"1958f769-4f92-4439-870a-76f07b38281c");
+INSERT INTO O_TFR
+	VALUES ("e0113899-2337-4288-aceb-de93a99caa54",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055",
+	'recheckIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'self.dispose();',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("ae4188ae-d83b-47cf-ad80-8ff1f2d087a6",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one manager related by self->MI_IM[R1300];
+unrelate self from manager across R1300;
+delete object instance self;',
+	1,
+	'',
+	"e0113899-2337-4288-aceb-de93a99caa54");
+INSERT INTO O_REF
+	VALUES ("f5f6d22d-f17b-4748-96dd-f551c64d3055",
+	"16fe769a-497a-4e93-be51-481486d49012",
+	0,
+	"f2f6f78e-679c-4c5f-9f1d-54ce9cde0387",
+	"af59fc13-0cf8-40c3-a82d-3a038ef2a8ab",
+	"78e7d711-6e4c-4241-a18c-fef5e6cacf7c",
+	"21164aae-4e4e-49d9-bbcc-63ad9b16d4bb",
+	"66934081-ac0c-4f94-b0a8-6dad76c1ff98",
+	"ecc9971a-8593-4b17-99d9-10605ec78fb3",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Integrity Manager',
+	'IM_ID',
+	'R1300');
+INSERT INTO R_RGO_PROXY
+	VALUES ("f5f6d22d-f17b-4748-96dd-f551c64d3055",
+	"af59fc13-0cf8-40c3-a82d-3a038ef2a8ab",
+	"78e7d711-6e4c-4241-a18c-fef5e6cacf7c",
+	'../Model Integrity.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("f2f6f78e-679c-4c5f-9f1d-54ce9cde0387",
+	"16fe769a-497a-4e93-be51-481486d49012",
+	0,
+	"af59fc13-0cf8-40c3-a82d-3a038ef2a8ab",
+	"21164aae-4e4e-49d9-bbcc-63ad9b16d4bb",
+	'../Model Integrity.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("66934081-ac0c-4f94-b0a8-6dad76c1ff98",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055",
+	"f2f6f78e-679c-4c5f-9f1d-54ce9cde0387",
+	"16fe769a-497a-4e93-be51-481486d49012",
+	1,
+	'IM_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("f2f6f78e-679c-4c5f-9f1d-54ce9cde0387",
+	"16fe769a-497a-4e93-be51-481486d49012",
+	'../Integrity Manager/Integrity Manager.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("66934081-ac0c-4f94-b0a8-6dad76c1ff98",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055",
+	"4c23299b-912c-495b-990e-4e7866a02107",
+	'IM_ID',
+	'',
+	'',
+	'IM_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("c02be40c-3b36-42c0-87db-b28b8f588846",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055");
+INSERT INTO O_BATTR
+	VALUES ("c02be40c-3b36-42c0-87db-b28b8f588846",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055");
+INSERT INTO O_ATTR
+	VALUES ("c02be40c-3b36-42c0-87db-b28b8f588846",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055",
+	"66934081-ac0c-4f94-b0a8-6dad76c1ff98",
+	'Description',
+	'',
+	'',
+	'Description',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("b2aade14-6704-418e-853e-51172021d921",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055");
+INSERT INTO O_BATTR
+	VALUES ("b2aade14-6704-418e-853e-51172021d921",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055");
+INSERT INTO O_ATTR
+	VALUES ("b2aade14-6704-418e-853e-51172021d921",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055",
+	"c02be40c-3b36-42c0-87db-b28b8f588846",
+	'Severity',
+	'',
+	'',
+	'Severity',
+	0,
+	"e7db5662-b75f-4ea5-aa60-b3b76f1c926b",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("e7db5662-b75f-4ea5-aa60-b3b76f1c926b",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Severity',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("e3924d4f-f78e-4516-b9c4-5db8fd52bbd5",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055");
+INSERT INTO O_BATTR
+	VALUES ("e3924d4f-f78e-4516-b9c4-5db8fd52bbd5",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055");
+INSERT INTO O_ATTR
+	VALUES ("e3924d4f-f78e-4516-b9c4-5db8fd52bbd5",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055",
+	"b2aade14-6704-418e-853e-51172021d921",
+	'ElementName',
+	'',
+	'',
+	'ElementName',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("53aea896-4b7d-45d0-ade0-dcd2077ae448",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055");
+INSERT INTO O_BATTR
+	VALUES ("53aea896-4b7d-45d0-ade0-dcd2077ae448",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055");
+INSERT INTO O_ATTR
+	VALUES ("53aea896-4b7d-45d0-ade0-dcd2077ae448",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055",
+	"e3924d4f-f78e-4516-b9c4-5db8fd52bbd5",
+	'ElementPath',
+	'',
+	'',
+	'ElementPath',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("e4e2688f-be5a-46dd-88d7-a493bfb1003b",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055");
+INSERT INTO O_BATTR
+	VALUES ("e4e2688f-be5a-46dd-88d7-a493bfb1003b",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055");
+INSERT INTO O_ATTR
+	VALUES ("e4e2688f-be5a-46dd-88d7-a493bfb1003b",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055",
+	"53aea896-4b7d-45d0-ade0-dcd2077ae448",
+	'ElementID',
+	'',
+	'',
+	'ElementID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("96ad05ae-1857-40ac-afef-0cb841d32bff",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055");
+INSERT INTO O_BATTR
+	VALUES ("96ad05ae-1857-40ac-afef-0cb841d32bff",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055");
+INSERT INTO O_ATTR
+	VALUES ("96ad05ae-1857-40ac-afef-0cb841d32bff",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055",
+	"e4e2688f-be5a-46dd-88d7-a493bfb1003b",
+	'Element',
+	'',
+	'',
+	'Element',
+	0,
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("4c23299b-912c-495b-990e-4e7866a02107",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055");
+INSERT INTO O_BATTR
+	VALUES ("4c23299b-912c-495b-990e-4e7866a02107",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055");
+INSERT INTO O_ATTR
+	VALUES ("4c23299b-912c-495b-990e-4e7866a02107",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055",
+	"00000000-0000-0000-0000-000000000000",
+	'II_ID',
+	'',
+	'',
+	'II_ID',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("09f53f43-dd00-4246-9fb8-4b55828eeb01",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055");
+INSERT INTO O_BATTR
+	VALUES ("09f53f43-dd00-4246-9fb8-4b55828eeb01",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055");
+INSERT INTO O_ATTR
+	VALUES ("09f53f43-dd00-4246-9fb8-4b55828eeb01",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055",
+	"96ad05ae-1857-40ac-afef-0cb841d32bff",
+	'markerID',
+	'',
+	'',
+	'markerID',
+	0,
+	"f0e53f72-2765-4257-ae4c-e44680e63219",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("f0e53f72-2765-4257-ae4c-e44680e63219",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'long',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055");
+INSERT INTO O_OIDA
+	VALUES ("4c23299b-912c-495b-990e-4e7866a02107",
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055",
+	0,
+	'II_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055");
+INSERT INTO O_ID
+	VALUES (2,
+	"f5f6d22d-f17b-4748-96dd-f551c64d3055");
+INSERT INTO S_SS_PROXY
+	VALUES ("1958f769-4f92-4439-870a-76f07b38281c",
+	'Model Integrity',
+	'',
+	'MI',
+	1300,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Model Integrity.xtuml');

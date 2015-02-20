@@ -1,0 +1,13 @@
+.//====================================================================
+.//
+.// File:      $RCSfile: ooaofooa_import_spec.clr,v $
+.// Version:   $Revision: 1.9 $
+.// Modified:  $Date: 2013/01/10 22:53:57 $
+.//
+.// (c) Copyright 2003-2014 Mentor Graphics Corporation  All rights reserved.
+.//
+.//====================================================================
+.//
+.function get_imports
+  .assign attr_import = "// No special imports"
+.end function

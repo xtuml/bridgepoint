@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="archetypes.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+Test Control Statements
+</TITLE>
+
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<H1 CLASS="Heading2">
+<A NAME="0_pgfId-517235"></A><A NAME="0_Tester Section"></A>T<A NAME="0_marker-517234"></A>est Control Statements</H1>
+<P CLASS="Body">
+<A NAME="0_pgfId-517236"></A>Tests are supported through the use of the <EM CLASS="Code">
+.if</EM>
+ statement:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517239"></A><EM CLASS="Code">.if (&lt;condition&gt;)</EM>
+<A NAME="0_marker-517238"></A></PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-579338"></A><EM CLASS="Code">    &lt;stmt_blck&gt;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517242"></A><EM CLASS="Code">[.elif (&lt;condition&gt;)</EM>
+<A NAME="0_marker-517241"></A></PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-579341"></A><EM CLASS="Code">    &lt;stmt_blck&gt;]</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517245"></A><EM CLASS="Code">[.else</EM>
+<A NAME="0_marker-517244"></A></PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-579344"></A><EM CLASS="Code">    &lt;stmt_blck&gt;]</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517248"></A><EM CLASS="Code">.end if</EM>
+<A NAME="0_marker-517247"></A></PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517249"></A><EM CLASS="Code"></EM>
+&nbsp;</PRE>
+<P CLASS="Body">
+<A NAME="0_pgfId-517250"></A>where:</P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517251"></A>&lt;condition&gt; is an expression with boolean result, <A HREF="archetypes-14.htm#0_Expressions Section" CLASS="XRef">Expressions</A></P>
+<P CLASS="Indent">
+<A NAME="0_pgfId-517255"></A><EM CLASS="Code">
+&lt;stmt_blck&gt;</EM>
+ is a block of rule language statements</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-525869"></A>Many <EM CLASS="Code">
+.elif </EM>
+constructs may be present in the same <EM CLASS="Code">
+.if</EM>
+ construct.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-525870"></A>Here are some examples:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525877"></A><EM CLASS="Code">.// example 1</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525881"></A><EM CLASS="Code">.if (class_inst.Numb &lt; 100)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517261"></A><EM CLASS="Code">	literal text...</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517262"></A><EM CLASS="Code">.elif ((class_inst.Numb &gt;= 200) &amp;&amp; (class_inst.Numb &lt; 300))</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517263"></A><EM CLASS="Code">	literal text...</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517264"></A><EM CLASS="Code">.else</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517265"></A><EM CLASS="Code">	literal text...</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517266"></A><EM CLASS="Code">.end if</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-575435"></A>&nbsp;</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525887"></A><EM CLASS="Code">.// example 2</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517271"></A><EM CLASS="Code">.if (&quot;${class_inst.Descrip:PERSISTENCE}&quot; == &quot;TRUE&quot;)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517272"></A><EM CLASS="Code">	source code for persistent classes ...</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517273"></A><EM CLASS="Code">.elif (&quot;${class_inst.Descrip:PERSISTENCE}&quot; == &quot;FALSE&quot;)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517274"></A><EM CLASS="Code">	source code for non-persistent classes ...</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517275"></A><EM CLASS="Code">.else</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517276"></A><EM CLASS="Code">	.print &quot;Error in specification of persistence&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519606"></A><EM CLASS="Code">	.print &quot; Class `${class_inst.Name}'&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517277"></A><EM CLASS="Code">	.exit 1</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517278"></A><EM CLASS="Code">.end if</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525841"></A><EM CLASS="Code">.// example 3</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525842"></A><EM CLASS="Code">.if ( p_operator == &quot;NOT&quot; )</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525843"></A><EM CLASS="Code">  .assign cond = &quot;!${p_operand_rval.rval}&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525844"></A><EM CLASS="Code">  .assign type = &quot;boolean&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525845"></A><EM CLASS="Code">.elif ( p_operator == &quot;EMPTY&quot; )</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525846"></A><EM CLASS="Code">  .if ( p_operand_rval.var_card == &quot;ONE&quot; )</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525847"></A><EM CLASS="Code">    .assign cond = &quot;((${p_operand_rval.var_name} == 0) ? true : false)&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525848"></A><EM CLASS="Code">  .else</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525849"></A><EM CLASS="Code">    .invoke method = GetCollectionIsEmptyMethodName()</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525850"></A><EM CLASS="Code">    .assign cond = &quot;${p_operand_rval.var_name}.${method.result}()&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525851"></A><EM CLASS="Code">  .end if</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525852"></A><EM CLASS="Code">  .assign type = &quot;boolean&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525853"></A><EM CLASS="Code">.elif ( p_operator == &quot;NOT_EMPTY&quot; )</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525854"></A><EM CLASS="Code">  .if ( p_operand_rval.var_card == &quot;ONE&quot; )</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525855"></A><EM CLASS="Code">    .assign cond = &quot;((${p_operand_rval.var_name} != 0) ? true : false)&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525856"></A><EM CLASS="Code">  .else</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525857"></A><EM CLASS="Code">    .invoke method = GetCollectionIsEmptyMethodName()</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525858"></A><EM CLASS="Code">    .assign cond = &quot;!${p_operand_rval.var_name}.${method.result}()&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525859"></A><EM CLASS="Code">  .end if</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525860"></A><EM CLASS="Code">  .assign type = &quot;boolean&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525861"></A><EM CLASS="Code">.else </EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525862"></A><EM CLASS="Code">  .// Should never happen</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525863"></A><EM CLASS="Code">  .print &quot;TRANSLATOR ERROR: Unknown 'rval_unary_op' operator: ${p_operator}&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525864"></A><EM CLASS="Code">  .exit 100</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-525835"></A><EM CLASS="Code">.end if </EM>
+</PRE>
+</BODY>
+</HTML>

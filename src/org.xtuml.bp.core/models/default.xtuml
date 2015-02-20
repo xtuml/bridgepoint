@@ -1,0 +1,1339 @@
+-- BP 7.1 content: domain syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO S_DOM
+	VALUES (1,
+	'default',
+	'',
+	0,
+	2,
+	3);
+INSERT INTO GD_MD
+	VALUES (4,
+	1,
+	1,
+	1,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_GE
+	VALUES (5,
+	4,
+	6,
+	53,
+	0);
+INSERT INTO GD_SHP
+	VALUES (5);
+INSERT INTO GD_NCS
+	VALUES (5);
+INSERT INTO DIM_ND
+	VALUES (160.000000,
+	96.000000,
+	5);
+INSERT INTO DIM_GE
+	VALUES (2048.000000,
+	1504.000000,
+	5,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (5,
+	1,
+	7);
+INSERT INTO GD_GE
+	VALUES (8,
+	4,
+	9,
+	55,
+	0);
+INSERT INTO GD_SHP
+	VALUES (8);
+INSERT INTO GD_NCS
+	VALUES (8);
+INSERT INTO DIM_ND
+	VALUES (175.000000,
+	98.000000,
+	8);
+INSERT INTO DIM_GE
+	VALUES (2287.000000,
+	1502.000000,
+	8,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (8,
+	1,
+	7);
+INSERT INTO DIM_DIA
+	VALUES (4,
+	'',
+	1.726531,
+	1923.000000,
+	1311.000000,
+	7);
+INSERT INTO S_DPK
+	VALUES (6,
+	'Datatypes',
+	1,
+	7);
+INSERT INTO GD_MD
+	VALUES (10,
+	100,
+	6,
+	53,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_GE
+	VALUES (11,
+	10,
+	12,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (11);
+INSERT INTO GD_NCS
+	VALUES (11);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	11);
+INSERT INTO DIM_GE
+	VALUES (1933.000000,
+	1045.000000,
+	11,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (11,
+	1,
+	7);
+INSERT INTO GD_GE
+	VALUES (13,
+	10,
+	14,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (13);
+INSERT INTO GD_NCS
+	VALUES (13);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	13);
+INSERT INTO DIM_GE
+	VALUES (2153.000000,
+	1045.000000,
+	13,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (13,
+	1,
+	7);
+INSERT INTO GD_GE
+	VALUES (15,
+	10,
+	16,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (15);
+INSERT INTO GD_NCS
+	VALUES (15);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	15);
+INSERT INTO DIM_GE
+	VALUES (2373.000000,
+	1045.000000,
+	15,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (15,
+	1,
+	7);
+INSERT INTO GD_GE
+	VALUES (17,
+	10,
+	18,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (17);
+INSERT INTO GD_NCS
+	VALUES (17);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	17);
+INSERT INTO DIM_GE
+	VALUES (2593.000000,
+	1045.000000,
+	17,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (17,
+	1,
+	7);
+INSERT INTO GD_GE
+	VALUES (19,
+	10,
+	20,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (19);
+INSERT INTO GD_NCS
+	VALUES (19);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	19);
+INSERT INTO DIM_GE
+	VALUES (2813.000000,
+	1045.000000,
+	19,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (19,
+	1,
+	7);
+INSERT INTO GD_GE
+	VALUES (21,
+	10,
+	22,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (21);
+INSERT INTO GD_NCS
+	VALUES (21);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	21);
+INSERT INTO DIM_GE
+	VALUES (1933.000000,
+	1210.000000,
+	21,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (21,
+	1,
+	7);
+INSERT INTO GD_GE
+	VALUES (23,
+	10,
+	24,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (23);
+INSERT INTO GD_NCS
+	VALUES (23);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	23);
+INSERT INTO DIM_GE
+	VALUES (2153.000000,
+	1210.000000,
+	23,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (23,
+	1,
+	7);
+INSERT INTO GD_GE
+	VALUES (25,
+	10,
+	26,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (25);
+INSERT INTO GD_NCS
+	VALUES (25);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	25);
+INSERT INTO DIM_GE
+	VALUES (2373.000000,
+	1210.000000,
+	25,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (25,
+	1,
+	7);
+INSERT INTO GD_GE
+	VALUES (27,
+	10,
+	28,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (27);
+INSERT INTO GD_NCS
+	VALUES (27);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	27);
+INSERT INTO DIM_GE
+	VALUES (2593.000000,
+	1210.000000,
+	27,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (27,
+	1,
+	7);
+INSERT INTO GD_GE
+	VALUES (29,
+	10,
+	30,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (29);
+INSERT INTO GD_NCS
+	VALUES (29);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	29);
+INSERT INTO DIM_GE
+	VALUES (2813.000000,
+	1210.000000,
+	29,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (29,
+	1,
+	7);
+INSERT INTO GD_GE
+	VALUES (31,
+	10,
+	32,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (31);
+INSERT INTO GD_NCS
+	VALUES (31);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	31);
+INSERT INTO DIM_GE
+	VALUES (1933.000000,
+	1375.000000,
+	31,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (31,
+	1,
+	7);
+INSERT INTO GD_GE
+	VALUES (33,
+	10,
+	34,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (33);
+INSERT INTO GD_NCS
+	VALUES (33);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	33);
+INSERT INTO DIM_GE
+	VALUES (2153.000000,
+	1375.000000,
+	33,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (33,
+	1,
+	7);
+INSERT INTO GD_GE
+	VALUES (35,
+	10,
+	36,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (35);
+INSERT INTO GD_NCS
+	VALUES (35);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	35);
+INSERT INTO DIM_GE
+	VALUES (2373.000000,
+	1375.000000,
+	35,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (35,
+	1,
+	7);
+INSERT INTO GD_GE
+	VALUES (37,
+	10,
+	38,
+	51,
+	0);
+INSERT INTO GD_SHP
+	VALUES (37);
+INSERT INTO GD_NCS
+	VALUES (37);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	37);
+INSERT INTO DIM_GE
+	VALUES (1933.000000,
+	1540.000000,
+	37,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (37,
+	1,
+	7);
+INSERT INTO GD_GE
+	VALUES (39,
+	10,
+	40,
+	51,
+	0);
+INSERT INTO GD_SHP
+	VALUES (39);
+INSERT INTO GD_NCS
+	VALUES (39);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	39);
+INSERT INTO DIM_GE
+	VALUES (2153.000000,
+	1540.000000,
+	39,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (39,
+	1,
+	7);
+INSERT INTO GD_GE
+	VALUES (41,
+	10,
+	42,
+	51,
+	0);
+INSERT INTO GD_SHP
+	VALUES (41);
+INSERT INTO GD_NCS
+	VALUES (41);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	41);
+INSERT INTO DIM_GE
+	VALUES (2373.000000,
+	1540.000000,
+	41,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (41,
+	1,
+	7);
+INSERT INTO DIM_DIA
+	VALUES (10,
+	'',
+	0.830508,
+	1766.000000,
+	858.000000,
+	7);
+INSERT INTO S_DIP
+	VALUES (6,
+	12);
+INSERT INTO S_DT
+	VALUES (12,
+	1,
+	'void',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (12,
+	0);
+INSERT INTO S_DIP
+	VALUES (6,
+	14);
+INSERT INTO S_DT
+	VALUES (14,
+	1,
+	'boolean',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (14,
+	1);
+INSERT INTO S_DIP
+	VALUES (6,
+	16);
+INSERT INTO S_DT
+	VALUES (16,
+	1,
+	'integer',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (16,
+	2);
+INSERT INTO S_DIP
+	VALUES (6,
+	18);
+INSERT INTO S_DT
+	VALUES (18,
+	1,
+	'real',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (18,
+	3);
+INSERT INTO S_DIP
+	VALUES (6,
+	20);
+INSERT INTO S_DT
+	VALUES (20,
+	1,
+	'string',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (20,
+	4);
+INSERT INTO S_DIP
+	VALUES (6,
+	22);
+INSERT INTO S_DT
+	VALUES (22,
+	1,
+	'unique_id',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (22,
+	5);
+INSERT INTO S_DIP
+	VALUES (6,
+	24);
+INSERT INTO S_DT
+	VALUES (24,
+	1,
+	'state<State_Model>',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (24,
+	6);
+INSERT INTO S_DIP
+	VALUES (6,
+	26);
+INSERT INTO S_DT
+	VALUES (26,
+	1,
+	'same_as<Base_Attribute>',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (26,
+	7);
+INSERT INTO S_DIP
+	VALUES (6,
+	28);
+INSERT INTO S_DT
+	VALUES (28,
+	1,
+	'inst_ref<Object>',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (28,
+	8);
+INSERT INTO S_DIP
+	VALUES (6,
+	30);
+INSERT INTO S_DT
+	VALUES (30,
+	1,
+	'inst_ref_set<Object>',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (30,
+	9);
+INSERT INTO S_DIP
+	VALUES (6,
+	32);
+INSERT INTO S_DT
+	VALUES (32,
+	1,
+	'inst<Event>',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (32,
+	10);
+INSERT INTO S_DIP
+	VALUES (6,
+	34);
+INSERT INTO S_DT
+	VALUES (34,
+	1,
+	'inst<Mapping>',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (34,
+	11);
+INSERT INTO S_DIP
+	VALUES (6,
+	36);
+INSERT INTO S_DT
+	VALUES (36,
+	1,
+	'inst_ref<Mapping>',
+	'',
+	'');
+INSERT INTO S_CDT
+	VALUES (36,
+	12);
+INSERT INTO S_DIP
+	VALUES (6,
+	38);
+INSERT INTO S_DT
+	VALUES (38,
+	1,
+	'date',
+	'Time as known in the external world. For example, 12 October 1492,
+13:25:10. The accuracy of external time is dependent on the architecture and
+implementation.',
+	'');
+INSERT INTO S_UDT
+	VALUES (38,
+	34,
+	1);
+INSERT INTO S_DIP
+	VALUES (6,
+	40);
+INSERT INTO S_DT
+	VALUES (40,
+	1,
+	'timestamp',
+	' The system clock counts time in ticks. The size of a tick is dependent on the
+ architecture and implementation.',
+	'');
+INSERT INTO S_UDT
+	VALUES (40,
+	34,
+	2);
+INSERT INTO S_DIP
+	VALUES (6,
+	42);
+INSERT INTO S_DT
+	VALUES (42,
+	1,
+	'inst_ref<Timer>',
+	'',
+	'');
+INSERT INTO S_UDT
+	VALUES (42,
+	36,
+	3);
+INSERT INTO EP_SPKG
+	VALUES (6,
+	7);
+INSERT INTO S_EEPK
+	VALUES (9,
+	'External Entities',
+	1,
+	7);
+INSERT INTO GD_MD
+	VALUES (43,
+	102,
+	9,
+	55,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	4275,
+	3161,
+	0,
+	0,
+	0);
+INSERT INTO GD_GE
+	VALUES (44,
+	43,
+	45,
+	12,
+	0);
+INSERT INTO GD_SHP
+	VALUES (44);
+INSERT INTO GD_NCS
+	VALUES (44);
+INSERT INTO DIM_ND
+	VALUES (840.000000,
+	361.000000,
+	44);
+INSERT INTO DIM_GE
+	VALUES (4116.000000,
+	3264.000000,
+	44,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (44,
+	1,
+	7);
+INSERT INTO GD_GE
+	VALUES (46,
+	43,
+	47,
+	12,
+	0);
+INSERT INTO GD_SHP
+	VALUES (46);
+INSERT INTO GD_NCS
+	VALUES (46);
+INSERT INTO DIM_ND
+	VALUES (240.000000,
+	108.000000,
+	46);
+INSERT INTO DIM_GE
+	VALUES (4116.000000,
+	3000.000000,
+	46,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (46,
+	1,
+	7);
+INSERT INTO GD_GE
+	VALUES (48,
+	43,
+	49,
+	12,
+	0);
+INSERT INTO GD_SHP
+	VALUES (48);
+INSERT INTO GD_NCS
+	VALUES (48);
+INSERT INTO DIM_ND
+	VALUES (372.000000,
+	216.000000,
+	48);
+INSERT INTO DIM_GE
+	VALUES (4428.000000,
+	3000.000000,
+	48,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (48,
+	1,
+	7);
+INSERT INTO DIM_DIA
+	VALUES (43,
+	'',
+	0.634483,
+	3969.000000,
+	2950.000000,
+	7);
+INSERT INTO S_EEPIP
+	VALUES (9);
+INSERT INTO PL_EEPID
+	VALUES (1,
+	9);
+INSERT INTO S_EEIP
+	VALUES (9,
+	45);
+INSERT INTO S_EE
+	VALUES (45,
+	'Time',
+	'The Time external entity provides date, timestamp, and timer related operations.',
+	'TIM',
+	1);
+INSERT INTO S_BRG
+	VALUES (50,
+	45,
+	'current_date',
+	'',
+	1,
+	38,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (51,
+	45,
+	'create_date',
+	'',
+	1,
+	38,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (52,
+	51,
+	'second',
+	16,
+	0,
+	'',
+	53,
+	'');
+INSERT INTO S_BPARM
+	VALUES (54,
+	51,
+	'minute',
+	16,
+	0,
+	'',
+	55,
+	'');
+INSERT INTO S_BPARM
+	VALUES (55,
+	51,
+	'hour',
+	16,
+	0,
+	'',
+	56,
+	'');
+INSERT INTO S_BPARM
+	VALUES (56,
+	51,
+	'day',
+	16,
+	0,
+	'',
+	7,
+	'');
+INSERT INTO S_BPARM
+	VALUES (53,
+	51,
+	'month',
+	16,
+	0,
+	'',
+	54,
+	'');
+INSERT INTO S_BPARM
+	VALUES (57,
+	51,
+	'year',
+	16,
+	0,
+	'',
+	52,
+	'');
+INSERT INTO S_BRG
+	VALUES (58,
+	45,
+	'get_second',
+	'',
+	1,
+	16,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (59,
+	58,
+	'date',
+	38,
+	0,
+	'',
+	7,
+	'');
+INSERT INTO S_BRG
+	VALUES (60,
+	45,
+	'get_minute',
+	'',
+	1,
+	16,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (61,
+	60,
+	'date',
+	38,
+	0,
+	'',
+	7,
+	'');
+INSERT INTO S_BRG
+	VALUES (62,
+	45,
+	'get_hour',
+	'',
+	1,
+	16,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (63,
+	62,
+	'date',
+	38,
+	0,
+	'',
+	7,
+	'');
+INSERT INTO S_BRG
+	VALUES (64,
+	45,
+	'get_day',
+	'',
+	1,
+	16,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (65,
+	64,
+	'date',
+	38,
+	0,
+	'',
+	7,
+	'');
+INSERT INTO S_BRG
+	VALUES (66,
+	45,
+	'get_month',
+	'',
+	1,
+	16,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (67,
+	66,
+	'date',
+	38,
+	0,
+	'',
+	7,
+	'');
+INSERT INTO S_BRG
+	VALUES (68,
+	45,
+	'get_year',
+	'',
+	1,
+	16,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (69,
+	68,
+	'date',
+	38,
+	0,
+	'',
+	7,
+	'');
+INSERT INTO S_BRG
+	VALUES (70,
+	45,
+	'current_clock',
+	'',
+	1,
+	40,
+	'',
+	0,
+	'');
+INSERT INTO S_BRG
+	VALUES (71,
+	45,
+	'timer_start',
+	'This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Returns the instance
+handle of the timer.',
+	1,
+	42,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (72,
+	71,
+	'microseconds',
+	16,
+	0,
+	'',
+	73,
+	'');
+INSERT INTO S_BPARM
+	VALUES (73,
+	71,
+	'event_inst',
+	32,
+	0,
+	'',
+	7,
+	'');
+INSERT INTO S_BRG
+	VALUES (74,
+	45,
+	'timer_start_recurring',
+	'This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Upon expiration, the
+timer will be restarted and fire again in the specified number of microseconds
+generating the passed event. This bridge operation returns the instance handle
+of the timer.',
+	1,
+	42,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (75,
+	74,
+	'microseconds',
+	16,
+	0,
+	'',
+	76,
+	'');
+INSERT INTO S_BPARM
+	VALUES (76,
+	74,
+	'event_inst',
+	32,
+	0,
+	'',
+	7,
+	'');
+INSERT INTO S_BRG
+	VALUES (77,
+	45,
+	'timer_remaining_time',
+	'Returns the time remaining (in microseconds) for the passed timer instance. If
+the timer has expired, a zero value is returned.',
+	1,
+	16,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (78,
+	77,
+	'timer_inst_ref',
+	42,
+	0,
+	'',
+	7,
+	'');
+INSERT INTO S_BRG
+	VALUES (79,
+	45,
+	'timer_reset_time',
+	'This bridge operation attempts to set the passed existing timer to expire in
+the specified number of microseconds. If the timer exists (that is, it has not
+expired), a TRUE value is returned. If the timer no longer exists, a FALSE value
+is returned.',
+	1,
+	14,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (80,
+	79,
+	'timer_inst_ref',
+	42,
+	0,
+	'',
+	81,
+	'');
+INSERT INTO S_BPARM
+	VALUES (81,
+	79,
+	'microseconds',
+	16,
+	0,
+	'',
+	7,
+	'');
+INSERT INTO S_BRG
+	VALUES (82,
+	45,
+	'timer_add_time',
+	'This bridge operation attempts to add the specified number of microseconds to a
+passed existing timer. If the timer exists (that is, it has not expired), a TRUE
+value is returned. If the timer no longer exists, a FALSE value is returned.',
+	1,
+	14,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (83,
+	82,
+	'timer_inst_ref',
+	42,
+	0,
+	'',
+	84,
+	'');
+INSERT INTO S_BPARM
+	VALUES (84,
+	82,
+	'microseconds',
+	16,
+	0,
+	'',
+	7,
+	'');
+INSERT INTO S_BRG
+	VALUES (85,
+	45,
+	'timer_cancel',
+	'This bridge operation cancels and deletes the passed timer instance. If the 
+timer exists (that is, it had not expired), a TRUE value is returned. If the
+timer no longer exists, a FALSE value is returned.',
+	1,
+	14,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (86,
+	85,
+	'timer_inst_ref',
+	42,
+	0,
+	'',
+	7,
+	'');
+INSERT INTO S_EEIP
+	VALUES (9,
+	47);
+INSERT INTO S_EE
+	VALUES (47,
+	'Architecture',
+	'',
+	'ARCH',
+	1);
+INSERT INTO S_BRG
+	VALUES (87,
+	47,
+	'shutdown',
+	'',
+	0,
+	12,
+	'control stop;',
+	1,
+	'');
+INSERT INTO S_EEIP
+	VALUES (9,
+	49);
+INSERT INTO S_EE
+	VALUES (49,
+	'Logging',
+	'',
+	'LOG',
+	1);
+INSERT INTO S_BRG
+	VALUES (88,
+	49,
+	'LogSuccess',
+	'',
+	0,
+	12,
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES (89,
+	88,
+	'message',
+	20,
+	0,
+	'',
+	7,
+	'');
+INSERT INTO S_BRG
+	VALUES (90,
+	49,
+	'LogFailure',
+	'',
+	0,
+	12,
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES (91,
+	90,
+	'message',
+	20,
+	0,
+	'',
+	7,
+	'');
+INSERT INTO S_BRG
+	VALUES (92,
+	49,
+	'LogInfo',
+	'',
+	0,
+	12,
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES (93,
+	92,
+	'message',
+	20,
+	0,
+	'',
+	7,
+	'');
+INSERT INTO S_BRG
+	VALUES (94,
+	49,
+	'LogDate',
+	'',
+	0,
+	12,
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES (95,
+	94,
+	'd',
+	38,
+	0,
+	'',
+	7,
+	'');
+INSERT INTO S_BPARM
+	VALUES (96,
+	94,
+	'message',
+	20,
+	0,
+	'',
+	95,
+	'');
+INSERT INTO S_BRG
+	VALUES (97,
+	49,
+	'LogTime',
+	'',
+	0,
+	12,
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES (98,
+	97,
+	't',
+	40,
+	0,
+	'',
+	99,
+	'');
+INSERT INTO S_BPARM
+	VALUES (99,
+	97,
+	'message',
+	20,
+	0,
+	'',
+	7,
+	'');
+INSERT INTO S_BRG
+	VALUES (100,
+	49,
+	'LogReal',
+	'',
+	0,
+	12,
+	'',
+	1,
+	'');
+INSERT INTO S_BPARM
+	VALUES (101,
+	100,
+	'r',
+	18,
+	0,
+	'',
+	102,
+	'');
+INSERT INTO S_BPARM
+	VALUES (102,
+	100,
+	'message',
+	20,
+	0,
+	'',
+	7,
+	'');
+INSERT INTO S_BRG
+	VALUES (103,
+	49,
+	'LogInteger',
+	'',
+	0,
+	12,
+	'',
+	0,
+	'');
+INSERT INTO S_BPARM
+	VALUES (104,
+	103,
+	'message',
+	16,
+	0,
+	'',
+	7,
+	'');

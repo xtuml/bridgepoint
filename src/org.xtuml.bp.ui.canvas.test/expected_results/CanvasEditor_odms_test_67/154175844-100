@@ -1,0 +1,4 @@
+drawRectangle(342, 141, 543, 577)
+drawText("«dataType»", 501, 152, true)
+drawText("Unnamed Data Type", 416, 379, true)
+drawText("{ integer }", 512, 433, true)

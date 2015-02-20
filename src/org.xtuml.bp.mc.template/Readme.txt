@@ -1,0 +1,1 @@
+See: < git >\xtuml\internal\doc-internal\process\HOWTO-create-new-ModelCompiler-plugin.md

@@ -1,0 +1,520 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>Getting Started - Model Debug</title>
+
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:Webdings;
+	panose-1:5 3 1 2 1 5 9 6 7 3;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-right:0in;
+	margin-left:0in;
+	font-size:18.0pt;
+	font-family:"Arial","sans-serif";
+	color:black;
+	font-weight:normal;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-right:0in;
+	margin-left:0in;
+	line-height:15.6pt;
+	font-size:12.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h4
+	{mso-style-link:"Heading 4 Char";
+	margin-top:7.5pt;
+	margin-right:7.5pt;
+	margin-bottom:2.4pt;
+	margin-left:7.5pt;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:#0176B9;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:navy;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#0176B9;
+	text-decoration:underline;}
+p
+	{margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading4Char
+	{mso-style-name:"Heading 4 Char";
+	mso-style-link:"Heading 4";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-link:"Balloon Text";
+	font-family:"Tahoma","sans-serif";}
+p.preformatted-tpcode, li.preformatted-tpcode, div.preformatted-tpcode
+	{mso-style-name:preformatted-tp_code;
+	margin-top:15.0pt;
+	margin-right:0in;
+	margin-bottom:15.0pt;
+	margin-left:0in;
+	background:silver;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.normalnotoc, li.normalnotoc, div.normalnotoc
+	{mso-style-name:normalnotoc;
+	margin:7.5pt;
+	font-size:11.0pt;
+	font-family:"Times New Roman","serif";}
+span.codeChar
+	{mso-style-name:"code Char";
+	mso-style-link:code;
+	font-family:"Courier New";}
+p.code, li.code, div.code
+	{mso-style-name:code;
+	mso-style-link:"code Char";
+	margin:7.5pt;
+	font-size:11.0pt;
+	font-family:"Courier New";}
+span.tpcodeChar
+	{mso-style-name:"tp_code Char";
+	mso-style-link:tp_code;
+	font-family:"Courier New";}
+p.tpcode, li.tpcode, div.tpcode
+	{mso-style-name:tp_code;
+	mso-style-link:"tp_code Char";
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.tpinput, li.tpinput, div.tpinput
+	{mso-style-name:tp_input;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+p.tpui, li.tpui, div.tpui
+	{mso-style-name:tp_ui;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	color:navy;}
+p.tpvar, li.tpvar, div.tpvar
+	{mso-style-name:tp_var;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-style:italic;}
+p.tpfooter, li.tpfooter, div.tpfooter
+	{mso-style-name:tp_footer;
+	margin:7.5pt;
+	text-align:center;
+	background:white;
+	font-size:9.0pt;
+	font-family:"Times New Roman","serif";}
+p.sub, li.sub, div.sub
+	{mso-style-name:sub;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+p.sublstbody, li.sublstbody, div.sublstbody
+	{mso-style-name:sublstbody;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+span.tpfile
+	{mso-style-name:tp_file;
+	color:#990000;
+	letter-spacing:1.2pt;}
+span.tpnote
+	{mso-style-name:tp_note;
+	font-weight:bold;}
+span.tpmenuarrow
+	{mso-style-name:tp_menuarrow;
+	font-family:Webdings;
+	color:navy;}
+span.hypertext
+	{mso-style-name:hypertext;}
+.MsoChpDefault
+	{font-size:10.0pt;}
+ /* Page Definitions */
+ @page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+<script language="JavaScript"  src="../../../org.eclipse.help/livehelp.js">
+</script>
+</head>
+
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9">
+
+<div class=WordSection1>
+
+<h1>Using BridgePoint Verifier to Debug the Sample Models</h1>
+
+<h2>Overview</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>This
+section provides a brief introduction to the BridgePoint Verifier. It is meant
+to be a step-by-step guide enabling you to familiarize yourself with the tool, its
+look and feel, and how to get around. By the end of this section you should be
+able to open, execute, and debug models you have created.� BridgePoint Verifier
+allows you to interactively debug a model and its action language, without
+first translating the model into a target language. The BridgePoint Verifier
+interface is the </span><b><span style='font-family:"Arial","sans-serif"'>xtUML
+Debugging</span></b><span style='font-family:"Arial","sans-serif"'> perspective
+inside Eclipse.</span></p>
+
+<h2>Sample Model</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>These
+instructions are based on the Microwave Oven sample model included in
+BridgePoint.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>During
+this demonstration, you may find it useful to have the MicrowaveOven model open
+so that the correspondences between the model and BridgePoint Verifier output
+can be seen and understood.� If you do not see the MicrowaveOven project, click
+the link below:</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="javascript:liveAction(%22org.xtuml.bp.welcome%22,%22org.xtuml.bp.welcome.gettingstarted.GettingStartedLiveHelpAction%22,%22%22)">Click
+here to create the sample project.</a></span></p>
+
+<h2><a name="_Hlk141671558">Using BridgePoint Verifier</a></h2>
+
+<h3 style='line-height:15.6pt'>Start BridgePoint Verifier</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Use
+the <b>xtUML Modeling</b> perspective (<b>Window &gt; Open Perspective &gt;
+xtUML Modeling</b>) to <b>Launch Verifier</b> on the MicrowaveOven model.��� </span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=312 height=273 id="Picture 1"
+src="ModelVerifier_files/image001.jpg" alt="Description: Launch_Verifier"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>After
+the selection has been made, a Verifier configuration dialog will come up.�
+Enter a configuration name, and check the box next to the MicrowaveOven model.�
+If you would like to see all transitions in the Console, check the <b>Log model
+execution activity</b> box.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=350 height=556 id="Picture 2"
+src="ModelVerifier_files/image002.jpg" alt="Description: new_config_2"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Then
+select <b>Debug</b>.� The <b>xtUML Debugging</b></span><span style='font-family:
+"Arial","sans-serif"'> perspective will automatically be opened and the
+Verifier execution will begin.� The views in this perspective may be rearranged
+by drag-and-drop to suit your tastes.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=1024 height=768 id="Picture 3"
+src="ModelVerifier_files/image003.jpg" alt="Description: debug_perspective2"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Notice,
+in the <b>Session Explorer</b> view that none of the classes have any session
+information at this point.</span></p>
+
+<h3 style='line-height:15.6pt'>Execute an Initialization Function</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>In
+order to execute the model we must first define some instances of the classes
+in the model.� To do this we will execute the </span><span class=tpcodeChar>DefineOven</span><span
+style='font-family:"Arial","sans-serif"'> function. </span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Find
+the function in the <b>Session Explorer</b> view.� Right-click and select <b>Execute</b>.�
+</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=279 height=337 id="Picture 4"
+src="ModelVerifier_files/image004.jpg" alt="Description: exec_define_oven"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Notice
+the changes in the <b>Session Explorer</b>, instances are now present for all
+classes that had instances created by the OAL in the </span><span
+class=codeChar><span style='font-size:11.0pt'>DefineOven</span></span><span
+style='font-family:"Arial","sans-serif"'> function:</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=256 height=268 id="Picture 5"
+src="ModelVerifier_files/image005.jpg" alt="Description: se_after_define_oven"></span></p>
+
+<h3 style='line-height:15.6pt'>Browse Instance Data</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>From
+the <b>Session Explorer</b>, open the </span><span class=codeChar><span
+style='font-size:11.0pt'>Magnetron Tube</span></span><span style='font-family:
+"Arial","sans-serif"'> class. There is one instance in the list with an id
+value of something like </span><span class=codeChar><span style='font-size:
+11.0pt'>2</span></span><span style='font-family:"Arial","sans-serif"'>.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Open
+up the </span><span class=codeChar><span style='font-size:11.0pt'>Magnetron
+Tube</span></span><span style='font-family:"Arial","sans-serif"'> instance to
+see the values of its attributes. The current state of this instance is shown
+to the right of the state icon <img border=0 width=14 height=19 id="Picture 6"
+src="ModelVerifier_files/image006.gif" alt="Description: state_icon">�as </span><span
+class=codeChar><span style='font-size:11.0pt'>Output Power Stable and OFF</span></span><span
+style='font-family:"Arial","sans-serif"'>.</span></p>
+
+<p style='margin-left:0in;line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=395 height=253 id="Picture 7"
+src="ModelVerifier_files/image007.jpg" alt="Description: se_magnetron"></span></p>
+
+<h3 style='line-height:15.6pt'>Browse an Instance State Machine</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Use
+<b>Model Explorer</b> to open the </span><span class=codeChar><span
+style='font-size:11.0pt'>Magnetron Tube</span></span><span style='font-family:
+"Arial","sans-serif"'> class� Instance State Machine.� Select the <b>Show
+entire canvas</b> toolbar icon. <img border=0 width=27 height=22 id="Picture 8"
+src="ModelVerifier_files/image008.gif"
+alt="Description: show_entire_canvas_icon">�</span></p>
+
+<p style='margin-left:0in;line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=1023 height=594 id="Picture 9"
+src="ModelVerifier_files/image009.jpg" alt="Description: ism_magnetron"></span></p>
+
+<h3 style='line-height:15.6pt'>Use the Spotlight View</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>In
+<b>Session Explorer</b>, right-click the </span><span class=codeChar><span
+style='font-size:11.0pt'>Magnetron Tube</span></span><span style='font-family:
+"Arial","sans-serif"'> instace and select <b>Put in Spotlight</b>.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=372 height=531 id="Picture 10"
+src="ModelVerifier_files/image010.jpg" alt="Description: put_in_spotlight"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+chosen instance will now appear in the <b>Spotlight</b> view and the current
+state of the </span><span class=codeChar><span style='font-size:11.0pt'>Magnetron
+Tube</span></span><span style='font-family:"Arial","sans-serif"'> instance (</span><span
+class=codeChar><span style='font-size:11.0pt'>Output Power Stable and OFF</span></span><span
+style='font-family:"Arial","sans-serif"'>) is shown highlighted in the <b>Magnetron
+Tube: Instance State Machine</b> diagram. </span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=1024 height=768 id="Picture 11"
+src="ModelVerifier_files/image011.jpg" alt="Description: after_in_spotlight"></span></p>
+
+<p style='line-height:15.6pt'><b><span style='font-family:"Arial","sans-serif"'>Note:
+</span></b><span style='font-family:"Arial","sans-serif"'>Only instances in <b>Spotlight</b>
+affect the current state highlighing behavior of the state machine diagram.
+Classes with state machines may also be added to <b>Spotlight</b>.</span></p>
+
+<h3 style='line-height:15.6pt'>Set a Breakpoint</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Use
+<b>Model Explorer</b> to open the </span><span class=codeChar><span
+style='font-size:11.0pt'>TestSequence1</span></span><span style='font-family:
+"Arial","sans-serif"'> function.� Right-click in the margin to the left of the
+action language.� Use the context menu to toggle a breakpoint on.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=507 height=276 id="Picture 12"
+src="ModelVerifier_files/image012.gif" alt="Description: set_breakpoint"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+breakpoint you just set is shown in the <b>Breakpoints</b> view and can be
+enabled and disabled from there (as well as directly in the OAL editor by right
+clicking). Select <b>Breakpoint Properties...</b> from either place. There is a
+<b>Hit count</b> you can set in this dialog.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=673 height=282 id="Picture 13"
+src="ModelVerifier_files/image013.jpg" alt="Description: breakpoint_properties"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Once
+you have set the breakpoint, right-click on the function named </span><span
+class=codeChar><span style='font-size:11.0pt'>TestSequence1</span></span><span
+style='font-family:"Arial","sans-serif"'> in <b>Model Explorer</b> and select <b>Execute</b>.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Execution
+suspends when the action language in </span><span class=codeChar><span
+style='font-size:11.0pt'>TestSequence1</span></span><span style='font-family:
+"Arial","sans-serif"'> is executed and the hit count is reached. The <b>Variables</b>
+view shows the current values of any action language temporary variables in the
+OAL. The <b>Debug</b> view shows any events that were in the event queue when
+execution suspended.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=875 height=290 id="Picture 14"
+src="ModelVerifier_files/image014.jpg" alt="Description: hit_breakpoint"></span></p>
+
+<h3 style='line-height:15.6pt'>State Machine Animation</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Bring
+the <b>Magnetron Tube: Instance State Machine</b> diagram back to the
+foreground and select the <b>Resume </b>button <img border=0 width=22
+height=18 id="Picture 15" src="ModelVerifier_files/image015.gif"
+alt="Description: resume">�in the <b>Debug</b> view.� The highlighted state in
+the diagram and in the <b>Spotlight</b> will change as the model executes.� </span></p>
+
+<h3 style='line-height:15.6pt'>Execution Control</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>As
+with code debuggers, <b>Suspend</b> and <b>Terminate</b> are available for
+execution control.� Stepping is also supported to execute action language line
+by line.� The <b>Variables</b> view will be updated as stepping proceeds.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=508 height=150 id="Picture 16"
+src="ModelVerifier_files/image016.gif" alt="Description: suspend"></span></p>
+
+<h2>Other Features</h2>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>�<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Breakpoints can be
+set on events. You can set <b>Queued</b>, <b>Dequeued</b>, <b>Ignored</b> and <b>Can't
+Happen</b> breakpoints.� Locate the event in <b>Model Explorer</b>.�
+Right-click and select <b>Set Breakpoint</b> in the context menu. Next, in the <b>Breakpoints</b>
+view, right-click on the desired event breakpoint and select <b>Breakpoint
+Properties�</b></span></p>
+
+<p style='margin-left:25.5pt;line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=563 height=318 id="Picture 17"
+src="ModelVerifier_files/image017.jpg"
+alt="Description: event_breakpoint_properties"></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>�<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Breakpoints can
+also be set on states. You can set <b>Transition Into</b> and <b>Transition Out
+of</b> breakpoints.� Locate the state in <b>Model Explorer</b> or <b>Session
+Explorer</b>.� Right-click and select <b>Set Breakpoint</b> in the context
+menu. Next, in the <b>Breakpoints</b> view, right-click on the desired state
+breakpoint and select <b>Breakpoint Properties�</b> </span></p>
+
+<p style='margin-left:25.5pt;line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=558 height=282 id="Picture 18"
+src="ModelVerifier_files/image018.jpg"
+alt="Description: state_breakpoint_properties"></span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>�<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Multiple instances
+can be shown in the <b>Spotlight</b> view allowing visual tracking of the
+current states of multiple instances and classes (classes that have state
+machines can also be added to the <b>Spotlight</b> view).</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>�<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><b><span style='font-family:"Arial","sans-serif"'>Step Over</span></b><span
+style='font-family:"Arial","sans-serif"'> and <b>Step Into</b> work for events
+shown in the <b>Debug</b> view event queue, too. If an event is delayed, <b>Step
+Over</b> and <b>Step Into</b> will dequeue the event immediately without
+waiting for the time to expire.</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>�<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>The model may be
+modified while Verifier is running and the changed behavior will be seen immediately.</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>�<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Control can be
+transferred from a bridge call to a user supplied Java class.� The class must
+reside in the package lib in the root of the </span><span class=codeChar><span
+style='font-size:11.0pt'>src/</span></span><span style='font-family:"Arial","sans-serif"'>
+folder. The class name must match the key letters of the External Entity and
+the method must match in name and parameter types those declared for the
+bridge.</span></p>
+
+<h2>Where to go from here?</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>You
+should now be familiar with the </span><span style='font-family:"Arial","sans-serif"'>BridgePoint
+Verifier and its various features. Here is a short list of additional
+exercises:</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>�<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Experiment with
+different breakpoints to see what they do.</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>�<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Debug your own
+application model using </span><span style='font-family:"Arial","sans-serif"'>BridgePoint
+Verifier.</span></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>
