@@ -1,0 +1,1357 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>Model Explorer View</title>
+
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"MS Mincho";
+	panose-1:2 2 6 9 4 2 5 8 3 4;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Webdings;
+	panose-1:5 3 1 2 1 5 9 6 7 3;}
+@font-face
+	{font-family:"\@MS Mincho";
+	panose-1:2 2 6 9 4 2 5 8 3 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-right:0in;
+	margin-left:0in;
+	font-size:18.0pt;
+	font-family:"Arial","sans-serif";
+	color:black;
+	font-weight:normal;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-right:0in;
+	margin-left:0in;
+	line-height:15.6pt;
+	font-size:12.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h4
+	{mso-style-link:"Heading 4 Char";
+	margin-top:7.5pt;
+	margin-right:7.5pt;
+	margin-bottom:2.4pt;
+	margin-left:7.5pt;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:#0176B9;
+	font-weight:bold;}
+p.MsoNormalIndent, li.MsoNormalIndent, div.MsoNormalIndent
+	{margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoCaption, li.MsoCaption, div.MsoCaption
+	{margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:0in;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:navy;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#0176B9;
+	text-decoration:underline;}
+p
+	{margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+span.Heading4Char
+	{mso-style-name:"Heading 4 Char";
+	mso-style-link:"Heading 4";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-link:"Balloon Text";
+	font-family:"Tahoma","sans-serif";}
+p.preformatted-tpcode, li.preformatted-tpcode, div.preformatted-tpcode
+	{mso-style-name:preformatted-tp_code;
+	margin-top:15.0pt;
+	margin-right:0in;
+	margin-bottom:15.0pt;
+	margin-left:0in;
+	background:silver;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.normalnotoc, li.normalnotoc, div.normalnotoc
+	{mso-style-name:normalnotoc;
+	margin:7.5pt;
+	font-size:11.0pt;
+	font-family:"Times New Roman","serif";}
+p.code, li.code, div.code
+	{mso-style-name:code;
+	margin:7.5pt;
+	font-size:11.0pt;
+	font-family:"Courier New";}
+p.tpcode, li.tpcode, div.tpcode
+	{mso-style-name:tp_code;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.tpinput, li.tpinput, div.tpinput
+	{mso-style-name:tp_input;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+p.tpui, li.tpui, div.tpui
+	{mso-style-name:tp_ui;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	color:navy;}
+p.tpvar, li.tpvar, div.tpvar
+	{mso-style-name:tp_var;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-style:italic;}
+p.tpfooter, li.tpfooter, div.tpfooter
+	{mso-style-name:tp_footer;
+	margin:7.5pt;
+	text-align:center;
+	background:white;
+	font-size:9.0pt;
+	font-family:"Times New Roman","serif";}
+p.sub, li.sub, div.sub
+	{mso-style-name:sub;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+p.sublstbody, li.sublstbody, div.sublstbody
+	{mso-style-name:sublstbody;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+span.tpfile
+	{mso-style-name:tp_file;
+	color:#990000;
+	letter-spacing:1.2pt;}
+span.tpnote
+	{mso-style-name:tp_note;
+	font-weight:bold;}
+span.tpmenuarrow
+	{mso-style-name:tp_menuarrow;
+	font-family:Webdings;
+	color:navy;}
+span.hypertext
+	{mso-style-name:hypertext;}
+.MsoChpDefault
+	{font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9">
+
+<div class=WordSection1>
+
+<h2>Model Explorer View</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+Model Explorer view displays a hierarchical view of a UML model.  It also
+serves as a navigation tool to the various editors associated with model
+elements.  All editors are accessed via the Model Explorer view.  </span></p>
+
+<h3>Organization</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Model
+data is organized hierarchically, shown from top to bottom in the Model
+Explorer view.  The following table illustrates this hierarchy with the
+enclosing model element in the left column, one or more contained elements in
+the middle, and the icon for each contained element on the right.   Model
+elements are displayed in the icon followed by the element name.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>For
+example, the data type package can contain three other model elements such as
+other data type packages, data types, and enumerations.</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:5.4pt;border-collapse:collapse'>
+ <tr>
+  <td width=159 valign=top style='width:119.3pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='line-height:15.6pt'><b><span style='font-family:"Arial","sans-serif"'>Enclosing
+  Model Element</span></b></p>
+  </td>
+  <td width=200 valign=top style='width:150.25pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='line-height:15.6pt'><b><span style='font-family:"Arial","sans-serif"'>Contained
+  Model Element(s)</span></b></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='line-height:15.6pt'><b><span style='font-family:"Arial","sans-serif"'>Icon
+  (Contained Element)</span></b></p>
+  </td>
+ </tr>
+ <tr style='height:26.95pt'>
+  <td width=159 valign=top style='width:119.3pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:26.95pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>N/A</span></p>
+  </td>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:26.95pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>System
+  Package</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:26.95pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 1" src="ModelExplorer_files/image001.gif"
+  alt="Description: System"></span></p>
+  </td>
+ </tr>
+ <tr style='height:26.95pt'>
+  <td width=159 valign=top style='width:119.3pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:26.95pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>System
+  Package</span></p>
+  </td>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:26.95pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Domain
+  Package</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:26.95pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 2" src="ModelExplorer_files/image002.gif"
+  alt="Description: Domain"></span></p>
+  </td>
+ </tr>
+ <tr style='height:10.15pt'>
+  <td width=159 rowspan=8 valign=top style='width:119.3pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:10.15pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Domain
+  Package</span></p>
+  </td>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:10.15pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Activity
+  Diagram</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:10.15pt'>
+  <p style='line-height:15.6pt'><img width=17 height=17 id="Picture 3"
+  src="ModelExplorer_files/image003.jpg" alt="Description: activity_diagram"></p>
+  </td>
+ </tr>
+ <tr style='height:10.15pt'>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:10.15pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Communication
+  Diagram</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:10.15pt'>
+  <p style='line-height:15.6pt'><img width=17 height=17 id="Picture 4"
+  src="ModelExplorer_files/image004.jpg"
+  alt="Description: communication_diagram"></p>
+  </td>
+ </tr>
+ <tr style='height:10.15pt'>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:10.15pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Data
+  Type Package</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:10.15pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 5" src="ModelExplorer_files/image005.gif"
+  alt="Description: DatatypePackage"></span></p>
+  </td>
+ </tr>
+ <tr style='height:4.05pt'>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:4.05pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Function
+  Package</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:4.05pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 6" src="ModelExplorer_files/image006.gif"
+  alt="Description: FunctionPackage"></span></p>
+  </td>
+ </tr>
+ <tr style='height:4.05pt'>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:4.05pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>External
+  Entity Package</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:4.05pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 7" src="ModelExplorer_files/image007.gif"
+  alt="Description: ExternalEntityPackage"></span></p>
+  </td>
+ </tr>
+ <tr style='height:4.05pt'>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:4.05pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Sequence
+  Diagram</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:4.05pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=17 height=17 id="Picture 8" src="ModelExplorer_files/image008.jpg"
+  alt="Description: sequence_diagram"></span></p>
+  </td>
+ </tr>
+ <tr style='height:4.05pt'>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:4.05pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Subsystem
+  Package</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:4.05pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 9" src="ModelExplorer_files/image009.gif"
+  alt="Description: Subsystem"></span></p>
+  </td>
+ </tr>
+ <tr style='height:4.05pt'>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:4.05pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Use
+  Case Diagram</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:4.05pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=17 height=17 id="Picture 10" src="ModelExplorer_files/image010.jpg"
+  alt="Description: usecase_diagram"></span></p>
+  </td>
+ </tr>
+ <tr style='height:23.35pt'>
+  <td width=159 rowspan=4 valign=top style='width:119.3pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:23.35pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Data
+  Type Package</span></p>
+  </td>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:23.35pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Data
+  Type Package</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:23.35pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Same
+  as above</span></p>
+  </td>
+ </tr>
+ <tr style='height:24.25pt'>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:24.25pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Core
+  Data Type</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:24.25pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 11" src="ModelExplorer_files/image011.gif"
+  alt="Description: CoreDatatype"></span></p>
+  </td>
+ </tr>
+ <tr style='height:24.25pt'>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:24.25pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>User
+  Data Type</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:24.25pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 12" src="ModelExplorer_files/image012.gif"
+  alt="Description: UserDefinedDatatype"></span></p>
+  </td>
+ </tr>
+ <tr style='height:26.05pt'>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:26.05pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Enumeration</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:26.05pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 13" src="ModelExplorer_files/image013.gif"
+  alt="Description: Enumeration"></span></p>
+  </td>
+ </tr>
+ <tr style='height:24.7pt'>
+  <td width=159 valign=top style='width:119.3pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:24.7pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Enumeration</span></p>
+  </td>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:24.7pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Enumerator</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:24.7pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 14" src="ModelExplorer_files/image014.gif"
+  alt="Description: Enumerator"></span></p>
+  </td>
+ </tr>
+ <tr style='height:10.15pt'>
+  <td width=159 rowspan=2 valign=top style='width:119.3pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:10.15pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Function
+  Package</span></p>
+  </td>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:10.15pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Function
+  Package</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:10.15pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Same
+  as above</span></p>
+  </td>
+ </tr>
+ <tr style='height:23.35pt'>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:23.35pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Function</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:23.35pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 15" src="ModelExplorer_files/image015.gif"
+  alt="Description: Function"></span></p>
+  </td>
+ </tr>
+ <tr style='height:21.55pt'>
+  <td width=159 valign=top style='width:119.3pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:21.55pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Function
+  </span></p>
+  </td>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:21.55pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Parameter</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:21.55pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 16" src="ModelExplorer_files/image016.gif"
+  alt="Description: FunctionParameter"></span></p>
+  </td>
+ </tr>
+ <tr style='height:22.9pt'>
+  <td width=159 rowspan=2 valign=top style='width:119.3pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:22.9pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>External
+  Entity Package</span></p>
+  </td>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:22.9pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>External
+  Entity Package</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:22.9pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Same
+  as above</span></p>
+  </td>
+ </tr>
+ <tr style='height:25.6pt'>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:25.6pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>External
+  Entity</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:25.6pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 17" src="ModelExplorer_files/image017.gif"
+  alt="Description: ExternalEntity"></span></p>
+  </td>
+ </tr>
+ <tr style='height:44.0pt'>
+  <td width=159 valign=top style='width:119.3pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:44.0pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>External
+  Entity</span></p>
+  </td>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:44.0pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Bridge
+  Operation</span></p>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Event</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:44.0pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 18" src="ModelExplorer_files/image018.gif"
+  alt="Description: Bridge"></span></p>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 19" src="ModelExplorer_files/image019.gif"
+  alt="Description: ExternalEntityEvent"></span></p>
+  </td>
+ </tr>
+ <tr style='height:23.35pt'>
+  <td width=159 valign=top style='width:119.3pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:23.35pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Bridge
+  Operation</span></p>
+  </td>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:23.35pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Parameter</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:23.35pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 20" src="ModelExplorer_files/image020.gif"
+  alt="Description: BridgeParameter"></span></p>
+  </td>
+ </tr>
+ <tr style='height:25.6pt'>
+  <td width=159 valign=top style='width:119.3pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:25.6pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Event</span></p>
+  </td>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:25.6pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Event
+  parameter</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:25.6pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 21" src="ModelExplorer_files/image021.gif"
+  alt="Description: EventData"></span></p>
+  </td>
+ </tr>
+ <tr style='height:9.4pt'>
+  <td width=159 rowspan=2 valign=top style='width:119.3pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:9.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Subsystem
+  Package</span></p>
+  </td>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:9.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Subsystem
+  Package</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:9.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Same
+  as above</span></p>
+  </td>
+ </tr>
+ <tr style='height:25.15pt'>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:25.15pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Class</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:25.15pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 22" src="ModelExplorer_files/image022.gif"
+  alt="Description: Class"></span></p>
+  </td>
+ </tr>
+ <tr style='height:24.7pt'>
+  <td width=159 rowspan=4 valign=top style='width:119.3pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:24.7pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Class</span></p>
+  </td>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:24.7pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Attribute</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:24.7pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 23" src="ModelExplorer_files/image023.gif"
+  alt="Description: Attribute"></span></p>
+  </td>
+ </tr>
+ <tr style='height:22.9pt'>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:22.9pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Operation</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:22.9pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 24" src="ModelExplorer_files/image015.gif"
+  alt="Description: Operation"></span></p>
+  </td>
+ </tr>
+ <tr style='height:4.65pt'>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:4.65pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Instance</span><span
+   style='font-family:"Arial","sans-serif"'> State</span><span
+  style='font-family:"Arial","sans-serif"'> Machine Package</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:4.65pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 25" src="ModelExplorer_files/image024.gif"
+  alt="Description: InstanceStatechart"></span></p>
+  </td>
+ </tr>
+ <tr style='height:4.65pt'>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:4.65pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Class</span><span
+   style='font-family:"Arial","sans-serif"'> State</span><span
+  style='font-family:"Arial","sans-serif"'> Machine Package</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:4.65pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 26" src="ModelExplorer_files/image025.gif"
+  alt="Description: ClassStatechart"></span></p>
+  </td>
+ </tr>
+ <tr style='height:26.05pt'>
+  <td width=159 valign=top style='width:119.3pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:26.05pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Operation</span></p>
+  </td>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:26.05pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Parameter</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:26.05pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 27" src="ModelExplorer_files/image016.gif"
+  alt="Description: OperationParameter"></span></p>
+  </td>
+ </tr>
+ <tr style='height:22.45pt'>
+  <td width=159 rowspan=3 valign=top style='width:119.3pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:22.45pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>[Instance|Class]
+  State Machine Package</span></p>
+  </td>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:22.45pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>State</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:22.45pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 28" src="ModelExplorer_files/image026.gif"
+  alt="Description: State"></span></p>
+  </td>
+ </tr>
+ <tr style='height:26.05pt'>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:26.05pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Event</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:26.05pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 29" src="ModelExplorer_files/image027.gif"
+  alt="Description: Event"></span></p>
+  </td>
+ </tr>
+ <tr style='height:12.95pt'>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.95pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Event
+  Data Item Package</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.95pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 30" src="ModelExplorer_files/image028.gif"
+  alt="Description: StateMachine"></span></p>
+  </td>
+ </tr>
+ <tr style='height:22.0pt'>
+  <td width=159 valign=top style='width:119.3pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:22.0pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Event
+  Data Item Package</span></p>
+  </td>
+  <td width=200 valign=top style='width:150.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:22.0pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Event
+  Data Item</span></p>
+  </td>
+  <td width=224 valign=top style='width:167.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:22.0pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+  width=16 height=16 id="Picture 31" src="ModelExplorer_files/image021.gif"
+  alt="Description: EventData"></span></p>
+  </td>
+ </tr>
+</table>
+
+<h3>Packages</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Packages
+provide the primary means of organizing the data in the system.  BridgePoint
+supports several types of stereotyped packages, each with its own contents.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Each
+package may contain model elements that belong to the package, or other
+packages of the same type.  For example, a data type package can contain data types
+and other data type packages, a use case package can contain use cases and the
+relationships between them, and other use case packages.  </span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+following table describes each of the organizational packages.</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:.2in;border-collapse:collapse'>
+ <tr style='height:9.85pt'>
+  <td width=139 valign=top style='width:104.2pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:9.85pt'>
+  <p style='line-height:15.6pt'><b><span style='font-family:"Arial","sans-serif"'>Package</span></b></p>
+  </td>
+  <td width=432 valign=top style='width:324.2pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt;height:9.85pt'>
+  <p style='line-height:15.6pt'><b><span style='font-family:"Arial","sans-serif"'>Description</span></b></p>
+  </td>
+ </tr>
+ <tr style='height:33.65pt'>
+  <td width=139 valign=top style='width:104.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:33.65pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>System</span></p>
+  </td>
+  <td width=432 valign=top style='width:324.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:33.65pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Topmost
+  package.&nbsp; Contains zero or more domain packages.</span></p>
+  </td>
+ </tr>
+ <tr style='height:57.1pt'>
+  <td width=139 valign=top style='width:104.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:57.1pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Domain
+  </span></p>
+  </td>
+  <td width=432 valign=top style='width:324.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:57.1pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Contains
+  zero or more of the following packages: data type, function, external entity,
+  sequence, use case, communication, activity, and subsystem.&nbsp; A domain
+  package may only contain other packages, not individual model elements.</span></p>
+  </td>
+ </tr>
+ <tr style='height:36.4pt'>
+  <td width=139 valign=top style='width:104.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:36.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Data
+  Type</span></p>
+  </td>
+  <td width=432 valign=top style='width:324.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:36.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Organizes
+  data types for the xtUML model.&nbsp; A data type package contains individual
+  data types and enumerations, or other data type packages.&nbsp; When a new
+  xtUML model is created, a package called “Datatypes” is created which
+  contains the primitive, or core data types such as: boolean, date, integer,
+  and so on.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=139 valign=top style='width:104.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Function</span></p>
+  </td>
+  <td width=432 valign=top style='width:324.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Organizes
+  functions in the domain.&nbsp; A function package contains function
+  packages.&nbsp; Functions themselves do not have a graphical notation.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=139 valign=top style='width:104.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>External
+  Entity</span></p>
+  </td>
+  <td width=432 valign=top style='width:324.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Organizes
+  external entities in the domain.&nbsp; An external entity package contains
+  external entities (and their bridge operations and events), or other external
+  entity packages.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=139 valign=top style='width:104.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Subsystem</span></p>
+  </td>
+  <td width=432 valign=top style='width:324.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Organizes
+  classes in a subsystem.&nbsp; Subsystem packages contain classes, or other
+  subsystem packages.&nbsp; </span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=139 valign=top style='width:104.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Event
+  Data Item</span></p>
+  </td>
+  <td width=432 valign=top style='width:324.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Organizes
+  the event data items for a state machine.&nbsp; There is one event data item
+  package per state machine.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=139 valign=top style='width:104.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Sequence</span></p>
+  </td>
+  <td width=432 valign=top style='width:324.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Describes
+  interactions over time between model elements.   Nominally the roles of
+  objects are drawn in columns arranged horizontally with the vertical axis
+  representing time.  Sequence packages may be placed in Domain and Subsystem
+  packages or nested inside other Sequence packages.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=139 valign=top style='width:104.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Use
+  Case</span></p>
+  </td>
+  <td width=432 valign=top style='width:324.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Describes
+  relationships between use cases and actors.  Use case packages may be placed
+  in Domain and Subsystem packages or nested inside other Use Case packages.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=139 valign=top style='width:104.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Communication</span></p>
+  </td>
+  <td width=432 valign=top style='width:324.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Describes
+  the communication paths between model elements.  Communication packages may
+  be placed in Domain and Subsystem packages or nested inside other
+  Communication packages.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=139 valign=top style='width:104.2pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Activity</span></p>
+  </td>
+  <td width=432 valign=top style='width:324.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Describes
+  the procedural flows between activities.  Activity packages may be placed in
+  Domain and Subsystem packages or nested inside other Activity packages.</span></p>
+  </td>
+ </tr>
+</table>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>BridgePoint
+packages allow you to organize the model elements that comprise the system.  
+BridgePoint enforces model element groupings similar to those of UML 2.0. 
+Examples of groupings and the model elements contained within them are as
+follows:</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:"Arial","sans-serif"'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Data type package
+- contains primitive, user-defined, and enumeration data types.</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:"Arial","sans-serif"'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Subsystem package
+- contains classes, associations, and other subsystem packages.</span></p>
+
+<h3>Model Explorer Tools</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+Model Explorer view contains the following tool buttons which help you navigate
+and manage your model data.&nbsp; </span></p>
+
+<p style='margin-left:.25in;line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+width=26 height=23 id="Picture 32" src="ModelExplorer_files/image029.jpg"></span><span
+style='font-family:"Arial","sans-serif"'> Collapse All </span></p>
+
+<p style='margin-left:.5in;line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Collapses
+all the expanded directories in the Model Explorer to the highest model element
+in the hierarchy.</span></p>
+
+<p style='margin-left:.25in;line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+width=24 height=24 id="Picture 33" src="ModelExplorer_files/image030.jpg"></span><span
+style='font-family:"Arial","sans-serif"'> Link with Editor </span></p>
+
+<p style='margin-left:.5in;line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Synchronizes
+an open diagram with the currently selected model element in the Model
+Explorer.&nbsp; </span></p>
+
+<h4>Filters</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>You
+can also control which model elements are displayed in the Model Explorer view
+by choosing to hide the elements you do not want to view.  To do this, in the
+Model Explorer view, click the down arrow <img width=18 height=17
+id="Picture 34" src="ModelExplorer_files/image031.jpg"> and select <b>Filters…</b>
+from the drop-down menu. The Model Explorer Filters dialog box appears.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+width=345 height=430 id="Picture 35" src="ModelExplorer_files/image032.jpg"
+alt="Description: filters"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Select
+the model elements you wish to exclude from Model Explorer view and click <b>OK</b>.</span></p>
+
+<h3>Creating and Deleting Model Elements</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Certain
+model elements can be created and deleted from the Model Explorer view.  Some
+model elements, such as relationships between classes or transitions between
+states, can only be created on a Diagram Editor.   </span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>To
+create a new model element, right-click the enclosing model element and click <b>New
+&gt; &lt;Model Element Name&gt;</b>.</span>   </p>
+
+<p style='line-height:15.6pt'><img width=425 height=532 id="Picture 36"
+src="ModelExplorer_files/image033.jpg"></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+new model element is created in the tree with the name “Unnamed &lt;Model
+Element Name&gt;”.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+width=267 height=332 id="Picture 37" src="ModelExplorer_files/image034.jpg"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>To
+delete a model element right-click the model element and select <b>Delete</b>.</span></p>
+
+<p class=MsoNormal style='margin-left:9.0pt'><img width=329 height=476
+id="Picture 38" src="ModelExplorer_files/image035.jpg"></p>
+
+<h3>Renaming Model Elements</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Model
+elements have in-place renaming in the Model Explorer view.  To rename an
+element, right-click the element and select <b>Rename</b>.  </span></p>
+
+<h3>Editors for Model Elements</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>To
+open the default editor for a model element, double-click on that element in
+the Model Explorer view. To open the model element in a different editor,
+right-click the model element, and click <b>Open With</b>. Then, select the
+desired editor from the list.</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><img width=383 height=131
+id="Picture 39" src="ModelExplorer_files/image036.jpg"></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>In
+the Model Explorer view for the MicrowaveOven sample model displayed below, for
+example, you can double-click the Microwave Oven subsystem package to view a
+Class Diagram Editor</span>. <span style='font-family:"Arial","sans-serif"'> You
+can double-click the Oven class to open its Description Editor and you can
+double-click a function to open its Activity Editor.</span></p>
+
+<p class=MsoNormalIndent><img width=351 height=417 id="Picture 40"
+src="ModelExplorer_files/image037.jpg"></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+following sections describe the default editors for the various model elements.
+</span></p>
+
+<h4>Diagram Editor </h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+following table shows those model elements whose default editor is a Diagram
+Editor.  </span></p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='margin-left:.2in;border-collapse:collapse;border:none'>
+ <tr style='height:13.3pt'>
+  <td width=192 valign=top style='width:2.0in;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><b><span style='font-family:"Arial","sans-serif"'>Model
+  Element</span></b></p>
+  </td>
+  <td width=209 valign=top style='width:156.9pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><b><span style='font-family:"Arial","sans-serif"'>Diagram
+  Editor</span></b></p>
+  </td>
+ </tr>
+ <tr style='height:12.8pt'>
+  <td width=192 valign=top style='width:2.0in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:12.8pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Domain
+  Package</span></p>
+  </td>
+  <td width=209 valign=top style='width:156.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.8pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Domain
+  Package</span></p>
+  </td>
+ </tr>
+ <tr style='height:13.3pt'>
+  <td width=192 valign=top style='width:2.0in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Data
+  Type Package</span></p>
+  </td>
+  <td width=209 valign=top style='width:156.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Data
+  Type</span></p>
+  </td>
+ </tr>
+ <tr style='height:13.3pt'>
+  <td width=192 valign=top style='width:2.0in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Function
+  Package</span></p>
+  </td>
+  <td width=209 valign=top style='width:156.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Function
+  Package </span></p>
+  </td>
+ </tr>
+ <tr style='height:13.3pt'>
+  <td width=192 valign=top style='width:2.0in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>External
+  Entity Package</span></p>
+  </td>
+  <td width=209 valign=top style='width:156.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>External
+  Entity</span></p>
+  </td>
+ </tr>
+ <tr style='height:13.3pt'>
+  <td width=192 valign=top style='width:2.0in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Subsystem
+  Package</span></p>
+  </td>
+  <td width=209 valign=top style='width:156.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Class
+  </span></p>
+  </td>
+ </tr>
+ <tr style='height:13.3pt'>
+  <td width=192 valign=top style='width:2.0in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Sequence
+  Diagram</span></p>
+  </td>
+  <td width=209 valign=top style='width:156.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Sequence
+  Diagram</span></p>
+  </td>
+ </tr>
+ <tr style='height:13.3pt'>
+  <td width=192 valign=top style='width:2.0in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Use
+  Case Diagram</span></p>
+  </td>
+  <td width=209 valign=top style='width:156.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Use
+  Case Diagram</span></p>
+  </td>
+ </tr>
+ <tr style='height:13.3pt'>
+  <td width=192 valign=top style='width:2.0in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Communication
+  Diagram</span></p>
+  </td>
+  <td width=209 valign=top style='width:156.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Communication
+  Diagram</span></p>
+  </td>
+ </tr>
+ <tr style='height:13.3pt'>
+  <td width=192 valign=top style='width:2.0in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Activity
+  Diagram</span></p>
+  </td>
+  <td width=209 valign=top style='width:156.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Activity
+  Diagram</span></p>
+  </td>
+ </tr>
+</table>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:.2in;border-collapse:collapse'>
+ <tr style='height:13.3pt'>
+  <td width=192 valign=top style='width:2.0in;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Instance</span><span
+   style='font-family:"Arial","sans-serif"'> State</span><span
+  style='font-family:"Arial","sans-serif"'> Machine</span></p>
+  </td>
+  <td width=209 valign=top style='width:156.9pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>State
+  Machine </span></p>
+  </td>
+ </tr>
+ <tr style='height:13.3pt'>
+  <td width=192 valign=top style='width:2.0in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Class</span><span
+   style='font-family:"Arial","sans-serif"'> State</span><span
+  style='font-family:"Arial","sans-serif"'> Machine</span></p>
+  </td>
+  <td width=209 valign=top style='width:156.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:13.3pt'>
+  <p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>State
+  Machine </span></p>
+  </td>
+ </tr>
+</table>
+
+<h4>Activity Editor</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+default editor for the following model elements is the Activity Editor.</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Function</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Bridge operation</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Derived attribute</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Operation
+(class-based or instance-based)</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>State action</span></p>
+
+<h4>Description Editor </h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+default editor for all other model elements, e.g., classes, attributes, and
+parameters is the Description Editor. If you double-click a model element that
+does not have an associated Diagram Editor, an Activity Editor appears if the
+model element can have activities described by action language. Otherwise, a
+Description Editor appears.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+</div>
+
+</body>
+
+</html>

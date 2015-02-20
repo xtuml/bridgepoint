@@ -1,0 +1,538 @@
+-- BP 7.1.6 content: Component syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO C_C
+	VALUES ("f24e8f1c-a3b3-4005-986d-28b8ed39ea3c",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'UI',
+	'Simulates the user interface and has the ability to connect an external GUI.
+
+It is using the BridgePoint Java API to connect to the GUI in Verifier mode.
+There are also handwritten C code that implments parts of this component to 
+allow generated code to connect to the exact same GUI.',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'');
+INSERT INTO GD_MD
+	VALUES ("216f064d-f8ea-44d8-a2ca-71c89eed2247",
+	111,
+	"f24e8f1c-a3b3-4005-986d-28b8ed39ea3c",
+	98,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	200,
+	150,
+	0,
+	'',
+	'GPS Watch::Library::UI');
+INSERT INTO GD_GE
+	VALUES ("86e6e218-7cc5-45d4-91eb-ff5f3bf78f9f",
+	"216f064d-f8ea-44d8-a2ca-71c89eed2247",
+	"f24e8f1c-a3b3-4005-986d-28b8ed39ea3c",
+	103,
+	0,
+	'GPS Watch::Library::UI');
+INSERT INTO GD_SHP
+	VALUES ("86e6e218-7cc5-45d4-91eb-ff5f3bf78f9f");
+INSERT INTO GD_CTR
+	VALUES ("86e6e218-7cc5-45d4-91eb-ff5f3bf78f9f");
+INSERT INTO DIM_ND
+	VALUES (1331.000000,
+	606.000000,
+	"86e6e218-7cc5-45d4-91eb-ff5f3bf78f9f");
+INSERT INTO DIM_GE
+	VALUES (2040.000000,
+	1356.000000,
+	"86e6e218-7cc5-45d4-91eb-ff5f3bf78f9f",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("86e6e218-7cc5-45d4-91eb-ff5f3bf78f9f",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_CON
+	VALUES ("81be3ac3-1b13-4f39-97ff-3f9d78677622",
+	2795.000000,
+	1962.000000,
+	"86e6e218-7cc5-45d4-91eb-ff5f3bf78f9f");
+INSERT INTO GD_GE
+	VALUES ("cbff0d9f-1735-4f44-8fb1-6d04b75b941b",
+	"216f064d-f8ea-44d8-a2ca-71c89eed2247",
+	"4bf1a145-d815-460c-a4df-745f6e8974a0",
+	94,
+	0,
+	'GPS Watch::Library::UI::UI::UI');
+INSERT INTO GD_CON
+	VALUES ("cbff0d9f-1735-4f44-8fb1-6d04b75b941b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("e470ef97-ac0a-4ee2-979d-5f24c0bcceb0",
+	"cbff0d9f-1735-4f44-8fb1-6d04b75b941b",
+	1,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"e470ef97-ac0a-4ee2-979d-5f24c0bcceb0");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"e470ef97-ac0a-4ee2-979d-5f24c0bcceb0",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("e470ef97-ac0a-4ee2-979d-5f24c0bcceb0",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("6ecc9737-c4f1-4d16-a556-0531827db4dc",
+	"cbff0d9f-1735-4f44-8fb1-6d04b75b941b",
+	3,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"6ecc9737-c4f1-4d16-a556-0531827db4dc");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"6ecc9737-c4f1-4d16-a556-0531827db4dc",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("6ecc9737-c4f1-4d16-a556-0531827db4dc",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_CTXT
+	VALUES ("ae8d0dfe-60ac-4ef6-9314-283233f96b8e",
+	"cbff0d9f-1735-4f44-8fb1-6d04b75b941b",
+	2,
+	0.000000,
+	0.000000);
+INSERT INTO DIM_ND
+	VALUES (0.000000,
+	0.000000,
+	"ae8d0dfe-60ac-4ef6-9314-283233f96b8e");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"ae8d0dfe-60ac-4ef6-9314-283233f96b8e",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("ae8d0dfe-60ac-4ef6-9314-283233f96b8e",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_LS
+	VALUES ("56b77891-22b9-4690-8d80-41ee6b94dbfc",
+	"cbff0d9f-1735-4f44-8fb1-6d04b75b941b",
+	"00000000-0000-0000-0000-000000000000",
+	"bdd1bbfd-56f6-4be2-a1f1-f698931a6ea3",
+	"16784feb-d0d6-4a77-a0fc-9ddfd7659bae");
+INSERT INTO DIM_WAY
+	VALUES ("bdd1bbfd-56f6-4be2-a1f1-f698931a6ea3",
+	2795.000000,
+	1962.000000,
+	"cbff0d9f-1735-4f44-8fb1-6d04b75b941b",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_WAY
+	VALUES ("16784feb-d0d6-4a77-a0fc-9ddfd7659bae",
+	2796.000000,
+	2034.000000,
+	"cbff0d9f-1735-4f44-8fb1-6d04b75b941b",
+	"00000000-0000-0000-0000-000000000000",
+	"bdd1bbfd-56f6-4be2-a1f1-f698931a6ea3");
+INSERT INTO DIM_GE
+	VALUES (0.000000,
+	0.000000,
+	"cbff0d9f-1735-4f44-8fb1-6d04b75b941b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("cbff0d9f-1735-4f44-8fb1-6d04b75b941b",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ED
+	VALUES ("81be3ac3-1b13-4f39-97ff-3f9d78677622",
+	"00000000-0000-0000-0000-000000000000",
+	"cbff0d9f-1735-4f44-8fb1-6d04b75b941b");
+INSERT INTO GD_GE
+	VALUES ("916907f9-393b-4428-b2d2-8c3c28aea45e",
+	"216f064d-f8ea-44d8-a2ca-71c89eed2247",
+	"e19163dd-5922-4bdf-947c-9707f93285ad",
+	108,
+	0,
+	'GPS Watch::Library::UI::UI');
+INSERT INTO GD_SHP
+	VALUES ("916907f9-393b-4428-b2d2-8c3c28aea45e");
+INSERT INTO GD_NCS
+	VALUES ("916907f9-393b-4428-b2d2-8c3c28aea45e");
+INSERT INTO DIM_ND
+	VALUES (156.000000,
+	96.000000,
+	"916907f9-393b-4428-b2d2-8c3c28aea45e");
+INSERT INTO DIM_GE
+	VALUES (2052.000000,
+	1368.000000,
+	"916907f9-393b-4428-b2d2-8c3c28aea45e",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("916907f9-393b-4428-b2d2-8c3c28aea45e",
+	0,
+	"86e6e218-7cc5-45d4-91eb-ff5f3bf78f9f");
+INSERT INTO GD_GE
+	VALUES ("ad05b2e0-a38e-4591-a325-cd8f5daa4c59",
+	"216f064d-f8ea-44d8-a2ca-71c89eed2247",
+	"eef0f981-a7f5-4c6a-93e5-76e1ba61cb80",
+	108,
+	0,
+	'GPS Watch::Library::UI::TestCases');
+INSERT INTO GD_SHP
+	VALUES ("ad05b2e0-a38e-4591-a325-cd8f5daa4c59");
+INSERT INTO GD_NCS
+	VALUES ("ad05b2e0-a38e-4591-a325-cd8f5daa4c59");
+INSERT INTO DIM_ND
+	VALUES (168.000000,
+	96.000000,
+	"ad05b2e0-a38e-4591-a325-cd8f5daa4c59");
+INSERT INTO DIM_GE
+	VALUES (2280.000000,
+	1368.000000,
+	"ad05b2e0-a38e-4591-a325-cd8f5daa4c59",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("ad05b2e0-a38e-4591-a325-cd8f5daa4c59",
+	0,
+	"86e6e218-7cc5-45d4-91eb-ff5f3bf78f9f");
+INSERT INTO GD_GE
+	VALUES ("11c2458d-a04f-43be-8e56-c556ac13cd8b",
+	"216f064d-f8ea-44d8-a2ca-71c89eed2247",
+	"a8b1c702-aabf-4119-8438-464bae707f04",
+	108,
+	0,
+	'GPS Watch::Library::UI::External Entities');
+INSERT INTO GD_SHP
+	VALUES ("11c2458d-a04f-43be-8e56-c556ac13cd8b");
+INSERT INTO GD_NCS
+	VALUES ("11c2458d-a04f-43be-8e56-c556ac13cd8b");
+INSERT INTO DIM_ND
+	VALUES (175.000000,
+	98.000000,
+	"11c2458d-a04f-43be-8e56-c556ac13cd8b");
+INSERT INTO DIM_GE
+	VALUES (2287.000000,
+	1502.000000,
+	"11c2458d-a04f-43be-8e56-c556ac13cd8b",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("11c2458d-a04f-43be-8e56-c556ac13cd8b",
+	1,
+	"86e6e218-7cc5-45d4-91eb-ff5f3bf78f9f");
+INSERT INTO GD_GE
+	VALUES ("a58e70da-ebdc-466f-94cc-229e2c40837d",
+	"216f064d-f8ea-44d8-a2ca-71c89eed2247",
+	"f94360a9-26ee-489f-820b-aebe91648c3b",
+	108,
+	0,
+	'GPS Watch::Library::UI::Functions');
+INSERT INTO GD_SHP
+	VALUES ("a58e70da-ebdc-466f-94cc-229e2c40837d");
+INSERT INTO GD_NCS
+	VALUES ("a58e70da-ebdc-466f-94cc-229e2c40837d");
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	"a58e70da-ebdc-466f-94cc-229e2c40837d");
+INSERT INTO DIM_GE
+	VALUES (2482.000000,
+	1502.000000,
+	"a58e70da-ebdc-466f-94cc-229e2c40837d",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("a58e70da-ebdc-466f-94cc-229e2c40837d",
+	0,
+	"86e6e218-7cc5-45d4-91eb-ff5f3bf78f9f");
+INSERT INTO DIM_DIA
+	VALUES ("216f064d-f8ea-44d8-a2ca-71c89eed2247",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO C_PO
+	VALUES ("22cb119c-3c91-464f-95e8-00e688f86255",
+	"f24e8f1c-a3b3-4005-986d-28b8ed39ea3c",
+	'UI',
+	0,
+	0);
+INSERT INTO C_IR
+	VALUES ("4bf1a145-d815-460c-a4df-745f6e8974a0",
+	"06e358bd-8488-4092-af9c-7c359b158f4d",
+	"00000000-0000-0000-0000-000000000000",
+	"22cb119c-3c91-464f-95e8-00e688f86255");
+INSERT INTO C_P
+	VALUES ("4bf1a145-d815-460c-a4df-745f6e8974a0",
+	'UI',
+	'Unnamed Interface',
+	'',
+	'UI::UI::UI');
+INSERT INTO SPR_PEP
+	VALUES ("44d25744-5608-407a-9de7-c2831f95d961",
+	"2374067a-3540-45be-8426-c322f15228e0",
+	"4bf1a145-d815-460c-a4df-745f6e8974a0");
+INSERT INTO SPR_PS
+	VALUES ("44d25744-5608-407a-9de7-c2831f95d961",
+	'lapResetPressed',
+	'',
+	'',
+	1);
+INSERT INTO C_EP_PROXY
+	VALUES ("2374067a-3540-45be-8426-c322f15228e0",
+	"06e358bd-8488-4092-af9c-7c359b158f4d",
+	-1,
+	'lapResetPressed',
+	'',
+	'../../UIInterfaces/UI/UI.xtuml');
+INSERT INTO SPR_PEP
+	VALUES ("56ba0bd4-e9ea-43d3-bbeb-64b044177b6e",
+	"03b905af-36a8-41bc-a9f5-499c5e49c6ca",
+	"4bf1a145-d815-460c-a4df-745f6e8974a0");
+INSERT INTO SPR_PS
+	VALUES ("56ba0bd4-e9ea-43d3-bbeb-64b044177b6e",
+	'startStopPressed',
+	'',
+	'',
+	0);
+INSERT INTO C_EP_PROXY
+	VALUES ("03b905af-36a8-41bc-a9f5-499c5e49c6ca",
+	"06e358bd-8488-4092-af9c-7c359b158f4d",
+	-1,
+	'startStopPressed',
+	'',
+	'../../UIInterfaces/UI/UI.xtuml');
+INSERT INTO SPR_PEP
+	VALUES ("51079d11-0fb1-46f8-aa28-c8db74a8572e",
+	"7000a5a2-93fb-4e37-9d8e-d0744492e0f1",
+	"4bf1a145-d815-460c-a4df-745f6e8974a0");
+INSERT INTO SPR_PS
+	VALUES ("51079d11-0fb1-46f8-aa28-c8db74a8572e",
+	'lightPressed',
+	'',
+	'',
+	1);
+INSERT INTO C_EP_PROXY
+	VALUES ("7000a5a2-93fb-4e37-9d8e-d0744492e0f1",
+	"06e358bd-8488-4092-af9c-7c359b158f4d",
+	-1,
+	'lightPressed',
+	'',
+	'../../UIInterfaces/UI/UI.xtuml');
+INSERT INTO SPR_PEP
+	VALUES ("c3e1317a-f7ab-4803-90e1-419f4ee417c5",
+	"ee5ab291-e2a1-4940-9017-d4eb26f24014",
+	"4bf1a145-d815-460c-a4df-745f6e8974a0");
+INSERT INTO SPR_PS
+	VALUES ("c3e1317a-f7ab-4803-90e1-419f4ee417c5",
+	'modePressed',
+	'',
+	'',
+	1);
+INSERT INTO C_EP_PROXY
+	VALUES ("ee5ab291-e2a1-4940-9017-d4eb26f24014",
+	"06e358bd-8488-4092-af9c-7c359b158f4d",
+	-1,
+	'modePressed',
+	'',
+	'../../UIInterfaces/UI/UI.xtuml');
+INSERT INTO SPR_PEP
+	VALUES ("104ff76c-2aff-41fb-8e31-f577fd336588",
+	"3e2d7574-ba3f-4a52-90c2-6787610b555a",
+	"4bf1a145-d815-460c-a4df-745f6e8974a0");
+INSERT INTO SPR_PS
+	VALUES ("104ff76c-2aff-41fb-8e31-f577fd336588",
+	'setTargetPressed',
+	'',
+	'',
+	1);
+INSERT INTO C_EP_PROXY
+	VALUES ("3e2d7574-ba3f-4a52-90c2-6787610b555a",
+	"06e358bd-8488-4092-af9c-7c359b158f4d",
+	-1,
+	'setTargetPressed',
+	'',
+	'../../UIInterfaces/UI/UI.xtuml');
+INSERT INTO SPR_PEP
+	VALUES ("b53a7803-29b0-406b-aca0-d552f4864fd2",
+	"b73227de-490d-4b51-a2f2-0487bde474af",
+	"4bf1a145-d815-460c-a4df-745f6e8974a0");
+INSERT INTO SPR_PO
+	VALUES ("b53a7803-29b0-406b-aca0-d552f4864fd2",
+	'setTime',
+	'',
+	'GuiBridge::setTime(time: param.time);',
+	1);
+INSERT INTO C_EP_PROXY
+	VALUES ("b73227de-490d-4b51-a2f2-0487bde474af",
+	"06e358bd-8488-4092-af9c-7c359b158f4d",
+	-1,
+	'setTime',
+	'',
+	'../../UIInterfaces/UI/UI.xtuml');
+INSERT INTO SPR_PEP
+	VALUES ("7cd568d7-8faa-478b-9284-703e44735d24",
+	"f9a5672f-67fa-48da-8c7e-2a4cc64bf0fd",
+	"4bf1a145-d815-460c-a4df-745f6e8974a0");
+INSERT INTO SPR_PO
+	VALUES ("7cd568d7-8faa-478b-9284-703e44735d24",
+	'setData',
+	'',
+	'if (param.unit == Unit::km)
+  GuiBridge::setData(value: param.value, unit: 0);
+elif (param.unit == Unit::meters)
+  GuiBridge::setData(value: param.value, unit: 1);
+elif (param.unit == Unit::minPerKm)
+  GuiBridge::setData(value: param.value, unit: 2);
+elif (param.unit == Unit::kmPerHour)
+  GuiBridge::setData(value: param.value, unit: 3);
+elif (param.unit == Unit::miles)
+  GuiBridge::setData(value: param.value, unit: 4);
+elif (param.unit == Unit::yards)
+  GuiBridge::setData(value: param.value, unit: 5);
+elif (param.unit == Unit::feet)
+  GuiBridge::setData(value: param.value, unit: 6);
+elif (param.unit == Unit::minPerMile)
+  GuiBridge::setData(value: param.value, unit: 7);
+elif (param.unit == Unit::mph)
+  GuiBridge::setData(value: param.value, unit: 8);
+elif (param.unit == Unit::bpm)
+  GuiBridge::setData(value: param.value, unit: 9);
+elif (param.unit == Unit::laps)
+  GuiBridge::setData(value: param.value, unit: 10);
+end if;
+
+',
+	1);
+INSERT INTO C_EP_PROXY
+	VALUES ("f9a5672f-67fa-48da-8c7e-2a4cc64bf0fd",
+	"06e358bd-8488-4092-af9c-7c359b158f4d",
+	-1,
+	'setData',
+	'',
+	'../../UIInterfaces/UI/UI.xtuml');
+INSERT INTO SPR_PEP
+	VALUES ("8d9557a0-267a-4338-b241-e4125c9f945c",
+	"a6656767-0e84-4db2-9507-eba9a99c58f4",
+	"4bf1a145-d815-460c-a4df-745f6e8974a0");
+INSERT INTO SPR_PO
+	VALUES ("8d9557a0-267a-4338-b241-e4125c9f945c",
+	'startTest',
+	'',
+	'generate TestCase2:start(iterations: 2) to TestCase creator;',
+	1);
+INSERT INTO C_EP_PROXY
+	VALUES ("a6656767-0e84-4db2-9507-eba9a99c58f4",
+	"06e358bd-8488-4092-af9c-7c359b158f4d",
+	-1,
+	'startTest',
+	'',
+	'../../UIInterfaces/UI/UI.xtuml');
+INSERT INTO C_I_PROXY
+	VALUES ("06e358bd-8488-4092-af9c-7c359b158f4d",
+	"00000000-0000-0000-0000-000000000000",
+	'UI',
+	'',
+	'../../UIInterfaces/UI/UI.xtuml');
+INSERT INTO PE_PE
+	VALUES ("f24e8f1c-a3b3-4005-986d-28b8ed39ea3c",
+	1,
+	"2b0c8fd6-d69a-4306-9ef2-2fa3c850b738",
+	"00000000-0000-0000-0000-000000000000",
+	2);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("2b0c8fd6-d69a-4306-9ef2-2fa3c850b738",
+	"36a41cf7-d411-488d-99fc-74866d4fea39",
+	"36a41cf7-d411-488d-99fc-74866d4fea39",
+	'Library',
+	'// ########## START OAL_1 ##########
+// always initialize data
+self.currentLocation.longitude = 0.0;
+self.currentLocation.latitude  = 0.0;
+self.currentLocation.speed     = 0.0;
+self.interval                  = 2000000;
+
+LOG::LogInfo(message: "Location listener registered.");
+
+ // start timer based on requested interval
+create event instance timeout of GPS3:timeout() to self;
+self.timer = TIM::timer_start_recurring(event_inst: timeout, microseconds: self.interval);
+// ########### END OAL_1 ###########
+
+
+
+// ########## START OAL_2 ##########
+// prepare signal data with some dummy values that change over time
+self.currentLocation.longitude = self.currentLocation.longitude + 2.0;
+self.currentLocation.latitude  = self.currentLocation.latitude  + 3.0;
+self.currentLocation.speed     = 
+                                (self.currentLocation.latitude - 
+                                 self.currentLocation.longitude) / 5.0;
+
+// pass the new location to client component
+send LocationProvider::locationUpdate(location: self.currentLocation);
+// ########### END OAL_2 ###########
+
+
+
+// ########## START OAL_3 ##########
+res = TIM::timer_cancel(timer_inst_ref: self.timer);
+// ########### END OAL_3 ###########
+
+
+
+// ########## START OAL_4 ##########
+select any gps from instances of GPS;
+if (empty gps)
+  // asynchronously create a new instance of GPS
+  generate GPS1:registerListener() to GPS creator;
+end if;
+// ########### END OAL_4 ###########
+
+
+// ########## START OAL_5 ##########
+// forward message to single instance of GPS
+select any gps from instances of GPS;
+if (not empty gps)
+  generate GPS2:unregisterListener() to gps;
+end if;
+// ########### END OAL_5 ###########
+
+
+// ########## START OAL_6 ##########
+// create an instance of the workout timer if it does not exist
+select any workoutTimer from instances of WorkoutTimer;
+if (empty workoutTimer)
+  create object instance workoutTimer of WorkoutTimer;
+end if;
+
+// forward message to the single instance of WorkoutTimer 
+generate WorkoutTimer1:startStopPressed() to workoutTimer;
+// ########### END OAL_6 ###########
+
+
+
+// ########## START OAL_7 ##########
+// print the new location to the console
+LOG::LogInfo(message: "location updated: ");
+LOG::LogReal(message: "longitude", r: param.location.longitude);
+LOG::LogReal(message: "latitude",  r: param.location.latitude );
+LOG::LogReal(message: "speed",     r: param.location.speed    );
+// ########### END OAL_7 ###########
+',
+	0,
+	'../Library.xtuml');

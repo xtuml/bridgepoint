@@ -1,0 +1,171 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
+	'Automatic Wiring',
+	3200,
+	'S_AW',
+	'An instance of Automatic Wiring is created for each bridge within the Domain. 
+Whenever a Bridge is found with no action language in it and has an External
+Entity whose name matches another Domain in the verification and that exposes a 
+Function whose name and arguments match that of the Bridge, the Automatic Wiring
+is then associated with the matching Function.',
+	"14c1a6c0-288e-4a86-a138-700394d86dcb");
+INSERT INTO O_TFR
+	VALUES ("d029d0c2-be61-4074-a587-8807edd38a7e",
+	"701cc49f-effd-4ce8-9058-bb47462f46ae",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Automatic Wiring.dispose()
+
+select one function related by self->S_SYNC[R3201];
+if (not_empty function)
+  unrelate function from self across R3201;
+end if;
+
+select one brg related by self->S_BRG[R3200];
+if (not_empty brg)
+  unrelate brg from self across R3200;
+end if;
+
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	0,
+	"eab964fb-80ce-4810-ba03-8a871dfc6923",
+	"640be358-dda1-4b13-bdce-b8ce8a349948",
+	"0a44ab13-755e-42c6-a9b7-560991a3408f",
+	"80f8bf96-f1e2-40da-9df7-8e769f7a79b8",
+	"215b7f6d-aa98-4cf9-831c-fbe3de3deabf",
+	"0ae59043-96c9-4d7d-b58d-0989b596de02",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Bridge',
+	'Brg_ID',
+	'R3200');
+INSERT INTO R_RGO_PROXY
+	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
+	"640be358-dda1-4b13-bdce-b8ce8a349948",
+	"0a44ab13-755e-42c6-a9b7-560991a3408f",
+	'../Wiring.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("eab964fb-80ce-4810-ba03-8a871dfc6923",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	0,
+	"640be358-dda1-4b13-bdce-b8ce8a349948",
+	"80f8bf96-f1e2-40da-9df7-8e769f7a79b8",
+	'../Wiring.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("215b7f6d-aa98-4cf9-831c-fbe3de3deabf",
+	"701cc49f-effd-4ce8-9058-bb47462f46ae",
+	"eab964fb-80ce-4810-ba03-8a871dfc6923",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	1,
+	'Brg_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("eab964fb-80ce-4810-ba03-8a871dfc6923",
+	"47a1eb94-2620-4ecd-85d3-29f76391509f",
+	'../../Domain/Bridge/Bridge.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("215b7f6d-aa98-4cf9-831c-fbe3de3deabf",
+	"701cc49f-effd-4ce8-9058-bb47462f46ae",
+	"00000000-0000-0000-0000-000000000000",
+	'Brg_ID',
+	'',
+	'',
+	'Brg_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
+	"bc9a6c16-8809-4681-92ab-421898fa108a",
+	0,
+	"f637f378-37a8-4ff0-ad72-79c29b0664ea",
+	"b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
+	"5ccde223-b312-4d21-8fab-9f7871e888d2",
+	"6c7b15f9-7f04-4d23-b1da-1ff7a480ed0a",
+	"e8fa72e6-5a74-4dd6-9cc7-23df9438ee0a",
+	"21949c74-8141-4928-8e8c-0257499963ff",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Function',
+	'Sync_ID',
+	'R3201');
+INSERT INTO R_RGO_PROXY
+	VALUES ("701cc49f-effd-4ce8-9058-bb47462f46ae",
+	"b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
+	"5ccde223-b312-4d21-8fab-9f7871e888d2",
+	'../Wiring.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("f637f378-37a8-4ff0-ad72-79c29b0664ea",
+	"bc9a6c16-8809-4681-92ab-421898fa108a",
+	0,
+	"b85f7c81-31b1-4cbe-935a-1d3a73e6710a",
+	"6c7b15f9-7f04-4d23-b1da-1ff7a480ed0a",
+	'../Wiring.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("e8fa72e6-5a74-4dd6-9cc7-23df9438ee0a",
+	"701cc49f-effd-4ce8-9058-bb47462f46ae",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("e8fa72e6-5a74-4dd6-9cc7-23df9438ee0a",
+	"701cc49f-effd-4ce8-9058-bb47462f46ae",
+	"215b7f6d-aa98-4cf9-831c-fbe3de3deabf",
+	'Sync_ID',
+	'',
+	'',
+	'Sync_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"701cc49f-effd-4ce8-9058-bb47462f46ae");
+INSERT INTO O_ID
+	VALUES (1,
+	"701cc49f-effd-4ce8-9058-bb47462f46ae");
+INSERT INTO O_ID
+	VALUES (2,
+	"701cc49f-effd-4ce8-9058-bb47462f46ae");
+INSERT INTO S_SS_PROXY
+	VALUES ("14c1a6c0-288e-4a86-a138-700394d86dcb",
+	'Wiring',
+	'Persistent:false
+',
+	'W',
+	0,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Wiring.xtuml');

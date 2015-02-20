@@ -1,0 +1,116 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("36356977-9743-4f1c-a92f-8172bdd315f9",
+	'Instance Reference Value',
+	3308,
+	'RV_IRV',
+	'',
+	"7532d38c-8a9a-4a7d-81a0-61f814f64f06");
+INSERT INTO O_TFR
+	VALUES ("b8299640-6a7e-4aca-851c-e2eb69a0c1b6",
+	"36356977-9743-4f1c-a92f-8172bdd315f9",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Instance Reference Value.dispose()
+select many iirs related by self->L_IIR[R3311];
+for each iir in iirs
+  iir.dispose();
+end for;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("36356977-9743-4f1c-a92f-8172bdd315f9",
+	"d8e71bfe-32a2-40ba-9c13-1cba01322a80",
+	0,
+	"59d4c4b8-5c6f-43f7-95a9-b4459c4ee971",
+	"cc611bc5-2bfe-4ecb-b1d1-2bbce5a87bc8",
+	"533bd86f-bd3e-4e19-9908-df71d8a99307",
+	"c463fe9d-9ef0-46b3-88f8-2699c1a96c0f",
+	"601db6d4-3282-4544-b484-d3cea4e813d8",
+	"6baf5c2d-407a-4c74-92aa-ab6851f4d614",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Simple Value',
+	'RuntimeValue_ID',
+	'R3308');
+INSERT INTO R_RGO_PROXY
+	VALUES ("36356977-9743-4f1c-a92f-8172bdd315f9",
+	"cc611bc5-2bfe-4ecb-b1d1-2bbce5a87bc8",
+	"533bd86f-bd3e-4e19-9908-df71d8a99307",
+	'../Runtime Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("59d4c4b8-5c6f-43f7-95a9-b4459c4ee971",
+	"d8e71bfe-32a2-40ba-9c13-1cba01322a80",
+	0,
+	"cc611bc5-2bfe-4ecb-b1d1-2bbce5a87bc8",
+	"c463fe9d-9ef0-46b3-88f8-2699c1a96c0f",
+	'../Runtime Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("601db6d4-3282-4544-b484-d3cea4e813d8",
+	"36356977-9743-4f1c-a92f-8172bdd315f9",
+	"79b643e8-6840-46d6-aafa-e1d9f8af1f60",
+	"013bfc9e-d3c0-4807-8613-deccd09763b5",
+	1,
+	'RuntimeValue_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("79b643e8-6840-46d6-aafa-e1d9f8af1f60",
+	"013bfc9e-d3c0-4807-8613-deccd09763b5",
+	'../Runtime Value/Runtime Value.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("601db6d4-3282-4544-b484-d3cea4e813d8",
+	"36356977-9743-4f1c-a92f-8172bdd315f9",
+	"00000000-0000-0000-0000-000000000000",
+	'RuntimeValue_ID',
+	'',
+	'',
+	'RuntimeValue_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"36356977-9743-4f1c-a92f-8172bdd315f9");
+INSERT INTO O_OIDA
+	VALUES ("601db6d4-3282-4544-b484-d3cea4e813d8",
+	"36356977-9743-4f1c-a92f-8172bdd315f9",
+	0,
+	'RuntimeValue_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"36356977-9743-4f1c-a92f-8172bdd315f9");
+INSERT INTO O_ID
+	VALUES (2,
+	"36356977-9743-4f1c-a92f-8172bdd315f9");
+INSERT INTO S_SS_PROXY
+	VALUES ("7532d38c-8a9a-4a7d-81a0-61f814f64f06",
+	'Runtime Value',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+Persistent:false
+',
+	'RV',
+	3300,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Runtime Value.xtuml');

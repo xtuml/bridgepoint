@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Sequence Capture Plug-in
+Bundle-SymbolicName: org.xtuml.bp.sequencecapture; singleton:=true
+Bundle-Version: 4.2.1
+Bundle-Activator: org.xtuml.bp.sequencecapture.Activator
+Bundle-Vendor: xtUML.org
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.xtuml.bp.core,
+ org.xtuml.bp.ui.canvas,
+ org.eclipse.ui.ide,
+ org.xtuml.bp.ui.graphics,
+ org.eclipse.gef,
+ org.xtuml.bp.ui.explorer
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Import-Package: org.eclipse.ui

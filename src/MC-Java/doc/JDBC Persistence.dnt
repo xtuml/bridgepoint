@@ -1,0 +1,140 @@
+To use JDBC for persistence inside Tiny Java the following changes 
+must be made:-
+
+In Create instance implementation:-
+- Add a sql statement to create the instance in the database and . . .
+- . . . define default values for each attribute
+PreparedStatement SQLCreate = $Cr{domain.Name}.con.prepareStatement(
+            "INSERT INTO $U_{class.Key_Lett} VALUES(\
+  .for each attribute in attrs
+    .invoke result = do_type(attribute)
+    .if (result.body = "int         ")
+0\
+    .elif (result.type == "string")
+""\
+    .elif (result.type == "float       ")
+0.0\
+    .end if
+    .if (not_last attrs)
+, \
+    .end if
+  .end for
+)");
+
+
+In attribute Write:-
+- Add a sql statement to update the value of the attribute in the
+  database.
+PreparedStatement SQLUpdate = $Cr{domain.Name}.con.prepareStatement(
+            "UPDATE $U_{class.Key_Lett} SET $U_{attr.Name} = " + this.$lr{attr.Name} +
+            "WHERE \
+            .select many primary_id_attrs related by class .......
+            .for each primary_id_attr in primary_id_attrs
+               $U_{primary_id_attr.Name} LIKE this.$lr{attr.Name}\
+              .if (not_last primary_id_attrs)
+AND \
+              .end if
+            .end for
+");
+
+In instance Delete:-
+- Add a sql statement to remove the instance from the database
+PreparedStatement SQLDelete = $Cr{domain.Name}.con.prepareStatement(
+            "DELETE FROM $U_{class.Key_Lett} WHERE \
+            .select many primary_id_attrs related by class .......
+            .for each primary_id_attr in primary_id_attrs
+               $U_{primary_id_attr.Name} LIKE this.$lr{attr.Name}\
+              .if (not_last primary_id_attrs)
+AND \
+              .end if
+            .end for
+");
+
+In Select statements:-
+This is where 'load on demand' is implemented.
+- For select one or any
+  - perform what is there in the code now. If an instance is found, return it, ELSE
+  - perform the equivalent query on the database
+  - if not empty
+    - instantiate the first result set instance
+    - add it to the Class extent
+    - return it
+  - ELSE
+    - return null
+Example: -------------------------------------------------------------------------
+public static Domain_c getOneS_DOMOnR28(System_c target)
+{
+  Enumeration cursor = instances.elements() ;
+  while (cursor.hasMoreElements())
+  {
+    Domain_c source = (Domain_c)cursor.nextElement() ;
+    if (source.IsSubjectMatterOfSystem == target)
+    {
+      return source ;
+    }
+  }
+  // not in memory
+  String query = "SELECT * FROM S_DOM WHERE" +
+				  " sys_id = " + target.getSys_id();
+  ResultSet resultSet;
+  try {
+	resultSet = Ooa_ooa_w_insts.con.createStatement().executeQuery(query);   
+  }
+  catch (SQLException e){
+	System.out.println("SQL Exception in Domain_c ctor:");
+	System.out.println(query);
+	System.out.println(e);
+  }
+  if (resultSet.next()) {
+  	Domain_c domain = new Domain_c(false);
+  	domain.setDom_id(resultSet.getInt("dom_id"), false);
+	domain.setName(resultSet.getString("name"), false);
+	domain.setDescrip(resultSet.getString("descrip"), false);
+	domain.setFull_der(resultSet.getInt("full_der"), false);
+	domain.setConfig_id(resultSet.getInt("config_id"), false);
+	if (domain.getConfig_id() >  Domain_c.uniqueId) {
+	  Domain_c.uniqueId = domain.getConfig_id() + 1; 
+	}
+	domain.IsSubjectMatterOfSystem = target;
+	return domain;
+  }
+  // not found
+  return null ;
+}
+END Example -----------------------------------------------------------------
+
+
+- For select many
+  - perform the equivalent query on the database
+  - iterate over the result set
+    - if the result is not present in the Class extent
+      - instantiate the current result set instance
+      - add it to the Class extent
+  - perform what is there in the code now.
+  - return the resulting set
+
+In root class $Cr{domain.Name}:-
+- Define a class scope connection handle
+  	static Connection con ;
+
+In $Cr{domain.Name}.init:-
+- Initialize the sql connection
+    String driver = "org.postgresql.Driver";
+    try {
+    	Class.forName(driver);
+    }
+    catch (ClassNotFoundException except)
+    {
+    	System.out.println("Could not load Driver: " + driver);
+    }
+    try {
+		con = DriverManager.getConnection("jdbc:postgresql:ooa_schema",
+		                                  "campbell", "");
+	} catch (SQLException e) {
+		System.out.println("SQL Exception ecountered during connection");
+		System.out.println(e);
+	}
+
+We actually need to read some properties to allow 
+configuration of the above.
+ 

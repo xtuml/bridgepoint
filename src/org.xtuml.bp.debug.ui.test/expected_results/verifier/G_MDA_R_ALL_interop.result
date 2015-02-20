@@ -1,0 +1,23 @@
+Simulation started.
+User invoked function: startTest
+Initialization dequeueing. Event: INIT1: Init
+1:Initialization dequeueing. Event: INIT1: Init
+1:Initialization transition. New State: Initialize
+Driver dequeueing. Event: DRV1: begin
+4:Driver dequeueing. Event: DRV1: begin
+4:Driver transition. New State: Begin Test
+LogSuccess:  Bridge wired to a function in another domain: NoParam
+LogSuccess:  Bridge wired to a function in another domain: ByVal
+LogSuccess:  Bridge wired to a function in another domain: ByRef
+LogSuccess:  Bridge wired to a function in another domain: Combo
+LogSuccess:  Bridge wired to realized code: NoParam
+LogSuccess:  Bridge wired to realized code: ByVal
+LogSuccess:  Bridge wired to realized code: ByRef
+LogSuccess:  Bridge wired to realized code: Combo
+LogSuccess:  Class Operation NoParam
+LogSuccess:  Class Operation ByVal
+LogSuccess:  Class Operation ByRef
+LogSuccess:  Class Operation Combo
+4:Driver dequeueing. Event: DRV2: end
+4:Driver transition. New State: End Test Previous State: Begin Test
+

@@ -1,0 +1,398 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	'Timer',
+	2913,
+	'I_TIM',
+	'',
+	"97c1ace4-0148-4235-83cb-1fd8e2d2514d");
+INSERT INTO O_TFR
+	VALUES ("ebe5be81-7e5e-4f59-aba1-df328eeddeac",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	'tick',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'if (self.running)
+  select one pendingEvt related by self->I_EVI[R2940];
+  select one ee related by pendingEvt->I_EXE[R2964];
+  
+  select one stack related by ee->I_STACK[R2930];
+  if (not_empty ee and ee.Running and not_empty stack and
+                                        stack.runState == RunStateType::Running)
+  	if (self.expiration <= self.currentTime())
+      self.fire();
+    end if;
+  end if;
+end if;',
+	1,
+	'',
+	"4c656f6c-9665-40c4-a63d-cf060a3e8cef");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("12f6ae2d-3c4d-4ba5-8456-ef7abdab5803",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	'fire',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Timer.fire()
+select one evt related by self->I_EVI[R2940];
+self.removeTimer();
+if (not_empty evt)
+  if (self.recurring == true)
+    self.expiration = Util::addIntToLong(longVar:self.currentTime(), intVar:self.delay);
+    evt_ID = evt.clone();
+    select any newEvt from instances of I_EVI where selected.Event_ID == evt_ID;
+    unrelate self from evt across R2940;
+    relate self to newEvt across R2940;
+    select one comptInst related by evt ->I_EXE[R2964];
+    self.insertTimer(componentInstanceId:comptInst.Execution_Engine_ID);
+  end if;
+  evt.fire();
+end if;
+if (self.recurring == false)
+  discard = self.dispose();
+end if;',
+	1,
+	'',
+	"44d41992-37ed-4313-b1a7-44b70ea00d91");
+INSERT INTO O_TFR
+	VALUES ("44d41992-37ed-4313-b1a7-44b70ea00d91",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	'dispose',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'result = false;
+select one evt related by self->I_EVI[R2940];
+if (not_empty evt)
+  unrelate self from evt across R2940;
+  // If the event has not been delivered, dispose it too.
+  select one recipient related by evt->I_INS[R2907];
+  select one clazz related by evt->CSME_CIE[R2931];
+  if (empty recipient and empty clazz)
+    evt.dispose();
+    result = true;
+  end if;
+end if;
+self.removeTimer();
+delete object instance self;
+return result;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("4c656f6c-9665-40c4-a63d-cf060a3e8cef",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	'set',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'self.running = false;
+self.recurring = false;
+self.delay = param.delay;
+self.expiration = Util::addIntToLong(longVar:self.currentTime(), intVar:self.delay);',
+	1,
+	'',
+	"12f6ae2d-3c4d-4ba5-8456-ef7abdab5803");
+INSERT INTO O_TPARM
+	VALUES ("8283b821-8ab3-4e17-b703-fa6969552548",
+	"4c656f6c-9665-40c4-a63d-cf060a3e8cef",
+	'delay',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("88f3c2ef-bac3-4cbd-a7a5-c30cb8b770e1",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	'currentTime',
+	'Translate:native',
+	"f0e53f72-2765-4257-ae4c-e44680e63219",
+	1,
+	'return lib.TIM.getCurrentTime();',
+	0,
+	'',
+	"ebe5be81-7e5e-4f59-aba1-df328eeddeac");
+INSERT INTO S_DT_PROXY
+	VALUES ("f0e53f72-2765-4257-ae4c-e44680e63219",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'long',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("85726d06-1aa3-4470-82c8-6e8edee6a79f",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	'removeTimer',
+	'Translate:native',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'lib.TIM.removeTimer(this);',
+	0,
+	'',
+	"88f3c2ef-bac3-4cbd-a7a5-c30cb8b770e1");
+INSERT INTO O_TFR
+	VALUES ("b0662693-63a2-4723-b1da-7cc6dcb139c9",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	'insertTimer',
+	'Translate:native',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'ModelRoot modelRoot = getModelRoot();
+		ComponentInstance_c ee = (ComponentInstance_c) modelRoot
+				.getInstanceList(ComponentInstance_c.class).getGlobal(
+						p_Componentinstanceid);
+lib.TIM.insertTimer(this, ee);
+',
+	0,
+	'',
+	"85726d06-1aa3-4470-82c8-6e8edee6a79f");
+INSERT INTO O_TPARM
+	VALUES ("d6cfc24d-06be-44b7-ba2b-f3d1cf08b5b2",
+	"b0662693-63a2-4723-b1da-7cc6dcb139c9",
+	'componentInstanceId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("8a78b1bf-690c-4c49-a6c0-7a7bbb633956",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d");
+INSERT INTO O_BATTR
+	VALUES ("8a78b1bf-690c-4c49-a6c0-7a7bbb633956",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d");
+INSERT INTO O_ATTR
+	VALUES ("8a78b1bf-690c-4c49-a6c0-7a7bbb633956",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	"00000000-0000-0000-0000-000000000000",
+	'Timer_ID',
+	'',
+	'',
+	'Timer_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("d040abb0-ef04-4ba0-b063-82be134b5db5",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d");
+INSERT INTO O_BATTR
+	VALUES ("d040abb0-ef04-4ba0-b063-82be134b5db5",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d");
+INSERT INTO O_ATTR
+	VALUES ("d040abb0-ef04-4ba0-b063-82be134b5db5",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	"8a78b1bf-690c-4c49-a6c0-7a7bbb633956",
+	'delay',
+	'',
+	'',
+	'delay',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("b5f4e627-4a0a-49eb-85f2-89f49889b749",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d");
+INSERT INTO O_BATTR
+	VALUES ("b5f4e627-4a0a-49eb-85f2-89f49889b749",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d");
+INSERT INTO O_ATTR
+	VALUES ("b5f4e627-4a0a-49eb-85f2-89f49889b749",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	"d040abb0-ef04-4ba0-b063-82be134b5db5",
+	'running',
+	'',
+	'',
+	'running',
+	0,
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("b8960d65-d2b5-4bf8-9061-40b6e09652da",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d");
+INSERT INTO O_BATTR
+	VALUES ("b8960d65-d2b5-4bf8-9061-40b6e09652da",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d");
+INSERT INTO O_ATTR
+	VALUES ("b8960d65-d2b5-4bf8-9061-40b6e09652da",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	"b5f4e627-4a0a-49eb-85f2-89f49889b749",
+	'recurring',
+	'',
+	'',
+	'recurring',
+	0,
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	0,
+	"cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
+	"9c92f492-b55e-4c0b-b5dc-07c06b449d38",
+	"c86c1150-daa2-4338-b136-d1b9678aae29",
+	"2250d22a-7f45-45d0-b500-c086b74a452b",
+	"f3b60b33-ae48-4bc5-a1ba-fb780c986bb8",
+	"8001f5b3-1e2d-4dde-857d-fab7c80c488b",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Pending Event',
+	'Event_ID',
+	'R2940');
+INSERT INTO R_RGO_PROXY
+	VALUES ("d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	"9c92f492-b55e-4c0b-b5dc-07c06b449d38",
+	"c86c1150-daa2-4338-b136-d1b9678aae29",
+	'../Instance.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	0,
+	"9c92f492-b55e-4c0b-b5dc-07c06b449d38",
+	"2250d22a-7f45-45d0-b500-c086b74a452b",
+	'../Instance.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("f3b60b33-ae48-4bc5-a1ba-fb780c986bb8",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	"cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	1,
+	'Event_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	'../Pending Event/Pending Event.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("f3b60b33-ae48-4bc5-a1ba-fb780c986bb8",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	"b8960d65-d2b5-4bf8-9061-40b6e09652da",
+	'Event_ID',
+	'',
+	'',
+	'Event_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_DBATTR
+	VALUES ("321d1992-0a0e-4cef-bb65-84c1f0820090",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	'timeLeft = Util::diffLongsToInt(v1:self.expiration, v2:self.currentTime());
+result = GD::int_to_string(value:timeLeft) + " uS remaining";
+select one evt related by self->I_EVI[R2940];
+if (timeLeft < 0 or empty evt)
+  result = "not running";
+else
+  result = result + ", " + evt.Label;
+end if;
+self.Label = result;',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("321d1992-0a0e-4cef-bb65-84c1f0820090",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d");
+INSERT INTO O_ATTR
+	VALUES ("321d1992-0a0e-4cef-bb65-84c1f0820090",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	"f3b60b33-ae48-4bc5-a1ba-fb780c986bb8",
+	'Label',
+	'',
+	'',
+	'Label',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("ed9b2f39-893d-4b02-a96d-a919589649e5",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d");
+INSERT INTO O_BATTR
+	VALUES ("ed9b2f39-893d-4b02-a96d-a919589649e5",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d");
+INSERT INTO O_ATTR
+	VALUES ("ed9b2f39-893d-4b02-a96d-a919589649e5",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	"321d1992-0a0e-4cef-bb65-84c1f0820090",
+	'expiration',
+	'',
+	'',
+	'expiration',
+	0,
+	"f0e53f72-2765-4257-ae4c-e44680e63219",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d");
+INSERT INTO O_OIDA
+	VALUES ("8a78b1bf-690c-4c49-a6c0-7a7bbb633956",
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d",
+	0,
+	'Timer_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d");
+INSERT INTO O_ID
+	VALUES (2,
+	"d3bdf15f-16b7-40c7-a34f-e8b92091139d");
+INSERT INTO S_SS_PROXY
+	VALUES ("97c1ace4-0148-4235-83cb-1fd8e2d2514d",
+	'Instance',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+Persistent:false
+Import: java.util.concurrent.locks.ReentrantLock',
+	'I',
+	900,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Instance.xtuml');

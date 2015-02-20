@@ -1,0 +1,1880 @@
+<html>
+<body>
+<title>Subsystem 'Subsystem'</title>
+<link rel="StyleSheet" href="../../../techpub.css">
+
+<h1>
+<a name="a_692"></a>
+Subsystem 'Subsystem'
+</h1>
+<p>
+<a name="a_693"></a>
+The Subsystem subsystem models those model elements used to describe the  classes described in the class diagram.
+</p>
+<h2>
+<a name="a_694"></a>
+Links to Classes
+</h2>
+<p>1. <a href="#a_103.Attribute">Attribute (O_ATTR)</a></p>
+<p>2. <a href="#a_110.AttributeReferenceinClass">Attribute Reference in Class (O_REF)</a></p>
+<p>3. <a href="#a_106.BaseAttribute">Base Attribute (O_BATTR)</a></p>
+<p>4. <a href="#a_104.ClassIdentifier">Class Identifier (O_ID)</a></p>
+<p>5. <a href="#a_105.ClassIdentifierAttribute">Class Identifier Attribute (O_OIDA)</a></p>
+<p>6. <a href="#a_107.DerivedBaseAttribute">Derived Base Attribute (O_DBATTR)</a></p>
+<p>7. <a href="#a_102.ImportedClass">Imported Class (O_IOBJ)</a></p>
+<p>8. <a href="#a_101.ModelClass">Model Class (O_OBJ)</a></p>
+<p>9. <a href="#a_108.NewBaseAttribute">New Base Attribute (O_NBATTR)</a></p>
+<p>10. <a href="#a_112.Operation">Operation (O_TFR)</a></p>
+<p>11. <a href="#a_113.OperationParameter">Operation Parameter (O_TPARM)</a></p>
+<p>12. <a href="#a_109.ReferentialAttribute">Referential Attribute (O_RATTR)</a></p>
+<p>13. <a href="#a_111.ReferredToIdentifierAttribute">Referred To Identifier Attribute (O_RTIDA)</a></p>
+</p>
+<h2>
+<a name="a_695"></a>
+Links to Associations
+</h2>
+<p>
+<a href="#a_R101">R101</a>, <a href="#a_R102">R102</a>, <a href="#a_R103">R103</a>, <a href="#a_R104">R104</a>, <a href="#a_R105">R105</a>, <a href="#a_R106">R106</a>, <a href="#a_R107">R107</a>, <a href="#a_R108">R108</a>, <a href="#a_R109">R109</a>, <a href="#a_R110">R110</a>, <a href="#a_R111">R111</a>, <a href="#a_R112">R112</a>, <a href="#a_R113">R113</a>, <a href="#a_R114">R114</a>, <a href="#a_R115">R115</a>, <a href="#a_R116">R116</a>, <a href="#a_R117">R117</a>, <a href="#a_R118">R118</a></p><p>
+<h2>
+<a name="a_696"></a>
+Class and Attribute Descriptions
+</h2>
+<h3>
+<a name="a_101.ModelClass"></a>
+101. Model Class
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_697"></a>
+Model Class(Obj_ID, Name, Numb, Key_Lett, Descrip, SS_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_698"></a>
+Identifier *: Obj_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_699"></a>
+Identifier *2: Key_Lett</p>
+<p style="margin-left: 40px;">
+<a name="a_700"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_701"></a>
+Description: A model class represents an abstraction of a real world thing.  All  instances of a class have the same characteristics and conform to the  same set of rules.  The characteristics of a class are captured as  attributes.  Each class within a domain are assigned a unique name,  number, and keyletter.
+</p>
+<h4>
+<a name="14_Model Class.Obj_ID">
+Model Class.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_702"></a>
+Full Name: Class Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_703"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_704"></a>
+Data Type: unique_id
+</p>
+<p style="margin-left: 40px;">
+<a name="a_705"></a>
+Description:  Uniquely identifies the class within the model.
+</p>
+<h4>
+Model Class.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_706"></a>
+Full Name: Class Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_707"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_708"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_709"></a>
+Description:  Name of the class as entered in the model.
+</p>
+<h4>
+Model Class.Numb
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_710"></a>
+Full Name: Class Number
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_711"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_712"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_713"></a>
+Description:  Number of the class as it appears in the model.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_714"></a>
+Data Domain: 0-9999
+</p>
+<h4>
+Model Class.Key_Lett
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_715"></a>
+Full Name: Class Key Letters
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_716"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_717"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_718"></a>
+Description:  Key letters of the class as they appear in the model.
+</p>
+<h4>
+Model Class.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_719"></a>
+Full Name: Class Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_720"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_721"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_722"></a>
+Description:  This is a description of the class as entered by the user.
+</p>
+<h4>
+Model Class.SS_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_723"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_724"></a>
+Refers to: <a href="Domain.htm#4_Subsystem.SS_ID">Subsystem.SS_ID (R2)</a>
+</p>
+<h3>
+<a name="a_102.ImportedClass"></a>
+102. Imported Class
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_725"></a>
+Imported Class(IObj_ID, Obj_ID, Modl_Typ, SS_ID, Obj_Name, Obj_KL)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_726"></a>
+Identifier *: IObj_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_727"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_728"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_729"></a>
+Description: Classes can have interactions with classes in other subsystems.  In  order to capture these spanning interactions, Classes can be imported  into another subsystem.  Spanning interactions can be associations, event  communications, or data accesses and are captured in a class diagram,  communication diagram, and synchronous communication diagram, respectively.   Spanning interactions provide the data for derivation of the subsystem  association model, subsystem communication model, and subsystem access model.
+</p>
+<h4>
+<a name="16_Imported Class.IObj_ID">
+Imported Class.IObj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_730"></a>
+Full Name: Imported Class Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_731"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_732"></a>
+Data Type: unique_id
+</p>
+<p style="margin-left: 40px;">
+<a name="a_733"></a>
+Description:  Uniquely identifies an instance of an imported class.
+</p>
+<h4>
+Imported Class.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_734"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_735"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R101)</a>
+</p>
+<h4>
+Imported Class.Modl_Typ
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_736"></a>
+Full Name: Model Type
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_737"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_738"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_739"></a>
+Description:  Indicates what type of model the Imported Class is in.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_740"></a>
+Data Domain: 5 indicates Class Diagram
+</p>
+<h4>
+Imported Class.SS_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_741"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_742"></a>
+Refers to: <a href="Domain.htm#4_Subsystem.SS_ID">Subsystem.SS_ID (R3)</a>
+</p>
+<h4>
+Imported Class.Obj_Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_743"></a>
+Full Name: Class Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_744"></a>
+Attribute Type: Derived Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_745"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_746"></a>
+Description:   This attribute provides identifying information for the 
+Class related to this Imported Class.  This is used to associate the 
+Imported Class to its related Class when importing a subsystem containing 
+the Imported Class into a new/different domain.
+
+
+</p>
+<h4>
+Imported Class.Obj_KL
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_747"></a>
+Full Name: Class Key Letter
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_748"></a>
+Attribute Type: Derived Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_749"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_750"></a>
+Description:   This attribute provides identifying information for the 
+Class related to this Imported class.  This is used to associate the 
+Imported Class to its related class when importing a  subsystem containing 
+the Imported Class into a new/different domain.
+
+
+</p>
+<h3>
+<a name="a_103.Attribute"></a>
+103. Attribute
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_751"></a>
+Attribute(Attr_ID, Obj_ID, PAttr_ID, Name, Descrip, Prefix, Root_Nam, Pfx_Mode, DT_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_752"></a>
+Identifier *: Obj_ID, Attr_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_753"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_754"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_755"></a>
+Description: An attribute is an abstraction of a single characteristic possessed by a  class.  Usually classes contain a set of attributes to completely capture  all pertinent information.  Each attribute is given a unique name within  a class.
+</p>
+<h4>
+<a name="26_Attribute.Attr_ID">
+Attribute.Attr_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_756"></a>
+Full Name: Attribute Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_757"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_758"></a>
+Data Type: unique_id
+</p>
+<p style="margin-left: 40px;">
+<a name="a_759"></a>
+Description:  A unique identifier for an instance of attribute.
+</p>
+<h4>
+Attribute.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_760"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_761"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R102)</a>
+</p>
+<h4>
+Attribute.PAttr_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_762"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_763"></a>
+Refers to: <a href="Subsystem.htm#26_Attribute.Attr_ID">Attribute.Attr_ID (R103)</a>
+</p>
+<h4>
+Attribute.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_764"></a>
+Full Name: Attribute Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_765"></a>
+Attribute Type: Derived Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_766"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_767"></a>
+Description:  The name of the class attribute as it appears on the Class Diagram. 
+The name of the class attribute is mathematically derived from 
+O_ATTR.Root_Nam, O_ATTR.Prefix, and O_ATTR.Prx_Mode.
+</p>
+<h4>
+Attribute.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_768"></a>
+Full Name: Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_769"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_770"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_771"></a>
+Description:   A textual description of the class attribute.
+
+</p>
+<h4>
+Attribute.Prefix
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_772"></a>
+Full Name: Attribute Name Prefix
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_773"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_774"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_775"></a>
+Description:  Prefix for the attribute.
+</p>
+<h4>
+Attribute.Root_Nam
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_776"></a>
+Full Name: Attribute Root Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_777"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_778"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_779"></a>
+Description:  The root name (name without prefix) of the attribute
+</p>
+<h4>
+Attribute.Pfx_Mode
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_780"></a>
+Full Name: Prefix Mode
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_781"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_782"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_783"></a>
+Description:  Indicates usage of a prefix.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_784"></a>
+Data Domain: 0 = uses no prefix, 1 = uses local prefix, 2 = uses referred to prefix
+</p>
+<h4>
+Attribute.DT_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_785"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_786"></a>
+Refers to: <a href="Domain.htm#5_Data Type.DT_ID">Data Type.DT_ID (R114)</a>
+</p>
+<h3>
+<a name="a_104.ClassIdentifier"></a>
+104. Class Identifier
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_787"></a>
+Class Identifier(Oid_ID, Obj_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_788"></a>
+Identifier *: Obj_ID, Oid_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_789"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_790"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_791"></a>
+Description: A set of one or more Attributes which uniquely distinguishes each instance  of a class is a class identifier.  A class may have several identifiers.
+</p>
+<h4>
+<a name="17_Class Identifier.Oid_ID">
+Class Identifier.Oid_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_792"></a>
+Full Name: Class Identifier Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_793"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_794"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_795"></a>
+Description:  The identifying attribute set number.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_796"></a>
+Data Domain: 0 = Primary Identifier Set (e.g., *), 1 = Secondary Identifier Set (e.g., *2), 2 = Third Identifier Set (e.g., *3)
+</p>
+<h4>
+Class Identifier.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_797"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_798"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R104)</a>
+</p>
+<h3>
+<a name="a_105.ClassIdentifierAttribute"></a>
+105. Class Identifier Attribute
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_799"></a>
+Class Identifier Attribute(Attr_ID, Obj_ID, Oid_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_800"></a>
+Identifier *: Attr_ID, Obj_ID, Oid_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_801"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_802"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_803"></a>
+Description: An attribute that is part of a class identifier is a class identifier  attribute.
+</p>
+<h4>
+Class Identifier Attribute.Attr_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_804"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_805"></a>
+Refers to: <a href="Subsystem.htm#26_Attribute.Attr_ID">Attribute.Attr_ID (R105)</a>
+</p>
+<h4>
+Class Identifier Attribute.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_806"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_807"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R105)</a>
+</p>
+<h4>
+Class Identifier Attribute.Oid_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_808"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_809"></a>
+Refers to: <a href="Subsystem.htm#17_Class Identifier.Oid_ID">Class Identifier.Oid_ID (R105)</a>
+</p>
+<h3>
+<a name="a_106.BaseAttribute"></a>
+106. Base Attribute
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_810"></a>
+Base Attribute(Attr_ID, Obj_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_811"></a>
+Identifier *: Attr_ID, Obj_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_812"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_813"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_814"></a>
+Description: A Base attribute is a non-referential attribute.  Base attributes are either  derived base attributes (O_DBATTR) or non-derived base attributes (O_NBATTR).
+</p>
+<h4>
+Base Attribute.Attr_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_815"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_816"></a>
+Refers to: <a href="Subsystem.htm#26_Attribute.Attr_ID">Attribute.Attr_ID (R106)</a>
+</p>
+<h4>
+Base Attribute.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_817"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_818"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R106)</a>
+</p>
+<h3>
+<a name="a_107.DerivedBaseAttribute"></a>
+107. Derived Base Attribute
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_819"></a>
+Derived Base Attribute(Attr_ID, Obj_ID, Action_Semantics, Suc_Pars)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_820"></a>
+Identifier *: Attr_ID, Obj_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_821"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_822"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_823"></a>
+Description: A Derived Base Attribute is the result of an algorithm used to derive the value.  A derived based attribute is said to be mathematically-dependent since its  value is derived from other data in the model.  The action for the derived  base attribute is used to set the value of the attribute by using the self  keyword.
+</p>
+<h4>
+Derived Base Attribute.Attr_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_824"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_825"></a>
+Refers to: <a href="Subsystem.htm#26_Attribute.Attr_ID">Attribute.Attr_ID (R107)</a>
+</p>
+<h4>
+Derived Base Attribute.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_826"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_827"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R107)</a>
+</p>
+<h4>
+Derived Base Attribute.Action_Semantics
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_828"></a>
+Full Name: Action Semantics Field
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_829"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_830"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_831"></a>
+Description:  This attribute contains the action semantics for the 
+mathematically-dependent attribute.
+</p>
+<h4>
+Derived Base Attribute.Suc_Pars
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_832"></a>
+Full Name: Successful Parse Indicator
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_833"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_834"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_835"></a>
+Description:  Indicates the status of the parse for the derived base attribute 
+action specification in the attribute Action_Semantics
+</p>
+<p style="margin-left: 40px;">
+<a name="a_836"></a>
+Data Domain: 0=not parsed, 1 = parse successful, 2 = parse unsuccessful, 3 = parse on apply set but never been parsed
+</p>
+<h3>
+<a name="a_108.NewBaseAttribute"></a>
+108. New Base Attribute
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_837"></a>
+New Base Attribute(Attr_ID, Obj_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_838"></a>
+Identifier *: Attr_ID, Obj_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_839"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_840"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_841"></a>
+Description: A New Base Attribute is a non-derived base attribute.
+</p>
+<h4>
+New Base Attribute.Attr_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_842"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_843"></a>
+Refers to: <a href="Subsystem.htm#26_Attribute.Attr_ID">Attribute.Attr_ID (R107)</a>
+</p>
+<h4>
+New Base Attribute.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_844"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_845"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R107)</a>
+</p>
+<h3>
+<a name="a_109.ReferentialAttribute"></a>
+109. Referential Attribute
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_846"></a>
+Referential Attribute(Attr_ID, Obj_ID, BAttr_ID, BObj_ID, Ref_Mode)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_847"></a>
+Identifier *: Obj_ID, Attr_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_848"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_849"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_850"></a>
+Description: A referential attribute captures the formalization of an association.  A  referential attribute refers to an identifying attribute in the class at  the other end of the association which it formalizes.
+</p>
+<h4>
+Referential Attribute.Attr_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_851"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_852"></a>
+Refers to: <a href="Subsystem.htm#26_Attribute.Attr_ID">Attribute.Attr_ID (R106)</a>
+</p>
+<h4>
+Referential Attribute.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_853"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_854"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R106)</a>
+</p>
+<h4>
+Referential Attribute.BAttr_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_855"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_856"></a>
+Refers to: <a href="Subsystem.htm#26_Attribute.Attr_ID">Attribute.Attr_ID (R113)</a>
+</p>
+<h4>
+Referential Attribute.BObj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_857"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_858"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R113)</a>
+</p>
+<h4>
+Referential Attribute.Ref_Mode
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_859"></a>
+Full Name: Referential Attribute Referred to Mode
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_860"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_861"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_862"></a>
+Description:  Indicates how to build the name of the referential attribute.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_863"></a>
+Data Domain: 0 = use local root, 1 = use referred to root
+</p>
+<h3>
+<a name="a_110.AttributeReferenceinClass"></a>
+110. Attribute Reference in Class
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_864"></a>
+Attribute Reference In Class(Obj_ID, RObj_ID, ROid_ID, RAttr_ID, Rel_ID, OIR_ID, ROIR_ID, Attr_ID, ARef_ID, PARef_ID, Is_Cstrd, Descrip)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_865"></a>
+Identifier *: ROid_ID, RAttr_ID, OIR_ID, Rel_ID, ROIR_ID, Obj_ID, RObj_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_866"></a>
+Identifier *2: ARef_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_867"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_868"></a>
+Description: This class represents an association number (R#) which follows a referential  attribute.
+</p>
+<h4>
+Attribute Reference in Class.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_869"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_870"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R108)</a>
+</p>
+<h4>
+Attribute Reference in Class.RObj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_871"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_872"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R111)</a>
+</p>
+<h4>
+Attribute Reference in Class.ROid_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_873"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_874"></a>
+Refers to: <a href="Subsystem.htm#17_Class Identifier.Oid_ID">Class Identifier.Oid_ID (R111)</a>
+</p>
+<h4>
+Attribute Reference in Class.RAttr_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_875"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_876"></a>
+Refers to: <a href="Subsystem.htm#26_Attribute.Attr_ID">Attribute.Attr_ID (R111)</a>
+</p>
+<h4>
+Attribute Reference in Class.Rel_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_877"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_878"></a>
+Refers to: <a href="Association.htm#13_Association.Rel_ID">Association.Rel_ID (R111)</a>
+</p>
+<h4>
+Attribute Reference in Class.OIR_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_879"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_880"></a>
+Refers to: <a href="Association.htm#15_Class In Association.OIR_ID">Class In Association.OIR_ID (R111)</a>
+</p>
+<h4>
+Attribute Reference in Class.ROIR_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_881"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_882"></a>
+Refers to: <a href="Association.htm#15_Class In Association.OIR_ID">Class In Association.OIR_ID (R111)</a>
+</p>
+<h4>
+Attribute Reference in Class.Attr_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_883"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_884"></a>
+Refers to: <a href="Subsystem.htm#26_Attribute.Attr_ID">Attribute.Attr_ID (R108)</a>
+</p>
+<h4>
+<a name="27_Attribute Reference in Class.ARef_ID">
+Attribute Reference in Class.ARef_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_885"></a>
+Full Name: Attribute Reference In Class Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_886"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_887"></a>
+Data Type: unique_id
+</p>
+<p style="margin-left: 40px;">
+<a name="a_888"></a>
+Description:  Secondary Identifier
+
+</p>
+<h4>
+Attribute Reference in Class.PARef_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_889"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_890"></a>
+Refers to: <a href="Subsystem.htm#27_Attribute Reference in Class.ARef_ID">Attribute Reference in Class.ARef_ID (R112)</a>
+</p>
+<h4>
+Attribute Reference in Class.Is_Cstrd
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_891"></a>
+Full Name: Is Constrained
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_892"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_893"></a>
+Data Type: boolean
+</p>
+<p style="margin-left: 40px;">
+<a name="a_894"></a>
+Description:  Signifies a constrained referential
+</p>
+<p style="margin-left: 40px;">
+<a name="a_895"></a>
+Data Domain: 0 = not  constrained, 1 = constrained
+</p>
+<h4>
+Attribute Reference in Class.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_896"></a>
+Full Name: Attribute Reference in Class Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_897"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_898"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_899"></a>
+Description:  Description of the attribute reference.
+</p>
+<h3>
+<a name="a_111.ReferredToIdentifierAttribute"></a>
+111. Referred To Identifier Attribute
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_900"></a>
+Referred To Identifier Attribute(Attr_ID, Obj_ID, Oid_ID, Rel_ID, OIR_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_901"></a>
+Identifier *: Attr_ID, Rel_ID, Obj_ID, OIR_ID, Oid_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_902"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_903"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_904"></a>
+Description: This class serves as a linkage between R# (Attribute Reference in Class ) and  the referred to class identifier attribute.
+</p>
+<h4>
+Referred To Identifier Attribute.Attr_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_905"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_906"></a>
+Refers to: <a href="Subsystem.htm#26_Attribute.Attr_ID">Attribute.Attr_ID (R110)</a>
+</p>
+<h4>
+Referred To Identifier Attribute.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_907"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_908"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R110)</a>
+</p>
+<h4>
+Referred To Identifier Attribute.Oid_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_909"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_910"></a>
+Refers to: <a href="Subsystem.htm#17_Class Identifier.Oid_ID">Class Identifier.Oid_ID (R110)</a>
+</p>
+<h4>
+Referred To Identifier Attribute.Rel_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_911"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_912"></a>
+Refers to: <a href="Association.htm#13_Association.Rel_ID">Association.Rel_ID (R110)</a>
+</p>
+<h4>
+Referred To Identifier Attribute.OIR_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_913"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_914"></a>
+Refers to: <a href="Association.htm#15_Class In Association.OIR_ID">Class In Association.OIR_ID (R110)</a>
+</p>
+<h3>
+<a name="a_112.Operation"></a>
+112. Operation
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_915"></a>
+Operation(Tfr_ID, Obj_ID, Name, Descrip, DT_ID, Instance_Based, Action_Semantics, Suc_Pars)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_916"></a>
+Identifier *: Tfr_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_917"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_918"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_919"></a>
+Description: An Operation is a method associated with a class.  Operations can be  synchronously called from Action Specifications.  Two types of operations  exist.  Class-based operations affect the class as a whole.  Instance-based  operations affect only an instance.
+</p>
+<h4>
+<a name="25_Operation.Tfr_ID">
+Operation.Tfr_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_920"></a>
+Full Name: Operation Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_921"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_922"></a>
+Data Type: unique_id
+</p>
+<h4>
+Operation.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_923"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_924"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R115)</a>
+</p>
+<h4>
+Operation.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_925"></a>
+Full Name: Operation Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_926"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_927"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_928"></a>
+Description:  The name of this operation.
+</p>
+<h4>
+Operation.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_929"></a>
+Full Name: Operation Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_930"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_931"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_932"></a>
+Description:  A textual description of this operation.
+</p>
+<h4>
+Operation.DT_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_933"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_934"></a>
+Refers to: <a href="Domain.htm#5_Data Type.DT_ID">Data Type.DT_ID (R116)</a>
+</p>
+<h4>
+Operation.Instance_Based
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_935"></a>
+Full Name: Instance Based Indicator
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_936"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_937"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_938"></a>
+Description:  Indicates whether the operation is instance-based or class-based.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_939"></a>
+Data Domain: 0 = class-based, 1 = instance-based
+</p>
+<h4>
+Operation.Action_Semantics
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_940"></a>
+Full Name: Action Semantics Field
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_941"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_942"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_943"></a>
+Description:  Defines the action semantics for the operation
+
+</p>
+<h4>
+Operation.Suc_Pars
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_944"></a>
+Full Name: Successful Parse Indicator
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_945"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_946"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_947"></a>
+Description:  Indicates the status of the parse for the operation action 
+described in the attribute Action_Semantics
+</p>
+<p style="margin-left: 40px;">
+<a name="a_948"></a>
+Data Domain: 0=not parsed, 1 = parse successful, 2 = parse unsuccessful, 3 = parse on apply set but never been parsed
+</p>
+<h3>
+<a name="a_113.OperationParameter"></a>
+113. Operation Parameter
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_949"></a>
+Operation Parameter(TParm_ID, Tfr_ID, Name, DT_ID, By_Ref)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_950"></a>
+Identifier *: TParm_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_951"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_952"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_953"></a>
+Description: Each operation (O_TFR) can have one or more parameters (O_TPARM).  A  parameter to an operation is called an operation parameter.  Operation  parameters are either passed in by value, or by reference.  Operation  parameters can be accessed by using the param keyword from within an  operation action specification.
+</p>
+<h4>
+Operation Parameter.TParm_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_954"></a>
+Full Name: Operation Parameter Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_955"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_956"></a>
+Data Type: unique_id
+</p>
+<p style="margin-left: 40px;">
+<a name="a_957"></a>
+Description:  Uniquely identifies an operation parameter
+</p>
+<h4>
+Operation Parameter.Tfr_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_958"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_959"></a>
+Refers to: <a href="Subsystem.htm#25_Operation.Tfr_ID">Operation.Tfr_ID (R117)</a>
+</p>
+<h4>
+Operation Parameter.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_960"></a>
+Full Name: Operation Parameter Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_961"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_962"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_963"></a>
+Description:  This is the name of the parameter.
+</p>
+<h4>
+Operation Parameter.DT_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_964"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_965"></a>
+Refers to: <a href="Domain.htm#5_Data Type.DT_ID">Data Type.DT_ID (R118)</a>
+</p>
+<h4>
+Operation Parameter.By_Ref
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_966"></a>
+Full Name: By Reference Indicator
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_967"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_968"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_969"></a>
+Description:  Indicates whether or not this parameter is passed by reference
+</p>
+<p style="margin-left: 40px;">
+<a name="a_970"></a>
+Data Domain: 0 = passed by value, 1 = passed by reference
+</p>
+<h2>
+<a name="a_971"></a>
+Association Descriptions
+</h2>
+<h3>
+<a name="a_R101"></a>
+R101
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_972"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_973"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_974"></a>
+Model Class <em>has presence in other subsystems</em> Imported Class
+</p>
+<p style="margin-left: 40px;">
+<a name="a_975"></a>
+Imported Class <em>represents Model Class
+</p>
+<p style="margin-left: 40px;">
+<a name="a_976"></a>
+Formalized By: Model Class.Obj_ID
+</p>
+<h3>
+<a name="a_R102"></a>
+R102
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_977"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_978"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_979"></a>
+Model Class <em>has characteristics abstracted by</em> Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_980"></a>
+Attribute <em>abstracts characteristics of Model Class
+</p>
+<p style="margin-left: 40px;">
+<a name="a_981"></a>
+Formalized By: Model Class.Obj_ID
+</p>
+<h3>
+<a name="a_R103"></a>
+R103
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_982"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_983"></a>
+Multiplicity/Conditionality: 1c: 1c
+</p>
+<p style="margin-left: 40px;">
+<a name="a_984"></a>
+Attribute <em>precedes</em> Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_985"></a>
+Attribute <em>succeeds Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_986"></a>
+Formalized By: Attribute.Obj_ID, Attribute.Attr_ID
+</p>
+<h3>
+<a name="a_R104"></a>
+R104
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_987"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_988"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_989"></a>
+Model Class <em>is identified by</em> Class Identifier
+</p>
+<p style="margin-left: 40px;">
+<a name="a_990"></a>
+Class Identifier <em>identifies Model Class
+</p>
+<p style="margin-left: 40px;">
+<a name="a_991"></a>
+Formalized By: Model Class.Obj_ID
+</p>
+<h3>
+<a name="a_R105"></a>
+R105
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_992"></a>
+Relationship Type: Associative
+</p>
+<p style="margin-left: 40px;">
+<a name="a_993"></a>
+Multiplicity/Conditionality: 1-(Mc:Mc)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_994"></a>
+Class Identifier <em>is made up of </em> Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_995"></a>
+Attribute <em>is part of </em> Class Identifier
+</p>
+<p style="margin-left: 40px;">
+<a name="a_996"></a>
+Formalized By: Class Identifier Attribute.Attr_ID, Class Identifier Attribute.Obj_ID, Class Identifier Attribute.Obj_ID, Class Identifier Attribute.Oid_ID
+</p>
+<h3>
+<a name="a_R106"></a>
+R106
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_997"></a>
+Relationship Type: Subtype/Supertype
+</p>
+<p style="margin-left: 40px;">
+<a name="a_998"></a>
+Subtypes: Base Attribute(O_BATTR), Referential Attribute(O_RATTR)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_999"></a>
+Formalized By: Attribute.Attr_ID, Attribute.Obj_ID
+</p>
+<h3>
+<a name="a_R107"></a>
+R107
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1000"></a>
+Relationship Type: Subtype/Supertype
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1001"></a>
+Subtypes: Derived Base Attribute(O_DBATTR), New Base Attribute(O_NBATTR)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1002"></a>
+Formalized By: Base Attribute.Attr_ID, Base Attribute.Obj_ID
+</p>
+<h3>
+<a name="a_R108"></a>
+R108
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1003"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1004"></a>
+Multiplicity/Conditionality: 1: M
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1005"></a>
+Referential Attribute <em>resolves </em> Attribute Reference in Class
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1006"></a>
+Attribute Reference in Class <em>is resolved by Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1007"></a>
+Formalized By: Referential Attribute.Obj_ID, Referential Attribute.Attr_ID
+</p>
+<h3>
+<a name="a_R109"></a>
+R109
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1008"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1009"></a>
+Multiplicity/Conditionality: 1c: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1010"></a>
+Class Identifier <em>identifies for this association </em> Referred To Class in Assoc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1011"></a>
+Referred To Class in Assoc <em>is identified in this association by Class Identifier
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1012"></a>
+Formalized By: Class Identifier.Obj_ID, Class Identifier.Oid_ID
+</p>
+<h3>
+<a name="a_R110"></a>
+R110
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1013"></a>
+Relationship Type: Associative
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1014"></a>
+Multiplicity/Conditionality: 1-(Mc:M)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1015"></a>
+Referred To Class in Assoc <em>is identified in this association by</em> Class Identifier Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1016"></a>
+Class Identifier Attribute <em>identifies for this association</em> Referred To Class in Assoc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1017"></a>
+Formalized By: Referred To Identifier Attribute.Attr_ID, Referred To Identifier Attribute.Obj_ID, Referred To Identifier Attribute.Obj_ID, Referred To Identifier Attribute.Oid_ID, Referred To Identifier Attribute.Oid_ID, Referred To Identifier Attribute.Rel_ID, Referred To Identifier Attribute.OIR_ID
+</p>
+<h3>
+<a name="a_R111"></a>
+R111
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1018"></a>
+Relationship Type: Associative
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1019"></a>
+Multiplicity/Conditionality: 1-(M:M)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1020"></a>
+Referring Class In Assoc <em>refers across association via</em> Referred To Identifier Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1021"></a>
+Referred To Identifier Attribute <em>is used to refer class by</em> Referring Class In Assoc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1022"></a>
+Formalized By: Attribute Reference in Class.Obj_ID, Attribute Reference in Class.Obj_ID, Attribute Reference in Class.Oid_ID, Attribute Reference in Class.Attr_ID, Attribute Reference in Class.Rel_ID, Attribute Reference in Class.Rel_ID, Attribute Reference in Class.OIR_ID, Attribute Reference in Class.OIR_ID
+</p>
+<h3>
+<a name="a_R112"></a>
+R112
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1023"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1024"></a>
+Multiplicity/Conditionality: 1c: 1c
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1025"></a>
+Attribute Reference in Class <em>precedes</em> Attribute Reference in Class
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1026"></a>
+Attribute Reference in Class <em>succeeds Attribute Reference in Class
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1027"></a>
+Formalized By: Attribute Reference in Class.ARef_ID
+</p>
+<h3>
+<a name="a_R113"></a>
+R113
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1028"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1029"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1030"></a>
+Base Attribute <em>can be the base of</em> Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1031"></a>
+Referential Attribute <em>navigates back to Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1032"></a>
+Formalized By: Base Attribute.Attr_ID, Base Attribute.Obj_ID
+</p>
+<h3>
+<a name="a_R114"></a>
+R114
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1033"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1034"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1035"></a>
+Data Type <em>is defined by</em> Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1036"></a>
+Attribute <em>defines type of Data Type
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1037"></a>
+Formalized By: Data Type.DT_ID
+</p>
+<h3>
+<a name="a_R115"></a>
+R115
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1038"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1039"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1040"></a>
+Model Class <em>may contain</em> Operation
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1041"></a>
+Operation <em>is associated with Model Class
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1042"></a>
+Formalized By: Model Class.Obj_ID
+</p>
+<h3>
+<a name="a_R116"></a>
+R116
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1043"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1044"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1045"></a>
+Data Type <em>defines the type of return code</em> Operation
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1046"></a>
+Operation <em>return code is defined by Data Type
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1047"></a>
+Formalized By: Data Type.DT_ID
+</p>
+<h3>
+<a name="a_R117"></a>
+R117
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1048"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1049"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1050"></a>
+Operation <em>contains</em> Operation Parameter
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1051"></a>
+Operation Parameter <em>is part of  Operation
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1052"></a>
+Formalized By: Operation.Tfr_ID
+</p>
+<h3>
+<a name="a_R118"></a>
+R118
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1053"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1054"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1055"></a>
+Data Type <em>defines the type of </em> Operation Parameter
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1056"></a>
+Operation Parameter <em>is defined by Data Type
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1057"></a>
+Formalized By: Data Type.DT_ID
+</p>
+</body>
+</html>
+

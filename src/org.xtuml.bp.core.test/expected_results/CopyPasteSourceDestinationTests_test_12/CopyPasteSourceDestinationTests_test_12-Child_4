@@ -1,0 +1,8 @@
+drawRectangle(69, 99, 1092, 662)
+drawline(69, 131, 354, 131)
+drawline(368, 99, 368, 114)
+drawline(354, 131, 368, 114)
+drawText("component: Child Component", 75, 99, true)
+drawRectangle(1105, 121, 34, 27)
+drawRectangle(1097, 124, 16, 8)
+drawRectangle(1097, 135, 16, 8)

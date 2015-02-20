@@ -1,0 +1,4 @@
+Transaction started: move / resize
+ Attribute 'Positionx' of ui.canvas.Graphelement changed ( '2377.0' -> '2376.0')
+ Attribute 'Positiony' of ui.canvas.Graphelement changed ( '1264.0' -> '1668.0')
+Transaction Ended: move / resize with delta size: 2

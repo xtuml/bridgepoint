@@ -1,0 +1,203 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("982386b4-db03-44d6-827b-fbe9d059c7ff",
+	'Continue',
+	630,
+	'ACT_CON',
+	'This class generates a continue statement within a block.',
+	"76583c73-7a99-4c81-b260-8109e6cef5ca");
+INSERT INTO O_TFR
+	VALUES ("12f34b37-0713-4e87-ad8b-598f51a335df",
+	"982386b4-db03-44d6-827b-fbe9d059c7ff",
+	'dispose',
+	'This operation disconnects an instance, and all instances it is 
+responsible for, from the model.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// do nothing
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("96487926-87b5-4952-bfd7-bed05dc16f46",
+	"982386b4-db03-44d6-827b-fbe9d059c7ff",
+	'execute',
+	'This operation will cause all blocks to stop executing until the originating for each or while loop is found.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Body:Continue.execute()
+
+// WARNING: This function assumes that break and continue statements can only
+//          exist within a for each or while loop. If a break or continue
+//          statement exists somewhere else, an infinite loop will occur.
+
+// Find the potentially nested block that is controlled by a for each or a
+// while loop
+
+found_loop_block = FALSE;
+select one containing_block related by self->ACT_SMT[R603]->ACT_BLK[R602];
+
+while (found_loop_block == FALSE)
+
+  // Tell each block of OAL to stop executing up to the originating for each
+  // or while loop containing_block.exitBlock();  
+
+  // Test if break was called within a for loop
+  select one for_statement related by containing_block->ACT_FOR[R605];
+  if (not_empty for_statement)
+    select one containing_block related by for_statement->
+                                                   ACT_SMT[R603]->ACT_BLK[R602];
+    found_loop_block = TRUE;  
+  else
+    // See if break was called within a while loop
+    select one while_statement related by containing_block->ACT_WHL[R608];
+    if (not_empty while_statement)
+      select one containing_block related by while_statement->
+                                                   ACT_SMT[R603]->ACT_BLK[R602];
+      found_loop_block = TRUE;
+    else 
+  
+      // This block isn''t the source of the while or for loop.
+      //  Find a nested control structure block.
+      select one if_statement related by containing_block->ACT_IF[R607];
+      select one elif_statement related by containing_block->ACT_EL[R658];
+      select one else_statement related by containing_block->ACT_E[R606];
+    
+      if (not_empty if_statement)
+        select one containing_block related by if_statement->
+                                                   ACT_SMT[R603]->ACT_BLK[R602];
+      elif (not_empty elif_statement)
+        select one containing_block related by elif_statement->
+                                                   ACT_SMT[R603]->ACT_BLK[R602];
+      elif (not_empty else_statement)
+        select one containing_block related by else_statement->
+                                                   ACT_SMT[R603]->ACT_BLK[R602];
+      end if;
+    end if;
+  end if;
+end while;
+
+// Abandon all processing in all blocks below the loop block
+select one statement related by self->ACT_SMT[R603];
+statement.popUpToBlock(block_id:containing_block.Block_ID,
+                                           stack_frame_id:param.stack_frame_id);
+',
+	1,
+	'',
+	"12f34b37-0713-4e87-ad8b-598f51a335df");
+INSERT INTO O_TPARM
+	VALUES ("68701fd7-128f-407b-b372-5e146b6ee887",
+	"96487926-87b5-4952-bfd7-bed05dc16f46",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("982386b4-db03-44d6-827b-fbe9d059c7ff",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"92312feb-5479-47d5-a49e-df4417f0a54e",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	"1c316a4e-896f-4540-bedf-b8615871338e",
+	"b9b89856-f4f6-495e-840e-460a18952b00",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Statement',
+	'Statement_ID',
+	'R603');
+INSERT INTO R_RGO_PROXY
+	VALUES ("982386b4-db03-44d6-827b-fbe9d059c7ff",
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"92312feb-5479-47d5-a49e-df4417f0a54e",
+	'../Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	0,
+	"63067dfa-ea5b-4c48-bd8c-138b8b76196c",
+	"fe55fe0e-8913-466e-aa7c-a04d957a07ce",
+	'../Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("1c316a4e-896f-4540-bedf-b8615871338e",
+	"982386b4-db03-44d6-827b-fbe9d059c7ff",
+	"57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	1,
+	'Statement_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57ac4fbc-42e9-46ec-a929-7875093e348c",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'../Statement/Statement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("1c316a4e-896f-4540-bedf-b8615871338e",
+	"982386b4-db03-44d6-827b-fbe9d059c7ff",
+	"00000000-0000-0000-0000-000000000000",
+	'Statement_ID',
+	'
+
+',
+	'',
+	'Statement_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"982386b4-db03-44d6-827b-fbe9d059c7ff");
+INSERT INTO O_OIDA
+	VALUES ("1c316a4e-896f-4540-bedf-b8615871338e",
+	"982386b4-db03-44d6-827b-fbe9d059c7ff",
+	0,
+	'Statement_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"982386b4-db03-44d6-827b-fbe9d059c7ff");
+INSERT INTO O_ID
+	VALUES (2,
+	"982386b4-db03-44d6-827b-fbe9d059c7ff");
+INSERT INTO S_SS_PROXY
+	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	'Body',
+	'This subsystem abstracts the action itself, the blocks and statements
+it contains together with the flow of control statements such as ''while'',
+''for each'' and ''if''.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'ACT',
+	600,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000380007",
+	'../Body.xtuml');

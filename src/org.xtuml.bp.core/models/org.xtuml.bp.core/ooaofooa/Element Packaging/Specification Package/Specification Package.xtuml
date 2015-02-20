@@ -1,0 +1,169 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("cf4966b0-706a-4373-a2ee-7e706918813c",
+	'Specification Package',
+	1401,
+	'EP_SPKG',
+	'',
+	"5f91aa5d-e683-4f22-940b-575b4f24b2d1");
+INSERT INTO O_TFR
+	VALUES ("2b8abe60-4c5f-40a1-9fac-92fc6d37ad0e",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one activity related by self->A_A[R1402];
+select one communication related by self->COMM_COMM[R1402];
+select one componentPkg related by self->CP_CP[R1402];
+select one dtPkg related by self->S_DPK[R1402];
+select one interfacePkg related by self->IP_IP[R1402];
+select one sequence related by self->SQ_S[R1402];
+select one useCase related by self->UC_UCC[R1402];
+if(not_empty activity)
+  unrelate self from activity across R1402;
+  activity.dispose();
+elif(not_empty communication)
+  unrelate self from communication across R1402;
+  communication.dispose();
+elif(not_empty componentPkg)
+  unrelate self from componentPkg across R1402;
+  componentPkg.dispose();
+elif(not_empty dtPkg)
+  // When datatypes in DT pkgs are disposed, they may need to use R1402.
+  // Therefore, we have to call dispose() before unrelating across R1402.
+  dtPkg.dispose();
+  unrelate self from dtPkg across R1402;
+elif(not_empty interfacePkg)
+  unrelate self from interfacePkg across R1402;
+  interfacePkg.dispose();
+elif(not_empty sequence)
+  unrelate self from sequence across R1402;
+  sequence.dispose();
+elif(not_empty useCase)
+  unrelate self from useCase across R1402;
+  useCase.dispose();
+end if;
+select one containerPackage related by self->EP_PKG[R1400];
+if(not_empty containerPackage)
+  unrelate self from containerPackage across R1400;
+end if;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c");
+INSERT INTO O_BATTR
+	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c");
+INSERT INTO O_ATTR
+	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	"00000000-0000-0000-0000-000000000000",
+	'Package_ID',
+	'',
+	'',
+	'Package_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("cf4966b0-706a-4373-a2ee-7e706918813c",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	0,
+	"79df1b10-74db-4df8-a815-0cf62a4752c9",
+	"5176c98b-fde1-4b3d-a586-a258b4abba0b",
+	"e5be5370-0200-4bdf-b1c8-26c094243481",
+	"87935a7f-be23-4a7a-ae2d-2168ecd311f3",
+	"6c000c13-5111-448b-9e19-bc53051b3e0e",
+	"cc76522d-b45b-4286-b819-6b000f153f44",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Package',
+	'Package_ID',
+	'R1400');
+INSERT INTO R_RGO_PROXY
+	VALUES ("cf4966b0-706a-4373-a2ee-7e706918813c",
+	"5176c98b-fde1-4b3d-a586-a258b4abba0b",
+	"e5be5370-0200-4bdf-b1c8-26c094243481",
+	'../Element Packaging.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("79df1b10-74db-4df8-a815-0cf62a4752c9",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	0,
+	"5176c98b-fde1-4b3d-a586-a258b4abba0b",
+	"87935a7f-be23-4a7a-ae2d-2168ecd311f3",
+	'../Element Packaging.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("6c000c13-5111-448b-9e19-bc53051b3e0e",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("6c000c13-5111-448b-9e19-bc53051b3e0e",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	'Container_Package_ID',
+	'',
+	'Container_',
+	'Package_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"cf4966b0-706a-4373-a2ee-7e706918813c");
+INSERT INTO O_OIDA
+	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	0,
+	'Package_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"cf4966b0-706a-4373-a2ee-7e706918813c");
+INSERT INTO O_ID
+	VALUES (2,
+	"cf4966b0-706a-4373-a2ee-7e706918813c");
+INSERT INTO S_SS_PROXY
+	VALUES ("5f91aa5d-e683-4f22-940b-575b4f24b2d1",
+	'Element Packaging',
+	'',
+	'EP',
+	1400,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Element Packaging.xtuml');

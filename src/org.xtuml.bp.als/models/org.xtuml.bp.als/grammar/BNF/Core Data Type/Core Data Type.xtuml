@@ -1,0 +1,119 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("82cd51cf-543f-4166-ac5d-6798f8169594",
+	'Core Data Type',
+	10,
+	'S_CDT',
+	'Core Data Types are those data types which are fundamental, or core, to all data types.  The core data types are built-in to the tool and cannot be changed.
+',
+	"5edea08f-a6e1-4146-8e1c-0cade7a477c7");
+INSERT INTO O_REF
+	VALUES ("82cd51cf-543f-4166-ac5d-6798f8169594",
+	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
+	0,
+	"c933bbe0-e3f3-4a48-9ad9-20aecc04454f",
+	"81539ca8-c1fe-4de6-82fd-cde4909d8472",
+	"8fd94e15-76b0-4022-b0c8-8a91d41fe3f7",
+	"b8efc5b7-e2dc-47e8-82af-fdcaca9a2be5",
+	"7da24e9a-1952-40cd-9c6a-6f6b2b98efa3",
+	"d7ac271d-3721-4ea2-b5fe-8681d49b7f99",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Data Type',
+	'DT_ID',
+	'R17');
+INSERT INTO R_RGO_PROXY
+	VALUES ("82cd51cf-543f-4166-ac5d-6798f8169594",
+	"81539ca8-c1fe-4de6-82fd-cde4909d8472",
+	"8fd94e15-76b0-4022-b0c8-8a91d41fe3f7",
+	'../BNF.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("c933bbe0-e3f3-4a48-9ad9-20aecc04454f",
+	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
+	0,
+	"81539ca8-c1fe-4de6-82fd-cde4909d8472",
+	"b8efc5b7-e2dc-47e8-82af-fdcaca9a2be5",
+	'../BNF.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("7da24e9a-1952-40cd-9c6a-6f6b2b98efa3",
+	"82cd51cf-543f-4166-ac5d-6798f8169594",
+	"c933bbe0-e3f3-4a48-9ad9-20aecc04454f",
+	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
+	1,
+	'DT_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("c933bbe0-e3f3-4a48-9ad9-20aecc04454f",
+	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
+	'../Data Type/Data Type.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("7da24e9a-1952-40cd-9c6a-6f6b2b98efa3",
+	"82cd51cf-543f-4166-ac5d-6798f8169594",
+	"00000000-0000-0000-0000-000000000000",
+	'DT_ID',
+	'',
+	'',
+	'DT_ID',
+	0,
+	"73db19ab-e535-4718-ab07-668918299d9a",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("73db19ab-e535-4718-ab07-668918299d9a",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("b8306d87-e90e-466e-b980-6e43505610d5",
+	"82cd51cf-543f-4166-ac5d-6798f8169594");
+INSERT INTO O_BATTR
+	VALUES ("b8306d87-e90e-466e-b980-6e43505610d5",
+	"82cd51cf-543f-4166-ac5d-6798f8169594");
+INSERT INTO O_ATTR
+	VALUES ("b8306d87-e90e-466e-b980-6e43505610d5",
+	"82cd51cf-543f-4166-ac5d-6798f8169594",
+	"7da24e9a-1952-40cd-9c6a-6f6b2b98efa3",
+	'Core_Typ',
+	'Full Name: Core Type
+Description: The core BridgePoint type for the data type
+Data Domain: 0 = void, 1 = boolean, 2 = integer, 3 = real, 4 = string, 5 = unique_id, 6 = current_state, 7 = same_as_base, 8 = inst_ref<Object>, 9 = inst_ref_set<Object>, 10 = inst<Event>, 11 = inst<Mapping>, 12 = inst_ref<Mapping>
+',
+	'',
+	'Core_Typ',
+	0,
+	"bfb63684-46c9-44bd-b4f5-e0ae6cd60407",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("bfb63684-46c9-44bd-b4f5-e0ae6cd60407",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"82cd51cf-543f-4166-ac5d-6798f8169594");
+INSERT INTO O_OIDA
+	VALUES ("7da24e9a-1952-40cd-9c6a-6f6b2b98efa3",
+	"82cd51cf-543f-4166-ac5d-6798f8169594",
+	0,
+	'DT_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"82cd51cf-543f-4166-ac5d-6798f8169594");
+INSERT INTO O_ID
+	VALUES (2,
+	"82cd51cf-543f-4166-ac5d-6798f8169594");
+INSERT INTO S_SS_PROXY
+	VALUES ("5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	'BNF',
+	'',
+	'',
+	1,
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	"00000000-0000-0000-0000-000000100002",
+	'../BNF.xtuml');

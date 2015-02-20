@@ -1,0 +1,964 @@
+-- BP 7.1 content: domain syschar: 3 persistence-version: 7.1.1
+
+INSERT INTO S_DOM
+	VALUES (1,
+	'MultiLevelModel2',
+	'',
+	0,
+	1,
+	1);
+INSERT INTO GD_MD
+	VALUES (524289,
+	1,
+	1,
+	1,
+	1,
+	0,
+	1,
+	1,
+	0,
+	12,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_GE
+	VALUES (1,
+	524289,
+	1,
+	53,
+	0);
+INSERT INTO GD_SHP
+	VALUES (1);
+INSERT INTO GD_GE
+	VALUES (18,
+	524289,
+	1,
+	55,
+	0);
+INSERT INTO GD_SHP
+	VALUES (18);
+INSERT INTO DIM_DIA
+	VALUES (524289,
+	'',
+	1.726531,
+	1923.000000,
+	1311.000000,
+	0);
+INSERT INTO S_DPK
+	VALUES (1,
+	'Datatypes',
+	1,
+	0);
+INSERT INTO GD_MD
+	VALUES (524290,
+	100,
+	1,
+	53,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_GE
+	VALUES (2,
+	524290,
+	524289,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (2);
+INSERT INTO GD_GE
+	VALUES (3,
+	524290,
+	524290,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (3);
+INSERT INTO GD_GE
+	VALUES (4,
+	524290,
+	524291,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (4);
+INSERT INTO GD_GE
+	VALUES (5,
+	524290,
+	524292,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (5);
+INSERT INTO GD_GE
+	VALUES (6,
+	524290,
+	524293,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (6);
+INSERT INTO GD_GE
+	VALUES (7,
+	524290,
+	524294,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (7);
+INSERT INTO GD_GE
+	VALUES (8,
+	524290,
+	524295,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (8);
+INSERT INTO GD_GE
+	VALUES (9,
+	524290,
+	524296,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (9);
+INSERT INTO GD_GE
+	VALUES (10,
+	524290,
+	524297,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (10);
+INSERT INTO GD_GE
+	VALUES (11,
+	524290,
+	524298,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (11);
+INSERT INTO GD_GE
+	VALUES (12,
+	524290,
+	524299,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (12);
+INSERT INTO GD_GE
+	VALUES (13,
+	524290,
+	524300,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (13);
+INSERT INTO GD_GE
+	VALUES (14,
+	524290,
+	524301,
+	50,
+	0);
+INSERT INTO GD_SHP
+	VALUES (14);
+INSERT INTO GD_GE
+	VALUES (15,
+	524290,
+	524302,
+	51,
+	0);
+INSERT INTO GD_SHP
+	VALUES (15);
+INSERT INTO GD_GE
+	VALUES (16,
+	524290,
+	524303,
+	51,
+	0);
+INSERT INTO GD_SHP
+	VALUES (16);
+INSERT INTO GD_GE
+	VALUES (17,
+	524290,
+	524304,
+	51,
+	0);
+INSERT INTO GD_SHP
+	VALUES (17);
+INSERT INTO DIM_DIA
+	VALUES (524290,
+	'',
+	0.830508,
+	1766.000000,
+	858.000000,
+	0);
+INSERT INTO S_DIP
+	VALUES (1,
+	524289);
+INSERT INTO S_DT
+	VALUES (524289,
+	1,
+	'void',
+	'');
+INSERT INTO S_CDT
+	VALUES (524289,
+	0);
+INSERT INTO S_DIP
+	VALUES (1,
+	524290);
+INSERT INTO S_DT
+	VALUES (524290,
+	1,
+	'boolean',
+	'');
+INSERT INTO S_CDT
+	VALUES (524290,
+	1);
+INSERT INTO S_DIP
+	VALUES (1,
+	524291);
+INSERT INTO S_DT
+	VALUES (524291,
+	1,
+	'integer',
+	'');
+INSERT INTO S_CDT
+	VALUES (524291,
+	2);
+INSERT INTO S_DIP
+	VALUES (1,
+	524292);
+INSERT INTO S_DT
+	VALUES (524292,
+	1,
+	'real',
+	'');
+INSERT INTO S_CDT
+	VALUES (524292,
+	3);
+INSERT INTO S_DIP
+	VALUES (1,
+	524293);
+INSERT INTO S_DT
+	VALUES (524293,
+	1,
+	'string',
+	'');
+INSERT INTO S_CDT
+	VALUES (524293,
+	4);
+INSERT INTO S_DIP
+	VALUES (1,
+	524294);
+INSERT INTO S_DT
+	VALUES (524294,
+	1,
+	'unique_id',
+	'');
+INSERT INTO S_CDT
+	VALUES (524294,
+	5);
+INSERT INTO S_DIP
+	VALUES (1,
+	524295);
+INSERT INTO S_DT
+	VALUES (524295,
+	1,
+	'state<State_Model>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524295,
+	6);
+INSERT INTO S_DIP
+	VALUES (1,
+	524296);
+INSERT INTO S_DT
+	VALUES (524296,
+	1,
+	'same_as<Base_Attribute>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524296,
+	7);
+INSERT INTO S_DIP
+	VALUES (1,
+	524297);
+INSERT INTO S_DT
+	VALUES (524297,
+	1,
+	'inst_ref<Object>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524297,
+	8);
+INSERT INTO S_DIP
+	VALUES (1,
+	524298);
+INSERT INTO S_DT
+	VALUES (524298,
+	1,
+	'inst_ref_set<Object>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524298,
+	9);
+INSERT INTO S_DIP
+	VALUES (1,
+	524299);
+INSERT INTO S_DT
+	VALUES (524299,
+	1,
+	'inst<Event>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524299,
+	10);
+INSERT INTO S_DIP
+	VALUES (1,
+	524300);
+INSERT INTO S_DT
+	VALUES (524300,
+	1,
+	'inst<Mapping>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524300,
+	11);
+INSERT INTO S_DIP
+	VALUES (1,
+	524301);
+INSERT INTO S_DT
+	VALUES (524301,
+	1,
+	'inst_ref<Mapping>',
+	'');
+INSERT INTO S_CDT
+	VALUES (524301,
+	12);
+INSERT INTO S_DIP
+	VALUES (1,
+	524302);
+INSERT INTO S_DT
+	VALUES (524302,
+	1,
+	'date',
+	'Time as known in the external world. For example, 12 October 1492,
+13:25:10. The accuracy of external time is dependent on the architecture and
+implementation.');
+INSERT INTO S_UDT
+	VALUES (524302,
+	524300,
+	1);
+INSERT INTO S_DIP
+	VALUES (1,
+	524303);
+INSERT INTO S_DT
+	VALUES (524303,
+	1,
+	'timestamp',
+	' The system clock counts time in ticks. The size of a tick is dependent on the
+ architecture and implementation.');
+INSERT INTO S_UDT
+	VALUES (524303,
+	524300,
+	2);
+INSERT INTO S_DIP
+	VALUES (1,
+	524304);
+INSERT INTO S_DT
+	VALUES (524304,
+	1,
+	'inst_ref<Timer>',
+	'');
+INSERT INTO S_UDT
+	VALUES (524304,
+	524301,
+	3);
+INSERT INTO S_EEPK
+	VALUES (1,
+	'External Entities',
+	1,
+	0);
+INSERT INTO GD_MD
+	VALUES (524291,
+	102,
+	1,
+	55,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0);
+INSERT INTO GD_GE
+	VALUES (20,
+	524291,
+	1,
+	12,
+	0);
+INSERT INTO GD_SHP
+	VALUES (20);
+INSERT INTO DIM_DIA
+	VALUES (524291,
+	'',
+	1.005945,
+	3978.000000,
+	2974.000000,
+	0);
+INSERT INTO S_EEPIP
+	VALUES (1);
+INSERT INTO S_EEIP
+	VALUES (1,
+	1);
+INSERT INTO S_EE
+	VALUES (1,
+	'Time',
+	'The Time external entity provides date, timestamp, and timer related operations.',
+	'TIM',
+	1);
+INSERT INTO S_BRG
+	VALUES (1,
+	1,
+	'current_date',
+	'',
+	0,
+	524302,
+	'',
+	0);
+INSERT INTO S_BRG
+	VALUES (2,
+	1,
+	'create_date',
+	'',
+	0,
+	524302,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (1,
+	2,
+	'second',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (2,
+	2,
+	'minute',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (3,
+	2,
+	'hour',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (4,
+	2,
+	'day',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (5,
+	2,
+	'month',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (6,
+	2,
+	'year',
+	524291,
+	0);
+INSERT INTO S_BRG
+	VALUES (3,
+	1,
+	'get_second',
+	'',
+	0,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (7,
+	3,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (4,
+	1,
+	'get_minute',
+	'',
+	0,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (8,
+	4,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (5,
+	1,
+	'get_hour',
+	'',
+	0,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (9,
+	5,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (6,
+	1,
+	'get_day',
+	'',
+	0,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (10,
+	6,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (7,
+	1,
+	'get_month',
+	'',
+	0,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (11,
+	7,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (8,
+	1,
+	'get_year',
+	'',
+	0,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (12,
+	8,
+	'date',
+	524302,
+	0);
+INSERT INTO S_BRG
+	VALUES (9,
+	1,
+	'current_clock',
+	'',
+	0,
+	524303,
+	'',
+	0);
+INSERT INTO S_BRG
+	VALUES (10,
+	1,
+	'timer_start',
+	'This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Returns the instance
+handle of the timer.',
+	0,
+	524304,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (13,
+	10,
+	'microseconds',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (14,
+	10,
+	'event_inst',
+	524299,
+	0);
+INSERT INTO S_BRG
+	VALUES (11,
+	1,
+	'timer_start_recurring',
+	'This bridge operation starts a timer set to expire in the specified number of
+microseconds, generating the passed event upon expiration. Upon expiration, the
+timer will be restarted and fire again in the specified number of microseconds
+generating the passed event. This bridge operation returns the instance handle
+of the timer.',
+	0,
+	524304,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (15,
+	11,
+	'microseconds',
+	524291,
+	0);
+INSERT INTO S_BPARM
+	VALUES (16,
+	11,
+	'event_inst',
+	524299,
+	0);
+INSERT INTO S_BRG
+	VALUES (12,
+	1,
+	'timer_remaining_time',
+	'Returns the time remaining (in microseconds) for the passed timer instance. If
+the timer has expired, a zero value is returned.',
+	0,
+	524291,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (17,
+	12,
+	'timer_inst_ref',
+	524304,
+	0);
+INSERT INTO S_BRG
+	VALUES (13,
+	1,
+	'timer_reset_time',
+	'This bridge operation attempts to set the passed existing timer to expire in
+the specified number of microseconds. If the timer exists (that is, it has not
+expired), a TRUE value is returned. If the timer no longer exists, a FALSE value
+is returned.',
+	0,
+	524290,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (18,
+	13,
+	'timer_inst_ref',
+	524304,
+	0);
+INSERT INTO S_BPARM
+	VALUES (19,
+	13,
+	'microseconds',
+	524291,
+	0);
+INSERT INTO S_BRG
+	VALUES (14,
+	1,
+	'timer_add_time',
+	'This bridge operation attempts to add the specified number of microseconds to a
+passed existing timer. If the timer exists (that is, it has not expired), a TRUE
+value is returned. If the timer no longer exists, a FALSE value is returned.',
+	0,
+	524290,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (20,
+	14,
+	'timer_inst_ref',
+	524304,
+	0);
+INSERT INTO S_BPARM
+	VALUES (21,
+	14,
+	'microseconds',
+	524291,
+	0);
+INSERT INTO S_BRG
+	VALUES (15,
+	1,
+	'timer_cancel',
+	'This bridge operation cancels and deletes the passed timer instance. If the 
+timer exists (that is, it had not expired), a TRUE value is returned. If the
+timer no longer exists, a FALSE value is returned.',
+	0,
+	524290,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES (22,
+	15,
+	'timer_inst_ref',
+	524304,
+	0);
+INSERT INTO DIM_ELE
+	VALUES (1,
+	1,
+	0);
+INSERT INTO DIM_GE
+	VALUES (2048.000000,
+	1504.000000,
+	1,
+	0);
+INSERT INTO DIM_ND
+	VALUES (160.000000,
+	96.000000,
+	1);
+INSERT INTO DIM_ELE
+	VALUES (18,
+	1,
+	0);
+INSERT INTO DIM_GE
+	VALUES (2287.000000,
+	1502.000000,
+	18,
+	0);
+INSERT INTO DIM_ND
+	VALUES (175.000000,
+	98.000000,
+	18);
+INSERT INTO DIM_ELE
+	VALUES (2,
+	1,
+	0);
+INSERT INTO DIM_GE
+	VALUES (1933.000000,
+	1045.000000,
+	2,
+	0);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	2);
+INSERT INTO DIM_ELE
+	VALUES (3,
+	1,
+	0);
+INSERT INTO DIM_GE
+	VALUES (2153.000000,
+	1045.000000,
+	3,
+	0);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	3);
+INSERT INTO DIM_ELE
+	VALUES (4,
+	1,
+	0);
+INSERT INTO DIM_GE
+	VALUES (2373.000000,
+	1045.000000,
+	4,
+	0);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	4);
+INSERT INTO DIM_ELE
+	VALUES (5,
+	1,
+	0);
+INSERT INTO DIM_GE
+	VALUES (2593.000000,
+	1045.000000,
+	5,
+	0);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	5);
+INSERT INTO DIM_ELE
+	VALUES (6,
+	1,
+	0);
+INSERT INTO DIM_GE
+	VALUES (2813.000000,
+	1045.000000,
+	6,
+	0);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	6);
+INSERT INTO DIM_ELE
+	VALUES (7,
+	1,
+	0);
+INSERT INTO DIM_GE
+	VALUES (1933.000000,
+	1210.000000,
+	7,
+	0);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	7);
+INSERT INTO DIM_ELE
+	VALUES (8,
+	1,
+	0);
+INSERT INTO DIM_GE
+	VALUES (2153.000000,
+	1210.000000,
+	8,
+	0);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	8);
+INSERT INTO DIM_ELE
+	VALUES (9,
+	1,
+	0);
+INSERT INTO DIM_GE
+	VALUES (2373.000000,
+	1210.000000,
+	9,
+	0);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	9);
+INSERT INTO DIM_ELE
+	VALUES (10,
+	1,
+	0);
+INSERT INTO DIM_GE
+	VALUES (2593.000000,
+	1210.000000,
+	10,
+	0);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	10);
+INSERT INTO DIM_ELE
+	VALUES (11,
+	1,
+	0);
+INSERT INTO DIM_GE
+	VALUES (2813.000000,
+	1210.000000,
+	11,
+	0);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	11);
+INSERT INTO DIM_ELE
+	VALUES (12,
+	1,
+	0);
+INSERT INTO DIM_GE
+	VALUES (1933.000000,
+	1375.000000,
+	12,
+	0);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	12);
+INSERT INTO DIM_ELE
+	VALUES (13,
+	1,
+	0);
+INSERT INTO DIM_GE
+	VALUES (2153.000000,
+	1375.000000,
+	13,
+	0);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	13);
+INSERT INTO DIM_ELE
+	VALUES (14,
+	1,
+	0);
+INSERT INTO DIM_GE
+	VALUES (2373.000000,
+	1375.000000,
+	14,
+	0);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	14);
+INSERT INTO DIM_ELE
+	VALUES (15,
+	1,
+	0);
+INSERT INTO DIM_GE
+	VALUES (1933.000000,
+	1540.000000,
+	15,
+	0);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	15);
+INSERT INTO DIM_ELE
+	VALUES (16,
+	1,
+	0);
+INSERT INTO DIM_GE
+	VALUES (2153.000000,
+	1540.000000,
+	16,
+	0);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	16);
+INSERT INTO DIM_ELE
+	VALUES (17,
+	1,
+	0);
+INSERT INTO DIM_GE
+	VALUES (2373.000000,
+	1540.000000,
+	17,
+	0);
+INSERT INTO DIM_ND
+	VALUES (200.000000,
+	150.000000,
+	17);
+INSERT INTO DIM_ELE
+	VALUES (20,
+	1,
+	0);
+INSERT INTO DIM_GE
+	VALUES (4143.000000,
+	3201.000000,
+	20,
+	0);
+INSERT INTO DIM_ND
+	VALUES (860.000000,
+	385.000000,
+	20);

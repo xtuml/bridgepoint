@@ -1,0 +1,188 @@
+-- BP 7.1 content: FunctionPackage syschar: 3 persistence-version: 7.1.5
+
+INSERT INTO S_FPK
+	VALUES ("f9e6092e-1edb-4a52-9de4-b861c31787ce",
+	'Invalid Event Parameter Test Inocation Functions',
+	"00000000-0000-0000-0000-000000000000",
+	"974d0af7-e621-4f96-be7d-955fc947d471");
+INSERT INTO GD_MD
+	VALUES ("654e925f-6f90-4ae3-a7eb-a21fb665087c",
+	101,
+	"f9e6092e-1edb-4a52-9de4-b861c31787ce",
+	54,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'');
+INSERT INTO DIM_DIA
+	VALUES ("654e925f-6f90-4ae3-a7eb-a21fb665087c",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PL_FPID
+	VALUES ("f9e6092e-1edb-4a52-9de4-b861c31787ce",
+	"c3928f56-530d-4984-8114-35933dc4cb31");
+INSERT INTO S_DOM_PROXY
+	VALUES ("c3928f56-530d-4984-8114-35933dc4cb31",
+	'instRef',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000002",
+	"13c14d34-d225-4949-89b6-fe738cc62cbb",
+	'../../../instRef.xtuml');
+INSERT INTO S_FIP
+	VALUES ("f9e6092e-1edb-4a52-9de4-b861c31787ce",
+	"7f64beeb-4b84-4099-963a-9e3f6d243509");
+INSERT INTO S_SYNC
+	VALUES ("7f64beeb-4b84-4099-963a-9e3f6d243509",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'EventParameter_ActivitiesInvocation_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Event Parameter"); 
+select any car from instances of V;
+create object instance test of EVTDI2;
+generate EVTDI21:SM_EVTDI_ActivitiesInvocation(instRef:car) to test;',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("63f91549-9407-42c4-a2c0-fdde2812f080",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'void',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_FIP
+	VALUES ("f9e6092e-1edb-4a52-9de4-b861c31787ce",
+	"89672e9f-cbec-4169-8ca8-5f7a32a60a9a");
+INSERT INTO S_SYNC
+	VALUES ("89672e9f-cbec-4169-8ca8-5f7a32a60a9a",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'EventParameter_booleanBinaryOperationRightOperandSet_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Event Parameter"); 
+select many cars from instances of V;
+create object instance test of EVTDI2;
+generate EVTDI26:SM_EVTDI_booleanBinaryOperationRightOperandSet(instRef_set:cars) to test;',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("f9e6092e-1edb-4a52-9de4-b861c31787ce",
+	"af5d0814-5c3c-4eb0-ab0c-48774dbc37a8");
+INSERT INTO S_SYNC
+	VALUES ("af5d0814-5c3c-4eb0-ab0c-48774dbc37a8",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'EventParameter_booleanBinaryOperationRightOperand_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Event Parameter"); 
+select any car from instances of V;
+create object instance test of EVTDI2;
+generate EVTDI25:SM_EVTDI_booleanBinaryOperationRightOperand(instRef:car) to test;',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("f9e6092e-1edb-4a52-9de4-b861c31787ce",
+	"0f0baf21-4da8-4452-9834-8bd6f20338a8");
+INSERT INTO S_SYNC
+	VALUES ("0f0baf21-4da8-4452-9834-8bd6f20338a8",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'EventParameter_booleanBinaryOperationLeftOperandSet_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Event Parameter"); 
+select many cars from instances of V;
+create object instance test of EVTDI2;
+generate EVTDI24:SM_EVTDI_booleanBinaryOperationLeftOperandSet(instRef_set:cars) to test;',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("f9e6092e-1edb-4a52-9de4-b861c31787ce",
+	"e269bf3b-e131-48d5-a232-6c837e0b1709");
+INSERT INTO S_SYNC
+	VALUES ("e269bf3b-e131-48d5-a232-6c837e0b1709",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'EventParameter_booleanBinaryOperationLeftOperand_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Event Parameter"); 
+select any car from instances of V;
+create object instance test of EVTDI2;
+generate EVTDI23:SM_EVTDI_booleanBinaryOperationLeftOperand(instRef:car) to test;',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("f9e6092e-1edb-4a52-9de4-b861c31787ce",
+	"88743bc2-d698-425c-ba82-75b3f2d4e6ea");
+INSERT INTO S_SYNC
+	VALUES ("88743bc2-d698-425c-ba82-75b3f2d4e6ea",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'EventParameter_readAttr_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Event Parameter"); 
+select any car from instances of V;
+create object instance test of EVTDI2; 
+generate EVTDI27:SM_EVTDI_readAttr(instRef:car) to test;',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("f9e6092e-1edb-4a52-9de4-b861c31787ce",
+	"1a094e13-9643-4f2f-b0e6-037784fc9c1f");
+INSERT INTO S_SYNC
+	VALUES ("1a094e13-9643-4f2f-b0e6-037784fc9c1f",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'EventParameter_WhereClause_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Event Parameter"); 
+select any car from instances of V;
+create object instance test of EVTDI2;
+generate EVTDI28:SM_EVTDI_WhereClause(instRef:car) to test;',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("f9e6092e-1edb-4a52-9de4-b861c31787ce",
+	"d412dc77-9a68-4d14-84a1-478dfd593777");
+INSERT INTO S_SYNC
+	VALUES ("d412dc77-9a68-4d14-84a1-478dfd593777",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'EventParameter_writeAttr_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Event Parameter"); 
+select any car from instances of V;
+create object instance test of EVTDI2;
+generate EVTDI29:SM_EVTDI_writeAttr(instRef:car) to test;',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FIP
+	VALUES ("f9e6092e-1edb-4a52-9de4-b861c31787ce",
+	"dc7ed688-2835-497e-a25a-5b1d00aa723f");
+INSERT INTO S_SYNC
+	VALUES ("dc7ed688-2835-497e-a25a-5b1d00aa723f",
+	"c3928f56-530d-4984-8114-35933dc4cb31",
+	'EventParameter_ActivitiesInvocationSet_Invalid',
+	'',
+	'::setup(accessType:"Invalid",referenceType:"Event Parameter"); 
+select many cars from instances of V;
+create object instance test of EVTDI2;
+generate EVTDI22:SM_EVTDI_ActivitiesInvocationSet(instRef_set:cars) to test;',
+	"63f91549-9407-42c4-a2c0-fdde2812f080",
+	1,
+	'');
+INSERT INTO S_FPIP_PROXY
+	VALUES ("974d0af7-e621-4f96-be7d-955fc947d471",
+	'../Invalid Test Invocation Functions.xtuml');

@@ -1,0 +1,811 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>Getting Started - Samples</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:Webdings;
+	panose-1:5 3 1 2 1 5 9 6 7 3;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-right:0in;
+	margin-left:0in;
+	font-size:18.0pt;
+	font-family:"Arial","sans-serif";
+	color:black;
+	font-weight:normal;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-right:0in;
+	margin-left:0in;
+	line-height:15.6pt;
+	font-size:12.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-right:0in;
+	margin-bottom:2.4pt;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:navy;
+	font-weight:bold;}
+h4
+	{mso-style-link:"Heading 4 Char";
+	margin-top:7.5pt;
+	margin-right:7.5pt;
+	margin-bottom:2.4pt;
+	margin-left:7.5pt;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	color:#0176B9;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:navy;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#0176B9;
+	text-decoration:underline;}
+p
+	{margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading4Char
+	{mso-style-name:"Heading 4 Char";
+	mso-style-link:"Heading 4";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+p.preformatted-tpcode, li.preformatted-tpcode, div.preformatted-tpcode
+	{mso-style-name:preformatted-tp_code;
+	margin-top:15.0pt;
+	margin-right:0in;
+	margin-bottom:15.0pt;
+	margin-left:0in;
+	background:silver;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.normalnotoc, li.normalnotoc, div.normalnotoc
+	{mso-style-name:normalnotoc;
+	margin:7.5pt;
+	font-size:11.0pt;
+	font-family:"Times New Roman","serif";}
+span.codeChar
+	{mso-style-name:"code Char";
+	mso-style-link:code;
+	font-family:"Courier New";}
+p.code, li.code, div.code
+	{mso-style-name:code;
+	mso-style-link:"code Char";
+	margin:7.5pt;
+	font-size:11.0pt;
+	font-family:"Courier New";}
+p.tpcode, li.tpcode, div.tpcode
+	{mso-style-name:tp_code;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.tpinput, li.tpinput, div.tpinput
+	{mso-style-name:tp_input;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+p.tpui, li.tpui, div.tpui
+	{mso-style-name:tp_ui;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	color:navy;}
+p.tpvar, li.tpvar, div.tpvar
+	{mso-style-name:tp_var;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-style:italic;}
+p.tpfooter, li.tpfooter, div.tpfooter
+	{mso-style-name:tp_footer;
+	margin:7.5pt;
+	text-align:center;
+	background:white;
+	font-size:9.0pt;
+	font-family:"Times New Roman","serif";}
+p.sub, li.sub, div.sub
+	{mso-style-name:sub;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+p.sublstbody, li.sublstbody, div.sublstbody
+	{mso-style-name:sublstbody;
+	margin:7.5pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+span.tpfile
+	{mso-style-name:tp_file;
+	color:#990000;
+	letter-spacing:1.2pt;}
+span.tpnote
+	{mso-style-name:tp_note;
+	font-weight:bold;}
+span.tpmenuarrow
+	{mso-style-name:tp_menuarrow;
+	font-family:Webdings;
+	color:navy;}
+span.hypertext
+	{mso-style-name:hypertext;}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-link:"Balloon Text";
+	font-family:"Tahoma","sans-serif";}
+.MsoChpDefault
+	{font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+<script language="JavaScript"  src="../../../org.eclipse.help/livehelp.js">
+</script>
+</head>
+
+<body bgcolor=white lang=EN-US link=navy vlink="#0176B9">
+
+<div class=WordSection1>
+
+<h1><a name="_Ref100717464">Taking a Look at the Sample Models</a></h1>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>In
+this part of the tour, we take a look at the sample models.� This part of the
+tour requires the MicrowaveOven sample project to exist in the workspace.� If
+you do not see the MicrowaveOven project click the link below.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><a
+href="javascript:liveAction(%22org.xtuml.bp.welcome%22,%22org.xtuml.bp.welcome.gettingstarted.GettingStartedLiveHelpAction%22,%22%22)">Click
+here to create the sample project. </a>�</span></p>
+
+<h2>Reviewing the Sample UML Model</h2>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Before
+we look at the sample model, make sure you are in the xtUML Modeling
+perspective.� This is usually the default when the tool is brought up and can
+be seen from the tab just above the Model Explorer view shown in the following
+image.� If you are not in this perspective, select <b>Window &gt; Open
+Perspective &gt; xtUML Modeling</b>.� </span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=694 height=647 id="Picture 1" src="Samples_files/image001.jpg"
+alt="Description: samples1"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>For
+this tour, BridgePoint creates a workspace containing an xtUML project and
+model for the MicrowaveOven.� When you change to the xtUML Modeling perspective
+it will show the </span><span class=codeChar><span style='font-size:11.0pt'>MicrowaveOven</span></span><span
+style='font-family:"Arial","sans-serif"'> project folder similar to the image
+above.� </span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Now
+let�s take a closer look at the models and the tool.</span></p>
+
+<h3>Model Explorer</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Model
+Explorer is the view you use to explore and navigate the model.� From this view
+you can drill down into the model to see all of the constituent model
+elements.� It also provides the place from which you launch the diagram,
+activity, and description editors.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+Model Explorer view organizes a UML model hierarchically starting with the
+project, followed by one or more models.� Each model contains packages that
+organize the model elements that make up the model. </span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Expand
+the Model Explorer view so that the contents of the </span><span
+class=codeChar><span style='font-size:11.0pt'>MicrowaveOven</span></span><span
+style='font-family:"Arial","sans-serif"'> project and model are shown.� It
+should look similar to the image shown below.� </span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=695 height=646 id="Picture 2" src="Samples_files/image002.jpg"
+alt="Description: samples2"></span></p>
+
+<h3>Packages</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>If
+you drill down into the hierarchy, you will notice that there are many
+different types of packages, as denoted by two small letters that sit on top of
+the package symbol.� Each of these packages contains unique elements used to
+build the microwave oven application:</span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+"Arial","sans-serif"'>Domain Package</span></b><span style='font-family:"Arial","sans-serif"'>
+� This is the top-most package for the entire model.� It is used to organize
+the other packages in the microwave oven model.� </span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+"Arial","sans-serif"'>Data Type Package </span></b><span style='font-family:
+"Arial","sans-serif"'>� This package is used to describe data types for the
+microwave oven model.� There are built-in data types (called primitive data
+types), user-defined data types, and enumerations.� Each user-defined data type
+is based on a primitive data type.</span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+"Arial","sans-serif"'>Function Package </span></b><span style='font-family:
+"Arial","sans-serif"'>� Function packages organize the functions in the model.�
+Functions describe processing in terms of activities written in OAL (Object
+Action Language) and are used in this model for driving the microwave oven test
+sequences.</span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+"Arial","sans-serif"'>External Entity Package </span></b><span
+style='font-family:"Arial","sans-serif"'>� An External Entity (EE) package
+describes those things outside of the current model that need to be referenced
+by this model.� They can represent other models, or pieces of hand-written code
+with which our model needs to interact.� The EE�s used in the microwave oven
+model control shutdown of the application and provide timers.</span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+"Arial","sans-serif"'>Subsystem Package </span></b><span style='font-family:
+"Arial","sans-serif"'>� Subsystem packages organize the classes and
+associations for a subsystem.�� There can be many subsystems in a model.�
+Subsystems are provided to break up a model into manageable pieces.� The
+microwave oven model contains two subsystems: Microwave Oven and Test
+Subsystem.</span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+"Arial","sans-serif"'>State Machine Package </span></b><span style='font-family:
+"Arial","sans-serif"'>� State machine packages organize the states, events,
+transitions, and activities for a class that has behavior.� There are two
+kinds: instance-based state machines, which describe the behavior of each
+instance of a class, and class-based state machines, which describe the
+behavior of the class as a whole.� Most of the classes in the microwave oven
+model have behavior described by state machines.</span></p>
+
+<h3>Taking a Look at the Diagrams</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Each
+package has an associated diagram which can be accessed through the Model
+Explorer by double-clicking on the package or right-clicking on the package and
+selecting <b>Open</b>.� </span></p>
+
+<h4>Domain Package Diagram</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Open
+the Domain Package Diagram by double-clicking on the </span><span
+class=codeChar><span style='font-size:11.0pt'>MicrowaveOven</span></span><span
+style='font-family:"Arial","sans-serif"'> model.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Packages
+are shown on diagrams as tabbed folders.�� There are packages for the data
+types, external entities, and functions.� There are also two packages for the
+two subsystems that make up the microwave oven model.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=451 height=366 id="Picture 3" src="Samples_files/image003.jpg"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>All
+diagrams have a diagram toolbar which is located above the diagram.� The
+left-most tools are common to all diagrams and are related to performing zoom
+operations on the diagram.� </span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=218 height=27 id="Picture 4" src="Samples_files/image004.jpg"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>From
+left to right, the tools are:</span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+"Arial","sans-serif"'>Magnifying Glass - Plus Sign</span></b><span
+style='font-family:"Arial","sans-serif"'> � Zooms in on the diagram.� The
+short-cut key is Ctrl-Shift + Up Arrow.� </span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+"Arial","sans-serif"'>Magnifying Glass - Minus Sign</span></b><span
+style='font-family:"Arial","sans-serif"'> � Zooms out on the diagram.� The
+short-cut key is Ctrl-Shift + Down Arrow.� </span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+"Arial","sans-serif"'>Magnifying Glass - Page</span></b><span style='font-family:
+"Arial","sans-serif"'> � Zooms all elements on the diagram.� </span></p>
+
+<p style='margin-left:37.5pt;line-height:15.6pt'><b><span style='font-family:
+"Arial","sans-serif"'>Magnifying Glass - Elements</span></b><span
+style='font-family:"Arial","sans-serif"'> � Zooms the currently selected
+elements only.� </span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+button with the arrow is the selection tool.� Use this tool to select an
+element on the diagram.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Tools
+to the right of the selection tool put the diagram in �draw mode� and are used
+to draw model elements specific to the diagram.� The four tools on the DPD
+toolbar are used to create new subsystem, external entity, function, and data
+type packages respectively.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Double-clicking
+on a package inside a diagram brings up the diagram editor for the package. </span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Open
+the Datatypes package by double-clicking on it.� </span></p>
+
+<h4>Data Type Package Diagram</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+Data Type Package Diagram for the microwave oven looks similar to this:</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=619 height=507 id="Picture 5" src="Samples_files/image005.jpg"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Notice
+that the tools to the right of the selection tool have changed for this
+diagram�s context.� The tools are used to draw user data types, enumeration
+data types, and data type packages.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=97 height=27 id="Picture 6" src="Samples_files/image006.jpg"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+Data Type Package Diagram above shows only a portion of the data types for the
+microwave oven.� Notice that there are a few primitive types, as denoted by the
+</span><span class=codeChar><span style='font-size:11.0pt'>&lt;&lt;primitive&gt;&gt;</span></span><span
+style='font-family:"Arial","sans-serif"'> label, three user-defined data types
+as denoted by the label </span><span class=codeChar><span style='font-size:
+11.0pt'>&lt;&lt;dataType&gt;&gt;</span></span><span style='font-family:"Arial","sans-serif"'>,
+and one enumeration type that defines tube wattages.�� Once defined on this
+diagram, data types can be used to type class attributes and parameters of UML
+elements.� </span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Note
+that primitive data types are provided on the diagram for you and do not need
+to be defined.</span></p>
+
+<h4>External Entity Package Diagram</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Open
+the External Entity Package Diagram.� You can do this by either going back to
+the Model Explorer or the Domain Package Diagram.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+External Entity Package Diagram shows those things, or entities, that are
+outside (external) to what we are modeling.� EE�s can represent other models,
+or code that our model needs to interact with.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+microwave oven model has three EE�s: Control Panel, Architecture, and Time.�
+The Control Panel represents the control panel of the microwave.� The Architecture
+EE represents the model compiler and contains one bridge operation named
+shutdown which is used to shutdown the microwave application (more on this
+later).� </span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+Time EE provides time and date bridge operations so that our microwave oven
+model can have access to dates, time, and timer (i.e., delayed) events.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=617 height=506 id="Picture 7" src="Samples_files/image007.jpg"></span></p>
+
+<h4>&nbsp;</h4>
+
+<h4>Function Package Diagram</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Function
+Package Diagrams provide a way to organize functions.� Function packages have a
+representation on the diagram, but functions don�t � there is no UML notation
+for them.� They can only be seen in the Model Explorer.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+microwave oven model uses several functions to provide initialization and
+simulate the operation of the microwave.� </span></p>
+
+<h4>Class Diagram</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Subsystems
+provide a convenient way to break up a model into manageable chunks.� The
+microwave oven model contains two subsystems, one that models the microwave
+oven, and one that tests it.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Double-clicking
+on a subsystem opens the Class Diagram.� Open the Class Diagram for the
+Microwave Oven subsystem.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=680 height=619 id="Picture 8" src="Samples_files/image008.jpg"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>When
+the microwave oven was modeled, the following six classes were identified:</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>�<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Oven</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>�<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Door</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>�<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Turntable</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>�<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Beeper</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>�<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Internal light</span></p>
+
+<p style='margin-left:43.5pt;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>�<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Magnetron tube</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+Class Diagram represents the classes as boxes.� The class attributes are the
+variables listed in the boxes, and the associations (relationships) between
+individual classes are the lines between the boxes.� Associations have
+multiplicity and are named with text phrases.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+</span><span class=codeChar><span style='font-size:11.0pt'>Oven</span></span><span
+style='font-family:"Arial","sans-serif"'> class (at the center of the screen)
+has an association with several of the other classes. For example, there is an
+association, labeled </span><span class=codeChar><span style='font-size:11.0pt'>R4</span></span><span
+style='font-family:"Arial","sans-serif"'>, between the </span><span
+class=codeChar><span style='font-size:11.0pt'>Oven</span></span><span
+style='font-family:"Arial","sans-serif"'> and the </span><span class=codeChar><span
+style='font-size:11.0pt'>Door</span></span><span style='font-family:"Arial","sans-serif"'>.
+The </span><span class=codeChar><span style='font-size:11.0pt'>R4</span></span><span
+style='font-family:"Arial","sans-serif"'> association is drawn as a solid,
+undirected line with a 1 at both end points, which denotes a one-to-one
+association. In our example, all of the associations are one-to-one.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+phrases �is accessed via� and �provides access to� describe the association
+between the two classes.</span></p>
+
+<h4>State Machine Diagram</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+State Machine Diagram is used to represent the behavior of a class.� Let�s take
+a look at the State Machine Diagram for the </span><span class=codeChar><span
+style='font-size:11.0pt'>Door</span></span><span style='font-family:"Arial","sans-serif"'>
+class.� To open the State Machine Diagram for the </span><span class=codeChar><span
+style='font-size:11.0pt'>Door</span></span><span style='font-family:"Arial","sans-serif"'>,
+navigate inside the Door class in the Model Explorer and double-click on
+Instance State Machine.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=696 height=646 id="Picture 9" src="Samples_files/image009.jpg"
+alt="Description: samples3"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>A
+state is represented by a rectangle with rounded corners.� Each state has a
+name and number.� The directed arrows represent state transitions and are
+labeled with the event that causes the transition.� Activities are shown inside
+the rectangle and represent the processing that occurs on entry to a state.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+</span><span class=codeChar><span style='font-size:11.0pt'>Door</span></span><span
+style='font-family:"Arial","sans-serif"'> state machine has two states, </span><span
+class=codeChar><span style='font-size:11.0pt'>Open</span></span><span
+style='font-family:"Arial","sans-serif"'> and </span><span class=codeChar><span
+style='font-size:11.0pt'>Closed</span></span><span style='font-family:"Arial","sans-serif"'>.�
+When the </span><span class=codeChar><span style='font-size:11.0pt'>release</span></span><span
+style='font-family:"Arial","sans-serif"'> event is received and the door is
+closed, it transitions to the </span><span class=codeChar><span
+style='font-size:11.0pt'>Open</span></span><span style='font-family:"Arial","sans-serif"'>
+state.� Likewise when a </span><span class=codeChar><span style='font-size:
+11.0pt'>close</span></span><span style='font-family:"Arial","sans-serif"'>
+event is received in the </span><span class=codeChar><span style='font-size:
+11.0pt'>Open</span></span><span style='font-family:"Arial","sans-serif"'> state
+the door transitions to the </span><span class=codeChar><span style='font-size:
+11.0pt'>Closed</span></span><span style='font-family:"Arial","sans-serif"'>
+state.</span></p>
+
+<h4>Activities</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+processing for each state in the State Machine Diagram is specified with
+activities written in OAL (Object Action Language). As an example, let�s look
+at the activities for the </span><span class=codeChar><span style='font-size:
+11.0pt'>Open</span></span><span style='font-family:"Arial","sans-serif"'> state
+of the </span><span class=codeChar><span style='font-size:11.0pt'>Door</span></span><span
+style='font-family:"Arial","sans-serif"'> state machine.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Accessing
+the activity for a state can be done in one of two ways: by double-clicking on
+the state in either the Model Explorer or the State Machine Diagram.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=696 height=647 id="Picture 10" src="Samples_files/image010.jpg"
+alt="Description: samples4"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+behavior being modeled for the </span><span class=codeChar><span
+style='font-size:11.0pt'>Door</span></span><span style='font-family:"Arial","sans-serif"'>
+is this: when the </span><span style='font-family:"Arial","sans-serif"'>door</span><span
+style='font-family:"Arial","sans-serif"'> is opened, the </span><span
+style='font-family:"Arial","sans-serif"'>oven</span><span style='font-family:
+"Arial","sans-serif"'> is not secure and must be told to stop cooking. The
+activities written for the </span><span class=codeChar><span style='font-size:
+11.0pt'>Open</span></span><span style='font-family:"Arial","sans-serif"'> state
+reflect this by setting the attribute variable </span><span class=codeChar><span
+style='font-size:11.0pt'>is_secure</span></span><span style='font-family:"Arial","sans-serif"'>
+to </span><span class=codeChar><span style='font-size:11.0pt'>false</span></span><span
+style='font-family:"Arial","sans-serif"'> and sending the event </span><span
+class=codeChar><span style='font-size:11.0pt'>MO_O4:�cancel_cooking�</span></span><span
+style='font-family:"Arial","sans-serif"'> to an </span><span class=codeChar><span
+style='font-size:11.0pt'>Oven</span></span><span style='font-family:"Arial","sans-serif"'>
+instance.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+Activity Editor is a context-sensitive editor that provides syntax and semantic
+highlighting, showing you errors as they are typed.� Errors are reported in the
+Problems View. </span></p>
+
+<h3>Testing our Microwave Oven</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>So
+far, we have seen the modeling elements for the microwave oven application.� In
+order to test the application model, we need to see how it operates in typical
+situations.� For that purpose we�ve created a few functions and a subsystem
+dedicated to testing the microwave.� </span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Functions
+are one of the places where we can model activities.� This makes them a
+convenient place to create instances of the classes in the microwave oven
+model; oven, door, tube, and the associations between them.� We can also
+generate events to kick off the various scenarios.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+�</span><span class=codeChar><span style='font-size:11.0pt'>Test Subsystem</span></span><span
+style='font-family:"Arial","sans-serif"'>� subsystem models a set of test
+scenarios used to exercise the microwave oven models.� One of the nice things about
+using a subsystem to model the scenarios is that our tests are modeled at the
+same level of abstraction as the microwave oven model.</span></p>
+
+<h4>Initialization</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Take
+a look at the function </span><span class=codeChar><span style='font-size:11.0pt'>DefineOven</span></span><span
+style='font-family:"Arial","sans-serif"'>.� You can access the activities for
+this function by double-clicking on it in the Model Explorer.� This brings up
+the Activity Editor for the function.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=490 height=411 id="Picture 11" src="Samples_files/image011.jpg"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+</span><span class=codeChar><span style='font-size:11.0pt'>DefineOven</span></span><span
+style='font-family:"Arial","sans-serif"'> function contains activities that
+create the instances of the classes, set attribute values, and establish the
+associations between them.� Note that the Activity Editor highlights keywords
+in red and comments in light green.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Now
+take a look at the </span><span class=codeChar><span style='font-size:11.0pt'>TestSequence1</span></span><span
+style='font-family:"Arial","sans-serif"'> function.� This function is used to
+generate an event that kicks off the simulation.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=491 height=411 id="Picture 12" src="Samples_files/image012.jpg"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>When
+we create the instance of the class </span><span class=codeChar><span
+style='font-size:11.0pt'>MO_TS</span></span><span style='font-family:"Arial","sans-serif"'>,
+we get a handle back (</span><span class=codeChar><span style='font-size:11.0pt'>testSequence</span></span><span
+style='font-family:"Arial","sans-serif"'>) which can then be used to generate
+the </span><span class=codeChar><span style='font-size:11.0pt'>MO_TS2</span></span><span
+style='font-family:"Arial","sans-serif"'> event to the instance of </span><span
+class=codeChar><span style='font-size:11.0pt'>Test Sequences</span></span><span
+style='font-family:"Arial","sans-serif"'>.</span></p>
+
+<h4>Test Subsystem</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Open
+up the state machine for the </span><span class=codeChar><span
+style='font-size:11.0pt'>Test Sequences</span></span><span style='font-family:
+"Arial","sans-serif"'> class so we can see what happens in our model when the </span><span
+class=codeChar><span style='font-size:11.0pt'>MO_TS2</span></span><span
+style='font-family:"Arial","sans-serif"'> event is received.� Remember that the
+class you are looking for is in the </span><span class=codeChar><span
+style='font-size:11.0pt'>Test Subsystem</span></span><span style='font-family:
+"Arial","sans-serif"'> subsystem.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+State Machine Diagram for the </span><span class=codeChar><span
+style='font-size:11.0pt'>Test Sequences</span></span><span style='font-family:
+"Arial","sans-serif"'> class is shown below:</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=870 height=756 id="Picture 13" src="Samples_files/image013.jpg"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>There
+are four states in the diagram.� State 1 (</span><span class=codeChar><span
+style='font-size:11.0pt'>Awaiting Test Sequence Initiation</span></span><span
+style='font-family:"Arial","sans-serif"'>) sends an event to the next state to
+start a specific test sequence.� States 2 and 3 (</span><span class=codeChar><span
+style='font-size:11.0pt'>Performing Test Sequence 1</span></span><span
+style='font-family:"Arial","sans-serif"'> and </span><span class=codeChar><span
+style='font-size:11.0pt'>2</span></span><span style='font-family:"Arial","sans-serif"'>,
+respectively) are specific test scenarios for operating the oven.� State 4 (</span><span
+class=codeChar><span style='font-size:11.0pt'>Cooking Complete</span></span><span
+style='font-family:"Arial","sans-serif"'>) takes steps necessary to terminate
+the application (note the bridge call to the </span><span class=codeChar><span
+style='font-size:11.0pt'>ARCH</span></span><span style='font-family:"Arial","sans-serif"'>
+external entity).</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>You
+can see a portion of the activities for state 2 in the diagram above.
+Essentially, it specifies the following processing:</span></p>
+
+<p style='margin-left:.5in;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>�<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Open the door.</span></p>
+
+<p style='margin-left:.5in;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>�<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Lower the power
+setting to medium high.</span></p>
+
+<p style='margin-left:.5in;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>�<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Close the door.</span></p>
+
+<p style='margin-left:.5in;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>�<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>Select a cooking
+time of 10 seconds.</span></p>
+
+<p style='margin-left:.5in;text-indent:-.25in;line-height:15.6pt'><span
+style='font-family:Symbol'>�<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Arial","sans-serif"'>After 20 seconds,
+open the door.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>By
+default, all state machines start out in the lowest numbered state.� This means
+that the event sent by the </span><span class=codeChar><span style='font-size:
+11.0pt'>TestSequence1</span></span><span style='font-family:"Arial","sans-serif"'>
+causes this state machine to transition from state 1 to state 2.� Upon entering
+state 2, the activities are executed and the models begin to execute.</span></p>
+
+<h3>A Few Other Views and Editors</h3>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>There
+are a few other views and editors that you need to be aware of when using the
+tool. </span></p>
+
+<h4>Outline View</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+Outline view is active when a diagram editor has focus.� It shows an outline of
+the model elements on the diagram.� Here is what the Outline view looks like
+for the </span><span class=codeChar><span style='font-size:11.0pt'>Door</span></span><span
+style='font-family:"Arial","sans-serif"'> state machine.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=250 height=352 id="Picture 14" src="Samples_files/image014.jpg"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Bring
+up the Outline view and see how it changes when different diagram editors are
+selected.</span></p>
+
+<h4>Properties View</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>You
+can use the Properties view to change the attributes of the currently selected
+model element.� There are basic and advanced properties.�� The following is
+what the Properties view looks like for the </span><span class=codeChar><span
+style='font-size:11.0pt'>Oven</span></span><span style='font-family:"Arial","sans-serif"'>
+class:</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=306 height=352 id="Picture 15" src="Samples_files/image015.jpg"></span></p>
+
+<h4>Problems View</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Problems
+with activities (parsing errors) are reported on the Problems view.� A brief
+description of the problem is noted along with the location.� Double-clicking
+on a problem in the Problem view brings up the editor for the activity
+associated with the problem.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>The
+�</span><span class=codeChar><span style='font-size:11.0pt'>unexpected char</span></span><span
+style='font-family:"Arial","sans-serif"'>� problem appears in the Problems view
+when an underscore is pre-pended to the </span><span class=codeChar><span
+style='font-size:11.0pt'>assign</span></span><span style='font-family:"Arial","sans-serif"'>
+keyword.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=540 height=352 id="Picture 16" src="Samples_files/image016.jpg"></span></p>
+
+<h4>Description Editor</h4>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>Virtually
+every model element can have a description.� Descriptions are entered using the
+Description Editor.� To access the description editor for a model element,
+select it (in the Model Explorer or Diagram Editor), right-click, and select <b>Open
+With &gt; Description Editor</b>.� The following shows the Description Editor
+for the </span><span class=codeChar><span style='font-size:11.0pt'>Oven</span></span><span
+style='font-family:"Arial","sans-serif"'> Class.</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'><img
+border=0 width=594 height=256 id="Picture 17" src="Samples_files/image017.jpg"></span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p style='line-height:15.6pt'><span style='font-family:"Arial","sans-serif"'>That
+covers the sample model portion of this tour.� At this point you can either
+learn about <a href="ModelVerifier.htm">running a model in BridgePoint Verifier</a>.
+Or, to learn to translate the sample models with a </span><span
+style='font-family:"Arial","sans-serif"'>BridgePoint</span><span
+style='font-family:"Arial","sans-serif"'> Compiler, please proceed to <a
+href="Translate.htm">this section</a>.</span></p>
+
+</div>
+
+</body>
+
+</html>

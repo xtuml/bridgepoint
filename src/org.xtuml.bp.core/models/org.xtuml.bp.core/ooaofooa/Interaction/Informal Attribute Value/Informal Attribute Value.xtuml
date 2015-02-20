@@ -1,0 +1,93 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("2ad6324a-5068-479d-9fee-09983b4df8d3",
+	'Informal Attribute Value',
+	924,
+	'SQ_IAV',
+	'This class is used to capture the fact that an Instance Attribute Value is
+informal.  Clients may use the association between this class and its parent to
+determine the above fact.',
+	"90afcd0d-03fa-49d5-ac2c-0fd20beede15");
+INSERT INTO O_REF
+	VALUES ("2ad6324a-5068-479d-9fee-09983b4df8d3",
+	"cd73dfae-c851-4e8f-8e35-d581ce48620e",
+	0,
+	"4ba98415-2da7-4b4f-81d0-502b9ebd7fe0",
+	"6b04e3f2-a80c-46a8-9a9c-fd155af3c846",
+	"02b8ee2c-7a31-402d-b8be-6ff71e43016e",
+	"45710f8d-080b-44f4-af29-a226fe89612e",
+	"58d821fb-8b5f-4f24-8999-2eb3e586fdea",
+	"d7a43821-ba30-4d27-a26c-def597c39409",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Instance Attribute Value',
+	'Av_ID',
+	'R948');
+INSERT INTO R_RGO_PROXY
+	VALUES ("2ad6324a-5068-479d-9fee-09983b4df8d3",
+	"6b04e3f2-a80c-46a8-9a9c-fd155af3c846",
+	"02b8ee2c-7a31-402d-b8be-6ff71e43016e",
+	'../Interaction.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4ba98415-2da7-4b4f-81d0-502b9ebd7fe0",
+	"cd73dfae-c851-4e8f-8e35-d581ce48620e",
+	0,
+	"6b04e3f2-a80c-46a8-9a9c-fd155af3c846",
+	"45710f8d-080b-44f4-af29-a226fe89612e",
+	'../Interaction.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("58d821fb-8b5f-4f24-8999-2eb3e586fdea",
+	"2ad6324a-5068-479d-9fee-09983b4df8d3",
+	"4ba98415-2da7-4b4f-81d0-502b9ebd7fe0",
+	"cd73dfae-c851-4e8f-8e35-d581ce48620e",
+	1,
+	'Av_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4ba98415-2da7-4b4f-81d0-502b9ebd7fe0",
+	"cd73dfae-c851-4e8f-8e35-d581ce48620e",
+	'../Instance Attribute Value/Instance Attribute Value.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("58d821fb-8b5f-4f24-8999-2eb3e586fdea",
+	"2ad6324a-5068-479d-9fee-09983b4df8d3",
+	"00000000-0000-0000-0000-000000000000",
+	'Av_ID',
+	'',
+	'',
+	'Av_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"2ad6324a-5068-479d-9fee-09983b4df8d3");
+INSERT INTO O_OIDA
+	VALUES ("58d821fb-8b5f-4f24-8999-2eb3e586fdea",
+	"2ad6324a-5068-479d-9fee-09983b4df8d3",
+	0,
+	'Av_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"2ad6324a-5068-479d-9fee-09983b4df8d3");
+INSERT INTO O_ID
+	VALUES (2,
+	"2ad6324a-5068-479d-9fee-09983b4df8d3");
+INSERT INTO S_SS_PROXY
+	VALUES ("90afcd0d-03fa-49d5-ac2c-0fd20beede15",
+	'Interaction',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	'IA',
+	930,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Interaction.xtuml');

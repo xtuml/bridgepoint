@@ -1,0 +1,426 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	'Interaction Participant',
+	914,
+	'SQ_P',
+	'The class represents a participant of a sequence.  The possible participants are
+Class Instance, Class, Function Package, External Entity, and Lifespan.',
+	"90afcd0d-03fa-49d5-ac2c-0fd20beede15");
+INSERT INTO O_TFR
+	VALUES ("d30cb7ad-7d8a-4840-bd63-a5cd27e5c0cc",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one eep related by self->SQ_EEP[R930];
+select one fpp related by self->SQ_FPP[R930];
+select one cp related by self->SQ_CP[R930];
+select one cip related by self->SQ_CIP[R930];
+select one ls related by self->SQ_LS[R930];
+select one ap related by self->SQ_AP[R930];
+select one ucp related by self->IA_UCP[R930];
+select one cop related by self->SQ_COP[R930];
+select one pp  related by  self->SQ_PP[R930];
+if(not_empty cop)
+  unrelate self from cop across R930;
+  cop.dispose();
+end if;
+if(not_empty eep)
+  unrelate self from eep across R930;
+  eep.dispose();
+end if;
+if(not_empty fpp)
+  unrelate self from fpp across R930;
+  fpp.dispose();
+end if;
+if(not_empty pp)
+  unrelate self from pp across R930;
+  pp.dispose();
+end if;
+if(not_empty cp)
+  unrelate self from cp across R930;
+  cp.dispose();
+end if;
+if(not_empty cip)
+  unrelate self from cip across R930;
+  cip.dispose();
+end if;
+if(not_empty ls)
+  unrelate self from ls across R930;
+  ls.dispose();
+end if;
+if(not_empty ap)
+  unrelate self from ap across R930;
+  ap.dispose();
+end if;
+if(not_empty ucp)
+  unrelate self from ucp across R930;
+  ucp.dispose();
+end if;
+select many messages related by self->MSG_M[R1007];
+for each message in messages
+  message.dispose();
+end for;
+select many messages related by self->MSG_M[R1008];
+for each message in messages
+  message.dispose();
+end for;
+select one sequence related by self->SQ_S[R929];
+if(not_empty sequence)
+  unrelate self from sequence across R929;
+end if;
+// dispose or unrelate communication associations
+select one pic related by self->COMM_PIC[R1126];
+if(not_empty pic)
+  select one comm related by pic->COMM_COMM[R1126];
+  if (not_empty comm)
+    unrelate self from comm across R1126 using pic;
+  end if;
+  delete object instance pic;
+end if;
+select many comAssocs related by self->COMM_LNK[R1133];
+for each comAssoc in comAssocs
+  comAssoc.dispose();
+end for;
+select many comAssocs related by self->COMM_LNK[R1134];
+for each comAssoc in comAssocs
+  comAssoc.dispose();
+end for;
+select one piuc related by self->UC_PIUC[R1203];
+if(not_empty piuc)
+  select one ucc related by piuc->UC_UCC[R1203];
+  if (not_empty ucc)
+    unrelate self from ucc across R1203 using piuc;
+  end if;
+  delete object instance piuc;
+end if;
+select many startUcas related by self->UC_UCA[R1206];
+for each uca in startUcas
+  unrelate self from uca across R1206;
+  uca.dispose();
+end for;
+select many endUcas related by self->UC_UCA[R1207];
+for each uca in endUcas
+  unrelate self from uca across R1207;
+  uca.dispose();
+end for;
+// dispose lifespan connected to this participant
+select one lifespan related by self->SQ_LS[R940];
+if(not_empty lifespan)
+  unrelate self from lifespan across R940;
+  lifespan.dispose();
+end if;
+//select one pip related by self->PE_PIP[R8009];
+//if (not_empty pip)
+//  select one pkg related by self->EP_PKG[R8009];
+//  unrelate self from pkg across R8009 using pip;
+//  delete object instance pip;
+//end if;
+//select one pip related by self->PE_PIP[R8010];
+//if (not_empty pip)
+//  select one pkg related by self->EP_PKG[R8010];
+//  unrelate self from pkg across R8010 using pip;
+//  delete object instance pip;
+//end if;
+select one pe related by self->PE_PE[R8001];
+if (not_empty pe)
+  unrelate self from pe across R8001;
+  pe.dispose();
+end if;
+delete object instance self;',
+	1,
+	'',
+	"a4181c45-0662-44d6-817e-d929332b46ff");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("fee4dcf9-1a7a-4271-b559-b6eba5952506",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	'getMessageCompartmentText',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'/**
+ *
+ *  This operation returns a string value representing the message
+ *  compartment of a participant, excluding any duplicates.
+ *
+ */
+select many msgs related by self->MSG_M[R1007];
+result = "";
+for each msg in msgs
+  // exclude any return messages
+  select one returnMessage related by msg->MSG_R[R1018];
+  if(empty returnMessage)
+    result = result + msg.getName();
+    select many args related by msg->MSG_A[R1000];
+    if(not_empty args)
+      result = result + "(";     
+    end if;
+    count = 0;
+    for each arg in args
+      count = count + 1;
+      result = result + arg.Label;
+      if(count != cardinality args)
+  	    result = result + ", ";          
+      end if;
+    end for;
+    if(not_empty args)
+      result = result + ")";
+    end if;
+    result = result + GD::newline();
+  end if;
+end for;
+select one communicationLine related by self->SQ_LS[R940]->SQ_P[R930];
+if(not_empty communicationLine)
+  result = result + communicationLine.getMessageCompartmentText();
+end if;
+return Util::removeDuplicateStrings(completeString:result,
+                                                       separator:GD::newline());',
+	1,
+	'',
+	"69fe2f79-c5f5-4a7c-94ae-1e6f9090eb77");
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("69fe2f79-c5f5-4a7c-94ae-1e6f9090eb77",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	'getLabel',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one cip related by self->SQ_CIP[R930];
+if(not_empty cip)
+  return cip.Name;
+end if;
+select one ap related by self->SQ_AP[R930];
+if(not_empty ap)
+  return ap.Name;
+end if;
+return "";
+',
+	1,
+	'',
+	"d30cb7ad-7d8a-4840-bd63-a5cd27e5c0cc");
+INSERT INTO O_TFR
+	VALUES ("a4181c45-0662-44d6-817e-d929332b46ff",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	'definedAtSystemLevel',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select one sequence related by self->SQ_S[R929];
+select one comm related by self->COMM_COMM[R1126];
+if(not_empty sequence)
+  select one domain related by sequence->S_DOM[R913];
+  select one ss related by sequence->S_SS[R914];
+  select one sis related by sequence->SQ_SIS[R928];
+  if(empty domain and empty ss and empty sis)
+    return true;
+  end if;
+elif(not_empty comm)
+  select one domain related by comm->S_DOM[R1132];
+  select one ss related by comm->S_SS[R1131];
+  select one sis related by comm->COMM_CIC[R1129];
+  if(empty domain and empty ss and empty sis)
+    return true;
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("0cd49a19-a6dc-43e3-9cf3-1c3234037f04",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	'getSystemId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// Interaction Participant.getSystemId()
+// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one packageableElem related by self->PE_PE[R8001];
+select one package related by packageableElem->EP_PKG[R8000];
+select one component related by packageableElem->C_C[R8003];
+isInGenericPackage = not_empty package or not_empty component;
+if (isInGenericPackage)
+  if not_empty package
+    return package.getSystemId();
+  elif not_empty component
+    return component.getSystemId();
+  end if; 
+else
+  select one sequence related by self->SQ_S[R929];
+  select one comm related by self->COMM_COMM[R1126];
+  if(not_empty sequence)
+    return sequence.getSystemId();
+  elif(not_empty comm)
+    return comm.getSystemId();
+  end if;
+end if;
+USER::logError(msg:"Interaction Participant.getSystemId: No parent found.",path:"");
+return GD::NULL_UNIQUE_ID();',
+	1,
+	'',
+	"fee4dcf9-1a7a-4271-b559-b6eba5952506");
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
+	0,
+	"2c2f7672-4c97-4574-8c41-ffcfc117177f",
+	"0d0180d5-1e44-42bf-8663-be86fab36645",
+	"59be145e-6831-4d35-92bd-cb685939be4c",
+	"87e91f88-5e8e-4297-9f9d-5bf181db3bee",
+	"99019078-232a-4faa-9736-5cb52a4ac7fd",
+	"6b7ca13a-0d73-48aa-b559-670943e0557d",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Sequence',
+	'Package_ID',
+	'R929');
+INSERT INTO R_RGO_PROXY
+	VALUES ("0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	"0d0180d5-1e44-42bf-8663-be86fab36645",
+	"59be145e-6831-4d35-92bd-cb685939be4c",
+	'../../Sequence/Sequence.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("2c2f7672-4c97-4574-8c41-ffcfc117177f",
+	"5f54b153-dd7d-444e-8526-f71458cc0d4f",
+	0,
+	"0d0180d5-1e44-42bf-8663-be86fab36645",
+	"87e91f88-5e8e-4297-9f9d-5bf181db3bee",
+	'../../Sequence/Sequence.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("99019078-232a-4faa-9736-5cb52a4ac7fd",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	1,
+	'Package_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	'../../Element Packaging/Specification Package/Specification Package.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("99019078-232a-4faa-9736-5cb52a4ac7fd",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	"415afdba-0e71-45f2-b02e-9cab014f028c",
+	'Sequence_Package_ID',
+	'',
+	'Sequence_',
+	'Package_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"04e32fdf-8d6d-4fe2-83b8-473782aa1e8f",
+	"28f75ede-123b-4d84-8dcc-b0537a94aa4a",
+	"415afdba-0e71-45f2-b02e-9cab014f028c",
+	"fa303187-5c6d-41bf-9eb4-c36d9ac52d94",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Packageable Element',
+	'Element_ID',
+	'R8001');
+INSERT INTO R_RGO_PROXY
+	VALUES ("0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"04e32fdf-8d6d-4fe2-83b8-473782aa1e8f",
+	'../../Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"28f75ede-123b-4d84-8dcc-b0537a94aa4a",
+	'../../Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("415afdba-0e71-45f2-b02e-9cab014f028c",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("415afdba-0e71-45f2-b02e-9cab014f028c",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	"00000000-0000-0000-0000-000000000000",
+	'Part_ID',
+	'',
+	'',
+	'Part_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94");
+INSERT INTO O_OIDA
+	VALUES ("415afdba-0e71-45f2-b02e-9cab014f028c",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	0,
+	'Part_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94");
+INSERT INTO O_ID
+	VALUES (2,
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94");
+INSERT INTO S_SS_PROXY
+	VALUES ("90afcd0d-03fa-49d5-ac2c-0fd20beede15",
+	'Interaction',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	'IA',
+	930,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Interaction.xtuml');

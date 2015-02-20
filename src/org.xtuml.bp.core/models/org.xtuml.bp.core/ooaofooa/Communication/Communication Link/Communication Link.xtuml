@@ -1,0 +1,962 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("7fd18038-e480-4719-9b21-00b3c1a3e685",
+	'Communication Link',
+	1126,
+	'COMM_LNK',
+	'This class represents a link between two participants which communicate with
+each other.',
+	"80f3247a-4c81-49db-84c9-95a20af2ffaf");
+INSERT INTO O_TFR
+	VALUES ("fa17df6a-9aff-415e-8fed-4f037a692afa",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one toParticipant related by self->SQ_P[R1134];
+select one fromParticipant related by self->SQ_P[R1133];
+if(not_empty toParticipant)
+  unrelate self from toParticipant across R1134;
+end if;
+if(not_empty fromParticipant)
+  unrelate self from fromParticipant across R1133;
+end if;
+select one assoc related by self->R_REL[R1128];
+if(not_empty assoc)
+  unrelate self from assoc across R1128;
+end if;
+delete object instance self;',
+	1,
+	'',
+	"240f2202-6c15-4c3d-8c8d-5a6b636c2596");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("34286ce4-0193-49e0-b76e-94bc3eb6e3c4",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	'get_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'if(param.at == End::End)
+  if(self.EndVisibility == Visibility::Public)
+    return Style::OpenArrow;
+  end if;
+elif(param.at == End::Start)
+  if(self.StartVisibility == Visibility::Public)
+    return Style::OpenArrow;
+  end if;
+end if;
+return Style::Solid;',
+	1,
+	'',
+	"e340b6bf-ee06-4d3e-b8a3-f1083abb7f31");
+INSERT INTO O_TPARM
+	VALUES ("943e0b1a-249c-46c2-9696-26f47eed2370",
+	"34286ce4-0193-49e0-b76e-94bc3eb6e3c4",
+	'at',
+	"ae85eca6-6fe4-4125-95e6-95272f0fd7de",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ae85eca6-6fe4-4125-95e6-95272f0fd7de",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'End',
+	'Text is positioned at a user adjustable offset from the Start, Middle and End of a connector. Start_Fixed and End_Fixed specify fixed position text found at the start and end of some connectors.
+-------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Style',
+	'The Style data type specifies the precise form a graphical element will take when drawn.
+--------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("1fada1ad-286f-4e53-8584-f6a69920faf9",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	'get_connector_text',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one assoc related by self->R_REL[R1128];
+if(not_empty assoc)
+  if(param.at == End::Middle)
+    return "R" + GD::int_to_string(value:assoc.Numb);
+  elif(param.at == End::Start)
+    return self.getAssociationText(at:End::Start);
+  elif(param.at == End::End)
+    return self.getAssociationText(at:End::End);
+  end if;
+else
+  if(param.at == End::Middle)
+    // if the number is uninitialized
+    // do not show it
+    if(self.Numb != "")
+      return "R" + self.Numb;
+    end if;
+  elif(param.at == End::Start)
+    return self.StartText;
+  elif(param.at == End::End)
+    return self.EndText;
+  end if;
+end if;
+return "";',
+	1,
+	'',
+	"4ee2d35a-43c3-4bcd-8555-920a4f502235");
+INSERT INTO O_TPARM
+	VALUES ("1a0d7fb9-713a-468e-9b82-5e067140cf51",
+	"1fada1ad-286f-4e53-8584-f6a69920faf9",
+	'Obj_ID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("4c8c28ea-0844-4a3a-8971-251a4563faa0",
+	"1fada1ad-286f-4e53-8584-f6a69920faf9",
+	'Obj_TypeIsImported',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"1a0d7fb9-713a-468e-9b82-5e067140cf51",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("c0199b80-67e8-4235-8504-b662909d4390",
+	"1fada1ad-286f-4e53-8584-f6a69920faf9",
+	'at',
+	"ae85eca6-6fe4-4125-95e6-95272f0fd7de",
+	0,
+	'',
+	"4c8c28ea-0844-4a3a-8971-251a4563faa0",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("cf2ca6df-15be-4736-8304-3e9ef435c8b7",
+	"1fada1ad-286f-4e53-8584-f6a69920faf9",
+	'parent_ID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"c0199b80-67e8-4235-8504-b662909d4390",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("e340b6bf-ee06-4d3e-b8a3-f1083abb7f31",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	'get_ooa_id',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'return self.Link_ID;',
+	1,
+	'',
+	"54466b80-6eb4-4dba-8dd0-fe674b2bbb39");
+INSERT INTO O_TFR
+	VALUES ("7ac30849-8521-4357-90d8-93c4066bc4bd",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	'participatesWithFormalParticipants',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'/**
+ *
+ *  This operation checks that the association with the given
+ *  id exists between the classes that the source participant
+ *  and destination participant between this link represent
+ *
+ */
+select one startClass related by self->SQ_P[R1133]->SQ_CIP[R930]->O_OBJ[R934];
+select one destClass related by self->SQ_P[R1134]->SQ_CIP[R930]->O_OBJ[R934];
+if(not_empty startClass and not_empty destClass)
+  select any assoc from instances of R_REL where (selected.Rel_ID == param.assocId);
+  if(not_empty assoc)
+    foundStart = false;
+    foundEnd = false;
+    select one simple related by assoc->R_SIMP[R206];
+    select one associative related by assoc->R_ASSOC[R206];
+    select one superSub related by assoc->R_SUBSUP[R206];
+    select one derived related by assoc->R_COMP[R206];
+    // see if the start and end classes participate in
+    // a simple association
+    if(not_empty simple)
+      select any part_obj related by simple->R_PART[R207]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+      select many part_objs related by simple->R_PART[R207]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+      // the association is not formalized, check both part instances
+      if(cardinality part_objs > 1)
+        for each obj in part_objs
+          if(obj == startClass)
+            foundStart = true;
+          elif(obj == destClass)
+            foundEnd = true;
+          end if;
+        end for;
+      else
+        // otherwise the association is formalized, check both
+        // the part object and the form object
+        select one form_obj related by simple->R_FORM[R208]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+          if(form_obj == startClass) or (part_obj == startClass)
+            foundStart = true;
+          end if;
+          if(form_obj == destClass) or (part_obj == destClass)
+            foundEnd = true;
+          end if;
+      end if;
+    elif(not_empty associative)
+      select one aone_obj related by associative->R_AONE[R209]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+      select one aoth_obj related by associative->R_AOTH[R210]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+      select one assr_obj related by associative->R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+      if(startClass == aone_obj) or (startClass == aoth_obj) or (startClass == assr_obj)
+        foundStart = true;
+      end if;
+      if(destClass == aone_obj) or (destClass == aoth_obj) or (destClass == assr_obj)
+        foundEnd = true;
+      end if;
+    elif(not_empty superSub)
+      select one super_obj related by superSub->R_SUPER[R212]->R_RTO[R204]->R_OIR[R203]->O_OBJ[R201];
+      select many sub_objs related by superSub->R_SUB[R213]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+      if(super_obj == startClass)
+        foundStart = true;
+      end if;
+      if(super_obj == destClass)
+        foundEnd = true;
+      end if;
+      // for each subtype class check to see if it is either
+      // the start or destination class between the link
+      for each sub_obj in sub_objs
+        if(sub_obj == startClass)
+          foundStart = true;
+        end if;
+        if(sub_obj == destClass)
+          foundEnd = true;
+        end if;
+      end for;
+    elif(not_empty derived)
+      select one cone_obj related by derived->R_CONE[R214]->R_OIR[R203]->O_OBJ[R201];
+      select one coth_obj related by derived->R_COTH[R215]->R_OIR[R203]->O_OBJ[R201];
+      if(startClass == cone_obj) or (startClass == coth_obj)
+        foundStart = true;
+      end if;
+      if(destClass == cone_obj) or (destClass == coth_obj)
+        foundEnd = true;
+      end if;
+    end if;
+    // if this association is not reflexive but the
+    // start and destination classes are the same
+    // do not allow it
+    if(startClass == destClass and not assoc.is_reflexive())
+      return false;
+    elif(startClass != destClass and assoc.is_reflexive())
+      select one assr_obj related by associative->R_ASSR[R211]->R_RGO[R205]->R_OIR[R203]->O_OBJ[R201];
+      if(assr_obj == startClass or assr_obj == destClass)
+        if(foundStart and foundEnd)
+          return true;
+        end if;
+      else
+        return false;
+      end if;
+    end if;
+    // if the start class was matched and the end class was matched
+    if(foundStart and foundEnd)
+      return true;
+    end if;
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"6e190224-0479-4692-b99f-179824b14434");
+INSERT INTO O_TPARM
+	VALUES ("01cad0e1-24c5-4f1e-a178-536bafc79399",
+	"7ac30849-8521-4357-90d8-93c4066bc4bd",
+	'assocId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("7055029a-5758-4603-8a67-0ac8f5e2a749",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	'formalize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any assoc from instances of R_REL where (selected.Rel_ID == param.assocId);
+if(not_empty assoc)
+  if(self.isFormal)
+    self.unformalize();
+  end if;
+  relate self to assoc across R1128;
+end if;',
+	1,
+	'',
+	"fa17df6a-9aff-415e-8fed-4f037a692afa");
+INSERT INTO O_TPARM
+	VALUES ("e359fae8-80fb-49f5-8379-6993191ec125",
+	"7055029a-5758-4603-8a67-0ac8f5e2a749",
+	'assocId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("240f2202-6c15-4c3d-8c8d-5a6b636c2596",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	'actionFilter',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+if(param.name == "can" )
+  if(param.value == "formalize" )
+    select one comm related by self->SQ_P[R1133]->COMM_COMM[R1126];
+	isInGenericPkg = false;
+	select one pkg related by self->SQ_P[R1133]->PE_PE[R8001]->EP_PKG[R8000];
+	if (not_empty pkg)
+	  isInGenericPkg = true;
+	end if;
+
+	if (isInGenericPkg)
+     select many assocs related by pkg->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]->R_REL[R8001];
+      for each assoc in assocs
+        if(self.participatesWithFormalParticipants(assocId:assoc.Rel_ID))
+          return true;
+        end if;
+      end for;
+	else
+      domName = comm.getPath(domainNameOnly:true);
+      select any domain from instances of S_DOM where (selected.Name == domName);
+      if(not_empty domain)
+        select many assocs related by domain->S_SS[R1]->O_OBJ[R2]->R_OIR[R201]->R_REL[R201];
+        for each assoc in assocs
+          if(self.participatesWithFormalParticipants(assocId:assoc.Rel_ID))
+            return true;
+          end if;
+        end for;
+      end if;
+	end if;   
+  elif(param.value == "unformalize")
+    return self.isFormal;
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("21e90ec5-ec27-4e48-bb76-fc5cf1405e57",
+	"240f2202-6c15-4c3d-8c8d-5a6b636c2596",
+	'name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("4cd8c50f-8321-4bcf-97fd-4288ef8e8f54",
+	"240f2202-6c15-4c3d-8c8d-5a6b636c2596",
+	'value',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"21e90ec5-ec27-4e48-bb76-fc5cf1405e57",
+	'');
+INSERT INTO O_TFR
+	VALUES ("b4c3cd2e-c4f4-4771-98ee-676f1c3b87d9",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	'unformalize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one assoc related by self->R_REL[R1128];
+if(not_empty assoc)
+  unrelate self from assoc across R1128;
+end if;',
+	1,
+	'',
+	"76d71dc8-0dd3-4c4a-b067-c3062a6ae7b7");
+INSERT INTO O_TFR
+	VALUES ("6e190224-0479-4692-b99f-179824b14434",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	'initialize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'self.StartVisibility = Visibility::Private;
+self.EndVisibility = Visibility::Private;',
+	1,
+	'',
+	"34286ce4-0193-49e0-b76e-94bc3eb6e3c4");
+INSERT INTO O_TFR
+	VALUES ("4ee2d35a-43c3-4bcd-8555-920a4f502235",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	'getAssociationText',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'/**
+ *
+ *  This operation finds the text phrase for the association that this
+ *  link is formalized against.
+ *
+ */
+select one assoc related by self->R_REL[R1128];
+select one mclass related by self->SQ_P[R1133]->SQ_CIP[R930]->O_OBJ[R934];
+if(empty mclass)
+  select one mclass related by self->SQ_P[R1133]->SQ_CP[R930]->O_OBJ[R939];
+end if;
+if(param.at == End::End)
+  select one mclass related by self->SQ_P[R1134]->SQ_CIP[R930]->O_OBJ[R934];
+  if(empty mclass)
+    select one mclass related by self->SQ_P[R1134]->SQ_CP[R930]->O_OBJ[R939];
+  end if;
+end if;
+if((not_empty mclass) and (not_empty assoc))
+  // select all the possible subtypes which have the same class id as the
+  // participant represents
+  select many parts related by assoc->R_SIMP[R206]->R_PART[R207] where (selected.Obj_ID == mclass.Obj_ID);
+  select any part related by assoc->R_SIMP[R206]->R_PART[R207] where (selected.Obj_ID == mclass.Obj_ID);
+  select one form related by assoc->R_SIMP[R206]->R_FORM[R208] where (selected.Obj_ID == mclass.Obj_ID);
+  select one aone related by assoc->R_ASSOC[R206]->R_AONE[R209] where (selected.Obj_ID == mclass.Obj_ID);
+  select one aoth related by assoc->R_ASSOC[R206]->R_AOTH[R210] where (selected.Obj_ID == mclass.Obj_ID);
+  select one sup related by assoc->R_SUBSUP[R206]->R_SUPER[R212] where (selected.Obj_ID == mclass.Obj_ID);
+  select any sub related by assoc->R_SUBSUP[R206]->R_SUB[R213] where (selected.Obj_ID == mclass.Obj_ID);
+  select one cone related by assoc->R_COMP[R206]->R_CONE[R214] where (selected.Obj_ID == mclass.Obj_ID);
+  select one coth related by assoc->R_COMP[R206]->R_COTH[R215] where (selected.Obj_ID == mclass.Obj_ID);
+  // if the participant and formalizer are not empty
+  // then this is a reflexive association, use the
+  // formalizer as the start and the participant as
+  // the end
+  if(cardinality parts == 1) and (not_empty form)
+    if(param.at == End::Start)
+      return form.Txt_Phrs;
+    else
+      return part.Txt_Phrs;
+    end if;
+  // if more than one part exists the association
+  // itself is not formalized use the first part
+  // as the start and the second as the end
+  elif(cardinality parts > 0)
+    if(cardinality parts == 2)
+      part_num = 0;
+      for each part in parts
+        part_num = part_num + 1;
+        if(param.at == End::Start and part_num == 1)
+          return part.Txt_Phrs;
+        elif(param.at == End::End and part_num == 2)
+          return part.Txt_Phrs;
+        end if;
+      end for;
+    else
+      return part.Txt_Phrs;
+    end if;
+  elif(not_empty form)
+    return form.Txt_Phrs;
+  // if the both sides are not empty
+  // then this is a reflexive association, use the
+  // aone instance as the start and the
+  // aoth instance as the end
+  elif(not_empty aone and not_empty aoth)
+    if(param.at == End::Start)
+      return aone.Txt_Phrs;
+    else
+      return aoth.Txt_Phrs;
+    end if;
+  elif(not_empty aone)
+    return aone.Txt_Phrs;    
+  elif(not_empty aoth)
+    return aoth.Txt_Phrs;
+  elif(not_empty sup)
+    return "supertype";
+  elif(not_empty sub)
+    return "subtype";
+  elif(not_empty cone)
+    return cone.Txt_Phrs;
+  elif(not_empty coth)
+    return coth.Txt_Phrs;
+  end if;
+end if;
+return "";',
+	1,
+	'',
+	"7055029a-5758-4603-8a67-0ac8f5e2a749");
+INSERT INTO O_TPARM
+	VALUES ("c998c8e0-64dd-4157-b7a8-4129bb03e653",
+	"4ee2d35a-43c3-4bcd-8555-920a4f502235",
+	'at',
+	"ae85eca6-6fe4-4125-95e6-95272f0fd7de",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("54466b80-6eb4-4dba-8dd0-fe674b2bbb39",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	'get_name',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'if(self.isFormal)
+  select one assoc related by self->R_REL[R1128];
+  if(not_empty assoc)
+    return assoc.get_name();
+  end if;
+else
+  if(self.Numb != "")
+    return "R" + self.Numb;
+  end if;
+end if;
+return "";',
+	1,
+	'',
+	"1fada1ad-286f-4e53-8584-f6a69920faf9");
+INSERT INTO O_TFR
+	VALUES ("76d71dc8-0dd3-4c4a-b067-c3062a6ae7b7",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	'toggleVisibility',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  This operation will toggle the visibility of
+ *  the link on one the side given.
+ */
+if(param.end == End::Start)
+  if(self.StartVisibility == Visibility::Private)
+    self.StartVisibility = Visibility::Public;
+  else
+    self.StartVisibility = Visibility::Private;
+  end if;
+elif(param.end == End::End)
+  if(self.EndVisibility == Visibility::Private)
+    self.EndVisibility = Visibility::Public;
+  else
+    self.EndVisibility = Visibility::Private;
+  end if;
+end if;',
+	1,
+	'',
+	"7ac30849-8521-4357-90d8-93c4066bc4bd");
+INSERT INTO O_TPARM
+	VALUES ("894e5e50-c7c9-4321-a33d-0a4de0d4e449",
+	"76d71dc8-0dd3-4c4a-b067-c3062a6ae7b7",
+	'end',
+	"ae85eca6-6fe4-4125-95e6-95272f0fd7de",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("6f75c62b-ae2d-482f-a9a9-31405ef11e8a",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	'getConfigurationInheritanceElementId',
+	'',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'select one assoc related by self->R_REL[R1128];
+if(not_empty assoc)
+  return assoc.convertToInstance();
+end if;
+return self.convertToInstance();',
+	1,
+	'',
+	"b4c3cd2e-c4f4-4771-98ee-676f1c3b87d9");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("d43503c4-2fac-4c99-9f91-cbecb5e4c57f",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;',
+	0,
+	'',
+	"6f75c62b-ae2d-482f-a9a9-31405ef11e8a");
+INSERT INTO O_NBATTR
+	VALUES ("e571129c-4692-45c0-932b-9e40de0d3c22",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685");
+INSERT INTO O_BATTR
+	VALUES ("e571129c-4692-45c0-932b-9e40de0d3c22",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685");
+INSERT INTO O_ATTR
+	VALUES ("e571129c-4692-45c0-932b-9e40de0d3c22",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"87b7b596-39dd-4eaf-bf8d-447e88643847",
+	'Numb',
+	'Full Name: Association Number',
+	'',
+	'Numb',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("c0dcd6fc-a868-441a-bd42-712dcffba495",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685");
+INSERT INTO O_BATTR
+	VALUES ("c0dcd6fc-a868-441a-bd42-712dcffba495",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685");
+INSERT INTO O_ATTR
+	VALUES ("c0dcd6fc-a868-441a-bd42-712dcffba495",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"24562b6a-f31b-43d0-a453-7eeabbc29664",
+	'StartText',
+	'Full Name: Start Text Phrase',
+	'',
+	'StartText',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("cfa835b5-ae51-4998-bd7e-a9e73170307a",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685");
+INSERT INTO O_BATTR
+	VALUES ("cfa835b5-ae51-4998-bd7e-a9e73170307a",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685");
+INSERT INTO O_ATTR
+	VALUES ("cfa835b5-ae51-4998-bd7e-a9e73170307a",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"c0dcd6fc-a868-441a-bd42-712dcffba495",
+	'EndText',
+	'Full Name: End Text Phrase',
+	'',
+	'EndText',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("363f2658-1c59-4e29-93f1-deb0170e4d85",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	'select one assoc related by self->R_REL[R1128];
+if(not_empty assoc)
+  self.isFormal = true;
+else
+  self.isFormal = false;
+end if;',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("363f2658-1c59-4e29-93f1-deb0170e4d85",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685");
+INSERT INTO O_ATTR
+	VALUES ("363f2658-1c59-4e29-93f1-deb0170e4d85",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"cfa835b5-ae51-4998-bd7e-a9e73170307a",
+	'isFormal',
+	'Full Name: Is Formal',
+	'',
+	'isFormal',
+	0,
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("f25b119e-5784-4e00-9181-ebf0451238c3",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685");
+INSERT INTO O_BATTR
+	VALUES ("f25b119e-5784-4e00-9181-ebf0451238c3",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685");
+INSERT INTO O_ATTR
+	VALUES ("f25b119e-5784-4e00-9181-ebf0451238c3",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"363f2658-1c59-4e29-93f1-deb0170e4d85",
+	'StartVisibility',
+	'Full Name: Start Visibility
+Description: Indicates the visibility of the start side of the link
+Data Domain: 0 = not visible, 1 = visible
+
+',
+	'',
+	'StartVisibility',
+	0,
+	"cada8912-c244-4001-8c77-ae1fc60554d0",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("cada8912-c244-4001-8c77-ae1fc60554d0",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Visibility',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("fd33cde4-5966-4177-9457-48ea37a264bd",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685");
+INSERT INTO O_BATTR
+	VALUES ("fd33cde4-5966-4177-9457-48ea37a264bd",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685");
+INSERT INTO O_ATTR
+	VALUES ("fd33cde4-5966-4177-9457-48ea37a264bd",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"f25b119e-5784-4e00-9181-ebf0451238c3",
+	'EndVisibility',
+	'Full Name: End Visibility
+Description: Indicates the visibility of the end side of the link
+Data Domain: 0 = Not Visible, 1 = Visible',
+	'',
+	'EndVisibility',
+	0,
+	"cada8912-c244-4001-8c77-ae1fc60554d0",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("cbeefef1-6b4d-4ae0-9f93-81e892c9bbc5",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685");
+INSERT INTO O_BATTR
+	VALUES ("cbeefef1-6b4d-4ae0-9f93-81e892c9bbc5",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685");
+INSERT INTO O_ATTR
+	VALUES ("cbeefef1-6b4d-4ae0-9f93-81e892c9bbc5",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"00000000-0000-0000-0000-000000000000",
+	'Link_ID',
+	'',
+	'',
+	'Link_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("24562b6a-f31b-43d0-a453-7eeabbc29664",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685");
+INSERT INTO O_BATTR
+	VALUES ("24562b6a-f31b-43d0-a453-7eeabbc29664",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685");
+INSERT INTO O_ATTR
+	VALUES ("24562b6a-f31b-43d0-a453-7eeabbc29664",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"e571129c-4692-45c0-932b-9e40de0d3c22",
+	'Descrip',
+	'Full Name: Link Description
+Description: A textual description of this communication link.',
+	'',
+	'Descrip',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	0,
+	"415afdba-0e71-45f2-b02e-9cab014f028c",
+	"323ab93c-8730-4b76-b725-8a0b6701b042",
+	"0bb26aee-35f1-4f4f-9e5b-b72d71f23d86",
+	"f6ac4c0b-b5eb-428c-8ee8-34a02e3eabb6",
+	"e4cb9a92-88e8-4f04-950a-c1850c9c011c",
+	"01990b59-4a0b-46ed-9380-587a4b0acb2a",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Interaction Participant',
+	'Part_ID',
+	'R1133');
+INSERT INTO R_RGO_PROXY
+	VALUES ("7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"323ab93c-8730-4b76-b725-8a0b6701b042",
+	"0bb26aee-35f1-4f4f-9e5b-b72d71f23d86",
+	'../Communication.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("415afdba-0e71-45f2-b02e-9cab014f028c",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	0,
+	"323ab93c-8730-4b76-b725-8a0b6701b042",
+	"f6ac4c0b-b5eb-428c-8ee8-34a02e3eabb6",
+	'../Communication.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("e4cb9a92-88e8-4f04-950a-c1850c9c011c",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("e4cb9a92-88e8-4f04-950a-c1850c9c011c",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"fd33cde4-5966-4177-9457-48ea37a264bd",
+	'Start_Part_ID',
+	'',
+	'Start_',
+	'Part_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	0,
+	"415afdba-0e71-45f2-b02e-9cab014f028c",
+	"b43600aa-33dc-4ec3-9812-1ff14b57d571",
+	"9f2724d7-eef8-41d8-859f-d923ceb502d5",
+	"e571df22-89a9-47ca-bec4-b242345892c9",
+	"7077cea8-9457-47b9-a5f8-50905def7e2a",
+	"de67d1c4-f86a-4902-9cdd-5ef25b937a89",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Interaction Participant',
+	'Part_ID',
+	'R1134');
+INSERT INTO R_RGO_PROXY
+	VALUES ("7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"b43600aa-33dc-4ec3-9812-1ff14b57d571",
+	"9f2724d7-eef8-41d8-859f-d923ceb502d5",
+	'../Communication.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("415afdba-0e71-45f2-b02e-9cab014f028c",
+	"0b1fad94-33b5-4bb3-8fb7-d1cc2d9b7b94",
+	0,
+	"b43600aa-33dc-4ec3-9812-1ff14b57d571",
+	"e571df22-89a9-47ca-bec4-b242345892c9",
+	'../Communication.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("7077cea8-9457-47b9-a5f8-50905def7e2a",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_ATTR
+	VALUES ("7077cea8-9457-47b9-a5f8-50905def7e2a",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"e4cb9a92-88e8-4f04-950a-c1850c9c011c",
+	'Destination_Part_ID',
+	'',
+	'Destination_',
+	'Part_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	0,
+	"0e0a4e72-7f7e-46b9-b83c-2c6b882dda5f",
+	"47be5c95-e8c0-40a9-b732-eb8d6deda3b5",
+	"cdaee2f1-edb5-4756-b80d-5f2c2aecc4ef",
+	"194b81ef-3b53-417b-8a27-8d8868e5d660",
+	"87b7b596-39dd-4eaf-bf8d-447e88643847",
+	"7f9ceaf4-9763-4145-92c9-1a2d20a1391e",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Association',
+	'Rel_ID',
+	'R1128');
+INSERT INTO R_RGO_PROXY
+	VALUES ("7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"47be5c95-e8c0-40a9-b732-eb8d6deda3b5",
+	"cdaee2f1-edb5-4756-b80d-5f2c2aecc4ef",
+	'../Communication.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0e0a4e72-7f7e-46b9-b83c-2c6b882dda5f",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	0,
+	"47be5c95-e8c0-40a9-b732-eb8d6deda3b5",
+	"194b81ef-3b53-417b-8a27-8d8868e5d660",
+	'../Communication.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("87b7b596-39dd-4eaf-bf8d-447e88643847",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_ATTR
+	VALUES ("87b7b596-39dd-4eaf-bf8d-447e88643847",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	"cbeefef1-6b4d-4ae0-9f93-81e892c9bbc5",
+	'Rel_ID',
+	'',
+	'',
+	'Rel_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"7fd18038-e480-4719-9b21-00b3c1a3e685");
+INSERT INTO O_OIDA
+	VALUES ("cbeefef1-6b4d-4ae0-9f93-81e892c9bbc5",
+	"7fd18038-e480-4719-9b21-00b3c1a3e685",
+	0,
+	'Link_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"7fd18038-e480-4719-9b21-00b3c1a3e685");
+INSERT INTO O_ID
+	VALUES (2,
+	"7fd18038-e480-4719-9b21-00b3c1a3e685");
+INSERT INTO S_SS_PROXY
+	VALUES ("80f3247a-4c81-49db-84c9-95a20af2ffaf",
+	'Communication',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE',
+	'COMM',
+	1125,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Communication.xtuml');

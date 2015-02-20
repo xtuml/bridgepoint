@@ -1,0 +1,266 @@
+AUDIT RESULTS FOR DOMAIN G_ALL_nested_invoke
+
+FUNCTIONS WITHOUT DESCRIPTIONS:
+bool1
+date1
+evt1
+timer1
+int1
+real1
+time1
+str1
+id1
+enum1
+udt1
+single_invoke
+multiple_invoke
+multiple_invoke_w_expressions
+ret1
+mod_params1
+real_invoke1
+
+ENUMERATORS WITHOUT DESCRIPTIONS:
+enum::blue
+enum::red
+enum::yellow
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Time
+External Entity EE
+External Entity Realized EE
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge EE::bool2
+External Entity Bridge EE::date2
+External Entity Bridge EE::evt2
+External Entity Bridge EE::timer2
+External Entity Bridge EE::int2
+External Entity Bridge EE::real2
+External Entity Bridge EE::str2
+External Entity Bridge EE::time2
+External Entity Bridge EE::id2
+External Entity Bridge EE::enum2
+External Entity Bridge EE::udt2
+External Entity Bridge EE::single_invoke
+External Entity Bridge EE::multiple_invoke
+External Entity Bridge EE::multiple_invoke_w_expressions
+External Entity Bridge EE::ret2
+External Entity Bridge EE::mod_params2
+External Entity Bridge EE::real_invoke2
+External Entity Bridge EE::ret5
+External Entity Bridge Realized EE::bool5
+External Entity Bridge Realized EE::int5
+External Entity Bridge Realized EE::real5
+External Entity Bridge Realized EE::str5
+External Entity Bridge Realized EE::udt5
+External Entity Bridge Realized EE::enum5
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class G_ALL_nested_invoke::Test Class
+Class G_ALL_nested_invoke::Test Class Two
+Class G_ALL_nested_invoke::Test Class Three
+Class G_ALL_nested_invoke::Test Class Four
+Class G_ALL_nested_invoke::Test Class Three Subclass
+Class G_ALL_nested_invoke::Bogus Class
+Class G_ALL_nested_invoke::Test Class Five
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Initialization::Init_ID
+Attribute Initialization::current_state
+Attribute Driver::Driver_ID
+Attribute Driver::current_state
+Attribute Test Class::b
+Attribute Test Class::d
+Attribute Test Class::en
+Attribute Test Class::e
+Attribute Test Class::tr
+Attribute Test Class::i
+Attribute Test Class::r
+Attribute Test Class::s
+Attribute Test Class::t
+Attribute Test Class::u
+Attribute Test Class::mda
+Attribute Test Class::ID
+Attribute Test Class::ID2
+Attribute Test Class Two::ID2
+Attribute Test Class Two::times_around
+Attribute Test Class Three::ID
+Attribute Test Class Three::current_state
+Attribute Test Class Four::ID
+Attribute Test Class Three Subclass::ID
+Attribute Test Class Three Subclass::current_state
+Attribute Bogus Class::ID
+Attribute Bogus Class::current_state
+Attribute Test Class Five::ID
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute Test Class::ID2
+Referential Attribute Test Class Three::ID
+Referential Attribute Test Class Three Subclass::ID
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation Test Class::bool3
+Operation Test Class::date3
+Operation Test Class::evt3
+Operation Test Class::timer3
+Operation Test Class::int3
+Operation Test Class::real3
+Operation Test Class::str3
+Operation Test Class::time3
+Operation Test Class::id3
+Operation Test Class::bool4
+Operation Test Class::date4
+Operation Test Class::evt4
+Operation Test Class::timer4
+Operation Test Class::int4
+Operation Test Class::real4
+Operation Test Class::str4
+Operation Test Class::time4
+Operation Test Class::id4
+Operation Test Class::enum3
+Operation Test Class::enum4
+Operation Test Class::udt3
+Operation Test Class::udt4
+Operation Test Class::single_invoke
+Operation Test Class::single_invoke2
+Operation Test Class::multiple_invoke
+Operation Test Class::multiple_invoke2
+Operation Test Class::multiple_invoke_w_expressions
+Operation Test Class::multiple_invoke_w_expressions2
+Operation Test Class::ret3
+Operation Test Class::ret4
+Operation Test Class::mod_params3
+Operation Test Class::mod_params4
+Operation Test Class::real_invoke3
+Operation Test Class::real_invoke4
+Operation Test Class::ret6
+Operation Test Class::ret7
+Operation Test Class Four::bool6
+Operation Test Class Four::int6
+Operation Test Class Four::real6
+Operation Test Class Four::str6
+Operation Test Class Four::bool7
+Operation Test Class Four::int7
+Operation Test Class Four::real7
+Operation Test Class Four::str7
+Operation Test Class Four::enum6
+Operation Test Class Four::enum7
+Operation Test Class Four::udt6
+Operation Test Class Four::udt7
+Operation Test Class Five::bool8
+Operation Test Class Five::bool9
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+G_ALL_nested_invoke::R1
+G_ALL_nested_invoke::R2
+G_ALL_nested_invoke::R3
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Initialization
+State Model Driver
+State Model Test Class Two
+State Model Test Class Three
+State Model Test Class Three Subclass
+State Model Bogus Class
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event DRV1
+Event DRV2
+Event DRV3
+Event DRV4
+Event DRV5
+Event DRV6
+Event DRV7
+Event DRV8
+Event DRV9
+Event DRV10
+Event DRV11
+Event DRV12
+Event DRV13
+Event DRV14
+Event TC2_A4
+Event TC2_A14
+Event TC2_A13
+Event TC2_A12
+Event TC2_A11
+Event TC2_A10
+Event TC2_A9
+Event TC2_A8
+Event TC2_A7
+Event TC2_A6
+Event TC2_A5
+Event TC31
+Event TC32
+Event BC1
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Driver::bool5
+Event Data Driver::date5
+Event Data Driver::enum5
+Event Data Driver::udt5
+Event Data Driver::int5
+Event Data Driver::real5
+Event Data Driver::str5
+Event Data Driver::evt5
+Event Data Driver::timer5
+Event Data Driver::time5
+Event Data Driver::id5
+Event Data Test Class Two (Class Based)::bool5
+Event Data Test Class Two (Class Based)::udt5
+Event Data Test Class Two (Class Based)::timer5
+Event Data Test Class Two (Class Based)::time5
+Event Data Test Class Two (Class Based)::str5
+Event Data Test Class Two (Class Based)::real5
+Event Data Test Class Two (Class Based)::int5
+Event Data Test Class Two (Class Based)::id5
+Event Data Test Class Two (Class Based)::evt5
+Event Data Test Class Two (Class Based)::enum5
+Event Data Test Class Two (Class Based)::date5
+Event Data Test Class Three::bool
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Initialization::Initialize
+Driver::Begin Test
+Driver::End Test
+Driver::Single Invocation
+Driver::Multiple Invocation
+Driver::Multiple Invocation with Expression
+Driver::From within
+Driver::Events
+Driver::Boolean
+Driver::Date
+Driver::Enumeration
+Driver::Event
+Driver::Unique ID
+Driver::Integer
+Driver::String
+Driver::Real
+Driver::Timer
+Driver::Timestamp
+Driver::User Data Type
+Driver::Select from instances of where
+Driver::If Elif
+Driver::While
+Driver::Attribute Assign
+Driver::Assigner Events
+Driver::Realized Invocations - Single
+Driver::Return
+Driver::Select related by where
+Driver::Realized Invocations - Multiple with Expression
+Driver::Realized Invocations - Multiple
+Driver::Assign Params
+Test Class Two::Integer (Class Based)
+Test Class Two::Boolean (Class Based)
+Test Class Two::Date (Class Based)
+Test Class Two::Enumeration (Class Based)
+Test Class Two::Event (Class Based)
+Test Class Two::Unique ID (Class Based)
+Test Class Two::String (Class Based)
+Test Class Two::Real (Class Based)
+Test Class Two::Timer (Class Based)
+Test Class Two::Timestamp (Class Based)
+Test Class Two::User Data Type (Class Based)
+Test Class Three::First and Last
+Test Class Three Subclass::Accept PE
+Bogus Class::Bogus State

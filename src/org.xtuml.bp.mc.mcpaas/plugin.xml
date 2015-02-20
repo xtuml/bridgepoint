@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="MCNature"
+         name="model compiler nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="org.xtuml.bp.mc.mcpaas.MCNature">
+         </run>
+      </runtime>
+      <builder
+            id="org.xtuml.bp.mc.mcpaas.export_builder">
+      </builder>
+      <builder
+            id="com.mentor.nucleus.bp.mc.mcpaas.export_builder">
+      </builder>
+   </extension>
+   <extension
+         point="org.eclipse.ui.ide.projectNatureImages">
+      <image
+            icon="../org.xtuml.bp.core/icons/xtuml-nature.gif"
+            natureId="org.xtuml.bp.mc.mcpaas.MCNature"
+            id="org.xtuml.resoures.natureimage">
+      </image>
+   </extension>
+   <extension
+         id="export_builder"
+         name="Model Compiler Pre-Build"
+         point="org.eclipse.core.resources.builders">
+      <builder>
+         <run
+               class="org.xtuml.bp.mc.mcpaas.ExportBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="com.mentor.nucleus.bp.mc.mcpaas.export_builder"
+         name="Model Compiler Pre-Build"
+         point="org.eclipse.core.resources.builders">
+      <builder>
+         <run
+               class="org.xtuml.bp.mc.mcpaas.ExportBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         point="org.xtuml.bp.core.model-compilers">
+      <model-compiler
+            name="MC-PaaS"
+            class="org.xtuml.bp.mc.mcpaas.MCNewProjectWizard">
+      </model-compiler>
+   </extension>
+
+</plugin>

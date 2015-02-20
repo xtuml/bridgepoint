@@ -1,0 +1,20 @@
+Transaction started: Attribute Move Down
+  instance of [core.Attribute] UN-RelatedAcross R103 To:  instance of [core.Attribute]
+  instance of [core.Attribute] RelatedAcross R103 To:  instance of [core.Attribute]
+Transaction Ended: Attribute Move Down with delta size: 2
+Transaction started: Attribute Move Up
+  instance of [core.Attribute] UN-RelatedAcross R103 To:  instance of [core.Attribute]
+  instance of [core.Attribute] RelatedAcross R103 To:  instance of [core.Attribute]
+Transaction Ended: Attribute Move Up with delta size: 2
+Transaction started: Attribute Move Up
+  instance of [core.Attribute] UN-RelatedAcross R103 To:  instance of [core.Attribute]
+  instance of [core.Attribute] UN-RelatedAcross R103 To:  instance of [core.Attribute]
+  instance of [core.Attribute] RelatedAcross R103 To:  instance of [core.Attribute]
+  instance of [core.Attribute] RelatedAcross R103 To:  instance of [core.Attribute]
+Transaction Ended: Attribute Move Up with delta size: 4
+Transaction started: Attribute Move Down
+  instance of [core.Attribute] UN-RelatedAcross R103 To:  instance of [core.Attribute]
+  instance of [core.Attribute] UN-RelatedAcross R103 To:  instance of [core.Attribute]
+  instance of [core.Attribute] RelatedAcross R103 To:  instance of [core.Attribute]
+  instance of [core.Attribute] RelatedAcross R103 To:  instance of [core.Attribute]
+Transaction Ended: Attribute Move Down with delta size: 4

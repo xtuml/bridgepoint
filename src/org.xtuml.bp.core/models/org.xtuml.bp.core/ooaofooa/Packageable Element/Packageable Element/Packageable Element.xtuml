@@ -1,0 +1,1125 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'Packageable Element',
+	8000,
+	'PE_PE',
+	'',
+	"61c0aa15-d896-4feb-9c48-5e3f1af4e670");
+INSERT INTO O_TFR
+	VALUES ("d7f10c92-2026-4f6c-ad30-77958a473334",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Packageable Element.dispose()
+ 
+select many ele_vis_links related by self->PE_VIS[R8002];
+for each ele_vis_link in ele_vis_links
+  select one pkg related by ele_vis_link->EP_PKG[R8002];
+  unrelate self from pkg across R8002 using ele_vis_link;
+  select one searchResultset related by ele_vis_link->PE_SRS[R8006];
+  unrelate ele_vis_link from searchResultset across R8006;  
+  delete object instance ele_vis_link;
+end for;
+select many com_vis_links related by self->PE_CVS[R8004];
+for each com_vis_link in com_vis_links
+  select one component related by com_vis_link->C_C[R8004];
+  unrelate self from component across R8004 using com_vis_link;
+  delete object instance com_vis_link;
+end for;
+select one modelClass related by self->O_OBJ[R8001];
+if not_empty modelClass
+  unrelate modelClass from self across R8001;
+  modelClass.dispose();
+end if;
+select one dt related by self->S_DT[R8001];
+if not_empty dt
+  // note we do not tear down this association
+  // as the S_DT.dispose() call requires it to
+  // be setup, it will tear it down
+  dt.dispose();
+end if;
+select one intPart related by self->SQ_P[R8001];
+if not_empty intPart
+  unrelate intPart from self across R8001;
+  intPart.dispose();
+end if;
+select one ucAssoc related by self->UC_UCA[R8001];
+if not_empty ucAssoc
+  unrelate ucAssoc from self across R8001;
+  ucAssoc.dispose();
+end if;
+select one actNode related by self->A_N[R8001];
+if not_empty actNode
+  unrelate actNode from self across R8001;
+  actNode.dispose();
+end if;
+select one comp related by self->C_C[R8001];
+if not_empty comp
+  unrelate comp from self across R8001;
+  comp.dispose();
+end if;
+select one ic related by self->CL_IC[R8001];
+if not_empty ic
+  unrelate ic from self across R8001;
+  ic.dispose();
+end if;
+select one interface related by self->C_I[R8001];
+if not_empty interface
+  unrelate interface from self across R8001;
+  interface.dispose();
+end if;
+select one pkg related by self->EP_PKG[R8001];
+if not_empty pkg
+  unrelate pkg from self across R8001;
+  pkg.dispose();
+end if;
+select one csp related by self->CNST_CSP[R8001];
+if not_empty csp
+  unrelate csp from self across R8001;
+  csp.dispose();
+end if;
+select one ap related by self->A_AP[R8001];
+if not_empty ap
+  unrelate ap from self across R8001;
+  ap.dispose();
+end if;
+select one edge related by self->A_E[R8001];
+if not_empty edge
+  unrelate edge from self across R8001;
+  edge.dispose();
+end if;
+select one msg related by self->MSG_M[R8001];
+if not_empty msg
+  unrelate msg from self across R8001;
+  msg.dispose();
+end if;
+select one rel related by self->R_REL[R8001];
+if not_empty rel
+  unrelate rel from self across R8001;
+  rel.dispose();
+end if;
+select one icomp related by self->O_IOBJ[R8001];
+if not_empty icomp
+  unrelate icomp from self across R8001;
+  icomp.dispose();
+end if;
+select one sync related by self->S_SYNC[R8001];
+if not_empty sync
+  unrelate sync from self across R8001;
+  sync.dispose();
+end if;
+select one ee related by self->S_EE[R8001];
+if not_empty ee
+  unrelate ee from self across R8001;
+  ee.dispose();
+end if;
+select one sat related by self->C_SF[R8001];
+if not_empty sat
+  unrelate sat from self across R8001;
+  sat.dispose();
+end if;
+select one delg related by self->C_DG[R8001];
+if not_empty delg
+  unrelate delg from self across R8001;
+  delg.dispose();
+end if;
+select many bodyInElements related by self->ACT_BIE[R640];
+for each bie in bodyInElements
+  select one body related by bie->ACT_ACT[R640];
+  unrelate self from body across R640 using bie;
+  delete object instance bie;
+end for;
+
+select one package related by self->EP_PKG[R8000];
+if not_empty package
+  unrelate self from package across R8000 ;
+end if;
+
+select one component related by self->C_C[R8003];
+if(not_empty component)
+  unrelate self from component across R8003;
+end if;
+
+select many elemInSystems related by self->G_EIS[R9100];
+for each elemInSystem in elemInSystems
+  select one system related by elemInSystem->S_SYS[R9100];
+  unrelate self from system across R9100 using elemInSystem;
+  delete object instance elemInSystem;
+end for;
+
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("69115024-26db-4ec7-a090-987abb80ca2a",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'collectVisibleElementsForName',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Packageable Element::collectVisibleElementsForName()
+if param.type == self.type
+  visible = false;
+  if param.type == ElementTypeConstants::DATATYPE
+    select one dt related by self->S_DT[R8001];
+    if not_empty dt and (param.name == "" or dt.Name == param.name)
+      visible = true;
+    end if;
+  elif param.type == ElementTypeConstants::CONSTANT
+    select one cnst related by self->CNST_CSP[R8001];
+    if not_empty cnst
+      visible = true;
+    end if;    
+  elif param.type == ElementTypeConstants::CLASS
+    select one clazz related by self->O_OBJ[R8001];
+    if not_empty clazz and (param.name == "" or clazz.Key_Lett == param.name)
+      visible = true;
+    end if;
+  elif param.type == ElementTypeConstants::INTERFACE
+    select one ifc related by self->C_I[R8001];
+    if not_empty ifc and (param.name == "" or ifc.Name == param.name)
+      visible = true;
+    end if;
+  elif param.type == ElementTypeConstants::FUNCTION
+    select one fn related by self->S_SYNC[R8001];
+    if not_empty fn and (param.name == "" or fn.Name == param.name)
+      visible = true;
+    end if;
+  elif param.type == ElementTypeConstants::COMPONENT
+    select one comp related by self->C_C[R8001];
+    if not_empty comp and (param.name == "" or comp.Name == param.name)
+      visible = true;
+    end if;
+  elif param.type == ElementTypeConstants::EE
+    select one ee related by self->S_EE[R8001];
+    if not_empty ee and (param.name == "" or ee.Key_Lett == param.name)
+      visible = true;
+    end if;
+  elif param.type == ElementTypeConstants::ASSOCIATION
+    select one rel related by self->R_REL[R8001];
+    if not_empty rel and (param.name == "" or
+                   rel.Numb == OS::convert_relationship_string(rel:param.name));
+      visible = true;
+    end if;
+  elif param.type == ElementTypeConstants::PACKAGE
+    select one package related by self->EP_PKG[R8001];
+    if not_empty package and (param.name == "" or package.Name == param.name)
+      visible = true;
+    end if;
+  end if;
+  if visible
+    select any package from instances of EP_PKG
+                    where (selected.Package_ID == param.originatingContainerID);
+    select one packageableElement related by package->PE_PE[R8001];
+    if(empty package)
+      // force the architecture to look globally for the package
+      select any packageableElement from instances of PE_PE
+                    where (selected.Element_ID == param.originatingContainerID);
+      select one package related by packageableElement->EP_PKG[R8001];
+    end if;
+    if not_empty package
+      select any resultSet related by package->PE_SRS[R8005] where
+                    selected.Name == param.name and selected.Type == param.type;
+      create object instance visibility of PE_VIS;
+      relate self to package across R8002 using visibility;
+      relate visibility to resultSet across R8006;
+    else
+      select one originatingComp related by packageableElement->C_C[R8001];
+      if not_empty originatingComp
+        select any resultSet related by originatingComp->PE_CRS[R8007] where
+                    selected.Name == param.name and selected.Type == param.type;
+        create object instance visibility of PE_CVS;
+        relate self to originatingComp across R8004 using visibility;
+        relate visibility to resultSet across R8008;
+      end if;
+    end if;
+  end if;
+end if;
+if self.type == ElementTypeConstants::PACKAGE
+  select one package related by self->EP_PKG[R8001];
+  if not_empty package and self.Element_ID != param.delegatingPkgID
+    package.collectVisibleElementsForName(name:param.name,
+                         type:param.type, descending:param.descending,
+                         originatingContainerID: param.originatingContainerID,
+                                         delegatingPkgID:GD::NULL_UNIQUE_ID(),
+                                         collectGlobally:param.collectGlobally);
+  end if;
+end if;',
+	1,
+	'',
+	"d7f10c92-2026-4f6c-ad30-77958a473334");
+INSERT INTO O_TPARM
+	VALUES ("00dac2a1-caf9-4d41-8c24-494fd0168d84",
+	"69115024-26db-4ec7-a090-987abb80ca2a",
+	'name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("fb1143e1-1a34-49d9-ae1d-8118c7233232",
+	"69115024-26db-4ec7-a090-987abb80ca2a",
+	'type',
+	"9a52ac80-0dbf-4444-99ce-efd27902d8db",
+	0,
+	'',
+	"00dac2a1-caf9-4d41-8c24-494fd0168d84",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("9a52ac80-0dbf-4444-99ce-efd27902d8db",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'ElementTypeConstants',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("bfe501b6-a745-4989-bd27-cc95707dc2b9",
+	"69115024-26db-4ec7-a090-987abb80ca2a",
+	'descending',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"fb1143e1-1a34-49d9-ae1d-8118c7233232",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("56c02c8a-6617-4f30-8cc2-e5b35679f7d7",
+	"69115024-26db-4ec7-a090-987abb80ca2a",
+	'originatingContainerID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"bfe501b6-a745-4989-bd27-cc95707dc2b9",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("2073e72c-37a4-46c7-9ffc-80d4395ce4b1",
+	"69115024-26db-4ec7-a090-987abb80ca2a",
+	'delegatingPkgID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"56c02c8a-6617-4f30-8cc2-e5b35679f7d7",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("46c74672-9e77-4e33-8bc1-40ab54362659",
+	"69115024-26db-4ec7-a090-987abb80ca2a",
+	'collectGlobally',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"2073e72c-37a4-46c7-9ffc-80d4395ce4b1",
+	'');
+INSERT INTO O_TFR
+	VALUES ("48405ea7-e3a7-457c-abef-a418bed792e4",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'initialize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PackageableElement.initialize()
+self.Visibility = Visibility::Public;',
+	1,
+	'',
+	"69115024-26db-4ec7-a090-987abb80ca2a");
+INSERT INTO O_TFR
+	VALUES ("dc5721d8-8df7-447e-9506-ae986463cffa",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'getQualifiedName',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'//PackageableElement::getQualifiedName()
+result = "";
+select one package related by self->EP_PKG[R8000];
+if not_empty package
+  result = package.getQualifiedName();
+else
+  select one comp related by self->C_C[R8003];
+  if not_empty comp
+    result = comp.getQualifiedName();
+  end if;
+end if;
+if result != ""
+  result = result + "::";
+end if;
+result = result + self.getLocalName();
+return result;',
+	1,
+	'',
+	"48405ea7-e3a7-457c-abef-a418bed792e4");
+INSERT INTO O_TFR
+	VALUES ("bb4965fa-ee05-41d9-8ea1-c3b280bac4e3",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'getLocalName',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'//PackageableElement::getLocalName()
+// put these three first because these will be called much more than others.
+select one dt related by self->S_DT[R8001];
+if not_empty dt
+  return dt.Name;
+end if;
+select one clazz related by self->O_OBJ[R8001];
+if not_empty clazz
+  return clazz.Name;
+end if;
+select one package related by self->EP_PKG[R8001];
+if not_empty package
+  return package.Name;
+end if;
+select one interface related by self->C_I[R8001];
+if not_empty interface
+  return interface.Name;
+end if;
+select one component related by self->C_C[R8001];
+if not_empty component
+  return component.Name;
+end if;
+select one assoc related by self->R_REL[R8001];
+if not_empty assoc
+  return GD::int_to_string(value:assoc.Numb);
+end if;
+select one func related by self->S_SYNC[R8001];
+if not_empty func
+  return func.Name;
+end if;
+select one iComp related by self->CL_IC[R8001];
+if not_empty iComp
+  return iComp.Name;
+end if;
+select one ee related by self->S_EE[R8001];
+if not_empty ee
+  return ee.Name;
+end if;
+return "";',
+	1,
+	'',
+	"dc5721d8-8df7-447e-9506-ae986463cffa");
+INSERT INTO O_TFR
+	VALUES ("652fb3a4-60fa-41fc-9cd3-47786f45f0b1",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'isAllowedType',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// PackageableElement.isAllowedType()
+select one package related by self->EP_PKG[R8000];
+select any resultSet related by package->PE_SRS[R8005] where
+        selected.Name == "" and selected.Type == ElementTypeConstants::DATATYPE;
+select any dt related by resultSet->
+                             PE_VIS[R8006]->PE_PE[R8002]->S_DT[R8001] where
+                                                selected.Name == param.typeName;
+if empty package
+  select one component related by self->C_C[R8003];
+  select any compResultSet related by component->PE_CRS[R8007] where
+        selected.Name == "" and selected.Type == ElementTypeConstants::DATATYPE;
+  select any dt related by compResultSet->
+                             PE_CVS[R8008]->PE_PE[R8004]->S_DT[R8001] where
+                                                selected.Name == param.typeName;
+end if;
+if not_empty dt
+  if param.isReturnType and param.typeName == "void"
+    return true;
+  else
+    return dt.isCommonAllowedType();
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"bb4965fa-ee05-41d9-8ea1-c3b280bac4e3");
+INSERT INTO O_TPARM
+	VALUES ("46610d3e-390f-4ea1-8a2f-28dcb879cba4",
+	"652fb3a4-60fa-41fc-9cd3-47786f45f0b1",
+	'isReturnType',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("87a822d5-0636-4388-8a7c-91c751471aeb",
+	"652fb3a4-60fa-41fc-9cd3-47786f45f0b1",
+	'typeName',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"46610d3e-390f-4ea1-8a2f-28dcb879cba4",
+	'');
+INSERT INTO O_TFR
+	VALUES ("e279c5c5-b188-443b-8400-ce2ddc4e4ce8",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'resolveDataTypeRelativeToSelf',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one package related by self->EP_PKG[R8000];
+select one component related by self->C_C[R8003];
+if not_empty component
+  component.clearScope();
+  component.collectVisibleElementsForName(name:param.expected_name,
+           type:ElementTypeConstants::DATATYPE,
+                       originatingContainerID:component.Id,
+                              delegatingContainerID:GD::NULL_UNIQUE_ID(),
+                                                         collectGlobally:true);
+else
+  package.clearScope();
+  package.collectVisibleElementsForName(name:param.expected_name,
+           type:ElementTypeConstants::DATATYPE, descending:false,
+                       originatingContainerID:package.Package_ID,
+                                      delegatingPkgID:GD::NULL_UNIQUE_ID(),
+                                                         collectGlobally:true);
+end if;
+select any resultSet related by component->PE_CRS[R8007] where
+                                         selected.Name == param.expected_name and 
+                            selected.Type == ElementTypeConstants::DATATYPE; 
+select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+if not_empty package
+  select any pkgResultSet related by package->PE_SRS[R8005] where
+                                         selected.Name == param.expected_name and 
+                            selected.Type == ElementTypeConstants::DATATYPE; 
+  select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+end if;
+select any resolvedDt related by results->S_DT[R8001];
+if cardinality results == 0
+  if not_empty component
+    component.clearScope();
+    component.collectVisibleElementsForName(name:param.default_name,
+          type:ElementTypeConstants::DATATYPE,
+                      originatingContainerID:component.Id,
+                             delegatingContainerID:GD::NULL_UNIQUE_ID(),
+                                                         collectGlobally:true);
+  else
+    package.clearScope();
+    package.collectVisibleElementsForName(name:param.default_name,
+          type:ElementTypeConstants::DATATYPE, descending:false,
+                      originatingContainerID:package.Package_ID,
+                                      delegatingPkgID:GD::NULL_UNIQUE_ID(),
+                                                         collectGlobally:true);
+  end if;
+  select any resultSet related by component->PE_CRS[R8007] where
+                                               selected.Name == param.default_name and 
+                            selected.Type == ElementTypeConstants::DATATYPE; 
+  select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+  if not_empty package
+    select any pkgResultSet related by package->PE_SRS[R8005] where
+                                               selected.Name == param.default_name and 
+                            selected.Type == ElementTypeConstants::DATATYPE; 
+    select many results related by
+                                  pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+  end if;
+  select any resolvedDt related by results->S_DT[R8001];
+end if;
+if(not_empty resolvedDt)
+  return resolvedDt.DT_ID;
+end if;
+// no dt was found, this is definitely an issue
+// log an error and return a null id
+USER::logError(msg:"Unable to resolve any data type.",path:"");
+return GD::NULL_UNIQUE_ID();
+',
+	1,
+	'',
+	"652fb3a4-60fa-41fc-9cd3-47786f45f0b1");
+INSERT INTO O_TPARM
+	VALUES ("89cf7aeb-b829-4ba0-bcb6-45c9081c1402",
+	"e279c5c5-b188-443b-8400-ce2ddc4e4ce8",
+	'expected_name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("8e7593e4-3be8-4c9e-a7de-be43377d41af",
+	"e279c5c5-b188-443b-8400-ce2ddc4e4ce8",
+	'default_name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"89cf7aeb-b829-4ba0-bcb6-45c9081c1402",
+	'');
+INSERT INTO O_TFR
+	VALUES ("f254751a-7399-41fe-a8dc-adcb041c6500",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'canReferToDataType',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select one package related by self->EP_PKG[R8000];
+select one component related by self->C_C[R8003];
+if not_empty component
+  component.clearScope();
+  component.collectVisibleElementsForName(name:param.dtName,
+         type:ElementTypeConstants::DATATYPE,
+                          originatingContainerID:component.Id,
+                                   delegatingContainerID:GD::NULL_UNIQUE_ID(),
+                                                          collectGlobally:true);
+else
+  package.clearScope();
+  package.collectVisibleElementsForName(name:param.dtName,
+         type:ElementTypeConstants::DATATYPE, descending:false,
+                           originatingContainerID:package.Package_ID,
+                                          delegatingPkgID:GD::NULL_UNIQUE_ID(),
+                                                          collectGlobally:true);
+end if;
+// Find the previously created visibility list
+select any resultSet related by package->PE_SRS[R8005] where
+      selected.Name == param.dtName and selected.Type == ElementTypeConstants::DATATYPE;
+select any dt related by resultSet->PE_VIS[R8006]->
+                 PE_PE[R8002]->S_DT[R8001] where selected.DT_ID == param.dtID;
+if not_empty component
+  // Find the previously created visibility list
+  select any compResultSet related by component->PE_CRS[R8007] where
+      selected.Name == param.dtName and selected.Type == ElementTypeConstants::DATATYPE;
+  select any dt related by compResultSet->PE_CVS[R8008]->
+                   PE_PE[R8004]->S_DT[R8001] where selected.DT_ID == dt.DT_ID;
+end if;
+if(not_empty dt)
+  return true;
+end if;
+return false;
+',
+	1,
+	'',
+	"e279c5c5-b188-443b-8400-ce2ddc4e4ce8");
+INSERT INTO O_TPARM
+	VALUES ("5fe668e6-8b39-47ba-add1-04c84d11679d",
+	"f254751a-7399-41fe-a8dc-adcb041c6500",
+	'dtID',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("2cb87161-dc1d-494a-9a1e-444a61eb7bd1",
+	"f254751a-7399-41fe-a8dc-adcb041c6500",
+	'dtName',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"5fe668e6-8b39-47ba-add1-04c84d11679d",
+	'');
+INSERT INTO O_TFR
+	VALUES ("594fd456-5547-4e59-913e-e4f510347efd",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'getVisibilityAdornment',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'// Packageable Element.getVisibilityAdornment()
+select one package related by self->EP_PKG[R8000];
+select one component related by self->C_C[R8003];
+select one sys related by self->EP_PKG[R8001]->S_SYS[R1401];
+result = "";
+if ((not_empty package or not_empty component) or 
+    (not_empty sys and sys.useGlobals == true))
+  if self.Visibility == Visibility::Public
+    result = "+";
+  elif self.Visibility == Visibility::Protected
+    result = "#";
+  elif self.Visibility == Visibility::Private
+    result = "-";
+  end if;
+end if;
+return result;',
+	1,
+	'',
+	"f254751a-7399-41fe-a8dc-adcb041c6500");
+INSERT INTO O_TFR
+	VALUES ("3f2c851b-510d-4b9b-9ebe-3a32468b32ed",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'getVisibilityValue',
+	'',
+	"cada8912-c244-4001-8c77-ae1fc60554d0",
+	1,
+	'select one irdt related by self->S_DT[R8001]->S_IRDT[R17];
+if(not_empty irdt)
+  select one classPE related by irdt->O_OBJ[R123]->PE_PE[R8001];
+  return classPE.Visibility;
+end if;
+return self.Visibility;',
+	1,
+	'',
+	"594fd456-5547-4e59-913e-e4f510347efd");
+INSERT INTO S_DT_PROXY
+	VALUES ("cada8912-c244-4001-8c77-ae1fc60554d0",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Visibility',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("91c4b396-788e-436e-b4b6-c3ee58d7ebf3",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'resolveComponentRelativeToSelf',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one package related by self->EP_PKG[R8000];
+select one component related by self->C_C[R8003];
+if not_empty component
+  component.clearScope();
+  component.collectVisibleElementsForName(name:param.expected_name,
+           type:ElementTypeConstants::COMPONENT,
+                       originatingContainerID:component.Id,
+                              delegatingContainerID:GD::NULL_UNIQUE_ID(),
+                                                         collectGlobally:true);
+else
+  package.clearScope();
+  package.collectVisibleElementsForName(name:param.expected_name,
+           type:ElementTypeConstants::COMPONENT, descending:false,
+                       originatingContainerID:package.Package_ID,
+                                      delegatingPkgID:GD::NULL_UNIQUE_ID(),
+                                                         collectGlobally:true);
+end if;',
+	1,
+	'',
+	"3f2c851b-510d-4b9b-9ebe-3a32468b32ed");
+INSERT INTO O_TPARM
+	VALUES ("693704ac-0356-4cc1-a89a-faada5ccba80",
+	"91c4b396-788e-436e-b4b6-c3ee58d7ebf3",
+	'expected_name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("99b167be-1bb9-441f-97de-56e64f5fe01d",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'resolveInterfaceRelativeToSelf',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one package related by self->EP_PKG[R8000];
+select one component related by self->C_C[R8003];
+if not_empty component
+  component.clearScope();
+  component.collectVisibleElementsForName(name:param.expected_name,
+           type:ElementTypeConstants::INTERFACE,
+                       originatingContainerID:component.Id,
+                              delegatingContainerID:GD::NULL_UNIQUE_ID(),
+                                                         collectGlobally:true);
+else
+  package.clearScope();
+  package.collectVisibleElementsForName(name:param.expected_name,
+           type:ElementTypeConstants::INTERFACE, descending:false,
+                       originatingContainerID:package.Package_ID,
+                                      delegatingPkgID:GD::NULL_UNIQUE_ID(),
+                                                         collectGlobally:true);
+end if;',
+	1,
+	'',
+	"91c4b396-788e-436e-b4b6-c3ee58d7ebf3");
+INSERT INTO O_TPARM
+	VALUES ("a1cdcca2-3364-4f8b-b8af-8556646d952f",
+	"99b167be-1bb9-441f-97de-56e64f5fe01d",
+	'expected_name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("f132abfa-7093-47bb-bdd7-950a0a3803c1",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'resolvePackageRelativeToSelf',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one package related by self->EP_PKG[R8000];
+select one component related by self->C_C[R8003];
+if not_empty component
+  component.clearScope();
+  component.collectVisibleElementsForName(name:param.expected_name,
+           type:ElementTypeConstants::PACKAGE,
+                       originatingContainerID:component.Id,
+                              delegatingContainerID:GD::NULL_UNIQUE_ID(),
+                                                         collectGlobally:true);
+else
+  package.clearScope();
+  package.collectVisibleElementsForName(name:param.expected_name,
+           type:ElementTypeConstants::PACKAGE, descending:false,
+                       originatingContainerID:package.Package_ID,
+                                      delegatingPkgID:GD::NULL_UNIQUE_ID(),
+                                                         collectGlobally:true);
+end if;
+select any resultSet related by component->PE_CRS[R8007] where
+                                         selected.Name == param.expected_name and 
+                            selected.Type == ElementTypeConstants::PACKAGE; 
+select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+if not_empty package
+  select any pkgResultSet related by package->PE_SRS[R8005] where
+                                         selected.Name == param.expected_name and 
+                            selected.Type == ElementTypeConstants::PACKAGE; 
+  select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+end if;
+select any resolvedPkg related by results->EP_PKG[R8001];
+if(not_empty resolvedPkg)
+  return resolvedPkg.Package_ID;
+end if; 
+return GD::NULL_UNIQUE_ID();
+',
+	1,
+	'',
+	"99b167be-1bb9-441f-97de-56e64f5fe01d");
+INSERT INTO O_TPARM
+	VALUES ("ebc3668f-db87-4bd4-b515-afe0473caba1",
+	"f132abfa-7093-47bb-bdd7-950a0a3803c1",
+	'expected_name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("a620d162-0a29-4967-b0c3-38efc21a4473",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'resolveClassRelativeToSelf',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one package related by self->EP_PKG[R8000];
+select one component related by self->C_C[R8003];
+if not_empty component
+  component.clearScope();
+  component.collectVisibleElementsForName(name:param.expected_name,
+           type:ElementTypeConstants::CLASS,
+                       originatingContainerID:component.Id,
+                              delegatingContainerID:GD::NULL_UNIQUE_ID(),
+                                                         collectGlobally:true);
+else
+  package.clearScope();
+  package.collectVisibleElementsForName(name:param.expected_name,
+           type:ElementTypeConstants::CLASS, descending:false,
+                       originatingContainerID:package.Package_ID,
+                                      delegatingPkgID:GD::NULL_UNIQUE_ID(),
+                                                         collectGlobally:true);
+end if;',
+	1,
+	'',
+	"f132abfa-7093-47bb-bdd7-950a0a3803c1");
+INSERT INTO O_TPARM
+	VALUES ("3e34693a-b3b7-45f3-8e93-88cbb4bdead5",
+	"a620d162-0a29-4967-b0c3-38efc21a4473",
+	'expected_name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("1bc3f9c0-ddce-4805-b000-53b660c731a7",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'resolveEERelativeToSelf',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one package related by self->EP_PKG[R8000];
+select one component related by self->C_C[R8003];
+if not_empty component
+  component.clearScope();
+  component.collectVisibleElementsForName(name:param.expected_name,
+           type:ElementTypeConstants::EE,
+                       originatingContainerID:component.Id,
+                              delegatingContainerID:GD::NULL_UNIQUE_ID(),
+                                                         collectGlobally:true);
+else
+  package.clearScope();
+  package.collectVisibleElementsForName(name:param.expected_name,
+           type:ElementTypeConstants::EE, descending:false,
+                       originatingContainerID:package.Package_ID,
+                                      delegatingPkgID:GD::NULL_UNIQUE_ID(),
+                                                         collectGlobally:true);
+end if;',
+	1,
+	'',
+	"a620d162-0a29-4967-b0c3-38efc21a4473");
+INSERT INTO O_TPARM
+	VALUES ("bdaf9a1b-2b4e-44ea-a409-d3c98fe46b13",
+	"1bc3f9c0-ddce-4805-b000-53b660c731a7",
+	'expected_name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("39234bd4-7c4b-4acb-ba0a-3941999ac9d1",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'isElementVisibleToSelf',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'select one package related by self->EP_PKG[R8000];
+select one component related by self->C_C[R8003];
+if not_empty component
+  component.clearScope();
+  component.collectVisibleElementsForName(name:"",
+           type:param.type,
+                       originatingContainerID:component.Id,
+                              delegatingContainerID:GD::NULL_UNIQUE_ID(),
+                                                         collectGlobally:true);
+else
+  package.clearScope();
+  package.collectVisibleElementsForName(name:"",
+           type:param.type, descending:false,
+                       originatingContainerID:package.Package_ID,
+                                      delegatingPkgID:GD::NULL_UNIQUE_ID(),
+                                                         collectGlobally:true);
+end if;
+select any resultSet related by component->PE_CRS[R8007] where
+                                                    selected.Type == param.type;
+select many results related by resultSet->PE_CVS[R8008]->PE_PE[R8004];
+if not_empty package
+  select any pkgResultSet related by package->PE_SRS[R8005] where 
+                                                    selected.Type == param.type; 
+  select many results related by pkgResultSet->PE_VIS[R8006]->PE_PE[R8002];
+end if;
+for each result in results
+  if(result.Element_ID == param.elementId)
+    return true;
+  end if;
+end for;
+return false;',
+	1,
+	'',
+	"1bc3f9c0-ddce-4805-b000-53b660c731a7");
+INSERT INTO O_TPARM
+	VALUES ("0dec1fb0-c8b9-404d-9db3-f40d6b038b31",
+	"39234bd4-7c4b-4acb-ba0a-3941999ac9d1",
+	'type',
+	"9a52ac80-0dbf-4444-99ce-efd27902d8db",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("b5d7bb99-8fc7-4997-872e-875fa6364218",
+	"39234bd4-7c4b-4acb-ba0a-3941999ac9d1",
+	'elementId',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"0dec1fb0-c8b9-404d-9db3-f40d6b038b31",
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6");
+INSERT INTO O_BATTR
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6");
+INSERT INTO O_ATTR
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	"00000000-0000-0000-0000-000000000000",
+	'Element_ID',
+	'',
+	'',
+	'Element_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("eda32c1e-1de4-4775-b090-54b69b9fceed",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6");
+INSERT INTO O_BATTR
+	VALUES ("eda32c1e-1de4-4775-b090-54b69b9fceed",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6");
+INSERT INTO O_ATTR
+	VALUES ("eda32c1e-1de4-4775-b090-54b69b9fceed",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	'Visibility',
+	'Full Name: Visibility',
+	'',
+	'Visibility',
+	0,
+	"cada8912-c244-4001-8c77-ae1fc60554d0",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	0,
+	"79df1b10-74db-4df8-a815-0cf62a4752c9",
+	"bdadf54a-a2f0-4ba1-9637-3105dc588733",
+	"2eb0c842-138a-4a9e-bf17-ca224ec7ed96",
+	"abf2566d-84bc-46dd-bdd5-9834dea987fe",
+	"c907b7e7-b33e-417e-90e6-3829d67e63cd",
+	"977b5fa1-d96f-4e2f-8cf9-9073e9db69d2",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Package',
+	'Package_ID',
+	'R8000');
+INSERT INTO R_RGO_PROXY
+	VALUES ("5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	"bdadf54a-a2f0-4ba1-9637-3105dc588733",
+	"2eb0c842-138a-4a9e-bf17-ca224ec7ed96",
+	'../Packageable Element.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("79df1b10-74db-4df8-a815-0cf62a4752c9",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	0,
+	"bdadf54a-a2f0-4ba1-9637-3105dc588733",
+	"abf2566d-84bc-46dd-bdd5-9834dea987fe",
+	'../Packageable Element.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("c907b7e7-b33e-417e-90e6-3829d67e63cd",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_ATTR
+	VALUES ("c907b7e7-b33e-417e-90e6-3829d67e63cd",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	"eda32c1e-1de4-4775-b090-54b69b9fceed",
+	'Package_ID',
+	'',
+	'',
+	'Package_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	0,
+	"7b9804b1-294c-4909-b563-aae43167f8d6",
+	"2c112b43-e171-4c73-b41a-53cc4614682b",
+	"9829cdfe-e683-428f-8d46-c1c5da2fbc85",
+	"c6a1e719-bc97-4775-94f7-bfbe0b0650b0",
+	"dcdfaadf-c035-42d6-9f43-8dccf91235dc",
+	"952d7c15-6ebf-4f0c-8797-8c33bd898d5e",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Component',
+	'Id',
+	'R8003');
+INSERT INTO R_RGO_PROXY
+	VALUES ("5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	"2c112b43-e171-4c73-b41a-53cc4614682b",
+	"9829cdfe-e683-428f-8d46-c1c5da2fbc85",
+	'../Packageable Element.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("7b9804b1-294c-4909-b563-aae43167f8d6",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	0,
+	"2c112b43-e171-4c73-b41a-53cc4614682b",
+	"c6a1e719-bc97-4775-94f7-bfbe0b0650b0",
+	'../Packageable Element.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("dcdfaadf-c035-42d6-9f43-8dccf91235dc",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	'Element_ID');
+INSERT INTO O_ATTR
+	VALUES ("dcdfaadf-c035-42d6-9f43-8dccf91235dc",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	"c907b7e7-b33e-417e-90e6-3829d67e63cd",
+	'Component_ID',
+	'',
+	'',
+	'Component_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("e373eab1-82ae-44be-bdbc-6f60c714672e",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6");
+INSERT INTO O_BATTR
+	VALUES ("e373eab1-82ae-44be-bdbc-6f60c714672e",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6");
+INSERT INTO O_ATTR
+	VALUES ("e373eab1-82ae-44be-bdbc-6f60c714672e",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	"dcdfaadf-c035-42d6-9f43-8dccf91235dc",
+	'type',
+	'readonly:true',
+	'',
+	'type',
+	0,
+	"9a52ac80-0dbf-4444-99ce-efd27902d8db",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6");
+INSERT INTO O_OIDA
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	'Element_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6");
+INSERT INTO O_ID
+	VALUES (2,
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6");
+INSERT INTO S_SS_PROXY
+	VALUES ("61c0aa15-d896-4feb-9c48-5e3f1af4e670",
+	'Packageable Element',
+	'',
+	'PE',
+	8000,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Packageable Element.xtuml');

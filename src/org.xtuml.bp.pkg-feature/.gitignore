@@ -1,0 +1,6 @@
+bin
+build.xml
+org.xtuml.bp.pkg_*.jar
+org.xtuml.bp.pkg_*.bin.dist.zip
+timer.log
+temp.folder

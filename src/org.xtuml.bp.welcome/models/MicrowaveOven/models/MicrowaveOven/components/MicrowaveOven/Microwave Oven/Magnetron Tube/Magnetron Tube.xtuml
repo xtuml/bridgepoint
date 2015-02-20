@@ -1,0 +1,106 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("21726274-a60c-4843-a337-c30d3e6fd999",
+	'Magnetron Tube',
+	2,
+	'MO_MT',
+	'The magnetron tube is the core element of the microwave oven, generating microwave energy following AC/DC Voltage conversion. The tube operates from a 240V, 50Hz supply.
+
+The tube has variable power output, ranging from 600W to 1000W in discrete 100W steps. 
+
+The relevant behaviour of the tube is confined to :
+
+* power on 
+* power off
+* raising & lowering output power level ',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("f1330b84-d00a-403f-81b3-22f1a7ad6040",
+	"21726274-a60c-4843-a337-c30d3e6fd999");
+INSERT INTO O_BATTR
+	VALUES ("f1330b84-d00a-403f-81b3-22f1a7ad6040",
+	"21726274-a60c-4843-a337-c30d3e6fd999");
+INSERT INTO O_ATTR
+	VALUES ("f1330b84-d00a-403f-81b3-22f1a7ad6040",
+	"21726274-a60c-4843-a337-c30d3e6fd999",
+	"00000000-0000-0000-0000-000000000000",
+	'TubeID',
+	'The uniquely-specified tube identifier.',
+	'',
+	'TubeID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("7fa5e56f-05e8-42f6-b32f-a31ffdf0cd3e",
+	"21726274-a60c-4843-a337-c30d3e6fd999");
+INSERT INTO O_BATTR
+	VALUES ("7fa5e56f-05e8-42f6-b32f-a31ffdf0cd3e",
+	"21726274-a60c-4843-a337-c30d3e6fd999");
+INSERT INTO O_ATTR
+	VALUES ("7fa5e56f-05e8-42f6-b32f-a31ffdf0cd3e",
+	"21726274-a60c-4843-a337-c30d3e6fd999",
+	"f1330b84-d00a-403f-81b3-22f1a7ad6040",
+	'current_power_output',
+	'Refer to the user-defined data type "tube_wattage" for a full description.',
+	'',
+	'current_power_output',
+	0,
+	"1046565f-b268-477d-9a1e-d49203519d42",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("1046565f-b268-477d-9a1e-d49203519d42",
+	"00000000-0000-0000-0000-000000000000",
+	'tube_wattage',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("77b03c62-c6b6-443a-9824-7e9db3752bb7",
+	"21726274-a60c-4843-a337-c30d3e6fd999");
+INSERT INTO O_BATTR
+	VALUES ("77b03c62-c6b6-443a-9824-7e9db3752bb7",
+	"21726274-a60c-4843-a337-c30d3e6fd999");
+INSERT INTO O_ATTR
+	VALUES ("77b03c62-c6b6-443a-9824-7e9db3752bb7",
+	"21726274-a60c-4843-a337-c30d3e6fd999",
+	"7fa5e56f-05e8-42f6-b32f-a31ffdf0cd3e",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"21726274-a60c-4843-a337-c30d3e6fd999");
+INSERT INTO O_OIDA
+	VALUES ("f1330b84-d00a-403f-81b3-22f1a7ad6040",
+	"21726274-a60c-4843-a337-c30d3e6fd999",
+	0,
+	'TubeID');
+INSERT INTO O_ID
+	VALUES (1,
+	"21726274-a60c-4843-a337-c30d3e6fd999");
+INSERT INTO O_ID
+	VALUES (2,
+	"21726274-a60c-4843-a337-c30d3e6fd999");
+INSERT INTO PE_PE
+	VALUES ("21726274-a60c-4843-a337-c30d3e6fd999",
+	1,
+	"235fff0c-3d20-4fa1-8536-1c30278a65d1",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("235fff0c-3d20-4fa1-8536-1c30278a65d1",
+	"00000000-0000-0000-0000-000000000000",
+	"9cd2cdcf-1f2b-42ce-bc35-718a90a05cab",
+	'Microwave Oven',
+	'The microwave oven subsystem models the microwave oven application',
+	1,
+	'../Microwave Oven.xtuml');

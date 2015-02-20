@@ -1,0 +1,5 @@
+drawRectangle(4559, 2039, 479, 365)
+drawRectangle(5069, 2039, 139, 49)
+drawRectangle(5069, 2086, 479, 318)
+drawText("«package»", 5222, 2095, true)
+drawText("+SubDataTypes2_n", 5144, 2224, true)

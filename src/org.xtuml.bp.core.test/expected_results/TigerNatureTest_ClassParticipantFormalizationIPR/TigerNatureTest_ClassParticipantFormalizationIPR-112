@@ -1,0 +1,5 @@
+drawRectangle(0, 0, 684, 512)
+drawText("test_project_referenced:...", 24, 11, true)
+drawText("{1,UnnamedClass}", 213, 76, true)
+drawline(0, 158, 684, 158)
+drawline(0, 185, 684, 185)

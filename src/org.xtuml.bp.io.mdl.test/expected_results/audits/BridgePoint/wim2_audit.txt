@@ -1,0 +1,253 @@
+AUDIT RESULTS FOR DOMAIN wim2
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+wim2
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging 
+External Entity Time
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class wim2::wim2 init
+Class wim2::IC Driver
+Class wim2::Object N Supertype 
+Class wim2::Object O Left Subtype
+Class wim2::Object P Right Subtype
+Class wim2::Object Q Top Supertype
+Class wim2::Object R Left Subtype
+Class wim2::Object S Right Subtype
+Class wim2::Object T Bottom Supertype
+Class wim2::Object U 1st Supertype
+Class wim2::Object V 2nd Supertype
+Class wim2::Object W
+Class wim2::Object X Subtype
+Class wim2::Object Y
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute wim2 init::id
+Attribute wim2 init::current_state
+Attribute IC Driver::icd_id
+Attribute IC Driver::ack_count
+Attribute IC Driver::current_state
+Attribute Object N Supertype ::on_id
+Attribute Object N Supertype ::i
+Attribute Object N Supertype ::current_state
+Attribute Object O Left Subtype::oo_id
+Attribute Object O Left Subtype::i
+Attribute Object O Left Subtype::current_state
+Attribute Object P Right Subtype::op_id
+Attribute Object P Right Subtype::i
+Attribute Object P Right Subtype::current_state
+Attribute Object Q Top Supertype::oq_id
+Attribute Object Q Top Supertype::i
+Attribute Object Q Top Supertype::ack_count
+Attribute Object Q Top Supertype::current_state
+Attribute Object R Left Subtype::oq_id
+Attribute Object R Left Subtype::ot_id
+Attribute Object R Left Subtype::i
+Attribute Object R Left Subtype::ack_count
+Attribute Object R Left Subtype::current_state
+Attribute Object S Right Subtype::oq_id
+Attribute Object S Right Subtype::ot_id
+Attribute Object T Bottom Supertype::ot_id
+Attribute Object T Bottom Supertype::i
+Attribute Object T Bottom Supertype::ack_count
+Attribute Object T Bottom Supertype::current_state
+Attribute Object U 1st Supertype::ou_id
+Attribute Object U 1st Supertype::i
+Attribute Object U 1st Supertype::ack_count
+Attribute Object U 1st Supertype::current_state
+Attribute Object V 2nd Supertype::ov_id
+Attribute Object V 2nd Supertype::i
+Attribute Object V 2nd Supertype::ack_count
+Attribute Object V 2nd Supertype::current_state
+Attribute Object W::ou_id
+Attribute Object X Subtype::ox_id
+Attribute Object X Subtype::i
+Attribute Object X Subtype::ack_count
+Attribute Object X Subtype::current_state
+Attribute Object Y::ov_id
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute Object O Left Subtype::oo_id
+Referential Attribute Object P Right Subtype::op_id
+Referential Attribute Object R Left Subtype::oq_id
+Referential Attribute Object R Left Subtype::ot_id
+Referential Attribute Object S Right Subtype::oq_id
+Referential Attribute Object S Right Subtype::ot_id
+Referential Attribute Object V 2nd Supertype::ov_id
+Referential Attribute Object W::ou_id
+Referential Attribute Object X Subtype::ox_id
+Referential Attribute Object Y::ov_id
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+wim2::R7
+wim2::R8
+wim2::R9
+wim2::R10
+wim2::R11
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model wim2 init
+State Model IC Driver
+State Model Object N Supertype 
+State Model Object O Left Subtype
+State Model Object P Right Subtype
+State Model Object Q Top Supertype
+State Model Object R Left Subtype
+State Model Object T Bottom Supertype
+State Model Object U 1st Supertype
+State Model Object V 2nd Supertype
+State Model Object X Subtype
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event ICD1
+Event ICD17
+Event ICD18
+Event ICD19
+Event ICD20
+Event ICD21
+Event ICD22
+Event ICD23
+Event ICD24
+Event ICD25
+Event ICD26
+Event ICD27
+Event ICD28
+Event ICD29
+Event ON1
+Event ON2
+Event ON3
+Event ON4
+Event ON5
+Event ON6
+Event OO1
+Event OO2
+Event OO3
+Event OO4
+Event OP1
+Event OP2
+Event OP3
+Event OP4
+Event OQ1
+Event OQ2
+Event OQ3
+Event OQ4
+Event OQ5
+Event OQ6
+Event OQ7
+Event OR_O1
+Event OR_O2
+Event OR_O3
+Event OR_O4
+Event OR_O5
+Event OR_O6
+Event OR_O7
+Event OT1
+Event OT2
+Event OT3
+Event OT4
+Event OT5
+Event OT6
+Event OT7
+Event OU1
+Event OU2
+Event OU3
+Event OU4
+Event OU5
+Event OU6
+Event OU7
+Event OV1
+Event OV2
+Event OV3
+Event OV4
+Event OV5
+Event OV6
+Event OV7
+Event OX1
+Event OX2
+Event OX3
+Event OX4
+Event OX5
+Event OX6
+Event OX7
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Object N Supertype ::id
+Event Data Object O Left Subtype::id
+Event Data Object P Right Subtype::id
+Event Data Object Q Top Supertype::id
+Event Data Object R Left Subtype::id
+Event Data Object T Bottom Supertype::id
+Event Data Object U 1st Supertype::id
+Event Data Object V 2nd Supertype::id
+Event Data Object X Subtype::id
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+wim2 init::init
+IC Driver::Running IC8 Test Suite
+IC Driver::Waiting for IC8 Completions
+IC Driver::Running IC9 Test Suite
+IC Driver::Waiting for IC9 Completions
+IC Driver::Running IC10 Test Suite
+IC Driver::Waiting for IC10 Completions
+IC Driver::Shutting Down
+Object N Supertype ::Waiting
+Object N Supertype ::Starting IC8 Test Left Subtype
+Object N Supertype ::Starting IC8 Test Right Subtype
+Object N Supertype ::Finishing IC8 Test Left Subtype
+Object N Supertype ::Finishing IC8 Test Right Subtype
+Object N Supertype ::Verifying Rel with Left Subtype Instance
+Object N Supertype ::Verifying Rel with Right Subtype Instance
+Object O Left Subtype::Starting IC8 Test
+Object O Left Subtype::Verifying Rel with Supertype Instance
+Object O Left Subtype::Finishing IC8 Test
+Object O Left Subtype::Initial State
+Object P Right Subtype::Starting IC8 Test
+Object P Right Subtype::Verifying Rel with Supertype Instance
+Object P Right Subtype::Finishing IC8 Test
+Object P Right Subtype::Initial State
+Object Q Top Supertype::Starting IC9 Test
+Object Q Top Supertype::Verifying Rel with Bot Supertype
+Object Q Top Supertype::Verifying Rel with Left Subtype
+Object Q Top Supertype::Waiting for Acks
+Object Q Top Supertype::Finishing IC9 Test
+Object Q Top Supertype::Initial State
+Object R Left Subtype::Starting IC9 Test
+Object R Left Subtype::Verifying Rel with Bot Supertype
+Object R Left Subtype::Verifying Rel with Top Subtype
+Object R Left Subtype::Waiting for Acks
+Object R Left Subtype::Finishing IC9 Test
+Object R Left Subtype::Initial State
+Object T Bottom Supertype::Starting IC9 Test
+Object T Bottom Supertype::Verifying Rel with Top Supertype
+Object T Bottom Supertype::Verifying Rel with Left Subtype
+Object T Bottom Supertype::Waiting for Acks
+Object T Bottom Supertype::Finishing IC9 Test
+Object T Bottom Supertype::Initial State
+Object U 1st Supertype::Starting IC10 Test
+Object U 1st Supertype::Verifying Rel with 2nd Supertype
+Object U 1st Supertype::Verifying Rel with Subtype
+Object U 1st Supertype::Waiting for Acks
+Object U 1st Supertype::Finishing IC10 Test
+Object U 1st Supertype::Initial State
+Object V 2nd Supertype::Starting IC10 Test
+Object V 2nd Supertype::Verifying Rel with 1st Supertype
+Object V 2nd Supertype::Verifying Rel with Subtype
+Object V 2nd Supertype::Waiting for Acks
+Object V 2nd Supertype::Finishing IC10 Test
+Object V 2nd Supertype::Initial State
+Object X Subtype::Starting IC10 Test
+Object X Subtype::Verifying Rel with 1st Supertype
+Object X Subtype::Verifying Rel with 2nd Supertype
+Object X Subtype::Waiting for Acks
+Object X Subtype::Finishing IC10 Test
+Object X Subtype::Initial State

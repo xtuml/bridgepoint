@@ -1,0 +1,4126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="org.xtuml.bp.ui.graphics.editorTab" name="Graphical Editor Tab" schema="schema/editorTab.exsd"/>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.xtuml.bp.ui.graphics.editor.ModelEditor"
+            contributorClass="org.xtuml.bp.ui.graphics.actions.GraphicsActionBarContributor"
+            default="true"
+            extensions="xtuml"
+            icon="icons/green-bp.gif"
+            id="org.xtuml.bp.ui.graphics.editor.ModelEditor"
+            name="xtUML Graphical Editor">
+      </editor>
+   </extension>
+   <extension
+         id="org.xtuml.bp.ui.graphics.editor"
+         name="Diagram Editor"
+         point="org.xtuml.bp.core.editors">
+      <editor
+            class="org.xtuml.bp.ui.graphics.editor.ModelEditor"
+            input="org.xtuml.bp.ui.graphics.editor.GraphicalEditorInput">
+         <symbol
+               class="org.xtuml.bp.core.Subsystem_c"
+               createMethod="Newsubsystem"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Subsystem"
+               icon="newsubsystem.gif"
+               name="Subsystem"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.ModelClass_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.ExternalEntity_c"
+               createMethod="Newexternalentity"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.EE"
+               icon="newextent.gif"
+               name="External Entity"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.Bridge_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.BridgeParameter_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ExternalEntityDataItem_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ExternalEntityEvent_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ExternalEntityEventData_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ExternalEntityEventDataItem_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.ModelClass_c"
+               createMethod="Newclass"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Class"
+               icon="newclass.gif"
+               name="Class"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.DataType_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Association_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ClassInAssociation_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Operation_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.OperationParameter_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Attribute_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.BaseAttribute_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ReferentialAttribute_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.DerivedBaseAttribute_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.NewBaseAttribute_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.AttributeReferenceInClass_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ClassIdentifier_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ClassIdentifierAttribute_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ReferredToIdentifierAttribute_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.ImportedClass_c"
+               createMethod="Newiclass"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ImportedClass"
+               icon="newiclass.gif"
+               name="Imported Class"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.DataType_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Association_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ClassInAssociation_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Operation_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.OperationParameter_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Attribute_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ModelClass_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.BaseAttribute_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ReferentialAttribute_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.DerivedBaseAttribute_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.NewBaseAttribute_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.AttributeReferenceInClass_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ClassIdentifier_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ClassIdentifierAttribute_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ReferredToIdentifierAttribute_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.Association_c"
+               createMethod="Newassociation"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Association"
+               icon="newassoc.gif"
+               name="Association"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start Class"
+                  symbol="Class"
+                  symbolClass="org.xtuml.bp.core.ModelClass_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Imported Class"
+                  symbol="Imported Class"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Class"
+                  symbol="Class"
+                  symbolClass="org.xtuml.bp.core.ModelClass_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Imported Class"
+                  symbol="Imported Class"
+                  type="shape">
+            </terminator>
+            <dependsOn
+                  class="org.xtuml.bp.core.ClassAsSimpleParticipant_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ClassAsSimpleFormalizer_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ClassAsAssociatedOneSide_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ClassAsAssociatedOtherSide_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.ClassAsLink_c"
+               createMethod="Newassociative"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.AssociativeLink"
+               icon="newasstve.gif"
+               name="Associative Link"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start Class"
+                  symbol="Class"
+                  symbolClass="org.xtuml.bp.core.ModelClass_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Imported Class"
+                  symbol="Imported Class"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Association"
+                  symbol="Association"
+                  terminatesAt="middle"
+                  type="connector">
+            </terminator>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.Association_c"
+               createMethod="Newsupertype"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Supertype"
+               icon="newsuper.gif"
+               name="Supertype"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start Supertype"
+                  symbol="Class"
+                  symbolClass="org.xtuml.bp.core.ModelClass_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Imported Supertype"
+                  symbol="Imported Class"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="Whitespace"
+                  type="whitespace">
+            </terminator>
+            <dependsOn
+                  class="org.xtuml.bp.core.ClassAsSupertype_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.ClassAsSubtype_c"
+               createMethod="Newsubtype"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Subtype"
+               icon="newsub.gif"
+               name="Subtype"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start Subtype"
+                  symbol="Class"
+                  symbolClass="org.xtuml.bp.core.ModelClass_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Imported Subtype"
+                  symbol="Imported Class"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="Supertype connector"
+                  symbol="Supertype"
+                  terminatesAt="end"
+                  type="connector">
+            </terminator>
+            <dependsOn
+                  class="org.xtuml.bp.core.Association_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.StateMachineState_c"
+               createMethod="Newstate"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.State"
+               icon="newstate.gif"
+               name="State"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.Action_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.Transition_c"
+               createMethod="Newtransition"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Transition"
+               icon="newtrans.gif"
+               name="Transition"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start State"
+                  symbol="State"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End State"
+                  symbol="State"
+                  type="shape">
+            </terminator>
+            <dependsOn
+                  class="org.xtuml.bp.core.NoEventTransition_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.NewStateTransition_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.StateEventMatrixEntry_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.StateMachineEvent_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.StateMachineEventDataItem_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.EventSupplementalData_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.SupplementalDataItems_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               antiAliased="true"
+               class="org.xtuml.bp.core.CreationTransition_c"
+               createMethod="Newcreationtransition"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.CreationTransition"
+               icon="newcreate.gif"
+               name="Creation Transition"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="End State"
+                  symbol="State"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="Whitespace"
+                  type="whitespace">
+            </terminator>
+            <dependsOn
+                  class="org.xtuml.bp.core.Transition_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.StateMachineEvent_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.StateMachineEventDataItem_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.EventSupplementalData_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.SupplementalDataItems_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.CoreDataType_c"
+               defaultHeight="150"
+               defaultWidth="200"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.CoreDataType"
+               name="Core Data Type"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.DataType_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.UserDataType_c"
+               createMethod="Newdatatype"
+               defaultHeight="150"
+               defaultWidth="200"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.UserDataType"
+               icon="newudt.gif"
+               name="User Data Type"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.DataType_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.StructuredDataType_c"
+               createMethod="Newstructureddatatype"
+               defaultHeight="150"
+               defaultWidth="200"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.StructuredDataType"
+               icon="newsdt.gif"
+               name="Structured Data Type"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.DataType_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.StructureMember_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.EnumerationDataType_c"
+               createMethod="Newenumeration"
+               defaultHeight="150"
+               defaultWidth="200"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.EnumerationDataType"
+               icon="newedt.gif"
+               name="Enumeration Data Type"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.DataType_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Enumerator_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.ConstantSpecification_c"
+               createMethod="Newconstantspecification"
+               defaultHeight="150"
+               defaultWidth="200"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ConstantSpecification"
+               icon="newcsp.gif"
+               name="Constant Specification"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.DataType_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.SymbolicConstant_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.LiteralSymbolicConstant_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.DataTypePackage_c"
+               createMethod="Newdatatypepackage"
+               defaultHeight="150"
+               defaultWidth="200"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.DataTypePackage"
+               icon="newdtpackage.gif"
+               name="Data Type Package"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.CoreDataType_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.Package_c"
+               createMethod="Newpackage"
+               defaultHeight="150"
+               defaultWidth="200"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Package"
+               icon="newpackage.gif"
+               name="Package"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.FunctionPackage_c"
+               createMethod="Newfunctionpackage"
+               defaultHeight="150"
+               defaultWidth="200"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.FunctionPackage"
+               icon="newfuncpackage.gif"
+               name="Function Package"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.ExternalEntityPackage_c"
+               createMethod="Newexternalentitypackage"
+               defaultHeight="150"
+               defaultWidth="200"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ExternalEntityPackage"
+               icon="newextentpackage.gif"
+               name="External Entity Package"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.Sequence_c"
+               createMethod="Newsequence"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Sequence"
+               icon="newseqpackage.gif"
+               name="Sequence Diagram"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.ClassInstanceParticipant_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ExternalEntityParticipant_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ClassParticipant_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.FunctionPackageParticipant_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Lifespan_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.TimingMark_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.TimeSpan_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Message_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.InformalAttribute_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.InstanceAttributeValue_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.MessageArgument_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.ClassInstanceParticipant_c"
+               createMethod="Newclassinstance"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ClassInstanceParticipant"
+               icon="newinst.gif"
+               name="Instance"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.InstanceAttributeValue_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Message_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.MessageArgument_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ModelClass_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Attribute_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.ExternalEntityParticipant_c"
+               createMethod="Newexternalentityparticipant"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ExternalEntityParticipant"
+               icon="newextent.gif"
+               name="External Entity"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.Message_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.MessageArgument_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ExternalEntity_c">
+            </dependsOn>
+         </symbol>
+         <symbol 
+               class="org.xtuml.bp.core.PackageParticipant_c"
+               createMethod="Newpackageparticipant"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.PackageParticipant"
+               icon="newpackage.gif"
+               name="Package Participant"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.Message_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.MessageArgument_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Package_c">
+            </dependsOn>
+         </symbol>        
+         <symbol
+               class="org.xtuml.bp.core.ClassParticipant_c"
+               createMethod="Newclassparticipant"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ClassParticipant"
+               icon="newclass.gif"
+               name="Class"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.Message_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.MessageArgument_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ModelClass_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ClassParticipantAttribute_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Attribute_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.ComponentParticipant_c"
+               createMethod="Newcomponentparticipant"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ComponentParticipant"
+               icon="newcomponent.gif"
+               name="Component"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.Component_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               antiAliased="true"
+               class="org.xtuml.bp.core.ActorParticipant_c"
+               createMethod="Newactor"
+               defaultHeight="200"
+               defaultWidth="200"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Actor"
+               fixedAspect="true"
+               icon="newactor.gif"
+               name="Actor"
+               symbolType="shape">
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.FunctionPackageParticipant_c"
+               createMethod="Newfunctionpackageparticipant"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.FunctionPackageParticipant"
+               icon="newfuncpackage.gif"
+               name="Function Package"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.Message_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.MessageArgument_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.FunctionPackage_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.Lifespan_c"
+               createMethod="Newlifespan"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Lifeline"
+               icon="newlifeline.gif"
+               name="Communication Line"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start Instance"
+                  symbol="Instance"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Actor"
+                  symbol="Actor"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start External Entity"
+                  symbol="External Entity"
+                  symbolClass="org.xtuml.bp.core.ExternalEntityParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Class"
+                  symbol="Class"
+                  symbolClass="org.xtuml.bp.core.ClassParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Function Package"
+                  symbol="Function Package"
+                  symbolClass="org.xtuml.bp.core.FunctionPackageParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Package Participant"
+                  symbol="Package Participant"
+                  symbolClass="org.xtuml.bp.core.PackageParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Component"
+                  symbol="Component"
+                  symbolClass="org.xtuml.bp.core.ComponentParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="Whitespace"
+                  type="whitespace">
+            </terminator>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.TimingMark_c"
+               createMethod="Newtimingmark"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.TimingMark"
+               icon="newtimingmark.gif"
+               name="Timing Mark"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start Lifeline"
+                  symbol="Communication Line"
+                  terminatesAt="middle"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="Whitespace"
+                  type="whitespace">
+            </terminator>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.TimeSpan_c"
+               createMethod="Newtimespan"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.TimeSpan"
+               icon="newtimespan.gif"
+               name="Time Span"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start Timing Mark"
+                  symbol="Timing Mark"
+                  terminatesAt="middle"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Timing Mark"
+                  symbol="Timing Mark"
+                  terminatesAt="middle"
+                  type="connector">
+            </terminator>
+            <dependsOn
+                  class="org.xtuml.bp.core.TimingMark_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.SynchronousMessage_c"
+               createMethod="Newsyncmessage"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.SynchronousMessage"
+               icon="newsyncmessage.gif"
+               name="Synchronous Message"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start EE Participant"
+                  symbol="External Entity"
+                  symbolClass="org.xtuml.bp.core.ExternalEntityParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End EE Participant"
+                  symbol="External Entity"
+                  symbolClass="org.xtuml.bp.core.ExternalEntityParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Class"
+                  symbol="Class"
+                  symbolClass="org.xtuml.bp.core.ClassParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Class"
+                  symbol="Class"
+                  symbolClass="org.xtuml.bp.core.ClassParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Component"
+                  symbol="Component"
+                  symbolClass="org.xtuml.bp.core.ComponentParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Component"
+                  symbol="Component"
+                  symbolClass="org.xtuml.bp.core.ComponentParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Function Package"
+                  symbol="Function Package"
+                  symbolClass="org.xtuml.bp.core.FunctionPackageParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Function Package"
+                  symbol="Function Package"
+                  symbolClass="org.xtuml.bp.core.FunctionPackageParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Package Participant"
+                  symbol="Package Participant"
+                  symbolClass="org.xtuml.bp.core.PackageParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Package Participant"
+                  symbol="Package Participant"
+                  symbolClass="org.xtuml.bp.core.PackageParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Instance"
+                  symbol="Instance"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Instance"
+                  symbol="Instance"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Lifeline"
+                  symbol="Communication Line"
+                  terminatesAt="middle"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Lifeline"
+                  symbol="Communication Line"
+                  terminatesAt="middle"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Whitespace"
+                  type="whitespace">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="Whitespace"
+                  type="whitespace">
+            </terminator>
+            <dependsOn
+                  class="org.xtuml.bp.core.Operation_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.OperationParameter_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Bridge_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.BridgeParameter_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Function_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.FunctionParameter_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Message_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.BridgeMessage_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.OperationMessage_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.FunctionMessage_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.AsynchronousMessage_c"
+               createMethod="Newasyncmessage"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.AsynchronousMessage"
+               icon="newasyncmessage.gif"
+               name="Asynchronous Message"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start EE Participant"
+                  symbol="External Entity"
+                  symbolClass="org.xtuml.bp.core.ExternalEntityParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Class"
+                  symbol="Class"
+                  symbolClass="org.xtuml.bp.core.ClassParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Class"
+                  symbol="Class"
+                  symbolClass="org.xtuml.bp.core.ClassParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Component"
+                  symbol="Component"
+                  symbolClass="org.xtuml.bp.core.ComponentParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Component"
+                  symbol="Component"
+                  symbolClass="org.xtuml.bp.core.ComponentParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Function Package"
+                  symbol="Function Package"
+                  symbolClass="org.xtuml.bp.core.FunctionPackageParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Package Participant"
+                  symbol="Package Participant"
+                  symbolClass="org.xtuml.bp.core.PackageParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Instance"
+                  symbol="Instance"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Instance"
+                  symbol="Instance"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Lifeline"
+                  symbol="Communication Line"
+                  terminatesAt="middle"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Lifeline"
+                  symbol="Communication Line"
+                  terminatesAt="middle"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Whitespace"
+                  type="whitespace">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="Whitespace"
+                  type="whitespace">
+            </terminator>
+            <dependsOn
+                  class="org.xtuml.bp.core.StateMachineEvent_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.StateMachineEventDataItem_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Message_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.EventMessage_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.ReturnMessage_c"
+               createMethod="Newreturnmessage"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ReturnMessage"
+               icon="newreturn.gif"
+               name="Return Message"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start EE Participant"
+                  symbol="External Entity"
+                  symbolClass="org.xtuml.bp.core.ExternalEntityParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End EE Participant"
+                  symbol="External Entity"
+                  symbolClass="org.xtuml.bp.core.ExternalEntityParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Class"
+                  symbol="Class"
+                  symbolClass="org.xtuml.bp.core.ClassParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Class"
+                  symbol="Class"
+                  symbolClass="org.xtuml.bp.core.ClassParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Function Package"
+                  symbol="Function Package"
+                  symbolClass="org.xtuml.bp.core.FunctionPackageParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Function Package"
+                  symbol="Function Package"
+                  symbolClass="org.xtuml.bp.core.FunctionPackageParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Package Participant"
+                  symbol="Package Participant"
+                  symbolClass="org.xtuml.bp.core.PackageParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Package Participant"
+                  symbol="Package Participant"
+                  symbolClass="org.xtuml.bp.core.PackageParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Instance"
+                  symbol="Instance"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Instance"
+                  symbol="Instance"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Lifeline"
+                  symbol="Communication Line"
+                  terminatesAt="middle"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Lifeline"
+                  symbol="Communication Line"
+                  terminatesAt="middle"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Whitespace"
+                  type="whitespace">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="Whitespace"
+                  type="whitespace">
+            </terminator>
+            <dependsOn
+                  class="org.xtuml.bp.core.Message_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.SynchronousMessage_c"
+               createMethod="Newsyncmessage"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.CommunicationSynchronousMessage"
+               icon="newsyncmessage.gif"
+               name="Synchronous Message"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Whitespace"
+                  type="whitespace">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="Whitespace"
+                  type="whitespace">
+            </terminator>
+            <dependsOn
+                  class="org.xtuml.bp.core.Operation_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.OperationParameter_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Bridge_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.BridgeParameter_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Function_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.FunctionParameter_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Message_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.BridgeMessage_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.OperationMessage_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.FunctionMessage_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.AsynchronousMessage_c"
+               createMethod="Newasyncmessage"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.CommunicationAsynchronousMessage"
+               icon="newasyncmessage.gif"
+               name="Asynchronous Message"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Whitespace"
+                  type="whitespace">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="Whitespace"
+                  type="whitespace">
+            </terminator>
+            <dependsOn
+                  class="org.xtuml.bp.core.StateMachineEvent_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.StateMachineEventDataItem_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Message_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.EventMessage_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.ReturnMessage_c"
+               createMethod="Newreturnmessage"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.CommunicationReturnMessage"
+               icon="newreturn.gif"
+               name="Return Message"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start Whitespace"
+                  type="whitespace">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Whitespace"
+                  type="whitespace">
+            </terminator>
+            <dependsOn
+                  class="org.xtuml.bp.core.Message_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.Communication_c"
+               createMethod="Newcommunication"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Communication"
+               icon="newcommunication.gif"
+               name="Communication Diagram"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.CommunicationLink_c"
+               createMethod="Newlink"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.CommunicationLink"
+               icon="newassoc.gif"
+               name="Link"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start EE Participant"
+                  symbol="External Entity"
+                  symbolClass="org.xtuml.bp.core.ExternalEntityParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End EE Participant"
+                  symbol="External Entity"
+                  symbolClass="org.xtuml.bp.core.ExternalEntityParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Class"
+                  symbol="Class"
+                  symbolClass="org.xtuml.bp.core.ClassParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Class"
+                  symbol="Class"
+                  symbolClass="org.xtuml.bp.core.ClassParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Function Package"
+                  symbol="Function Package"
+                  symbolClass="org.xtuml.bp.core.FunctionPackageParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Function Package"
+                  symbol="Function Package"
+                  symbolClass="org.xtuml.bp.core.FunctionPackageParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Instance"
+                  symbol="Instance"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Instance"
+                  symbol="Instance"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Component"
+                  symbol="Component"
+                  symbolClass="org.xtuml.bp.core.ComponentParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Component"
+                  symbol="Component"
+                  symbolClass="org.xtuml.bp.core.ComponentParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Actor"
+                  symbol="Actor"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Actor"
+                  symbol="Actor"
+                  type="shape">
+            </terminator>
+            <dependsOn
+                  class="org.xtuml.bp.core.ModelClass_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ClassAsSimpleParticipant_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ClassAsSimpleFormalizer_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ClassAsAssociatedOneSide_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ClassAsAssociatedOtherSide_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ClassAsSupertype_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Association_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.SequenceParticipant_c">
+            </dependsOn>
+            <terminator
+                  end="start"
+                  name="Start Package Participant"
+                  symbol="Package Participant"
+                  symbolClass="org.xtuml.bp.core.PackageParticipant_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Package Participant"
+                  symbol="Package Participant"
+                  symbolClass="org.xtuml.bp.core.PackageParticipant_c"
+                  type="shape">
+            </terminator>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.UseCaseDiagram_c"
+               createMethod="Newusecasepackage"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.UseCaseDiagram"
+               icon="newusecasepackage.gif"
+               name="Use Case Diagram"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.UseCaseParticipant_c"
+               createMethod="Newusecase"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.UseCase"
+               icon="newusecase.gif"
+               name="Use Case"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.BinaryAssociation_c"
+               createMethod="Newassociation"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.UseCaseBinaryAssociation"
+               icon="newusecaseassociation.gif"
+               name="Association"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Actor Start"
+                  symbol="Actor"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="Use Case End"
+                  symbol="Use Case"
+                  type="shape">
+            </terminator>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.Generalization_c"
+               createMethod="Newgeneralization"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Generalization"
+               icon="newgeneralization.gif"
+               name="Generalization"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Use Case Start"
+                  symbol="Use Case"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="Use Case End"
+                  symbol="Use Case"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Actor Start"
+                  symbol="Actor"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="Actor End"
+                  symbol="Actor"
+                  type="shape">
+            </terminator>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.Include_c"
+               createMethod="Newinclude"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Include"
+               icon="newinclude.gif"
+               name="Include"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Use Case Start"
+                  symbol="Use Case"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="Use Case End"
+                  symbol="Use Case"
+                  type="shape">
+            </terminator>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.Extend_c"
+               createMethod="Newextend"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Extend"
+               icon="newextend.gif"
+               name="Extend"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Use Case Start"
+                  symbol="Use Case"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="Use Case End"
+                  symbol="Use Case"
+                  type="shape">
+            </terminator>
+         </symbol>
+         <defaultFor
+               class="org.xtuml.bp.core.Domain_c"
+               modelType="org.xtuml.bp.ui.canvas.Modeltype_c.DomainPackageDiagram"
+               name="Domain Package Diagram"
+               ooaType="org.xtuml.bp.ui.canvas.Ooatype_c.Domain">
+            <color
+                  b="234"
+                  g="227"
+                  r="251">
+            </color>
+            <autoReconcile
+               targetSymbol="Subsystem"
+               countMethod="Getsubsystemcount"
+               elementMethod="Getsubsystemid"
+               elementExistsMethod="not used"/> 
+            <autoReconcile
+               targetSymbol="External Entity Package"
+               countMethod="Getexternalentitypkgcount"
+               elementMethod="Getexternalentitypkgid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Function Package"
+               class="org.xtuml.bp.core.FunctionPackage_c"
+               countMethod="Getfunctionpckgcount"
+               elementMethod="Getfunctionpckgid"
+               elementExistsMethod="not used"/> 
+            <autoReconcile
+               targetSymbol="Data Type Package"
+               countMethod="Getdatatypepckgcount"
+               elementMethod="Getdatatypepckgid"
+               elementExistsMethod="not used"/>  
+            <autoReconcile
+               targetSymbol="Sequence Diagram"
+               countMethod="Getsequencecount"
+               elementMethod="Getsequenceid"
+               elementExistsMethod="not used"/>  
+            <autoReconcile
+               targetSymbol="Communication Diagram"
+               countMethod="Getcommunicationcount"
+               elementMethod="Getcommunicationid"
+               elementExistsMethod="not used"/>
+           <autoReconcile
+               targetSymbol="Use Case Diagram"
+               countMethod="Getusecasecount"
+               elementMethod="Getusecaseid"
+               elementExistsMethod="not used"/>  
+           <autoReconcile
+               targetSymbol="Activity Diagram"
+               countMethod="Getactivitycount"
+               elementMethod="Getactivityid"
+               elementExistsMethod="not used"/>  
+         </defaultFor>
+         <symbol
+               class="org.xtuml.bp.core.Activity_c"
+               createMethod="Newactivity"
+               defaultHeight="150"
+               defaultWidth="200"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Activity"
+               icon="newactivity.gif"
+               name="Activity Diagram"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.ActivityPartition_c"
+               createMethod="Newactivitypartition"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Partition"
+               icon="newactivitypartition.gif"
+               layer="0"
+               name="Activity Partition"
+               symbolType="connector">
+            <terminator
+                  end="start"
+                  name="Start Whitespace"
+                  type="whitespace">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Whitespace"
+                  type="whitespace">
+            </terminator>
+         </symbol>
+         <symbol
+               antiAliased="true"
+               class="org.xtuml.bp.core.InitialNode_c"
+               createMethod="Newinitialnode"
+               defaultHeight="16"
+               defaultWidth="16"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.InitialNode"
+               fixedSize="true"
+               icon="newinitialnode.gif"
+               name="Initial Node"
+               symbolType="shape">
+         </symbol>
+         <symbol
+               antiAliased="true"
+               class="org.xtuml.bp.core.ActivityFinalNode_c"
+               createMethod="Newactivityfinalnode"
+               defaultHeight="24"
+               defaultWidth="24"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ActivityFinalNode"
+               fixedSize="true"
+               icon="newactivityfinalnode.gif"
+               name="Activity Final Node"
+               symbolType="shape">
+         </symbol>
+         <symbol
+               antiAliased="true"
+               class="org.xtuml.bp.core.FlowFinalNode_c"
+               createMethod="Newflowfinalnode"
+               defaultHeight="24"
+               defaultWidth="24"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.FlowFinalNode"
+               fixedSize="true"
+               icon="newflowfinalnode.gif"
+               name="Flow Final Node"
+               symbolType="shape">
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.ForkJoinNode_c"
+               createMethod="Newforkjoin"
+               defaultWidth="3"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ForkJoin"
+               icon="newforkjoinnode.gif"
+               name="Fork/Join Node"
+               symbolType="connector">
+            <terminator
+                  end="start"
+                  name="Start Whitespace"
+                  type="whitespace">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Whitespace"
+                  type="whitespace">
+            </terminator>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.DecisionMergeNode_c"
+               createMethod="Newdecisionmergenode"
+               defaultHeight="40"
+               defaultWidth="40"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.DecisionMergeNode"
+               floatingText="true"
+               icon="newdecisionmergenode.gif"
+               name="Decision/Merge Node"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.ActivityDiagramAction_c"
+               createMethod="Newgenericaction"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.GenericAction"
+               icon="newgenericaction.gif"
+               name="Action"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.ObjectNode_c"
+               createMethod="Newobjectnode"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ObjectNode"
+               icon="newobjectnode.gif"
+               name="Object Node"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.AcceptEventAction_c"
+               createMethod="Newaccepteventaction"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.AcceptEventAction"
+               icon="newaccepteventaction.gif"
+               name="Accept Event Action"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.AcceptTimeEventAction_c"
+               createMethod="Newaccepttimeeventaction"
+               defaultHeight="48"
+               defaultWidth="48"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.AcceptTimeEventAction"
+               fixedAspect="true"
+               floatingText="true"
+               icon="newaccepttimeeventaction.gif"
+               name="Accept Time Event Action"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.SendSignal_c"
+               createMethod="Newsendsignalaction"
+               defaultHeight="48"
+               defaultWidth="48"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.SendSignalAction"
+               icon="newsendsignalaction.gif"
+               name="Send Signal Action"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.ActivityEdge_c"
+               createMethod="Newactivityedge"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ActivityEdge"
+               icon="newactivityedge.gif"
+               name="Activity Edge"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start INI"
+                  symbol="Initial Node"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start D"
+                  symbol="Decision/Merge Node"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start FJ"
+                  symbol="Fork/Join Node"
+                  terminatesAt="middle"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Generic"
+                  symbol="Action"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Object"
+                  symbol="Object Node"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start AE"
+                  symbol="Accept Event Action"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start ATE"
+                  symbol="Accept Time Event Action"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start SS"
+                  symbol="Send Signal Action"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End AF Node"
+                  symbol="Activity Final Node"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End FF Node"
+                  symbol="Flow Final Node"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End D Node"
+                  symbol="Decision/Merge Node"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End FJ Node"
+                  symbol="Fork/Join Node"
+                  terminatesAt="middle"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Generic"
+                  symbol="Action"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Object"
+                  symbol="Object Node"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End AE"
+                  symbol="Accept Event Action"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End ATE"
+                  symbol="Accept Time Event Action"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End SS"
+                  symbol="Send Signal Action"
+                  type="shape">
+            </terminator>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.ComponentPackage_c"
+               createMethod="Newcomponentpackage"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ComponentPackage"
+               icon="newcomponentpackage.gif"
+               name="Component Package Diagram"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.Component_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Provision_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Requirement_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Interface_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.Component_c"
+               creationRule="on canvas creation"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ComponentContainer"
+               hasNameCompartment="true"
+               name="Component Container"
+               symbolType="container">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.Domain_c">
+            </dependsOn>
+            <autoReconcile
+                  countMethod="Getprovisioncount"
+                  elementExistsMethod="Parenthasprovision"
+                  elementMethod="Getprovisionid"
+                  targetSymbol="Provided Interface">
+            </autoReconcile>
+            <autoReconcile
+                  countMethod="Getrequirementcount"
+                  elementExistsMethod="Parenthasrequirement"
+                  elementMethod="Getrequirementid"
+                  targetSymbol="Required Interface">
+            </autoReconcile>
+            <autoReconcile
+                  countMethod="Getprovisioncount"
+                  elementExistsMethod="Parenthasprovision"
+                  elementMethod="Getprovisionid"
+                  sourceSymbol="Delegation"
+                  targetSymbol="Provided Interface"
+                  templateElementMethod="Getprovisiondelegationid">
+            </autoReconcile>
+            <autoReconcile
+                  countMethod="Getrequirementcount"
+                  elementExistsMethod="Parenthasrequirement"
+                  elementMethod="Getrequirementid"
+                  sourceSymbol="Delegation"
+                  targetSymbol="Required Interface"
+                  templateElementMethod="Getrequirementdelegationid">
+            </autoReconcile>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.Component_c"
+               createMethod="Newcomponent"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Component"
+               icon="newcomponent.gif"
+               name="Component"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.Domain_c">
+            </dependsOn>
+            <autoReconcile
+                  countMethod="Getprovisioncount"
+                  elementExistsMethod="Hasprovision"
+                  elementMethod="Getprovisionid"
+                  targetSymbol="Provided Interface">
+            </autoReconcile>
+            <autoReconcile
+                  countMethod="Getrequirementcount"
+                  elementExistsMethod="Hasrequirement"
+                  elementMethod="Getrequirementid"
+                  targetSymbol="Required Interface">
+            </autoReconcile>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.ComponentReference_c"
+               createMethod="Newimportedcomponent"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ComponentReference"
+               icon="newimportedcomponent.gif"
+               name="Component Reference"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.Component_c">
+            </dependsOn>
+            <autoReconcile
+                  countMethod="Getimportedprovisioncount"
+                  elementExistsMethod="Hasimportedprovision"
+                  elementMethod="Getimportedprovisionid"
+                  sourceSymbol="Provided Interface"
+                  targetSymbol="Imported Provided Interface"
+                  templateElementMethod="Getimportedprovisionprovisionid">
+            </autoReconcile>
+            <autoReconcile
+                  countMethod="Getimportedrequirementcount"
+                  elementExistsMethod="Hasimportedrequirement"
+                  elementMethod="Getimportedrequirementid"
+                  sourceSymbol="Required Interface"
+                  targetSymbol="Imported Required Interface"
+                  templateElementMethod="Getimportedrequirementrequirementid">
+            </autoReconcile>
+            <autoReconcile
+                  countMethod="Getimportedprovisioncount"
+                  elementExistsMethod="Hasimportedprovision"
+                  elementMethod="Getimportedprovisionid"
+                  targetSymbol="Imported Provided Interface"
+                  templateElementMethod="Getimportedprovisionprovisionid">
+            </autoReconcile>
+            <autoReconcile
+                  countMethod="Getimportedrequirementcount"
+                  elementExistsMethod="Hasimportedrequirement"
+                  elementMethod="Getimportedrequirementid"
+                  targetSymbol="Imported Required Interface"
+                  templateElementMethod="Getimportedrequirementrequirementid">
+            </autoReconcile>
+         </symbol>
+         <symbol
+               antiAliased="true"
+               causeAutoResize="false"
+               class="org.xtuml.bp.core.Delegation_c"
+               createMethod="Newdelegation"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Delegation"
+               icon="newdelegation.gif"
+               name="Delegation"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start Component"
+                  symbol="Component"
+                  symbolClass="org.xtuml.bp.core.Component_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Component Reference"
+                  symbol="Component Reference"
+                  symbolClass="org.xtuml.bp.core.ComponentReference_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Required Interface"
+                  symbol="Required Interface"
+                  terminatesAt="start"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Provided Interface"
+                  symbol="Provided Interface"
+                  terminatesAt="start"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Imported Required Interface"
+                  symbol="Imported Required Interface"
+                  terminatesAt="start"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Imported Provided Interface"
+                  symbol="Imported Provided Interface"
+                  terminatesAt="start"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Required Interface"
+                  symbol="Required Interface"
+                  terminatesAt="start"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Provided Interface"
+                  symbol="Provided Interface"
+                  terminatesAt="start"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Imported Required Interface"
+                  symbol="Imported Required Interface"
+                  terminatesAt="start"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Imported Provided Interface"
+                  symbol="Imported Provided Interface"
+                  terminatesAt="start"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Component"
+                  symbol="Component"
+                  symbolClass="org.xtuml.bp.core.Component_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Component Reference"
+                  symbol="Component Reference"
+                  symbolClass="org.xtuml.bp.core.ComponentReference_c"
+                  type="shape">
+            </terminator>
+         </symbol>
+         <symbol
+               antiAliased="true"
+               class="org.xtuml.bp.core.Provision_c"
+               createMethod="Newprovision"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ProvidedInterface"
+               icon="newprovision.gif"
+               name="Provided Interface"
+               symbolType="connector"
+               isAnchorHost="true">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start Component Container"
+                  symbol="Component Container"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Component"
+                  symbol="Component"
+                  symbolClass="org.xtuml.bp.core.Component_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Component"
+                  symbol="Component"
+                  symbolClass="org.xtuml.bp.core.Component_c"
+                  type="shape">
+                  <automaticCreation symbol="Required Interface" />
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Required Interface"
+                  symbol="Required Interface"
+                  terminatesAt="end"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Imported Required Interface"
+                  symbol="Imported Required Interface"
+                  terminatesAt="end"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Whitespace"
+                  type="whitespace">
+            </terminator>
+            <dependsOn
+                  class="org.xtuml.bp.core.Interface_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.InterfaceReference_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Port_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               antiAliased="true"
+               class="org.xtuml.bp.core.Requirement_c"
+               createMethod="Newrequirement"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.RequiredInterface"
+               icon="newrequirement.gif"
+               name="Required Interface"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start Component Container"
+                  symbol="Component Container"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="start"
+                  name="Start Component"
+                  symbol="Component"
+                  symbolClass="org.xtuml.bp.core.Component_c"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Component"
+                  symbol="Component"
+                  symbolClass="org.xtuml.bp.core.Component_c"
+                  type="shape">
+                  <automaticCreation symbol="Provided Interface" />
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Provided Interface"
+                  symbol="Provided Interface"
+                  terminatesAt="end"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Imported Provided Interface"
+                  symbol="Imported Provided Interface"
+                  terminatesAt="end"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Whitespace"
+                  type="whitespace">
+            </terminator>
+            <dependsOn
+                  class="org.xtuml.bp.core.Interface_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Port_c">
+            </dependsOn>
+            <autoReconcile
+                  countMethod="Getsatisfactioncount"
+                  elementExistsMethod="not used"
+                  elementMethod="not used"
+                  targetSymbol="Provided Interface">
+            </autoReconcile>
+            <autoReconcile
+                  countMethod="Getsatisfactioncount"
+                  elementExistsMethod="not used"
+                  elementMethod="not used"
+                  targetSymbol="Imported Provided Interface">
+            </autoReconcile>
+         </symbol>
+         <symbol
+               antiAliased="true"
+               class="org.xtuml.bp.core.ImportedProvision_c"
+               creationRule="auto"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ImportedProvidedInterface"
+               name="Imported Provided Interface"
+               symbolType="connector"
+               isAnchorHost="true">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start Component Reference"
+                  symbol="Component Reference"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Required Interface"
+                  symbol="Required Interface"
+                  terminatesAt="end"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Imported Required Interface"
+                  symbol="Imported Required Interface"
+                  terminatesAt="end"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Whitespace"
+                  type="whitespace">
+            </terminator>
+            <dependsOn
+                  class="org.xtuml.bp.core.Interface_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.InterfaceReference_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Port_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Provision_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               antiAliased="true"
+               class="org.xtuml.bp.core.ImportedRequirement_c"
+               creationRule="auto"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ImportedRequiredInterface"
+               name="Imported Required Interface"
+               symbolType="connector">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <terminator
+                  end="start"
+                  name="Start Component Reference"
+                  symbol="Component Reference"
+                  type="shape">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Provided Interface"
+                  symbol="Provided Interface"
+                  terminatesAt="end"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Imported Provided Interface"
+                  symbol="Imported Provided Interface"
+                  terminatesAt="end"
+                  type="connector">
+            </terminator>
+            <terminator
+                  end="end"
+                  name="End Whitespace"
+                  type="whitespace">
+            </terminator>
+            <dependsOn
+                  class="org.xtuml.bp.core.Interface_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Port_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.Requirement_c">
+            </dependsOn>
+            <autoReconcile
+                  countMethod="Getsatisfactioncount"
+                  elementExistsMethod="not used"
+                  elementMethod="not used"
+                  targetSymbol="Provided Interface">
+            </autoReconcile>
+            <autoReconcile
+                  countMethod="Getsatisfactioncount"
+                  elementExistsMethod="not used"
+                  elementMethod="not used"
+                  targetSymbol="Imported Provided Interface">
+            </autoReconcile>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.InterfacePackage_c"
+               createMethod="Newinterfacepackage"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.InterfacePackage"
+               icon="newinterfacepackage.gif"
+               name="Interface Package Diagram"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.Interface_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.InterfaceOperation_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.InterfaceSignal_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.PropertyParameter_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.Interface_c"
+               createMethod="Newinterface"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Interface"
+               icon="newinst.gif"
+               name="Interface"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.InterfaceSignal_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.InterfaceOperation_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.SystemModel_c"
+               createMethod="Newsystemmodel"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.SystemModel"
+               icon="green-bp.gif"
+               name="System Model"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+            <dependsOn
+                  class="org.xtuml.bp.core.InterfacePackage_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.ComponentPackage_c">
+            </dependsOn>
+            <dependsOn
+                  class="org.xtuml.bp.core.DataTypePackage_c">
+            </dependsOn>
+         </symbol>
+         <symbol
+               class="org.xtuml.bp.core.DataTypePackage_c"
+               createMethod="Newsystemdtpkg"
+               elemType="org.xtuml.bp.ui.canvas.Ooatype_c.SystemLevelDatatypePackage"
+               icon="newdtpackage.gif"
+               name="System Level Datatype Package"
+               symbolType="shape">
+            <color
+                  b="255"
+                  g="255"
+                  r="255">
+            </color>
+         </symbol>
+         <defaultFor
+               class="org.xtuml.bp.core.SystemModel_c"
+               modelType="org.xtuml.bp.ui.canvas.Modeltype_c.SystemModelPackage"
+               name="System Model Package Diagram"
+               ooaType="org.xtuml.bp.ui.canvas.Ooatype_c.SystemModel">
+            <color
+                  b="157"
+                  g="220"
+                  r="253">
+            </color>
+            <validSymbol
+                  name="Package">
+            </validSymbol>
+       <autoReconcile
+               targetSymbol="Package"
+               countMethod="Getpckgcount"
+               elementMethod="Getpckgid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="System Level Datatype Package"
+               countMethod="Getsysdtpckgcount"
+               elementMethod="Getsysdtpckgid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Interface Package Diagram"
+               countMethod="Getinterfacepckgcount"
+               elementMethod="Getinterfacepckgid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Component Package Diagram"
+               countMethod="Getcomppckgcount"
+               elementMethod="Getcomppckgid"
+               elementExistsMethod="not used"/> 
+            <autoReconcile
+               targetSymbol="Sequence Diagram"
+               countMethod="Getsequencecount"
+               elementMethod="Getsequenceid"
+               elementExistsMethod="not used"/>
+           <autoReconcile
+               targetSymbol="Communication Diagram"
+               countMethod="Getcommunicationcount"
+               elementMethod="Getcommunicationid"
+               elementExistsMethod="not used"/> 
+           <autoReconcile
+               targetSymbol="Use Case Diagram"
+               countMethod="Getusecasecount"
+               elementMethod="Getusecaseid"
+               elementExistsMethod="not used"/> 
+           <autoReconcile
+               targetSymbol="Activity Diagram"
+               countMethod="Getactivitycount"
+               elementMethod="Getactivityid"
+               elementExistsMethod="not used"/>                              
+         </defaultFor>
+         <defaultFor
+               class="org.xtuml.bp.core.Package_c"
+               modelType="org.xtuml.bp.ui.canvas.Modeltype_c.Package"
+               name="Package Diagram"
+               ooaType="org.xtuml.bp.ui.canvas.Ooatype_c.Package">
+            <color
+                  b="210"
+                  g="209"
+                  r="191">
+            </color>
+            <validSymbol
+                  name="Package">
+            </validSymbol>
+            <validSymbol name="Accept Event Action" tool_category="Activity"/>
+            <validSymbol name="Accept Time Event Action" tool_category="Activity"/>
+            <validSymbol name="Action" tool_category="Activity"/>
+            <validSymbol name="Send Signal Action" tool_category="Activity"/>
+            <validSymbol name="Object Node" tool_category="Activity"/>
+            <validSymbol name="Decision/Merge Node" tool_category="Activity"/>
+            <validSymbol name="Initial Node" tool_category="Activity"/>
+            <validSymbol name="Activity Final Node" tool_category="Activity"/>
+            <validSymbol name="Flow Final Node" tool_category="Activity"/>
+            <validSymbol name="Activity Partition" tool_category="Activity"/>
+            <validSymbol name="Activity Edge" tool_category="Activity"/>
+            <validSymbol name="Fork/Join Node" tool_category="Activity"/>
+            <validSymbol name="Class" tool_category="Classes"/>
+            <validSymbol name="Imported Class" tool_category="Classes"/>
+            <validSymbol name="Association" tool_category="Classes"/>
+            <validSymbol name="Associative Link" tool_category="Classes"/>
+            <validSymbol name="Supertype" tool_category="Classes"/>
+            <validSymbol name="Subtype" tool_category="Classes"/>
+            <validSymbol name="Link" tool_category="Communication"/>
+            <validSymbol name="Component" elemType="org.xtuml.bp.ui.canvas.Ooatype_c.Component" class="org.xtuml.bp.core.Component_c" tool_category="Components"/>
+            <validSymbol name="Component Reference" tool_category="Components"/>
+            <validSymbol name="Provided Interface" tool_category="Components"/>
+            <validSymbol name="Required Interface" tool_category="Components"/>
+            <validSymbol name="Interface" tool_category="Components"/>
+            <validSymbol name="External Entity" class="org.xtuml.bp.core.ExternalEntity_c" tool_category="External"/>
+            <validSymbol name="Actor" tool_category="Interaction"/>
+            <validSymbol name="Component" class="org.xtuml.bp.core.ComponentParticipant_c" tool_category="Interaction"/>
+            <validSymbol name="Instance" tool_category="Interaction"/>
+            <validSymbol name="External Entity" class="org.xtuml.bp.core.ExternalEntityParticipant_c" tool_category="Interaction"/>
+            <validSymbol name="Package Participant" class="org.xtuml.bp.core.PackageParticipant_c" tool_category="Interaction"/>
+            <validSymbol name="Class" class="org.xtuml.bp.core.ClassParticipant_c" tool_category="Interaction"/>
+            <validSymbol name="Synchronous Message"  tool_category="Interaction" elemType="org.xtuml.bp.ui.canvas.Ooatype_c.SynchronousMessage"/>
+            <validSymbol name="Asynchronous Message" tool_category="Interaction" elemType="org.xtuml.bp.ui.canvas.Ooatype_c.AsynchronousMessage"/>
+            <validSymbol name="Return Message"       tool_category="Interaction" elemType="org.xtuml.bp.ui.canvas.Ooatype_c.ReturnMessage"/>
+            <validSymbol name="Communication Line" tool_category="Sequence"/>
+            <validSymbol name="Timing Mark" tool_category="Sequence"/>
+            <validSymbol name="Time Span" tool_category="Sequence"/>
+            <validSymbol name="User Data Type" tool_category="Types"/>
+            <validSymbol name="Constant Specification" tool_category="Types"/>
+            <validSymbol name="Structured Data Type" tool_category="Types"/>
+            <validSymbol name="Enumeration Data Type" tool_category="Types"/>            
+            <validSymbol name="Use Case" tool_category="Use Case"/>
+            <validSymbol name="Association" class="org.xtuml.bp.core.BinaryAssociation_c" tool_category="Use Case"/>
+            <validSymbol name="Generalization" tool_category="Use Case"/>
+            <validSymbol name="Include" tool_category="Use Case"/>
+            <validSymbol name="Extend" tool_category="Use Case"/>
+            <autoReconcile
+               targetSymbol="User Data Type"
+               countMethod="Getudtcount"
+               elementMethod="Getudtid"
+               elementExistsMethod="not used"/> 
+            <autoReconcile
+               targetSymbol="Actor"
+               countMethod="Getactorcount"
+               elementMethod="Getactorid"
+               elementExistsMethod="not used"/> 
+            <autoReconcile
+               targetSymbol="Use Case"
+               countMethod="Getusecasecount"
+               elementMethod="Getusecaseid"
+               elementExistsMethod="not used"/> 
+            <autoReconcile
+               targetSymbol="Send Signal Action"
+               countMethod="Getsendsigactioncount"
+               elementMethod="Getsendsigactionid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Accept Event Action"
+               countMethod="Getacceptevtactioncount"
+               elementMethod="Getacceptevtactionid"
+               elementExistsMethod="not used"/>  
+            <autoReconcile
+               targetSymbol="Accept Time Event Action"
+               countMethod="Getaccepttimeevtactioncount"
+               elementMethod="Getaccepttimeevtactionid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Action"
+               countMethod="Getactioncount"
+               elementMethod="Getactionid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Class"
+               countMethod="Getclasscount"
+               elementMethod="Getclassid"
+               elementExistsMethod="not used"
+               class="org.xtuml.bp.core.ModelClass_c" />     
+            <autoReconcile
+               targetSymbol="Component"
+               countMethod="Getcomponentcount"
+               elementMethod="Getcomponentid"
+               elementExistsMethod="not used"
+               class="org.xtuml.bp.core.Component_c"/>     
+            <autoReconcile
+               targetSymbol="Component Reference"
+               countMethod="Getcomprefcount"
+               elementMethod="Getcomprefid"
+               elementExistsMethod="not used"/>     
+            <autoReconcile
+               targetSymbol="Interface"
+               countMethod="Getifacecount"
+               elementMethod="Getifaceid"
+               elementExistsMethod="not used"/>     
+            <autoReconcile
+               targetSymbol="Constant Specification"
+               countMethod="Getconstspeccount"
+               elementMethod="Getconstspecid"
+               elementExistsMethod="not used"/>     
+            <autoReconcile
+               targetSymbol="Structured Data Type"
+               countMethod="Getsdtcount"
+               elementMethod="Getsdtid"
+               elementExistsMethod="not used"/>     
+            <autoReconcile
+               targetSymbol="Enumeration Data Type"
+               countMethod="Getedtcount"
+               elementMethod="Getedtid"
+               elementExistsMethod="not used"/>     
+            <autoReconcile
+               targetSymbol="Component"
+               countMethod="Getcomppartcount"
+               elementMethod="Getcomppartid"
+               elementExistsMethod="not used"
+               class="org.xtuml.bp.core.ComponentParticipant_c"/>     
+            <autoReconcile
+               targetSymbol="Instance"
+               countMethod="Getinstancecount"
+               elementMethod="Getinstanceid"
+               elementExistsMethod="not used"/>     
+            <autoReconcile
+               targetSymbol="External Entity"
+               countMethod="Geteecount"
+               elementMethod="Geteeid"
+               elementExistsMethod="not used"
+               class="org.xtuml.bp.core.ExternalEntity_c" />   
+            <autoReconcile
+               targetSymbol="Package Participant"
+               countMethod="Getpkgpartcount"
+               elementMethod="Getpkgpartid"
+               elementExistsMethod="not used"/>   
+            <autoReconcile
+               targetSymbol="Class"
+               countMethod="Getclasspartcount"
+               elementMethod="Getclasspartid"
+               elementExistsMethod="not used"
+               class="org.xtuml.bp.core.ClassParticipant_c" />   
+            <autoReconcile
+               targetSymbol="Object Node"
+               countMethod="Getobjectnodecount"
+               elementMethod="Getobjectnodeid"
+               elementExistsMethod="not used"/>   
+            <autoReconcile
+               targetSymbol="Decision/Merge Node"
+               countMethod="Getdecmergenodecount"
+               elementMethod="Getdecmergenodeid"
+               elementExistsMethod="not used"/>   
+            <autoReconcile
+               targetSymbol="Initial Node"
+               countMethod="Getinitnodecount"
+               elementMethod="Getinitnodeid"
+               elementExistsMethod="not used"/>   
+            <autoReconcile
+               targetSymbol="Activity Final Node"
+               countMethod="Getactfinalnodecount"
+               elementMethod="Getactfinalnodeid"
+               elementExistsMethod="not used"/>   
+            <autoReconcile
+               targetSymbol="Flow Final Node"
+               countMethod="Getflowfinalnodecount"
+               elementMethod="Getflowfinalnodeid"
+               elementExistsMethod="not used"/>   
+            <autoReconcile
+               targetSymbol="Imported Class"
+               countMethod="Geticlasscount"
+               elementMethod="Geticlassid"
+               elementExistsMethod="not used"/>              
+            <autoReconcile
+               targetSymbol="External Entity"
+               countMethod="Geteepartcount"
+               elementMethod="Geteepartid"
+               elementExistsMethod="not used"
+               class="org.xtuml.bp.core.ExternalEntityParticipant_c" />              
+            <autoReconcile
+               targetSymbol="Package"
+               countMethod="Getpckgcount"
+               elementMethod="Getpckgid"
+               elementExistsMethod="not used"
+               class="org.xtuml.bp.core.Package_c" />              
+         </defaultFor>
+         <defaultFor
+               class="org.xtuml.bp.core.ComponentPackage_c"
+               modelType="org.xtuml.bp.ui.canvas.Modeltype_c.ComponentPackage"
+               name="Component Package Diagram"
+               ooaType="org.xtuml.bp.ui.canvas.Ooatype_c.ComponentPackage">
+            <color
+                  b="255"
+                  g="196"
+                  r="196">
+            </color>
+            <validSymbol
+                  class="org.xtuml.bp.core.Component_c"
+                  name="Component">
+            </validSymbol>
+            <validSymbol
+                  name="Component Reference">
+            </validSymbol>
+            <validSymbol
+                  name="Provided Interface">
+            </validSymbol>
+            <validSymbol
+                  name="Required Interface">
+            </validSymbol>
+            <validSymbol
+                  name="Imported Provided Interface">
+            </validSymbol>
+            <validSymbol
+                  name="Imported Required Interface">
+            </validSymbol>
+            <autoReconcile
+               targetSymbol="Component"
+               class="org.xtuml.bp.core.Component_c" 
+               countMethod="Getcomponentcount"
+               elementMethod="Getcomponentid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Component Package Diagram"
+               countMethod="Getcomppckgcount"
+               elementMethod="Getcomppckgid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Interface Package Diagram"
+               countMethod="Getinterfacepckgcount"
+               elementMethod="Getinterfacepckgid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Sequence Diagram"
+               countMethod="Getsequencecount"
+               elementMethod="Getsequenceid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Communication Diagram"
+               countMethod="Getcommunicationcount"
+               elementMethod="Getcommunicationid"
+               elementExistsMethod="not used"/> 
+            <autoReconcile
+               targetSymbol="Use Case Diagram"
+               countMethod="Getusecasecount"
+               elementMethod="Getusecaseid"
+               elementExistsMethod="not used"/> 
+            <autoReconcile
+               targetSymbol="Activity Diagram"
+               countMethod="Getactivitycount"
+               elementMethod="Getactivityid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Component Reference"
+               countMethod="Getcomponentrefcount"
+               elementMethod="Getcomponentrefid"
+               elementExistsMethod="not used"/>            
+         </defaultFor>
+         <defaultFor
+               class="org.xtuml.bp.core.Component_c"
+               modelType="org.xtuml.bp.ui.canvas.Modeltype_c.ComponentDiagram"
+               name="Component Diagram"
+               ooaType="org.xtuml.bp.ui.canvas.Ooatype_c.Component">
+            <color
+                  b="255"
+                  g="196"
+                  r="196">
+            </color>
+            <validSymbol
+                  class="org.xtuml.bp.core.Component_c"
+                  name="Component">
+            </validSymbol>
+            <validSymbol
+                  name="Component Reference">
+            </validSymbol>
+            <validSymbol
+                  name="Provided Interface">
+            </validSymbol>
+            <validSymbol
+                  name="Required Interface">
+            </validSymbol>
+            <validSymbol
+                  name="Delegation" tool_category="Components">
+            </validSymbol>
+            <validSymbol
+                  name="Component Container">
+            </validSymbol>
+            <validSymbol
+                  name="Imported Provided Interface">
+            </validSymbol>
+            <validSymbol
+                  name="Imported Required Interface">
+            </validSymbol>
+            <validSymbol
+                  name="Package">
+            </validSymbol>
+            <validSymbol
+                  name="Interface">
+            </validSymbol>
+            <validSymbol
+                  name="User Data Type">
+            </validSymbol>
+            <autoReconcile
+               targetSymbol="Interface Package Diagram"
+               countMethod="Getinterfacepckgcount"
+               elementMethod="Getinterfacepckgid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Sequence Diagram"
+               countMethod="Getsequencecount"
+               elementMethod="Getsequenceid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Communication Diagram"
+               countMethod="Getcommunicationcount"
+               elementMethod="Getcommunicationid"
+               elementExistsMethod="not used"/> 
+            <autoReconcile
+               targetSymbol="Use Case Diagram"
+               countMethod="Getusecasecount"
+               elementMethod="Getusecaseid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Activity Diagram"
+               countMethod="Getactivitycount"
+               elementMethod="Getactivityid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Component"
+               class="org.xtuml.bp.core.Component_c"
+               countMethod="Getcomponentcount"
+               elementMethod="Getcomponentid"
+               elementExistsMethod="not used"/>  
+            <autoReconcile
+               targetSymbol="Component Reference"
+               countMethod="Getcomponentrefcount"
+               elementMethod="Getcomponentrefid"
+               elementExistsMethod="not used"/>       
+            <autoReconcile
+               targetSymbol="Package"
+               countMethod="Getpkgcount"
+               elementMethod="Getpkgid"
+               elementExistsMethod="not used"/>       
+            <autoReconcile
+               targetSymbol="Interface"
+               countMethod="Getifacecount"
+               elementMethod="Getifaceid"
+               elementExistsMethod="not used"/>       
+            <autoReconcile
+               targetSymbol="User Data Type"
+               countMethod="Getudtcount"
+               elementMethod="Getudtid"
+               elementExistsMethod="not used"/>       
+         </defaultFor>
+         <defaultFor
+               class="org.xtuml.bp.core.InterfacePackage_c"
+               modelType="org.xtuml.bp.ui.canvas.Modeltype_c.InterfacePackage"
+               name="Interface Package Diagram"
+               ooaType="org.xtuml.bp.ui.canvas.Ooatype_c.InterfacePackage">
+            <color
+                  b="204"
+                  g="217"
+                  r="217">
+            </color>
+            <validSymbol
+                  name="Interface">
+            </validSymbol>
+            <autoReconcile
+               targetSymbol="Interface Package Diagram"
+               countMethod="Getinterfacepckgcount"
+               elementMethod="Getinterfacepckgid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Interface"
+               countMethod="Getinterfacecount"
+               elementMethod="Getinterfaceid"
+               elementExistsMethod="not used"/>
+         </defaultFor>
+         <defaultFor
+               class="org.xtuml.bp.core.Activity_c"
+               modelType="org.xtuml.bp.ui.canvas.Modeltype_c.ActivityDiagram"
+               name="Activity Diagram"
+               ooaType="org.xtuml.bp.ui.canvas.Ooatype_c.Activity">
+            <color
+                  b="217"
+                  g="255"
+                  r="252">
+            </color>
+            <validSymbol
+                  name="Activity Partition">
+            </validSymbol>
+            <validSymbol
+                  name="Action">
+            </validSymbol>
+            <validSymbol
+                  name="Object Node">
+            </validSymbol>
+            <validSymbol
+                  name="Accept Event Action">
+            </validSymbol>
+            <validSymbol
+                  name="Send Signal Action">
+            </validSymbol>
+            <validSymbol
+                  name="Accept Time Event Action">
+            </validSymbol>
+            <validSymbol
+                  name="Activity Edge">
+            </validSymbol>
+            <validSymbol
+                  name="Fork/Join Node">
+            </validSymbol>
+            <validSymbol
+                  name="Decision/Merge Node">
+            </validSymbol>
+            <validSymbol
+                  name="Initial Node">
+            </validSymbol>
+            <validSymbol
+                  name="Activity Final Node">
+            </validSymbol>
+            <validSymbol
+                  name="Flow Final Node">
+            </validSymbol>
+            <autoReconcile
+               targetSymbol="Activity Diagram"
+               countMethod="Getactivitycount"
+               elementMethod="Getactivityid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Accept Event Action"
+               countMethod="Getaccepteventactioncount"
+               elementMethod="Getaccepteventactionid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Send Signal Action"
+               countMethod="Getsendsignalactioncount"
+               elementMethod="Getsendsignalactionid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Accept Time Event Action"
+               countMethod="Getaccepttimeeventcount"
+               elementMethod="Getaccepttimeeventid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Action"
+               countMethod="Getactioncount"
+               elementMethod="Getactionid"
+               elementExistsMethod="not used"/>
+           <autoReconcile
+               targetSymbol="Object Node"
+               countMethod="Getobjectnodecount"
+               elementMethod="Getobjectnodeid"
+               elementExistsMethod="not used"/>
+         </defaultFor>
+         <defaultFor
+               class="org.xtuml.bp.core.Subsystem_c"
+               modelType="org.xtuml.bp.ui.canvas.Modeltype_c.ClassDiagram"
+               name="Class Diagram"
+               ooaType="org.xtuml.bp.ui.canvas.Ooatype_c.Subsystem">
+            <color
+                  b="183"
+                  g="252"
+                  r="255">
+            </color>
+            <validSymbol
+                  name="Class">
+            </validSymbol>
+            <validSymbol
+                  name="Imported Class">
+            </validSymbol>
+            <validSymbol
+                  name="Association">
+            </validSymbol>
+            <validSymbol
+                  name="Associative Link">
+            </validSymbol>
+            <validSymbol
+                  name="Supertype">
+            </validSymbol>
+            <validSymbol
+                  name="Subtype">
+            </validSymbol>
+            <autoReconcile
+               targetSymbol="Subsystem"
+               countMethod="Getsubsystemcount"
+               elementMethod="Getsubsystemid"
+               elementExistsMethod="not used"/> 
+            <autoReconcile
+               targetSymbol="Sequence Diagram"
+               countMethod="Getsequencecount"
+               elementMethod="Getsequenceid"
+               elementExistsMethod="not used"/> 
+            <autoReconcile
+               targetSymbol="Communication Diagram"
+               countMethod="Getcommunicationcount"
+               elementMethod="Getcommunicationid"
+               elementExistsMethod="not used"/> 
+            <autoReconcile
+               targetSymbol="Use Case Diagram"
+               countMethod="Getusecasecount"
+               elementMethod="Getusecaseid"
+               elementExistsMethod="not used"/> 
+            <autoReconcile
+               targetSymbol="Activity Diagram"
+               countMethod="Getactivitycount"
+               elementMethod="Getactivityid"
+               elementExistsMethod="not used"/> 
+            <autoReconcile
+               targetSymbol="Class"
+               countMethod="Getclasscount"
+               elementMethod="Getclassid"
+               elementExistsMethod="not used"/> 
+           <autoReconcile
+               targetSymbol="Imported Class"
+               countMethod="Getimportedclasscount"
+               elementMethod="Getimportedclassid"
+               elementExistsMethod="not used"/> 
+         </defaultFor>
+         <defaultFor
+               class="org.xtuml.bp.core.Sequence_c"
+               modelType="org.xtuml.bp.ui.canvas.Modeltype_c.SequenceDiagram"
+               name="Sequence Diagram"
+               ooaType="org.xtuml.bp.ui.canvas.Ooatype_c.Sequence">
+            <color
+                  b="255"
+                  g="215"
+                  r="174">
+            </color>
+            <validSymbol
+                  class="org.xtuml.bp.core.ComponentParticipant_c"
+                  name="Component">
+            </validSymbol>
+            <validSymbol
+                  name="Instance">
+            </validSymbol>
+            <validSymbol
+                  name="Actor">
+            </validSymbol>
+            <validSymbol
+                  class="org.xtuml.bp.core.ExternalEntityParticipant_c"
+                  name="External Entity">
+            </validSymbol>
+            <validSymbol
+                  class="org.xtuml.bp.core.ClassParticipant_c"
+                  name="Class">
+            </validSymbol>
+            <validSymbol
+                  name="Communication Line">
+            </validSymbol>
+            <validSymbol
+                  name="Timing Mark">
+            </validSymbol>
+            <validSymbol
+                  name="Time Span">
+            </validSymbol>
+            <validSymbol
+                  name="Synchronous Message">
+            </validSymbol>
+            <validSymbol
+                  name="Asynchronous Message">
+            </validSymbol>
+            <validSymbol
+                  name="Return Message">
+            </validSymbol>
+            <autoReconcile
+               targetSymbol="Sequence Diagram"
+               countMethod="Getsequencecount"
+               elementMethod="Getsequenceid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Component"
+               class="org.xtuml.bp.core.ComponentParticipant_c"
+               countMethod="Getcomponentcount"
+               elementMethod="Getcomponentid"
+               elementExistsMethod="not used"/>
+           <autoReconcile
+               targetSymbol="Instance"
+               countMethod="Getinstancecount"
+               elementMethod="Getinstanceid"
+               elementExistsMethod="not used"/>    
+           <autoReconcile
+               targetSymbol="Actor"
+               countMethod="Getactorcount"
+               elementMethod="Getactorid"
+               elementExistsMethod="not used"/>
+           <autoReconcile
+               targetSymbol="External Entity"
+               class="org.xtuml.bp.core.ExternalEntityParticipant_c"
+               countMethod="Getexternalentitycount"
+               elementMethod="Getexternalentityid"
+               elementExistsMethod="not used"/>
+           <autoReconcile
+               targetSymbol="Class"
+               class="org.xtuml.bp.core.ClassParticipant_c"
+               countMethod="Getclasscount"
+               elementMethod="Getclassid"
+               elementExistsMethod="not used"/>
+           <autoReconcile
+               targetSymbol="Function Package"
+               class="org.xtuml.bp.core.FunctionPackageParticipant_c"
+               countMethod="Getfunctionpckgcount"
+               elementMethod="Getfunctionpckgid"
+               elementExistsMethod="not used"/>                    
+         </defaultFor>
+         <defaultFor
+               class="org.xtuml.bp.core.Communication_c"
+               modelType="org.xtuml.bp.ui.canvas.Modeltype_c.CommunicationDiagram"
+               name="Communication Diagram"
+               ooaType="org.xtuml.bp.ui.canvas.Ooatype_c.Communication">
+            <color
+                  b="250"
+                  g="207"
+                  r="234">
+            </color>
+            <validSymbol
+                  class="org.xtuml.bp.core.ComponentParticipant_c"
+                  name="Component">
+            </validSymbol>
+            <validSymbol
+                  name="Instance">
+            </validSymbol>
+            <validSymbol
+                  name="Actor">
+            </validSymbol>
+            <validSymbol
+                  class="org.xtuml.bp.core.ExternalEntityParticipant_c"
+                  name="External Entity">
+            </validSymbol>
+            <validSymbol
+                  class="org.xtuml.bp.core.ClassParticipant_c"
+                  name="Class">
+            </validSymbol>
+            <validSymbol
+                  elemType="org.xtuml.bp.ui.canvas.Ooatype_c.CommunicationSynchronousMessage"
+                  name="Synchronous Message">
+            </validSymbol>
+            <validSymbol
+                  elemType="org.xtuml.bp.ui.canvas.Ooatype_c.CommunicationAsynchronousMessage"
+                  name="Asynchronous Message">
+            </validSymbol>
+            <validSymbol
+                  elemType="org.xtuml.bp.ui.canvas.Ooatype_c.CommunicationReturnMessage"
+                  name="Return Message">
+            </validSymbol>
+            <validSymbol
+                  name="Link">
+            </validSymbol>
+            <autoReconcile
+               targetSymbol="External Entity"
+               class="org.xtuml.bp.core.ExternalEntityParticipant_c"
+               countMethod="Getexternalentitycount"
+               elementMethod="Getexternalentityid"
+               elementExistsMethod="not used"/>    
+           <autoReconcile
+               targetSymbol="Class"
+               class="org.xtuml.bp.core.ClassParticipant_c"
+               countMethod="Getclasscount"
+               elementMethod="Getclassid"
+               elementExistsMethod="not used"/> 
+           <autoReconcile
+               targetSymbol="Function Package"
+               class="org.xtuml.bp.core.FunctionPackageParticipant_c"
+               countMethod="Getfunctionpckgcount"
+               elementMethod="Getfunctionpckgid"
+               elementExistsMethod="not used"/>   
+            <autoReconcile
+               targetSymbol="Communication Diagram"
+               countMethod="Getcommunicationcount"
+               elementMethod="Getcommunicationid"
+               elementExistsMethod="not used"/> 
+           <autoReconcile
+               targetSymbol="Component"
+               class="org.xtuml.bp.core.ComponentParticipant_c"
+               countMethod="Getcomponentcount"
+               elementMethod="Getcomponentid"
+               elementExistsMethod="not used"/>
+          <autoReconcile
+               targetSymbol="Instance"
+               countMethod="Getinstancecount"
+               elementMethod="Getinstanceid"
+               elementExistsMethod="not used"/>
+          <autoReconcile
+               targetSymbol="Actor"
+               countMethod="Getactorcount"
+               elementMethod="Getactorid"
+               elementExistsMethod="not used"/>  
+         </defaultFor>
+         <defaultFor
+               class="org.xtuml.bp.core.UseCaseDiagram_c"
+               modelType="org.xtuml.bp.ui.canvas.Modeltype_c.UseCaseDiagram"
+               name="Use Case Diagram"
+               ooaType="org.xtuml.bp.ui.canvas.Ooatype_c.UseCaseDiagram">
+            <color
+                  b="193"
+                  g="227"
+                  r="225">
+            </color>
+            <validSymbol
+                  name="Use Case">
+            </validSymbol>
+            <validSymbol
+                  name="Actor">
+            </validSymbol>
+            <validSymbol
+                  class="org.xtuml.bp.core.BinaryAssociation_c"
+                  name="Association">
+            </validSymbol>
+            <validSymbol
+                  name="Generalization">
+            </validSymbol>
+            <validSymbol
+                  name="Include">
+            </validSymbol>
+            <validSymbol
+                  name="Extend">
+            </validSymbol>
+            <autoReconcile
+               targetSymbol="Use Case Diagram"
+               countMethod="Getusecasediagramcount"
+               elementMethod="Getusecasediagramid"
+               elementExistsMethod="not used"/> 
+            <autoReconcile
+               targetSymbol="Use Case"
+               countMethod="Getusecasecount"
+               elementMethod="Getusecaseid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Actor"
+               countMethod="Getactorcount"
+               elementMethod="Getactorid"
+               elementExistsMethod="not used"/>   
+         </defaultFor>
+         <defaultFor
+               class="org.xtuml.bp.core.InstanceStateMachine_c"
+               modelType="org.xtuml.bp.ui.canvas.Modeltype_c.InstanceStateChartDiagram"
+               name="Instance State Machine"
+               ooaType="org.xtuml.bp.ui.canvas.Ooatype_c.StateMachine">
+            <color
+                  b="255"
+                  g="225"
+                  r="198">
+            </color>
+            <validSymbol
+                  name="State">
+            </validSymbol>
+            <validSymbol
+                  name="Transition">
+            </validSymbol>
+            <validSymbol
+                  name="Creation Transition">
+            </validSymbol>
+            <autoReconcile
+               targetSymbol="State"
+               countMethod="Getstatecount"
+               elementMethod="Getstateid"
+               elementExistsMethod="not used"/>  
+         </defaultFor>
+         <defaultFor
+               class="org.xtuml.bp.core.ClassStateMachine_c"
+               modelType="org.xtuml.bp.ui.canvas.Modeltype_c.ClassStateChartDiagram"
+               name="Class State Machine"
+               ooaType="org.xtuml.bp.ui.canvas.Ooatype_c.StateMachine">
+            <color
+                  b="190"
+                  g="240"
+                  r="200">
+            </color>
+            <validSymbol
+                  name="State">
+            </validSymbol>
+            <validSymbol
+                  name="Transition">
+            </validSymbol>
+            <autoReconcile
+               targetSymbol="State"
+               countMethod="Getstatecount"
+               elementMethod="Getstateid"
+               elementExistsMethod="not used"/>   
+         </defaultFor>
+         <defaultFor
+               class="org.xtuml.bp.core.DataTypePackage_c"
+               modelType="org.xtuml.bp.ui.canvas.Modeltype_c.DataTypePackageDiagram"
+               name="Data Type Package Diagram"
+               ooaType="org.xtuml.bp.ui.canvas.Ooatype_c.DataTypePackage">
+            <color
+                  b="210"
+                  g="227"
+                  r="255">
+            </color>
+            <validSymbol
+                  name="User Data Type">
+            </validSymbol>
+            <validSymbol
+                  name="Structured Data Type">
+            </validSymbol>
+            <validSymbol
+                  name="Enumeration Data Type">
+            </validSymbol>
+            <validSymbol
+                  name="Constant Specification">
+            </validSymbol>
+            <autoReconcile
+               targetSymbol="User Data Type"
+               countMethod="Getuserdatatypecount"
+               elementMethod="Getuserdatatypeid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Structured Data Type"
+               countMethod="Getstructureddatatypecount"
+               elementMethod="Getstructureddatatypeid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="Enumeration Data Type"
+               countMethod="Getenumdatatypecount"
+               elementMethod="Getenumdatatypeid"
+               elementExistsMethod="not used"/>  
+            <autoReconcile
+               targetSymbol="Constant Specification"
+               countMethod="Getconstantspeccount"
+               elementMethod="Getconstantspecid"
+               elementExistsMethod="not used"/> 
+            <autoReconcile
+               targetSymbol="Data Type Package"
+               countMethod="Getdtpckgcount"
+               elementMethod="Getdtpckgid"
+               elementExistsMethod="not used"/>          
+         </defaultFor>
+         <defaultFor
+               class="org.xtuml.bp.core.FunctionPackage_c"
+               modelType="org.xtuml.bp.ui.canvas.Modeltype_c.FunctionPackageDiagram"
+               name="Function Package Diagram"
+               ooaType="org.xtuml.bp.ui.canvas.Ooatype_c.FunctionPackage">
+            <color
+                  b="187"
+                  g="247"
+                  r="187">
+            </color>
+            <autoReconcile
+               targetSymbol="Function Package"
+               countMethod="Getfunctionpckgcount"
+               elementMethod="Getfunctionpckgid"
+               elementExistsMethod="not used"/>    
+         </defaultFor>
+         <defaultFor
+               class="org.xtuml.bp.core.ExternalEntityPackage_c"
+               modelType="org.xtuml.bp.ui.canvas.Modeltype_c.ExternalEntityPackageDiagram"
+               name="External Entity Package Diagram"
+               ooaType="org.xtuml.bp.ui.canvas.Ooatype_c.ExternalEntityPackage">
+            <color
+                  b="183"
+                  g="235"
+                  r="255">
+            </color>
+            <validSymbol
+                  class="org.xtuml.bp.core.ExternalEntity_c"
+                  name="External Entity">
+            </validSymbol>
+            <autoReconcile
+               targetSymbol="External Entity"
+               class="org.xtuml.bp.core.ExternalEntity_c"
+               countMethod="Getexternalentitycount"
+               elementMethod="Getexternalentityid"
+               elementExistsMethod="not used"/>
+            <autoReconcile
+               targetSymbol="External Entity Package"
+               countMethod="Getexternalentitypckgcount"
+               elementMethod="Getexternalentitypckgid"
+               elementExistsMethod="not used"/>
+         </defaultFor>
+      </editor>
+   </extension>
+   <extension
+         id="org.xtuml.bp.ui.graphics.CanvasEditorAction"
+         name="Diagram Editor"
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.ui.graphics.contribution0"
+            objectClass="org.xtuml.bp.core.DomainProxy">
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               enablesFor="1"
+               icon="icons/green-bp.gif"
+               id="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               label="Domain Diagram Editor (GEF)"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.ui.graphics.contribution1"
+            objectClass="org.xtuml.bp.core.Package_c">
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               enablesFor="1"
+               icon="icons/green-bp.gif"
+               id="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               label="Package Diagram Editor"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.ui.graphics.contribution2"
+            objectClass="org.xtuml.bp.core.Domain_c">
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               enablesFor="1"
+               icon="icons/green-bp.gif"
+               id="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               label="Domain Diagram Editor"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.ui.graphics.contribution3"
+            objectClass="org.xtuml.bp.core.Activity_c">
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               enablesFor="1"
+               icon="icons/green-bp.gif"
+               id="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               label="Activity Diagram Editor"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.ui.graphics.contribution4"
+            objectClass="org.xtuml.bp.core.Subsystem_c">
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               enablesFor="1"
+               icon="icons/green-bp.gif"
+               id="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               label="Class Diagram Editor"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.ui.graphics.contribution5"
+            objectClass="org.xtuml.bp.core.InstanceStateMachine_c">
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               enablesFor="1"
+               icon="icons/green-bp.gif"
+               id="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               label="State Diagram Editor"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.ui.graphics.contribution6"
+            objectClass="org.xtuml.bp.core.ClassStateMachine_c">
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               enablesFor="1"
+               icon="icons/green-bp.gif"
+               id="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               label="State Diagram Editor"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.ui.graphics.contribution7"
+            objectClass="org.xtuml.bp.core.Sequence_c">
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               enablesFor="1"
+               icon="icons/green-bp.gif"
+               id="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               label="Sequence Diagram Editor"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.ui.graphics.contribution8"
+            objectClass="org.xtuml.bp.core.Communication_c">
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               enablesFor="1"
+               icon="icons/green-bp.gif"
+               id="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               label="Communication Diagram Editor"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.ui.graphics.contribution9"
+            objectClass="org.xtuml.bp.core.UseCaseDiagram_c">
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               enablesFor="1"
+               icon="icons/green-bp.gif"
+               id="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               label="Use Case Diagram Editor"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.ui.graphics.contribution10"
+            objectClass="org.xtuml.bp.core.SystemModel_c">
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               enablesFor="1"
+               icon="icons/green-bp.gif"
+               id="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               label="System Package Editor"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.ui.graphics.contribution11"
+            objectClass="org.xtuml.bp.core.ComponentPackage_c">
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               enablesFor="1"
+               icon="icons/green-bp.gif"
+               id="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               label="Component Package Diagram Editor"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.ui.graphics.contribution12"
+            objectClass="org.xtuml.bp.core.Component_c">
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               enablesFor="1"
+               icon="icons/green-bp.gif"
+               id="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               label="Component Diagram Editor"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.xtuml.bp.ui.graphics.contribution13"
+            objectClass="org.xtuml.bp.core.InterfacePackage_c">
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               enablesFor="1"
+               icon="icons/green-bp.gif"
+               id="org.xtuml.bp.ui.graphics.actions.OpenGraphicsEditor"
+               label="Interface Package Diagram Editor"
+               menubarPath="org.xtuml.bp.ui.openroot/org.xtuml.bp.ui.openmenu">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="false"
+            id="org.xtuml.bp.ui.graphics.fillColor"
+            objectClass="org.eclipse.gef.GraphicalEditPart">
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetCustomFillColorAction"
+               id="org.xtuml.bp.ui.graphics.setCustomFillColorAction"
+               label="Custom Color..."
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.fillcolor/org.xtuml.bp.ui.graphics.format.fillcolor.separator2">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.RestoreDefaultFillColorAction"
+               id="org.xtuml.bp.ui.graphics.restoreDefaultFillColorAction"
+               label="Restore Default"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.fillcolor/org.xtuml.bp.ui.graphics.format.fillcolor.separator2">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="false"
+            id="org.xtuml.bp.ui.graphics.lineColor"
+            objectClass="org.eclipse.gef.GraphicalEditPart">
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetCustomLineColorAction"
+               id="org.xtuml.bp.ui.graphics.setCustomLineColorAction"
+               label="Custom Color..."
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.linecolor/org.xtuml.bp.ui.graphics.format.linecolor.separator2">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.RestoreDefaultLineColorAction"
+               id="org.xtuml.bp.ui.graphics.restoreDefaultLineColorAction"
+               label="Restore Default"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.linecolor/org.xtuml.bp.ui.graphics.format.linecolor.separator2">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="false"
+            id="org.xtuml.bp.ui.graphics.systemColorContribution"
+            objectClass="org.eclipse.gef.GraphicalEditPart">
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/dark_gray.png"
+               id="org.xtuml.bp.ui.graphics.setLineSystemColorDarkGrayAction"
+               label="Dark Gray"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.linecolor/org.xtuml.bp.ui.graphics.format.linecolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/dark_gray.png"
+               id="org.xtuml.bp.ui.graphics.setFillSystemColorDarkGrayAction"
+               label="Dark Gray"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.fillcolor/org.xtuml.bp.ui.graphics.format.fillcolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/gray.png"
+               id="org.xtuml.bp.ui.graphics.setLineSystemColorGrayAction"
+               label="Gray"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.linecolor/org.xtuml.bp.ui.graphics.format.linecolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/gray.png"
+               id="org.xtuml.bp.ui.graphics.setFillSystemColorGrayAction"
+               label="Gray"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.fillcolor/org.xtuml.bp.ui.graphics.format.fillcolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/dark_cyan.png"
+               id="org.xtuml.bp.ui.graphics.setLineSystemColorDarkCyanAction"
+               label="Dark Cyan"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.linecolor/org.xtuml.bp.ui.graphics.format.linecolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/dark_cyan.png"
+               id="org.xtuml.bp.ui.graphics.setFillSystemColorDarkCyanAction"
+               label="Dark Cyan"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.fillcolor/org.xtuml.bp.ui.graphics.format.fillcolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/cyan.png"
+               id="org.xtuml.bp.ui.graphics.setLineSystemColorCyanAction"
+               label="Cyan"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.linecolor/org.xtuml.bp.ui.graphics.format.linecolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/cyan.png"
+               id="org.xtuml.bp.ui.graphics.setFillSystemColorCyanAction"
+               label="Cyan"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.fillcolor/org.xtuml.bp.ui.graphics.format.fillcolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/dark_magenta.png"
+               id="org.xtuml.bp.ui.graphics.setLineSystemColorDarkMagentaAction"
+               label="Dark Magenta"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.linecolor/org.xtuml.bp.ui.graphics.format.linecolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/dark_magenta.png"
+               id="org.xtuml.bp.ui.graphics.setFillSystemColorDarkMagentaAction"
+               label="Dark Magenta"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.fillcolor/org.xtuml.bp.ui.graphics.format.fillcolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/magenta.png"
+               id="org.xtuml.bp.ui.graphics.setLineSystemColorMagentaAction"
+               label="Magenta"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.linecolor/org.xtuml.bp.ui.graphics.format.linecolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/magenta.png"
+               id="org.xtuml.bp.ui.graphics.setFillSystemColorMagentaAction"
+               label="Magenta"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.fillcolor/org.xtuml.bp.ui.graphics.format.fillcolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/dark_blue.png"
+               id="org.xtuml.bp.ui.graphics.setLineSystemColorDarkBlueAction"
+               label="Dark Blue"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.linecolor/org.xtuml.bp.ui.graphics.format.linecolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/dark_blue.png"
+               id="org.xtuml.bp.ui.graphics.setFillSystemColorDarkBlueAction"
+               label="Dark Blue"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.fillcolor/org.xtuml.bp.ui.graphics.format.fillcolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/blue.png"
+               id="org.xtuml.bp.ui.graphics.setLineSystemColorBlueAction"
+               label="Blue"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.linecolor/org.xtuml.bp.ui.graphics.format.linecolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/blue.png"
+               id="org.xtuml.bp.ui.graphics.setFillSystemColorBlueAction"
+               label="Blue"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.fillcolor/org.xtuml.bp.ui.graphics.format.fillcolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/dark_yellow.png"
+               id="org.xtuml.bp.ui.graphics.setLineSystemColorDarkYellowAction"
+               label="Dark Yellow"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.linecolor/org.xtuml.bp.ui.graphics.format.linecolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/dark_yellow.png"
+               id="org.xtuml.bp.ui.graphics.setFillSystemColorDarkYellowAction"
+               label="Dark Yellow"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.fillcolor/org.xtuml.bp.ui.graphics.format.fillcolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/yellow.png"
+               id="org.xtuml.bp.ui.graphics.setLineSystemColorYellowAction"
+               label="Yellow"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.linecolor/org.xtuml.bp.ui.graphics.format.linecolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/yellow.png"
+               id="org.xtuml.bp.ui.graphics.setFillSystemColorYellowAction"
+               label="Yellow"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.fillcolor/org.xtuml.bp.ui.graphics.format.fillcolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/dark_green.png"
+               id="org.xtuml.bp.ui.graphics.setLineSystemColorDarkGreenAction"
+               label="Dark Green"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.linecolor/org.xtuml.bp.ui.graphics.format.linecolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/dark_green.png"
+               id="org.xtuml.bp.ui.graphics.setFillSystemColorDarkGreenAction"
+               label="Dark Green"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.fillcolor/org.xtuml.bp.ui.graphics.format.fillcolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/green.png"
+               id="org.xtuml.bp.ui.graphics.setLineSystemColorGreenAction"
+               label="Green"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.linecolor/org.xtuml.bp.ui.graphics.format.linecolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/green.png"
+               id="org.xtuml.bp.ui.graphics.setFillSystemColorGreenAction"
+               label="Green"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.fillcolor/org.xtuml.bp.ui.graphics.format.fillcolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/dark_red.png"
+               id="org.xtuml.bp.ui.graphics.setLineSystemColorDarkRedAction"
+               label="Dark Red"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.linecolor/org.xtuml.bp.ui.graphics.format.linecolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/dark_red.png"
+               id="org.xtuml.bp.ui.graphics.setFillSystemColorDarkRedAction"
+               label="Dark Red"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.fillcolor/org.xtuml.bp.ui.graphics.format.fillcolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/red.png"
+               id="org.xtuml.bp.ui.graphics.setLineSystemColorRedAction"
+               label="Red"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.linecolor/org.xtuml.bp.ui.graphics.format.linecolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/red.png"
+               id="org.xtuml.bp.ui.graphics.setFillSystemColorRedAction"
+               label="Red"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.fillcolor/org.xtuml.bp.ui.graphics.format.fillcolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/black.png"
+               id="org.xtuml.bp.ui.graphics.setLineSystemColorBlackAction"
+               label="Black"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.linecolor/org.xtuml.bp.ui.graphics.format.linecolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/black.png"
+               id="org.xtuml.bp.ui.graphics.setFillSystemColorBlackAction"
+               label="Black"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.fillcolor/org.xtuml.bp.ui.graphics.format.fillcolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/white.png"
+               id="org.xtuml.bp.ui.graphics.setFillSystemColorWhiteAction"
+               label="White"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.fillcolor/org.xtuml.bp.ui.graphics.format.fillcolor.separator">
+         </action>
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetSystemColorAction"
+               icon="icons/white.png"
+               id="org.xtuml.bp.ui.graphics.setLineSystemColorWhiteAction"
+               label="White"
+               menubarPath="org.xtuml.bp.ui.graphics.format/org.xtuml.bp.ui.graphics.format.linecolor/org.xtuml.bp.ui.graphics.format.linecolor.separator">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="false"
+            id="org.xtuml.bp.ui.graphics.rectilinearRouting"
+            objectClass="org.xtuml.bp.ui.graphics.parts.ConnectorEditPart">
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetRectilinearRoutingAction"
+               enablesFor="+"
+               id="org.xtuml.bp.ui.graphics.setRectilinearRouting"
+               label="Rectilinear Routing"
+               menubarPath="org.xtuml.bp.ui.graphics.routing/org.xtuml.bp.ui.graphics.routing.separator">
+         </action>
+         <filter
+               name="routing"
+               value="setRectilinearRouting">
+         </filter>
+      </objectContribution>
+      <objectContribution
+            adaptable="false"
+            id="org.xtuml.bp.ui.graphicsObliqueRouting"
+            objectClass="org.xtuml.bp.ui.graphics.parts.ConnectorEditPart">
+         <action
+               class="org.xtuml.bp.ui.graphics.actions.SetObliqueRoutingAction"
+               enablesFor="+"
+               id="org.xtuml.bp.ui.graphics.setRectilinearRouting"
+               label="Oblique Routing"
+               menubarPath="org.xtuml.bp.ui.graphics.routing/org.xtuml.bp.ui.graphics.routing.separator">
+         </action>
+         <filter
+               name="routing"
+               value="setObliqueRouting">
+         </filter>
+      </objectContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.elementFactories">
+      <factory
+            class="org.xtuml.bp.ui.graphics.editor.GraphicalEditorFactory"
+            id="org.xtuml.bp.ui.graphics.editorFactory">
+      </factory>
+   </extension>
+   <extension point="org.eclipse.ui.fontDefinitions">
+      <fontDefinition
+         id="org.xtuml.bp.canvas.font"
+         label="UML Diagram Text"
+         defaultsTo="org.eclipse.jface.dialogfont">
+         <description>
+            This is the font used on xtUML Diagrams
+         </description>
+      </fontDefinition>
+   </extension>
+
+   <extension point="org.eclipse.ui.preferencePages">
+     <page id="org.xtuml.bp.core.editors.canvas"
+           name="Diagram Editors"
+           class="org.xtuml.bp.ui.graphics.preferences.GraphicalEditorPreferences"
+           category="org.xtuml.bp.core.root">
+     </page>
+   </extension>
+   
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts file="contexts/contexts.xml"/>
+      <contexts
+            file="contexts/contexts.xml"
+            plugin="org.eclipse.ui"/>
+      <contexts
+            file="contexts/contexts.xml"
+            plugin="org.eclipse.ui.ide"/>
+      <contexts
+            file="contexts/contexts.xml"
+            plugin="org.eclipse.ui.editors"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.popup.any?before=additions">
+         <menu
+               id="org.xtuml.bp.ui.graphics.format"
+               label="Format">
+            <separator
+                  name="org.xtuml.bp.ui.graphics.format.separator"
+                  visible="true">
+            </separator>
+            <menu
+                  icon="icons/fill_color.gif"
+                  id="org.xtuml.bp.ui.graphics.format.fillcolor"
+                  label="Fill Color">
+               <separator
+                     name="org.xtuml.bp.ui.graphics.format.fillcolor.separator"
+                     visible="true">
+               </separator>
+               <separator
+                     name="org.xtuml.bp.ui.graphics.format.fillcolor.separator2"
+                     visible="true">
+               </separator>
+            </menu>
+            <menu
+                  icon="icons/line_color.gif"
+                  id="org.xtuml.bp.ui.graphics.format.linecolor"
+                  label="Line Color">
+               <separator
+                     name="org.xtuml.bp.ui.graphics.format.linecolor.separator"
+                     visible="true">
+               </separator>
+               <separator
+                     name="org.xtuml.bp.ui.graphics.format.linecolor.separator2"
+                     visible="true">
+               </separator>
+            </menu>
+         </menu>
+         <dynamic
+               class="org.xtuml.bp.ui.graphics.actions.DynamicLayersContributionItem"
+               id="org.xtuml.bp.ui.graphics.layers.dynamic">
+         </dynamic>
+         <menu
+               id="org.xtuml.bp.ui.graphics.routing"
+               label="Routing">
+            <separator
+                  name="org.xtuml.bp.ui.graphics.routing.separator">
+            </separator>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="org.xtuml.bp.ui.graphics.parts.DiagramEditPart"
+            class="org.xtuml.bp.ui.graphics.factories.AdapterFactory">
+         <adapter
+               type="org.eclipse.core.resources.IFile">
+         </adapter>
+      </factory>
+      <factory
+            adaptableType="org.xtuml.bp.ui.graphics.parts.ShapeEditPart"
+            class="org.xtuml.bp.ui.graphics.factories.AdapterFactory">
+         <adapter
+               type="org.eclipse.core.resources.IFile">
+         </adapter>
+      </factory>
+   </extension>
+   
+
+</plugin>

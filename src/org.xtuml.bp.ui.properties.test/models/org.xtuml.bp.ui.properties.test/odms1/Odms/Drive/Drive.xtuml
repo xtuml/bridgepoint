@@ -1,0 +1,144 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("42aece9b-eea9-4cae-a028-2020b45b412a",
+	'Drive',
+	7,
+	'D_DR',
+	'Object Description:
+
+Object Role:
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("42aece9b-eea9-4cae-a028-2020b45b412a",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060",
+	0,
+	"f7142ed3-50db-47e3-89da-0f2080f9d860",
+	"ded3e9a5-a2a7-4f97-bdbd-13e19a9eaaee",
+	"0df7aaed-f02a-4ead-acf2-8f7d03baee49",
+	"3c0f5f6b-d2ac-4b2f-86e5-5068e0780709",
+	"918f7c64-1a83-49f8-b779-ca667042c17c",
+	"9843865b-a641-4a47-937e-ea99c561c0d3",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'Reference Domain:
+',
+	'Online Location',
+	'Online_Location_ID',
+	'R7');
+INSERT INTO R_RGO_PROXY
+	VALUES ("42aece9b-eea9-4cae-a028-2020b45b412a",
+	"ded3e9a5-a2a7-4f97-bdbd-13e19a9eaaee",
+	"0df7aaed-f02a-4ead-acf2-8f7d03baee49",
+	'../Odms.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("f7142ed3-50db-47e3-89da-0f2080f9d860",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060",
+	0,
+	"ded3e9a5-a2a7-4f97-bdbd-13e19a9eaaee",
+	"3c0f5f6b-d2ac-4b2f-86e5-5068e0780709",
+	'../Odms.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("918f7c64-1a83-49f8-b779-ca667042c17c",
+	"42aece9b-eea9-4cae-a028-2020b45b412a",
+	"f7142ed3-50db-47e3-89da-0f2080f9d860",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060",
+	0,
+	'Online_Location_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("f7142ed3-50db-47e3-89da-0f2080f9d860",
+	"bc6ce7c3-fc03-4a01-b237-4c0f7a12a060",
+	'../Online Location/Online Location.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("918f7c64-1a83-49f8-b779-ca667042c17c",
+	"42aece9b-eea9-4cae-a028-2020b45b412a",
+	"00000000-0000-0000-0000-000000000000",
+	'Drive_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Drive_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("41fc14a9-670c-420d-9d15-a4ecc2092088",
+	"42aece9b-eea9-4cae-a028-2020b45b412a");
+INSERT INTO O_BATTR
+	VALUES ("41fc14a9-670c-420d-9d15-a4ecc2092088",
+	"42aece9b-eea9-4cae-a028-2020b45b412a");
+INSERT INTO O_ATTR
+	VALUES ("41fc14a9-670c-420d-9d15-a4ecc2092088",
+	"42aece9b-eea9-4cae-a028-2020b45b412a",
+	"918f7c64-1a83-49f8-b779-ca667042c17c",
+	'Idle',
+	'This attribute is TRUE only when the state machine is in the Idle state.
+i.e.
+
+if (current_state == "Idle")
+  return true;
+else
+  return false;
+end if;',
+	'',
+	'Idle',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("627140b0-0465-4c70-97f7-de55cc933273",
+	"42aece9b-eea9-4cae-a028-2020b45b412a");
+INSERT INTO O_BATTR
+	VALUES ("627140b0-0465-4c70-97f7-de55cc933273",
+	"42aece9b-eea9-4cae-a028-2020b45b412a");
+INSERT INTO O_ATTR
+	VALUES ("627140b0-0465-4c70-97f7-de55cc933273",
+	"42aece9b-eea9-4cae-a028-2020b45b412a",
+	"41fc14a9-670c-420d-9d15-a4ecc2092088",
+	'current_state',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"42aece9b-eea9-4cae-a028-2020b45b412a");
+INSERT INTO O_OIDA
+	VALUES ("918f7c64-1a83-49f8-b779-ca667042c17c",
+	"42aece9b-eea9-4cae-a028-2020b45b412a",
+	0,
+	'Drive_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"42aece9b-eea9-4cae-a028-2020b45b412a");
+INSERT INTO O_ID
+	VALUES (2,
+	"42aece9b-eea9-4cae-a028-2020b45b412a");
+INSERT INTO PE_PE
+	VALUES ("42aece9b-eea9-4cae-a028-2020b45b412a",
+	1,
+	"e96c6930-7be7-4437-abe5-f7d202c0cf0c",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("e96c6930-7be7-4437-abe5-f7d202c0cf0c",
+	"00000000-0000-0000-0000-000000000000",
+	"2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'Odms',
+	'Subsystem Description:
+
+Relationship with other Subsystems:
+',
+	1,
+	'../Odms.xtuml');

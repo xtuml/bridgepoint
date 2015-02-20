@@ -107,7 +107,7 @@ Windows Steps
 ```      
       set PT_HOME=/work/BridgePointDev/
       set PT_HOME_DRIVE=c:
-      set XTUMLGEN_HOME=%MGC_EMBEDDED_HOME%/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.dap.pkg_%BP_VERSION%/bridgepoint
+      set XTUMLGEN_HOME=%MGC_EMBEDDED_HOME%/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.dap.pkg_%BP_VERSION%/bridgepoint
       set XTUML_DEVELOPMENT_REPOSITORY=C:/git/bposs
       set XTUML_TEST_MODEL_REPOSITORY=C:/git/models/test/
       set XTUML_PRIVATE_MODEL_REPOSITORY=C:/git/modelsmg/test/
@@ -156,14 +156,14 @@ Windows Steps
 ### Setup Development Environment to Run MC3020 Under a Launch Configuration
   - Open Windows explorer and navigate to the BridgePoint plug-in installation folder.  The default is:
 ```
-c:/MentorGraphics/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/com.mentor.nucleus.bp.mc.c.binary_version/mc3020
+c:/MentorGraphics/BridgePoint/eclipse_extensions/BridgePoint/eclipse/plugins/org.xtuml.bp.mc.c.binary_version/mc3020
 ```
   
   - Select all files and folders in the above folder
   
   - Select Copy
   
-  - Open the Model Explorer view in Eclipse and navigate to: ```c:/git/bposs/src/com.mentor.nucleus.bp.mc.c.binary_version/mc3020```
+  - Open the Model Explorer view in Eclipse and navigate to: ```c:/git/bposs/src/org.xtuml.bp.mc.c.binary_version/mc3020```
   
   - Paste the previous selection into this folder
 

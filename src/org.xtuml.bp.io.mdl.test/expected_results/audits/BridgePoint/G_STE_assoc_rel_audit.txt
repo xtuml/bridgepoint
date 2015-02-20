@@ -1,0 +1,175 @@
+AUDIT RESULTS FOR DOMAIN G_STE_assoc_rel
+
+CLASSES WITHOUT IDENTIFIERS:
+Class Controller::Initialization
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+Association
+Controller
+Reflexive
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging::LogFailure
+External Entity Bridge Logging::LogInfo
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class Association::A
+Class Association::B
+Class Association::C
+Class Association::D
+Class Association::E
+Class Association::F
+Class Association::G
+Class Association::H
+Class Association::I
+Class Association::J
+Class Association::L
+Class Association::K
+Class Association::R
+Class Association::Q
+Class Association::P
+Class Association::M
+Class Association::O
+Class Association::N
+Class Controller::Driver
+Class Controller::Initialization
+Class Reflexive::Class AA
+Class Reflexive::Class BB
+Class Reflexive::Class CC
+Class Reflexive::Class DD
+Class Reflexive::Class EE
+Class Reflexive::Class FF
+Class Reflexive::Class JJ
+Class Reflexive::Class LL
+Class Reflexive::Class KK
+Class Reflexive::Class GG
+Class Reflexive::Class HH
+Class Reflexive::Class II
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute A::a_id
+Attribute B::b_id
+Attribute C::a_id
+Attribute C::b_id
+Attribute D::d_id
+Attribute E::e_id
+Attribute F::d_id
+Attribute F::e_id
+Attribute F::f_id
+Attribute G::g_id
+Attribute H::h_id
+Attribute I::g_id
+Attribute I::h_id
+Attribute J::j_id
+Attribute L::j_id
+Attribute L::k_id
+Attribute L::l_id
+Attribute K::k_id
+Attribute R::p_id
+Attribute R::q_id
+Attribute R::r_id
+Attribute Q::q_id
+Attribute P::p_id
+Attribute M::m_id
+Attribute O::m_id
+Attribute O::n_id
+Attribute N::n_id
+Attribute Driver::drv_id
+Attribute Driver::current_state
+Attribute Initialization::current_state
+Attribute Class AA::aa_id
+Attribute Class AA::aa_id2
+Attribute Class BB::aa_id
+Attribute Class BB::aa_id2
+Attribute Class CC::cc_id
+Attribute Class CC::cc_id2
+Attribute Class DD::cc_id
+Attribute Class DD::cc_id2
+Attribute Class DD::dd_id
+Attribute Class EE::ee_id
+Attribute Class EE::ee_id2
+Attribute Class FF::ee_id
+Attribute Class FF::ee_id2
+Attribute Class JJ::ii_id
+Attribute Class JJ::ii_id2
+Attribute Class LL::kk_id
+Attribute Class LL::kk_id2
+Attribute Class LL::ll_id
+Attribute Class KK::kk_id
+Attribute Class KK::kk_id2
+Attribute Class GG::gg_id
+Attribute Class GG::gg_id2
+Attribute Class HH::gg_id
+Attribute Class HH::gg_id2
+Attribute Class HH::hh_id
+Attribute Class II::ii_id
+Attribute Class II::ii_id2
+
+REFERENCES WITHOUT DESCRIPTIONS:
+Referential Attribute C::a_id
+Referential Attribute C::b_id
+Referential Attribute F::d_id
+Referential Attribute F::e_id
+Referential Attribute I::g_id
+Referential Attribute I::h_id
+Referential Attribute L::j_id
+Referential Attribute L::k_id
+Referential Attribute R::p_id
+Referential Attribute R::q_id
+Referential Attribute O::m_id
+Referential Attribute O::n_id
+Referential Attribute Class BB::aa_id
+Referential Attribute Class BB::aa_id2
+Referential Attribute Class DD::cc_id
+Referential Attribute Class DD::cc_id2
+Referential Attribute Class FF::ee_id
+Referential Attribute Class FF::ee_id2
+Referential Attribute Class JJ::ii_id
+Referential Attribute Class JJ::ii_id2
+Referential Attribute Class LL::kk_id
+Referential Attribute Class LL::kk_id2
+Referential Attribute Class HH::gg_id
+Referential Attribute Class HH::gg_id2
+
+RELATIONSHIPS WITHOUT DESCRIPTIONS:
+Association::R1
+Association::R2
+Association::R3
+Association::R4
+Association::R8
+Association::R7
+Reflexive::R200
+Reflexive::R201
+Reflexive::R202
+Reflexive::R205
+Reflexive::R204
+Reflexive::R203
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Driver
+State Model Initialization
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event DRV1
+Event INIT1
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Driver::One-One-One
+Driver::One-One-Many
+Driver::One-Many-One
+Driver::One-Many-Many
+Driver::Many-Many-Many
+Driver::Many-Many-One
+Driver::One-One-One-Reflexive
+Driver::One-One-Many-Reflexive
+Driver::One-Many-One-Reflexive
+Driver::One-Many-Many-Reflexive
+Driver::Many-Many-Many-Reflexive
+Driver::Many-Many-One-Reflexive
+Driver::Cleanup
+Initialization::Initialization

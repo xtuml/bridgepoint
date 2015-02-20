@@ -1,0 +1,146 @@
+AUDIT RESULTS FOR DOMAIN syntax
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+syntax
+Transformer Subsystem
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logging 
+External Entity Time
+External Entity Architecture
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logging ::LogSuccess
+External Entity Bridge Logging ::LogFailure
+External Entity Bridge Logging ::LogInfo
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class syntax::Driver
+Class syntax::syntax init
+Class syntax::Event Tester
+Class syntax::Assigner Event Tester
+Class syntax::Creation Event Tester
+Class Transformer Subsystem::Transformer Object
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Driver::dr_id
+Attribute Driver::current_state
+Attribute Driver::testNumber
+Attribute Driver::test_failed_timer
+Attribute Driver::test_exec_timer
+Attribute syntax init::id
+Attribute syntax init::current_state
+Attribute Event Tester::evtst_id
+Attribute Event Tester::current_state
+Attribute Assigner Event Tester::a_evtst_id
+Attribute Assigner Event Tester::param_int
+Attribute Creation Event Tester::c_evtst_id
+Attribute Creation Event Tester::current_state
+Attribute Transformer Object::tran_id
+Attribute Transformer Object::current_state
+
+OPERATIONS WITHOUT DESCRIPTIONS:
+Operation Transformer Object::return_int
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Driver
+State Model syntax init
+State Model Event Tester
+State Model Assigner Event Tester
+State Model Creation Event Tester
+State Model Transformer Object
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event DR2
+Event DR1
+Event DR3
+Event DR4
+Event DR5
+Event DR6
+Event DR7
+Event INIT1
+Event EVTST1
+Event EVTST2
+Event EVTST3
+Event A_EVTST_A1
+Event A_EVTST_A2
+Event A_EVTST_A3
+Event C_EVTST1
+Event C_EVTST2
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Driver::int_param
+Event Data Event Tester::int_param
+Event Data Assigner Event Tester (Class Based)::int_param
+Event Data Creation Event Tester::int_param
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Driver::Begin Tests
+Driver::Test Optional TRANSFORM
+Driver::Test Optional BRIDGE
+Driver::Test Complete
+Driver::Test Optional ASSIGN
+Driver::Test Event Gen Supplying Meaning Omitting Parens To Instance
+Driver::Test Event Gen Omitting Meaning With Supdata To Instance
+Driver::FGI1
+Driver::Test Event Gen Omitting Meaning And Parens To Instance
+Driver::PGI1
+Driver::PGI2
+Driver::PGI3
+Driver::FGI2
+Driver::FGI3
+Driver::Test Event Ref Omitting Meaning And Parens To Instance
+Driver::Test Event Ref Supplying Meaning Omitting Parens To Instance
+Driver::Test Event Ref Omitting Meaning With Supdata To Instance
+Driver::FRI1
+Driver::PRI1
+Driver::FRI2
+Driver::PRI2
+Driver::FRI3
+Driver::PRI3
+Driver::FGA1
+Driver::FGA2
+Driver::FGA3
+Driver::FRA1
+Driver::FRA2
+Driver::FRA3
+Driver::Test Event Gen Omitting Meaning And Parens To Assigner
+Driver::PGA1
+Driver::Test Event Gen Supplying Meaning Omitting Parens To Assigner
+Driver::Test Event Gen Omitting Meaning With Supdata To Assigner
+Driver::PGA2
+Driver::PGA3
+Driver::Test Event Ref Omitting Meaning And Parens To Assigner
+Driver::Test Event Ref Supplying Meaning Omitting Parens To Assigner
+Driver::Test Event Ref Omitting Meaning With Supdata To Assigner
+Driver::PRA1
+Driver::PRA2
+Driver::PRA3
+Driver::FGC1
+Driver::FGC2
+Driver::FGC3
+Driver::FRC1
+Driver::FRC2
+Driver::FRC3
+Driver::Test Event Ref Omitting Meaning With Supdata To Creator
+Driver::Test Event Ref Supplying Meaning Omitting Parens To Creator
+Driver::Test Event Ref Omitting Meaning And Parens To Creator
+Driver::Test Event Gen Omitting Meaning With Supdata To Creator
+Driver::Test Event Gen Supplying Meaning Omitting Parens To Creator
+Driver::Test Event Gen Omitting Meaning And Parens To Creator
+Driver::PGC1
+Driver::PGC2
+Driver::PGC3
+Driver::PRC1
+Driver::PRC2
+Driver::PRC3
+syntax init::Initialize System
+Event Tester::Receiving Test Events
+Event Tester::Responding To No Supdata Event
+Event Tester::Responding to Supdata Event
+Assigner Event Tester::Receiving Test Events (Class Based)
+Assigner Event Tester::Responding to Supdata Event (Class Based)
+Assigner Event Tester::Responding to No Supdata Event (Class Based)
+Creation Event Tester::Responding To No Supdata Event
+Creation Event Tester::Responding To Supdata Event

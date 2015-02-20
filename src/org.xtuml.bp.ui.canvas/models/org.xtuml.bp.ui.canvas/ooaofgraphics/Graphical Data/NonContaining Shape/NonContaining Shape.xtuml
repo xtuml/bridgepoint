@@ -1,0 +1,93 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("414e6fd7-a538-4eb3-8506-a574c2bf20dc",
+	'NonContaining Shape',
+	17,
+	'GD_NCS',
+	'',
+	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+INSERT INTO O_REF
+	VALUES ("414e6fd7-a538-4eb3-8506-a574c2bf20dc",
+	"0dbd2431-e353-4456-9834-6923205e88d7",
+	0,
+	"89373e61-1ced-470c-8595-0caf35d1b56c",
+	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
+	"8a5dc55f-f509-4a33-ab49-d8e435773f49",
+	"b0fced35-d71e-46a4-9598-c08ad29ab5ae",
+	"a6e10072-cc5c-4f5b-b3a3-3534debd1141",
+	"9ef32a3a-30c4-471a-845c-76e984808fef",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Shape',
+	'elementId',
+	'R28');
+INSERT INTO R_RGO_PROXY
+	VALUES ("414e6fd7-a538-4eb3-8506-a574c2bf20dc",
+	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
+	"8a5dc55f-f509-4a33-ab49-d8e435773f49",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("89373e61-1ced-470c-8595-0caf35d1b56c",
+	"0dbd2431-e353-4456-9834-6923205e88d7",
+	0,
+	"4bc0993a-c366-4e44-adb0-c1770c0d6972",
+	"b0fced35-d71e-46a4-9598-c08ad29ab5ae",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("a6e10072-cc5c-4f5b-b3a3-3534debd1141",
+	"414e6fd7-a538-4eb3-8506-a574c2bf20dc",
+	"53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	1,
+	'elementId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("53d10295-c89f-4194-94ba-3dab00d071cd",
+	"593e6c1e-5bc8-40f5-b079-a85690d47f08",
+	'../../UML 2.0 Diagram Interchange/DiagramElement/DiagramElement.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("a6e10072-cc5c-4f5b-b3a3-3534debd1141",
+	"414e6fd7-a538-4eb3-8506-a574c2bf20dc",
+	"00000000-0000-0000-0000-000000000000",
+	'elementId',
+	'',
+	'',
+	'elementId',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"414e6fd7-a538-4eb3-8506-a574c2bf20dc");
+INSERT INTO O_OIDA
+	VALUES ("a6e10072-cc5c-4f5b-b3a3-3534debd1141",
+	"414e6fd7-a538-4eb3-8506-a574c2bf20dc",
+	0,
+	'elementId');
+INSERT INTO O_ID
+	VALUES (1,
+	"414e6fd7-a538-4eb3-8506-a574c2bf20dc");
+INSERT INTO O_ID
+	VALUES (2,
+	"414e6fd7-a538-4eb3-8506-a574c2bf20dc");
+INSERT INTO S_SS_PROXY
+	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	'Graphical Data',
+	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
+-------------------------------------------------------
+Import:org.eclipse.swt.graphics.Color
+Notify_Changes:true',
+	'GD',
+	1,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001900032",
+	'../Graphical Data.xtuml');

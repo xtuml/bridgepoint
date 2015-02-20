@@ -1,0 +1,306 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("51639b01-a417-4a8b-8b22-c80dd91abf10",
+	'Link Participation',
+	2919,
+	'I_LIP',
+	'',
+	"97c1ace4-0148-4235-83cb-1fd8e2d2514d");
+INSERT INTO O_TFR
+	VALUES ("201c9125-4a38-44b8-bff6-032849400782",
+	"51639b01-a417-4a8b-8b22-c80dd91abf10",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Get rid of the link relationships related to this instance
+select one partLink related by self->I_LNK[R2901];
+if(not_empty partLink)
+  unrelate partLink from self across R2901;
+  partLink.dispose();
+end if;
+
+select one formalizingLink related by self->I_LNK[R2902];
+if(not_empty formalizingLink)
+  unrelate formalizingLink from self across R2902;
+  formalizingLink.dispose();
+end if;
+
+select one associatorLink related by self->I_LNK[R2903];
+if(not_empty associatorLink)
+  unrelate associatorLink from self across R2903;
+  associatorLink.dispose();
+end if;
+
+select one ins related by self->I_INS[R2958];
+if (not_empty ins)
+  unrelate ins from self across R2958;
+end if;
+
+select one rel related by self->R_REL[R2959];
+if (not_empty rel)
+  unrelate rel from self across R2959;
+end if;
+
+
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("51639b01-a417-4a8b-8b22-c80dd91abf10",
+	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
+	0,
+	"a3236a14-04dd-4138-98c9-b5a3b9a288c9",
+	"ed226770-2188-4e17-a92a-d4338f33fe35",
+	"504dc00c-2af1-4ac2-b1de-156ddc42ebdf",
+	"a5b934b7-2ee1-4f00-a74c-58a704a78c2f",
+	"12e15297-839f-4e6c-9ee6-e519ebcb548f",
+	"9cc0eee8-e00a-4c79-a8bc-deb1218a53d6",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Instance',
+	'Inst_ID',
+	'R2958');
+INSERT INTO R_RGO_PROXY
+	VALUES ("51639b01-a417-4a8b-8b22-c80dd91abf10",
+	"ed226770-2188-4e17-a92a-d4338f33fe35",
+	"504dc00c-2af1-4ac2-b1de-156ddc42ebdf",
+	'../Instance.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("a3236a14-04dd-4138-98c9-b5a3b9a288c9",
+	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
+	0,
+	"ed226770-2188-4e17-a92a-d4338f33fe35",
+	"a5b934b7-2ee1-4f00-a74c-58a704a78c2f",
+	'../Instance.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("12e15297-839f-4e6c-9ee6-e519ebcb548f",
+	"51639b01-a417-4a8b-8b22-c80dd91abf10",
+	"a3236a14-04dd-4138-98c9-b5a3b9a288c9",
+	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
+	1,
+	'Inst_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a3236a14-04dd-4138-98c9-b5a3b9a288c9",
+	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
+	'../Instance/Instance.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("12e15297-839f-4e6c-9ee6-e519ebcb548f",
+	"51639b01-a417-4a8b-8b22-c80dd91abf10",
+	"78d98fab-fdac-46c5-b714-fab9418ebff5",
+	'Inst_ID',
+	'',
+	'',
+	'Inst_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_DBATTR
+	VALUES ("bcbad805-04e6-48cf-a455-b48380fb3e9c",
+	"51639b01-a417-4a8b-8b22-c80dd91abf10",
+	'select one assoc related by self->R_REL[R2959];
+if not_empty assoc
+  phrase = "";
+  select one origin related by self->I_LNK[R2901];
+  select one associator related by self->I_LNK[R2903];
+  if(empty associator)
+    select one simp related by assoc->R_SIMP[R206];
+    if(not_empty simp)
+      if(not_empty origin)
+        select many parts related by simp->R_PART[R207];
+        for each part in parts
+          // in the case of an unformalized association
+          // we will have two parts and want the last one''s
+          // text phrase
+          phrase = part.Txt_Phrs;
+        end for;    
+      else
+        select one form related by simp->R_FORM[R208];
+        if(not_empty form)
+          phrase = form.Txt_Phrs;
+        else
+          // we are dealing with an unformalized
+          // association, in which case the first
+          // R_PART is always used as the origin
+          // we want to return its text phrase
+          select many parts related by simp->R_PART[R207];
+          for each part in parts
+            phrase = part.Txt_Phrs;
+            break;
+          end for;          
+        end if;
+      end if;
+    end if;
+    select one linked related by assoc->R_ASSOC[R206];
+    if(not_empty linked)
+      if(not_empty origin)
+        select one aoth related by linked->R_AOTH[R210];
+        if(not_empty aoth)
+          phrase = aoth.Txt_Phrs;
+        end if;
+      else
+        select one aone related by linked->R_AONE[R209];
+        if(not_empty aone)
+          phrase = aone.Txt_Phrs;
+        end if;
+      end if;
+    end if;
+  end if;
+  if(phrase != "")
+    self.Label = assoc.get_name() + "."
+                                     + Util::getTic() + phrase + Util::getTic();
+  else
+  	self.Label = assoc.get_name();
+  end if;
+else
+  self.Label = "Unknown Association";
+end if;',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("bcbad805-04e6-48cf-a455-b48380fb3e9c",
+	"51639b01-a417-4a8b-8b22-c80dd91abf10");
+INSERT INTO O_ATTR
+	VALUES ("bcbad805-04e6-48cf-a455-b48380fb3e9c",
+	"51639b01-a417-4a8b-8b22-c80dd91abf10",
+	"12e15297-839f-4e6c-9ee6-e519ebcb548f",
+	'Label',
+	'',
+	'',
+	'Label',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("51639b01-a417-4a8b-8b22-c80dd91abf10",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	0,
+	"0e0a4e72-7f7e-46b9-b83c-2c6b882dda5f",
+	"b2e90cd5-4b5c-44dd-89bd-0eab3c519141",
+	"b22615c6-1ee6-44ad-a989-26765783b05c",
+	"5be31ed6-e382-4d04-99da-b22178147624",
+	"78d98fab-fdac-46c5-b714-fab9418ebff5",
+	"374f544d-916b-4dfd-b203-85d74c9c39c3",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Association',
+	'Rel_ID',
+	'R2959');
+INSERT INTO R_RGO_PROXY
+	VALUES ("51639b01-a417-4a8b-8b22-c80dd91abf10",
+	"b2e90cd5-4b5c-44dd-89bd-0eab3c519141",
+	"b22615c6-1ee6-44ad-a989-26765783b05c",
+	'../Instance.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0e0a4e72-7f7e-46b9-b83c-2c6b882dda5f",
+	"fccf477f-dde6-4d1a-9020-5effbe338738",
+	0,
+	"b2e90cd5-4b5c-44dd-89bd-0eab3c519141",
+	"5be31ed6-e382-4d04-99da-b22178147624",
+	'../Instance.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("78d98fab-fdac-46c5-b714-fab9418ebff5",
+	"51639b01-a417-4a8b-8b22-c80dd91abf10",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("78d98fab-fdac-46c5-b714-fab9418ebff5",
+	"51639b01-a417-4a8b-8b22-c80dd91abf10",
+	"bc910ce7-95a1-419a-b4ae-3930bb72a3b5",
+	'Rel_ID',
+	'',
+	'',
+	'Rel_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("bc910ce7-95a1-419a-b4ae-3930bb72a3b5",
+	"51639b01-a417-4a8b-8b22-c80dd91abf10");
+INSERT INTO O_BATTR
+	VALUES ("bc910ce7-95a1-419a-b4ae-3930bb72a3b5",
+	"51639b01-a417-4a8b-8b22-c80dd91abf10");
+INSERT INTO O_ATTR
+	VALUES ("bc910ce7-95a1-419a-b4ae-3930bb72a3b5",
+	"51639b01-a417-4a8b-8b22-c80dd91abf10",
+	"00000000-0000-0000-0000-000000000000",
+	'Participation_ID',
+	'',
+	'',
+	'Participation_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"51639b01-a417-4a8b-8b22-c80dd91abf10");
+INSERT INTO O_OIDA
+	VALUES ("78d98fab-fdac-46c5-b714-fab9418ebff5",
+	"51639b01-a417-4a8b-8b22-c80dd91abf10",
+	0,
+	'Rel_ID');
+INSERT INTO O_OIDA
+	VALUES ("bc910ce7-95a1-419a-b4ae-3930bb72a3b5",
+	"51639b01-a417-4a8b-8b22-c80dd91abf10",
+	0,
+	'Participation_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"51639b01-a417-4a8b-8b22-c80dd91abf10");
+INSERT INTO O_ID
+	VALUES (2,
+	"51639b01-a417-4a8b-8b22-c80dd91abf10");
+INSERT INTO S_SS_PROXY
+	VALUES ("97c1ace4-0148-4235-83cb-1fd8e2d2514d",
+	'Instance',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+Persistent:false
+Import: java.util.concurrent.locks.ReentrantLock',
+	'I',
+	900,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Instance.xtuml');

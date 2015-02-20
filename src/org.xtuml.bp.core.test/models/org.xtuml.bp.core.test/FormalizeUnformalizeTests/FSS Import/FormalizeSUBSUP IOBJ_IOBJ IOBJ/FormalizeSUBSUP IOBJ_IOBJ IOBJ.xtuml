@@ -1,0 +1,55 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("52412a14-2b1e-4766-aa69-aa0fba327a09",
+	'FormalizeSUBSUP IOBJ_IOBJ IOBJ',
+	702,
+	'T_FORM',
+	'Imported Class',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("0da1b654-4aea-46ca-97eb-ea11bd3cf458",
+	"52412a14-2b1e-4766-aa69-aa0fba327a09");
+INSERT INTO O_BATTR
+	VALUES ("0da1b654-4aea-46ca-97eb-ea11bd3cf458",
+	"52412a14-2b1e-4766-aa69-aa0fba327a09");
+INSERT INTO O_ATTR
+	VALUES ("0da1b654-4aea-46ca-97eb-ea11bd3cf458",
+	"52412a14-2b1e-4766-aa69-aa0fba327a09",
+	"00000000-0000-0000-0000-000000000000",
+	'testAttrFormalizer',
+	'',
+	'',
+	'testAttrFormalizer',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"52412a14-2b1e-4766-aa69-aa0fba327a09");
+INSERT INTO O_OIDA
+	VALUES ("0da1b654-4aea-46ca-97eb-ea11bd3cf458",
+	"52412a14-2b1e-4766-aa69-aa0fba327a09",
+	0,
+	'testAttrFormalizer');
+INSERT INTO O_ID
+	VALUES (1,
+	"52412a14-2b1e-4766-aa69-aa0fba327a09");
+INSERT INTO O_ID
+	VALUES (2,
+	"52412a14-2b1e-4766-aa69-aa0fba327a09");
+INSERT INTO PE_PE
+	VALUES ("52412a14-2b1e-4766-aa69-aa0fba327a09",
+	1,
+	"92e91b15-774b-46aa-8e28-cc7d03fab021",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("92e91b15-774b-46aa-8e28-cc7d03fab021",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'FSS Import',
+	'',
+	0,
+	'../FSS Import.xtuml');

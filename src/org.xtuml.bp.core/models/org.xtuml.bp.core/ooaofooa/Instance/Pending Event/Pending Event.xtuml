@@ -1,0 +1,1299 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	'Pending Event',
+	2902,
+	'I_EVI',
+	'',
+	"97c1ace4-0148-4235-83cb-1fd8e2d2514d");
+INSERT INTO O_TFR
+	VALUES ("abe12da5-1530-4881-a18a-482dfc2c89c7",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Pending Event.dispose() 
+
+// Remove the processed event from the queue list
+select one nextEvt related by self->I_EVI[R2908.''will be processed after''];
+if (not_empty nextEvt)
+  unrelate self from nextEvt across R2908.''will be processed after'';
+end if;
+
+select one pEvt related by self->I_EVI[R2908.''will be processed before''];
+if (not_empty pEvt)
+  unrelate self from pEvt across R2908.''will be processed before'';
+end if;
+
+// If this pending event was in the middle of the queue, restore the list
+if (not_empty nextEvt and not_empty pEvt)
+  relate nextEvt to pEvt across R2908.''will be processed before'';
+  relate pEvt to nextEvt across R2908.''will be processed after'';
+end if;
+
+// Remove the processed event from the event to self queue list
+select one nextSelfEvt related by self->I_EVI[R2939.''will be processed after''];
+if (not_empty nextSelfEvt)
+  unrelate self from nextSelfEvt across R2939.''will be processed after'';
+end if;
+
+select one pSelfEvt related by self->I_EVI[R2939.''will be processed before''];
+if (not_empty pSelfEvt)
+  unrelate self from pSelfEvt across R2939.''will be processed before'';
+end if;
+
+// If this pending event was in the middle of the queue, restore the list
+if (not_empty nextSelfEvt and not_empty pSelfEvt)
+  relate nextSelfEvt to pSelfEvt across R2939.''will be processed before'';
+  relate pSelfEvt to nextSelfEvt across R2939.''will be processed after'';
+end if;
+
+select one evt related by self->SM_EVT[R2906];
+if (not empty evt)
+  unrelate evt from self across R2906;
+end if;
+
+select many evtDIs related by self->I_DIV[R2933];
+for each evtDI in evtDIs
+  unrelate self from evtDI across R2933;
+  evtDI.dispose();
+end for;
+
+select one inst related by self->I_INS[R2935];
+if (not_empty inst)
+  unrelate self from inst across R2935;
+end if;
+
+select one pending_for_inst related by self->I_INS[R2907];
+if (not_empty pending_for_inst)
+  unrelate self from inst across R2907;
+end if;
+
+select one target_class related by self->CSME_CIE[R2931];
+if (not_empty target_class)
+  unrelate self from target_class across R2931;
+end if;
+
+// Unrelate this event from the instance that sent it
+select one sending_inst related by self->I_INS[R2937];
+if (not_empty sending_inst)
+  unrelate self from sending_inst across R2937;
+end if;
+
+// Unrelate this event from the class that sent it
+select one sending_class related by self->CSME_CIE[R2938];
+if (not_empty sending_class)
+  unrelate self from sending_class across R2938;
+end if;
+
+// Dispose associated timer if necessary
+select one timer related by self->I_TIM[R2940];
+if (not_empty timer)
+  unrelate self from timer across R2940;
+  if (not timer.recurring)
+    discard = timer.dispose();
+  end if;
+end if;
+
+select one engine related by self->I_EXE[R2964];
+
+// Dispose self event queue entry
+if(not_empty engine)
+  engine.lockQueue(queue_name:"I_SQE");
+end if;  
+select one sqe related by self->I_SQE[R2946];
+if (not_empty sqe)
+  select one ee related by sqe->I_EXE[R2946];
+  unrelate self from ee across R2946 using sqe;
+  sqe.dispose();
+end if;
+if(not_empty engine)
+  engine.unlockQueue(queue_name:"I_SQE");
+end if;
+
+// dispose association with remote component
+select one originatingEngine related by self->I_EXE[R2976];
+if not_empty originatingEngine
+  unrelate self from originatingEngine across R2976;
+end if;
+
+// Dispose regular event queue entry
+if(not_empty engine)
+  engine.lockQueue(queue_name:"I_EQE");
+end if;
+select one eqe related by self->I_EQE[R2944];
+if (not_empty eqe)
+  select one ee related by eqe->I_EXE[R2944];
+  unrelate self from ee across R2944 using eqe;
+  eqe.dispose();
+end if;
+if(not_empty engine)
+  engine.unlockQueue(queue_name:"I_EQE");
+end if;
+
+if(not_empty engine)
+  unrelate self from engine across R2964;
+end if;
+delete object instance self;',
+	1,
+	'',
+	"134c9927-d936-4e50-8a21-8fef13ede32b");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("a2a8fb70-ddab-4cdb-bc99-af71ae801ddb",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	'fire',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	' // Pending Event.fire()
+select one inst related by self->I_INS[R2935];
+
+// Determine whether this event targets an instance or class state machine
+select one sm_evt related by self->SM_EVT[R2906];
+if (not_empty inst)
+  // Determine whether this event has already been fired
+  select one pending_inst related by self->I_INS[R2907];
+  if (empty pending_inst)
+    self.fireToInstSM();
+    // wake up the engine if necessary
+	select one engine related by self->I_EXE[R2964];
+	if not_empty engine
+	  // We don''t find an engine if the remote component already noticed the
+	  // event and processed it. In which case we don''t need to notify anyway.
+	  engine.notify();
+	end if;
+  else
+    // This event has already been fired.  Report an error to the user.
+    state_event_name = "unknown name";
+    path="";
+    if (not_empty sm_evt)
+      state_event_name = sm_evt.get_name();
+      path = sm_evt.getPath();
+    end if;
+    USER::logError(msg:"Could not fire event " + state_event_name +" to " +
+        pending_inst.Name + " because the event has already been fired." , path: path);
+  end if;
+else
+  // The event targets a class state machine
+
+  // Determine whether this event has already been fired
+  select one pending_clazz related by self->CSME_CIE[R2931];
+  if (empty pending_clazz)
+    self.fireToClassSM();
+    // wake up the engine if necessary
+	select one engine related by self->I_EXE[R2964];
+	if not_empty engine
+	  // We don''t find an engine if the remote component already noticed the
+	  // event and processed it. In which case we don''t need to notify anyway.
+	  engine.notify();
+	end if;
+  else
+    // This event has already been fired.  Report an error to the user.
+    path="";
+    state_event_name = "unknown name";
+    if (not_empty sm_evt)
+      state_event_name = sm_evt.get_name();
+      path = sm_evt.getPath();
+    end if;
+    USER::logError(msg:"Could not fire event " + state_event_name +" to " +
+        pending_clazz.Label + " because the event has already been fired.",path:path);
+  end if;
+end if;
+
+// Suspend if event enqueue breakpoint is set and this event was delayed.
+select one timer related by self->I_TIM[R2940];
+if (not_empty timer and not_empty sm_evt and
+         sm_evt.checkBreakpoint(processType:EventProcessType::Enqueued) == true)
+  select one exEng related by self->I_EXE[R2964];
+  select one stack related by exEng->I_STACK[R2930];
+  stack.suspendReason = "Break on event enqueue: " + self.Label +
+                               " (Enqueued by timer, no line number available)";
+  stack.runState = RunStateType::Suspended;
+end if;
+',
+	1,
+	'',
+	"abe12da5-1530-4881-a18a-482dfc2c89c7");
+INSERT INTO O_TFR
+	VALUES ("61deafa3-4bc3-4557-8e57-5a2f86c5ce65",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	'fireToInstSM',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Instance:Pending Event.fireToInstSM()
+
+select one target_inst related by self->I_INS[R2935];
+select one originating_inst related by self->I_INS[R2937];
+
+select one exEng related by target_inst->CSME_CIE[R2962]->I_EXE[R2960];
+
+// Determine whether this event is an event to self
+if (not_empty originating_inst and not_empty target_inst)
+  AND (target_inst.Inst_ID == originating_inst.Inst_ID)
+  // This event is an event to self.  So add it to the event to self queue
+  exEng.lockQueue(queue_name:"I_SQE");
+
+  // Grab all events to self pending for the target instance
+  select many pending_evts_to_self related by target_inst->I_EVI[R2907] where 
+                              selected.Sent_By_Inst_ID == target_inst.Inst_ID;
+
+  // Find the event that will be last to be processed in the queue
+  for each pending_evt_to_self in pending_evts_to_self
+    select one next_evt related by pending_evt_to_self->
+                                        I_EVI[R2939.''will be processed after''];
+    if (empty next_evt)
+      // Add event to the end of this instance''s pending event to self queue
+      relate self to pending_evt_to_self across 
+                                              R2939.''will be processed before'';
+      break;
+    end if;
+  end for;
+                                   
+  select any selfQueueEntry related by exEng->I_SQE[R2946] where (selected.Next_Self_Queue_Entry_ID == GD::NULL_UNIQUE_ID());
+  create object instance newSelfQueueEntry of I_SQE;
+  relate self to exEng across R2946 using newSelfQueueEntry;
+  if (not_empty selfQueueEntry)
+    relate newSelfQueueEntry to selfQueueEntry across R2947.''precedes'';
+  end if;
+  // Make this event pending for the target instance
+  relate self to target_inst across R2907;
+  exEng.unlockQueue(queue_name:"I_SQE");
+else
+  // This event is not an event to self.  So add it to the standard queue
+  exEng.lockQueue(queue_name:"I_EQE");
+
+  // Grab all events pending for the target instance that are not to self
+  select many pending_evts related by target_inst->I_EVI[R2907] where 
+                                selected.Sent_By_Inst_ID != target_inst.Inst_ID;
+
+  // Find the event that will be last to be processed in the queue
+  for each pending_evt in pending_evts
+    select one next_evt related by pending_evt->I_EVI[R2908.''will be processed after''];
+    if (empty next_evt)
+      // Add event to the end of this instance''s pending event queue
+      relate self to pending_evt across R2908.''will be processed before'';
+      break;
+    end if;
+  end for;
+  select any eventQueueEntry related by exEng->I_EQE[R2944] where (selected.Next_Event_Queue_Entry_ID == GD::NULL_UNIQUE_ID());
+  create object instance newEventQueueEntry of I_EQE;
+  relate self to exEng across R2944 using newEventQueueEntry;
+  if (not_empty eventQueueEntry)
+    relate newEventQueueEntry to eventQueueEntry across R2945.''precedes'';
+  end if;
+  // Make this event pending for the target instance
+  relate self to target_inst across R2907;
+  exEng.unlockQueue(queue_name:"I_EQE");  
+end if;',
+	1,
+	'',
+	"e3360ee1-6eba-4980-9c11-1a38e654bbc8");
+INSERT INTO O_TFR
+	VALUES ("e3360ee1-6eba-4980-9c11-1a38e654bbc8",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	'fireToClassSM',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Instance:Pending Event.fireToClassSM()
+
+select one evt related by self->SM_EVT[R2906];
+select one originating_clazz related by self->CSME_CIE[R2938];
+
+// get the destination execution engine
+select one exEng related by self->I_EXE[R2964];
+
+// Ensure that a execution engine was found to avoid a null pointer exception
+if (empty exEng)
+  select one sm_evt related by self->SM_EVT[R2906];
+  state_event_name = "unknown name";
+  path = "";
+  if (not_empty sm_evt)
+    state_event_name = sm_evt.get_name();
+    path = sm_evt.getPath();
+  end if;
+  USER::logError(msg:"Could not fire event " + state_event_name +
+    " because no execute engine was found.",path:path);
+  return;
+end if;
+
+select any target_cie related by evt->SM_SM[R502]->SM_ASM[R517]->O_OBJ[R519]
+                            ->CSME_CIE[R2961] where
+                    (selected.Execution_Engine_ID == exEng.Execution_Engine_ID);
+                   
+// Determine whether this event is an event to self
+if((not_empty originating_clazz and not_empty target_cie)
+                          AND (target_cie.Obj_ID == originating_clazz.Obj_ID))
+  // This event is an event to self.  So add it to the event to self queue
+  exEng.lockQueue(queue_name:"I_SQE");
+  
+  // Grab all events to self pending for the target instance
+  select many pending_evts_to_self related by target_cie->I_EVI[R2931] where 
+               selected.Sent_By_CIE_ID == target_cie.CIE_ID;
+
+  // Find the event that will be last to be processed in the queue
+  for each pending_evt_to_self in pending_evts_to_self
+    select one next_evt related by pending_evt_to_self->
+           I_EVI[R2939.''will be processed after''];
+    if (empty next_evt)
+      // Add event to the end of this instance''s pending event to self queue
+      relate self to pending_evt_to_self across R2939.''will be processed before'';
+      break;
+    end if;
+  end for;
+
+  select any selfQueueEntry related by exEng->I_SQE[R2946] where (selected.Next_Self_Queue_Entry_ID == GD::NULL_UNIQUE_ID());
+  create object instance newSelfQueueEntry of I_SQE;
+  relate self to exEng across R2946 using newSelfQueueEntry;
+  if (not_empty selfQueueEntry)
+    relate newSelfQueueEntry to selfQueueEntry across R2947.''precedes'';
+  end if;
+  // Make this event pending for the target class
+  relate self to target_cie across R2931;
+  exEng.unlockQueue(queue_name:"I_SQE");
+
+else
+  // This event is not an event to self.  So add it to the standard queue
+  exEng.lockQueue(queue_name:"I_EQE");
+  
+  if (self.isCreation == true)
+    // This is a creation event, and the target class must be found differently
+    select any target_cie related by self->SM_EVT[R2906]->SM_SM[R502]
+ ->SM_ISM[R517]->O_OBJ[R518]->CSME_CIE[R2961] where
+                    (selected.Execution_Engine_ID == exEng.Execution_Engine_ID);
+  end if;
+  
+  // Ensure that a target class was found to avoid a null pointer exception
+  if (empty target_cie)
+    select one sm_evt related by self->SM_EVT[R2906];
+    state_event_name = "unknown name";
+    path = "";
+    if (not_empty sm_evt)
+      state_event_name = sm_evt.get_name();
+      path = sm_evt.getPath();
+    end if;
+    USER::logError(msg:"Could not fire event " + state_event_name +
+      " because no target class could be found.",path:path);
+    exEng.unlockQueue(queue_name:"I_EQE");
+    return;
+  end if;
+
+
+  // Grab all events pending for the target class that are not to self or are
+  // creation events
+  select many evts_pending_for_target_clazz related by target_cie->I_EVI[R2931]
+                           where selected.Sent_By_CIE_ID != target_cie.CIE_ID
+                           or selected.isCreation == true;
+
+  // Find the event that will be last to be processed in the queue
+  for each evtI in evts_pending_for_target_clazz
+    select one nEvt related by evtI->I_EVI[R2908.''will be processed after''];
+    if (empty nEvt)
+      // Add this event to the end of the pending event list
+      relate self to evtI across R2908.''will be processed before'';
+    end if;
+  end for;
+  select any eventQueueEntry related by exEng->I_EQE[R2944] where (selected.Next_Event_Queue_Entry_ID == GD::NULL_UNIQUE_ID());
+  create object instance newEventQueueEntry of I_EQE;
+  relate self to exEng across R2944 using newEventQueueEntry;
+  if (not_empty eventQueueEntry)
+    relate newEventQueueEntry to eventQueueEntry across R2945.''precedes'';
+  end if;
+  // Make this event pending for the target class
+  relate self to target_cie across R2931;
+  exEng.unlockQueue(queue_name:"I_EQE");
+end if;
+',
+	1,
+	'',
+	"a2a8fb70-ddab-4cdb-bc99-af71ae801ddb");
+INSERT INTO O_TFR
+	VALUES ("c9004271-98a9-497f-be59-6d72495308ec",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	'createInstance',
+	'This operation is responsible for creating a new instance of a class when a
+pending event is generated for a creation transition.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	' // Instance:Pending Event.createInstance()
+
+select one evt related by self->SM_EVT[R2906];
+select one ee related by self->I_EQE[R2944]->I_EXE[R2944];
+select any newClass related by evt->SM_SM[R502]->SM_ISM[R517]->O_OBJ[R518]
+                            ->CSME_CIE[R2961] where
+                       (selected.Execution_Engine_ID == ee.Execution_Engine_ID);
+
+create object instance newInst of I_INS;
+relate newInst to newClass across R2962;
+
+// Relate this pending event to its instance
+relate self to newInst across R2935;
+relate newInst to ee across R2957;
+
+
+// Create attribute values for each attribute of the class
+// and relate the state machine to this instance if it has one.
+newInst.initialize(initializeState:false);
+
+// Before enqueueing with the new instance, remove
+// self from the appropriate current event queue
+ee.lockQueue(queue_name:"I_EQE");
+select one eqe related by self->I_EQE[R2944];
+if (not_empty eqe)
+  select one ee related by eqe->I_EXE[R2944];
+  unrelate self from ee across R2944 using eqe;
+  eqe.dispose();
+end if;
+ee.unlockQueue(queue_name:"I_EQE");
+
+ee.lockQueue(queue_name:"I_SQE");
+select one sqe related by self->I_SQE[R2946];
+if (not_empty sqe)
+  select one ee related by sqe->I_EXE[R2946];
+  unrelate self from ee across R2946 using sqe;
+  sqe.dispose();
+end if;
+ee.unlockQueue(queue_name:"I_SQE");
+      
+// Re-fire this event so it can be set to pending for the new instance
+self.fire();
+
+// Execute this creation event for the newly created instance
+ee.lockQueue(queue_name:"I_EQE");
+select one evQEntry related by self->I_EQE[R2944];
+select one stack related by evQEntry->I_EXE[R2944]->I_STACK[R2930]
+       where (selected.Stack_ID == param.stack_id);
+newInst.takeEvent(stack_id:param.stack_id, step_in:param.step_in,
+                            event_queue_entry_id:evQEntry.Event_Queue_Entry_ID);
+ee.unlockQueue(queue_name:"I_EQE");
+                            ',
+	1,
+	'',
+	"998ddaba-2845-49ad-8351-a2266ab8ecbe");
+INSERT INTO O_TPARM
+	VALUES ("36684dca-2ee1-4025-803b-358f3b213d49",
+	"c9004271-98a9-497f-be59-6d72495308ec",
+	'stack_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("f93fa466-eb01-411c-b084-35735d3421a1",
+	"c9004271-98a9-497f-be59-6d72495308ec",
+	'step_in',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"36684dca-2ee1-4025-803b-358f3b213d49",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("c21dd694-6d20-4544-b84f-bee60485faba",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	'getValue',
+	'Translate:native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'return this;',
+	0,
+	'',
+	"61deafa3-4bc3-4557-8e57-5a2f86c5ce65");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("134c9927-d936-4e50-8a21-8fef13ede32b",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	'deliverAs',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Pending Event.deliverAs()
+// Used for polymorphic event delivery only. The event instance is removed
+// from the original target instance and retargeted to the new instance, event
+// type and data are also massaged as required so that the event instance looks
+// to the new recipient exactly like an event generated to it directly.
+select any evt from instances of SM_EVT where selected.SMevt_ID == param.evt_id;
+select any targetInst from instances of I_INS where
+                                           selected.Inst_ID == param.to_inst_id;
+select one exEng related by  self->I_EXE[R2964];
+
+// Remove from the event queue
+exEng.lockQueue(queue_name:"I_EQE");
+select one eqe related by self->I_EQE[R2944];
+if (not_empty eqe)
+  eqe.dispose();
+end if;
+exEng.unlockQueue(queue_name:"I_EQE");
+
+exEng.lockQueue(queue_name:"I_SQE");
+select one sqe related by self->I_SQE[R2946];
+if (not_empty sqe)
+  sqe.dispose();
+end if;
+exEng.unlockQueue(queue_name:"I_SQE");
+
+select one oldPendingInst related by self->I_INS[R2907];
+select one oldTargetInst related by self->I_INS[R2935];
+if (not_empty oldPendingInst and oldPendingInst != oldTargetInst)
+  pathMsg = "<No Path Available - Empty instance>";
+    if (not_empty  evt)
+      pathMsg =  evt.getPath();
+    end if;
+	USER::logError(msg:"Different instances found across R2907 and R2935",path:pathMsg);
+end if;
+// Disarm event
+unrelate self from oldPendingInst across R2907;
+// Retarget the event
+if (oldPendingInst != targetInst)
+  unrelate self from oldTargetInst across R2935;
+  relate self to targetInst across R2935;
+end if;
+select one oldEvent related by self->SM_EVT[R2906];
+if (oldEvent != evt)
+  // Migrate event type
+  unrelate self from oldEvent across R2906;
+  relate self to evt across R2906;
+  // Migrate the arguments
+  select many evdivs related by self->I_DIV[R2933];
+  select many evdis related by evt->SM_EVTDI[R532];
+  for each evdiv in evdivs
+    select one evdi related by evdiv->SM_EVTDI[R2934];
+    for each targetEvdi in evdis
+      if (not_empty evdi and targetEvdi.Name == evdi.Name)
+        unrelate evdiv from evdi across R2934;
+        relate evdiv to targetEvdi across R2934;
+      end if;
+    end for;
+  end for;
+end if;
+// Deliver the new event asynchronously . . . .
+self.fire();',
+	1,
+	'',
+	"c9004271-98a9-497f-be59-6d72495308ec");
+INSERT INTO O_TPARM
+	VALUES ("efa6abe7-37ac-4e4c-b375-43dc0a642f5e",
+	"134c9927-d936-4e50-8a21-8fef13ede32b",
+	'evt_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("dcd9af8a-64ee-4069-9467-cac02ecfc54a",
+	"134c9927-d936-4e50-8a21-8fef13ede32b",
+	'to_inst_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"c59876e3-2a1c-40da-a7bc-4185fd587872",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("56032242-3cbb-4423-bc59-168ec2848656",
+	"134c9927-d936-4e50-8a21-8fef13ede32b",
+	'stack_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"efa6abe7-37ac-4e4c-b375-43dc0a642f5e",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("c59876e3-2a1c-40da-a7bc-4185fd587872",
+	"134c9927-d936-4e50-8a21-8fef13ede32b",
+	'step_in',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	0,
+	'',
+	"56032242-3cbb-4423-bc59-168ec2848656",
+	'');
+INSERT INTO O_TFR
+	VALUES ("998ddaba-2845-49ad-8351-a2266ab8ecbe",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	'clone',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// Pending Event.clone()
+create object instance new_event of I_EVI;
+
+select one engine related by self->I_EXE[R2964];
+if(not_empty engine)
+  relate new_event to engine across R2964;
+end if;
+
+select one source related by self->I_INS[R2937];
+if (not_empty source)
+  relate source to new_event across R2937;
+end if;
+
+select one target related by self->I_INS[R2935];
+if (not_empty target)
+  relate target to new_event across R2935;
+end if;
+
+select one sm_evt related by self->SM_EVT[R2906];
+if (not_empty sm_evt)
+  relate new_event to sm_evt across R2906;
+end if;
+
+select one source_class related by self->CSME_CIE[R2938];
+if (not_empty source_class)
+  relate source_class to new_event across R2938;
+end if;
+
+select one model_class related by self->CSME_CIE[R2931];
+if (not_empty model_class)
+  relate model_class to new_event across R2931;
+end if;
+//
+// Clone the event arguments
+//
+select many args related by self->I_DIV[R2933];
+for each arg in args
+  create object instance new_arg of I_DIV;
+  relate new_arg to new_event across R2933;
+  select one evdi related by arg->SM_EVTDI[R2934];
+  if(not_empty evdi)
+    relate new_arg to evdi across R2934;
+  else
+    select one ppdi related by arg->C_PP[R2956];
+    if(not_empty ppdi)
+      relate new_arg to ppdi across R2956;
+    end if;
+  end if;
+  create object instance new_evtRtVal of RV_RVL;
+  relate new_evtRtVal to new_arg across R3303;
+  select one evtRtVal related by arg->RV_RVL[R3303];
+  new_evtRtVal.copyValue(from:evtRtVal.RuntimeValue_ID);
+end for;
+return new_event.Event_ID;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
+	"79496128-07be-4d16-a155-65a1c3441479");
+INSERT INTO O_BATTR
+	VALUES ("cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
+	"79496128-07be-4d16-a155-65a1c3441479");
+INSERT INTO O_ATTR
+	VALUES ("cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"00000000-0000-0000-0000-000000000000",
+	'Event_ID',
+	'',
+	'',
+	'Event_ID',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("75a815a8-8132-45bb-b1e1-293a68852ff7",
+	"79496128-07be-4d16-a155-65a1c3441479");
+INSERT INTO O_BATTR
+	VALUES ("75a815a8-8132-45bb-b1e1-293a68852ff7",
+	"79496128-07be-4d16-a155-65a1c3441479");
+INSERT INTO O_ATTR
+	VALUES ("75a815a8-8132-45bb-b1e1-293a68852ff7",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
+	'isExecuting',
+	'',
+	'',
+	'isExecuting',
+	0,
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("dd0cb071-57a3-4280-8ef0-21298c3dd1ad",
+	"79496128-07be-4d16-a155-65a1c3441479");
+INSERT INTO O_BATTR
+	VALUES ("dd0cb071-57a3-4280-8ef0-21298c3dd1ad",
+	"79496128-07be-4d16-a155-65a1c3441479");
+INSERT INTO O_ATTR
+	VALUES ("dd0cb071-57a3-4280-8ef0-21298c3dd1ad",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"75a815a8-8132-45bb-b1e1-293a68852ff7",
+	'isCreation',
+	'',
+	'',
+	'isCreation',
+	0,
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	0,
+	"230b2bab-457c-4eae-bfe1-b824ac2f5324",
+	"3be05dbf-58ac-4435-9977-6278cc073a20",
+	"4e60ac5f-3145-4a3e-aca8-38c1536b1c9c",
+	"fe219007-4856-4c7d-b6f3-efc5187a3a9c",
+	"15cb3e40-dba2-4775-bc35-3b1b042f924a",
+	"499bd37d-4fce-4ca7-941d-bb70ee857a01",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'State Machine Event',
+	'SMevt_ID',
+	'R2906.''is instance of''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"3be05dbf-58ac-4435-9977-6278cc073a20",
+	"4e60ac5f-3145-4a3e-aca8-38c1536b1c9c",
+	'../Instance.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("230b2bab-457c-4eae-bfe1-b824ac2f5324",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	0,
+	"3be05dbf-58ac-4435-9977-6278cc073a20",
+	"fe219007-4856-4c7d-b6f3-efc5187a3a9c",
+	'../Instance.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("15cb3e40-dba2-4775-bc35-3b1b042f924a",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"230b2bab-457c-4eae-bfe1-b824ac2f5324",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	1,
+	'SMevt_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("230b2bab-457c-4eae-bfe1-b824ac2f5324",
+	"31832e28-c7f1-4e83-9c56-28614980fb33",
+	'../../State Machine/State Machine Event/State Machine Event.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("15cb3e40-dba2-4775-bc35-3b1b042f924a",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"dd0cb071-57a3-4280-8ef0-21298c3dd1ad",
+	'SMevt_ID',
+	'',
+	'',
+	'SMevt_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
+	0,
+	"a3236a14-04dd-4138-98c9-b5a3b9a288c9",
+	"5d4a5e65-ceee-4028-ba22-361865d5274f",
+	"d2f4c39b-e386-49cf-936a-6e267a117c20",
+	"8cfaa75a-6677-40c1-b1cd-fbb48eb4f522",
+	"df99d768-a6ae-4813-b36f-56434fe49370",
+	"3ce1a303-ee5a-4be9-8475-864916c2e7e5",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Instance',
+	'Inst_ID',
+	'R2907.''is pending for''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"5d4a5e65-ceee-4028-ba22-361865d5274f",
+	"d2f4c39b-e386-49cf-936a-6e267a117c20",
+	'../Instance.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("a3236a14-04dd-4138-98c9-b5a3b9a288c9",
+	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
+	0,
+	"5d4a5e65-ceee-4028-ba22-361865d5274f",
+	"8cfaa75a-6677-40c1-b1cd-fbb48eb4f522",
+	'../Instance.xtuml');
+INSERT INTO O_REF
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
+	0,
+	"a3236a14-04dd-4138-98c9-b5a3b9a288c9",
+	"b765a19b-0c2e-4e30-97e1-7804f76f68d3",
+	"c8610af6-7c35-4376-b1ec-9f75236412ec",
+	"85e260be-8ef1-4c53-9b2a-6b1205891c4f",
+	"df99d768-a6ae-4813-b36f-56434fe49370",
+	"9551d7f8-bfe4-443b-b9e6-f2871198530a",
+	"3ce1a303-ee5a-4be9-8475-864916c2e7e5",
+	0,
+	'',
+	'Instance',
+	'Inst_ID',
+	'R2935.''targets''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"b765a19b-0c2e-4e30-97e1-7804f76f68d3",
+	"c8610af6-7c35-4376-b1ec-9f75236412ec",
+	'../Instance.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("a3236a14-04dd-4138-98c9-b5a3b9a288c9",
+	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
+	0,
+	"b765a19b-0c2e-4e30-97e1-7804f76f68d3",
+	"85e260be-8ef1-4c53-9b2a-6b1205891c4f",
+	'../Instance.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("df99d768-a6ae-4813-b36f-56434fe49370",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"a3236a14-04dd-4138-98c9-b5a3b9a288c9",
+	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
+	1,
+	'Inst_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a3236a14-04dd-4138-98c9-b5a3b9a288c9",
+	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
+	'../Instance/Instance.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("df99d768-a6ae-4813-b36f-56434fe49370",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"15cb3e40-dba2-4775-bc35-3b1b042f924a",
+	'Target_Inst_ID',
+	'',
+	'Target_',
+	'Inst_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	0,
+	"cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
+	"7e9fd365-a970-449c-87bb-b32e40aef60e",
+	"36c12502-0e34-49a6-8f75-256ccf519135",
+	"c1c1532a-eba6-477e-9aea-5d3b9770c9d8",
+	"a314c344-171d-42ad-aa2e-b9f8f9a36368",
+	"fd1d0760-b75d-4aff-9400-61ead91304de",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Pending Event',
+	'Event_ID',
+	'R2908.''will be processed after''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"7e9fd365-a970-449c-87bb-b32e40aef60e",
+	"36c12502-0e34-49a6-8f75-256ccf519135",
+	'../Instance.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	0,
+	"7e9fd365-a970-449c-87bb-b32e40aef60e",
+	"c1c1532a-eba6-477e-9aea-5d3b9770c9d8",
+	'../Instance.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("a314c344-171d-42ad-aa2e-b9f8f9a36368",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	1,
+	'Event_ID');
+INSERT INTO O_ATTR
+	VALUES ("a314c344-171d-42ad-aa2e-b9f8f9a36368",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"df99d768-a6ae-4813-b36f-56434fe49370",
+	'nextEvent_ID',
+	'',
+	'next',
+	'Event_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
+	0,
+	"a3236a14-04dd-4138-98c9-b5a3b9a288c9",
+	"0209134b-ee2d-459e-ada7-a90a7a2938ef",
+	"3dc29e01-f0f4-4d63-a447-cceb7f7e7e43",
+	"a3cd4a39-fd4d-4a3a-85ef-c15cf9b368e7",
+	"63b56956-be93-45c1-88e7-5488bcbafd61",
+	"abe67425-292f-45d8-b00a-a24b7c924823",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Instance',
+	'Inst_ID',
+	'R2937.''was sent from''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"0209134b-ee2d-459e-ada7-a90a7a2938ef",
+	"3dc29e01-f0f4-4d63-a447-cceb7f7e7e43",
+	'../Instance.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("a3236a14-04dd-4138-98c9-b5a3b9a288c9",
+	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
+	0,
+	"0209134b-ee2d-459e-ada7-a90a7a2938ef",
+	"a3cd4a39-fd4d-4a3a-85ef-c15cf9b368e7",
+	'../Instance.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("63b56956-be93-45c1-88e7-5488bcbafd61",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"a3236a14-04dd-4138-98c9-b5a3b9a288c9",
+	"c50d7849-51aa-4f4f-a7aa-431b4b07a5e3",
+	1,
+	'Inst_ID');
+INSERT INTO O_ATTR
+	VALUES ("63b56956-be93-45c1-88e7-5488bcbafd61",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"a314c344-171d-42ad-aa2e-b9f8f9a36368",
+	'Sent_By_Inst_ID',
+	'',
+	'Sent_By_',
+	'Inst_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	0,
+	"cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
+	"eb673a29-6a7f-4e03-94a4-fd04ced785f5",
+	"079337fa-e703-40d1-881e-f1182df6e13f",
+	"6e72ad26-2291-4de2-b2f4-8997c55dbe9d",
+	"c04e2a1c-c6e2-4b85-8b04-1d353840a987",
+	"06bfc923-9054-409b-ad7c-34670d7e6e70",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Pending Event',
+	'Event_ID',
+	'R2939.''will be processed before''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"eb673a29-6a7f-4e03-94a4-fd04ced785f5",
+	"079337fa-e703-40d1-881e-f1182df6e13f",
+	'../Instance.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	0,
+	"eb673a29-6a7f-4e03-94a4-fd04ced785f5",
+	"6e72ad26-2291-4de2-b2f4-8997c55dbe9d",
+	'../Instance.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("c04e2a1c-c6e2-4b85-8b04-1d353840a987",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	1,
+	'Event_ID');
+INSERT INTO O_ATTR
+	VALUES ("c04e2a1c-c6e2-4b85-8b04-1d353840a987",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"63b56956-be93-45c1-88e7-5488bcbafd61",
+	'next_self_Event_ID',
+	'',
+	'next_self_',
+	'Event_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("d67cf1ba-79d7-4cd9-a860-9d729697f98a",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	'// Pending Event.Label
+result = "";
+select one evt related by self ->SM_EVT[R2906];
+  if (not_empty evt)
+    select one signalEvt related by evt->SM_SEVT[R525]->SM_SGEVT[R526];
+    if(not_empty signalEvt)
+      result = signalEvt.get_event_text();
+    else
+      result = evt.get_event_text();
+    end if;
+    select one timer related by self->I_TIM[R2940];
+    if (not_empty timer)
+      result = result + " delayed by " + GD::int_to_string(value:timer.delay) + " uS";
+    end if;
+  end if;
+self.Label = result;',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("d67cf1ba-79d7-4cd9-a860-9d729697f98a",
+	"79496128-07be-4d16-a155-65a1c3441479");
+INSERT INTO O_ATTR
+	VALUES ("d67cf1ba-79d7-4cd9-a860-9d729697f98a",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"e619efe0-5e3b-4a9a-a75a-73000c5ebecf",
+	'Label',
+	'',
+	'',
+	'Label',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	0,
+	"28aa4283-2190-4d46-b247-2cf82958ad34",
+	"88d6c01d-e01b-4404-b2ee-6cf84aaef2e6",
+	"69f6ffe8-ab3e-4737-b766-16b095a96e82",
+	"bbbe7bc2-961c-4496-9649-ef0938d933ad",
+	"580fa80a-9810-4edb-812b-21c84570229b",
+	"773d7f53-e307-4f8c-a9c6-89c042502287",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Component Instance',
+	'Execution_Engine_ID',
+	'R2964.''is pending in''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"88d6c01d-e01b-4404-b2ee-6cf84aaef2e6",
+	"69f6ffe8-ab3e-4737-b766-16b095a96e82",
+	'../Instance.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("28aa4283-2190-4d46-b247-2cf82958ad34",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	0,
+	"88d6c01d-e01b-4404-b2ee-6cf84aaef2e6",
+	"bbbe7bc2-961c-4496-9649-ef0938d933ad",
+	'../Instance.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("580fa80a-9810-4edb-812b-21c84570229b",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"28aa4283-2190-4d46-b247-2cf82958ad34",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	1,
+	'Execution_Engine_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("28aa4283-2190-4d46-b247-2cf82958ad34",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	'../Component Instance/Component Instance.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("580fa80a-9810-4edb-812b-21c84570229b",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"82e5f884-0baf-4409-a896-3180ec1a5dad",
+	'Execution_Engine_ID',
+	'',
+	'',
+	'Execution_Engine_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	0,
+	"28aa4283-2190-4d46-b247-2cf82958ad34",
+	"b79c645e-a7ed-42ed-99a9-9ba07b523af2",
+	"faf821ed-1f36-41c1-adab-2754390f4f3e",
+	"a828acbb-8eb3-4560-b091-f7c07cc98ffd",
+	"e619efe0-5e3b-4a9a-a75a-73000c5ebecf",
+	"ed0d4cdb-2fa2-4ab8-96d1-c618498ace6d",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Component Instance',
+	'Execution_Engine_ID',
+	'R2976.''originates from''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"b79c645e-a7ed-42ed-99a9-9ba07b523af2",
+	"faf821ed-1f36-41c1-adab-2754390f4f3e",
+	'../Instance.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("28aa4283-2190-4d46-b247-2cf82958ad34",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	0,
+	"b79c645e-a7ed-42ed-99a9-9ba07b523af2",
+	"a828acbb-8eb3-4560-b091-f7c07cc98ffd",
+	'../Instance.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("e619efe0-5e3b-4a9a-a75a-73000c5ebecf",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"28aa4283-2190-4d46-b247-2cf82958ad34",
+	"e31aa7b2-374b-4a6c-8c11-b9762ce9c824",
+	1,
+	'Execution_Engine_ID');
+INSERT INTO O_ATTR
+	VALUES ("e619efe0-5e3b-4a9a-a75a-73000c5ebecf",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"580fa80a-9810-4edb-812b-21c84570229b",
+	'Originating_Execution_Engine_ID',
+	'',
+	'Originating_',
+	'Execution_Engine_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
+	0,
+	"ab96f30b-1d4f-46d4-b23c-215ddd08a110",
+	"3e67e0b0-48bf-4eff-8f61-e7b801b0709d",
+	"a089f1f4-cbf9-4c9d-8b6d-7ca60c77b6e0",
+	"bd387980-af8c-4aee-b43a-dc6d9bc99e1b",
+	"82e5f884-0baf-4409-a896-3180ec1a5dad",
+	"da3b655a-8a4f-4b5b-8a8f-8df3d1cd67e9",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Class In Engine',
+	'CIE_ID',
+	'R2938.''was sent from''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"3e67e0b0-48bf-4eff-8f61-e7b801b0709d",
+	"a089f1f4-cbf9-4c9d-8b6d-7ca60c77b6e0",
+	'../../Engine/Class State Machine Execution/Class State Machine Execution.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("ab96f30b-1d4f-46d4-b23c-215ddd08a110",
+	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
+	0,
+	"3e67e0b0-48bf-4eff-8f61-e7b801b0709d",
+	"bd387980-af8c-4aee-b43a-dc6d9bc99e1b",
+	'../../Engine/Class State Machine Execution/Class State Machine Execution.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("82e5f884-0baf-4409-a896-3180ec1a5dad",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"ab96f30b-1d4f-46d4-b23c-215ddd08a110",
+	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
+	1,
+	'CIE_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("ab96f30b-1d4f-46d4-b23c-215ddd08a110",
+	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
+	'../../Engine/Class State Machine Execution/Class In Engine/Class In Engine.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("82e5f884-0baf-4409-a896-3180ec1a5dad",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"409c9754-229d-4075-a240-607f28de5628",
+	'CIE_ID',
+	'',
+	'',
+	'CIE_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
+	0,
+	"ab96f30b-1d4f-46d4-b23c-215ddd08a110",
+	"e4c000f3-7f7d-4051-8d91-af33c4642801",
+	"c61857c4-c0d1-4272-b2b9-afa4843f262b",
+	"98b11b11-8820-404c-89a3-80c259b6fa28",
+	"409c9754-229d-4075-a240-607f28de5628",
+	"6090190a-bd66-4a63-9dc5-5cc6c9be71a6",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Class In Engine',
+	'CIE_ID',
+	'R2931.''has target''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("79496128-07be-4d16-a155-65a1c3441479",
+	"e4c000f3-7f7d-4051-8d91-af33c4642801",
+	"c61857c4-c0d1-4272-b2b9-afa4843f262b",
+	'../../Engine/Class State Machine Execution/Class State Machine Execution.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("ab96f30b-1d4f-46d4-b23c-215ddd08a110",
+	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
+	0,
+	"e4c000f3-7f7d-4051-8d91-af33c4642801",
+	"98b11b11-8820-404c-89a3-80c259b6fa28",
+	'../../Engine/Class State Machine Execution/Class State Machine Execution.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("409c9754-229d-4075-a240-607f28de5628",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"ab96f30b-1d4f-46d4-b23c-215ddd08a110",
+	"f2bf6a7f-e727-41ab-9daa-0679223b1bb3",
+	1,
+	'CIE_ID');
+INSERT INTO O_ATTR
+	VALUES ("409c9754-229d-4075-a240-607f28de5628",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	"c04e2a1c-c6e2-4b85-8b04-1d353840a987",
+	'Sent_By_CIE_ID',
+	'',
+	'Sent_By_',
+	'CIE_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"79496128-07be-4d16-a155-65a1c3441479");
+INSERT INTO O_OIDA
+	VALUES ("cff65269-f1bb-4153-b4e5-5a68ea6ec78c",
+	"79496128-07be-4d16-a155-65a1c3441479",
+	0,
+	'Event_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"79496128-07be-4d16-a155-65a1c3441479");
+INSERT INTO O_ID
+	VALUES (2,
+	"79496128-07be-4d16-a155-65a1c3441479");
+INSERT INTO S_SS_PROXY
+	VALUES ("97c1ace4-0148-4235-83cb-1fd8e2d2514d",
+	'Instance',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+Persistent:false
+Import: java.util.concurrent.locks.ReentrantLock',
+	'I',
+	900,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Instance.xtuml');

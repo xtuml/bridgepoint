@@ -1,0 +1,90 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("7d96388d-3eee-40c4-89ed-2218f1691294",
+	'References Engine',
+	9504,
+	'SEN_RE',
+	'',
+	"a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0");
+INSERT INTO O_REF
+	VALUES ("7d96388d-3eee-40c4-89ed-2218f1691294",
+	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	0,
+	"5650c244-7ad2-4cf5-891d-ad575051d877",
+	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	"59538c4a-82c7-44f0-a8d3-73b94f3bcb7b",
+	"fb21cb8c-474a-424c-b5a3-748e1aab0170",
+	"de389fb9-7581-4767-9cdd-9eaa67b2985b",
+	"704b8c81-b820-4a35-81d6-f20b59ab12bb",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Search Engine',
+	'Id',
+	'R9501');
+INSERT INTO R_RGO_PROXY
+	VALUES ("7d96388d-3eee-40c4-89ed-2218f1691294",
+	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	"59538c4a-82c7-44f0-a8d3-73b94f3bcb7b",
+	'../Engine.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("5650c244-7ad2-4cf5-891d-ad575051d877",
+	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	0,
+	"e467799a-d5e0-4e43-bbd5-e268e143de0f",
+	"fb21cb8c-474a-424c-b5a3-748e1aab0170",
+	'../Engine.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("de389fb9-7581-4767-9cdd-9eaa67b2985b",
+	"7d96388d-3eee-40c4-89ed-2218f1691294",
+	"5650c244-7ad2-4cf5-891d-ad575051d877",
+	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	1,
+	'Id');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5650c244-7ad2-4cf5-891d-ad575051d877",
+	"43dcf905-5d9b-4f80-a260-68543c5fbe15",
+	'../Search Engine/Search Engine.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("de389fb9-7581-4767-9cdd-9eaa67b2985b",
+	"7d96388d-3eee-40c4-89ed-2218f1691294",
+	"00000000-0000-0000-0000-000000000000",
+	'Id',
+	'',
+	'',
+	'Id',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"7d96388d-3eee-40c4-89ed-2218f1691294");
+INSERT INTO O_OIDA
+	VALUES ("de389fb9-7581-4767-9cdd-9eaa67b2985b",
+	"7d96388d-3eee-40c4-89ed-2218f1691294",
+	0,
+	'Id');
+INSERT INTO O_ID
+	VALUES (1,
+	"7d96388d-3eee-40c4-89ed-2218f1691294");
+INSERT INTO O_ID
+	VALUES (2,
+	"7d96388d-3eee-40c4-89ed-2218f1691294");
+INSERT INTO S_SS_PROXY
+	VALUES ("a8cf68c9-9d01-4a66-88c5-fe49cd8d71e0",
+	'Engine',
+	'',
+	'SEN',
+	9500,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Engine.xtuml');

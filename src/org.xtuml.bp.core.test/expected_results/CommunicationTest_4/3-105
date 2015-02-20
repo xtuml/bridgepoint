@@ -1,0 +1,7 @@
+drawRectangle(9732, 6736, 449, 210)
+drawText("a : Informal Class", 9819, 6744, true)
+drawline(9732, 6795, 10181, 6795)
+drawRectangle(9732, 7160, 449, 210)
+drawText("b : Informal Class", 9819, 7168, true)
+drawline(9732, 7220, 10181, 7220)
+drawPolyline("9945, 6948, 9945, 7160)
