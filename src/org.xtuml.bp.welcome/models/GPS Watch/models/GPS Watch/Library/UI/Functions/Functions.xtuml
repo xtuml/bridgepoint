@@ -1,0 +1,136 @@
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("f94360a9-26ee-489f-820b-aebe91648c3b",
+	"00000000-0000-0000-0000-000000000000",
+	"36a41cf7-d411-488d-99fc-74866d4fea39",
+	'Functions',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("f8e3e45f-b1b4-4cf5-8af5-fe8b6af3e5fc",
+	112,
+	"f94360a9-26ee-489f-820b-aebe91648c3b",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'GPS Watch::Library::UI::Functions');
+INSERT INTO DIM_DIA
+	VALUES ("f8e3e45f-b1b4-4cf5-8af5-fe8b6af3e5fc",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_SYNC
+	VALUES ("22227ce5-af8a-42b0-9c9f-667dc248041c",
+	"00000000-0000-0000-0000-000000000000",
+	'sendLapResetPressed',
+	'',
+	'send UI::lapResetPressed();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("22227ce5-af8a-42b0-9c9f-667dc248041c",
+	1,
+	"f94360a9-26ee-489f-820b-aebe91648c3b",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("ec91f2eb-4f0e-4ef9-84ef-d85d0d5b9cfe",
+	"00000000-0000-0000-0000-000000000000",
+	'sendLightPressed',
+	'',
+	'send UI::lightPressed();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("ec91f2eb-4f0e-4ef9-84ef-d85d0d5b9cfe",
+	1,
+	"f94360a9-26ee-489f-820b-aebe91648c3b",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("a8231270-5cad-4d69-b259-371e3f523402",
+	"00000000-0000-0000-0000-000000000000",
+	'sendModePressed',
+	'',
+	'send UI::modePressed();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("a8231270-5cad-4d69-b259-371e3f523402",
+	1,
+	"f94360a9-26ee-489f-820b-aebe91648c3b",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("646dca76-734a-4936-ac90-6cf5a7bfd2a4",
+	"00000000-0000-0000-0000-000000000000",
+	'sendStartStopPressed',
+	'',
+	'send UI::startStopPressed();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("646dca76-734a-4936-ac90-6cf5a7bfd2a4",
+	1,
+	"f94360a9-26ee-489f-820b-aebe91648c3b",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("f5d04182-c70c-471b-8039-7ef0b2e7d25d",
+	"00000000-0000-0000-0000-000000000000",
+	'sendTargetPressed',
+	'',
+	'send UI::setTargetPressed();',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("f5d04182-c70c-471b-8039-7ef0b2e7d25d",
+	1,
+	"f94360a9-26ee-489f-820b-aebe91648c3b",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO PE_PE
+	VALUES ("f94360a9-26ee-489f-820b-aebe91648c3b",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"f24e8f1c-a3b3-4005-986d-28b8ed39ea3c",
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("f24e8f1c-a3b3-4005-986d-28b8ed39ea3c",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'UI',
+	'Simulates the user interface and has the ability to connect an external GUI.
+
+It is using the BridgePoint Java API to connect to the GUI in Verifier mode.
+There are also handwritten C code that implments parts of this component to 
+allow generated code to connect to the exact same GUI.',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'../UI.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("36a41cf7-d411-488d-99fc-74866d4fea39",
+	'GPS Watch',
+	1,
+	'../../../GPS Watch.xtuml');

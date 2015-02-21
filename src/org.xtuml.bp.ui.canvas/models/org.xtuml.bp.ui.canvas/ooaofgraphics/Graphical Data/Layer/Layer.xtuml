@@ -1,0 +1,215 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	'Layer',
+	21,
+	'GD_LAY',
+	'',
+	"b5695748-80fc-47fb-b5c7-801b5f28b907");
+INSERT INTO O_TFR
+	VALUES ("7b0989ee-a608-42cb-bbac-f6c3813020ef",
+	"5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	'addElementToLayer',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select any ge related by self->GD_MD[R34]->GD_GE[R1]
+                                  where (selected.elementId == param.elementId);
+if(not_empty ge)
+  create object instance glay of GD_GLAY;
+  relate self to ge across R35 using glay;
+end if;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("62927fcb-343f-48a9-9404-b2960ebce55d",
+	"7b0989ee-a608-42cb-bbac-f6c3813020ef",
+	'elementId',
+	"a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a236c27f-17c7-4c99-8f25-f3efd03eaf0c",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("3852f90c-88c5-467d-9b26-57c8cd438b42",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("146a27d7-b37d-448e-bf88-0df3b84d8416",
+	"5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	'dispose',
+	'',
+	"3852f90c-88c5-467d-9b26-57c8cd438b42",
+	1,
+	'select one model related by self->GD_MD[R34];
+if(not_empty model)
+  unrelate self from model across R34;
+end if;
+select many glays related by self->GD_GLAY[R35];
+for each glay in glays
+  select one element related by glay->GD_GE[R35];
+  unrelate self from element across R35 using glay;
+  delete object instance glay;
+end for;
+delete object instance self;',
+	1,
+	'',
+	"7b0989ee-a608-42cb-bbac-f6c3813020ef");
+INSERT INTO O_TFR
+	VALUES ("f81284c3-ba8a-4d96-bd05-b0771b24fbaf",
+	"5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	'get_name',
+	'',
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	1,
+	'return self.Layer_Name;',
+	1,
+	'',
+	"146a27d7-b37d-448e-bf88-0df3b84d8416");
+INSERT INTO S_DT_PROXY
+	VALUES ("17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("a246b659-140d-4ce4-91c3-7aea62cdf070",
+	"5cf6c181-af37-4eac-8fe2-ea007fd9220d");
+INSERT INTO O_BATTR
+	VALUES ("a246b659-140d-4ce4-91c3-7aea62cdf070",
+	"5cf6c181-af37-4eac-8fe2-ea007fd9220d");
+INSERT INTO O_ATTR
+	VALUES ("a246b659-140d-4ce4-91c3-7aea62cdf070",
+	"5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	"00000000-0000-0000-0000-000000000000",
+	'Layer_Name',
+	'Full Name: Layer Name
+',
+	'',
+	'Layer_Name',
+	0,
+	"17f3cd98-2d3a-4fe3-ac41-d27b377178a6",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
+	"ae3320e4-6221-42d6-871b-3a5aec92c800",
+	"b121433a-5589-4e41-8610-b6500c0b0411",
+	"de952ee5-dada-48d4-8af7-b7f4ca994499",
+	"55e9307a-7942-44f0-9948-73529eb18a26",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Model',
+	'diagramId',
+	'R34');
+INSERT INTO R_RGO_PROXY
+	VALUES ("5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	"8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
+	"ae3320e4-6221-42d6-871b-3a5aec92c800",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("d1783817-101b-46d1-b9a8-907ee4d5efe4",
+	"09423687-e999-4aba-876d-35e0d3331311",
+	0,
+	"8ec49a30-c35c-455e-84d4-07e7a3fc53ea",
+	"b121433a-5589-4e41-8610-b6500c0b0411",
+	'../Graphical Data.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("de952ee5-dada-48d4-8af7-b7f4ca994499",
+	"5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	"57f2fb06-0e5a-471e-bab1-02b88f324eb4",
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	1,
+	'diagramId');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("57f2fb06-0e5a-471e-bab1-02b88f324eb4",
+	"18112b9b-f650-403f-be5c-27e3bda6b9dd",
+	'../../UML 2.0 Diagram Interchange/Diagram/Diagram.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("de952ee5-dada-48d4-8af7-b7f4ca994499",
+	"5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	"33fad6f7-da97-4e3d-acd6-00947741cd02",
+	'diagramId',
+	'',
+	'',
+	'diagramId',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("33fad6f7-da97-4e3d-acd6-00947741cd02",
+	"5cf6c181-af37-4eac-8fe2-ea007fd9220d");
+INSERT INTO O_BATTR
+	VALUES ("33fad6f7-da97-4e3d-acd6-00947741cd02",
+	"5cf6c181-af37-4eac-8fe2-ea007fd9220d");
+INSERT INTO O_ATTR
+	VALUES ("33fad6f7-da97-4e3d-acd6-00947741cd02",
+	"5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	"a246b659-140d-4ce4-91c3-7aea62cdf070",
+	'visible',
+	'Full Name: Visible',
+	'',
+	'visible',
+	0,
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"5cf6c181-af37-4eac-8fe2-ea007fd9220d");
+INSERT INTO O_OIDA
+	VALUES ("a246b659-140d-4ce4-91c3-7aea62cdf070",
+	"5cf6c181-af37-4eac-8fe2-ea007fd9220d",
+	0,
+	'Layer_Name');
+INSERT INTO O_ID
+	VALUES (1,
+	"5cf6c181-af37-4eac-8fe2-ea007fd9220d");
+INSERT INTO O_ID
+	VALUES (2,
+	"5cf6c181-af37-4eac-8fe2-ea007fd9220d");
+INSERT INTO S_SS_PROXY
+	VALUES ("b5695748-80fc-47fb-b5c7-801b5f28b907",
+	'Graphical Data',
+	'The GD (Graphics Domain) subsystem models the graphical elements for a BridgePoint model.
+-------------------------------------------------------
+Import:org.eclipse.swt.graphics.Color
+Notify_Changes:true',
+	'GD',
+	1,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001900032",
+	'../Graphical Data.xtuml');

@@ -1,0 +1,947 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'Imported Class',
+	102,
+	'O_IOBJ',
+	'Classes can have interactions with classes in other subsystems.  In order to capture these spanning interactions, Classes can be imported into another subsystem.  Spanning interactions can be associations, event communications, or data accesses and are captured in class diagram, communication diagram, and synchronous communication diagram, respectively.  Spanning interactions provide the data for derivation of the subsystem association model, subsystem communication model, and subsystem access model.',
+	"67eb58de-1d2b-4163-8373-ae8e65e99f84");
+INSERT INTO O_TFR
+	VALUES ("bc91d7b0-cd37-4d71-a924-62c815956051",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'get_style',
+	'An Imported Class looks the same as regular Class, except it''s back-
+ground color is different. The background is set as a user preference
+and is not controlled here.
+-----------------------------------------------------------------------------------
+Bridge:GD',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'select one cl related by self->O_OBJ[R101];
+if (not_empty cl)
+  return cl.get_style();
+else
+  // Something went wrong
+  return Style::None;
+end if;',
+	1,
+	'',
+	"4e20081b-f900-48c9-9d49-e85dc60c98fe");
+INSERT INTO S_DT_PROXY
+	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Style',
+	'The Style data type specifies the precise form a graphical element will take when drawn.
+--------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("77be2f77-200e-4237-8338-b8bc57e4590e",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'get_compartments',
+	'An Imported Class has the same number of compartments as the Class
+it represents.
+-----------------------------------------------------------------------------------
+Bridge:GD',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select one cl related by self->O_OBJ[R101];
+if (not_empty cl)
+  return cl.get_compartments();
+else
+  // Imported Class is Unassigned
+  return 1;
+end if;',
+	1,
+	'',
+	"05c9eab9-c26d-4e88-85f3-e55c0dfc562f");
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("05c9eab9-c26d-4e88-85f3-e55c0dfc562f",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'get_compartment_text',
+	'An Imported Class has the same text as the Class it represents, except
+that it adds the stereotype "<<Imported>>" to the name compartment.
+-----------------------------------------------------------------------------------
+Bridge:GD',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one cl related by self->O_OBJ[R101];
+if (not_empty cl)
+  if (param.comp_num == 1)
+    if (param.ent_num == 1)
+      if (param.at == Justification::Center_in_X)
+        return cl.getPath(path:"", includeSelf:true);
+      end if;
+    end if;
+  end if;
+  return cl.get_compartment_text(comp_num:param.comp_num,
+                                                    ent_num:param.ent_num,
+                                                    at:param.at);
+else
+  // Imported Object is Unassigned
+  if (param.comp_num == 1)
+    if (param.ent_num == 1)
+      if (param.at == Justification::Center_in_X)
+        return "Unassigned Imported Class";
+      end if;
+    end if;
+  end if;
+  return "";
+end if;',
+	1,
+	'',
+	"7ffab0fc-8fc5-4ee5-a71a-d3ba51543986");
+INSERT INTO O_TPARM
+	VALUES ("40757e82-e8b9-4fcd-b026-9f3622788a21",
+	"05c9eab9-c26d-4e88-85f3-e55c0dfc562f",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"a77ed1ef-f219-47c7-a1df-d99bd60ad140",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("5e8d85c2-2047-4b4f-84a0-4ee767c6cb51",
+	"05c9eab9-c26d-4e88-85f3-e55c0dfc562f",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"40757e82-e8b9-4fcd-b026-9f3622788a21",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("a77ed1ef-f219-47c7-a1df-d99bd60ad140",
+	"05c9eab9-c26d-4e88-85f3-e55c0dfc562f",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Justification',
+	'The Justification data type is used to specify text at a given location in a compartment.
+------------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("2fcc2c57-0336-4ca2-8df4-cbb442c1ad89",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'get_entries',
+	'An Imported Class has the same number of entries as the Class it
+represents, except for the first compartment in which it adds the
+stereotype, "<<Imported>>".
+-----------------------------------------------------------------------------------
+Bridge:GD',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select one cl related by self->O_OBJ[R101];
+if (not_empty cl)
+  entries = cl.get_entries(comp_num:param.comp_num);
+  if (param.comp_num == 1)
+    entries = entries + 1;
+  end if;
+  return entries;
+else
+  // Imported Class is Unassigned
+  return 1;
+end if;
+',
+	1,
+	'',
+	"77be2f77-200e-4237-8338-b8bc57e4590e");
+INSERT INTO O_TPARM
+	VALUES ("98d952c6-685f-4208-927a-43a8e4f0d95b",
+	"2fcc2c57-0336-4ca2-8df4-cbb442c1ad89",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("d0f91843-3568-459e-99b5-55cf53fee2df",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'get_text_style',
+	'An Imported Class has the same text style as the class it represents.
+-----------------------------------------------------------------------------------
+Bridge:GD',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'select one cl related by self->O_OBJ[R101];
+if (not_empty cl)
+  return cl.get_text_style(comp_num:param.comp_num, ent_num:param.ent_num, at:param.at);
+else
+  // Imported Class is Unassigned
+  return Style::None;
+end if;',
+	1,
+	'',
+	"bc91d7b0-cd37-4d71-a924-62c815956051");
+INSERT INTO O_TPARM
+	VALUES ("f9c16a66-4847-484e-bd9a-ebb66d617f01",
+	"d0f91843-3568-459e-99b5-55cf53fee2df",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"81f18f5e-e915-430e-b1ce-59c9bcb8cb1d",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("7e2c0d76-e4d7-4cce-a188-596da674ffdb",
+	"d0f91843-3568-459e-99b5-55cf53fee2df",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"f9c16a66-4847-484e-bd9a-ebb66d617f01",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("81f18f5e-e915-430e-b1ce-59c9bcb8cb1d",
+	"d0f91843-3568-459e-99b5-55cf53fee2df",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("4e20081b-f900-48c9-9d49-e85dc60c98fe",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'get_ooa_id',
+	'The ooa_id of an Imported Class is it''s IObj_ID
+-----------------------------------------------------------------------------------
+Bridge:GD',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'return self.IObj_ID;',
+	1,
+	'',
+	"e291e203-6773-458d-a76d-fdd8b295f052");
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("8d02c619-b5eb-4173-8a8c-981d6d50fedf",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'dispose',
+	'The dispose operation for an Imported Class.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+// Subsystem Subsystem
+select one realObj related by self->O_OBJ[R101];
+if (not_empty realObj)
+  unrelate self from realObj across R101;
+end if;  
+// Association Subsystem
+select many oirs related by self->R_OIR[R202];
+for each oir in oirs
+  select one assoc related by oir->R_REL[R201];
+  if not_empty assoc
+    if realObj.isEssentialToAssoc(id: assoc.Rel_ID)
+      assoc.dispose();
+    else
+      oir.dispose();
+    end if;
+  else
+    oir.dispose();
+  end if;
+end for;
+//
+// Domain Subsystem
+select one ss related by self->S_SS[R3];
+if (not_empty ss)
+  unrelate self from ss across R3;
+end if;
+//
+// Communication and Access Subsystem
+select many oaps related by self->CA_ACC[R425];
+for each oap in oaps
+  oap.dispose();
+end for;
+select many daps related by self->CA_SMOA[R420]->CA_ACC[R415];
+for each dap in daps
+  dap.dispose();
+end for;
+select many dcps related by self->CA_SMSMC[R414]->CA_COMM[R401];
+for each dcp in dcps
+  dcp.dispose();
+end for;
+select many ocps related by self->CA_SMSMC[R424]->CA_COMM[R401];
+for each ocp in ocps
+  ocp.dispose();
+end for;
+select one pe related by self->PE_PE[R8001];
+if (not_empty pe)
+  unrelate self from pe across R8001;
+  pe.dispose();
+end if;
+//
+// Finally, delete self
+delete object instance self;',
+	1,
+	'',
+	"f751e973-7ae0-4fe5-9dd7-d4d9d882d893");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("e291e203-6773-458d-a76d-fdd8b295f052",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'get_name',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one obj related by self->O_OBJ[R101];
+if (not_empty obj)
+return obj.Name;
+else 
+return "Unassigned Imported Class";
+end if;
+',
+	1,
+	'',
+	"2fcc2c57-0336-4ca2-8df4-cbb442c1ad89");
+INSERT INTO O_TFR
+	VALUES ("8fc3ef85-c77a-49b6-86b8-192a0dfb5c62",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'actionFilter',
+	'Bridge: UI
+',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'if (param.name == "unassigned" )
+  // See if it is already assigned and if it is return false
+  select one obj related by self->O_OBJ[R101];
+  if (not_empty obj) 
+    return false;
+  end if;
+  
+  select one packageableElem related by self->PE_PE[R8001];
+  select one package related by packageableElem->EP_PKG[R8000];
+  select one component related by packageableElem->C_C[R8003];
+  isInGenericPackage = not_empty package or not_empty component;
+  
+  if (param.value =="generic pkg" )
+    if(not isInGenericPackage)
+      return false;
+    end if;
+    // collect visible classes, and return true if any
+    // are available
+    if(not_empty package)
+      // should never be empty until we support
+      // classes directly on the component diagram
+      package.clearScope();
+      package.collectVisibleElementsForName(name:"",
+                         type:ElementTypeConstants::CLASS, descending:false,
+                                      originatingContainerID:package.Package_ID,
+                                          delegatingPkgID:GD::NULL_UNIQUE_ID(),
+                                                         collectGlobally:false);
+      select many srs related by package->PE_SRS[R8005]
+                           where (selected.Type == ElementTypeConstants::CLASS);
+      select many pes related by srs->PE_VIS[R8006]->PE_PE[R8002];
+      return cardinality pes != 0;
+    end if;
+  elif (param.value =="spec pkg")
+    return (not isInGenericPackage);
+  end if;
+end if;
+return false;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("a65c7d22-f1e6-44c7-bced-52b191d2a658",
+	"8fc3ef85-c77a-49b6-86b8-192a0dfb5c62",
+	'name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("a4809307-ad00-4f58-89f0-ed9d657fefaf",
+	"8fc3ef85-c77a-49b6-86b8-192a0dfb5c62",
+	'value',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"a65c7d22-f1e6-44c7-bced-52b191d2a658",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("7ffab0fc-8fc5-4ee5-a71a-d3ba51543986",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getElideCompartmentTextAtEnd',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// elide at the front if the given compartment/entry corresponds to
+// the class''s path (and name), and a class has been assigned to this instance 
+select one clazz related by self->O_OBJ[R101];
+elideAtFront = false;	// necessary due to bug with boolean expressions
+elideAtFront = param.compartmentNum == 1 and param.entryNum == 1 
+	and not_empty clazz;
+return not elideAtFront;',
+	1,
+	'',
+	"8d02c619-b5eb-4173-8a8c-981d6d50fedf");
+INSERT INTO O_TPARM
+	VALUES ("fda67ed8-0d06-4dcb-8242-68b8428ca887",
+	"7ffab0fc-8fc5-4ee5-a71a-d3ba51543986",
+	'compartmentNum',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("e0fbecb2-79fb-49c5-ae95-033319a83dea",
+	"7ffab0fc-8fc5-4ee5-a71a-d3ba51543986",
+	'entryNum',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"fda67ed8-0d06-4dcb-8242-68b8428ca887",
+	'');
+INSERT INTO O_TFR
+	VALUES ("b4220991-2026-46a9-a638-5ef9173565ee",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'resolveModelClass',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one proxyClass related by self->O_OBJ[R101];
+if(not_empty proxyClass and not Util::isProxy(element:self.convertToInstance()))
+  select one packageableElem related by self->PE_PE[R8001];
+  select one package related by packageableElem->EP_PKG[R8000];
+  select one component related by packageableElem->C_C[R8003];
+  isInGenericPackage = not_empty package or not_empty component;
+
+  if (isInGenericPackage)
+    clazz = proxyClass;
+    if (empty package)
+      rootCompIdInPkg = component.getRootComponentId();
+      select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);      
+      select one package related by rootComponent->PE_PE[R8001]->EP_PKG[R8000]; 
+    end if;
+    // first try to resolve to referred to class by key letters and name
+    select any clazz related by package->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]->O_OBJ[R8001]
+         where (selected.Key_Lett == proxyClass.Key_Lett and selected.Name == proxyClass.Name);
+    if(empty clazz)
+      // if no class was found try to resolve it by key_letters alone
+      select any clazz related by package->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]->O_OBJ[R8001]
+           where (selected.Key_Lett == proxyClass.Key_Lett);
+      if(empty clazz)
+        // if still no class was found try to resolve on the name alone
+        select any clazz related by package->S_SYS[R1405]->EP_PKG[R1405]->PE_PE[R8000]->O_OBJ[R8001]
+             where (selected.Name == proxyClass.Name);
+      end if;
+    end if;
+    classResolved = not_empty clazz;
+    if(classResolved)
+      relate self to clazz across R101;
+      // update any class in associations
+      select many cias related by self->R_OIR[R202];
+      for each cia in cias
+        select one existingClass related by cia->O_OBJ[R201];
+        select one assoc related by cia->R_REL[R201];
+        if(existingClass != clazz)
+          unrelate existingClass from assoc across R201 using cia;
+          relate clazz to assoc across R201 using cia;
+        end if;
+      end for;
+      // unformalize any associations connected to this imported class
+      select many assocs related by self->R_OIR[R202]->R_REL[R201];
+      for each assoc in assocs
+        // only unformalize if this association has not already been
+        // unformalized
+        if(assoc.isFormalized())
+          assoc.unformalize();
+        end if;
+      end for;      
+    else
+      // dispose any associations connected to this imported class
+      select many assocs related by self->R_OIR[R202]->R_REL[R201];
+      for each assoc in assocs
+        assoc.dispose();
+      end for;
+    end if;
+    return;
+  end if;  // end isInGenericPackage
+  
+  //////////////////////////////////////////////////////////////////////
+  // Note: Everything below this point is for the case when we are using 
+  //       specialized packages.
+  //////////////////////////////////////////////////////////////////////
+  
+  // if a subsystem is resolved by the proxy class
+  // then this imported class has already been
+  // resolved or does not need to be as the referred to
+  // class is contained in the copy
+  select one ss related by proxyClass->S_SS[R2];
+  if(empty ss or Util::isProxy(element:ss.convertToInstance()))
+    name = proxyClass.Name;
+    key_letters = proxyClass.Key_Lett;
+    unrelate self from proxyClass across R101;
+    select one otherSS related by self->S_SS[R3];
+    // this is safe as there will only ever be one
+    // domain
+    select any domain from instances of S_DOM;
+    // first try to resolve to referred to class by key letters and name
+    select any clazz related by domain->S_SS[R1]->O_OBJ[R2]
+         where (selected.Key_Lett == key_letters and selected.Name == name and selected.SS_ID != otherSS.SS_ID);
+    if(empty clazz)
+      // if no class was found try to resolve it by key_letters alone
+      select any clazz related by domain->S_SS[R1]->O_OBJ[R2]
+           where (selected.Key_Lett == key_letters and selected.SS_ID != otherSS.SS_ID);
+      if(empty clazz)
+        // if still no class was found try to resolve on the name alone
+        select any clazz related by domain->S_SS[R1]->O_OBJ[R2]
+             where (selected.Name == name and selected.SS_ID != otherSS.SS_ID);
+      end if;
+    end if;
+    classResolved = not_empty clazz;
+    select one ss related by clazz->S_SS[R2];
+    if(ss == otherSS)
+      // do not allow import resolution to a class
+      // that is in the same subsystem as the imported
+      // class
+      classResolved = false;
+    end if;
+    if(classResolved)
+      relate self to clazz across R101;
+      // update any class in associations
+      select many cias related by self->R_OIR[R202];
+      for each cia in cias
+        select one existingClass related by cia->O_OBJ[R201];
+        select one assoc related by cia->R_REL[R201];
+        if(existingClass != clazz)
+          unrelate existingClass from assoc across R201 using cia;
+          relate clazz to assoc across R201 using cia;
+        end if;
+      end for;
+      // unformalize any associations connected to this imported class
+      select many assocs related by self->R_OIR[R202]->R_REL[R201];
+      for each assoc in assocs
+        // only unformalize if this association has not already been
+        // unformalized
+        if(assoc.isFormalized())
+          assoc.unformalize();
+        end if;
+      end for;      
+    else
+      // no class could be resolved
+      message = ::getMissingClassMessage();
+      // add message to a list that will display in a warning dialog at
+      // the end of the paste operation
+      Util::addPastedElementToProblemList(elementName:self.Obj_Name + "::" + self.Obj_KL, message:message);
+      // dispose any associations connected to this imported class
+      select many assocs related by self->R_OIR[R202]->R_REL[R201];
+      for each assoc in assocs
+        assoc.dispose();
+      end for;
+    end if;
+  end if;
+end if;
+',
+	1,
+	'',
+	"d0f91843-3568-459e-99b5-55cf53fee2df");
+INSERT INTO O_TFR
+	VALUES ("f751e973-7ae0-4fe5-9dd7-d4d9d882d893",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'convertToInstance',
+	'Translate:native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'return this;',
+	0,
+	'',
+	"8fc3ef85-c77a-49b6-86b8-192a0dfb5c62");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("4d1f1e3b-fef4-41b9-9ab1-82f165f5ad34",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'canAssignToClass',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one packageableElem related by self->PE_PE[R8001];
+select one package related by packageableElem->EP_PKG[R8000];
+if (empty package)
+  select one rootComponent related by packageableElem->C_C[R8003];
+  if (not_empty rootComponent)
+    rootCompIdInPkg = rootComponent.getRootComponentId();
+    select any rootComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
+    select one package related by rootComponent->PE_PE[R8001]->EP_PKG[R8000];
+  end if;
+end if;
+isInGenericPackage = not_empty package;
+
+if (isInGenericPackage)
+  select any candidatePe from instances of PE_PE where
+                                                selected.Element_ID == param.Id;
+  if not_empty candidatePe
+    select one candidatePkg related by candidatePe->EP_PKG[R8000];
+    if (empty candidatePkg)
+      select one candidateComp related by candidatePe->C_C[R8003];
+      if (not_empty candidateComp)
+        rootCompIdInPkg = candidateComp.getRootComponentId();
+        select any rootCandidateComponent from instances of C_C where (selected.Id == rootCompIdInPkg);
+        select one candidatePkg related by rootCandidateComponent->PE_PE[R8001]->EP_PKG[R8000];
+      end if;
+    end if;
+    if not_empty package and not_empty candidatePkg
+      return package != candidatePkg;
+    end if;
+    return true;
+  end if;
+else
+  // Below this is for when we are NOT under a generic package
+  select any candidateClass from instances of O_OBJ where
+                                                    selected.Obj_ID == param.Id;
+  select one subsystem related by self->S_SS[R3];
+  select one candidateContainerSS related by candidateClass->S_SS[R2];
+  if not_empty subsystem and not_empty candidateContainerSS
+    return subsystem != candidateContainerSS;
+  end if;
+end if;
+return false;
+',
+	1,
+	'',
+	"b4220991-2026-46a9-a638-5ef9173565ee");
+INSERT INTO O_TPARM
+	VALUES ("7861a736-a70b-4827-93ab-89e0251ea66e",
+	"4d1f1e3b-fef4-41b9-9ab1-82f165f5ad34",
+	'Id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("3191a426-dbbb-4691-b0f9-10628b7051b6",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'getConfigurationInheritanceElementId',
+	'',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'select one importedClass related by self->O_OBJ[R101];
+if(not_empty importedClass)
+  return importedClass.convertToInstance();
+end if;
+return self.convertToInstance();',
+	1,
+	'',
+	"4d1f1e3b-fef4-41b9-9ab1-82f165f5ad34");
+INSERT INTO O_NBATTR
+	VALUES ("a94ea28b-2350-4269-9287-788cea2336c6",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78");
+INSERT INTO O_BATTR
+	VALUES ("a94ea28b-2350-4269-9287-788cea2336c6",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78");
+INSERT INTO O_ATTR
+	VALUES ("a94ea28b-2350-4269-9287-788cea2336c6",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	"ff514bb1-c39e-433b-a8be-d51724a44102",
+	'Modl_Typ',
+	'Full Name: Model Type
+Description: Indicates what type of model the Imported Class is in.
+Data Domain: 5 indicates Class Diagram, 6 indicates Communication Diagram, 7 indicates Synchronous Communication Diagram
+enum5: Class Diagram
+enum6: Communication Diagram
+enum7: Synchronous Communication Diagram
+impl_detail: true
+readonly: true
+User_Visible: false',
+	'',
+	'Modl_Typ',
+	0,
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	0,
+	"c7b05f2f-7685-4110-b916-e67cfa3caa1d",
+	"36b08b87-4ec5-4616-ac76-bf1175a50a85",
+	"32efd2c5-1ded-4434-b37e-1852682d1fb5",
+	"6a73c2fd-5e3b-430c-962c-8abaa470b210",
+	"9510104d-0ee5-454e-89f2-e16cc55a4bc3",
+	"fef84cca-ecc6-450b-912b-f9100a55d9a5",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Subsystem',
+	'SS_ID',
+	'R3');
+INSERT INTO R_RGO_PROXY
+	VALUES ("fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	"36b08b87-4ec5-4616-ac76-bf1175a50a85",
+	"32efd2c5-1ded-4434-b37e-1852682d1fb5",
+	'../../Domain/Domain.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	0,
+	"36b08b87-4ec5-4616-ac76-bf1175a50a85",
+	"6a73c2fd-5e3b-430c-962c-8abaa470b210",
+	'../../Domain/Domain.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("9510104d-0ee5-454e-89f2-e16cc55a4bc3",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	"c7b05f2f-7685-4110-b916-e67cfa3caa1d",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	1,
+	'SS_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("c7b05f2f-7685-4110-b916-e67cfa3caa1d",
+	"7e99ac2e-ed50-4cf2-9877-651b49f4fb43",
+	'../../Domain/Subsystem/Subsystem.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("9510104d-0ee5-454e-89f2-e16cc55a4bc3",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	"a94ea28b-2350-4269-9287-788cea2336c6",
+	'SS_ID',
+	'',
+	'',
+	'SS_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_DBATTR
+	VALUES ("33d2117a-53d4-43f5-aee2-c79846f800cc",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'select one model_class related by self->O_OBJ[R101];
+if ( empty model_class )
+   self.Obj_Name = "Unassigned Imported Class";
+else
+   self.Obj_Name = model_class.Name;
+end if;
+
+',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("33d2117a-53d4-43f5-aee2-c79846f800cc",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78");
+INSERT INTO O_ATTR
+	VALUES ("33d2117a-53d4-43f5-aee2-c79846f800cc",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	"9510104d-0ee5-454e-89f2-e16cc55a4bc3",
+	'Obj_Name',
+	'Full Name: Class Name
+Description:  This attribute provides identifying information for the Class related to this Imported Class.  This is used to associate the Imported Class to its related Class when importing a subsystem containing the Imported Class into a new/different domain.
+
+',
+	'',
+	'Obj_Name',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("a879a86d-1c33-416d-a958-aa38606276ae",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	'select one model_class related by self->O_OBJ[R101];
+if ( empty model_class )
+   self.Obj_KL = ::getOrphanedElementKL();
+else
+   self.Obj_KL = model_class.Key_Lett;
+end if;
+
+',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("a879a86d-1c33-416d-a958-aa38606276ae",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78");
+INSERT INTO O_ATTR
+	VALUES ("a879a86d-1c33-416d-a958-aa38606276ae",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	"33d2117a-53d4-43f5-aee2-c79846f800cc",
+	'Obj_KL',
+	'Full Name: Class Key Letter
+Description:  This attribute provides identifying information for the Class related to this Imported class.  This is used to associate the Imported Class to its related class when importing a  subsystem containing the Imported Class into a new/different domain.
+
+',
+	'',
+	'Obj_KL',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	"b7630071-9e2a-4183-9986-779dca14c275",
+	0,
+	"e55a865c-b4e5-4e3f-9b84-2e5672cc7e6c",
+	"9a7bd08b-cef8-467d-a5dc-e581aef13717",
+	"0b833910-45ad-458a-a30b-84eee07300ee",
+	"1b8c4d6b-4ae3-42d5-8ddf-4749a1317bc7",
+	"ff514bb1-c39e-433b-a8be-d51724a44102",
+	"ed3eee53-3bae-4357-aab0-90e6aaaab039",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Model Class',
+	'Obj_ID',
+	'R101');
+INSERT INTO R_RGO_PROXY
+	VALUES ("fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	"9a7bd08b-cef8-467d-a5dc-e581aef13717",
+	"0b833910-45ad-458a-a30b-84eee07300ee",
+	'../Subsystem.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("e55a865c-b4e5-4e3f-9b84-2e5672cc7e6c",
+	"b7630071-9e2a-4183-9986-779dca14c275",
+	0,
+	"9a7bd08b-cef8-467d-a5dc-e581aef13717",
+	"1b8c4d6b-4ae3-42d5-8ddf-4749a1317bc7",
+	'../Subsystem.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("ff514bb1-c39e-433b-a8be-d51724a44102",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("ff514bb1-c39e-433b-a8be-d51724a44102",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	"133a16d6-2619-4bed-9f73-99f8a7289cb5",
+	'Obj_ID',
+	'',
+	'',
+	'Obj_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"c76cb501-d1d6-4c32-b2db-c9da7f6ebbef",
+	"28f75ede-123b-4d84-8dcc-b0537a94aa4a",
+	"133a16d6-2619-4bed-9f73-99f8a7289cb5",
+	"32cc99c6-e295-41be-bac9-33b0b7561cd3",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Packageable Element',
+	'Element_ID',
+	'R8001');
+INSERT INTO R_RGO_PROXY
+	VALUES ("fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"c76cb501-d1d6-4c32-b2db-c9da7f6ebbef",
+	'../../Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	"08087bed-f0b1-4c84-b515-8662480ac484",
+	"28f75ede-123b-4d84-8dcc-b0537a94aa4a",
+	'../../Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("133a16d6-2619-4bed-9f73-99f8a7289cb5",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	0,
+	'Element_ID');
+INSERT INTO O_ATTR
+	VALUES ("133a16d6-2619-4bed-9f73-99f8a7289cb5",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	"00000000-0000-0000-0000-000000000000",
+	'IObj_ID',
+	'Full Name: Imported Class Identifier
+Description: Uniquely identifies an instance of imported class',
+	'',
+	'IObj_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78");
+INSERT INTO O_OIDA
+	VALUES ("133a16d6-2619-4bed-9f73-99f8a7289cb5",
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78",
+	0,
+	'IObj_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78");
+INSERT INTO O_ID
+	VALUES (2,
+	"fcc05ac4-6434-449e-9045-c76c52ee8c78");
+INSERT INTO S_SS_PROXY
+	VALUES ("67eb58de-1d2b-4163-8373-ae8e65e99f84",
+	'Subsystem',
+	'A class (O_OBJ)  is an abstraction of a real world thing that has specific attributes (O_ATTR) and, if active, has a lifecycle model as a state machine (SM_SM).  All instances of the class must have the same characteristics and follow the same state behavior.  Classes fall into many categories, some of which are: tangible things, roles, interactions and specifications. ',
+	'O',
+	101,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000300006",
+	'../Subsystem.xtuml');

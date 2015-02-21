@@ -1,0 +1,8 @@
+drawRectangle(8952, 6604, 566, 308)
+drawText("«dataType»", 9148, 6613, true)
+drawText("+User Data Type", 9107, 6719, true)
+drawText("{ integer }", 9156, 6759, true)
+drawRectangle(8952, 6940, 566, 307)
+drawText("+«enumeration»", 9109, 6949, true)
+drawText("Enumeration Data Type", 9057, 6989, true)
+drawline(8952, 7039, 9518, 7039)

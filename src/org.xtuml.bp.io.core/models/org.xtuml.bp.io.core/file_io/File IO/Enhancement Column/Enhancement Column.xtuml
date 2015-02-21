@@ -1,0 +1,202 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("7dfb0d5c-a717-444a-b40b-65edc2e7965e",
+	'Enhancement Column',
+	6,
+	'EC',
+	'This is a column that has been added to the Tiger schema that
+is not in the BP 6.1 schema.  The column is placed after an existing
+BP 6.1 column.',
+	"f157564a-4386-4e32-b5c9-0e4d7bd3609a");
+INSERT INTO O_REF
+	VALUES ("7dfb0d5c-a717-444a-b40b-65edc2e7965e",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	0,
+	"dcd43274-3bc1-41b5-bbaa-c07555218694",
+	"5b059329-0d99-437d-8021-d3f85a17d494",
+	"7d332f92-d57c-45d7-bd68-c2ec853e8ca6",
+	"dbade202-3957-44e9-b733-be2d003ba415",
+	"e143e36f-ccc5-433b-b2c3-e1819a975cb1",
+	"7b59594a-63d2-4f06-b85b-8e4cc7c5a1f2",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Column',
+	'tableName',
+	'R9');
+INSERT INTO R_RGO_PROXY
+	VALUES ("7dfb0d5c-a717-444a-b40b-65edc2e7965e",
+	"5b059329-0d99-437d-8021-d3f85a17d494",
+	"7d332f92-d57c-45d7-bd68-c2ec853e8ca6",
+	'../File IO.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("dcd43274-3bc1-41b5-bbaa-c07555218694",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	0,
+	"5b059329-0d99-437d-8021-d3f85a17d494",
+	"dbade202-3957-44e9-b733-be2d003ba415",
+	'../File IO.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("e143e36f-ccc5-433b-b2c3-e1819a975cb1",
+	"7dfb0d5c-a717-444a-b40b-65edc2e7965e",
+	"fb78b1f6-8c41-4ee7-9138-026cad67415f",
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	1,
+	'Name');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("fb78b1f6-8c41-4ee7-9138-026cad67415f",
+	"69a5ebc7-ef1a-4d3c-995f-e1d75c80d54a",
+	'../Export Item/Export Item.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("e143e36f-ccc5-433b-b2c3-e1819a975cb1",
+	"7dfb0d5c-a717-444a-b40b-65edc2e7965e",
+	"00000000-0000-0000-0000-000000000000",
+	'tableName',
+	'This is the table that this column is part of.
+
+',
+	'table',
+	'Name',
+	2,
+	"cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	"695dce7b-262a-4226-9cbb-c9f897b44c67",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("7dfb0d5c-a717-444a-b40b-65edc2e7965e",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	0,
+	"6bd06a87-cf2b-45d0-a95b-fcfaa57d29ca",
+	"5b059329-0d99-437d-8021-d3f85a17d494",
+	"7d332f92-d57c-45d7-bd68-c2ec853e8ca6",
+	"dbade202-3957-44e9-b733-be2d003ba415",
+	"f62d06bc-34ba-47d5-8d8b-ed7e0ad35353",
+	"ba7d2af8-bac1-4fb6-a120-43b6ca89b619",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Column',
+	'Name',
+	'R9');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("6bd06a87-cf2b-45d0-a95b-fcfaa57d29ca",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	0,
+	"5b059329-0d99-437d-8021-d3f85a17d494",
+	"dbade202-3957-44e9-b733-be2d003ba415",
+	'../File IO.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("f62d06bc-34ba-47d5-8d8b-ed7e0ad35353",
+	"7dfb0d5c-a717-444a-b40b-65edc2e7965e",
+	"6bd06a87-cf2b-45d0-a95b-fcfaa57d29ca",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	1,
+	'Name');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("6bd06a87-cf2b-45d0-a95b-fcfaa57d29ca",
+	"68363a50-a0e1-414d-8939-1409ebc1f822",
+	'../Column/Column.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("f62d06bc-34ba-47d5-8d8b-ed7e0ad35353",
+	"7dfb0d5c-a717-444a-b40b-65edc2e7965e",
+	"e143e36f-ccc5-433b-b2c3-e1819a975cb1",
+	'colName',
+	'This is the existing column that this column follows.
+If there are more than one Enhancement Column following a 
+particular Column, their order is determined by their creation
+order (order in the .pei file).
+
+',
+	'col',
+	'Name',
+	1,
+	"cf07a926-26a1-4462-bd6f-45a3b930e4b7",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("d2ffebfd-08ef-4da7-814f-2774cd4ae4ee",
+	"7dfb0d5c-a717-444a-b40b-65edc2e7965e");
+INSERT INTO O_BATTR
+	VALUES ("d2ffebfd-08ef-4da7-814f-2774cd4ae4ee",
+	"7dfb0d5c-a717-444a-b40b-65edc2e7965e");
+INSERT INTO O_ATTR
+	VALUES ("d2ffebfd-08ef-4da7-814f-2774cd4ae4ee",
+	"7dfb0d5c-a717-444a-b40b-65edc2e7965e",
+	"f62d06bc-34ba-47d5-8d8b-ed7e0ad35353",
+	'newColName',
+	'This is the name of the new column.
+
+',
+	'',
+	'newColName',
+	0,
+	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("5e30bc10-6b4e-49f6-a053-8d190acef663",
+	"695dce7b-262a-4226-9cbb-c9f897b44c67",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("88df44fa-2343-411a-acfb-32c7d9c6ba1e",
+	"7dfb0d5c-a717-444a-b40b-65edc2e7965e");
+INSERT INTO O_BATTR
+	VALUES ("88df44fa-2343-411a-acfb-32c7d9c6ba1e",
+	"7dfb0d5c-a717-444a-b40b-65edc2e7965e");
+INSERT INTO O_ATTR
+	VALUES ("88df44fa-2343-411a-acfb-32c7d9c6ba1e",
+	"7dfb0d5c-a717-444a-b40b-65edc2e7965e",
+	"d2ffebfd-08ef-4da7-814f-2774cd4ae4ee",
+	'defaultValue',
+	'This is the value to used for this column when creating a row in the table.
+
+',
+	'',
+	'defaultValue',
+	0,
+	"5e30bc10-6b4e-49f6-a053-8d190acef663",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"7dfb0d5c-a717-444a-b40b-65edc2e7965e");
+INSERT INTO O_OIDA
+	VALUES ("d2ffebfd-08ef-4da7-814f-2774cd4ae4ee",
+	"7dfb0d5c-a717-444a-b40b-65edc2e7965e",
+	0,
+	'newColName');
+INSERT INTO O_OIDA
+	VALUES ("e143e36f-ccc5-433b-b2c3-e1819a975cb1",
+	"7dfb0d5c-a717-444a-b40b-65edc2e7965e",
+	0,
+	'tableName');
+INSERT INTO O_OIDA
+	VALUES ("f62d06bc-34ba-47d5-8d8b-ed7e0ad35353",
+	"7dfb0d5c-a717-444a-b40b-65edc2e7965e",
+	0,
+	'colName');
+INSERT INTO O_ID
+	VALUES (1,
+	"7dfb0d5c-a717-444a-b40b-65edc2e7965e");
+INSERT INTO O_ID
+	VALUES (2,
+	"7dfb0d5c-a717-444a-b40b-65edc2e7965e");
+INSERT INTO S_SS_PROXY
+	VALUES ("f157564a-4386-4e32-b5c9-0e4d7bd3609a",
+	'File IO',
+	'',
+	'',
+	1,
+	"695dce7b-262a-4226-9cbb-c9f897b44c67",
+	"00000000-0000-0000-0000-000000100002",
+	'../File IO.xtuml');

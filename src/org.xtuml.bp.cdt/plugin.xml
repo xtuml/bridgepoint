@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+- <extension point="org.xtuml.bp.core.code-builders">
+  <code-builder name="Eclipse C/C++ Development Tools" class="org.xtuml.bp.cdt.wizards.BridgePointCDTProjectWizard" /> 
+  </extension>
+</plugin>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile: generate.xml,v $
+ Version:   $Revision: 1.17 $
+ Modified:  $Date: 2013/01/10 22:44:49 $
+
+ (c) Copyright 2005-2014 by Mentor Graphics Corp.  All rights reserved.
+
+-->
+<project name="bp.mc.xmiexport" default="all" basedir=".">
+  <!-- The property ${eclipse-home} should be passed into this script -->
+  <!-- Set a meaningful default value for when it is not. -->
+  <property name="eclipse-home" value="${basedir}/../.."/>
+
+  <target name="all"
+          description="Build entire project"
+          depends="compile">
+  </target>
+
+  <!-- COMPILE TARGETS -->
+
+  <!-- This target is not used in the eclipse environment.  The eclipse Java
+       builder handles the java compilation when building BridgePoint under
+       eclipse.  This target is used only when building BridgePoint from the
+       command line on the build server. -->
+  <target name="compile"
+       description="Compile project" >
+    <echo>Compiling ${ant.project.name}</echo>
+    <mkdir dir="bin" />
+    <javac memoryinitialsize="512m" memorymaximumsize="512m" source="1.6"
+        fork="yes" destdir="bin" debug="true" debuglevel="lines,vars,source" encoding="UTF-8">
+       <src path="src" />
+       <classpath>
+         <pathelement path="../org.xtuml.bp.core/bin" />
+         <fileset dir="${eclipse-home}/plugins" casesensitive="yes">
+           <include name="**/org.eclipse.ui.ide_*.jar" />
+           <include name="**/org.eclipse.core.resources_*.jar"/>
+           <include name="**/org.eclipse.core.variables_*.jar"/>
+           <include name="**/org.eclipse.core.runtime_*.jar" />
+           <include name="**/org.eclipse.debug.core_*.jar" />
+           <include name="**/org.eclipse.ui_*.jar"/>
+           <include name="**/org.eclipse.jface_*.jar" />
+           <include name="**/org.eclipse.swt.win32.win32.x86_*.jar" />
+           <include name="**/org.eclipse.jface.text_*.jar" />
+           <include name="**/org.eclipse.ui.workbench_*.jar" />
+           <include name="**/org.eclipse.osgi_*.jar" />
+           <include name="**/org.eclipse.equinox.common_*.jar"/>
+           <include name="**/org.eclipse.equinox.registry_*.jar"/>
+           <include name="**/org.eclipse.core.commands_*.jar"/>
+           <include name="**/org.eclipse.core.jobs_*.jar"/>
+         </fileset>
+       </classpath>
+    </javac>
+
+  </target>
+
+  <!-- CLEAN TARGETS -->
+
+  <target name="clean_all"
+        description="Clean entire project"
+        depends="clean_classes" >
+
+    <echo>Done cleaning for ${ant.project.name}</echo>
+
+  </target>
+
+  <target name="clean_classes"
+    description="Remove all compiled classes">
+    <echo>Removing all compiled classes ...</echo>
+    <delete verbose="true" dir="bin" />
+  </target>
+
+  <target name="nb_all"
+  description="Perform nightly build actions (ignored for this plugin)"/>
+
+</project>

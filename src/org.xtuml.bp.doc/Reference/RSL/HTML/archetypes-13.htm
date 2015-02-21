@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="archetypes.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+Rvalues
+</TITLE>
+
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<H1 CLASS="Heading2">
+<A NAME="0_pgfId-517469"></A><A NAME="0_R-Values Section"></A>R<A NAME="0_marker-517468"></A>values</H1>
+<P CLASS="Body">
+<A NAME="0_pgfId-517470"></A><A NAME="0_marker-527010"></A>An rvalue is a specification of a literal value or the specification of a variable.</P>
+<H3 CLASS="Heading3">
+<A NAME="0_pgfId-517472"></A><A NAME="0_marker-517471"></A>Literals as Rvalues</H3>
+<P CLASS="Body">
+<A NAME="0_pgfId-519461"></A>Literal values can be entered for the each of the core datatypes. The table below uses example specifications to illustrate how the literal values are specified for each.</P>
+<TABLE BORDER="1">
+<CAPTION>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="0_pgfId-519469"></A>Core Data Type</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="0_pgfId-519471"></A>Literal Specification Examples</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-519473"></A>boolean</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-519475"></A>TRUE</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-519476"></A>FALSE</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-519478"></A><EM CLASS="Courier">
+integer</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-519480"></A>0</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-519481"></A>256</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-519482"></A>-10</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-519485"></A><EM CLASS="Courier">
+real</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-519487"></A>0.0</P>
+<P CLASS="CellBody">
+<A NAME="0_pgfId-519488"></A>256.44</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-519492"></A><EM CLASS="Courier">
+string</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-519494"></A>&quot;Hello World&quot;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-519496"></A><EM CLASS="Courier">
+inst_ref&lt;Object&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-519498"></A>Not Allowed</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-519500"></A><EM CLASS="Courier">
+inst_ref_set&lt;Object&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-519502"></A>Not Allowed</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-519504"></A><EM CLASS="Courier">
+frag_ref</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="0_pgfId-519506"></A>Not Allowed</P>
+</TD>
+</TR>
+</TABLE>
+<H3 CLASS="Heading3">
+<A NAME="0_pgfId-517524"></A><A NAME="0_42682"></A>Q<A NAME="0_marker-517523"></A>uoted Strings</H3>
+<P CLASS="Body">
+<A NAME="0_pgfId-517525"></A>Quoted strings get special handling in the rule language. Each quoted string is treated as a literal text line and is run through the variable substituter. For example:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517526"></A><EM CLASS="Code">.assign name = class_inst.Name</EM>
+</PRE>
+<P CLASS="Body-Tight">
+<A NAME="0_pgfId-517527"></A>and</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517528"></A><EM CLASS="Code">.assign name = &quot;${class_inst.Name}&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-559594"></A>&nbsp;</PRE>
+<P CLASS="Body">
+<A NAME="0_pgfId-573438"></A>are equivalent. Treating quoted strings as literal text adds flexibility in concisely specifying the string value. For example, the following shows substitution variables used in the <EM CLASS="Code">
+.if </EM>
+statement and <EM CLASS="Code">
+.emit</EM>
+ statement:</P>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-573439"></A><EM CLASS="Code">	.select many class_set from instances of O_OBJ</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-573440"></A><EM CLASS="Code">	.for each class_inst in class_set</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517532"></A><EM CLASS="Code">		.if (&quot;${class_inst.descrip:PERSISTENCE}&quot; == &quot;TRUE&quot;)</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517533"></A><EM CLASS="Code">			// Persistent implementation for class `${class_inst.Name}'</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517534"></A><EM CLASS="Code">		.end if</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517535"></A><EM CLASS="Code">		.emit to file &quot;$_{class_inst.key_lett}.cpp&quot;</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-517536"></A><EM CLASS="Code">	.end for</EM>
+</PRE>
+<PRE CLASS="Indent-Tight"><A NAME="0_pgfId-519567"></A>&nbsp;</PRE>
+<P CLASS="Body">
+<A NAME="0_pgfId-517537"></A>Since the quoted strings get run through the literal text substituter, use<EM CLASS="Courier-Bold">
+ </EM>
+<EM CLASS="Code">
+$$</EM>
+<EM CLASS="Courier-Bold">
+ </EM>
+to yield one<EM CLASS="Courier-Bold">
+ </EM>
+<EM CLASS="Code">
+$</EM>
+<EM CLASS="Courier-Bold">
+ </EM>
+character. In addition, use<EM CLASS="Courier-Bold">
+ </EM>
+<EM CLASS="Code">
+&quot;&quot;</EM>
+<EM CLASS="Courier-Bold">
+ </EM>
+to yield one<EM CLASS="Courier-Bold">
+ </EM>
+<EM CLASS="Code">
+&quot;</EM>
+<EM CLASS="Courier-Bold">
+ </EM>
+character.</P>
+<H3 CLASS="Heading3">
+<A NAME="0_pgfId-517540"></A><A NAME="0_marker-517539"></A>Variables as Rvalues</H3>
+<P CLASS="Body">
+<A NAME="0_pgfId-517541"></A>Variables of the following types may be used as values:</P>
+<OL>
+<LI CLASS="Bulleted">
+<A NAME="0_pgfId-517542"></A><EM CLASS="Code">
+&lt;transient_variable&gt;</EM>
+ of type <EM CLASS="Code">
+boolean</EM>
+, <EM CLASS="Code">
+integer</EM>
+, <EM CLASS="Code">
+real</EM>
+, or <EM CLASS="Code">
+string</EM>
+.</LI>
+<LI CLASS="Bulleted">
+<A NAME="0_pgfId-517543"></A><EM CLASS="Code">
+&lt;inst_ref_var&gt;.&lt;attribute&gt;</EM>
+ where <EM CLASS="Code">
+&lt;attribute&gt;</EM>
+ is of type <EM CLASS="Code">
+boolean</EM>
+, <EM CLASS="Code">
+integer</EM>
+, <EM CLASS="Code">
+real</EM>
+, or <EM CLASS="Code">
+string</EM>
+.</LI>
+<LI CLASS="Bulleted">
+<A NAME="0_pgfId-517544"></A><EM CLASS="Code">
+&lt;frag_ref_var&gt;.&lt;attribute&gt;</EM>
+ where <EM CLASS="Code">
+&lt;attribute&gt;</EM>
+ is of type <EM CLASS="Code">
+boolean</EM>
+, <EM CLASS="Code">
+integer</EM>
+, <EM CLASS="Code">
+real</EM>
+, or <EM CLASS="Code">
+string</EM>
+.</LI>
+</OL>
+</BODY>
+</HTML>

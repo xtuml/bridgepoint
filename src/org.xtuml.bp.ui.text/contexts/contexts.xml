@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      *RCSfile*
+ Version:   *Revision*
+ Modified:  *Date*
+
+ (c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
+
+ ========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+ ======================================================================== 
+
+-->
+<contexts>
+	<!-- context entry for Activity Editor Preferences -->
+	<context id="activityPreferencesId" >
+		<description>This preference page allows you to set preferences for BridgePoint's Activity Editors.</description>
+		<topic href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Preferences/HTML/ActivityEditor.htm"
+			label="Preferences - Activity Editor"/>
+	</context>
+	<!-- context entry for Activity Editor -->
+	<context id="activityEditorId" >
+		<description>An Activity Editor is used to edit xtUML Activities.</description>
+		<topic href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Editors/HTML/Activity.htm"
+			label="Activity Editor"/>
+		<topic href="/org.xtuml.bp.doc/Reference/OAL/HTML/bpalref.book.htm"
+			label="Activity Reference"/>
+	</context>
+	<!-- context entry for Description Editor -->
+	<context id="descriptionEditorId" >
+		<description>A Description Editor is used to edit xtUML Descriptions.</description>
+		<topic href="/org.xtuml.bp.doc/Reference/UserInterface/xtUMLModeling/Editors/HTML/Description.htm"
+			label="Description Editor"/>
+	</context>
+</contexts>

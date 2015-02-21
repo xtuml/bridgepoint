@@ -1,0 +1,2495 @@
+<html>
+<body>
+<title>Subsystem 'State_Machine'</title>
+<link rel="StyleSheet" href="../../../techpub.css">
+
+<h1>
+<a name="a_1404"></a>
+Subsystem 'State Machine'
+</h1>
+<p>
+<a name="a_1405"></a>
+The State Machine subsystem models those model elements used to describe the  state machines.  
+</p>
+<h2>
+<a name="a_1406"></a>
+Links to Classes
+</h2>
+<p>1. <a href="#a_516.Action">Action (SM_ACT)</a></p>
+<p>2. <a href="#a_515.ActionHome">Action Home (SM_AH)</a></p>
+<p>3. <a href="#a_507.CantHappen">Cant Happen (SM_CH)</a></p>
+<p>4. <a href="#a_521.ClassStateMachine">Class State Machine (SM_ASM)</a></p>
+<p>5. <a href="#a_510.CreationTransition">Creation Transition (SM_CRTXN)</a></p>
+<p>6. <a href="#a_506.EventIgnored">Event Ignored (SM_EIGN)</a></p>
+<p>7. <a href="#a_518.EventSupplementalData">Event Supplemental Data (SM_SUPDT)</a></p>
+<p>8. <a href="#a_520.InstanceStateMachine">Instance State Machine (SM_ISM)</a></p>
+<p>9. <a href="#a_527.LocalEvent">Local Event (SM_LEVT)</a></p>
+<p>10. <a href="#a_514.MealyActionHome">Mealy Action Home (SM_MEAH)</a></p>
+<p>11. <a href="#a_512.MealyStateMachine">Mealy State Machine (SM_MEALY)</a></p>
+<p>12. <a href="#a_513.MooreActionHome">Moore Action Home (SM_MOAH)</a></p>
+<p>13. <a href="#a_511.MooreStateMachine">Moore State Machine (SM_MOORE)</a></p>
+<p>14. <a href="#a_505.NewStateTransition">New State Transition (SM_NSTXN)</a></p>
+<p>15. <a href="#a_509.NoEventTransition">No Event Transition (SM_NETXN)</a></p>
+<p>16. <a href="#a_526.NonLocalEvent">Non Local Event (SM_NLEVT)</a></p>
+<p>17. <a href="#a_522.PolymorphicEvent">Polymorphic Event (SM_PEVT)</a></p>
+<p>18. <a href="#a_525.SEMEvent">SEM Event (SM_SEVT)</a></p>
+<p>19. <a href="#a_504.StateEventMatrixEntry">State Event Matrix Entry (SM_SEME)</a></p>
+<p>20. <a href="#a_501.StateMachine">State Machine (SM_SM)</a></p>
+<p>21. <a href="#a_503.StateMachineEvent">State Machine Event (SM_EVT)</a></p>
+<p>22. <a href="#a_517.StateMachineEventDataItem">State Machine Event Data Item (SM_EVTDI)</a></p>
+<p>23. <a href="#a_502.StateMachineState">State Machine State (SM_STATE)</a></p>
+<p>24. <a href="#a_519.SupplementalDataItems">Supplemental Data Items (SM_SDI)</a></p>
+<p>25. <a href="#a_508.Transition">Transition (SM_TXN)</a></p>
+</p>
+<h2>
+<a name="a_1407"></a>
+Links to Associations
+</h2>
+<p>
+<a href="#a_R501">R501</a>, <a href="#a_R502">R502</a>, <a href="#a_R503">R503</a>, <a href="#a_R504">R504</a>, <a href="#a_R505">R505</a>, <a href="#a_R506">R506</a>, <a href="#a_R507">R507</a>, <a href="#a_R508">R508</a>, <a href="#a_R509">R509</a>, <a href="#a_R510">R510</a>, <a href="#a_R511">R511</a>, <a href="#a_R512">R512</a>, <a href="#a_R513">R513</a>, <a href="#a_R514">R514</a>, <a href="#a_R515">R515</a>, <a href="#a_R516">R516</a>, <a href="#a_R517">R517</a>, <a href="#a_R518">R518</a></p><p>
+<a href="#a_R519">R519</a>, <a href="#a_R520">R520</a>, <a href="#a_R521">R521</a>, <a href="#a_R522">R522</a>, <a href="#a_R523">R523</a>, <a href="#a_R524">R524</a>, <a href="#a_R525">R525</a>, <a href="#a_R526">R526</a>, <a href="#a_R527">R527</a></p>
+<h2>
+<a name="a_1408"></a>
+Class and Attribute Descriptions
+</h2>
+<h3>
+<a name="a_501.StateMachine"></a>
+501. State Machine
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1409"></a>
+State Machine(SM_ID, Descrip)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1410"></a>
+Identifier *: SM_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1411"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1412"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1413"></a>
+Description: A State Machine represents the lifecycle of a class in terms of states,  transitions, events, and actions.
+</p>
+<h4>
+<a name="18_State Machine.SM_ID">
+State Machine.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1414"></a>
+Full Name: State Machine Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1415"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1416"></a>
+Data Type: unique_id
+</p>
+<h4>
+State Machine.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1417"></a>
+Full Name: Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1418"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1419"></a>
+Data Type: string
+</p>
+<h3>
+<a name="a_502.StateMachineState"></a>
+502. State Machine State
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1420"></a>
+State Machine State(SMstt_ID, SM_ID, SMspd_ID, Name, Numb, Final)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1421"></a>
+Identifier *: SM_ID, SMstt_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1422"></a>
+Identifier *2: SMspd_ID, SMstt_ID, SM_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1423"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1424"></a>
+Description: Represents a state in the state machine.
+</p>
+<h4>
+<a name="20_State Machine State.SMstt_ID">
+State Machine State.SMstt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1425"></a>
+Full Name: State Machine State Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1426"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1427"></a>
+Data Type: unique_id
+</p>
+<h4>
+State Machine State.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1428"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1429"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R501)</a>
+</p>
+<h4>
+State Machine State.SMspd_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1430"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1431"></a>
+Refers to: <a href="State_Machine.htm#19_Event Supplemental Data.SMspd_ID">Event Supplemental Data.SMspd_ID (R521)</a>
+</p>
+<h4>
+State Machine State.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1432"></a>
+Full Name: State Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1433"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1434"></a>
+Data Type: string
+</p>
+<h4>
+State Machine State.Numb
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1435"></a>
+Full Name: State Number
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1436"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1437"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1438"></a>
+Data Domain: 0-9999
+</p>
+<h4>
+State Machine State.Final
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1439"></a>
+Full Name: Final State Indicator
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1440"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1441"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1442"></a>
+Description:  Indicates whether or not the state is a final state.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1443"></a>
+Data Domain: 0 = not a final state, 1 = final state
+</p>
+<h3>
+<a name="a_503.StateMachineEvent"></a>
+503. State Machine Event
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1444"></a>
+State Machine Event(SMevt_ID, SM_ID, SMspd_ID, Numb, Mning, Is_Lbl_U, Unq_Lbl, Drv_Lbl, Descrip)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1445"></a>
+Identifier *: SM_ID, SMevt_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1446"></a>
+Identifier *2: SM_ID, SMevt_ID, SMspd_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1447"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1448"></a>
+Description: Represents an event for this state machine.  Events can be either State  Event Matrix events (SM_SEVT) or polymorphic events (SM_PEVT).
+</p>
+<h4>
+<a name="21_State Machine Event.SMevt_ID">
+State Machine Event.SMevt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1449"></a>
+Full Name: State Machine Event Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1450"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1451"></a>
+Data Type: unique_id
+</p>
+<h4>
+State Machine Event.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1452"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1453"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R502)</a>
+</p>
+<h4>
+State Machine Event.SMspd_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1454"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1455"></a>
+Refers to: <a href="State_Machine.htm#19_Event Supplemental Data.SMspd_ID">Event Supplemental Data.SMspd_ID (R520)</a>
+</p>
+<h4>
+State Machine Event.Numb
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1456"></a>
+Full Name: Event Number
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1457"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1458"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1459"></a>
+Data Domain: 0-9999
+</p>
+<h4>
+State Machine Event.Mning
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1460"></a>
+Full Name: Event Meaning
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1461"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1462"></a>
+Data Type: string
+</p>
+<h4>
+State Machine Event.Is_Lbl_U
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1463"></a>
+Full Name: State Machine Event Label Unique Indicator
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1464"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1465"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1466"></a>
+Description:  This is a flag that indicates whether custom label keyletters 
+are used for the event.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1467"></a>
+Data Domain: 0 = class keyletters are used, 1 = custom label keyletters are used
+</p>
+<h4>
+State Machine Event.Unq_Lbl
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1468"></a>
+Full Name: State Machine Event Unique Label
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1469"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1470"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1471"></a>
+Description:  Custom keyletters for the state machine event.
+</p>
+<h4>
+State Machine Event.Drv_Lbl
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1472"></a>
+Full Name: State Machine Event Derived Label
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1473"></a>
+Attribute Type: Derived Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1474"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1475"></a>
+Description:  Contains the event label derived by concatenating the keyletters 
+and the event number.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1476"></a>
+Data Domain: 0 = derived label created by concatenating class keyletters + event number, 1 = derived label created by concatenating Unq_Lbl with event number
+</p>
+<h4>
+State Machine Event.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1477"></a>
+Full Name: Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1478"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1479"></a>
+Data Type: string
+</p>
+<h3>
+<a name="a_504.StateEventMatrixEntry"></a>
+504. State Event Matrix Entry
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1480"></a>
+State Event Matrix Entry(SMstt_ID, SMevt_ID, SM_ID, SMspd_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1481"></a>
+Identifier *: SMspd_ID, SMevt_ID, SM_ID, SMstt_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1482"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1483"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1484"></a>
+Description: This class represents an entry in the state event matrix (SEM).  A  state event matrix entry describes what happens in each state (SM_STATE)  for each event (SM_EVT).  The SEM can be thought of as a two-dimensional  array where the states of a state machine  are represented by rows and  events are represented by columns.  An entry consists of one of the  following: transition to another state, event ignored, event can't happen.
+</p>
+<h4>
+State Event Matrix Entry.SMstt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1485"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1486"></a>
+Refers to: <a href="State_Machine.htm#20_State Machine State.SMstt_ID">State Machine State.SMstt_ID (R503)</a>
+</p>
+<h4>
+State Event Matrix Entry.SMevt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1487"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1488"></a>
+Refers to: <a href="State_Machine.htm#21_State Machine Event.SMevt_ID">State Machine Event.SMevt_ID (R503)</a>
+</p>
+<h4>
+State Event Matrix Entry.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1489"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1490"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R503)</a>
+</p>
+<h4>
+State Event Matrix Entry.SMspd_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1491"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1492"></a>
+Refers to: <a href="State_Machine.htm#19_Event Supplemental Data.SMspd_ID">Event Supplemental Data.SMspd_ID (R503)</a>
+</p>
+<h3>
+<a name="a_505.NewStateTransition"></a>
+505. New State Transition
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1493"></a>
+New State Transition(Trans_ID, SM_ID, SMstt_ID, SMevt_ID, SMspd_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1494"></a>
+Identifier *: SMevt_ID, SMstt_ID, SMspd_ID, SM_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1495"></a>
+Identifier *2: SM_ID, Trans_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1496"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1497"></a>
+Description: A new state transition is an entry in the state event matrix (SEM) that represents a transition from one state to another upon the receipt of an  event while in a particular state.
+</p>
+<h4>
+New State Transition.Trans_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1498"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1499"></a>
+Refers to: <a href="State_Machine.htm#22_Transition.Trans_ID">Transition.Trans_ID (R507)</a>
+</p>
+<h4>
+New State Transition.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1500"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1501"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R504)</a>
+</p>
+<h4>
+New State Transition.SMstt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1502"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1503"></a>
+Refers to: <a href="State_Machine.htm#20_State Machine State.SMstt_ID">State Machine State.SMstt_ID (R504)</a>
+</p>
+<h4>
+New State Transition.SMevt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1504"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1505"></a>
+Refers to: <a href="State_Machine.htm#21_State Machine Event.SMevt_ID">State Machine Event.SMevt_ID (R504)</a>
+</p>
+<h4>
+New State Transition.SMspd_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1506"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1507"></a>
+Refers to: <a href="State_Machine.htm#19_Event Supplemental Data.SMspd_ID">Event Supplemental Data.SMspd_ID (R504)</a>
+</p>
+<h3>
+<a name="a_506.EventIgnored"></a>
+506. Event Ignored
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1508"></a>
+Event Ignored(SMstt_ID, SMevt_ID, SM_ID, SMspd_ID, Descrip)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1509"></a>
+Identifier *: SMevt_ID, SM_ID, SMspd_ID, SMstt_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1510"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1511"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1512"></a>
+Description: An event ignored is an entry in the state event matrix (SEM) specifying  that the event (SM_EVT) is ignored when received in the state SM_STATE.   When the analyst asserts that the event is ignored he is saying that the  event is expected, but the state machine should not transition on the event,  but ignore it.  
+</p>
+<h4>
+Event Ignored.SMstt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1513"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1514"></a>
+Refers to: <a href="State_Machine.htm#20_State Machine State.SMstt_ID">State Machine State.SMstt_ID (R504)</a>
+</p>
+<h4>
+Event Ignored.SMevt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1515"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1516"></a>
+Refers to: <a href="State_Machine.htm#21_State Machine Event.SMevt_ID">State Machine Event.SMevt_ID (R504)</a>
+</p>
+<h4>
+Event Ignored.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1517"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1518"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R504)</a>
+</p>
+<h4>
+Event Ignored.SMspd_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1519"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1520"></a>
+Refers to: <a href="State_Machine.htm#19_Event Supplemental Data.SMspd_ID">Event Supplemental Data.SMspd_ID (R504)</a>
+</p>
+<h4>
+Event Ignored.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1521"></a>
+Full Name: Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1522"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1523"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1524"></a>
+Description:  An explanation of why the event can be ignored if received in 
+this state.
+</p>
+<h3>
+<a name="a_507.CantHappen"></a>
+507. Cant Happen
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1525"></a>
+Cant Happen(SMstt_ID, SMevt_ID, SM_ID, SMspd_ID, Descrip)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1526"></a>
+Identifier *: SMspd_ID, SMevt_ID, SM_ID, SMstt_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1527"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1528"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1529"></a>
+Description: A cant happen is an entry in the state event matrix (SEM) specifying that  the event (SM_EVT) should never happen under normal circumstances when  received in the state SM_STATE.  When the analyst asserts that the event  cant happen in the state he is saying that the event is not expected and  an error should be flagged.  
+</p>
+<h4>
+Cant Happen.SMstt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1530"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1531"></a>
+Refers to: <a href="State_Machine.htm#20_State Machine State.SMstt_ID">State Machine State.SMstt_ID (R504)</a>
+</p>
+<h4>
+Cant Happen.SMevt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1532"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1533"></a>
+Refers to: <a href="State_Machine.htm#21_State Machine Event.SMevt_ID">State Machine Event.SMevt_ID (R504)</a>
+</p>
+<h4>
+Cant Happen.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1534"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1535"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R504)</a>
+</p>
+<h4>
+Cant Happen.SMspd_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1536"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1537"></a>
+Refers to: <a href="State_Machine.htm#19_Event Supplemental Data.SMspd_ID">Event Supplemental Data.SMspd_ID (R504)</a>
+</p>
+<h4>
+Cant Happen.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1538"></a>
+Full Name: Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1539"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1540"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1541"></a>
+Description:  An explanation of why the event can't happen while the instance 
+is in this state.
+</p>
+<h3>
+<a name="a_508.Transition"></a>
+508. Transition
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1542"></a>
+Transition(Trans_ID, SM_ID, SMstt_ID, SMspd_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1543"></a>
+Identifier *: Trans_ID, SM_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1544"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1545"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1546"></a>
+Description: A transition represents a change in the state of an instance.  It is represented  by a line between to states (SM_NETXN and SM_NSTXN), or a line into a single  state (SM_CRTXN).  Transitions are labeled with a single event (SM_EVT).
+</p>
+<h4>
+<a name="22_Transition.Trans_ID">
+Transition.Trans_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1547"></a>
+Full Name: Transition Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1548"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1549"></a>
+Data Type: unique_id
+</p>
+<h4>
+Transition.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1550"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1551"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R505)</a>
+</p>
+<h4>
+Transition.SMstt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1552"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1553"></a>
+Refers to: <a href="State_Machine.htm#20_State Machine State.SMstt_ID">State Machine State.SMstt_ID (R506)</a>
+</p>
+<h4>
+Transition.SMspd_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1554"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1555"></a>
+Refers to: <a href="State_Machine.htm#19_Event Supplemental Data.SMspd_ID">Event Supplemental Data.SMspd_ID (R506)</a>
+</p>
+<h3>
+<a name="a_509.NoEventTransition"></a>
+509. No Event Transition
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1556"></a>
+No Event Transition(Trans_ID, SM_ID, SMstt_ID, SMspd_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1557"></a>
+Identifier *: SM_ID, Trans_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1558"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1559"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1560"></a>
+Description: A no event transition is a transition between to states to which no event  is currently assigned. 
+</p>
+<h4>
+No Event Transition.Trans_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1561"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1562"></a>
+Refers to: <a href="State_Machine.htm#22_Transition.Trans_ID">Transition.Trans_ID (R507)</a>
+</p>
+<h4>
+No Event Transition.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1563"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1564"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R508)</a>
+</p>
+<h4>
+No Event Transition.SMstt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1565"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1566"></a>
+Refers to: <a href="State_Machine.htm#20_State Machine State.SMstt_ID">State Machine State.SMstt_ID (R508)</a>
+</p>
+<h4>
+No Event Transition.SMspd_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1567"></a>
+Full Name: Event Supplemental Data Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1568"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1569"></a>
+Data Type: unique_id
+</p>
+<h3>
+<a name="a_510.CreationTransition"></a>
+510. Creation Transition
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1570"></a>
+Creation Transition(Trans_ID, SM_ID, SMevt_ID, SMspd_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1571"></a>
+Identifier *: SM_ID, Trans_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1572"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1573"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1574"></a>
+Description: A creation transition is a transition into a state from no other state.  
+</p>
+<h4>
+Creation Transition.Trans_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1575"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1576"></a>
+Refers to: <a href="State_Machine.htm#22_Transition.Trans_ID">Transition.Trans_ID (R507)</a>
+</p>
+<h4>
+Creation Transition.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1577"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1578"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R507)</a>
+</p>
+<h4>
+Creation Transition.SMevt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1579"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1580"></a>
+Refers to: <a href="State_Machine.htm#21_State Machine Event.SMevt_ID">State Machine Event.SMevt_ID (R509)</a>
+</p>
+<h4>
+Creation Transition.SMspd_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1581"></a>
+Full Name: Event Supplemental Data Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1582"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1583"></a>
+Data Type: unique_id
+</p>
+<h3>
+<a name="a_511.MooreStateMachine"></a>
+511. Moore State Machine
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1584"></a>
+Moore State Machine(SM_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1585"></a>
+Identifier *: SM_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1586"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1587"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1588"></a>
+Description: A Moore state machine is one in which actions (SM_ACT) are assigned to  states (SM_STATE).  The state action is executed upon entry into the state.
+</p>
+<h4>
+Moore State Machine.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1589"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1590"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R510)</a>
+</p>
+<h3>
+<a name="a_512.MealyStateMachine"></a>
+512. Mealy State Machine
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1591"></a>
+Mealy State Machine(SM_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1592"></a>
+Identifier *: SM_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1593"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1594"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1595"></a>
+Description: A Mealy state machine is one in which actions (SM_ACT) are assigned to  transitions (SM_TXN).  The action is executed during the transition from  one state to another.  Support for mealy state machines is currently  absent from the tool.
+</p>
+<h4>
+Mealy State Machine.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1596"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1597"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R510)</a>
+</p>
+<h3>
+<a name="a_513.MooreActionHome"></a>
+513. Moore Action Home
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1598"></a>
+Moore Action Home(Act_ID, SM_ID, SMstt_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1599"></a>
+Identifier *: SM_ID, SMstt_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1600"></a>
+Identifier *2: Act_ID, SM_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1601"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1602"></a>
+Description: A Moore action home represents the home for a Moore action.
+</p>
+<h4>
+Moore Action Home.Act_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1603"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1604"></a>
+Refers to: <a href="State_Machine.htm#23_Action.Act_ID">Action.Act_ID (R513)</a>
+</p>
+<h4>
+Moore Action Home.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1605"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1606"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R513)</a>
+</p>
+<h4>
+Moore Action Home.SMstt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1607"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1608"></a>
+Refers to: <a href="State_Machine.htm#20_State Machine State.SMstt_ID">State Machine State.SMstt_ID (R511)</a>
+</p>
+<h3>
+<a name="a_514.MealyActionHome"></a>
+514. Mealy Action Home
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1609"></a>
+Mealy Action Home(Act_ID, SM_ID, Trans_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1610"></a>
+Identifier *: Trans_ID, SM_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1611"></a>
+Identifier *2: SM_ID, Act_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1612"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1613"></a>
+Description: A Mealy action home represents the home for a Mealy action.
+</p>
+<h4>
+Mealy Action Home.Act_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1614"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1615"></a>
+Refers to: <a href="State_Machine.htm#23_Action.Act_ID">Action.Act_ID (R513)</a>
+</p>
+<h4>
+Mealy Action Home.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1616"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1617"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R513)</a>
+</p>
+<h4>
+Mealy Action Home.Trans_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1618"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1619"></a>
+Refers to: <a href="State_Machine.htm#22_Transition.Trans_ID">Transition.Trans_ID (R512)</a>
+</p>
+<h3>
+<a name="a_515.ActionHome"></a>
+515. Action Home
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1620"></a>
+Action Home(Act_ID, SM_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1621"></a>
+Identifier *: Act_ID, SM_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1622"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1623"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1624"></a>
+Description: An action (SM_ACT) resides in an action home, either a Moore action  home (SM_MOAH) or a Mealy action home (SM_MEAH).
+</p>
+<h4>
+Action Home.Act_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1625"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1626"></a>
+Refers to: <a href="State_Machine.htm#23_Action.Act_ID">Action.Act_ID (R514)</a>
+</p>
+<h4>
+Action Home.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1627"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1628"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R514)</a>
+</p>
+<h3>
+<a name="a_516.Action"></a>
+516. Action
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1629"></a>
+Action(Act_ID, SM_ID, Suc_Pars, Action_Semantics, Descrip)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1630"></a>
+Identifier *: SM_ID, Act_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1631"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1632"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1633"></a>
+Description: An action defines the action language that gets executed upon arrival  into the state (SM_STATE) that is related to the action.  An action may  have both action language (SM_ACT.Action_Semantics)  and a description  SM_ACT.Descrip).
+</p>
+<h4>
+<a name="23_Action.Act_ID">
+Action.Act_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1634"></a>
+Full Name: Action Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1635"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1636"></a>
+Data Type: unique_id
+</p>
+<h4>
+Action.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1637"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1638"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R515)</a>
+</p>
+<h4>
+Action.Suc_Pars
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1639"></a>
+Full Name: Successful Parse Indicator
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1640"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1641"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1642"></a>
+Description:  Indicates the status of the parse for the state action 
+specification in the attribute Action_Semantics
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1643"></a>
+Data Domain: 0=not parsed, 1 = parse successful, 2 = parse unsuccessful, 3 = parse on apply set but never been parsed
+</p>
+<h4>
+Action.Action_Semantics
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1644"></a>
+Full Name: Action Semantics Field
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1645"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1646"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1647"></a>
+Description:  Action Semantics for the state action.
+</p>
+<h4>
+Action.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1648"></a>
+Full Name: Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1649"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1650"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1651"></a>
+Description:  Optional description for the state action.
+</p>
+<h3>
+<a name="a_517.StateMachineEventDataItem"></a>
+517. State Machine Event Data Item
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1652"></a>
+State Machine Event Data Item(SMedi_ID, SM_ID, Name, Descrip, DT_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1653"></a>
+Identifier *: SM_ID, SMedi_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1654"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1655"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1656"></a>
+Description: Each state machine (SM_SM) has a pool of event data items that can be used  as supplemental data (SM_SUPDT) for the events (SM_EVT) of the state  machine.  When an event data item is used as supplemental data for an  event an instance of SM_SDI is created.
+</p>
+<h4>
+<a name="24_State Machine Event Data Item.SMedi_ID">
+State Machine Event Data Item.SMedi_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1657"></a>
+Full Name: Event Data Item Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1658"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1659"></a>
+Data Type: unique_id
+</p>
+<h4>
+State Machine Event Data Item.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1660"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1661"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R516)</a>
+</p>
+<h4>
+State Machine Event Data Item.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1662"></a>
+Full Name: Event Data Item Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1663"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1664"></a>
+Data Type: string
+</p>
+<h4>
+State Machine Event Data Item.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1665"></a>
+Full Name: Event Data Item Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1666"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1667"></a>
+Data Type: string
+</p>
+<h4>
+State Machine Event Data Item.DT_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1668"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1669"></a>
+Refers to: <a href="Domain.htm#5_Data Type.DT_ID">Data Type.DT_ID (R524)</a>
+</p>
+<h3>
+<a name="a_518.EventSupplementalData"></a>
+518. Event Supplemental Data
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1670"></a>
+Event Supplemental Data(SMspd_ID, SM_ID, Non_Local)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1671"></a>
+Identifier *: SMspd_ID, SM_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1672"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1673"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1674"></a>
+Description: Each event (SM_EVT) may carry supplemental event data defined by state  machine event data items (SM_EVTDI).  The supplemental data items for  the event are defined by instances of supplemental data items (SM_SDI).
+</p>
+<h4>
+<a name="19_Event Supplemental Data.SMspd_ID">
+Event Supplemental Data.SMspd_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1675"></a>
+Full Name: Event Supplemental Data Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1676"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1677"></a>
+Data Type: unique_id
+</p>
+<h4>
+Event Supplemental Data.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1678"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1679"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R523)</a>
+</p>
+<h4>
+Event Supplemental Data.Non_Local
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1680"></a>
+Full Name: Non local event indicator
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1681"></a>
+Attribute Type: Derived Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1682"></a>
+Data Type: boolean
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1683"></a>
+Description:  This attribute captures that the event supplemental data is for a 
+non-local event.
+
+</p>
+<h3>
+<a name="a_519.SupplementalDataItems"></a>
+519. Supplemental Data Items
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1684"></a>
+Supplemental Data Items(SMedi_ID, SMspd_ID, SM_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1685"></a>
+Identifier *: SMedi_ID, SMspd_ID, SM_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1686"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1687"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1688"></a>
+Description: A supplemental data item for the supplemental data (SM_SUPDT) for an  event (SM_EVT).
+</p>
+<h4>
+Supplemental Data Items.SMedi_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1689"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1690"></a>
+Refers to: <a href="State_Machine.htm#24_State Machine Event Data Item.SMedi_ID">State Machine Event Data Item.SMedi_ID (R522)</a>
+</p>
+<h4>
+Supplemental Data Items.SMspd_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1691"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1692"></a>
+Refers to: <a href="State_Machine.htm#19_Event Supplemental Data.SMspd_ID">Event Supplemental Data.SMspd_ID (R522)</a>
+</p>
+<h4>
+Supplemental Data Items.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1693"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1694"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R522)</a>
+</p>
+<h3>
+<a name="a_520.InstanceStateMachine"></a>
+520. Instance State Machine
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1695"></a>
+Instance State Machine(SM_ID, Obj_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1696"></a>
+Identifier *: SM_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1697"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1698"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1699"></a>
+Description: An instance state machine is a state machine for an instance of a class.   Each instance of a class can be thought of as executing its own private  version of the state machine.  This is in contrast to an assigner state  machine (SM_ASM) which is a state machine for the entire class.
+</p>
+<h4>
+Instance State Machine.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1700"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1701"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R517)</a>
+</p>
+<h4>
+Instance State Machine.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1702"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1703"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R518)</a>
+</p>
+<h3>
+<a name="a_521.ClassStateMachine"></a>
+521. Class State Machine
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1704"></a>
+Class State Machine(SM_ID, Obj_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1705"></a>
+Identifier *: SM_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1706"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1707"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1708"></a>
+Description: An assigner state machine is a state machine for a class.  This is in  contrast to an instance state machine (SM_ISM) which is a state  machine for an instance.
+</p>
+<h4>
+Class State Machine.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1709"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1710"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R517)</a>
+</p>
+<h4>
+Class State Machine.Obj_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1711"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1712"></a>
+Refers to: <a href="Subsystem.htm#14_Model Class.Obj_ID">Model Class.Obj_ID (R519)</a>
+</p>
+<h3>
+<a name="a_522.PolymorphicEvent"></a>
+522. Polymorphic Event
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1713"></a>
+Polymorphic Event(SMevt_ID, SM_ID, SMspd_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1714"></a>
+Identifier *: SM_ID, SMevt_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1715"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1716"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1717"></a>
+Description: A polymorphic event (SM_PEVT) is one that is defined in a super-type state  machine  and used in one or more sub-type state machines.  Each polymorphic  event has one or more aliases (SM_NLEVT) in one or more sub-types.
+</p>
+<h4>
+Polymorphic Event.SMevt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1718"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1719"></a>
+Refers to: <a href="State_Machine.htm#21_State Machine Event.SMevt_ID">State Machine Event.SMevt_ID (R525)</a>
+</p>
+<h4>
+Polymorphic Event.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1720"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1721"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R525)</a>
+</p>
+<h4>
+Polymorphic Event.SMspd_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1722"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1723"></a>
+Refers to: <a href="State_Machine.htm#19_Event Supplemental Data.SMspd_ID">Event Supplemental Data.SMspd_ID (R525)</a>
+</p>
+<h3>
+<a name="a_525.SEMEvent"></a>
+525. SEM Event
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1724"></a>
+Sem Event(SMevt_ID, SM_ID, SMspd_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1725"></a>
+Identifier *: SMevt_ID, SM_ID, SMspd_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1726"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1727"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1728"></a>
+Description: An SEM (State Event Matrix) event is one that appears in the state event  matrix.  Contrast this to a polymorphic event which is defined at the  supertype-level but does not appear in the SEM for the super-type.  An  SEM event can either be a local event (SM_LEVT), in the case of an  event that is defined in the state machine for the class, or a non-local  event (SM_NLEVT) which is an alias for a polymorphic event (SM_PEVT)  defined in the super-type but accessible via the subtype.
+</p>
+<h4>
+SEM Event.SMevt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1729"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1730"></a>
+Refers to: <a href="State_Machine.htm#21_State Machine Event.SMevt_ID">State Machine Event.SMevt_ID (R525)</a>
+</p>
+<h4>
+SEM Event.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1731"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1732"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R525)</a>
+</p>
+<h4>
+SEM Event.SMspd_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1733"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1734"></a>
+Refers to: <a href="State_Machine.htm#19_Event Supplemental Data.SMspd_ID">Event Supplemental Data.SMspd_ID (R525)</a>
+</p>
+<h3>
+<a name="a_526.NonLocalEvent"></a>
+526. Non Local Event
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1735"></a>
+Non Local Event(SMevt_ID, SM_ID, SMspd_ID, polySMevt_ID, polySM_ID, polySMspd_ID, Local_Meaning)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1736"></a>
+Identifier *: SMspd_ID, SM_ID, SMevt_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1737"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1738"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1739"></a>
+Description: A non-local event is one that is defined in another state machine.   Non-local events represent entries in SEMs for events that are defined  in a super-type but used on transitions in the sub-type.
+</p>
+<h4>
+Non Local Event.SMevt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1740"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1741"></a>
+Refers to: <a href="State_Machine.htm#21_State Machine Event.SMevt_ID">State Machine Event.SMevt_ID (R526)</a>
+</p>
+<h4>
+Non Local Event.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1742"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1743"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R526)</a>
+</p>
+<h4>
+Non Local Event.SMspd_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1744"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1745"></a>
+Refers to: <a href="State_Machine.htm#19_Event Supplemental Data.SMspd_ID">Event Supplemental Data.SMspd_ID (R526)</a>
+</p>
+<h4>
+Non Local Event.polySMevt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1746"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1747"></a>
+Refers to: <a href="State_Machine.htm#21_State Machine Event.SMevt_ID">State Machine Event.SMevt_ID (R527)</a>
+</p>
+<h4>
+Non Local Event.polySM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1748"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1749"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R527)</a>
+</p>
+<h4>
+Non Local Event.polySMspd_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1750"></a>
+Full Name: Event Supplemental Data Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1751"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1752"></a>
+Data Type: unique_id
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1753"></a>
+Description:  This attribute is only here for backward compatibility.
+
+
+</p>
+<h4>
+Non Local Event.Local_Meaning
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1754"></a>
+Full Name: Non-Local Event Local Meaning
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_1755"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1756"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1757"></a>
+Description:  The local meaning of the non-local event.  The meaning can be 
+overridden in the sup-types state machine.
+</p>
+<h3>
+<a name="a_527.LocalEvent"></a>
+527. Local Event
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1758"></a>
+Local Event(SMevt_ID, SM_ID, SMspd_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1759"></a>
+Identifier *: SM_ID, SMevt_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_1760"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_1761"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_1762"></a>
+Description: A local event is one that is defined in the state machine.  Contrast this to  a non-local event which is defined in a different state machine (that of  the super-type) than the one in which it is used.
+</p>
+<h4>
+Local Event.SMevt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1763"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1764"></a>
+Refers to: <a href="State_Machine.htm#21_State Machine Event.SMevt_ID">State Machine Event.SMevt_ID (R526)</a>
+</p>
+<h4>
+Local Event.SM_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1765"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1766"></a>
+Refers to: <a href="State_Machine.htm#18_State Machine.SM_ID">State Machine.SM_ID (R526)</a>
+</p>
+<h4>
+Local Event.SMspd_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_1767"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1768"></a>
+Refers to: <a href="State_Machine.htm#19_Event Supplemental Data.SMspd_ID">Event Supplemental Data.SMspd_ID (R526)</a>
+</p>
+<h2>
+<a name="a_1769"></a>
+Association Descriptions
+</h2>
+<h3>
+<a name="a_R501"></a>
+R501
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1770"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1771"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1772"></a>
+State Machine <em>is decomposed into</em> State Machine State
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1773"></a>
+State Machine State <em> State Machine
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1774"></a>
+Formalized By: State Machine.SM_ID
+</p>
+<h3>
+<a name="a_R502"></a>
+R502
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1775"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1776"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1777"></a>
+State Machine <em>can be communicated to via</em> State Machine Event
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1778"></a>
+State Machine Event <em> State Machine
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1779"></a>
+Formalized By: State Machine.SM_ID
+</p>
+<h3>
+<a name="a_R503"></a>
+R503
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1780"></a>
+Relationship Type: Associative
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1781"></a>
+Multiplicity/Conditionality: 1-(Mc:Mc)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1782"></a>
+State Machine State <em>receives</em> SEM Event
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1783"></a>
+SEM Event <em>is received by</em> State Machine State
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1784"></a>
+Formalized By: State Event Matrix Entry.SMstt_ID, State Event Matrix Entry.SMevt_ID, State Event Matrix Entry.SM_ID, State Event Matrix Entry.SM_ID, State Event Matrix Entry.SMspd_ID
+</p>
+<h3>
+<a name="a_R504"></a>
+R504
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1785"></a>
+Relationship Type: Subtype/Supertype
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1786"></a>
+Subtypes: Event Ignored(SM_EIGN), Cant Happen(SM_CH), New State Transition(SM_NSTXN)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1787"></a>
+Formalized By: State Event Matrix Entry.SMstt_ID, State Event Matrix Entry.SMevt_ID, State Event Matrix Entry.SM_ID, State Event Matrix Entry.SMspd_ID
+</p>
+<h3>
+<a name="a_R505"></a>
+R505
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1788"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1789"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1790"></a>
+State Machine <em>contains</em> Transition
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1791"></a>
+Transition <em> State Machine
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1792"></a>
+Formalized By: State Machine.SM_ID
+</p>
+<h3>
+<a name="a_R506"></a>
+R506
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1793"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1794"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1795"></a>
+State Machine State <em>is destination of</em> Transition
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1796"></a>
+Transition <em>is destined to State Machine State
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1797"></a>
+Formalized By: State Machine State.SM_ID, State Machine State.SMstt_ID, State Machine State.SMspd_ID
+</p>
+<h3>
+<a name="a_R507"></a>
+R507
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1798"></a>
+Relationship Type: Subtype/Supertype
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1799"></a>
+Subtypes: No Event Transition(SM_NETXN), Creation Transition(SM_CRTXN), New State Transition(SM_NSTXN)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1800"></a>
+Formalized By: Transition.Trans_ID, Transition.SM_ID
+</p>
+<h3>
+<a name="a_R508"></a>
+R508
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1801"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1802"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1803"></a>
+State Machine State <em>is origination of</em> No Event Transition
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1804"></a>
+No Event Transition <em>originates from State Machine State
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1805"></a>
+Formalized By: State Machine State.SM_ID, State Machine State.SMstt_ID
+</p>
+<h3>
+<a name="a_R509"></a>
+R509
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1806"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1807"></a>
+Multiplicity/Conditionality: 1c: 1c
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1808"></a>
+Local Event <em>has assigned to it</em> Creation Transition
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1809"></a>
+Creation Transition <em>is assigned to Local Event
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1810"></a>
+Formalized By: Local Event.SM_ID, Local Event.SMevt_ID
+</p>
+<h3>
+<a name="a_R510"></a>
+R510
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1811"></a>
+Relationship Type: Subtype/Supertype
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1812"></a>
+Subtypes: Mealy State Machine(SM_MEALY), Moore State Machine(SM_MOORE)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1813"></a>
+Formalized By: State Machine.SM_ID
+</p>
+<h3>
+<a name="a_R511"></a>
+R511
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1814"></a>
+Relationship Type: Associative
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1815"></a>
+Multiplicity/Conditionality: 1-(1c:M)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1816"></a>
+Moore State Machine <em></em> State Machine State
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1817"></a>
+State Machine State <em></em> Moore State Machine
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1818"></a>
+Formalized By: Moore Action Home.SM_ID, Moore Action Home.SM_ID, Moore Action Home.SMstt_ID
+</p>
+<h3>
+<a name="a_R512"></a>
+R512
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1819"></a>
+Relationship Type: Associative
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1820"></a>
+Multiplicity/Conditionality: 1-(1c:M)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1821"></a>
+Mealy State Machine <em></em> Transition
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1822"></a>
+Transition <em></em> Mealy State Machine
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1823"></a>
+Formalized By: Mealy Action Home.SM_ID, Mealy Action Home.SM_ID, Mealy Action Home.Trans_ID
+</p>
+<h3>
+<a name="a_R513"></a>
+R513
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1824"></a>
+Relationship Type: Subtype/Supertype
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1825"></a>
+Subtypes: Moore Action Home(SM_MOAH), Mealy Action Home(SM_MEAH)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1826"></a>
+Formalized By: Action Home.Act_ID, Action Home.SM_ID
+</p>
+<h3>
+<a name="a_R514"></a>
+R514
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1827"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1828"></a>
+Multiplicity/Conditionality: 1: 1
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1829"></a>
+Action <em>resides in</em> Action Home
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1830"></a>
+Action Home <em>houses Action
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1831"></a>
+Formalized By: Action.Act_ID, Action.SM_ID
+</p>
+<h3>
+<a name="a_R515"></a>
+R515
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1832"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1833"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1834"></a>
+State Machine <em>contains</em> Action
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1835"></a>
+Action <em> State Machine
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1836"></a>
+Formalized By: State Machine.SM_ID
+</p>
+<h3>
+<a name="a_R516"></a>
+R516
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1837"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1838"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1839"></a>
+State Machine <em>can asynchronously communicate via</em> State Machine Event Data Item
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1840"></a>
+State Machine Event Data Item <em>is carried on events into State Machine
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1841"></a>
+Formalized By: State Machine.SM_ID
+</p>
+<h3>
+<a name="a_R517"></a>
+R517
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1842"></a>
+Relationship Type: Subtype/Supertype
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1843"></a>
+Subtypes: Instance State Machine(SM_ISM), Class State Machine(SM_ASM)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1844"></a>
+Formalized By: State Machine.SM_ID
+</p>
+<h3>
+<a name="a_R518"></a>
+R518
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1845"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1846"></a>
+Multiplicity/Conditionality: 1: 1c
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1847"></a>
+Model Class <em></em> Instance State Machine
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1848"></a>
+Instance State Machine <em> Model Class
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1849"></a>
+Formalized By: Model Class.Obj_ID
+</p>
+<h3>
+<a name="a_R519"></a>
+R519
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1850"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1851"></a>
+Multiplicity/Conditionality: 1: 1c
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1852"></a>
+Model Class <em></em> Class State Machine
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1853"></a>
+Class State Machine <em> Model Class
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1854"></a>
+Formalized By: Model Class.Obj_ID
+</p>
+<h3>
+<a name="a_R520"></a>
+R520
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1855"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1856"></a>
+Multiplicity/Conditionality: 1: M
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1857"></a>
+Event Supplemental Data <em>defines signature of</em> State Machine Event
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1858"></a>
+State Machine Event <em>carries Event Supplemental Data
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1859"></a>
+Formalized By: Event Supplemental Data.SM_ID, Event Supplemental Data.SMspd_ID
+</p>
+<h3>
+<a name="a_R521"></a>
+R521
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1860"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1861"></a>
+Multiplicity/Conditionality: 1c: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1862"></a>
+Event Supplemental Data <em>is delivered by received event to</em> State Machine State
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1863"></a>
+State Machine State <em>receives asynchronous data via Event Supplemental Data
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1864"></a>
+Formalized By: Event Supplemental Data.SM_ID, Event Supplemental Data.SMspd_ID
+</p>
+<h3>
+<a name="a_R522"></a>
+R522
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1865"></a>
+Relationship Type: Associative
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1866"></a>
+Multiplicity/Conditionality: 1-(Mc:Mc)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1867"></a>
+Event Supplemental Data <em>is made up of</em> State Machine Event Data Item
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1868"></a>
+State Machine Event Data Item <em>makes up</em> Event Supplemental Data
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1869"></a>
+Formalized By: Supplemental Data Items.SMedi_ID, Supplemental Data Items.SMspd_ID, Supplemental Data Items.SM_ID, Supplemental Data Items.SM_ID
+</p>
+<h3>
+<a name="a_R523"></a>
+R523
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1870"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1871"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1872"></a>
+State Machine <em>contains</em> Event Supplemental Data
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1873"></a>
+Event Supplemental Data <em>is assigned to State Machine
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1874"></a>
+Formalized By: State Machine.SM_ID
+</p>
+<h3>
+<a name="a_R524"></a>
+R524
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1875"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1876"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1877"></a>
+Data Type <em>defines the type of</em> State Machine Event Data Item
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1878"></a>
+State Machine Event Data Item <em>is defined by Data Type
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1879"></a>
+Formalized By: Data Type.DT_ID
+</p>
+<h3>
+<a name="a_R525"></a>
+R525
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1880"></a>
+Relationship Type: Subtype/Supertype
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1881"></a>
+Subtypes: SEM Event(SM_SEVT), Polymorphic Event(SM_PEVT)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1882"></a>
+Formalized By: State Machine Event.SMevt_ID, State Machine Event.SM_ID, State Machine Event.SMspd_ID
+</p>
+<h3>
+<a name="a_R526"></a>
+R526
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1883"></a>
+Relationship Type: Subtype/Supertype
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1884"></a>
+Subtypes: Non Local Event(SM_NLEVT), Local Event(SM_LEVT)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1885"></a>
+Formalized By: SEM Event.SMevt_ID, SEM Event.SM_ID, SEM Event.SMspd_ID
+</p>
+<h3>
+<a name="a_R527"></a>
+R527
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_1886"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1887"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1888"></a>
+Polymorphic Event <em>is aliased by</em> Non Local Event
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1889"></a>
+Non Local Event <em>is defined by Polymorphic Event
+</p>
+<p style="margin-left: 40px;">
+<a name="a_1890"></a>
+Formalized By: Polymorphic Event.SMevt_ID, Polymorphic Event.SM_ID
+</p>
+</body>
+</html>
+

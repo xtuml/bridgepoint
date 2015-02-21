@@ -1,0 +1,90 @@
+body {
+	background-image : url(../graphics/contentpage/watermark.jpg);
+}
+
+.page {
+	min-height : 700px;
+	width : 100%;
+}
+
+/* show the "selected" image for this page */
+#navigation-links a#overview img, #navigation-links a#overview:hover img { background-image : url(../graphics/icons/ctool/overview48sel.gif); }
+
+/*
+ * Set up the Overview links to be displayed in two columns
+ * that are centered in the middle of the page.
+ */
+
+#page-links {
+	text-align : left;
+	width : 760px;
+	/* To center in Moz (have to use text-align for IE) */
+	margin : 0px auto;
+}
+
+#page-links a {
+	width : 370px;
+	text-align : left;
+	margin-left : 5px;
+	margin-right : 5px;
+	margin-top : 5px;
+	margin-bottom : -20px;
+	vertical-align : top;
+}
+
+#page-links > a { vertical-align : middle; }
+
+#page-links a img {
+	height : 57px;
+	width : 57px;
+	vertical-align : middle;
+}
+
+#page-links a .link-label {
+	display : block;
+	width : 300px;
+	position : relative;
+	top : -50px;
+	left : 60px;
+}
+
+#page-links a p .text {
+	display : block;
+	width : 300px;
+	position : relative;
+	top : -45px;
+	left : 53px;
+	font-size : 8pt;
+}
+
+/* Special case for Mozilla, because the links are displayed
+   in 1 vertical column instead of 2 centered columns */
+#page-links > a { 	width : 700px; }
+#page-links a > .link-label { width : 700px; }
+#page-links a p > .text { width : 700px; }
+
+#page-links a:hover { border-right : 5px; }
+
+a#basics img { background-image : url(../graphics/icons/obj48/wbbasics_obj.gif); }
+a#basics:hover img { background-image : url(../graphics/icons/obj48/wbbasicshov_obj.gif); }
+
+a#cheatsheet img { background-image : url(../graphics/icons/obj48/cheatsheetede_obj.gif); }
+a#cheatsheet:hover img { background-image : url(../graphics/icons/obj48/cheatsheethov_obj.gif); }
+
+a#ede img { background-image : url(../graphics/icons/obj48/cheatsheetede_obj.gif); }
+a#ede:hover img { background-image : url(../graphics/icons/obj48/cheatsheethov_obj.gif); }
+
+a#demo img { background-image : url(../graphics/icons/obj48/demo_obj.gif); }
+a#demo:hover img { background-image : url(../graphics/icons/obj48/demohov_obj.gif); }
+
+a#folder img { background-image : url(../graphics/icons/obj48/folder_obj.gif); }
+a#folder:hover img { background-image : url(../graphics/icons/obj48/folderhov_obj.gif); }
+
+a#hardware img { background-image : url(../graphics/icons/obj48/hardware_obj.gif); }
+a#hardware:hover img { background-image : url(../graphics/icons/obj48/hardwarehov_obj.gif); }
+
+a#bpintro img { background-image : url(../graphics/icons/obj48/bpquickstart_obj.gif); }
+a#bpintro:hover img { background-image : url(../graphics/icons/obj48/bpquickstarthov_obj.gif); }
+
+a#video img { background-image : url(../graphics/icons/obj48/demo_obj.gif); }
+a#video:hover img { background-image : url(../graphics/icons/obj48/demohov_obj.gif); }

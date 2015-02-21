@@ -1,0 +1,294 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("382eabd6-14ce-4293-8f90-06a00c79ec3e",
+	'State Action Body',
+	632,
+	'ACT_SAB',
+	'This class represents the action language containing body of a State Action.',
+	"76583c73-7a99-4c81-b260-8109e6cef5ca");
+INSERT INTO O_TFR
+	VALUES ("43073efe-a06c-47aa-b33a-9b638e88eb1a",
+	"382eabd6-14ce-4293-8f90-06a00c79ec3e",
+	'dispose',
+	'This operation disconnects an instance, and all instances it is 
+responsible for, from the model.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// State Action Body.dispose()
+select one act related by self->SM_ACT[R691];
+if ( not_empty act )
+  unrelate self from act across R691;
+end if;
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("32f9d457-96b7-4f13-8d3f-a1f2c6355635",
+	"382eabd6-14ce-4293-8f90-06a00c79ec3e",
+	'getContainingComponentId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'select one stateMachine related by self->SM_ACT[R691]->SM_SM[R515];
+return stateMachine.getContainingComponentId();',
+	1,
+	'',
+	"43073efe-a06c-47aa-b33a-9b638e88eb1a");
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("f70e2c94-b8f0-4526-bd4d-18ff1cfca60e",
+	"382eabd6-14ce-4293-8f90-06a00c79ec3e",
+	'getContainerId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// State Action Body.getContainerId()
+select one stateMachine related by self->SM_ACT[R691]->SM_SM[R515];
+return stateMachine.getContainerId();',
+	1,
+	'',
+	"32f9d457-96b7-4f13-8d3f-a1f2c6355635");
+INSERT INTO O_TFR
+	VALUES ("000cab60-6176-4014-b416-ef510ffdb484",
+	"382eabd6-14ce-4293-8f90-06a00c79ec3e",
+	'getPath',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	' select one action related by self->SM_ACT[R691];
+ select one state related by action->SM_AH[R514]->SM_MOAH[R513]->SM_STATE[R511];
+actionPath ="";
+stateName =state.Name;
+stateMachineType ="";
+if (not_empty action)
+  select one modelClass related by action->SM_SM[R515]->SM_ISM[R517]->O_OBJ[R518];
+    stateMachineType="Instance Based State Machine";
+    if(empty modelClass)
+      select one modelClass related by action->SM_SM[R515]->SM_ASM[R517]->O_OBJ[R519];
+      stateMachineType="Class Based State Machine";
+    end if;
+  
+  modelClassName = modelClass.Name; 
+   select one pe_pe related by modelClass->PE_PE[R8001];
+     if(not_empty pe_pe )
+     //Is In Generics
+      select one pkg related by pe_pe->EP_PKG[R8000];
+      actionPath= pkg.getPath(path:modelClassName+"::"+stateMachineType+"::"+stateName);
+     else
+      //In specialized 
+      select one subSystem related by modelClass ->S_SS[R2];
+      actionPath = subSystem.getPath(path:modelClassName+"::"+stateMachineType+"::"+stateName);    
+     end if;
+end if;
+return actionPath;',
+	1,
+	'',
+	"f70e2c94-b8f0-4526-bd4d-18ff1cfca60e");
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("382eabd6-14ce-4293-8f90-06a00c79ec3e",
+	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
+	0,
+	"6f8d7450-c09b-42de-8362-9a36aa766cb7",
+	"1b687a70-44a2-4dbb-b4c5-2a7f2d1853ab",
+	"ebf0b508-deb7-4dcb-9a6e-0b92a6d2b2c1",
+	"72d473d0-dd3d-4ffd-b866-f0c64f703efd",
+	"82892b44-bfc9-4397-acd2-8a0429867c1d",
+	"828493c5-ae1c-4343-a3ff-e24efd991f66",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Body',
+	'Action_ID',
+	'R698');
+INSERT INTO R_RGO_PROXY
+	VALUES ("382eabd6-14ce-4293-8f90-06a00c79ec3e",
+	"1b687a70-44a2-4dbb-b4c5-2a7f2d1853ab",
+	"ebf0b508-deb7-4dcb-9a6e-0b92a6d2b2c1",
+	'../Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("6f8d7450-c09b-42de-8362-9a36aa766cb7",
+	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
+	0,
+	"1b687a70-44a2-4dbb-b4c5-2a7f2d1853ab",
+	"72d473d0-dd3d-4ffd-b866-f0c64f703efd",
+	'../Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("82892b44-bfc9-4397-acd2-8a0429867c1d",
+	"382eabd6-14ce-4293-8f90-06a00c79ec3e",
+	"6f8d7450-c09b-42de-8362-9a36aa766cb7",
+	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
+	1,
+	'Action_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("6f8d7450-c09b-42de-8362-9a36aa766cb7",
+	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
+	'../Body/Body.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("82892b44-bfc9-4397-acd2-8a0429867c1d",
+	"382eabd6-14ce-4293-8f90-06a00c79ec3e",
+	"00000000-0000-0000-0000-000000000000",
+	'Action_ID',
+	'',
+	'',
+	'Action_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("382eabd6-14ce-4293-8f90-06a00c79ec3e",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	0,
+	"3fd51053-412a-48f4-98b7-4eed41c49e84",
+	"90d92a07-841c-429b-afbc-0f533b8123da",
+	"15401eb0-a8d1-40aa-acea-589227f4d124",
+	"8de361e0-0e55-43b8-a0de-958cd5730d7f",
+	"e632bec9-cc5f-42e2-a45c-1760b1deb1d8",
+	"865e3d57-7d5e-4710-add6-6e28e4ee5026",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Action',
+	'SM_ID',
+	'R691');
+INSERT INTO R_RGO_PROXY
+	VALUES ("382eabd6-14ce-4293-8f90-06a00c79ec3e",
+	"90d92a07-841c-429b-afbc-0f533b8123da",
+	"15401eb0-a8d1-40aa-acea-589227f4d124",
+	'../Body.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("3fd51053-412a-48f4-98b7-4eed41c49e84",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	0,
+	"90d92a07-841c-429b-afbc-0f533b8123da",
+	"8de361e0-0e55-43b8-a0de-958cd5730d7f",
+	'../Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("e632bec9-cc5f-42e2-a45c-1760b1deb1d8",
+	"382eabd6-14ce-4293-8f90-06a00c79ec3e",
+	"a791a1ed-e1c8-4d68-9963-2e6d2379b544",
+	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
+	1,
+	'SM_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a791a1ed-e1c8-4d68-9963-2e6d2379b544",
+	"92c4f346-0aca-4da2-b132-f4de66fee3e6",
+	'../../State Machine/State Machine/State Machine.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("e632bec9-cc5f-42e2-a45c-1760b1deb1d8",
+	"382eabd6-14ce-4293-8f90-06a00c79ec3e",
+	"82892b44-bfc9-4397-acd2-8a0429867c1d",
+	'SM_ID',
+	'',
+	'',
+	'SM_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("382eabd6-14ce-4293-8f90-06a00c79ec3e",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	0,
+	"a32afd01-b620-404d-b94b-f9b2e9082d1a",
+	"90d92a07-841c-429b-afbc-0f533b8123da",
+	"15401eb0-a8d1-40aa-acea-589227f4d124",
+	"8de361e0-0e55-43b8-a0de-958cd5730d7f",
+	"670e958f-be5b-4a91-81a1-e5611989c12b",
+	"ff0201d2-c0e2-41d0-a6c3-b5bcdd986dc2",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Action',
+	'Act_ID',
+	'R691');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("a32afd01-b620-404d-b94b-f9b2e9082d1a",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	0,
+	"90d92a07-841c-429b-afbc-0f533b8123da",
+	"8de361e0-0e55-43b8-a0de-958cd5730d7f",
+	'../Body.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("670e958f-be5b-4a91-81a1-e5611989c12b",
+	"382eabd6-14ce-4293-8f90-06a00c79ec3e",
+	"a32afd01-b620-404d-b94b-f9b2e9082d1a",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	1,
+	'Act_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a32afd01-b620-404d-b94b-f9b2e9082d1a",
+	"51d28929-d81b-4ffc-8b96-028f5ed244c2",
+	'../../State Machine/Action/Action.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("670e958f-be5b-4a91-81a1-e5611989c12b",
+	"382eabd6-14ce-4293-8f90-06a00c79ec3e",
+	"e632bec9-cc5f-42e2-a45c-1760b1deb1d8",
+	'Act_ID',
+	'',
+	'',
+	'Act_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"382eabd6-14ce-4293-8f90-06a00c79ec3e");
+INSERT INTO O_OIDA
+	VALUES ("82892b44-bfc9-4397-acd2-8a0429867c1d",
+	"382eabd6-14ce-4293-8f90-06a00c79ec3e",
+	0,
+	'Action_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"382eabd6-14ce-4293-8f90-06a00c79ec3e");
+INSERT INTO O_ID
+	VALUES (2,
+	"382eabd6-14ce-4293-8f90-06a00c79ec3e");
+INSERT INTO S_SS_PROXY
+	VALUES ("76583c73-7a99-4c81-b260-8109e6cef5ca",
+	'Body',
+	'This subsystem abstracts the action itself, the blocks and statements
+it contains together with the flow of control statements such as ''while'',
+''for each'' and ''if''.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'ACT',
+	600,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000380007",
+	'../Body.xtuml');

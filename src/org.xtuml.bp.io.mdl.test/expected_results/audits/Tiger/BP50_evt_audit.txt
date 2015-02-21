@@ -1,0 +1,60 @@
+AUDIT RESULTS FOR DOMAIN BP50_evt
+
+CLASSES WITHOUT IDENTIFIERS:
+Class Event_generation::Initialization Object
+
+SUBSYSTEMS WITHOUT DESCRIPTIONS:
+Event_generation
+
+FUNCTIONS WITHOUT DESCRIPTIONS:
+Func_gen_evt
+
+EXTERNAL ENTITIES WITHOUT DESCRIPTIONS:
+External Entity Logger
+External Entity Architecture
+External Entity Time
+External Entity Extern
+
+BRIDGES WITHOUT DESCRIPTIONS:
+External Entity Bridge Logger::LogFailure
+External Entity Bridge Logger::LogSuccess
+External Entity Bridge Architecture::shutdown
+
+CLASSES WITHOUT DESCRIPTIONS:
+Class Event_generation::Initialization Object
+Class Event_generation::Event Object
+Class Event_generation::Other Object
+
+ATTRIBUTES WITHOUT DESCRIPTIONS:
+Attribute Initialization Object::current_state
+Attribute Event Object::my_event
+Attribute Event Object::e_obj_id
+Attribute Event Object::current_state
+Attribute Event Object::my_timer
+Attribute Other Object::o_obj_id
+Attribute Other Object::current_state
+
+STATE MODELS WITHOUT DESCRIPTIONS:
+State Model Initialization Object
+State Model Event Object
+State Model Other Object
+
+EVENTS WITHOUT DESCRIPTIONS:
+Event INIT1
+Event E_OBJ1
+Event E_OBJ2
+Event E_OBJ3
+Event O_OBJ1
+Event O_OBJ2
+
+EVENT DATA WITHOUT DESCRIPTIONS:
+Event Data Event Object::count
+Event Data Other Object::count
+
+ACTION SPECIFICATIONS WITHOUT DESCRIPTIONS:
+Initialization Object::Init
+Event Object::Event_State_1
+Event Object::Event_State_2
+Event Object::Timed_Out
+Other Object::Other_State
+Other Object::Timed_Out

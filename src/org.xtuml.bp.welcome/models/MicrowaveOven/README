@@ -1,0 +1,40 @@
+MICROWAVE OVEN PROJECT STRUCTURE
+--------------------------------
+The project consists of two executable entities:
+
+1. A model running in xtUML eXecute 
+2. A compiled program resulting from generated code 
+
+   
+RUNNING THE PROJECT
+--------------------
+You can now run either the already generated Windows executable, or run the 
+model in xtUML eXecute.
+
+To run the model in xtUML eXecute:
+* Switch to the xtUML Debugging Perspective (Window > Open Perspective > xtUML Debugging)
+* Run > Debug Configurations...
+* Expand the xtUML eXecute Application item
+* Select "MicrowaveOven"
+* Click Debug
+* In Session Explorer, expand MicrowaveOven > MicrowaveOven > Functions
+* Right-click 'DefineOven', select Execute
+* Right-click 'TestSequence1', select Execute
+
+To run the EXE:
+* Switch to the C/C++ Perspective (Window > Open Perspective > Other... > C/C++)
+* Expand the Binaries item under the project
+* Right-click on "MicrowaveOven.exe" and choose Open With > System Editor
+* The application will run
+
+
+
+BUILDING THE PROJECT
+---------------------
+The project is pre-built so building the project is not necessary. If you want to 
+rebuild the project after modifying the model or a marking file:
+
+* Switch to the C/C++ perspective
+* Right-click on the project and choose 'Build Project' in the context menu
+
+Have fun!

@@ -1,0 +1,4 @@
+drawRectangle(0, 0, 236, 84)
+drawRectangle(0, 80, 796, 516)
+drawText("«package»", 252, 93, true)
+drawText("+TestSubPkg", 212, 301, true)

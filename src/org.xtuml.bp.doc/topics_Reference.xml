@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile: topics_Reference.xml,v $
+ Version:   $Revision: 1.31 $
+ Modified:  $Date: 2013/01/10 23:14:46 $
+
+ (c) Copyright 2005-2014 by Mentor Graphics Corp. All rights reserved.
+
+ ========================================================================
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License.  You may obtain a copy
+of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the
+License for the specific language governing permissions and limitations under
+the License.
+ ========================================================================
+
+-->
+<?NLS TYPE="org.eclipse.help.toc"?>
+<!-- ========================== -->
+<!-- Define Reference topics    -->
+<!-- ========================== -->
+<toc label="Reference">
+    <topic href="Reference/StyleGuide/PDF/StyleGuide.pdf" label="The Style Guide to xtUML Modeling">
+    </topic>
+    <topic href="Reference/DesignGuide/PDF/DesignGuide.pdf" label="The xtUML Modeling Guide">
+    </topic>
+    <topic label="Using BridgePoint">
+      <topic label="xtUML Modeling Perspective" href="Reference/UserInterface/xtUMLModeling/HTML/xtUMLModeling.htm">
+        <topic label="Views" href="Reference/UserInterface/xtUMLModeling/Views/HTML/Views.htm">
+          <topic label="Model Explorer" href="Reference/UserInterface/xtUMLModeling/Views/HTML/ModelExplorer.htm"/>
+          <topic label="Outline" href="Reference/UserInterface/xtUMLModeling/Views/HTML/Outline.htm"/>
+          <topic label="Properties" href="Reference/UserInterface/xtUMLModeling/Views/HTML/Properties.htm"/>
+          <topic label="Problems" href="Reference/UserInterface/xtUMLModeling/Views/HTML/Problems.htm"/>
+          <topic label="Compare" href="Reference/UserInterface/xtUMLModeling/Views/HTML/Compare.htm"/>
+        </topic>
+        <topic label="Editors" href="Reference/UserInterface/xtUMLModeling/Editors/HTML/Editors.htm">
+          <topic label="Diagram" href="Reference/UserInterface/xtUMLModeling/Editors/HTML/Diagram.htm"/>
+          <topic label="Activity" href="Reference/UserInterface/xtUMLModeling/Editors/HTML/Activity.htm"/>
+          <topic label="Description" href="Reference/UserInterface/xtUMLModeling/Editors/HTML/Description.htm"/>
+        </topic>
+        <topic label="Wizards" href="Reference/UserInterface/xtUMLModeling/Wizards/HTML/Wizards.htm">
+          <topic label="xtUML Project" href="Reference/UserInterface/xtUMLModeling/Wizards/HTML/xtUMLProject.htm"/>
+          <topic label="xtUML Model" href="Reference/UserInterface/xtUMLModeling/Wizards/HTML/xtUMLModel.htm"/>
+          <topic label="BridgePoint Model Export" href="Reference/UserInterface/xtUMLModeling/Wizards/HTML/NucleusBridgePointModelExport.htm"/>
+          <topic label="BP 6.1 Export" href="Reference/UserInterface/xtUMLModeling/Wizards/HTML/BP61Export.htm"/>
+        </topic>
+        <topic label="Icons and Buttons" href="Reference/UserInterface/xtUMLModeling/IconsAndButtons/HTML/IconsAndButtons.htm">
+          <topic label="Model Explorer" href="Reference/UserInterface/xtUMLModeling/IconsAndButtons/HTML/ModelExplorer.htm"/>
+          <topic label="Diagram Toolbars" href="Reference/UserInterface/xtUMLModeling/IconsAndButtons/DiagramToolbars/HTML/DiagramToolbars.htm">
+            <topic label="Common" href="Reference/UserInterface/xtUMLModeling/IconsAndButtons/DiagramToolbars/HTML/Common.htm"/>
+            <topic label="Domain Package" href="Reference/UserInterface/xtUMLModeling/IconsAndButtons/DiagramToolbars/HTML/DomainPackage.htm"/>
+            <topic label="Data Types" href="Reference/UserInterface/xtUMLModeling/IconsAndButtons/DiagramToolbars/HTML/DataTypePackage.htm"/>
+            <topic label="Function Package" href="Reference/UserInterface/xtUMLModeling/IconsAndButtons/DiagramToolbars/HTML/FunctionPackage.htm"/>
+            <topic label="External Entity Package" href="Reference/UserInterface/xtUMLModeling/IconsAndButtons/DiagramToolbars/HTML/ExternalEntityPackage.htm"/>
+            <topic label="Activity Diagram" href="Reference/UserInterface/xtUMLModeling/IconsAndButtons/DiagramToolbars/HTML/ActivityDiagram.htm"/>
+            <topic label="Communication Diagram" href="Reference/UserInterface/xtUMLModeling/IconsAndButtons/DiagramToolbars/HTML/CommunicationDiagram.htm"/>
+            <topic label="Sequence Diagram" href="Reference/UserInterface/xtUMLModeling/IconsAndButtons/DiagramToolbars/HTML/SequenceDiagram.htm"/>
+            <topic label="Use Case Diagram" href="Reference/UserInterface/xtUMLModeling/IconsAndButtons/DiagramToolbars/HTML/UseCaseDiagram.htm"/>
+            <topic label="Subsystem Package" href="Reference/UserInterface/xtUMLModeling/IconsAndButtons/DiagramToolbars/HTML/SubsystemPackage.htm"/>
+            <topic label="State Machine Package" href="Reference/UserInterface/xtUMLModeling/IconsAndButtons/DiagramToolbars/HTML/StateMachinePackage.htm"/>
+          </topic>
+        </topic>
+        <topic label="Model Elements" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/ModelElements.htm">
+          <topic label="Domain Package" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/DomainPackage.htm"/>
+          <topic label="Data Types" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/DataTypePackage.htm"/>
+          <topic label="Function Package" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/FunctionPackage.htm"/>
+          <topic label="External Entity Package" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/ExternalEntityPackage.htm"/>
+          <topic label="Class Diagram (Subsystem Package)" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/ClassDiagram.htm"/>
+          <topic label="State Machine Package" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/StateMachinePackage.htm"/>
+          <topic label="Activity Diagram" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/Activity.htm"/>
+          <topic label="Communication Diagram" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/Communication.htm"/>
+          <topic label="Sequence Diagram" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/Sequence.htm"/>
+          <topic label="Use Case Diagram" href="Reference/UserInterface/xtUMLModeling/ModelElements/HTML/UseCase.htm"/>
+        </topic>
+        <topic label="Preferences" href="Reference/UserInterface/xtUMLModeling/Preferences/HTML/Preferences.htm">
+          <topic label="Activity Editor" href="Reference/UserInterface/xtUMLModeling/Preferences/HTML/ActivityEditor.htm"/>
+          <topic label="Diagram Editor" href="Reference/UserInterface/xtUMLModeling/Preferences/HTML/DiagramEditor.htm"/>
+          <topic label="Diagram Text" href="Reference/UserInterface/xtUMLModeling/Preferences/HTML/DiagramText.htm"/>
+        </topic>
+        <topic label="Undo and Redo" href="Reference/UserInterface/xtUMLModeling/UndoRedo/HTML/UndoRedoMain.htm">
+          <topic label="Undo and Redo" href="Reference/UserInterface/xtUMLModeling/UndoRedo/HTML/UndoRedo.htm"/>
+        </topic>
+      </topic>
+    </topic>
+    <topic label="Model Verifier Java Interface" href="Reference/UserInterface/ModelVerifierJavaInterface/ModelVerifierJavaInterface.htm" />
+    <topic label="Command Line Interface" href="Reference/UserInterface/CommandLineInterface/HTML/CommandLineInterface.htm" />
+    <topic label="Revision Control" href="Reference/UserInterface/RevisionControl/HTML/RevisionControl.htm" />
+    <topic label="OAL Reference">
+      <topic label="Introduction" href="Reference/OAL/HTML/bpalref.book-1.htm"/>
+      <topic label="Language Structure" href="Reference/OAL/HTML/bpalref.book-2.htm"/>
+      <topic label="Data Items" href="Reference/OAL/HTML/bpalref.book-3.htm"/>
+      <topic label="Control Structures" href="Reference/OAL/HTML/bpalref.book-4.htm"/>
+      <topic label="Class Manipulations" href="Reference/OAL/HTML/bpalref.book-5.htm"/>
+      <topic label="Relationships" href="Reference/OAL/HTML/bpalref.book-6.htm"/>
+      <topic label="Events" href="Reference/OAL/HTML/bpalref.book-7.htm"/>
+      <topic label="Expressions" href="Reference/OAL/HTML/bpalref.book-8.htm"/>
+      <topic label="Date and Time" href="Reference/OAL/HTML/bpalref.book-9.htm"/>
+      <topic label="Operations, Bridges, and Functions" href="Reference/OAL/HTML/bpalref.book-10.htm"/>
+      <topic label="Timers" href="Reference/OAL/HTML/bpalref.book-11.htm"/>
+      <topic label="Reference/OALs" href="Reference/OAL/HTML/bpalref.book-12.htm"/>
+      <topic label="Keywords" href="Reference/OAL/HTML/bpalref.book-13.htm"/>
+      <topic label="Syntax Summary" href="Reference/OAL/HTML/bpalref.book-14.htm"/>
+    </topic>
+    <topic label="Translation Reference" href="Reference/Translation/HTML/Translation.htm" >
+	  <topic label="Setting the Model Compiler" href="Reference/Translation/HTML/SettingTheModelCompiler.htm" />
+      <topic label="Overview" href="Reference/Translation/HTML/Overview.htm" />
+      <topic label="The Translation Process in Detail" href="Reference/Translation/HTML/Detail.htm" />
+    </topic>
+	<topic label="System Modeling with Components" href="Reference/UserInterface/SystemModeling/HTML/SystemModeling.htm">
+    </topic>
+    <topic label="Metamodel Reference">
+      <topic label="Domain" href="Reference/Metamodel/HTML/Domain.htm" />
+      <topic label="Subsystem" href="Reference/Metamodel/HTML/Subsystem.htm" />
+      <topic label="Association" href="Reference/Metamodel/HTML/Association.htm" />
+      <topic label="State_Machine" href="Reference/Metamodel/HTML/State_Machine.htm" />
+    </topic>
+    <topic label="RSL Reference">
+      <topic label="RSL Overview" href="Reference/RSL/HTML/archetypes-3.htm">
+          <topic label="Overview" href="Reference/RSL/HTML/archetypes-4.htm" />
+          <topic label="General Language Attributes" href="Reference/RSL/HTML/archetypes-5.htm" />
+          <topic label="Literal Text" href="Reference/RSL/HTML/archetypes-6.htm" />
+          <topic label="Data Access Control Statements" href="Reference/RSL/HTML/archetypes-7.htm" />
+          <topic label="Assignment Control Statements" href="Reference/RSL/HTML/archetypes-8.htm" />
+          <topic label="Test Control Statements" href="Reference/RSL/HTML/archetypes-9.htm" />
+          <topic label="Function Control Statements" href="Reference/RSL/HTML/archetypes-10.htm" />
+          <topic label="Fragment Attributes" href="Reference/RSL/HTML/archetypes-11.htm" />
+          <topic label="File Control Statements" href="Reference/RSL/HTML/archetypes-12.htm" />
+          <topic label="Rvalues" href="Reference/RSL/HTML/archetypes-13.htm" />
+          <topic label="Expressions" href="Reference/RSL/HTML/archetypes-14.htm" />
+          <topic label="Substitution Variables" href="Reference/RSL/HTML/archetypes-15.htm" />
+      </topic>
+      <topic label="Rules" href="Reference/RSL/HTML/archetypes-16.htm">
+          <topic label="Overview" href="Reference/RSL/HTML/archetypes-17.htm" />
+          <topic label="Structural Rules" href="Reference/RSL/HTML/archetypes-18.htm" />
+          <topic label="Action Translation Rules" href="Reference/RSL/HTML/archetypes-19.htm" />
+          <topic label="Flow Diagram" href="Reference/RSL/HTML/archetypes-20.htm" />
+          <topic label="Invoking The Action Translation Process" href="Reference/RSL/HTML/archetypes-21.htm" />
+          <topic label="Fragment Translation Rule File" href="Reference/RSL/HTML/archetypes-22.htm" />
+          <topic label="Fragment Translation Functions" href="Reference/RSL/HTML/archetypes-23.htm" />
+      </topic>
+    </topic>
+    <topic href="GPMigrationGuide/HTML/GPMigrationGuide.htm" label="Generic Packages Migration Guide">
+    </topic>
+    <topic href="LinuxGuide/HTML/LinuxGuide.htm" label="Linux Guide">
+    </topic>
+    <topic href="BridgePointAndConfigurationManagement/HTML/BridgePointAndConfigurationManagement.htm" label="BridgePoint and Configuration Management">
+    </topic>
+</toc>

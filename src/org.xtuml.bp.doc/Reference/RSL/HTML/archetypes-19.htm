@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 7.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="archetypes.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+Action Translation Rules
+</TITLE>
+
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<H1 CLASS="Heading2">
+<A NAME="0_pgfId-521014"></A>Action Translation Rules</H1>
+<P CLASS="Body">
+<A NAME="0_pgfId-525731"></A>Action translation rules are the means by which actions are translated into code.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-520109"></A>In the xtUML models, actions can be specified for several model elements: state machine states, bridges, functions, operations, and derived attributes. In terms of the metamodel, the actions (written in OAL) are stored in an attribute for each of the classes corresponding to the modeled element: <EM CLASS="Code">
+SM_ACT</EM>
+, <EM CLASS="Code">
+S_BRG</EM>
+, <EM CLASS="Code">
+S_SYNC</EM>
+, <EM CLASS="Code">
+O_TFR</EM>
+, and <EM CLASS="Code">
+O_DBATTR</EM>
+. In all cases, the name of the attribute is <EM CLASS="Code">
+Action_Semantics</EM>
+, and the type is <EM CLASS="Code">
+string</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-520110"></A>Actions are translated using a technique very similar to that used by a compiler to produce machine code from a high level language. However, one major difference exists: the last step of the translation is done through a set of translation rule functions called <EM CLASS="emphasis">
+fragment translation functions</EM>
+, so called because each function produces a fragment of code used to build up the translation of an action. A fragment translation function exists for each of the OAL statements.</P>
+<P CLASS="Body">
+<A NAME="0_pgfId-525997"></A>These functions give complete control over the process of translating OAL into the target implementation of the system architecture.</P>
+</BODY>
+</HTML>

@@ -1,0 +1,83 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("b57fa797-3ae2-4af0-8bcd-96466d1814f6",
+	'TestClassUsedRef 3',
+	906,
+	'KEY',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("b57fa797-3ae2-4af0-8bcd-96466d1814f6",
+	"649c0c9e-3ba0-4852-b394-0bdd01c2bc91",
+	0,
+	"47232b78-3483-4f68-a469-8dd8400056d3",
+	"c3e5d726-1ee1-4159-a997-6f7bcc7e6f0a",
+	"2f089894-8d6b-426d-aa26-66119762cb3c",
+	"47885433-d5a9-46b6-a9d7-c059485314b6",
+	"ff2e30d4-e98f-4470-bb61-8ecf234294b1",
+	"e745a0fb-0bf0-4977-a6a3-3c8c3f5f2ac3",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'TestClassOtherSide 4',
+	'testAttrFormalizer',
+	'R901');
+INSERT INTO R_RGO_PROXY
+	VALUES ("b57fa797-3ae2-4af0-8bcd-96466d1814f6",
+	"c3e5d726-1ee1-4159-a997-6f7bcc7e6f0a",
+	"2f089894-8d6b-426d-aa26-66119762cb3c",
+	'../USA Tests.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("47232b78-3483-4f68-a469-8dd8400056d3",
+	"649c0c9e-3ba0-4852-b394-0bdd01c2bc91",
+	0,
+	"c3e5d726-1ee1-4159-a997-6f7bcc7e6f0a",
+	"47885433-d5a9-46b6-a9d7-c059485314b6",
+	'../USA Tests.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("ff2e30d4-e98f-4470-bb61-8ecf234294b1",
+	"b57fa797-3ae2-4af0-8bcd-96466d1814f6",
+	"dd11bb4b-49ff-47cd-98a5-e4ff3af8c22e",
+	"8b4490b7-29a3-43b9-9c7a-1ef4cb915eac",
+	1,
+	'testAttrFormalizer');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("dd11bb4b-49ff-47cd-98a5-e4ff3af8c22e",
+	"8b4490b7-29a3-43b9-9c7a-1ef4cb915eac",
+	'../../USA Import/UnformalizeSimpleAssocUsedRef IOBJ_OBJ/UnformalizeSimpleAssocUsedRef IOBJ_OBJ.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("ff2e30d4-e98f-4470-bb61-8ecf234294b1",
+	"b57fa797-3ae2-4af0-8bcd-96466d1814f6",
+	"00000000-0000-0000-0000-000000000000",
+	'testAttrFormalizer',
+	'',
+	'',
+	'testAttrFormalizer',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"b57fa797-3ae2-4af0-8bcd-96466d1814f6");
+INSERT INTO O_ID
+	VALUES (1,
+	"b57fa797-3ae2-4af0-8bcd-96466d1814f6");
+INSERT INTO O_ID
+	VALUES (2,
+	"b57fa797-3ae2-4af0-8bcd-96466d1814f6");
+INSERT INTO PE_PE
+	VALUES ("b57fa797-3ae2-4af0-8bcd-96466d1814f6",
+	1,
+	"b64a7ff6-9b48-40d2-9dec-0755e2689a4a",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("b64a7ff6-9b48-40d2-9dec-0755e2689a4a",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'USA Tests',
+	'',
+	0,
+	'../USA Tests.xtuml');

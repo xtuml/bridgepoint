@@ -1,0 +1,274 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("745f9c71-a342-4b2d-9a72-8d89e44ad115",
+	'Shape Terminal',
+	204,
+	'TS_SHT',
+	'Instances of this class represent cases where a connector
+can start or end on a shape.
+
+Instances of this class are instantiated at startup from a
+pre-existing instance specification.
+---------------------------------------------------------------------------
+
+PEI:true
+Persistent:false',
+	"3aa01b07-08b4-4f56-a64c-5db1a460535b");
+INSERT INTO O_TFR
+	VALUES ("d95d95ad-4fd7-4e5f-8ee1-13e39640992d",
+	"745f9c71-a342-4b2d-9a72-8d89e44ad115",
+	'criteriaMet',
+	'',
+	"6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	1,
+	'select one model related by self->TS_TSP[R201]->GD_MD[R207];
+if (not_empty model)
+  select one diagram related by model->DIM_DIA[R18];
+  unScaledX = GR::unScale(value:param.x - diagram.viewportX);
+  unScaledY = GR::unScale(value:param.y - diagram.viewportY);
+  select many shapeElems related by model->GD_GE[R1]->GD_SHP[R2]->GD_GE[R2];
+  select one esTarget related by self->TS_SSP[R204]->GD_ES[R200];
+  select any elementBeingCreated related by model->GD_MS[R9]->GD_EMS[R11]->GD_ES[R11]->GD_GE[R16];
+  // if the element being created was started inside of
+  // a container, then the container itself must be treated
+  // as whitespace.
+  hasContainer = false;
+  doNotConsiderContainer = false;
+  if(not_empty elementBeingCreated)
+    select one container related by elementBeingCreated->DIM_GE[R23]
+    		->DIM_ELE[R302]->DIM_GE[R307];
+    if(not_empty container)
+      hasContainer = true;
+    end if;
+  else
+    doNotConsiderContainer = true;
+  end if;
+  for each elem in shapeElems
+    if(hasContainer)
+      select one containerGE related by elementBeingCreated->DIM_GE[R23]
+    		->DIM_ELE[R302]->DIM_GE[R307]->GD_GE[R23];
+      if(containerGE == elem)
+        // disallow container symbol if not over the edge
+        // or name compartment
+        if(not containerGE.isOver(x:unScaledX, y:unScaledY))
+          continue;
+        end if;
+      end if;
+    end if;
+    if(doNotConsiderContainer)
+      if(model.hasContainerSymbol())
+        select any containerSpec related by model->GD_MS[R9]->GD_EMS[R11]->GD_ES[R11]
+ 	     	where (selected.symbolType == "container" and
+    		    selected.creationRule == "on canvas creation");
+        if(not_empty containerSpec)
+          select any containerShp related by model->GD_GE[R1]->GD_SHP[R2]->GD_CTR[R28]->GD_SHP[R28]->GD_GE[R2];
+          if(not_empty containerShp)
+            if(containerShp == elem)
+              select one container related by containerShp->GD_SHP[R2]->GD_CTR[R28];
+              // if the first mouse down is inside of the container
+              // shape then do not consider this container as a
+              // termination point
+              select one creationSpec related by elementBeingCreated->GD_ES[R10];
+                if(container.isOverAnyPartOf(x:unScaledX, y:unScaledY) and
+        	        	not containerShp.isOver(x:unScaledX, y:unScaledY))
+                  continue;
+                end if;
+            end if;
+          end if;
+        end if;
+      end if;
+    end if;
+    select one es related by elem->GD_ES[R10];
+    if (es == esTarget)
+      isOver = false;
+      select one containerShp related by elem->GD_SHP[R2]->GD_CTR[R28];
+      if(not_empty containerShp)
+        isOver = containerShp.isOverAnyPartOf(x:unScaledX, y:unScaledY);
+      else
+        isOver = elem.isOver(x:unScaledX, y:unScaledY);
+      end if;
+      if (isOver)
+        select one tsp related by self->TS_TSP[R201];
+        relate tsp to elem across R206;
+        tsp.satisfied = true;
+        return true;
+      end if;
+    end if;
+  end for;
+end if;
+return false;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("627c5ca0-5e58-4a13-9311-f10dbe1127c5",
+	"d95d95ad-4fd7-4e5f-8ee1-13e39640992d",
+	'x',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("388cd7a2-2d0c-4f02-9730-7670074de394",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("2899ab1e-6c13-4477-aa16-e564bc594ca6",
+	"d95d95ad-4fd7-4e5f-8ee1-13e39640992d",
+	'y',
+	"388cd7a2-2d0c-4f02-9730-7670074de394",
+	0,
+	'',
+	"627c5ca0-5e58-4a13-9311-f10dbe1127c5",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("6e4aa280-2e22-4146-9b4a-6c2573c456d8",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("745f9c71-a342-4b2d-9a72-8d89e44ad115",
+	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	0,
+	"f0ec00c1-7702-4399-8636-18e344084f7e",
+	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
+	"b7b7aa80-5869-493c-a941-94ffa2074cec",
+	"990bc157-b31c-45ab-8a5c-68d7548ba26f",
+	"55cb540b-034d-423d-80ff-de0f8aa01940",
+	"544d30b2-306a-4449-a94b-a933fe8609b0",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Terminal Specification',
+	'Term_Spec_ID',
+	'R201');
+INSERT INTO R_RGO_PROXY
+	VALUES ("745f9c71-a342-4b2d-9a72-8d89e44ad115",
+	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
+	"b7b7aa80-5869-493c-a941-94ffa2074cec",
+	'../Terminal Specifications.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("f0ec00c1-7702-4399-8636-18e344084f7e",
+	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	0,
+	"511b9251-6ce9-4a42-a8c3-63752a2a13c2",
+	"990bc157-b31c-45ab-8a5c-68d7548ba26f",
+	'../Terminal Specifications.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("55cb540b-034d-423d-80ff-de0f8aa01940",
+	"745f9c71-a342-4b2d-9a72-8d89e44ad115",
+	"f0ec00c1-7702-4399-8636-18e344084f7e",
+	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	1,
+	'Term_Spec_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("f0ec00c1-7702-4399-8636-18e344084f7e",
+	"bef8e2b1-510b-4f91-92aa-7aeb9c1fe5be",
+	'../Terminal Specification/Terminal Specification.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("55cb540b-034d-423d-80ff-de0f8aa01940",
+	"745f9c71-a342-4b2d-9a72-8d89e44ad115",
+	"00000000-0000-0000-0000-000000000000",
+	'Term_Spec_ID',
+	'',
+	'',
+	'Term_Spec_ID',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("66164f00-293e-4c17-ab30-7972c7c57152",
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("745f9c71-a342-4b2d-9a72-8d89e44ad115",
+	"e97c507a-0872-4ec3-8b46-1ad4c0dec975",
+	0,
+	"ed013cd1-4ee7-4cc4-bdca-a3cf6be347b1",
+	"eb6f92f0-161f-4818-bdd3-0b36b413c29d",
+	"6272009a-1bf4-49af-805b-14e7e37c38b5",
+	"30532c9b-f11a-421f-9fb3-52b747ad9da7",
+	"4a5785d9-f9fc-41ab-980b-8e342e41f491",
+	"1ac2bd1d-8e95-4cf0-b24e-8e782bceafdc",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Shape Specification',
+	'OOA_Type',
+	'R204');
+INSERT INTO R_RGO_PROXY
+	VALUES ("745f9c71-a342-4b2d-9a72-8d89e44ad115",
+	"eb6f92f0-161f-4818-bdd3-0b36b413c29d",
+	"6272009a-1bf4-49af-805b-14e7e37c38b5",
+	'../Terminal Specifications.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("ed013cd1-4ee7-4cc4-bdca-a3cf6be347b1",
+	"e97c507a-0872-4ec3-8b46-1ad4c0dec975",
+	0,
+	"eb6f92f0-161f-4818-bdd3-0b36b413c29d",
+	"30532c9b-f11a-421f-9fb3-52b747ad9da7",
+	'../Terminal Specifications.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("4a5785d9-f9fc-41ab-980b-8e342e41f491",
+	"745f9c71-a342-4b2d-9a72-8d89e44ad115",
+	"6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	1,
+	'OOA_Type');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("6b3798a6-af64-46df-a88c-8db2cc520b9a",
+	"76253415-b575-4583-9248-5d403cee7647",
+	'../../Graphical Data/Element Specification/Element Specification.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("4a5785d9-f9fc-41ab-980b-8e342e41f491",
+	"745f9c71-a342-4b2d-9a72-8d89e44ad115",
+	"55cb540b-034d-423d-80ff-de0f8aa01940",
+	'OOA_Type',
+	'',
+	'',
+	'OOA_Type',
+	0,
+	"66164f00-293e-4c17-ab30-7972c7c57152",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"745f9c71-a342-4b2d-9a72-8d89e44ad115");
+INSERT INTO O_OIDA
+	VALUES ("55cb540b-034d-423d-80ff-de0f8aa01940",
+	"745f9c71-a342-4b2d-9a72-8d89e44ad115",
+	0,
+	'Term_Spec_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"745f9c71-a342-4b2d-9a72-8d89e44ad115");
+INSERT INTO O_ID
+	VALUES (2,
+	"745f9c71-a342-4b2d-9a72-8d89e44ad115");
+INSERT INTO S_SS_PROXY
+	VALUES ("3aa01b07-08b4-4f56-a64c-5db1a460535b",
+	'Terminal Specifications',
+	'The TS (Terminal Specification) subsystem models specification classes that
+define the legal ending points for BridgePoint connector symbols.
+-------------------------------------------------------
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+Notify_Changes:false
+
+',
+	'TS',
+	200,
+	"3c3f6891-c1a9-462c-b607-bc5572f42b69",
+	"00000000-0000-0000-0000-000001d8003b",
+	'../Terminal Specifications.xtuml');

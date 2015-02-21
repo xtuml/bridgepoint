@@ -1,0 +1,574 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("7267de3e-fe63-474a-952b-d3155f3e36f2",
+	'Required Signal',
+	4503,
+	'SPR_RS',
+	'',
+	"6a43182c-b832-4648-b478-ab0441b8613c");
+INSERT INTO O_TFR
+	VALUES ("3a846613-88b0-4685-bcec-db8bc6030414",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	'initialize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'self.Suc_Pars = ParseStatus::parseInitial;',
+	1,
+	'',
+	"87f8deea-8ada-49e5-a511-e715e4404956");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("399b87ce-8edd-4a91-bd86-db9649a5a12b",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one rep related by self->SPR_REP[R4502];
+if(not_empty rep)
+  unrelate self from rep across R4502;
+  rep.dispose();
+end if;
+select one req_body related by self->ACT_RSB[R684];
+if(not_empty req_body)
+  unrelate self from req_body across R684;
+  req_body.dispose();
+end if;
+select one evt related by self->SM_SGEVT[R529]->SM_SEVT[R526]->SM_EVT[R525];
+if not_empty evt
+  evt.dispose();
+end if;
+select many invocations related by self->ACT_SGN[R660];
+for each sgn in invocations
+  unrelate self from sgn across R660;
+end for;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("3084049f-956d-47bf-bc29-ec509ce027a5",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	'isAvailableForAllocationTo',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// Required Signal::isAvailableForAllocationTo()
+// Returns false if the signal has been allocated to a state machine 
+// other than the one owining the transition whose id is passed.
+select one ifSig related by self->SPR_REP[R4502]->C_EP[R4500]->C_AS[R4004];
+if ( (not_empty ifSig) and (ifSig.Direction == IFDirectionType::ServerClient) )
+  select one sm related by self->SM_SGEVT[R529]->SM_SEVT[R526]->
+                                                      SM_EVT[R525]->SM_SM[R502];
+  if not_empty sm
+    select any transition from instances of SM_TXN where
+                                       selected.Trans_ID == param.transition_id;
+    if not_empty transition
+      select one ne_txn related by transition->SM_NETXN[R507];
+      select one originatingState related by ne_txn->SM_STATE[R508];
+      if empty ne_txn
+        select one originatingState related by transition->SM_NSTXN[R507]->
+                                                  SM_SEME[R504]->SM_STATE[R503];
+      end if;
+      // Disallow this signal if it is already allocated on
+      // another outgoing transition from the same originating state
+      select many semes related by originatingState->SM_SEME[R503];
+      for each seme in semes
+        // Don''t consider can''t happen entries
+        select one ch related by seme->SM_CH[R504];
+        if empty ch
+          select one outGoingSig related by seme->
+                                    SM_SEVT[R503]->SM_SGEVT[R526]->SPR_RS[R529];
+          if not_empty outGoingSig and outGoingSig == self
+            return false;
+          end if;
+        end if;
+      end for;
+      // Its not already allocated to an outgoing transition on the current
+      // state, if this signal is assigned to another transition in this state
+      // model and not to some other state model, then its available.
+      return sm.SM_ID == transition.SM_ID;
+    end if;
+  else
+    // It is not allocated at all, so its available.
+    return true;
+  end if;
+end if;
+return false;',
+	1,
+	'',
+	"3a846613-88b0-4685-bcec-db8bc6030414");
+INSERT INTO O_TPARM
+	VALUES ("586df3b2-df8d-4e4c-991e-5b69789f7ae0",
+	"3084049f-956d-47bf-bc29-ec509ce027a5",
+	'transition_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("87f8deea-8ada-49e5-a511-e715e4404956",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	'getComponentId',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'select one rep related by self->SPR_REP[R4502];
+return rep.getComponentId();',
+	1,
+	'',
+	"399b87ce-8edd-4a91-bd86-db9649a5a12b");
+INSERT INTO O_TFR
+	VALUES ("acfbd9ac-51c1-41d0-aad0-8e629b26bcee",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	'convertToInstance',
+	'A utility operation to cast an instance of this type to the
+instance datatype.
+
+Translate: native
+',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// just return this instance as an Object
+return this;
+',
+	0,
+	'',
+	"3084049f-956d-47bf-bc29-ec509ce027a5");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("c364decb-cefa-4aae-8f28-3b85293fdb17",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	'getMessageDirection',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'select one signal related by self->SPR_REP[R4502]->C_EP[R4500]->C_AS[R4004];
+if(not_empty signal)
+ if(signal.Direction==IFDirectionType::ClientServer)
+  return 0;
+ elif (signal.Direction==IFDirectionType::ServerClient)
+  return 1;
+ else // direction=IFDirectionType::Bidirectional
+  return 2;  
+ end if;
+else
+  return -1;  
+end if;',
+	1,
+	'',
+	"acfbd9ac-51c1-41d0-aad0-8e629b26bcee");
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("a465c580-b11d-414a-9072-37a78b7a1aea",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	'isSynchronized',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'// ask the supertype if we are synchronized, this operation exist to support
+// ui capabilities
+select one rep related by self->SPR_REP[R4502];
+if(not_empty rep)
+  return rep.isSynchronized();
+end if;
+return true;',
+	1,
+	'',
+	"c364decb-cefa-4aae-8f28-3b85293fdb17");
+INSERT INTO O_TFR
+	VALUES ("1ecdfe02-d8c6-4961-a9e3-8f19b26e3e0e",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	'collectChanges',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/*
+ *  Collect removal changes
+ */
+if(not self.isSynchronized())
+  Util::createElementChange(changeList:param.changeList,
+                        elementChanged:self.convertToInstance(), isRemoval:true,
+                                                         changeLabel:"removed");
+end if;',
+	1,
+	'',
+	"a465c580-b11d-414a-9072-37a78b7a1aea");
+INSERT INTO O_TPARM
+	VALUES ("d712b392-7c1b-4c1f-a2fe-0c86c4166f83",
+	"1ecdfe02-d8c6-4961-a9e3-8f19b26e3e0e",
+	'changeList',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("36fa2046-674b-443c-b370-fe12a129c6db",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	'synchronize',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'/**
+ *  Allow owning element to synchronize, but only if we are not synchronized
+ */
+if(not self.isSynchronized())
+  select one requirement related by self->SPR_REP[R4502]->C_R[R4500];
+  if(not_empty requirement)
+    requirement.synchronize();
+  end if;
+end if;',
+	1,
+	'',
+	"1ecdfe02-d8c6-4961-a9e3-8f19b26e3e0e");
+INSERT INTO O_TFR
+	VALUES ("f0f85be8-fd26-44a7-a57a-f022b270c4ef",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	'getCachedName',
+	'Translate:native',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'	return m_name;',
+	0,
+	'',
+	"36fa2046-674b-443c-b370-fe12a129c6db");
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("31835228-8825-4245-85a0-b8c34b621ddd",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	'setCachedName',
+	'Translate:native',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'	m_name = p_Name;',
+	0,
+	'',
+	"f0f85be8-fd26-44a7-a57a-f022b270c4ef");
+INSERT INTO O_TPARM
+	VALUES ("abaa1de1-e634-415d-a6f6-aa5dba348196",
+	"31835228-8825-4245-85a0-b8c34b621ddd",
+	'name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("2226d7a6-a24f-4a37-a67c-dcd74eb03dee",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	'initializeUnparsed',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Required Signal.initializeUnparsed()
+select one rsb related by self->ACT_RSB[R684];
+if empty rsb
+  create object instance rsb of ACT_RSB;
+  relate self to rsb across R684;
+end if;
+select one bdy related by rsb->ACT_ACT[R698];
+if empty rsb
+  create object instance bdy of ACT_ACT;
+  relate bdy to rsb across R698;
+end if;
+select one blk related by bdy->ACT_BLK[R650];
+if empty blk
+  create object instance blk of ACT_BLK;
+  // Associate across the parsed associations, these
+  // will be transferred to the committed state as necessary
+  relate bdy to blk across R650;
+  relate bdy to blk across R612;
+end if;',
+	1,
+	'',
+	"31835228-8825-4245-85a0-b8c34b621ddd");
+INSERT INTO O_TFR
+	VALUES ("b348a155-d633-4fc6-b59a-1276c966de33",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	'getCachedDescrip',
+	'Translate:native',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'	return m_descrip;',
+	0,
+	'',
+	"2226d7a6-a24f-4a37-a67c-dcd74eb03dee");
+INSERT INTO O_TFR
+	VALUES ("c58b3977-adca-47be-8a65-0aff72613d02",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	'setCachedDescrip',
+	'Translate:native',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'	m_descrip = p_Descrip;',
+	0,
+	'',
+	"b348a155-d633-4fc6-b59a-1276c966de33");
+INSERT INTO O_TPARM
+	VALUES ("694d45e3-6363-49b1-96b5-1fd4ecf05e19",
+	"c58b3977-adca-47be-8a65-0aff72613d02",
+	'descrip',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_REF
+	VALUES ("7267de3e-fe63-474a-952b-d3155f3e36f2",
+	"176a81f6-744e-4552-b596-de734b09da8a",
+	0,
+	"f3c5cf7d-bc51-475b-8b99-1fdd96a3f7fb",
+	"0b8a7fa2-bf4e-4d24-917f-ab571b5963ee",
+	"93e67f08-8098-43a3-9438-eb65323e603e",
+	"9092f981-64b7-4d4c-ad6d-84313b9e7705",
+	"4bea6f7d-9c73-44d4-a580-27f9e703b412",
+	"8899f07c-72fe-435e-abe1-1cdfe5ceb0bf",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Required Executable Property',
+	'Id',
+	'R4502');
+INSERT INTO R_RGO_PROXY
+	VALUES ("7267de3e-fe63-474a-952b-d3155f3e36f2",
+	"0b8a7fa2-bf4e-4d24-917f-ab571b5963ee",
+	"93e67f08-8098-43a3-9438-eb65323e603e",
+	'../Signal Provisions and Requirements.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("f3c5cf7d-bc51-475b-8b99-1fdd96a3f7fb",
+	"176a81f6-744e-4552-b596-de734b09da8a",
+	0,
+	"0b8a7fa2-bf4e-4d24-917f-ab571b5963ee",
+	"9092f981-64b7-4d4c-ad6d-84313b9e7705",
+	'../Signal Provisions and Requirements.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("4bea6f7d-9c73-44d4-a580-27f9e703b412",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	"f3c5cf7d-bc51-475b-8b99-1fdd96a3f7fb",
+	"176a81f6-744e-4552-b596-de734b09da8a",
+	1,
+	'Id');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("f3c5cf7d-bc51-475b-8b99-1fdd96a3f7fb",
+	"176a81f6-744e-4552-b596-de734b09da8a",
+	'../Required Executable Property/Required Executable Property.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("4bea6f7d-9c73-44d4-a580-27f9e703b412",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	"00000000-0000-0000-0000-000000000000",
+	'Id',
+	'',
+	'',
+	'Id',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_DBATTR
+	VALUES ("748412ad-f5a1-4a8b-acdb-f49739ff2507",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	'select one ep related by self->SPR_REP[R4502]->C_EP[R4500];
+select one signal related by ep->C_AS[R4004];
+if(not_empty signal)
+  self.setCachedName(name:ep.Name);
+  self.Name = ep.Name;
+else
+  if(not_empty ep)
+    self.Name = ep.getCachedName();
+  else
+    self.Name = self.getCachedName();
+  end if;
+end if;',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("748412ad-f5a1-4a8b-acdb-f49739ff2507",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2");
+INSERT INTO O_ATTR
+	VALUES ("748412ad-f5a1-4a8b-acdb-f49739ff2507",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	"4bea6f7d-9c73-44d4-a580-27f9e703b412",
+	'Name',
+	'Full Name: Required Signal Name',
+	'',
+	'Name',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("4c1173a7-50c9-4e01-b14b-c4b0a6b6142f",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	'select one ep related by self->SPR_REP[R4502]->C_EP[R4500];
+select one signal related by ep->C_AS[R4004];
+if(not_empty signal)
+  self.setCachedDescrip(descrip:ep.Descrip);
+  self.Descrip = signal.Descrip;
+else
+  if(not_empty ep)
+    self.Descrip = ep.getCachedDescrip();
+  else
+    self.Descrip = self.getCachedDescrip();
+  end if;
+end if;',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("4c1173a7-50c9-4e01-b14b-c4b0a6b6142f",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2");
+INSERT INTO O_ATTR
+	VALUES ("4c1173a7-50c9-4e01-b14b-c4b0a6b6142f",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	"748412ad-f5a1-4a8b-acdb-f49739ff2507",
+	'Descrip',
+	'Full Name: Required Signal Description
+Description: A textual description of this required signal.',
+	'',
+	'Descrip',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("c57cfbeb-42a8-4463-b7db-762fbfae89b5",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	'self.Action_Semantics = ::convertRelocatableTags(in:self.Action_Semantics_internal);',
+	1);
+INSERT INTO O_BATTR
+	VALUES ("c57cfbeb-42a8-4463-b7db-762fbfae89b5",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2");
+INSERT INTO O_ATTR
+	VALUES ("c57cfbeb-42a8-4463-b7db-762fbfae89b5",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	"4c1173a7-50c9-4e01-b14b-c4b0a6b6142f",
+	'Action_Semantics',
+	'Full Name: Action Semantics Field
+Description: Action Semantics for the operation action
+Persistent:false
+',
+	'',
+	'Action_Semantics',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("22ea8b93-23ae-40a4-8f1e-09a32e1540e7",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2");
+INSERT INTO O_BATTR
+	VALUES ("22ea8b93-23ae-40a4-8f1e-09a32e1540e7",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2");
+INSERT INTO O_ATTR
+	VALUES ("22ea8b93-23ae-40a4-8f1e-09a32e1540e7",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	"c57cfbeb-42a8-4463-b7db-762fbfae89b5",
+	'Action_Semantics_internal',
+	'User_Visible:false',
+	'',
+	'Action_Semantics_internal',
+	0,
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("e005fa09-547f-482b-8f9c-6dcfc54b35c5",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2");
+INSERT INTO O_BATTR
+	VALUES ("e005fa09-547f-482b-8f9c-6dcfc54b35c5",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2");
+INSERT INTO O_ATTR
+	VALUES ("e005fa09-547f-482b-8f9c-6dcfc54b35c5",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	"22ea8b93-23ae-40a4-8f1e-09a32e1540e7",
+	'Suc_Pars',
+	'Full Name: Successful Parse Indicator
+Description: Indicates the status of the parse for the action specification in the attribute Action_Semantics
+Data Domain: 0=not parsed, 1 = parse successful, 2 = parse unsuccessful, 3 = parse on apply set but never been parsed
+',
+	'',
+	'Suc_Pars',
+	0,
+	"33245ab4-49c2-4c3a-8a59-a08f07153c47",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("33245ab4-49c2-4c3a-8a59-a08f07153c47",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'ParseStatus',
+	'Indicates the status of the parse for an action specification in the attribute Action_Semantics',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"7267de3e-fe63-474a-952b-d3155f3e36f2");
+INSERT INTO O_OIDA
+	VALUES ("4bea6f7d-9c73-44d4-a580-27f9e703b412",
+	"7267de3e-fe63-474a-952b-d3155f3e36f2",
+	0,
+	'Id');
+INSERT INTO O_ID
+	VALUES (1,
+	"7267de3e-fe63-474a-952b-d3155f3e36f2");
+INSERT INTO O_ID
+	VALUES (2,
+	"7267de3e-fe63-474a-952b-d3155f3e36f2");
+INSERT INTO S_SS_PROXY
+	VALUES ("6a43182c-b832-4648-b478-ab0441b8613c",
+	'Signal Provisions and Requirements',
+	'// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+
+The Signal Provisions and Requirements subsystem captures data which will be
+used to define the implementation of provided and required interfaces.',
+	'SPR',
+	4500,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Signal Provisions and Requirements.xtuml');

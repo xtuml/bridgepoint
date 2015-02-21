@@ -1,0 +1,28 @@
+LogInfo:  Test Started.
+LogSuccess:  Simple Timeout passed
+LogSuccess:  Add time succeeded
+LogSuccess:  Extended Timeout received
+LogSuccess:  Timer cancel succeeded
+LogSuccess:  Timer canceled successfully
+LogSuccess:  Recurring Timeout passed
+LogSuccess:  Timer cancel succeeded
+LogSuccess:  Recurring Timeout canceled OK
+LogInfo:  second:
+LogInteger:  1
+LogInfo:  minute:
+LogInteger:  2
+LogInfo:  hour:
+LogInteger:  3
+LogInfo:  day:
+LogInteger:  4
+LogInfo:  month:
+LogInteger:  5
+LogInfo:  year:
+LogInteger:  1976
+LogSuccess:  Clock moved on during timeout
+LogSuccess:  Different dates, Smaller than comparison
+LogSuccess:  Different dates, Smaller than or Equal comparison
+LogSuccess:  Equal dates, Equal to comparison
+LogSuccess:  Equal dates, Smaller than or Equal to comparison
+LogSuccess:  Equal dates, Bigger than or Equal to comparison
+LogSuccess:  Test Complete.

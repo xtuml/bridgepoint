@@ -1,0 +1,3349 @@
+<html>
+<body>
+<title>Subsystem 'Domain'</title>
+<link rel="StyleSheet" href="../../../techpub.css">
+
+<h1>
+<a name="a_28"></a>
+Subsystem 'Domain'
+</h1>
+<p>
+<a name="a_29"></a>
+The Domain subsystem models those model elements contained in the following  packages: data type, function, external entity, and subsystem.
+</p>
+<h2>
+<a name="a_30"></a>
+Links to Classes
+</h2>
+<p>1. <a href="#a_12.Bridge">Bridge (S_BRG)</a></p>
+<p>2. <a href="#a_13.BridgeParameter">Bridge Parameter (S_BPARM)</a></p>
+<p>3. <a href="#a_9.DataType">Data Type (S_DT)</a></p>
+<p>4. <a href="#a_25.DataTypePackage">Data Type Package (S_DPK)</a></p>
+<p>5. <a href="#a_27.DataTypePackageinPackage">Data Type Package in Package (S_DPIP)</a></p>
+<p>6. <a href="#a_26.DataTypeinPackage">Data Type in Package (S_DIP)</a></p>
+<p>7. <a href="#a_1.Domain">Domain (S_DOM)</a></p>
+<p>8. <a href="#a_24.EEPackageinPackage">EE Package in Package (S_EEPIP)</a></p>
+<p>9. <a href="#a_14.EnumerationDataType">Enumeration Data Type (S_EDT)</a></p>
+<p>10. <a href="#a_15.Enumerator">Enumerator (S_ENUM)</a></p>
+<p>11. <a href="#a_3.ExternalEntity">External Entity (S_EE)</a></p>
+<p>12. <a href="#a_5.ExternalEntityDataItem">External Entity Data Item (S_EEDI)</a></p>
+<p>13. <a href="#a_6.ExternalEntityEvent">External Entity Event (S_EEEVT)</a></p>
+<p>14. <a href="#a_8.ExternalEntityEventData">External Entity Event Data (S_EEEDT)</a></p>
+<p>15. <a href="#a_7.ExternalEntityEventDataItem">External Entity Event Data Item (S_EEEDI)</a></p>
+<p>16. <a href="#a_22.ExternalEntityPackage">External Entity Package (S_EEPK)</a></p>
+<p>17. <a href="#a_4.ExternalEntityinModel">External Entity in Model (S_EEM)</a></p>
+<p>18. <a href="#a_23.ExternalEntityinPackage">External Entity in Package (S_EEIP)</a></p>
+<p>19. <a href="#a_16.Function">Function (S_SYNC)</a></p>
+<p>20. <a href="#a_19.FunctionPackage">Function Package (S_FPK)</a></p>
+<p>21. <a href="#a_21.FunctionPackageinPackage">Function Package in Package (S_FPIP)</a></p>
+<p>22. <a href="#a_17.FunctionParameter">Function Parameter (S_SPARM)</a></p>
+<p>23. <a href="#a_20.FunctioninPackage">Function in Package (S_FIP)</a></p>
+<p>24. <a href="#a_10.PrimitiveDataType">Primitive Data Type (S_CDT)</a></p>
+<p>25. <a href="#a_2.Subsystem">Subsystem (S_SS)</a></p>
+<p>26. <a href="#a_31.SubsysteminDomain">Subsystem in Domain (S_SID)</a></p>
+<p>27. <a href="#a_30.SubsysteminSubsystem">Subsystem in Subsystem (S_SIS)</a></p>
+<p>28. <a href="#a_18.SystemModel">System Model (S_SYS)</a></p>
+<p>29. <a href="#a_11.UserDataType">User Data Type (S_UDT)</a></p>
+</p>
+<h2>
+<a name="a_31"></a>
+Links to Associations
+</h2>
+<p>
+<a href="#a_R1">R1</a>, <a href="#a_R2">R2</a>, <a href="#a_R3">R3</a>, <a href="#a_R4">R4</a>, <a href="#a_R7">R7</a>, <a href="#a_R8">R8</a>, <a href="#a_R9">R9</a>, <a href="#a_R10">R10</a>, <a href="#a_R11">R11</a>, <a href="#a_R12">R12</a>, <a href="#a_R13">R13</a>, <a href="#a_R14">R14</a>, <a href="#a_R15">R15</a>, <a href="#a_R16">R16</a>, <a href="#a_R17">R17</a>, <a href="#a_R18">R18</a>, <a href="#a_R19">R19</a>, <a href="#a_R20">R20</a></p><p>
+<a href="#a_R21">R21</a>, <a href="#a_R22">R22</a>, <a href="#a_R23">R23</a>, <a href="#a_R24">R24</a>, <a href="#a_R25">R25</a>, <a href="#a_R26">R26</a>, <a href="#a_R27">R27</a>, <a href="#a_R28">R28</a>, <a href="#a_R29">R29</a>, <a href="#a_R30">R30</a>, <a href="#a_R31">R31</a>, <a href="#a_R32">R32</a>, <a href="#a_R33">R33</a>, <a href="#a_R34">R34</a>, <a href="#a_R35">R35</a>, <a href="#a_R36">R36</a>, <a href="#a_R37">R37</a>, <a href="#a_R38">R38</a></p><p>
+<a href="#a_R39">R39</a>, <a href="#a_R40">R40</a>, <a href="#a_R41">R41</a>, <a href="#a_R42">R42</a>, <a href="#a_R43">R43</a></p>
+<h2>
+<a name="a_32"></a>
+Class and Attribute Descriptions
+</h2>
+<h3>
+<a name="a_1.Domain"></a>
+1. Domain
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_33"></a>
+Domain(Dom_ID, Name, Descrip, Full_Der, Sys_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_34"></a>
+Identifier *: Dom_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_35"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_36"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_37"></a>
+Description: A domain, S_DOM, represents the xtUML model.  It is the highest model element in the hierarchy, and contains the following packages: data type, function,  external entity, and subsystem.
+</p>
+<h4>
+<a name="2_Domain.Dom_ID">
+Domain.Dom_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_38"></a>
+Full Name: Domain Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_39"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_40"></a>
+Data Type: unique_id
+</p>
+<h4>
+Domain.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_41"></a>
+Full Name: Domain Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_42"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_43"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_44"></a>
+Description:  A name representing the subject matter of the domain.
+</p>
+<h4>
+Domain.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_45"></a>
+Full Name: Domain Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_46"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_47"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_48"></a>
+Description:  A brief description of the domain.
+</p>
+<h4>
+Domain.Full_Der
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_49"></a>
+Full Name: Fully Derived Indicator
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_50"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_51"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_52"></a>
+Description:  A flag indicating whether the Communication Diagrams are fully 
+derived from the information contained in the Class Diagram and Action 
+Specifications.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_53"></a>
+Data Domain: 0 = Not fully derived, 1 = Fully derived
+</p>
+<h4>
+Domain.Sys_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_54"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_55"></a>
+Refers to: <a href="Domain.htm#1_System Model.Sys_ID">System Model.Sys_ID (R28)</a>
+</p>
+<h3>
+<a name="a_2.Subsystem"></a>
+2. Subsystem
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_56"></a>
+Subsystem(SS_ID, Name, Descrip, Prefix, Num_Rng, Dom_ID, Config_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_57"></a>
+Identifier *: SS_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_58"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_59"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_60"></a>
+Description: Users create subsystems (S_SS) to partition the xtUML model.  Each subsystem contains classes and associations, and the state machines that define the behavior.  
+</p>
+<h4>
+<a name="4_Subsystem.SS_ID">
+Subsystem.SS_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_61"></a>
+Full Name: Subsystem Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_62"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_63"></a>
+Data Type: unique_id
+</p>
+<p style="margin-left: 40px;">
+<a name="a_64"></a>
+Description:  Unique identifier for the subsystem within the domain.
+</p>
+<h4>
+Subsystem.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_65"></a>
+Full Name: Subsystem Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_66"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_67"></a>
+Data Type: string
+</p>
+<h4>
+Subsystem.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_68"></a>
+Full Name: Subsystem Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_69"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_70"></a>
+Data Type: string
+</p>
+<h4>
+Subsystem.Prefix
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_71"></a>
+Full Name: Subsystem Prefix
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_72"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_73"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_74"></a>
+Description:  The subsystem keyletter prefix is used when classes are 
+created in the subsystem.  The subsystem keyletter prefix is used as the 
+default prefix in the class keyletters.
+
+</p>
+<h4>
+Subsystem.Num_Rng
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_75"></a>
+Full Name: Number Range
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_76"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_77"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_78"></a>
+Description:   The subsystem number range start is used when classes and 
+associations are created in the subsystem.  The subsystem number range 
+start is used as the default auto-numbering start value in for the newly 
+created class number and newly created association number. 
+</p>
+<p style="margin-left: 40px;">
+<a name="a_79"></a>
+Data Domain: 0-9999
+</p>
+<h4>
+Subsystem.Dom_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_80"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_81"></a>
+Refers to: <a href="Domain.htm#2_Domain.Dom_ID">Domain.Dom_ID (R1)</a>
+</p>
+<h4>
+Subsystem.Config_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_82"></a>
+Full Name: Configuration Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_83"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_84"></a>
+Data Type: unique_id
+</p>
+<h3>
+<a name="a_3.ExternalEntity"></a>
+3. External Entity
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_85"></a>
+External Entity(EE_ID, Name, Descrip, Key_Lett, Dom_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_86"></a>
+Identifier *: EE_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_87"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_88"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_89"></a>
+Description: An external entity (S_EE) represents something outside of the domain (S_DOM)  being modeled that interacts with classes (O_OBJ) within the domain.   Each external entity is given a unique name and keyletters within a domain.
+</p>
+<h4>
+<a name="3_External Entity.EE_ID">
+External Entity.EE_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_90"></a>
+Full Name: External Entity Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_91"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_92"></a>
+Data Type: unique_id
+</p>
+<p style="margin-left: 40px;">
+<a name="a_93"></a>
+Description:  Uniquely identifies the external entity in the domain.
+</p>
+<h4>
+External Entity.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_94"></a>
+Full Name: External Entity Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_95"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_96"></a>
+Data Type: string
+</p>
+<h4>
+External Entity.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_97"></a>
+Full Name: External Entity Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_98"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_99"></a>
+Data Type: string
+</p>
+<h4>
+External Entity.Key_Lett
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_100"></a>
+Full Name: External Entity Key Letters
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_101"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_102"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_103"></a>
+Description:  A short set of letters used in the models to refer to the 
+external entity.
+</p>
+<h4>
+External Entity.Dom_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_104"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_105"></a>
+Refers to: <a href="Domain.htm#2_Domain.Dom_ID">Domain.Dom_ID (R8)</a>
+</p>
+<h3>
+<a name="a_4.ExternalEntityinModel"></a>
+4. External Entity in Model
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_106"></a>
+External Entity In Model(EEmod_ID, EE_ID, SS_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_107"></a>
+Identifier *: EE_ID, EEmod_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_108"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_109"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_110"></a>
+Description: The external entity in model (S_EEM) represents the presence of an external  entity (S_EE) in a model such as a Communication Diagram. The same external  entity can be represented by more than one external entity in model in the same  model to enhance model layout.  Support for this feature is currently absent from the tool.
+</p>
+<h4>
+External Entity in Model.EEmod_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_111"></a>
+Full Name: External Entity In Model Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_112"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_113"></a>
+Data Type: unique_id
+</p>
+<h4>
+External Entity in Model.EE_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_114"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_115"></a>
+Refers to: <a href="Domain.htm#3_External Entity.EE_ID">External Entity.EE_ID (R9)</a>
+</p>
+<h4>
+External Entity in Model.SS_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_116"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_117"></a>
+Refers to: <a href="Domain.htm#4_Subsystem.SS_ID">Subsystem.SS_ID (R7)</a>
+</p>
+<h3>
+<a name="a_5.ExternalEntityDataItem"></a>
+5. External Entity Data Item
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_118"></a>
+External Entity Data Item(EEdi_ID, EE_ID, Name, Descrip, DT_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_119"></a>
+Identifier *: EEdi_ID, EE_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_120"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_121"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_122"></a>
+Description: An external entity data item is essentially an attribute of an external  entity that can be accessed from OAL.  Support for this feature is  currently absent from the tool.
+</p>
+<h4>
+External Entity Data Item.EEdi_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_123"></a>
+Full Name: External Entity Data Item Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_124"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_125"></a>
+Data Type: unique_id
+</p>
+<h4>
+External Entity Data Item.EE_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_126"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_127"></a>
+Refers to: <a href="Domain.htm#3_External Entity.EE_ID">External Entity.EE_ID (R11)</a>
+</p>
+<h4>
+External Entity Data Item.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_128"></a>
+Full Name: External Entity Data Item Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_129"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_130"></a>
+Data Type: string
+</p>
+<h4>
+External Entity Data Item.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_131"></a>
+Full Name: External Entity Data Item Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_132"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_133"></a>
+Data Type: string
+</p>
+<h4>
+External Entity Data Item.DT_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_134"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_135"></a>
+Refers to: <a href="Domain.htm#5_Data Type.DT_ID">Data Type.DT_ID (R15)</a>
+</p>
+<h3>
+<a name="a_6.ExternalEntityEvent"></a>
+6. External Entity Event
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_136"></a>
+External Entity Event(EEevt_ID, EE_ID, Numb, Mning, Is_Lbl_U, Unq_Lbl, Drv_Lbl, Descrip)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_137"></a>
+Identifier *: EEevt_ID, EE_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_138"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_139"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_140"></a>
+Description: An external entity event (S_EEEVT) represents asynchronous communication  between a class (O_OBJ) and an external entity (S_EE).  The communication  is shown on the Communication Diagram.  Each external entity event is given  a unique label and can have zero or more event data (S_EEEDT).  Support for this feature is currently absent from the tool.
+</p>
+<h4>
+<a name="7_External Entity Event.EEevt_ID">
+External Entity Event.EEevt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_141"></a>
+Full Name: External Entity Event Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_142"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_143"></a>
+Data Type: unique_id
+</p>
+<h4>
+External Entity Event.EE_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_144"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_145"></a>
+Refers to: <a href="Domain.htm#3_External Entity.EE_ID">External Entity.EE_ID (R10)</a>
+</p>
+<h4>
+External Entity Event.Numb
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_146"></a>
+Full Name: External Entity Event Number
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_147"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_148"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_149"></a>
+Data Domain: 0-9999
+</p>
+<h4>
+External Entity Event.Mning
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_150"></a>
+Full Name: External Entity Event Meaning
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_151"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_152"></a>
+Data Type: string
+</p>
+<h4>
+External Entity Event.Is_Lbl_U
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_153"></a>
+Full Name: External Entity Event Label Unique Indicator
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_154"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_155"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_156"></a>
+Description:  This is a flag that indicates whether custom label keyletters 
+are used for the External Entity Event.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_157"></a>
+Data Domain: 0 = External Entity keyletters, 1 = custom label keyletters
+</p>
+<h4>
+External Entity Event.Unq_Lbl
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_158"></a>
+Full Name: External Entity Event Unique Label
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_159"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_160"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_161"></a>
+Description:  Custom Key Letters for the External Entity Event
+</p>
+<h4>
+External Entity Event.Drv_Lbl
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_162"></a>
+Full Name: External Entity Event Derived Label
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_163"></a>
+Attribute Type: Derived Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_164"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_165"></a>
+Description:  contains the event label derived by concatenating the keyletters 
+and the event number.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_166"></a>
+Data Domain: 0 = derived label created by concatenating EE keyletters + event number, 1 = derived label created by concatenating Unq_Lbl with event number
+</p>
+<h4>
+External Entity Event.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_167"></a>
+Full Name: External Entity Event Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_168"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_169"></a>
+Data Type: string
+</p>
+<h3>
+<a name="a_7.ExternalEntityEventDataItem"></a>
+7. External Entity Event Data Item
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_170"></a>
+External Entity Event Data Item(EEedi_ID, EE_ID, Name, Descrip, DT_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_171"></a>
+Identifier *: EE_ID, EEedi_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_172"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_173"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_174"></a>
+Description: Each external entity (S_EE) may have zero or more event data items that  can be used as supplemental data for external entity events.  The event  data items are kept in a pool so that they can be used by one or more  external entity events.  When an instance of event data item is used in  an event, an instance of S_EEEDT is created to represent the event as  data in an event.  Support for this feature is currently absent from the tool.
+</p>
+<h4>
+<a name="8_External Entity Event Data Item.EEedi_ID">
+External Entity Event Data Item.EEedi_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_175"></a>
+Full Name: External Entity Event Data Item Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_176"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_177"></a>
+Data Type: unique_id
+</p>
+<h4>
+External Entity Event Data Item.EE_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_178"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_179"></a>
+Refers to: <a href="Domain.htm#3_External Entity.EE_ID">External Entity.EE_ID (R12)</a>
+</p>
+<h4>
+External Entity Event Data Item.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_180"></a>
+Full Name: External Entity Event Data Item Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_181"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_182"></a>
+Data Type: string
+</p>
+<h4>
+External Entity Event Data Item.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_183"></a>
+Full Name: External Entity Event Data Item Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_184"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_185"></a>
+Data Type: string
+</p>
+<h4>
+External Entity Event Data Item.DT_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_186"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_187"></a>
+Refers to: <a href="Domain.htm#5_Data Type.DT_ID">Data Type.DT_ID (R16)</a>
+</p>
+<h3>
+<a name="a_8.ExternalEntityEventData"></a>
+8. External Entity Event Data
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_188"></a>
+External Entity Event Data(EE_ID, EEevt_ID, EEedi_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_189"></a>
+Identifier *: EE_ID, EEedi_ID, EEevt_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_190"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_191"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_192"></a>
+Description: When an instance of event data item (S_EEEDI) is used in an event (S_EEEVT),  an instance of S_EEEDT is created to represent the event as data in an event.   The parameters for an external entity event are instances of this class.
+</p>
+<h4>
+External Entity Event Data.EE_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_193"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_194"></a>
+Refers to: <a href="Domain.htm#3_External Entity.EE_ID">External Entity.EE_ID (R13)</a>
+</p>
+<h4>
+External Entity Event Data.EEevt_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_195"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_196"></a>
+Refers to: <a href="Domain.htm#7_External Entity Event.EEevt_ID">External Entity Event.EEevt_ID (R13)</a>
+</p>
+<h4>
+External Entity Event Data.EEedi_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_197"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_198"></a>
+Refers to: <a href="Domain.htm#8_External Entity Event Data Item.EEedi_ID">External Entity Event Data Item.EEedi_ID (R13)</a>
+</p>
+<h3>
+<a name="a_9.DataType"></a>
+9. Data Type
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_199"></a>
+Data Type(DT_ID, Dom_ID, Name, Descrip)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_200"></a>
+Identifier *: DT_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_201"></a>
+Identifier *2: Dom_ID, DT_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_202"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_203"></a>
+Description: Data types can be assigned to the various data items in the  models, i.e., class attribute, state machine event data item, operation  and bridge parameters and return values.  This data type does not capture  the representation of the data items, but rather, the characteristics of  the data items including:  1) Value Definition, i.e., whole numbers, 2)  Value Range, i.e., values between 0 and 10, 3) Operations, i.e., +, -, *, /
+</p>
+<h4>
+<a name="5_Data Type.DT_ID">
+Data Type.DT_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_204"></a>
+Full Name: Data Type Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_205"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_206"></a>
+Data Type: unique_id
+</p>
+<h4>
+Data Type.Dom_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_207"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_208"></a>
+Refers to: <a href="Domain.htm#2_Domain.Dom_ID">Domain.Dom_ID (R14)</a>
+</p>
+<h4>
+Data Type.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_209"></a>
+Full Name: Data Type Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_210"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_211"></a>
+Data Type: string
+</p>
+<h4>
+Data Type.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_212"></a>
+Full Name: Data Type Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_213"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_214"></a>
+Data Type: string
+</p>
+<h3>
+<a name="a_10.PrimitiveDataType"></a>
+10. Primitive Data Type
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_215"></a>
+Primitive Data Type(DT_ID, Core_Typ)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_216"></a>
+Identifier *: DT_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_217"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_218"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_219"></a>
+Description: Primitive Data Types are those data types which are fundamental, or core,  to all data types.  The primitive data types are built-in to the tool and  cannot be changed.
+</p>
+<h4>
+Primitive Data Type.DT_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_220"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_221"></a>
+Refers to: <a href="Domain.htm#5_Data Type.DT_ID">Data Type.DT_ID (R17)</a>
+</p>
+<h4>
+Primitive Data Type.Core_Typ
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_222"></a>
+Full Name: Core Type
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_223"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_224"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_225"></a>
+Description:  The core BridgePoint type for the data type
+</p>
+<p style="margin-left: 40px;">
+<a name="a_226"></a>
+Data Domain: 0 = void, 1 = boolean, 2 = integer, 3 = real, 4 = string, 5 = unique_id, 6 = current_state, 7 = same_as_base, 8 = inst_ref&#60;Object&#62;, 9 = inst_ref_set&#60;Object&#62;, 10 = inst&#60;Event&#62;, 11 = inst&#60;Mapping&#62;, 12 = inst_ref&#60;Mapping&#62;
+</p>
+<h3>
+<a name="a_11.UserDataType"></a>
+11. User Data Type
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_227"></a>
+User Data Type(DT_ID, CDT_ID, Gen_Type)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_228"></a>
+Identifier *: DT_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_229"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_230"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_231"></a>
+Description: A user data type is one created in the model and derived from a primitive data type. 
+</p>
+<h4>
+User Data Type.DT_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_232"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_233"></a>
+Refers to: <a href="Domain.htm#5_Data Type.DT_ID">Data Type.DT_ID (R17)</a>
+</p>
+<h4>
+User Data Type.CDT_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_234"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_235"></a>
+Refers to: <a href="Domain.htm#5_Data Type.DT_ID">Data Type.DT_ID (R18)</a>
+</p>
+<h4>
+User Data Type.Gen_Type
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_236"></a>
+Full Name: User Defined Type Type
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_237"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_238"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_239"></a>
+Data Domain: 0 = user defined, 1 = date, 2 = timestamp, 3 = inst_ref&#60;Timer&#62;
+</p>
+<h3>
+<a name="a_12.Bridge"></a>
+12. Bridge
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_240"></a>
+Bridge(Brg_ID, EE_ID, Name, Descrip, Brg_Typ, DT_ID, Action_Semantics, Suc_Pars)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_241"></a>
+Identifier *: Brg_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_242"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_243"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_244"></a>
+Description: A bridge (S_BRG) is an operation associated with an external entity (S_EE).   Bridges can be synchronously called from action language.  Each bridge has  a return type and zero or more parameters (S_BPARM).
+</p>
+<h4>
+<a name="6_Bridge.Brg_ID">
+Bridge.Brg_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_245"></a>
+Full Name: Bridge Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_246"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_247"></a>
+Data Type: unique_id
+</p>
+<h4>
+Bridge.EE_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_248"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_249"></a>
+Refers to: <a href="Domain.htm#3_External Entity.EE_ID">External Entity.EE_ID (R19)</a>
+</p>
+<h4>
+Bridge.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_250"></a>
+Full Name: Bridge Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_251"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_252"></a>
+Data Type: string
+</p>
+<h4>
+Bridge.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_253"></a>
+Full Name: Bridge Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_254"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_255"></a>
+Data Type: string
+</p>
+<h4>
+Bridge.Brg_Typ
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_256"></a>
+Full Name: Bridge Type
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_257"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_258"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_259"></a>
+Data Domain: 0 = user defined, 1 = built-in
+</p>
+<h4>
+Bridge.DT_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_260"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_261"></a>
+Refers to: <a href="Domain.htm#5_Data Type.DT_ID">Data Type.DT_ID (R20)</a>
+</p>
+<h4>
+Bridge.Action_Semantics
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_262"></a>
+Full Name: Action Semantics Field
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_263"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_264"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_265"></a>
+Description:  Action Semantics for the bridge operation.
+</p>
+<h4>
+Bridge.Suc_Pars
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_266"></a>
+Full Name: Successful Parse Indicator
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_267"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_268"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_269"></a>
+Description:  Indicates the status of the parse for the bridge action 
+specification in the attribute Action_Semantics
+</p>
+<p style="margin-left: 40px;">
+<a name="a_270"></a>
+Data Domain: 0=not parsed, 1 = parse successful, 2 = parse unsuccessful, 3 = parse on apply set but never been parsed
+</p>
+<h3>
+<a name="a_13.BridgeParameter"></a>
+13. Bridge Parameter
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_271"></a>
+Bridge Parameter(BParm_ID, Brg_ID, Name, DT_ID, By_Ref)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_272"></a>
+Identifier *: BParm_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_273"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_274"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_275"></a>
+Description: A parameter to a bridge (S_BRG) is called a bridge parameter.   Bridge parameters are either passed in by value, or by reference.   Bridge parameters can be accessed by using the param keyword from  within a bridge action specification.
+</p>
+<h4>
+Bridge Parameter.BParm_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_276"></a>
+Full Name: Bridge Parameter Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_277"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_278"></a>
+Data Type: unique_id
+</p>
+<h4>
+Bridge Parameter.Brg_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_279"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_280"></a>
+Refers to: <a href="Domain.htm#6_Bridge.Brg_ID">Bridge.Brg_ID (R21)</a>
+</p>
+<h4>
+Bridge Parameter.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_281"></a>
+Full Name: Bridge Parameter Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_282"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_283"></a>
+Data Type: string
+</p>
+<h4>
+Bridge Parameter.DT_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_284"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_285"></a>
+Refers to: <a href="Domain.htm#5_Data Type.DT_ID">Data Type.DT_ID (R22)</a>
+</p>
+<h4>
+Bridge Parameter.By_Ref
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_286"></a>
+Full Name: By Reference Indicator
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_287"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_288"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_289"></a>
+Description:  Indicates whether or not this parameter is passed by reference.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_290"></a>
+Data Domain: 0 = passed by value, 1 = passed by reference
+</p>
+<h3>
+<a name="a_14.EnumerationDataType"></a>
+14. Enumeration Data Type
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_291"></a>
+Enumeration Data Type(DT_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_292"></a>
+Identifier *: DT_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_293"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_294"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_295"></a>
+Description: An enumeration is a data type represented by a set of constants called  enumerators.  For example, an enumeration called Colors might have three  enumerators Red, Blue, and Green.
+</p>
+<h4>
+Enumeration Data Type.DT_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_296"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_297"></a>
+Refers to: <a href="Domain.htm#5_Data Type.DT_ID">Data Type.DT_ID (R17)</a>
+</p>
+<h3>
+<a name="a_15.Enumerator"></a>
+15. Enumerator
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_298"></a>
+Enumerator(Enum_ID, Name, Descrip, EDT_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_299"></a>
+Identifier *: Enum_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_300"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_301"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_302"></a>
+Description: Enumerators are constants that have meaning to the analyst.  An enumeration  data type (S_EDT) defines zero or more enumerators.  For example, Red, Blue,  and Green are enumerators of the enumeration Color.
+</p>
+<h4>
+Enumerator.Enum_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_303"></a>
+Full Name: Enumerator Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_304"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_305"></a>
+Data Type: unique_id
+</p>
+<h4>
+Enumerator.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_306"></a>
+Full Name: Enumerator Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_307"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_308"></a>
+Data Type: string
+</p>
+<h4>
+Enumerator.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_309"></a>
+Full Name: Enumerator Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_310"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_311"></a>
+Data Type: string
+</p>
+<h4>
+Enumerator.EDT_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_312"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_313"></a>
+Refers to: <a href="Domain.htm#5_Data Type.DT_ID">Data Type.DT_ID (R27)</a>
+</p>
+<h3>
+<a name="a_16.Function"></a>
+16. Function
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_314"></a>
+Function(Sync_ID, Dom_ID, Name, Descrip, Action_Semantics, DT_ID, Suc_Pars)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_315"></a>
+Identifier *: Sync_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_316"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_317"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_318"></a>
+Description: A function (S_SYNC) is an operation associated with the domain (S_DOM).   It can be thought of as a global function within the domain.  Functions  can be synchronously called from action specifications or used to  provide a definition for a bridge method in another domain.
+</p>
+<h4>
+<a name="9_Function.Sync_ID">
+Function.Sync_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_319"></a>
+Full Name: Function Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_320"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_321"></a>
+Data Type: unique_id
+</p>
+<h4>
+Function.Dom_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_322"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_323"></a>
+Refers to: <a href="Domain.htm#2_Domain.Dom_ID">Domain.Dom_ID (R23)</a>
+</p>
+<h4>
+Function.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_324"></a>
+Full Name: Function Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_325"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_326"></a>
+Data Type: string
+</p>
+<h4>
+Function.Descrip
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_327"></a>
+Full Name: Function Description
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_328"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_329"></a>
+Data Type: string
+</p>
+<h4>
+Function.Action_Semantics
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_330"></a>
+Full Name: Action Semantics Field
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_331"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_332"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_333"></a>
+Description:  Action Semantics for the function.
+
+</p>
+<h4>
+Function.DT_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_334"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_335"></a>
+Refers to: <a href="Domain.htm#5_Data Type.DT_ID">Data Type.DT_ID (R25)</a>
+</p>
+<h4>
+Function.Suc_Pars
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_336"></a>
+Full Name: Successful Parse Indicator
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_337"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_338"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_339"></a>
+Description:  Indicates the status of the parse for the bridge action 
+specification in the attribute Action_Semantics
+</p>
+<p style="margin-left: 40px;">
+<a name="a_340"></a>
+Data Domain: 0=not parsed, 1 = parse successful, 2 = parse unsuccessful, 3 = parse on apply set but never been parsed
+</p>
+<h3>
+<a name="a_17.FunctionParameter"></a>
+17. Function Parameter
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_341"></a>
+Function Parameter(SParm_ID, Sync_ID, Name, DT_ID, By_Ref)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_342"></a>
+Identifier *: SParm_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_343"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_344"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_345"></a>
+Description: A parameter to a function (S_SYNC) is called a function parameter (S_SPARM).   Function parameters are either passed in by value, or by reference.   Function parameters can be accessed by using the param keyword from within a  function action specification.
+</p>
+<h4>
+Function Parameter.SParm_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_346"></a>
+Full Name: Function Parameter Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_347"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_348"></a>
+Data Type: unique_id
+</p>
+<h4>
+Function Parameter.Sync_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_349"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_350"></a>
+Refers to: <a href="Domain.htm#9_Function.Sync_ID">Function.Sync_ID (R24)</a>
+</p>
+<h4>
+Function Parameter.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_351"></a>
+Full Name: Function Parameter Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_352"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_353"></a>
+Data Type: string
+</p>
+<h4>
+Function Parameter.DT_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_354"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_355"></a>
+Refers to: <a href="Domain.htm#5_Data Type.DT_ID">Data Type.DT_ID (R26)</a>
+</p>
+<h4>
+Function Parameter.By_Ref
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_356"></a>
+Full Name: By Reference Indicator
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_357"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_358"></a>
+Data Type: integer
+</p>
+<p style="margin-left: 40px;">
+<a name="a_359"></a>
+Description:  Indicates whether or not this parameter is passed by reference.
+</p>
+<p style="margin-left: 40px;">
+<a name="a_360"></a>
+Data Domain: 0 = passed by value, 1 = passed by reference
+</p>
+<h3>
+<a name="a_18.SystemModel"></a>
+18. System Model
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_361"></a>
+System Model(Sys_ID, Name)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_362"></a>
+Identifier *: Sys_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_363"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_364"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_365"></a>
+Description: A system is described by one or more models, each drawn from different  subject matters. Each subject matter model is called a domain. 
+</p>
+<h4>
+<a name="1_System Model.Sys_ID">
+System Model.Sys_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_366"></a>
+Full Name: System Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_367"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_368"></a>
+Data Type: unique_id
+</p>
+<h4>
+System Model.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_369"></a>
+Full Name: System Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_370"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_371"></a>
+Data Type: string
+</p>
+<h3>
+<a name="a_19.FunctionPackage"></a>
+19. Function Package
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_372"></a>
+Function Package(FunPack_ID, Name, Dom_ID, Parent_FunPack_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_373"></a>
+Identifier *: FunPack_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_374"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_375"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_376"></a>
+Description: A function Package represents a collection of functions and other function packages.
+</p>
+<h4>
+<a name="10_Function Package.FunPack_ID">
+Function Package.FunPack_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_377"></a>
+Full Name: Function Package identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_378"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_379"></a>
+Data Type: unique_id
+</p>
+<h4>
+Function Package.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_380"></a>
+Full Name: Function Package Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_381"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_382"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_383"></a>
+Description:  A name that represents a package of functions.
+</p>
+<h4>
+Function Package.Dom_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_384"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_385"></a>
+Refers to: <a href="Domain.htm#2_Domain.Dom_ID">Domain.Dom_ID (R29)</a>
+</p>
+<h4>
+Function Package.Parent_FunPack_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_386"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_387"></a>
+Refers to: <a href="Domain.htm#10_Function Package.FunPack_ID">Function Package.FunPack_ID (R32)</a>
+</p>
+<h3>
+<a name="a_20.FunctioninPackage"></a>
+20. Function in Package
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_388"></a>
+Function In Package(FunPack_ID, Sync_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_389"></a>
+Identifier *: FunPack_ID, Sync_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_390"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_391"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_392"></a>
+Description: Function in Package represents the functions contained within a particular  package.
+</p>
+<h4>
+Function in Package.FunPack_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_393"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_394"></a>
+Refers to: <a href="Domain.htm#10_Function Package.FunPack_ID">Function Package.FunPack_ID (R31)</a>
+</p>
+<h4>
+Function in Package.Sync_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_395"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_396"></a>
+Refers to: <a href="Domain.htm#9_Function.Sync_ID">Function.Sync_ID (R31)</a>
+</p>
+<h3>
+<a name="a_21.FunctionPackageinPackage"></a>
+21. Function Package in Package
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_397"></a>
+Function Package In Package(FunPack_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_398"></a>
+Identifier *: FunPack_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_399"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_400"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_401"></a>
+Description: Function Package in Package represents Function Packages nested within  other Function Packages.
+</p>
+<h4>
+Function Package in Package.FunPack_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_402"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_403"></a>
+Refers to: <a href="Domain.htm#10_Function Package.FunPack_ID">Function Package.FunPack_ID (R30)</a>
+</p>
+<h3>
+<a name="a_22.ExternalEntityPackage"></a>
+22. External Entity Package
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_404"></a>
+External Entity Package(EEPack_ID, Name, Dom_ID, Parent_EEPack_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_405"></a>
+Identifier *: EEPack_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_406"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_407"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_408"></a>
+Description: External Entity Package represents a package of external entities.
+</p>
+<h4>
+<a name="11_External Entity Package.EEPack_ID">
+External Entity Package.EEPack_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_409"></a>
+Full Name: External Entity Package Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_410"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_411"></a>
+Data Type: unique_id
+</p>
+<p style="margin-left: 40px;">
+<a name="a_412"></a>
+Description:  An identifier for a package of external entities.
+</p>
+<h4>
+External Entity Package.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_413"></a>
+Full Name: External Entity Package Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_414"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_415"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_416"></a>
+Description:  A name for a package of external entities.
+</p>
+<h4>
+External Entity Package.Dom_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_417"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_418"></a>
+Refers to: <a href="Domain.htm#2_Domain.Dom_ID">Domain.Dom_ID (R36)</a>
+</p>
+<h4>
+External Entity Package.Parent_EEPack_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_419"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_420"></a>
+Refers to: <a href="Domain.htm#11_External Entity Package.EEPack_ID">External Entity Package.EEPack_ID (R35)</a>
+</p>
+<h3>
+<a name="a_23.ExternalEntityinPackage"></a>
+23. External Entity in Package
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_421"></a>
+External Entity In Package(EEPack_ID, EE_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_422"></a>
+Identifier *: EEPack_ID, EE_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_423"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_424"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_425"></a>
+Description: External Entity in Package represents the external entities contained  within a particular package.
+</p>
+<h4>
+External Entity in Package.EEPack_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_426"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_427"></a>
+Refers to: <a href="Domain.htm#11_External Entity Package.EEPack_ID">External Entity Package.EEPack_ID (R33)</a>
+</p>
+<h4>
+External Entity in Package.EE_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_428"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_429"></a>
+Refers to: <a href="Domain.htm#3_External Entity.EE_ID">External Entity.EE_ID (R33)</a>
+</p>
+<h3>
+<a name="a_24.EEPackageinPackage"></a>
+24. EE Package in Package
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_430"></a>
+Ee Package In Package(EEPack_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_431"></a>
+Identifier *: EEPack_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_432"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_433"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_434"></a>
+Description: EE Package in Package represents External Entity Packages nested within  other External Entity Packages.
+</p>
+<h4>
+EE Package in Package.EEPack_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_435"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_436"></a>
+Refers to: <a href="Domain.htm#11_External Entity Package.EEPack_ID">External Entity Package.EEPack_ID (R34)</a>
+</p>
+<h3>
+<a name="a_25.DataTypePackage"></a>
+25. Data Type Package
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_437"></a>
+Data Type Package(DatPack_ID, Name, Dom_ID, Parent_DatPack_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_438"></a>
+Identifier *: DatPack_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_439"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_440"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_441"></a>
+Description: Data Type Package represents a package of data types.
+</p>
+<h4>
+<a name="12_Data Type Package.DatPack_ID">
+Data Type Package.DatPack_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_442"></a>
+Full Name: Data Type Package Identifier
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_443"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_444"></a>
+Data Type: unique_id
+</p>
+<p style="margin-left: 40px;">
+<a name="a_445"></a>
+Description:  An identifier for a package of data types.
+</p>
+<h4>
+Data Type Package.Name
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_446"></a>
+Full Name: Data Type Package Name
+</p>
+
+<p style="margin-left: 40px;">
+<a name="a_447"></a>
+Attribute Type: Base Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_448"></a>
+Data Type: string
+</p>
+<p style="margin-left: 40px;">
+<a name="a_449"></a>
+Description:  A name for a package of data types.
+</p>
+<h4>
+Data Type Package.Dom_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_450"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_451"></a>
+Refers to: <a href="Domain.htm#2_Domain.Dom_ID">Domain.Dom_ID (R40)</a>
+</p>
+<h4>
+Data Type Package.Parent_DatPack_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_452"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_453"></a>
+Refers to: <a href="Domain.htm#12_Data Type Package.DatPack_ID">Data Type Package.DatPack_ID (R38)</a>
+</p>
+<h3>
+<a name="a_26.DataTypeinPackage"></a>
+26. Data Type in Package
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_454"></a>
+Data Type In Package(DatPack_ID, DT_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_455"></a>
+Identifier *: DatPack_ID, DT_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_456"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_457"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_458"></a>
+Description: Data Type in Package represents the data types contained within a  particular package.
+</p>
+<h4>
+Data Type in Package.DatPack_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_459"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_460"></a>
+Refers to: <a href="Domain.htm#12_Data Type Package.DatPack_ID">Data Type Package.DatPack_ID (R39)</a>
+</p>
+<h4>
+Data Type in Package.DT_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_461"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_462"></a>
+Refers to: <a href="Domain.htm#5_Data Type.DT_ID">Data Type.DT_ID (R39)</a>
+</p>
+<h3>
+<a name="a_27.DataTypePackageinPackage"></a>
+27. Data Type Package in Package
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_463"></a>
+Data Type Package In Package(DatPack_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_464"></a>
+Identifier *: DatPack_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_465"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_466"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_467"></a>
+Description: Data Type Package in Package represents Data Type Packages nested within other  Data Type Packages.
+</p>
+<h4>
+Data Type Package in Package.DatPack_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_468"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_469"></a>
+Refers to: <a href="Domain.htm#12_Data Type Package.DatPack_ID">Data Type Package.DatPack_ID (R37)</a>
+</p>
+<h3>
+<a name="a_30.SubsysteminSubsystem"></a>
+30. Subsystem in Subsystem
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_470"></a>
+Subsystem In Subsystem(Parent_SS_ID, Child_SS_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_471"></a>
+Identifier *: Child_SS_ID, Parent_SS_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_472"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_473"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_474"></a>
+Description: Subsystem in Subsystem represents Subsystems that are nested within other  Subsystems.
+</p>
+<h4>
+Subsystem in Subsystem.Parent_SS_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_475"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_476"></a>
+Refers to: <a href="Domain.htm#4_Subsystem.SS_ID">Subsystem.SS_ID (R41)</a>
+</p>
+<h4>
+Subsystem in Subsystem.Child_SS_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_477"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_478"></a>
+Refers to: <a href="Domain.htm#4_Subsystem.SS_ID">Subsystem.SS_ID (R42)</a>
+</p>
+<h3>
+<a name="a_31.SubsysteminDomain"></a>
+31. Subsystem in Domain
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_479"></a>
+Subsystem In Domain(Dom_ID, SS_ID)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_480"></a>
+Identifier *: SS_ID, Dom_ID</p>
+<p style="margin-left: 40px;">
+<a name="a_481"></a>
+Identifier *2: <p style="margin-left: 40px;">
+<a name="a_482"></a>
+Identifier *3: <p style="margin-left: 40px;">
+<a name="a_483"></a>
+Description: Subsystem in Domain represents Subsystem packages at the top, domain, level.   In other words Subsystem packages that are not nested within other Subsystem  packages.
+</p>
+<h4>
+Subsystem in Domain.Dom_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_484"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_485"></a>
+Refers to: <a href="Domain.htm#2_Domain.Dom_ID">Domain.Dom_ID (R43)</a>
+</p>
+<h4>
+Subsystem in Domain.SS_ID
+</a>
+</h4>
+<p style="margin-left: 40px;">
+<a name="a_486"></a>
+Attribute Type: Referential Attribute
+</p>
+<p style="margin-left: 40px;">
+<a name="a_487"></a>
+Refers to: <a href="Domain.htm#4_Subsystem.SS_ID">Subsystem.SS_ID (R43)</a>
+</p>
+<h2>
+<a name="a_488"></a>
+Association Descriptions
+</h2>
+<h3>
+<a name="a_R1"></a>
+R1
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_489"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_490"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_491"></a>
+Domain <em>is partitioned into</em> Subsystem
+</p>
+<p style="margin-left: 40px;">
+<a name="a_492"></a>
+Subsystem <em>is first level of partitioning for Domain
+</p>
+<p style="margin-left: 40px;">
+<a name="a_493"></a>
+Formalized By: Domain.Dom_ID
+</p>
+<h3>
+<a name="a_R2"></a>
+R2
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_494"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_495"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_496"></a>
+Subsystem <em>is decomposed into</em> Model Class
+</p>
+<p style="margin-left: 40px;">
+<a name="a_497"></a>
+Model Class <em>is contained in Subsystem
+</p>
+<p style="margin-left: 40px;">
+<a name="a_498"></a>
+Formalized By: Subsystem.SS_ID
+</p>
+<h3>
+<a name="a_R3"></a>
+R3
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_499"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_500"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_501"></a>
+Subsystem <em>can contain classs from other subsystems via</em> Imported Class
+</p>
+<p style="margin-left: 40px;">
+<a name="a_502"></a>
+Imported Class <em>represents a class from another subsystem in Subsystem
+</p>
+<p style="margin-left: 40px;">
+<a name="a_503"></a>
+Formalized By: Subsystem.SS_ID
+</p>
+<h3>
+<a name="a_R4"></a>
+R4
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_504"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_505"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_506"></a>
+Subsystem <em>contains</em> Association
+</p>
+<p style="margin-left: 40px;">
+<a name="a_507"></a>
+Association <em>abstracts associations between classes in Subsystem
+</p>
+<p style="margin-left: 40px;">
+<a name="a_508"></a>
+Formalized By: Subsystem.SS_ID
+</p>
+<h3>
+<a name="a_R7"></a>
+R7
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_509"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_510"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_511"></a>
+Subsystem <em>contains</em> External Entity in Model
+</p>
+<p style="margin-left: 40px;">
+<a name="a_512"></a>
+External Entity in Model <em>is a presence of an an external entity in Subsystem
+</p>
+<p style="margin-left: 40px;">
+<a name="a_513"></a>
+Formalized By: Subsystem.SS_ID
+</p>
+<h3>
+<a name="a_R8"></a>
+R8
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_514"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_515"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_516"></a>
+Domain <em>interacts with</em> External Entity
+</p>
+<p style="margin-left: 40px;">
+<a name="a_517"></a>
+External Entity <em>interacts with Domain
+</p>
+<p style="margin-left: 40px;">
+<a name="a_518"></a>
+Formalized By: Domain.Dom_ID
+</p>
+<h3>
+<a name="a_R9"></a>
+R9
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_519"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_520"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_521"></a>
+External Entity <em>is represented by</em> External Entity in Model
+</p>
+<p style="margin-left: 40px;">
+<a name="a_522"></a>
+External Entity in Model <em>is a presence in subsystem model of External Entity
+</p>
+<p style="margin-left: 40px;">
+<a name="a_523"></a>
+Formalized By: External Entity.EE_ID
+</p>
+<h3>
+<a name="a_R10"></a>
+R10
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_524"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_525"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_526"></a>
+External Entity <em>can receive asynchronous communication via</em> External Entity Event
+</p>
+<p style="margin-left: 40px;">
+<a name="a_527"></a>
+External Entity Event <em>is vehicle of communication for External Entity
+</p>
+<p style="margin-left: 40px;">
+<a name="a_528"></a>
+Formalized By: External Entity.EE_ID
+</p>
+<h3>
+<a name="a_R11"></a>
+R11
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_529"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_530"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_531"></a>
+External Entity <em>can be accessed synchronously via</em> External Entity Data Item
+</p>
+<p style="margin-left: 40px;">
+<a name="a_532"></a>
+External Entity Data Item <em>is data for External Entity
+</p>
+<p style="margin-left: 40px;">
+<a name="a_533"></a>
+Formalized By: External Entity.EE_ID
+</p>
+<h3>
+<a name="a_R12"></a>
+R12
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_534"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_535"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_536"></a>
+External Entity <em>can asynchronously communicate via</em> External Entity Event Data Item
+</p>
+<p style="margin-left: 40px;">
+<a name="a_537"></a>
+External Entity Event Data Item <em>is data for events of External Entity
+</p>
+<p style="margin-left: 40px;">
+<a name="a_538"></a>
+Formalized By: External Entity.EE_ID
+</p>
+<h3>
+<a name="a_R13"></a>
+R13
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_539"></a>
+Relationship Type: Associative
+</p>
+<p style="margin-left: 40px;">
+<a name="a_540"></a>
+Multiplicity/Conditionality: 1-(Mc:Mc)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_541"></a>
+External Entity Event Data Item <em>is carried via</em> External Entity Event
+</p>
+<p style="margin-left: 40px;">
+<a name="a_542"></a>
+External Entity Event <em>may carry</em> External Entity Event Data Item
+</p>
+<p style="margin-left: 40px;">
+<a name="a_543"></a>
+Formalized By: External Entity Event Data.EE_ID, External Entity Event Data.EE_ID, External Entity Event Data.EEevt_ID, External Entity Event Data.EEedi_ID
+</p>
+<h3>
+<a name="a_R14"></a>
+R14
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_544"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_545"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_546"></a>
+Domain <em>contains defined</em> Data Type
+</p>
+<p style="margin-left: 40px;">
+<a name="a_547"></a>
+Data Type <em>defines types within Domain
+</p>
+<p style="margin-left: 40px;">
+<a name="a_548"></a>
+Formalized By: Domain.Dom_ID
+</p>
+<h3>
+<a name="a_R15"></a>
+R15
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_549"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_550"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_551"></a>
+Data Type <em>defines the type of</em> External Entity Data Item
+</p>
+<p style="margin-left: 40px;">
+<a name="a_552"></a>
+External Entity Data Item <em>is defined by Data Type
+</p>
+<p style="margin-left: 40px;">
+<a name="a_553"></a>
+Formalized By: Data Type.DT_ID
+</p>
+<h3>
+<a name="a_R16"></a>
+R16
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_554"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_555"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_556"></a>
+Data Type <em>defines the type of</em> External Entity Event Data Item
+</p>
+<p style="margin-left: 40px;">
+<a name="a_557"></a>
+External Entity Event Data Item <em>is defined by Data Type
+</p>
+<p style="margin-left: 40px;">
+<a name="a_558"></a>
+Formalized By: Data Type.DT_ID
+</p>
+<h3>
+<a name="a_R17"></a>
+R17
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_559"></a>
+Relationship Type: Subtype/Supertype
+</p>
+<p style="margin-left: 40px;">
+<a name="a_560"></a>
+Subtypes: Primitive Data Type(S_CDT), User Data Type(S_UDT), Enumeration Data Type(S_EDT)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_561"></a>
+Formalized By: Data Type.DT_ID
+</p>
+<h3>
+<a name="a_R18"></a>
+R18
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_562"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_563"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_564"></a>
+Primitive Data Type <em>defines domain of</em> User Data Type
+</p>
+<p style="margin-left: 40px;">
+<a name="a_565"></a>
+User Data Type <em>are defined within Primitive Data Type
+</p>
+<p style="margin-left: 40px;">
+<a name="a_566"></a>
+Formalized By: Primitive Data Type.DT_ID
+</p>
+<h3>
+<a name="a_R19"></a>
+R19
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_567"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_568"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_569"></a>
+External Entity <em>uses</em> Bridge
+</p>
+<p style="margin-left: 40px;">
+<a name="a_570"></a>
+Bridge <em>provides access to External Entity
+</p>
+<p style="margin-left: 40px;">
+<a name="a_571"></a>
+Formalized By: External Entity.EE_ID
+</p>
+<h3>
+<a name="a_R20"></a>
+R20
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_572"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_573"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_574"></a>
+Data Type <em>defines the return value</em> Bridge
+</p>
+<p style="margin-left: 40px;">
+<a name="a_575"></a>
+Bridge <em>return value defined by Data Type
+</p>
+<p style="margin-left: 40px;">
+<a name="a_576"></a>
+Formalized By: Data Type.DT_ID
+</p>
+<h3>
+<a name="a_R21"></a>
+R21
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_577"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_578"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_579"></a>
+Bridge <em>is part of</em> Bridge Parameter
+</p>
+<p style="margin-left: 40px;">
+<a name="a_580"></a>
+Bridge Parameter <em>contains Bridge
+</p>
+<p style="margin-left: 40px;">
+<a name="a_581"></a>
+Formalized By: Bridge.Brg_ID
+</p>
+<h3>
+<a name="a_R22"></a>
+R22
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_582"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_583"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_584"></a>
+Data Type <em>defines the type of</em> Bridge Parameter
+</p>
+<p style="margin-left: 40px;">
+<a name="a_585"></a>
+Bridge Parameter <em>is defined by Data Type
+</p>
+<p style="margin-left: 40px;">
+<a name="a_586"></a>
+Formalized By: Data Type.DT_ID
+</p>
+<h3>
+<a name="a_R23"></a>
+R23
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_587"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_588"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_589"></a>
+Domain <em>defines</em> Function
+</p>
+<p style="margin-left: 40px;">
+<a name="a_590"></a>
+Function <em>is defined in  Domain
+</p>
+<p style="margin-left: 40px;">
+<a name="a_591"></a>
+Formalized By: Domain.Dom_ID
+</p>
+<h3>
+<a name="a_R24"></a>
+R24
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_592"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_593"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_594"></a>
+Function <em>defines</em> Function Parameter
+</p>
+<p style="margin-left: 40px;">
+<a name="a_595"></a>
+Function Parameter <em>is defined for Function
+</p>
+<p style="margin-left: 40px;">
+<a name="a_596"></a>
+Formalized By: Function.Sync_ID
+</p>
+<h3>
+<a name="a_R25"></a>
+R25
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_597"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_598"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_599"></a>
+Data Type <em>defines return type</em> Function
+</p>
+<p style="margin-left: 40px;">
+<a name="a_600"></a>
+Function <em>has return type of Data Type
+</p>
+<p style="margin-left: 40px;">
+<a name="a_601"></a>
+Formalized By: Data Type.DT_ID
+</p>
+<h3>
+<a name="a_R26"></a>
+R26
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_602"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_603"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_604"></a>
+Data Type <em>describes type of</em> Function Parameter
+</p>
+<p style="margin-left: 40px;">
+<a name="a_605"></a>
+Function Parameter <em>is typed by  Data Type
+</p>
+<p style="margin-left: 40px;">
+<a name="a_606"></a>
+Formalized By: Data Type.DT_ID
+</p>
+<h3>
+<a name="a_R27"></a>
+R27
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_607"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_608"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_609"></a>
+Enumeration Data Type <em>defines</em> Enumerator
+</p>
+<p style="margin-left: 40px;">
+<a name="a_610"></a>
+Enumerator <em>is defined by Enumeration Data Type
+</p>
+<p style="margin-left: 40px;">
+<a name="a_611"></a>
+Formalized By: Enumeration Data Type.DT_ID
+</p>
+<h3>
+<a name="a_R28"></a>
+R28
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_612"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_613"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_614"></a>
+System Model <em></em> Domain
+</p>
+<p style="margin-left: 40px;">
+<a name="a_615"></a>
+Domain <em> System Model
+</p>
+<p style="margin-left: 40px;">
+<a name="a_616"></a>
+Formalized By: System Model.Sys_ID
+</p>
+<h3>
+<a name="a_R29"></a>
+R29
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_617"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_618"></a>
+Multiplicity/Conditionality: 1c: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_619"></a>
+Domain <em>contains</em> Function Package
+</p>
+<p style="margin-left: 40px;">
+<a name="a_620"></a>
+Function Package <em>is contained in Domain
+</p>
+<p style="margin-left: 40px;">
+<a name="a_621"></a>
+Formalized By: Domain.Dom_ID
+</p>
+<h3>
+<a name="a_R30"></a>
+R30
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_622"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_623"></a>
+Multiplicity/Conditionality: 1: 1c
+</p>
+<p style="margin-left: 40px;">
+<a name="a_624"></a>
+Function Package <em>is parent to other packages via</em> Function Package in Package
+</p>
+<p style="margin-left: 40px;">
+<a name="a_625"></a>
+Function Package in Package <em>contains children of Function Package
+</p>
+<p style="margin-left: 40px;">
+<a name="a_626"></a>
+Formalized By: Function Package.FunPack_ID
+</p>
+<h3>
+<a name="a_R31"></a>
+R31
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_627"></a>
+Relationship Type: Associative
+</p>
+<p style="margin-left: 40px;">
+<a name="a_628"></a>
+Multiplicity/Conditionality: 1-(1:Mc)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_629"></a>
+Function Package <em>contains</em> Function
+</p>
+<p style="margin-left: 40px;">
+<a name="a_630"></a>
+Function <em>is contained in</em> Function Package
+</p>
+<p style="margin-left: 40px;">
+<a name="a_631"></a>
+Formalized By: Function in Package.FunPack_ID, Function in Package.Sync_ID
+</p>
+<h3>
+<a name="a_R32"></a>
+R32
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_632"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_633"></a>
+Multiplicity/Conditionality: 1c: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_634"></a>
+Function Package in Package <em>contains</em> Function Package
+</p>
+<p style="margin-left: 40px;">
+<a name="a_635"></a>
+Function Package <em>is child via Function Package in Package
+</p>
+<p style="margin-left: 40px;">
+<a name="a_636"></a>
+Formalized By: Function Package in Package.FunPack_ID
+</p>
+<h3>
+<a name="a_R33"></a>
+R33
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_637"></a>
+Relationship Type: Associative
+</p>
+<p style="margin-left: 40px;">
+<a name="a_638"></a>
+Multiplicity/Conditionality: 1-(1:Mc)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_639"></a>
+External Entity Package <em>contains</em> External Entity
+</p>
+<p style="margin-left: 40px;">
+<a name="a_640"></a>
+External Entity <em>is contained in</em> External Entity Package
+</p>
+<p style="margin-left: 40px;">
+<a name="a_641"></a>
+Formalized By: External Entity in Package.EEPack_ID, External Entity in Package.EE_ID
+</p>
+<h3>
+<a name="a_R34"></a>
+R34
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_642"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_643"></a>
+Multiplicity/Conditionality: 1: 1c
+</p>
+<p style="margin-left: 40px;">
+<a name="a_644"></a>
+External Entity Package <em>is parent to other packages via</em> EE Package in Package
+</p>
+<p style="margin-left: 40px;">
+<a name="a_645"></a>
+EE Package in Package <em>contains children of External Entity Package
+</p>
+<p style="margin-left: 40px;">
+<a name="a_646"></a>
+Formalized By: External Entity Package.EEPack_ID
+</p>
+<h3>
+<a name="a_R35"></a>
+R35
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_647"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_648"></a>
+Multiplicity/Conditionality: 1c: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_649"></a>
+EE Package in Package <em>contains</em> External Entity Package
+</p>
+<p style="margin-left: 40px;">
+<a name="a_650"></a>
+External Entity Package <em>is child via EE Package in Package
+</p>
+<p style="margin-left: 40px;">
+<a name="a_651"></a>
+Formalized By: EE Package in Package.EEPack_ID
+</p>
+<h3>
+<a name="a_R36"></a>
+R36
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_652"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_653"></a>
+Multiplicity/Conditionality: 1c: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_654"></a>
+Domain <em>contains</em> External Entity Package
+</p>
+<p style="margin-left: 40px;">
+<a name="a_655"></a>
+External Entity Package <em>is contained in Domain
+</p>
+<p style="margin-left: 40px;">
+<a name="a_656"></a>
+Formalized By: Domain.Dom_ID
+</p>
+<h3>
+<a name="a_R37"></a>
+R37
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_657"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_658"></a>
+Multiplicity/Conditionality: 1: 1c
+</p>
+<p style="margin-left: 40px;">
+<a name="a_659"></a>
+Data Type Package <em>is parent to other packages via</em> Data Type Package in Package
+</p>
+<p style="margin-left: 40px;">
+<a name="a_660"></a>
+Data Type Package in Package <em>contains children of Data Type Package
+</p>
+<p style="margin-left: 40px;">
+<a name="a_661"></a>
+Formalized By: Data Type Package.DatPack_ID
+</p>
+<h3>
+<a name="a_R38"></a>
+R38
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_662"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_663"></a>
+Multiplicity/Conditionality: 1c: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_664"></a>
+Data Type Package in Package <em>contains</em> Data Type Package
+</p>
+<p style="margin-left: 40px;">
+<a name="a_665"></a>
+Data Type Package <em>is child via Data Type Package in Package
+</p>
+<p style="margin-left: 40px;">
+<a name="a_666"></a>
+Formalized By: Data Type Package in Package.DatPack_ID
+</p>
+<h3>
+<a name="a_R39"></a>
+R39
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_667"></a>
+Relationship Type: Associative
+</p>
+<p style="margin-left: 40px;">
+<a name="a_668"></a>
+Multiplicity/Conditionality: 1-(Mc:1)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_669"></a>
+Data Type <em>is contained in</em> Data Type Package
+</p>
+<p style="margin-left: 40px;">
+<a name="a_670"></a>
+Data Type Package <em>contains</em> Data Type
+</p>
+<p style="margin-left: 40px;">
+<a name="a_671"></a>
+Formalized By: Data Type in Package.DatPack_ID, Data Type in Package.DT_ID
+</p>
+<h3>
+<a name="a_R40"></a>
+R40
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_672"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_673"></a>
+Multiplicity/Conditionality: 1c: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_674"></a>
+Domain <em>contains</em> Data Type Package
+</p>
+<p style="margin-left: 40px;">
+<a name="a_675"></a>
+Data Type Package <em>is contained in Domain
+</p>
+<p style="margin-left: 40px;">
+<a name="a_676"></a>
+Formalized By: Domain.Dom_ID
+</p>
+<h3>
+<a name="a_R41"></a>
+R41
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_677"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_678"></a>
+Multiplicity/Conditionality: 1: Mc
+</p>
+<p style="margin-left: 40px;">
+<a name="a_679"></a>
+Subsystem <em>is parent to other packages via</em> Subsystem in Subsystem
+</p>
+<p style="margin-left: 40px;">
+<a name="a_680"></a>
+Subsystem in Subsystem <em>contains children of Subsystem
+</p>
+<p style="margin-left: 40px;">
+<a name="a_681"></a>
+Formalized By: Subsystem.SS_ID
+</p>
+<h3>
+<a name="a_R42"></a>
+R42
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_682"></a>
+Relationship Type: Simple
+</p>
+<p style="margin-left: 40px;">
+<a name="a_683"></a>
+Multiplicity/Conditionality: 1: 1c
+</p>
+<p style="margin-left: 40px;">
+<a name="a_684"></a>
+Subsystem <em>is child via</em> Subsystem in Subsystem
+</p>
+<p style="margin-left: 40px;">
+<a name="a_685"></a>
+Subsystem in Subsystem <em>contains Subsystem
+</p>
+<p style="margin-left: 40px;">
+<a name="a_686"></a>
+Formalized By: Subsystem.SS_ID
+</p>
+<h3>
+<a name="a_R43"></a>
+R43
+</h3>
+<p style="margin-left: 40px;">
+<a name="a_687"></a>
+Relationship Type: Associative
+</p>
+<p style="margin-left: 40px;">
+<a name="a_688"></a>
+Multiplicity/Conditionality: 1-(Mc:1c)
+</p>
+<p style="margin-left: 40px;">
+<a name="a_689"></a>
+Subsystem <em>is top level of subsystems</em> Domain
+</p>
+<p style="margin-left: 40px;">
+<a name="a_690"></a>
+Domain <em>has top level subsystems</em> Subsystem
+</p>
+<p style="margin-left: 40px;">
+<a name="a_691"></a>
+Formalized By: Subsystem in Domain.Dom_ID, Subsystem in Domain.SS_ID
+</p>
+</body>
+</html>
+

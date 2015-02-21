@@ -1,0 +1,216 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("3a75035b-62d0-4259-9758-f6821fb7bf83",
+	'Synchronous Service Parameter',
+	17,
+	'S_SPARM',
+	'A parameter to a synchronous service (S_SYNC) is called a synchronous service parameter (S_SPARM).  Synchronous service parameters are either passed in by value, or by reference.  Synchronous service parameters can be accessed by using the param keyword from within a synchronous service action specification.',
+	"5edea08f-a6e1-4146-8e1c-0cade7a477c7");
+INSERT INTO O_NBATTR
+	VALUES ("eee55f8f-32d1-4665-8a72-a17f47f68b18",
+	"3a75035b-62d0-4259-9758-f6821fb7bf83");
+INSERT INTO O_BATTR
+	VALUES ("eee55f8f-32d1-4665-8a72-a17f47f68b18",
+	"3a75035b-62d0-4259-9758-f6821fb7bf83");
+INSERT INTO O_ATTR
+	VALUES ("eee55f8f-32d1-4665-8a72-a17f47f68b18",
+	"3a75035b-62d0-4259-9758-f6821fb7bf83",
+	"00000000-0000-0000-0000-000000000000",
+	'SParm_ID',
+	'',
+	'',
+	'SParm_ID',
+	0,
+	"0dd326a8-132b-40ba-821c-d4a3d3b8c88d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("0dd326a8-132b-40ba-821c-d4a3d3b8c88d",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("3a75035b-62d0-4259-9758-f6821fb7bf83",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	0,
+	"108da47d-159a-411b-8006-6f3b83194aa5",
+	"6ed29ed0-7532-47cd-9d9f-7287df4738e3",
+	"87663d64-3c2e-4ce8-9faa-86ca6adde87c",
+	"b0363dfe-b4b0-4209-993c-aefb84c995af",
+	"4024121b-c0b6-438c-aa75-1574e7e19c67",
+	"c71a6bde-a973-47a6-867c-6c074271e5fa",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Synchronous Service',
+	'Sync_ID',
+	'R24');
+INSERT INTO R_RGO_PROXY
+	VALUES ("3a75035b-62d0-4259-9758-f6821fb7bf83",
+	"6ed29ed0-7532-47cd-9d9f-7287df4738e3",
+	"87663d64-3c2e-4ce8-9faa-86ca6adde87c",
+	'../BNF.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("108da47d-159a-411b-8006-6f3b83194aa5",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	0,
+	"6ed29ed0-7532-47cd-9d9f-7287df4738e3",
+	"b0363dfe-b4b0-4209-993c-aefb84c995af",
+	'../BNF.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("4024121b-c0b6-438c-aa75-1574e7e19c67",
+	"3a75035b-62d0-4259-9758-f6821fb7bf83",
+	"108da47d-159a-411b-8006-6f3b83194aa5",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	1,
+	'Sync_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("108da47d-159a-411b-8006-6f3b83194aa5",
+	"4080e1ea-24eb-4088-8582-abb7cc0a494b",
+	'../Synchronous Service/Synchronous Service.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("4024121b-c0b6-438c-aa75-1574e7e19c67",
+	"3a75035b-62d0-4259-9758-f6821fb7bf83",
+	"eee55f8f-32d1-4665-8a72-a17f47f68b18",
+	'Sync_ID',
+	'',
+	'',
+	'Sync_ID',
+	0,
+	"73db19ab-e535-4718-ab07-668918299d9a",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("73db19ab-e535-4718-ab07-668918299d9a",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("bcbdcedb-36f4-46d1-ae38-47f56b18e957",
+	"3a75035b-62d0-4259-9758-f6821fb7bf83");
+INSERT INTO O_BATTR
+	VALUES ("bcbdcedb-36f4-46d1-ae38-47f56b18e957",
+	"3a75035b-62d0-4259-9758-f6821fb7bf83");
+INSERT INTO O_ATTR
+	VALUES ("bcbdcedb-36f4-46d1-ae38-47f56b18e957",
+	"3a75035b-62d0-4259-9758-f6821fb7bf83",
+	"4024121b-c0b6-438c-aa75-1574e7e19c67",
+	'Name',
+	'',
+	'',
+	'Name',
+	0,
+	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("3a75035b-62d0-4259-9758-f6821fb7bf83",
+	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
+	0,
+	"c933bbe0-e3f3-4a48-9ad9-20aecc04454f",
+	"2af92755-4479-444d-96b8-122c2c4b48b0",
+	"36b16367-4d4d-48cc-ac33-2a841389800b",
+	"7004fcb3-0605-43d3-b69a-a33431f97c2a",
+	"20293121-b3cf-4eae-9df5-c6f651cae64b",
+	"e2160ac7-43c1-4bd7-ad9f-4d77adaf3da3",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Data Type',
+	'DT_ID',
+	'R26');
+INSERT INTO R_RGO_PROXY
+	VALUES ("3a75035b-62d0-4259-9758-f6821fb7bf83",
+	"2af92755-4479-444d-96b8-122c2c4b48b0",
+	"36b16367-4d4d-48cc-ac33-2a841389800b",
+	'../BNF.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("c933bbe0-e3f3-4a48-9ad9-20aecc04454f",
+	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
+	0,
+	"2af92755-4479-444d-96b8-122c2c4b48b0",
+	"7004fcb3-0605-43d3-b69a-a33431f97c2a",
+	'../BNF.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("20293121-b3cf-4eae-9df5-c6f651cae64b",
+	"3a75035b-62d0-4259-9758-f6821fb7bf83",
+	"c933bbe0-e3f3-4a48-9ad9-20aecc04454f",
+	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
+	1,
+	'DT_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("c933bbe0-e3f3-4a48-9ad9-20aecc04454f",
+	"d39db9ff-a0ab-418e-a79a-e750a206c64d",
+	'../Data Type/Data Type.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("20293121-b3cf-4eae-9df5-c6f651cae64b",
+	"3a75035b-62d0-4259-9758-f6821fb7bf83",
+	"bcbdcedb-36f4-46d1-ae38-47f56b18e957",
+	'DT_ID',
+	'',
+	'',
+	'DT_ID',
+	0,
+	"73db19ab-e535-4718-ab07-668918299d9a",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("8ebe5734-04dd-47d9-87be-1c285423b3a2",
+	"3a75035b-62d0-4259-9758-f6821fb7bf83");
+INSERT INTO O_BATTR
+	VALUES ("8ebe5734-04dd-47d9-87be-1c285423b3a2",
+	"3a75035b-62d0-4259-9758-f6821fb7bf83");
+INSERT INTO O_ATTR
+	VALUES ("8ebe5734-04dd-47d9-87be-1c285423b3a2",
+	"3a75035b-62d0-4259-9758-f6821fb7bf83",
+	"20293121-b3cf-4eae-9df5-c6f651cae64b",
+	'By_Ref',
+	'',
+	'',
+	'By_Ref',
+	0,
+	"bfb63684-46c9-44bd-b4f5-e0ae6cd60407",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("bfb63684-46c9-44bd-b4f5-e0ae6cd60407",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"3a75035b-62d0-4259-9758-f6821fb7bf83");
+INSERT INTO O_OIDA
+	VALUES ("eee55f8f-32d1-4665-8a72-a17f47f68b18",
+	"3a75035b-62d0-4259-9758-f6821fb7bf83",
+	0,
+	'SParm_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"3a75035b-62d0-4259-9758-f6821fb7bf83");
+INSERT INTO O_ID
+	VALUES (2,
+	"3a75035b-62d0-4259-9758-f6821fb7bf83");
+INSERT INTO S_SS_PROXY
+	VALUES ("5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	'BNF',
+	'',
+	'',
+	1,
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	"00000000-0000-0000-0000-000000100002",
+	'../BNF.xtuml');

@@ -1,0 +1,244 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("d4ebf854-cf98-4429-900e-e4b213092712",
+	'Tree_Node_Specification',
+	1,
+	'T_TNS',
+	'This class specifies what entries are to appear in a display tree. 
+It represents an underlying client model that contains structure
+and data of interest to the user. 
+
+Not all the data in the client model is to be presented in the tree.
+Iinstances of this class specify which data items are to be shown.
+
+Attributes of this class determine which client model entry is to be
+shown and what the tree entry will look like.',
+	"3357a459-a1e1-4bc3-a4b8-f31d53662ce0");
+INSERT INTO O_NBATTR
+	VALUES ("b75e4192-95f9-424b-b1ff-ce881a2be980",
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_BATTR
+	VALUES ("b75e4192-95f9-424b-b1ff-ce881a2be980",
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_ATTR
+	VALUES ("b75e4192-95f9-424b-b1ff-ce881a2be980",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	"00000000-0000-0000-0000-000000000000",
+	'Tree_Node_Spec_ID',
+	'A unique identifier for the tree entry.',
+	'',
+	'Tree_Node_Spec_ID',
+	0,
+	"4f624963-ecf3-4bd9-b5a1-7fc3cde54034",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("4f624963-ecf3-4bd9-b5a1-7fc3cde54034",
+	"355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("cd54af01-456d-48f6-964d-43d32770bd46",
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_BATTR
+	VALUES ("cd54af01-456d-48f6-964d-43d32770bd46",
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_ATTR
+	VALUES ("cd54af01-456d-48f6-964d-43d32770bd46",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	"b75e4192-95f9-424b-b1ff-ce881a2be980",
+	'Icon',
+	'A string identifying the icon to be shown in the tree next to the entry.',
+	'',
+	'Icon',
+	0,
+	"0b1791d1-b108-4b42-a201-d891aa80f243",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("0b1791d1-b108-4b42-a201-d891aa80f243",
+	"355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("5c949110-78f2-43b1-89c1-8b6632bde77e",
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_BATTR
+	VALUES ("5c949110-78f2-43b1-89c1-8b6632bde77e",
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_ATTR
+	VALUES ("5c949110-78f2-43b1-89c1-8b6632bde77e",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	"cd54af01-456d-48f6-964d-43d32770bd46",
+	'Key_Lett',
+	'Identifies the client model entity that is represented by this tree entry.
+
+Examples: O_OBJ, SM_ISM, S_DOM',
+	'',
+	'Key_Lett',
+	0,
+	"0b1791d1-b108-4b42-a201-d891aa80f243",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("5cbc1d84-36f7-4cb0-adb0-d2df7938b5ba",
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_BATTR
+	VALUES ("5cbc1d84-36f7-4cb0-adb0-d2df7938b5ba",
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_ATTR
+	VALUES ("5cbc1d84-36f7-4cb0-adb0-d2df7938b5ba",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	"5c949110-78f2-43b1-89c1-8b6632bde77e",
+	'Label',
+	'If present, specifies a constant string to be displayed for the text part
+of the tree entry. Used for entries which have no name of their own
+but which represent a named part of something else.
+
+Examples: Instance State Model, Class State Model',
+	'',
+	'Label',
+	0,
+	"0b1791d1-b108-4b42-a201-d891aa80f243",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("a8f97ade-4278-4386-b149-b54a443790ea",
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_BATTR
+	VALUES ("a8f97ade-4278-4386-b149-b54a443790ea",
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_ATTR
+	VALUES ("a8f97ade-4278-4386-b149-b54a443790ea",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	"5cbc1d84-36f7-4cb0-adb0-d2df7938b5ba",
+	'NamingAttribute',
+	'If present, specifies an attribute of the client model that should be 
+read to provide the text part of the tree entry.',
+	'',
+	'NamingAttribute',
+	0,
+	"0b1791d1-b108-4b42-a201-d891aa80f243",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("a4562946-6f3c-41e5-8182-648316aba7c1",
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_BATTR
+	VALUES ("a4562946-6f3c-41e5-8182-648316aba7c1",
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_ATTR
+	VALUES ("a4562946-6f3c-41e5-8182-648316aba7c1",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	"a8f97ade-4278-4386-b149-b54a443790ea",
+	'NamingAttributeRelChain',
+	'If present, specifies how to navigate from the represented entity to
+the entity owning the attribute specified in ''NamingAttribute''. If empty,
+''NamingAttribute'' is assumed to specify an attribute in the represented
+entity itself. This is used in cases where the name of something is
+held elsewhere than the current entity (often in a supertype).
+
+Examples: ->SM_SEVT[R526]->SM_EVT[R525] (specifies the location
+of the name of a local event), ->S_DT[R17] (specifies the location
+of the name of a user defined data type)',
+	'',
+	'NamingAttributeRelChain',
+	0,
+	"0b1791d1-b108-4b42-a201-d891aa80f243",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("c039e7b3-5e05-4053-bb56-81d0dfc10a05",
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_BATTR
+	VALUES ("c039e7b3-5e05-4053-bb56-81d0dfc10a05",
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_ATTR
+	VALUES ("c039e7b3-5e05-4053-bb56-81d0dfc10a05",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	"a4562946-6f3c-41e5-8182-648316aba7c1",
+	'CategoryName',
+	'A unique string that identifies this tree entry type. Used to ensure that 
+entries of the same type are sorted together and to allow entries of the
+same type to be hidden together.
+
+Examples: Domains, Classes, Attributes, States',
+	'',
+	'CategoryName',
+	0,
+	"0b1791d1-b108-4b42-a201-d891aa80f243",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("7b9ab094-aeb5-4254-acb0-54ebeca3ae12",
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_BATTR
+	VALUES ("7b9ab094-aeb5-4254-acb0-54ebeca3ae12",
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_ATTR
+	VALUES ("7b9ab094-aeb5-4254-acb0-54ebeca3ae12",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	"c039e7b3-5e05-4053-bb56-81d0dfc10a05",
+	'Sorted',
+	'This attribute is true if there exists a relationship that sorts the order of the nodes.
+The sorting algorithm is defined elsewhere (core/mdl/ooa_hierarchy).
+',
+	'',
+	'Sorted',
+	0,
+	"ef1bb0ff-b11f-4417-b585-e083198468c5",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("ef1bb0ff-b11f-4417-b585-e083198468c5",
+	"355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("53efe8dc-a95b-45d4-a8e6-48929d2833b5",
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_BATTR
+	VALUES ("53efe8dc-a95b-45d4-a8e6-48929d2833b5",
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_ATTR
+	VALUES ("53efe8dc-a95b-45d4-a8e6-48929d2833b5",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	"7b9ab094-aeb5-4254-acb0-54ebeca3ae12",
+	'occursInMultipleLocations',
+	'',
+	'',
+	'occursInMultipleLocations',
+	0,
+	"ef1bb0ff-b11f-4417-b585-e083198468c5",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_OIDA
+	VALUES ("b75e4192-95f9-424b-b1ff-ce881a2be980",
+	"d4ebf854-cf98-4429-900e-e4b213092712",
+	0,
+	'Tree_Node_Spec_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO O_ID
+	VALUES (2,
+	"d4ebf854-cf98-4429-900e-e4b213092712");
+INSERT INTO S_SS_PROXY
+	VALUES ("3357a459-a1e1-4bc3-a4b8-f31d53662ce0",
+	'UITree',
+	'',
+	'T',
+	1,
+	"355fe1ef-ac53-4c0f-98e9-d27f1c9235d9",
+	"00000000-0000-0000-0000-00000070000e",
+	'../UITree.xtuml');

@@ -1,0 +1,125 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("2d71d04d-beb6-4ebb-8704-61a35aee894b",
+	'sinus node',
+	2,
+	'SINUS_NODE',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("4014c3cb-74f9-4b79-86b4-6599577ecee0",
+	"2d71d04d-beb6-4ebb-8704-61a35aee894b",
+	'log_and_adjust',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// Now log the periods, decrement them and continue.
+LOG::LogInfo( message:"systolic period, diastolic period" );
+LOG::LogInteger( message:self.systolic_period );
+LOG::LogInteger( message:self.diastolic_period );
+if ( self.decrement < self.systolic_period )
+  self.systolic_period = self.systolic_period - self.decrement;
+end if;
+if ( self.decrement < self.diastolic_period )
+  self.diastolic_period = self.diastolic_period - self.decrement;
+end if;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("ed8653a7-01a2-4623-99f8-9e19340d24d4",
+	"2d71d04d-beb6-4ebb-8704-61a35aee894b");
+INSERT INTO O_BATTR
+	VALUES ("ed8653a7-01a2-4623-99f8-9e19340d24d4",
+	"2d71d04d-beb6-4ebb-8704-61a35aee894b");
+INSERT INTO O_ATTR
+	VALUES ("ed8653a7-01a2-4623-99f8-9e19340d24d4",
+	"2d71d04d-beb6-4ebb-8704-61a35aee894b",
+	"00000000-0000-0000-0000-000000000000",
+	'systolic_period',
+	'The systolic period is the duration of time between diastolic and systolic pulses.',
+	'',
+	'systolic_period',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("612a0a93-86e8-4adc-9e95-9af3d8152a50",
+	"2d71d04d-beb6-4ebb-8704-61a35aee894b");
+INSERT INTO O_BATTR
+	VALUES ("612a0a93-86e8-4adc-9e95-9af3d8152a50",
+	"2d71d04d-beb6-4ebb-8704-61a35aee894b");
+INSERT INTO O_ATTR
+	VALUES ("612a0a93-86e8-4adc-9e95-9af3d8152a50",
+	"2d71d04d-beb6-4ebb-8704-61a35aee894b",
+	"ed8653a7-01a2-4623-99f8-9e19340d24d4",
+	'diastolic_period',
+	'The diastolic period is the duration of time between systolic and diastolic pulses.',
+	'',
+	'diastolic_period',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("e72dd01c-ae75-41cd-b00e-4f6e5ac659c8",
+	"2d71d04d-beb6-4ebb-8704-61a35aee894b");
+INSERT INTO O_BATTR
+	VALUES ("e72dd01c-ae75-41cd-b00e-4f6e5ac659c8",
+	"2d71d04d-beb6-4ebb-8704-61a35aee894b");
+INSERT INTO O_ATTR
+	VALUES ("e72dd01c-ae75-41cd-b00e-4f6e5ac659c8",
+	"2d71d04d-beb6-4ebb-8704-61a35aee894b",
+	"ac822fb9-0787-4df6-9337-4b1c962f691d",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("ac822fb9-0787-4df6-9337-4b1c962f691d",
+	"2d71d04d-beb6-4ebb-8704-61a35aee894b");
+INSERT INTO O_BATTR
+	VALUES ("ac822fb9-0787-4df6-9337-4b1c962f691d",
+	"2d71d04d-beb6-4ebb-8704-61a35aee894b");
+INSERT INTO O_ATTR
+	VALUES ("ac822fb9-0787-4df6-9337-4b1c962f691d",
+	"2d71d04d-beb6-4ebb-8704-61a35aee894b",
+	"612a0a93-86e8-4adc-9e95-9af3d8152a50",
+	'decrement',
+	'This is the value that we reduce the periods each cycle.',
+	'',
+	'decrement',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"2d71d04d-beb6-4ebb-8704-61a35aee894b");
+INSERT INTO O_ID
+	VALUES (1,
+	"2d71d04d-beb6-4ebb-8704-61a35aee894b");
+INSERT INTO O_ID
+	VALUES (2,
+	"2d71d04d-beb6-4ebb-8704-61a35aee894b");
+INSERT INTO PE_PE
+	VALUES ("2d71d04d-beb6-4ebb-8704-61a35aee894b",
+	1,
+	"0299068e-17bb-48bd-a584-a45dea11a6ca",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("0299068e-17bb-48bd-a584-a45dea11a6ca",
+	"00000000-0000-0000-0000-000000000000",
+	"15b2a15d-7110-4efa-b644-89bd96e12c0e",
+	'heart',
+	'',
+	0,
+	'../heart.xtuml');

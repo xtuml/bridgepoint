@@ -1,0 +1,98 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("f4068fc7-87f1-4aa3-98d1-cc62c371f39f",
+	'Online Disk',
+	4,
+	'D_OND',
+	'Object Description:
+
+Object Role:
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("f4068fc7-87f1-4aa3-98d1-cc62c371f39f",
+	"0faa5a8f-4aed-40e1-93a1-9b7fbb502d68",
+	0,
+	"bb4f067a-327b-4fe2-bce3-572cd6210f78",
+	"c84f66c5-fe11-4d0b-9356-23ad73b4a5c9",
+	"effbd7e6-a743-43d7-afdf-31c4d5d3c429",
+	"13de2b6f-892e-4b48-b042-854be5760133",
+	"7f411df0-1332-49c0-a2fe-afe364963b38",
+	"71c4b081-59ed-444e-941c-80c2c6843cc2",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'Reference Domain:
+',
+	'Disk',
+	'Disk_ID',
+	'R3');
+INSERT INTO R_RGO_PROXY
+	VALUES ("f4068fc7-87f1-4aa3-98d1-cc62c371f39f",
+	"c84f66c5-fe11-4d0b-9356-23ad73b4a5c9",
+	"effbd7e6-a743-43d7-afdf-31c4d5d3c429",
+	'../Odms.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("bb4f067a-327b-4fe2-bce3-572cd6210f78",
+	"0faa5a8f-4aed-40e1-93a1-9b7fbb502d68",
+	0,
+	"c84f66c5-fe11-4d0b-9356-23ad73b4a5c9",
+	"13de2b6f-892e-4b48-b042-854be5760133",
+	'../Odms.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("7f411df0-1332-49c0-a2fe-afe364963b38",
+	"f4068fc7-87f1-4aa3-98d1-cc62c371f39f",
+	"bb4f067a-327b-4fe2-bce3-572cd6210f78",
+	"0faa5a8f-4aed-40e1-93a1-9b7fbb502d68",
+	1,
+	'Disk_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("bb4f067a-327b-4fe2-bce3-572cd6210f78",
+	"0faa5a8f-4aed-40e1-93a1-9b7fbb502d68",
+	'../Disk/Disk.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("7f411df0-1332-49c0-a2fe-afe364963b38",
+	"f4068fc7-87f1-4aa3-98d1-cc62c371f39f",
+	"00000000-0000-0000-0000-000000000000",
+	'Disk_ID',
+	'Attribute Description:
+
+Attribute Domain:
+',
+	'',
+	'Disk_ID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"f4068fc7-87f1-4aa3-98d1-cc62c371f39f");
+INSERT INTO O_OIDA
+	VALUES ("7f411df0-1332-49c0-a2fe-afe364963b38",
+	"f4068fc7-87f1-4aa3-98d1-cc62c371f39f",
+	0,
+	'Disk_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"f4068fc7-87f1-4aa3-98d1-cc62c371f39f");
+INSERT INTO O_ID
+	VALUES (2,
+	"f4068fc7-87f1-4aa3-98d1-cc62c371f39f");
+INSERT INTO PE_PE
+	VALUES ("f4068fc7-87f1-4aa3-98d1-cc62c371f39f",
+	1,
+	"e96c6930-7be7-4437-abe5-f7d202c0cf0c",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("e96c6930-7be7-4437-abe5-f7d202c0cf0c",
+	"00000000-0000-0000-0000-000000000000",
+	"2a8f0b42-d0f7-4ec9-ac6f-3571c4caeba3",
+	'Odms',
+	'Subsystem Description:
+
+Relationship with other Subsystems:
+',
+	1,
+	'../Odms.xtuml');

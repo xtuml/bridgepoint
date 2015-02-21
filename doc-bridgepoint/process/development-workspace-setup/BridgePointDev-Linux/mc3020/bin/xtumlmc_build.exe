@@ -1481,10 +1481,10 @@ if ( -f $mccmd ) {
   close $outFile;
   # If we are compiling the model compiler itself, change the system name
   # and substitute &quot; symbols.
-  if ( -f "com.mentor.nucleus.bp.core.sql" ) {
-    # sed s/com.mentor.nucleus.bp.core/sys/ _system.sql > a.xtuml
+  if ( -f "org.xtuml.bp.core.sql" ) {
+    # sed s/org.xtuml.bp.core/sys/ _system.sql > a.xtuml
     my $inFile = xtumlmc_open( "<" . "$modelBeingTranslated" ); my $outFile = xtumlmc_open( ">" . "a.xtuml" );
-    while ( <$inFile> ) { s/com.mentor.nucleus.bp.core/sys/; print $outFile "$_"; }
+    while ( <$inFile> ) { s/org.xtuml.bp.core/sys/; print $outFile "$_"; }
     # Run compiled model compiler.
     system( "$mccmd > _system.pre" );
     # sed "s/&quot;/\\\\\"/g" _system.pre > _system.sql

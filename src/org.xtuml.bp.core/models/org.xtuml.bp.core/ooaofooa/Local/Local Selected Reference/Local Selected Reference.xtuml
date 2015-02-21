@@ -1,0 +1,128 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("19d5fca6-fede-484c-aa15-bca4a679ac35",
+	'Local Selected Reference',
+	3004,
+	'L_LSR',
+	'The Local Selected Reference class only exists when a "select related by where" or a "select from instances where" statement is executed.
+
+This local will exist within the block in stack frame of the executing block, and the selected reference call will be able to determine 
+what instance to use when evaluating the where selected.<attribute> clause.',
+	"9c0607c7-7a31-4f1a-885e-70c85a2396e0");
+INSERT INTO O_TFR
+	VALUES ("daf13151-0908-4ea3-ad32-af2e643a0662",
+	"19d5fca6-fede-484c-aa15-bca4a679ac35",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Local: Local Selected Reference.dispose()
+
+// Get all the instances related to this local reference
+select one sel_ref related by self->L_IWC[R3006];
+if (not_empty sel_ref)
+  unrelate self from sel_ref across R3006;
+  sel_ref.dispose();
+end if;
+
+select one lcl related by self->L_LCL[R3001];
+if ( not_empty lcl )
+  unrelate self from lcl across R3001;
+  lcl.dispose();
+end if;
+
+// Delete this local selected reference
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("19d5fca6-fede-484c-aa15-bca4a679ac35",
+	"0bb8d6b3-6fa2-4341-9505-3bca8a909233",
+	0,
+	"73922dc7-5321-4c3d-b215-53d891fad868",
+	"9cb98a86-b979-446a-b489-d9c291cbfda1",
+	"bdedbf1f-3572-4e88-b988-1c10f4f0a028",
+	"b87380be-abbd-485a-9f7c-0a70e51be4ad",
+	"e3515b60-67e2-4a87-9390-3e7f82838355",
+	"19a701f1-b4b0-4758-ab81-85ad99b0c3b1",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Local',
+	'Local_ID',
+	'R3001');
+INSERT INTO R_RGO_PROXY
+	VALUES ("19d5fca6-fede-484c-aa15-bca4a679ac35",
+	"9cb98a86-b979-446a-b489-d9c291cbfda1",
+	"bdedbf1f-3572-4e88-b988-1c10f4f0a028",
+	'../Local.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("73922dc7-5321-4c3d-b215-53d891fad868",
+	"0bb8d6b3-6fa2-4341-9505-3bca8a909233",
+	0,
+	"9cb98a86-b979-446a-b489-d9c291cbfda1",
+	"b87380be-abbd-485a-9f7c-0a70e51be4ad",
+	'../Local.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("e3515b60-67e2-4a87-9390-3e7f82838355",
+	"19d5fca6-fede-484c-aa15-bca4a679ac35",
+	"73922dc7-5321-4c3d-b215-53d891fad868",
+	"0bb8d6b3-6fa2-4341-9505-3bca8a909233",
+	1,
+	'Local_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("73922dc7-5321-4c3d-b215-53d891fad868",
+	"0bb8d6b3-6fa2-4341-9505-3bca8a909233",
+	'../Local/Local.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("e3515b60-67e2-4a87-9390-3e7f82838355",
+	"19d5fca6-fede-484c-aa15-bca4a679ac35",
+	"00000000-0000-0000-0000-000000000000",
+	'Local_ID',
+	'',
+	'',
+	'Local_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"19d5fca6-fede-484c-aa15-bca4a679ac35");
+INSERT INTO O_OIDA
+	VALUES ("e3515b60-67e2-4a87-9390-3e7f82838355",
+	"19d5fca6-fede-484c-aa15-bca4a679ac35",
+	0,
+	'Local_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"19d5fca6-fede-484c-aa15-bca4a679ac35");
+INSERT INTO O_ID
+	VALUES (2,
+	"19d5fca6-fede-484c-aa15-bca4a679ac35");
+INSERT INTO S_SS_PROXY
+	VALUES ("9c0607c7-7a31-4f1a-885e-70c85a2396e0",
+	'Local',
+	'Persistent:false
+',
+	'L',
+	0,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Local.xtuml');

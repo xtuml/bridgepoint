@@ -1,0 +1,143 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("e12cbbac-1b80-406f-b3ad-a6d745b59761",
+	'Component Package in Package',
+	4601,
+	'CP_CPINP',
+	'',
+	"460d8f27-2f3b-47c5-a5a0-216ec7f4a829");
+INSERT INTO O_TFR
+	VALUES ("bf6febbe-2f5e-4254-be6c-986c260839dc",
+	"e12cbbac-1b80-406f-b3ad-a6d745b59761",
+	'dispose',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// PE_PE navigation is present (isInGenericPackage).  Do not remove this comment.
+select one componentPackage related by self->CP_CP[R4601];
+if(not_empty componentPackage)
+  unrelate self from componentPackage across R4601;
+  componentPackage.dispose();
+end if;
+select one componentPackage related by self->CP_CP[R4600];
+if(not_empty componentPackage)
+  unrelate self from componentPackage across R4600;
+end if;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("11a322d0-9d36-4206-91ee-5a8179934949",
+	"e12cbbac-1b80-406f-b3ad-a6d745b59761");
+INSERT INTO O_BATTR
+	VALUES ("11a322d0-9d36-4206-91ee-5a8179934949",
+	"e12cbbac-1b80-406f-b3ad-a6d745b59761");
+INSERT INTO O_ATTR
+	VALUES ("11a322d0-9d36-4206-91ee-5a8179934949",
+	"e12cbbac-1b80-406f-b3ad-a6d745b59761",
+	"00000000-0000-0000-0000-000000000000",
+	'Id',
+	'',
+	'',
+	'Id',
+	0,
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("e12cbbac-1b80-406f-b3ad-a6d745b59761",
+	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
+	0,
+	"c75805b5-b512-4d99-97ee-933159f33062",
+	"3207acb5-1fae-42ff-8876-29c53dc68add",
+	"8fb227a0-c938-4dac-a8da-92c38b93d439",
+	"306ee6a2-e639-44a9-82c8-8fdc5e1a0488",
+	"e1e9c286-a56e-4ab7-bcca-9eafb32688b4",
+	"cbdcc6ed-9f20-4ca3-8d1a-e7dd8f3e433e",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Component Package',
+	'Package_ID',
+	'R4600');
+INSERT INTO R_RGO_PROXY
+	VALUES ("e12cbbac-1b80-406f-b3ad-a6d745b59761",
+	"3207acb5-1fae-42ff-8876-29c53dc68add",
+	"8fb227a0-c938-4dac-a8da-92c38b93d439",
+	'../Component Packaging.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("c75805b5-b512-4d99-97ee-933159f33062",
+	"76aac5bd-1f3f-409b-bf58-ab587f190bfd",
+	0,
+	"3207acb5-1fae-42ff-8876-29c53dc68add",
+	"306ee6a2-e639-44a9-82c8-8fdc5e1a0488",
+	'../Component Packaging.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("e1e9c286-a56e-4ab7-bcca-9eafb32688b4",
+	"e12cbbac-1b80-406f-b3ad-a6d745b59761",
+	"a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	1,
+	'Package_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("a5a1b94e-be2f-4750-bd58-cf1c2713558a",
+	"cf4966b0-706a-4373-a2ee-7e706918813c",
+	'../../../Element Packaging/Specification Package/Specification Package.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("e1e9c286-a56e-4ab7-bcca-9eafb32688b4",
+	"e12cbbac-1b80-406f-b3ad-a6d745b59761",
+	"11a322d0-9d36-4206-91ee-5a8179934949",
+	'Parent_Package_ID',
+	'',
+	'Parent_',
+	'Package_ID',
+	1,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"e12cbbac-1b80-406f-b3ad-a6d745b59761");
+INSERT INTO O_OIDA
+	VALUES ("11a322d0-9d36-4206-91ee-5a8179934949",
+	"e12cbbac-1b80-406f-b3ad-a6d745b59761",
+	0,
+	'Id');
+INSERT INTO O_ID
+	VALUES (1,
+	"e12cbbac-1b80-406f-b3ad-a6d745b59761");
+INSERT INTO O_ID
+	VALUES (2,
+	"e12cbbac-1b80-406f-b3ad-a6d745b59761");
+INSERT INTO S_SS_PROXY
+	VALUES ("460d8f27-2f3b-47c5-a5a0-216ec7f4a829",
+	'Component Packaging',
+	'',
+	'CP',
+	4600,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000000000",
+	'../Component Packaging.xtuml');

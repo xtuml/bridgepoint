@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ File:      $RCSfile: SummarizeJunitTests.xml,v $
+ Version:   $Revision: 1.3 $
+ Modified:  $Date: 2013/05/15 20:03:46 $
+
+ (c) Copyright 2011-2014 by Mentor Graphics Corp.  All rights reserved.
+
+ This build is used to create a summaru of the BridgePoint unit test results.
+ The 1-page summary of the test suite restuls is what we check-in to revision
+ control.  It must show the suites, error (if any) and the time to run.
+ 
+ Note: This is a work in progress.  At the moment it report the test times but 
+       not the success/failure.
+-->
+<project name="bp.internal.tools" default="SummarizeResults" basedir=".">
+
+	<property environment="env"/>
+    <property name="unittestPath" value="${env.MGC_EMBEDDED_HOME}/eclipse/test_results/" />
+
+	<target name="SummarizeResults" description="Summarize the BridgePoint unit test results">
+	    <!-- 
+	      --   Strip out the "testrun" tag in the xml file.  The junitreport 
+	      --    expects this xml file to start with "testsuite", and if it does 
+	      --    not it will not process the files
+	      --> 
+		<replaceregexp match=".*{1}/?testrun.*" replace="" flags="g" byline="true">
+		  <fileset dir="${unittestPath}">
+		    <include name="*.xml"/>
+		    <exclude name="TESTS-TestSuites.xml"/>
+		  </fileset>
+		</replaceregexp>
+	
+	    <!--
+	      -- Run the report
+	      -->
+		<junitreport todir="${unittestPath}">
+		  <fileset dir="${unittestPath}">
+		    <include name="*.xml"/>
+		    <exclude name="TESTS-TestSuites.xml"/>
+		  </fileset>
+		  <report format="frames" todir="${unittestPath}/html"/>
+		</junitreport>
+	</target>
+
+</project>

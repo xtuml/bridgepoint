@@ -1,0 +1,444 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("c8810489-2604-4445-a195-28192dee1e41",
+	'Node',
+	1,
+	'N',
+	'Everything in the tree captured by this domain is a node.
+A node always has a parent (unless it''s the root node)
+Nodes have siblings (that are arranged in a specific order)
+If a node has a ancestor that is a Rule, we keep a reference to
+the Rule, so the Rule can find all of its descendents quickly.',
+	"5edea08f-a6e1-4146-8e1c-0cade7a477c7");
+INSERT INTO O_NBATTR
+	VALUES ("b9e2878f-bc2d-454f-ab46-c30f6f787fda",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_BATTR
+	VALUES ("b9e2878f-bc2d-454f-ab46-c30f6f787fda",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_ATTR
+	VALUES ("b9e2878f-bc2d-454f-ab46-c30f6f787fda",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	"00000000-0000-0000-0000-000000000000",
+	'nodeId',
+	'This is the identifier for the node.  
+It is a string that is an arbitrary number.
+
+',
+	'',
+	'nodeId',
+	0,
+	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8bc628ed-3494-4e74-bb6a-ec37622127df",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("c8810489-2604-4445-a195-28192dee1e41",
+	"20b4194f-f64d-47b7-896d-542dccf5f8c7",
+	0,
+	"0023f589-56a9-4097-8ca8-34e9cb0f6ec1",
+	"0995f307-34ee-4285-a719-420d2c7d8536",
+	"c1aff3d1-1a1c-4a37-9347-f4ed0db34ceb",
+	"4bc55380-e6e5-41a2-9bce-826d56f94a5c",
+	"f0871d2f-487e-4683-98ac-59fc1aa041e7",
+	"bc1d80dc-b048-409b-8cf0-ba027360c0d2",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Non Leaf Node',
+	'nodeId',
+	'R5');
+INSERT INTO R_RGO_PROXY
+	VALUES ("c8810489-2604-4445-a195-28192dee1e41",
+	"0995f307-34ee-4285-a719-420d2c7d8536",
+	"c1aff3d1-1a1c-4a37-9347-f4ed0db34ceb",
+	'../BNF.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0023f589-56a9-4097-8ca8-34e9cb0f6ec1",
+	"20b4194f-f64d-47b7-896d-542dccf5f8c7",
+	0,
+	"0995f307-34ee-4285-a719-420d2c7d8536",
+	"4bc55380-e6e5-41a2-9bce-826d56f94a5c",
+	'../BNF.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("f0871d2f-487e-4683-98ac-59fc1aa041e7",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	"b9e2878f-bc2d-454f-ab46-c30f6f787fda",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	1,
+	'nodeId');
+INSERT INTO O_ATTR
+	VALUES ("f0871d2f-487e-4683-98ac-59fc1aa041e7",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	"b9e2878f-bc2d-454f-ab46-c30f6f787fda",
+	'parent_nodeId',
+	'This is the identifier of the parent of this node.
+It may be null if the node is the root node (i.e., has no parent).
+
+',
+	'parent_',
+	'nodeId',
+	1,
+	"73db19ab-e535-4718-ab07-668918299d9a",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("73db19ab-e535-4718-ab07-668918299d9a",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("c8810489-2604-4445-a195-28192dee1e41",
+	"50596432-249d-4b43-b1db-deea1f96bd06",
+	0,
+	"afd460e0-775d-4836-addc-2f842122f074",
+	"2fcce84b-b759-4ea8-b513-ab2249e5dbf6",
+	"03e8efbb-2855-436d-a154-728a2911f793",
+	"47cedece-dd11-42bc-babf-21e4e066ef47",
+	"77339337-c72b-4713-90aa-63b8aa1bd6e2",
+	"1fc28031-10ff-48b5-86aa-c9843faab3e5",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Rule',
+	'nodeId',
+	'R6');
+INSERT INTO R_RGO_PROXY
+	VALUES ("c8810489-2604-4445-a195-28192dee1e41",
+	"2fcce84b-b759-4ea8-b513-ab2249e5dbf6",
+	"03e8efbb-2855-436d-a154-728a2911f793",
+	'../BNF.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("afd460e0-775d-4836-addc-2f842122f074",
+	"50596432-249d-4b43-b1db-deea1f96bd06",
+	0,
+	"2fcce84b-b759-4ea8-b513-ab2249e5dbf6",
+	"47cedece-dd11-42bc-babf-21e4e066ef47",
+	'../BNF.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("77339337-c72b-4713-90aa-63b8aa1bd6e2",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	"b9e2878f-bc2d-454f-ab46-c30f6f787fda",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	1,
+	'nodeId');
+INSERT INTO O_ATTR
+	VALUES ("77339337-c72b-4713-90aa-63b8aa1bd6e2",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	"f0871d2f-487e-4683-98ac-59fc1aa041e7",
+	'containing_rule_nodeId',
+	'This is the identifier of the rule this node
+is a subtree of.  May be null if this node isn''t
+contained in a rule.
+
+',
+	'containing_rule_',
+	'nodeId',
+	1,
+	"73db19ab-e535-4718-ab07-668918299d9a",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("c8810489-2604-4445-a195-28192dee1e41",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	0,
+	"b9e2878f-bc2d-454f-ab46-c30f6f787fda",
+	"c4b5db38-7648-4162-bb2d-6de5e567aac2",
+	"99d402d3-42b3-4325-9b86-64764161ba45",
+	"58091c0c-faa6-446a-9d82-79d139a35fe9",
+	"bdd95619-dc78-41c6-b52a-084a34412b1e",
+	"7d9a5062-b51f-486c-9728-a2d13535c6e3",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Node',
+	'nodeId',
+	'R7');
+INSERT INTO R_RGO_PROXY
+	VALUES ("c8810489-2604-4445-a195-28192dee1e41",
+	"c4b5db38-7648-4162-bb2d-6de5e567aac2",
+	"99d402d3-42b3-4325-9b86-64764161ba45",
+	'../BNF.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("b9e2878f-bc2d-454f-ab46-c30f6f787fda",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	0,
+	"c4b5db38-7648-4162-bb2d-6de5e567aac2",
+	"58091c0c-faa6-446a-9d82-79d139a35fe9",
+	'../BNF.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("bdd95619-dc78-41c6-b52a-084a34412b1e",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	"b9e2878f-bc2d-454f-ab46-c30f6f787fda",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	1,
+	'nodeId');
+INSERT INTO O_ATTR
+	VALUES ("bdd95619-dc78-41c6-b52a-084a34412b1e",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	"77339337-c72b-4713-90aa-63b8aa1bd6e2",
+	'next_nodeId',
+	'This is the identifier of the next node in the list of nodes
+with the same parent_nodeId.  It will be null if this is the first node in the list.',
+	'next_',
+	'nodeId',
+	1,
+	"73db19ab-e535-4718-ab07-668918299d9a",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("5f4842fe-a9f0-4fbb-b50e-195f1800019b",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_BATTR
+	VALUES ("5f4842fe-a9f0-4fbb-b50e-195f1800019b",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_ATTR
+	VALUES ("5f4842fe-a9f0-4fbb-b50e-195f1800019b",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	"bdd95619-dc78-41c6-b52a-084a34412b1e",
+	'node_type',
+	'This is the type of the node.
+Values:  "Nonleaf", "Leaf"',
+	'',
+	'node_type',
+	0,
+	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("2e577785-daba-4132-8fd3-25a7428a1162",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_BATTR
+	VALUES ("2e577785-daba-4132-8fd3-25a7428a1162",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_ATTR
+	VALUES ("2e577785-daba-4132-8fd3-25a7428a1162",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	"5f4842fe-a9f0-4fbb-b50e-195f1800019b",
+	'validation_required',
+	'This attribute is only used at generation time.
+If it is true, then we need a validation function for this node.',
+	'',
+	'validation_required',
+	0,
+	"c9b1caa6-e86a-4dfe-a5ea-dafda119de4f",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("c9b1caa6-e86a-4dfe-a5ea-dafda119de4f",
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("0f97a944-7b2c-4a02-b5ac-64194da35202",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_BATTR
+	VALUES ("0f97a944-7b2c-4a02-b5ac-64194da35202",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_ATTR
+	VALUES ("0f97a944-7b2c-4a02-b5ac-64194da35202",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	"2e577785-daba-4132-8fd3-25a7428a1162",
+	'validation_label',
+	'This attribute is only used at generation time.
+This attribute contains the label that has the value of
+the AST that the validation function will operate on.
+It typically has a value of "ast${index}_iD" where index
+is an arbitrary integer.',
+	'',
+	'validation_label',
+	0,
+	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("4a7d62e3-d724-48e1-90e8-8c1adb4dd164",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_BATTR
+	VALUES ("4a7d62e3-d724-48e1-90e8-8c1adb4dd164",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_ATTR
+	VALUES ("4a7d62e3-d724-48e1-90e8-8c1adb4dd164",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	"0f97a944-7b2c-4a02-b5ac-64194da35202",
+	'label_required',
+	'This attribute is only used at generation time.
+If it is true, then we need a label to hold the value of
+the AST for this node.',
+	'',
+	'label_required',
+	0,
+	"c9b1caa6-e86a-4dfe-a5ea-dafda119de4f",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("3e44862d-77e1-4c26-ab3b-5c61ee3a6c8d",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_BATTR
+	VALUES ("3e44862d-77e1-4c26-ab3b-5c61ee3a6c8d",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_ATTR
+	VALUES ("3e44862d-77e1-4c26-ab3b-5c61ee3a6c8d",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	"4a7d62e3-d724-48e1-90e8-8c1adb4dd164",
+	'label_emitted',
+	'This attribute is only used at generation time.
+If it is true, then the text for the validation label has been emitted.',
+	'',
+	'label_emitted',
+	0,
+	"c9b1caa6-e86a-4dfe-a5ea-dafda119de4f",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("5977cf91-0a81-42f7-88eb-98914daa2834",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_BATTR
+	VALUES ("5977cf91-0a81-42f7-88eb-98914daa2834",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_ATTR
+	VALUES ("5977cf91-0a81-42f7-88eb-98914daa2834",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	"3e44862d-77e1-4c26-ab3b-5c61ee3a6c8d",
+	'label_dcl_emitted',
+	'This attribute is only used at generation time.
+If it is true, then the declaration of the label has been emitted.',
+	'',
+	'label_dcl_emitted',
+	0,
+	"c9b1caa6-e86a-4dfe-a5ea-dafda119de4f",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("77c2ceb2-1322-4efc-9741-cdb3f08cf959",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_BATTR
+	VALUES ("77c2ceb2-1322-4efc-9741-cdb3f08cf959",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_ATTR
+	VALUES ("77c2ceb2-1322-4efc-9741-cdb3f08cf959",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	"5977cf91-0a81-42f7-88eb-98914daa2834",
+	'label',
+	'This attribute is only used at generation time.
+This attribute contains the string that is the label for this node.',
+	'',
+	'label',
+	0,
+	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("24854987-523d-4fae-99ab-b866f852e4d3",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_BATTR
+	VALUES ("24854987-523d-4fae-99ab-b866f852e4d3",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_ATTR
+	VALUES ("24854987-523d-4fae-99ab-b866f852e4d3",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	"77c2ceb2-1322-4efc-9741-cdb3f08cf959",
+	'pre_attach',
+	'This attribute is only used at generation time.
+This attribute contains all text that should be output before
+the node data.',
+	'',
+	'pre_attach',
+	0,
+	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("fbb1d103-f141-495f-9601-3d1a350fd894",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_BATTR
+	VALUES ("fbb1d103-f141-495f-9601-3d1a350fd894",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_ATTR
+	VALUES ("fbb1d103-f141-495f-9601-3d1a350fd894",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	"24854987-523d-4fae-99ab-b866f852e4d3",
+	'post_attach',
+	'This attribute is only used at generation time.
+This attribute contains all the data that should be output after 
+the node''s data.
+',
+	'',
+	'post_attach',
+	0,
+	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("e644fb3b-5dc2-4996-8b16-3a66cb05c8f4",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_BATTR
+	VALUES ("e644fb3b-5dc2-4996-8b16-3a66cb05c8f4",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_ATTR
+	VALUES ("e644fb3b-5dc2-4996-8b16-3a66cb05c8f4",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	"fbb1d103-f141-495f-9601-3d1a350fd894",
+	'value',
+	'This attribute is only used at generation time.
+This attribute contains either the rule name (for rules) or
+the terminal value ( for terms).',
+	'',
+	'value',
+	0,
+	"8bc628ed-3494-4e74-bb6a-ec37622127df",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("25e2df35-e624-4301-856d-b193d019e3b7",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_BATTR
+	VALUES ("25e2df35-e624-4301-856d-b193d019e3b7",
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_ATTR
+	VALUES ("25e2df35-e624-4301-856d-b193d019e3b7",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	"e644fb3b-5dc2-4996-8b16-3a66cb05c8f4",
+	'in_options_sequence',
+	'This attribute is only used at generation time.
+If it is true, then this node is part of the ''options'' clause.',
+	'',
+	'in_options_sequence',
+	0,
+	"c9b1caa6-e86a-4dfe-a5ea-dafda119de4f",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_OIDA
+	VALUES ("b9e2878f-bc2d-454f-ab46-c30f6f787fda",
+	"c8810489-2604-4445-a195-28192dee1e41",
+	0,
+	'nodeId');
+INSERT INTO O_ID
+	VALUES (1,
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO O_ID
+	VALUES (2,
+	"c8810489-2604-4445-a195-28192dee1e41");
+INSERT INTO S_SS_PROXY
+	VALUES ("5edea08f-a6e1-4146-8e1c-0cade7a477c7",
+	'BNF',
+	'',
+	'',
+	1,
+	"c7485938-5b68-46c4-bc59-f0bb9c943851",
+	"00000000-0000-0000-0000-000000100002",
+	'../BNF.xtuml');

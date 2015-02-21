@@ -1,0 +1,34 @@
+LogInfo:  Starting Verifier event specification i1694 test
+LogInfo:  Starting assigner test
+LogSuccess:  Assigner test: Pass
+LogInfo:  Starting creator test
+LogSuccess:  Creator test: Pass
+LogInfo:  Starting standard test
+LogSuccess:  Standard test: Pass
+LogInfo:  Starting event ordering test
+LogSuccess:  Event ordering test: Pass
+LogInfo:  Starting creator with event data items test
+LogSuccess:  Test creator with event data items: Pass
+LogInfo:  Starting creator without using event test
+LogSuccess:  Test creator without using event: Pass
+LogInfo:  Starting multiple creation events test
+LogSuccess:  Test multiple creation events: Pass
+LogInfo:  Starting Final State test
+LogSuccess:  Test final state: Pass
+LogInfo:  Starting event to self prioritization test
+LogSuccess:  Test event to self prioritization: Pass
+LogInfo:  Starting event to self prioritization without self keyword test
+LogInfo:              **********************************
+LogInfo:  The following LogFailure message is the current expected result.
+LogInfo:  See Bugzilla issue 2032 for more information.
+LogInfo:              **********************************
+LogFailure:  Test event to self prioritization without self keyword: FAIL
+LogInfo:  Starting assigner event to self prioritization test
+LogSuccess:  Test assigner event to self prioritization: Pass
+LogInfo:  Starting generating stored events twice test
+Could not fire event CALLSTOREDEVENTTWICE2: go to  because the event has already been fired. at CALLSTOREDEVENTTWICE2::Instance Based Satate Machine::Verifier_event_specification_statements_test::Verifier_event_specification_statements_test::Verifier_event_specification_statements_test::test::Call stored event twice::Call stored event twice
+LogSuccess:  Test generating stored events twice test: Pass
+LogInfo:  Test multiple events to other instances
+LogSuccess:  Test multiple events to other instances: Pass
+LogInfo:  Tests complete.  Calling xit()
+LogInfo:  Test complete. Shutting down.

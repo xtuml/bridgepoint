@@ -1,0 +1,92 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("cd4fdb55-c935-485c-af63-77515b5963d5",
+	'Door',
+	5,
+	'MO_D',
+	'The hinged oven door, opened with an electro-mechanical release button on the control panel, and secured by steady force to the door front. The door is a vital safety component of the oven. The door must be securely closed before the oven tube can be powered on. 
+',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_NBATTR
+	VALUES ("c7497b6a-dbf5-40dd-ae4b-2b353a570740",
+	"cd4fdb55-c935-485c-af63-77515b5963d5");
+INSERT INTO O_BATTR
+	VALUES ("c7497b6a-dbf5-40dd-ae4b-2b353a570740",
+	"cd4fdb55-c935-485c-af63-77515b5963d5");
+INSERT INTO O_ATTR
+	VALUES ("c7497b6a-dbf5-40dd-ae4b-2b353a570740",
+	"cd4fdb55-c935-485c-af63-77515b5963d5",
+	"00000000-0000-0000-0000-000000000000",
+	'DoorID',
+	'The uniquely-specified door identifier. ',
+	'',
+	'DoorID',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("e1d4139a-8e90-4b64-ab6b-29ab1d003b0a",
+	"cd4fdb55-c935-485c-af63-77515b5963d5");
+INSERT INTO O_BATTR
+	VALUES ("e1d4139a-8e90-4b64-ab6b-29ab1d003b0a",
+	"cd4fdb55-c935-485c-af63-77515b5963d5");
+INSERT INTO O_ATTR
+	VALUES ("e1d4139a-8e90-4b64-ab6b-29ab1d003b0a",
+	"cd4fdb55-c935-485c-af63-77515b5963d5",
+	"c7497b6a-dbf5-40dd-ae4b-2b353a570740",
+	'is_secure',
+	'A boolean status attribute reflecting whether the door is currently closed (secure) or open (not secure). ',
+	'',
+	'is_secure',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000001",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("c7f7c41a-8632-48a1-bfd5-f4e058f359e4",
+	"cd4fdb55-c935-485c-af63-77515b5963d5");
+INSERT INTO O_BATTR
+	VALUES ("c7f7c41a-8632-48a1-bfd5-f4e058f359e4",
+	"cd4fdb55-c935-485c-af63-77515b5963d5");
+INSERT INTO O_ATTR
+	VALUES ("c7f7c41a-8632-48a1-bfd5-f4e058f359e4",
+	"cd4fdb55-c935-485c-af63-77515b5963d5",
+	"e1d4139a-8e90-4b64-ab6b-29ab1d003b0a",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"cd4fdb55-c935-485c-af63-77515b5963d5");
+INSERT INTO O_OIDA
+	VALUES ("c7497b6a-dbf5-40dd-ae4b-2b353a570740",
+	"cd4fdb55-c935-485c-af63-77515b5963d5",
+	0,
+	'DoorID');
+INSERT INTO O_ID
+	VALUES (1,
+	"cd4fdb55-c935-485c-af63-77515b5963d5");
+INSERT INTO O_ID
+	VALUES (2,
+	"cd4fdb55-c935-485c-af63-77515b5963d5");
+INSERT INTO PE_PE
+	VALUES ("cd4fdb55-c935-485c-af63-77515b5963d5",
+	1,
+	"235fff0c-3d20-4fa1-8536-1c30278a65d1",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("235fff0c-3d20-4fa1-8536-1c30278a65d1",
+	"00000000-0000-0000-0000-000000000000",
+	"9cd2cdcf-1f2b-42ce-bc35-718a90a05cab",
+	'Microwave Oven',
+	'The microwave oven subsystem models the microwave oven application',
+	1,
+	'../Microwave Oven.xtuml');

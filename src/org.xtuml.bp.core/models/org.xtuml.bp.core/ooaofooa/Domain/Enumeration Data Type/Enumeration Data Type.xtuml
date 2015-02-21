@@ -1,0 +1,642 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("942a736a-d379-4a82-9b01-d8e56ae947be",
+	'Enumeration Data Type',
+	14,
+	'S_EDT',
+	'An enumeration is a data type represented by a set of constants called enumerators.  For example, an enumeration called Colors might have three enumerators Red, Blue, and Green.',
+	"703df30a-ee7e-44ec-a7cf-22d2171bb270");
+INSERT INTO O_TFR
+	VALUES ("5a836da8-28c7-4c67-8698-a1ea208a9beb",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'dispose',
+	'The dispose operation for this class.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select many enums related by self->S_ENUM[R27];
+for each enum in enums
+  enum.dispose();
+end for;
+select one dt related by self->S_DT[R17];
+unrelate self from dt across R17;
+delete object instance self;',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("0d82a309-a960-4da8-8c5f-7deb49eea4c0",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'newEnumerator',
+	'Create a new enumerator for this enumeration.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'create object instance enum of S_ENUM;
+relate self to enum across R27;
+enum.initialize();
+',
+	1,
+	'',
+	"f260219c-1f60-4a87-b9ac-8b4de63df68b");
+INSERT INTO O_TFR
+	VALUES ("dfa0b081-15d3-45c1-9795-57d4de5f934d",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'rename',
+	'Rename this enumeration data type.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select one dt related by self->S_DT[R17];
+dt.Name = param.new_name;
+',
+	1,
+	'',
+	"0d82a309-a960-4da8-8c5f-7deb49eea4c0");
+INSERT INTO O_TPARM
+	VALUES ("90016e48-9f4d-44ef-9554-34b1b123c7c2",
+	"dfa0b081-15d3-45c1-9795-57d4de5f934d",
+	'new_name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("528ced7e-5308-4195-8093-ca0c55401f58",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'string',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("c92814ad-31d2-46ac-9f8d-c36cb9aeab18",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'get_name',
+	'Return the name of this enumeration data type.',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one dt related by self->S_DT[R17];
+if (empty dt)
+  return "";
+else
+  return dt.Name;
+end if;',
+	1,
+	'',
+	"682c49b8-2692-46a9-968b-0855f05ffbbc");
+INSERT INTO O_TFR
+	VALUES ("bbacff2d-8698-40c9-8d74-c247f16bfac4",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'get_ooa_id',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'return self.DT_ID;',
+	1,
+	'',
+	"c92814ad-31d2-46ac-9f8d-c36cb9aeab18");
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("5855e55d-91b8-4648-b72a-81f5a76084ff",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'get_compartment_text',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'result = "";
+if (param.comp_num == 1)
+  if (param.at == Justification::Center_in_X)
+   result = "«enumeration»";
+    result = result + GD::newline();
+    select one selfDt related by self->S_DT[R17];
+    if ( not_empty selfDt )
+      result = result + selfDt.Name;
+      select one pe related by selfDt->PE_PE[R8001];
+      if not_empty pe
+        result = pe.getVisibilityAdornment() + result;
+      end if;
+    else
+      result = result + ::getOrphanedElementName();
+    end if;
+  end if;
+else
+  if (param.at == Justification::Left)
+    select any enum related by self->S_ENUM[R27] where (selected.Previous_Enum_ID == GD::NULL_UNIQUE_ID());
+    cursor = param.ent_num;
+    while (not_empty enum AND cursor > 1)
+      select one enum related by enum->S_ENUM[R56.''precedes''];
+      cursor = cursor - 1;
+    end while;
+    if (empty enum) 
+      result = "";
+    else
+      result = enum.Name;
+    end if;
+  end if;
+end if;
+return result;',
+	1,
+	'',
+	"5a836da8-28c7-4c67-8698-a1ea208a9beb");
+INSERT INTO O_TPARM
+	VALUES ("dbe37b9a-bb04-448e-98b8-0b63932269e2",
+	"5855e55d-91b8-4648-b72a-81f5a76084ff",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"552ace2d-91b4-4d82-8b90-039289fd26cb",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'integer',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TPARM
+	VALUES ("49d5af47-396c-4b65-8b23-61913540570a",
+	"5855e55d-91b8-4648-b72a-81f5a76084ff",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"dbe37b9a-bb04-448e-98b8-0b63932269e2",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("552ace2d-91b4-4d82-8b90-039289fd26cb",
+	"5855e55d-91b8-4648-b72a-81f5a76084ff",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Justification',
+	'The Justification data type is used to specify text at a given location in a compartment.
+------------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("abe4ae4f-0d36-4d80-bc48-d91577309d8c",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'get_compartments',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'return 2;',
+	1,
+	'',
+	"5855e55d-91b8-4648-b72a-81f5a76084ff");
+INSERT INTO O_TFR
+	VALUES ("682c49b8-2692-46a9-968b-0855f05ffbbc",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'get_entries',
+	'',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	1,
+	'if (param.comp_num == 1)
+  return 1;
+else
+  select many enums related by self->S_ENUM[R27];
+  return cardinality enums;
+end if;',
+	1,
+	'',
+	"abe4ae4f-0d36-4d80-bc48-d91577309d8c");
+INSERT INTO O_TPARM
+	VALUES ("9e5d5b42-8d75-4630-bbf2-6590f195fd0e",
+	"682c49b8-2692-46a9-968b-0855f05ffbbc",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("32ce073a-64da-433b-ad78-92d2bb00e411",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'get_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::Box;',
+	1,
+	'',
+	"bbacff2d-8698-40c9-8d74-c247f16bfac4");
+INSERT INTO S_DT_PROXY
+	VALUES ("6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'Style',
+	'The Style data type specifies the precise form a graphical element will take when drawn.
+--------------------------------------------------------------------------
+Bridge:GD',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("a873d187-4375-4f60-b16e-d4c38021502f",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'get_text_style',
+	'',
+	"6e636321-0fd1-4577-b185-e4d76b0d0c71",
+	1,
+	'return Style::None;',
+	1,
+	'',
+	"32ce073a-64da-433b-ad78-92d2bb00e411");
+INSERT INTO O_TPARM
+	VALUES ("b66da827-4ea2-4d5b-803e-7f4297465cf3",
+	"a873d187-4375-4f60-b16e-d4c38021502f",
+	'comp_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"9cf1f03b-5b7f-4462-9f85-b3d3ab257663",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("87d0df8e-e34d-42a6-becf-67e91eabff2e",
+	"a873d187-4375-4f60-b16e-d4c38021502f",
+	'ent_num',
+	"79904a6c-8631-4ce7-a3ee-faf5eaa46dd8",
+	0,
+	'',
+	"b66da827-4ea2-4d5b-803e-7f4297465cf3",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("9cf1f03b-5b7f-4462-9f85-b3d3ab257663",
+	"a873d187-4375-4f60-b16e-d4c38021502f",
+	'at',
+	"a9382bea-4a3f-43ec-9191-1f9f158b11a4",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("f260219c-1f60-4a87-b9ac-8b4de63df68b",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'initializeOrder',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Alpha-sort the S_ENUM elements if they have not yet been ordered
+select many peers related by self->S_ENUM[R27];
+if (cardinality peers > 1)
+    initialOrderingCheckPerformed = false;
+	select any head related by self->S_ENUM[R27] where (selected.Enum_ID == GD::NULL_UNIQUE_ID());
+	endOfList = head;
+    loopCnt = 0;
+	for each peer in peers
+	  if ( not initialOrderingCheckPerformed )
+	    select one predecessor related by peer->S_ENUM[R56.''precedes''];
+	    select one successor related by peer->S_ENUM[R56.''succeeds''];
+	    initialOrderingCheckPerformed = true;
+	    if (not_empty  predecessor or not_empty  successor)
+	      // Already ordered
+	      break;
+	    end if;
+	    head = peer;
+	    endOfList = peer;
+	  end if;
+	  
+      if (loopCnt == 1)
+        if (peer.Name < head.Name)
+          relate peer to head across R56.''precedes'';
+          endOfList = peer;
+        else
+          relate head to peer across R56.''precedes'';
+          head = peer;
+        end if;
+      elif (loopCnt > 1)
+        insertPoint = head;
+        select one next related by head->S_ENUM[R56.''succeeds''];
+        while (not_empty next)
+          if (next.Name < peer.Name)
+            break;
+          else
+            insertPoint = next;          
+            select one next related by next->S_ENUM[R56.''succeeds''];
+          end if;
+        end while;
+        
+        if (empty next)
+          // New end of list
+          relate peer to endOfList across R56.''precedes'';   
+          endOfList = peer;       
+        else
+          if ((insertPoint == head) and (peer.Name > head.Name))
+            // New head
+            relate head to peer across R56.''precedes'';
+            head = peer;
+          else
+            unrelate next from insertPoint across R56.''precedes'';
+            relate peer to insertPoint across R56.''precedes'';
+            relate next to peer across R56.''precedes'';
+          end if;          
+        end if;
+      end if;
+      
+      loopCnt = loopCnt + 1;
+	end for;
+end if;',
+	1,
+	'',
+	"a873d187-4375-4f60-b16e-d4c38021502f");
+INSERT INTO O_TFR
+	VALUES ("86fd6044-986c-4697-b19f-d48893356412",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'actionFilter',
+	'',
+	"8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	1,
+	'if(param.name == "can")
+	if param.value == "make public"
+		select one pe related by self->S_DT[R17]->PE_PE[R8001];
+		select one pkg related by pe->EP_PKG[R8000];
+		if not_empty pkg
+			if not_empty pe 
+				return pe.Visibility != Visibility::Public;
+			end if;
+		end if;
+	end if;
+	if param.value == "make protected"
+		select one pe related by self->S_DT[R17]->PE_PE[R8001];
+		select one pkg related by pe->EP_PKG[R8000];
+		if not_empty pkg
+    		if not_empty pe 
+      			return pe.Visibility != Visibility::Protected;
+    		end if;
+  		end if;
+  	end if;
+	if param.value == "make private"
+		select one pe related by self->S_DT[R17]->PE_PE[R8001];
+		select one pkg related by pe->EP_PKG[R8000];
+		if not_empty pkg
+    		if not_empty pe 
+      			return pe.Visibility != Visibility::Private;
+    		end if;
+  		end if;
+  	end if;
+end if;
+return false;',
+	1,
+	'',
+	"dfa0b081-15d3-45c1-9795-57d4de5f934d");
+INSERT INTO O_TPARM
+	VALUES ("1b4f3cce-414b-48e9-be80-a9c6af2029bf",
+	"86fd6044-986c-4697-b19f-d48893356412",
+	'name',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("69831478-8aae-4c61-a670-c03c234ccac3",
+	"86fd6044-986c-4697-b19f-d48893356412",
+	'value',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	0,
+	'',
+	"1b4f3cce-414b-48e9-be80-a9c6af2029bf",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("8e519c45-7dcf-400b-9d4e-954869dbb7e8",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'boolean',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("59dce3c7-e3ed-4a95-938f-ed263c7ba752",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'pasteEnumerator',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any enumerator from instances of S_ENUM
+                                           where (selected.Enum_ID == param.id);
+if(not_empty enumerator)
+  select one existingEDT related by enumerator->S_EDT[R27];
+  if(not_empty existingEDT)
+    unrelate enumerator from existingEDT across R27;
+  end if;
+  relate enumerator to self across R27;
+  enumerator.Name = ::getUniqueInitialNameInParent(
+                                        instance:enumerator.convertToInstance(),
+                         name:enumerator.Name, parent:self.convertToInstance());
+  self.addEnumeratorToOrder(id:enumerator.Enum_ID);
+end if;',
+	1,
+	'',
+	"86fd6044-986c-4697-b19f-d48893356412");
+INSERT INTO O_TPARM
+	VALUES ("0ad2af18-2f14-43f1-93aa-17fb88f56f9e",
+	"59dce3c7-e3ed-4a95-938f-ed263c7ba752",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("4bcdb70d-26ad-47c7-b6e2-1e7cb429645e",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'addEnumeratorToOrder',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'select any enumerator from instances of S_ENUM
+                                           where (selected.Enum_ID == param.id);
+if(not_empty enumerator)
+  ::changeNotificationEnablement(enabled:false);
+  select many peers related by self->S_ENUM[R27];
+  for each peer in peers
+    if (peer != enumerator)
+      select one predecessor related by peer->S_ENUM[R56.''precedes''];
+      if (empty predecessor)
+        relate enumerator to peer across R56.''succeeds'';
+      end if;
+    end if;
+  end for;
+  ::changeNotificationEnablement(enabled:true);
+end if;',
+	1,
+	'',
+	"59dce3c7-e3ed-4a95-938f-ed263c7ba752");
+INSERT INTO O_TPARM
+	VALUES ("3d5c1e1a-5f76-40e8-8137-eabbdfecf753",
+	"4bcdb70d-26ad-47c7-b6e2-1e7cb429645e",
+	'id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("c638ef3c-93c1-413d-be81-a426dcace1fb",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'convertToInstance',
+	'Translate: native',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'return this;',
+	0,
+	'',
+	"4bcdb70d-26ad-47c7-b6e2-1e7cb429645e");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("8c05285e-8df2-434e-b3f4-00287cca24f2",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'checkIntegrity',
+	'',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// create an integrity issue if there are any other data types under
+// the same package with the same name
+select one dt related by self->S_DT[R17];
+select one package related by dt->PE_PE[R8001]->EP_PKG[R8000];
+select one component related by dt->PE_PE[R8001]->C_C[R8003];
+if(not empty component)
+  pkgId = component.getPackageId();
+  select any package from instances of EP_PKG
+                                           where (selected.Package_ID == pkgId);
+end if;
+select one system related by package->S_SYS[R1405];
+sys_id = GD::NULL_UNIQUE_ID();
+if(not_empty system)
+  sys_id = system.Sys_ID;
+end if;
+select many dts related by dt->PE_PE[R8001]->EP_PKG[R8000]
+                                                    ->PE_PE[R8000]->S_DT[R8001];
+if(empty dts)
+  select many dts related by dt->PE_PE[R8001]->C_C[R8003]
+                                                    ->PE_PE[R8003]->S_DT[R8001];
+end if;
+for each otherDt in dts
+  if(otherDt != dt and otherDt.Name == dt.Name)
+    MI_IM::createIssue(sys_id:sys_id, description:
+           "Found another data type under the same package with a " +
+                                                          "matching name.",
+                                       severity:Severity::Error, name:dt.Name,
+                       path:dt.getPath(path:"", includeSelf:true),
+                              id:dt.DT_ID, element:self.convertToInstance());
+  end if;
+end for;',
+	1,
+	'',
+	"c638ef3c-93c1-413d-be81-a426dcace1fb");
+INSERT INTO O_TFR
+	VALUES ("b3aa28fb-5069-434b-8a2e-e6f60edeede7",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	'getDescription',
+	'',
+	"528ced7e-5308-4195-8093-ca0c55401f58",
+	1,
+	'select one dt related by self->S_DT[R17];
+return dt.Descrip;',
+	1,
+	'',
+	"8c05285e-8df2-434e-b3f4-00287cca24f2");
+INSERT INTO O_REF
+	VALUES ("942a736a-d379-4a82-9b01-d8e56ae947be",
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	0,
+	"0e78201f-a7cd-497b-a6b4-e224ab7915c2",
+	"d6c3e414-a5f5-4db1-97d8-868f18679833",
+	"c321d4da-162b-44a8-990b-dbca368aa47f",
+	"627178cc-3387-40aa-bd45-b2f324c8e5bd",
+	"c79e8129-c851-441a-af09-700a25e9c2b8",
+	"4576c2c4-3c2c-480c-a03b-b41dbc2b973f",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Data Type',
+	'DT_ID',
+	'R17');
+INSERT INTO R_RGO_PROXY
+	VALUES ("942a736a-d379-4a82-9b01-d8e56ae947be",
+	"d6c3e414-a5f5-4db1-97d8-868f18679833",
+	"c321d4da-162b-44a8-990b-dbca368aa47f",
+	'../Domain.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("0e78201f-a7cd-497b-a6b4-e224ab7915c2",
+	"ead52fac-9782-434b-a35c-c07452c3b26d",
+	0,
+	"d6c3e414-a5f5-4db1-97d8-868f18679833",
+	"627178cc-3387-40aa-bd45-b2f324c8e5bd",
+	'../Domain.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("c79e8129-c851-441a-af09-700a25e9c2b8",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	"5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	1,
+	'Element_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("5776264f-c7e9-4abe-839f-24d0750e007c",
+	"5ada8d43-9e86-43cb-91a2-fac19a8e30f6",
+	'../../Packageable Element/Packageable Element/Packageable Element.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("c79e8129-c851-441a-af09-700a25e9c2b8",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	"00000000-0000-0000-0000-000000000000",
+	'DT_ID',
+	'',
+	'',
+	'Element_ID',
+	2,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"942a736a-d379-4a82-9b01-d8e56ae947be");
+INSERT INTO O_OIDA
+	VALUES ("c79e8129-c851-441a-af09-700a25e9c2b8",
+	"942a736a-d379-4a82-9b01-d8e56ae947be",
+	0,
+	'DT_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"942a736a-d379-4a82-9b01-d8e56ae947be");
+INSERT INTO O_ID
+	VALUES (2,
+	"942a736a-d379-4a82-9b01-d8e56ae947be");
+INSERT INTO S_SS_PROXY
+	VALUES ("703df30a-ee7e-44ec-a7cf-22d2171bb270",
+	'Domain',
+	'A domain (S_DOM) consists of one or more subsystems (S_SS) that each contain an information model that abstracts a portion of the data for the domain: classes (O_OBJ), associations (R_REL), etc.  Breaking a domain into subsystems allows the complexity of the domain to be more easily managed: 1) subsystems are components and can be checked out individually allowing parallelism in development of the models and 2) breaking up a domain into smaller units is easier to understand.  A subsystem is composed of classes that tend to cluster, i.e., they have few associations that span subsystem boundaries.  Inter-subsystem associations, communications, and accesses are captured in the Subsystem Relationship Model (SRM), Subsystem Communication Model (SCM), and Subsystem Access Model (SAM) respectively.',
+	'S',
+	1,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000100002",
+	'../Domain.xtuml');

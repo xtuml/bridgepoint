@@ -1,0 +1,91 @@
+User invoked function: performOperationTest
+LogInfo:  RealizedUDTTest.testUDT PASSED
+LogInfo:  RealizedUDTTest.returnTestUDT executed.
+LogSuccess:  returnTestUDT: PASSED
+LogInfo:  RealizedUDTTest.testUDT PASSED
+LogInfo:  RealizedUDTTest.returnNestedTestUDT executed.
+LogSuccess:  returnNestedTestUDT: PASSED
+LogInfo:  RealizedUDTTest.testRealizedUDTNoAccessors PASSED
+LogInfo:  RealizedUDTTest.returnRealizedUDTNoAccessors executed.
+LogSuccess:  returnRealizedUDTNoAccessors: PASSED
+LogInfo:  RealizedUDTTest.testNestedRealizedUDTNoAccessors PASSED
+LogInfo:  RealizedUDTTest.returnNestedRealizedUDTNoAccessors executed.
+LogSuccess:  returnNestedRealizedUDTNoAccessors: PASSED
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogInfo:  RealizedUDTTest.testRealizedUDTWithAccessors PASSED
+LogInfo:  RealizedUDTTest.returnRealizedUDTWithAccessors executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogSuccess:  returnRealizedUDTWithAccessors: PASSED
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogInfo:  RealizedUDTTest.testNestedRealizedUDTWithAccessors PASSED
+LogInfo:  RealizedUDTTest.returnNestedRealizedUDTWithAccessors executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogSuccess:  returnNestedRealizedUDTWithAccessors: PASSED
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogSuccess:  RealizedUDTTest.testSDTWithRealizedUDTs PASSED
+LogInfo:  RealizedUDTTest.returnSDTWithRealizedUDTs executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogSuccess:  returnSDTWithRealizedUDTs: PASSED
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogSuccess:  RealizedUDTTest.testNestedSDTWithRealizedUDTs PASSED
+LogInfo:  RealizedUDTTest.returnNestedSDTWithRealizedUDTs executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogSuccess:  returnSDTWithRealizedUDTs: PASSED
+LogInfo:  RealizedUDTTest.testEnumeration PASSED
+LogInfo:  RealizedUDTTest.returnTestEnumeration executed.
+LogSuccess:  returnTestEnumeration: PASSED
+LogInfo:  RealizedUDTTest.testNestedEnumeration PASSED
+LogInfo:  RealizedUDTTest.returnNestedEnumeration executed.
+LogSuccess:  returnNestedEnumeration: PASSED
+LogInfo:  Beginning incoming calls test.
+LogInfo:  Beginning incoming calls test execution.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogSuccess:  TestUDT: PASSED
+LogSuccess:  returnTestUDT: PASSED
+LogSuccess:  returnNestedTestUDT: PASSED
+LogSuccess:  returnRealizedUDTNoAccessors: PASSED
+LogSuccess:  returnNestedRealizedUDTNoAccessors: PASSED
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogSuccess:  returnRealizedUDTWithAccessors: PASSED
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogSuccess:  returnNestedRealizedUDTWithAccessors: PASSED
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogSuccess:  returnSDTWithRealizedUDTs: PASSED
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors setValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogInfo:  RealizedTestUDTWithAccessors getValue() executed.
+LogSuccess:  returnNestedSDTWithRealizedUDTs: PASSED
+LogSuccess:  returnTestEnumeration: PASSED
+LogSuccess:  returnNestedEnumeration: PASSED
+

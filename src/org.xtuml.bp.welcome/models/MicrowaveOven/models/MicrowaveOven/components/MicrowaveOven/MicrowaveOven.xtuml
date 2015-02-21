@@ -1,0 +1,215 @@
+-- BP 7.1 content: Component syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO C_C
+	VALUES ("544a75b3-22ce-4c30-8788-bec6c1772abf",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'MicrowaveOven',
+	'
+
+Domain Mission: Microwave Application Domain
+
+To capture the retained data and event sequencing associated with the use of a domestic microwave oven comprising :
+
+* a magnetron tube (with variable power output settings)
+* a turntable
+* an internal light
+* a beeper to signal when cooking is complete
+* an oven door
+
+Bridges to other Domains:
+
+* To Control Panel (Application User Interface Domain)
+* To PIO domain (not shown)
+* To Timer domain
+
+
+',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'');
+INSERT INTO GD_MD
+	VALUES ("33273d35-4c54-4db2-b237-04c35d734c3c",
+	111,
+	"544a75b3-22ce-4c30-8788-bec6c1772abf",
+	98,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'MicrowaveOven::components::MicrowaveOven');
+INSERT INTO GD_GE
+	VALUES ("5ce5c14e-d936-4b3c-a2f6-6460e9b85017",
+	"33273d35-4c54-4db2-b237-04c35d734c3c",
+	"544a75b3-22ce-4c30-8788-bec6c1772abf",
+	103,
+	0,
+	'MicrowaveOven::components::MicrowaveOven');
+INSERT INTO GD_SHP
+	VALUES ("5ce5c14e-d936-4b3c-a2f6-6460e9b85017");
+INSERT INTO GD_CTR
+	VALUES ("5ce5c14e-d936-4b3c-a2f6-6460e9b85017");
+INSERT INTO DIM_ND
+	VALUES (809.000000,
+	596.000000,
+	"5ce5c14e-d936-4b3c-a2f6-6460e9b85017");
+INSERT INTO DIM_GE
+	VALUES (1764.000000,
+	1228.000000,
+	"5ce5c14e-d936-4b3c-a2f6-6460e9b85017",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("5ce5c14e-d936-4b3c-a2f6-6460e9b85017",
+	0,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO GD_GE
+	VALUES ("9660527e-e588-4d39-b7a4-a0c0a9856897",
+	"33273d35-4c54-4db2-b237-04c35d734c3c",
+	"235fff0c-3d20-4fa1-8536-1c30278a65d1",
+	108,
+	0,
+	'MicrowaveOven::components::MicrowaveOven::Microwave Oven');
+INSERT INTO GD_SHP
+	VALUES ("9660527e-e588-4d39-b7a4-a0c0a9856897");
+INSERT INTO GD_NCS
+	VALUES ("9660527e-e588-4d39-b7a4-a0c0a9856897");
+INSERT INTO DIM_ND
+	VALUES (176.000000,
+	128.000000,
+	"9660527e-e588-4d39-b7a4-a0c0a9856897");
+INSERT INTO DIM_GE
+	VALUES (1872.000000,
+	1356.000000,
+	"9660527e-e588-4d39-b7a4-a0c0a9856897",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("9660527e-e588-4d39-b7a4-a0c0a9856897",
+	1,
+	"5ce5c14e-d936-4b3c-a2f6-6460e9b85017");
+INSERT INTO GD_GE
+	VALUES ("5147a30c-cda7-4c74-8066-bc523a0a24dc",
+	"33273d35-4c54-4db2-b237-04c35d734c3c",
+	"9501113e-eacc-4485-aa09-454d1cf20b3f",
+	108,
+	0,
+	'MicrowaveOven::components::MicrowaveOven::Test Subsystem');
+INSERT INTO GD_SHP
+	VALUES ("5147a30c-cda7-4c74-8066-bc523a0a24dc");
+INSERT INTO GD_NCS
+	VALUES ("5147a30c-cda7-4c74-8066-bc523a0a24dc");
+INSERT INTO DIM_ND
+	VALUES (176.000000,
+	96.000000,
+	"5147a30c-cda7-4c74-8066-bc523a0a24dc");
+INSERT INTO DIM_GE
+	VALUES (2220.000000,
+	1716.000000,
+	"5147a30c-cda7-4c74-8066-bc523a0a24dc",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("5147a30c-cda7-4c74-8066-bc523a0a24dc",
+	1,
+	"5ce5c14e-d936-4b3c-a2f6-6460e9b85017");
+INSERT INTO GD_GE
+	VALUES ("72599bdf-7266-4399-b0c5-4a54cea395e3",
+	"33273d35-4c54-4db2-b237-04c35d734c3c",
+	"339b23c8-451d-437a-b55d-2c06aab1c9ee",
+	108,
+	0,
+	'MicrowaveOven::components::MicrowaveOven::Functions');
+INSERT INTO GD_SHP
+	VALUES ("72599bdf-7266-4399-b0c5-4a54cea395e3");
+INSERT INTO GD_NCS
+	VALUES ("72599bdf-7266-4399-b0c5-4a54cea395e3");
+INSERT INTO DIM_ND
+	VALUES (160.000000,
+	96.000000,
+	"72599bdf-7266-4399-b0c5-4a54cea395e3");
+INSERT INTO DIM_GE
+	VALUES (1776.000000,
+	1500.000000,
+	"72599bdf-7266-4399-b0c5-4a54cea395e3",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("72599bdf-7266-4399-b0c5-4a54cea395e3",
+	1,
+	"5ce5c14e-d936-4b3c-a2f6-6460e9b85017");
+INSERT INTO GD_GE
+	VALUES ("dbed264b-d2ab-411d-b05d-360ee6608a40",
+	"33273d35-4c54-4db2-b237-04c35d734c3c",
+	"bae954bf-1329-4988-9569-07da6c5506ea",
+	108,
+	0,
+	'MicrowaveOven::components::MicrowaveOven::External Entities');
+INSERT INTO GD_SHP
+	VALUES ("dbed264b-d2ab-411d-b05d-360ee6608a40");
+INSERT INTO GD_NCS
+	VALUES ("dbed264b-d2ab-411d-b05d-360ee6608a40");
+INSERT INTO DIM_ND
+	VALUES (160.000000,
+	96.000000,
+	"dbed264b-d2ab-411d-b05d-360ee6608a40");
+INSERT INTO DIM_GE
+	VALUES (1980.000000,
+	1500.000000,
+	"dbed264b-d2ab-411d-b05d-360ee6608a40",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("dbed264b-d2ab-411d-b05d-360ee6608a40",
+	1,
+	"5ce5c14e-d936-4b3c-a2f6-6460e9b85017");
+INSERT INTO GD_GE
+	VALUES ("b8a6d6a7-5124-4ff7-a714-9cc17b852f2a",
+	"33273d35-4c54-4db2-b237-04c35d734c3c",
+	"0b03ba1b-5134-41f6-a53a-26154c07a37d",
+	108,
+	0,
+	'MicrowaveOven::components::MicrowaveOven::Datatypes');
+INSERT INTO GD_SHP
+	VALUES ("b8a6d6a7-5124-4ff7-a714-9cc17b852f2a");
+INSERT INTO GD_NCS
+	VALUES ("b8a6d6a7-5124-4ff7-a714-9cc17b852f2a");
+INSERT INTO DIM_ND
+	VALUES (160.000000,
+	96.000000,
+	"b8a6d6a7-5124-4ff7-a714-9cc17b852f2a");
+INSERT INTO DIM_GE
+	VALUES (1872.000000,
+	1248.000000,
+	"b8a6d6a7-5124-4ff7-a714-9cc17b852f2a",
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO DIM_ELE
+	VALUES ("b8a6d6a7-5124-4ff7-a714-9cc17b852f2a",
+	1,
+	"5ce5c14e-d936-4b3c-a2f6-6460e9b85017");
+INSERT INTO DIM_DIA
+	VALUES ("33273d35-4c54-4db2-b237-04c35d734c3c",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO PE_PE
+	VALUES ("544a75b3-22ce-4c30-8788-bec6c1772abf",
+	1,
+	"b9c83de9-0a62-44b7-8682-7b8a9752c571",
+	"00000000-0000-0000-0000-000000000000",
+	2);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("b9c83de9-0a62-44b7-8682-7b8a9752c571",
+	"9cd2cdcf-1f2b-42ce-bc35-718a90a05cab",
+	"9cd2cdcf-1f2b-42ce-bc35-718a90a05cab",
+	'components',
+	'',
+	0,
+	'../components.xtuml');

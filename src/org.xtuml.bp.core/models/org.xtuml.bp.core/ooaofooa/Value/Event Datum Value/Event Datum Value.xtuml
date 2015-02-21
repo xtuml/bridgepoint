@@ -1,0 +1,211 @@
+-- BP 7.1 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("55b23123-bae5-45e9-af5d-cc11e627f826",
+	'Event Datum Value',
+	806,
+	'V_EDV',
+	'This class represents the value of an event datum.',
+	"e060f94c-3f82-463e-9d98-d20315b7c196");
+INSERT INTO O_TFR
+	VALUES ("a383f6fb-bed9-4707-ad92-bd1e5d7fa531",
+	"55b23123-bae5-45e9-af5d-cc11e627f826",
+	'dispose',
+	'This operation disconnects an instance, and all instances it is 
+responsible for, from the model.',
+	"6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	1,
+	'// Event Datum Value.dipose()
+select many eprs related by self->V_EPR[R834];
+for each epr in eprs
+  epr.dispose();
+end for;
+delete object instance self;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT_PROXY
+	VALUES ("6142a25c-8db7-41c4-af6f-84ef810dc1dd",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'void',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("ecfcf92c-0f41-4101-8bbe-b6cb2118282f",
+	"55b23123-bae5-45e9-af5d-cc11e627f826",
+	'getValue',
+	'Return value for Event Datum Value',
+	"bc3722c8-5188-4529-8519-cf9eb9816b17",
+	1,
+	'// Value: Event Datum Value.getValue()
+
+select any evtInst from instances of I_EVI where (selected.isExecuting);
+if (not_empty evtInst)
+  select many evtdis related by self->V_EPR[R834]->SM_EVTDI[R846];
+  select many evtdivs related by evtInst->I_DIV[R2933];
+  for each evtdiv in evtdivs
+    select one valEvtDI related by evtdiv->SM_EVTDI[R2934];
+    for each evtdi in evtdis
+      if (valEvtDI == evtdi)
+        select one evtRtVal related by evtdiv->RV_RVL[R3303];
+        return evtRtVal.getValue();
+      end if;
+    end for;
+  end for;
+end if;
+return GD::string_to_instance(value:"Error");',
+	1,
+	'',
+	"4d25ba1e-25e5-40c3-8c28-b0d8aed88765");
+INSERT INTO S_DT_PROXY
+	VALUES ("bc3722c8-5188-4529-8519-cf9eb9816b17",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'instance',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("4d25ba1e-25e5-40c3-8c28-b0d8aed88765",
+	"55b23123-bae5-45e9-af5d-cc11e627f826",
+	'getRuntimeValue',
+	'',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	1,
+	'// Value: Event Datum Value.getRuntimeValue()
+
+select any stack_frame from instances of I_STF where
+                              (selected.Stack_Frame_ID == param.stack_frame_id);
+select any evtInst related by stack_frame->I_STACK[R2943]->I_EXE[R2930]->
+                                      I_EVI[R2964] where (selected.isExecuting);
+if (not_empty evtInst)
+  select many evtdis related by self->V_EPR[R834]->SM_EVTDI[R846];
+  select many propParms related by self->V_EPR[R834]->C_PP[R847];
+  select many divs related by evtInst->I_DIV[R2933];
+  for each div in divs
+    select one valEvtDI related by div->SM_EVTDI[R2934];
+    for each evtdi in evtdis
+      if (valEvtDI == evtdi)
+        select one evtRtVal related by div->RV_RVL[R3303];
+        return evtRtVal.RuntimeValue_ID;
+      end if;
+    end for;
+    // No event parameter runtime value matched,
+    // check for a signal parameter value
+    select one valPropParm related by div->C_PP[R2956];
+    for each propParm in propParms
+      if valPropParm == propParm
+        select one propParmRtVal related by div->RV_RVL[R3303];
+        return propParmRtVal.RuntimeValue_ID;
+      end if;
+    end for;
+  end for;
+end if;
+return GD::NULL_UNIQUE_ID();',
+	1,
+	'',
+	"a383f6fb-bed9-4707-ad92-bd1e5d7fa531");
+INSERT INTO O_TPARM
+	VALUES ("26202239-7a21-4318-9ada-5d7079e97136",
+	"4d25ba1e-25e5-40c3-8c28-b0d8aed88765",
+	'stack_frame_id',
+	"a5f314e0-43b6-40bd-8aee-520de6952a24",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("a5f314e0-43b6-40bd-8aee-520de6952a24",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'unique_id',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_REF
+	VALUES ("55b23123-bae5-45e9-af5d-cc11e627f826",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"f45cba3b-f381-475e-b8a9-3b355142054d",
+	"5e312446-a53a-4fb7-bc4d-97dfaa878c33",
+	"0a07b8be-4053-4dc6-a060-df5a70cbbed5",
+	"c7724809-487f-4ace-b34d-0a6fa743b601",
+	"05ff84ce-7e21-4bc3-93af-2e716fea504e",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Value',
+	'Value_ID',
+	'R801');
+INSERT INTO R_RGO_PROXY
+	VALUES ("55b23123-bae5-45e9-af5d-cc11e627f826",
+	"f45cba3b-f381-475e-b8a9-3b355142054d",
+	"5e312446-a53a-4fb7-bc4d-97dfaa878c33",
+	'../Value.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	0,
+	"f45cba3b-f381-475e-b8a9-3b355142054d",
+	"0a07b8be-4053-4dc6-a060-df5a70cbbed5",
+	'../Value.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("c7724809-487f-4ace-b34d-0a6fa743b601",
+	"55b23123-bae5-45e9-af5d-cc11e627f826",
+	"4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	1,
+	'Value_ID');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("4fd005ad-1159-4343-a12e-ed125f7adea1",
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'../Value/Value.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("c7724809-487f-4ace-b34d-0a6fa743b601",
+	"55b23123-bae5-45e9-af5d-cc11e627f826",
+	"00000000-0000-0000-0000-000000000000",
+	'Value_ID',
+	'',
+	'',
+	'Value_ID',
+	0,
+	"df379511-9dda-46ee-a114-9d591239938d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("df379511-9dda-46ee-a114-9d591239938d",
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	'same_as<Base_Attribute>',
+	'',
+	'',
+	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_ID
+	VALUES (0,
+	"55b23123-bae5-45e9-af5d-cc11e627f826");
+INSERT INTO O_OIDA
+	VALUES ("c7724809-487f-4ace-b34d-0a6fa743b601",
+	"55b23123-bae5-45e9-af5d-cc11e627f826",
+	0,
+	'Value_ID');
+INSERT INTO O_ID
+	VALUES (1,
+	"55b23123-bae5-45e9-af5d-cc11e627f826");
+INSERT INTO O_ID
+	VALUES (2,
+	"55b23123-bae5-45e9-af5d-cc11e627f826");
+INSERT INTO S_SS_PROXY
+	VALUES ("e060f94c-3f82-463e-9d98-d20315b7c196",
+	'Value',
+	'This subsystem formalizes the concepts of values (r-values) and variables 
+(l-values). It also captures the concept of an actual parameter.
+Notify_Changes:false
+Persistent:false
+// This is used by schema_gen to ignore this subsystem (for publication)
+TRANSLATE_FOR_EXTERNAL_USE:FALSE
+',
+	'V',
+	800,
+	"d6e77a0a-4222-4ed5-87a0-cc22fcb66c43",
+	"00000000-0000-0000-0000-000000400008",
+	'../Value.xtuml');

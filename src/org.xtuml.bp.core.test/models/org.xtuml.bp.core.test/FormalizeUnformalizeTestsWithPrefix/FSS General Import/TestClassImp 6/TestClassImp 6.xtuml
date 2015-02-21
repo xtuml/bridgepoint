@@ -1,0 +1,32 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("5a57eb59-1277-40d9-8c09-ab88624c33ae",
+	'TestClassImp 6',
+	805,
+	'KEY',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_ID
+	VALUES (0,
+	"5a57eb59-1277-40d9-8c09-ab88624c33ae");
+INSERT INTO O_ID
+	VALUES (1,
+	"5a57eb59-1277-40d9-8c09-ab88624c33ae");
+INSERT INTO O_ID
+	VALUES (2,
+	"5a57eb59-1277-40d9-8c09-ab88624c33ae");
+INSERT INTO PE_PE
+	VALUES ("5a57eb59-1277-40d9-8c09-ab88624c33ae",
+	1,
+	"db7f2acf-bab6-46fb-a60c-d202ed3e7fed",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("db7f2acf-bab6-46fb-a60c-d202ed3e7fed",
+	"00000000-0000-0000-0000-000000000000",
+	"c6693612-7c4f-42e5-b64f-16c64f288945",
+	'FSS General Import',
+	'',
+	0,
+	'../FSS General Import.xtuml');
